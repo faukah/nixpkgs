@@ -6,7 +6,6 @@
   gnustep-systempreferences,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "gworkspace";
   version = "1.1.0";
@@ -19,14 +18,14 @@ clangStdenv.mkDerivation (finalAttrs: {
   # additional dependencies:
   # - PDFKit framework from http://gap.nongnu.org/
   # - TODO: to --enable-gwmetadata, need libDBKit as well as sqlite!
-  nativeBuildInputs = [ wrapGNUstepAppsHook ];
+  nativeBuildInputs = [wrapGNUstepAppsHook];
 
   buildInputs = [
     gnustep-back
     gnustep-systempreferences
   ];
 
-  configureFlags = [ "--with-inotify" ];
+  configureFlags = ["--with-inotify"];
 
   meta = {
     description = "Workspace manager for GNUstep";

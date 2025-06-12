@@ -9,7 +9,6 @@
   alsa-lib,
   libjack2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qmidiarp";
   version = "0.7.1";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://qmidiarp.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sjfloat ];
+    maintainers = with maintainers; [sjfloat];
   };
 }

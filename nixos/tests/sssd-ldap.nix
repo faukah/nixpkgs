@@ -9,21 +9,18 @@ let
   testPassword = "foobar";
   testNewPassword = "barfoo";
 in
-import ./make-test-python.nix (
-  { pkgs, ... }:
-  {
-    name = "sssd-ldap";
+  import ./make-test-python.nix (
+    {pkgs, ...}: {
+      name = "sssd-ldap";
 
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        bbigras
-        s1341
-      ];
-    };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [
+          bbigras
+          s1341
+        ];
+      };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
+      nodes.machine = {pkgs, ...}: {
         security.pam.services.systemd-user.makeHomeDir = true;
         environment.etc."cert.pem".text = builtins.readFile ./common/acme/server/acme.test.cert.pem;
         environment.etc."key.pem".text = builtins.readFile ./common/acme/server/acme.test.key.pem;
@@ -131,53 +128,53 @@ import ./make-test-python.nix (
         };
       };
 
-    testScript = ''
-      machine.start()
-      machine.wait_for_unit("openldap.service")
-      machine.wait_for_unit("sssd.service")
-      result = machine.execute("getent passwd ${testUser}")
-      if result[0] == 0:
-        assert "${testUser}" in result[1]
-      else:
-        machine.wait_for_console_text("Backend is online")
-        machine.succeed("getent passwd ${testUser}")
+      testScript = ''
+        machine.start()
+        machine.wait_for_unit("openldap.service")
+        machine.wait_for_unit("sssd.service")
+        result = machine.execute("getent passwd ${testUser}")
+        if result[0] == 0:
+          assert "${testUser}" in result[1]
+        else:
+          machine.wait_for_console_text("Backend is online")
+          machine.succeed("getent passwd ${testUser}")
 
-      with subtest("Log in as ${testUser}"):
-          machine.wait_until_tty_matches("1", "login: ")
-          machine.send_chars("${testUser}\n")
-          machine.wait_until_tty_matches("1", "login: ${testUser}")
-          machine.wait_until_succeeds("pgrep login")
-          machine.wait_until_tty_matches("1", "Password: ")
-          machine.send_chars("${testPassword}\n")
-          machine.wait_until_succeeds("pgrep -u ${testUser} bash")
-          machine.send_chars("touch done\n")
-          machine.wait_for_file("/home/${testUser}/done")
+        with subtest("Log in as ${testUser}"):
+            machine.wait_until_tty_matches("1", "login: ")
+            machine.send_chars("${testUser}\n")
+            machine.wait_until_tty_matches("1", "login: ${testUser}")
+            machine.wait_until_succeeds("pgrep login")
+            machine.wait_until_tty_matches("1", "Password: ")
+            machine.send_chars("${testPassword}\n")
+            machine.wait_until_succeeds("pgrep -u ${testUser} bash")
+            machine.send_chars("touch done\n")
+            machine.wait_for_file("/home/${testUser}/done")
 
-      with subtest("Change ${testUser}'s password"):
-          machine.send_chars("passwd\n")
-          machine.wait_until_tty_matches("1", "Current Password: ")
-          machine.send_chars("${testPassword}\n")
-          machine.wait_until_tty_matches("1", "New Password: ")
-          machine.send_chars("${testNewPassword}\n")
-          machine.wait_until_tty_matches("1", "Reenter new Password: ")
-          machine.send_chars("${testNewPassword}\n")
-          machine.wait_until_tty_matches("1", "passwd: password updated successfully")
+        with subtest("Change ${testUser}'s password"):
+            machine.send_chars("passwd\n")
+            machine.wait_until_tty_matches("1", "Current Password: ")
+            machine.send_chars("${testPassword}\n")
+            machine.wait_until_tty_matches("1", "New Password: ")
+            machine.send_chars("${testNewPassword}\n")
+            machine.wait_until_tty_matches("1", "Reenter new Password: ")
+            machine.send_chars("${testNewPassword}\n")
+            machine.wait_until_tty_matches("1", "passwd: password updated successfully")
 
-      with subtest("Log in as ${testUser} with new password in virtual console 2"):
-          machine.send_key("alt-f2")
-          machine.wait_until_succeeds("[ $(fgconsole) = 2 ]")
-          machine.wait_for_unit("getty@tty2.service")
-          machine.wait_until_succeeds("pgrep -f 'agetty.*tty2'")
+        with subtest("Log in as ${testUser} with new password in virtual console 2"):
+            machine.send_key("alt-f2")
+            machine.wait_until_succeeds("[ $(fgconsole) = 2 ]")
+            machine.wait_for_unit("getty@tty2.service")
+            machine.wait_until_succeeds("pgrep -f 'agetty.*tty2'")
 
-          machine.wait_until_tty_matches("2", "login: ")
-          machine.send_chars("${testUser}\n")
-          machine.wait_until_tty_matches("2", "login: ${testUser}")
-          machine.wait_until_succeeds("pgrep login")
-          machine.wait_until_tty_matches("2", "Password: ")
-          machine.send_chars("${testNewPassword}\n")
-          machine.wait_until_succeeds("pgrep -u ${testUser} bash")
-          machine.send_chars("touch done2\n")
-          machine.wait_for_file("/home/${testUser}/done2")
-    '';
-  }
-)
+            machine.wait_until_tty_matches("2", "login: ")
+            machine.send_chars("${testUser}\n")
+            machine.wait_until_tty_matches("2", "login: ${testUser}")
+            machine.wait_until_succeeds("pgrep login")
+            machine.wait_until_tty_matches("2", "Password: ")
+            machine.send_chars("${testNewPassword}\n")
+            machine.wait_until_succeeds("pgrep -u ${testUser} bash")
+            machine.send_chars("touch done2\n")
+            machine.wait_for_file("/home/${testUser}/done2")
+      '';
+    }
+  )

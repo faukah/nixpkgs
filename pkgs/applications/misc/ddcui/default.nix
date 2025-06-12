@@ -8,7 +8,6 @@
   qttools,
   ddcutil,
 }:
-
 mkDerivation rec {
   pname = "ddcui";
   version = "0.6.0";
@@ -38,7 +37,7 @@ mkDerivation rec {
     mainProgram = "ddcui";
     homepage = "https://www.ddcutil.com/ddcui_main/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
     platforms = with platforms; linux;
   };
 }

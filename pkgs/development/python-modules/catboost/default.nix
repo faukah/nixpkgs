@@ -3,10 +3,8 @@
   buildPythonPackage,
   catboost,
   python,
-
   # build-system
   setuptools,
-
   # dependencies
   graphviz,
   matplotlib,
@@ -16,9 +14,9 @@
   scipy,
   six,
 }:
-
 buildPythonPackage rec {
-  inherit (catboost)
+  inherit
+    (catboost)
     pname
     version
     src
@@ -53,10 +51,12 @@ buildPythonPackage rec {
   # setup a test is difficult
   doCheck = false;
 
-  pythonImportsCheck = [ "catboost" ];
+  pythonImportsCheck = ["catboost"];
 
-  meta = catboost.meta // {
-    # https://github.com/catboost/catboost/issues/2671
-    broken = lib.versionAtLeast numpy.version "2";
-  };
+  meta =
+    catboost.meta
+    // {
+      # https://github.com/catboost/catboost/issues/2671
+      broken = lib.versionAtLeast numpy.version "2";
+    };
 }

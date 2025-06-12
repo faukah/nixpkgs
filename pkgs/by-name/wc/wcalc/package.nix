@@ -5,7 +5,6 @@
   mpfr,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wcalc";
   version = "2.5";

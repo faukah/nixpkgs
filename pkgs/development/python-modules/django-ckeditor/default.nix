@@ -11,7 +11,6 @@
   selenium,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-ckeditor";
   version = "6.7.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-tPwWXQAKoHPpZDZ+fnEoOA29at6gUXBw6CcPdireTr8=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     django
@@ -47,14 +46,14 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ckeditor" ];
+  pythonImportsCheck = ["ckeditor"];
 
   meta = with lib; {
     description = "Django admin CKEditor integration";
     homepage = "https://github.com/django-ckeditor/django-ckeditor";
     changelog = "https://github.com/django-ckeditor/django-ckeditor/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     knownVulnerabilities = [
       ''
         django-ckeditor bundles CKEditor 4.22.1 which isn’t supported anmyore and

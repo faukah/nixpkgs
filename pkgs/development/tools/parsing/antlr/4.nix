@@ -7,125 +7,115 @@
   cmake,
   ninja,
   pkg-config,
-
   # darwin only
   CoreFoundation ? null,
-
   # ANTLR 4.8 & 4.9
   libuuid,
-
   # ANTLR 4.9
   utf8cpp,
-}:
+}: let
+  mkAntlr = {
+    version,
+    sourceSha256,
+    jarSha256,
+    extraCppBuildInputs ? [],
+    extraCppCmakeFlags ? [],
+    extraPatches ? [],
+  }: rec {
+    source = fetchFromGitHub {
+      owner = "antlr";
+      repo = "antlr4";
+      tag = version;
+      sha256 = sourceSha256;
+    };
 
-let
+    antlr = stdenv.mkDerivation {
+      pname = "antlr";
+      inherit version;
 
-  mkAntlr =
-    {
-      version,
-      sourceSha256,
-      jarSha256,
-      extraCppBuildInputs ? [ ],
-      extraCppCmakeFlags ? [ ],
-      extraPatches ? [ ],
-    }:
-    rec {
-      source = fetchFromGitHub {
-        owner = "antlr";
-        repo = "antlr4";
-        tag = version;
-        sha256 = sourceSha256;
+      src = fetchurl {
+        url = "https://www.antlr.org/download/antlr-${version}-complete.jar";
+        sha256 = jarSha256;
       };
 
-      antlr = stdenv.mkDerivation {
-        pname = "antlr";
-        inherit version;
+      dontUnpack = true;
 
-        src = fetchurl {
-          url = "https://www.antlr.org/download/antlr-${version}-complete.jar";
-          sha256 = jarSha256;
-        };
+      installPhase = ''
+        mkdir -p "$out"/{share/java,bin}
+        ln -s "$src" "$out/share/java/antlr-${version}-complete.jar"
 
-        dontUnpack = true;
+        echo "#! ${stdenv.shell}" >> "$out/bin/antlr"
+        echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' -Xmx500M org.antlr.v4.Tool \"\$@\"" >> "$out/bin/antlr"
 
-        installPhase = ''
-          mkdir -p "$out"/{share/java,bin}
-          ln -s "$src" "$out/share/java/antlr-${version}-complete.jar"
+        echo "#! ${stdenv.shell}" >> "$out/bin/antlr-parse"
+        echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' -Xmx500M org.antlr.v4.gui.Interpreter \"\$@\"" >> "$out/bin/antlr-parse"
 
-          echo "#! ${stdenv.shell}" >> "$out/bin/antlr"
-          echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' -Xmx500M org.antlr.v4.Tool \"\$@\"" >> "$out/bin/antlr"
+        echo "#! ${stdenv.shell}" >> "$out/bin/grun"
+        echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' org.antlr.v4.gui.TestRig \"\$@\"" >> "$out/bin/grun"
 
-          echo "#! ${stdenv.shell}" >> "$out/bin/antlr-parse"
-          echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' -Xmx500M org.antlr.v4.gui.Interpreter \"\$@\"" >> "$out/bin/antlr-parse"
+        chmod a+x "$out/bin/antlr" "$out/bin/antlr-parse" "$out/bin/grun"
+        ln -s "$out/bin/antlr"{,4}
+        ln -s "$out/bin/antlr"{,4}-parse
+      '';
 
-          echo "#! ${stdenv.shell}" >> "$out/bin/grun"
-          echo "'${jre}/bin/java' -cp '$out/share/java/antlr-${version}-complete.jar:$CLASSPATH' org.antlr.v4.gui.TestRig \"\$@\"" >> "$out/bin/grun"
+      inherit jre;
 
-          chmod a+x "$out/bin/antlr" "$out/bin/antlr-parse" "$out/bin/grun"
-          ln -s "$out/bin/antlr"{,4}
-          ln -s "$out/bin/antlr"{,4}-parse
+      passthru = {
+        inherit runtime;
+        jarLocation = antlr.src;
+      };
+
+      meta = {
+        description = "Powerful parser generator";
+        longDescription = ''
+          ANTLR (ANother Tool for Language Recognition) is a powerful parser
+          generator for reading, processing, executing, or translating structured
+          text or binary files. It's widely used to build languages, tools, and
+          frameworks. From a grammar, ANTLR generates a parser that can build and
+          walk parse trees.
         '';
+        homepage = "https://www.antlr.org/";
+        sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+        license = lib.licenses.bsd3;
+        platforms = lib.platforms.unix;
+      };
+    };
 
-        inherit jre;
+    runtime = {
+      cpp = stdenv.mkDerivation {
+        pname = "antlr-runtime-cpp";
+        inherit version;
+        src = source;
 
-        passthru = {
-          inherit runtime;
-          jarLocation = antlr.src;
-        };
+        patches = extraPatches;
+
+        outputs = [
+          "out"
+          "dev"
+          "doc"
+        ];
+
+        nativeBuildInputs = [
+          cmake
+          ninja
+          pkg-config
+        ];
+        buildInputs = extraCppBuildInputs;
+
+        cmakeDir = "../runtime/Cpp";
+
+        cmakeFlags = extraCppCmakeFlags;
 
         meta = {
-          description = "Powerful parser generator";
-          longDescription = ''
-            ANTLR (ANother Tool for Language Recognition) is a powerful parser
-            generator for reading, processing, executing, or translating structured
-            text or binary files. It's widely used to build languages, tools, and
-            frameworks. From a grammar, ANTLR generates a parser that can build and
-            walk parse trees.
-          '';
+          description = "C++ target for ANTLR 4";
           homepage = "https://www.antlr.org/";
-          sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
           license = lib.licenses.bsd3;
           platforms = lib.platforms.unix;
         };
       };
-
-      runtime = {
-        cpp = stdenv.mkDerivation {
-          pname = "antlr-runtime-cpp";
-          inherit version;
-          src = source;
-
-          patches = extraPatches;
-
-          outputs = [
-            "out"
-            "dev"
-            "doc"
-          ];
-
-          nativeBuildInputs = [
-            cmake
-            ninja
-            pkg-config
-          ];
-          buildInputs = extraCppBuildInputs;
-
-          cmakeDir = "../runtime/Cpp";
-
-          cmakeFlags = extraCppCmakeFlags;
-
-          meta = {
-            description = "C++ target for ANTLR 4";
-            homepage = "https://www.antlr.org/";
-            license = lib.licenses.bsd3;
-            platforms = lib.platforms.unix;
-          };
-        };
-      };
     };
-
-in
-{
+  };
+in {
   antlr4_13 =
     (mkAntlr {
       version = "4.13.2";
@@ -191,7 +181,7 @@ in
       version = "4.9.3";
       sourceSha256 = "1af3cfqwk7lq1b5qsh1am0922fyhy7wmlpnrqdnvch3zzza9n1qm";
       jarSha256 = "0dnz2x54kigc58bxnynjhmr5iq49f938vj6p50gdir1xdna41kdg";
-      extraCppBuildInputs = [ utf8cpp ] ++ lib.optional stdenv.hostPlatform.isLinux libuuid;
+      extraCppBuildInputs = [utf8cpp] ++ lib.optional stdenv.hostPlatform.isLinux libuuid;
       extraCppCmakeFlags = [
         (lib.cmakeFeature "CMAKE_CXX_FLAGS" "-I${lib.getDev utf8cpp}/include/utf8cpp")
       ];

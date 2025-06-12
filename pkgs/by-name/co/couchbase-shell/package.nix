@@ -9,7 +9,6 @@
   nix-update-script,
   couchbase-shell,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "couchbase-shell";
   version = "1.1.0";
@@ -39,14 +38,14 @@ rustPlatform.buildRustPackage rec {
     tests.version = testers.testVersion {
       package = couchbase-shell;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Shell for Couchbase Server and Cloud";
     homepage = "https://couchbase.sh/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ petrkozorezov ];
+    maintainers = with lib.maintainers; [petrkozorezov];
     mainProgram = "cbsh";
     platforms = lib.platforms.linux;
   };

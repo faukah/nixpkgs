@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "protoc-gen-validate";
   version = "1.2.1";
@@ -17,12 +16,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-c7zi1y3HWGyjE2xG60msCUdKCTkwhWit2x5gU/bLoec=";
 
-  excludedPackages = [ "tests" ];
+  excludedPackages = ["tests"];
 
   meta = with lib; {
     description = "Protobuf plugin for generating polyglot message validators";
     homepage = "https://github.com/envoyproxy/protoc-gen-validate";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthewpi ];
+    maintainers = with maintainers; [matthewpi];
   };
 }

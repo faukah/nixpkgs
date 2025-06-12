@@ -8,7 +8,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "systembridgemodels";
   version = "4.2.4";
@@ -36,11 +35,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "incremental" ];
+  pythonRelaxDeps = ["incremental"];
 
-  dependencies = [ incremental ];
+  dependencies = [incremental];
 
-  pythonImportsCheck = [ "systembridgemodels" ];
+  pythonImportsCheck = ["systembridgemodels"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     "test_update"
   ];
 
-  pytestFlagsArray = [ "--snapshot-warn-unused" ];
+  pytestFlagsArray = ["--snapshot-warn-unused"];
 
   meta = {
     changelog = "https://github.com/timmo001/system-bridge-models/releases/tag/${version}";
     description = "This is the models package used by the System Bridge project";
     homepage = "https://github.com/timmo001/system-bridge-models";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

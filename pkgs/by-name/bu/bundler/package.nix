@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildRubyGem rec {
   inherit ruby;
   name = "${gemName}-${version}";
@@ -29,7 +28,7 @@ buildRubyGem rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -37,7 +36,7 @@ buildRubyGem rec {
     homepage = "https://bundler.io";
     changelog = "https://github.com/rubygems/rubygems/blob/bundler-v${version}/bundler/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
     mainProgram = "bundler";
   };
 }

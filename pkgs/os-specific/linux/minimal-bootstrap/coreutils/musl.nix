@@ -11,8 +11,7 @@
   gawk,
   gnutar,
   gzip,
-}:
-let
+}: let
   pname = "bootstrap-coreutils-musl";
   version = "9.4";
 
@@ -31,7 +30,7 @@ let
     "--enable-no-install-program=stdbuf"
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -45,9 +44,8 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/cat --version
         mkdir $out
       '';
@@ -56,7 +54,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU Core Utilities";
       homepage = "https://www.gnu.org/software/coreutils";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

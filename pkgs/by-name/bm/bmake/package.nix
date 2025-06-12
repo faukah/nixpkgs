@@ -8,7 +8,6 @@
   stdenv,
   tzdata,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bmake";
   version = "20250308";
@@ -117,11 +116,12 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Portable version of NetBSD 'make'";
     license = lib.licenses.bsd3;
     mainProgram = "bmake";
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.unix;
     # requires strip
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
   };
 })
 # TODO: report the quirks and patches to bmake devteam (especially the Musl one)
 # TODO: investigate static support
+

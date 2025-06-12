@@ -16,7 +16,6 @@
   zstandard, # Python bindings
   zstd, # System tool
 }:
-
 buildPythonPackage rec {
   pname = "ratarmountcore";
   version = "1.0.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/core";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     full = [
@@ -44,23 +43,25 @@ buildPythonPackage rec {
       rapidgzip
       rarfile
     ];
-    _7z = [ libarchive-c ];
-    bzip2 = [ rapidgzip ];
-    gzip = [ indexed-gzip ];
-    rar = [ rarfile ];
-    xz = [ python-xz ];
-    zstd = [ indexed-zstd ];
+    _7z = [libarchive-c];
+    bzip2 = [rapidgzip];
+    gzip = [indexed-gzip];
+    rar = [rarfile];
+    xz = [python-xz];
+    zstd = [indexed-zstd];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    zstandard
-    zstd
-    fsspec
-    writableTmpDirAsHomeHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      zstandard
+      zstd
+      fsspec
+      writableTmpDirAsHomeHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "ratarmountcore" ];
+  pythonImportsCheck = ["ratarmountcore"];
 
   disabledTestPaths = [
     # Disable this test because for arcane reasons running pytest with nix-build uses 10-100x
@@ -86,6 +87,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mxmlnkn/ratarmount/tree/master/core";
     changelog = "https://github.com/mxmlnkn/ratarmount/blob/core-${src.tag}/core/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ mxmlnkn ];
+    maintainers = with lib.maintainers; [mxmlnkn];
   };
 }

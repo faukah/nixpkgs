@@ -19,7 +19,6 @@
   webdataset,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "ffcv";
   version = "1.0.0";
@@ -43,9 +42,9 @@ buildPythonPackage rec {
       --replace-fail "'psutil'," "" \
   '';
 
-  build-system = [ setuptools ];
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libjpeg ];
+  build-system = [setuptools];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libjpeg];
   propagatedBuildInputs = [
     opencv-python
     numba
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "ffcv" ];
+  pythonImportsCheck = ["ffcv"];
 
   # C/C++ python modules are only in the installed output and not in the build
   # directory. Since tests are run from the build directory python prefers to

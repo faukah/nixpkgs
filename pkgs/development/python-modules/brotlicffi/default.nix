@@ -10,7 +10,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "brotlicffi";
   version = "1.1.0.0";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     sha256 = "sha256-oW4y1WBJ7+4XwNwwSSR0qUqN03cZYXUYQ6EAwce9dzI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ brotli ];
+  buildInputs = [brotli];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   preBuild = ''
     export USE_SHARED_BROTLI=1
@@ -44,14 +43,14 @@ buildPythonPackage rec {
   # Test data is only available from libbrotli git checkout, not brotli.src
   doCheck = false;
 
-  pytestFlagsArray = [ "test/" ];
+  pytestFlagsArray = ["test/"];
 
-  pythonImportsCheck = [ "brotlicffi" ];
+  pythonImportsCheck = ["brotlicffi"];
 
   meta = with lib; {
     description = "Python CFFI bindings to the Brotli library";
     homepage = "https://github.com/python-hyper/brotlicffi";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

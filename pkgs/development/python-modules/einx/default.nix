@@ -8,7 +8,6 @@
   sympy,
   frozendict,
 }:
-
 buildPythonPackage rec {
   pname = "einx";
   version = "0.3.0";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fferflo/einx";
     changelog = "https://github.com/fferflo/einx/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

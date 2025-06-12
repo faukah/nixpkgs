@@ -15,7 +15,6 @@
   gobject-introspection,
   withDoc ? (stdenv.buildPlatform == stdenv.hostPlatform),
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxklavier";
   version = "5.4";
@@ -37,10 +36,12 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDoc [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals withDoc ["devdoc"];
 
   # TODO: enable xmodmap support, needs xmodmap DB
   propagatedBuildInputs = with xorg; [
@@ -71,7 +72,11 @@ stdenv.mkDerivation rec {
     "--with-xkb-base=${xkeyboard_config}/etc/X11/xkb"
     "--with-xkb-bin-base=${xorg.xkbcomp}/bin"
     "--disable-xmodmap-support"
-    "${if withDoc then "--enable-gtk-doc" else "--disable-gtk-doc"}"
+    "${
+      if withDoc
+      then "--enable-gtk-doc"
+      else "--disable-gtk-doc"
+    }"
   ];
 
   meta = with lib; {

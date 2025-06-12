@@ -5,7 +5,6 @@
   rustPlatform,
   scdoc,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "uair";
   version = "0.6.3";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     description = "Extensible pomodoro timer";
     homepage = "https://github.com/metent/uair";
     license = licenses.mit;
-    maintainers = with maintainers; [ thled ];
+    maintainers = with maintainers; [thled];
   };
 }

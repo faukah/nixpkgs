@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "discrete-scroll";
   version = "1.2.1";
@@ -32,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/emreyolcu/discrete-scroll";
     license = lib.licenses.mit;
     platforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ bb2020 ];
+    maintainers = with lib.maintainers; [bb2020];
   };
 })

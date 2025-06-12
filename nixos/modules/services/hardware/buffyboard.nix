@@ -12,29 +12,26 @@
 #   e.g. `services.buffyboard.unitConfig.Conflicts = [ "my-de.service" ];`
 # 2. Configure your DE to ignore input events from buffyboard (product-id=25209; vendor-id=26214; name=rd)
 #   e.g. `echo 'input "26214:25209:rd" events disabled' > ~/.config/sway/config`
-
 {
   config,
   lib,
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.buffyboard;
-  ini = pkgs.formats.ini { };
-in
-{
-  meta.maintainers = with lib.maintainers; [ colinsane ];
+  ini = pkgs.formats.ini {};
+in {
+  meta.maintainers = with lib.maintainers; [colinsane];
 
   options = {
     services.buffyboard = with lib; {
       enable = mkEnableOption "buffyboard framebuffer keyboard (on-screen keyboard)";
-      package = mkPackageOption pkgs "buffybox" { };
+      package = mkPackageOption pkgs "buffybox" {};
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra CLI arguments to pass to buffyboard.
         '';
@@ -110,13 +107,13 @@ in
             '';
           };
         };
-        default = { };
+        default = {};
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.buffyboard = {
       # upstream provides the service (including systemd hardening): we just configure it to start by default
       # and override ExecStart so as to optionally pass extra arguments
@@ -131,8 +128,8 @@ in
           ++ cfg.extraFlags
         ))
       ];
-      wantedBy = [ "getty.target" ];
-      before = [ "getty.target" ];
+      wantedBy = ["getty.target"];
+      before = ["getty.target"];
     };
   };
 }

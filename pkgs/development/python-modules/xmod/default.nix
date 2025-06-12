@@ -5,7 +5,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "xmod";
   version = "1.8.1";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-pfFxtDQ4kaBrx4XzYMQO1vE4dUr2zs8jgGUQUdXB798=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "test_partial_function" ];
+  disabledTests = ["test_partial_function"];
 
-  pythonImportsCheck = [ "xmod" ];
+  pythonImportsCheck = ["xmod"];
 
   meta = with lib; {
     description = "Turn any object into a module";
     homepage = "https://github.com/rec/xmod";
     changelog = "https://github.com/rec/xmod/blob/${src.rev}/CHANGELOG";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

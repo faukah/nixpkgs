@@ -8,7 +8,6 @@
   gevent,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "execnet";
   version = "2.1.1";
@@ -51,9 +50,9 @@ buildPythonPackage rec {
     "test_stdouterrin_setnull"
   ];
 
-  pytestFlagsArray = [ "-vvv" ];
+  pytestFlagsArray = ["-vvv"];
 
-  pythonImportsCheck = [ "execnet" ];
+  pythonImportsCheck = ["execnet"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://execnet.readthedocs.io/";
     changelog = "https://github.com/pytest-dev/execnet/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

@@ -10,9 +10,7 @@
   lua,
   zlib,
   unzip,
-}:
-
-let
+}: let
   # I took several games at random from https://instead.syscall.ru/games/
   games = [
     (fetchurl {
@@ -37,62 +35,61 @@ let
     })
   ];
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "instead";
+    version = "3.5.2";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "instead";
-  version = "3.5.2";
+    src = fetchurl {
+      url = "mirror://sourceforge/project/instead/instead/${finalAttrs.version}/instead_${finalAttrs.version}.tar.gz";
+      hash = "sha256-d5BvzZCZ3P5CLptuCuJ4KxfEp4CDbtmIZDIbGDcyV3o=";
+    };
 
-  src = fetchurl {
-    url = "mirror://sourceforge/project/instead/instead/${finalAttrs.version}/instead_${finalAttrs.version}.tar.gz";
-    hash = "sha256-d5BvzZCZ3P5CLptuCuJ4KxfEp4CDbtmIZDIbGDcyV3o=";
-  };
+    NIX_LDFLAGS = "-llua -lgcc_s";
 
-  NIX_LDFLAGS = "-llua -lgcc_s";
+    nativeBuildInputs = [
+      pkg-config
+      unzip
+    ];
 
-  nativeBuildInputs = [
-    pkg-config
-    unzip
-  ];
+    buildInputs = [
+      SDL2
+      SDL2_ttf
+      SDL2_image
+      SDL2_mixer
+      lua
+      zlib
+    ];
 
-  buildInputs = [
-    SDL2
-    SDL2_ttf
-    SDL2_image
-    SDL2_mixer
-    lua
-    zlib
-  ];
+    postPatch = ''
+      substituteInPlace configure.sh \
+        --replace-fail "/tmp/sdl-test" $(mktemp)
+    '';
 
-  postPatch = ''
-    substituteInPlace configure.sh \
-      --replace-fail "/tmp/sdl-test" $(mktemp)
-  '';
+    configurePhase = ''
+      runHook preConfigure
 
-  configurePhase = ''
-    runHook preConfigure
+      { echo 2; echo $out; } | ./configure.sh
 
-    { echo 2; echo $out; } | ./configure.sh
+      runHook postConfigure
+    '';
 
-    runHook postConfigure
-  '';
+    inherit games;
 
-  inherit games;
+    postInstall = ''
+      pushd $out/share/instead/games
+      for a in $games; do
+        unzip $a
+      done
+      popd
+    '';
 
-  postInstall = ''
-    pushd $out/share/instead/games
-    for a in $games; do
-      unzip $a
-    done
-    popd
-  '';
+    enableParallelBuilding = true;
 
-  enableParallelBuilding = true;
-
-  meta = {
-    description = "Simple text adventure interpreter for Unix and Windows";
-    homepage = "https://instead.syscall.ru/";
-    license = lib.licenses.mit;
-    platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ pSub ];
-  };
-})
+    meta = {
+      description = "Simple text adventure interpreter for Unix and Windows";
+      homepage = "https://instead.syscall.ru/";
+      license = lib.licenses.mit;
+      platforms = with lib.platforms; linux;
+      maintainers = with lib.maintainers; [pSub];
+    };
+  })

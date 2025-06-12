@@ -7,7 +7,6 @@
   setuptools,
   prettytable,
 }:
-
 buildPythonPackage rec {
   pname = "chispa";
   version = "0.11.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-M4iYKWXI0wBSHt1tWd0vGvQ6FLRRE9TB2u6sTJnkFpY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     setuptools
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "PySpark test helper methods with beautiful error messages";
     homepage = "https://github.com/MrPowers/chispa";
     license = licenses.mit;
-    maintainers = with maintainers; [ ratsclub ];
+    maintainers = with maintainers; [ratsclub];
   };
 }

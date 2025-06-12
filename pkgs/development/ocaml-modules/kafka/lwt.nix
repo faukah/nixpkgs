@@ -6,24 +6,24 @@
   lwt,
   cmdliner,
 }:
-
 lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
-  "kafka_lwt is not available for OCaml ${ocaml.version}"
+"kafka_lwt is not available for OCaml ${ocaml.version}"
+buildDunePackage
+{
+  pname = "kafka_lwt";
 
-  buildDunePackage
-  {
-    pname = "kafka_lwt";
+  inherit (kafka) version src;
 
-    inherit (kafka) version src;
+  buildInputs = [cmdliner];
 
-    buildInputs = [ cmdliner ];
+  propagatedBuildInputs = [
+    kafka
+    lwt
+  ];
 
-    propagatedBuildInputs = [
-      kafka
-      lwt
-    ];
-
-    meta = kafka.meta // {
+  meta =
+    kafka.meta
+    // {
       description = "OCaml bindings for Kafka, Lwt bindings";
     };
-  }
+}

@@ -12,17 +12,17 @@
   "631" = {
     # Python
     nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
   };
   "7322" = {
     # Python community edition
     nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
   };
   "8182" = {
     # Rust (deprecated)
     nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
     buildPhase = ''
       runHook preBuild
       chmod +x -R bin
@@ -31,18 +31,24 @@
   };
   "9568" = {
     # Go
-    buildInputs = [ delve ];
-    buildPhase =
-      let
-        arch =
-          (if stdenv.hostPlatform.isLinux then "linux" else "mac")
-          + (if stdenv.hostPlatform.isAarch64 then "arm" else "");
-      in
-      ''
-        runHook preBuild
-        ln -sf ${delve}/bin/dlv lib/dlv/${arch}/dlv
-        runHook postBuild
-      '';
+    buildInputs = [delve];
+    buildPhase = let
+      arch =
+        (
+          if stdenv.hostPlatform.isLinux
+          then "linux"
+          else "mac"
+        )
+        + (
+          if stdenv.hostPlatform.isAarch64
+          then "arm"
+          else ""
+        );
+    in ''
+      runHook preBuild
+      ln -sf ${delve}/bin/dlv lib/dlv/${arch}/dlv
+      runHook postBuild
+    '';
   };
   "17718" = {
     # Github Copilot
@@ -53,7 +59,9 @@
           x86_64 = "-x64";
           aarch64 = "-arm64";
         }
-        .${stdenv.hostPlatform.uname.processor} or ""
+        .${
+          stdenv.hostPlatform.uname.processor
+        } or ""
       }/copilot-language-server'
       orig_size=$(stat --printf=%s $agent)
       patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $agent
@@ -84,7 +92,7 @@
   "22407" = {
     # Rust
     nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
-    buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+    buildInputs = [(lib.getLib stdenv.cc.cc)];
     buildPhase = ''
       runHook preBuild
       chmod +x -R bin

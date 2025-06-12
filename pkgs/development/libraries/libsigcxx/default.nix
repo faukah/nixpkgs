@@ -7,7 +7,6 @@
   ninja,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsigc++";
   version = "2.12.1";

@@ -1,5 +1,8 @@
-{ _class, lib, ... }:
 {
+  _class,
+  lib,
+  ...
+}: {
   options = {
     foo = lib.mkOption {
       default = _class;

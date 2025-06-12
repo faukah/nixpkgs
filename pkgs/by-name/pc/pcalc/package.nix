@@ -5,7 +5,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation {
   pname = "pcalc";
   version = "20181202";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-m4xdsEJGKxLgp/d5ipxQ+cKG3z7rlvpPL6hELnDu6Hk=";
   };
 
-  makeFlags = [ "DESTDIR= BINDIR=$(out)/bin" ];
+  makeFlags = ["DESTDIR= BINDIR=$(out)/bin"];
   nativeBuildInputs = [
     bison
     flex
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     description = "Programmer's calculator";
     mainProgram = "pcalc";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ftrvxmtrx ];
+    maintainers = with maintainers; [ftrvxmtrx];
     platforms = platforms.unix;
   };
 }

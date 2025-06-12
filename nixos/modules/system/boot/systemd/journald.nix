@@ -4,15 +4,14 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.journald;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "journald" "enableHttpGateway" ]
-      [ "services" "journald" "gateway" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "journald" "enableHttpGateway"]
+      ["services" "journald" "gateway" "enable"]
     )
   ];
 

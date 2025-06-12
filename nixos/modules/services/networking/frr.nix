@@ -3,10 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.frr;
 
   daemons = [
@@ -72,21 +69,27 @@ let
     "fabric"
   ];
 
-  obsoleteServices = renamedServices ++ [
-    "static"
-    "mgmt"
-    "zebra"
-  ];
+  obsoleteServices =
+    renamedServices
+    ++ [
+      "static"
+      "mgmt"
+      "zebra"
+    ];
 
   allDaemons = builtins.attrNames daemonDefaultOptions;
 
   isEnabled = service: cfg.${service}.enable;
 
-  daemonLine = d: "${d}=${if isEnabled d then "yes" else "no"}";
+  daemonLine = d: "${d}=${
+    if isEnabled d
+    then "yes"
+    else "no"
+  }";
 
   configFile =
-    if cfg.configFile != null then
-      cfg.configFile
+    if cfg.configFile != null
+    then cfg.configFile
     else
       pkgs.writeText "frr.conf" ''
         ! FRR configuration
@@ -101,32 +104,29 @@ let
         end
       '';
 
-  serviceOptions =
-    service:
+  serviceOptions = service:
     {
       options = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ daemonDefaultOptions.${service} ];
+        default = [daemonDefaultOptions.${service}];
         description = ''
           Options for the FRR ${service} daemon.
         '';
       };
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra options to be appended to the FRR ${service} daemon options.
         '';
       };
     }
     // (
-      if (builtins.elem service daemons) then { enable = lib.mkEnableOption "FRR ${service}"; } else { }
+      if (builtins.elem service daemons)
+      then {enable = lib.mkEnableOption "FRR ${service}";}
+      else {}
     );
-
-in
-
-{
-
+in {
   ###### interface
   imports =
     [
@@ -167,18 +167,20 @@ in
           };
         };
       }
-      { options.services.frr = (lib.genAttrs allDaemons serviceOptions); }
-      (lib.mkRemovedOptionModule [ "services" "frr" "zebra" "enable" ] "FRR zebra is always enabled")
+      {options.services.frr = lib.genAttrs allDaemons serviceOptions;}
+      (lib.mkRemovedOptionModule ["services" "frr" "zebra" "enable"] "FRR zebra is always enabled")
     ]
     ++ (map (
-      d: lib.mkRenamedOptionModule [ "services" "frr" d "enable" ] [ "services" "frr" "${d}d" "enable" ]
-    ) renamedServices)
-    ++ (map
+        d: lib.mkRenamedOptionModule ["services" "frr" d "enable"] ["services" "frr" "${d}d" "enable"]
+      )
+      renamedServices)
+    ++ (
+      map
       (
         d:
-        lib.mkRenamedOptionModule
-          [ "services" "frr" d "extraOptions" ]
-          [ "services" "frr" "${d}d" "extraOptions" ]
+          lib.mkRenamedOptionModule
+          ["services" "frr" d "extraOptions"]
+          ["services" "frr" "${d}d" "extraOptions"]
       )
       (
         renamedServices
@@ -188,52 +190,54 @@ in
         ]
       )
     )
-    ++ (map (d: lib.mkRemovedOptionModule [ "services" "frr" d "enable" ] "FRR ${d}d is always enabled")
+    ++ (
+      map (d: lib.mkRemovedOptionModule ["services" "frr" d "enable"] "FRR ${d}d is always enabled")
       [
         "static"
         "mgmt"
       ]
     )
     ++ (map (
-      d:
-      lib.mkRemovedOptionModule [
-        "services"
-        "frr"
-        d
-        "config"
-      ] "FRR switched to integrated-vtysh-config, please use services.frr.config"
-    ) obsoleteServices)
+        d:
+          lib.mkRemovedOptionModule [
+            "services"
+            "frr"
+            d
+            "config"
+          ] "FRR switched to integrated-vtysh-config, please use services.frr.config"
+      )
+      obsoleteServices)
     ++ (map (
-      d:
-      lib.mkRemovedOptionModule [ "services" "frr" d "configFile" ]
-        "FRR switched to integrated-vtysh-config, please use services.frr.config or services.frr.configFile"
-    ) obsoleteServices)
+        d:
+          lib.mkRemovedOptionModule ["services" "frr" d "configFile"]
+          "FRR switched to integrated-vtysh-config, please use services.frr.config or services.frr.configFile"
+      )
+      obsoleteServices)
     ++ (map (
-      d:
-      lib.mkRemovedOptionModule [
-        "services"
-        "frr"
-        d
-        "vtyListenAddress"
-      ] "Please change -A option in services.frr.${d}.options instead"
-    ) obsoleteServices)
+        d:
+          lib.mkRemovedOptionModule [
+            "services"
+            "frr"
+            d
+            "vtyListenAddress"
+          ] "Please change -A option in services.frr.${d}.options instead"
+      )
+      obsoleteServices)
     ++ (map (
-      d:
-      lib.mkRemovedOptionModule [ "services" "frr" d "vtyListenPort" ]
-        "Please use `-P «vtyListenPort»` option with services.frr.${d}.extraOptions instead, or change services.frr.${d}.options accordingly"
-    ) obsoleteServices);
+        d:
+          lib.mkRemovedOptionModule ["services" "frr" d "vtyListenPort"]
+          "Please use `-P «vtyListenPort»` option with services.frr.${d}.extraOptions instead, or change services.frr.${d}.options accordingly"
+      )
+      obsoleteServices);
 
   ###### implementation
 
-  config =
-    let
-      daemonList = lib.concatStringsSep "\n" (map daemonLine daemons);
-      daemonOptionLine =
-        d: "${d}_options=\"${lib.concatStringsSep " " (cfg.${d}.options ++ cfg.${d}.extraOptions)}\"";
-      daemonOptions = lib.concatStringsSep "\n" (map daemonOptionLine allDaemons);
-    in
+  config = let
+    daemonList = lib.concatStringsSep "\n" (map daemonLine daemons);
+    daemonOptionLine = d: "${d}_options=\"${lib.concatStringsSep " " (cfg.${d}.options ++ cfg.${d}.extraOptions)}\"";
+    daemonOptions = lib.concatStringsSep "\n" (map daemonOptionLine allDaemons);
+  in
     lib.mkIf (lib.any isEnabled daemons || cfg.configFile != null || cfg.config != "") {
-
       environment.systemPackages = [
         pkgs.frr # for the vtysh tool
       ];
@@ -245,10 +249,10 @@ in
       };
 
       users.groups = {
-        frr = { };
+        frr = {};
         # Members of the frrvty group can use vtysh to inspect the FRR daemons
         frrvty = {
-          members = [ "frr" ];
+          members = ["frr"];
         };
       };
 
@@ -276,18 +280,18 @@ in
         '';
       };
 
-      systemd.tmpfiles.rules = [ "d /run/frr 0755 frr frr -" ];
+      systemd.tmpfiles.rules = ["d /run/frr 0755 frr frr -"];
 
       systemd.services.frr = {
         description = "FRRouting";
-        documentation = [ "https://frrouting.readthedocs.io/en/latest/setup.html" ];
-        wants = [ "network.target" ];
+        documentation = ["https://frrouting.readthedocs.io/en/latest/setup.html"];
+        wants = ["network.target"];
         after = [
           "network-pre.target"
           "systemd-sysctl.service"
         ];
-        before = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        before = ["network.target"];
+        wantedBy = ["multi-user.target"];
         startLimitIntervalSec = 180;
         reloadIfChanged = true;
         restartTriggers = [
@@ -312,5 +316,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ woffs ];
+  meta.maintainers = with lib.maintainers; [woffs];
 }

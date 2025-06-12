@@ -6,7 +6,6 @@
   rns,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lxmf";
   version = "0.7.1";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-BSQhhjiZcu9xctEXKQ2Dr4GQNkX7DUIpsncG8zUO74Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ rns ];
+  dependencies = [rns];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "LXMF" ];
+  pythonImportsCheck = ["LXMF"];
 
   meta = with lib; {
     description = "Lightweight Extensible Message Format for Reticulum";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     # Reticulum License
     # https://github.com/markqvist/LXMF/blob/master/LICENSE
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "lxmd";
   };
 }

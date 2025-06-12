@@ -8,7 +8,6 @@
   zlib,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aaphoto";
   version = "0.45";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
       one-by-one.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "aaphoto";
   };

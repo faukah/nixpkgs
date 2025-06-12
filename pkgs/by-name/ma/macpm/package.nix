@@ -1,10 +1,8 @@
 {
   lib,
-
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "macpm";
   version = "0.24-unstable-2024-11-19";
@@ -35,7 +33,7 @@ python3Packages.buildPythonApplication {
     description = "Perf monitoring CLI tool for Apple Silicon; previously named 'asitop'";
     homepage = "https://github.com/visualcjy/macpm";
     mainProgram = "macpm";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       juliusrickert

@@ -12,7 +12,6 @@
   tldextract,
   whodap,
 }:
-
 buildPythonPackage rec {
   pname = "asyncwhois";
   version = "1.1.10";
@@ -27,14 +26,16 @@ buildPythonPackage rec {
     hash = "sha256-vNXz8a0tXMxgcJ3xGKyJFgxQuIxpBg/xUeeG1TPXB0E=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    python-dateutil
-    python-socks
-    tldextract
-    whodap
-  ] ++ python-socks.optional-dependencies.asyncio;
+  dependencies =
+    [
+      python-dateutil
+      python-socks
+      tldextract
+      whodap
+    ]
+    ++ python-socks.optional-dependencies.asyncio;
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -59,13 +60,13 @@ buildPythonPackage rec {
     "test__get_top_level_domain"
   ];
 
-  pythonImportsCheck = [ "asyncwhois" ];
+  pythonImportsCheck = ["asyncwhois"];
 
   meta = with lib; {
     description = "Python module for retrieving WHOIS information";
     homepage = "https://github.com/pogzyb/asyncwhois";
     changelog = "https://github.com/pogzyb/asyncwhois/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

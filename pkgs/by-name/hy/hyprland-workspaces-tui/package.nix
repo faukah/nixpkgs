@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ hyprland-workspaces ];
+  buildInputs = [hyprland-workspaces];
 
   postInstall = ''
     installShellCompletion --cmd hyprland-workspaces-tui \
@@ -38,17 +38,17 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/hyprland-workspaces-tui \
-      --suffix PATH : ${lib.makeBinPath [ hyprland-workspaces ]}
+      --suffix PATH : ${lib.makeBinPath [hyprland-workspaces]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal-based user interface (TUI) wrapper for the hyprland-workspaces CLI utility";
     homepage = "https://github.com/Levizor/hyprland-workspaces-tui";
     license = lib.licenses.mit;
     mainProgram = "hyprland-workspaces-tui";
-    maintainers = with lib.maintainers; [ Levizor ];
+    maintainers = with lib.maintainers; [Levizor];
     platforms = lib.platforms.linux;
   };
 }

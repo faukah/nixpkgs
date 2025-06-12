@@ -9,7 +9,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-files";
   version = "1.0.0-alpha.7";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libcosmicAppHook
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   dontUseJustBuild = true;
   dontUseJustCheck = true;
@@ -94,7 +93,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -116,7 +116,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "File Manager for the COSMIC Desktop Environment";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-files";
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

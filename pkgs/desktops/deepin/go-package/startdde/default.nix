@@ -16,7 +16,6 @@
   runtimeShell,
   dbus,
 }:
-
 buildGoModule rec {
   pname = "startdde";
   version = "6.0.15";
@@ -77,6 +76,6 @@ buildGoModule rec {
     homepage = "https://github.com/linuxdeepin/startdde";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

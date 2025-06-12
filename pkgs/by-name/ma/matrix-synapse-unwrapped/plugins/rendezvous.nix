@@ -5,7 +5,6 @@
   rustPlatform,
   setuptools-rust,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-http-rendezvous-synapse";
   version = "0.1.12";
@@ -43,12 +42,12 @@ buildPythonPackage rec {
 
   buildAndTestSubdir = "synapse";
 
-  pythonImportsCheck = [ "matrix_http_rendezvous_synapse" ];
+  pythonImportsCheck = ["matrix_http_rendezvous_synapse"];
 
   meta = with lib; {
     description = "Implementation of MSC3886: Simple rendezvous capability";
     homepage = "https://github.com/matrix-org/rust-http-rendezvous-server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

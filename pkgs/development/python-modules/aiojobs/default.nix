@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiojobs";
   version = "1.4.0";
@@ -25,21 +24,23 @@ buildPythonPackage rec {
     hash = "sha256-MgGUmDG0b0V/k+mCeiVRnBxa+ChK3URnGv6P8QP7RzQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.11") [async-timeout];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
+    aiohttp = [aiohttp];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-aiohttp
-    pytest-cov-stub
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-aiohttp
+      pytest-cov-stub
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aiojobs" ];
+  pythonImportsCheck = ["aiojobs"];
 
   disabledTests = [
     # RuntimeWarning: coroutine 'Scheduler._wait_failed' was never awaited
@@ -53,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aio-libs/aiojobs";
     changelog = "https://github.com/aio-libs/aiojobs/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cmcdragonkai ];
+    maintainers = with lib.maintainers; [cmcdragonkai];
   };
 }

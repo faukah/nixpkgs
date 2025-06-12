@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cpuset";
   version = "1.6.2";
@@ -15,7 +14,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-fW0SXNI10pb6FTn/2TOqxP9qlys0KL/H9m//NjslUaY=";
   };
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   checkPhase = ''
     runHook preCheck
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/SUSE/cpuset";
     license = licenses.gpl2;
     mainProgram = "cset";
-    maintainers = with maintainers; [ wykurz ];
+    maintainers = with maintainers; [wykurz];
     platforms = platforms.linux;
   };
 }

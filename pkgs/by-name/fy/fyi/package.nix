@@ -8,7 +8,6 @@
   dbus,
   scdoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fyi";
   version = "1.0.4";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UGkShHziREQTkQUlbFXT1144BiBApFVbCvu5A1DuoMI=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     pkg-config
@@ -29,15 +28,15 @@ stdenv.mkDerivation (finalAttrs: {
     scdoc
   ];
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   meta = {
     changelog = "https://codeberg.org/dnkl/fyi/releases/tag/${finalAttrs.version}";
     description = "Command line utility to create desktop notifications";
     homepage = "https://codeberg.org/dnkl/fyi";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
     mainProgram = "fyi";
-    maintainers = with lib.maintainers; [ marnym ];
+    maintainers = with lib.maintainers; [marnym];
     platforms = lib.platforms.linux;
   };
 })

@@ -17,7 +17,6 @@
   withGL ? true,
   withX11perf ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unixbench";
   version = "unstable-2023-02-27";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     ./common.patch
   ];
 
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   sourceRoot = "${src.name}/UnixBench";
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ perl ]
+    [perl]
     ++ lib.optionals withGL [
       xorg.libX11
       xorg.libXext
@@ -111,7 +110,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kdlucas/byte-unixbench";
     license = licenses.gpl2Plus;
     mainProgram = "ubench";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

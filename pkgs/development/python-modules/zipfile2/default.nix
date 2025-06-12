@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zipfile2";
   version = "0.0.12-unstable-2024-09-28";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-jDOyIj0sQS1dIsar4nyk5V2mme3Zc6VTms49/4n93ho=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "zipfile2" ];
+  pythonImportsCheck = ["zipfile2"];
 
   disabledTests = [
     # PermissionError: [Errno 1] Operation not ...
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cournape/zipfile2";
     changelog = "https://github.com/itziakos/zipfile2/releases/tag/v${version}";
     license = licenses.psfl;
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
   };
 }

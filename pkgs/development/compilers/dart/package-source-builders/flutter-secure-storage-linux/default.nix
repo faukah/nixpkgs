@@ -2,10 +2,11 @@
   stdenv,
   libsecret,
   jsoncpp,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation {
   pname = "flutter-secure-storage-linux";
   inherit version src;

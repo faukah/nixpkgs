@@ -5,7 +5,6 @@
   testers,
   patch2pr,
 }:
-
 buildGoModule rec {
   pname = "patch2pr";
   version = "0.35.0";
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/bluekeyes/patch2pr";
     changelog = "https://github.com/bluekeyes/patch2pr/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ katrinafyi ];
+    maintainers = with lib.maintainers; [katrinafyi];
     mainProgram = "patch2pr";
   };
 }

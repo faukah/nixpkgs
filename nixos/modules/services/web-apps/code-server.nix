@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.code-server;
   defaultUser = "code-server";
   defaultGroup = defaultUser;
-in
-{
+in {
   options = {
     services.code-server = {
       enable = lib.mkEnableOption "code-server";
@@ -28,7 +25,7 @@ in
       };
 
       extraPackages = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           Additional packages to add to the code-server {env}`PATH`.
         '';
@@ -41,14 +38,14 @@ in
         description = ''
           Additional environment variables to pass to code-server.
         '';
-        default = { };
+        default = {};
         example = {
           PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
         };
       };
 
       extraArguments = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           Additional arguments to pass to code-server.
         '';
@@ -112,11 +109,11 @@ in
       };
 
       extraGroups = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           An array of additional groups for the `${defaultUser}` user.
         '';
-        example = [ "docker" ];
+        example = ["docker"];
         type = lib.types.listOf lib.types.str;
       };
 
@@ -208,20 +205,21 @@ in
         '';
         type = lib.types.bool;
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.code-server = {
       description = "Code server";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       path = cfg.extraPackages;
-      environment = {
-        HASHED_PASSWORD = cfg.hashedPassword;
-      } // cfg.extraEnvironment;
+      environment =
+        {
+          HASHED_PASSWORD = cfg.hashedPassword;
+        }
+        // cfg.extraEnvironment;
       serviceConfig = {
         ExecStart =
           ''
@@ -274,8 +272,8 @@ in
       }
     ];
 
-    users.groups."${defaultGroup}" = lib.mkIf (cfg.group == defaultGroup) { };
+    users.groups."${defaultGroup}" = lib.mkIf (cfg.group == defaultGroup) {};
   };
 
-  meta.maintainers = [ lib.maintainers.stackshadow ];
+  meta.maintainers = [lib.maintainers.stackshadow];
 }

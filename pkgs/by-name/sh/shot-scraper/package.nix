@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "shot-scraper";
   version = "1.8";
@@ -37,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/simonw/shot-scraper";
     changelog = "https://github.com/simonw/shot-scraper/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
     mainProgram = "shot-scraper";
   };
 }

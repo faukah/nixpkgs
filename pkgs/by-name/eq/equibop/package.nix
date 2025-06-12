@@ -33,7 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -63,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   patches =
-    [ ./disable_update_checking.patch ]
+    [./disable_update_checking.patch]
     ++ lib.optional withSystemEquicord (
       replaceVars ./use_system_equicord.patch {
         inherit equicord;
@@ -136,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) pnpmDeps;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

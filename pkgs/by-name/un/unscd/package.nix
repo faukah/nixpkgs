@@ -5,7 +5,6 @@
   systemd,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unscd";
   version = "0.54";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     ./0001-adjust-socket-paths-for-nixos.patch
   ];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   buildPhase = ''
     runHook preBuild
@@ -78,6 +77,6 @@ stdenv.mkDerivation rec {
     mainProgram = "nscd";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

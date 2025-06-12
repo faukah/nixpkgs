@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "quinze";
   version = "2018-09-22";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
     description = "narrow monospaced font, designed to fit a fifteen pixel bitmap";
     homepage = "https://fontlibrary.org/en/font/quinze";
     license = licenses.ofl;
-    maintainers = with maintainers; [ phunehehe ];
+    maintainers = with maintainers; [phunehehe];
     platforms = platforms.all;
   };
 }

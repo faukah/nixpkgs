@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "getmac";
   version = "0.9.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ZbTCbbASs7+ChmgcDePXSbiHOst6/eCkq9SiKgYhFyM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     py
@@ -45,16 +44,16 @@ buildPythonPackage rec {
     "test_initialize_method_cache_valid_types"
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  pythonImportsCheck = [ "getmac" ];
+  pythonImportsCheck = ["getmac"];
 
   meta = with lib; {
     description = "Python package to get the MAC address of network interfaces and hosts on the local network";
     homepage = "https://github.com/GhostofGoes/getmac";
     changelog = "https://github.com/GhostofGoes/getmac/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "getmac";
   };
 }

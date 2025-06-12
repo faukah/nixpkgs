@@ -21,7 +21,6 @@
   _experimental-update-script-combinators,
   common-updater-scripts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-robots";
   version = "41.2";
@@ -69,29 +68,28 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "gnome-robots";
-        };
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "gnome-robots";
+      };
 
-        updateLockfile = {
-          command = [
-            "sh"
-            "-c"
-            ''
-              PATH=${
-                lib.makeBinPath [
-                  common-updater-scripts
-                ]
-              }
-              update-source-version gnome-robots --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
-            ''
-          ];
-          # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
-        };
-      in
+      updateLockfile = {
+        command = [
+          "sh"
+          "-c"
+          ''
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+              ]
+            }
+            update-source-version gnome-robots --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
+          ''
+        ];
+        # Experimental feature: do not copy!
+        supportedFeatures = ["silent"];
+      };
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
@@ -103,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-robots/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Avoid the robots and make them crash into each other";
     mainProgram = "gnome-robots";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

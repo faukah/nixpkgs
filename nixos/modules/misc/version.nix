@@ -4,13 +4,12 @@
   options,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.system.nixos;
   opt = options.system.nixos;
 
-  inherit (lib)
+  inherit
+    (lib)
     concatStringsSep
     mapAttrsToList
     toLower
@@ -25,16 +24,17 @@ let
     ;
 
   needsEscaping = s: null != builtins.match "[a-zA-Z0-9]+" s;
-  escapeIfNecessary = s: if needsEscaping s then s else ''"${lib.escape [ "$" "\"" "\\" "`" ] s}"'';
-  attrsToText =
-    attrs:
+  escapeIfNecessary = s:
+    if needsEscaping s
+    then s
+    else ''"${lib.escape ["$" "\"" "\\" "`"] s}"'';
+  attrsToText = attrs:
     concatStringsSep "\n" (mapAttrsToList (n: v: ''${n}=${escapeIfNecessary (toString v)}'') attrs)
     + "\n";
 
-  osReleaseContents =
-    let
-      isNixos = cfg.distroId == "nixos";
-    in
+  osReleaseContents = let
+    isNixos = cfg.distroId == "nixos";
+  in
     {
       NAME = "${cfg.distroName}";
       ID = "${cfg.distroId}";
@@ -61,19 +61,19 @@ let
     }
     // cfg.extraOSReleaseArgs;
 
-  initrdReleaseContents = (removeAttrs osReleaseContents [ "BUILD_ID" ]) // {
-    PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
-  };
+  initrdReleaseContents =
+    (removeAttrs osReleaseContents ["BUILD_ID"])
+    // {
+      PRETTY_NAME = "${osReleaseContents.PRETTY_NAME} (Initrd)";
+    };
   initrdRelease = pkgs.writeText "initrd-release" (attrsToText initrdReleaseContents);
-
-in
-{
+in {
   imports = [
     ./label.nix
-    (mkRenamedOptionModule [ "system" "nixosVersion" ] [ "system" "nixos" "version" ])
-    (mkRenamedOptionModule [ "system" "nixosVersionSuffix" ] [ "system" "nixos" "versionSuffix" ])
-    (mkRenamedOptionModule [ "system" "nixosRevision" ] [ "system" "nixos" "revision" ])
-    (mkRenamedOptionModule [ "system" "nixosLabel" ] [ "system" "nixos" "label" ])
+    (mkRenamedOptionModule ["system" "nixosVersion"] ["system" "nixos" "version"])
+    (mkRenamedOptionModule ["system" "nixosVersionSuffix"] ["system" "nixos" "versionSuffix"])
+    (mkRenamedOptionModule ["system" "nixosRevision"] ["system" "nixos" "revision"])
+    (mkRenamedOptionModule ["system" "nixosLabel"] ["system" "nixos" "label"])
   ];
 
   options.boot.initrd.osRelease = mkOption {
@@ -163,7 +163,7 @@ in
       extraOSReleaseArgs = mkOption {
         internal = true;
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = "Additional attributes to be merged with the /etc/os-release generator.";
         example = {
           ANSI_COLOR = "1;31";
@@ -173,7 +173,7 @@ in
       extraLSBReleaseArgs = mkOption {
         internal = true;
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = "Additional attributes to be merged with the /etc/lsb-release generator.";
         example = {
           LSB_VERSION = "1.0";
@@ -182,7 +182,6 @@ in
     };
 
     image = {
-
       id = lib.mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -210,18 +209,16 @@ in
           You would only want to set this option if you're build NixOS appliance images.
         '';
       };
-
     };
 
     stateVersion = mkOption {
       type = types.str;
       # TODO Remove this and drop the default of the option so people are forced to set it.
       # Doing this also means fixing the comment in nixos/modules/testing/test-instrumentation.nix
-      apply =
-        v:
-        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault { }).priority)
-          "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
-          v;
+      apply = v:
+        lib.warnIf (options.system.stateVersion.highestPrio == (lib.mkOptionDefault {}).priority)
+        "system.stateVersion is not set, defaulting to ${v}. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion."
+        v;
       default = cfg.release;
       defaultText = literalExpression "config.${opt.release}";
       description = ''
@@ -259,11 +256,9 @@ in
       default = null;
       description = "The Git revision of the top-level flake from which this configuration was built.";
     };
-
   };
 
   config = {
-
     assertions = [
       {
         assertion = match "[0-9]{2}\\.[0-9]{2}" config.system.stateVersion != null;
@@ -276,10 +271,9 @@ in
           Leave it exactly on the previous value, which is likely the value you had for it when you installed your system.
 
           If you're unsure which value to set it to, use "${
-            if match "[0-9]{2}\\.[0-9]{2}" options.system.stateVersion.default != null then
-              options.system.stateVersion.default
-            else
-              options.system.nixos.release.default
+            if match "[0-9]{2}\\.[0-9]{2}" options.system.stateVersion.default != null
+            then options.system.stateVersion.default
+            else options.system.nixos.release.default
           }" as a default.
         '';
       }
@@ -308,7 +302,6 @@ in
 
       "os-release".text = attrsToText osReleaseContents;
     };
-
   };
 
   # uses version info nixpkgs, which requires a full nixpkgs path

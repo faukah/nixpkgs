@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.cfdyndns;
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -46,8 +44,8 @@ in
       };
 
       records = lib.mkOption {
-        default = [ ];
-        example = [ "host.tld" ];
+        default = [];
+        example = ["host.tld"];
         type = lib.types.listOf lib.types.str;
         description = ''
           The records to update in CloudFlare.
@@ -59,8 +57,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.cfdyndns = {
       description = "CloudFlare Dynamic DNS Client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       startAt = "*:0/5";
       serviceConfig = {
         Type = "simple";

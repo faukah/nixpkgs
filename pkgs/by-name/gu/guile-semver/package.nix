@@ -7,7 +7,6 @@
   texinfo,
   guile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-semver";
   version = "0.1.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     texinfo
   ];
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   doCheck = true;
 
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "GNU Guile library implementing Semantic Versioning 2.0.0";
     homepage = "https://ngyro.com/software/guile-semver.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

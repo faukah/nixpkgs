@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "chamber";
   version = "3.1.2";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Tool for managing secrets by storing them in AWS SSM Parameter Store";
     homepage = "https://github.com/segmentio/chamber";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalekseev ];
+    maintainers = with maintainers; [kalekseev];
     mainProgram = "chamber";
   };
 }

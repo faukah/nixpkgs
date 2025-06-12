@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "fluidd";
-  meta.maintainers = with lib.maintainers; [ vtuan10 ];
+  meta.maintainers = with lib.maintainers; [vtuan10];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.fluidd = {
-        enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.fluidd = {
+      enable = true;
     };
+  };
 
   testScript = ''
     machine.start()

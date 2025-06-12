@@ -8,7 +8,6 @@
   hatchling,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "hatch-vcs";
   version = "0.4.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-CTgQdI/gHbDUUfq88sGsJojK79Iy1O3pZwkLHBsH2fc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     hatchling
@@ -47,13 +46,13 @@ buildPythonPackage rec {
       "test_metadata"
     ];
 
-  pythonImportsCheck = [ "hatch_vcs" ];
+  pythonImportsCheck = ["hatch_vcs"];
 
   meta = with lib; {
     changelog = "https://github.com/ofek/hatch-vcs/releases/tag/v${version}";
     description = "Plugin for Hatch that uses your preferred version control system (like Git) to determine project versions";
     homepage = "https://github.com/ofek/hatch-vcs";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -9,7 +9,6 @@
   pyserial,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openant-unstable";
   version = "1.3.1";
@@ -24,23 +23,23 @@ buildPythonPackage rec {
     hash = "sha256-wDtHlkVyD7mMDXZ4LGMgatr9sSlQKVbgkYsKvHGr9Pc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   postInstall = ''
     install -dm755 "$out/etc/udev/rules.d"
     install -m644 resources/42-ant-usb-sticks.rules "$out/etc/udev/rules.d/99-ant-usb-sticks.rules"
   '';
 
-  propagatedBuildInputs = [ pyusb ];
+  propagatedBuildInputs = [pyusb];
 
   optional-dependencies = {
-    serial = [ pyserial ];
-    influx = [ influxdb-client ];
+    serial = [pyserial];
+    influx = [influxdb-client];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "openant" ];
+  pythonImportsCheck = ["openant"];
 
   meta = with lib; {
     homepage = "https://github.com/Tigge/openant";

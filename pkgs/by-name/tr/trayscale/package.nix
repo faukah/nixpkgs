@@ -9,7 +9,6 @@
   gobject-introspection,
   libadwaita,
 }:
-
 buildGoModule rec {
   pname = "trayscale";
   version = "0.18.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4ilgRX820VuOYAtFpPVU0AGLkC6SSUcoweA1BWHhIws=";
 
-  subPackages = [ "cmd/trayscale" ];
+  subPackages = ["cmd/trayscale"];
 
   ldflags = [
     "-s"
@@ -58,7 +57,7 @@ buildGoModule rec {
     description = "Unofficial GUI wrapper around the Tailscale CLI client";
     homepage = "https://github.com/DeedleFake/trayscale";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "trayscale";
     platforms = lib.platforms.unix;
   };

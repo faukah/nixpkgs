@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dlfcn";
   version = "1.3.1";
@@ -16,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ljVTMBiGp8TPufrQcK4zQtcVH1To4zcfBAbUOb+v910=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/dlfcn-win32/dlfcn-win32";
     description = "Set of functions that allows runtime dynamic library loading";
     license = licenses.mit;
     platforms = platforms.windows;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

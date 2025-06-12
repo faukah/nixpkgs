@@ -9,7 +9,6 @@
   makeWrapper,
   gitUpdater,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-msrv";
   version = "0.18.4";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
   # Integration tests fail
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   nativeBuildInputs = [
     pkg-config
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   # Depends at run-time on having rustup in PATH
   postInstall = ''
-    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [ rustup ]};
+    wrapProgram $out/bin/cargo-msrv --prefix PATH : ${lib.makeBinPath [rustup]};
   '';
 
   meta = with lib; {

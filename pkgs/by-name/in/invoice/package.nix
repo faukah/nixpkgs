@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "invoice";
   version = "0.1.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Command line invoice generator";
     homepage = "https://github.com/maaslalani/invoice";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "invoice";
   };
 }

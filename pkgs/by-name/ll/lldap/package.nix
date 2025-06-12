@@ -9,10 +9,7 @@
   wasm-bindgen-cli_0_2_95,
   wasm-pack,
   which,
-}:
-
-let
-
+}: let
   commonDerivationAttrs = rec {
     pname = "lldap";
     version = "0.6.1";
@@ -26,7 +23,6 @@ let
 
     useFetchCargoVendor = true;
     cargoHash = "sha256-qXYgr9uRswuo9hwVROUX9KUKpkzR0VEcXImbdyOgxsY=";
-
   };
 
   frontend = rustPlatform.buildRustPackage (
@@ -55,43 +51,42 @@ let
       doCheck = false;
     }
   );
-
 in
-rustPlatform.buildRustPackage (
-  commonDerivationAttrs
-  // {
-    cargoBuildFlags = [
-      "-p"
-      "lldap"
-      "-p"
-      "lldap_migration_tool"
-      "-p"
-      "lldap_set_password"
-    ];
+  rustPlatform.buildRustPackage (
+    commonDerivationAttrs
+    // {
+      cargoBuildFlags = [
+        "-p"
+        "lldap"
+        "-p"
+        "lldap_migration_tool"
+        "-p"
+        "lldap_set_password"
+      ];
 
-    patches = [
-      ./0001-parameterize-frontend-location.patch
-    ];
+      patches = [
+        ./0001-parameterize-frontend-location.patch
+      ];
 
-    postPatch = ''
-      substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
-    '';
+      postPatch = ''
+        substituteInPlace server/src/infra/tcp_server.rs --subst-var-by frontend '${frontend}'
+      '';
 
-    passthru = {
-      inherit frontend;
-      tests = {
-        inherit (nixosTests) lldap;
+      passthru = {
+        inherit frontend;
+        tests = {
+          inherit (nixosTests) lldap;
+        };
       };
-    };
 
-    meta = with lib; {
-      description = "Lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
-      homepage = "https://github.com/lldap/lldap";
-      changelog = "https://github.com/lldap/lldap/blob/v${lldap.version}/CHANGELOG.md";
-      license = licenses.gpl3Only;
-      platforms = platforms.linux;
-      maintainers = with maintainers; [ bendlas ];
-      mainProgram = "lldap";
-    };
-  }
-)
+      meta = with lib; {
+        description = "Lightweight authentication server that provides an opinionated, simplified LDAP interface for authentication";
+        homepage = "https://github.com/lldap/lldap";
+        changelog = "https://github.com/lldap/lldap/blob/v${lldap.version}/CHANGELOG.md";
+        license = licenses.gpl3Only;
+        platforms = platforms.linux;
+        maintainers = with maintainers; [bendlas];
+        mainProgram = "lldap";
+      };
+    }
+  )

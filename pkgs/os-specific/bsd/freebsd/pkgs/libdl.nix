@@ -5,7 +5,6 @@
   libgcc,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libdl";
   extraPaths = [

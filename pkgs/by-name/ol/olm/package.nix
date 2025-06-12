@@ -4,7 +4,6 @@
   fetchFromGitLab,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "olm";
   version = "3.2.16";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JX20mpuLO+UoNc8iQlXEHAbH9sfblkBbM1gE27Ve0ac=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 

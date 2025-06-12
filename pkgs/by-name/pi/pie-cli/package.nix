@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pie-cli";
   version = "2.0.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Simple image format optimised for pixel art";
     homepage = "https://github.com/Falconerd/pie";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
   };

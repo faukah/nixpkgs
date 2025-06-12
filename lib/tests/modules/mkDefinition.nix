@@ -1,12 +1,11 @@
-{ lib, ... }:
-let
-  inherit (lib)
+{lib, ...}: let
+  inherit
+    (lib)
     mkOption
     mkDefinition
     mkOptionDefault
     ;
-in
-{
+in {
   imports = [
     {
       _file = "file";
@@ -20,7 +19,7 @@ in
     }
     {
       # Check that mkDefinition works within 'config'
-      options.viaConfig = mkOption { };
+      options.viaConfig = mkOption {};
       config.viaConfig = mkDefinition {
         file = "other";
         value = true;

@@ -3,17 +3,14 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   mypy,
   pytestCheckHook,
   python-lsp-server,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "pylsp-mypy";
   version = "0.7.0";
@@ -28,16 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-rS0toZaAygNJ3oe3vfP9rKJ1A0avIdp5yjNx7oGOB4o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    mypy
-    python-lsp-server
-  ] ++ lib.optional (pythonOlder "3.11") tomli;
+  dependencies =
+    [
+      mypy
+      python-lsp-server
+    ]
+    ++ lib.optional (pythonOlder "3.11") tomli;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pylsp_mypy" ];
+  pythonImportsCheck = ["pylsp_mypy"];
 
   disabledTests = [
     # Tests wants to call dmypy
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/python-lsp/pylsp-mypy";
     changelog = "https://github.com/python-lsp/pylsp-mypy/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cpcloud ];
+    maintainers = with lib.maintainers; [cpcloud];
   };
 }

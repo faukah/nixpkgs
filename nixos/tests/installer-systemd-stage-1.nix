@@ -1,10 +1,8 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
-
-{
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
+}: {
   # Some of these tests don't work with systemd stage 1 yet. Uncomment
   # them when fixed.
   inherit
@@ -48,5 +46,4 @@
     clevisBcachefs
     clevisBcachefsFallback
     ;
-
 }

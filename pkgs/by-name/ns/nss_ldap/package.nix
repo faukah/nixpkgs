@@ -5,7 +5,6 @@
   openldap,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nss_ldap";
   version = "265";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     substituteInPlace vers_string --replace "cvslib.pl" "./cvslib.pl"
   '';
 
-  patches = [ ./crashes.patch ];
+  patches = [./crashes.patch];
 
   postPatch = ''
     patch -p0 < ${./nss_ldap-265-glibc-2.16.patch}

@@ -8,7 +8,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trimmomatic";
   version = "0.39";
@@ -70,6 +69,6 @@ stdenv.mkDerivation (finalAttrs: {
       lib.sourceTypes.binaryBytecode # source bundles dependencies as jars
     ];
     mainProgram = "trimmomatic";
-    maintainers = [ lib.maintainers.kupac ];
+    maintainers = [lib.maintainers.kupac];
   };
 })

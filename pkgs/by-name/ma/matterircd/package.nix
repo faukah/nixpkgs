@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "matterircd";
   version = "0.28.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "matterircd";
     homepage = "https://github.com/42wim/matterircd";
     license = licenses.mit;
-    maintainers = with maintainers; [ numinit ];
+    maintainers = with maintainers; [numinit];
   };
 }

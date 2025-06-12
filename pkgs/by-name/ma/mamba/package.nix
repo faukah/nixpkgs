@@ -13,7 +13,6 @@
   libsigcxx,
   libsmf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mamba";
   version = "2.6";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     libsmf
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 

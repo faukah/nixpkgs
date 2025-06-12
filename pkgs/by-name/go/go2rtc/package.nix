@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go2rtc";
   version = "1.9.9";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/AlexxIT/go2rtc";
     changelog = "https://github.com/AlexxIT/go2rtc/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     mainProgram = "go2rtc";
   };
 }

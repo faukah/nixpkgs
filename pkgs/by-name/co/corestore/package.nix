@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "corestore";
   version = "7.1.0";
@@ -26,13 +25,13 @@ buildNpmPackage (finalAttrs: {
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple corestore that wraps a random-access-storage module";
     homepage = "https://github.com/holepunchto/corestore";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ themadbit ];
-    teams = with lib.teams; [ ngi ];
+    maintainers = with lib.maintainers; [themadbit];
+    teams = with lib.teams; [ngi];
   };
 })

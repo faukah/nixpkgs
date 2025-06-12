@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "kb";
   version = "0.1.7";
@@ -50,7 +49,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/gnebbia/kb";
     changelog = "https://github.com/gnebbia/kb/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wesleyjrz ];
+    maintainers = with lib.maintainers; [wesleyjrz];
     mainProgram = "kb";
   };
 }

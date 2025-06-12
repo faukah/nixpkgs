@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cfspeedtest";
   version = "1.3.4";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-uyLd4KQa9zWMCuurpdQv0OnCSguE180dm6FzHR+nC40=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd cfspeedtest \
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Unofficial CLI for speed.cloudflare.com";
     homepage = "https://github.com/code-inflation/cfspeedtest";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       colemickens
       stepbrobd

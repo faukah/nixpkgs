@@ -20,7 +20,6 @@
   wrapGAppsHook4,
   xdg-desktop-portal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-gnome";
   version = "48.0";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Backend implementation for xdg-desktop-portal for the GNOME desktop environment";
     homepage = "https://gitlab.gnome.org/GNOME/xdg-desktop-portal-gnome";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

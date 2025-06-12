@@ -9,7 +9,6 @@
   libglade,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgnomecanvas";
   version = "2.30.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ libglade ];
+  buildInputs = [libglade];
   nativeBuildInputs = [
     pkg-config
     intltool

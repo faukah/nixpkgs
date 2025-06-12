@@ -9,7 +9,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pysolfc";
   version = "3.2.0";
@@ -66,9 +65,9 @@ python3Packages.buildPythonApplication rec {
     pillow
   ];
 
-  patches = [ ./pysolfc-datadir.patch ];
+  patches = [./pysolfc-datadir.patch];
 
-  nativeBuildInputs = [ desktop-file-utils ];
+  nativeBuildInputs = [desktop-file-utils];
 
   postInstall = ''
     mkdir $out/share/PySolFC/cardsets
@@ -102,6 +101,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "pysol.py";
     homepage = "https://pysolfc.sourceforge.io";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

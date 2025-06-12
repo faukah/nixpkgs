@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "dnsproxy";
   version = "0.75.6";
@@ -25,7 +24,7 @@ buildGoModule (finalAttrs: {
   ];
 
   # Development tool dependencies; not part of the main project
-  excludedPackages = [ "internal/tools" ];
+  excludedPackages = ["internal/tools"];
 
   doCheck = false;
 

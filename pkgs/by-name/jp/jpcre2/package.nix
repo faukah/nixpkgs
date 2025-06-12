@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pcre2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jpcre2";
   version = "10.32.01";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CizjxAiajDLqajZKizMRAk5UEZA+jDeBSldPyIb6Ic8=";
   };
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   meta = with lib; {
     homepage = "https://docs.neuzunix.com/jpcre2/latest/";

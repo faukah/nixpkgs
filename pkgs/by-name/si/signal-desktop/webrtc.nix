@@ -11,7 +11,6 @@
   writeShellScriptBin,
   gclient2nix,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "signal-webrtc";
   version = finalAttrs.gclientDeps."src".path.rev;
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     "rtc_include_tests=false"
     "rtc_enable_protobuf=false"
   ];
-  ninjaFlags = [ "webrtc" ];
+  ninjaFlags = ["webrtc"];
 
   installPhase = ''
     runHook preInstall
@@ -85,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "WebRTC library used by Signal";
     homepage = "https://github.com/SignalApp/webrtc";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

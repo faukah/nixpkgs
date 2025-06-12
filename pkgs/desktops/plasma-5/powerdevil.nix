@@ -20,7 +20,6 @@
   solid,
   udev,
 }:
-
 mkDerivation {
   pname = "powerdevil";
   nativeBuildInputs = [

@@ -8,7 +8,6 @@
   gtk3,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spotify-tray";
   version = "1.3.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   postFixup = ''
     wrapProgram $out/bin/spotify-tray --set GDK_BACKEND x11
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Adds a tray icon to the Spotify Linux client application";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "spotify-tray";
   };
 }

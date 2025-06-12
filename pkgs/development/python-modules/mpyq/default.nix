@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "mpyq";
   version = "0.2.5";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     mainProgram = "mpyq";
     homepage = "https://github.com/eagleflo/mpyq";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   static ? stdenv.hostPlatform.isStatic,
   cxxStandard ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abseil-cpp";
   version = "20230125.4";
@@ -40,7 +39,11 @@ stdenv.mkDerivation (finalAttrs: {
     [
       "-DABSL_BUILD_TEST_HELPERS=ON"
       "-DABSL_USE_EXTERNAL_GOOGLETEST=ON"
-      "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+      "-DBUILD_SHARED_LIBS=${
+        if static
+        then "OFF"
+        else "ON"
+      }"
     ]
     ++ lib.optionals (cxxStandard != null) [
       "-DCMAKE_CXX_STANDARD=${cxxStandard}"
@@ -48,16 +51,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   meta = with lib; {
     description = "Open-source collection of C++ code designed to augment the C++ standard library";
     homepage = "https://abseil.io/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ maintainers.andersk ];
+    maintainers = [maintainers.andersk];
     # Requires LFS64 APIs. 202401 and later are fine.
     broken = stdenv.hostPlatform.isMusl;
   };

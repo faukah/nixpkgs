@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   cloudpickle,
   dill,
@@ -19,12 +18,10 @@
   six,
   tabulate,
   tensorboard,
-
   # tests
   pytestCheckHook,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "experiment-utilities";
   version = "0.3.9";
@@ -70,15 +67,15 @@ buildPythonPackage rec {
     torch
   ];
 
-  disabledTests = [ "test_experimentstarter" ];
+  disabledTests = ["test_experimentstarter"];
 
-  pythonImportsCheck = [ "exputils" ];
+  pythonImportsCheck = ["exputils"];
 
   meta = {
     description = "Various tools to run scientific computer experiments";
     homepage = "https://gitlab.inria.fr/creinke/exputils";
     license = lib.licenses.gpl3Plus;
     changelog = "https://github.com/ChrisReinke/exputils/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

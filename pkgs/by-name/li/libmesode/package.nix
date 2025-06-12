@@ -9,7 +9,6 @@
   pkg-config,
   check,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmesode";
   version = "0.10.1";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     ];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

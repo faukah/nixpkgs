@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "kbackup";
 
-  extraNativeBuildInputs = [ shared-mime-info ];
+  extraNativeBuildInputs = [shared-mime-info];
   extraBuildInputs = [
     qt5compat
     libarchive

@@ -15,7 +15,6 @@
   wayland,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-dock";
   version = "8.1.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Z6Y/UR6B4tygmetfZq5sOyn5nfq8+CmuR3NpegzCyo8=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/elementary/dock";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.pantheon ];
+    teams = [lib.teams.pantheon];
     mainProgram = "io.elementary.dock";
   };
 })

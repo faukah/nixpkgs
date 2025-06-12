@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   options.programs.kdeconnect = {
     enable = lib.mkEnableOption ''
       kdeconnect.
@@ -15,14 +14,13 @@
       `gnomeExtensions.gsconnect` as an alternative
       implementation if you use Gnome
     '';
-    package = lib.mkPackageOption pkgs [ "plasma5Packages" "kdeconnect-kde" ] {
+    package = lib.mkPackageOption pkgs ["plasma5Packages" "kdeconnect-kde"] {
       example = "gnomeExtensions.gsconnect";
     };
   };
-  config =
-    let
-      cfg = config.programs.kdeconnect;
-    in
+  config = let
+    cfg = config.programs.kdeconnect;
+  in
     lib.mkIf cfg.enable {
       environment.systemPackages = [
         cfg.package

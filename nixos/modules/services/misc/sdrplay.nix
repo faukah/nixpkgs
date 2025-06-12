@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.services.sdrplayApi = {
     enable = lib.mkOption {
       default = false;
@@ -24,8 +23,8 @@
   config = lib.mkIf config.services.sdrplayApi.enable {
     systemd.services.sdrplayApi = {
       description = "SDRplay API Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.sdrplay}/bin/sdrplay_apiService";
         DynamicUser = true;
@@ -33,7 +32,6 @@
         RestartSec = "1s";
       };
     };
-    services.udev.packages = [ pkgs.sdrplay ];
-
+    services.udev.packages = [pkgs.sdrplay];
   };
 }

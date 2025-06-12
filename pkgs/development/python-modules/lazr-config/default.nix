@@ -7,7 +7,6 @@
   zope-interface,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lazr-config";
   version = "3.1";
@@ -19,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-eYJY4JRoqTMG4j1jyiYrI8xEKdJ+wQYVVU/6OqVIodk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lazr-delegates
     zope-interface
   ];
 
-  pythonImportsCheck = [ "lazr.config" ];
+  pythonImportsCheck = ["lazr.config"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # change the directory to avoid a namespace-related problem
   # ModuleNotFoundError: No module named 'lazr.delegates'
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     cd $out
   '';
 
-  pythonNamespaces = [ "lazr" ];
+  pythonNamespaces = ["lazr"];
 
   meta = {
     description = "Create configuration schemas, and process and validate configurations";

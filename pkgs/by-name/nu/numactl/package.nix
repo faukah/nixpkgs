@@ -5,7 +5,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "numactl";
   version = "2.0.18";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postPatch = ''
     patchShebangs test

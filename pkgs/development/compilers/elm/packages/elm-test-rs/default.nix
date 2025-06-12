@@ -5,7 +5,6 @@
   openssl,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elm-test-rs";
   version = "3.0";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-l3RV+j3wAQ88QGNXLILp7YiUpdk7bkN25Y723pDZw48=";
   };
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ openssl ];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [openssl];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-F3/v4zYGZRv1PRVl/Tas+e0pc/dTM6ina+/c63KVuZY=";

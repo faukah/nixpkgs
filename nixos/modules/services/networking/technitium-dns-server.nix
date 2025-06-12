@@ -3,24 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.technitium-dns-server;
   stateDir = "/var/lib/technitium-dns-server";
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
     mkIf
     types
     ;
-in
-{
+in {
   options.services.technitium-dns-server = {
     enable = mkEnableOption "Technitium DNS Server";
 
-    package = mkPackageOption pkgs "technitium-dns-server" { };
+    package = mkPackageOption pkgs "technitium-dns-server" {};
 
     openFirewall = mkOption {
       type = types.bool;
@@ -34,7 +32,7 @@ in
 
     firewallUDPPorts = mkOption {
       type = with types; listOf int;
-      default = [ 53 ];
+      default = [53];
       description = ''
         List of UDP ports to open in firewall.
       '';
@@ -57,8 +55,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.technitium-dns-server = {
       description = "Technitium DNS Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/technitium-dns-server ${stateDir}";
@@ -94,8 +92,8 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
       };
     };
 
@@ -105,5 +103,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ fabianrig ];
+  meta.maintainers = with lib.maintainers; [fabianrig];
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rancher";
   version = "2.11.2";
@@ -39,6 +38,6 @@ buildGoModule rec {
     mainProgram = "rancher";
     homepage = "https://github.com/rancher/cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
   };
 }

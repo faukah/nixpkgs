@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.pgmanage;
 
   confFile = pkgs.writeTextFile {
@@ -43,18 +42,15 @@ let
   };
 
   pgmanage = "pgmanage";
-
-in
-{
-
+in {
   options.services.pgmanage = {
     enable = lib.mkEnableOption "PostgreSQL Administration for the web";
 
-    package = lib.mkPackageOption pkgs "pgmanage" { };
+    package = lib.mkPackageOption pkgs "pgmanage" {};
 
     connections = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = {
         nuc-server = "hostaddr=192.168.0.100 port=5432 dbname=postgres";
         mini-server = "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
@@ -185,9 +181,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.pgmanage = {
       description = "pgmanage - PostgreSQL Administration for the web";
-      wants = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["postgresql.service"];
+      after = ["postgresql.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = pgmanage;
         Group = pgmanage;

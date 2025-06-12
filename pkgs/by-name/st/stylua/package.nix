@@ -9,7 +9,6 @@
     "luau"
   ],
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stylua";
   version = "2.1.0";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/johnnymorganz/stylua";
     changelog = "https://github.com/johnnymorganz/stylua/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "stylua";
   };
 }

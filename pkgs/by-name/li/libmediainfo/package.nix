@@ -6,12 +6,10 @@
   pkg-config,
   libzen,
   zlib,
-
   # Whether to enable resolving URLs via libcurl
   curlSupport ? true,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmediainfo";
   version = "25.04";
@@ -25,8 +23,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ zlib ] ++ lib.optionals curlSupport [ curl ];
-  propagatedBuildInputs = [ libzen ];
+  buildInputs = [zlib] ++ lib.optionals curlSupport [curl];
+  propagatedBuildInputs = [libzen];
 
   sourceRoot = "MediaInfoLib/Project/GNU/Library";
 
@@ -55,6 +53,6 @@ stdenv.mkDerivation rec {
     changelog = "https://mediaarea.net/MediaInfo/ChangeLog";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
   };
 }

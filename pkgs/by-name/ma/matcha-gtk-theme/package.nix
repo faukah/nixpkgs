@@ -7,20 +7,16 @@
   jdupes,
   librsvg,
   gitUpdater,
-  colorVariants ? [ ], # default: all
-  themeVariants ? [ ], # default: blue
-}:
-
-let
+  colorVariants ? [], # default: all
+  themeVariants ? [], # default: blue
+}: let
   pname = "matcha-gtk-theme";
-
 in
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ] colorVariants
+  lib.checkListOfEnum "${pname}: color variants" ["standard" "light" "dark"] colorVariants
   lib.checkListOfEnum
   "${pname}: theme variants"
-  [ "aliz" "azul" "sea" "pueril" "all" ]
+  ["aliz" "azul" "sea" "pueril" "all"]
   themeVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -56,8 +52,8 @@ lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ] col
       mkdir -p $out/share/themes
 
       name= ./install.sh \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}
@@ -68,13 +64,13 @@ lib.checkListOfEnum "${pname}: color variants" [ "standard" "light" "dark" ] col
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Stylish flat Design theme for GTK based desktop environments";
       homepage = "https://vinceliuice.github.io/theme-matcha";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

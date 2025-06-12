@@ -5,7 +5,6 @@
   cmake,
   doctest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "foonathan-memory";
   version = "0.7-4";
@@ -33,11 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
-  checkInputs = [ doctest ];
+  checkInputs = [doctest];
 
   # fix a circular dependency between "out" and "dev" outputs
   postInstall = ''
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     license = licenses.zlib;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = with platforms; unix ++ windows;
   };
 })

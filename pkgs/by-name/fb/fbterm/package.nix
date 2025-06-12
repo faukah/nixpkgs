@@ -11,7 +11,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.7-2";
   pname = "fbterm";
@@ -52,20 +51,18 @@ stdenv.mkDerivation rec {
     export HOME=$PWD
   '';
 
-  postInstall =
-    let
-      fbtermrc = fetchurl {
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
-        hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
-      };
-    in
-    ''
-      mkdir -p "$out/share/terminfo"
-      tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
+  postInstall = let
+    fbtermrc = fetchurl {
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/fbtermrc?h=fbterm";
+      hash = "sha256-zNIfi2ZjEGc5PLdOIirKGTXESb5Wm5XBAI1sfHa31LY=";
+    };
+  in ''
+    mkdir -p "$out/share/terminfo"
+    tic -a -v2 -o"$out/share/terminfo" terminfo/fbterm
 
-      mkdir -p "$out/etc/fbterm"
-      cp "${fbtermrc}" "$out/etc/fbterm"
-    '';
+    mkdir -p "$out/etc/fbterm"
+    cp "${fbtermrc}" "$out/etc/fbterm"
+  '';
 
   # Patches from https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=fbterm
   patches = [

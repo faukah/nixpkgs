@@ -3,39 +3,40 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware;
-in
-{
-
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "networking" "enableRT73Firmware" ]
-      [ "hardware" "enableRedistributableFirmware" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "enableRT73Firmware"]
+      ["hardware" "enableRedistributableFirmware"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "enableIntel3945ABGFirmware" ]
-      [ "hardware" "enableRedistributableFirmware" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "enableIntel3945ABGFirmware"]
+      ["hardware" "enableRedistributableFirmware"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "enableIntel2100BGFirmware" ]
-      [ "hardware" "enableRedistributableFirmware" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "enableIntel2100BGFirmware"]
+      ["hardware" "enableRedistributableFirmware"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "enableRalinkFirmware" ]
-      [ "hardware" "enableRedistributableFirmware" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "enableRalinkFirmware"]
+      ["hardware" "enableRedistributableFirmware"]
     )
-    (lib.mkRenamedOptionModule
-      [ "networking" "enableRTL8192cFirmware" ]
-      [ "hardware" "enableRedistributableFirmware" ]
+    (
+      lib.mkRenamedOptionModule
+      ["networking" "enableRTL8192cFirmware"]
+      ["hardware" "enableRedistributableFirmware"]
     )
   ];
 
   ###### interface
 
   options = {
-
     hardware.enableAllFirmware = lib.mkEnableOption "all firmware regardless of license";
 
     hardware.enableRedistributableFirmware =
@@ -51,15 +52,13 @@ in
         default = cfg.enableRedistributableFirmware || cfg.enableAllFirmware;
         defaultText = lib.literalMD "Enabled if proprietary firmware is allowed via {option}`enableRedistributableFirmware` or {option}`enableAllFirmware`.";
       };
-
   };
 
   ###### implementation
 
   config = lib.mkMerge [
     (lib.mkIf (cfg.enableAllFirmware || cfg.enableRedistributableFirmware) {
-      hardware.firmware =
-        with pkgs;
+      hardware.firmware = with pkgs;
         [
           linux-firmware
           intel2200BGFirmware
@@ -84,8 +83,7 @@ in
           '';
         }
       ];
-      hardware.firmware =
-        with pkgs;
+      hardware.firmware = with pkgs;
         [
           broadcom-bt-firmware
           b43Firmware_5_1_138
@@ -98,7 +96,7 @@ in
         ];
     })
     (lib.mkIf cfg.wirelessRegulatoryDatabase {
-      hardware.firmware = [ pkgs.wireless-regdb ];
+      hardware.firmware = [pkgs.wireless-regdb];
     })
   ];
 }

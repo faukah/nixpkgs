@@ -25,10 +25,9 @@
   unittestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "paperwork-backend";
-  inherit (callPackage ./src.nix { }) version src;
+  inherit (callPackage ./src.nix {}) version src;
   format = "pyproject";
 
   sourceRoot = "${src.name}/paperwork-backend";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     ./flaky_test.patch
   ];
 
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   postPatch = ''
     chmod a+w -R ..

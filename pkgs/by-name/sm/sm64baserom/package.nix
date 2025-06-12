@@ -1,7 +1,6 @@
 {
   requireFile,
   runCommand,
-
   region ? "us",
   showRegionMessage ? true,
 }:
@@ -14,10 +13,9 @@ let
       already part of the store. To get this file you can dump your Super Mario 64 cartridge's contents
       and add it to the nix store with nix-store --add-fixed sha256 <FILE>.
       ${
-        if showRegionMessage then
-          ''Note that if you are not using a US baserom, you must overwrite the "region" attribute with either "eu" or "jp".''
-        else
-          ""
+        if showRegionMessage
+        then ''Note that if you are not using a US baserom, you must overwrite the "region" attribute with either "eu" or "jp".''
+        else ""
       }
     '';
     sha256 =
@@ -26,14 +24,16 @@ let
         "eu" = "c792e5ebcba34c8d98c0c44cf29747c8ee67e7b907fcc77887f9ff2523f80572";
         "jp" = "9cf7a80db321b07a8d461fe536c02c87b7412433953891cdec9191bfad2db317";
       }
-      .${region};
+      .${
+        region
+      };
   };
-  result = runCommand "baserom-${region}-safety-dir" { } ''
+  result = runCommand "baserom-${region}-safety-dir" {} ''
     mkdir $out
     ln -s ${file} $out/${file.name}
   '';
 in
-result
-// {
-  romPath = "${result.outPath}/${file.name}";
-}
+  result
+  // {
+    romPath = "${result.outPath}/${file.name}";
+  }

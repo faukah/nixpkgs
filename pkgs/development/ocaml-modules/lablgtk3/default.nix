@@ -8,7 +8,6 @@
   cairo2,
   camlp-streams,
 }:
-
 buildDunePackage rec {
   version = "3.1.5";
   pname = "lablgtk3";
@@ -20,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-1IIc2+zzrjdPIDF9Y+Q/5YAww7qWV7UaLoPmUhl+jqw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dune-configurator
     camlp-streams
@@ -34,6 +33,6 @@ buildDunePackage rec {
     description = "OCaml interface to GTK 3";
     homepage = "http://lablgtk.forge.ocamlcore.org/";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

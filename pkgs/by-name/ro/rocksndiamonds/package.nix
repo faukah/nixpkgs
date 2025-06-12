@@ -10,7 +10,6 @@
   SDL2_net,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocksndiamonds";
   version = "4.4.0.5";
@@ -76,6 +75,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.artsoft.org/rocksndiamonds/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
   };
 })

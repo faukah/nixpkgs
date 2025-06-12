@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m6zeQUL+yBh3ixS+crbJWHX5TLa61A/3oqMz5UVELso=";
   };
 
-  patches = [ ./disable-building-docs.patch ];
+  patches = [./disable-building-docs.patch];
 
   # Disable blanket -Werror to fix build on `gcc-13` related to minor
   # warnings on `boringssl`.
@@ -77,14 +77,16 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-ca-bundle=${
-      if stdenv.hostPlatform.isDarwin then "/etc/ssl/cert.pem" else "/etc/ssl/certs/ca-certificates.crt"
+      if stdenv.hostPlatform.isDarwin
+      then "/etc/ssl/cert.pem"
+      else "/etc/ssl/certs/ca-certificates.crt"
     }"
     "--with-ca-path=${cacert}/etc/ssl/certs"
   ];
 
-  buildFlags = [ "chrome-build" ];
+  buildFlags = ["chrome-build"];
   checkTarget = "chrome-checkbuild";
-  installTargets = [ "chrome-install" ];
+  installTargets = ["chrome-install"];
 
   doCheck = true;
 
@@ -158,24 +160,22 @@ stdenv.mkDerivation rec {
       installShellCompletion $TMPDIR/curl-impersonate-chrome.{zsh,fish}
     '';
 
-  preFixup =
-    let
-      libext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      # If libnssckbi.so is needed, link libnssckbi.so without needing nss in closure
-      if grep -F nssckbi $out/lib/libcurl-impersonate-*${libext} &>/dev/null; then
-        ln -s ${p11-kit}/lib/pkcs11/p11-kit-trust${libext} $out/lib/libnssckbi${libext}
-        ${lib.optionalString stdenv.hostPlatform.isElf ''
-          patchelf --add-needed libnssckbi${libext} $out/lib/libcurl-impersonate-*${libext}
-        ''}
-      fi
-    '';
+  preFixup = let
+    libext = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    # If libnssckbi.so is needed, link libnssckbi.so without needing nss in closure
+    if grep -F nssckbi $out/lib/libcurl-impersonate-*${libext} &>/dev/null; then
+      ln -s ${p11-kit}/lib/pkcs11/p11-kit-trust${libext} $out/lib/libnssckbi${libext}
+      ${lib.optionalString stdenv.hostPlatform.isElf ''
+      patchelf --add-needed libnssckbi${libext} $out/lib/libcurl-impersonate-*${libext}
+    ''}
+    fi
+  '';
 
-  disallowedReferences = [ go ];
+  disallowedReferences = [go];
 
   passthru = {
-    deps = callPackage ./deps.nix { };
+    deps = callPackage ./deps.nix {};
 
     updateScript = ./update.sh;
 
@@ -186,7 +186,7 @@ stdenv.mkDerivation rec {
         src = passthru.deps."boringssl.zip";
         vendorHash = "sha256-oKlwh+Oup3lVgqgq42vY3iLg62VboF9N565yK2W0XxI=";
 
-        nativeBuildInputs = [ unzip ];
+        nativeBuildInputs = [unzip];
 
         proxyVendor = true;
       }).goModules;
@@ -199,7 +199,7 @@ stdenv.mkDerivation rec {
       curl
       mit
     ];
-    maintainers = with lib.maintainers; [ ggg ];
+    maintainers = with lib.maintainers; [ggg];
     platforms = lib.platforms.unix;
     mainProgram = "curl-impersonate-chrome";
   };

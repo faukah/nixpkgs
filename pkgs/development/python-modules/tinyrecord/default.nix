@@ -5,7 +5,6 @@
   pytestCheckHook,
   tinydb,
 }:
-
 buildPythonPackage rec {
   pname = "tinyrecord";
   version = "0.2.0";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
     tinydb
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "tinyrecord" ];
+  pythonImportsCheck = ["tinyrecord"];
 
   meta = with lib; {
     description = "Transaction support for TinyDB";
     homepage = "https://github.com/eugene-eeo/tinyrecord";
     changelog = "https://github.com/eugene-eeo/tinyrecord/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

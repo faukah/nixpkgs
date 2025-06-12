@@ -17,7 +17,6 @@
   pytest-mock,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "ase";
   version = "3.25.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-N0z4yp/liPBdboVto8nBfvJi3JaAJ7Ix1EkzQUDJYsI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -51,29 +50,31 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  disabledTests = [
-    "test_fundamental_params"
-    "test_ase_bandstructure"
-    "test_imports"
-    "test_units"
-    "test_favicon"
-    "test_vibrations_methods" # missing attribute
-    "test_jmol_roundtrip" # missing attribute
-    "test_pw_input_write_nested_flat" # Did not raise DeprecationWarning
-    "test_fix_scaled" # Did not raise UserWarning
-    "test_ipi_protocol" # flaky
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ "test_info_calculators" ];
+  disabledTests =
+    [
+      "test_fundamental_params"
+      "test_ase_bandstructure"
+      "test_imports"
+      "test_units"
+      "test_favicon"
+      "test_vibrations_methods" # missing attribute
+      "test_jmol_roundtrip" # missing attribute
+      "test_pw_input_write_nested_flat" # Did not raise DeprecationWarning
+      "test_fix_scaled" # Did not raise UserWarning
+      "test_ipi_protocol" # flaky
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") ["test_info_calculators"];
 
   preCheck = ''
     export PATH="$out/bin:$PATH"
   '';
 
-  pythonImportsCheck = [ "ase" ];
+  pythonImportsCheck = ["ase"];
 
   meta = with lib; {
     description = "Atomic Simulation Environment";
     homepage = "https://wiki.fysik.dtu.dk/ase/";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,12 +7,10 @@
   stdlib,
   version ? null,
   elpi-version ? null,
-}:
-
-let
+}: let
   default-elpi-version =
-    if elpi-version != null then
-      elpi-version
+    if elpi-version != null
+    then elpi-version
     else
       (lib.switch coq.coq-version [
         {
@@ -59,8 +57,8 @@ let
           case = "9.0";
           out = "2.0.7";
         }
-      ] { });
-  elpi = coq.ocamlPackages.elpi.override { version = default-elpi-version; };
+      ] {});
+  elpi = coq.ocamlPackages.elpi.override {version = default-elpi-version;};
   propagatedBuildInputs_wo_elpi = [
     coq.ocamlPackages.findlib
   ];
@@ -69,52 +67,54 @@ let
     repo = "coq-elpi";
     owner = "LPCIC";
     inherit version;
-    defaultVersion = lib.switch coq.coq-version [
-      {
-        case = "9.0";
-        out = "2.5.2";
-      }
-      {
-        case = "8.20";
-        out = "2.5.2";
-      }
-      {
-        case = "8.19";
-        out = "2.0.1";
-      }
-      {
-        case = "8.18";
-        out = "2.0.0";
-      }
-      {
-        case = "8.17";
-        out = "1.18.0";
-      }
-      {
-        case = "8.16";
-        out = "1.15.6";
-      }
-      {
-        case = "8.15";
-        out = "1.14.0";
-      }
-      {
-        case = "8.14";
-        out = "1.11.2";
-      }
-      {
-        case = "8.13";
-        out = "1.11.1";
-      }
-      {
-        case = "8.12";
-        out = "1.8.3_8.12";
-      }
-      {
-        case = "8.11";
-        out = "1.6.3_8.11";
-      }
-    ] null;
+    defaultVersion =
+      lib.switch coq.coq-version [
+        {
+          case = "9.0";
+          out = "2.5.2";
+        }
+        {
+          case = "8.20";
+          out = "2.5.2";
+        }
+        {
+          case = "8.19";
+          out = "2.0.1";
+        }
+        {
+          case = "8.18";
+          out = "2.0.0";
+        }
+        {
+          case = "8.17";
+          out = "1.18.0";
+        }
+        {
+          case = "8.16";
+          out = "1.15.6";
+        }
+        {
+          case = "8.15";
+          out = "1.14.0";
+        }
+        {
+          case = "8.14";
+          out = "1.11.2";
+        }
+        {
+          case = "8.13";
+          out = "1.11.1";
+        }
+        {
+          case = "8.12";
+          out = "1.8.3_8.12";
+        }
+        {
+          case = "8.11";
+          out = "1.6.3_8.11";
+        }
+      ]
+      null;
     release."2.5.2".sha256 = "sha256-lLzjPrbVB3rrqox528YiheUb0u89R84Xmrgkn0oplOs=";
     release."2.5.0".sha256 = "sha256-Z5xjO83X/ZoTQlWnVupGXPH3HuJefr57Kv128I0dltg=";
     release."2.4.0".sha256 = "sha256-W2+vVGExLLux8e0nSZESSoMVvrLxhL6dmXkb+JuKiqc=";
@@ -156,12 +156,12 @@ let
     release."1.6.0".sha256 = "0kf99i43mlf750fr7fric764mm495a53mg5kahnbp6zcjcxxrm0b";
     releaseRev = v: "v${v}";
 
-    buildFlags = [ "OCAMLWARN=" ];
+    buildFlags = ["OCAMLWARN="];
 
     mlPlugin = true;
     useDuneifVersion = v: lib.versions.isGe "2.2.0" v || v == "dev";
 
-    propagatedBuildInputs = propagatedBuildInputs_wo_elpi ++ [ elpi ];
+    propagatedBuildInputs = propagatedBuildInputs_wo_elpi ++ [elpi];
 
     preConfigure = ''
       make elpi/dune || true
@@ -169,36 +169,38 @@ let
 
     meta = {
       description = "Coq plugin embedding ELPI";
-      maintainers = [ lib.maintainers.cohencyril ];
+      maintainers = [lib.maintainers.cohencyril];
       license = lib.licenses.lgpl21Plus;
     };
   };
   patched-derivation1 = derivation.overrideAttrs (
     o:
-    lib.optionalAttrs (o ? elpi-version) {
-      propagatedBuildInputs = propagatedBuildInputs_wo_elpi ++ [
-        (coq.ocamlPackages.elpi.override { version = o.elpi-version; })
-      ];
-    }
+      lib.optionalAttrs (o ? elpi-version) {
+        propagatedBuildInputs =
+          propagatedBuildInputs_wo_elpi
+          ++ [
+            (coq.ocamlPackages.elpi.override {version = o.elpi-version;})
+          ];
+      }
   );
   patched-derivation2 = patched-derivation1.overrideAttrs (
     o:
-    lib.optionalAttrs (o.version != null && (o.version == "dev" || lib.versions.isGe "2.2.0" o.version))
+      lib.optionalAttrs (o.version != null && (o.version == "dev" || lib.versions.isGe "2.2.0" o.version))
       {
-        propagatedBuildInputs = o.propagatedBuildInputs ++ [ coq.ocamlPackages.ppx_optcomp ];
+        propagatedBuildInputs = o.propagatedBuildInputs ++ [coq.ocamlPackages.ppx_optcomp];
       }
   );
   patched-derivation3 = patched-derivation2.overrideAttrs (
     o:
-    lib.optionalAttrs (o.version != null && o.version == "2.4.0") {
-      propagatedBuildInputs = o.propagatedBuildInputs ++ [ stdlib ];
-    }
+      lib.optionalAttrs (o.version != null && o.version == "2.4.0") {
+        propagatedBuildInputs = o.propagatedBuildInputs ++ [stdlib];
+      }
   );
   patched-derivation4 = patched-derivation3.overrideAttrs (
     o:
     # this is just a wrapper for rocPackages.rocq-elpi for Rocq >= 9.0
-    if coq.version != null && (coq.version == "dev" || lib.versions.isGe "9.0" coq.version) then
-      {
+      if coq.version != null && (coq.version == "dev" || lib.versions.isGe "9.0" coq.version)
+      then {
         configurePhase = ''
           echo no configuration
         '';
@@ -208,10 +210,10 @@ let
         installPhase = ''
           echo installing nothing
         '';
-        propagatedBuildInputs = o.propagatedBuildInputs ++ [ rocqPackages.rocq-elpi ];
+        propagatedBuildInputs = o.propagatedBuildInputs ++ [rocqPackages.rocq-elpi];
       }
-    else
-      lib.optionalAttrs (o.version != null && (o.version == "dev" || lib.versions.isGe "2.5.0" o.version))
+      else
+        lib.optionalAttrs (o.version != null && (o.version == "dev" || lib.versions.isGe "2.5.0" o.version))
         {
           configurePhase = ''
             make dune-files || true
@@ -227,4 +229,4 @@ let
         }
   );
 in
-patched-derivation4
+  patched-derivation4

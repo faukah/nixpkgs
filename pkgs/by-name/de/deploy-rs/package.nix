@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "deploy-rs";
   version = "0-unstable-2024-06-12";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "Multi-profile Nix-flake deploy tool";
     homepage = "https://github.com/serokell/deploy-rs";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ teutat3s ];
+    maintainers = with lib.maintainers; [teutat3s];
     mainProgram = "deploy";
   };
 }

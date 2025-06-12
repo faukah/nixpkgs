@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cycler";
   version = "0.12.1";
@@ -23,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-5L0APSi/mJ85SuKCVz+c6Fn8zZNpRm6vCeBO0fpGKxg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytest-xdist

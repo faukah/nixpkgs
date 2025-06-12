@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "starfetch";
   version = "0.0.4";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Haruno19/starfetch";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     mainProgram = "starfetch";
   };
 }

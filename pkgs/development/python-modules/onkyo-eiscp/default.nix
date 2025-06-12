@@ -5,7 +5,6 @@
   docopt,
   netifaces,
 }:
-
 buildPythonPackage rec {
   pname = "onkyo-eiscp";
   version = "1.2.7";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     mainProgram = "onkyo";
     homepage = "https://github.com/miracle2k/onkyo-eiscp";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

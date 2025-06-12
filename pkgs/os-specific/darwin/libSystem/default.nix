@@ -1,5 +1,4 @@
-{ stdenvNoCC }:
-
+{stdenvNoCC}:
 # Darwin dynamically determines the `libSystem` to use based on the SDK found at `DEVELOPER_DIR`.
 # By default, this will be `apple-sdk` or one of the versioned variants.
 stdenvNoCC.mkDerivation {

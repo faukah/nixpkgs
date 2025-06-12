@@ -10,8 +10,7 @@
   ninja,
   stdenv,
   fetchpatch,
-}:
-let
+}: let
   src = fetchFromGitHub {
     owner = "bluskript";
     repo = "nix-inspect";
@@ -51,27 +50,27 @@ let
     mesonBuildType = "release";
   };
 in
-rustPlatform.buildRustPackage {
-  inherit src;
-  pname = "nix-inspect";
-  version = "0.1.2";
+  rustPlatform.buildRustPackage {
+    inherit src;
+    pname = "nix-inspect";
+    version = "0.1.2";
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-3FTlbWSA0SKCfunQDdXu9g2aQAdAIfOTq5qJbzrRPjc=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-3FTlbWSA0SKCfunQDdXu9g2aQAdAIfOTq5qJbzrRPjc=";
 
-  buildInputs = [ workerPackage ];
+    buildInputs = [workerPackage];
 
-  postPatch = ''
-    substituteInPlace src/workers.rs \
-      --replace-fail 'env!("WORKER_BINARY_PATH")' '"${workerPackage}/bin/nix-inspect"'
-  '';
+    postPatch = ''
+      substituteInPlace src/workers.rs \
+        --replace-fail 'env!("WORKER_BINARY_PATH")' '"${workerPackage}/bin/nix-inspect"'
+    '';
 
-  meta = with lib; {
-    description = "Interactive TUI for inspecting nix configs and other expressions";
-    homepage = "https://github.com/bluskript/nix-inspect";
-    license = licenses.mit;
-    maintainers = with maintainers; [ blusk ];
-    platforms = platforms.unix;
-    mainProgram = "nix-inspect";
-  };
-}
+    meta = with lib; {
+      description = "Interactive TUI for inspecting nix configs and other expressions";
+      homepage = "https://github.com/bluskript/nix-inspect";
+      license = licenses.mit;
+      maintainers = with maintainers; [blusk];
+      platforms = platforms.unix;
+      mainProgram = "nix-inspect";
+    };
+  }

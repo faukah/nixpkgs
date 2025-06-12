@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aliyun-python-sdk-core";
   version = "2.16.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # All components are stored in a mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "aliyunsdkcore" ];
+  pythonImportsCheck = ["aliyunsdkcore"];
 
   meta = with lib; {
     description = "Core module of Aliyun Python SDK";
     homepage = "https://github.com/aliyun/aliyun-openapi-python-sdk";
     changelog = "https://github.com/aliyun/aliyun-openapi-python-sdk/blob/master/aliyun-python-sdk-core/ChangeLog.txt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

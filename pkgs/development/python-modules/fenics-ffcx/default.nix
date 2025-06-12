@@ -13,7 +13,6 @@
   pytestCheckHook,
   addBinToPathHook,
 }:
-
 buildPythonPackage rec {
   pname = "fenics-ffcx";
   version = "0.9.0";
@@ -65,6 +64,6 @@ buildPythonPackage rec {
       unlicense
       lgpl3Plus
     ];
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

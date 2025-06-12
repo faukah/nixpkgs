@@ -6,7 +6,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "inflate64";
   version = "1.0.1";
@@ -43,5 +42,4 @@ buildPythonPackage rec {
       PopeRigby
     ];
   };
-
 }

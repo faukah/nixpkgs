@@ -1,8 +1,4 @@
-{
-  runTest,
-  ...
-}:
-{
+{runTest, ...}: {
   bios = runTest ./bios.nix;
   checksum = runTest ./checksum.nix;
   secureBoot = runTest ./secure-boot.nix;

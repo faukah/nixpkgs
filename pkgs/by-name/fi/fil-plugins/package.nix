@@ -4,7 +4,6 @@
   fetchurl,
   ladspaH,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fil-plugins";
   version = "0.3.0";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HAvycSEZZfZwoVp3g7QWcwfbdyZKwWJKBuVmeWTajuk=";
   };
 
-  buildInputs = [ ladspaH ];
+  buildInputs = [ladspaH];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/ladspa/index.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 })

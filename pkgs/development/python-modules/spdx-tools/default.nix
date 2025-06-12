@@ -16,7 +16,6 @@
   uritools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "spdx-tools";
   version = "0.8.3";
@@ -48,9 +47,9 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "spdx_tools.spdx" ];
+  pythonImportsCheck = ["spdx_tools.spdx"];
 
   disabledTestPaths = [
     # Test depends on the currently not packaged pyshacl module
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/spdx/tools-python";
     changelog = "https://github.com/spdx/tools-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -15,7 +15,6 @@
   xmltodict,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "rokuecp";
   version = "0.19.4";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "--cov" ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -65,13 +64,13 @@ buildPythonPackage rec {
     "test_get_tv_channels_single_channel"
   ];
 
-  pythonImportsCheck = [ "rokuecp" ];
+  pythonImportsCheck = ["rokuecp"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Roku (ECP)";
     homepage = "https://github.com/ctalkington/python-rokuecp";
     changelog = "https://github.com/ctalkington/python-rokuecp/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

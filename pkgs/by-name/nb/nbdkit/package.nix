@@ -17,7 +17,6 @@
   cdrkit,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nbdkit";
   version = "1.42.1";
@@ -73,27 +72,27 @@ stdenv.mkDerivation (finalAttrs: {
     "--disable-example4"
   ];
 
-  installFlags = [ "bashcompdir=$(out)/share/bash-completion/completions" ];
+  installFlags = ["bashcompdir=$(out)/share/bash-completion/completions"];
 
   postInstall = ''
     for bin in $out/bin/*; do
       wrapProgram "$bin" \
         --prefix PATH : "$out/bin:${
-          lib.makeBinPath [
-            e2fsprogs
-            cdrkit
-          ]
-        }"
+      lib.makeBinPath [
+        e2fsprogs
+        cdrkit
+      ]
+    }"
     done
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://gitlab.com/nbdkit/nbdkit";
     description = "NBD server with stable plugin ABI and permissive license";
     license = with lib.licenses; bsd3;
-    maintainers = with lib.maintainers; [ lukts30 ];
+    maintainers = with lib.maintainers; [lukts30];
     platforms = lib.platforms.unix;
     mainProgram = "nbdkit";
   };

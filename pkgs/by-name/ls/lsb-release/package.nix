@@ -5,7 +5,6 @@
   coreutils,
   getopt,
 }:
-
 replaceVarsWith {
   name = "lsb_release";
 
@@ -21,8 +20,8 @@ replaceVarsWith {
   meta = with lib; {
     description = "Prints certain LSB (Linux Standard Base) and Distribution information";
     mainProgram = "lsb_release";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ primeos ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

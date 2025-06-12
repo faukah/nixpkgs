@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "hypothesis-auto";
   version = "1.1.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     "pydantic"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     hypothesis
@@ -36,18 +35,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pytest = [ pytest ];
+    pytest = [pytest];
   };
 
-  pythonImportsCheck = [ "hypothesis_auto" ];
+  pythonImportsCheck = ["hypothesis_auto"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Enables fully automatic tests for type annotated functions";
     homepage = "https://github.com/timothycrosley/hypothesis-auto/";
     changelog = "https://github.com/timothycrosley/hypothesis-auto/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

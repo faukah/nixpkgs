@@ -9,7 +9,6 @@
   rdkit,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "meeko";
   version = "0.6.1";
@@ -32,15 +31,15 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "meeko" ];
+  pythonImportsCheck = ["meeko"];
 
   meta = {
     description = "Python package for preparing small molecule for docking";
     homepage = "https://github.com/forlilab/Meeko";
     changelog = "https://github.com/forlilab/Meeko/releases/tag/${src.tag}";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

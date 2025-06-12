@@ -3,25 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.umurmur;
-  dumpAttrset =
-    x: top_level:
+  dumpAttrset = x: top_level:
     (lib.optionalString (!top_level) "{")
     + (lib.concatLines (lib.mapAttrsToList (name: value: "${name} = ${toConfigValue value false};") x))
     + (lib.optionalString (!top_level) "}");
   dumpList = x: top_level: "(${lib.concatStringsSep ",\n" (map (y: "${toConfigValue y false}") x)})";
 
-  toConfigValue =
-    x: top_level:
-    if builtins.isList x then
-      dumpList x top_level
-    else if builtins.isAttrs x then
-      dumpAttrset x top_level
-    else
-      builtins.toJSON x;
+  toConfigValue = x: top_level:
+    if builtins.isList x
+    then dumpList x top_level
+    else if builtins.isAttrs x
+    then dumpAttrset x top_level
+    else builtins.toJSON x;
   dumpCfg = x: toConfigValue x true;
   configAttrs = lib.filterAttrsRecursive (name: value: value != null) cfg.settings;
   configFile = pkgs.writeTextFile {
@@ -31,13 +26,12 @@ let
     '';
     text = "\n" + (dumpCfg configAttrs) + "\n";
   };
-in
-{
+in {
   options = {
     services.umurmur = {
       enable = lib.mkEnableOption "uMurmur Mumble server";
 
-      package = lib.mkPackageOption pkgs "umurmur" { };
+      package = lib.mkPackageOption pkgs "umurmur" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -49,22 +43,20 @@ in
 
       settings = lib.mkOption {
         type = lib.types.submodule {
-          freeformType =
-            let
-              valueType =
-                with lib.types;
-                oneOf [
-                  bool
-                  int
-                  float
-                  str
-                  path
-                  (listOf (attrsOf valueType))
-                ]
-                // {
-                  description = "uMurmur config value";
-                };
-            in
+          freeformType = let
+            valueType = with lib.types;
+              oneOf [
+                bool
+                int
+                float
+                str
+                path
+                (listOf (attrsOf valueType))
+              ]
+              // {
+                description = "uMurmur config value";
+              };
+          in
             valueType;
           options = {
             welcometext = lib.mkOption {
@@ -145,7 +137,7 @@ in
 
             channel_links = lib.mkOption {
               type = lib.types.listOf lib.types.attrs;
-              default = [ ];
+              default = [];
               example = [
                 {
                   source = "Lobby";
@@ -160,10 +152,9 @@ in
               default = "root";
               description = "The channel in which users will appear in when connecting.";
             };
-
           };
         };
-        default = { };
+        default = {};
         description = "Settings of uMurmur. For reference see https://github.com/umurmur/umurmur/blob/master/umurmur.conf.example";
       };
 
@@ -178,15 +169,15 @@ in
 
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.bindport ];
-      allowedUDPPorts = [ cfg.settings.bindport ];
+      allowedTCPPorts = [cfg.settings.bindport];
+      allowedUDPPorts = [cfg.settings.bindport];
     };
 
     systemd.services.umurmur = {
       description = "uMurmur Mumble Server";
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network.target"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${lib.getExe cfg.package} -d -c ${cfg.configFile}";
@@ -198,8 +189,8 @@ in
         # hardening
         UMask = 27;
         MemoryDenyWriteExecute = true;
-        AmbientCapabilities = [ "" ];
-        CapabilityBoundingSet = [ "" ];
+        AmbientCapabilities = [""];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -239,6 +230,6 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
+  meta.maintainers = with lib.maintainers; [_3JlOy-PYCCKUi];
   meta.doc = ./umurmur.md;
 }

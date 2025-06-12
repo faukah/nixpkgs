@@ -12,7 +12,6 @@
   fcitx5,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcitx5-mcbopomofo";
   version = "2.9.1";
@@ -44,13 +43,13 @@ stdenv.mkDerivation rec {
     "-DCMAKE_BUILD_TYPE=Release"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "McBopomofo for fcitx5";
     homepage = "https://github.com/openvanilla/fcitx5-mcbopomofo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ shiphan ];
+    maintainers = with lib.maintainers; [shiphan];
     platforms = lib.platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   testers,
   dex-oidc,
 }:
-
 buildGo124Module rec {
   pname = "dex";
   version = "2.42.0";

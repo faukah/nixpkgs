@@ -8,7 +8,6 @@
   scorecard,
   gitMinimal,
 }:
-
 buildGoModule rec {
   pname = "scorecard";
   version = "5.1.1";
@@ -32,14 +31,13 @@ buildGoModule rec {
     '';
   };
   vendorHash =
-    if stdenv.hostPlatform.isLinux then
-      "sha256-zWMmbC0lkjlIwrfq3ql0+ndn/4y/PW92TgTiUYfEn0M="
-    else
-      "sha256-/AtW36Pl5W+WNVCKhC0WMwYS848MUvAaKdm+i8t88D8=";
+    if stdenv.hostPlatform.isLinux
+    then "sha256-zWMmbC0lkjlIwrfq3ql0+ndn/4y/PW92TgTiUYfEn0M="
+    else "sha256-/AtW36Pl5W+WNVCKhC0WMwYS848MUvAaKdm+i8t88D8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -56,7 +54,7 @@ buildGoModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
 
   preCheck = ''
     # Feed in all but the e2e tests for testing

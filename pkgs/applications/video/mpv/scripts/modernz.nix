@@ -25,16 +25,16 @@ buildLua (finalAttrs: {
     "--set"
     "FONTCONFIG_FILE"
     (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Sleek and modern OSC for mpv designed to enhance functionality by adding more features, all while preserving the core standards of mpv's OSC";
     homepage = "https://github.com/Samillion/ModernZ";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
   };
 })

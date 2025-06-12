@@ -27,12 +27,12 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/plandex-server \
-      --prefix PATH : ${lib.makeBinPath [ git ]}
+      --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   sourceRoot = "${src.name}/app/server";
 
@@ -43,6 +43,6 @@ buildGoModule rec {
     description = "AI driven development in your terminal. Designed for large, real-world tasks. The server part";
     homepage = "https://plandex.ai/";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
   };
 }

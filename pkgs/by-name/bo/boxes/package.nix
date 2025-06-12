@@ -8,7 +8,6 @@
   libunistring,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "boxes";
   version = "2.3.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
                 "GLOBALCONF=${placeholder "out"}/share/boxes/boxes-config"
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     install -Dm755 -t $out/bin out/boxes
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     mainProgram = "boxes";
     homepage = "https://boxes.thomasjensen.com";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ waiting-for-dev ];
+    maintainers = with maintainers; [waiting-for-dev];
     platforms = platforms.unix;
   };
 }

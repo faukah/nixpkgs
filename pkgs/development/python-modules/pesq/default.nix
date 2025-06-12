@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   numpy,
   setuptools,
-
   # tests
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "pesq";
   version = "0.0.4";
@@ -72,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ludlows/PESQ";
     changelog = "https://github.com/ludlows/PESQ/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

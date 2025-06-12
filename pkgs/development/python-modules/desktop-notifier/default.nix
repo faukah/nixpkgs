@@ -11,7 +11,6 @@
   dbus-fast,
   rubicon-objc,
 }:
-
 buildPythonPackage rec {
   pname = "desktop-notifier";
   version = "6.1.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-COPJHMURwb76p5a5w1/i1xL7B8f2GWGfXXeWW/GUxeY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -34,19 +33,19 @@ buildPythonPackage rec {
       packaging
       typing-extensions
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ dbus-fast ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ rubicon-objc ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [dbus-fast]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [rubicon-objc];
 
   # no tests available, do the imports check instead
   doCheck = false;
 
-  pythonImportsCheck = [ "desktop_notifier" ];
+  pythonImportsCheck = ["desktop_notifier"];
 
   meta = {
     description = "Python library for cross-platform desktop notifications";
     homepage = "https://github.com/samschott/desktop-notifier";
     changelog = "https://github.com/samschott/desktop-notifier/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sfrijters ];
+    maintainers = with lib.maintainers; [sfrijters];
   };
 }

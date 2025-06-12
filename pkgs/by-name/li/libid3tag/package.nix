@@ -6,7 +6,6 @@
   gperf,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libid3tag";
   version = "0.16.3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "ID3 tag manipulation library";
     homepage = "https://codeberg.org/tenacityteam/libid3tag";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

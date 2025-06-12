@@ -4,7 +4,6 @@
   hiera-eyaml,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "yamlpath";
   version = "3.8.0";
@@ -46,7 +45,7 @@ python3.pkgs.buildPythonApplication rec {
       using powerful, intuitive, command-line friendly syntax
     '';
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ Flakebi ];
+    maintainers = with lib.maintainers; [Flakebi];
 
     # No support for ruamel.yaml > 0.17.21
     # https://github.com/wwkimball/yamlpath/issues/217

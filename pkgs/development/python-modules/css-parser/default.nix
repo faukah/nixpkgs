@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "css-parser";
   version = "1.0.10";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
   # See https://github.com/ebook-utils/css-parser/pull/2
   doCheck = false;
 
-  pythonImportsCheck = [ "css_parser" ];
+  pythonImportsCheck = ["css_parser"];
 
   meta = with lib; {
     description = "CSS Cascading Style Sheets library for Python";
     homepage = "https://github.com/ebook-utils/css-parser";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jethro ];
+    maintainers = with maintainers; [jethro];
   };
 }

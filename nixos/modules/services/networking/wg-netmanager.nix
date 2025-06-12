@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.wg-netmanager;
-in
-{
-
+in {
   options = {
     services.wg-netmanager = {
       enable = mkEnableOption "Wireguard network manager";
@@ -23,8 +18,8 @@ in
     # NOTE: wg-netmanager runs as root
     systemd.services.wg-netmanager = {
       description = "Wireguard network manager";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = with pkgs; [
         wireguard-tools
         iproute2
@@ -50,5 +45,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ gin66 ];
+  meta.maintainers = with maintainers; [gin66];
 }

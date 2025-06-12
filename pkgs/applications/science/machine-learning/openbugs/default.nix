@@ -3,12 +3,11 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "OpenBUGS";
   version = "3.2.3";
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   src = fetchFromGitHub {
     owner = "jsta";
@@ -26,6 +25,6 @@ stdenv.mkDerivation {
       "x86_64-linux"
     ];
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ andresnav ];
+    maintainers = with maintainers; [andresnav];
   };
 }

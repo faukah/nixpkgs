@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ablog";
   version = "0.11.12";
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     setuptools-scm
   ];
 
-  nativeBuildInputs = with python3Packages; [ wheel ];
+  nativeBuildInputs = with python3Packages; [wheel];
 
   dependencies = with python3Packages; [
     docutils
@@ -50,15 +49,15 @@ python3Packages.buildPythonApplication rec {
 
   # assert "post 1" not in html
   # AssertionError
-  disabledTests = [ "test_not_safe_for_parallel_read" ];
+  disabledTests = ["test_not_safe_for_parallel_read"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "ABlog for blogging with Sphinx";
     mainProgram = "ablog";
     homepage = "https://ablog.readthedocs.io/en/latest/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rgrinberg ];
+    maintainers = with lib.maintainers; [rgrinberg];
   };
 }

@@ -6,7 +6,6 @@
   wrapGAppsHook3,
   keybinder3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "findex";
   version = "0.8.3";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ keybinder3 ];
+  buildInputs = [keybinder3];
 
   postInstall = ''
     install -Dm644 css/style.css $out/share/findex/style.css
@@ -44,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mdgaziur/findex";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

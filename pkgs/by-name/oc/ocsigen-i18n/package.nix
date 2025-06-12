@@ -3,12 +3,11 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "ocsigen-i18n";
   version = "4.0.0";
 
-  buildInputs = with ocamlPackages; [ ppxlib ];
+  buildInputs = with ocamlPackages; [ppxlib];
 
   src = fetchFromGitHub {
     owner = "besport";
@@ -21,7 +20,6 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://github.com/besport/ocsigen-i18n";
     description = "I18n made easy for web sites written with eliom";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
-
 }

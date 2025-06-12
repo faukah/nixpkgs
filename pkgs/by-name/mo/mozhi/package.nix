@@ -18,13 +18,13 @@ buildGoModule {
 
   vendorHash = "sha256-ptwP+ZuuzxRpIuNDoXnAML1KYEh9zTBcOs9YTI8z63A=";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://codeberg.org/aryak/mozhi";
     description = "Alternative-frontend for many translation engines, fork of SimplyTranslate";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.ryand56 ];
+    maintainers = [lib.maintainers.ryand56];
     mainProgram = "mozhi";
   };
 }

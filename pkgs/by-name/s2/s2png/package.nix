@@ -6,7 +6,6 @@
   gd,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "s2png";
   version = "0.7.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0y3crfm0jqprgxamlly713cka2x1bp6z63p1lw9wh4wc37kpira6";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     diffutils
     gd
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dbohdan/s2png/";
     description = "Store any data in PNG images";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.dbohdan ];
+    maintainers = [lib.maintainers.dbohdan];
     platforms = lib.platforms.unix;
     mainProgram = "s2png";
   };

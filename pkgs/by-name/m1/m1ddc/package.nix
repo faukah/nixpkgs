@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "m1ddc";
   version = "1.2.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/waydabber/m1ddc";
     license = lib.licenses.mit;
     mainProgram = "m1ddc";
-    maintainers = [ lib.maintainers.joanmassachs ];
-    platforms = [ "aarch64-darwin" ];
+    maintainers = [lib.maintainers.joanmassachs];
+    platforms = ["aarch64-darwin"];
   };
 })

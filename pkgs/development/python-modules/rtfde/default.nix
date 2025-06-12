@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rtfde";
   version = "0.1.2.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-dtPWgtOYpGaNRmIE7WNGJd/GWB2hQXsFJDDSHIcIjY4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "lark" ];
+  pythonRelaxDeps = ["lark"];
 
   dependencies = [
     lark
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "RTFDE" ];
+  pythonImportsCheck = ["RTFDE"];
 
   disabledTests = [
     # Malformed encapsulated RTF discovered
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Library for extracting encapsulated HTML and plain text content from the RTF bodies";
     homepage = "https://github.com/seamustuohy/RTFDE";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

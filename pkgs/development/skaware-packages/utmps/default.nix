@@ -1,5 +1,7 @@
-{ skawarePackages, skalibs }:
-
+{
+  skawarePackages,
+  skalibs,
+}:
 skawarePackages.buildPackage {
   pname = "utmps";
   version = "0.1.3.1";

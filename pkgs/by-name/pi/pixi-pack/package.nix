@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pixi-pack";
   version = "0.6.6";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-RqTaBs+kU8j6TmeX7cROZPEN4CeTKojwRJtXvfj2f8w=";
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # Needed to get openssl-sys to use pkgconfig.
   OPENSSL_NO_VENDOR = 1;
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Pack and unpack conda environments created with pixi";

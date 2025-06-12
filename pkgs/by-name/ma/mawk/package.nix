@@ -6,7 +6,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mawk";
   version = "1.3.4-20240819";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bh/ejuetilwVOCMWhj/WtMbSP6t4HdWrAXf/o+6arlw=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Interpreter for the AWK Programming Language";
     license = lib.licenses.gpl2Only;
     mainProgram = "mawk";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.unix;
   };
 })

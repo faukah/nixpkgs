@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "generaluser";
   version = "2.0.2-unstable-2025-04-21";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "General MIDI SoundFont with a low memory footprint";
     homepage = "https://www.schristiancollins.com/generaluser.php";
     license = lib.licenses.generaluser;
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
     platforms = lib.platforms.all;
   };
 })

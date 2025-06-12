@@ -13,9 +13,7 @@
   makeDesktopItem,
   copyDesktopItems,
   nix-update-script,
-}:
-
-let
+}: let
   pname = "gui-for-clash";
   version = "1.9.7";
 
@@ -28,8 +26,8 @@ let
 
   metaCommon = {
     homepage = "https://github.com/GUI-for-Cores/GUI.for.Clash";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
   };
 
   frontend = stdenv.mkDerivation (finalAttrs: {
@@ -64,83 +62,87 @@ let
       runHook postInstall
     '';
 
-    meta = metaCommon // {
-      description = "GUI program developed by vue3";
-      platforms = lib.platforms.all;
-    };
+    meta =
+      metaCommon
+      // {
+        description = "GUI program developed by vue3";
+        platforms = lib.platforms.all;
+      };
   });
 in
-buildGoModule {
-  inherit pname version src;
+  buildGoModule {
+    inherit pname version src;
 
-  patches = [ ./bridge.patch ];
+    patches = [./bridge.patch];
 
-  postPatch = ''
-    # As we need the $out reference, we can't use `replaceVars` here.
-    substituteInPlace bridge/bridge.go \
-      --replace-fail '@basepath@' "$out"
-  '';
+    postPatch = ''
+      # As we need the $out reference, we can't use `replaceVars` here.
+      substituteInPlace bridge/bridge.go \
+        --replace-fail '@basepath@' "$out"
+    '';
 
-  vendorHash = "sha256-Coq8GtaIS7ClmOTFw6PSgGDFW/CpGpKPvXgNw8qz3Hs=";
+    vendorHash = "sha256-Coq8GtaIS7ClmOTFw6PSgGDFW/CpGpKPvXgNw8qz3Hs=";
 
-  nativeBuildInputs = [
-    wails
-    pkg-config
-    autoPatchelfHook
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      wails
+      pkg-config
+      autoPatchelfHook
+      copyDesktopItems
+    ];
 
-  buildInputs = [
-    webkitgtk_4_0
-    libsoup_3
-  ];
+    buildInputs = [
+      webkitgtk_4_0
+      libsoup_3
+    ];
 
-  preBuild = ''
-    cp -r ${frontend} frontend/dist
-  '';
+    preBuild = ''
+      cp -r ${frontend} frontend/dist
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    wails build -m -s -trimpath -skipbindings -devtools -tags webkit2_40 -o GUI.for.Clash
+      wails build -m -s -trimpath -skipbindings -devtools -tags webkit2_40 -o GUI.for.Clash
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gui-for-clash";
-      exec = "GUI.for.Clash";
-      icon = "gui-for-clash";
-      genericName = "GUI.for.Clash";
-      desktopName = "GUI.for.Clash";
-      categories = [ "Network" ];
-      keywords = [ "Proxy" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "gui-for-clash";
+        exec = "GUI.for.Clash";
+        icon = "gui-for-clash";
+        genericName = "GUI.for.Clash";
+        desktopName = "GUI.for.Clash";
+        categories = ["Network"];
+        keywords = ["Proxy"];
+      })
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm 0755 build/bin/GUI.for.Clash $out/bin/GUI.for.Clash
-    install -Dm 0644 build/appicon.png $out/share/pixmaps/gui-for-clash.png
+      install -Dm 0755 build/bin/GUI.for.Clash $out/bin/GUI.for.Clash
+      install -Dm 0644 build/appicon.png $out/share/pixmaps/gui-for-clash.png
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    inherit frontend;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "frontend"
-      ];
+    passthru = {
+      inherit frontend;
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--subpackage"
+          "frontend"
+        ];
+      };
     };
-  };
 
-  meta = metaCommon // {
-    description = "Clash GUI program developed by vue3 + wails";
-    mainProgram = "GUI.for.Clash";
-    platforms = lib.platforms.linux;
-  };
-}
+    meta =
+      metaCommon
+      // {
+        description = "Clash GUI program developed by vue3 + wails";
+        mainProgram = "GUI.for.Clash";
+        platforms = lib.platforms.linux;
+      };
+  }

@@ -6,8 +6,7 @@
   nodejs,
   pnpm_9,
   stdenv,
-}:
-let
+}: let
   version = "0.23.1";
 
   parca-src = fetchFromGitHub {
@@ -49,37 +48,36 @@ let
     '';
   });
 in
+  buildGoModule rec {
+    inherit version;
 
-buildGoModule rec {
-  inherit version;
+    pname = "parca";
+    src = parca-src;
 
-  pname = "parca";
-  src = parca-src;
+    vendorHash = "sha256-O7dzdMGZ1l+cmVA3svbh/Ig1SbXXiMwJ7TXmrT2IM+g=";
 
-  vendorHash = "sha256-O7dzdMGZ1l+cmVA3svbh/Ig1SbXXiMwJ7TXmrT2IM+g=";
+    ldflags = [
+      "-X=main.version=${version}"
+      "-X=main.commit=${src.rev}"
+    ];
 
-  ldflags = [
-    "-X=main.version=${version}"
-    "-X=main.commit=${src.rev}"
-  ];
+    preBuild = ''
+      # Copy the built UI into the right place for the Go build to embed it.
+      cp -r ${ui}/share/parca/ui/* ui/packages/app/web/build
+    '';
 
-  preBuild = ''
-    # Copy the built UI into the right place for the Go build to embed it.
-    cp -r ${ui}/share/parca/ui/* ui/packages/app/web/build
-  '';
+    passthru = {
+      inherit ui;
+      updateScript = ./update.sh;
+    };
 
-  passthru = {
-    inherit ui;
-    updateScript = ./update.sh;
-  };
-
-  meta = {
-    mainProgram = "parca";
-    description = "Continuous profiling for analysis of CPU and memory usage";
-    homepage = "https://github.com/parca-dev/parca";
-    changelog = "https://github.com/parca-dev/parca/releases/tag/v${version}";
-    license = lib.licenses.asl20;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jnsgruk ];
-  };
-}
+    meta = {
+      mainProgram = "parca";
+      description = "Continuous profiling for analysis of CPU and memory usage";
+      homepage = "https://github.com/parca-dev/parca";
+      changelog = "https://github.com/parca-dev/parca/releases/tag/v${version}";
+      license = lib.licenses.asl20;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [jnsgruk];
+    };
+  }

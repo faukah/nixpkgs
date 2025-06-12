@@ -1,31 +1,28 @@
-{ ... }:
-{
+{...}: {
   name = "consul-template";
 
-  nodes.machine =
-    { ... }:
-    {
-      services.consul-template.instances.example.settings = {
-        template = [
-          {
-            contents = ''
-              {{ key "example" }}
-            '';
-            perms = "0600";
-            destination = "/example";
-          }
-        ];
-      };
+  nodes.machine = {...}: {
+    services.consul-template.instances.example.settings = {
+      template = [
+        {
+          contents = ''
+            {{ key "example" }}
+          '';
+          perms = "0600";
+          destination = "/example";
+        }
+      ];
+    };
 
-      services.consul = {
-        enable = true;
-        extraConfig = {
-          server = true;
-          bootstrap_expect = 1;
-          bind_addr = "127.0.0.1";
-        };
+    services.consul = {
+      enable = true;
+      extraConfig = {
+        server = true;
+        bootstrap_expect = 1;
+        bind_addr = "127.0.0.1";
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("consul.service")

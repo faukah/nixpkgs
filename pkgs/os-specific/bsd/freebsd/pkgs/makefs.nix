@@ -15,10 +15,12 @@ mkDerivation {
     "contrib/mknod"
     "sys/fs/cd9660"
   ];
-  buildInputs = compatIfNeeded ++ [
-    libnetbsd
-    libsbuf
-  ];
+  buildInputs =
+    compatIfNeeded
+    ++ [
+      libnetbsd
+      libsbuf
+    ];
   MK_TESTS = "no";
   MK_PIE = "no";
 }

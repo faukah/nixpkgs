@@ -17,6 +17,6 @@ build-idris-package {
   meta = {
     description = "Small bifunctor library for idris";
     homepage = "https://github.com/japesinator/Idris-Bifunctors";
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

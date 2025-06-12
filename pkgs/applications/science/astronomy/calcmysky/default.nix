@@ -9,7 +9,6 @@
   qtbase,
   stellarium,
 }:
-
 stdenv.mkDerivation rec {
   pname = "calcmysky";
   version = "0.3.4";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  cmakeFlags = [ "-DQT_VERSION=6" ];
+  cmakeFlags = ["-DQT_VERSION=6"];
 
   doCheck = true;
 
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Simulator of light scattering by planetary atmospheres";
     homepage = "https://github.com/10110111/CalcMySky";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

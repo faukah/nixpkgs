@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "cramfsprogs";
   version = "2.1-unstable-2025-01-27";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     install --target $out/bin -D cramfsck mkcramfs
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "Tools to create, check, and extract content of CramFs images";

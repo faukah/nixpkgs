@@ -16,7 +16,6 @@
   rrdtool,
   breeze-icons,
 }:
-
 mkDerivation rec {
   pname = "kcollectd";
   version = "0.12.1";
@@ -54,8 +53,8 @@ mkDerivation rec {
   meta = with lib; {
     description = "Graphical frontend to collectd";
     homepage = "https://www.antonioerusso.com/projects/kcollectd/";
-    maintainers = [ maintainers.symphorien ];
-    license = [ lib.licenses.gpl3Plus ];
+    maintainers = [maintainers.symphorien];
+    license = [lib.licenses.gpl3Plus];
     platforms = lib.platforms.linux;
     mainProgram = "kcollectd";
   };

@@ -4,16 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inherit (pkgs) nntp-proxy;
 
   cfg = config.services.nntp-proxy;
 
-  configBool = b: if b then "TRUE" else "FALSE";
+  configBool = b:
+    if b
+    then "TRUE"
+    else "FALSE";
 
   confFile = pkgs.writeText "nntp-proxy.conf" ''
     nntp_server:
@@ -45,27 +44,23 @@ let
       verbose = "${toUpper cfg.verbosity}";
       # Password is made with: 'mkpasswd -m sha-512 <password>'
       users = (${
-        concatStringsSep ",\n" (
-          mapAttrsToList (username: userConfig: ''
-            {
-                username = "${username}";
-                password = "${userConfig.passwordHash}";
-                max_connections = ${toString userConfig.maxConnections};
-            }
-          '') cfg.users
-        )
-      });
+      concatStringsSep ",\n" (
+        mapAttrsToList (username: userConfig: ''
+          {
+              username = "${username}";
+              password = "${userConfig.passwordHash}";
+              max_connections = ${toString userConfig.maxConnections};
+          }
+        '')
+        cfg.users
+      )
+    });
     };
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.nntp-proxy = {
       enable = mkEnableOption "NNTP-Proxy";
 
@@ -202,7 +197,7 @@ in
           NNTP-Proxy user configuration
         '';
 
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "user1" = {
@@ -217,19 +212,17 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     users.users.nntp-proxy = {
       isSystemUser = true;
       group = "nntp-proxy";
       description = "NNTP-Proxy daemon user";
     };
-    users.groups.nntp-proxy = { };
+    users.groups.nntp-proxy = {};
 
     systemd.services.nntp-proxy = {
       description = "NNTP proxy";
@@ -237,7 +230,7 @@ in
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "nntp-proxy";
       };
@@ -249,7 +242,5 @@ in
         fi
       '';
     };
-
   };
-
 }

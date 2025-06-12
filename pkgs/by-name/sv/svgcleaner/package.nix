@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "SVGCleaner";
   version = "unstable-2021-08-30";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/RazrFalcon/SVGCleaner";
     changelog = "https://github.com/RazrFalcon/svgcleaner/releases";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
     mainProgram = "svgcleaner";
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "dazl";
   version = "8.3.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "grpcio"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     googleapis-common-protos
@@ -41,11 +40,11 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pygments = [ pygments ];
-    tls-testing = [ pyopenssl ];
+    pygments = [pygments];
+    tls-testing = [pyopenssl];
   };
 
-  pythonImportsCheck = [ "dazl" ];
+  pythonImportsCheck = ["dazl"];
 
   # daml: command not found
   doCheck = false;

@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.irkerd;
-  ports = [ 6659 ];
-in
-{
+  ports = [6659];
+in {
   options.services.irkerd = {
     enable = lib.mkOption {
       description = "Whether to enable irker, an IRC notification daemon.";
@@ -50,22 +48,22 @@ in
         "man:irkerhook(1)"
         "man:irk(1)"
       ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.irker}/bin/irkerd -H ${cfg.listenAddress} -n ${cfg.nick}";
         User = "irkerd";
       };
     };
 
-    environment.systemPackages = [ pkgs.irker ];
+    environment.systemPackages = [pkgs.irker];
 
     users.users.irkerd = {
       description = "Irker daemon user";
       isSystemUser = true;
       group = "irkerd";
     };
-    users.groups.irkerd = { };
+    users.groups.irkerd = {};
 
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openPorts ports;
     networking.firewall.allowedUDPPorts = lib.mkIf cfg.openPorts ports;

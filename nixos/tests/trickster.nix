@@ -1,22 +1,17 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "trickster";
   meta = with pkgs.lib; {
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
   };
 
   nodes = {
-    prometheus =
-      { ... }:
-      {
-        services.prometheus.enable = true;
-        networking.firewall.allowedTCPPorts = [ 9090 ];
-      };
-    trickster =
-      { ... }:
-      {
-        services.trickster.enable = true;
-      };
+    prometheus = {...}: {
+      services.prometheus.enable = true;
+      networking.firewall.allowedTCPPorts = [9090];
+    };
+    trickster = {...}: {
+      services.trickster.enable = true;
+    };
   };
 
   testScript = ''

@@ -39,19 +39,15 @@
   # effect plugins
   libsamplerate,
 }:
-
 # Additional plugins that can be added:
 #  ProjectM visualization plugin
-
 # To make MIDI work we must tell Qmmp what instrument configuration to use (and
 # this can unfortunately not be set at configure time):
 # Go to settings (ctrl-p), navigate to the WildMidi plugin and click on
 # Preferences. In the instrument configuration field, type the path to
 # /nix/store/*wildmidi*/etc/wildmidi.cfg (or your own custom cfg file).
-
 # Qmmp installs working .desktop file(s) all by itself, so we don't need to
 # handle that.
-
 stdenv.mkDerivation rec {
   pname = "qmmp";
   version = "2.2.6";
@@ -113,6 +109,6 @@ stdenv.mkDerivation rec {
     homepage = "https://qmmp.ylsoftware.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

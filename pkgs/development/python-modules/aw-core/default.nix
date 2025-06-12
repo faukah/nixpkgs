@@ -16,7 +16,6 @@
   pytestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "aw-core";
   version = "0.5.17";
@@ -53,22 +52,22 @@ buildPythonPackage rec {
     "platformdirs"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # Fake home folder for tests that write to $HOME
     export HOME="$TMPDIR"
   '';
 
-  pythonImportsCheck = [ "aw_core" ];
+  pythonImportsCheck = ["aw_core"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Core library for ActivityWatch";
     mainProgram = "aw-cli";
     homepage = "https://github.com/ActivityWatch/aw-core";
-    maintainers = with lib.maintainers; [ huantian ];
+    maintainers = with lib.maintainers; [huantian];
     license = lib.licenses.mpl20;
   };
 }

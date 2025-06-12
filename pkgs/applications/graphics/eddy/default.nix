@@ -5,7 +5,6 @@
   jre,
   qt5,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eddy";
   version = "3.7";
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "eddy";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ koslambrou ];
+    maintainers = with maintainers; [koslambrou];
   };
 }

@@ -4,9 +4,7 @@
   fetchurl,
   config,
   acceptLicense ? config.joypixels.acceptLicense or false,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform.parsed) kernel;
 
   systemSpecific =
@@ -17,7 +15,9 @@ let
         fontFile = "JoyPixels-SBIX.ttf";
       };
     }
-    .${kernel.name} or {
+    .${
+      kernel.name
+    } or {
       systemTag = "nixos";
       capitalized = "NixOS";
       fontFile = "joypixels-android.ttf";
@@ -62,66 +62,63 @@ let
     [1]: ${joypixels-free-license.url}
     [2]: ${joypixels-license-appendix.url}
   '';
-
 in
+  stdenv.mkDerivation rec {
+    pname = "joypixels";
+    version = "9.0.0";
 
-stdenv.mkDerivation rec {
-  pname = "joypixels";
-  version = "9.0.0";
-
-  src =
-    assert !acceptLicense -> throwLicense;
+    src = assert !acceptLicense -> throwLicense;
     with systemSpecific;
-    fetchurl {
-      name = fontFile;
-      url = "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
-      sha256 =
-        {
-          darwin = "sha256-muUxXzz8BePyPsiZocYvM0ebM1H+u84ysN5YUvsMLiU=";
-        }
-        .${kernel.name} or "sha256-pmGsVgYSK/c5OlhOXhNlRBs/XppMXmsHcZeSmIkuED4=";
-    };
+      fetchurl {
+        name = fontFile;
+        url = "https://cdn.joypixels.com/distributions/${systemTag}/font/${version}/${fontFile}";
+        sha256 =
+          {
+            darwin = "sha256-muUxXzz8BePyPsiZocYvM0ebM1H+u84ysN5YUvsMLiU=";
+          }
+        .${
+            kernel.name
+          } or "sha256-pmGsVgYSK/c5OlhOXhNlRBs/XppMXmsHcZeSmIkuED4=";
+      };
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = with systemSpecific; ''
-    runHook preInstall
+    installPhase = with systemSpecific; ''
+      runHook preInstall
 
-    install -Dm644 $src $out/share/fonts/truetype/${fontFile}
+      install -Dm644 $src $out/share/fonts/truetype/${fontFile}
 
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Finest emoji you can use legally (formerly EmojiOne)";
-    longDescription = ''
-      Updated for 2024! JoyPixels 9.0 includes 3,820 originally crafted icon
-      designs and is 100% Unicode 15.1 compatible. We offer the largest
-      selection of files ranging from png, svg, iconjar, and fonts (sprites
-      available upon request).
+      runHook postInstall
     '';
-    homepage = "https://www.joypixels.com/fonts";
-    hydraPlatforms = [ ]; # Just a binary file download, nothing to cache.
-    license =
-      let
+
+    meta = with lib; {
+      description = "Finest emoji you can use legally (formerly EmojiOne)";
+      longDescription = ''
+        Updated for 2024! JoyPixels 9.0 includes 3,820 originally crafted icon
+        designs and is 100% Unicode 15.1 compatible. We offer the largest
+        selection of files ranging from png, svg, iconjar, and fonts (sprites
+        available upon request).
+      '';
+      homepage = "https://www.joypixels.com/fonts";
+      hydraPlatforms = []; # Just a binary file download, nothing to cache.
+      license = let
         free-license = joypixels-free-license;
         appendix = joypixels-license-appendix;
       in
-      with systemSpecific;
-      {
-        spdxId = "LicenseRef-JoyPixels-Free-with-${capitalized}-Appendix";
-        fullName = "${free-license.fullName} with ${appendix.fullName}";
-        url = free-license.url;
-        appendixUrl = appendix.url;
-        free = false;
-        redistributable = true;
-      };
-    maintainers = with maintainers; [
-      toonn
-      jtojnar
-    ];
-    # Not quite accurate since it's a font, not a program, but clearly
-    # indicates we're not actually building it from source.
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-  };
-}
+        with systemSpecific; {
+          spdxId = "LicenseRef-JoyPixels-Free-with-${capitalized}-Appendix";
+          fullName = "${free-license.fullName} with ${appendix.fullName}";
+          url = free-license.url;
+          appendixUrl = appendix.url;
+          free = false;
+          redistributable = true;
+        };
+      maintainers = with maintainers; [
+        toonn
+        jtojnar
+      ];
+      # Not quite accurate since it's a font, not a program, but clearly
+      # indicates we're not actually building it from source.
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+    };
+  }

@@ -207,11 +207,11 @@ stdenv.mkDerivation rec {
       # `harvid` and `xjadeo` must be accessible in `PATH` for video to work.
       wrapProgram "$out/bin/ardour${lib.versions.major version}" \
         --prefix PATH : "${
-          lib.makeBinPath [
-            harvid
-            xjadeo
-          ]
-        }"
+        lib.makeBinPath [
+          harvid
+          xjadeo
+        ]
+      }"
     '';
 
   LINKFLAGS = "-lpthread";

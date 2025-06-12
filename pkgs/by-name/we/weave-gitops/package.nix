@@ -5,7 +5,6 @@
   stdenv,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "weave-gitops";
   version = "0.38.0";
@@ -25,9 +24,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-RiPBlpEQ69fhVf3B0qHQ+zEtPIet/Y/Jp/HfaTrIssE=";
 
-  subPackages = [ "cmd/gitops" ];
+  subPackages = ["cmd/gitops"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd gitops \
@@ -41,7 +40,7 @@ buildGoModule rec {
     description = "Weave Gitops CLI";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "gitops";
   };
 }

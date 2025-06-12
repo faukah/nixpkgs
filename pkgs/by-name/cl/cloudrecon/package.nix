@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cloudrecon";
   version = "1.0.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/g0ldencybersec/CloudRecon";
     changelog = "https://github.com/g0ldencybersec/CloudRecon/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cloudrecon";
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "echo";
   version = "0.10.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     qt6.wrapQtAppsHook
   ];
 
-  buildInputs = lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = lib.optionals (pythonOlder "3.9") [libxcrypt];
 
   propagatedBuildInputs = [
     qt6.qtconnectivity
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "echo" ];
+  pythonImportsCheck = ["echo"];
 
   meta = with lib; {
     homepage = "https://github.com/glue-viz/echo";
     description = "Callback Properties in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ ifurther ];
+    maintainers = with maintainers; [ifurther];
   };
 }

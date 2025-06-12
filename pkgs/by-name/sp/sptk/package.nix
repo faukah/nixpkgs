@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sptk";
   version = "4.2";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Suite of speech signal processing tools";
     homepage = "https://github.com/sp-nitech/SPTK";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

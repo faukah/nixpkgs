@@ -13,7 +13,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easyaudiosync";
   version = "1.1.2";
@@ -31,11 +30,13 @@ stdenv.mkDerivation rec {
     ./0004-force-qt6.patch
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux copyDesktopItems;
 
   buildInputs = [
     qtbase
@@ -95,7 +96,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/complexlogic/EasyAudioSync";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ matteopacini ];
+    maintainers = with maintainers; [matteopacini];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

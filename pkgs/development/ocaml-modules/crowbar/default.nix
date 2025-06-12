@@ -13,7 +13,6 @@
   uunf,
   uucp,
 }:
-
 buildDunePackage rec {
   pname = "crowbar";
   version = "0.2.1";
@@ -50,6 +49,6 @@ buildDunePackage rec {
     description = "Property fuzzing for OCaml";
     homepage = "https://github.com/stedolan/crowbar";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

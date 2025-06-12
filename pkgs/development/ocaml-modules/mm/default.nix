@@ -9,7 +9,6 @@
   pulseaudio,
   theora,
 }:
-
 buildDunePackage rec {
   pname = "mm";
   version = "0.8.6";
@@ -25,7 +24,7 @@ buildDunePackage rec {
     sha256 = "sha256-ME6Naza7OvZ/63zEjrPeKq5JwMoMfV2fpkCuZdtCZ/c=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     alsa
     ao
@@ -38,6 +37,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-mm";
     description = "High-level library to create and manipulate multimedia streams";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

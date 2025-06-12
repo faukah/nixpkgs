@@ -41,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = ''
     wrapProgram $out/bin/com.github.muriloventuroso.pdftricks \
-      --prefix PATH : ${lib.makeBinPath [ ghostscript ]} \
+      --prefix PATH : ${lib.makeBinPath [ghostscript]} \
       ''${gappsWrapperArgs[@]}
   '';
 
@@ -54,14 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "'appdata'," ""
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple, efficient application for small manipulations in PDF files using Ghostscript";
     homepage = "https://github.com/muriloventuroso/pdftricks";
     changelog = "https://github.com/muriloventuroso/pdftricks/releases";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     platforms = lib.platforms.linux;
     mainProgram = "com.github.muriloventuroso.pdftricks";
   };

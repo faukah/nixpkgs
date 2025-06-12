@@ -9,9 +9,7 @@
   openssl,
   libdatachannel,
   plog,
-}:
-
-let
+}: let
   # Modified from pkgs/by-name/ht/httptoolkit-server/package.nix
   nodeDatachannel = buildNpmPackage {
     pname = "node-datachannel";
@@ -24,7 +22,7 @@ let
       hash = "sha256-r5tBg645ikIWm+RU7Muw/JYyd7AMpkImD0Xygtm1MUk=";
     };
 
-    npmFlags = [ "--ignore-scripts" ];
+    npmFlags = ["--ignore-scripts"];
 
     makeCacheWritable = true;
 
@@ -65,44 +63,43 @@ let
     '';
   };
 in
+  buildNpmPackage rec {
+    pname = "webtorrent-mpv-hook";
+    version = "1.4.4";
 
-buildNpmPackage rec {
-  pname = "webtorrent-mpv-hook";
-  version = "1.4.4";
+    src = fetchFromGitHub {
+      owner = "mrxdst";
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-qFeQBVPZZFKkxz1fhK3+ah3TPDovklhhQwtv09TiSqo=";
+    };
+    passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
-  src = fetchFromGitHub {
-    owner = "mrxdst";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-qFeQBVPZZFKkxz1fhK3+ah3TPDovklhhQwtv09TiSqo=";
-  };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+    postPatch = ''
+      substituteInPlace src/webtorrent.ts --replace-fail "node_path: 'node'" "node_path: '${lib.getExe nodejs}'"
+      # This executable is just for telling non-Nix users how to install
+      substituteInPlace package.json --replace-fail '"bin": "build/bin.mjs",' ""
+      rm -rf src/bin.ts
+    '';
 
-  postPatch = ''
-    substituteInPlace src/webtorrent.ts --replace-fail "node_path: 'node'" "node_path: '${lib.getExe nodejs}'"
-    # This executable is just for telling non-Nix users how to install
-    substituteInPlace package.json --replace-fail '"bin": "build/bin.mjs",' ""
-    rm -rf src/bin.ts
-  '';
+    npmDepsHash = "sha256-fKzXdbtxC2+63/GZdvPOxvBpQ5rzgvfseigOgpP1n5I=";
+    makeCacheWritable = true;
+    npmFlags = ["--ignore-scripts"];
 
-  npmDepsHash = "sha256-fKzXdbtxC2+63/GZdvPOxvBpQ5rzgvfseigOgpP1n5I=";
-  makeCacheWritable = true;
-  npmFlags = [ "--ignore-scripts" ];
+    postConfigure = ''
+      # manually place our prebuilt `node-datachannel` binary into its place, since we used '--ignore-scripts'
+      ln -s ${nodeDatachannel}/build node_modules/node-datachannel/build
+    '';
+    postInstall = ''
+      mkdir -p $out/share/mpv/scripts/
+      ln -s $out/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js $out/share/mpv/scripts/
+    '';
+    passthru.scriptName = "webtorrent.js";
 
-  postConfigure = ''
-    # manually place our prebuilt `node-datachannel` binary into its place, since we used '--ignore-scripts'
-    ln -s ${nodeDatachannel}/build node_modules/node-datachannel/build
-  '';
-  postInstall = ''
-    mkdir -p $out/share/mpv/scripts/
-    ln -s $out/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js $out/share/mpv/scripts/
-  '';
-  passthru.scriptName = "webtorrent.js";
-
-  meta = {
-    description = "Adds a hook that allows mpv to stream torrents";
-    homepage = "https://github.com/mrxdst/webtorrent-mpv-hook";
-    maintainers = [ lib.maintainers.chuangzhu ];
-    license = lib.licenses.isc;
-  };
-}
+    meta = {
+      description = "Adds a hook that allows mpv to stream torrents";
+      homepage = "https://github.com/mrxdst/webtorrent-mpv-hook";
+      maintainers = [lib.maintainers.chuangzhu];
+      license = lib.licenses.isc;
+    };
+  }

@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-3DX/OVjKXyeOmO6P6iz1FTkNQ0n7vUFkKQ5Ac+7t3l4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     db
@@ -49,6 +49,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/cgao3/benzene-vanilla-cmake";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ eilvelia ];
+    maintainers = with lib.maintainers; [eilvelia];
   };
 }

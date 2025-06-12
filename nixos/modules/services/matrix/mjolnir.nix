@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mjolnir;
 
   yamlConfig = {
@@ -12,10 +11,9 @@ let
 
     accessToken = "@ACCESS_TOKEN@"; # will be replaced in "generateConfig"
     homeserverUrl =
-      if cfg.pantalaimon.enable then
-        "http://${cfg.pantalaimon.options.listenAddress}:${toString cfg.pantalaimon.options.listenPort}"
-      else
-        cfg.homeserverUrl;
+      if cfg.pantalaimon.enable
+      then "http://${cfg.pantalaimon.options.listenAddress}:${toString cfg.pantalaimon.options.listenPort}"
+      else cfg.homeserverUrl;
 
     rawHomeserverUrl = cfg.homeserverUrl;
 
@@ -28,9 +26,9 @@ let
   };
 
   moduleConfigFile = pkgs.writeText "module-config.yaml" (
-    lib.generators.toYAML { } (
+    lib.generators.toYAML {} (
       lib.filterAttrs (_: v: v != null) (
-        lib.fold lib.recursiveUpdate { } [
+        lib.fold lib.recursiveUpdate {} [
           yamlConfig
           cfg.settings
         ]
@@ -48,12 +46,13 @@ let
   # replace all secret strings using replace-secret
   generateConfig = pkgs.writeShellScript "mjolnir-generate-config" (
     let
-      yqEvalStr = lib.concatImapStringsSep " * " (
-        pos: _: "select(fileIndex == ${toString (pos - 1)})"
-      ) configFiles;
+      yqEvalStr =
+        lib.concatImapStringsSep " * " (
+          pos: _: "select(fileIndex == ${toString (pos - 1)})"
+        )
+        configFiles;
       yqEvalArgs = lib.concatStringsSep " " configFiles;
-    in
-    ''
+    in ''
       set -euo pipefail
 
       umask 077
@@ -74,8 +73,7 @@ let
       ''}
     ''
   );
-in
-{
+in {
   options.services.mjolnir = {
     enable = lib.mkEnableOption "Mjolnir, a moderation tool for Matrix";
 
@@ -104,7 +102,7 @@ in
 
         This will create a `pantalaimon` instance with the name "mjolnir".
       '';
-      default = { };
+      default = {};
       type = lib.types.submodule {
         options = {
           enable = lib.mkEnableOption ''
@@ -127,7 +125,7 @@ in
 
           options = lib.mkOption {
             type = lib.types.submodule (import ./pantalaimon-options.nix);
-            default = { };
+            default = {};
             description = ''
               passthrough additional options to the `pantalaimon` service.
             '';
@@ -157,7 +155,7 @@ in
 
     protectedRooms = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           "https://matrix.to/#/#yourroom:example.org"
@@ -170,8 +168,8 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
-      type = (pkgs.formats.yaml { }).type;
+      default = {};
+      type = (pkgs.formats.yaml {}).type;
       example = lib.literalExpression ''
         {
           autojoinOnlyIfManager = true;
@@ -212,17 +210,21 @@ in
 
     systemd.services.mjolnir = {
       description = "mjolnir - a moderation tool for Matrix";
-      wants = [
-        "network-online.target"
-      ] ++ lib.optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
-      after = [
-        "network-online.target"
-      ] ++ lib.optionals (cfg.pantalaimon.enable) [ "pantalaimon-mjolnir.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wants =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optionals (cfg.pantalaimon.enable) ["pantalaimon-mjolnir.service"];
+      after =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optionals (cfg.pantalaimon.enable) ["pantalaimon-mjolnir.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = ''${pkgs.mjolnir}/bin/mjolnir --mjolnir-config ./config/default.yaml'';
-        ExecStartPre = [ generateConfig ];
+        ExecStartPre = [generateConfig];
         WorkingDirectory = cfg.dataPath;
         StateDirectory = "mjolnir";
         StateDirectoryMode = "0700";
@@ -235,15 +237,15 @@ in
         Restart = "on-failure";
 
         /*
-          TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
-          DynamicUser = true;
-          LoadCredential = [] ++
-            lib.optionals (cfg.accessTokenFile != null) [
-              "access_token:${cfg.accessTokenFile}"
-            ] ++
-            lib.optionals (cfg.pantalaimon.passwordFile != null) [
-              "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
-            ];
+        TODO: wait for #102397 to be resolved. Then load secrets from $CREDENTIALS_DIRECTORY+"/NAME"
+        DynamicUser = true;
+        LoadCredential = [] ++
+          lib.optionals (cfg.accessTokenFile != null) [
+            "access_token:${cfg.accessTokenFile}"
+          ] ++
+          lib.optionals (cfg.pantalaimon.passwordFile != null) [
+            "pantalaimon_password:${cfg.pantalaimon.passwordFile}"
+          ];
         */
       };
     };
@@ -253,12 +255,12 @@ in
         group = "mjolnir";
         isSystemUser = true;
       };
-      groups.mjolnir = { };
+      groups.mjolnir = {};
     };
   };
 
   meta = {
     doc = ./mjolnir.md;
-    maintainers = with lib.maintainers; [ jojosch ];
+    maintainers = with lib.maintainers; [jojosch];
   };
 }

@@ -10,7 +10,6 @@
   liblo,
   lv2,
 }:
-
 mkDerivation rec {
   pname = "synthv1";
   version = "0.9.23";
@@ -29,7 +28,7 @@ mkDerivation rec {
     lv2
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Old-school 4-oscillator subtractive polyphonic synthesizer with stereo fx";
@@ -37,6 +36,6 @@ mkDerivation rec {
     homepage = "https://synthv1.sourceforge.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

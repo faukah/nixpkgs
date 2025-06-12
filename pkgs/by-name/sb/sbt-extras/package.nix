@@ -15,7 +15,6 @@
   coreutils,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sbt-extras";
   rev = "f39bd9c1cf4a34457cd6c884200ad1b594820f41";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -60,17 +59,17 @@ stdenv.mkDerivation rec {
      #!${stdenv.shell}
      set -xo errexit
      PATH=${
-       lib.makeBinPath [
-         common-updater-scripts
-         curl
-         cacert
-         git
-         nix
-         jq
-         coreutils
-         gnused
-       ]
-     }
+      lib.makeBinPath [
+        common-updater-scripts
+        curl
+        cacert
+        git
+        nix
+        jq
+        coreutils
+        gnused
+      ]
+    }
     oldVersion="$(nix-instantiate --eval -E "with import ./. {}; lib.getVersion ${pname}" | tr -d '"')"
      latestSha="$(curl -L -s https://api.github.com/repos/paulp/sbt-extras/commits\?sha\=master\&since\=$oldVersion | jq -r '.[0].sha')"
     if [ ! "null" = "$latestSha" ]; then

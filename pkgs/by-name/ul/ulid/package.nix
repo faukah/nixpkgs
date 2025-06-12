@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ulid";
   version = "2.1.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/oklog/ulid";
     changelog = "https://github.com/oklog/ulid/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "ulid";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   requests,
 }:
-
 buildPythonPackage {
   pname = "curlify";
   version = "2.2.1";
@@ -17,12 +16,12 @@ buildPythonPackage {
     hash = "sha256-yDHmH35TtQDJB0na1V98RtBuVHX5TmKC72hzzs1DQK8=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   meta = with lib; {
     description = "Convert python requests request object to cURL command";
     homepage = "https://github.com/ofw/curlify";
     license = licenses.mit;
-    maintainers = with maintainers; [ chrpinedo ];
+    maintainers = with maintainers; [chrpinedo];
   };
 }

@@ -6,7 +6,6 @@
   libpulseaudio,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "gnome-shell-extension-sound-output-device-chooser";
   # For gnome 42 support many commits not tagged yet are needed.
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "GNOME Shell extension adding audio device chooser to panel";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     homepage = "https://github.com/kgshank/gse-sound-output-device-chooser";
   };
 }

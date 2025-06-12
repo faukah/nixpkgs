@@ -5,14 +5,13 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "geoclock";
   version = "1.0.0";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Displays time as calculated by your longitude";
     homepage = "https://github.com/FGRCL/geoclock";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.fgrcl ];
+    maintainers = [lib.maintainers.fgrcl];
   };
 })

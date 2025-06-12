@@ -13,7 +13,6 @@
   setuptools,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "pyecharts";
   version = "2.0.8";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-Aax/HpYJRrfituiAIT7Y6F9v9tX9EmVXtr+4R98tces=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jinja2
@@ -37,17 +36,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    images = [ pillow ];
+    images = [pillow];
   };
 
-  nativeCheckInputs = [
-    numpy
-    pandas
-    pytestCheckHook
-    requests
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      numpy
+      pandas
+      pytestCheckHook
+      requests
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pyecharts" ];
+  pythonImportsCheck = ["pyecharts"];
 
   disabledTests = [
     # Tests require network access
@@ -61,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyecharts/pyecharts";
     changelog = "https://github.com/pyecharts/pyecharts/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

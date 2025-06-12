@@ -15,9 +15,7 @@
   wayland-protocols,
   plasma-wayland-protocols,
 }:
-
 # TODO: install Noto Sans and Oxygen Mono fonts with plasma-integration
-
 mkDerivation {
   pname = "plasma-integration";
   nativeBuildInputs = [

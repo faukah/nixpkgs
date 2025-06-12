@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "oscscreen";
   version = "unstable-2023-03-23";
@@ -17,15 +16,15 @@ buildPythonPackage rec {
     hash = "sha256-0Im1kVFa11AW+7Oe95XvkfxSlaux6bkKaHSQy6hJCN8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "oscscreen" ];
+  pythonImportsCheck = ["oscscreen"];
 
   meta = with lib; {
     description = "Framework for developing console applications using Python and curses";
     homepage = "https://github.com/outscale/npyscreen";
     changelog = "https://github.com/outscale/npyscreen/blob/${src.rev}/CHANGELOG";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nicolas-goudry ];
+    maintainers = with maintainers; [nicolas-goudry];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   expat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bloodspilot-xpilot-fxi-server";
   version = "1.4.6";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xpilots";
     homepage = "http://bloodspilot.sf.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

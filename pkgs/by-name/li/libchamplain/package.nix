@@ -20,15 +20,16 @@
   gobject-introspection, # , libmemphis
   withLibsoup3 ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libchamplain";
   version = "0.12.21";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [ "devdoc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) ["devdoc"];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -51,7 +52,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     sqlite
-    (if withLibsoup3 then libsoup_3 else libsoup_2_4)
+    (
+      if withLibsoup3
+      then libsoup_3
+      else libsoup_2_4
+    )
   ];
 
   propagatedBuildInputs = [

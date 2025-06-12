@@ -35,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/ThePhD/sol2";
     license = licenses.mit;
-    maintainers = with maintainers; [ mrcjkb ];
+    maintainers = with maintainers; [mrcjkb];
   };
 })

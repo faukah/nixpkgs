@@ -12,7 +12,6 @@
   pytz,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "bthome-ble";
   version = "3.13.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-e6R3Qjj82z0E+gIxqDVM08Op3KlK9ZG1iNmkqqIEjWY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bthome_ble" ];
+  pythonImportsCheck = ["bthome_ble"];
 
   meta = with lib; {
     description = "Library for BThome BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/bthome-ble";
     changelog = "https://github.com/bluetooth-devices/bthome-ble/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   pythonOlder,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "aiopulse";
   version = "0.4.7";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-DM/zDFoTYgaW+o2YYv4bDAja5iwabIBfFJ7Yep4Fywc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ async-timeout ];
+  dependencies = [async-timeout];
 
   # Tests are not present
   doCheck = false;
 
-  pythonImportsCheck = [ "aiopulse" ];
+  pythonImportsCheck = ["aiopulse"];
 
   meta = with lib; {
     description = "Python Rollease Acmeda Automate Pulse hub protocol implementation";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/atmurray/aiopulse";
     changelog = "https://github.com/atmurray/aiopulse/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "nbtscan";
   version = "1.7.2-unstable-2022-10-29";
@@ -16,13 +15,13 @@ stdenv.mkDerivation {
     hash = "sha256-+AOubF6eZ1Zvk5n8mGl9TxEicBpS4kYThA4MrEaGjAs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Scan networks searching for NetBIOS information";
     mainProgram = "nbtscan";
     homepage = "https://github.com/resurrecting-open-source-projects/nbtscan";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

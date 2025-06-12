@@ -10,7 +10,6 @@
   zope-configuration,
   zope-security,
 }:
-
 buildPythonPackage rec {
   pname = "zope-size";
   version = "5.1";
@@ -28,14 +27,14 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-i18nmessageid
     zope-interface
   ];
 
-  pythonImportsCheck = [ "zope.size" ];
+  pythonImportsCheck = ["zope.size"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -44,15 +43,15 @@ buildPythonPackage rec {
     zope-security
   ];
 
-  unittestFlagsArray = [ "src/zope/size" ];
+  unittestFlagsArray = ["src/zope/size"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.size";
     description = "Interfaces and simple adapter that give the size of an object";
     changelog = "https://github.com/zopefoundation/zope.size/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

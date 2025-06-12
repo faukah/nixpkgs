@@ -1,21 +1,19 @@
 # TODO: create a common module generator for Taler and Libeufin?
 {
   talerComponent ? "",
-  servicesDB ? [ ],
-  servicesNoDB ? [ ],
+  servicesDB ? [],
+  servicesNoDB ? [],
   ...
-}:
-{
+}: {
   lib,
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = cfgTaler.${talerComponent};
   cfgTaler = config.services.taler;
 
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
 
   configFile = config.environment.etc."taler/taler.conf".source;
   componentConfigFile = settingsFormat.generate "generated-taler-${talerComponent}.conf" cfg.settings;
@@ -26,12 +24,11 @@ let
   groupName = "taler-${talerComponent}-services";
 
   inherit (cfgTaler) runtimeDir;
-in
-{
+in {
   options = {
     services.taler.${talerComponent} = {
       enable = lib.mkEnableOption "the GNU Taler ${talerComponent}";
-      package = lib.mkPackageOption pkgs "taler-${talerComponent}" { };
+      package = lib.mkPackageOption pkgs "taler-${talerComponent}" {};
       # TODO: make option accept multiple debugging levels?
       debug = lib.mkEnableOption "debug logging";
       openFirewall = lib.mkOption {
@@ -44,7 +41,7 @@ in
 
   config = lib.mkIf cfg.enable {
     services.taler.enable = cfg.enable;
-    services.taler.includes = [ componentConfigFile ];
+    services.taler.includes = [componentConfigFile];
 
     systemd.services = lib.mergeAttrsList [
       # Main services
@@ -61,13 +58,13 @@ in
           RuntimeDirectory = name;
           StateDirectory = name;
           CacheDirectory = name;
-          ReadWritePaths = [ runtimeDir ];
+          ReadWritePaths = [runtimeDir];
           Restart = "always";
           RestartSec = "10s";
         };
-        requires = [ "taler-${talerComponent}-dbinit.service" ];
-        after = [ "taler-${talerComponent}-dbinit.service" ];
-        wantedBy = [ "multi-user.target" ]; # TODO slice?
+        requires = ["taler-${talerComponent}-dbinit.service"];
+        after = ["taler-${talerComponent}-dbinit.service"];
+        wantedBy = ["multi-user.target"]; # TODO slice?
         documentation = [
           "man:taler-${talerComponent}-${name}(1)"
           "info:taler-${talerComponent}"
@@ -76,7 +73,7 @@ in
       # Database Initialisation
       {
         "taler-${talerComponent}-dbinit" = {
-          path = [ config.services.postgresql.package ];
+          path = [config.services.postgresql.package];
           documentation = [
             "man:taler-${talerComponent}-dbinit(1)"
             "info:taler-${talerComponent}"
@@ -89,13 +86,13 @@ in
             Restart = "on-failure";
             RestartSec = "5s";
           };
-          requires = [ "postgresql.service" ];
-          after = [ "postgresql.service" ];
+          requires = ["postgresql.service"];
+          after = ["postgresql.service"];
         };
       }
     ];
 
-    users.groups.${groupName} = { };
+    users.groups.${groupName} = {};
     systemd.tmpfiles.settings = {
       "10-taler-${talerComponent}" = {
         "${runtimeDir}" = {
@@ -109,14 +106,14 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings."${talerComponent}".PORT ];
+      allowedTCPPorts = [cfg.settings."${talerComponent}".PORT];
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.postgresql = {
       enable = true;
-      ensureDatabases = [ dbName ];
+      ensureDatabases = [dbName];
       ensureUsers = [
         {
           name = dbName;

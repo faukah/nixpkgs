@@ -6,7 +6,6 @@
   pkg-config,
   yara,
 }:
-
 buildGoModule rec {
   pname = "spyre";
   version = "1.2.5";
@@ -47,7 +46,7 @@ buildGoModule rec {
     description = "YARA-based IOC scanner";
     mainProgram = "spyre";
     homepage = "https://github.com/spyre-project/spyre";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

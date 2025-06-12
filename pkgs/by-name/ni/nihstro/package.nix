@@ -7,7 +7,6 @@
   ninja,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nihstro";
   version = "0-unstable-2024-05-05";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "3DS shader assembler and disassembler";
     homepage = "https://github.com/neobrain/nihstro";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "nihstro-assemble";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };

@@ -9,7 +9,6 @@
   udev,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "udevil";
   version = "0.4.4";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ignorantguru.github.io/udevil/";
     description = "Mount without password";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

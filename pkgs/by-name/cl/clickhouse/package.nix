@@ -18,7 +18,6 @@
   cargo,
   rustPlatform,
 }:
-
 llvmPackages_19.stdenv.mkDerivation (finalAttrs: {
   pname = "clickhouse";
   version = "25.3.3.42";
@@ -78,7 +77,7 @@ llvmPackages_19.stdenv.mkDerivation (finalAttrs: {
       rustPlatform.cargoSetupHook
     ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   dontCargoSetupPostUnpack = true;
 
@@ -125,14 +124,14 @@ llvmPackages_19.stdenv.mkDerivation (finalAttrs: {
       # undefined reference to '__sync_val_compare_and_swap_16'
       lib.optionalString stdenv.hostPlatform.isx86_64 " -mcx16"
       +
-        # Silence ``-Wimplicit-const-int-float-conversion` error in MemoryTracker.cpp and
-        # ``-Wno-unneeded-internal-declaration` TreeOptimizer.cpp.
-        lib.optionalString stdenv.hostPlatform.isDarwin
-          " -Wno-implicit-const-int-float-conversion -Wno-unneeded-internal-declaration";
+      # Silence ``-Wimplicit-const-int-float-conversion` error in MemoryTracker.cpp and
+      # ``-Wno-unneeded-internal-declaration` TreeOptimizer.cpp.
+      lib.optionalString stdenv.hostPlatform.isDarwin
+      " -Wno-implicit-const-int-float-conversion -Wno-unneeded-internal-declaration";
   };
 
   # https://github.com/ClickHouse/ClickHouse/issues/49988
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   postInstall = ''
     rm -rf $out/share/clickhouse-test
@@ -146,7 +145,7 @@ llvmPackages_19.stdenv.mkDerivation (finalAttrs: {
   '';
 
   # Builds in 7+h with 2 cores, and ~20m with a big-parallel builder.
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   passthru.tests.clickhouse = nixosTests.clickhouse;
 

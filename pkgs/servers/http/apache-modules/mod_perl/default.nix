@@ -7,7 +7,6 @@
   perl,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_perl";
   version = "2.0.13";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/apache/mod_perl/blob/trunk/Changes";
     license = licenses.asl20;
     mainProgram = "mp2bug";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

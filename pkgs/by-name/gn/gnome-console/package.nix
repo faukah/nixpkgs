@@ -17,7 +17,6 @@
   wrapGAppsHook4,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-console";
   version = "48.0.1";
@@ -63,8 +62,8 @@ stdenv.mkDerivation rec {
     description = "Simple user-friendly terminal emulator for the GNOME desktop";
     homepage = "https://gitlab.gnome.org/GNOME/console";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ zhaofengli ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [zhaofengli];
+    teams = [teams.gnome];
     platforms = platforms.unix;
     mainProgram = "kgx";
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   # Renaming it to amber-secret because another package named amber exists
   pname = "amber-secret";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/fpco/amber";
     changelog = "https://github.com/fpco/amber/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psibi ];
+    maintainers = with lib.maintainers; [psibi];
     mainProgram = "amber";
   };
 }

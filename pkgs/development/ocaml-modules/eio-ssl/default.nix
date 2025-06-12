@@ -5,7 +5,6 @@
   eio,
   ssl,
 }:
-
 buildDunePackage rec {
   pname = "eio-ssl";
   version = "0.3.0";

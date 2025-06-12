@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "drat-trim";
   version = "2023-05-22";
@@ -57,7 +56,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.cs.utexas.edu/~marijn/drat-trim/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kini ];
+    maintainers = with maintainers; [kini];
     platforms = platforms.all;
   };
 }

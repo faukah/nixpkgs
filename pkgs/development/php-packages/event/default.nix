@@ -25,17 +25,17 @@ buildPecl {
       ':'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     libevent
   ];
-  internalDeps = [ php.extensions.sockets ];
+  internalDeps = [php.extensions.sockets];
 
   meta = with lib; {
     description = "Efficiently schedule I/O, time and signal based events using the best I/O notification mechanism available";
     license = licenses.php301;
     homepage = "https://bitbucket.org/osmanov/pecl-event/";
-    teams = [ teams.php ];
+    teams = [teams.php];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtommath";
   version = "1.3.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace makefile.shared \
       --replace-fail glibtool libtool \
-      --replace-fail libtool "${lib.getExe (libtool.override { stdenv = stdenv; })}"
+      --replace-fail libtool "${lib.getExe (libtool.override {stdenv = stdenv;})}"
     substituteInPlace makefile_include.mk \
       --replace-fail "gcc" "${stdenv.cc.targetPrefix}cc"
   '';

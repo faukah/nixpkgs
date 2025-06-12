@@ -4,18 +4,14 @@
   fetchFromGitHub,
   setuptools,
   wheel,
-
   psycopg,
   aiosqlite,
   asyncmy,
-
   # test
   pytest-asyncio,
   pytest-cov-stub,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mayim";
   version = "1.1.0";
@@ -34,9 +30,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    postgres = [ psycopg ] ++ psycopg.optional-dependencies.pool;
-    mysql = [ asyncmy ];
-    sqlite = [ aiosqlite ];
+    postgres = [psycopg] ++ psycopg.optional-dependencies.pool;
+    mysql = [asyncmy];
+    sqlite = [aiosqlite];
   };
 
   nativeCheckInputs =
@@ -51,12 +47,12 @@ buildPythonPackage rec {
       sqlite
     ]);
 
-  pythonImportsCheck = [ "mayim" ];
+  pythonImportsCheck = ["mayim"];
 
   meta = with lib; {
     description = "Asynchronous SQL hydrator";
     homepage = "https://github.com/ahopkins/mayim";
     license = licenses.mit;
-    maintainers = with maintainers; [ huyngo ];
+    maintainers = with maintainers; [huyngo];
   };
 }

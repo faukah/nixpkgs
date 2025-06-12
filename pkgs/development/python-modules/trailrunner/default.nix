@@ -7,7 +7,6 @@
   pythonOlder,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "trailrunner";
   version = "1.4.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-qtEBr22yyj6WcSfyYr/4r0IuuMJ6chFFqnmb+uMfQPA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ pathspec ];
+  propagatedBuildInputs = [pathspec];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "trailrunner" ];
+  pythonImportsCheck = ["trailrunner"];
 
   meta = with lib; {
     description = "Module to walk paths and run things";
     homepage = "https://github.com/omnilib/trailrunner";
     changelog = "https://github.com/omnilib/trailrunner/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

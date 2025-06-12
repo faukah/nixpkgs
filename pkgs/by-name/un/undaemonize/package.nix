@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "undaemonize";
   version = "unstable-2017-07-11";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     description = "Tiny helper utility to force programs which insist on daemonizing themselves to run in the foreground";
     homepage = "https://github.com/nickstenning/undaemonize";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.canndrew ];
+    maintainers = [lib.maintainers.canndrew];
     platforms = lib.platforms.linux;
     mainProgram = "undaemonize";
   };

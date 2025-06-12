@@ -6,9 +6,7 @@
   runtimeShell,
   python3,
   nixosTests,
-}:
-
-let
+}: let
   version = "2.5.0";
 
   src = fetchFromGitHub {
@@ -30,7 +28,7 @@ let
         --replace-fail /bin/sh ${runtimeShell}
     '';
 
-    propagatedBuildInputs = with pypkgs; [ xlib ];
+    propagatedBuildInputs = with pypkgs; [xlib];
 
     dontBuild = true;
 
@@ -40,40 +38,39 @@ let
 
     meta.mainProgram = "keyd-application-mapper";
   };
-
 in
-stdenv.mkDerivation {
-  pname = "keyd";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "keyd";
+    inherit version src;
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace-fail /usr/local ""
+    postPatch = ''
+      substituteInPlace Makefile \
+        --replace-fail /usr/local ""
 
-    substituteInPlace keyd.service.in \
-      --replace-fail @PREFIX@ $out
-  '';
+      substituteInPlace keyd.service.in \
+        --replace-fail @PREFIX@ $out
+    '';
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+    installFlags = ["DESTDIR=${placeholder "out"}"];
 
-  buildInputs = [ systemd ];
+    buildInputs = [systemd];
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  # post-2.4.2 may need this to unbreak the test
-  # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
+    # post-2.4.2 may need this to unbreak the test
+    # makeFlags = [ "SOCKET_PATH/run/keyd/keyd.socket" ];
 
-  postInstall = ''
-    ln -sf ${lib.getExe appMap} $out/bin/${appMap.pname}
-    rm -rf $out/etc
-  '';
+    postInstall = ''
+      ln -sf ${lib.getExe appMap} $out/bin/${appMap.pname}
+      rm -rf $out/etc
+    '';
 
-  passthru.tests.keyd = nixosTests.keyd;
+    passthru.tests.keyd = nixosTests.keyd;
 
-  meta = with lib; {
-    description = "Key remapping daemon for Linux";
-    license = licenses.mit;
-    maintainers = with maintainers; [ alfarel ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Key remapping daemon for Linux";
+      license = licenses.mit;
+      maintainers = with maintainers; [alfarel];
+      platforms = platforms.linux;
+    };
+  }

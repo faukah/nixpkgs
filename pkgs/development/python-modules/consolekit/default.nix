@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-3qa58lA2nquII99W+SGEQHHlb1BRrAWdihUOiQYmcns=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     click
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Additional utilities for click.";
     homepage = "https://pypi.org/project/consolekit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tyberius-prime ];
+    maintainers = with lib.maintainers; [tyberius-prime];
   };
 }

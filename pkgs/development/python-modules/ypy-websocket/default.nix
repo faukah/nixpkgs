@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   aiosqlite,
   anyio,
   y-py,
-
   # testing
   pytest-asyncio,
   pytestCheckHook,
   uvicorn,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "ypy-websocket";
   version = "0.12.4";
@@ -30,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-48x+MUhev9dErC003XOP3oGKd5uOghlBFgcR8Nm/0xs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRelaxDeps = [ "aiofiles" ];
+  pythonRelaxDeps = ["aiofiles"];
 
   dependencies = [
     aiosqlite
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     y-py
   ];
 
-  pythonImportsCheck = [ "ypy_websocket" ];
+  pythonImportsCheck = ["ypy_websocket"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -63,6 +59,6 @@ buildPythonPackage rec {
     description = "WebSocket Connector for Ypy";
     homepage = "https://github.com/y-crdt/ypy-websocket";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

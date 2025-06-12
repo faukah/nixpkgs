@@ -5,7 +5,6 @@
   flit-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "idna";
   version = "3.10";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-EvZcm0cKvabcNc+OY8xXSxxSsR3yyGAwrwrAmwGxPqk=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/kjd/idna/";

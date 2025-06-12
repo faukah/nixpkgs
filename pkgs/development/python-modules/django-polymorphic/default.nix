@@ -8,7 +8,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-polymorphic";
   version = "4.0.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     ./django-5.1-compat.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     dj-database-url
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "polymorphic" ];
+  pythonImportsCheck = ["polymorphic"];
 
   meta = with lib; {
     changelog = "https://github.com/jazzband/django-polymorphic/releases/tag/${src.tag}";
     homepage = "https://github.com/django-polymorphic/django-polymorphic";
     description = "Improved Django model inheritance with automatic downcasting";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

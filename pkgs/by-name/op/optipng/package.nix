@@ -5,9 +5,7 @@
   libpng,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 # This package comes with its own copy of zlib, libpng and pngxtern
-
 stdenv.mkDerivation rec {
   pname = "optipng";
   version = "0.7.8";
@@ -17,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JaO9aEgfIVAsyqD0wT+E3PayAzjkxOjFHyzvvYUTOYw=";
   };
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   # Workaround for crash in cexcept.h. See
   # https://github.com/NixOS/nixpkgs/issues/28106
@@ -28,7 +26,7 @@ stdenv.mkDerivation rec {
   # OptiPNG does not like --static, --build or --host
   dontDisableStatic = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags =
     [
@@ -40,12 +38,11 @@ stdenv.mkDerivation rec {
     ];
 
   postInstall =
-    if stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows then
-      ''
-        mv "$out"/bin/optipng{,.exe}
-      ''
-    else
-      null;
+    if stdenv.hostPlatform != stdenv.buildPlatform && stdenv.hostPlatform.isWindows
+    then ''
+      mv "$out"/bin/optipng{,.exe}
+    ''
+    else null;
 
   meta = with lib; {
     homepage = "https://optipng.sourceforge.net/";

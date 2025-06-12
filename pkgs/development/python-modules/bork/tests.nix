@@ -1,12 +1,10 @@
 {
   testers,
-
   bork,
   cacert,
   git,
   pytest,
-}:
-{
+}: {
   # a.k.a. `tests.testers.runCommand.bork`
   pytest-network = testers.runCommand {
     name = "bork-pytest-network";

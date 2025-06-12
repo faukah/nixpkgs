@@ -3,34 +3,34 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.collectd;
 
   baseDirLine = ''BaseDir "${cfg.dataDir}"'';
   unvalidated_conf = pkgs.writeText "collectd-unvalidated.conf" cfg.extraConfig;
 
   conf =
-    if cfg.validateConfig then
-      pkgs.runCommand "collectd.conf" { } ''
+    if cfg.validateConfig
+    then
+      pkgs.runCommand "collectd.conf" {} ''
         echo testing ${unvalidated_conf}
         cp ${unvalidated_conf} collectd.conf
         # collectd -t fails if BaseDir does not exist.
-        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [ baseDirLine ]} 'BaseDir "."'
+        substituteInPlace collectd.conf --replace ${lib.escapeShellArgs [baseDirLine]} 'BaseDir "."'
         ${package}/bin/collectd -t -C collectd.conf
         cp ${unvalidated_conf} $out
       ''
-    else
-      unvalidated_conf;
+    else unvalidated_conf;
 
-  package = if cfg.buildMinimalPackage then minimalPackage else cfg.package;
+  package =
+    if cfg.buildMinimalPackage
+    then minimalPackage
+    else cfg.package;
 
   minimalPackage = cfg.package.override {
-    enabledPlugins = [ "syslog" ] ++ builtins.attrNames cfg.plugins;
+    enabledPlugins = ["syslog"] ++ builtins.attrNames cfg.plugins;
   };
-
-in
-{
+in {
   options.services.collectd = with lib.types; {
     enable = lib.mkEnableOption "collectd agent";
 
@@ -44,7 +44,7 @@ in
       type = types.bool;
     };
 
-    package = lib.mkPackageOption pkgs "collectd" { };
+    package = lib.mkPackageOption pkgs "collectd" {};
 
     buildMinimalPackage = lib.mkOption {
       default = false;
@@ -79,7 +79,7 @@ in
     };
 
     include = lib.mkOption {
-      default = [ ];
+      default = [];
       description = ''
         Additional paths to load config from.
       '';
@@ -87,7 +87,7 @@ in
     };
 
     plugins = lib.mkOption {
-      default = { };
+      default = {};
       example = {
         cpu = "";
         memory = "";
@@ -107,7 +107,6 @@ in
       '';
       type = lines;
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -129,12 +128,14 @@ in
           <Plugin "${plugin}">
           ${pluginConfig}
           </Plugin>
-        '') cfg.plugins
+        '')
+        cfg.plugins
       )}
 
       ${lib.concatMapStrings (f: ''
-        Include "${f}"
-      '') cfg.include}
+          Include "${f}"
+        '')
+        cfg.include}
     '';
 
     systemd.tmpfiles.rules = [
@@ -143,8 +144,8 @@ in
 
     systemd.services.collectd = {
       description = "Collectd Monitoring Agent";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${package}/sbin/collectd -C ${conf} -f";
@@ -162,7 +163,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.user == "collectd") {
-      collectd = { };
+      collectd = {};
     };
   };
 }

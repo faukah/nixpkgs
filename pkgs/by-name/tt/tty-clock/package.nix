@@ -6,7 +6,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "tty-clock";
   version = "2.3+unstable=2021-04-07";
@@ -29,10 +28,10 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     license = licenses.bsd3;
     description = "Digital clock in ncurses";
     platforms = platforms.all;
-    maintainers = [ maintainers.koral ];
+    maintainers = [maintainers.koral];
     mainProgram = "tty-clock";
   };
 }

@@ -5,7 +5,6 @@
   unzip,
   findXMLCatalogs,
 }:
-
 import ./generic.nix {
   inherit
     lib

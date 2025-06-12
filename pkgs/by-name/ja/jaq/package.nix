@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jaq";
   version = "2.2.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Jq clone focused on correctness, speed and simplicity";

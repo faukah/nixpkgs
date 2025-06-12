@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gh-skyline";
   version = "0.1.6";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Generate a 3D model of your GitHub contribution history";
     homepage = "https://github.com/github/gh-skyline";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
     mainProgram = "gh-skyline";
   };
 }

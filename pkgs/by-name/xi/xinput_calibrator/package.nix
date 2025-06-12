@@ -11,7 +11,6 @@
   pkg-config,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xinput_calibrator";
   version = "0.7.5";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tias/xinput_calibrator";
     description = "Generic touchscreen calibration program for X.Org";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.flosse ];
+    maintainers = [lib.maintainers.flosse];
     platforms = lib.platforms.linux;
     mainProgram = "xinput_calibrator";
   };

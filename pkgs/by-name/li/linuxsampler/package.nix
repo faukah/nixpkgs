@@ -15,7 +15,6 @@
   libsndfile,
   lv2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "linuxsampler";
   version = "2.3.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       FAQ, please contact us.
     '';
     license = lib.licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

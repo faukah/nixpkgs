@@ -6,7 +6,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "json-schema-catalog-rs";
   version = "0.2.0";
@@ -21,16 +20,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-fW2sODIFRXcDfzPnmYW0sH/dLe8sbRjQLtLWDlAJPxQ=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/json-schema-catalog";
   versionCheckProgramArg = "--version";
 
   passthru = {
     tests = {
-      run = callPackage ./test-run.nix { json-schema-catalog-rs = finalAttrs.finalPackage; };
+      run = callPackage ./test-run.nix {json-schema-catalog-rs = finalAttrs.finalPackage;};
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
     homepage = "https://github.com/roberth/json-schema-catalog-rs";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.roberth ];
+    maintainers = [lib.maintainers.roberth];
     mainProgram = "json-schema-catalog";
   };
 })

@@ -4,7 +4,6 @@
   fetchurl,
   updateAutotoolsGnuConfigScriptsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lzo";
   version = "2.10";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0wm04519pd3g8hqpjqhfr72q8qmbiwqaxcs3cndny9h86aa95y60";
   };
 
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
   configureFlags = lib.optional (!stdenv.hostPlatform.isStatic) "--enable-shared";
 

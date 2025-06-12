@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ghost";
   version = "8.0.0";
@@ -24,13 +23,13 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ghost" ];
+  pythonImportsCheck = ["ghost"];
 
   meta = with lib; {
     description = "Android post-exploitation framework";
     mainProgram = "ghost";
     homepage = "https://github.com/EntySec/ghost";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

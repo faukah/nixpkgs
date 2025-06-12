@@ -1,6 +1,8 @@
-{ testers, fetchDebianPatch, ... }:
-
 {
+  testers,
+  fetchDebianPatch,
+  ...
+}: {
   simple = testers.invalidateFetcherByDrvHash fetchDebianPatch {
     pname = "pysimplesoap";
     version = "1.16.2";

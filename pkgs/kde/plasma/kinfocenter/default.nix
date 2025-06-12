@@ -18,8 +18,7 @@
   vulkan-tools,
   wayland-utils,
   xdpyinfo,
-}:
-let
+}: let
   tools = {
     aha = lib.getExe aha;
     clinfo = lib.getExe clinfo;
@@ -38,42 +37,42 @@ let
     xdpyinfo = lib.getExe xdpyinfo;
   };
 in
-mkKdeDerivation {
-  pname = "kinfocenter";
+  mkKdeDerivation {
+    pname = "kinfocenter";
 
-  patches = [
-    # fwupdmgr is provided through NixOS' module
-    (replaceVars ./0001-tool-paths.patch (
-      {
-        # @QtBinariesDir@ only appears in the *removed* lines of the diff
-        QtBinariesDir = null;
-      }
-      // tools
-    ))
-  ];
+    patches = [
+      # fwupdmgr is provided through NixOS' module
+      (replaceVars ./0001-tool-paths.patch (
+        {
+          # @QtBinariesDir@ only appears in the *removed* lines of the diff
+          QtBinariesDir = null;
+        }
+        // tools
+      ))
+    ];
 
-  postPatch = ''
-    substituteInPlace kcms/firmware_security/fwupdmgr.sh \
-      --replace-fail " aha " " ${lib.getExe aha} "
-  '';
+    postPatch = ''
+      substituteInPlace kcms/firmware_security/fwupdmgr.sh \
+        --replace-fail " aha " " ${lib.getExe aha} "
+    '';
 
-  extraNativeBuildInputs = [ pkg-config ];
-  extraBuildInputs = [ libusb1 ];
+    extraNativeBuildInputs = [pkg-config];
+    extraBuildInputs = [libusb1];
 
-  qtWrapperArgs = [ "--inherit-argv0" ];
+    qtWrapperArgs = ["--inherit-argv0"];
 
-  # fix wrong symlink of infocenter pointing to a 'systemsettings5' binary in
-  # the same directory, while it is actually located in a completely different
-  # store path
-  preFixup = ''
-    ln -sf ${systemsettings}/bin/systemsettings $out/bin/kinfocenter
-  '';
+    # fix wrong symlink of infocenter pointing to a 'systemsettings5' binary in
+    # the same directory, while it is actually located in a completely different
+    # store path
+    preFixup = ''
+      ln -sf ${systemsettings}/bin/systemsettings $out/bin/kinfocenter
+    '';
 
-  # Hardcoded as a QString, which is UTF-16 so Nix can't pick it up automatically
-  postFixup = ''
-    mkdir -p $out/nix-support
-    echo "${lib.concatStringsSep ":" (lib.attrValues tools)}" > $out/nix-support/depends
-  '';
+    # Hardcoded as a QString, which is UTF-16 so Nix can't pick it up automatically
+    postFixup = ''
+      mkdir -p $out/nix-support
+      echo "${lib.concatStringsSep ":" (lib.attrValues tools)}" > $out/nix-support/depends
+    '';
 
-  meta.mainProgram = "kinfocenter";
-}
+    meta.mainProgram = "kinfocenter";
+  }

@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "localstack";
   version = "4.4.0";
@@ -45,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
     "dill"
   ];
 
-  pythonImportsCheck = [ "localstack" ];
+  pythonImportsCheck = ["localstack"];
 
   # Test suite requires boto, which has been removed from nixpkgs
   # Just do minimal test, buildPythonPackage maps checkPhase
@@ -69,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Fully functional local Cloud stack";
     homepage = "https://github.com/localstack/localstack";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "localstack";
   };
 }

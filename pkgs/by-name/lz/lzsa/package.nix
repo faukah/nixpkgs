@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lzsa";
   version = "1.4.1";
@@ -29,8 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/emmanuel-marty/lzsa";
     description = "Byte-aligned, efficient lossless packer that is optimized for fast decompression on 8-bit micros";
     mainProgram = "lzsa";
-    license = with lib.licenses; [ cc0 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [cc0];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

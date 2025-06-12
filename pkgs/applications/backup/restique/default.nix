@@ -8,7 +8,6 @@
   qttools,
   restic,
 }:
-
 mkDerivation {
   pname = "restique";
   version = "unstable-2022-11-29";
@@ -35,7 +34,7 @@ mkDerivation {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ restic ])
+    (lib.makeBinPath [restic])
   ];
 
   meta = with lib; {
@@ -46,7 +45,7 @@ mkDerivation {
       cc-by-sa-40
       cc0
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "restique";
   };
 }

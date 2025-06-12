@@ -12,7 +12,6 @@
   libadwaita,
   ffmpeg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "varia";
   version = "2025.5.14";
@@ -66,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://giantpinkrobots.github.io/varia";
     license = licenses.mpl20;
     mainProgram = "varia";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

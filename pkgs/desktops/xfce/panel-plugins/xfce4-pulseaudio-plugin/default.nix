@@ -19,7 +19,6 @@
   glib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-pulseaudio-plugin";
   version = "0.5.1";
@@ -56,13 +55,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-pulseaudio-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-pulseaudio-plugin-";};
 
   meta = {
     description = "Adjust the audio volume of the PulseAudio sound system";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-pulseaudio-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

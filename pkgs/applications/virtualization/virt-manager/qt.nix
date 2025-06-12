@@ -20,7 +20,6 @@
   libsepol,
   util-linux,
 }:
-
 mkDerivation rec {
   pname = "virt-manager-qt";
   version = "0.72.99";
@@ -69,7 +68,7 @@ mkDerivation rec {
       manages Xen and LXC (linux containers).
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (qtbase.meta) platforms;
   };
 }

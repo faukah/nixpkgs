@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tiny-proxy";
   version = "0.2.1";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-59T09qcOstl/yfzQmNlTNxGerQethZntwDAHwz/5FFM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ anyio ];
+  propagatedBuildInputs = [anyio];
 
   # The tests depend on httpx-socks, whose tests depend on tiny-proxy.
   doCheck = false;
 
-  pythonImportsCheck = [ "tiny_proxy" ];
+  pythonImportsCheck = ["tiny_proxy"];
 
   meta = with lib; {
     description = "SOCKS5/SOCKS4/HTTP proxy server";
     homepage = "https://github.com/romis2012/tiny-proxy";
     changelog = "https://github.com/romis2012/tiny-proxy/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

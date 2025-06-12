@@ -33,7 +33,7 @@ buildDotnetModule (finalAttrs: {
 
     rm .config/dotnet-tools.json
   '';
-  patches = [ ./001-Git-Version.patch ];
+  patches = [./001-Git-Version.patch];
 
   enableParallelBuilding = false;
 
@@ -43,7 +43,7 @@ buildDotnetModule (finalAttrs: {
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
   dotnet-test-sdk = dotnetCorePackages.sdk_9_0;
 
-  executables = [ "recyclarr" ];
+  executables = ["recyclarr"];
   makeWrapperArgs = [
     "--prefix PATH : ${
       lib.makeBinPath [
@@ -55,7 +55,7 @@ buildDotnetModule (finalAttrs: {
 
   passthru = {
     updateScript = ./update.sh;
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -68,6 +68,6 @@ buildDotnetModule (finalAttrs: {
       aldoborrero
     ];
     mainProgram = "recyclarr";
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
   };
 })

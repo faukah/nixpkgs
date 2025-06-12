@@ -8,7 +8,6 @@
   libiconv,
   libtool,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tre";
   version = "0.9.0";

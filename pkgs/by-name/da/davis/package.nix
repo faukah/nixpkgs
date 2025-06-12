@@ -4,7 +4,6 @@
   php,
   nixosTests,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "davis";
   version = "5.0.2";
@@ -39,6 +38,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/tchapi/davis";
     description = "Simple CardDav and CalDav server inspired by Baïkal";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ramblurr ];
+    maintainers = with lib.maintainers; [ramblurr];
   };
 })

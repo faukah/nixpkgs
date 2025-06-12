@@ -16,7 +16,6 @@
   yasnippet,
   el-patch,
 }:
-
 melpaBuild {
   pname = "voicemacs";
   version = "0-unstable-2024-12-11";
@@ -52,6 +51,6 @@ melpaBuild {
     homepage = "https://github.com/jcaw/voicemacs/";
     description = "Set of utilities for controlling Emacs by voice";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

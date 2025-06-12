@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "methodtools";
   version = "0.4.7";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-Y5VdYVSb3A+32waUUoIDDGW+AhRapN71pebTTlJC0es=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ wirerope ];
+  dependencies = [wirerope];
 
-  pythonImportsCheck = [ "methodtools" ];
+  pythonImportsCheck = ["methodtools"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/youknowone/methodtools";
     changelog = "https://github.com/youknowone/methodtools/releases/tag/${version}";
     license = licenses.bsd2WithViews;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

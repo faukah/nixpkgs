@@ -11,7 +11,6 @@
   setuptools-scm,
   tablib,
 }:
-
 buildPythonPackage rec {
   pname = "django-import-export";
   version = "4.3.7";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-hHLFrcCw9PXGh7JbHo76SUZ09ZCK9u72BjiaL5HuVMc=";
   };
 
-  pythonRelaxDeps = [ "tablib" ];
+  pythonRelaxDeps = ["tablib"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     diff-match-patch
@@ -35,20 +34,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    all = [ tablib ] ++ tablib.optional-dependencies.all;
-    cli = [ tablib ] ++ tablib.optional-dependencies.cli;
-    ods = [ tablib ] ++ tablib.optional-dependencies.ods;
-    pandas = [ tablib ] ++ tablib.optional-dependencies.pandas;
-    xls = [ tablib ] ++ tablib.optional-dependencies.xls;
-    xlsx = [ tablib ] ++ tablib.optional-dependencies.xlsx;
-    yaml = [ tablib ] ++ tablib.optional-dependencies.yaml;
+    all = [tablib] ++ tablib.optional-dependencies.all;
+    cli = [tablib] ++ tablib.optional-dependencies.cli;
+    ods = [tablib] ++ tablib.optional-dependencies.ods;
+    pandas = [tablib] ++ tablib.optional-dependencies.pandas;
+    xls = [tablib] ++ tablib.optional-dependencies.xls;
+    xlsx = [tablib] ++ tablib.optional-dependencies.xlsx;
+    yaml = [tablib] ++ tablib.optional-dependencies.yaml;
   };
 
-  nativeCheckInputs = [
-    chardet
-    psycopg2
-    pytz
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      chardet
+      psycopg2
+      pytz
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   checkPhase = ''
     runHook preCheck
@@ -56,13 +57,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "import_export" ];
+  pythonImportsCheck = ["import_export"];
 
   meta = with lib; {
     description = "Django application and library for importing and exporting data with admin integration";
     homepage = "https://github.com/django-import-export/django-import-export";
     changelog = "https://github.com/django-import-export/django-import-export/blob/${src.tag}/docs/changelog.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

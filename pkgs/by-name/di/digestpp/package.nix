@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation {
     description = "C++11 header-only message digest library";
     homepage = "https://github.com/kerukuro/digestpp";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     platforms = platforms.all;
   };
 }

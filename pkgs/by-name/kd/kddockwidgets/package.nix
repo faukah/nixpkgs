@@ -8,7 +8,6 @@
   fmt,
   nlohmann_json,
 }:
-
 stdenv.mkDerivation rec {
   pname = "KDDockWidgets";
   version = "2.2.5";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4xaTfNwfAIQox2YcusEZJt5f9/Kld+zveFEiIVw5dRc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     spdlog
     fmt
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     qtdeclarative
   ];
 
-  cmakeFlags = [ (lib.strings.cmakeBool "KDDockWidgets_QT6" true) ];
+  cmakeFlags = [(lib.strings.cmakeBool "KDDockWidgets_QT6" true)];
 
   dontWrapQtApps = true;
 

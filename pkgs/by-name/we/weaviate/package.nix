@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "weaviate";
   version = "1.30.5";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-W2n9qET1D1xuNrmBAyjTPljouhVPtld4z9Xcar0EfWY=";
 
-  subPackages = [ "cmd/weaviate-server" ];
+  subPackages = ["cmd/weaviate-server"];
 
   ldflags = [
     "-w"
@@ -33,6 +32,6 @@ buildGoModule rec {
     description = "ML-first vector search engine";
     homepage = "https://github.com/semi-technologies/weaviate";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

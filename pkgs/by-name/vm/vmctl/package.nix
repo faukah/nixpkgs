@@ -13,7 +13,6 @@
   getopt,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "vmctl";
   version = "0.99-unstable-2024-05-14";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation {
       --replace 'BASEDIR="$(dirname "$(readlink -f "''${BASH_SOURCE[0]}")")"' 'BASEDIR="${placeholder "out"}"'
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -40,18 +39,18 @@ stdenvNoCC.mkDerivation {
     install -Dm555 vmctl -t "$out/bin"
     wrapProgram "$out/bin/vmctl" \
       --set PATH "${
-        lib.makeBinPath [
-          openssh
-          socat
-          gawk
-          cloud-utils
-          cdrtools
-          qemu
-          qemu-utils
-          coreutils
-          getopt
-        ]
-      }"
+      lib.makeBinPath [
+        openssh
+        socat
+        gawk
+        cloud-utils
+        cdrtools
+        qemu
+        qemu-utils
+        coreutils
+        getopt
+      ]
+    }"
     cp -r {cmd,common,contrib,lib} $out
 
     runHook postInstall
@@ -61,7 +60,7 @@ stdenvNoCC.mkDerivation {
     description = "Command line tool focused on NVMe testing in QEMU";
     homepage = "https://github.com/SamsungDS/vmctl";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ panky ];
+    maintainers = with lib.maintainers; [panky];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

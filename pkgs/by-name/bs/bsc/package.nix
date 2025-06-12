@@ -4,7 +4,6 @@
   fetchFromGitHub,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bsc";
   version = "3.3.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "High performance block-sorting data compression library";
     homepage = "http://libbsc.com/";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     mainProgram = "bsc";

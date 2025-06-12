@@ -17,7 +17,6 @@
   qtbase,
   qca-qt5,
 }:
-
 mkDerivation {
   pname = "kwallet";
   nativeBuildInputs = [
@@ -39,5 +38,5 @@ mkDerivation {
     qgpgme
     qca-qt5
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

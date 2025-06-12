@@ -12,7 +12,6 @@
   fzf,
   openssl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "dra-cla";
   version = "3.0.5";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-CF9XSbkhTrfNE6iR6Q/VWA8x0eDxRKy0Bz0YUuOEEt4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,17 +33,17 @@ stdenvNoCC.mkDerivation {
 
     wrapProgram $out/bin/dra-cla \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnugrep
-          gnused
-          curl
-          mpv
-          aria2
-          ffmpeg
-          fzf
-          openssl
-        ]
-      }
+      lib.makeBinPath [
+        gnugrep
+        gnused
+        curl
+        mpv
+        aria2
+        ffmpeg
+        fzf
+        openssl
+      ]
+    }
 
     runHook postInstall
   '';
@@ -53,7 +52,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/CoolnsX/dra-cla";
     description = "Cli tool to browse and play korean drama, chinese drama";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ idlip ];
+    maintainers = with maintainers; [idlip];
     platforms = platforms.unix;
     mainProgram = "dra-cla";
   };

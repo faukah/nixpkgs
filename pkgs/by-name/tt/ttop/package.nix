@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "ttop";
   version = "1.5.3";

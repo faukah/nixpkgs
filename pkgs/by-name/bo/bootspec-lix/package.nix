@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "Vendor-neutral implementation of RFC-0125's datatype and synthesis tooling";
     homepage = "https://git.lix.systems/lix-community/bootspec";
     license = licenses.mit;
-    maintainers = [ lib.maintainers.raitobezarius ];
+    maintainers = [lib.maintainers.raitobezarius];
     platforms = platforms.unix;
   };
 }

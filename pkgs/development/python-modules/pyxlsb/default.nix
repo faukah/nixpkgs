@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pyxlsb";
   version = "1.0.10";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
 
   # package has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pyxlsb" ];
+  pythonImportsCheck = ["pyxlsb"];
 
   meta = with lib; {
     description = "Excel 2007-2010 Binary Workbook (xlsb) parser";

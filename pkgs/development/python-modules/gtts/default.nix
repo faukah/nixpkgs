@@ -14,7 +14,6 @@
   twine,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "gtts";
   version = "2.5.4";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ryTR7cESDO9pH5r2FBz+6JuNMEQr39hil/FSklgaIGg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     pytest
   '';
 
-  pythonImportsCheck = [ "gtts" ];
+  pythonImportsCheck = ["gtts"];
 
   meta = with lib; {
     description = "Python library and CLI tool to interface with Google Translate text-to-speech API";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://gtts.readthedocs.io";
     changelog = "https://gtts.readthedocs.io/en/latest/changelog.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
   };
 }

@@ -11,7 +11,6 @@
   gdk-pixbuf,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gdk-pixbuf-xlib";
   version = "2.40.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Deprecated API for integrating GdkPixbuf with Xlib data types";
     homepage = "https://gitlab.gnome.org/Archive/gdk-pixbuf-xlib";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
   };

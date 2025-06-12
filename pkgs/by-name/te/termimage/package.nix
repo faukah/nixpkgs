@@ -5,7 +5,6 @@
   installShellFiles,
   ronn,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "termimage";
   version = "1.2.1";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nabijaczleweli/termimage";
     changelog = "https://github.com/nabijaczleweli/termimage/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "termimage";
   };
 }

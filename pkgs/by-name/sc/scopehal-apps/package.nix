@@ -24,7 +24,6 @@
   moltenvk,
   llvmPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "scopehal-apps";
   version = "0-unstable-2024-09-16";
@@ -69,7 +68,7 @@ stdenv.mkDerivation {
       gtkmm3
       libtirpc
     ]
-    ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       moltenvk
     ];
@@ -81,7 +80,7 @@ stdenv.mkDerivation {
   '';
 
   cmakeFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-    "-DCMAKE_INSTALL_RPATH=${lib.strings.makeLibraryPath [ vulkan-loader ]}"
+    "-DCMAKE_INSTALL_RPATH=${lib.strings.makeLibraryPath [vulkan-loader]}"
   ];
 
   meta = {

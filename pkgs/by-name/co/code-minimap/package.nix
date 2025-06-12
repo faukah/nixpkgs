@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "code-minimap";
   version = "0.6.8";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ bsima ];
+    maintainers = with maintainers; [bsima];
     mainProgram = "code-minimap";
   };
 }

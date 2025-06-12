@@ -22,7 +22,6 @@
   readline,
   enableGestures ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fvwm";
   version = "2.7.0";
@@ -40,23 +39,25 @@ stdenv.mkDerivation rec {
     python3Packages.wrapPython
   ];
 
-  buildInputs = [
-    cairo
-    fontconfig
-    freetype
-    fribidi
-    libXcursor
-    libXft
-    libXinerama
-    libXpm
-    libXt
-    libpng
-    librsvg
-    libxslt
-    perl
-    python3Packages.python
-    readline
-  ] ++ lib.optional enableGestures libstroke;
+  buildInputs =
+    [
+      cairo
+      fontconfig
+      freetype
+      fribidi
+      libXcursor
+      libXft
+      libXinerama
+      libXpm
+      libXt
+      libpng
+      librsvg
+      libxslt
+      perl
+      python3Packages.python
+      readline
+    ]
+    ++ lib.optional enableGestures libstroke;
 
   pythonPath = [
     python3Packages.pyxdg
@@ -83,6 +84,6 @@ stdenv.mkDerivation rec {
     description = "Multiple large virtual desktop window manager";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ edanaher ];
+    maintainers = with maintainers; [edanaher];
   };
 }

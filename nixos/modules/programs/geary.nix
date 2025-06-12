@@ -3,13 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.geary;
-
-in
-{
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
@@ -19,7 +15,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.geary ];
+    environment.systemPackages = [pkgs.geary];
     programs.dconf.enable = true;
     services.gnome.gnome-keyring.enable = true;
     services.gnome.gnome-online-accounts.enable = true;

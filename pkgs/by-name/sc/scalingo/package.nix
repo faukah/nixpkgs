@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "scalingo";
   version = "1.34.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://doc.scalingo.com/platform/cli/start";
     changelog = "https://github.com/Scalingo/cli/blob/master/CHANGELOG.md";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ cimm ];
+    maintainers = with maintainers; [cimm];
     platforms = with lib.platforms; unix;
   };
 }

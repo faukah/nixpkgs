@@ -9,7 +9,6 @@
   gtest,
   rapidjson,
 }:
-
 stdenv.mkDerivation rec {
   pname = "modern-cpp-kafka";
   version = "2023.03.07";
@@ -54,22 +53,20 @@ stdenv.mkDerivation rec {
     substituteInPlace CMakeLists.txt --replace-fail '"-Werror"' ' '
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
-  propagatedBuildInputs = [ rdkafka ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
+  propagatedBuildInputs = [rdkafka];
 
-  cmakeFlags =
-    let
-      inherit (lib) cmakeFeature getLib getInclude;
-    in
-    [
-      (cmakeFeature "LIBRDKAFKA_LIBRARY_DIR" "${getLib rdkafka}/lib")
-      (cmakeFeature "LIBRDKAFKA_INCLUDE_DIR" "${getInclude rdkafka}/include")
-      (cmakeFeature "GTEST_LIBRARY_DIR" "${getLib gtest}/lib")
-      (cmakeFeature "GTEST_INCLUDE_DIR" "${getInclude gtest}/include")
-      (cmakeFeature "RAPIDJSON_INCLUDE_DIRS" "${getInclude rapidjson}/include")
-      (cmakeFeature "CMAKE_CXX_FLAGS" "-Wno-uninitialized")
-    ];
+  cmakeFlags = let
+    inherit (lib) cmakeFeature getLib getInclude;
+  in [
+    (cmakeFeature "LIBRDKAFKA_LIBRARY_DIR" "${getLib rdkafka}/lib")
+    (cmakeFeature "LIBRDKAFKA_INCLUDE_DIR" "${getInclude rdkafka}/include")
+    (cmakeFeature "GTEST_LIBRARY_DIR" "${getLib gtest}/lib")
+    (cmakeFeature "GTEST_INCLUDE_DIR" "${getInclude gtest}/include")
+    (cmakeFeature "RAPIDJSON_INCLUDE_DIRS" "${getInclude rapidjson}/include")
+    (cmakeFeature "CMAKE_CXX_FLAGS" "-Wno-uninitialized")
+  ];
 
   checkInputs = [
     gtest
@@ -80,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "C++ API for Kafka clients (i.e. KafkaProducer, KafkaConsumer, AdminClient)";
     homepage = "https://github.com/morganstanley/modern-cpp-kafka";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ditsuke ];
+    maintainers = with maintainers; [ditsuke];
     platforms = platforms.unix;
   };
 }

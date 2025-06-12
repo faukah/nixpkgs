@@ -10,7 +10,6 @@
   hicolor-icon-theme,
   jdupes,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "paper-icon-theme";
   version = "unstable-2020-03-12";
@@ -58,6 +57,6 @@ stdenvNoCC.mkDerivation {
     ];
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

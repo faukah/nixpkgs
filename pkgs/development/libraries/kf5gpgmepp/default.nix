@@ -8,7 +8,6 @@
   boost,
   gpgme,
 }:
-
 mkDerivation {
   pname = "kf5gpgmepp";
   version = "16.08.3";
@@ -23,7 +22,7 @@ mkDerivation {
     qtbase
     boost
   ];
-  propagatedBuildInputs = [ gpgme ];
+  propagatedBuildInputs = [gpgme];
 
   nativeBuildInputs = [
     cmake
@@ -31,8 +30,7 @@ mkDerivation {
   ];
 
   meta = with lib; {
-    license = [ licenses.lgpl2 ];
+    license = [licenses.lgpl2];
     platforms = platforms.linux;
   };
-
 }

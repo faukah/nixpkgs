@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libX11,
 }:
-
 buildGo123Module rec {
   pname = "certinfo";
   version = "1.0.24";
@@ -20,7 +19,7 @@ buildGo123Module rec {
   # clipboard functionality not working on Darwin
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64);
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libX11 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libX11];
 
   vendorHash = null;
 
@@ -29,6 +28,6 @@ buildGo123Module rec {
     mainProgram = "certinfo";
     homepage = "https://github.com/pete911/certinfo";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakuzure ];
+    maintainers = with maintainers; [jakuzure];
   };
 }

@@ -8,9 +8,7 @@
   alsa-lib,
   ncurses5,
   xorg,
-}:
-
-let
+}: let
   pname = "scilab-bin";
   version = "6.1.1";
 
@@ -39,7 +37,7 @@ let
       "x86_64-darwin"
       "x86_64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl2Only;
     mainProgram = "scilab";
   };
@@ -122,4 +120,6 @@ let
     dontCheckForBrokenSymlinks = true;
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

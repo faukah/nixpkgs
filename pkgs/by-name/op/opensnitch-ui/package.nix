@@ -4,7 +4,6 @@
   lib,
   opensnitch,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "opensnitch-ui";
 
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication {
   '';
 
   dontWrapQtApps = true;
-  makeWrapperArgs = [ "\${qtWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${qtWrapperArgs[@]}"];
 
   # All tests are sandbox-incompatible and disabled for now
   doCheck = false;

@@ -3,34 +3,30 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.printers;
 
-  ensurePrinter =
-    p:
-    let
-      args = lib.cli.toGNUCommandLineShell { } (
-        {
-          p = p.name;
-          v = p.deviceUri;
-          m = p.model;
-        }
-        // lib.optionalAttrs (p.location != null) {
-          L = p.location;
-        }
-        // lib.optionalAttrs (p.description != null) {
-          D = p.description;
-        }
-        // lib.optionalAttrs (p.ppdOptions != { }) {
-          o = lib.mapAttrsToList (name: value: "${name}=${value}") p.ppdOptions;
-        }
-      );
-    in
-    ''
-      # shellcheck disable=SC2016
-      ${pkgs.cups}/bin/lpadmin ${args} -E
-    '';
+  ensurePrinter = p: let
+    args = lib.cli.toGNUCommandLineShell {} (
+      {
+        p = p.name;
+        v = p.deviceUri;
+        m = p.model;
+      }
+      // lib.optionalAttrs (p.location != null) {
+        L = p.location;
+      }
+      // lib.optionalAttrs (p.description != null) {
+        D = p.description;
+      }
+      // lib.optionalAttrs (p.ppdOptions != {}) {
+        o = lib.mapAttrsToList (name: value: "${name}=${value}") p.ppdOptions;
+      }
+    );
+  in ''
+    # shellcheck disable=SC2016
+    ${pkgs.cups}/bin/lpadmin ${args} -E
+  '';
 
   ensureDefaultPrinter = name: ''
     ${pkgs.cups}/bin/lpadmin -d '${name}'
@@ -38,12 +34,12 @@ let
 
   # "graph but not # or /" can't be implemented as regex alone due to missing lookahead support
   noInvalidChars = str: lib.all (c: c != "#" && c != "/") (lib.stringToCharacters str);
-  printerName = (lib.types.addCheck (lib.types.strMatching "[[:graph:]]+") noInvalidChars) // {
-    description = "printable string without spaces, # and /";
-  };
-
-in
-{
+  printerName =
+    (lib.types.addCheck (lib.types.strMatching "[[:graph:]]+") noInvalidChars)
+    // {
+      description = "printable string without spaces, # and /";
+    };
+in {
   options = {
     hardware.printers = {
       ensureDefaultPrinter = lib.mkOption {
@@ -62,7 +58,7 @@ in
           and remove printers with {command}`lpadmin -x <printer-name>`.
           Printers not listed here can still be manually configured.
         '';
-        default = [ ];
+        default = [];
         type = lib.types.listOf (
           lib.types.submodule {
             options = {
@@ -117,7 +113,7 @@ in
                   PageSize = "A4";
                   Duplex = "DuplexNoTumble";
                 };
-                default = { };
+                default = {};
                 description = ''
                   Sets PPD options for the printer.
                   {command}`lpoptions [-p printername] -l` shows supported PPD options for the given printer.
@@ -130,12 +126,12 @@ in
     };
   };
 
-  config = lib.mkIf (cfg.ensurePrinters != [ ] && config.services.printing.enable) {
+  config = lib.mkIf (cfg.ensurePrinters != [] && config.services.printing.enable) {
     systemd.services.ensure-printers = {
       description = "Ensure NixOS-configured CUPS printers";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "cups.service" ];
-      after = [ "cups.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["cups.service"];
+      after = ["cups.service"];
 
       serviceConfig = {
         Type = "oneshot";

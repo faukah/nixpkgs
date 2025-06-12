@@ -6,7 +6,6 @@
   libressl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "acme-client";
   version = "1.3.3";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://git.wolfsden.cz/acme-client-portable";
     platforms = platforms.unix;
     license = licenses.isc;
-    maintainers = with maintainers; [ pmahoney ];
+    maintainers = with maintainers; [pmahoney];
     mainProgram = "acme-client";
   };
 }

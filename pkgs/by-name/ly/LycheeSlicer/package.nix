@@ -4,8 +4,7 @@
   makeDesktopItem,
   lib,
   xorg,
-}:
-let
+}: let
   pname = "LycheeSlicer";
   version = "7.3.2";
 
@@ -22,33 +21,32 @@ let
     noDisplay = false;
     exec = "lychee";
     terminal = false;
-    mimeTypes = [ "model/stl" ];
-    categories = [ "Graphics" ];
+    mimeTypes = ["model/stl"];
+    categories = ["Graphics"];
     keywords = [
       "STL"
       "Slicer"
       "Printing"
     ];
   };
-
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*
-  '';
+    extraInstallCommands = ''
+      install -Dm444 -t $out/share/applications ${desktopItem}/share/applications/*
+    '';
 
-  buildInputs = [
-    xorg.libxshmfence
-  ];
+    buildInputs = [
+      xorg.libxshmfence
+    ];
 
-  meta = {
-    description = "All-in-one 3D slicer for resin and FDM printers";
-    homepage = "https://lychee.mango3d.io/";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ tarinaky ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "lychee";
-  };
-}
+    meta = {
+      description = "All-in-one 3D slicer for resin and FDM printers";
+      homepage = "https://lychee.mango3d.io/";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [tarinaky];
+      platforms = ["x86_64-linux"];
+      mainProgram = "lychee";
+    };
+  }

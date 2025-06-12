@@ -3,12 +3,10 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   cython,
   versioneer,
-
   # dependencies
   cons,
   etuples,
@@ -17,7 +15,6 @@
   minikanren,
   numpy,
   scipy,
-
   # tests
   jax,
   jaxlib,
@@ -27,10 +24,8 @@
   pytestCheckHook,
   tensorflow-probability,
   writableTmpDirAsHomeHook,
-
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "pytensor";
   version = "2.31.3";
@@ -73,7 +68,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "pytensor" ];
+  pythonImportsCheck = ["pytensor"];
 
   # Ensure that the installed package is used instead of the source files from the current workdir
   preCheck = ''

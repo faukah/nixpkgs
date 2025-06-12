@@ -7,7 +7,6 @@
   plasma-framework,
   systemsettings,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kzones";
   version = "0.6";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-OAgzuX05dvotjRWiyPPeUieVJbQoy/opGYu6uVKQM60=";
   };
 
-  nativeBuildInputs = [ plasma-framework ];
+  nativeBuildInputs = [plasma-framework];
 
   buildInputs = [
     kcoreaddons
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     description = "KWin Script for snapping windows into zones";
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     license = licenses.gpl3Plus;
     inherit (finalAttrs.src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;

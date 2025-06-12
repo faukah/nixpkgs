@@ -9,7 +9,6 @@
   python3,
   json-fortran,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mctc-lib";
   version = "0.4.1";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ json-fortran ];
+  buildInputs = [json-fortran];
 
   outputs = [
     "out"
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/grimme-lab/mctc-lib";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

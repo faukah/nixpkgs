@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-leaflet";
   version = "0.31.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-+yt1+Er/YNQFhlkwDzGnEVVMZdEout5fqAiGN/sHUfc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   # The tests seem to be impure.
   # They are throwing a error about unset configs:
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/makinacorpus/django-leaflet";
     changelog = "https://github.com/makinacorpus/django-leaflet/blob/${version}/CHANGES";
     license = licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

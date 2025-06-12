@@ -7,7 +7,6 @@
   python3,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hisat2";
   version = "2.2.1";
@@ -53,11 +52,10 @@ stdenv.mkDerivation rec {
     description = "Graph based aligner";
     license = licenses.gpl3Plus;
     homepage = "https://daehwankimlab.github.io/hisat2/";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = [
       "x86_64-linux"
       "i686-linux"
     ];
   };
-
 }

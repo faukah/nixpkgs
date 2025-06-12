@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "buttplug-mcp";
   version = "0.0.1";
@@ -29,7 +28,7 @@ buildGoModule (finalAttrs: {
     description = "Buttplug.io Model Context Protocol (MCP) Server";
     homepage = "https://github.com/ConAcademy/buttplug-mcp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pilz ];
+    maintainers = with lib.maintainers; [pilz];
     mainProgram = "buttplug-mcp";
   };
 })

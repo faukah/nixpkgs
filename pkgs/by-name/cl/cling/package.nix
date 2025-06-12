@@ -9,7 +9,6 @@
   ncurses,
   python3,
   zlib,
-
   # *NOT* from LLVM 9!
   # The compiler used to compile Cling may affect the runtime include and lib
   # directories it expects to be run with. Cling builds against (a fork of) Clang,
@@ -18,19 +17,14 @@
   # version of Clang to compile, but we check out the Cling fork of Clang 9 to
   # build Cling against.
   clangStdenv,
-
   # For runtime C++ standard library
   gcc-unwrapped,
-
   # Build with debug symbols
   debug ? false,
-
   # Build with libc++ (LLVM) rather than stdlibc++ (GCC).
   # This is experimental and not all features work.
   useLLVMLibcxx ? clangStdenv.hostPlatform.isDarwin,
-}:
-
-let
+}: let
   stdenv = clangStdenv;
 
   # The patched clang lives in the LLVM megarepo
@@ -40,10 +34,10 @@ let
     # cling-llvm13 branch
     rev = "3610201fbe0352a63efb5cb45f4ea4987702c735";
     sha256 = "sha256-Cb7BvV7yobG+mkaYe7zD2KcnPvm8/vmVATNWssklXyk=";
-    sparseCheckout = [ "clang" ];
+    sparseCheckout = ["clang"];
   };
 
-  llvm = llvmPackages_13.llvm.override { enableSharedLibraries = false; };
+  llvm = llvmPackages_13.llvm.override {enableSharedLibraries = false;};
 
   unwrapped = stdenv.mkDerivation rec {
     pname = "cling-unwrapped";
@@ -109,7 +103,10 @@ let
         "-DLLVM_ENABLE_LIBCXXABI=ON"
       ];
 
-    CPPFLAGS = if useLLVMLibcxx then [ "-stdlib=libc++" ] else [ ];
+    CPPFLAGS =
+      if useLLVMLibcxx
+      then ["-stdlib=libc++"]
+      else [];
 
     postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       mkdir -p $out/share/Jupyter
@@ -126,29 +123,28 @@ let
         lgpl21
         ncsa
       ];
-      maintainers = with maintainers; [ thomasjm ];
+      maintainers = with maintainers; [thomasjm];
       platforms = platforms.unix;
     };
   };
 
   # Runtime flags for the C++ standard library
   cxxFlags =
-    if useLLVMLibcxx then
-      [
-        "-I"
-        "${lib.getDev llvmPackages_13.libcxx}/include/c++/v1"
-        "-L"
-        "${llvmPackages_13.libcxx}/lib"
-        "-l"
-        "${llvmPackages_13.libcxx}/lib/libc++${stdenv.hostPlatform.extensions.sharedLibrary}"
-      ]
-    else
-      [
-        "-I"
-        "${gcc-unwrapped}/include/c++/${gcc-unwrapped.version}"
-        "-I"
-        "${gcc-unwrapped}/include/c++/${gcc-unwrapped.version}/${stdenv.hostPlatform.config}"
-      ];
+    if useLLVMLibcxx
+    then [
+      "-I"
+      "${lib.getDev llvmPackages_13.libcxx}/include/c++/v1"
+      "-L"
+      "${llvmPackages_13.libcxx}/lib"
+      "-l"
+      "${llvmPackages_13.libcxx}/lib/libc++${stdenv.hostPlatform.extensions.sharedLibrary}"
+    ]
+    else [
+      "-I"
+      "${gcc-unwrapped}/include/c++/${gcc-unwrapped.version}"
+      "-I"
+      "${gcc-unwrapped}/include/c++/${gcc-unwrapped.version}/${stdenv.hostPlatform.config}"
+    ];
 
   # The flags passed to the wrapped cling should
   # a) prevent it from searching for system include files and libs, and
@@ -182,44 +178,42 @@ let
       "-isystem"
       "${lib.getDev unwrapped}/include"
     ];
-
 in
+  stdenv.mkDerivation {
+    pname = "cling";
+    version = unwrapped.version;
 
-stdenv.mkDerivation {
-  pname = "cling";
-  version = unwrapped.version;
+    nativeBuildInputs = [makeWrapper];
+    inherit unwrapped flags;
+    inherit (unwrapped) meta;
 
-  nativeBuildInputs = [ makeWrapper ];
-  inherit unwrapped flags;
-  inherit (unwrapped) meta;
+    dontUnpack = true;
+    dontConfigure = true;
 
-  dontUnpack = true;
-  dontConfigure = true;
+    buildPhase = ''
+      runHook preBuild
 
-  buildPhase = ''
-    runHook preBuild
+      makeWrapper $unwrapped/bin/cling $out/bin/cling \
+        --add-flags "$flags"
 
-    makeWrapper $unwrapped/bin/cling $out/bin/cling \
-      --add-flags "$flags"
+      runHook postBuild
+    '';
 
-    runHook postBuild
-  '';
+    doCheck = true;
+    checkPhase = ''
+      runHook preCheck
 
-  doCheck = true;
-  checkPhase = ''
-    runHook preCheck
+      output=$($out/bin/cling <<EOF
+      #include <iostream>
+      std::cout << "hello world" << std::endl
+      EOF
+      )
 
-    output=$($out/bin/cling <<EOF
-    #include <iostream>
-    std::cout << "hello world" << std::endl
-    EOF
-    )
+      echo "$output" | grep -q "Type C++ code and press enter to run it"
+      echo "$output" | grep -q "hello world"
 
-    echo "$output" | grep -q "Type C++ code and press enter to run it"
-    echo "$output" | grep -q "hello world"
+      runHook postCheck
+    '';
 
-    runHook postCheck
-  '';
-
-  dontInstall = true;
-}
+    dontInstall = true;
+  }

@@ -20,7 +20,6 @@
   wayland,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kooha";
   version = "2.3.0";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/SeaDve/Kooha";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
     mainProgram = "kooha";
   };
 }

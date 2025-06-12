@@ -7,7 +7,6 @@
   pythonAtLeast,
   distutils,
 }:
-
 buildPythonPackage rec {
   pname = "docker-pycreds";
   version = "0.4.0";
@@ -25,12 +24,12 @@ buildPythonPackage rec {
   ];
 
   dependencies =
-    [ six ]
+    [six]
     ++ lib.optionals (pythonAtLeast "3.12") [
       distutils
     ];
 
-  pythonImportsCheck = [ "dockerpycreds" ];
+  pythonImportsCheck = ["dockerpycreds"];
 
   # require docker-credential-helpers binaries
   doCheck = false;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Python bindings for the docker credentials store API";
     homepage = "https://github.com/shin-/dockerpy-creds";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -16,12 +16,12 @@
       "ios"
     ],
   artifactHashes ? flutter.artifactHashes,
-  extraPkgConfigPackages ? [ ],
-  extraLibraries ? [ ],
-  extraIncludes ? [ ],
-  extraCxxFlags ? [ ],
-  extraCFlags ? [ ],
-  extraLinkerFlags ? [ ],
+  extraPkgConfigPackages ? [],
+  extraLibraries ? [],
+  extraIncludes ? [],
+  extraCxxFlags ? [],
+  extraCFlags ? [],
+  extraLinkerFlags ? [],
   makeWrapper,
   writeShellScript,
   wrapGAppsHook3,
@@ -44,18 +44,15 @@
   ninja,
   clang,
   symlinkJoin,
-}:
-
-let
+}: let
   supportsLinuxDesktopTarget = builtins.elem "linux" supportedTargetFlutterPlatforms;
 
   flutterPlatformArtifacts = lib.genAttrs supportedTargetFlutterPlatforms (
-    flutterPlatform:
-    (callPackage ./artifacts/prepare-artifacts.nix {
+    flutterPlatform: (callPackage ./artifacts/prepare-artifacts.nix {
       src = callPackage ./artifacts/fetch-artifacts.nix {
         inherit flutterPlatform;
         systemPlatform = stdenv.hostPlatform.system;
-        flutter = callPackage ./wrapper.nix { inherit flutter; };
+        flutter = callPackage ./wrapper.nix {inherit flutter;};
         hash = artifactHashes.${flutterPlatform}.${stdenv.hostPlatform.system} or "";
       };
     })
@@ -99,17 +96,15 @@ let
   ];
 
   # Development packages required for compilation.
-  appBuildDeps =
-    let
-      # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
-      deps =
-        pkg: lib.filter lib.isDerivation ((pkg.buildInputs or [ ]) ++ (pkg.propagatedBuildInputs or [ ]));
-      withKey = pkg: {
-        key = pkg.outPath;
-        val = pkg;
-      };
-      collect = pkg: lib.map withKey ([ pkg ] ++ deps pkg);
-    in
+  appBuildDeps = let
+    # https://discourse.nixos.org/t/handling-transitive-c-dependencies/5942/3
+    deps = pkg: lib.filter lib.isDerivation ((pkg.buildInputs or []) ++ (pkg.propagatedBuildInputs or []));
+    withKey = pkg: {
+      key = pkg.outPath;
+      val = pkg;
+    };
+    collect = pkg: lib.map withKey ([pkg] ++ deps pkg);
+  in
     lib.map (e: e.val) (
       lib.genericClosure {
         startSet = lib.map withKey appRuntimeDeps;
@@ -143,70 +138,73 @@ let
   linkerFlags =
     (map (pkg: "-rpath,${lib.getOutput "lib" pkg}/lib") appRuntimeDeps) ++ extraLinkerFlags;
 in
-(callPackage ./sdk-symlink.nix { }) (
-  stdenv.mkDerivation {
-    pname = "flutter-wrapped";
-    inherit (flutter) version;
-
-    nativeBuildInputs =
-      [ makeWrapper ]
-      ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ]
-      ++ lib.optionals supportsLinuxDesktopTarget [
-        glib
-        wrapGAppsHook3
-      ];
-
-    passthru = flutter.passthru // {
+  (callPackage ./sdk-symlink.nix {}) (
+    stdenv.mkDerivation {
+      pname = "flutter-wrapped";
       inherit (flutter) version;
-      unwrapped = flutter;
-      updateScript = ./update/update.py;
-      inherit cacheDir;
-    };
 
-    dontUnpack = true;
-    dontWrapGApps = true;
+      nativeBuildInputs =
+        [makeWrapper]
+        ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools]
+        ++ lib.optionals supportsLinuxDesktopTarget [
+          glib
+          wrapGAppsHook3
+        ];
 
-    installPhase =
-      ''
-        runHook preInstall
+      passthru =
+        flutter.passthru
+        // {
+          inherit (flutter) version;
+          unwrapped = flutter;
+          updateScript = ./update/update.py;
+          inherit cacheDir;
+        };
 
-        for path in ${
-          builtins.concatStringsSep " " (
-            builtins.foldl' (
-              paths: pkg:
-              paths
-              ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
-                "lib"
-                "share"
-              ])
-            ) [ ] pkgConfigPackages
-          )
-        }; do
-          addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
-        done
+      dontUnpack = true;
+      dontWrapGApps = true;
 
-        mkdir -p $out/bin
-        makeWrapper '${immutableFlutter}' $out/bin/flutter \
-          --set-default ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
-      ''
-      + lib.optionalString (flutter ? engine && flutter.engine.meta.available) ''
-        --set-default FLUTTER_ENGINE "${flutter.engine}" \
-        --add-flags "--local-engine-host ${flutter.engine.outName}" \
-      ''
-      + ''
-          --suffix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
-          --suffix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
-          --suffix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
-          --prefix CXXFLAGS "''\t" '${builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)}' \
-          --prefix CFLAGS "''\t" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
-          --prefix LDFLAGS "''\t" '${
+      installPhase =
+        ''
+          runHook preInstall
+
+          for path in ${
+            builtins.concatStringsSep " " (
+              builtins.foldl' (
+                paths: pkg:
+                  paths
+                  ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
+                    "lib"
+                    "share"
+                  ])
+              ) []
+              pkgConfigPackages
+            )
+          }; do
+            addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"
+          done
+
+          mkdir -p $out/bin
+          makeWrapper '${immutableFlutter}' $out/bin/flutter \
+            --set-default ANDROID_EMULATOR_USE_SYSTEM_LIBS 1 \
+        ''
+        + lib.optionalString (flutter ? engine && flutter.engine.meta.available) ''
+          --set-default FLUTTER_ENGINE "${flutter.engine}" \
+          --add-flags "--local-engine-host ${flutter.engine.outName}" \
+        ''
+        + ''
+            --suffix PATH : '${lib.makeBinPath (tools ++ buildTools)}' \
+            --suffix PKG_CONFIG_PATH : "$FLUTTER_PKG_CONFIG_PATH" \
+            --suffix LIBRARY_PATH : '${lib.makeLibraryPath appStaticBuildDeps}' \
+            --prefix CXXFLAGS "''\t" '${builtins.concatStringsSep " " (includeFlags ++ extraCxxFlags)}' \
+            --prefix CFLAGS "''\t" '${builtins.concatStringsSep " " (includeFlags ++ extraCFlags)}' \
+            --prefix LDFLAGS "''\t" '${
             builtins.concatStringsSep " " (map (flag: "-Wl,${flag}") linkerFlags)
           }' \
-          ''${gappsWrapperArgs[@]}
+            ''${gappsWrapperArgs[@]}
 
-        runHook postInstall
-      '';
+          runHook postInstall
+        '';
 
-    inherit (flutter) meta;
-  }
-)
+      inherit (flutter) meta;
+    }
+  )

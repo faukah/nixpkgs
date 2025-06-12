@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mustache-go";
   version = "1.4.0";
@@ -26,8 +25,8 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/cbroglie/mustache";
     description = "Mustache template language in Go";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ Zimmi48 ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [Zimmi48];
     mainProgram = "mustache";
   };
 }

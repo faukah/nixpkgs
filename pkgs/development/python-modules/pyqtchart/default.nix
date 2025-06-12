@@ -10,7 +10,6 @@
   setuptools,
   sip,
 }:
-
 buildPythonPackage rec {
   pname = "pyqtchart";
   version = "5.15.7";
@@ -54,21 +53,21 @@ buildPythonPackage rec {
     pyqt-builder
   ];
 
-  buildInputs = [ qtcharts ];
+  buildInputs = [qtcharts];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt5.QtChart" ];
+  pythonImportsCheck = ["PyQt5.QtChart"];
 
   meta = with lib; {
     description = "Python bindings for the Qt Charts library";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

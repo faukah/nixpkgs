@@ -13,7 +13,6 @@
   genericUpdater,
   writeShellScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shadershark";
   version = "0.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenGL/X11 application for GNU/Linux consisting of a single window that shows simple 3D scene of a textured rectangle with applied vertex and fragment shaders (GLSL)";
     homepage = "https://graphics.globalcode.info/v_0/shader-shark.xhtml";
     license = licenses.gpl3;
-    maintainers = [ maintainers.lucasew ];
+    maintainers = [maintainers.lucasew];
     platforms = platforms.linux;
   };
 })

@@ -17,7 +17,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bada-bib";
   version = "0.8.1";
@@ -76,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/RogerCrocker/BadaBib";
     description = "Simple BibTeX Viewer and Editor";
     mainProgram = "badabib";
-    maintainers = [ maintainers.Cogitri ];
+    maintainers = [maintainers.Cogitri];
     license = licenses.gpl3Plus;
   };
 }

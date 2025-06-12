@@ -9,7 +9,6 @@
   pkg-config,
   libuuid,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgig";
   version = "4.4.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.linuxsampler.org";
     description = "Gigasampler file access library";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

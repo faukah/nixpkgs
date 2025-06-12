@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "office-code-pro";
   version = "1.004";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/nathco/Office-Code-Pro";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,10 +5,8 @@
   pythonOlder,
   fetchFromGitHub,
   isPyPy,
-
   # build-system
   flit-core,
-
   # dependencies
   babel,
   alabaster,
@@ -29,7 +27,6 @@
   sphinxcontrib-serializinghtml,
   sphinxcontrib-websupport,
   tomli,
-
   # check phase
   defusedxml,
   filelock,
@@ -37,11 +34,9 @@
   pytestCheckHook,
   pytest-xdist,
   typing-extensions,
-
   # reverse dependencies to test
   breathe,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx";
   version = "8.2.3";
@@ -63,7 +58,7 @@ buildPythonPackage rec {
     hash = "sha256-FoyCpDGDKNN2GMhE7gDpJLmWRWhbMCYlcVEaBTfXSEw=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies =
     [
@@ -86,8 +81,8 @@ buildPythonPackage rec {
       # extra[docs]
       sphinxcontrib-websupport
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   __darwinAllowLocalNetworking = true;
 
@@ -190,6 +185,6 @@ buildPythonPackage rec {
     homepage = "https://www.sphinx-doc.org";
     changelog = "https://www.sphinx-doc.org/en/master/changes.html";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.sphinx ];
+    teams = [lib.teams.sphinx];
   };
 }

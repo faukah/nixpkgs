@@ -10,7 +10,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "websocat";
   version = "1.14.0";
@@ -31,14 +30,14 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  buildFeatures = [ "ssl" ];
+  buildFeatures = ["ssl"];
 
   # Needed to get openssl-sys to use pkg-config.
   OPENSSL_NO_VENDOR = 1;
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
   # started as a systemd service).
   postInstall = ''
     wrapProgram $out/bin/websocat \
-      --prefix PATH : ${lib.makeBinPath [ bash ]}
+      --prefix PATH : ${lib.makeBinPath [bash]}
   '';
 
   doInstallCheck = true;

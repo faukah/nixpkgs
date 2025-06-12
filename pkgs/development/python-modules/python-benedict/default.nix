@@ -22,7 +22,6 @@
   xlrd,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "python-benedict";
   version = "0.34.1";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     hash = "sha256-ffmyTVeQKzV/sssxFuIckmBW6wmjnTWkHbVQ1v7fmGg=";
   };
 
-  pythonRelaxDeps = [ "boto3" ];
+  pythonRelaxDeps = ["boto3"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-fsutil
@@ -79,21 +78,23 @@ buildPythonPackage rec {
       phonenumbers
       python-dateutil
     ];
-    s3 = [ boto3 ];
-    toml = [ toml ];
+    s3 = [boto3];
+    toml = [toml];
     xls = [
       openpyxl
       xlrd
     ];
-    xml = [ xmltodict ];
-    yaml = [ pyyaml ];
+    xml = [xmltodict];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    orjson
-    pytestCheckHook
-    python-decouple
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      orjson
+      pytestCheckHook
+      python-decouple
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTests = [
     # Tests require network access
@@ -110,13 +111,13 @@ buildPythonPackage rec {
     "test_from_yaml_with_valid_url_valid_content"
   ];
 
-  pythonImportsCheck = [ "benedict" ];
+  pythonImportsCheck = ["benedict"];
 
   meta = with lib; {
     description = "Module with keylist/keypath support";
     homepage = "https://github.com/fabiocaccamo/python-benedict";
     changelog = "https://github.com/fabiocaccamo/python-benedict/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

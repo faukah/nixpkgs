@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "systemd-initrd-bridge";
-  meta.maintainers = [ lib.maintainers.majiir ];
+  meta.maintainers = [lib.maintainers.majiir];
 
   # Tests bridge interface configuration in systemd-initrd.
   #
@@ -12,57 +11,57 @@
   # the bridge itself.
 
   nodes = {
-    bridge =
-      { config, lib, ... }:
-      {
-        boot.initrd.systemd.enable = true;
-        boot.initrd.network.enable = true;
-        boot.initrd.systemd.services.boot-blocker = {
-          before = [ "initrd.target" ];
-          wantedBy = [ "initrd.target" ];
-          script = "sleep infinity";
-          serviceConfig.Type = "oneshot";
-        };
-
-        networking.primaryIPAddress = "192.168.1.${toString config.virtualisation.test.nodeNumber}";
-
-        virtualisation.vlans = [
-          1
-          2
-        ];
-        networking.bridges.br0.interfaces = [
-          "eth1"
-          "eth2"
-        ];
-
-        networking.interfaces = {
-          eth1.ipv4.addresses = lib.mkForce [ ];
-          eth2.ipv4.addresses = lib.mkForce [ ];
-          br0.ipv4.addresses = [
-            {
-              address = config.networking.primaryIPAddress;
-              prefixLength = 24;
-            }
-          ];
-        };
+    bridge = {
+      config,
+      lib,
+      ...
+    }: {
+      boot.initrd.systemd.enable = true;
+      boot.initrd.network.enable = true;
+      boot.initrd.systemd.services.boot-blocker = {
+        before = ["initrd.target"];
+        wantedBy = ["initrd.target"];
+        script = "sleep infinity";
+        serviceConfig.Type = "oneshot";
       };
 
-    a = {
-      virtualisation.vlans = [ 1 ];
-    };
+      networking.primaryIPAddress = "192.168.1.${toString config.virtualisation.test.nodeNumber}";
 
-    b =
-      { config, ... }:
-      {
-        virtualisation.vlans = [ 2 ];
-        networking.primaryIPAddress = lib.mkForce "192.168.1.${toString config.virtualisation.test.nodeNumber}";
-        networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
+      virtualisation.vlans = [
+        1
+        2
+      ];
+      networking.bridges.br0.interfaces = [
+        "eth1"
+        "eth2"
+      ];
+
+      networking.interfaces = {
+        eth1.ipv4.addresses = lib.mkForce [];
+        eth2.ipv4.addresses = lib.mkForce [];
+        br0.ipv4.addresses = [
           {
             address = config.networking.primaryIPAddress;
             prefixLength = 24;
           }
         ];
       };
+    };
+
+    a = {
+      virtualisation.vlans = [1];
+    };
+
+    b = {config, ...}: {
+      virtualisation.vlans = [2];
+      networking.primaryIPAddress = lib.mkForce "192.168.1.${toString config.virtualisation.test.nodeNumber}";
+      networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
+        {
+          address = config.networking.primaryIPAddress;
+          prefixLength = 24;
+        }
+      ];
+    };
   };
 
   testScript = ''

@@ -1,14 +1,10 @@
 {
   lib,
   mkMesonLibrary,
-
   nix-util,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-util-c";
   inherit version;
@@ -25,5 +21,4 @@ mkMesonLibrary (finalAttrs: {
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

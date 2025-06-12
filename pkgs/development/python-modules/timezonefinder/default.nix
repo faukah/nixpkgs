@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "timezonefinder";
   version = "6.5.9";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [cffi];
 
   dependencies = [
     cffi
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "timezonefinder" ];
+  pythonImportsCheck = ["timezonefinder"];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     description = "Module for finding the timezone of any point on earth (coordinates) offline";
     homepage = "https://github.com/MrMinimal64/timezonefinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "timezonefinder";
   };
 }

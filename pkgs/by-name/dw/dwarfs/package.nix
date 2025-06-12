@@ -30,7 +30,6 @@
   libdwarf,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dwarfs";
   version = "0.12.3";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     range-v3 # header-only library
     ronn
-    (python3.withPackages (ps: [ ps.mistletoe ])) # for man pages
+    (python3.withPackages (ps: [ps.mistletoe])) # for man pages
   ];
 
   buildInputs = [
@@ -94,22 +93,20 @@ stdenv.mkDerivation (finalAttrs: {
     #     https://github.com/mhx/dwarfs/blob/2cb5542a5d4274225c5933370adcf00035f6c974/CMakeLists.txt#L129
     # Thus the `gtest` headers, when included,
     # refer to symbols that only exist in `.so` files compiled with that version.
-    (gtest.override { cxx_standard = "20"; })
+    (gtest.override {cxx_standard = "20";})
   ];
   # these fail inside of the sandbox due to missing access
   # to the FUSE device
-  GTEST_FILTER =
-    let
-      disabledTests = [
-        "dwarfs/tools_test.end_to_end/*"
-        "dwarfs/tools_test.mutating_and_error_ops/*"
-        "dwarfs/tools_test.categorize/*"
-      ];
-    in
-    "-${lib.concatStringsSep ":" disabledTests}";
+  GTEST_FILTER = let
+    disabledTests = [
+      "dwarfs/tools_test.end_to_end/*"
+      "dwarfs/tools_test.mutating_and_error_ops/*"
+      "dwarfs/tools_test.categorize/*"
+    ];
+  in "-${lib.concatStringsSep ":" disabledTests}";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   versionCheckProgram = "${placeholder "out"}/bin/dwarfs";
 
@@ -118,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mhx/dwarfs";
     changelog = "https://github.com/mhx/dwarfs/blob/v${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.luftmensch-luftmensch ];
+    maintainers = [lib.maintainers.luftmensch-luftmensch];
     platforms = lib.platforms.linux;
   };
 })

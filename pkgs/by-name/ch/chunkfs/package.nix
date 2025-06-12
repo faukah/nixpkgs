@@ -5,7 +5,6 @@
   perl,
   fuse,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chunkfs";
   version = "0.8";

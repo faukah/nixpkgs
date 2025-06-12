@@ -7,7 +7,6 @@
   typing-extensions,
   pytest7CheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "avro";
   version = "1.12.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-ytnFOyPO7Wmceva93O1C4sVy/WtAjCV6fU/E6M8uLWs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  dependencies = lib.optionals (pythonOlder "3.8") [typing-extensions];
 
-  nativeCheckInputs = [ pytest7CheckHook ];
+  nativeCheckInputs = [pytest7CheckHook];
 
   disabledTests = [
     # Requires network access
@@ -33,14 +32,14 @@ buildPythonPackage rec {
     "test_schema_compatibility_type_mismatch"
   ];
 
-  pythonImportsCheck = [ "avro" ];
+  pythonImportsCheck = ["avro"];
 
   meta = with lib; {
     description = "Python serialization and RPC framework";
     homepage = "https://github.com/apache/avro";
     changelog = "https://github.com/apache/avro/releases/tag/release-${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     mainProgram = "avro";
   };
 }

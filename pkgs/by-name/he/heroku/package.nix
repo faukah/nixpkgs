@@ -6,7 +6,6 @@
   nodejs,
   writeScript,
 }:
-
 stdenv.mkDerivation {
   pname = "heroku";
   version = "10.6.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-dJ18GYfYVzWNssVyBu+L/iuHyRok5whQfs7CC2AYnf4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 

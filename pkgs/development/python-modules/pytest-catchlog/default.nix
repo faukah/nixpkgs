@@ -5,7 +5,6 @@
   pytest,
   unzip,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-catchlog";
   version = "1.2.2";
@@ -17,8 +16,8 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ unzip ];
-  buildInputs = [ pytest ];
+  nativeBuildInputs = [unzip];
+  buildInputs = [pytest];
   checkPhase = "make test";
 
   # Requires pytest < 3.1

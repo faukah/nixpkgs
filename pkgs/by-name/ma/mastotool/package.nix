@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mastotool";
   version = "0.2.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/mastotool";
     changelog = "https://github.com/muesli/mastotool/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "mastotool";
   };
 }

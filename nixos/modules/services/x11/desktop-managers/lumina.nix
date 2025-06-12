@@ -4,33 +4,23 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lumina;
-
-in
-
-{
+in {
   meta = {
     maintainers = teams.lumina.members;
   };
 
   options = {
-
     services.xserver.desktopManager.lumina.enable = mkOption {
       type = types.bool;
       default = false;
       description = "Enable the Lumina desktop manager";
     };
-
   };
 
   config = mkIf cfg.enable {
-
     services.displayManager.sessionPackages = [
       pkgs.lumina.lumina
     ];
@@ -43,6 +33,5 @@ in
       # FIXME: modules should link subdirs of `/share` rather than relying on this
       "/share"
     ];
-
   };
 }

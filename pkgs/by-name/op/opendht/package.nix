@@ -20,7 +20,6 @@
   enableProxyServerAndClient ? false,
   enablePushNotifications ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opendht";
   version = "3.4.0";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=v(.+)" ];
+    extraArgs = ["--version-regex=v(.+)"];
   };
 
   meta = with lib; {

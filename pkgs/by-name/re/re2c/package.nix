@@ -5,13 +5,11 @@
   autoreconfHook,
   nix-update-script,
   python3,
-
   # for passthru.tests
   ninja,
   php,
   spamassassin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "re2c";
   version = "4.1";
@@ -53,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://re2c.org";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

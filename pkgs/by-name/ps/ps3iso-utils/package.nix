@@ -26,13 +26,13 @@ stdenv.mkDerivation {
     cp bin/* $out/bin
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Estwald's PS3ISO utilities";
     homepage = "https://github.com/bucanero/ps3iso-utils";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ soupglasses ];
+    maintainers = with maintainers; [soupglasses];
     platforms = platforms.all;
   };
 }

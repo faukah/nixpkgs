@@ -5,9 +5,9 @@
   remctl-c, # remctl from pkgs, not from pythonPackages
   typing,
 }:
-
 buildPythonPackage {
-  inherit (remctl-c)
+  inherit
+    (remctl-c)
     meta
     pname
     src
@@ -15,7 +15,7 @@ buildPythonPackage {
     ;
   setSourceRoot = "sourceRoot=$(echo */python)";
 
-  buildInputs = [ remctl-c ];
+  buildInputs = [remctl-c];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.5") [typing];
 }

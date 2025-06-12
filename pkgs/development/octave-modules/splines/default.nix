@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 buildOctavePackage rec {
   pname = "splines";
   version = "1.3.5";
@@ -19,7 +18,7 @@ buildOctavePackage rec {
       gpl3Plus
       publicDomain
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Additional spline functions";
   };
 }

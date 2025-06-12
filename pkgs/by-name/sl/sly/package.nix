@@ -8,7 +8,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter327.buildFlutterApplication rec {
   pname = "sly";
   version = "1.0.0";
@@ -30,15 +29,15 @@ flutter327.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (sly) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (sly) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "sly.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -47,8 +46,8 @@ flutter327.buildFlutterApplication rec {
     description = "Friendly image editor";
     homepage = "https://github.com/kra-mo/Sly";
     mainProgram = "sly";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

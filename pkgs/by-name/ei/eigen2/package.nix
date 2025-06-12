@@ -4,7 +4,6 @@
   fetchFromGitLab,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eigen";
   version = "2.0.17";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-C1Bu2H4zxd/2QVzz9AOdoCSRwOYjF41Vr/0S8Fm2kzQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://eigen.tuxfamily.org";

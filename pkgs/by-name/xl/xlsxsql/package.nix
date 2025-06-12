@@ -33,8 +33,7 @@ buildGoModule rec {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd xlsxsql \
         --bash <(${emulator} $out/bin/xlsxsql completion bash) \
         --fish <(${emulator} $out/bin/xlsxsql completion fish) \
@@ -48,14 +47,14 @@ buildGoModule rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool that executes SQL queries on various files including xlsx files and outputs the results to various files";
     homepage = "https://github.com/noborus/xlsxsql";
     changelog = "https://github.com/noborus/xlsxsql/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "xlsxsql";
   };
 }

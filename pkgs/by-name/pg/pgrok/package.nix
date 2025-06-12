@@ -5,9 +5,7 @@
   nix-update-script,
   nodejs,
   pnpm_9,
-}:
-
-let
+}: let
   pname = "pgrok";
   version = "1.4.5";
   src = fetchFromGitHub {
@@ -17,63 +15,62 @@ let
     hash = "sha256-eDtYnsHZpdIGcgRGHTptlfVf//bxup6ZDWvVkBJdBbE=";
   };
 in
-
-buildGoModule {
-  inherit pname version src;
-
-  outputs = [
-    "out"
-    "server"
-  ];
-
-  nativeBuildInputs = [
-    nodejs
-    pnpm_9.configHook
-  ];
-
-  env.pnpmDeps = pnpm_9.fetchDeps {
+  buildGoModule {
     inherit pname version src;
-    hash = "sha256-o6wxO8EGRmhcYggJnfxDkH+nbt+isc8bfHji8Hu9YKg=";
-  };
 
-  vendorHash = "sha256-nIxsG1O5RG+PDSWBcUWpk+4aFq2cYaxpkgOoDqLjY90=";
+    outputs = [
+      "out"
+      "server"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.commit=unknown"
-    "-X main.date=unknown"
-  ];
+    nativeBuildInputs = [
+      nodejs
+      pnpm_9.configHook
+    ];
 
-  subPackages = [
-    "pgrok/pgrok"
-    "pgrokd/pgrokd"
-  ];
+    env.pnpmDeps = pnpm_9.fetchDeps {
+      inherit pname version src;
+      hash = "sha256-o6wxO8EGRmhcYggJnfxDkH+nbt+isc8bfHji8Hu9YKg=";
+    };
 
-  preBuild = ''
-    pushd pgrokd/web
+    vendorHash = "sha256-nIxsG1O5RG+PDSWBcUWpk+4aFq2cYaxpkgOoDqLjY90=";
 
-    pnpm run build
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.version=${version}"
+      "-X main.commit=unknown"
+      "-X main.date=unknown"
+    ];
 
-    popd
+    subPackages = [
+      "pgrok/pgrok"
+      "pgrokd/pgrokd"
+    ];
 
-    # rename packages due to naming conflict
-    mv pgrok/cli/ pgrok/pgrok/
-    mv pgrokd/cli/ pgrokd/pgrokd/
-  '';
+    preBuild = ''
+      pushd pgrokd/web
 
-  postInstall = ''
-    moveToOutput bin/pgrokd $server
-  '';
+      pnpm run build
 
-  passthru.updateScript = nix-update-script { };
+      popd
 
-  meta = {
-    description = "Selfhosted TCP/HTTP tunnel, ngrok alternative, written in Go";
-    homepage = "https://github.com/pgrok/pgrok";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marie ];
-    mainProgram = "pgrok";
-  };
-}
+      # rename packages due to naming conflict
+      mv pgrok/cli/ pgrok/pgrok/
+      mv pgrokd/cli/ pgrokd/pgrokd/
+    '';
+
+    postInstall = ''
+      moveToOutput bin/pgrokd $server
+    '';
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = {
+      description = "Selfhosted TCP/HTTP tunnel, ngrok alternative, written in Go";
+      homepage = "https://github.com/pgrok/pgrok";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [marie];
+      mainProgram = "pgrok";
+    };
+  }

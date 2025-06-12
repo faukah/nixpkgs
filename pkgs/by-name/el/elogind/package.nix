@@ -27,13 +27,11 @@
   docbook_xsl_ns,
   docbook_xml_dtd_42,
   docbook_xml_dtd_45,
-
   # Defaulting to false because usually the rationale for using elogind is to
   # use it in situation where a systemd dependency does not work (especially
   # when building with musl, which elogind explicitly supports).
   enableSystemd ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elogind";
   version = "255.5";
@@ -65,15 +63,21 @@ stdenv.mkDerivation rec {
     python3Packages.jinja2
   ];
 
-  buildInputs = [
-    acl
-    audit
-    dbus
-    libcap
-    libselinux
-    pam
-    util-linux
-  ] ++ (if enableSystemd then [ udev ] else [ eudev ]);
+  buildInputs =
+    [
+      acl
+      audit
+      dbus
+      libcap
+      libselinux
+      pam
+      util-linux
+    ]
+    ++ (
+      if enableSystemd
+      then [udev]
+      else [eudev]
+    );
 
   postPatch = ''
     substituteInPlace meson.build --replace-fail "install_emptydir(elogindstatedir)" ""
@@ -114,7 +118,7 @@ stdenv.mkDerivation rec {
       name = "malloc_trim.patch";
       url = "https://git.openembedded.org/openembedded-core/plain/meta/recipes-core/systemd/systemd/0020-sd-event-Make-malloc_trim-conditional-on-glibc.patch?id=6bc5e3f3cd882c81c972dbd27aacc1ce00e5e59a";
       stripLen = 3;
-      extraPrefix = [ "src/libelogind/" ];
+      extraPrefix = ["src/libelogind/"];
       hash = "sha256-rtSnCEK+frhnlwl/UW3YHxB8MUCAq48jEzQRURpxdXk=";
     })
     (fetchurl {
@@ -151,6 +155,6 @@ stdenv.mkDerivation rec {
     description = ''The systemd project's "logind", extracted to a standalone package'';
     platforms = platforms.linux; # probably more
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

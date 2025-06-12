@@ -7,7 +7,6 @@
   dtk6widget,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-picker";
   version = "6.0.4";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-picker";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

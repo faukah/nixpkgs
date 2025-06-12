@@ -6,7 +6,6 @@
   flit-core,
   nltk,
 }:
-
 buildPythonPackage rec {
   pname = "textblob";
   version = "0.19.0";
@@ -17,19 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-Cj0GpHz3dZRB2jQYxIQ67TeXqZi+uiEIxiRaICD4OwE=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ nltk ];
+  dependencies = [nltk];
 
   doCheck = true;
 
-  pythonImportsCheck = [ "textblob" ];
+  pythonImportsCheck = ["textblob"];
 
   meta = with lib; {
     changelog = "https://github.com/sloria/TextBlob/releases/tag/${version}";
     description = "Simplified Text processing";
     homepage = "https://textblob.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ idlip ];
+    maintainers = with maintainers; [idlip];
   };
 }

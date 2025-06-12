@@ -3,7 +3,6 @@
   melpaBuild,
   fetchurl,
 }:
-
 melpaBuild {
   pname = "prolog-mode";
   ename = "prolog";

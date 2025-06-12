@@ -1,18 +1,15 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "packagekit";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ peterhoeg ];
+    maintainers = [peterhoeg];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      environment.systemPackages = with pkgs; [ dbus ];
-      services.packagekit = {
-        enable = true;
-      };
+  nodes.machine = {...}: {
+    environment.systemPackages = with pkgs; [dbus];
+    services.packagekit = {
+      enable = true;
     };
+  };
 
   testScript = ''
     start_all()

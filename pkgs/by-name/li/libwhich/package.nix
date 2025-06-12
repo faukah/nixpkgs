@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwhich";
   version = "1.2.0";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
     mainProgram = "libwhich";
     homepage = "https://github.com/vtjnash/libwhich";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

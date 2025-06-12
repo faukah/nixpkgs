@@ -11,7 +11,6 @@
   pytestCheckHook,
   pytest-jupyter,
 }:
-
 buildPythonPackage rec {
   pname = "ploomber-extension";
   version = "0.1.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     jupyterlab
   ];
 
-  dependencies = [ ploomber-core ];
+  dependencies = [ploomber-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,12 +40,12 @@ buildPythonPackage rec {
   # Tests fail on Darwin when sandboxed
   doCheck = !stdenv.buildPlatform.isDarwin;
 
-  pythonImportsCheck = [ "ploomber_extension" ];
+  pythonImportsCheck = ["ploomber_extension"];
 
   meta = {
     description = "Ploomber extension";
     homepage = "https://pypi.org/project/ploomber-extension";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.euxane ];
+    maintainers = [lib.maintainers.euxane];
   };
 }

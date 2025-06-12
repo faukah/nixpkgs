@@ -12,7 +12,6 @@
   requests,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "pysolcast";
   version = "2.0.7";
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "pysolcast" ];
+  pythonImportsCheck = ["pysolcast"];
 
   meta = with lib; {
     description = "Python library for interacting with the Solcast API";
     homepage = "https://github.com/mcaulifn/solcast";
     changelog = "https://github.com/mcaulifn/solcast/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

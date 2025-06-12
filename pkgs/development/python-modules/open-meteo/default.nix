@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "open-meteo";
   version = "0.3.2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}" \
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "test_timeout"
   ];
 
-  pythonImportsCheck = [ "open_meteo" ];
+  pythonImportsCheck = ["open_meteo"];
 
   meta = with lib; {
     changelog = "https://github.com/frenck/python-open-meteo/releases/tag/v${version}";
     description = "Python client for the Open-Meteo API";
     homepage = "https://github.com/frenck/python-open-meteo";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

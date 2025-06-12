@@ -5,7 +5,6 @@
   buildPackages,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oksh";
   version = "7.7";
@@ -23,16 +22,16 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace "./conftest" "echo"
   '';
 
-  configureFlags = [ "--no-strip" ];
+  configureFlags = ["--no-strip"];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = "Portable OpenBSD ksh, based on the Public Domain Korn Shell (pdksh)";
     mainProgram = "oksh";
     homepage = "https://github.com/ibara/oksh";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
   };
 

@@ -5,7 +5,6 @@
   libxkbcommon,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "wayfreeze";
   version = "0-unstable-2025-03-18";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-3lYBzVO1Nssq/uxbZsop7v45yQ+mZs8QhfTMB6XoTzM=";
   };
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-jA+hVVV2hM/Hw/9rzGM63UuT/aq488kTMC/AKwSmoJk=";

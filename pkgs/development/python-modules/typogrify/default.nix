@@ -7,7 +7,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "typogrify";
   version = "2.1.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-8KoATpgDKm5r5MnaZefrcVDjbKO/UIrbzagrTQA+Ye4=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ smartypants ];
+  dependencies = [smartypants];
 
-  pythonImportsCheck = [ "typogrify.filters" ];
+  pythonImportsCheck = ["typogrify.filters"];
 
   pytestFlagsArray = [
     "--doctest-modules"
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Filters to enhance web typography, including support for Django & Jinja templates";
     homepage = "https://github.com/justinmayer/typogrify";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

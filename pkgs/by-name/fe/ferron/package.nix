@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ferron";
   version = "1.3.1";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/ferronweb/ferron";
     changelog = "https://github.com/ferronweb/ferron/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "ferron";
   };
 })

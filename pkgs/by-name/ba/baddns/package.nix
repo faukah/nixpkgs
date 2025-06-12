@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "baddns";
   version = "1.7.86";
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "baddns" ];
+  pythonImportsCheck = ["baddns"];
 
   disabledTests = [
     # Tests require network access
@@ -65,7 +64,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/blacklanternsecurity/baddns/";
     changelog = "https://github.com/blacklanternsecurity/baddns/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "baddns";
   };
 }

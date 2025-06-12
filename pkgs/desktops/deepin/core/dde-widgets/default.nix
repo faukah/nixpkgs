@@ -10,7 +10,6 @@
   qt5integration,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-widgets";
   version = "6.0.23";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-widgets";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

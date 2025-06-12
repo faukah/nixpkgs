@@ -8,7 +8,6 @@
   pytest,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "segyio";
   version = "1.9.12";
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Fast Python library for SEGY files";
     homepage = "https://github.com/equinor/segyio";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ atila ];
+    maintainers = with lib.maintainers; [atila];
   };
 }

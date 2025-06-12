@@ -7,7 +7,6 @@
   capnproto,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "UHDM";
   # When updating this package, also consider updating science/logic/surelog
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (p: with p; [ orderedmultidict ]))
+    (python3.withPackages (p: with p; [orderedmultidict]))
     gtest
   ];
 

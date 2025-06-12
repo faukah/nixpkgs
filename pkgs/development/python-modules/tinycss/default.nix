@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "tinycss";
   version = "0.4";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ cssutils ];
+  propagatedBuildInputs = [cssutils];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preBuild = ''
     # Force Cython to re-generate this file. If it is present, Cython will
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   # Disable Cython tests
   TINYCSS_SKIP_SPEEDUPS_TESTS = true;
 
-  pythonImportsCheck = [ "tinycss" ];
+  pythonImportsCheck = ["tinycss"];
 
   meta = with lib; {
     description = "Complete yet simple CSS parser for Python";
     homepage = "https://tinycss.readthedocs.io";
     changelog = "https://github.com/Kozea/tinycss/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

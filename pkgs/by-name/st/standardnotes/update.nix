@@ -9,7 +9,6 @@
   nix,
   gnused,
 }:
-
 writeScript "update-standardnotes" ''
   #!${runtimeShell}
   PATH=${

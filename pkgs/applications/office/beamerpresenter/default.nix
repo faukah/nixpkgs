@@ -26,7 +26,6 @@
   useMupdf ? true,
   useExternalRenderer ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "beamerpresenter";
   version = "0.2.6";
@@ -74,11 +73,23 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DGIT_VERSION=OFF"
-    "-DUSE_POPPLER=${if usePoppler then "ON" else "OFF"}"
-    "-DUSE_MUPDF=${if useMupdf then "ON" else "OFF"}"
+    "-DUSE_POPPLER=${
+      if usePoppler
+      then "ON"
+      else "OFF"
+    }"
+    "-DUSE_MUPDF=${
+      if useMupdf
+      then "ON"
+      else "OFF"
+    }"
     "-DUSE_QTPDF=OFF"
     "-DLINK_MUPDF_THIRD=OFF"
-    "-DUSE_EXTERNAL_RENDERER=${if useExternalRenderer then "ON" else "OFF"}"
+    "-DUSE_EXTERNAL_RENDERER=${
+      if useExternalRenderer
+      then "ON"
+      else "OFF"
+    }"
     "-DLINK_MUJS=OFF"
     "-DLINK_GUMBO=ON"
     "-DUSE_TRANSLATIONS=ON"

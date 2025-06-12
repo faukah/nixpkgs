@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pydevccu";
   version = "0.1.10";
@@ -25,18 +24,18 @@ buildPythonPackage rec {
       --replace-fail "setuptools==75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pydevccu" ];
+  pythonImportsCheck = ["pydevccu"];
 
   meta = {
     description = "HomeMatic CCU XML-RPC Server with fake devices";
     homepage = "https://github.com/SukramJ/pydevccu";
     changelog = "https://github.com/SukramJ/pydevccu/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

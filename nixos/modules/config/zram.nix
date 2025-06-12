@@ -3,17 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.zramSwap;
   devices = map (nr: "zram${toString nr}") (lib.range 0 (cfg.swapDevices - 1));
-
-in
-
-{
-
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "zramSwap"
@@ -24,9 +17,7 @@ in
   ###### interface
 
   options = {
-
     zramSwap = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -81,8 +72,7 @@ in
       algorithm = lib.mkOption {
         default = "zstd";
         example = "lz4";
-        type =
-          with lib.types;
+        type = with lib.types;
           either (enum [
             "842"
             "lzo"
@@ -90,7 +80,8 @@ in
             "lz4"
             "lz4hc"
             "zstd"
-          ]) str;
+          ])
+          str;
         description = ''
           Compression algorithm. `lzo` has good compression,
           but is slow. `lz4` has bad compression, but is fast.
@@ -110,11 +101,9 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.writebackDevice == null || cfg.swapDevices <= 1;
@@ -127,22 +116,22 @@ in
     services.zram-generator.settings = lib.listToAttrs (
       builtins.map (dev: {
         name = dev;
-        value =
-          let
-            size = "${toString cfg.memoryPercent} / 100 * ram";
-          in
+        value = let
+          size = "${toString cfg.memoryPercent} / 100 * ram";
+        in
           {
             zram-size =
-              if cfg.memoryMax != null then "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)" else size;
+              if cfg.memoryMax != null
+              then "min(${size}, ${toString cfg.memoryMax} / 1024 / 1024)"
+              else size;
             compression-algorithm = cfg.algorithm;
             swap-priority = cfg.priority;
           }
           // lib.optionalAttrs (cfg.writebackDevice != null) {
             writeback-device = cfg.writebackDevice;
           };
-      }) devices
+      })
+      devices
     );
-
   };
-
 }

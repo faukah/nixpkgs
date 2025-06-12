@@ -3,10 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.ddclient;
-  boolToStr = bool: if bool then "yes" else "no";
+  boolToStr = bool:
+    if bool
+    then "yes"
+    else "no";
   dataDir = "/var/lib/ddclient";
   StateDirectory = builtins.baseNameOf dataDir;
   RuntimeDirectory = StateDirectory;
@@ -20,10 +22,9 @@ let
     ${lib.optionalString (cfg.use == "" && cfg.usev6 != "") "usev6=${cfg.usev6}"}
     login=${cfg.username}
     password=${
-      if cfg.protocol == "nsupdate" then
-        "/run/${RuntimeDirectory}/ddclient.key"
-      else
-        "@password_placeholder@"
+      if cfg.protocol == "nsupdate"
+      then "/run/${RuntimeDirectory}/ddclient.key"
+      else "@password_placeholder@"
     }
     protocol=${cfg.protocol}
     ${lib.optionalString (cfg.script != "") "script=${cfg.script}"}
@@ -36,51 +37,48 @@ let
     ${cfg.extraConfig}
     ${lib.concatStringsSep "," cfg.domains}
   '';
-  configFile = if (cfg.configFile != null) then cfg.configFile else configFile';
+  configFile =
+    if (cfg.configFile != null)
+    then cfg.configFile
+    else configFile';
 
   preStart = ''
     install --mode=600 --owner=$USER ${configFile} /run/${RuntimeDirectory}/ddclient.conf
     ${lib.optionalString (cfg.configFile == null) (
-      if (cfg.protocol == "nsupdate") then
-        ''
-          install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
-        ''
-      else if (cfg.passwordFile != null) then
-        ''
-          "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
-        ''
-      else
-        ''
-          sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
-        ''
+      if (cfg.protocol == "nsupdate")
+      then ''
+        install --mode=600 --owner=$USER ${cfg.passwordFile} /run/${RuntimeDirectory}/ddclient.key
+      ''
+      else if (cfg.passwordFile != null)
+      then ''
+        "${pkgs.replace-secret}/bin/replace-secret" "@password_placeholder@" "${cfg.passwordFile}" "/run/${RuntimeDirectory}/ddclient.conf"
+      ''
+      else ''
+        sed -i '/^password=@password_placeholder@$/d' /run/${RuntimeDirectory}/ddclient.conf
+      ''
     )}
   '';
-in
-{
-
+in {
   imports = [
-    (lib.mkChangedOptionModule [ "services" "ddclient" "domain" ] [ "services" "ddclient" "domains" ] (
-      config:
-      let
-        value = lib.getAttrFromPath [ "services" "ddclient" "domain" ] config;
+    (lib.mkChangedOptionModule ["services" "ddclient" "domain"] ["services" "ddclient" "domains"] (
+      config: let
+        value = lib.getAttrFromPath ["services" "ddclient" "domain"] config;
       in
-      lib.optional (value != "") value
+        lib.optional (value != "") value
     ))
-    (lib.mkRemovedOptionModule [ "services" "ddclient" "homeDir" ] "")
+    (lib.mkRemovedOptionModule ["services" "ddclient" "homeDir"] "")
     (lib.mkRemovedOptionModule [
       "services"
       "ddclient"
       "password"
     ] "Use services.ddclient.passwordFile instead.")
-    (lib.mkRemovedOptionModule [ "services" "ddclient" "ipv6" ] "")
+    (lib.mkRemovedOptionModule ["services" "ddclient" "ipv6"] "")
   ];
 
   ###### interface
 
   options = {
-
     services.ddclient = with lib.types; {
-
       enable = lib.mkOption {
         default = false;
         type = bool;
@@ -99,7 +97,7 @@ in
       };
 
       domains = lib.mkOption {
-        default = [ "" ];
+        default = [""];
         type = listOf str;
         description = ''
           Domain name(s) to synchronize.
@@ -242,16 +240,18 @@ in
   config = lib.mkIf config.services.ddclient.enable {
     warnings =
       lib.optional (cfg.use != "")
-        "Setting `use` is deprecated, ddclient now supports `usev4` and `usev6` for separate IPv4/IPv6 configuration.";
+      "Setting `use` is deprecated, ddclient now supports `usev4` and `usev6` for separate IPv4/IPv6 configuration.";
 
     systemd.services.ddclient = {
       description = "Dynamic DNS Client";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       restartTriggers = lib.optional (cfg.configFile != null) cfg.configFile;
-      path = lib.optional (
-        lib.hasPrefix "if," cfg.use || lib.hasPrefix "ifv4," cfg.usev4 || lib.hasPrefix "ifv6," cfg.usev6
-      ) pkgs.iproute2;
+      path =
+        lib.optional (
+          lib.hasPrefix "if," cfg.use || lib.hasPrefix "ifv4," cfg.usev4 || lib.hasPrefix "ifv6," cfg.usev6
+        )
+        pkgs.iproute2;
 
       serviceConfig = {
         DynamicUser = true;
@@ -259,14 +259,14 @@ in
         inherit RuntimeDirectory;
         inherit StateDirectory;
         Type = "oneshot";
-        ExecStartPre = [ "!${pkgs.writeShellScript "ddclient-prestart" preStart}" ];
+        ExecStartPre = ["!${pkgs.writeShellScript "ddclient-prestart" preStart}"];
         ExecStart = "${lib.getExe cfg.package} -file /run/${RuntimeDirectory}/ddclient.conf";
       };
     };
 
     systemd.timers.ddclient = {
       description = "Run ddclient";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = cfg.interval;
         OnUnitInactiveSec = cfg.interval;

@@ -5,7 +5,6 @@
   fetchzip,
   autoreconfHook,
 }:
-
 gccStdenv.mkDerivation (finalAttrs: {
   pname = "arj";
   version = "3.10.22";
@@ -21,7 +20,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rmu5RSZ6OHGT093PShzkvC3ktm/U6smta6pmn9D7Jfw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postPatch =
     lib.optionalString gccStdenv.hostPlatform.isDarwin ''
@@ -61,7 +60,7 @@ gccStdenv.mkDerivation (finalAttrs: {
       provided by ARJ Software, Inc.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.unix;
   };
 })

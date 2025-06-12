@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/l4l/yofi";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ rayslash ];
+    maintainers = with lib.maintainers; [rayslash];
     mainProgram = "yofi";
   };
 }

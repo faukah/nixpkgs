@@ -3,11 +3,11 @@
   libdeltachat,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "deltachat-repl";
 
-  inherit (libdeltachat)
+  inherit
+    (libdeltachat)
     version
     src
     cargoDeps
@@ -29,8 +29,10 @@ rustPlatform.buildRustPackage {
 
   doCheck = false;
 
-  meta = libdeltachat.meta // {
-    description = "Delta Chat CLI client";
-    mainProgram = "deltachat-repl";
-  };
+  meta =
+    libdeltachat.meta
+    // {
+      description = "Delta Chat CLI client";
+      mainProgram = "deltachat-repl";
+    };
 }

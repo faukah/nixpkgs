@@ -14,7 +14,6 @@
   which,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "byzanz";
   version = "unstable-2016-03-12";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     hash = "sha256-3DUwXCPBAmeCRlDkiPUgwNyBa6bCvC/TLguMCK3bo4E=";
   };
 
-  patches = [ ./add-amflags.patch ];
+  patches = [./add-amflags.patch];
 
   preBuild = ''
     ./autogen.sh --prefix=$out
@@ -67,6 +66,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/GNOME/byzanz";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

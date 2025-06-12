@@ -5,7 +5,6 @@
   pillow,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "pydenticon";
   version = "0.3.1";

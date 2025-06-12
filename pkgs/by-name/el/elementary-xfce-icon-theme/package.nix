@@ -12,7 +12,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-xfce-icon-theme";
   version = "0.21";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     # darwin cannot deal with file names differing only in case
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

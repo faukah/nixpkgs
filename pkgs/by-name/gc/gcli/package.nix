@@ -8,7 +8,6 @@
   flex,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcli";
   version = "2.8.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     byacc
     flex
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = {
     description = "Portable Git(Hub|Lab|ea) CLI tool";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/herrhotzenplotz/gcli/releases/tag/${version}";
     license = lib.licenses.bsd2;
     mainProgram = "gcli";
-    maintainers = with lib.maintainers; [ kenran ];
+    maintainers = with lib.maintainers; [kenran];
     platforms = lib.platforms.unix;
   };
 }

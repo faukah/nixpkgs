@@ -7,7 +7,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sienna";
   version = "1.0d";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
       comment = "Fast-paced one button platformer";
       desktopName = "Sienna";
       genericName = "sienna";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -56,9 +55,8 @@ stdenv.mkDerivation rec {
     description = "Fast-paced one button platformer";
     mainProgram = "sienna";
     homepage = "https://tangramgames.dk/games/sienna";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
     license = licenses.free;
   };
-
 }

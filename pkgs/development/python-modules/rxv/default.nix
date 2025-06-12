@@ -13,7 +13,6 @@
   requests-mock,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "rxv";
   version = "0.7.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     sha256 = "0jldnlzbfg5jm1nbgv91mlvcqkswd9f2n3qj9aqlbmj1cxq19yz8";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     defusedxml
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "rxv" ];
+  pythonImportsCheck = ["rxv"];
 
   meta = with lib; {
     description = "Python library for communicate with Yamaha RX-Vxxx receivers";
     homepage = "https://github.com/wuub/rxv";
     license = licenses.mit;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

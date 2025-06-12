@@ -11,7 +11,6 @@
   python-dotenv,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "environs";
   version = "14.2.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2JmoLhKqvX927e64qMIv+YAK7WJR+O/8nKvgaT9AQm8=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     marshmallow
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "environs" ];
+  pythonImportsCheck = ["environs"];
 
   meta = with lib; {
     description = "Python modle for environment variable parsing";
     homepage = "https://github.com/sloria/environs";
     changelog = "https://github.com/sloria/environs/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   libcxxCmakeModule ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "cpptoml";
   version = "0.4.0";
@@ -23,14 +22,18 @@ stdenv.mkDerivation {
     ./add-limits-include.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # If this package is built with clang it will attempt to
     # use libcxx via the Cmake find_package interface.
     # The default libcxx stdenv in llvmPackages doesn't provide
     # this and so will fail.
-    "-DENABLE_LIBCXX=${if libcxxCmakeModule then "ON" else "OFF"}"
+    "-DENABLE_LIBCXX=${
+      if libcxxCmakeModule
+      then "ON"
+      else "OFF"
+    }"
     "-DCPPTOML_BUILD_EXAMPLES=OFF"
   ];
 
@@ -38,7 +41,7 @@ stdenv.mkDerivation {
     description = "C++ TOML configuration library";
     homepage = "https://github.com/skystrife/cpptoml";
     license = licenses.mit;
-    maintainers = with maintainers; [ photex ];
+    maintainers = with maintainers; [photex];
     platforms = platforms.all;
   };
 }

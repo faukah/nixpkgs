@@ -3,7 +3,6 @@
   fetchPypi,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mitm6";
   version = "0.3.0";
@@ -14,7 +13,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-g+eFcJdgP7CQ6ntN17guJa4LdkGIb91mr/NKRPIukP8=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     future
@@ -26,13 +25,13 @@ python3.pkgs.buildPythonApplication rec {
   # No tests exist for mitm6.
   doCheck = false;
 
-  pythonImportsCheck = [ "mitm6" ];
+  pythonImportsCheck = ["mitm6"];
 
   meta = {
     description = "DHCPv6 network spoofing application";
     homepage = "https://github.com/dirkjanm/mitm6";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "mitm6";
   };
 }

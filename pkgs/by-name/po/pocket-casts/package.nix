@@ -7,7 +7,6 @@
   makeWrapper,
   electron,
 }:
-
 buildNpmPackage rec {
   pname = "pocket-casts";
   version = "0.10.3";
@@ -55,7 +54,7 @@ buildNpmPackage rec {
     description = "Pocket Casts webapp, packaged for the Linux Desktop";
     homepage = "https://github.com/felicianotech/pocket-casts-desktop-app";
     license = licenses.mit;
-    maintainers = with maintainers; [ yayayayaka ];
+    maintainers = with maintainers; [yayayayaka];
     mainProgram = "pocket-casts";
     platforms = platforms.linux;
   };

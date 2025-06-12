@@ -5,38 +5,37 @@
   setuptools,
   sqlcipher,
   openssl,
-}:
-let
+}: let
   pname = "sqlcipher3";
   version = "0.5.4";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-4w/1jWTdQ+Gezt3RARahonrR2YiMxCRcdfK9qbA4Tnc=";
-  };
+    pyproject = true;
 
-  build-system = [
-    setuptools
-  ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-4w/1jWTdQ+Gezt3RARahonrR2YiMxCRcdfK9qbA4Tnc=";
+    };
 
-  buildInputs = [
-    sqlcipher
-    openssl
-  ];
+    build-system = [
+      setuptools
+    ];
 
-  pythonImportsCheck = [
-    "sqlcipher3"
-  ];
+    buildInputs = [
+      sqlcipher
+      openssl
+    ];
 
-  meta = with lib; {
-    mainProgram = "sqlcipher3";
-    homepage = "https://github.com/coleifer/sqlcipher3";
-    description = "Python 3 bindings for SQLCipher";
-    license = licenses.zlib;
-    maintainers = with maintainers; [ phaer ];
-  };
-}
+    pythonImportsCheck = [
+      "sqlcipher3"
+    ];
+
+    meta = with lib; {
+      mainProgram = "sqlcipher3";
+      homepage = "https://github.com/coleifer/sqlcipher3";
+      description = "Python 3 bindings for SQLCipher";
+      license = licenses.zlib;
+      maintainers = with maintainers; [phaer];
+    };
+  }

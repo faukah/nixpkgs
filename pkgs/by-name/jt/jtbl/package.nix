@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "jtbl";
   version = "1.6.0";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "jtbl" ];
+  pythonImportsCheck = ["jtbl"];
 
   meta = {
     description = "CLI tool to convert JSON and JSON Lines to terminal, CSV, HTTP, and markdown tables";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://github.com/kellyjonbrazil/jtbl/releases/tag/${src.rev}";
     changelog = "https://github.com/kellyjonbrazil/jtbl/blob/${src.rev}/CHANGELOG";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ElliottSullingeFarrall ];
+    maintainers = with lib.maintainers; [ElliottSullingeFarrall];
     mainProgram = "jtbl";
   };
 }

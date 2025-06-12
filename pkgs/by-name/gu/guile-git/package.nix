@@ -9,7 +9,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-git";
   version = "0.9.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     scheme-bytestructures
   ];
   doCheck = true;
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   enableParallelBuilding = true;
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Bindings to Libgit2 for GNU Guile";
     homepage = "https://gitlab.com/guile-git/guile-git";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
     platforms = guile.meta.platforms;
   };
 }

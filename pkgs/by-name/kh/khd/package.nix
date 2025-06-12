@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "khd";
   version = "3.0.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/koekeishiya/khd";
     downloadPage = "https://github.com/koekeishiya/khd/releases";
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
     license = licenses.mit;
   };
 }

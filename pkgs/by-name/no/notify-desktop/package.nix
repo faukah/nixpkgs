@@ -5,7 +5,6 @@
   dbus,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "notify-desktop";
   version = "0.2.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     sha256 = "1brcvl2fx0yzxj9mc8hzfl32zdka1f1bxpzsclcsjplyakyinr1a";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dbus];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/nowrep/notify-desktop";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ylwghst ];
+    maintainers = with maintainers; [ylwghst];
     mainProgram = "notify-desktop";
   };
 }

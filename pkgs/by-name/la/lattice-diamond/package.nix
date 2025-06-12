@@ -14,7 +14,6 @@
   libusb-compat-0_1,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   pname = "diamond";
   version = "3.10";
@@ -141,7 +140,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.latticesemi.com/latticediamond";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ q3k ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [q3k];
+    platforms = ["x86_64-linux"];
   };
 }

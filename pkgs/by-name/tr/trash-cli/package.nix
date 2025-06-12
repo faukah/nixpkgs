@@ -5,7 +5,6 @@
   nix-update-script,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "trash-cli";
   version = "0.24.5.26";
@@ -65,12 +64,12 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/andreafrancia/trash-cli";
     description = "Command line interface to the freedesktop.org trashcan";
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
     mainProgram = "trash";

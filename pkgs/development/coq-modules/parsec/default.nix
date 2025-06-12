@@ -6,9 +6,7 @@
   ExtLib,
   version ? null,
 }:
-
 mkCoqDerivation {
-
   pname = "parsec";
   repo = "coq-parsec";
   owner = "liyishuai";
@@ -17,11 +15,10 @@ mkCoqDerivation {
     ceres
     ExtLib
   ];
-  releaseRev = (v: "v${v}");
+  releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = range "8.14" "9.0";
@@ -39,7 +36,8 @@ mkCoqDerivation {
         case = range "8.12" "8.13";
         out = "0.1.0";
       }
-    ] null;
+    ]
+    null;
   release."0.2.0".sha256 = "sha256-hM6LVFQ2VQ42QeHu8Ex+oz1VvJUr+g8/nZN+bYHEljQ=";
   release."0.1.2".sha256 = "sha256-QN0h1CsX86DQBDsluXLtNUvMh3r60/0iDSbYam67AhA=";
   release."0.1.1".sha256 = "sha256:1c0l18s68pzd4c8i3jimh2yz0pqm4g38pca4bm7fr18r8xmqf189";
@@ -50,6 +48,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Library for serialization to S-expressions";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

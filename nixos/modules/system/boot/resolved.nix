@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.resolved;
 
   dnsmasqResolve = config.services.dnsmasq.enable && config.services.dnsmasq.resolveLocalQueries;
@@ -14,21 +12,17 @@ let
   resolvedConf = ''
     [Resolve]
     ${optionalString (
-      config.networking.nameservers != [ ]
+      config.networking.nameservers != []
     ) "DNS=${concatStringsSep " " config.networking.nameservers}"}
     ${optionalString (cfg.fallbackDns != null) "FallbackDNS=${concatStringsSep " " cfg.fallbackDns}"}
-    ${optionalString (cfg.domains != [ ]) "Domains=${concatStringsSep " " cfg.domains}"}
+    ${optionalString (cfg.domains != []) "Domains=${concatStringsSep " " cfg.domains}"}
     LLMNR=${cfg.llmnr}
     DNSSEC=${cfg.dnssec}
     DNSOverTLS=${cfg.dnsovertls}
     ${config.services.resolved.extraConfig}
   '';
-
-in
-{
-
+in {
   options = {
-
     services.resolved.enable = mkOption {
       default = false;
       type = types.bool;
@@ -56,7 +50,7 @@ in
     services.resolved.domains = mkOption {
       default = config.networking.search;
       defaultText = literalExpression "config.networking.search";
-      example = [ "example.com" ];
+      example = ["example.com"];
       type = types.listOf types.str;
       description = ''
         A list of domains. These domains are used as search suffixes
@@ -166,12 +160,10 @@ in
         Uses the toplevel 'services.resolved' options for 'resolved.conf'
       '';
     };
-
   };
 
   config = mkMerge [
     (mkIf cfg.enable {
-
       assertions = [
         {
           assertion = !config.networking.useHostResolvConf;
@@ -184,16 +176,16 @@ in
       # add resolve to nss hosts database if enabled and nscd enabled
       # system.nssModules is configured in nixos/modules/system/boot/systemd.nix
       # added with order 501 to allow modules to go before with mkBefore
-      system.nssDatabases.hosts = (mkOrder 501 [ "resolve [!UNAVAIL=return]" ]);
+      system.nssDatabases.hosts = mkOrder 501 ["resolve [!UNAVAIL=return]"];
 
       systemd.additionalUpstreamSystemUnits = [
         "systemd-resolved.service"
       ];
 
       systemd.services.systemd-resolved = {
-        wantedBy = [ "sysinit.target" ];
-        aliases = [ "dbus-org.freedesktop.resolve1.service" ];
-        reloadTriggers = [ config.environment.etc."systemd/resolved.conf".source ];
+        wantedBy = ["sysinit.target"];
+        aliases = ["dbus-org.freedesktop.resolve1.service"];
+        reloadTriggers = [config.environment.etc."systemd/resolved.conf".source];
         stopIfChanged = false;
       };
 
@@ -213,11 +205,9 @@ in
       networking.networkmanager.dns = "systemd-resolved";
 
       networking.resolvconf.package = pkgs.systemd;
-
     })
 
     (mkIf config.boot.initrd.services.resolved.enable {
-
       assertions = [
         {
           assertion = config.boot.initrd.systemd.enable;
@@ -230,20 +220,17 @@ in
           "/etc/systemd/resolved.conf".text = resolvedConf;
         };
 
-        tmpfiles.settings.systemd-resolved-stub."/etc/resolv.conf".L.argument =
-          "/run/systemd/resolve/stub-resolv.conf";
+        tmpfiles.settings.systemd-resolved-stub."/etc/resolv.conf".L.argument = "/run/systemd/resolve/stub-resolv.conf";
 
-        additionalUpstreamUnits = [ "systemd-resolved.service" ];
-        users.systemd-resolve = { };
-        groups.systemd-resolve = { };
-        storePaths = [ "${config.boot.initrd.systemd.package}/lib/systemd/systemd-resolved" ];
+        additionalUpstreamUnits = ["systemd-resolved.service"];
+        users.systemd-resolve = {};
+        groups.systemd-resolve = {};
+        storePaths = ["${config.boot.initrd.systemd.package}/lib/systemd/systemd-resolved"];
         services.systemd-resolved = {
-          wantedBy = [ "sysinit.target" ];
-          aliases = [ "dbus-org.freedesktop.resolve1.service" ];
+          wantedBy = ["sysinit.target"];
+          aliases = ["dbus-org.freedesktop.resolve1.service"];
         };
       };
-
     })
   ];
-
 }

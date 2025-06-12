@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   authlib,
   exceptiongroup,
@@ -16,14 +14,12 @@
   python-dotenv,
   rich,
   typer,
-
   # tests
   dirty-equals,
   fastapi,
   pytest-httpx,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fastmcp";
   version = "2.7.0";
@@ -57,7 +53,7 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [ "fastmcp" ];
+  pythonImportsCheck = ["fastmcp"];
 
   nativeCheckInputs = [
     dirty-equals
@@ -89,6 +85,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/jlowin/fastmcp/releases/tag/v${version}";
     homepage = "https://github.com/jlowin/fastmcp";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

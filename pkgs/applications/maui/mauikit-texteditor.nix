@@ -8,7 +8,6 @@
   mauikit,
   syntax-highlighting,
 }:
-
 mkDerivation {
   pname = "mauikit-texteditor";
 
@@ -28,6 +27,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-texteditor";
     description = "MauiKit Text Editor components";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

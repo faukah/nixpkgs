@@ -3,24 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.cpuminer-cryptonight;
 
   json = builtins.toJSON (
     cfg
     // {
       enable = null;
-      threads = if cfg.threads == 0 then null else toString cfg.threads;
+      threads =
+        if cfg.threads == 0
+        then null
+        else toString cfg.threads;
     }
   );
 
   confFile = builtins.toFile "cpuminer.json" json;
-in
-{
-
+in {
   options = {
-
     services.cpuminer-cryptonight = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -48,21 +47,17 @@ in
         description = "Number of miner threads, defaults to available processors";
       };
     };
-
   };
 
   config = lib.mkIf config.services.cpuminer-cryptonight.enable {
-
     systemd.services.cpuminer-cryptonight = {
       description = "Cryptonight cpuminer";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.cpuminer-multi}/bin/minerd --syslog --config=${confFile}";
         User = "nobody";
       };
     };
-
   };
-
 }

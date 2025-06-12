@@ -3,20 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.mouse-actions;
-in
-{
+in {
   options.programs.mouse-actions = {
-    enable = lib.mkEnableOption "" // {
-      description = ''
-        Whether to install and set up mouse-actions and it's udev rules.
+    enable =
+      lib.mkEnableOption ""
+      // {
+        description = ''
+          Whether to install and set up mouse-actions and it's udev rules.
 
-        Note that only users in the "uinput" group will be able to use the package
-      '';
-    };
+          Note that only users in the "uinput" group will be able to use the package
+        '';
+      };
     package = lib.mkPackageOption pkgs "mouse-actions" {
       example = "mouse-actions-gui";
     };
@@ -29,13 +28,13 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    services.udev.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    services.udev.packages = [cfg.package];
     systemd.user.services.mouse-actions = lib.mkIf cfg.autorun {
       description = "mouse-actions launcher";
-      wantedBy = [ "graphical-session.target" ];
-      bindsTo = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      bindsTo = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       environment.PATH = lib.mkForce null; # don't use the default PATH provided by NixOS
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} start";

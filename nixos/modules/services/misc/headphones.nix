@@ -4,18 +4,12 @@
   options,
   pkgs,
   ...
-}:
-let
-
+}: let
   name = "headphones";
 
   cfg = config.services.headphones;
   opt = options.services.headphones;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -62,7 +56,6 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users = lib.optionalAttrs (cfg.user == name) {
       ${name} = {
         uid = config.ids.uids.headphones;
@@ -79,8 +72,8 @@ in
 
     systemd.services.headphones = {
       description = "Headphones Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

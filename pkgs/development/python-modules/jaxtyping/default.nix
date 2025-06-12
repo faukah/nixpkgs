@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   wadler-lindig,
-
   # tests
   cloudpickle,
   equinox,
@@ -18,9 +15,7 @@
   pytestCheckHook,
   tensorflow,
   torch,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "jaxtyping";
     version = "0.3.2";
@@ -33,13 +28,13 @@ let
       hash = "sha256-zRuTOt9PqFGDZbSGvkzxIWIi3z+vU0FmAEecPRcGy2w=";
     };
 
-    build-system = [ hatchling ];
+    build-system = [hatchling];
 
     dependencies = [
       wadler-lindig
     ];
 
-    pythonImportsCheck = [ "jaxtyping" ];
+    pythonImportsCheck = ["jaxtyping"];
 
     nativeCheckInputs = [
       cloudpickle
@@ -68,8 +63,8 @@ let
       homepage = "https://github.com/google/jaxtyping";
       changelog = "https://github.com/patrick-kidger/jaxtyping/releases/tag/v${version}";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ GaetanLepage ];
+      maintainers = with lib.maintainers; [GaetanLepage];
     };
   };
 in
-self
+  self

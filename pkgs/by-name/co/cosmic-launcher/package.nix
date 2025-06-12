@@ -8,7 +8,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-launcher";
   version = "1.0.0-alpha.7";
@@ -45,7 +44,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Launcher for the COSMIC Desktop Environment";
     mainProgram = "cosmic-launcher";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

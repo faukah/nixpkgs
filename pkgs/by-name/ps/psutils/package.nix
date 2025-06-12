@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "psutils";
   version = "17";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       Makefile.unix > Makefile
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   preInstall = ''
     mkdir -p $out/bin $out/share/man/man1

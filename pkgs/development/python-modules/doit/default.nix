@@ -15,9 +15,7 @@
   pyflakes,
   configclass,
   mergedict,
-}:
-
-let
+}: let
   doit = buildPythonPackage rec {
     pname = "doit";
     version = "0.36.0";
@@ -58,7 +56,7 @@ let
       });
     };
 
-    pythonImportsCheck = [ "doit" ];
+    pythonImportsCheck = ["doit"];
 
     meta = with lib; {
       homepage = "https://pydoit.org/";
@@ -72,8 +70,8 @@ let
         custom work-flows where there is no out-of-the-box solution
         available.
       '';
-      maintainers = with maintainers; [ pSub ];
+      maintainers = with maintainers; [pSub];
     };
   };
 in
-doit
+  doit

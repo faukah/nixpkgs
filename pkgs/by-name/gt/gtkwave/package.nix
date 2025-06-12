@@ -15,7 +15,6 @@
   xz,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkwave";
   version = "3.3.121";
@@ -33,16 +32,18 @@ stdenv.mkDerivation rec {
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       desktopToDarwinBundle
     ];
-  buildInputs = [
-    bzip2
-    glib
-    gperf
-    gtk3
-    judy
-    tcl
-    tk
-    xz
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin gtk-mac-integration;
+  buildInputs =
+    [
+      bzip2
+      glib
+      gperf
+      gtk3
+      judy
+      tcl
+      tk
+      xz
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin gtk-mac-integration;
 
   # fix compilation under Darwin
   # remove these patches upon next release

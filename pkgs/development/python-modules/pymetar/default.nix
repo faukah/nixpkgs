@@ -6,7 +6,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pymetar";
   version = "1.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-SNvmxJKZYQIcth5Ju54GBbVMS2G5+5reUQdnBaCOzVQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   checkPhase = ''
     cd testing/smoketest
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     mainProgram = "pymetar";
     homepage = "https://github.com/klausman/pymetar";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ erosennin ];
+    maintainers = with maintainers; [erosennin];
   };
 }

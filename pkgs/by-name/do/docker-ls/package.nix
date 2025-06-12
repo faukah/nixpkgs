@@ -4,7 +4,6 @@
   lib,
   docker,
 }:
-
 buildGoModule rec {
   pname = "docker-ls";
   version = "0.5.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     '';
 
     homepage = "https://github.com/mayflower/docker-ls";
-    maintainers = [ ];
+    maintainers = [];
     platforms = docker.meta.platforms;
     license = licenses.mit;
   };

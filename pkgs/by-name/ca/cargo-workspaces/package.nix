@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-workspaces";
   version = "0.4.0";

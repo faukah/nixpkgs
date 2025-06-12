@@ -6,7 +6,6 @@
   ncurses,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ctodo";
   version = "1.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0mqy5b35cbdwfpbs91ilsgz3wc4cky38xfz9pnr4q88q1vybigna";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     ncurses
     readline
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "http://ctodo.apakoh.dk/";
     description = "Simple ncurses-based task list manager";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.unix;
     mainProgram = "ctodo";
   };

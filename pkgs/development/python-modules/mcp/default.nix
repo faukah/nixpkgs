@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   anyio,
   httpx,
@@ -17,7 +15,6 @@
   sse-starlette,
   starlette,
   uvicorn,
-
   # optional-dependencies
   # cli
   python-dotenv,
@@ -26,7 +23,6 @@
   rich,
   # ws
   websockets,
-
   # tests
   inline-snapshot,
   pytest-asyncio,
@@ -35,7 +31,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mcp";
   version = "1.9.3";
@@ -54,7 +49,7 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "pydantic-settings"
@@ -85,16 +80,18 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "mcp" ];
+  pythonImportsCheck = ["mcp"];
 
-  nativeCheckInputs = [
-    inline-snapshot
-    pytest-asyncio
-    pytest-examples
-    pytest-xdist
-    pytestCheckHook
-    requests
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      inline-snapshot
+      pytest-asyncio
+      pytest-examples
+      pytest-xdist
+      pytestCheckHook
+      requests
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "-W"
@@ -130,6 +127,6 @@ buildPythonPackage rec {
     description = "Official Python SDK for Model Context Protocol servers and clients";
     homepage = "https://github.com/modelcontextprotocol/python-sdk";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
   };
 }

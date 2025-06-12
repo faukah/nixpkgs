@@ -7,7 +7,6 @@
   libXpm,
   libXt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xsokoban";
   version = "3.3c";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${libXpm.dev}/include/X11 -Wno-error=implicit-int -Wno-error=implicit-function-declaration";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   prePatch = ''
     substituteInPlace Makefile.in --replace 4755 0755
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.cs.cornell.edu/andru/xsokoban.html";
     mainProgram = "xsokoban";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

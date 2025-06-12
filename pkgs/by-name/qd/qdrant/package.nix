@@ -9,7 +9,6 @@
   nix-update-script,
   rust-jemalloc-sys-unprefixed,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qdrant";
   version = "1.14.0";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
   # Needed to get openssl-sys to use pkg-config.
   env.OPENSSL_NO_VENDOR = 1;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Vector Search Engine for the next generation of AI applications";
@@ -50,6 +49,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/qdrant/qdrant";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

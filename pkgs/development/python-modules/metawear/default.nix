@@ -10,7 +10,6 @@
   requests,
   warble,
 }:
-
 buildPythonPackage rec {
   pname = "metawear";
   version = "1.0.8";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-gNEI6P6GslNd1DzFwCFndVIfUvSTPYollGdqkZhQ4Y8=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   buildInputs = [
     boost
@@ -52,8 +51,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for the MetaWear C++ SDK by MbientLab";
     homepage = "https://github.com/mbientlab/metawear-sdk-python";
-    license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ stepbrobd ];
+    license = with licenses; [unfree];
+    maintainers = with maintainers; [stepbrobd];
     platforms = platforms.linux;
   };
 }

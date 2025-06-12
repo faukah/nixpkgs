@@ -10,7 +10,6 @@
   libcap,
   usePulseAudio,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.2";
   pname = "libao";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optional usePulseAudio libpulseaudio
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xiph.org/ao/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

@@ -3,9 +3,7 @@
   callPackage,
   lib,
   ...
-}:
-
-let
+}: let
   pname = "mongodb-compass";
   version = "1.46.0";
   meta = {
@@ -16,7 +14,7 @@ let
       iamanaws
     ];
     homepage = "https://github.com/mongodb-js/compass";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.sspl;
     platforms = [
       "x86_64-linux"
@@ -26,7 +24,6 @@ let
     mainProgram = "mongodb-compass";
   };
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix { inherit pname version meta; }
-else
-  callPackage ./linux.nix { inherit pname version meta; }
+  if stdenv.hostPlatform.isDarwin
+  then callPackage ./darwin.nix {inherit pname version meta;}
+  else callPackage ./linux.nix {inherit pname version meta;}

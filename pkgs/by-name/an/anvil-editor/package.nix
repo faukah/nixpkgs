@@ -14,7 +14,6 @@
   xorg,
   buildPackages,
 }:
-
 buildGo123Module (finalAttrs: {
   pname = "anvil-editor";
   version = "0.6";
@@ -57,7 +56,7 @@ buildGo123Module (finalAttrs: {
   ];
 
   # Got different result in utf8 char length?
-  checkFlags = [ "-skip=^TestClearAfter$" ];
+  checkFlags = ["-skip=^TestClearAfter$"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -92,7 +91,7 @@ buildGo123Module (finalAttrs: {
     homepage = "https://anvil-editor.net";
     license = lib.licenses.mit;
     mainProgram = "anvil";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = with lib.platforms; unix ++ windows;
   };
 })

@@ -5,7 +5,6 @@
   autoreconfHook,
   libarchive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "genext2fs";
   version = "1.5.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9LAU5XuCwwEhU985MzZ2X+YYibvyECULQSn9X2jdj5I=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libarchive
   ];
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Tool to generate ext2 filesystem images without requiring root privileges";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "genext2fs";
   };
 }

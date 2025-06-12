@@ -9,7 +9,6 @@
   perl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opae";
   version = "1.0.0";
@@ -53,14 +52,14 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  cmakeFlags = [ "-DBUILD_ASE=1" ];
+  cmakeFlags = ["-DBUILD_ASE=1"];
 
   meta = with lib; {
     description = "Open Programmable Acceleration Engine SDK";
     homepage = "https://01.org/opae";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [thoughtpolice];
     # Needs a major update, not compatible with gcc-11.
     broken = true;
   };

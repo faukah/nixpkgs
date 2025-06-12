@@ -12,7 +12,6 @@
   setuptools,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiosyncthing";
   version = "0.6.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-vn8S2/kRW5C2Hbes9oLM4LGm1jWWK0zeLdujR14y6EI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -41,15 +40,15 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
-  pythonImportsCheck = [ "aiosyncthing" ];
+  pythonImportsCheck = ["aiosyncthing"];
 
   meta = with lib; {
     description = "Python client for the Syncthing REST API";
     homepage = "https://github.com/zhulik/aiosyncthing";
     changelog = "https://github.com/zhulik/aiosyncthing/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

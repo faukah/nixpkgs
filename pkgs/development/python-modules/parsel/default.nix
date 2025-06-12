@@ -12,7 +12,6 @@
   setuptools,
   w3lib,
 }:
-
 buildPythonPackage rec {
   pname = "parsel";
   version = "1.10.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-FPF9uVWfUbQzV7nf5DzshwqO+16khXq7Yk7G/4DYoIA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cssselect
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "parsel" ];
+  pythonImportsCheck = ["parsel"];
 
   meta = with lib; {
     description = "Python library to extract data from HTML and XML using XPath and CSS selectors";
     homepage = "https://github.com/scrapy/parsel";
     changelog = "https://github.com/scrapy/parsel/blob/v${version}/NEWS";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

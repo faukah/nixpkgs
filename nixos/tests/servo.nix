@@ -2,16 +2,15 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   name = "servo";
 
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   nodes.machine = {
-    imports = [ ./common/x11.nix ];
+    imports = [./common/x11.nix];
 
-    environment.systemPackages = with pkgs; [ servo ];
+    environment.systemPackages = with pkgs; [servo];
   };
 
   enableOCR = true;
@@ -24,5 +23,4 @@
       machine.wait_for_window("Valgrind")
       machine.wait_for_text("Quick Start Guide")
   '';
-
 }

@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-bigquery-storage";
   version = "2.30.0";
@@ -27,17 +26,19 @@ buildPythonPackage rec {
     hash = "sha256-QayD+p7dvIIBAhd5hKuS+Le736fZDqZLOgr17LT8o/I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
-    fastavro = [ fastavro ];
-    pandas = [ pandas ];
-    pyarrow = [ pyarrow ];
+    fastavro = [fastavro];
+    pandas = [pandas];
+    pyarrow = [pyarrow];
   };
 
   nativeCheckInputs = [
@@ -64,7 +65,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-bigquery-storage";
     changelog = "https://github.com/googleapis/python-bigquery-storage/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "fixup_bigquery_storage_v1_keywords.py";
   };
 }

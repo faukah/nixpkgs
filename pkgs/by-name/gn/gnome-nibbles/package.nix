@@ -19,7 +19,6 @@
   ninja,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-nibbles";
   version = "4.2.2";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-nibbles"; };
+    updateScript = gnome.updateScript {packageName = "gnome-nibbles";};
   };
 
   meta = with lib; {
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-nibbles";
     changelog = "https://gitlab.gnome.org/GNOME/gnome-nibbles/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

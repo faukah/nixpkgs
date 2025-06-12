@@ -5,7 +5,6 @@
   hatchling,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "python-sixel";
   version = "0.2.0";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lubosz/python-sixel";
     changelog = "https://github.com/lubosz/python-sixel/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ atemu ];
+    maintainers = with lib.maintainers; [atemu];
   };
 }

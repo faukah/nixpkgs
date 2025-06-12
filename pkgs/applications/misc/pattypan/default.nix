@@ -10,7 +10,6 @@
   copyDesktopItems,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pattypan";
   version = "22.03";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "pattypan";
       desktopName = "Pattypan";
       genericName = "An uploader for Wikimedia Commons";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://commons.wikimedia.org/wiki/Commons:Pattypan";
     license = licenses.mit;
     mainProgram = "pattypan";
-    maintainers = with maintainers; [ fee1-dead ];
+    maintainers = with maintainers; [fee1-dead];
     platforms = platforms.all;
     sourceProvenance = with sourceTypes; [
       fromSource

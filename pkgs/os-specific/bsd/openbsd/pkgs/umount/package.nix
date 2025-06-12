@@ -2,7 +2,6 @@
   lib,
   mkDerivation,
 }:
-
 mkDerivation {
   path = "sbin/umount";
   meta.mainProgram = "ummount";

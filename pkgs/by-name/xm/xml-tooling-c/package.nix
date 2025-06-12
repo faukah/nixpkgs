@@ -11,7 +11,6 @@
   xercesc,
   xml-security-c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xml-tooling-c";
   version = "3.3.0";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Low-level library that provides a high level interface to XML processing for OpenSAML 2";
     platforms = lib.platforms.unix;
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sigmanificient ];
+    maintainers = [lib.maintainers.sigmanificient];
   };
 }

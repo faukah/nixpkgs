@@ -12,7 +12,6 @@
   vala,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "mictray";
   version = "0.2.5";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.anpryl ];
+    maintainers = [maintainers.anpryl];
     mainProgram = "mictray";
   };
 }

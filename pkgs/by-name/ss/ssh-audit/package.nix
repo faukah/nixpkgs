@@ -5,7 +5,6 @@
   nixosTests,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ssh-audit";
   version = "3.3.0";
@@ -23,15 +22,15 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-sjYKQpn37zH3xpuIiZAjCn0DyLqqoQDwuz7PKDfkeTM=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage $src/ssh-audit.1
   '';
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   passthru.tests = {
     inherit (nixosTests) ssh-audit;

@@ -20,16 +20,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5Zd3Stoi8AqsZE38pnilmjuRMgTPAGB+R8QI2JFZ7s4=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   checkFlags = [
     # requires rustup and rustfmt
     "--skip tests::sourcegen::generate_node_kinds"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "sourcepawn-studio";
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://sarrus1.github.io/sourcepawn-studio/";
     changelog = "https://github.com/Sarrus1/sourcepawn-studio/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.awwpotato ];
+    maintainers = [lib.maintainers.awwpotato];
   };
 })

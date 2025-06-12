@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpxlab";
   version = "0.7.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       previously recorded with a GPS tracker.
     '';
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

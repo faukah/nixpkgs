@@ -5,7 +5,6 @@
   autoreconfHook,
   fts,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fpart";
   version = "1.7.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BQGSKDSuK2iB0o2v8I+XOwhYtU/0QtMevt4pgIfRhNQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ fts ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [fts];
 
   postInstall = ''
     sed "s|^FPART_BIN=.*|FPART_BIN=\"$out/bin/fpart\"|" \
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "http://contribs.martymac.org/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

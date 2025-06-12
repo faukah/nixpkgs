@@ -29,6 +29,6 @@ buildNpmPackage (finalAttrs: {
     homepage = "https://github.com/mykolaharmash/git-jump";
     license = lib.licenses.mit;
     mainProgram = "git-jump";
-    maintainers = with lib.maintainers; [ juliusfreudenberger ];
+    maintainers = with lib.maintainers; [juliusfreudenberger];
   };
 })

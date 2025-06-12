@@ -13,7 +13,6 @@
   setuptools,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "zigpy-zigate";
   version = "0.13.2";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     gpiozero
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zigpy_zigate" ];
+  pythonImportsCheck = ["zigpy_zigate"];
 
   disabledTestPaths = [
     # Fails in sandbox
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/zigpy/zigpy-zigate";
     changelog = "https://github.com/zigpy/zigpy-zigate/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

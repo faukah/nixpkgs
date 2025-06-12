@@ -11,7 +11,6 @@
   telemetry,
   tls,
 }:
-
 buildDunePackage rec {
   pname = "riot";
   version = "0.0.8";
@@ -27,7 +26,7 @@ buildDunePackage rec {
   patches = fetchpatch {
     url = "https://github.com/riot-ml/riot/commit/bbbf0efce6dc84afba84e84cc231ce7ef2dcaa91.patch";
     hash = "sha256-qsPuEpur5DohOGezSTpOyBq9WxnY9OS6+w2Ls0tZkT8=";
-    includes = [ "riot/lib/ssl.ml" ];
+    includes = ["riot/lib/ssl.ml"];
   };
 
   propagatedBuildInputs = [
@@ -47,7 +46,7 @@ buildDunePackage rec {
     homepage = "https://github.com/leostera/riot";
     changelog = "https://github.com/leostera/riot/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     broken = true; # Not compatible with mirage-crypto ≥ 1.0
   };
 }

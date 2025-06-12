@@ -8,7 +8,6 @@
   isodate,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-storage-file-datalake";
   version = "12.17.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/storage/azure-storage-file-datalake";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -33,10 +32,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aio = [ azure-core ] ++ azure-core.optional-dependencies.aio;
+    aio = [azure-core] ++ azure-core.optional-dependencies.aio;
   };
 
-  pythonImportsCheck = [ "azure.storage.filedatalake" ];
+  pythonImportsCheck = ["azure.storage.filedatalake"];
 
   # require devtools_testutils which is a internal package for azure-sdk
   doCheck = false;
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure File DataLake Storage Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-file-datalake";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

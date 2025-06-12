@@ -3,21 +3,17 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.olivetin;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  settingsFormat = pkgs.formats.yaml {};
+in {
+  meta.maintainers = with lib.maintainers; [defelo];
 
   options.services.olivetin = {
     enable = lib.mkEnableOption "OliveTin";
 
-    package = lib.mkPackageOption pkgs "olivetin" { };
+    package = lib.mkPackageOption pkgs "olivetin" {};
 
     user = lib.mkOption {
       type = lib.types.str;
@@ -32,8 +28,7 @@ in
     };
 
     path = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         listOf (oneOf [
           package
           str
@@ -50,7 +45,7 @@ in
       description = ''
         Configuration of OliveTin. See <https://docs.olivetin.app/config.html> for more information.
       '';
-      default = { };
+      default = {};
 
       type = lib.types.submodule {
         freeformType = settingsFormat.type;
@@ -70,8 +65,8 @@ in
 
     extraConfigFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
-      example = [ "/run/secrets/olivetin.yaml" ];
+      default = [];
+      example = ["/run/secrets/olivetin.yaml"];
       description = ''
         Config files to merge into the settings defined in [](#opt-services.olivetin.settings).
         This is useful to avoid putting secrets into the nix store.
@@ -82,13 +77,13 @@ in
 
   config = lib.mkIf cfg.enable {
     services.olivetin = {
-      path = with pkgs; [ bash ];
+      path = with pkgs; [bash];
     };
 
     systemd.services.olivetin = {
       description = "OliveTin";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       wants = [
         "network-online.target"
@@ -133,6 +128,6 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "olivetin") { olivetin = { }; };
+    users.groups = lib.mkIf (cfg.group == "olivetin") {olivetin = {};};
   };
 }

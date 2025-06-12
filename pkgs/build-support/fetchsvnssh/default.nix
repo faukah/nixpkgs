@@ -5,8 +5,7 @@
   sshSupport ? true,
   openssh ? null,
   expect,
-}:
-{
+}: {
   username,
   password,
   url,
@@ -14,8 +13,7 @@
   outputHash ? lib.fakeHash,
   outputHashAlgo ? null,
 }:
-
-lib.fetchers.withNormalizedHash { } (
+lib.fetchers.withNormalizedHash {} (
   stdenvNoCC.mkDerivation {
     name = "svn-export-ssh";
     builder = ./builder.sh;

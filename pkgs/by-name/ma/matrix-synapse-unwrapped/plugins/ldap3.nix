@@ -11,7 +11,6 @@
   setuptools,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-synapse-ldap3";
   version = "0.2.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     service-identity
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ldap_auth_provider" ];
+  pythonImportsCheck = ["ldap_auth_provider"];
 
   meta = with lib; {
     description = "LDAP3 auth provider for Synapse";
     homepage = "https://github.com/matrix-org/matrix-synapse-ldap3";
     license = licenses.asl20;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
   };
 }

@@ -4,26 +4,27 @@
   makeWrapper,
   parallel,
   perlPackages,
-  extraPerlPackages ? with perlPackages; [
-    DBI
-    DBDPg
-    DBDSQLite
-    DBDCSV
-    TextCSV
-  ],
+  extraPerlPackages ?
+    with perlPackages; [
+      DBI
+      DBDPg
+      DBDSQLite
+      DBDCSV
+      TextCSV
+    ],
   willCite ? false,
 }:
-
 symlinkJoin {
   name = "parallel-full-${parallel.version}";
-  inherit (parallel)
+  inherit
+    (parallel)
     pname
     version
     meta
     outputs
     ;
-  nativeBuildInputs = [ makeWrapper ];
-  paths = [ parallel ];
+  nativeBuildInputs = [makeWrapper];
+  paths = [parallel];
   postBuild = ''
     ${lib.concatMapStringsSep "\n" (
       output: "ln -s --no-target-directory ${parallel.${output}} \$${output}"

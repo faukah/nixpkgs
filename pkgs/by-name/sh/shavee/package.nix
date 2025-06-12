@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shavee";
   version = "0.7.3";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ashuio/shavee";
     description = "Program to automatically decrypt and mount ZFS datasets using Yubikey HMAC as 2FA or any File on USB/SFTP/HTTPS";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jasonodoom ];
+    maintainers = with lib.maintainers; [jasonodoom];
     platforms = lib.platforms.linux;
     mainProgram = "shavee";
   };

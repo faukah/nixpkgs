@@ -14,7 +14,6 @@
   python3,
   cacert,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "proj";
   version = "9.6.1";
@@ -64,21 +63,22 @@ stdenv.mkDerivation (finalAttrs: {
     "-include cstdint"
   ];
 
-  preCheck =
-    let
-      libPathEnvVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
-    ''
-      export HOME=$TMPDIR
-      export TMP=$TMPDIR
-      export ${libPathEnvVar}=$PWD/lib
-    '';
+  preCheck = let
+    libPathEnvVar =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+  in ''
+    export HOME=$TMPDIR
+    export TMP=$TMPDIR
+    export ${libPathEnvVar}=$PWD/lib
+  '';
 
   doCheck = true;
 
   passthru.tests = {
     python = python3.pkgs.pyproj;
-    proj = callPackage ./tests.nix { proj = finalAttrs.finalPackage; };
+    proj = callPackage ./tests.nix {proj = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {
@@ -86,8 +86,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cartographic Projections Library";
     homepage = "https://proj.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [dotlambda];
+    teams = [teams.geospatial];
     platforms = platforms.unix;
   };
 })

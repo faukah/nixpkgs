@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numba,
   numpy,
   scipy,
-
   # tests
   dask,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sparse";
   version = "0.17.0";
@@ -47,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sparse" ];
+  pythonImportsCheck = ["sparse"];
 
   meta = {
     description = "Sparse n-dimensional arrays computations";
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     changelog = "https://sparse.pydata.org/en/stable/changelog.html";
     downloadPage = "https://github.com/pydata/sparse/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -7,7 +7,6 @@
   xcbutilwm,
   xcb-util-cursor,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dk";
   version = "2.3";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bitbucket.org/natemaia/dk";
     description = "List based tiling window manager in the vein of dwm, bspwm, and xmonad";
     license = lib.licenses.x11;
-    maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with lib.maintainers; [_3JlOy-PYCCKUi];
     platforms = lib.platforms.linux;
   };
 })

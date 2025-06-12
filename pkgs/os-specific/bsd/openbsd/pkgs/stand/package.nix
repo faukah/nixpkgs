@@ -3,10 +3,9 @@
   stdenv,
   pkgsBuildTarget,
 }:
-
 mkDerivation {
   path = "sys/arch/amd64/stand";
-  extraPaths = [ "sys" ];
+  extraPaths = ["sys"];
 
   patches = [
     ../sys/initpath.patch

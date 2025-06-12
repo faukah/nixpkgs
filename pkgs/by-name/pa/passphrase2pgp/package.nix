@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "passphrase2pgp";
   version = "1.3.0";
@@ -31,13 +30,13 @@ buildGoModule rec {
     fi
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Predictable, passphrase-based PGP key generator";
     mainProgram = "passphrase2pgp";
     homepage = "https://github.com/skeeto/passphrase2pgp";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

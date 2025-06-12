@@ -9,7 +9,6 @@
   openssl,
   nmap,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "unimap";
   version = "0.6.0";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
   postInstall = ''
     installManPage unimap.1
     wrapProgram $out/bin/unimap \
-      --prefix PATH : ${lib.makeBinPath [ nmap ]}
+      --prefix PATH : ${lib.makeBinPath [nmap]}
   '';
 
   meta = with lib; {
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Edu4rdSHL/unimap";
     changelog = "https://github.com/Edu4rdSHL/unimap/releases/tag/${src.rev}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "unimap";
   };
 }

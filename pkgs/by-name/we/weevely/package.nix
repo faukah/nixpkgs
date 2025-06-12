@@ -6,7 +6,6 @@
   makeWrapper,
   installShellFiles,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "weevely";
   version = "4.0.2-unstable-2024-04-29";
@@ -51,6 +50,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "weevely";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
   };
 }

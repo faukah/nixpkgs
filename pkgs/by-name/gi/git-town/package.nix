@@ -10,7 +10,6 @@
   makeWrapper,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "git-town";
   version = "21.0.0";
@@ -29,18 +28,16 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
-  ldflags =
-    let
-      modulePath = "github.com/git-town/git-town/v${lib.versions.major version}";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${modulePath}/src/cmd.version=v${version}"
-      "-X ${modulePath}/src/cmd.buildDate=nix"
-    ];
+  ldflags = let
+    modulePath = "github.com/git-town/git-town/v${lib.versions.major version}";
+  in [
+    "-s"
+    "-w"
+    "-X ${modulePath}/src/cmd.version=v${version}"
+    "-X ${modulePath}/src/cmd.buildDate=nix"
+  ];
 
   nativeCheckInputs = [
     git
@@ -52,18 +49,16 @@ buildGoModule rec {
     rm main_test.go
   '';
 
-  checkFlags =
-    let
-      # Disable tests requiring local operations
-      skippedTests = [
-        "TestGodog"
-        "TestMockingRunner/MockCommand"
-        "TestMockingRunner/MockCommitMessage"
-        "TestMockingRunner/QueryWith"
-        "TestTestCommands/CreateChildFeatureBranch"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Disable tests requiring local operations
+    skippedTests = [
+      "TestGodog"
+      "TestMockingRunner/MockCommand"
+      "TestMockingRunner/MockCommitMessage"
+      "TestMockingRunner/QueryWith"
+      "TestTestCommands/CreateChildFeatureBranch"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall =
     lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -73,7 +68,7 @@ buildGoModule rec {
         --zsh <($out/bin/git-town completions zsh)
     ''
     + ''
-      wrapProgram $out/bin/git-town --prefix PATH : ${lib.makeBinPath [ git ]}
+      wrapProgram $out/bin/git-town --prefix PATH : ${lib.makeBinPath [git]}
     '';
 
   passthru.tests.version = testers.testVersion {

@@ -11,7 +11,6 @@
   requests,
   yt-dlp,
 }:
-
 buildPythonPackage rec {
   pname = "yark";
   version = "1.2.12";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "yark" ];
+  pythonImportsCheck = ["yark"];
 
   meta = with lib; {
     description = "Module for YouTube archiving";
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Owez/yark";
     changelog = "https://github.com/Owez/yark/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

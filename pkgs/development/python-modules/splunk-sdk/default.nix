@@ -5,7 +5,6 @@
   setuptools,
   deprecation,
 }:
-
 buildPythonPackage rec {
   pname = "splunk-sdk";
   version = "2.1.0";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-N+QQ4DSkx7yakROhcJ2ISXPWFa7BXDeSUULNquhDPrg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ deprecation ];
+  dependencies = [deprecation];
 
-  pythonImportsCheck = [ "splunklib" ];
+  pythonImportsCheck = ["splunklib"];
 
   meta = {
     description = "The Splunk Enterprise Software Development Kit (SDK) for Python";
     homepage = "https://github.com/splunk/splunk-sdk-python";
     changelog = "https://github.com/splunk/splunk-sdk-python/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ levigross ];
+    maintainers = with lib.maintainers; [levigross];
   };
 }

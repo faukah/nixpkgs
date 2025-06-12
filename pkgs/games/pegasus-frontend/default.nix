@@ -13,7 +13,6 @@
   sqlite,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation {
   pname = "pegasus-frontend";
   version = "0-unstable-2024-11-11";
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
     mainProgram = "pegasus-fe";
     homepage = "https://pegasus-frontend.org/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ tengkuizdihar ];
+    maintainers = with maintainers; [tengkuizdihar];
     platforms = platforms.linux;
   };
 }

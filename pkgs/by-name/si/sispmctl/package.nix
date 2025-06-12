@@ -5,7 +5,6 @@
   pkg-config,
   libusb-compat-0_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sispmctl";
   version = "4.12";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "USB controlled powerstrips management software";
     license = licenses.gpl2Plus;
     mainProgram = "sispmctl";
-    maintainers = [ maintainers._9R ];
+    maintainers = [maintainers._9R];
     platforms = platforms.unix;
   };
 }

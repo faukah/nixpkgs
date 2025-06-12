@@ -12,7 +12,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bristol";
   version = "0.60.11";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
       icon = "bicon";
       desktopName = "Bristol";
       comment = "Graphical user interface for the Bristol synthesizer emulator";
-      categories = [ "AudioVideo" ];
+      categories = ["AudioVideo"];
     })
   ];
 
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

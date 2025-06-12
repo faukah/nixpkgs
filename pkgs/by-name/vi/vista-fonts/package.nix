@@ -4,7 +4,6 @@
   fetchurl,
   cabextract,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "vista-fonts";
   version = "1";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-xOdTVI0wkv/X3ThJEF4KJtm1oa/kbm5mf+fGiHiTcB8=";
   };
 
-  nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [cabextract];
 
   unpackPhase = ''
     runHook preUnpack

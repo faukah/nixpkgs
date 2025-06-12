@@ -20,7 +20,6 @@
   texinfo,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wsjtx";
   version = "2.7.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       contacts under extreme weak-signal conditions.
     '';
     homepage = "https://wsjt.sourceforge.io";
-    license = with licenses; [ gpl3Plus ];
+    license = with licenses; [gpl3Plus];
     platforms = platforms.linux;
     maintainers = with maintainers; [
       lasandell

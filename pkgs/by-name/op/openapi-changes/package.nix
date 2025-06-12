@@ -6,7 +6,6 @@
   gitUpdater,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "openapi-changes";
   version = "0.0.78";
@@ -23,10 +22,10 @@ buildGoModule rec {
     rm git/read_local_test.go
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
-    wrapProgram $out/bin/openapi-changes --prefix PATH : ${lib.makeBinPath [ git ]}
+    wrapProgram $out/bin/openapi-changes --prefix PATH : ${lib.makeBinPath [git]}
   '';
 
   vendorHash = "sha256-bcQAXPw4x+oXx3L0vypbqp96nYdcjQo6M3yOwFbIdpg=";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://pb33f.io/openapi-changes/";
     changelog = "https://github.com/pb33f/openapi-changes/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ mguentner ];
+    maintainers = with lib.maintainers; [mguentner];
   };
 }

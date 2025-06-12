@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "neo-cowsay";
   version = "2.0.4";
@@ -33,7 +32,7 @@ buildGoModule rec {
       artistic1 # or
       gpl3
     ];
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "cowsay";
   };
 }

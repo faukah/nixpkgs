@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "send2trash";
   version = "1.8.3";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-3RbKfluKOvl+sGJldtAt2bVfcasVKjCqVxmF6hVwh+Y=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Send file to trash natively under macOS, Windows and Linux";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hsoft/send2trash";
     changelog = "https://github.com/arsenetar/send2trash/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

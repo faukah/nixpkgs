@@ -4,7 +4,6 @@
   fetchFromGitHub,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-impatience";
   version = "0.5.2";

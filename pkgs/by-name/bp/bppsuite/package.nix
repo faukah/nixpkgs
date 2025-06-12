@@ -7,7 +7,6 @@
   bpp-phyl,
   bpp-popgen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bppsuite";
 
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wdwcgczqbc3m116vakvi0129wm3acln3cfc7ivqnalwvi6lrpds";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     bpp-core
     bpp-seq
@@ -28,8 +27,10 @@ stdenv.mkDerivation rec {
     bpp-popgen
   ];
 
-  meta = bpp-core.meta // {
-    homepage = "https://github.com/BioPP/bppsuite";
-    changelog = "https://github.com/BioPP/bppsuite/blob/master/ChangeLog";
-  };
+  meta =
+    bpp-core.meta
+    // {
+      homepage = "https://github.com/BioPP/bppsuite";
+      changelog = "https://github.com/BioPP/bppsuite/blob/master/ChangeLog";
+    };
 }

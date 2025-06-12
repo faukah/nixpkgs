@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "umodbus";
   version = "1.0.4";
@@ -21,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-5IXadb5mjrMwr+L9S1iMN5kba5VGrzYt1p8nBvvLCh4=";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "umodbus" ];
+  pythonImportsCheck = ["umodbus"];
 
   meta = with lib; {
     description = "Implementation of the Modbus protocol";
     homepage = "https://github.com/AdvancedClimateSystems/uModbus/";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [fab];
   };
 }

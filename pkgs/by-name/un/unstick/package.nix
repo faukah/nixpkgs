@@ -7,7 +7,6 @@
   pkg-config,
   libseccomp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unstick";
   version = "0.1.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ libseccomp ];
+  buildInputs = [libseccomp];
 
   meta = {
     homepage = "https://github.com/kwohlfahrt/unstick";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     mainProgram = "unstick";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ kwohlfahrt ];
+    maintainers = with lib.maintainers; [kwohlfahrt];
   };
 }

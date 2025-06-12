@@ -1,16 +1,16 @@
 {
   godot3-mono,
   nuget-to-json,
-
 }:
-
 godot3-mono.overrideAttrs (
   self: base: {
     pname = "godot3-mono-make-deps";
 
-    nativeBuildInputs = base.nativeBuildInputs ++ [
-      nuget-to-json
-    ];
+    nativeBuildInputs =
+      base.nativeBuildInputs
+      ++ [
+        nuget-to-json
+      ];
 
     nugetDeps = null;
     nugetSource = null;
@@ -18,7 +18,7 @@ godot3-mono.overrideAttrs (
 
     keepNugetConfig = true;
 
-    outputs = [ "out" ];
+    outputs = ["out"];
     buildPhase = " ";
     installPhase = ''echo "No output intended. Run make-deps.sh instead." > $out'';
 
@@ -60,8 +60,10 @@ godot3-mono.overrideAttrs (
       popd > /dev/null
     '';
 
-    meta = base.meta // {
-      description = "Derivation with no output that exists to provide an environment for make-deps.sh";
-    };
+    meta =
+      base.meta
+      // {
+        description = "Derivation with no output that exists to provide an environment for make-deps.sh";
+      };
   }
 )

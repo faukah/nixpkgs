@@ -9,7 +9,6 @@
   openssl,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "mysql-connector";
   version = "8.0.33";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     ./0001-Revert-Fix-MacOS-wheels-platform-tag.patch
   ];
 
-  nativeBuildInputs = [ mysql80 ];
+  nativeBuildInputs = [mysql80];
 
   propagatedBuildInputs = [
     dnspython
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     pkgs.zstd
   ];
 
-  pythonImportsCheck = [ "mysql" ];
+  pythonImportsCheck = ["mysql"];
 
   # Tests require a running MySQL instance
   doCheck = false;

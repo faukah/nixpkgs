@@ -6,7 +6,6 @@
   jq,
   common-updater-scripts,
 }:
-
 writeShellApplication {
   name = "update-alist";
   runtimeInputs = [

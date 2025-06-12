@@ -10,7 +10,6 @@
   docbook_xsl,
   git,
 }:
-
 stdenv.mkDerivation {
   pname = "sdl-jstest";
   version = "2018-06-15";
@@ -40,6 +39,6 @@ stdenv.mkDerivation {
     description = "Simple SDL joystick test application for the console";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

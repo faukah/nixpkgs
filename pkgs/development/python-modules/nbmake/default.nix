@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   ipykernel,
   nbclient,
   nbformat,
   pygments,
-
   # tests
   pytestCheckHook,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "nbmake";
   version = "1.5.5";
@@ -40,9 +36,9 @@ buildPythonPackage rec {
     pygments
   ];
 
-  pythonRelaxDeps = [ "nbclient" ];
+  pythonRelaxDeps = ["nbclient"];
 
-  pythonImportsCheck = [ "nbmake" ];
+  pythonImportsCheck = ["nbmake"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -67,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/treebeardtech/nbmake";
     changelog = "https://github.com/treebeardtech/nbmake/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

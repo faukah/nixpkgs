@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fypp";
   version = "3.2";
@@ -16,13 +15,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-MgGVlOqOIrIVoDfBMVpFLT26mhYndxans2hfo/+jdoA=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.setuptools ];
+  nativeBuildInputs = [python3.pkgs.setuptools];
 
   meta = with lib; {
     description = "Python powered Fortran preprocessor";
     mainProgram = "fypp";
     homepage = "https://github.com/aradi/fypp";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

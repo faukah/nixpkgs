@@ -8,7 +8,6 @@
   installShellFiles,
   fortuneAlias ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fortune-kind";
   version = "0.1.13";
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/cafkafk/fortune-kind/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "fortune-kind";
-    maintainers = with lib.maintainers; [ cafkafk ];
+    maintainers = with lib.maintainers; [cafkafk];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
 }

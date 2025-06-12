@@ -8,7 +8,6 @@
   subunit,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "oslotest";
   version = "5.0.1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-WpRA0o2MywC89f56BWkEF+pilDsMjpOkMX2LG9Au6O4=";
   };
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     fixtures
@@ -31,15 +30,15 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "oslotest" ];
+  pythonImportsCheck = ["oslotest"];
 
   meta = with lib; {
     description = "Oslo test framework";
     homepage = "https://github.com/openstack/oslotest";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

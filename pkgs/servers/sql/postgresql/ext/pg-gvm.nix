@@ -11,7 +11,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg-gvm";
   version = "22.6.9";
@@ -41,7 +40,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/greenbone/pg-gvm";
     changelog = "https://github.com/greenbone/pg-gvm/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     platforms = postgresql.meta.platforms;
   };
 })

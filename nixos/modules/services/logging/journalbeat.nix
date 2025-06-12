@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.journalbeat;
 
   journalbeatYml = pkgs.writeText "journalbeat.yml" ''
@@ -13,16 +12,12 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   options = {
-
     services.journalbeat = {
-
       enable = lib.mkEnableOption "journalbeat";
 
-      package = lib.mkPackageOption pkgs "journalbeat" { };
+      package = lib.mkPackageOption pkgs "journalbeat" {};
 
       name = lib.mkOption {
         type = lib.types.str;
@@ -32,7 +27,7 @@ in
 
       tags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Tags to place on the shipped log messages";
       };
 
@@ -51,12 +46,10 @@ in
         default = "";
         description = "Any other configuration options you want to add";
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !lib.hasPrefix "/" cfg.stateDir;
@@ -68,9 +61,9 @@ in
 
     systemd.services.journalbeat = {
       description = "Journalbeat log shipper";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "elasticsearch.service" ];
-      after = [ "elasticsearch.service" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["elasticsearch.service"];
+      after = ["elasticsearch.service"];
       preStart = ''
         mkdir -p ${cfg.stateDir}/data
         mkdir -p ${cfg.stateDir}/logs

@@ -7,7 +7,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "x690";
   version = "1.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     t61codec
   ];
 
-  pythonImportsCheck = [ "x690" ];
+  pythonImportsCheck = ["x690"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Pure Python X.690 implementation";
     homepage = "https://github.com/exhuma/x690";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

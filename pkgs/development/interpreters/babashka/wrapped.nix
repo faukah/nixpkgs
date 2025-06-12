@@ -6,9 +6,8 @@
   makeWrapper,
   installShellFiles,
   rlwrap,
-  clojureToolsBabashka ? callPackage ./clojure-tools.nix { },
+  clojureToolsBabashka ? callPackage ./clojure-tools.nix {},
   jdkBabashka ? clojureToolsBabashka.jdk,
-
   # rlwrap is a small utility to allow the editing of keyboard input, see
   # https://book.babashka.org/#_repl
   #
@@ -30,10 +29,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  installPhase =
-    let
-      unwrapped-bin = "${babashka-unwrapped}/bin/bb";
-    in
+  installPhase = let
+    unwrapped-bin = "${babashka-unwrapped}/bin/bb";
+  in
     ''
       mkdir -p $out/clojure_tools
       ln -s -t $out/clojure_tools ${clojureToolsBabashka}/*.edn

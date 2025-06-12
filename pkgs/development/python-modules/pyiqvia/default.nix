@@ -13,7 +13,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "pyiqvia";
   version = "2023.12.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-qq6UQUz60WkmWqdmExlSQT3wapaHJr8DeH1eVrTOnpQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "pyiqvia" ];
+  pythonImportsCheck = ["pyiqvia"];
 
   meta = with lib; {
     description = "Module for working with IQVIA data";
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bachya/pyiqvia";
     changelog = "https://github.com/bachya/pyiqvia/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

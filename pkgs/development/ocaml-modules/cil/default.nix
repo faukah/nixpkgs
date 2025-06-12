@@ -7,11 +7,9 @@
   findlib,
   ocamlbuild,
 }:
-
-if lib.versionAtLeast ocaml.version "4.06" then
-  throw "cil is not available for OCaml ${ocaml.version}"
+if lib.versionAtLeast ocaml.version "4.06"
+then throw "cil is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml-cil";
     version = "1.7.3";
@@ -42,7 +40,7 @@ else
       homepage = "https://sourceforge.net/projects/cil/";
       description = "Front-end for the C programming language that facilitates program analysis and transformation";
       license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
-      platforms = ocaml.meta.platforms or [ ];
+      maintainers = [maintainers.vbgl];
+      platforms = ocaml.meta.platforms or [];
     };
   }

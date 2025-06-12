@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "teroshdl";
@@ -17,6 +16,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=teros-technology.teroshdl";
     homepage = "https://github.com/TerosTechnology/vscode-terosHDL";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ lheintzmann1 ];
+    maintainers = with lib.maintainers; [lheintzmann1];
   };
 }

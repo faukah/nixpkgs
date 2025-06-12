@@ -7,7 +7,6 @@
   pyspnego,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "requests-ntlm";
   version = "1.3.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-spzCRiYj3/35uIxD4YDMtzW0AHIopUIiDogsWK5Wxmg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cryptography
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "requests_ntlm" ];
+  pythonImportsCheck = ["requests_ntlm"];
 
   # Tests require networking
   doCheck = false;
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/requests/requests-ntlm";
     changelog = "https://github.com/requests/requests-ntlm/releases/tag/v${version}";
     license = licenses.isc;
-    maintainers = with maintainers; [ elasticdog ];
+    maintainers = with maintainers; [elasticdog];
     platforms = platforms.all;
   };
 }

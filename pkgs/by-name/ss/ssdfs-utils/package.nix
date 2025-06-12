@@ -7,7 +7,6 @@
   libuuid,
   zlib,
 }:
-
 stdenv.mkDerivation {
   # The files and commit messages in the repository refer to the package
   # as ssdfs-utils, not ssdfs-tools.
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     description = "SSDFS file system utilities";
     homepage = "https://github.com/dubeyko/ssdfs-tools";
     license = licenses.bsd3Clear;
-    maintainers = with maintainers; [ ners ];
+    maintainers = with maintainers; [ners];
     platforms = platforms.linux;
   };
 }

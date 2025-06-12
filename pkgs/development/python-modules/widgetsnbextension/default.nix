@@ -4,7 +4,6 @@
   jupyter-packaging,
   ipywidgets,
 }:
-
 buildPythonPackage rec {
   pname = "widgetsnbextension";
   version = "4.0.13";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-/8tnvJ/r0QI0o2J5X2Q5J/TgwF2TQscntl0jhPj+rLY=";
   };
 
-  nativeBuildInputs = [ jupyter-packaging ];
+  nativeBuildInputs = [jupyter-packaging];
 
-  pythonImportsCheck = [ "widgetsnbextension" ];
+  pythonImportsCheck = ["widgetsnbextension"];
 
   # No tests in archive
   doCheck = false;

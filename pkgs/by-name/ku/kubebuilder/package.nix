@@ -10,7 +10,6 @@
   testers,
   kubebuilder,
 }:
-
 buildGoModule rec {
   pname = "kubebuilder";
   version = "4.5.1";
@@ -24,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-rcL79JLZfuvFraqrRWQKrGuUfnRh1IxGidZ/vMeBrZM=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   allowGoReference = true;
 
@@ -46,11 +45,11 @@ buildGoModule rec {
     mv $out/bin/cmd $out/bin/kubebuilder
     wrapProgram $out/bin/kubebuilder \
       --prefix PATH : ${
-        lib.makeBinPath [
-          go
-          gnumake
-        ]
-      }
+      lib.makeBinPath [
+        go
+        gnumake
+      ]
+    }
 
     installShellCompletion --cmd kubebuilder \
       --bash <($out/bin/kubebuilder completion bash) \
@@ -70,6 +69,6 @@ buildGoModule rec {
     homepage = "https://github.com/kubernetes-sigs/kubebuilder";
     changelog = "https://github.com/kubernetes-sigs/kubebuilder/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cmars ];
+    maintainers = with lib.maintainers; [cmars];
   };
 }

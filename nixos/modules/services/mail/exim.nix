@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkIf
     mkOption
@@ -16,16 +15,11 @@ let
     ;
   inherit (pkgs) coreutils;
   cfg = config.services.exim;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.exim = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -83,13 +77,11 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     environment = {
       etc."exim.conf".text = ''
         exim_user = ${cfg.user}
@@ -98,7 +90,7 @@ in
         spool_directory = ${cfg.spoolDir}
         ${cfg.config}
       '';
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
     };
 
     users.users.${cfg.user} = {
@@ -120,8 +112,8 @@ in
 
     systemd.services.exim = {
       description = "Exim Mail Daemon";
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."exim.conf".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."exim.conf".source];
       serviceConfig = {
         ExecStart = "!${cfg.package}/bin/exim -bdf -q${cfg.queueRunnerInterval}";
         ExecReload = "!${coreutils}/bin/kill -HUP $MAINPID";
@@ -134,7 +126,5 @@ in
         fi
       '';
     };
-
   };
-
 }

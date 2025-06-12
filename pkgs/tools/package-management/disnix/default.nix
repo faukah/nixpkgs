@@ -12,7 +12,6 @@
   libintl,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "disnix";
   version = "0.10.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     libxml2

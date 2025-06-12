@@ -15,7 +15,6 @@
   tskit,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "msprime";
   version = "1.3.4";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ gsl ];
+  buildInputs = [gsl];
 
   propagatedBuildInputs = [
     numpy
@@ -76,13 +75,13 @@ buildPythonPackage rec {
   preCheck = ''
     rm -r msprime
   '';
-  pythonImportsCheck = [ "msprime" ];
+  pythonImportsCheck = ["msprime"];
 
   meta = with lib; {
     description = "Simulate genealogical trees and genomic sequence data using population genetic models";
     homepage = "https://github.com/tskit-dev/msprime";
     changelog = "https://github.com/tskit-dev/msprime/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ alxsimon ];
+    maintainers = with maintainers; [alxsimon];
   };
 }

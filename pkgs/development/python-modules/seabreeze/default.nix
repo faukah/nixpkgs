@@ -2,32 +2,26 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   cython,
   git,
   pkgconfig,
   setuptools,
   setuptools-scm,
-
   # dependneices
   numpy,
   libusb-compat-0_1,
-
   # optional-dependencies
   pyusb,
-
   # tests
   mock,
   pytestCheckHook,
   zipp,
 }:
-
 ## Usage
 # In NixOS, add the package to services.udev.packages for non-root plugdev
 # users to get device access permission:
 #    services.udev.packages = [ pkgs.python3Packages.seabreeze ];
-
 buildPythonPackage rec {
   pname = "seabreeze";
   version = "2.10.1";
@@ -64,7 +58,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pyseabreeze = [ pyusb ];
+    pyseabreeze = [pyusb];
   };
 
   postInstall = ''
@@ -73,20 +67,22 @@ buildPythonPackage rec {
   '';
 
   # few backends enabled, but still some tests
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    zipp
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      mock
+      zipp
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  disabledTests = [ "TestHardware" ];
+  disabledTests = ["TestHardware"];
 
-  setupPyBuildFlags = [ "--without-cseabreeze" ];
+  setupPyBuildFlags = ["--without-cseabreeze"];
 
   meta = with lib; {
     homepage = "https://github.com/ap--/python-seabreeze";
     description = "Python library to access Ocean Optics spectrometers";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

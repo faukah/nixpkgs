@@ -7,7 +7,6 @@
   standard-chunk,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "standard-aifc";
   version = "3.13.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     standard-chunk
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "aifc"
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Standard library aifc redistribution";
     homepage = "https://github.com/youknowone/python-deadlib/tree/main/aifc";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

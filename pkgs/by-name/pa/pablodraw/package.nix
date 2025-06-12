@@ -10,7 +10,6 @@
   makeDesktopItem,
   stdenv,
 }:
-
 buildDotnetModule rec {
   pname = "pablodraw";
   version = "3.1.14-beta";
@@ -24,7 +23,7 @@ buildDotnetModule rec {
 
   projectFile = "Source/PabloDraw/PabloDraw.csproj";
 
-  executables = [ "PabloDraw" ];
+  executables = ["PabloDraw"];
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
 
@@ -54,7 +53,7 @@ buildDotnetModule rec {
       icon = "pablodraw";
       desktopName = "PabloDraw";
       terminal = false;
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
     })
   ];
 

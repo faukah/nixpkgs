@@ -3,23 +3,20 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   imcfg = config.i18n.inputMethod;
   cfg = imcfg.fcitx5;
   fcitx5Package =
-    if cfg.plasma6Support then
-      pkgs.qt6Packages.fcitx5-with-addons.override { inherit (cfg) addons; }
-    else
-      pkgs.libsForQt5.fcitx5-with-addons.override { inherit (cfg) addons; };
-  settingsFormat = pkgs.formats.ini { };
-in
-{
+    if cfg.plasma6Support
+    then pkgs.qt6Packages.fcitx5-with-addons.override {inherit (cfg) addons;}
+    else pkgs.libsForQt5.fcitx5-with-addons.override {inherit (cfg) addons;};
+  settingsFormat = pkgs.formats.ini {};
+in {
   options = {
     i18n.inputMethod.fcitx5 = {
       addons = lib.mkOption {
         type = with lib.types; listOf package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "with pkgs; [ fcitx5-rime ]";
         description = ''
           Enabled Fcitx5 addons.
@@ -44,7 +41,7 @@ in
       };
       quickPhrase = lib.mkOption {
         type = with lib.types; attrsOf str;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             smile = "（・∀・）";
@@ -55,7 +52,7 @@ in
       };
       quickPhraseFiles = lib.mkOption {
         type = with lib.types; attrsOf path;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             words = ./words.mb;
@@ -69,7 +66,7 @@ in
           type = lib.types.submodule {
             freeformType = settingsFormat.type;
           };
-          default = { };
+          default = {};
           description = ''
             The global options in `config` file in ini format.
           '';
@@ -78,14 +75,14 @@ in
           type = lib.types.submodule {
             freeformType = settingsFormat.type;
           };
-          default = { };
+          default = {};
           description = ''
             The input method configure in `profile` file in ini format.
           '';
         };
         addons = lib.mkOption {
           type = with lib.types; (attrsOf anything);
-          default = { };
+          default = {};
           description = ''
             The addon configures in `conf` folder in ini format with global sections.
             Each item is written to the corresponding file.
@@ -106,7 +103,7 @@ in
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "i18n" "inputMethod" "fcitx5" "enableRimeData" ] ''
+    (lib.mkRemovedOptionModule ["i18n" "inputMethod" "fcitx5" "enableRimeData"] ''
       RIME data is now included in `fcitx5-rime` by default, and can be customized using `fcitx5-rime.override { rimeDataPkgs = ...; }`
     '')
   ];
@@ -115,42 +112,43 @@ in
     i18n.inputMethod.package = fcitx5Package;
 
     i18n.inputMethod.fcitx5.addons =
-      lib.optionals (cfg.quickPhrase != { }) [
+      lib.optionals (cfg.quickPhrase != {}) [
         (pkgs.writeTextDir "share/fcitx5/data/QuickPhrase.mb" (
           lib.concatStringsSep "\n" (
             lib.mapAttrsToList (
-              name: value: "${name} ${builtins.replaceStrings [ "\\" "\n" ] [ "\\\\" "\\n" ] value}"
-            ) cfg.quickPhrase
+              name: value: "${name} ${builtins.replaceStrings ["\\" "\n"] ["\\\\" "\\n"] value}"
+            )
+            cfg.quickPhrase
           )
         ))
       ]
-      ++ lib.optionals (cfg.quickPhraseFiles != { }) [
+      ++ lib.optionals (cfg.quickPhraseFiles != {}) [
         (pkgs.linkFarm "quickPhraseFiles" (
           lib.mapAttrs' (
-            name: value: lib.nameValuePair ("share/fcitx5/data/quickphrase.d/${name}.mb") value
-          ) cfg.quickPhraseFiles
+            name: value: lib.nameValuePair "share/fcitx5/data/quickphrase.d/${name}.mb" value
+          )
+          cfg.quickPhraseFiles
         ))
       ];
-    environment.etc =
-      let
-        optionalFile =
-          p: f: v:
-          lib.optionalAttrs (v != { }) {
-            "xdg/fcitx5/${p}".text = f v;
-          };
-      in
+    environment.etc = let
+      optionalFile = p: f: v:
+        lib.optionalAttrs (v != {}) {
+          "xdg/fcitx5/${p}".text = f v;
+        };
+    in
       lib.attrsets.mergeAttrsList [
-        (optionalFile "config" (lib.generators.toINI { }) cfg.settings.globalOptions)
-        (optionalFile "profile" (lib.generators.toINI { }) cfg.settings.inputMethod)
+        (optionalFile "config" (lib.generators.toINI {}) cfg.settings.globalOptions)
+        (optionalFile "profile" (lib.generators.toINI {}) cfg.settings.inputMethod)
         (lib.concatMapAttrs (
-          name: value: optionalFile "conf/${name}.conf" (lib.generators.toINIWithGlobalSection { }) value
-        ) cfg.settings.addons)
+            name: value: optionalFile "conf/${name}.conf" (lib.generators.toINIWithGlobalSection {}) value
+          )
+          cfg.settings.addons)
       ];
 
     environment.variables =
       {
         XMODIFIERS = "@im=fcitx";
-        QT_PLUGIN_PATH = [ "${fcitx5Package}/${pkgs.qt6.qtbase.qtPluginPrefix}" ];
+        QT_PLUGIN_PATH = ["${fcitx5Package}/${pkgs.qt6.qtbase.qtPluginPrefix}"];
       }
       // lib.optionalAttrs (!cfg.waylandFrontend) {
         GTK_IM_MODULE = "fcitx";

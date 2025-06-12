@@ -3,10 +3,11 @@
   lib,
   writeScript,
   sqlite,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "sqlite3";
   inherit version src;

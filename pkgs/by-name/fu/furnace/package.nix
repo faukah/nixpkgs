@@ -26,7 +26,6 @@
   # Use GLES instead of GL, some platforms have better support for one than the other
   preferGLES ? stdenv.hostPlatform.isAarch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "furnace";
   version = "0.6.8.2";
@@ -126,8 +125,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multi-system chiptune tracker compatible with DefleMask modules";
     homepage = "https://github.com/tildearrow/furnace";
     changelog = "https://github.com/tildearrow/furnace/releases/tag/v${finalAttrs.version}";
-    license = with lib.licenses; [ gpl2Plus ];
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    license = with lib.licenses; [gpl2Plus];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.all;
     mainProgram = "furnace";
   };

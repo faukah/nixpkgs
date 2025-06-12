@@ -3,16 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.kthxbye;
-in
-
-{
+in {
   options.services.kthxbye = {
     enable = lib.mkEnableOption "kthxbye alert acknowledgement management daemon";
 
-    package = lib.mkPackageOption pkgs "kthxbye" { };
+    package = lib.mkPackageOption pkgs "kthxbye" {};
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -24,7 +21,7 @@ in
 
     extraOptions = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Extra command line options.
 
@@ -136,7 +133,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.kthxbye = {
       description = "kthxbye Alertmanager ack management daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = ''
         ${cfg.package}/bin/kthxbye \
           -alertmanager.timeout ${cfg.alertmanager.timeout} \
@@ -157,6 +154,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
   };
 }

@@ -10,7 +10,6 @@
   nbconvert,
   nbformat,
 }:
-
 buildPythonPackage rec {
   pname = "livelossplot";
   version = "0.5.6";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-qC1FBFJyf2IlDIffJ5Xs89WcN/GFA/8maODhc1u2xhA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bokeh
     matplotlib
   ];
 
-  pythonImportsCheck = [ "livelossplot" ];
+  pythonImportsCheck = ["livelossplot"];
 
   nativeCheckInputs = [
     ipython
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Live training loss plot in Jupyter for Keras, PyTorch, and others";
     homepage = "https://github.com/stared/livelossplot";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

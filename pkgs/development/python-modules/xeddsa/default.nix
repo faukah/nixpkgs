@@ -9,7 +9,6 @@
   pytestCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xeddsa";
   version = "1.1.0";
@@ -27,29 +26,29 @@ buildPythonPackage rec {
       --replace-fail "setuptools<74" "setuptools"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     libsodium
     libxeddsa
   ];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "xeddsa" ];
+  pythonImportsCheck = ["xeddsa"];
 
   meta = {
     description = "Python bindings to libxeddsa";
     homepage = "https://github.com/Syndace/python-xeddsa";
     changelog = "https://github.com/Syndace/python-xeddsa/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [];
   };
 }

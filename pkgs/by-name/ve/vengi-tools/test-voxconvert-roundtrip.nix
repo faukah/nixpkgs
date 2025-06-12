@@ -2,7 +2,6 @@
   stdenv,
   vengi-tools,
 }:
-
 stdenv.mkDerivation {
   name = "vengi-tools-test-voxconvert-roundtrip";
   meta.timeout = 10;

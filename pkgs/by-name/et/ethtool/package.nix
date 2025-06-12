@@ -6,7 +6,6 @@
   pkg-config,
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ethtool";
   version = "6.14";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.kernel.org/pub/software/network/ethtool/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "ethtool";
   };
 }

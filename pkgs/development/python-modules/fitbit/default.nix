@@ -10,7 +10,6 @@
   requests-mock,
   requests-oauthlib,
 }:
-
 buildPythonPackage rec {
   pname = "fitbit";
   version = "0.3.1";
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "fitbit" ];
+  pythonImportsCheck = ["fitbit"];
 
   meta = with lib; {
     description = "Fitbit API Python Client Implementation";
     homepage = "https://github.com/orcasgit/python-fitbit";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

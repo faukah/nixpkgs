@@ -18,7 +18,6 @@
   zlib,
   withLAS ? false, # unfree
 }:
-
 buildPythonPackage rec {
   pname = "cgal";
   version = "6.0.1.post202410241521";
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "CGAL" ];
+  pythonImportsCheck = ["CGAL"];
 
   postFixup = lib.optionalString stdenv.hostPlatform.isElf ''
     mv $out/${python.sitePackages}/{lib,CGAL/_lib}
@@ -82,6 +81,6 @@ buildPythonPackage rec {
     description = "CGAL bindings using SWIG";
     homepage = "https://github.com/CGAL/cgal-swig-bindings";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

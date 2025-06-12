@@ -15,7 +15,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "atlassian-python-api";
   version = "4.0.4";
@@ -43,15 +42,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "atlassian" ];
+  pythonImportsCheck = ["atlassian"];
 
   meta = with lib; {
     description = "Python Atlassian REST API Wrapper";
     homepage = "https://github.com/atlassian-api/atlassian-python-api";
     changelog = "https://github.com/atlassian-api/atlassian-python-api/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

@@ -8,7 +8,6 @@
   scikit-learn,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "qudida";
   version = "0.0.4";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "qudida" ];
+  pythonImportsCheck = ["qudida"];
 
   meta = with lib; {
     description = "QUick and DIrty Domain Adaptation";
     homepage = "https://github.com/arsenyinfo/qudida";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

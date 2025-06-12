@@ -10,7 +10,6 @@
   spdlog,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pc-ble-driver";
   version = "4.1.4";
@@ -55,7 +54,6 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs =
     [
-
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       udev

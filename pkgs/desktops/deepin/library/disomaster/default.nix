@@ -6,7 +6,6 @@
   libsForQt5,
   libisoburn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "disomaster";
   version = "5.0.8";
@@ -25,15 +24,15 @@ stdenv.mkDerivation rec {
     libsForQt5.wrapQtAppsHook
   ];
 
-  buildInputs = [ libisoburn ];
+  buildInputs = [libisoburn];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = with lib; {
     description = "Libisoburn wrapper class for Qt";
     homepage = "https://github.com/linuxdeepin/disomaster";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

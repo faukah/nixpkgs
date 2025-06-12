@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "snicat";
   version = "0.0.1-unstable-2024-09-05";
@@ -32,6 +31,6 @@ buildGoModule rec {
     homepage = "https://github.com/CTFd/snicat";
     license = licenses.asl20;
     mainProgram = "sc";
-    maintainers = with maintainers; [ felixalbrigtsen ];
+    maintainers = with maintainers; [felixalbrigtsen];
   };
 }

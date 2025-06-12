@@ -8,7 +8,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "python-lzo";
   version = "1.16";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ lzo ];
+  buildInputs = [lzo];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "lzo" ];
+  pythonImportsCheck = ["lzo"];
 
   meta = with lib; {
     description = "Python bindings for the LZO data compression library";
     homepage = "https://github.com/jd-boyd/python-lzo";
     changelog = "https://github.com/jd-boyd/python-lzo/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
   };
 }

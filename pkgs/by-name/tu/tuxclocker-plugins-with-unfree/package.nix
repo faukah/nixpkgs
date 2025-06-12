@@ -3,7 +3,6 @@
   tuxclocker-nvidia-plugin,
   tuxclocker-plugins,
 }:
-
 symlinkJoin rec {
   inherit (tuxclocker-plugins) version meta;
 

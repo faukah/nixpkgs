@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ursadb";
   version = "1.5.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/CERT-Polska/ursadb";
     description = "Trigram database written in C++, suited for malware indexing";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ msm ];
+    maintainers = with maintainers; [msm];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -7,7 +7,6 @@
   testers,
   uncrustify,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "packcc";
   version = "2.2.0";
@@ -27,12 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preBuild = ''
     cd build/${
-      if stdenv.cc.isGNU then
-        "gcc"
-      else if stdenv.cc.isClang then
-        "clang"
-      else
-        throw "Unsupported C compiler"
+      if stdenv.cc.isGNU
+      then "gcc"
+      else if stdenv.cc.isClang
+      then "clang"
+      else throw "Unsupported C compiler"
     }
   '';
 
@@ -60,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = with lib; {
     description = "Parser generator for C";
@@ -73,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/arithy/packcc";
     changelog = "https://github.com/arithy/packcc/releases/tag/${finalAttrs.src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
     mainProgram = "packcc";
   };

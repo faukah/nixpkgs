@@ -4,11 +4,9 @@
   config,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.gmediarender;
-in
-{
+in {
   options.services.gmediarender = {
     enable = lib.mkEnableOption "the gmediarender DLNA renderer";
 
@@ -67,9 +65,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd = {
       services.gmediarender = {
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
         description = "gmediarender server daemon";
         environment = {
           XDG_CACHE_HOME = "%t/gmediarender";
@@ -78,21 +76,15 @@ in
           DynamicUser = true;
           User = "gmediarender";
           Group = "gmediarender";
-          SupplementaryGroups = [ "audio" ];
+          SupplementaryGroups = ["audio"];
           ExecStart =
             "${cfg.package}/bin/gmediarender "
-            + lib.optionalString (cfg.audioDevice != null) (
-              "--gstout-audiodevice=${utils.escapeSystemdExecArg cfg.audioDevice} "
-            )
-            + lib.optionalString (cfg.audioSink != null) (
-              "--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} "
-            )
-            + lib.optionalString (cfg.friendlyName != null) (
-              "--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} "
-            )
-            + lib.optionalString (cfg.initialVolume != 0) ("--initial-volume=${toString cfg.initialVolume} ")
-            + lib.optionalString (cfg.port != null) ("--port=${toString cfg.port} ")
-            + lib.optionalString (cfg.uuid != null) ("--uuid=${utils.escapeSystemdExecArg cfg.uuid} ");
+            + lib.optionalString (cfg.audioDevice != null) "--gstout-audiodevice=${utils.escapeSystemdExecArg cfg.audioDevice} "
+            + lib.optionalString (cfg.audioSink != null) "--gstout-audiosink=${utils.escapeSystemdExecArg cfg.audioSink} "
+            + lib.optionalString (cfg.friendlyName != null) "--friendly-name=${utils.escapeSystemdExecArg cfg.friendlyName} "
+            + lib.optionalString (cfg.initialVolume != 0) "--initial-volume=${toString cfg.initialVolume} "
+            + lib.optionalString (cfg.port != null) "--port=${toString cfg.port} "
+            + lib.optionalString (cfg.uuid != null) "--uuid=${utils.escapeSystemdExecArg cfg.uuid} ";
           Restart = "always";
           RuntimeDirectory = "gmediarender";
 

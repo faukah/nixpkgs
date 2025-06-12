@@ -1,5 +1,8 @@
-{ config, lib, ... }:
 {
+  config,
+  lib,
+  ...
+}: {
   meta = {
     maintainers = lib.teams.freedesktop.members;
   };
@@ -20,5 +23,4 @@
       "/etc/xdg/autostart"
     ];
   };
-
 }

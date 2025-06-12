@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zfs,
 }:
-
 stdenv.mkDerivation {
   pname = "easysnap";
   version = "unstable-2022-06-03";
@@ -30,7 +29,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/sjau/easysnap";
     description = "Customizable ZFS Snapshotting tool with zfs send/recv pulling";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sjau ];
+    maintainers = with maintainers; [sjau];
   };
-
 }

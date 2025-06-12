@@ -6,7 +6,6 @@
   testers,
   juju,
 }:
-
 buildGoModule rec {
   pname = "juju";
   version = "3.6.5";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "cmd/juju"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Disable tests because it attempts to use a mongodb instance
   doCheck = false;
@@ -44,7 +43,7 @@ buildGoModule rec {
     description = "Open source modelling tool for operating software in the cloud";
     homepage = "https://juju.is";
     license = licenses.mit;
-    maintainers = with maintainers; [ citadelcore ];
+    maintainers = with maintainers; [citadelcore];
     mainProgram = "juju";
   };
 }

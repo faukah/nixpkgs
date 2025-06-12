@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-38mUhLx//qJ6MWnoTWwheYjtpHsgirLlUk3Cpd0Vj04=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     docutils
     libev
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Libev-based high performance SSL/TLS proxy by Varnish Software";
     homepage = "https://hitch-tls.org/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.jflanglois ];
+    maintainers = [maintainers.jflanglois];
     platforms = platforms.linux;
     mainProgram = "hitch";
   };

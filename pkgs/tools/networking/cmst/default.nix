@@ -7,7 +7,6 @@
   qttools,
   gitUpdater,
 }:
-
 mkDerivation rec {
   pname = "cmst";
   version = "2023.03.14";
@@ -24,7 +23,7 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   postPatch = ''
     for f in $(find . -name \*.cpp -o -name \*.pri -o -name \*.pro); do

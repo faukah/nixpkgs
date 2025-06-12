@@ -6,7 +6,6 @@
   stdenv,
   ocl-icd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lucky-commit";
   version = "2.2.5";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Change the start of your git commit hashes to whatever you want";
     homepage = "https://github.com/not-an-aardvark/lucky-commit";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "lucky_commit";
   };
 }

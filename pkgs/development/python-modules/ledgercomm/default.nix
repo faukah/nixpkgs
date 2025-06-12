@@ -5,7 +5,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "ledgercomm";
   version = "1.2.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "ledgercomm" ];
+  pythonImportsCheck = ["ledgercomm"];
 
   meta = with lib; {
     description = "Python library to send and receive APDU through HID or TCP socket. It can be used with a Ledger Nano S/X or with the Speculos emulator";

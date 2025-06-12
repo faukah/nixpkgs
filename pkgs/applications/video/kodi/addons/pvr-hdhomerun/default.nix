@@ -28,6 +28,6 @@ buildKodiBinaryAddon rec {
     description = "Kodi's HDHomeRun PVR client addon";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

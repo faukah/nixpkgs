@@ -33,16 +33,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "OpenStack CLI and TUI implemented in Rust";
     homepage = "https://github.com/gtema/openstack";
     changelog = "https://github.com/gtema/openstack/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     mainProgram = "osc";
   };
 })

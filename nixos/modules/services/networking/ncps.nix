@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.ncps;
 
   logLevels = [
@@ -18,7 +17,7 @@ let
   ];
 
   globalFlags = lib.concatStringsSep " " (
-    [ "--log-level='${cfg.logLevel}'" ]
+    ["--log-level='${cfg.logLevel}'"]
     ++ (lib.optionals cfg.openTelemetry.enable (
       [
         "--otel-enabled"
@@ -52,15 +51,14 @@ let
 
   dbPath = lib.removePrefix "sqlite:" cfg.cache.databaseURL;
   dbDir = dirOf dbPath;
-in
-{
+in {
   options = {
     services.ncps = {
       enable = lib.mkEnableOption "ncps: Nix binary cache proxy service implemented in Go";
 
-      package = lib.mkPackageOption pkgs "ncps" { };
+      package = lib.mkPackageOption pkgs "ncps" {};
 
-      dbmatePackage = lib.mkPackageOption pkgs "dbmate" { };
+      dbmatePackage = lib.mkPackageOption pkgs "dbmate" {};
 
       openTelemetry = {
         enable = lib.mkEnableOption "Enable OpenTelemetry logs, metrics, and tracing";
@@ -180,7 +178,7 @@ in
       upstream = {
         caches = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          example = [ "https://cache.nixos.org" ];
+          example = ["https://cache.nixos.org"];
           description = ''
             A list of URLs of upstream binary caches.
           '';
@@ -188,8 +186,8 @@ in
 
         publicKeys = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
-          example = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+          default = [];
+          example = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
           description = ''
             A list of public keys of upstream caches in the format
             `host[-[0-9]*]:public-key`. This flag is used to verify the
@@ -212,7 +210,7 @@ in
       isSystemUser = true;
       group = "ncps";
     };
-    users.groups.ncps = { };
+    users.groups.ncps = {};
 
     systemd.services.ncps-create-datadirs = {
       description = "Created required directories by ncps";
@@ -233,16 +231,16 @@ in
             chown ncps:ncps ${dbDir}
           fi
         '');
-      wantedBy = [ "ncps.service" ];
-      before = [ "ncps.service" ];
+      wantedBy = ["ncps.service"];
+      before = ["ncps.service"];
     };
 
     systemd.services.ncps = {
       description = "ncps binary cache proxy service";
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ${lib.getExe cfg.dbmatePackage} --migrations-dir=${cfg.package}/share/ncps/db/migrations --url=${cfg.cache.databaseURL} up
@@ -264,14 +262,14 @@ in
 
         # ensure permissions on required directories
         (lib.mkIf (cfg.cache.dataPath != "/var/lib/ncps") {
-          ReadWritePaths = [ cfg.cache.dataPath ];
+          ReadWritePaths = [cfg.cache.dataPath];
         })
         (lib.mkIf (cfg.cache.dataPath == "/var/lib/ncps") {
           StateDirectory = "ncps";
           StateDirectoryMode = "0700";
         })
         (lib.mkIf (isSqlite && !lib.strings.hasPrefix "/var/lib/ncps" dbDir) {
-          ReadWritePaths = [ dbDir ];
+          ReadWritePaths = [dbDir];
         })
 
         # Hardening
@@ -284,7 +282,7 @@ in
           CapabilityBoundingSet = "";
           PrivateUsers = true;
           DevicePolicy = "closed";
-          DeviceAllow = [ "" ];
+          DeviceAllow = [""];
           ProtectKernelModules = true;
           ProtectKernelTunables = true;
           ProtectControlGroups = true;
@@ -313,10 +311,10 @@ in
       ];
 
       unitConfig.RequiresMountsFor = lib.concatStringsSep " " (
-        [ "${cfg.cache.dataPath}" ] ++ lib.optional (isSqlite) dbDir
+        ["${cfg.cache.dataPath}"] ++ lib.optional isSqlite dbDir
       );
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ kalbasit ];
+  meta.maintainers = with lib.maintainers; [kalbasit];
 }

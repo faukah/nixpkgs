@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "podiff";
   version = "1.4";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     mainProgram = "podiff";
     homepage = "http://puszcza.gnu.org.ua/software/podiff";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -7,7 +7,6 @@
   protobuf,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "svix-server";
   version = "1.66.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-fGXdWPJYauLQYC7o7I8q8okXn8JXzwnX6Pq71hj36Wo=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/svix/svix-webhooks";
     changelog = "https://github.com/svix/svix-webhooks/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ techknowlogick ];
+    maintainers = with lib.maintainers; [techknowlogick];
     broken = stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform.isDarwin; # aws-lc-sys currently broken on darwin x86_64
   };
 }

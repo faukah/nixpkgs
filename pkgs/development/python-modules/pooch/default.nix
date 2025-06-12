@@ -14,7 +14,6 @@
   paramiko,
   xxhash,
 }:
-
 buildPythonPackage rec {
   pname = "pooch";
   version = "1.8.2";
@@ -41,16 +40,16 @@ buildPythonPackage rec {
 
   passthru = {
     optional-dependencies = {
-      progress = [ tqdm ];
-      sftp = [ paramiko ];
-      xxhash = [ xxhash ];
+      progress = [tqdm];
+      sftp = [paramiko];
+      xxhash = [xxhash];
     };
   };
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # tries to touch network
   disabledTests = [
@@ -75,6 +74,6 @@ buildPythonPackage rec {
     description = "Friend to fetch your data files";
     homepage = "https://github.com/fatiando/pooch";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    maintainers = with maintainers; [GuillaumeDesforges];
   };
 }

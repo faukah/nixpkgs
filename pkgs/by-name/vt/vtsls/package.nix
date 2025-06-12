@@ -8,7 +8,6 @@
   pnpm_8,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vtsls";
   version = "0.2.9";
@@ -29,12 +28,13 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm_8.configHook
   ];
 
-  buildInputs = [ nodejs_22 ];
+  buildInputs = [nodejs_22];
 
-  pnpmWorkspaces = [ "@vtsls/language-server" ];
+  pnpmWorkspaces = ["@vtsls/language-server"];
 
   pnpmDeps = pnpm_8.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pnpmWorkspaces
       pname
       src
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Patches to get submodule sha from file instead of 'git submodule status'
-  patches = [ ./vtsls-build-patch.patch ];
+  patches = [./vtsls-build-patch.patch];
 
   # Skips manual confirmations during build
   CI = true;
@@ -82,14 +82,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "LSP wrapper for typescript extension of vscode.";
     homepage = "https://github.com/yioneko/vtsls";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kuglimon ];
+    maintainers = with lib.maintainers; [kuglimon];
     mainProgram = "vtsls";
     platforms = lib.platforms.all;
   };

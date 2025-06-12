@@ -7,7 +7,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "catgirl";
   version = "2.2a";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "TLS-only terminal IRC client";
     platforms = platforms.unix;
     mainProgram = "catgirl";
-    maintainers = with maintainers; [ xfnw ];
+    maintainers = with maintainers; [xfnw];
   };
 }

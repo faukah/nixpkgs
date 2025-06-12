@@ -10,7 +10,6 @@
   zeromq,
   systemd,
 }:
-
 stdenv.mkDerivation {
   pname = "toxvpn";
   version = "unstable-2024-08-21";
@@ -34,9 +33,9 @@ stdenv.mkDerivation {
       systemd
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = lib.optionals stdenv.hostPlatform.isLinux [ "-DSYSTEMD=1" ];
+  cmakeFlags = lib.optionals stdenv.hostPlatform.isLinux ["-DSYSTEMD=1"];
 
   postInstall = "cp ${./bootstrap.json} $out/share/toxvpn/";
 

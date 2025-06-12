@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "minetest-mapserver";
   version = "4.9.4";
@@ -27,6 +26,6 @@ buildGoModule rec {
       cc-by-sa-30
     ];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ gm6k ];
+    maintainers = with lib.maintainers; [gm6k];
   };
 }

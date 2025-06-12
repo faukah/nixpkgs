@@ -1,103 +1,108 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
-  let
-    dnstapSocket = "/var/run/vector/dnstap.sock";
-  in
   {
+    lib,
+    pkgs,
+    ...
+  }: let
+    dnstapSocket = "/var/run/vector/dnstap.sock";
+  in {
     name = "vector-dnstap";
-    meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
+    meta.maintainers = [pkgs.lib.maintainers.happysalada];
 
     nodes = {
-      unbound =
-        { config, pkgs, ... }:
-        {
-          networking.firewall.allowedUDPPorts = [ 53 ];
+      unbound = {
+        config,
+        pkgs,
+        ...
+      }: {
+        networking.firewall.allowedUDPPorts = [53];
 
-          services.vector = {
-            enable = true;
+        services.vector = {
+          enable = true;
 
-            settings = {
-              sources = {
-                dnstap = {
-                  type = "dnstap";
-                  multithreaded = true;
-                  mode = "unix";
-                  lowercase_hostnames = true;
-                  socket_file_mode = 504;
-                  socket_path = "${dnstapSocket}";
-                };
-              };
-
-              sinks = {
-                file = {
-                  type = "file";
-                  inputs = [ "dnstap" ];
-                  path = "/var/lib/vector/logs.log";
-                  encoding = {
-                    codec = "json";
-                  };
-                };
-              };
-            };
-          };
-
-          systemd.services.vector.serviceConfig = {
-            RuntimeDirectory = "vector";
-            RuntimeDirectoryMode = "0770";
-          };
-
-          services.unbound = {
-            enable = true;
-            enableRootTrustAnchor = false;
-            package = pkgs.unbound-full;
-            settings = {
-              server = {
-                interface = [
-                  "0.0.0.0"
-                  "::"
-                ];
-                access-control = [
-                  "192.168.0.0/24 allow"
-                  "::/0 allow"
-                ];
-
-                domain-insecure = "local";
-                private-domain = "local";
-
-                local-zone = "local. static";
-                local-data = [
-                  ''"test.local. 10800 IN A 192.168.123.5"''
-                ];
-              };
-
+          settings = {
+            sources = {
               dnstap = {
-                dnstap-enable = "yes";
-                dnstap-socket-path = "${dnstapSocket}";
-                dnstap-send-identity = "yes";
-                dnstap-send-version = "yes";
-                dnstap-log-client-query-messages = "yes";
-                dnstap-log-client-response-messages = "yes";
+                type = "dnstap";
+                multithreaded = true;
+                mode = "unix";
+                lowercase_hostnames = true;
+                socket_file_mode = 504;
+                socket_path = "${dnstapSocket}";
+              };
+            };
+
+            sinks = {
+              file = {
+                type = "file";
+                inputs = ["dnstap"];
+                path = "/var/lib/vector/logs.log";
+                encoding = {
+                  codec = "json";
+                };
               };
             };
           };
+        };
 
-          systemd.services.unbound = {
-            after = [ "vector.service" ];
-            wants = [ "vector.service" ];
-            serviceConfig = {
-              # DNSTAP access
-              ReadWritePaths = [ "/var/run/vector" ];
-              SupplementaryGroups = [ "vector" ];
+        systemd.services.vector.serviceConfig = {
+          RuntimeDirectory = "vector";
+          RuntimeDirectoryMode = "0770";
+        };
+
+        services.unbound = {
+          enable = true;
+          enableRootTrustAnchor = false;
+          package = pkgs.unbound-full;
+          settings = {
+            server = {
+              interface = [
+                "0.0.0.0"
+                "::"
+              ];
+              access-control = [
+                "192.168.0.0/24 allow"
+                "::/0 allow"
+              ];
+
+              domain-insecure = "local";
+              private-domain = "local";
+
+              local-zone = "local. static";
+              local-data = [
+                ''"test.local. 10800 IN A 192.168.123.5"''
+              ];
+            };
+
+            dnstap = {
+              dnstap-enable = "yes";
+              dnstap-socket-path = "${dnstapSocket}";
+              dnstap-send-identity = "yes";
+              dnstap-send-version = "yes";
+              dnstap-log-client-query-messages = "yes";
+              dnstap-log-client-response-messages = "yes";
             };
           };
         };
 
-      dnsclient =
-        { config, pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.dig ];
+        systemd.services.unbound = {
+          after = ["vector.service"];
+          wants = ["vector.service"];
+          serviceConfig = {
+            # DNSTAP access
+            ReadWritePaths = ["/var/run/vector"];
+            SupplementaryGroups = ["vector"];
+          };
         };
+      };
+
+      dnsclient = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [pkgs.dig];
+      };
     };
 
     testScript = ''

@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.artifactory;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9531;
   extraOpts = {
     scrapeUri = mkOption {

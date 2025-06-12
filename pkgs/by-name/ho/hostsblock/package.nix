@@ -8,7 +8,7 @@
   gnused,
   gnugrep,
   stdenv,
-  blacklist ? [ "adwords.google.com" ],
+  blacklist ? ["adwords.google.com"],
   whitelist ? [
     ".dropbox.com"
     " www.malwaredomainlists.com"
@@ -28,7 +28,6 @@
     ".bp.blogspot.com"
   ],
 }:
-
 stdenv.mkDerivation {
   pname = "hostsblock";
   version = "20161213";
@@ -76,8 +75,7 @@ stdenv.mkDerivation {
     description = "Ad- and malware-blocking script for Linux";
     homepage = "http://gaenserich.github.io/hostsblock/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.nicknovitski ];
+    maintainers = [maintainers.nicknovitski];
     platforms = platforms.unix;
   };
-
 }

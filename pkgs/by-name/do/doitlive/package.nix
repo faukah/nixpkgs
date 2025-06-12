@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "doitlive";
   version = "5.1.0";
@@ -14,7 +13,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-trzSX58De36W401oVJMGrbPoyD9uksUewrIlq8BbJcU=";
   };
 
-  build-system = with python3Packages; [ flit-core ];
+  build-system = with python3Packages; [flit-core];
 
   dependencies = with python3Packages; [
     click
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/sloria/doitlive";
     changelog = "https://github.com/sloria/doitlive/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mbode ];
+    maintainers = with lib.maintainers; [mbode];
     mainProgram = "doitlive";
   };
 }

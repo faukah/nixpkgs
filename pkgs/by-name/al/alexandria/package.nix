@@ -14,7 +14,6 @@
   librsvg,
   libappindicator-gtk3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "alexandria";
   version = "0.13.1";
@@ -63,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/btpf/Alexandria";
     changelog = "https://github.com/btpf/Alexandria/releases/tag/v${version}";
     description = "Minimalistic cross-platform eBook reader";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "alexandria";
     platforms = [
       "x86_64-linux"

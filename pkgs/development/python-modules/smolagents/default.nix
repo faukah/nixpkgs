@@ -31,7 +31,6 @@
   websocket-client,
   wikipedia-api,
 }:
-
 buildPythonPackage rec {
   pname = "smolagents";
   version = "1.17.0";
@@ -44,9 +43,9 @@ buildPythonPackage rec {
     hash = "sha256-BMyLN8eNGBhywpN/EEE8hFf4Wb5EDpZvqBbX0ojRYec=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "pillow" ];
+  pythonRelaxDeps = ["pillow"];
 
   dependencies = [
     duckduckgo-search
@@ -61,8 +60,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    audio = [ soundfile ];
-    bedrock = [ boto3 ];
+    audio = [soundfile];
+    bedrock = [boto3];
     docker = [
       docker
       websocket-client
@@ -71,14 +70,14 @@ buildPythonPackage rec {
     #   e2b-code-interpreter
     #   python-dotenv
     # ];
-    gradio = [ gradio ];
-    litellm = [ litellm ];
+    gradio = [gradio];
+    litellm = [litellm];
     mcp = [
       mcp
       mcpadapt
     ];
     # mlx-lm = [ mlx-lm ];
-    openai = [ openai ];
+    openai = [openai];
     # telemetry = [
     #   arize-phoenix
     #   openinference-instrumentation-smolagents
@@ -103,14 +102,16 @@ buildPythonPackage rec {
     # ];
   };
 
-  nativeCheckInputs = [
-    ipython
-    pytest-datadir
-    pytestCheckHook
-    wikipedia-api
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      ipython
+      pytest-datadir
+      pytestCheckHook
+      wikipedia-api
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "smolagents" ];
+  pythonImportsCheck = ["smolagents"];
 
   disabledTests =
     [
@@ -152,6 +153,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/smolagents";
     changelog = "https://github.com/huggingface/smolagents/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   jdk,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jna";
   version = "5.17.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21
       asl20
     ];
-    maintainers = with maintainers; [ nagy ];
+    maintainers = with maintainers; [nagy];
     platforms = platforms.linux ++ platforms.darwin;
   };
 })

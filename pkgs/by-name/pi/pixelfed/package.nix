@@ -7,7 +7,6 @@
   dataDir ? "/var/lib/pixelfed",
   runtimeDir ? "/run/pixelfed",
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "pixelfed";
   version = "0.12.5";
@@ -36,15 +35,15 @@ php.buildComposerProject2 (finalAttrs: {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests.pixelfed) standard; };
-    updateScript = nix-update-script { };
+    tests = {inherit (nixosTests.pixelfed) standard;};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Federated image sharing platform";
     license = licenses.agpl3Only;
     homepage = "https://pixelfed.org/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = php.meta.platforms;
   };
 })

@@ -10,9 +10,7 @@
   swig,
   perl,
   gcc,
-}:
-
-let
+}: let
   self = stdenv.mkDerivation rec {
     pname = "highlight";
     version = "4.15";
@@ -26,11 +24,13 @@ let
 
     enableParallelBuilding = true;
 
-    nativeBuildInputs = [
-      pkg-config
-      swig
-      perl
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin gcc;
+    nativeBuildInputs =
+      [
+        pkg-config
+        swig
+        perl
+      ]
+      ++ lib.optional stdenv.hostPlatform.isDarwin gcc;
 
     buildInputs = [
       getopt
@@ -76,9 +76,10 @@ let
       mainProgram = "highlight";
       homepage = "http://www.andre-simon.de/doku/highlight/en/highlight.php";
       platforms = platforms.unix;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
-
 in
-if stdenv.hostPlatform.isDarwin then self else perl.pkgs.toPerlModule self
+  if stdenv.hostPlatform.isDarwin
+  then self
+  else perl.pkgs.toPerlModule self

@@ -8,7 +8,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyfibaro";
   version = "0.8.3";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-KdlndW066TDxZpkIP0Oa3Lii0mBpwELfHtoGKiwh6GE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pyfibaro" ];
+  pythonImportsCheck = ["pyfibaro"];
 
   meta = with lib; {
     description = "Library to access FIBARO Home center";
     homepage = "https://github.com/rappenze/pyfibaro";
     changelog = "https://github.com/rappenze/pyfibaro/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "carlito";
   version = "20130920";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
 
     # Reduce the priority of this package. The intent is that if you
     # also install the `vista-fonts` package, then you probably will

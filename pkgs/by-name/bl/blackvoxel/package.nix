@@ -8,7 +8,6 @@
   SDL_compat,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blackvoxel";
   version = "2.5";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Uj3TfxAsLddsPiWDcLKjpduqvgVjnESZM4YPHT90YYY=";
   };
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
   buildInputs = [
     glew110
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/sc_Squirrel3/squirrel/Makefile --replace-fail " -m64" ""
   '';
 
-  buildFlags = [ "BV_DATA_LOCATION_DIR=${placeholder "out"}/data" ];
+  buildFlags = ["BV_DATA_LOCATION_DIR=${placeholder "out"}/data"];
 
   # data/gui/gametype_back.bmp isn't exactly the official icon but since
   # there is no official icon we use that one
@@ -59,11 +58,11 @@ stdenv.mkDerivation (finalAttrs: {
       desktopName = "Blackvoxel";
       exec = "blackvoxel";
       icon = "blackvoxel";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Sci-Fi game with industry and automation";

@@ -2,20 +2,16 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   gz-cmake,
   doxygen,
   graphviz,
-
   # buildInputs
   cli11,
   spdlog,
-
   # nativeCheckInputs
   python3,
-
   # checkInputs
   gtest,
 }:
@@ -67,9 +63,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r doxygen/html $doc
   '';
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   doCheck = true;
 
@@ -79,6 +75,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/gazebosim/gz-utils/blob/${finalAttrs.src.tag}/Changelog.md";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix ++ lib.platforms.windows;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 })

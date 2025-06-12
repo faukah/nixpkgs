@@ -9,7 +9,6 @@
   pythonOlder,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "waterfurnace";
   version = "1.1.0";
@@ -40,14 +39,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "waterfurnace" ];
+  pythonImportsCheck = ["waterfurnace"];
 
   meta = with lib; {
     description = "Python interface to waterfurnace geothermal systems";
     mainProgram = "waterfurnace-debug";
     homepage = "https://github.com/sdague/waterfurnace";
     changelog = "https://github.com/sdague/waterfurnace/blob/v${version}/HISTORY.rst";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sway-scratch";
   version = "0.2.1";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ba0d7rbGwK3KNxd6pdoqqCwfHrs/Lt7hl0APkGT+0gw=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Automatically starting named scratchpads for sway";
     homepage = "https://github.com/aokellermann/sway-scratch";
     license = licenses.mit;
-    maintainers = with maintainers; [ LilleAila ];
+    maintainers = with maintainers; [LilleAila];
     mainProgram = "sway-scratch";
     platforms = lib.platforms.linux;
   };

@@ -9,9 +9,9 @@
   ase,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
-  inherit (simple-dftd3)
+  inherit
+    (simple-dftd3)
     pname
     version
     src
@@ -19,9 +19,9 @@ buildPythonPackage {
     ;
 
   # pytest is also required for installation, not only testing
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
-  buildInputs = [ simple-dftd3 ];
+  buildInputs = [simple-dftd3];
 
   propagatedBuildInputs = [
     cffi

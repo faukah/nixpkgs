@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "zsh-bd";
   version = "2018-07-04";
@@ -31,6 +30,6 @@ stdenv.mkDerivation {
     license = lib.licenses.free;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.olejorgenb ];
+    maintainers = [lib.maintainers.olejorgenb];
   };
 }

@@ -1,16 +1,14 @@
 let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
-in
-
-{
+in {
   name = "wstunnel";
 
   nodes = {
     server = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+      security.pki.certificateFiles = [certs.ca.cert];
 
       networking = {
         useNetworkd = true;
@@ -37,9 +35,9 @@ in
     };
 
     client = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+      security.pki.certificateFiles = [certs.ca.cert];
 
       networking = {
         useNetworkd = true;
@@ -60,14 +58,15 @@ in
         clients.my-client = {
           autoStart = false;
           connectTo = "wss://${domain}:443";
-          localToRemote = [ "tcp://8080:localhost:2080" ];
-          remoteToLocal = [ "tcp://2081:localhost:8081" ];
+          localToRemote = ["tcp://8080:localhost:2080"];
+          remoteToLocal = ["tcp://2081:localhost:8081"];
         };
       };
     };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       start_all()
       server.wait_for_unit("wstunnel-server-my-server.service")

@@ -3,9 +3,7 @@
   lib,
   fetchFromGitHub,
   fetchpatch,
-
   qtbase,
-
   at-spi2-atk,
   at-spi2-core,
   libepoxy,
@@ -18,14 +16,12 @@
   util-linux,
   wayland,
   xorg,
-
   cmake,
   doxygen,
   pkg-config,
   wayland-protocols,
   wayland-scanner,
 }:
-
 mkDerivation rec {
   pname = "maliit-framework";
   version = "2.3.0";
@@ -78,6 +74,6 @@ mkDerivation rec {
     mainProgram = "maliit-server";
     homepage = "http://maliit.github.io/";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

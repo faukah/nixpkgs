@@ -8,7 +8,6 @@
   gmp,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ginac";
   version = "1.8.9";
@@ -18,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bP1Gz043NpDhLRa3cteu0PXEM9qMfs0kd/LnNkg7tDk=";
   };
 
-  propagatedBuildInputs = [ cln ];
+  propagatedBuildInputs = [cln];
 
-  buildInputs = [ readline ] ++ lib.optional stdenv.hostPlatform.isDarwin gmp;
+  buildInputs = [readline] ++ lib.optional stdenv.hostPlatform.isDarwin gmp;
 
   nativeBuildInputs = [
     pkg-config
@@ -33,12 +32,12 @@ stdenv.mkDerivation rec {
     patchShebangs ginsh
   '';
 
-  configureFlags = [ "--disable-rpath" ];
+  configureFlags = ["--disable-rpath"];
 
   meta = with lib; {
     description = "GiNaC is Not a CAS";
     homepage = "https://www.ginac.de/";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     license = licenses.gpl2;
     platforms = platforms.all;
   };

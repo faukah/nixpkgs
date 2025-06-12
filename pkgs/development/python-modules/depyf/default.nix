@@ -3,21 +3,17 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   astor,
   dill,
   filelock,
-
   # tests
   pytestCheckHook,
   torch,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "depyf";
   version = "0.19.0";
@@ -58,7 +54,6 @@ buildPythonPackage rec {
       "tests/test_pytorch/test_pytorch.py"
     ]
     ++ lib.optionals (pythonAtLeast "3.13") [
-
       # depyf.decompiler.DecompilationError: DecompilationError: Failed to decompile instruction ...
       # NotImplementedError: Unsupported instruction: LOAD_FAST_LOAD_FAST
       "tests/test_code_owner.py"
@@ -75,7 +70,7 @@ buildPythonPackage rec {
   # ValueError: invalid literal for int() with base 10: 'L1'
   doCheck = !(pythonAtLeast "3.13");
 
-  pythonImportsCheck = [ "depyf" ];
+  pythonImportsCheck = ["depyf"];
 
   meta = {
     description = "Decompile python functions, from bytecode to source code";

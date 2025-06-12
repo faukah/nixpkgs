@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-AgSYM2a9XGH2X4dcp5CSMnt0Bq/5XT8C3g1R2UX4mLY=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ imagemagick ]
+    [imagemagick]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -40,15 +40,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Blazingly fast terminal recorder that generates animated gif images for the web written in rust";
     homepage = "https://github.com/sassman/t-rec-rs";
     changelog = "https://github.com/sassman/t-rec-rs/releases/tag/v${finalAttrs.version}";
-    license = with lib.licenses; [ gpl3Only ];
+    license = with lib.licenses; [gpl3Only];
     maintainers = with lib.maintainers; [
       hoverbear
       matthiasbeyer

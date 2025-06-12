@@ -9,7 +9,6 @@
   pytest-asyncio,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pylaunches";
   version = "2.0.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
       --replace-fail 'version = "0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "pylaunches" ];
+  pythonImportsCheck = ["pylaunches"];
 
   meta = with lib; {
     description = "Python module to get information about upcoming space launches";
     homepage = "https://github.com/ludeeus/pylaunches";
     changelog = "https://github.com/ludeeus/pylaunches/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

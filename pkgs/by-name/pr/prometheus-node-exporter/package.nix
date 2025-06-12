@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "node_exporter";
   version = "1.9.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
   # FIXME: tests fail due to read-only nix store
   doCheck = false;
 
-  excludedPackages = [ "docs/node-mixin" ];
+  excludedPackages = ["docs/node-mixin"];
 
   ldflags = [
     "-s"
@@ -34,7 +33,7 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=unknown"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) node; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) node;};
 
   meta = {
     description = "Prometheus exporter for machine metrics";

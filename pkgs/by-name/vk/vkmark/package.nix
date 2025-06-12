@@ -16,7 +16,6 @@
   xcbutilwm,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vkmark";
   version = "2025.01";
@@ -50,14 +49,14 @@ stdenv.mkDerivation (finalAttrs: {
     wayland-protocols
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Extensible Vulkan benchmarking suite";
     homepage = "https://github.com/vkmark/vkmark";
-    license = with lib.licenses; [ lgpl21Plus ];
+    license = with lib.licenses; [lgpl21Plus];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ muscaln ];
+    maintainers = with lib.maintainers; [muscaln];
     mainProgram = "vkmark";
   };
 })

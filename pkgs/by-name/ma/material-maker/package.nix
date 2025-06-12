@@ -15,7 +15,6 @@
   libXrender,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "material-maker";
   version = "1.3";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vyagu7xL4ITt+xyoYyCcF8qq6L9sR6Ltdl6NwfrbZdA=";
   };
 
-  nativeBuildInputs = [ godot3-headless ];
+  nativeBuildInputs = [godot3-headless];
 
   buildInputs = [
     libglvnd
@@ -94,14 +93,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postFixup
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Procedural materials authoring tool";
     mainProgram = "material-maker";
     homepage = "https://www.materialmaker.org";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ lelgenio ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [lelgenio];
   };
 })

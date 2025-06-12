@@ -10,7 +10,6 @@
   cython,
   fetchpatch2,
 }:
-
 buildPythonPackage rec {
   pname = "pydy";
   version = "0.7.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-aaRinJMGR8v/OVkeSp1hA4+QLOrmDWq50wvA6b/suvk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   patches = [
     # Migrate tests to pytest
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     cython
   ];
 
-  pythonImportsCheck = [ "pydy" ];
+  pythonImportsCheck = ["pydy"];
 
   meta = {
     description = "Python tool kit for multi-body dynamics";
     homepage = "http://pydy.org";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

@@ -5,7 +5,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "librashader";
   version = "0.6.2";
@@ -41,17 +40,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mkdir -p $out/lib $out/include/librashader
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          install_name_tool -id $out/lib/librashader.dylib librashader.dylib
-          install -m755 librashader.dylib $out/lib/librashader.dylib
-        ''
-      else
-        ''
-          patchelf --set-soname librashader.so.2 librashader.so
-          install -m755 librashader.so $out/lib/librashader.so.2
-          ln -s $out/lib/librashader.so.2 $out/lib/librashader.so
-        ''
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        install_name_tool -id $out/lib/librashader.dylib librashader.dylib
+        install -m755 librashader.dylib $out/lib/librashader.dylib
+      ''
+      else ''
+        patchelf --set-soname librashader.so.2 librashader.so
+        install -m755 librashader.so $out/lib/librashader.so.2
+        ln -s $out/lib/librashader.so.2 $out/lib/librashader.so
+      ''
     )
     + ''
       install -m644 librashader.h -t $out/include/librashader
@@ -73,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mpl20
       gpl3Only
     ];
-    maintainers = with lib.maintainers; [ nadiaholmquist ];
+    maintainers = with lib.maintainers; [nadiaholmquist];
     platforms = lib.platforms.all;
   };
 })

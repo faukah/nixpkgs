@@ -6,7 +6,6 @@
   autoreconfHook,
   fuse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "afuse";
   version = "0.5.0";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
-  patches = [ ./001-darwin-fdatasync.patch ];
+  patches = [./001-darwin-fdatasync.patch];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     # Fix the build on macOS with macFUSE installed
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Automounter in userspace";
     homepage = "https://github.com/pcarrier/afuse";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.unix;
   };
 }

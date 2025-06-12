@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 buildGoModule rec {
   pname = "git-codereview";
   version = "1.15.0";
@@ -23,13 +22,13 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = with lib; {
     description = "Manage the code review process for Git changes using a Gerrit server";
     homepage = "https://golang.org/x/review/git-codereview";
     license = licenses.bsd3;
-    maintainers = [ maintainers.edef ];
+    maintainers = [maintainers.edef];
     mainProgram = "git-codereview";
   };
 }

@@ -11,7 +11,6 @@
   testers,
   dioxus-cli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dioxus-cli";
   version = "0.6.3";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     cacert
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   OPENSSL_NO_VENDOR = 1;
 
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
       --replace-fail 'check_cxx17_support()?;' '// check_cxx17_support()?;'
   '';
 
-  nativeCheckInputs = [ rustfmt ];
+  nativeCheckInputs = [rustfmt];
 
   checkFlags = [
     # requires network access
@@ -57,8 +56,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = dioxus-cli; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = dioxus-cli;};
   };
 
   meta = with lib; {

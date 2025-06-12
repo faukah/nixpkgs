@@ -6,41 +6,44 @@
   libspnav,
   python3,
   wrapGAppsHook3,
-}:
-
-let
-  base = callPackage ./base.nix { };
+}: let
+  base = callPackage ./base.nix {};
 in
-stdenv.mkDerivation {
-  inherit (base)
-    pname
-    version
-    src
-    meta
-    CASROOT
-    env
-    ;
+  stdenv.mkDerivation {
+    inherit
+      (base)
+      pname
+      version
+      src
+      meta
+      CASROOT
+      env
+      ;
 
-  # provide base for python module
-  passthru = {
-    inherit base;
-  };
+    # provide base for python module
+    passthru = {
+      inherit base;
+    };
 
-  buildInputs = base.buildInputs ++ [
-    libspnav
-  ];
+    buildInputs =
+      base.buildInputs
+      ++ [
+        libspnav
+      ];
 
-  nativeBuildInputs = base.nativeBuildInputs ++ [
-    boost.dev
-    wrapGAppsHook3
-    python3
-  ];
+    nativeBuildInputs =
+      base.nativeBuildInputs
+      ++ [
+        boost.dev
+        wrapGAppsHook3
+        python3
+      ];
 
-  installFlags = [
-    "INSTALL=${coreutils}/bin/install"
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+    installFlags = [
+      "INSTALL=${coreutils}/bin/install"
+      "DESTDIR=$(out)"
+      "PREFIX="
+    ];
 
-  enableParallelBuilding = true;
-}
+    enableParallelBuilding = true;
+  }

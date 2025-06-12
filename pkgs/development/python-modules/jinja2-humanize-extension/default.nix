@@ -7,7 +7,6 @@
   jinja2,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jinja2-humanize-extension";
   version = "0.4.0";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/metwork-framework/jinja2_humanize_extension";
     changelog = "https://github.com/metwork-framework/jinja2_humanize_extension/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

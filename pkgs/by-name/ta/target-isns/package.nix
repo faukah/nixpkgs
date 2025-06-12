@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "target-isns";
   version = "0.6.8";
@@ -28,15 +27,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [ "-DSUPPORT_SYSTEMD=ON" ];
+  cmakeFlags = ["-DSUPPORT_SYSTEMD=ON"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "iSNS client for the Linux LIO iSCSI target";
     mainProgram = "target-isns";
     homepage = "https://github.com/open-iscsi/target-isns";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

@@ -6,7 +6,6 @@
   openssl,
   rustfmt,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zeronsd";
   version = "0.5.2";
@@ -22,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-xIuMANJGRHbYBbhlVMXxIVrukW1NY7ucxO79tIdPSpI=";
 
   strictDeps = true;
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
 
   RUSTFMT = "${rustfmt}/bin/rustfmt";
 
@@ -35,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     description = "DNS server for ZeroTier users";
     homepage = "https://github.com/zerotier/zeronsd";
     license = licenses.bsd3;
-    maintainers = [ maintainers.dstengele ];
+    maintainers = [maintainers.dstengele];
   };
 }

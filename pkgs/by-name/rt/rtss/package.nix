@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rtss";
   version = "0.6.2";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "rtss";
     homepage = "https://github.com/Freaky/rtss";
     license = licenses.mit;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

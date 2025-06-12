@@ -9,7 +9,6 @@
   libelf,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libdevstat";
   extraPaths = [

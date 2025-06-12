@@ -1,12 +1,10 @@
 {
-  extraLibs ? [ ],
-
+  extraLibs ? [],
   lib,
   fetchFromGitHub,
   installShellFiles,
   makeWrapper,
   rustPlatform,
-
   cups,
   ffmpeg,
   firefox-unwrapped,
@@ -25,7 +23,6 @@
   udev,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "firefoxpwa";
   version = "2.14.1";
@@ -38,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   sourceRoot = "${src.name}/native";
-  buildFeatures = [ "immutable-runtime" ];
+  buildFeatures = ["immutable-runtime"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-elVthXdjlI9DSQgaIRzu3M72dgGNXGgMiUXEICaBJCQ=";
@@ -54,32 +51,31 @@ rustPlatform.buildRustPackage rec {
     makeWrapper
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   FFPWA_EXECUTABLES = ""; # .desktop entries generated without any store path references
   FFPWA_SYSDATA = "${placeholder "out"}/share/firefoxpwa";
   completions = "target/${stdenv.targetPlatform.config}/release/completions";
 
-  gtk_modules = map (x: x + x.gtkModule) [ libcanberra-gtk3 ];
-  libs =
-    let
-      libs =
-        lib.optionals stdenv.hostPlatform.isLinux [
-          cups
-          ffmpeg
-          libglvnd
-          libnotify
-          libpulseaudio
-          libva
-          libgbm
-          pciutils
-          pipewire
-          udev
-          xorg.libXScrnSaver
-        ]
-        ++ gtk_modules
-        ++ extraLibs;
-    in
+  gtk_modules = map (x: x + x.gtkModule) [libcanberra-gtk3];
+  libs = let
+    libs =
+      lib.optionals stdenv.hostPlatform.isLinux [
+        cups
+        ffmpeg
+        libglvnd
+        libnotify
+        libpulseaudio
+        libva
+        libgbm
+        pciutils
+        pipewire
+        udev
+        xorg.libXScrnSaver
+      ]
+      ++ gtk_modules
+      ++ extraLibs;
+  in
     lib.makeLibraryPath libs + ":" + lib.makeSearchPathOutput "lib" "lib64" libs;
 
   postInstall = ''

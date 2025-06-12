@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "migrate-to-uv";
   version = "0.7.2";
@@ -33,17 +32,17 @@ python3.pkgs.buildPythonApplication rec {
     rustc
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Migrate a project from Poetry/Pipenv/pip-tools/pip to uv package manager";
     homepage = "https://mkniewallner.github.io/migrate-to-uv/";
     changelog = "https://github.com/mkniewallner/migrate-to-uv/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ malik ];
+    maintainers = with lib.maintainers; [malik];
     mainProgram = "migrate-to-uv";
   };
 }

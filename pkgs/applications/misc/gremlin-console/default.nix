@@ -5,7 +5,6 @@
   makeWrapper,
   openjdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gremlin-console";
   version = "3.7.3";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-27S1ukq9rHncFuPBZmwIP/bKuPYm3AxdBK3PliYTGEQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tinkerpop.apache.org/";
     description = "Console of the Apache TinkerPop graph computing framework";
     license = licenses.asl20;
-    maintainers = [ maintainers.lewo ];
+    maintainers = [maintainers.lewo];
     platforms = platforms.all;
     mainProgram = "gremlin-console";
   };

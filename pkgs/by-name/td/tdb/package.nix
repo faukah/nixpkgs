@@ -12,7 +12,6 @@
   docbook-xsl-nons,
   docbook_xml_dtd_45,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tdb";
   version = "1.4.13";
@@ -57,10 +56,9 @@ stdenv.mkDerivation rec {
     ];
 
   postFixup =
-    if stdenv.hostPlatform.isDarwin then
-      ''install_name_tool -id $out/lib/libtdb.dylib $out/lib/libtdb.dylib''
-    else
-      null;
+    if stdenv.hostPlatform.isDarwin
+    then ''install_name_tool -id $out/lib/libtdb.dylib $out/lib/libtdb.dylib''
+    else null;
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig

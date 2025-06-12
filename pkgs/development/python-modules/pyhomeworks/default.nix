@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyhomeworks";
   version = "1.1.2";
@@ -24,17 +23,17 @@ buildPythonPackage rec {
       --replace-fail ', "wheel~=0.43.0"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Project has no real tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyhomeworks" ];
+  pythonImportsCheck = ["pyhomeworks"];
 
   meta = with lib; {
     description = "Python interface to Lutron Homeworks Series 4/8";
     homepage = "https://github.com/dubnom/pyhomeworks";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -15,7 +15,6 @@
   which,
   withGtk ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pktgen";
   version = "24.10.3";
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "http://dpdk.org/";
     license = licenses.bsdOriginal;
     platforms = platforms.linux;
-    maintainers = [ maintainers.abuibrahim ];
+    maintainers = [maintainers.abuibrahim];
   };
 }

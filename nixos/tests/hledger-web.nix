@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   journal = pkgs.writeText "test.journal" ''
     2010/01/10 Loan
         assets:cash                 500$
@@ -8,32 +11,31 @@ let
         expenses:donation           250$
         assets:cash                -250$
   '';
-in
-rec {
+in rec {
   name = "hledger-web";
-  meta.maintainers = with lib.maintainers; [ marijanp ];
+  meta.maintainers = with lib.maintainers; [marijanp];
 
   nodes = rec {
-    server =
-      { config, pkgs, ... }:
-      {
-        services.hledger-web = {
-          host = "127.0.0.1";
-          port = 5000;
-          enable = true;
-          allow = "edit";
-        };
-        networking.firewall.allowedTCPPorts = [ config.services.hledger-web.port ];
-        systemd.services.hledger-web.preStart = ''
-          ln -s ${journal} /var/lib/hledger-web/.hledger.journal
-        '';
+    server = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.hledger-web = {
+        host = "127.0.0.1";
+        port = 5000;
+        enable = true;
+        allow = "edit";
       };
-    apiserver =
-      { ... }:
-      {
-        imports = [ server ];
-        services.hledger-web.serveApi = true;
-      };
+      networking.firewall.allowedTCPPorts = [config.services.hledger-web.port];
+      systemd.services.hledger-web.preStart = ''
+        ln -s ${journal} /var/lib/hledger-web/.hledger.journal
+      '';
+    };
+    apiserver = {...}: {
+      imports = [server];
+      services.hledger-web.serveApi = true;
+    };
   };
 
   testScript = ''

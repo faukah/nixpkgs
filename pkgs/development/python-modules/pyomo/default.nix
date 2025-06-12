@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyomo";
   version = "6.9.2";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-LfrJmR5yHFZLONEdj6RCE2wsF6hRXUuHcrSJcJrELE8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ply ];
+  dependencies = [ply];
 
   nativeCheckInputs = [
     parameterized
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyomo" ];
+  pythonImportsCheck = ["pyomo"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     homepage = "http://www.pyomo.org/";
     changelog = "https://github.com/Pyomo/pyomo/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pyomo";
   };
 }

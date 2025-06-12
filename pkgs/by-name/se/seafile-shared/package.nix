@@ -13,7 +13,6 @@
   vala,
   libwebsockets,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seafile-shared";
   version = "9.0.8";

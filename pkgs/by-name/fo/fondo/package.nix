@@ -20,7 +20,6 @@
   desktop-file-utils,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fondo";
   version = "1.6.1";
@@ -59,13 +58,13 @@ stdenv.mkDerivation rec {
     patchShebangs meson/post_install.py
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/calo001/fondo";
     description = "Find the most beautiful wallpapers for your desktop";
     license = licenses.agpl3Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.calo001.fondo";
   };

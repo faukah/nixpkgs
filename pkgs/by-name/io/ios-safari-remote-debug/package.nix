@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitea,
 }:
-
 buildGoModule rec {
   pname = "ios-safari-remote-debug";
   version = "unstable-2024-09-09";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-O8Dr4UAISZmCUGao0cBnAx4dUJm6+u4Swiw0H5NVeeA=";
 
-  patches = [ ./add-permissions-to-the-output-directory.patch ];
+  patches = [./add-permissions-to-the-output-directory.patch];
 
   postPatch = ''
     substituteInPlace build/build.go \
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://git.gay/besties/ios-safari-remote-debug";
     license = lib.licenses.agpl3Plus;
     mainProgram = "ios-safari-remote-debug";
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
   };
 }

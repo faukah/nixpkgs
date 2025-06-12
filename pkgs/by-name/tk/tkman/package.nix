@@ -10,7 +10,6 @@
   groff,
   rman,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tkman";
   version = "2.2";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "tkman";
       terminal = false;
       type = "Application";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -88,6 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tkman.sourceforge.net/index.html";
     license = licenses.artistic1;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 })

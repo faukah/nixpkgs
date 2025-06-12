@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ldkNode,
 }:
-
 buildGoModule rec {
   pname = "ldk-node-go";
   version = "0-unstable-2025-05-21";
@@ -27,13 +26,13 @@ buildGoModule rec {
     ldkNode
   ];
 
-  propagatedBuildInputs = [ ldkNode ];
+  propagatedBuildInputs = [ldkNode];
 
   meta = {
     description = "Experimental Go bindings for LDK-node";
     homepage = "https://github.com/getAlby/ldk-node-go";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bleetube ];
+    maintainers = with lib.maintainers; [bleetube];
   };
 }

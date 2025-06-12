@@ -4,7 +4,6 @@
   buildDunePackage,
   ocaml,
 }:
-
 buildDunePackage rec {
   pname = "landmarks";
   version = "1.5";
@@ -29,7 +28,7 @@ buildDunePackage rec {
       semi-automatically using the ppx pepreprocessor (see landmarks-ppx package).
     '';
     changelog = "https://raw.githubusercontent.com/LexiFi/landmarks/refs/tags/v${version}/CHANGES.md";
-    maintainers = with lib.maintainers; [ kenran ];
+    maintainers = with lib.maintainers; [kenran];
     license = lib.licenses.mit;
   };
 }

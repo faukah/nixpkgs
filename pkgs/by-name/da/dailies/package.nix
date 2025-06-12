@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "dailies";
   version = "0.1.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage {
     description = "Daily journaling in plain markdown";
     homepage = "https://github.com/JachymPutta/dailies";
     license = licenses.mit;
-    maintainers = with maintainers; [ JachymPutta ];
+    maintainers = with maintainers; [JachymPutta];
     platforms = platforms.unix;
   };
 }

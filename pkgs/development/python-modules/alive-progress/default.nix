@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "alive-progress";
   version = "3.1.5";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     mv $out/LICENSE $out/share/doc/python${python.pythonVersion}-$pname-$version/
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     about-time
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "alive_progress" ];
+  pythonImportsCheck = ["alive_progress"];
 
   meta = with lib; {
     description = "New kind of Progress Bar, with real-time throughput, ETA, and very cool animations";
     homepage = "https://github.com/rsalmei/alive-progress";
     changelog = "https://github.com/rsalmei/alive-progress/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

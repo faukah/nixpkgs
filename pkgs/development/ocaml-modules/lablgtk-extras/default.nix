@@ -9,11 +9,9 @@
   lablgtk,
   xmlm,
 }:
-
-if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.13" then
-  throw "lablgtk-extras is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "4.13"
+then throw "lablgtk-extras is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     version = "1.6";
     pname = "ocaml${ocaml.version}-lablgtk-extras";
@@ -42,7 +40,7 @@ else
 
     meta = {
       inherit (ocaml.meta) platforms;
-      maintainers = with lib.maintainers; [ vbgl ];
+      maintainers = with lib.maintainers; [vbgl];
       homepage = "https://framagit.org/zoggy/lablgtk-extras/";
       description = "Collection of libraries and modules useful when developing OCaml/LablGtk2 applications";
       license = lib.licenses.lgpl2Plus;

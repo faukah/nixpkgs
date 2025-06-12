@@ -14,7 +14,6 @@
   gst_all_1,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "gtuber";
   version = "0-unstable-2025-01-19";
@@ -43,14 +42,14 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     description = "GStreamer plugin for streaming videos from websites";
     homepage = "https://rafostar.github.io/gtuber/";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.unix;
   };
 }

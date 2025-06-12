@@ -7,7 +7,6 @@
   gtk3,
   gtk-layer-shell,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sirula";
   version = "1.1.0";
@@ -22,20 +21,20 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-7trHMGTWtf4IT7efyKIXM7n4x6j7n2V3I7ZXSSwvzys=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk3
     gtk-layer-shell
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple app launcher for wayland written in rust";
     homepage = "https://github.com/DorianRudolph/sirula";
-    license = [ lib.licenses.gpl3Plus ];
-    maintainers = [ lib.maintainers.atagen ];
+    license = [lib.licenses.gpl3Plus];
+    maintainers = [lib.maintainers.atagen];
     platforms = lib.platforms.linux;
   };
 }

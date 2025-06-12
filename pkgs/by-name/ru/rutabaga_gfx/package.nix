@@ -11,7 +11,6 @@
   libdrm,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rutabaga_gfx";
   version = "0.1.2";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     rustPlatform.cargoSetupHook
   ];
   buildInputs =
-    [ libiconv ]
+    [libiconv]
     ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform gfxstream) (
       [
         aemu
@@ -91,9 +90,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://crosvm.dev/book/appendix/rutabaga_gfx.html";
     description = "cross-platform abstraction for GPU and display virtualization";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.darwin ++ platforms.linux;
     # error[E0432]: unresolved import `self::consts`
-    badPlatforms = [ "loongarch64-linux" ];
+    badPlatforms = ["loongarch64-linux"];
   };
 })

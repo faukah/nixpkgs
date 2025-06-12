@@ -3,18 +3,16 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.homepage-dashboard;
   # Define the settings format used for this program
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options = {
     services.homepage-dashboard = {
       enable = lib.mkEnableOption "Homepage Dashboard, a highly customizable application dashboard";
 
-      package = lib.mkPackageOption pkgs "homepage-dashboard" { };
+      package = lib.mkPackageOption pkgs "homepage-dashboard" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -109,7 +107,7 @@ in
             ];
           }
         ];
-        default = [ ];
+        default = [];
       };
 
       services = lib.mkOption {
@@ -142,7 +140,7 @@ in
             ];
           }
         ];
-        default = [ ];
+        default = [];
       };
 
       widgets = lib.mkOption {
@@ -168,7 +166,7 @@ in
             };
           }
         ];
-        default = [ ];
+        default = [];
       };
 
       kubernetes = lib.mkOption {
@@ -178,7 +176,7 @@ in
 
           See <https://gethomepage.dev/configs/kubernetes/>.
         '';
-        default = { };
+        default = {};
       };
 
       docker = lib.mkOption {
@@ -188,7 +186,7 @@ in
 
           See <https://gethomepage.dev/configs/docker/>.
         '';
-        default = { };
+        default = {};
       };
 
       settings = lib.mkOption {
@@ -199,7 +197,7 @@ in
           See <https://gethomepage.dev/configs/settings/>.
         '';
         # Defaults: https://github.com/gethomepage/homepage/blob/main/src/skeleton/settings.yaml
-        default = { };
+        default = {};
       };
     };
   };
@@ -219,8 +217,8 @@ in
 
     systemd.services.homepage-dashboard = {
       description = "Homepage Dashboard";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         HOMEPAGE_CONFIG_DIR = "/etc/homepage-dashboard";
@@ -275,7 +273,10 @@ in
         ProtectHostname = true;
         UMask = "0077";
         # cpu widget requires access to /proc
-        ProcSubset = if lib.any (widget: widget.resources.cpu or false) cfg.widgets then "all" else "pid";
+        ProcSubset =
+          if lib.any (widget: widget.resources.cpu or false) cfg.widgets
+          then "all"
+          else "pid";
       };
 
       enableStrictShellChecks = true;
@@ -290,7 +291,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listenPort ];
+      allowedTCPPorts = [cfg.listenPort];
     };
   };
 }

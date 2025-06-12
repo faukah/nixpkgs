@@ -1,7 +1,6 @@
 {
   callPackage,
   fetchurl,
-
   # This is a bit unusual, but makes version and hash easily
   # overridable. This is useful when people have an older version of
   # Softmaker Office or when the upstream archive was replaced and
@@ -11,10 +10,8 @@
     edition = "2024";
     hash = "sha256-ix9R9Xlugvu5qmKAqC2DsZFhyJ+VVsD7MSpBv+4lmTY=";
   },
-
   ...
-}@args:
-
+} @ args:
 callPackage ./generic.nix (
   args
   // rec {

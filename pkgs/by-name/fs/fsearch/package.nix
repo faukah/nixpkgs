@@ -13,7 +13,6 @@
   gettext,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsearch";
   version = "0.2.3";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Fast file search utility for Unix-like systems based on GTK+3";
     homepage = "https://github.com/cboxdoerfer/fsearch.git";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.unix;
     mainProgram = "fsearch";
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/fsearch.x86_64-darwin

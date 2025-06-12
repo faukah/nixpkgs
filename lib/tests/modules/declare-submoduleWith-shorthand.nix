@@ -1,16 +1,14 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   sub.options.config = lib.mkOption {
     type = lib.types.bool;
     default = false;
   };
-in
-{
+in {
   options.submodule = lib.mkOption {
     type = lib.types.submoduleWith {
-      modules = [ sub ];
+      modules = [sub];
       shorthandOnlyDefinesConfig = true;
     };
-    default = { };
+    default = {};
   };
 }

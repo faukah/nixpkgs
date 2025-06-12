@@ -8,7 +8,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pyisy";
   version = "3.4.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       --replace 'version_format="{tag}"' 'version="${version}"'
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "pyisy" ];
+  pythonImportsCheck = ["pyisy"];
 
   meta = with lib; {
     description = "Python module to talk to ISY994 from UDI";
     homepage = "https://github.com/automicus/PyISY";
     changelog = "https://github.com/automicus/PyISY/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

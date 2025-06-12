@@ -12,7 +12,6 @@
   gnumake,
   teensy-loader-cli,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "qmk";
   version = "1.1.8";
@@ -27,8 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     setuptools
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       dotty-dict
       hid

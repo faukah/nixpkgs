@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "click";
   version = "0.6.3";
@@ -21,15 +20,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-K9+SGpWcsOy0l8uj1z6AQggZq+M7wHARACFxsZ6vbUo=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
   meta = with lib; {
     description = ''The "Command Line Interactive Controller for Kubernetes"'';
     homepage = "https://github.com/databricks/click";
-    license = [ licenses.asl20 ];
-    maintainers = [ maintainers.mbode ];
+    license = [licenses.asl20];
+    maintainers = [maintainers.mbode];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

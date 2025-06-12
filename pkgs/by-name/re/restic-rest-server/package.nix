@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "restic-rest-server";
   version = "0.14.0";
@@ -26,6 +25,6 @@ buildGoModule rec {
     mainProgram = "rest-server";
     homepage = "https://github.com/restic/rest-server";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

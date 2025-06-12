@@ -4,20 +4,18 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.pyload;
 
   stateDir = "/var/lib/pyload";
-in
-{
-  meta.maintainers = with lib.maintainers; [ ambroisie ];
+in {
+  meta.maintainers = with lib.maintainers; [ambroisie];
 
   options = with lib; {
     services.pyload = {
       enable = mkEnableOption "pyLoad download manager";
 
-      package = mkPackageOption pkgs "pyLoad" { default = [ "pyload-ng" ]; };
+      package = mkPackageOption pkgs "pyLoad" {default = ["pyload-ng"];};
 
       listenAddress = mkOption {
         type = types.str;
@@ -70,13 +68,13 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.settings.pyload = {
-      ${cfg.downloadDirectory}.d = { inherit (cfg) user group; };
+      ${cfg.downloadDirectory}.d = {inherit (cfg) user group;};
     };
 
     systemd.services.pyload = {
       description = "pyLoad download manager";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       # NOTE: unlike what the documentation says, it looks like `HOME` is not
       # defined with this service definition...
@@ -171,6 +169,6 @@ in
       home = stateDir;
     };
 
-    users.groups.pyload = lib.mkIf (cfg.group == "pyload") { };
+    users.groups.pyload = lib.mkIf (cfg.group == "pyload") {};
   };
 }

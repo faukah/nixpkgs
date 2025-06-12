@@ -25,7 +25,6 @@
   textlint-rule-unexpanded-acronym,
   textlint-rule-write-good,
 }:
-
 buildNpmPackage rec {
   pname = "textlint";
   version = "14.3.0";
@@ -75,44 +74,44 @@ buildNpmPackage rec {
   '';
 
   passthru = {
-    withPackages =
-      ps:
-      runCommand "textlint-with-packages" { nativeBuildInputs = [ makeWrapper ]; } ''
+    withPackages = ps:
+      runCommand "textlint-with-packages" {nativeBuildInputs = [makeWrapper];} ''
         makeWrapper ${textlint}/bin/textlint $out/bin/textlint \
           --set NODE_PATH ${lib.makeSearchPath "lib/node_modules" ps}
       '';
 
-    testPackages =
-      {
-        rule,
-        testFile,
-        pname ? rule.pname,
-        plugin ? null,
-      }:
-      let
-        ruleName = lib.removePrefix "textlint-rule-" rule.pname;
-        isPreset = lib.hasPrefix "preset-" ruleName;
-        ruleName' = lib.removePrefix "preset-" ruleName;
-        pluginName = lib.removePrefix "textlint-plugin-" plugin.pname;
-        args =
-          "${testFile} ${if isPreset then "--preset" else "--rule"} ${ruleName'}"
-          + lib.optionalString (plugin != null) " --plugin ${pluginName}";
-      in
-      {
-        "${pname}-test" =
-          runCommand "${pname}-test"
-            {
-              nativeBuildInputs = [
-                (textlint.withPackages [
-                  rule
-                  plugin
-                ])
-              ];
-            }
-            ''
-              grep ${ruleName'} <(textlint ${args}) > $out
-            '';
-      };
+    testPackages = {
+      rule,
+      testFile,
+      pname ? rule.pname,
+      plugin ? null,
+    }: let
+      ruleName = lib.removePrefix "textlint-rule-" rule.pname;
+      isPreset = lib.hasPrefix "preset-" ruleName;
+      ruleName' = lib.removePrefix "preset-" ruleName;
+      pluginName = lib.removePrefix "textlint-plugin-" plugin.pname;
+      args =
+        "${testFile} ${
+          if isPreset
+          then "--preset"
+          else "--rule"
+        } ${ruleName'}"
+        + lib.optionalString (plugin != null) " --plugin ${pluginName}";
+    in {
+      "${pname}-test" =
+        runCommand "${pname}-test"
+        {
+          nativeBuildInputs = [
+            (textlint.withPackages [
+              rule
+              plugin
+            ])
+          ];
+        }
+        ''
+          grep ${ruleName'} <(textlint ${args}) > $out
+        '';
+    };
 
     tests = lib.mergeAttrsList (
       map (package: package.tests) [
@@ -140,7 +139,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/textlint/textlint";
     changelog = "https://github.com/textlint/textlint/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "textlint";
   };
 }

@@ -4,12 +4,9 @@
   lib,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.mycelium;
-in
-{
+in {
   options.services.mycelium = {
     enable = lib.mkEnableOption "mycelium network";
     peers = lib.mkOption {
@@ -23,7 +20,7 @@ in
 
         If addHostedPublicNodes is set to true, the hosted public nodes will also be added.
       '';
-      default = [ ];
+      default = [];
     };
     keyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -54,7 +51,7 @@ in
     };
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra command-line arguments to pass to mycelium.
 
@@ -63,13 +60,13 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [ 9651 ];
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [9651];
     networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [
       9650
       9651
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.mycelium = {
       description = "Mycelium network";
@@ -80,7 +77,7 @@ in
       wants = [
         "network-online.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       restartTriggers = [
         cfg.keyFile
       ];
@@ -95,7 +92,7 @@ in
         ProtectSystem = true;
         LoadCredential = lib.mkIf (cfg.keyFile != null) "keyfile:${cfg.keyFile}";
         SyslogIdentifier = "mycelium";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
         MemoryDenyWriteExecute = true;
         ProtectControlGroups = true;
         ProtectKernelModules = true;
@@ -112,16 +109,15 @@ in
           [
             (lib.getExe cfg.package)
             (
-              if (cfg.keyFile != null) then
-                "--key-file \${CREDENTIALS_DIRECTORY}/keyfile"
-              else
-                "--key-file %S/mycelium/key.bin"
+              if (cfg.keyFile != null)
+              then "--key-file \${CREDENTIALS_DIRECTORY}/keyfile"
+              else "--key-file %S/mycelium/key.bin"
             )
             "--tun-name"
             "mycelium"
             "${utils.escapeSystemdExecArgs cfg.extraArgs}"
           ]
-          ++ (lib.optional (cfg.addHostedPublicNodes || cfg.peers != [ ]) "--peers")
+          ++ (lib.optional (cfg.addHostedPublicNodes || cfg.peers != []) "--peers")
           ++ cfg.peers
           ++ (lib.optionals cfg.addHostedPublicNodes [
             "tcp://188.40.132.242:9651" # DE 01

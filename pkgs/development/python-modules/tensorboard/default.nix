@@ -2,7 +2,6 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-
   # dependencies
   absl-py,
   grpcio,
@@ -15,10 +14,8 @@
   tensorboard-data-server,
   werkzeug,
   standard-imghdr,
-
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tensorboard";
   version = "2.19.0";
@@ -77,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://www.tensorflow.org/";
     license = lib.licenses.asl20;
     mainProgram = "tensorboard";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 }

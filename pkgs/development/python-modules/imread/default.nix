@@ -11,7 +11,6 @@
   libwebp,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "imread";
   version = "0.7.6";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-ULPXCJyGJQTCKyVu9R/kWFGzRhbbFMDr/FU2AByZYBU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libjpeg
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     libwebp
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     # verbose build outputs needed to debug hard-to-reproduce hydra failures
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     "imread"
   ];
 
-  pythonImportsCheck = [ "imread" ];
+  pythonImportsCheck = ["imread"];
 
   preCheck = ''
     cd $TMPDIR
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     description = "Python package to load images as numpy arrays";
     homepage = "https://imread.readthedocs.io/";
     changelog = "https://github.com/luispedro/imread/blob/v${version}/ChangeLog";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     license = licenses.mit;
     platforms = platforms.unix;
   };

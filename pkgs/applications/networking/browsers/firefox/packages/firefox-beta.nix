@@ -6,7 +6,6 @@
   nixosTests,
   buildMozillaMach,
 }:
-
 buildMozillaMach rec {
   pname = "firefox-beta";
   binaryName = pname;
@@ -21,7 +20,7 @@ buildMozillaMach rec {
     changelog = "https://www.mozilla.org/en-US/firefox/${lib.versions.majorMinor version}beta/releasenotes/";
     description = "Web browser built from Firefox Beta Release source tree";
     homepage = "http://www.mozilla.com/en-US/firefox/";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
     platforms = lib.platforms.unix;
     broken = stdenv.buildPlatform.is32bit;
     # since Firefox 60, build on 32-bit platforms fails with "out of memory".

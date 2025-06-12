@@ -7,7 +7,6 @@
   msgpack,
   cbor2,
 }:
-
 buildPythonPackage rec {
   pname = "persist-queue";
   version = "1.0.0";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "persistqueue" ];
+  pythonImportsCheck = ["persistqueue"];
 
   meta = with lib; {
     description = "Thread-safe disk based persistent queue in Python";
     homepage = "https://github.com/peter-wangxu/persist-queue";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
   };
 }

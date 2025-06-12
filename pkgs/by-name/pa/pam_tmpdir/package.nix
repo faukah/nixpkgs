@@ -5,7 +5,6 @@
   autoreconfHook,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_tmpdir";
   version = "0.09";
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
     rm -rf m4
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   enableParallelBuilding = true;
 
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "PAM module for creating safe per-user temporary directories";
     mainProgram = "pam-tmpdir-helper";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

@@ -22,7 +22,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage rec {
   pname = "python-troveclient";
   version = "8.8.0";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   build-system = [
     pbr
@@ -77,13 +76,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "troveclient" ];
+  pythonImportsCheck = ["troveclient"];
 
   meta = {
     homepage = "https://github.com/openstack/python-troveclient";
     description = "Client library for OpenStack Trove API";
     license = lib.licenses.asl20;
     mainProgram = "trove";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

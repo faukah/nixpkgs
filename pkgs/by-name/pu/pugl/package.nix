@@ -16,7 +16,6 @@
   sphinxygen,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pugl";
   version = "0-unstable-2024-10-06";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/lv2/pugl";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
     license = lib.licenses.isc;
     description = "Minimal portable API for embeddable GUIs";

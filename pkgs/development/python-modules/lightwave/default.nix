@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "lightwave";
   version = "0.24";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-l9hwdAKrpdXj/pkrgyiuhbPaGgT6tjfoOw/TBpR+k1I=";
   };
 
-  pythonImportsCheck = [ "lightwave" ];
+  pythonImportsCheck = ["lightwave"];
 
   # Requires physical hardware
   doCheck = false;
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     description = "Module for interacting with LightwaveRF hubs";
     homepage = "https://github.com/GeoffAtHome/lightwave";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

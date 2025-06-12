@@ -7,7 +7,6 @@
   zlib,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "add-determinism";
   version = "0.6.0";

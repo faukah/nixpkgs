@@ -9,7 +9,6 @@
   libconfuse,
   libnl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bmon";
   version = "4.0";
@@ -36,10 +35,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    ncurses
-    libconfuse
-  ] ++ lib.optional stdenv.hostPlatform.isLinux libnl;
+  buildInputs =
+    [
+      ncurses
+      libconfuse
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libnl;
 
   preConfigure = ''
     # Must be an absolute path

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bitcoinrpc";
   version = "0.5.0";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bitcoinrpc" ];
+  pythonImportsCheck = ["bitcoinrpc"];
 
   meta = with lib; {
     description = "Bitcoin JSON-RPC client";
     homepage = "https://github.com/bibajz/bitcoin-python-async-rpc";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -11,7 +11,6 @@
   h5py,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "biom-format";
   version = "2.1.16";
@@ -46,16 +45,16 @@ buildPythonPackage rec {
     rm -r biom
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "biom_tests/tests" ];
+  pytestFlagsArray = ["biom_tests/tests"];
 
-  pythonImportsCheck = [ "biom" ];
+  pythonImportsCheck = ["biom"];
 
   meta = {
     homepage = "http://biom-format.org/";
     description = "Biological Observation Matrix (BIOM) format";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

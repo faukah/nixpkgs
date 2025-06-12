@@ -156,7 +156,7 @@ buildPythonApplication rec {
     install -Dm644 _visidata -t $out/share/zsh/site-functions
   '';
 
-  pythonImportsCheck = [ "visidata" ];
+  pythonImportsCheck = ["visidata"];
 
   passthru.tests.version = testers.testVersion {
     package = visidata;

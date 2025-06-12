@@ -4,7 +4,6 @@
   spelll,
   uutf,
 }:
-
 buildDunePackage {
   pname = "dolmen_type";
   inherit (dolmen) src version;
@@ -15,7 +14,9 @@ buildDunePackage {
     uutf
   ];
 
-  meta = dolmen.meta // {
-    description = "Typechecker for automated deduction languages";
-  };
+  meta =
+    dolmen.meta
+    // {
+      description = "Typechecker for automated deduction languages";
+    };
 }

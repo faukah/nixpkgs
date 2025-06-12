@@ -31,154 +31,151 @@
   glib,
   gdk-pixbuf,
   soundfont-fluid,
-
   # Path to set ROBUST_SOUNDFONT_OVERRIDE to, essentially the default soundfont used.
   soundfont-path ? "${soundfont-fluid}/share/soundfonts/FluidR3_GM2-2.sf2",
-}:
-let
+}: let
   version = "0.31.0";
   pname = "space-station-14-launcher";
 in
-buildDotnetModule rec {
-  inherit pname;
+  buildDotnetModule rec {
+    inherit pname;
 
-  # Workaround to prevent buildDotnetModule from overriding assembly versions.
-  name = "${pname}-${version}";
+    # Workaround to prevent buildDotnetModule from overriding assembly versions.
+    name = "${pname}-${version}";
 
-  # A bit redundant but I don't trust this package to be maintained by anyone else.
-  src = fetchFromGitHub {
-    owner = "space-wizards";
-    repo = "SS14.Launcher";
-    rev = "v${version}";
-    hash = "sha256-lEgJ+GdmiSQMl/l+CTBIUevMcJi+yVvFuS3buTNCYW4=";
-    fetchSubmodules = true;
-  };
+    # A bit redundant but I don't trust this package to be maintained by anyone else.
+    src = fetchFromGitHub {
+      owner = "space-wizards";
+      repo = "SS14.Launcher";
+      rev = "v${version}";
+      hash = "sha256-lEgJ+GdmiSQMl/l+CTBIUevMcJi+yVvFuS3buTNCYW4=";
+      fetchSubmodules = true;
+    };
 
-  buildType = "Release";
-  selfContainedBuild = false;
+    buildType = "Release";
+    selfContainedBuild = false;
 
-  projectFile = [
-    "SS14.Loader/SS14.Loader.csproj"
-    "SS14.Launcher/SS14.Launcher.csproj"
-  ];
-
-  nugetDeps = ./deps.json;
-
-  passthru = {
-    inherit version;
-  };
-
-  # SDK 8.0 required for Robust.LoaderApi
-  dotnet-sdk =
-    with dotnetCorePackages;
-    combinePackages [
-      sdk_9_0
-      sdk_8_0
+    projectFile = [
+      "SS14.Loader/SS14.Loader.csproj"
+      "SS14.Launcher/SS14.Launcher.csproj"
     ];
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
-  dotnetFlags = [
-    "-p:FullRelease=true"
-    "-p:RobustILLink=true"
-    "-nologo"
-  ];
+    nugetDeps = ./deps.json;
 
-  nativeBuildInputs = [
-    wrapGAppsHook4
-    iconConvTools
-    copyDesktopItems
-  ];
+    passthru = {
+      inherit version;
+    };
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [
-    fontconfig
-    libX11
-    libICE
-    libSM
-    libXi
-    libXcursor
-    libXext
-    libXrandr
+    # SDK 8.0 required for Robust.LoaderApi
+    dotnet-sdk = with dotnetCorePackages;
+      combinePackages [
+        sdk_9_0
+        sdk_8_0
+      ];
+    dotnet-runtime = dotnetCorePackages.runtime_9_0;
 
-    glfw
-    SDL2
-    glibc
-    libGL
-    openal
-    freetype
-    fluidsynth
-  ];
+    dotnetFlags = [
+      "-p:FullRelease=true"
+      "-p:RobustILLink=true"
+      "-nologo"
+    ];
 
-  runtimeDeps = [
-    # Required by the game.
-    glfw
-    SDL2
-    glibc
-    libGL
-    openal
-    freetype
-    fluidsynth
+    nativeBuildInputs = [
+      wrapGAppsHook4
+      iconConvTools
+      copyDesktopItems
+    ];
 
-    # Needed for file dialogs.
-    gtk3
-    pango
-    cairo
-    atk
-    zlib
-    glib
-    gdk-pixbuf
+    LD_LIBRARY_PATH = lib.makeLibraryPath [
+      fontconfig
+      libX11
+      libICE
+      libSM
+      libXi
+      libXcursor
+      libXext
+      libXrandr
 
-    # Avalonia UI dependencies.
-    libX11
-    libICE
-    libSM
-    libXi
-    libXcursor
-    libXext
-    libXrandr
-    fontconfig
-    glew
+      glfw
+      SDL2
+      glibc
+      libGL
+      openal
+      freetype
+      fluidsynth
+    ];
 
-    # TODO: Figure out dependencies for CEF support.
-  ];
+    runtimeDeps = [
+      # Required by the game.
+      glfw
+      SDL2
+      glibc
+      libGL
+      openal
+      freetype
+      fluidsynth
 
-  # ${soundfont-path} is escaped here:
-  # https://github.com/NixOS/nixpkgs/blob/d29975d32b1dc7fe91d5cb275d20f8f8aba399ad/pkgs/build-support/setup-hooks/make-wrapper.sh#L126C35-L126C45
-  # via https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html under ${parameter@operator}
-  makeWrapperArgs = [ ''--set ROBUST_SOUNDFONT_OVERRIDE ${soundfont-path}'' ];
+      # Needed for file dialogs.
+      gtk3
+      pango
+      cairo
+      atk
+      zlib
+      glib
+      gdk-pixbuf
 
-  executables = [ "SS14.Launcher" ];
+      # Avalonia UI dependencies.
+      libX11
+      libICE
+      libSM
+      libXi
+      libXcursor
+      libXext
+      libXrandr
+      fontconfig
+      glew
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = pname;
-      exec = meta.mainProgram;
-      icon = pname;
-      desktopName = "Space Station 14 Launcher";
-      comment = meta.description;
-      categories = [ "Game" ];
-      startupWMClass = meta.mainProgram;
-    })
-  ];
+      # TODO: Figure out dependencies for CEF support.
+    ];
 
-  postInstall = ''
-    mkdir -p $out/lib/space-station-14-launcher/loader
-    cp -r SS14.Loader/bin/${buildType}/*/*/* $out/lib/space-station-14-launcher/loader/
+    # ${soundfont-path} is escaped here:
+    # https://github.com/NixOS/nixpkgs/blob/d29975d32b1dc7fe91d5cb275d20f8f8aba399ad/pkgs/build-support/setup-hooks/make-wrapper.sh#L126C35-L126C45
+    # via https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html under ${parameter@operator}
+    makeWrapperArgs = [''--set ROBUST_SOUNDFONT_OVERRIDE ${soundfont-path}''];
 
-    icoFileToHiColorTheme SS14.Launcher/Assets/icon.ico space-station-14-launcher $out
-  '';
+    executables = ["SS14.Launcher"];
 
-  dontWrapGApps = true;
+    desktopItems = [
+      (makeDesktopItem {
+        name = pname;
+        exec = meta.mainProgram;
+        icon = pname;
+        desktopName = "Space Station 14 Launcher";
+        comment = meta.description;
+        categories = ["Game"];
+        startupWMClass = meta.mainProgram;
+      })
+    ];
 
-  preFixup = ''
-    makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '';
+    postInstall = ''
+      mkdir -p $out/lib/space-station-14-launcher/loader
+      cp -r SS14.Loader/bin/${buildType}/*/*/* $out/lib/space-station-14-launcher/loader/
 
-  meta = with lib; {
-    description = "Launcher for Space Station 14, a multiplayer game about paranoia and disaster";
-    homepage = "https://spacestation14.io";
-    license = licenses.mit;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "SS14.Launcher";
-  };
-}
+      icoFileToHiColorTheme SS14.Launcher/Assets/icon.ico space-station-14-launcher $out
+    '';
+
+    dontWrapGApps = true;
+
+    preFixup = ''
+      makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+    '';
+
+    meta = with lib; {
+      description = "Launcher for Space Station 14, a multiplayer game about paranoia and disaster";
+      homepage = "https://spacestation14.io";
+      license = licenses.mit;
+      maintainers = [];
+      platforms = ["x86_64-linux"];
+      mainProgram = "SS14.Launcher";
+    };
+  }

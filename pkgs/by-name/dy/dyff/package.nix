@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "dyff";
   version = "1.10.1";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "internal/cmd"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # test fails with the injected version
   postPatch = ''

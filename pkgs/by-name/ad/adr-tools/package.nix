@@ -5,7 +5,6 @@
   installShellFiles,
   makeWrapper,
   nix-update-script,
-
   bash,
   bashInteractive,
   coreutils,
@@ -14,12 +13,10 @@
   getopt,
   gnugrep,
   gnused,
-
   # tests
   adr-tools,
   runCommand,
 }:
-
 stdenv.mkDerivation rec {
   pname = "adr-tools";
   version = "3.0.0";
@@ -41,7 +38,7 @@ stdenv.mkDerivation rec {
     bashInteractive
   ];
 
-  checkInputs = [ getopt ];
+  checkInputs = [getopt];
 
   dontConfigure = true;
   dontBuild = true;
@@ -76,7 +73,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests.default = runCommand "adr-tools-test" { } ''
+    tests.default = runCommand "adr-tools-test" {} ''
       set -euo pipefail
       export PATH=$PATH:${
         lib.makeBinPath [
@@ -101,14 +98,14 @@ stdenv.mkDerivation rec {
       grep 'TESTED AMEND' doc/adr/0001-record-architecture-decisions.md | grep 0002-blah.md
     '';
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Command-line tools for working with Architecture Decision Records";
     homepage = "https://github.com/npryce/adr-tools";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ adamcstephens ];
+    maintainers = with lib.maintainers; [adamcstephens];
     mainProgram = "adr";
     platforms = lib.platforms.all;
   };

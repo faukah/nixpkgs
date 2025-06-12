@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kdigger";
   version = "1.5.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-kMoTkrDuAJmgWAj7+V3a8VEYpPbTv3UdLscTdkpzud0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # static to be easily copied into containers since it's an in-pod pen-testing tool
   env.CGO_ENABLED = 0;
@@ -70,7 +69,7 @@ buildGoModule rec {
       pod.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

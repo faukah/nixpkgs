@@ -1,11 +1,9 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
   pkg-config,
-
   kconfig,
   kdbusaddons,
   ki18n,
@@ -23,7 +21,6 @@
   pimcommon,
   mpv,
 }:
-
 mkDerivation {
   pname = "tokodon";
 
@@ -58,6 +55,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/network/tokodon";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

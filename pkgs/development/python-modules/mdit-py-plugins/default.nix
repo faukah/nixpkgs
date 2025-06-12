@@ -8,7 +8,6 @@
   pytest-regressions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mdit-py-plugins";
   version = "0.4.2";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-aY2DMLh1OkWVcN6A29FLba1ETerf/EOqSjHVpsdE21M=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ markdown-it-py ];
+  propagatedBuildInputs = [markdown-it-py];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-regressions
   ];
 
-  pythonImportsCheck = [ "mdit_py_plugins" ];
+  pythonImportsCheck = ["mdit_py_plugins"];
 
   meta = with lib; {
     description = "Collection of core plugins for markdown-it-py";
     homepage = "https://github.com/executablebooks/mdit-py-plugins";
     changelog = "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

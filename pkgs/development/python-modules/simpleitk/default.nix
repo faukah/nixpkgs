@@ -9,9 +9,9 @@
   simpleitk,
   scikit-build,
 }:
-
 buildPythonPackage rec {
-  inherit (simpleitk)
+  inherit
+    (simpleitk)
     pname
     version
     src
@@ -37,5 +37,5 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "SimpleITK" ];
+  pythonImportsCheck = ["SimpleITK"];
 }

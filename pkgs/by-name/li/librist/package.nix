@@ -9,7 +9,6 @@
   cmocka,
   mbedtls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librist";
   version = "0.2.11";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
       mit
       isc
     ];
-    maintainers = with maintainers; [ raphaelr ];
+    maintainers = with maintainers; [raphaelr];
     platforms = platforms.all;
   };
 }

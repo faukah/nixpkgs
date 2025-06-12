@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "blackbox_exporter";
   version = "0.26.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
   # dns-lookup is performed for the tests
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) blackbox; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) blackbox;};
 
   ldflags = [
     "-s"

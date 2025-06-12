@@ -15,7 +15,6 @@
   transformers,
   unidic-lite,
 }:
-
 buildPythonPackage rec {
   pname = "manga-ocr";
   version = "0.1.14";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kha-white/manga-ocr";
     changelog = "https://github.com/kha-white/manga-ocr/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ laurent-f1z1 ];
+    maintainers = with maintainers; [laurent-f1z1];
   };
 }

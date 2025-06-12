@@ -8,7 +8,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "anthemav";
   version = "1.4.2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "anthemav" ];
+  pythonImportsCheck = ["anthemav"];
 
   meta = with lib; {
     description = "Python asyncio module to interface with Anthem AVM and MRX receivers";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nugget/python-anthemav";
     changelog = "https://github.com/nugget/python-anthemav/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

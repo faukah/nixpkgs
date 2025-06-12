@@ -9,7 +9,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "yapf";
   version = "0.43.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-ANOqJL/t/5QgsuDV2fWrbZ1CaOcq+/Wbs/pUJ4HVIY4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     importlib-metadata
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     tomli
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/google/yapf/blob/v${version}/CHANGELOG.md";

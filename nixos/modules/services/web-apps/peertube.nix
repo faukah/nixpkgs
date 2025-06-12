@@ -4,13 +4,11 @@
   config,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.peertube;
   opt = options.services.peertube;
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "production.json" cfg.settings;
 
   env = {
@@ -67,11 +65,9 @@ let
   };
 
   envFile = pkgs.writeText "peertube.env" (
-    lib.concatMapStrings (s: s + "\n") (
-      (lib.concatLists (
-        lib.mapAttrsToList (name: value: lib.optional (value != null) ''${name}="${toString value}"'') env
-      ))
-    )
+    lib.concatMapStrings (s: s + "\n") (lib.concatLists (
+      lib.mapAttrsToList (name: value: lib.optional (value != null) ''${name}="${toString value}"'') env
+    ))
   );
 
   peertubeEnv = pkgs.writeShellScriptBin "peertube-env" ''
@@ -84,24 +80,21 @@ let
     lib.optionalString config.services.nginx.virtualHosts.${cfg.localDomain}.forceSSL ''
       add_header Strict-Transport-Security 'max-age=31536000';
     ''
-    +
-      lib.optionalString
-        (
-          config.services.nginx.virtualHosts.${cfg.localDomain}.quic
-          && config.services.nginx.virtualHosts.${cfg.localDomain}.http3
-        )
-        ''
-          add_header Alt-Svc 'h3=":$server_port"; ma=604800';
-        '';
+    + lib.optionalString
+    (
+      config.services.nginx.virtualHosts.${cfg.localDomain}.quic
+      && config.services.nginx.virtualHosts.${cfg.localDomain}.http3
+    )
+    ''
+      add_header Alt-Svc 'h3=":$server_port"; ma=604800';
+    '';
 
   nginxCommonHeadersExtra = ''
     add_header Access-Control-Allow-Origin '*';
     add_header Access-Control-Allow-Methods 'GET, OPTIONS';
     add_header Access-Control-Allow-Headers 'Range,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type';
   '';
-
-in
-{
+in {
   options.services.peertube = {
     enable = lib.mkEnableOption "Peertube";
 
@@ -143,7 +136,7 @@ in
 
     dataDirs = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       example = [
         "/opt/peertube/storage"
         "/var/cache/peertube"
@@ -209,7 +202,10 @@ in
 
       host = lib.mkOption {
         type = lib.types.str;
-        default = if cfg.database.createLocally then "/run/postgresql" else null;
+        default =
+          if cfg.database.createLocally
+          then "/run/postgresql"
+          else null;
         defaultText = lib.literalExpression ''
           if config.${opt.database.createLocally}
           then "/run/postgresql"
@@ -254,7 +250,10 @@ in
 
       host = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if cfg.redis.createLocally && !cfg.redis.enableUnixSocket then "127.0.0.1" else null;
+        default =
+          if cfg.redis.createLocally && !cfg.redis.enableUnixSocket
+          then "127.0.0.1"
+          else null;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && !config.${opt.redis.enableUnixSocket}
           then "127.0.0.1"
@@ -265,7 +264,10 @@ in
 
       port = lib.mkOption {
         type = lib.types.nullOr lib.types.port;
-        default = if cfg.redis.createLocally && cfg.redis.enableUnixSocket then null else 31638;
+        default =
+          if cfg.redis.createLocally && cfg.redis.enableUnixSocket
+          then null
+          else 31638;
         defaultText = lib.literalExpression ''
           if config.${opt.redis.createLocally} && config.${opt.redis.enableUnixSocket}
           then null
@@ -369,7 +371,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package.cli ];
+    environment.systemPackages = [cfg.package.cli];
 
     services.peertube.settings = lib.mkMerge [
       {
@@ -377,7 +379,10 @@ in
           port = cfg.listenHttp;
         };
         webserver = {
-          https = (if cfg.enableWebHttps then true else false);
+          https =
+            if cfg.enableWebHttps
+            then true
+            else false;
           hostname = "${cfg.localDomain}";
           port = cfg.listenWeb;
         };
@@ -389,7 +394,7 @@ in
         };
         redis = {
           hostname = "${toString cfg.redis.host}";
-          port = (lib.optionalString (cfg.redis.port != null) cfg.redis.port);
+          port = lib.optionalString (cfg.redis.port != null) cfg.redis.port;
         };
         storage = {
           tmp = lib.mkDefault "/var/lib/peertube/storage/tmp/";
@@ -441,38 +446,38 @@ in
         "network.target"
         "postgresql.service"
       ];
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
 
-      script =
-        let
-          psqlSetupCommands = pkgs.writeText "peertube-init.sql" ''
-            SELECT 'CREATE USER "${cfg.database.user}"' WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${cfg.database.user}')\gexec
-            SELECT 'CREATE DATABASE "${cfg.database.name}" OWNER "${cfg.database.user}" TEMPLATE template0 ENCODING UTF8' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${cfg.database.name}')\gexec
-            \c '${cfg.database.name}'
-            CREATE EXTENSION IF NOT EXISTS pg_trgm;
-            CREATE EXTENSION IF NOT EXISTS unaccent;
-          '';
-        in
-        "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}";
+      script = let
+        psqlSetupCommands = pkgs.writeText "peertube-init.sql" ''
+          SELECT 'CREATE USER "${cfg.database.user}"' WHERE NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${cfg.database.user}')\gexec
+          SELECT 'CREATE DATABASE "${cfg.database.name}" OWNER "${cfg.database.user}" TEMPLATE template0 ENCODING UTF8' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${cfg.database.name}')\gexec
+          \c '${cfg.database.name}'
+          CREATE EXTENSION IF NOT EXISTS pg_trgm;
+          CREATE EXTENSION IF NOT EXISTS unaccent;
+        '';
+      in "${config.services.postgresql.package}/bin/psql -f ${psqlSetupCommands}";
 
-      serviceConfig = {
-        Type = "oneshot";
-        WorkingDirectory = cfg.package;
-        # User and group
-        User = "postgres";
-        Group = "postgres";
-        # Sandboxing
-        RestrictAddressFamilies = [ "AF_UNIX" ];
-        MemoryDenyWriteExecute = true;
-        # System Call Filtering
-        SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
-      } // cfgService;
+      serviceConfig =
+        {
+          Type = "oneshot";
+          WorkingDirectory = cfg.package;
+          # User and group
+          User = "postgres";
+          Group = "postgres";
+          # Sandboxing
+          RestrictAddressFamilies = ["AF_UNIX"];
+          MemoryDenyWriteExecute = true;
+          # System Call Filtering
+          SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ ["@resources"]);
+        }
+        // cfgService;
     };
 
     systemd.services.peertube = {
       description = "PeerTube daemon";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
@@ -484,7 +489,7 @@ in
           "postgresql.service"
           "peertube-init-db.service"
         ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = env;
 
@@ -522,41 +527,43 @@ in
         ln -sf ${cfg.settings.storage.client_overrides} -T /var/lib/peertube/www/client-overrides
         exec node dist/server
       '';
-      serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = 20;
-        TimeoutSec = 60;
-        WorkingDirectory = cfg.package;
-        SyslogIdentifier = "peertube";
-        # User and group
-        User = cfg.user;
-        Group = cfg.group;
-        # State directory and mode
-        StateDirectory = "peertube";
-        StateDirectoryMode = "0750";
-        # Cache directory and mode
-        CacheDirectory = "peertube";
-        CacheDirectoryMode = "0750";
-        # Access write directories
-        ReadWritePaths = cfg.dataDirs;
-        # Environment
-        EnvironmentFile = cfg.serviceEnvironmentFile;
-        # Sandboxing
-        RestrictAddressFamilies = [
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
-        MemoryDenyWriteExecute = false;
-        # System Call Filtering
-        SystemCallFilter = [
-          ("~" + lib.concatStringsSep " " systemCallsList)
-          "pipe"
-          "pipe2"
-        ];
-      } // cfgService;
+      serviceConfig =
+        {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = 20;
+          TimeoutSec = 60;
+          WorkingDirectory = cfg.package;
+          SyslogIdentifier = "peertube";
+          # User and group
+          User = cfg.user;
+          Group = cfg.group;
+          # State directory and mode
+          StateDirectory = "peertube";
+          StateDirectoryMode = "0750";
+          # Cache directory and mode
+          CacheDirectory = "peertube";
+          CacheDirectoryMode = "0750";
+          # Access write directories
+          ReadWritePaths = cfg.dataDirs;
+          # Environment
+          EnvironmentFile = cfg.serviceEnvironmentFile;
+          # Sandboxing
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+            "AF_NETLINK"
+          ];
+          MemoryDenyWriteExecute = false;
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~" + lib.concatStringsSep " " systemCallsList)
+            "pipe"
+            "pipe2"
+          ];
+        }
+        // cfgService;
     };
 
     services.nginx = lib.mkIf cfg.configureNginx {
@@ -696,13 +703,12 @@ in
         };
 
         # Bypass PeerTube for performance reasons.
-        locations."~ ^/client/(assets/images/(icons/icon-36x36\\.png|icons/icon-48x48\\.png|icons/icon-72x72\\.png|icons/icon-96x96\\.png|icons/icon-144x144\\.png|icons/icon-192x192\\.png|icons/icon-512x512\\.png|logo\\.svg|favicon\\.png|default-playlist\\.jpg|default-avatar-account\\.png|default-avatar-account-48x48\\.png|default-avatar-video-channel\\.png|default-avatar-video-channel-48x48\\.png))$" =
-          {
-            tryFiles = "/client-overrides/$1 /client/$1 $1";
-            priority = 1310;
+        locations."~ ^/client/(assets/images/(icons/icon-36x36\\.png|icons/icon-48x48\\.png|icons/icon-72x72\\.png|icons/icon-96x96\\.png|icons/icon-144x144\\.png|icons/icon-192x192\\.png|icons/icon-512x512\\.png|logo\\.svg|favicon\\.png|default-playlist\\.jpg|default-avatar-account\\.png|default-avatar-account-48x48\\.png|default-avatar-video-channel\\.png|default-avatar-video-channel-48x48\\.png))$" = {
+          tryFiles = "/client-overrides/$1 /client/$1 $1";
+          priority = 1310;
 
-            extraConfig = nginxCommonHeaders;
-          };
+          extraConfig = nginxCommonHeaders;
+        };
 
         locations."~ ^/client/(.*\\.(js|css|png|svg|woff2|otf|ttf|woff|eot))$" = {
           alias = "${cfg.package}/client/dist/$1";
@@ -943,12 +949,13 @@ in
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath
-        [ cfg.user "packages" ]
-        [ peertubeEnv pkgs.nodejs_20 pkgs.yarn pkgs.ffmpeg-headless ]
+      (
+        lib.attrsets.setAttrByPath
+        [cfg.user "packages"]
+        [peertubeEnv pkgs.nodejs_20 pkgs.yarn pkgs.ffmpeg-headless]
       )
       (lib.mkIf cfg.redis.enableUnixSocket {
-        ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];
+        ${config.services.peertube.user}.extraGroups = ["redis-peertube"];
       })
     ];
 

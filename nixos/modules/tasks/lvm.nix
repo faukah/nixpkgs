@@ -4,23 +4,22 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.lvm;
-in
-{
+in {
   options.services.lvm = {
-    enable = mkEnableOption "lvm2" // {
-      default = true;
-      description = ''
-        Whether to enable lvm2.
+    enable =
+      mkEnableOption "lvm2"
+      // {
+        default = true;
+        description = ''
+          Whether to enable lvm2.
 
-        :::{.note}
-        The lvm2 package contains device-mapper udev rules and without those tools like cryptsetup do not fully function!
-        :::
-      '';
-    };
+          :::{.note}
+          The lvm2 package contains device-mapper udev rules and without those tools like cryptsetup do not fully function!
+          :::
+        '';
+      };
 
     package = mkOption {
       type = types.package;
@@ -38,38 +37,40 @@ in
     boot.vdo.enable = mkEnableOption "support for booting from VDOLVs";
   };
 
-  options.boot.initrd.services.lvm.enable = mkEnableOption "booting from LVM2 in the initrd" // {
-    description = ''
-      *This will only be used when systemd is used in stage 1.*
+  options.boot.initrd.services.lvm.enable =
+    mkEnableOption "booting from LVM2 in the initrd"
+    // {
+      description = ''
+        *This will only be used when systemd is used in stage 1.*
 
-      Whether to enable booting from LVM2 in the initrd.
-    '';
-    default = config.boot.initrd.systemd.enable && config.services.lvm.enable;
-    defaultText = lib.literalExpression "config.boot.initrd.systemd.enable && config.services.lvm.enable";
-  };
+        Whether to enable booting from LVM2 in the initrd.
+      '';
+      default = config.boot.initrd.systemd.enable && config.services.lvm.enable;
+      defaultText = lib.literalExpression "config.boot.initrd.systemd.enable && config.services.lvm.enable";
+    };
 
   config = mkMerge [
-    ({
+    {
       # minimal configuration file to make lvmconfig/lvm2-activation-generator happy
       environment.etc."lvm/lvm.conf".text = "config {}";
-    })
+    }
     (mkIf cfg.enable {
-      systemd.tmpfiles.packages = [ cfg.package.out ];
-      environment.systemPackages = [ cfg.package ];
-      systemd.packages = [ cfg.package ];
+      systemd.tmpfiles.packages = [cfg.package.out];
+      environment.systemPackages = [cfg.package];
+      systemd.packages = [cfg.package];
 
-      services.udev.packages = [ cfg.package.out ];
+      services.udev.packages = [cfg.package.out];
     })
     (mkIf config.boot.initrd.services.lvm.enable {
       # We need lvm2 for the device-mapper rules
-      boot.initrd.services.udev.packages = [ cfg.package ];
+      boot.initrd.services.udev.packages = [cfg.package];
       # The device-mapper rules want to call tools from lvm2
-      boot.initrd.systemd.initrdBin = [ cfg.package ];
-      boot.initrd.services.udev.binPackages = [ cfg.package ];
+      boot.initrd.systemd.initrdBin = [cfg.package];
+      boot.initrd.services.udev.binPackages = [cfg.package];
     })
     (mkIf cfg.dmeventd.enable {
-      systemd.sockets."dm-event".wantedBy = [ "sockets.target" ];
-      systemd.services."lvm2-monitor".wantedBy = [ "sysinit.target" ];
+      systemd.sockets."dm-event".wantedBy = ["sockets.target"];
+      systemd.services."lvm2-monitor".wantedBy = ["sysinit.target"];
 
       environment.etc."lvm/lvm.conf".text = ''
         dmeventd/executable = "${cfg.package}/bin/dmeventd"
@@ -102,17 +103,17 @@ in
 
       environment.etc."lvm/lvm.conf".text =
         concatMapStringsSep "\n"
-          (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
-          [
-            "thin_check"
-            "thin_dump"
-            "thin_repair"
-            "cache_check"
-            "cache_dump"
-            "cache_repair"
-          ];
+        (bin: "global/${bin}_executable = ${pkgs.thin-provisioning-tools}/bin/${bin}")
+        [
+          "thin_check"
+          "thin_dump"
+          "thin_repair"
+          "cache_check"
+          "cache_dump"
+          "cache_repair"
+        ];
 
-      environment.systemPackages = [ pkgs.thin-provisioning-tools ];
+      environment.systemPackages = [pkgs.thin-provisioning-tools];
     })
     (mkIf cfg.boot.vdo.enable {
       assertions = [
@@ -124,9 +125,9 @@ in
 
       boot = {
         initrd = {
-          kernelModules = [ "dm-vdo" ];
+          kernelModules = ["dm-vdo"];
 
-          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [ pkgs.vdo ];
+          systemd.initrdBin = lib.mkIf config.boot.initrd.services.lvm.enable [pkgs.vdo];
 
           extraUtilsCommands = mkIf (!config.boot.initrd.systemd.enable) ''
             ls ${pkgs.vdo}/bin/ | while read BIN; do
@@ -146,7 +147,7 @@ in
 
       services.lvm.package = mkOverride 999 pkgs.lvm2_vdo; # this overrides mkDefault
 
-      environment.systemPackages = [ pkgs.vdo ];
+      environment.systemPackages = [pkgs.vdo];
     })
     (mkIf (cfg.dmeventd.enable || cfg.boot.thin.enable) {
       boot.initrd.systemd.contents."/etc/lvm/lvm.conf".text =
@@ -187,5 +188,4 @@ in
       '';
     })
   ];
-
 }

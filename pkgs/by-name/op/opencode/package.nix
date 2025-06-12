@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "opencode";
   version = "0.0.52";
@@ -25,19 +24,17 @@ buildGoModule (finalAttrs: {
     "-X github.com/sst/opencode/internal/version.Version=${finalAttrs.version}"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # permission denied
-        "TestBashTool_Run"
-        "TestSourcegraphTool_Run"
-        "TestLsTool_Run"
+  checkFlags = let
+    skippedTests = [
+      # permission denied
+      "TestBashTool_Run"
+      "TestSourcegraphTool_Run"
+      "TestLsTool_Run"
 
-        # Difference with snapshot
-        "TestGetContextFromPaths"
-      ];
-    in
-    [ "-skip=^${lib.concatStringsSep "$|^" skippedTests}$" ];
+      # Difference with snapshot
+      "TestGetContextFromPaths"
+    ];
+  in ["-skip=^${lib.concatStringsSep "$|^" skippedTests}$"];
 
   nativeCheckInputs = [
     versionCheckHook
@@ -45,7 +42,7 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Powerful terminal-based AI assistant providing intelligent coding assistance";

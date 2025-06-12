@@ -8,7 +8,6 @@
   zlib,
   fetchpatch,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-trim";
   version = "0.4.4";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
 
   OPENSSL_NO_VENDOR = 1;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     description = "Automatically trims your branches whose tracking remote refs are merged or gone";
     homepage = "https://github.com/foriequal0/git-trim";
     license = licenses.mit;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     mainProgram = "git-trim";
   };
 }

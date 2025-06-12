@@ -15,7 +15,6 @@
   shapely,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "wktutils";
   version = "2.0.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail '"twine",' ""
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     dateparser
@@ -58,13 +57,13 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "WKTUtils" ];
+  pythonImportsCheck = ["WKTUtils"];
 
   meta = with lib; {
     description = "Collection of tools for handling WKTs";
     homepage = "https://github.com/asfadmin/Discovery-WKTUtils";
     changelog = "https://github.com/asfadmin/Discovery-WKTUtils/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

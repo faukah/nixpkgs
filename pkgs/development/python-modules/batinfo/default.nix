@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "batinfo";
   version = "0.4.2";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
       --replace-fail "self.assertEquals" "self.assertEqual"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "batinfo" ];
+  pythonImportsCheck = ["batinfo"];
 
   disabledTests = [
     # Tests are a bit outdated
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     description = "Module to retrieve battery information";
     homepage = "https://github.com/nicolargo/batinfo";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "csa";
   version = "0.5.100810";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
       Emphazised Limiter, Cellular Leveler, Simple right/left amplifier. Blind Peak Meter.
     '';
     license = licenses.gpl3;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

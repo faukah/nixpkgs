@@ -9,7 +9,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildPythonApplication rec {
   pname = "firefox_decrypt";
   version = "1.1.1";
@@ -30,18 +29,22 @@ buildPythonApplication rec {
 
   makeWrapperArgs = [
     "--prefix"
-    (if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH")
+    (
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH"
+    )
     ":"
-    (lib.makeLibraryPath [ nss ])
+    (lib.makeLibraryPath [nss])
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/unode/firefox_decrypt";
     description = "Tool to extract passwords from profiles of Mozilla Firefox and derivates";
     mainProgram = "firefox_decrypt";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
   };
 }

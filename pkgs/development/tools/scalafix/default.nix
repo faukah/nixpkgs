@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
     setJavaClassPath
   ];
-  buildInputs = [ finalAttrs.deps ];
+  buildInputs = [finalAttrs.deps];
 
   dontUnpack = true;
 
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "scalafix";
     homepage = "https://scalacenter.github.io/scalafix/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.tomahna ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = [maintainers.tomahna];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 })

@@ -18,7 +18,6 @@
   useJack ? true,
   useQt ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jalv";
   version = "1.6.8";
@@ -36,8 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
       ninja
       pkg-config
     ]
-    ++ lib.optionals (!useQt) [ wrapGAppsHook3 ]
-    ++ lib.optionals useQt [ libsForQt5.wrapQtAppsHook ];
+    ++ lib.optionals (!useQt) [wrapGAppsHook3]
+    ++ lib.optionals useQt [libsForQt5.wrapQtAppsHook];
 
   buildInputs =
     [
@@ -49,9 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
       sratom
       suil
     ]
-    ++ lib.optionals (!useJack) [ portaudio ]
-    ++ lib.optionals useJack [ libjack2 ]
-    ++ lib.optionals useQt [ libsForQt5.qtbase ];
+    ++ lib.optionals (!useJack) [portaudio]
+    ++ lib.optionals useJack [libjack2]
+    ++ lib.optionals useQt [libsForQt5.qtbase];
 
   mesonFlags = [
     (lib.mesonEnable "portaudio" (!useJack))
@@ -65,8 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple but fully featured LV2 host for Jack";
     homepage = "http://drobilla.net/software/jalv";
     license = lib.licenses.isc;
-    mainProgram = if useQt then "jalv.qt5" else "jalv.gtk3";
-    maintainers = with lib.maintainers; [ aleksana ];
+    mainProgram =
+      if useQt
+      then "jalv.qt5"
+      else "jalv.gtk3";
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

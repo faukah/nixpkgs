@@ -19,7 +19,6 @@
   setuptools-scm,
   ufmt,
 }:
-
 buildPythonPackage rec {
   pname = "libcst";
   version = "1.8.0";
@@ -55,10 +54,14 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   dependencies = [
-    (if pythonOlder "3.13" then pyyaml else pyyaml-ft)
+    (
+      if pythonOlder "3.13"
+      then pyyaml
+      else pyyaml-ft
+    )
   ];
 
   nativeCheckInputs = [
@@ -83,10 +86,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    pytest = libcst.overridePythonAttrs { doCheck = true; };
+    pytest = libcst.overridePythonAttrs {doCheck = true;};
   };
 
-  pythonImportsCheck = [ "libcst" ];
+  pythonImportsCheck = ["libcst"];
 
   meta = {
     description = "Concrete Syntax Tree (CST) parser and serializer library for Python";
@@ -97,6 +100,6 @@ buildPythonPackage rec {
       asl20
       psfl
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -5,8 +5,7 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.unifi;
   stateDir = "/var/lib/unifi";
   cmd = lib.escapeShellArgs (
@@ -27,11 +26,8 @@ let
       "${stateDir}/lib/ace.jar"
     ]
   );
-in
-{
-
+in {
   options = {
-
     services.unifi.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -47,7 +43,7 @@ in
       '';
     };
 
-    services.unifi.unifiPackage = lib.mkPackageOption pkgs "unifi" { };
+    services.unifi.unifiPackage = lib.mkPackageOption pkgs "unifi" {};
 
     services.unifi.mongodbPackage = lib.mkPackageOption pkgs "mongodb" {
       default = "mongodb-7_0";
@@ -87,24 +83,23 @@ in
 
     services.unifi.extraJvmOptions = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''["-Xlog:gc"]'';
       description = ''
         Set extra options to pass to the JVM.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion =
           lib.versionAtLeast config.system.stateVersion "24.11"
           || (
-            options.services.unifi.unifiPackage.highestPrio < (lib.mkOptionDefault { }).priority
-            && options.services.unifi.mongodbPackage.highestPrio < (lib.mkOptionDefault { }).priority
+            options.services.unifi.unifiPackage.highestPrio
+            < (lib.mkOptionDefault {}).priority
+            && options.services.unifi.mongodbPackage.highestPrio < (lib.mkOptionDefault {}).priority
           );
         message = ''
           Support for UniFi < 8 has been dropped; please explicitly set
@@ -128,7 +123,7 @@ in
       description = "UniFi controller daemon user";
       home = "${stateDir}";
     };
-    users.groups.unifi = { };
+    users.groups.unifi = {};
 
     networking.firewall = lib.mkIf cfg.openFirewall {
       # https://help.ubnt.com/hc/en-us/articles/218506997
@@ -146,8 +141,8 @@ in
 
     systemd.services.unifi = {
       description = "UniFi controller daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       # This a HACK to fix missing dependencies of dynamic libs extracted from jars
       environment.LD_LIBRARY_PATH = with pkgs.stdenv; "${cc.cc.lib}/lib";
@@ -197,7 +192,7 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
 
         StateDirectory = "unifi";
         RuntimeDirectory = "unifi";
@@ -227,7 +222,6 @@ in
         MemoryDenyWriteExecute = false;
       };
     };
-
   };
   imports = [
     (lib.mkRemovedOptionModule [
@@ -235,6 +229,6 @@ in
       "unifi"
       "dataDir"
     ] "You should move contents of dataDir to /var/lib/unifi/data")
-    (lib.mkRenamedOptionModule [ "services" "unifi" "openPorts" ] [ "services" "unifi" "openFirewall" ])
+    (lib.mkRenamedOptionModule ["services" "unifi" "openPorts"] ["services" "unifi" "openFirewall"])
   ];
 }

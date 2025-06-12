@@ -8,7 +8,6 @@
   requests,
   robotframework,
 }:
-
 buildPythonPackage rec {
   pname = "robotframework-requests";
   version = "0.9.7";
@@ -29,16 +28,16 @@ buildPythonPackage rec {
     robotframework
   ];
 
-  buildInputs = [ pytestCheckHook ];
+  buildInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "RequestsLibrary" ];
+  pythonImportsCheck = ["RequestsLibrary"];
 
-  pytestFlagsArray = [ "utests" ];
+  pytestFlagsArray = ["utests"];
 
   meta = with lib; {
     description = "Robot Framework keyword library wrapper around the HTTP client library requests";
     homepage = "https://github.com/bulkan/robotframework-requests";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

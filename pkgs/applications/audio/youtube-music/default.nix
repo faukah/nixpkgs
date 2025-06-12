@@ -10,7 +10,6 @@
   pnpm,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "youtube-music";
   version = "3.9.0";
@@ -27,12 +26,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xIQyTetHU37gTxCcQp4VCqzGdIfVQGy/aORCVba6YQ0=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-    python3
-    nodejs
-    pnpm.configHook
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+      python3
+      nodejs
+      pnpm.configHook
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [copyDesktopItems];
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
 
@@ -45,7 +46,11 @@ stdenv.mkDerivation (finalAttrs: {
       pnpm build
       ./node_modules/.bin/electron-builder \
         --dir \
-        -c.electronDist=${if stdenv.hostPlatform.isDarwin then "." else electron.dist} \
+        -c.electronDist=${
+        if stdenv.hostPlatform.isDarwin
+        then "."
+        else electron.dist
+      } \
         -c.electronVersion=${electron.version}
     '';
 
@@ -95,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "youtube-music";
       desktopName = "YouTube Music";
       startupWMClass = "com.github.th_ch.youtube_music";
-      categories = [ "AudioVideo" ];
+      categories = ["AudioVideo"];
     })
   ];
 
@@ -103,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Electron wrapper around YouTube Music";
     homepage = "https://th-ch.github.io/youtube-music/";
     changelog = "https://github.com/th-ch/youtube-music/blob/master/changelog.md#${
-      lib.replaceStrings [ "." ] [ "" ] finalAttrs.src.rev
+      lib.replaceStrings ["."] [""] finalAttrs.src.rev
     }";
     license = licenses.mit;
     maintainers = with maintainers; [

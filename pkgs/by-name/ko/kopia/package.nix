@@ -8,7 +8,6 @@
   testers,
   kopia,
 }:
-
 buildGoModule rec {
   pname = "kopia";
   version = "0.19.0";
@@ -22,14 +21,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-E9wF3mBm6pLHKVMMz3gvcXzb1wQkosecrmEk8c+2gcU=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X github.com/kopia/kopia/repo.BuildVersion=${version}"
     "-X github.com/kopia/kopia/repo.BuildInfo=${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd kopia \
@@ -38,7 +37,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       kopia-version = testers.testVersion {
         package = kopia;
@@ -51,6 +50,6 @@ buildGoModule rec {
     description = "Cross-platform backup tool with fast, incremental backups, client-side end-to-end encryption, compression and data deduplication";
     mainProgram = "kopia";
     license = licenses.asl20;
-    maintainers = [ maintainers.bbigras ];
+    maintainers = [maintainers.bbigras];
   };
 }

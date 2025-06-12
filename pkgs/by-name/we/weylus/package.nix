@@ -22,7 +22,6 @@
   wayland,
   libxkbcommon,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "weylus";
   version = "unstable-2025-02-24";
@@ -76,16 +75,15 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-dLhlYOrLjoBSRGDJB0qTEIb+oGnp9X+ADHddpYITdl8=";
 
-  cargoBuildFlags = [ "--features=ffmpeg-system" ];
-  cargoTestFlags = [ "--features=ffmpeg-system" ];
+  cargoBuildFlags = ["--features=ffmpeg-system"];
+  cargoTestFlags = ["--features=ffmpeg-system"];
 
-  postFixup =
-    let
-      GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
-        gst_all_1.gst-plugins-base
-        pipewire
-      ];
-    in
+  postFixup = let
+    GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
+      gst_all_1.gst-plugins-base
+      pipewire
+    ];
+  in
     lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram $out/bin/weylus --prefix GST_PLUGIN_PATH : ${GST_PLUGIN_PATH}
     '';
@@ -104,7 +102,7 @@ rustPlatform.buildRustPackage {
     description = "Use your tablet as graphic tablet/touch screen on your computer";
     mainProgram = "weylus";
     homepage = "https://github.com/H-M-H/Weylus";
-    license = with licenses; [ agpl3Only ];
-    maintainers = with maintainers; [ lom ];
+    license = with licenses; [agpl3Only];
+    maintainers = with maintainers; [lom];
   };
 }

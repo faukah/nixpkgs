@@ -6,7 +6,6 @@
   qmake,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "qtfeedback";
   version = "unstable-2018-09-03";
@@ -32,7 +31,7 @@ mkDerivation {
     qtdeclarative
   ];
 
-  qmakeFlags = [ "CONFIG+=git_build" ];
+  qmakeFlags = ["CONFIG+=git_build"];
 
   doCheck = true;
 

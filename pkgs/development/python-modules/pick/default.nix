@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pick";
   version = "2.4.0";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-SnH37n0MCjO60IU6kUPxJkIC5vBCVGZXBhFfwvRI/tQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pick" ];
+  pythonImportsCheck = ["pick"];
 
   meta = with lib; {
     description = "Module to create curses-based interactive selection list in the terminal";
     homepage = "https://github.com/wong2/pick";
     changelog = "https://github.com/wong2/pick/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

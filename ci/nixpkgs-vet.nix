@@ -3,21 +3,18 @@
   nix,
   nixpkgs-vet,
   runCommand,
-}:
-{
+}: {
   base ? ../.,
   head ? ../.,
-}:
-let
-  filtered =
-    with lib.fileset;
+}: let
+  filtered = with lib.fileset;
     path:
-    toSource {
-      fileset = (gitTracked path);
-      root = path;
-    };
+      toSource {
+        fileset = gitTracked path;
+        root = path;
+      };
 in
-runCommand "nixpkgs-vet"
+  runCommand "nixpkgs-vet"
   {
     nativeBuildInputs = [
       nixpkgs-vet

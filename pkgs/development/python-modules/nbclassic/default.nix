@@ -14,7 +14,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nbclassic";
   version = "1.2.0";
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nbclassic" ];
+  pythonImportsCheck = ["nbclassic"];
 
   __darwinAllowLocalNetworking = true;
 
   meta = with lib; {
     description = "Jupyter lab environment notebook server extension";
     homepage = "https://github.com/jupyter/nbclassic";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
   };
 }

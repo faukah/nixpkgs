@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "netop";
   version = "0.1.4";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-Rnp2VNAi8BNbKqkGFoYUb4C5db5BS1P1cqpWlroTmdQ=";
   };
 
-  LIBPCAP_LIBDIR = lib.makeLibraryPath [ libpcap ];
+  LIBPCAP_LIBDIR = lib.makeLibraryPath [libpcap];
   LIBPCAP_VER = libpcap.version;
 
   useFetchCargoVendor = true;
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ZingerLittleBee/netop";
     license = lib.licenses.mit;
     mainProgram = "netop";
-    maintainers = [ lib.maintainers.marcusramberg ];
+    maintainers = [lib.maintainers.marcusramberg];
     platforms = lib.platforms.linux;
   };
 }

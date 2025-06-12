@@ -5,7 +5,6 @@
   openssh,
   rsync,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pssh";
   version = "2.3.4";
@@ -38,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     inherit (src.meta) homepage;
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ chris-martin ];
+    maintainers = with maintainers; [chris-martin];
   };
 }

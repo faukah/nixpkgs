@@ -5,7 +5,6 @@
   containers,
   qcheck,
 }:
-
 buildDunePackage rec {
   version = "0.5.1";
   pname = "oseq";
@@ -30,6 +29,6 @@ buildDunePackage rec {
     homepage = "https://c-cube.github.io/oseq/";
     description = "Purely functional iterators compatible with standard `seq`";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

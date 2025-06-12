@@ -5,7 +5,6 @@
   installShellFiles,
   pciutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "i810switch";
   version = "0.6.5";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1xSEDjsU4fqcQyxL4ARLfACNkE3s4NYRVUZVuXnK1MM=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     make clean
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Utility for switching between the LCD and external VGA display on Intel graphics cards";
     homepage = "http://www16.plala.or.jp/mano-a-mano/i810switch.html";
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     mainProgram = "i810switch";

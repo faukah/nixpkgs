@@ -5,7 +5,6 @@
   setuptools,
   xrootd,
 }:
-
 buildPythonPackage rec {
   pname = "xrootd";
   pyproject = true;
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ xrootd ];
+  buildInputs = [xrootd];
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "XRootD" ];
+  pythonImportsCheck = ["XRootD"];
 
   # Tests are only compatible with Python 2
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xrootd/xrootd";
     changelog = "https://github.com/xrootd/xrootd/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

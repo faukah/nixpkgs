@@ -11,7 +11,6 @@
   quixote,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "twill";
   version = "3.3";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-IprmAuqwzMwB6ryw0GsdRfeFK6ABP4nBM6VdlfgGNoQ=";
   };
 
-  pythonRelaxDeps = [ "lxml" ];
+  pythonRelaxDeps = ["lxml"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     "tests/test_tidy.py"
   ];
 
-  pythonImportsCheck = [ "twill" ];
+  pythonImportsCheck = ["twill"];
 
   meta = with lib; {
     description = "Simple scripting language for Web browsing";
     homepage = "https://twill-tools.github.io/twill/";
     changelog = "https://github.com/twill-tools/twill/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

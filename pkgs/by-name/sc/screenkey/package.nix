@@ -9,7 +9,6 @@
   slop,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "screenkey";
   version = "1.5";
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH ":" "${lib.makeBinPath [ slop ]}"
+      --prefix PATH ":" "${lib.makeBinPath [slop]}"
       "''${gappsWrapperArgs[@]}"
       )
   '';
@@ -64,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Screencast tool to display your keys inspired by Screenflick";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rasendubi ];
+    maintainers = [maintainers.rasendubi];
     mainProgram = "screenkey";
   };
 }

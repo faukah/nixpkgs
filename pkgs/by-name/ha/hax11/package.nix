@@ -7,7 +7,6 @@
   xorgproto,
   unstableGitUpdater,
 }:
-
 multiStdenv.mkDerivation (finalAttrs: {
   pname = "hax11";
   version = "0-unstable-2025-04-29";
@@ -41,14 +40,14 @@ multiStdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
     homepage = "https://github.com/CyberShadow/hax11";
     description = "Hackbrary to Hook and Augment X11 protocol calls";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ cybershadow ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [cybershadow];
     platforms = lib.platforms.linux;
   };
 })

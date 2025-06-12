@@ -6,7 +6,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libusbp";
   version = "1.3.1";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     platforms = platforms.all;
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 })

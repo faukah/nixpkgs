@@ -2,21 +2,17 @@
   lib,
   fetchFromGitLab,
   stdenv,
-
   flint3,
   gmp,
   libmpc,
   mpfr,
   notcurses,
-
   gsl,
   man,
   pkg-config,
-
   unstableGitUpdater,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "s7";
   version = "11.2-unstable-2024-12-19";
@@ -119,10 +115,10 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   /*
-    XXX: The upstream assumes that `$HOME` is `/home/$USER`, and the source files
-    lie in `$HOME/cl` . The script presented here uses a fake `$USER` and a
-    symbolic linked `$HOME/cl` , which make the test suite work but do not meet
-    the conditions completely.
+  XXX: The upstream assumes that `$HOME` is `/home/$USER`, and the source files
+  lie in `$HOME/cl` . The script presented here uses a fake `$USER` and a
+  symbolic linked `$HOME/cl` , which make the test suite work but do not meet
+  the conditions completely.
   */
   installCheckPhase = ''
     runHook preInstallCheck
@@ -175,7 +171,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://ccrma.stanford.edu/software/s7/";
     license = lib.licenses.bsd0;
-    maintainers = with lib.maintainers; [ rc-zb ];
+    maintainers = with lib.maintainers; [rc-zb];
     mainProgram = "s7";
     platforms = lib.platforms.linux;
   };

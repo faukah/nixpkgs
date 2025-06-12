@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nttcp";
   version = "1.47";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "New test TCP program";
     license = licenses.unfree;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 }

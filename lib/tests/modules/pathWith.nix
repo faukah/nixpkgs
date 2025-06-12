@@ -1,20 +1,20 @@
-{ lib, ... }:
-let
-  inherit (builtins)
+{lib, ...}: let
+  inherit
+    (builtins)
     storeDir
     ;
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkOption
     ;
-in
-{
+in {
   imports = [
     {
       options = {
-        pathInStore = mkOption { type = types.lazyAttrsOf (types.pathWith { inStore = true; }); };
-        pathNotInStore = mkOption { type = types.lazyAttrsOf (types.pathWith { inStore = false; }); };
-        anyPath = mkOption { type = types.lazyAttrsOf (types.pathWith { }); };
+        pathInStore = mkOption {type = types.lazyAttrsOf (types.pathWith {inStore = true;});};
+        pathNotInStore = mkOption {type = types.lazyAttrsOf (types.pathWith {inStore = false;});};
+        anyPath = mkOption {type = types.lazyAttrsOf (types.pathWith {});};
         absolutePathNotInStore = mkOption {
           type = types.lazyAttrsOf (
             types.pathWith {
@@ -25,7 +25,7 @@ in
         };
 
         # This conflicts with `conflictingPathOptionType` below.
-        conflictingPathOptionType = mkOption { type = types.pathWith { absolute = true; }; };
+        conflictingPathOptionType = mkOption {type = types.pathWith {absolute = true;};};
 
         # This doesn't make sense: the only way to have something be `inStore`
         # is to have an absolute path.
@@ -50,7 +50,7 @@ in
         };
 
         # This conflicts with `conflictingPathOptionType` above.
-        conflictingPathOptionType = mkOption { type = types.pathWith { absolute = false; }; };
+        conflictingPathOptionType = mkOption {type = types.pathWith {absolute = false;};};
       };
     }
   ];

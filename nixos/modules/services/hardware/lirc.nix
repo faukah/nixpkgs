@@ -3,17 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.lirc;
-in
-{
-
+in {
   ###### interface
 
   options = {
     services.lirc = {
-
       enable = lib.mkEnableOption "the LIRC daemon, to receive and send infrared signals";
 
       options = lib.mkOption {
@@ -32,7 +28,7 @@ in
 
       extraArguments = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Extra arguments to lircd.";
       };
     };
@@ -41,17 +37,16 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     # Note: LIRC executables raises a warning, if lirc_options.conf do not exists
     environment.etc."lirc/lirc_options.conf".text = cfg.options;
 
     passthru.lirc.socket = "/run/lirc/lircd";
 
-    environment.systemPackages = [ pkgs.lirc ];
+    environment.systemPackages = [pkgs.lirc];
 
     systemd.sockets.lircd = {
       description = "LIRC daemon socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = config.passthru.lirc.socket;
         SocketUser = "lirc";
@@ -59,43 +54,41 @@ in
       };
     };
 
-    systemd.services.lircd =
-      let
-        configFile = pkgs.writeText "lircd.conf" (builtins.concatStringsSep "\n" cfg.configs);
-      in
-      {
-        description = "LIRC daemon service";
-        after = [ "network.target" ];
+    systemd.services.lircd = let
+      configFile = pkgs.writeText "lircd.conf" (builtins.concatStringsSep "\n" cfg.configs);
+    in {
+      description = "LIRC daemon service";
+      after = ["network.target"];
 
-        unitConfig.Documentation = [ "man:lircd(8)" ];
+      unitConfig.Documentation = ["man:lircd(8)"];
 
-        serviceConfig = {
-          RuntimeDirectory = [
-            "lirc"
-            "lirc/lock"
-          ];
+      serviceConfig = {
+        RuntimeDirectory = [
+          "lirc"
+          "lirc/lock"
+        ];
 
-          # Service runtime directory and socket share same folder.
-          # Following hacks are necessary to get everything right:
+        # Service runtime directory and socket share same folder.
+        # Following hacks are necessary to get everything right:
 
-          # 1. prevent socket deletion during stop and restart
-          RuntimeDirectoryPreserve = true;
+        # 1. prevent socket deletion during stop and restart
+        RuntimeDirectoryPreserve = true;
 
-          # 2. fix runtime folder owner-ship, happens when socket activation
-          #    creates the folder
-          PermissionsStartOnly = true;
-          ExecStartPre = [
-            "${pkgs.coreutils}/bin/chown lirc /run/lirc/"
-          ];
+        # 2. fix runtime folder owner-ship, happens when socket activation
+        #    creates the folder
+        PermissionsStartOnly = true;
+        ExecStartPre = [
+          "${pkgs.coreutils}/bin/chown lirc /run/lirc/"
+        ];
 
-          ExecStart = ''
-            ${pkgs.lirc}/bin/lircd --nodaemon \
-              ${lib.escapeShellArgs cfg.extraArguments} \
-              ${configFile}
-          '';
-          User = "lirc";
-        };
+        ExecStart = ''
+          ${pkgs.lirc}/bin/lircd --nodaemon \
+            ${lib.escapeShellArgs cfg.extraArguments} \
+            ${configFile}
+        '';
+        User = "lirc";
       };
+    };
 
     users.users.lirc = {
       uid = config.ids.uids.lirc;

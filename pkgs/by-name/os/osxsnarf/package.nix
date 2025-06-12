@@ -5,7 +5,6 @@
   plan9port,
   ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "osxsnarf";
   version = "0.1.0";
@@ -20,13 +19,13 @@ stdenv.mkDerivation rec {
   buildInputs = [
     plan9port
   ];
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Plan 9-inspired way to share your OS X clipboard";
     homepage = "https://github.com/eraserhd/osxsnarf";
     license = licenses.unlicense;
     platforms = platforms.darwin;
-    maintainers = [ maintainers.eraserhd ];
+    maintainers = [maintainers.eraserhd];
   };
 }

@@ -10,7 +10,6 @@
   wrapt,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "debtcollector";
   version = "3.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     six
@@ -39,15 +38,15 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "debtcollector" ];
+  pythonImportsCheck = ["debtcollector"];
 
   meta = with lib; {
     description = "Collection of Python deprecation patterns and strategies that help you collect your technical debt in a non-destructive manner";
     homepage = "https://github.com/openstack/debtcollector";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "freshfetch";
   version = "0.2.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     description = "Fresh take on neofetch";
     homepage = "https://github.com/k4rakara/freshfetch";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "freshfetch";
   };
 }

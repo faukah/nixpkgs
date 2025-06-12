@@ -1,6 +1,5 @@
 {
   mkKdeDerivation,
-
   alsa-lib,
   libcanberra,
   libpulseaudio,

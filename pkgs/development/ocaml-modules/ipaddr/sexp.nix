@@ -5,7 +5,6 @@
   ounit2,
   ppx_sexp_conv,
 }:
-
 buildDunePackage {
   pname = "ipaddr-sexp";
 
@@ -13,7 +12,7 @@ buildDunePackage {
 
   duneVersion = "3";
 
-  propagatedBuildInputs = [ ipaddr ];
+  propagatedBuildInputs = [ipaddr];
 
   checkInputs = [
     ipaddr-cstruct
@@ -22,7 +21,9 @@ buildDunePackage {
   ];
   doCheck = true;
 
-  meta = ipaddr.meta // {
-    description = "Library for manipulation of IP address representations usnig sexp";
-  };
+  meta =
+    ipaddr.meta
+    // {
+      description = "Library for manipulation of IP address representations usnig sexp";
+    };
 }

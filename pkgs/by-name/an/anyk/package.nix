@@ -15,8 +15,7 @@
   makeDesktopItem,
   copyDesktopItems,
   python3,
-}:
-let
+}: let
   # Run update.py to update this file.
   inherit (lib.importJSON ./version.json) version url sha256;
 
@@ -29,7 +28,7 @@ let
   # ÁNYK needs JavaFX for the Ügyfélkapu login webview.
   jdkWithFX = openjdk.override {
     enableJavaFX = true;
-    openjfx_jdk = openjfx.override { withWebKit = true; };
+    openjfx_jdk = openjfx.override {withWebKit = true;};
   };
 
   extraClasspath = [
@@ -52,7 +51,7 @@ let
     })
 
     # Patch one of the ÁNYK classes so it works with the packages above by removing .internal. from the package names.
-    (runCommandLocal "anyk-patch" { } ''
+    (runCommandLocal "anyk-patch" {} ''
       mkdir $out
       cd $out
       ${unzip}/bin/unzip ${src}/application/abevjava.jar hu/piller/enykp/niszws/ClientStubBuilder.class
@@ -94,59 +93,59 @@ let
     exec ${jdkWithFX}/bin/java -Dswing.systemlaf=javax.swing.plaf.metal.MetalLookAndFeel $SCALING_PROP "$@"
   '';
 in
-stdenv.mkDerivation {
-  pname = "anyk";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "anyk";
+    inherit version src;
 
-  dontConfigure = true;
-  dontBuild = true;
+    dontConfigure = true;
+    dontBuild = true;
 
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+      copyDesktopItems
+    ];
 
-  desktopItems = [
-    (makeDesktopItem {
-      desktopName = "ÁNYK";
-      name = "anyk";
-      exec = "anyk";
-      icon = "anyk";
-      categories = [ "Office" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        desktopName = "ÁNYK";
+        name = "anyk";
+        exec = "anyk";
+        icon = "anyk";
+        categories = ["Office"];
+      })
+    ];
 
-  installPhase = ''
-    mkdir $out
-    cp -r application $out/opt
+    installPhase = ''
+      mkdir $out
+      cp -r application $out/opt
 
-    mkdir $out/bin
-    substituteAll ${anyk-java} $out/bin/anyk-java
-    chmod +x $out/bin/anyk-java
+      mkdir $out/bin
+      substituteAll ${anyk-java} $out/bin/anyk-java
+      chmod +x $out/bin/anyk-java
 
-    # ÁNYK has some old school dependencies that are no longer bundled with Java, put them on the classpath.
-    makeWrapper $out/bin/anyk-java $out/bin/anyk --add-flags "-cp ${lib.concatStringsSep ":" extraClasspath}:$out/opt/abevjava.jar hu.piller.enykp.gui.framework.MainFrame"
+      # ÁNYK has some old school dependencies that are no longer bundled with Java, put them on the classpath.
+      makeWrapper $out/bin/anyk-java $out/bin/anyk --add-flags "-cp ${lib.concatStringsSep ":" extraClasspath}:$out/opt/abevjava.jar hu.piller.enykp.gui.framework.MainFrame"
 
-    mkdir -p $out/share/applications $out/share/pixmaps $out/share/icons
+      mkdir -p $out/share/applications $out/share/pixmaps $out/share/icons
 
-    copyDesktopItems
+      copyDesktopItems
 
-    ln -s $out/opt/abevjava.png $out/share/pixmaps/anyk.png
-    ln -s $out/opt/abevjava.png $out/share/icons/anyk.png
-  '';
-
-  meta = with lib; {
-    description = "Tool for filling forms for the Hungarian government,";
-    longDescription = ''
-      Official tool for filling Hungarian government forms.
-
-      Use `anyk-java` to install form templates/help files like this: `anyk-java -jar NAV_IGAZOL.jar`
+      ln -s $out/opt/abevjava.png $out/share/pixmaps/anyk.png
+      ln -s $out/opt/abevjava.png $out/share/icons/anyk.png
     '';
-    homepage = "https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/javakitolto";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ chpatrick ];
-    platforms = openjdk.meta.platforms;
-    sourceProvenance = [ sourceTypes.binaryBytecode ];
-    mainProgram = "anyk";
-  };
-}
+
+    meta = with lib; {
+      description = "Tool for filling forms for the Hungarian government,";
+      longDescription = ''
+        Official tool for filling Hungarian government forms.
+
+        Use `anyk-java` to install form templates/help files like this: `anyk-java -jar NAV_IGAZOL.jar`
+      '';
+      homepage = "https://nav.gov.hu/nyomtatvanyok/letoltesek/nyomtatvanykitolto_programok/nyomtatvany_apeh/keretprogramok/javakitolto";
+      license = licenses.unfree;
+      maintainers = with maintainers; [chpatrick];
+      platforms = openjdk.meta.platforms;
+      sourceProvenance = [sourceTypes.binaryBytecode];
+      mainProgram = "anyk";
+    };
+  }

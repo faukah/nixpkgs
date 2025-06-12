@@ -8,7 +8,6 @@
   ffmpeg,
   git,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "codemov";
   version = "unstable-2023-08-08";
@@ -45,18 +44,18 @@ rustPlatform.buildRustPackage {
   postInstall = ''
     wrapProgram $out/bin/codemov \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          git
-        ]
-      }
+      lib.makeBinPath [
+        ffmpeg
+        git
+      ]
+    }
   '';
 
   meta = with lib; {
     description = "Create a video of how a git repository's code changes over time";
     homepage = "https://github.com/sloganking/codemov";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "codemov";
   };
 }

@@ -1,5 +1,4 @@
-{ callPackage, ... }@args:
-
+{callPackage, ...} @ args:
 callPackage ./generic.nix args {
   # Note: Please use the recommended version for Chromium stabe, i.e. from
   # <nixpkgs>/pkgs/applications/networking/browsers/chromium/upstream-info.nix

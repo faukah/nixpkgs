@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-nextest";
   version = "0.9.98";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     "cargo-nextest"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Next-generation test runner for Rust projects";

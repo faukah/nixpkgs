@@ -13,7 +13,6 @@
   writeShellScriptBin,
   zlib,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "meson";
   version = "1.7.2";
@@ -68,23 +67,22 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   postPatch =
-    if python3.isPyPy then
-      ''
-        substituteInPlace mesonbuild/modules/python.py \
-          --replace-fail "PythonExternalProgram('python3', mesonlib.python_command)" \
-                         "PythonExternalProgram('${python3.meta.mainProgram}', mesonlib.python_command)"
-        substituteInPlace mesonbuild/modules/python3.py \
-          --replace-fail "state.environment.lookup_binary_entry(mesonlib.MachineChoice.HOST, 'python3')" \
-                         "state.environment.lookup_binary_entry(mesonlib.MachineChoice.HOST, '${python3.meta.mainProgram}')"
-        substituteInPlace "test cases"/*/*/*.py "test cases"/*/*/*/*.py \
-          --replace-quiet '#!/usr/bin/env python3' '#!/usr/bin/env pypy3' \
-          --replace-quiet '#! /usr/bin/env python3' '#!/usr/bin/env pypy3'
-        chmod +x "test cases"/*/*/*.py "test cases"/*/*/*/*.py
-      ''
-    else
-      null;
+    if python3.isPyPy
+    then ''
+      substituteInPlace mesonbuild/modules/python.py \
+        --replace-fail "PythonExternalProgram('python3', mesonlib.python_command)" \
+                       "PythonExternalProgram('${python3.meta.mainProgram}', mesonlib.python_command)"
+      substituteInPlace mesonbuild/modules/python3.py \
+        --replace-fail "state.environment.lookup_binary_entry(mesonlib.MachineChoice.HOST, 'python3')" \
+                       "state.environment.lookup_binary_entry(mesonlib.MachineChoice.HOST, '${python3.meta.mainProgram}')"
+      substituteInPlace "test cases"/*/*/*.py "test cases"/*/*/*/*.py \
+        --replace-quiet '#!/usr/bin/env python3' '#!/usr/bin/env pypy3' \
+        --replace-quiet '#! /usr/bin/env python3' '#!/usr/bin/env pypy3'
+      chmod +x "test cases"/*/*/*.py "test cases"/*/*/*/*.py
+    ''
+    else null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs =
     [
@@ -146,8 +144,10 @@ python3.pkgs.buildPythonApplication rec {
     ))
     ++ [
       ''HOME="$TMPDIR" ${
-        if python3.isPyPy then python3.interpreter else "python"
-      } ./run_project_tests.py''
+          if python3.isPyPy
+          then python3.interpreter
+          else "python"
+        } ./run_project_tests.py''
       "runHook postCheck"
     ]
   );
@@ -189,8 +189,9 @@ python3.pkgs.buildPythonApplication rec {
       code.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ qyliss ];
+    maintainers = with lib.maintainers; [qyliss];
     inherit (python3.meta) platforms;
   };
 }
 # TODO: a more Nixpkgs-tailoired test suite
+

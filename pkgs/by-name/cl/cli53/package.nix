@@ -5,7 +5,6 @@
   testers,
   cli53,
 }:
-
 buildGoModule rec {
   pname = "cli53";
   version = "0.8.22";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "CLI tool for the Amazon Route 53 DNS service";
     homepage = "https://github.com/barnybug/cli53";
     license = licenses.mit;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
     mainProgram = "cli53";
   };
 }

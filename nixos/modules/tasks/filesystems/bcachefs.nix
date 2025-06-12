@@ -4,13 +4,12 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-
-  bootFs = lib.filterAttrs (
-    n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs)
-  ) config.fileSystems;
+}: let
+  bootFs =
+    lib.filterAttrs (
+      n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs)
+    )
+    config.fileSystems;
 
   commonFunctions = ''
     prompt() {
@@ -65,119 +64,107 @@ let
   # bcachefs does not support mounting devices with colons in the path, ergo we don't (see #49671)
   firstDevice = fs: lib.head (lib.splitString ":" fs.device);
 
-  useClevis =
-    fs:
+  useClevis = fs:
     config.boot.initrd.clevis.enable
     && (lib.hasAttr (firstDevice fs) config.boot.initrd.clevis.devices);
 
-  openCommand =
-    name: fs:
-    if useClevis fs then
-      ''
-        if clevis decrypt < /etc/clevis/${firstDevice fs}.jwe | bcachefs unlock ${firstDevice fs}
-        then
-          printf "unlocked ${name} using clevis\n"
-        else
-          printf "falling back to interactive unlocking...\n"
-          tryUnlock ${name} ${firstDevice fs}
-        fi
-      ''
-    else
-      ''
+  openCommand = name: fs:
+    if useClevis fs
+    then ''
+      if clevis decrypt < /etc/clevis/${firstDevice fs}.jwe | bcachefs unlock ${firstDevice fs}
+      then
+        printf "unlocked ${name} using clevis\n"
+      else
+        printf "falling back to interactive unlocking...\n"
         tryUnlock ${name} ${firstDevice fs}
-      '';
+      fi
+    ''
+    else ''
+      tryUnlock ${name} ${firstDevice fs}
+    '';
 
-  mkUnits =
-    prefix: name: fs:
-    let
-      mountUnit = "${utils.escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))}.mount";
-      device = firstDevice fs;
-      deviceUnit = "${utils.escapeSystemdPath device}.device";
-    in
-    {
-      name = "unlock-bcachefs-${utils.escapeSystemdPath fs.mountPoint}";
-      value = {
-        description = "Unlock bcachefs for ${fs.mountPoint}";
-        requiredBy = [ mountUnit ];
-        after = [ deviceUnit ];
-        before = [
-          mountUnit
-          "shutdown.target"
-        ];
-        bindsTo = [ deviceUnit ];
-        conflicts = [ "shutdown.target" ];
-        unitConfig.DefaultDependencies = false;
-        serviceConfig = {
-          Type = "oneshot";
-          ExecCondition = "${pkgs.bcachefs-tools}/bin/bcachefs unlock -c \"${device}\"";
-          Restart = "on-failure";
-          RestartMode = "direct";
-          # Ideally, this service would lock the key on stop.
-          # As is, RemainAfterExit doesn't accomplish anything.
-          RemainAfterExit = true;
-        };
-        script =
-          let
-            unlock = ''${pkgs.bcachefs-tools}/bin/bcachefs unlock "${device}"'';
-            unlockInteractively = ''${config.boot.initrd.systemd.package}/bin/systemd-ask-password --timeout=0 "enter passphrase for ${name}" | exec ${unlock}'';
-          in
-          if useClevis fs then
-            ''
-              if ${config.boot.initrd.clevis.package}/bin/clevis decrypt < "/etc/clevis/${device}.jwe" | ${unlock}
-              then
-                printf "unlocked ${name} using clevis\n"
-              else
-                printf "falling back to interactive unlocking...\n"
-                ${unlockInteractively}
-              fi
-            ''
-          else
-            ''
-              ${unlockInteractively}
-            '';
+  mkUnits = prefix: name: fs: let
+    mountUnit = "${utils.escapeSystemdPath (prefix + (lib.removeSuffix "/" fs.mountPoint))}.mount";
+    device = firstDevice fs;
+    deviceUnit = "${utils.escapeSystemdPath device}.device";
+  in {
+    name = "unlock-bcachefs-${utils.escapeSystemdPath fs.mountPoint}";
+    value = {
+      description = "Unlock bcachefs for ${fs.mountPoint}";
+      requiredBy = [mountUnit];
+      after = [deviceUnit];
+      before = [
+        mountUnit
+        "shutdown.target"
+      ];
+      bindsTo = [deviceUnit];
+      conflicts = ["shutdown.target"];
+      unitConfig.DefaultDependencies = false;
+      serviceConfig = {
+        Type = "oneshot";
+        ExecCondition = "${pkgs.bcachefs-tools}/bin/bcachefs unlock -c \"${device}\"";
+        Restart = "on-failure";
+        RestartMode = "direct";
+        # Ideally, this service would lock the key on stop.
+        # As is, RemainAfterExit doesn't accomplish anything.
+        RemainAfterExit = true;
       };
+      script = let
+        unlock = ''${pkgs.bcachefs-tools}/bin/bcachefs unlock "${device}"'';
+        unlockInteractively = ''${config.boot.initrd.systemd.package}/bin/systemd-ask-password --timeout=0 "enter passphrase for ${name}" | exec ${unlock}'';
+      in
+        if useClevis fs
+        then ''
+          if ${config.boot.initrd.clevis.package}/bin/clevis decrypt < "/etc/clevis/${device}.jwe" | ${unlock}
+          then
+            printf "unlocked ${name} using clevis\n"
+          else
+            printf "falling back to interactive unlocking...\n"
+            ${unlockInteractively}
+          fi
+        ''
+        else ''
+          ${unlockInteractively}
+        '';
     };
+  };
 
   assertions = [
     {
-      assertion =
-        let
-          kernel = config.boot.kernelPackages.kernel;
-        in
-        (
-          kernel.kernelAtLeast "6.7"
-          || (lib.elem (kernel.structuredExtraConfig.BCACHEFS_FS or null) [
-            lib.kernel.module
-            lib.kernel.yes
-            (lib.kernel.option lib.kernel.yes)
-          ])
-        );
+      assertion = let
+        kernel = config.boot.kernelPackages.kernel;
+      in (
+        kernel.kernelAtLeast "6.7"
+        || (lib.elem (kernel.structuredExtraConfig.BCACHEFS_FS or null) [
+          lib.kernel.module
+          lib.kernel.yes
+          (lib.kernel.option lib.kernel.yes)
+        ])
+      );
 
       message = "Linux 6.7-rc1 at minimum or a custom linux kernel with bcachefs support is required";
     }
   ];
-in
-
-{
+in {
   config = lib.mkIf (config.boot.supportedFilesystems.bcachefs or false) (
     lib.mkMerge [
       {
         inherit assertions;
         # needed for systemd-remount-fs
-        system.fsPackages = [ pkgs.bcachefs-tools ];
+        system.fsPackages = [pkgs.bcachefs-tools];
         # FIXME: Remove this line when the LTS (default) kernel is at least version 6.7
         boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-        services.udev.packages = [ pkgs.bcachefs-tools ];
+        services.udev.packages = [pkgs.bcachefs-tools];
 
         systemd = {
-          packages = [ pkgs.bcachefs-tools ];
+          packages = [pkgs.bcachefs-tools];
           services = lib.mapAttrs' (mkUnits "") (
             lib.filterAttrs (n: fs: (fs.fsType == "bcachefs") && (!utils.fsNeededForBoot fs)) config.fileSystems
           );
         };
       }
 
-      (lib.mkIf ((config.boot.initrd.supportedFilesystems.bcachefs or false) || (bootFs != { })) {
+      (lib.mkIf ((config.boot.initrd.supportedFilesystems.bcachefs or false) || (bootFs != {})) {
         inherit assertions;
         # chacha20 and poly1305 are required only for decryption attempts
         boot.initrd.availableKernelModules = [

@@ -16,7 +16,6 @@
   useBoehmgc ? true,
   boehmgc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ecl";
   version = "16.1.2";
@@ -44,13 +43,19 @@ stdenv.mkDerivation rec {
       boehmgc
     ];
 
-  configureFlags = [
-    (if threadSupport then "--enable-threads" else "--disable-threads")
-    "--with-gmp-incdir=${lib.getDev gmp}/include"
-    "--with-gmp-libdir=${lib.getLib gmp}/lib"
-    # -incdir, -libdir doesn't seem to be supported for libffi
-    "--with-libffi-prefix=${lib.getDev libffi}"
-  ] ++ lib.optional (!noUnicode) "--enable-unicode";
+  configureFlags =
+    [
+      (
+        if threadSupport
+        then "--enable-threads"
+        else "--disable-threads"
+      )
+      "--with-gmp-incdir=${lib.getDev gmp}/include"
+      "--with-gmp-libdir=${lib.getLib gmp}/lib"
+      # -incdir, -libdir doesn't seem to be supported for libffi
+      "--with-libffi-prefix=${lib.getDev libffi}"
+    ]
+    ++ lib.optional (!noUnicode) "--enable-unicode";
 
   patches = [
     (fetchpatch {
@@ -70,18 +75,18 @@ stdenv.mkDerivation rec {
     ./ecl-1.16.2-libffi-3.3-abi.patch
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall =
     ''
       sed -e 's/@[-a-zA-Z_]*@//g' -i $out/bin/ecl-config
       wrapProgram "$out/bin/ecl" \
         --prefix PATH ':' "${
-          lib.makeBinPath [
-            gcc # for the C compiler
-            gcc.bintools.bintools # for ar
-          ]
-        }" \
+        lib.makeBinPath [
+          gcc # for the C compiler
+          gcc.bintools.bintools # for ar
+        ]
+      }" \
     ''
     # ecl 16.1.2 is too old to have -libdir for libffi and boehmgc, so we need to
     # use NIX_LDFLAGS_BEFORE to make gcc find these particular libraries.
@@ -100,7 +105,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lisp implementation aiming to be small, fast and easy to embed";
     license = licenses.mit;
-    teams = [ lib.teams.lisp ];
+    teams = [lib.teams.lisp];
     platforms = platforms.unix;
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;

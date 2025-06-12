@@ -4,7 +4,6 @@
   fetchurl,
   mdx,
 }:
-
 buildDunePackage rec {
   pname = "colors";
   version = "0.0.1";
@@ -31,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/leostera/colors";
     changelog = "https://github.com/leostera/colors/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

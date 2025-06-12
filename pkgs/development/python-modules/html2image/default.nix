@@ -6,7 +6,6 @@
   requests,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "html2image";
   version = "2.0.5";
@@ -25,20 +24,20 @@ buildPythonPackage rec {
     --replace-fail "poetry>=" "poetry-core>="
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     requests
     websocket-client
   ];
 
-  pythonImportsCheck = [ "html2image" ];
+  pythonImportsCheck = ["html2image"];
 
   meta = with lib; {
     description = "Package acting as a wrapper around the headless mode of existing web browsers to generate images from URLs and from HTML+CSS strings or files";
     homepage = "https://github.com/vgalin/html2image";
     changelog = "https://github.com/vgalin/html2image/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

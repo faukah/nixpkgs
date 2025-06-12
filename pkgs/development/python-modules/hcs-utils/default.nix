@@ -8,7 +8,6 @@
   poetry-core,
   fetchFromGitLab,
 }:
-
 buildPythonPackage {
   pname = "hcs-utils";
   version = "2.1.0";
@@ -37,12 +36,12 @@ buildPythonPackage {
     "test_blocking" # flaky, depends on comparing running time w/ magic value
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Library collecting some useful snippets";
     homepage = "https://gitlab.com/hcs/hcs_utils";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
   };
 }

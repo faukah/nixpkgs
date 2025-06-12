@@ -23,7 +23,6 @@
   distutils,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "cassandra-driver";
   version = "3.29.2";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-RX9GLk2admzRasmP7LCwIfsJIt8TC/9rWhIcoTqS0qc=";
   };
 
-  pythonRelaxDeps = [ "geomet" ];
+  pythonRelaxDeps = ["geomet"];
 
   build-system = [
     distutils
@@ -44,19 +43,21 @@ buildPythonPackage rec {
     cython
   ];
 
-  buildInputs = [ libev ];
+  buildInputs = [libev];
 
   dependencies = [
     six
     geomet
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytz
-    pyyaml
-    sure
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytz
+      pyyaml
+      sure
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # This is used to determine the version of cython that can be used
   CASS_DRIVER_ALLOWED_CYTHON_VERSION = cython.version;
@@ -81,13 +82,13 @@ buildPythonPackage rec {
       mv cassandra .cassandra.hidden
     '';
 
-  pythonImportsCheck = [ "cassandra" ];
+  pythonImportsCheck = ["cassandra"];
 
   postCheck = ''
     unset NIX_REDIRECTS LD_PRELOAD
   '';
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTestPaths = [
     # requires puresasl
@@ -106,12 +107,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cle = [ cryptography ];
-    eventlet = [ eventlet ];
-    gevent = [ gevent ];
-    graph = [ gremlinpython ];
-    metrics = [ scales ];
-    twisted = [ twisted ];
+    cle = [cryptography];
+    eventlet = [eventlet];
+    gevent = [gevent];
+    graph = [gremlinpython];
+    metrics = [scales];
+    twisted = [twisted];
   };
 
   meta = {
@@ -121,6 +122,6 @@ buildPythonPackage rec {
     homepage = "http://datastax.github.io/python-driver";
     changelog = "https://github.com/datastax/python-driver/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ris ];
+    maintainers = with lib.maintainers; [ris];
   };
 }

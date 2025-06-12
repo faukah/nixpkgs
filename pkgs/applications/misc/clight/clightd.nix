@@ -27,7 +27,6 @@
   enableScreen ? true,
   enableYoctolight ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clightd";
   version = "5.9";
@@ -87,9 +86,9 @@ stdenv.mkDerivation rec {
       util-linux
       libpthreadstubs
     ]
-    ++ lib.optionals enableDdc [ ddcutil ]
-    ++ lib.optionals enableDpms [ libXext ]
-    ++ lib.optionals enableGamma [ libXrandr ]
+    ++ lib.optionals enableDdc [ddcutil]
+    ++ lib.optionals enableDpms [libXext]
+    ++ lib.optionals enableGamma [libXrandr]
     ++ lib.optionals (enableDpms || enableGamma || enableScreen) [
       libdrm
       wayland

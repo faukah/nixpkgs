@@ -4,17 +4,16 @@
   makeWrapper,
   curl,
 }:
-
 bundlerApp {
   pname = "wpscan";
   gemdir = ./.;
-  exes = [ "wpscan" ];
+  exes = ["wpscan"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram "$out/bin/wpscan" \
-      --prefix PATH : ${lib.makeBinPath [ curl ]}
+      --prefix PATH : ${lib.makeBinPath [curl]}
   '';
 
   passthru.updateScript = ./update.sh;

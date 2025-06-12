@@ -1,23 +1,24 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "specialisations";
   meta = {
     inherit (pkgs.limine.meta) maintainers;
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      virtualisation.useBootLoader = true;
-      virtualisation.useEFIBoot = true;
+  nodes.machine = {...}: {
+    virtualisation.useBootLoader = true;
+    virtualisation.useEFIBoot = true;
 
-      specialisation.test = { };
+    specialisation.test = {};
 
-      boot.loader.efi.canTouchEfiVariables = true;
-      boot.loader.limine.enable = true;
-      boot.loader.limine.efiSupport = true;
-      boot.loader.timeout = 0;
-    };
+    boot.loader.efi.canTouchEfiVariables = true;
+    boot.loader.limine.enable = true;
+    boot.loader.limine.efiSupport = true;
+    boot.loader.timeout = 0;
+  };
 
   testScript = ''
     machine.start()

@@ -5,7 +5,6 @@
   buildPackages,
   shell_cmds,
 }:
-
 mkAppleDerivation {
   releaseName = "developer_cmds";
 

@@ -6,7 +6,6 @@
   bison,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "bioawk";
   version = "unstable-2017-09-11";
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
     mainProgram = "bioawk";
     homepage = "https://github.com/lh3/bioawk";
     license = licenses.hpnd;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 }

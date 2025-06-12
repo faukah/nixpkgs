@@ -11,7 +11,6 @@
   libxslt,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "telepathy-idle";
   version = "0.2.2";

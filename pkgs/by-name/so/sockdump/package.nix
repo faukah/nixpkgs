@@ -4,7 +4,6 @@
   python3,
   bcc,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sockdump";
   version = "unstable-2023-12-11";
@@ -16,19 +15,21 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-FLK1rgWvIoFGv/6+DtDhZGeOZrn7V1jYNS3S8qwL/dc=";
   };
 
-  propagatedBuildInputs = [ bcc ];
+  propagatedBuildInputs = [bcc];
 
   format = "other"; # none
 
   installPhase = "install -D sockdump.py $out/bin/sockdump";
 
-  meta = src.meta // {
-    description = "Dump unix domain socket traffic with bpf";
-    mainProgram = "sockdump";
-    license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [
-      ehmry
-      picnoir
-    ];
-  };
+  meta =
+    src.meta
+    // {
+      description = "Dump unix domain socket traffic with bpf";
+      mainProgram = "sockdump";
+      license = lib.licenses.unlicense;
+      maintainers = with lib.maintainers; [
+        ehmry
+        picnoir
+      ];
+    };
 }

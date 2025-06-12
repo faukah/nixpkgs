@@ -4,7 +4,6 @@
   lwt,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "lwt_ppx";
   inherit (lwt) version src;

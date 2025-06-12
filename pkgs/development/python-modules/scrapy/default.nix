@@ -33,7 +33,6 @@
   w3lib,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "scrapy";
   version = "2.12.0";
@@ -135,7 +134,7 @@ buildPythonPackage rec {
       --bash extras/scrapy_bash_completion
   '';
 
-  pythonImportsCheck = [ "scrapy" ];
+  pythonImportsCheck = ["scrapy"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -150,6 +149,6 @@ buildPythonPackage rec {
     homepage = "https://scrapy.org/";
     changelog = "https://github.com/scrapy/scrapy/raw/${src.tag}/docs/news.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vinnymeller ];
+    maintainers = with maintainers; [vinnymeller];
   };
 }

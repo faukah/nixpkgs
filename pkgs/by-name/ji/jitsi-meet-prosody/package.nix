@@ -5,7 +5,6 @@
   dpkg,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jitsi-meet-prosody";
   version = "1.0.8542";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "dVqKnDq8rNmLbhMUvDGAT2pKLPZjW4ZXUwvz1wxM2Rs=";
   };
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   dontBuild = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/jitsi/jitsi-meet/";
     license = licenses.asl20;
-    teams = [ teams.jitsi ];
+    teams = [teams.jitsi];
     platforms = platforms.linux;
   };
 }

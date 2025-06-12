@@ -3,7 +3,6 @@
   python3,
   fetchFromGitLab,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "marge-bot";
   version = "0.10.1";
@@ -52,14 +51,14 @@ python3.pkgs.buildPythonApplication rec {
     "tests/test_interval.py"
   ];
 
-  pythonImportsCheck = [ "marge" ];
+  pythonImportsCheck = ["marge"];
 
   meta = with lib; {
     description = "Merge bot for GitLab";
     homepage = "https://gitlab.com/marge-org/marge-bot";
     changelog = "https://gitlab.com/marge-org/marge-bot/-/blob/${src.rev}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     mainProgram = "marge.app";
   };
 }

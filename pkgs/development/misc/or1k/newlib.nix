@@ -4,7 +4,6 @@
   stdenvNoLibc,
   buildPackages,
 }:
-
 stdenvNoLibc.mkDerivation {
   name = "newlib";
   src = fetchFromGitHub {
@@ -14,7 +13,7 @@ stdenvNoLibc.mkDerivation {
     sha256 = "0hzhijmry5slpp6x12pgng8v7jil3mn18ahrhnw431lqrs1cma0s";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   # newlib expects CC to build for build platform, not host platform
   preConfigure = ''

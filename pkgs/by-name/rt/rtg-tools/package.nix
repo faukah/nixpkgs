@@ -10,7 +10,6 @@
   gawk,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rtg-tools";
   version = "3.13";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/RealTimeGenomics/rtg-tools";
     description = "Useful utilities for dealing with VCF files and sequence data, especially vcfeval";
     license = licenses.bsd2;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ apraga ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [apraga];
   };
 }

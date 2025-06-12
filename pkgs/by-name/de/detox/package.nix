@@ -9,7 +9,6 @@
   libtool,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "detox";
   version = "2.0.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://github.com/dharple/detox";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "detox";
   };
 })

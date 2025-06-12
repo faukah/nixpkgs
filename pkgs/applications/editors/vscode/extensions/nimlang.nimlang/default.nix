@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "nimlang";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=nimlang.nimlang";
     homepage = "https://github.com/nim-lang/vscode-nim";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

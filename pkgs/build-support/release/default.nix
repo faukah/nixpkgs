@@ -1,9 +1,11 @@
-{ lib, pkgs }:
-
-let
+{
+  lib,
+  pkgs,
+}: let
   inherit (lib) optionalString;
 
-  inherit (pkgs)
+  inherit
+    (pkgs)
     autoconf
     automake
     checkinstall
@@ -18,12 +20,8 @@ let
     vmTools
     xz
     ;
-in
-
-rec {
-
-  sourceTarball =
-    args:
+in rec {
+  sourceTarball = args:
     import ./source-tarball.nix (
       {
         inherit
@@ -39,8 +37,7 @@ rec {
 
   makeSourceTarball = sourceTarball; # compatibility
 
-  binaryTarball =
-    args:
+  binaryTarball = args:
     import ./binary-tarball.nix (
       {
         inherit lib stdenv;
@@ -48,8 +45,7 @@ rec {
       // args
     );
 
-  mvnBuild =
-    args:
+  mvnBuild = args:
     import ./maven-build.nix (
       {
         inherit lib stdenv;
@@ -57,8 +53,7 @@ rec {
       // args
     );
 
-  nixBuild =
-    args:
+  nixBuild = args:
     import ./nix-build.nix (
       {
         inherit lib stdenv;
@@ -66,8 +61,7 @@ rec {
       // args
     );
 
-  coverageAnalysis =
-    args:
+  coverageAnalysis = args:
     nixBuild (
       {
         inherit lcov enableGCOVInstrumentation makeGCOVReport;
@@ -76,8 +70,7 @@ rec {
       // args
     );
 
-  clangAnalysis =
-    args:
+  clangAnalysis = args:
     nixBuild (
       {
         inherit clang-analyzer;
@@ -86,8 +79,7 @@ rec {
       // args
     );
 
-  coverityAnalysis =
-    args:
+  coverityAnalysis = args:
     nixBuild (
       {
         inherit cov-build xz;
@@ -96,8 +88,7 @@ rec {
       // args
     );
 
-  rpmBuild =
-    args:
+  rpmBuild = args:
     import ./rpm-build.nix (
       {
         inherit lib vmTools;
@@ -105,8 +96,7 @@ rec {
       // args
     );
 
-  debBuild =
-    args:
+  debBuild = args:
     import ./debian-build.nix (
       {
         inherit
@@ -119,57 +109,55 @@ rec {
       // args
     );
 
-  aggregate =
-    {
-      name,
-      constituents,
-      meta ? { },
-    }:
+  aggregate = {
+    name,
+    constituents,
+    meta ? {},
+  }:
     pkgs.runCommand name
-      {
-        inherit constituents meta;
-        preferLocalBuild = true;
-        _hydraAggregate = true;
-      }
-      ''
-        mkdir -p $out/nix-support
-        touch $out/nix-support/hydra-build-products
-        echo $constituents > $out/nix-support/hydra-aggregate-constituents
+    {
+      inherit constituents meta;
+      preferLocalBuild = true;
+      _hydraAggregate = true;
+    }
+    ''
+      mkdir -p $out/nix-support
+      touch $out/nix-support/hydra-build-products
+      echo $constituents > $out/nix-support/hydra-aggregate-constituents
 
-        # Propagate build failures.
-        for i in $constituents; do
-          if [ -e $i/nix-support/failed ]; then
-            touch $out/nix-support/failed
-          fi
-        done
-      '';
+      # Propagate build failures.
+      for i in $constituents; do
+        if [ -e $i/nix-support/failed ]; then
+          touch $out/nix-support/failed
+        fi
+      done
+    '';
 
   /*
-    Create a channel job which success depends on the success of all of
-    its contituents. Channel jobs are a special type of jobs that are
-    listed in the channel tab of Hydra and that can be subscribed.
-    A tarball of the src attribute is distributed via the channel.
+  Create a channel job which success depends on the success of all of
+  its contituents. Channel jobs are a special type of jobs that are
+  listed in the channel tab of Hydra and that can be subscribed.
+  A tarball of the src attribute is distributed via the channel.
 
-    - constituents: a list of derivations on which the channel success depends.
-    - name: the channel name that will be used in the hydra interface.
-    - src: should point to the root folder of the nix-expressions used by the
-           channel, typically a folder containing a `default.nix`.
+  - constituents: a list of derivations on which the channel success depends.
+  - name: the channel name that will be used in the hydra interface.
+  - src: should point to the root folder of the nix-expressions used by the
+         channel, typically a folder containing a `default.nix`.
 
-      channel {
-        constituents = [ foo bar baz ];
-        name = "my-channel";
-        src = ./.;
-      };
+    channel {
+      constituents = [ foo bar baz ];
+      name = "my-channel";
+      src = ./.;
+    };
   */
-  channel =
-    {
-      name,
-      src,
-      constituents ? [ ],
-      meta ? { },
-      isNixOS ? true,
-      ...
-    }@args:
+  channel = {
+    name,
+    src,
+    constituents ? [],
+    meta ? {},
+    isNixOS ? true,
+    ...
+  } @ args:
     stdenv.mkDerivation (
       {
         preferLocalBuild = true;
@@ -200,11 +188,12 @@ rec {
           done
         '';
 
-        meta = meta // {
-          isHydraChannel = true;
-        };
+        meta =
+          meta
+          // {
+            isHydraChannel = true;
+          };
       }
-      // removeAttrs args [ "meta" ]
+      // removeAttrs args ["meta"]
     );
-
 }

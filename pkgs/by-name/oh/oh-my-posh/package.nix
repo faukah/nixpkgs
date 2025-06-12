@@ -43,7 +43,7 @@ buildGoModule rec {
     cp -r $src/themes $out/share/oh-my-posh/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Prompt theme engine for any shell";

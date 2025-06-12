@@ -13,7 +13,6 @@
   python3,
   rinutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freecell-solver";
   version = "6.12.0";
@@ -49,19 +48,19 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ (
       with perl.pkgs;
-      TaskFreecellSolverTesting.buildInputs
-      ++ [
-        GamesSolitaireVerify
-        HTMLTemplate
-        Moo
-        PathTiny
-        StringShellQuote
-        TaskFreecellSolverTesting
-        TemplateToolkit
-        TextTemplate
-      ]
+        TaskFreecellSolverTesting.buildInputs
+        ++ [
+          GamesSolitaireVerify
+          HTMLTemplate
+          Moo
+          PathTiny
+          StringShellQuote
+          TaskFreecellSolverTesting
+          TemplateToolkit
+          TextTemplate
+        ]
     )
-    ++ [ python3.pkgs.wrapPython ]
+    ++ [python3.pkgs.wrapPython]
     ++ finalAttrs.pythonPath;
 
   buildInputs = [
@@ -91,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.mit;
     mainProgram = "fc-solve";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

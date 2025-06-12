@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioairzone";
   version = "1.0.0";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-/ZzswdGGA4IGc7djTuSIzLtBLA9oRhJBQHMBUlPci7o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioairzone" ];
+  pythonImportsCheck = ["aioairzone"];
 
   meta = with lib; {
     description = "Module to control AirZone devices";
     homepage = "https://github.com/Noltari/aioairzone";
     changelog = "https://github.com/Noltari/aioairzone/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

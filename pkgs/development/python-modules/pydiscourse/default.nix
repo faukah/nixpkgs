@@ -8,7 +8,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "pydiscourse";
   version = "1.7.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-KqJ6ag4owG7US5Q4Ygjq263ds1o/JhEJ3bNa8YecYtE=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytest-mock
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pydiscourse" ];
+  pythonImportsCheck = ["pydiscourse"];
 
   meta = with lib; {
     description = "Python library for working with Discourse";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pydiscourse/pydiscourse";
     changelog = "https://github.com/pydiscourse/pydiscourse/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ Dettorer ];
+    maintainers = with maintainers; [Dettorer];
   };
 }

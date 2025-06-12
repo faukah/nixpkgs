@@ -6,7 +6,6 @@
   wxGTK32,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wxsqlite3";
   version = "4.10.7";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://utelle.github.io/wxsqlite3/";
     description = "C++ wrapper around the public domain SQLite 3.x for wxWidgets";
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     license = with licenses; [
       lgpl3Plus
       gpl3Plus

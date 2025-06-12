@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rundeck-cli";
   version = "2.0.8";
@@ -18,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mpy4oS7zCUdt4Q+KQPrGGbw6Gzmh1Msygl+NXDmFhDw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jdk11 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jdk11];
 
   dontUnpack = true;
 
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -56,10 +55,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/rundeck/rundeck-cli";
     changelog = "https://github.com/rundeck/rundeck-cli/blob/v${finalAttrs.version}/docs/changes.md";
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "rd";
   };
 })

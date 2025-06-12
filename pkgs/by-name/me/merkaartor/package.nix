@@ -17,7 +17,6 @@
   withZbar ? false,
   zbar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "merkaartor";
   version = "0.20.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://merkaartor.be/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "merkaartor";
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

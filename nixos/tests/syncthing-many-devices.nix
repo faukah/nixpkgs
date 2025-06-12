@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-
+{
+  lib,
+  pkgs,
+  ...
+}:
 # This nixosTest is supposed to check the following:
 #
 # - Whether syncthing's API handles multiple requests for many devices, see
@@ -10,7 +13,6 @@
 #   injected into the script. See also:
 #   https://github.com/NixOS/nixpkgs/issues/259256
 #
-
 let
   # Just a long path not to copy paste
   configPath = "/var/lib/syncthing/.config/syncthing/config.xml";
@@ -61,53 +63,54 @@ let
     };
   };
   # Used later when checking whether settings were set in config.xml:
-  checkSettingWithId =
-    {
-      t, # t for type
-      id,
-      not ? false,
-    }:
-    ''
-      print("Searching for a ${t} with id ${id}")
-      configVal_${t} = machine.succeed(
-          "${pkgs.libxml2}/bin/xmllint "
-          "--xpath 'string(//${t}[@id=\"${id}\"]/@id)' ${configPath}"
-      )
-      print("${t}.id = {}".format(configVal_${t}))
-      assert "${id}" ${if not then "not" else ""} in configVal_${t}
-    '';
+  checkSettingWithId = {
+    t, # t for type
+    id,
+    not ? false,
+  }: ''
+    print("Searching for a ${t} with id ${id}")
+    configVal_${t} = machine.succeed(
+        "${pkgs.libxml2}/bin/xmllint "
+        "--xpath 'string(//${t}[@id=\"${id}\"]/@id)' ${configPath}"
+    )
+    print("${t}.id = {}".format(configVal_${t}))
+    assert "${id}" ${
+      if not
+      then "not"
+      else ""
+    } in configVal_${t}
+  '';
   # Same as checkSettingWithId, but for 'options' and 'gui'
-  checkSettingWithoutId =
-    {
-      t, # t for type
-      n, # n for name
-      v, # v for value
-      not ? false,
-    }:
-    ''
-      print("checking whether setting ${t}.${n} is set to ${v}")
-      configVal_${t}_${n} = machine.succeed(
-          "${pkgs.libxml2}/bin/xmllint "
-          "--xpath 'string(/configuration/${t}/${n})' ${configPath}"
-      )
-      print("${t}.${n} = {}".format(configVal_${t}_${n}))
-      assert "${v}" ${if not then "not" else ""} in configVal_${t}_${n}
-    '';
+  checkSettingWithoutId = {
+    t, # t for type
+    n, # n for name
+    v, # v for value
+    not ? false,
+  }: ''
+    print("checking whether setting ${t}.${n} is set to ${v}")
+    configVal_${t}_${n} = machine.succeed(
+        "${pkgs.libxml2}/bin/xmllint "
+        "--xpath 'string(/configuration/${t}/${n})' ${configPath}"
+    )
+    print("${t}.${n} = {}".format(configVal_${t}_${n}))
+    assert "${v}" ${
+      if not
+      then "not"
+      else ""
+    } in configVal_${t}_${n}
+  '';
   # Removes duplication a bit to define this function for the IDs to delete -
   # we check whether they were added after our script ran, and before the
   # systemd unit's bash script ran, and afterwards - whether the systemd unit
   # worked.
-  checkSettingsToDelete =
-    {
-      not,
-    }:
+  checkSettingsToDelete = {not}:
     lib.pipe IDsToDelete [
       (lib.mapAttrsToList (
         t: id:
-        checkSettingWithId {
-          inherit t id;
-          inherit not;
-        }
+          checkSettingWithId {
+            inherit t id;
+            inherit not;
+          }
       ))
       lib.concatStrings
     ];
@@ -141,15 +144,14 @@ let
             --retry 1000 --retry-delay 1 --retry-all-errors \
             "$@"
     }
-    curl -d ${lib.escapeShellArg (builtins.toJSON { deviceID = IDsToDelete.device; })} \
+    curl -d ${lib.escapeShellArg (builtins.toJSON {deviceID = IDsToDelete.device;})} \
         -X POST 127.0.0.1:8384/rest/config/devices
-    curl -d ${lib.escapeShellArg (builtins.toJSON { id = IDsToDelete.folder; })} \
+    curl -d ${lib.escapeShellArg (builtins.toJSON {id = IDsToDelete.folder;})} \
         -X POST 127.0.0.1:8384/rest/config/folders
   '';
-in
-{
+in {
   name = "syncthing-many-devices";
-  meta.maintainers = with lib.maintainers; [ doronbehar ];
+  meta.maintainers = with lib.maintainers; [doronbehar];
 
   nodes.machine = {
     services.syncthing = {
@@ -167,11 +169,11 @@ in
       # Check that folders and devices were added properly and that all IDs exist
       (lib.mapAttrsRecursive (
         path: id:
-        checkSettingWithId {
-          # plural -> solitary
-          t = (lib.removeSuffix "s" (builtins.elemAt path 0));
-          inherit id;
-        }
+          checkSettingWithId {
+            # plural -> solitary
+            t = lib.removeSuffix "s" (builtins.elemAt path 0);
+            inherit id;
+          }
       ))
       # Get all the values we applied the above function upon
       (lib.collect builtins.isString)
@@ -182,11 +184,11 @@ in
       # values
       (lib.mapAttrsRecursive (
         path: value:
-        checkSettingWithoutId {
-          t = (builtins.elemAt path 0);
-          n = (builtins.elemAt path 1);
-          v = (builtins.toString value);
-        }
+          checkSettingWithoutId {
+            t = builtins.elemAt path 0;
+            n = builtins.elemAt path 1;
+            v = builtins.toString value;
+          }
       ))
       # Get all the values we applied the above function upon
       (lib.collect builtins.isString)

@@ -8,8 +8,7 @@
   ffmpeg,
   imagemagick,
   makeWrapper,
-}:
-let
+}: let
   izzy = rustPlatform.buildRustPackage rec {
     pname = "izzy";
     version = "2.0.1";
@@ -31,81 +30,81 @@ let
       description = "Rust In-Memory K-V Store with Redis-Style File Persistence and Secondary Indices";
       homepage = "https://gitlab.com/porn-vault/izzy";
       license = lib.licenses.gpl3Plus;
-      maintainers = [ lib.maintainers.luNeder ];
+      maintainers = [lib.maintainers.luNeder];
       mainProgram = "izzy";
     };
   };
   pnpm = pnpm_9;
   nodejs = nodejs_22;
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "porn-vault";
-  version = "0.30.0-rc.11";
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "porn-vault";
+    version = "0.30.0-rc.11";
 
-  src = fetchFromGitLab {
-    owner = "porn-vault";
-    repo = "porn-vault";
-    rev = "4c6182c5825d85193cf67cb7cd927da2feaaecdb";
-    hash = "sha256-wQ3dqLc0l2BmLGDYrbWxX2mPwO/Tqz0fY/fOQTEUv24=";
-  };
+    src = fetchFromGitLab {
+      owner = "porn-vault";
+      repo = "porn-vault";
+      rev = "4c6182c5825d85193cf67cb7cd927da2feaaecdb";
+      hash = "sha256-wQ3dqLc0l2BmLGDYrbWxX2mPwO/Tqz0fY/fOQTEUv24=";
+    };
 
-  pnpmDeps = pnpm.fetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-Xr9tRiP1hW+aFs9FnPvPkeJ0/LtJI57cjWY5bZQaRTQ=";
-  };
+    pnpmDeps = pnpm.fetchDeps {
+      inherit (finalAttrs) pname version src;
+      hash = "sha256-Xr9tRiP1hW+aFs9FnPvPkeJ0/LtJI57cjWY5bZQaRTQ=";
+    };
 
-  nativeBuildInputs = [
-    nodejs
-    pnpm.configHook
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      nodejs
+      pnpm.configHook
+      makeWrapper
+    ];
 
-  patches = [
-    ./allow-use-of-systemd-temp-path.patch
-  ];
+    patches = [
+      ./allow-use-of-systemd-temp-path.patch
+    ];
 
-  postPatch = ''
-    substituteInPlace server/binaries/izzy.ts \
-      --replace-fail 'chmodSync(izzyPath, "111");' ""
-  '';
+    postPatch = ''
+      substituteInPlace server/binaries/izzy.ts \
+        --replace-fail 'chmodSync(izzyPath, "111");' ""
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    pnpm build
+      pnpm build
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm644 package.json config.example.json remix.config.js -t $out/share/porn-vault
-    cp -R public dist build node_modules graphql locale -t $out/share/porn-vault
+      install -Dm644 package.json config.example.json remix.config.js -t $out/share/porn-vault
+      cp -R public dist build node_modules graphql locale -t $out/share/porn-vault
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  preFixup = ''
-    makeWrapper "${lib.getExe nodejs}" "$out/bin/porn-vault" \
-      --chdir "$out/share/porn-vault" \
-      --add-flags "dist/index.js" \
-      --set-default IZZY_PATH "${lib.getExe izzy}" \
-      --prefix PATH : "${
+    preFixup = ''
+      makeWrapper "${lib.getExe nodejs}" "$out/bin/porn-vault" \
+        --chdir "$out/share/porn-vault" \
+        --add-flags "dist/index.js" \
+        --set-default IZZY_PATH "${lib.getExe izzy}" \
+        --prefix PATH : "${
         lib.makeBinPath [
           ffmpeg
           imagemagick
           izzy
         ]
       }"
-  '';
+    '';
 
-  meta = {
-    description = "Porn-Vault is a self hosted organizer for adult videos and imagery.";
-    homepage = "https://gitlab.com/porn-vault/porn-vault";
-    license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.luNeder ];
-    inherit (nodejs.meta) platforms;
-    mainProgram = "porn-vault";
-  };
-})
+    meta = {
+      description = "Porn-Vault is a self hosted organizer for adult videos and imagery.";
+      homepage = "https://gitlab.com/porn-vault/porn-vault";
+      license = lib.licenses.gpl3Plus;
+      maintainers = [lib.maintainers.luNeder];
+      inherit (nodejs.meta) platforms;
+      mainProgram = "porn-vault";
+    };
+  })

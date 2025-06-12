@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   name = "poly";
 
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "1chzcy3kyi7wpr4iq4aj1v24fq1wwph1v5z96dimlqcrnvm66h2l";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.fontsquirrel.com/fonts/poly";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ relrod ];
+    maintainers = with lib.maintainers; [relrod];
   };
 }

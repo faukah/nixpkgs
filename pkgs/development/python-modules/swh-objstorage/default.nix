@@ -37,7 +37,6 @@
   types-requests,
   util-linux,
 }:
-
 buildPythonPackage rec {
   pname = "swh-objstorage";
   version = "4.0.0";
@@ -79,29 +78,31 @@ buildPythonPackage rec {
       --replace-fail "/usr/bin/fallocate" "fallocate"
   '';
 
-  pythonImportsCheck = [ "swh.objstorage" ];
+  pythonImportsCheck = ["swh.objstorage"];
 
-  pytestFlagsArray = [ "swh/objstorage/tests" ];
+  pytestFlagsArray = ["swh/objstorage/tests"];
 
-  nativeCheckInputs = [
-    aiohttp
-    azure-core
-    azure-storage-blob
-    fixtures
-    libcloud
-    postgresql
-    postgresqlTestHook
-    pytestCheckHook
-    pytest-mock
-    pytest-postgresql
-    requests-mock
-    requests-toolbelt
-    systemd
-    types-python-dateutil
-    types-pyyaml
-    types-requests
-    util-linux
-  ] ++ psycopg.optional-dependencies.pool;
+  nativeCheckInputs =
+    [
+      aiohttp
+      azure-core
+      azure-storage-blob
+      fixtures
+      libcloud
+      postgresql
+      postgresqlTestHook
+      pytestCheckHook
+      pytest-mock
+      pytest-postgresql
+      requests-mock
+      requests-toolbelt
+      systemd
+      types-python-dateutil
+      types-pyyaml
+      types-requests
+      util-linux
+    ]
+    ++ psycopg.optional-dependencies.pool;
 
   disabledTests = lib.optionals (stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isLinux) [
     # FAILED swh/objstorage/tests/test_objstorage_winery.py::test_winery_leaky_bucket_tick - assert 1 == 0
@@ -112,6 +113,6 @@ buildPythonPackage rec {
     description = "Content-addressable object storage for the Software Heritage project";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-objstorage";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

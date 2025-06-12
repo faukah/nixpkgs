@@ -13,7 +13,6 @@
   pytestCheckHook,
   semver,
 }:
-
 buildPythonPackage rec {
   pname = "milc";
   version = "1.9.1";
@@ -58,13 +57,13 @@ buildPythonPackage rec {
     semver
   ];
 
-  pythonImportsCheck = [ "milc" ];
+  pythonImportsCheck = ["milc"];
 
   meta = with lib; {
     description = "Opinionated Batteries-Included Python 3 CLI Framework";
     mainProgram = "milc-color";
     homepage = "https://milc.clueboard.co";
     license = licenses.mit;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

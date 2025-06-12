@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "vazir-code-font";
   version = "1.1.2";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (farsi) Monospaced Font for coding";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = [ maintainers.dearrude ];
+    maintainers = [maintainers.dearrude];
   };
 }

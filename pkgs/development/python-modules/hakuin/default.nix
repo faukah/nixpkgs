@@ -8,7 +8,6 @@
   nltk,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "hakuin";
   version = "0.1.10";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-l5YnGRPUZUQqOaRvQd4l4eowWGpuPBignjkDDT9q7fg=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -34,12 +33,12 @@ buildPythonPackage rec {
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "hakuin" ];
+  pythonImportsCheck = ["hakuin"];
 
   meta = with lib; {
     description = "Blind SQL Injection optimization and automation framework";
     homepage = "https://github.com/pruzko/hakuin";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

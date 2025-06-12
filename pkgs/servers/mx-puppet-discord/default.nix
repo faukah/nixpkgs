@@ -12,9 +12,7 @@
   pango,
   which,
   libpq,
-}:
-
-let
+}: let
   nodejs = nodejs_20;
 
   version = "0.1.1";
@@ -31,49 +29,48 @@ let
     inherit pkgs nodejs;
     inherit (stdenv.hostPlatform) system;
   };
-
 in
-myNodePackages.package.override {
-  inherit version src;
+  myNodePackages.package.override {
+    inherit version src;
 
-  nativeBuildInputs = [
-    node-pre-gyp
-    nodejs.pkgs.node-gyp-build
-    pkg-config
-    which
-  ];
-  buildInputs = [
-    libjpeg
-    pixman
-    cairo
-    pango
-    libpq
-  ];
+    nativeBuildInputs = [
+      node-pre-gyp
+      nodejs.pkgs.node-gyp-build
+      pkg-config
+      which
+    ];
+    buildInputs = [
+      libjpeg
+      pixman
+      cairo
+      pango
+      libpq
+    ];
 
-  postRebuild = ''
-    # Build typescript stuff
-    npm run build
-  '';
+    postRebuild = ''
+      # Build typescript stuff
+      npm run build
+    '';
 
-  postInstall = ''
-    # Make an executable to run the server
-    mkdir -p $out/bin
-    cat <<EOF > $out/bin/mx-puppet-discord
-    #!/bin/sh
-    exec ${nodejs}/bin/node $out/lib/node_modules/@mx-puppet/discord/build/index.js "\$@"
-    EOF
-    chmod +x $out/bin/mx-puppet-discord
-  '';
+    postInstall = ''
+      # Make an executable to run the server
+      mkdir -p $out/bin
+      cat <<EOF > $out/bin/mx-puppet-discord
+      #!/bin/sh
+      exec ${nodejs}/bin/node $out/lib/node_modules/@mx-puppet/discord/build/index.js "\$@"
+      EOF
+      chmod +x $out/bin/mx-puppet-discord
+    '';
 
-  meta = with lib; {
-    description = "Discord puppeting bridge for matrix";
-    license = licenses.asl20;
-    homepage = "https://gitlab.com/mx-puppet/discord/mx-puppet-discord";
-    maintainers = [ ];
-    platforms = platforms.unix;
-    # never built on aarch64-darwin since first introduction in nixpkgs
-    # Depends on nodejs_18 that has been removed.
-    broken = true;
-    mainProgram = "mx-puppet-discord";
-  };
-}
+    meta = with lib; {
+      description = "Discord puppeting bridge for matrix";
+      license = licenses.asl20;
+      homepage = "https://gitlab.com/mx-puppet/discord/mx-puppet-discord";
+      maintainers = [];
+      platforms = platforms.unix;
+      # never built on aarch64-darwin since first introduction in nixpkgs
+      # Depends on nodejs_18 that has been removed.
+      broken = true;
+      mainProgram = "mx-puppet-discord";
+    };
+  }

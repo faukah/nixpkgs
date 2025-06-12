@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ifm;
-in
-{
+in {
   options.services.ifm = {
     enable = lib.mkEnableOption ''
       Improved file manager, a single-file web-based filemanager
@@ -35,7 +33,7 @@ in
 
     settings = lib.mkOption {
       type = with lib.types; attrsOf anything;
-      default = { };
+      default = {};
       description = ''
         Configuration of the IFM service.
 
@@ -52,11 +50,13 @@ in
     systemd.services.ifm = {
       description = "Improved file manager, a single-file web based filemanager";
 
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
-      environment = {
-      } // (builtins.mapAttrs (_: val: toString val) cfg.settings);
+      environment =
+        {
+        }
+        // (builtins.mapAttrs (_: val: toString val) cfg.settings);
 
       serviceConfig = {
         DynamicUser = true;
@@ -69,5 +69,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ litchipi ];
+  meta.maintainers = with lib.maintainers; [litchipi];
 }

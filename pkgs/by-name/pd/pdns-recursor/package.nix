@@ -17,7 +17,6 @@
   rustc,
   enableProtoBuf ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdns-recursor";
   version = "5.2.2";
@@ -42,15 +41,17 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    boost
-    openssl
-    systemd
-    lua
-    luajit
-    libsodium
-    curl
-  ] ++ lib.optional enableProtoBuf protobuf;
+  buildInputs =
+    [
+      boost
+      openssl
+      systemd
+      lua
+      luajit
+      libsodium
+      curl
+    ]
+    ++ lib.optional enableProtoBuf protobuf;
 
   configureFlags = [
     "--enable-reproducible"
@@ -59,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     "sysconfdir=/etc/pdns-recursor"
   ];
 
-  installFlags = [ "sysconfdir=$(out)/etc/pdns-recursor" ];
+  installFlags = ["sysconfdir=$(out)/etc/pdns-recursor"];
 
   enableParallelBuilding = true;
 
@@ -75,6 +76,6 @@ stdenv.mkDerivation (finalAttrs: {
       "i686-linux" # a 64-bit time_t is needed
     ];
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
   };
 })

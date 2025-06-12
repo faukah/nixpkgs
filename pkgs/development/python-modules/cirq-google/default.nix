@@ -8,7 +8,6 @@
   pytestCheckHook,
   typedunits,
 }:
-
 buildPythonPackage rec {
   pname = "cirq-google";
   pyproject = true;
@@ -16,18 +15,20 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "protobuf"
   ];
 
-  dependencies = [
-    cirq-core
-    google-api-core
-    protobuf
-    typedunits
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      cirq-core
+      google-api-core
+      protobuf
+      typedunits
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     freezegun

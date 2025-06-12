@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "chaos";
   version = "0.5.2";
@@ -18,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-c5J2cTzyb7CiBlS4vS3PdRhr6DhIvXE2lt40u0s6G0k=";
 
-  subPackages = [ "cmd/chaos/" ];
+  subPackages = ["cmd/chaos/"];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/chaos-client";
     changelog = "https://github.com/projectdiscovery/chaos-client/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "chaos";
   };
 }

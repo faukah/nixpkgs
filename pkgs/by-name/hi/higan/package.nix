@@ -20,7 +20,6 @@
   udev,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "higan";
   version = "115-unstable-2024-09-04";
@@ -70,40 +69,37 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  buildPhase =
-    let
-      platform =
-        if stdenv.hostPlatform.isLinux then
-          "linux"
-        else if stdenv.hostPlatform.isDarwin then
-          "macos"
-        else if stdenv.hostPlatform.isBSD then
-          "bsd"
-        else if stdenv.hostPlatform.isWindows then
-          "windows"
-        else
-          throw "Unknown platform for higan: ${stdenv.hostPlatform.system}";
-    in
-    ''
-      runHook preBuild
+  buildPhase = let
+    platform =
+      if stdenv.hostPlatform.isLinux
+      then "linux"
+      else if stdenv.hostPlatform.isDarwin
+      then "macos"
+      else if stdenv.hostPlatform.isBSD
+      then "bsd"
+      else if stdenv.hostPlatform.isWindows
+      then "windows"
+      else throw "Unknown platform for higan: ${stdenv.hostPlatform.system}";
+  in ''
+    runHook preBuild
 
-      make -C higan-ui -j$NIX_BUILD_CORES \
-        compiler=${stdenv.cc.targetPrefix}c++ \
-        platform=${platform} \
-        openmp=true \
-        hiro=gtk3 \
-        build=accuracy \
-        local=false \
-        cores="cv fc gb gba md ms msx ngp pce sfc sg ws"
+    make -C higan-ui -j$NIX_BUILD_CORES \
+      compiler=${stdenv.cc.targetPrefix}c++ \
+      platform=${platform} \
+      openmp=true \
+      hiro=gtk3 \
+      build=accuracy \
+      local=false \
+      cores="cv fc gb gba md ms msx ngp pce sfc sg ws"
 
-      make -C icarus -j$NIX_BUILD_CORES \
-        compiler=${stdenv.cc.targetPrefix}c++ \
-        platform=${platform} \
-        openmp=true \
-        hiro=gtk3
+    make -C icarus -j$NIX_BUILD_CORES \
+      compiler=${stdenv.cc.targetPrefix}c++ \
+      platform=${platform} \
+      openmp=true \
+      hiro=gtk3
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   installPhase =
     ''
@@ -111,26 +107,25 @@ stdenv.mkDerivation (finalAttrs: {
 
     ''
     + (
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir $out
-          mv higan/out/higan.app $out/
-          mv icarus/out/icarus.app $out/
-        ''
-      else
-        ''
-          installBin higan-ui/out/higan icarus/out/icarus
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir $out
+        mv higan/out/higan.app $out/
+        mv icarus/out/icarus.app $out/
+      ''
+      else ''
+        installBin higan-ui/out/higan icarus/out/icarus
 
-          install -d $out/share/applications
-          install higan-ui/resource/higan.desktop -t $out/share/applications/
-          install icarus/resource/icarus.desktop -t $out/share/applications/
+        install -d $out/share/applications
+        install higan-ui/resource/higan.desktop -t $out/share/applications/
+        install icarus/resource/icarus.desktop -t $out/share/applications/
 
-          install -d $out/share/pixmaps
-          install higan/higan/resource/higan.svg $out/share/pixmaps/higan-icon.svg
-          install higan/higan/resource/logo.png $out/share/pixmaps/higan-icon.png
-          install icarus/resource/icarus.svg $out/share/pixmaps/icarus-icon.svg
-          install icarus/resource/icarus.png $out/share/pixmaps/icarus-icon.png
-        ''
+        install -d $out/share/pixmaps
+        install higan/higan/resource/higan.svg $out/share/pixmaps/higan-icon.svg
+        install higan/higan/resource/logo.png $out/share/pixmaps/higan-icon.png
+        install icarus/resource/icarus.svg $out/share/pixmaps/icarus-icon.svg
+        install icarus/resource/icarus.png $out/share/pixmaps/icarus-icon.png
+      ''
     )
     + ''
       install -d $out/share/higan
@@ -145,12 +140,10 @@ stdenv.mkDerivation (finalAttrs: {
       # $HOME with all the stuff needed at runtime
       let
         dest =
-          if stdenv.hostPlatform.isDarwin then
-            "\\$HOME/Library/Application Support/higan"
-          else
-            "\\$HOME/higan";
-      in
-      ''
+          if stdenv.hostPlatform.isDarwin
+          then "\\$HOME/Library/Application Support/higan"
+          else "\\$HOME/higan";
+      in ''
         mkdir -p $out/bin
         cat <<EOF > $out/bin/higan-init.sh
         #!${runtimeShell}
@@ -167,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postInstall
     '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/higan-emu/higan";
@@ -184,10 +177,11 @@ stdenv.mkDerivation (finalAttrs: {
       Challenge V2.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };
 })
 # TODO: select between Qt and GTK3
 # TODO: call Darwin hackers to deal with respective problems
+

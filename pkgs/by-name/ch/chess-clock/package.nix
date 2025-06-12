@@ -14,7 +14,6 @@
   stdenv,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chess-clock";
   version = "0.6.1";
@@ -41,14 +40,15 @@ stdenv.mkDerivation rec {
     gtk4
     libadwaita
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pygobject3
+        ]
     ))
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/chess-clock";
     license = lib.licenses.gpl3Plus;
     mainProgram = "chess-clock";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

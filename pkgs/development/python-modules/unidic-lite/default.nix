@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "unidic-lite";
   version = "1.0.8";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "unidic_lite" ];
+  pythonImportsCheck = ["unidic_lite"];
 
   meta = with lib; {
     description = "Small version of UniDic";
     homepage = "https://github.com/polm/unidic-lite";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

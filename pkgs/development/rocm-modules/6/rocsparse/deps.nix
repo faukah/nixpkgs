@@ -2,9 +2,7 @@
   fetchzip,
   mirror1,
   mirror2,
-}:
-
-{
+}: {
   matrix-01 = fetchzip {
     sha256 = "sha256-AHur5ZIDZTFRrO2GV0ieXrffq4KUiGWiZ59pv0fUtEQ=";
 

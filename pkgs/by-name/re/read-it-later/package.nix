@@ -17,7 +17,6 @@
   webkitgtk_6_0,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "read-it-later";
   version = "0.6.1";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/World/read-it-later/-/releases/${src.tag}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "read-it-later";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

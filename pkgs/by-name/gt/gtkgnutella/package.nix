@@ -14,7 +14,6 @@
   gnutls,
   enableGui ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtk-gnutella";
   version = "1.2.2";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gtk-gnutella";
     homepage = "https://gtk-gnutella.sourceforge.net/"; # Code: https://github.com/gtk-gnutella/gtk-gnutella
     changelog = "https://raw.githubusercontent.com/gtk-gnutella/gtk-gnutella/v${finalAttrs.version}/ChangeLog";
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

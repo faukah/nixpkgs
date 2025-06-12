@@ -18,7 +18,6 @@
   fontconfig,
   freetype,
 }:
-
 buildGoModule rec {
   pname = "gcs";
   version = "5.28.1";
@@ -71,7 +70,7 @@ buildGoModule rec {
     cp -r ${frontend}/dist server/frontend/dist
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -90,7 +89,7 @@ buildGoModule rec {
     ];
 
   # flags are based on https://github.com/richardwilkes/gcs/blob/master/build.sh
-  flags = [ "-a" ];
+  flags = ["-a"];
   ldflags = [
     "-s"
     "-w"
@@ -109,7 +108,7 @@ buildGoModule rec {
     homepage = "https://gurpscharactersheet.com/";
     license = lib.licenses.mpl20;
     mainProgram = "gcs";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     # incompatible vendor/github.com/richardwilkes/unison/internal/skia/libskia_linux.a
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;

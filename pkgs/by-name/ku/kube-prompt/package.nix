@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kube-prompt";
   version = "1.0.11";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "kube-prompt";
     license = licenses.mit;
     homepage = "https://github.com/c-bata/kube-prompt";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
   };
 }

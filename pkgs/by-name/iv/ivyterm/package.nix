@@ -9,7 +9,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ivyterm";
   version = "1.0.5";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Tomiyou/ivyterm";
     changelog = "https://github.com/Tomiyou/ivyterm/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "ivyterm";
   };
 }

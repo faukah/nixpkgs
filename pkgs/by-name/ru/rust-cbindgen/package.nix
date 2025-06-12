@@ -5,13 +5,11 @@
   rustPlatform,
   cmake,
   python3Packages,
-
   # tests
   firefox-unwrapped,
   firefox-esr-unwrapped,
   mesa,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-cbindgen";
   version = "0.28.0";
@@ -61,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cbindgen";
     homepage = "https://github.com/mozilla/cbindgen";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

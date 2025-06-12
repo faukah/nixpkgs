@@ -17,7 +17,6 @@
   darwin,
   withWallet ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "namecoind";
   version = "28.0";
@@ -34,8 +33,8 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ hexdump ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [util-linux]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [hexdump]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
       darwin.autoSignDarwinBinariesHook
     ];
@@ -49,9 +48,9 @@ stdenv.mkDerivation rec {
       zeromq
       zlib
     ]
-    ++ lib.optionals withWallet [ sqlite ]
+    ++ lib.optionals withWallet [sqlite]
     # building with db48 (for legacy descriptor wallet support) is broken on Darwin
-    ++ lib.optionals (withWallet && !stdenv.hostPlatform.isDarwin) [ db4 ];
+    ++ lib.optionals (withWallet && !stdenv.hostPlatform.isDarwin) [db4];
 
   enableParallelBuilding = true;
 
@@ -65,17 +64,17 @@ stdenv.mkDerivation rec {
       "--disable-wallet"
     ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = true;
 
-  checkFlags = [ "LC_ALL=en_US.UTF-8" ];
+  checkFlags = ["LC_ALL=en_US.UTF-8"];
 
   meta = with lib; {
     description = "Decentralized open source information registration and transfer system based on the Bitcoin cryptocurrency";
     homepage = "https://namecoin.org";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

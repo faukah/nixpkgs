@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "fichub-cli";
   version = "0.10.3";
@@ -48,6 +47,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "fichub_cli";
     homepage = "https://github.com/FicHub/fichub-cli";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.samasaur ];
+    maintainers = [lib.maintainers.samasaur];
   };
 }

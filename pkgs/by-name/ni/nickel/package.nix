@@ -11,7 +11,6 @@
   nix-update-script,
   enableNixImport ? true,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nickel";
   version = "1.11.0";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     boost
   ];
 
-  buildFeatures = lib.optionals enableNixImport [ "nix-experimental" ];
+  buildFeatures = lib.optionals enableNixImport ["nix-experimental"];
 
   outputs = [
     "out"
@@ -81,7 +80,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://nickel-lang.org/";

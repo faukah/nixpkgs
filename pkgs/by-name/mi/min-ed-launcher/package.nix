@@ -23,7 +23,7 @@ buildDotnetModule rec {
     git # During build the current commit is appended to the version
   ];
 
-  executables = [ "MinEdLauncher" ];
+  executables = ["MinEdLauncher"];
 
   meta = {
     homepage = "https://github.com/rfvgyhn/min-ed-launcher";
@@ -31,6 +31,6 @@ buildDotnetModule rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.x86_64;
     mainProgram = "MinEdLauncher";
-    maintainers = with lib.maintainers; [ jiriks74 ];
+    maintainers = with lib.maintainers; [jiriks74];
   };
 }

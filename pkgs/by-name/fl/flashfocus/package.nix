@@ -7,7 +7,6 @@
   bash,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "flashfocus";
   version = "2.4.1";
@@ -53,15 +52,15 @@ python3Packages.buildPythonApplication rec {
   # Tests require access to a X session
   doCheck = false;
 
-  pythonImportsCheck = [ "flashfocus" ];
+  pythonImportsCheck = ["flashfocus"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/fennerm/flashfocus";
     description = "Simple focus animations for tiling window managers";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

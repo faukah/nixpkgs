@@ -5,15 +5,14 @@
   stdenv,
   xcbuild,
 }:
-
 makeSetupHook {
   name = "zig-hook";
 
   propagatedBuildInputs =
-    [ zig ]
+    [zig]
     # while xcrun is already included in the darwin stdenv, Zig also needs
     # xcode-select (provided by xcbuild) for SDK detection
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [xcbuild];
 
   substitutions = {
     # This zig_default_flags below is meant to avoid CPU feature impurity in
@@ -36,26 +35,24 @@ makeSetupHook {
     # https://github.com/NixOS/nixpkgs/pull/241741#issuecomment-1624227485
     # https://github.com/ziglang/zig/issues/14281#issuecomment-1624220653
 
-    zig_default_flags =
-      let
-        releaseType =
-          if lib.versionAtLeast zig.version "0.12" then
-            "--release=safe"
-          else if lib.versionAtLeast zig.version "0.11" then
-            "-Doptimize=ReleaseSafe"
-          else
-            "-Drelease-safe=true";
-      in
-      [
-        "-Dcpu=baseline"
-        releaseType
-      ];
+    zig_default_flags = let
+      releaseType =
+        if lib.versionAtLeast zig.version "0.12"
+        then "--release=safe"
+        else if lib.versionAtLeast zig.version "0.11"
+        then "-Doptimize=ReleaseSafe"
+        else "-Drelease-safe=true";
+    in [
+      "-Dcpu=baseline"
+      releaseType
+    ];
   };
 
-  passthru = { inherit zig; };
+  passthru = {inherit zig;};
 
   meta = {
     description = "Setup hook for using the Zig compiler in Nixpkgs";
     inherit (zig.meta) maintainers platforms broken;
   };
-} ./setup-hook.sh
+}
+./setup-hook.sh

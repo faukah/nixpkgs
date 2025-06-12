@@ -7,7 +7,6 @@
   hatch-vcs,
   protobuf,
 }:
-
 buildPythonPackage rec {
   pname = "ghome-foyer-api";
   version = "1.2.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   meta = {
     description = "Generated Python protobuf stubs for Google Home internal API";

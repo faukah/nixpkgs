@@ -27,7 +27,6 @@
   cargo,
   rustPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vkdt";
   version = "0.9.1";
@@ -91,7 +90,7 @@ stdenv.mkDerivation rec {
     description = "Vulkan-powered raw image processor";
     homepage = "https://github.com/hanatos/vkdt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ paperdigits ];
+    maintainers = with maintainers; [paperdigits];
     platforms = platforms.linux;
   };
 }

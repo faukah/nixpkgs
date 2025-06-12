@@ -7,7 +7,6 @@
   tornado,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "livereload";
   version = "2.7.1";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     sha256 = "sha256-WFpPCUjvyGT826EkIuqAB4jcJOEqoohJY9Xw/EJrk6c=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   propagatedBuildInputs = [
     tornado
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "test_watch_multiple_dirs" ];
+  disabledTests = ["test_watch_multiple_dirs"];
 
   meta = {
     description = "Runs a local server that reloads as you develop";
     mainProgram = "livereload";
     homepage = "https://github.com/lepture/python-livereload";
     license = lib.licenses.bsd3;
-    maintainers = with lib; [ ];
+    maintainers = with lib; [];
   };
 }

@@ -7,7 +7,6 @@
   pam,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ngircd";
   version = "27";

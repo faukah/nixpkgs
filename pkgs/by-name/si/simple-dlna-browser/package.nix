@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     hash = "sha256-jwPAEgti5DrjNnNVW/61GGTP+QedGAjz9kPwYhMAdTk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     outputWrapper="$out/bin/simple-dlna-browser"
@@ -37,15 +37,15 @@ stdenv.mkDerivation {
     cp sh/tools/simple-dlna-browser $outputWrapped
     makeWrapper $outputWrapped $outputWrapper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          curl
-          gawk
-          gnugrep
-          gnused
-          socat
-          wget
-        ]
-      }
+      lib.makeBinPath [
+        curl
+        gawk
+        gnugrep
+        gnused
+        socat
+        wget
+      ]
+    }
 
     # Set the program name to a fixed value
     # Normally it is guessed by the filename, but we don't want it to be the name of the wrapper
@@ -64,6 +64,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/javier-lopez/learn/blob/master/sh/tools/simple-dlna-browser";
     license = lib.licenses.fair;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

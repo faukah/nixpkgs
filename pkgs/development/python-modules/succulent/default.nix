@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "succulent";
   version = "0.4.1";
@@ -43,15 +42,15 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "succulent" ];
+  pythonImportsCheck = ["succulent"];
 
   meta = with lib; {
     description = "Collect POST requests";
     homepage = "https://github.com/firefly-cpp/succulent";
     changelog = "https://github.com/firefly-cpp/succulent/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

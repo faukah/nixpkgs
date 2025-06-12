@@ -8,7 +8,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "quil";
   version = "0.16.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   pythonImportsCheck = [
     "quil.expression"
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Python package for building and parsing Quil programs";
     homepage = "https://github.com/rigetti/quil-rs/tree/main/quil-py";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -3,9 +3,7 @@
   fetchurl,
   appimageTools,
   stdenv,
-}:
-
-let
+}: let
   pname = "cables";
   version = "0.5.17";
   name = "${pname}-${version}";
@@ -21,24 +19,23 @@ let
       substituteInPlace $out/${pname}-${version}.desktop --replace 'Exec=AppRun' 'Exec=cables'
     '';
   };
-
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/${name}.desktop $out/share/applications/cables.desktop
-    install -m 444 -D ${appimageContents}/${name}.png $out/share/icons/hicolor/512x512/apps/cables.png
-  '';
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/${name}.desktop $out/share/applications/cables.desktop
+      install -m 444 -D ${appimageContents}/${name}.png $out/share/icons/hicolor/512x512/apps/cables.png
+    '';
 
-  meta = with lib; {
-    description = "Standalone version of cables, a tool for creating beautiful interactive content.";
-    homepage = "https://cables.gl";
-    changelog = "https://cables.gl/changelog";
-    license = licenses.mit;
-    maintainers = with maintainers; [ rubikcubed ];
-    platforms = with platforms; linux ++ darwin ++ windows;
-    broken = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64);
-    mainProgram = "cables";
-  };
-}
+    meta = with lib; {
+      description = "Standalone version of cables, a tool for creating beautiful interactive content.";
+      homepage = "https://cables.gl";
+      changelog = "https://cables.gl/changelog";
+      license = licenses.mit;
+      maintainers = with maintainers; [rubikcubed];
+      platforms = with platforms; linux ++ darwin ++ windows;
+      broken = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64);
+      mainProgram = "cables";
+    };
+  }

@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "autobloody";
   version = "0.1.8";
@@ -41,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/CravateRouge/autobloody";
     changelog = "https://github.com/CravateRouge/autobloody/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "autobloody";
   };
 }

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkIf
     mkOption
@@ -16,12 +15,11 @@ let
 
   cfg = config.services.mollysocket;
   configuration = format.generate "mollysocket.conf" cfg.settings;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   package = pkgs.writeShellScriptBin "mollysocket" ''
     MOLLY_CONF=${configuration} exec ${getExe pkgs.mollysocket} "$@"
   '';
-in
-{
+in {
   options.services.mollysocket = {
     enable = mkEnableOption ''
       [MollySocket](https://github.com/mollyim/mollysocket) for getting Signal
@@ -29,7 +27,7 @@ in
     '';
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         Configuration for MollySocket. Available options are listed
         [here](https://github.com/mollyim/mollysocket#configuration).
@@ -50,16 +48,16 @@ in
           };
 
           allowed_endpoints = mkOption {
-            default = [ "*" ];
+            default = ["*"];
             description = "List of UnifiedPush servers";
-            example = [ "https://ntfy.sh" ];
+            example = ["https://ntfy.sh"];
             type = with types; listOf str;
           };
 
           allowed_uuids = mkOption {
-            default = [ "*" ];
+            default = ["*"];
             description = "UUIDs of Signal accounts that may use this server";
-            example = [ "abcdef-12345-tuxyz-67890" ];
+            example = ["abcdef-12345-tuxyz-67890"];
             type = with types; listOf str;
           };
         };
@@ -93,9 +91,9 @@ in
     # see https://github.com/mollyim/mollysocket/blob/main/mollysocket.service
     systemd.services.mollysocket = {
       description = "MollySocket";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       environment.RUST_LOG = cfg.logLevel;
       serviceConfig = {
         EnvironmentFile = cfg.environmentFile;
@@ -144,5 +142,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ dotlambda ];
+  meta.maintainers = with lib.maintainers; [dotlambda];
 }

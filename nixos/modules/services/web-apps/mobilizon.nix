@@ -3,10 +3,9 @@
   lib,
   config,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -21,7 +20,7 @@ let
   user = "mobilizon";
   group = "mobilizon";
 
-  settingsFormat = pkgs.formats.elixirConf { elixir = cfg.package.elixirPackage; };
+  settingsFormat = pkgs.formats.elixirConf {elixir = cfg.package.elixirPackage;};
 
   configFile = settingsFormat.generate "mobilizon-config.exs" cfg.settings;
 
@@ -30,41 +29,43 @@ let
   # troubles
   launchers =
     pkgs.runCommand "${cfg.package.pname}-launchers-${cfg.package.version}"
-      {
-        src = cfg.package;
-        nativeBuildInputs = with pkgs; [ makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin
+    {
+      src = cfg.package;
+      nativeBuildInputs = with pkgs; [makeWrapper];
+    }
+    ''
+      mkdir -p $out/bin
 
-        makeWrapper \
-          $src/bin/mobilizon \
-          $out/bin/mobilizon \
-          --run '. ${secretEnvFile}' \
-          --set MOBILIZON_CONFIG_PATH "${configFile}" \
-          --set-default RELEASE_TMP "/tmp"
+      makeWrapper \
+        $src/bin/mobilizon \
+        $out/bin/mobilizon \
+        --run '. ${secretEnvFile}' \
+        --set MOBILIZON_CONFIG_PATH "${configFile}" \
+        --set-default RELEASE_TMP "/tmp"
 
-        makeWrapper \
-          $src/bin/mobilizon_ctl \
-          $out/bin/mobilizon_ctl \
-          --run '. ${secretEnvFile}' \
-          --set MOBILIZON_CONFIG_PATH "${configFile}" \
-          --set-default RELEASE_TMP "/tmp"
-      '';
+      makeWrapper \
+        $src/bin/mobilizon_ctl \
+        $out/bin/mobilizon_ctl \
+        --run '. ${secretEnvFile}' \
+        --set MOBILIZON_CONFIG_PATH "${configFile}" \
+        --set-default RELEASE_TMP "/tmp"
+    '';
 
   repoSettings = cfg.settings.":mobilizon"."Mobilizon.Storage.Repo";
   instanceSettings = cfg.settings.":mobilizon".":instance";
 
   isLocalPostgres = repoSettings.socket_dir != null;
 
-  dbUser = if repoSettings.username != null then repoSettings.username else "mobilizon";
+  dbUser =
+    if repoSettings.username != null
+    then repoSettings.username
+    else "mobilizon";
 
   postgresql = config.services.postgresql.package;
   postgresqlSocketDir = "/run/postgresql";
 
   secretEnvFile = "/var/lib/mobilizon/secret-env.sh";
-in
-{
+in {
   options = {
     services.mobilizon = {
       enable = mkEnableOption "Mobilizon federated organization and mobilization platform";
@@ -78,19 +79,17 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "mobilizon" { };
+      package = mkPackageOption pkgs "mobilizon" {};
 
       settings = mkOption {
-        type =
-          let
-            elixirTypes = settingsFormat.lib.types;
-          in
+        type = let
+          elixirTypes = settingsFormat.lib.types;
+        in
           types.submodule {
             freeformType = settingsFormat.type;
 
             options = {
               ":mobilizon" = {
-
                 "Mobilizon.Web.Endpoint" = {
                   url.host = mkOption {
                     type = elixirTypes.str;
@@ -210,7 +209,7 @@ in
               };
             };
           };
-        default = { };
+        default = {};
 
         description = ''
           Mobilizon Elixir documentation, see
@@ -222,13 +221,13 @@ in
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion =
           cfg.nginx.enable
           -> (
-            cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.ip == settingsFormat.lib.mkTuple [
+            cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.ip
+            == settingsFormat.lib.mkTuple [
               0
               0
               0
@@ -248,7 +247,7 @@ in
         "Mobilizon.Web.Endpoint" = {
           server = true;
           url.host = mkDefault instanceSettings.hostname;
-          secret_key_base = settingsFormat.lib.mkGetEnv { envVariable = "MOBILIZON_INSTANCE_SECRET"; };
+          secret_key_base = settingsFormat.lib.mkGetEnv {envVariable = "MOBILIZON_INSTANCE_SECRET";};
         };
 
         "Mobilizon.Web.Auth.Guardian".secret_key = settingsFormat.lib.mkGetEnv {
@@ -277,7 +276,7 @@ in
     systemd.services.mobilizon = {
       description = "Mobilizon federated organization and mobilization platform";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       path = with pkgs; [
         gawk
@@ -321,37 +320,35 @@ in
     # projects.
     systemd.services.mobilizon-setup-secrets = {
       description = "Mobilizon setup secrets";
-      before = [ "mobilizon.service" ];
-      wantedBy = [ "mobilizon.service" ];
+      before = ["mobilizon.service"];
+      wantedBy = ["mobilizon.service"];
 
-      script =
-        let
-          # Taken from here:
-          # https://framagit.org/framasoft/mobilizon/-/blob/1.0.7/lib/mix/tasks/mobilizon/instance.ex#L132-133
-          genSecret =
-            "IO.puts(:crypto.strong_rand_bytes(64)" + "|> Base.encode64()" + "|> binary_part(0, 64))";
+      script = let
+        # Taken from here:
+        # https://framagit.org/framasoft/mobilizon/-/blob/1.0.7/lib/mix/tasks/mobilizon/instance.ex#L132-133
+        genSecret =
+          "IO.puts(:crypto.strong_rand_bytes(64)" + "|> Base.encode64()" + "|> binary_part(0, 64))";
 
-          # Taken from here:
-          # https://github.com/elixir-lang/elixir/blob/v1.11.3/lib/mix/lib/mix/release.ex#L499
-          genCookie = "IO.puts(Base.encode32(:crypto.strong_rand_bytes(32)))";
+        # Taken from here:
+        # https://github.com/elixir-lang/elixir/blob/v1.11.3/lib/mix/lib/mix/release.ex#L499
+        genCookie = "IO.puts(Base.encode32(:crypto.strong_rand_bytes(32)))";
 
-          evalElixir = str: ''
-            ${cfg.package.elixirPackage}/bin/elixir --eval '${str}'
-          '';
-        in
-        ''
-          set -euxo pipefail
-
-          if [ ! -f "${secretEnvFile}" ]; then
-            install -m 600 /dev/null "${secretEnvFile}"
-            cat > "${secretEnvFile}" <<EOF
-          # This file was automatically generated by mobilizon-setup-secrets.service
-          export MOBILIZON_AUTH_SECRET='$(${evalElixir genSecret})'
-          export MOBILIZON_INSTANCE_SECRET='$(${evalElixir genSecret})'
-          export RELEASE_COOKIE='$(${evalElixir genCookie})'
-          EOF
-          fi
+        evalElixir = str: ''
+          ${cfg.package.elixirPackage}/bin/elixir --eval '${str}'
         '';
+      in ''
+        set -euxo pipefail
+
+        if [ ! -f "${secretEnvFile}" ]; then
+          install -m 600 /dev/null "${secretEnvFile}"
+          cat > "${secretEnvFile}" <<EOF
+        # This file was automatically generated by mobilizon-setup-secrets.service
+        export MOBILIZON_AUTH_SECRET='$(${evalElixir genSecret})'
+        export MOBILIZON_INSTANCE_SECRET='$(${evalElixir genSecret})'
+        export RELEASE_COOKIE='$(${evalElixir genCookie})'
+        EOF
+        fi
+      '';
 
       serviceConfig = {
         Type = "oneshot";
@@ -366,14 +363,14 @@ in
     systemd.services.mobilizon-postgresql = mkIf isLocalPostgres {
       description = "Mobilizon PostgreSQL setup";
 
-      after = [ "postgresql.service" ];
+      after = ["postgresql.service"];
       before = [
         "mobilizon.service"
         "mobilizon-setup-secrets.service"
       ];
-      wantedBy = [ "mobilizon.service" ];
+      wantedBy = ["mobilizon.service"];
 
-      path = [ postgresql ];
+      path = [postgresql];
 
       # Taken from here:
       # https://framagit.org/framasoft/mobilizon/-/blob/1.1.0/priv/templates/setup_db.eex
@@ -405,7 +402,7 @@ in
 
     services.postgresql = mkIf isLocalPostgres {
       enable = true;
-      ensureDatabases = [ repoSettings.database ];
+      ensureDatabases = [repoSettings.database];
       ensureUsers = [
         {
           name = dbUser;
@@ -415,15 +412,14 @@ in
           ensureDBOwnership = false;
         }
       ];
-      extensions = ps: with ps; [ postgis ];
+      extensions = ps: with ps; [postgis];
     };
 
     # Nginx config taken from support/nginx/mobilizon-release.conf
-    services.nginx =
-      let
-        inherit (cfg.settings.":mobilizon".":instance") hostname;
-        proxyPass = "http://[::1]:" + toString cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.port;
-      in
+    services.nginx = let
+      inherit (cfg.settings.":mobilizon".":instance") hostname;
+      proxyPass = "http://[::1]:" + toString cfg.settings.":mobilizon"."Mobilizon.Web.Endpoint".http.port;
+    in
       lib.mkIf cfg.nginx.enable {
         enable = true;
         virtualHosts."${hostname}" = {
@@ -466,13 +462,13 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
     # So that we have the `mobilizon` and `mobilizon_ctl` commands.
     # The `mobilizon remote` command is useful for dropping a shell into the
     # running Mobilizon instance, and `mobilizon_ctl` is used for common
     # management tasks (e.g. adding users).
-    environment.systemPackages = [ launchers ];
+    environment.systemPackages = [launchers];
   };
 
   meta.maintainers = with lib.maintainers; [

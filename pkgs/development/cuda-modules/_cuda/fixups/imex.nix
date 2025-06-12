@@ -1,1 +1,1 @@
-{ zlib }: prevAttrs: { buildInputs = prevAttrs.buildInputs or [ ] ++ [ zlib ]; }
+{zlib}: prevAttrs: {buildInputs = prevAttrs.buildInputs or [] ++ [zlib];}

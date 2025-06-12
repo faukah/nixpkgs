@@ -15,7 +15,6 @@
   libssh,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "tmate-ssh-server";
   version = "unstable-2023-06-02";
@@ -58,7 +57,7 @@ stdenv.mkDerivation {
     description = "tmate SSH Server";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
     mainProgram = "tmate-ssh-server";
   };
 }

@@ -5,7 +5,6 @@
   which,
   enableHO ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eprover";
   version = "3.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-B0yOX8MGJHY0HOeQ/RWtgATTIta2YnhEvSdoqIML1K4=";
   };
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
   preConfigure = ''
     sed -e 's/ *CC *= *gcc$//' -i Makefile.vars

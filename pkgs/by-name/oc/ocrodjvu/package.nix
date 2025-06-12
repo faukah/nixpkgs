@@ -17,7 +17,6 @@
   withOcrad ? false,
   ocrad,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ocrodjvu";
   version = "0.14";
@@ -69,7 +68,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/FriedrichFroebel/ocrodjvu/blob/${version}/doc/changelog";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ dansbandit ];
+    maintainers = with lib.maintainers; [dansbandit];
     mainProgram = "ocrodjvu";
   };
 }

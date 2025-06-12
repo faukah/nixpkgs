@@ -6,7 +6,6 @@
   catch2_3,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rapidfuzz-cpp";
   version = "3.3.2";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests = {
       /**
-        `python3Packages.levenshtein` crucially depends on `rapidfuzz-cpp`
+      `python3Packages.levenshtein` crucially depends on `rapidfuzz-cpp`
       */
       inherit (python3Packages) levenshtein;
     };
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rapidfuzz/rapidfuzz-cpp";
     changelog = "https://github.com/rapidfuzz/rapidfuzz-cpp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.unix;
   };
 })

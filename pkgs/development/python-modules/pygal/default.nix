@@ -4,22 +4,17 @@
   fetchPypi,
   pythonOlder,
   stdenv,
-
   # build-system
   setuptools,
-
   # dependencies
   importlib-metadata,
-
   # optional-dependencies
   lxml,
   cairosvg,
-
   # tests
   pyquery,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygal";
   version = "3.0.5";
@@ -37,19 +32,21 @@ buildPythonPackage rec {
       --replace-fail pytest-runner ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ importlib-metadata ];
+  dependencies = [importlib-metadata];
 
   optional-dependencies = {
-    lxml = [ lxml ];
-    png = [ cairosvg ];
+    lxml = [lxml];
+    png = [cairosvg];
   };
 
-  nativeCheckInputs = [
-    pyquery
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pyquery
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     # necessary on darwin to pass the testsuite
@@ -58,10 +55,14 @@ buildPythonPackage rec {
 
   # Cairo tries to load system fonts by default.
   # It's surfaced as a Cairo "out of memory" error in tests.
-  __impureHostDeps = [ "/System/Library/Fonts" ];
+  __impureHostDeps = ["/System/Library/Fonts"];
 
   postCheck = ''
-    export LANG=${if stdenv.hostPlatform.isDarwin then "en_US.UTF-8" else "C.UTF-8"}
+    export LANG=${
+      if stdenv.hostPlatform.isDarwin
+      then "en_US.UTF-8"
+      else "C.UTF-8"
+    }
   '';
 
   meta = with lib; {
@@ -70,7 +71,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/Kozea/pygal/blob/${version}/docs/changelog.rst";
     downloadPage = "https://github.com/Kozea/pygal";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pygal_gen.py";
   };
 }

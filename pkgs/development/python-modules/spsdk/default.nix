@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   asn1crypto,
   bincopy,
@@ -37,7 +35,6 @@
   spsdk-pyocd,
   typing-extensions,
   x690,
-
   # tests
   ipykernel,
   pytest-notebook,
@@ -46,7 +43,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "spsdk";
   version = "2.6.1";
@@ -119,7 +115,7 @@ buildPythonPackage rec {
     x690
   ];
 
-  pythonImportsCheck = [ "spsdk" ];
+  pythonImportsCheck = ["spsdk"];
 
   nativeCheckInputs = [
     ipykernel

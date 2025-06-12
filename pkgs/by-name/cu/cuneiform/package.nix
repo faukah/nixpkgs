@@ -6,7 +6,6 @@
   imagemagick,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cuneiform";
   version = "1.1.0";
@@ -46,9 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
     fi
   '';
 
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru.tests = testers.testVersion {
     package = finalAttrs.finalPackage;
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/cuneiform-linux";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     mainProgram = "cuneiform";
   };
 })

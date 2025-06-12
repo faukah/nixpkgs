@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-crispy-forms";
   version = "2.4";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     "crispy_forms/tests/"
   ];
 
-  pythonImportsCheck = [ "crispy_forms" ];
+  pythonImportsCheck = ["crispy_forms"];
 
   meta = with lib; {
     description = "Best way to have DRY Django forms";
     homepage = "https://django-crispy-forms.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

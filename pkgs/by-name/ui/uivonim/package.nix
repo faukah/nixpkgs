@@ -5,7 +5,6 @@
   electron,
   makeWrapper,
 }:
-
 buildNpmPackage rec {
   pname = "uivonim";
   version = "0.29.0";
@@ -23,11 +22,11 @@ buildNpmPackage rec {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
   };
 
-  npmFlags = [ "--ignore-scripts" ];
+  npmFlags = ["--ignore-scripts"];
 
   npmBuildScript = "build:prod";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     makeWrapper ${electron}/bin/electron $out/bin/uivonim \
@@ -37,7 +36,7 @@ buildNpmPackage rec {
   meta = with lib; {
     homepage = "https://github.com/smolck/uivonim";
     description = "Cross-platform GUI for neovim based on electron";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     license = licenses.agpl3Only;
     mainProgram = "uivonim";

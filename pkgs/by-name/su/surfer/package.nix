@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     wrapProgram $out/bin/surfer \
-      --prefix PATH : ${lib.makeBinPath [ zenity ]}
+      --prefix PATH : ${lib.makeBinPath [zenity]}
   '';
 
   meta = {
@@ -64,7 +64,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://surfer-project.org/";
     changelog = "https://gitlab.com/surfer-project/surfer/-/releases/v${version}";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ hakan-demirli ];
+    maintainers = with lib.maintainers; [hakan-demirli];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "surfer";
   };

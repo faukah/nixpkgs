@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "journalist";
   version = "1.0.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/mrusme/journalist";
     changelog = "https://github.com/mrusme/journalist/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "journalist";
   };
 }

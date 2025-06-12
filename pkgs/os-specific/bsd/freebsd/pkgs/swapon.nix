@@ -1,1 +1,1 @@
-{ mkDerivation }: mkDerivation { path = "sbin/swapon"; }
+{mkDerivation}: mkDerivation {path = "sbin/swapon";}

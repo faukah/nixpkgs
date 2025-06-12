@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchurl,
-
   # Build runit-init as a static binary
   static ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "runit";
   version = "2.2.0";
@@ -65,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "UNIX init scheme with service supervision";
     license = licenses.bsd3;
     homepage = "http://smarden.org/runit";
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

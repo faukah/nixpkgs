@@ -9,7 +9,6 @@
   mpv,
   opencv4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qimgv";
   version = "1.0.3-unstable-2024-10-11";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/easymodo/qimgv";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

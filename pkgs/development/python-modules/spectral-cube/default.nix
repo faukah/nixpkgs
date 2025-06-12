@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   astropy,
   casa-formats-io,
@@ -16,13 +14,11 @@
   packaging,
   radio-beam,
   tqdm,
-
   # tests
   aplpy,
   pytest-astropy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "spectral-cube";
   version = "0.6.6";
@@ -35,18 +31,20 @@ buildPythonPackage rec {
     hash = "sha256-fBjbovBXqUfX8rG8gEM3BY5p0BLfa4n1PMbPpPJPDgQ=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    astropy
-    casa-formats-io
-    dask
-    joblib
-    numpy
-    packaging
-    radio-beam
-    tqdm
-  ] ++ dask.optional-dependencies.array;
+  dependencies =
+    [
+      astropy
+      casa-formats-io
+      dask
+      joblib
+      numpy
+      packaging
+      radio-beam
+      tqdm
+    ]
+    ++ dask.optional-dependencies.array;
 
   nativeCheckInputs = [
     aplpy
@@ -169,13 +167,13 @@ buildPythonPackage rec {
     "spectral_cube/tests/test_visualization.py"
   ];
 
-  pythonImportsCheck = [ "spectral_cube" ];
+  pythonImportsCheck = ["spectral_cube"];
 
   meta = {
     description = "Library for reading and analyzing astrophysical spectral data cubes";
     homepage = "https://spectral-cube.readthedocs.io";
     changelog = "https://github.com/radio-astro-tools/spectral-cube/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ smaret ];
+    maintainers = with lib.maintainers; [smaret];
   };
 }

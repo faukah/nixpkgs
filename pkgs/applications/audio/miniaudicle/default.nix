@@ -14,7 +14,6 @@
   libjack2,
   audioBackend ? "pulse", # "pulse", "alsa", or "jack"
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "miniaudicle";
   version = "1.5.4.2";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (audioBackend == "pulse") libpulseaudio
     ++ lib.optional (audioBackend == "jack") libjack2;
 
-  buildFlags = [ "linux-${audioBackend}" ];
+  buildFlags = ["linux-${audioBackend}"];
 
   meta = with lib; {
     description = "Light-weight integrated development environment for the ChucK digital audio programming language";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://audicle.cs.princeton.edu/mini/";
     downloadPage = "https://audicle.cs.princeton.edu/mini/linux/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # not attempted
   };

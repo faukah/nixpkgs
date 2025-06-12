@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "colorized-logs";
   version = "2.7";
@@ -24,8 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tools for logs with ANSI color";
     homepage = "https://github.com/kilobyte/colorized-logs";
     changelog = "https://github.com/kilobyte/colorized-logs/blob/v${finalAttrs.version}/ChangeLog";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ CobaltCause ];
+    maintainers = with lib.maintainers; [CobaltCause];
   };
 })

@@ -10,7 +10,6 @@
   tqdm,
   unicrypto,
 }:
-
 buildPythonPackage rec {
   pname = "aesedb";
   version = "0.1.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-nYuMWE03Rsw1XuD/bxccpu8rddeXgS/EKJcO1VBLTLU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiowinreg
@@ -38,14 +37,14 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aesedb" ];
+  pythonImportsCheck = ["aesedb"];
 
   meta = with lib; {
     description = "Parser for JET databases";
     mainProgram = "antdsparse";
     homepage = "https://github.com/skelsec/aesedb";
     changelog = "https://github.com/skelsec/aesedb/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

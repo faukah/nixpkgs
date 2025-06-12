@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../../.. { };
+  pkgs = import ../../../../.. {};
 
   src = pkgs.fetchFromGitHub {
     owner = "nix-community";
@@ -9,17 +9,15 @@ let
     fetchSubmodules = true;
   };
 in
-pkgs.mkShell {
+  pkgs.mkShell {
+    packages = [
+      pkgs.bash
+      pkgs.nixfmt-rfc-style
+    ];
 
-  packages = [
-    pkgs.bash
-    pkgs.nixfmt-rfc-style
-  ];
+    EMACS2NIX = src;
 
-  EMACS2NIX = src;
-
-  shellHook = ''
-    export PATH=$PATH:${src}
-  '';
-
-}
+    shellHook = ''
+      export PATH=$PATH:${src}
+    '';
+  }

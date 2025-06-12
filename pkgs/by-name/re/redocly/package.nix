@@ -6,7 +6,6 @@
   redocly,
   testers,
 }:
-
 buildNpmPackage rec {
   pname = "redocly";
   version = "1.34.2";
@@ -49,7 +48,7 @@ buildNpmPackage rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = redocly; };
+    tests.version = testers.testVersion {package = redocly;};
   };
 
   meta = {
@@ -58,6 +57,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/Redocly/redocly-cli";
     license = lib.licenses.mit;
     mainProgram = "redocly";
-    maintainers = with lib.maintainers; [ szlend ];
+    maintainers = with lib.maintainers; [szlend];
   };
 }

@@ -13,7 +13,6 @@
   zlib,
   electron,
 }:
-
 buildNpmPackage rec {
   pname = "jitsi-meet-electron";
   version = "2025.2.0";
@@ -116,7 +115,7 @@ buildNpmPackage rec {
         "Video"
         "Network"
       ];
-      mimeTypes = [ "x-scheme-handler/jitsi-meet" ];
+      mimeTypes = ["x-scheme-handler/jitsi-meet"];
       terminal = false;
     })
   ];
@@ -127,8 +126,8 @@ buildNpmPackage rec {
     homepage = "https://github.com/jitsi/jitsi-meet-electron";
     license = licenses.asl20;
     mainProgram = "jitsi-meet-electron";
-    maintainers = [ maintainers.tomasajt ];
-    teams = [ teams.jitsi ];
+    maintainers = [maintainers.tomasajt];
+    teams = [teams.jitsi];
     inherit (electron.meta) platforms;
   };
 }

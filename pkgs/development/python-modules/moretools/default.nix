@@ -8,7 +8,6 @@
   pytest,
   decorator,
 }:
-
 buildPythonPackage rec {
   pname = "moretools";
   version = "0.1.12";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     py.test test
   '';
 
-  nativeBuildInputs = [ zetup ];
+  nativeBuildInputs = [zetup];
   nativeCheckInputs = [
     six
     path
     pytest
   ];
-  propagatedBuildInputs = [ decorator ];
+  propagatedBuildInputs = [decorator];
 
   meta = with lib; {
     description = ''

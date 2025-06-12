@@ -3,19 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.cgminer;
 
-  convType = with builtins; v: if lib.isBool v then lib.boolToString v else toString v;
+  convType = with builtins;
+    v:
+      if lib.isBool v
+      then lib.boolToString v
+      else toString v;
   mergedHwConfig = lib.mapAttrsToList (
     n: v: ''"${n}": "${(lib.concatStringsSep "," (map convType v))}"''
-  ) (lib.foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware);
-  mergedConfig =
-    with builtins;
+  ) (lib.foldAttrs (n: a: [n] ++ a) [] cfg.hardware);
+  mergedConfig = with builtins;
     lib.mapAttrsToList (
-      n: v: ''"${n}":  ${if lib.isBool v then convType v else ''"${convType v}"''}''
-    ) cfg.config;
+      n: v: ''"${n}":  ${
+          if lib.isBool v
+          then convType v
+          else ''"${convType v}"''
+        }''
+    )
+    cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {
@@ -29,16 +36,13 @@ let
     }]
     }
   '';
-in
-{
+in {
   ###### interface
   options = {
-
     services.cgminer = {
-
       enable = lib.mkEnableOption "cgminer, an ASIC/FPGA/GPU miner for bitcoin and litecoin";
 
-      package = lib.mkPackageOption pkgs "cgminer" { };
+      package = lib.mkPackageOption pkgs "cgminer" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -47,7 +51,7 @@ in
       };
 
       pools = lib.mkOption {
-        default = [ ]; # Run benchmark
+        default = []; # Run benchmark
         type = lib.types.listOf (lib.types.attrsOf lib.types.str);
         description = "List of pools where to mine";
         example = [
@@ -60,7 +64,7 @@ in
       };
 
       hardware = lib.mkOption {
-        default = [ ]; # Run without options
+        default = []; # Run without options
         type = lib.types.listOf (lib.types.attrsOf (lib.types.either lib.types.str lib.types.int));
         description = "List of config options for every GPU";
         example = [
@@ -88,7 +92,7 @@ in
       };
 
       config = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf (lib.types.either lib.types.bool lib.types.int);
         description = "Additional config";
         example = {
@@ -109,7 +113,6 @@ in
   ###### implementation
 
   config = lib.mkIf config.services.cgminer.enable {
-
     users.users = lib.optionalAttrs (cfg.user == "cgminer") {
       cgminer = {
         isSystemUser = true;
@@ -118,19 +121,19 @@ in
       };
     };
     users.groups = lib.optionalAttrs (cfg.user == "cgminer") {
-      cgminer = { };
+      cgminer = {};
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.cgminer = {
-      path = [ pkgs.cgminer ];
+      path = [pkgs.cgminer];
 
       after = [
         "network.target"
         "display-manager.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";
@@ -147,7 +150,5 @@ in
         Restart = "always";
       };
     };
-
   };
-
 }

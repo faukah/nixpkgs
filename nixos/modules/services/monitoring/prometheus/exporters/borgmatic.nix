@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.borgmatic;
-in
-{
+in {
   port = 9996;
   extraOpts.configFile = lib.mkOption {
     type = lib.types.path;

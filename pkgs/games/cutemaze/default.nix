@@ -9,7 +9,6 @@
   qtwayland,
   qtsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cutemaze";
   version = "1.3.5";
@@ -35,18 +34,17 @@ stdenv.mkDerivation rec {
     ];
 
   installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        runHook preInstall
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      runHook preInstall
 
-        mkdir -p $out/Applications
-        mv CuteMaze.app $out/Applications
-        makeWrapper $out/Applications/CuteMaze.app/Contents/MacOS/CuteMaze $out/bin/cutemaze
+      mkdir -p $out/Applications
+      mv CuteMaze.app $out/Applications
+      makeWrapper $out/Applications/CuteMaze.app/Contents/MacOS/CuteMaze $out/bin/cutemaze
 
-        runHook postInstall
-      ''
-    else
-      null;
+      runHook postInstall
+    ''
+    else null;
 
   meta = with lib; {
     changelog = "https://github.com/gottcode/cutemaze/blob/v${version}/ChangeLog";
@@ -54,7 +52,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cutemaze";
     homepage = "https://gottcode.org/cutemaze/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

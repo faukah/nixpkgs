@@ -19,7 +19,6 @@
   tensorflow,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "deepface";
   version = "0.0.93";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
       --replace-fail "opencv_path = self.__get_opencv_path()" "opencv_path = '/'.join(os.path.dirname(cv2.__file__).split(os.path.sep)[0:-4]) + \"/share/opencv4/haarcascades/\""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fire
@@ -66,13 +65,13 @@ buildPythonPackage rec {
   # requires internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "deepface" ];
+  pythonImportsCheck = ["deepface"];
 
   meta = {
     description = "Lightweight Face Recognition and Facial Attribute Analysis (Age, Gender, Emotion and Race) Library for Python";
     homepage = "https://github.com/serengil/deepface";
     changelog = "https://github.com/serengil/deepface/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

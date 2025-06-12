@@ -9,7 +9,6 @@
   makeWrapper,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fswatch";
   version = "1.18.3";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/emcrisostomo/fswatch";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

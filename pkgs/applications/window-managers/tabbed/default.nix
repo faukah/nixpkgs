@@ -6,9 +6,8 @@
   libX11,
   libXft,
   customConfig ? null,
-  patches ? [ ],
+  patches ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tabbed";
   version = "0.8";
@@ -31,15 +30,15 @@ stdenv.mkDerivation (finalAttrs: {
     libXft
   ];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://tools.suckless.org/tabbed";
     description = "Simple generic tabbed fronted to xembed aware applications";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 })

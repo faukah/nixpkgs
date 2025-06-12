@@ -6,7 +6,6 @@
   qtsvg,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "loganalyzer";
   version = "23.5.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   postInstall = ''
     ln -s $out/bin/LogAnalyzer $out/bin/loganalyzer
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/pbek/loganalyzer/blob/develop/CHANGELOG.md";
     downloadPage = "https://github.com/pbek/loganalyzer/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pbek ];
+    maintainers = with maintainers; [pbek];
     platforms = platforms.unix;
   };
 }

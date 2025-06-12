@@ -9,7 +9,6 @@
   compatIfNeeded,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libelf";
   extraPaths = [

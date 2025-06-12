@@ -6,7 +6,6 @@
   alcotest,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "gmap";
   version = "0.3.0";
@@ -31,6 +30,6 @@ buildDunePackage rec {
     description = "Heterogenous maps over a GADT";
     homepage = "https://github.com/hannesm/gmap";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

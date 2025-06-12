@@ -3,10 +3,9 @@
   objfw,
   writeTextDir,
 }:
-
 clangStdenv.mkDerivation {
   name = "ObjFW test";
-  buildInputs = [ objfw ];
+  buildInputs = [objfw];
 
   src = writeTextDir "helloworld.m" ''
     #import <ObjFW/ObjFW.h>

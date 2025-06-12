@@ -7,7 +7,6 @@
   perlPackages,
   libjpeg_original,
 }:
-
 stdenv.mkDerivation {
   pname = "jpegrescan";
   version = "unstable-2019-03-27";
@@ -38,17 +37,17 @@ stdenv.mkDerivation {
       --prefix PERL5LIB : $PERL5LIB
   '';
 
-  propagatedBuildInputs = [ perlPackages.FileSlurp ];
+  propagatedBuildInputs = [perlPackages.FileSlurp];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "Losslessly shrink any JPEG file";
     homepage = "https://github.com/kud/jpegrescan";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = platforms.all;
     mainProgram = "jpegrescan";
   };

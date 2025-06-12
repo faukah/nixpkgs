@@ -8,7 +8,6 @@
   unstableGitUpdater,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "chirp";
   version = "0.4.0-unstable-2025-05-29";

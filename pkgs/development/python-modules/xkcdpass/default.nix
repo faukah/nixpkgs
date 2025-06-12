@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xkcdpass";
   version = "1.20.0";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-tav9fStZzdpZ+Tf7IiEKxGSa0NLgnh+Hv+dKVOI60Yo=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xkcdpass" ];
+  pythonImportsCheck = ["xkcdpass"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
     # https://github.com/redacted/XKCD-password-generator/issues/138
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     description = "Generate secure multiword passwords/passphrases, inspired by XKCD";
     homepage = "https://github.com/redacted/XKCD-password-generator";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     mainProgram = "xkcdpass";
   };
 }

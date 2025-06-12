@@ -4,11 +4,9 @@
   options,
   pkgs,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkPackageOption
@@ -19,7 +17,8 @@ let
     mkOption
     types
     ;
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mapAttrs
     optionalString
@@ -45,7 +44,9 @@ let
         pgsql = "POSTGRESQL";
         oracle = "ORACLE";
       }
-      .${cfg.database.type}
+      .${
+        cfg.database.type
+      }
     }';
     $DB['SERVER'] = '${cfg.database.host}';
     $DB['PORT'] = '${toString cfg.database.port}';
@@ -53,10 +54,9 @@ let
     $DB['USER'] = '${cfg.database.user}';
     # NOTE: file_get_contents adds newline at the end of returned string
     $DB['PASSWORD'] = ${
-      if cfg.database.passwordFile != null then
-        "trim(file_get_contents('${cfg.database.passwordFile}'), \"\\r\\n\")"
-      else
-        "''"
+      if cfg.database.passwordFile != null
+      then "trim(file_get_contents('${cfg.database.passwordFile}'), \"\\r\\n\")"
+      else "''"
     };
     // Schema name. Used for IBM DB2 and PostgreSQL.
     $DB['SCHEMA'] = ''';
@@ -67,10 +67,10 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "zabbixWeb"
@@ -93,7 +93,7 @@ in
       package = mkPackageOption pkgs [
         "zabbix"
         "web"
-      ] { };
+      ] {};
 
       server = {
         port = mkOption {
@@ -130,12 +130,11 @@ in
         port = mkOption {
           type = types.port;
           default =
-            if cfg.database.type == "mysql" then
-              config.services.mysql.port
-            else if cfg.database.type == "pgsql" then
-              config.services.postgresql.settings.port
-            else
-              1521;
+            if cfg.database.type == "mysql"
+            then config.services.mysql.port
+            else if cfg.database.type == "pgsql"
+            then config.services.postgresql.settings.port
+            else 1521;
           defaultText = literalExpression ''
             if config.${opt.database.type} == "mysql" then config.${options.services.mysql.port}
             else if config.${opt.database.type} == "pgsql" then config.services.postgresql.settings.port
@@ -194,7 +193,7 @@ in
             enableACME = true;
           }
         '';
-        default = { };
+        default = {};
         description = ''
           Apache configuration can be done by adapting `services.httpd.virtualHosts.<name>`.
           See [](#opt-services.httpd.virtualHosts) for further information.
@@ -216,7 +215,7 @@ in
             sslCertificate = "/etc/ssl/zabbix.crt";
           }
         '';
-        default = { };
+        default = {};
         description = ''
           Nginx configuration can be done by adapting `services.nginx.virtualHosts.<name>`.
           See [](#opt-services.nginx.virtualHosts) for further information.
@@ -224,8 +223,7 @@ in
       };
 
       poolConfig = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             str
             int
@@ -257,18 +255,17 @@ in
   # implementation
 
   config = mkIf cfg.enable {
-
     services.zabbixWeb.extraConfig =
       optionalString
-        (
-          (versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0")
-        )
-        ''
-          $DB['DOUBLE_IEEE754'] = 'true';
-        '';
+      (
+        (versionAtLeast config.system.stateVersion "20.09") && (versionAtLeast cfg.package.version "5.0.0")
+      )
+      ''
+        $DB['DOUBLE_IEEE754'] = 'true';
+      '';
 
     systemd.tmpfiles.rules =
-      [ "d '${stateDir}' 0750 ${user} ${group} - -" ]
+      ["d '${stateDir}' 0750 ${user} ${group} - -"]
       ++ optionals (cfg.frontend == "httpd") [
         "d '${stateDir}/session' 0750 ${user} ${config.services.httpd.group} - -"
       ]
@@ -300,18 +297,24 @@ in
           extension=${pkgs.phpPackages.oci8}/lib/php/extensions/oci8.so
         '';
       phpEnv.ZABBIX_CONFIG = "${zabbixConfig}";
-      settings = {
-        "listen.owner" =
-          if cfg.frontend == "httpd" then config.services.httpd.user else config.services.nginx.user;
-        "listen.group" =
-          if cfg.frontend == "httpd" then config.services.httpd.group else config.services.nginx.group;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.owner" =
+            if cfg.frontend == "httpd"
+            then config.services.httpd.user
+            else config.services.nginx.user;
+          "listen.group" =
+            if cfg.frontend == "httpd"
+            then config.services.httpd.group
+            else config.services.nginx.group;
+        }
+        // cfg.poolConfig;
     };
 
     services.httpd = mkIf (cfg.frontend == "httpd") {
       enable = true;
       adminAddr = mkDefault cfg.httpd.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.hostname} = mkMerge [
         cfg.httpd.virtualHost
         {
@@ -356,6 +359,6 @@ in
       inherit group;
     };
 
-    users.groups.${group} = mapAttrs (name: mkDefault) { gid = config.ids.gids.zabbix; };
+    users.groups.${group} = mapAttrs (name: mkDefault) {gid = config.ids.gids.zabbix;};
   };
 }

@@ -13,7 +13,6 @@
   pytest-mock,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-recording";
   version = "0.13.4";
@@ -26,13 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-S++MnI0GgpQxS6kFkt05kcE4JMW7jyFjJ3o7DhfYoVA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   buildInputs = [
     pytest
   ];
 
-  dependencies = [ vcrpy ];
+  dependencies = [vcrpy];
 
   __darwinAllowLocalNetworking = true;
 
@@ -44,20 +43,20 @@ buildPythonPackage rec {
   ];
 
   disabledTests =
-    [ "test_block_network_with_allowed_hosts" ]
+    ["test_block_network_with_allowed_hosts"]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # Missing socket.AF_NETLINK
       "test_other_socket"
     ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "pytest_recording" ];
+  pythonImportsCheck = ["pytest_recording"];
 
   meta = {
     description = "Pytest plugin that allows you recording of network interactions via VCR.py";
     homepage = "https://github.com/kiwicom/pytest-recording";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jbgosselin ];
+    maintainers = with lib.maintainers; [jbgosselin];
   };
 }

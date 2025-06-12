@@ -10,7 +10,6 @@
   libXt,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emboss";
   version = "6.6.0";

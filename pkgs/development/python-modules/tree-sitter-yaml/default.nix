@@ -9,7 +9,6 @@
   tree-sitter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-yaml";
   version = "0.7.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "tree_sitter_yaml" ];
+  pythonImportsCheck = ["tree_sitter_yaml"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "YAML grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter-grammars/tree-sitter-yaml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

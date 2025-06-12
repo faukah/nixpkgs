@@ -7,7 +7,6 @@
   libubox,
   json_c,
 }:
-
 stdenv.mkDerivation {
   pname = "uqmi";
   version = "unstable-2024-01-16";

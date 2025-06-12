@@ -10,7 +10,6 @@
   tomli,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "whool";
   version = "1.2";
@@ -23,14 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-uIHtygDeFbtIZLn0YwGzAHD7B+EZQ3JAovuNMZ5YMxc=";
   };
 
-  build-system = [ hatch-vcs ];
+  build-system = [hatch-vcs];
 
-  dependencies = [
-    manifestoo-core
-    wheel
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      manifestoo-core
+      wheel
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  pythonImportsCheck = [ "whool" ];
+  pythonImportsCheck = ["whool"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sbidoul/whool";
     changelog = "https://github.com/sbidoul/whool/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.yajo ];
+    maintainers = [lib.maintainers.yajo];
   };
 }

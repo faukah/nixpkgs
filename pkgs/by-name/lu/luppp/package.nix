@@ -12,7 +12,6 @@
   libsamplerate,
   ntk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "luppp";
   version = "1.2.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "http://openavproductions.com/luppp/"; # https does not work
     description = "Music creation tool, intended for live use";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.linux;
     mainProgram = "luppp";
   };

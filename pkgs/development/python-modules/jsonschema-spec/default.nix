@@ -3,21 +3,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build
   poetry-core,
-
   # propagates
   pathable,
   pyyaml,
   referencing,
   requests,
-
   # tests
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "jsonschema-spec";
   version = "0.3.4";
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "referencing" ];
+  pythonRelaxDeps = ["referencing"];
 
   propagatedBuildInputs = [
     pathable
@@ -64,6 +60,6 @@ buildPythonPackage rec {
     description = "JSONSchema Spec with object-oriented paths";
     homepage = "https://github.com/p1c2u/jsonschema-spec";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

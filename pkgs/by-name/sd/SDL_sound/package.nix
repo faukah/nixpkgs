@@ -9,7 +9,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_sound";
   version = "1.0.3";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.icculus.org/SDL_sound/";
     description = "SDL sound library";
     license = lib.licenses.lgpl21Plus;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     mainProgram = "playsound";
     inherit (SDL.meta) platforms;
   };

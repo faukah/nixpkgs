@@ -36,7 +36,6 @@
   ntfs3g,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "udisks";
   version = "2.10.1";
@@ -48,11 +47,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L8jr1+SJWsCizkPXC8VKDy2eVa7/FpqdB8SkBYq6vwc=";
   };
 
-  outputs = [
-    "out"
-    "man"
-    "dev"
-  ] ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
+  outputs =
+    [
+      "out"
+      "man"
+      "dev"
+    ]
+    ++ lib.optional (stdenv.hostPlatform == stdenv.buildPlatform) "devdoc";
 
   patches = [
     (replaceVars ./fix-paths.patch {
@@ -82,7 +83,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # pkg-config had to be in both to find gtk-doc and gobject-introspection
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     autoreconfHook
     which
@@ -149,8 +150,8 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the tools & daemon
-    maintainers = with maintainers; [ johnazoidberg ];
-    teams = [ teams.freedesktop ];
+    maintainers = with maintainers; [johnazoidberg];
+    teams = [teams.freedesktop];
     platforms = platforms.linux;
   };
 }

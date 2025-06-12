@@ -4,7 +4,6 @@
   mkTclDerivation,
   tclx,
 }:
-
 mkTclDerivation {
   pname = "tcl-fcgi";
   version = "0.5.0";
@@ -30,6 +29,6 @@ mkTclDerivation {
     description = "Tcl interface for the FastCGI protocol";
     license = licenses.bsd2;
     platforms = tclx.meta.platforms;
-    maintainers = with maintainers; [ nat-418 ];
+    maintainers = with maintainers; [nat-418];
   };
 }

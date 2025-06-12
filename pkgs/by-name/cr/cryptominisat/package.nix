@@ -6,7 +6,6 @@
   python3,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cryptominisat";
   version = "5.11.21";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ boost ];
+  buildInputs = [boost];
   nativeBuildInputs = [
     python3
     cmake
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cryptominisat5";
     homepage = "https://github.com/msoos/cryptominisat";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

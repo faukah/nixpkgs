@@ -6,7 +6,6 @@
   protobuf,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "livekit-protocol";
   version = "1.0.3";
@@ -19,27 +18,27 @@ buildPythonPackage rec {
     hash = "sha256-iXYxTs87kAe4KZEPSdM6DZKlv98B6sABgyqrhzdr2ug=";
   };
 
-  pypaBuildFlags = [ "livekit-protocol" ];
+  pypaBuildFlags = ["livekit-protocol"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     protobuf
   ];
 
-  pythonRemoveDeps = [ "types-protobuf" ];
+  pythonRemoveDeps = ["types-protobuf"];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "livekit" ];
+  pythonImportsCheck = ["livekit"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "protocol-v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "protocol-v";};
 
   meta = {
     description = "LiveKit real-time and server SDKs for Python";
     homepage = "https://github.com/livekit/python-sdks/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     platforms = lib.platforms.all;
   };
 }

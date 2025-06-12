@@ -12,7 +12,6 @@
   bzip2,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpifileutils";
   version = "0.12";
@@ -43,13 +42,13 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   meta = with lib; {
     description = "Suite of MPI-based tools to manage large datasets";
     homepage = "https://hpc.github.io/mpifileutils";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

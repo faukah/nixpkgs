@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "buildkit-nix";
   version = "0.1.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/reproducible-containers/buildkit-nix/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
     mainProgram = "buildkit-nix";
   };
 }

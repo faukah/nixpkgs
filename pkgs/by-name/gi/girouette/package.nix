@@ -6,7 +6,6 @@
   dbus,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "girouette";
   version = "0.7.4";

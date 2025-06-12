@@ -5,8 +5,7 @@
   dbt-postgres,
   dbt-redshift,
   dbt-snowflake,
-}:
-let
+}: let
   adapters = {
     inherit
       dbt-bigquery
@@ -16,9 +15,9 @@ let
       ;
   };
 in
-adapterFun:
-(python.buildEnv.override {
-  extraLibs = [ dbt-core ] ++ (adapterFun adapters);
-  ignoreCollisions = true;
-}).overrideAttrs
-  { meta.mainProgram = dbt-core.meta.mainProgram; }
+  adapterFun:
+    (python.buildEnv.override {
+      extraLibs = [dbt-core] ++ (adapterFun adapters);
+      ignoreCollisions = true;
+    }).overrideAttrs
+    {meta.mainProgram = dbt-core.meta.mainProgram;}

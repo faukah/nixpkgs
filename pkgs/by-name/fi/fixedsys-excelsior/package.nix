@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "fixedsys-excelsior";
   version = "3.00";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Pan-unicode version of Fixedsys, a classic DOS font";
     platforms = lib.platforms.all;
     license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.picnoir ];
+    maintainers = [lib.maintainers.picnoir];
   };
 }

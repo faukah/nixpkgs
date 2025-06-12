@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixf,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nixf-diagnose";
   version = "0.1.2";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "nixf-diagnose";
     homepage = "https://github.com/inclyc/nixf-diagnose";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ inclyc ];
+    maintainers = with lib.maintainers; [inclyc];
   };
 })

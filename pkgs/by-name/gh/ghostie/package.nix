@@ -7,7 +7,6 @@
   sqlite,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ghostie";
   version = "0.3.1";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/attriaayush/ghostie";
     changelog = "https://github.com/attriaayush/ghostie/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
     broken = stdenv.hostPlatform.isx86_64 && stdenv.hostPlatform.isDarwin;
     mainProgram = "ghostie";
   };

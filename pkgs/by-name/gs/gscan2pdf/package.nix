@@ -21,7 +21,6 @@
   file,
   tesseract3,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "gscan2pdf";
   version = "2.13.4";
@@ -36,7 +35,7 @@ perlPackages.buildPerlPackage rec {
     ./image-utf8-fix.patch
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   buildInputs =
     [
@@ -75,18 +74,16 @@ perlPackages.buildPerlPackage rec {
       SubOverride
     ]);
 
-  postPatch =
-    let
-      fontSubstitute = "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
-    in
-    ''
-      # Required for the program to properly load its SVG assets
-      substituteInPlace bin/gscan2pdf \
-        --replace "/usr/share" "$out/share"
+  postPatch = let
+    fontSubstitute = "${liberation_ttf}/share/fonts/truetype/LiberationSans-Regular.ttf";
+  in ''
+    # Required for the program to properly load its SVG assets
+    substituteInPlace bin/gscan2pdf \
+      --replace "/usr/share" "$out/share"
 
-      # Substitute the non-free Helvetica font in the tests
-      sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
-    '';
+    # Substitute the non-free Helvetica font in the tests
+    sed -i 's|-pointsize|-font ${fontSubstitute} -pointsize|g' t/*.t
+  '';
 
   postInstall = ''
     # Remove impurity
@@ -106,7 +103,7 @@ perlPackages.buildPerlPackage rec {
 
   enableParallelBuilding = true;
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
 
   outputs = [
     "out"
@@ -161,7 +158,7 @@ perlPackages.buildPerlPackage rec {
     description = "GUI to produce PDFs or DjVus from scanned documents";
     homepage = "https://gscan2pdf.sourceforge.net/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
     mainProgram = "gscan2pdf";
   };
 }

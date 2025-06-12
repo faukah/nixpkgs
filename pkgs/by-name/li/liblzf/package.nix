@@ -31,11 +31,11 @@ stdenv.mkDerivation (finalAttrs: {
       let
         name = "liblzf-3.6-autoconf-20140314.patch";
       in
-      fetchpatch {
-        inherit name;
-        url = "https://src.fedoraproject.org/rpms/liblzf/raw/53da654eead51a24ac81a28e1b1c531eb1afab28/f/${name}";
-        hash = "sha256-rkhI8w0HV3fGiDfHiXBzrnxqGDE/Yo5ntePrsscMiyg=";
-      }
+        fetchpatch {
+          inherit name;
+          url = "https://src.fedoraproject.org/rpms/liblzf/raw/53da654eead51a24ac81a28e1b1c531eb1afab28/f/${name}";
+          hash = "sha256-rkhI8w0HV3fGiDfHiXBzrnxqGDE/Yo5ntePrsscMiyg=";
+        }
     )
   ];
 
@@ -71,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     exeTest = testers.runCommand {
       name = "${finalAttrs.pname}-exe-test";
-      buildInputs = [ finalAttrs.finalPackage ];
+      buildInputs = [finalAttrs.finalPackage];
       script = ''
         lzf -h 2> /dev/null
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
     shlibTest = testers.runCommand {
       name = "${finalAttrs.pname}-shlib-test";
       inherit stdenv; # with CC
-      nativeBuildInputs = [ pkg-config ];
+      nativeBuildInputs = [pkg-config];
       buildInputs = [
         finalAttrs.finalPackage.dev
         finalAttrs.finalPackage
@@ -119,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     changelog =
       "http://cvs.schmorp.de/liblzf/Changes?pathrev=rel-"
-      + builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version;
+      + builtins.replaceStrings ["."] ["_"] finalAttrs.version;
     description = "Small data compression library";
     downloadPage = "http://dist.schmorp.de/liblzf/";
     homepage = "http://software.schmorp.de/pkg/liblzf.html";
@@ -132,6 +132,6 @@ stdenv.mkDerivation (finalAttrs: {
       tetov
     ];
     platforms = lib.platforms.unix;
-    pkgConfigModules = [ "liblzf" ];
+    pkgConfigModules = ["liblzf"];
   };
 })

@@ -8,7 +8,6 @@
   modDirVersion ? "",
   forPlatform ? stdenv.buildPlatform,
 }:
-
 replaceVarsWith {
   name = "uname";
 
@@ -20,7 +19,10 @@ replaceVarsWith {
   replacements = {
     inherit coreutils getopt runtimeShell;
 
-    uSystem = if forPlatform.uname.system != null then forPlatform.uname.system else "unknown";
+    uSystem =
+      if forPlatform.uname.system != null
+      then forPlatform.uname.system
+      else "unknown";
     inherit (forPlatform.uname) processor;
 
     # uname -o
@@ -29,19 +31,21 @@ replaceVarsWith {
     # https://stackoverflow.com/questions/61711186/where-does-host-operating-system-in-uname-c-comes-from
     # https://github.com/coreutils/gnulib/blob/master/m4/host-os.m4
     operatingSystem =
-      if forPlatform.isLinux then
-        "GNU/Linux"
-      else if forPlatform.isDarwin then
-        "Darwin" # darwin isn't in host-os.m4 so where does this come from?
-      else if forPlatform.isFreeBSD then
-        "FreeBSD"
-      else
-        "unknown";
+      if forPlatform.isLinux
+      then "GNU/Linux"
+      else if forPlatform.isDarwin
+      then "Darwin" # darwin isn't in host-os.m4 so where does this come from?
+      else if forPlatform.isFreeBSD
+      then "FreeBSD"
+      else "unknown";
 
     # in os-specific/linux module packages
     # --replace '$(shell uname -r)' "${kernel.modDirVersion}" \
     # is a common thing to do.
-    modDirVersion = if modDirVersion != "" then modDirVersion else "unknown";
+    modDirVersion =
+      if modDirVersion != ""
+      then modDirVersion
+      else "unknown";
   };
 
   meta = with lib; {
@@ -56,8 +60,8 @@ replaceVarsWith {
       not intercept these calls, builds made on different kernels will produce
       different results.
     '';
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ artturin ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.all;
   };
 }

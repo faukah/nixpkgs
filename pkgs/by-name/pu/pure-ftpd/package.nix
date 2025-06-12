@@ -6,7 +6,6 @@
   pam,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pure-ftpd";
   version = "1.0.52";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  configureFlags = [ "--with-tls" ];
+  configureFlags = ["--with-tls"];
 
   meta = with lib; {
     description = "Free, secure, production-quality and standard-conformant FTP server";
     homepage = "https://www.pureftpd.org";
     license = licenses.isc; # with some parts covered by BSD3(?)
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

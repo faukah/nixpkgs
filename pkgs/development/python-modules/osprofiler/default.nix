@@ -12,7 +12,6 @@
   setuptools,
   webob,
 }:
-
 buildPythonPackage rec {
   pname = "osprofiler";
   version = "4.3.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-d6jaKyO7X5BIBUvVzMRdCshFdMqKiO8SC4+sbohk4kw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     netaddr
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   # We do not really care
   doCheck = false;
 
-  pythonImportsCheck = [ "osprofiler" ];
+  pythonImportsCheck = ["osprofiler"];
 
   meta = with lib; {
     description = "OpenStack Library to profile request between all involved services";
     homepage = "https://opendev.org/openstack/osprofiler/";
     license = licenses.asl20;
     mainProgram = "osprofiler";
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromSourcehut,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wayidle";
   version = "1.0.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Execute a program when a Wayland compositor reports being N seconds idle";
     homepage = "https://git.sr.ht/~whynothugo/wayidle";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "wayidle";
     platforms = platforms.linux;
   };

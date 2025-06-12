@@ -9,7 +9,6 @@
   python3,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "couchdb";
   version = "3.5.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     icu
     openssl
     spidermonkey_91
-    (python3.withPackages (ps: with ps; [ requests ]))
+    (python3.withPackages (ps: with ps; [requests]))
   ];
 
   dontAddPrefix = "True";
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lostnet ];
+    maintainers = with maintainers; [lostnet];
   };
 }

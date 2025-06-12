@@ -5,36 +5,34 @@
   ocaml,
   findlib,
   ocamlbuild,
-}:
-
-{
+}: {
   pname,
   version,
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   meta ? {
-    platforms = ocaml.meta.platforms or [ ];
+    platforms = ocaml.meta.platforms or [];
   },
   minimumOCamlVersion ? null,
   createFindlibDestdir ? true,
   dontStrip ? true,
   ...
-}@args:
-
-if args ? minimumOCamlVersion && lib.versionOlder ocaml.version args.minimumOCamlVersion then
-  throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
+} @ args:
+if args ? minimumOCamlVersion && lib.versionOlder ocaml.version args.minimumOCamlVersion
+then throw "${pname}-${version} is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation (
     args
     // {
       name = "ocaml${ocaml.version}-${pname}-${version}";
 
-      nativeBuildInputs = [
-        ocaml
-        findlib
-        ocamlbuild
-        ocaml_oasis
-      ] ++ nativeBuildInputs;
+      nativeBuildInputs =
+        [
+          ocaml
+          findlib
+          ocamlbuild
+          ocaml_oasis
+        ]
+        ++ nativeBuildInputs;
 
       inherit createFindlibDestdir;
       inherit dontStrip;
@@ -61,6 +59,5 @@ else
         ocaml setup.ml -install
         runHook postInstall
       '';
-
     }
   )

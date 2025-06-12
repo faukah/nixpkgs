@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.ayatana-indicators;
-in
-{
+in {
   options.services.ayatana-indicators = {
     enable = lib.mkEnableOption ''
       Ayatana Indicators, a continuation of Canonical's Application Indicators
@@ -16,7 +13,7 @@ in
 
     packages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression "with pkgs; [ ayatana-indicator-messages ]";
       description = ''
         List of packages containing Ayatana Indicator services
@@ -34,19 +31,18 @@ in
     environment = {
       systemPackages = cfg.packages;
 
-      pathsToLink = [ "/share/ayatana" ];
+      pathsToLink = ["/share/ayatana"];
     };
 
     # libayatana-common's ayatana-indicators.target with explicit Wants & Before to bring up requested indicator services
-    systemd.user.targets =
-      let
-        namesToServices = map (indicator: "${indicator}.service");
-        indicatorServices =
-          target:
-          lib.lists.flatten (
-            map (
-              pkg:
-              if lib.isList pkg.passthru.ayatana-indicators then
+    systemd.user.targets = let
+      namesToServices = map (indicator: "${indicator}.service");
+      indicatorServices = target:
+        lib.lists.flatten (
+          map (
+            pkg:
+              if lib.isList pkg.passthru.ayatana-indicators
+              then
                 # Old format, add to every target
                 (lib.warn "${pkg.name} is using the old passthru.ayatana-indicators format, please update it!" (
                   namesToServices pkg.passthru.ayatana-indicators
@@ -56,26 +52,28 @@ in
                 (namesToServices (
                   builtins.filter (
                     service:
-                    builtins.any (
-                      targetPrefix: "${targetPrefix}-indicators" == target
-                    ) pkg.passthru.ayatana-indicators.${service}
+                      builtins.any (
+                        targetPrefix: "${targetPrefix}-indicators" == target
+                      )
+                      pkg.passthru.ayatana-indicators.${service}
                   ) (builtins.attrNames pkg.passthru.ayatana-indicators)
                 ))
-            ) cfg.packages
-          );
-      in
+          )
+          cfg.packages
+        );
+    in
       lib.attrsets.mapAttrs
-        (name: desc: {
-          description = "Target representing the lifecycle of the ${desc}. Each indicator should be bound to it in its individual service file";
-          partOf = [ "graphical-session.target" ];
-          wants = indicatorServices name;
-          before = indicatorServices name;
-        })
-        {
-          ayatana-indicators = "Ayatana Indicators";
-          lomiri-indicators = "Ayatana/Lomiri Indicators that shall be run in Lomiri";
-        };
+      (name: desc: {
+        description = "Target representing the lifecycle of the ${desc}. Each indicator should be bound to it in its individual service file";
+        partOf = ["graphical-session.target"];
+        wants = indicatorServices name;
+        before = indicatorServices name;
+      })
+      {
+        ayatana-indicators = "Ayatana Indicators";
+        lomiri-indicators = "Ayatana/Lomiri Indicators that shall be run in Lomiri";
+      };
   };
 
-  meta.maintainers = with lib.maintainers; [ OPNA2608 ];
+  meta.maintainers = with lib.maintainers; [OPNA2608];
 }

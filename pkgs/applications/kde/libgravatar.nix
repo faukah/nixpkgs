@@ -10,7 +10,6 @@
   kwidgetsaddons,
   pimcommon,
 }:
-
 mkDerivation {
   pname = "libgravatar";
   meta = {

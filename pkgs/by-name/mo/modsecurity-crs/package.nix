@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.3.4";
   pname = "modsecurity-crs";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

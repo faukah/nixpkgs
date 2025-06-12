@@ -11,7 +11,6 @@
   stdenv,
   vips,
 }:
-
 buildNpmPackage rec {
   pname = "chatd";
   version = "1.1.2";
@@ -30,11 +29,13 @@ buildNpmPackage rec {
 
   dontNpmBuild = true; # missing script: build
 
-  nativeBuildInputs = [
-    makeWrapper
-    electron
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook; # for onnx libs
+  nativeBuildInputs =
+    [
+      makeWrapper
+      electron
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook; # for onnx libs
 
   buildInputs = [
     (lib.getLib stdenv.cc.cc) # for libstdc++.so, required by onnxruntime
@@ -66,30 +67,22 @@ buildNpmPackage rec {
     find $out/share/chatd/node_modules -name '*.exe' -or -name '*.dll' -or -name '*.pdb' -delete
     rm -rf ${
       lib.concatStringsSep " " (
-        (lib.optional (
-          !stdenv.hostPlatform.isx86_64
-        ) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/*/x64")
-        ++ (lib.optional (
-          !stdenv.hostPlatform.isAarch64
-        ) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/*/arm64")
-        ++ (lib.optional (
-          !stdenv.hostPlatform.isDarwin
-        ) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/darwin")
-        ++ (lib.optional (
-          !stdenv.hostPlatform.isLinux
-        ) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/linux")
+        (lib.optional (!stdenv.hostPlatform.isx86_64) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/*/x64")
+        ++ (lib.optional (!stdenv.hostPlatform.isAarch64) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/*/arm64")
+        ++ (lib.optional (!stdenv.hostPlatform.isDarwin) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/darwin")
+        ++ (lib.optional (!stdenv.hostPlatform.isLinux) "$out/share/chatd/node_modules/onnxruntime-node/bin/napi-v3/linux")
       )
     }
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Chat with your documents using local AI";
     homepage = "https://github.com/BruceMacD/chatd";
     changelog = "https://github.com/BruceMacD/chatd/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lucasew ];
+    maintainers = [lib.maintainers.lucasew];
     mainProgram = "chatd";
     platforms = electron.meta.platforms;
   };

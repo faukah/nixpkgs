@@ -10,7 +10,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pylddwrap";
   version = "1.2.2";
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     rm -f $out/{LICENSE,README.rst,requirements.txt}
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     icontract
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # uses mocked ldd from PATH, but we are patching the source to not look at PATH
   disabledTests = [
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     "TestMain"
   ];
 
-  pythonImportsCheck = [ "lddwrap" ];
+  pythonImportsCheck = ["lddwrap"];
 
   meta = with lib; {
     description = "Python wrapper around ldd *nix utility to determine shared libraries of a program";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/Parquery/pylddwrap";
     changelog = "https://github.com/Parquery/pylddwrap/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     # should work in any Unix platform that uses glibc, except for darwin
     # since it has its own tool (`otool`)
     badPlatforms = platforms.darwin;

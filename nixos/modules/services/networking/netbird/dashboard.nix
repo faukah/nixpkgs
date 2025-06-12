@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     boolToString
     concatStringsSep
     hasAttr
@@ -19,7 +18,8 @@ let
     mkPackageOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     bool
     either
@@ -28,16 +28,17 @@ let
     submodule
     ;
 
-  toStringEnv = value: if isBool value then boolToString value else toString value;
+  toStringEnv = value:
+    if isBool value
+    then boolToString value
+    else toString value;
 
   cfg = config.services.netbird.server.dashboard;
-in
-
-{
+in {
   options.services.netbird.server.dashboard = {
     enable = mkEnableOption "the static netbird dashboard frontend";
 
-    package = mkPackageOption pkgs "netbird-dashboard" { };
+    package = mkPackageOption pkgs "netbird-dashboard" {};
 
     enableNginx = mkEnableOption "Nginx reverse-proxy to serve the dashboard";
 
@@ -53,7 +54,7 @@ in
     };
 
     settings = mkOption {
-      type = submodule { freeformType = attrsOf (either str bool); };
+      type = submodule {freeformType = attrsOf (either str bool);};
 
       defaultText = ''
         {
@@ -123,9 +124,10 @@ in
       # The derivation containing the templated dashboard
       finalDrv =
         pkgs.runCommand "netbird-dashboard"
-          {
-            nativeBuildInputs = [ pkgs.gettext ];
-            env = {
+        {
+          nativeBuildInputs = [pkgs.gettext];
+          env =
+            {
               ENV_STR = concatStringsSep " " [
                 "$AUTH_AUDIENCE"
                 "$AUTH_AUTHORITY"
@@ -142,24 +144,25 @@ in
                 "$NETBIRD_TOKEN_SOURCE"
                 "$USE_AUTH0"
               ];
-            } // (mapAttrs (_: toStringEnv) cfg.settings);
-          }
-          ''
-            cp -R ${cfg.package} build
+            }
+            // (mapAttrs (_: toStringEnv) cfg.settings);
+        }
+        ''
+          cp -R ${cfg.package} build
 
-            find build -type d -exec chmod 755 {} \;
-            OIDC_TRUSTED_DOMAINS="build/OidcTrustedDomains.js"
+          find build -type d -exec chmod 755 {} \;
+          OIDC_TRUSTED_DOMAINS="build/OidcTrustedDomains.js"
 
-            envsubst "$ENV_STR" < "$OIDC_TRUSTED_DOMAINS.tmpl" > "$OIDC_TRUSTED_DOMAINS"
+          envsubst "$ENV_STR" < "$OIDC_TRUSTED_DOMAINS.tmpl" > "$OIDC_TRUSTED_DOMAINS"
 
-            for f in $(grep -R -l AUTH_SUPPORTED_SCOPES build/); do
-              mv "$f" "$f.copy"
-              envsubst "$ENV_STR" < "$f.copy" > "$f"
-              rm "$f.copy"
-            done
+          for f in $(grep -R -l AUTH_SUPPORTED_SCOPES build/); do
+            mv "$f" "$f.copy"
+            envsubst "$ENV_STR" < "$f.copy" > "$f"
+            rm "$f.copy"
+          done
 
-            cp -R build $out
-          '';
+          cp -R build $out
+        '';
     };
 
     services.nginx = mkIf cfg.enableNginx {

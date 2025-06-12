@@ -2,22 +2,19 @@
   pkgs,
   makeTest,
   genTests,
-}:
-
-let
+}: let
   inherit (pkgs) lib;
 
-  makeTestFor =
-    package:
+  makeTestFor = package:
     makeTest {
       name = "wal2json-${package.name}";
-      meta.maintainers = with pkgs.lib.maintainers; [ euank ];
+      meta.maintainers = with pkgs.lib.maintainers; [euank];
 
       nodes.machine = {
         services.postgresql = {
           inherit package;
           enable = true;
-          extensions = with package.pkgs; [ wal2json ];
+          extensions = with package.pkgs; [wal2json];
           settings = {
             wal_level = "logical";
             max_replication_slots = "10";
@@ -43,7 +40,7 @@ let
       '';
     };
 in
-genTests {
-  inherit makeTestFor;
-  filter = _: p: !p.pkgs.wal2json.meta.broken;
-}
+  genTests {
+    inherit makeTestFor;
+    filter = _: p: !p.pkgs.wal2json.meta.broken;
+  }

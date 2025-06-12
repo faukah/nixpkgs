@@ -8,7 +8,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-order";
   version = "1.3.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-V1qJGkXn+HhuK5wiwkkJBEbfnv23R4x9Cv0J6ZTj5xE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook

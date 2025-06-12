@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   flit,
-
   # dependencies
   pystac,
   rasterio,
-
   # test
   jsonschema,
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rio-stac";
   version = "0.10.1";
@@ -28,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-sK03AWDwsUanxl756z/MrroF3cm7hV3dpPhVQ/1cs3E=";
   };
 
-  build-system = [ flit ];
+  build-system = [flit];
 
   dependencies = [
     pystac
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rio_stac" ];
+  pythonImportsCheck = ["rio_stac"];
 
   disabledTests = [
     # urllib url open error
@@ -54,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/developmentseed/rio-stac";
     changelog = "https://github.com/developmentseed/rio-stac/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
   };
 }

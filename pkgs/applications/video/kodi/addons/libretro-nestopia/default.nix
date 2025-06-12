@@ -6,7 +6,6 @@
   libretro,
   nestopia,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "libretro-nestopia";
   namespace = "game.libretro.nestopia";
@@ -23,7 +22,7 @@ buildKodiBinaryAddon rec {
     "-DNESTOPIA_LIB=${nestopia}/lib/retroarch/cores/nestopia_libretro.so"
   ];
 
-  extraBuildInputs = [ nestopia ];
+  extraBuildInputs = [nestopia];
   propagatedBuildInputs = [
     libretro
   ];
@@ -33,6 +32,6 @@ buildKodiBinaryAddon rec {
     description = "Nintendo - NES / Famicom (Nestopia UE) GameClient for Kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

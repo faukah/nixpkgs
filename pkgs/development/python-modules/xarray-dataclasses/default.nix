@@ -9,7 +9,6 @@
   typing-extensions,
   xarray,
 }:
-
 buildPythonPackage rec {
   pname = "xarray-dataclasses";
   version = "1.9.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "xarray" ];
+  pythonRelaxDeps = ["xarray"];
 
   propagatedBuildInputs = [
     numpy
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     xarray
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xarray_dataclasses" ];
+  pythonImportsCheck = ["xarray_dataclasses"];
 
   meta = with lib; {
     description = "xarray data creation made easy by dataclass";
     homepage = "https://github.com/astropenguin/xarray-dataclasses";
     changelog = "https://github.com/astropenguin/xarray-dataclasses/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -28,7 +28,6 @@
   phonon,
   qtmultimedia,
 }:
-
 mkDerivation {
   pname = "konversation";
 
@@ -68,7 +67,7 @@ mkDerivation {
   meta = {
     description = "Integrated IRC client for KDE";
     mainProgram = "konversation";
-    license = with lib.licenses; [ gpl2 ];
+    license = with lib.licenses; [gpl2];
     homepage = "https://konversation.kde.org";
   };
 }

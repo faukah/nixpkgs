@@ -5,10 +5,9 @@
   modemmanager,
   qtbase,
 }:
-
 mkDerivation {
   pname = "modemmanager-qt";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     modemmanager
     qtbase

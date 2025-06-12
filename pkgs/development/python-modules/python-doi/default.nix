@@ -4,7 +4,6 @@
   fetchFromGitHub,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "python-doi";
   version = "0.1.1";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library to work with Document Object Identifiers (doi)";
     homepage = "https://github.com/alejandrogallo/python-doi";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

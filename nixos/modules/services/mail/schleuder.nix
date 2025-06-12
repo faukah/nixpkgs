@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.schleuder;
-  settingsFormat = pkgs.formats.yaml { };
-  postfixMap =
-    entries: lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
+  settingsFormat = pkgs.formats.yaml {};
+  postfixMap = entries: lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") entries);
   writePostfixMap = name: entries: pkgs.writeText name (postfixMap entries);
   configScript = pkgs.writeScript "schleuder-cfg" ''
     #!${pkgs.runtimeShell}
@@ -21,13 +19,14 @@ let
       > /etc/schleuder/schleuder.yml
     chown schleuder: /etc/schleuder/schleuder.yml
   '';
-in
-{
+in {
   options.services.schleuder = {
     enable = lib.mkEnableOption "Schleuder secure remailer";
-    enablePostfix = lib.mkEnableOption "automatic postfix integration" // {
-      default = true;
-    };
+    enablePostfix =
+      lib.mkEnableOption "automatic postfix integration"
+      // {
+        default = true;
+      };
     lists = lib.mkOption {
       description = ''
         List of list addresses that should be handled by Schleuder.
@@ -38,20 +37,20 @@ in
         schleuder-cli.
       '';
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "widget-team@example.com"
         "security@example.com"
       ];
     };
     /*
-      maybe one day....
-      domains = lib.mkOption {
-      description = "Domains for which all mail should be handled by Schleuder.";
-      type = lib.types.listOf lib.types.str;
-      default = [];
-      example = ["securelists.example.com"];
-      };
+    maybe one day....
+    domains = lib.mkOption {
+    description = "Domains for which all mail should be handled by Schleuder.";
+    type = lib.types.listOf lib.types.str;
+    default = [];
+    example = ["securelists.example.com"];
+    };
     */
     settings = lib.mkOption {
       description = ''
@@ -71,7 +70,7 @@ in
           default = "keys.openpgp.org";
         };
       };
-      default = { };
+      default = {};
     };
     extraSettingsFile = lib.mkOption {
       description = "YAML file to merge into the schleuder config at runtime. This can be used for secrets such as API keys.";
@@ -85,7 +84,7 @@ in
         Check the [example configuration](https://0xacab.org/schleuder/schleuder/-/blob/master/etc/list-defaults.yml) for possible values.
       '';
       type = settingsFormat.type;
-      default = { };
+      default = {};
     };
   };
   config = lib.mkIf cfg.enable {
@@ -97,7 +96,7 @@ in
         '';
       }
       {
-        assertion = !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or { }));
+        assertion = !(lib.any (db: db ? password) (lib.attrValues cfg.settings.database or {}));
         message = ''
           A password is defined for at least one database in services.schleuder.settings.database. Defining passwords via NixOS config results in them being copied to the world-readable Nix store. Please use the extraSettingsFile option to store database passwords in a non-public location.
         '';
@@ -105,7 +104,7 @@ in
     ];
     users.users.schleuder.isSystemUser = true;
     users.users.schleuder.group = "schleuder";
-    users.groups.schleuder = { };
+    users.groups.schleuder = {};
     environment.systemPackages = [
       pkgs.schleuder-cli
     ];
@@ -114,61 +113,65 @@ in
         schleuder  unix  -       n       n       -       -       pipe
           flags=DRhu user=schleuder argv=/${pkgs.schleuder}/bin/schleuder work ''${recipient}
       '';
-      transport = lib.mkIf (cfg.lists != [ ]) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
+      transport = lib.mkIf (cfg.lists != []) (postfixMap (lib.genAttrs cfg.lists (_: "schleuder:")));
       extraConfig = ''
         schleuder_destination_recipient_limit = 1
       '';
       # review: does this make sense?
-      localRecipients = lib.mkIf (cfg.lists != [ ]) cfg.lists;
+      localRecipients = lib.mkIf (cfg.lists != []) cfg.lists;
     };
-    systemd.services =
-      let
-        commonServiceConfig = {
-          # We would have liked to use DynamicUser, but since the default
-          # database is SQLite and lives in StateDirectory, and that same
-          # database needs to be readable from the postfix service, this
-          # isn't trivial to do.
-          User = "schleuder";
-          StateDirectory = "schleuder";
-          StateDirectoryMode = "0700";
-        };
-      in
-      {
-        schleuder-init = {
-          serviceConfig = commonServiceConfig // {
+    systemd.services = let
+      commonServiceConfig = {
+        # We would have liked to use DynamicUser, but since the default
+        # database is SQLite and lives in StateDirectory, and that same
+        # database needs to be readable from the postfix service, this
+        # isn't trivial to do.
+        User = "schleuder";
+        StateDirectory = "schleuder";
+        StateDirectoryMode = "0700";
+      };
+    in {
+      schleuder-init = {
+        serviceConfig =
+          commonServiceConfig
+          // {
             ExecStartPre = lib.mkIf (cfg.extraSettingsFile != null) [
               "+${configScript}"
             ];
-            ExecStart = [ "${pkgs.schleuder}/bin/schleuder install" ];
+            ExecStart = ["${pkgs.schleuder}/bin/schleuder install"];
             Type = "oneshot";
           };
-        };
-        schleuder-api-daemon = {
-          after = [
-            "local-fs.target"
-            "network.target"
-            "schleuder-init.service"
-          ];
-          wantedBy = [ "multi-user.target" ];
-          requires = [ "schleuder-init.service" ];
-          serviceConfig = commonServiceConfig // {
-            ExecStart = [ "${pkgs.schleuder}/bin/schleuder-api-daemon" ];
+      };
+      schleuder-api-daemon = {
+        after = [
+          "local-fs.target"
+          "network.target"
+          "schleuder-init.service"
+        ];
+        wantedBy = ["multi-user.target"];
+        requires = ["schleuder-init.service"];
+        serviceConfig =
+          commonServiceConfig
+          // {
+            ExecStart = ["${pkgs.schleuder}/bin/schleuder-api-daemon"];
           };
-        };
-        schleuder-weekly-key-maintenance = {
-          after = [
-            "local-fs.target"
-            "network.target"
-          ];
-          startAt = "weekly";
-          serviceConfig = commonServiceConfig // {
+      };
+      schleuder-weekly-key-maintenance = {
+        after = [
+          "local-fs.target"
+          "network.target"
+        ];
+        startAt = "weekly";
+        serviceConfig =
+          commonServiceConfig
+          // {
             ExecStart = [
               "${pkgs.schleuder}/bin/schleuder refresh_keys"
               "${pkgs.schleuder}/bin/schleuder check_keys"
             ];
           };
-        };
       };
+    };
 
     environment.etc."schleuder/schleuder.yml" = lib.mkIf (cfg.extraSettingsFile == null) {
       source = settingsFormat.generate "schleuder.yml" cfg.settings;

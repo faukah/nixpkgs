@@ -9,7 +9,6 @@
   mock,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "stem";
   version = "1.8.3-unstable-2024-02-13";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     cryptography
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/torproject/stem";
     homepage = "https://stem.torproject.org/";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -7,7 +7,6 @@
   pybind11,
   setuptools,
 }:
-
 buildPythonPackage {
   inherit (piper-phonemize-native) pname version src;
   format = "pyproject";
@@ -24,7 +23,7 @@ buildPythonPackage {
   ];
 
   # coredump in onnxruntime::logging::Logger& onnxruntime::logging::LoggingManager::DefaultLogger()
-  pythonImportsCheck = lib.optionals stdenv.hostPlatform.isx86 [ "piper_phonemize" ];
+  pythonImportsCheck = lib.optionals stdenv.hostPlatform.isx86 ["piper_phonemize"];
 
   # no tests
   doCheck = false;

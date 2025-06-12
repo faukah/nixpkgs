@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "neosay";
   version = "1.0.1";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "neosay";
     homepage = "https://github.com/donuts-are-good/neosay";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -12,7 +12,6 @@
   mandoc,
   statHook,
 }:
-
 mkDerivation {
   path = "lib/libutil";
 

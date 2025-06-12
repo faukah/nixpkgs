@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "dendron";
@@ -13,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=dendron.dendron";
     homepage = "https://www.dendron.so/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivyfanchiang ];
+    maintainers = [lib.maintainers.ivyfanchiang];
   };
 }

@@ -6,7 +6,6 @@
   wrapGAppsNoGuiHook,
   lib,
 }:
-
 python3.pkgs.buildPythonApplication {
   name = "set-session";
 
@@ -40,6 +39,6 @@ python3.pkgs.buildPythonApplication {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [] ++ teams.pantheon.members;
   };
 }

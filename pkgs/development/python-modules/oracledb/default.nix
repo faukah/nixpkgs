@@ -8,7 +8,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "oracledb";
   version = "3.1.0";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   # Checks need an Oracle database
   doCheck = false;
 
-  pythonImportsCheck = [ "oracledb" ];
+  pythonImportsCheck = ["oracledb"];
 
   meta = with lib; {
     description = "Python driver for Oracle Database";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
       asl20 # and or
       upl
     ];
-    maintainers = with maintainers; [ harvidsen ];
+    maintainers = with maintainers; [harvidsen];
   };
 }

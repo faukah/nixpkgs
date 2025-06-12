@@ -16,17 +16,17 @@ lua54Packages.buildLuaPackage {
     hash = "sha256-F0UfNxHM389GhiPQ6/GFbeKQq5EvpiqQdvyf7ygzkPg=";
   };
 
-  nativeBuildInputs = [ gcc ];
+  nativeBuildInputs = [gcc];
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  makeFlags = [ "INSTALL_DIR=$(out)/lib/lua/${lua54Packages.lua.luaversion}" ];
+  makeFlags = ["INSTALL_DIR=$(out)/lib/lua/${lua54Packages.lua.luaversion}"];
 
   meta = {
     description = "Lua API for SketchyBar";
     homepage = "https://github.com/FelixKratz/SbarLua/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.khaneliman ];
+    maintainers = [lib.maintainers.khaneliman];
     platforms = lib.platforms.darwin;
   };
 }

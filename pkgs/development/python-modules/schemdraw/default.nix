@@ -13,7 +13,6 @@
   nbval,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "schemdraw";
   version = "0.20";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
     hash = "sha256-mt1XTrUH570zrJpCFo0jORAE/jo7H2T7sKpIskYw8bk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyparsing ];
+  dependencies = [pyparsing];
 
   optional-dependencies = {
-    matplotlib = [ matplotlib ];
+    matplotlib = [matplotlib];
     svgmath = [
       latex2mathml
       ziafont
@@ -58,15 +57,15 @@ buildPythonPackage rec {
 
   preCheck = "rm test/test_pictorial.ipynb"; # Tries to download files
 
-  pytestFlagsArray = [ "--nbval-lax" ];
+  pytestFlagsArray = ["--nbval-lax"];
 
-  pythonImportsCheck = [ "schemdraw" ];
+  pythonImportsCheck = ["schemdraw"];
 
   meta = with lib; {
     description = "Package for producing high-quality electrical circuit schematic diagrams";
     homepage = "https://schemdraw.readthedocs.io/en/latest/";
     changelog = "https://schemdraw.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

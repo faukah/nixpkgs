@@ -12,13 +12,12 @@
   tree-sitter,
   fetchurl,
   buildPackages,
-  treesitter-parsers ? import ./treesitter-parsers.nix { inherit fetchurl; },
+  treesitter-parsers ? import ./treesitter-parsers.nix {inherit fetchurl;},
   fixDarwinDylibNames,
   glibcLocales ? null,
   procps ? null,
   versionCheckHook,
   nix-update-script,
-
   # now defaults to false because some tests can be flaky (clipboard etc), see
   # also: https://github.com/neovim/neovim/issues/16233
   nodejs ? null,
@@ -26,41 +25,35 @@
   python3 ? null,
 }:
 stdenv.mkDerivation (
-  finalAttrs:
-  let
-    nvim-lpeg-dylib =
-      luapkgs:
-      if stdenv.hostPlatform.isDarwin then
-        let
-          luaLibDir = "$out/lib/lua/${lib.versions.majorMinor luapkgs.lua.luaversion}";
-        in
-        (luapkgs.lpeg.overrideAttrs (oa: {
-          preConfigure = ''
-            # neovim wants clang .dylib
-            substituteInPlace Makefile \
-              --replace-fail "CC = gcc" "CC = clang" \
-              --replace-fail "-bundle" "-dynamiclib" \
-              --replace-fail "lpeg.so" "lpeg.dylib"
-          '';
-          preBuild = ''
-            # there seems to be implicit calls to Makefile from luarocks, we need to
-            # add a stage to build our dylib
-            make macosx
-            mkdir -p ${luaLibDir}
-            mv lpeg.dylib ${luaLibDir}/lpeg.dylib
-          '';
-          postInstall = ''
-            rm -f ${luaLibDir}/lpeg.so
-          '';
-          nativeBuildInputs =
-            oa.nativeBuildInputs ++ (lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames);
-        }))
-      else
-        luapkgs.lpeg;
-    requiredLuaPkgs =
-      ps:
-      (
-        with ps;
+  finalAttrs: let
+    nvim-lpeg-dylib = luapkgs:
+      if stdenv.hostPlatform.isDarwin
+      then let
+        luaLibDir = "$out/lib/lua/${lib.versions.majorMinor luapkgs.lua.luaversion}";
+      in (luapkgs.lpeg.overrideAttrs (oa: {
+        preConfigure = ''
+          # neovim wants clang .dylib
+          substituteInPlace Makefile \
+            --replace-fail "CC = gcc" "CC = clang" \
+            --replace-fail "-bundle" "-dynamiclib" \
+            --replace-fail "lpeg.so" "lpeg.dylib"
+        '';
+        preBuild = ''
+          # there seems to be implicit calls to Makefile from luarocks, we need to
+          # add a stage to build our dylib
+          make macosx
+          mkdir -p ${luaLibDir}
+          mv lpeg.dylib ${luaLibDir}/lpeg.dylib
+        '';
+        postInstall = ''
+          rm -f ${luaLibDir}/lpeg.so
+        '';
+        nativeBuildInputs =
+          oa.nativeBuildInputs ++ (lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames);
+      }))
+      else luapkgs.lpeg;
+    requiredLuaPkgs = ps: (
+      with ps;
         [
           (nvim-lpeg-dylib ps)
           luabitop
@@ -74,26 +67,23 @@ stdenv.mkDerivation (
           penlight
           inspect
         ]
-      );
+    );
     neovimLuaEnv = lua.withPackages requiredLuaPkgs;
     neovimLuaEnvOnBuild = lua.luaOnBuild.withPackages requiredLuaPkgs;
     codegenLua =
-      if lua.luaOnBuild.pkgs.isLuaJIT then
-        let
-          deterministicLuajit = lua.luaOnBuild.override {
-            deterministicStringIds = true;
-            self = deterministicLuajit;
-          };
-        in
+      if lua.luaOnBuild.pkgs.isLuaJIT
+      then let
+        deterministicLuajit = lua.luaOnBuild.override {
+          deterministicStringIds = true;
+          self = deterministicLuajit;
+        };
+      in
         deterministicLuajit.withPackages (ps: [
           ps.mpack
           (nvim-lpeg-dylib ps)
         ])
-      else
-        lua.luaOnBuild;
-
-  in
-  {
+      else lua.luaOnBuild;
+  in {
     pname = "neovim-unwrapped";
     version = "0.11.2";
 
@@ -119,15 +109,19 @@ stdenv.mkDerivation (
     treesitter-parsers =
       treesitter-parsers
       // {
-        markdown = treesitter-parsers.markdown // {
-          location = "tree-sitter-markdown";
-        };
+        markdown =
+          treesitter-parsers.markdown
+          // {
+            location = "tree-sitter-markdown";
+          };
       }
       // {
-        markdown_inline = treesitter-parsers.markdown // {
-          language = "markdown_inline";
-          location = "tree-sitter-markdown-inline";
-        };
+        markdown_inline =
+          treesitter-parsers.markdown
+          // {
+            language = "markdown_inline";
+            location = "tree-sitter-markdown-inline";
+          };
       };
 
     buildInputs =
@@ -165,20 +159,19 @@ stdenv.mkDerivation (
     ];
 
     # extra programs test via `make functionaltest`
-    nativeCheckInputs =
-      let
-        pyEnv = python3.withPackages (
-          ps: with ps; [
+    nativeCheckInputs = let
+      pyEnv = python3.withPackages (
+        ps:
+          with ps; [
             pynvim
             msgpack
           ]
-        );
-      in
-      [
-        fish
-        nodejs
-        pyEnv # for src/clint.py
-      ];
+      );
+    in [
+      fish
+      nodejs
+      pyEnv # for src/clint.py
+    ];
 
     # nvim --version output retains compilation flags and references to build tools
     postPatch = lib.optionalString (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -188,7 +181,7 @@ stdenv.mkDerivation (
         -e "s|\$<TARGET_FILE:nvim|\${stdenv.hostPlatform.emulator buildPackages} &|g"
     '';
     # check that the above patching actually works
-    disallowedRequisites = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
+    disallowedRequisites = [stdenv.cc] ++ lib.optional (lua != codegenLua) codegenLua;
 
     cmakeFlags =
       [
@@ -200,16 +193,15 @@ stdenv.mkDerivation (
         (lib.cmakeBool "ENABLE_TRANSLATIONS" true)
       ]
       ++ (
-        if lua.pkgs.isLuaJIT then
-          [
-            (lib.cmakeFeature "LUAC_PRG" "${lib.getExe' codegenLua "luajit"} -b -s %s -")
-            (lib.cmakeFeature "LUA_GEN_PRG" (lib.getExe' codegenLua "luajit"))
-            (lib.cmakeFeature "LUA_PRG" (lib.getExe' neovimLuaEnvOnBuild "luajit"))
-          ]
-        else
-          [
-            (lib.cmakeBool "PREFER_LUA" true)
-          ]
+        if lua.pkgs.isLuaJIT
+        then [
+          (lib.cmakeFeature "LUAC_PRG" "${lib.getExe' codegenLua "luajit"} -b -s %s -")
+          (lib.cmakeFeature "LUA_GEN_PRG" (lib.getExe' codegenLua "luajit"))
+          (lib.cmakeFeature "LUA_PRG" (lib.getExe' neovimLuaEnvOnBuild "luajit"))
+        ]
+        else [
+          (lib.cmakeBool "PREFER_LUA" true)
+        ]
       );
 
     preConfigure =
@@ -220,15 +212,16 @@ stdenv.mkDerivation (
         lib.mapAttrsToList (language: grammar: ''
           ln -s \
             ${
-              tree-sitter.buildGrammar {
-                inherit (grammar) src;
-                version = "neovim-${finalAttrs.version}";
-                language = grammar.language or language;
-                location = grammar.location or null;
-              }
-            }/parser \
+            tree-sitter.buildGrammar {
+              inherit (grammar) src;
+              version = "neovim-${finalAttrs.version}";
+              language = grammar.language or language;
+              location = grammar.location or null;
+            }
+          }/parser \
             $out/lib/nvim/parser/${language}.so
-        '') finalAttrs.treesitter-parsers
+        '')
+        finalAttrs.treesitter-parsers
       );
 
     shellHook = ''
@@ -245,7 +238,7 @@ stdenv.mkDerivation (
     doInstallCheck = true;
 
     passthru = {
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = {
@@ -270,7 +263,7 @@ stdenv.mkDerivation (
         asl20
         vim
       ];
-      teams = [ lib.teams.neovim ];
+      teams = [lib.teams.neovim];
       platforms = lib.platforms.unix;
     };
   }

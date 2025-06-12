@@ -13,7 +13,6 @@
   unittestCheckHook,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "cryptodatahub";
   version = "1.0.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "cryptodatahub" ];
+  pythonImportsCheck = ["cryptodatahub"];
 
   preCheck = ''
     # failing tests
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/coroner/cryptodatahub";
     changelog = "https://gitlab.com/coroner/cryptodatahub/-/blob/${version}/CHANGELOG.rst";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

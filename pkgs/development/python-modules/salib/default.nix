@@ -10,8 +10,7 @@
   pandas,
   multiprocess,
   pathos,
-}:
-let
+}: let
   finalAttrs = {
     pname = "salib";
     version = "1.5.1";
@@ -36,7 +35,7 @@ let
     ];
 
     optional-dependencies = {
-      distributed = [ pathos ];
+      distributed = [pathos];
     };
 
     # There are no tests in the pypi package
@@ -56,9 +55,9 @@ let
       description = "Python implementations of commonly used sensitivity analysis methods, useful in systems modeling to calculate the effects of model inputs or exogenous factors on outputs of interest";
       homepage = "https://github.com/SALib/SALib";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ theobori ];
+      maintainers = with lib.maintainers; [theobori];
       mainProgram = "salib";
     };
   };
 in
-buildPythonPackage finalAttrs
+  buildPythonPackage finalAttrs

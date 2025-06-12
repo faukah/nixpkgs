@@ -25,18 +25,18 @@ buildGoModule rec {
     "-X github.com/mhersson/mpls/internal/mpls.Version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Live preview of markdown using Language Server Protocol";
     homepage = "https://github.com/mhersson/mpls";
     changelog = "https://github.com/mhersson/mpls/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jervw ];
+    maintainers = with lib.maintainers; [jervw];
     mainProgram = "mpls";
   };
 }

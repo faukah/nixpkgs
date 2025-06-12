@@ -27,7 +27,6 @@
   docbook-xsl-nons,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-terminal";
   version = "3.56.1";
@@ -91,6 +90,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-terminal";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

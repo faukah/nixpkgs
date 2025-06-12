@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "tfmigrate";
   version = "0.4.2";
@@ -24,16 +23,16 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terraform / OpenTofu state migration tool for GitOps ";
     homepage = "https://github.com/minamijoyo/tfmigrate";
     changelog = "https://github.com/minamijoyo/tfmigrate/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     mainProgram = "tfmigrate";
   };
 })

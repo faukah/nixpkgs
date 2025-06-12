@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.target;
-in
-{
+in {
   ###### interface
   options = {
     services.target = with types; {
@@ -18,7 +14,7 @@ in
 
       config = mkOption {
         type = attrs;
-        default = { };
+        default = {};
         description = ''
           Content of /etc/target/saveconfig.json
           This file is normally read and written by targetcli
@@ -34,7 +30,7 @@ in
       mode = "0600";
     };
 
-    environment.systemPackages = with pkgs; [ targetcli-fb ];
+    environment.systemPackages = with pkgs; [targetcli-fb];
 
     boot.kernelModules = [
       "configfs"
@@ -48,8 +44,8 @@ in
         "network.target"
         "local-fs.target"
       ];
-      requires = [ "sys-kernel-config.mount" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["sys-kernel-config.mount"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${lib.getExe pkgs.python3Packages.rtslib-fb} restore";

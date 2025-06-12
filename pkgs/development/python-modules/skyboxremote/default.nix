@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "skyboxremote";
   version = "0.0.6";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-GgRUMGnU91UQm9LNctYhHfRmfFujfc8fXc9KSwLrNBM=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   optional-dependencies = {
     spark = [
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "skyboxremote" ];
+  pythonImportsCheck = ["skyboxremote"];
 
   meta = {
     description = "Module for controlling a sky box";
     homepage = "https://pypi.org/project/skyboxremote/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -19,7 +19,6 @@
   httpx,
   httpcore,
 }:
-
 buildPythonPackage rec {
   pname = "ipfshttpclient";
   version = "0.8.0a2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-OmC67pN2BbuGwM43xNDKlsLhwVeUbpvfOazyIDvoMEA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     py-multiaddr
@@ -85,7 +84,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ipfshttpclient" ];
+  pythonImportsCheck = ["ipfshttpclient"];
 
   meta = with lib; {
     description = "Python client library for the IPFS API";

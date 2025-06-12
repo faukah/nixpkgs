@@ -19,7 +19,6 @@
   prometheus-cpp,
   libz,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "saunafs";
   version = "4.11.0";
@@ -81,6 +80,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://saunafs.com";
     platforms = platforms.linux;
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 })

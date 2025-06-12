@@ -19,7 +19,7 @@ buildDotnetModule rec {
 
   dotnet-sdk = dotnet-sdk_6;
   dotnet-runtime = dotnet-runtime_6;
-  executables = [ "TShock.Server" ];
+  executables = ["TShock.Server"];
 
   projectFile = [
     "TShockAPI/TShockAPI.csproj"
@@ -38,7 +38,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/Pryaxis/TShock";
     description = "Modded server software for Terraria, providing a plugin system and inbuilt tools such as anti-cheat, server-side characters, groups, permissions, and item bans.";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.proggerx ];
+    maintainers = [maintainers.proggerx];
     mainProgram = "TShock.Server";
   };
 }

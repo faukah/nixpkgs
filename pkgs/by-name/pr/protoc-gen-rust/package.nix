@@ -4,7 +4,6 @@
   rustPlatform,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-rust";
   version = "3.5.0";
@@ -23,13 +22,13 @@ rustPlatform.buildRustPackage rec {
     pname
   ];
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
   meta = with lib; {
     description = "Protobuf plugin for generating Rust code";
     mainProgram = "protoc-gen-rust";
     homepage = "https://github.com/stepancheg/rust-protobuf";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

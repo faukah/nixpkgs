@@ -5,7 +5,6 @@
   autoreconfHook,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mps";
   version = "1.118.0";
@@ -25,14 +24,14 @@ stdenv.mkDerivation rec {
     substituteInPlace code/ll.gmk --replace-fail '-Werror ' ' '
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ sqlite ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [sqlite];
 
   meta = {
     description = "Flexible memory management and garbage collection library";
     homepage = "https://www.ravenbrook.com/project/mps";
     license = lib.licenses.sleepycat;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

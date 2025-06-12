@@ -9,7 +9,6 @@
   inkscape,
   gtk-engine-murrine,
 }:
-
 stdenv.mkDerivation rec {
   pname = "numix-solarized-gtk-theme";
   version = "20230408";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     inkscape
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   postPatch = ''
     patchShebangs .
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/Ferdi265/numix-solarized-gtk-theme/releases";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
   };
 }

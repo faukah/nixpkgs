@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "aioapcaccess";
   version = "0.5.0";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioapcaccess" ];
+  pythonImportsCheck = ["aioapcaccess"];
 
   meta = with lib; {
     description = "Module for working with apcaccess";
     homepage = "https://github.com/yuxincs/aioapcaccess";
     changelog = "https://github.com/yuxincs/aioapcaccess/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

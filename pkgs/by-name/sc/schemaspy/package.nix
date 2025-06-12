@@ -7,7 +7,6 @@
   maven,
   nix-update-script,
 }:
-
 maven.buildMavenPackage rec {
   pname = "schemaspy";
   version = "7.0.2";
@@ -33,12 +32,12 @@ maven.buildMavenPackage rec {
 
     makeWrapper ${jre}/bin/java $out/bin/schemaspy \
       --add-flags "-jar $out/share/java/${pname}-${version}.jar" \
-      --prefix PATH : ${lib.makeBinPath [ graphviz ]}
+      --prefix PATH : ${lib.makeBinPath [graphviz]}
 
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://schemaspy.org";

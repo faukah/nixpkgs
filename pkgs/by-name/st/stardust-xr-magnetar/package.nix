@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "stardust-xr-magnetar";
   version = "0-unstable-2025-04-03";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-ixzasTQDVVU8cGhSW3j8ELJmmYudwfnYQEIoULLQRyo=";
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {

@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jwuensche/enkei";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ppenguin ];
+    maintainers = with maintainers; [ppenguin];
   };
 }

@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
 
   pyproject = true;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     cryptography
@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
       Download all your files and videos from ISIS.
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ bchmnn ];
+    maintainers = with lib.maintainers; [bchmnn];
     mainProgram = "isisdl";
     platforms = lib.platforms.linux;
   };

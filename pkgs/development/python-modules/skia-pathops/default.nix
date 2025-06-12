@@ -13,7 +13,6 @@
   cctools,
   xcodebuild,
 }:
-
 buildPythonPackage rec {
   pname = "skia-pathops";
   version = "0.8.0.post2";
@@ -40,17 +39,17 @@ buildPythonPackage rec {
       substituteInPlace src/cpp/skia-builder/skia/src/core/SkOpts.cpp \
         --replace "defined(SK_CPU_ARM64)" "0"
     ''
-    +
-      lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) # old compiler?
-        ''
-          patch -p1 <<EOF
-          --- a/src/cpp/skia-builder/skia/include/private/base/SkTArray.h
-          +++ b/src/cpp/skia-builder/skia/include/private/base/SkTArray.h
-          @@ -492 +492 @@:
-          -    static constexpr int kMaxCapacity = SkToInt(std::min(SIZE_MAX / sizeof(T), (size_t)INT_MAX));
-          +    static constexpr int kMaxCapacity = SkToInt(std::min<size_t>(SIZE_MAX / sizeof(T), (size_t)INT_MAX));
-          EOF
-        '';
+    + lib.optionalString (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) # old compiler?
+    
+    ''
+      patch -p1 <<EOF
+      --- a/src/cpp/skia-builder/skia/include/private/base/SkTArray.h
+      +++ b/src/cpp/skia-builder/skia/include/private/base/SkTArray.h
+      @@ -492 +492 @@:
+      -    static constexpr int kMaxCapacity = SkToInt(std::min(SIZE_MAX / sizeof(T), (size_t)INT_MAX));
+      +    static constexpr int kMaxCapacity = SkToInt(std::min<size_t>(SIZE_MAX / sizeof(T), (size_t)INT_MAX));
+      EOF
+    '';
 
   build-system = [
     cython
@@ -67,15 +66,15 @@ buildPythonPackage rec {
       xcodebuild
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pathops" ];
+  pythonImportsCheck = ["pathops"];
 
   meta = {
     description = "Python access to operations on paths using the Skia library";
     homepage = "https://github.com/fonttools/skia-pathops";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.BarinovMaxim ];
+    maintainers = [lib.maintainers.BarinovMaxim];
     # ERROR at //gn/BUILDCONFIG.gn:87:14: Script returned non-zero exit code.
     broken = isPyPy;
   };

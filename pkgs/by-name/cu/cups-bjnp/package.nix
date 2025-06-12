@@ -4,7 +4,6 @@
   fetchurl,
   cups,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cups-bjnp";
   version = "2.0.3";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     configureFlags="--with-cupsbackenddir=$out/lib/cups/backend"
   '';
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-include stdio.h"

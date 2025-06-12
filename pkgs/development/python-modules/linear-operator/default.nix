@@ -10,7 +10,6 @@
   torch,
   typeguard,
 }:
-
 buildPythonPackage rec {
   pname = "linear-operator";
   version = "0.6";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     "typeguard"
   ];
 
-  pythonImportsCheck = [ "linear_operator" ];
+  pythonImportsCheck = ["linear_operator"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # flaky numerical tests
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "LinearOperator implementation to wrap the numerical nuts and bolts of GPyTorch";
     homepage = "https://github.com/cornellius-gp/linear_operator/";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

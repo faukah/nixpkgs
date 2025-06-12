@@ -13,7 +13,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "easyenergy";
   version = "2.2.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace '"0.0.0"' '"${version}"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "easyenergy" ];
+  pythonImportsCheck = ["easyenergy"];
 
   disabledTests = [
     # Tests require network access
@@ -71,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/klaasnicolaas/python-easyenergy";
     changelog = "https://github.com/klaasnicolaas/python-easyenergy/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

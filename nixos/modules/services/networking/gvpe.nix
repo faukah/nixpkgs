@@ -1,33 +1,30 @@
 # GNU Virtual Private Ethernet
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption mkIf types;
 
   cfg = config.services.gvpe;
 
   finalConfig =
-    if cfg.configFile != null then
-      cfg.configFile
-    else if cfg.configText != null then
+    if cfg.configFile != null
+    then cfg.configFile
+    else if cfg.configText != null
+    then
       pkgs.writeTextFile {
         name = "gvpe.conf";
         text = cfg.configText;
       }
-    else
-      throw "You must either specify contents of the config file or the config file itself for GVPE";
+    else throw "You must either specify contents of the config file or the config file itself for GVPE";
 
   ifupScript =
-    if cfg.ipAddress == null || cfg.subnet == null then
-      throw "Specify IP address and subnet (with mask) for GVPE"
-    else if cfg.nodename == null then
-      throw "You must set node name for GVPE"
+    if cfg.ipAddress == null || cfg.subnet == null
+    then throw "Specify IP address and subnet (with mask) for GVPE"
+    else if cfg.nodename == null
+    then throw "You must set node name for GVPE"
     else
       (pkgs.writeTextFile {
         name = "gvpe-if-up";
@@ -44,9 +41,7 @@ let
         '';
         executable = true;
       });
-in
-
-{
+in {
   options = {
     services.gvpe = {
       enable = lib.mkEnableOption "gvpe";
@@ -118,8 +113,8 @@ in
         "info:gvpe"
         "man:gvpe(8)"
       ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         mkdir -p /var/gvpe

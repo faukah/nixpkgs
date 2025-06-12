@@ -4,32 +4,28 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.victoriametrics;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
   startCLIList =
     [
       "${cfg.package}/bin/victoria-metrics"
       "-storageDataPath=/var/lib/${cfg.stateDir}"
       "-httpListenAddr=${cfg.listenAddress}"
-
     ]
-    ++ lib.optionals (cfg.retentionPeriod != null) [ "-retentionPeriod=${cfg.retentionPeriod}" ]
+    ++ lib.optionals (cfg.retentionPeriod != null) ["-retentionPeriod=${cfg.retentionPeriod}"]
     ++ cfg.extraOptions;
   prometheusConfigYml = checkedConfig (
     settingsFormat.generate "prometheusConfig.yaml" cfg.prometheusConfig
   );
 
-  checkedConfig =
-    file:
-    pkgs.runCommand "checked-config" { nativeBuildInputs = [ cfg.package ]; } ''
+  checkedConfig = file:
+    pkgs.runCommand "checked-config" {nativeBuildInputs = [cfg.package];} ''
       ln -s ${file} $out
       ${lib.escapeShellArgs startCLIList} -promscrape.config=${file} -dryRun
     '';
-in
-{
+in {
   options.services.victoriametrics = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -40,7 +36,7 @@ in
         VictoriaMetrics is a fast, cost-effective and scalable monitoring solution and time series database.
       '';
     };
-    package = mkPackageOption pkgs "victoriametrics" { };
+    package = mkPackageOption pkgs "victoriametrics" {};
 
     listenAddress = mkOption {
       default = ":8428";
@@ -72,8 +68,8 @@ in
     };
 
     prometheusConfig = lib.mkOption {
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
-      default = { };
+      type = lib.types.submodule {freeformType = settingsFormat.type;};
+      default = {};
       example = literalExpression ''
         {
           scrape_configs = [
@@ -113,7 +109,7 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           "-httpAuth.username=username"
@@ -132,14 +128,14 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.victoriametrics = {
       description = "VictoriaMetrics time series database";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       startLimitBurst = 5;
 
       serviceConfig = {
         ExecStart = lib.escapeShellArgs (
           startCLIList
-          ++ lib.optionals (cfg.prometheusConfig != { }) [ "-promscrape.config=${prometheusConfigYml}" ]
+          ++ lib.optionals (cfg.prometheusConfig != {}) ["-promscrape.config=${prometheusConfigYml}"]
         );
 
         DynamicUser = true;
@@ -154,7 +150,7 @@ in
         LimitNOFILE = 1048576;
 
         # Hardening
-        DeviceAllow = [ "/dev/null rw" ];
+        DeviceAllow = ["/dev/null rw"];
         DevicePolicy = "strict";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -187,11 +183,10 @@ in
         ];
       };
 
-      postStart =
-        let
-          bindAddr =
-            (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1") + cfg.listenAddress;
-        in
+      postStart = let
+        bindAddr =
+          (lib.optionalString (lib.hasPrefix ":" cfg.listenAddress) "127.0.0.1") + cfg.listenAddress;
+      in
         lib.mkBefore ''
           until ${lib.getBin pkgs.curl}/bin/curl -s -o /dev/null http://${bindAddr}/ping; do
             sleep 1;

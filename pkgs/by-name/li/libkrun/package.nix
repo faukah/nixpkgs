@@ -19,7 +19,6 @@
   withNet ? false,
   sevVariant ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libkrun";
   version = "1.11.2";
@@ -51,16 +50,18 @@ stdenv.mkDerivation (finalAttrs: {
     ]
   );
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.bindgenHook
-    cargo
-    rustc
-  ] ++ lib.optional (sevVariant || withGpu) pkg-config;
+  nativeBuildInputs =
+    [
+      rustPlatform.cargoSetupHook
+      rustPlatform.bindgenHook
+      cargo
+      rustc
+    ]
+    ++ lib.optional (sevVariant || withGpu) pkg-config;
 
   buildInputs =
     [
-      (libkrunfw.override { inherit sevVariant; })
+      (libkrunfw.override {inherit sevVariant;})
       glibc
       glibc.static
     ]

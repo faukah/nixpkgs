@@ -7,7 +7,6 @@
   zlib,
   bzip2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "munge";
   version = "0.5.16";
@@ -73,6 +72,6 @@ stdenv.mkDerivation (finalAttrs: {
       licenses.lgpl3Plus
     ];
     platforms = platforms.unix;
-    maintainers = [ maintainers.rickynils ];
+    maintainers = [maintainers.rickynils];
   };
 })

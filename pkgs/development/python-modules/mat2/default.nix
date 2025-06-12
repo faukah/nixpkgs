@@ -21,7 +21,6 @@
   dolphinIntegration ? false,
   kdePackages,
 }:
-
 buildPythonPackage rec {
   pname = "mat2";
   version = "0.13.5";
@@ -46,7 +45,10 @@ buildPythonPackage rec {
       (replaceVars ./paths.patch {
         exiftool = lib.getExe exiftool;
         ffmpeg = lib.getExe ffmpeg;
-        kdialog = if dolphinIntegration then lib.getExe kdePackages.kdialog else null;
+        kdialog =
+          if dolphinIntegration
+          then lib.getExe kdePackages.kdialog
+          else null;
         # replaced in postPatch
         mat2 = null;
         mat2svg = null;
@@ -68,7 +70,7 @@ buildPythonPackage rec {
       --replace "@mat2svg@" "$out/share/icons/hicolor/scalable/apps/mat2.svg"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -96,7 +98,7 @@ buildPythonPackage rec {
       install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
     '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Handy tool to trash your metadata";
@@ -104,6 +106,6 @@ buildPythonPackage rec {
     changelog = "https://0xacab.org/jvoisin/mat2/-/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl3Plus;
     mainProgram = "mat2";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -14,13 +14,11 @@
   # dependency ordering is broken at the moment when building with openssl
   tlsSupport ? !stdenv.hostPlatform.isStatic,
   openssl,
-
   # Using system jemalloc fixes cross-compilation and various setups.
   # However the experimental 'active defragmentation' feature of valkey requires
   # their custom patched version of jemalloc.
   useSystemJemalloc ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "valkey";
   version = "8.0.3";
@@ -34,10 +32,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = lib.optional useSystemJemalloc ./use_system_jemalloc.patch;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ lua ]
+    [lua]
     ++ lib.optional useSystemJemalloc jemalloc
     ++ lib.optional withSystemd systemd
     ++ lib.optional tlsSupport openssl;
@@ -50,27 +48,29 @@ stdenv.mkDerivation (finalAttrs: {
 
   # More cross-compiling fixes.
   makeFlags =
-    [ "PREFIX=${placeholder "out"}" ]
+    ["PREFIX=${placeholder "out"}"]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "AR=${stdenv.cc.targetPrefix}ar"
       "RANLIB=${stdenv.cc.targetPrefix}ranlib"
     ]
-    ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
-    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ];
+    ++ lib.optionals withSystemd ["USE_SYSTEMD=yes"]
+    ++ lib.optionals tlsSupport ["BUILD_TLS=yes"];
 
   enableParallelBuilding = true;
 
-  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) [ "pie" ];
+  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) ["pie"];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [ "-std=c11" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang ["-std=c11"]);
 
   # darwin currently lacks a pure `pgrep` which is extensively used here
   doCheck = !stdenv.hostPlatform.isDarwin;
-  nativeCheckInputs = [
-    which
-    tcl
-    ps
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ];
+  nativeCheckInputs =
+    [
+      which
+      tcl
+      ps
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [getconf];
   checkPhase = ''
     runHook preCheck
 
@@ -102,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "High-performance data structure server that primarily serves key/value workloads";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     changelog = "https://github.com/valkey-io/valkey/releases/tag/${finalAttrs.version}";
     mainProgram = "valkey-cli";
   };

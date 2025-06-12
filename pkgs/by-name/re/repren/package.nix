@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "repren";
   version = "1.0.2";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/jlevy/repren";
     changelog = "https://github.com/jlevy/repren/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "repren";
   };
 }

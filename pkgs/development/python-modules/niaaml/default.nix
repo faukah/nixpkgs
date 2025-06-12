@@ -13,7 +13,6 @@
   toml-adapt,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "niaaml";
   version = "2.1.2";
@@ -53,15 +52,15 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "niaaml" ];
+  pythonImportsCheck = ["niaaml"];
 
   meta = with lib; {
     description = "Python automated machine learning framework";
     homepage = "https://github.com/firefly-cpp/NiaAML";
     changelog = "https://github.com/firefly-cpp/NiaAML/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

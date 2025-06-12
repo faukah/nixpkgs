@@ -15,14 +15,13 @@
   msgpack,
   qttools,
   wrapQtAppsHook,
-}:
-
-let
+}: let
   pythonWP = python3.withPackages (
-    p: with p; [
-      openbabel-bindings
-      numpy
-    ]
+    p:
+      with p; [
+        openbabel-bindings
+        numpy
+      ]
   );
 
   # Pure data repositories
@@ -44,58 +43,57 @@ let
     rev = "8dc711a59d016604b3e9b6d59dec178b8e6ccd36";
     hash = "sha256-Valc5zwlaZ//eDupFouCfWCeID7/4ObU1SDLFJ/mo/g=";
   };
-
 in
-stdenv.mkDerivation rec {
-  pname = "avogadrolibs";
-  version = "1.100.0";
+  stdenv.mkDerivation rec {
+    pname = "avogadrolibs";
+    version = "1.100.0";
 
-  src = fetchFromGitHub {
-    owner = "OpenChemistry";
-    repo = pname;
-    rev = version;
-    hash = "sha256-zDn5cgMBJYM27mfQHujxhIf4ZTljFxvFrKl7pNa4K9E=";
-  };
+    src = fetchFromGitHub {
+      owner = "OpenChemistry";
+      repo = pname;
+      rev = version;
+      hash = "sha256-zDn5cgMBJYM27mfQHujxhIf4ZTljFxvFrKl7pNa4K9E=";
+    };
 
-  postUnpack = ''
-    cp -r ${moleculesRepo} molecules
-    cp -r ${crystalsRepo} crystals
-    cp -r ${fragmentsRepo} fragments
-  '';
+    postUnpack = ''
+      cp -r ${moleculesRepo} molecules
+      cp -r ${crystalsRepo} crystals
+      cp -r ${fragmentsRepo} fragments
+    '';
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-    pythonWP
-  ];
+    nativeBuildInputs = [
+      cmake
+      wrapQtAppsHook
+      pythonWP
+    ];
 
-  buildInputs = [
-    eigen
-    zlib
-    libGL
-    spglib
-    mmtf-cpp
-    glew
-    libarchive
-    libmsym
-    msgpack
-    qttools
-  ];
+    buildInputs = [
+      eigen
+      zlib
+      libGL
+      spglib
+      mmtf-cpp
+      glew
+      libarchive
+      libmsym
+      msgpack
+      qttools
+    ];
 
-  # Fix the broken CMake files to use the correct paths
-  postInstall = ''
-    substituteInPlace $out/lib/cmake/${pname}/AvogadroLibsConfig.cmake \
-      --replace "$out/" ""
+    # Fix the broken CMake files to use the correct paths
+    postInstall = ''
+      substituteInPlace $out/lib/cmake/${pname}/AvogadroLibsConfig.cmake \
+        --replace "$out/" ""
 
-    substituteInPlace $out/lib/cmake/${pname}/AvogadroLibsTargets.cmake \
-      --replace "_IMPORT_PREFIX}/$out" "_IMPORT_PREFIX}/"
-  '';
+      substituteInPlace $out/lib/cmake/${pname}/AvogadroLibsTargets.cmake \
+        --replace "_IMPORT_PREFIX}/$out" "_IMPORT_PREFIX}/"
+    '';
 
-  meta = with lib; {
-    description = "Molecule editor and visualizer";
-    maintainers = with maintainers; [ sheepforce ];
-    homepage = "https://github.com/OpenChemistry/avogadrolibs";
-    platforms = platforms.linux;
-    license = licenses.gpl2Only;
-  };
-}
+    meta = with lib; {
+      description = "Molecule editor and visualizer";
+      maintainers = with maintainers; [sheepforce];
+      homepage = "https://github.com/OpenChemistry/avogadrolibs";
+      platforms = platforms.linux;
+      license = licenses.gpl2Only;
+    };
+  }

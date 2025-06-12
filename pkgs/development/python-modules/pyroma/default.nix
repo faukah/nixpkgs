@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonAtLeast,
-
   # build-system
   setuptools,
-
   # dependencies
   build,
   docutils,
@@ -15,11 +13,9 @@
   pygments,
   requests,
   trove-classifiers,
-
   # test
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyroma";
   version = "4.2";
@@ -46,7 +42,7 @@ buildPythonPackage rec {
     trove-classifiers
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # tries to reach pypi
@@ -54,13 +50,13 @@ buildPythonPackage rec {
     "test_distribute"
   ];
 
-  pythonImportsCheck = [ "pyroma" ];
+  pythonImportsCheck = ["pyroma"];
 
   meta = with lib; {
     description = "Test your project's packaging friendliness";
     mainProgram = "pyroma";
     homepage = "https://github.com/regebro/pyroma";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

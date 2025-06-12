@@ -11,7 +11,6 @@
   routino,
   quazip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qmapshack";
   version = "1.17.1";

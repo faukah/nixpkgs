@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "combinatorial_designs";
   version = "20140630";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.publicDomain;
     platforms = platforms.all;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

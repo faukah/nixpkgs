@@ -5,7 +5,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension {
   pname = "pg_similarity";
   version = "pg_similarity_1_0-unstable-2021-01-12";
@@ -27,7 +26,7 @@ postgresqlBuildExtension {
     })
   ];
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   meta = {
     description = "Extension to support similarity queries on PostgreSQL";
@@ -38,6 +37,6 @@ postgresqlBuildExtension {
     '';
     platforms = postgresql.meta.platforms;
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ danbst ];
+    maintainers = with lib.maintainers; [danbst];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rage";
   version = "0.11.1";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ]; # either at your option
-    maintainers = with lib.maintainers; [ ryantm ];
+    maintainers = with lib.maintainers; [ryantm];
     mainProgram = "rage";
   };
 }

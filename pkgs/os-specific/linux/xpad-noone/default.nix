@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "xpad-noone";
   version = "0-unstable-2024-01-10";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttr: {
     hash = "sha256-jDRyvbU9GsnM1ARTuwnoD7ZXlfBxne13UpSKRo7HHSY=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttr: {
     license = with lib.licenses; [
       gpl2Only
     ];
-    maintainers = with lib.maintainers; [ Cryolitia ];
+    maintainers = with lib.maintainers; [Cryolitia];
     platforms = lib.platforms.linux;
     broken = kernel.kernelOlder "5.15";
   };

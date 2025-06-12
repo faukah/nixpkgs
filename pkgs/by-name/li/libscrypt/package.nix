@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libscrypt";
   version = "1.22";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   buildFlags = lib.optional stdenv.hostPlatform.isDarwin "LDFLAGS= LDFLAGS_EXTRA= CFLAGS_EXTRA=";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
   installTargets = lib.optional stdenv.hostPlatform.isDarwin "install-osx";
 
   doCheck = true;
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Shared library that implements scrypt() functionality";
     homepage = "https://lolware.net/2014/04/29/libscrypt.html";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = platforms.unix;
   };
 }

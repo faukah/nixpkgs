@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "league-spartan";
   version = "2.220";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/league-spartan";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 })

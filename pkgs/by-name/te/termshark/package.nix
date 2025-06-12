@@ -5,7 +5,6 @@
   buildGoModule,
   wireshark-cli,
 }:
-
 buildGoModule rec {
   pname = "termshark";
   version = "2.4.0";
@@ -17,15 +16,15 @@ buildGoModule rec {
     sha256 = "sha256-qq7BDGprRkWKRMJiVnqPeTwtHd3tea9dPE8RIPL2YVI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ wireshark-cli ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [wireshark-cli];
 
   vendorHash = "sha256-C9XOiNjo+TZ+erdnypRhhfpbuBhB3yEqNpbtwjEv14g=";
 
   doCheck = false;
 
   postFixup = ''
-    wrapProgram $out/bin/termshark --prefix PATH : ${lib.makeBinPath [ wireshark-cli ]}
+    wrapProgram $out/bin/termshark --prefix PATH : ${lib.makeBinPath [wireshark-cli]}
   '';
 
   ldflags = [
@@ -37,6 +36,6 @@ buildGoModule rec {
     description = "Terminal UI for wireshark-cli, inspired by Wireshark";
     mainProgram = "termshark";
     license = licenses.mit;
-    maintainers = with maintainers; [ winpat ];
+    maintainers = with maintainers; [winpat];
   };
 }

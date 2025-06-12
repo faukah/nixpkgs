@@ -8,7 +8,6 @@
   ktextwidgets,
   libkdegames,
 }:
-
 mkDerivation {
   pname = "palapeli";
   nativeBuildInputs = [
@@ -25,7 +24,7 @@ mkDerivation {
     homepage = "https://apps.kde.org/palapeli/";
     description = "Single-player jigsaw puzzle game";
     mainProgram = "palapeli";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = with lib.maintainers; [ municorn ];
+    license = with lib.licenses; [gpl2];
+    maintainers = with lib.maintainers; [municorn];
   };
 }

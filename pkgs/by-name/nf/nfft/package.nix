@@ -9,7 +9,6 @@
   llvmPackages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nfft";
   version = "3.5.3";
@@ -38,9 +37,9 @@ stdenv.mkDerivation (finalAttrs: {
     "--enable-portable-binary"
   ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
-  propagatedBuildInputs = [ fftw ];
+  propagatedBuildInputs = [fftw];
 
   doCheck = true;
 
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Nonequispaced fast Fourier transform";
     homepage = "https://www-user.tu-chemnitz.de/~potts/nfft/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ hmenke ];
+    maintainers = with lib.maintainers; [hmenke];
   };
 })

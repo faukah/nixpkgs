@@ -8,7 +8,6 @@
 #    Check the version number in the src/llvm-project git submodule in:
 #    https://github.com/rust-lang/rust/blob/<version-tag>/.gitmodules
 # 3. Firefox and Thunderbird should still build on x86_64-linux.
-
 {
   stdenv,
   lib,
@@ -26,10 +25,8 @@
   wrapCCWith,
   overrideCC,
   fetchpatch,
-}@args:
-let
-  llvmSharedFor =
-    pkgSet:
+} @ args: let
+  llvmSharedFor = pkgSet:
     pkgSet.llvmPackages_19.libllvm.override (
       {
         enableSharedLibraries = true;
@@ -43,7 +40,7 @@ let
       }
     );
 in
-import ./default.nix
+  import ./default.nix
   {
     rustcVersion = "1.86.0";
     rustcSha256 = "sha256-AionKG32eQCgRNIn2dtp1HMuw9gz5P/CWcRCXtce7YA=";
@@ -67,26 +64,30 @@ import ./default.nix
 
     # Expose llvmPackages used for rustc from rustc via passthru for LTO in Firefox
     llvmPackages =
-      if (stdenv.targetPlatform.useLLVM or false) then
+      if (stdenv.targetPlatform.useLLVM or false)
+      then
         callPackage (
           {
             pkgs,
-            bootBintoolsNoLibc ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintoolsNoLibc,
-            bootBintools ? if stdenv.targetPlatform.linker == "lld" then null else pkgs.bintools,
-          }:
-          let
+            bootBintoolsNoLibc ?
+              if stdenv.targetPlatform.linker == "lld"
+              then null
+              else pkgs.bintoolsNoLibc,
+            bootBintools ?
+              if stdenv.targetPlatform.linker == "lld"
+              then null
+              else pkgs.bintools,
+          }: let
             llvmPackages = llvmPackages_19;
 
-            setStdenv =
-              pkg:
+            setStdenv = pkg:
               pkg.override {
                 stdenv = stdenv.override {
                   allowedRequisites = null;
                   cc = pkgsBuildHost.llvmPackages_19.clangUseLLVM;
                 };
               };
-          in
-          rec {
+          in rec {
             inherit (llvmPackages) bintools;
 
             libunwind = setStdenv llvmPackages.libunwind;
@@ -96,20 +97,21 @@ import ./default.nix
               stdenv = stdenv.override {
                 allowedRequisites = null;
                 cc = pkgsBuildHost.llvmPackages_19.clangNoLibcxx;
-                hostPlatform = stdenv.hostPlatform // {
-                  useLLVM = !stdenv.hostPlatform.isDarwin;
-                };
+                hostPlatform =
+                  stdenv.hostPlatform
+                  // {
+                    useLLVM = !stdenv.hostPlatform.isDarwin;
+                  };
               };
               inherit libunwind;
             };
 
-            clangUseLLVM = llvmPackages.clangUseLLVM.override { inherit libcxx; };
+            clangUseLLVM = llvmPackages.clangUseLLVM.override {inherit libcxx;};
 
             stdenv = overrideCC args.stdenv clangUseLLVM;
           }
-        ) { }
-      else
-        llvmPackages_19;
+        ) {}
+      else llvmPackages_19;
 
     # Note: the version MUST be the same version that we are building. Upstream
     # ensures that each released compiler can compile itself:
@@ -137,7 +139,6 @@ import ./default.nix
 
     selectRustPackage = pkgs: pkgs.rust_1_86;
   }
-
   (
     builtins.removeAttrs args [
       "llvmPackages_19"

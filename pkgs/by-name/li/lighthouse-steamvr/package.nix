@@ -5,7 +5,6 @@
   pkg-config,
   dbus,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "Lighthouse";
   version = "1.3.1";
@@ -20,15 +19,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5IrY1ohG5oJF+LvrcHrHYT2nslICQPZptJYrrwMEmwQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   meta = with lib; {
     description = "VR Lighthouse power state management";
     homepage = "https://github.com/ShayBox/Lighthouse";
     license = licenses.mit;
-    maintainers = with maintainers; [ bddvlpr ];
+    maintainers = with maintainers; [bddvlpr];
     mainProgram = "lighthouse";
   };
 }

@@ -16,9 +16,7 @@
   pkg-config,
   xmlsec,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "mod_auth_mellon";
   version = "0.19.1";
 
@@ -65,7 +63,6 @@ stdenv.mkDerivation rec {
     mainProgram = "mellon_create_metadata.sh";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
-
 }

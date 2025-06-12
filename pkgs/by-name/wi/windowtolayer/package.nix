@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://gitlab.freedesktop.org/mstoeckl/windowtolayer";
     mainProgram = "windowtolayer";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ anomalocaris ];
+    maintainers = with lib.maintainers; [anomalocaris];
   };
 }

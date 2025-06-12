@@ -10,7 +10,6 @@
   laszip_2,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libLAS";
   version = "1.8.1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
       --replace-fail 'set(CMAKE_CXX_FLAGS "''${CMAKE_CXX_FLAGS} -std=c++98 -ansi")' '#'
   '';
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = [
     boost
     libgeotiff
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://liblas.org";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ michelk ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [michelk];
+    teams = [teams.geospatial];
   };
 }

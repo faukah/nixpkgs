@@ -7,7 +7,6 @@
   qt6Packages,
   dtk6core,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-application-manager";
   version = "1.2.19";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-application-manager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

@@ -14,7 +14,6 @@
   wrapGAppsNoGuiHook,
   librsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swaybg";
   version = "1.2.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     mainProgram = "swaybg";
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

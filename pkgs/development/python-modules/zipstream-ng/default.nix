@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zipstream-ng";
   version = "1.8.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-mmPxzml+gaVg2IQ/Gql+3ru0hHosbyX4WjLCMxD/MJw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zipstream" ];
+  pythonImportsCheck = ["zipstream"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Library to generate streamable zip files";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pR0Ps/zipstream-ng";
     changelog = "https://github.com/pR0Ps/zipstream-ng/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -5,7 +5,6 @@
   m4,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmilter";
   version = "8.18.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     ./darwin.patch
   ];
 
-  nativeBuildInputs = [ m4 ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [m4] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     fixDarwinDylibNames $out/lib/libmilter.*.1
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Sendmail Milter mail filtering API library";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.sendmail;
   };
 }

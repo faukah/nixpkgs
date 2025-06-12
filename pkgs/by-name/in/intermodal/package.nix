@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "intermodal";
   version = "0.1.14";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=subcommand::torrent::create::tests::include_hidden"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd imdl \

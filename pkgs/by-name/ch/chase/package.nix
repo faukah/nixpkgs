@@ -6,12 +6,11 @@
   libatomic_ops,
   boehmgc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chase";
   version = "0.5.2";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libatomic_ops
     boehmgc
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://qa.debian.org/developer.php?login=rotty%40debian.org";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.polyrod ];
+    maintainers = [maintainers.polyrod];
     platforms = platforms.all;
     mainProgram = "chase";
   };

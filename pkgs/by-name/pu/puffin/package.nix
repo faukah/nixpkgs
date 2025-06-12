@@ -21,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/siddhantac/puffin";
     license = lib.licenses.mit;
     mainProgram = "puffin";
-    maintainers = with lib.maintainers; [ renesat ];
+    maintainers = with lib.maintainers; [renesat];
   };
 }

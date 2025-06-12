@@ -5,8 +5,7 @@ import ../make-test-python.nix (
     lib,
     k3s,
     ...
-  }:
-  let
+  }: let
     imageEnv = pkgs.buildEnv {
       name = "k3s-pause-image-env";
       paths = with pkgs; [
@@ -54,111 +53,117 @@ import ../make-test-python.nix (
               command: ["socat", "TCP4-LISTEN:8000,fork", "EXEC:echo server"]
     '';
     tokenFile = pkgs.writeText "token" "p@s$w0rd";
-  in
-  {
+  in {
     name = "${k3s.name}-multi-node";
 
     nodes = {
-      server =
-        { nodes, pkgs, ... }:
-        {
-          environment.systemPackages = with pkgs; [
-            gzip
-            jq
-          ];
-          # k3s uses enough resources the default vm fails.
-          virtualisation.memorySize = 1536;
-          virtualisation.diskSize = 4096;
+      server = {
+        nodes,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = with pkgs; [
+          gzip
+          jq
+        ];
+        # k3s uses enough resources the default vm fails.
+        virtualisation.memorySize = 1536;
+        virtualisation.diskSize = 4096;
 
-          services.k3s = {
-            inherit tokenFile;
-            enable = true;
-            role = "server";
-            package = k3s;
-            images = [ pauseImage ];
-            clusterInit = true;
-            extraFlags = [
-              "--disable coredns"
-              "--disable local-storage"
-              "--disable metrics-server"
-              "--disable servicelb"
-              "--disable traefik"
-              "--pause-image test.local/pause:local"
-              "--node-ip ${nodes.server.networking.primaryIPAddress}"
-              # The interface selection logic of flannel would normally use eth0, as the nixos
-              # testing driver sets a default route via dev eth0. However, in test setups we
-              # have to use eth1 for inter-node communication.
-              "--flannel-iface eth1"
-            ];
-          };
-          networking.firewall.allowedTCPPorts = [
-            2379
-            2380
-            6443
+        services.k3s = {
+          inherit tokenFile;
+          enable = true;
+          role = "server";
+          package = k3s;
+          images = [pauseImage];
+          clusterInit = true;
+          extraFlags = [
+            "--disable coredns"
+            "--disable local-storage"
+            "--disable metrics-server"
+            "--disable servicelb"
+            "--disable traefik"
+            "--pause-image test.local/pause:local"
+            "--node-ip ${nodes.server.networking.primaryIPAddress}"
+            # The interface selection logic of flannel would normally use eth0, as the nixos
+            # testing driver sets a default route via dev eth0. However, in test setups we
+            # have to use eth1 for inter-node communication.
+            "--flannel-iface eth1"
           ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
         };
+        networking.firewall.allowedTCPPorts = [
+          2379
+          2380
+          6443
+        ];
+        networking.firewall.allowedUDPPorts = [8472];
+      };
 
-      server2 =
-        { nodes, pkgs, ... }:
-        {
-          environment.systemPackages = with pkgs; [
-            gzip
-            jq
+      server2 = {
+        nodes,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = with pkgs; [
+          gzip
+          jq
+        ];
+        virtualisation.memorySize = 1536;
+        virtualisation.diskSize = 4096;
+
+        services.k3s = {
+          inherit tokenFile;
+          enable = true;
+          package = k3s;
+          images = [pauseImage];
+          serverAddr = "https://${nodes.server.networking.primaryIPAddress}:6443";
+          clusterInit = false;
+          extraFlags = [
+            "--disable coredns"
+            "--disable local-storage"
+            "--disable metrics-server"
+            "--disable servicelb"
+            "--disable traefik"
+            "--pause-image test.local/pause:local"
+            "--node-ip ${nodes.server2.networking.primaryIPAddress}"
+            "--flannel-iface eth1"
           ];
-          virtualisation.memorySize = 1536;
-          virtualisation.diskSize = 4096;
+        };
+        networking.firewall.allowedTCPPorts = [
+          2379
+          2380
+          6443
+        ];
+        networking.firewall.allowedUDPPorts = [8472];
+      };
 
-          services.k3s = {
-            inherit tokenFile;
-            enable = true;
-            package = k3s;
-            images = [ pauseImage ];
-            serverAddr = "https://${nodes.server.networking.primaryIPAddress}:6443";
-            clusterInit = false;
-            extraFlags = [
-              "--disable coredns"
-              "--disable local-storage"
-              "--disable metrics-server"
-              "--disable servicelb"
-              "--disable traefik"
-              "--pause-image test.local/pause:local"
-              "--node-ip ${nodes.server2.networking.primaryIPAddress}"
-              "--flannel-iface eth1"
-            ];
-          };
-          networking.firewall.allowedTCPPorts = [
-            2379
-            2380
-            6443
+      agent = {
+        nodes,
+        pkgs,
+        ...
+      }: {
+        virtualisation.memorySize = 1024;
+        virtualisation.diskSize = 2048;
+        services.k3s = {
+          inherit tokenFile;
+          enable = true;
+          role = "agent";
+          package = k3s;
+          images = [pauseImage];
+          serverAddr = "https://${nodes.server2.networking.primaryIPAddress}:6443";
+          extraFlags = [
+            "--pause-image test.local/pause:local"
+            "--node-ip ${nodes.agent.networking.primaryIPAddress}"
+            "--flannel-iface eth1"
           ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
         };
-
-      agent =
-        { nodes, pkgs, ... }:
-        {
-          virtualisation.memorySize = 1024;
-          virtualisation.diskSize = 2048;
-          services.k3s = {
-            inherit tokenFile;
-            enable = true;
-            role = "agent";
-            package = k3s;
-            images = [ pauseImage ];
-            serverAddr = "https://${nodes.server2.networking.primaryIPAddress}:6443";
-            extraFlags = [
-              "--pause-image test.local/pause:local"
-              "--node-ip ${nodes.agent.networking.primaryIPAddress}"
-              "--flannel-iface eth1"
-            ];
-          };
-          networking.firewall.allowedTCPPorts = [ 6443 ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
-        };
+        networking.firewall.allowedTCPPorts = [6443];
+        networking.firewall.allowedUDPPorts = [8472];
+      };
     };
 
-    testScript = # python
+    testScript =
+      # python
       ''
         start_all()
 

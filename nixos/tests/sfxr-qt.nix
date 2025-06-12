@@ -1,20 +1,21 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "sfxr-qt";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
-      environment.systemPackages = [ pkgs.sfxr-qt ];
-    };
+    services.xserver.enable = true;
+    environment.systemPackages = [pkgs.sfxr-qt];
+  };
 
   enableOCR = true;
 

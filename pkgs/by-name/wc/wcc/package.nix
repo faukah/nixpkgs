@@ -8,7 +8,6 @@
   libiberty,
   readline,
 }:
-
 stdenv.mkDerivation {
   pname = "wcc";
   version = "0.0.7-unstable-2025-04-30";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   preInstall = ''
     mkdir -p $out/usr/bin $out/lib/x86_64-linux-gnu

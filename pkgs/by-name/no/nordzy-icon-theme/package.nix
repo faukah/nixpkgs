@@ -4,9 +4,8 @@
   lib,
   gtk3,
   jdupes,
-  nordzy-themes ? [ "all" ], # Override this to only install selected themes
+  nordzy-themes ? ["all"], # Override this to only install selected themes
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nordzy-icon-theme";
   version = "1.8.7";
@@ -34,9 +33,9 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     name= ./install.sh --dest $out/share/icons \
-      ${lib.optionalString (nordzy-themes != [ ]) (
-        lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes
-      )}
+      ${lib.optionalString (nordzy-themes != []) (
+      lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes
+    )}
 
     # Replace duplicate files with hardlinks to the first file in each
     # set of duplicates, reducing the installed size in about 87%
@@ -52,6 +51,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alvatip/Nordzy-icon";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
   };
 }

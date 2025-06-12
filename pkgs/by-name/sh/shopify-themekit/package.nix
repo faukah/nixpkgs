@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "shopify-themekit";
   version = "1.3.2";
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "theme";
     homepage = "https://shopify.github.io/themekit/";
     license = licenses.mit;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
   };
 }

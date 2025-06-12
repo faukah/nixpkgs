@@ -6,7 +6,6 @@
   pkg-config,
   talloc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libasn1c";
   version = "0.9.38";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/osmocom/libasn1c/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

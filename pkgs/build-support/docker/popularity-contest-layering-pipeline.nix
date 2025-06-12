@@ -2,12 +2,11 @@
   lib,
   runCommand,
   jq,
-}:
-{
+}: {
   maxLayers,
   fromImage ? null,
 }:
-runCommand "popularity-contest-layering-pipeline.json" { inherit maxLayers; } ''
+runCommand "popularity-contest-layering-pipeline.json" {inherit maxLayers;} ''
   # Compute the number of layers that are already used by a potential
   # 'fromImage' as well as the customization layer. Ensure that there is
   # still at least one layer available to store the image contents.

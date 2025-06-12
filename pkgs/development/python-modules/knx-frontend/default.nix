@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "knx-frontend";
   version = "2025.4.1.91934";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-C2JPIDBQcOhSO3sGZRjdNhYSreYXoCxXIX4BTSgPFuQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "knx_frontend" ];
+  pythonImportsCheck = ["knx_frontend"];
 
   # no tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Home Assistant Panel for managing the KNX integration";
     homepage = "https://github.com/XKNX/knx-frontend";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

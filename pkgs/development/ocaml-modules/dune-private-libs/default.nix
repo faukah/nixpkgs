@@ -4,7 +4,6 @@
   dune_3,
   stdune,
 }:
-
 buildDunePackage {
   pname = "dune-private-libs";
 
@@ -16,7 +15,7 @@ buildDunePackage {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ stdune ];
+  propagatedBuildInputs = [stdune];
 
   preBuild = ''
     rm -r vendor/csexp
@@ -24,7 +23,7 @@ buildDunePackage {
 
   meta = with lib; {
     description = "Private libraries of Dune";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

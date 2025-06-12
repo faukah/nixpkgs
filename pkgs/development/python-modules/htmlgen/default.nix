@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   asserts,
   mypy,
 }:
-
 buildPythonPackage rec {
   pname = "htmlgen";
   version = "2.0.0";
@@ -54,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/srittau/python-htmlgen";
     changelog = "https://github.com/srittau/python-htmlgen/blob/v${version}/NEWS.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

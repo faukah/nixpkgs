@@ -5,7 +5,6 @@
   ncurses,
   zlib,
 }:
-
 buildDubPackage rec {
   pname = "btdu";
   version = "0.6.0";

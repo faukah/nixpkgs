@@ -16,14 +16,11 @@
         (stdenv.cc.isGNU && (lib.versionOlder stdenv.cc.version "11.0"))
         || (stdenv.cc.isClang && (lib.versionOlder stdenv.cc.version "16.0"))
       )
-    then
-      "17"
-    else
-      null
+    then "17"
+    else null
   ),
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtest";
   version = "1.16.0";
@@ -51,7 +48,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags =
     [
-      "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+      "-DBUILD_SHARED_LIBS=${
+        if static
+        then "OFF"
+        else "ON"
+      }"
     ]
     ++ lib.optionals (cxx_standard != null) [
       "-DCMAKE_CXX_STANDARD=${cxx_standard}"
@@ -62,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/googletest";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = with maintainers; [ivan-tkatchev];
   };
 }

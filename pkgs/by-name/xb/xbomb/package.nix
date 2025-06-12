@@ -5,7 +5,6 @@
   libX11,
   libXaw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xbomb";
   version = "2.2b";

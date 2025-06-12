@@ -17,8 +17,12 @@
   avxSupport ? stdenv.hostPlatform.avxSupport,
   cudaSupport ? config.cudaSupport,
   cudaPackages,
-}@inputs:
-(if cudaSupport then cudaPackages.backendStdenv else inputs.stdenv).mkDerivation rec {
+} @ inputs:
+(
+  if cudaSupport
+  then cudaPackages.backendStdenv
+  else inputs.stdenv
+).mkDerivation rec {
   pname = "dlib";
   version = "19.24.9";
 
@@ -52,8 +56,7 @@
       pkg-config
     ]
     ++ lib.optionals cudaSupport (
-      with cudaPackages;
-      [
+      with cudaPackages; [
         cuda_nvcc
       ]
     );
@@ -66,10 +69,9 @@
       blas
       lapack
     ]
-    ++ lib.optionals guiSupport [ libX11 ]
+    ++ lib.optionals guiSupport [libX11]
     ++ lib.optionals cudaSupport (
-      with cudaPackages;
-      [
+      with cudaPackages; [
         cuda_cudart
         cuda_nvcc
         libcublas
@@ -93,7 +95,7 @@
     description = "General purpose cross-platform C++ machine learning library";
     homepage = "http://www.dlib.net";
     license = licenses.boost;
-    maintainers = with maintainers; [ christopherpoole ];
+    maintainers = with maintainers; [christopherpoole];
     platforms = platforms.unix;
   };
 }

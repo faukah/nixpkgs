@@ -5,7 +5,6 @@
   makeWrapper,
   chromium,
 }:
-
 buildNpmPackage rec {
   pname = "puppeteer-cli";
   version = "1.5.1";
@@ -25,7 +24,7 @@ buildNpmPackage rec {
 
   dontNpmBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/puppeteer \
@@ -37,6 +36,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/JarvusInnovations/puppeteer-cli";
     license = lib.licenses.mit;
     mainProgram = "puppeteer";
-    maintainers = with lib.maintainers; [ chessai ];
+    maintainers = with lib.maintainers; [chessai];
   };
 }

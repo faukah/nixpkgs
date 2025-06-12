@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-lsp";
   version = "0.4.3";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_lsp" ];
+  pythonImportsCheck = ["pytest_lsp"];
 
   meta = {
     homepage = "https://github.com/swyddfa/lsp-devtools";

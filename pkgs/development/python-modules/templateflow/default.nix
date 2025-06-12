@@ -11,7 +11,6 @@
   requests,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "templateflow";
   version = "24.2.2";
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "templateflow" ];
+  pythonImportsCheck = ["templateflow"];
 
   meta = with lib; {
     homepage = "https://templateflow.org/python-client";
     description = "Python API to query TemplateFlow via pyBIDS";
     changelog = "https://github.com/templateflow/python-client/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

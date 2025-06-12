@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "iro";
   version = "0-unstable-2024-10-24";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage {
     description = "CLI tool to convet Hex color code or RGB to color code, RGB, HSL and color name";
     homepage = "https://github.com/kyoheiu/iro";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ airrnot ];
+    maintainers = with lib.maintainers; [airrnot];
     mainProgram = "iro";
   };
 }

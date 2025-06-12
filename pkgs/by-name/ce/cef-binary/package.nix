@@ -1,7 +1,4 @@
-{
-  libcef,
-}:
-
+{libcef}:
 libcef.overrideAttrs (oldAttrs: {
   pname = "cef-binary";
 

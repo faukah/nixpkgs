@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "doq";
   version = "0.10.0";
@@ -32,14 +31,14 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "doq" ];
+  pythonImportsCheck = ["doq"];
 
   meta = {
     description = "Docstring generator for Python";
     homepage = "https://github.com/heavenshell/py-doq";
     changelog = "https://github.com/heavenshell/py-doq/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "doq";
   };
 }

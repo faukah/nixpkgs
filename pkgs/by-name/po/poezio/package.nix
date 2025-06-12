@@ -4,7 +4,6 @@
   pkg-config,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "poezio";
   version = "0.14";
@@ -18,8 +17,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-sk+8r+a0CcoB0RidqnE7hJUgt/xvN/MCJMkxiquvdJc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  build-system = [ python3.pkgs.setuptools ];
+  nativeBuildInputs = [pkg-config];
+  build-system = [python3.pkgs.setuptools];
 
   dependencies = with python3.pkgs; [
     aiodns
@@ -53,6 +52,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://poez.io";
     changelog = "https://codeberg.org/poezio/poezio/src/tag/v${version}/CHANGELOG";
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ lsix ];
+    maintainers = with lib.maintainers; [lsix];
   };
 }

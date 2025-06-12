@@ -17,7 +17,6 @@
   mirage-flow,
   tls-mirage,
 }:
-
 buildDunePackage {
   pname = "git-paf";
 
@@ -44,7 +43,9 @@ buildDunePackage {
     tls-mirage
   ];
 
-  meta = git.meta // {
-    description = "Package to use HTTP-based ocaml-git with MirageOS backend";
-  };
+  meta =
+    git.meta
+    // {
+      description = "Package to use HTTP-based ocaml-git with MirageOS backend";
+    };
 }

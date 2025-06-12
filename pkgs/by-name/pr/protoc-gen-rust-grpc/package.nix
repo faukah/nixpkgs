@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protoc-gen-rust-grpc";
   version = "0.8.3";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Protobuf plugin for generating Rust code for gRPC";
     homepage = "https://github.com/stepancheg/grpc-rust";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
     mainProgram = "protoc-gen-rust-grpc";
   };
 }

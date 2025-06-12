@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cargo,
   pkg-config,
   rustPlatform,
   rustc,
-
   # buildInputs
   openssl,
   stdenv,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "hf-transfer";
   version = "0.1.9";
@@ -48,7 +45,7 @@ buildPythonPackage rec {
       libiconv
     ];
 
-  pythonImportsCheck = [ "hf_transfer" ];
+  pythonImportsCheck = ["hf_transfer"];
 
   env = {
     OPENSSL_NO_VENDOR = true;
@@ -59,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/hf_transfer";
     changelog = "https://github.com/huggingface/hf_transfer/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

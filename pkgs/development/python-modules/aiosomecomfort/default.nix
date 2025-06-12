@@ -6,7 +6,6 @@
   prettytable,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiosomecomfort";
   version = "0.0.32";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     prettytable
   ];
 
-  pythonImportsCheck = [ "aiosomecomfort" ];
+  pythonImportsCheck = ["aiosomecomfort"];
 
   # Tests only run on Windows, due to WindowsSelectorEventLoopPolicy
   doCheck = false;
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkmer/AIOSomecomfort";
     changelog = "https://github.com/mkmer/AIOSomecomfort/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

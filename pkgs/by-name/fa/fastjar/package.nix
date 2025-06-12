@@ -5,7 +5,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastjar";
   version = "0.98";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   strictDeps = true;
 
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "fastjar";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

@@ -13,7 +13,6 @@
   autoreconfHook,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.8.3";
   pname = "gummi";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Simple LaTex editor for GTK users";
     mainProgram = "gummi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
     platforms = with lib.platforms; linux;
   };
 }

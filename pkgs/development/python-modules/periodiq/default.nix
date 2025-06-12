@@ -11,7 +11,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "periodiq";
   version = "0.13.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail 'poetry.masonry.api' 'poetry.core.masonry.api'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     dramatiq
@@ -47,15 +46,15 @@ buildPythonPackage rec {
   ];
   versionCheckProgramArg = "--version";
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "periodiq" ];
+  pythonImportsCheck = ["periodiq"];
 
   meta = {
     description = "Simple Scheduler for Dramatiq Task Queue";
     mainProgram = "periodiq";
     homepage = "https://pypi.org/project/periodiq/";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ traxys ];
+    maintainers = with lib.maintainers; [traxys];
   };
 }

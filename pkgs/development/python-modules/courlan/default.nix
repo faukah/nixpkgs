@@ -10,7 +10,6 @@
   tld,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "courlan";
   version = "1.3.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "/tmp" "$TMPDIR"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     babel
@@ -40,19 +39,19 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # disable tests that require an internet connection
-  disabledTests = [ "test_urlcheck" ];
+  disabledTests = ["test_urlcheck"];
 
-  pythonImportsCheck = [ "courlan" ];
+  pythonImportsCheck = ["courlan"];
 
   meta = with lib; {
     description = "Clean, filter and sample URLs to optimize data collection";
     homepage = "https://github.com/adbar/courlan";
     changelog = "https://github.com/adbar/courlan/blob/v${version}/HISTORY.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jokatzke ];
+    maintainers = with maintainers; [jokatzke];
     mainProgram = "courlan";
   };
 }

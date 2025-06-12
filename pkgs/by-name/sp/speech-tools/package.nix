@@ -6,7 +6,6 @@
   ncurses,
   alsa-lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "speech_tools";
   version = "2.5.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Text-to-speech engine";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.free;
   };

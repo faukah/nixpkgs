@@ -9,7 +9,6 @@
   pyyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-get-deps";
   version = "0.2.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-DahmSYWYhVch950InYBiCh6qz1pH2Kibf5ixwCNdsTg=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     importlib-metadata
@@ -31,14 +30,14 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mkdocs_get_deps" ];
+  pythonImportsCheck = ["mkdocs_get_deps"];
 
   meta = with lib; {
     description = "An extra command for MkDocs that infers required PyPI packages from `plugins` in mkdocs.yml";
     homepage = "https://github.com/mkdocs/get-deps";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,14 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.heisenbridge;
 
   pkg = config.services.heisenbridge.package;
   bin = "${pkg}/bin/heisenbridge";
 
-  jsonType = (pkgs.formats.json { }).type;
+  jsonType = (pkgs.formats.json {}).type;
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
   # JSON is a proper subset of YAML
@@ -24,12 +23,11 @@ let
       namespaces = cfg.namespaces;
     }
   );
-in
-{
+in {
   options.services.heisenbridge = {
     enable = lib.mkEnableOption "the Matrix to IRC bridge";
 
-    package = lib.mkPackageOption pkgs "heisenbridge" { };
+    package = lib.mkPackageOption pkgs "heisenbridge" {};
 
     homeserver = lib.mkOption {
       type = lib.types.str;
@@ -90,8 +88,8 @@ in
             exclusive = true;
           }
         ];
-        aliases = [ ];
-        rooms = [ ];
+        aliases = [];
+        rooms = [];
       };
     };
 
@@ -105,15 +103,15 @@ in
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Heisenbridge is configured over the command line. Append extra arguments here";
-      default = [ ];
+      default = [];
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.heisenbridge = {
       description = "Matrix<->IRC bridge";
-      before = [ "matrix-synapse.service" ]; # So the registration file can be used by Synapse
-      wantedBy = [ "multi-user.target" ];
+      before = ["matrix-synapse.service"]; # So the registration file can be used by Synapse
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         umask 077
@@ -145,7 +143,11 @@ in
         ExecStart = lib.concatStringsSep " " (
           [
             bin
-            (if cfg.debug then "-vvv" else "-v")
+            (
+              if cfg.debug
+              then "-vvv"
+              else "-v"
+            )
             "--config"
             registrationFile
             "--listen-address"
@@ -196,7 +198,7 @@ in
         UMask = "0077";
 
         CapabilityBoundingSet =
-          [ "CAP_CHOWN" ]
+          ["CAP_CHOWN"]
           ++ lib.optional (
             cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024)
           ) "CAP_NET_BIND_SERVICE";
@@ -214,7 +216,7 @@ in
       };
     };
 
-    users.groups.heisenbridge = { };
+    users.groups.heisenbridge = {};
     users.users.heisenbridge = {
       description = "Service user for the Heisenbridge";
       group = "heisenbridge";
@@ -222,5 +224,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

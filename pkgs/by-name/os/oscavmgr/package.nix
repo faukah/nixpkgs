@@ -9,7 +9,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oscavmgr";
   version = "25.2";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     openxr-loader
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   postPatch = ''
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
 
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Face tracking & utilities for Resonite and VRChat";

@@ -10,7 +10,6 @@
   slurm,
   slurmSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdsh";
   version = "2.35";
@@ -20,13 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-de8VNHhI//Q/jW/5xEJP4Fx90s26ApE5kB+GGgUJPP4=";
   };
 
-  buildInputs = [
-    perl
-    readline
-    ssh
-  ] ++ (lib.optional slurmSupport slurm);
+  buildInputs =
+    [
+      perl
+      readline
+      ssh
+    ]
+    ++ (lib.optional slurmSupport slurm);
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Do not use git to derive a version.
   postPatch = ''
@@ -38,10 +39,26 @@ stdenv.mkDerivation rec {
       "--infodir=$out/share/info"
       "--mandir=$out/share/man"
       "--with-machines=/etc/pdsh/machines"
-      ${if readline == null then "--without-readline" else "--with-readline"}
-      ${if ssh == null then "--without-ssh" else "--with-ssh"}
-      ${if rsh == false then "--without-rsh" else "--with-rsh"}
-      ${if slurmSupport then "--with-slurm" else "--without-slurm"}
+      ${
+      if readline == null
+      then "--without-readline"
+      else "--with-readline"
+    }
+      ${
+      if ssh == null
+      then "--without-ssh"
+      else "--with-ssh"
+    }
+      ${
+      if rsh == false
+      then "--without-rsh"
+      else "--with-rsh"
+    }
+      ${
+      if slurmSupport
+      then "--with-slurm"
+      else "--without-slurm"
+    }
       "--with-dshgroups"
       "--with-xcpu"
       "--disable-debug"

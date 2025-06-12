@@ -7,7 +7,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage {
   pname = "docopt-subcommands";
   version = "4.0.0-unstable-2020-01-06";
@@ -20,11 +19,11 @@ buildPythonPackage {
     hash = "sha256-bNFmRMzyC9BQB/J0ACqYxkS7lHG4CWd5/by7QgCopFo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ docopt ];
+  dependencies = [docopt];
 
-  pythonImportsCheck = [ "docopt_subcommands" ];
+  pythonImportsCheck = ["docopt_subcommands"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -35,6 +34,6 @@ buildPythonPackage {
     description = "Create subcommand-based CLI programs with docopt";
     homepage = "https://github.com/abingham/docopt-subcommands";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

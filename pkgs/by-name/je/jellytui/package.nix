@@ -38,14 +38,14 @@ rustPlatform.buildRustPackage {
 
   postInstall = ''
     wrapProgram $out/bin/jellytui \
-      --prefix PATH : ${lib.makeBinPath [ mpv ]}
+      --prefix PATH : ${lib.makeBinPath [mpv]}
   '';
 
   meta = {
     description = "TUI client for Jellyfin, using mpv";
     homepage = "https://github.com/tyrantlink/jellytui";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ yanek ];
+    maintainers = with lib.maintainers; [yanek];
     mainProgram = "jellytui";
   };
 }

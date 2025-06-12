@@ -5,7 +5,6 @@
   kdePackages,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "application-title-bar";
   version = "0.8.5";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-YSzXjFPCG/bs1Qm9YvoEDcM9GmlSosf2KAyz+7lx6Xg=";
   };
 
-  propagatedUserEnvPkgs = with kdePackages; [ kconfig ];
+  propagatedUserEnvPkgs = with kdePackages; [kconfig];
 
   dontWrapQtApps = true;
 
@@ -28,13 +27,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "KDE Plasma6 widget with window controls";
     homepage = "https://github.com/antroids/application-title-bar";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     inherit (kdePackages.kwindowsystem.meta) platforms;
   };
 })

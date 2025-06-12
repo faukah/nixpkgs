@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
   setuptools-git-versioning,
-
   # dependencies
   icalendar,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "bokeh-sampledata";
   version = "2024.2";
@@ -41,6 +38,6 @@ buildPythonPackage rec {
     description = "Sample datasets for Bokeh examples";
     homepage = "https://pypi.org/project/bokeh-sampledata";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

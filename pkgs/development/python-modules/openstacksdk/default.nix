@@ -19,7 +19,6 @@
   setuptools,
   sphinxHook,
 }:
-
 buildPythonPackage rec {
   pname = "openstacksdk";
   version = "4.5.0";
@@ -46,9 +45,9 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     platformdirs
@@ -69,16 +68,16 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "openstack" ];
+  pythonImportsCheck = ["openstack"];
 
   meta = with lib; {
     description = "SDK for building applications to work with OpenStack";
     mainProgram = "openstack-inventory";
     homepage = "https://github.com/openstack/openstacksdk";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

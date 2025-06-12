@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gau";
   version = "2.2.4";
@@ -30,7 +29,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/lc/gau";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "gau";
   };
 }

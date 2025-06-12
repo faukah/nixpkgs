@@ -8,7 +8,6 @@
   pytest-mock,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "pass-git-helper";
   version = "3.3.0";
@@ -21,13 +20,13 @@ buildPythonApplication rec {
     sha256 = "sha256-Y+Y/WcVY5XrxhLoixWwsi9TMkWsJ+jXbs1rZuzo3MFo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyxdg ];
+  dependencies = [pyxdg];
 
   env.HOME = "$TMPDIR";
 
-  pythonImportsCheck = [ "passgithelper" ];
+  pythonImportsCheck = ["passgithelper"];
 
   nativeCheckInputs = [
     pytestCheckHook

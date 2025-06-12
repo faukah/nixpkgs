@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "clikit";
   version = "0.6.2";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-xAsUNhVQBjtSFHyjjnicAKRC3+Tdn3AdGDUYhmOOIdA=";
   };
 
-  pythonRelaxDeps = [ "crashtest" ];
+  pythonRelaxDeps = ["crashtest"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     crashtest
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "clikit" ];
+  pythonImportsCheck = ["clikit"];
 
   meta = with lib; {
     description = "Group of utilities to build beautiful and testable command line interfaces";
     homepage = "https://github.com/sdispater/clikit";
     changelog = "https://github.com/sdispater/clikit/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

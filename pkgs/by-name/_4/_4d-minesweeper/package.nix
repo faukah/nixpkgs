@@ -21,7 +21,6 @@
   libpulseaudio,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "4d-minesweeper";
   version = "2.0";
@@ -84,7 +83,7 @@ stdenv.mkDerivation {
     description = "4D Minesweeper game written in Godot";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "4d-minesweeper";
   };
 }

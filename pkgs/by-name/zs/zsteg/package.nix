@@ -3,13 +3,12 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp rec {
   pname = "zsteg";
 
   gemdir = ./.;
 
-  exes = [ "zsteg" ];
+  exes = ["zsteg"];
 
   passthru.updateScript = bundlerUpdateScript pname;
 

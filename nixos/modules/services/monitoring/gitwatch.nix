@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     maintainers
     mapAttrs'
     mkEnableOption
@@ -14,19 +14,17 @@ let
     optionalString
     types
     ;
-  mkSystemdService =
-    name: cfg:
+  mkSystemdService = name: cfg:
     nameValuePair "gitwatch-${name}" (
       let
         getvar = flag: var: optionalString (cfg."${var}" != null) "${flag} ${cfg."${var}"}";
         branch = getvar "-b" "branch";
         remote = getvar "-r" "remote";
-      in
-      rec {
+      in rec {
         inherit (cfg) enable;
-        after = [ "network-online.target" ];
+        after = ["network-online.target"];
         wants = after;
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         description = "gitwatch for ${name}";
         path = with pkgs; [
           gitwatch
@@ -42,14 +40,13 @@ let
         serviceConfig.User = cfg.user;
       }
     );
-in
-{
+in {
   options.services.gitwatch = mkOption {
     description = ''
       A set of git repositories to watch for. See
       [gitwatch](https://github.com/gitwatch/gitwatch) for more.
     '';
-    default = { };
+    default = {};
     example = {
       my-repo = {
         enable = true;
@@ -65,8 +62,7 @@ in
         branch = "autobranch";
       };
     };
-    type =
-      with types;
+    type = with types;
       attrsOf (submodule {
         options = {
           enable = mkEnableOption "watching for repo";
@@ -93,5 +89,5 @@ in
       });
   };
   config.systemd.services = mapAttrs' mkSystemdService config.services.gitwatch;
-  meta.maintainers = with maintainers; [ shved ];
+  meta.maintainers = with maintainers; [shved];
 }

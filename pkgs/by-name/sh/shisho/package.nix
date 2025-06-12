@@ -6,7 +6,6 @@
   rustfmt,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shisho";
   version = "0.5.2";
@@ -58,6 +57,6 @@ rustPlatform.buildRustPackage rec {
       semiautomatically.
     '';
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "slsa-verifier";
   version = "2.7.0";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "cli/slsa-verifier" ];
+  subPackages = ["cli/slsa-verifier"];
 
-  tags = [ "netgo" ];
+  tags = ["netgo"];
 
   ldflags = [
     "-s"

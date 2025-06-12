@@ -6,7 +6,6 @@
   cmake,
   writeText,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-core";
   version = "6.3.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UDnPGvgwzwv49CzF+Kt0v95CsxS33BZeqNcKw1K6jRI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   # FIXME: What's the correct way to set this?
   env.ROCM_LIBPATCH_VERSION = "${lib.versions.major finalAttrs.version}0${lib.versions.minor finalAttrs.version}0${lib.versions.patch finalAttrs.version}";
   env.BUILD_ID = "nixos-${finalAttrs.env.ROCM_LIBPATCH_VERSION}";
@@ -46,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Utility for getting the ROCm release version";
     homepage = "https://github.com/ROCm/rocm-core";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

@@ -9,7 +9,7 @@
 mkKdeDerivation {
   pname = "spacebar";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     c-ares
     curl

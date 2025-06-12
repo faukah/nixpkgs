@@ -11,7 +11,6 @@
   mock,
   httpretty,
 }:
-
 buildPythonPackage rec {
   pname = "linode-api";
   version = "5.29.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-orMQr3FYyK4piazMsZmYkaZ/G/DvQOZObdtWt0wiEi4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     "test/integration"
   ];
 
-  pythonImportsCheck = [ "linode_api4" ];
+  pythonImportsCheck = ["linode_api4"];
 
   meta = {
     description = "Python library for the Linode API v4";
     homepage = "https://github.com/linode/python-linode-api";
     changelog = "https://github.com/linode/linode_api4-python/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ glenns ];
+    maintainers = with lib.maintainers; [glenns];
   };
 }

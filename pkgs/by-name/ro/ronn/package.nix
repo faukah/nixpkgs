@@ -7,7 +7,6 @@
   groff,
   callPackage,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ronn";
   version = env.gems.ronn-ng.version;
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = bundlerUpdateScript "ronn";
 
-  passthru.tests.reproducible-html-manpage = callPackage ./test-reproducible-html.nix { };
+  passthru.tests.reproducible-html-manpage = callPackage ./test-reproducible-html.nix {};
 
   meta = with lib; {
     description = "markdown-based tool for building manpages";

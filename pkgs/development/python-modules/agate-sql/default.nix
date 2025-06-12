@@ -9,7 +9,6 @@
   pytestCheckHook,
   geojson,
 }:
-
 buildPythonPackage rec {
   pname = "agate-sql";
   version = "0.7.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "agatesql" ];
+  pythonImportsCheck = ["agatesql"];
 
   disabledTests = [
     # requires crate (sqlalchemy-cratedb)
@@ -42,7 +41,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Adds SQL read/write support to agate";
     homepage = "https://github.com/wireservice/agate-sql";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

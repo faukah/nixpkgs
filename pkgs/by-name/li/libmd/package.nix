@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmd";
   version = "1.1.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://www.hadrons.org/software/libmd/";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
       beerware
       publicDomain
     ];
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.unix;
   };
 })

@@ -7,7 +7,6 @@
   importlib-resources,
   mac-alias,
 }:
-
 buildPythonPackage rec {
   pname = "dmgbuild";
   version = "1.6.2";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/dmgbuild/dmgbuild";
     changelog = "https://github.com/dmgbuild/dmgbuild/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "dmgbuild";
     platforms = lib.platforms.darwin;
   };

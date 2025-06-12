@@ -5,7 +5,6 @@
   dnspython,
   pytestCheckHook,
 }:
-
 buildPythonApplication rec {
   pname = "nxdomain";
   version = "1.0.2";
@@ -15,9 +14,9 @@ buildPythonApplication rec {
     sha256 = "0va7nkbdjgzrf7fnbxkh1140pbc62wyj86rdrrh5wmg3phiziqkb";
   };
 
-  propagatedBuildInputs = [ dnspython ];
+  propagatedBuildInputs = [dnspython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postCheck = ''
     echo example.org > simple.list
@@ -31,6 +30,6 @@ buildPythonApplication rec {
     mainProgram = "nxdomain";
     platforms = platforms.all;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zopieux ];
+    maintainers = with maintainers; [zopieux];
   };
 }

@@ -22,7 +22,6 @@
   wrapGAppsHook3,
   librsvg,
 }:
-
 stdenv.mkDerivation {
   pname = "lightdm-enso-os-greeter";
   version = "0.2.1";

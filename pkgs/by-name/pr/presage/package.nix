@@ -15,7 +15,6 @@
   tinyxml,
   cppunit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "presage";
   version = "0.9.1";
@@ -72,6 +71,6 @@ stdenv.mkDerivation rec {
     description = "Intelligent predictive text entry system";
     homepage = "https://presage.sourceforge.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

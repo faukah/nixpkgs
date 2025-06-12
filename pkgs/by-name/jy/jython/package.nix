@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jython";
 
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-H7oXae/8yLGfXhBDa8gnShWM6YhVnyV5J8JMc7sTfzw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Python interpreter written in Java";
     mainProgram = "jython";
     homepage = "https://jython.org/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.psfl;
     platforms = jre.meta.platforms;
   };

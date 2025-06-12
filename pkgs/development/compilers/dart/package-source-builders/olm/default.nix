@@ -3,10 +3,11 @@
   lib,
   writeScript,
   olm,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "olm";
   inherit version src;

@@ -2,18 +2,15 @@
   lib,
   fetchPypi,
   buildPythonPackage,
-
   matplotlib,
   numpy,
   scipy,
   tqdm,
   scikit-learn,
   scikit-image,
-
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "lime";
   version = "0.2.0.1";
@@ -40,7 +37,7 @@ buildPythonPackage rec {
     scikit-image
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # touches network
@@ -60,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/marcotcr/lime";
     changelog = "https://github.com/marcotcr/lime/releases/tag/${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ khaser ];
+    maintainers = with lib.maintainers; [khaser];
   };
 }

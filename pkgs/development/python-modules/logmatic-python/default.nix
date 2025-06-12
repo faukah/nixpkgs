@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "logmatic-python";
   version = "0.1.7";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-UYKm00KhXnPQDkKJVm7s0gOwZ3GNY07O0oKbzPhAdVE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ python-json-logger ];
+  propagatedBuildInputs = [python-json-logger];
 
   # Only functional tests, no unit tests
   doCheck = false;
 
-  pythonImportsCheck = [ "logmatic" ];
+  pythonImportsCheck = ["logmatic"];
 
   meta = with lib; {
     description = "Python helpers to send logs to Logmatic.io";
     homepage = "https://github.com/logmatic/logmatic-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

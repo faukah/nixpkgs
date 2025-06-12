@@ -3,19 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.lldpd;
-
-in
-
-{
+in {
   options.services.lldpd = {
     enable = lib.mkEnableOption "Link Layer Discovery Protocol Daemon";
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "-c"
         "-k"
@@ -32,13 +28,13 @@ in
       home = "/run/lldpd";
       isSystemUser = true;
     };
-    users.groups._lldpd = { };
+    users.groups._lldpd = {};
 
-    environment.systemPackages = [ pkgs.lldpd ];
-    systemd.packages = [ pkgs.lldpd ];
+    environment.systemPackages = [pkgs.lldpd];
+    systemd.packages = [pkgs.lldpd];
 
     systemd.services.lldpd = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.LLDPD_OPTIONS = lib.concatStringsSep " " cfg.extraArgs;
     };
   };

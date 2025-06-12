@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "systemctl-tui";
   version = "0.4.0";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://crates.io/crates/systemctl-tui";
     changelog = "https://github.com/rgwood/systemctl-tui/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ siph ];
+    maintainers = with lib.maintainers; [siph];
     mainProgram = "systemctl-tui";
   };
 }

@@ -17,7 +17,6 @@
   setuptools,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "flow-record";
   version = "3.20";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ msgpack ];
+  dependencies = [msgpack];
 
   optional-dependencies = {
     compression = [
@@ -48,31 +47,33 @@ buildPythonPackage rec {
       duckdb
       pytz
     ];
-    elastic = [ elasticsearch ];
-    geoip = [ maxminddb ];
-    avro = [ fastavro ] ++ fastavro.optional-dependencies.snappy;
-    splunk = [ httpx ];
+    elastic = [elasticsearch];
+    geoip = [maxminddb];
+    avro = [fastavro] ++ fastavro.optional-dependencies.snappy;
+    splunk = [httpx];
   };
 
-  nativeCheckInputs = [
-    elastic-transport
-    pytest7CheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      elastic-transport
+      pytest7CheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "flow.record" ];
+  pythonImportsCheck = ["flow.record"];
 
   disabledTestPaths = [
     # Test requires rdump
     "tests/test_rdump.py"
   ];
 
-  disabledTests = [ "test_rdump_fieldtype_path_json" ];
+  disabledTests = ["test_rdump_fieldtype_path_json"];
 
   meta = with lib; {
     description = "Library for defining and creating structured data";
     homepage = "https://github.com/fox-it/flow.record";
     changelog = "https://github.com/fox-it/flow.record/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

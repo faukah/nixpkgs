@@ -11,7 +11,6 @@
   openssl,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lib3270";
   version = "5.4";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "TN3270 client Library";
     homepage = "https://github.com/PerryWerneck/lib3270";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.vifino ];
+    maintainers = [maintainers.vifino];
   };
 }

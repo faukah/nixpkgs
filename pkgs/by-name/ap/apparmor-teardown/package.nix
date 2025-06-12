@@ -4,7 +4,6 @@
   gnused,
   gnugrep,
   which,
-
   # apparmor deps
   apparmor-parser,
   apparmor-bin-utils,

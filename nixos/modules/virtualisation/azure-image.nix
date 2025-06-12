@@ -4,12 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.virtualisation.azureImage;
-in
-{
+in {
   imports = [
     ./azure-common.nix
     ./disk-size-option.nix
@@ -40,7 +37,7 @@ in
 
     contents = mkOption {
       type = with types; listOf attrs;
-      default = [ ];
+      default = [];
       description = ''
         Extra contents to add to the image.
       '';
@@ -55,8 +52,7 @@ in
     };
 
     vmGeneration = mkOption {
-      type =
-        with types;
+      type = with types;
         enum [
           "v1"
           "v2"
@@ -71,7 +67,7 @@ in
 
   config = {
     image.extension = "vhd";
-    system.nixos.tags = [ "azure" ];
+    system.nixos.tags = ["azure"];
     system.build.image = config.system.build.azureImage;
     system.build.azureImage = import ../../lib/make-disk-image.nix {
       name = "azure-image";
@@ -87,7 +83,10 @@ in
       configFile = ./azure-config-user.nix;
 
       bootSize = "${toString cfg.bootSize}M";
-      partitionTableType = if (cfg.vmGeneration == "v2") then "efi" else "legacy";
+      partitionTableType =
+        if (cfg.vmGeneration == "v2")
+        then "efi"
+        else "legacy";
 
       inherit (cfg) contents label;
       inherit (config.virtualisation) diskSize;
@@ -96,8 +95,11 @@ in
 
     boot.growPartition = true;
     boot.loader.grub = rec {
-      efiSupport = (cfg.vmGeneration == "v2");
-      device = if efiSupport then "nodev" else "/dev/sda";
+      efiSupport = cfg.vmGeneration == "v2";
+      device =
+        if efiSupport
+        then "nodev"
+        else "/dev/sda";
       efiInstallAsRemovable = efiSupport;
       # Force grub to run in text mode and output to console
       # by disabling font and splash image

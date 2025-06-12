@@ -7,7 +7,6 @@
   alsa-lib,
   ffmpeg_6,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "rustplayer";
   version = "1.1.2-unstable-2024-07-14";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/Kingtous/RustPlayer";
     description = "Local audio player and network m3u8 radio player using a terminal interface";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
     platforms = platforms.unix;
   };
 }

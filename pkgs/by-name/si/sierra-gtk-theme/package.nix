@@ -7,29 +7,26 @@
   jdupes,
   librsvg,
   libxml2,
-  buttonVariants ? [ ], # default to all
-  colorVariants ? [ ], # default to all
-  opacityVariants ? [ ], # default to all
-  sizeVariants ? [ ], # default to all
-}:
-
-let
+  buttonVariants ? [], # default to all
+  colorVariants ? [], # default to all
+  opacityVariants ? [], # default to all
+  sizeVariants ? [], # default to all
+}: let
   pname = "sierra-gtk-theme";
 in
-lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ] buttonVariants
+  lib.checkListOfEnum "${pname}: button variants" ["standard" "alt"] buttonVariants
   lib.checkListOfEnum
   "${pname}: color variants"
-  [ "light" "dark" ]
+  ["light" "dark"]
   colorVariants
   lib.checkListOfEnum
   "${pname}: opacity variants"
-  [ "standard" "solid" ]
+  ["standard" "solid"]
   opacityVariants
   lib.checkListOfEnum
   "${pname}: size variants"
-  [ "standard" "compact" ]
+  ["standard" "compact"]
   sizeVariants
-
   stdenv.mkDerivation
   {
     inherit pname;
@@ -63,10 +60,10 @@ lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ] buttonVaria
 
       mkdir -p $out/share/themes
       name= ./install.sh --dest $out/share/themes \
-        ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--flat " + builtins.toString sizeVariants}
+        ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
+        ${lib.optionalString (sizeVariants != []) "--flat " + builtins.toString sizeVariants}
 
       # Replace duplicate files with hardlinks to the first file in each
       # set of duplicates, reducing the installed size in about 79%
@@ -80,6 +77,6 @@ lib.checkListOfEnum "${pname}: button variants" [ "standard" "alt" ] buttonVaria
       homepage = "https://github.com/vinceliuice/Sierra-gtk-theme";
       license = licenses.gpl3;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

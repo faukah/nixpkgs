@@ -33,7 +33,6 @@
   texinfo,
   texliveSmall,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.04";
   pname = "asymptote";
@@ -68,53 +67,58 @@ stdenv.mkDerivation (finalAttrs: {
       perl
       pkg-config
       (python3.withPackages (
-        ps: with ps; [
-          click
-          cson
-          numpy
-          pyqt5
-        ]
+        ps:
+          with ps; [
+            click
+            cson
+            numpy
+            pyqt5
+          ]
       ))
     ]
     ++ lib.optional (finalAttrs.texContainer == null || finalAttrs.texdocContainer == null) (
       texliveSmall.withPackages (
-        ps: with ps; [
-          epsf
-          cm-super
-          ps.texinfo
-          media9
-          ocgx2
-          collection-latexextra
-        ]
+        ps:
+          with ps; [
+            epsf
+            cm-super
+            ps.texinfo
+            media9
+            ocgx2
+            collection-latexextra
+          ]
       )
     );
 
-  buildInputs = [
-    ghostscriptX
-    imagemagick
-    fftw
-    eigen
-    boehmgc
-    ncurses
-    readline
-    gsl
-    libsigsegv
-    zlib
-    perl
-    curl
-    qtbase
-    qtsvg
-    # relies on removed asio::io_service
-    # https://github.com/kuafuwang/LspCpp/issues/52
-    boost186
-    (python3.withPackages (
-      ps: with ps; [
-        cson
-        numpy
-        pyqt5
-      ]
-    ))
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libtirpc ];
+  buildInputs =
+    [
+      ghostscriptX
+      imagemagick
+      fftw
+      eigen
+      boehmgc
+      ncurses
+      readline
+      gsl
+      libsigsegv
+      zlib
+      perl
+      curl
+      qtbase
+      qtsvg
+      # relies on removed asio::io_service
+      # https://github.com/kuafuwang/LspCpp/issues/52
+      boost186
+      (python3.withPackages (
+        ps:
+          with ps; [
+            cson
+            numpy
+            pyqt5
+          ]
+      ))
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libtirpc];
 
   propagatedBuildInputs =
     [
@@ -151,7 +155,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # do not use bundled libgc.so
-  configureFlags = [ "--enable-gc=system" ];
+  configureFlags = ["--enable-gc=system"];
 
   env.NIX_CFLAGS_COMPILE = "-I${boehmgc.dev}/include/gc";
 
@@ -204,7 +208,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Tool for programming graphics intended to replace Metapost";
     homepage = "https://asymptote.sourceforge.io/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux ++ platforms.darwin;
   };
 })

@@ -7,7 +7,6 @@
   pytestCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "vdf";
   version = "3.4";
@@ -33,16 +32,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "vdf" ];
+  pythonImportsCheck = ["vdf"];
 
   # Use nix-update-script instead of the default python updater
   # The python updater requires GitHub releases, but vdf only uses tags
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Library for working with Valve's VDF text format";
     homepage = "https://github.com/ValvePython/vdf";
     license = licenses.mit;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

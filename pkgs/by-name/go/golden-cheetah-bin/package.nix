@@ -2,9 +2,7 @@
   lib,
   stdenv,
   callPackage,
-}:
-
-let
+}: let
   pname = "golden-cheetah";
   version = "3.7";
 
@@ -20,18 +18,17 @@ let
       adamcstephens
     ];
     license = lib.licenses.gpl2Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 in
-
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      stdenv
-      pname
-      commonMeta
-      version
-      ;
-  }
-else
-  callPackage ./linux.nix { inherit pname commonMeta version; }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        stdenv
+        pname
+        commonMeta
+        version
+        ;
+    }
+  else callPackage ./linux.nix {inherit pname commonMeta version;}

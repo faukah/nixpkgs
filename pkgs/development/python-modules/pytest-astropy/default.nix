@@ -16,7 +16,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-astropy";
   version = "0.11.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     attrs
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Meta-package containing dependencies for testing";
     homepage = "https://astropy.org";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

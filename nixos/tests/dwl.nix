@@ -1,29 +1,26 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "dwl_test_vm";
 
   meta = {
-    maintainers = with lib.maintainers; [ gurjaka ];
+    maintainers = with lib.maintainers; [gurjaka];
   };
 
-  nodes.machine =
-    {
-      pkgs,
-      lib,
-      ...
-    }:
-    {
-      imports = [
-        ./common/user-account.nix
-        ./common/wayland-cage.nix
-      ];
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    imports = [
+      ./common/user-account.nix
+      ./common/wayland-cage.nix
+    ];
 
-      environment.systemPackages = [ pkgs.foot ];
+    environment.systemPackages = [pkgs.foot];
 
-      services.displayManager.defaultSession = lib.mkForce "dwl";
+    services.displayManager.defaultSession = lib.mkForce "dwl";
 
-      programs.dwl.enable = true;
-    };
+    programs.dwl.enable = true;
+  };
 
   testScript = ''
     with subtest("ensure dwl starts"):

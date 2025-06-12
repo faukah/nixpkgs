@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "minecraft-server-hibernation";
   version = "2.5.0";
@@ -22,26 +21,24 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Disable tests requiring network access
-        "Test_getPing"
-        "Test_getReqType"
-        "Test_QueryBasic"
-        "Test_QueryFull"
-      ];
-    in
-    [
-      "-skip"
-      "${builtins.concatStringsSep "|" skippedTests}"
+  checkFlags = let
+    skippedTests = [
+      # Disable tests requiring network access
+      "Test_getPing"
+      "Test_getReqType"
+      "Test_QueryBasic"
+      "Test_QueryFull"
     ];
+  in [
+    "-skip"
+    "${builtins.concatStringsSep "|" skippedTests}"
+  ];
 
   meta = with lib; {
     description = "Autostart and stop minecraft-server when players join/leave";
     mainProgram = "msh";
     homepage = "https://github.com/gekware/minecraft-server-hibernation";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ squarepear ];
+    maintainers = with maintainers; [squarepear];
   };
 }

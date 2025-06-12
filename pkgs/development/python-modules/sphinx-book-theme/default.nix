@@ -7,7 +7,6 @@
   pydata-sphinx-theme,
   jupyter-book,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-book-theme";
   version = "1.1.4";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinx_book_theme" ];
+  pythonImportsCheck = ["sphinx_book_theme"];
 
   passthru.tests = {
     inherit jupyter-book;
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/executablebooks/sphinx-book-theme";
     changelog = "https://github.com/executablebooks/sphinx-book-theme/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

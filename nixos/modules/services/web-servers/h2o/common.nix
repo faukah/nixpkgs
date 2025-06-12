@@ -1,5 +1,4 @@
-{ lib }:
-{
+{lib}: {
   tlsRecommendationsOption = lib.mkOption {
     type = lib.types.nullOr (
       lib.types.enum [

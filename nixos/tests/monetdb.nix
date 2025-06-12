@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   creds = pkgs.writeText ".monetdb" ''
     user=monetdb
     password=monetdb
@@ -40,7 +39,7 @@ let
     SELECT type, COUNT(*) AS total
     FROM onboard_people GROUP BY type ORDER BY type;
   '';
-  onboardExpected = pkgs.lib.strings.replaceStrings [ "\n" ] [ "\\n" ] ''
+  onboardExpected = pkgs.lib.strings.replaceStrings ["\n"] ["\\n"] ''
     +------------+-------+
     | type       | total |
     +============+=======+
@@ -52,11 +51,10 @@ let
     | total      |  2467 |
     +------------+-------+
   '';
-in
-{
+in {
   name = "monetdb";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ StillerHarpo ];
+    maintainers = [StillerHarpo];
   };
   nodes.machine.services.monetdb.enable = true;
   testScript = ''

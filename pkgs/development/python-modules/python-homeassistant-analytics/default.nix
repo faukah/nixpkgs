@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiohttp,
   yarl,
   mashumaro,
   orjson,
-
   # tests
   pytestCheckHook,
   aioresponses,
@@ -20,7 +17,6 @@
   pytest-asyncio,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "python-homeassistant-analytics";
   version = "0.9.0";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-Deh3pZKpqdrlgv6LQk3NHuATz3porWiM8dewjbdbR7M=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -52,13 +48,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "python_homeassistant_analytics" ];
+  pythonImportsCheck = ["python_homeassistant_analytics"];
 
   meta = with lib; {
     description = "Asynchronous Python client for Home Assistant Analytics";
     changelog = "https://github.com/joostlek/python-homeassistant-analytics/releases/tag/v${version}";
     homepage = "https://github.com/joostlek/python-homeassistant-analytics";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

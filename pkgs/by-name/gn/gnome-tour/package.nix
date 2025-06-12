@@ -19,7 +19,6 @@
   rustc,
   cargo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-tour";
   version = "48.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-tour/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "GNOME Greeter & Tour";
     mainProgram = "gnome-tour";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

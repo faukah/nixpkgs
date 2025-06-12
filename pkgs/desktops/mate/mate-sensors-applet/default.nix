@@ -16,7 +16,6 @@
   hicolor-icon-theme,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-sensors-applet";
   version = "1.28.0";
@@ -52,17 +51,17 @@ stdenv.mkDerivation rec {
     hicolor-icon-theme
   ];
 
-  configureFlags = [ "--enable-in-process" ];
+  configureFlags = ["--enable-in-process"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     homepage = "https://github.com/mate-desktop/mate-sensors-applet";
     description = "MATE panel applet for hardware sensors";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

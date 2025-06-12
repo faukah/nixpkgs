@@ -13,7 +13,6 @@
   python3,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rdma-core";
   version = "57.0";
@@ -78,6 +77,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linux-rdma/rdma-core";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
   };
 })

@@ -10,7 +10,6 @@
   pytest-asyncio,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "anova-wifi";
   version = "0.17.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TRiv5ljdVqc4qeX+fSH+aTDf5UyNII8/twlNx3KC6oI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     "test_async_data_1"
   ];
 
-  pythonImportsCheck = [ "anova_wifi" ];
+  pythonImportsCheck = ["anova_wifi"];
 
   meta = with lib; {
     description = "Python package for reading anova sous vide api data";
     homepage = "https://github.com/Lash-L/anova_wifi";
     changelog = "https://github.com/Lash-L/anova_wifi/releases/tag/v${version}";
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
     license = licenses.mit;
   };
 }

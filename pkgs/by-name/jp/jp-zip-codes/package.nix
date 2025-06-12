@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "jp-zip-code";
   version = "0-unstable-2025-06-01";
@@ -37,10 +36,10 @@ stdenvNoCC.mkDerivation {
     longDescription = "Zip files with japanese zip codes for japanese IME dictionaries";
     homepage = "https://github.com/musjj/jp-zip-codes";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides some zip files
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

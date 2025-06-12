@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.mongodb;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     optionalString
@@ -18,8 +17,7 @@ let
     concatMapStringsSep
     escapeShellArgs
     ;
-in
-{
+in {
   port = 9216;
   extraOpts = {
     uri = mkOption {
@@ -30,7 +28,7 @@ in
     };
     collStats = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "db1.coll1"
         "db2"
@@ -41,7 +39,7 @@ in
     };
     indexStats = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "db1.coll1"
         "db2"
@@ -52,7 +50,7 @@ in
     };
     collector = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "diagnosticdata"
         "replicasetstatus"
@@ -86,21 +84,20 @@ in
         ${getExe pkgs.prometheus-mongodb-exporter} \
           --mongodb.uri="${cfg.uri}" \
           ${
-            if cfg.collectAll then
-              "--collect-all"
-            else
-              concatMapStringsSep " " (x: "--collect.${x}") cfg.collector
-          } \
+          if cfg.collectAll
+          then "--collect-all"
+          else concatMapStringsSep " " (x: "--collect.${x}") cfg.collector
+        } \
           ${
-            optionalString (
-              length cfg.collStats > 0
-            ) "--mongodb.collstats-colls=${concatStringsSep "," cfg.collStats}"
-          } \
+          optionalString (
+            length cfg.collStats > 0
+          ) "--mongodb.collstats-colls=${concatStringsSep "," cfg.collStats}"
+        } \
           ${
-            optionalString (
-              length cfg.indexStats > 0
-            ) "--mongodb.indexstats-colls=${concatStringsSep "," cfg.indexStats}"
-          } \
+          optionalString (
+            length cfg.indexStats > 0
+          ) "--mongodb.indexstats-colls=${concatStringsSep "," cfg.indexStats}"
+        } \
           --web.listen-address="${cfg.listenAddress}:${toString cfg.port}" \
           --web.telemetry-path="${cfg.telemetryPath}" \
           ${escapeShellArgs cfg.extraFlags}

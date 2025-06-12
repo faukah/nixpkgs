@@ -1,15 +1,12 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "isolate";
-  meta.maintainers = with lib.maintainers; [ virchau13 ];
+  meta.maintainers = with lib.maintainers; [virchau13];
 
-  nodes.machine =
-    { ... }:
-    {
-      security.isolate = {
-        enable = true;
-      };
+  nodes.machine = {...}: {
+    security.isolate = {
+      enable = true;
     };
+  };
 
   testScript = ''
     bash_path = machine.succeed('realpath $(which bash)').strip()

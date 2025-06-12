@@ -7,7 +7,6 @@
   libffi,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "micropython";
   version = "1.25.0";

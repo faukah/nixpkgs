@@ -5,7 +5,6 @@
   autoreconfHook,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   version = "1.2.2";
   pname = "light";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-OmHdVJvBcBjJiPs45JqOHxFoJYvKIEIpt9pFhBz74Kg=";
   };
 
-  configureFlags = [ "--with-udev" ];
+  configureFlags = ["--with-udev"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   patches = [
     ./0001-define-light-loglevel-as-extern.patch

@@ -17,7 +17,6 @@
   spdlog,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gummy";
   version = "0.6.1";
@@ -68,8 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/libexec/gummyd $out/bin/gummyd
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-  passthru.updateScript = nix-update-script { };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://codeberg.org/fusco/gummy";
@@ -79,6 +78,6 @@ stdenv.mkDerivation (finalAttrs: {
       via backlight (currently only for embedded displays) and gamma. Multiple monitors are supported.
     '';
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildPythonPackage {
   pname = "typechecks";
   version = "unstable-2023-07-13";
@@ -18,12 +17,12 @@ buildPythonPackage {
     hash = "sha256-GdmBtkyuzLfpk6oneWgJ5M1bnhGJ5/lSbGliwoAQWZs=";
   };
 
-  pythonImportsCheck = [ "typechecks" ];
+  pythonImportsCheck = ["typechecks"];
 
   meta = with lib; {
     description = "Type checking helpers for Python";
     homepage = "https://github.com/openvax/typechecks";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

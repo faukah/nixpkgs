@@ -17,7 +17,6 @@
   nfs-utils,
   acl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nfs-ganesha";
   version = "6.5";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "NFS server that runs in user space";
     homepage = "https://github.com/nfs-ganesha/nfs-ganesha/wiki";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
     license = licenses.lgpl3Plus;
     mainProgram = "ganesha.nfsd";

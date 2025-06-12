@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "passh";
   version = "2020-03-18";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/clarkwang/passh";
     description = "Sshpass alternative for non-interactive ssh auth";
     license = licenses.gpl3;
-    maintainers = [ maintainers.lovesegfault ];
+    maintainers = [maintainers.lovesegfault];
     mainProgram = finalAttrs.pname;
     platforms = platforms.unix;
   };

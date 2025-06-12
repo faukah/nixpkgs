@@ -7,7 +7,6 @@
   versionCheckHook,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "texi2html";
   version = "5.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "texi2html";
     homepage = "https://www.nongnu.org/texi2html/";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.unix;
   };
 })

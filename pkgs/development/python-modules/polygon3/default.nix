@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "polygon3";
   version = "3.0.9";
@@ -29,6 +28,6 @@ buildPythonPackage {
     description = "Polygon is a python package that handles polygonal shapes in 2D";
     homepage = "https://github.com/jraedler/Polygon3";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

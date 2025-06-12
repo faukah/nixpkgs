@@ -54,6 +54,6 @@ buildDotnetModule (finalAttrs: {
       fromSource
       binaryBytecode
     ];
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
   };
 })

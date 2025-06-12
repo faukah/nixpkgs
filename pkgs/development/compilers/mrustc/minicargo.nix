@@ -4,17 +4,16 @@
   makeWrapper,
   mrustc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mrustc-minicargo";
   inherit (mrustc) src version;
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   enableParallelBuilding = true;
   makefile = "minicargo.mk";
-  makeFlags = [ "bin/minicargo" ];
+  makeFlags = ["bin/minicargo"];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
       progval
       r-burns
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

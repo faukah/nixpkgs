@@ -18,7 +18,6 @@
   pytestCheckHook,
   time-machine,
 }:
-
 buildPythonPackage rec {
   pname = "virtualenv";
   version = "20.30.0";
@@ -36,20 +35,24 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [
-    distlib
-    filelock
-    platformdirs
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      distlib
+      filelock
+      platformdirs
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [
-    cython
-    flaky
-    pytest-freezegun
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-  ] ++ lib.optionals (!isPyPy) [ time-machine ];
+  nativeCheckInputs =
+    [
+      cython
+      flaky
+      pytest-freezegun
+      pytest-mock
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ lib.optionals (!isPyPy) [time-machine];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -69,8 +72,8 @@ buildPythonPackage rec {
       # Permission Error
       "test_bad_exe_py_info_no_raise"
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ "test_help" ]
-    ++ lib.optionals (isPyPy) [
+    ++ lib.optionals (pythonOlder "3.11") ["test_help"]
+    ++ lib.optionals isPyPy [
       # encoding problems
       "test_bash"
       # permission error
@@ -79,7 +82,7 @@ buildPythonPackage rec {
       "test_discover_ok"
     ];
 
-  pythonImportsCheck = [ "virtualenv" ];
+  pythonImportsCheck = ["virtualenv"];
 
   meta = with lib; {
     description = "Tool to create isolated Python environments";
@@ -87,6 +90,6 @@ buildPythonPackage rec {
     homepage = "http://www.virtualenv.org";
     changelog = "https://github.com/pypa/virtualenv/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

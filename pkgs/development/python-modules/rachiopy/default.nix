@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rachiopy";
   version = "1.1.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-PsdEXNy8vUxba/C00ARhLTQU9gMlChy9XdU20r+Maus=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     jsonschema
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rachiopy" ];
+  pythonImportsCheck = ["rachiopy"];
 
   meta = with lib; {
     description = "Python client for Rachio Irrigation controller";
     homepage = "https://github.com/rfverbruggen/rachiopy";
     changelog = "https://github.com/rfverbruggen/rachiopy/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

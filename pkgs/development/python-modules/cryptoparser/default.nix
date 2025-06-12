@@ -11,7 +11,6 @@
   setuptools-scm,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "cryptoparser";
   version = "1.0.0";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "cryptoparser" ];
+  pythonImportsCheck = ["cryptoparser"];
 
   meta = with lib; {
     description = "Security protocol parser and generator";
     homepage = "https://gitlab.com/coroner/cryptoparser";
     changelog = "https://gitlab.com/coroner/cryptoparser/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

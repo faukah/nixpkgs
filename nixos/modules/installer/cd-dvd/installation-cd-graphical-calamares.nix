@@ -1,15 +1,12 @@
 # This module adds the calamares installer to the basic graphical NixOS
 # installation CD.
-
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   calamares-nixos-autostart = pkgs.makeAutostartItem {
     name = "io.calamares.calamares";
     package = pkgs.calamares-nixos;
   };
-in
-{
-  imports = [ ./installation-cd-graphical-base.nix ];
+in {
+  imports = [./installation-cd-graphical-base.nix];
 
   environment.systemPackages = with pkgs; [
     # Calamares for graphical installation
@@ -22,5 +19,5 @@ in
   ];
 
   # Support choosing from any locale
-  i18n.supportedLocales = [ "all" ];
+  i18n.supportedLocales = ["all"];
 }

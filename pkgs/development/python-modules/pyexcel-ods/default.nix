@@ -12,7 +12,6 @@
   pytest-cov-stub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyexcel-ods";
   version = "0.6.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyexcel-io
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Plug-in to pyexcel providing the capbility to read, manipulate and write data in ods formats using odfpy";
     homepage = "http://docs.pyexcel.org/";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   options.examples = mkOption {
     type = types.lazyAttrsOf (
       types.unique {
@@ -16,7 +14,7 @@ in
         b = "bee";
       };
     }
-    { examples.override = lib.mkForce { b = "bee"; }; }
+    {examples.override = lib.mkForce {b = "bee";};}
   ];
   config.examples = {
     merged = {

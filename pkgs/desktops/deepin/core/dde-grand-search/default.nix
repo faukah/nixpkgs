@@ -18,7 +18,6 @@
   lucenepp,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-grand-search";
   version = "5.5.2";
@@ -70,13 +69,13 @@ stdenv.mkDerivation rec {
     substituteAllInPlace src/grand-search-daemon/data/com.deepin.dde.daemon.GrandSearch.service
   '';
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   meta = {
     description = "System-wide desktop search for DDE";
     homepage = "https://github.com/linuxdeepin/dde-grand-search";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

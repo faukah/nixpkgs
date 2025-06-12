@@ -2,13 +2,11 @@
   buildPythonPackage,
   fetchPypi,
   lib,
-
   # pythonPackages
   pyasn1-modules,
   pycryptodomex,
   twofish,
 }:
-
 buildPythonPackage rec {
   pname = "pyjks";
   version = "20.0.0";
@@ -32,6 +30,6 @@ buildPythonPackage rec {
     description = "Pure-Python Java Keystore (JKS) library";
     homepage = "https://github.com/kurtbrose/pyjks";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kamadorueda ];
+    maintainers = with lib.maintainers; [kamadorueda];
   };
 }

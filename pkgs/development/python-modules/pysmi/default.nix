@@ -11,7 +11,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   version = "1.5.9";
   pname = "pysmi";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-cAeLoDwAf56aWWKKUjOB0fpy7C3gBJchJJtQ6986thc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     ply
@@ -42,15 +41,15 @@ buildPythonPackage rec {
   # Tests require pysnmp, which in turn requires pysmi => infinite recursion
   doCheck = false;
 
-  pythonImportsCheck = [ "pysmi" ];
+  pythonImportsCheck = ["pysmi"];
 
-  passthru.tests.pytest = pysmi.overridePythonAttrs { doCheck = true; };
+  passthru.tests.pytest = pysmi.overridePythonAttrs {doCheck = true;};
 
   meta = with lib; {
     description = "SNMP MIB parser";
     homepage = "https://github.com/lextudio/pysmi";
     changelog = "https://github.com/lextudio/pysmi/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   minimock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mygpoclient";
   version = "1.10";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-g4iPw6i8Gy3kvIjHCyGLJNHNb+osaCmc46hIryrodi8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "mygpoclient" ];
+  pythonImportsCheck = ["mygpoclient"];
 
   nativeCheckInputs = [
     minimock
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/gpodder/mygpoclient";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

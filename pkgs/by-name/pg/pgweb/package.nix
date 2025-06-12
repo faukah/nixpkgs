@@ -6,7 +6,6 @@
   pgweb,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "pgweb";
   version = "0.16.2";
@@ -30,17 +29,15 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # There is a `/tmp/foo` file on the test machine causing the test case to fail on macOS
-        "TestParseOptions"
-      ];
-    in
-    [
-      "-skip"
-      "${builtins.concatStringsSep "|" skippedTests}"
+  checkFlags = let
+    skippedTests = [
+      # There is a `/tmp/foo` file on the test machine causing the test case to fail on macOS
+      "TestParseOptions"
     ];
+  in [
+    "-skip"
+    "${builtins.concatStringsSep "|" skippedTests}"
+  ];
 
   passthru.tests = {
     version = testers.testVersion {

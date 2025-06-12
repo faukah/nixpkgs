@@ -1,23 +1,24 @@
-{ pkgs, runTest }:
-
-let
+{
+  pkgs,
+  runTest,
+}: let
   inherit (pkgs) lib;
 
   ipv6Only = {
     networking.useDHCP = false;
-    networking.interfaces.eth1.ipv4.addresses = lib.mkVMOverride [ ];
+    networking.interfaces.eth1.ipv4.addresses = lib.mkVMOverride [];
   };
 
   ipv4Only = {
     networking.useDHCP = false;
-    networking.interfaces.eth1.ipv6.addresses = lib.mkVMOverride [ ];
+    networking.interfaces.eth1.ipv6.addresses = lib.mkVMOverride [];
   };
 
   webserver = ip: msg: {
     systemd.services.webserver = {
       description = "Mock webserver";
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       script = ''
         while true; do
         {
@@ -28,19 +29,16 @@ let
         done
       '';
     };
-    networking.firewall.allowedTCPPorts = [ 80 ];
+    networking.firewall.allowedTCPPorts = [80];
   };
-
-in
-
-{
+in {
   siit = runTest {
     # This test simulates the setup described in [1] with two IPv6 and
     # IPv4-only devices on different subnets communicating through a border
     # relay running Jool in SIIT mode.
     # [1]: https://nicmx.github.io/Jool/en/run-vanilla.html
     name = "jool-siit";
-    meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+    meta.maintainers = with lib.maintainers; [rnhmjoj];
 
     # Border relay
     nodes.relay = {
@@ -82,7 +80,7 @@ in
         (webserver 6 "Hello, Bob!")
       ];
 
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
       networking.interfaces.eth1.ipv6 = {
         addresses = [
           {
@@ -107,7 +105,7 @@ in
         (webserver 4 "Hello, Alice!")
       ];
 
-      virtualisation.vlans = [ 2 ];
+      virtualisation.vlans = [2];
       networking.interfaces.eth1.ipv4 = {
         addresses = [
           {
@@ -160,7 +158,7 @@ in
     # forwarding ports using static BIB entries.
     # [1]: https://nicmx.github.io/Jool/en/run-nat64.html
     name = "jool-nat64";
-    meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+    meta.maintainers = with lib.maintainers; [rnhmjoj];
 
     # Router
     nodes.router = {
@@ -230,8 +228,8 @@ in
 
     # LAN client (IPv6 only)
     nodes.client = {
-      imports = [ ipv6Only ];
-      virtualisation.vlans = [ 1 ];
+      imports = [ipv6Only];
+      virtualisation.vlans = [1];
 
       networking.interfaces.eth1.ipv6 = {
         addresses = lib.mkForce [
@@ -257,7 +255,7 @@ in
         (webserver 6 "Hello from IPv6!")
       ];
 
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
       networking.interfaces.eth1.ipv6 = {
         addresses = lib.mkForce [
           {
@@ -282,7 +280,7 @@ in
         (webserver 4 "Hello from IPv4!")
       ];
 
-      virtualisation.vlans = [ 2 ];
+      virtualisation.vlans = [2];
       networking.interfaces.eth1.ipv4.addresses = [
         {
           address = "203.0.113.16";
@@ -313,7 +311,5 @@ in
         homeserver.wait_for_open_port(80)
         server.succeed("curl --fail -s http://203.0.113.1 | grep -q IPv6!")
     '';
-
   };
-
 }

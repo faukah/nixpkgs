@@ -1,6 +1,4 @@
-{ runTest }:
-
-{
+{runTest}: {
   alertmanager = runTest ./alertmanager.nix;
   alertmanager-ntfy = runTest ./alertmanager-ntfy.nix;
   config-reload = runTest ./config-reload.nix;

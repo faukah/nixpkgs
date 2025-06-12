@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dnsmasq;
   dnsmasq = cfg.package;
   stateDir = "/var/lib/dnsmasq";
@@ -12,14 +11,12 @@ let
   # True values are just put as `name` instead of `name=true`, and false values
   # are turned to comments (false values are expected to be overrides e.g.
   # lib.mkForce)
-  formatKeyValue =
-    name: value:
-    if value == true then
-      name
-    else if value == false then
-      "# setting `${name}` explicitly set to false"
-    else
-      lib.generators.mkKeyValueDefault { } "=" name value;
+  formatKeyValue = name: value:
+    if value == true
+    then name
+    else if value == false
+    then "# setting `${name}` explicitly set to false"
+    else lib.generators.mkKeyValueDefault {} "=" name value;
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = formatKeyValue;
@@ -27,15 +24,12 @@ let
   };
 
   dnsmasqConf = settingsFormat.generate "dnsmasq.conf" cfg.settings;
-
-in
-
-{
-
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "dnsmasq" "servers" ]
-      [ "services" "dnsmasq" "settings" "server" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "dnsmasq" "servers"]
+      ["services" "dnsmasq" "settings" "server"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -47,9 +41,7 @@ in
   ###### interface
 
   options = {
-
     services.dnsmasq = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -58,7 +50,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "dnsmasq" { };
+      package = lib.mkPackageOption pkgs "dnsmasq" {};
 
       resolveLocalQueries = lib.mkOption {
         type = lib.types.bool;
@@ -79,12 +71,11 @@ in
 
       settings = lib.mkOption {
         type = lib.types.submodule {
-
           freeformType = settingsFormat.type;
 
           options.server = lib.mkOption {
             type = lib.types.listOf lib.types.str;
-            default = [ ];
+            default = [];
             example = [
               "8.8.8.8"
               "8.8.4.4"
@@ -93,9 +84,8 @@ in
               The DNS servers which dnsmasq should query.
             '';
           };
-
         };
-        default = { };
+        default = {};
         description = ''
           Configuration of dnsmasq. Lists get added one value per line (empty
           lists and false values don't get added, though false values get
@@ -120,15 +110,12 @@ in
         default = dnsmasqConf;
         internal = true;
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     services.dnsmasq.settings = {
       dhcp-leasefile = lib.mkDefault "${stateDir}/dnsmasq.leases";
       conf-file = lib.mkDefault (lib.optional cfg.resolveLocalQueries "/etc/dnsmasq-conf.conf");
@@ -137,14 +124,14 @@ in
 
     networking.nameservers = lib.optional cfg.resolveLocalQueries "127.0.0.1";
 
-    services.dbus.packages = [ dnsmasq ];
+    services.dbus.packages = [dnsmasq];
 
     users.users.dnsmasq = {
       isSystemUser = true;
       group = "dnsmasq";
       description = "Dnsmasq daemon user";
     };
-    users.groups.dnsmasq = { };
+    users.groups.dnsmasq = {};
 
     networking.resolvconf = lib.mkIf cfg.resolveLocalQueries {
       useLocalResolver = lib.mkDefault true;
@@ -166,8 +153,8 @@ in
         "network.target"
         "systemd-resolved.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ dnsmasq ];
+      wantedBy = ["multi-user.target"];
+      path = [dnsmasq];
       preStart = ''
         mkdir -m 755 -p ${stateDir}
         touch ${stateDir}/dnsmasq.leases
@@ -183,9 +170,12 @@ in
         PrivateTmp = true;
         ProtectSystem = true;
         ProtectHome = true;
-        Restart = if cfg.alwaysKeepRunning then "always" else "on-failure";
+        Restart =
+          if cfg.alwaysKeepRunning
+          then "always"
+          else "on-failure";
       };
-      restartTriggers = [ config.environment.etc.hosts.source ];
+      restartTriggers = [config.environment.etc.hosts.source];
     };
   };
 

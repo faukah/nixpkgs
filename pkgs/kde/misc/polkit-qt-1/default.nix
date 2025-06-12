@@ -15,9 +15,9 @@ mkKdeDerivation rec {
     sha256 = "sha256-XTthHAYtK3apN1C7EMkHv9IdH/CNChXcLPY+J44Wd/s=";
   };
 
-  patches = [ ./full-paths.patch ];
+  patches = [./full-paths.patch];
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     glib
     polkit

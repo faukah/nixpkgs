@@ -11,7 +11,6 @@
   gtk3,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cmd-polkit";
   version = "0.3.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/OmarCastro/cmd-polkit";
     changelog = "https://github.com/OmarCastro/cmd-polkit/blob/${finalAttrs.src.rev}/CHANGELOG";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ daru-san ];
+    maintainers = with maintainers; [daru-san];
     mainProgram = "cmd-polkit-agent";
     platforms = platforms.linux;
   };

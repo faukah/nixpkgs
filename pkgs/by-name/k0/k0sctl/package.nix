@@ -6,7 +6,6 @@
   testers,
   k0sctl,
 }:
-
 buildGoModule rec {
   pname = "k0sctl";
   version = "0.24.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     "-X=github.com/carlmjohnson/versioninfo.Revision=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash zsh fish; do

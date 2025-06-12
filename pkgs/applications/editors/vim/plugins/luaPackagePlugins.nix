@@ -2,9 +2,7 @@
   lib,
   buildNeovimPlugin,
   neovim-unwrapped,
-}:
-final: prev:
-let
+}: final: prev: let
   luaPackages = neovim-unwrapped.lua.pkgs;
 
   luarocksPackageNames = [
@@ -39,9 +37,9 @@ let
     "telescope-nvim"
   ];
 in
-lib.genAttrs luarocksPackageNames (
-  name:
-  buildNeovimPlugin {
-    luaAttr = luaPackages.${name};
-  }
-)
+  lib.genAttrs luarocksPackageNames (
+    name:
+      buildNeovimPlugin {
+        luaAttr = luaPackages.${name};
+      }
+  )

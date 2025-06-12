@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.virtualisation.cri-o;
 
   crioPackage = pkgs.cri-o.override {
@@ -15,11 +13,10 @@ let
       ++ lib.optional (config.boot.supportedFilesystems.zfs or false) config.boot.zfs.package;
   };
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 
   cfgFile = format.generate "00-default.conf" cfg.settings;
-in
-{
+in {
   meta = {
     maintainers = teams.podman.members;
   };
@@ -76,7 +73,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           pkgs.gvisor
@@ -105,7 +102,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for cri-o, see
         <https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md>.
@@ -130,7 +127,7 @@ in
       };
 
       network = {
-        plugin_dirs = [ "${pkgs.cni-plugins}/bin" ];
+        plugin_dirs = ["${pkgs.cni-plugins}/bin"];
         network_dir = mkIf (cfg.networkDir != null) cfg.networkDir;
       };
 
@@ -143,15 +140,13 @@ in
 
         default_runtime = mkIf (cfg.runtime != null) cfg.runtime;
         runtimes = mkIf (cfg.runtime != null) {
-          "${cfg.runtime}" = { };
+          "${cfg.runtime}" = {};
         };
       };
     };
 
-    environment.etc."cni/net.d/10-crio-bridge.conflist".source =
-      "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
-    environment.etc."cni/net.d/99-loopback.conflist".source =
-      "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
+    environment.etc."cni/net.d/10-crio-bridge.conflist".source = "${cfg.package}/etc/cni/net.d/10-crio-bridge.conflist";
+    environment.etc."cni/net.d/99-loopback.conflist".source = "${cfg.package}/etc/cni/net.d/99-loopback.conflist";
     environment.etc."crio/crio.conf.d/00-default.conf".source = cfgFile;
 
     # Enable common /etc/containers configuration
@@ -159,10 +154,10 @@ in
 
     systemd.services.crio = {
       description = "Container Runtime Interface for OCI (CRI-O)";
-      documentation = [ "https://github.com/cri-o/cri-o" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ cfg.package ];
+      documentation = ["https://github.com/cri-o/cri-o"];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [cfg.package];
       serviceConfig = {
         Type = "notify";
         ExecStart = "${cfg.package}/bin/crio";
@@ -175,7 +170,7 @@ in
         TimeoutStartSec = "0";
         Restart = "on-abnormal";
       };
-      restartTriggers = [ cfgFile ];
+      restartTriggers = [cfgFile];
     };
   };
 }

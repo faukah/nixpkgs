@@ -11,7 +11,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mf2py";
   version = "2.0.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-mhJ+s1rtXEJ6DqVmiyWNEK+3cdDLpR63Q4QGmD9wVio=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mf2py" ];
+  pythonImportsCheck = ["mf2py"];
 
   meta = with lib; {
     description = "Microformats2 parser written in Python";
     homepage = "https://microformats.org/wiki/mf2py";
     changelog = "https://github.com/microformats/mf2py/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

@@ -12,7 +12,6 @@
   luajit,
   udev,
 }:
-
 stdenv.mkDerivation {
   pname = "keyleds";
   version = "unstable-2021-04-08";
@@ -60,6 +59,6 @@ stdenv.mkDerivation {
     description = "Advanced RGB animation service for Logitech keyboards";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "tweag-credential-helper";
   version = "0.0.5";
@@ -30,7 +29,7 @@ buildGoModule (finalAttrs: {
 
   postInstall = "mv $out/bin/credential-helper $out/bin/tweag-credential-helper";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   # Tests currently expect to run under Bazel
   # and are not compatible with the Go test runner due to path differences.

@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "neargye-semver";
   version = "0.3.1";
@@ -35,6 +34,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Neargye/semver";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ phodina ];
+    maintainers = with lib.maintainers; [phodina];
   };
 })

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.flannel;
 
   networkConfig =
@@ -16,12 +15,11 @@ let
       Backend = cfg.backend;
     })
     // cfg.extraNetworkConfig;
-in
-{
+in {
   options.services.flannel = {
     enable = lib.mkEnableOption "flannel";
 
-    package = lib.mkPackageOption pkgs "flannel" { };
+    package = lib.mkPackageOption pkgs "flannel" {};
 
     publicIp = lib.mkOption {
       description = ''
@@ -45,7 +43,7 @@ in
       endpoints = lib.mkOption {
         description = "Etcd endpoints";
         type = lib.types.listOf lib.types.str;
-        default = [ "http://127.0.0.1:2379" ];
+        default = ["http://127.0.0.1:2379"];
       };
 
       prefix = lib.mkOption {
@@ -144,8 +142,8 @@ in
 
     extraNetworkConfig = lib.mkOption {
       description = "Extra configuration to be added to the net-conf.json/etcd-backed network configuration.";
-      type = (pkgs.formats.json { }).type;
-      default = { };
+      type = (pkgs.formats.json {}).type;
+      default = {};
       example = {
         EnableIPv6 = true;
       };
@@ -155,8 +153,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.flannel = {
       description = "Flannel Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment =
         {
           FLANNELD_PUBLIC_IP = cfg.publicIp;
@@ -178,7 +176,7 @@ in
           FLANNELD_KUBECONFIG_FILE = cfg.kubeconfig;
           NODE_NAME = cfg.nodeName;
         };
-      path = [ pkgs.iptables ];
+      path = [pkgs.iptables];
       preStart = lib.optionalString (cfg.storageBackend == "etcd") ''
         echo "setting network configuration"
         until ${pkgs.etcd}/bin/etcdctl put /coreos.com/network/config '${builtins.toJSON networkConfig}'
@@ -195,10 +193,10 @@ in
       };
     };
 
-    boot.kernelModules = [ "br_netfilter" ];
+    boot.kernelModules = ["br_netfilter"];
 
     services.etcd.enable = lib.mkDefault (
-      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == [ "http://127.0.0.1:2379" ]
+      cfg.storageBackend == "etcd" && cfg.etcd.endpoints == ["http://127.0.0.1:2379"]
     );
 
     # for some reason, flannel doesn't let you configure this path

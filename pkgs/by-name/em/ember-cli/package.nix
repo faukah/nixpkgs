@@ -7,7 +7,6 @@
   yarnInstallHook,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ember-cli";
   version = "5.3.0";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ember-cli/ember-cli";
     description = "Ember.js command line utility";
     license = licenses.mit;
-    maintainers = with maintainers; [ jfvillablanca ];
+    maintainers = with maintainers; [jfvillablanca];
     platforms = platforms.all;
     mainProgram = "ember";
   };

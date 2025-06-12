@@ -15,7 +15,6 @@
   libSM,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "muse-sounds-manager";
   version = "1.1.0.587";
@@ -37,11 +36,13 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [
-    fontconfig
-    stdenv.cc.cc
-    zlib
-  ] ++ runtimeDependencies;
+  buildInputs =
+    [
+      fontconfig
+      stdenv.cc.cc
+      zlib
+    ]
+    ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     icu
@@ -71,8 +72,8 @@ stdenv.mkDerivation rec {
     homepage = "https://musescore.org/";
     license = lib.licenses.unfree;
     mainProgram = "muse-sounds-manager";
-    maintainers = with lib.maintainers; [ orivej ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [orivej];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

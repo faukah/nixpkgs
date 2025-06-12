@@ -1,20 +1,21 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "shattered-pixel-dungeon";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
-      environment.systemPackages = [ pkgs.shattered-pixel-dungeon ];
-    };
+    services.xserver.enable = true;
+    environment.systemPackages = [pkgs.shattered-pixel-dungeon];
+  };
 
   enableOCR = true;
 

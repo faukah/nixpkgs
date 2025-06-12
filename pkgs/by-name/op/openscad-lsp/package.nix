@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "openscad-lsp";
   version = "1.2.5";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "openscad-lsp";
     homepage = "https://github.com/Leathong/openscad-LSP";
     license = licenses.asl20;
-    maintainers = with maintainers; [ c-h-johnson ];
+    maintainers = with maintainers; [c-h-johnson];
   };
 }

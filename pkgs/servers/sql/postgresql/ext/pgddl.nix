@@ -43,7 +43,7 @@ postgresqlBuildExtension (finalAttrs: {
     homepage = "https://github.com/lacanoid/pgddl";
     changelog = "https://github.com/lacanoid/pgddl/releases/tag/${finalAttrs.version}";
     platforms = postgresql.meta.platforms;
-    maintainers = [ lib.maintainers.joshainglis ];
+    maintainers = [lib.maintainers.joshainglis];
     license = lib.licenses.postgresql;
   };
 })

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 maven.buildMavenPackage rec {
   pname = "keycloak-metrics-spi";
   version = "6.0.0";
@@ -27,7 +26,7 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/aerogear/keycloak-metrics-spi";
     description = "Keycloak Service Provider that adds a metrics endpoint";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ benley ];
+    maintainers = with lib.maintainers; [benley];
     platforms = lib.platforms.linux;
   };
 }

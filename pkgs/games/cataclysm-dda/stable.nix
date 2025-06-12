@@ -9,9 +9,7 @@
   tiles ? true,
   debug ? false,
   useXdgDir ? false,
-}:
-
-let
+}: let
   common = callPackage ./common.nix {
     inherit tiles debug useXdgDir;
   };
@@ -37,10 +35,11 @@ let
       ./locale-path.patch
     ];
 
-    meta = common.meta // {
-      changelog = "https://github.com/CleverRaven/Cataclysm-DDA/blob/${version}/data/changelog.txt";
-    };
+    meta =
+      common.meta
+      // {
+        changelog = "https://github.com/CleverRaven/Cataclysm-DDA/blob/${version}/data/changelog.txt";
+      };
   });
 in
-
-attachPkgs pkgs self
+  attachPkgs pkgs self

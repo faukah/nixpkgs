@@ -3,10 +3,9 @@
   pkgs,
   config,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -16,8 +15,7 @@ let
   cfg = config.services.c2fmzq-server;
 
   argsFormat = {
-    type =
-      with lib.types;
+    type = with lib.types;
       attrsOf (
         nullOr (oneOf [
           bool
@@ -27,12 +25,15 @@ let
       );
     generate = lib.cli.toGNUCommandLineShell {
       mkBool = k: v: [
-        "--${k}=${if v then "true" else "false"}"
+        "--${k}=${
+          if v
+          then "true"
+          else "false"
+        }"
       ];
     };
   };
-in
-{
+in {
   options.services.c2fmzq-server = {
     enable = mkEnableOption "c2fmzq-server";
 
@@ -54,7 +55,7 @@ in
       description = "Path to file containing the database passphrase";
     };
 
-    package = mkPackageOption pkgs "c2fmzq" { };
+    package = mkPackageOption pkgs "c2fmzq" {};
 
     settings = mkOption {
       type = types.submodule {
@@ -97,9 +98,9 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.c2fmzq-server = {
       description = "c2FmZQ-server";
-      documentation = [ "https://github.com/c2FmZQ/c2FmZQ/blob/main/README.md" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      documentation = ["https://github.com/c2FmZQ/c2FmZQ/blob/main/README.md"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network.target"
         "network-online.target"
@@ -153,6 +154,6 @@ in
 
   meta = {
     doc = ./c2fmzq-server.md;
-    maintainers = with lib.maintainers; [ hmenke ];
+    maintainers = with lib.maintainers; [hmenke];
   };
 }

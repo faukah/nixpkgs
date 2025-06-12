@@ -13,7 +13,6 @@
   wheel,
   pinentry,
 }:
-
 buildPythonPackage rec {
   pname = "trezor-agent";
   version = "0.12.0";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  pythonImportsCheck = [ "libagent" ];
+  pythonImportsCheck = ["libagent"];
 
   meta = with lib; {
     description = "Using Trezor as hardware SSH agent";

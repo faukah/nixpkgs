@@ -9,7 +9,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation {
   pname = "tangerine";
   version = "unstable-2024-04-05";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     ncurses
     SDL2
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     description = "System for creating 3D models procedurally from a set of Signed Distance Function (SDF) primitive shapes and combining operators";
     homepage = "https://github.com/Aeva/tangerine";
     license = licenses.asl20;
-    maintainers = [ maintainers.viraptor ];
+    maintainers = [maintainers.viraptor];
     broken = stdenv.hostPlatform.isDarwin; # third_party/naive-surface-nets doesn't find std::execution
   };
 }

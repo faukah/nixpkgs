@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "python-mbedtls";
   version = "2.8.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ mbedtls_2 ];
+  buildInputs = [mbedtls_2];
 
   propagatedBuildInputs = [
     certifi
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mbedtls" ];
+  pythonImportsCheck = ["mbedtls"];
 
   meta = with lib; {
     description = "Cryptographic library with an mbed TLS back end";
     homepage = "https://github.com/Synss/python-mbedtls";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

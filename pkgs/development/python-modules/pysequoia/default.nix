@@ -5,7 +5,6 @@
   rustPlatform,
   cargo,
 }:
-
 buildPythonPackage rec {
   pname = "pysequoia";
   version = "0.1.28";
@@ -28,13 +27,13 @@ buildPythonPackage rec {
     cargo
   ];
 
-  pythonImportsCheck = [ "pysequoia" ];
+  pythonImportsCheck = ["pysequoia"];
 
   meta = {
     description = "This library provides OpenPGP facilities in Python through the Sequoia PGP library";
     downloadPage = "https://github.com/wiktor-k/pysequoia";
     homepage = "https://github.com/wiktor-k/pysequoia";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

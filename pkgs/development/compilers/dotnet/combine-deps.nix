@@ -2,12 +2,12 @@
   list,
   baseRid,
   otherRids,
-  pkgs ? import ../../../.. { },
-}:
-let
+  pkgs ? import ../../../.. {},
+}: let
   inherit (pkgs) writeText;
 
-  inherit (pkgs.lib)
+  inherit
+    (pkgs.lib)
     concatMap
     concatMapStringsSep
     generators
@@ -21,21 +21,17 @@ let
 
   packages = concatMap (file: importJSON file) list;
 
-  changePackageRid =
-    package: rid:
-    let
-      replace = replaceStrings [ ".${baseRid}" ] [ ".${rid}" ];
-    in
-    rec {
-      pname = replace package.pname;
-      inherit (package) version;
-      url = replace package.url;
-      sha256 = builtins.hashFile "sha256" (builtins.fetchurl url);
-    };
+  changePackageRid = package: rid: let
+    replace = replaceStrings [".${baseRid}"] [".${rid}"];
+  in rec {
+    pname = replace package.pname;
+    inherit (package) version;
+    url = replace package.url;
+    sha256 = builtins.hashFile "sha256" (builtins.fetchurl url);
+  };
 
-  expandPackage =
-    package:
-    [ package ]
+  expandPackage = package:
+    [package]
     ++ optionals (strings.match ".*\\.${baseRid}(\\..*|$)" package.pname != null) (
       map (changePackageRid package) otherRids
     );
@@ -44,6 +40,5 @@ let
     package.pname
     package.version
   ]) (concatMap expandPackage packages);
-
 in
-writeText "deps.json" (builtins.toJSON allPackages)
+  writeText "deps.json" (builtins.toJSON allPackages)

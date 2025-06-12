@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin {
   pname = "colored-man-pages";
   version = "0-unstable-2022-04-30";
@@ -19,6 +18,6 @@ buildFishPlugin {
     description = "Fish shell plugin to colorize man pages";
     homepage = "https://github.com/PatrickF1/colored_man_pages.fish";
     license = licenses.mit;
-    maintainers = [ maintainers.jocelynthode ];
+    maintainers = [maintainers.jocelynthode];
   };
 }

@@ -8,7 +8,6 @@
   lmdb,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "lmdb";
   version = "1.6.2";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-0o4/pZk1/2iIWHYOxS8gLsuMEImj9o0fFi6jB40VHnM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ lmdb ];
+  buildInputs = [lmdb];
 
-  pythonImportsCheck = [ "lmdb" ];
+  pythonImportsCheck = ["lmdb"];
 
   nativeCheckInputs = [
     cffi

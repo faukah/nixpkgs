@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "routedns";
   version = "0.1.51";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-yOYeMYAXa1jok8QwGtYsvuUGgIXEjZGo6+FiDQkZwUU=";
 
-  subPackages = [ "./cmd/routedns" ];
+  subPackages = ["./cmd/routedns"];
 
   ldflags = [
     "-s"
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/folbricht/routedns";
     description = "DNS stub resolver, proxy and router";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jsimonetti ];
+    maintainers = with maintainers; [jsimonetti];
     mainProgram = "routedns";
   };
 }

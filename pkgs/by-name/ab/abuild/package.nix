@@ -14,7 +14,6 @@
   perl,
   findutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abuild";
   version = "3.15.0";
@@ -33,13 +32,14 @@ stdenv.mkDerivation (finalAttrs: {
     busybox
     # for $out/bin/apkbuild-cpan and $out/bin/apkbuild-pypi
     (perl.withPackages (
-      ps: with ps; [
-        LWP
-        JSON
-        ModuleBuildTiny
-        LWPProtocolHttps
-        IPCSystemSimple
-      ]
+      ps:
+        with ps; [
+          LWP
+          JSON
+          ModuleBuildTiny
+          LWPProtocolHttps
+          IPCSystemSimple
+        ]
     ))
   ];
 
@@ -79,18 +79,18 @@ stdenv.mkDerivation (finalAttrs: {
       $(find ${placeholder "out"}/bin -type f -exec ${file}/bin/file -i '{}' + \
       | grep -v x-executable | cut -d : -f1); do
       wrapProgram $prog \
-        --prefix PATH : "${lib.makeBinPath [ apk-tools ]}" \
+        --prefix PATH : "${lib.makeBinPath [apk-tools]}" \
         --prefix PATH : "${placeholder "out"}/bin"
     done
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Alpine Linux build tools";
     homepage = "https://gitlab.alpinelinux.org/alpine/abuild";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
     platforms = lib.platforms.unix;
   };
 })

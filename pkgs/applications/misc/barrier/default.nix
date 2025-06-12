@@ -9,10 +9,9 @@
   mkDerivation,
   openssl,
   wrapGAppsHook3,
-  avahiWithLibdnssdCompat ? avahi.override { withLibdnssdCompat = true; },
+  avahiWithLibdnssdCompat ? avahi.override {withLibdnssdCompat = true;},
   fetchpatch,
 }:
-
 mkDerivation rec {
   pname = "barrier";
   version = "2.4.0";
@@ -58,7 +57,7 @@ mkDerivation rec {
   '';
 
   qtWrapperArgs = [
-    ''--prefix PATH : ${lib.makeBinPath [ openssl ]}''
+    ''--prefix PATH : ${lib.makeBinPath [openssl]}''
   ];
 
   meta = {
@@ -71,7 +70,7 @@ mkDerivation rec {
     homepage = "https://github.com/debauchee/barrier";
     downloadPage = "https://github.com/debauchee/barrier/releases";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.phryneas ];
+    maintainers = [lib.maintainers.phryneas];
     platforms = lib.platforms.linux;
     mainProgram = "barrier";
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "yambar-hyprland-wses";
   version = "0.1.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ ludovicopiero ];
+    maintainers = with lib.maintainers; [ludovicopiero];
     mainProgram = "yambar-hyprland-wses";
     platforms = lib.platforms.linux;
   };

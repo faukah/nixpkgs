@@ -8,7 +8,6 @@
   zlib,
   libxml2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "qir-runner";
   version = "0.8.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-ExCIjn5XqDIIYhvEesHRtNZuc4mRr+b9EYE5LNKqNTc=";
   };
 
-  nativeBuildInputs = [ llvmPackages_19.llvm ];
+  nativeBuildInputs = [llvmPackages_19.llvm];
   buildInputs = [
     libffi
     zlib
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "qir-runner";
     homepage = "https://qir-alliance.github.io/qir-runner";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bbenno ];
+    maintainers = [lib.maintainers.bbenno];
     # llvm-sys crate locates llvm by calling llvm-config
     # which is not available when cross compiling
     broken = stdenv.buildPlatform != stdenv.hostPlatform;

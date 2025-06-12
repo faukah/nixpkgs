@@ -17,7 +17,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   sse42Support ? stdenv.hostPlatform.sse4_2Support,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocksdb";
   version = "10.2.1";
@@ -29,9 +28,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-v8kZShgz0O3nHZwWjTvhcM56qAs/le1XgMVYyvVd4tg=";
   };
 
-  patches = lib.optional (
-    lib.versionAtLeast finalAttrs.version "6.29.3" && enableLiburing
-  ) ./fix-findliburing.patch;
+  patches =
+    lib.optional (
+      lib.versionAtLeast finalAttrs.version "6.29.3" && enableLiburing
+    )
+    ./fix-findliburing.patch;
 
   nativeBuildInputs = [
     cmake
@@ -56,26 +57,36 @@ stdenv.mkDerivation (finalAttrs: {
     "tools"
   ];
 
-  cmakeFlags = [
-    "-DPORTABLE=1"
-    "-DWITH_JEMALLOC=${if enableJemalloc then "1" else "0"}"
-    "-DWITH_LIBURING=${if enableLiburing then "1" else "0"}"
-    "-DWITH_JNI=0"
-    "-DWITH_BENCHMARK_TOOLS=0"
-    "-DWITH_TESTS=1"
-    "-DWITH_TOOLS=0"
-    "-DWITH_CORE_TOOLS=1"
-    "-DWITH_BZ2=1"
-    "-DWITH_LZ4=1"
-    "-DWITH_SNAPPY=1"
-    "-DWITH_ZLIB=1"
-    "-DWITH_ZSTD=1"
-    "-DWITH_GFLAGS=0"
-    "-DUSE_RTTI=1"
-    "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
-    (lib.optional sse42Support "-DFORCE_SSE42=1")
-    "-DFAIL_ON_WARNINGS=NO"
-  ] ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0";
+  cmakeFlags =
+    [
+      "-DPORTABLE=1"
+      "-DWITH_JEMALLOC=${
+        if enableJemalloc
+        then "1"
+        else "0"
+      }"
+      "-DWITH_LIBURING=${
+        if enableLiburing
+        then "1"
+        else "0"
+      }"
+      "-DWITH_JNI=0"
+      "-DWITH_BENCHMARK_TOOLS=0"
+      "-DWITH_TESTS=1"
+      "-DWITH_TOOLS=0"
+      "-DWITH_CORE_TOOLS=1"
+      "-DWITH_BZ2=1"
+      "-DWITH_LZ4=1"
+      "-DWITH_SNAPPY=1"
+      "-DWITH_ZLIB=1"
+      "-DWITH_ZSTD=1"
+      "-DWITH_GFLAGS=0"
+      "-DUSE_RTTI=1"
+      "-DROCKSDB_INSTALL_ON_WINDOWS=YES" # harmless elsewhere
+      (lib.optional sse42Support "-DFORCE_SSE42=1")
+      "-DFAIL_ON_WARNINGS=NO"
+    ]
+    ++ lib.optional (!enableShared) "-DROCKSDB_BUILD_SHARED=0";
 
   # otherwise "cc1: error: -Wformat-security ignored without -Wformat [-Werror=format-security]"
   hardeningDisable = lib.optional stdenv.hostPlatform.isWindows "format";

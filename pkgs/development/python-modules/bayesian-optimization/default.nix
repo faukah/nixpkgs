@@ -3,16 +3,13 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   scikit-learn,
   numpy,
   scipy,
   colorama,
-
   # tests
   jupyter,
   matplotlib,
@@ -20,7 +17,6 @@
   nbformat,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bayesian-optimization";
   version = "2.0.3";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-vT8MlfAdzIKj6uyQedYngP6rCkIZwS8EdtKs4+8l9CA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     scikit-learn
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bayes_opt" ];
+  pythonImportsCheck = ["bayes_opt"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bayesian-optimization/BayesianOptimization";
     changelog = "https://github.com/bayesian-optimization/BayesianOptimization/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.juliendehos ];
+    maintainers = [lib.maintainers.juliendehos];
   };
 }

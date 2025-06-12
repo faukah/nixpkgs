@@ -8,8 +8,7 @@
   restic,
   stdenv,
   util-linux,
-}:
-let
+}: let
   pname = "backrest";
   version = "1.8.1";
 
@@ -50,24 +49,23 @@ let
     '';
   });
 in
-buildGoModule {
-  inherit pname src version;
+  buildGoModule {
+    inherit pname src version;
 
-  vendorHash = "sha256-AINnBkP+e9C/f/C3t6NK+6PYSVB4NON0C71S6SwUXbE=";
+    vendorHash = "sha256-AINnBkP+e9C/f/C3t6NK+6PYSVB4NON0C71S6SwUXbE=";
 
-  nativeBuildInputs = [ gzip ];
+    nativeBuildInputs = [gzip];
 
-  preBuild = ''
-    mkdir -p ./webui/dist
-    cp -r ${frontend}/* ./webui/dist
+    preBuild = ''
+      mkdir -p ./webui/dist
+      cp -r ${frontend}/* ./webui/dist
 
-    go generate -skip="npm" ./...
-  '';
+      go generate -skip="npm" ./...
+    '';
 
-  nativeCheckInputs = [ util-linux ];
+    nativeCheckInputs = [util-linux];
 
-  checkFlags =
-    let
+    checkFlags = let
       skippedTests =
         [
           "TestMultihostIndexSnapshots"
@@ -78,22 +76,21 @@ buildGoModule {
           "TestBackup" # relies on ionice
           "TestCancelBackup"
         ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+    in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  preCheck = ''
-    # Use restic from nixpkgs, otherwise download fails in sandbox
-    export BACKREST_RESTIC_COMMAND="${restic}/bin/restic"
-    export HOME=$(pwd)
-  '';
+    preCheck = ''
+      # Use restic from nixpkgs, otherwise download fails in sandbox
+      export BACKREST_RESTIC_COMMAND="${restic}/bin/restic"
+      export HOME=$(pwd)
+    '';
 
-  meta = {
-    description = "Web UI and orchestrator for restic backup";
-    homepage = "https://github.com/garethgeorge/backrest";
-    changelog = "https://github.com/garethgeorge/backrest/releases/tag/v${version}";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ interdependence ];
-    mainProgram = "backrest";
-    platforms = lib.platforms.unix;
-  };
-}
+    meta = {
+      description = "Web UI and orchestrator for restic backup";
+      homepage = "https://github.com/garethgeorge/backrest";
+      changelog = "https://github.com/garethgeorge/backrest/releases/tag/v${version}";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [interdependence];
+      mainProgram = "backrest";
+      platforms = lib.platforms.unix;
+    };
+  }

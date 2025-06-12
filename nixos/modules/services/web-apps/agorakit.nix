@@ -4,10 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.agorakit;
-  agorakit = pkgs.agorakit.override { dataDir = cfg.dataDir; };
+  agorakit = pkgs.agorakit.override {dataDir = cfg.dataDir;};
   db = cfg.database;
   mail = cfg.mail;
 
@@ -30,12 +29,11 @@ let
   '';
 
   tlsEnabled = cfg.nginx.addSSL || cfg.nginx.forceSSL || cfg.nginx.onlySSL || cfg.nginx.enableACME;
-in
-{
+in {
   options.services.agorakit = {
     enable = mkEnableOption "agorakit";
 
-    phpPackage = mkPackageOption pkgs "php82" { };
+    phpPackage = mkPackageOption pkgs "php82" {};
 
     user = mkOption {
       default = "agorakit";
@@ -62,7 +60,9 @@ in
     hostName = lib.mkOption {
       type = lib.types.str;
       default =
-        if config.networking.domain != null then config.networking.fqdn else config.networking.hostName;
+        if config.networking.domain != null
+        then config.networking.fqdn
+        else config.networking.hostName;
       defaultText = lib.literalExpression "config.networking.fqdn";
       example = "agorakit.example.com";
       description = ''
@@ -171,7 +171,7 @@ in
         '';
       };
       encryption = mkOption {
-        type = with types; nullOr (enum [ "tls" ]);
+        type = with types; nullOr (enum ["tls"]);
         default = null;
         description = "SMTP encryption mechanism to use.";
       };
@@ -185,8 +185,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -210,9 +209,9 @@ in
       type = types.submodule (
         recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {
           inherit config lib;
-        }) { }
+        }) {}
       );
-      default = { };
+      default = {};
       example = ''
         {
           serverAliases = [
@@ -229,33 +228,32 @@ in
     };
 
     config = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (
           nullOr (
             either
-              (oneOf [
-                bool
-                int
-                port
-                path
-                str
-              ])
-              (submodule {
-                options = {
-                  _secret = mkOption {
-                    type = nullOr str;
-                    description = ''
-                      The path to a file containing the value the
-                      option should be set to in the final
-                      configuration file.
-                    '';
-                  };
+            (oneOf [
+              bool
+              int
+              port
+              path
+              str
+            ])
+            (submodule {
+              options = {
+                _secret = mkOption {
+                  type = nullOr str;
+                  description = ''
+                    The path to a file containing the value the
+                    option should be set to in the final
+                    configuration file.
+                  '';
                 };
-              })
+              };
+            })
           )
         );
-      default = { };
+      default = {};
       example = ''
         {
           ALLOWED_IFRAME_HOSTS = "https://example.com";
@@ -324,12 +322,12 @@ in
       SESSION_SECURE_COOKIE = tlsEnabled;
     };
 
-    environment.systemPackages = [ artisan ];
+    environment.systemPackages = [artisan];
 
     services.mysql = mkIf db.createLocally {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ db.name ];
+      ensureDatabases = [db.name];
       ensureUsers = [
         {
           name = db.user;
@@ -348,11 +346,13 @@ in
         post_max_size = ${cfg.maxUploadSize}
         upload_max_filesize = ${cfg.maxUploadSize}
       '';
-      settings = {
-        "listen.mode" = "0660";
-        "listen.owner" = user;
-        "listen.group" = group;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.mode" = "0660";
+          "listen.owner" = user;
+          "listen.group" = group;
+        }
+        // cfg.poolConfig;
     };
 
     services.nginx = {
@@ -384,9 +384,9 @@ in
 
     systemd.services.agorakit-setup = {
       description = "Preparation tasks for agorakit";
-      before = [ "phpfpm-agorakit.service" ];
+      before = ["phpfpm-agorakit.service"];
       after = optional db.createLocally "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -396,65 +396,63 @@ in
         RuntimeDirectory = "agorakit/cache";
         RuntimeDirectoryMode = 700;
       };
-      path = [ pkgs.replace-secret ];
-      script =
-        let
-          isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-          agorakitEnvVars = lib.generators.toKeyValue {
-            mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
-              mkValueString =
-                v:
-                with builtins;
-                if isInt v then
-                  toString v
-                else if isString v then
-                  v
-                else if true == v then
-                  "true"
-                else if false == v then
-                  "false"
-                else if isSecret v then
-                  hashString "sha256" v._secret
-                else
-                  throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
-            };
+      path = [pkgs.replace-secret];
+      script = let
+        isSecret = v: isAttrs v && v ? _secret && isString v._secret;
+        agorakitEnvVars = lib.generators.toKeyValue {
+          mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
+            mkValueString = v:
+              with builtins;
+                if isInt v
+                then toString v
+                else if isString v
+                then v
+                else if true == v
+                then "true"
+                else if false == v
+                then "false"
+                else if isSecret v
+                then hashString "sha256" v._secret
+                else throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
           };
-          secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
-          mkSecretReplacement = file: ''
-            replace-secret ${
-              escapeShellArgs [
-                (builtins.hashString "sha256" file)
-                file
-                "${cfg.dataDir}/.env"
-              ]
-            }
-          '';
-          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig = lib.converge (lib.filterAttrsRecursive (
-            _: v:
-            !elem v [
-              { }
-              null
+        };
+        secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
+        mkSecretReplacement = file: ''
+          replace-secret ${
+            escapeShellArgs [
+              (builtins.hashString "sha256" file)
+              file
+              "${cfg.dataDir}/.env"
             ]
-          )) cfg.config;
-          agorakitEnv = pkgs.writeText "agorakit.env" (agorakitEnvVars filteredConfig);
-        in
-        ''
-          # error handling
-          set -euo pipefail
-
-          # create .env file
-          install -T -m 0600 -o ${user} ${agorakitEnv} "${cfg.dataDir}/.env"
-          ${secretReplacements}
-          if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
-            sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
-          fi
-
-          # migrate & seed db
-          ${php} artisan key:generate --force
-          ${php} artisan migrate --force
-          ${php} artisan config:cache
+          }
         '';
+        secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
+        filteredConfig =
+          lib.converge (lib.filterAttrsRecursive (
+            _: v:
+              !elem v [
+                {}
+                null
+              ]
+          ))
+          cfg.config;
+        agorakitEnv = pkgs.writeText "agorakit.env" (agorakitEnvVars filteredConfig);
+      in ''
+        # error handling
+        set -euo pipefail
+
+        # create .env file
+        install -T -m 0600 -o ${user} ${agorakitEnv} "${cfg.dataDir}/.env"
+        ${secretReplacements}
+        if ! grep 'APP_KEY=base64:' "${cfg.dataDir}/.env" >/dev/null; then
+          sed -i 's/APP_KEY=/APP_KEY=base64:/' "${cfg.dataDir}/.env"
+        fi
+
+        # migrate & seed db
+        ${php} artisan key:generate --force
+        ${php} artisan migrate --force
+        ${php} artisan config:cache
+      '';
     };
 
     systemd.tmpfiles.rules = [
@@ -478,9 +476,9 @@ in
           inherit group;
           isSystemUser = true;
         };
-        "${config.services.nginx.user}".extraGroups = [ group ];
+        "${config.services.nginx.user}".extraGroups = [group];
       };
-      groups = mkIf (group == "agorakit") { agorakit = { }; };
+      groups = mkIf (group == "agorakit") {agorakit = {};};
     };
   };
 }

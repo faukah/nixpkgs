@@ -6,7 +6,6 @@
   perl,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "triggerhappy";
   version = "0.5.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     pkg-config
     perl
   ];
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wertarbyte/triggerhappy/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ taha ];
+    maintainers = with maintainers; [taha];
   };
 }

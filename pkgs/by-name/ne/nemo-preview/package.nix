@@ -18,7 +18,6 @@
   nemo,
   xreader,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nemo-preview";
   version = "6.4.0";
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Quick previewer for Nemo, the Cinnamon desktop file manager";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.cinnamon ];
+    teams = [lib.teams.cinnamon];
   };
 })

@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "smeagol";
   version = "0.5.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/smeagol-wiki";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Locally hosted wiki";

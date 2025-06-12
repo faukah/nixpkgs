@@ -26,7 +26,6 @@
   xz,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dracut";
   version = "059";
@@ -107,13 +106,13 @@ stdenv.mkDerivation rec {
     }
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/dracutdevs/dracut/wiki";
     description = "Event driven initramfs infrastructure";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

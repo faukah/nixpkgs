@@ -6,7 +6,6 @@
   makeWrapper,
   courier-prime,
 }:
-
 buildGoModule rec {
   pname = "wrap";
   version = "0.3.1";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-vg61Vypd+mSF9FyLFVpnS5UCTJDoobkDE1Cneg8O0RM=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     (fetchpatch {
@@ -43,6 +42,6 @@ buildGoModule rec {
     description = "Fountain export tool with some extras";
     homepage = "https://github.com/Wraparound/wrap";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
   };
 }

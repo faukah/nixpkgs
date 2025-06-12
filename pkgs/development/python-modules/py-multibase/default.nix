@@ -34,15 +34,15 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multibase" ];
+  pythonImportsCheck = ["multibase"];
 
   meta = with lib; {
     description = "Module for distinguishing base encodings and other simple string encodings";
     homepage = "https://github.com/multiformats/py-multibase";
     changelog = "https://github.com/multiformats/py-multibase/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

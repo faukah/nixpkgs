@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "haversine";
   version = "2.9.0";
@@ -22,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-KqcDDQdAOnrmiq+kf8rLHy85rNnhatZTOzCCU91lOrU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     numpy
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "haversine" ];
+  pythonImportsCheck = ["haversine"];
 
   meta = with lib; {
     description = "Python module the distance between 2 points on earth";
     homepage = "https://github.com/mapado/haversine";
     changelog = "https://github.com/mapado/haversine/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

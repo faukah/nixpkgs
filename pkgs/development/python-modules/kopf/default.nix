@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildPythonPackage,
   pytestCheckHook,
-
   setuptools,
   setuptools-scm,
   pyyaml,
@@ -12,7 +11,6 @@
   python-json-logger,
   clickclick,
   typing-extensions,
-
   pytest-mock,
   pytest-timeout,
   pytest-asyncio,
@@ -21,7 +19,6 @@
   certvalidator,
   aresponses,
 }:
-
 buildPythonPackage rec {
   pname = "kopf";
   version = "1.38.0";
@@ -81,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://kopf.readthedocs.io/";
     changelog = "https://github.com/nolar/kopf/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

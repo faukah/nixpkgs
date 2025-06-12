@@ -6,7 +6,6 @@
   makeWrapper,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "clipman";
   version = "1.6.4";
@@ -34,7 +33,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/clipman \
-      --prefix PATH : ${lib.makeBinPath [ wl-clipboard ]}
+      --prefix PATH : ${lib.makeBinPath [wl-clipboard]}
     installManPage docs/*.1
   '';
 
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/chmouel/clipman";
     description = "Simple clipboard manager for Wayland";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
     mainProgram = "clipman";
   };

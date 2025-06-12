@@ -14,7 +14,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "restfly";
   version = "1.5.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-hHNsOFu2b4sb9zbdWVTwoU1HShLFqC+Q9/PJcEqu7Hg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     arrow
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     "test_session_ssl_error"
   ];
 
-  pythonImportsCheck = [ "restfly" ];
+  pythonImportsCheck = ["restfly"];
 
   meta = with lib; {
     description = "Python RESTfly API Library Framework";
     homepage = "https://github.com/stevemcgrath/restfly";
     changelog = "https://github.com/librestfly/restfly/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

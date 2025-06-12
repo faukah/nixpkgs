@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation {
     description = "Icon theme for the Kanagawa colour palette";
     homepage = "https://github.com/Fausto-Korpsvart/Kanagawa-GKT-Theme";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ iynaix ];
+    maintainers = with maintainers; [iynaix];
     platforms = gtk3.meta.platforms;
   };
 }

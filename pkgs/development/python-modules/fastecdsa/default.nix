@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fastecdsa";
   version = "3.0.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-9LSlD9XjRsSUmro2XAYcP2sl7ueYPJc+HTHednK6SOo=";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # skip tests which require being online to download test vectors
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # but the installed package works just fine
   doCheck = false;
 
-  pythonImportsCheck = [ "fastecdsa" ];
+  pythonImportsCheck = ["fastecdsa"];
 
   meta = with lib; {
     description = "Fast elliptic curve digital signatures";
     homepage = "https://github.com/AntonKueltz/fastecdsa";
     changelog = "https://github.com/AntonKueltz/fastecdsa/blob/v${version}/CHANGELOG.md";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

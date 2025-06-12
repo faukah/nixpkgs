@@ -15,7 +15,6 @@
   darwin,
   rcodesign,
 }:
-
 stdenvNoCC.mkDerivation rec {
   version = "1.2.14";
   pname = "bun";
@@ -29,15 +28,19 @@ stdenvNoCC.mkDerivation rec {
       aarch64-darwin = "bun-darwin-aarch64";
       x86_64-darwin = "bun-darwin-x64-baseline";
     }
-    .${stdenvNoCC.hostPlatform.system} or null;
+    .${
+      stdenvNoCC.hostPlatform.system
+    } or null;
 
   strictDeps = true;
-  nativeBuildInputs = [
-    unzip
-    installShellFiles
-    makeWrapper
-  ] ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ autoPatchelfHook ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs =
+    [
+      unzip
+      installShellFiles
+      makeWrapper
+    ]
+    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [autoPatchelfHook];
+  buildInputs = [openssl];
 
   dontConfigure = true;
   dontBuild = true;
@@ -51,7 +54,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  postPhases = [ "postPatchelf" ];
+  postPhases = ["postPatchelf"];
   postPatchelf =
     lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
       '${lib.getExe' cctools "${cctools.targetPrefix}install_name_tool"}' $out/bin/bun \
@@ -63,24 +66,23 @@ stdenvNoCC.mkDerivation rec {
     # 2. Is not correctly detected even on macOS 15+, where it is available through Rosetta
     #
     # The baseline builds are no longer an option because they too now require avx support.
-    +
-      lib.optionalString
-        (
-          stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform
-          && !(stdenvNoCC.hostPlatform.isDarwin && stdenvNoCC.hostPlatform.isx86_64)
-        )
-        ''
-          completions_dir=$(mktemp -d)
+    + lib.optionalString
+    (
+      stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform
+      && !(stdenvNoCC.hostPlatform.isDarwin && stdenvNoCC.hostPlatform.isx86_64)
+    )
+    ''
+      completions_dir=$(mktemp -d)
 
-          SHELL="bash" $out/bin/bun completions $completions_dir
-          SHELL="zsh" $out/bin/bun completions $completions_dir
-          SHELL="fish" $out/bin/bun completions $completions_dir
+      SHELL="bash" $out/bin/bun completions $completions_dir
+      SHELL="zsh" $out/bin/bun completions $completions_dir
+      SHELL="fish" $out/bin/bun completions $completions_dir
 
-          installShellCompletion --name bun \
-            --bash $completions_dir/bun.completion.bash \
-            --zsh $completions_dir/_bun \
-            --fish $completions_dir/bun.fish
-        '';
+      installShellCompletion --name bun \
+        --bash $completions_dir/bun.completion.bash \
+        --zsh $completions_dir/_bun \
+        --fish $completions_dir/bun.fish
+    '';
 
   passthru = {
     sources = {
@@ -124,7 +126,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://bun.sh";
     changelog = "https://bun.sh/blog/bun-v${version}";
     description = "Incredibly fast JavaScript runtime, bundler, transpiler and package manager – all in one";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     longDescription = ''
       All in one fast & easy-to-use tool. Instead of 1,000 node_modules for development, you only need bun.
     '';

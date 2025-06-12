@@ -3,18 +3,16 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.gnome.tinysparql;
-in
-{
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
 
   imports = [
-    (lib.mkRemovedOptionModule
+    (
+      lib.mkRemovedOptionModule
       [
         "services"
         "gnome"
@@ -27,7 +25,8 @@ in
         provides its own CLI tool.
       ''
     )
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "services"
         "gnome"
@@ -57,10 +56,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.tinysparql ];
+    environment.systemPackages = [pkgs.tinysparql];
 
-    services.dbus.packages = [ pkgs.tinysparql ];
+    services.dbus.packages = [pkgs.tinysparql];
 
-    systemd.packages = [ pkgs.tinysparql ];
+    systemd.packages = [pkgs.tinysparql];
   };
 }

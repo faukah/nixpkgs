@@ -7,7 +7,6 @@
   makeBinaryWrapper,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "confluent-platform";
   version = "7.7.0";

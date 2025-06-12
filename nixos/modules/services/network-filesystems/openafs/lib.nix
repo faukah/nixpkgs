@@ -1,18 +1,17 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     concatStringsSep
     mkOption
     types
     optionalString
     ;
-
-in
-{
-
-  mkCellServDB =
-    cellName: db:
+in {
+  mkCellServDB = cellName: db:
     ''
       >${cellName}
     ''

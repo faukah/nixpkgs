@@ -1,7 +1,9 @@
-{ hostPkgs, lib, ... }:
-
+{
+  hostPkgs,
+  lib,
+  ...
+}:
 # Tests basics such as TLS, creating a mime-type & serving Unicode characters.
-
 let
   domain = {
     HTTP = "h2o.local";
@@ -22,7 +24,8 @@ let
 
   hello_world_rst = hostPkgs.writeTextFile {
     name = "/hello_world.rst";
-    text = # rst
+    text =
+      # rst
       ''
         ====================
         Thaiger Sprint 2025‼
@@ -31,102 +34,98 @@ let
         ${sawatdi_chao_lok}
       '';
   };
-in
-{
+in {
   name = "h2o-basic";
 
   meta = {
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 
   nodes = {
-    server =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [
-          pkgs.curlHTTP3
-        ];
+    server = {pkgs, ...}: {
+      environment.systemPackages = [
+        pkgs.curlHTTP3
+      ];
 
-        services.h2o = {
-          enable = true;
-          defaultHTTPListenPort = port.HTTP;
-          defaultTLSListenPort = port.TLS;
-          hosts = {
-            "${domain.HTTP}" = {
-              settings = {
-                paths = {
-                  "/hello_world.txt" = {
-                    "file.file" = "${hello_world_txt}";
-                  };
-                };
-              };
-            };
-            "${domain.TLS}" = {
-              tls = {
-                policy = "force";
-                quic = {
-                  retry = "ON";
-                };
-                identity = [
-                  {
-                    key-file = ../../common/acme/server/acme.test.key.pem;
-                    certificate-file = ../../common/acme/server/acme.test.cert.pem;
-                  }
-                ];
-                extraSettings = {
-                  minimum-version = "TLSv1.3";
-                  # when using common ACME certs, disable talking to CA
-                  ocsp-update-interval = 0;
-                };
-              };
-              settings = {
-                paths = {
-                  "/hello_world.rst" = {
-                    "file.file" = "${hello_world_rst}";
-                  };
+      services.h2o = {
+        enable = true;
+        defaultHTTPListenPort = port.HTTP;
+        defaultTLSListenPort = port.TLS;
+        hosts = {
+          "${domain.HTTP}" = {
+            settings = {
+              paths = {
+                "/hello_world.txt" = {
+                  "file.file" = "${hello_world_txt}";
                 };
               };
             };
           };
-          settings = {
-            compress = "ON";
-            compress-minimum-size = 32;
-            "file.mime.addtypes" = {
-              "text/x-rst" = {
-                extensions = [ ".rst" ];
-                is_compressible = "YES";
+          "${domain.TLS}" = {
+            tls = {
+              policy = "force";
+              quic = {
+                retry = "ON";
+              };
+              identity = [
+                {
+                  key-file = ../../common/acme/server/acme.test.key.pem;
+                  certificate-file = ../../common/acme/server/acme.test.cert.pem;
+                }
+              ];
+              extraSettings = {
+                minimum-version = "TLSv1.3";
+                # when using common ACME certs, disable talking to CA
+                ocsp-update-interval = 0;
               };
             };
-            ssl-offload = "kernel";
+            settings = {
+              paths = {
+                "/hello_world.rst" = {
+                  "file.file" = "${hello_world_rst}";
+                };
+              };
+            };
           };
         };
-
-        security.pki.certificates = [
-          (builtins.readFile ../../common/acme/server/ca.cert.pem)
-        ];
-
-        networking = {
-          firewall = {
-            allowedTCPPorts = with port; [
-              HTTP
-              TLS
-            ];
-            allowedUDPPorts = with port; [
-              TLS
-            ];
+        settings = {
+          compress = "ON";
+          compress-minimum-size = 32;
+          "file.mime.addtypes" = {
+            "text/x-rst" = {
+              extensions = [".rst"];
+              is_compressible = "YES";
+            };
           };
-          extraHosts = ''
-            127.0.0.1 ${domain.HTTP}
-            127.0.0.1 ${domain.TLS}
-          '';
+          ssl-offload = "kernel";
         };
       };
+
+      security.pki.certificates = [
+        (builtins.readFile ../../common/acme/server/ca.cert.pem)
+      ];
+
+      networking = {
+        firewall = {
+          allowedTCPPorts = with port; [
+            HTTP
+            TLS
+          ];
+          allowedUDPPorts = with port; [
+            TLS
+          ];
+        };
+        extraHosts = ''
+          127.0.0.1 ${domain.HTTP}
+          127.0.0.1 ${domain.TLS}
+        '';
+      };
+    };
   };
-  testScript =
-    let
-      portStrHTTP = builtins.toString port.HTTP;
-      portStrTLS = builtins.toString port.TLS;
-    in
+  testScript = let
+    portStrHTTP = builtins.toString port.HTTP;
+    portStrTLS = builtins.toString port.TLS;
+  in
     # python
     ''
       server.wait_for_unit("h2o.service")

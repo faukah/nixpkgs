@@ -7,17 +7,15 @@
   vim,
   llvmPackages,
   neovimUtils,
-}:
-
-let
-
-  inherit (vimUtils.override { inherit vim; })
+}: let
+  inherit
+    (vimUtils.override {inherit vim;})
     buildVimPlugin
     ;
 
   inherit (lib) extends;
 
-  initialPackages = self: { };
+  initialPackages = self: {};
 
   cocPlugins = callPackage ./cocPlugins.nix {
     inherit buildVimPlugin;
@@ -31,12 +29,10 @@ let
     inherit buildVimPlugin;
   };
 
-  nonGeneratedPlugins =
-    self: super:
-    let
-      root = ./non-generated;
-      call = name: callPackage (root + "/${name}") { };
-    in
+  nonGeneratedPlugins = self: super: let
+    root = ./non-generated;
+    call = name: callPackage (root + "/${name}") {};
+  in
     lib.pipe root [
       builtins.readDir
       (lib.filterAttrs (_: type: type == "directory"))
@@ -59,15 +55,18 @@ let
     inherit llvmPackages;
   };
 
-  aliases = if config.allowAliases then (import ./aliases.nix lib) else final: prev: { };
+  aliases =
+    if config.allowAliases
+    then (import ./aliases.nix lib)
+    else final: prev: {};
 in
-lib.pipe initialPackages [
-  (extends plugins)
-  (extends cocPlugins)
-  (extends luaPackagePlugins)
-  (extends nodePackagePlugins)
-  (extends nonGeneratedPlugins)
-  (extends overrides)
-  (extends aliases)
-  lib.makeExtensible
-]
+  lib.pipe initialPackages [
+    (extends plugins)
+    (extends cocPlugins)
+    (extends luaPackagePlugins)
+    (extends nodePackagePlugins)
+    (extends nonGeneratedPlugins)
+    (extends overrides)
+    (extends aliases)
+    lib.makeExtensible
+  ]

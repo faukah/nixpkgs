@@ -16,7 +16,6 @@
   wrapGAppsHook3,
   wxGTK32,
 }:
-
 stdenv.mkDerivation rec {
   pname = "survex";
   version = "1.4.17";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  doCheck = (!stdenv.hostPlatform.isDarwin); # times out
+  doCheck = !stdenv.hostPlatform.isDarwin; # times out
   enableParallelChecking = false;
 
   meta = {
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://survex.com/";
     changelog = "https://github.com/ojwb/survex/raw/v${version}/NEWS";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.matthewcroughan ];
+    maintainers = [lib.maintainers.matthewcroughan];
     platforms = lib.platforms.all;
   };
 }

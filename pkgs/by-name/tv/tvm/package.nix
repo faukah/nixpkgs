@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tvm";
   version = "0.19.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/5IpOraFTgg6sQ1TLHoepq/C8VHKg5BXKrNMBSyYajA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   # TVM CMake build uses some sources in the project's ./src/target/opt/
   # directory which errneously gets mangled by the eager `fixCmakeFiles`
   # function in Nix's CMake setup-hook.sh to ./src/target/var/empty/,
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "End to End Deep Learning Compiler Stack for CPUs, GPUs and accelerators";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ adelbertc ];
+    maintainers = with maintainers; [adelbertc];
   };
 }

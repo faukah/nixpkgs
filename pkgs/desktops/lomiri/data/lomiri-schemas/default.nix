@@ -11,7 +11,6 @@
   pkg-config,
   validatePkgConfig,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lomiri-schemas";
   version = "0.1.8";
@@ -45,7 +44,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -53,7 +52,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lomiri-schemas";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-schemas/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.lgpl21Plus;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "lomiri-schemas"

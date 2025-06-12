@@ -1,6 +1,4 @@
-{ fetchurl }:
-
-{
+{fetchurl}: {
   c.src = fetchurl {
     url = "https://github.com/tree-sitter/tree-sitter-c/archive/v0.23.4.tar.gz";
     hash = "sha256:b66c5043e26d84e5f17a059af71b157bcf202221069ed220aa1696d7d1d28a7a";

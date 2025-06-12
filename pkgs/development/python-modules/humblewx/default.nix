@@ -5,7 +5,6 @@
   wxpython,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "humblewx";
   version = "0.2.2";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "0fv8gwlbcj000qq34inbwgxf0xgibs590dsyqnw0mmyb7f1iq210";
   };
 
-  propagatedBuildInputs = [ wxpython ];
+  propagatedBuildInputs = [wxpython];
 
   checkPhase = ''
     runHook preCheck
@@ -32,12 +31,12 @@ buildPythonPackage rec {
   # would have to use nixos module tests, but it is not worth it
   doCheck = false;
 
-  pythonImportsCheck = [ "humblewx" ];
+  pythonImportsCheck = ["humblewx"];
 
   meta = {
     homepage = "https://github.com/thetimelineproj/humblewx";
     description = "Library that simplifies creating user interfaces with wxPython";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ davidak ];
+    maintainers = with lib.maintainers; [davidak];
   };
 }

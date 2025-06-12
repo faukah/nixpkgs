@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sanoid;
 
-  datasetSettingsType =
-    with lib.types;
+  datasetSettingsType = with lib.types;
     (attrsOf (
       nullOr (oneOf [
         str
@@ -69,7 +67,7 @@ let
           description = "configured template name";
         }
       );
-      default = [ ];
+      default = [];
     };
     useTemplate = use_template;
 
@@ -80,11 +78,10 @@ let
         recursively in an atomic way without the possibility to
         override settings for child datasets.
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         oneOf [
           bool
-          (enum [ "zfs" ])
+          (enum ["zfs"])
         ];
       default = false;
     };
@@ -102,8 +99,7 @@ let
 
   # Function to build "zfs allow" and "zfs unallow" commands for the
   # filesystems we've delegated permissions to.
-  buildAllowCommand =
-    zfsAction: permissions: dataset:
+  buildAllowCommand = zfsAction: permissions: dataset:
     lib.escapeShellArgs [
       # Here we explicitly use the booted system to guarantee the stable API needed by ZFS
       "-+/run/booted-system/sw/bin/zfs"
@@ -113,33 +109,29 @@ let
       dataset
     ];
 
-  configFile =
-    let
-      mkValueString =
-        v: if lib.isList v then lib.concatStringsSep "," v else lib.generators.mkValueStringDefault { } v;
+  configFile = let
+    mkValueString = v:
+      if lib.isList v
+      then lib.concatStringsSep "," v
+      else lib.generators.mkValueStringDefault {} v;
 
-      mkKeyValue =
-        k: v:
-        if v == null then
-          ""
-        else if k == "processChildrenOnly" then
-          ""
-        else if k == "useTemplate" then
-          ""
-        else
-          lib.generators.mkKeyValueDefault { inherit mkValueString; } "=" k v;
-    in
-    lib.generators.toINI { inherit mkKeyValue; } cfg.settings;
-
-in
-{
-
+    mkKeyValue = k: v:
+      if v == null
+      then ""
+      else if k == "processChildrenOnly"
+      then ""
+      else if k == "useTemplate"
+      then ""
+      else lib.generators.mkKeyValueDefault {inherit mkValueString;} "=" k v;
+  in
+    lib.generators.toINI {inherit mkKeyValue;} cfg.settings;
+in {
   # Interface
 
   options.services.sanoid = {
     enable = lib.mkEnableOption "Sanoid ZFS snapshotting service";
 
-    package = lib.mkPackageOption pkgs "sanoid" { };
+    package = lib.mkPackageOption pkgs "sanoid" {};
 
     interval = lib.mkOption {
       type = lib.types.str;
@@ -156,20 +148,23 @@ in
     datasets = lib.mkOption {
       type = lib.types.attrsOf (
         lib.types.submodule (
-          { config, options, ... }:
           {
+            config,
+            options,
+            ...
+          }: {
             freeformType = datasetSettingsType;
             options = commonOptions // datasetOptions;
             config.use_template = lib.modules.mkAliasAndWrapDefsWithPriority lib.id (
-              options.useTemplate or { }
+              options.useTemplate or {}
             );
             config.process_children_only = lib.modules.mkAliasAndWrapDefsWithPriority lib.id (
-              options.processChildrenOnly or { }
+              options.processChildrenOnly or {}
             );
           }
         )
       );
-      default = { };
+      default = {};
       description = "Datasets to snapshot.";
     };
 
@@ -180,7 +175,7 @@ in
           options = commonOptions;
         }
       );
-      default = { };
+      default = {};
       description = "Templates for datasets.";
     };
 
@@ -195,7 +190,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--readonly"
@@ -225,14 +220,16 @@ in
             "snapshot"
             "mount"
             "destroy"
-          ]) datasets
+          ])
+          datasets
         );
         ExecStopPost = (
           map (buildAllowCommand "unallow" [
             "snapshot"
             "mount"
             "destroy"
-          ]) datasets
+          ])
+          datasets
         );
         ExecStart = lib.escapeShellArgs (
           [
@@ -251,10 +248,10 @@ in
       };
       # Prevents missing snapshots during DST changes
       environment.TZ = "UTC";
-      after = [ "zfs.target" ];
+      after = ["zfs.target"];
       startAt = cfg.interval;
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ lopsided98 ];
+  meta.maintainers = with lib.maintainers; [lopsided98];
 }

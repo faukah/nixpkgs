@@ -6,7 +6,6 @@
   annexremote,
   humanfriendly,
 }:
-
 buildPythonApplication rec {
   pname = "git-annex-remote-dbx";
   version = "1.0.3";
@@ -27,6 +26,6 @@ buildPythonApplication rec {
     homepage = "https://pypi.org/project/git-annex-remote-dbx/";
     license = licenses.mit;
     mainProgram = "git-annex-remote-dbx";
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

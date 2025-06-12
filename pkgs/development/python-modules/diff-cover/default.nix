@@ -17,7 +17,6 @@
   pythonOlder,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "diff-cover";
   version = "9.2.4";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-bqRHEfCRmaG4vKourgAuHzN90i8teY/P1ipqFVS7KoY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     chardet
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     "test_style_defs"
   ];
 
-  pythonImportsCheck = [ "diff_cover" ];
+  pythonImportsCheck = ["diff_cover"];
 
   meta = with lib; {
     description = "Automatically find diff lines that need test coverage";
     homepage = "https://github.com/Bachmann1234/diff-cover";
     changelog = "https://github.com/Bachmann1234/diff_cover/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dzabraev ];
+    maintainers = with maintainers; [dzabraev];
   };
 }

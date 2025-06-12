@@ -6,20 +6,16 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  colorVariants ? [ ], # default is all
-  themeVariants ? [ ], # default is all
-}:
-
-let
+  colorVariants ? [], # default is all
+  themeVariants ? [], # default is all
+}: let
   pname = "qogir-icon-theme";
-
 in
-lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ] colorVariants
+  lib.checkListOfEnum "${pname}: color variants" ["standard" "dark" "all"] colorVariants
   lib.checkListOfEnum
   "${pname}: theme variants"
-  [ "default" "manjaro" "ubuntu" "all" ]
+  ["default" "manjaro" "ubuntu" "all"]
   themeVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -37,7 +33,7 @@ lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ] color
       jdupes
     ];
 
-    propagatedBuildInputs = [ hicolor-icon-theme ];
+    propagatedBuildInputs = [hicolor-icon-theme];
 
     dontDropIconThemeCache = true;
 
@@ -55,8 +51,8 @@ lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ] color
       mkdir -p $out/share/icons
 
       name= ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) ("--theme " + builtins.toString themeVariants)} \
-        ${lib.optionalString (colorVariants != [ ]) ("--color " + builtins.toString colorVariants)} \
+        ${lib.optionalString (themeVariants != []) ("--theme " + builtins.toString themeVariants)} \
+        ${lib.optionalString (colorVariants != []) ("--color " + builtins.toString colorVariants)} \
         --dest $out/share/icons
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -64,13 +60,13 @@ lib.checkListOfEnum "${pname}: color variants" [ "standard" "dark" "all" ] color
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat colorful design icon theme";
       homepage = "https://github.com/vinceliuice/Qogir-icon-theme";
-      license = with licenses; [ gpl3Only ];
+      license = with licenses; [gpl3Only];
       platforms = platforms.linux;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

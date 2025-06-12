@@ -6,7 +6,6 @@
   vim,
   sendmailPath ? "/usr/sbin/sendmail",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cron";
   version = "4.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     "DESTROOT=$(out)"
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   unpackCmd = ''
     mkdir cron
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Daemon for running commands at specific times";
     license = lib.licenses.bsd0;
     mainProgram = "cron";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

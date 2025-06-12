@@ -68,7 +68,6 @@
   yapf,
   zap-chip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "home-assistant-chip-wheels";
   version = "2025.4.0";
@@ -170,78 +169,77 @@ stdenv.mkDerivation rec {
   #
   # yes this list of dependencies contains both build tools and proper dependencies.
   env.PIP_NO_INDEX = "1";
-  env.PIP_FIND_LINKS =
-    let
-      dependencies = [
-        aiohttp
-        appdirs
-        appnope
-        black
-        build
-        colorama
-        coloredlogs
-        coverage
-        click
-        cryptography
-        diskcache
-        googleapis-common-protos
-        google-cloud-storage
-        ipython
-        jinja2
-        json5
-        jsonschema
-        lark
-        mobly
-        mypy
-        mypy-extensions
-        mypy-protobuf
-        packaging
-        parameterized
-        pip-tools
-        pkgconfig
-        prompt-toolkit
-        protobuf
-        psutil
-        ptpython
-        pyelftools
-        pygments
-        pykwalify
-        (pylint.overridePythonAttrs { doCheck = pythonOlder "3.13"; })
-        pyperclip
-        pyserial
-        python-daemon
-        pyyaml
-        requests
-        setuptools
-        six
-        sphinx
-        sphinx-argparse
-        sphinx-design
-        stringcase
-        toml
-        tornado
-        types-protobuf
-        types-pyyaml
-        types-requests
-        types-setuptools
-        watchdog
-        websockets
-        wheel
-        yapf
-      ];
-      filterNull = list: lib.filter (dep: dep != null) list;
-      toItem = dep: {
-        inherit dep;
-        key = dep.name;
-      };
-      saturatedDependencies = lib.genericClosure {
-        startSet = map toItem (filterNull dependencies);
-        operator = item: map toItem (filterNull ((item.dep).propagatedBuildInputs or [ ]));
-      };
-      saturatedDependencyList = lib.filter (dep: dep ? dist && dep != null) (
-        map (item: item.dep) saturatedDependencies
-      );
-    in
+  env.PIP_FIND_LINKS = let
+    dependencies = [
+      aiohttp
+      appdirs
+      appnope
+      black
+      build
+      colorama
+      coloredlogs
+      coverage
+      click
+      cryptography
+      diskcache
+      googleapis-common-protos
+      google-cloud-storage
+      ipython
+      jinja2
+      json5
+      jsonschema
+      lark
+      mobly
+      mypy
+      mypy-extensions
+      mypy-protobuf
+      packaging
+      parameterized
+      pip-tools
+      pkgconfig
+      prompt-toolkit
+      protobuf
+      psutil
+      ptpython
+      pyelftools
+      pygments
+      pykwalify
+      (pylint.overridePythonAttrs {doCheck = pythonOlder "3.13";})
+      pyperclip
+      pyserial
+      python-daemon
+      pyyaml
+      requests
+      setuptools
+      six
+      sphinx
+      sphinx-argparse
+      sphinx-design
+      stringcase
+      toml
+      tornado
+      types-protobuf
+      types-pyyaml
+      types-requests
+      types-setuptools
+      watchdog
+      websockets
+      wheel
+      yapf
+    ];
+    filterNull = list: lib.filter (dep: dep != null) list;
+    toItem = dep: {
+      inherit dep;
+      key = dep.name;
+    };
+    saturatedDependencies = lib.genericClosure {
+      startSet = map toItem (filterNull dependencies);
+      operator = item: map toItem (filterNull ((item.dep).propagatedBuildInputs or []));
+    };
+    saturatedDependencyList = lib.filter (dep: dep ? dist && dep != null) (
+      map (item: item.dep) saturatedDependencies
+    );
+  in
     lib.concatMapStringsSep " " (dep: "file://${dep.dist}") saturatedDependencyList;
 
   gnFlags = [
@@ -266,7 +264,7 @@ stdenv.mkDerivation rec {
     export NIX_CFLAGS_LINK="$($PKG_CONFIG --libs gio-2.0) $($PKG_CONFIG --libs gobject-2.0) $($PKG_CONFIG --libs glib-2.0)"
   '';
 
-  ninjaFlags = [ "chip-repl" ];
+  ninjaFlags = ["chip-repl"];
 
   installPhase = ''
     runHook preInstall
@@ -281,7 +279,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/home-assistant-libs/chip-wheels";
     changelog = "https://github.com/home-assistant-libs/chip-wheels/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.home-assistant ];
+    teams = [lib.teams.home-assistant];
   };
-
 }

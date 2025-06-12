@@ -2,8 +2,7 @@
   runCommand,
   languageMachines,
 }:
-
-runCommand "frog-test" { } ''
+runCommand "frog-test" {} ''
   ${languageMachines.frog}/bin/frog >$out <<EOF
   Dit is een test
 

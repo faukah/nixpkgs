@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "requirements-detector";
   version = "1.3.2";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     astroid
@@ -42,16 +41,16 @@ buildPythonPackage rec {
     semver
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "requirements_detector" ];
+  pythonImportsCheck = ["requirements_detector"];
 
   meta = with lib; {
     description = "Python tool to find and list requirements of a Python project";
     homepage = "https://github.com/landscapeio/requirements-detector";
     changelog = "https://github.com/landscapeio/requirements-detector/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
     mainProgram = "detect-requirements";
   };
 }

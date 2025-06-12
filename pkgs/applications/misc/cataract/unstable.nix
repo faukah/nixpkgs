@@ -1,5 +1,4 @@
-{ callPackage }:
-
+{callPackage}:
 callPackage ./build.nix {
   version = "unstable-2016-10-18";
   rev = "db3d992febbe703931840e9bdad95c43081694a5";

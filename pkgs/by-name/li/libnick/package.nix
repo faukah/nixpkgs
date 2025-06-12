@@ -16,7 +16,6 @@
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnick";
   version = "2025.6.1";
@@ -68,16 +67,16 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Cross-platform development base for native Nickvision applications";
     homepage = "https://github.com/NickvisionApps/libnick";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.normalcea ];
+    maintainers = [lib.maintainers.normalcea];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
-    pkgConfigModules = [ "libnick" ];
+    pkgConfigModules = ["libnick"];
   };
 })

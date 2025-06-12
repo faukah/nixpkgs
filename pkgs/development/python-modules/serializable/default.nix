@@ -6,7 +6,6 @@
   six,
   typechecks,
 }:
-
 buildPythonPackage {
   pname = "serializable";
   version = "unstable-2023-07-13";
@@ -27,12 +26,12 @@ buildPythonPackage {
     typechecks
   ];
 
-  pythonImportsCheck = [ "serializable" ];
+  pythonImportsCheck = ["serializable"];
 
   meta = with lib; {
     description = "Base class with serialization methods for user-defined Python objects";
     homepage = "https://github.com/iskandr/serializable";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

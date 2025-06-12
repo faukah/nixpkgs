@@ -16,7 +16,6 @@
   xercesc,
   xdg-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "enigma";
   version = "1.30";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     rm -r $out/include
     # make xdg-open overrideable at runtime
-    wrapProgram $out/bin/enigma --suffix PATH : "${lib.makeBinPath [ xdg-utils ]}"
+    wrapProgram $out/bin/enigma --suffix PATH : "${lib.makeBinPath [xdg-utils]}"
   '';
 
   meta = with lib; {
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     ]; # source + bundles libs + art
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
     homepage = "https://www.nongnu.org/enigma/";
   };
 })

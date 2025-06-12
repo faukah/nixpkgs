@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation {
   pname = "ent";
   version = "1.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
   # case that happens when the archive doesn't have a subdirectory.
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   buildFlags = lib.optional stdenv.cc.isClang "CC=clang";
 

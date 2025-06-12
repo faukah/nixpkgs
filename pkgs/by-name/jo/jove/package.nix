@@ -7,7 +7,6 @@
   ncurses,
   runtimeShell,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jove";
   version = "4.17.5.5";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-y0zNrUXHXqBa6xNxRiZSUOSrFT2cDmdpMsCRHJXpUac=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     groff
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Jonathan's Own Version of Emacs";
     changelog = "https://github.com/jonmacs/jove/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     # never built on Hydra: https://hydra.nixos.org/job/nixpkgs/trunk/jove.x86_64-darwin
     broken = stdenv.hostPlatform.isDarwin;

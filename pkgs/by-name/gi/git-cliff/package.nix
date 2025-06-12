@@ -5,7 +5,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-cliff";
   version = "2.9.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   # attempts to run the program on .git in src which is not deterministic
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     export OUT_DIR=$(mktemp -d)

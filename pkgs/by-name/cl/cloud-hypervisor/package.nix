@@ -7,7 +7,6 @@
   dtc,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cloud-hypervisor";
   version = "46.0";
@@ -24,9 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   separateDebugInfo = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = lib.optional stdenv.hostPlatform.isAarch64 dtc;
-  checkInputs = [ openssl ];
+  checkInputs = [openssl];
 
   OPENSSL_NO_VENDOR = true;
 

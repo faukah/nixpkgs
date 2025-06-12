@@ -7,7 +7,6 @@
   writeText,
   uglify-js,
 }:
-
 buildNpmPackage rec {
   pname = "uglify-js";
   version = "3.19.3";
@@ -30,7 +29,7 @@ buildNpmPackage rec {
   passthru = {
     updateScript = ./update.sh;
     tests = {
-      version = testers.testVersion { package = uglify-js; };
+      version = testers.testVersion {package = uglify-js;};
 
       simple = testers.testEqualContents {
         assertion = "uglify-js minifies a basic js file";
@@ -39,15 +38,15 @@ buildNpmPackage rec {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [ uglify-js ];
-              base = writeText "base" ''
-                console . log  ( ( 1 ) ) ;
-              '';
-            }
-            ''
-              uglifyjs $base > $out
+          {
+            nativeBuildInputs = [uglify-js];
+            base = writeText "base" ''
+              console . log  ( ( 1 ) ) ;
             '';
+          }
+          ''
+            uglifyjs $base > $out
+          '';
       };
     };
   };
@@ -58,6 +57,6 @@ buildNpmPackage rec {
     description = "JavaScript parser / mangler / compressor / beautifier toolkit";
     mainProgram = "uglifyjs";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ lelgenio ];
+    maintainers = with lib.maintainers; [lelgenio];
   };
 }

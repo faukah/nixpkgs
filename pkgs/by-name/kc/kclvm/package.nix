@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-eJ3Gh2l6T2DxJRQRHamPOr/ILtzsqFB497DdXVJ90RE=";
 
-  buildInputs = [ rustc ];
+  buildInputs = [rustc];
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
     install_name_tool -id $out/lib/libkclvm_cli_cdylib.dylib $out/lib/libkclvm_cli_cdylib.dylib
@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     protobuf
   ];
 
-  patches = [ ./enable_protoc_env.patch ];
+  patches = [./enable_protoc_env.patch];
 
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";

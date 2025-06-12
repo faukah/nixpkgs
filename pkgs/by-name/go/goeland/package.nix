@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goeland";
   version = "0.20.1";
@@ -34,7 +33,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/slurdge/goeland";
     changelog = "https://github.com/slurdge/goeland/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = [ lib.maintainers.sweenu ];
+    license = with lib.licenses; [mit];
+    maintainers = [lib.maintainers.sweenu];
   };
 }

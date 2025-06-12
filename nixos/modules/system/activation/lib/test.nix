@@ -4,8 +4,7 @@
   lib,
   stdenv,
   testers,
-}:
-let
+}: let
   inherit (lib) fileset;
 
   runTests = stdenv.mkDerivation {
@@ -34,8 +33,7 @@ let
     name = "activation-lib";
     src = runTests.src;
   };
-
 in
-lib.recurseIntoAttrs {
-  inherit runTests runShellcheck;
-}
+  lib.recurseIntoAttrs {
+    inherit runTests runShellcheck;
+  }

@@ -14,7 +14,6 @@
   sphinx,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aria2";
   version = "1.37.0";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     patchShebangs --build doc/manual-src/en/mkapiref.py
   '';
 
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
   doCheck = false; # needs the net
 
   enableParallelBuilding = true;

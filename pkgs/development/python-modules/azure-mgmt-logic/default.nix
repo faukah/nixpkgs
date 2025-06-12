@@ -7,7 +7,6 @@
   azure-mgmt-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-logic";
   version = "10.0.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-s/pIZPFKqnr0HXeNkl8FHtKbYBb0Y0R2Xs0PSdDwTdY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msrest
@@ -30,14 +29,14 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.logic" ];
+  pythonImportsCheck = ["azure.mgmt.logic"];
 
   meta = {
     description = "This is the Microsoft Azure Logic Apps Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ maxwilson ];
+    maintainers = with lib.maintainers; [maxwilson];
   };
 }

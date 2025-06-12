@@ -17,7 +17,6 @@
   nix-update-script,
   testers,
   nixosTests,
-
   fuseSupport ? lib.meta.availableOn stdenv.hostPlatform fuse3,
   enableValgrindCheck ? false,
   installExperimentalTools ? false,
@@ -60,11 +59,11 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional fuseSupport fuse3
-    ++ lib.filter (lib.meta.availableOn stdenv.hostPlatform) ([
+    ++ lib.filter (lib.meta.availableOn stdenv.hostPlatform) [
       libcap
-    ]);
+    ];
 
   doCheck = true;
   nativeCheckInputs =
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       # Broken on aarch64 unrelated to this package: https://github.com/NixOS/nixpkgs/issues/291398
       inherit (nixosTests) activation-etc-overlay-immutable activation-etc-overlay-mutable;
@@ -102,9 +101,9 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Only
       asl20
     ];
-    maintainers = with lib.maintainers; [ kiskae ];
+    maintainers = with lib.maintainers; [kiskae];
     mainProgram = "mkcomposefs";
-    pkgConfigModules = [ "composefs" ];
+    pkgConfigModules = ["composefs"];
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.darwin;
   };

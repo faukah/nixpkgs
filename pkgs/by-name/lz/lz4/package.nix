@@ -6,7 +6,6 @@
   valgrind,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lz4";
   version = "1.10.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     };
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "liblz4" ];
+      moduleNames = ["liblz4"];
     };
   };
 
@@ -66,6 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = platforms.all;
     mainProgram = "lz4";
-    maintainers = [ maintainers.tobim ];
+    maintainers = [maintainers.tobim];
   };
 })

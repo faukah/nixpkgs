@@ -5,7 +5,6 @@
   lxml,
   translatehtml,
 }:
-
 buildPythonPackage rec {
   pname = "argos-translate-files";
   version = "1.2.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   # required for import check to work (argostranslate)
   env.HOME = "/tmp";
 
-  pythonImportsCheck = [ "argostranslatefiles" ];
+  pythonImportsCheck = ["argostranslatefiles"];
 
   doCheck = false; # no tests
 
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Translate files using Argos Translate";
     homepage = "https://www.argosopentech.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

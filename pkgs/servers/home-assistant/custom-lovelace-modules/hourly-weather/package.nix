@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "hourly-weather";
   version = "6.6.1";
@@ -32,7 +31,7 @@ buildNpmPackage rec {
     description = "Hourly weather card for Home Assistant. Visualize upcoming weather conditions as a colored horizontal bar";
     homepage = "https://github.com/decompil3d/lovelace-hourly-weather";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = platforms.all;
   };
 }

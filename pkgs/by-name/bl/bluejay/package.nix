@@ -7,7 +7,6 @@
   kdePackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluejay";
   version = "1.0.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     kdePackages.qtbase
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "bluejay";
@@ -46,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/EbonJaeger/bluejay/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

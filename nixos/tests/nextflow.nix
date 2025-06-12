@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   bash = pkgs.dockerTools.pullImage {
     imageName = "quay.io/nextflow/bash";
     imageDigest = "sha256:bea0e244b7c5367b2b0de687e7d28f692013aa18970941c7dd184450125163ac";
@@ -21,7 +20,7 @@ let
   };
   run-nextflow-pipeline = pkgs.writeShellApplication {
     name = "run-nextflow-pipeline";
-    runtimeInputs = [ pkgs.nextflow ];
+    runtimeInputs = [pkgs.nextflow];
     text = ''
       export NXF_OFFLINE=true
       for b in false true; do
@@ -31,28 +30,23 @@ let
       done
     '';
   };
-in
-{
+in {
   name = "nextflow";
 
-  nodes.machine =
-    { ... }:
-    {
-      environment.systemPackages = [
-        run-nextflow-pipeline
-        pkgs.nextflow
-      ];
-      virtualisation = {
-        docker.enable = true;
-      };
+  nodes.machine = {...}: {
+    environment.systemPackages = [
+      run-nextflow-pipeline
+      pkgs.nextflow
+    ];
+    virtualisation = {
+      docker.enable = true;
     };
+  };
 
-  testScript =
-    { nodes, ... }:
-    ''
-      start_all()
-      machine.wait_for_unit("docker.service")
-      machine.succeed("docker load < ${bash}")
-      machine.succeed("run-nextflow-pipeline >&2")
-    '';
+  testScript = {nodes, ...}: ''
+    start_all()
+    machine.wait_for_unit("docker.service")
+    machine.succeed("docker load < ${bash}")
+    machine.succeed("run-nextflow-pipeline >&2")
+  '';
 }

@@ -1,31 +1,29 @@
 /*
-  Pleroma E2E VM test.
+Pleroma E2E VM test.
 
-  Abstract:
-  =========
-  Using pleroma, postgresql, a local CA cert, a nginx reverse proxy
-  and a toot-based client, we're going to:
+Abstract:
+=========
+Using pleroma, postgresql, a local CA cert, a nginx reverse proxy
+and a toot-based client, we're going to:
 
-  1. Provision a pleroma service from scratch (pleroma config + postgres db).
-  2. Create a "jamy" admin user.
-  3. Send a toot from this user.
-  4. Send a upload from this user.
-  5. Check the toot is part of the server public timeline
+1. Provision a pleroma service from scratch (pleroma config + postgres db).
+2. Create a "jamy" admin user.
+3. Send a toot from this user.
+4. Send a upload from this user.
+5. Check the toot is part of the server public timeline
 
-  Notes:
-  - We need a fully functional TLS setup without having any access to
-    the internet. We do that by issuing a self-signed cert, add this
-    self-cert to the hosts pki trust store and finally spoof the
-    hostnames using /etc/hosts.
-  - For this NixOS test, we *had* to store some DB-related and
-    pleroma-related secrets to the store. Keep in mind the store is
-    world-readable, it's the worst place possible to store *any*
-    secret. **DO NOT DO THIS IN A REAL WORLD DEPLOYMENT**.
+Notes:
+- We need a fully functional TLS setup without having any access to
+  the internet. We do that by issuing a self-signed cert, add this
+  self-cert to the hosts pki trust store and finally spoof the
+  hostnames using /etc/hosts.
+- For this NixOS test, we *had* to store some DB-related and
+  pleroma-related secrets to the store. Keep in mind the store is
+  world-readable, it's the worst place possible to store *any*
+  secret. **DO NOT DO THIS IN A REAL WORLD DEPLOYMENT**.
 */
-
 import ./make-test-python.nix (
-  { pkgs, ... }:
-  let
+  {pkgs, ...}: let
     send-toot = pkgs.writeScriptBin "send-toot" ''
       set -eux
       # toot is using the requests library internally. This library
@@ -62,10 +60,10 @@ import ./make-test-python.nix (
     test-db-passwd = "SccZOvTGM//BMrpoQj68JJkjDkMGb4pHv2cECWiI+XhVe3uGJTLI0vFV/gDlZ5jJ";
 
     /*
-      For this NixOS test, we *had* to store this secret to the store.
-      Keep in mind the store is world-readable, it's the worst place
-      possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-      DEPLOYMENT**.
+    For this NixOS test, we *had* to store this secret to the store.
+    Keep in mind the store is world-readable, it's the worst place
+    possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+    DEPLOYMENT**.
     */
     db-seed = pkgs.writeText "provision.psql" ''
       CREATE USER pleroma WITH ENCRYPTED PASSWORD '${test-db-passwd}';
@@ -115,13 +113,13 @@ import ./make-test-python.nix (
     '';
 
     /*
-      For this NixOS test, we *had* to store this secret to the store.
-      Keep in mind the store is world-readable, it's the worst place
-      possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-      DEPLOYMENT**.
-      In a real-word deployment, you'd handle this either by:
-      - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
-      - use a deployment tool such as morph or NixOps to deploy your secrets.
+    For this NixOS test, we *had* to store this secret to the store.
+    Keep in mind the store is world-readable, it's the worst place
+    possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+    DEPLOYMENT**.
+    In a real-word deployment, you'd handle this either by:
+    - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
+    - use a deployment tool such as morph or NixOps to deploy your secrets.
     */
     pleroma-conf-secret = pkgs.writeText "secrets.exs" ''
       import Config
@@ -139,13 +137,13 @@ import ./make-test-python.nix (
     '';
 
     /*
-      For this NixOS test, we *had* to store this secret to the store.
-      Keep in mind the store is world-readable, it's the worst place
-      possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-      DEPLOYMENT**.
-      In a real-word deployment, you'd handle this either by:
-      - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
-      - use a deployment tool such as morph or NixOps to deploy your secrets.
+    For this NixOS test, we *had* to store this secret to the store.
+    Keep in mind the store is world-readable, it's the worst place
+    possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+    DEPLOYMENT**.
+    In a real-word deployment, you'd handle this either by:
+    - manually upload your pleroma secrets to /var/lib/pleroma/secrets.exs
+    - use a deployment tool such as morph or NixOps to deploy your secrets.
     */
     provision-secrets = pkgs.writeScriptBin "provision-secrets" ''
       set -eux
@@ -154,10 +152,10 @@ import ./make-test-python.nix (
     '';
 
     /*
-      For this NixOS test, we *had* to store this secret to the store.
-      Keep in mind the store is world-readable, it's the worst place
-      possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
-      DEPLOYMENT**.
+    For this NixOS test, we *had* to store this secret to the store.
+    Keep in mind the store is world-readable, it's the worst place
+    possible to store *any* secret. **DO NOT DO THIS IN A REAL WORLD
+    DEPLOYMENT**.
     */
     provision-user = pkgs.writeScriptBin "provision-user" ''
       set -eux
@@ -169,7 +167,7 @@ import ./make-test-python.nix (
         pleroma_ctl user new jamy jamy@nixos.test --password 'jamy-password' --moderator --admin -y
     '';
 
-    tls-cert = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+    tls-cert = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       mkdir -p $out
       openssl req -x509 \
         -subj '/CN=pleroma.nixos.test/' -days 49710 \
@@ -182,101 +180,94 @@ import ./make-test-python.nix (
       ${nodes.pleroma.networking.primaryIPAddress} pleroma.nixos.test
       ${nodes.client.networking.primaryIPAddress} client.nixos.test
     '';
-  in
-  {
+  in {
     name = "pleroma";
     nodes = {
-      client =
-        {
-          nodes,
-          pkgs,
-          config,
-          ...
-        }:
-        {
-          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-          networking.extraHosts = hosts nodes;
-          environment.systemPackages = [
-            pkgs.toot
-            send-toot
-          ];
-        };
-      pleroma =
-        {
-          nodes,
-          pkgs,
-          config,
-          ...
-        }:
-        {
-          security.pki.certificateFiles = [ "${tls-cert}/cert.pem" ];
-          networking.extraHosts = hosts nodes;
-          networking.firewall.enable = false;
-          environment.systemPackages = [
-            provision-db
-            provision-secrets
-            provision-user
-          ];
-          services = {
-            pleroma = {
-              enable = true;
-              configs = [
-                pleroma-conf
-              ];
-            };
-            postgresql = {
-              enable = true;
-              package = pkgs.postgresql_13;
-            };
-            nginx = {
-              enable = true;
-              virtualHosts."pleroma.nixos.test" = {
-                addSSL = true;
-                sslCertificate = "${tls-cert}/cert.pem";
-                sslCertificateKey = "${tls-cert}/key.pem";
-                locations."/" = {
-                  proxyPass = "http://127.0.0.1:4000";
-                  extraConfig = ''
-                    add_header 'Access-Control-Allow-Origin' '*' always;
-                    add_header 'Access-Control-Allow-Methods' 'POST, PUT, DELETE, GET, PATCH, OPTIONS' always;
-                    add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, Idempotency-Key' always;
-                    add_header 'Access-Control-Expose-Headers' 'Link, X-RateLimit-Reset, X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-Id' always;
-                    if ($request_method = OPTIONS) {
-                        return 204;
-                    }
-                    add_header X-XSS-Protection "1; mode=block";
-                    add_header X-Permitted-Cross-Domain-Policies none;
-                    add_header X-Frame-Options DENY;
-                    add_header X-Content-Type-Options nosniff;
-                    add_header Referrer-Policy same-origin;
-                    add_header X-Download-Options noopen;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "upgrade";
-                    proxy_set_header Host $host;
-                    client_max_body_size 16m;
-                  '';
-                };
+      client = {
+        nodes,
+        pkgs,
+        config,
+        ...
+      }: {
+        security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
+        networking.extraHosts = hosts nodes;
+        environment.systemPackages = [
+          pkgs.toot
+          send-toot
+        ];
+      };
+      pleroma = {
+        nodes,
+        pkgs,
+        config,
+        ...
+      }: {
+        security.pki.certificateFiles = ["${tls-cert}/cert.pem"];
+        networking.extraHosts = hosts nodes;
+        networking.firewall.enable = false;
+        environment.systemPackages = [
+          provision-db
+          provision-secrets
+          provision-user
+        ];
+        services = {
+          pleroma = {
+            enable = true;
+            configs = [
+              pleroma-conf
+            ];
+          };
+          postgresql = {
+            enable = true;
+            package = pkgs.postgresql_13;
+          };
+          nginx = {
+            enable = true;
+            virtualHosts."pleroma.nixos.test" = {
+              addSSL = true;
+              sslCertificate = "${tls-cert}/cert.pem";
+              sslCertificateKey = "${tls-cert}/key.pem";
+              locations."/" = {
+                proxyPass = "http://127.0.0.1:4000";
+                extraConfig = ''
+                  add_header 'Access-Control-Allow-Origin' '*' always;
+                  add_header 'Access-Control-Allow-Methods' 'POST, PUT, DELETE, GET, PATCH, OPTIONS' always;
+                  add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, Idempotency-Key' always;
+                  add_header 'Access-Control-Expose-Headers' 'Link, X-RateLimit-Reset, X-RateLimit-Limit, X-RateLimit-Remaining, X-Request-Id' always;
+                  if ($request_method = OPTIONS) {
+                      return 204;
+                  }
+                  add_header X-XSS-Protection "1; mode=block";
+                  add_header X-Permitted-Cross-Domain-Policies none;
+                  add_header X-Frame-Options DENY;
+                  add_header X-Content-Type-Options nosniff;
+                  add_header Referrer-Policy same-origin;
+                  add_header X-Download-Options noopen;
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection "upgrade";
+                  proxy_set_header Host $host;
+                  client_max_body_size 16m;
+                '';
               };
             };
           };
         };
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      ''
-        pleroma.wait_for_unit("postgresql.service")
-        pleroma.wait_until_succeeds("ls /var/lib/pleroma")
-        pleroma.succeed("provision-db")
-        pleroma.wait_for_file("/var/lib/pleroma")
-        pleroma.succeed("provision-secrets")
-        pleroma.systemctl("restart pleroma-migrations.service")
-        pleroma.systemctl("restart pleroma.service")
-        pleroma.wait_for_unit("pleroma.service")
-        pleroma.succeed("provision-user")
-        client.succeed("send-toot")
-      '';
+    testScript = {nodes, ...}: ''
+      pleroma.wait_for_unit("postgresql.service")
+      pleroma.wait_until_succeeds("ls /var/lib/pleroma")
+      pleroma.succeed("provision-db")
+      pleroma.wait_for_file("/var/lib/pleroma")
+      pleroma.succeed("provision-secrets")
+      pleroma.systemctl("restart pleroma-migrations.service")
+      pleroma.systemctl("restart pleroma.service")
+      pleroma.wait_for_unit("pleroma.service")
+      pleroma.succeed("provision-user")
+      client.succeed("send-toot")
+    '';
 
     meta.timeout = 600;
   }

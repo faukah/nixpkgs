@@ -1,26 +1,25 @@
-{ pkgs, lib, ... }:
-
-let
-  chipVersion = pkgs.python311Packages.home-assistant-chip-core.version;
-in
-
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  chipVersion = pkgs.python311Packages.home-assistant-chip-core.version;
+in {
   name = "matter-server";
-  meta.maintainers = with lib.maintainers; [ leonm1 ];
+  meta.maintainers = with lib.maintainers; [leonm1];
   meta.timeout = 120; # Timeout after two minutes
 
   nodes = {
-    machine =
-      { config, ... }:
-      {
-        services.matter-server = {
-          enable = true;
-          port = 1234;
-        };
+    machine = {config, ...}: {
+      services.matter-server = {
+        enable = true;
+        port = 1234;
       };
+    };
   };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       @polling_condition
       def matter_server_running():

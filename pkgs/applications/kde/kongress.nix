@@ -11,11 +11,10 @@
   ki18n,
   knotifications,
 }:
-
 mkDerivation {
   pname = "kongress";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qtquickcontrols2
@@ -32,6 +31,6 @@ mkDerivation {
     description = "Companion application for conferences";
     homepage = "https://apps.kde.org/kongress/";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

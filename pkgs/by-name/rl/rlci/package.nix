@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rlci";
   version = "1.1.2";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/orsinium-labs/rlci";
     changelog = "https://github.com/orsinium-labs/rlci/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -6,7 +6,7 @@ rec {
   };
   gzip = {
     executable = pkgs: "${pkgs.gzip}/bin/gzip";
-    defaultArgs = [ "-9n" ];
+    defaultArgs = ["-9n"];
     ubootName = "gzip";
     extension = ".gz";
   };
@@ -34,7 +34,7 @@ rec {
   };
   lz4 = {
     executable = pkgs: "${pkgs.lz4}/bin/lz4";
-    defaultArgs = [ "-l" ];
+    defaultArgs = ["-l"];
     ubootName = "lz4";
     extension = ".lz4";
   };
@@ -45,15 +45,19 @@ rec {
   };
   zstd = {
     executable = pkgs: "${pkgs.zstd}/bin/zstd";
-    defaultArgs = [ "-10" ];
+    defaultArgs = ["-10"];
     ubootName = "zstd";
     extension = ".zst";
   };
-  pigz = gzip // {
-    executable = pkgs: "${pkgs.pigz}/bin/pigz";
-  };
-  pixz = xz // {
-    executable = pkgs: "${pkgs.pixz}/bin/pixz";
-    defaultArgs = [ ];
-  };
+  pigz =
+    gzip
+    // {
+      executable = pkgs: "${pkgs.pigz}/bin/pigz";
+    };
+  pixz =
+    xz
+    // {
+      executable = pkgs: "${pkgs.pixz}/bin/pixz";
+      defaultArgs = [];
+    };
 }

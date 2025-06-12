@@ -19,19 +19,16 @@
   usePersistenced ? true,
   useFabricmanager ? false,
   ibtSupport ? false,
-
   prePatch ? null,
   postPatch ? null,
   patchFlags ? null,
-  patches ? [ ],
-  patchesOpen ? [ ],
+  patches ? [],
+  patchesOpen ? [],
   preInstall ? null,
   postInstall ? null,
   broken ? false,
   brokenOpen ? broken,
-}@args:
-
-{
+} @ args: {
   lib,
   stdenv,
   runCommandLocal,
@@ -42,7 +39,7 @@
   fetchurl,
   fetchzip,
   kernel ? null,
-  kernelModuleMakeFlags ? [ ],
+  kernelModuleMakeFlags ? [],
   perl,
   nukeReferences,
   which,
@@ -64,47 +61,43 @@
   config,
   acceptLicense ? config.nvidia.acceptLicense or false,
 }:
-
 assert !libsOnly -> kernel != null;
 assert lib.versionOlder version "391" -> sha256_32bit != null;
 assert useSettings -> settingsSha256 != null;
 assert usePersistenced -> persistencedSha256 != null;
 assert useFabricmanager -> fabricmanagerSha256 != null;
-assert useFabricmanager -> !useSettings;
-
-let
+assert useFabricmanager -> !useSettings; let
   # Rewrites patches meant for the kernel/* folder structure to kernel-open/*
-  rewritePatch =
-    { from, to }:
-    patch:
+  rewritePatch = {
+    from,
+    to,
+  }: patch:
     runCommandLocal (builtins.baseNameOf patch)
-      {
-        inherit patch;
-        nativeBuildInputs = [ patchutils ];
-      }
-      ''
-        lsdiff \
-          -p1 -i ${from}/'*' \
-          "$patch" \
-        | sort -u | sed -e 's/[*?]/\\&/g' \
-        | xargs -I{} \
-          filterdiff \
-          --include={} \
-          --strip=2 \
-          --addoldprefix=a/${to}/ \
-          --addnewprefix=b/${to}/ \
-          --clean "$patch" > "$out"
-      '';
+    {
+      inherit patch;
+      nativeBuildInputs = [patchutils];
+    }
+    ''
+      lsdiff \
+        -p1 -i ${from}/'*' \
+        "$patch" \
+      | sort -u | sed -e 's/[*?]/\\&/g' \
+      | xargs -I{} \
+        filterdiff \
+        --include={} \
+        --strip=2 \
+        --addoldprefix=a/${to}/ \
+        --addnewprefix=b/${to}/ \
+        --clean "$patch" > "$out"
+    '';
 
   nameSuffix = lib.optionalString (!libsOnly) "-${kernel.version}";
   pkgSuffix = lib.optionalString (lib.versionOlder version "304") "-pkg0";
   i686bundled = lib.versionAtLeast version "391" && !disable32Bit;
 
-  libPathFor =
-    pkgs:
+  libPathFor = pkgs:
     lib.makeLibraryPath (
-      with pkgs;
-      [
+      with pkgs; [
         libdrm
         xorg.libXext
         xorg.libX11
@@ -142,53 +135,59 @@ let
   '';
 
   self = stdenv.mkDerivation {
-    name = "nvidia-${if useFabricmanager then "dc" else "x11"}-${version}${nameSuffix}";
+    name = "nvidia-${
+      if useFabricmanager
+      then "dc"
+      else "x11"
+    }-${version}${nameSuffix}";
 
     builder = ./builder.sh;
 
     src =
-      if !acceptLicense && (openSha256 == null) then
-        throwLicense
-      else if stdenv.hostPlatform.system == "x86_64-linux" then
+      if !acceptLicense && (openSha256 == null)
+      then throwLicense
+      else if stdenv.hostPlatform.system == "x86_64-linux"
+      then
         fetchurl {
           urls =
-            if args ? url then
-              [ args.url ]
-            else
-              [
-                "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
-                "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
-              ];
+            if args ? url
+            then [args.url]
+            else [
+              "https://us.download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
+              "https://download.nvidia.com/XFree86/Linux-x86_64/${version}/NVIDIA-Linux-x86_64-${version}${pkgSuffix}.run"
+            ];
           sha256 = sha256_64bit;
         }
-      else if stdenv.hostPlatform.system == "i686-linux" then
+      else if stdenv.hostPlatform.system == "i686-linux"
+      then
         fetchurl {
           urls =
-            if args ? url then
-              [ args.url ]
-            else
-              [
-                "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
-                "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
-              ];
+            if args ? url
+            then [args.url]
+            else [
+              "https://us.download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
+              "https://download.nvidia.com/XFree86/Linux-x86/${version}/NVIDIA-Linux-x86-${version}${pkgSuffix}.run"
+            ];
           sha256 = sha256_32bit;
         }
-      else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null then
+      else if stdenv.hostPlatform.system == "aarch64-linux" && sha256_aarch64 != null
+      then
         fetchurl {
           urls =
-            if args ? url then
-              [ args.url ]
-            else
-              [
-                "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
-                "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
-              ];
+            if args ? url
+            then [args.url]
+            else [
+              "https://us.download.nvidia.com/XFree86/aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
+              "https://download.nvidia.com/XFree86/Linux-aarch64/${version}/NVIDIA-Linux-aarch64-${version}${pkgSuffix}.run"
+            ];
           sha256 = sha256_aarch64;
         }
-      else
-        throw "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}";
+      else throw "nvidia-x11 does not support platform ${stdenv.hostPlatform.system}";
 
-    patches = if libsOnly then null else patches;
+    patches =
+      if libsOnly
+      then null
+      else patches;
     inherit prePatch postPatch patchFlags;
     inherit preInstall postInstall;
     inherit version useGLVND useProfiles;
@@ -196,14 +195,23 @@ let
     inherit i686bundled;
 
     outputs =
-      [ "out" ]
+      ["out"]
       ++ lib.optional i686bundled "lib32"
       ++ lib.optional (!libsOnly) "bin"
       ++ lib.optional (!libsOnly && firmware) "firmware";
-    outputDev = if libsOnly then null else "bin";
+    outputDev =
+      if libsOnly
+      then null
+      else "bin";
 
-    kernel = if libsOnly then null else kernel.dev;
-    kernelVersion = if libsOnly then null else kernel.modDirVersion;
+    kernel =
+      if libsOnly
+      then null
+      else kernel.dev;
+    kernelVersion =
+      if libsOnly
+      then null
+      else kernel.modDirVersion;
 
     makeFlags = lib.optionals (!libsOnly) (
       kernelModuleMakeFlags
@@ -226,87 +234,93 @@ let
     libPath = libPathFor pkgs;
     libPath32 = lib.optionalString i686bundled (libPathFor pkgsi686Linux);
 
-    nativeBuildInputs = [
-      perl
-      nukeReferences
-      which
-      libarchive
-      jq
-    ] ++ lib.optionals (!libsOnly) kernel.moduleBuildDependencies;
+    nativeBuildInputs =
+      [
+        perl
+        nukeReferences
+        which
+        libarchive
+        jq
+      ]
+      ++ lib.optionals (!libsOnly) kernel.moduleBuildDependencies;
 
-    disallowedReferences = lib.optionals (!libsOnly) [ kernel.dev ];
+    disallowedReferences = lib.optionals (!libsOnly) [kernel.dev];
 
-    passthru =
-      let
-        fetchFromGithubOrNvidia =
-          {
-            owner,
-            repo,
-            rev,
-            ...
-          }@args:
-          let
-            args' = builtins.removeAttrs args [
-              "owner"
-              "repo"
-              "rev"
-            ];
-            baseUrl = "https://github.com/${owner}/${repo}";
-          in
-          fetchzip (
-            args'
-            // {
-              urls = [
-                "${baseUrl}/archive/${rev}.tar.gz"
-                "https://download.nvidia.com/XFree86/${repo}/${repo}-${rev}.tar.bz2"
-              ];
-              # github and nvidia use different compression algorithms,
-              #  use an invalid file extension to force detection.
-              extension = "tar.??";
-            }
-          );
+    passthru = let
+      fetchFromGithubOrNvidia = {
+        owner,
+        repo,
+        rev,
+        ...
+      } @ args: let
+        args' = builtins.removeAttrs args [
+          "owner"
+          "repo"
+          "rev"
+        ];
+        baseUrl = "https://github.com/${owner}/${repo}";
       in
-      {
-        open = lib.mapNullable (
-          hash:
-          callPackage ./open.nix {
-            inherit hash;
-            nvidia_x11 = self;
-            patches =
-              (builtins.map (rewritePatch {
-                from = "kernel";
-                to = "kernel-open";
-              }) patches)
-              ++ patchesOpen;
-            broken = brokenOpen;
+        fetchzip (
+          args'
+          // {
+            urls = [
+              "${baseUrl}/archive/${rev}.tar.gz"
+              "https://download.nvidia.com/XFree86/${repo}/${repo}-${rev}.tar.bz2"
+            ];
+            # github and nvidia use different compression algorithms,
+            #  use an invalid file extension to force detection.
+            extension = "tar.??";
           }
-        ) openSha256;
-        settings =
-          if useSettings then
-            (if settings32Bit then pkgsi686Linux.callPackage else callPackage)
-              (import ./settings.nix self settingsSha256)
-              {
-                withGtk2 = preferGtk2;
-                withGtk3 = !preferGtk2;
-                fetchFromGitHub = fetchFromGithubOrNvidia;
+        );
+    in
+      {
+        open =
+          lib.mapNullable (
+            hash:
+              callPackage ./open.nix {
+                inherit hash;
+                nvidia_x11 = self;
+                patches =
+                  (builtins.map (rewritePatch {
+                      from = "kernel";
+                      to = "kernel-open";
+                    })
+                    patches)
+                  ++ patchesOpen;
+                broken = brokenOpen;
               }
-          else
-            { };
+          )
+          openSha256;
+        settings =
+          if useSettings
+          then
+            (
+              if settings32Bit
+              then pkgsi686Linux.callPackage
+              else callPackage
+            )
+            (import ./settings.nix self settingsSha256)
+            {
+              withGtk2 = preferGtk2;
+              withGtk3 = !preferGtk2;
+              fetchFromGitHub = fetchFromGithubOrNvidia;
+            }
+          else {};
         persistenced =
-          if usePersistenced then
+          if usePersistenced
+          then
             lib.mapNullable (
               hash:
-              callPackage (import ./persistenced.nix self hash) {
-                fetchFromGitHub = fetchFromGithubOrNvidia;
-              }
-            ) persistencedSha256
-          else
-            { };
+                callPackage (import ./persistenced.nix self hash) {
+                  fetchFromGitHub = fetchFromGithubOrNvidia;
+                }
+            )
+            persistencedSha256
+          else {};
         fabricmanager =
-          if useFabricmanager then
-            lib.mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) { }) fabricmanagerSha256
-          else
-            { };
+          if useFabricmanager
+          then lib.mapNullable (hash: callPackage (import ./fabricmanager.nix self hash) {}) fabricmanagerSha256
+          else {};
         inherit persistencedVersion settingsVersion;
         compressFirmware = false;
         ibtSupport = ibtSupport || (lib.versionAtLeast version "530");
@@ -318,13 +332,15 @@ let
     meta = with lib; {
       homepage = "https://www.nvidia.com/object/unix.html";
       description = "${
-        if useFabricmanager then "Data Center" else "X.org"
+        if useFabricmanager
+        then "Data Center"
+        else "X.org"
       } driver and kernel module for NVIDIA cards";
       license = licenses.unfreeRedistributable;
       platforms =
-        [ "x86_64-linux" ]
-        ++ lib.optionals (sha256_32bit != null) [ "i686-linux" ]
-        ++ lib.optionals (sha256_aarch64 != null) [ "aarch64-linux" ];
+        ["x86_64-linux"]
+        ++ lib.optionals (sha256_32bit != null) ["i686-linux"]
+        ++ lib.optionals (sha256_aarch64 != null) ["aarch64-linux"];
       maintainers = with maintainers; [
         kiskae
         edwtjo
@@ -333,6 +349,5 @@ let
       inherit broken;
     };
   };
-
 in
-self
+  self

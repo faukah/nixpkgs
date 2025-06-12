@@ -12,7 +12,6 @@
   curl,
   usbmuxd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libideviceactivation";
   version = "1.1.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     usbmuxd
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Library to manage the activation process of Apple iOS devices";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     mainProgram = "ideviceactivation";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ clebs ];
+    maintainers = with lib.maintainers; [clebs];
   };
 })

@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mozcdic-ut-sudachidict";
   version = "0-unstable-2024-10-12";
@@ -34,11 +33,11 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Mozc UT SudachiDict Dictionary is a dictionary converted from SudachiDict for Mozc.";
     homepage = "https://github.com/utuhiro78/mozcdic-ut-sudachidict";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides some zip files
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

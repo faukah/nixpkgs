@@ -16,7 +16,6 @@
   scikit-build-core,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "phik";
   version = "0.12.4";
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Uses scikit-build-core to drive build process
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "phik" ];
+  pythonImportsCheck = ["phik"];
 
   preCheck = ''
     # import from $out
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://phik.readthedocs.io/";
     changelog = "https://github.com/KaveIO/PhiK/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melsigl ];
+    maintainers = with maintainers; [melsigl];
   };
 }

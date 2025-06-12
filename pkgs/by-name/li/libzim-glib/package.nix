@@ -10,7 +10,6 @@
   glib,
   libzim,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libzim-glib";
   version = "4.0.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Partial GObject/C bindings for libzim";
     homepage = "https://github.com/birros/libzim-glib";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

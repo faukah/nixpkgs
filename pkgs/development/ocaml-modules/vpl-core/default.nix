@@ -4,7 +4,6 @@
   buildDunePackage,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "vpl-core";
   version = "0.5";
@@ -26,7 +25,6 @@ buildDunePackage rec {
     description = "Verified Polyhedra Library";
     homepage = "https://amarechal.gitlab.io/home/projects/vpl/";
     license = lib.licenses.lgpl3Only;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

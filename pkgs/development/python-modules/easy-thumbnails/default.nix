@@ -13,7 +13,6 @@
   setuptools,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "easy-thumbnails";
   version = "2.10.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     pytest-django
   ];
 
-  checkInputs = [ testfixtures ];
+  checkInputs = [testfixtures];
 
   disabledTests = [
     # AssertionError: 'ERROR' != 'INFO'
@@ -61,13 +60,13 @@ buildPythonPackage rec {
     export DJANGO_SETTINGS_MODULE="easy_thumbnails.tests.settings"
   '';
 
-  pythonImportsCheck = [ "easy_thumbnails" ];
+  pythonImportsCheck = ["easy_thumbnails"];
 
   meta = {
     description = "Easy thumbnails for Django";
     homepage = "https://github.com/SmileyChris/easy-thumbnails";
     changelog = "https://github.com/SmileyChris/easy-thumbnails/blob/${version}/CHANGES.rst";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

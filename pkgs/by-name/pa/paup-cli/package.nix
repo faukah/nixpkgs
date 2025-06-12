@@ -7,7 +7,6 @@
   gfortran,
   zlib,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "paup-cli";
   version = "4.0a168";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation {
     runHook postUnpack
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
   buildInputs = [
     curl
     gfortran
@@ -44,9 +43,9 @@ stdenvNoCC.mkDerivation {
     description = "Software package for inferring evolutionary trees";
     homepage = "http://phylosolutions.com/paup-test/";
     license = lib.licenses.unfree;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    maintainers = with lib.maintainers; [pandapip1];
     mainProgram = "paup";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

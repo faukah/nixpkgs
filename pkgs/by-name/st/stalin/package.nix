@@ -5,7 +5,6 @@
   ncompress,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stalin";
   version = "0.11";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     description = "Optimizing Scheme compiler";
 
-    maintainers = [ ];
-    platforms = [ "i686-linux" ]; # doesn't want to work on 64-bit platforms
+    maintainers = [];
+    platforms = ["i686-linux"]; # doesn't want to work on 64-bit platforms
   };
 }

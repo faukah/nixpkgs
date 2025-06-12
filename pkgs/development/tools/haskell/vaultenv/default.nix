@@ -41,7 +41,7 @@ mkDerivation rec {
     hash = "sha256-x3c9TKrCF3tsEFofYAXfK6DWdirEUxWWTttNqU/sJSc=";
   };
 
-  buildTools = [ hpack ];
+  buildTools = [hpack];
 
   prePatch = ''
     substituteInPlace package.yaml \
@@ -74,14 +74,16 @@ mkDerivation rec {
     unordered-containers
     utf8-string
   ];
-  testHaskellDepends = executableHaskellDepends ++ [
-    QuickCheck
-    directory
-    hspec
-    hspec-discover
-    hspec-expectations
-    quickcheck-instances
-  ];
+  testHaskellDepends =
+    executableHaskellDepends
+    ++ [
+      QuickCheck
+      directory
+      hspec
+      hspec-discover
+      hspec-expectations
+      quickcheck-instances
+    ];
   preConfigure = "hpack";
   homepage = "https://github.com/channable/vaultenv#readme";
   description = "Runs processes with secrets from HashiCorp Vault";

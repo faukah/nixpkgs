@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rova";
   version = "0.4.1";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-y73Vf/E2xDy+2vnvZEllRUgsDfX33Q7AsL/UY2pR1sI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rova" ];
+  pythonImportsCheck = ["rova"];
 
   meta = with lib; {
     description = "Module to access for ROVA calendars";
     homepage = "https://github.com/GidoHakvoort/rova";
     changelog = "https://github.com/GidoHakvoort/rova/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

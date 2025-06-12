@@ -13,7 +13,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-eyes-plugin";
   version = "4.7.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Rolling eyes (following mouse pointer) plugin for the Xfce panel";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

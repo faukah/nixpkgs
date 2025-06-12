@@ -6,7 +6,6 @@
   gmp,
   avx2Support ? stdenv.hostPlatform.avx2Support,
 }:
-
 stdenv.mkDerivation rec {
   pname = "j";
   version = "9.6.2";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-Afa2QzzgJYijcavurgGH/qwyofNn4rtFMIHzlqJwFGU=";
   };
 
-  nativeBuildInputs = [ which ];
-  buildInputs = [ gmp ];
+  nativeBuildInputs = [which];
+  buildInputs = [gmp];
 
   patches = [
     ./fix-install-path.patch
@@ -31,24 +30,28 @@ stdenv.mkDerivation rec {
 
   # Emulate jplatform64.sh configuration variables
   jplatform =
-    if stdenv.hostPlatform.isDarwin then
-      "darwin"
-    else if stdenv.hostPlatform.isAarch then
-      "raspberry"
-    else if stdenv.hostPlatform.isLinux then
-      "linux"
-    else
-      "unsupported";
+    if stdenv.hostPlatform.isDarwin
+    then "darwin"
+    else if stdenv.hostPlatform.isAarch
+    then "raspberry"
+    else if stdenv.hostPlatform.isLinux
+    then "linux"
+    else "unsupported";
 
   j64x =
-    if stdenv.hostPlatform.is32bit then
-      "j32"
-    else if stdenv.hostPlatform.isx86_64 then
-      if stdenv.hostPlatform.isLinux && avx2Support then "j64avx2" else "j64"
-    else if stdenv.hostPlatform.isAarch64 then
-      if stdenv.hostPlatform.isDarwin then "j64arm" else "j64"
-    else
-      "unsupported";
+    if stdenv.hostPlatform.is32bit
+    then "j32"
+    else if stdenv.hostPlatform.isx86_64
+    then
+      if stdenv.hostPlatform.isLinux && avx2Support
+      then "j64avx2"
+      else "j64"
+    else if stdenv.hostPlatform.isAarch64
+    then
+      if stdenv.hostPlatform.isDarwin
+      then "j64arm"
+      else "j64"
+    else "unsupported";
 
   env.NIX_LDFLAGS = "-lgmp";
 

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tell-me-your-secrets";
   version = "2.4.2";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     "single-source"
   ];
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
   dependencies = with python3Packages; [
     gitignore-parser
@@ -30,9 +29,9 @@ python3Packages.buildPythonApplication rec {
     single-source
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
-  pythonImportsCheck = [ "tell_me_your_secrets" ];
+  pythonImportsCheck = ["tell_me_your_secrets"];
 
   meta = {
     description = "Tools to find secrets from various signatures";
@@ -40,6 +39,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/valayDave/tell-me-your-secrets";
     changelog = "https://github.com/valayDave/tell-me-your-secrets/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

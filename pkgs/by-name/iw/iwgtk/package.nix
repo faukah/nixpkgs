@@ -10,7 +10,6 @@
   gtk4,
   qrencode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iwgtk";
   version = "0.9";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   # patch systemd service to pass necessary environments and use absolute paths
-  patches = [ ./systemd-service.patch ];
+  patches = [./systemd-service.patch];
 
   nativeBuildInputs = [
     meson
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/j-lentz/iwgtk";
     changelog = "https://github.com/j-lentz/iwgtk/blob/v${version}/CHANGELOG";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     platforms = lib.platforms.linux;
     mainProgram = "iwgtk";
   };

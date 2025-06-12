@@ -8,7 +8,6 @@
   jq,
   common-updater-scripts,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blackfire";
   version = "2.28.24";
@@ -105,9 +104,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Blackfire Profiler agent and client";
     homepage = "https://blackfire.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ shyim ];
+    maintainers = with maintainers; [shyim];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

@@ -18,7 +18,6 @@
   six,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "es-client";
   version = "8.17.4";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     certifi
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "es_client" ];
+  pythonImportsCheck = ["es_client"];
 
   disabledTests = [
     # Tests require local Elasticsearch instance
@@ -75,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/untergeek/es_client";
     changelog = "https://github.com/untergeek/es_client/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

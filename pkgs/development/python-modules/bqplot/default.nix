@@ -12,7 +12,6 @@
   traitlets,
   traittypes,
 }:
-
 buildPythonPackage rec {
   pname = "bqplot";
   version = "0.12.43";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     description = "2D plotting library for Jupyter based on Grammar of Graphics";
     homepage = "https://bqplot.github.io/bqplot";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

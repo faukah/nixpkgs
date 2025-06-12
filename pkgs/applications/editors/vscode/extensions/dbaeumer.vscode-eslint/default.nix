@@ -5,7 +5,6 @@
   vscode-utils,
   eslint,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "vscode-eslint";
@@ -19,7 +18,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     moreutils
   ];
 
-  buildInputs = [ eslint ];
+  buildInputs = [eslint];
 
   postInstall = ''
     cd "$out/$installPrefix"
@@ -32,6 +31,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint";
     homepage = "https://github.com/Microsoft/vscode-eslint";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.datafoo ];
+    maintainers = [lib.maintainers.datafoo];
   };
 }

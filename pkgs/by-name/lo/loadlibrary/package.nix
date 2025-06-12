@@ -5,10 +5,8 @@
   readline,
   stdenv_32bit,
 }:
-
 # stdenv_32bit is needed because the program depends upon 32-bit libraries and does not have
 # support for 64-bit yet: it requires libc6-dev:i386, libreadline-dev:i386.
-
 stdenv_32bit.mkDerivation rec {
   pname = "loadlibrary";
   version = "20170525-${lib.strings.substring 0 7 rev}";
@@ -34,7 +32,7 @@ stdenv_32bit.mkDerivation rec {
     homepage = "https://github.com/taviso/loadlibrary";
     description = "Porting Windows Dynamic Link Libraries to Linux";
     platforms = platforms.linux;
-    maintainers = [ maintainers.eleanor ];
+    maintainers = [maintainers.eleanor];
     license = licenses.gpl2Plus;
     mainProgram = "mpclient";
   };

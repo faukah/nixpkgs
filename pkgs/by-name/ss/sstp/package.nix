@@ -8,7 +8,6 @@
   openssl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "sstp-client";
   version = "unstable-2023-03-25";
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
     description = "SSTP client for Linux";
     homepage = "https://sstp-client.sourceforge.net/";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     mainProgram = "sstpc";
   };

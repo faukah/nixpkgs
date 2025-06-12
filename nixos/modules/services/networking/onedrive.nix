@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.onedrive;
 
   onedriveLauncher = pkgs.writeShellScriptBin "onedrive-launcher" ''
@@ -20,9 +19,7 @@ let
       systemctl --user start onedrive@onedrive
     fi
   '';
-
-in
-{
+in {
   ### Documentation
   # meta.doc = ./onedrive.xml;
 
@@ -43,7 +40,7 @@ in
   ### Implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.user.services."onedrive@" = {
       description = "Onedrive sync service";
@@ -60,7 +57,7 @@ in
     };
 
     systemd.user.services.onedrive-launcher = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${onedriveLauncher}/bin/onedrive-launcher";

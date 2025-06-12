@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/dbrgn/fahrplan";
     changelog = "https://github.com/dbrgn/fahrplan/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ p-h ];
+    maintainers = with lib.maintainers; [p-h];
     mainProgram = "fahrplan";
   };
 }

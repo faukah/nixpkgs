@@ -12,7 +12,6 @@
   libgumath,
   isPy27,
 }:
-
 buildPythonPackage {
   pname = "gumath";
   format = "setuptools";
@@ -33,7 +32,7 @@ buildPythonPackage {
     })
   ];
 
-  nativeCheckInputs = [ numba ];
+  nativeCheckInputs = [numba];
 
   propagatedBuildInputs = [
     ndtypes

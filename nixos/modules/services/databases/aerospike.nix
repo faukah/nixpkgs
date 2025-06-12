@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.aerospike;
 
   aerospikeConf = pkgs.writeText "aerospike.conf" ''
@@ -31,19 +29,14 @@ let
     }
     ${cfg.extraConfig}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.aerospike = {
       enable = lib.mkEnableOption "Aerospike server";
 
-      package = lib.mkPackageOption pkgs "aerospike" { };
+      package = lib.mkPackageOption pkgs "aerospike" {};
 
       workDir = lib.mkOption {
         type = lib.types.str;
@@ -94,13 +87,11 @@ in
         description = "Extra configuration";
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.aerospike.enable {
-
     users.users.aerospike = {
       name = "aerospike";
       group = "aerospike";
@@ -117,8 +108,8 @@ in
     systemd.services.aerospike = rec {
       description = "Aerospike server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/asd --fgdaemon --config-file ${aerospikeConf}";
@@ -143,7 +134,5 @@ in
         install -d -m0700 -o ${serviceConfig.User} -g ${serviceConfig.Group} "${cfg.workDir}/udf/lua"
       '';
     };
-
   };
-
 }

@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "upnext";
   namespace = "service.upnext";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/im85288/service.upnext";
     description = "Up Next - Proposes to play the next episode automatically";
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

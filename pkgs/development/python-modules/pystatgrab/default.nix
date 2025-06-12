@@ -10,7 +10,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pystatgrab";
   version = "0.7.2";
@@ -21,22 +20,22 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "libstatgrab";
     repo = "pystatgrab";
-    rev = "PYSTATGRAB_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "PYSTATGRAB_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-0FDhkIK8jy3/SFmCzrl9l4RTeIKDjO0o5UoODx6Wnfs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     cython
     pkg-config
   ];
 
-  buildInputs = [ libstatgrab ];
+  buildInputs = [libstatgrab];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "statgrab" ];
+  pythonImportsCheck = ["statgrab"];
 
   # Tests don't work on darwin due to seg fault
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -45,9 +44,9 @@ buildPythonPackage rec {
     description = "Python bindings for libstatgrab";
     homepage = "https://github.com/libstatgrab/pystatgrab";
     changelog = "https://github.com/libstatgrab/pystatgrab/blob/PYSTATGRAB_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }/NEWS";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

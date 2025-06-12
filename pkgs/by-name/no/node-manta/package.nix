@@ -6,7 +6,6 @@
   testers,
   node-manta,
 }:
-
 buildNpmPackage rec {
   pname = "manta";
   version = "5.4.2";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     ln -s ./lib/node_modules/manta/bin $out/bin
@@ -53,7 +52,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/TritonDataCenter/node-manta";
     changelog = "https://github.com/TritonDataCenter/node-manta/blob/v${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ teutat3s ];
+    maintainers = with lib.maintainers; [teutat3s];
     mainProgram = "mls";
   };
 }

@@ -31,13 +31,13 @@ buildLua {
 
   scriptPath = ".";
   passthru.scriptName = "videoclip";
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Easily create videoclips with mpv";
     homepage = "https://github.com/Ajatt-Tools/videoclip";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ BatteredBunny ];
+    maintainers = with maintainers; [BatteredBunny];
   };
 }

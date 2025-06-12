@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "colout";
   version = "1.1";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-7Dtf87erBElqVgqRx8BYHYOWv1uI84JJ0LHrcneczCI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     babel
     pygments
   ];
 
-  pythonImportsCheck = [ "colout" ];
+  pythonImportsCheck = ["colout"];
 
   # This project does not have a unit test
   doCheck = false;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     mainProgram = "colout";
     homepage = "https://github.com/nojhan/colout";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ badele ];
+    maintainers = with maintainers; [badele];
   };
 }

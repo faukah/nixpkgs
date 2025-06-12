@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tab-rs";
   version = "0.5.7";
@@ -26,8 +25,8 @@ rustPlatform.buildRustPackage rec {
     description = "Intuitive, config-driven terminal multiplexer designed for software & systems engineers";
     homepage = "https://github.com/austinjones/tab-rs";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "tab";
-    broken = (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64); # Added 2023-11-13
+    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64; # Added 2023-11-13
   };
 }

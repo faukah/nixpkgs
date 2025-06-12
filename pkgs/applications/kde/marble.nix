@@ -15,7 +15,6 @@
   perl,
   protobuf_21,
 }:
-
 mkDerivation {
   pname = "marble";
   meta = {

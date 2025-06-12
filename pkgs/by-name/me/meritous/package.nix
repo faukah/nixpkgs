@@ -8,7 +8,6 @@
   SDL_mixer,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "meritous";
   version = "1.5";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/meritous/meritous/-/blob/master/NEWS";
     license = licenses.gpl3Only;
     mainProgram = "meritous";
-    maintainers = [ maintainers.alexvorobiev ];
+    maintainers = [maintainers.alexvorobiev];
     platforms = platforms.linux;
   };
 })

@@ -7,7 +7,6 @@
   addBinToPathHook,
   writableTmpDirAsHomeHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "coqui-tts";
   version = "0.26.2";
@@ -20,31 +19,29 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-U/U3aXFvqnaV/Msy5wyzAKCUw9XUNplugig6nv5nfZY=";
   };
 
-  postPatch =
-    let
-      relaxedConstraints = [
-        "bnunicodenormalizer"
-        "coqpit-config"
-        "cython"
-        "gruut"
-        "inflect"
-        "librosa"
-        "mecab-python3"
-        "numba"
-        "numpy"
-        "unidic-lite"
-        "trainer"
-        "spacy\\[ja\\]"
-        "transformers"
-      ];
-    in
-    ''
-      sed -r -i \
-        ${lib.concatStringsSep "\n" (
-          map (package: ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \'') relaxedConstraints
-        )}
-      pyproject.toml
-    '';
+  postPatch = let
+    relaxedConstraints = [
+      "bnunicodenormalizer"
+      "coqpit-config"
+      "cython"
+      "gruut"
+      "inflect"
+      "librosa"
+      "mecab-python3"
+      "numba"
+      "numpy"
+      "unidic-lite"
+      "trainer"
+      "spacy\\[ja\\]"
+      "transformers"
+    ];
+  in ''
+    sed -r -i \
+      ${lib.concatStringsSep "\n" (
+      map (package: ''-e 's/${package}\s*[<>=]+[^"]+/${package}/g' \'') relaxedConstraints
+    )}
+    pyproject.toml
+  '';
 
   nativeBuildInputs = with python3.pkgs; [
     cython
@@ -104,8 +101,7 @@ python3.pkgs.buildPythonApplication rec {
     doCheck = true;
   });
 
-  nativeCheckInputs =
-    with python3.pkgs;
+  nativeCheckInputs = with python3.pkgs;
     [
       espeak-ng
       pytestCheckHook
@@ -188,6 +184,6 @@ python3.pkgs.buildPythonApplication rec {
     changelog = "https://github.com/idiap/coqui-ai-TTS/releases/tag/${src.tag}";
     description = "Deep learning toolkit for Text-to-Speech, battle-tested in research and production";
     license = licenses.mpl20;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

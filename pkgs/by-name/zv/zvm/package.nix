@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "zvm";
   version = "0.8.7";
@@ -21,9 +20,9 @@ buildGoModule rec {
 
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://www.zvm.app/";
@@ -31,7 +30,7 @@ buildGoModule rec {
     changelog = "https://github.com/tristanisham/zvm/releases/tag/v${version}";
     description = "Tool to manage and use different Zig versions";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = lib.platforms.unix;
     mainProgram = "zvm";
   };

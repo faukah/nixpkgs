@@ -9,7 +9,6 @@
   prometheus-client,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "karton-dashboard";
   version = "1.6.0";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     mainProgram = "karton-dashboard";
     homepage = "https://github.com/CERT-Polska/karton-dashboard";
     changelog = "https://github.com/CERT-Polska/karton-dashboard/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unrar";
   version = "7.1.7";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.rarlab.com/";
     license = licenses.unfreeRedistributable;
     mainProgram = "unrar";
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 })

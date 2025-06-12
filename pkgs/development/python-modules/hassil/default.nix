@@ -3,48 +3,43 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   pyyaml,
   unicode-rbnf,
-
   # tests
   pytestCheckHook,
-}:
-
-let
+}: let
   pname = "hassil";
   version = "2.2.3";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
+  buildPythonPackage {
+    inherit pname version;
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "home-assistant";
-    repo = "hassil";
-    tag = "v${version}";
-    hash = "sha256-rP7F0BovD0Klf06lywo+1uFhPf+dS0qbNBZluun8+cE=";
-  };
+    src = fetchFromGitHub {
+      owner = "home-assistant";
+      repo = "hassil";
+      tag = "v${version}";
+      hash = "sha256-rP7F0BovD0Klf06lywo+1uFhPf+dS0qbNBZluun8+cE=";
+    };
 
-  build-system = [ setuptools ];
+    build-system = [setuptools];
 
-  dependencies = [
-    pyyaml
-    unicode-rbnf
-  ];
+    dependencies = [
+      pyyaml
+      unicode-rbnf
+    ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
-  meta = with lib; {
-    changelog = "https://github.com/home-assistant/hassil/blob/${version}/CHANGELOG.md";
-    description = "Intent parsing for Home Assistant";
-    mainProgram = "hassil";
-    homepage = "https://github.com/home-assistant/hassil";
-    license = licenses.asl20;
-    teams = [ teams.home-assistant ];
-  };
-}
+    meta = with lib; {
+      changelog = "https://github.com/home-assistant/hassil/blob/${version}/CHANGELOG.md";
+      description = "Intent parsing for Home Assistant";
+      mainProgram = "hassil";
+      homepage = "https://github.com/home-assistant/hassil";
+      license = licenses.asl20;
+      teams = [teams.home-assistant];
+    };
+  }

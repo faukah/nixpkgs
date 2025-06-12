@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   aiofiles,
   aiohttp,
-
   # optional dependencies
   aioftp,
-
   # tests
   pytest-asyncio,
   pytest-localserver,
@@ -20,7 +16,6 @@
   pytestCheckHook,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "parfive";
   version = "2.2.0";
@@ -34,7 +29,7 @@ buildPythonPackage rec {
 
   pyproject = true;
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -42,7 +37,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ftp = [ aioftp ];
+    ftp = [aioftp];
   };
 
   nativeCheckInputs = [
@@ -66,7 +61,7 @@ buildPythonPackage rec {
   # Tests require local network access
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "parfive" ];
+  pythonImportsCheck = ["parfive"];
 
   meta = {
     description = "HTTP and FTP parallel file downloader";
@@ -74,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://parfive.readthedocs.io/";
     changelog = "https://github.com/Cadair/parfive/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

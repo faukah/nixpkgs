@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "trio-asyncio";
   version = "0.15.0";
@@ -32,14 +31,16 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    greenlet
-    trio
-    outcome
-    sniffio
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  dependencies =
+    [
+      greenlet
+      trio
+      outcome
+      sniffio
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [exceptiongroup];
 
   pytestFlagsArray = [
     # RuntimeWarning: Can't run the Python asyncio tests because they're not installed
@@ -61,7 +62,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "trio_asyncio" ];
+  pythonImportsCheck = ["trio_asyncio"];
 
   meta = with lib; {
     changelog = "https://github.com/python-trio/trio-asyncio/blob/v${version}/docs/source/history.rst";
@@ -71,6 +72,6 @@ buildPythonPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

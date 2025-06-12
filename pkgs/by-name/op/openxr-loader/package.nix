@@ -13,7 +13,6 @@
   wayland,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openxr-loader";
   version = "1.1.47";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  cmakeFlags = [ "-DBUILD_TESTS=ON" ];
+  cmakeFlags = ["-DBUILD_TESTS=ON"];
 
   outputs = [
     "out"
@@ -70,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.khronos.org/openxr";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

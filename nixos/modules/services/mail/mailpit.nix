@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (config.services.mailpit) instances;
-  inherit (lib)
+  inherit
+    (lib)
     cli
     concatStringsSep
     const
@@ -21,12 +20,10 @@ let
     ;
 
   isNonNull = v: v != null;
-  genCliFlags =
-    settings: concatStringsSep " " (cli.toGNUCommandLine { } (filterAttrs (const isNonNull) settings));
-in
-{
+  genCliFlags = settings: concatStringsSep " " (cli.toGNUCommandLine {} (filterAttrs (const isNonNull) settings));
+in {
   options.services.mailpit.instances = mkOption {
-    default = { };
+    default = {};
     type = types.attrsOf (
       types.submodule {
         freeformType = types.attrsOf (
@@ -84,22 +81,24 @@ in
     '';
   };
 
-  config = mkIf (instances != { }) {
-    systemd.services = mapAttrs' (
-      name: cfg:
-      nameValuePair "mailpit-${name}" {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        serviceConfig = {
-          DynamicUser = true;
-          StateDirectory = "mailpit";
-          WorkingDirectory = "%S/mailpit";
-          ExecStart = "${getExe pkgs.mailpit} ${genCliFlags cfg}";
-          Restart = "on-failure";
-        };
-      }
-    ) instances;
+  config = mkIf (instances != {}) {
+    systemd.services =
+      mapAttrs' (
+        name: cfg:
+          nameValuePair "mailpit-${name}" {
+            wantedBy = ["multi-user.target"];
+            after = ["network-online.target"];
+            wants = ["network-online.target"];
+            serviceConfig = {
+              DynamicUser = true;
+              StateDirectory = "mailpit";
+              WorkingDirectory = "%S/mailpit";
+              ExecStart = "${getExe pkgs.mailpit} ${genCliFlags cfg}";
+              Restart = "on-failure";
+            };
+          }
+      )
+      instances;
   };
 
   meta.maintainers = lib.teams.flyingcircus.members;

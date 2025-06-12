@@ -5,7 +5,6 @@
   makeWrapper,
   zig,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-zigbuild";
   version = "0.20.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-jvSOYWydnCFgJx1LTzQ1kHEVpzsdPLo19NVMBaLJEeQ=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/cargo-zigbuild \
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/messense/cargo-zigbuild";
     changelog = "https://github.com/messense/cargo-zigbuild/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

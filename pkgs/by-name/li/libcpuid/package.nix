@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcpuid";
   version = "0.8.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m/4PJGknuoiWR40aIHtkaHuMEROjsYQ9ZgmJtHdzeSU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://libcpuid.sourceforge.net/";

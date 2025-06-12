@@ -17,7 +17,6 @@
   mpiCheckPhaseHook,
   withExamples ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kagen";
   version = "1.1.0";
@@ -102,6 +101,6 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.boost
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 })

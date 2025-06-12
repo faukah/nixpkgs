@@ -4,7 +4,6 @@
   fetchurl,
   perlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stow";
   version = "2.4.1";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-DYWoUTZ355I2l7zkLNuzPStXr5FaveHQZx566Asu8LQ=";
   };
 
-  nativeBuildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [perlPackages.perl];
   buildInputs = with perlPackages; [
     perl
     IOStringy
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     license = licenses.gpl3Plus;
     homepage = "https://www.gnu.org/software/stow/";
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
     platforms = platforms.all;
   };
 })

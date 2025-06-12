@@ -25,7 +25,7 @@ buildNpmPackage rec {
     patchShebangs ./build/index.js
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   passthru.tests = {
     inherit (nixosTests) db-rest;
   };
@@ -34,7 +34,7 @@ buildNpmPackage rec {
     description = "Clean REST API wrapping around the Deutsche Bahn API";
     homepage = "https://v6.db.transport.rest/";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ marie ];
+    maintainers = with lib.maintainers; [marie];
     mainProgram = "db-rest";
   };
 }

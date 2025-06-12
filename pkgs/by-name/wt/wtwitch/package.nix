@@ -21,7 +21,6 @@
   withVlc ? false,
   withMplayer ? false,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wtwitch";
   version = "2.6.3";
@@ -63,23 +62,23 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/wtwitch \
       --set-default LANG en_US.UTF-8 \
       --prefix PATH : ${
-        lib.makeBinPath (
-          [
-            bash
-            coreutils-prefixed
-            curl
-            gnused
-            gnugrep
-            jq
-            procps
-            streamlink
-            fzf
-          ]
-          ++ lib.optional withMpv mpv
-          ++ lib.optional withVlc vlc
-          ++ lib.optional withMplayer mplayer
-        )
-      }
+      lib.makeBinPath (
+        [
+          bash
+          coreutils-prefixed
+          curl
+          gnused
+          gnugrep
+          jq
+          procps
+          streamlink
+          fzf
+        ]
+        ++ lib.optional withMpv mpv
+        ++ lib.optional withVlc vlc
+        ++ lib.optional withMplayer mplayer
+      )
+    }
 
     runHook postInstall
   '';
@@ -88,7 +87,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Terminal user interface for Twitch";
     homepage = "https://github.com/krathalan/wtwitch";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.urandom ];
+    maintainers = [lib.maintainers.urandom];
     platforms = lib.platforms.all;
     mainProgram = "wtwitch";
   };

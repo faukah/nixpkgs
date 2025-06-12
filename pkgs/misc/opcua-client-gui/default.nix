@@ -8,7 +8,6 @@
   desktopToDarwinBundle,
   wrapQtAppsHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "opcua-client-gui";
   version = "0.8.4";
@@ -20,10 +19,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-0BH1Txr3z4a7iFcsfnovmBUreXMvIX2zpZa8QivQVx8=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    wrapQtAppsHook
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs =
+    [
+      copyDesktopItems
+      wrapQtAppsHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [desktopToDarwinBundle];
 
   makeWrapperArgs = [
     "\${qtWrapperArgs[@]}"
@@ -49,7 +50,7 @@ python3Packages.buildPythonApplication rec {
       #no icon because the app dosn't have one
       desktopName = "opcua-client";
       terminal = false;
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -58,7 +59,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/FreeOpcUa/opcua-client-gui";
     platforms = platforms.unix;
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "opcua-client";
   };
 }

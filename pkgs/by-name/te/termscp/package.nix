@@ -10,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "termscp";
   version = "0.17.0";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
   ];
   doInstallCheck = true;
 
-  checkFeatures = [ "isolated-tests" ];
+  checkFeatures = ["isolated-tests"];
   checkFlags =
     [
       # requires networking
@@ -58,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

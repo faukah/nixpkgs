@@ -5,7 +5,6 @@
   poetry-core,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "nbtlib";
   version = "2.0.4";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
     --replace "poetry.masonry" "poetry.core.masonry"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "nbtlib" ];
+  pythonImportsCheck = ["nbtlib"];
 
   meta = with lib; {
     description = "Python library to read and edit nbt data";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/vberlier/nbtlib";
     changelog = "https://github.com/vberlier/nbtlib/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ gdd ];
+    maintainers = with maintainers; [gdd];
   };
 }

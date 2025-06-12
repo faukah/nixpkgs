@@ -8,7 +8,6 @@
   sip4,
   clipper,
 }:
-
 buildPythonPackage rec {
   version = "4.12.0";
   pname = "pynest2d";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     sip4
     clipper
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   CLIPPER_PATH = "${clipper.out}";
 

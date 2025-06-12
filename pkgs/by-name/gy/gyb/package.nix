@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gyb";
   version = "1.82";
@@ -50,6 +49,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/GAM-team/got-your-back";
     license = licenses.asl20;
     mainProgram = "gyb";
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
   };
 }

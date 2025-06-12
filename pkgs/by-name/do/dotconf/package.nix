@@ -4,7 +4,6 @@
   stdenv,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dotconf";
   version = "1.4.1";
@@ -16,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6Du26Ffz08DLGg6uIiPi8Sgjf691MM2kn0qXe3oFeTw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Configuration parser library";
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     homepage = "https://github.com/williamh/dotconf";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;

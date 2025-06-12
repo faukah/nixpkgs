@@ -16,7 +16,6 @@
   setuptools,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "hap-python";
   version = "4.9.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-mBjVUfNHuGSeLRisqu9ALpTDwpxHir+6X0scq+HrzxA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -47,11 +46,13 @@ buildPythonPackage rec {
     pyqrcode
   ];
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-timeout
-    pytestCheckHook
-  ] ++ optional-dependencies.QRCode;
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.QRCode;
 
   disabledTestPaths = [
     # Disable tests requiring network access
@@ -70,13 +71,13 @@ buildPythonPackage rec {
     "test_migration_to_include_client_properties"
   ];
 
-  pythonImportsCheck = [ "pyhap" ];
+  pythonImportsCheck = ["pyhap"];
 
   meta = with lib; {
     description = "HomeKit Accessory Protocol implementation";
     homepage = "https://github.com/ikalchev/HAP-python";
     changelog = "https://github.com/ikalchev/HAP-python/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oro ];
+    maintainers = with maintainers; [oro];
   };
 }

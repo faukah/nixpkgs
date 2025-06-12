@@ -6,7 +6,6 @@
   setuptools,
   tkinter,
 }:
-
 buildPythonPackage rec {
   pname = "guppy3";
   version = "3.1.5";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-hgJcy4DRfZL50dCcRv2a6GJPDabsUMfDtq7HCXXYYz8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ tkinter ];
+  dependencies = [tkinter];
 
   # Tests are starting a Tkinter GUI
   doCheck = false;
 
-  pythonImportsCheck = [ "guppy" ];
+  pythonImportsCheck = ["guppy"];
 
   meta = with lib; {
     description = "Python Programming Environment & Heap analysis toolset";
     homepage = "https://zhuyifei1999.github.io/guppy3/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

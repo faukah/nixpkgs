@@ -14,7 +14,6 @@
   systemd,
   openssl,
   python3,
-
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
   tlsSupport ? true,
   # Using system jemalloc fixes cross-compilation and various setups.
@@ -22,7 +21,6 @@
   # their custom patched version of jemalloc.
   useSystemJemalloc ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "redis";
   version = "7.2.7";
@@ -46,35 +44,37 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ lua ]
+    [lua]
     ++ lib.optional useSystemJemalloc jemalloc
     ++ lib.optional withSystemd systemd
     ++ lib.optional tlsSupport openssl;
 
   # More cross-compiling fixes.
   makeFlags =
-    [ "PREFIX=${placeholder "out"}" ]
+    ["PREFIX=${placeholder "out"}"]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "AR=${stdenv.cc.targetPrefix}ar"
       "RANLIB=${stdenv.cc.targetPrefix}ranlib"
     ]
-    ++ lib.optionals withSystemd [ "USE_SYSTEMD=yes" ]
-    ++ lib.optionals tlsSupport [ "BUILD_TLS=yes" ];
+    ++ lib.optionals withSystemd ["USE_SYSTEMD=yes"]
+    ++ lib.optionals tlsSupport ["BUILD_TLS=yes"];
 
   enableParallelBuilding = true;
 
-  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) [ "pie" ];
+  hardeningEnable = lib.optionals (!stdenv.hostPlatform.isDarwin) ["pie"];
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang [ "-std=c11" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isClang ["-std=c11"]);
   env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isFreeBSD "-lexecinfo";
 
   # darwin currently lacks a pure `pgrep` which is extensively used here
   doCheck = !stdenv.hostPlatform.isDarwin;
-  nativeCheckInputs = [
-    which
-    tcl
-    ps
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ getconf ];
+  nativeCheckInputs =
+    [
+      which
+      tcl
+      ps
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic [getconf];
   checkPhase = ''
     runHook preCheck
 

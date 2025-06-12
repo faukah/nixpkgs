@@ -15,7 +15,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "acquire";
   version = "3.18";
@@ -42,17 +41,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    full = [
-      dissect-target
-      minio
-      pycryptodome
-      requests
-      requests-toolbelt
-      rich
-    ] ++ dissect-target.optional-dependencies.full;
+    full =
+      [
+        dissect-target
+        minio
+        pycryptodome
+        requests
+        requests-toolbelt
+        rich
+      ]
+      ++ dissect-target.optional-dependencies.full;
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.full;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.full;
 
   disabledTests = [
     "output_encrypt"
@@ -62,13 +63,13 @@ buildPythonPackage rec {
     "test_misc_unix"
   ];
 
-  pythonImportsCheck = [ "acquire" ];
+  pythonImportsCheck = ["acquire"];
 
   meta = with lib; {
     description = "Tool to quickly gather forensic artifacts from disk images or a live system";
     homepage = "https://github.com/fox-it/acquire";
     changelog = "https://github.com/fox-it/acquire/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

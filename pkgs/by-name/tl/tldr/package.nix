@@ -5,7 +5,6 @@
   installShellFiles,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tldr";
   version = "3.3.0";
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     shtab
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = with python3Packages; [
     pytest

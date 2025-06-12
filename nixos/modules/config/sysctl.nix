@@ -1,30 +1,32 @@
-{ config, lib, ... }:
-let
-
+{
+  config,
+  lib,
+  ...
+}: let
   sysctlOption = lib.mkOptionType {
     name = "sysctl option value";
-    check =
-      val:
-      let
-        checkType = x: lib.isBool x || lib.isString x || lib.isInt x || x == null;
-      in
+    check = val: let
+      checkType = x: lib.isBool x || lib.isString x || lib.isInt x || x == null;
+    in
       checkType val || (val._type or "" == "override" && checkType val.content);
     merge = loc: defs: lib.mergeOneOption loc defs;
   };
-
-in
-
-{
-
+in {
   options = {
-
     boot.kernel.sysctl = lib.mkOption {
-      type =
-        let
-          highestValueType = lib.types.ints.unsigned // {
-            merge = loc: defs: lib.foldl (a: b: if b.value == null then null else lib.max a b.value) 0 defs;
+      type = let
+        highestValueType =
+          lib.types.ints.unsigned
+          // {
+            merge = loc: defs:
+              lib.foldl (a: b:
+                if b.value == null
+                then null
+                else lib.max a b.value)
+              0
+              defs;
           };
-        in
+      in
         lib.types.submodule {
           freeformType = lib.types.attrsOf sysctlOption;
           options = {
@@ -41,7 +43,7 @@ in
             };
           };
         };
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         { "net.ipv4.tcp_syncookies" = false; "vm.swappiness" = 60; }
       '';
@@ -54,22 +56,25 @@ in
         parameter may be a string, integer, boolean, or null
         (signifying the option will not appear at all).
       '';
-
     };
-
   };
 
   config = {
-
     environment.etc."sysctl.d/60-nixos.conf".text = lib.concatStrings (
       lib.mapAttrsToList (
-        n: v: lib.optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
-      ) config.boot.kernel.sysctl
+        n: v:
+          lib.optionalString (v != null) "${n}=${
+            if v == false
+            then "0"
+            else toString v
+          }\n"
+      )
+      config.boot.kernel.sysctl
     );
 
     systemd.services.systemd-sysctl = {
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."sysctl.d/60-nixos.conf".source];
     };
 
     # Hide kernel pointers (e.g. in /proc/modules) for unprivileged

@@ -7,7 +7,6 @@
   ninja,
   dart-sass,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "adw-gtk3";
   version = "6.2";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     dart-sass
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unofficial GTK 3 port of libadwaita";

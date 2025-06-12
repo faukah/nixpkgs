@@ -5,7 +5,6 @@
   autoreconfHook,
   tcl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rl_json";
   version = "0.15.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
       directly. Similar in spirit to how the dict command manipulates dictionary
       values, and comparable in speed.
     '';
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = tcl.meta.platforms;
     # From version 0.15.1: 'endian.h' file not found
     broken = stdenv.hostPlatform.isDarwin;

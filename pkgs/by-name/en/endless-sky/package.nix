@@ -12,7 +12,6 @@
   libmad,
   libuuid,
 }:
-
 stdenv.mkDerivation rec {
   pname = "endless-sky";
   version = "0.10.12";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
       publicDomain
     ];
-    maintainers = with maintainers; [ _360ied ];
+    maintainers = with maintainers; [_360ied];
     platforms = platforms.linux; # Maybe other non-darwin Unix
   };
 }

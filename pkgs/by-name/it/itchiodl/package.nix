@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "itchiodl";
   version = "2.3.0";
@@ -31,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Emersont1/itchio";
     description = "itch.io download tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

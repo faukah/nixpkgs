@@ -10,7 +10,6 @@
   mdx,
   domain-local-await,
 }:
-
 buildDunePackage rec {
   pname = "domain-local-timeout";
   version = "1.0.1";
@@ -29,7 +28,7 @@ buildDunePackage rec {
   ];
 
   doCheck = lib.versionAtLeast ocaml.version "5.0";
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
   checkInputs = [
     alcotest
     domain-local-await
@@ -40,6 +39,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-multicore/domain-local-timeout";
     description = "Scheduler independent timeout mechanism";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

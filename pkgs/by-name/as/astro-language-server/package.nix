@@ -5,7 +5,6 @@
   pnpm_9,
   nodejs_22,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "astro-language-server";
   version = "2.15.4";
@@ -18,7 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -33,11 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm_9.configHook
   ];
 
-  buildInputs = [ nodejs_22 ];
+  buildInputs = [nodejs_22];
 
   # Must specify to download "@astrojs/yaml2ts" depencendies
   # https://pnpm.io/filtering#--filter-package_name-1
-  pnpmWorkspaces = [ "@astrojs/language-server..." ];
+  pnpmWorkspaces = ["@astrojs/language-server..."];
   prePnpmInstall = ''
     # Warning section for "pnpm@v8"
     # https://pnpm.io/cli/install#--filter-package_selector
@@ -69,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/withastro/language-tools";
     changelog = "https://github.com/withastro/language-tools/blob/@astrojs/language-server@${finalAttrs.version}/packages/language-server/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "astro-ls";
     platforms = lib.platforms.unix;
   };

@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "immutabledict";
   version = "4.2.1";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-v2oOzvAa8KONZDQuxouai2B9d1RY4kZG/px2wl0KAyM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  pythonImportsCheck = [ "immutabledict" ];
+  pythonImportsCheck = ["immutabledict"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # fails if builder load is highly variable
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/corenting/immutabledict";
     changelog = "https://github.com/corenting/immutabledict/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

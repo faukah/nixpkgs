@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "language-data";
   version = "1.3.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-qHPie07GtVPKP/PFlP72XVVrl6j+5A8fIO729aPRsrc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ marisa-trie ];
+  dependencies = [marisa-trie];
 
-  pythonImportsCheck = [ "language_data" ];
+  pythonImportsCheck = ["language_data"];
 
   # No unittests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/georgkrause/language_data";
     changelog = "https://github.com/georgkrause/language_data/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

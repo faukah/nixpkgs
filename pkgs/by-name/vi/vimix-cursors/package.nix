@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation {
     description = "X cursor theme inspired by Materia design";
     homepage = "https://github.com/vinceliuice/Vimix-cursors";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     platforms = platforms.linux;
   };
 }

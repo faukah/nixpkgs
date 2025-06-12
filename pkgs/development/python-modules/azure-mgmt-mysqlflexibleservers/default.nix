@@ -9,7 +9,6 @@
   isodate,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-mysqlflexibleservers";
   version = "1.0.0b2";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Mysqlflexibleservers Management Client Library for Python";
     homepage = "https://pypi.org/project/azure-mgmt-mysqlflexibleservers/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

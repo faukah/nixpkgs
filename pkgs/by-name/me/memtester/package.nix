@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "memtester";
   version = "4.7.1";
@@ -18,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5CfeZj970i0evuivElBqhSwBC9T8vKHg5rApctKYtbs=";
   };
 
-  installFlags = [ "INSTALLPATH=$(out)" ];
+  installFlags = ["INSTALLPATH=$(out)"];
 
   meta = with lib; {
     description = "Userspace utility for testing the memory subsystem for faults";
     homepage = "http://pyropus.ca/software/memtester/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.unix;
     mainProgram = "memtester";
   };

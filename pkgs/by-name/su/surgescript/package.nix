@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "surgescript";
   version = "0.6.1";
@@ -24,10 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "surgescript";
@@ -37,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/alemart/surgescript/blob/v${finalAttrs.version}/CHANGES.md";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ federicoschonborn ];
+    maintainers = with lib.maintainers; [federicoschonborn];
   };
 })

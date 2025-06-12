@@ -34,7 +34,6 @@
   libraw,
   libjxl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rawtherapee";
   version = "5.12";

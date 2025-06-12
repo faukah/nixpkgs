@@ -5,7 +5,6 @@
   copyPkgconfigItems,
   makePkgconfigItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "symfpu";
   version = "unstable-2019-05-17";
@@ -17,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "1jf5lkn67q136ppfacw3lsry369v7mdr1rhidzjpbz18jfy9zl9q";
   };
 
-  nativeBuildInputs = [ copyPkgconfigItems ];
+  nativeBuildInputs = [copyPkgconfigItems];
 
   pkgconfigItems = [
     (makePkgconfigItem {
       name = "symfpu";
       inherit version;
-      cflags = [ "-I\${includedir}" ];
+      cflags = ["-I\${includedir}"];
       variables = {
         includedir = "@includedir@";
       };
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/martin-cs/symfpu";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ shadaj ];
+    maintainers = with maintainers; [shadaj];
   };
 }

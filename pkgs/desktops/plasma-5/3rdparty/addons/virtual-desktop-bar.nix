@@ -7,7 +7,6 @@
   plasma-framework,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "plasma-applet-virtual-desktop-bar";
   version = "unstable-2021-02-20";
@@ -38,6 +37,6 @@ mkDerivation {
     homepage = "https://github.com/wsdfhjxc/virtual-desktop-bar";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

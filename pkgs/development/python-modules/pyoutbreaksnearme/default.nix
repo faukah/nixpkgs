@@ -13,7 +13,6 @@
   ujson,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "pyoutbreaksnearme";
   version = "2023.12.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-oR/DApOxNSSczrBeH4sytd/vasbD4rA1poW4zNoeAnU=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "pyoutbreaksnearme" ];
+  pythonImportsCheck = ["pyoutbreaksnearme"];
 
   meta = with lib; {
     description = "Library for retrieving data from for Outbreaks Near Me";
     homepage = "https://github.com/bachya/pyoutbreaksnearme";
     changelog = "https://github.com/bachya/pyoutbreaksnearme/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

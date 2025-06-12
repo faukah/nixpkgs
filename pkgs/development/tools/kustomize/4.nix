@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kustomize_4";
   version = "4.5.7";
@@ -18,22 +17,20 @@ buildGoModule rec {
 
   # rev is the commit of the tag, mainly for kustomize version command output
   rev = "56d82a8378dfc8dc3b3b1085e5a6e67b82966bd7";
-  ldflags =
-    let
-      t = "sigs.k8s.io/kustomize/api/provenance";
-    in
-    [
-      "-s"
-      "-X ${t}.version=${version}"
-      "-X ${t}.gitCommit=${rev}"
-    ];
+  ldflags = let
+    t = "sigs.k8s.io/kustomize/api/provenance";
+  in [
+    "-s"
+    "-X ${t}.version=${version}"
+    "-X ${t}.gitCommit=${rev}"
+  ];
 
   # avoid finding test and development commands
   modRoot = "kustomize";
   proxyVendor = true;
   vendorHash = "sha256-9+k0Me5alZDNC27Mx0Q6vp0B2SEa+Qy0FoLSr/Rahkc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd kustomize \

@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     url = "https://seed.radicle.xyz/z4V1sjrXqjvFdnCUbxPFqd5p4DtH5.git";
     rev = "refs/namespaces/z6MkkfM3tPXNPrPevKr3uSiQtHPuwnNhu2yUVjgd2jXVsVz5/refs/tags/v${version}";
     hash = "sha256-RDF36bEJg54DG/YgORGo+BwrHMfmd12FRCrP6fVvHPg=";
-    sparseCheckout = [ "radicle-httpd" ];
+    sparseCheckout = ["radicle-httpd"];
   };
 
   sourceRoot = "${src.name}/radicle-httpd";
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     makeWrapper
   ];
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   doCheck = stdenv.hostPlatform.isLinux;
 
@@ -48,12 +48,12 @@ rustPlatform.buildRustPackage rec {
     do
       wrapProgram "$program" \
         --prefix PATH : "${
-          lib.makeBinPath [
-            git
-            man-db
-            xdg-utils
-          ]
-        }"
+      lib.makeBinPath [
+        git
+        man-db
+        xdg-utils
+      ]
+    }"
     done
   '';
 

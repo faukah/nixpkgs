@@ -8,7 +8,6 @@
   libxml2,
   yelp-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-user-docs";
   version = "48.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "User and system administration help for the GNOME desktop";
     homepage = "https://help.gnome.org/users/gnome-help/";
     license = licenses.cc-by-30;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.all;
   };
 }

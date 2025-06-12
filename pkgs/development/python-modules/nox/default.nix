@@ -14,7 +14,6 @@
   uv,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "nox";
   version = "2024.10.09";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     ./fix-broken-mock-on-cpython-3.12.8.patch
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies =
     [
@@ -52,16 +51,16 @@ buildPythonPackage rec {
       jinja2
       tox
     ];
-    uv = [ uv ];
+    uv = [uv];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "nox" ];
+  pythonImportsCheck = ["nox"];
 
   disabledTests = [
     # our conda is not available on 3.11

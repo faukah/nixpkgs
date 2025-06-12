@@ -3,28 +3,26 @@
   lib,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "boundary";
   version = "0.19.0";
 
-  src =
-    let
-      inherit (stdenv.hostPlatform) system;
-      selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
-      suffix = selectSystem {
-        x86_64-linux = "linux_amd64";
-        aarch64-linux = "linux_arm64";
-        x86_64-darwin = "darwin_amd64";
-        aarch64-darwin = "darwin_arm64";
-      };
-      hash = selectSystem {
-        x86_64-linux = "sha256-tqgY0308n3F/ZYGhn3bAsHa4cBdFz0oGgSHI6y6J1LY=";
-        aarch64-linux = "sha256-vvc8rOpyOd91crZTQQofj3RixUuWHe7SbMM0BZDkdRw=";
-        x86_64-darwin = "sha256-wsI8hqULVN+W6zwQsXcWQHbxmocrijsl5eUJgUxLxf8=";
-        aarch64-darwin = "sha256-S0QXBBiO2qgSazjtwd1bWgL/6gJUimKYPv369L419UU=";
-      };
-    in
+  src = let
+    inherit (stdenv.hostPlatform) system;
+    selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
+    suffix = selectSystem {
+      x86_64-linux = "linux_amd64";
+      aarch64-linux = "linux_arm64";
+      x86_64-darwin = "darwin_amd64";
+      aarch64-darwin = "darwin_arm64";
+    };
+    hash = selectSystem {
+      x86_64-linux = "sha256-tqgY0308n3F/ZYGhn3bAsHa4cBdFz0oGgSHI6y6J1LY=";
+      aarch64-linux = "sha256-vvc8rOpyOd91crZTQQofj3RixUuWHe7SbMM0BZDkdRw=";
+      x86_64-darwin = "sha256-wsI8hqULVN+W6zwQsXcWQHbxmocrijsl5eUJgUxLxf8=";
+      aarch64-darwin = "sha256-S0QXBBiO2qgSazjtwd1bWgL/6gJUimKYPv369L419UU=";
+    };
+  in
     fetchzip {
       url = "https://releases.hashicorp.com/boundary/${version}/boundary_${version}_${suffix}.zip";
       inherit hash;
@@ -67,7 +65,7 @@ stdenv.mkDerivation rec {
       and resilient. It can run in clouds, on-prem, secure enclaves and more,
       and does not require an agent to be installed on every end host.
     '';
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.bsl11;
     maintainers = with lib.maintainers; [
       jk

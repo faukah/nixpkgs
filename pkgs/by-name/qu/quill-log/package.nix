@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quill-log";
   version = "9.0.3";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-G7DUxN32g32744kfGVth4G7GJz8xguIfvX/ojkgh/Ao=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/odygrd/quill";
@@ -25,6 +24,6 @@ stdenv.mkDerivation rec {
     description = "Asynchronous Low Latency C++17 Logging Library";
     platforms = platforms.all;
     license = licenses.mit;
-    maintainers = [ maintainers.odygrd ];
+    maintainers = [maintainers.odygrd];
   };
 }

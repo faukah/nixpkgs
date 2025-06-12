@@ -7,9 +7,7 @@
   setuptools,
   tomli,
   twisted,
-}:
-
-let
+}: let
   incremental = buildPythonPackage rec {
     pname = "incremental";
     version = "24.7.2";
@@ -26,16 +24,16 @@ let
     # "Keep this aligned with the project dependencies."
     build-system = dependencies;
 
-    dependencies = [ setuptools ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    dependencies = [setuptools] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
     optional-dependencies = {
-      scripts = [ click ];
+      scripts = [click];
     };
 
     # escape infinite recursion with twisted
     doCheck = false;
 
-    nativeCheckInputs = [ twisted ];
+    nativeCheckInputs = [twisted];
 
     checkPhase = ''
       trial incremental
@@ -47,15 +45,15 @@ let
       });
     };
 
-    pythonImportsCheck = [ "incremental" ];
+    pythonImportsCheck = ["incremental"];
 
     meta = {
       changelog = "https://github.com/twisted/incremental/blob/${src.rev}/NEWS.rst";
       homepage = "https://github.com/twisted/incremental";
       description = "Small library that versions your Python projects";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ dotlambda ];
+      maintainers = with lib.maintainers; [dotlambda];
     };
   };
 in
-incremental
+  incremental

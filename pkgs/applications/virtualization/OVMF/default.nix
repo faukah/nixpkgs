@@ -46,7 +46,9 @@
       riscv64 = "OvmfPkg/RiscVVirt/RiscVVirtQemu.dsc";
       loongarch64 = "OvmfPkg/LoongArchVirt/LoongArchVirtQemu.dsc";
     }
-    .${stdenv.hostPlatform.parsed.cpu.name}
+    .${
+      stdenv.hostPlatform.parsed.cpu.name
+    }
       or (throw "Unsupported OVMF `projectDscPath` on ${stdenv.hostPlatform.parsed.cpu.name}"),
   fwPrefix ?
     {
@@ -56,13 +58,12 @@
       riscv64 = "RISCV_VIRT";
       loongarch64 = "LOONGARCH_VIRT";
     }
-    .${stdenv.hostPlatform.parsed.cpu.name}
+    .${
+      stdenv.hostPlatform.parsed.cpu.name
+    }
       or (throw "Unsupported OVMF `fwPrefix` on ${stdenv.hostPlatform.parsed.cpu.name}"),
   metaPlatforms ? edk2.meta.platforms,
-}:
-
-let
-
+}: let
   platformSpecific = {
     i686.msVarsArgs = {
       flavor = "OVMF";
@@ -101,127 +102,126 @@ let
   };
 
   buildPrefix = "Build/*/*";
-
 in
+  assert msVarsTemplate -> fdSize4MB;
+  assert msVarsTemplate -> platformSpecific ? ${cpuName};
+  assert msVarsTemplate -> platformSpecific.${cpuName} ? msVarsArgs;
+    edk2.mkDerivation projectDscPath (finalAttrs: {
+      pname = "OVMF";
+      inherit version;
 
-assert msVarsTemplate -> fdSize4MB;
-assert msVarsTemplate -> platformSpecific ? ${cpuName};
-assert msVarsTemplate -> platformSpecific.${cpuName} ? msVarsArgs;
+      outputs = [
+        "out"
+        "fd"
+      ];
 
-edk2.mkDerivation projectDscPath (finalAttrs: {
-  pname = "OVMF";
-  inherit version;
+      nativeBuildInputs =
+        [
+          util-linux
+          nasm
+          acpica-tools
+        ]
+        ++ lib.optionals stdenv.cc.isClang [
+          llvmPackages.bintools
+          llvmPackages.llvm
+        ]
+        ++ lib.optionals msVarsTemplate [
+          python3
+          pexpect
+          xorriso
+          qemu
+          dosfstools
+          mtools
+        ];
+      strictDeps = true;
 
-  outputs = [
-    "out"
-    "fd"
-  ];
+      hardeningDisable = [
+        "format"
+        "stackprotector"
+        "pic"
+        "fortify"
+      ];
 
-  nativeBuildInputs =
-    [
-      util-linux
-      nasm
-      acpica-tools
-    ]
-    ++ lib.optionals stdenv.cc.isClang [
-      llvmPackages.bintools
-      llvmPackages.llvm
-    ]
-    ++ lib.optionals msVarsTemplate [
-      python3
-      pexpect
-      xorriso
-      qemu
-      dosfstools
-      mtools
-    ];
-  strictDeps = true;
+      buildFlags =
+        # IPv6 has no reason to be disabled.
+        ["-D NETWORK_IP6_ENABLE=TRUE"]
+        ++ lib.optionals debug ["-D DEBUG_ON_SERIAL_PORT=TRUE"]
+        ++ lib.optionals sourceDebug ["-D SOURCE_DEBUG_ENABLE=TRUE"]
+        ++ lib.optionals secureBoot ["-D SECURE_BOOT_ENABLE=TRUE"]
+        ++ lib.optionals systemManagementModeRequired ["-D SMM_REQUIRE=TRUE"]
+        ++ lib.optionals fdSize2MB ["-D FD_SIZE_2MB"]
+        ++ lib.optionals fdSize4MB ["-D FD_SIZE_4MB"]
+        ++ lib.optionals httpSupport [
+          "-D NETWORK_HTTP_ENABLE=TRUE"
+          "-D NETWORK_HTTP_BOOT_ENABLE=TRUE"
+        ]
+        ++ lib.optionals tlsSupport ["-D NETWORK_TLS_ENABLE=TRUE"]
+        ++ lib.optionals tpmSupport [
+          "-D TPM_ENABLE"
+          "-D TPM2_ENABLE"
+          "-D TPM2_CONFIG_ENABLE"
+        ];
 
-  hardeningDisable = [
-    "format"
-    "stackprotector"
-    "pic"
-    "fortify"
-  ];
+      buildConfig =
+        if debug
+        then "DEBUG"
+        else "RELEASE";
+      env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Qunused-arguments";
 
-  buildFlags =
-    # IPv6 has no reason to be disabled.
-    [ "-D NETWORK_IP6_ENABLE=TRUE" ]
-    ++ lib.optionals debug [ "-D DEBUG_ON_SERIAL_PORT=TRUE" ]
-    ++ lib.optionals sourceDebug [ "-D SOURCE_DEBUG_ENABLE=TRUE" ]
-    ++ lib.optionals secureBoot [ "-D SECURE_BOOT_ENABLE=TRUE" ]
-    ++ lib.optionals systemManagementModeRequired [ "-D SMM_REQUIRE=TRUE" ]
-    ++ lib.optionals fdSize2MB [ "-D FD_SIZE_2MB" ]
-    ++ lib.optionals fdSize4MB [ "-D FD_SIZE_4MB" ]
-    ++ lib.optionals httpSupport [
-      "-D NETWORK_HTTP_ENABLE=TRUE"
-      "-D NETWORK_HTTP_BOOT_ENABLE=TRUE"
-    ]
-    ++ lib.optionals tlsSupport [ "-D NETWORK_TLS_ENABLE=TRUE" ]
-    ++ lib.optionals tpmSupport [
-      "-D TPM_ENABLE"
-      "-D TPM2_ENABLE"
-      "-D TPM2_CONFIG_ENABLE"
-    ];
+      env.PYTHON_COMMAND = "python3";
 
-  buildConfig = if debug then "DEBUG" else "RELEASE";
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Qunused-arguments";
+      postUnpack = lib.optionalDrvAttr msVarsTemplate ''
+        ln -s ${debian-edk-src}/debian
+      '';
 
-  env.PYTHON_COMMAND = "python3";
+      postConfigure = lib.optionalDrvAttr msVarsTemplate ''
+        tr -d '\n' < ${vendorPkKek} | sed \
+          -e 's/.*-----BEGIN CERTIFICATE-----/${OvmfPkKek1AppPrefix}:/' \
+          -e 's/-----END CERTIFICATE-----//' > vendor-cert-string
+        export PYTHONPATH=$NIX_BUILD_TOP/debian/python:$PYTHONPATH
+      '';
 
-  postUnpack = lib.optionalDrvAttr msVarsTemplate ''
-    ln -s ${debian-edk-src}/debian
-  '';
+      postBuild =
+        lib.optionalString (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isLoongArch64) ''
+          (
+          cd ${buildPrefix}/FV
+          cp QEMU_EFI.fd ${fwPrefix}_CODE.fd
+          cp QEMU_VARS.fd ${fwPrefix}_VARS.fd
+          )
+        ''
+        + lib.optionalString stdenv.hostPlatform.isAarch ''
+          # QEMU expects 64MiB CODE and VARS files on ARM/AARCH64 architectures
+          # Truncate the firmware files to the expected size
+          truncate -s 64M ${buildPrefix}/FV/${fwPrefix}_CODE.fd
+          truncate -s 64M ${buildPrefix}/FV/${fwPrefix}_VARS.fd
+        ''
+        + lib.optionalString stdenv.hostPlatform.isRiscV ''
+          truncate -s 32M ${buildPrefix}/FV/${fwPrefix}_CODE.fd
+          truncate -s 32M ${buildPrefix}/FV/${fwPrefix}_VARS.fd
+        ''
+        + lib.optionalString msVarsTemplate ''
+          (
+          cd ${buildPrefix}
+          # locale must be set on Darwin for invocations of mtools to work correctly
+          LC_ALL=C python3 $NIX_BUILD_TOP/debian/edk2-vars-generator.py \
+            --flavor ${msVarsArgs.flavor} \
+            --enrolldefaultkeys ${msVarsArgs.archDir}/EnrollDefaultKeys.efi \
+            --shell ${msVarsArgs.archDir}/Shell.efi \
+            --code FV/${fwPrefix}_CODE.fd \
+            --vars-template FV/${fwPrefix}_VARS.fd \
+            --certificate `< $NIX_BUILD_TOP/$sourceRoot/vendor-cert-string` \
+            --out-file FV/${fwPrefix}_VARS.ms.fd
+          )
+        '';
 
-  postConfigure = lib.optionalDrvAttr msVarsTemplate ''
-    tr -d '\n' < ${vendorPkKek} | sed \
-      -e 's/.*-----BEGIN CERTIFICATE-----/${OvmfPkKek1AppPrefix}:/' \
-      -e 's/-----END CERTIFICATE-----//' > vendor-cert-string
-    export PYTHONPATH=$NIX_BUILD_TOP/debian/python:$PYTHONPATH
-  '';
-
-  postBuild =
-    lib.optionalString (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isLoongArch64) ''
-      (
-      cd ${buildPrefix}/FV
-      cp QEMU_EFI.fd ${fwPrefix}_CODE.fd
-      cp QEMU_VARS.fd ${fwPrefix}_VARS.fd
-      )
-    ''
-    + lib.optionalString stdenv.hostPlatform.isAarch ''
-      # QEMU expects 64MiB CODE and VARS files on ARM/AARCH64 architectures
-      # Truncate the firmware files to the expected size
-      truncate -s 64M ${buildPrefix}/FV/${fwPrefix}_CODE.fd
-      truncate -s 64M ${buildPrefix}/FV/${fwPrefix}_VARS.fd
-    ''
-    + lib.optionalString stdenv.hostPlatform.isRiscV ''
-      truncate -s 32M ${buildPrefix}/FV/${fwPrefix}_CODE.fd
-      truncate -s 32M ${buildPrefix}/FV/${fwPrefix}_VARS.fd
-    ''
-    + lib.optionalString msVarsTemplate ''
-      (
-      cd ${buildPrefix}
-      # locale must be set on Darwin for invocations of mtools to work correctly
-      LC_ALL=C python3 $NIX_BUILD_TOP/debian/edk2-vars-generator.py \
-        --flavor ${msVarsArgs.flavor} \
-        --enrolldefaultkeys ${msVarsArgs.archDir}/EnrollDefaultKeys.efi \
-        --shell ${msVarsArgs.archDir}/Shell.efi \
-        --code FV/${fwPrefix}_CODE.fd \
-        --vars-template FV/${fwPrefix}_VARS.fd \
-        --certificate `< $NIX_BUILD_TOP/$sourceRoot/vendor-cert-string` \
-        --out-file FV/${fwPrefix}_VARS.ms.fd
-      )
-    '';
-
-  # TODO: Usage of -bios OVMF.fd is discouraged: https://lists.katacontainers.io/pipermail/kata-dev/2021-January/001650.html
-  # We should remove the isx86-specific block here once we're ready to update nixpkgs to stop using that and update the
-  # release notes accordingly.
-  postInstall =
-    ''
-      mkdir -vp $fd/FV
-    ''
-    +
-      lib.optionalString
+      # TODO: Usage of -bios OVMF.fd is discouraged: https://lists.katacontainers.io/pipermail/kata-dev/2021-January/001650.html
+      # We should remove the isx86-specific block here once we're ready to update nixpkgs to stop using that and update the
+      # release notes accordingly.
+      postInstall =
+        ''
+          mkdir -vp $fd/FV
+        ''
+        + lib.optionalString
         (builtins.elem fwPrefix [
           "OVMF"
           "AAVMF"
@@ -231,51 +231,47 @@ edk2.mkDerivation projectDscPath (finalAttrs: {
         ''
           mv -v $out/FV/${fwPrefix}_{CODE,VARS}.fd $fd/FV
         ''
-    + lib.optionalString stdenv.hostPlatform.isx86 ''
-      mv -v $out/FV/${fwPrefix}.fd $fd/FV
-    ''
-    + lib.optionalString msVarsTemplate ''
-      mv -v $out/FV/${fwPrefix}_VARS.ms.fd $fd/FV
-      ln -sv $fd/FV/${fwPrefix}_CODE{,.ms}.fd
-    ''
-    + lib.optionalString stdenv.hostPlatform.isAarch ''
-      mv -v $out/FV/QEMU_{EFI,VARS}.fd $fd/FV
-      # Add symlinks for Fedora dir layout: https://src.fedoraproject.org/rpms/edk2/blob/main/f/edk2.spec
-      mkdir -vp $fd/AAVMF
-      ln -s $fd/FV/AAVMF_CODE.fd $fd/AAVMF/QEMU_EFI-pflash.raw
-      ln -s $fd/FV/AAVMF_VARS.fd $fd/AAVMF/vars-template-pflash.raw
-    '';
+        + lib.optionalString stdenv.hostPlatform.isx86 ''
+          mv -v $out/FV/${fwPrefix}.fd $fd/FV
+        ''
+        + lib.optionalString msVarsTemplate ''
+          mv -v $out/FV/${fwPrefix}_VARS.ms.fd $fd/FV
+          ln -sv $fd/FV/${fwPrefix}_CODE{,.ms}.fd
+        ''
+        + lib.optionalString stdenv.hostPlatform.isAarch ''
+          mv -v $out/FV/QEMU_{EFI,VARS}.fd $fd/FV
+          # Add symlinks for Fedora dir layout: https://src.fedoraproject.org/rpms/edk2/blob/main/f/edk2.spec
+          mkdir -vp $fd/AAVMF
+          ln -s $fd/FV/AAVMF_CODE.fd $fd/AAVMF/QEMU_EFI-pflash.raw
+          ln -s $fd/FV/AAVMF_VARS.fd $fd/AAVMF/vars-template-pflash.raw
+        '';
 
-  dontPatchELF = true;
+      dontPatchELF = true;
 
-  passthru =
-    let
-      prefix = "${finalAttrs.finalPackage.fd}/FV/${fwPrefix}";
-    in
-    {
-      mergedFirmware = "${prefix}.fd";
-      firmware = "${prefix}_CODE.fd";
-      variables = "${prefix}_VARS.fd";
-      variablesMs =
-        assert msVarsTemplate;
-        "${prefix}_VARS.ms.fd";
-      # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
-      tests.basic-systemd-boot = nixosTests.systemd-boot.basic;
-      tests.secureBoot-systemd-boot = nixosTests.systemd-boot.secureBoot;
-      inherit secureBoot systemManagementModeRequired;
-    };
+      passthru = let
+        prefix = "${finalAttrs.finalPackage.fd}/FV/${fwPrefix}";
+      in {
+        mergedFirmware = "${prefix}.fd";
+        firmware = "${prefix}_CODE.fd";
+        variables = "${prefix}_VARS.fd";
+        variablesMs = assert msVarsTemplate; "${prefix}_VARS.ms.fd";
+        # This will test the EFI firmware for the host platform as part of the NixOS Tests setup.
+        tests.basic-systemd-boot = nixosTests.systemd-boot.basic;
+        tests.secureBoot-systemd-boot = nixosTests.systemd-boot.secureBoot;
+        inherit secureBoot systemManagementModeRequired;
+      };
 
-  meta = {
-    description = "Sample UEFI firmware for QEMU and KVM";
-    homepage = "https://github.com/tianocore/tianocore.github.io/wiki/OVMF";
-    license = lib.licenses.bsd2;
-    platforms = metaPlatforms;
-    maintainers = with lib.maintainers; [
-      adamcstephens
-      raitobezarius
-      mjoerg
-      sigmasquadron
-    ];
-    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
-  };
-})
+      meta = {
+        description = "Sample UEFI firmware for QEMU and KVM";
+        homepage = "https://github.com/tianocore/tianocore.github.io/wiki/OVMF";
+        license = lib.licenses.bsd2;
+        platforms = metaPlatforms;
+        maintainers = with lib.maintainers; [
+          adamcstephens
+          raitobezarius
+          mjoerg
+          sigmasquadron
+        ];
+        broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
+      };
+    })

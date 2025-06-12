@@ -8,7 +8,6 @@
   python3,
   stdenv,
 }:
-
 buildNpmPackage {
   pname = "nodehun";
   version = "3.0.2";
@@ -29,10 +28,12 @@ buildNpmPackage {
   ];
 
   npmDepsHash = "sha256-mV6rWNf2p2w4H0ESUT0/Ybtx9YEdvO5l2gCvlWFXK+U=";
-  nativeBuildInputs = [
-    node-gyp
-    python3
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ cctools ];
+  nativeBuildInputs =
+    [
+      node-gyp
+      python3
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [cctools];
 
   postInstall = ''
     # Only keep the necessary parts of build/Release to reduce closure size
@@ -47,19 +48,19 @@ buildNpmPackage {
   '';
 
   doInstallCheck = true;
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
   postInstallCheck = ''
     # Smoke check: require() works
     export NODE_PATH=$out/lib/node_modules
     echo 'require("nodehun")' | node -
   '';
 
-  disallowedReferences = [ nodejs ];
+  disallowedReferences = [nodejs];
 
   meta = with lib; {
     description = "Hunspell binding for NodeJS that exposes as much of Hunspell as possible and also adds new features";
     homepage = "https://github.com/Wulf/nodehun";
     license = licenses.mit;
-    maintainers = [ maintainers.thomasjm ];
+    maintainers = [maintainers.thomasjm];
   };
 }

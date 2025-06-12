@@ -15,49 +15,48 @@
   shapely,
   # check inputs
   torch,
-}:
-let
+}: let
   pname = "fvcore";
   version = "0.1.5.post20221221";
   optional-dependencies = {
-    all = [ shapely ];
+    all = [shapely];
   };
 in
-buildPythonPackage {
-  inherit pname version;
-  format = "setuptools";
-
-  disabled = pythonOlder "3.7";
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-8vsLuQVyrmUcEceOIEk+0ZsiQFUKfku7LW3oe90DeGA=";
-  };
+    format = "setuptools";
 
-  propagatedBuildInputs = [
-    numpy
-    yacs
-    pyyaml
-    tqdm
-    termcolor
-    pillow
-    tabulate
-    iopath
-  ];
+    disabled = pythonOlder "3.7";
 
-  nativeCheckInputs = [ torch ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-8vsLuQVyrmUcEceOIEk+0ZsiQFUKfku7LW3oe90DeGA=";
+    };
 
-  # TypeError: flop_count() missing 2 required positional arguments: 'model' and 'inputs'
-  doCheck = false;
+    propagatedBuildInputs = [
+      numpy
+      yacs
+      pyyaml
+      tqdm
+      termcolor
+      pillow
+      tabulate
+      iopath
+    ];
 
-  pythonImportsCheck = [ "fvcore" ];
+    nativeCheckInputs = [torch];
 
-  optional-dependencies = optional-dependencies;
+    # TypeError: flop_count() missing 2 required positional arguments: 'model' and 'inputs'
+    doCheck = false;
 
-  meta = with lib; {
-    description = "Collection of common code that's shared among different research projects in FAIR computer vision team";
-    homepage = "https://github.com/facebookresearch/fvcore";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    pythonImportsCheck = ["fvcore"];
+
+    optional-dependencies = optional-dependencies;
+
+    meta = with lib; {
+      description = "Collection of common code that's shared among different research projects in FAIR computer vision team";
+      homepage = "https://github.com/facebookresearch/fvcore";
+      license = licenses.asl20;
+      maintainers = with maintainers; [happysalada];
+    };
+  }

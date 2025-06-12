@@ -10,7 +10,6 @@
   mpfi,
   mpfr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wcpg";
   version = "0.9";
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fixif/WCPG";
     license = licenses.cecill-b;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

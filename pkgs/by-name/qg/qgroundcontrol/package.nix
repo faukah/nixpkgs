@@ -8,7 +8,6 @@
   wayland,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qgroundcontrol";
   version = "4.4.5";
@@ -28,15 +27,15 @@ stdenv.mkDerivation rec {
   gstInputs = with gst_all_1; [
     gstreamer
     gst-plugins-base
-    (gst-plugins-good.override { qt5Support = true; })
+    (gst-plugins-good.override {qt5Support = true;})
     gst-plugins-bad
     gst-libav
     wayland
   ];
 
-  buildInputs = [ SDL2 ] ++ gstInputs ++ propagatedBuildInputs;
+  buildInputs = [SDL2] ++ gstInputs ++ propagatedBuildInputs;
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ (with libsForQt5; [
       qmake
       qttools

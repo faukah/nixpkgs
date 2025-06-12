@@ -10,8 +10,8 @@
 mkKdeDerivation {
   pname = "kimageformats";
 
-  extraCmakeFlags = [ "-DKIMAGEFORMATS_HEIF=1" ];
-  extraNativeBuildInputs = [ pkg-config ];
+  extraCmakeFlags = ["-DKIMAGEFORMATS_HEIF=1"];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     libheif
     libjxl

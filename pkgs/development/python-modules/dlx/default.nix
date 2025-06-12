@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python,
 }:
-
 buildPythonPackage {
   pname = "dlx";
   version = "1.0.4";
@@ -19,7 +18,7 @@ buildPythonPackage {
   };
 
   # No test suite, so just run an example
-  pythonImportsCheck = [ "dlx" ];
+  pythonImportsCheck = ["dlx"];
   # ./examples/design.py requires pyncomb, not in tree
   checkPhase = ''
     # example sudoku board from ./examples/sudoku.py
@@ -30,6 +29,6 @@ buildPythonPackage {
     description = "Implementation of Donald Knuth's Dancing Links algorithm";
     homepage = "https://github.com/sraaphorst/dlx_python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

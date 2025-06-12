@@ -6,7 +6,6 @@
   setuptools-git,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-fixture-config";
   version = "1.8.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools-git
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   doCheck = false;
 
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Simple configuration objects for Py.test fixtures. Allows you to skip tests when their required config variables aren’t set";
     homepage = "https://github.com/manahl/pytest-plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ ryansydnor ];
+    maintainers = with maintainers; [ryansydnor];
   };
 }

@@ -42,7 +42,6 @@
   toml,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "bokeh";
   # update together with panel which is not straightforward
@@ -117,13 +116,13 @@ buildPythonPackage rec {
 
   doCheck = false; # need more work
 
-  pythonImportsCheck = [ "bokeh" ];
+  pythonImportsCheck = ["bokeh"];
 
   meta = {
     description = "Statistical and novel interactive HTML plots for Python";
     mainProgram = "bokeh";
     homepage = "https://github.com/bokeh/bokeh";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
   };
 }

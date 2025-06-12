@@ -6,7 +6,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ganttproject-bin";
   version = "3.3.3316";
@@ -17,40 +16,36 @@ stdenv.mkDerivation rec {
     hash = "sha256-tiEq/xdC0gXiUInLS9xGR/vI/BpdSA+mSf5yukuejc4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
-  installPhase =
-    let
+  installPhase = let
+    desktopItem = makeDesktopItem {
+      name = "ganttproject";
+      exec = "ganttproject";
+      icon = "ganttproject";
+      desktopName = "GanttProject";
+      genericName = "Shedule and manage projects";
+      comment = meta.description;
+      categories = ["Office"];
+    };
 
-      desktopItem = makeDesktopItem {
-        name = "ganttproject";
-        exec = "ganttproject";
-        icon = "ganttproject";
-        desktopName = "GanttProject";
-        genericName = "Shedule and manage projects";
-        comment = meta.description;
-        categories = [ "Office" ];
-      };
+    javaOptions = [
+      "-Dawt.useSystemAAFontSettings=on"
+    ];
+  in ''
+    mkdir -pv "$out/share/ganttproject"
+    cp -rv *  "$out/share/ganttproject"
 
-      javaOptions = [
-        "-Dawt.useSystemAAFontSettings=on"
-      ];
+    mkdir -pv "$out/bin"
+    wrapProgram "$out/share/ganttproject/ganttproject" \
+      --set JAVA_HOME "${jre}" \
+      --set _JAVA_OPTIONS "${builtins.toString javaOptions}"
 
-    in
-    ''
-      mkdir -pv "$out/share/ganttproject"
-      cp -rv *  "$out/share/ganttproject"
+    mv -v "$out/share/ganttproject/ganttproject" "$out/bin"
 
-      mkdir -pv "$out/bin"
-      wrapProgram "$out/share/ganttproject/ganttproject" \
-        --set JAVA_HOME "${jre}" \
-        --set _JAVA_OPTIONS "${builtins.toString javaOptions}"
-
-      mv -v "$out/share/ganttproject/ganttproject" "$out/bin"
-
-      cp -rv "${desktopItem}/share/applications" "$out/share"
-    '';
+    cp -rv "${desktopItem}/share/applications" "$out/share"
+  '';
 
   meta = with lib; {
     description = "Project scheduling and management";
@@ -60,7 +55,7 @@ stdenv.mkDerivation rec {
     # ‘GPL3-compatible’. See ${downloadPage} for detailed information.
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.vidbina ];
+    maintainers = [maintainers.vidbina];
     mainProgram = "ganttproject";
   };
 }

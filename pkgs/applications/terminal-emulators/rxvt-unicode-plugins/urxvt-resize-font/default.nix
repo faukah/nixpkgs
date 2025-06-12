@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "urxvt-resize-font";
   version = "2019-10-05";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     description = "URxvt Perl extension for resizing the font";
     homepage = "https://github.com/simmel/urxvt-resize-font";
     license = licenses.mit;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
   };
 }

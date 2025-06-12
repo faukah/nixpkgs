@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "soco-cli";
   version = "0.4.73";
@@ -36,8 +35,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = {
     description = "Command-line interface to control Sonos sound systems";
     homepage = "https://github.com/avantrec/soco-cli";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     mainProgram = "sonos";
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

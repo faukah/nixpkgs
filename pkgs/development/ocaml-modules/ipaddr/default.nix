@@ -7,7 +7,6 @@
   ounit2,
   ppx_sexp_conv,
 }:
-
 buildDunePackage {
   pname = "ipaddr";
 
@@ -28,11 +27,13 @@ buildDunePackage {
   ];
   doCheck = true;
 
-  meta = macaddr.meta // {
-    description = "Library for manipulation of IP (and MAC) address representations";
-    maintainers = with lib.maintainers; [
-      alexfmpe
-      ericbmerritt
-    ];
-  };
+  meta =
+    macaddr.meta
+    // {
+      description = "Library for manipulation of IP (and MAC) address representations";
+      maintainers = with lib.maintainers; [
+        alexfmpe
+        ericbmerritt
+      ];
+    };
 }

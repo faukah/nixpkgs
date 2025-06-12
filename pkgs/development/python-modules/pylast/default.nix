@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pylast";
   version = "5.5.0";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ httpx ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  dependencies = [httpx] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
     flaky
   ];
 
-  pythonImportsCheck = [ "pylast" ];
+  pythonImportsCheck = ["pylast"];
 
   meta = with lib; {
     description = "Python interface to last.fm (and compatibles)";

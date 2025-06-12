@@ -16,14 +16,12 @@
   alsaSupport ? false,
   sharedLib ? true,
   includeEverything ? true,
-}:
-let
+}: let
   inherit (lib) optional;
 
   pname = "raylib";
 in
-
-lib.checkListOfEnum "${pname}: platform"
+  lib.checkListOfEnum "${pname}: platform"
   [
     "Desktop"
     "Web"
@@ -31,7 +29,7 @@ lib.checkListOfEnum "${pname}: platform"
     "Raspberry Pi"
     "SDL"
   ]
-  [ platform ]
+  [platform]
   (
     stdenv.mkDerivation (finalAttrs: {
       __structuredAttrs = true;
@@ -47,9 +45,11 @@ lib.checkListOfEnum "${pname}: platform"
       };
 
       # autoPatchelfHook is needed for appendRunpaths
-      nativeBuildInputs = [
-        cmake
-      ] ++ optional (builtins.length finalAttrs.appendRunpaths > 0) autoPatchelfHook;
+      nativeBuildInputs =
+        [
+          cmake
+        ]
+        ++ optional (builtins.length finalAttrs.appendRunpaths > 0) autoPatchelfHook;
 
       buildInputs = optional (platform == "Desktop") glfw ++ optional (platform == "SDL") SDL2;
 
@@ -80,7 +80,7 @@ lib.checkListOfEnum "${pname}: platform"
         description = "Simple and easy-to-use library to enjoy videogames programming";
         homepage = "https://www.raylib.com/";
         license = lib.licenses.zlib;
-        maintainers = [ lib.maintainers.diniamo ];
+        maintainers = [lib.maintainers.diniamo];
         platforms = lib.platforms.all;
         changelog = "https://github.com/raysan5/raylib/blob/${finalAttrs.version}/CHANGELOG";
       };

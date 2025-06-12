@@ -5,7 +5,6 @@
   base64,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "dns-tsig";
 
@@ -22,7 +21,9 @@ buildDunePackage {
     alcotest
   ];
 
-  meta = dns.meta // {
-    description = "TSIG support for DNS";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "TSIG support for DNS";
+    };
 }

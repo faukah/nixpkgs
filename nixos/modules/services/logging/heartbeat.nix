@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.heartbeat;
 
   heartbeatYml = pkgs.writeText "heartbeat.yml" ''
@@ -13,13 +12,9 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   options = {
-
     services.heartbeat = {
-
       enable = lib.mkEnableOption "heartbeat, uptime monitoring";
 
       package = lib.mkPackageOption pkgs "heartbeat" {
@@ -34,7 +29,7 @@ in
 
       tags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Tags to place on the shipped log messages";
       };
 
@@ -54,19 +49,17 @@ in
         '';
         description = "Any other configuration options you want to add";
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' - nobody nogroup - -"
     ];
 
     systemd.services.heartbeat = with pkgs; {
       description = "heartbeat log shipper";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -p "${cfg.stateDir}"/{data,logs}
       '';

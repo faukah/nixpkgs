@@ -7,7 +7,6 @@
   jaxlib,
   transformers,
 }:
-
 buildPythonPackage {
   pname = "vqgan-jax";
   version = "unstable-2022-04-20";
@@ -21,7 +20,7 @@ buildPythonPackage {
 
   format = "setuptools";
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     flax
@@ -31,13 +30,13 @@ buildPythonPackage {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "vqgan_jax" ];
+  pythonImportsCheck = ["vqgan_jax"];
 
   meta = with lib; {
     description = "JAX implementation of VQGAN";
     homepage = "https://github.com/patil-suraj/vqgan-jax";
     # license unknown: https://github.com/patil-suraj/vqgan-jax/issues/9
     license = lib.licenses.unfree;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

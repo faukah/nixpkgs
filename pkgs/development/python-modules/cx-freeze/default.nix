@@ -3,21 +3,17 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   filelock,
   packaging,
   tomli,
-
   distutils,
   pythonOlder,
   ncurses,
   patchelf,
   dmgbuild,
-
   # tests
   ensureNewerSourcesForZipFilesHook,
   pytest-mock,
@@ -25,7 +21,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "cx-freeze";
   version = "8.3.0";
@@ -53,9 +48,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  pythonRemoveDeps = [ "patchelf" ];
+  pythonRemoveDeps = ["patchelf"];
 
   dependencies =
     [
@@ -75,7 +70,7 @@ buildPythonPackage rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ patchelf ])
+    (lib.makeBinPath [patchelf])
   ];
 
   pythonImportsCheck = [
@@ -154,7 +149,7 @@ buildPythonPackage rec {
     homepage = "https://marcelotduarte.github.io/cx_Freeze";
     changelog = "https://github.com/marcelotduarte/cx_Freeze/releases/tag/${src.tag}";
     license = lib.licenses.psfl;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "cxfreeze";
   };
 }

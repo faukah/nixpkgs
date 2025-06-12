@@ -11,7 +11,6 @@
   perl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libabw";
   version = "0.1.3";

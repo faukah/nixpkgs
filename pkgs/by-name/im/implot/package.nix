@@ -7,7 +7,6 @@
   vcpkg,
   imgui,
 }:
-
 stdenv.mkDerivation rec {
   pname = "implot";
   version = "0.16";
@@ -24,18 +23,18 @@ stdenv.mkDerivation rec {
     cp "$cmakeRules"/CMakeLists.txt ./
   '';
 
-  buildInputs = [ imgui ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [imgui];
+  nativeBuildInputs = [cmake];
 
   passthru.tests = {
-    implot-demos = callPackage ./demos { };
+    implot-demos = callPackage ./demos {};
   };
 
   meta = {
     description = "Immediate Mode Plotting";
     homepage = "https://github.com/epezent/implot";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
     platforms = lib.platforms.all;
   };
 }

@@ -16,7 +16,6 @@
   folks,
   bash,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bubblemail";
   version = "1.9";
@@ -71,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://bubblemail.free.fr/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

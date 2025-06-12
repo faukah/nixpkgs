@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ical2orgpy";
   version = "0.5";
@@ -37,8 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Converting ICAL file into org-mode format";
     homepage = "https://github.com/ical2org-py/ical2org.py";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ StillerHarpo ];
+    maintainers = with maintainers; [StillerHarpo];
     mainProgram = "ical2orgpy";
   };
-
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ikill";
   version = "1.6.0";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Interactively kill running processes";
     homepage = "https://github.com/pjmp/ikill";
-    maintainers = with maintainers; [ zendo ];
-    license = [ licenses.mit ];
+    maintainers = with maintainers; [zendo];
+    license = [licenses.mit];
     platforms = platforms.linux;
     mainProgram = "ikill";
   };

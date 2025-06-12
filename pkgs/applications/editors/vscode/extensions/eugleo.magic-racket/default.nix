@@ -5,7 +5,6 @@
   racket,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "magic-racket";

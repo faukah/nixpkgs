@@ -13,7 +13,6 @@
   zchunk,
   pcre2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "microdnf";
   version = "3.10.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight implementation of dnf in C";
     homepage = "https://github.com/rpm-software-management/microdnf";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ rb2k ];
+    maintainers = with lib.maintainers; [rb2k];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "microdnf";
   };

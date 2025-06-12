@@ -10,7 +10,6 @@
   pythonOlder,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "aiovlc";
   version = "0.6.6";
@@ -25,26 +24,28 @@ buildPythonPackage rec {
     hash = "sha256-HnMzr6yKEtPFJlaKbvKYTXXjlz1wDLdOw65IPZJkWB0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   optional-dependencies = {
-    cli = [ typer ];
+    cli = [typer];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-cov-stub
-    pytest-timeout
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-cov-stub
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aiovlc" ];
+  pythonImportsCheck = ["aiovlc"];
 
   meta = with lib; {
     description = "Python module to control VLC";
     homepage = "https://github.com/MartinHjelmare/aiovlc";
     changelog = "https://github.com/MartinHjelmare/aiovlc/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

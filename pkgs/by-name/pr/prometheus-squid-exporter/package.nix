@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "squid-exporter";
   version = "1.13.0";
@@ -21,6 +20,6 @@ buildGoModule rec {
     description = "Squid Prometheus exporter";
     homepage = "https://github.com/boynux/squid-exporter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ srhb ];
+    maintainers = with lib.maintainers; [srhb];
   };
 }

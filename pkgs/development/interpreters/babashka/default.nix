@@ -5,7 +5,6 @@
   writeScript,
   installShellFiles,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "babashka-unwrapped";
   version = "1.12.200";
@@ -15,7 +14,7 @@ buildGraalvmNativeImage (finalAttrs: {
     sha256 = "sha256-hxcoVUaL19RM56fG8oxSKQwPHXDzaoSdCdHXSTXQ9fI=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   extraNativeImageBuildArgs = [
     "-H:+ReportExceptionStackTraces"
@@ -100,7 +99,7 @@ buildGraalvmNativeImage (finalAttrs: {
     '';
     homepage = "https://github.com/babashka/babashka";
     changelog = "https://github.com/babashka/babashka/blob/v${finalAttrs.version}/CHANGELOG.md";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
     mainProgram = "bb";
     maintainers = with lib.maintainers; [

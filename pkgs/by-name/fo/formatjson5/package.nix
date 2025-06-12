@@ -5,7 +5,6 @@
   nix-update-script,
   fetchpatch,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "formatjson5";
   version = "0.2.6";
@@ -28,23 +27,21 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1CSt9dPVHdOqfQXio7/eXiDLWt+iOe6Qj+VtWblwSDE=";
 
-  cargoBuildFlags = [ "--example formatjson5" ];
+  cargoBuildFlags = ["--example formatjson5"];
 
-  postInstall =
-    let
-      cargoTarget = rustPlatform.cargoInstallHook.targetSubdirectory;
-    in
-    ''
-      install -D target/${cargoTarget}/release/examples/formatjson5 $out/bin/formatjson5
-    '';
+  postInstall = let
+    cargoTarget = rustPlatform.cargoInstallHook.targetSubdirectory;
+  in ''
+    install -D target/${cargoTarget}/release/examples/formatjson5 $out/bin/formatjson5
+  '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "JSON5 formatter";
     homepage = "https://github.com/google/json5format";
     license = lib.licenses.bsd3;
     mainProgram = "formatjson5";
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 }

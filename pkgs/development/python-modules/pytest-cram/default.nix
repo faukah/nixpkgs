@@ -8,7 +8,6 @@
   cram,
   bash,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-cram";
   version = "0.2.2";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
       --replace "/bin/bash" "${bash}/bin/bash"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cram ];
+  dependencies = [cram];
 
   # https://github.com/tbekolay/pytest-cram/issues/15
-  nativeCheckInputs = [ pytest_7 ];
+  nativeCheckInputs = [pytest_7];
 
   # Remove __init__.py from tests folder, otherwise pytest raises an error that
   # the imported and collected modules are different.
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Test command-line applications with pytest and cram";
     homepage = "https://github.com/tbekolay/pytest-cram";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pefile,
 }:
-
 buildPythonPackage rec {
   pname = "virt-firmware";
   version = "24.7";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-uVLq4vbnvK1RCA3tpLgwKb/qzysLsOo3p/6gQ2Prmu0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     pkgs.systemd
   ];
 
-  pytestFlagsArray = [ "tests/tests.py" ];
+  pytestFlagsArray = ["tests/tests.py"];
 
-  pythonImportsCheck = [ "virt.firmware.efi" ];
+  pythonImportsCheck = ["virt.firmware.efi"];
 
   meta = with lib; {
     description = "Tools for virtual machine firmware volumes";

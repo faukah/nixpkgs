@@ -7,85 +7,78 @@
   idris2Packages,
   zsh,
   tree,
-}:
-
-let
-  testCompileAndRun =
-    {
-      testName,
-      code,
-      want,
-      packages ? [ ],
-    }:
-    let
-      packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
-    in
+}: let
+  testCompileAndRun = {
+    testName,
+    code,
+    want,
+    packages ? [],
+  }: let
+    packageString = builtins.concatStringsSep " " (map (p: "--package " + p) packages);
+  in
     runCommand "${pname}-${testName}"
-      {
-        meta.timeout = 60;
-
-        # with idris2 compiled binaries assume zsh is available on darwin, but that
-        # is not the case with pure nix environments. Thus, we need to include zsh
-        # when we build for darwin in tests. While this is impure, this is also what
-        # we find in real darwin hosts.
-        nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ zsh ];
-      }
-      ''
-        set -eo pipefail
-
-        cat > packageTest.idr <<HERE
-        ${code}
-        HERE
-
-        ${idris2}/bin/idris2 ${packageString} -o packageTest packageTest.idr
-
-        GOT=$(./build/exec/packageTest)
-
-        if [ "$GOT" = "${want}" ]; then
-          echo "${testName} SUCCESS: '$GOT' = '${want}'"
-        else
-          >&2 echo "Got '$GOT', want: '${want}'"
-          exit 1
-        fi
-
-        touch $out
-      '';
-
-  testBuildIdris =
     {
-      testName,
-      buildIdrisArgs,
-      # function that takes result of `buildIdris` and transforms it (commonly
-      # by calling `.executable` or `.library {}` upon it):
-      transformBuildIdrisOutput,
-      expectedTree,
-    }:
-    let
-      idrisPkg = transformBuildIdrisOutput (idris2Packages.buildIdris buildIdrisArgs);
-    in
+      meta.timeout = 60;
+
+      # with idris2 compiled binaries assume zsh is available on darwin, but that
+      # is not the case with pure nix environments. Thus, we need to include zsh
+      # when we build for darwin in tests. While this is impure, this is also what
+      # we find in real darwin hosts.
+      nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [zsh];
+    }
+    ''
+      set -eo pipefail
+
+      cat > packageTest.idr <<HERE
+      ${code}
+      HERE
+
+      ${idris2}/bin/idris2 ${packageString} -o packageTest packageTest.idr
+
+      GOT=$(./build/exec/packageTest)
+
+      if [ "$GOT" = "${want}" ]; then
+        echo "${testName} SUCCESS: '$GOT' = '${want}'"
+      else
+        >&2 echo "Got '$GOT', want: '${want}'"
+        exit 1
+      fi
+
+      touch $out
+    '';
+
+  testBuildIdris = {
+    testName,
+    buildIdrisArgs,
+    # function that takes result of `buildIdris` and transforms it (commonly
+    # by calling `.executable` or `.library {}` upon it):
+    transformBuildIdrisOutput,
+    expectedTree,
+  }: let
+    idrisPkg = transformBuildIdrisOutput (idris2Packages.buildIdris buildIdrisArgs);
+  in
     runCommand "${pname}-${testName}"
-      {
-        meta.timeout = 60;
+    {
+      meta.timeout = 60;
 
-        nativeBuildInputs = [ tree ];
-      }
-      ''
-        GOT="$(tree ${idrisPkg} | tail -n +2)"
+      nativeBuildInputs = [tree];
+    }
+    ''
+      GOT="$(tree ${idrisPkg} | tail -n +2)"
 
-        if [ "$GOT" = '${expectedTree}' ]; then
-          echo "${testName} SUCCESS"
-        else
-          >&2 echo "Got:
-          $GOT"
-          >&2 echo 'want:
-          ${expectedTree}'
-          exit 1
-        fi
+      if [ "$GOT" = '${expectedTree}' ]; then
+        echo "${testName} SUCCESS"
+      else
+        >&2 echo "Got:
+        $GOT"
+        >&2 echo 'want:
+        ${expectedTree}'
+        exit 1
+      fi
 
-        touch $out
-      '';
-in
-{
+      touch $out
+    '';
+in {
   # Simple hello world compiles, runs and outputs as expected
   helloWorld = testCompileAndRun {
     testName = "hello-world";
@@ -101,7 +94,7 @@ in
   # Data.Vect.Sort is available via --package contrib
   useContrib = testCompileAndRun {
     testName = "use-contrib";
-    packages = [ "contrib" ];
+    packages = ["contrib"];
     code = ''
       module Main
 
@@ -121,8 +114,8 @@ in
     testName = "library-package";
     buildIdrisArgs = {
       ipkgName = "pkg";
-      idrisLibraries = [ idris2Packages.idris2Api ];
-      src = runCommand "library-package-src" { } ''
+      idrisLibraries = [idris2Packages.idris2Api];
+      src = runCommand "library-package-src" {} ''
         mkdir $out
 
         cat > $out/Main.idr <<EOF
@@ -141,7 +134,7 @@ in
         EOF
       '';
     };
-    transformBuildIdrisOutput = pkg: pkg.library { withSource = false; };
+    transformBuildIdrisOutput = pkg: pkg.library {withSource = false;};
     expectedTree = ''
       `-- lib
           `-- idris2-0.7.0
@@ -158,8 +151,8 @@ in
     testName = "library-with-source-package";
     buildIdrisArgs = {
       ipkgName = "pkg";
-      idrisLibraries = [ idris2Packages.idris2Api ];
-      src = runCommand "library-package-src" { } ''
+      idrisLibraries = [idris2Packages.idris2Api];
+      src = runCommand "library-package-src" {} ''
         mkdir $out
 
         cat > $out/Main.idr <<EOF
@@ -178,7 +171,7 @@ in
         EOF
       '';
     };
-    transformBuildIdrisOutput = pkg: pkg.library { withSource = true; };
+    transformBuildIdrisOutput = pkg: pkg.library {withSource = true;};
     expectedTree = ''
       `-- lib
           `-- idris2-0.7.0
@@ -196,8 +189,8 @@ in
     testName = "library-with-source-retro-package";
     buildIdrisArgs = {
       ipkgName = "pkg";
-      idrisLibraries = [ idris2Packages.idris2Api ];
-      src = runCommand "library-package-src" { } ''
+      idrisLibraries = [idris2Packages.idris2Api];
+      src = runCommand "library-package-src" {} ''
         mkdir $out
 
         cat > $out/Main.idr <<EOF
@@ -234,8 +227,8 @@ in
     testName = "executable-package";
     buildIdrisArgs = {
       ipkgName = "pkg";
-      idrisLibraries = [ ];
-      src = runCommand "executable-package-src" { } ''
+      idrisLibraries = [];
+      src = runCommand "executable-package-src" {} ''
         mkdir $out
 
         cat > $out/Main.idr <<EOF

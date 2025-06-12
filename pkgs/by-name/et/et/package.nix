@@ -6,7 +6,6 @@
   libnotify,
   gdk-pixbuf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "et";
   version = "0.1.2";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     libnotify
     gdk-pixbuf
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/oxzi/et";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

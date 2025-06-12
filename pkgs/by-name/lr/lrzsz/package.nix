@@ -5,7 +5,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lrzsz";
   version = "0.12.20";
@@ -23,13 +22,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  configureFlags = [ "--program-transform-name=s/^l//" ];
+  configureFlags = ["--program-transform-name=s/^l//"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration -Wno-error=implicit-int -Wno-error=incompatible-pointer-types";
 

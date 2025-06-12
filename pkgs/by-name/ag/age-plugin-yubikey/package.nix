@@ -7,7 +7,6 @@
   openssl,
   pcsclite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "age-plugin-yubikey";
   version = "0.5.0-unstable-2024-11-02";
@@ -26,9 +25,11 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pcsclite ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pcsclite];
 
   meta = with lib; {
     description = "YubiKey plugin for age";

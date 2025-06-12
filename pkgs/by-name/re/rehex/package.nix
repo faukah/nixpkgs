@@ -15,7 +15,6 @@
   perlPackages,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rehex";
   version = "0.62.1";
@@ -27,11 +26,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-RlYpg3aon1d25n8K/bbHGVLn5/iOOUSlvjT8U0fp9hA=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    which
-    zip
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libicns ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      which
+      zip
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libicns];
 
   buildInputs =
     [
@@ -49,13 +50,15 @@ stdenv.mkDerivation rec {
       perl
       TemplateToolkit
     ])
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ gtk3 ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [gtk3];
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-    "BOTAN_PKG=botan-3"
-    "CXXSTD=-std=c++20"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-f Makefile.osx" ];
+  makeFlags =
+    [
+      "prefix=${placeholder "out"}"
+      "BOTAN_PKG=botan-3"
+      "CXXSTD=-std=c++20"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["-f Makefile.osx"];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_LDFLAGS = "-liconv";

@@ -24,7 +24,6 @@
   wrapQtAppsHook,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-clock-app";
   version = "4.1.1";
@@ -93,24 +92,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}
-      export QML2_IMPORT_PATH=${
-        listToQtVar qtbase.qtQmlPrefix (
-          [
-            lomiri-content-hub
-            lomiri-ui-toolkit
-            qtmultimedia
-            u1db-qt
-          ]
-          ++ lomiri-ui-toolkit.propagatedBuildInputs
-        )
-      }
-    '';
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [qtbase]}
+    export QML2_IMPORT_PATH=${
+      listToQtVar qtbase.qtQmlPrefix (
+        [
+          lomiri-content-hub
+          lomiri-ui-toolkit
+          qtmultimedia
+          u1db-qt
+        ]
+        ++ lomiri-ui-toolkit.propagatedBuildInputs
+      )
+    }
+  '';
 
   # Parallelism breaks xvfb-run usage
   enableParallelChecking = false;
@@ -124,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.vm = nixosTests.lomiri-clock-app;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -132,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-clock-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-clock-app/-/blob/v${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     mainProgram = "lomiri-clock-app";
     platforms = lib.platforms.linux;
   };

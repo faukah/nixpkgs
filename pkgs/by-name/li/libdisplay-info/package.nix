@@ -9,7 +9,6 @@
   hwdata,
   edid-decode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdisplay-info";
   version = "0.2.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6xmWBrPHghjok43eIDGeshpUEQTuwWLXNHg7CnBUt3Q=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     pkg-config
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/emersion/libdisplay-info";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
   };
 }

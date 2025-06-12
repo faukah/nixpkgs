@@ -9,7 +9,6 @@
   pythonOlder,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "pycares";
   version = "4.5.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-AltsL/6k6fuPmglzgcL+yySv8j+9aQbnDaIuybpg4Z0=";
   };
 
-  buildInputs = [ c-ares ];
+  buildInputs = [c-ares];
 
   propagatedBuildInputs = [
     cffi
     idna
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
   # Requires network access
   doCheck = false;
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     inherit aiodns tornado;
   };
 
-  pythonImportsCheck = [ "pycares" ];
+  pythonImportsCheck = ["pycares"];
 
   meta = with lib; {
     description = "Python interface for c-ares";
     homepage = "https://github.com/saghul/pycares";
     changelog = "https://github.com/saghul/pycares/releases/tag/pycares-${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

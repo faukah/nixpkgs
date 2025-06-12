@@ -7,7 +7,6 @@
   pkg-config,
   xcbutil,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libstartup-notification";
   version = "0.12";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     "lf_cv_sane_realloc=yes"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libxcb

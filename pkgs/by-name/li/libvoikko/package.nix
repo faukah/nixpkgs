@@ -7,7 +7,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvoikko";
   version = "4.3.2";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://voikko.puimula.org/";
     description = "Finnish language processing library";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
     platforms = platforms.unix;
   };
 })

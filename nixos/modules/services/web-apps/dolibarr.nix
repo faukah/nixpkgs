@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     any
     boolToString
     concatStringsSep
@@ -22,34 +22,30 @@ let
     mkPackageOption
     ;
 
-  package = cfg.package.override { inherit (cfg) stateDir; };
+  package = cfg.package.override {inherit (cfg) stateDir;};
 
   cfg = config.services.dolibarr;
   vhostCfg = lib.optionalAttrs (cfg.nginx != null) config.services.nginx.virtualHosts."${cfg.domain}";
 
-  mkConfigFile =
-    filename: settings:
-    let
-      # hack in special logic for secrets so we read them from a separate file avoiding the nix store
-      secretKeys = [
-        "force_install_databasepass"
-        "dolibarr_main_db_pass"
-        "dolibarr_main_instance_unique_id"
-      ];
+  mkConfigFile = filename: settings: let
+    # hack in special logic for secrets so we read them from a separate file avoiding the nix store
+    secretKeys = [
+      "force_install_databasepass"
+      "dolibarr_main_db_pass"
+      "dolibarr_main_instance_unique_id"
+    ];
 
-      toStr =
-        k: v:
-        if (any (str: k == str) secretKeys) then
-          v
-        else if isString v then
-          "'${v}'"
-        else if isBool v then
-          boolToString v
-        else if v == null then
-          "null"
-        else
-          toString v;
-    in
+    toStr = k: v:
+      if (any (str: k == str) secretKeys)
+      then v
+      else if isString v
+      then "'${v}'"
+      else if isBool v
+      then boolToString v
+      else if v == null
+      then "null"
+      else toString v;
+  in
     pkgs.writeText filename ''
       <?php
       ${concatStringsSep "\n" (mapAttrsToList (k: v: "\$${k} = ${toStr k v};") settings)}
@@ -76,13 +72,12 @@ let
     // optionalAttrs (cfg.database.passwordFile != null) {
       force_install_databasepass = ''file_get_contents("${cfg.database.passwordFile}")'';
     };
-in
-{
+in {
   # interface
   options.services.dolibarr = {
     enable = mkEnableOption "dolibarr";
 
-    package = mkPackageOption pkgs "dolibarr" { };
+    package = mkPackageOption pkgs "dolibarr" {};
 
     domain = mkOption {
       type = types.str;
@@ -163,21 +158,19 @@ in
     };
 
     settings = mkOption {
-      type =
-        with types;
-        (attrsOf (oneOf [
-          bool
-          int
-          str
-        ]));
-      default = { };
+      type = with types; (attrsOf (oneOf [
+        bool
+        int
+        str
+      ]));
+      default = {};
       description = "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details.";
     };
 
     nginx = mkOption {
       type = types.nullOr (
         types.submodule (
-          lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+          lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
             # enable encryption by default,
             # as sensitive login and Dolibarr (ERP) data should not be transmitted in clear text.
             options.forceSSL.default = true;
@@ -206,8 +199,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -231,7 +223,6 @@ in
   # implementation
   config = mkIf cfg.enable (mkMerge [
     {
-
       assertions = [
         {
           assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
@@ -281,7 +272,7 @@ in
       services.mysql = mkIf cfg.database.createLocally {
         enable = mkDefault true;
         package = mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
+        ensureDatabases = [cfg.database.name];
         ensureUsers = [
           {
             name = cfg.database.user;
@@ -296,7 +287,7 @@ in
       services.nginx.virtualHosts."${cfg.domain}" = mkIf (cfg.nginx != null) (
         lib.mkMerge [
           cfg.nginx
-          ({
+          {
             root = lib.mkForce "${package}/htdocs";
             locations."/".index = "index.php";
             locations."~ [^/]\\.php(/|$)" = {
@@ -305,15 +296,19 @@ in
                 fastcgi_pass unix:${config.services.phpfpm.pools.dolibarr.socket};
               '';
             };
-          })
+          }
         ]
       );
 
-      systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [ "mysql.service" ];
+      systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally ["mysql.service"];
       services.phpfpm.pools.dolibarr = {
         inherit (cfg) user group;
         phpPackage = pkgs.php83.buildEnv {
-          extensions = { enabled, all }: enabled ++ [ all.calendar ];
+          extensions = {
+            enabled,
+            all,
+          }:
+            enabled ++ [all.calendar];
           # recommended by dolibarr web application
           extraConfig = ''
             session.use_strict_mode = 1
@@ -324,11 +319,13 @@ in
           '';
         };
 
-        settings = {
-          "listen.mode" = "0660";
-          "listen.owner" = cfg.user;
-          "listen.group" = cfg.group;
-        } // cfg.poolConfig;
+        settings =
+          {
+            "listen.mode" = "0660";
+            "listen.owner" = cfg.user;
+            "listen.group" = cfg.group;
+          }
+          // cfg.poolConfig;
       };
 
       # there are several challenges with dolibarr and NixOS which we can address here
@@ -337,19 +334,17 @@ in
       # - the dolibarr config file generally holds secrets generated by the installer, though the config file is a php file so we can read and write these secrets from an external file
       systemd.services.dolibarr-config = {
         description = "dolibarr configuration file management via NixOS";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
-        script =
-          let
-            php = lib.getExe config.services.phpfpm.pools.dolibarr.phpPackage;
-          in
-          ''
-            # extract the 'main instance unique id' secret that the dolibarr installer generated for us, store it in a file for use by our own NixOS generated configuration file
-            ${php} -r "include '${cfg.stateDir}/conf.php'; file_put_contents('${cfg.stateDir}/dolibarr_main_instance_unique_id', \$dolibarr_main_instance_unique_id);"
+        script = let
+          php = lib.getExe config.services.phpfpm.pools.dolibarr.phpPackage;
+        in ''
+          # extract the 'main instance unique id' secret that the dolibarr installer generated for us, store it in a file for use by our own NixOS generated configuration file
+          ${php} -r "include '${cfg.stateDir}/conf.php'; file_put_contents('${cfg.stateDir}/dolibarr_main_instance_unique_id', \$dolibarr_main_instance_unique_id);"
 
-            # replace configuration file generated by installer with the NixOS generated configuration file
-            install -m 440 ${mkConfigFile "conf.php" cfg.settings} '${cfg.stateDir}/conf.php'
-          '';
+          # replace configuration file generated by installer with the NixOS generated configuration file
+          install -m 440 ${mkConfigFile "conf.php" cfg.settings} '${cfg.stateDir}/conf.php'
+        '';
 
         serviceConfig = {
           Type = "oneshot";
@@ -369,11 +364,11 @@ in
       };
 
       users.groups = optionalAttrs (cfg.group == "dolibarr") {
-        dolibarr = { };
+        dolibarr = {};
       };
     }
     (mkIf (cfg.nginx != null) {
-      users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
+      users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [cfg.group];
     })
   ]);
 }

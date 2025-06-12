@@ -4,7 +4,6 @@
   fetchFromGitHub,
   clang-unwrapped,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "whatstyle";
   version = "0.2.0";
@@ -32,7 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "whatstyle";
     homepage = "https://github.com/mikr/whatstyle";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

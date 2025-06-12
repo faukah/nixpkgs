@@ -19,7 +19,6 @@
   sphinxcontrib-apidoc,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "python-designateclient";
   version = "6.2.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   build-system = [
     pbr
@@ -72,12 +71,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "designateclient" ];
+  pythonImportsCheck = ["designateclient"];
 
   meta = {
     homepage = "https://opendev.org/openstack/python-designateclient";
     description = "Client library for OpenStack Designate API";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oauth2-proxy";
   version = "7.9.0";
@@ -22,13 +21,13 @@ buildGoModule rec {
   vendorHash = "sha256-KIu/NSKaXLutlY8757haAlsyuHUZjkDZ6D10lJ08uCM=";
 
   # Taken from https://github.com/oauth2-proxy/oauth2-proxy/blob/master/Makefile
-  ldflags = [ "-X main.VERSION=${version}" ];
+  ldflags = ["-X main.VERSION=${version}"];
 
   meta = with lib; {
     description = "Reverse proxy that provides authentication with Google, Github, or other providers";
     homepage = "https://github.com/oauth2-proxy/oauth2-proxy/";
     license = licenses.mit;
-    teams = [ teams.serokell ];
+    teams = [teams.serokell];
     mainProgram = "oauth2-proxy";
   };
 }

@@ -1,9 +1,7 @@
 {
   lib,
   home-assistant,
-}:
-
-let
+}: let
   getComponentDeps = component: home-assistant.getPackages component home-assistant.python.pkgs;
 
   # some components' tests have additional dependencies
@@ -133,40 +131,43 @@ let
     ];
   };
 in
-lib.listToAttrs (
-  map (
-    component:
-    lib.nameValuePair component (
-      home-assistant.overridePythonAttrs (old: {
-        pname = "homeassistant-test-${component}";
-        pyproject = null;
-        format = "other";
+  lib.listToAttrs (
+    map (
+      component:
+        lib.nameValuePair component (
+          home-assistant.overridePythonAttrs (old: {
+            pname = "homeassistant-test-${component}";
+            pyproject = null;
+            format = "other";
 
-        dontBuild = true;
-        dontInstall = true;
+            dontBuild = true;
+            dontInstall = true;
 
-        nativeCheckInputs =
-          old.nativeCheckInputs
-          ++ home-assistant.getPackages component home-assistant.python.pkgs
-          ++ extraCheckInputs.${component} or [ ];
+            nativeCheckInputs =
+              old.nativeCheckInputs
+              ++ home-assistant.getPackages component home-assistant.python.pkgs
+              ++ extraCheckInputs.${component} or [];
 
-        disabledTests = old.disabledTests or [ ] ++ extraDisabledTests.${component} or [ ];
-        disabledTestPaths = old.disabledTestPaths or [ ] ++ extraDisabledTestPaths.${component} or [ ];
+            disabledTests = old.disabledTests or [] ++ extraDisabledTests.${component} or [];
+            disabledTestPaths = old.disabledTestPaths or [] ++ extraDisabledTestPaths.${component} or [];
 
-        # components are more often racy than the core
-        dontUsePytestXdist = true;
+            # components are more often racy than the core
+            dontUsePytestXdist = true;
 
-        pytestFlagsArray =
-          lib.remove "tests" old.pytestFlagsArray
-          ++ extraPytestFlagsArray.${component} or [ ]
-          ++ [ "tests/components/${component}" ];
+            pytestFlagsArray =
+              lib.remove "tests" old.pytestFlagsArray
+              ++ extraPytestFlagsArray.${component} or []
+              ++ ["tests/components/${component}"];
 
-        meta = old.meta // {
-          broken = lib.elem component [ ];
-          # upstream only tests on Linux, so do we.
-          platforms = lib.platforms.linux;
-        };
-      })
+            meta =
+              old.meta
+              // {
+                broken = lib.elem component [];
+                # upstream only tests on Linux, so do we.
+                platforms = lib.platforms.linux;
+              };
+          })
+        )
     )
-  ) home-assistant.supportedComponentsWithTests
-)
+    home-assistant.supportedComponentsWithTests
+  )

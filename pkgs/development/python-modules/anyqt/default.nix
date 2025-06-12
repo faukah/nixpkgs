@@ -6,7 +6,6 @@
   pytestCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "anyqt";
   version = "0.2.1";
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     "tests/test_qtest.py"
   ];
 
-  pythonImportsCheck = [ "AnyQt" ];
+  pythonImportsCheck = ["AnyQt"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "PyQt/PySide compatibility layer";
     homepage = "https://github.com/ales-erjavec/anyqt";
-    license = [ lib.licenses.gpl3Only ];
-    maintainers = [ lib.maintainers.lucasew ];
+    license = [lib.licenses.gpl3Only];
+    maintainers = [lib.maintainers.lucasew];
   };
 }

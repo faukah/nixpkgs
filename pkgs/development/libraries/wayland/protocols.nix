@@ -11,16 +11,16 @@
   gitUpdater,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-protocols";
   version = "1.44";
 
   doCheck =
-    stdenv.hostPlatform == stdenv.buildPlatform
+    stdenv.hostPlatform
+    == stdenv.buildPlatform
     &&
-      # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/48
-      stdenv.hostPlatform.linker == "bfd"
+    # https://gitlab.freedesktop.org/wayland/wayland-protocols/-/issues/48
+    stdenv.hostPlatform.linker == "bfd"
     && lib.meta.availableOn stdenv.hostPlatform wayland;
 
   src = fetchurl {
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs tests/
   '';
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -42,10 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
     python3
     wayland
   ];
-  checkInputs = [ wayland ];
+  checkInputs = [wayland];
   strictDeps = true;
 
-  mesonFlags = [ "-Dtests=${lib.boolToString finalAttrs.finalPackage.doCheck}" ];
+  mesonFlags = ["-Dtests=${lib.boolToString finalAttrs.finalPackage.doCheck}"];
 
   meta = {
     description = "Wayland protocol extensions";
@@ -59,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.freedesktop.org/wayland/wayland-protocols";
     license = lib.licenses.mit; # Expat version
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ primeos ];
-    pkgConfigModules = [ "wayland-protocols" ];
+    maintainers = with lib.maintainers; [primeos];
+    pkgConfigModules = ["wayland-protocols"];
   };
 
   passthru.updateScript = gitUpdater {

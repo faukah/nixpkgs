@@ -6,7 +6,6 @@
   scdoc,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "greetd";
   version = "0.10.3";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://sr.ht/~kennylevinsen/greetd/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

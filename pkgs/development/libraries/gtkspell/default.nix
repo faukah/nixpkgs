@@ -12,7 +12,6 @@
   enchant,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkspell";
   version = "2.0.16";

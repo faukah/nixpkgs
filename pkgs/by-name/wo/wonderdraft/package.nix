@@ -8,7 +8,6 @@
   alsa-lib,
   pulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wonderdraft";
   version = "1.1.8.2b";
@@ -36,32 +35,30 @@ stdenv.mkDerivation rec {
     ln -s $out/opt/Wonderdraft/Wonderdraft.x86_64 $out/bin/Wonderdraft.x86_64
     runHook postInstall
   '';
-  preFixup =
-    let
-      libPath = lib.makeLibraryPath [
-        xorg.libXcursor
-        xorg.libXinerama
-        xorg.libXrandr
-        xorg.libX11
-        xorg.libXi
-        libGL
-        alsa-lib
-        pulseaudio
-      ];
-    in
-    ''
-      patchelf \
-        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}" \
-        $out/opt/Wonderdraft/Wonderdraft.x86_64
-    '';
+  preFixup = let
+    libPath = lib.makeLibraryPath [
+      xorg.libXcursor
+      xorg.libXinerama
+      xorg.libXrandr
+      xorg.libX11
+      xorg.libXi
+      libGL
+      alsa-lib
+      pulseaudio
+    ];
+  in ''
+    patchelf \
+      --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+      --set-rpath "${libPath}" \
+      $out/opt/Wonderdraft/Wonderdraft.x86_64
+  '';
 
   meta = with lib; {
     homepage = "https://wonderdraft.net/";
     description = "Mapmaking tool for Tabletop Roleplaying Games, designed for city, region, or world scale";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ jsusk ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [jsusk];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

@@ -1,7 +1,10 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "syncthing";
-  meta.maintainers = with pkgs.lib.maintainers; [ chkno ];
+  meta.maintainers = with pkgs.lib.maintainers; [chkno];
 
   nodes = rec {
     a = {

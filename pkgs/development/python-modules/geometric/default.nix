@@ -8,7 +8,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "geometric";
   version = "1.1";
@@ -32,13 +31,13 @@ buildPythonPackage rec {
     export OMP_NUM_THREADS=2
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Geometry optimization code for molecular structures";
     mainProgram = "geometric-optimize";
     homepage = "https://github.com/leeping/geomeTRIC";
-    license = [ licenses.bsd3 ];
-    maintainers = [ maintainers.markuskowa ];
+    license = [licenses.bsd3];
+    maintainers = [maintainers.markuskowa];
   };
 }

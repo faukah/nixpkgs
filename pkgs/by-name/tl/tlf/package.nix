@@ -13,7 +13,6 @@
   hamlib,
   xmlrpc_c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tlf";
   version = "1.4.1";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://tlf.github.io/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

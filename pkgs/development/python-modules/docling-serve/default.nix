@@ -25,7 +25,6 @@
   withRapidocr ? false,
   withCPU ? false,
 }:
-
 buildPythonPackage rec {
   pname = "docling-serve";
   version = "0.11.0";
@@ -99,6 +98,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/docling-project/docling-serve";
     license = lib.licenses.mit;
     mainProgram = "docling-serve";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

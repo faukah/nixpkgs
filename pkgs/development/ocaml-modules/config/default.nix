@@ -5,7 +5,6 @@
   ppxlib,
   spices,
 }:
-
 buildDunePackage rec {
   pname = "config";
   version = "0.0.3";

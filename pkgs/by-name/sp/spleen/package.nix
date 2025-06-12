@@ -4,7 +4,6 @@
   fetchurl,
   xorg,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "spleen";
   version = "2.1.0";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-i0fFbxpuuFj7z540UwVXQEsC+7NFXjjmT7hEc/0MNy8=";
   };
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [xorg.mkfontscale];
 
   dontBuild = true;
 
@@ -36,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Monospaced bitmap fonts";
     homepage = "https://www.cambus.net/spleen-monospaced-bitmap-fonts";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

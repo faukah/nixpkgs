@@ -24,7 +24,6 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluez";
   version = "5.80";
@@ -53,10 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
     python3Packages.wrapPython
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional installTests "test";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional installTests "test";
 
   postPatch =
     ''
@@ -65,25 +66,25 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail "hid2hci " "$out/lib/udev/hid2hci "
     ''
     +
-      # Disable some tests:
-      # - test-mesh-crypto depends on the following kernel settings:
-      #   CONFIG_CRYPTO_[USER|USER_API|USER_API_AEAD|USER_API_HASH|AES|CCM|AEAD|CMAC]
-      # - test-vcp is flaky (?), see:
-      #     - https://github.com/bluez/bluez/issues/683
-      #     - https://github.com/bluez/bluez/issues/726
-      ''
-        skipTest() {
-          if [[ ! -f unit/$1.c ]]; then
-            echo "unit/$1.c no longer exists"
-            false
-          fi
+    # Disable some tests:
+    # - test-mesh-crypto depends on the following kernel settings:
+    #   CONFIG_CRYPTO_[USER|USER_API|USER_API_AEAD|USER_API_HASH|AES|CCM|AEAD|CMAC]
+    # - test-vcp is flaky (?), see:
+    #     - https://github.com/bluez/bluez/issues/683
+    #     - https://github.com/bluez/bluez/issues/726
+    ''
+      skipTest() {
+        if [[ ! -f unit/$1.c ]]; then
+          echo "unit/$1.c no longer exists"
+          false
+        fi
 
-          echo 'int main() { return 77; }' > unit/$1.c
-        }
+        echo 'int main() { return 77; }' > unit/$1.c
+      }
 
-        skipTest test-mesh-crypto
-        skipTest test-vcp
-      '';
+      skipTest test-mesh-crypto
+      skipTest test-vcp
+    '';
 
   configureFlags = [
     "--localstatedir=/var"
@@ -122,13 +123,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = stdenv.hostPlatform.isx86_64;
 
-  postInstall =
-    let
-      pythonPath = with python3Packages; [
-        dbus-python
-        pygobject3
-      ];
-    in
+  postInstall = let
+    pythonPath = with python3Packages; [
+      dbus-python
+      pygobject3
+    ];
+  in
     ''
       # for bluez4 compatibility for NixOS
       mkdir $out/sbin
@@ -184,7 +184,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
     ];
     mainProgram = "btinfo";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

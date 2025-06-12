@@ -12,7 +12,6 @@
   python3,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsmbios";
   version = "2.4.3";
@@ -42,9 +41,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  configureFlags = [ "--disable-graphviz" ];
+  configureFlags = ["--disable-graphviz"];
 
   enableParallelBuilding = true;
 
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       osl21
       gpl2Plus
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -15,7 +15,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aiomealie";
   version = "0.9.5";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-hcHXX95d9T/jJMqHkikWN8ZdM5MRxJxhH575U3KDXxY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "aiomealie" ];
+  pythonImportsCheck = ["aiomealie"];
 
   meta = with lib; {
     description = "Module to interact with Mealie";
     homepage = "https://github.com/joostlek/python-mealie";
     changelog = "https://github.com/joostlek/python-mealie/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

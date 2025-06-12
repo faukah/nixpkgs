@@ -16,7 +16,6 @@
   systemd,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-pantheon";
   version = "8.0.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/portals";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

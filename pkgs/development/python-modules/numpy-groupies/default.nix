@@ -9,7 +9,6 @@
   numba,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "numpy-groupies";
   version = "0.11.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     pandas
   ];
 
-  pythonImportsCheck = [ "numpy_groupies" ];
+  pythonImportsCheck = ["numpy_groupies"];
 
   meta = {
     homepage = "https://github.com/ml31415/numpy-groupies";
     changelog = "https://github.com/ml31415/numpy-groupies/releases/tag/${src.tag}";
     description = "Optimised tools for group-indexing operations: aggregated sum and more";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ berquist ];
+    maintainers = with lib.maintainers; [berquist];
   };
 }

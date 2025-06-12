@@ -6,7 +6,6 @@
   makeWrapper,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "micronaut";
   version = "4.8.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://micronaut.io/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
     mainProgram = "mn";
   };
 }

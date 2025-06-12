@@ -10,18 +10,15 @@
   geventhttpclient,
   grpcio,
   packaging,
-}:
-
-let
+}: let
   pname = "tritonclient";
   version = "2.54.0";
   format = "wheel";
 in
-buildPythonPackage rec {
-  inherit pname version format;
+  buildPythonPackage rec {
+    inherit pname version format;
 
-  src =
-    let
+    src = let
       platforms = {
         aarch64-linux = "manylinux2014_aarch64";
         x86_64-linux = "manylinux1_x86_64";
@@ -31,39 +28,39 @@ buildPythonPackage rec {
         x86_64-linux = "53c326498e9036f99347a938d52abd819743e957223edec31ae3c9681e5a6065";
       };
     in
-    fetchPypi {
-      inherit pname version format;
-      python = "py3";
-      dist = "py3";
-      platform = platforms.${stdenv.hostPlatform.system} or { };
-      sha256 = hashes.${stdenv.hostPlatform.system} or { };
+      fetchPypi {
+        inherit pname version format;
+        python = "py3";
+        dist = "py3";
+        platform = platforms.${stdenv.hostPlatform.system} or {};
+        sha256 = hashes.${stdenv.hostPlatform.system} or {};
+      };
+
+    propagatedBuildInputs = [
+      numpy
+      python-rapidjson
+    ];
+
+    pythonImportsCheck = ["tritonclient"];
+
+    passthru = {
+      optional-dependencies = {
+        http = [
+          aiohttp
+          geventhttpclient
+        ];
+        grpc = [
+          grpcio
+          packaging
+        ];
+      };
     };
 
-  propagatedBuildInputs = [
-    numpy
-    python-rapidjson
-  ];
-
-  pythonImportsCheck = [ "tritonclient" ];
-
-  passthru = {
-    optional-dependencies = {
-      http = [
-        aiohttp
-        geventhttpclient
-      ];
-      grpc = [
-        grpcio
-        packaging
-      ];
+    meta = with lib; {
+      description = "Triton Python client";
+      homepage = "https://github.com/triton-inference-server/client";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [happysalada];
+      platforms = platforms.linux;
     };
-  };
-
-  meta = with lib; {
-    description = "Triton Python client";
-    homepage = "https://github.com/triton-inference-server/client";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ happysalada ];
-    platforms = platforms.linux;
-  };
-}
+  }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpv-shim-default-shaders";
   version = "2.1.0";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
       mit
       unlicense
     ];
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
   };
 }

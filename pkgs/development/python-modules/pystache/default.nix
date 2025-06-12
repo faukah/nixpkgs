@@ -8,7 +8,6 @@
   importlib-metadata,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pystache";
   version = "0.6.8";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     importlib-metadata
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pystache" ];
+  pythonImportsCheck = ["pystache"];
 
   meta = {
     description = "Framework-agnostic, logic-free templating system inspired by ctemplate and et";
     homepage = "https://github.com/PennyDreadfulMTG/pystache";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nickcao ];
+    maintainers = [lib.maintainers.nickcao];
   };
 }

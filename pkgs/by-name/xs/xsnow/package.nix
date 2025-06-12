@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       libXtst
     ]);
 
-  makeFlags = [ "gamesdir=$(out)/bin" ];
+  makeFlags = ["gamesdir=$(out)/bin"];
 
   enableParallelBuilding = true;
 

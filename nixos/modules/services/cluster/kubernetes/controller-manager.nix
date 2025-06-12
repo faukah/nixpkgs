@@ -4,24 +4,22 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.controllerManager;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "controllerManager" "address" ]
-      [ "services" "kubernetes" "controllerManager" "bindAddress" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "controllerManager" "address"]
+      ["services" "kubernetes" "controllerManager" "bindAddress"]
     )
-    (lib.mkRemovedOptionModule [ "services" "kubernetes" "controllerManager" "insecurePort" ] "")
+    (lib.mkRemovedOptionModule ["services" "kubernetes" "controllerManager" "insecurePort"] "")
   ];
 
   ###### interface
   options.services.kubernetes.controllerManager = with lib.types; {
-
     allocateNodeCIDRs = lib.mkOption {
       description = "Whether to automatically allocate CIDR ranges for cluster nodes.";
       default = true;
@@ -109,15 +107,14 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
   ###### implementation
   config = lib.mkIf cfg.enable {
     systemd.services.kube-controller-manager = {
       description = "Kubernetes Controller Manager Service";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       serviceConfig = {
         RestartSec = "30s";
         Restart = "on-failure";
@@ -128,26 +125,26 @@ in
                     --bind-address=${cfg.bindAddress} \
                     ${lib.optionalString (cfg.clusterCidr != null) "--cluster-cidr=${cfg.clusterCidr}"} \
                     ${
-                      lib.optionalString (cfg.featureGates != { })
-                        "--feature-gates=${
-                          lib.concatStringsSep "," (
-                            builtins.attrValues (lib.mapAttrs (n: v: "${n}=${lib.trivial.boolToString v}") cfg.featureGates)
-                          )
-                        }"
-                    } \
+            lib.optionalString (cfg.featureGates != {})
+            "--feature-gates=${
+              lib.concatStringsSep "," (
+                builtins.attrValues (lib.mapAttrs (n: v: "${n}=${lib.trivial.boolToString v}") cfg.featureGates)
+              )
+            }"
+          } \
                     --kubeconfig=${top.lib.mkKubeConfig "kube-controller-manager" cfg.kubeconfig} \
                     --leader-elect=${lib.boolToString cfg.leaderElect} \
                     ${lib.optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"} \
                     --secure-port=${toString cfg.securePort} \
                     ${
-                      lib.optionalString (
-                        cfg.serviceAccountKeyFile != null
-                      ) "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
-                    } \
+            lib.optionalString (
+              cfg.serviceAccountKeyFile != null
+            ) "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
+          } \
                     ${lib.optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
                     ${
-                      lib.optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
-                    } \
+            lib.optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"
+          } \
                     ${lib.optionalString (lib.elem "RBAC" top.apiserver.authorizationMode) "--use-service-account-credentials"} \
                     ${lib.optionalString (cfg.verbosity != null) "--v=${toString cfg.verbosity}"} \
                     ${cfg.extraOpts}

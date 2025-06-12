@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yaml-cpp";
   version = "0.3.0";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jbeder/yaml-cpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

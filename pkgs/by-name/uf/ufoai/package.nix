@@ -16,7 +16,6 @@
   cunit,
   enableEditor ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ufoai";
   version = "2.4";
@@ -39,10 +38,12 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''tar xvf "${srcData}"'';
 
-  configureFlags = [
-    "--enable-release"
-    "--enable-sse"
-  ] ++ lib.optional enableEditor "--enable-uforadiant";
+  configureFlags =
+    [
+      "--enable-release"
+      "--enable-sse"
+    ]
+    ++ lib.optional enableEditor "--enable-uforadiant";
 
   buildInputs = [
     libtheora
@@ -71,8 +72,8 @@ stdenv.mkDerivation rec {
     homepage = "http://ufoai.org";
     description = "Squad-based tactical strategy game in the tradition of X-Com";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

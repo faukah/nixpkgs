@@ -16,7 +16,6 @@
   writeShellScript,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "btrbk";
   version = "0.32.6";
@@ -58,17 +57,18 @@ stdenv.mkDerivation rec {
       --set PERL5LIB $PERL5LIB \
       --run 'export program_name=$0' \
       --prefix PATH ':' "${
-        lib.makeBinPath [
-          btrfs-progs
-          bash
-          mbuffer
-          openssh
-        ]
-      }"
+      lib.makeBinPath [
+        btrfs-progs
+        bash
+        mbuffer
+        openssh
+      ]
+    }"
   '';
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       btrbk
       btrbk-no-timer
       btrbk-section-order
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     homepage = "https://digint.ch/btrbk";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
     mainProgram = "btrbk";
   };
 }

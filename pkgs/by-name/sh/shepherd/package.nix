@@ -8,7 +8,6 @@
   fixup-yarn-lock,
   yarn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shepherd";
   version = "1.16.0";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NerdWalletOSS/shepherd";
     license = lib.licenses.asl20;
     mainProgram = "shepherd";
-    maintainers = with lib.maintainers; [ dbirks ];
+    maintainers = with lib.maintainers; [dbirks];
     platforms = lib.platforms.all;
   };
 }

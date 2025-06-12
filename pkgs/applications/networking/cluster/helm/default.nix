@@ -6,7 +6,6 @@
   installShellFiles,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kubernetes-helm";
   version = "3.18.2";
@@ -19,7 +18,7 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-gadl9Jkj95eZpzkFWqk33O1jrLr8IxtB5kml7fNlsIo=";
 
-  subPackages = [ "cmd/helm" ];
+  subPackages = ["cmd/helm"];
   ldflags = [
     "-w"
     "-s"
@@ -56,7 +55,7 @@ buildGoModule (finalAttrs: {
       --replace "TestPluginExitCode" "SkipPluginExitCode"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/helm completion bash > helm.bash
     $out/bin/helm completion zsh > helm.zsh

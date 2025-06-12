@@ -3,13 +3,13 @@
   stdenvNoCC,
   fetchurl,
   symlinkJoin,
-}:
-
-let
+}: let
   version = "16.0";
 
-  fetchData =
-    { suffix, hash }:
+  fetchData = {
+    suffix,
+    hash,
+  }:
     stdenvNoCC.mkDerivation {
       pname = "unicode-emoji-${suffix}";
       inherit version;
@@ -47,18 +47,17 @@ let
     };
   };
 in
+  symlinkJoin {
+    name = "unicode-emoji-${version}";
 
-symlinkJoin {
-  name = "unicode-emoji-${version}";
+    paths = lib.attrValues srcs;
 
-  paths = lib.attrValues srcs;
+    passthru = srcs;
 
-  passthru = srcs;
-
-  meta = with lib; {
-    description = "Unicode Emoji Data Files";
-    homepage = "https://home.unicode.org/emoji/";
-    license = licenses.unicode-dfs-2016;
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "Unicode Emoji Data Files";
+      homepage = "https://home.unicode.org/emoji/";
+      license = licenses.unicode-dfs-2016;
+      platforms = platforms.all;
+    };
+  }

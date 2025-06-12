@@ -9,7 +9,6 @@
   pkg-config,
   gtk2,
 }:
-
 stdenv.mkDerivation {
   pname = "cwiid";
   version = "unstable-2010-02-21";
@@ -21,9 +20,9 @@ stdenv.mkDerivation {
     sha256 = "0qdb0x757k76nfj32xc2nrrdqd9jlwgg63vfn02l2iznnzahxp0h";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  configureFlags = [ "--without-python" ];
+  configureFlags = ["--without-python"];
 
   prePatch = ''
     sed -i -e '/$(LDCONFIG)/d' common/include/lib.mak.in
@@ -57,7 +56,7 @@ stdenv.mkDerivation {
     description = "Linux Nintendo Wiimote interface";
     homepage = "http://cwiid.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [bennofs];
     platforms = platforms.linux;
   };
 }

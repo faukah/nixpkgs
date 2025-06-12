@@ -14,7 +14,6 @@
   pytest-cov-stub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hickle";
   version = "5.0.3";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dill
@@ -52,13 +51,13 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "hickle" ];
+  pythonImportsCheck = ["hickle"];
 
   meta = with lib; {
     description = "Serialize Python data to HDF5";
     homepage = "https://github.com/telegraphic/hickle";
     changelog = "https://github.com/telegraphic/hickle/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

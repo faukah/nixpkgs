@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.xdg.portal.wlr;
   package = pkgs.xdg-desktop-portal-wlr;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "xdg-desktop-portal-wlr.ini" cfg.settings;
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 
   options.xdg.portal.wlr = {
@@ -36,7 +34,7 @@ in
         freeformType = settingsFormat.type;
       };
 
-      default = { };
+      default = {};
 
       # Example taken from the manpage
       example = lib.literalExpression ''
@@ -57,7 +55,7 @@ in
   config = lib.mkIf cfg.enable {
     xdg.portal = {
       enable = true;
-      extraPortals = [ package ];
+      extraPortals = [package];
     };
 
     systemd.user.services.xdg-desktop-portal-wlr.serviceConfig.ExecStart = [

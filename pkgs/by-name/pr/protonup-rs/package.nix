@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "protonup-rs";
   version = "0.9.0";

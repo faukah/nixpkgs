@@ -16,9 +16,7 @@
   wrapGAppsHook4,
   xvfb-run,
   versionCheckHook,
-}:
-
-let
+}: let
   self = rustPlatform.buildRustPackage {
     pname = "czkawka";
     version = "9.0.0";
@@ -48,7 +46,7 @@ let
       pango
     ];
 
-    nativeCheckInputs = [ xvfb-run ];
+    nativeCheckInputs = [xvfb-run];
 
     strictDeps = true;
 
@@ -89,7 +87,7 @@ let
       homepage = "https://github.com/qarmin/czkawka";
       description = "Simple, fast and easy to use app to remove unnecessary files from your computer";
       changelog = "https://github.com/qarmin/czkawka/raw/${self.version}/Changelog.md";
-      license = with lib.licenses; [ mit ];
+      license = with lib.licenses; [mit];
       mainProgram = "czkawka_gui";
       maintainers = with lib.maintainers; [
         yanganto
@@ -98,4 +96,4 @@ let
     };
   };
 in
-self
+  self

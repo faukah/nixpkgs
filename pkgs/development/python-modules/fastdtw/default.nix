@@ -9,7 +9,6 @@
   pytestCheckHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "fastdtw";
   version = "0.3.4";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "fastdtw.fastdtw" ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  pythonImportsCheck = ["fastdtw.fastdtw"];
+  nativeCheckInputs = [pytestCheckHook];
   preCheck = ''
     echo "Temporarily moving tests to $OUT to find cython modules"
     export PACKAGEDIR=$out/${python.sitePackages}
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/slaypni/fastdtw";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "grb";
   version = "unstable-2022-07-02";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
     description = "Cli-accessible Greek Bible with the Septuagint, SBL and Apocrypha";
     homepage = "https://github.com/LukeSmithxyz/grb";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.cafkafk ];
+    maintainers = [maintainers.cafkafk];
     mainProgram = "grb";
   };
 }

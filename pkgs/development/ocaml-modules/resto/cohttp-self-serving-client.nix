@@ -9,10 +9,10 @@
   uri,
   lwt,
 }:
-
 buildDunePackage {
   pname = "resto-cohttp-self-serving-client";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

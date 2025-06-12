@@ -4,9 +4,7 @@
   buildGoModule,
   fetchFromGitHub,
   dbip-country-lite,
-}:
-
-let
+}: let
   generator = buildGoModule rec {
     pname = "sing-geoip";
     version = "20240312";
@@ -29,40 +27,42 @@ let
       description = "GeoIP data for sing-box";
       homepage = "https://github.com/SagerNet/sing-geoip";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ linsui ];
+      maintainers = with maintainers; [linsui];
       mainProgram = "sing-geoip";
     };
   };
 in
-stdenvNoCC.mkDerivation {
-  inherit (generator) pname;
-  inherit (dbip-country-lite) version;
+  stdenvNoCC.mkDerivation {
+    inherit (generator) pname;
+    inherit (dbip-country-lite) version;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [ generator ];
+    nativeBuildInputs = [generator];
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    sing-geoip ${dbip-country-lite.mmdb}
+      sing-geoip ${dbip-country-lite.mmdb}
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm644 geoip.db $out/share/sing-box/geoip.db
-    install -Dm644 geoip-cn.db $out/share/sing-box/geoip-cn.db
-    install -Dm644 rule-set/* -t $out/share/sing-box/rule-set
+      install -Dm644 geoip.db $out/share/sing-box/geoip.db
+      install -Dm644 geoip-cn.db $out/share/sing-box/geoip-cn.db
+      install -Dm644 rule-set/* -t $out/share/sing-box/rule-set
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = { inherit generator; };
+    passthru = {inherit generator;};
 
-  meta = generator.meta // {
-    inherit (dbip-country-lite.meta) license;
-  };
-}
+    meta =
+      generator.meta
+      // {
+        inherit (dbip-country-lite.meta) license;
+      };
+  }

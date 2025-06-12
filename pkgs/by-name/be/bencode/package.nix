@@ -9,7 +9,6 @@
   gsl-lite,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bencode";
   version = "1.0.1";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fbdtemme/bencode";
     changelog = "https://github.com/fbdtemme/bencode/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     # Broken because the default stdenv on these targets doesn't support C++20.
     broken = with stdenv; isDarwin || (isLinux && isAarch64);

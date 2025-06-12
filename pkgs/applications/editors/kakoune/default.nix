@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kakoune-unwrapped";
   version = "2025.06.03";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vim inspired text editor";
     license = licenses.publicDomain;
     mainProgram = "kak";
-    maintainers = with maintainers; [ philiptaron ];
+    maintainers = with maintainers; [philiptaron];
     platforms = platforms.unix;
   };
 })

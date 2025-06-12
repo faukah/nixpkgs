@@ -12,10 +12,9 @@
   fuse,
   gocryptfs,
 }:
-
 mkDerivation {
   pname = "plasma-vault";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   patches = [
     ./0001-encfs-path.patch
@@ -39,5 +38,4 @@ mkDerivation {
     ''-DNIXPKGS_FUSERMOUNT=\"${lib.getBin fuse}/bin/fusermount\"''
     ''-DNIXPKGS_GOCRYPTFS=\"${lib.getBin gocryptfs}/bin/gocryptfs\"''
   ];
-
 }

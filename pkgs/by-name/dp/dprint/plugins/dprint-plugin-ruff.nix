@@ -1,9 +1,9 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "Ruff (Python) wrapper plugin.";
   hash = "sha256-15InHQgF9c0Js4yUJxmZ1oNj1O16FBU12u/GOoaSAJ8=";
   initConfig = {
-    configExcludes = [ ];
+    configExcludes = [];
     configKey = "ruff";
     fileExtensions = [
       "py"

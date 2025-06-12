@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ezno";
   version = "0.0.8";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kaleidawave/ezno";
     changelog = "https://github.com/kaleidawave/ezno/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -20,7 +20,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "marco";
   version = "1.28.1";
@@ -61,13 +60,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE default window manager";
     homepage = "https://github.com/mate-desktop/marco";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

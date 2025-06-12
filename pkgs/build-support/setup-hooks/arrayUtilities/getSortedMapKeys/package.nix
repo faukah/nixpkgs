@@ -12,6 +12,7 @@ makeSetupHook {
     isDeclaredMap
     sortArray
   ];
-  passthru.tests = callPackages ./tests.nix { };
+  passthru.tests = callPackages ./tests.nix {};
   meta.description = "Gets the sorted indices of an associative array";
-} ./getSortedMapKeys.bash
+}
+./getSortedMapKeys.bash

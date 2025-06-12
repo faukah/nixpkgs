@@ -22,14 +22,14 @@ buildGoModule rec {
       --replace 'versionString        = ""' 'versionString        = "${version}"'
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/arduino/arduinoOTA";
     description = "Tool for uploading programs to Arduino boards over a network";
     mainProgram = "arduinoOTA";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ poelzi ];
+    maintainers = with maintainers; [poelzi];
     platforms = platforms.all;
   };
 }

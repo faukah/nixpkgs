@@ -7,7 +7,6 @@
   git,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "c2patool";
   version = "0.18.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # could not compile `c2pa` (lib test) due to 102 previous errors
   doCheck = false;
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Command line tool for working with C2PA manifests and media assets";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ ok-nick ];
+    maintainers = with lib.maintainers; [ok-nick];
     mainProgram = "c2patool";
   };
 })

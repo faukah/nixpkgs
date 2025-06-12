@@ -7,7 +7,6 @@
   sedlex,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "xtmpl";
   version = "0.19.0";
@@ -31,6 +30,6 @@ buildDunePackage rec {
     description = "XML templating library for OCaml";
     homepage = "https://www.good-eris.net/xtmpl/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ regnat ];
+    maintainers = with maintainers; [regnat];
   };
 }

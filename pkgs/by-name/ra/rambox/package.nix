@@ -3,9 +3,7 @@
   lib,
   fetchurl,
   makeDesktopItem,
-}:
-
-let
+}: let
   pname = "rambox";
   version = "2.4.1";
 
@@ -20,7 +18,7 @@ let
       name = pname;
       exec = "rambox";
       icon = pname;
-      categories = [ "Network" ];
+      categories = ["Network"];
     }
   );
 
@@ -28,23 +26,23 @@ let
     inherit pname version src;
   };
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
-    install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/rambox*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
-    install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
-  '';
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
+      install -Dm644 ${appimageContents}/usr/share/icons/hicolor/256x256/apps/rambox*.png $out/share/icons/hicolor/256x256/apps/${pname}.png
+      install -Dm644 ${desktopItem}/share/applications/* $out/share/applications
+    '';
 
-  extraPkgs = pkgs: [ pkgs.procps ];
+    extraPkgs = pkgs: [pkgs.procps];
 
-  meta = with lib; {
-    description = "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
-    homepage = "https://rambox.app";
-    license = licenses.unfree;
-    maintainers = with maintainers; [ nazarewk ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-  };
-}
+    meta = with lib; {
+      description = "Workspace Simplifier - a cross-platform application organizing web services into Workspaces similar to browser profiles";
+      homepage = "https://rambox.app";
+      license = licenses.unfree;
+      maintainers = with maintainers; [nazarewk];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+    };
+  }

@@ -5,7 +5,6 @@
   gnupg,
   pass,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pass-import";
   version = "3.5";

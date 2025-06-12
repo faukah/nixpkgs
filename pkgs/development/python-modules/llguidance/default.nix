@@ -3,24 +3,20 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cargo,
   pkg-config,
   rustPlatform,
   rustc,
-
   # buildInputs
   oniguruma,
   openssl,
-
   # tests
   pytestCheckHook,
   torch,
   transformers,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llguidance";
   version = "0.7.19";
@@ -100,6 +96,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/guidance-ai/llguidance";
     changelog = "https://github.com/guidance-ai/llguidance/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

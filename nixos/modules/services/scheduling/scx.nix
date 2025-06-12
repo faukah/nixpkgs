@@ -4,22 +4,22 @@
   config,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.scx;
-in
-{
+in {
   options.services.scx = {
-    enable = lib.mkEnableOption null // {
-      description = ''
-        Whether to enable SCX service, a daemon to run schedulers from userspace.
+    enable =
+      lib.mkEnableOption null
+      // {
+        description = ''
+          Whether to enable SCX service, a daemon to run schedulers from userspace.
 
-        ::: {.note}
-        This service requires a kernel with the Sched-ext feature.
-        Generally, kernel version 6.12 and later are supported.
-        :::
-      '';
-    };
+          ::: {.note}
+          This service requires a kernel with the Sched-ext feature.
+          Generally, kernel version 6.12 and later are supported.
+          :::
+        '';
+      };
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -65,7 +65,7 @@ in
 
     extraArgs = lib.mkOption {
       type = lib.types.listOf lib.types.singleLineStr;
-      default = [ ];
+      default = [];
       example = [
         "--slice-us 5000"
         "--verbose"
@@ -82,7 +82,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.scx = {
       description = "SCX scheduler daemon";
@@ -104,7 +104,7 @@ in
         Restart = "on-failure";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     assertions = [
@@ -115,5 +115,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ johnrtitor ];
+  meta.maintainers = with lib.maintainers; [johnrtitor];
 }

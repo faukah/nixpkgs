@@ -11,7 +11,6 @@
   makeWrapper,
   runCommand,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obb";
   version = "0.0.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "1Gxh4IMtytQCuPS+BWOc5AgjEBxa43ebYfDsxLSPeY0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     babashka
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" { } ''
+    simple = runCommand "${pname}-test" {} ''
       [ $(${obb}/bin/obb -e '(+ 1 2)') = '3' ]
       touch $out
     '';

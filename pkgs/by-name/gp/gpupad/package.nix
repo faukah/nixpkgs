@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-
   glslang,
   imath,
   ktx-tools,
@@ -13,7 +12,6 @@
   spirv-cross,
   vulkan-memory-allocator,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpupad";
   version = "2.6.1";
@@ -56,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/houmain/gpupad";
     changelog = "https://github.com/houmain/gpupad/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     mainProgram = "gpupad";
     platforms = lib.platforms.linux;
   };

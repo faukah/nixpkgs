@@ -18,7 +18,6 @@
   yarl,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "peblar";
   version = "0.4.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -65,13 +64,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "peblar" ];
+  pythonImportsCheck = ["peblar"];
 
   meta = {
     description = "Python client for Peblar EV chargers";
     homepage = "https://github.com/frenck/python-peblar";
     changelog = "https://github.com/frenck/python-peblar/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

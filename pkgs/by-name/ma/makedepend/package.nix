@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
     updateScript = writeScript "update-${finalAttrs.pname}" ''
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
       hpnd
     ];
     mainProgram = "makedepend";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

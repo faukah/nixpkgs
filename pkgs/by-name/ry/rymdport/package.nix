@@ -6,7 +6,6 @@
   libGL,
   xorg,
 }:
-
 buildGoModule rec {
   pname = "rymdport";
   version = "3.8.0";
@@ -49,7 +48,7 @@ buildGoModule rec {
     homepage = "https://github.com/Jacalz/rymdport";
     changelog = "https://github.com/Jacalz/rymdport/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.linux;
     mainProgram = "rymdport";
   };

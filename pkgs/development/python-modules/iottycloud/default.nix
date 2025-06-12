@@ -7,7 +7,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "iottycloud";
   version = "0.3.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-tsCa87BdwKumsv5N0lAPZmMIfm2W6Pw0LS3sF9c/oRA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "iottycloud" ];
+  pythonImportsCheck = ["iottycloud"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python library to interact with iotty CloudApi";
     homepage = "https://github.com/pburgio/iottyCloud";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

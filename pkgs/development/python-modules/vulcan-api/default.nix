@@ -14,7 +14,6 @@
   uonet-request-signer-hebe,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "vulcan-api";
   version = "2.4.2";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-oWtyqFacWkKhv4QvbZCuq3KHlM/o7SfENg90O/ygXUw=";
   };
 
-  pythonRemoveDeps = [ "related-without-future" ];
+  pythonRemoveDeps = ["related-without-future"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aenum
@@ -48,13 +47,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "vulcan" ];
+  pythonImportsCheck = ["vulcan"];
 
   meta = with lib; {
     description = "Python library for UONET+ e-register API";
     homepage = "https://vulcan-api.readthedocs.io/";
     changelog = "https://github.com/kapi2289/vulcan-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

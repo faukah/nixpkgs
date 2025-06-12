@@ -6,7 +6,6 @@
   lib,
   makeDesktopItem,
 }:
-
 buildNpmPackage rec {
   pname = "google-chat-linux";
   version = "5.29.23-1";

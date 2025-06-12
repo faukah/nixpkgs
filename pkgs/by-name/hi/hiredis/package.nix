@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hiredis";
   version = "1.2.0";

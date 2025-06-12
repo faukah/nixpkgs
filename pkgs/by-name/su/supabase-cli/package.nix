@@ -7,7 +7,6 @@
   supabase-cli,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "supabase-cli";
   version = "2.23.7";
@@ -29,7 +28,7 @@ buildGoModule rec {
 
   doCheck = false; # tests are trying to connect to localhost
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     rm $out/bin/{docs,listdep}
@@ -45,7 +44,7 @@ buildGoModule rec {
     tests.version = testers.testVersion {
       package = supabase-cli;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

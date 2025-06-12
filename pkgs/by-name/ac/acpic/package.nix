@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "acpic";
   version = "1.0.0";
@@ -32,6 +31,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "acpic";
     homepage = "https://github.com/psliwka/acpic";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with maintainers; [aacebedo];
   };
 }

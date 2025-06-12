@@ -19,7 +19,6 @@
   fast-float,
   vulkanSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libplacebo";
   version = "7.351.0";
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     homepage = "https://code.videolan.org/videolan/libplacebo";
     changelog = "https://code.videolan.org/videolan/libplacebo/-/tags/v${version}";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
     platforms = lib.platforms.all;
   };
 }

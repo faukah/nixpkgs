@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zig_0_12,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyber";
   version = "0-unstable-2025-12-10";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cyber";
     homepage = "https://github.com/fubark/cyber";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     inherit (zig_0_12.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin;
   };

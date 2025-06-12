@@ -4,7 +4,6 @@
   fetchPypi,
   mopidy,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "Mopidy-Iris";
   version = "3.69.3";
@@ -31,6 +30,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/jaedb/Iris";
     description = "Fully-functional Mopidy web client encompassing Spotify and many other backends";
     license = licenses.asl20;
-    maintainers = [ maintainers.rvolosatovs ];
+    maintainers = [maintainers.rvolosatovs];
   };
 }

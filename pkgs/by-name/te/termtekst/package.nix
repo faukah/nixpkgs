@@ -4,7 +4,6 @@
   python3Packages,
   ncurses,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "termtekst";
   version = "1.0";
@@ -39,7 +38,7 @@ python3Packages.buildPythonApplication rec {
       graphics.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

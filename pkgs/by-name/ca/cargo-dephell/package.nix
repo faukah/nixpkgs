@@ -8,7 +8,6 @@
   openssl,
   libgit2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-dephell";
   version = "0.5.1";

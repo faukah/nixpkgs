@@ -9,7 +9,6 @@
   strip-nondeterminism,
   zip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "stone-kingdoms";
   version = "0.6.1";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
       comment = "A real-time strategy game made with LÖVE based on the original Stronghold by Firefly studios";
       desktopName = "Stone Kingdoms";
       genericName = "stone-kingdoms";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -59,6 +58,6 @@ stdenvNoCC.mkDerivation rec {
       asl20 # engine
       unfree # game assets
     ];
-    maintainers = with maintainers; [ hulr ];
+    maintainers = with maintainers; [hulr];
   };
 }

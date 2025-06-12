@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dtool";
   version = "0.12.0";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-C0H5cIMMfUPJ2iJCUs1jEu3Ln8CdDgbgstMnH/f9FRY=";
   # FIXME: remove patch when upstream version of rustc-serialize is updated
-  cargoPatches = [ ./rustc-serialize-fix.patch ];
+  cargoPatches = [./rustc-serialize-fix.patch];
 
   checkType = "debug";
 
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line tool collection to assist development written in RUST";
     homepage = "https://github.com/guoxbin/dtool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ linuxissuper ];
+    maintainers = with maintainers; [linuxissuper];
     mainProgram = "dtool";
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "deutex";
   version = "5.2.3";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
       hpnd
       lgpl21Plus
     ];
-    maintainers = with lib.maintainers; [ thetaoofsu ];
+    maintainers = with lib.maintainers; [thetaoofsu];
     mainProgram = "deutex";
     platforms = lib.platforms.unix;
   };

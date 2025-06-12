@@ -7,7 +7,6 @@
   pkg-config,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "kubeclarity";
   version = "2.23.3";
@@ -56,7 +55,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/openclarity/kubeclarity";
     changelog = "https://github.com/openclarity/kubeclarity/releases/tag/v${version}";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [fab];
   };
 }

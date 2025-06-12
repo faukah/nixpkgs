@@ -4,21 +4,16 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.minio;
 
-  legacyCredentials =
-    cfg:
+  legacyCredentials = cfg:
     pkgs.writeText "minio-legacy-credentials" ''
       MINIO_ROOT_USER=${cfg.accessKey}
       MINIO_ROOT_PASSWORD=${cfg.secretKey}
     '';
-in
-{
-  meta.maintainers = [ maintainers.bachp ];
+in {
+  meta.maintainers = [maintainers.bachp];
 
   options.services.minio = {
     enable = mkEnableOption "Minio Object Storage";
@@ -36,7 +31,7 @@ in
     };
 
     dataDir = mkOption {
-      default = [ "/var/lib/minio/data" ];
+      default = ["/var/lib/minio/data"];
       type = types.listOf (types.either types.path types.str);
       description = "The list of data directories or nodes for storing the objects. Use one path for regular operation and the minimum of 4 endpoints for Erasure Code mode.";
     };
@@ -98,13 +93,13 @@ in
       description = "Enable or disable access to web UI.";
     };
 
-    package = mkPackageOption pkgs "minio" { };
+    package = mkPackageOption pkgs "minio" {};
   };
 
   config = mkIf cfg.enable {
     warnings =
       optional ((cfg.accessKey != "") || (cfg.secretKey != ""))
-        "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead.";
+      "services.minio.`accessKey` and services.minio.`secretKey` are deprecated, please use services.minio.`rootCredentialsFile` instead.";
 
     systemd = lib.mkMerge [
       {
@@ -116,9 +111,9 @@ in
 
         services.minio = {
           description = "Minio Object Storage";
-          wants = [ "network-online.target" ];
-          after = [ "network-online.target" ];
-          wantedBy = [ "multi-user.target" ];
+          wants = ["network-online.target"];
+          after = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/minio server --json --address ${cfg.listenAddress} --console-address ${cfg.consoleAddress} --config-dir=${cfg.configDir} --certs-dir=${cfg.certificatesDir} ${toString cfg.dataDir}";
             Type = "simple";
@@ -126,16 +121,19 @@ in
             Group = "minio";
             LimitNOFILE = 65536;
             EnvironmentFile =
-              if (cfg.rootCredentialsFile != null) then
-                cfg.rootCredentialsFile
-              else if ((cfg.accessKey != "") || (cfg.secretKey != "")) then
-                (legacyCredentials cfg)
-              else
-                null;
+              if (cfg.rootCredentialsFile != null)
+              then cfg.rootCredentialsFile
+              else if ((cfg.accessKey != "") || (cfg.secretKey != ""))
+              then (legacyCredentials cfg)
+              else null;
           };
           environment = {
             MINIO_REGION = "${cfg.region}";
-            MINIO_BROWSER = "${if cfg.browser then "on" else "off"}";
+            MINIO_BROWSER = "${
+              if cfg.browser
+              then "on"
+              else "off"
+            }";
           };
         };
       }
@@ -147,10 +145,10 @@ in
         # The service will not restart if the credentials file has
         # been changed. This can cause stale root credentials.
         paths.minio-root-credentials = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
           pathConfig = {
-            PathChanged = [ cfg.rootCredentialsFile ];
+            PathChanged = [cfg.rootCredentialsFile];
             Unit = "minio-restart.service";
           };
         };

@@ -8,8 +8,7 @@
   jre,
   libXxf86vm,
   extraJavaOpts ? "-Djosm.restart=true -Djava.net.useSystemProxies=true",
-}:
-let
+}: let
   pname = "josm";
   version = "19396";
   srcs = {
@@ -36,22 +35,21 @@ let
     "--add-exports=java.desktop/com.sun.imageio.spi=ALL-UNNAMED"
   ];
 in
-stdenv.mkDerivation {
-  inherit pname version;
+  stdenv.mkDerivation {
+    inherit pname version;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ jre ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [jre];
 
-  installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
+    installPhase =
+      if stdenv.hostPlatform.isDarwin
+      then ''
         mkdir -p $out/Applications
         ${unzip}/bin/unzip ${srcs.macosx} 'JOSM.app/*' -d $out/Applications
       ''
-    else
-      ''
+      else ''
         install -Dm644 ${srcs.jar} $out/share/josm/josm.jar
         cp -R ${srcs.pkg}/native/linux/tested/usr/share $out
 
@@ -63,17 +61,17 @@ stdenv.mkDerivation {
           --prefix _JAVA_OPTIONS : "-Dawt.useSystemAAFontSettings=on"
       '';
 
-  meta = {
-    description = "Extensible editor for OpenStreetMap";
-    homepage = "https://josm.openstreetmap.de/";
-    changelog = "https://josm.openstreetmap.de/wiki/Changelog";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [
-      rycee
-      sikmir
-    ];
-    platforms = lib.platforms.all;
-    mainProgram = "josm";
-  };
-}
+    meta = {
+      description = "Extensible editor for OpenStreetMap";
+      homepage = "https://josm.openstreetmap.de/";
+      changelog = "https://josm.openstreetmap.de/wiki/Changelog";
+      sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+      license = lib.licenses.gpl2Plus;
+      maintainers = with lib.maintainers; [
+        rycee
+        sikmir
+      ];
+      platforms = lib.platforms.all;
+      mainProgram = "josm";
+    };
+  }

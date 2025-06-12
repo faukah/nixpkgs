@@ -13,9 +13,7 @@
   mesonEmulatorHook,
   gnome,
 }:
-
 # TODO: Add installed tests once https://gitlab.gnome.org/World/libcloudproviders/issues/4 is fixed
-
 stdenv.mkDerivation rec {
   pname = "libcloudproviders";
   version = "0.3.6";
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
       mesonEmulatorHook
     ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -62,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "DBus API that allows cloud storage sync clients to expose their services";
     homepage = "https://gitlab.gnome.org/World/libcloudproviders";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

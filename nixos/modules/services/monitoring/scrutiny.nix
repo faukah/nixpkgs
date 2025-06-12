@@ -4,18 +4,19 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   inherit (lib) maintainers;
   inherit (lib.meta) getExe;
   inherit (lib.modules) mkIf mkMerge;
-  inherit (lib.options)
+  inherit
+    (lib.options)
     literalExpression
     mkEnableOption
     mkOption
     mkPackageOption
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     enum
     nullOr
@@ -27,14 +28,13 @@ let
 
   cfg = config.services.scrutiny;
   # Define the settings format used for this program
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options = {
     services.scrutiny = {
       enable = mkEnableOption "Scrutiny, a web application for drive monitoring";
 
-      package = mkPackageOption pkgs "scrutiny" { };
+      package = mkPackageOption pkgs "scrutiny" {};
 
       openFirewall = mkEnableOption "opening the default ports in the firewall for Scrutiny";
 
@@ -61,7 +61,7 @@ in
           or structured JSON with `quote = false;`, pointing to a file that
           contains the value the option should be set to.
         '';
-        default = { };
+        default = {};
         type = submodule {
           freeformType = settingsFormat.type;
 
@@ -138,12 +138,14 @@ in
       };
 
       collector = {
-        enable = mkEnableOption "the Scrutiny metrics collector" // {
-          default = cfg.enable;
-          defaultText = lib.literalExpression "config.services.scrutiny.enable";
-        };
+        enable =
+          mkEnableOption "the Scrutiny metrics collector"
+          // {
+            default = cfg.enable;
+            defaultText = lib.literalExpression "config.services.scrutiny.enable";
+          };
 
-        package = mkPackageOption pkgs "scrutiny-collector" { };
+        package = mkPackageOption pkgs "scrutiny-collector" {};
 
         schedule = mkOption {
           type = str;
@@ -164,7 +166,7 @@ in
             or structured JSON with `quote = false;`, pointing to a file that
             contains the value the option should be set to.
           '';
-          default = { };
+          default = {};
           type = submodule {
             freeformType = settingsFormat.type;
 
@@ -200,13 +202,13 @@ in
       services.influxdb2.enable = cfg.influxdb.enable;
 
       networking.firewall = mkIf cfg.openFirewall {
-        allowedTCPPorts = [ cfg.settings.web.listen.port ];
+        allowedTCPPorts = [cfg.settings.web.listen.port];
       };
 
       systemd.services.scrutiny = {
         description = "Hard Drive S.M.A.R.T Monitoring, Historical Trends & Real World Failure Thresholds";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ] ++ lib.optional cfg.influxdb.enable "influxdb2.service";
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"] ++ lib.optional cfg.influxdb.enable "influxdb2.service";
         wants = lib.optional cfg.influxdb.enable "influxdb2.service";
         environment = {
           SCRUTINY_VERSION = "1";
@@ -274,5 +276,5 @@ in
     })
   ];
 
-  meta.maintainers = [ maintainers.jnsgruk ];
+  meta.maintainers = [maintainers.jnsgruk];
 }

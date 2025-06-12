@@ -15,7 +15,6 @@
   sord,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mephisto";
   version = "0.18.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Just-in-time FAUST embedded in an LV2 plugin";
     homepage = "https://git.open-music-kontrollers.ch/~hp/mephisto.lv2";
     license = licenses.artistic2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 })

@@ -9,7 +9,6 @@
   tree-sitter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-embedded-template";
   version = "0.23.2";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "tree_sitter_embedded_template" ];
+  pythonImportsCheck = ["tree_sitter_embedded_template"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Tree-sitter grammar for embedded template languages like ERB, EJS";
     homepage = "https://github.com/tree-sitter/tree-sitter-embedded-template";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

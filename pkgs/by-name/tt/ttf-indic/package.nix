@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ttf-indic";
   version = "0.2";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.indlinux.org/wiki/index.php/Downloads";
     description = "Indic Opentype Fonts collection";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.akssri ];
+    maintainers = [lib.maintainers.akssri];
     platforms = lib.platforms.all;
   };
 }

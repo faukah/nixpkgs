@@ -13,9 +13,7 @@
   curl,
   gettext,
   libiconv,
-}:
-
-let
+}: let
   version = "2.15.6";
 
   musicVersion = lib.versions.majorMinor version;
@@ -36,54 +34,54 @@ let
     meta.license = lib.licenses.unfree;
   };
 in
-gccStdenv.mkDerivation (finalAttrs: {
-  pname = "7kaa";
-  inherit version;
+  gccStdenv.mkDerivation (finalAttrs: {
+    pname = "7kaa";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "the3dfxdude";
-    repo = "7kaa";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-kkM+kFQ+tGHS5NrVPeDMRWFQb7waESt8xOLfFGaGdgo=";
-  };
+    src = fetchFromGitHub {
+      owner = "the3dfxdude";
+      repo = "7kaa";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-kkM+kFQ+tGHS5NrVPeDMRWFQb7waESt8xOLfFGaGdgo=";
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    autoconf-archive
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      autoconf-archive
+      pkg-config
+    ];
 
-  buildInputs = [
-    openal
-    enet
-    SDL2
-    curl
-    gettext
-    libiconv
-  ];
+    buildInputs = [
+      openal
+      enet
+      SDL2
+      curl
+      gettext
+      libiconv
+    ];
 
-  preAutoreconf = ''
-    autoupdate
-  '';
+    preAutoreconf = ''
+      autoupdate
+    '';
 
-  hardeningDisable = lib.optionals (stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin) [
-    "stackprotector"
-  ];
+    hardeningDisable = lib.optionals (stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin) [
+      "stackprotector"
+    ];
 
-  postInstall = ''
-    mkdir $out/share/7kaa/MUSIC
-    cp -R ${music}/MUSIC $out/share/7kaa/
-    cp ${music}/COPYING-Music.txt $out/share/7kaa/MUSIC
-    cp ${music}/COPYING-Music.txt $out/share/doc/7kaa
-  '';
+    postInstall = ''
+      mkdir $out/share/7kaa/MUSIC
+      cp -R ${music}/MUSIC $out/share/7kaa/
+      cp ${music}/COPYING-Music.txt $out/share/7kaa/MUSIC
+      cp ${music}/COPYING-Music.txt $out/share/doc/7kaa
+    '';
 
-  # Multiplayer is auto-disabled for non-x86 system
+    # Multiplayer is auto-disabled for non-x86 system
 
-  meta = with lib; {
-    homepage = "https://www.7kfans.com";
-    description = "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
-    license = licenses.gpl2Only;
-    platforms = platforms.x86_64 ++ platforms.aarch64;
-    maintainers = with maintainers; [ _1000101 ];
-  };
-})
+    meta = with lib; {
+      homepage = "https://www.7kfans.com";
+      description = "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
+      license = licenses.gpl2Only;
+      platforms = platforms.x86_64 ++ platforms.aarch64;
+      maintainers = with maintainers; [_1000101];
+    };
+  })

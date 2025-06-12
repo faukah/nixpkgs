@@ -10,7 +10,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "FusionInventory-Agent";
   version = "2.6";
@@ -32,11 +31,10 @@ perlPackages.buildPerlPackage rec {
       --replace /sbin/ip ${iproute2}/sbin/ip
   '';
 
-  buildTools = [ ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildTools = [];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = (
-    with perlPackages;
-    [
+    with perlPackages; [
       CGI
       DataStructureUtil
       FileCopyRecursive
@@ -81,25 +79,25 @@ perlPackages.buildPerlPackage rec {
       if [ -x "$cur" ]; then
         sed -e "s|./lib|$out/lib|" -i "$cur"
         wrapProgram "$cur" --prefix PATH : ${
-          lib.makeBinPath [
-            nix
-            dmidecode
-            pciutils
-            usbutils
-            nettools
-            iproute2
-          ]
-        }
+      lib.makeBinPath [
+        nix
+        dmidecode
+        pciutils
+        usbutils
+        nettools
+        iproute2
+      ]
+    }
       fi
     done
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   meta = with lib; {
     homepage = "https://www.fusioninventory.org";
     description = "FusionInventory unified Agent for UNIX, Linux, Windows and MacOSX";
     license = lib.licenses.gpl2Only;
-    maintainers = [ maintainers.phile314 ];
+    maintainers = [maintainers.phile314];
   };
 }

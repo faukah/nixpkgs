@@ -6,7 +6,6 @@
   makeWrapper,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "professor";
   version = "2.4.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation {
     yoda
   ];
 
-  CPPFLAGS = [ "-I${eigen}/include/eigen3" ];
+  CPPFLAGS = ["-I${eigen}/include/eigen3"];
   PREFIX = placeholder "out";
 
   postInstall = ''
@@ -66,7 +65,7 @@ stdenv.mkDerivation {
     description = "Tuning tool for Monte Carlo event generators";
     homepage = "https://professor.hepforge.org/";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     platforms = platforms.unix;
   };
 }

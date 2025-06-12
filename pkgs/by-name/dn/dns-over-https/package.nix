@@ -27,14 +27,14 @@ buildGoModule rec {
     "doh-server"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/m13253/dns-over-https";
     changelog = "https://github.com/m13253/dns-over-https/releases/tag/v${version}";
     description = "High performance DNS over HTTPS client & server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cryo ];
+    maintainers = with lib.maintainers; [cryo];
     platforms = lib.platforms.all;
   };
 }

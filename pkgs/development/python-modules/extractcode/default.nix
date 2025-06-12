@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   extractcode-7z,
   extractcode-libarchive,
   patch,
   six,
   typecode,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "extractcode";
   version = "31.0.0";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     extractcode-7z
@@ -78,14 +74,14 @@ buildPythonPackage rec {
     "test_get_extractors_2"
   ];
 
-  pythonImportsCheck = [ "extractcode" ];
+  pythonImportsCheck = ["extractcode"];
 
   meta = {
     description = "Universal archive extractor using z7zip, libarchive, other libraries and the Python standard library";
     homepage = "https://github.com/aboutcode-org/extractcode";
     changelog = "https://github.com/aboutcode-org/extractcode/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "extractcode";
   };
 }

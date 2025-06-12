@@ -8,7 +8,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uvwasi";
   version = "0.0.21";
@@ -38,11 +37,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "uvwasi" ];
+      moduleNames = ["uvwasi"];
     };
   };
 
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nodejs/uvwasi";
     changelog = "https://github.com/nodejs/uvwasi/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aduh95 ];
+    maintainers = with lib.maintainers; [aduh95];
     platforms = lib.platforms.all;
   };
 })

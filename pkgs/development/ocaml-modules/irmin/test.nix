@@ -17,14 +17,12 @@
   vector,
   qcheck-alcotest,
 }:
-
 buildDunePackage {
-
   pname = "irmin-test";
 
   inherit (irmin) version src;
 
-  nativeBuildInputs = [ ppx_irmin ];
+  nativeBuildInputs = [ppx_irmin];
 
   propagatedBuildInputs = [
     irmin
@@ -49,8 +47,9 @@ buildDunePackage {
     vector
   ];
 
-  meta = irmin.meta // {
-    description = "Irmin test suite";
-  };
-
+  meta =
+    irmin.meta
+    // {
+      description = "Irmin test suite";
+    };
 }

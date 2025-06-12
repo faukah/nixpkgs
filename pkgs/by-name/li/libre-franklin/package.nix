@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "libre-franklin";
   version = "1.014";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Reinterpretation and expansion based on the 1912 Morris Fuller Benton’s classic";
     homepage = "https://github.com/impallari/Libre-Franklin";
     license = licenses.ofl;
-    maintainers = with maintainers; [ cmfwyp ];
+    maintainers = with maintainers; [cmfwyp];
     platforms = platforms.all;
   };
 }

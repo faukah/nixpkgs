@@ -9,7 +9,6 @@
   ncurses,
   knot-dns,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ngtcp2";
   version = "1.13.0";
@@ -30,13 +29,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ gnutls ];
+  buildInputs = [gnutls];
 
-  configureFlags = [ "--with-gnutls=yes" ];
+  configureFlags = ["--with-gnutls=yes"];
   enableParallelBuilding = true;
 
   doCheck = true;
-  nativeCheckInputs = [ cunit ] ++ lib.optional stdenv.hostPlatform.isDarwin ncurses;
+  nativeCheckInputs = [cunit] ++ lib.optional stdenv.hostPlatform.isDarwin ncurses;
 
   passthru.tests = knot-dns.passthru.tests; # the only consumer so far
 
@@ -50,16 +49,16 @@ stdenv.mkDerivation rec {
     ];
   };
 }
-
 /*
-  Why split from ./default.nix?
+Why split from ./default.nix?
 
-  ngtcp2 libs contain helpers to plug into various crypto libs (gnutls, patched openssl, ...).
-  Building multiple of them while keeping closures separable would be relatively complicated.
-  Separating the builds is easier for now; the missed opportunity to share the 0.3--0.4 MB
-  library isn't such a big deal.
+ngtcp2 libs contain helpers to plug into various crypto libs (gnutls, patched openssl, ...).
+Building multiple of them while keeping closures separable would be relatively complicated.
+Separating the builds is easier for now; the missed opportunity to share the 0.3--0.4 MB
+library isn't such a big deal.
 
-  Moreover upstream still commonly does incompatible changes, so agreeing
-  on a single version might be hard sometimes.  That's why it seemed simpler
-  to completely separate the nix expressions, too.
+Moreover upstream still commonly does incompatible changes, so agreeing
+on a single version might be hard sometimes.  That's why it seemed simpler
+to completely separate the nix expressions, too.
 */
+

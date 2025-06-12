@@ -5,7 +5,6 @@
   cmake,
   curlHTTP3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nghttp3";
   version = "1.9.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "ENABLE_STATIC_LIB" false)
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "nghttp3 is an implementation of HTTP/3 mapping over QUIC and QPACK in C";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

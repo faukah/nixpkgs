@@ -4,13 +4,11 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   geopandas,
   pooch,
   pyogrio,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "geodatasets";
   version = "2024.8.0";
@@ -24,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-GJ7RyFlohlRz0RbQ80EewZUmIX9CJkSfUMY/uMNTtEM=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  propagatedBuildInputs = [ pooch ];
+  propagatedBuildInputs = [pooch];
 
   nativeCheckInputs = [
     geopandas
@@ -43,12 +41,12 @@ buildPythonPackage rec {
     "-m 'not request'"
   ];
 
-  pythonImportsCheck = [ "geodatasets" ];
+  pythonImportsCheck = ["geodatasets"];
 
   meta = {
     description = "Spatial data examples";
     homepage = "https://geodatasets.readthedocs.io/";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

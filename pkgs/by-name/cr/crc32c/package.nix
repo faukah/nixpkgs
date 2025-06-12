@@ -6,7 +6,6 @@
   gflags,
   staticOnly ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crc32c";
   version = "1.1.2";
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ gflags ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [gflags];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isAarch64 "-march=armv8-a+crc";
 
@@ -30,7 +29,11 @@ stdenv.mkDerivation rec {
     "-DCRC32C_BUILD_BENCHMARKS=0"
     "-DCRC32C_USE_GLOG=0"
     "-DINSTALL_GTEST=0"
-    "-DBUILD_SHARED_LIBS=${if staticOnly then "0" else "1"}"
+    "-DBUILD_SHARED_LIBS=${
+      if staticOnly
+      then "0"
+      else "1"
+    }"
   ];
 
   doCheck = false;
@@ -54,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/google/crc32c";
     description = "CRC32C implementation with support for CPU-specific acceleration instructions";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ cpcloud ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [cpcloud];
   };
 }

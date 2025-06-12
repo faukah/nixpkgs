@@ -9,7 +9,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crispy-doom";
   version = "7.0";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ neonfuz ];
+    maintainers = with lib.maintainers; [neonfuz];
   };
 }

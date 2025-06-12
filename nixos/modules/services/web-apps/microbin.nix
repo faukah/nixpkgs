@@ -3,28 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.microbin;
-in
-{
+in {
   options.services.microbin = {
     enable = lib.mkEnableOption "MicroBin is a super tiny, feature rich, configurable paste bin web application";
 
-    package = lib.mkPackageOption pkgs "microbin" { };
+    package = lib.mkPackageOption pkgs "microbin" {};
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
+        freeformType = with lib.types;
           attrsOf (oneOf [
             bool
             int
             str
           ]);
       };
-      default = { };
+      default = {};
       example = {
         MICROBIN_PORT = 8080;
         MICROBIN_HIDE_LOGO = false;
@@ -70,11 +66,16 @@ in
     };
 
     systemd.services.microbin = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = lib.mapAttrs (
-        _: v: if lib.isBool v then lib.boolToString v else toString v
-      ) cfg.settings;
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      environment =
+        lib.mapAttrs (
+          _: v:
+            if lib.isBool v
+            then lib.boolToString v
+            else toString v
+        )
+        cfg.settings;
       serviceConfig = {
         DevicePolicy = "closed";
         DynamicUser = true;
@@ -99,12 +100,12 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         StateDirectory = "microbin";
-        SystemCallArchitectures = [ "native" ];
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallArchitectures = ["native"];
+        SystemCallFilter = ["@system-service"];
         WorkingDirectory = cfg.dataDir;
       };
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ surfaceflinger ];
+  meta.maintainers = with lib.maintainers; [surfaceflinger];
 }

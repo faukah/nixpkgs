@@ -3,7 +3,6 @@
   fetchFromSourcehut,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mus";
   version = "0.2.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Pretty good mpd client";
     homepage = "https://sr.ht/~nbsp/mus";
     license = licenses.mit;
-    maintainers = with maintainers; [ nbsp ];
+    maintainers = with maintainers; [nbsp];
     mainProgram = "mus";
   };
 }

@@ -8,7 +8,6 @@
   libiconv,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "finalfrontier";
   version = "unstable-2022-01-06";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -49,6 +48,6 @@ rustPlatform.buildRustPackage {
     mainProgram = "finalfrontier";
     homepage = "https://github.com/finalfusion/finalfrontier/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

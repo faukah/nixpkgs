@@ -6,7 +6,6 @@
   yuscii,
   uuuu,
 }:
-
 buildDunePackage rec {
   pname = "rosetta";
   version = "0.3.0";
@@ -30,6 +29,6 @@ buildDunePackage rec {
     description = "Universal decoder of an encoded flow (UTF-7, ISO-8859 and KOI8) to Unicode";
     license = lib.licenses.mit;
     homepage = "https://github.com/mirage/rosetta";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

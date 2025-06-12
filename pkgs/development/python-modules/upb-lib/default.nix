@@ -8,7 +8,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "upb-lib";
   version = "0.6.1";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-tjmsg8t2/WEjnRHyqN2lxsAgfISV1uAnhmq2dXAG15A=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     pyserial-asyncio-fast
     pytz
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "upb_lib" ];
+  pythonImportsCheck = ["upb_lib"];
 
   meta = {
     description = "Library for interacting with UPB PIM";
     homepage = "https://github.com/gwww/upb-lib";
     changelog = "https://github.com/gwww/upb-lib/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

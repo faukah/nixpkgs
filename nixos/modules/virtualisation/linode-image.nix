@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.virtualisation.linodeImage;
   defaultConfigFile = pkgs.writeText "configuration.nix" ''
     _: {
@@ -15,8 +13,7 @@ let
       ];
     }
   '';
-in
-{
+in {
   imports = [
     ./linode-config.nix
     ./disk-size-option.nix
@@ -36,7 +33,6 @@ in
   ];
 
   options = {
-
     virtualisation.linodeImage.configFile = mkOption {
       type = with types; nullOr str;
       default = null;
@@ -58,7 +54,7 @@ in
   };
 
   config = {
-    system.nixos.tags = [ "linode" ];
+    system.nixos.tags = ["linode"];
     image.extension = "img.gz";
     system.build.image = config.system.build.linodeImage;
     system.build.linodeImage = import ../../lib/make-disk-image.nix {
@@ -73,11 +69,14 @@ in
       '';
       format = "raw";
       partitionTableType = "none";
-      configFile = if cfg.configFile == null then defaultConfigFile else cfg.configFile;
+      configFile =
+        if cfg.configFile == null
+        then defaultConfigFile
+        else cfg.configFile;
       inherit (config.virtualisation) diskSize;
       inherit config lib pkgs;
     };
   };
 
-  meta.maintainers = with maintainers; [ cyntheticfox ];
+  meta.maintainers = with maintainers; [cyntheticfox];
 }

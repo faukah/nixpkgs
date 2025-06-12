@@ -9,7 +9,6 @@
   websockets,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "elmax-api";
   version = "0.0.6.4rc0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-BYVfP8B+p4J4gW+64xh9bT9sDcu/lk0R+MvLsYLwRfQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Test require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "elmax_api" ];
+  pythonImportsCheck = ["elmax_api"];
 
   meta = with lib; {
     description = "Python library for interacting with the Elmax cloud";
     homepage = "https://github.com/albertogeniola/elmax-api";
     changelog = "https://github.com/albertogeniola/elmax-api/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

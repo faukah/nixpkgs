@@ -4,7 +4,6 @@
   lib,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nix-playground";
   version = "1.0.3";
@@ -40,14 +39,14 @@ python3.pkgs.buildPythonApplication rec {
   # https://github.com/NixOS/nixpkgs/pull/72544#issuecomment-582674047
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  pythonImportsCheck = [ "nix_playground" ];
+  pythonImportsCheck = ["nix_playground"];
 
   meta = {
     description = "Command line tools for patching nixpkgs package source code easily";
     mainProgram = "np";
     homepage = "https://github.com/LaunchPlatform/nix-playground";
     changelog = "https://github.com/LaunchPlatform/nix-playground/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fangpen ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fangpen];
   };
 }

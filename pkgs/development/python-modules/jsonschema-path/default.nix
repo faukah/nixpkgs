@@ -10,7 +10,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "jsonschema-path";
   version = "0.3.4";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-rCepDnVAOEsokKjWCuqDYbGIq6/wn4rsQRx5dXTUsYo=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "referencing" ];
+  pythonRelaxDeps = ["referencing"];
 
   propagatedBuildInputs = [
     pathable
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     referencing
   ];
 
-  pythonImportsCheck = [ "jsonschema_path" ];
+  pythonImportsCheck = ["jsonschema_path"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "JSONSchema Spec with object-oriented paths";
     homepage = "https://github.com/p1c2u/jsonschema-path";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

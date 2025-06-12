@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "auth0-cli";
   version = "1.14.1";
@@ -36,7 +35,7 @@ buildGoModule rec {
       --replace-fail "TestFetchUniversalLoginBrandingData" "SkipFetchUniversalLoginBrandingData"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd auth0 \
@@ -45,14 +44,14 @@ buildGoModule rec {
       --zsh <($out/bin/auth0 completion zsh)
   '';
 
-  subPackages = [ "cmd/auth0" ];
+  subPackages = ["cmd/auth0"];
 
   meta = {
     description = "Supercharge your developer workflow";
     homepage = "https://auth0.github.io/auth0-cli";
     changelog = "https://github.com/auth0/auth0-cli/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     mainProgram = "auth0";
   };
 }

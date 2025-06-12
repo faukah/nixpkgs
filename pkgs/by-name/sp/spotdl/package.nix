@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ffmpeg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "spotdl";
   version = "4.2.11";
@@ -17,12 +16,11 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-9PlqnpUlV5b8g+lctGjVL1Xgf25SS5xqkDaa1bSlxpk=";
   };
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   pythonRelaxDeps = true;
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       beautifulsoup4
       fastapi
@@ -85,7 +83,7 @@ python3.pkgs.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   meta = {
@@ -93,7 +91,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/spotDL/spotify-downloader";
     changelog = "https://github.com/spotDL/spotify-downloader/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     mainProgram = "spotdl";
   };
 }

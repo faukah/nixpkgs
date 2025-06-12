@@ -8,7 +8,6 @@
   pytestCheckHook,
   gettext,
 }:
-
 buildPythonPackage rec {
   pname = "setuptools-gettext";
   version = "0.1.14";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-05xKWRxmoI8tnRENuiK3Z3WNMyjgXIX5p3vhzSUeytQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ setuptools ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies = [setuptools] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  pythonImportsCheck = [ "setuptools_gettext" ];
+  pythonImportsCheck = ["setuptools_gettext"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "setuptools plugin for building mo files";
     homepage = "https://github.com/breezy-team/setuptools-gettext";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

@@ -11,7 +11,6 @@
   pylibjpeg-libjpeg,
   pylibjpeg-openjpeg,
 }:
-
 buildPythonPackage rec {
   pname = "pylibjpeg";
   version = "2.0.1";
@@ -26,13 +25,13 @@ buildPythonPackage rec {
     hash = "sha256-MA1A/hTIx95MYZ2LGOifnHn77wbv0ydAgQSzNZRykVg=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   optional-dependencies = {
-    libjpeg = [ pylibjpeg-libjpeg ];
-    openjpeg = [ pylibjpeg-openjpeg ];
+    libjpeg = [pylibjpeg-libjpeg];
+    openjpeg = [pylibjpeg-openjpeg];
     #rle = [ pylibjpeg-rle ]; # not in Nixpkgs
   };
 
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     pylibjpeg-libjpeg
   ];
 
-  pythonImportsCheck = [ "pylibjpeg" ];
+  pythonImportsCheck = ["pylibjpeg"];
 
   meta = with lib; {
     description = "Python framework for decoding JPEG images, with a focus on supporting Pydicom";
     homepage = "https://github.com/pydicom/pylibjpeg";
     changelog = "https://github.com/pydicom/pylibjpeg/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

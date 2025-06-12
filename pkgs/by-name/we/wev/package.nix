@@ -9,7 +9,6 @@
   wayland-protocols,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation {
   pname = "wev";
   version = "1.0.0-unstable-2022-09-14";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     libxkbcommon
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/wev";
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
       X11 tool xev.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
     mainProgram = "wev";
   };

@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "idsk";
   version = "0.20";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/cpcsdk/idsk/releases/tag/${src.rev}";
     license = licenses.mit;
     mainProgram = "iDSK";
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 }

@@ -3,7 +3,6 @@
   coq,
   simple-io,
 }:
-
 stdenv.mkDerivation {
   pname = "coq-simple-io-test";
   inherit (simple-io) src version;
@@ -24,5 +23,4 @@ stdenv.mkDerivation {
   '';
 
   installPhase = "touch $out";
-
 }

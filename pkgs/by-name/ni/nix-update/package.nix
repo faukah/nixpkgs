@@ -8,7 +8,6 @@
   python3Packages,
   nix-update,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nix-update";
   version = "1.11.0";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-G5YehePEMhTgxCnLp8Dg+bDHvOe+QltlCkQHVwMtYx0=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   makeWrapperArgs = [
     "--prefix"
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    nix-update-script = callPackage ./nix-update-script.nix { inherit nix-update; };
+    nix-update-script = callPackage ./nix-update-script.nix {inherit nix-update;};
   };
 
   meta = {

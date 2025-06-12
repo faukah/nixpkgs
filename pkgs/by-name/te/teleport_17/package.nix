@@ -1,4 +1,2 @@
-{
-  teleport,
-}:
+{teleport}:
 teleport

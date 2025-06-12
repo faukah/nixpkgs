@@ -3,7 +3,6 @@
   netcat,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   name = "memcached-test-hook-test";
 

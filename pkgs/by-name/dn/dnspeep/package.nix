@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dnspeep";
   version = "0.1.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-tZlh7+END6oOy3uWOrjle+nwqFhMU6bbXmr4hdt6gqY=";
 
-  LIBPCAP_LIBDIR = lib.makeLibraryPath [ libpcap ];
+  LIBPCAP_LIBDIR = lib.makeLibraryPath [libpcap];
   LIBPCAP_VER = libpcap.version;
 
   meta = with lib; {
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "dnspeep";
     homepage = "https://github.com/jvns/dnspeep";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

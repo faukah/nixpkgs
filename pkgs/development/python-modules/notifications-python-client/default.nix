@@ -13,7 +13,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "notifications-python-client";
   version = "10.0.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "notifications_python_client" ];
+  pythonImportsCheck = ["notifications_python_client"];
 
   meta = with lib; {
     description = "Python client for the GOV.UK Notify API";
     homepage = "https://github.com/alphagov/notifications-python-client";
     changelog = "https://github.com/alphagov/notifications-python-client/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

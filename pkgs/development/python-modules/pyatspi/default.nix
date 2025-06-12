@@ -9,7 +9,6 @@
   gnome,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "pyatspi";
   version = "2.46.1";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     sha256 = "+R9qV0NOnAfRPVxL+BndeOjuYFqsKuRdjGTCgRT7BBs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     at-spi2-core
     pygobject3
   ];
 
-  configureFlags = [ "PYTHON=${python.pythonOnBuildForHost.interpreter}" ];
+  configureFlags = ["PYTHON=${python.pythonOnBuildForHost.interpreter}"];
 
   postPatch = ''
     # useless python existence check for us
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     description = "Python client bindings for D-Bus AT-SPI";
     homepage = "https://wiki.linuxfoundation.org/accessibility/d-bus";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = with platforms; unix;
   };
 }

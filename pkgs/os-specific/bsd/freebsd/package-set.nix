@@ -9,10 +9,7 @@
   patchesRoot,
   writeText,
   buildPackages,
-}:
-
-self:
-
+}: self:
 lib.packagesFromDirectoryRecursive {
   callPackage = self.callPackage;
   directory = ./pkgs;
@@ -21,9 +18,11 @@ lib.packagesFromDirectoryRecursive {
   inherit sourceData patchesRoot versionData;
 
   # Keep the crawled portion of Nixpkgs finite.
-  buildFreebsd = lib.dontRecurseIntoAttrs buildFreebsd // {
-    __attrsFailEvaluation = true;
-  };
+  buildFreebsd =
+    lib.dontRecurseIntoAttrs buildFreebsd
+    // {
+      __attrsFailEvaluation = true;
+    };
 
   ports = fetchgit {
     url = "https://git.FreeBSD.org/ports.git";
@@ -59,7 +58,7 @@ lib.packagesFromDirectoryRecursive {
     inherit (self) include;
   };
 
-  include = self.callPackage ./pkgs/include/package.nix { inherit (buildFreebsd) rpcgen mtree; };
+  include = self.callPackage ./pkgs/include/package.nix {inherit (buildFreebsd) rpcgen mtree;};
 
   install = self.callPackage ./pkgs/install.nix {
     inherit (buildFreebsd) makeMinimal;
@@ -67,11 +66,13 @@ lib.packagesFromDirectoryRecursive {
   };
 
   libcMinimal = self.callPackage ./pkgs/libcMinimal.nix {
-    inherit (buildFreebsd)
+    inherit
+      (buildFreebsd)
       rpcgen
       gencat
       ;
-    inherit (buildPackages)
+    inherit
+      (buildPackages)
       flex
       byacc
       ;
@@ -85,22 +86,23 @@ lib.packagesFromDirectoryRecursive {
     inherit (buildFreebsd) rpcgen;
   };
 
-  i18n = self.callPackage ./pkgs/i18n.nix { inherit (buildFreebsd) mkcsmapper mkesdb; };
+  i18n = self.callPackage ./pkgs/i18n.nix {inherit (buildFreebsd) mkcsmapper mkesdb;};
 
-  libelf = self.callPackage ./pkgs/libelf.nix { inherit (buildPackages) m4; };
+  libelf = self.callPackage ./pkgs/libelf.nix {inherit (buildPackages) m4;};
 
   rtld-elf = self.callPackage ./pkgs/rtld-elf.nix {
     inherit (buildFreebsd) rpcgen;
     inherit (buildPackages) flex byacc;
   };
 
-  libnetbsd = self.callPackage ./pkgs/libnetbsd/package.nix { inherit (buildFreebsd) makeMinimal; };
+  libnetbsd = self.callPackage ./pkgs/libnetbsd/package.nix {inherit (buildFreebsd) makeMinimal;};
 
-  libmd = self.callPackage ./pkgs/libmd.nix { inherit (buildFreebsd) makeMinimal; };
+  libmd = self.callPackage ./pkgs/libmd.nix {inherit (buildFreebsd) makeMinimal;};
 
   mkDerivation = self.callPackage ./pkgs/mkDerivation.nix {
     inherit stdenv;
-    inherit (buildFreebsd)
+    inherit
+      (buildFreebsd)
       freebsdSetupHook
       makeMinimal
       install
@@ -109,9 +111,9 @@ lib.packagesFromDirectoryRecursive {
       ;
   };
 
-  makeMinimal = self.callPackage ./pkgs/makeMinimal.nix { inherit (self) make; };
+  makeMinimal = self.callPackage ./pkgs/makeMinimal.nix {inherit (self) make;};
 
-  mtree = self.callPackage ./pkgs/mtree.nix { inherit (self) libnetbsd libmd; };
+  mtree = self.callPackage ./pkgs/mtree.nix {inherit (self) libnetbsd libmd;};
 
-  tsort = self.callPackage ./pkgs/tsort.nix { inherit (buildFreebsd) makeMinimal install; };
+  tsort = self.callPackage ./pkgs/tsort.nix {inherit (buildFreebsd) makeMinimal install;};
 }

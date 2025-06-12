@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiosasl";
   version = "0.5.0";
@@ -37,19 +36,19 @@ buildPythonPackage rec {
       --replace-fail "assertRaisesRegexp" "assertRaisesRegex"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pyopenssl
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiosasl" ];
+  pythonImportsCheck = ["aiosasl"];
 
   meta = {
     description = "Asyncio SASL library";
     homepage = "https://github.com/horazont/aiosasl";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

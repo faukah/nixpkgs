@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mmdbinspect";
   version = "0.2.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "mmdbinspect";
   };
 }

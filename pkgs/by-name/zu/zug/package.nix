@@ -7,7 +7,6 @@
   boost,
   catch2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zug";
   version = "0.1.1";
@@ -26,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
     catch2
   ];
 
-  cmakeFlags = [ "-Dzug_BUILD_EXAMPLES=OFF" ];
+  cmakeFlags = ["-Dzug_BUILD_EXAMPLES=OFF"];
 
   preConfigure = ''
     rm BUILD
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/arximboldi/zug";
     description = "library for functional interactive c++ programs";
-    maintainers = with lib.maintainers; [ nek0 ];
+    maintainers = with lib.maintainers; [nek0];
     license = lib.licenses.boost;
   };
 })

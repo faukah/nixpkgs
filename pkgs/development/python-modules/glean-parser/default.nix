@@ -12,7 +12,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "glean-parser";
   version = "17.1.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     platformdirs
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     "test_yaml_lint"
   ];
 
-  pythonImportsCheck = [ "glean_parser" ];
+  pythonImportsCheck = ["glean_parser"];
 
   meta = {
     description = "Tools for parsing the metadata for Mozilla's glean telemetry SDK";
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mozilla/glean_parser";
     changelog = "https://github.com/mozilla/glean_parser/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

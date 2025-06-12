@@ -4,7 +4,6 @@
   python3Packages,
   qt5,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "friture";
   version = "0.51";
@@ -28,9 +27,9 @@ python3Packages.buildPythonApplication rec {
       scipy
       setuptools
     ])
-    ++ (with qt5; [ wrapQtAppsHook ]);
+    ++ (with qt5; [wrapQtAppsHook]);
 
-  buildInputs = with qt5; [ qtquickcontrols2 ];
+  buildInputs = with qt5; [qtquickcontrols2];
 
   propagatedBuildInputs = with python3Packages; [
     sounddevice

@@ -11,7 +11,7 @@ fetchurl {
     longDescription = ''
       ISO containing various add-ons which improves guests inside VirtualBox.
     '';
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl2;
     maintainers = [
       lib.maintainers.sander

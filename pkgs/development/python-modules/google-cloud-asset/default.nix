@@ -17,7 +17,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-asset";
   version = "3.30.1";
@@ -31,21 +30,23 @@ buildPythonPackage rec {
     hash = "sha256-oPAkm/y8RO9/iYC2IUJN58/ilYjS2skMtYzMyBDQU8w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    grpc-google-iam-v1
-    google-api-core
-    google-cloud-access-context-manager
-    google-cloud-org-policy
-    google-cloud-os-config
-    libcst
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      grpc-google-iam-v1
+      google-api-core
+      google-cloud-access-context-manager
+      google-cloud-org-policy
+      google-cloud-os-config
+      libcst
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
-    libcst = [ libcst ];
+    libcst = [libcst];
   };
 
   nativeCheckInputs = [
@@ -69,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-asset";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-asset-v${version}/packages/google-cloud-asset/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -11,9 +11,7 @@
   stdenv,
   libiconv,
   nixosTests,
-}:
-
-let
+}: let
   version = "2.7.6";
   ui_version = "OSS-v2.7.1";
   libflux_version = "0.194.5";
@@ -46,7 +44,7 @@ let
         url = "https://github.com/influxdata/flux/commit/68c831c40b396f0274f6a9f97d77707c39970b02.patch";
         stripLen = 2;
         extraPrefix = "";
-        excludes = [ ];
+        excludes = [];
         hash = "sha256-6LOTgbOCfETNTmshyXgtDZf9y4t/2iqRuVPkz9dYPHc=";
       })
       ./fix-unsigned-char.patch
@@ -61,7 +59,7 @@ let
     sourceRoot = "${src.name}/libflux";
     useFetchCargoVendor = true;
     cargoHash = "sha256-wJVvpjaBUae3FK3lQaQov4t0UEsH86tB8B8bsSFGGBU=";
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
     buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
     pkgcfg = ''
       Name: flux
@@ -70,7 +68,7 @@ let
       Cflags: -I/out/include
       Libs: -L/out/lib -lflux -lpthread
     '';
-    passAsFile = [ "pkgcfg" ];
+    passAsFile = ["pkgcfg"];
     postInstall =
       ''
         mkdir -p $out/include $out/pkgconfig
@@ -83,70 +81,70 @@ let
       '';
   };
 in
-buildGoModule {
-  pname = "influxdb";
-  version = version;
-  inherit src;
+  buildGoModule {
+    pname = "influxdb";
+    version = version;
+    inherit src;
 
-  nativeBuildInputs = [
-    go-bindata
-    pkg-config
-    perl
-  ];
+    nativeBuildInputs = [
+      go-bindata
+      pkg-config
+      perl
+    ];
 
-  vendorHash = "sha256-3Vf8BCrOwliXrH+gmZ4RJ1YBEbqL0Szx2prW3ie9CNg=";
-  subPackages = [
-    "cmd/influxd"
-    "cmd/telemetryd"
-  ];
+    vendorHash = "sha256-3Vf8BCrOwliXrH+gmZ4RJ1YBEbqL0Szx2prW3ie9CNg=";
+    subPackages = [
+      "cmd/influxd"
+      "cmd/telemetryd"
+    ];
 
-  PKG_CONFIG_PATH = "${flux}/pkgconfig";
+    PKG_CONFIG_PATH = "${flux}/pkgconfig";
 
-  postPatch = ''
-    # use go-bindata from environment
-    substituteInPlace static/static.go \
-      --replace 'go run github.com/kevinburke/go-bindata/' ""
-  '';
+    postPatch = ''
+      # use go-bindata from environment
+      substituteInPlace static/static.go \
+        --replace 'go run github.com/kevinburke/go-bindata/' ""
+    '';
 
-  # Check that libflux and the UI are at the right version, and embed
-  # the UI assets into the Go source tree.
-  preBuild = ''
-    (
-      flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
-      if [ "$flux_ver" != "v${libflux_version}" ]; then
-        echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
-        exit 1
-      fi
+    # Check that libflux and the UI are at the right version, and embed
+    # the UI assets into the Go source tree.
+    preBuild = ''
+      (
+        flux_ver=$(grep github.com/influxdata/flux go.mod | awk '{print $2}')
+        if [ "$flux_ver" != "v${libflux_version}" ]; then
+          echo "go.mod wants libflux $flux_ver, but nix derivation provides ${libflux_version}"
+          exit 1
+        fi
 
-      ui_ver=$(egrep 'UI_RELEASE=".*"' scripts/fetch-ui-assets.sh | cut -d'"' -f2)
-      if [ "$ui_ver" != "${ui_version}" ]; then
-        echo "scripts/fetch-ui-assets.sh wants UI $ui_ver, but nix derivation provides ${ui_version}"
-        exit 1
-      fi
-    )
+        ui_ver=$(egrep 'UI_RELEASE=".*"' scripts/fetch-ui-assets.sh | cut -d'"' -f2)
+        if [ "$ui_ver" != "${ui_version}" ]; then
+          echo "scripts/fetch-ui-assets.sh wants UI $ui_ver, but nix derivation provides ${ui_version}"
+          exit 1
+        fi
+      )
 
-    mkdir -p static/data
-    tar -xzf ${ui} -C static/data
-    pushd static
-    go generate
-    popd
-  '';
+      mkdir -p static/data
+      tar -xzf ${ui} -C static/data
+      pushd static
+      go generate
+      popd
+    '';
 
-  tags = [ "assets" ];
+    tags = ["assets"];
 
-  ldflags = [
-    "-X main.commit=v${version}"
-    "-X main.version=${version}"
-  ];
+    ldflags = [
+      "-X main.commit=v${version}"
+      "-X main.version=${version}"
+    ];
 
-  passthru.tests = {
-    inherit (nixosTests) influxdb2;
-  };
+    passthru.tests = {
+      inherit (nixosTests) influxdb2;
+    };
 
-  meta = with lib; {
-    description = "Open-source distributed time series database";
-    license = licenses.mit;
-    homepage = "https://influxdata.com/";
-    maintainers = with maintainers; [ abbradar ];
-  };
-}
+    meta = with lib; {
+      description = "Open-source distributed time series database";
+      license = licenses.mit;
+      homepage = "https://influxdata.com/";
+      maintainers = with maintainers; [abbradar];
+    };
+  }

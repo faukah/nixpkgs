@@ -12,7 +12,6 @@
   opentelemetry-util-http,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-instrumentation-django";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/instrumentation/opentelemetry-instrumentation-django";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     django
@@ -34,18 +33,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    asgi = [ opentelemetry-instrumentation-asgi ];
+    asgi = [opentelemetry-instrumentation-asgi];
   };
 
-  nativeCheckInputs = [
-    opentelemetry-test-utils
-    pytestCheckHook
-  ] ++ optional-dependencies.asgi;
+  nativeCheckInputs =
+    [
+      opentelemetry-test-utils
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.asgi;
 
-  pythonImportsCheck = [ "opentelemetry.instrumentation.django" ];
+  pythonImportsCheck = ["opentelemetry.instrumentation.django"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-django";
-    description = "OpenTelemetry Instrumentation for Django";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/instrumentation/opentelemetry-instrumentation-django";
+      description = "OpenTelemetry Instrumentation for Django";
+    };
 }

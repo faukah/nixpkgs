@@ -6,7 +6,6 @@
   jdk,
   jre,
 }:
-
 stdenv.mkDerivation {
   pname = "remnants-of-the-precursors";
   version = "1.04";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
   # By default, the game tries to write to the java class path. If that fails
   # (and it always does, since they are in the read-only nix store), it won't
   # launch.
-  patches = [ ./0001-store-config-and-saves-in-XDG_CONFIG_HOME.patch ];
+  patches = [./0001-store-config-and-saves-in-XDG_CONFIG_HOME.patch];
 
   buildPhase = ''
     runHook preBuild
@@ -91,7 +90,7 @@ stdenv.mkDerivation {
       cc-by-nc-nd-40
     ];
 
-    maintainers = with maintainers; [ jtrees ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jtrees];
+    platforms = ["x86_64-linux"];
   };
 }

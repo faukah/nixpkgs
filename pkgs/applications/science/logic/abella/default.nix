@@ -5,7 +5,6 @@
   rsync,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abella";
   version = "2.0.8";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ rsync ]
+    [rsync]
     ++ (with ocamlPackages; [
       ocaml
       dune_3

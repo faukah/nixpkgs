@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     flask-wtf
     msgpack
     setuptools
-    (python3Packages.toPythonModule (radicale.override { python3 = python; }))
+    (python3Packages.toPythonModule (radicale.override {python3 = python;}))
     requests
     types-setuptools
     requests.optional-dependencies.socks

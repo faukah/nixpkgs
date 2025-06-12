@@ -3,17 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types mkIf;
   cfg = config.services.atuin;
-in
-{
+in {
   options = {
     services.atuin = {
       enable = lib.mkEnableOption "Atuin server for shell history sync";
 
-      package = lib.mkPackageOption pkgs "atuin" { };
+      package = lib.mkPackageOption pkgs "atuin" {};
 
       openRegistration = mkOption {
         type = types.bool;
@@ -87,19 +85,23 @@ in
           ensureDBOwnership = true;
         }
       ];
-      ensureDatabases = [ "atuin" ];
+      ensureDatabases = ["atuin"];
     };
 
     systemd.services.atuin = {
       description = "atuin server";
-      requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      after = [
-        "network-online.target"
-      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      wants = [
-        "network-online.target"
-      ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = lib.optionals cfg.database.createLocally ["postgresql.service"];
+      after =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optionals cfg.database.createLocally ["postgresql.service"];
+      wants =
+        [
+          "network-online.target"
+        ]
+        ++ lib.optionals cfg.database.createLocally ["postgresql.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${lib.getExe cfg.package} server start";
@@ -144,16 +146,18 @@ in
         UMask = "0077";
       };
 
-      environment = {
-        ATUIN_HOST = cfg.host;
-        ATUIN_PORT = toString cfg.port;
-        ATUIN_MAX_HISTORY_LENGTH = toString cfg.maxHistoryLength;
-        ATUIN_OPEN_REGISTRATION = lib.boolToString cfg.openRegistration;
-        ATUIN_PATH = cfg.path;
-        ATUIN_CONFIG_DIR = "/run/atuin"; # required to start, but not used as configuration is via environment variables
-      } // lib.optionalAttrs (cfg.database.uri != null) { ATUIN_DB_URI = cfg.database.uri; };
+      environment =
+        {
+          ATUIN_HOST = cfg.host;
+          ATUIN_PORT = toString cfg.port;
+          ATUIN_MAX_HISTORY_LENGTH = toString cfg.maxHistoryLength;
+          ATUIN_OPEN_REGISTRATION = lib.boolToString cfg.openRegistration;
+          ATUIN_PATH = cfg.path;
+          ATUIN_CONFIG_DIR = "/run/atuin"; # required to start, but not used as configuration is via environment variables
+        }
+        // lib.optionalAttrs (cfg.database.uri != null) {ATUIN_DB_URI = cfg.database.uri;};
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
 }

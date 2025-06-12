@@ -12,7 +12,6 @@
   pytestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-text";
   version = "4.0.0";
@@ -26,25 +25,27 @@ buildPythonPackage rec {
     hash = "sha256-W3H+zqaatvk51MkGwE/uHtp2UA0WQRF99uxFuGXxDbA=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [
-    autocommand
-    jaraco-context
-    jaraco-functools
-    inflect
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      autocommand
+      jaraco-context
+      jaraco-functools
+      inflect
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optionals (pythonOlder "3.10") [ pathlib2 ];
+  nativeCheckInputs = [pytestCheckHook] ++ lib.optionals (pythonOlder "3.10") [pathlib2];
 
-  pythonImportsCheck = [ "jaraco.text" ];
+  pythonImportsCheck = ["jaraco.text"];
 
   meta = with lib; {
     description = "Module for text manipulation";
     homepage = "https://github.com/jaraco/jaraco.text";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

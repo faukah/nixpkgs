@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "opower";
   version = "0.12.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-fsZpAipBw6XLeLdum1p5gkpKSOG40TLa6cLFTUSA05Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     python-dotenv
   ];
 
-  pythonImportsCheck = [ "opower" ];
+  pythonImportsCheck = ["opower"];
 
   meta = with lib; {
     description = "Module for getting historical and forecasted usage/cost from utilities that use opower.com";
     homepage = "https://github.com/tronikos/opower";
     changelog = "https://github.com/tronikos/opower/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

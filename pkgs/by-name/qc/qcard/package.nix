@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromSourcehut,
 }:
-
 buildGoModule rec {
   pname = "qcard";
   version = "0.7.1";
@@ -34,6 +33,6 @@ buildGoModule rec {
     homepage = "https://git.sr.ht/~psic4t/qcard";
     license = lib.licenses.gpl3Plus;
     mainProgram = "qcard";
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

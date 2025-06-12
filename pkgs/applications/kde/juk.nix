@@ -10,7 +10,6 @@
   phonon,
   taglib,
 }:
-
 mkDerivation {
   pname = "juk";
 
@@ -34,6 +33,6 @@ mkDerivation {
     mainProgram = "juk";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

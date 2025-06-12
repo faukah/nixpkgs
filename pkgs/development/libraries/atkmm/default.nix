@@ -10,7 +10,6 @@
   ninja,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atkmm";
   version = "2.28.4";

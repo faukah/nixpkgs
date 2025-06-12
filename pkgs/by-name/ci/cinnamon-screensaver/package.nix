@@ -26,7 +26,6 @@
   xorg,
   iso-flags-png-320x240,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cinnamon-screensaver";
   version = "6.4.0";
@@ -68,12 +67,13 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
 
     (python3.withPackages (
-      pp: with pp; [
-        pygobject3
-        setproctitle
-        python-xapp
-        pycairo
-      ]
+      pp:
+        with pp; [
+          pygobject3
+          setproctitle
+          python-xapp
+          pycairo
+        ]
     ))
     xapp
     xdotool
@@ -113,6 +113,6 @@ stdenv.mkDerivation rec {
       licenses.lgpl2
     ];
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

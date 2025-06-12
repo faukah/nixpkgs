@@ -9,92 +9,83 @@
   subunit,
   python3Packages,
   nix-update-script,
-
   withDoc ? false,
   graphviz-nox,
-
   withExamples ? false,
-
   withEncryption ? false, # or "openssl" or "mbedtls"
   openssl,
   mbedtls,
-
   # for passthru.tests only
   open62541,
-}:
-
-let
+}: let
   encryptionBackend =
     {
       inherit openssl mbedtls;
     }
     ."${withEncryption}" or (throw "Unsupported encryption backend: ${withEncryption}");
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "open62541";
+    version = "1.4.12";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "open62541";
-  version = "1.4.12";
+    src = fetchFromGitHub {
+      owner = "open62541";
+      repo = "open62541";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-FhlYowmu3McXuhOplnN/tnfkHAvRJqIuk60ceFYOmR0=";
+      fetchSubmodules = true;
+    };
 
-  src = fetchFromGitHub {
-    owner = "open62541";
-    repo = "open62541";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-FhlYowmu3McXuhOplnN/tnfkHAvRJqIuk60ceFYOmR0=";
-    fetchSubmodules = true;
-  };
+    cmakeFlags =
+      [
+        (lib.cmakeFeature "OPEN62541_VERSION" finalAttrs.src.rev)
+        (lib.cmakeFeature "UA_NAMESPACE_ZERO" "FULL")
+        (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
 
-  cmakeFlags =
-    [
-      (lib.cmakeFeature "OPEN62541_VERSION" finalAttrs.src.rev)
-      (lib.cmakeFeature "UA_NAMESPACE_ZERO" "FULL")
-      (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
+        # Note comment near doCheck
+        (lib.cmakeBool "UA_BUILD_UNIT_TESTS" finalAttrs.finalPackage.doCheck)
+        (lib.cmakeBool "UA_ENABLE_ALLOW_REUSEADDR" finalAttrs.finalPackage.doCheck)
 
-      # Note comment near doCheck
-      (lib.cmakeBool "UA_BUILD_UNIT_TESTS" finalAttrs.finalPackage.doCheck)
-      (lib.cmakeBool "UA_ENABLE_ALLOW_REUSEADDR" finalAttrs.finalPackage.doCheck)
+        (lib.cmakeBool "UA_BUILD_EXAMPLES" withExamples)
+      ]
+      ++ lib.optionals (withEncryption != false) [
+        (lib.cmakeFeature "UA_ENABLE_ENCRYPTION" (lib.toUpper withEncryption))
+      ];
 
-      (lib.cmakeBool "UA_BUILD_EXAMPLES" withExamples)
-    ]
-    ++ lib.optionals (withEncryption != false) [
-      (lib.cmakeFeature "UA_ENABLE_ENCRYPTION" (lib.toUpper withEncryption))
+    nativeBuildInputs =
+      [
+        cmake
+        pkg-config
+        python3Packages.python
+      ]
+      ++ lib.optionals withDoc (
+        with python3Packages; [
+          sphinx
+          sphinx_rtd_theme
+          graphviz-nox
+        ]
+      );
+
+    buildInputs = lib.optional (withEncryption != false) encryptionBackend;
+
+    buildFlags = ["all"] ++ lib.optional withDoc "doc";
+
+    # Tests must normally be disabled because they require
+    # -DUA_ENABLE_ALLOW_REUSEADDR=ON. The option must not be used in production,
+    # since it is a security risk.
+    # See https://github.com/open62541/open62541/issues/6407
+    doCheck = false;
+
+    checkInputs = [
+      check
+      libxcrypt
+      subunit
     ];
 
-  nativeBuildInputs =
-    [
-      cmake
-      pkg-config
-      python3Packages.python
-    ]
-    ++ lib.optionals withDoc (
-      with python3Packages;
-      [
-        sphinx
-        sphinx_rtd_theme
-        graphviz-nox
-      ]
-    );
+    # Tests must run sequentially to avoid port collisions on localhost
+    enableParallelChecking = false;
 
-  buildInputs = lib.optional (withEncryption != false) encryptionBackend;
-
-  buildFlags = [ "all" ] ++ lib.optional withDoc "doc";
-
-  # Tests must normally be disabled because they require
-  # -DUA_ENABLE_ALLOW_REUSEADDR=ON. The option must not be used in production,
-  # since it is a security risk.
-  # See https://github.com/open62541/open62541/issues/6407
-  doCheck = false;
-
-  checkInputs = [
-    check
-    libxcrypt
-    subunit
-  ];
-
-  # Tests must run sequentially to avoid port collisions on localhost
-  enableParallelChecking = false;
-
-  preCheck =
-    let
+    preCheck = let
       disabledTests = [
         # error "Could not create a raw Ethernet socket (are you root?)"
         "check_eventloop_eth"
@@ -122,53 +113,50 @@ stdenv.mkDerivation (finalAttrs: {
       ];
       regex = "^(${builtins.concatStringsSep "|" disabledTests})\$";
     in
-    lib.optionalString (disabledTests != [ ]) ''
-      checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
-    '';
+      lib.optionalString (disabledTests != []) ''
+        checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")
+      '';
 
-  postInstall =
-    lib.optionalString withDoc ''
-      # excluded files, see doc/CMakeLists.txt
-      rm -r doc/{_sources/,CMakeFiles/,cmake_install.cmake}
+    postInstall =
+      lib.optionalString withDoc ''
+        # excluded files, see doc/CMakeLists.txt
+        rm -r doc/{_sources/,CMakeFiles/,cmake_install.cmake}
 
-      # doc is not installed automatically
-      mkdir -p $out/share/doc/open62541
-      cp -r doc/ $out/share/doc/open62541/html
-    ''
-    + lib.optionalString withExamples ''
-      # install sources of examples
-      mkdir -p $out/share/open62541
-      cp -r ../examples $out/share/open62541
+        # doc is not installed automatically
+        mkdir -p $out/share/doc/open62541
+        cp -r doc/ $out/share/doc/open62541/html
+      ''
+      + lib.optionalString withExamples ''
+        # install sources of examples
+        mkdir -p $out/share/open62541
+        cp -r ../examples $out/share/open62541
 
-      ${lib.optionalString (!stdenv.hostPlatform.isWindows) ''
-        # remove .exe suffix
-        mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
-      ''}
+        ${lib.optionalString (!stdenv.hostPlatform.isWindows) ''
+          # remove .exe suffix
+          mv -v $out/bin/ua_server_ctt.exe $out/bin/ua_server_ctt
+        ''}
 
-      # remove duplicate libraries in build/bin/, which cause forbidden
-      # references to /build/ in ua_server_ctt
-      rm -r bin/libopen62541*
-    '';
+        # remove duplicate libraries in build/bin/, which cause forbidden
+        # references to /build/ in ua_server_ctt
+        rm -r bin/libopen62541*
+      '';
 
-  __darwinAllowLocalNetworking = true;
+    __darwinAllowLocalNetworking = true;
 
-  passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
-  passthru.tests =
-    let
-      open62541Full =
-        encBackend:
+    passthru.tests = let
+      open62541Full = encBackend:
         (open62541.overrideAttrs (_: {
           doCheck = true;
         })).override
-          {
-            withDoc = true;
-            # if withExamples, one of the example currently fails to build
-            #withExamples = true;
-            withEncryption = encBackend;
-          };
-    in
-    {
+        {
+          withDoc = true;
+          # if withExamples, one of the example currently fails to build
+          #withExamples = true;
+          withEncryption = encBackend;
+        };
+    in {
       open62541WithTests = finalAttrs.finalPackage.overrideAttrs (_: {
         doCheck = true;
       });
@@ -177,20 +165,20 @@ stdenv.mkDerivation (finalAttrs: {
       open62541Full-mbedtls = open62541Full "mbedtls";
     };
 
-  meta = with lib; {
-    description = "Open source implementation of OPC UA";
-    longDescription = ''
-      open62541 (http://open62541.org) is an open source and free implementation
-      of OPC UA (OPC Unified Architecture) written in the common subset of the
-      C99 and C++98 languages.
-      The library is usable with all major compilers and provides the necessary
-      tools to implement dedicated OPC UA clients and servers, or to integrate
-      OPC UA-based communication into existing applications.
-    '';
-    homepage = "https://www.open62541.org";
-    changelog = "https://github.com/open62541/open62541/releases/tag/v${finalAttrs.version}";
-    license = licenses.mpl20;
-    maintainers = with maintainers; [ panicgh ];
-    platforms = platforms.unix;
-  };
-})
+    meta = with lib; {
+      description = "Open source implementation of OPC UA";
+      longDescription = ''
+        open62541 (http://open62541.org) is an open source and free implementation
+        of OPC UA (OPC Unified Architecture) written in the common subset of the
+        C99 and C++98 languages.
+        The library is usable with all major compilers and provides the necessary
+        tools to implement dedicated OPC UA clients and servers, or to integrate
+        OPC UA-based communication into existing applications.
+      '';
+      homepage = "https://www.open62541.org";
+      changelog = "https://github.com/open62541/open62541/releases/tag/v${finalAttrs.version}";
+      license = licenses.mpl20;
+      maintainers = with maintainers; [panicgh];
+      platforms = platforms.unix;
+    };
+  })

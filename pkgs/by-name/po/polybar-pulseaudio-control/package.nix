@@ -10,7 +10,6 @@
   pulseaudio,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "polybar-pulseaudio-control";
   version = "3.1.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontConfigure = true;
   dontBuild = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -32,15 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 pulseaudio-control.bash $out/bin/pulseaudio-control
     wrapProgram "$out/bin/pulseaudio-control" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          bash
-          coreutils
-          gnused
-          gnugrep
-          gawk
-          pulseaudio
-        ]
-      }"
+      lib.makeBinPath [
+        bash
+        coreutils
+        gnused
+        gnugrep
+        gawk
+        pulseaudio
+      ]
+    }"
 
     runHook postInstall
   '';

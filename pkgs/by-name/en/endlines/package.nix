@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mdolidon/endlines";
     description = "Easy conversion between new-line conventions";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ zedseven ];
+    maintainers = with lib.maintainers; [zedseven];
     mainProgram = "endlines";
     platforms = lib.platforms.unix;
   };

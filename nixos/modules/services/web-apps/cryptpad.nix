@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.cryptpad;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkMerge
     mkOption
@@ -25,17 +24,14 @@ let
   # Derive domain names for Nginx configuration from Cryptpad configuration
   mainDomain = strings.removePrefix "https://" cfg.settings.httpUnsafeOrigin;
   sandboxDomain =
-    if cfg.settings.httpSafeOrigin == null then
-      mainDomain
-    else
-      strings.removePrefix "https://" cfg.settings.httpSafeOrigin;
-
-in
-{
+    if cfg.settings.httpSafeOrigin == null
+    then mainDomain
+    else strings.removePrefix "https://" cfg.settings.httpSafeOrigin;
+in {
   options.services.cryptpad = {
     enable = lib.mkEnableOption "cryptpad";
 
-    package = lib.mkPackageOption pkgs "cryptpad" { };
+    package = lib.mkPackageOption pkgs "cryptpad" {};
 
     configureNginx = mkOption {
       description = ''
@@ -56,7 +52,7 @@ in
         Test your deployed instance through `https://<domain>/checkup/`.
       '';
       type = types.submodule {
-        freeformType = (pkgs.formats.json { }).type;
+        freeformType = (pkgs.formats.json {}).type;
         options = {
           httpUnsafeOrigin = mkOption {
             type = types.str;
@@ -91,9 +87,9 @@ in
           };
           adminKeys = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             description = "List of public signing keys of users that can access the admin panel";
-            example = [ "[cryptpad-user1@my.awesome.website/YZgXQxKR0Rcb6r6CmxHPdAGLVludrAF2lEnkbx1vVOo=]" ];
+            example = ["[cryptpad-user1@my.awesome.website/YZgXQxKR0Rcb6r6CmxHPdAGLVludrAF2lEnkbx1vVOo=]"];
           };
           logToStdout = mkOption {
             type = types.bool;
@@ -133,8 +129,8 @@ in
     {
       systemd.services.cryptpad = {
         description = "Cryptpad service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "networking.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["networking.target"];
         serviceConfig = {
           BindReadOnlyPaths = [
             cryptpadConfigFile
@@ -189,7 +185,7 @@ in
             "tcp:${builtins.toString cfg.settings.httpPort}"
             "tcp:${builtins.toString cfg.settings.websocketPort}"
           ];
-          SocketBindDeny = [ "any" ];
+          SocketBindDeny = ["any"];
           StateDirectoryMode = "0700";
           SystemCallArchitectures = "native";
           SystemCallFilter = [
@@ -216,7 +212,8 @@ in
     }
     # block external network access if not phoning home and
     # binding to localhost (default)
-    (mkIf
+    (
+      mkIf
       (
         cfg.settings.blockDailyCheck
         && (builtins.elem cfg.settings.httpAddress [
@@ -227,8 +224,8 @@ in
       {
         systemd.services.cryptpad = {
           serviceConfig = {
-            IPAddressAllow = [ "localhost" ];
-            IPAddressDeny = [ "any" ];
+            IPAddressAllow = ["localhost"];
+            IPAddressDeny = ["any"];
           };
         };
       }
@@ -273,7 +270,7 @@ in
         virtualHosts = mkMerge [
           {
             "${mainDomain}" = {
-              serverAliases = lib.optionals (cfg.settings.httpSafeOrigin != null) [ sandboxDomain ];
+              serverAliases = lib.optionals (cfg.settings.httpSafeOrigin != null) [sandboxDomain];
               enableACME = lib.mkDefault true;
               forceSSL = true;
               locations."/" = {

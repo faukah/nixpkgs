@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkIf
@@ -16,26 +15,22 @@ let
     ;
 
   cfg = config.networking.wireless.iwd;
-  ini = pkgs.formats.ini { };
+  ini = pkgs.formats.ini {};
   defaults = {
     # without UseDefaultInterface, sometimes wlan0 simply goes AWOL with NetworkManager
     # https://iwd.wiki.kernel.org/interface_lifecycle#interface_management_in_iwd
-    DriverQuirks.UseDefaultInterface =
-      with config.networking.networkmanager;
-      (enable && (wifi.backend == "iwd"));
+    DriverQuirks.UseDefaultInterface = with config.networking.networkmanager; (enable && (wifi.backend == "iwd"));
   };
   configFile = ini.generate "main.conf" (recursiveUpdate defaults cfg.settings);
-
-in
-{
+in {
   options.networking.wireless.iwd = {
     enable = mkEnableOption "iwd";
 
-    package = mkPackageOption pkgs "iwd" { };
+    package = mkPackageOption pkgs "iwd" {};
 
     settings = mkOption {
       type = ini.type;
-      default = { };
+      default = {};
 
       example = {
         Settings.AutoConnect = true;
@@ -72,11 +67,11 @@ in
     environment.etc."iwd/${configFile.name}".source = configFile;
 
     # for iwctl
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.network.links."80-iwd" = {
       matchConfig.Type = "wlan";
@@ -84,12 +79,12 @@ in
     };
 
     systemd.services.iwd = {
-      path = [ config.networking.resolvconf.package ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      path = [config.networking.resolvconf.package];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
       serviceConfig.ReadWritePaths = "-/etc/resolv.conf";
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ dtzWill ];
+  meta.maintainers = with lib.maintainers; [dtzWill];
 }

@@ -20,7 +20,6 @@
   sqlite,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notes-up";
   version = "2.0.6";
@@ -60,14 +59,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Markdown notes editor and manager designed for elementary OS";
     homepage = "https://github.com/Philip-Scott/Notes-up";
     license = licenses.gpl2Only;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.philip_scott.notes-up";
   };

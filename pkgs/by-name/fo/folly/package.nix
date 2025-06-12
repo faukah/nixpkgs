@@ -1,15 +1,12 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
   fetchpatch,
-
   cmake,
   ninja,
   pkg-config,
   removeReferencesTo,
-
   double-conversion,
   fast-float,
   gflags,
@@ -22,22 +19,16 @@
   zstd,
   libiberty,
   libunwind,
-
   boost,
   fmt_11,
   jemalloc,
-
   gtest,
-
   follyMobile ? false,
-
   nix-update-script,
-
   # for passthru.tests
   python3,
   watchman,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "folly";
   version = "2025.04.21.00";
@@ -108,7 +99,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_CFLAGS_COMPILE = lib.concatStringsSep " " (
     [
-      "-DFOLLY_MOBILE=${if follyMobile then "1" else "0"}"
+      "-DFOLLY_MOBILE=${
+        if follyMobile
+        then "1"
+        else "0"
+      }"
     ]
     ++ lib.optionals (stdenv.cc.isGNU && stdenv.hostPlatform.isAarch64) [
       # /build/source/folly/algorithm/simd/Movemask.h:156:32: error: cannot convert '__Uint64x1_t' to '__Uint8x8_t'
@@ -208,7 +203,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit boost;
     fmt = fmt_11;
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     tests = {
       inherit watchman;
@@ -222,7 +217,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     # 32bit is not supported: https://github.com/facebook/folly/issues/103
     platforms = lib.platforms.unix;
-    badPlatforms = [ lib.systems.inspect.patterns.is32bit ];
+    badPlatforms = [lib.systems.inspect.patterns.is32bit];
     maintainers = with lib.maintainers; [
       abbradar
       pierreis

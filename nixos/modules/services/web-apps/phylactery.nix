@@ -4,12 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.phylactery;
-in
-{
+in {
   options.services.phylactery = {
     enable = mkEnableOption "Phylactery server";
 
@@ -29,7 +26,7 @@ in
       description = "Path to CBZ library";
     };
 
-    package = mkPackageOption pkgs "phylactery" { };
+    package = mkPackageOption pkgs "phylactery" {};
   };
 
   config = mkIf cfg.enable {
@@ -39,7 +36,7 @@ in
         PHYLACTERY_LIBRARY = "${cfg.library}";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ConditionPathExists = cfg.library;
@@ -49,5 +46,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ McSinyx ];
+  meta.maintainers = with maintainers; [McSinyx];
 }

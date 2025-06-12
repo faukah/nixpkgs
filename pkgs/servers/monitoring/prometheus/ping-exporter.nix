@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ping-exporter";
   version = "1.1.3";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "ping_exporter";
     homepage = "https://github.com/czerwonk/ping_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ nudelsalat ];
+    maintainers = with maintainers; [nudelsalat];
   };
 }

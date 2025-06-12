@@ -4,7 +4,6 @@
   fetchFromGitHub,
   raylib,
 }:
-
 stdenv.mkDerivation {
   pname = "raylib-games";
   version = "2022-10-24";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-N9ip8yFUqXmNMKcvQuOyxDI4yF/w1YaoIh0prvS4Xr4=";
   };
 
-  buildInputs = [ raylib ];
+  buildInputs = [raylib];
 
   configurePhase = ''
     runHook preConfigure
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     description = "Collection of games made with raylib";
     homepage = "https://www.raylib.com/games.html";
     license = licenses.zlib;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     inherit (raylib.meta) platforms;
   };
 }

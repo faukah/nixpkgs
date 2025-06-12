@@ -16,14 +16,14 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-kdkOAJB7cVaayJOzof7dV9EBczEoEKXzCM7TcY8Ex5g=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     pygame-ce
     numpy
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Generalist Python node editor";
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://github.com/IndiePython/nodezator";
     changelog = "https://github.com/IndiePython/nodezator/releases/tag/v${version}";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     mainProgram = "nodezator";
   };
 }

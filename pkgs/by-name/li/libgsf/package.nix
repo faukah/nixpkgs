@@ -17,7 +17,6 @@
   libintl,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgsf";
   version = "1.14.53";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "libgsf";
-    rev = "LIBGSF_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "LIBGSF_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-vC/6QEoV6FvFxQ0YlMkBbTmAtqbkvgZf+9BU8epi8yo=";
   };
 
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     description = "GNOME's Structured File Library";
     homepage = "https://www.gnome.org/projects/libgsf";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = lib.platforms.unix;
 
     longDescription = ''

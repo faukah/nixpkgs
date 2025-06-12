@@ -7,7 +7,6 @@
   python,
   netbox,
 }:
-
 buildPythonPackage rec {
   pname = "netbox-documents";
   version = "0.7.2";
@@ -20,24 +19,24 @@ buildPythonPackage rec {
     hash = "sha256-AJuWzZSVsodShLIfdlhLN8ycnC28DULcINCD3av35jI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ drf-extra-fields ];
+  dependencies = [drf-extra-fields];
 
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   preFixup = ''
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
   dontUsePythonImportsCheck = python.pythonVersion != netbox.python.pythonVersion;
-  pythonImportsCheck = [ "netbox_documents" ];
+  pythonImportsCheck = ["netbox_documents"];
 
   meta = {
     description = "Plugin designed to faciliate the storage of site, circuit, device type and device specific documents within NetBox";
     homepage = "https://github.com/jasonyates/netbox-documents";
     changelog = "https://github.com/jasonyates/netbox-documents/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

@@ -4,28 +4,23 @@
   fetchFromGitHub,
   pythonOlder,
   flit-core,
-
   # extras: babel
   babel,
   flask-babel,
-
   # extras: common
   argon2-cffi,
   bcrypt,
   bleach,
   flask-mailman,
-
   # extras: fsqla
   flask-sqlalchemy,
   sqlalchemy,
   sqlalchemy-utils,
-
   # extras: mfa
   cryptography,
   phonenumberslite,
   webauthn,
   qrcode,
-
   # propagates
   email-validator,
   flask,
@@ -37,7 +32,6 @@
   passlib,
   importlib-resources,
   wtforms,
-
   # tests
   authlib,
   flask-sqlalchemy-lite,
@@ -50,7 +44,6 @@
   requests,
   zxcvbn,
 }:
-
 buildPythonPackage rec {
   pname = "flask-security";
   version = "5.6.2";
@@ -65,7 +58,7 @@ buildPythonPackage rec {
     hash = "sha256-mEl98Yp4USKu+z636yAb5p5qPBzcdQraZ/XaPbDoGWU=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     email-validator
@@ -74,7 +67,11 @@ buildPythonPackage rec {
     flask-principal
     flask-wtf
     markupsafe
-    (if pythonOlder "3.12" then passlib else libpass)
+    (
+      if pythonOlder "3.12"
+      then passlib
+      else libpass
+    )
     importlib-resources
     wtforms
   ];
@@ -130,13 +127,13 @@ buildPythonPackage rec {
     "test_login_email_whatever"
   ];
 
-  pythonImportsCheck = [ "flask_security" ];
+  pythonImportsCheck = ["flask_security"];
 
   meta = with lib; {
     changelog = "https://github.com/pallets-eco/flask-security/blob/${src.tag}/CHANGES.rst";
     homepage = "https://github.com/pallets-eco/flask-security";
     description = "Quickly add security features to your Flask application";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

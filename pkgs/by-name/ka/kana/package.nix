@@ -13,7 +13,6 @@
   libadwaita,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kana";
   version = "1.4";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/fkinoshita/kana";
     license = licenses.gpl3Plus;
     mainProgram = "kana";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

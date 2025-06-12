@@ -19,80 +19,79 @@
   openssl,
   stdenv,
   xorg,
-}:
-let
+}: let
   pname = "positron-bin";
   version = "2025.05.0-75";
 in
-stdenv.mkDerivation {
-  inherit version pname;
+  stdenv.mkDerivation {
+    inherit version pname;
 
-  src =
-    if stdenv.hostPlatform.isDarwin then
-      fetchurl {
-        url = "https://cdn.posit.co/positron/dailies/mac/universal/Positron-${version}.dmg";
-        hash = "sha256-dmRYKysQJYrNWyGvH9DsNIC0tIHYNix7QWagVtuGx1g=";
-      }
-    else
-      fetchurl {
-        url = "https://cdn.posit.co/positron/dailies/deb/x86_64/Positron-${version}-x64.deb";
-        hash = "sha256-dmJrDE3g44aoCsVBvSDDFLt38uIqxzaXPBhcmu/U5Oo=";
-      };
+    src =
+      if stdenv.hostPlatform.isDarwin
+      then
+        fetchurl {
+          url = "https://cdn.posit.co/positron/dailies/mac/universal/Positron-${version}.dmg";
+          hash = "sha256-dmRYKysQJYrNWyGvH9DsNIC0tIHYNix7QWagVtuGx1g=";
+        }
+      else
+        fetchurl {
+          url = "https://cdn.posit.co/positron/dailies/deb/x86_64/Positron-${version}-x64.deb";
+          hash = "sha256-dmJrDE3g44aoCsVBvSDDFLt38uIqxzaXPBhcmu/U5Oo=";
+        };
 
-  buildInputs =
-    [ makeShellWrapper ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      alsa-lib
-      gtk3
-      libglvnd
-      libxkbcommon
-      libgbm
-      musl
-      nss
-      stdenv.cc.cc
-      openssl
-      xorg.libX11
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libxkbfile
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      blas
-      patchelf
+    buildInputs =
+      [makeShellWrapper]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        alsa-lib
+        gtk3
+        libglvnd
+        libxkbcommon
+        libgbm
+        musl
+        nss
+        stdenv.cc.cc
+        openssl
+        xorg.libX11
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libxkbfile
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        blas
+        patchelf
+      ];
+
+    nativeBuildInputs =
+      lib.optionals stdenv.hostPlatform.isLinux [
+        autoPatchelfHook
+        dpkg
+        wrapGAppsHook4
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        _7zz
+      ];
+
+    runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
+      # Needed to fix the "Zygote could not fork" error.
+      (lib.getLib systemd)
     ];
 
-  nativeBuildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [
-      autoPatchelfHook
-      dpkg
-      wrapGAppsHook4
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      _7zz
-    ];
-
-  runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
-    # Needed to fix the "Zygote could not fork" error.
-    (lib.getLib systemd)
-  ];
-
-  installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
+    installPhase =
+      if stdenv.hostPlatform.isDarwin
+      then ''
         runHook preInstall
         mkdir -p "$out/Applications" "$out/bin"
         cp -r . "$out/Applications/Positron.app"
 
         # Positron will use the system version of BLAS if we don't provide the nix version.
         wrapProgram "$out/Applications/Positron.app/Contents/Resources/app/bin/code" \
-          --prefix DYLD_INSERT_LIBRARIES : "${lib.makeLibraryPath [ blas ]}/libblas.dylib" \
+          --prefix DYLD_INSERT_LIBRARIES : "${lib.makeLibraryPath [blas]}/libblas.dylib" \
           --add-flags "--disable-updates"
 
         ln -s "$out/Applications/Positron.app/Contents/Resources/app/bin/code" "$out/bin/positron"
         runHook postInstall
       ''
-    else
-      ''
+      else ''
         runHook preInstall
         mkdir -p "$out/share"
         cp -r usr/share/pixmaps "$out/share/pixmaps"
@@ -113,7 +112,7 @@ stdenv.mkDerivation {
 
         # Fix libGL.so not found errors.
         wrapProgram "$out/share/positron/positron" \
-          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libglvnd ]}" \
+          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libglvnd]}" \
           --add-flags "--disable-updates"
 
 
@@ -122,17 +121,17 @@ stdenv.mkDerivation {
         runHook postInstall
       '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    description = "Positron, a next-generation data science IDE";
-    homepage = "https://github.com/posit-dev/positron";
-    license = licenses.elastic20;
-    maintainers = with maintainers; [
-      b-rodrigues
-      detroyejr
-    ];
-    mainProgram = "positron";
-    platforms = [ "x86_64-linux" ] ++ platforms.darwin;
-  };
-}
+    meta = with lib; {
+      description = "Positron, a next-generation data science IDE";
+      homepage = "https://github.com/posit-dev/positron";
+      license = licenses.elastic20;
+      maintainers = with maintainers; [
+        b-rodrigues
+        detroyejr
+      ];
+      mainProgram = "positron";
+      platforms = ["x86_64-linux"] ++ platforms.darwin;
+    };
+  }

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm 444 ${blackmagic.src}/driver/99-blackmagic.rules $out/lib/udev/rules.d/99-blackmagic.rules
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -35,6 +35,6 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     mainProgram = "bmputil";
-    maintainers = [ lib.maintainers.shimun ];
+    maintainers = [lib.maintainers.shimun];
   };
 }

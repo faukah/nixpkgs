@@ -2,16 +2,14 @@
   lib,
   stdenv,
   fetchurl,
-
   autoPatchelfHook,
   unzip,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "terraria-server";
   version = "1.4.4.9";
-  urlVersion = lib.replaceStrings [ "." ] [ "" ] version;
+  urlVersion = lib.replaceStrings ["."] [""] version;
 
   src = fetchurl {
     url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${urlVersion}.zip";
@@ -41,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://terraria.org";
     description = "Dedicated server for Terraria, a 2D action-adventure sandbox";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.unfree;
     mainProgram = "TerrariaServer";
     maintainers = with maintainers; [

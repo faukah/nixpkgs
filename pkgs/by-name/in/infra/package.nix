@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "infra";
   version = "0.21.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-qbmaebQcD3cN+tbmzzJbry0AXz2LZFMoqbcBwGGrRo4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/infrahq/infra";
     changelog = "https://github.com/infrahq/infra/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.elastic20;
-    maintainers = with lib.maintainers; [ peterromfeldhk ];
+    maintainers = with lib.maintainers; [peterromfeldhk];
     mainProgram = "infra";
   };
 }

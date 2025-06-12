@@ -7,13 +7,11 @@
   cmake,
   ninja,
   dfVersions,
-
   # see: https://github.com/Dwarf-Therapist/Dwarf-Therapist/releases
   version ? dfVersions.therapist.version,
   maxDfVersion ? dfVersions.therapist.maxDfVersion,
   hash ? dfVersions.therapist.git.outputHash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dwarf-therapist";
 
@@ -37,16 +35,15 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  cmakeFlags = [ "-GNinja" ];
+  cmakeFlags = ["-GNinja"];
 
   installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/Applications
-        cp -r DwarfTherapist.app $out/Applications
-      ''
-    else
-      null;
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir -p $out/Applications
+      cp -r DwarfTherapist.app $out/Applications
+    ''
+    else null;
 
   dontWrapQtApps = true;
 

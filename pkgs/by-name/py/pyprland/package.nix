@@ -4,7 +4,6 @@
   python3Packages,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pyprland";
   version = "2.4.5";
@@ -19,9 +18,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-s93zuBS2jpGLTKKGvna1Zc+ph6A6kemgfkl8j7uSdKY=";
   };
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
-  propagatedBuildInputs = with python3Packages; [ aiofiles ];
+  propagatedBuildInputs = with python3Packages; [aiofiles];
   pythonRelaxDeps = [
     "aiofiles"
   ];
@@ -61,7 +60,7 @@ python3Packages.buildPythonApplication rec {
     "pyprland.plugins.workspaces_follow_focus"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "pypr";

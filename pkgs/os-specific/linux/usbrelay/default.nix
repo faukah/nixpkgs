@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "usbrelay";
     homepage = "https://github.com/darrylb123/usbrelay";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
     platforms = platforms.linux;
   };
 })

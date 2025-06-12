@@ -10,7 +10,6 @@
   libwebp,
   ncnn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "Real-ESRGAN-ncnn-vulkan";
   version = "0.2.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     "-DGLSLANG_TARGET_DIR=${glslang}/lib/cmake"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     vulkan-loader

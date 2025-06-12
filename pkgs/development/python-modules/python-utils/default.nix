@@ -9,7 +9,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "python-utils";
   version = "3.9.1";
@@ -30,22 +29,24 @@ buildPythonPackage rec {
       -e '/--mypy/d'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   optional-dependencies = {
-    loguru = [ loguru ];
+    loguru = [loguru];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ optional-dependencies.loguru;
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.loguru;
 
-  pythonImportsCheck = [ "python_utils" ];
+  pythonImportsCheck = ["python_utils"];
 
-  pytestFlagsArray = [ "_python_utils_tests" ];
+  pytestFlagsArray = ["_python_utils_tests"];
 
   disabledTests = [
     # Flaky tests
@@ -57,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/WoLpH/python-utils";
     changelog = "https://github.com/wolph/python-utils/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

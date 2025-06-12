@@ -27,7 +27,6 @@
   wrapQtAppsHook,
   kcmSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcitx5-configtool";
   version = "5.1.9";
@@ -89,7 +88,7 @@ stdenv.mkDerivation rec {
     description = "Configuration Tool for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-configtool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
     mainProgram = "fcitx5-config-qt";
   };

@@ -6,7 +6,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "http-parser";
   version = "2.9.4";
@@ -39,8 +38,16 @@ stdenv.mkDerivation rec {
       "BINEXT=${stdenv.hostPlatform.extensions.executable}"
       "Platform=${lib.toLower stdenv.hostPlatform.uname.system}"
       "AEXT=${lib.strings.removePrefix "." stdenv.hostPlatform.extensions.staticLibrary}"
-      "ENABLE_SHARED=${if enableShared then "1" else "0"}"
-      "ENABLE_STATIC=${if enableStatic then "1" else "0"}"
+      "ENABLE_SHARED=${
+        if enableShared
+        then "1"
+        else "0"
+      }"
+      "ENABLE_STATIC=${
+        if enableStatic
+        then "1"
+        else "0"
+      }"
     ]
     ++ lib.optionals enableShared [
       "SOEXT=${lib.strings.removePrefix "." stdenv.hostPlatform.extensions.sharedLibrary}"
@@ -69,7 +76,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "HTTP message parser written in C";
     homepage = "https://github.com/nodejs/http-parser";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     license = licenses.mit;
     platforms = platforms.all;
   };

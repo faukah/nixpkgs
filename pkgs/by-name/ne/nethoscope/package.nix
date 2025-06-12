@@ -7,7 +7,6 @@
   libpcap,
   expect,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nethoscope";
   version = "0.1.1";
@@ -53,9 +52,8 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/vvilhonen/nethoscope";
     license = licenses.isc;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
     mainProgram = "nethoscope";
   };
-
 }

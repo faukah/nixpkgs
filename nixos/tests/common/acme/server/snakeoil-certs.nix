@@ -1,7 +1,6 @@
 let
   domain = "acme.test";
-in
-{
+in {
   inherit domain;
   ca = {
     cert = ./ca.cert.pem;

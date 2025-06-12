@@ -7,21 +7,15 @@
   wxSupport ? true,
   systemd,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
-}:
-
-let
+}: let
   self = beam;
-
-in
-
-{
-  beamLib = callPackage ../development/beam-modules/lib.nix { };
+in {
+  beamLib = callPackage ../development/beam-modules/lib.nix {};
 
   latestVersion = "erlang_27";
 
   # Each
   interpreters = {
-
     erlang = self.interpreters.${self.latestVersion};
 
     # Standard Erlang versions, using the generic builder.
@@ -49,7 +43,8 @@ in
     # Other Beam languages. These are built with `beam.interpreters.erlang`. To
     # access for example elixir built with different version of Erlang, use
     # `beam.packages.erlang_27.elixir`.
-    inherit (self.packages.erlang)
+    inherit
+      (self.packages.erlang)
       elixir
       elixir_1_19
       elixir_1_18
@@ -64,7 +59,7 @@ in
   };
 
   # Helper function to generate package set with a specific Erlang version.
-  packagesWith = erlang: callPackage ../development/beam-modules { inherit erlang; };
+  packagesWith = erlang: callPackage ../development/beam-modules {inherit erlang;};
 
   # Each field in this tuple represents all Beam packages in nixpkgs built with
   # appropriate Erlang/OTP version.

@@ -6,7 +6,6 @@
   wheel,
   psutil,
 }:
-
 buildPythonPackage rec {
   pname = "vprof";
   version = "0.38";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ psutil ];
+  propagatedBuildInputs = [psutil];
 
-  pythonImportsCheck = [ "vprof" ];
+  pythonImportsCheck = ["vprof"];
 
   # The tests are not included in the Pypi sources
   doCheck = false;
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     description = "Visual profiler for Python";
     homepage = "https://github.com/nvdv/vprof";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     mainProgram = "vprof";
   };
 }

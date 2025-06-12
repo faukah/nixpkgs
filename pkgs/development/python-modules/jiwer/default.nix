@@ -7,7 +7,6 @@
   click,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jiwer";
   version = "3.04";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     click
   ];
 
-  pythonRelaxDeps = [ "rapidfuzz" ];
+  pythonRelaxDeps = ["rapidfuzz"];
 
-  pythonImportsCheck = [ "jiwer" ];
+  pythonImportsCheck = ["jiwer"];
 
   meta = with lib; {
     description = "Simple and fast python package to evaluate an automatic speech recognition system";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jitsi/jiwer";
     changelog = "https://github.com/jitsi/jiwer/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

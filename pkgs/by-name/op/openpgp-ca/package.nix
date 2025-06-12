@@ -10,7 +10,6 @@
   gnupg,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "openpgp-ca";
   version = "0.14.0";
@@ -45,14 +44,14 @@ rustPlatform.buildRustPackage rec {
   # gnupg refuses to respect the XDG_RUNTIME_DIR variable, so we skip the tests
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Tool for managing OpenPGP keys within organizations";
     homepage = "https://openpgp-ca.org/";
     changelog = "https://openpgp-ca.org/doc/changelog/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ cherrykitten ];
+    maintainers = with maintainers; [cherrykitten];
     mainProgram = "oca";
   };
 }

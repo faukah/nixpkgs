@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "clock-rs";
   version = "0.1.215";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Oughie/clock-rs";
     license = lib.licenses.asl20;
     mainProgram = "clock-rs";
-    maintainers = [ lib.maintainers.oughie ];
+    maintainers = [lib.maintainers.oughie];
     platforms = lib.platforms.all;
   };
 }

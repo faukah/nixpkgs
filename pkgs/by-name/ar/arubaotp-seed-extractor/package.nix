@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "arubaotp-seed-extractor";
   version = "unstable-22-12-2022";
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication {
     description = "Extract TOTP seed instead of using ArubaOTP app";
     mainProgram = "arubaotp-seed-extractor";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

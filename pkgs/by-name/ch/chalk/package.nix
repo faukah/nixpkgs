@@ -2,8 +2,7 @@
   lib,
   stdenv,
   fetchurl,
-}:
-let
+}: let
   # This derivation is adapted from the
   # install script that Chalk recommends: https://api.chalk.ai/install.sh
   chalkVersion = "1.29.4";
@@ -23,33 +22,33 @@ let
   chalkPathPieces = chalkPathPiecesByNixSystem."${stdenv.system}";
   chalkUrl = "https://api.chalk.ai/v1/install/${chalkPathPieces}/v${chalkVersion}";
 in
-stdenv.mkDerivation {
-  pname = "chalk";
-  version = chalkVersion;
-  src = fetchurl {
-    url = chalkUrl;
-    hash = chalkHash;
-  };
-  dontUnpack = true;
+  stdenv.mkDerivation {
+    pname = "chalk";
+    version = chalkVersion;
+    src = fetchurl {
+      url = chalkUrl;
+      hash = chalkHash;
+    };
+    dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
-    install -Dm 555 $src $out/bin/chalk
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      install -Dm 555 $src $out/bin/chalk
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "CLI tool for interacting with the Chalk platform";
-    homepage = "https://docs.chalk.ai/cli";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ curran ];
-    mainProgram = "chalk";
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-      "aarch64-linux"
-      "aarch64-darwin"
-    ];
-  };
-}
+    meta = {
+      description = "CLI tool for interacting with the Chalk platform";
+      homepage = "https://docs.chalk.ai/cli";
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [curran];
+      mainProgram = "chalk";
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+    };
+  }

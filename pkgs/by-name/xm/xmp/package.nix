@@ -7,7 +7,6 @@
   alsa-lib,
   libxmp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmp";
   version = "4.2.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libxmp ] ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs = [libxmp] ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   meta = with lib; {
     description = "Extended module player";

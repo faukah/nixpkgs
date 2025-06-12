@@ -2,25 +2,20 @@
 # SPDX-FileCopyrightText: Lily Foster <lily@lily.flowers>
 # Portions of this code are adapted from nixos-cosmic
 # https://github.com/lilyinstarlight/nixos-cosmic
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.displayManager.cosmic-greeter;
   cfgAutoLogin = config.services.displayManager.autoLogin;
-in
-
-{
+in {
   meta.maintainers = lib.teams.cosmic.members;
 
   options.services.displayManager.cosmic-greeter = {
     enable = lib.mkEnableOption "COSMIC greeter";
-    package = lib.mkPackageOption pkgs "cosmic-greeter" { };
+    package = lib.mkPackageOption pkgs "cosmic-greeter" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -40,8 +35,8 @@ in
 
     # Daemon for querying background state and such
     systemd.services.cosmic-greeter-daemon = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "greetd.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["greetd.service"];
       serviceConfig = {
         Type = "dbus";
         BusName = "com.system76.CosmicGreeter";
@@ -51,7 +46,7 @@ in
     };
 
     # The greeter user is hardcoded in `cosmic-greeter`
-    users.groups.cosmic-greeter = { };
+    users.groups.cosmic-greeter = {};
     users.users.cosmic-greeter = {
       description = "COSMIC login greeter user";
       isSystemUser = true;
@@ -60,11 +55,11 @@ in
       group = "cosmic-greeter";
     };
     # Required for authentication
-    security.pam.services.cosmic-greeter = { };
+    security.pam.services.cosmic-greeter = {};
 
     hardware.graphics.enable = true;
     services.accounts-daemon.enable = true;
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
     services.libinput.enable = true;
   };
 }

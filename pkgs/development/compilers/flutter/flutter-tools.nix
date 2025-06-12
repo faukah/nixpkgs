@@ -9,11 +9,10 @@
   dart,
   version,
   flutterSrc,
-  patches ? [ ],
+  patches ? [],
   pubspecLock,
 }:
-
-buildDartApplication.override { inherit dart; } rec {
+buildDartApplication.override {inherit dart;} rec {
   pname = "flutter-tools";
   inherit version;
   dartOutputType = "jit-snapshot";
@@ -50,7 +49,7 @@ buildDartApplication.override { inherit dart; } rec {
   '';
 
   dartEntryPoints."flutter_tools.snapshot" = "bin/flutter_tools.dart";
-  dartCompileFlags = [ "--define=NIX_FLUTTER_HOST_PLATFORM=${systemPlatform}" ];
+  dartCompileFlags = ["--define=NIX_FLUTTER_HOST_PLATFORM=${systemPlatform}"];
 
   # The Dart wrapper launchers are useless for the Flutter tool - it is designed
   # to be launched from a snapshot by the SDK.
@@ -62,9 +61,8 @@ buildDartApplication.override { inherit dart; } rec {
 
   sdkSourceBuilders = {
     # https://github.com/dart-lang/pub/blob/e1fbda73d1ac597474b82882ee0bf6ecea5df108/lib/src/sdk/dart.dart#L80
-    "dart" =
-      name:
-      runCommand "dart-sdk-${name}" { passthru.packageRoot = "."; } ''
+    "dart" = name:
+      runCommand "dart-sdk-${name}" {passthru.packageRoot = ".";} ''
         for path in '${dart}/pkg/${name}'; do
           if [ -d "$path" ]; then
             ln -s "$path" "$out"

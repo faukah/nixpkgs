@@ -6,9 +6,8 @@
   pname,
   version,
   hash,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
-
 stdenvNoCC.mkDerivation {
   inherit pname version;
 
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation {
     inherit hash;
   };
 
-  nativeBuildInputs = [ p7zip ];
+  nativeBuildInputs = [p7zip];
 
   unpackPhase = ''
     runHook preUnpack

@@ -6,7 +6,6 @@
   git,
   glibc,
 }:
-
 stdenv.mkDerivation {
   version = "2019-08-20";
   pname = "lepton-unstable";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     cmake
     git
   ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ glibc.static ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [glibc.static];
 
   meta = with lib; {
     homepage = "https://github.com/dropbox/lepton";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ artemist ];
-    knownVulnerabilities = [ "CVE-2022-4104" ];
+    maintainers = with maintainers; [artemist];
+    knownVulnerabilities = ["CVE-2022-4104"];
   };
 }

@@ -11,7 +11,6 @@
   gtk-doc,
   deterministic-uname,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgtop";
   version = "2.41.3";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Library that reads information about processes and the running system";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

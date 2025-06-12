@@ -4,7 +4,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "django-upgrade";
   version = "1.22.2";
@@ -17,9 +16,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-QhowVqvN1kODKFLp2uA9CXLWqNJl1p5kC5z4rjRqKNk=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  dependencies = [ python3Packages.tokenize-rt ];
+  dependencies = [python3Packages.tokenize-rt];
 
   nativeCheckInputs = [
     python3Packages.pytestCheckHook
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
 
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "django_upgrade" ];
+  pythonImportsCheck = ["django_upgrade"];
 
   meta = {
     description = "Automatically upgrade your Django projects";
@@ -36,6 +35,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/adamchainz/django-upgrade/blob/${version}/CHANGELOG.rst";
     mainProgram = "django-upgrade";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.kalekseev ];
+    maintainers = [lib.maintainers.kalekseev];
   };
 }

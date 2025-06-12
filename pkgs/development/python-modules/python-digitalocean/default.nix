@@ -9,7 +9,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-digitalocean";
   version = "1.17.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-CIYW6vl+IOO94VyfgTjJ3T13uGtz4BdKyVmE44maoLA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jsonpickle
@@ -41,15 +40,15 @@ buildPythonPackage rec {
   '';
 
   # Test tries to access the network
-  disabledTests = [ "TestFirewall" ];
+  disabledTests = ["TestFirewall"];
 
-  pythonImportsCheck = [ "digitalocean" ];
+  pythonImportsCheck = ["digitalocean"];
 
   meta = with lib; {
     description = "Python API to manage Digital Ocean Droplets and Images";
     homepage = "https://github.com/koalalorenzo/python-digitalocean";
     changelog = "https://github.com/koalalorenzo/python-digitalocean/releases/tag/v${version}";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ teh ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [teh];
   };
 }

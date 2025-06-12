@@ -7,7 +7,6 @@
   responses,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "qnapstats";
   version = "0.5.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ responses ];
+  nativeCheckInputs = [responses];
 
   checkPhase = ''
     runHook preCheck
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "qnapstats" ];
+  pythonImportsCheck = ["qnapstats"];
 
   meta = {
     description = "Python API for obtaining QNAP NAS system stats";
     homepage = "https://github.com/colinodell/python-qnapstats";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

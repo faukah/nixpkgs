@@ -5,7 +5,6 @@
   cmake,
   re2c,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcaption";
   version = "0.7";
@@ -18,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ re2c ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [re2c];
 
   meta = with lib; {
     description = "Free open-source CEA608 / CEA708 closed-caption encoder/decoder";
     homepage = "https://github.com/szatmary/libcaption";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pschmitt ];
+    maintainers = with maintainers; [pschmitt];
   };
 })

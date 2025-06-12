@@ -5,7 +5,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "piston-cli";
   version = "1.5.0";
@@ -47,20 +46,20 @@ python3Packages.buildPythonApplication rec {
     "requests-cache"
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   versionCheckProgram = "${placeholder "out"}/bin/piston";
 
-  pythonImportsCheck = [ "piston" ];
+  pythonImportsCheck = ["piston"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Piston api tool";
     homepage = "https://github.com/Shivansh-007/piston-cli";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "piston";
   };
 }

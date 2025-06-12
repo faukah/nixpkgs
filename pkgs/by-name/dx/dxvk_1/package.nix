@@ -9,7 +9,6 @@
   windows,
   enableMoltenVKCompat ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dxvk";
   version = "1.10.3";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
   ];
-  buildInputs = [ windows.pthreads ];
+  buildInputs = [windows.pthreads];
 
   mesonBuildType = "release";
 
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vulkan-based translation layer for Direct3D 9/10/11";
     homepage = "https://github.com/doitsujin/dxvk";
     changelog = "https://github.com/doitsujin/dxvk/releases";
-    maintainers = [ lib.maintainers.reckenrode ];
+    maintainers = [lib.maintainers.reckenrode];
     license = lib.licenses.zlib;
     platforms = lib.platforms.windows;
   };

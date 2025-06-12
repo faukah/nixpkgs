@@ -2,7 +2,6 @@
   lib,
   stdenv,
   mkMesonLibrary,
-
   boost,
   brotli,
   libarchive,
@@ -11,12 +10,9 @@
   libsodium,
   nlohmann_json,
   openssl,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-util";
   inherit version;
@@ -56,5 +52,4 @@ mkMesonLibrary (finalAttrs: {
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

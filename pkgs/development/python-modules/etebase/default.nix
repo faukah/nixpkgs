@@ -13,7 +13,6 @@
   fetchpatch,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "etebase";
   version = "0.31.7";
@@ -56,9 +55,9 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  propagatedBuildInputs = [ msgpack ];
+  propagatedBuildInputs = [msgpack];
 
   postPatch = ''
     # Use system OpenSSL, which gets security updates.
@@ -66,7 +65,7 @@ buildPythonPackage rec {
       --replace ', features = ["vendored"]' ""
   '';
 
-  pythonImportsCheck = [ "etebase" ];
+  pythonImportsCheck = ["etebase"];
 
   passthru.tests = {
     inherit (nixosTests) etebase-server;
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://www.etebase.com/";
     description = "Python client library for Etebase";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ _3699n ];
+    maintainers = with maintainers; [_3699n];
   };
 }

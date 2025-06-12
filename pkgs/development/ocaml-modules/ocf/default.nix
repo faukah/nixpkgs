@@ -4,7 +4,6 @@
   fetchFromGitLab,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "ocf";
   version = "0.9.0";
@@ -18,12 +17,12 @@ buildDunePackage rec {
     sha256 = "sha256-tTNpvncLO/WfcMbjqRfqzcdPv2Bd877fOU5AZlkkcXA=";
   };
 
-  propagatedBuildInputs = [ yojson ];
+  propagatedBuildInputs = [yojson];
 
   meta = with lib; {
     description = "OCaml library to read and write configuration options in JSON syntax";
     homepage = "https://zoggy.frama.io/ocf/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ regnat ];
+    maintainers = with maintainers; [regnat];
   };
 }

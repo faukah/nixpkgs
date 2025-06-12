@@ -7,7 +7,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "test2ref";
   version = "0.8.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     binaryornot
   ];
 
-  pythonImportsCheck = [ "test2ref" ];
+  pythonImportsCheck = ["test2ref"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nbiotcloud/test2ref";
     changelog = "https://github.com/nbiotcloud/test2ref/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

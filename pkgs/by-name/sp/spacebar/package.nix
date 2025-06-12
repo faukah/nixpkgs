@@ -4,7 +4,6 @@
   fetchFromGitHub,
   apple-sdk_12,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spacebar";
   version = "1.4.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Minimal status bar for macOS";
     homepage = "https://github.com/cmacrae/spacebar";
     platforms = platforms.darwin;
-    maintainers = [ maintainers.cmacrae ];
+    maintainers = [maintainers.cmacrae];
     license = licenses.mit;
   };
 }

@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-nodejs-version,
   hatchling,
-
   # dependencies
   pycrdt,
   pytestCheckHook,
-
   # tests
   websockets,
   ypy-websocket,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-ydoc";
   version = "3.0.5";
@@ -33,9 +29,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ pycrdt ];
+  dependencies = [pycrdt];
 
-  pythonImportsCheck = [ "jupyter_ydoc" ];
+  pythonImportsCheck = ["jupyter_ydoc"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +47,6 @@ buildPythonPackage rec {
     description = "Document structures for collaborative editing using Ypy";
     homepage = "https://github.com/jupyter-server/jupyter_ydoc";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

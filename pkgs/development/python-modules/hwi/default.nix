@@ -13,7 +13,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "hwi";
   version = "3.1.0";
@@ -43,13 +42,13 @@ buildPythonPackage rec {
   # Tests require to clone quite a few firmwares
   doCheck = false;
 
-  pythonImportsCheck = [ "hwilib" ];
+  pythonImportsCheck = ["hwilib"];
 
   meta = with lib; {
     description = "Bitcoin Hardware Wallet Interface";
     homepage = "https://github.com/bitcoin-core/hwi";
     changelog = "https://github.com/bitcoin-core/HWI/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ prusnak ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [prusnak];
   };
 }

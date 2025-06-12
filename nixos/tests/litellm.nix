@@ -1,18 +1,14 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   mainPort = "8080";
-in
-{
+in {
   name = "litellm";
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.litellm = {
-          enable = true;
-        };
+    machine = {...}: {
+      services.litellm = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''
@@ -22,6 +18,6 @@ in
   '';
 
   meta = with lib.maintainers; {
-    maintainers = [ drupol ];
+    maintainers = [drupol];
   };
 }

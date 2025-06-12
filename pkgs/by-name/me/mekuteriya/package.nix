@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mekuteriya";
   version = "0.1.5";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/frectonz/mek-ut-er-ya";
     mainProgram = "mekuteriya";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.frectonz ];
+    maintainers = [lib.maintainers.frectonz];
     platforms = lib.platforms.all;
   };
 }

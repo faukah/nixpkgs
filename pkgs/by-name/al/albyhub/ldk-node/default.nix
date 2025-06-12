@@ -5,7 +5,6 @@
   cmake,
   llvmPackages,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ldk-node";
   version = "0-unstable-2025-05-21";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-Ie7FOSOd12mwmkEjD4r0p1ZmeYkXm5eN1LlQhWl0VG4=";
   };
 
-  buildFeatures = [ "uniffi" ];
+  buildFeatures = ["uniffi"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-hM6VCU0kIg5ZmJM8C4HoybSc/VXNj6GTE/oFLfqGMcY=";
@@ -43,6 +42,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bleetube ];
+    maintainers = with lib.maintainers; [bleetube];
   };
 }

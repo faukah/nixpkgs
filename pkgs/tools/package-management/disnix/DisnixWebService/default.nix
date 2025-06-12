@@ -9,7 +9,6 @@
   axis2,
   dbus_java,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "DisnixWebService";
   version = "0.10.1";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/svanderburg/DisnixWebService";
     changelog = "https://github.com/svanderburg/DisnixWebService/blob/${finalAttrs.src.rev}/NEWS.txt";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.linux;
   };
 })

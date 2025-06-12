@@ -5,48 +5,52 @@ let
   galenePort = 8443;
   galeneTestGroupAdminName = "admin";
   galeneTestGroupAdminPassword = "1234";
-in
-{
+in {
   basic = makeTest (
-    { pkgs, lib, ... }:
     {
+      pkgs,
+      lib,
+      ...
+    }: {
       name = "galene-works";
       meta = {
         inherit (pkgs.galene.meta) maintainers;
         platforms = lib.platforms.linux;
       };
 
-      nodes.machine =
-        { config, pkgs, ... }:
-        {
-          imports = [ ./common/x11.nix ];
+      nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        imports = [./common/x11.nix];
 
-          services.xserver.enable = true;
+        services.xserver.enable = true;
 
-          environment = {
-            # https://galene.org/INSTALL.html
-            etc.${galeneTestGroupFile}.source = (pkgs.formats.json { }).generate galeneTestGroupFile {
-              op = [
-                {
-                  username = galeneTestGroupAdminName;
-                  password = galeneTestGroupAdminPassword;
-                }
-              ];
-              other = [ { } ];
-            };
-
-            systemPackages = with pkgs; [
-              firefox
+        environment = {
+          # https://galene.org/INSTALL.html
+          etc.${galeneTestGroupFile}.source = (pkgs.formats.json {}).generate galeneTestGroupFile {
+            op = [
+              {
+                username = galeneTestGroupAdminName;
+                password = galeneTestGroupAdminPassword;
+              }
             ];
+            other = [{}];
           };
 
-          services.galene = {
-            enable = true;
-            insecure = true;
-            httpPort = galenePort;
-            groupsDir = galeneTestGroupsDir;
-          };
+          systemPackages = with pkgs; [
+            firefox
+          ];
         };
+
+        services.galene = {
+          enable = true;
+          insecure = true;
+          httpPort = galenePort;
+          groupsDir = galeneTestGroupsDir;
+        };
+      };
 
       enableOCR = true;
 
@@ -94,46 +98,51 @@ in
   );
 
   file-transfer = makeTest (
-    { pkgs, lib, ... }:
     {
+      pkgs,
+      lib,
+      ...
+    }: {
       name = "galene-file-transfer-works";
       meta = {
         inherit (pkgs.galene-file-transfer.meta) maintainers;
         platforms = lib.platforms.linux;
       };
 
-      nodes.machine =
-        { config, pkgs, ... }:
-        {
-          imports = [ ./common/x11.nix ];
+      nodes.machine = {
+        config,
+        pkgs,
+        ...
+      }: {
+        imports = [./common/x11.nix];
 
-          services.xserver.enable = true;
+        services.xserver.enable = true;
 
-          environment = {
-            # https://galene.org/INSTALL.html
-            etc.${galeneTestGroupFile}.source = (pkgs.formats.json { }).generate galeneTestGroupFile {
-              op = [
-                {
-                  username = galeneTestGroupAdminName;
-                  password = galeneTestGroupAdminPassword;
-                }
-              ];
-              other = [ { } ];
-            };
-
-            systemPackages = with pkgs; [
-              firefox
-              galene-file-transfer
+        environment = {
+          # https://galene.org/INSTALL.html
+          etc.${galeneTestGroupFile}.source = (pkgs.formats.json {}).generate galeneTestGroupFile {
+            op = [
+              {
+                username = galeneTestGroupAdminName;
+                password = galeneTestGroupAdminPassword;
+              }
             ];
+            other = [{}];
           };
 
-          services.galene = {
-            enable = true;
-            insecure = true;
-            httpPort = galenePort;
-            groupsDir = galeneTestGroupsDir;
-          };
+          systemPackages = with pkgs; [
+            firefox
+            galene-file-transfer
+          ];
         };
+
+        services.galene = {
+          enable = true;
+          insecure = true;
+          httpPort = galenePort;
+          groupsDir = galeneTestGroupsDir;
+        };
+      };
 
       enableOCR = true;
 

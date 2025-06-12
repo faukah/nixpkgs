@@ -11,7 +11,6 @@
   libXext,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libglvnd";
   version = "1.7.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
   );
 
   configureFlags =
-    [ ]
+    []
     # Indirectly: https://bugs.freedesktop.org/show_bug.cgi?id=35268
     ++ lib.optional stdenv.hostPlatform.isMusl "--disable-tls"
     # Remove when aarch64-darwin asm support is upstream: https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/216
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     addDriverRunpath $out/lib/libGLX.so
   '';
 
-  passthru = { inherit (addDriverRunpath) driverLink; };
+  passthru = {inherit (addDriverRunpath) driverLink;};
 
   meta = {
     description = "GL Vendor-Neutral Dispatch library";
@@ -111,7 +110,7 @@ stdenv.mkDerivation rec {
     ];
     platforms = lib.platforms.unix;
     # https://gitlab.freedesktop.org/glvnd/libglvnd/-/issues/212
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
-    maintainers = with lib.maintainers; [ primeos ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

@@ -14,7 +14,6 @@
   qtwebengine,
   yt-dlp,
 }:
-
 mkDerivation rec {
   pname = "clipgrab";
   version = "3.9.7";
@@ -55,7 +54,7 @@ mkDerivation rec {
         --replace '"ffmpeg ' '"${ffmpeg.bin}/bin/ffmpeg '
     '';
 
-  qmakeFlags = [ "clipgrab.pro" ];
+  qmakeFlags = ["clipgrab.pro"];
 
   desktopItem = makeDesktopItem rec {
     name = "clipgrab";

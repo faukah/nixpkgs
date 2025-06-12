@@ -12,7 +12,6 @@
   gnome-common,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "notify-osd";
   version = "0.9.35+20.04.20191129";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "notify-osd";
     homepage = "https://launchpad.net/notify-osd";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ bodil ];
+    maintainers = with lib.maintainers; [bodil];
     platforms = lib.platforms.linux;
   };
 })

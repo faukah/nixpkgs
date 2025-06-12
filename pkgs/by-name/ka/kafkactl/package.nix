@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kafkactl";
   version = "5.8.0";
@@ -33,6 +32,6 @@ buildGoModule rec {
       - directly access kafka clusters inside your kubernetes cluster
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ grburst ];
+    maintainers = with lib.maintainers; [grburst];
   };
 }

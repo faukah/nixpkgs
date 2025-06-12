@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   asn1crypto,
   click,
@@ -16,7 +14,6 @@
   qrcode,
   requests,
   tzlocal,
-
   # optional-dependencies
   oscrypto,
   defusedxml,
@@ -27,7 +24,6 @@
   python-pkcs11,
   aiohttp,
   xsdata,
-
   # tests
   certomancer,
   freezegun,
@@ -36,7 +32,6 @@
   python-pae,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "pyhanko";
   version = "0.25.3";
@@ -49,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-HJkCQ5YDVr17gtY4PW89ep7GwFdP21/ruBEKm7j3+Qo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "cryptography"
@@ -67,8 +62,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    extra-pubkey-algs = [ oscrypto ];
-    xmp = [ defusedxml ];
+    extra-pubkey-algs = [oscrypto];
+    xmp = [defusedxml];
     opentype = [
       fonttools
       uharfbuzz
@@ -77,20 +72,22 @@ buildPythonPackage rec {
       pillow
       python-barcode
     ];
-    pkcs11 = [ python-pkcs11 ];
-    async-http = [ aiohttp ];
-    etsi = [ xsdata ];
+    pkcs11 = [python-pkcs11];
+    async-http = [aiohttp];
+    etsi = [xsdata];
   };
 
-  nativeCheckInputs = [
-    aiohttp
-    certomancer
-    freezegun
-    pytest-aiohttp
-    pytestCheckHook
-    python-pae
-    requests-mock
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      certomancer
+      freezegun
+      pytest-aiohttp
+      pytestCheckHook
+      python-pae
+      requests-mock
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTestPaths =
     [
@@ -138,7 +135,7 @@ buildPythonPackage rec {
       "test_ocsp_without_nextupdate_embed"
     ];
 
-  pythonImportsCheck = [ "pyhanko" ];
+  pythonImportsCheck = ["pyhanko"];
 
   meta = {
     description = "Sign and stamp PDF files";
@@ -146,6 +143,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MatthiasValvekens/pyHanko";
     changelog = "https://github.com/MatthiasValvekens/pyHanko/blob/v${version}/docs/changelog.rst";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dpdk-kmods";
   version = "2023-02-05";
@@ -15,11 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AG5Lthp+CPR4R7I23DUmoWAmET8gLEFHHdjk2TUbQn4=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -36,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Kernel modules for DPDK";
     homepage = "https://git.dpdk.org/dpdk-kmods/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
     platforms = platforms.linux;
   };
 }

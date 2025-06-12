@@ -1,14 +1,19 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "peroxide";
-  meta.maintainers = with lib.maintainers; [ aidalgol ];
+  meta.maintainers = with lib.maintainers; [aidalgol];
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      networking.hostName = "nixos";
-      services.peroxide.enable = true;
-    };
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    networking.hostName = "nixos";
+    services.peroxide.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_unit("peroxide.service")

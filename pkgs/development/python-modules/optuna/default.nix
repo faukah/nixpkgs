@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   alembic,
   colorlog,
@@ -15,7 +13,6 @@
   sqlalchemy,
   tqdm,
   pyyaml,
-
   # optional-dependencies
   boto3,
   cmaes,
@@ -29,7 +26,6 @@
   redis,
   scikit-learn,
   scipy,
-
   # tests
   addBinToPathHook,
   fakeredis,
@@ -40,7 +36,6 @@
   torch,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "optuna";
   version = "4.2.1";
@@ -138,14 +133,14 @@ buildPythonPackage rec {
       "test_visualizations_with_single_objectives"
     ];
 
-  pythonImportsCheck = [ "optuna" ];
+  pythonImportsCheck = ["optuna"];
 
   meta = {
     description = "Hyperparameter optimization framework";
     homepage = "https://optuna.org/";
     changelog = "https://github.com/optuna/optuna/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "optuna";
   };
 }

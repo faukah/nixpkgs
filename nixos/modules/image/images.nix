@@ -4,8 +4,7 @@
   pkgs,
   extendModules,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
   imageModules = {
@@ -25,15 +24,15 @@ let
     proxmox-lxc = ../virtualisation/proxmox-lxc.nix;
     qemu-efi = ../virtualisation/disk-image.nix;
     qemu = {
-      imports = [ ../virtualisation/disk-image.nix ];
+      imports = [../virtualisation/disk-image.nix];
       image.efiSupport = false;
     };
     raw-efi = {
-      imports = [ ../virtualisation/disk-image.nix ];
+      imports = [../virtualisation/disk-image.nix];
       image.format = "raw";
     };
     raw = {
-      imports = [ ../virtualisation/disk-image.nix ];
+      imports = [../virtualisation/disk-image.nix];
       image.format = "raw";
       image.efiSupport = false;
     };
@@ -44,25 +43,24 @@ let
     iso = ../installer/cd-dvd/iso-image.nix;
     iso-installer = ../installer/cd-dvd/installation-cd-base.nix;
     sd-card = {
-      imports =
-        let
-          module = ../. + "/installer/sd-card/sd-image-${pkgs.targetPlatform.qemuArch}.nix";
-        in
-        if builtins.pathExists module then
-          [ module ]
-        else
-          throw "The module ${toString module} does not exist.";
+      imports = let
+        module = ../. + "/installer/sd-card/sd-image-${pkgs.targetPlatform.qemuArch}.nix";
+      in
+        if builtins.pathExists module
+        then [module]
+        else throw "The module ${toString module} does not exist.";
     };
     kexec = ../installer/netboot/netboot-minimal.nix;
   };
-  imageConfigs = lib.mapAttrs (
-    name: module:
-    extendModules {
-      modules = [ module ];
-    }
-  ) config.image.modules;
-in
-{
+  imageConfigs =
+    lib.mapAttrs (
+      name: module:
+        extendModules {
+          modules = [module];
+        }
+    )
+    config.image.modules;
+in {
   options = {
     system.build = {
       images = lib.mkOption {
@@ -84,19 +82,19 @@ in
   config.image.modules = lib.mkIf (!config.system.build ? image) imageModules;
   config.system.build.images = lib.mkIf (!config.system.build ? image) (
     lib.mapAttrs (
-      name: nixos:
-      let
+      name: nixos: let
         inherit (nixos) config;
         inherit (config.image) filePath;
         builder =
           config.system.build.image
             or (throw "Module for `system.build.images.${name}` misses required `system.build.image` option.");
       in
-      lib.recursiveUpdate builder {
-        passthru = {
-          inherit config filePath;
-        };
-      }
-    ) imageConfigs
+        lib.recursiveUpdate builder {
+          passthru = {
+            inherit config filePath;
+          };
+        }
+    )
+    imageConfigs
   );
 }

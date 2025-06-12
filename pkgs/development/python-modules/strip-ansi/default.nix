@@ -6,7 +6,6 @@
   poetry-core,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "strip-ansi";
   version = "0.1.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     "strip_ansi"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Strip ANSI escape sequences from a string";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     # License is in the repository but not in PyPI metadata.
     # See: https://github.com/gwennlbh/python-strip-ansi/blob/master/LICENSE
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers._9999years ];
+    maintainers = [lib.maintainers._9999years];
   };
 }

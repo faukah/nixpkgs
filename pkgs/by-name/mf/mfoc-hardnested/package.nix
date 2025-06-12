@@ -7,7 +7,6 @@
   libnfc,
   xz,
 }:
-
 stdenv.mkDerivation {
   pname = "mfoc-hardnested";
   version = "unstable-2023-03-27";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     license = licenses.gpl2;
     homepage = "https://github.com/nfc-tools/mfoc-hardnested";
     changelog = "https://github.com/nfc-tools/mfoc-hardnested/blob/master/debian/changelog";
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
     platforms = platforms.unix;
   };
 }

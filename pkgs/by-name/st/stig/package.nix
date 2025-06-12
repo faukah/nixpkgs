@@ -5,7 +5,6 @@
   testers,
   stig,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "stig";
   # This project has a different concept for pre release / alpha,
@@ -51,6 +50,6 @@ python3Packages.buildPythonApplication rec {
     description = "TUI and CLI for the BitTorrent client Transmission";
     homepage = "https://github.com/rndusr/stig";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

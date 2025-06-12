@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mongoaudit";
   version = "0.1.1";
@@ -34,8 +33,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "MongoDB auditing and pentesting tool";
     homepage = "https://github.com/stampery/mongoaudit";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "mongoaudit";
   };
 }

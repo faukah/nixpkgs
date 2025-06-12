@@ -11,7 +11,6 @@
   SDL_net,
   SDL_ttf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sparrow3d";
   version = "unstable-2020-10-06";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) version;
       inherit (finalAttrs.meta) description;
 
-      cflags = [ "-isystem${variables.includedir}" ];
+      cflags = ["-isystem${variables.includedir}"];
       libs = [
         "-L${variables.libdir}"
         "-lsparrow3d"
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE=$(pkg-config --cflags SDL_image SDL_ttf SDL_mixer SDL_net)
   '';
 
-  buildFlags = [ "dynamic" ];
+  buildFlags = ["dynamic"];
 
   installPhase = ''
     runHook preInstall
@@ -96,7 +95,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/theZiz/sparrow3d";
     description = "Software renderer for different open handhelds like the gp2x, wiz, caanoo and pandora";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
     platforms = lib.platforms.linux;
   };
 })

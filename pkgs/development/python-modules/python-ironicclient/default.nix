@@ -22,7 +22,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage rec {
   pname = "python-ironicclient";
   version = "5.10.1";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     cliff
@@ -82,13 +81,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "ironicclient" ];
+  pythonImportsCheck = ["ironicclient"];
 
   meta = with lib; {
     description = "Client for OpenStack bare metal provisioning API, includes a Python module (ironicclient) and CLI (baremetal)";
     mainProgram = "baremetal";
     homepage = "https://github.com/openstack/python-ironicclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

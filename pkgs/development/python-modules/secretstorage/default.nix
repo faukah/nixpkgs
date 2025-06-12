@@ -6,7 +6,6 @@
   jeepney,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "secretstorage";
   version = "3.3.3";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
   # Needs a D-Bus session
   doCheck = false;
 
-  pythonImportsCheck = [ "secretstorage" ];
+  pythonImportsCheck = ["secretstorage"];
 
   meta = with lib; {
     description = "Python bindings to FreeDesktop.org Secret Service API";
     homepage = "https://github.com/mitya57/secretstorage";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

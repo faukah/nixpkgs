@@ -6,9 +6,7 @@
   lib,
   stdenvNoCC,
   xorg,
-}:
-
-let
+}: let
   pname = "mochi";
   version = "1.18.11";
 
@@ -20,9 +18,9 @@ let
       hash = "sha256-NQ591KtWQz8hlXPhV83JEwGm+Au26PIop5KVzsyZKp4=";
     };
 
-    appimageContents = appimageTools.extractType2 { inherit pname version src; };
+    appimageContents = appimageTools.extractType2 {inherit pname version src;};
 
-    extraPkgs = pkgs: [ xorg.libxshmfence ];
+    extraPkgs = pkgs: [xorg.libxshmfence];
 
     extraInstallCommands = ''
       install -Dm444 ${appimageContents}/${pname}.desktop -t $out/share/applications/
@@ -39,7 +37,7 @@ let
       url = "https://mochi.cards/releases/Mochi-${version}.dmg";
       hash = "sha256-5RM4eqHQoYfO5JiUH9ol+3XxOk4VX4ocE3Yia82sovI=";
       stripRoot = false;
-      nativeBuildInputs = [ _7zz ];
+      nativeBuildInputs = [_7zz];
     };
 
     installPhase = ''
@@ -57,9 +55,11 @@ let
     homepage = "https://mochi.cards/";
     changelog = "https://mochi.cards/changelog.html";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ poopsicles ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [poopsicles];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 in
-if stdenvNoCC.hostPlatform.isDarwin then darwin else linux
+  if stdenvNoCC.hostPlatform.isDarwin
+  then darwin
+  else linux

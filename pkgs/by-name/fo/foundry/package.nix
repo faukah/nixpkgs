@@ -10,7 +10,6 @@
   solc,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "foundry";
   version = "1.2.3";
@@ -25,11 +24,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-q0iNyGabqJJcxVLzU8CZpkxxSYOCfuc7ewiSQcQIzSY=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
+  nativeBuildInputs =
+    [
+      pkg-config
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools];
 
-  buildInputs = [ solc ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libusb1 ];
+  buildInputs = [solc] ++ lib.optionals stdenv.hostPlatform.isDarwin [libusb1];
 
   # Tests are run upstream, and many perform I/O
   # incompatible with the nix build sandbox.
@@ -42,16 +43,16 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   env = {
     SVM_RELEASES_LIST_JSON =
-      if stdenv.hostPlatform.isDarwin then
+      if stdenv.hostPlatform.isDarwin
+      then
         # Confusingly, these are universal binaries, not amd64.
         # See: https://github.com/ethereum/solidity/issues/12291#issuecomment-1974771433
         "${./svm-lists/macosx-amd64.json}"
-      else
-        "${./svm-lists/linux-amd64.json}";
+      else "${./svm-lists/linux-amd64.json}";
   };
 
   meta = {

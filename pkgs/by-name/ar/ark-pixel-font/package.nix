@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 python312Packages.buildPythonPackage rec {
   pname = "ark-pixel-font";
   version = "2025.03.14";
@@ -52,13 +51,13 @@ python312Packages.buildPythonPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Open source pan-CJK pixel font";
     homepage = "https://ark-pixel-font.takwolf.com/";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ h7x4 ];
+    maintainers = with lib.maintainers; [h7x4];
     platforms = lib.platforms.all;
   };
 }

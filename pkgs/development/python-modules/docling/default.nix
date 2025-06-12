@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   poetry-core,
-
   # dependencies
   accelerate,
   beautifulsoup4,
@@ -38,18 +36,15 @@
   tqdm,
   transformers,
   typer,
-
   # optional dependencies
   # mkdocs-click # not yet packaged
   mkdocs-jupyter,
   mkdocs-material,
   mkdocstrings,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "docling";
   version = "2.31.2";
@@ -174,7 +169,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/DS4SD/docling";
     changelog = "https://github.com/DS4SD/docling/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     mainProgram = "docling";
   };
 }

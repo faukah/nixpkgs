@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pykira";
   version = "0.1.3";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pykira" ];
+  pythonImportsCheck = ["pykira"];
 
   meta = with lib; {
     description = "Python module to interact with Kira modules";
     homepage = "https://github.com/stu-gott/pykira";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

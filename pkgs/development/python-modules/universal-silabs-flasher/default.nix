@@ -4,10 +4,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   async-timeout,
   bellows,
@@ -18,14 +16,12 @@
   pyserial-asyncio-fast,
   typing-extensions,
   zigpy,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
   pytest-mock,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "universal-silabs-flasher";
   version = "0.0.31";
@@ -44,7 +40,7 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -56,8 +52,8 @@ buildPythonPackage rec {
       typing-extensions
       zigpy
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ async-timeout ]
-    ++ lib.optionals (stdenv.hostPlatform.isLinux) [ libgpiod ];
+    ++ lib.optionals (pythonOlder "3.11") [async-timeout]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux) [libgpiod];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -66,7 +62,7 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pythonImportsCheck = [ "universal_silabs_flasher" ];
+  pythonImportsCheck = ["universal_silabs_flasher"];
 
   meta = with lib; {
     changelog = "https://github.com/NabuCasa/universal-silabs-flasher/releases/tag/${src.tag}";
@@ -74,6 +70,6 @@ buildPythonPackage rec {
     mainProgram = "universal-silabs-flasher";
     homepage = "https://github.com/NabuCasa/universal-silabs-flasher";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

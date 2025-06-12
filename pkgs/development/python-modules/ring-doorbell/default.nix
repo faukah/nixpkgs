@@ -20,7 +20,6 @@
   typing-extensions,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "ring-doorbell";
   version = "0.9.13";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     hash = "sha256-M8lHODHdWXLvrDbQMeEgGaQMYCXicHTQta+XjJxSQlM=";
   };
 
-  pythonRelaxDeps = [ "requests-oauthlib" ];
+  pythonRelaxDeps = ["requests-oauthlib"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiofiles
@@ -59,14 +58,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ring_doorbell" ];
+  pythonImportsCheck = ["ring_doorbell"];
 
   meta = with lib; {
     description = "Library to communicate with Ring Door Bell";
     homepage = "https://github.com/tchellomello/python-ring-doorbell";
     changelog = "https://github.com/tchellomello/python-ring-doorbell/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ graham33 ];
+    maintainers = with maintainers; [graham33];
     mainProgram = "ring-doorbell";
   };
 }

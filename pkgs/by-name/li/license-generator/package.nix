@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "license-generator";
   version = "1.3.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line tool for generating license files";
     homepage = "https://github.com/azu/license-generator";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
     mainProgram = "license-generator";
   };
 }

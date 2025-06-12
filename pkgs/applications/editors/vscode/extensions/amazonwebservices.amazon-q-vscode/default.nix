@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension (finalAttrs: {
   mktplcRef = {
     name = "amazon-q-vscode";
@@ -17,6 +16,6 @@ vscode-utils.buildVscodeMarketplaceExtension (finalAttrs: {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=AmazonWebServices.amazon-q-vscode";
     homepage = "https://github.com/aws/aws-toolkit-vscode";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

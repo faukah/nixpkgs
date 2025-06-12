@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "amarna";
   version = "0.1.5";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     pydot
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "amarna" ];
+  pythonImportsCheck = ["amarna"];
 
   meta = with lib; {
     description = "Static-analyzer and linter for the Cairo programming language";
     mainProgram = "amarna";
     homepage = "https://github.com/crytic/amarna";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

@@ -5,7 +5,6 @@
   fetchPypi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cookies";
   version = "2.2.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://gitlab.com/sashahart/cookies/-/issues/6

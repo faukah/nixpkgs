@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ibeacon-ble";
   version = "1.2.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-1liSWxduYpjIMu7226EH4bsc7gca5g/fyL79W4ZMdU4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ibeacon_ble" ];
+  pythonImportsCheck = ["ibeacon_ble"];
 
   meta = with lib; {
     description = "Library for iBeacon BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/ibeacon-ble";
     changelog = "https://github.com/Bluetooth-Devices/ibeacon-ble/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     filterAttrsRecursive
     getExe
     maintainers
@@ -18,21 +18,20 @@ let
     ;
   inherit (utils) escapeSystemdExecArgs;
   cfg = config.services.routinator;
-  settingsFormat = pkgs.formats.toml { };
-in
-{
+  settingsFormat = pkgs.formats.toml {};
+in {
   options.services.routinator = {
     enable = mkEnableOption "Routinator 3000";
 
-    package = mkPackageOption pkgs "routinator" { };
+    package = mkPackageOption pkgs "routinator" {};
 
     extraArgs = mkOption {
       description = ''
         Extra arguments passed to routinator, see <https://routinator.docs.nlnetlabs.nl/en/stable/manual-page.html#options> for options.";
       '';
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--no-rir-tals" ];
+      default = [];
+      example = ["--no-rir-tals"];
     };
 
     extraServerArgs = mkOption {
@@ -40,8 +39,8 @@ in
         Extra arguments passed to the server subcommand, see <https://routinator.docs.nlnetlabs.nl/en/stable/manual-page.html#subcmd-server> for options.";
       '';
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--rtr-client-metrics" ];
+      default = [];
+      example = ["--rtr-client-metrics"];
     };
 
     settings = mkOption {
@@ -132,16 +131,16 @@ in
       description = ''
         Configuration for Routinator 3000, see <https://routinator.docs.nlnetlabs.nl/en/stable/manual-page.html#configuration-file> for options.
       '';
-      default = { };
+      default = {};
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.routinator = {
       description = "Routinator 3000 is free, open-source RPKI Relying Party software made by NLnet Labs.";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = with pkgs; [ rsync ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = with pkgs; [rsync];
       serviceConfig = {
         Type = "exec";
         ExecStart = escapeSystemdExecArgs (
@@ -158,7 +157,7 @@ in
           ++ cfg.extraServerArgs
         );
         Restart = "on-failure";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -189,5 +188,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ xgwq ];
+  meta.maintainers = with maintainers; [xgwq];
 }

@@ -10,10 +10,8 @@
   swftools,
   ffmpeg,
   miniupnpc,
-
   enableSwftools ? false,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hydrus";
   version = "624";

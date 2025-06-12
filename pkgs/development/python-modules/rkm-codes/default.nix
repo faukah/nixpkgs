@@ -5,7 +5,6 @@
   flit-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rkm-codes";
   version = "0.6";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-CkLLZuWcNL8sqAupc7lHXu0DXUXrX3qwd1g/ekyHdw4=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   # this has a circular dependency on quantiphy
   preBuild = ''
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "QuantiPhy support for RKM codes";
     homepage = "https://github.com/kenkundert/rkm_codes/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

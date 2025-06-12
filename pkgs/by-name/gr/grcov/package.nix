@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "grcov";
   version = "0.9.1";
@@ -19,20 +18,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-v4laGVbWmK8WFJXX5ChtViyKyMtmwpehSgNG6F31Mn0=";
 
   # tests do not find grcov path correctly
-  checkFlags =
-    let
-      skipList = [
-        "test_coveralls_service_job_id_is_not_sufficient"
-        "test_coveralls_service_name_is_not_sufficient"
-        "test_coveralls_works_with_just_service_name_and_job_id_args"
-        "test_coveralls_works_with_just_token_arg"
-        "test_integration"
-        "test_integration_guess_single_file"
-        "test_integration_zip_dir"
-        "test_integration_zip_zip"
-      ];
-      skipFlag = test: "--skip " + test;
-    in
+  checkFlags = let
+    skipList = [
+      "test_coveralls_service_job_id_is_not_sufficient"
+      "test_coveralls_service_name_is_not_sufficient"
+      "test_coveralls_works_with_just_service_name_and_job_id_args"
+      "test_coveralls_works_with_just_token_arg"
+      "test_integration"
+      "test_integration_guess_single_file"
+      "test_integration_zip_dir"
+      "test_integration_zip_zip"
+    ];
+    skipFlag = test: "--skip " + test;
+  in
     builtins.concatStringsSep " " (builtins.map skipFlag skipList);
 
   meta = {
@@ -40,6 +38,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "grcov";
     homepage = "https://github.com/mozilla/grcov";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ DieracDelta ];
+    maintainers = with lib.maintainers; [DieracDelta];
   };
 })

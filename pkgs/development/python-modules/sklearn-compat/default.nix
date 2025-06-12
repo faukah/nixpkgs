@@ -10,7 +10,6 @@
   pytest-xdist,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "sklearn-compat";
   version = "0.1.3";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Ease multi-version support for scikit-learn compatible library";
     homepage = "https://github.com/sklearn-compat/sklearn-compat";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ philipwilk ];
+    maintainers = with lib.maintainers; [philipwilk];
   };
 }

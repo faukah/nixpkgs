@@ -6,7 +6,6 @@
   base,
   stdio,
 }:
-
 buildDunePackage rec {
   pname = "merge-fmt";
   version = "0.3";
@@ -26,7 +25,7 @@ buildDunePackage rec {
   ];
 
   # core v0.17 compatibility, obtained by `git diff -r 3e37827~2..3e37827`
-  patches = [ ./merge-fmt.patch ];
+  patches = [./merge-fmt.patch];
 
   meta = with lib; {
     description = "Git mergetool leveraging code formatters";
@@ -36,7 +35,7 @@ buildDunePackage rec {
       `merge-fmt` is a small wrapper on top git commands to help resolve
       conflicts by leveraging code formatters.
     '';
-    maintainers = [ maintainers.alizter ];
+    maintainers = [maintainers.alizter];
     mainProgram = "merge-fmt";
   };
 }

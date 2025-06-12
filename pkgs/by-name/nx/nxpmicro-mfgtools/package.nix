@@ -11,7 +11,6 @@
   openssl,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nxpmicro-mfgtools";
   version = "1.5.139";

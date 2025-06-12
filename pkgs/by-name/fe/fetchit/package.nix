@@ -6,7 +6,6 @@
   lvm2,
   pkg-config,
 }:
-
 buildGoModule rec {
   pname = "fetchit";
   version = "0.0.1";
@@ -20,13 +19,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-SyPd8P9s8R2YbGEPqFeztF98W1QyGSBumtirSdpm8VI=";
 
-  subPackages = [ "cmd/fetchit" ];
+  subPackages = ["cmd/fetchit"];
 
   nativeBuildInputs = [
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ lvm2 ];
+  buildInputs = [lvm2];
 
   # Flags are derived from
   # https://github.com/containers/fetchit/blob/v0.0.1/Makefile#L20-L29
@@ -80,7 +79,7 @@ buildGoModule rec {
     homepage = "https://fetchit.readthedocs.io";
     changelog = "https://github.com/containers/fetchit/releases/tag/${src.rev}";
     license = licenses.agpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

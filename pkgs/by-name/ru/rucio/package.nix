@@ -1,5 +1,3 @@
-{ python3Packages }:
-
+{python3Packages}:
 with python3Packages;
-
-toPythonApplication rucio
+  toPythonApplication rucio

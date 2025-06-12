@@ -3,8 +3,7 @@
   lib,
   withNg,
   ...
-}:
-{
+}: {
   name = "nixos-rebuild-target-host";
 
   # TODO: remove overlay from  nixos/modules/profiles/installation-device.nix
@@ -12,143 +11,145 @@
   node.pkgsReadOnly = false;
 
   nodes = {
-    deployer =
-      { lib, pkgs, ... }:
-      let
-        inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
-      in
-      {
-        imports = [ ../modules/profiles/installation-device.nix ];
+    deployer = {
+      lib,
+      pkgs,
+      ...
+    }: let
+      inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
+    in {
+      imports = [../modules/profiles/installation-device.nix];
 
-        nix.settings = {
-          substituters = lib.mkForce [ ];
-          hashed-mirrors = null;
-          connect-timeout = 1;
-        };
-
-        environment.systemPackages = [ pkgs.passh ];
-
-        system.includeBuildDependencies = true;
-
-        virtualisation = {
-          cores = 2;
-          memorySize = 2048;
-        };
-
-        system.build.privateKey = snakeOilPrivateKey;
-        system.build.publicKey = snakeOilPublicKey;
-        # We don't switch on `deployer`, but we need it to have the dependencies
-        # available, to be picked up by system.includeBuildDependencies above.
-        system.rebuild.enableNg = withNg;
-        system.switch.enable = true;
+      nix.settings = {
+        substituters = lib.mkForce [];
+        hashed-mirrors = null;
+        connect-timeout = 1;
       };
 
-    target =
-      { nodes, lib, ... }:
-      let
-        targetConfig = {
-          documentation.enable = false;
-          services.openssh.enable = true;
+      environment.systemPackages = [pkgs.passh];
 
-          users.users.root.openssh.authorizedKeys.keys = [ nodes.deployer.system.build.publicKey ];
-          users.users.alice.openssh.authorizedKeys.keys = [ nodes.deployer.system.build.publicKey ];
-          users.users.bob.openssh.authorizedKeys.keys = [ nodes.deployer.system.build.publicKey ];
+      system.includeBuildDependencies = true;
 
-          users.users.alice.extraGroups = [ "wheel" ];
-          users.users.bob.extraGroups = [ "wheel" ];
+      virtualisation = {
+        cores = 2;
+        memorySize = 2048;
+      };
 
-          # Disable sudo for root to ensure sudo isn't called without `--use-remote-sudo`
-          security.sudo.extraRules = lib.mkForce [
-            {
-              groups = [ "wheel" ];
-              commands = [ { command = "ALL"; } ];
-            }
-            {
-              users = [ "alice" ];
-              commands = [
-                {
-                  command = "ALL";
-                  options = [ "NOPASSWD" ];
-                }
-              ];
-            }
-          ];
+      system.build.privateKey = snakeOilPrivateKey;
+      system.build.publicKey = snakeOilPublicKey;
+      # We don't switch on `deployer`, but we need it to have the dependencies
+      # available, to be picked up by system.includeBuildDependencies above.
+      system.rebuild.enableNg = withNg;
+      system.switch.enable = true;
+    };
 
-          nix.settings.trusted-users = [ "@wheel" ];
-        };
-      in
-      {
-        imports = [ ./common/user-account.nix ];
+    target = {
+      nodes,
+      lib,
+      ...
+    }: let
+      targetConfig = {
+        documentation.enable = false;
+        services.openssh.enable = true;
 
-        config = lib.mkMerge [
-          targetConfig
+        users.users.root.openssh.authorizedKeys.keys = [nodes.deployer.system.build.publicKey];
+        users.users.alice.openssh.authorizedKeys.keys = [nodes.deployer.system.build.publicKey];
+        users.users.bob.openssh.authorizedKeys.keys = [nodes.deployer.system.build.publicKey];
+
+        users.users.alice.extraGroups = ["wheel"];
+        users.users.bob.extraGroups = ["wheel"];
+
+        # Disable sudo for root to ensure sudo isn't called without `--use-remote-sudo`
+        security.sudo.extraRules = lib.mkForce [
           {
-            system.build = {
-              inherit targetConfig;
-            };
-            system.switch.enable = true;
-
-            networking.hostName = "target";
+            groups = ["wheel"];
+            commands = [{command = "ALL";}];
+          }
+          {
+            users = ["alice"];
+            commands = [
+              {
+                command = "ALL";
+                options = ["NOPASSWD"];
+              }
+            ];
           }
         ];
+
+        nix.settings.trusted-users = ["@wheel"];
       };
+    in {
+      imports = [./common/user-account.nix];
+
+      config = lib.mkMerge [
+        targetConfig
+        {
+          system.build = {
+            inherit targetConfig;
+          };
+          system.switch.enable = true;
+
+          networking.hostName = "target";
+        }
+      ];
+    };
   };
 
-  testScript =
-    { nodes, ... }:
-    let
-      sshConfig = builtins.toFile "ssh.conf" ''
-        UserKnownHostsFile=/dev/null
-        StrictHostKeyChecking=no
-      '';
+  testScript = {nodes, ...}: let
+    sshConfig = builtins.toFile "ssh.conf" ''
+      UserKnownHostsFile=/dev/null
+      StrictHostKeyChecking=no
+    '';
 
-      targetConfigJSON = hostPkgs.writeText "target-configuration.json" (
-        builtins.toJSON nodes.target.system.build.targetConfig
-      );
+    targetConfigJSON = hostPkgs.writeText "target-configuration.json" (
+      builtins.toJSON nodes.target.system.build.targetConfig
+    );
 
-      targetNetworkJSON = hostPkgs.writeText "target-network.json" (
-        builtins.toJSON nodes.target.system.build.networkConfig
-      );
+    targetNetworkJSON = hostPkgs.writeText "target-network.json" (
+      builtins.toJSON nodes.target.system.build.networkConfig
+    );
 
-      configFile =
-        hostname:
-        hostPkgs.writeText "configuration.nix" # nix
+    configFile = hostname:
+      hostPkgs.writeText "configuration.nix" # nix
+      
+      ''
+        { lib, modulesPath, ... }: {
+          imports = [
+            (modulesPath + "/virtualisation/qemu-vm.nix")
+            (modulesPath + "/testing/test-instrumentation.nix")
+            (modulesPath + "/../tests/common/user-account.nix")
+            (lib.modules.importJSON ./target-configuration.json)
+            (lib.modules.importJSON ./target-network.json)
+            ./hardware-configuration.nix
+          ];
+
+          boot.loader.grub = {
+            enable = true;
+            device = "/dev/vda";
+            forceInstall = true;
+          };
+
+          system.rebuild.enableNg = ${lib.boolToString withNg};
+
+          ${
+          lib.optionalString withNg # nix
+          
           ''
-            { lib, modulesPath, ... }: {
-              imports = [
-                (modulesPath + "/virtualisation/qemu-vm.nix")
-                (modulesPath + "/testing/test-instrumentation.nix")
-                (modulesPath + "/../tests/common/user-account.nix")
-                (lib.modules.importJSON ./target-configuration.json)
-                (lib.modules.importJSON ./target-network.json)
-                ./hardware-configuration.nix
-              ];
+            nixpkgs.overlays = [
+              (final: prev: {
+                # Set tmpdir inside nixos-rebuild-ng to test
+                # "Deploy works with very long TMPDIR"
+                nixos-rebuild-ng = prev.nixos-rebuild-ng.override { withTmpdir = "/tmp"; };
+              })
+            ];
+          ''
+        }
 
-              boot.loader.grub = {
-                enable = true;
-                device = "/dev/vda";
-                forceInstall = true;
-              };
-
-              system.rebuild.enableNg = ${lib.boolToString withNg};
-
-              ${lib.optionalString withNg # nix
-                ''
-                  nixpkgs.overlays = [
-                    (final: prev: {
-                      # Set tmpdir inside nixos-rebuild-ng to test
-                      # "Deploy works with very long TMPDIR"
-                      nixos-rebuild-ng = prev.nixos-rebuild-ng.override { withTmpdir = "/tmp"; };
-                    })
-                  ];
-                ''
-              }
-
-              # this will be asserted
-              networking.hostName = "${hostname}";
-            }
-          '';
-    in
+          # this will be asserted
+          networking.hostName = "${hostname}";
+        }
+      '';
+  in
     # python
     ''
       start_all()

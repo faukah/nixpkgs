@@ -9,7 +9,6 @@
   wxsqlite3,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wxsqliteplus";
   version = "0.4.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     mainProgram = "wxSQLitePlus";
     homepage = "https://github.com/guanlisheng/wxsqliteplus";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -8,7 +8,6 @@
   pythonOlder,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "pyproject-metadata";
   version = "0.9.1";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-uLIlPdG3Bit4z5SaEV8Cun+kEUqr5j+hBSjp4alUqBY=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  nativeCheckInputs = [pytestCheckHook] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   # Many broken tests, and missing test files
   doCheck = false;
 
-  pythonImportsCheck = [ "pyproject_metadata" ];
+  pythonImportsCheck = ["pyproject_metadata"];
 
   meta = with lib; {
     description = "PEP 621 metadata parsing";

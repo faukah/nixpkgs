@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.3.113";
   pname = "libaio";
@@ -21,9 +20,11 @@ stdenv.mkDerivation rec {
       --replace "-Werror" ""
   '';
 
-  makeFlags = [
-    "prefix=${placeholder "out"}"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
+  makeFlags =
+    [
+      "prefix=${placeholder "out"}"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "ENABLE_SHARED=0";
 
   hardeningDisable = lib.optional (stdenv.hostPlatform.isi686) "stackprotector";
 
@@ -34,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lse.sourceforge.net/io/aio.html";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

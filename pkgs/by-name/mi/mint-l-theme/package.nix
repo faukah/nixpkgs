@@ -6,7 +6,6 @@
   sassc,
   sass,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mint-l-theme";
   version = "2.0.0";
@@ -42,6 +41,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Mint-L theme for the Cinnamon desktop";
     license = licenses.gpl3Plus; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

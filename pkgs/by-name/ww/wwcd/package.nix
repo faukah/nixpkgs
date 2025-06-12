@@ -6,7 +6,6 @@
   pkg-config,
   check,
 }:
-
 stdenv.mkDerivation {
   pname = "wwcd";
   version = "unstable-2022-02-05";
@@ -24,13 +23,13 @@ stdenv.mkDerivation {
     check
   ];
 
-  autoreconfFlags = [ "-if" ];
+  autoreconfFlags = ["-if"];
 
   meta = with lib; {
     description = "What would cron do? Read crontab entries from stdin and print time of next execution(s)";
     homepage = "https://git.sr.ht/~bitfehler/wwcd";
     license = licenses.mit;
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
     mainProgram = "wwcd";
   };
 }

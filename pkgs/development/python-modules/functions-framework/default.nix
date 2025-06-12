@@ -16,7 +16,6 @@
   watchdog,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "functions-framework";
   version = "3.8.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-kfoSGe08vCOXunzFH5FA7/NesOwAklfChKeoIfBXBlQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     "test_cloud_run_http"
   ];
 
-  pythonImportsCheck = [ "functions_framework" ];
+  pythonImportsCheck = ["functions_framework"];
 
   meta = {
     description = "FaaS (Function as a service) framework for writing portable Python functions";
     homepage = "https://github.com/GoogleCloudPlatform/functions-framework-python";
     changelog = "https://github.com/GoogleCloudPlatform/functions-framework-python/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

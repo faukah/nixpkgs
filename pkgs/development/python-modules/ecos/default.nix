@@ -8,7 +8,6 @@
   scipy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ecos";
   version = "2.0.14";
@@ -29,22 +28,22 @@ buildPythonPackage rec {
       --replace-fail "numpy >= 2.0.0" numpy
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     oldest-supported-numpy
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ecos" ];
+  pythonImportsCheck = ["ecos"];
 
   meta = with lib; {
     description = "Python interface for ECOS";
     homepage = "https://github.com/embotech/ecos-python";
     changelog = "https://github.com/embotech/ecos-python/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

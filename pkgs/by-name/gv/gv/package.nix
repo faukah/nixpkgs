@@ -9,7 +9,6 @@
   pkg-config,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gv";
   version = "3.7.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     "--enable-SIGCHLD-fallback"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libXext
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

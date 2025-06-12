@@ -9,7 +9,6 @@
   go,
   ffmpeg-headless,
 }:
-
 buildPythonPackage rec {
   pname = "ffmpy";
   version = "0.6.0";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
     done
   '';
 
-  pythonImportsCheck = [ "ffmpy" ];
+  pythonImportsCheck = ["ffmpy"];
 
-  nativeBuildInputs = [ uv-build ];
+  nativeBuildInputs = [uv-build];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     description = "Simple python interface for FFmpeg/FFprobe";
     homepage = "https://github.com/Ch00k/ffmpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

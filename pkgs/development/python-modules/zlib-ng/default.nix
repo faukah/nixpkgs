@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   replaceVars,
-
   # build-system
   cmake,
   setuptools,
   versioningit,
-
   # native dependencies
   zlib-ng,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zlib-ng";
   version = "0.5.1";
@@ -44,11 +40,11 @@ buildPythonPackage rec {
 
   env.PYTHON_ZLIB_NG_LINK_DYNAMIC = true;
 
-  buildInputs = [ zlib-ng ];
+  buildInputs = [zlib-ng];
 
-  pythonImportsCheck = [ "zlib_ng" ];
+  pythonImportsCheck = ["zlib_ng"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     rm -rf src
@@ -69,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pycompression/python-zlib-ng";
     changelog = "https://github.com/pycompression/python-zlib-ng/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.psfl;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

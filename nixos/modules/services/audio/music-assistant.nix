@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkEnableOption
     mkOption
@@ -15,7 +14,8 @@ let
     types
     ;
 
-  inherit (types)
+  inherit
+    (types)
     listOf
     enum
     str
@@ -26,15 +26,13 @@ let
   finalPackage = cfg.package.override {
     inherit (cfg) providers;
   };
-in
-
-{
+in {
   meta.buildDocsInSandbox = false;
 
   options.services.music-assistant = {
     enable = mkEnableOption "Music Assistant";
 
-    package = mkPackageOption pkgs "music-assistant" { };
+    package = mkPackageOption pkgs "music-assistant" {};
 
     extraOptions = mkOption {
       type = listOf str;
@@ -53,7 +51,7 @@ in
 
     providers = mkOption {
       type = listOf (enum cfg.package.providerNames);
-      default = [ ];
+      default = [];
       example = [
         "opensubsonic"
         "snapcast"
@@ -67,12 +65,12 @@ in
   config = mkIf cfg.enable {
     systemd.services.music-assistant = {
       description = "Music Assistant";
-      documentation = [ "https://music-assistant.io" ];
+      documentation = ["https://music-assistant.io"];
 
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         HOME = "/var/lib/music-assistant";
@@ -89,7 +87,7 @@ in
         DynamicUser = true;
         StateDirectory = "music-assistant";
         AmbientCapabilities = "";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;

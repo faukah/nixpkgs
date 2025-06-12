@@ -4,13 +4,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.fwupd;
 
   format = pkgs.formats.ini {
-    listToValue = l: lib.concatStringsSep ";" (map (s: lib.generators.mkValueStringDefault { } s) l);
-    mkKeyValue = lib.generators.mkKeyValueDefault { } "=";
+    listToValue = l: lib.concatStringsSep ";" (map (s: lib.generators.mkValueStringDefault {} s) l);
+    mkKeyValue = lib.generators.mkKeyValueDefault {} "=";
   };
 
   customEtc = {
@@ -28,21 +27,19 @@ let
     };
   };
 
-  originalEtc =
-    let
-      mkEtcFile = n: lib.nameValuePair n { source = "${cfg.package}/etc/${n}"; };
-    in
+  originalEtc = let
+    mkEtcFile = n: lib.nameValuePair n {source = "${cfg.package}/etc/${n}";};
+  in
     lib.listToAttrs (map mkEtcFile cfg.package.filesInstalledToEtc);
-  extraTrustedKeys =
-    let
-      mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
-      mkEtcFile = p: lib.nameValuePair (mkName p) { source = p; };
-    in
+  extraTrustedKeys = let
+    mkName = p: "pki/fwupd/${baseNameOf (toString p)}";
+    mkEtcFile = p: lib.nameValuePair (mkName p) {source = p;};
+  in
     lib.listToAttrs (map mkEtcFile cfg.extraTrustedKeys);
 
   enableRemote = base: remote: {
     "fwupd/remotes.d/${remote}.conf" = {
-      source = pkgs.runCommand "${remote}-enabled.conf" { } ''
+      source = pkgs.runCommand "${remote}-enabled.conf" {} ''
         sed "s,^Enabled=false,Enabled=true," \
         "${base}/etc/fwupd/remotes.d/${remote}.conf" > "$out"
       '';
@@ -50,8 +47,9 @@ let
   };
   remotes =
     (lib.foldl' (
-      configFiles: remote: configFiles // (enableRemote cfg.package remote)
-    ) { } cfg.extraRemotes)
+        configFiles: remote: configFiles // (enableRemote cfg.package remote)
+      ) {}
+      cfg.extraRemotes)
     // (
       # We cannot include the file in $out and rely on filesInstalledToEtc
       # to install it because it would create a cyclic dependency between
@@ -61,10 +59,7 @@ let
         enableRemote cfg.package.installedTests "fwupd-tests"
       )
     );
-
-in
-{
-
+in {
   ###### interface
   options = {
     services.fwupd = {
@@ -79,7 +74,7 @@ in
 
       extraTrustedKeys = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ /etc/nixos/fwupd/myfirmware.pem ]";
         description = ''
           Installing a public key allows firmware signed with a matching private key to be recognized as trusted, which may require less authentication to install than for untrusted files. By default trusted firmware can be upgraded (but not downgraded) without the user or administrator password. Only very few keys are installed by default.
@@ -88,14 +83,14 @@ in
 
       extraRemotes = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
-        example = [ "lvfs-testing" ];
+        default = [];
+        example = ["lvfs-testing"];
         description = ''
           Enables extra remotes in fwupd. See `/etc/fwupd/remotes.d`.
         '';
       };
 
-      package = lib.mkPackageOption pkgs "fwupd" { };
+      package = lib.mkPackageOption pkgs "fwupd" {};
 
       daemonSettings = lib.mkOption {
         type = lib.types.submodule {
@@ -103,8 +98,8 @@ in
           options = {
             DisabledDevices = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [ ];
-              example = [ "2082b5e0-7a64-478a-b1b2-e3404fab6dad" ];
+              default = [];
+              example = ["2082b5e0-7a64-478a-b1b2-e3404fab6dad"];
               description = ''
                 List of device GUIDs to be disabled.
               '';
@@ -112,8 +107,8 @@ in
 
             DisabledPlugins = lib.mkOption {
               type = lib.types.listOf lib.types.str;
-              default = [ ];
-              example = [ "udev" ];
+              default = [];
+              example = ["udev"];
               description = ''
                 List of plugins to be disabled.
               '';
@@ -140,7 +135,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Configurations for the fwupd daemon.
         '';
@@ -150,7 +145,7 @@ in
         type = lib.types.submodule {
           freeformType = format.type.nestedTypes.elemType;
         };
-        default = { };
+        default = {};
         description = ''
           UEFI capsule configurations for the fwupd daemon.
         '';
@@ -159,23 +154,28 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "fwupd" "blacklistDevices" ]
-      [ "services" "fwupd" "daemonSettings" "DisabledDevices" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "fwupd" "blacklistDevices"]
+      ["services" "fwupd" "daemonSettings" "DisabledDevices"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "fwupd" "blacklistPlugins" ]
-      [ "services" "fwupd" "daemonSettings" "DisabledPlugins" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "fwupd" "blacklistPlugins"]
+      ["services" "fwupd" "daemonSettings" "DisabledPlugins"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "fwupd" "disabledDevices" ]
-      [ "services" "fwupd" "daemonSettings" "DisabledDevices" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "fwupd" "disabledDevices"]
+      ["services" "fwupd" "daemonSettings" "DisabledDevices"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "fwupd" "disabledPlugins" ]
-      [ "services" "fwupd" "daemonSettings" "DisabledPlugins" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "fwupd" "disabledPlugins"]
+      ["services" "fwupd" "daemonSettings" "DisabledPlugins"]
     )
-    (lib.mkRemovedOptionModule [ "services" "fwupd" "enableTestRemote" ]
+    (
+      lib.mkRemovedOptionModule ["services" "fwupd" "enableTestRemote"]
       "This option was removed after being removed upstream. It only provided a method for testing fwupd functionality, and should not have been exposed for use outside of nix tests."
     )
   ];
@@ -187,20 +187,20 @@ in
       EspLocation = config.boot.loader.efi.efiSysMountPoint;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # customEtc overrides some files from the package
     environment.etc = originalEtc // customEtc // extraTrustedKeys // remotes;
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     # required to update the firmware of disks
     services.udisks2.enable = true;
 
     systemd = {
-      packages = [ cfg.package ];
+      packages = [cfg.package];
 
       # fwupd-refresh expects a user that we do not create, so just run with DynamicUser
       # instead and ensure we take ownership of /var/lib/fwupd
@@ -210,14 +210,14 @@ in
         StandardError = "inherit";
       };
 
-      timers.fwupd-refresh.wantedBy = [ "timers.target" ];
+      timers.fwupd-refresh.wantedBy = ["timers.target"];
     };
 
     users.users.fwupd-refresh = {
       isSystemUser = true;
       group = "fwupd-refresh";
     };
-    users.groups.fwupd-refresh = { };
+    users.groups.fwupd-refresh = {};
 
     security.polkit.enable = true;
   };

@@ -4,9 +4,7 @@
   rustPlatform,
   fetchurl,
   stdenv,
-}:
-
-let
+}: let
   # svm-rs-builds requires a list of solc versions to build, and would make network calls if not provided.
   # The ethereum project does not provide static binaries for aarch64, so we use separate sources, the same as in
   # svm-rs's source code.
@@ -29,34 +27,34 @@ let
     };
   };
 in
-rustPlatform.buildRustPackage rec {
-  pname = "bulloak";
-  version = "0.8.1";
+  rustPlatform.buildRustPackage rec {
+    pname = "bulloak";
+    version = "0.8.1";
 
-  src = fetchFromGitHub {
-    owner = "alexfertel";
-    repo = "bulloak";
-    rev = "v${version}";
-    hash = "sha256-8Qp8ceafAkw7Tush/dvBl27q5oNDzbOqyvSLXhjf4fo=";
-  };
+    src = fetchFromGitHub {
+      owner = "alexfertel";
+      repo = "bulloak";
+      rev = "v${version}";
+      hash = "sha256-8Qp8ceafAkw7Tush/dvBl27q5oNDzbOqyvSLXhjf4fo=";
+    };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-yaRaB3U8Wxhp7SK5E44CF8AudhG7ar7L5ey+CRVfYqc=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-yaRaB3U8Wxhp7SK5E44CF8AudhG7ar7L5ey+CRVfYqc=";
 
-  # tests run in CI on the source repo
-  doCheck = false;
+    # tests run in CI on the source repo
+    doCheck = false;
 
-  # provide the list of solc versions to the `svm-rs-builds` dependency
-  SVM_RELEASES_LIST_JSON = solc-versions.${stdenv.hostPlatform.system};
+    # provide the list of solc versions to the `svm-rs-builds` dependency
+    SVM_RELEASES_LIST_JSON = solc-versions.${stdenv.hostPlatform.system};
 
-  meta = {
-    description = "Solidity test generator based on the Branching Tree Technique";
-    homepage = "https://github.com/alexfertel/bulloak";
-    license = with lib.licenses; [
-      mit
-      asl20
-    ];
-    mainProgram = "bulloak";
-    maintainers = with lib.maintainers; [ beeb ];
-  };
-}
+    meta = {
+      description = "Solidity test generator based on the Branching Tree Technique";
+      homepage = "https://github.com/alexfertel/bulloak";
+      license = with lib.licenses; [
+        mit
+        asl20
+      ];
+      mainProgram = "bulloak";
+      maintainers = with lib.maintainers; [beeb];
+    };
+  }

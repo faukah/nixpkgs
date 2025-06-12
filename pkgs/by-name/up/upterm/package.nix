@@ -5,7 +5,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "upterm";
   version = "0.14.3";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "cmd/uptermd"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     # force go to build for build arch rather than host arch during cross-compiling
@@ -36,7 +35,7 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests) uptermd; };
+  passthru.tests = {inherit (nixosTests) uptermd;};
 
   __darwinAllowLocalNetworking = true;
 
@@ -44,6 +43,6 @@ buildGoModule rec {
     description = "Secure terminal-session sharing";
     homepage = "https://upterm.dev";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hax404 ];
+    maintainers = with maintainers; [hax404];
   };
 }

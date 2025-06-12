@@ -8,7 +8,6 @@
   libosmoabis,
   libosmo-netif,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-bts";
   version = "1.9.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Osmocom GSM Base Transceiver Station (BTS)";
     homepage = "https://osmocom.org/projects/osmobts";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
   };
 }

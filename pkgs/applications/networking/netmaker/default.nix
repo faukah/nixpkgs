@@ -10,7 +10,6 @@
   ],
   xorg,
 }:
-
 buildGoModule rec {
   pname = "netmaker";
   version = "0.90.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
 
   inherit subPackages;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libglvnd

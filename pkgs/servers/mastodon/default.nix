@@ -10,18 +10,16 @@
   writeShellScript,
   brotli,
   python3,
-
   # Allow building a fork or custom version of Mastodon:
   pname ? "mastodon",
   version ? srcOverride.version,
-  patches ? [ ],
+  patches ? [],
   # src is a package
-  srcOverride ? callPackage ./source.nix { inherit patches; },
+  srcOverride ? callPackage ./source.nix {inherit patches;},
   gemset ? ./. + "/gemset.nix",
   yarnHash ? srcOverride.yarnHash,
   yarnMissingHashes ? srcOverride.yarnMissingHashes,
 }:
-
 stdenv.mkDerivation rec {
   inherit pname version;
 
@@ -98,8 +96,8 @@ stdenv.mkDerivation rec {
     '';
   };
 
-  propagatedBuildInputs = [ mastodonGems.wrappedRuby ];
-  nativeBuildInputs = [ brotli ];
+  propagatedBuildInputs = [mastodonGems.wrappedRuby];
+  nativeBuildInputs = [brotli];
   buildInputs = [
     mastodonGems
     nodejs-slim
@@ -145,23 +143,21 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  installPhase =
-    let
-      run-streaming = writeShellScript "run-streaming.sh" ''
-        # NixOS helper script to consistently use the same NodeJS version the package was built with.
-        ${nodejs-slim}/bin/node ./streaming
-      '';
-    in
-    ''
-      runHook preInstall
-
-      mkdir -p $out
-      mv .{env*,ruby*} $out/
-      mv * $out/
-      ln -s ${run-streaming} $out/run-streaming.sh
-
-      runHook postInstall
+  installPhase = let
+    run-streaming = writeShellScript "run-streaming.sh" ''
+      # NixOS helper script to consistently use the same NodeJS version the package was built with.
+      ${nodejs-slim}/bin/node ./streaming
     '';
+  in ''
+    runHook preInstall
+
+    mkdir -p $out
+    mv .{env*,ruby*} $out/
+    mv * $out/
+    ln -s ${run-streaming} $out/run-streaming.sh
+
+    runHook postInstall
+  '';
 
   passthru = {
     tests.mastodon = nixosTests.mastodon;

@@ -9,7 +9,6 @@
   pkg-config,
   libgcrypt,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.4.2";
   pname = "bitlbee-steam";

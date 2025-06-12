@@ -7,7 +7,6 @@
   unstableGitUpdater,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "artichoke";
   version = "0-unstable-2025-06-01";
@@ -37,10 +36,10 @@ rustPlatform.buildRustPackage {
 
   passthru = {
     updateScript = _experimental-update-script-combinators.sequence [
-      (unstableGitUpdater { })
+      (unstableGitUpdater {})
       (nix-update-script {
         # Updating `cargoHash`
-        extraArgs = [ "--version=skip" ];
+        extraArgs = ["--version=skip"];
       })
     ];
   };

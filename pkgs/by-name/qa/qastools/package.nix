@@ -7,7 +7,6 @@
   udev,
   qt6Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qastools";
   version = "1.4.0";

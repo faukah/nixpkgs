@@ -7,7 +7,6 @@
   shapely,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "preprocess-cancellation";
   version = "0.2.1";
@@ -37,17 +36,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    shapely = [ shapely ];
+    shapely = [shapely];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "preprocess_cancellation" ];
+  pythonImportsCheck = ["preprocess_cancellation"];
 
   meta = with lib; {
     description = "Klipper GCode Preprocessor for Object Cancellation";
     homepage = "https://github.com/kageurufu/cancelobject-preprocessor";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

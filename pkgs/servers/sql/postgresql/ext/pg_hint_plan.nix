@@ -3,9 +3,7 @@
   lib,
   postgresql,
   postgresqlBuildExtension,
-}:
-
-let
+}: let
   source =
     {
       "17" = {
@@ -29,34 +27,36 @@ let
         hash = "sha256-KGcHDwk8CgNHPZARfLBfS8r7TRCP9LPjT+m4fNSnnW0=";
       };
     }
-    .${lib.versions.major postgresql.version}
+    .${
+      lib.versions.major postgresql.version
+    }
     or (throw "Source for pg_hint_plan is not available for ${postgresql.version}");
 in
-postgresqlBuildExtension {
-  pname = "pg_hint_plan";
-  inherit (source) version;
+  postgresqlBuildExtension {
+    pname = "pg_hint_plan";
+    inherit (source) version;
 
-  src = fetchFromGitHub {
-    owner = "ossc-db";
-    repo = "pg_hint_plan";
-    tag = "REL${lib.versions.major postgresql.version}_${
-      builtins.replaceStrings [ "." ] [ "_" ] source.version
-    }";
-    inherit (source) hash;
-  };
+    src = fetchFromGitHub {
+      owner = "ossc-db";
+      repo = "pg_hint_plan";
+      tag = "REL${lib.versions.major postgresql.version}_${
+        builtins.replaceStrings ["."] ["_"] source.version
+      }";
+      inherit (source) hash;
+    };
 
-  postPatch = lib.optionalString (lib.versionOlder postgresql.version "14") ''
-    # https://github.com/ossc-db/pg_hint_plan/commit/e9e564ad59b8bd4a03e0f13b95b5122712e573e6
-    substituteInPlace Makefile --replace "LDFLAGS+=-Wl,--build-id" ""
-  '';
+    postPatch = lib.optionalString (lib.versionOlder postgresql.version "14") ''
+      # https://github.com/ossc-db/pg_hint_plan/commit/e9e564ad59b8bd4a03e0f13b95b5122712e573e6
+      substituteInPlace Makefile --replace "LDFLAGS+=-Wl,--build-id" ""
+    '';
 
-  enableUpdateScript = false;
+    enableUpdateScript = false;
 
-  meta = {
-    description = "Extension to tweak PostgreSQL execution plans using so-called 'hints' in SQL comments";
-    homepage = "https://github.com/ossc-db/pg_hint_plan";
-    maintainers = with lib.maintainers; [ _1000101 ];
-    platforms = postgresql.meta.platforms;
-    license = lib.licenses.bsd3;
-  };
-}
+    meta = {
+      description = "Extension to tweak PostgreSQL execution plans using so-called 'hints' in SQL comments";
+      homepage = "https://github.com/ossc-db/pg_hint_plan";
+      maintainers = with lib.maintainers; [_1000101];
+      platforms = postgresql.meta.platforms;
+      license = lib.licenses.bsd3;
+    };
+  }

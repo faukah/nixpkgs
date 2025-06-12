@@ -7,7 +7,6 @@
   pytestCheckHook,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "biliass";
   version = "2.2.2";
@@ -45,15 +44,15 @@ buildPythonPackage rec {
 
   doCheck = false; # test artifacts missing
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "biliass" ];
+  pythonImportsCheck = ["biliass"];
 
   meta = with lib; {
     homepage = "https://github.com/yutto-dev/biliass";
     description = "Convert Bilibili XML/protobuf danmaku to ASS subtitle";
     mainProgram = "biliass";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
   };
 }

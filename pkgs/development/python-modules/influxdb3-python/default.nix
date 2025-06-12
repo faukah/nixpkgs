@@ -12,7 +12,6 @@
   polars,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "influxdb3-python";
   version = "0.13.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "version=get_version()," "version = '${version}',"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -44,8 +43,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pandas = [ pandas ];
-    polars = [ polars ];
+    pandas = [pandas];
+    polars = [polars];
     dataframe = [
       pandas
       polars
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/InfluxCommunity/influxdb3-python";
     changelog = "https://github.com/InfluxCommunity/influxdb3-python/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

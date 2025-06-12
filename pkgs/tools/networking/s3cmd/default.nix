@@ -5,7 +5,6 @@
   python-magic,
   python-dateutil,
 }:
-
 buildPythonApplication rec {
   pname = "s3cmd";
   version = "2.4.0";
@@ -27,6 +26,6 @@ buildPythonApplication rec {
     description = "Command line tool for managing Amazon S3 and CloudFront services";
     mainProgram = "s3cmd";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

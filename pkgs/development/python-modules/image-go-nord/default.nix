@@ -11,7 +11,6 @@
   requests,
   setuptoolsBuildHook,
 }:
-
 buildPythonPackage rec {
   pname = "image-go-nord";
   version = "1.2.0";
@@ -38,15 +37,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ImageGoNord" ];
+  pythonImportsCheck = ["ImageGoNord"];
 
   meta = {
     description = "Tool that can convert rgb images to nordtheme palette";
     homepage = "https://github.com/Schrodinger-Hat/ImageGoNord-pip";
     changelog = "https://github.com/Schroedinger-Hat/ImageGoNord-pip/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
   };
 }

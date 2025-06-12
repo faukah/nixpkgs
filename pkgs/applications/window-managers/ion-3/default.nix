@@ -10,7 +10,6 @@
   libX11,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ion";
   version = "3-20090110";
@@ -41,13 +40,13 @@ stdenv.mkDerivation rec {
   #   main.c:21:10: fatal error: exports.h: No such file or directory
   enableParallelBuilding = false;
 
-  installFlags = [ "PREFIX=\${out}" ];
+  installFlags = ["PREFIX=\${out}"];
 
   meta = with lib; {
     description = "Tiling tabbed window manager designed with keyboard users in mind";
     homepage = "https://tuomov.iki.fi/software/ion/";
     platforms = with platforms; linux;
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

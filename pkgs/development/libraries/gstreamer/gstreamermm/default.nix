@@ -10,7 +10,6 @@
   gnome,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gstreamermm";
   version = "1.10.0";
@@ -62,7 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gstreamer.freedesktop.org/bindings/cplusplus.html";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
-
 }

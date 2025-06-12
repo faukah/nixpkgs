@@ -13,7 +13,6 @@
   pantheon,
   indicator-application-gtk3,
 }:
-
 stdenv.mkDerivation {
   pname = "wingpanel-indicator-ayatana";
   version = "2.0.7-unstable-2023-04-18";
@@ -57,6 +56,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Lafydev/wingpanel-indicator-ayatana";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

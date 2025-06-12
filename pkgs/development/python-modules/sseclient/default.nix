@@ -7,7 +7,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "sseclient";
   version = "0.0.27";
@@ -25,14 +24,14 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "event_stream" ];
+  disabledTests = ["event_stream"];
 
   meta = with lib; {
     description = "Client library for reading Server Sent Event streams";
     homepage = "https://github.com/btubbs/sseclient";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

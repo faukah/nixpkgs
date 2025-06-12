@@ -7,7 +7,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stargazer";
   version = "1.3.3";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru = {
     tests.basic-functionality = nixosTests.stargazer;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs = [
@@ -46,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://sr.ht/~zethra/stargazer/";
     license = lib.licenses.agpl3Plus;
     changelog = "https://git.sr.ht/~zethra/stargazer/refs/${version}";
-    maintainers = with lib.maintainers; [ gaykitty ];
+    maintainers = with lib.maintainers; [gaykitty];
   };
 }

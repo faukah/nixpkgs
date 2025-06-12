@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     description = "Alternative rust-based implementation of the proposed XDG Default Terminal Execution Specification";
     license = lib.licenses.gpl3Plus;
     mainProgram = "xdg-terminal-exec";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
     platforms = lib.platforms.unix;
   };
 }

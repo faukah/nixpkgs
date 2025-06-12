@@ -4,20 +4,16 @@
   fetchurl,
   buildPythonPackage,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cargo,
   pkg-config,
   rustPlatform,
   rustc,
   setuptools-rust,
-
   # buildInputs
   openssl,
-
   # dependencies
   huggingface-hub,
-
   # tests
   datasets,
   numpy,
@@ -25,9 +21,7 @@
   requests,
   tiktoken,
   writableTmpDirAsHomeHook,
-}:
-
-let
+}: let
   # See https://github.com/huggingface/tokenizers/blob/main/bindings/python/tests/utils.py for details
   # about URLs and file names
   test-data = linkFarm "tokenizers-test-data" {
@@ -69,96 +63,96 @@ let
     };
   };
 in
-buildPythonPackage rec {
-  pname = "tokenizers";
-  version = "0.21.1";
-  pyproject = true;
+  buildPythonPackage rec {
+    pname = "tokenizers";
+    version = "0.21.1";
+    pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "huggingface";
-    repo = "tokenizers";
-    tag = "v${version}";
-    hash = "sha256-3S7ZCaZnnwyNjoZ4Y/q3ngQE2MIm2iyCCjYAkdMVG2A=";
-  };
+    src = fetchFromGitHub {
+      owner = "huggingface";
+      repo = "tokenizers";
+      tag = "v${version}";
+      hash = "sha256-3S7ZCaZnnwyNjoZ4Y/q3ngQE2MIm2iyCCjYAkdMVG2A=";
+    };
 
-  # TestUnigram.test_continuing_prefix_trainer_mismatch fails with:
-  # Exception: No such file or directory (os error 2)
-  # Fix submitted upstream: https://github.com/huggingface/tokenizers/pull/1747
-  postPatch = ''
-    substituteInPlace tests/bindings/test_trainers.py \
-      --replace-fail '"data/' '"tests/data/'
-  '';
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit
-      pname
-      version
-      src
-      sourceRoot
-      ;
-    hash = "sha256-I7LlBmeVY2rWI0ta6x311iAurQKuutsClrbUgkt9xWk=";
-  };
-
-  sourceRoot = "${src.name}/bindings/python";
-
-  nativeBuildInputs = [
-    cargo
-    pkg-config
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-    rustc
-    setuptools-rust
-  ];
-
-  buildInputs = [
-    openssl
-  ];
-
-  dependencies = [
-    huggingface-hub
-  ];
-
-  nativeCheckInputs = [
-    datasets
-    numpy
-    pytestCheckHook
-    requests
-    tiktoken
-    writableTmpDirAsHomeHook
-  ];
-
-  postUnpack =
-    # Add data files for tests, otherwise tests attempt network access
-    ''
-      mkdir $sourceRoot/tests/data
-      ln -s ${test-data}/* $sourceRoot/tests/data/
+    # TestUnigram.test_continuing_prefix_trainer_mismatch fails with:
+    # Exception: No such file or directory (os error 2)
+    # Fix submitted upstream: https://github.com/huggingface/tokenizers/pull/1747
+    postPatch = ''
+      substituteInPlace tests/bindings/test_trainers.py \
+        --replace-fail '"data/' '"tests/data/'
     '';
 
-  pythonImportsCheck = [ "tokenizers" ];
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit
+        pname
+        version
+        src
+        sourceRoot
+        ;
+      hash = "sha256-I7LlBmeVY2rWI0ta6x311iAurQKuutsClrbUgkt9xWk=";
+    };
 
-  disabledTests = [
-    # Downloads data using the datasets module
-    "test_encode_special_tokens"
-    "test_splitting"
-    "TestTrainFromIterators"
+    sourceRoot = "${src.name}/bindings/python";
 
-    # Those tests require more data
-    "test_from_pretrained"
-    "test_from_pretrained_revision"
-    "test_continuing_prefix_trainer_mistmatch"
-  ];
+    nativeBuildInputs = [
+      cargo
+      pkg-config
+      rustPlatform.cargoSetupHook
+      rustPlatform.maturinBuildHook
+      rustc
+      setuptools-rust
+    ];
 
-  disabledTestPaths = [
-    # fixture 'model' not found
-    "benches/test_tiktoken.py"
-  ];
+    buildInputs = [
+      openssl
+    ];
 
-  meta = {
-    description = "Fast State-of-the-Art Tokenizers optimized for Research and Production";
-    homepage = "https://github.com/huggingface/tokenizers";
-    changelog = "https://github.com/huggingface/tokenizers/releases/tag/v${version}";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
-    platforms = lib.platforms.unix;
-  };
-}
+    dependencies = [
+      huggingface-hub
+    ];
+
+    nativeCheckInputs = [
+      datasets
+      numpy
+      pytestCheckHook
+      requests
+      tiktoken
+      writableTmpDirAsHomeHook
+    ];
+
+    postUnpack =
+      # Add data files for tests, otherwise tests attempt network access
+      ''
+        mkdir $sourceRoot/tests/data
+        ln -s ${test-data}/* $sourceRoot/tests/data/
+      '';
+
+    pythonImportsCheck = ["tokenizers"];
+
+    disabledTests = [
+      # Downloads data using the datasets module
+      "test_encode_special_tokens"
+      "test_splitting"
+      "TestTrainFromIterators"
+
+      # Those tests require more data
+      "test_from_pretrained"
+      "test_from_pretrained_revision"
+      "test_continuing_prefix_trainer_mistmatch"
+    ];
+
+    disabledTestPaths = [
+      # fixture 'model' not found
+      "benches/test_tiktoken.py"
+    ];
+
+    meta = {
+      description = "Fast State-of-the-Art Tokenizers optimized for Research and Production";
+      homepage = "https://github.com/huggingface/tokenizers";
+      changelog = "https://github.com/huggingface/tokenizers/releases/tag/v${version}";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [GaetanLepage];
+      platforms = lib.platforms.unix;
+    };
+  }

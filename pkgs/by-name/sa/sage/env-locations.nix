@@ -13,7 +13,6 @@
   three,
   cysignals,
 }:
-
 # A bash script setting various environment variables to tell sage where
 # the files its looking fore are located. Also see `sage-env`.
 writeTextFile rec {

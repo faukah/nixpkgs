@@ -14,7 +14,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ugrep";
   version = "7.4.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7F0yrU7OW3qVglQonQLWH66lPw0CwgDWt/Y/+zrnWLM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     boost

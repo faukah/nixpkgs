@@ -7,7 +7,6 @@
   msgpack,
   pyzmq,
 }:
-
 buildPythonPackage rec {
   pname = "zerorpc";
   version = "0.6.3";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     mainProgram = "zerorpc";
     homepage = "https://www.zerorpc.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ xeji ];
+    maintainers = with maintainers; [xeji];
   };
 }

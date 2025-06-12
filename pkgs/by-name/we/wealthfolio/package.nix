@@ -15,7 +15,6 @@
   wrapGAppsHook3,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wealthfolio";
   version = "1.1.2";
@@ -36,7 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -70,14 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
       | sponge src-tauri/tauri.conf.json
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Beautiful Private and Secure Desktop Investment Tracking Application";
     homepage = "https://wealthfolio.app/";
     license = lib.licenses.agpl3Only;
     mainProgram = "wealthfolio";
-    maintainers = with lib.maintainers; [ kilianar ];
+    maintainers = with lib.maintainers; [kilianar];
     platforms = lib.platforms.linux;
   };
 })

@@ -1,6 +1,5 @@
 import ./make-test-python.nix (
-  { lib, ... }:
-  {
+  {lib, ...}: {
     name = "earlyoom";
     meta = {
       maintainers = with lib.maintainers; [
@@ -9,25 +8,23 @@ import ./make-test-python.nix (
       ];
     };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        # Limit VM resource usage.
-        virtualisation.memorySize = 1024;
+    nodes.machine = {pkgs, ...}: {
+      # Limit VM resource usage.
+      virtualisation.memorySize = 1024;
 
-        services.earlyoom = {
-          enable = true;
-          # Use SIGKILL, or `tail` will catch SIGTERM and exit successfully.
-          freeMemKillThreshold = 90;
-        };
+      services.earlyoom = {
+        enable = true;
+        # Use SIGKILL, or `tail` will catch SIGTERM and exit successfully.
+        freeMemKillThreshold = 90;
+      };
 
-        systemd.services.testbloat = {
-          description = "Create a lot of memory pressure";
-          serviceConfig = {
-            ExecStart = "${pkgs.coreutils}/bin/tail /dev/zero";
-          };
+      systemd.services.testbloat = {
+        description = "Create a lot of memory pressure";
+        serviceConfig = {
+          ExecStart = "${pkgs.coreutils}/bin/tail /dev/zero";
         };
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("earlyoom.service")

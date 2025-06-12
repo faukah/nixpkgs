@@ -30,6 +30,6 @@ buildGoModule rec {
     mainProgram = "tfswitch";
     homepage = "https://github.com/warrensbox/terraform-switcher";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
   };
 }

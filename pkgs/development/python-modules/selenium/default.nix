@@ -17,7 +17,6 @@
   stdenv,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "selenium";
   version = "4.29.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-IyMXgYl/TPTpe/Y0pFyJVKj4Mp0xbkg1LSCNHzFL3bE=";
   };
 
-  patches = [ ./dont-build-the-selenium-manager.patch ];
+  patches = [./dont-build-the-selenium-manager.patch];
 
   preConfigure = ''
     cd py
@@ -58,16 +57,18 @@ buildPythonPackage rec {
       ln -s ${lib.getExe selenium-manager} $DST_PREFIX/common/linux/
     '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    certifi
-    trio
-    trio-websocket
-    urllib3
-    typing-extensions
-    websocket-client
-  ] ++ urllib3.optional-dependencies.socks;
+  dependencies =
+    [
+      certifi
+      trio
+      trio-websocket
+      urllib3
+      typing-extensions
+      websocket-client
+    ]
+    ++ urllib3.optional-dependencies.socks;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -84,6 +85,6 @@ buildPythonPackage rec {
     description = "Bindings for Selenium WebDriver";
     homepage = "https://selenium.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

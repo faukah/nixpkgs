@@ -16,7 +16,6 @@
   taglib,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ario";
   version = "1.6";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ario";
     homepage = "https://ario-player.sourceforge.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.garrison ];
+    maintainers = [maintainers.garrison];
     platforms = platforms.all;
   };
 }

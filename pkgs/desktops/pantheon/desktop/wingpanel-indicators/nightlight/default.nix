@@ -13,7 +13,6 @@
   libgee,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-nightlight";
   version = "2.1.3";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-nightlight";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

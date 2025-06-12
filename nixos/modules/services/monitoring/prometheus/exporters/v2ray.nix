@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.v2ray;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9299;
   extraOpts = {
     v2rayEndpoint = mkOption {

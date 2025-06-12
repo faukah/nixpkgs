@@ -10,7 +10,6 @@
   taglib,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "dsf2flac";
   version = "unstable-2021-07-31";
@@ -41,14 +40,14 @@ stdenv.mkDerivation {
     export LIBS="$LIBS -lz"
   '';
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
+  configureFlags = ["--with-boost-libdir=${boost.out}/lib"];
 
   meta = with lib; {
     description = "DSD to FLAC transcoding tool";
     homepage = "https://github.com/hank/dsf2flac";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ artemist ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [artemist];
+    platforms = ["x86_64-linux"];
     mainProgram = "dsf2flac";
   };
 }

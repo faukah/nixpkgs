@@ -7,7 +7,6 @@
   pkg-config,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nix-plugins";
   version = "15.0.0";

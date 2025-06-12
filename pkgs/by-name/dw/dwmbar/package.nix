@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "dwmbar";
   version = "0-unstable-2021-12-22";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/thytom/dwmbar";
     description = "Modular Status Bar for dwm";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
     platforms = platforms.linux;
     mainProgram = "dwmbar";
   };

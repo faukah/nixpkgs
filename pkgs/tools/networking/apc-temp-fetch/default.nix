@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "apc-temp-fetch";
   version = "0.0.2";
@@ -36,6 +35,6 @@ buildPythonApplication rec {
     description = "unified temperature fetcher interface to several UPS network adapters";
     homepage = "https://github.com/YZITE/APC_Temp_fetch";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

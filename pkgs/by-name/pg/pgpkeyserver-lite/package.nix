@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "pgpkeyserver-lite";
   version = "2017-07-18";
@@ -24,6 +23,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/mattrude/pgpkeyserver-lite";
     description = "Lightweight static front-end for a sks keyserver";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ calbrecht ];
+    maintainers = with maintainers; [calbrecht];
   };
 }

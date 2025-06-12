@@ -3,31 +3,26 @@
   stdenv,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   cmake,
   nanobind,
   ninja,
   numpy,
   scikit-build-core,
-
   # buildInputs
   opencl-headers,
   pybind11,
   ocl-icd,
-
   # dependencies
   platformdirs,
   pytools,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
   mako,
   pocl,
 }:
-
 buildPythonPackage rec {
   pname = "pyopencl";
   version = "2025.2.2";
@@ -95,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyopencl/pyopencl";
     changelog = "https://github.com/inducer/pyopencl/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

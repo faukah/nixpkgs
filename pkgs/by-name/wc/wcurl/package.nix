@@ -10,7 +10,6 @@
   makeBinaryWrapper,
   shunit2,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wcurl";
   version = "2025.05.26";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     makeBinaryWrapper
   ];
 
-  nativeCheckInputs = [ shunit2 ];
+  nativeCheckInputs = [shunit2];
 
   doCheck = true;
 
@@ -61,21 +60,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/wcurl \
       --inherit-argv0 \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+      ]
+    }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://curl.se/wcurl";
     description = "Simple wrapper around curl to easily download files";
     mainProgram = "wcurl";
     license = lib.licenses.curl;
-    maintainers = with lib.maintainers; [ deejayem ];
+    maintainers = with lib.maintainers; [deejayem];
     platforms = lib.platforms.all;
   };
 })

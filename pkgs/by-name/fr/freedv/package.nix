@@ -20,7 +20,6 @@
   pulseSupport ? config.pulseaudio or stdenv.hostPlatform.isLinux,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freedv";
   version = "1.9.9.2";
@@ -50,16 +49,22 @@ stdenv.mkDerivation (finalAttrs: {
       darwin.autoSignDarwinBinariesHook
     ];
 
-  buildInputs = [
-    codec2
-    libsamplerate
-    libsndfile
-    lpcnet
-    speexdsp
-    hamlib_4
-    wxGTK32
-    sioclient
-  ] ++ (if pulseSupport then [ libpulseaudio ] else [ portaudio ]);
+  buildInputs =
+    [
+      codec2
+      libsamplerate
+      libsndfile
+      lpcnet
+      speexdsp
+      hamlib_4
+      wxGTK32
+      sioclient
+    ]
+    ++ (
+      if pulseSupport
+      then [libpulseaudio]
+      else [portaudio]
+    );
 
   cmakeFlags = [
     (lib.cmakeBool "USE_INTERNAL_CODEC2" false)

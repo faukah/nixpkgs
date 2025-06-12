@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastjson";
   version = "1.2304.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Fast json library for C";
     homepage = "https://github.com/rsyslog/libfastjson";
     license = licenses.mit;
-    maintainers = with maintainers; [ nequissimus ];
+    maintainers = with maintainers; [nequissimus];
     platforms = with platforms; unix;
   };
 }

@@ -15,7 +15,6 @@
   net-snmp,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "argus";
   version = "3.0.8.2";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://qosient.com/argus";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

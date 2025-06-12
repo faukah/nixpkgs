@@ -9,7 +9,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icoutils";
   version = "0.32.3";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     libpng
     perl
   ];
-  propagatedBuildInputs = [ perlPackages.LWP ];
+  propagatedBuildInputs = [perlPackages.LWP];
 
   postPatch = ''
     patchShebangs extresso/extresso

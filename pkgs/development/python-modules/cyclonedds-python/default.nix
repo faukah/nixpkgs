@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   cyclonedds,
   setuptools,
   rich-click,
-
   pytestCheckHook,
   pytest-mock,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "cyclonedds-python";
   version = "0.10.5";
@@ -29,11 +26,11 @@ buildPythonPackage rec {
         --replace-fail "pytest-cov" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ cyclonedds ];
+  buildInputs = [cyclonedds];
 
-  dependencies = [ rich-click ];
+  dependencies = [rich-click];
 
   env.CYCLONEDDS_HOME = "${cyclonedds.out}";
 
@@ -48,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/eclipse-cyclonedds/cyclonedds-python";
     changelog = "https://github.com/eclipse-cyclonedds/cyclonedds-python/releases/tag/${version}";
     license = lib.licenses.epl20;
-    maintainers = with lib.maintainers; [ kvik ];
+    maintainers = with lib.maintainers; [kvik];
   };
 }

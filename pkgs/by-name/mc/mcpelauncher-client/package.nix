@@ -21,7 +21,6 @@
   zenity,
   xdg-utils,
 }:
-
 # Bionic libc part doesn't compile with GCC
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "mcpelauncher-client";
@@ -36,7 +35,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/I6hCnRSFHX30Gd0jErx5Uy/o8JCdYexsMRDKMUOWWI=";
   };
 
-  patches = [ ./dont_download_glfw_client.patch ];
+  patches = [./dont_download_glfw_client.patch];
 
   # Path hard-coded paths.
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -49,7 +48,7 @@ clangStdenv.mkDerivation (finalAttrs: {
   '';
 
   # FORTIFY_SOURCE breaks libc_shim and the project will fail to compile
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   nativeBuildInputs =
     [

@@ -9,7 +9,6 @@
   bluez,
   libical,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obexd";
   version = "0.48";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     libical
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://www.bluez.org/";

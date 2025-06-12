@@ -4,7 +4,6 @@
   fetchurl,
   nim-unwrapped-2,
 }:
-
 nim-unwrapped-2.overrideAttrs (
   finalAttrs: prevAttrs: {
     version = "1.6.20";
@@ -16,11 +15,12 @@ nim-unwrapped-2.overrideAttrs (
     patches =
       builtins.filter (
         p:
-        builtins.elem (builtins.baseNameOf p) [
-          "NIM_CONFIG_DIR.patch"
-          "nixbuild.patch"
-        ]
-      ) nim-unwrapped-2.patches
+          builtins.elem (builtins.baseNameOf p) [
+            "NIM_CONFIG_DIR.patch"
+            "nixbuild.patch"
+          ]
+      )
+      nim-unwrapped-2.patches
       ++ [
         ./extra-mangling.patch
         # Mangle store paths of modules to prevent runtime dependence.

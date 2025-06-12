@@ -14,7 +14,6 @@
   buildPackages,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "thelounge";
   version = "4.4.3";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Allow setting package path for the NixOS module.
-  patches = [ ./packages-path.patch ];
+  patches = [./packages-path.patch];
 
   # Use the NixOS module's state directory by default.
   postPatch = ''
@@ -39,15 +38,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-csVrgsEy9HjSBXxtgNG0hcBrR9COlcadhMQrw6BWPc4=";
   };
 
-  nativeBuildInputs = [
-    nodejs
-    yarn
-    fixup-yarn-lock
-    python3
-    python3.pkgs.distutils
-    npmHooks.npmInstallHook
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ cctools ];
-  buildInputs = [ sqlite ];
+  nativeBuildInputs =
+    [
+      nodejs
+      yarn
+      fixup-yarn-lock
+      python3
+      python3.pkgs.distutils
+      npmHooks.npmInstallHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [cctools];
+  buildInputs = [sqlite];
 
   configurePhase = ''
     runHook preConfigure

@@ -3,21 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.chromadb;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkOption
     mkIf
     types
     literalExpression
     ;
-in
-{
-
-  meta.maintainers = with lib.maintainers; [ drupol ];
+in {
+  meta.maintainers = with lib.maintainers; [drupol];
 
   options = {
     services.chromadb = {
@@ -74,8 +71,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.chromadb = {
       description = "ChromaDB";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         StateDirectory = "chromadb";
@@ -102,6 +99,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [cfg.port];
   };
 }

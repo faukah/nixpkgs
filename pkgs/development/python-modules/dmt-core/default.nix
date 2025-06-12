@@ -21,7 +21,6 @@
   setuptools,
   verilogae,
 }:
-
 buildPythonPackage rec {
   pname = "dmt-core";
   version = "2.1.0";

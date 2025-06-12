@@ -12,7 +12,6 @@
   pythonOlder,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "particle";
   version = "0.25.4";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  pythonImportsCheck = [ "particle" ];
+  pythonImportsCheck = ["particle"];
 
   disabledTestPaths = [
     # Requires pytest-benchmark and pytest-cov which we want to avoid using, as
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scikit-hep/particle";
     changelog = "https://github.com/scikit-hep/particle/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

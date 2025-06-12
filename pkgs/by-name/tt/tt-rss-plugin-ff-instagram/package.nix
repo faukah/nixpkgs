@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ...
 }:
-
 stdenv.mkDerivation {
   pname = "tt-rss-plugin-ff-instagram";
   version = "unstable-2019-01-10"; # No release, see https://github.com/wltb/ff_instagram/issues/6
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     '';
     license = licenses.agpl3Plus;
     homepage = "https://github.com/wltb/ff_instagram";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.all;
   };
 }

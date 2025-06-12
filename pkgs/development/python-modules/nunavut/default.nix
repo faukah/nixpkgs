@@ -7,7 +7,6 @@
   pydsdl,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "nunavut";
   version = "2.3.1";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   # https://github.com/UAVCAN/nunavut/issues/182
   doCheck = false;
 
-  pythonImportsCheck = [ "nunavut" ];
+  pythonImportsCheck = ["nunavut"];
 
   meta = with lib; {
     description = "UAVCAN DSDL template engine";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://nunavut.readthedocs.io/";
     changelog = "https://github.com/OpenCyphal/nunavut/releases/tag/${version}";
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     license = with licenses; [
       bsd3
       mit

@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   checkNoDefaultFeatures = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     set -euo pipefail

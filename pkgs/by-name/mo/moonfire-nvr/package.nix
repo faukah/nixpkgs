@@ -10,9 +10,7 @@
   moonfire-nvr,
   nodejs,
   pnpm_9,
-}:
-
-let
+}: let
   pname = "moonfire-nvr";
   version = "0.7.20";
   src = fetchFromGitHub {
@@ -43,48 +41,48 @@ let
     '';
   });
 in
-rustPlatform.buildRustPackage {
-  inherit pname version src;
+  rustPlatform.buildRustPackage {
+    inherit pname version src;
 
-  sourceRoot = "${src.name}/server";
+    sourceRoot = "${src.name}/server";
 
-  useFetchCargoVendor = true;
+    useFetchCargoVendor = true;
 
-  cargoHash = "sha256-+L4XofUFvhJDPGv4fAGYXFNpuNd01k/P63LH2tXXHE0=";
+    cargoHash = "sha256-+L4XofUFvhJDPGv4fAGYXFNpuNd01k/P63LH2tXXHE0=";
 
-  env.VERSION = "v${version}";
+    env.VERSION = "v${version}";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      pkg-config
+    ];
 
-  buildInputs = [
-    ncurses
-    sqlite
-  ];
+    buildInputs = [
+      ncurses
+      sqlite
+    ];
 
-  postInstall = ''
-    mkdir -p $out/lib/ui
-    ln -s ${ui} $out/lib/ui
-  '';
+    postInstall = ''
+      mkdir -p $out/lib/ui
+      ln -s ${ui} $out/lib/ui
+    '';
 
-  doCheck = false;
+    doCheck = false;
 
-  passthru = {
-    inherit ui;
-    tests.version = testers.testVersion {
-      inherit version;
-      package = moonfire-nvr;
-      command = "moonfire-nvr --version";
+    passthru = {
+      inherit ui;
+      tests.version = testers.testVersion {
+        inherit version;
+        package = moonfire-nvr;
+        command = "moonfire-nvr --version";
+      };
     };
-  };
 
-  meta = {
-    description = "Moonfire NVR, a security camera network video recorder";
-    homepage = "https://github.com/scottlamb/moonfire-nvr";
-    changelog = "https://github.com/scottlamb/moonfire-nvr/releases/tag/v${version}";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
-    mainProgram = "moonfire-nvr";
-  };
-}
+    meta = {
+      description = "Moonfire NVR, a security camera network video recorder";
+      homepage = "https://github.com/scottlamb/moonfire-nvr";
+      changelog = "https://github.com/scottlamb/moonfire-nvr/releases/tag/v${version}";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [gaelreyrol];
+      mainProgram = "moonfire-nvr";
+    };
+  }

@@ -5,7 +5,6 @@
   mkAppleDerivation,
   pkg-config,
 }:
-
 mkAppleDerivation {
   releaseName = "mail_cmds";
 

@@ -6,7 +6,6 @@
   rustPlatform,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-metrics";
   version = "0.2.6";
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
   meta = {
     homepage = "https://github.com/jdrouet/git-metrics";
     description = "Git extension to be able to track metrics about your project, within the git repository";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
     maintainers = with lib.maintainers; [
       matthiasbeyer
     ];

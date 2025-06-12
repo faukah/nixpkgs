@@ -6,7 +6,6 @@
   buildPackages,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nawk";
   version = "20250116";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-zRGMqMPkP801nZE/pG/NwsiOvv6dTQBcPtfTJCh1eiQ=";
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     bison
@@ -32,7 +31,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
-    "HOSTCC=${if stdenv.buildPlatform.isDarwin then "clang" else "cc"}"
+    "HOSTCC=${
+      if stdenv.buildPlatform.isDarwin
+      then "clang"
+      else "cc"
+    }"
   ];
 
   installPhase = ''

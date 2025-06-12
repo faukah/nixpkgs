@@ -4,15 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.mirakurun;
   mirakurun = pkgs.mirakurun;
   username = config.users.users.mirakurun.name;
   groupname = config.users.users.mirakurun.group;
-  settingsFmt = pkgs.formats.yaml { };
+  settingsFmt = pkgs.formats.yaml {};
 
   polkitRule = pkgs.writeTextDir "share/polkit-1/rules.d/10-mirakurun.rules" ''
     polkit.addRule(function (action, subject) {
@@ -25,8 +22,7 @@ let
       }
     });
   '';
-in
-{
+in {
   options = {
     services.mirakurun = {
       enable = mkEnableOption "the Mirakurun DVR Tuner Server";
@@ -74,7 +70,7 @@ in
 
       serverSettings = mkOption {
         type = settingsFmt.type;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             highWaterMark = 25165824;
@@ -134,7 +130,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ mirakurun ] ++ optional cfg.allowSmartCardAccess polkitRule;
+    environment.systemPackages = [mirakurun] ++ optional cfg.allowSmartCardAccess polkitRule;
     environment.etc = {
       "mirakurun/server.yml".source = settingsFmt.generate "server.yml" cfg.serverSettings;
       "mirakurun/tuners.yml" = mkIf (cfg.tunerSettings != null) {
@@ -152,7 +148,7 @@ in
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = mkIf (cfg.port != null) [ cfg.port ];
+      allowedTCPPorts = mkIf (cfg.port != null) [cfg.port];
     };
 
     users.users.mirakurun = {
@@ -177,8 +173,8 @@ in
 
     systemd.services.mirakurun = {
       description = mirakurun.meta.description;
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${mirakurun}/bin/mirakurun start";
         User = username;
@@ -201,17 +197,15 @@ in
         NODE_ENV = "production";
       };
 
-      restartTriggers =
-        let
-          getconf = target: config.environment.etc."mirakurun/${target}.yml".source;
-          targets =
-            [
-              "server"
-            ]
-            ++ optional (cfg.tunerSettings != null) "tuners"
-            ++ optional (cfg.channelSettings != null) "channels";
-        in
-        (map getconf targets);
+      restartTriggers = let
+        getconf = target: config.environment.etc."mirakurun/${target}.yml".source;
+        targets =
+          [
+            "server"
+          ]
+          ++ optional (cfg.tunerSettings != null) "tuners"
+          ++ optional (cfg.channelSettings != null) "channels";
+      in (map getconf targets);
     };
   };
 }

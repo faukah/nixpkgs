@@ -6,7 +6,6 @@
   go-md2man,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "toolbox";
   version = "0.0.99.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
     hash = "sha256-9HiWgEtaMypLOwXJ6Xg3grLSZOQ4NInZtcvLPV51YO8=";
   };
 
-  patches = [ ./glibc.patch ];
+  patches = [./glibc.patch];
 
   vendorHash = "sha256-k79TcC9voQROpJnyZ0RsqxJnBT83W5Z+D+D3HnuQGsI=";
 
@@ -56,7 +55,7 @@ buildGoModule rec {
     changelog = "https://github.com/containers/toolbox/releases/tag/${version}";
     description = "Tool for containerized command line environments on Linux";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
     mainProgram = "toolbox";
   };
 }

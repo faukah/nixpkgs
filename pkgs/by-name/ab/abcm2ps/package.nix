@@ -8,7 +8,6 @@
   pango,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "abcm2ps";
   version = "8.14.17";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl3Plus;
     description = "Command line program which converts ABC to music sheet in PostScript or SVG format";
     platforms = platforms.unix;
-    maintainers = [ maintainers.dotlambda ];
+    maintainers = [maintainers.dotlambda];
     mainProgram = "abcm2ps";
   };
 })

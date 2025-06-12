@@ -7,7 +7,6 @@
   libndtypes,
   isPy27,
 }:
-
 buildPythonPackage {
   pname = "ndtypes";
   format = "setuptools";
@@ -19,7 +18,7 @@ buildPythonPackage {
     "dev"
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${nodejs}/bin/node $out/opt/stremio/node
     ln -s $server $out/opt/stremio/server.js
     wrapProgram $out/bin/stremio \
-      --suffix PATH ":" ${lib.makeBinPath [ ffmpeg ]}
+      --suffix PATH ":" ${lib.makeBinPath [ffmpeg]}
   '';
 
   meta = {

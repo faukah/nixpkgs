@@ -25,7 +25,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pytenable";
   version = "1.7.5";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     "defusedxml"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -89,13 +88,13 @@ buildPythonPackage rec {
     "test_events_list_vcr"
   ];
 
-  pythonImportsCheck = [ "tenable" ];
+  pythonImportsCheck = ["tenable"];
 
   meta = with lib; {
     description = "Python library for the Tenable.io and TenableSC API";
     homepage = "https://github.com/tenable/pyTenable";
     changelog = "https://github.com/tenable/pyTenable/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

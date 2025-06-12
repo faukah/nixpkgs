@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pynmeagps";
   version = "1.0.50";
@@ -22,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-ApZoltkqbbBVqbVouLNJj80FlQhAJIf2qCiGLgwrZbk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "pynmeagps" ];
+  pythonImportsCheck = ["pynmeagps"];
 
   meta = {
     description = "NMEA protocol parser and generator";
     homepage = "https://github.com/semuconsulting/pynmeagps";
     changelog = "https://github.com/semuconsulting/pynmeagps/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dylan-gonzalez ];
+    maintainers = with lib.maintainers; [dylan-gonzalez];
   };
 }

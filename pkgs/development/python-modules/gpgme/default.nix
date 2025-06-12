@@ -6,13 +6,12 @@
   setuptools,
   swig,
 }:
-
 buildPythonPackage {
   pname = "gpgme";
   inherit (gpgme) version src;
   pyproject = true;
 
-  patches = gpgme.patches or [ ];
+  patches = gpgme.patches or [];
 
   postPatch = ''
     substituteInPlace lang/python/setup.py.in \
@@ -20,9 +19,11 @@ buildPythonPackage {
       --replace-fail "@VERSION@" "${gpgme.version}"
   '';
 
-  configureFlags = gpgme.configureFlags ++ [
-    "--enable-languages=python"
-  ];
+  configureFlags =
+    gpgme.configureFlags
+    ++ [
+      "--enable-languages=python"
+    ];
 
   postConfigure = "
     cd lang/python
@@ -32,7 +33,7 @@ buildPythonPackage {
     make copystamp
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -43,10 +44,12 @@ buildPythonPackage {
     gpgme
   ];
 
-  pythonImportsCheck = [ "gpg" ];
+  pythonImportsCheck = ["gpg"];
 
-  meta = gpgme.meta // {
-    description = "Python bindings to the GPGME API of the GnuPG cryptography library";
-    homepage = "https://dev.gnupg.org/source/gpgme/browse/master/lang/python/";
-  };
+  meta =
+    gpgme.meta
+    // {
+      description = "Python bindings to the GPGME API of the GnuPG cryptography library";
+      homepage = "https://dev.gnupg.org/source/gpgme/browse/master/lang/python/";
+    };
 }

@@ -11,7 +11,6 @@
   buildPackages,
   gobject-introspection,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "libxfce4util";
@@ -40,6 +39,6 @@ mkXfceDerivation {
     description = "Extension library for Xfce";
     mainProgram = "xfce4-kiosk-query";
     license = licenses.lgpl2Plus;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

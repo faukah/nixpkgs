@@ -10,7 +10,6 @@
   kubectl,
   nixosTests,
   nix-update-script,
-
   components ? [
     "cmd/kubelet"
     "cmd/kube-apiserver"
@@ -19,7 +18,6 @@
     "cmd/kube-scheduler"
   ],
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kubernetes";
   version = "1.33.1";
@@ -48,7 +46,7 @@ buildGoModule (finalAttrs: {
     "pause"
   ];
 
-  patches = [ ./fixup-addonmanager-lib-path.patch ];
+  patches = [./fixup-addonmanager-lib-path.patch];
 
   WHAT = lib.concatStringsSep " " (
     [
@@ -97,17 +95,19 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests = nixosTests.kubernetes // {
-      inherit kubectl;
-    };
+    updateScript = nix-update-script {};
+    tests =
+      nixosTests.kubernetes
+      // {
+        inherit kubectl;
+      };
   };
 
   meta = {
     description = "Production-Grade Container Scheduling and Management";
     license = lib.licenses.asl20;
     homepage = "https://kubernetes.io";
-    teams = [ lib.teams.kubernetes ];
+    teams = [lib.teams.kubernetes];
     platforms = lib.platforms.linux;
   };
 })

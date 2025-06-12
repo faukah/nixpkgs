@@ -1,7 +1,5 @@
 # This test runs netdata and checks for data via apps.plugin
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "netdata";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -11,24 +9,22 @@
   };
 
   nodes = {
-    netdata =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          curl
-          jq
-          netdata
-        ];
-        services.netdata = {
-          enable = true;
-          package = pkgs.netdataCloud;
-          python.recommendedPythonPackages = true;
+    netdata = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        curl
+        jq
+        netdata
+      ];
+      services.netdata = {
+        enable = true;
+        package = pkgs.netdataCloud;
+        python.recommendedPythonPackages = true;
 
-          configDir."apps_groups.conf" = pkgs.writeText "apps_groups.conf" ''
-            netdata_test: netdata
-          '';
-        };
+        configDir."apps_groups.conf" = pkgs.writeText "apps_groups.conf" ''
+          netdata_test: netdata
+        '';
       };
+    };
   };
 
   testScript = ''

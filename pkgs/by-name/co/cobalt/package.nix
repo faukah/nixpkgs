@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cobalt";
   version = "0.20.0";
@@ -21,11 +20,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Y9+zJ89XrVk3mZD1s9N7oaXvcBP5RNjp3hMjX1Wz3HA=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Static site generator written in Rust";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     downloadPage = "https://github.com/cobalt-org/cobalt.rs/";
     changelog = "https://github.com/cobalt-org/cobalt.rs/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = lib.platforms.unix;
     mainProgram = "cobalt";
   };

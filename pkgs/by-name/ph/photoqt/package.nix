@@ -14,7 +14,6 @@
   qt6Packages,
   zxing-cpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "photoqt";
   version = "4.9.1";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     homepage = "https://photoqt.org/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "photoqt";
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 }

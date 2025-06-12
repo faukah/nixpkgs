@@ -8,7 +8,6 @@
   alcotest,
   mirage-flow-combinators,
 }:
-
 buildDunePackage {
   pname = "mirage-flow-unix";
 
@@ -35,7 +34,9 @@ buildDunePackage {
     mirage-flow-combinators
   ];
 
-  meta = mirage-flow.meta // {
-    description = "Flow implementations and combinators for MirageOS on Unix";
-  };
+  meta =
+    mirage-flow.meta
+    // {
+      description = "Flow implementations and combinators for MirageOS on Unix";
+    };
 }

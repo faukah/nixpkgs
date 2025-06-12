@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.ausweisapp;
-in
-{
+in {
   options.programs.ausweisapp = {
     enable = lib.mkEnableOption "AusweisApp";
 
@@ -22,7 +19,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ ausweisapp ];
-    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [ 24727 ];
+    environment.systemPackages = with pkgs; [ausweisapp];
+    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [24727];
   };
 }

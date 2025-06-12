@@ -17,7 +17,6 @@
   pytestCheckHook,
   gtk3,
 }:
-
 buildPythonPackage {
   pname = "inkex";
   inherit (inkscape) version;
@@ -25,9 +24,9 @@ buildPythonPackage {
 
   inherit (inkscape) src;
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
   dependencies = [
     cssselect
@@ -41,7 +40,7 @@ buildPythonPackage {
     tinycss2
   ];
 
-  pythonImportsCheck = [ "inkex" ];
+  pythonImportsCheck = ["inkex"];
 
   nativeCheckInputs = [
     gobject-introspection
@@ -83,6 +82,6 @@ buildPythonPackage {
     description = "Library for manipulating SVG documents which is the basis for Inkscape extensions";
     homepage = "https://gitlab.com/inkscape/extensions";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

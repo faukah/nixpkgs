@@ -5,12 +5,9 @@
   ...
 }:
 # TODO: make ecryptfs work in initramfs?
-
-with lib;
-
-{
+with lib; {
   config = mkIf (config.boot.supportedFilesystems.ecryptfs or false) {
-    system.fsPackages = [ pkgs.ecryptfs ];
+    system.fsPackages = [pkgs.ecryptfs];
     security.wrappers = {
       "mount.ecryptfs_private" = {
         setuid = true;

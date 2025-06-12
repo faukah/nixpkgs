@@ -19,18 +19,18 @@
   mirage-crypto,
   core,
 }:
-
 buildDunePackage {
   pname = "cohttp-async";
 
-  inherit (cohttp)
+  inherit
+    (cohttp)
     version
     src
     ;
 
   minimalOCamlVersion = "4.14";
 
-  buildInputs = [ ppx_sexp_conv ];
+  buildInputs = [ppx_sexp_conv];
 
   propagatedBuildInputs = [
     cohttp
@@ -57,7 +57,9 @@ buildDunePackage {
     core
   ];
 
-  meta = cohttp.meta // {
-    description = "CoHTTP implementation for the Async concurrency library";
-  };
+  meta =
+    cohttp.meta
+    // {
+      description = "CoHTTP implementation for the Async concurrency library";
+    };
 }

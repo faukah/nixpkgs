@@ -11,7 +11,6 @@
   zlib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rakshasa-libtorrent";
   version = "0.15.4";
@@ -34,9 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  configureFlags = [ "--enable-aligned=yes" ];
+  configureFlags = ["--enable-aligned=yes"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   enableParallelBuilding = true;
 

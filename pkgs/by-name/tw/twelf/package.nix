@@ -7,7 +7,6 @@
   smlnj,
   rsync,
 }:
-
 stdenv.mkDerivation rec {
   pname = "twelf";
   version = "1.7.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     smlnj
     rsync
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://twelf.org/wiki/Main_Page";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
     platforms = lib.platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   perl,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "multimarkdown";
   version = "6.7.0";
@@ -52,8 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
       - glossary entries (LaTeX only)
       - document metadata (e.g. title, author, date, etc.)
     '';
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 })

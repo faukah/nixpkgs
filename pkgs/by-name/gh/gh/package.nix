@@ -7,7 +7,6 @@
   testers,
   gh,
 }:
-
 buildGoModule rec {
   pname = "gh";
   version = "2.74.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-S1s+Es7vOvyiPY7RJaMs6joy8QIZ1xY9mR6WvNIs0OY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # N.B.: using the Makefile is intentional.
   # We pass "nixpkgs" for build.Date to avoid `gh --version` reporting a very old date.
@@ -61,6 +60,6 @@ buildGoModule rec {
     changelog = "https://github.com/cli/cli/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "gh";
-    maintainers = with lib.maintainers; [ zowoq ];
+    maintainers = with lib.maintainers; [zowoq];
   };
 }

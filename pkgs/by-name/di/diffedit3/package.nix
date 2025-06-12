@@ -6,7 +6,6 @@
   nix-update-script,
   diffedit3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "diffedit3";
   version = "0.6.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-XAtp5pCKFQRqyF9Y0udrcudgF5i3vWxk//kZ/hRsFaA=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = testers.testVersion {
       package = diffedit3;
     };
@@ -29,8 +28,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/ilyagr/diffedit3";
     description = "3-pane diff editor";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     mainProgram = "diffedit3";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -5,7 +5,6 @@
   zlib,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pigz";
   version = "2.8";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ zlib ] ++ lib.optional stdenv.hostPlatform.isLinux util-linux;
+  buildInputs = [zlib] ++ lib.optional stdenv.hostPlatform.isLinux util-linux;
 
-  makeFlags = [ "CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"];
 
   doCheck = stdenv.hostPlatform.isLinux;
   checkTarget = "tests";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.zlib.net/pigz/";
     description = "Parallel implementation of gzip for multi-core machines";
     mainProgram = "pigz";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.zlib;
     platforms = platforms.unix;
   };

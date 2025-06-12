@@ -5,7 +5,6 @@
   riot,
   tty,
 }:
-
 buildDunePackage rec {
   pname = "minttea";
   version = "0.0.3";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     homepage = "https://github.com/leostera/minttea";
     changelog = "https://github.com/leostera/minttea/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

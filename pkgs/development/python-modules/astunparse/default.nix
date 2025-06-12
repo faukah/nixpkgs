@@ -5,7 +5,6 @@
   six,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "astunparse";
   version = "1.6.3";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "This is a factored out version of unparse found in the Python source distribution";
     homepage = "https://github.com/simonpercivall/astunparse";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jyp ];
+    maintainers = with maintainers; [jyp];
   };
 }

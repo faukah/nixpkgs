@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "reason";
   version = "0.3.10";
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jaywonchung/reason";
     changelog = "https://github.com/jaywonchung/reason/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

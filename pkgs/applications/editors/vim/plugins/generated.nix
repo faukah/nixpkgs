@@ -4,9 +4,7 @@
   buildVimPlugin,
   buildNeovimPlugin,
   fetchFromGitHub,
-}:
-
-final: prev: {
+}: final: prev: {
   BetterLua-vim = buildVimPlugin {
     pname = "BetterLua.vim";
     version = "2020-08-14";
@@ -17,7 +15,7 @@ final: prev: {
       sha256 = "1rvlx21kw8865dg6q97hx9i2s1n8mn1nyhn0m7dkx625pghsx3js";
     };
     meta.homepage = "https://github.com/euclidianAce/BetterLua.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   BufOnly-vim = buildVimPlugin {
@@ -30,7 +28,7 @@ final: prev: {
       sha256 = "1gvpaqvvxjma0dl1zai68bpv42608api4054appwkw9pgczkkcdl";
     };
     meta.homepage = "https://github.com/vim-scripts/BufOnly.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ChatGPT-nvim = buildVimPlugin {
@@ -43,7 +41,7 @@ final: prev: {
       sha256 = "07f0p03fb4060lc7jfvp8mqi0jbk8mril9fg3b8rx9mq8415g1gr";
     };
     meta.homepage = "https://github.com/jackMort/ChatGPT.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   CheckAttach = buildVimPlugin {
@@ -56,7 +54,7 @@ final: prev: {
       sha256 = "04jcnq024zss9snv26py3969pflxkhn4ak0a4ap55qy9za4fcsi7";
     };
     meta.homepage = "https://github.com/chrisbra/CheckAttach/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Colour-Sampler-Pack = buildVimPlugin {
@@ -69,7 +67,7 @@ final: prev: {
       sha256 = "03v2r18sfgs0xbgy9p56pxfdg0lsk6m7wyr5hw63wm1nzpwiipg3";
     };
     meta.homepage = "https://github.com/vim-scripts/Colour-Sampler-Pack/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   CopilotChat-nvim = buildVimPlugin {
@@ -82,7 +80,7 @@ final: prev: {
       sha256 = "1mda0maxgr4yqyaixl1x56fsldaj46pnq8xlcz01apvmc8i91yq6";
     };
     meta.homepage = "https://github.com/CopilotC-Nvim/CopilotChat.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Coqtail = buildVimPlugin {
@@ -95,7 +93,7 @@ final: prev: {
       sha256 = "14jhh4b3z6fgs7bxd5a62vb2k4j038v23nq6j8r9l9rcra5i2hik";
     };
     meta.homepage = "https://github.com/whonore/Coqtail/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   DoxygenToolkit-vim = buildVimPlugin {
@@ -108,7 +106,7 @@ final: prev: {
       sha256 = "1za8li02j4nhqjjsyxg4p78638h5af4izim37zc0p1x55zr3i85r";
     };
     meta.homepage = "https://github.com/vim-scripts/DoxygenToolkit.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   FTerm-nvim = buildVimPlugin {
@@ -121,7 +119,7 @@ final: prev: {
       sha256 = "1rhizcrkas40p6gw420ljx8p4q3b206d96cx8sc67gdcmarl0avw";
     };
     meta.homepage = "https://github.com/numToStr/FTerm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   FixCursorHold-nvim = buildVimPlugin {
@@ -134,7 +132,7 @@ final: prev: {
       sha256 = "0p7xh31qp836xvxbm1y3r4djv3r7ivxhx7jxwzgd380d029ql1hz";
     };
     meta.homepage = "https://github.com/antoinemadec/FixCursorHold.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   GPTModels-nvim = buildVimPlugin {
@@ -147,7 +145,7 @@ final: prev: {
       sha256 = "06spvkfc1bhckq8w56w6ha4gzk60wfhjlyivrx51awz20sd6hyw0";
     };
     meta.homepage = "https://github.com/Aaronik/GPTModels.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Improved-AnsiEsc = buildVimPlugin {
@@ -160,7 +158,7 @@ final: prev: {
       sha256 = "1smjs4kz2kmzprzp9az4957675nakb43146hshbby39j5xz4jsbz";
     };
     meta.homepage = "https://github.com/vim-scripts/Improved-AnsiEsc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Ionide-vim = buildVimPlugin {
@@ -173,7 +171,7 @@ final: prev: {
       sha256 = "053ay19ykhkd6rrrs9s22i8x431haza21fd5szv824dqzxfgl04a";
     };
     meta.homepage = "https://github.com/ionide/Ionide-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Jenkinsfile-vim-syntax = buildVimPlugin {
@@ -186,7 +184,7 @@ final: prev: {
       sha256 = "05z30frs4f5z0l4qgxk08r7mb19bzhqs36hi213yin78cz62b9gy";
     };
     meta.homepage = "https://github.com/martinda/Jenkinsfile-vim-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   LanguageTool-nvim = buildVimPlugin {
@@ -199,7 +197,7 @@ final: prev: {
       sha256 = "1g12dz85xq8qd92dgna0a3w6zgxa74njlvmvly4k20610r63bzrn";
     };
     meta.homepage = "https://github.com/vigoux/LanguageTool.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   LazyVim = buildVimPlugin {
@@ -212,7 +210,7 @@ final: prev: {
       sha256 = "0q1jhpij75ps2fkincrq59dsqlzyacm2m0c783b9dgm3vz783xnl";
     };
     meta.homepage = "https://github.com/LazyVim/LazyVim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   LeaderF = buildVimPlugin {
@@ -225,7 +223,7 @@ final: prev: {
       sha256 = "0v0188icx4jd45q8jafbs4f67zafnzbyzr9fiygvjhf071r5rimw";
     };
     meta.homepage = "https://github.com/Yggdroot/LeaderF/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   LuaSnip-snippets-nvim = buildVimPlugin {
@@ -238,7 +236,7 @@ final: prev: {
       sha256 = "063fz3f9byzmb1qavhrjdcphr3nk4l4d19h7mzj5sx4wv7cn8nl8";
     };
     meta.homepage = "https://github.com/molleweide/LuaSnip-snippets.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   MatchTagAlways = buildVimPlugin {
@@ -251,7 +249,7 @@ final: prev: {
       sha256 = "0y8gq4cs0wm2ijagc2frpmm664z355iridxyl5893576v5aqp8z1";
     };
     meta.homepage = "https://github.com/Valloric/MatchTagAlways/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Navigator-nvim = buildVimPlugin {
@@ -264,7 +262,7 @@ final: prev: {
       sha256 = "12hsdwj4jqbkh8z3hcr1c660jmh44c0j4rzlchnc326gcbrayarv";
     };
     meta.homepage = "https://github.com/numToStr/Navigator.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   NeoSolarized = buildVimPlugin {
@@ -277,7 +275,7 @@ final: prev: {
       sha256 = "019nz56yirpg1ahg8adfafrxznalw056qwm3xjm9kzg6da8j6v48";
     };
     meta.homepage = "https://github.com/overcache/NeoSolarized/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   NotebookNavigator-nvim = buildVimPlugin {
@@ -290,7 +288,7 @@ final: prev: {
       sha256 = "sha256-+FLHJ1tfIplXhO/6kajdcDBTIsNYN9kCOR9IdhXL6d4=";
     };
     meta.homepage = "https://github.com/GCBallesteros/NotebookNavigator.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   NrrwRgn = buildVimPlugin {
@@ -303,7 +301,7 @@ final: prev: {
       sha256 = "0mcwyqbfc2m865w44s96ra2k0v1mn5kkkxf8i71iqhvc7fvnrfah";
     };
     meta.homepage = "https://github.com/chrisbra/NrrwRgn/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   PreserveNoEOL = buildVimPlugin {
@@ -316,7 +314,7 @@ final: prev: {
       sha256 = "1726jpr2zf6jrb00pp082ikbx4mll3a877pnzs6i18f9fgpaqqgd";
     };
     meta.homepage = "https://github.com/vim-scripts/PreserveNoEOL/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Preview-nvim = buildVimPlugin {
@@ -329,7 +327,7 @@ final: prev: {
       sha256 = "sha256-Tnl2TkLY9QXk/5qX2LcX5G2aq/sysH6BnD2YqXlneIU=";
     };
     meta.homepage = "https://github.com/henriklovhaug/Preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   QFEnter = buildVimPlugin {
@@ -342,7 +340,7 @@ final: prev: {
       sha256 = "1aksyxm89jmrrdw77979jdxp83z0lj1n1qhyipjmjz0vdljr6w50";
     };
     meta.homepage = "https://github.com/yssl/QFEnter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Recover-vim = buildVimPlugin {
@@ -355,7 +353,7 @@ final: prev: {
       sha256 = "0hnww4a0vffgpj72qdhhsr28xdh219haldr6jd6my8mqy1rg3yq4";
     };
     meta.homepage = "https://github.com/chrisbra/Recover.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Rename = buildVimPlugin {
@@ -368,7 +366,7 @@ final: prev: {
       sha256 = "1d1myg4zyc281zcc1ba9idbgcgxndb4a0jwqr4yqxhhzdgszw46r";
     };
     meta.homepage = "https://github.com/vim-scripts/Rename/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ReplaceWithRegister = buildVimPlugin {
@@ -381,7 +379,7 @@ final: prev: {
       sha256 = "0mb0sx85j1k59b1zz95r4vkq4kxlb4krhncq70mq7fxrs5bnhq8g";
     };
     meta.homepage = "https://github.com/vim-scripts/ReplaceWithRegister/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   SchemaStore-nvim = buildVimPlugin {
@@ -394,7 +392,7 @@ final: prev: {
       sha256 = "17025v5zzp848jglz2iws1fgdji8dwvxknfas6fvkg3m7m79n38i";
     };
     meta.homepage = "https://github.com/b0o/SchemaStore.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Shade-nvim = buildVimPlugin {
@@ -407,7 +405,7 @@ final: prev: {
       sha256 = "0mb0cnf8065qmjq85hlgb4a1mqk1nwl7966l1imb54hpzw828rzl";
     };
     meta.homepage = "https://github.com/sunjon/Shade.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ShowMultiBase = buildVimPlugin {
@@ -420,7 +418,7 @@ final: prev: {
       sha256 = "0hg5352ahzgh2kwqha5v8ai024fld93xag93hb53wjf5b8nzsz8i";
     };
     meta.homepage = "https://github.com/vim-scripts/ShowMultiBase/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   SimpylFold = buildVimPlugin {
@@ -433,7 +431,7 @@ final: prev: {
       sha256 = "1ny3dicin979irwp8gv993005yxgzx1h5snihpa0na2p38mkdp25";
     };
     meta.homepage = "https://github.com/tmhedberg/SimpylFold/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   SmartCase = buildVimPlugin {
@@ -446,7 +444,7 @@ final: prev: {
       sha256 = "06hf56a3gyc6zawdjfvs1arl62aq5fzncl8bpwv35v66bbkjvw3w";
     };
     meta.homepage = "https://github.com/vim-scripts/SmartCase/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   SpaceCamp = buildVimPlugin {
@@ -459,7 +457,7 @@ final: prev: {
       sha256 = "1c57cpdkhq15yzzfpk4pi2d5bjmb9j2gx1np3v23wgmfzhmkj6d1";
     };
     meta.homepage = "https://github.com/jaredgorski/SpaceCamp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   SudoEdit-vim = buildVimPlugin {
@@ -472,7 +470,7 @@ final: prev: {
       sha256 = "16xd71k4x55mh10r58s995mdrc9n9kv8mddmlaif8zv3lw4ca949";
     };
     meta.homepage = "https://github.com/chrisbra/SudoEdit.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   VimCompletesMe = buildVimPlugin {
@@ -485,7 +483,7 @@ final: prev: {
       sha256 = "0mal1raflzzmahb4skc01dwp9vasvwcyh9mpw3r75gfrfzbyjrlk";
     };
     meta.homepage = "https://github.com/vim-scripts/VimCompletesMe/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   VimOrganizer = buildVimPlugin {
@@ -498,7 +496,7 @@ final: prev: {
       sha256 = "0phpcxmyz562yyp88rbx9pqg46w8r1lyapb700nvxwvqkcd82pfw";
     };
     meta.homepage = "https://github.com/hsitz/VimOrganizer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   Vundle-vim = buildVimPlugin {
@@ -511,7 +509,7 @@ final: prev: {
       sha256 = "0lfhsxp9h235rdj0wsn5fnwqmyjcciwqvv1l8ibfg75icmgjlwhf";
     };
     meta.homepage = "https://github.com/VundleVim/Vundle.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   YUNOcommit-vim = buildVimPlugin {
@@ -524,7 +522,7 @@ final: prev: {
       sha256 = "0mjc7fn405vcx1n7vadl98p5wgm6jxrlbdbkqgjq8f1m1ir81zab";
     };
     meta.homepage = "https://github.com/esneider/YUNOcommit.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   YankAssassin-vim = buildVimPlugin {
@@ -537,7 +535,7 @@ final: prev: {
       sha256 = "0w0g49knan6vmmpcdj8fvdn2bmyydpihf4jfyza6iy7gsk8kmr66";
     };
     meta.homepage = "https://github.com/svban/YankAssassin.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   YankRing-vim = buildVimPlugin {
@@ -550,7 +548,7 @@ final: prev: {
       sha256 = "0zdp8pdsqgrh6lfw8ipjhrig6psvmdxkim9ik801y3r373sk2hxw";
     };
     meta.homepage = "https://github.com/vim-scripts/YankRing.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   YouCompleteMe = buildVimPlugin {
@@ -564,7 +562,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/ycm-core/YouCompleteMe/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   a-vim = buildVimPlugin {
@@ -577,7 +575,7 @@ final: prev: {
       sha256 = "0h62v9z5bh9xmaq22pqdb3z79i84a5rknqm68mjpy7nq7s3q42fa";
     };
     meta.homepage = "https://github.com/vim-scripts/a.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ack-vim = buildVimPlugin {
@@ -590,7 +588,7 @@ final: prev: {
       sha256 = "0yppr89hd1jyp0pj56hxdjbn32sr7pj3mihd18wxispvl5dqd6fm";
     };
     meta.homepage = "https://github.com/mileszs/ack.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   acp = buildVimPlugin {
@@ -603,7 +601,7 @@ final: prev: {
       sha256 = "0h7s4nvxin7m2caka7g1hhlxj1bbiwsvw8s2lqwlh7nq43v23ghg";
     };
     meta.homepage = "https://github.com/eikenb/acp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   actions-preview-nvim = buildVimPlugin {
@@ -616,7 +614,7 @@ final: prev: {
       sha256 = "1fri1rd3fsgqb232bh7wdv8nbx40dszrdxjyqjpw6hb0xsbg025d";
     };
     meta.homepage = "https://github.com/aznhe21/actions-preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   advanced-git-search-nvim = buildVimPlugin {
@@ -629,7 +627,7 @@ final: prev: {
       sha256 = "02vwf1rpvfqygmbqsin215dm7dwybg7cqi12dff8lkf47l2y0dlk";
     };
     meta.homepage = "https://github.com/aaronhallaert/advanced-git-search.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   adwaita-nvim = buildVimPlugin {
@@ -642,7 +640,7 @@ final: prev: {
       sha256 = "18qswcjppgcxcf5p8vlr0nwb6p6s3j68a7ng05bpx49i5nwrd0vy";
     };
     meta.homepage = "https://github.com/Mofiqul/adwaita.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aerial-nvim = buildVimPlugin {
@@ -656,7 +654,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/stevearc/aerial.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ag-nvim = buildVimPlugin {
@@ -669,7 +667,7 @@ final: prev: {
       sha256 = "0w1dnmhhdipzs1xhmlvzj4b6x0zl4cghcn8qgzmxhrjscv6djrgn";
     };
     meta.homepage = "https://github.com/Numkil/ag.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   agda-vim = buildVimPlugin {
@@ -682,7 +680,7 @@ final: prev: {
       sha256 = "0d4gwgdy4y52gycz33y5ar9rj0r2y6bkjnyns3br2iy0x4rzghff";
     };
     meta.homepage = "https://github.com/derekelkins/agda-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   agitator-nvim = buildVimPlugin {
@@ -695,7 +693,7 @@ final: prev: {
       sha256 = "1v761frhcz6wgrd3l7wqyp65p2bz5apg89cs3sz0wc06dpc9k933";
     };
     meta.homepage = "https://github.com/emmanueltouzery/agitator.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ai-vim = buildVimPlugin {
@@ -708,7 +706,7 @@ final: prev: {
       sha256 = "04jhp7hd2r2gmaqglnll08qcdi7jymkjpwmq532xvxxyji53zbv1";
     };
     meta.homepage = "https://github.com/aduros/ai.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aider-nvim = buildVimPlugin {
@@ -721,7 +719,7 @@ final: prev: {
       sha256 = "0f4gn4mwcghpcy5whah230y22wqaa1hxh8aczysh09fwdnigb4r4";
     };
     meta.homepage = "https://github.com/joshuavial/aider.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   alchemist-vim = buildVimPlugin {
@@ -734,7 +732,7 @@ final: prev: {
       sha256 = "074gb9xf9mxrpzlz56krb0my5zxlk20bjv700bjhgjw4jrcraxxn";
     };
     meta.homepage = "https://github.com/slashmili/alchemist.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ale = buildVimPlugin {
@@ -747,7 +745,7 @@ final: prev: {
       sha256 = "0ms02xz8hd7k6bhbsxykwqv2pv9abf0r2j55p7a51bh3sk7lr5pc";
     };
     meta.homepage = "https://github.com/dense-analysis/ale/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   align = buildVimPlugin {
@@ -760,7 +758,7 @@ final: prev: {
       sha256 = "0acacr572kfh7jvavbw61q5pkwrpi1albgancma063rpax1pddgp";
     };
     meta.homepage = "https://github.com/vim-scripts/align/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   align-nvim = buildVimPlugin {
@@ -773,7 +771,7 @@ final: prev: {
       sha256 = "sha256-z8+lEs8bQS4Gz3cgQQ5Cb3oW58Et7it/tAxUtE3cLc4=";
     };
     meta.homepage = "https://github.com/Vonr/align.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   alpha-nvim = buildVimPlugin {
@@ -786,7 +784,7 @@ final: prev: {
       sha256 = "0c1jkhxamfn2md7m1r5b2wpxa26y90b98yzjwf68m3fymalvkn5h";
     };
     meta.homepage = "https://github.com/goolord/alpha-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   animation-nvim = buildVimPlugin {
@@ -799,7 +797,7 @@ final: prev: {
       sha256 = "0yaxp3l33af1k6na0jikwmr0nxk862ihpq8r0042mll1ily7689b";
     };
     meta.homepage = "https://github.com/anuvyklack/animation.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aniseed = buildVimPlugin {
@@ -812,7 +810,7 @@ final: prev: {
       sha256 = "0dwzxbf0xdlspwynx37y7zwfzi5ng09crlywpymbj9lpdpyfy14p";
     };
     meta.homepage = "https://github.com/Olical/aniseed/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ansible-vim = buildVimPlugin {
@@ -825,7 +823,7 @@ final: prev: {
       sha256 = "1xvp2w97644hyj8afifb498pm0pa5bcpkwy6slzd8xas40zhj6cr";
     };
     meta.homepage = "https://github.com/pearofducks/ansible-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   antonys-macro-repeater = buildVimPlugin {
@@ -838,7 +836,7 @@ final: prev: {
       sha256 = "1cq5r091qbxjs9s12f7bb2fdm43gxwpnnh2l8nhj0n69jfk7gblw";
     };
     meta.homepage = "https://github.com/ckarnell/antonys-macro-repeater/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   arcanist-vim = buildVimPlugin {
@@ -851,7 +849,7 @@ final: prev: {
       sha256 = "11v7gqa5rnv28q0i3d02g9sw22gkjn10afvjx7bg352d91knxn9m";
     };
     meta.homepage = "https://github.com/solarnz/arcanist.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   argtextobj-vim = buildVimPlugin {
@@ -864,7 +862,7 @@ final: prev: {
       sha256 = "1l4jh5hdmky1qj5z26jpnk49a6djjcvzyyr6pknrrgb8rzkiln48";
     };
     meta.homepage = "https://github.com/vim-scripts/argtextobj.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   arrow-nvim = buildVimPlugin {
@@ -877,7 +875,7 @@ final: prev: {
       sha256 = "1mwmjaxb7zr00pmxzx8g8dv1vwsbb1ssjrvmyalyc1g1gvnqm8c8";
     };
     meta.homepage = "https://github.com/otavioschwanck/arrow.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   arshlib-nvim = buildVimPlugin {
@@ -890,7 +888,7 @@ final: prev: {
       sha256 = "1jmac14w37lybanr8jg4jpi3rkbsjhmz65x5fr7mgd7kagsn3r1n";
     };
     meta.homepage = "https://github.com/arsham/arshlib.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   astrocore = buildVimPlugin {
@@ -903,7 +901,7 @@ final: prev: {
       sha256 = "1jg94s5i6q756nq0f7jcw5gvgqwipmnnf8k82sfrsvc0k3j8p126";
     };
     meta.homepage = "https://github.com/AstroNvim/astrocore/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   astrolsp = buildVimPlugin {
@@ -916,7 +914,7 @@ final: prev: {
       sha256 = "0bynmjjdcgkyfgw3dy54j9pzczv9gpcda63jlqlbakdhh6w7zibs";
     };
     meta.homepage = "https://github.com/AstroNvim/astrolsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   astrotheme = buildVimPlugin {
@@ -929,7 +927,7 @@ final: prev: {
       sha256 = "179qgb6c3pv4f2p6jj0w9akzsv8rgn68hfdv3mh0kzhz16myha2n";
     };
     meta.homepage = "https://github.com/AstroNvim/astrotheme/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   astroui = buildVimPlugin {
@@ -942,7 +940,7 @@ final: prev: {
       sha256 = "0vh7qyj0cyd3vq1mv253sd48dcapf7idfnh7wv29qvvpsvwvamxc";
     };
     meta.homepage = "https://github.com/AstroNvim/astroui/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   async-vim = buildVimPlugin {
@@ -955,7 +953,7 @@ final: prev: {
       sha256 = "08mblrrkxn1hivj1yjrn3vx3skd6l3xl96800i6qrsbsjlx5s5k3";
     };
     meta.homepage = "https://github.com/prabirshrestha/async.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-buffer-vim = buildVimPlugin {
@@ -968,7 +966,7 @@ final: prev: {
       sha256 = "0x9rr9v2b6zc2ch1v11vmqd65iyq33vi28f4s3xg1q7y5358ksd1";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-buffer.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-file-vim = buildVimPlugin {
@@ -981,7 +979,7 @@ final: prev: {
       sha256 = "1zvll94h2cx631z5xwii1mgx3lhm6i4pfppszk4p2mwk9hp9c4g4";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-file.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-lsp-vim = buildVimPlugin {
@@ -994,7 +992,7 @@ final: prev: {
       sha256 = "1lyl4k10fxv8h0b84x17yfxdrm00aw38vmckmpgd3bgdz35h1qa9";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-lsp.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-omni-vim = buildVimPlugin {
@@ -1007,7 +1005,7 @@ final: prev: {
       sha256 = "14kk15dqdjylj8x9m79ajrsqprf4yzcrv2k71y7lq8j6h4ybdcgr";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-omni.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-tags-vim = buildVimPlugin {
@@ -1020,7 +1018,7 @@ final: prev: {
       sha256 = "1n74m1s0npnih1mdpxw1c0x7jhqkzrkncjb0zpa7r1ibl1ij0gwj";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-tags.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-ultisnips-vim = buildVimPlugin {
@@ -1033,7 +1031,7 @@ final: prev: {
       sha256 = "0hh27i47qm0sqij2608b21qlggj8jn9czanw4yh5rh7kzd2c4lg3";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete-ultisnips.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncomplete-vim = buildVimPlugin {
@@ -1046,7 +1044,7 @@ final: prev: {
       sha256 = "1mpdhh9vmjasigw9r5zv5ikvia2vsqpm3l3bd3sqriwv597jcyb9";
     };
     meta.homepage = "https://github.com/prabirshrestha/asyncomplete.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asyncrun-vim = buildVimPlugin {
@@ -1059,7 +1057,7 @@ final: prev: {
       sha256 = "1ky0y5wf5ir0awm6jmnq0d374za4l89jbg4cjzcznv8a798h75bh";
     };
     meta.homepage = "https://github.com/skywind3000/asyncrun.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   asynctasks-vim = buildVimPlugin {
@@ -1072,7 +1070,7 @@ final: prev: {
       sha256 = "09i5x5wrnc73s7wivqnp16f765684cq538p3a3ijraaz41glyfac";
     };
     meta.homepage = "https://github.com/skywind3000/asynctasks.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ats-vim = buildVimPlugin {
@@ -1085,7 +1083,7 @@ final: prev: {
       sha256 = "1jj4q8dmal7rgizqm59dbgjf8by8lxjwnbg39gkbmjiwhdj8q67h";
     };
     meta.homepage = "https://github.com/vmchale/ats-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   augment-vim = buildVimPlugin {
@@ -1098,7 +1096,7 @@ final: prev: {
       sha256 = "1sq4lpwzd2xc97l4h7zyglhg0jwg3xfw9qfidi26rz28dd1v2ivs";
     };
     meta.homepage = "https://github.com/augmentcode/augment.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aurora = buildVimPlugin {
@@ -1111,7 +1109,7 @@ final: prev: {
       sha256 = "0s0l8vmhb1nl1b0hb44jaf8098gb768kvmpbz4zg5nzjp4pig4mv";
     };
     meta.homepage = "https://github.com/ray-x/aurora/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   auto-git-diff = buildVimPlugin {
@@ -1124,7 +1122,7 @@ final: prev: {
       sha256 = "0agwvh7gxhw4ys7fr20xzibgc86h4wh16ivzqh1n26r3119gsfy9";
     };
     meta.homepage = "https://github.com/hotwatermorning/auto-git-diff/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   auto-hlsearch-nvim = buildVimPlugin {
@@ -1137,7 +1135,7 @@ final: prev: {
       sha256 = "1lvr0129fgadjavw9nwmxfvba90sqim3np7nankrk7wb6rziwss9";
     };
     meta.homepage = "https://github.com/asiryk/auto-hlsearch.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   auto-pairs = buildVimPlugin {
@@ -1150,7 +1148,7 @@ final: prev: {
       sha256 = "1hxf155cmavpxpbsxx6zk23hgl9grl6yrh165kp9bjvld9ng08ng";
     };
     meta.homepage = "https://github.com/jiangmiao/auto-pairs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   auto-save-nvim = buildVimPlugin {
@@ -1163,7 +1161,7 @@ final: prev: {
       sha256 = "01b5q9hxbvsn6ivqdp4mv4913k0bdpmygi613v9rbnrl91siqb9i";
     };
     meta.homepage = "https://github.com/okuuva/auto-save.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   auto-session = buildVimPlugin {
@@ -1176,7 +1174,7 @@ final: prev: {
       sha256 = "0pk8qsnimr2csbwnih5fwc0gvay60443c42r75xhb4sli03k6kjx";
     };
     meta.homepage = "https://github.com/rmagatti/auto-session/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   autoclose-nvim = buildVimPlugin {
@@ -1189,7 +1187,7 @@ final: prev: {
       sha256 = "0qsaiwn3fznzzda9xw0v4ss6cyhladiwikslbnh0w29qz732g0lq";
     };
     meta.homepage = "https://github.com/m4xshen/autoclose.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   autolist-nvim = buildVimPlugin {
@@ -1202,7 +1200,7 @@ final: prev: {
       sha256 = "0vdr9mf761qc2rp9xc8ypgdis68khblkwn7c1kc6cxk265nw7awm";
     };
     meta.homepage = "https://github.com/gaoDean/autolist.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   autoload_cscope-vim = buildVimPlugin {
@@ -1215,7 +1213,7 @@ final: prev: {
       sha256 = "150h6k4nd1msa21c0zxl68nwwq3qdmqi0d8h4as98rrz0b0lghn7";
     };
     meta.homepage = "https://github.com/vim-scripts/autoload_cscope.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   autosave-nvim = buildVimPlugin {
@@ -1228,7 +1226,7 @@ final: prev: {
       sha256 = "0f3rp80hwf6v2kw2hg5jysz9j4946bmwpbk6hxpw89b1vcgny66v";
     };
     meta.homepage = "https://github.com/nullishamy/autosave.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aw-watcher-nvim = buildVimPlugin {
@@ -1241,7 +1239,7 @@ final: prev: {
       sha256 = "10gvwc3ccz40w87dvwnks3adzgk196h0s3cwvrdbmad070xnav30";
     };
     meta.homepage = "https://github.com/lowitea/aw-watcher.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aw-watcher-vim = buildVimPlugin {
@@ -1254,7 +1252,7 @@ final: prev: {
       sha256 = "0kzpr2dgn80lcqbbf9ig6vx7azz6vbvadi31mxb0qyd91fyiidi3";
     };
     meta.homepage = "https://github.com/ActivityWatch/aw-watcher-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   awesome-vim-colorschemes = buildVimPlugin {
@@ -1267,7 +1265,7 @@ final: prev: {
       sha256 = "0rjrv4dh6cr1ppgp7jmxhp00xrjmzv536zf479jwpn1qngmnr6bd";
     };
     meta.homepage = "https://github.com/rafi/awesome-vim-colorschemes/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   aylin-vim = buildVimPlugin {
@@ -1280,7 +1278,7 @@ final: prev: {
       sha256 = "1fqi0y49ac7ix39l8c27j7zysl4g9sm0akkmhpbznccc74kb6r7w";
     };
     meta.homepage = "https://github.com/AhmedAbdulrahman/aylin.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ayu-vim = buildVimPlugin {
@@ -1293,7 +1291,7 @@ final: prev: {
       sha256 = "0z94mdjba5n3nva9qcv3ma4s1qdb8q39azd1ka014cyb62nnjnw4";
     };
     meta.homepage = "https://github.com/ayu-theme/ayu-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   b64-nvim = buildVimPlugin {
@@ -1306,7 +1304,7 @@ final: prev: {
       sha256 = "16gsvwqsj043b3jsmydfavj7ypipdsz84hxzv019hyzrj8ryvdc5";
     };
     meta.homepage = "https://github.com/taybart/b64.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   baleia-nvim = buildVimPlugin {
@@ -1320,7 +1318,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/m00qek/baleia.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bamboo-nvim = buildVimPlugin {
@@ -1333,7 +1331,7 @@ final: prev: {
       sha256 = "12fia7ix4c515kjkm8hqrk4x7cbzm81kz3sk33r3qmdh7mm4rwiv";
     };
     meta.homepage = "https://github.com/ribru17/bamboo.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   barbar-nvim = buildVimPlugin {
@@ -1346,7 +1344,7 @@ final: prev: {
       sha256 = "153kk3vh25pprvrwbckb9kqn3j4fjyl8svrfk55gnk71pqjf03s3";
     };
     meta.homepage = "https://github.com/romgrk/barbar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   barbecue-nvim = buildVimPlugin {
@@ -1359,7 +1357,7 @@ final: prev: {
       sha256 = "0pw2jx616zanjrh0njw69l4x4xrgsdz4q5q0b4vi8nfl0lvqdvsi";
     };
     meta.homepage = "https://github.com/utilyre/barbecue.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   base16-nvim = buildVimPlugin {
@@ -1372,7 +1370,7 @@ final: prev: {
       sha256 = "035j1x44sjk0vhcbp18nm1lq32z8ra8qp8wlij3382mai8jrrb06";
     };
     meta.homepage = "https://github.com/RRethy/base16-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   base16-vim = buildVimPlugin {
@@ -1385,7 +1383,7 @@ final: prev: {
       sha256 = "0g8mkxkjp151gwl1hj9vkxw5fq7i9m46ahgqs4lglpnch1hxm6xq";
     };
     meta.homepage = "https://github.com/chriskempson/base16-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   base46 = buildVimPlugin {
@@ -1398,7 +1396,7 @@ final: prev: {
       sha256 = "16p0syfvf70b0zzdndm3d2jwbqssgcpl1bzvbzjzbsqy3xi8n1w2";
     };
     meta.homepage = "https://github.com/nvchad/base46/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bat-vim = buildVimPlugin {
@@ -1411,7 +1409,7 @@ final: prev: {
       sha256 = "17f9vwy3qfyl553hddah5zbj8gwww772frlvw51zskf9phdg17la";
     };
     meta.homepage = "https://github.com/jamespwilliams/bat.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bats-vim = buildVimPlugin {
@@ -1424,7 +1422,7 @@ final: prev: {
       sha256 = "06f3hdf7y5gpwmc6inrhk938qmn7cr6mbk00amrnl1qjvk09givx";
     };
     meta.homepage = "https://github.com/vim-scripts/bats.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bclose-vim = buildVimPlugin {
@@ -1437,7 +1435,7 @@ final: prev: {
       sha256 = "09a7g0nxn8cbnfz6za8q1p46kb5zbvxl80077hrjpnx4xc82xn2h";
     };
     meta.homepage = "https://github.com/rbgrouleff/bclose.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   better-escape-nvim = buildVimPlugin {
@@ -1450,7 +1448,7 @@ final: prev: {
       sha256 = "107fjwza6570saz7p9kpdm3937x0a0g4ank60s228cbavx09jq1s";
     };
     meta.homepage = "https://github.com/max397574/better-escape.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bigfile-nvim = buildVimPlugin {
@@ -1463,7 +1461,7 @@ final: prev: {
       sha256 = "1l0ndnlvqj6q8kafpq0piikhqmi7bhzi0y4b88wrh0arcpdc19kx";
     };
     meta.homepage = "https://github.com/LunarVim/bigfile.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blamer-nvim = buildVimPlugin {
@@ -1476,7 +1474,7 @@ final: prev: {
       sha256 = "1r88z0320lsv1q0bhnf8hgzi2qp1a6s1fb198zypc5m0kf410n3v";
     };
     meta.homepage = "https://github.com/APZelos/blamer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-avante = buildVimPlugin {
@@ -1489,7 +1487,7 @@ final: prev: {
       sha256 = "0rfac6nj3pa45rsjirlmla552pvscw7zspx4g5xl0gz1xxlmh830";
     };
     meta.homepage = "https://github.com/Kaiser-Yang/blink-cmp-avante/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-conventional-commits = buildVimPlugin {
@@ -1502,7 +1500,7 @@ final: prev: {
       sha256 = "0m72nyg3pm1ig04hvch6lzd4hy77dnmdxxmbq154qwkjhbm0bs6m";
     };
     meta.homepage = "https://github.com/disrupted/blink-cmp-conventional-commits/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-copilot = buildVimPlugin {
@@ -1515,7 +1513,7 @@ final: prev: {
       sha256 = "1fqmcr0f292xbr0wjwbq8xs60j0frqq4phi6ad37yl9mzrg80hf4";
     };
     meta.homepage = "https://github.com/giuxtaposition/blink-cmp-copilot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-dictionary = buildVimPlugin {
@@ -1528,7 +1526,7 @@ final: prev: {
       sha256 = "1a84yda36bmq3v5mzhywykiakqcgnzh5a4xp3rc9pjy95idjr4ql";
     };
     meta.homepage = "https://github.com/Kaiser-Yang/blink-cmp-dictionary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-git = buildVimPlugin {
@@ -1541,7 +1539,7 @@ final: prev: {
       sha256 = "0mf84n2zqf8wg2hpjadd33bi2ps0abdgbww8bnsyc6w6lii3jwk9";
     };
     meta.homepage = "https://github.com/Kaiser-Yang/blink-cmp-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-npm-nvim = buildVimPlugin {
@@ -1554,7 +1552,7 @@ final: prev: {
       sha256 = "1i5y590n2g28dh6z6297ry6hg34gr62vyi2jjv68364kzx64qgbj";
     };
     meta.homepage = "https://github.com/alexandre-abrioux/blink-cmp-npm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-cmp-spell = buildVimPlugin {
@@ -1567,7 +1565,7 @@ final: prev: {
       sha256 = "13adgj9qxfmbwzvx348kpkm70h0jli9qv3bqhkwh8p6zkfajm607";
     };
     meta.homepage = "https://github.com/ribru17/blink-cmp-spell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-compat = buildVimPlugin {
@@ -1580,7 +1578,7 @@ final: prev: {
       sha256 = "132w0z919fvj5wmjyfkpr59f6pidg522l4hsf2c03033d3xh5i0h";
     };
     meta.homepage = "https://github.com/Saghen/blink.compat/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-copilot = buildVimPlugin {
@@ -1593,7 +1591,7 @@ final: prev: {
       sha256 = "0czzypx273zi4cmn8bxy9czh709i8a3zyyfdmlkz9j9b1r905zpc";
     };
     meta.homepage = "https://github.com/fang2hou/blink-copilot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-emoji-nvim = buildVimPlugin {
@@ -1606,7 +1604,7 @@ final: prev: {
       sha256 = "1vnx779arsm4n1sjjwhraczp07am0i2n4m13jqv7ij01vd4c9wd4";
     };
     meta.homepage = "https://github.com/moyiz/blink-emoji.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-nerdfont-nvim = buildVimPlugin {
@@ -1619,7 +1617,7 @@ final: prev: {
       sha256 = "17cab659iiv6l67xjwk5kj624nhxmmng7xjbgimr4v86yhmirk4m";
     };
     meta.homepage = "https://github.com/MahanRahmati/blink-nerdfont.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blink-ripgrep-nvim = buildVimPlugin {
@@ -1632,7 +1630,7 @@ final: prev: {
       sha256 = "0058rns7sgkzsfkgdqlx51bi04fn6hxv4ddl8g32mpq27dji13pn";
     };
     meta.homepage = "https://github.com/mikavilpas/blink-ripgrep.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bloat-nvim = buildVimPlugin {
@@ -1645,7 +1643,7 @@ final: prev: {
       sha256 = "0ah5c84172wkc75zx5ll2dp9y3r867lik29aw5mm7i3lj530p0ri";
     };
     meta.homepage = "https://github.com/dundalek/bloat.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   block-nvim = buildVimPlugin {
@@ -1658,7 +1656,7 @@ final: prev: {
       sha256 = "10l9liw5cag4gq281gx8px634b7jamm71kakn36v96vdnyrbia3n";
     };
     meta.homepage = "https://github.com/HampusHauffman/block.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   blueballs-neovim = buildVimPlugin {
@@ -1671,7 +1669,7 @@ final: prev: {
       sha256 = "1k9fh5r64csp1xxr647s3rd67h1ay36y57afkp67xgv7mlk17cv5";
     };
     meta.homepage = "https://github.com/blueballs-theme/blueballs-neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bluloco-nvim = buildVimPlugin {
@@ -1684,7 +1682,7 @@ final: prev: {
       sha256 = "08cmn6dnzx4vq17i3y1npmczc3r2dm20y0wvx3ibr8yxjfw6hp2h";
     };
     meta.homepage = "https://github.com/uloco/bluloco.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   boo-colorscheme-nvim = buildVimPlugin {
@@ -1697,7 +1695,7 @@ final: prev: {
       sha256 = "06rqbracckj62i04zsdv3mylyc8hx6cj4vxwmzqmwaz2734g36q8";
     };
     meta.homepage = "https://github.com/rockerBOO/boo-colorscheme-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   boole-nvim = buildVimPlugin {
@@ -1710,7 +1708,7 @@ final: prev: {
       sha256 = "01244kg58z0s1h78vh9dxawfprr70f2m58ywga72mm2v0hz6ysvn";
     };
     meta.homepage = "https://github.com/nat-418/boole.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bracey-vim = buildVimPlugin {
@@ -1723,7 +1721,7 @@ final: prev: {
       sha256 = "05cz8hx2jk3zp1h65j4pfpvdvcff65wp59j7j796ljnjaggj9kh2";
     };
     meta.homepage = "https://github.com/turbio/bracey.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   brainfuck-vim = buildVimPlugin {
@@ -1736,7 +1734,7 @@ final: prev: {
       sha256 = "130njfiwbgd6gpy52xm5ayadh9q11ahsin1a60y54a99qd8jz6wi";
     };
     meta.homepage = "https://github.com/fruit-in/brainfuck-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufdelete-nvim = buildVimPlugin {
@@ -1749,7 +1747,7 @@ final: prev: {
       sha256 = "0xfzk3zgnxbwnr55n3lglsb8nmhnchpiqz9d152xr6j8d9z0sdcn";
     };
     meta.homepage = "https://github.com/famiu/bufdelete.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufexplorer = buildVimPlugin {
@@ -1762,7 +1760,7 @@ final: prev: {
       sha256 = "0n4sgrfna9xfyjv1b2v6ag94vpm687gh24hzxzz7faj6l6rbqxap";
     };
     meta.homepage = "https://github.com/jlanzarotta/bufexplorer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufferize-vim = buildVimPlugin {
@@ -1775,7 +1773,7 @@ final: prev: {
       sha256 = "1jnk54w1px4dklyjhkng684vd659j0p4vkd1qh8rxaqy7i8a9314";
     };
     meta.homepage = "https://github.com/AndrewRadev/bufferize.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufferline-nvim = buildVimPlugin {
@@ -1788,7 +1786,7 @@ final: prev: {
       sha256 = "0m5363rpbjgvsnbhp9yrivbqj17lmrb5m57lpnq7dgxsmw3hrvk9";
     };
     meta.homepage = "https://github.com/akinsho/bufferline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufjump-nvim = buildVimPlugin {
@@ -1801,7 +1799,7 @@ final: prev: {
       sha256 = "0d8rhgx9vyw58f5ryjwz5ibiwpvjdhrmd27nw4sh7z4bq1n9gxib";
     };
     meta.homepage = "https://github.com/kwkarlwang/bufjump.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bufresize-nvim = buildVimPlugin {
@@ -1814,7 +1812,7 @@ final: prev: {
       sha256 = "1s0zmpwg7z76l3ca1p426mkh33cw94m18q7rfsvnz4h4xwlsafpa";
     };
     meta.homepage = "https://github.com/kwkarlwang/bufresize.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   bullets-vim = buildVimPlugin {
@@ -1827,7 +1825,7 @@ final: prev: {
       sha256 = "067pyk59y9yid58wjwwv6mgghcas8yl86bj121l3z6zdlv6c214m";
     };
     meta.homepage = "https://github.com/bullets-vim/bullets.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   calendar-vim = buildVimPlugin {
@@ -1840,7 +1838,7 @@ final: prev: {
       sha256 = "074yp0rn2gy878ysl8bzs41s0f0yk3mci53zmrkl3smdnphpil5c";
     };
     meta.homepage = "https://github.com/itchyny/calendar.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   camelcasemotion = buildVimPlugin {
@@ -1853,7 +1851,7 @@ final: prev: {
       sha256 = "0yfsb0d9ly8abmc95nqcmr8r8ylif80zdjppib7g1qj1wapdhc69";
     };
     meta.homepage = "https://github.com/bkad/camelcasemotion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   catppuccin-nvim = buildVimPlugin {
@@ -1866,7 +1864,7 @@ final: prev: {
       sha256 = "08qv1had0gi2hzd854j7xyq3s3z9bvf1x40bav05ll52xkksn5vx";
     };
     meta.homepage = "https://github.com/catppuccin/nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   catppuccin-vim = buildVimPlugin {
@@ -1879,7 +1877,7 @@ final: prev: {
       sha256 = "02mqlpw64am42wcikqcckh20i2vr50md4nyv5hiim4wmmdqich7q";
     };
     meta.homepage = "https://github.com/catppuccin/vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   caw-vim = buildVimPlugin {
@@ -1892,7 +1890,7 @@ final: prev: {
       sha256 = "1qwjwsfrg7bvwjzi6ln8l4ni2q3vnr7xyqagb0qs74g02ycbh0xa";
     };
     meta.homepage = "https://github.com/tyru/caw.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ccc-nvim = buildVimPlugin {
@@ -1905,7 +1903,7 @@ final: prev: {
       sha256 = "0a2fc4bw88kf1dpp0k07aj8i9qp0xcnz1fvrxdkhz0fxddb7qdnx";
     };
     meta.homepage = "https://github.com/uga-rosa/ccc.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cellular-automaton-nvim = buildVimPlugin {
@@ -1918,7 +1916,7 @@ final: prev: {
       sha256 = "1yn6wr8fznwykdy031381cyph1yqad4wp0afcxnv1zxqf1fih7ah";
     };
     meta.homepage = "https://github.com/Eandrju/cellular-automaton.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   chadtree = buildVimPlugin {
@@ -1931,7 +1929,7 @@ final: prev: {
       sha256 = "1iggi65sid081z06b15wpszac1lx0chn2wxlsivqp2c3rmfc0pyb";
     };
     meta.homepage = "https://github.com/ms-jpq/chadtree/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   changeColorScheme-vim = buildVimPlugin {
@@ -1944,7 +1942,7 @@ final: prev: {
       sha256 = "0pybhsg9k9252d4ifdc4gsar8lkmfzbvs6xkzqq1m6f35l9wqk09";
     };
     meta.homepage = "https://github.com/vim-scripts/changeColorScheme.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cheatsheet-nvim = buildVimPlugin {
@@ -1957,7 +1955,7 @@ final: prev: {
       sha256 = "0dm94kppbnky8y0gs1pdfs7vcc9hyp8lf6h33dw6ndqfnw3hd2ad";
     };
     meta.homepage = "https://github.com/sudormrfbin/cheatsheet.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   checkmate-nvim = buildVimPlugin {
@@ -1970,7 +1968,7 @@ final: prev: {
       sha256 = "1qc3i32hkp59sha7rxbil1r76krlxgqqxn9wj7qlabc99bh11d3s";
     };
     meta.homepage = "https://github.com/bngarren/checkmate.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ci_dark = buildVimPlugin {
@@ -1983,7 +1981,7 @@ final: prev: {
       sha256 = "1x2242mzv3vflaq6k7xdp5xc52hsykw9693szmnvfb72i0mhrf4c";
     };
     meta.homepage = "https://github.com/yunlingz/ci_dark/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cinnamon-nvim = buildVimPlugin {
@@ -1996,7 +1994,7 @@ final: prev: {
       sha256 = "1vq0cab139gyix2qhmivp86fq6l4fhzn7qafphj0yjac47i11iwi";
     };
     meta.homepage = "https://github.com/declancm/cinnamon.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   circles-nvim = buildVimPlugin {
@@ -2009,7 +2007,7 @@ final: prev: {
       sha256 = "0paw8yf67ir96j8krka38m457254nkxr82pbrb8axwwwysz70nk2";
     };
     meta.homepage = "https://github.com/projekt0n/circles.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   citruszest-nvim = buildVimPlugin {
@@ -2022,7 +2020,7 @@ final: prev: {
       sha256 = "0l789pc4xfryqqg9v6qd1hmx9d5fnm5bspsdd73nmgd6yazf1g42";
     };
     meta.homepage = "https://github.com/zootedb0t/citruszest.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   clang_complete = buildVimPlugin {
@@ -2035,7 +2033,7 @@ final: prev: {
       sha256 = "1h6zxf5kpja3rssj689pj9vj2kajhx1vzg2qd2ir743619r2sxfh";
     };
     meta.homepage = "https://github.com/xavierd/clang_complete/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   claude-code-nvim = buildVimPlugin {
@@ -2048,7 +2046,7 @@ final: prev: {
       sha256 = "0zlf3cdb83kiy2pyrian7rwc1w1ixi87rjvibd0s80ngrn76rrw0";
     };
     meta.homepage = "https://github.com/greggh/claude-code.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   clever-f-vim = buildVimPlugin {
@@ -2061,7 +2059,7 @@ final: prev: {
       sha256 = "1gbyk5089njmgxdc5nfm2sc3nvx3f91s7rw0mbh960dlwlhnsacs";
     };
     meta.homepage = "https://github.com/rhysd/clever-f.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   clighter8 = buildVimPlugin {
@@ -2074,7 +2072,7 @@ final: prev: {
       sha256 = "01r92idbym2p1hiqszrprrl1hrqzz2yhzv8n08m8gycd7m227cwg";
     };
     meta.homepage = "https://github.com/bbchung/clighter8/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   clipboard-image-nvim = buildVimPlugin {
@@ -2087,7 +2085,7 @@ final: prev: {
       sha256 = "0lq13rscsnjglnbynisz4fmsh4xzn12lisgjk9cm61sjg9pw6yl9";
     };
     meta.homepage = "https://github.com/ekickx/clipboard-image.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cloak-nvim = buildVimPlugin {
@@ -2100,7 +2098,7 @@ final: prev: {
       sha256 = "1jfjc65iimzy2phm8w1x6m0f6hrmiy3kc0mq9bm02168xqi0vfjp";
     };
     meta.homepage = "https://github.com/laytan/cloak.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   close-buffers-vim = buildVimPlugin {
@@ -2113,7 +2111,7 @@ final: prev: {
       sha256 = "1jdxh28kirhw1m5gj48skhffn03g49qw92vmr3fahk5dfqh4cyi5";
     };
     meta.homepage = "https://github.com/asheq/close-buffers.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmake-tools-nvim = buildVimPlugin {
@@ -2126,7 +2124,7 @@ final: prev: {
       sha256 = "0lkwrgbcdxss008bczid3bg4jh03brjvmjg5z32nqq4x7nss58vz";
     };
     meta.homepage = "https://github.com/Civitasv/cmake-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmd-parser-nvim = buildVimPlugin {
@@ -2139,7 +2137,7 @@ final: prev: {
       sha256 = "11vi9fwgbcvrb8jnicsnwmggayn0586glfdknlkg43smz2cay3f1";
     };
     meta.homepage = "https://github.com/winston0410/cmd-parser.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmdalias-vim = buildVimPlugin {
@@ -2152,7 +2150,7 @@ final: prev: {
       sha256 = "1y34bmbzdmc1d404m2xiy4n0bz25wfarm7ybql9hsq8jc5pkzjjc";
     };
     meta.homepage = "https://github.com/vim-scripts/cmdalias.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-ai = buildVimPlugin {
@@ -2165,7 +2163,7 @@ final: prev: {
       sha256 = "0fnz2ml0r28jcyy9r0aq718skb6c9c0wsys8w1752j0ijda5w2y7";
     };
     meta.homepage = "https://github.com/tzachar/cmp-ai/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-beancount = buildVimPlugin {
@@ -2178,7 +2176,7 @@ final: prev: {
       sha256 = "12vh55n94klk2jc31mpgb1lap5ki4767lwrgv5zib4vs9y597pn8";
     };
     meta.homepage = "https://github.com/crispgm/cmp-beancount/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-buffer = buildVimPlugin {
@@ -2191,7 +2189,7 @@ final: prev: {
       sha256 = "1cwx8ky74633y0bmqmvq1lqzmphadnhzmhzkddl3hpb7rgn18vkl";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-buffer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-calc = buildVimPlugin {
@@ -2204,7 +2202,7 @@ final: prev: {
       sha256 = "0bbi7b06fcpn9qwap6p44p1r0msnszdl6japn0izgk13853lb3ac";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-calc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-clippy = buildVimPlugin {
@@ -2217,7 +2215,7 @@ final: prev: {
       sha256 = "1l07fvfc37sp531rjzpajf90dprcnylrkj9prr6qrgr1xlxqsvwh";
     };
     meta.homepage = "https://github.com/vappolinario/cmp-clippy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-cmdline = buildVimPlugin {
@@ -2230,7 +2228,7 @@ final: prev: {
       sha256 = "0f47h8rm6s5awcmy640gx3xww580b011z6v6h65iqpgbbm3z0lf3";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-cmdline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-cmdline-history = buildVimPlugin {
@@ -2243,7 +2241,7 @@ final: prev: {
       sha256 = "1v2xyspm7k9jmnzbfg0js15c6sha7ravf4lddsk85icdw16fxji1";
     };
     meta.homepage = "https://github.com/dmitmel/cmp-cmdline-history/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-conjure = buildVimPlugin {
@@ -2256,7 +2254,7 @@ final: prev: {
       sha256 = "1izh45qn90d5ramhnzwvdalg8as9273r4p4flcwaf2klr8drff5r";
     };
     meta.homepage = "https://github.com/PaterJason/cmp-conjure/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-conventionalcommits = buildVimPlugin {
@@ -2269,7 +2267,7 @@ final: prev: {
       sha256 = "0dxdk9ybp0sp9gqcd5a8hjhcnm0fqcm7rskh1dqb1a9w8mgic09w";
     };
     meta.homepage = "https://github.com/davidsierradz/cmp-conventionalcommits/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-copilot = buildVimPlugin {
@@ -2282,7 +2280,7 @@ final: prev: {
       sha256 = "14nza4r8vr58s74f3fpzlmvrv9lcxzvfvizkz71p47f1zgddhgfs";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-copilot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-ctags = buildVimPlugin {
@@ -2295,7 +2293,7 @@ final: prev: {
       sha256 = "1bm2fgl1k2b2sk3dv317ay7ddzbzy2dyiwb8xf1ihpx53853cw8b";
     };
     meta.homepage = "https://github.com/delphinus/cmp-ctags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-dap = buildVimPlugin {
@@ -2308,7 +2306,7 @@ final: prev: {
       sha256 = "0xa3qh1bnr5s5fzxjziq30rjp9sdsb5vpf209qrna9972zhlnby2";
     };
     meta.homepage = "https://github.com/rcarriga/cmp-dap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-dictionary = buildVimPlugin {
@@ -2321,7 +2319,7 @@ final: prev: {
       sha256 = "1qv9dj9kskcw5kw4ly2awbkqpz6hbvkjzg6kzidinvhglnrqaqd6";
     };
     meta.homepage = "https://github.com/uga-rosa/cmp-dictionary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-digraphs = buildVimPlugin {
@@ -2334,7 +2332,7 @@ final: prev: {
       sha256 = "061rf7c4lfghsryldmgk5inmwa1994imp1j0l94qgaig6s6hb0kg";
     };
     meta.homepage = "https://github.com/dmitmel/cmp-digraphs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-emoji = buildVimPlugin {
@@ -2347,7 +2345,7 @@ final: prev: {
       sha256 = "1cmvnpqhawhfha89s5ah8v8cpmjykamizjghp5swv191bjv1xn29";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-emoji/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-fish = buildVimPlugin {
@@ -2360,7 +2358,7 @@ final: prev: {
       sha256 = "0sl5spsbdmcky4ccvymd0hi1mh4gd3c770y08jiaaqx92vkmp9qm";
     };
     meta.homepage = "https://github.com/mtoohey31/cmp-fish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-fuzzy-buffer = buildVimPlugin {
@@ -2373,7 +2371,7 @@ final: prev: {
       sha256 = "0qhzjhcdfwykswd4zxpmgmsiy18vmmdskidakjjwmfhfxp225hpi";
     };
     meta.homepage = "https://github.com/tzachar/cmp-fuzzy-buffer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-fuzzy-path = buildVimPlugin {
@@ -2386,7 +2384,7 @@ final: prev: {
       sha256 = "1v5752sjls2762aflszbrvav2vcs80ihvaya477rkf1kdcda95l4";
     };
     meta.homepage = "https://github.com/tzachar/cmp-fuzzy-path/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-git = buildVimPlugin {
@@ -2399,7 +2397,7 @@ final: prev: {
       sha256 = "0yb72yy88azjlanlmd9hdpbwd8bi25ismlv53c93li0wp0nfmxmr";
     };
     meta.homepage = "https://github.com/petertriho/cmp-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-greek = buildVimPlugin {
@@ -2412,7 +2410,7 @@ final: prev: {
       sha256 = "049xi4ifla86fd5k68vqxwxxq5hg05y24z7yqg671hbw3lzpi0h9";
     };
     meta.homepage = "https://github.com/max397574/cmp-greek/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-latex-symbols = buildVimPlugin {
@@ -2425,7 +2423,7 @@ final: prev: {
       sha256 = "1y00in5npvzfkf9jlfc95v7wpb2pz9zi8qybabvzv3vfbys9a5ki";
     };
     meta.homepage = "https://github.com/kdheepak/cmp-latex-symbols/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-look = buildVimPlugin {
@@ -2438,7 +2436,7 @@ final: prev: {
       sha256 = "05ixyq1wf06wjzxsm9qn7anvqm988q7cb7gvdwc6xwvdyaf5vgrn";
     };
     meta.homepage = "https://github.com/octaltree/cmp-look/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-neosnippet = buildVimPlugin {
@@ -2451,7 +2449,7 @@ final: prev: {
       sha256 = "0xf3nfkgbrfhac8nadkzq22pzi9gsidax4ddavqkqqivlcgllrgf";
     };
     meta.homepage = "https://github.com/notomo/cmp-neosnippet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nixpkgs-maintainers = buildVimPlugin {
@@ -2464,7 +2462,7 @@ final: prev: {
       sha256 = "1kv88syl9aq66jp5gdmsj1vnab414pmzxmmgbgclsplc08hxxbn5";
     };
     meta.homepage = "https://github.com/GaetanLepage/cmp-nixpkgs-maintainers/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-npm = buildVimPlugin {
@@ -2477,7 +2475,7 @@ final: prev: {
       sha256 = "1i1kg888wlz7jzmqcsfqr9vv3qwmdl25lsmalddx075ficxix3ga";
     };
     meta.homepage = "https://github.com/David-Kunz/cmp-npm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-lsp = buildVimPlugin {
@@ -2490,7 +2488,7 @@ final: prev: {
       sha256 = "08q5mf5jrqjjcl1s4h9zj2vd1kcizz0a5a6p65wv1rc5s1fa3a49";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-lsp-document-symbol = buildVimPlugin {
@@ -2503,7 +2501,7 @@ final: prev: {
       sha256 = "0iyy37l0pc09hs610c40q5qzvg344200kvdkn0z8pjc4zk9wc6q4";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp-document-symbol/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-lsp-signature-help = buildVimPlugin {
@@ -2516,7 +2514,7 @@ final: prev: {
       sha256 = "08ipis3agyiaiqn91lq6imsnwyhqpadah7aj1v47v12ycy923cxl";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-lua = buildVimPlugin {
@@ -2529,7 +2527,7 @@ final: prev: {
       sha256 = "18qqcqjyxrmzvpj7m7wyjx1313h66vg8992n6y9lwawmb4mwxrg9";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-nvim-lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-tags = buildVimPlugin {
@@ -2542,7 +2540,7 @@ final: prev: {
       sha256 = "1y663aw4f2wc0fr222743jf066vrp3zpak03fg10yshb2p994mr2";
     };
     meta.homepage = "https://github.com/quangnguyen30192/cmp-nvim-tags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-nvim-ultisnips = buildVimPlugin {
@@ -2555,7 +2553,7 @@ final: prev: {
       sha256 = "0p9jm8p1pcymahlak40bazvi6m32njn286d768pyqr342l0cw2bk";
     };
     meta.homepage = "https://github.com/quangnguyen30192/cmp-nvim-ultisnips/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-omni = buildVimPlugin {
@@ -2568,7 +2566,7 @@ final: prev: {
       sha256 = "17963f45rly6p4jl47v7dsvqc02wj36mq7qx5mkmzqmrpwcrj81z";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-omni/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-pandoc-nvim = buildVimPlugin {
@@ -2581,7 +2579,7 @@ final: prev: {
       sha256 = "0fl903hcy85f21xmgf1dx31lxjwgplkcg4m8i989yhqr6irwwi6f";
     };
     meta.homepage = "https://github.com/aspeddro/cmp-pandoc.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-pandoc-references = buildVimPlugin {
@@ -2594,7 +2592,7 @@ final: prev: {
       sha256 = "0knwxs6bg6r5hw2g668j34xr5yvqmcvcqyjfpnmpf5y5m82vahxw";
     };
     meta.homepage = "https://github.com/jc-doyle/cmp-pandoc-references/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-path = buildVimPlugin {
@@ -2607,7 +2605,7 @@ final: prev: {
       sha256 = "18ixx14ibc7qrv32nj0ylxrx8w4ggg49l5vhcqd35hkp4n56j6mn";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-path/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-rg = buildVimPlugin {
@@ -2620,7 +2618,7 @@ final: prev: {
       sha256 = "0zzlkd8r3kggvkykf0h51d0cb1g86m0yg48ayxbdgjfqhmk34ri1";
     };
     meta.homepage = "https://github.com/lukas-reineke/cmp-rg/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-snippy = buildVimPlugin {
@@ -2633,7 +2631,7 @@ final: prev: {
       sha256 = "1l4wrgkxwmw7vyjxl2y30f3xng7qaacvas4g0whqz2ybcl03rv5j";
     };
     meta.homepage = "https://github.com/dcampos/cmp-snippy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-spell = buildVimPlugin {
@@ -2646,7 +2644,7 @@ final: prev: {
       sha256 = "0qh86jbm1a843lc9p5z4gqarzpwq4vbb8cjlg7jn87ighx5cgzhr";
     };
     meta.homepage = "https://github.com/f3fora/cmp-spell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-tabby = buildVimPlugin {
@@ -2659,7 +2657,7 @@ final: prev: {
       sha256 = "0gi5r870zvxij1d3vb0534fm8llfsnvffdc84cfv4k4xjigh828d";
     };
     meta.homepage = "https://github.com/nzlov/cmp-tabby/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-tabnine = buildVimPlugin {
@@ -2672,7 +2670,7 @@ final: prev: {
       sha256 = "0z0p8n3nmykn05d7p0kcxir5w2wybkjf6dibinaq8zcjxxsgmcc3";
     };
     meta.homepage = "https://github.com/tzachar/cmp-tabnine/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-tmux = buildVimPlugin {
@@ -2685,7 +2683,7 @@ final: prev: {
       sha256 = "1szbvn394fqbqvwmywmzr38kqg44xhnv1fzjxbsakzx0wclc2yf4";
     };
     meta.homepage = "https://github.com/andersevenrud/cmp-tmux/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-treesitter = buildVimPlugin {
@@ -2698,7 +2696,7 @@ final: prev: {
       sha256 = "05as01c2f7i20zkzpqbq9n8ji9bcwd678ixmxnrz9vmz5zsj8q7i";
     };
     meta.homepage = "https://github.com/ray-x/cmp-treesitter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-under-comparator = buildVimPlugin {
@@ -2711,7 +2709,7 @@ final: prev: {
       sha256 = "18kcxl9rg6qrg5wv6bb0hv0sjafspjhy57irf8gyaa66svwmgxmh";
     };
     meta.homepage = "https://github.com/lukas-reineke/cmp-under-comparator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-vim-lsp = buildVimPlugin {
@@ -2724,7 +2722,7 @@ final: prev: {
       sha256 = "1f43qwxr8l2qj4mq1lfk5z3c0bqs8dlgyy1yj1acpnknrgi8572p";
     };
     meta.homepage = "https://github.com/dmitmel/cmp-vim-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-vimtex = buildVimPlugin {
@@ -2737,7 +2735,7 @@ final: prev: {
       sha256 = "pD2dPdpyn5A/uwonDdAxCX138yBeDqbXDdlG/IKjVTU=";
     };
     meta.homepage = "https://github.com/micangl/cmp-vimtex/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-vimwiki-tags = buildVimPlugin {
@@ -2750,7 +2748,7 @@ final: prev: {
       sha256 = "0j75bdcxbzm24mkq3lynm1crv5rqhw966aa7l27y12dlp6rbfvn0";
     };
     meta.homepage = "https://github.com/pontusk/cmp-vimwiki-tags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-vsnip = buildVimPlugin {
@@ -2763,7 +2761,7 @@ final: prev: {
       sha256 = "1hs1gv7q0vfn82pwdwpy46nsi4n5z6yljnzl0rpvwfp8g79hssfs";
     };
     meta.homepage = "https://github.com/hrsh7th/cmp-vsnip/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp-zsh = buildVimPlugin {
@@ -2776,7 +2774,7 @@ final: prev: {
       sha256 = "1rifl2rhrbnq3hnwmn19fky3ibv1qf4pb0hx81pl38dgq6lfm2s6";
     };
     meta.homepage = "https://github.com/tamago324/cmp-zsh/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp_luasnip = buildVimPlugin {
@@ -2789,7 +2787,7 @@ final: prev: {
       sha256 = "037sh4g1747wf07f9sqngiifp89hqww6m2rvizy5ra7jyd04magk";
     };
     meta.homepage = "https://github.com/saadparwaiz1/cmp_luasnip/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cmp_yanky = buildVimPlugin {
@@ -2802,7 +2800,7 @@ final: prev: {
       sha256 = "0404bqwarm86f0d6ryagvyfzi0gf2z5ap4hn1wlhqzr5zv9x55nn";
     };
     meta.homepage = "https://github.com/chrisgrieser/cmp_yanky/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cobalt2-nvim = buildVimPlugin {
@@ -2815,7 +2813,7 @@ final: prev: {
       sha256 = "0zgg8jx6scnf6gaw4z6g7b2lry3pp4hdwyv6shm4w2y9s4bm41cs";
     };
     meta.homepage = "https://github.com/lalitmee/cobalt2.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-clap = buildVimPlugin {
@@ -2828,7 +2826,7 @@ final: prev: {
       sha256 = "03glw1mz1pbn2paj7bhmmwcb7f25p1fqm755mpzrs9phra8bnyis";
     };
     meta.homepage = "https://github.com/vn-ki/coc-clap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-denite = buildVimPlugin {
@@ -2841,7 +2839,7 @@ final: prev: {
       sha256 = "0kpw2gfkpdfsi2kwm6rbzmz3diyinc3lcf91rxm8wyw486sp0s10";
     };
     meta.homepage = "https://github.com/neoclide/coc-denite/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-fzf = buildVimPlugin {
@@ -2854,7 +2852,7 @@ final: prev: {
       sha256 = "1hjp5f1mrsrch83yi0f74a2pxsp7qmmrgp7ibd1v2wqvb4cnwsfp";
     };
     meta.homepage = "https://github.com/antoinemadec/coc-fzf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-lua = buildVimPlugin {
@@ -2867,7 +2865,7 @@ final: prev: {
       sha256 = "1jzwywq5pys40iykfsdfczd34yjy7m4an812w2y44brzydglmxmm";
     };
     meta.homepage = "https://github.com/josa42/coc-lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-neco = buildVimPlugin {
@@ -2880,7 +2878,7 @@ final: prev: {
       sha256 = "1yzh3p1xx6k6rnr9skdvy5lsb7hz4kh2y537ill8a7770y936vn8";
     };
     meta.homepage = "https://github.com/neoclide/coc-neco/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-nvim = buildVimPlugin {
@@ -2893,7 +2891,7 @@ final: prev: {
       sha256 = "0bmpc1dsd796dmg4ig9i1ijl2a4p9jd1dfmwppmfdlpp9awqp7n3";
     };
     meta.homepage = "https://github.com/neoclide/coc.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-svelte = buildVimPlugin {
@@ -2906,7 +2904,7 @@ final: prev: {
       sha256 = "0izq1wmafh278jbc55936d5dvnhrm3n2xmgln9m8ggrmp6751fzh";
     };
     meta.homepage = "https://github.com/coc-extensions/coc-svelte/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coc-tailwindcss = buildVimPlugin {
@@ -2919,7 +2917,7 @@ final: prev: {
       sha256 = "189abl36aj862m5nz8jjdgdfc4s6xbag030hi9m13yd6fbg99f85";
     };
     meta.homepage = "https://github.com/iamcco/coc-tailwindcss/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coconut-vim = buildVimPlugin {
@@ -2932,7 +2930,7 @@ final: prev: {
       sha256 = "03rq3lpplgywvm620jzx085l74180163q8gls4gjrad2fgm9n96n";
     };
     meta.homepage = "https://github.com/manicmaniac/coconut.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   codecompanion-history-nvim = buildVimPlugin {
@@ -2945,7 +2943,7 @@ final: prev: {
       sha256 = "053sk528m4cq8xmawqk2vgrdwp5f9m1zv4vnx3n9r4zglp75ibar";
     };
     meta.homepage = "https://github.com/ravitemer/codecompanion-history.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   codecompanion-nvim = buildVimPlugin {
@@ -2958,7 +2956,7 @@ final: prev: {
       sha256 = "1q2c35b5razr2aav9k8gn3z3z2j7vx4haf12gm4w9dj35gx3d3kq";
     };
     meta.homepage = "https://github.com/olimorris/codecompanion.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   codewindow-nvim = buildVimPlugin {
@@ -2971,7 +2969,7 @@ final: prev: {
       sha256 = "12nsdynpym15fl9qwjzlzhxr2mbpa0l6sp2r1rrc300jr59q0gkr";
     };
     meta.homepage = "https://github.com/gorbit99/codewindow.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   codi-vim = buildVimPlugin {
@@ -2984,7 +2982,7 @@ final: prev: {
       sha256 = "11nab2bvna9q8h87ikjj44mzc4irf80xa2hh3r2lmq65z6p1kpdw";
     };
     meta.homepage = "https://github.com/metakirby5/codi.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   colorbuddy-nvim = buildVimPlugin {
@@ -2997,7 +2995,7 @@ final: prev: {
       sha256 = "184hvgv6cb25hfgkh07yx0mddygcj0qk19slwpj6z5i3xvywxab1";
     };
     meta.homepage = "https://github.com/tjdevries/colorbuddy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   colorful-menu-nvim = buildVimPlugin {
@@ -3010,7 +3008,7 @@ final: prev: {
       sha256 = "0r6q17ldg0npx7d05szimp9ip2jpkx0cbr7rw1kp9vrinw8ppk2x";
     };
     meta.homepage = "https://github.com/xzbdmw/colorful-menu.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   colorful-winsep-nvim = buildVimPlugin {
@@ -3023,7 +3021,7 @@ final: prev: {
       sha256 = "0nm3cr5wzfyanx01nw998cddq1vxww0xn6v8a7db3a2r8fjxp5fx";
     };
     meta.homepage = "https://github.com/nvim-zh/colorful-winsep.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   colorizer = buildVimPlugin {
@@ -3036,7 +3034,7 @@ final: prev: {
       sha256 = "1y7j3l1wcpr721cc1vha1f3vs7raand819zdy4izpdjmzph7vgch";
     };
     meta.homepage = "https://github.com/lilydjwg/colorizer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   com-cloudedmountain-ide-neovim = buildVimPlugin {
@@ -3049,7 +3047,7 @@ final: prev: {
       sha256 = "00sf0d5yd1xmfgzr6vf988qm10cdx2arxvvm4r4gy9pcqqfwgm18";
     };
     meta.homepage = "https://github.com/Domeee/com.cloudedmountain.ide.neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   command-t = buildVimPlugin {
@@ -3062,7 +3060,7 @@ final: prev: {
       sha256 = "1rfkpzlvxh545j0s97hw138rf71a707ih4q2s70li8kqi5fissqi";
     };
     meta.homepage = "https://github.com/wincent/command-t/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   comment-box-nvim = buildVimPlugin {
@@ -3075,7 +3073,7 @@ final: prev: {
       sha256 = "182wfx8q30ingkkrr0xs4r9zf1rf0b8wp2l8pi8hds0cpzc8vfvx";
     };
     meta.homepage = "https://github.com/LudoPinelli/comment-box.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   comment-nvim = buildVimPlugin {
@@ -3088,7 +3086,7 @@ final: prev: {
       sha256 = "0dyz78j0kj3j99y5g8wncl7794g6z2qs05gfg9ddxaa4xswhyjc7";
     };
     meta.homepage = "https://github.com/numtostr/comment.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   committia-vim = buildVimPlugin {
@@ -3101,7 +3099,7 @@ final: prev: {
       sha256 = "05hh42c5c7k4sh4jpy1ccs20vyp3malfab4v3yzgp2m6jrz93nln";
     };
     meta.homepage = "https://github.com/rhysd/committia.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   competitest-nvim = buildVimPlugin {
@@ -3114,7 +3112,7 @@ final: prev: {
       sha256 = "0ldffdlpiamd4lcrwp3mrskb28z5jhwrwfcz3fl6r637pil0vgh0";
     };
     meta.homepage = "https://github.com/xeluxee/competitest.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   compiler-explorer-nvim = buildVimPlugin {
@@ -3127,7 +3125,7 @@ final: prev: {
       sha256 = "14gb8s8j745mzbal8b7r5ziaipi1hwz25f8s66l3634bwkych4r0";
     };
     meta.homepage = "https://github.com/krady21/compiler-explorer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   compiler-nvim = buildVimPlugin {
@@ -3140,7 +3138,7 @@ final: prev: {
       sha256 = "1pbd9n2338bzm665vsv5imayqa2ika2ypa5nlwx230n0zymnl8s6";
     };
     meta.homepage = "https://github.com/Zeioth/compiler.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   completion-buffers = buildVimPlugin {
@@ -3153,7 +3151,7 @@ final: prev: {
       sha256 = "14rxmy3cjrl7lr4yvrk7nkhc5h8rlpj7xjixzgr0vmnbsl885kyh";
     };
     meta.homepage = "https://github.com/steelsojka/completion-buffers/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   completion-nvim = buildVimPlugin {
@@ -3166,7 +3164,7 @@ final: prev: {
       sha256 = "07n5h3jbbjpciwpd6j8dnclvb70a5hwv00605cybcc5l4xvvvsga";
     };
     meta.homepage = "https://github.com/nvim-lua/completion-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   completion-tabnine = buildVimPlugin {
@@ -3179,7 +3177,7 @@ final: prev: {
       sha256 = "1cbdw1lby0v3i8xf1f5lcmafwq9rpsyk3x8hzq3k28nffckfrwnk";
     };
     meta.homepage = "https://github.com/aca/completion-tabnine/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   completion-treesitter = buildVimPlugin {
@@ -3192,7 +3190,7 @@ final: prev: {
       sha256 = "19pgdzzk7zq85b1grfjf0nncvs5vxrd4rj1p90iw2amq4mvqrx3l";
     };
     meta.homepage = "https://github.com/nvim-treesitter/completion-treesitter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   concealedyank-vim = buildVimPlugin {
@@ -3205,7 +3203,7 @@ final: prev: {
       sha256 = "0z7i8dmwfjh6mcrmgrxv3j86ic867617fas9mv4gqsrhhvrrkzsb";
     };
     meta.homepage = "https://github.com/chikatoike/concealedyank.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   conflict-marker-vim = buildVimPlugin {
@@ -3218,7 +3216,7 @@ final: prev: {
       sha256 = "1fg99ry73p1kxms30dfgf1pfmmi31rvrdhh839qrk1d82w8mf9vz";
     };
     meta.homepage = "https://github.com/rhysd/conflict-marker.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   conform-nvim = buildVimPlugin {
@@ -3232,7 +3230,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/stevearc/conform.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   conjure = buildVimPlugin {
@@ -3245,7 +3243,7 @@ final: prev: {
       sha256 = "02xc264np0dl7fpqf32kkrbxyvvfs5jfblp40lajyb273y3fv9ag";
     };
     meta.homepage = "https://github.com/Olical/conjure/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   context-vim = buildVimPlugin {
@@ -3258,7 +3256,7 @@ final: prev: {
       sha256 = "0p4pwh3riyf5h57j05rkazzf5j2xd14mlsp3ifryw35irhm4ivwd";
     };
     meta.homepage = "https://github.com/wellle/context.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   context_filetype-vim = buildVimPlugin {
@@ -3271,7 +3269,7 @@ final: prev: {
       sha256 = "02z341iwj3gih3k3qyi014j5y7jddp4zl2np0671gmw43861bxcd";
     };
     meta.homepage = "https://github.com/Shougo/context_filetype.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   contextfiles-nvim = buildVimPlugin {
@@ -3284,7 +3282,7 @@ final: prev: {
       sha256 = "1n8nkpy53mqr0hn26lqzcxmp8l6r2873yrsqxrj5cpis0f52qc45";
     };
     meta.homepage = "https://github.com/banjo/contextfiles.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   copilot-cmp = buildVimPlugin {
@@ -3297,7 +3295,7 @@ final: prev: {
       sha256 = "0qyakf6wvkdxpzx63gv3p9bwafmxk87vgvcp14pfrkiznvqlpd3s";
     };
     meta.homepage = "https://github.com/zbirenbaum/copilot-cmp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   copilot-lsp = buildVimPlugin {
@@ -3310,7 +3308,7 @@ final: prev: {
       sha256 = "1sas527mxq3fn96rx0p3sr30dvkvqw0j71xkvpijga9kdd4fv9m7";
     };
     meta.homepage = "https://github.com/copilotlsp-nvim/copilot-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   copilot-lua = buildVimPlugin {
@@ -3323,7 +3321,7 @@ final: prev: {
       sha256 = "11w41p4wah0w6f1lyhrr214h761rcic7nfnriszk2b25q4ifj4db";
     };
     meta.homepage = "https://github.com/zbirenbaum/copilot.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   copilot-lualine = buildVimPlugin {
@@ -3336,7 +3334,7 @@ final: prev: {
       sha256 = "06kshzfzn3av27a1wrgaq93l6vz46a8084dd03addi2zw0rphaqn";
     };
     meta.homepage = "https://github.com/AndreM222/copilot-lualine/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   copilot-vim = buildVimPlugin {
@@ -3349,7 +3347,7 @@ final: prev: {
       sha256 = "1ffgrdgxv71iwaynmh1lfy4vairr6ql78gz8iwh1zj3sgpwlcib3";
     };
     meta.homepage = "https://github.com/github/copilot.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coq-artifacts = buildVimPlugin {
@@ -3362,7 +3360,7 @@ final: prev: {
       sha256 = "0h7hz9p564pq116pski6q6jng1qws29brxf12gzmj0iamgb8alzp";
     };
     meta.homepage = "https://github.com/ms-jpq/coq.artifacts/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coq-lsp-nvim = buildVimPlugin {
@@ -3375,7 +3373,7 @@ final: prev: {
       sha256 = "1vlz2kgc82rhycxp4qcz2bwssnzbv16wvr3gsigbl8b7rxjv5ivr";
     };
     meta.homepage = "https://github.com/tomtomjhj/coq-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coq-thirdparty = buildVimPlugin {
@@ -3388,7 +3386,7 @@ final: prev: {
       sha256 = "1ckk38c9szyhdg3kn09hs3xpgnvywwq7fmyzkp2vsjcz87n7180r";
     };
     meta.homepage = "https://github.com/ms-jpq/coq.thirdparty/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coq-vim = buildVimPlugin {
@@ -3401,7 +3399,7 @@ final: prev: {
       sha256 = "0hpfwcm8lvv831b7i27lw72nqxfy7jymq6a6g3xmf0ycb0l3pnky";
     };
     meta.homepage = "https://github.com/jvoorhis/coq.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   coq_nvim = buildVimPlugin {
@@ -3414,7 +3412,7 @@ final: prev: {
       sha256 = "1zbpvd90h2jmim9kbp1g9zvacb7qvfkdpi1m6rnqvmii2g5sqvw1";
     };
     meta.homepage = "https://github.com/ms-jpq/coq_nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cornelis = buildVimPlugin {
@@ -3427,7 +3425,7 @@ final: prev: {
       sha256 = "0fh3pgddhd70w53blnzlmrrls87sq0l320s3h2mkidf4xl6vlr3l";
     };
     meta.homepage = "https://github.com/agda/cornelis/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cosco-vim = buildVimPlugin {
@@ -3440,7 +3438,7 @@ final: prev: {
       sha256 = "01byd7j4gl7zb1bh61p839ka04x2sm0rgwvbb126az7dr6gpclyf";
     };
     meta.homepage = "https://github.com/lfilho/cosco.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cpsm = buildVimPlugin {
@@ -3453,7 +3451,7 @@ final: prev: {
       sha256 = "0gsf2xaa9nw0yhlnhvllz03kbdbfjvazdgb753rblkxrqnbjjs6w";
     };
     meta.homepage = "https://github.com/nixprime/cpsm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   crates-nvim = buildVimPlugin {
@@ -3466,7 +3464,7 @@ final: prev: {
       sha256 = "1zy81gdfis2wmhhsi1qjnmxpfpsviscwdyypnnccqhp7z3lwcf5h";
     };
     meta.homepage = "https://github.com/saecki/crates.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   csapprox = buildVimPlugin {
@@ -3479,7 +3477,7 @@ final: prev: {
       sha256 = "08g4x6nnd6hkgm2daa5ihhz75pcdx3jzzv8rfjls80qajlhx5rf6";
     };
     meta.homepage = "https://github.com/godlygeek/csapprox/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   csharpls-extended-lsp-nvim = buildVimPlugin {
@@ -3492,7 +3490,7 @@ final: prev: {
       sha256 = "1a4igb5ldhw3wnhbf06fn97qgxfgmnqz86ss6ycc9y4g7jaj0bi7";
     };
     meta.homepage = "https://github.com/Decodetalkers/csharpls-extended-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cspell-nvim = buildVimPlugin {
@@ -3505,7 +3503,7 @@ final: prev: {
       sha256 = "0fdnnwkcf4s1nsm6kczbdwbb75vs145r9hkcr4v10pvgnv6jf7w4";
     };
     meta.homepage = "https://github.com/davidmh/cspell.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   csv-vim = buildVimPlugin {
@@ -3518,7 +3516,7 @@ final: prev: {
       sha256 = "1ia1a1q0s7ayvlxfpy03k86a3f14c7vdzavl1b2v98fb86b1vs26";
     };
     meta.homepage = "https://github.com/chrisbra/csv.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   csvview-nvim = buildVimPlugin {
@@ -3531,7 +3529,7 @@ final: prev: {
       sha256 = "0ykbb97ndfars4wk2dy1m2ax7y0vq3v40n4cf9dldcp5m92r7m0q";
     };
     meta.homepage = "https://github.com/hat0uma/csvview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ctags-lsp-nvim = buildVimPlugin {
@@ -3544,7 +3542,7 @@ final: prev: {
       sha256 = "06h388vkp8nv15wbh96pza85994xf979s7kjqrli4s6y5ygw6m02";
     };
     meta.homepage = "https://github.com/netmute/ctags-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ctrlp-cmatcher = buildVimPlugin {
@@ -3557,7 +3555,7 @@ final: prev: {
       sha256 = "1573kd6xf3n8sxlz2j4zadai4rnc7k3s9c54648yfzickwn57d8q";
     };
     meta.homepage = "https://github.com/JazzCore/ctrlp-cmatcher/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ctrlp-py-matcher = buildVimPlugin {
@@ -3570,7 +3568,7 @@ final: prev: {
       sha256 = "133xhi069ndcgj6wcgj5xvpf4m9c34zs9cnk35qpx13h2scxdsa4";
     };
     meta.homepage = "https://github.com/FelikZ/ctrlp-py-matcher/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ctrlp-vim = buildVimPlugin {
@@ -3583,7 +3581,7 @@ final: prev: {
       sha256 = "1xakj4yqra10hws4jh0h3x68x74qs2khk1318ckfq11zgz6d877s";
     };
     meta.homepage = "https://github.com/ctrlpvim/ctrlp.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ctrlp-z = buildVimPlugin {
@@ -3596,7 +3594,7 @@ final: prev: {
       sha256 = "16nsj1g8lqmyizlb5ijwhf4dsmh0xv1kwqq6jxvhaf55vfga82yl";
     };
     meta.homepage = "https://github.com/amiorin/ctrlp-z/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   cyberdream-nvim = buildVimPlugin {
@@ -3609,7 +3607,7 @@ final: prev: {
       sha256 = "13zqdfsq5d12djd7xnhgr3zfadzga7204h0r23h1fna5lsxpwrfk";
     };
     meta.homepage = "https://github.com/scottmckendry/cyberdream.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dailies-nvim = buildVimPlugin {
@@ -3622,7 +3620,7 @@ final: prev: {
       sha256 = "1nwhzifnavxx50d2hcabpx2rrbqh8cg9da4khd0x2yijw179s6lb";
     };
     meta.homepage = "https://github.com/JachymPutta/dailies.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   darcubox-nvim = buildVimPlugin {
@@ -3635,7 +3633,7 @@ final: prev: {
       sha256 = "1xbpisq980hkdybjkd2pxdz8ghhk1a4y33ygpgi311rzx1ijapgs";
     };
     meta.homepage = "https://github.com/Koalhack/darcubox-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   darkearth-nvim = buildVimPlugin {
@@ -3648,7 +3646,7 @@ final: prev: {
       sha256 = "07bb2hzk5yypqi720ip8p5nrpnha2w5h78qa5i8whcmp5w36s8vc";
     };
     meta.homepage = "https://github.com/ptdewey/darkearth-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dart-vim-plugin = buildVimPlugin {
@@ -3661,7 +3659,7 @@ final: prev: {
       sha256 = "1ckrf37p22ap1h9ls48jr4qk4yrvf17ylzkjki4dbpzl4kzrylbi";
     };
     meta.homepage = "https://github.com/dart-lang/dart-vim-plugin/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dash-vim = buildVimPlugin {
@@ -3674,7 +3672,7 @@ final: prev: {
       sha256 = "1pzc6bzmh38ivmcn37hgjaq21zc692smwfb39chh8hj853il183c";
     };
     meta.homepage = "https://github.com/rizzatti/dash.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dashboard-nvim = buildVimPlugin {
@@ -3687,7 +3685,7 @@ final: prev: {
       sha256 = "1lydgxs3j1jbyrn1ybpm43l7wfbix9mlvymb2frg93dlg0gw4zd3";
     };
     meta.homepage = "https://github.com/nvimdev/dashboard-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-filter-matcher_head = buildVimPlugin {
@@ -3700,7 +3698,7 @@ final: prev: {
       sha256 = "1xhdrm07xibdl100rbvpqf3m3r2c2iy0lnnaf06rhng6i7d1kn71";
     };
     meta.homepage = "https://github.com/Shougo/ddc-filter-matcher_head/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-filter-sorter_rank = buildVimPlugin {
@@ -3713,7 +3711,7 @@ final: prev: {
       sha256 = "1v0b2d7n07nlwvjhpwfwgks3nw2j6jznacgbydlbkmw5362iyn88";
     };
     meta.homepage = "https://github.com/Shougo/ddc-filter-sorter_rank/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-fuzzy = buildVimPlugin {
@@ -3726,7 +3724,7 @@ final: prev: {
       sha256 = "0gxg0dbc6bs8js528q7s62xndwhra7gkyxivw0qb6vbm8hzygwnj";
     };
     meta.homepage = "https://github.com/tani/ddc-fuzzy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-source-around = buildVimPlugin {
@@ -3739,7 +3737,7 @@ final: prev: {
       sha256 = "0a18prpd7znn3gj7g16yldq8ya8iyph2lfxx7yhm11m3rjx286m7";
     };
     meta.homepage = "https://github.com/Shougo/ddc-source-around/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-source-file = buildVimPlugin {
@@ -3752,7 +3750,7 @@ final: prev: {
       sha256 = "09zjph2j3xnbwm30zb85bccchrg3ksc7av2mgqdssa8b2q5dvpld";
     };
     meta.homepage = "https://github.com/LumaKernel/ddc-source-file/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-source-lsp = buildVimPlugin {
@@ -3765,7 +3763,7 @@ final: prev: {
       sha256 = "1ddx1h4d2yq18slb9q9fhf9flkymz7y3gqzm72115zkpgi0m33wc";
     };
     meta.homepage = "https://github.com/Shougo/ddc-source-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-ui-native = buildVimPlugin {
@@ -3778,7 +3776,7 @@ final: prev: {
       sha256 = "164vwnlg80cwnbika7iikqaxk08d5c8q56izgc4svbhnrzrrcvxx";
     };
     meta.homepage = "https://github.com/Shougo/ddc-ui-native/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-ui-pum = buildVimPlugin {
@@ -3791,7 +3789,7 @@ final: prev: {
       sha256 = "0vj03zbma1rsr3xm80cfp613xckc3y5y01mbsplr87vqa40r0gz5";
     };
     meta.homepage = "https://github.com/Shougo/ddc-ui-pum/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ddc-vim = buildVimPlugin {
@@ -3804,7 +3802,7 @@ final: prev: {
       sha256 = "19wr7n18ds2x36khjca5a1wlmphm3vfa76lhlcpskfwxwckpnvmz";
     };
     meta.homepage = "https://github.com/Shougo/ddc.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   debugmaster-nvim = buildVimPlugin {
@@ -3817,7 +3815,7 @@ final: prev: {
       sha256 = "1b919qrljmrczi89cn276rx5yib63yhnr3wscbypckda2d62bh5a";
     };
     meta.homepage = "https://github.com/miroshQa/debugmaster.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   debugprint-nvim = buildVimPlugin {
@@ -3830,7 +3828,7 @@ final: prev: {
       sha256 = "0iwzjwkz90vmzkp642h743smlvgmkyf5spxyg56qwwq62hans7ny";
     };
     meta.homepage = "https://github.com/andrewferrier/debugprint.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deepwhite-nvim = buildVimPlugin {
@@ -3843,7 +3841,7 @@ final: prev: {
       sha256 = "0xdb33iga8zw7zwvpzdc3fqbw1zkgc1vy71kri78ja2d2m45agfy";
     };
     meta.homepage = "https://github.com/Verf/deepwhite.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   defx-git = buildVimPlugin {
@@ -3856,7 +3854,7 @@ final: prev: {
       sha256 = "1imgzbyrpivk601z35wdr6lk0r9vwriy37l4a0c3cmmb87pxkzcf";
     };
     meta.homepage = "https://github.com/kristijanhusak/defx-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   defx-icons = buildVimPlugin {
@@ -3869,7 +3867,7 @@ final: prev: {
       sha256 = "0gvrk7spf1fkyvldcrs03d50sck9gbhn52mk0d19awxylf765ygz";
     };
     meta.homepage = "https://github.com/kristijanhusak/defx-icons/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   defx-nvim = buildVimPlugin {
@@ -3882,7 +3880,7 @@ final: prev: {
       sha256 = "1wfrff59kirvbsdyrgavcv17fmwzvi6iszzsxnncgfnshf184mnb";
     };
     meta.homepage = "https://github.com/Shougo/defx.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   delimitMate = buildVimPlugin {
@@ -3895,7 +3893,7 @@ final: prev: {
       sha256 = "0kyxfkb6mkxy3skip6lzgrczwxl5p749n3rrvdr6psvyj3732zmm";
     };
     meta.homepage = "https://github.com/Raimondi/delimitMate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   denite-extra = buildVimPlugin {
@@ -3908,7 +3906,7 @@ final: prev: {
       sha256 = "0bmq9yhylfd3v6bfwvakw3pbsz5kk8wlmmql0yllqayp6410w25a";
     };
     meta.homepage = "https://github.com/neoclide/denite-extra/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   denite-git = buildVimPlugin {
@@ -3921,7 +3919,7 @@ final: prev: {
       sha256 = "0h5a0cmrv1w7zvzxj8gdddhyiqi1qa91qsyl2axhcrdishpc0hnn";
     };
     meta.homepage = "https://github.com/neoclide/denite-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   denite-nvim = buildVimPlugin {
@@ -3934,7 +3932,7 @@ final: prev: {
       sha256 = "0rxpj0xhd188xlpm0h557ljdv3zhwxmwm5mf7fsjxcka3m7iy1n1";
     };
     meta.homepage = "https://github.com/Shougo/denite.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   denops-vim = buildVimPlugin {
@@ -3947,7 +3945,7 @@ final: prev: {
       sha256 = "0pk83hhcnc5318ywxbs2z7xxfq6lw51czj90d50wbxcy3jl8pb3i";
     };
     meta.homepage = "https://github.com/vim-denops/denops.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deol-nvim = buildVimPlugin {
@@ -3960,7 +3958,7 @@ final: prev: {
       sha256 = "092fjbb0aywiffrhf9vdcg9i7s0rs9cf65c2mnj8il5aag180ig0";
     };
     meta.homepage = "https://github.com/Shougo/deol.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-clang = buildVimPlugin {
@@ -3974,7 +3972,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-clang/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-dictionary = buildVimPlugin {
@@ -3987,7 +3985,7 @@ final: prev: {
       sha256 = "05p707b15fzhf0laqy3q0hi34vxpljy86cd5qvpjzx5h0ry32p09";
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-dictionary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-fish = buildVimPlugin {
@@ -4000,7 +3998,7 @@ final: prev: {
       sha256 = "19a6j4qsqljz1pmrn4fx8v1bhlfpqdq821fc2ibjd9h98f6dzi5p";
     };
     meta.homepage = "https://github.com/ponko2/deoplete-fish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-github = buildVimPlugin {
@@ -4013,7 +4011,7 @@ final: prev: {
       sha256 = "11n15nqi417sdcqgb6gkk6z4wrrdd8vdbd7wzqpg41140c73v5gm";
     };
     meta.homepage = "https://github.com/SevereOverfl0w/deoplete-github/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-go = buildVimPlugin {
@@ -4027,7 +4025,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-go/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-greek = buildVimPlugin {
@@ -4040,7 +4038,7 @@ final: prev: {
       sha256 = "086qjbqps05zb2vnyb5q7a67i7al8mxxi86n0h5nsqdd0ws6qqhx";
     };
     meta.homepage = "https://github.com/Inazuma110/deoplete-greek/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-jedi = buildVimPlugin {
@@ -4053,7 +4051,7 @@ final: prev: {
       sha256 = "0d93vzcizi0k07iwhnrhgp9isydpl1lbik2afnbqa6660m619a2n";
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-jedi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-julia = buildVimPlugin {
@@ -4066,7 +4064,7 @@ final: prev: {
       sha256 = "0x5cc9g1g1w9myr6p1ahb9gpn2abpbggjdk2bc903f62pkrapvjf";
     };
     meta.homepage = "https://github.com/JuliaEditorSupport/deoplete-julia/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-khard = buildVimPlugin {
@@ -4079,7 +4077,7 @@ final: prev: {
       sha256 = "126mhnn4dqwm3aw6v4c3s3fnz40lki4cbb8xfrmxfbnbnjw1yx4x";
     };
     meta.homepage = "https://github.com/nicoe/deoplete-khard/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-lsp = buildVimPlugin {
@@ -4092,7 +4090,7 @@ final: prev: {
       sha256 = "061352gf9wv2bvf4bqn3pip0lwdxdv92m8i2y55wjrhfvmmq52xx";
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-notmuch = buildVimPlugin {
@@ -4105,7 +4103,7 @@ final: prev: {
       sha256 = "1l2pfazhpkz26zwbjdafvhgvjj533kncm7dywlandsf3cibm8mv9";
     };
     meta.homepage = "https://github.com/Valodim/deoplete-notmuch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-nvim = buildVimPlugin {
@@ -4118,7 +4116,7 @@ final: prev: {
       sha256 = "1cj5y29gkm2l1c7g7bp50k522dn4yk67sywc19lcyizpwxvqq0a2";
     };
     meta.homepage = "https://github.com/Shougo/deoplete.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-phpactor = buildVimPlugin {
@@ -4131,7 +4129,7 @@ final: prev: {
       sha256 = "1cjdr8py7brxz419vf125jkyfjrx3n5z65ranj23z20ifc945g6b";
     };
     meta.homepage = "https://github.com/kristijanhusak/deoplete-phpactor/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-rust = buildVimPlugin {
@@ -4144,7 +4142,7 @@ final: prev: {
       sha256 = "0wsck83jns40ny3740vwjhc8g5bh6zl71hkirbjxy6n4xgixa54h";
     };
     meta.homepage = "https://github.com/sebastianmarkow/deoplete-rust/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-tabnine = buildVimPlugin {
@@ -4157,7 +4155,7 @@ final: prev: {
       sha256 = "0r3ryvj9j2k7815f4kdmgjk3crw784li72pvbmbhz6wgysdcigvs";
     };
     meta.homepage = "https://github.com/tbodt/deoplete-tabnine/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-ternjs = buildVimPlugin {
@@ -4170,7 +4168,7 @@ final: prev: {
       sha256 = "0684f9ci0y4wihf04z9r8x55cir02al4wp911dz0zg678z8w0yha";
     };
     meta.homepage = "https://github.com/carlitux/deoplete-ternjs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-vim-lsp = buildVimPlugin {
@@ -4183,7 +4181,7 @@ final: prev: {
       sha256 = "1s6fw6vkpl0yiya22g13v4i14w3n1ds2zr8zdlwpkk44bf0225px";
     };
     meta.homepage = "https://github.com/lighttiger2505/deoplete-vim-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   deoplete-zsh = buildVimPlugin {
@@ -4196,7 +4194,7 @@ final: prev: {
       sha256 = "0zsbkl82kny1vmfv06iz576xsclbik0xr7ndzpb0ddhw5nfnicfx";
     };
     meta.homepage = "https://github.com/deoplete-plugins/deoplete-zsh/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   devdocs-nvim = buildVimPlugin {
@@ -4209,7 +4207,7 @@ final: prev: {
       sha256 = "11adw0b3kg0324gvpk9kb0s9crkg1rp1pgqgr1v08sc5lix7wjc5";
     };
     meta.homepage = "https://github.com/maskudo/devdocs.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   devdocs-vim = buildVimPlugin {
@@ -4222,7 +4220,7 @@ final: prev: {
       sha256 = "1nxww2mjabl2g2wchxc4h3a58j64acls24zb5jmfi71b8sai8a9b";
     };
     meta.homepage = "https://github.com/rhysd/devdocs.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dhall-vim = buildVimPlugin {
@@ -4235,7 +4233,7 @@ final: prev: {
       sha256 = "15g06ddnljvi9c9n8sk6n50bb1sh7qq1d1q2xwqh59846n14sh31";
     };
     meta.homepage = "https://github.com/vmchale/dhall-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   diagflow-nvim = buildVimPlugin {
@@ -4248,7 +4246,7 @@ final: prev: {
       sha256 = "10avjhbs6kn10l5yjp9wk16w6rkvaj540zwrbgk2p6w3v38lr6c0";
     };
     meta.homepage = "https://github.com/dgagn/diagflow.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   diaglist-nvim = buildVimPlugin {
@@ -4261,7 +4259,7 @@ final: prev: {
       sha256 = "04virm388yi2lrq8bi6331m7q7lj46wrlh8pd8js6q7ylkvz6qfq";
     };
     meta.homepage = "https://github.com/onsails/diaglist.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   diagnostic-nvim = buildVimPlugin {
@@ -4274,7 +4272,7 @@ final: prev: {
       sha256 = "1dl4b8xhvnb2x9fw220jis7hqmiwfz0969d44l96p41bj68qbbs9";
     };
     meta.homepage = "https://github.com/nvim-lua/diagnostic-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   diagram-nvim = buildVimPlugin {
@@ -4287,7 +4285,7 @@ final: prev: {
       sha256 = "1izimzfvydhhwh71yj9sj309h8nvkxvh8pawmnjdw1fw6avjlfl3";
     };
     meta.homepage = "https://github.com/3rd/diagram.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dial-nvim = buildVimPlugin {
@@ -4300,7 +4298,7 @@ final: prev: {
       sha256 = "1j7a2pf3f3n3kpdpsys3n3bzj8pp1nig1n1s1c4xpx8xyc0wkgf3";
     };
     meta.homepage = "https://github.com/monaqa/dial.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   diffview-nvim = buildVimPlugin {
@@ -4313,7 +4311,7 @@ final: prev: {
       sha256 = "0brabpd02596hg98bml118bx6z2sly98kf1cr2p0xzybiinb4zs9";
     };
     meta.homepage = "https://github.com/sindrets/diffview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dirbuf-nvim = buildVimPlugin {
@@ -4326,7 +4324,7 @@ final: prev: {
       sha256 = "09sbkgidj2fl7aj7kwzg37s5nynslbli9p3vwsh1yqxlag4lv6nz";
     };
     meta.homepage = "https://github.com/elihunter173/dirbuf.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   direnv-vim = buildVimPlugin {
@@ -4339,7 +4337,7 @@ final: prev: {
       sha256 = "1hhwfnaj9ibz17ggxvhzrkinghfy51fqfa0bs482z484jpvjc31g";
     };
     meta.homepage = "https://github.com/direnv/direnv.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   distant-nvim = buildVimPlugin {
@@ -4352,7 +4350,7 @@ final: prev: {
       sha256 = "1vdcndix4rb3c8p4yjhrwach5p708qbi2bmhb7xlx2rlfph2if89";
     };
     meta.homepage = "https://github.com/chipsenkbeil/distant.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   doki-theme-vim = buildVimPlugin {
@@ -4365,7 +4363,7 @@ final: prev: {
       sha256 = "1f38pgfwfa114f768f77fdy733nbn12ch33q7gskji28mwmdp8yy";
     };
     meta.homepage = "https://github.com/doki-theme/doki-theme-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   doom-one-nvim = buildVimPlugin {
@@ -4378,7 +4376,7 @@ final: prev: {
       sha256 = "08j9g22aqxy7pg96k8rqx9g0zhaswiyq3qq1jspalvsjghwgp0rb";
     };
     meta.homepage = "https://github.com/NTBBloodbath/doom-one.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dotnet-nvim = buildVimPlugin {
@@ -4391,7 +4389,7 @@ final: prev: {
       sha256 = "1ysqh2aj3iy2q0cl7i642c03jb7cakqhgbqslcfd7dfvibidd2a2";
     };
     meta.homepage = "https://github.com/MoaidHathot/dotnet.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dracula-nvim = buildVimPlugin {
@@ -4404,7 +4402,7 @@ final: prev: {
       sha256 = "0w8r0h9sk3gspahiv203wxj744cry70sra2gf230x2pfrysp09g0";
     };
     meta.homepage = "https://github.com/Mofiqul/dracula.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dracula-vim = buildVimPlugin {
@@ -4417,7 +4415,7 @@ final: prev: {
       sha256 = "1nzybqmsgjaxad057x3m6fcfi8q5nf4glp05ilhk5abq768mv31s";
     };
     meta.homepage = "https://github.com/dracula/vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dressing-nvim = buildVimPlugin {
@@ -4430,7 +4428,7 @@ final: prev: {
       sha256 = "00wn24vcsww9svbdy6hkfd3q0wb4781lmiig4ygyxs200vzgw73l";
     };
     meta.homepage = "https://github.com/stevearc/dressing.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   dropbar-nvim = buildVimPlugin {
@@ -4443,7 +4441,7 @@ final: prev: {
       sha256 = "17jlzw6qa685w2kqilvlh3i0rmjsp4cscrb7bw71k7cp5s6xxpsn";
     };
     meta.homepage = "https://github.com/Bekaboo/dropbar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   earthly-vim = buildVimPlugin {
@@ -4456,7 +4454,7 @@ final: prev: {
       sha256 = "038g9sjik2jn5la06k7i5xfnzc28faibskn2fikgrxwlx240c8wv";
     };
     meta.homepage = "https://github.com/earthly/earthly.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   easy-dotnet-nvim = buildVimPlugin {
@@ -4469,7 +4467,7 @@ final: prev: {
       sha256 = "0z1f5hcmjf4fbkmsh0h9nw0mxlyqx69b2gh49hndmx5nk2zagsql";
     };
     meta.homepage = "https://github.com/GustavEikaas/easy-dotnet.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   echodoc-vim = buildVimPlugin {
@@ -4482,7 +4480,7 @@ final: prev: {
       sha256 = "0spgv2ml216s4zj5sgwny2l47jamh3gi86f4iy9p81gmfgvfpm1k";
     };
     meta.homepage = "https://github.com/Shougo/echodoc.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ecolog-nvim = buildVimPlugin {
@@ -4495,7 +4493,7 @@ final: prev: {
       sha256 = "17p58axw4l70z1wslmr3yyglagdg87sqz7cifrq4ad0ybilvmicn";
     };
     meta.homepage = "https://github.com/t3ntxcl3s/ecolog.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   edge = buildVimPlugin {
@@ -4508,7 +4506,7 @@ final: prev: {
       sha256 = "1d6k3b6z9a4hrhk9ma3my28iga5y1s6srgv9jxwy6yg2wzi0lf9q";
     };
     meta.homepage = "https://github.com/sainnhe/edge/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   edgedb-vim = buildVimPlugin {
@@ -4521,7 +4519,7 @@ final: prev: {
       sha256 = "1hza70b8acivg7hl7gr3r6cg575yh9r21qp74x2f26g88z8vyzna";
     };
     meta.homepage = "https://github.com/geldata/edgedb-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   edgy-nvim = buildVimPlugin {
@@ -4534,7 +4532,7 @@ final: prev: {
       sha256 = "0f95wadg6dgkaj25vyq7nrzmpbkbmw9q38h3wrbippylw41jbzr8";
     };
     meta.homepage = "https://github.com/folke/edgy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   editorconfig-nvim = buildVimPlugin {
@@ -4547,7 +4545,7 @@ final: prev: {
       sha256 = "1xd2kvmsqa7rpp6zhdga11ww05m36436bi6lamp1a3371hkm2a6h";
     };
     meta.homepage = "https://github.com/gpanders/editorconfig.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   editorconfig-vim = buildVimPlugin {
@@ -4561,7 +4559,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/editorconfig/editorconfig-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   efmls-configs-nvim = buildVimPlugin {
@@ -4574,7 +4572,7 @@ final: prev: {
       sha256 = "038s1blvwd5dwc3x4r4x3gimr9s0q4wnh1clq1m8aihdqwqcdham";
     };
     meta.homepage = "https://github.com/creativenull/efmls-configs-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   elixir-tools-nvim = buildVimPlugin {
@@ -4587,7 +4585,7 @@ final: prev: {
       sha256 = "0kncq60x3kvy4plszq4zygrsy6cyzf43g2xgzqwif88i85ki7zq6";
     };
     meta.homepage = "https://github.com/elixir-tools/elixir-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   elm-vim = buildVimPlugin {
@@ -4600,7 +4598,7 @@ final: prev: {
       sha256 = "1kxkjm6fzmircg5gh7w2bmvjgk8ly5vvq9l31m4p6ql48azg2ilc";
     };
     meta.homepage = "https://github.com/elmcast/elm-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   elvish-vim = buildVimPlugin {
@@ -4613,7 +4611,7 @@ final: prev: {
       sha256 = "1y1adg42iv0xhww2vxmxw3pky5syjc3djc1h2s7mm0bjg2marlha";
     };
     meta.homepage = "https://github.com/dmix/elvish.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   embark-vim = buildVimPlugin {
@@ -4626,7 +4624,7 @@ final: prev: {
       sha256 = "1649606jcpfn5n64xgma0wxz907i0j4hq15l72mcadwf5zi89j7g";
     };
     meta.homepage = "https://github.com/embark-theme/vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   emmet-vim = buildVimPlugin {
@@ -4640,7 +4638,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/mattn/emmet-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   emodeline = buildVimPlugin {
@@ -4653,7 +4651,7 @@ final: prev: {
       sha256 = "0x9y7rzbk6g8cq6jkn37wi95wzhq0abban6w10652v4kdmjrxrr0";
     };
     meta.homepage = "https://github.com/vim-scripts/emodeline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   endec-nvim = buildVimPlugin {
@@ -4666,7 +4664,7 @@ final: prev: {
       sha256 = "088fv7yag7phpwxrmcq82mgy1fin6zcsyb6cz853z22hsn4zb7z5";
     };
     meta.homepage = "https://github.com/ovk/endec.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   errormarker-vim = buildVimPlugin {
@@ -4679,7 +4677,7 @@ final: prev: {
       sha256 = "11fh1468fr0vrgf73hjkvvpslh2s2pmghnkq8nny38zvf6kwzhxa";
     };
     meta.homepage = "https://github.com/vim-scripts/errormarker.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   eva01-vim = buildVimPlugin {
@@ -4692,7 +4690,7 @@ final: prev: {
       sha256 = "0pjggx9pihqwlyqrir41aissd3c086xm40pfhpnsx54s5z2wmsak";
     };
     meta.homepage = "https://github.com/hachy/eva01.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   everforest = buildVimPlugin {
@@ -4705,7 +4703,7 @@ final: prev: {
       sha256 = "0id5lhd7iqhh4qh427d83k3iczvdgs5nfi20i0409ww41wrpj6db";
     };
     meta.homepage = "https://github.com/sainnhe/everforest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   executor-nvim = buildVimPlugin {
@@ -4718,7 +4716,7 @@ final: prev: {
       sha256 = "0gm6a53m8spc9qk0f1lvj9p5znkgv9l2601rhk4cril2d21j2ps6";
     };
     meta.homepage = "https://github.com/google/executor.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   eyeliner-nvim = buildVimPlugin {
@@ -4731,7 +4729,7 @@ final: prev: {
       sha256 = "09rsmbgj0pb2v3r26y6nnkxy6h92kyasyi2nfik7yxs1kfhi7qx8";
     };
     meta.homepage = "https://github.com/jinh0/eyeliner.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   falcon = buildVimPlugin {
@@ -4744,7 +4742,7 @@ final: prev: {
       sha256 = "12jxbl4vicc1z49kzb7x2ki3ywwg0l2zimqvs57w4mkfmnhw2jc9";
     };
     meta.homepage = "https://github.com/fenetikm/falcon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   famous-quotes-nvim = buildVimPlugin {
@@ -4757,7 +4755,7 @@ final: prev: {
       sha256 = "179hgxyhzca4g0xmx02kl7gy7c6058kgww4zv7f1dvl2mf59ln67";
     };
     meta.homepage = "https://github.com/mahyarmirrashed/famous-quotes.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   far-vim = buildVimPlugin {
@@ -4770,7 +4768,7 @@ final: prev: {
       sha256 = "0vr4ybv4mhh01i820q1x1wnjyd6zn8dmchf8qyscjvpskhyzzpdx";
     };
     meta.homepage = "https://github.com/brooth/far.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fastaction-nvim = buildVimPlugin {
@@ -4783,7 +4781,7 @@ final: prev: {
       sha256 = "15jxrif7qkgj7fadvby95y2b2cav90f7dilhjyj6117ky9yxlr8w";
     };
     meta.homepage = "https://github.com/Chaitanyabsprip/fastaction.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   faster-nvim = buildVimPlugin {
@@ -4796,7 +4794,7 @@ final: prev: {
       sha256 = "0dmvq8c1xfml2h1lvnfmy8gr1xl8k6rrk73w198slcgq0fximaxc";
     };
     meta.homepage = "https://github.com/pteroctopus/faster.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fastfold = buildVimPlugin {
@@ -4809,7 +4807,7 @@ final: prev: {
       sha256 = "1m8npkahkr1zm7kx6ig8skxg03h7ds927g7gykbbi2iddi1k2n7l";
     };
     meta.homepage = "https://github.com/konfekt/fastfold/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   faust-nvim = buildVimPlugin {
@@ -4822,7 +4820,7 @@ final: prev: {
       sha256 = "0zf8zfc6baxd93w5iyhldcda5izb5ldrxb0wkcxqkp95azsc871w";
     };
     meta.homepage = "https://github.com/madskjeldgaard/faust-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fcitx-vim = buildVimPlugin {
@@ -4835,7 +4833,7 @@ final: prev: {
       sha256 = "0f5k4v063ik43vzxgbzs38nzbyhjqfs2014v0b6xvdwkmp0cm3x6";
     };
     meta.homepage = "https://github.com/lilydjwg/fcitx.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fennel-vim = buildVimPlugin {
@@ -4848,7 +4846,7 @@ final: prev: {
       sha256 = "1fvcn4q87d594nzxlj1597bmrixzlfqnl7k8f547skvvywx09kii";
     };
     meta.homepage = "https://github.com/bakpakin/fennel.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ferret = buildVimPlugin {
@@ -4861,7 +4859,7 @@ final: prev: {
       sha256 = "0f1bjxn3vlyq8g7fhycdz7k7hxqrwbi89q8kfsfqk63gylahzmgd";
     };
     meta.homepage = "https://github.com/wincent/ferret/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   file-line = buildVimPlugin {
@@ -4874,7 +4872,7 @@ final: prev: {
       sha256 = "1w183g0hj8jvzm6m1jw7m6xz3x1dld8n8342vnycsh6hyzdcg3mg";
     };
     meta.homepage = "https://github.com/bogado/file-line/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fileline-nvim = buildVimPlugin {
@@ -4887,7 +4885,7 @@ final: prev: {
       sha256 = "0l8xi023mplbxbsg2h9lrcm2pfxrrnkmp9dx0dmq2q6c39vcazin";
     };
     meta.homepage = "https://github.com/lewis6991/fileline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   firenvim = buildVimPlugin {
@@ -4900,7 +4898,7 @@ final: prev: {
       sha256 = "1z48j7m0zpagkb9zvswxpx6a2mh959dzkvcaasz1sadxfinss5bs";
     };
     meta.homepage = "https://github.com/glacambre/firenvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   flake8-vim = buildVimPlugin {
@@ -4914,7 +4912,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/andviro/flake8-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   flash-nvim = buildVimPlugin {
@@ -4927,7 +4925,7 @@ final: prev: {
       sha256 = "1xil2lkyr404zni1qmkwrl9hvbwjjk52fmncg59vqmvdybwsnqni";
     };
     meta.homepage = "https://github.com/folke/flash.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   flatten-nvim = buildVimPlugin {
@@ -4940,7 +4938,7 @@ final: prev: {
       sha256 = "0w431qbigjl4rhyjflnbi46m95msq98k524320kr8fka6p6s18rm";
     };
     meta.homepage = "https://github.com/willothy/flatten.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fleet-theme-nvim = buildVimPlugin {
@@ -4953,7 +4951,7 @@ final: prev: {
       sha256 = "0r629yrag2c7g3qqqsq2r4fzsn9h43xplvjaq94bxi722z6j6l5y";
     };
     meta.homepage = "https://github.com/felipeagc/fleet-theme-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   flit-nvim = buildVimPlugin {
@@ -4966,7 +4964,7 @@ final: prev: {
       sha256 = "04v1idfwz5lh7hz456591bl3841jr7kcspf62c7krbhvz5vmmfcl";
     };
     meta.homepage = "https://github.com/ggandor/flit.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   float-preview-nvim = buildVimPlugin {
@@ -4979,7 +4977,7 @@ final: prev: {
       sha256 = "1i2fgki7zkmwmrs1jxb8yp4f1z4jnr1yvmyh1p1y1fv4hyairjfn";
     };
     meta.homepage = "https://github.com/ncm2/float-preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   floating-input-nvim = buildVimPlugin {
@@ -4992,7 +4990,7 @@ final: prev: {
       sha256 = "0qnz08ppnvxq2d07xlj7n35n091h40d8nr7x8kk0s9fn51awzcx5";
     };
     meta.homepage = "https://github.com/liangxianzhe/floating-input.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   floobits-neovim = buildVimPlugin {
@@ -5005,7 +5003,7 @@ final: prev: {
       sha256 = "1zsr1536qf7zqdskpshf366m333w66hfjrfdw3ws5yz2l7kq5bcm";
     };
     meta.homepage = "https://github.com/floobits/floobits-neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   flutter-tools-nvim = buildVimPlugin {
@@ -5018,7 +5016,7 @@ final: prev: {
       sha256 = "16dmlag0sakzsiamms30nwq7vxrr8mwq777cgc9z3liikd81kx7h";
     };
     meta.homepage = "https://github.com/nvim-flutter/flutter-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   focus-nvim = buildVimPlugin {
@@ -5032,7 +5030,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/nvim-focus/focus.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fold-preview-nvim = buildVimPlugin {
@@ -5045,7 +5043,7 @@ final: prev: {
       sha256 = "1hjzwcs7cdyf8sn3hj4vl5zpn3lzd2qvsg44wzvlslnynqcxkg0l";
     };
     meta.homepage = "https://github.com/anuvyklack/fold-preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   follow-md-links-nvim = buildVimPlugin {
@@ -5058,7 +5056,7 @@ final: prev: {
       sha256 = "1shrcvm5yw1sy46qlax2mrg332cay62k62lg3yx970pwpm0yi9wv";
     };
     meta.homepage = "https://github.com/jghauser/follow-md-links.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   formatter-nvim = buildVimPlugin {
@@ -5071,7 +5069,7 @@ final: prev: {
       sha256 = "0knq39zr170mn4p13cpb1myxgm59mnqvjxp7c8bqb7bgjhzkccsb";
     };
     meta.homepage = "https://github.com/mhartington/formatter.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   forms = buildVimPlugin {
@@ -5084,7 +5082,7 @@ final: prev: {
       sha256 = "19kp1i5c6jmnpbsap9giayqbzlv7vh02mp4mjvicqj9n0nfyay74";
     };
     meta.homepage = "https://github.com/megaannum/forms/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fortune-nvim = buildVimPlugin {
@@ -5097,7 +5095,7 @@ final: prev: {
       sha256 = "0kyi2pl5d1h7ycxsdvqdyg5zmjfxj7jpx7lk3bf2d14wvnvcwpb4";
     };
     meta.homepage = "https://github.com/rubiin/fortune.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   friendly-snippets = buildVimPlugin {
@@ -5110,7 +5108,7 @@ final: prev: {
       sha256 = "08q7vs7p4grav819b6hl5y9zla8bbb461b6m1w0mjz6n6rqjjc0p";
     };
     meta.homepage = "https://github.com/rafamadriz/friendly-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fruzzy = buildVimPlugin {
@@ -5123,7 +5121,7 @@ final: prev: {
       sha256 = "1dmxz283ypz1klcmdf4jk699aifr3dywkh9y8v8v8vyflampqwwp";
     };
     meta.homepage = "https://github.com/raghur/fruzzy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fugit2-nvim = buildVimPlugin {
@@ -5136,7 +5134,7 @@ final: prev: {
       sha256 = "0x85ivhs00pami05ss257fjpbqlisz6f7l7nfi7d1920km7v5k3b";
     };
     meta.homepage = "https://github.com/SuperBo/fugit2.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fugitive-gitlab-vim = buildVimPlugin {
@@ -5149,7 +5147,7 @@ final: prev: {
       sha256 = "1yj1zic9p28v2hbd8ixbavampzpd02jraqj9lwnsq0rhn63qyckf";
     };
     meta.homepage = "https://github.com/shumphrey/fugitive-gitlab.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   futhark-vim = buildVimPlugin {
@@ -5162,7 +5160,7 @@ final: prev: {
       sha256 = "17iwpqxkvflcimc066n5ljjbx603hpaqzk271r37qxdvk58jpn0w";
     };
     meta.homepage = "https://github.com/BeneCollyridam/futhark-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fuzzy-nvim = buildVimPlugin {
@@ -5175,7 +5173,7 @@ final: prev: {
       sha256 = "1sw0w4dq0pq6dxs3rg2jkl64lk6hj1fqkndq4i5b35sxda1i27mq";
     };
     meta.homepage = "https://github.com/tzachar/fuzzy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fwatch-nvim = buildVimPlugin {
@@ -5188,7 +5186,7 @@ final: prev: {
       sha256 = "0y8jqmpy85h6g1gjs36qpqvq9abhd7d9bmaiq7bnh7xjvvzg290v";
     };
     meta.homepage = "https://github.com/rktjmp/fwatch.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fzf-checkout-vim = buildVimPlugin {
@@ -5201,7 +5199,7 @@ final: prev: {
       sha256 = "0ssk2kfn16qdcjamwql15s73p1hfl422fvf6fgl1p0ww9fznzkll";
     };
     meta.homepage = "https://github.com/stsewd/fzf-checkout.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fzf-hoogle-vim = buildVimPlugin {
@@ -5214,7 +5212,7 @@ final: prev: {
       sha256 = "0k7cdi00ixqdkqmyqnapn5aplyn0w78iwvm7ifyi9j3smz57hzhf";
     };
     meta.homepage = "https://github.com/monkoose/fzf-hoogle.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fzf-lsp-nvim = buildVimPlugin {
@@ -5227,7 +5225,7 @@ final: prev: {
       sha256 = "1330a2ycs9bz0kkkygbsri5fh9grldzkg5fwahv30vf3nsybsrpc";
     };
     meta.homepage = "https://github.com/gfanto/fzf-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   fzf-vim = buildVimPlugin {
@@ -5240,7 +5238,7 @@ final: prev: {
       sha256 = "0c4ii43dr138k6iv8g16d4wi54gi6lq7ylkk45chj1j2bsaij9bg";
     };
     meta.homepage = "https://github.com/junegunn/fzf.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   galaxyline-nvim = buildVimPlugin {
@@ -5253,7 +5251,7 @@ final: prev: {
       sha256 = "0xgk64d7dyihrjir8mxchwzi65nimm9w23r24m99w6p0f9qr56gk";
     };
     meta.homepage = "https://github.com/NTBBloodbath/galaxyline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gbprod-nord = buildVimPlugin {
@@ -5266,7 +5264,7 @@ final: prev: {
       sha256 = "1qdrss698sllsv0dkpfj6idap5w0dhkjwmy59kgafpdv0xyid2gp";
     };
     meta.homepage = "https://github.com/gbprod/nord.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gen-nvim = buildVimPlugin {
@@ -5279,7 +5277,7 @@ final: prev: {
       sha256 = "0lj265b5r1w1b80axcbix08njdd65zj8q3ziasv46szgvgqsnpdk";
     };
     meta.homepage = "https://github.com/David-Kunz/gen.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gen_tags-vim = buildVimPlugin {
@@ -5292,7 +5290,7 @@ final: prev: {
       sha256 = "04vmnvncddm8xaqzc4qhlhv2d9js59ja550921227cn8dzipadan";
     };
     meta.homepage = "https://github.com/jsfaint/gen_tags.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gentoo-syntax = buildVimPlugin {
@@ -5305,7 +5303,7 @@ final: prev: {
       sha256 = "0sbq4ix5napxsg3i7v23g8p52ra3d3dghfasdnr77xdg9m1ilr2n";
     };
     meta.homepage = "https://github.com/gentoo/gentoo-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gh-nvim = buildVimPlugin {
@@ -5318,7 +5316,7 @@ final: prev: {
       sha256 = "sha256-XI4FVjajin0NM+OaEN+O5vmalPpOB2RII+aOERSzjJA=";
     };
     meta.homepage = "https://github.com/ldelossa/gh.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ghcid = buildVimPlugin {
@@ -5331,7 +5329,7 @@ final: prev: {
       sha256 = "0cp6m8w9pmx3pzw1qyh0gm4c2z8akg1mwh27k9m0jgw1w00yqd87";
     };
     meta.homepage = "https://github.com/ndmitchell/ghcid/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ghcmod-vim = buildVimPlugin {
@@ -5344,7 +5342,7 @@ final: prev: {
       sha256 = "0bzahgzagnf0a9zv86jhdf8nc3p0yfz9izv5n3lc8gc12cp47d0a";
     };
     meta.homepage = "https://github.com/eagletmt/ghcmod-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   git-blame-nvim = buildVimPlugin {
@@ -5357,7 +5355,7 @@ final: prev: {
       sha256 = "16mba50mjc9hp6jvkxr08z5a0lgigra3qc4xp6b8zwxfbfhz3lwr";
     };
     meta.homepage = "https://github.com/f-person/git-blame.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   git-conflict-nvim = buildVimPlugin {
@@ -5370,7 +5368,7 @@ final: prev: {
       sha256 = "05rnwhm1fmg3yb7j2xc9nmw262jc687qxhwabn97qarrk2da0r0a";
     };
     meta.homepage = "https://github.com/akinsho/git-conflict.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   git-messenger-vim = buildVimPlugin {
@@ -5383,7 +5381,7 @@ final: prev: {
       sha256 = "0bwfwvkwgffw0c3c3awmsh5qfz8s5zmvajv2ry0a1sajik9jpzzl";
     };
     meta.homepage = "https://github.com/rhysd/git-messenger.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   git-prompt-string-lualine-nvim = buildVimPlugin {
@@ -5396,7 +5394,7 @@ final: prev: {
       sha256 = "sha256-BM1AEpIcOd5nr4N/ZoxK9NodiUbUuY9hw7n/wRTXzzk=";
     };
     meta.homepage = "https://github.com/mikesmithgh/git-prompt-string-lualine.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   git-worktree-nvim = buildVimPlugin {
@@ -5409,7 +5407,7 @@ final: prev: {
       sha256 = "057qh48vwiczqrwksrfk2lf24gs6cdl6fbsf3ay2yynd0jlqjyky";
     };
     meta.homepage = "https://github.com/polarmutex/git-worktree.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   github-nvim-theme = buildVimPlugin {
@@ -5422,7 +5420,7 @@ final: prev: {
       sha256 = "1w7lz4bgfm8hq1mir4hcr8ik585d4l4w7bjl8yl3g3zklj8223pw";
     };
     meta.homepage = "https://github.com/projekt0n/github-nvim-theme/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gitignore-nvim = buildVimPlugin {
@@ -5435,7 +5433,7 @@ final: prev: {
       sha256 = "1xm430incyprhmxxg1spn35kdmsg7svdl8z9z7gzpfddafhvw2zm";
     };
     meta.homepage = "https://github.com/wintermute-cell/gitignore.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gitignore-vim = buildVimPlugin {
@@ -5448,7 +5446,7 @@ final: prev: {
       sha256 = "0fg36hrkwqb3accqm7ihw1cjs64fxf73zk06gickdkzq0zn4yl8x";
     };
     meta.homepage = "https://github.com/vim-scripts/gitignore.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gitlinker-nvim = buildVimPlugin {
@@ -5461,7 +5459,7 @@ final: prev: {
       sha256 = "000gg83j6fcx6iwp39m3dljfpg0f5vna8pkvwp1b13jf4hjyzcff";
     };
     meta.homepage = "https://github.com/ruifm/gitlinker.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gitv = buildVimPlugin {
@@ -5474,7 +5472,7 @@ final: prev: {
       sha256 = "0hhamv2q3z8cy4n9yzxq0jvs2x8qx4wx6c2qpsk82jsnghmzipd6";
     };
     meta.homepage = "https://github.com/gregsexton/gitv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   glance-nvim = buildVimPlugin {
@@ -5487,7 +5485,7 @@ final: prev: {
       sha256 = "049d0p9jhf970mcf3zv90ql4vvndxrvgy3famygigk4s2zk25vnw";
     };
     meta.homepage = "https://github.com/DNLHC/glance.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   glow-nvim = buildVimPlugin {
@@ -5500,7 +5498,7 @@ final: prev: {
       sha256 = "11rlis4riy1w4clnkiza8x6fs8xjwsrsgfzlz2k8z041ancmrw0a";
     };
     meta.homepage = "https://github.com/ellisonleao/glow.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   go-nvim = buildVimPlugin {
@@ -5513,7 +5511,7 @@ final: prev: {
       sha256 = "1fw9bpn2x48rk6262p4zk520170lh6m7qgs81d5m4hd0nbasz1gg";
     };
     meta.homepage = "https://github.com/ray-x/go.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   godbolt-nvim = buildVimPlugin {
@@ -5526,7 +5524,7 @@ final: prev: {
       sha256 = "07w2xzxaddh15dlm9zyc9axidppipc8zx72knn5nv3f3p6sg5a4r";
     };
     meta.homepage = "https://github.com/p00f/godbolt.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   golden-ratio = buildVimPlugin {
@@ -5539,7 +5537,7 @@ final: prev: {
       sha256 = "0fqczgbfqxbchmp4kqs6n0d1pvhgkx7aw3y9fb9fmy31dqc9fi6b";
     };
     meta.homepage = "https://github.com/roman/golden-ratio/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gotests-vim = buildVimPlugin {
@@ -5552,7 +5550,7 @@ final: prev: {
       sha256 = "0fpr23nxcm5ip6qhwqfymkwqy32h2jb7spkhhkmvjj9mzx8w52jm";
     };
     meta.homepage = "https://github.com/buoto/gotests-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   goto-preview = buildVimPlugin {
@@ -5565,7 +5563,7 @@ final: prev: {
       sha256 = "1rq2mfvcn0np0n0hmdf6mxmpsj94hvh3i3hnkmk4f20v36ak9xjq";
     };
     meta.homepage = "https://github.com/rmagatti/goto-preview/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   goyo-vim = buildVimPlugin {
@@ -5578,7 +5576,7 @@ final: prev: {
       sha256 = "1xiqviqbwhiaclax0zlazsahda5f54waqmd9zgjwxwklivj7cqxv";
     };
     meta.homepage = "https://github.com/junegunn/goyo.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   grammar-guard-nvim = buildVimPlugin {
@@ -5591,7 +5589,7 @@ final: prev: {
       sha256 = "040m6gpvgqh1h9cysbbrmklbf5vw13ij4ffvxbnzs33xfbl8q058";
     };
     meta.homepage = "https://github.com/brymer-meneses/grammar-guard.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   graphviz-vim = buildVimPlugin {
@@ -5604,7 +5602,7 @@ final: prev: {
       sha256 = "15yrrf6lywjf1hnm6kb4hsbn11w7y66qczvgq4gyi0i3j56a5xck";
     };
     meta.homepage = "https://github.com/liuchengxu/graphviz.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   grapple-nvim = buildVimPlugin {
@@ -5617,7 +5615,7 @@ final: prev: {
       sha256 = "0x9pd0rvckfi1485h1qy5h53p10krhhkvhgdm29wv2fhrpkv8ghg";
     };
     meta.homepage = "https://github.com/cbochs/grapple.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruber-darker-nvim = buildVimPlugin {
@@ -5630,7 +5628,7 @@ final: prev: {
       sha256 = "1sxnprl27svdf4wp38abbywjbipr15mzmx53hg5w0jz1vj0kdjvl";
     };
     meta.homepage = "https://github.com/blazkowolf/gruber-darker.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox = buildVimPlugin {
@@ -5643,7 +5641,7 @@ final: prev: {
       sha256 = "0gj1bikyz13jgd5rqmkdgxmva2mnmd672hhn4jd1dr7nw1dghrby";
     };
     meta.homepage = "https://github.com/morhetz/gruvbox/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-baby = buildVimPlugin {
@@ -5656,7 +5654,7 @@ final: prev: {
       sha256 = "17wnc3zpxki0fy8fbkinj0jvf6hnkz139x6yrg7hmj97aa8rh4sj";
     };
     meta.homepage = "https://github.com/luisiacc/gruvbox-baby/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-community = buildVimPlugin {
@@ -5669,7 +5667,7 @@ final: prev: {
       sha256 = "06g30fnyiv6b86izm1lqngjp8cy939bq0rfg32yrinbq6p4lvpcr";
     };
     meta.homepage = "https://github.com/gruvbox-community/gruvbox/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-flat-nvim = buildVimPlugin {
@@ -5682,7 +5680,7 @@ final: prev: {
       sha256 = "0dl4z29ys8wbp1wmyyl8xqfkzy10lnjhvfanxnbhfpyx58nd9fhx";
     };
     meta.homepage = "https://github.com/eddyekofo94/gruvbox-flat.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-material = buildVimPlugin {
@@ -5695,7 +5693,7 @@ final: prev: {
       sha256 = "0ld6rpmz2r4kjz7i0fhjyr7shq8fgcaw04542g0al4k92izb8xmg";
     };
     meta.homepage = "https://github.com/sainnhe/gruvbox-material/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-material-nvim = buildVimPlugin {
@@ -5708,7 +5706,7 @@ final: prev: {
       sha256 = "021g6c0gannaj25h0lmavx50qv8yagliqcwd8p6rgnnqng4xb3ls";
     };
     meta.homepage = "https://github.com/f4z3r/gruvbox-material.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gruvbox-nvim = buildVimPlugin {
@@ -5721,7 +5719,7 @@ final: prev: {
       sha256 = "1qavm9qkx3rwl3dsvs4xzw0ffhf4lmgzdmc51l00rjrb50ia3cpm";
     };
     meta.homepage = "https://github.com/ellisonleao/gruvbox.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   guard-collection = buildVimPlugin {
@@ -5734,7 +5732,7 @@ final: prev: {
       sha256 = "0c89kl6by26s8i57x4cqrj2g274jy4kcqpj2g5s2576prxiyqkwl";
     };
     meta.homepage = "https://github.com/nvimdev/guard-collection/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   guard-nvim = buildVimPlugin {
@@ -5747,7 +5745,7 @@ final: prev: {
       sha256 = "0kz9mn0x3rsazz8dfgjj8iciqy35g53r8kvkc57sv62b8ykak077";
     };
     meta.homepage = "https://github.com/nvimdev/guard.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   guess-indent-nvim = buildVimPlugin {
@@ -5760,7 +5758,7 @@ final: prev: {
       sha256 = "0fq6f4k0j10m3ic5a6px4l4q4jqs7xxbh0j72kaqi1np4p069w9k";
     };
     meta.homepage = "https://github.com/nmac427/guess-indent.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gundo-vim = buildVimPlugin {
@@ -5773,7 +5771,7 @@ final: prev: {
       sha256 = "1smavxh0nmx4la75b1fjh8cs2x8p8ahxls034254vnm05wiwvghh";
     };
     meta.homepage = "https://github.com/sjl/gundo.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gv-vim = buildVimPlugin {
@@ -5786,7 +5784,7 @@ final: prev: {
       sha256 = "06wr0krg23xy9j36chypxcnd88cvds85jk0ajbl3pvg53x0qigad";
     };
     meta.homepage = "https://github.com/junegunn/gv.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   gx-nvim = buildVimPlugin {
@@ -5800,7 +5798,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/chrishrb/gx.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hardhat-nvim = buildVimPlugin {
@@ -5813,7 +5811,7 @@ final: prev: {
       sha256 = "01qsyfz7r5pxcnnjblifarz7s6xmn4q3n8094izn8mxksbg7rv0b";
     };
     meta.homepage = "https://github.com/TheSnakeWitcher/hardhat.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hardtime-nvim = buildVimPlugin {
@@ -5826,7 +5824,7 @@ final: prev: {
       sha256 = "126wxmqc4y8pff7z4rj58pnnzlz61nr9z9vbffk889yphgjjkdfm";
     };
     meta.homepage = "https://github.com/m4xshen/hardtime.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   harpoon = buildVimPlugin {
@@ -5839,7 +5837,7 @@ final: prev: {
       sha256 = "0q7lcww2y1x8s6r5g6wbdlnv3dvc8pj1g7wq6yxvl5fsi40wvhwj";
     };
     meta.homepage = "https://github.com/ThePrimeagen/harpoon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   harpoon2 = buildVimPlugin {
@@ -5852,7 +5850,7 @@ final: prev: {
       sha256 = "1dcpdlna2lff9dlsh6i4v16qmn5r9279wdvn0ry3xg4abqwnzc9g";
     };
     meta.homepage = "https://github.com/ThePrimeagen/harpoon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   haskell-scope-highlighting-nvim = buildVimPlugin {
@@ -5865,7 +5863,7 @@ final: prev: {
       sha256 = "013fa6vdjgw5jl7h9yvi68v8awg2zznrxz5gfgl6i1cv9ry2l900";
     };
     meta.homepage = "https://github.com/kiyoon/haskell-scope-highlighting.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   haskell-snippets-nvim = buildVimPlugin {
@@ -5878,7 +5876,7 @@ final: prev: {
       sha256 = "1z49df35vzccq5jnckbmrsfpr8g6cjiq020jbwprzj8hrb769bqh";
     };
     meta.homepage = "https://github.com/mrcjkb/haskell-snippets.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   haskell-vim = buildVimPlugin {
@@ -5891,7 +5889,7 @@ final: prev: {
       sha256 = "1q3hf0vr5gpmymmvm208sl0r8nb69m7f3bdrkqrp7fwc2v1ylnz0";
     };
     meta.homepage = "https://github.com/neovimhaskell/haskell-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   haskell-with-unicode-vim = buildVimPlugin {
@@ -5904,7 +5902,7 @@ final: prev: {
       sha256 = "11a3a981x4av2lvknq1xbxbr8ybgazxfikr45qdm1mby6533kx69";
     };
     meta.homepage = "https://github.com/wenzel-hoffman/haskell-with-unicode.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hasksyn = buildVimPlugin {
@@ -5917,7 +5915,7 @@ final: prev: {
       sha256 = "09998lnfcshqis5m062wlag6y476imq9jday9gp4ayjjl1cp3cwx";
     };
     meta.homepage = "https://github.com/travitch/hasksyn/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   headlines-nvim = buildVimPlugin {
@@ -5930,7 +5928,7 @@ final: prev: {
       sha256 = "1y3hffh9kb5x35a0bjggjjgyhna14nvx5rzghj1hx0yrf9b1hrid";
     };
     meta.homepage = "https://github.com/lukas-reineke/headlines.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   heirline-nvim = buildVimPlugin {
@@ -5943,7 +5941,7 @@ final: prev: {
       sha256 = "1xhfakhncwcknwlhw8nrbc1rw4i9s909n6lx5rmy68yn89wilylh";
     };
     meta.homepage = "https://github.com/rebelot/heirline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   helpview-nvim = buildVimPlugin {
@@ -5957,7 +5955,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/OXY2DEV/helpview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hex-nvim = buildVimPlugin {
@@ -5970,7 +5968,7 @@ final: prev: {
       sha256 = "1wh8dnx9a8pjq53v7crhxczv0bzvv2gdj2ra7n2w66cql75piw4v";
     };
     meta.homepage = "https://github.com/RaafatTurki/hex.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hiPairs = buildVimPlugin {
@@ -5983,7 +5981,7 @@ final: prev: {
       sha256 = "1hcskq9zdkf8vlxwd2n403m4rq7495v2fj35hjf6461hqx9v9dnw";
     };
     meta.homepage = "https://github.com/Yggdroot/hiPairs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   highlight-undo-nvim = buildVimPlugin {
@@ -5996,7 +5994,7 @@ final: prev: {
       sha256 = "0gvd45mpkhd7hj8hvm20z036vr178hzzwhknj0l5bfnnnwl8xnjc";
     };
     meta.homepage = "https://github.com/tzachar/highlight-undo.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   himalaya-vim = buildVimPlugin {
@@ -6009,7 +6007,7 @@ final: prev: {
       sha256 = "0gnj6wk2r18h92ibfr5hg3b2gbm1kkvvcad9a39g50yb42h2lvk1";
     };
     meta.homepage = "https://github.com/pimalaya/himalaya-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hlchunk-nvim = buildVimPlugin {
@@ -6022,7 +6020,7 @@ final: prev: {
       sha256 = "1av6w1y8z9af6aa2mzygdkmz9djv9zx2nn5mij6z38bg8g0qqxfd";
     };
     meta.homepage = "https://github.com/shellRaining/hlchunk.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hlint-refactor-vim = buildVimPlugin {
@@ -6035,7 +6033,7 @@ final: prev: {
       sha256 = "0z8d31arfy9aidg1dwj5msnnx799d9r7njkgh51z695w6ayxn6p8";
     };
     meta.homepage = "https://github.com/mpickering/hlint-refactor-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hmts-nvim = buildVimPlugin {
@@ -6048,7 +6046,7 @@ final: prev: {
       sha256 = "12x44kcc4bz386cbn7sl7m3lszp0bwlqjdd9ai2yj1kijwh715sp";
     };
     meta.homepage = "https://github.com/calops/hmts.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hologram-nvim = buildVimPlugin {
@@ -6061,7 +6059,7 @@ final: prev: {
       sha256 = "0khmi21mvmif7qd8cak9x1z4h68d34rwhfvcvnqxxh0mjzvskppv";
     };
     meta.homepage = "https://github.com/edluffy/hologram.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hoon-vim = buildVimPlugin {
@@ -6074,7 +6072,7 @@ final: prev: {
       sha256 = "1bm7h1hvc2y3nq6si1l4ac2m7aribz4ixpdxnnll8zvd0dz23a0i";
     };
     meta.homepage = "https://github.com/urbit/hoon.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hop-nvim = buildVimPlugin {
@@ -6087,7 +6085,7 @@ final: prev: {
       sha256 = "0xzxl1mkdp1zyg9m97h2mhvb98fwwd21h5ki7jlhkb8cl294lx40";
     };
     meta.homepage = "https://github.com/smoka7/hop.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hotpot-nvim = buildVimPlugin {
@@ -6100,7 +6098,7 @@ final: prev: {
       sha256 = "09rw3d5hjni0ma87llww02hcxmfrm2bciskpn89va9jgwjpwzkbc";
     };
     meta.homepage = "https://github.com/rktjmp/hotpot.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   houdini-nvim = buildVimPlugin {
@@ -6113,7 +6111,7 @@ final: prev: {
       sha256 = "05np3p0lnsra6c6vx3h81vrba3nhwxrqb5l3qkdbx5bl58dds9bn";
     };
     meta.homepage = "https://github.com/TheBlob42/houdini.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hover-nvim = buildVimPlugin {
@@ -6126,7 +6124,7 @@ final: prev: {
       sha256 = "1hfz8v58pyvk1m0gxp9wgcmxcszskims5m6q7rmyj1n0rhqz31fj";
     };
     meta.homepage = "https://github.com/lewis6991/hover.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   html5-vim = buildVimPlugin {
@@ -6139,7 +6137,7 @@ final: prev: {
       sha256 = "0j012i6nklc4p92cbh3l1zqs850plxh847b52lskb533rhygx9kf";
     };
     meta.homepage = "https://github.com/othree/html5.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hunk-nvim = buildVimPlugin {
@@ -6152,7 +6150,7 @@ final: prev: {
       sha256 = "0apmix9kya5f3912j6is1ckq9jz757ig79mispv33qvcw5rw3z86";
     };
     meta.homepage = "https://github.com/julienvincent/hunk.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hurl-nvim = buildVimPlugin {
@@ -6165,7 +6163,7 @@ final: prev: {
       sha256 = "0gb7cnfbhyw5nvqfqf1n2k5fp94ix04prqix4j7961yq3pp4yx6j";
     };
     meta.homepage = "https://github.com/jellydn/hurl.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   hydra-nvim = buildVimPlugin {
@@ -6178,7 +6176,7 @@ final: prev: {
       sha256 = "0a4kll7225ilyi87pygkd82627clnlm0zr2n4nsjmc6m1bijb34m";
     };
     meta.homepage = "https://github.com/nvimtools/hydra.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   i3config-vim = buildVimPlugin {
@@ -6191,7 +6189,7 @@ final: prev: {
       sha256 = "0i9w094sqlq85kfwajhaangfwdp81fbwk42n72wfxypjjhw8shv8";
     };
     meta.homepage = "https://github.com/mboughaba/i3config.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   iceberg-vim = buildVimPlugin {
@@ -6204,7 +6202,7 @@ final: prev: {
       sha256 = "04cw04yirvbfq1l7wbavpnx46830qsp3cgx6rqidhhj794pn3xvc";
     };
     meta.homepage = "https://github.com/cocopon/iceberg.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   idris-vim = buildVimPlugin {
@@ -6217,7 +6215,7 @@ final: prev: {
       sha256 = "1zibar2vxcmai0k37ricwnimfdv1adxfbbvz871rc4l6h3q85if1";
     };
     meta.homepage = "https://github.com/idris-hackers/idris-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   idris2-nvim = buildVimPlugin {
@@ -6230,7 +6228,7 @@ final: prev: {
       sha256 = "009kl8kdwg56bydi0zmdkh9cggnyy4nakh2vd0l0l86fgji0rm5r";
     };
     meta.homepage = "https://github.com/idris-community/idris2-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   idris2-vim = buildVimPlugin {
@@ -6243,7 +6241,7 @@ final: prev: {
       sha256 = "1hgil24c7zv7m1glzzm3an60pimd3l9dbma26xdxly7bv210ssmz";
     };
     meta.homepage = "https://github.com/edwinb/idris2-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   img-clip-nvim = buildVimPlugin {
@@ -6256,7 +6254,7 @@ final: prev: {
       sha256 = "0ani8z5pkvqmmalzcgyj27rfhqs76ivmpq79xn8rsdyy5a5fy979";
     };
     meta.homepage = "https://github.com/HakonHarnes/img-clip.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   impatient-nvim = buildVimPlugin {
@@ -6269,7 +6267,7 @@ final: prev: {
       sha256 = "1shz64lisgsk0ij0agxslss6wpb8vzw152cyw5hfk4xq099shfd8";
     };
     meta.homepage = "https://github.com/lewis6991/impatient.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   improved-search-nvim = buildVimPlugin {
@@ -6282,7 +6280,7 @@ final: prev: {
       sha256 = "sha256-k35uJZfarjRskS9MgCjSQ3gfl57d+r8vWvw0Uq16Z30=";
     };
     meta.homepage = "https://github.com/backdround/improved-search.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   inc-rename-nvim = buildVimPlugin {
@@ -6295,7 +6293,7 @@ final: prev: {
       sha256 = "0a9zm9yqi8pvs89mks0aixv1kmgia76ighxd9yqxfm62p9j6npxl";
     };
     meta.homepage = "https://github.com/smjonas/inc-rename.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   incline-nvim = buildVimPlugin {
@@ -6308,7 +6306,7 @@ final: prev: {
       sha256 = "19x35z2sj3hl3icrxzbs67xhxgq9d237vhgzqrz8ppdc74p8wgaz";
     };
     meta.homepage = "https://github.com/b0o/incline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   increment-activator = buildVimPlugin {
@@ -6321,7 +6319,7 @@ final: prev: {
       sha256 = "17kcq5hbgyxa8yk1qzqabd8k0255vdcn4kcijikl4kgv4cba6xwa";
     };
     meta.homepage = "https://github.com/nishigori/increment-activator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   incsearch-easymotion-vim = buildVimPlugin {
@@ -6334,7 +6332,7 @@ final: prev: {
       sha256 = "1bscr3xs1zggm9qzk1mb88fkc8qj6yrnkxmqwwyr75sf1xzy74mk";
     };
     meta.homepage = "https://github.com/haya14busa/incsearch-easymotion.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   incsearch-vim = buildVimPlugin {
@@ -6347,7 +6345,7 @@ final: prev: {
       sha256 = "0vlj9hdy4d1p06mnxjpdz4mjqvbsgy5rp4l8k87wbs2b5x8008yj";
     };
     meta.homepage = "https://github.com/haya14busa/incsearch.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   indent-blankline-nvim = buildVimPlugin {
@@ -6360,7 +6358,7 @@ final: prev: {
       sha256 = "1rmpi866bg7hyw620hbgmmmksxgll9ilbpigd1kk9b0lpvwxbbyj";
     };
     meta.homepage = "https://github.com/lukas-reineke/indent-blankline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   indent-o-matic = buildVimPlugin {
@@ -6373,7 +6371,7 @@ final: prev: {
       sha256 = "1s2hxq3jlx6mdvq5d6zdzrp6p8fc1vvkg2px95d0qw2ryqw4rixi";
     };
     meta.homepage = "https://github.com/Darazaki/indent-o-matic/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   indent-tools-nvim = buildVimPlugin {
@@ -6386,7 +6384,7 @@ final: prev: {
       sha256 = "0vw3j9plwi6ari5p5hmds257xw0szlj2ddf75mjfj6nfzd93ni0p";
     };
     meta.homepage = "https://github.com/arsham/indent-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   indentLine = buildVimPlugin {
@@ -6399,7 +6397,7 @@ final: prev: {
       sha256 = "0g5rvgn6919wbg4xpiwzkq6c1nhsg2lmxmqg3fj75fk71glcggcp";
     };
     meta.homepage = "https://github.com/Yggdroot/indentLine/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   inkpot = buildVimPlugin {
@@ -6412,7 +6410,7 @@ final: prev: {
       sha256 = "1s9hizzjfd6szj5961hmmi767b3mk92q7jq94dff8c6zlza829gy";
     };
     meta.homepage = "https://github.com/ciaranm/inkpot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   instant-nvim = buildVimPlugin {
@@ -6425,7 +6423,7 @@ final: prev: {
       sha256 = "07lr7k34ldw278g191fcj4fc9zfnz6qf4dgdqm1cciyd5y75cwhd";
     };
     meta.homepage = "https://github.com/jbyuki/instant.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   intellitab-nvim = buildVimPlugin {
@@ -6438,7 +6436,7 @@ final: prev: {
       sha256 = "1cpzw7yli1ykli4ix1y2ym7qpi6m45qji4cmxns2whc5r84h84sa";
     };
     meta.homepage = "https://github.com/pta2002/intellitab.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   intero-neovim = buildVimPlugin {
@@ -6451,7 +6449,7 @@ final: prev: {
       sha256 = "1na61qb31z80973jfi7ziw2zv6y73rm0bpfb6iqxjppmg4iqgl3i";
     };
     meta.homepage = "https://github.com/parsonsmatt/intero-neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   investigate-vim = buildVimPlugin {
@@ -6464,7 +6462,7 @@ final: prev: {
       sha256 = "1qlip4xxpnqkqk50f33zws5xn0d33iryxihaq5yq46i2xyzjcnk7";
     };
     meta.homepage = "https://github.com/keith/investigate.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   iosvkem = buildVimPlugin {
@@ -6477,7 +6475,7 @@ final: prev: {
       sha256 = "1as5xfcc6bgm2sp23qzxjpasbnx9jsdgzc97hhmybhq4115kfmxv";
     };
     meta.homepage = "https://github.com/neutaaaaan/iosvkem/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ir_black = buildVimPlugin {
@@ -6490,7 +6488,7 @@ final: prev: {
       sha256 = "13g9nqlqsjsxnrq37y33ldh41dw9q9dw07spfi7qwrskiwa0ayk7";
     };
     meta.homepage = "https://github.com/twerth/ir_black/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   iron-nvim = buildVimPlugin {
@@ -6503,7 +6501,7 @@ final: prev: {
       sha256 = "1nk1aij16akmq7f3s5malzywik0jw6ppd9p2mp7d0p1n8nq9ifnl";
     };
     meta.homepage = "https://github.com/Vigemus/iron.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   is-vim = buildVimPlugin {
@@ -6516,7 +6514,7 @@ final: prev: {
       sha256 = "03rvhvqx59c6lp9xh6zry3ynppngqn53swl3v9gmc3ynh3l1jdzq";
     };
     meta.homepage = "https://github.com/haya14busa/is.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jdaddy-vim = buildVimPlugin {
@@ -6529,7 +6527,7 @@ final: prev: {
       sha256 = "1ch12bffrs3gqqzdj9vh0i2azhc5d06i5vwds4rqcx797lqh7pzb";
     };
     meta.homepage = "https://github.com/vim-scripts/jdaddy.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jedi-vim = buildVimPlugin {
@@ -6543,7 +6541,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/davidhalter/jedi-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jellybeans-nvim = buildVimPlugin {
@@ -6556,7 +6554,7 @@ final: prev: {
       sha256 = "0y4vyqcz6dgdq3kdi9nq15my4mm6zj4rm0kxgmrjj5wfnhlnz5xx";
     };
     meta.homepage = "https://github.com/metalelf0/jellybeans-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jellybeans-vim = buildVimPlugin {
@@ -6569,7 +6567,7 @@ final: prev: {
       sha256 = "1zy3gjz5bna3l5a7k2ddqa0w7x8wbndy2vc9gmqfdsxdbhrgpvaz";
     };
     meta.homepage = "https://github.com/nanotech/jellybeans.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jinja-vim = buildVimPlugin {
@@ -6583,7 +6581,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/HiPhish/jinja.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jq-vim = buildVimPlugin {
@@ -6596,7 +6594,7 @@ final: prev: {
       sha256 = "0zj8wz2bfr6xxw2mvzzl3w303mfwwhfk8bfridj73gqdaq75j5v7";
     };
     meta.homepage = "https://github.com/vito-c/jq.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jsonc-vim = buildVimPlugin {
@@ -6609,7 +6607,7 @@ final: prev: {
       sha256 = "1z2zi951xgssq1d343b0rhcj1xn4qwvv1b2wzvy8jg7ak9pgrl1a";
     };
     meta.homepage = "https://github.com/neoclide/jsonc.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jsonfly-nvim = buildVimPlugin {
@@ -6623,7 +6621,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/Myzel394/jsonfly.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jule-nvim = buildVimPlugin {
@@ -6636,7 +6634,7 @@ final: prev: {
       sha256 = "0gajpcg7g3885696aljq7zky8cd0bfsjr7n2fad3d2yf0i999fif";
     };
     meta.homepage = "https://github.com/julelang/jule.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   julia-vim = buildVimPlugin {
@@ -6649,7 +6647,7 @@ final: prev: {
       sha256 = "0j80pvv3k21zqx0bik257xmmj4a7cjx3d1fp787k1gksr7zcxpby";
     };
     meta.homepage = "https://github.com/JuliaEditorSupport/julia-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   jupytext-nvim = buildVimPlugin {
@@ -6662,7 +6660,7 @@ final: prev: {
       sha256 = "1lz8ajcy9gm02bwgq5rr5ppx4g1irzvgx074mqmbv7xawij5241c";
     };
     meta.homepage = "https://github.com/GCBallesteros/jupytext.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kanagawa-nvim = buildVimPlugin {
@@ -6675,7 +6673,7 @@ final: prev: {
       sha256 = "02108bvbrd1a4n6kip7qk1xfzrg789cyd8xz4pi58400zr6j37lb";
     };
     meta.homepage = "https://github.com/rebelot/kanagawa.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kanagawa-paper-nvim = buildVimPlugin {
@@ -6688,7 +6686,7 @@ final: prev: {
       sha256 = "1px6m7s1dk3k2fn282w8mvv622j458iz88jyhvjp10bcpspck5ib";
     };
     meta.homepage = "https://github.com/thesimonho/kanagawa-paper.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kanso-nvim = buildVimPlugin {
@@ -6701,7 +6699,7 @@ final: prev: {
       sha256 = "17faa8mk90ch2s774lrvf17r4461askvv64b0ls95b9ilps9vl4j";
     };
     meta.homepage = "https://github.com/webhooked/kanso.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kdl-vim = buildVimPlugin {
@@ -6714,7 +6712,7 @@ final: prev: {
       sha256 = "0kh0wgwpjbp2iaznk2s8xy0l2l26zvlb9s3adwxapb13a4mwma11";
     };
     meta.homepage = "https://github.com/imsnif/kdl.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   keymap-layer-nvim = buildVimPlugin {
@@ -6727,7 +6725,7 @@ final: prev: {
       sha256 = "1bmvsr14b3hmbyzjx8wh4wyfqwh4vyy9zyvl04sz5kafw63j7wi1";
     };
     meta.homepage = "https://github.com/anuvyklack/keymap-layer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kitty-scrollback-nvim = buildVimPlugin {
@@ -6740,7 +6738,7 @@ final: prev: {
       sha256 = "1zfkc9irn9lhr13d8xqgf0bwpycmc8z3fybrvn8fgbfx47609hla";
     };
     meta.homepage = "https://github.com/mikesmithgh/kitty-scrollback.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kmonad-vim = buildVimPlugin {
@@ -6753,7 +6751,7 @@ final: prev: {
       sha256 = "13p3i0b8azkmhafyv8hc4hav1pmgqg52xzvk2a3gp3ppqqx9bwpc";
     };
     meta.homepage = "https://github.com/kmonad/kmonad-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   knap = buildVimPlugin {
@@ -6766,7 +6764,7 @@ final: prev: {
       sha256 = "10vp6m9b0q6ivsb50z284pfzvf1i5dnb3v5hxbysh3hwn7bg4zq5";
     };
     meta.homepage = "https://github.com/frabjous/knap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kommentary = buildVimPlugin {
@@ -6779,7 +6777,7 @@ final: prev: {
       sha256 = "0zdcfj19i3b069575rqwmaiar9860x7hk6fgm95fb2d3inivg5ln";
     };
     meta.homepage = "https://github.com/b3nj5m1n/kommentary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kotlin-vim = buildVimPlugin {
@@ -6792,7 +6790,7 @@ final: prev: {
       sha256 = "1fpfbjrh7k0g9bwji3r5snpjfwg0as937xy7k6hdsvrifkd2fb0j";
     };
     meta.homepage = "https://github.com/udalov/kotlin-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   kulala-nvim = buildVimPlugin {
@@ -6806,7 +6804,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/mistweaverco/kulala.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lackluster-nvim = buildVimPlugin {
@@ -6819,7 +6817,7 @@ final: prev: {
       sha256 = "03rasbjila8jdx5g9n6ds2l5600chqv5v3r785zrlvh3g28dg1f4";
     };
     meta.homepage = "https://github.com/slugbyte/lackluster.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lalrpop-vim = buildVimPlugin {
@@ -6832,7 +6830,7 @@ final: prev: {
       sha256 = "1xx6hlgrdbnk3d6rsn4jzbaqwankvnnmj4iilakaazddfaa0l6rr";
     };
     meta.homepage = "https://github.com/qnighy/lalrpop.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   langmapper-nvim = buildVimPlugin {
@@ -6845,7 +6843,7 @@ final: prev: {
       sha256 = "0dxayy62vs9nkfd7vv17qd9fdhhsak7xq9fhzap0wq3klbskp1w0";
     };
     meta.homepage = "https://github.com/Wansmer/langmapper.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   last256 = buildVimPlugin {
@@ -6858,7 +6856,7 @@ final: prev: {
       sha256 = "07z01jqzyfqalahdp0kswyvc3mb8dldc3qv5wpbdm79hh6zyd3f1";
     };
     meta.homepage = "https://github.com/sk1418/last256/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   latex-box = buildVimPlugin {
@@ -6871,7 +6869,7 @@ final: prev: {
       sha256 = "1z4mdy47cpwcdhvy8mr72vhlybxn1y59yd3ixf6ids1bzpkrd7zl";
     };
     meta.homepage = "https://github.com/latex-box-team/latex-box/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lazy-lsp-nvim = buildVimPlugin {
@@ -6884,7 +6882,7 @@ final: prev: {
       sha256 = "1xpppmy7dlhm5csv609gdv26izvvpsgyh2nkxbxsd6pmdacbhimf";
     };
     meta.homepage = "https://github.com/dundalek/lazy-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lazy-nvim = buildVimPlugin {
@@ -6897,7 +6895,7 @@ final: prev: {
       sha256 = "0nz6w4h863g3vq90q3bgcmrk1yz88gjqmmbacwx3hxyks13hy3wx";
     };
     meta.homepage = "https://github.com/folke/lazy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lazydev-nvim = buildVimPlugin {
@@ -6910,7 +6908,7 @@ final: prev: {
       sha256 = "1v4m18j270rfbjrcn99fkbiwhlmmr9bm9lcbagp533kx4n57731f";
     };
     meta.homepage = "https://github.com/folke/lazydev.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lazygit-nvim = buildVimPlugin {
@@ -6923,7 +6921,7 @@ final: prev: {
       sha256 = "05vv6np9vva8hz5hq3la4myvhvv7fmm1ijy3p15z1n1c5n37yz9h";
     };
     meta.homepage = "https://github.com/kdheepak/lazygit.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lean-nvim = buildVimPlugin {
@@ -6936,7 +6934,7 @@ final: prev: {
       sha256 = "0kvhlgxval4wp8lv3vjp6ad9f0h031qha3n5nczdi7g19l6x26jf";
     };
     meta.homepage = "https://github.com/Julian/lean.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lean-vim = buildVimPlugin {
@@ -6949,7 +6947,7 @@ final: prev: {
       sha256 = "1zxmsp87zq8c6wirihf946mbnl6fdgyvbfzcxi6qc5mwwn55aby9";
     };
     meta.homepage = "https://github.com/leanprover/lean.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   leap-ast-nvim = buildVimPlugin {
@@ -6962,7 +6960,7 @@ final: prev: {
       sha256 = "1jb8rydp4h3b71vfn9hq4ni1fs6ds0kk92vlal4jl9gzs38cx5p9";
     };
     meta.homepage = "https://github.com/ggandor/leap-ast.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   leap-nvim = buildVimPlugin {
@@ -6975,7 +6973,7 @@ final: prev: {
       sha256 = "1l4hpjwfa2d2vkfrymjsv1zn0clx6vxnr0xzlfdi2jg41ms1niwq";
     };
     meta.homepage = "https://github.com/ggandor/leap.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   leetcode-nvim = buildVimPlugin {
@@ -6988,7 +6986,7 @@ final: prev: {
       sha256 = "1d3lb7625b2qdzqm74mzrac66rxqc0qgjd3mb37l4v8wqyiyv6pp";
     };
     meta.homepage = "https://github.com/kawre/leetcode.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   legendary-nvim = buildVimPlugin {
@@ -7001,7 +6999,7 @@ final: prev: {
       sha256 = "01g87ywljszq8glzszz05hhqp83g7hfrq7fcas258fmkmdaryhp1";
     };
     meta.homepage = "https://github.com/mrjones2014/legendary.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lens-vim = buildVimPlugin {
@@ -7014,7 +7012,7 @@ final: prev: {
       sha256 = "1h25isrw96qhfacf37h3anscnrisdxsz6vv7826hpb17r0ygb5ms";
     };
     meta.homepage = "https://github.com/camspiers/lens.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lessspace-vim = buildVimPlugin {
@@ -7027,7 +7025,7 @@ final: prev: {
       sha256 = "1ggm78rrql668xl3ggybmi14i31a4jxcvq9bncm79mx1by2n694n";
     };
     meta.homepage = "https://github.com/thirtythreeforty/lessspace.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lexima-vim = buildVimPlugin {
@@ -7040,7 +7038,7 @@ final: prev: {
       sha256 = "1xbsfjx2nvxjjwzva0fgm4mfqz3f83ncgbvpw5daskpnw9zc5l9n";
     };
     meta.homepage = "https://github.com/cohama/lexima.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lf-nvim = buildVimPlugin {
@@ -7053,7 +7051,7 @@ final: prev: {
       sha256 = "0hwd90ahqm3hh78qhz7id064bkx8xrinfn133d74ws30gf0y9kfa";
     };
     meta.homepage = "https://github.com/lmburns/lf.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lf-vim = buildVimPlugin {
@@ -7066,7 +7064,7 @@ final: prev: {
       sha256 = "0z96g59pdz6pv174pfynyr71j082mbg6bkm4kpnsswa3qgg5ykxp";
     };
     meta.homepage = "https://github.com/ptzz/lf.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lh-brackets = buildVimPlugin {
@@ -7079,7 +7077,7 @@ final: prev: {
       sha256 = "0sbxvmdrhjc85srl98gzn1gwllnjy8q50w5ryj49c94s9l2pj54l";
     };
     meta.homepage = "https://github.com/LucHermitte/lh-brackets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lh-vim-lib = buildVimPlugin {
@@ -7092,7 +7090,7 @@ final: prev: {
       sha256 = "05gjj510ly25kkv62mr6xyspmh8dvfqwlvf6pwc6j2073jd05wk7";
     };
     meta.homepage = "https://github.com/LucHermitte/lh-vim-lib/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightline-ale = buildVimPlugin {
@@ -7105,7 +7103,7 @@ final: prev: {
       sha256 = "0bi3pghcjdpbrp235bhkgqrsyfr1m6v40krxfb2qbc1yy9plbs9q";
     };
     meta.homepage = "https://github.com/maximbaz/lightline-ale/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightline-bufferline = buildVimPlugin {
@@ -7118,7 +7116,7 @@ final: prev: {
       sha256 = "1nfy7jjadlfpdaqskf4wfk2sm9h255dl8zmwq5nrbnfx2drfj8fn";
     };
     meta.homepage = "https://github.com/mengelbrecht/lightline-bufferline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightline-gruvbox-vim = buildVimPlugin {
@@ -7131,7 +7129,7 @@ final: prev: {
       sha256 = "05bqa5c804zsj64pidccf7crsi1c51kkc9favxkdh4ppdm39ma4v";
     };
     meta.homepage = "https://github.com/shinchu/lightline-gruvbox.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightline-lsp = buildVimPlugin {
@@ -7144,7 +7142,7 @@ final: prev: {
       sha256 = "0arqc2az6cy4qg3fmr6dyzmd2a985cv2df0h7cckp5aar11f0pmi";
     };
     meta.homepage = "https://github.com/spywhere/lightline-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightline-vim = buildVimPlugin {
@@ -7157,7 +7155,7 @@ final: prev: {
       sha256 = "07d61nd3k4gmfxa8j17imlwakgj1iw485w880bjfdms347jaklvc";
     };
     meta.homepage = "https://github.com/itchyny/lightline.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lightspeed-nvim = buildVimPlugin {
@@ -7170,7 +7168,7 @@ final: prev: {
       sha256 = "1006047i88h1sad2xdi6h26vy13wnh4mnsdqqp4gpvh2sg6avnd5";
     };
     meta.homepage = "https://github.com/ggandor/lightspeed.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   limelight-vim = buildVimPlugin {
@@ -7183,7 +7181,7 @@ final: prev: {
       sha256 = "0qdll4x01912ldlv9ixh5z4zn8fddybc9mv53c8dx2advkglb6cg";
     };
     meta.homepage = "https://github.com/junegunn/limelight.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   linediff-vim = buildVimPlugin {
@@ -7196,7 +7194,7 @@ final: prev: {
       sha256 = "01dshpxm1svfhw9l447mz224qbvlbvywd7ai4wxwyjzgkhp36937";
     };
     meta.homepage = "https://github.com/AndrewRadev/linediff.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lingua-franca-vim = buildVimPlugin {
@@ -7209,7 +7207,7 @@ final: prev: {
       sha256 = "1cwn2pq26m7hdwvwhajb3cbz4pva423cryp2k6sgrp8ynmlqrz85";
     };
     meta.homepage = "https://github.com/lf-lang/lingua-franca.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lir-nvim = buildVimPlugin {
@@ -7222,7 +7220,7 @@ final: prev: {
       sha256 = "0c5b4lrk8d37nmybavbv0pmr10162kpgpzslxjag3q30ljxnspwp";
     };
     meta.homepage = "https://github.com/tamago324/lir.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lispdocs-nvim = buildVimPlugin {
@@ -7235,7 +7233,7 @@ final: prev: {
       sha256 = "0nxaa5ilwrp73gvgyicvsr7cv99347avlchjcsiwsr8jlg18y56m";
     };
     meta.homepage = "https://github.com/kkharji/lispdocs.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   litee-calltree-nvim = buildVimPlugin {
@@ -7248,7 +7246,7 @@ final: prev: {
       sha256 = "04cfp2gjlcrfdhahbdixcy7swc1bqlndxbs779fr0h7ac67gzljg";
     };
     meta.homepage = "https://github.com/ldelossa/litee-calltree.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   litee-filetree-nvim = buildVimPlugin {
@@ -7261,7 +7259,7 @@ final: prev: {
       sha256 = "0jf3d5d4w4mpar92z4s99hrd7dk1q12faxd4va3z5hs74v7hmg2d";
     };
     meta.homepage = "https://github.com/ldelossa/litee-filetree.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   litee-nvim = buildVimPlugin {
@@ -7274,7 +7272,7 @@ final: prev: {
       sha256 = "13ajn5xply01k4wpsl0v37igama8pgy0kz1lgvv7jn8b1m04yh9x";
     };
     meta.homepage = "https://github.com/ldelossa/litee.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   litee-symboltree-nvim = buildVimPlugin {
@@ -7287,7 +7285,7 @@ final: prev: {
       sha256 = "0mjjap47cz01qar0q87ssh45l4dkzizxcm986gksrmvhwwrii3ap";
     };
     meta.homepage = "https://github.com/ldelossa/litee-symboltree.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   live-command-nvim = buildVimPlugin {
@@ -7300,7 +7298,7 @@ final: prev: {
       sha256 = "0iyvzjf35c13rggjm8hiwc1x65ch2kv3yv7p8dhk2jf6bml16x8f";
     };
     meta.homepage = "https://github.com/smjonas/live-command.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   live-share-nvim = buildVimPlugin {
@@ -7313,7 +7311,7 @@ final: prev: {
       sha256 = "11aiy4ki2gd67zfvf8bn3c0vghwmk8i87ylx3h1v0kvdjbq3bxww";
     };
     meta.homepage = "https://github.com/azratul/live-share.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   llama-vim = buildVimPlugin {
@@ -7326,7 +7324,7 @@ final: prev: {
       sha256 = "0sglwbkd21xr5b5c3ca48bh23hlnf50wa0lfm3ap5i4siqiy3yj0";
     };
     meta.homepage = "https://github.com/ggml-org/llama.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   llm-nvim = buildVimPlugin {
@@ -7339,7 +7337,7 @@ final: prev: {
       sha256 = "09bx8v2hp190q9b40v7rnr6296as24v96nhdwb59y4q4qa971cpi";
     };
     meta.homepage = "https://github.com/huggingface/llm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-colors-nvim = buildVimPlugin {
@@ -7352,7 +7350,7 @@ final: prev: {
       sha256 = "0vmsgp0ld2y5r339q0pqm4qi1vlhbbp6c4mbgbip2li3mb6b1w3w";
     };
     meta.homepage = "https://github.com/folke/lsp-colors.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-format-nvim = buildVimPlugin {
@@ -7365,7 +7363,7 @@ final: prev: {
       sha256 = "028ngjd8x309k70p5wgw0r0ps5zjsphqzrq07pc5ln1knslv0wis";
     };
     meta.homepage = "https://github.com/lukas-reineke/lsp-format.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-inlayhints-nvim = buildVimPlugin {
@@ -7378,7 +7376,7 @@ final: prev: {
       sha256 = "1x1ri9gcavl2swwhi0vn5cknh2db4p5r274r70zfwc2yxhks586k";
     };
     meta.homepage = "https://github.com/lvimuser/lsp-inlayhints.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-overloads-nvim = buildVimPlugin {
@@ -7391,7 +7389,7 @@ final: prev: {
       sha256 = "0mrd87qpw3c71z90hbifdf3wxqh8xwgqs5d7zlvifrjfvir1494d";
     };
     meta.homepage = "https://github.com/Issafalcon/lsp-overloads.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-rooter-nvim = buildVimPlugin {
@@ -7404,7 +7402,7 @@ final: prev: {
       sha256 = "1zmjc9a72swndgzzqyax1r6ifi858dq445ygmpxbpav8kp0q7n4g";
     };
     meta.homepage = "https://github.com/ahmedkhalf/lsp-rooter.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-status-nvim = buildVimPlugin {
@@ -7417,7 +7415,7 @@ final: prev: {
       sha256 = "1cncfsn5vgq8ni2irw1pvq1cpgwryz9xmgciwmgwcbzjf1bdwql2";
     };
     meta.homepage = "https://github.com/nvim-lua/lsp-status.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp-zero-nvim = buildVimPlugin {
@@ -7430,7 +7428,7 @@ final: prev: {
       sha256 = "0cby2k4r5ds145lnv7jhzn3cvnl2x1dav3y9bzzf88paq57a6s2x";
     };
     meta.homepage = "https://github.com/VonHeikemen/lsp-zero.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp_extensions-nvim = buildVimPlugin {
@@ -7443,7 +7441,7 @@ final: prev: {
       sha256 = "0y1xmam0zqphyk3dk2r09mvjhl6c5zihzakkw3wxg3qwf9h80kfk";
     };
     meta.homepage = "https://github.com/nvim-lua/lsp_extensions.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lsp_signature-nvim = buildVimPlugin {
@@ -7456,7 +7454,7 @@ final: prev: {
       sha256 = "0kw5631k18xjzxv0rlbcxv9vy9ai125bda32cr05yijcl86rf7ld";
     };
     meta.homepage = "https://github.com/ray-x/lsp_signature.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lspcontainers-nvim = buildVimPlugin {
@@ -7469,7 +7467,7 @@ final: prev: {
       sha256 = "0vfs6p1nfby3k2azcbnvlw6z46a26l5a3j2civ1c5ncg7zsnqwfd";
     };
     meta.homepage = "https://github.com/lspcontainers/lspcontainers.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lspecho-nvim = buildVimPlugin {
@@ -7482,7 +7480,7 @@ final: prev: {
       sha256 = "1wafx76h90yfgwb2pnmi64j5hacvxlkqpvigg36za5qhw4xb3x1b";
     };
     meta.homepage = "https://github.com/deathbeam/lspecho.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lspkind-nvim = buildVimPlugin {
@@ -7495,7 +7493,7 @@ final: prev: {
       sha256 = "1wdavqmwadby9lyw415jw79kxynxv4fxg2v376y0rkxf258clarq";
     };
     meta.homepage = "https://github.com/onsails/lspkind.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lspsaga-nvim = buildVimPlugin {
@@ -7508,7 +7506,7 @@ final: prev: {
       sha256 = "0wkcgy2x119sd9xn6k9vs83pvrj0m4ali1ac72pah8pnlzfvkw7i";
     };
     meta.homepage = "https://github.com/nvimdev/lspsaga.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ltex_extra-nvim = buildVimPlugin {
@@ -7521,7 +7519,7 @@ final: prev: {
       sha256 = "00l7snw6ji9zx1x99ck4js4n4mfi2spyzssfkwmf56q7w8h2v63b";
     };
     meta.homepage = "https://github.com/barreiroleo/ltex_extra.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lua-async = buildVimPlugin {
@@ -7534,7 +7532,7 @@ final: prev: {
       sha256 = "0jpw9008xghqmzjnikwq417p497lj7v9hkjbrach5p652yca07s8";
     };
     meta.homepage = "https://github.com/nvim-java/lua-async/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lualine-lsp-progress = buildVimPlugin {
@@ -7547,7 +7545,7 @@ final: prev: {
       sha256 = "1gz5nxpfky0xr53l0z67viknzbxdr3k7pp5bp1n3rka3s74jswzh";
     };
     meta.homepage = "https://github.com/arkav/lualine-lsp-progress/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   luasnip-latex-snippets-nvim = buildVimPlugin {
@@ -7560,7 +7558,7 @@ final: prev: {
       sha256 = "0798n89yx7s6pzq09drmaa7h2ba215w74m0wyqgkw6mnl851m7y3";
     };
     meta.homepage = "https://github.com/evesdropper/luasnip-latex-snippets.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   luatab-nvim = buildVimPlugin {
@@ -7573,7 +7571,7 @@ final: prev: {
       sha256 = "15kaxhi5r58ibm6y8vwxvrgnz6mz345rfgxal5bxbrsr64gl85ca";
     };
     meta.homepage = "https://github.com/alvarosevilla95/luatab.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   luau-lsp-nvim = buildVimPlugin {
@@ -7586,7 +7584,7 @@ final: prev: {
       sha256 = "15w51wnyvq8n0xar9az5bxdma0mjcq8lfk4bllarxapzpk84qiz8";
     };
     meta.homepage = "https://github.com/lopi-py/luau-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   lushtags = buildVimPlugin {
@@ -7599,7 +7597,7 @@ final: prev: {
       sha256 = "03saw1w5pybj6yywzi8hinciv18znimm7k0h34k4pqp5gi1jfaql";
     };
     meta.homepage = "https://github.com/mkasa/lushtags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   luvit-meta = buildVimPlugin {
@@ -7612,7 +7610,7 @@ final: prev: {
       sha256 = "0f8i4a62mraxlpr88l0fsw9l8lj46w332z8k76fq53mj4vc879wz";
     };
     meta.homepage = "https://github.com/Bilal2453/luvit-meta/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   magma-nvim = buildVimPlugin {
@@ -7625,7 +7623,7 @@ final: prev: {
       sha256 = "sha256-IrMR57gk9iCk73esHO24KZeep9VrlkV5sOC4PzGexyo=";
     };
     meta.homepage = "https://github.com/dccsillag/magma-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mark-radar-nvim = buildVimPlugin {
@@ -7638,7 +7636,7 @@ final: prev: {
       sha256 = "0s5bzfrcd7mi3csvcwbpdzvw9b378z5jfivjfrg1z6hpwqm8m5n7";
     };
     meta.homepage = "https://github.com/winston0410/mark-radar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   markdown-nvim = buildVimPlugin {
@@ -7651,7 +7649,7 @@ final: prev: {
       sha256 = "0p454caxkd8chg0v1m085vlmrmhkvhfwq625wgy9s8bzinja5rb0";
     };
     meta.homepage = "https://github.com/tadmccorkle/markdown.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   markdown-preview-nvim = buildVimPlugin {
@@ -7664,7 +7662,7 @@ final: prev: {
       sha256 = "06187wxcj2ramhimkrgwq1q8fnndzdywljc606n3pr11y8dxs5ac";
     };
     meta.homepage = "https://github.com/iamcco/markdown-preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   markid = buildVimPlugin {
@@ -7677,7 +7675,7 @@ final: prev: {
       sha256 = "06yrg2xhk4hanm68cq84j4137na91k9wf2mds90af1gyrp4hlcf5";
     };
     meta.homepage = "https://github.com/David-Kunz/markid/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   marks-nvim = buildVimPlugin {
@@ -7690,7 +7688,7 @@ final: prev: {
       sha256 = "1dxbqla5mjp8r1bar49zk0bsbr0lwfy5nbs4cgm69y3197crp3c6";
     };
     meta.homepage = "https://github.com/chentoast/marks.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   markview-nvim = buildVimPlugin {
@@ -7704,7 +7702,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/OXY2DEV/markview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mason-lspconfig-nvim = buildVimPlugin {
@@ -7717,7 +7715,7 @@ final: prev: {
       sha256 = "08nsyzzflaplvy626ai8qpcdl7hjh2q4zgiamh1w2xz9pvy2rm01";
     };
     meta.homepage = "https://github.com/mason-org/mason-lspconfig.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mason-null-ls-nvim = buildVimPlugin {
@@ -7730,7 +7728,7 @@ final: prev: {
       sha256 = "1jxslvqp05hzsz3vrspg5yal94314agh15b2p9cimiwj955igbys";
     };
     meta.homepage = "https://github.com/jay-babu/mason-null-ls.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mason-nvim = buildVimPlugin {
@@ -7743,7 +7741,7 @@ final: prev: {
       sha256 = "0ram5fjbvnwf6zrxp9jiiybfz924is7kgml3gmrslr2yh1b3fcwh";
     };
     meta.homepage = "https://github.com/mason-org/mason.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mason-nvim-dap-nvim = buildVimPlugin {
@@ -7756,7 +7754,7 @@ final: prev: {
       sha256 = "1klj6jvd0scvdr31s9c7hbxd7gkd42ygv1c7mfp74kvlnfjlkx5a";
     };
     meta.homepage = "https://github.com/jay-babu/mason-nvim-dap.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mason-tool-installer-nvim = buildVimPlugin {
@@ -7769,7 +7767,7 @@ final: prev: {
       sha256 = "1nirz0i0x7aa8lnl2q6r2a36x7w33qinaf3gfprbaacdb3xspzhl";
     };
     meta.homepage = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   matchit-zip = buildVimPlugin {
@@ -7782,7 +7780,7 @@ final: prev: {
       sha256 = "1s9c4lnsmbfm97bp22jrmcp5lga5ihx23lzqqncvv7rcizkvr3dm";
     };
     meta.homepage = "https://github.com/vim-scripts/matchit.zip/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   material-nvim = buildVimPlugin {
@@ -7795,7 +7793,7 @@ final: prev: {
       sha256 = "1ha0jma8a7m7pdrnhsv01jhd5n3dg80dcnwhja0yyhbfc348lx56";
     };
     meta.homepage = "https://github.com/marko-cerovac/material.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   material-vim = buildVimPlugin {
@@ -7808,7 +7806,7 @@ final: prev: {
       sha256 = "15yaahzva9vg87s2pbipwrkk2f0w7mjxwzmyrr8wb5f8rncxx01f";
     };
     meta.homepage = "https://github.com/kaicataldo/material.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mattn-calendar-vim = buildVimPlugin {
@@ -7821,7 +7819,7 @@ final: prev: {
       sha256 = "13wakcprkh93i7afykkpavxqvxssjh573pjjljsgip3y3778ms5q";
     };
     meta.homepage = "https://github.com/mattn/calendar-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mayansmoke = buildVimPlugin {
@@ -7834,7 +7832,7 @@ final: prev: {
       sha256 = "1xxcky7i6sx7f1q8xka4gd2xg78w6sqjvqrdwgrdzv93fhf82rpd";
     };
     meta.homepage = "https://github.com/vim-scripts/mayansmoke/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mediawiki-vim = buildVimPlugin {
@@ -7847,7 +7845,7 @@ final: prev: {
       sha256 = "1laiiww2lhn0v1039n0mx97fyyj7wdzwi0ybwl1ysdik03nxl32f";
     };
     meta.homepage = "https://github.com/chikamichi/mediawiki.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   melange-nvim = buildVimPlugin {
@@ -7860,7 +7858,7 @@ final: prev: {
       sha256 = "1342j1mlzw51prp9w9ink03mmsjbq0jdp7xk86qazaia3k8ynnd9";
     };
     meta.homepage = "https://github.com/savq/melange-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   messenger-nvim = buildVimPlugin {
@@ -7873,7 +7871,7 @@ final: prev: {
       sha256 = "1ycvxxcp04hh134nazdrzd9g98mkdipc2p0amvcphpqr9p9s3pcm";
     };
     meta.homepage = "https://github.com/lsig/messenger.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   miasma-nvim = buildVimPlugin {
@@ -7886,7 +7884,7 @@ final: prev: {
       sha256 = "0viqbr7azhbw9gs3nszafkafg2nq26ib5wl7a1bnqn0l8k4dvphj";
     };
     meta.homepage = "https://github.com/xero/miasma.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   midnight-nvim = buildVimPlugin {
@@ -7899,7 +7897,7 @@ final: prev: {
       sha256 = "0y0ygwgnqlal4pbq58scjc0iprylk37g79w1mbv5f5ylpj4wnm2z";
     };
     meta.homepage = "https://github.com/dasupradyumna/midnight.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mind-nvim = buildVimPlugin {
@@ -7912,7 +7910,7 @@ final: prev: {
       sha256 = "1p7gb8p1jrb2wx3x67lv7am3k1a14kvwsq89fdpb8b060s2l1214";
     };
     meta.homepage = "https://github.com/hadronized/mind.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-ai = buildVimPlugin {
@@ -7925,7 +7923,7 @@ final: prev: {
       sha256 = "0vqf5xywkqw84r96malik5jxib7ifr9vpk1f6ifj74d23ldqzs1c";
     };
     meta.homepage = "https://github.com/echasnovski/mini.ai/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-align = buildVimPlugin {
@@ -7938,7 +7936,7 @@ final: prev: {
       sha256 = "0yp6flw1xwwb8s74186bi5pm3m0426aixl34g8dm98wl66hh162c";
     };
     meta.homepage = "https://github.com/echasnovski/mini.align/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-animate = buildVimPlugin {
@@ -7951,7 +7949,7 @@ final: prev: {
       sha256 = "197fgvnh05j5s0bhablgvlz1h6fl4m3n9d1sxzyf6p661dk8chcf";
     };
     meta.homepage = "https://github.com/echasnovski/mini.animate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-base16 = buildVimPlugin {
@@ -7964,7 +7962,7 @@ final: prev: {
       sha256 = "0g09bgk7y2j83phckg9wlm82ih1ya5j0sgz6xbscbj6jh0w75lvz";
     };
     meta.homepage = "https://github.com/echasnovski/mini.base16/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-basics = buildVimPlugin {
@@ -7977,7 +7975,7 @@ final: prev: {
       sha256 = "0k9xzdgmyrjvazvi2j1pgy8wsdbm3g3wcq4nnhdxl51i9ib5i3wj";
     };
     meta.homepage = "https://github.com/echasnovski/mini.basics/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-bracketed = buildVimPlugin {
@@ -7990,7 +7988,7 @@ final: prev: {
       sha256 = "1d7kz48400bjdlkrlfparmi4w44mq08gp5bvz9vggc7hmm0baa4n";
     };
     meta.homepage = "https://github.com/echasnovski/mini.bracketed/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-bufremove = buildVimPlugin {
@@ -8003,7 +8001,7 @@ final: prev: {
       sha256 = "0pqwi0ix7zl7sg74p19q61mizv48mjmbijigsssi9fbyk0hwmkww";
     };
     meta.homepage = "https://github.com/echasnovski/mini.bufremove/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-clue = buildVimPlugin {
@@ -8016,7 +8014,7 @@ final: prev: {
       sha256 = "1ma9rmdgqlc9iwl3yrqxljnmibqj4zvs9g3wn2n27mrm10xl1z5y";
     };
     meta.homepage = "https://github.com/echasnovski/mini.clue/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-colors = buildVimPlugin {
@@ -8029,7 +8027,7 @@ final: prev: {
       sha256 = "0z2cg6fsy5idqp0p3i6rrx9mp48g4z915ylbi5q597d1vmglqffm";
     };
     meta.homepage = "https://github.com/echasnovski/mini.colors/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-comment = buildVimPlugin {
@@ -8042,7 +8040,7 @@ final: prev: {
       sha256 = "1j1bg8506ag9fmjbx41w1hqnd61vyq1paclh2nc25krcbv2plyas";
     };
     meta.homepage = "https://github.com/echasnovski/mini.comment/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-completion = buildVimPlugin {
@@ -8055,7 +8053,7 @@ final: prev: {
       sha256 = "01zc0kvwiq1h37q4fgwqi0bg875dks8vxw3aqjg3kyjj1v3z0zw9";
     };
     meta.homepage = "https://github.com/echasnovski/mini.completion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-cursorword = buildVimPlugin {
@@ -8068,7 +8066,7 @@ final: prev: {
       sha256 = "0sgii7m2lfp95vxnchisk3hpbjwwqpky6ivkx2nc5djkmj07b7mj";
     };
     meta.homepage = "https://github.com/echasnovski/mini.cursorword/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-deps = buildVimPlugin {
@@ -8081,7 +8079,7 @@ final: prev: {
       sha256 = "0lzx5rgqsg212k08fp1qlc0f31y6hvsg3q7gsz6z5vsi9cqfvwml";
     };
     meta.homepage = "https://github.com/echasnovski/mini.deps/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-diff = buildVimPlugin {
@@ -8094,7 +8092,7 @@ final: prev: {
       sha256 = "1z2jklgm72mj4rpknl4s9kl22in2b40vx1k7psscz4b8d6ljh41m";
     };
     meta.homepage = "https://github.com/echasnovski/mini.diff/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-doc = buildVimPlugin {
@@ -8107,7 +8105,7 @@ final: prev: {
       sha256 = "1anxn3lasm1x3yn1i0hd4im7y8fvf0fhyazn3yj6hzpm4vb12p0k";
     };
     meta.homepage = "https://github.com/echasnovski/mini.doc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-extra = buildVimPlugin {
@@ -8120,7 +8118,7 @@ final: prev: {
       sha256 = "15q6q4laycfzb2rr2h948n61ybgv46cgcsgr8cjfwna4bby8gvj3";
     };
     meta.homepage = "https://github.com/echasnovski/mini.extra/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-files = buildVimPlugin {
@@ -8133,7 +8131,7 @@ final: prev: {
       sha256 = "12027xb9907zk145hsx6qniq1cjm8bm5405njq4cs9vx992pafsh";
     };
     meta.homepage = "https://github.com/echasnovski/mini.files/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-fuzzy = buildVimPlugin {
@@ -8146,7 +8144,7 @@ final: prev: {
       sha256 = "0n3rnvhz1hzj32l006il96zf61iv4wc0fy6dqp1lyrqm13skadvp";
     };
     meta.homepage = "https://github.com/echasnovski/mini.fuzzy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-git = buildVimPlugin {
@@ -8159,7 +8157,7 @@ final: prev: {
       sha256 = "0vf0ys710yf1apalglxj7kcdyrnrd7jkz1ksi9v1vj3h60pvany2";
     };
     meta.homepage = "https://github.com/echasnovski/mini-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-hipatterns = buildVimPlugin {
@@ -8172,7 +8170,7 @@ final: prev: {
       sha256 = "116vpf4b86qbwrcax7dfhiswb4pwf3nmj2dh4kafj9vnpwyw1c3w";
     };
     meta.homepage = "https://github.com/echasnovski/mini.hipatterns/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-hues = buildVimPlugin {
@@ -8185,7 +8183,7 @@ final: prev: {
       sha256 = "0hmflllpxmp39d1x1lx0j6w3mm2yin3mf0mjgfics2s6jdami3pj";
     };
     meta.homepage = "https://github.com/echasnovski/mini.hues/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-icons = buildVimPlugin {
@@ -8198,7 +8196,7 @@ final: prev: {
       sha256 = "110bglbbyafjym4md2slgccyjhf90bgg8h9h2ipya6cfqfs4pizy";
     };
     meta.homepage = "https://github.com/echasnovski/mini.icons/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-indentscope = buildVimPlugin {
@@ -8211,7 +8209,7 @@ final: prev: {
       sha256 = "1xk31bl9gchc8r1pv6f2z7nfkr6q7f1i4qrrj3h4crxb6nhpxmry";
     };
     meta.homepage = "https://github.com/echasnovski/mini.indentscope/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-jump = buildVimPlugin {
@@ -8224,7 +8222,7 @@ final: prev: {
       sha256 = "1dsqpcr54sglr0x9mmp0xxpmrmgq10j0xpnj2dxvxabi9h1h179a";
     };
     meta.homepage = "https://github.com/echasnovski/mini.jump/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-jump2d = buildVimPlugin {
@@ -8237,7 +8235,7 @@ final: prev: {
       sha256 = "1zk5y1gdkg8m1ncic0b0iqcp9k32pd1dklnw69jjwm30mxmixky8";
     };
     meta.homepage = "https://github.com/echasnovski/mini.jump2d/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-keymap = buildVimPlugin {
@@ -8250,7 +8248,7 @@ final: prev: {
       sha256 = "0s1x9c2rbz947g3wnbcf50hrs8d6wvqia2y4mi1nk0zafp3v1ijb";
     };
     meta.homepage = "https://github.com/echasnovski/mini.keymap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-map = buildVimPlugin {
@@ -8263,7 +8261,7 @@ final: prev: {
       sha256 = "1z2rf664z7krs40w66b5fjmq3xffv357mv689425i5nyc1q0gr4n";
     };
     meta.homepage = "https://github.com/echasnovski/mini.map/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-misc = buildVimPlugin {
@@ -8276,7 +8274,7 @@ final: prev: {
       sha256 = "0cbq6kw58jiiy7f3fraxkskr1vpwmdnpv38pbywwfr8w1f6rf2fi";
     };
     meta.homepage = "https://github.com/echasnovski/mini.misc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-move = buildVimPlugin {
@@ -8289,7 +8287,7 @@ final: prev: {
       sha256 = "0dd29nx1z54ljjz9m4m9ghhv39x7ajjx43hbr4gn7p1lv2kvjv7p";
     };
     meta.homepage = "https://github.com/echasnovski/mini.move/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-notify = buildVimPlugin {
@@ -8302,7 +8300,7 @@ final: prev: {
       sha256 = "13pa82zmz6w8is4gfh33fqcd2yx3f1bmd5r3q4sp1kfgf2c68c30";
     };
     meta.homepage = "https://github.com/echasnovski/mini.notify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-nvim = buildVimPlugin {
@@ -8315,7 +8313,7 @@ final: prev: {
       sha256 = "1gc67yassyasxl9z6da75rhxgnbclcvlpgbx0z3v48l91ampmv7g";
     };
     meta.homepage = "https://github.com/echasnovski/mini.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-operators = buildVimPlugin {
@@ -8328,7 +8326,7 @@ final: prev: {
       sha256 = "0dyackl7a6kayk7chd3qm45j7h1pjf1r6qhbdl7m21dzdbp9c4s5";
     };
     meta.homepage = "https://github.com/echasnovski/mini.operators/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-pairs = buildVimPlugin {
@@ -8341,7 +8339,7 @@ final: prev: {
       sha256 = "0avjjikmz3b8676hzcqck3r2lv0zxsdr8hqs65zn2dr12q8zh41r";
     };
     meta.homepage = "https://github.com/echasnovski/mini.pairs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-pick = buildVimPlugin {
@@ -8354,7 +8352,7 @@ final: prev: {
       sha256 = "0kpn9ha5kivv46r6m30bpbfv8qksg8k2xgb3n4gih7rlvik9qa3m";
     };
     meta.homepage = "https://github.com/echasnovski/mini.pick/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-sessions = buildVimPlugin {
@@ -8367,7 +8365,7 @@ final: prev: {
       sha256 = "0m8l1hw8y3mwhcnyzhxb7j4jvvwmf8i7ybxddy2r2rq89rc7x3ln";
     };
     meta.homepage = "https://github.com/echasnovski/mini.sessions/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-snippets = buildVimPlugin {
@@ -8380,7 +8378,7 @@ final: prev: {
       sha256 = "0pbkwp5p0y3djf3xfvmnf6ys1w5287gyhas09s94ha2ghhsyzy2w";
     };
     meta.homepage = "https://github.com/echasnovski/mini.snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-splitjoin = buildVimPlugin {
@@ -8393,7 +8391,7 @@ final: prev: {
       sha256 = "1sp4p0s4cv888n0nmgy04j5k51ndxpmksy235rg9jkk7j5gg47qb";
     };
     meta.homepage = "https://github.com/echasnovski/mini.splitjoin/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-starter = buildVimPlugin {
@@ -8406,7 +8404,7 @@ final: prev: {
       sha256 = "0c024xvdww9331bcfd3i7x8pp4phxkgqhnfv3fgld1imbnif1547";
     };
     meta.homepage = "https://github.com/echasnovski/mini.starter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-statusline = buildVimPlugin {
@@ -8419,7 +8417,7 @@ final: prev: {
       sha256 = "1hhd4fln3m04d9v5pwa3mb1n4nifsilrxp8hs14njcgk2rxv6qar";
     };
     meta.homepage = "https://github.com/echasnovski/mini.statusline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-surround = buildVimPlugin {
@@ -8432,7 +8430,7 @@ final: prev: {
       sha256 = "0r93kgzd5xhykcwxzfjcmdmcd2dmj80hxqfd4r6ikbaxq6b6vnk0";
     };
     meta.homepage = "https://github.com/echasnovski/mini.surround/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-tabline = buildVimPlugin {
@@ -8445,7 +8443,7 @@ final: prev: {
       sha256 = "142vv5nwg3bvia21frmcyps1ycyqqj1l0v5vclrm46cwaz2b2qfb";
     };
     meta.homepage = "https://github.com/echasnovski/mini.tabline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-trailspace = buildVimPlugin {
@@ -8458,7 +8456,7 @@ final: prev: {
       sha256 = "1d95vcxm7fhav8gz9n8m36q3hkxi6j1p0f6y35qnps1x7yz1wyfg";
     };
     meta.homepage = "https://github.com/echasnovski/mini.trailspace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mini-visits = buildVimPlugin {
@@ -8471,7 +8469,7 @@ final: prev: {
       sha256 = "02wr34zzd5x6zn4iwhbv5g4shibpvb8536hr5lk0aw7i55aqg5x8";
     };
     meta.homepage = "https://github.com/echasnovski/mini.visits/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   minimap-vim = buildVimPlugin {
@@ -8484,7 +8482,7 @@ final: prev: {
       sha256 = "05k4cgcrz0gj92xy685bd4p6nh2jmaywc2f5sw1lap0v685h7n79";
     };
     meta.homepage = "https://github.com/wfxr/minimap.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   minuet-ai-nvim = buildVimPlugin {
@@ -8497,7 +8495,7 @@ final: prev: {
       sha256 = "1l380gsykkxaaf4b6d39nqlrp6dyfcqyx4kss31dqf5jb0rk573l";
     };
     meta.homepage = "https://github.com/milanglacier/minuet-ai.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mkdir-nvim = buildVimPlugin {
@@ -8510,7 +8508,7 @@ final: prev: {
       sha256 = "0zpyvkbw7wfqdxfgidr7zfxqb5ldci4pflx50rsm1hbwai0ybv23";
     };
     meta.homepage = "https://github.com/jghauser/mkdir.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mkdnflow-nvim = buildVimPlugin {
@@ -8523,7 +8521,7 @@ final: prev: {
       sha256 = "1z41pb80dikww4mzvvjcdw97z9mk6x90r7k1pawp842lkkkjj658";
     };
     meta.homepage = "https://github.com/jakewvincent/mkdnflow.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mkdx = buildVimPlugin {
@@ -8536,7 +8534,7 @@ final: prev: {
       sha256 = "1yl7ch7ylgjm1fpk7kc5260lk58922bg9ygg2x8a7r5k1glxx71j";
     };
     meta.homepage = "https://github.com/SidOfc/mkdx/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   modicator-nvim = buildVimPlugin {
@@ -8549,7 +8547,7 @@ final: prev: {
       sha256 = "1p0giz93qaz1y09p6i4lagphi50j8316wjlrfr3h152dv96s1b2s";
     };
     meta.homepage = "https://github.com/mawkler/modicator.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   modus-themes-nvim = buildVimPlugin {
@@ -8562,7 +8560,7 @@ final: prev: {
       sha256 = "1x0hv5fcrsdcb06miyq0q1vlcgj1aaq5w1h9c112bbxf3b89k2ya";
     };
     meta.homepage = "https://github.com/miikanissi/modus-themes.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   molokai = buildVimPlugin {
@@ -8575,7 +8573,7 @@ final: prev: {
       sha256 = "1piszjr5kyw43ac1f0jh9z88g824xknshrkchbys9qxlz7pd831s";
     };
     meta.homepage = "https://github.com/tomasr/molokai/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   molten-nvim = buildVimPlugin {
@@ -8588,7 +8586,7 @@ final: prev: {
       sha256 = "1jbb11h0g45ybb0hpibhs86vk6ldc4kd203yhlji61xhrir8cnd2";
     };
     meta.homepage = "https://github.com/benlubas/molten-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   monaspace-nvim = buildVimPlugin {
@@ -8601,7 +8599,7 @@ final: prev: {
       sha256 = "0gjs51p86dw3hajf9dzdinx7bjkyrr14bqri1p8c4mvhh2bpcqka";
     };
     meta.homepage = "https://github.com/jackplus-xyz/monaspace.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   monokai-pro-nvim = buildVimPlugin {
@@ -8614,7 +8612,7 @@ final: prev: {
       sha256 = "1i22xkmd8r0bbpi5cviqd1dj4i2p1hgm3d8vdafsmg60jlqkd1nd";
     };
     meta.homepage = "https://github.com/loctvl842/monokai-pro.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   moonscript-vim = buildVimPlugin {
@@ -8627,7 +8625,7 @@ final: prev: {
       sha256 = "1m4yz2xnazqagmkcli2xvwidsgssy9p650ykgdybk7wwlrq2vvqi";
     };
     meta.homepage = "https://github.com/leafo/moonscript-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   mru = buildVimPlugin {
@@ -8640,7 +8638,7 @@ final: prev: {
       sha256 = "13s3xf199jc1z8gq76nnrbv6qqv3lcfbi4zm99kdqdxrrf1ljfl0";
     };
     meta.homepage = "https://github.com/yegappan/mru/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   multicursor-nvim = buildVimPlugin {
@@ -8653,7 +8651,7 @@ final: prev: {
       sha256 = "1d3lsxg9kmn4622nacn2ycg56ca3skazjaar0smc61v1asa8jhrm";
     };
     meta.homepage = "https://github.com/jake-stewart/multicursor.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   multicursors-nvim = buildVimPlugin {
@@ -8666,7 +8664,7 @@ final: prev: {
       sha256 = "114b6i9gmf4cbxq6dk062fix35jnkz76q09wkp9il9sg4nxx1dcl";
     };
     meta.homepage = "https://github.com/smoka7/multicursors.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   muren-nvim = buildVimPlugin {
@@ -8679,7 +8677,7 @@ final: prev: {
       sha256 = "0c3jr0krri0r7d257sp0vwfxddqn443c8gm1nxxf49h2zzk0b272";
     };
     meta.homepage = "https://github.com/AckslD/muren.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nabla-nvim = buildVimPlugin {
@@ -8692,7 +8690,7 @@ final: prev: {
       sha256 = "1x2lnr7h3609vj3lfylfppza4rrspsnbj1bsmdk9za30pmn4mrj3";
     };
     meta.homepage = "https://github.com/jbyuki/nabla.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2 = buildVimPlugin {
@@ -8705,7 +8703,7 @@ final: prev: {
       sha256 = "1prgwjlw9m6qjrax90hn3ip1fbrx451zq274qwc9ii3isvcr7x6l";
     };
     meta.homepage = "https://github.com/ncm2/ncm2/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-bufword = buildVimPlugin {
@@ -8718,7 +8716,7 @@ final: prev: {
       sha256 = "14q76n5c70wvi48wm1alyckba71rp5300i35091ga197nkgphyaz";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-bufword/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-cssomni = buildVimPlugin {
@@ -8731,7 +8729,7 @@ final: prev: {
       sha256 = "0z79n1fivw60whx2fy6239lq8c2xnbzzadijplj51gy34jk4hki0";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-cssomni/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-dictionary = buildVimPlugin {
@@ -8744,7 +8742,7 @@ final: prev: {
       sha256 = "096l8prqm7zb2s27j2cpnydggszicaji7xjlmhrav7dzc51avafy";
     };
     meta.homepage = "https://github.com/yuki-yano/ncm2-dictionary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-github = buildVimPlugin {
@@ -8757,7 +8755,7 @@ final: prev: {
       sha256 = "1dcxknbjm2mxrw1l2i56xrjyxlp0vr6gr5l62x5hcd5wfkzi74a1";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-github/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-html-subscope = buildVimPlugin {
@@ -8770,7 +8768,7 @@ final: prev: {
       sha256 = "19h1jjqv6jwv5fnxxa6gv0qiyc3rbnxf0zibqxzdclmskrdgjacq";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-html-subscope/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-jedi = buildVimPlugin {
@@ -8783,7 +8781,7 @@ final: prev: {
       sha256 = "00m9czssfga2bf68gjq1yj0km62w7rphkm783x4k5w7g03qr1260";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-jedi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-markdown-subscope = buildVimPlugin {
@@ -8796,7 +8794,7 @@ final: prev: {
       sha256 = "0hh5bs76k5jsjzdp5lm53gma517s8ijrdp0acjjvsagz7r7gymq7";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-markdown-subscope/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-neoinclude = buildVimPlugin {
@@ -8809,7 +8807,7 @@ final: prev: {
       sha256 = "0xsvj8ng9blhwl8fxscm3iflppvf7p7kpl3hxh0z14xhdy3nynyi";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-neoinclude/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-neosnippet = buildVimPlugin {
@@ -8822,7 +8820,7 @@ final: prev: {
       sha256 = "1bbqy4ak0abn73fwnv02c2b6ivfaqj31g2qbj39zqrls0vzrd70q";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-neosnippet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-path = buildVimPlugin {
@@ -8835,7 +8833,7 @@ final: prev: {
       sha256 = "0yqga8d423k2j6iknkyx1qs1shddpshi4sx78992sa15dax9d394";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-path/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-syntax = buildVimPlugin {
@@ -8848,7 +8846,7 @@ final: prev: {
       sha256 = "065sflxr6sp491ifvcf7bzvpn5c47qc0mr091v2p2k73lp9jx2s2";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-tagprefix = buildVimPlugin {
@@ -8861,7 +8859,7 @@ final: prev: {
       sha256 = "0a3dgvs3jflhh5015jw7iahlblvnlq7vllh9avwh9pggd7zwc42k";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-tagprefix/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-tmux = buildVimPlugin {
@@ -8874,7 +8872,7 @@ final: prev: {
       sha256 = "1g99vbrdz06i36gpa95crwixj61my7c9miy7mbpfbiy4zykf2wl2";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-tmux/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-ultisnips = buildVimPlugin {
@@ -8887,7 +8885,7 @@ final: prev: {
       sha256 = "0f3qp33s5nh9nha9cgxggcmh7c1a5yrwvyyrszlh0x8nrzm1v1ma";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-ultisnips/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ncm2-vim = buildVimPlugin {
@@ -8900,7 +8898,7 @@ final: prev: {
       sha256 = "19b2xl5cvy3pk14r3k02149whdrcgisnqv2rzm5bic4w23532ad2";
     };
     meta.homepage = "https://github.com/ncm2/ncm2-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neco-ghc = buildVimPlugin {
@@ -8913,7 +8911,7 @@ final: prev: {
       sha256 = "03g2mky83a5zd54wzjhc1cv4pwkzcadskjm1c7b36k85yw35v88a";
     };
     meta.homepage = "https://github.com/eagletmt/neco-ghc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neco-look = buildVimPlugin {
@@ -8926,7 +8924,7 @@ final: prev: {
       sha256 = "01bb5d3n7k7m5gd1rn78qhrjf9cvsccwib390zh0h22aryswzqnx";
     };
     meta.homepage = "https://github.com/ujihisa/neco-look/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neco-syntax = buildVimPlugin {
@@ -8939,7 +8937,7 @@ final: prev: {
       sha256 = "12h8qm6l40a2dgbimn579bdyar0dq88hk7mdd0vhyj15c1305kda";
     };
     meta.homepage = "https://github.com/Shougo/neco-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neco-vim = buildVimPlugin {
@@ -8952,7 +8950,7 @@ final: prev: {
       sha256 = "0iypllxrzfrwn47hzgb537w20c6djjj198l1zmy16jf26kn2a5dq";
     };
     meta.homepage = "https://github.com/Shougo/neco-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neo-tree-nvim = buildVimPlugin {
@@ -8965,7 +8963,7 @@ final: prev: {
       sha256 = "04ddr8cl67xk7i459y49m3mfxc3ca8kbdzmiwwz3ksrfhxyzr0g1";
     };
     meta.homepage = "https://github.com/nvim-neo-tree/neo-tree.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neocomplete-vim = buildVimPlugin {
@@ -8978,7 +8976,7 @@ final: prev: {
       sha256 = "0d09n689067v96k0bwn9wwdjvj9s4khfvv5jpibdwnykgv9jbm5w";
     };
     meta.homepage = "https://github.com/Shougo/neocomplete.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoconf-nvim = buildVimPlugin {
@@ -8991,7 +8989,7 @@ final: prev: {
       sha256 = "1n3fi1njgqg27g1aakizi2bqclk0f3hxqzym9ya1jh7dxaxagp3x";
     };
     meta.homepage = "https://github.com/folke/neoconf.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neocord = buildVimPlugin {
@@ -9004,7 +9002,7 @@ final: prev: {
       sha256 = "1ycx26ppfb5djxji1mwamr7ra29z8sm0fs9a6hhwn0l69x06x353";
     };
     meta.homepage = "https://github.com/IogaMaster/neocord/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neodark-vim = buildVimPlugin {
@@ -9017,7 +9015,7 @@ final: prev: {
       sha256 = "0psswsvlcmj0p8qcgy201ki81y74nir42zfn8bbnlzpil2ddp0kj";
     };
     meta.homepage = "https://github.com/KeitaNakamura/neodark.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neodev-nvim = buildVimPlugin {
@@ -9030,7 +9028,7 @@ final: prev: {
       sha256 = "0hyn02f8cpbnnhq4570nicfjdw88kkww3il8nmy6ban8iybg7s44";
     };
     meta.homepage = "https://github.com/folke/neodev.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoformat = buildVimPlugin {
@@ -9043,7 +9041,7 @@ final: prev: {
       sha256 = "1gw0vxvkwpfawk7ixy8m67hqm0gjyb5b9riy1lx5knjaj198qrjv";
     };
     meta.homepage = "https://github.com/sbdchd/neoformat/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neogen = buildVimPlugin {
@@ -9056,7 +9054,7 @@ final: prev: {
       sha256 = "04fyip1px2x8i5ibvh8qh7cw52dymj57qlfdr92qkqyfj9hpqxdr";
     };
     meta.homepage = "https://github.com/danymat/neogen/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neogit = buildVimPlugin {
@@ -9069,7 +9067,7 @@ final: prev: {
       sha256 = "0smcr2y4nrgdsp7nk2v06dhpchl2gsrn9ckzhzwq1smdh0nlgdkf";
     };
     meta.homepage = "https://github.com/NeogitOrg/neogit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoinclude-vim = buildVimPlugin {
@@ -9082,7 +9080,7 @@ final: prev: {
       sha256 = "0slp6mz8ds5raqhbi9gpr1ilgw745lfzjygyd58r6jcg2givsiik";
     };
     meta.homepage = "https://github.com/Shougo/neoinclude.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neomake = buildVimPlugin {
@@ -9095,7 +9093,7 @@ final: prev: {
       sha256 = "0wywd9s5x70zw7yrid6nvlq1hz406j5j47y011jxan4ra4r9ixvy";
     };
     meta.homepage = "https://github.com/neomake/neomake/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neomodern-nvim = buildVimPlugin {
@@ -9108,7 +9106,7 @@ final: prev: {
       sha256 = "04yg1hd2dc0is305yd18rim4ldjmg3gxwiyqbx7h2kpm24krf6z7";
     };
     meta.homepage = "https://github.com/cdmill/neomodern.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neomru-vim = buildVimPlugin {
@@ -9121,7 +9119,7 @@ final: prev: {
       sha256 = "04fic8s4g19kgml1pb5fd6yzhsscq8yrpwbmg8sb0lqjas2qpakv";
     };
     meta.homepage = "https://github.com/Shougo/neomru.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neomutt-vim = buildVimPlugin {
@@ -9134,7 +9132,7 @@ final: prev: {
       sha256 = "15s3il16i4h6z47x9dsjmdafb6syybvgfvzqpx4j57s90ipj1c87";
     };
     meta.homepage = "https://github.com/neomutt/neomutt.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neon = buildVimPlugin {
@@ -9147,7 +9145,7 @@ final: prev: {
       sha256 = "1rdgbx76kvlzg81cn653bqg9lj52gxnf15zla1kscw7wgh6hjvyh";
     };
     meta.homepage = "https://github.com/rafamadriz/neon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neorepl-nvim = buildVimPlugin {
@@ -9160,7 +9158,7 @@ final: prev: {
       sha256 = "01rzgvl80dzdw64swfvk755kbakcmxv5vdnwhw09dm87ph6ij49w";
     };
     meta.homepage = "https://github.com/ii14/neorepl.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neorg-telescope = buildVimPlugin {
@@ -9173,7 +9171,7 @@ final: prev: {
       sha256 = "12pbixkb7175qb9wblq01mbpkccm9h0si7b2jjaf7yip8j8frxmn";
     };
     meta.homepage = "https://github.com/nvim-neorg/neorg-telescope/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoscroll-nvim = buildVimPlugin {
@@ -9186,7 +9184,7 @@ final: prev: {
       sha256 = "0vqbag9iislq0w3w2nq3mp3302j7c4yv4ssrc1ccrylj54hr9si4";
     };
     meta.homepage = "https://github.com/karb94/neoscroll.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neosnippet-snippets = buildVimPlugin {
@@ -9199,7 +9197,7 @@ final: prev: {
       sha256 = "0657ial95l0jgyj9ld6qbncnnrl5qkh6pqp40lr703ddqkz10s03";
     };
     meta.homepage = "https://github.com/Shougo/neosnippet-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neosnippet-vim = buildVimPlugin {
@@ -9212,7 +9210,7 @@ final: prev: {
       sha256 = "1yihgplpdgkn7dgsgwrw8q3pl0f7hj06wkpv5j5y834n5zrzm4n0";
     };
     meta.homepage = "https://github.com/Shougo/neosnippet.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoterm = buildVimPlugin {
@@ -9225,7 +9223,7 @@ final: prev: {
       sha256 = "097i8fv37mw0923qldsql71s1lgmbvl28gk96w0sz12adq8g4byh";
     };
     meta.homepage = "https://github.com/kassio/neoterm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-bash = buildVimPlugin {
@@ -9239,7 +9237,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/rcasia/neotest-bash/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-dart = buildVimPlugin {
@@ -9252,7 +9250,7 @@ final: prev: {
       sha256 = "1hkggr8mls7ilbr5vw9iqfgbf7nspspbisdzkp7mfvx5358jf1cw";
     };
     meta.homepage = "https://github.com/sidlatau/neotest-dart/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-deno = buildVimPlugin {
@@ -9265,7 +9263,7 @@ final: prev: {
       sha256 = "1qryyk6x47ffdsb258gxsk5aj3qc0jn6g7ljy8idn361rs12qjcc";
     };
     meta.homepage = "https://github.com/MarkEmmons/neotest-deno/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-dotnet = buildVimPlugin {
@@ -9278,7 +9276,7 @@ final: prev: {
       sha256 = "001z2j0nr6qa9m5jr1l341pyw1h9105ywk7ns6bnl6y73sqa0rx0";
     };
     meta.homepage = "https://github.com/Issafalcon/neotest-dotnet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-elixir = buildVimPlugin {
@@ -9292,7 +9290,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/jfpedroza/neotest-elixir/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-foundry = buildVimPlugin {
@@ -9305,7 +9303,7 @@ final: prev: {
       sha256 = "1264498csp31j8xfwwqks8q4y50xc5gzmsj8x9vz31vdbc4qjwkc";
     };
     meta.homepage = "https://github.com/llllvvuu/neotest-foundry/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-go = buildVimPlugin {
@@ -9318,7 +9316,7 @@ final: prev: {
       sha256 = "0wmxiv06zjjsr2fzp20p8lynn8wxqlx86r6zycan8v6kgs2vljh4";
     };
     meta.homepage = "https://github.com/nvim-neotest/neotest-go/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-golang = buildVimPlugin {
@@ -9331,7 +9329,7 @@ final: prev: {
       sha256 = "04knx74iqwqm1w165jp0jnjf3nas8mdfsqp9yw5vz7krn6cgywql";
     };
     meta.homepage = "https://github.com/fredrikaverpil/neotest-golang/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-gradle = buildVimPlugin {
@@ -9344,7 +9342,7 @@ final: prev: {
       sha256 = "1prf726livgkld935r648d72flsbm3lylw6h1y3864fj034kvq5v";
     };
     meta.homepage = "https://github.com/weilbith/neotest-gradle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-gtest = buildVimPlugin {
@@ -9358,7 +9356,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/alfaix/neotest-gtest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-haskell = buildVimPlugin {
@@ -9371,7 +9369,7 @@ final: prev: {
       sha256 = "06jgrcrbjrpi4wfkschcrwyzapy4bcssfy03vnxw2lj6c5czjrwz";
     };
     meta.homepage = "https://github.com/MrcJkb/neotest-haskell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-java = buildVimPlugin {
@@ -9384,7 +9382,7 @@ final: prev: {
       sha256 = "18hgjmmlaqgavd8i6kpni1a022ivrw7j3k093fz6n10bn8s4x49x";
     };
     meta.homepage = "https://github.com/rcasia/neotest-java/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-jest = buildVimPlugin {
@@ -9397,7 +9395,7 @@ final: prev: {
       sha256 = "1lmz248bzdhggvarikhpr5210mbw9fycks93k719d05sb4l6i2dg";
     };
     meta.homepage = "https://github.com/nvim-neotest/neotest-jest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-minitest = buildVimPlugin {
@@ -9410,7 +9408,7 @@ final: prev: {
       sha256 = "1fxhvnffhci2cfnksf26k6lwnl346rp6pm4fpb30p4xzh4jpvan8";
     };
     meta.homepage = "https://github.com/zidhuss/neotest-minitest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-mocha = buildVimPlugin {
@@ -9423,7 +9421,7 @@ final: prev: {
       sha256 = "sha256-Fbe7xuu5Qy6GXKsvQbVcE5oG7dgKjghuX470V7sjmqA=";
     };
     meta.homepage = "https://github.com/adrigzr/neotest-mocha/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-pest = buildVimPlugin {
@@ -9436,7 +9434,7 @@ final: prev: {
       sha256 = "1655rpr007ix9z4nxkabnvdk8c0kj080waxddaq656dhdzdj7l1q";
     };
     meta.homepage = "https://github.com/theutz/neotest-pest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-phpunit = buildVimPlugin {
@@ -9449,7 +9447,7 @@ final: prev: {
       sha256 = "1szdxgydihik1pm0p7p9qa4mib5hv8gmk566fx6xmvzihyi72p3v";
     };
     meta.homepage = "https://github.com/olimorris/neotest-phpunit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-playwright = buildVimPlugin {
@@ -9462,7 +9460,7 @@ final: prev: {
       sha256 = "1gkiv2a9g80qh5h52pa6ysxjx7nxli4jvb1lcq5qyn4fnig0mrlk";
     };
     meta.homepage = "https://github.com/thenbe/neotest-playwright/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-plenary = buildVimPlugin {
@@ -9475,7 +9473,7 @@ final: prev: {
       sha256 = "12nsn035npdz5hyc9w6jdhx3wv2ixvdbqr78w2znn1p2a6mqc09m";
     };
     meta.homepage = "https://github.com/nvim-neotest/neotest-plenary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-python = buildVimPlugin {
@@ -9488,7 +9486,7 @@ final: prev: {
       sha256 = "0ig4xv01s6w7p7f65dzlq3ls1qi5hyclv5wiwqfcm5pvyxp6asfg";
     };
     meta.homepage = "https://github.com/nvim-neotest/neotest-python/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-rspec = buildVimPlugin {
@@ -9501,7 +9499,7 @@ final: prev: {
       sha256 = "0gbdpplvai8cay0xmhiw1j27rxy5wzsx2b6jfnv3cqwk77chbabp";
     };
     meta.homepage = "https://github.com/olimorris/neotest-rspec/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-rust = buildVimPlugin {
@@ -9514,7 +9512,7 @@ final: prev: {
       sha256 = "1l5rpl63dnsl1ys6h5fv4an6qndyk2bd55r1n6xhlgfns3amabk5";
     };
     meta.homepage = "https://github.com/rouge8/neotest-rust/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-scala = buildVimPlugin {
@@ -9527,7 +9525,7 @@ final: prev: {
       sha256 = "0ii8brm5maffqrhji6d4g2kd45mhydj3gby22sv81g9jz6ah0y3s";
     };
     meta.homepage = "https://github.com/stevanmilic/neotest-scala/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-testthat = buildVimPlugin {
@@ -9540,7 +9538,7 @@ final: prev: {
       sha256 = "1ljk81sfi900pidmlgxavjcjrffq1dnqfhilqqccnzj5rb1gjnj9";
     };
     meta.homepage = "https://github.com/shunsambongi/neotest-testthat/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-vitest = buildVimPlugin {
@@ -9553,7 +9551,7 @@ final: prev: {
       sha256 = "0n3vvw666a2r7brnxfsmcvhwh4294svn1hi22h64jdfdhbvg9zys";
     };
     meta.homepage = "https://github.com/marilari88/neotest-vitest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neotest-zig = buildVimPlugin {
@@ -9566,7 +9564,7 @@ final: prev: {
       sha256 = "0bjqpxz6fa4m4gsx8qnkxy99r573hyhwj0d079m4wrg43n9n6vcx";
     };
     meta.homepage = "https://github.com/lawrence-laz/neotest-zig/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neovim-ayu = buildVimPlugin {
@@ -9579,7 +9577,7 @@ final: prev: {
       sha256 = "0is9gibh6lrf7x3903v06l33l8nrq1hix0sm7clc2576pk2sp050";
     };
     meta.homepage = "https://github.com/Shatur/neovim-ayu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neovim-fuzzy = buildVimPlugin {
@@ -9592,7 +9590,7 @@ final: prev: {
       sha256 = "0ibdg66fri1r0scqvxvs52bcr2h246kc52x2g2n3agr5c38hz9sc";
     };
     meta.homepage = "https://github.com/cloudhead/neovim-fuzzy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neovim-sensible = buildVimPlugin {
@@ -9605,7 +9603,7 @@ final: prev: {
       sha256 = "06whnfvmzfdsx9gvkd2nxhx29939gjzibr2xadh54sj8ns646w58";
     };
     meta.homepage = "https://github.com/jeffkreeftmeijer/neovim-sensible/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neovim-trunk = buildVimPlugin {
@@ -9618,7 +9616,7 @@ final: prev: {
       sha256 = "086l7zf2k2p537a13zwivfkamfgpdkrfgq5r23y014s2x2jrh5dw";
     };
     meta.homepage = "https://github.com/trunk-io/neovim-trunk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neoyank-vim = buildVimPlugin {
@@ -9631,7 +9629,7 @@ final: prev: {
       sha256 = "0fmn92kjgwkfpsh328bvd3nsw32q6wbjjp9vqmfnbs8rbkmpn0vh";
     };
     meta.homepage = "https://github.com/Shougo/neoyank.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nerdcommenter = buildVimPlugin {
@@ -9644,7 +9642,7 @@ final: prev: {
       sha256 = "0sx0xbn6qwm6pj3w9ny9f2ksjxwwlchbkxypk842q21dr146shlb";
     };
     meta.homepage = "https://github.com/preservim/nerdcommenter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nerdtree = buildVimPlugin {
@@ -9657,7 +9655,7 @@ final: prev: {
       sha256 = "1j9b7f1b1pdb2v7z0b4mnfvcir4z1ycs3l2xh4rvrl7gzhlc56y5";
     };
     meta.homepage = "https://github.com/preservim/nerdtree/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nerdtree-git-plugin = buildVimPlugin {
@@ -9670,7 +9668,7 @@ final: prev: {
       sha256 = "0d7xm5rafw5biv8phfyny2haqq50mnh0q4ms7dkhvp9k1k2k2whz";
     };
     meta.homepage = "https://github.com/Xuyuanp/nerdtree-git-plugin/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nerdy-nvim = buildVimPlugin {
@@ -9683,7 +9681,7 @@ final: prev: {
       sha256 = "0d82dk112dpnk1i4x2gg32nq8fpjc8irv5kj9xnh1m6s4aycg25v";
     };
     meta.homepage = "https://github.com/2KAbhishek/nerdy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   netman-nvim = buildVimPlugin {
@@ -9696,7 +9694,7 @@ final: prev: {
       sha256 = "03dhbyxpl5acfkyg14s6fknvla8k7x3ni9ynxbcbsyyrhrb50wzb";
     };
     meta.homepage = "https://github.com/miversen33/netman.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   netrw-nvim = buildVimPlugin {
@@ -9709,7 +9707,7 @@ final: prev: {
       sha256 = "1m8pnhy9si734k0i95fyn0yn4swwmavpj1s22qp2ss75djibwhxl";
     };
     meta.homepage = "https://github.com/prichrd/netrw.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neuron-nvim = buildVimPlugin {
@@ -9722,7 +9720,7 @@ final: prev: {
       sha256 = "0r8qybg1pikp49v9v0zh79q7fxx8kh8rwafvyqghf5yb0ixcjiis";
     };
     meta.homepage = "https://github.com/oberblastmeister/neuron.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   neuron-vim = buildVimPlugin {
@@ -9735,7 +9733,7 @@ final: prev: {
       sha256 = "0pspzkl6py8k4k224580jzchg0fpzcjw2piz4jyliarzp06p1fma";
     };
     meta.homepage = "https://github.com/fiatjaf/neuron.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nfnl = buildVimPlugin {
@@ -9748,7 +9746,7 @@ final: prev: {
       sha256 = "0323dfwsg6rfcngnzq7i00n1vsxjpa6z17442shirq5w43b492vq";
     };
     meta.homepage = "https://github.com/Olical/nfnl/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ng-nvim = buildVimPlugin {
@@ -9761,7 +9759,7 @@ final: prev: {
       sha256 = "0i6y9p2cvbka97qnlwpl0kmfbl7xf98sx0khnjd5nappi7kb9zi8";
     };
     meta.homepage = "https://github.com/joeveiga/ng.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nginx-vim = buildVimPlugin {
@@ -9774,7 +9772,7 @@ final: prev: {
       sha256 = "04m5firsdi5dy4w6s8fw1vlpgnzr8dgx4fgx348kvxg1iky9l4hs";
     };
     meta.homepage = "https://github.com/chr4/nginx.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   night-owl-nvim = buildVimPlugin {
@@ -9787,7 +9785,7 @@ final: prev: {
       sha256 = "1zgi9m85z5pnfsh7p3rdnyz7rvrn44lfg5p6l005g3411h32pgiv";
     };
     meta.homepage = "https://github.com/oxfist/night-owl.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nightfly = buildVimPlugin {
@@ -9800,7 +9798,7 @@ final: prev: {
       sha256 = "05fs6nfibkqp0sjyckzk6bkczj0yyacvmvpdmcr72484b0l5wnsg";
     };
     meta.homepage = "https://github.com/bluz71/vim-nightfly-colors/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nightfox-nvim = buildVimPlugin {
@@ -9813,7 +9811,7 @@ final: prev: {
       sha256 = "1vxazdk61c99prdz7mvfsgxfy02ifisgk08wbflpqlibfz1491hy";
     };
     meta.homepage = "https://github.com/EdenEast/nightfox.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nightly-nvim = buildVimPlugin {
@@ -9826,7 +9824,7 @@ final: prev: {
       sha256 = "1d9cp2di71i50c7iir7dcdwyq32dx6pmj7rf5infzc3vzd78091h";
     };
     meta.homepage = "https://github.com/Alexis12119/nightly.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nim-vim = buildVimPlugin {
@@ -9839,7 +9837,7 @@ final: prev: {
       sha256 = "1vf3af8b85rjsccvclkb6aw9zgkwfpxd43jgnkbx6wrsv9bfz034";
     };
     meta.homepage = "https://github.com/zah/nim.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nix-develop-nvim = buildVimPlugin {
@@ -9852,7 +9850,7 @@ final: prev: {
       sha256 = "0nwjgr19pzdxd7yygz380b388qcfbzp9svs916kh0zayzi9yxc2k";
     };
     meta.homepage = "https://github.com/figsoda/nix-develop.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nlsp-settings-nvim = buildVimPlugin {
@@ -9865,7 +9863,7 @@ final: prev: {
       sha256 = "10q2kck6mjnvsk0c3rcnakfqij3757wj67rmml0zgg0k43bar423";
     };
     meta.homepage = "https://github.com/tamago324/nlsp-settings.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nnn-vim = buildVimPlugin {
@@ -9878,7 +9876,7 @@ final: prev: {
       sha256 = "1k6jy59mpq41khpcp2c7679l9m7jq6djp8x3k1argliv81w29fk4";
     };
     meta.homepage = "https://github.com/mcchrish/nnn.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   no-clown-fiesta-nvim = buildVimPlugin {
@@ -9891,7 +9889,7 @@ final: prev: {
       sha256 = "0a73zd73y0s08ilid0631mbm78q34d3qfb2rky03qqwvqz3zp7sc";
     };
     meta.homepage = "https://github.com/aktersnurra/no-clown-fiesta.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   no-neck-pain-nvim = buildVimPlugin {
@@ -9904,7 +9902,7 @@ final: prev: {
       sha256 = "0a5xmflib60k81gj6v11m1wymnzknyjxl5ydxpawyx61y36k3xhc";
     };
     meta.homepage = "https://github.com/shortcuts/no-neck-pain.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   noctis-nvim = buildVimPlugin {
@@ -9917,7 +9915,7 @@ final: prev: {
       sha256 = "0aw361j28mnggv8769b70rywsx2cvri26kg2n8i470ka1wmzklaf";
     };
     meta.homepage = "https://github.com/kartikp10/noctis.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   noice-nvim = buildVimPlugin {
@@ -9930,7 +9928,7 @@ final: prev: {
       sha256 = "000y204jli68kg0s0dsqx78gkbg8zr9h2i2lzddvypfxgqjvfayk";
     };
     meta.homepage = "https://github.com/folke/noice.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   none-ls-nvim = buildVimPlugin {
@@ -9943,7 +9941,7 @@ final: prev: {
       sha256 = "0ii92d6si3habwkw4cd24s84xhi65apq1kagdj1j2q3kqcv7xxn0";
     };
     meta.homepage = "https://github.com/nvimtools/none-ls.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nord-nvim = buildVimPlugin {
@@ -9956,7 +9954,7 @@ final: prev: {
       sha256 = "0bv733mf2c7cclqcgr64ngrxzk38pwimvcl0g63c6pj1la8xpqzj";
     };
     meta.homepage = "https://github.com/shaunsingh/nord.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nord-vim = buildVimPlugin {
@@ -9969,7 +9967,7 @@ final: prev: {
       sha256 = "1f3k8hxf21fij776xw830f71wvl6v5qmv5h806l773c9sx2dp1rz";
     };
     meta.homepage = "https://github.com/nordtheme/vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nordic-nvim = buildVimPlugin {
@@ -9982,7 +9980,7 @@ final: prev: {
       sha256 = "0js2dmiaa5jwym2c3xwzcwprbnyk7rp61wn7hzl3gkgn239sv6ca";
     };
     meta.homepage = "https://github.com/andersevenrud/nordic.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   notifier-nvim = buildVimPlugin {
@@ -9995,7 +9993,7 @@ final: prev: {
       sha256 = "1d858gdgkmarw8rsxlywan9dw4rmr7v4bf7j1pb2jl4lm3m1b9kh";
     };
     meta.homepage = "https://github.com/vigoux/notifier.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nterm-nvim = buildVimPlugin {
@@ -10008,7 +10006,7 @@ final: prev: {
       sha256 = "0cvg03d1z7jkamg062ng731pdmckrdm611q24brr9ha1qc5q26gm";
     };
     meta.homepage = "https://github.com/jlesquembre/nterm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   null-ls-nvim = buildVimPlugin {
@@ -10021,7 +10019,7 @@ final: prev: {
       sha256 = "00nkg77y9mp7ac46bdcaga36bbbrwbp7k1d6ajjgg9qf76pk8q3i";
     };
     meta.homepage = "https://github.com/jose-elias-alvarez/null-ls.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   numb-nvim = buildVimPlugin {
@@ -10034,7 +10032,7 @@ final: prev: {
       sha256 = "10ig2ryx66i2aylhcnhj2dl807f8aiahw2bqzx3dgsnf77rqsmj3";
     };
     meta.homepage = "https://github.com/nacro90/numb.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvchad = buildVimPlugin {
@@ -10047,7 +10045,7 @@ final: prev: {
       sha256 = "179qbxbs01ra289lag7pq7bajs44xmsjhpdlfj4795w2zh5bdjca";
     };
     meta.homepage = "https://github.com/nvchad/nvchad/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvchad-ui = buildVimPlugin {
@@ -10060,7 +10058,7 @@ final: prev: {
       sha256 = "12zqah2zgsi3ic3blhkcyhg8ahpzywk20hjq0gxl7ijpqfqq73d6";
     };
     meta.homepage = "https://github.com/nvchad/ui/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvcode-color-schemes-vim = buildVimPlugin {
@@ -10073,7 +10071,7 @@ final: prev: {
       sha256 = "03ifj5a3f02k00jrcjsdiy7a8wzq5k2b28hmrc7nkzm8gd4fmczb";
     };
     meta.homepage = "https://github.com/ChristianChiarulli/nvcode-color-schemes.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-FeMaco-lua = buildVimPlugin {
@@ -10086,7 +10084,7 @@ final: prev: {
       sha256 = "0lqqjzzysl5n152z2j93fk536w2vdi67hss76ai881jr9l4xscvq";
     };
     meta.homepage = "https://github.com/AckslD/nvim-FeMaco.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-ale-diagnostic = buildVimPlugin {
@@ -10099,7 +10097,7 @@ final: prev: {
       sha256 = "1bs9qkpphrkcf9y5xig23igcgdb8xj2vsil5pc7qh4bwkp2njbp0";
     };
     meta.homepage = "https://github.com/nathanmsmith/nvim-ale-diagnostic/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-autopairs = buildVimPlugin {
@@ -10112,7 +10110,7 @@ final: prev: {
       sha256 = "0q6pv89x05l71nfg2chqf9p0d2ha72agmll2svimq0npp84ymfxz";
     };
     meta.homepage = "https://github.com/windwp/nvim-autopairs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-bacon = buildVimPlugin {
@@ -10125,7 +10123,7 @@ final: prev: {
       sha256 = "10x0rphxnhwlwmzb0bzrp03r6l25f4lmxcjlf8h1cprgl56h71ky";
     };
     meta.homepage = "https://github.com/Canop/nvim-bacon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-biscuits = buildVimPlugin {
@@ -10138,7 +10136,7 @@ final: prev: {
       sha256 = "18dvvg32nxrdp1ydbvxrzkdg7q214naq2bphs7y1s9zmjhyj25pm";
     };
     meta.homepage = "https://github.com/code-biscuits/nvim-biscuits/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-bqf = buildVimPlugin {
@@ -10151,7 +10149,7 @@ final: prev: {
       sha256 = "0gxfpld6f60a6679f58m0v2f2m9lar74mmvi0fh4880gbd92kdm6";
     };
     meta.homepage = "https://github.com/kevinhwang91/nvim-bqf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-bufdel = buildVimPlugin {
@@ -10164,7 +10162,7 @@ final: prev: {
       sha256 = "01m8pgwsfplmknwf0a0ynwn7nflhsxfz1vmx4h3y92p0gs5shwwy";
     };
     meta.homepage = "https://github.com/ojroques/nvim-bufdel/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-cm-racer = buildVimPlugin {
@@ -10177,7 +10175,7 @@ final: prev: {
       sha256 = "1yljxwypgn91084yyicbc2qprn31ld7s4drvnddzczyhzq5m2gpx";
     };
     meta.homepage = "https://github.com/roxma/nvim-cm-racer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-code-action-menu = buildVimPlugin {
@@ -10190,7 +10188,7 @@ final: prev: {
       sha256 = "13rjzsw44151gk9zwl7gmmmdysb6hz1i5mcw1mprif41v0zrm3x5";
     };
     meta.homepage = "https://github.com/weilbith/nvim-code-action-menu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-cokeline = buildVimPlugin {
@@ -10203,7 +10201,7 @@ final: prev: {
       sha256 = "07prjb4z98h460wdfyvmi4fsl26xg0j3hhfirpw8hdgjb01aqj9v";
     };
     meta.homepage = "https://github.com/willothy/nvim-cokeline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-colorizer-lua = buildVimPlugin {
@@ -10216,7 +10214,7 @@ final: prev: {
       sha256 = "0gaxkq30wvxq3d8x6l6r10vdxyizfi5g55xnvzw69lfyl61d9qy8";
     };
     meta.homepage = "https://github.com/catgoose/nvim-colorizer.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-comment = buildVimPlugin {
@@ -10229,7 +10227,7 @@ final: prev: {
       sha256 = "1rsf0il8f3lrlza7f47296dsfqzpgsgn1dzr663saagi6npf2s1v";
     };
     meta.homepage = "https://github.com/terrortylor/nvim-comment/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-completion-manager = buildVimPlugin {
@@ -10242,7 +10240,7 @@ final: prev: {
       sha256 = "0znwgry4ill0nxm096hc8s9vf20rf9xcq3dz8y8h7xlqzzsycl7a";
     };
     meta.homepage = "https://github.com/roxma/nvim-completion-manager/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-config-local = buildVimPlugin {
@@ -10255,7 +10253,7 @@ final: prev: {
       sha256 = "0a7c22fcwl7gczip7bl9lcm2na0dz698bc6xgkryrg0y6fmzbc6k";
     };
     meta.homepage = "https://github.com/klen/nvim-config-local/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-coverage = buildVimPlugin {
@@ -10268,7 +10266,7 @@ final: prev: {
       sha256 = "0v2j3wixhfnalnzp0pxnynzfkvj47mfllxl6a4bj7p2lm1fm61i5";
     };
     meta.homepage = "https://github.com/andythigpen/nvim-coverage/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-cursorline = buildVimPlugin {
@@ -10281,7 +10279,7 @@ final: prev: {
       sha256 = "1zqbykfi4mjp07y8c1kir4lxgvcaxqy9jkn558y3n1jakpk3l72j";
     };
     meta.homepage = "https://github.com/ya2s/nvim-cursorline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap = buildVimPlugin {
@@ -10294,7 +10292,7 @@ final: prev: {
       sha256 = "0m91bqbprp6n00m7kk5wqrhl237a5q082m98xak6r7gvxg1c7ac7";
     };
     meta.homepage = "https://github.com/mfussenegger/nvim-dap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-cortex-debug = buildVimPlugin {
@@ -10307,7 +10305,7 @@ final: prev: {
       sha256 = "0dmf0zxb8a7l8r99k2xgm1b56896fbblq1d3zc8700i31rywqxw5";
     };
     meta.homepage = "https://github.com/jedrzejboczar/nvim-dap-cortex-debug/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-go = buildVimPlugin {
@@ -10320,7 +10318,7 @@ final: prev: {
       sha256 = "1s4vkq2ni9a5df455qn6qbj44r82rcghkcbkifxdcmz2kvmq3wmn";
     };
     meta.homepage = "https://github.com/leoluz/nvim-dap-go/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-lldb = buildVimPlugin {
@@ -10333,7 +10331,7 @@ final: prev: {
       sha256 = "0j3qbsgwmby1ymxj787p1agamdmh52kcxl24nrgvjcmsdbzp1pqv";
     };
     meta.homepage = "https://github.com/julianolf/nvim-dap-lldb/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-python = buildVimPlugin {
@@ -10346,7 +10344,7 @@ final: prev: {
       sha256 = "1rnymif8x0wcy4pdawn3jps9zynajkhwbrm37n4md2hfd7wbb7yl";
     };
     meta.homepage = "https://github.com/mfussenegger/nvim-dap-python/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-rego = buildVimPlugin {
@@ -10359,7 +10357,7 @@ final: prev: {
       sha256 = "04058hxmwvag0567gbwbxvfym7vzs2w2hjcqnk3z2yvhx2v4ivi5";
     };
     meta.homepage = "https://github.com/rinx/nvim-dap-rego/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-rr = buildVimPlugin {
@@ -10372,7 +10370,7 @@ final: prev: {
       sha256 = "1nnnk05cn7h6dv49zpwiwqzj1v3bmh56acpb6gklg28xdf4jd2v0";
     };
     meta.homepage = "https://github.com/jonboh/nvim-dap-rr/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-ui = buildVimPlugin {
@@ -10385,7 +10383,7 @@ final: prev: {
       sha256 = "1h71y3pjbbgh8kgghs0sb721bl9pd7l7ak3mj1j27fv6x6kbmgar";
     };
     meta.homepage = "https://github.com/rcarriga/nvim-dap-ui/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-view = buildVimPlugin {
@@ -10398,7 +10396,7 @@ final: prev: {
       sha256 = "0788q2p5534l9qsxpd9ik6dwd99pfprr1j8cszvffl6mh1rjf9ss";
     };
     meta.homepage = "https://github.com/igorlfs/nvim-dap-view/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-virtual-text = buildVimPlugin {
@@ -10411,7 +10409,7 @@ final: prev: {
       sha256 = "1xg16c3ncs6nrd1gxdrysa1m123vzp17bx0n6v183gi79kw286zj";
     };
     meta.homepage = "https://github.com/theHamsta/nvim-dap-virtual-text/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-dap-vscode-js = buildVimPlugin {
@@ -10424,7 +10422,7 @@ final: prev: {
       sha256 = "1nj299by3qs0dbsv1lxb19ia9pbpspw22kdlrilwl8vqixl77ngi";
     };
     meta.homepage = "https://github.com/mxsdev/nvim-dap-vscode-js/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-docs-view = buildVimPlugin {
@@ -10437,7 +10435,7 @@ final: prev: {
       sha256 = "0ifbfhifly5sdsbxv1p71wvl644jz505ln9j1yr6qwvyk6a2krm1";
     };
     meta.homepage = "https://github.com/amrbashir/nvim-docs-view/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-early-retirement = buildVimPlugin {
@@ -10450,7 +10448,7 @@ final: prev: {
       sha256 = "1532kfsfvjf61gg238dwqyam5p9ncnpzvzbmvw8wjqv12izn39nj";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-early-retirement/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-expand-expr = buildVimPlugin {
@@ -10463,7 +10461,7 @@ final: prev: {
       sha256 = "1nmklzvvq64dz430gzrbq6qpjrvwwfm09lsw4iiffs9fizjp95if";
     };
     meta.homepage = "https://github.com/allendang/nvim-expand-expr/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-fzf = buildVimPlugin {
@@ -10476,7 +10474,7 @@ final: prev: {
       sha256 = "1r9k54f82gjy0wiy52fnaiwj8bkazhyhawyxmjg4za46rjdijmvj";
     };
     meta.homepage = "https://github.com/vijaymarupudi/nvim-fzf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-fzf-commands = buildVimPlugin {
@@ -10489,7 +10487,7 @@ final: prev: {
       sha256 = "03q1zzyarjirays1ih6d2d5jdy5hac7sglxa95n5hlrap3w9y859";
     };
     meta.homepage = "https://github.com/vijaymarupudi/nvim-fzf-commands/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-gdb = buildVimPlugin {
@@ -10502,7 +10500,7 @@ final: prev: {
       sha256 = "1y4m3m27bkzyjx8g2zd1ampgm84c2f10a7sd4v5qpirf9xiqhhqb";
     };
     meta.homepage = "https://github.com/sakhnik/nvim-gdb/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-genghis = buildVimPlugin {
@@ -10515,7 +10513,7 @@ final: prev: {
       sha256 = "0ncqy98qq58gdxpr6j4kn5vgw5hdj7f8p87qknmawfx754x3vykp";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-genghis/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-gomove = buildVimPlugin {
@@ -10528,7 +10526,7 @@ final: prev: {
       sha256 = "sha256-9YLJm/L13gTktb6VIkz2W/60cothFtF7feiKd26R5lo=";
     };
     meta.homepage = "https://github.com/booperlv/nvim-gomove/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-gps = buildVimPlugin {
@@ -10541,7 +10539,7 @@ final: prev: {
       sha256 = "0jfg0ngfyfixl4gjay909zy7ysardjx9daikw2dnjy9j8a9n0jm3";
     };
     meta.homepage = "https://github.com/smiteshp/nvim-gps/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-highlight-colors = buildVimPlugin {
@@ -10554,7 +10552,7 @@ final: prev: {
       sha256 = "0zw59ymsy1vl57akpb273psy93vl49i5zkfkp7r5k3dq67l28f37";
     };
     meta.homepage = "https://github.com/brenoprata10/nvim-highlight-colors/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-highlite = buildVimPlugin {
@@ -10567,7 +10565,7 @@ final: prev: {
       sha256 = "0hf826dk6wvfmzs7d6xrnilkvqlrdnfrrr5h5b4jyvqy8k0zsckv";
     };
     meta.homepage = "https://github.com/Iron-E/nvim-highlite/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-hlslens = buildVimPlugin {
@@ -10580,7 +10578,7 @@ final: prev: {
       sha256 = "05rxzl519p9wqymbdnz3jrc6k1p7l7sj0mw6cz12snsg5cisn2h7";
     };
     meta.homepage = "https://github.com/kevinhwang91/nvim-hlslens/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-hs-vim = buildVimPlugin {
@@ -10593,7 +10591,7 @@ final: prev: {
       sha256 = "0a4sc2ff67xdqy5wj1j384vrsbnvhcd15mmwv7yygd7rccc2wsxs";
     };
     meta.homepage = "https://github.com/neovimhaskell/nvim-hs.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-impairative = buildVimPlugin {
@@ -10606,7 +10604,7 @@ final: prev: {
       sha256 = "0z4vlzb42j1263vnxxk3vka8wg0ggn3xkr42gmrw7dviz88l9x04";
     };
     meta.homepage = "https://github.com/idanarye/nvim-impairative/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-java = buildVimPlugin {
@@ -10619,7 +10617,7 @@ final: prev: {
       sha256 = "0bfblnhx8rdqs0szmjs7jlpcj81zhp83lqwpfz1ns05nwksv9wlw";
     };
     meta.homepage = "https://github.com/nvim-java/nvim-java/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-java-core = buildVimPlugin {
@@ -10632,7 +10630,7 @@ final: prev: {
       sha256 = "0s6wqz9z8r0hvvgf5dnl8drgzb49vrk798rc7gk2cbm85blzk7p8";
     };
     meta.homepage = "https://github.com/nvim-java/nvim-java-core/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-java-dap = buildVimPlugin {
@@ -10645,7 +10643,7 @@ final: prev: {
       sha256 = "01fscbw226djimzscpa7n20gfzyhw952ar4dymyw18svp5vg5g2y";
     };
     meta.homepage = "https://github.com/nvim-java/nvim-java-dap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-java-refactor = buildVimPlugin {
@@ -10658,7 +10656,7 @@ final: prev: {
       sha256 = "14akgf8z74c4crkmggmrlckn4av0a701kr0whvn5pq6phc718dns";
     };
     meta.homepage = "https://github.com/nvim-java/nvim-java-refactor/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-java-test = buildVimPlugin {
@@ -10671,7 +10669,7 @@ final: prev: {
       sha256 = "18jvkiy568i18r0cq0pyxjsispsvbbv40niyj98dlc04dzx618ba";
     };
     meta.homepage = "https://github.com/nvim-java/nvim-java-test/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-jdtls = buildVimPlugin {
@@ -10684,7 +10682,7 @@ final: prev: {
       sha256 = "0sk1gspldc513fhcicv5sqp5v1gin3nprmanvbd87cbi1l3rkhvh";
     };
     meta.homepage = "https://github.com/mfussenegger/nvim-jdtls/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-jqx = buildVimPlugin {
@@ -10697,7 +10695,7 @@ final: prev: {
       sha256 = "0s2z4nd5anh5r3z4iv9fa4m5vnkbdl6aj7rw5ssn3cm52kplw3fq";
     };
     meta.homepage = "https://github.com/gennaro-tedesco/nvim-jqx/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-k8s-crd = buildVimPlugin {
@@ -10710,7 +10708,7 @@ final: prev: {
       sha256 = "1gx80lclc8jh2k288hswz8b03zlamkb5z8zdl03nchxrm6xr5x05";
     };
     meta.homepage = "https://github.com/anasinnyk/nvim-k8s-crd/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lastplace = buildVimPlugin {
@@ -10723,7 +10721,7 @@ final: prev: {
       sha256 = "0a5bplxsds8y054jbgcwd0j0hzj0knazdmir54byd2bm57l78qcf";
     };
     meta.homepage = "https://github.com/ethanholz/nvim-lastplace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lightbulb = buildVimPlugin {
@@ -10736,7 +10734,7 @@ final: prev: {
       sha256 = "0wp8f6yphb28iaxlhg326kvrh3h8xn5fkkcfn1whbacch6562wym";
     };
     meta.homepage = "https://github.com/kosayoda/nvim-lightbulb/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lightline-lsp = buildVimPlugin {
@@ -10749,7 +10747,7 @@ final: prev: {
       sha256 = "08qxyr998d7zwnk0czfq4hif0q801fm2ijpbwql32kd6a62bnhjf";
     };
     meta.homepage = "https://github.com/josa42/nvim-lightline-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lilypond-suite = buildVimPlugin {
@@ -10762,7 +10760,7 @@ final: prev: {
       sha256 = "068b7kygi0wb39hz1gqjl1spqf6lrlas61yw0khxb83j7kwcy655";
     };
     meta.homepage = "https://github.com/martineausimon/nvim-lilypond-suite/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lint = buildVimPlugin {
@@ -10775,7 +10773,7 @@ final: prev: {
       sha256 = "0jspqgw8zwz79jrlcqr15waaxzw68n5c10bvhm3hqw02dr0bbipq";
     };
     meta.homepage = "https://github.com/mfussenegger/nvim-lint/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lsp-file-operations = buildVimPlugin {
@@ -10788,7 +10786,7 @@ final: prev: {
       sha256 = "0xmcvg5ks9n44aldk6aywvx4jshsdwxrsq44y0wph0wd9v88v7kk";
     };
     meta.homepage = "https://github.com/antosha417/nvim-lsp-file-operations/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lsp-notify = buildVimPlugin {
@@ -10801,7 +10799,7 @@ final: prev: {
       sha256 = "1i4mg82x7x676xf63l1lzxmzd9h8hs3c8yra4l7aq6yw2vywdpdp";
     };
     meta.homepage = "https://github.com/mrded/nvim-lsp-notify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lsp-ts-utils = buildVimPlugin {
@@ -10814,7 +10812,7 @@ final: prev: {
       sha256 = "1j45q63fzxlj179f1fl717ap37p7yiji53967j0yv4pdn200xinz";
     };
     meta.homepage = "https://github.com/jose-elias-alvarez/nvim-lsp-ts-utils/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lspconfig = buildVimPlugin {
@@ -10827,7 +10825,7 @@ final: prev: {
       sha256 = "1zkjmr33srzdcjriwdlvq1dmpia7n0xgy3k5l3cdhrfn66k3mwl2";
     };
     meta.homepage = "https://github.com/neovim/nvim-lspconfig/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lsputils = buildVimPlugin {
@@ -10840,7 +10838,7 @@ final: prev: {
       sha256 = "0xl3crhgkzmas8zdcycgk11am3wx0az4jh7fh5n4lsjip8895p4s";
     };
     meta.homepage = "https://github.com/RishabhRD/nvim-lsputils/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-lua-gf = buildVimPlugin {
@@ -10853,7 +10851,7 @@ final: prev: {
       sha256 = "1ix3xc8zlpmzwwwr3dzizm44hlxr69vmf281jngjhvb2irkiqdzf";
     };
     meta.homepage = "https://github.com/sam4llis/nvim-lua-gf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-luadev = buildVimPlugin {
@@ -10866,7 +10864,7 @@ final: prev: {
       sha256 = "0pvb25bdmx4hxs3g7pkdqfjg3qpnr9p5szzbqqwaw3lbdnbyykzy";
     };
     meta.homepage = "https://github.com/bfredl/nvim-luadev/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-luapad = buildVimPlugin {
@@ -10879,7 +10877,7 @@ final: prev: {
       sha256 = "1rqyzf6nfcs8kdyjgm3rw76ns4sqrhl5lhfyx2h7rj9j8pncchh7";
     };
     meta.homepage = "https://github.com/rafcamlet/nvim-luapad/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-metals = buildVimPlugin {
@@ -10892,7 +10890,7 @@ final: prev: {
       sha256 = "10asl4vi6di8vzhhjsczf8c5l16lcj0ygj2fbylav44ydy4dlwxd";
     };
     meta.homepage = "https://github.com/scalameta/nvim-metals/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-moonwalk = buildVimPlugin {
@@ -10905,7 +10903,7 @@ final: prev: {
       sha256 = "0cwfsm5wb4qn04930km9p4i6xbhaw4023dfzw3s6cr6a428rpc5j";
     };
     meta.homepage = "https://github.com/gpanders/nvim-moonwalk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-navbuddy = buildVimPlugin {
@@ -10918,7 +10916,7 @@ final: prev: {
       sha256 = "0b6bazh531bixskpmmpkidqii4n3m7n2cp9bmzml5wb0wibazcac";
     };
     meta.homepage = "https://github.com/SmiteshP/nvim-navbuddy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-navic = buildVimPlugin {
@@ -10931,7 +10929,7 @@ final: prev: {
       sha256 = "0mxsnwvrjirpy2ichsilx6207z55xi42syg5d3fdgs2r1p1npggc";
     };
     meta.homepage = "https://github.com/smiteshp/nvim-navic/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-neoclip-lua = buildVimPlugin {
@@ -10944,7 +10942,7 @@ final: prev: {
       sha256 = "11nc3c04ljgh34jjjmyhanwbd4kmkay109168q88yfy6n6l2jf92";
     };
     meta.homepage = "https://github.com/AckslD/nvim-neoclip.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-nonicons = buildVimPlugin {
@@ -10957,7 +10955,7 @@ final: prev: {
       sha256 = "0kcagkzgvib0jg9aywfvrk4bx7pdyk7zj5b5i4wzacdcyx5yb7mx";
     };
     meta.homepage = "https://github.com/ya2s/nvim-nonicons/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-notify = buildVimPlugin {
@@ -10970,7 +10968,7 @@ final: prev: {
       sha256 = "13qlkncpmjvmkpcx5sv366i7scsh90wjvcqy8qlv31ccmgq511wv";
     };
     meta.homepage = "https://github.com/rcarriga/nvim-notify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-nu = buildVimPlugin {
@@ -10983,7 +10981,7 @@ final: prev: {
       sha256 = "03zvbfpwslvra00sbr8jk9ydm3b5j6iqg32rhps964lr5bascvlr";
     };
     meta.homepage = "https://github.com/LhKipp/nvim-nu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-numbertoggle = buildVimPlugin {
@@ -10996,7 +10994,7 @@ final: prev: {
       sha256 = "1nf74a8ssw23rq3vq0kqkbwpd680pp19pdhl6z4qf11l427jn5n0";
     };
     meta.homepage = "https://github.com/sitiom/nvim-numbertoggle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-origami = buildVimPlugin {
@@ -11009,7 +11007,7 @@ final: prev: {
       sha256 = "0w6i90axf6gnf0ixxb8a3q2kgg83kx97zial0rw8sx8x3jy4n79n";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-origami/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-osc52 = buildVimPlugin {
@@ -11022,7 +11020,7 @@ final: prev: {
       sha256 = "0rfn4lxbk3pwlnsa7ldcg3qh4zcapci9fr20gp56c6zcdjwayn3i";
     };
     meta.homepage = "https://github.com/ojroques/nvim-osc52/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-paredit = buildVimPlugin {
@@ -11035,7 +11033,7 @@ final: prev: {
       sha256 = "1rzy4rhmlaz5swf514i61jxldxkxnpd5vidlw63p6bshk6rf8q5h";
     };
     meta.homepage = "https://github.com/julienvincent/nvim-paredit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-parinfer = buildVimPlugin {
@@ -11048,7 +11046,7 @@ final: prev: {
       sha256 = "0qci774sf7kxsq1a77nmis4zgjggf89w0j5ibzdbrw11cyv0nb3n";
     };
     meta.homepage = "https://github.com/gpanders/nvim-parinfer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-peekup = buildVimPlugin {
@@ -11061,7 +11059,7 @@ final: prev: {
       sha256 = "0zix075fb342a1j162xxiqajs0ayaxa7l3zbya3jkvp1d497s1m3";
     };
     meta.homepage = "https://github.com/gennaro-tedesco/nvim-peekup/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-pqf = buildVimPlugin {
@@ -11074,7 +11072,7 @@ final: prev: {
       sha256 = "10h5zk7qkj9m640bjncrmf40jlajfrmvgcbxkc1y6hpgymyzalg5";
     };
     meta.homepage = "https://github.com/yorickpeterse/nvim-pqf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-remote-containers = buildVimPlugin {
@@ -11087,7 +11085,7 @@ final: prev: {
       sha256 = "0dw49mhx1svcpqx4y6lfp6gpns6r7irk4y3q615ffag0hvx11r63";
     };
     meta.homepage = "https://github.com/jamestthompson3/nvim-remote-containers/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-rename-state = buildVimPlugin {
@@ -11100,7 +11098,7 @@ final: prev: {
       sha256 = "0xjrdci7m2qbk80ckh795nrrl2v3q7wwg4l5x501vx93n9ynrjpx";
     };
     meta.homepage = "https://github.com/olrtg/nvim-rename-state/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-rg = buildVimPlugin {
@@ -11113,7 +11111,7 @@ final: prev: {
       sha256 = "1wbgayyasli57p11751hackcmqcbaisca0kxbm24r67h3137yi23";
     };
     meta.homepage = "https://github.com/duane9/nvim-rg/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-rip-substitute = buildVimPlugin {
@@ -11126,7 +11124,7 @@ final: prev: {
       sha256 = "101lhrnqqywzx9c0n0ad60a7pwgpwrnw1jsy0wqkav1d3l3pqllr";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-rip-substitute/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-scissors = buildVimPlugin {
@@ -11139,7 +11137,7 @@ final: prev: {
       sha256 = "0d9qw33y3b3jmvddplji284r0y0kj5bah8k014f9kzqbb0sdp3xk";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-scissors/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-scrollbar = buildVimPlugin {
@@ -11152,7 +11150,7 @@ final: prev: {
       sha256 = "1bh34njkvlbkjzy62w48rzjmliaj6lczgxxkks455r0w7yvfklv7";
     };
     meta.homepage = "https://github.com/petertriho/nvim-scrollbar/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-scrollview = buildVimPlugin {
@@ -11165,7 +11163,7 @@ final: prev: {
       sha256 = "1xyh04amj12q1cfdl7b6gz1zhym458faw7lymdgbvyg25pm06ah4";
     };
     meta.homepage = "https://github.com/dstein64/nvim-scrollview/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-search-and-replace = buildVimPlugin {
@@ -11178,7 +11176,7 @@ final: prev: {
       sha256 = "054qj69i45lgjflzrfck4jdmsl41mfvk9d092h68a19znsms1i30";
     };
     meta.homepage = "https://github.com/s1n7ax/nvim-search-and-replace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-snippets = buildVimPlugin {
@@ -11191,7 +11189,7 @@ final: prev: {
       sha256 = "0a7s5rz3w8mm5gsq42g418rdhlas5ga3q5w81jix81xwkalllg6l";
     };
     meta.homepage = "https://github.com/garymjr/nvim-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-snippy = buildVimPlugin {
@@ -11204,7 +11202,7 @@ final: prev: {
       sha256 = "0n2sp3m8glvwnanqa8yk3d54n9p16rcshqyi7d0manf1iykv9ilh";
     };
     meta.homepage = "https://github.com/dcampos/nvim-snippy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-solarized-lua = buildVimPlugin {
@@ -11217,7 +11215,7 @@ final: prev: {
       sha256 = "1m0f63ih6hhxmap9gyrp05px2a3pyswraf75vhmabwwxpn903l6h";
     };
     meta.homepage = "https://github.com/ishan9299/nvim-solarized-lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-sops = buildVimPlugin {
@@ -11230,7 +11228,7 @@ final: prev: {
       sha256 = "0fvxnx5ji3d4kgsxl2ssqs7s567ibk4h38mz70m3nhs3sxk696lj";
     };
     meta.homepage = "https://github.com/lucidph3nx/nvim-sops/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-spider = buildVimPlugin {
@@ -11243,7 +11241,7 @@ final: prev: {
       sha256 = "1w87hjylahnnw4dmj65dqd2kp9xb1hn14fn6bmqqg1ayhm3r0w92";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-spider/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-surround = buildVimPlugin {
@@ -11256,7 +11254,7 @@ final: prev: {
       sha256 = "1r7kvq8sa7g3vhj6d885jgq04xpk3xn21zn1sb9lbffdkxxkqs2k";
     };
     meta.homepage = "https://github.com/kylechui/nvim-surround/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-teal-maker = buildVimPlugin {
@@ -11269,7 +11267,7 @@ final: prev: {
       sha256 = "1axz6znqs9p9a9vzqwm0znp7parn6msl2vwrmg5q6javcvzldym4";
     };
     meta.homepage = "https://github.com/svermeulen/nvim-teal-maker/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-terminal-lua = buildVimPlugin {
@@ -11282,7 +11280,7 @@ final: prev: {
       sha256 = "09hass19v3wrqgxjcr3b59w462lp2nw533zwb1nnmiz99gx1znpx";
     };
     meta.homepage = "https://github.com/norcalli/nvim-terminal.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-test = buildVimPlugin {
@@ -11295,7 +11293,7 @@ final: prev: {
       sha256 = "1cm4dggp1aidq72jdkk2zi2aw7dizrb5npriwjxn0nnc8vnv9j4q";
     };
     meta.homepage = "https://github.com/klen/nvim-test/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-tinygit = buildVimPlugin {
@@ -11308,7 +11306,7 @@ final: prev: {
       sha256 = "0xr5nlhd355dn330gm8l9d4s52k6shdh5njy8hdx0r13rznjvhvp";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-tinygit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-tree-lua = buildVimPlugin {
@@ -11321,7 +11319,7 @@ final: prev: {
       sha256 = "1a92zsb1r48s6cjphvx406lbxyc1v9w3gk9kkp3ri0k1l134aaw8";
     };
     meta.homepage = "https://github.com/nvim-tree/nvim-tree.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter = buildVimPlugin {
@@ -11334,7 +11332,7 @@ final: prev: {
       sha256 = "1ck1qslxwi18qxrga68blvk1dg9j4jn65xiw8snq5pk06waksnq9";
     };
     meta.homepage = "https://github.com/nvim-treesitter/nvim-treesitter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-context = buildVimPlugin {
@@ -11347,7 +11345,7 @@ final: prev: {
       sha256 = "1q8ll6lkgqc2vhr9jz687a9rgzxrd0swy8cnsy2mb6c6626sxxhq";
     };
     meta.homepage = "https://github.com/nvim-treesitter/nvim-treesitter-context/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-endwise = buildVimPlugin {
@@ -11360,7 +11358,7 @@ final: prev: {
       sha256 = "12rxdbvxi1i0svi4ibczb1a6njng1ida0f7aaxnsmafkssmxy323";
     };
     meta.homepage = "https://github.com/RRethy/nvim-treesitter-endwise/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-pairs = buildVimPlugin {
@@ -11373,7 +11371,7 @@ final: prev: {
       sha256 = "sha256-VHq7ohBDThkBwqUIEVBb4RujBkftu96DQe/y6l7egzM=";
     };
     meta.homepage = "https://github.com/theHamsta/nvim-treesitter-pairs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-pyfold = buildVimPlugin {
@@ -11386,7 +11384,7 @@ final: prev: {
       sha256 = "0jzk6xax1fb6vzbdd2p7f06r1s4mbw1srlykvfi7031y7b6n4ccj";
     };
     meta.homepage = "https://github.com/eddiebergman/nvim-treesitter-pyfold/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-refactor = buildVimPlugin {
@@ -11399,7 +11397,7 @@ final: prev: {
       sha256 = "0n5aygram7wfmhsy3sb68g4adpkx6z1z31cl0780zbdgs5k3785b";
     };
     meta.homepage = "https://github.com/nvim-treesitter/nvim-treesitter-refactor/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-sexp = buildVimPlugin {
@@ -11412,7 +11410,7 @@ final: prev: {
       sha256 = "1mfayp49nglk4xv1zmzdc8d6dxkjn3dqlywhwwkcdnyqg6y4c6ks";
     };
     meta.homepage = "https://github.com/PaterJason/nvim-treesitter-sexp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-textobjects = buildVimPlugin {
@@ -11425,7 +11423,7 @@ final: prev: {
       sha256 = "1vy2ihqknjrbmn4lw81hvhhqdg1pc2wc32ir96506bb3d273am7b";
     };
     meta.homepage = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-treesitter-textsubjects = buildVimPlugin {
@@ -11438,7 +11436,7 @@ final: prev: {
       sha256 = "06j00gv4l4hr6fisrl74jgvmqzmbkqrhzhfh2k15w6xf54jb6fnv";
     };
     meta.homepage = "https://github.com/RRethy/nvim-treesitter-textsubjects/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-trevJ-lua = buildVimPlugin {
@@ -11451,7 +11449,7 @@ final: prev: {
       sha256 = "0wrmzk7wyr4mk8y0c7hq0qqk19ngdwvvd80690vqs3vby89a5zkj";
     };
     meta.homepage = "https://github.com/AckslD/nvim-trevJ.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-ts-autotag = buildVimPlugin {
@@ -11464,7 +11462,7 @@ final: prev: {
       sha256 = "1wl30qr6xs6xwx0s3yjkprxp802dhg45rzdiwpr9v6mwbsm5qw3b";
     };
     meta.homepage = "https://github.com/windwp/nvim-ts-autotag/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-ts-context-commentstring = buildVimPlugin {
@@ -11477,7 +11475,7 @@ final: prev: {
       sha256 = "1qvcqfmdzmyl9x8d1782wvmg81nhw65dj3rg890m7ypqx7gwqc02";
     };
     meta.homepage = "https://github.com/joosepalviste/nvim-ts-context-commentstring/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-ufo = buildVimPlugin {
@@ -11490,7 +11488,7 @@ final: prev: {
       sha256 = "1akbq1nsm71snjx6n37070ycmhh46n5lqlvz6625zgsfg272fnz2";
     };
     meta.homepage = "https://github.com/kevinhwang91/nvim-ufo/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-unception = buildVimPlugin {
@@ -11503,7 +11501,7 @@ final: prev: {
       sha256 = "15sa9bmn1m3ddkhn1j1c8b3v2nkmb96sbivg6zz6z8kznr1qm1pw";
     };
     meta.homepage = "https://github.com/samjwill/nvim-unception/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-various-textobjs = buildVimPlugin {
@@ -11516,7 +11514,7 @@ final: prev: {
       sha256 = "03wy31fmzpvjqx7klv6hwlgc66p4alc33vx5g81wjm78nxkr9yr3";
     };
     meta.homepage = "https://github.com/chrisgrieser/nvim-various-textobjs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-vtsls = buildVimPlugin {
@@ -11529,7 +11527,7 @@ final: prev: {
       sha256 = "00qj7b70afpgxmb6ml4knjwdwcn29yk8mvsb575b6ww9zsxh34il";
     };
     meta.homepage = "https://github.com/yioneko/nvim-vtsls/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-whichkey-setup-lua = buildVimPlugin {
@@ -11542,7 +11540,7 @@ final: prev: {
       sha256 = "02bidgicrrx6jwm6hpcq0waqdzif2rws2q1i47zvi5x9i3zyl5cx";
     };
     meta.homepage = "https://github.com/AckslD/nvim-whichkey-setup.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-window-picker = buildVimPlugin {
@@ -11555,7 +11553,7 @@ final: prev: {
       sha256 = "0zlr1plqsfqc2imzainahhg1d91pfyd2ambj4mlj8b8pjhzciav5";
     };
     meta.homepage = "https://github.com/s1n7ax/nvim-window-picker/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim-yarp = buildVimPlugin {
@@ -11568,7 +11566,7 @@ final: prev: {
       sha256 = "1ddh1cwm3a46vbz10v3n5mxa52mvwhxr7v902ixx0603ndawmk2g";
     };
     meta.homepage = "https://github.com/roxma/nvim-yarp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvim_context_vt = buildVimPlugin {
@@ -11581,7 +11579,7 @@ final: prev: {
       sha256 = "1f0mbl797xnf0c5cb1a10b6cbva92chq0bywh7kni817rp750ix3";
     };
     meta.homepage = "https://github.com/andersevenrud/nvim_context_vt/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvimdev-nvim = buildVimPlugin {
@@ -11594,7 +11592,7 @@ final: prev: {
       sha256 = "0dvbgvscn0jmf39ivaij9af6zkr012ns1vjmfrj165xw7gplvyac";
     };
     meta.homepage = "https://github.com/neovim/nvimdev.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvterm = buildVimPlugin {
@@ -11607,7 +11605,7 @@ final: prev: {
       sha256 = "0pnh3mva0jjm2li5xnkbfa3cvn0di01b24kqn82g43fjvmf3kxzx";
     };
     meta.homepage = "https://github.com/zbirenbaum/nvterm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvzone-menu = buildVimPlugin {
@@ -11620,7 +11618,7 @@ final: prev: {
       sha256 = "11jafag2wsap9vmzd19ndfrbyyd685gn9jh580lbpniprbld0rz0";
     };
     meta.homepage = "https://github.com/nvzone/menu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvzone-minty = buildVimPlugin {
@@ -11633,7 +11631,7 @@ final: prev: {
       sha256 = "1s5wkrsdybqdc0fwr0x3km6k5n1bdivwdbjhqhfm3kvf3mqz9p4d";
     };
     meta.homepage = "https://github.com/nvzone/minty/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvzone-typr = buildVimPlugin {
@@ -11646,7 +11644,7 @@ final: prev: {
       sha256 = "1n71rcx712cw2yhsiqzmby94j8d7nps9irx0j8bml63h96kkj6wb";
     };
     meta.homepage = "https://github.com/nvzone/typr/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   nvzone-volt = buildVimPlugin {
@@ -11659,7 +11657,7 @@ final: prev: {
       sha256 = "0mx2npsj39y0q11i14kg4brc6nqhk5hjfdbwr197x41m0qjdqdpb";
     };
     meta.homepage = "https://github.com/nvzone/volt/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   obsidian-nvim = buildVimPlugin {
@@ -11672,7 +11670,7 @@ final: prev: {
       sha256 = "1rmfv5a232ld65y8hp715354am7220nzdfgj5iay8c4fq0dgc02z";
     };
     meta.homepage = "https://github.com/obsidian-nvim/obsidian.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   oceanic-material = buildVimPlugin {
@@ -11685,7 +11683,7 @@ final: prev: {
       sha256 = "133ylp1ji3ff9pi8446772q3afxvrmc848wf31fk5d9as4izm47p";
     };
     meta.homepage = "https://github.com/nvimdev/oceanic-material/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   oceanic-next = buildVimPlugin {
@@ -11698,7 +11696,7 @@ final: prev: {
       sha256 = "1wxzclv7pcli075fagl89302azka6q2l0cb9rpjw4ch679par63z";
     };
     meta.homepage = "https://github.com/mhartington/oceanic-next/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   octo-nvim = buildVimPlugin {
@@ -11711,7 +11709,7 @@ final: prev: {
       sha256 = "0smi2g8c7cfaj72jrdsx4na42x8yw9hmyrxrc0jp4swml8cymzfg";
     };
     meta.homepage = "https://github.com/pwntester/octo.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   oil-git-status-nvim = buildVimPlugin {
@@ -11724,7 +11722,7 @@ final: prev: {
       sha256 = "1jzw6lkvi9xxzqy8xz056xlb45byr1arklh87zmyf0nj9plm2nsp";
     };
     meta.homepage = "https://github.com/refractalize/oil-git-status.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ollama-nvim = buildVimPlugin {
@@ -11737,7 +11735,7 @@ final: prev: {
       sha256 = "0a203q0hm6dbm6nn7g5azidhnabzialawyvl7qz8r2c6knvbkmgj";
     };
     meta.homepage = "https://github.com/nomnivore/ollama.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   omni-vim = buildVimPlugin {
@@ -11750,7 +11748,7 @@ final: prev: {
       sha256 = "0mb3qb2yv4y57xp3548wrlnlyrshxjv511lwmzb9k0xnyig6mgmx";
     };
     meta.homepage = "https://github.com/yonlu/omni.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   omnisharp-extended-lsp-nvim = buildVimPlugin {
@@ -11763,7 +11761,7 @@ final: prev: {
       sha256 = "14wgsvbxlid2qx0yyy6g10d5v37dkf5d75cwffmmgf0pzs88z004";
     };
     meta.homepage = "https://github.com/Hoffs/omnisharp-extended-lsp.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   one-nvim = buildVimPlugin {
@@ -11776,7 +11774,7 @@ final: prev: {
       sha256 = "1ajg3vlrms2jy23sd2my0yrrng6wfjklq8fkpnkgxypd4gy6k9rv";
     };
     meta.homepage = "https://github.com/Th3Whit3Wolf/one-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   one-small-step-for-vimkind = buildVimPlugin {
@@ -11789,7 +11787,7 @@ final: prev: {
       sha256 = "1cr0slzggfbdhqapl2sw80hkqsayh08wigga1xkdcqvzikwjjal3";
     };
     meta.homepage = "https://github.com/jbyuki/one-small-step-for-vimkind/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onedark-nvim = buildVimPlugin {
@@ -11802,7 +11800,7 @@ final: prev: {
       sha256 = "1cqpd4yvcd6szbs95kxxr77mhfvgxcpjfybw8chlnnnwxxyh1k54";
     };
     meta.homepage = "https://github.com/navarasu/onedark.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onedark-vim = buildVimPlugin {
@@ -11815,7 +11813,7 @@ final: prev: {
       sha256 = "0km3qrcqw01bjmnilcrjrmd2wjhhajvkni9z4qg0hci3xbn5g44z";
     };
     meta.homepage = "https://github.com/joshdick/onedark.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onedarker-nvim = buildVimPlugin {
@@ -11828,7 +11826,7 @@ final: prev: {
       sha256 = "121bympiikzwgbklpbzvp9f0izm3bz9mqndv3wj796qb853ap48c";
     };
     meta.homepage = "https://github.com/LunarVim/onedarker.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onedarkpro-nvim = buildVimPlugin {
@@ -11841,7 +11839,7 @@ final: prev: {
       sha256 = "02zn53vda99mjb3ygy6jpjhlb0v4anbjndrn0g9awzi3dyv7gcsa";
     };
     meta.homepage = "https://github.com/olimorris/onedarkpro.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onehalf = buildVimPlugin {
@@ -11854,7 +11852,7 @@ final: prev: {
       sha256 = "0d0gww4383cay0r3nhbg1i175694hbrsz8wk351h1nc3s471p60p";
     };
     meta.homepage = "https://github.com/sonph/onehalf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   onenord-nvim = buildVimPlugin {
@@ -11867,7 +11865,7 @@ final: prev: {
       sha256 = "0y7mf5nwcp0brja7v3amc3570cc61hj525j47rnyycdz6dka9g97";
     };
     meta.homepage = "https://github.com/rmehri01/onenord.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   open-browser-github-vim = buildVimPlugin {
@@ -11880,7 +11878,7 @@ final: prev: {
       sha256 = "0n62h0gjakdc3bnpysny0rndhqhq7g5c97pgr42wz599wnr1pily";
     };
     meta.homepage = "https://github.com/tyru/open-browser-github.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   open-browser-vim = buildVimPlugin {
@@ -11893,7 +11891,7 @@ final: prev: {
       sha256 = "0sqzj25sdczxcpbp2ncpm07y631w9x81yv292xji3l0nzx7601pm";
     };
     meta.homepage = "https://github.com/tyru/open-browser.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   openingh-nvim = buildVimPlugin {
@@ -11906,7 +11904,7 @@ final: prev: {
       sha256 = "029gmakqgzk655ska21b790zzpxvkl1p5h3ci6cb68ljccnlsngw";
     };
     meta.homepage = "https://github.com/Almo7aya/openingh.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   openscad-nvim = buildVimPlugin {
@@ -11919,7 +11917,7 @@ final: prev: {
       sha256 = "19rzgs859nn02c779r66xkgq1dgshcm04kg035srnjmjqbipm7ps";
     };
     meta.homepage = "https://github.com/salkin-mada/openscad.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   org-roam-nvim = buildVimPlugin {
@@ -11932,7 +11930,7 @@ final: prev: {
       sha256 = "0c1vcq4rzilyqb8d21jqh8icdqa22n9xswx919mf8pmhz1smbs2c";
     };
     meta.homepage = "https://github.com/chipsenkbeil/org-roam.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   other-nvim = buildVimPlugin {
@@ -11945,7 +11943,7 @@ final: prev: {
       sha256 = "0vhp986wajk7cdjfam4x9zifqwgz28i88v9vc45rb8qvk05ak6ir";
     };
     meta.homepage = "https://github.com/rgroli/other.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   otter-nvim = buildVimPlugin {
@@ -11958,7 +11956,7 @@ final: prev: {
       sha256 = "0qdc2dy16jk9a081g1kfiiibxfmzwxvnl5d5m239mcfivzkwn8yq";
     };
     meta.homepage = "https://github.com/jmbuhr/otter.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   outline-nvim = buildVimPlugin {
@@ -11971,7 +11969,7 @@ final: prev: {
       sha256 = "1rg907hqdgz3h87ba262jqhph3m72g5r40jy9ngnjxmk0d45bcvx";
     };
     meta.homepage = "https://github.com/hedyhli/outline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   overseer-nvim = buildVimPlugin {
@@ -11985,7 +11983,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/stevearc/overseer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   oxocarbon-nvim = buildVimPlugin {
@@ -11998,7 +11996,7 @@ final: prev: {
       sha256 = "1byvqvrnf56y050r6dl4sykn22z11i8qxxai8j552a06l7jxyiw4";
     };
     meta.homepage = "https://github.com/nyoom-engineering/oxocarbon.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   package-info-nvim = buildVimPlugin {
@@ -12011,7 +12009,7 @@ final: prev: {
       sha256 = "1fy4za5fcm7psw398b75ji4wb0rhanibxjxysbn30nfz4dcmrd5y";
     };
     meta.homepage = "https://github.com/vuki656/package-info.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   packer-nvim = buildVimPlugin {
@@ -12024,7 +12022,7 @@ final: prev: {
       sha256 = "0lvpflpm7mhv39dglxdvmilj72xgxx5j614ll06mcxycv2k3xcvw";
     };
     meta.homepage = "https://github.com/wbthomason/packer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   palenight-vim = buildVimPlugin {
@@ -12037,7 +12035,7 @@ final: prev: {
       sha256 = "0mdzml7g40rh4j8q98s209pmg62h2pi968k2nrnxkzrr3yxi6f6z";
     };
     meta.homepage = "https://github.com/drewtempelmeyer/palenight.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   palenightfall-nvim = buildVimPlugin {
@@ -12050,7 +12048,7 @@ final: prev: {
       sha256 = "1svfibhrlwxsh4nzyb8hjdfgdakh176pg47vzvkrywafr8mw6ak5";
     };
     meta.homepage = "https://github.com/JoosepAlviste/palenightfall.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   palette-nvim = buildVimPlugin {
@@ -12063,7 +12061,7 @@ final: prev: {
       sha256 = "112051r23zhx98vvvlk54j9m54psx44wb6wq7r1aw3czxnbq6b40";
     };
     meta.homepage = "https://github.com/roobert/palette.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   papercolor-theme = buildVimPlugin {
@@ -12076,7 +12074,7 @@ final: prev: {
       sha256 = "1w6j57lri4r79igzi5rvvfv93c3pb4lrvvcg95gpa9rg122plw15";
     };
     meta.homepage = "https://github.com/NLKNguyen/papercolor-theme/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   papercolor-theme-slim = buildVimPlugin {
@@ -12089,7 +12087,7 @@ final: prev: {
       sha256 = "1npa7kfgxraw11mlsb9r55s6cy9hx0dsqw0mdmds30kl0m1wdvxg";
     };
     meta.homepage = "https://github.com/pappasam/papercolor-theme-slim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   parpar-nvim = buildVimPlugin {
@@ -12102,7 +12100,7 @@ final: prev: {
       sha256 = "09y0q4shgi8a88z42lrkh41ay64yhb7050rlc3b6r2lk6k72xdqz";
     };
     meta.homepage = "https://github.com/dundalek/parpar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   parrot-nvim = buildVimPlugin {
@@ -12115,7 +12113,7 @@ final: prev: {
       sha256 = "1q9fg57vp7gvxlvzbml5j9vvzsivby384h0y5bxg32nvggj4amhy";
     };
     meta.homepage = "https://github.com/frankroeder/parrot.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   patterns-nvim = buildVimPlugin {
@@ -12128,7 +12126,7 @@ final: prev: {
       sha256 = "1pxkiz759c60fds2cbc089zwk9yqxymzva81dxkm20iprc988cc7";
     };
     meta.homepage = "https://github.com/OXY2DEV/patterns.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pckr-nvim = buildVimPlugin {
@@ -12141,7 +12139,7 @@ final: prev: {
       sha256 = "1796rnacb8wm3bvmqsax78krw6a93yq9865vxm9387088fjd8a8v";
     };
     meta.homepage = "https://github.com/lewis6991/pckr.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pear-tree = buildVimPlugin {
@@ -12154,7 +12152,7 @@ final: prev: {
       sha256 = "1vjcsc2n9c2wcgp49y4mp9pvcmz6rlw7vz23k5dds45qaw79fa20";
     };
     meta.homepage = "https://github.com/tmsvg/pear-tree/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pears-nvim = buildVimPlugin {
@@ -12167,7 +12165,7 @@ final: prev: {
       sha256 = "04kg7g6v6k6jv2pmapaqvkvf6py1i211l822m3lsvf26jcyfs3ag";
     };
     meta.homepage = "https://github.com/steelsojka/pears.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   peek-nvim = buildVimPlugin {
@@ -12180,7 +12178,7 @@ final: prev: {
       sha256 = "01bdrk1h1xaq2bbbgwsrb2h2cc9j2d88kjcx2k3p8j8kgk20yql4";
     };
     meta.homepage = "https://github.com/toppair/peek.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   persisted-nvim = buildVimPlugin {
@@ -12193,7 +12191,7 @@ final: prev: {
       sha256 = "08rlcgyhjp18sbhkw00d48lf81ld77gwdzkii5xd37sijrkjgyf7";
     };
     meta.homepage = "https://github.com/olimorris/persisted.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   persistence-nvim = buildVimPlugin {
@@ -12206,7 +12204,7 @@ final: prev: {
       sha256 = "0hsfp3z93fg7vfs3ak5bixsw4d091nd21zg2pbxa414bqh6jmdca";
     };
     meta.homepage = "https://github.com/folke/persistence.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   persistent-breakpoints-nvim = buildVimPlugin {
@@ -12219,7 +12217,7 @@ final: prev: {
       sha256 = "ed958d4725406d0b8cff2de316e67941f9af23ea53e099a8e645b61f08c34b56";
     };
     meta.homepage = "https://github.com/Weissle/persistent-breakpoints.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pest-vim = buildVimPlugin {
@@ -12232,7 +12230,7 @@ final: prev: {
       sha256 = "1vpfh4nyxwbndqv4hmymrqskjc5l2dyiwfp4s7mhpdcnq950q1qi";
     };
     meta.homepage = "https://github.com/pest-parser/pest.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pgsql-vim = buildVimPlugin {
@@ -12245,7 +12243,7 @@ final: prev: {
       sha256 = "0z79jpjncdfc1a6c2992g9q0qrsr90cpp1zh07nr8pzp9rqzgjsw";
     };
     meta.homepage = "https://github.com/lifepillar/pgsql.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   phha-zenburn = buildVimPlugin {
@@ -12258,7 +12256,7 @@ final: prev: {
       sha256 = "10wn4b1awk4bzb7isfqbp3pqzi2ifnmcs7zyrwhna1dpwwdpgvbr";
     };
     meta.homepage = "https://github.com/phha/zenburn.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pig-vim = buildVimPlugin {
@@ -12271,7 +12269,7 @@ final: prev: {
       sha256 = "0az48a3slpzljb69d60cpahkshmdbss0snc8lmvf4yrc1gx8yncv";
     };
     meta.homepage = "https://github.com/motus/pig.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   plantuml-previewer-vim = buildVimPlugin {
@@ -12284,7 +12282,7 @@ final: prev: {
       sha256 = "0daknq746ac03js4jh2a30svj8jbc3d3zvq64x196fc4vcy3ymcp";
     };
     meta.homepage = "https://github.com/weirongxu/plantuml-previewer.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   plantuml-syntax = buildVimPlugin {
@@ -12297,7 +12295,7 @@ final: prev: {
       sha256 = "13m41yyax1sfmg7kwpxmx06rrvlyixnlayazdrn0pfnmiv23jsma";
     };
     meta.homepage = "https://github.com/aklt/plantuml-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   playground = buildVimPlugin {
@@ -12310,7 +12308,7 @@ final: prev: {
       sha256 = "1vgj5vc32ly15ni62fk51yd8km2zp3fkzx0622x5cv9pavmjpr40";
     };
     meta.homepage = "https://github.com/nvim-treesitter/playground/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   poimandres-nvim = buildVimPlugin {
@@ -12323,7 +12321,7 @@ final: prev: {
       sha256 = "0jxika4w73hhi17y69lpiwwqfl2a2910s8inyskzfddxam1k8ivk";
     };
     meta.homepage = "https://github.com/olivercederborg/poimandres.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pomo-nvim = buildVimPlugin {
@@ -12336,7 +12334,7 @@ final: prev: {
       sha256 = "1drld6dmibkg4b35n181v98gwfi8yhshx1gfkg82k72a5apr77dl";
     };
     meta.homepage = "https://github.com/epwalsh/pomo.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pony-vim-syntax = buildVimPlugin {
@@ -12349,7 +12347,7 @@ final: prev: {
       sha256 = "0r2lv99hkm95dv8wy9rkrkcwz5wkmwggfwi5vakgw497l3a9jskr";
     };
     meta.homepage = "https://github.com/dleonard0/pony-vim-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   popfix = buildVimPlugin {
@@ -12363,7 +12361,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/RishabhRD/popfix/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   popup-nvim = buildVimPlugin {
@@ -12376,7 +12374,7 @@ final: prev: {
       sha256 = "093r3cy02gfp7sphrag59n3fjhns7xdsam1ngiwhwlig3bzv7mbl";
     };
     meta.homepage = "https://github.com/nvim-lua/popup.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   precognition-nvim = buildVimPlugin {
@@ -12389,7 +12387,7 @@ final: prev: {
       sha256 = "1v1knpvd3wxvixmfyzrjwg9r7xbixg53n4dvvk7r8d05y5cgbzmc";
     };
     meta.homepage = "https://github.com/tris203/precognition.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   presence-nvim = buildVimPlugin {
@@ -12402,7 +12400,7 @@ final: prev: {
       sha256 = "06cql88anhwnwxmssgbzaxwnx9d88mp04rjbh7cgrzr7pff2x6v6";
     };
     meta.homepage = "https://github.com/andweeb/presence.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   presenting-vim = buildVimPlugin {
@@ -12415,7 +12413,7 @@ final: prev: {
       sha256 = "0vajxmhkiacwzzmgbx2w1c43pkr92bs85ygzm4cii8k1izbls737";
     };
     meta.homepage = "https://github.com/sotte/presenting.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   preto = buildVimPlugin {
@@ -12428,7 +12426,7 @@ final: prev: {
       sha256 = "1l9s6linmjy7wlxsp4gipffnxakwvi1037phcnsr294c920d4dz5";
     };
     meta.homepage = "https://github.com/ewilazarus/preto/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pretty-fold-nvim = buildVimPlugin {
@@ -12441,7 +12439,7 @@ final: prev: {
       sha256 = "0fjjd5zyh588czz886v29wff8jy5fwa4nbjfailwph4p9b1xj0rx";
     };
     meta.homepage = "https://github.com/anuvyklack/pretty-fold.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   prev_indent = buildVimPlugin {
@@ -12454,7 +12452,7 @@ final: prev: {
       sha256 = "03xqdwfkc7a84742ldsggi7ix99c7dhpmg6j13gkasyfk487ryh6";
     };
     meta.homepage = "https://github.com/vim-scripts/prev_indent/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   project-nvim = buildVimPlugin {
@@ -12467,7 +12465,7 @@ final: prev: {
       sha256 = "1md639mcs3dgvhvx93wi0rxiwjnb195r9al9bfqvcvl3r307gxba";
     };
     meta.homepage = "https://github.com/ahmedkhalf/project.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   projections-nvim = buildVimPlugin {
@@ -12480,7 +12478,7 @@ final: prev: {
       sha256 = "1yljcd1k8ksjxcs61b20z3rw36960mczi62x07i8z4xrxqrn4k5y";
     };
     meta.homepage = "https://github.com/GnikDroy/projections.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   promise-async = buildVimPlugin {
@@ -12493,7 +12491,7 @@ final: prev: {
       sha256 = "0q4a0rmy09hka6zvydzjj2gcm2j5mlbrhbxfcdjj33ngpblkmqzm";
     };
     meta.homepage = "https://github.com/kevinhwang91/promise-async/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   psc-ide-vim = buildVimPlugin {
@@ -12506,7 +12504,7 @@ final: prev: {
       sha256 = "1s79rz8rjp9bqw4yn97wbmzkc6jav4nixvnky22vbma2d0ckkcm0";
     };
     meta.homepage = "https://github.com/frigoeu/psc-ide-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pum-vim = buildVimPlugin {
@@ -12519,7 +12517,7 @@ final: prev: {
       sha256 = "02wnq3jhkcvcckvj119hkmbmr5v5phyrncz1fk6nppd1w5xyggnf";
     };
     meta.homepage = "https://github.com/Shougo/pum.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pure-lua = buildVimPlugin {
@@ -12532,7 +12530,7 @@ final: prev: {
       sha256 = "0m9w3fpypsqxydjd93arbjqb5576nl40iy27i4ijlrqhgdhl49y3";
     };
     meta.homepage = "https://github.com/shaunsingh/moonlight.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   purescript-vim = buildVimPlugin {
@@ -12545,7 +12543,7 @@ final: prev: {
       sha256 = "14729v7rndi3l8fpnbzapgwb4dj7537fik54g6frm1r1724f5cr2";
     };
     meta.homepage = "https://github.com/purescript-contrib/purescript-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   python-mode = buildVimPlugin {
@@ -12559,7 +12557,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/python-mode/python-mode/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   python-syntax = buildVimPlugin {
@@ -12572,7 +12570,7 @@ final: prev: {
       sha256 = "1w4yd25rnbhsps81agvq0kr3vcbifrlpb7h4z0vcgsx1nvmxy205";
     };
     meta.homepage = "https://github.com/vim-python/python-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   pywal-nvim = buildVimPlugin {
@@ -12585,7 +12583,7 @@ final: prev: {
       sha256 = "00lfnbaw83iic68mvlgj75qp384g3xa5mjdhw2xmhnapghjgyv14";
     };
     meta.homepage = "https://github.com/AlphaTechnolog/pywal.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   qmk-nvim = buildVimPlugin {
@@ -12598,7 +12596,7 @@ final: prev: {
       sha256 = "11vnmhaslgphy07bngfcxi1jiyprdm1lm6n2vi5y9qi7ky8y8hrz";
     };
     meta.homepage = "https://github.com/codethread/qmk.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quarto-nvim = buildVimPlugin {
@@ -12611,7 +12609,7 @@ final: prev: {
       sha256 = "1vjam2g4nknqhnzz3x8qp2qbp6km8m7hs72qc459swpz6kvn2csv";
     };
     meta.homepage = "https://github.com/quarto-dev/quarto-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quick-scope = buildVimPlugin {
@@ -12624,7 +12622,7 @@ final: prev: {
       sha256 = "05vnn96izlmihpckc8b22zs8zj6sqi5dbps1w08j42k6rbpkyzh5";
     };
     meta.homepage = "https://github.com/unblevable/quick-scope/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quicker-nvim = buildVimPlugin {
@@ -12637,7 +12635,7 @@ final: prev: {
       sha256 = "0h6i5043g90hnxdf5gibld20bcfvi2sdld6y6bpzja0axkxsc6jm";
     };
     meta.homepage = "https://github.com/stevearc/quicker.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quickfix-reflector-vim = buildVimPlugin {
@@ -12650,7 +12648,7 @@ final: prev: {
       sha256 = "0rm3vks354g36rc7lr721j7s0x0vpnqhyvc1nhchkhbn1h1yd1ry";
     };
     meta.homepage = "https://github.com/stefandtw/quickfix-reflector.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quickfixstatus = buildVimPlugin {
@@ -12663,7 +12661,7 @@ final: prev: {
       sha256 = "16vxhvyxq51y7wnx0c1fmdi2yb6kfr1pxijq65gxj8qwvbak2s3v";
     };
     meta.homepage = "https://github.com/dannyob/quickfixstatus/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   quickmath-nvim = buildVimPlugin {
@@ -12676,7 +12674,7 @@ final: prev: {
       sha256 = "0192am8bligkjzzwarkgwk6cja2jkya6ixraybz64yp0mk6lha5r";
     };
     meta.homepage = "https://github.com/jbyuki/quickmath.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rainbow = buildVimPlugin {
@@ -12689,7 +12687,7 @@ final: prev: {
       sha256 = "0wa4ayv7j68mighx9gacqrmxv131c21cqngr4f0qffnxrl0y04bl";
     };
     meta.homepage = "https://github.com/luochen1990/rainbow/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rainbow_csv = buildVimPlugin {
@@ -12702,7 +12700,7 @@ final: prev: {
       sha256 = "0zdhk1fhjdqsi9zlmhdnasg2kxik3lh3kpq7w1hmyf5z3dsmbzv5";
     };
     meta.homepage = "https://github.com/mechatroner/rainbow_csv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rainbow_parentheses-vim = buildVimPlugin {
@@ -12715,7 +12713,7 @@ final: prev: {
       sha256 = "1qw84imlhq4654mxazj7j3sp5g1j3yjxi496i08iix06dm15m5s7";
     };
     meta.homepage = "https://github.com/kien/rainbow_parentheses.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   random-vim = buildVimPlugin {
@@ -12728,7 +12726,7 @@ final: prev: {
       sha256 = "1lzy2cq4jcrsqyxlnbnd0y6j4mabm09bi7q22lf6vinqlb84w7sp";
     };
     meta.homepage = "https://github.com/vim-scripts/random.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   range-highlight-nvim = buildVimPlugin {
@@ -12741,7 +12739,7 @@ final: prev: {
       sha256 = "1f4y0hpic77bqsfxxaslqdcvv734kqpwnvgbh2rd9y2wgi44ala4";
     };
     meta.homepage = "https://github.com/winston0410/range-highlight.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ranger-nvim = buildVimPlugin {
@@ -12754,7 +12752,7 @@ final: prev: {
       sha256 = "0wngdv7xhdqbv6896z4zkknvcvmy7c9b93ghpjda8n80y2s679mf";
     };
     meta.homepage = "https://github.com/kelly-lin/ranger.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ranger-vim = buildVimPlugin {
@@ -12767,7 +12765,7 @@ final: prev: {
       sha256 = "1rfzv6lxbhfk4xwdmhpc9b0xamfa2lrzc1xi630v1hakscjdjcm1";
     };
     meta.homepage = "https://github.com/rafaqz/ranger.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rcshell-vim = buildVimPlugin {
@@ -12780,7 +12778,7 @@ final: prev: {
       sha256 = "0dj6gjq213ljshnncal3ywzv8ply2lzqmvpzaf7vdsd6r6vss3ch";
     };
     meta.homepage = "https://github.com/vim-scripts/rcshell.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   readline-vim = buildVimPlugin {
@@ -12793,7 +12791,7 @@ final: prev: {
       sha256 = "0hk6fhyizvjqjyqn8rsh9b2j1aafsir9sz8f0q6zg477f25miw7q";
     };
     meta.homepage = "https://github.com/ryvnf/readline.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   refactoring-nvim = buildVimPlugin {
@@ -12806,7 +12804,7 @@ final: prev: {
       sha256 = "0zfgndnidqxkypywdghscygrzbmxh2pm0hzz1k56hz5lvd33ww61";
     };
     meta.homepage = "https://github.com/theprimeagen/refactoring.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   registers-nvim = buildVimPlugin {
@@ -12819,7 +12817,7 @@ final: prev: {
       sha256 = "1pdfm98grlka537i1c94vi8bpbp66slkyz3by040wlfq4pgr3frk";
     };
     meta.homepage = "https://github.com/tversteeg/registers.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   remember-nvim = buildVimPlugin {
@@ -12832,7 +12830,7 @@ final: prev: {
       sha256 = "128ci86rypdnmv2c93qj04pmhdx70b7vdcnzgcr417dmn5212s2l";
     };
     meta.homepage = "https://github.com/vladdoster/remember.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   remote-nvim-nvim = buildVimPlugin {
@@ -12845,7 +12843,7 @@ final: prev: {
       sha256 = "0ghx8aid0bg63fwvjfv11yiqig4qwi8d3zva5q8fmrj4497vkm59";
     };
     meta.homepage = "https://github.com/amitds1997/remote-nvim.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   remote-sshfs-nvim = buildVimPlugin {
@@ -12858,7 +12856,7 @@ final: prev: {
       sha256 = "0q4bhq153k3smq4nhiqf9zyni4yyx96swc6radj7j53vwhadafbr";
     };
     meta.homepage = "https://github.com/nosduco/remote-sshfs.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   renamer-nvim = buildVimPlugin {
@@ -12871,7 +12869,7 @@ final: prev: {
       sha256 = "1bh11ybjcby7y87kagwlz2yhbl5d3pi0q96f6sdblw408hwglg9p";
     };
     meta.homepage = "https://github.com/filipdutescu/renamer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   render-markdown-nvim = buildVimPlugin {
@@ -12884,7 +12882,7 @@ final: prev: {
       sha256 = "15q8169wxslr6kmzqagvsj20j745cym72a2yjmdavh61mgs56rxh";
     };
     meta.homepage = "https://github.com/MeanderingProgrammer/render-markdown.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   replacer-nvim = buildVimPlugin {
@@ -12897,7 +12895,7 @@ final: prev: {
       sha256 = "0qisyii60gn5siahxc30xham2asmkrch8ph2fs9qk1kdr64h33d5";
     };
     meta.homepage = "https://github.com/gabrielpoca/replacer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   repolink-nvim = buildVimPlugin {
@@ -12910,7 +12908,7 @@ final: prev: {
       sha256 = "1pa75cmb1fyxz4b9lam4vbgkcy2g3lfj0f31s17cppzapk0aqh6a";
     };
     meta.homepage = "https://github.com/9seconds/repolink.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   resession-nvim = buildVimPlugin {
@@ -12924,7 +12922,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/stevearc/resession.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   restore-view-vim = buildVimPlugin {
@@ -12937,7 +12935,7 @@ final: prev: {
       sha256 = "1kmhsbgscbij3rd2f8ahv9qmhw8jppgvfnqb45f81awmmqd9l4bn";
     };
     meta.homepage = "https://github.com/vim-scripts/restore_view.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   riv-vim = buildVimPlugin {
@@ -12950,7 +12948,7 @@ final: prev: {
       sha256 = "0dzd4zzf51j2s9mwr0vjpx0psbfi3kawc8x9ldxdimn5pd216b18";
     };
     meta.homepage = "https://github.com/gu-fan/riv.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rnvimr = buildVimPlugin {
@@ -12963,7 +12961,7 @@ final: prev: {
       sha256 = "0pr6sdmllswy6g4pi9lrz1rgiin977jfdy05q63vbs5mpyxgqfhd";
     };
     meta.homepage = "https://github.com/kevinhwang91/rnvimr/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   robotframework-vim = buildVimPlugin {
@@ -12976,7 +12974,7 @@ final: prev: {
       sha256 = "091ac5rq6f1a7j2q3dy9rc00vckv21m4wd29ijj63jannr02v5ad";
     };
     meta.homepage = "https://github.com/mfukar/robotframework-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ron-vim = buildVimPlugin {
@@ -12989,7 +12987,7 @@ final: prev: {
       sha256 = "1bppr0bcffvp0zz14dbparz0smrbl2lrbwxbv5rnam5d56dlkz7k";
     };
     meta.homepage = "https://github.com/ron-rs/ron.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rose-pine = buildVimPlugin {
@@ -13002,7 +13000,7 @@ final: prev: {
       sha256 = "00f48nm3scap86vh0k5zs1vls0hb2qnjpiwsr54c6dpbycxq0yx3";
     };
     meta.homepage = "https://github.com/rose-pine/neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   roslyn-nvim = buildVimPlugin {
@@ -13015,7 +13013,7 @@ final: prev: {
       sha256 = "00lm72l8zqav2cjv8m0vgrn5s359rbqi6a2p23hr6zbhwx8wbzj4";
     };
     meta.homepage = "https://github.com/seblyng/roslyn.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rspec-vim = buildVimPlugin {
@@ -13028,7 +13026,7 @@ final: prev: {
       sha256 = "0445abk039qlhk5s9jm5hawfksds5dgshb1lspvfkz8slk6m076z";
     };
     meta.homepage = "https://github.com/keith/rspec.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rtorrent-syntax-file = buildVimPlugin {
@@ -13041,7 +13039,7 @@ final: prev: {
       sha256 = "1vhvmwnwi6862cckl8dqr8pgy0inrr0c31lic89826yv7mfl9mbz";
     };
     meta.homepage = "https://github.com/ccarpita/rtorrent-syntax-file/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rust-tools-nvim = buildVimPlugin {
@@ -13054,7 +13052,7 @@ final: prev: {
       sha256 = "0kalqhkbgl6idgzddg8d1dfp9gljjzcqsyri7gi51vfykixsfmlh";
     };
     meta.homepage = "https://github.com/simrat39/rust-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rust-vim = buildVimPlugin {
@@ -13067,7 +13065,7 @@ final: prev: {
       sha256 = "1xklq4g6dvqd3a5msnrir899hzqmjkscpb8bq9wd4fi3ivmjjjgg";
     };
     meta.homepage = "https://github.com/rust-lang/rust.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   rzls-nvim = buildVimPlugin {
@@ -13080,7 +13078,7 @@ final: prev: {
       sha256 = "1zd1shsgic0rmzm4hn192dy5jjpkn9wyb8dsmbbh4lnkpnsj5fvs";
     };
     meta.homepage = "https://github.com/tris203/rzls.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sad-vim = buildVimPlugin {
@@ -13093,7 +13091,7 @@ final: prev: {
       sha256 = "11kxnrp3b6qc2rcp5jdqjb7cxh6lqy09v3yh7dk4kd51jkgxqbn4";
     };
     meta.homepage = "https://github.com/hauleth/sad.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   salt-vim = buildVimPlugin {
@@ -13106,7 +13104,7 @@ final: prev: {
       sha256 = "0r79bpl98xcsmkw6dg83cf1ghn89rzsr011zirk3v1wfxclri2c4";
     };
     meta.homepage = "https://github.com/vmware-archive/salt-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   samodostal-image-nvim = buildVimPlugin {
@@ -13119,7 +13117,7 @@ final: prev: {
       sha256 = "0s5fxlc7igmvgpmpry1vkrl4xav37cx94ay1sg246y7y2j4j5l56";
     };
     meta.homepage = "https://github.com/samodostal/image.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   satellite-nvim = buildVimPlugin {
@@ -13132,7 +13130,7 @@ final: prev: {
       sha256 = "17pjg92han8mljka0zy23fiq33v960bkkbhva4jrrsmdzrg361fm";
     };
     meta.homepage = "https://github.com/lewis6991/satellite.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   schema-companion-nvim = buildVimPlugin {
@@ -13145,7 +13143,7 @@ final: prev: {
       sha256 = "1s0lqxz1rh4f7jspl45pa9981zwz0i0h9c4ml0zy55y926454339";
     };
     meta.homepage = "https://github.com/cenk1cenk2/schema-companion.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   scnvim = buildVimPlugin {
@@ -13158,7 +13156,7 @@ final: prev: {
       sha256 = "1g6sw07fw8ppxi0nk7jcl07axd8rsg5v0l9yp3smgh0qhfyipq1b";
     };
     meta.homepage = "https://github.com/davidgranstrom/scnvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   scope-nvim = buildVimPlugin {
@@ -13171,7 +13169,7 @@ final: prev: {
       sha256 = "1qfxq9q0jy4nn82faff60vi0zp3xkxyzvdm461vymrcj17csnbsm";
     };
     meta.homepage = "https://github.com/tiagovla/scope.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   scretch-nvim = buildVimPlugin {
@@ -13184,7 +13182,7 @@ final: prev: {
       sha256 = "0hb8sdaqaaq9nr4n9cggyp0c8v2m0lm9qcv66i1v0waq1r4clv5y";
     };
     meta.homepage = "https://github.com/0xJohnnyboy/scretch.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   scrollbar-nvim = buildVimPlugin {
@@ -13197,7 +13195,7 @@ final: prev: {
       sha256 = "1k0kpqhz7il6lxkz9vc999fa2ym2yyp5gmazha4wr5xsyl12jlca";
     };
     meta.homepage = "https://github.com/Xuyuanp/scrollbar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   scss-syntax-vim = buildVimPlugin {
@@ -13210,7 +13208,7 @@ final: prev: {
       sha256 = "1na3x1n24xpybw4v7mi25pwfk18nm27kp7iywprdh7x6y6sx0czk";
     };
     meta.homepage = "https://github.com/cakebaker/scss-syntax.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   searchbox-nvim = buildVimPlugin {
@@ -13223,7 +13221,7 @@ final: prev: {
       sha256 = "1yghiwv57m4x5y3d75cprvk5sf078v9gmndp6mh1xjn8zxbqq6sx";
     };
     meta.homepage = "https://github.com/VonHeikemen/searchbox.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   securemodelines = buildVimPlugin {
@@ -13236,7 +13234,7 @@ final: prev: {
       sha256 = "0cqf2vakfhfb3wjmz5kz9kync252sffx3rvlnb8vbfs1p6l19vhs";
     };
     meta.homepage = "https://github.com/RobertAudi/securemodelines/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   self = buildVimPlugin {
@@ -13249,7 +13247,7 @@ final: prev: {
       sha256 = "1gcwn6i5i3msg7hrlzsnv1bs6pm4jz9cff8ppaz2xdj8xv9qy6fn";
     };
     meta.homepage = "https://github.com/megaannum/self/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   semantic-highlight-vim = buildVimPlugin {
@@ -13262,7 +13260,7 @@ final: prev: {
       sha256 = "04975ly6zd58zhs2v07dw6m1dha0gkmfm0pvhlrgcrf2qp8n4m3v";
     };
     meta.homepage = "https://github.com/jaxbot/semantic-highlight.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   semshi = buildVimPlugin {
@@ -13275,7 +13273,7 @@ final: prev: {
       sha256 = "0r1nrkhyhk08vfhf9hnbhjlnqy0imqhdqx31y301k2kb31hyiyq3";
     };
     meta.homepage = "https://github.com/numirias/semshi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   seoul256-vim = buildVimPlugin {
@@ -13288,7 +13286,7 @@ final: prev: {
       sha256 = "0766sap2x66anrkpfghxc5m1yfk2isfkvpynls7mlvlzrhgnmgb3";
     };
     meta.homepage = "https://github.com/junegunn/seoul256.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   shabadou-vim = buildVimPlugin {
@@ -13301,7 +13299,7 @@ final: prev: {
       sha256 = "1kvik1yf7yjg9jdmdw38yhkksxg0n3nry02banwik7wgjnpvg870";
     };
     meta.homepage = "https://github.com/osyo-manga/shabadou.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sideways-vim = buildVimPlugin {
@@ -13315,7 +13313,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/AndrewRadev/sideways.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   skim-vim = buildVimPlugin {
@@ -13328,7 +13326,7 @@ final: prev: {
       sha256 = "0gp0ws1l5d898ffx6s1kgiz3ri0mhbya2n2fh1z6dbqv52b18n08";
     };
     meta.homepage = "https://github.com/skim-rs/skim.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sky-color-clock-vim = buildVimPlugin {
@@ -13341,7 +13339,7 @@ final: prev: {
       sha256 = "1ln50rahb177vilzr4zc7v9znm8xfid1v8gddl83gr9srdbn2bbz";
     };
     meta.homepage = "https://github.com/mopp/sky-color-clock.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   slimv = buildVimPlugin {
@@ -13354,7 +13352,7 @@ final: prev: {
       sha256 = "1l97vjqry7y633dh0s0lngys94zm0bb393g1s20w1rfbfy3jf8z1";
     };
     meta.homepage = "https://github.com/kovisoft/slimv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smart-open-nvim = buildVimPlugin {
@@ -13367,7 +13365,7 @@ final: prev: {
       sha256 = "05dc4fa1819vfh7c6wcprc659589x5lphq7y2v6nkmbyacjfvgz5";
     };
     meta.homepage = "https://github.com/danielfalk/smart-open.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smart-splits-nvim = buildVimPlugin {
@@ -13380,7 +13378,7 @@ final: prev: {
       sha256 = "12nd3cra6dw5nyqgcp9cvsrdxrf4m575ngi3f03180cpnsw6vhmx";
     };
     meta.homepage = "https://github.com/mrjones2014/smart-splits.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smartcolumn-nvim = buildVimPlugin {
@@ -13393,7 +13391,7 @@ final: prev: {
       sha256 = "0k1xnyvblshn4fhbxgl0i34j22n55xlwr09sdmb23l57br5rb07q";
     };
     meta.homepage = "https://github.com/m4xshen/smartcolumn.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smartpairs-vim = buildVimPlugin {
@@ -13406,7 +13404,7 @@ final: prev: {
       sha256 = "1pyynwz7wfbgccdxsyggzl0301qjj3wgyymah5spx8b3s42a6slj";
     };
     meta.homepage = "https://github.com/gorkunov/smartpairs.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smartyank-nvim = buildVimPlugin {
@@ -13419,7 +13417,7 @@ final: prev: {
       sha256 = "0xwkrsjhliixsf4pywmcsc8ha0p4wx80008p0bwldm8zr5h7s4qd";
     };
     meta.homepage = "https://github.com/ibhagwan/smartyank.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   smear-cursor-nvim = buildVimPlugin {
@@ -13432,7 +13430,7 @@ final: prev: {
       sha256 = "03clizj8bfv4smkf63n4idq6jijynnqj8p61ck8fg9w4l27n51bc";
     };
     meta.homepage = "https://github.com/sphamba/smear-cursor.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   snacks-nvim = buildVimPlugin {
@@ -13445,7 +13443,7 @@ final: prev: {
       sha256 = "0a5nw7xa33shag1h12gf930g3vcixbwk8dxv0ji4980ycskh238v";
     };
     meta.homepage = "https://github.com/folke/snacks.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   snap = buildVimPlugin {
@@ -13458,7 +13456,7 @@ final: prev: {
       sha256 = "0qxihm6h2iizq01r0h32gp3hamq4s16f10flfxlddr6bxbkkjbl9";
     };
     meta.homepage = "https://github.com/camspiers/snap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   snipe-nvim = buildVimPlugin {
@@ -13471,7 +13469,7 @@ final: prev: {
       sha256 = "0nw7rkld2m955yix1faf197pkrwx4xg6skl3dxis0r4xlcavxx9k";
     };
     meta.homepage = "https://github.com/leath-dub/snipe.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   snippets-nvim = buildVimPlugin {
@@ -13484,7 +13482,7 @@ final: prev: {
       sha256 = "1fdsx7d5nyhhklwidgh387ijd485g2836rwd5i1r0di777mp7w80";
     };
     meta.homepage = "https://github.com/norcalli/snippets.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   solarized-nvim = buildVimPlugin {
@@ -13497,7 +13495,7 @@ final: prev: {
       sha256 = "185drqdf6qcwbjvs2f5gnz660w45d4pwqal40mbf1p3gd32il6qa";
     };
     meta.homepage = "https://github.com/shaunsingh/solarized.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   solarized-osaka-nvim = buildVimPlugin {
@@ -13510,7 +13508,7 @@ final: prev: {
       sha256 = "0jy2hk4fc210jih30ybvisr9pliya1s3nazw4d131vh5k4p1xqi6";
     };
     meta.homepage = "https://github.com/craftzdog/solarized-osaka.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sonokai = buildVimPlugin {
@@ -13523,7 +13521,7 @@ final: prev: {
       sha256 = "0sxf6z3yzg4hggad172ljy6vxpnfll9q84pqa7n40m26g2alg29x";
     };
     meta.homepage = "https://github.com/sainnhe/sonokai/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sort-nvim = buildVimPlugin {
@@ -13536,7 +13534,7 @@ final: prev: {
       sha256 = "0d9i0vhqp7axls2xs1fgz9g762g7a5j0p5452v2158wjzgb2yxy6";
     };
     meta.homepage = "https://github.com/sQVe/sort.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sourcemap-vim = buildVimPlugin {
@@ -13549,7 +13547,7 @@ final: prev: {
       sha256 = "1gcgnynallz420911fdfm0ccbv3zs78p69nnh2ls1r4vlfp7g350";
     };
     meta.homepage = "https://github.com/chikatoike/sourcemap.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   space-vim = buildVimPlugin {
@@ -13562,7 +13560,7 @@ final: prev: {
       sha256 = "0i08rvvhgl7k55wgr9rn7vmgcrkl66ifrp1y0n581i71zwrpvw8l";
     };
     meta.homepage = "https://github.com/liuchengxu/space-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   spaceman-nvim = buildVimPlugin {
@@ -13575,7 +13573,7 @@ final: prev: {
       sha256 = "1a3467q4wx7j2v60vvs9p5mzbra9dyq2p583y0bsf0rr33zvmi2x";
     };
     meta.homepage = "https://github.com/FireIsGood/spaceman.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sparkup = buildVimPlugin {
@@ -13588,7 +13586,7 @@ final: prev: {
       sha256 = "17jgpvl879ik53rr3razfnbpfx63mzpp1rlvxxjsvvrk4g45dssm";
     };
     meta.homepage = "https://github.com/chrisgeo/sparkup/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   specs-nvim = buildVimPlugin {
@@ -13601,7 +13599,7 @@ final: prev: {
       sha256 = "1vp6i65sbazv0wcqvk3v54s35pjjf3vgwvj15pwn2k5cpd568w5d";
     };
     meta.homepage = "https://github.com/cxwx/specs.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   spellsitter-nvim = buildVimPlugin {
@@ -13614,7 +13612,7 @@ final: prev: {
       sha256 = "1m4y1gfg17gwkq5wwv9n3zv7dqdl7yqvhysgyllg60rzi0g6pwqs";
     };
     meta.homepage = "https://github.com/lewis6991/spellsitter.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sphinx-nvim = buildVimPlugin {
@@ -13627,7 +13625,7 @@ final: prev: {
       sha256 = "1zsn7xi3lcm558jgnifigr4l515a3c2ywk50v93svpw7qaggyhx9";
     };
     meta.homepage = "https://github.com/stsewd/sphinx.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   splice-vim = buildVimPlugin {
@@ -13640,7 +13638,7 @@ final: prev: {
       sha256 = "0bh1gr2h6w872ql72rdlzpk5znl4lz01x6lgyf330sickizz5mvb";
     };
     meta.homepage = "https://github.com/sjl/splice.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   split-term-vim = buildVimPlugin {
@@ -13653,7 +13651,7 @@ final: prev: {
       sha256 = "12vrmbq1r8d6sgyxjwi0s856n1v4vjhrf8wpwq6l4ydmk1bnvjkb";
     };
     meta.homepage = "https://github.com/vimlab/split-term.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   splitjoin-vim = buildVimPlugin {
@@ -13667,7 +13665,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/AndrewRadev/splitjoin.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sqlite-lua = buildVimPlugin {
@@ -13680,7 +13678,7 @@ final: prev: {
       sha256 = "157wz9nka7g66ywyrqrni64g3a45k60v49l18ym6ipk0g3xji8xv";
     };
     meta.homepage = "https://github.com/kkharji/sqlite.lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   srcery-vim = buildVimPlugin {
@@ -13693,7 +13691,7 @@ final: prev: {
       sha256 = "17qq6y3zg7j43i9frhpkfkazm8jgd9mkx7klq79h4kr10jjylryi";
     };
     meta.homepage = "https://github.com/srcery-colors/srcery-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sslsecure-vim = buildVimPlugin {
@@ -13706,7 +13704,7 @@ final: prev: {
       sha256 = "1wjrpfphr6wwikrii2jxrw2l8523zzfbnrr6pjivj6ml86b38yk4";
     };
     meta.homepage = "https://github.com/chr4/sslsecure.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ssr-nvim = buildVimPlugin {
@@ -13719,7 +13717,7 @@ final: prev: {
       sha256 = "0dn6k7jd12ddgyrx580lygqv48xzn5pnh71xi7iaf1sr2f5r8ff2";
     };
     meta.homepage = "https://github.com/cshuaimin/ssr.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   stabilize-nvim = buildVimPlugin {
@@ -13732,7 +13730,7 @@ final: prev: {
       sha256 = "0zvirhhq7pnavsldsll35xqjchvsqmvsrj1zhg930kkp2r0ycf01";
     };
     meta.homepage = "https://github.com/luukvbaal/stabilize.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   staline-nvim = buildVimPlugin {
@@ -13745,7 +13743,7 @@ final: prev: {
       sha256 = "0ab52sxa4pwlvf7vm3mjxf2ny3bm32wz0kagxadp7w65iy59ajqy";
     };
     meta.homepage = "https://github.com/tamton-aquib/staline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   stan-vim = buildVimPlugin {
@@ -13758,7 +13756,7 @@ final: prev: {
       sha256 = "0dvszn4d9xia3qxr3f8l43m1iqfjwl12s4k6igzj2mq4kdq132f0";
     };
     meta.homepage = "https://github.com/eigenfoo/stan-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   starrynight = buildVimPlugin {
@@ -13771,7 +13769,7 @@ final: prev: {
       sha256 = "1g2vvvvw1qg9ipfkpvijmkswa6rhh3rnizjmx1h5ghkvgxsr1ryl";
     };
     meta.homepage = "https://github.com/josegamez82/starrynight/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   starsearch-vim = buildVimPlugin {
@@ -13784,7 +13782,7 @@ final: prev: {
       sha256 = "1i1ygdqwhz4jqmz9lzjnx1a7s5chdqjsvgkmnd9x0s8ixqa41bpr";
     };
     meta.homepage = "https://github.com/darfink/starsearch.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   startup-nvim = buildVimPlugin {
@@ -13797,7 +13795,7 @@ final: prev: {
       sha256 = "0gm1nxcmrfh24ql2d7sbsny2djifqf8k9wl6axpjirjqbvk6ywh1";
     };
     meta.homepage = "https://github.com/max397574/startup.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   statuscol-nvim = buildVimPlugin {
@@ -13810,7 +13808,7 @@ final: prev: {
       sha256 = "02aajcwrbhjxkd4hykjcwj8anv3vq09ma04sj1n49ysmkr210lcw";
     };
     meta.homepage = "https://github.com/luukvbaal/statuscol.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   stay-centered-nvim = buildVimPlugin {
@@ -13823,7 +13821,7 @@ final: prev: {
       sha256 = "1nb7c77gh6l7fw4d3icxsgmrkqmf3jl5ciajkzxhk4q1kk9az22c";
     };
     meta.homepage = "https://github.com/arnamak/stay-centered.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   styler-nvim = buildVimPlugin {
@@ -13836,7 +13834,7 @@ final: prev: {
       sha256 = "1m2g22csdz89l1yz1wjralrd9dljmms0zjwvan9ib1dil54l82jg";
     };
     meta.homepage = "https://github.com/folke/styler.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   stylish-nvim = buildVimPlugin {
@@ -13849,7 +13847,7 @@ final: prev: {
       sha256 = "09byh62f4ymkfpspk4sn5y0p9nsn3dphny94qcggfay1vddc3v93";
     };
     meta.homepage = "https://github.com/teto/stylish.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   substitute-nvim = buildVimPlugin {
@@ -13862,7 +13860,7 @@ final: prev: {
       sha256 = "1qvnx3nfxn8l1rljbmby7pdax4gl6kpclvy5q4a7q0vk270acgfv";
     };
     meta.homepage = "https://github.com/gbprod/substitute.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   substrata-nvim = buildVimPlugin {
@@ -13875,7 +13873,7 @@ final: prev: {
       sha256 = "0vw1s46fzqxd8mrqhb1azk6sks9bpacgczmyaki8g47i1adbs8cq";
     };
     meta.homepage = "https://github.com/kvrohit/substrata.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   supermaven-nvim = buildVimPlugin {
@@ -13888,7 +13886,7 @@ final: prev: {
       sha256 = "1h9h98wsnfhkfdmdxjvr2d4idhrvp4i56pp4q6l0m4d2i0ldcgfp";
     };
     meta.homepage = "https://github.com/supermaven-inc/supermaven-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   supertab = buildVimPlugin {
@@ -13901,7 +13899,7 @@ final: prev: {
       sha256 = "0jy020w6mlx7kd8c0v2i0pr2id2rq77994ph3q6jv7hch9gaq9xl";
     };
     meta.homepage = "https://github.com/ervandew/supertab/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   surround-nvim = buildVimPlugin {
@@ -13914,7 +13912,7 @@ final: prev: {
       sha256 = "0bjv399gw0gkpfqclmv65viwi34il5zn5kx9zplnkq5r0734l3nw";
     };
     meta.homepage = "https://github.com/ur4ltz/surround.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   sved = buildVimPlugin {
@@ -13927,7 +13925,7 @@ final: prev: {
       sha256 = "15idmbzbgmvh75l75y6zkhpa6f72978rxqflfr08apz7g56zl9kl";
     };
     meta.homepage = "https://github.com/peterbjorgensen/sved/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   swayconfig-vim = buildVimPlugin {
@@ -13940,7 +13938,7 @@ final: prev: {
       sha256 = "1gqvrrx8lz0pzfkc2rkz2ifpfif278cpklnrn3xvnhfzwbg6j27y";
     };
     meta.homepage = "https://github.com/jamespeapen/swayconfig.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   swift-vim = buildVimPlugin {
@@ -13953,7 +13951,7 @@ final: prev: {
       sha256 = "1qg0xpggv125jd0nnz6j7p9wszq6z9ykf89y8hhhwwvav40iw28h";
     };
     meta.homepage = "https://github.com/keith/swift.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   switch-vim = buildVimPlugin {
@@ -13967,7 +13965,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/AndrewRadev/switch.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   symbols-outline-nvim = buildVimPlugin {
@@ -13980,7 +13978,7 @@ final: prev: {
       sha256 = "1jrgzgf2h2zq02avf3h5icbf77338xywpz2gqli1qc4lr17cjzxd";
     };
     meta.homepage = "https://github.com/simrat39/symbols-outline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   syntastic = buildVimPlugin {
@@ -13993,7 +13991,7 @@ final: prev: {
       sha256 = "0z2dazzy7af4wrk48wlwl5zlii0qzvrxlf0cqrzk1qxx3z8m2n50";
     };
     meta.homepage = "https://github.com/vim-syntastic/syntastic/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   syntax-tree-surfer = buildVimPlugin {
@@ -14006,7 +14004,7 @@ final: prev: {
       sha256 = "0x7kpmxq3n8531ca2bz506swww92wd3x16d125wrk54rxp1lv1cd";
     };
     meta.homepage = "https://github.com/ziontee113/syntax-tree-surfer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabby-nvim = buildVimPlugin {
@@ -14019,7 +14017,7 @@ final: prev: {
       sha256 = "1if0mpqkzf9acmflwv98ih4slgfcypphkca67h69d594gm5arb6v";
     };
     meta.homepage = "https://github.com/nanozuki/tabby.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabline-nvim = buildVimPlugin {
@@ -14032,7 +14030,7 @@ final: prev: {
       sha256 = "0kcirs2b1398vwgdn045rfbpx6qrai7nxwsbwsvykwk7glmaa8vh";
     };
     meta.homepage = "https://github.com/kdheepak/tabline.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabmerge = buildVimPlugin {
@@ -14045,7 +14043,7 @@ final: prev: {
       sha256 = "0prkyza1n49cdaslcr57w8zv15vw78mlqbzib2xipmawzjq02idq";
     };
     meta.homepage = "https://github.com/vim-scripts/tabmerge/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabnine-vim = buildVimPlugin {
@@ -14059,7 +14057,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/codota/tabnine-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   taboo-vim = buildVimPlugin {
@@ -14072,7 +14070,7 @@ final: prev: {
       sha256 = "0rrhakigsyvbhmiwr5ywrnq9ixh19xk906b76bqqlw783cwp5p06";
     };
     meta.homepage = "https://github.com/gcmt/taboo.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabout-nvim = buildVimPlugin {
@@ -14085,7 +14083,7 @@ final: prev: {
       sha256 = "1mjnzrz2zh8kd95p12l70zmpw7nf5xnlr4pwss51s2cgy1wyfgz5";
     };
     meta.homepage = "https://github.com/abecodes/tabout.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabpagebuffer-vim = buildVimPlugin {
@@ -14098,7 +14096,7 @@ final: prev: {
       sha256 = "1z6zlpzkhwy1p2pmx9qrwb91dp9v4yi8jrdvm1if2k79ij4sl08f";
     };
     meta.homepage = "https://github.com/Shougo/tabpagebuffer.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tabular = buildVimPlugin {
@@ -14111,7 +14109,7 @@ final: prev: {
       sha256 = "1cnh21yhcn2f4fajdr2b6hrclnhf1sz4abra4nw7b5yk1mvfjq5a";
     };
     meta.homepage = "https://github.com/godlygeek/tabular/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tagalong-vim = buildVimPlugin {
@@ -14124,7 +14122,7 @@ final: prev: {
       sha256 = "03nl8aqfvpx20451ha9q5i6gndi3w3yzks2dygrg9d1y33p6ldyd";
     };
     meta.homepage = "https://github.com/AndrewRadev/tagalong.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tagbar = buildVimPlugin {
@@ -14137,7 +14135,7 @@ final: prev: {
       sha256 = "19p2j36bzjma3rgxxms1ckw4ir6sngiz3df8gkmjnxszdwaw5fva";
     };
     meta.homepage = "https://github.com/preservim/tagbar/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   taglist-vim = buildVimPlugin {
@@ -14150,7 +14148,7 @@ final: prev: {
       sha256 = "07aa2gfc73lznyi7w7cybzanspza3p67cv5hxr21g43zhs5k9izd";
     };
     meta.homepage = "https://github.com/vim-scripts/taglist.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tailwind-tools-nvim = buildVimPlugin {
@@ -14163,7 +14161,7 @@ final: prev: {
       sha256 = "08jzmzc165k972hmmf88ajj84jql9pwn4i1p12jdnpbzwxvn9lib";
     };
     meta.homepage = "https://github.com/luckasRanarison/tailwind-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tailwindcss-colors-nvim = buildVimPlugin {
@@ -14176,7 +14174,7 @@ final: prev: {
       sha256 = "sha256-2eUr4rB8gpax0xJ8U4O2O93UXUxF+HZV6Co8LwPZ3JE=";
     };
     meta.homepage = "https://github.com/themaxmarchuk/tailwindcss-colors.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   targets-vim = buildVimPlugin {
@@ -14189,7 +14187,7 @@ final: prev: {
       sha256 = "0kk80245vx544ydhdxlpaji2rj3b3q1574p9b7ywmw7bkzhcn5sf";
     };
     meta.homepage = "https://github.com/wellle/targets.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   taskwiki = buildVimPlugin {
@@ -14202,7 +14200,7 @@ final: prev: {
       sha256 = "0njp2jy76vl2m627iswi6dmfqbp04da7q2p4lc32n1a4p7b2vfcc";
     };
     meta.homepage = "https://github.com/tools-life/taskwiki/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tcomment_vim = buildVimPlugin {
@@ -14215,7 +14213,7 @@ final: prev: {
       sha256 = "07imw4v3xcbs2r348drr2v0ka81lhh8gbf76hhdcpnfhx3lpbh0g";
     };
     meta.homepage = "https://github.com/tomtom/tcomment_vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telekasten-nvim = buildVimPlugin {
@@ -14229,7 +14227,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/nvim-telekasten/telekasten.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-asynctasks-nvim = buildVimPlugin {
@@ -14242,7 +14240,7 @@ final: prev: {
       sha256 = "077jj9zmd7ybgpdbc06mjkwdvjvbsa93dc45jbsiqs0yl8vf4hg7";
     };
     meta.homepage = "https://github.com/GustavoKatel/telescope-asynctasks.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-cheat-nvim = buildVimPlugin {
@@ -14255,7 +14253,7 @@ final: prev: {
       sha256 = "1wlhy52kjhvvhg6cmq5r60rqhma09zdz084fybcx3z3gfsgym4c7";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-cheat.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-coc-nvim = buildVimPlugin {
@@ -14268,7 +14266,7 @@ final: prev: {
       sha256 = "0q8h2njyh3fgasvxdhz40cmjns4n8ip3xgdl188kpaf6gk0vwnnv";
     };
     meta.homepage = "https://github.com/fannheyward/telescope-coc.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-dap-nvim = buildVimPlugin {
@@ -14281,7 +14279,7 @@ final: prev: {
       sha256 = "1pzvvas3qwfrxdbjsf3q2pjzgg5ar0hyrbi0s1aryjszhyrkq6ri";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-dap.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-emoji-nvim = buildVimPlugin {
@@ -14294,7 +14292,7 @@ final: prev: {
       sha256 = "18m46gj68xv6basaqzbschr60sc9xzi4dx21cvnx401bk97cqpgi";
     };
     meta.homepage = "https://github.com/xiyaowong/telescope-emoji.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-file-browser-nvim = buildVimPlugin {
@@ -14307,7 +14305,7 @@ final: prev: {
       sha256 = "066b5mhn35ia6v4fi61zgyswqplfip74qch6j4afqk2kvn5x35jl";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-file-browser.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-frecency-nvim = buildVimPlugin {
@@ -14320,7 +14318,7 @@ final: prev: {
       sha256 = "02ngsbw88b6xmra8vrmc3gxnw99cv6b18ja9mg4yn5b07244nm04";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-frecency.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-fzf-native-nvim = buildVimPlugin {
@@ -14333,7 +14331,7 @@ final: prev: {
       sha256 = "137a05qwbpcrcrfj4az7dwx5a43yyfib4crx1hi8bhjx9j5gqav7";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-fzf-native.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-fzf-writer-nvim = buildVimPlugin {
@@ -14346,7 +14344,7 @@ final: prev: {
       sha256 = "1c5kiqxg7i1cm69xzvlrrz8dsrpfz8c9sfrnhqc4p6c95kfsna57";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-fzf-writer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-fzy-native-nvim = buildVimPlugin {
@@ -14360,7 +14358,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-fzy-native.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-git-conflicts-nvim = buildVimPlugin {
@@ -14373,7 +14371,7 @@ final: prev: {
       sha256 = "0n5jwc7pv14fipavqfvam5691qp9fvs2nksdaihjgqrgl5sd12jv";
     };
     meta.homepage = "https://github.com/Snikimonkd/telescope-git-conflicts.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-github-nvim = buildVimPlugin {
@@ -14386,7 +14384,7 @@ final: prev: {
       sha256 = "1943bhi2y3kyxhdrbqysxpwmd9f2rj9pbl4r449kyj1rbh6mzqk2";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-github.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-glyph-nvim = buildVimPlugin {
@@ -14399,7 +14397,7 @@ final: prev: {
       sha256 = "0n1mdiwkkciqpxjad1nngrc7px5yziyan0daxgs9jsgdqmy1lzp8";
     };
     meta.homepage = "https://github.com/alduraibi/telescope-glyph.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-live-grep-args-nvim = buildVimPlugin {
@@ -14412,7 +14410,7 @@ final: prev: {
       sha256 = "1536cnpss91sdkmr7if54ryzx7xcynzj7ydpkcmm3pkgdlmznran";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-live-grep-args.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-lsp-handlers-nvim = buildVimPlugin {
@@ -14425,7 +14423,7 @@ final: prev: {
       sha256 = "0z1pja96hzsjv30bnzps8pwgmmy5rc1rkramrqm0r6wlplg36302";
     };
     meta.homepage = "https://github.com/gbrlsnchs/telescope-lsp-handlers.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-media-files-nvim = buildVimPlugin {
@@ -14438,7 +14436,7 @@ final: prev: {
       sha256 = "0bvvnflzz1x511fk891mimsfahw843kk4v90l6h4yy1bi9a10qps";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-media-files.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-project-nvim = buildVimPlugin {
@@ -14451,7 +14449,7 @@ final: prev: {
       sha256 = "1x7cd6a4c6cxnbahnmdyjca2wfcx12gl6zb3z6myg6lhzd7xyaj7";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-project.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-sg = buildVimPlugin {
@@ -14464,7 +14462,7 @@ final: prev: {
       sha256 = "0aii4vy97zyh2fpdkawwdanwd7sd0751ih5yznjcwn8cvrv74wl5";
     };
     meta.homepage = "https://github.com/Marskey/telescope-sg/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-smart-history-nvim = buildVimPlugin {
@@ -14477,7 +14475,7 @@ final: prev: {
       sha256 = "sha256-riBl0vSkRtM9Gtw/FNSKodSmqgGUpDnH7d5w+uU4ReQ=";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-smart-history.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-symbols-nvim = buildVimPlugin {
@@ -14490,7 +14488,7 @@ final: prev: {
       sha256 = "07y1qhiv1qc5ip91l7w1dg59pkzchhz2qxcxm7ghhby47pvqv0yd";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-symbols.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-ui-select-nvim = buildVimPlugin {
@@ -14503,7 +14501,7 @@ final: prev: {
       sha256 = "1cgi4kmq99ssx97nnriff5674cjfvc3qsw62nx3iz0xqc6d4s631";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-ui-select.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-ultisnips-nvim = buildVimPlugin {
@@ -14516,7 +14514,7 @@ final: prev: {
       sha256 = "1nnxyc70b5zsgdylfzag2g4xl2p62v9ynx8nqv13fdn8s2g4lrvm";
     };
     meta.homepage = "https://github.com/fhill2/telescope-ultisnips.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-undo-nvim = buildVimPlugin {
@@ -14529,7 +14527,7 @@ final: prev: {
       sha256 = "1gp84wiffp5w7a61v1x9rvj8wmx5zg1r1mgs4yl66lvsk6pq3818";
     };
     meta.homepage = "https://github.com/debugloop/telescope-undo.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-vim-bookmarks-nvim = buildVimPlugin {
@@ -14542,7 +14540,7 @@ final: prev: {
       sha256 = "0mkn7kbg1319mvfmx4agx2l1vng1lbqayf6b6xs2rvb98fybai74";
     };
     meta.homepage = "https://github.com/tom-anders/telescope-vim-bookmarks.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-z-nvim = buildVimPlugin {
@@ -14555,7 +14553,7 @@ final: prev: {
       sha256 = "1ivcdwixz743jf769vyw9l06xckbvgxbw4411dqzw33r1055rs63";
     };
     meta.homepage = "https://github.com/nvim-telescope/telescope-z.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-zf-native-nvim = buildVimPlugin {
@@ -14569,7 +14567,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/natecraddock/telescope-zf-native.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope-zoxide = buildVimPlugin {
@@ -14582,7 +14580,7 @@ final: prev: {
       sha256 = "06rgpid2z8hwxmpwly9sz4p0g200fnf32sa3mdvh2060hq0g4rrc";
     };
     meta.homepage = "https://github.com/jvgrootveld/telescope-zoxide/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   telescope_hoogle = buildVimPlugin {
@@ -14595,7 +14593,7 @@ final: prev: {
       sha256 = "0nmzpyh9sdbvxf0hzvga748i4wnd0l6jmlwp8bmx84zazp93c667";
     };
     meta.homepage = "https://github.com/luc-tielen/telescope_hoogle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   templ-vim = buildVimPlugin {
@@ -14608,7 +14606,7 @@ final: prev: {
       sha256 = "0irj2bq8r5vwxfzq56pck61z0mws94lykqq6khllqdxnm4z98g7f";
     };
     meta.homepage = "https://github.com/joerdav/templ.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   template-string-nvim = buildVimPlugin {
@@ -14621,7 +14619,7 @@ final: prev: {
       sha256 = "05plfyrhj7c1ssqpy9ayyab6zkwsi9ni1mcbiggpfl25657c0iif";
     };
     meta.homepage = "https://github.com/axelvc/template-string.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tender-vim = buildVimPlugin {
@@ -14634,7 +14632,7 @@ final: prev: {
       sha256 = "0jrqxf9f679x9jy137f7rj8v4mx1z85c5jiqrizv1gpd0i4y1wcr";
     };
     meta.homepage = "https://github.com/jacoborus/tender.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   term-edit-nvim = buildVimPlugin {
@@ -14647,7 +14645,7 @@ final: prev: {
       sha256 = "0g05gi46i4yx1k5fhqrlv9rvw2nvikdc1dpr4d5yjzjhbpx2gkmc";
     };
     meta.homepage = "https://github.com/chomosuke/term-edit.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   terminal-nvim = buildVimPlugin {
@@ -14660,7 +14658,7 @@ final: prev: {
       sha256 = "0bp6m6b7bsw9d4iyn1b8bw3avnvjlk7pi8h941m68fw54n3mf06f";
     };
     meta.homepage = "https://github.com/rebelot/terminal.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   terminus = buildVimPlugin {
@@ -14673,7 +14671,7 @@ final: prev: {
       sha256 = "0bhjzvszzcn1whwxxzrc0fhxnbh06ah1v5wjmxkxy679vvgs68vr";
     };
     meta.homepage = "https://github.com/wincent/terminus/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   termwrapper-nvim = buildVimPlugin {
@@ -14686,7 +14684,7 @@ final: prev: {
       sha256 = "0a61n9dpf94rrkq79pjwn73axa1d2zfpsr2ci7wivg3inq7zsqyc";
     };
     meta.homepage = "https://github.com/oberblastmeister/termwrapper.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tern_for_vim = buildVimPlugin {
@@ -14699,7 +14697,7 @@ final: prev: {
       sha256 = "0vpi5lqlyf6kcc0ha8hf3ch2h8v3awidgpwbrv9f3bqvyg4yhdcd";
     };
     meta.homepage = "https://github.com/ternjs/tern_for_vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tex-conceal-vim = buildVimPlugin {
@@ -14712,7 +14710,7 @@ final: prev: {
       sha256 = "05nqqfxkxd8f9xky9mnfxw9g16z1005ka8zxaw52i0n35dg4gg8y";
     };
     meta.homepage = "https://github.com/KeitaNakamura/tex-conceal.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   texpresso-vim = buildVimPlugin {
@@ -14725,7 +14723,7 @@ final: prev: {
       sha256 = "1s971w5794cf3maa0rqdbkz7j4ndnm4haabvj6fhrd0d827x21ky";
     };
     meta.homepage = "https://github.com/let-def/texpresso.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   text-case-nvim = buildVimPlugin {
@@ -14738,7 +14736,7 @@ final: prev: {
       sha256 = "0njcxdyn9x73s4axq01mrxi297xn1qldvnaws6wrbx1j4dyjx0yq";
     };
     meta.homepage = "https://github.com/johmsalas/text-case.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   themed-tabs-nvim = buildVimPlugin {
@@ -14751,7 +14749,7 @@ final: prev: {
       sha256 = "0z67q2q0y75fkayv0nkk5xnh3br9zw6qv7193wd716w10h0zmlpk";
     };
     meta.homepage = "https://github.com/vhsconnect/themed-tabs.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   thesaurus_query-vim = buildVimPlugin {
@@ -14764,7 +14762,7 @@ final: prev: {
       sha256 = "0xpkns5c8f0svcj6h9kff6y0909vw0yzg1fs9n9xgnx7r1qgcb5k";
     };
     meta.homepage = "https://github.com/ron89/thesaurus_query.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   thumbnail-vim = buildVimPlugin {
@@ -14777,7 +14775,7 @@ final: prev: {
       sha256 = "083xd3mwbv89k7vdwm7x3ww6xsjarphr0znfda47dam5r4vk41nz";
     };
     meta.homepage = "https://github.com/itchyny/thumbnail.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   timerly = buildVimPlugin {
@@ -14790,7 +14788,7 @@ final: prev: {
       sha256 = "0nfyw98nb95df0dpnxlaipgar92b8z2z3rxfih2fc86m6gxv2mm2";
     };
     meta.homepage = "https://github.com/nvzone/timerly/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   timestamp-vim = buildVimPlugin {
@@ -14803,7 +14801,7 @@ final: prev: {
       sha256 = "1dvssbmz7xm4p83jmsqalkshbrk67cacsjvxjpnlw870zf2hqc8p";
     };
     meta.homepage = "https://github.com/vim-scripts/timestamp.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tint-nvim = buildVimPlugin {
@@ -14816,7 +14814,7 @@ final: prev: {
       sha256 = "1jvj19bxsq8axv27mww7128pjssskdb6msg4b7nz9bk2y5plasw2";
     };
     meta.homepage = "https://github.com/levouh/tint.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tinted-vim = buildVimPlugin {
@@ -14829,7 +14827,7 @@ final: prev: {
       sha256 = "1b0gsw1nld6r886npp0s64si7x3dpvmjr7vmr4a3jwi1jday15cg";
     };
     meta.homepage = "https://github.com/tinted-theming/tinted-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tiny-devicons-auto-colors-nvim = buildVimPlugin {
@@ -14842,7 +14840,7 @@ final: prev: {
       sha256 = "1nps9l2bagnxb5948rc6ggvc48097kza5ijl33vz0msdriqnkznf";
     };
     meta.homepage = "https://github.com/rachartier/tiny-devicons-auto-colors.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tiny-inline-diagnostic-nvim = buildVimPlugin {
@@ -14855,7 +14853,7 @@ final: prev: {
       sha256 = "1s60j36rv08mg33dk8a8hip9r9f4mplv81d6rbhfy38l3kz518yp";
     };
     meta.homepage = "https://github.com/rachartier/tiny-inline-diagnostic.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tinykeymap = buildVimPlugin {
@@ -14868,7 +14866,7 @@ final: prev: {
       sha256 = "1y0snmb402k1f5r54192d7jpg3fbam4ry92hn063y92110j9580w";
     };
     meta.homepage = "https://github.com/tomtom/tinykeymap_vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tlib_vim = buildVimPlugin {
@@ -14881,7 +14879,7 @@ final: prev: {
       sha256 = "14r3nn1lq1cx2jr02czrrl55k2s0da6375js24c426iqar9dzf17";
     };
     meta.homepage = "https://github.com/tomtom/tlib_vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tmux-complete-vim = buildVimPlugin {
@@ -14894,7 +14892,7 @@ final: prev: {
       sha256 = "0bqh08q1jv05srd15bp9zrlrdzavxy83v153balvhrrvg3z4lk4x";
     };
     meta.homepage = "https://github.com/wellle/tmux-complete.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tmux-nvim = buildVimPlugin {
@@ -14907,7 +14905,7 @@ final: prev: {
       sha256 = "0md775rhl7cxkfdbrkrsirr2093dfsf6jhvn9naqb5px1alj6wpx";
     };
     meta.homepage = "https://github.com/aserowy/tmux.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tmuxline-vim = buildVimPlugin {
@@ -14920,7 +14918,7 @@ final: prev: {
       sha256 = "0gs2jghs1a9sp09mlphcpa1rzlmxmsvyaa7y20w6qsbczz989vm3";
     };
     meta.homepage = "https://github.com/edkolev/tmuxline.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   todo-comments-nvim = buildVimPlugin {
@@ -14933,7 +14931,7 @@ final: prev: {
       sha256 = "0hrmiaxjp11200nds3y33brj8gpbn5ykd78jfy1jiash3d44xpva";
     };
     meta.homepage = "https://github.com/folke/todo-comments.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   todo-txt-vim = buildVimPlugin {
@@ -14947,7 +14945,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/freitass/todo.txt-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   toggleterm-nvim = buildVimPlugin {
@@ -14960,7 +14958,7 @@ final: prev: {
       sha256 = "17plyvajwdhpiadsd80vph75qll8pv9571c2wnw35ngmw9gmnavz";
     };
     meta.homepage = "https://github.com/akinsho/toggleterm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tokyonight-nvim = buildVimPlugin {
@@ -14973,7 +14971,7 @@ final: prev: {
       sha256 = "002rzmdxq45bdyd27i8k8lhdcwxn9l4v6x5cm6g7v1213m0n25np";
     };
     meta.homepage = "https://github.com/folke/tokyonight.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   traces-vim = buildVimPlugin {
@@ -14986,7 +14984,7 @@ final: prev: {
       sha256 = "118zicpmw7gca1fvzfm3sb101kzksgwf06hdk4790ry7xsrmnank";
     };
     meta.homepage = "https://github.com/markonm/traces.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   trailblazer-nvim = buildVimPlugin {
@@ -15000,7 +14998,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/LeonHeidelbach/trailblazer.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   train-nvim = buildVimPlugin {
@@ -15013,7 +15011,7 @@ final: prev: {
       sha256 = "10kxd3xmdr6zzavq22r73plv3h9kz71yb1ljapcmaiswz7872291";
     };
     meta.homepage = "https://github.com/tjdevries/train.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   transparent-nvim = buildVimPlugin {
@@ -15026,7 +15024,7 @@ final: prev: {
       sha256 = "1sdn8zc9jwn0fvz9qsl79fx9hr3lqb4bw9v30znm267lf20b035s";
     };
     meta.homepage = "https://github.com/xiyaowong/transparent.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   treesj = buildVimPlugin {
@@ -15039,7 +15037,7 @@ final: prev: {
       sha256 = "0ydl72p2zp4yn50r5fzsdnfpr5ji04vfff7rs37jvb48lmfw2rlh";
     };
     meta.homepage = "https://github.com/Wansmer/treesj/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   treewalker-nvim = buildVimPlugin {
@@ -15052,7 +15050,7 @@ final: prev: {
       sha256 = "05dkiilkqzl488k1ifwk5xj48zfy14pzny062llm2jyc7pxcrwlk";
     };
     meta.homepage = "https://github.com/aaronik/treewalker.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tremor-vim = buildVimPlugin {
@@ -15065,7 +15063,7 @@ final: prev: {
       sha256 = "1h4plzbdzw7zfl56i7xfk3dp7labzfyw6xzii3cv8fyahihs83sy";
     };
     meta.homepage = "https://github.com/tremor-rs/tremor-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   trim-nvim = buildVimPlugin {
@@ -15078,7 +15076,7 @@ final: prev: {
       sha256 = "0xy21z4yxpdi1g9yl744582fkmz8q1pap9czknzp8w4ws5mhi709";
     };
     meta.homepage = "https://github.com/cappyzawa/trim.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   triptych-nvim = buildVimPlugin {
@@ -15092,7 +15090,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/simonmclean/triptych.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   trouble-nvim = buildVimPlugin {
@@ -15105,7 +15103,7 @@ final: prev: {
       sha256 = "0qn84q75dk2vbw2shh7g9i3x8m5wnhcg17zx26njpl0srykp1vva";
     };
     meta.homepage = "https://github.com/folke/trouble.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   true-zen-nvim = buildVimPlugin {
@@ -15118,7 +15116,7 @@ final: prev: {
       sha256 = "1jq607an49n1lhclqjdbmaqa0609vmdsr2pvq9w2vwmxci6v3rks";
     };
     meta.homepage = "https://github.com/Pocco81/true-zen.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   trust-vim = buildVimPlugin {
@@ -15131,7 +15129,7 @@ final: prev: {
       sha256 = "1zvxjgyzzhnza2gv528dvyp7m1nvsz5gjn0qp65jn0k7y4gh3nnl";
     };
     meta.homepage = "https://github.com/tesaguri/trust.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ts-autotag-nvim = buildVimPlugin {
@@ -15144,7 +15142,7 @@ final: prev: {
       sha256 = "1m0gng9v5dn6mm026nxw0n24bvysr156xhwvf83pv9xqp28xfwar";
     };
     meta.homepage = "https://github.com/tronikelis/ts-autotag.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ts-comments-nvim = buildVimPlugin {
@@ -15157,7 +15155,7 @@ final: prev: {
       sha256 = "0d9l90p81r753h5xynlpmykia9y6wc2fz8c7pa3szqphvw78kq7f";
     };
     meta.homepage = "https://github.com/folke/ts-comments.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tsc-nvim = buildVimPlugin {
@@ -15170,7 +15168,7 @@ final: prev: {
       sha256 = "00irwjlm3r741i06w6qd6pmgqcs5zh1faz2fnqvlzgm7pyb4qz50";
     };
     meta.homepage = "https://github.com/dmmulroy/tsc.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tslime-vim = buildVimPlugin {
@@ -15183,7 +15181,7 @@ final: prev: {
       sha256 = "048ycam0awcf98zhha6c5n1fk366w559bmjcanik2sqlqw1f74as";
     };
     meta.homepage = "https://github.com/jgdavey/tslime.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tssorter-nvim = buildVimPlugin {
@@ -15196,7 +15194,7 @@ final: prev: {
       sha256 = "1y64w5aggh0k5xf0y8xsjbkzinn8gx2qhhqlww89k43dblq07pa4";
     };
     meta.homepage = "https://github.com/mtrajano/tssorter.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   tsuquyomi = buildVimPlugin {
@@ -15209,7 +15207,7 @@ final: prev: {
       sha256 = "0viwjg5vp66xh4lv6iah3w3pdqh5wjd0yqs8h76rxmf83skb5vhk";
     };
     meta.homepage = "https://github.com/Quramy/tsuquyomi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   twilight-nvim = buildVimPlugin {
@@ -15222,7 +15220,7 @@ final: prev: {
       sha256 = "16j4psdap33dlamnjn8895bqn92rlbzm1c9gpv3yihqh15546bxh";
     };
     meta.homepage = "https://github.com/folke/twilight.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typescript-nvim = buildVimPlugin {
@@ -15235,7 +15233,7 @@ final: prev: {
       sha256 = "0rx29i3hmzh2knxx098fvfc0iafx3j08bs1zbv4dxadq56dnhaxm";
     };
     meta.homepage = "https://github.com/jose-elias-alvarez/typescript.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typescript-tools-nvim = buildVimPlugin {
@@ -15248,7 +15246,7 @@ final: prev: {
       sha256 = "0ks04qa0hgn7a2krk16b8g78hl10njhbs98234la4z06fqrq915f";
     };
     meta.homepage = "https://github.com/pmizio/typescript-tools.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typescript-vim = buildVimPlugin {
@@ -15261,7 +15259,7 @@ final: prev: {
       sha256 = "1x373hbhifavp3y8k8vhnn3g7q88pynmkpyhzkgml4rwqslanh61";
     };
     meta.homepage = "https://github.com/leafgarland/typescript-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typst-conceal-vim = buildVimPlugin {
@@ -15274,7 +15272,7 @@ final: prev: {
       sha256 = "UHEVhlV/1cq6jaMhNNookeGPtHvSwy1AKLvb8FR6Rro=";
     };
     meta.homepage = "https://github.com/MrPicklePinosaur/typst-conceal.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typst-preview-nvim = buildVimPlugin {
@@ -15287,7 +15285,7 @@ final: prev: {
       sha256 = "0y658l2ibq0x4cwa4rl3lab7aw4ba68xcrdnxp81p2rsk0d60qq4";
     };
     meta.homepage = "https://github.com/chomosuke/typst-preview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   typst-vim = buildVimPlugin {
@@ -15300,7 +15298,7 @@ final: prev: {
       sha256 = "0di84i53g1azxr02jlfm9kzzg0fg1dprxn2llrm9in4wglxf9yix";
     };
     meta.homepage = "https://github.com/kaarmu/typst.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ultimate-autopair-nvim = buildVimPlugin {
@@ -15313,7 +15311,7 @@ final: prev: {
       sha256 = "0dvjxzrwrnkr2f8hbahn31x6nr6ck5q72l8qdqr1spzzdvndpwy8";
     };
     meta.homepage = "https://github.com/altermo/ultimate-autopair.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   ultisnips = buildVimPlugin {
@@ -15326,7 +15324,7 @@ final: prev: {
       sha256 = "195pkgzjv24qw1y92phjmvird00filrzl5i28mm139sdshzqnx14";
     };
     meta.homepage = "https://github.com/SirVer/ultisnips/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   undotree = buildVimPlugin {
@@ -15339,7 +15337,7 @@ final: prev: {
       sha256 = "0vp4wl4kiby7dlchki975fq682sw8c1vr9c6nhcndmxyhx7ghrqw";
     };
     meta.homepage = "https://github.com/mbbill/undotree/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unicode-vim = buildVimPlugin {
@@ -15352,7 +15350,7 @@ final: prev: {
       sha256 = "01b143d20l1sfgsrfjwhcgzakl26ydkmv7haab4af9daqsbq14c9";
     };
     meta.homepage = "https://github.com/chrisbra/unicode.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unified-nvim = buildVimPlugin {
@@ -15365,7 +15363,7 @@ final: prev: {
       sha256 = "1r3pdh3rhlkrp9ykzxwaqrfww87dpa6b72kfvxf3j24firl0m9nv";
     };
     meta.homepage = "https://github.com/axkirillov/unified.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unimpaired-nvim = buildVimPlugin {
@@ -15378,7 +15376,7 @@ final: prev: {
       sha256 = "07ri7vi4fzqdxn35646kswij61dpg63pq8f2d46jyifxzv1kbis7";
     };
     meta.homepage = "https://github.com/tummetott/unimpaired.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unimpaired-which-key-nvim = buildVimPlugin {
@@ -15391,7 +15389,7 @@ final: prev: {
       sha256 = "11skr474c9drq25823rx1jxcv5d57si0085zw60nq3wxmx999cg3";
     };
     meta.homepage = "https://github.com/afreakk/unimpaired-which-key.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unison = buildVimPlugin {
@@ -15404,7 +15402,7 @@ final: prev: {
       sha256 = "1sxcypq5fgmjif30vqgdgql6mbvbdm9ckidri6mp6p8rhqy9ssm4";
     };
     meta.homepage = "https://github.com/unisonweb/unison/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   unite-vim = buildVimPlugin {
@@ -15417,7 +15415,7 @@ final: prev: {
       sha256 = "0zd165b0fmbpjfn0v8pq01hyy2w3szlrd7jksymi3k9sjmlw79lw";
     };
     meta.homepage = "https://github.com/Shougo/unite.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   url-open = buildVimPlugin {
@@ -15430,7 +15428,7 @@ final: prev: {
       sha256 = "0caphlqkvz8labx54ap7nasvyx5kgsnp49zw98cvrd43hn60mrsa";
     };
     meta.homepage = "https://github.com/sontungexpt/url-open/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   urlview-nvim = buildVimPlugin {
@@ -15443,7 +15441,7 @@ final: prev: {
       sha256 = "1qbqn9h7602dw8vgj5m1i45g679n8j82h38hl0ab9lhxxykf2cys";
     };
     meta.homepage = "https://github.com/axieax/urlview.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   utl-vim = buildVimPlugin {
@@ -15456,7 +15454,7 @@ final: prev: {
       sha256 = "0ax68nmzlka9193n2h82qzvhzv4dv6lm7rg3b1vhj2pn1r6ci6p4";
     };
     meta.homepage = "https://github.com/vim-scripts/utl.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   uv-nvim = buildVimPlugin {
@@ -15469,7 +15467,7 @@ final: prev: {
       sha256 = "1l681q5d3c8hqr1vvb4rxs6y5a1fs3m3cx3v0n6lvmlcdbdn4mjb";
     };
     meta.homepage = "https://github.com/benomahony/uv.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vCoolor-vim = buildVimPlugin {
@@ -15482,7 +15480,7 @@ final: prev: {
       sha256 = "03vaghwqr3k0nls365wk4qwzmvdvdvq41q02c3l5qv2vsdikmz5i";
     };
     meta.homepage = "https://github.com/KabbAmine/vCoolor.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vader-vim = buildVimPlugin {
@@ -15495,7 +15493,7 @@ final: prev: {
       sha256 = "14j4a55hhi7jbk9aafzl67w2w0dn0jyspddal430cm7rhvvv7k5d";
     };
     meta.homepage = "https://github.com/junegunn/vader.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   venn-nvim = buildVimPlugin {
@@ -15508,7 +15506,7 @@ final: prev: {
       sha256 = "0mhkmccr3l9ggqlr0gzc5fcdmx7ap66gqbihdnkc4mbn9jipcp0h";
     };
     meta.homepage = "https://github.com/jbyuki/venn.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   verilog_systemverilog-vim = buildVimPlugin {
@@ -15521,7 +15519,7 @@ final: prev: {
       sha256 = "06w0m0rxwznh6mnd8f7qpccqaz4mv8pdw7anfib0rbw30m7hc167";
     };
     meta.homepage = "https://github.com/vhda/verilog_systemverilog.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vifm-vim = buildVimPlugin {
@@ -15534,7 +15532,7 @@ final: prev: {
       sha256 = "09wfp8zm7s3mcsi2j0wps1lwhrlivq5jzjhnl5fiimz441d4k3hn";
     };
     meta.homepage = "https://github.com/vifm/vifm.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-CtrlXA = buildVimPlugin {
@@ -15547,7 +15545,7 @@ final: prev: {
       sha256 = "197a13nnvq4w81l0c2bimfgwxdxxsqjzghmh901z1665y919fc5m";
     };
     meta.homepage = "https://github.com/Konfekt/vim-CtrlXA/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-DetectSpellLang = buildVimPlugin {
@@ -15560,7 +15558,7 @@ final: prev: {
       sha256 = "09929sx48nm2xc31wnih4hp5g9gm4gl92x8vkbzg6501yz3ajvmg";
     };
     meta.homepage = "https://github.com/konfekt/vim-DetectSpellLang/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-LanguageTool = buildVimPlugin {
@@ -15573,7 +15571,7 @@ final: prev: {
       sha256 = "0ckin319m93v9mj4l63jhmk7gm3ssy7yk8dh595kagnc0ylj8jjr";
     };
     meta.homepage = "https://github.com/dpelle/vim-LanguageTool/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ReplaceWithRegister = buildVimPlugin {
@@ -15586,7 +15584,7 @@ final: prev: {
       sha256 = "19937w5xz9g95qk3wmvn592dxi2q81dbz4f8i14jlgndfkzi26i9";
     };
     meta.homepage = "https://github.com/inkarkat/vim-ReplaceWithRegister/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ReplaceWithSameIndentRegister = buildVimPlugin {
@@ -15599,7 +15597,7 @@ final: prev: {
       sha256 = "04zvhqh9rjfiwfk8r0zci608pw09svqb42nvp8pvqb11xp2ydg2y";
     };
     meta.homepage = "https://github.com/inkarkat/vim-ReplaceWithSameIndentRegister/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-SyntaxRange = buildVimPlugin {
@@ -15612,7 +15610,7 @@ final: prev: {
       sha256 = "15f0r25ch81pr65sp6cmg90lbm2mzxqhwynwvpffln58rbhhj9xs";
     };
     meta.homepage = "https://github.com/inkarkat/vim-SyntaxRange/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-abolish = buildVimPlugin {
@@ -15625,7 +15623,7 @@ final: prev: {
       sha256 = "1yvpk0cnsx1b1q2wp52fv4mj71w8ssz4dcbbdix65m8qna6d0m9h";
     };
     meta.homepage = "https://github.com/tpope/vim-abolish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-actions = buildVimPlugin {
@@ -15638,7 +15636,7 @@ final: prev: {
       sha256 = "06rjzdbk1x3hwkz7kfggsyv76jqzbar8vv96yj63dfncmyw2bsji";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-actions/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-async = buildVimPlugin {
@@ -15651,7 +15649,7 @@ final: prev: {
       sha256 = "1lk8ma51dd0syi73vq5r4qk9cpy6cq3llizvh94hmxblfjpvrs7q";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-async/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-background-cmd = buildVimPlugin {
@@ -15664,7 +15662,7 @@ final: prev: {
       sha256 = "0csy68x686l3x5ancidxb5b6prg9k7ikybqzq3klx0gs5rmksfy4";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-background-cmd/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-commenting = buildVimPlugin {
@@ -15677,7 +15675,7 @@ final: prev: {
       sha256 = "0alak8h33vada2ckb0v06y82qlib5mhyc2yswlv1rqh8ypzhq3mc";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-commenting/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-completion = buildVimPlugin {
@@ -15690,7 +15688,7 @@ final: prev: {
       sha256 = "1ld059y2qwlc5bdfjm2p314s1qh31lxs54g944pw49r46s5nlslr";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-completion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-errorformats = buildVimPlugin {
@@ -15703,7 +15701,7 @@ final: prev: {
       sha256 = "0mz2vkx9kvawapp27kjh3gg7jc48n3ivc7lzak7bznq8ac3zj1pk";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-errorformats/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-goto-thing-at-cursor = buildVimPlugin {
@@ -15716,7 +15714,7 @@ final: prev: {
       sha256 = "1s9021qnn95bzl8r7nx818j1kmjfjzg8xg07s071ic96lv40bcqp";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-goto-thing-at-cursor/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-local-vimrc = buildVimPlugin {
@@ -15729,7 +15727,7 @@ final: prev: {
       sha256 = "16mfr4y4swmyhh3jp7g15bbrv6ns7wlagk3lgsfv9x7la9vh9fkb";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-local-vimrc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-manager = buildVimPlugin {
@@ -15742,7 +15740,7 @@ final: prev: {
       sha256 = "1g5la0qhimh8aqdnwgrr6hlvcjx8wy06hmvwydfidp0dn4ngh2mg";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-manager/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-mru = buildVimPlugin {
@@ -15755,7 +15753,7 @@ final: prev: {
       sha256 = "17k943dw9rp8wdn3m6zp9zlq7l2l7kn6508xcx4bd3rr1wnddrij";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-mru/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-mw-utils = buildVimPlugin {
@@ -15768,7 +15766,7 @@ final: prev: {
       sha256 = "1w99r6ck6gqg6b0fk9qj07q0b7p2qxav0ar6x294g34wsqij6xj5";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-mw-utils/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-nix = buildVimPlugin {
@@ -15781,7 +15779,7 @@ final: prev: {
       sha256 = "195z2yz09wirpqjpsha8x7qcr9is1q8qph4j0svws6qbqrkh8ryy";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-nix/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-other = buildVimPlugin {
@@ -15794,7 +15792,7 @@ final: prev: {
       sha256 = "14dj4mb3dnr7zml69rmwc23gz7xz5fnhw3n7imswbk44a6yw5shq";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-other/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-php-manual = buildVimPlugin {
@@ -15807,7 +15805,7 @@ final: prev: {
       sha256 = "1kc67f12wccqdza069b75lpcbqp4kv4r23i4mfz0ihwif5mfnhir";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-php-manual/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-signs = buildVimPlugin {
@@ -15820,7 +15818,7 @@ final: prev: {
       sha256 = "0i4gfp30hmw1vqjl6zxjrgkca3ikdkcnjmma2mncjmcr6f59kjzy";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-signs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-sql = buildVimPlugin {
@@ -15833,7 +15831,7 @@ final: prev: {
       sha256 = "0ihm157sby6csdwsnw2gwh3jmm3prm1mxwgkx2hsfwlmpb1vwwm3";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-sql/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-syntax-checker = buildVimPlugin {
@@ -15846,7 +15844,7 @@ final: prev: {
       sha256 = "1rcn1ps06156nyglvxg6m7pn3vhvmnv5ad6kidp59hggyr5332i9";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-syntax-checker/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-toggle-buffer = buildVimPlugin {
@@ -15859,7 +15857,7 @@ final: prev: {
       sha256 = "04wpbkmd0pdmpwdm5fihs4l3ig0q7rj8fa8zn34a0h5168mf1w6x";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-toggle-buffer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-addon-xdebug = buildVimPlugin {
@@ -15872,7 +15870,7 @@ final: prev: {
       sha256 = "1i64ppdfp2qqq7vw1jf160mj4ikc04v39iazdab83xmiqjsh8ixw";
     };
     meta.homepage = "https://github.com/MarcWeber/vim-addon-xdebug/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-advanced-sorters = buildVimPlugin {
@@ -15885,7 +15883,7 @@ final: prev: {
       sha256 = "08i1vvsv7cmq4l6vdc8l3k4gn7zvn2fa2vd4xd45sjyfmbf9l4an";
     };
     meta.homepage = "https://github.com/inkarkat/vim-AdvancedSorters/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-after-object = buildVimPlugin {
@@ -15898,7 +15896,7 @@ final: prev: {
       sha256 = "13726m0c73n5pw9gil4ahbg71ibklrwkw9yvbr6qxxvn6qyijpdy";
     };
     meta.homepage = "https://github.com/junegunn/vim-after-object/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-afterglow = buildVimPlugin {
@@ -15911,7 +15909,7 @@ final: prev: {
       sha256 = "0z61jfdhhajw5k7y8msk8nj5nljwygmw3s6vsqq9qgczaixqh968";
     };
     meta.homepage = "https://github.com/danilo-augusto/vim-afterglow/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-agda = buildVimPlugin {
@@ -15924,7 +15922,7 @@ final: prev: {
       sha256 = "1n2874y6qdlsnpi06pw6gi3fib30njldj6k21knn8h3isib74msw";
     };
     meta.homepage = "https://github.com/msuperdock/vim-agda/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-airline = buildVimPlugin {
@@ -15937,7 +15935,7 @@ final: prev: {
       sha256 = "1dnlymp4kv8d5yr0fpabkrhyar5kg34jnzwgddykiifxhl99yfbi";
     };
     meta.homepage = "https://github.com/vim-airline/vim-airline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-airline-clock = buildVimPlugin {
@@ -15950,7 +15948,7 @@ final: prev: {
       sha256 = "0rj53x4b0vjfrjvpr09vlz69r3y2rym4dab5lyx0sp3sgz9jqizm";
     };
     meta.homepage = "https://github.com/enricobacis/vim-airline-clock/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-airline-themes = buildVimPlugin {
@@ -15963,7 +15961,7 @@ final: prev: {
       sha256 = "04md0ig673l4lidcskaikkc246j04vrz63ns002wp5dpsvchcczk";
     };
     meta.homepage = "https://github.com/vim-airline/vim-airline-themes/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-alias = buildVimPlugin {
@@ -15976,7 +15974,7 @@ final: prev: {
       sha256 = "14a43m6zjzsgs2chd7sm5w8xnjs0a5d735m5r3zjyfvcs884pv0k";
     };
     meta.homepage = "https://github.com/Konfekt/vim-alias/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-android = buildVimPlugin {
@@ -15989,7 +15987,7 @@ final: prev: {
       sha256 = "0vqahgvfsmrmad2fjar1p5jmvlpxrflszlx624klqm3q0xx7l7in";
     };
     meta.homepage = "https://github.com/hsanson/vim-android/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-anzu = buildVimPlugin {
@@ -16002,7 +16000,7 @@ final: prev: {
       sha256 = "0fba3918ik69cndpp9wb46aim6phdc9vwwk4i5f8w5wwv2baqb5w";
     };
     meta.homepage = "https://github.com/osyo-manga/vim-anzu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-apathy = buildVimPlugin {
@@ -16015,7 +16013,7 @@ final: prev: {
       sha256 = "166cvm3xr46n7bmzglkx0k4akdshhq3a1kw2011v39r64jh5p5hk";
     };
     meta.homepage = "https://github.com/tpope/vim-apathy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-apm = buildVimPlugin {
@@ -16028,7 +16026,7 @@ final: prev: {
       sha256 = "106rjqi3wg1yn62szi7v5xyira2qz5l5fc987n2abddakqr5ivhp";
     };
     meta.homepage = "https://github.com/ThePrimeagen/vim-apm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-argumentative = buildVimPlugin {
@@ -16041,7 +16039,7 @@ final: prev: {
       sha256 = "06ggdw08gha51r8m35ncgbp6b52lcw52l297b8d9z1c4r6b0s1vj";
     };
     meta.homepage = "https://github.com/PeterRincker/vim-argumentative/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-argwrap = buildVimPlugin {
@@ -16054,7 +16052,7 @@ final: prev: {
       sha256 = "0qd9jzfilqr7kwgh251vcb9f4p55b9d73d90kxsa596b5wy5a494";
     };
     meta.homepage = "https://github.com/FooSoft/vim-argwrap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-asterisk = buildVimPlugin {
@@ -16067,7 +16065,7 @@ final: prev: {
       sha256 = "1bm99j4vskbgzfn09567qi0462dvjrpdkifc4hg24bi02bx9hjrj";
     };
     meta.homepage = "https://github.com/haya14busa/vim-asterisk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-astro = buildVimPlugin {
@@ -16080,7 +16078,7 @@ final: prev: {
       sha256 = "1zx5dfmzd2bkj7widq89n5dxlqz8ixxr8pcyaafi09590j3kf15z";
     };
     meta.homepage = "https://github.com/wuelnerdotexe/vim-astro/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-asymptote = buildVimPlugin {
@@ -16093,7 +16091,7 @@ final: prev: {
       sha256 = "0j4hrirssgnh37crl3yvy2vxf7wigdir860z1qvn1m72hld8n32y";
     };
     meta.homepage = "https://github.com/hura/vim-asymptote/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-auto-save = buildVimPlugin {
@@ -16106,7 +16104,7 @@ final: prev: {
       sha256 = "1mc6ihy674hf01z1zlni8ji0srv579pfn9d888zpn91jq8ch89dh";
     };
     meta.homepage = "https://github.com/907th/vim-auto-save/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-autoformat = buildVimPlugin {
@@ -16119,7 +16117,7 @@ final: prev: {
       sha256 = "02gcwybq3bzmynh3q8600cd1c7j72901wzd66dc26f58y1y1fy1n";
     };
     meta.homepage = "https://github.com/vim-autoformat/vim-autoformat/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-automkdir = buildVimPlugin {
@@ -16132,7 +16130,7 @@ final: prev: {
       sha256 = "00ix0y1ijbis8pj7pf6gv2g5z2s7kxwlr0viybwrs0li5acym6jp";
     };
     meta.homepage = "https://github.com/benizi/vim-automkdir/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-autosource = buildVimPlugin {
@@ -16145,7 +16143,7 @@ final: prev: {
       sha256 = "0myg0knv0ld2jdhvdz9hx9rfngh1qh6668wbmnf4g1d25vccr2i1";
     };
     meta.homepage = "https://github.com/jenterkin/vim-autosource/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-autoswap = buildVimPlugin {
@@ -16158,7 +16156,7 @@ final: prev: {
       sha256 = "0l0ijbdl2s9p5i3cxfkq8jncncz38qprp51whbjcda485d1knk9n";
     };
     meta.homepage = "https://github.com/gioele/vim-autoswap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bazel = buildVimPlugin {
@@ -16171,7 +16169,7 @@ final: prev: {
       sha256 = "1cx4axwcm7mm2c2xi4ghv1nlgfzl29g820znbpm77r8hpaqkj7ki";
     };
     meta.homepage = "https://github.com/bazelbuild/vim-bazel/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bbye = buildVimPlugin {
@@ -16184,7 +16182,7 @@ final: prev: {
       sha256 = "0dlifpbd05fcgndpkgb31ww8p90pwdbizmgkkq00qkmvzm1ik4y4";
     };
     meta.homepage = "https://github.com/moll/vim-bbye/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-be-good = buildVimPlugin {
@@ -16197,7 +16195,7 @@ final: prev: {
       sha256 = "1kqb4ljlwypilq23y5d83njh08z5w8mlk323qcqp521jvmbmkcya";
     };
     meta.homepage = "https://github.com/ThePrimeagen/vim-be-good/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-beancount = buildVimPlugin {
@@ -16210,7 +16208,7 @@ final: prev: {
       sha256 = "05rfvgwi9a1ppnmm3djaw3sdjwxfbjfhj9q9rqlfix5pngmw3fdm";
     };
     meta.homepage = "https://github.com/nathangrigg/vim-beancount/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bepoptimist = buildVimPlugin {
@@ -16223,7 +16221,7 @@ final: prev: {
       sha256 = "1650amv8q866ysxfm4xsf5hx1xx6ccg6xga2w0ziyf62s5frgbxd";
     };
     meta.homepage = "https://github.com/sheoak/vim-bepoptimist/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-better-whitespace = buildVimPlugin {
@@ -16236,7 +16234,7 @@ final: prev: {
       sha256 = "1m3if862z0lihknhry5frgmxkzm80qpx4i763vw8w1caxv9zdp6v";
     };
     meta.homepage = "https://github.com/ntpeters/vim-better-whitespace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bookmarks = buildVimPlugin {
@@ -16249,7 +16247,7 @@ final: prev: {
       sha256 = "1w8g9jvyi765sp2icjb6c20yn0y6w69zfyh37a367aqk7r76nbk5";
     };
     meta.homepage = "https://github.com/MattesGroeger/vim-bookmarks/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-boxdraw = buildVimPlugin {
@@ -16262,7 +16260,7 @@ final: prev: {
       sha256 = "0zr3r4dgpdadaz3g9hzn7vyv0rids0k1wdywk9yywfp6q9m0ygj8";
     };
     meta.homepage = "https://github.com/gyim/vim-boxdraw/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bracketed-paste = buildVimPlugin {
@@ -16275,7 +16273,7 @@ final: prev: {
       sha256 = "0vd2da853c9ms7dzqfcr8wz58gfiq4if20cn530hdg5b3pbsl6z2";
     };
     meta.homepage = "https://github.com/ConradIrwin/vim-bracketed-paste/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bsv = buildVimPlugin {
@@ -16288,7 +16286,7 @@ final: prev: {
       sha256 = "1cd0jmxmb30c50a0ssa96a34qm2r3vasnn0x6ah9azx75k4anrcx";
     };
     meta.homepage = "https://github.com/mtikekar/vim-bsv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-buffergator = buildVimPlugin {
@@ -16301,7 +16299,7 @@ final: prev: {
       sha256 = "1g1g2agj9dzgrk6ccr4ampyrsqjs4j6gqmvv75avq7q068glglzz";
     };
     meta.homepage = "https://github.com/jeetsukumaran/vim-buffergator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bufferline = buildVimPlugin {
@@ -16314,7 +16312,7 @@ final: prev: {
       sha256 = "0zls47a3v8dv3h63drbak1mxf3j2x3scvclk7bjwzlk2yp447das";
     };
     meta.homepage = "https://github.com/bling/vim-bufferline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-bufkill = buildVimPlugin {
@@ -16327,7 +16325,7 @@ final: prev: {
       sha256 = "1jfwzizkfljkz6cqjzx3sn5wnn3kl2kvwinl5bbp9vjc6ssnz2df";
     };
     meta.homepage = "https://github.com/qpkorr/vim-bufkill/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-caddyfile = buildVimPlugin {
@@ -16340,7 +16338,7 @@ final: prev: {
       sha256 = "1nk71r0hswpkmhvlmyj9jazrs5g8qgabdwflhhxmipzdz7g2y5md";
     };
     meta.homepage = "https://github.com/isobit/vim-caddyfile/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-capslock = buildVimPlugin {
@@ -16353,7 +16351,7 @@ final: prev: {
       sha256 = "1f5c7x08w5hgygxi4fxxdvk49m9s4nxd42lsiqs3fzzl8lgmil7s";
     };
     meta.homepage = "https://github.com/tpope/vim-capslock/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-carbon-now-sh = buildVimPlugin {
@@ -16366,7 +16364,7 @@ final: prev: {
       sha256 = "1pmnf2w9wck9476c74h2553vnwqj70f7bpgp1k0czpzaiz44zv5c";
     };
     meta.homepage = "https://github.com/kristijanhusak/vim-carbon-now-sh/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ccls = buildVimPlugin {
@@ -16379,7 +16377,7 @@ final: prev: {
       sha256 = "1zsp5lsdrrrlgbpb68hksb3lm8289h9rjz991clbvam61ssi4w08";
     };
     meta.homepage = "https://github.com/m-pilia/vim-ccls/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-characterize = buildVimPlugin {
@@ -16392,7 +16390,7 @@ final: prev: {
       sha256 = "0v00jq0wx2zvcyh3k8rscvq1lgp4hyb1fkjwsygyynnbcaimms8z";
     };
     meta.homepage = "https://github.com/tpope/vim-characterize/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-choosewin = buildVimPlugin {
@@ -16405,7 +16403,7 @@ final: prev: {
       sha256 = "1451ji3a7waxz1kc8l2hw96fff54xwa7q8glrin8qxn48fc4605n";
     };
     meta.homepage = "https://github.com/t9md/vim-choosewin/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-clang-format = buildVimPlugin {
@@ -16418,7 +16416,7 @@ final: prev: {
       sha256 = "00l0flcgbl7dipzq6yxqwlqfi43jrdgbs4bi14lw2wzki5wy3wmr";
     };
     meta.homepage = "https://github.com/rhysd/vim-clang-format/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-classpath = buildVimPlugin {
@@ -16431,7 +16429,7 @@ final: prev: {
       sha256 = "0k67r76djvhqsc76af72s11hrxschsj1rx2rb3xsi3q5rm0ff5mg";
     };
     meta.homepage = "https://github.com/tpope/vim-classpath/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-clojure-highlight = buildVimPlugin {
@@ -16444,7 +16442,7 @@ final: prev: {
       sha256 = "0fg3faj0fq7b8pqr0i33qdg2xfd5966lrjl1wkq6jcgvdqamhz0y";
     };
     meta.homepage = "https://github.com/guns/vim-clojure-highlight/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-clojure-static = buildVimPlugin {
@@ -16457,7 +16455,7 @@ final: prev: {
       sha256 = "0s98qrhv7xh7bvh8bm1vaxpw3n2mcxayay3k90ibgjrv1jpyvzx7";
     };
     meta.homepage = "https://github.com/guns/vim-clojure-static/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-closer = buildVimPlugin {
@@ -16470,7 +16468,7 @@ final: prev: {
       sha256 = "117g4a8rl2m6b83yjicq3ghiy568z5s1mlcwi4k6w45mm21lpd5v";
     };
     meta.homepage = "https://github.com/rstacruz/vim-closer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-closetag = buildVimPlugin {
@@ -16483,7 +16481,7 @@ final: prev: {
       sha256 = "03a7g2xgqhbv71qwqm0arkgy92m5nyl1xv0wn6f4ga1y9vwxwras";
     };
     meta.homepage = "https://github.com/alvan/vim-closetag/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cmake = buildVimPlugin {
@@ -16496,7 +16494,7 @@ final: prev: {
       sha256 = "1xhak5cdnh0mg0w1hy0y4pgwaz9gcw1x1pbxidfxz0w903d0x5zw";
     };
     meta.homepage = "https://github.com/vhdirk/vim-cmake/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-code-dark = buildVimPlugin {
@@ -16509,7 +16507,7 @@ final: prev: {
       sha256 = "10pnwfid1v8l7qsj2v1394318h28ipg723rxd4pgkbqnmsvdw8vw";
     };
     meta.homepage = "https://github.com/tomasiser/vim-code-dark/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-codefmt = buildVimPlugin {
@@ -16522,7 +16520,7 @@ final: prev: {
       sha256 = "05hkn0vkaybrv6pz6xgvbyvzcc9hl0mpykfv32jamgwkdrfm9in1";
     };
     meta.homepage = "https://github.com/google/vim-codefmt/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-coffee-script = buildVimPlugin {
@@ -16535,7 +16533,7 @@ final: prev: {
       sha256 = "07k7whr32x782jyvzl2vg6c2pdrj5jynf4b4f2my7502rgv03w02";
     };
     meta.homepage = "https://github.com/kchmck/vim-coffee-script/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-colemak = buildVimPlugin {
@@ -16548,7 +16546,7 @@ final: prev: {
       sha256 = "1li7yc5vglrhf7w7i7gs2i7ihdb1bhx85basmpgqlf7790lv1599";
     };
     meta.homepage = "https://github.com/kalbasit/vim-colemak/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-colors-solarized = buildVimPlugin {
@@ -16561,7 +16559,7 @@ final: prev: {
       sha256 = "05d3lmd1shyagvr3jygqghxd3k8a4vp32723fvxdm57fdrlyzcm1";
     };
     meta.homepage = "https://github.com/altercation/vim-colors-solarized/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-colorschemes = buildVimPlugin {
@@ -16574,7 +16572,7 @@ final: prev: {
       sha256 = "1cg8q7w0vgl73aw1b9zz0zh5vw5d2pm8pm54fhfzva4azg56f416";
     };
     meta.homepage = "https://github.com/flazz/vim-colorschemes/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-colorstepper = buildVimPlugin {
@@ -16587,7 +16585,7 @@ final: prev: {
       sha256 = "05ykxn0gmh8liz0zv5hb8df1ajggxp88izq3825m0yb3ma3k1jqs";
     };
     meta.homepage = "https://github.com/jonbri/vim-colorstepper/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-commentary = buildVimPlugin {
@@ -16600,7 +16598,7 @@ final: prev: {
       sha256 = "0jniidmrr1iddb7s5qxac30l30f4cmyia4b56xqcqv00ysk3kbni";
     };
     meta.homepage = "https://github.com/tpope/vim-commentary/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-concourse = buildVimPlugin {
@@ -16613,7 +16611,7 @@ final: prev: {
       sha256 = "0ilf7r0lwx8f7shqxbs9av3gsnary8nbh3xhrfzwsivh8psi7qf6";
     };
     meta.homepage = "https://github.com/luan/vim-concourse/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cool = buildVimPlugin {
@@ -16626,7 +16624,7 @@ final: prev: {
       sha256 = "0nz3q8knsmvz2nzyr6cfcfpaa76hf659876xvddsxszma6851acq";
     };
     meta.homepage = "https://github.com/romainl/vim-cool/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cpp-enhanced-highlight = buildVimPlugin {
@@ -16639,7 +16637,7 @@ final: prev: {
       sha256 = "1fvy56r8p0fp8ipsfw6wiq6ppv541849cazzmp3da203ixs87wd1";
     };
     meta.homepage = "https://github.com/octol/vim-cpp-enhanced-highlight/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-crates = buildVimPlugin {
@@ -16652,7 +16650,7 @@ final: prev: {
       sha256 = "1acm52hlv0qhisgcy8xwck6zv29b8x40bcngg7z3invv47b1gi7k";
     };
     meta.homepage = "https://github.com/mhinz/vim-crates/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-crystal = buildVimPlugin {
@@ -16665,7 +16663,7 @@ final: prev: {
       sha256 = "1r7nr1g471h875p97yhz29z0w9kngf7vxs8b943cvyid0cr4ysxq";
     };
     meta.homepage = "https://github.com/vim-crystal/vim-crystal/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-csharp = buildVimPlugin {
@@ -16678,7 +16676,7 @@ final: prev: {
       sha256 = "16sf3yqvd36b4rkrh6w7jskvlkrgymwa13xcvh586lmlc7g6ilcx";
     };
     meta.homepage = "https://github.com/OrangeT/vim-csharp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-css-color = buildVimPlugin {
@@ -16691,7 +16689,7 @@ final: prev: {
       sha256 = "0daxvb9v8pyzgsj7izbr1w6mp9jy4ls0c65ph8lxbkwpvz2snils";
     };
     meta.homepage = "https://github.com/ap/vim-css-color/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cue = buildVimPlugin {
@@ -16704,7 +16702,7 @@ final: prev: {
       sha256 = "01f89ki0w2j58pfdvb8w0sf1x5nqgqh3bldinifpd4pysnqhniai";
     };
     meta.homepage = "https://github.com/jjo/vim-cue/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cursorword = buildVimPlugin {
@@ -16717,7 +16715,7 @@ final: prev: {
       sha256 = "12r6a9i6jm84c1fy2d72r516b98xmkkklw8lvl3c5i01s2qxmdr5";
     };
     meta.homepage = "https://github.com/itchyny/vim-cursorword/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-cute-python = buildVimPlugin {
@@ -16730,7 +16728,7 @@ final: prev: {
       sha256 = "1svr8r1rva6lq9ypzazrlw5gabnipjyhd2bs43cpfcwx0ms04d2k";
     };
     meta.homepage = "https://github.com/ehamberg/vim-cute-python/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dadbod = buildVimPlugin {
@@ -16743,7 +16741,7 @@ final: prev: {
       sha256 = "1b9f8dqzf2rfsfq8ivmwcf8k7yszyhz2axyds3861syxmxmy2cy9";
     };
     meta.homepage = "https://github.com/tpope/vim-dadbod/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dadbod-completion = buildVimPlugin {
@@ -16756,7 +16754,7 @@ final: prev: {
       sha256 = "0gzhn6px019kd955di3540ngfn050hwll37wd5hdpj6i1apc5rhp";
     };
     meta.homepage = "https://github.com/kristijanhusak/vim-dadbod-completion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dadbod-ui = buildVimPlugin {
@@ -16769,7 +16767,7 @@ final: prev: {
       sha256 = "070x8c82a29ik68qy71j6dbznakc5vzr2b3kyicaiindbqavcbgv";
     };
     meta.homepage = "https://github.com/kristijanhusak/vim-dadbod-ui/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dasht = buildVimPlugin {
@@ -16782,7 +16780,7 @@ final: prev: {
       sha256 = "1y97fcmz8lvpj9z0cq46x6m6ac2ck8syfdgyjj62x2m1j40sv63m";
     };
     meta.homepage = "https://github.com/sunaku/vim-dasht/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-deus = buildVimPlugin {
@@ -16795,7 +16793,7 @@ final: prev: {
       sha256 = "1h0imrxhxw81hkh9xl75rcnx7ll5fry6hcf7flx84n6nawvfzyvm";
     };
     meta.homepage = "https://github.com/ajmwagar/vim-deus/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-devicons = buildVimPlugin {
@@ -16808,7 +16806,7 @@ final: prev: {
       sha256 = "0kshppxgi63wn96a8h9zv7drwqcbljin5jhszh8q7pqw2xsd83gn";
     };
     meta.homepage = "https://github.com/ryanoasis/vim-devicons/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dim = buildVimPlugin {
@@ -16821,7 +16819,7 @@ final: prev: {
       sha256 = "0mnwr4kxhng4mzds8l72s5km1qww4bifn5pds68c7zzyyy17ffxh";
     };
     meta.homepage = "https://github.com/jeffkreeftmeijer/vim-dim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-diminactive = buildVimPlugin {
@@ -16834,7 +16832,7 @@ final: prev: {
       sha256 = "14jf5hh3v2f5wb10v09ygx15pxbwziv20pwv0fqkakxwf0vqwd50";
     };
     meta.homepage = "https://github.com/blueyed/vim-diminactive/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dirdiff = buildVimPlugin {
@@ -16847,7 +16845,7 @@ final: prev: {
       sha256 = "06qjfz94hqsmg43dpj347cvc72p16xp76zq216js35yphv6sgx65";
     };
     meta.homepage = "https://github.com/will133/vim-dirdiff/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dirvish = buildVimPlugin {
@@ -16860,7 +16858,7 @@ final: prev: {
       sha256 = "1ylxx3dypym7b2mb1hyfg4g8g74yrn5zgfn6sr9p2h2jb0583qhz";
     };
     meta.homepage = "https://github.com/justinmk/vim-dirvish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dirvish-git = buildVimPlugin {
@@ -16873,7 +16871,7 @@ final: prev: {
       sha256 = "11vd07cy8bylh75hznddpkpjyr4jg8sgcq12rv1pig4p6wh4lzm5";
     };
     meta.homepage = "https://github.com/kristijanhusak/vim-dirvish-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dispatch = buildVimPlugin {
@@ -16886,7 +16884,7 @@ final: prev: {
       sha256 = "07z8vvsydl6p5ss6ipg2g0igihn92x4jyjmmb43z1d6vimra7pgv";
     };
     meta.homepage = "https://github.com/tpope/vim-dispatch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dispatch-neovim = buildVimPlugin {
@@ -16899,7 +16897,7 @@ final: prev: {
       sha256 = "111n3f7lv9nkpj200xh0fwbi3scjqyivpw5fwdjdyiqzd6qabxml";
     };
     meta.homepage = "https://github.com/radenling/vim-dispatch-neovim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-docbk = buildVimPlugin {
@@ -16912,7 +16910,7 @@ final: prev: {
       sha256 = "1jnx39m152hf9j620ygagaydg6h8m8gxkr1fmxj6kgqf71jr0n9d";
     };
     meta.homepage = "https://github.com/jhradilek/vim-docbk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-docbk-snippets = buildVimPlugin {
@@ -16925,7 +16923,7 @@ final: prev: {
       sha256 = "1wpn6gfw1r89232d779lz8wy19asrribindlcsaikrsqvml3a0hr";
     };
     meta.homepage = "https://github.com/jhradilek/vim-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-dotenv = buildVimPlugin {
@@ -16938,7 +16936,7 @@ final: prev: {
       sha256 = "06117ilmanj07kasshg1da3gai03fk5s3az2x8vw7rqbr9s50snp";
     };
     meta.homepage = "https://github.com/tpope/vim-dotenv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-easy-align = buildVimPlugin {
@@ -16951,7 +16949,7 @@ final: prev: {
       sha256 = "028gcsvmihw3nmc4pp9zyh8na29i6h0fhihk060ka2y3rn5xc9zl";
     };
     meta.homepage = "https://github.com/junegunn/vim-easy-align/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-easyescape = buildVimPlugin {
@@ -16964,7 +16962,7 @@ final: prev: {
       sha256 = "0h8kmhliicbdqhximp3d961crp6qkjjs4yciksl037ds47kzrkif";
     };
     meta.homepage = "https://github.com/zhou13/vim-easyescape/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-easygit = buildVimPlugin {
@@ -16977,7 +16975,7 @@ final: prev: {
       sha256 = "1a42s0nymakz20rjrpwmiqpnlndrkdakzbm53aclzcs61i9zq2k8";
     };
     meta.homepage = "https://github.com/neoclide/vim-easygit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-easymotion = buildVimPlugin {
@@ -16990,7 +16988,7 @@ final: prev: {
       sha256 = "1h30ak0ir5320asd5p7a9bqiv5whakv3022b3rakgnsjg503nxz1";
     };
     meta.homepage = "https://github.com/easymotion/vim-easymotion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-easytags = buildVimPlugin {
@@ -17003,7 +17001,7 @@ final: prev: {
       sha256 = "0i8ha1fa5d860b1mi0xp8kwsgb0b9vbzcg1bldzv6s5xd9yyi12i";
     };
     meta.homepage = "https://github.com/xolox/vim-easytags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-eighties = buildVimPlugin {
@@ -17016,7 +17014,7 @@ final: prev: {
       sha256 = "1yh1kny28c7f5qm52y7xd5aj4mycksfb0x1zvcb37c73ycdxc1v2";
     };
     meta.homepage = "https://github.com/justincampbell/vim-eighties/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-elixir = buildVimPlugin {
@@ -17029,7 +17027,7 @@ final: prev: {
       sha256 = "0l4yr5m78n4qwkag00rzqmfhb626121naar5mjnlfyxkp4rsvjd6";
     };
     meta.homepage = "https://github.com/elixir-editors/vim-elixir/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-elm-syntax = buildVimPlugin {
@@ -17042,7 +17040,7 @@ final: prev: {
       sha256 = "0nd3ig7zpx49dmgwyqhs3545x64jxbrrgzd9fch4ihb6bhd4j3fr";
     };
     meta.homepage = "https://github.com/andys8/vim-elm-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-emacs-bindings = buildVimPlugin {
@@ -17055,7 +17053,7 @@ final: prev: {
       sha256 = "18bhcvs5vnrr394waz9mg2fdnrycsc2ng589s2jw892pap9zxq36";
     };
     meta.homepage = "https://github.com/kentarosasaki/vim-emacs-bindings/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-emoji = buildVimPlugin {
@@ -17068,7 +17066,7 @@ final: prev: {
       sha256 = "0bvwmz570pfxicbask88p523vkggidq5fj2zm59s4c20a7d5s1yy";
     };
     meta.homepage = "https://github.com/junegunn/vim-emoji/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-endwise = buildVimPlugin {
@@ -17081,7 +17079,7 @@ final: prev: {
       sha256 = "1lj12b0qim0n1x6aqvz79wl6415x9yi96yx22v3iycn00s6awpmj";
     };
     meta.homepage = "https://github.com/tpope/vim-endwise/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-enmasse = buildVimPlugin {
@@ -17094,7 +17092,7 @@ final: prev: {
       sha256 = "00c223zv9q9ir16irjcv8b8vyzfgal713mqnkawl5x187q52kqvq";
     };
     meta.homepage = "https://github.com/Olical/vim-enmasse/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-erlang-compiler = buildVimPlugin {
@@ -17107,7 +17105,7 @@ final: prev: {
       sha256 = "1lhy5kdq3chr1zd0f67nfzmd81jiiw4hif11rx7pkwh019wyalxx";
     };
     meta.homepage = "https://github.com/vim-erlang/vim-erlang-compiler/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-erlang-omnicomplete = buildVimPlugin {
@@ -17120,7 +17118,7 @@ final: prev: {
       sha256 = "00k7vr5x32qqhgp61fhbcbd2rfjs42lpig3k5jd6008hhpm2gw4j";
     };
     meta.homepage = "https://github.com/vim-erlang/vim-erlang-omnicomplete/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-erlang-runtime = buildVimPlugin {
@@ -17133,7 +17131,7 @@ final: prev: {
       sha256 = "0jwny8a4rrmdqvx9i55wzpxvni3q233mmjs7kkfwb3galwddz1fn";
     };
     meta.homepage = "https://github.com/vim-erlang/vim-erlang-runtime/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-erlang-tags = buildVimPlugin {
@@ -17146,7 +17144,7 @@ final: prev: {
       sha256 = "1gc5nprzwi6alxk7wclvvdxllwdzrwbmc6zdbhpa33igygvws4gw";
     };
     meta.homepage = "https://github.com/vim-erlang/vim-erlang-tags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-eunuch = buildVimPlugin {
@@ -17159,7 +17157,7 @@ final: prev: {
       sha256 = "0l8zjlizraf5md9s7hxb6pr0v115hks6x5ajhhmqznf3jw47vyxy";
     };
     meta.homepage = "https://github.com/tpope/vim-eunuch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-exchange = buildVimPlugin {
@@ -17172,7 +17170,7 @@ final: prev: {
       sha256 = "0rr8858w0q2a0y7ijag2ja61qay7nqwzd9g8lknn84np9j29lfmf";
     };
     meta.homepage = "https://github.com/tommcdo/vim-exchange/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-expand-region = buildVimPlugin {
@@ -17185,7 +17183,7 @@ final: prev: {
       sha256 = "0l30wjlk4vxr16f1njnvf8aw9yg9p9jisvcxbcg3znsq5q8ix6zv";
     };
     meta.homepage = "https://github.com/terryma/vim-expand-region/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-extradite = buildVimPlugin {
@@ -17198,7 +17196,7 @@ final: prev: {
       sha256 = "0qlf69bdfmgf5j47q6vx02rjrngil93rq3im9ag3601zq55rxq8a";
     };
     meta.homepage = "https://github.com/int3/vim-extradite/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fern = buildVimPlugin {
@@ -17211,7 +17209,7 @@ final: prev: {
       sha256 = "05pnmvnfwh5div389s7dwg42lbfd16l31bwigyclgqzvfxg66lpb";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-fern/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fetch = buildVimPlugin {
@@ -17224,7 +17222,7 @@ final: prev: {
       sha256 = "1br13ih1ybx5dnj8aax6lf0s970vy43s9swwrxqn411ihcrclqz6";
     };
     meta.homepage = "https://github.com/wsdjeg/vim-fetch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-figlet = buildVimPlugin {
@@ -17237,7 +17235,7 @@ final: prev: {
       sha256 = "0h4lavkg57q7cwsrlj36q2624sm7n7k6n70pl47vbwyl7d0cbga8";
     };
     meta.homepage = "https://github.com/fadein/vim-figlet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fireplace = buildVimPlugin {
@@ -17250,7 +17248,7 @@ final: prev: {
       sha256 = "1s2kvimhm00jfd24f6kmf0rbpib6asxp1vj4nvq9lp9n4v9z3nzy";
     };
     meta.homepage = "https://github.com/tpope/vim-fireplace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fish = buildVimPlugin {
@@ -17263,7 +17261,7 @@ final: prev: {
       sha256 = "1yvjlm90alc4zsdsppkmsja33wsgm2q6kkn9dxn6xqwnq4jw5s7h";
     };
     meta.homepage = "https://github.com/dag/vim-fish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-flagship = buildVimPlugin {
@@ -17276,7 +17274,7 @@ final: prev: {
       sha256 = "1yg4wrxq3bm7n22av7csl7gd5xj4v0h3rmmb2vljmm9kixhj6ng9";
     };
     meta.homepage = "https://github.com/tpope/vim-flagship/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-flake8 = buildVimPlugin {
@@ -17289,7 +17287,7 @@ final: prev: {
       sha256 = "1js26bxfl7csdffrwc0b3wwal81w18fznw6dnks40wr3iv62y2jd";
     };
     meta.homepage = "https://github.com/nvie/vim-flake8/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-flatbuffers = buildVimPlugin {
@@ -17302,7 +17300,7 @@ final: prev: {
       sha256 = "1mfi9als56cpfsz3s91hg3lci8zn7pr9s0l690wqh40vh57d1gxm";
     };
     meta.homepage = "https://github.com/dcharbon/vim-flatbuffers/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-floaterm = buildVimPlugin {
@@ -17315,7 +17313,7 @@ final: prev: {
       sha256 = "1wb8bdxiq8hmvz0ffmf9sqyx6bpjh29r5mqrjn51smnlzcfqsxmy";
     };
     meta.homepage = "https://github.com/voldikss/vim-floaterm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-flog = buildVimPlugin {
@@ -17328,7 +17326,7 @@ final: prev: {
       sha256 = "1qr6ys7qapjkd9la6sqix6kfk4wy380yx9izchq48b41rfcx9iy7";
     };
     meta.homepage = "https://github.com/rbong/vim-flog/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-flutter = buildVimPlugin {
@@ -17341,7 +17339,7 @@ final: prev: {
       sha256 = "0sk4fr6gizmxhm4smqqvb1ynhcqnmznrqj5cqgm5b7dyb31jrkzm";
     };
     meta.homepage = "https://github.com/thosakwe/vim-flutter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fold-cycle = buildVimPlugin {
@@ -17354,7 +17352,7 @@ final: prev: {
       sha256 = "11kx2grggkyfkspfhvg2wgvlzyhrirmrf1kw8r8h64sindypxfsg";
     };
     meta.homepage = "https://github.com/arecarn/vim-fold-cycle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-foldsearch = buildVimPlugin {
@@ -17367,7 +17365,7 @@ final: prev: {
       sha256 = "1cc2d4wpw16a9fcdaqjhxlz4v5qyh7945f596yxl6g81y031zmal";
     };
     meta.homepage = "https://github.com/embear/vim-foldsearch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ft-diff_fold = buildVimPlugin {
@@ -17380,7 +17378,7 @@ final: prev: {
       sha256 = "0bk95cxkfzamlgv1x2jb1bnfas2pmvvqgpn5fvxddf0andm8sfma";
     };
     meta.homepage = "https://github.com/thinca/vim-ft-diff_fold/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fubitive = buildVimPlugin {
@@ -17393,7 +17391,7 @@ final: prev: {
       sha256 = "1ri3wz4yqy0g56k9mz279a8hcmyhxk7bv4slpv1xsm3yr1zf24jp";
     };
     meta.homepage = "https://github.com/tommcdo/vim-fubitive/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fugitive = buildVimPlugin {
@@ -17406,7 +17404,7 @@ final: prev: {
       sha256 = "188l24j7j57hgs02gy6ch165agyrwr4g034c5j3m1vnw14vmw2yl";
     };
     meta.homepage = "https://github.com/tpope/vim-fugitive/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-fzf-coauthorship = buildVimPlugin {
@@ -17419,7 +17417,7 @@ final: prev: {
       sha256 = "0v52w9jiyg0q6fmsh0dq8gd6m48vhhj2fy95v7lvqyr7pnr1wqaa";
     };
     meta.homepage = "https://github.com/maxjacobson/vim-fzf-coauthorship/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gas = buildVimPlugin {
@@ -17432,7 +17430,7 @@ final: prev: {
       sha256 = "1lqq2a1g0lrjpdbjfvqhxjhr6qkcj237n6w9vp89b7ywgzpff5zm";
     };
     meta.homepage = "https://github.com/HealsCodes/vim-gas/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gh-line = buildVimPlugin {
@@ -17445,7 +17443,7 @@ final: prev: {
       sha256 = "06malyx56zswpzf399y7bsxw45fx2ys9ravdqqxgssvgsslq87fb";
     };
     meta.homepage = "https://github.com/ruanyl/vim-gh-line/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ghost = buildVimPlugin {
@@ -17458,7 +17456,7 @@ final: prev: {
       sha256 = "15bpxhqdbs3sw2d3w1xa5l8yml67h1fjjqhf1m3zpplqy20kfbxh";
     };
     meta.homepage = "https://github.com/raghur/vim-ghost/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gina = buildVimPlugin {
@@ -17471,7 +17469,7 @@ final: prev: {
       sha256 = "09jlnpix2dy6kggiz96mrm5l1f9x1gl5afpdmfrxgkighn2rwpzq";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-gina/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gist = buildVimPlugin {
@@ -17484,7 +17482,7 @@ final: prev: {
       sha256 = "00yvl59jbblkif4967kdg6b0mr0hd7rnr5mkxnb4n74akj9pwcf0";
     };
     meta.homepage = "https://github.com/mattn/vim-gist/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gista = buildVimPlugin {
@@ -17497,7 +17495,7 @@ final: prev: {
       sha256 = "0q08hs4y9d4c4zdd0lh4k054133y0455fkn47gi7h16m01g92imc";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-gista/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-git = buildVimPlugin {
@@ -17510,7 +17508,7 @@ final: prev: {
       sha256 = "1fp58fx6q7v0hrjpgh2lm0z8xqnrygb0lmz08qkwpn86nyw23ccc";
     };
     meta.homepage = "https://github.com/tpope/vim-git/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gitbranch = buildVimPlugin {
@@ -17523,7 +17521,7 @@ final: prev: {
       sha256 = "0nd6wwc0xd5b9djlcf18phmzjaqc3l7imarh1cil9644n1ls0l00";
     };
     meta.homepage = "https://github.com/itchyny/vim-gitbranch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gitgutter = buildVimPlugin {
@@ -17536,7 +17534,7 @@ final: prev: {
       sha256 = "0prwv82rg95h1pvvf5vfz8dq0raa3mb1cla5r5101hpzz39pdr5x";
     };
     meta.homepage = "https://github.com/airblade/vim-gitgutter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-github-dashboard = buildVimPlugin {
@@ -17549,7 +17547,7 @@ final: prev: {
       sha256 = "10dw9lmii3li5hw9sfbam8b2hv19dz6cxfkadmv1xz12cqwfdlwi";
     };
     meta.homepage = "https://github.com/junegunn/vim-github-dashboard/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-glsl = buildVimPlugin {
@@ -17562,7 +17560,7 @@ final: prev: {
       sha256 = "0m7c0z7f4zz4vnl0ls71grnish7m07kqz9n2jsrm6hsq5pjn36bp";
     };
     meta.homepage = "https://github.com/tikhomirov/vim-glsl/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gnupg = buildVimPlugin {
@@ -17575,7 +17573,7 @@ final: prev: {
       sha256 = "18lzjsqfmr33zizxvkq92x2z7kf5h1chwd1k1vad09b3wc8m5a07";
     };
     meta.homepage = "https://github.com/jamessan/vim-gnupg/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-go = buildVimPlugin {
@@ -17588,7 +17586,7 @@ final: prev: {
       sha256 = "0r0f7kfp47lna4xc5jsk159080qac2j6shs7pymrdlaxfn0gyn0d";
     };
     meta.homepage = "https://github.com/fatih/vim-go/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-godot = buildVimPlugin {
@@ -17601,7 +17599,7 @@ final: prev: {
       sha256 = "1jql0s2lnch6fn5iiv0fav2dyw9dhgw9p4rzwifsw37jhzkvv9xs";
     };
     meta.homepage = "https://github.com/habamax/vim-godot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-grammarous = buildVimPlugin {
@@ -17614,7 +17612,7 @@ final: prev: {
       sha256 = "014g5q3kdqq4w5jvp61h26n0jfq05xz82rhwgcp3bgq0ffhrch7j";
     };
     meta.homepage = "https://github.com/rhysd/vim-grammarous/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-graphql = buildVimPlugin {
@@ -17627,7 +17625,7 @@ final: prev: {
       sha256 = "1mkvgzn0khjqj32hyasbh4jv6zzqy2i9kcwh72dv6ig99wjz9wf1";
     };
     meta.homepage = "https://github.com/jparise/vim-graphql/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-grepper = buildVimPlugin {
@@ -17640,7 +17638,7 @@ final: prev: {
       sha256 = "12a280q4yin0hvys9vbmw589x8731z20hbs5pq1r5f866y8s5cih";
     };
     meta.homepage = "https://github.com/mhinz/vim-grepper/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gruvbox8 = buildVimPlugin {
@@ -17653,7 +17651,7 @@ final: prev: {
       sha256 = "15mdy3r94i33m1y941943qa96xrmkxirq61ck4d2b9ms0xfc7iqn";
     };
     meta.homepage = "https://github.com/lifepillar/vim-gruvbox8/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gui-position = buildVimPlugin {
@@ -17666,7 +17664,7 @@ final: prev: {
       sha256 = "11kv9kkya9sybslg7lfhhcn2fi3n735zvprg8ch6kd58m82xr4n3";
     };
     meta.homepage = "https://github.com/brennanfee/vim-gui-position/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-gutentags = buildVimPlugin {
@@ -17679,7 +17677,7 @@ final: prev: {
       sha256 = "1gndc2isr3whp6p5qn61k8vcjwm37r0q21swp3qh7l31kqdqbq33";
     };
     meta.homepage = "https://github.com/ludovicchabant/vim-gutentags/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-habamax = buildVimPlugin {
@@ -17692,7 +17690,7 @@ final: prev: {
       sha256 = "1xw0x3c4sh32dy32jnb5dvbb733jm8s7v9ibirw9gn8izxdrzkys";
     };
     meta.homepage = "https://github.com/habamax/vim-habamax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hardtime = buildVimPlugin {
@@ -17705,7 +17703,7 @@ final: prev: {
       sha256 = "1f8vvm37yk125c0h28jbry9hshd3amrbfxcrg7j9qj9kdkad1zjq";
     };
     meta.homepage = "https://github.com/takac/vim-hardtime/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-haskell-module-name = buildVimPlugin {
@@ -17718,7 +17716,7 @@ final: prev: {
       sha256 = "0jawf23gyz9dy6qrh0xhla3z7hgjl1n4g7vmi027j4ipjnlijnji";
     };
     meta.homepage = "https://github.com/chkno/vim-haskell-module-name/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-haskellConcealPlus = buildVimPlugin {
@@ -17731,7 +17729,7 @@ final: prev: {
       sha256 = "1y2hgcpls21738lhrgimsxnkhxxqczp05nmk68s28xssbn4dqgma";
     };
     meta.homepage = "https://github.com/enomsg/vim-haskellConcealPlus/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-haskellconceal = buildVimPlugin {
@@ -17744,7 +17742,7 @@ final: prev: {
       sha256 = "1kh6853hi4rgl4z1xs8kz9l1q9w7lh0r42y2m0rabfpr6yh3091r";
     };
     meta.homepage = "https://github.com/twinside/vim-haskellconceal/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hcl = buildVimPlugin {
@@ -17757,7 +17755,7 @@ final: prev: {
       sha256 = "0pp5iak5dwina1q0hr0nrrvfj7q9sjy57syx4hi80p4068asclgq";
     };
     meta.homepage = "https://github.com/jvirtanen/vim-hcl/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hdevtools = buildVimPlugin {
@@ -17770,7 +17768,7 @@ final: prev: {
       sha256 = "1xvjz6yidcywn1xmdqlxsz68lmkx6rmiqf6q2gfz56pzq1mfmski";
     };
     meta.homepage = "https://github.com/bitc/vim-hdevtools/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-helm = buildVimPlugin {
@@ -17783,7 +17781,7 @@ final: prev: {
       sha256 = "04lv5sv6533fnyg28pbghrqnimhaxssav4lam1zh7h4y5cq7rdn6";
     };
     meta.homepage = "https://github.com/towolf/vim-helm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hexokinase = buildVimPlugin {
@@ -17797,7 +17795,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/RRethy/vim-hexokinase/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hier = buildVimPlugin {
@@ -17810,7 +17808,7 @@ final: prev: {
       sha256 = "118pd9sx1bl9vfr89xrf536hfx4l162a43a1qpwpkqxzb9a3ca7n";
     };
     meta.homepage = "https://github.com/jceb/vim-hier/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-highlightedyank = buildVimPlugin {
@@ -17823,7 +17821,7 @@ final: prev: {
       sha256 = "1hs52vpqi6d6q72bn8lm0lvhiyw906b2yshhkf9zdqqs0hk0ng1r";
     };
     meta.homepage = "https://github.com/machakann/vim-highlightedyank/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hindent = buildVimPlugin {
@@ -17836,7 +17834,7 @@ final: prev: {
       sha256 = "1y4nnz38zal1ffs5n751dn9p9apk8q7pq3cw79r5z6fsdp942ai6";
     };
     meta.homepage = "https://github.com/alx741/vim-hindent/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hocon = buildVimPlugin {
@@ -17849,7 +17847,7 @@ final: prev: {
       sha256 = "0w6ckm931zpm1k3w02gl58hgfxzfy53sgcc9m8jz3vgi3zz0vki2";
     };
     meta.homepage = "https://github.com/GEverding/vim-hocon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hoogle = buildVimPlugin {
@@ -17862,7 +17860,7 @@ final: prev: {
       sha256 = "17qvi57g72ijgk7nczczli3kcphvdf625fzqbqcmqpsawgvfd07n";
     };
     meta.homepage = "https://github.com/Twinside/vim-hoogle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-horizon = buildVimPlugin {
@@ -17875,7 +17873,7 @@ final: prev: {
       sha256 = "0gaj44w0iixri82r4999pqd46mlixrvsq326696jb5mv2aczlw7b";
     };
     meta.homepage = "https://github.com/ntk148v/vim-horizon/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-html-template-literals = buildVimPlugin {
@@ -17888,7 +17886,7 @@ final: prev: {
       sha256 = "11pfzsizvkzkhjivlfgjjzajyr4cb93wqrhh6862q50ib6kxkv05";
     };
     meta.homepage = "https://github.com/jonsmithers/vim-html-template-literals/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-humanoid-colorscheme = buildVimPlugin {
@@ -17901,7 +17899,7 @@ final: prev: {
       sha256 = "0zy9wf8bkd5i2azipp4ay5ng0dhz9zgvi35ycv9k2r0nmzr0kpc7";
     };
     meta.homepage = "https://github.com/humanoid-colors/vim-humanoid-colorscheme/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-husk = buildVimPlugin {
@@ -17914,7 +17912,7 @@ final: prev: {
       sha256 = "09kqzaqa4jdh31q0a3nxbx9li7zg890qxh68rfzblzyx22xv4mka";
     };
     meta.homepage = "https://github.com/vim-utils/vim-husk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hybrid = buildVimPlugin {
@@ -17927,7 +17925,7 @@ final: prev: {
       sha256 = "1c3q39121hiw85r9ymiyhz5zsf6bl9pwk4pgj6nh6ckwns4cgcmw";
     };
     meta.homepage = "https://github.com/w0ng/vim-hybrid/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-hybrid-material = buildVimPlugin {
@@ -17940,7 +17938,7 @@ final: prev: {
       sha256 = "0qjg25cfdx9706svw4b527arfdq4ypshay11ak62yswirkvgsc2c";
     };
     meta.homepage = "https://github.com/kristijanhusak/vim-hybrid-material/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-iced-coffee-script = buildVimPlugin {
@@ -17953,7 +17951,7 @@ final: prev: {
       sha256 = "14yfirny359rlrr082il2ys3hxiyrbbk794rdxrs2lasjy8rb1f7";
     };
     meta.homepage = "https://github.com/noc7c9/vim-iced-coffee-script/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-illuminate = buildVimPlugin {
@@ -17966,7 +17964,7 @@ final: prev: {
       sha256 = "0456q474765p0r0q7frn1n9drl05d16alv7kn9qnw1235d20k81a";
     };
     meta.homepage = "https://github.com/RRethy/vim-illuminate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-indent-guides = buildVimPlugin {
@@ -17979,7 +17977,7 @@ final: prev: {
       sha256 = "15xa2v8zvrcymlkk4c3mazacpyxgd9mn7y56akl6cam3qwv35xb2";
     };
     meta.homepage = "https://github.com/preservim/vim-indent-guides/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-indent-object = buildVimPlugin {
@@ -17992,7 +17990,7 @@ final: prev: {
       sha256 = "04bbr9aiq2pnp7nh1rrcys0cm3a8divkrmvs2557zd1ck3rrx2kw";
     };
     meta.homepage = "https://github.com/michaeljsmith/vim-indent-object/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-indentwise = buildVimPlugin {
@@ -18005,7 +18003,7 @@ final: prev: {
       sha256 = "0bnzk1afi88icq58389nxqz196gkxcj71qrxvw87d72h2zaspvcx";
     };
     meta.homepage = "https://github.com/jeetsukumaran/vim-indentwise/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-indexed-search = buildVimPlugin {
@@ -18018,7 +18016,7 @@ final: prev: {
       sha256 = "09469n772gcakgwiszn6fd1gb64dma1sqib3c4raspfzjiynr79z";
     };
     meta.homepage = "https://github.com/henrik/vim-indexed-search/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ipython = buildVimPlugin {
@@ -18031,7 +18029,7 @@ final: prev: {
       sha256 = "10wpfvfs8yv1bvzra4d5zy5glp62gbalpayxx7mkalhr2ccppy3x";
     };
     meta.homepage = "https://github.com/ivanov/vim-ipython/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-isort = buildVimPlugin {
@@ -18044,7 +18042,7 @@ final: prev: {
       sha256 = "046l7gkx75mzp647lcg14pkpssmxxk4jzjhi15i0vsshfdc62np0";
     };
     meta.homepage = "https://github.com/fisadev/vim-isort/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jack-in = buildVimPlugin {
@@ -18057,7 +18055,7 @@ final: prev: {
       sha256 = "13407lc8aq6slf0kah84yxgr8yk4rvrzdxkgz2i4vr9g6p91hip2";
     };
     meta.homepage = "https://github.com/clojure-vim/vim-jack-in/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-janah = buildVimPlugin {
@@ -18070,7 +18068,7 @@ final: prev: {
       sha256 = "16bygyri9qxyhl8n8md945wwy1i9lss4hwxa7yjl9ms2fzzragv4";
     };
     meta.homepage = "https://github.com/mhinz/vim-janah/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-javacomplete2 = buildVimPlugin {
@@ -18083,7 +18081,7 @@ final: prev: {
       sha256 = "0fz4dlwzpzwzilk3lmxim27i691hl5yi83rcl4sdw73qyw8spzph";
     };
     meta.homepage = "https://github.com/artur-shaik/vim-javacomplete2/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-javascript = buildVimPlugin {
@@ -18096,7 +18094,7 @@ final: prev: {
       sha256 = "0szjcjw9n668zxq6gnvlsd51pbzvag2h5kbif3j0gg6zbycc60mv";
     };
     meta.homepage = "https://github.com/pangloss/vim-javascript/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-javascript-syntax = buildVimPlugin {
@@ -18109,7 +18107,7 @@ final: prev: {
       sha256 = "1il68nf8zsz1hn5vqmsyjckmh9s8sw4z6lqqqrxwfjqkqm1ji5xq";
     };
     meta.homepage = "https://github.com/jelera/vim-javascript-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jdaddy = buildVimPlugin {
@@ -18122,7 +18120,7 @@ final: prev: {
       sha256 = "1frkyq5zpwkwrrjcf0sscmr6q696vaaxnc0r93mk9psv5zbna4vl";
     };
     meta.homepage = "https://github.com/tpope/vim-jdaddy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jetpack = buildVimPlugin {
@@ -18135,7 +18133,7 @@ final: prev: {
       sha256 = "1wixvp36sidxb905a3vl6h6b8g4ms5f9s1ydrf0gh0ywcmfmd8hz";
     };
     meta.homepage = "https://github.com/tani/vim-jetpack/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jinja = buildVimPlugin {
@@ -18148,7 +18146,7 @@ final: prev: {
       sha256 = "153qirdl5xrnj1jc0ivlvf2rk7gdby96vn3prf6ky0l0gqxlzd8g";
     };
     meta.homepage = "https://github.com/lepture/vim-jinja/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jinja-languages = buildVimPlugin {
@@ -18161,7 +18159,7 @@ final: prev: {
       sha256 = "1y9fwzb6dhzgcvqy0dxkbzbsbpidmjdha1vrb1imaycbk7f3gzny";
     };
     meta.homepage = "https://github.com/seirl/vim-jinja-languages/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jjdescription = buildVimPlugin {
@@ -18174,7 +18172,7 @@ final: prev: {
       sha256 = "1y8jb763frnq5c950ss6j0263j07n4nm7cx8qbnqjxd6a4k83210";
     };
     meta.homepage = "https://github.com/avm99963/vim-jjdescription/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsbeautify = buildVimPlugin {
@@ -18188,7 +18186,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/maksimr/vim-jsbeautify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsdoc = buildVimPlugin {
@@ -18201,7 +18199,7 @@ final: prev: {
       sha256 = "0i16sgkjfl5ssz1znjmlggwla2ir2iw8s5ssdibswmcxz73nawip";
     };
     meta.homepage = "https://github.com/heavenshell/vim-jsdoc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-json = buildVimPlugin {
@@ -18214,7 +18212,7 @@ final: prev: {
       sha256 = "1c19pqrys45pzflj5jyrm4q6hcvs977lv6qsfvbnk7nm4skxrqp1";
     };
     meta.homepage = "https://github.com/elzr/vim-json/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsonnet = buildVimPlugin {
@@ -18227,7 +18225,7 @@ final: prev: {
       sha256 = "1z2zk2wqfv58qxd8pa4hrpyhi5nlgf8m4gqb9f31pdnb78ci860a";
     };
     meta.homepage = "https://github.com/google/vim-jsonnet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsonpath = buildVimPlugin {
@@ -18240,7 +18238,7 @@ final: prev: {
       sha256 = "0l59c6xl4rly7xbfgsqam1rwcyvqhr7lzi3g2jpwirarm823rla9";
     };
     meta.homepage = "https://github.com/mogelbrod/vim-jsonpath/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsx-pretty = buildVimPlugin {
@@ -18253,7 +18251,7 @@ final: prev: {
       sha256 = "16d76jvfb1cq591i06fnmgzv0q16g89zz7cmvgvj24vap2wgkbp8";
     };
     meta.homepage = "https://github.com/MaxMEllon/vim-jsx-pretty/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-jsx-typescript = buildVimPlugin {
@@ -18266,7 +18264,7 @@ final: prev: {
       sha256 = "13w7n8km927v9yvm91c4z8g343bn2mp0k80nwv5y0sz279x4x9n7";
     };
     meta.homepage = "https://github.com/peitalin/vim-jsx-typescript/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-julia-cell = buildVimPlugin {
@@ -18279,7 +18277,7 @@ final: prev: {
       sha256 = "13s6dg2k4qmchzjx7fcwch3ccclhkf238aidfa18k3qywqr6fcz2";
     };
     meta.homepage = "https://github.com/mroavi/vim-julia-cell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-just = buildVimPlugin {
@@ -18292,7 +18290,7 @@ final: prev: {
       sha256 = "105zh0zcdijzqi8prggsgrrm4pzyvjzy0xgs5yn4grc76rxnyn3m";
     };
     meta.homepage = "https://github.com/NoahTheDuke/vim-just/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-kitty-navigator = buildVimPlugin {
@@ -18305,7 +18303,7 @@ final: prev: {
       sha256 = "13h7j1qchbbiakqf4a5cblh1rvxaygqvrn27aqvfp0ikks3ifb7h";
     };
     meta.homepage = "https://github.com/knubie/vim-kitty-navigator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lark-syntax = buildVimPlugin {
@@ -18318,7 +18316,7 @@ final: prev: {
       sha256 = "00vham3ar63g0jxrr01rbcwzq7381mml0qasgywsvzbfmc7gr5ig";
     };
     meta.homepage = "https://github.com/lark-parser/vim-lark-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lastplace = buildVimPlugin {
@@ -18331,7 +18329,7 @@ final: prev: {
       sha256 = "07h25bq42vilrf6wv31p5i22293m0x4x5aa35agnm668bppabwgb";
     };
     meta.homepage = "https://github.com/farmergreg/vim-lastplace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-latex-live-preview = buildVimPlugin {
@@ -18344,7 +18342,7 @@ final: prev: {
       sha256 = "1adfyk96prwbf8dmznnfqvz27jxq0fpjygdhbrcc8b2i93i2dia2";
     };
     meta.homepage = "https://github.com/xuhdev/vim-latex-live-preview/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lawrencium = buildVimPlugin {
@@ -18357,7 +18355,7 @@ final: prev: {
       sha256 = "0awx42g0wak2akxmdm5whp2hcgjyqf28v3vzmb06l1fm7qs76c0v";
     };
     meta.homepage = "https://github.com/ludovicchabant/vim-lawrencium/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-leader-guide = buildVimPlugin {
@@ -18370,7 +18368,7 @@ final: prev: {
       sha256 = "1n1qgvr729r28rprjkam0blh4qscs8bxf6ay7v8x732axg9gpyav";
     };
     meta.homepage = "https://github.com/hecal3/vim-leader-guide/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lean = buildVimPlugin {
@@ -18383,7 +18381,7 @@ final: prev: {
       sha256 = "1yw13wf7j92gk8fwkhls6bdbz2h7xbyq4qba8zsfm76rbqn7vzfg";
     };
     meta.homepage = "https://github.com/mk12/vim-lean/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ledger = buildVimPlugin {
@@ -18396,7 +18394,7 @@ final: prev: {
       sha256 = "1ls2cy0a45sllybmm46swl1bwc4ph8k6m3i7fapnnpkd483lwl13";
     };
     meta.homepage = "https://github.com/ledger/vim-ledger/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lexical = buildVimPlugin {
@@ -18409,7 +18407,7 @@ final: prev: {
       sha256 = "12gm13lk3dyv9h79b00i3l4b72fp6sgx9qskz5k11jsq94dfflqy";
     };
     meta.homepage = "https://github.com/preservim/vim-lexical/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lfe = buildVimPlugin {
@@ -18422,7 +18420,7 @@ final: prev: {
       sha256 = "1wf4lyrnz957ya5zvgkdk1k1jw9yk0bkzz7230m9ry9vl55ss64y";
     };
     meta.homepage = "https://github.com/lfe-support/vim-lfe/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lightline-coc = buildVimPlugin {
@@ -18435,7 +18433,7 @@ final: prev: {
       sha256 = "1r1w4j2ir6lzrlr2jhhy3ai4arswrbvjp46dxb6y9fyl516z5mza";
     };
     meta.homepage = "https://github.com/josa42/vim-lightline-coc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lion = buildVimPlugin {
@@ -18448,7 +18446,7 @@ final: prev: {
       sha256 = "1ci9yi55wcg6388fv3dqhjsyp3nvmf9dz7q2nqsxpyd6yj1szrh7";
     };
     meta.homepage = "https://github.com/tommcdo/vim-lion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-liquid = buildVimPlugin {
@@ -18461,7 +18459,7 @@ final: prev: {
       sha256 = "1z9bmcx13py56phr8djdnykw3a933chhv6ypcfigkjp6cyqkj1mc";
     };
     meta.homepage = "https://github.com/tpope/vim-liquid/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-llvm = buildVimPlugin {
@@ -18474,7 +18472,7 @@ final: prev: {
       sha256 = "0z61dx7x2g1mw6rs7vix0wgwm1bf5nhgnfr25vkgwwjbjd3d5dkh";
     };
     meta.homepage = "https://github.com/rhysd/vim-llvm/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-localvimrc = buildVimPlugin {
@@ -18487,7 +18485,7 @@ final: prev: {
       sha256 = "1x7q5ymmgvjki8n2w3hx33ff0x70inx6iddpqvwcpwf31p9xcnzf";
     };
     meta.homepage = "https://github.com/embear/vim-localvimrc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-logreview = buildVimPlugin {
@@ -18500,7 +18498,7 @@ final: prev: {
       sha256 = "0c50m5x6mds4bryaphf770qmxqdm12kcrrm92l4ph86zi0v8ik4w";
     };
     meta.homepage = "https://github.com/andreshazard/vim-logreview/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-loves-dafny = buildVimPlugin {
@@ -18513,7 +18511,7 @@ final: prev: {
       sha256 = "170dc38mrakfma30r8z9zaxfn8d5ghrvnlglq6l60yn8fg7njxks";
     };
     meta.homepage = "https://github.com/mlr-msft/vim-loves-dafny/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsc = buildVimPlugin {
@@ -18526,7 +18524,7 @@ final: prev: {
       sha256 = "0i9zp3ghn7b93mw4w6g5fa88m1sgq79j1i93n8xy1glpypnvbjhk";
     };
     meta.homepage = "https://github.com/natebosch/vim-lsc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp = buildVimPlugin {
@@ -18539,7 +18537,7 @@ final: prev: {
       sha256 = "18naarfr01ljlkl37x3l5y2sd9j9xxdz1gkcvz7ylvspyxjmx7fa";
     };
     meta.homepage = "https://github.com/prabirshrestha/vim-lsp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp-ale = buildVimPlugin {
@@ -18552,7 +18550,7 @@ final: prev: {
       sha256 = "17ygzvmg3nqvf2vqnryazpcpdl20rgahkqwl4d1c40sfrmsqpwgi";
     };
     meta.homepage = "https://github.com/rhysd/vim-lsp-ale/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp-cxx-highlight = buildVimPlugin {
@@ -18565,7 +18563,7 @@ final: prev: {
       sha256 = "153p37lhyvhr0702iz50s0rh41xp78vr8ksc61cwvipb0sf3xnrk";
     };
     meta.homepage = "https://github.com/jackguo380/vim-lsp-cxx-highlight/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp-settings = buildVimPlugin {
@@ -18578,7 +18576,7 @@ final: prev: {
       sha256 = "1c6a5i77k7v6zgfrmkd29almq5c2jx7yfg5xxhc9qi3xg7x22fcj";
     };
     meta.homepage = "https://github.com/mattn/vim-lsp-settings/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp-snippets = buildVimPlugin {
@@ -18591,7 +18589,7 @@ final: prev: {
       sha256 = "0ikjds0y0r3iq3b8dpw2pl3a3vh7kvn7jrlvz16s1n2ckixgirx4";
     };
     meta.homepage = "https://github.com/thomasfaingnaert/vim-lsp-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lsp-ultisnips = buildVimPlugin {
@@ -18604,7 +18602,7 @@ final: prev: {
       sha256 = "004qv3yq16riq02wdv349xv06qngykh1i58bq3y04rny5bbdjl4i";
     };
     meta.homepage = "https://github.com/thomasfaingnaert/vim-lsp-ultisnips/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-lua = buildVimPlugin {
@@ -18617,7 +18615,7 @@ final: prev: {
       sha256 = "1fkpfjpmv80lcd7jn95pzxrcbzn8avdywjknd5bn3212ahydg43m";
     };
     meta.homepage = "https://github.com/tbastos/vim-lua/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-maktaba = buildVimPlugin {
@@ -18630,7 +18628,7 @@ final: prev: {
       sha256 = "1qsb44miq1yl23k3qmybmxg7kwqjf1yf7ma7w8g6lr716asmyawl";
     };
     meta.homepage = "https://github.com/google/vim-maktaba/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-manpager = buildVimPlugin {
@@ -18643,7 +18641,7 @@ final: prev: {
       sha256 = "115sm2hxbc0jyf0wx6nh6249pmvv9rm3wa3wixggakv2lj9hddjl";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-manpager/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-markbar = buildVimPlugin {
@@ -18656,7 +18654,7 @@ final: prev: {
       sha256 = "1r341ick9zdkmk7s0b7v6jqc4bzi7p9grh6bg08b7q72yv90wqvl";
     };
     meta.homepage = "https://github.com/Yilin-Yang/vim-markbar/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-markdown = buildVimPlugin {
@@ -18669,7 +18667,7 @@ final: prev: {
       sha256 = "14x6jfla4921jyx4xxqng9vzmb0iaj2nn7wckhmlx8jpks6r4834";
     };
     meta.homepage = "https://github.com/preservim/vim-markdown/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-markdown-toc = buildVimPlugin {
@@ -18682,7 +18680,7 @@ final: prev: {
       sha256 = "1pssg8idbzqln68qbr9z1fkiw7z2a5jjvpvl3q73hycfw5z5xm0l";
     };
     meta.homepage = "https://github.com/mzlogin/vim-markdown-toc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-matchtag = buildVimPlugin {
@@ -18695,7 +18693,7 @@ final: prev: {
       sha256 = "0hj7g7jqz1iidch4cpm15f6czlaw1z10z053mqz9m5kd5syzxvbl";
     };
     meta.homepage = "https://github.com/leafOfTree/vim-matchtag/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-matchup = buildVimPlugin {
@@ -18708,7 +18706,7 @@ final: prev: {
       sha256 = "0v6dqj30h6pqhx07lk65r8mi30yjphya9wn2wz5hfky1rl1wrwrq";
     };
     meta.homepage = "https://github.com/andymass/vim-matchup/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-mediawiki-editor = buildVimPlugin {
@@ -18721,7 +18719,7 @@ final: prev: {
       sha256 = "00d1vwf0say9vsrsvz710483ybbhwn5799k3qb4skna0vzjryayz";
     };
     meta.homepage = "https://github.com/aquach/vim-mediawiki-editor/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-mergetool = buildVimPlugin {
@@ -18734,7 +18732,7 @@ final: prev: {
       sha256 = "1i3zil06zyndm400i2pfn64ykbs29fw8l720229a8ypp9mxcibcp";
     };
     meta.homepage = "https://github.com/samoshkin/vim-mergetool/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-merginal = buildVimPlugin {
@@ -18747,7 +18745,7 @@ final: prev: {
       sha256 = "0g8pkpmx3xrd0pn8v7i4rpgqkc54cl34yh3z8mzdk6wsi0lpyp3k";
     };
     meta.homepage = "https://github.com/idanarye/vim-merginal/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-metamath = buildVimPlugin {
@@ -18760,7 +18758,7 @@ final: prev: {
       sha256 = "0gwqafhr18wv9ygq47cxwi0k4gj1xll4z8s61w9l9vwaiy5znssh";
     };
     meta.homepage = "https://github.com/david-a-wheeler/vim-metamath/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-misc = buildVimPlugin {
@@ -18773,7 +18771,7 @@ final: prev: {
       sha256 = "0rd9788dyfc58py50xbiaz5j7nphyvf3rpp3yal7yq2dhf0awwfi";
     };
     meta.homepage = "https://github.com/xolox/vim-misc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-molokai-delroth = buildVimPlugin {
@@ -18786,7 +18784,7 @@ final: prev: {
       sha256 = "03diamza3in2w8pffzz4y002n8axgvszkr4gnyj5qa2k428ipzc3";
     };
     meta.homepage = "https://github.com/delroth/vim-molokai-delroth/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-monokai = buildVimPlugin {
@@ -18799,7 +18797,7 @@ final: prev: {
       sha256 = "195sq9gcjsyr0crwqawhjm1r044fpwkba383ia8jg7m2rhm4g71w";
     };
     meta.homepage = "https://github.com/crusoexia/vim-monokai/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-monokai-pro = buildVimPlugin {
@@ -18812,7 +18810,7 @@ final: prev: {
       sha256 = "1ri6m1q0rmflzq2l4fnj4wka1vc70algy9whc66qfcj9zqq68z9s";
     };
     meta.homepage = "https://github.com/phanviet/vim-monokai-pro/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-monokai-tasty = buildVimPlugin {
@@ -18825,7 +18823,7 @@ final: prev: {
       sha256 = "1r3js27rjf5y193lx8qgw28nlic8w10n6fzv1308xdm54mz5fg98";
     };
     meta.homepage = "https://github.com/patstockwell/vim-monokai-tasty/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-move = buildVimPlugin {
@@ -18838,7 +18836,7 @@ final: prev: {
       sha256 = "021xv4q95ib9fhm0c7pzrpx56n66kq3n3nkyy57k59b1ryf6bigm";
     };
     meta.homepage = "https://github.com/matze/vim-move/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-mucomplete = buildVimPlugin {
@@ -18851,7 +18849,7 @@ final: prev: {
       sha256 = "14nqb5p0s89pf1ng3xjpkgarjgblmwnk2m08a4lp471bfjpbrrqx";
     };
     meta.homepage = "https://github.com/lifepillar/vim-mucomplete/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-multiple-cursors = buildVimPlugin {
@@ -18864,7 +18862,7 @@ final: prev: {
       sha256 = "0dmap8hjk6a0127fkab1pp5cllmijhqx80ijasngg11kxl0wzl32";
     };
     meta.homepage = "https://github.com/terryma/vim-multiple-cursors/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-mundo = buildVimPlugin {
@@ -18877,7 +18875,7 @@ final: prev: {
       sha256 = "0mrwkjq5a2krh6dim2sj5816dwj9lx2zmd1vpmhc88y5lwkhsy4m";
     };
     meta.homepage = "https://github.com/simnalamburt/vim-mundo/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-mustache-handlebars = buildVimPlugin {
@@ -18890,7 +18888,7 @@ final: prev: {
       sha256 = "0dnafs9bcfm539plx5hq6nzq6k8li3xbkizdhv71cpmfcbw2srln";
     };
     meta.homepage = "https://github.com/mustache/vim-mustache-handlebars/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nerdtree-syntax-highlight = buildVimPlugin {
@@ -18903,7 +18901,7 @@ final: prev: {
       sha256 = "0rkr3w7mcc7ha5g6m4lg0ik52v10hrx1mn2ahxnvb30h0isdyzb8";
     };
     meta.homepage = "https://github.com/tiagofumo/vim-nerdtree-syntax-highlight/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nerdtree-tabs = buildVimPlugin {
@@ -18916,7 +18914,7 @@ final: prev: {
       sha256 = "16iqhp5l6xvq0k8bq9ngqfhish1fwggpmvd7ni1fh5dqr00iii9x";
     };
     meta.homepage = "https://github.com/jistr/vim-nerdtree-tabs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nftables = buildVimPlugin {
@@ -18929,7 +18927,7 @@ final: prev: {
       sha256 = "1z5ffgxdq8niggm18qikrh5hl8zs05gdij4z6dfnzy00xvancc40";
     };
     meta.homepage = "https://github.com/nfnty/vim-nftables/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-niceblock = buildVimPlugin {
@@ -18942,7 +18940,7 @@ final: prev: {
       sha256 = "1d0rx7s10jl1q9y5s4235imizbyxrgkm4dxh5ankcr8s617l7mz2";
     };
     meta.homepage = "https://github.com/kana/vim-niceblock/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nickel = buildVimPlugin {
@@ -18955,7 +18953,7 @@ final: prev: {
       sha256 = "1yczwjs3svan4hmsmb3lzn3i2n50qfkmkncqyrvsy5qyrlv19gy1";
     };
     meta.homepage = "https://github.com/nickel-lang/vim-nickel/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ninja-feet = buildVimPlugin {
@@ -18968,7 +18966,7 @@ final: prev: {
       sha256 = "02j2q6r23fk7vkxwkhs5m67j449xjsgy969gdxcnpbfifldmfn3g";
     };
     meta.homepage = "https://github.com/tommcdo/vim-ninja-feet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nix = buildVimPlugin {
@@ -18981,7 +18979,7 @@ final: prev: {
       sha256 = "109narpbw9kbih7ai49p1zw7j2bj7nzpk3n02z80jcbgb48zqs8y";
     };
     meta.homepage = "https://github.com/LnL7/vim-nix/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nixhash = buildVimPlugin {
@@ -18994,7 +18992,7 @@ final: prev: {
       sha256 = "03l7c8wmkj50fjnbxziaajc71c6bg08844khzh3bgiy2xkfxqqii";
     };
     meta.homepage = "https://github.com/symphorien/vim-nixhash/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-noctu = buildVimPlugin {
@@ -19007,7 +19005,7 @@ final: prev: {
       sha256 = "14z1mwmvq0crvljsk6x29bxxhbavbjsggjr68f6aiz3635yih8vy";
     };
     meta.homepage = "https://github.com/noahfrederick/vim-noctu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-nong-theme = buildVimPlugin {
@@ -19020,7 +19018,7 @@ final: prev: {
       sha256 = "17lvmszydpgn54n54z4mhcipzrwxggnq7lr69k8vwbwmrr8sk0qa";
     };
     meta.homepage = "https://github.com/fruit-in/vim-nong-theme/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-numbertoggle = buildVimPlugin {
@@ -19033,7 +19031,7 @@ final: prev: {
       sha256 = "1d6wjl20f80kqqb2k13gq7d0vr7kk2mgjpnqf37dzhv1w1g74l2c";
     };
     meta.homepage = "https://github.com/jeffkreeftmeijer/vim-numbertoggle/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-obsession = buildVimPlugin {
@@ -19046,7 +19044,7 @@ final: prev: {
       sha256 = "0d80xq2hygf84a23ygzs3klymj5vcpqljacyjw25xrgg6vcn7fgv";
     };
     meta.homepage = "https://github.com/tpope/vim-obsession/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ocaml = buildVimPlugin {
@@ -19059,7 +19057,7 @@ final: prev: {
       sha256 = "1r2k7zdicsf1c0j5bx5v7m0vr3s5iyyaawmq5r3rym7qnzhsl6lm";
     };
     meta.homepage = "https://github.com/ocaml/vim-ocaml/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-one = buildVimPlugin {
@@ -19072,7 +19070,7 @@ final: prev: {
       sha256 = "0lnfw15p865hcnnjcaikf2xwfiqwidsqryq67j1bh74215ib8r10";
     };
     meta.homepage = "https://github.com/rakr/vim-one/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-opencl = buildVimPlugin {
@@ -19085,7 +19083,7 @@ final: prev: {
       sha256 = "0z8qasymkkaa272bjxmkp4sgd8qr4ypcqxlyzxgh5imp3gmrc6n1";
     };
     meta.homepage = "https://github.com/petRUShka/vim-opencl/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-openscad = buildVimPlugin {
@@ -19098,7 +19096,7 @@ final: prev: {
       sha256 = "1r86pz95yva0rsgnh7mnl94r6yra6704iify95r8fbj4zsawfclp";
     };
     meta.homepage = "https://github.com/sirtaj/vim-openscad/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-operator-replace = buildVimPlugin {
@@ -19111,7 +19109,7 @@ final: prev: {
       sha256 = "07cibp61zwbzpjfxqdc77fzrgnz8jhimmdhhyjr0lvgrjgvsnv6q";
     };
     meta.homepage = "https://github.com/kana/vim-operator-replace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-operator-surround = buildVimPlugin {
@@ -19124,7 +19122,7 @@ final: prev: {
       sha256 = "0f9shg81bl39hz67ahbi6k6gbhky7gzp8by16fhiz75hbjgp9lq2";
     };
     meta.homepage = "https://github.com/rhysd/vim-operator-surround/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-operator-user = buildVimPlugin {
@@ -19137,7 +19135,7 @@ final: prev: {
       sha256 = "16y2fyrmwg4vkcl85i8xg8s6m39ca2jvgi9qm36b3vzbnkcifafb";
     };
     meta.homepage = "https://github.com/kana/vim-operator-user/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-orgmode = buildVimPlugin {
@@ -19150,7 +19148,7 @@ final: prev: {
       sha256 = "1gw9x3lf379kpscb47vg14cmfspcj04kif6q38xvd5szkw8mq50f";
     };
     meta.homepage = "https://github.com/jceb/vim-orgmode/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ormolu = buildVimPlugin {
@@ -19163,7 +19161,7 @@ final: prev: {
       sha256 = "03srdix06dhz4b8g9akx448dw2rjbwj840xg7p9c5bq8kbmsjy8x";
     };
     meta.homepage = "https://github.com/sdiehl/vim-ormolu/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-osc52 = buildVimPlugin {
@@ -19176,7 +19174,7 @@ final: prev: {
       sha256 = "0yxjs32ab27l3kmh5lpinj15m11winqsnmykjq7lizs15v7gd2s9";
     };
     meta.homepage = "https://github.com/fcpg/vim-osc52/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-oscyank = buildVimPlugin {
@@ -19189,7 +19187,7 @@ final: prev: {
       sha256 = "1j796g1zy88qmfr755wfp2r9hydscczbwyxqyf2valmk7wvhy9rj";
     };
     meta.homepage = "https://github.com/ojroques/vim-oscyank/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-over = buildVimPlugin {
@@ -19202,7 +19200,7 @@ final: prev: {
       sha256 = "00k29pcn69d9036jhjpd1xqxh59qwl30l37lsfijlv18ks0wwiqn";
     };
     meta.homepage = "https://github.com/osyo-manga/vim-over/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-packer = buildVimPlugin {
@@ -19215,7 +19213,7 @@ final: prev: {
       sha256 = "070ncbmwh8wxxfzf7phx0hb0dk9krlvsj5mvrn7kr5y3mngdg9v4";
     };
     meta.homepage = "https://github.com/hashivim/vim-packer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pager = buildVimPlugin {
@@ -19228,7 +19226,7 @@ final: prev: {
       sha256 = "10xm77pia916zf9i2llyhs89s653r98l6zq8cswm7cw61bjfxvv6";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-pager/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pandoc = buildVimPlugin {
@@ -19241,7 +19239,7 @@ final: prev: {
       sha256 = "01282v4pfjzabixrnwlfrfy84d4xxczzgc38zgk4rz831ani3681";
     };
     meta.homepage = "https://github.com/vim-pandoc/vim-pandoc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pandoc-after = buildVimPlugin {
@@ -19254,7 +19252,7 @@ final: prev: {
       sha256 = "07wg4j2kx08s9hvvp8jspwb0v7fgac8m8cjr3y1sbq8ca18bkvgy";
     };
     meta.homepage = "https://github.com/vim-pandoc/vim-pandoc-after/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pandoc-syntax = buildVimPlugin {
@@ -19267,7 +19265,7 @@ final: prev: {
       sha256 = "0mk33skbybrs4mwrwbsxkj9vcjik7bbrhk0lncxd9pvswnxrw053";
     };
     meta.homepage = "https://github.com/vim-pandoc/vim-pandoc-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-paper = buildVimPlugin {
@@ -19280,7 +19278,7 @@ final: prev: {
       sha256 = "0d27krqf5d8zk2g03lx6gsh5b199lb7gjwry1pp8syr6z49f62k9";
     };
     meta.homepage = "https://github.com/yorickpeterse/vim-paper/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-parinfer = buildVimPlugin {
@@ -19293,7 +19291,7 @@ final: prev: {
       sha256 = "1mr2a44xjk6mr9kbh6axg8nd1fspbgi2r98g5d5cqjzvkzqfj6mm";
     };
     meta.homepage = "https://github.com/bhurlow/vim-parinfer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pasta = buildVimPlugin {
@@ -19306,7 +19304,7 @@ final: prev: {
       sha256 = "1q4d512rq57awasb441slqp29mkzi3jxmy8clrp2s9ydwdbndwlx";
     };
     meta.homepage = "https://github.com/ku1ik/vim-pasta/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pathogen = buildVimPlugin {
@@ -19319,7 +19317,7 @@ final: prev: {
       sha256 = "0mw00sbwgyd8ar4z8w2x8mhl4dhk8l1gbvqrxivd6382vqqnx8q9";
     };
     meta.homepage = "https://github.com/tpope/vim-pathogen/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-peekaboo = buildVimPlugin {
@@ -19332,7 +19330,7 @@ final: prev: {
       sha256 = "11lgf60v2kj772d9azkfddypwidcgfps5mvnhmp4gg0fmfx12h99";
     };
     meta.homepage = "https://github.com/junegunn/vim-peekaboo/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pencil = buildVimPlugin {
@@ -19345,7 +19343,7 @@ final: prev: {
       sha256 = "18jqmb08jgd53i56w4spjvr35ydqlw1hm38kdm6qgj1g5qw12i8a";
     };
     meta.homepage = "https://github.com/preservim/vim-pencil/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pets = buildVimPlugin {
@@ -19358,7 +19356,7 @@ final: prev: {
       sha256 = "1gcz58mrglxrd4cd1k1mr4xhys5l8qs4wg7a66q7m50j5rzz5nyc";
     };
     meta.homepage = "https://github.com/MeF0504/vim-pets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-phabricator = buildVimPlugin {
@@ -19371,7 +19369,7 @@ final: prev: {
       sha256 = "1dzgfiiyfam2rzn69bn5agarw89rabbcx286q152bk3wym6bzj9s";
     };
     meta.homepage = "https://github.com/jparise/vim-phabricator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pico8-syntax = buildVimPlugin {
@@ -19384,7 +19382,7 @@ final: prev: {
       sha256 = "0say0bb74rdbabgsf7rrbm8x841pmgh80fwr6kn94fgphr3vhm0s";
     };
     meta.homepage = "https://github.com/justinj/vim-pico8-syntax/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-plug = buildVimPlugin {
@@ -19397,7 +19395,7 @@ final: prev: {
       sha256 = "1jf2kgxgvr6d182xk4hvcrsb4ccav8892nzg7izz1hxs5pg7lwcl";
     };
     meta.homepage = "https://github.com/junegunn/vim-plug/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-plugin-AnsiEsc = buildVimPlugin {
@@ -19410,7 +19408,7 @@ final: prev: {
       sha256 = "05sf9xh7zs475kykz1hsp0xp7iiclp7pdiy3bpx7wlfp9z71bd9p";
     };
     meta.homepage = "https://github.com/powerman/vim-plugin-AnsiEsc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pluto = buildVimPlugin {
@@ -19423,7 +19421,7 @@ final: prev: {
       sha256 = "1ds0hwhmsc0d67xcyk9sdmp2hckkr1nlb57dnxmfgsswirpxzbbq";
     };
     meta.homepage = "https://github.com/hasundue/vim-pluto/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-polyglot = buildVimPlugin {
@@ -19436,7 +19434,7 @@ final: prev: {
       sha256 = "05navypzrz1ck1vmf60rnmscisxy7gfi3ic749vqmr7prmdbavp6";
     };
     meta.homepage = "https://github.com/sheerun/vim-polyglot/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pony = buildVimPlugin {
@@ -19449,7 +19447,7 @@ final: prev: {
       sha256 = "0sassx3mkkd543mljycfmvgwcnw36zbpanm41mf3bavxvsk0azx6";
     };
     meta.homepage = "https://github.com/jmcomets/vim-pony/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-poweryank = buildVimPlugin {
@@ -19462,7 +19460,7 @@ final: prev: {
       sha256 = "016w6nn2qhra9v55sn6g6qf1pj8f072f22r97nzxy4958k7f114a";
     };
     meta.homepage = "https://github.com/haya14busa/vim-poweryank/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-prettier = buildVimPlugin {
@@ -19475,7 +19473,7 @@ final: prev: {
       sha256 = "1hmb0pq7skqwz722nc36095z9lg3bbqxqdnnjq50wxc2hdfhix75";
     };
     meta.homepage = "https://github.com/prettier/vim-prettier/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-prettyprint = buildVimPlugin {
@@ -19488,7 +19486,7 @@ final: prev: {
       sha256 = "0mb1ylsq4023ik9wd9iwzlynra2c320xp9h2i79bspapglgd5gk9";
     };
     meta.homepage = "https://github.com/thinca/vim-prettyprint/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-printer = buildVimPlugin {
@@ -19501,7 +19499,7 @@ final: prev: {
       sha256 = "1bzzzq21silsrqjqpr44yrrp15kkpn1jhc2gf45zph18nizkbbl1";
     };
     meta.homepage = "https://github.com/meain/vim-printer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-prisma = buildVimPlugin {
@@ -19514,7 +19512,7 @@ final: prev: {
       sha256 = "046lpazz44f6b1lcvklaq1jl0sbyiklj6kcv580rrff89511nzsy";
     };
     meta.homepage = "https://github.com/prisma/vim-prisma/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-projectionist = buildVimPlugin {
@@ -19527,7 +19525,7 @@ final: prev: {
       sha256 = "0cg4wlsv1xaak9svvi5a2mb4xcyjpxc43014d4jqrd5a2gkvyhr4";
     };
     meta.homepage = "https://github.com/tpope/vim-projectionist/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-prosession = buildVimPlugin {
@@ -19540,7 +19538,7 @@ final: prev: {
       sha256 = "0xhbqphjldw5ygxmblx9r2zgbda1dgc2h0py6h05ss43cdvzikwa";
     };
     meta.homepage = "https://github.com/dhruvasagar/vim-prosession/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-protobuf = buildVimPlugin {
@@ -19553,7 +19551,7 @@ final: prev: {
       sha256 = "1vh9f34rb7pg6dc64xhr102yig6y03is74777av464bhq651z7p5";
     };
     meta.homepage = "https://github.com/uarun/vim-protobuf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ps1 = buildVimPlugin {
@@ -19566,7 +19564,7 @@ final: prev: {
       sha256 = "0cpkxhyvcdbwicyb6h1lknb0r666rxlgjx6pq5s1xwxqva6lpmqv";
     };
     meta.homepage = "https://github.com/PProvost/vim-ps1/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-pug = buildVimPlugin {
@@ -19579,7 +19577,7 @@ final: prev: {
       sha256 = "07141jkfnaia4ydc6qcg0bc06w720l2lzl7bm4bsjwswqrzmhfam";
     };
     meta.homepage = "https://github.com/digitaltoad/vim-pug/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-puppet = buildVimPlugin {
@@ -19592,7 +19590,7 @@ final: prev: {
       sha256 = "0a6gvzz27f2121hdnzszcs6haw8pysp1k1wzq3ygjq0nzrddnlk1";
     };
     meta.homepage = "https://github.com/rodjek/vim-puppet/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-python-pep8-indent = buildVimPlugin {
@@ -19605,7 +19603,7 @@ final: prev: {
       sha256 = "1blyhkykfnf4pgfq9hn9l8pq0iqdvig9m4zd8qq9aa9rlm8f0kzh";
     };
     meta.homepage = "https://github.com/Vimjas/vim-python-pep8-indent/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-qf = buildVimPlugin {
@@ -19618,7 +19616,7 @@ final: prev: {
       sha256 = "0ig0agz3vhdrp4b21x2x930d7m99c2n6g7q95ixwx5pf8wvh3mpc";
     };
     meta.homepage = "https://github.com/romainl/vim-qf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-qlist = buildVimPlugin {
@@ -19631,7 +19629,7 @@ final: prev: {
       sha256 = "0ska2mzx3hqqkq3fd09r0hlk2j8xc8mbbwfky31x3cmzsb9dksqw";
     };
     meta.homepage = "https://github.com/romainl/vim-qlist/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-qml = buildVimPlugin {
@@ -19644,7 +19642,7 @@ final: prev: {
       sha256 = "1smvhfrwlzd1h1namzvs8kks0f3qkdmnpbw1i6kvk44dywmx4r8c";
     };
     meta.homepage = "https://github.com/peterhoeg/vim-qml/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-quickrun = buildVimPlugin {
@@ -19657,7 +19655,7 @@ final: prev: {
       sha256 = "1dfpkvfzagv21ykbxgi6lzwlm34va3xas5wximqqlfifrnhkb08j";
     };
     meta.homepage = "https://github.com/thinca/vim-quickrun/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-racer = buildVimPlugin {
@@ -19670,7 +19668,7 @@ final: prev: {
       sha256 = "11f6iw9c59kdjcdkzn27szpi0bxhpp42qmlannnqzm49ssl817vv";
     };
     meta.homepage = "https://github.com/racer-rust/vim-racer/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-racket = buildVimPlugin {
@@ -19683,7 +19681,7 @@ final: prev: {
       sha256 = "02cliv5798l5lgf082g48g6cimsphvdvysalj3x86q3273rf9dgv";
     };
     meta.homepage = "https://github.com/wlangstroth/vim-racket/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ragtag = buildVimPlugin {
@@ -19696,7 +19694,7 @@ final: prev: {
       sha256 = "0rd6p1c071dny90n0ph9l61zcbkln24lpjsjyrvlpna0lp1dx81q";
     };
     meta.homepage = "https://github.com/tpope/vim-ragtag/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-rails = buildVimPlugin {
@@ -19709,7 +19707,7 @@ final: prev: {
       sha256 = "1yjis1wfy5jdbs1jg9jwsinbfc9ng82cbfjpd9mcwy66gc4b1nnh";
     };
     meta.homepage = "https://github.com/tpope/vim-rails/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-reasonml = buildVimPlugin {
@@ -19722,7 +19720,7 @@ final: prev: {
       sha256 = "1yfll4rbanql0l27bazk4xk205mk73nk1l9cxyvc9p8qcixx34s4";
     };
     meta.homepage = "https://github.com/jordwalke/vim-reasonml/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-repeat = buildVimPlugin {
@@ -19735,7 +19733,7 @@ final: prev: {
       sha256 = "0n8sx6s2sbjb21dv9j6y5lyqda9vvxraffg2jz423daamn96dxqv";
     };
     meta.homepage = "https://github.com/tpope/vim-repeat/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-rhubarb = buildVimPlugin {
@@ -19748,7 +19746,7 @@ final: prev: {
       sha256 = "1gm9ylz752sx7kpdihp6fm61sbfss8a5dd43jzci7i44x27z7ly3";
     };
     meta.homepage = "https://github.com/tpope/vim-rhubarb/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-rooter = buildVimPlugin {
@@ -19761,7 +19759,7 @@ final: prev: {
       sha256 = "0fdb8z9f65mz0718l35bz3mqk7ksk9b64v1ppha089g61xqmifi6";
     };
     meta.homepage = "https://github.com/airblade/vim-rooter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-rsi = buildVimPlugin {
@@ -19774,7 +19772,7 @@ final: prev: {
       sha256 = "0vr5mlna5f60dmhk4ims7g0ikqw15h21hr619xii1069ggddqr9v";
     };
     meta.homepage = "https://github.com/tpope/vim-rsi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ruby = buildVimPlugin {
@@ -19787,7 +19785,7 @@ final: prev: {
       sha256 = "0h205xspvx89adssmn7bkdzdyrn9npnprrjcy30w305p9hy6z656";
     };
     meta.homepage = "https://github.com/vim-ruby/vim-ruby/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-salve = buildVimPlugin {
@@ -19800,7 +19798,7 @@ final: prev: {
       sha256 = "0ixw0nrwqm2fjygx24jpn9lf5waw44alvzgz88vljd4wccpl4qp8";
     };
     meta.homepage = "https://github.com/tpope/vim-salve/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sandwich = buildVimPlugin {
@@ -19813,7 +19811,7 @@ final: prev: {
       sha256 = "19n17dgkvj3q75l0h7fd87lkj10rz39qcyisqafp3n4i0y4dpmjp";
     };
     meta.homepage = "https://github.com/machakann/vim-sandwich/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sayonara = buildVimPlugin {
@@ -19826,7 +19824,7 @@ final: prev: {
       sha256 = "0m22zjby54gvpg0s7qbpxdvjx6bcf3xdb58yc90bmf6pxklllc20";
     };
     meta.homepage = "https://github.com/mhinz/vim-sayonara/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-scala = buildVimPlugin {
@@ -19839,7 +19837,7 @@ final: prev: {
       sha256 = "0iypq4ii1lbnw6x4qc89vy8g8wq0gi06v96nphcc4fbs04pb4cr5";
     };
     meta.homepage = "https://github.com/derekwyatt/vim-scala/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-scouter = buildVimPlugin {
@@ -19852,7 +19850,7 @@ final: prev: {
       sha256 = "0fx64hj1kzrsxz96195d5lm3x88zyycbcr78819mcbgfzyxis6b8";
     };
     meta.homepage = "https://github.com/thinca/vim-scouter/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-scriptease = buildVimPlugin {
@@ -19865,7 +19863,7 @@ final: prev: {
       sha256 = "1f5y96lkbj8zfm6lc3izynb4dz914vli2yqpn1gw9y3llj43n5bn";
     };
     meta.homepage = "https://github.com/tpope/vim-scriptease/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-search-pulse = buildVimPlugin {
@@ -19878,7 +19876,7 @@ final: prev: {
       sha256 = "12dn4hgjqxcdhm3381qz4qqr44g6y3jsrrid9h3gc5ccc28fzk76";
     };
     meta.homepage = "https://github.com/inside/vim-search-pulse/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sensible = buildVimPlugin {
@@ -19891,7 +19889,7 @@ final: prev: {
       sha256 = "0a1hyrak7klwsdfpajqw6vm0qi9bkh0q51mzc8k20h876dijdsnm";
     };
     meta.homepage = "https://github.com/tpope/vim-sensible/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sentence-chopper = buildVimPlugin {
@@ -19904,7 +19902,7 @@ final: prev: {
       sha256 = "1yk56gnljl7356m3vi6r0vvxzs0clpivdhs7kbc3x982jhm96vv2";
     };
     meta.homepage = "https://github.com/Konfekt/vim-sentence-chopper/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sexp = buildVimPlugin {
@@ -19917,7 +19915,7 @@ final: prev: {
       sha256 = "139krxpjhbyypbl6v2jik1rms2fxl3dkqrl4rb7sms6c3p5764qx";
     };
     meta.homepage = "https://github.com/guns/vim-sexp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sexp-mappings-for-regular-people = buildVimPlugin {
@@ -19930,7 +19928,7 @@ final: prev: {
       sha256 = "0jr5dyqbysp0g2pahgirq1lhzr26wv50rmnyc5l4jbvdwvnhzhjn";
     };
     meta.homepage = "https://github.com/tpope/vim-sexp-mappings-for-regular-people/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-shellcheck = buildVimPlugin {
@@ -19943,7 +19941,7 @@ final: prev: {
       sha256 = "140r70q9dy7l2v7zxxrv45gswr5i3hbvbazaz2cgmj2g3if4d91h";
     };
     meta.homepage = "https://github.com/itspriddle/vim-shellcheck/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-signature = buildVimPlugin {
@@ -19956,7 +19954,7 @@ final: prev: {
       sha256 = "08m5dg77yavria7n7iajkj4kqaw848763680003j2gbrjlhpprpm";
     };
     meta.homepage = "https://github.com/kshenoy/vim-signature/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-signify = buildVimPlugin {
@@ -19969,7 +19967,7 @@ final: prev: {
       sha256 = "0wpa5d401slgg41mknm6kiaki7frg7wkzs7ymjyn4l5jxq03x42h";
     };
     meta.homepage = "https://github.com/mhinz/vim-signify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sile = buildVimPlugin {
@@ -19982,7 +19980,7 @@ final: prev: {
       sha256 = "0xik91854jqmv3sa8af988w8xirm1vqql1ifjqxi61v00z0z00j7";
     };
     meta.homepage = "https://github.com/sile-typesetter/vim-sile/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-simpledb = buildVimPlugin {
@@ -19995,7 +19993,7 @@ final: prev: {
       sha256 = "1y0i876p2pxx7gbr04acnv94cjrincsbg03bqxr89xbqlbggxf0w";
     };
     meta.homepage = "https://github.com/ivalkeen/vim-simpledb/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-slash = buildVimPlugin {
@@ -20008,7 +20006,7 @@ final: prev: {
       sha256 = "0ifdd3yqbk8hdvdmr4k44967lyvjnv9ig3r2145wn1lab797sbl4";
     };
     meta.homepage = "https://github.com/junegunn/vim-slash/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sleuth = buildVimPlugin {
@@ -20021,7 +20019,7 @@ final: prev: {
       sha256 = "0wqxdjgplf04nq428ialw1w03f8nh5vb629a17vl5gc9gf3zfanq";
     };
     meta.homepage = "https://github.com/tpope/vim-sleuth/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-slime = buildVimPlugin {
@@ -20034,7 +20032,7 @@ final: prev: {
       sha256 = "0vpn8dfxzc5f2scc1ydl25fk4rxbnv849z00h1abzh73ysa3mpaq";
     };
     meta.homepage = "https://github.com/jpalardy/vim-slime/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smali = buildVimPlugin {
@@ -20047,7 +20045,7 @@ final: prev: {
       sha256 = "1mcdbcfiq5r21q297fxi18c3ah4193j1fnjnbjnrjh20r50wggx8";
     };
     meta.homepage = "https://github.com/mzlogin/vim-smali/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smalls = buildVimPlugin {
@@ -20060,7 +20058,7 @@ final: prev: {
       sha256 = "0s5z3zv220cg95yky2av6w0jmpc56ysyhsx0596ksvgz5jwhpbad";
     };
     meta.homepage = "https://github.com/t9md/vim-smalls/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smartbd = buildVimPlugin {
@@ -20073,7 +20071,7 @@ final: prev: {
       sha256 = "0a4ls93bgy5r7ar3r60zgdn2jzdkk10wrws14lw2xl8yg65rc0mg";
     };
     meta.homepage = "https://github.com/Industrial/vim-smartbd/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smartbw = buildVimPlugin {
@@ -20086,7 +20084,7 @@ final: prev: {
       sha256 = "08i8qyqahj2jv44pay7bi2dxajhsrx244i44v53y4iiddps6smxn";
     };
     meta.homepage = "https://github.com/Industrial/vim-smartbw/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smoothie = buildVimPlugin {
@@ -20099,7 +20097,7 @@ final: prev: {
       sha256 = "1c87zc954wk76h9klxyygv19jp729fms2f5m18gwzskars3px076";
     };
     meta.homepage = "https://github.com/psliwka/vim-smoothie/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-smt2 = buildVimPlugin {
@@ -20112,7 +20110,7 @@ final: prev: {
       sha256 = "1jb9hd3ihhkb1zvdfvad05f8y1j77xxgwqfvgyv5rpdl95wli905";
     };
     meta.homepage = "https://github.com/bohlender/vim-smt2/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sneak = buildVimPlugin {
@@ -20125,7 +20123,7 @@ final: prev: {
       sha256 = "1ajpr5klhbljr23qr76ghfvhn8pr65llrqpflhazmmx5gprsks9h";
     };
     meta.homepage = "https://github.com/justinmk/vim-sneak/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-snipmate = buildVimPlugin {
@@ -20138,7 +20136,7 @@ final: prev: {
       sha256 = "0dmypsgn6lxq2irxcigxh79l923ph4qk4m2hg27mjd8m079x4j2r";
     };
     meta.homepage = "https://github.com/garbas/vim-snipmate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-snippets = buildVimPlugin {
@@ -20151,7 +20149,7 @@ final: prev: {
       sha256 = "19n9p1fzx0vb1l09gff50p8vzhp4bank9m8smrq1ngw1innrd9wc";
     };
     meta.homepage = "https://github.com/honza/vim-snippets/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-solarized8 = buildVimPlugin {
@@ -20164,7 +20162,7 @@ final: prev: {
       sha256 = "0s02xs7asba82ibzj03s68869jc767r5aihcji00gr5f7gkmsha3";
     };
     meta.homepage = "https://github.com/lifepillar/vim-solarized8/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-solidity = buildVimPlugin {
@@ -20177,7 +20175,7 @@ final: prev: {
       sha256 = "1qpfbbrm4gjgvbkimhpxyl4fsdqkyw4raf17nw0ibqillz2d3pxx";
     };
     meta.homepage = "https://github.com/tomlion/vim-solidity/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-sort-motion = buildVimPlugin {
@@ -20190,7 +20188,7 @@ final: prev: {
       sha256 = "1vq2jrn75g3gd8vfgbnkn0w2qc4gbnrn2lg0wmzsvvxdvj8m9lii";
     };
     meta.homepage = "https://github.com/christoomey/vim-sort-motion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-speeddating = buildVimPlugin {
@@ -20203,7 +20201,7 @@ final: prev: {
       sha256 = "1pibhqvd5wicw20vxsrqzirmi0y8rzsgfzn4cmws1nvjf72gkh10";
     };
     meta.homepage = "https://github.com/tpope/vim-speeddating/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-spirv = buildVimPlugin {
@@ -20216,7 +20214,7 @@ final: prev: {
       sha256 = "0hicyp3q6hhpsk6v944v3if6v47a8xsg2czz4qka8rlggc039v9w";
     };
     meta.homepage = "https://github.com/kbenzie/vim-spirv/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-splunk = buildVimPlugin {
@@ -20229,7 +20227,7 @@ final: prev: {
       sha256 = "08f5c14ic4mr039by2ml9xf6b2l2rylgjj5q3m7gj29n7mn1zzc7";
     };
     meta.homepage = "https://github.com/yorokobi/vim-splunk/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-startify = buildVimPlugin {
@@ -20242,7 +20240,7 @@ final: prev: {
       sha256 = "1ycqfqnmalqzrx1yy9a1fc2p0w922x4sqv2222bi9xjzmh77z4sv";
     };
     meta.homepage = "https://github.com/mhinz/vim-startify/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-startuptime = buildVimPlugin {
@@ -20255,7 +20253,7 @@ final: prev: {
       sha256 = "15kbm6g04kpjn0gxvf6k6wj2j92iz6hwaq5vrywx7wvj9n8w70ni";
     };
     meta.homepage = "https://github.com/dstein64/vim-startuptime/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-strip-trailing-whitespace = buildVimPlugin {
@@ -20268,7 +20266,7 @@ final: prev: {
       sha256 = "04v3hnljl9lxil6nqnrfsldyyhaz50l3sppifmpa27c2gd1w1v0y";
     };
     meta.homepage = "https://github.com/axelf4/vim-strip-trailing-whitespace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-stylish-haskell = buildVimPlugin {
@@ -20281,7 +20279,7 @@ final: prev: {
       sha256 = "0qqiqkrj45212jwm6k5xapn023ylh7mkjncfi4awgp3rk8sl8m77";
     };
     meta.homepage = "https://github.com/nbouscal/vim-stylish-haskell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-stylishask = buildVimPlugin {
@@ -20294,7 +20292,7 @@ final: prev: {
       sha256 = "03wz665s6lj42bhll4radpxyqhjylwnb20cgd2giyxd9ab7sy4cg";
     };
     meta.homepage = "https://github.com/alx741/vim-stylishask/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-substrata = buildVimPlugin {
@@ -20307,7 +20305,7 @@ final: prev: {
       sha256 = "1cpmyr63xjx5nm5h619xwryjaljq1kdf3msdrdr082ljci2830z2";
     };
     meta.homepage = "https://github.com/lunacookies/vim-substrata/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-subversive = buildVimPlugin {
@@ -20320,7 +20318,7 @@ final: prev: {
       sha256 = "0q2khjgnrr64pnsfjdi4r50cglfs9p74sl393y7s5jlv6rnfjndn";
     };
     meta.homepage = "https://github.com/svermeulen/vim-subversive/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-suda = buildVimPlugin {
@@ -20333,7 +20331,7 @@ final: prev: {
       sha256 = "1fg892y34zabvivs0h9afdbsh1vp0s590lfxaq5jaf0xn3g35az3";
     };
     meta.homepage = "https://github.com/lambdalisue/vim-suda/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-surround = buildVimPlugin {
@@ -20346,7 +20344,7 @@ final: prev: {
       sha256 = "0lfnhwcgfxcg4n59xjxc29fhj08jhdv41l8zpx0fjkx796v3k48d";
     };
     meta.homepage = "https://github.com/tpope/vim-surround/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-svelte = buildVimPlugin {
@@ -20359,7 +20357,7 @@ final: prev: {
       sha256 = "1ksihgv8hbmhckxwrbrbq8nq1m6rihygczfxm1cljhmwx38qmp6i";
     };
     meta.homepage = "https://github.com/evanleck/vim-svelte/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-swap = buildVimPlugin {
@@ -20372,7 +20370,7 @@ final: prev: {
       sha256 = "1vi0d4mp3npyv1hz4zyillrw4dpq71b1cqc2lwc4ks5b6g83pf27";
     };
     meta.homepage = "https://github.com/machakann/vim-swap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tabby = buildVimPlugin {
@@ -20385,7 +20383,7 @@ final: prev: {
       sha256 = "1j22iw1rnpj7dl06kjcvapgkmcz2xb5lh4rgn0bl9jcss9wz3cs4";
     };
     meta.homepage = "https://github.com/TabbyML/vim-tabby/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-table-mode = buildVimPlugin {
@@ -20398,7 +20396,7 @@ final: prev: {
       sha256 = "0n7wsh9mrh4n24wwdgdwk52sqrwzii6v5bkvbihhaxbwhxq397pj";
     };
     meta.homepage = "https://github.com/dhruvasagar/vim-table-mode/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tabpagecd = buildVimPlugin {
@@ -20411,7 +20409,7 @@ final: prev: {
       sha256 = "1nbgjl7qbklh9d2xrlxcpmppp2408lcxm2lddiwdh4v38hqpka7s";
     };
     meta.homepage = "https://github.com/kana/vim-tabpagecd/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tbone = buildVimPlugin {
@@ -20424,7 +20422,7 @@ final: prev: {
       sha256 = "1x9armk3b3ymrk6bgk72dhvw9fdz3r641ydrq79f05rj4nx2987x";
     };
     meta.homepage = "https://github.com/tpope/vim-tbone/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-teal = buildVimPlugin {
@@ -20437,7 +20435,7 @@ final: prev: {
       sha256 = "0ymhpzv5sjyyljgk2b69nhcmikrsnl2pdpfs1c3s73s361gk4dn8";
     };
     meta.homepage = "https://github.com/teal-language/vim-teal/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-terminator = buildVimPlugin {
@@ -20450,7 +20448,7 @@ final: prev: {
       sha256 = "1640w1g9k0kfrbna3yx90yc0ps9lbi9ccp3z72gl0znpvbdsmsw7";
     };
     meta.homepage = "https://github.com/erietz/vim-terminator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-terraform = buildVimPlugin {
@@ -20463,7 +20461,7 @@ final: prev: {
       sha256 = "0fglb72vqki1nkg0n85lpnpaa7dwvs1grjb93h4h7cjzr53h0nri";
     };
     meta.homepage = "https://github.com/hashivim/vim-terraform/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-terraform-completion = buildVimPlugin {
@@ -20477,7 +20475,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/juliosueiras/vim-terraform-completion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-test = buildVimPlugin {
@@ -20490,7 +20488,7 @@ final: prev: {
       sha256 = "0rscbqx2yf4xav8fq3r2dz70k87vsn7lkzkg1yf9q8dkfarvwyyi";
     };
     meta.homepage = "https://github.com/vim-test/vim-test/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-comment = buildVimPlugin {
@@ -20503,7 +20501,7 @@ final: prev: {
       sha256 = "00wc14chwjfx95gl3yzbxm1ajx88zpzqz0ckl7xvd7gvkrf0mx04";
     };
     meta.homepage = "https://github.com/glts/vim-textobj-comment/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-entire = buildVimPlugin {
@@ -20516,7 +20514,7 @@ final: prev: {
       sha256 = "0kv0s85wbcxn9hrvml4hdzbpf49b1wwr3nk6gsz3p5rvfs6fbvmm";
     };
     meta.homepage = "https://github.com/kana/vim-textobj-entire/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-function = buildVimPlugin {
@@ -20529,7 +20527,7 @@ final: prev: {
       sha256 = "0cwl102si9zhhhpg6c0fjnyq35v6bl5f34p2s7b47isxdn0qvris";
     };
     meta.homepage = "https://github.com/kana/vim-textobj-function/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-haskell = buildVimPlugin {
@@ -20542,7 +20540,7 @@ final: prev: {
       sha256 = "096pjjl3ngw0hsh59j2x6pdrpqvp657rcxfyl9kw13ndqyd867xs";
     };
     meta.homepage = "https://github.com/gibiansky/vim-textobj-haskell/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-multiblock = buildVimPlugin {
@@ -20555,7 +20553,7 @@ final: prev: {
       sha256 = "1s71hdr73cl8yg9mrdflvzrdccpiv7qrlainai7gqw30r1hfhfzf";
     };
     meta.homepage = "https://github.com/osyo-manga/vim-textobj-multiblock/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-user = buildVimPlugin {
@@ -20568,7 +20566,7 @@ final: prev: {
       sha256 = "1y1g3vcm97fqjyigiajbvbck4nlc04vxl3535x4sl40s5jbm5vz3";
     };
     meta.homepage = "https://github.com/kana/vim-textobj-user/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-textobj-variable-segment = buildVimPlugin {
@@ -20581,7 +20579,7 @@ final: prev: {
       sha256 = "0p8jaxd4vz5vzv9008cdhhmbb1hn5b382axnrazxixwalhd7pk23";
     };
     meta.homepage = "https://github.com/Julian/vim-textobj-variable-segment/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-themis = buildVimPlugin {
@@ -20594,7 +20592,7 @@ final: prev: {
       sha256 = "1vzwjpn3jr3ayal2pjr2qb36mal2pa8szbf83nqzb2awa1lv1ds1";
     };
     meta.homepage = "https://github.com/thinca/vim-themis/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tmux = buildVimPlugin {
@@ -20607,7 +20605,7 @@ final: prev: {
       sha256 = "0z263z1iwbxms90sp6jwk8kc4cf0zj1y3qfyh5p410ghadjnci99";
     };
     meta.homepage = "https://github.com/tmux-plugins/vim-tmux/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tmux-clipboard = buildVimPlugin {
@@ -20620,7 +20618,7 @@ final: prev: {
       sha256 = "0qmxpf5k0n0vc6pmns3z2gbgvi4jgqh0jqgaq5n5q7f9nf5mpwy1";
     };
     meta.homepage = "https://github.com/roxma/vim-tmux-clipboard/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tmux-focus-events = buildVimPlugin {
@@ -20633,7 +20631,7 @@ final: prev: {
       sha256 = "19r8gslq4m70rgi51bnlazhppggiy3crnmaqyvjc25f59f1213a7";
     };
     meta.homepage = "https://github.com/tmux-plugins/vim-tmux-focus-events/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tmux-navigator = buildVimPlugin {
@@ -20646,7 +20644,7 @@ final: prev: {
       sha256 = "0xg9gdybrpm02m3jff393bdhdaynisanidc6zr6hv8lc66vcl6j3";
     };
     meta.homepage = "https://github.com/christoomey/vim-tmux-navigator/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-togglelist = buildVimPlugin {
@@ -20659,7 +20657,7 @@ final: prev: {
       sha256 = "0fz0wmz6hp8hwikpfrxxgg0cn6hmr5fl7q1a8bvkhxzhd7xzfqq1";
     };
     meta.homepage = "https://github.com/milkypostman/vim-togglelist/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-toml = buildVimPlugin {
@@ -20672,7 +20670,7 @@ final: prev: {
       sha256 = "0ljyy11f7ll72piz8i4ydlpcwh624aycfrq9fmi26xam5g6928i5";
     };
     meta.homepage = "https://github.com/cespare/vim-toml/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tpipeline = buildVimPlugin {
@@ -20685,7 +20683,7 @@ final: prev: {
       sha256 = "14qswdhw2lnhsjbn8wx1lfmmy652zd8jcgkh56dv3dnql21klx84";
     };
     meta.homepage = "https://github.com/vimpostor/vim-tpipeline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-trailing-whitespace = buildVimPlugin {
@@ -20698,7 +20696,7 @@ final: prev: {
       sha256 = "11gfrw8r0yn0qx3bb2mg1griqmqfn19vfapam8apspfi2b6rfwg4";
     };
     meta.homepage = "https://github.com/bronson/vim-trailing-whitespace/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tridactyl = buildVimPlugin {
@@ -20711,7 +20709,7 @@ final: prev: {
       sha256 = "07km8yp0vsipw2amkxd0rjp9qz18g0b7bvsb2vj9vgkr8wc0d780";
     };
     meta.homepage = "https://github.com/tridactyl/vim-tridactyl/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-tsx = buildVimPlugin {
@@ -20724,7 +20722,7 @@ final: prev: {
       sha256 = "0wmd6gql57bxp868sq2dchp9sc3jbisr4vaz4y0lczhmk0prds6n";
     };
     meta.homepage = "https://github.com/ianks/vim-tsx/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-twig = buildVimPlugin {
@@ -20737,7 +20735,7 @@ final: prev: {
       sha256 = "1p7sfhk0mwx4xk88b29ijb9nfbjwsf6hf3nab2ybcw291qaa75nj";
     };
     meta.homepage = "https://github.com/lumiliet/vim-twig/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-twiggy = buildVimPlugin {
@@ -20750,7 +20748,7 @@ final: prev: {
       sha256 = "1fk3a14sickfkls4khkv2zykfy0093whsl020h61xf5c8g8byv6y";
     };
     meta.homepage = "https://github.com/sodapopcan/vim-twiggy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-ultest = buildVimPlugin {
@@ -20763,7 +20761,7 @@ final: prev: {
       sha256 = "0k69hqaxgbhjwq7wf30l8i1b6xv5qhzm4mbg6hydil5rj6zwf7xv";
     };
     meta.homepage = "https://github.com/rcarriga/vim-ultest/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-unicoder = buildVimPlugin {
@@ -20776,7 +20774,7 @@ final: prev: {
       sha256 = "1kcnxx909pdvrvk0kyz3h8f9szn6hmalm8qyakq3pv6dknlkwb0b";
     };
     meta.homepage = "https://github.com/arthurxavierx/vim-unicoder/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-unimpaired = buildVimPlugin {
@@ -20789,7 +20787,7 @@ final: prev: {
       sha256 = "1ak992awy2xv01h1w3js2hrz6j5n9wj55b9r7mp2dnvyisy6chr9";
     };
     meta.homepage = "https://github.com/tpope/vim-unimpaired/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vagrant = buildVimPlugin {
@@ -20802,7 +20800,7 @@ final: prev: {
       sha256 = "0inpgcrca955h0ic7pgl6bfzs7rssjgssvrvqq3y93j5addmh60m";
     };
     meta.homepage = "https://github.com/hashivim/vim-vagrant/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vinegar = buildVimPlugin {
@@ -20815,7 +20813,7 @@ final: prev: {
       sha256 = "0836s6dl12qdk6x9ihp30h8w6f5lmbs28vmp0njza5fi0m7xb4df";
     };
     meta.homepage = "https://github.com/tpope/vim-vinegar/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-visual-increment = buildVimPlugin {
@@ -20828,7 +20826,7 @@ final: prev: {
       sha256 = "0if3r3ih8f4yxy5s4xsl7384xzf14rmalvg60n9mbhshyljggvc4";
     };
     meta.homepage = "https://github.com/triglav/vim-visual-increment/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-visual-multi = buildVimPlugin {
@@ -20841,7 +20839,7 @@ final: prev: {
       sha256 = "15jrxvaip6mncl8b8q8c1i82m20m1mld11gv75x9hqng3y85cc1b";
     };
     meta.homepage = "https://github.com/mg979/vim-visual-multi/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-visual-star-search = buildVimPlugin {
@@ -20854,7 +20852,7 @@ final: prev: {
       sha256 = "1g3n84bwvy2535n8xwh14j3s8n1jwvl577vigg8zsxxvhjzl878b";
     };
     meta.homepage = "https://github.com/bronson/vim-visual-star-search/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-visualstar = buildVimPlugin {
@@ -20867,7 +20865,7 @@ final: prev: {
       sha256 = "0yz6ci4i84xxrgazjfa5nsj3q8733p0b6vwcljk1l7ghdfiflvy4";
     };
     meta.homepage = "https://github.com/thinca/vim-visualstar/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vp4 = buildVimPlugin {
@@ -20880,7 +20878,7 @@ final: prev: {
       sha256 = "0hlg5akv512fw7az8inbd2z67vmhiqmaz1i818k4kc73jxl2h5h7";
     };
     meta.homepage = "https://github.com/ngemily/vim-vp4/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vsnip = buildVimPlugin {
@@ -20893,7 +20891,7 @@ final: prev: {
       sha256 = "141abjf19l2srzniyg3xd8bv7r7zb1ns3mnxpzmqhss7id3vh5mx";
     };
     meta.homepage = "https://github.com/hrsh7th/vim-vsnip/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vsnip-integ = buildVimPlugin {
@@ -20906,7 +20904,7 @@ final: prev: {
       sha256 = "1n8g9knii0y5c7gnwmndbw2c2ii5xji0i90cfdcdvrkdhfacpyha";
     };
     meta.homepage = "https://github.com/hrsh7th/vim-vsnip-integ/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vue = buildVimPlugin {
@@ -20919,7 +20917,7 @@ final: prev: {
       sha256 = "1wsvxj8fjf8rrnkhg89fdd68f91h9lllwing0h9mzdvhm1q4b309";
     };
     meta.homepage = "https://github.com/posva/vim-vue/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-vue-plugin = buildVimPlugin {
@@ -20932,7 +20930,7 @@ final: prev: {
       sha256 = "1cs77gyzvvcrlvvf31ilqzdp5qgzwbdksprn48n2jrdbi3dfl5pp";
     };
     meta.homepage = "https://github.com/leafOfTree/vim-vue-plugin/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-wakatime = buildVimPlugin {
@@ -20945,7 +20943,7 @@ final: prev: {
       sha256 = "1a07max0qrivbzgd4qaf3hrdsbpicmrb06km5glqphx9m8f63297";
     };
     meta.homepage = "https://github.com/wakatime/vim-wakatime/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-watchdogs = buildVimPlugin {
@@ -20958,7 +20956,7 @@ final: prev: {
       sha256 = "1hvgqdcnnz09afbas5brwls2sifs8y78jmq44ldgsjny9l445df4";
     };
     meta.homepage = "https://github.com/osyo-manga/vim-watchdogs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-wayland-clipboard = buildVimPlugin {
@@ -20971,7 +20969,7 @@ final: prev: {
       sha256 = "1fqb4jwkz5qi3b4fxxz00m6qj8sj8ylblqznwkmq4hqw6r8mj43m";
     };
     meta.homepage = "https://github.com/jasonccox/vim-wayland-clipboard/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-which-key = buildVimPlugin {
@@ -20984,7 +20982,7 @@ final: prev: {
       sha256 = "18x3ijp2llw3jzh7c4gj67f9371sw3w7s6r8hs0b08kwkygqfvvh";
     };
     meta.homepage = "https://github.com/liuchengxu/vim-which-key/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-windowswap = buildVimPlugin {
@@ -20997,7 +20995,7 @@ final: prev: {
       sha256 = "1zzgwxv0a4i1qlig1c3n6n9ns2fqkkv6jqc2qxcipn6v6v88sl2b";
     };
     meta.homepage = "https://github.com/wesQ3/vim-windowswap/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-wordmotion = buildVimPlugin {
@@ -21010,7 +21008,7 @@ final: prev: {
       sha256 = "1jc4kylbwp6qp84bhdx21lh45gjrqdkzjlvgi9bkdbjs1v7did6s";
     };
     meta.homepage = "https://github.com/chaoren/vim-wordmotion/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-wordy = buildVimPlugin {
@@ -21023,7 +21021,7 @@ final: prev: {
       sha256 = "13ky8zlqalbvamhjvici7nvybansfzhrk8h203ayi2s5id9dai6m";
     };
     meta.homepage = "https://github.com/preservim/vim-wordy/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-xdebug = buildVimPlugin {
@@ -21036,7 +21034,7 @@ final: prev: {
       sha256 = "1qh18r0sm4gh95sjbi2hnflvxdl4gk00jyy3n7z4i1gnx9ihxjqw";
     };
     meta.homepage = "https://github.com/joonty/vim-xdebug/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-xkbswitch = buildVimPlugin {
@@ -21049,7 +21047,7 @@ final: prev: {
       sha256 = "1v4q17wp2bifiz7pp379nizvskfy2fk87hhc4qd9fib81fvshf80";
     };
     meta.homepage = "https://github.com/lyokha/vim-xkbswitch/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-xtabline = buildVimPlugin {
@@ -21062,7 +21060,7 @@ final: prev: {
       sha256 = "0hrzwnnfdlb21wi3rj91k739v8dwi51w4llip669sw22ad0xz9la";
     };
     meta.homepage = "https://github.com/mg979/vim-xtabline/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-yaml = buildVimPlugin {
@@ -21075,7 +21073,7 @@ final: prev: {
       sha256 = "18xpdl86zsnmrc1w8wccx9acwjvgij2wpsg7f6dpnxx70c07g3ig";
     };
     meta.homepage = "https://github.com/stephpy/vim-yaml/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-yapf = buildVimPlugin {
@@ -21088,7 +21086,7 @@ final: prev: {
       sha256 = "0ncv6kjyywljsq5fz71rkmgmqxm7msyscgndnj055bnx5sh9wk80";
     };
     meta.homepage = "https://github.com/simonrw/vim-yapf/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-zettel = buildVimPlugin {
@@ -21101,7 +21099,7 @@ final: prev: {
       sha256 = "1ddiz8v03fbmw8qrhvp3bxwp08lvwrbacw15dhcqdihjkwx4jx5m";
     };
     meta.homepage = "https://github.com/michal-h21/vim-zettel/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim-zscript = buildVimPlugin {
@@ -21114,7 +21112,7 @@ final: prev: {
       sha256 = "1q619ial566gbf93d8v13njkhqx6blmcp402cpa3may4npf3qric";
     };
     meta.homepage = "https://github.com/marrub--/vim-zscript/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim2hs = buildVimPlugin {
@@ -21127,7 +21125,7 @@ final: prev: {
       sha256 = "18lqrl3hqb6cmizc04bbnsh8j0g761w2q8wascbzzfw80dmxy36b";
     };
     meta.homepage = "https://github.com/dag/vim2hs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim9-stargate = buildVimPlugin {
@@ -21140,7 +21138,7 @@ final: prev: {
       sha256 = "0hzbnzh5jyphha94phz8x9j1wv1lanf9pj7nb4010h768h5ch2zg";
     };
     meta.homepage = "https://github.com/monkoose/vim9-stargate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vim_current_word = buildVimPlugin {
@@ -21153,7 +21151,7 @@ final: prev: {
       sha256 = "0wsssqw2nbd1nl804wp0iqhhf51fw4fv67s1g4pl3vpgrl8rh5l9";
     };
     meta.homepage = "https://github.com/dominikduda/vim_current_word/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimacs = buildVimPlugin {
@@ -21166,7 +21164,7 @@ final: prev: {
       sha256 = "0x92jcpdlvxhhdpwkv7ig9ya7s96yqjy6ms9xnx8djkf12xql16f";
     };
     meta.homepage = "https://github.com/andrep/vimacs/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimade = buildVimPlugin {
@@ -21179,7 +21177,7 @@ final: prev: {
       sha256 = "16cpxgh44lv4z4lqmdvf04ynrak4frnpqyahrh6gc1zn6xg92fwx";
     };
     meta.homepage = "https://github.com/TaDaa/vimade/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimagit = buildVimPlugin {
@@ -21192,7 +21190,7 @@ final: prev: {
       sha256 = "0fxgkfyh0w78g02c3l9sgvjkmv4l9jzh15i00fw4frlm7h3sy9qy";
     };
     meta.homepage = "https://github.com/jreybert/vimagit/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimelette = buildVimPlugin {
@@ -21205,7 +21203,7 @@ final: prev: {
       sha256 = "094xyqba64dndgr5gfcqp6hy3siw90niyrrwz0avs924abss6adg";
     };
     meta.homepage = "https://github.com/gotcha/vimelette/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimfiler-vim = buildVimPlugin {
@@ -21218,7 +21216,7 @@ final: prev: {
       sha256 = "1qi8yiq270bkwhkism0ld80dab66l11zzhy7kmzvmaz2fxzglvp3";
     };
     meta.homepage = "https://github.com/Shougo/vimfiler.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimoutliner = buildVimPlugin {
@@ -21231,7 +21229,7 @@ final: prev: {
       sha256 = "0rs0w8x0wckakabz9sv836zgvvlpslvrb4xb049liryabk0w5578";
     };
     meta.homepage = "https://github.com/vimoutliner/vimoutliner/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimpreviewpandoc = buildVimPlugin {
@@ -21244,7 +21242,7 @@ final: prev: {
       sha256 = "0048rs9rvn62xzsf18nx26z26jd150pn6vbny42cwbwa0f9w6pzk";
     };
     meta.homepage = "https://github.com/tex/vimpreviewpandoc/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimproc-vim = buildVimPlugin {
@@ -21257,7 +21255,7 @@ final: prev: {
       sha256 = "06ylhf544861far7sfkyngsn6hsnfp24ha2xhzqsh0q8qww9z3wk";
     };
     meta.homepage = "https://github.com/Shougo/vimproc.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimsence = buildVimPlugin {
@@ -21270,7 +21268,7 @@ final: prev: {
       sha256 = "0ymdrv74q513ghz7cfsbs9y4qgimk5wbwizwf20dbqy2pcsq6i46";
     };
     meta.homepage = "https://github.com/vimsence/vimsence/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimshell-vim = buildVimPlugin {
@@ -21283,7 +21281,7 @@ final: prev: {
       sha256 = "0msfnmf4r1h1lsp8a5vlizm31cdv0xlyjicbaxwilxj5dr9iri9q";
     };
     meta.homepage = "https://github.com/Shougo/vimshell.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimspector = buildVimPlugin {
@@ -21297,7 +21295,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/puremourning/vimspector/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimtex = buildVimPlugin {
@@ -21310,7 +21308,7 @@ final: prev: {
       sha256 = "1ihq3l1wx7pbm6qw1gky8r51f2z08c723gvc19j1mklcg4gxgw7z";
     };
     meta.homepage = "https://github.com/lervag/vimtex/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimux = buildVimPlugin {
@@ -21323,7 +21321,7 @@ final: prev: {
       sha256 = "1q3kbi7kkhvp12l9skl263sa63zgy30hzl97jifia1llwsjjzg2p";
     };
     meta.homepage = "https://github.com/preservim/vimux/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vimwiki = buildVimPlugin {
@@ -21336,7 +21334,7 @@ final: prev: {
       sha256 = "0w4vmv4shax8wx8vr78vq5aryspmhx2h42sjh2saj85i8mjngkiv";
     };
     meta.homepage = "https://github.com/vimwiki/vimwiki/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   virt-column-nvim = buildVimPlugin {
@@ -21349,7 +21347,7 @@ final: prev: {
       sha256 = "0mlygwrsf6pc44jscq1nb17a8f7p1jv2hgg7ibrm08hqgv7y6fm3";
     };
     meta.homepage = "https://github.com/lukas-reineke/virt-column.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   virtual-types-nvim = buildVimPlugin {
@@ -21362,7 +21360,7 @@ final: prev: {
       sha256 = "14pwp5mc232wazkm405irh9zl1j3ajwpj2qf594bf6xhx3qw2fav";
     };
     meta.homepage = "https://github.com/jubnzv/virtual-types.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vis = buildVimPlugin {
@@ -21375,7 +21373,7 @@ final: prev: {
       sha256 = "1bg1d2gmln1s0324c4a2338qx729yy708f1hgk98fkgl9sk2bhdi";
     };
     meta.homepage = "https://github.com/vim-scripts/vis/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vissort-vim = buildVimPlugin {
@@ -21388,7 +21386,7 @@ final: prev: {
       sha256 = "0nd8yx99qbz3lifr9qdc5zx7bbk1nng67skirs1ixixfrki8rxi3";
     };
     meta.homepage = "https://github.com/navicore/vissort.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vista-vim = buildVimPlugin {
@@ -21401,7 +21399,7 @@ final: prev: {
       sha256 = "1gbldkajy50x70p0m5wnbd3wvpzb4b79wmgdq8m85iyf5h1phkzf";
     };
     meta.homepage = "https://github.com/liuchengxu/vista.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   visual-whitespace-nvim = buildVimPlugin {
@@ -21414,7 +21412,7 @@ final: prev: {
       sha256 = "0ivs92hr1gbz6hap9vm31gxypdjrqffv4si4hh9nxvaw2hcnmasv";
     };
     meta.homepage = "https://github.com/mcauley-penney/visual-whitespace.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vs-tasks-nvim = buildVimPlugin {
@@ -21427,7 +21425,7 @@ final: prev: {
       sha256 = "0ys3jshy8xpjhi0k6zxb2pbjm3pzdmc79h6lvggpan6w2w0ahmjd";
     };
     meta.homepage = "https://github.com/EthanJWright/vs-tasks.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   vscode-nvim = buildVimPlugin {
@@ -21440,7 +21438,7 @@ final: prev: {
       sha256 = "0w2ibwcxj4i2xa4xs7901mmkyynxs7q0754fmzj4mfhxpb6nqz9q";
     };
     meta.homepage = "https://github.com/Mofiqul/vscode.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wal-vim = buildVimPlugin {
@@ -21453,7 +21451,7 @@ final: prev: {
       sha256 = "03hrn0d6mqjlrixwx5l270jfgwgkzr6xg00h39i49j7k3f1ql078";
     };
     meta.homepage = "https://github.com/dylanaraps/wal.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   webapi-vim = buildVimPlugin {
@@ -21466,7 +21464,7 @@ final: prev: {
       sha256 = "0sqhx4h2qchihf37g5fpa3arpxrnzsfpjj34ca3sdn4db89a0c8n";
     };
     meta.homepage = "https://github.com/mattn/webapi-vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wezterm-nvim = buildVimPlugin {
@@ -21479,7 +21477,7 @@ final: prev: {
       sha256 = "16a3x84yh6p9i4h3fic59q29cbb6cwmqfx3051g9lxhh3r9dk0xb";
     };
     meta.homepage = "https://github.com/willothy/wezterm.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wgsl-vim = buildVimPlugin {
@@ -21492,7 +21490,7 @@ final: prev: {
       sha256 = "0nhzynbcq1533h22dh4l93xm476ljpq1cpz1c26bj14v2m0jbsyv";
     };
     meta.homepage = "https://github.com/DingDean/wgsl.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   which-key-nvim = buildVimPlugin {
@@ -21505,7 +21503,7 @@ final: prev: {
       sha256 = "0am4yw7lnibgc949qvbsi4a7hqdx6gk209l5vafv5bwcvd4irwxs";
     };
     meta.homepage = "https://github.com/folke/which-key.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   whichpy-nvim = buildVimPlugin {
@@ -21518,7 +21516,7 @@ final: prev: {
       sha256 = "1ilq5qh49v3agnbyrmjxzakr54b2fja9f5iy8n8540m33y790dwa";
     };
     meta.homepage = "https://github.com/neolooong/whichpy.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   whitespace-nvim = buildVimPlugin {
@@ -21531,7 +21529,7 @@ final: prev: {
       sha256 = "1b1rpz7ahcy0rzspmls6lfj133qdl8rfmams7ydhwscx3pmmyfzl";
     };
     meta.homepage = "https://github.com/johnfrankmorgan/whitespace.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wiki-ft-vim = buildVimPlugin {
@@ -21544,7 +21542,7 @@ final: prev: {
       sha256 = "1cnqczi4pkfvd3q85qjmg6jd0kjn6l5lna2mlwfj15h528mkxjaw";
     };
     meta.homepage = "https://github.com/lervag/wiki-ft.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wiki-vim = buildVimPlugin {
@@ -21557,7 +21555,7 @@ final: prev: {
       sha256 = "1ld5ffhi708jaw61x200maym9gqh5h9b1b7rxhnr69x862n1qzr0";
     };
     meta.homepage = "https://github.com/lervag/wiki.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wilder-nvim = buildVimPlugin {
@@ -21570,7 +21568,7 @@ final: prev: {
       sha256 = "01b59fn1k0p03sifihws80zjf3kch9w52bn283yk5sn3jahz1cld";
     };
     meta.homepage = "https://github.com/gelguy/wilder.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wildfire-vim = buildVimPlugin {
@@ -21583,7 +21581,7 @@ final: prev: {
       sha256 = "1m8i737dayw1fs67k1lszgs5zgfqm8krr4scp287cackgvg1kznd";
     };
     meta.homepage = "https://github.com/gcmt/wildfire.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   winbar-nvim = buildVimPlugin {
@@ -21596,7 +21594,7 @@ final: prev: {
       sha256 = "1b9zfn5fpgibgjn64a6hb8w9d0zprkm1bz050fcd1vrv9dq1s7s7";
     };
     meta.homepage = "https://github.com/fgheng/winbar.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   windows-nvim = buildVimPlugin {
@@ -21609,7 +21607,7 @@ final: prev: {
       sha256 = "0dcznmjsvh8hky76svvj523flxg10l351k0ps7zws0va87rdvz1m";
     };
     meta.homepage = "https://github.com/anuvyklack/windows.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   windsurf-nvim = buildVimPlugin {
@@ -21622,7 +21620,7 @@ final: prev: {
       sha256 = "1klbr2pi1kspzhy53a5wshqwazbxc1smggr5d8rvjpmyxmqv6rsd";
     };
     meta.homepage = "https://github.com/Exafunction/windsurf.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   windsurf-vim = buildVimPlugin {
@@ -21635,7 +21633,7 @@ final: prev: {
       sha256 = "0d2x0sly9wcbb3qrm43rim3995dk3gdr85dp7gc5nh5c9iw8yxsp";
     };
     meta.homepage = "https://github.com/Exafunction/windsurf.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   winshift-nvim = buildVimPlugin {
@@ -21648,7 +21646,7 @@ final: prev: {
       sha256 = "02qa8phsbqvm9c5h27ijf0vfaq3d3k65jz0x1xjn87cwvdly8vcr";
     };
     meta.homepage = "https://github.com/sindrets/winshift.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wmgraphviz-vim = buildVimPlugin {
@@ -21661,7 +21659,7 @@ final: prev: {
       sha256 = "12mb0lbkrzrxyawd9gg6igmsaylvsixcslim0lcgsrd551l9lq2l";
     };
     meta.homepage = "https://github.com/wannesm/wmgraphviz.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wombat256-vim = buildVimPlugin {
@@ -21674,7 +21672,7 @@ final: prev: {
       sha256 = "01fdvfwdfqn5xi88lfanb4lb6jmn1ma6wq6d9jj2x7qamdbpvsrg";
     };
     meta.homepage = "https://github.com/vim-scripts/wombat256.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   workflowish = buildVimPlugin {
@@ -21687,7 +21685,7 @@ final: prev: {
       sha256 = "044jxkcbycmmahi98qd0ynpc8baay72i45qymv4mxvl1d96fjbmd";
     };
     meta.homepage = "https://github.com/lukaszkorecki/workflowish/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wrapping-nvim = buildVimPlugin {
@@ -21700,7 +21698,7 @@ final: prev: {
       sha256 = "1krpbw8bh8nwrk0haf63kd9i5v5zp5x1qs26s3z23nay0xrvrcys";
     };
     meta.homepage = "https://github.com/andrewferrier/wrapping.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wstrip-vim = buildVimPlugin {
@@ -21713,7 +21711,7 @@ final: prev: {
       sha256 = "020bikc5482gzshjh2vgvknqxpzzzaff14z1rj6b2yvmbr2a837f";
     };
     meta.homepage = "https://github.com/tweekmonster/wstrip.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   wtf-nvim = buildVimPlugin {
@@ -21726,7 +21724,7 @@ final: prev: {
       sha256 = "0hraiw10ia93ryhfb207kha6hhhnsbmfdid6h44dsg87mkixm3c8";
     };
     meta.homepage = "https://github.com/piersolenski/wtf.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   xmake-nvim = buildVimPlugin {
@@ -21739,7 +21737,7 @@ final: prev: {
       sha256 = "0jd1pv6a3888phhr3wj44hqgh1vvjma7b79z1hpi0wz5s9w7zmpf";
     };
     meta.homepage = "https://github.com/Mythos-404/xmake.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   xptemplate = buildVimPlugin {
@@ -21752,7 +21750,7 @@ final: prev: {
       sha256 = "0y8b46kxyjf2sfqj69yklba2lcgv7b1c4y3nm2xjn2h0xifb0n0w";
     };
     meta.homepage = "https://github.com/drmingdrmer/xptemplate/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   xterm-color-table-vim = buildVimPlugin {
@@ -21765,7 +21763,7 @@ final: prev: {
       sha256 = "0kh805r4a2b5smphqrg51l884fsgmsd0rsagq7lj2xy6b68dbpdz";
     };
     meta.homepage = "https://github.com/guns/xterm-color-table.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yaml-companion-nvim = buildVimPlugin {
@@ -21778,7 +21776,7 @@ final: prev: {
       sha256 = "16115xvzzqmq8d5whjv772x2xnllly1zcql5wzpdhsf7dvqkvpp3";
     };
     meta.homepage = "https://github.com/someone-stole-my-name/yaml-companion.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yaml-schema-detect-nvim = buildVimPlugin {
@@ -21791,7 +21789,7 @@ final: prev: {
       sha256 = "1kydjk8816b2348yny3ci0dqd96syy7jsf4g577dm7d0rsskimz8";
     };
     meta.homepage = "https://github.com/cwrau/yaml-schema-detect.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yanky-nvim = buildVimPlugin {
@@ -21804,7 +21802,7 @@ final: prev: {
       sha256 = "024dw52ji4691ndkaz3k12fx6qyvhdpd2r69r9d2isy81fbs2fjm";
     };
     meta.homepage = "https://github.com/gbprod/yanky.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yats-vim = buildVimPlugin {
@@ -21818,7 +21816,7 @@ final: prev: {
       fetchSubmodules = true;
     };
     meta.homepage = "https://github.com/HerringtonDarkholme/yats.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yazi-nvim = buildVimPlugin {
@@ -21831,7 +21829,7 @@ final: prev: {
       sha256 = "1d3lk4q5ivysvjmy8pq2l39cd2sabwkh9y0iizcydaa2vdax8cyy";
     };
     meta.homepage = "https://github.com/mikavilpas/yazi.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yescapsquit-vim = buildVimPlugin {
@@ -21844,7 +21842,7 @@ final: prev: {
       sha256 = "1wqxmrzg111ri9wiri73kyyms0bg7jnny3d86bvlr8c0wrd5c2vb";
     };
     meta.homepage = "https://github.com/lucasew/yescapsquit.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   yuck-vim = buildVimPlugin {
@@ -21857,7 +21855,7 @@ final: prev: {
       sha256 = "1mkf0vd8vvw1njlczlgai80djw1n1a7dl1k940l089d3vvqr5dhp";
     };
     meta.homepage = "https://github.com/elkowar/yuck.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zarchive-vim-fsharp = buildVimPlugin {
@@ -21870,7 +21868,7 @@ final: prev: {
       sha256 = "0ds300kjhm352ni3fwivsrnc9ls021d2x29f4cdszillamcgs7pw";
     };
     meta.homepage = "https://github.com/fsharp/zarchive-vim-fsharp/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zeavim-vim = buildVimPlugin {
@@ -21883,7 +21881,7 @@ final: prev: {
       sha256 = "1qj6z0vd7y89wfwh84rndl4iz6cvilncih2fc5xgmljaarg914fs";
     };
     meta.homepage = "https://github.com/KabbAmine/zeavim.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zellij-nav-nvim = buildVimPlugin {
@@ -21896,7 +21894,7 @@ final: prev: {
       sha256 = "0acb5zfiljfiz1is98drj54mv211m8qqmxmi5acc1s2mcr56z31s";
     };
     meta.homepage = "https://github.com/swaits/zellij-nav.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zellij-nvim = buildVimPlugin {
@@ -21909,7 +21907,7 @@ final: prev: {
       sha256 = "18i6gbzi3ijhix09wjv5z297hwpnfifb3x6vn37l8352icfx3wyq";
     };
     meta.homepage = "https://github.com/Lilja/zellij.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zen-mode-nvim = buildVimPlugin {
@@ -21922,7 +21920,7 @@ final: prev: {
       sha256 = "1yfvlf6fdir7bs9avfvda5f5mc1d53fsy2xaspzpsb3yivbd11sf";
     };
     meta.homepage = "https://github.com/folke/zen-mode.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zenbones-nvim = buildVimPlugin {
@@ -21935,7 +21933,7 @@ final: prev: {
       sha256 = "1raj06j4qr0gamvjvpj109dhaxybrkcmdb271f1v42aw7v1mn9w0";
     };
     meta.homepage = "https://github.com/zenbones-theme/zenbones.nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zenburn = buildVimPlugin {
@@ -21948,7 +21946,7 @@ final: prev: {
       sha256 = "07gfrwhshps41gaq1bqyq4c64nlz9y7crslmalpp2iskgci3kkvf";
     };
     meta.homepage = "https://github.com/jnurmine/zenburn/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zephyr-nvim = buildVimPlugin {
@@ -21961,7 +21959,7 @@ final: prev: {
       sha256 = "12ichp7jmawgf1clwpd2w22a2amqlv578lnb89ppzf9hjz5kcxnb";
     };
     meta.homepage = "https://github.com/nvimdev/zephyr-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zig-vim = buildVimPlugin {
@@ -21974,7 +21972,7 @@ final: prev: {
       sha256 = "1a35b2v8w5g90cx1pk8d5mqi3byr3m0bhdhb6zx6fa1sj3j85mvd";
     };
     meta.homepage = "https://github.com/ziglang/zig.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zk-nvim = buildVimPlugin {
@@ -21987,7 +21985,7 @@ final: prev: {
       sha256 = "1fxyl3gj792li8s3kpcvsf6yxa6bbwaibrfh22jcpr0hpc5haz7s";
     };
     meta.homepage = "https://github.com/zk-org/zk-nvim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zoomwintab-vim = buildVimPlugin {
@@ -22000,7 +21998,7 @@ final: prev: {
       sha256 = "0iljm70cbmgpzraki4ccw7fhyzp467f8fr4wimzg4yam5354x1hh";
     };
     meta.homepage = "https://github.com/troydm/zoomwintab.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zotcite = buildVimPlugin {
@@ -22013,7 +22011,7 @@ final: prev: {
       sha256 = "1r2nna6grzh6l6p4ihdhfz3viynj9abncbxcjb29r97qfbcfl5mj";
     };
     meta.homepage = "https://github.com/jalvesaq/zotcite/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
 
   zoxide-vim = buildVimPlugin {
@@ -22026,7 +22024,6 @@ final: prev: {
       sha256 = "025rqfs0n2ryi7xwzpq5h2r7jhvxbrb2gjp6fqa072hapgqr0igb";
     };
     meta.homepage = "https://github.com/nanotee/zoxide.vim/";
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
   };
-
 }

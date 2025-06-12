@@ -7,7 +7,6 @@
   libvorbis,
   SDL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mp3blaster";
   version = "3.2.6";
@@ -29,10 +28,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [
-    ncurses
-    libvorbis
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin SDL;
+  buildInputs =
+    [
+      ncurses
+      libvorbis
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin SDL;
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -47,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Audio player for the text console";
     homepage = "http://www.mp3blaster.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ earldouglas ];
+    maintainers = with maintainers; [earldouglas];
     platforms = with platforms; linux ++ darwin;
   };
 }

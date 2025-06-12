@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "smbprotocol";
   version = "1.15.0";
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_recv_"
   ];
 
-  pythonImportsCheck = [ "smbprotocol" ];
+  pythonImportsCheck = ["smbprotocol"];
 
   meta = with lib; {
     description = "Python SMBv2 and v3 Client";
     homepage = "https://github.com/jborean93/smbprotocol";
     changelog = "https://github.com/jborean93/smbprotocol/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

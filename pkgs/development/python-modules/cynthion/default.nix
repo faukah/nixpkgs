@@ -2,10 +2,8 @@
   lib,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   setuptools,
-
   # dependencies
   amaranth,
   apollo-fpga,
@@ -21,7 +19,6 @@
   tabulate,
   tomli,
   tqdm,
-
   # tests
   pytestCheckHook,
 }:
@@ -70,13 +67,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cynthion" ];
+  pythonImportsCheck = ["cynthion"];
 
   meta = {
     changelog = "https://github.com/greatscottgadgets/cynthion/releases/tag/${src.tag}";
     description = "Python package and utilities for the Great Scott Gadgets Cynthion USB Test Instrument";
     homepage = "https://github.com/greatscottgadgets/cynthion";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ carlossless ];
+    maintainers = with lib.maintainers; [carlossless];
   };
 }

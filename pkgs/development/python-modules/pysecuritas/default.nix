@@ -7,7 +7,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "pysecuritas";
   version = "0.1.6";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-W3DLZCXUH9y5NPipFEu6URmKN+oVXMgeDF1rfKtxRng=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     xmltodict
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # https://github.com/Cebeerre/pysecuritas/issues/13
   doCheck = false;
 
-  pythonImportsCheck = [ "pysecuritas" ];
+  pythonImportsCheck = ["pysecuritas"];
 
   meta = with lib; {
     description = "Python client to access Securitas Direct Mobile API";
     homepage = "https://github.com/Cebeerre/pysecuritas";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pysecuritas";
   };
 }

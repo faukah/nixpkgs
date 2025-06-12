@@ -8,7 +8,6 @@
   wxGTK32,
   sox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "espeakedit";
   version = "1.48.03";

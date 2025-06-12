@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lightningcss";
   version = "1.30.1";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--lib"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Extremely fast CSS parser, transformer, and minifier written in Rust";

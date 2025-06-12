@@ -6,7 +6,6 @@
   ppx_expect,
   stdune,
 }:
-
 buildDunePackage rec {
   pname = "fiber";
   version = "3.7.0";
@@ -21,7 +20,7 @@ buildDunePackage rec {
     dyn
   ];
 
-  checkInputs = [ ppx_expect ];
+  checkInputs = [ppx_expect];
 
   # Tests are Ocaml version dependent
   # https://github.com/ocaml-dune/fiber/issues/27
@@ -30,7 +29,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Structured concurrency library";
     homepage = "https://github.com/ocaml-dune/fiber";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

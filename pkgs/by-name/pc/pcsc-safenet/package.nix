@@ -8,7 +8,6 @@
   openssl,
   pcsclite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcsc-safenet";
   version = "10.8.1050";
@@ -94,9 +93,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://safenet.gemalto.com/multi-factor-authentication/security-applications/authentication-client-token-management";
     description = "Safenet Authentication Client";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ wldhx ];
+    maintainers = with maintainers; [wldhx];
   };
 }

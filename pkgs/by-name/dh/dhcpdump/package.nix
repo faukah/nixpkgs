@@ -6,7 +6,6 @@
   installShellFiles,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dhcpdump";
   version = "1.9";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bbonev/dhcpdump";
     changelog = "https://github.com/bbonev/dhcpdump/releases/tag/v${version}";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
     license = lib.licenses.bsd2;
     mainProgram = "dhcpdump";
   };

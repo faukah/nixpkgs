@@ -21,7 +21,6 @@
   nix-update-script,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "yaak";
   version = "2025.1.2";
@@ -79,24 +78,24 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '"bootstrap:vendor-protoc": "node scripts/vendor-protoc.cjs",' ""
   '';
 
-  preBuild =
-    let
-      archPlatforms =
-        {
-          "aarch64-darwin" = "aarch64-apple-darwin";
-          "x86_64-darwin" = "x86_64-apple-darwin";
-          "aarch64-linux" = "aarch64-unknown-linux-gnu";
-          "x86_64-linux" = "x86_64-unknown-linux-gnu";
-        }
-        .${stdenv.hostPlatform.system};
-    in
-    ''
-      mkdir -p src-tauri/vendored/node
-      ln -s ${nodejs}/bin/node src-tauri/vendored/node/yaaknode-${archPlatforms}
-      mkdir -p src-tauri/vendored/protoc
-      ln -s ${protobuf}/bin/protoc src-tauri/vendored/protoc/yaakprotoc-${archPlatforms}
-      ln -s ${protobuf}/include src-tauri/vendored/protoc/include
-    '';
+  preBuild = let
+    archPlatforms =
+      {
+        "aarch64-darwin" = "aarch64-apple-darwin";
+        "x86_64-darwin" = "x86_64-apple-darwin";
+        "aarch64-linux" = "aarch64-unknown-linux-gnu";
+        "x86_64-linux" = "x86_64-unknown-linux-gnu";
+      }
+        .${
+        stdenv.hostPlatform.system
+      };
+  in ''
+    mkdir -p src-tauri/vendored/node
+    ln -s ${nodejs}/bin/node src-tauri/vendored/node/yaaknode-${archPlatforms}
+    mkdir -p src-tauri/vendored/protoc
+    ln -s ${protobuf}/bin/protoc src-tauri/vendored/protoc/yaakprotoc-${archPlatforms}
+    ln -s ${protobuf}/include src-tauri/vendored/protoc/include
+  '';
 
   # Permission denied (os error 13)
   # write to src-tauri/vendored/protoc/include
@@ -112,14 +111,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --set-default WEBKIT_DISABLE_DMABUF_RENDERER 1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Desktop API client for organizing and executing REST, GraphQL, and gRPC requests";
     homepage = "https://yaak.app/";
     changelog = "https://github.com/mountain-loop/yaak/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ redyf ];
+    maintainers = with lib.maintainers; [redyf];
     mainProgram = "yaak";
     platforms = [
       "x86_64-linux"

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "graphite-cursors";
   version = "2021-11-26";
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vinceliuice/Graphite-cursors";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ oluceps ];
+    maintainers = with maintainers; [oluceps];
   };
 }

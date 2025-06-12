@@ -5,7 +5,6 @@
   cmake,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "3.4.3";
   pname = "laszip";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://laszip.org";
     changelog = "https://github.com/LASzip/LASzip/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.lgpl2;
-    maintainers = [ lib.maintainers.michelk ];
+    maintainers = [lib.maintainers.michelk];
     platforms = lib.platforms.unix;
   };
 })

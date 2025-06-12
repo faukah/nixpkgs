@@ -5,7 +5,6 @@
   postgresqlTestHook,
   postgresql,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "reshape";
   version = "0.7.0";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/fabianlindfors/reshape";
     changelog = "https://github.com/fabianlindfors/reshape/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ilyakooo0 ];
+    maintainers = with lib.maintainers; [ilyakooo0];
   };
 }

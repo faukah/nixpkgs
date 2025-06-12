@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "gemfileparser2";
   version = "0.9.4";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gemfileparser2" ];
+  pythonImportsCheck = ["gemfileparser2"];
 
   meta = with lib; {
     description = "Library to parse Rubygem gemspec and Gemfile files";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
       mit # or
       gpl3Plus
     ];
-    maintainers = with maintainers; [ harvidsen ];
+    maintainers = with maintainers; [harvidsen];
   };
 }

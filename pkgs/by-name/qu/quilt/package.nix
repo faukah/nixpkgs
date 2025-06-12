@@ -15,9 +15,7 @@
   perl,
   unixtools,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "quilt";
   version = "0.69";
 
@@ -26,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VV3f/eIto8htHK9anB+4oVKsK4RzBDe9OcwIhJyfSFI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     bash
@@ -67,8 +65,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ smancill ];
+    maintainers = with maintainers; [smancill];
     platforms = platforms.all;
   };
-
 }

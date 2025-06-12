@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
   wheel,
-
   # dependencies
   typing-extensions,
-
   # checks
   pytestCheckHook,
   pytest-mpl,
   pytest-subtests,
 }:
-
 buildPythonPackage rec {
   pname = "flexcache";
   version = "0.3";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,13 +39,13 @@ buildPythonPackage rec {
     pytest-subtests
   ];
 
-  pythonImportsCheck = [ "flexcache" ];
+  pythonImportsCheck = ["flexcache"];
 
   meta = with lib; {
     description = "An robust and extensible package to cache on disk the result of expensive calculations";
     homepage = "https://github.com/hgrecco/flexcache";
     changelog = "https://github.com/hgrecco/flexcache/blob/${src.rev}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

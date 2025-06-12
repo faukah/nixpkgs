@@ -33,48 +33,46 @@ stdenv.mkDerivation rec {
   };
 
   # Extract Intel-provided, pre-built enclaves and libs.
-  postUnpack =
-    let
-      # Fetch the pre-built, Intel-signed Architectural Enclaves (AE). They help
-      # run user application enclaves, verify launch policies, produce remote
-      # attestation quotes, and do platform certification.
-      ae.prebuilt = fetchurl {
-        url = "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz";
-        hash = "sha256-Hlh96rYOyml2y50d8ASKz6U97Fl0hbGYECeZiG9nMSQ=";
+  postUnpack = let
+    # Fetch the pre-built, Intel-signed Architectural Enclaves (AE). They help
+    # run user application enclaves, verify launch policies, produce remote
+    # attestation quotes, and do platform certification.
+    ae.prebuilt = fetchurl {
+      url = "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/prebuilt_ae_${versionTag}.tar.gz";
+      hash = "sha256-Hlh96rYOyml2y50d8ASKz6U97Fl0hbGYECeZiG9nMSQ=";
+    };
+
+    # Pre-built ipp-crypto with mitigations.
+    optlib.prebuilt = fetchurl {
+      url = "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/optimized_libs_${versionTag}.tar.gz";
+      hash = "sha256-7mDTaLtpOQLHQ6Fv+FWJ2k/veJZPXIcuj7kOdRtRqhg=";
+    };
+
+    # Fetch the Data Center Attestation Primitives (DCAP) platform enclaves
+    # and pre-built sgxssl.
+    dcap = rec {
+      version = "1.22";
+      filename = "prebuilt_dcap_${version}.tar.gz";
+      prebuilt = fetchurl {
+        url = "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}";
+        hash = "sha256-RTpJQ6epoAN8YQXSJUjJQ5mPaQIiQpStTWFsnspjjDQ=";
       };
+    };
+  in ''
+    # Make sure this is the right version of linux-sgx
+    grep -q '"${version}"' "$src/common/inc/internal/se_version.h" \
+      || (echo "Could not find expected version ${version} in linux-sgx source" >&2 && exit 1)
 
-      # Pre-built ipp-crypto with mitigations.
-      optlib.prebuilt = fetchurl {
-        url = "https://download.01.org/intel-sgx/sgx-linux/${versionTag}/optimized_libs_${versionTag}.tar.gz";
-        hash = "sha256-7mDTaLtpOQLHQ6Fv+FWJ2k/veJZPXIcuj7kOdRtRqhg=";
-      };
+    tar -xzvf ${ae.prebuilt}     -C $sourceRoot/
+    tar -xzvf ${optlib.prebuilt} -C $sourceRoot/
 
-      # Fetch the Data Center Attestation Primitives (DCAP) platform enclaves
-      # and pre-built sgxssl.
-      dcap = rec {
-        version = "1.22";
-        filename = "prebuilt_dcap_${version}.tar.gz";
-        prebuilt = fetchurl {
-          url = "https://download.01.org/intel-sgx/sgx-dcap/${version}/linux/${filename}";
-          hash = "sha256-RTpJQ6epoAN8YQXSJUjJQ5mPaQIiQpStTWFsnspjjDQ=";
-        };
-      };
-    in
-    ''
-      # Make sure this is the right version of linux-sgx
-      grep -q '"${version}"' "$src/common/inc/internal/se_version.h" \
-        || (echo "Could not find expected version ${version} in linux-sgx source" >&2 && exit 1)
+    # Make sure we use the correct version of prebuilt DCAP
+    grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
+      || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
 
-      tar -xzvf ${ae.prebuilt}     -C $sourceRoot/
-      tar -xzvf ${optlib.prebuilt} -C $sourceRoot/
-
-      # Make sure we use the correct version of prebuilt DCAP
-      grep -q 'ae_file_name=${dcap.filename}' "$src/external/dcap_source/QuoteGeneration/download_prebuilt.sh" \
-        || (echo "Could not find expected prebuilt DCAP ${dcap.filename} in linux-sgx source" >&2 && exit 1)
-
-      tar -xzvf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source ./prebuilt/
-      tar -xzvf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration ./psw/
-    '';
+    tar -xzvf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source ./prebuilt/
+    tar -xzvf ${dcap.prebuilt} -C $sourceRoot/external/dcap_source/QuoteGeneration ./psw/
+  '';
 
   patches = [
     # There's a `make preparation` step that downloads some prebuilt binaries
@@ -92,43 +90,41 @@ stdenv.mkDerivation rec {
     ./cppmicroservices-no-mtime.patch
   ];
 
-  postPatch =
-    let
-      # The base directories we want to copy headers from. The exact headers are
-      # parsed from <linux/installer/common/sdk/BOMs/sdk_base.txt>
-      bomDirsToCopyFrom = builtins.concatStringsSep "|" [
-        "common/"
-        "external/dcap_source/"
-        "external/ippcp_internal/"
-        "external/sgx-emm/"
-        "psw/"
-        "sdk/tlibcxx/"
-      ];
-    in
-    ''
-      patchShebangs \
-        external/sgx-emm/create_symlink.sh \
-        linux/installer/bin/build-installpkg.sh \
-        linux/installer/common/psw/createTarball.sh \
-        linux/installer/common/psw/install.sh
+  postPatch = let
+    # The base directories we want to copy headers from. The exact headers are
+    # parsed from <linux/installer/common/sdk/BOMs/sdk_base.txt>
+    bomDirsToCopyFrom = builtins.concatStringsSep "|" [
+      "common/"
+      "external/dcap_source/"
+      "external/ippcp_internal/"
+      "external/sgx-emm/"
+      "psw/"
+      "sdk/tlibcxx/"
+    ];
+  in ''
+    patchShebangs \
+      external/sgx-emm/create_symlink.sh \
+      linux/installer/bin/build-installpkg.sh \
+      linux/installer/common/psw/createTarball.sh \
+      linux/installer/common/psw/install.sh
 
-      # Run sgx-sdk preparation step
-      make preparation
+    # Run sgx-sdk preparation step
+    make preparation
 
-      # Build a fake SGX_SDK directory. Normally sgx-psw depends on first building
-      # all of sgx-sdk, however we can actually build them independently by just
-      # copying a few header files and building `sgx_edger8r` separately.
-      mkdir .sgxsdk
-      export SGX_SDK="$(readlink -f .sgxsdk)"
+    # Build a fake SGX_SDK directory. Normally sgx-psw depends on first building
+    # all of sgx-sdk, however we can actually build them independently by just
+    # copying a few header files and building `sgx_edger8r` separately.
+    mkdir .sgxsdk
+    export SGX_SDK="$(readlink -f .sgxsdk)"
 
-      # Parse the BOM for the headers we need, then copy them into SGX_SDK
-      # Each line in the BOM.txt looks like:
-      # <deliverydir>/...\t<installdir>/package/...\t....
-      # TODO(phlip9): hardlink?
-      sed -n -r 's:^<deliverydir>/(${bomDirsToCopyFrom})(\S+)\s<installdir>/package/(\S+)\s.*$:\1\2\n.sgxsdk/\3:p' \
-        < linux/installer/common/sdk/BOMs/sdk_base.txt \
-        | xargs --max-args=2 install -v -D
-    '';
+    # Parse the BOM for the headers we need, then copy them into SGX_SDK
+    # Each line in the BOM.txt looks like:
+    # <deliverydir>/...\t<installdir>/package/...\t....
+    # TODO(phlip9): hardlink?
+    sed -n -r 's:^<deliverydir>/(${bomDirsToCopyFrom})(\S+)\s<installdir>/package/(\S+)\s.*$:\1\2\n.sgxsdk/\3:p' \
+      < linux/installer/common/sdk/BOMs/sdk_base.txt \
+      | xargs --max-args=2 install -v -D
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -163,7 +159,7 @@ stdenv.mkDerivation rec {
     ln -s $build_dir $SGX_SDK/lib64
   '';
 
-  buildFlags = [ "psw_install_pkg" ] ++ lib.optionals debug [ "DEBUG=1" ];
+  buildFlags = ["psw_install_pkg"] ++ lib.optionals debug ["DEBUG=1"];
 
   installFlags = [
     "-C linux/installer/common/psw/output"
@@ -215,7 +211,7 @@ stdenv.mkDerivation rec {
 
     mkdir $out/bin
     makeWrapper $out/aesm/aesm_service $out/bin/aesm_service \
-      --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ protobuf ]}:$out/aesm \
+      --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [protobuf]}:$out/aesm \
       --chdir "$out/aesm"
 
     # Make sure we didn't forget to handle any files
@@ -269,7 +265,7 @@ stdenv.mkDerivation rec {
       veehaitch
       citadelcore
     ];
-    platforms = [ "x86_64-linux" ];
-    license = [ lib.licenses.bsd3 ];
+    platforms = ["x86_64-linux"];
+    license = [lib.licenses.bsd3];
   };
 }

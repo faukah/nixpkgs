@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromSourcehut,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wayout";
   version = "1.1.3";
@@ -22,9 +21,8 @@ rustPlatform.buildRustPackage rec {
     description = "Simple output management tool for wlroots based compositors implementing";
     homepage = "https://git.sr.ht/~shinyzenith/wayout";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
     mainProgram = "wayout";
   };
-
 }

@@ -17,7 +17,6 @@
   stestr,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "python-zunclient";
   version = "5.2.1";
@@ -44,11 +43,11 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   # python-openstackclient is unused upstream
   # and will cause infinite recursion in openstackclient-full package.
-  pythonRemoveDeps = [ "python-openstackclient" ];
+  pythonRemoveDeps = ["python-openstackclient"];
 
   dependencies = [
     docker
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  nativeCheckInputs = [ stestr ];
+  nativeCheckInputs = [stestr];
 
   checkPhase = ''
     runHook preCheck
@@ -80,13 +79,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "zunclient" ];
+  pythonImportsCheck = ["zunclient"];
 
   meta = {
     homepage = "https://github.com/openstack/python-zunclient";
     description = "Client library for OpenStack Zun API";
     license = lib.licenses.asl20;
     mainProgram = "zun";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

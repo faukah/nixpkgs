@@ -5,14 +5,15 @@
   fetchurl,
   lib,
   # This is only relevant for Linux, so we need to pass it through
-  polkitPolicyOwners ? [ ],
-}:
-
-let
+  polkitPolicyOwners ? [],
+}: let
   pname = "1password";
 
   versions = builtins.fromJSON (builtins.readFile ./versions.json);
-  hostOs = if stdenv.hostPlatform.isLinux then "linux" else "darwin";
+  hostOs =
+    if stdenv.hostPlatform.isLinux
+    then "linux"
+    else "darwin";
   version = versions."${channel}-${hostOs}" or (throw "unknown channel-os ${channel}-${hostOs}");
 
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
@@ -28,7 +29,7 @@ let
   meta = {
     description = "Multi-platform password manager";
     homepage = "https://1password.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
       khaneliman
@@ -40,24 +41,24 @@ let
     platforms = builtins.attrNames sources.${channel};
     mainProgram = "1password";
   };
-
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      polkitPolicyOwners
-      ;
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        polkitPolicyOwners
+        ;
+    }

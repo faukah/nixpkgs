@@ -6,11 +6,11 @@
   versionCheckHook,
   wrapGAppsHook3,
 }:
-
 buildGoModule rec {
   pname = "cbconvert-gui";
 
-  inherit (cbconvert)
+  inherit
+    (cbconvert)
     patches
     src
     tags
@@ -21,7 +21,7 @@ buildGoModule rec {
     pkg-config
     wrapGAppsHook3
   ];
-  buildInputs = cbconvert.buildInputs ++ [ gtk3 ];
+  buildInputs = cbconvert.buildInputs ++ [gtk3];
 
   vendorHash = "sha256-oMW5zfAw2VQSVaB+Z1pE51OtNIFr+PnRMM+oBYNLWxk=";
   modRoot = "cmd/cbconvert-gui";
@@ -40,10 +40,12 @@ buildGoModule rec {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
-  meta = cbconvert.meta // {
-    mainProgram = "cbconvert-gui";
-  };
+  meta =
+    cbconvert.meta
+    // {
+      mainProgram = "cbconvert-gui";
+    };
 }

@@ -6,7 +6,6 @@
   automake,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "foomatic-db-nonfree";
   version = "0-unstable-2015-06-05";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://www.openprinting.org/download/foomatic/";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     # list printer manufacturers here so people
     # searching for ppd files can find this package
     longDescription = ''

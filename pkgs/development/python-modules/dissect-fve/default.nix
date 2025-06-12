@@ -12,7 +12,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-fve";
   version = "4.1";
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "dissect.fve" ];
+  pythonImportsCheck = ["dissect.fve"];
 
   meta = with lib; {
     description = "Dissect module implementing parsers for full volume encryption implementations";
     homepage = "https://github.com/fox-it/dissect.fve";
     changelog = "https://github.com/fox-it/dissect.fve/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

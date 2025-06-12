@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "numbat";
   version = "1.16.0";
@@ -35,11 +34,11 @@ rustPlatform.buildRustPackage rec {
     export TZDIR=${tzdata}/share/zoneinfo
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "High precision scientific calculator with full support for physical units";

@@ -45,13 +45,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-gg6KrcQz7MdIgFdlbuGiDf/tVd7lSOjwXFIq56tpaTc=";
   };
 
-  nativeBuildInputs = [
-    nodejs
-    yarn
-    typescript
-    fixup-yarn-lock
-    makeWrapper
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ copyDesktopItems ];
+  nativeBuildInputs =
+    [
+      nodejs
+      yarn
+      typescript
+      fixup-yarn-lock
+      makeWrapper
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [copyDesktopItems];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
@@ -173,7 +175,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/thomasnordquist/MQTT-Explorer";
     changelog = "https://github.com/thomasnordquist/MQTT-Explorer/releases/tag/v${version}";
     license = lib.licenses.cc-by-nd-40;
-    maintainers = with lib.maintainers; [ tsandrini ];
+    maintainers = with lib.maintainers; [tsandrini];
     platforms = electron.meta.platforms;
     mainProgram = "mqtt-explorer";
   };

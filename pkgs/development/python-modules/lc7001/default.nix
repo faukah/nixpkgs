@@ -7,7 +7,6 @@
   poetry-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lc7001";
   version = "1.0.5";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "lc7001" ];
+  pythonImportsCheck = ["lc7001"];
 
   meta = with lib; {
     description = "Python module for interacting with Legrand LC7001";
     homepage = "https://github.com/rtyle/lc7001";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

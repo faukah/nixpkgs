@@ -10,7 +10,6 @@
   xcursorgen,
   librsvg,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "elementary-icon-theme";
   version = "8.1.0";
@@ -44,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
   postFixup = "gtk-update-icon-cache $out/share/icons/elementary";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -55,6 +54,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/elementary/icons";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

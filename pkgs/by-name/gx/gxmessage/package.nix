@@ -7,7 +7,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gxmessage";
   version = "3.4.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "GTK enabled dropin replacement for xmessage";
     homepage = "https://trmusson.dreamhosters.com/programs.html#gxmessage";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
     mainProgram = "gxmessage";
   };

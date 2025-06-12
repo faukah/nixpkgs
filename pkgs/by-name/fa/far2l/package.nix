@@ -23,7 +23,6 @@
   wxGTK32,
   withUCD ? true,
   libuchardet,
-
   # Plugins
   withColorer ? true,
   spdlog,
@@ -40,7 +39,6 @@
   withPython ? false,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "far2l";
   version = "2.6.3";
@@ -81,8 +79,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (withNetRocks && !stdenv.hostPlatform.isDarwin) samba # broken on darwin
     ++ lib.optionals withPython (
-      with python3Packages;
-      [
+      with python3Packages; [
         python
         cffi
         debugpy
@@ -124,14 +121,14 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/far2l \
       --argv0 $out/bin/far2l \
       --prefix PATH : ${lib.makeBinPath runtimeDeps} \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
   meta = with lib; {
     description = "Linux port of FAR Manager v2, a program for managing files and archives in Windows operating systems";
     homepage = "https://github.com/elfmz/far2l";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hypersw ];
+    maintainers = with maintainers; [hypersw];
     platforms = platforms.unix;
   };
 }

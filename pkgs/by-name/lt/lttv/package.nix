@@ -9,7 +9,6 @@
   popt,
   babeltrace,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lttv";
   version = "1.5";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk2
@@ -46,7 +45,6 @@ stdenv.mkDerivation rec {
       lgpl21
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
-
 }

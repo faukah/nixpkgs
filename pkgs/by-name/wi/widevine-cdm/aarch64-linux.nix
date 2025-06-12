@@ -6,7 +6,6 @@
   squashfsTools,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "widevine-cdm";
   version = "${finalAttrs.lacrosVersion}-${builtins.substring 0 7 finalAttrs.widevineInstaller.rev}";

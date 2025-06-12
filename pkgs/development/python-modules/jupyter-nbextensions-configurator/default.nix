@@ -11,7 +11,6 @@
   pytestCheckHook,
   selenium,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-nbextensions-configurator";
   version = "0.6.4";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     "tests/test_nbextensions_configurator.py"
   ];
 
-  pythonImportsCheck = [ "jupyter_nbextensions_configurator" ];
+  pythonImportsCheck = ["jupyter_nbextensions_configurator"];
 
   meta = {
     description = "Jupyter notebook serverextension providing config interfaces for nbextensions";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyter-contrib/jupyter_nbextensions_configurator";
     changelog = "https://github.com/Jupyter-contrib/jupyter_nbextensions_configurator/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

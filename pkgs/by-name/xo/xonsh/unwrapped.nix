@@ -2,12 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   ply,
   prompt-toolkit,
   pygments,
-
   addBinToPathHook,
   writableTmpDirAsHomeHook,
   gitMinimal,
@@ -18,14 +16,11 @@
   pytest-subprocess,
   pytestCheckHook,
   requests,
-
   coreutils,
-
   nix-update-script,
   python,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "xonsh";
   version = "0.19.4";
@@ -123,16 +118,16 @@ buildPythonPackage rec {
     inherit python;
     shellPath = "/bin/xonsh";
     wrapper = throw "The top-level xonsh package is now wrapped. Use it directly.";
-    updateScript = nix-update-script { };
-    xontribs = import ./xontribs { inherit callPackage; };
+    updateScript = nix-update-script {};
+    xontribs = import ./xontribs {inherit callPackage;};
   };
 
   meta = {
     homepage = "https://xon.sh/";
     description = "Python-ish, BASHwards-compatible shell";
     changelog = "https://github.com/xonsh/xonsh/raw/main/CHANGELOG.rst";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     mainProgram = "xonsh";
-    maintainers = with lib.maintainers; [ samlukeyes123 ];
+    maintainers = with lib.maintainers; [samlukeyes123];
   };
 }

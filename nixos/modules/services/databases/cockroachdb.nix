@@ -4,8 +4,7 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.cockroachdb;
   crdb = cfg.package;
 
@@ -28,7 +27,11 @@ let
       "--max-sql-memory=${cfg.maxSqlMemory}"
 
       # Certificate/security settings.
-      (if cfg.insecure then "--insecure" else "--certs-dir=${cfg.certsDir}")
+      (
+        if cfg.insecure
+        then "--insecure"
+        else "--certs-dir=${cfg.certsDir}"
+      )
     ]
     ++ lib.optional (cfg.join != null) "--join=${cfg.join}"
     ++ lib.optional (cfg.locality != null) "--locality=${cfg.locality}"
@@ -48,9 +51,7 @@ let
       description = "Port to bind to for ${descr}";
     };
   };
-in
-
-{
+in {
   options = {
     services.cockroachdb = {
       enable = lib.mkEnableOption "CockroachDB Server";
@@ -159,7 +160,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "--advertise-addr"
           "[fe80::f6f2:::]"
@@ -180,7 +181,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ crdb ];
+    environment.systemPackages = [crdb];
 
     users.users = lib.optionalAttrs (cfg.user == "cockroachdb") {
       cockroachdb = {
@@ -210,8 +211,8 @@ in
         "network.target"
         "time-sync.target"
       ];
-      requires = [ "time-sync.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["time-sync.target"];
+      wantedBy = ["multi-user.target"];
 
       unitConfig.RequiresMountsFor = "/var/lib/cockroachdb";
 
@@ -232,5 +233,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+  meta.maintainers = with lib.maintainers; [thoughtpolice];
 }

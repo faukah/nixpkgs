@@ -17,7 +17,6 @@
   crcmod,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "liquidctl";
   version = "1.15.0";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  propagatedNativeBuildInputs = [ smbus-cffi ];
+  propagatedNativeBuildInputs = [smbus-cffi];
 
   outputs = [
     "out"
@@ -65,14 +64,14 @@ buildPythonPackage rec {
     cp extra/linux/71-liquidctl.rules $out/lib/udev/rules.d/.
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postBuild = ''
     # needed for pythonImportsCheck
     export XDG_RUNTIME_DIR=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "liquidctl" ];
+  pythonImportsCheck = ["liquidctl"];
 
   meta = with lib; {
     description = "Cross-platform CLI and Python drivers for AIO liquid coolers and other devices";

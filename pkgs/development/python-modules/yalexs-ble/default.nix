@@ -14,7 +14,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "yalexs-ble";
   version = "3.0.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-sHAdeL3mUUsKqRkv9suA3mfbwJvMADpMqt1Qu5lITnQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     async-interrupt
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "yalexs_ble" ];
+  pythonImportsCheck = ["yalexs_ble"];
 
   meta = with lib; {
     description = "Library for Yale BLE devices";
     homepage = "https://github.com/bdraco/yalexs-ble";
     changelog = "https://github.com/bdraco/yalexs-ble/blob/${src.tag}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

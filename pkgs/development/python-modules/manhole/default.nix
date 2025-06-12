@@ -6,7 +6,6 @@
   requests,
   process-tests,
 }:
-
 buildPythonPackage rec {
   pname = "manhole";
   version = "1.8.1";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Debugging manhole for Python applications";
     mainProgram = "manhole-cli";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
   };
 }

@@ -13,7 +13,6 @@
   gdk-pixbuf,
   scdoc,
 }:
-
 stdenv.mkDerivation {
   pname = "waylogout";
   version = "unstable-2023-06-09";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     description = "Graphical logout/suspend/reboot/shutdown dialog for wayland";
     homepage = "https://github.com/loserMcloser/waylogout";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     platforms = platforms.linux;
     mainProgram = "waylogout";
   };

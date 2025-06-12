@@ -6,7 +6,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mpvc";
   version = "1.4-unstable-2024-07-09";
@@ -18,18 +17,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/M3xOb0trUaxJGXmV2+sOCbrHGyP4jpyo+S/oBoDkO0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ socat ];
+  buildInputs = [socat];
 
   outputs = [
     "out"
     "doc"
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   strictDeps = true;
 
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Mpc-like control interface for mpv";
     license = lib.licenses.mit;
     mainProgram = "mpvc";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -16,14 +15,11 @@ let
     types
     ;
 
-  associationOptions =
-    with types;
+  associationOptions = with types;
     attrsOf (coercedTo (either (listOf str) str) (x: lib.concatStringsSep ";" (lib.toList x)) str);
-in
-
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "flatpak" "extraPortals" ] [ "xdg" "portal" "extraPortals" ])
+    (mkRenamedOptionModule ["services" "flatpak" "extraPortals"] ["xdg" "portal" "extraPortals"])
     (mkRemovedOptionModule [
       "xdg"
       "portal"
@@ -44,7 +40,7 @@ in
 
     extraPortals = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = ''
         List of additional portals to add to path. Portals allow interaction
         with system, like choosing files or taking screenshots. At minimum,
@@ -68,7 +64,7 @@ in
 
     config = mkOption {
       type = types.attrsOf associationOptions;
-      default = { };
+      default = {};
       example = {
         x-cinnamon = {
           default = [
@@ -81,10 +77,10 @@ in
             "pantheon"
             "gtk"
           ];
-          "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+          "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
         };
         common = {
-          default = [ "gtk" ];
+          default = ["gtk"];
         };
       };
       description = ''
@@ -99,7 +95,7 @@ in
 
     configPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression "[ pkgs.gnome-session ]";
       description = ''
         List of packages that provide XDG desktop portal configuration, usually in
@@ -110,13 +106,12 @@ in
     };
   };
 
-  config =
-    let
-      cfg = config.xdg.portal;
-      packages = [ pkgs.xdg-desktop-portal ] ++ cfg.extraPortals;
-    in
+  config = let
+    cfg = config.xdg.portal;
+    packages = [pkgs.xdg-desktop-portal] ++ cfg.extraPortals;
+  in
     mkIf cfg.enable {
-      warnings = lib.optional (cfg.configPackages == [ ] && cfg.config == { }) ''
+      warnings = lib.optional (cfg.configPackages == [] && cfg.config == {}) ''
         xdg-desktop-portal 1.17 reworked how portal implementations are loaded, you
         should either set `xdg.portal.config` or `xdg.portal.configPackages`
         to specify which portal backend to use for the requested interface.
@@ -131,7 +126,7 @@ in
 
       assertions = [
         {
-          assertion = cfg.extraPortals != [ ];
+          assertion = cfg.extraPortals != [];
           message = "Setting xdg.portal.enable to true requires a portal implementation in xdg.portal.extraPortals such as xdg-desktop-portal-gtk or xdg-desktop-portal-kde.";
         }
       ];
@@ -153,15 +148,17 @@ in
           NIX_XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
         };
 
-        etc = lib.concatMapAttrs (
-          desktop: conf:
-          lib.optionalAttrs (conf != { }) {
-            "xdg/xdg-desktop-portal/${
-              lib.optionalString (desktop != "common") "${desktop}-"
-            }portals.conf".text =
-              lib.generators.toINI { } { preferred = conf; };
-          }
-        ) cfg.config;
+        etc =
+          lib.concatMapAttrs (
+            desktop: conf:
+              lib.optionalAttrs (conf != {}) {
+                "xdg/xdg-desktop-portal/${
+                  lib.optionalString (desktop != "common") "${desktop}-"
+                }portals.conf".text =
+                  lib.generators.toINI {} {preferred = conf;};
+              }
+          )
+          cfg.config;
       };
     };
 }

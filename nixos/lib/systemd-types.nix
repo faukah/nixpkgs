@@ -2,10 +2,9 @@
   lib,
   systemdUtils,
   pkgs,
-}:
-
-let
-  inherit (systemdUtils.lib)
+}: let
+  inherit
+    (systemdUtils.lib)
     automountConfig
     makeUnit
     mountConfig
@@ -19,7 +18,8 @@ let
     unitConfig
     ;
 
-  inherit (systemdUtils.unitOptions)
+  inherit
+    (systemdUtils.unitOptions)
     concreteUnitOptions
     stage1AutomountOptions
     stage1CommonUnitOptions
@@ -39,7 +39,8 @@ let
     stage2TimerOptions
     ;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkDefault
     mkDerivedConfig
     mkEnableOption
@@ -47,7 +48,8 @@ let
     mkOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     coercedTo
     enum
@@ -61,64 +63,64 @@ let
     submodule
     ;
 
-  initrdStorePathModule =
-    { config, ... }:
-    {
-      options = {
-        enable = (mkEnableOption "copying of this file and symlinking it") // {
+  initrdStorePathModule = {config, ...}: {
+    options = {
+      enable =
+        (mkEnableOption "copying of this file and symlinking it")
+        // {
           default = true;
         };
 
-        target = mkOption {
-          type = nullOr path;
+      target = mkOption {
+        type = nullOr path;
+        description = ''
+          Path of the symlink.
+        '';
+        default = null;
+      };
+
+      source = mkOption {
+        type = path;
+        description = "Path of the source file.";
+      };
+
+      dlopen = {
+        usePriority = mkOption {
+          type = enum [
+            "required"
+            "recommended"
+            "suggested"
+          ];
+          default = "recommended";
           description = ''
-            Path of the symlink.
+            Priority of dlopen ELF notes to include. "required" is
+            minimal, "recommended" includes "required", and
+            "suggested" includes "recommended".
+
+            See: https://systemd.io/ELF_DLOPEN_METADATA/
           '';
-          default = null;
         };
 
-        source = mkOption {
-          type = path;
-          description = "Path of the source file.";
-        };
-
-        dlopen = {
-          usePriority = mkOption {
-            type = enum [
-              "required"
-              "recommended"
-              "suggested"
-            ];
-            default = "recommended";
-            description = ''
-              Priority of dlopen ELF notes to include. "required" is
-              minimal, "recommended" includes "required", and
-              "suggested" includes "recommended".
-
-              See: https://systemd.io/ELF_DLOPEN_METADATA/
-            '';
-          };
-
-          features = mkOption {
-            type = listOf singleLineStr;
-            default = [ ];
-            description = ''
-              Features to enable via dlopen ELF notes. These will be in
-              addition to anything included via 'usePriority',
-              regardless of their priority.
-            '';
-          };
+        features = mkOption {
+          type = listOf singleLineStr;
+          default = [];
+          description = ''
+            Features to enable via dlopen ELF notes. These will be in
+            addition to anything included via 'usePriority',
+            regardless of their priority.
+          '';
         };
       };
     };
-
-in
-
-{
+  };
+in {
   units = attrsOf (
     submodule (
-      { name, config, ... }:
       {
+        name,
+        config,
+        ...
+      }: {
         options = concreteUnitOptions;
         config = {
           name = mkDefault name;
@@ -220,7 +222,7 @@ in
     coercedTo (oneOf [
       singleLineStr
       package
-    ]) (source: { inherit source; }) (submodule initrdStorePathModule)
+    ]) (source: {inherit source;}) (submodule initrdStorePathModule)
   );
 
   initrdContents = attrsOf (
@@ -230,9 +232,8 @@ in
         options,
         name,
         ...
-      }:
-      {
-        imports = [ initrdStorePathModule ];
+      }: {
+        imports = [initrdStorePathModule];
         options = {
           text = mkOption {
             default = null;
@@ -247,7 +248,7 @@ in
             let
               name' = "initrd-" + baseNameOf name;
             in
-            mkDerivedConfig options.text (pkgs.writeText name')
+              mkDerivedConfig options.text (pkgs.writeText name')
           );
         };
       }

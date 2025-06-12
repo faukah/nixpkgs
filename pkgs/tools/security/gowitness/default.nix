@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gowitness";
   version = "3.0.5";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/sensepost/gowitness";
     changelog = "https://github.com/sensepost/gowitness/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "gowitness";
   };
 }

@@ -8,7 +8,6 @@
   qtwebsockets,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qcoro";
   version = "0.12.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Library for using C++20 coroutines in connection with certain asynchronous Qt actions";
     homepage = "https://github.com/danvratil/qcoro";
     license = licenses.mit;
-    maintainers = with maintainers; [ smitop ];
+    maintainers = with maintainers; [smitop];
     platforms = platforms.linux;
   };
 }

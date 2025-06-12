@@ -7,7 +7,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ionhash";
   version = "1.2.1";
@@ -37,15 +36,15 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ionhash" ];
+  pythonImportsCheck = ["ionhash"];
 
   meta = with lib; {
     description = "Python implementation of Amazon Ion Hash";
     homepage = "https://github.com/amzn/ion-hash-python";
     license = licenses.asl20;
-    maintainers = [ maintainers.terlar ];
+    maintainers = [maintainers.terlar];
     broken = true; # last successful build 2023-09-28
   };
 }

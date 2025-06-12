@@ -16,7 +16,6 @@
   check,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsignon-glib";
   version = "2.1";
@@ -65,14 +64,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Library for managing single signon credentials which can be used from GLib applications";
     homepage = "https://gitlab.com/accounts-sso/libsignon-glib";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "worker";
   version = "5.2.1";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xlWeCOOPXlm71nWP/Uq9i1xswWOgzX0xmkwZwmMWTl0=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   outputs = [
     "out"
@@ -34,9 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
       directories by using history of accessed directories, live filtering, and
       access to commands by using the keyboard.
     '';
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "worker";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

@@ -8,7 +8,6 @@
   qtbase,
   kcodecs,
 }:
-
 mkDerivation {
   pname = "kmbox";
   meta = {

@@ -4,12 +4,10 @@
   lib,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.sonarr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
-in
-{
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
+in {
   options = {
     services.sonarr = {
       enable = lib.mkEnableOption "Sonarr";
@@ -44,7 +42,7 @@ in
         description = "Group under which Sonaar runs.";
       };
 
-      package = lib.mkPackageOption pkgs "sonarr" { };
+      package = lib.mkPackageOption pkgs "sonarr" {};
     };
   };
 
@@ -55,8 +53,8 @@ in
 
     systemd.services.sonarr = {
       description = "Sonarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = servarr.mkServarrSettingsEnvVars "SONARR" cfg.settings;
       serviceConfig = {
         Type = "simple";
@@ -73,7 +71,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
 
     users.users = lib.mkIf (cfg.user == "sonarr") {

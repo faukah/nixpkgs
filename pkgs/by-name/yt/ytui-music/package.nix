@@ -9,7 +9,6 @@
   yt-dlp,
   makeBinaryWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ytui-music";
   version = "2.0.0-rc1";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/ytui_music \
-      --prefix PATH : ${lib.makeBinPath [ yt-dlp ]}
+      --prefix PATH : ${lib.makeBinPath [yt-dlp]}
   '';
 
   doInstallCheck = true;
@@ -59,7 +58,7 @@ rustPlatform.buildRustPackage rec {
     description = "Youtube client in terminal for music";
     homepage = "https://github.com/sudipghimire533/ytui-music";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kashw2 ];
+    maintainers = with maintainers; [kashw2];
     mainProgram = "ytui_music";
   };
 }

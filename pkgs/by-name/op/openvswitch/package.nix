@@ -1,9 +1,7 @@
 {
   withDPDK ? false,
-
   lib,
   stdenv,
-
   autoconf,
   automake,
   dpdk,
@@ -27,9 +25,11 @@
   util-linux,
   which,
 }:
-
 stdenv.mkDerivation rec {
-  pname = if withDPDK then "openvswitch-dpdk" else "openvswitch";
+  pname =
+    if withDPDK
+    then "openvswitch-dpdk"
+    else "openvswitch";
   version = "3.5.1";
 
   src = fetchFromGitHub {
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   sphinxRoot = "./Documentation";
 
@@ -81,11 +81,13 @@ stdenv.mkDerivation rec {
 
   preConfigure = "./boot.sh";
 
-  configureFlags = [
-    "--localstatedir=/var"
-    "--sharedstatedir=/var"
-    "--sbindir=$(out)/bin"
-  ] ++ (lib.optionals withDPDK [ "--with-dpdk=shared" ]);
+  configureFlags =
+    [
+      "--localstatedir=/var"
+      "--sharedstatedir=/var"
+      "--sbindir=$(out)/bin"
+    ]
+    ++ (lib.optionals withDPDK ["--with-dpdk=shared"]);
 
   # Leave /var out of this!
   installFlags = [
@@ -104,7 +106,7 @@ stdenv.mkDerivation rec {
       --prefix PYTHONPATH : $out/share/openvswitch/python
 
     wrapProgram $out/bin/ovs-tcpdump \
-      --prefix PATH : ${lib.makeBinPath [ tcpdump ]} \
+      --prefix PATH : ${lib.makeBinPath [tcpdump]} \
       --prefix PYTHONPATH : $out/share/openvswitch/python
   '';
 
@@ -117,7 +119,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeCheckInputs =
-    [ iproute2 ]
+    [iproute2]
     ++ (with python3.pkgs; [
       netaddr
       pyparsing
@@ -131,7 +133,7 @@ stdenv.mkDerivation rec {
       incus = nixosTests.incus-lts.openvswitch;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

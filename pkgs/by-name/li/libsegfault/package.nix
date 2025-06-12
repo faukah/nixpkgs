@@ -8,7 +8,6 @@
   libbacktrace,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "libsegfault";
   version = "0-unstable-2022-11-13";
@@ -33,14 +32,14 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "Implementation of libSegFault.so with Boost.stracktrace";
     homepage = "https://github.com/jonathanpoelen/libsegfault";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

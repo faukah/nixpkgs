@@ -7,7 +7,6 @@
   wl-clipboard,
   xclip,
 }:
-
 buildGoModule rec {
   pname = "gtt";
   version = "10";
@@ -40,7 +39,7 @@ buildGoModule rec {
     description = "Google Translate TUI (Originally). Now support Apertium, Argos, Bing, ChatGPT, DeepL, Google, Reverso";
     homepage = "https://github.com/eeeXun/gtt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ linuxissuper ];
+    maintainers = with lib.maintainers; [linuxissuper];
     mainProgram = "gtt";
   };
 }

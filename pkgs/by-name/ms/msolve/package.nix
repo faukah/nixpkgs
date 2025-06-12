@@ -8,7 +8,6 @@
   mpfr,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "msolve";
   version = "0.8.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://msolve.lip6.fr";
     changelog = "https://github.com/algebraic-solving/msolve/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 })

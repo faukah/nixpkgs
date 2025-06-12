@@ -1,12 +1,12 @@
 {
   /**
-    A list of redistributable names to use in creation of the `redistName` option type.
+  A list of redistributable names to use in creation of the `redistName` option type.
 
-    # Type
+  # Type
 
-    ```
-    redistNames :: [String]
-    ```
+  ```
+  redistNames :: [String]
+  ```
   */
   redistNames = [
     "cublasmp"
@@ -27,13 +27,13 @@
   ];
 
   /**
-    A list of redistributable systems to use in creation of the `redistSystem` option type.
+  A list of redistributable systems to use in creation of the `redistSystem` option type.
 
-    # Type
+  # Type
 
-    ```
-    redistSystems :: [String]
-    ```
+  ```
+  redistSystems :: [String]
+  ```
   */
   redistSystems = [
     "linux-aarch64"
@@ -44,13 +44,13 @@
   ];
 
   /**
-    The prefix of the URL for redistributable files.
+  The prefix of the URL for redistributable files.
 
-    # Type
+  # Type
 
-    ```
-    redistUrlPrefix :: String
-    ```
+  ```
+  redistUrlPrefix :: String
+  ```
   */
   redistUrlPrefix = "https://developer.download.nvidia.com/compute";
 }

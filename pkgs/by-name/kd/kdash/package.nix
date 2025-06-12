@@ -8,7 +8,6 @@
   openssl,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kdash";
   version = "0.6.2";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple and fast dashboard for Kubernetes";
     mainProgram = "kdash";
     homepage = "https://github.com/kdash-rs/kdash";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ matthiasbeyer ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

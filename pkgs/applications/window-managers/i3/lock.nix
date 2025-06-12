@@ -17,7 +17,6 @@
   libxkbfile,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "i3lock";
   version = "2.15";
@@ -63,5 +62,4 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     platforms = platforms.all;
   };
-
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "statsd_exporter";
   version = "0.28.0";
@@ -15,19 +14,17 @@ buildGoModule rec {
     hash = "sha256-h58yD+jmvUCvYsJqNcBSR1f+5YgDyMbLDd3I0HW9/kA=";
   };
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=unknown"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=unknown"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+  ];
 
   vendorHash = "sha256-QKDvoctvvdijQ+ZlClqTyJZfDzqAIikAwOQds9+NQIc=";
 

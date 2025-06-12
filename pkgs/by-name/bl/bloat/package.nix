@@ -4,7 +4,6 @@
   fetchgit,
   unstableGitUpdater,
 }:
-
 buildGoModule {
   pname = "bloat";
   version = "0-unstable-2024-12-27";
@@ -27,7 +26,7 @@ buildGoModule {
       < bloat.conf > $out/share/bloat/bloat.conf.example
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Web client for Pleroma and Mastodon";
@@ -38,7 +37,7 @@ buildGoModule {
     homepage = "https://bloat.freesoftwareextremist.com";
     downloadPage = "https://git.freesoftwareextremist.com/bloat/";
     license = licenses.cc0;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "bloat";
   };
 }

@@ -15,7 +15,6 @@
   rustc-demangle,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hotspot";
   version = "1.5.1";
@@ -44,11 +43,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [ (lib.strings.cmakeBool "QT6_BUILD" true) ];
+  cmakeFlags = [(lib.strings.cmakeBool "QT6_BUILD" true)];
 
   buildInputs =
     [
-      (elfutils.override { enableDebuginfod = true; }) # perfparser needs to find debuginfod.h
+      (elfutils.override {enableDebuginfod = true;}) # perfparser needs to find debuginfod.h
       kddockwidgets
       libelf
       qt6.qtbase
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     patchelf \
-      --add-rpath ${lib.makeLibraryPath [ rustc-demangle ]} \
+      --add-rpath ${lib.makeLibraryPath [rustc-demangle]} \
       --add-needed librustc_demangle.so \
       $out/libexec/hotspot-perfparser
   '';

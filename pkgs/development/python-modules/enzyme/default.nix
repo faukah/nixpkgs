@@ -4,7 +4,6 @@
   buildPythonPackage,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "enzyme";
   version = "0.5.2";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-fPd5FI2eZusoOGA+rOFAxTw878i4/l1NWgOl+11Xs8E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   meta = with lib; {
     homepage = "https://github.com/Diaoul/enzyme";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xhyve";
   version = "20210203";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight Virtualization on macOS Based on bhyve";
     homepage = "https://github.com/mist64/xhyve";
-    maintainers = [ maintainers.lnl7 ];
+    maintainers = [maintainers.lnl7];
     license = licenses.bsd2;
     platforms = platforms.darwin;
     # never built on aarch64-darwin since first introduction in nixpkgs

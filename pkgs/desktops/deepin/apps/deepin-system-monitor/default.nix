@@ -21,7 +21,6 @@
   wayland,
   dwayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-system-monitor";
   version = "6.5.4";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
     dwayland
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   # To build with icu4c need at least c++17
   env.NIX_CFLAGS_COMPILE = toString [
@@ -93,6 +92,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-system-monitor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

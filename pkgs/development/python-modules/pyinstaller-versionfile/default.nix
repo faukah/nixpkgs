@@ -6,7 +6,6 @@
   jinja2,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "pyinstaller-versionfile";
   version = "2.1.1";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     mainProgram = "create-version-file";
     homepage = "https://pypi.org/project/pyinstaller-versionfile/";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

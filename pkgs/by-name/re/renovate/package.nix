@@ -12,7 +12,6 @@
   nix-update-script,
   yq-go,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
   version = "40.48.0";
@@ -29,13 +28,15 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "0.0.0-semantic-release" "${finalAttrs.version}"
   '';
 
-  nativeBuildInputs = [
-    makeWrapper
-    nodejs
-    pnpm_10.configHook
-    python3
-    yq-go
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
+  nativeBuildInputs =
+    [
+      makeWrapper
+      nodejs
+      pnpm_10.configHook
+      python3
+      yq-go
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit (finalAttrs) pname version src;
@@ -90,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      version = testers.testVersion {package = finalAttrs.finalPackage;};
       vm-test = nixosTests.renovate;
     };
     updateScript = nix-update-script {

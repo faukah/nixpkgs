@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "blocksruntime";
   version = "unstable-2017-10-28";
@@ -24,7 +23,9 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     prefix="/" DESTDIR=$out ./installlib ${
-      if stdenv.hostPlatform.isStatic then "-static" else "-shared"
+      if stdenv.hostPlatform.isStatic
+      then "-static"
+      else "-shared"
     }
     runHook postInstall
   '';

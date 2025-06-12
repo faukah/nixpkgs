@@ -13,7 +13,6 @@
   unstableGitUpdater,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "supermariowar";
   version = "2024-unstable-2025-04-03";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  cmakeFlags = [ "-DBUILD_STATIC_LIBS=OFF" ];
+  cmakeFlags = ["-DBUILD_STATIC_LIBS=OFF"];
 
   postInstall = ''
     mkdir -p $out/bin
@@ -54,14 +53,14 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/games/smw-server $out/bin/smw-server
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fan-made multiplayer Super Mario Bros. style deathmatch game";
     homepage = "https://github.com/mmatyas/supermariowar";
     changelog = "https://github.com/mmatyas/supermariowar/blob/${finalAttrs.src.rev}/CHANGELOG";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     mainProgram = "smw";
     platforms = lib.platforms.linux;
   };

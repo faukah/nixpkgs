@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation {
   pname = "ivsc-driver";
   version = "unstable-2024-09-18";
@@ -19,10 +18,12 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELRELEASE=${kernel.modDirVersion}"
+      "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   enableParallelBuilding = true;
 
@@ -38,8 +39,8 @@ stdenv.mkDerivation {
     homepage = "https://github.com/intel/ivsc-driver";
     description = "Intel Vision Sensing Controller kernel driver";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     # This module is in mainline now and upstream suggests using that
     # with recent kernels rather than the out-of-tree module.
     broken = kernel.kernelOlder "5.15" || kernel.kernelAtLeast "6.9";

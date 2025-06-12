@@ -25,7 +25,6 @@
   nixosTests,
   orthanc-framework,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "orthanc";
   version = "1.12.7";
@@ -127,7 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.orthanc-server.com/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "Orthanc";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.linux;
   };
 })

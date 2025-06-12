@@ -9,7 +9,6 @@
   swig,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apfel";
   version = "3.1.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "PDF Evolution Library";
     homepage = "https://apfel.mi.infn.it/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
   };
 }

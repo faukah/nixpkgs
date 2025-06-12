@@ -16,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2z241HQOckNFvQWkxfjVVmmdFW4XevQBLj8huxYAheg=";
 
-  excludedPackages = [ "example" ];
+  excludedPackages = ["example"];
 
   # test suite requires network
   doCheck = false;

@@ -9,7 +9,6 @@
   flex,
   bison,
 }:
-
 mkDerivation {
   pname = "tikzit";
   version = "2.1.6";

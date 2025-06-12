@@ -18,7 +18,6 @@
   yarl,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "gotailwind";
   version = "0.3.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cli = [ typer ];
+    cli = [typer];
   };
 
   nativeCheckInputs = [
@@ -63,14 +62,14 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "gotailwind" ];
+  pythonImportsCheck = ["gotailwind"];
 
   meta = with lib; {
     description = "Modul to communicate with Tailwind garage door openers";
     homepage = "https://github.com/frenck/python-gotailwind";
     changelog = "https://github.com/frenck/python-gotailwind/releases/tag/v$version";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "tailwind";
   };
 }

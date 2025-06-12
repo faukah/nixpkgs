@@ -10,7 +10,6 @@
   readline,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bobcat";
   version = "5.11.01";

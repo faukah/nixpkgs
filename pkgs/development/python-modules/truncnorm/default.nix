@@ -7,7 +7,6 @@
   numpy,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "truncnorm";
   version = "0.0.2";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # No checks
   doCheck = false;
 
-  pythonImportsCheck = [ "truncnorm" ];
+  pythonImportsCheck = ["truncnorm"];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/truncnorm";
     description = "Moments for doubly truncated multivariate normal distributions";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

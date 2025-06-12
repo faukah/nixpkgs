@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bibata-cursors-translucent";
   version = "1.1.2";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/Silicasandwhich/Bibata_Cursor_Translucent";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ AdsonCicilioti ];
+    maintainers = with maintainers; [AdsonCicilioti];
   };
 }

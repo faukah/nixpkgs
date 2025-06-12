@@ -12,7 +12,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "bitbox02";
   version = "6.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-0D+yIovlYw8dfDUeW+vcualbvmLs+IySkTpmHwk2meM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     base58
@@ -40,13 +39,13 @@ buildPythonPackage rec {
   # does not contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bitbox02" ];
+  pythonImportsCheck = ["bitbox02"];
 
   meta = with lib; {
     description = "Firmware code of the BitBox02 hardware wallet";
     homepage = "https://github.com/digitalbitbox/bitbox02-firmware/";
     changelog = "https://github.com/digitalbitbox/bitbox02-firmware/blob/py-bitbox02-${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

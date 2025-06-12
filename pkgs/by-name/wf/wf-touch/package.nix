@@ -11,7 +11,6 @@
   doctest,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "wf-touch";
   version = "0-unstable-2021-03-19";
@@ -30,9 +29,9 @@ stdenv.mkDerivation {
     ninja
   ];
 
-  buildInputs = [ doctest ];
+  buildInputs = [doctest];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
 
   mesonBuildType = "release";
 
@@ -47,13 +46,13 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Touchscreen gesture library";
     homepage = "https://github.com/WayfireWM/wf-touch";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ donovanglover ];
+    maintainers = with lib.maintainers; [donovanglover];
     platforms = lib.platforms.unix;
   };
 }

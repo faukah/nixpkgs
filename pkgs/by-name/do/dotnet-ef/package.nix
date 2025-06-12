@@ -1,5 +1,7 @@
-{ buildDotnetGlobalTool, lib }:
-
+{
+  buildDotnetGlobalTool,
+  lib,
+}:
 buildDotnetGlobalTool {
   pname = "dotnet-ef";
   version = "9.0.5";
@@ -16,7 +18,7 @@ buildDotnetGlobalTool {
     homepage = "https://learn.microsoft.com/en-us/ef/core/cli/dotnet";
     changelog = "https://learn.microsoft.com/en-us/ef/core/what-is-new/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lostmsu ];
+    maintainers = with lib.maintainers; [lostmsu];
     mainProgram = "dotnet-ef";
   };
 }

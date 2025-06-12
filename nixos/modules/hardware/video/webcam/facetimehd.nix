@@ -3,17 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.hardware.facetimehd;
 
   kernelPackages = config.boot.kernelPackages;
-
-in
-
-{
-
+in {
   options.hardware.facetimehd.enable = lib.mkEnableOption "the facetimehd kernel module";
 
   options.hardware.facetimehd.withCalibration = lib.mkOption {
@@ -29,16 +23,17 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    boot.kernelModules = ["facetimehd"];
 
-    boot.kernelModules = [ "facetimehd" ];
+    boot.blacklistedKernelModules = ["bdc_pci"];
 
-    boot.blacklistedKernelModules = [ "bdc_pci" ];
+    boot.extraModulePackages = [kernelPackages.facetimehd];
 
-    boot.extraModulePackages = [ kernelPackages.facetimehd ];
-
-    hardware.firmware = [
-      pkgs.facetimehd-firmware
-    ] ++ lib.optional cfg.withCalibration pkgs.facetimehd-calibration;
+    hardware.firmware =
+      [
+        pkgs.facetimehd-firmware
+      ]
+      ++ lib.optional cfg.withCalibration pkgs.facetimehd-calibration;
 
     # unload module during suspend/hibernate as it crashes the whole system
     powerManagement.powerDownCommands = ''
@@ -49,7 +44,5 @@ in
     powerManagement.resumeCommands = ''
       ${pkgs.kmod}/bin/modprobe -v facetimehd
     '';
-
   };
-
 }

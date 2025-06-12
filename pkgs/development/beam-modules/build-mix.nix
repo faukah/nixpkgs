@@ -5,42 +5,36 @@
   erlang,
   hex,
   lib,
-}:
-
-{
+}: {
   name,
   version,
   src,
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  erlangCompilerOptions ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  erlangCompilerOptions ? [],
   # Deterministic Erlang builds remove full system paths from debug information
   # among other things to keep builds more reproducible. See their docs for more:
   # https://www.erlang.org/doc/man/compile
   erlangDeterministicBuilds ? true,
-  beamDeps ? [ ],
-  propagatedBuildInputs ? [ ],
+  beamDeps ? [],
+  propagatedBuildInputs ? [],
   postPatch ? "",
   compilePorts ? false,
-  meta ? { },
+  meta ? {},
   enableDebugInfo ? false,
   mixEnv ? "prod",
   # A config directory that is considered for all the dependencies of an app, typically in $src/config/
   # This was initially added, as some of Mobilizon's dependencies need to access the config at build time.
   appConfigPath ? null,
   ...
-}@attrs:
-
-let
-  shell =
-    drv:
+} @ attrs: let
+  shell = drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
-  pkg =
-    self:
+  pkg = self:
     stdenv.mkDerivation (
       attrs
       // {
@@ -48,17 +42,24 @@ let
         inherit version src;
 
         MIX_ENV = mixEnv;
-        MIX_DEBUG = if enableDebugInfo then 1 else 0;
+        MIX_DEBUG =
+          if enableDebugInfo
+          then 1
+          else 0;
         HEX_OFFLINE = 1;
 
-        ERL_COMPILER_OPTIONS =
-          let
-            options = erlangCompilerOptions ++ lib.optionals erlangDeterministicBuilds [ "deterministic" ];
-          in
-          "[${lib.concatStringsSep "," options}]";
+        ERL_COMPILER_OPTIONS = let
+          options = erlangCompilerOptions ++ lib.optionals erlangDeterministicBuilds ["deterministic"];
+        in "[${lib.concatStringsSep "," options}]";
 
-        LANG = if stdenv.hostPlatform.isLinux then "C.UTF-8" else "C";
-        LC_CTYPE = if stdenv.hostPlatform.isLinux then "C.UTF-8" else "UTF-8";
+        LANG =
+          if stdenv.hostPlatform.isLinux
+          then "C.UTF-8"
+          else "C";
+        LC_CTYPE =
+          if stdenv.hostPlatform.isLinux
+          then "C.UTF-8"
+          else "UTF-8";
 
         # add to ERL_LIBS so other modules can find at runtime.
         # http://erlang.org/doc/man/code.html#code-path
@@ -67,11 +68,13 @@ let
           addToSearchPath ERL_LIBS "$1/lib/erlang/lib"
         '';
 
-        buildInputs = buildInputs ++ [ ];
-        nativeBuildInputs = nativeBuildInputs ++ [
-          elixir
-          hex
-        ];
+        buildInputs = buildInputs ++ [];
+        nativeBuildInputs =
+          nativeBuildInputs
+          ++ [
+            elixir
+            hex
+          ];
         propagatedBuildInputs = propagatedBuildInputs ++ beamDeps;
 
         configurePhase =
@@ -79,7 +82,8 @@ let
             runHook preConfigure
 
             ${./mix-configure-hook.sh}
-            ${lib.optionalString (!isNull appConfigPath)
+            ${
+              lib.optionalString (!isNull appConfigPath)
               # Due to https://hexdocs.pm/elixir/main/Config.html the config directory
               # of a library seems to be not considered, as config is always
               # application specific. So we can safely delete it.
@@ -141,4 +145,4 @@ let
       }
     );
 in
-lib.fix pkg
+  lib.fix pkg

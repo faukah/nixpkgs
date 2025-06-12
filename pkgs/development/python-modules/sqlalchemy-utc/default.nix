@@ -6,7 +6,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-utc";
   version = "0.14.0";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-ZtUuwUDgd/ngOQoWu8IgOldTbTGoFbv5Y0Hyha1KTrE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ sqlalchemy ];
+  dependencies = [sqlalchemy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sqlalchemy_utc" ];
+  pythonImportsCheck = ["sqlalchemy_utc"];
 
   disabledTests = [
     # ArgumentError
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/spoqa/sqlalchemy-utc";
     changelog = "https://github.com/spoqa/sqlalchemy-utc/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

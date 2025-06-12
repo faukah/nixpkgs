@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   wg-keys = import ./wireguard/snakeoil-keys.nix;
 
   target_host = "acme.test";
@@ -9,10 +12,12 @@ let
     "${target_host}" = "1.1.1.1";
     "${server_host}" = "1.1.1.2";
   };
-  hostsEntries = lib.mapAttrs' (k: v: {
-    name = v;
-    value = lib.singleton k;
-  }) hosts;
+  hostsEntries =
+    lib.mapAttrs' (k: v: {
+      name = v;
+      value = lib.singleton k;
+    })
+    hosts;
 
   vmessPort = 1080;
   vmessUUID = "bf000d23-0752-40b4-affe-68f7707a9661";
@@ -107,390 +112,375 @@ let
       iptables -t mangle -A OUTPUT -j SING_BOX_SELF
     '';
   };
-in
-{
-
+in {
   name = "sing-box";
 
   meta = {
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 
   nodes = {
-    target =
-      { pkgs, ... }:
-      {
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = hosts."${target_host}";
-                prefixLength = 24;
-              }
-            ];
-          };
-        };
-
-        services.dnsmasq.enable = true;
-
-        services.nginx = {
-          enable = true;
-          package = pkgs.nginxQuic;
-
-          virtualHosts."${target_host}" = {
-            onlySSL = true;
-            sslCertificate = ./common/acme/server/acme.test.cert.pem;
-            sslCertificateKey = ./common/acme/server/acme.test.key.pem;
-            http2 = true;
-            http3 = true;
-            http3_hq = false;
-            quic = true;
-            reuseport = true;
-            locations."/" = {
-              extraConfig = ''
-                default_type text/plain;
-                return 200 "$server_protocol $remote_addr";
-                allow ${hosts."${server_host}"}/32;
-                deny all;
-              '';
-            };
-          };
-        };
-      };
-
-    server =
-      { pkgs, ... }:
-      {
-        boot.kernel.sysctl = {
-          "net.ipv4.conf.all.forwarding" = 1;
-        };
-
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = hosts."${server_host}";
-                prefixLength = 24;
-              }
-            ];
-          };
-        };
-
-        systemd.network.wait-online.ignoredInterfaces = [ "wg0" ];
-
-        networking.wg-quick.interfaces.wg0 = {
-          address = [
-            "10.23.42.1/24"
+    target = {pkgs, ...}: {
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = hosts."${target_host}";
+              prefixLength = 24;
+            }
           ];
-          listenPort = 2408;
-          mtu = 1500;
+        };
+      };
 
-          inherit (wg-keys.peer0) privateKey;
+      services.dnsmasq.enable = true;
 
-          peers = lib.singleton {
-            allowedIPs = [
-              "10.23.42.2/32"
-            ];
+      services.nginx = {
+        enable = true;
+        package = pkgs.nginxQuic;
 
-            inherit (wg-keys.peer1) publicKey;
+        virtualHosts."${target_host}" = {
+          onlySSL = true;
+          sslCertificate = ./common/acme/server/acme.test.cert.pem;
+          sslCertificateKey = ./common/acme/server/acme.test.key.pem;
+          http2 = true;
+          http3 = true;
+          http3_hq = false;
+          quic = true;
+          reuseport = true;
+          locations."/" = {
+            extraConfig = ''
+              default_type text/plain;
+              return 200 "$server_protocol $remote_addr";
+              allow ${hosts."${server_host}"}/32;
+              deny all;
+            '';
           };
+        };
+      };
+    };
 
-          postUp = ''
-            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.23.42.0/24 -o eth1 -j MASQUERADE
-          '';
+    server = {pkgs, ...}: {
+      boot.kernel.sysctl = {
+        "net.ipv4.conf.all.forwarding" = 1;
+      };
+
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = hosts."${server_host}";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
+
+      systemd.network.wait-online.ignoredInterfaces = ["wg0"];
+
+      networking.wg-quick.interfaces.wg0 = {
+        address = [
+          "10.23.42.1/24"
+        ];
+        listenPort = 2408;
+        mtu = 1500;
+
+        inherit (wg-keys.peer0) privateKey;
+
+        peers = lib.singleton {
+          allowedIPs = [
+            "10.23.42.2/32"
+          ];
+
+          inherit (wg-keys.peer1) publicKey;
         };
 
-        services.sing-box = {
-          enable = true;
-          settings = {
-            inbounds = [
-              vmessInbound
-            ];
-            outbounds = [
+        postUp = ''
+          ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+          ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.23.42.0/24 -o eth1 -j MASQUERADE
+        '';
+      };
+
+      services.sing-box = {
+        enable = true;
+        settings = {
+          inbounds = [
+            vmessInbound
+          ];
+          outbounds = [
+            {
+              type = "direct";
+              tag = "outbound:direct";
+            }
+          ];
+        };
+      };
+    };
+
+    tun = {pkgs, ...}: {
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "1.1.1.3";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
+
+      security.pki.certificates = [
+        (builtins.readFile ./common/acme/server/ca.cert.pem)
+      ];
+
+      environment.systemPackages = [
+        pkgs.curlHTTP3
+        pkgs.iproute2
+      ];
+
+      services.sing-box = {
+        enable = true;
+        settings = {
+          inbounds = [
+            tunInbound
+          ];
+          outbounds = [
+            {
+              type = "block";
+              tag = "outbound:block";
+            }
+            {
+              type = "direct";
+              tag = "outbound:direct";
+            }
+            vmessOutbound
+          ];
+          route = {
+            final = "outbound:block";
+            rules = [
               {
-                type = "direct";
-                tag = "outbound:direct";
+                inbound = [
+                  "inbound:tun"
+                ];
+                outbound = "outbound:vmess";
               }
             ];
           };
         };
       };
+    };
 
-    tun =
-      { pkgs, ... }:
-      {
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
+    wireguard = {pkgs, ...}: {
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "1.1.1.4";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
+
+      security.pki.certificates = [
+        (builtins.readFile ./common/acme/server/ca.cert.pem)
+      ];
+
+      environment.systemPackages = [
+        pkgs.curlHTTP3
+        pkgs.iproute2
+      ];
+
+      services.sing-box = {
+        enable = true;
+        settings = {
+          outbounds = [
+            {
+              type = "block";
+              tag = "outbound:block";
+            }
+            {
+              type = "direct";
+              tag = "outbound:direct";
+            }
+            {
+              detour = "outbound:direct";
+              type = "wireguard";
+              tag = "outbound:wireguard";
+              interface_name = "wg0";
+              local_address = ["10.23.42.2/32"];
+              mtu = 1280;
+              private_key = wg-keys.peer1.privateKey;
+              peer_public_key = wg-keys.peer0.publicKey;
+              server = server_host;
+              server_port = 2408;
+              system_interface = true;
+            }
+          ];
+          route = {
+            final = "outbound:block";
+          };
+        };
+      };
+    };
+
+    tproxy = {pkgs, ...}: {
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "1.1.1.5";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
+
+      security.pki.certificates = [
+        (builtins.readFile ./common/acme/server/ca.cert.pem)
+      ];
+
+      environment.systemPackages = [pkgs.curlHTTP3];
+
+      systemd.services.sing-box.serviceConfig.ExecStartPost = [
+        "+${tproxyPost}/bin/exe"
+      ];
+
+      services.sing-box = {
+        enable = true;
+        settings = {
+          inbounds = [
+            {
+              tag = "inbound:tproxy";
+              type = "tproxy";
+              listen = "0.0.0.0";
+              listen_port = tproxyPort;
+              udp_fragment = true;
+              sniff = true;
+              sniff_override_destination = false;
+            }
+          ];
+          outbounds = [
+            {
+              type = "block";
+              tag = "outbound:block";
+            }
+            {
+              type = "direct";
+              tag = "outbound:direct";
+            }
+            vmessOutbound
+          ];
+          route = {
+            final = "outbound:block";
+            rules = [
               {
-                address = "1.1.1.3";
-                prefixLength = 24;
+                inbound = [
+                  "inbound:tproxy"
+                ];
+                outbound = "outbound:vmess";
               }
             ];
           };
         };
+      };
+    };
 
-        security.pki.certificates = [
-          (builtins.readFile ./common/acme/server/ca.cert.pem)
-        ];
+    fakeip = {pkgs, ...}: {
+      networking = {
+        firewall.enable = false;
+        hosts = hostsEntries;
+        useDHCP = false;
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "1.1.1.6";
+              prefixLength = 24;
+            }
+          ];
+        };
+      };
 
-        environment.systemPackages = [
-          pkgs.curlHTTP3
-          pkgs.iproute2
-        ];
+      environment.systemPackages = [pkgs.dnsutils];
 
-        services.sing-box = {
-          enable = true;
-          settings = {
-            inbounds = [
-              tunInbound
-            ];
-            outbounds = [
-              {
-                type = "block";
-                tag = "outbound:block";
-              }
-              {
-                type = "direct";
-                tag = "outbound:direct";
-              }
-              vmessOutbound
-            ];
-            route = {
-              final = "outbound:block";
-              rules = [
-                {
-                  inbound = [
-                    "inbound:tun"
-                  ];
-                  outbound = "outbound:vmess";
-                }
-              ];
+      services.sing-box = {
+        enable = true;
+        settings = {
+          dns = {
+            final = "dns:default";
+            independent_cache = true;
+            fakeip = {
+              enabled = true;
+              "inet4_range" = "198.18.0.0/16";
             };
-          };
-        };
-      };
-
-    wireguard =
-      { pkgs, ... }:
-      {
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "1.1.1.4";
-                prefixLength = 24;
-              }
-            ];
-          };
-        };
-
-        security.pki.certificates = [
-          (builtins.readFile ./common/acme/server/ca.cert.pem)
-        ];
-
-        environment.systemPackages = [
-          pkgs.curlHTTP3
-          pkgs.iproute2
-        ];
-
-        services.sing-box = {
-          enable = true;
-          settings = {
-            outbounds = [
-              {
-                type = "block";
-                tag = "outbound:block";
-              }
-              {
-                type = "direct";
-                tag = "outbound:direct";
-              }
+            servers = [
               {
                 detour = "outbound:direct";
-                type = "wireguard";
-                tag = "outbound:wireguard";
-                interface_name = "wg0";
-                local_address = [ "10.23.42.2/32" ];
-                mtu = 1280;
-                private_key = wg-keys.peer1.privateKey;
-                peer_public_key = wg-keys.peer0.publicKey;
-                server = server_host;
-                server_port = 2408;
-                system_interface = true;
+                tag = "dns:default";
+                address = hosts."${target_host}";
+              }
+              {
+                tag = "dns:fakeip";
+                address = "fakeip";
               }
             ];
-            route = {
-              final = "outbound:block";
-            };
-          };
-        };
-      };
-
-    tproxy =
-      { pkgs, ... }:
-      {
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
+            rules = [
               {
-                address = "1.1.1.5";
-                prefixLength = 24;
+                outbound = ["any"];
+                server = "dns:default";
+              }
+              {
+                query_type = [
+                  "A"
+                  "AAAA"
+                ];
+                server = "dns:fakeip";
               }
             ];
           };
-        };
-
-        security.pki.certificates = [
-          (builtins.readFile ./common/acme/server/ca.cert.pem)
-        ];
-
-        environment.systemPackages = [ pkgs.curlHTTP3 ];
-
-        systemd.services.sing-box.serviceConfig.ExecStartPost = [
-          "+${tproxyPost}/bin/exe"
-        ];
-
-        services.sing-box = {
-          enable = true;
-          settings = {
-            inbounds = [
+          inbounds = [
+            tunInbound
+          ];
+          outbounds = [
+            {
+              type = "block";
+              tag = "outbound:block";
+            }
+            {
+              type = "direct";
+              tag = "outbound:direct";
+            }
+            {
+              type = "dns";
+              tag = "outbound:dns";
+            }
+          ];
+          route = {
+            final = "outbound:direct";
+            rules = [
               {
-                tag = "inbound:tproxy";
-                type = "tproxy";
-                listen = "0.0.0.0";
-                listen_port = tproxyPort;
-                udp_fragment = true;
-                sniff = true;
-                sniff_override_destination = false;
+                protocol = "dns";
+                outbound = "outbound:dns";
               }
             ];
-            outbounds = [
-              {
-                type = "block";
-                tag = "outbound:block";
-              }
-              {
-                type = "direct";
-                tag = "outbound:direct";
-              }
-              vmessOutbound
-            ];
-            route = {
-              final = "outbound:block";
-              rules = [
-                {
-                  inbound = [
-                    "inbound:tproxy"
-                  ];
-                  outbound = "outbound:vmess";
-                }
-              ];
-            };
-          };
-        };
-      };
-
-    fakeip =
-      { pkgs, ... }:
-      {
-        networking = {
-          firewall.enable = false;
-          hosts = hostsEntries;
-          useDHCP = false;
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "1.1.1.6";
-                prefixLength = 24;
-              }
-            ];
-          };
-        };
-
-        environment.systemPackages = [ pkgs.dnsutils ];
-
-        services.sing-box = {
-          enable = true;
-          settings = {
-            dns = {
-              final = "dns:default";
-              independent_cache = true;
-              fakeip = {
-                enabled = true;
-                "inet4_range" = "198.18.0.0/16";
-              };
-              servers = [
-                {
-                  detour = "outbound:direct";
-                  tag = "dns:default";
-                  address = hosts."${target_host}";
-                }
-                {
-                  tag = "dns:fakeip";
-                  address = "fakeip";
-                }
-              ];
-              rules = [
-                {
-                  outbound = [ "any" ];
-                  server = "dns:default";
-                }
-                {
-                  query_type = [
-                    "A"
-                    "AAAA"
-                  ];
-                  server = "dns:fakeip";
-
-                }
-              ];
-            };
-            inbounds = [
-              tunInbound
-            ];
-            outbounds = [
-              {
-                type = "block";
-                tag = "outbound:block";
-              }
-              {
-                type = "direct";
-                tag = "outbound:direct";
-              }
-              {
-                type = "dns";
-                tag = "outbound:dns";
-              }
-            ];
-            route = {
-              final = "outbound:direct";
-              rules = [
-                {
-                  protocol = "dns";
-                  outbound = "outbound:dns";
-                }
-              ];
-            };
           };
         };
       };
+    };
   };
 
   testScript = ''
@@ -542,5 +532,4 @@ in
       fakeip.wait_until_succeeds("ip route get ${hosts."${target_host}"} | grep 'dev ${tunInbound.interface_name}'")
       fakeip.succeed("dig +short A ${target_host} @${target_host} | grep '^198.18.'")
   '';
-
 }

@@ -6,7 +6,6 @@
   riffdiff,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "riffdiff";
   version = "3.3.10";
@@ -22,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-8O4ZLKaQajrvNp7tH8iuVRPriuIIdesBmuv5MXyTafA=";
 
   passthru = {
-    tests.version = testers.testVersion { package = riffdiff; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = riffdiff;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

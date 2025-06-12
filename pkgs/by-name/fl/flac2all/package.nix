@@ -8,7 +8,6 @@
   vorbis-tools,
   ffmpeg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "flac2all";
   version = "5.1";
@@ -30,16 +29,16 @@ python3Packages.buildPythonApplication rec {
   postInstall = ''
     wrapProgram $out/bin/flac2all \
       --set PATH ${
-        lib.makeBinPath [
-          # Hard requirements
-          flac
-          lame
-          # Optional deps depending on encoding types
-          opusTools
-          vorbis-tools
-          ffmpeg
-        ]
-      }
+      lib.makeBinPath [
+        # Hard requirements
+        flac
+        lame
+        # Optional deps depending on encoding types
+        opusTools
+        vorbis-tools
+        ffmpeg
+      ]
+    }
   '';
 
   # Has no standard tests, so we verify a few imports instead.

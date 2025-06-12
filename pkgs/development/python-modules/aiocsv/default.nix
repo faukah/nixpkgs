@@ -10,7 +10,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "aiocsv";
   version = "1.3.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     aiofiles
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     export CYTHONIZE=1
   '';
 
-  pythonImportsCheck = [ "aiocsv" ];
+  pythonImportsCheck = ["aiocsv"];
 
   disabledTestPaths = [
     # Import issue
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library for for asynchronous CSV reading/writing";
     homepage = "https://github.com/MKuranowski/aiocsv";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

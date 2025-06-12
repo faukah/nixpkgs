@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "matcha-rss-digest";
   version = "0.7.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     description = "Daily digest generator from a list of RSS feeds";
     license = licenses.mit;
     mainProgram = "matcha";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

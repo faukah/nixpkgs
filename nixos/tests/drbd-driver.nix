@@ -1,18 +1,23 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "drbd-driver";
-  meta.maintainers = with pkgs.lib.maintainers; [ birkb ];
+  meta.maintainers = with pkgs.lib.maintainers; [birkb];
 
   nodes = {
-    machine =
-      { config, pkgs, ... }:
-      {
-        boot = {
-          kernelModules = [ "drbd" ];
-          extraModulePackages = with config.boot.kernelPackages; [ drbd ];
-          kernelPackages = pkgs.linuxPackages;
-        };
+    machine = {
+      config,
+      pkgs,
+      ...
+    }: {
+      boot = {
+        kernelModules = ["drbd"];
+        extraModulePackages = with config.boot.kernelPackages; [drbd];
+        kernelPackages = pkgs.linuxPackages;
       };
+    };
   };
 
   testScript = ''

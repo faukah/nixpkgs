@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lora";
   version = "3.006";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontBuild = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   installPhase = ''
     runHook preInstall
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/cyrealtype/lora";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ofalvai ];
+    maintainers = with lib.maintainers; [ofalvai];
   };
 })

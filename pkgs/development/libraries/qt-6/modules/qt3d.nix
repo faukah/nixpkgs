@@ -5,7 +5,6 @@
   qtmultimedia,
   assimp,
 }:
-
 qtModule {
   pname = "qt3d";
   propagatedBuildInputs = [

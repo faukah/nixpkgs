@@ -16,7 +16,6 @@
   SDL2,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-music";
   version = "7.0.9";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tj0XICmp7sM2m6aSf/DgxS7JXO3Wy/83sZIPGV17gFo=";
   };
 
-  patches = [ "${src}/patches/fix-library-path.patch" ];
+  patches = ["${src}/patches/fix-library-path.patch"];
 
   nativeBuildInputs = [
     cmake
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
       gst-plugins-good
     ]);
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${libvlc}/include/vlc/plugins"
@@ -78,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-music";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

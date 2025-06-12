@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-gravatar2";
   version = "1.4.5";
@@ -16,11 +15,11 @@ buildPythonPackage rec {
     hash = "sha256-LbtWRl45Xdizkg1AF+J6R1aRLMKtmxG6SM8UOHGoA2Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "django_gravatar" ];
+  pythonImportsCheck = ["django_gravatar"];
 
   meta = with lib; {
     description = "Essential Gravatar support for Django";

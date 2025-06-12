@@ -1,14 +1,16 @@
-{ lib, datadog-agent }:
+{
+  lib,
+  datadog-agent,
+}:
 datadog-agent.overrideAttrs (attrs: {
   pname = "datadog-process-agent";
-  meta =
-    with lib;
+  meta = with lib;
     attrs.meta
     // {
       description = "Live process collector for the DataDog Agent v7";
       mainProgram = "process-agent";
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
-  subPackages = [ "cmd/process-agent" ];
+  subPackages = ["cmd/process-agent"];
   postInstall = null;
 })

@@ -6,7 +6,6 @@
   flask,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "flask-versioned";
   version = "0.9.4";
@@ -19,20 +18,20 @@ buildPythonPackage {
     hash = "sha256-Z/jwCFTTvxXJpzI+HX9NfBNJxj3MAlbGc7/T0zdMNfI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flask ];
+  dependencies = [flask];
 
-  pythonImportsCheck = [ "flaskext.versioned" ];
+  pythonImportsCheck = ["flaskext.versioned"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonNamespaces = [ "flaskext" ];
+  pythonNamespaces = ["flaskext"];
 
   meta = {
     description = "Flask plugin to rewrite file paths to add version info";
     homepage = "https://github.com/pilt/flask-versioned";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

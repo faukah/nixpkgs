@@ -37,7 +37,6 @@
   pkg-config,
   perl538Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openscap";
   version = "1.4.2";
@@ -61,8 +60,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs =
-    with perl538Packages;
+  buildInputs = with perl538Packages;
     [
       XMLXPath
       LinuxACL
@@ -148,7 +146,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OpenSCAP/openscap";
     changelog = "https://github.com/OpenSCAP/openscap/blob/${src.rev}/NEWS";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "oscap";
     platforms = lib.platforms.linux;
   };

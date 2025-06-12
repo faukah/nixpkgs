@@ -10,7 +10,6 @@
   pytest-asyncio,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "idasen";
   version = "0.12.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TQ+DBFpG+IeZ4/dN+YKMw3AM4Dl1rpqA1kRcb3Tb3jA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bleak
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "idasen" ];
+  pythonImportsCheck = ["idasen"];
 
   meta = with lib; {
     description = "Python API and CLI for the ikea IDÅSEN desk";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/newAM/idasen";
     changelog = "https://github.com/newAM/idasen/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ newam ];
+    maintainers = with maintainers; [newam];
   };
 }

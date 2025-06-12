@@ -32,7 +32,6 @@
   replaceVars,
   wrapperPrefix ? "/run/wrappers/bin",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xscreensaver";
   version = "6.10.1";
@@ -53,28 +52,30 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    gdk-pixbuf
-    gdk-pixbuf-xlib
-    gettext
-    gle
-    gtk3
-    libGL
-    libGLU
-    libX11
-    libXext
-    libXft
-    libXi
-    libXinerama
-    libXrandr
-    libXt
-    libXxf86vm
-    libxml2
-    pam
-    perlPackages.LWPProtocolHttps
-    perlPackages.MozillaCA
-    perlPackages.perl
-  ] ++ lib.optionals withSystemd [ systemd ];
+  buildInputs =
+    [
+      gdk-pixbuf
+      gdk-pixbuf-xlib
+      gettext
+      gle
+      gtk3
+      libGL
+      libGLU
+      libX11
+      libXext
+      libXft
+      libXi
+      libXinerama
+      libXrandr
+      libXt
+      libXxf86vm
+      libxml2
+      pam
+      perlPackages.LWPProtocolHttps
+      perlPackages.MozillaCA
+      perlPackages.perl
+    ]
+    ++ lib.optionals withSystemd [systemd];
 
   postPatch = ''
     pushd hacks
@@ -107,12 +108,12 @@ stdenv.mkDerivation (finalAttrs: {
         wrapProgram "$bin" \
           --prefix PATH : "$out/libexec/xscreensaver" \
           --prefix PATH : "${
-            lib.makeBinPath [
-              coreutils
-              perlPackages.perl
-              xorg.appres
-            ]
-          }" \
+        lib.makeBinPath [
+          coreutils
+          perlPackages.perl
+          xorg.appres
+        ]
+      }" \
           --prefix PERL5LIB ':' $PERL5LIB
       done
     ''

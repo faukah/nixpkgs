@@ -4,7 +4,6 @@
   fetchurl,
   libmad,
 }:
-
 stdenv.mkDerivation rec {
   pname = "normalize";
   version = "0.7.7";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1n5khss10vjjp6w69q9qcl4kqfkd0pr555lgqghrchn6rjms4mb0";
   };
 
-  buildInputs = [ libmad ];
+  buildInputs = [libmad];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/normalize/";

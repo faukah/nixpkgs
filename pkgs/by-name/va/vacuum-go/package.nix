@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "vacuum-go";
   version = "0.17.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     "-X main.version=v${finalAttrs.version}"
   ];
 
-  subPackages = [ "./vacuum.go" ];
+  subPackages = ["./vacuum.go"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -42,6 +41,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/daveshanley/vacuum/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "vacuum";
-    maintainers = with lib.maintainers; [ konradmalik ];
+    maintainers = with lib.maintainers; [konradmalik];
   };
 })

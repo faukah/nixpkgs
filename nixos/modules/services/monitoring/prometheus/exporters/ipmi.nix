@@ -4,20 +4,18 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   logPrefix = "services.prometheus.exporter.ipmi";
   cfg = config.services.prometheus.exporters.ipmi;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
     optionals
     escapeShellArg
     ;
-in
-{
+in {
   port = 9290;
 
   extraOpts = {
@@ -39,8 +37,7 @@ in
   };
 
   serviceOpts.serviceConfig = {
-    ExecStart =
-      with cfg;
+    ExecStart = with cfg;
       concatStringsSep " " (
         [
           "${pkgs.prometheus-ipmi-exporter}/bin/ipmi_exporter"

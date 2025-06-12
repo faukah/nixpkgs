@@ -6,7 +6,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "gokapi";
   version = "2.0.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-GeS+lfFw7jUuXX1qQPiu9eKjz6nswpRtbZXjqu4DnHg=";
 
-  patches = [ ];
+  patches = [];
 
   # This is the go generate is ran in the upstream builder, but we have to run the components separately for things to work.
   preBuild = ''
@@ -48,7 +47,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -56,7 +55,7 @@ buildGoModule rec {
     tests = {
       inherit (nixosTests) gokapi;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

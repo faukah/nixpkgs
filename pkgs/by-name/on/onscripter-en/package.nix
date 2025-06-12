@@ -14,7 +14,6 @@
   smpeg,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "onscripter-en";
   version = "20110930";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     smpeg
   ];
 
-  configureFlags = [ "--no-werror" ];
+  configureFlags = ["--no-werror"];
 
   strictDeps = true;
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Japanese visual novel scripting engine";
     license = lib.licenses.gpl2Plus;
     mainProgram = "onscripter-en";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -3,28 +3,23 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   nasm,
   pkg-config,
   setuptools,
-
   # native dependencies
   libheif,
   libaom,
   libde265,
   x265,
-
   # dependencies
   pillow,
-
   # tests
   opencv4,
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pillow-heif";
   version = "0.22.0";
@@ -49,7 +44,7 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dontUseCmakeConfigure = true;
 
@@ -64,9 +59,9 @@ buildPythonPackage rec {
     RELEASE_FULL_FLAG = 1;
   };
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  pythonImportsCheck = [ "pillow_heif" ];
+  pythonImportsCheck = ["pillow_heif"];
 
   nativeCheckInputs = [
     opencv4
@@ -111,6 +106,6 @@ buildPythonPackage rec {
       bsd3
       lgpl3
     ];
-    maintainers = with lib.maintainers; [ dandellion ];
+    maintainers = with lib.maintainers; [dandellion];
   };
 }

@@ -9,7 +9,6 @@
   iproute2,
   procps,
 }:
-
 buildGoModule rec {
   pname = "guest-agent";
   version = "20230821.00";
@@ -23,9 +22,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-PGvyDjhLwIKhR6NmwzbzjfkBK+FqsziAdsybQmCbtCc=";
 
-  patches = [ ./disable-etc-mutation.patch ];
+  patches = [./disable-etc-mutation.patch];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substitute ${./fix-paths.patch} fix-paths.patch \
@@ -61,7 +60,7 @@ buildGoModule rec {
     homepage = "https://github.com/GoogleCloudPlatform/guest-agent";
     changelog = "https://github.com/GoogleCloudPlatform/guest-agent/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     platforms = lib.platforms.linux;
   };
 }

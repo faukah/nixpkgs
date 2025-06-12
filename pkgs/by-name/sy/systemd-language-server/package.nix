@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pandoc,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "systemd-language-server";
   version = "0.3.5";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     pygls
   ];
 
-  pythonImportsCheck = [ "systemd_language_server" ];
+  pythonImportsCheck = ["systemd_language_server"];
 
   nativeCheckInputs = [
     pandoc
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/psacawa/systemd-language-server";
     changelog = "https://github.com/psacawa/systemd-language-server/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "systemd-language-server";
   };
 }

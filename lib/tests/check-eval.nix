@@ -1,5 +1,4 @@
 # Throws an error if any of our lib tests fail.
-
 let
   tests = [
     "misc"
@@ -7,4 +6,6 @@ let
   ];
   all = builtins.concatLists (map (f: import (./. + "/${f}.nix")) tests);
 in
-if all == [ ] then null else throw (builtins.toJSON all)
+  if all == []
+  then null
+  else throw (builtins.toJSON all)

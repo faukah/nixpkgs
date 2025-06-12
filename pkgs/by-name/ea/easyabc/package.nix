@@ -10,7 +10,6 @@
   abcm2ps,
   ghostscript,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "easyabc";
   version = "1.3.8.7-unstable-2025-01-12";
@@ -31,7 +30,7 @@ python3.pkgs.buildPythonApplication {
     })
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   dependencies = with python3.pkgs; [
     cx-freeze
@@ -71,6 +70,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://easyabc.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ mausch ];
+    maintainers = with lib.maintainers; [mausch];
   };
 }

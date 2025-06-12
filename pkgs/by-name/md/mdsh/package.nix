@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdsh";
   version = "0.9.2";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Markdown shell pre-processor";
     homepage = "https://github.com/zimbatm/mdsh";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ zimbatm ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [zimbatm];
     mainProgram = "mdsh";
   };
 }

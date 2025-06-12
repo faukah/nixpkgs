@@ -7,7 +7,6 @@
   alcotest,
   ohex,
 }:
-
 buildDunePackage rec {
   pname = "pbkdf";
   version = "2.0.0";
@@ -30,7 +29,7 @@ buildDunePackage rec {
 
   meta = {
     description = "Password based key derivation functions (PBKDF) from PKCS#5";
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     license = lib.licenses.bsd2;
     homepage = "https://github.com/abeaumont/ocaml-pbkdf";
   };

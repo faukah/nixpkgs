@@ -5,7 +5,6 @@
   installShellFiles,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "atlas";
   version = "0.34.0";
@@ -22,7 +21,7 @@ buildGoModule (finalAttrs: {
   proxyVendor = true;
   vendorHash = "sha256-K94zOisolCplE/cFrWmv4/MWl5DD27lRekPTl+o4Jwk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -30,7 +29,7 @@ buildGoModule (finalAttrs: {
     "-X ariga.io/atlas/cmd/atlas/internal/cmdapi.version=v${finalAttrs.version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     installShellCompletion --cmd atlas \
@@ -50,7 +49,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://atlasgo.io/";
     changelog = "https://github.com/ariga/atlas/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "atlas";
   };
 })

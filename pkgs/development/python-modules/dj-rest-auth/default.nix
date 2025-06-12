@@ -12,7 +12,6 @@
   setuptools,
   unittest-xml-reporting,
 }:
-
 buildPythonPackage rec {
   pname = "dj-rest-auth";
   version = "7.0.1";
@@ -39,21 +38,25 @@ buildPythonPackage rec {
       --replace-fail "==" ">="
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  dependencies = [ djangorestframework ];
+  dependencies = [djangorestframework];
 
-  optional-dependencies.with_social = [
-    django-allauth
-  ] ++ django-allauth.optional-dependencies.socialaccount;
+  optional-dependencies.with_social =
+    [
+      django-allauth
+    ]
+    ++ django-allauth.optional-dependencies.socialaccount;
 
-  nativeCheckInputs = [
-    djangorestframework-simplejwt
-    responses
-    unittest-xml-reporting
-  ] ++ optional-dependencies.with_social;
+  nativeCheckInputs =
+    [
+      djangorestframework-simplejwt
+      responses
+      unittest-xml-reporting
+    ]
+    ++ optional-dependencies.with_social;
 
   preCheck = ''
     # Test connects to graph.facebook.com
@@ -67,13 +70,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "dj_rest_auth" ];
+  pythonImportsCheck = ["dj_rest_auth"];
 
   meta = with lib; {
     description = "Authentication for Django Rest Framework";
     homepage = "https://github.com/iMerica/dj-rest-auth";
     changelog = "https://github.com/iMerica/dj-rest-auth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

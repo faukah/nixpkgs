@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "decode-spam-headers";
   version = "2022-09-22-unreleased";
@@ -62,6 +61,6 @@ python3Packages.buildPythonApplication rec {
       have been blocked.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

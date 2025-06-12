@@ -2,23 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   google-api-core,
   google-cloud-logging,
   proto-plus,
   protobuf,
-
   # testing
   google-cloud-testutils,
   mock,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-error-reporting";
   version = "1.11.1";
@@ -31,16 +27,18 @@ buildPythonPackage rec {
     hash = "sha256-z1ogY4W4RGKv0h2jW0jVpIHUY1X3P0Vw++3jYtnYTRA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
-  dependencies = [
-    google-api-core
-    google-cloud-logging
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-cloud-logging
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     google-cloud-testutils
@@ -72,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-error-reporting";
     changelog = "https://github.com/googleapis/python-error-reporting/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

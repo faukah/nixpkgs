@@ -10,7 +10,6 @@
   libnetfilter_conntrack,
   libnetfilter_queue,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tcpcrypt";
   version = "0.5";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     "dev"
     "out"
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
     [
       openssl

@@ -5,7 +5,6 @@
   withJson ? true,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "statix";
   # also update version of the vim plugin in

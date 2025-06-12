@@ -43,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/roaldnefs/python-transip";
     changelog = "https://github.com/roaldnefs/python-transip/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.provokateurin ];
+    maintainers = [lib.maintainers.provokateurin];
   };
 }

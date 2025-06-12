@@ -4,7 +4,6 @@
   i3,
   pcre,
 }:
-
 i3.overrideAttrs (oldAttrs: {
   pname = "i3-rounded";
   version = "4.21.1";
@@ -16,7 +15,7 @@ i3.overrideAttrs (oldAttrs: {
     sha256 = "0y7m1s1y8f9vgkp7byi33js8n4rigiykd71s936i5d4rwlzrxiwm";
   };
 
-  buildInputs = oldAttrs.buildInputs ++ [ pcre ];
+  buildInputs = oldAttrs.buildInputs ++ [pcre];
 
   # Some tests are failing.
   doCheck = false;
@@ -24,7 +23,7 @@ i3.overrideAttrs (oldAttrs: {
   meta = with lib; {
     description = "Fork of i3-gaps that adds rounding to window corners";
     homepage = "https://github.com/LinoBigatti/i3-rounded";
-    maintainers = with maintainers; [ marsupialgutz ];
+    maintainers = with maintainers; [marsupialgutz];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

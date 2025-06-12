@@ -14,7 +14,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-battery-plugin";
   version = "1.2.0";
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-battery-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-battery-plugin-";};
 
   meta = {
     description = "Battery plugin for Xfce panel";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-battery-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

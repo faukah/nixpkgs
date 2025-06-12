@@ -4,7 +4,6 @@
   fetchFromGitLab,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libz";
   version = "1.2.8.2025.03.07";
@@ -29,8 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://sortix.org/libz/";
     description = "Clean fork of zlib";
-    license = [ lib.licenses.zlib ];
-    maintainers = with lib.maintainers; [ ];
+    license = [lib.licenses.zlib];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

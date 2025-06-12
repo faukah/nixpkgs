@@ -5,7 +5,6 @@
   fetchpatch,
   groff,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mktemp";
   version = "1.7";

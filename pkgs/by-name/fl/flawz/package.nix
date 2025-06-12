@@ -9,7 +9,6 @@
   stdenv,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flawz";
   version = "0.3.0";
@@ -38,12 +37,11 @@ rustPlatform.buildRustPackage rec {
     "man"
   ];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-      flawz-mangen = "${emulator} $out/bin/flawz-mangen";
-      flawz-completions = "${emulator} $out/bin/flawz-completions";
-    in
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+    flawz-mangen = "${emulator} $out/bin/flawz-mangen";
+    flawz-completions = "${emulator} $out/bin/flawz-completions";
+  in
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       export OUT_DIR=$(mktemp -d)
 
@@ -73,7 +71,7 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     mainProgram = "flawz";
-    maintainers = with lib.maintainers; [ anas ];
+    maintainers = with lib.maintainers; [anas];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

@@ -13,7 +13,6 @@
   libadwaita,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "metronome";
   version = "1.3.0";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/metronome";
     license = licenses.gpl3Plus;
     mainProgram = "metronome";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.unix;
   };
 }

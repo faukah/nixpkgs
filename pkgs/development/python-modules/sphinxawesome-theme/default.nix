@@ -6,7 +6,6 @@
   sphinx,
   beautifulsoup4,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxawesome-theme";
   version = "5.3.2";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-BinTi4Cu/CebEYbFOnpvryHnIbWy7NoU9IjKEHTiYx8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
   dependencies = [
     sphinx
     beautifulsoup4
   ];
 
-  pythonRelaxDeps = [ "sphinx" ];
+  pythonRelaxDeps = ["sphinx"];
 
   meta = {
     description = "Awesome Sphinx Theme";
     homepage = "https://sphinxawesome.xyz/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

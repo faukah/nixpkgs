@@ -11,7 +11,6 @@
   libsndfile,
   fftw,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gwc";
   version = "0.22-06";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlisterH/gwc/";
     changelog = "https://github.com/AlisterH/gwc/blob/${version}/Changelog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ magnetophon ];
+    maintainers = with lib.maintainers; [magnetophon];
     platforms = lib.platforms.linux;
   };
 }

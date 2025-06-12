@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "tai-ahom";
   version = "unstable-2015-07-06";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/enabling-languages/tai-languages";
     description = "Unicode-compliant Tai Ahom font";
-    maintainers = with maintainers; [ mathnerd314 ];
+    maintainers = with maintainers; [mathnerd314];
     license = licenses.ofl; # See font metadata
     platforms = platforms.all;
   };

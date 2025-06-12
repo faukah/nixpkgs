@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bitlist";
   version = "1.2.0";
@@ -27,21 +26,21 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonRelaxDeps = [ "parts" ];
+  pythonRelaxDeps = ["parts"];
 
-  dependencies = [ parts ];
+  dependencies = [parts];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "bitlist" ];
+  pythonImportsCheck = ["bitlist"];
 
   meta = with lib; {
     description = "Python library for working with little-endian list representation of bit strings";
     homepage = "https://github.com/lapets/bitlist";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

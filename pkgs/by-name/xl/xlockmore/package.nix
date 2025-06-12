@@ -10,7 +10,6 @@
   libXt,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xlockmore";
   version = "5.83";
@@ -30,32 +29,32 @@ stdenv.mkDerivation rec {
     libXdmcp
     libXt
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Don't try to install `xlock' setuid. Password authentication works
   # fine via PAM without super user privileges.
-  configureFlags = [
-    "--disable-setuid"
-    "--enable-appdefaultdir=${placeholder "out"}/share/X11/app-defaults"
-  ] ++ (lib.optional (pam != null) "--enable-pam");
+  configureFlags =
+    [
+      "--disable-setuid"
+      "--enable-appdefaultdir=${placeholder "out"}/share/X11/app-defaults"
+    ]
+    ++ (lib.optional (pam != null) "--enable-pam");
 
-  postPatch =
-    let
-      makePath = p: lib.concatMapStringsSep " " (x: x + "/" + p) buildInputs;
-      inputs = "${makePath "lib"} ${makePath "include"}";
-    in
-    ''
-      sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
-      sed -i 's,/usr/,/no-such-dir/,g' configure.ac
-    '';
+  postPatch = let
+    makePath = p: lib.concatMapStringsSep " " (x: x + "/" + p) buildInputs;
+    inputs = "${makePath "lib"} ${makePath "include"}";
+  in ''
+    sed -i 's,\(for ac_dir in\),\1 ${inputs},' configure.ac
+    sed -i 's,/usr/,/no-such-dir/,g' configure.ac
+  '';
 
-  hardeningDisable = [ "format" ]; # no build output otherwise
+  hardeningDisable = ["format"]; # no build output otherwise
 
   meta = with lib; {
     description = "Screen locker for the X Window System";
     homepage = "http://sillycycle.com/xlockmore.html";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
     mainProgram = "xlock";
   };

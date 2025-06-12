@@ -3,12 +3,9 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.devmon;
-
-in
-{
+in {
   options = {
     services.devmon = {
       enable = lib.mkEnableOption "devmon, an automatic device mounting daemon";
@@ -18,7 +15,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.devmon = {
       description = "devmon automatic device mounting daemon";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       path = [
         pkgs.udevil
         pkgs.procps

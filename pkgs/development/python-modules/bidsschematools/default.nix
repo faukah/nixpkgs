@@ -8,7 +8,6 @@
   pyyaml,
   jsonschema,
 }:
-
 buildPythonPackage rec {
   pname = "bidsschematools";
   version = "1.0.5";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Python tools for working with the BIDS schema";
     homepage = "https://github.com/bids-standard/bids-specification/tree/master/tools/schemacode";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

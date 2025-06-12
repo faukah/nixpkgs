@@ -17,7 +17,6 @@
   setuptools,
   versioningit,
 }:
-
 buildPythonPackage rec {
   pname = "heudiconv";
   version = "1.3.3";
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "heudiconv" ];
+  pythonImportsCheck = ["heudiconv"];
 
   disabledTests = [
     # No such file or directory
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://heudiconv.readthedocs.io";
     changelog = "https://github.com/nipy/heudiconv/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

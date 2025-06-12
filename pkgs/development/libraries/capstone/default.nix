@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "capstone";
   version = "5.0.6";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     [
       (lib.cmakeBool "BUILD_SHARED_LIBS" true)
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ (lib.cmakeBool "CAPSTONE_BUILD_MACOS_THIN" true) ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [(lib.cmakeBool "CAPSTONE_BUILD_MACOS_THIN" true)];
 
   nativeBuildInputs =
     [

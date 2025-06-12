@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "kode-mono";
   version = "1.206";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://kodemono.com/";
     changelog = "https://github.com/isaozler/kode-mono/blob/main/CHANGELOG.md";
     license = licenses.ofl;
-    maintainers = [ maintainers.isaozler ];
+    maintainers = [maintainers.isaozler];
     platforms = platforms.all;
   };
 })

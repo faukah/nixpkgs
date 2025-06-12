@@ -1,16 +1,12 @@
 # LXC Configuration
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.lxc.lxcfs;
-in
-{
+in {
   meta = {
     maintainers = lib.teams.lxc.members;
   };
@@ -35,8 +31,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.lxcfs = {
       description = "FUSE filesystem for LXC";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "lxc.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["lxc.service"];
       restartIfChanged = false;
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/lib/lxcfs";

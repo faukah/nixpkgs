@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
   pytestCheckHook,
-
   # Dependencies
   biothings-client,
   pandas,
@@ -23,21 +22,21 @@ buildPythonPackage rec {
   };
 
   optional-dependencies = {
-    complete = [ pandas ];
+    complete = [pandas];
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   dependencies = [
     biothings-client
     requests
   ];
-  pythonImportsCheck = [ "mygene" ];
+  pythonImportsCheck = ["mygene"];
 
   meta = {
     changelog = "https://github.com/biothings/mygene.py/blob/v${version}/CHANGES.txt";
     description = "REST web services to query/retrieve gene annotation data";
     homepage = "https://github.com/biothings/mygene.py";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ rayhem ];
+    maintainers = with lib.maintainers; [rayhem];
   };
 }

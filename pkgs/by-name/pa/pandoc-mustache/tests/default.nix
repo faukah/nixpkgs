@@ -2,8 +2,7 @@
   pkgs,
   pandoc-mustache,
   runCommand,
-}:
-let
+}: let
   vars = pkgs.writeText "vars.yaml" ''
     place: Montreal
     temperature: '7'
@@ -17,7 +16,7 @@ let
     The temperature in {{place}} was {{temperature}} degrees.
   '';
 in
-runCommand "pandoc-mustache-test"
+  runCommand "pandoc-mustache-test"
   {
     nativeBuildInputs = [
       pandoc-mustache

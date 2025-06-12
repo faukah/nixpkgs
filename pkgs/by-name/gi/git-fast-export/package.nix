@@ -8,7 +8,6 @@
   nix-update-script,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fast-export";
   version = "231118";
@@ -85,13 +84,13 @@ stdenv.mkDerivation (finalAttrs: {
     popd
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Import mercurial into git";
     homepage = "https://repo.or.cz/w/fast-export.git";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.koral ];
+    maintainers = [lib.maintainers.koral];
     platforms = lib.platforms.unix;
     mainProgram = "hg-fast-export.sh";
   };

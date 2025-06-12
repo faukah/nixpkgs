@@ -7,7 +7,6 @@
   alcotest,
   ohex,
 }:
-
 buildDunePackage rec {
   pname = "kdf";
   version = "1.0.0";
@@ -32,6 +31,6 @@ buildDunePackage rec {
     description = "Key Derivation Functions: HKDF RFC 5869, PBKDF RFC 2898, SCRYPT RFC 7914";
     homepage = "https://github.com/robur-coop/kdf";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -11,7 +11,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "obs-tuna";
   version = "1.9.10";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Song information plugin for obs-studio";
     homepage = "https://github.com/univrsal/tuna";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ shortcord ];
+    maintainers = with lib.maintainers; [shortcord];
     platforms = lib.platforms.linux;
   };
 })

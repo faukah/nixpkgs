@@ -58,14 +58,14 @@ rustPlatform.buildRustPackage rec {
     ln -s $out/Applications/Restic-Browser.app/Contents/MacOS/Restic-Browser $out/bin/${meta.mainProgram}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GUI to browse and restore restic backup repositories";
     homepage = "https://github.com/emuell/restic-browser";
     changelog = "https://github.com/emuell/restic-browser/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ js6pak ];
+    maintainers = with lib.maintainers; [js6pak];
     mainProgram = "restic-browser";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

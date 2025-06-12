@@ -13,7 +13,6 @@
   libv4l,
   fftwFloat,
 }:
-
 mkDerivation rec {
   version = "9.5.8";
   pname = "qsstv";
@@ -51,6 +50,6 @@ mkDerivation rec {
     homepage = "https://www.qsl.net/on4qz/";
     platforms = platforms.linux;
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ hax404 ];
+    maintainers = with lib.maintainers; [hax404];
   };
 }

@@ -6,7 +6,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipu6-drivers";
   version = "unstable-2025-02-19";
@@ -32,10 +31,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELRELEASE=${kernel.modDirVersion}"
-    "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELRELEASE=${kernel.modDirVersion}"
+      "KERNEL_SRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   enableParallelBuilding = true;
 
@@ -51,8 +52,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/ipu6-drivers";
     description = "IPU6 kernel driver";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     # requires 6.10
     broken = kernel.kernelOlder "6.10";
   };

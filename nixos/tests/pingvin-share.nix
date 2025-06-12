@@ -1,18 +1,15 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "pingvin-share";
-  meta.maintainers = with lib.maintainers; [ ratcornu ];
+  meta.maintainers = with lib.maintainers; [ratcornu];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.pingvin-share = {
-        enable = true;
+  nodes.machine = {...}: {
+    services.pingvin-share = {
+      enable = true;
 
-        backend.port = 9010;
-        frontend.port = 9011;
-      };
+      backend.port = 9010;
+      frontend.port = 9011;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("pingvin-share-frontend.service")

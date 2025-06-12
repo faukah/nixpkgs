@@ -3,7 +3,6 @@
   fetchPypi,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "zsh-history-to-fish";
   version = "0.3.0";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Bring your ZSH history to Fish shell";
     homepage = "https://github.com/rsalmei/zsh-history-to-fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ alanpearce ];
+    maintainers = with maintainers; [alanpearce];
     mainProgram = "zsh-history-to-fish";
   };
 }

@@ -9,7 +9,6 @@
   runCommand,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxcrypt";
   version = "4.4.38";
@@ -38,18 +37,16 @@ stdenv.mkDerivation (finalAttrs: {
     "--disable-werror"
   ];
 
-  makeFlags =
-    let
-      lld17Plus = stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17";
-    in
-    [ ]
+  makeFlags = let
+    lld17Plus = stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17";
+  in
+    []
     # fixes: can't build x86_64-w64-mingw32 shared library unless -no-undefined is specified
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ "LDFLAGS+=-no-undefined" ]
-
+    ++ lib.optionals stdenv.hostPlatform.isWindows ["LDFLAGS+=-no-undefined"]
     # lld 17 sets `--no-undefined-version` by default and `libxcrypt`'s
     # version script unconditionally lists legacy compatibility symbols, even
     # when not exported: https://github.com/besser82/libxcrypt/issues/181
-    ++ lib.optionals lld17Plus [ "LDFLAGS+=-Wl,--undefined-version" ];
+    ++ lib.optionals lld17Plus ["LDFLAGS+=-Wl,--undefined-version"];
 
   nativeBuildInputs = [
     perl
@@ -63,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) login shadow;
 
-      passthruMatches = runCommand "libxcrypt-test-passthru-matches" { } ''
+      passthruMatches = runCommand "libxcrypt-test-passthru-matches" {} ''
         ${python3.interpreter} "${./check_passthru_matches.py}" ${
           lib.escapeShellArgs (
             [

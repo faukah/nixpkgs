@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nanum";
   version = "20200506";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Nanum Korean font set";
     homepage = "https://hangeul.naver.com/font";
     license = licenses.ofl;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

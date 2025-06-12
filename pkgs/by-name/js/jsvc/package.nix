@@ -7,7 +7,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jsvc";
   version = "1.4.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yPsiNFbqbfDGHzxlr7So8sZt395BABYEJ7jOmLEhUTE=";
   };
 
-  buildInputs = [ commonsDaemon ];
+  buildInputs = [commonsDaemon];
   nativeBuildInputs = [
     jdk
     makeWrapper
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-daemon";
     description = "Part of the Apache Commons Daemon software, a set of utilities and Java support classes for running Java applications as server processes";
-    maintainers = with lib.maintainers; [ rsynnest ];
+    maintainers = with lib.maintainers; [rsynnest];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
     mainProgram = "jsvc";

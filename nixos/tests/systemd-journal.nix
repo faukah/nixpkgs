@@ -1,32 +1,30 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   name = "systemd-journal";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ lewo ];
+    maintainers = [lewo];
   };
 
   nodes.machine = {
-    environment.systemPackages = [ pkgs.audit ];
+    environment.systemPackages = [pkgs.audit];
   };
   nodes.auditd = {
     security.auditd.enable = true;
     security.audit.enable = true;
-    environment.systemPackages = [ pkgs.audit ];
+    environment.systemPackages = [pkgs.audit];
     boot.kernel.sysctl."kernel.printk_ratelimit" = 0;
-    boot.kernelParams = [ "audit_backlog_limit=8192" ];
+    boot.kernelParams = ["audit_backlog_limit=8192"];
   };
   nodes.journaldAudit = {
     services.journald.audit = true;
     security.audit.enable = true;
-    environment.systemPackages = [ pkgs.audit ];
+    environment.systemPackages = [pkgs.audit];
     boot.kernel.sysctl."kernel.printk_ratelimit" = 0;
-    boot.kernelParams = [ "audit_backlog_limit=8192" ];
+    boot.kernelParams = ["audit_backlog_limit=8192"];
   };
   nodes.containerCheck = {
     containers.c1 = {
       autoStart = true;
-      config = { };
+      config = {};
     };
   };
 

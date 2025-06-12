@@ -6,7 +6,6 @@
   testers,
   okteto,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "okteto";
   version = "3.8.0";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     rm -f pkg/analytics/track_test.go
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   excludedPackages = [
     "integration"
@@ -49,22 +48,20 @@ buildGoModule (finalAttrs: {
     export HOME="$(mktemp -d)"
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        # require network access
-        "TestCreateDockerfile"
+  checkFlags = let
+    skippedTests = [
+      # require network access
+      "TestCreateDockerfile"
 
-        # access file system
-        "Test_translateDeployment"
-        "Test_translateStatefulSet"
-        "Test_translateJobWithoutVolumes"
-        "Test_translateJobWithVolumes"
-        "Test_translateService"
-        "TestProtobufTranslator_Translate_Success"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+      # access file system
+      "Test_translateDeployment"
+      "Test_translateStatefulSet"
+      "Test_translateJobWithoutVolumes"
+      "Test_translateJobWithVolumes"
+      "Test_translateService"
+      "TestProtobufTranslator_Translate_Success"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     installShellCompletion --cmd okteto \
@@ -82,7 +79,7 @@ buildGoModule (finalAttrs: {
     description = "Develop your applications directly in your Kubernetes Cluster";
     homepage = "https://okteto.com/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "okteto";
   };
 })

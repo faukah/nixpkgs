@@ -25,7 +25,6 @@
   python3,
   shared-mime-info,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcr";
   version = "3.41.2";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
       libsecret
       openssh
     ]
-    ++ lib.optionals (systemdSupport) [
+    ++ lib.optionals systemdSupport [
       systemd
     ];
 
@@ -116,7 +115,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     description = "GNOME crypto services (daemon and tools)";
     mainProgram = "gcr-viewer";
     homepage = "https://gitlab.gnome.org/GNOME/gcr";

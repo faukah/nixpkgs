@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.etesync-dav;
-in
-{
+in {
   options.services.etesync-dav = {
     enable = lib.mkEnableOption "etesync-dav, end-to-end encrypted sync for contacts, calendars and tasks";
 
@@ -57,14 +55,14 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.port];
 
     systemd.services.etesync-dav = {
       description = "etesync-dav - A CalDAV and CardDAV adapter for EteSync";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.etesync-dav ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.etesync-dav];
       environment = {
         ETESYNC_LISTEN_ADDRESS = cfg.host;
         ETESYNC_LISTEN_PORT = toString cfg.port;

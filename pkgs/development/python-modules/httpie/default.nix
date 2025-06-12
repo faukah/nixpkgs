@@ -21,7 +21,6 @@
   setuptools,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "httpie";
   version = "3.2.4";
@@ -39,23 +38,25 @@ buildPythonPackage rec {
     "requests"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     installShellFiles
     pandoc
   ];
 
-  dependencies = [
-    charset-normalizer
-    defusedxml
-    multidict
-    pygments
-    requests
-    requests-toolbelt
-    setuptools
-    rich
-  ] ++ requests.optional-dependencies.socks;
+  dependencies =
+    [
+      charset-normalizer
+      defusedxml
+      multidict
+      pygments
+      requests
+      requests-toolbelt
+      setuptools
+      rich
+    ]
+    ++ requests.optional-dependencies.socks;
 
   __darwinAllowLocalNetworking = true;
 
@@ -85,7 +86,7 @@ buildPythonPackage rec {
     "tests"
   ];
 
-  pythonImportsCheck = [ "httpie" ];
+  pythonImportsCheck = ["httpie"];
 
   disabledTestPaths = [
     # Tests are flaky

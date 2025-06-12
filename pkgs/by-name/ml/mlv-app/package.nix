@@ -8,7 +8,6 @@
   ffmpeg-headless,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mlv-app";
   version = "1.15";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '"ffmpeg"' '"${lib.getExe ffmpeg-headless}"'
   '';
 
-  qmakeFlags = [ "MLVApp.pro" ];
+  qmakeFlags = ["MLVApp.pro"];
 
   preConfigure = ''
     cd platform/qt/
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  updateScript = nix-update-script { };
+  updateScript = nix-update-script {};
 
   meta = {
     description = "All in one MLV processing app that is pretty great";
@@ -70,8 +69,8 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/ilia3101/MLV-App";
     changelog = "https://github.com/ilia3101/MLV-App/releases/tag/QTv${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     mainProgram = "mlvapp";
   };
 })

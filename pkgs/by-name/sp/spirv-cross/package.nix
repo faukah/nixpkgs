@@ -5,7 +5,6 @@
   cmake,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spirv-cross";
   version = "1.4.313.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/KhronosGroup/SPIRV-Cross/releases/tag/${finalAttrs.version}";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     mainProgram = "spirv-cross";
   };
 })

@@ -19,7 +19,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "OpenTabletDriver";
   version = "0.6.5.1";
@@ -112,7 +111,7 @@ buildDotnetModule (finalAttrs: {
       exec = "otd-gui";
       icon = "otd";
       comment = "Open source, cross-platform, user-mode tablet driver";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -123,7 +122,7 @@ buildDotnetModule (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/otd-daemon";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       otd-runs = nixosTests.opentabletdriver;
     };

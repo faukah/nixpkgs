@@ -7,7 +7,6 @@
   pkg-config,
   buildsystem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libnslog";
   version = "0.1.3";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

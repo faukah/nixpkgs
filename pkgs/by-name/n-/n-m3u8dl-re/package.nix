@@ -26,7 +26,7 @@ buildDotnetModule rec {
   projectFile = "src/N_m3u8DL-RE.sln";
   nugetDeps = ./deps.json;
 
-  executables = [ "N_m3u8DL-RE" ];
+  executables = ["N_m3u8DL-RE"];
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.runtime_9_0;
@@ -40,7 +40,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/nilaoda/N_m3u8DL-RE";
     license = lib.licenses.mit;
     mainProgram = "n-m3u8dl-re";
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     platforms = lib.platforms.linux ++ lib.platforms.unix;
   };
 }

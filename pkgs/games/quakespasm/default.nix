@@ -19,7 +19,6 @@
   pkg-config,
   useSDL2 ? stdenv.hostPlatform.isDarwin, # TODO: CoreAudio fails to initialize with SDL 1.x for some reason.
 }:
-
 stdenv.mkDerivation rec {
   pname = "quakespasm";
   version = "0.96.3";
@@ -57,7 +56,11 @@ stdenv.mkDerivation rec {
     opusfile
     libogg
     libxmp
-    (if useSDL2 then SDL2 else SDL)
+    (
+      if useSDL2
+      then SDL2
+      else SDL
+    )
   ];
 
   buildFlags =
@@ -80,7 +83,10 @@ stdenv.mkDerivation rec {
       "USE_SDL2=1"
     ];
 
-  makefile = if (stdenv.hostPlatform.isDarwin) then "Makefile.darwin" else "Makefile";
+  makefile =
+    if (stdenv.hostPlatform.isDarwin)
+    then "Makefile.darwin"
+    else "Makefile";
 
   preInstall = ''
     mkdir -p "$out/bin"
@@ -110,7 +116,7 @@ stdenv.mkDerivation rec {
       name = "quakespasm";
       exec = "quake";
       desktopName = "Quakespasm";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -127,7 +133,7 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mikroskeem ];
+    maintainers = with maintainers; [mikroskeem];
     mainProgram = "quake";
   };
 }

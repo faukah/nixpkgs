@@ -4,7 +4,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "emitter";
   version = "3.1";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-6K9KAvb+05nn2pFuVDiQ9IHZWpm+q01su6pl7CxXxBY=";
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   ldflags = [
     "-X github.com/emitter-io/emitter/internal/command/version.version=${version}"
@@ -38,7 +37,7 @@ buildGoModule rec {
     description = "High performance, distributed and low latency publish-subscribe platform";
     homepage = "https://emitter.io/";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "emitter";
   };
 }

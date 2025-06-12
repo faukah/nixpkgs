@@ -4,11 +4,9 @@
   fetchurl,
 }:
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     jarName = "jmx_prometheus_javaagent-${finalAttrs.version}.jar";
-  in
-  {
+  in {
     pname = "jmx-prometheus-javaagent";
     version = "1.0.1";
     src = fetchurl {
@@ -27,9 +25,9 @@ stdenv.mkDerivation (
     meta = {
       homepage = "https://github.com/prometheus/jmx_exporter";
       description = "Process for exposing JMX Beans via HTTP for Prometheus consumption";
-      sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+      sourceProvenance = [lib.sourceTypes.binaryBytecode];
       license = lib.licenses.asl20;
-      maintainers = [ lib.maintainers.srhb ];
+      maintainers = [lib.maintainers.srhb];
       platforms = lib.platforms.unix;
     };
   }

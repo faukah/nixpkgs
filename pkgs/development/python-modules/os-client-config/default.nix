@@ -15,7 +15,6 @@
   testscenarios,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "os-client-config";
   version = "2.1.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     openstacksdk
@@ -60,12 +59,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "os_client_config" ];
+  pythonImportsCheck = ["os_client_config"];
 
   meta = with lib; {
     description = "Unified config handling for client libraries and programs";
     homepage = "https://github.com/openstack/os-client-config";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

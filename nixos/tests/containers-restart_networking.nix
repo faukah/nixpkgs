@@ -1,13 +1,16 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "containers-restart_networking";
   meta = {
-    maintainers = with lib.maintainers; [ kampfschlaefer ];
+    maintainers = with lib.maintainers; [kampfschlaefer];
   };
 
   nodes = {
     client = {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
       networking.firewall.enable = false;
 
@@ -27,7 +30,7 @@
       };
 
       networking.bridges.br0 = {
-        interfaces = [ ];
+        interfaces = [];
         rstp = false;
       };
 
@@ -39,15 +42,15 @@
       ];
 
       networking.interfaces.eth1 = {
-        ipv4.addresses = lib.mkForce [ ];
-        ipv6.addresses = lib.mkForce [ ];
+        ipv4.addresses = lib.mkForce [];
+        ipv6.addresses = lib.mkForce [];
       };
 
       specialisation.eth1.configuration = {
-        networking.bridges.br0.interfaces = [ "eth1" ];
+        networking.bridges.br0.interfaces = ["eth1"];
         networking.interfaces = {
-          eth1.ipv4.addresses = lib.mkForce [ ];
-          eth1.ipv6.addresses = lib.mkForce [ ];
+          eth1.ipv4.addresses = lib.mkForce [];
+          eth1.ipv6.addresses = lib.mkForce [];
           br0.ipv4.addresses = [
             {
               address = "192.168.1.2";
@@ -59,13 +62,13 @@
 
       specialisation.eth1-rstp.configuration = {
         networking.bridges.br0 = {
-          interfaces = [ "eth1" ];
+          interfaces = ["eth1"];
           rstp = lib.mkForce true;
         };
 
         networking.interfaces = {
-          eth1.ipv4.addresses = lib.mkForce [ ];
-          eth1.ipv6.addresses = lib.mkForce [ ];
+          eth1.ipv4.addresses = lib.mkForce [];
+          eth1.ipv6.addresses = lib.mkForce [];
           br0.ipv4.addresses = [
             {
               address = "192.168.1.2";
@@ -125,5 +128,4 @@
         client.fail("ip l show eth1 |grep 'master br0' >&2")
         client.fail("grep eth1 /run/br0.interfaces >&2")
   '';
-
 }

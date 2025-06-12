@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hyperledger-fabric";
   version = "2.5.5";
@@ -53,6 +52,6 @@ buildGoModule rec {
     '';
     homepage = "https://wiki.hyperledger.org/display/fabric";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

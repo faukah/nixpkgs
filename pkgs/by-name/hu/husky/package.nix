@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "husky";
   version = "8.0.3";
@@ -23,6 +22,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/typicode/husky";
     changelog = "https://github.com/typicode/husky/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

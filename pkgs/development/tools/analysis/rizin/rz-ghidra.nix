@@ -14,7 +14,6 @@
   qtbase,
   qtsvg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rz-ghidra";
   version = "0.8.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       openssl
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = finalAttrs.src.meta.homepage;
     changelog = "${finalAttrs.src.meta.homepage}/releases/tag/${finalAttrs.src.rev}";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ chayleaf ];
+    maintainers = with maintainers; [chayleaf];
     inherit (rizin.meta) platforms;
   };
 })

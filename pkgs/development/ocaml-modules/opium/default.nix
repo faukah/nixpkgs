@@ -20,7 +20,6 @@
   yojson,
   alcotest-lwt,
 }:
-
 buildDunePackage {
   pname = "opium";
   minimalOCamlVersion = "4.08";
@@ -56,7 +55,7 @@ buildDunePackage {
     description = "OCaml web framework";
     homepage = "https://github.com/rgrinberg/opium";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.pmahoney ];
+    maintainers = [lib.maintainers.pmahoney];
     broken = true; # Not compatible with mirage-crypto ≥ 1.0
   };
 }

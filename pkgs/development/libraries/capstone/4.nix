@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "capstone";
   version = "4.0.2";

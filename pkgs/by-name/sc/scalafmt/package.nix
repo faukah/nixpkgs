@@ -5,9 +5,7 @@
   coursier,
   makeWrapper,
   setJavaClassPath,
-}:
-
-let
+}: let
   baseName = "scalafmt";
   version = "3.9.7";
   deps = stdenv.mkDerivation {
@@ -22,36 +20,36 @@ let
     outputHash = "sha256-x1hEJtzZ0DmFDc7X5Tua3F0BcWz/Atm2zmMr7GgfkUM=";
   };
 in
-stdenv.mkDerivation {
-  pname = baseName;
-  inherit version;
+  stdenv.mkDerivation {
+    pname = baseName;
+    inherit version;
 
-  nativeBuildInputs = [
-    makeWrapper
-    setJavaClassPath
-  ];
-  buildInputs = [ deps ];
+    nativeBuildInputs = [
+      makeWrapper
+      setJavaClassPath
+    ];
+    buildInputs = [deps];
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    makeWrapper ${jre}/bin/java $out/bin/${baseName} \
-      --add-flags "-cp $CLASSPATH org.scalafmt.cli.Cli"
+      makeWrapper ${jre}/bin/java $out/bin/${baseName} \
+        --add-flags "-cp $CLASSPATH org.scalafmt.cli.Cli"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  installCheckPhase = ''
-    $out/bin/${baseName} --version | grep -q "${version}"
-  '';
+    installCheckPhase = ''
+      $out/bin/${baseName} --version | grep -q "${version}"
+    '';
 
-  meta = {
-    description = "Opinionated code formatter for Scala";
-    homepage = "http://scalameta.org/scalafmt";
-    license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.markus1189 ];
-    mainProgram = "scalafmt";
-  };
-}
+    meta = {
+      description = "Opinionated code formatter for Scala";
+      homepage = "http://scalameta.org/scalafmt";
+      license = lib.licenses.asl20;
+      maintainers = [lib.maintainers.markus1189];
+      mainProgram = "scalafmt";
+    };
+  }

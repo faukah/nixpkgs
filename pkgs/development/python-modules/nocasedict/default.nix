@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nocasedict";
   version = "2.0.4";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-TKk09l31exDQ/KtfDDnp3MuTV3/58ivvmCZd2/EvivE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nocasedict" ];
+  pythonImportsCheck = ["nocasedict"];
 
   meta = with lib; {
     description = "Case-insensitive ordered dictionary for Python";
     homepage = "https://github.com/pywbem/nocasedict";
     changelog = "https://github.com/pywbem/nocasedict/blob/${version}/docs/changes.rst";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

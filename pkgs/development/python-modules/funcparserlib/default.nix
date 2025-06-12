@@ -7,7 +7,6 @@
   pythonOlder,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "funcparserlib";
   version = "1.0.1";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-LE9ItCaEzEGeahpM3M3sSnDBXEr6uX5ogEkO5x2Jgzc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
     six
   ];
 
-  pythonImportsCheck = [ "funcparserlib" ];
+  pythonImportsCheck = ["funcparserlib"];
 
   meta = with lib; {
     description = "Recursive descent parsing library based on functional combinators";

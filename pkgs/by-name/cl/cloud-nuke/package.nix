@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeBinaryWrapper,
 }:
-
 buildGoModule rec {
   pname = "cloud-nuke";
   version = "0.40.0";
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "cloud-nuke";
     changelog = "https://github.com/gruntwork-io/cloud-nuke/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

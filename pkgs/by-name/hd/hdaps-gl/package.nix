@@ -7,7 +7,6 @@
   libGL,
   libGLU,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hdaps-gl";
   version = "0.0.7";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jywsrcr1wzkjig5cvz014c3r026sbwscbkv7zh1014lkjm0kyyh";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libglut
     libGL
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linux-thinkpad/hdaps-gl";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     mainProgram = "hdaps-gl";
   };
 }

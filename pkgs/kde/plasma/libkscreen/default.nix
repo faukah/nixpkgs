@@ -14,6 +14,6 @@ mkKdeDerivation {
     jq
     wayland
   ];
-  extraBuildInputs = [ qtwayland ];
+  extraBuildInputs = [qtwayland];
   meta.mainProgram = "kscreen-doctor";
 }

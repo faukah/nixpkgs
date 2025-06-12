@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "glas";
   version = "0.2.3";
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
       mit
     ];
     mainProgram = "glas";
-    maintainers = with lib.maintainers; [ bhankas ];
+    maintainers = with lib.maintainers; [bhankas];
   };
 }

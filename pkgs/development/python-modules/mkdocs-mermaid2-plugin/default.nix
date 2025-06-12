@@ -11,7 +11,6 @@
   requests,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-mermaid2-plugin";
   version = "1.1.0";
@@ -39,13 +38,13 @@ buildPythonPackage rec {
   # non-traditional python tests (e.g. nodejs based tests)
   doCheck = false;
 
-  pythonImportsCheck = [ "mermaid2" ];
+  pythonImportsCheck = ["mermaid2"];
 
   meta = with lib; {
     description = "MkDocs plugin for including mermaid graphs in markdown sources";
     homepage = "https://github.com/fralau/mkdocs-mermaid2-plugin";
     changelog = "https://github.com/fralau/mkdocs-mermaid2-plugin/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

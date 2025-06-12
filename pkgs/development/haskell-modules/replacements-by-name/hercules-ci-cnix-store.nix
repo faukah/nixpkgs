@@ -44,8 +44,8 @@ mkDerivation {
     unliftio-core
     vector
   ];
-  librarySystemDepends = [ boost ];
-  libraryPkgconfigDepends = [ nix ];
+  librarySystemDepends = [boost];
+  libraryPkgconfigDepends = [nix];
   testHaskellDepends = [
     base
     bytestring
@@ -58,7 +58,7 @@ mkDerivation {
     temporary
     text
   ];
-  testToolDepends = [ hspec-discover ];
+  testToolDepends = [hspec-discover];
   homepage = "https://docs.hercules-ci.com";
   description = "Haskell bindings for Nix's libstore";
   license = lib.licenses.asl20;

@@ -3,18 +3,15 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.waybar;
-in
-{
+in {
   options.programs.waybar = {
     enable = lib.mkEnableOption "waybar, a highly customizable Wayland bar for Sway and Wlroots based compositors";
     package =
-      lib.mkPackageOption pkgs "waybar" { }
+      lib.mkPackageOption pkgs "waybar" {}
       // lib.mkOption {
-        apply = pkg: pkg.override { systemdSupport = true; };
+        apply = pkg: pkg.override {systemdSupport = true;};
       };
     systemd.target = lib.mkOption {
       type = lib.types.str;
@@ -26,12 +23,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd = {
-      packages = [ cfg.package ];
-      user.services.waybar.wantedBy = [ cfg.systemd.target ];
+      packages = [cfg.package];
+      user.services.waybar.wantedBy = [cfg.systemd.target];
     };
   };
 
-  meta.maintainers = [ lib.maintainers.FlorianFranzen ];
+  meta.maintainers = [lib.maintainers.FlorianFranzen];
 }

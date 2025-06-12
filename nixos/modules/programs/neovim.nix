@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.neovim;
-in
-{
+in {
   options.programs.neovim = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -69,7 +66,7 @@ in
 
     configure = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           customRC = '''
@@ -89,7 +86,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "neovim-unwrapped" { };
+    package = lib.mkPackageOption pkgs "neovim-unwrapped" {};
 
     finalPackage = lib.mkOption {
       type = lib.types.package;
@@ -99,7 +96,7 @@ in
     };
 
     runtime = lib.mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         { "ftplugin/c.vim".text = "setlocal omnifunc=v:lua.vim.lsp.omnifunc"; }
       '';
@@ -107,14 +104,15 @@ in
         Set of files that have to be linked in {file}`runtime`.
       '';
 
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           submodule (
-            { name, config, ... }:
             {
+              name,
+              config,
+              ...
+            }: {
               options = {
-
                 enable = lib.mkOption {
                   type = lib.types.bool;
                   default = true;
@@ -143,14 +141,12 @@ in
                   type = lib.types.nullOr lib.types.path;
                   description = "Path of the source file.";
                 };
-
               };
 
               config.target = lib.mkDefault name;
             }
           )
         );
-
     };
   };
 
@@ -162,7 +158,7 @@ in
     # On most NixOS configurations /share is already included, so it includes
     # this directory as well. But  This makes sure that /share/nvim/site paths
     # from other packages will be used by neovim.
-    environment.pathsToLink = [ "/share/nvim" ];
+    environment.pathsToLink = ["/share/nvim"];
 
     environment.etc = builtins.listToAttrs (
       builtins.attrValues (
@@ -173,13 +169,15 @@ in
             // {
               target = "xdg/nvim/${value.target}";
             }
-          ) (lib.optionals (builtins.isNull value.source) [ "source" ]);
-        }) cfg.runtime
+          ) (lib.optionals (builtins.isNull value.source) ["source"]);
+        })
+        cfg.runtime
       )
     );
 
     programs.neovim.finalPackage = pkgs.wrapNeovim cfg.package {
-      inherit (cfg)
+      inherit
+        (cfg)
         viAlias
         vimAlias
         withPython3

@@ -9,7 +9,6 @@
   requests,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-confluencebuilder";
   version = "2.12.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-+YKH9qTtqWNUlQMRkFSmP+RK8IAN6/rrYctvY3pIf+I=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     docutils
@@ -35,16 +34,16 @@ buildPythonPackage rec {
   # Tests are disabled due to a circular dependency on Sphinx
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxcontrib.confluencebuilder" ];
+  pythonImportsCheck = ["sphinxcontrib.confluencebuilder"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Confluence builder for sphinx";
     homepage = "https://github.com/sphinx-contrib/confluencebuilder";
     changelog = "https://github.com/sphinx-contrib/confluencebuilder/blob/v${version}/CHANGES.rst";
     license = licenses.bsd1;
-    maintainers = with maintainers; [ graysonhead ];
+    maintainers = with maintainers; [graysonhead];
     mainProgram = "sphinx-build-confluence";
   };
 }

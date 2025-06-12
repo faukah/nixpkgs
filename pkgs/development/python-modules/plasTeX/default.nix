@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   typing-extensions,
   pillow,
@@ -24,7 +22,7 @@ buildPythonPackage {
     hash = "sha256-Muuin7n0aPOZwlUaB32pONy5eyIjtPNb4On5gC9wOcQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     typing-extensions
@@ -36,7 +34,7 @@ buildPythonPackage {
   meta = {
     description = "plasTeX is a Python package to convert LaTeX markup to DOM";
     homepage = "https://plastex.github.io/plastex/";
-    maintainers = with lib.maintainers; [ niklashh ];
+    maintainers = with lib.maintainers; [niklashh];
     license = lib.licenses.asl20;
   };
 }

@@ -8,13 +8,11 @@
   libXrandr,
   libdrm,
 }:
-
 mkDerivation rec {
-
   pname = "radeon-profile";
   version = "20200824";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtcharts
@@ -43,5 +41,4 @@ mkDerivation rec {
     platforms = platforms.linux;
     mainProgram = "radeon-profile";
   };
-
 }

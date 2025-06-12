@@ -9,7 +9,6 @@
   scspell,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "colcon-output";
   version = "0.2.13";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-6HFpqGJMjQswKaGSUXVdzoKW677mdmy/PeEZFBCzaMU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colcon
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/colcon/colcon-output";
     homepage = "http://colcon.readthedocs.io/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
   };
 }

@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pgadmin;
 
   _base = with lib.types; [
@@ -12,8 +11,7 @@ let
     bool
     str
   ];
-  base =
-    with lib.types;
+  base = with lib.types;
     oneOf (
       [
         (listOf (oneOf _base))
@@ -22,46 +20,44 @@ let
       ++ _base
     );
 
-  formatAttrset =
-    attr:
-    "{${
-      lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr
+  formatAttrset = attr: "{${
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (key: value: "${builtins.toJSON key}: ${formatPyValue value},") attr
+    )
+  }}";
+
+  formatPyValue = value:
+    if builtins.isString value
+    then builtins.toJSON value
+    else if value ? _expr
+    then value._expr
+    else if builtins.isInt value
+    then toString value
+    else if builtins.isBool value
+    then
+      (
+        if value
+        then "True"
+        else "False"
       )
-    }}";
+    else if builtins.isAttrs value
+    then (formatAttrset value)
+    else if builtins.isList value
+    then "[${lib.concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
+    else throw "Unrecognized type";
 
-  formatPyValue =
-    value:
-    if builtins.isString value then
-      builtins.toJSON value
-    else if value ? _expr then
-      value._expr
-    else if builtins.isInt value then
-      toString value
-    else if builtins.isBool value then
-      (if value then "True" else "False")
-    else if builtins.isAttrs value then
-      (formatAttrset value)
-    else if builtins.isList value then
-      "[${lib.concatStringsSep "\n" (map (v: "${formatPyValue v},") value)}]"
-    else
-      throw "Unrecognized type";
-
-  formatPy =
-    attrs:
+  formatPy = attrs:
     lib.concatStringsSep "\n" (
       lib.mapAttrsToList (key: value: "${key} = ${formatPyValue value}") attrs
     );
 
-  pyType =
-    with lib.types;
+  pyType = with lib.types;
     attrsOf (oneOf [
       (attrsOf base)
       (listOf base)
       base
     ]);
-in
-{
+in {
   options.services.pgadmin = {
     enable = lib.mkEnableOption "PostgreSQL Admin 4";
 
@@ -71,7 +67,7 @@ in
       default = 5050;
     };
 
-    package = lib.mkPackageOption pkgs "pgadmin4" { };
+    package = lib.mkPackageOption pkgs "pgadmin4" {};
 
     initialEmail = lib.mkOption {
       description = "Initial email for the pgAdmin account";
@@ -150,12 +146,12 @@ in
         [Documentation](https://www.pgadmin.org/docs/pgadmin4/development/config_py.html)
       '';
       type = pyType;
-      default = { };
+      default = {};
     };
   };
 
   config = lib.mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall) [cfg.port];
 
     services.pgadmin.settings =
       {
@@ -177,12 +173,12 @@ in
       });
 
     systemd.services.pgadmin = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      requires = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      requires = ["network.target"];
       # we're adding this optionally so just in case there's any race it'll be caught
       # in case postgres doesn't start, pgadmin will just start normally
-      wants = [ "postgresql.service" ];
+      wants = ["postgresql.service"];
 
       path = [
         config.services.postgresql.package
@@ -225,9 +221,11 @@ in
         LogsDirectory = "pgadmin";
         StateDirectory = "pgadmin";
         ExecStart = "${cfg.package}/bin/pgadmin4";
-        LoadCredential = [
-          "initial_password:${cfg.initialPasswordFile}"
-        ] ++ lib.optional cfg.emailServer.enable "email_password:${cfg.emailServer.passwordFile}";
+        LoadCredential =
+          [
+            "initial_password:${cfg.initialPasswordFile}"
+          ]
+          ++ lib.optional cfg.emailServer.enable "email_password:${cfg.emailServer.passwordFile}";
       };
     };
 
@@ -236,7 +234,7 @@ in
       group = "pgadmin";
     };
 
-    users.groups.pgadmin = { };
+    users.groups.pgadmin = {};
 
     environment.etc."pgadmin/config_system.py" = {
       text =

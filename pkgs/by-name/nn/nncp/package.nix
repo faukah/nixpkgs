@@ -9,7 +9,6 @@
   stdenv,
   writeShellScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nncp";
   version = "8.11.0";

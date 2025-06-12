@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "askalono";
   version = "0.5.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jpeddicord/askalono";
     changelog = "https://github.com/jpeddicord/askalono/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "askalono";
   };
 }

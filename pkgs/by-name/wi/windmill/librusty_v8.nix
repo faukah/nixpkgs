@@ -1,6 +1,5 @@
 # auto-generated file -- DO NOT EDIT!
-{ fetchLibrustyV8 }:
-
+{fetchLibrustyV8}:
 fetchLibrustyV8 {
   version = "130.0.7";
   shas = {

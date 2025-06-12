@@ -7,7 +7,6 @@
   qtwayland,
   wrapQtAppsHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "puddletag";
   version = "2.3.0";

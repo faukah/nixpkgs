@@ -3,17 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   kernelVersion = config.boot.kernelPackages.kernel.version;
   linuxKernelMinVersion = "5.8";
-  kernelPatch = pkgs.kernelPatches.ath_regd_optional // {
-    extraConfig = ''
-      ATH_USER_REGD y
-    '';
-  };
-in
-{
+  kernelPatch =
+    pkgs.kernelPatches.ath_regd_optional
+    // {
+      extraConfig = ''
+        ATH_USER_REGD y
+      '';
+    };
+in {
   options.networking.wireless.athUserRegulatoryDomain = lib.mkOption {
     default = false;
     type = lib.types.bool;
@@ -29,6 +29,6 @@ in
       assertion = lib.lessThan 0 (builtins.compareVersions kernelVersion linuxKernelMinVersion);
       message = "ATH_USER_REGD patch for kernels older than ${linuxKernelMinVersion} not ported yet!";
     };
-    boot.kernelPatches = [ kernelPatch ];
+    boot.kernelPatches = [kernelPatch];
   };
 }

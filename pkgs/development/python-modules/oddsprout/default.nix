@@ -8,7 +8,6 @@
   dahlia,
   ixia,
 }:
-
 buildPythonPackage rec {
   pname = "oddsprout";
   version = "0.1.2";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-RfAU3/Je3aC8JjQ51DqRCSAIfW2tQmQPP6G0/bfa1ZE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     dahlia
     ixia
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oddsprout" ];
+  pythonImportsCheck = ["oddsprout"];
 
   meta = with lib; {
     changelog = "https://github.com/trag1c/oddsprout/blob/${src.rev}/CHANGELOG.md";

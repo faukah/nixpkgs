@@ -7,7 +7,6 @@
   ffmpeg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ffms";
   version = "5.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "FFmpeg based source library for easy frame accurate access";
     mainProgram = "ffmsindex";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

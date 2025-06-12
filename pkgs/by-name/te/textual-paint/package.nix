@@ -4,9 +4,7 @@
   fetchFromGitHub,
   fetchPypi,
   fetchpatch,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = _: super: {
@@ -42,40 +40,39 @@ let
     };
   };
 in
+  python.pkgs.buildPythonApplication rec {
+    pname = "textual-paint";
+    version = "0.1.0";
+    format = "pyproject";
 
-python.pkgs.buildPythonApplication rec {
-  pname = "textual-paint";
-  version = "0.1.0";
-  format = "pyproject";
+    src = fetchFromGitHub {
+      owner = "1j01";
+      repo = "textual-paint";
+      rev = "v${version}";
+      hash = "sha256-ubBWK4aoa9+wyUED7CmWwjknWsWauR/mkurDgkKDiY8=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "1j01";
-    repo = "textual-paint";
-    rev = "v${version}";
-    hash = "sha256-ubBWK4aoa9+wyUED7CmWwjknWsWauR/mkurDgkKDiY8=";
-  };
+    nativeBuildInputs = [
+      python.pkgs.setuptools
+      python.pkgs.wheel
+    ];
 
-  nativeBuildInputs = [
-    python.pkgs.setuptools
-    python.pkgs.wheel
-  ];
+    propagatedBuildInputs = with python.pkgs; [
+      pillow
+      pyfiglet
+      pyperclip
+      rich
+      stransi
+      textual
+    ];
 
-  propagatedBuildInputs = with python.pkgs; [
-    pillow
-    pyfiglet
-    pyperclip
-    rich
-    stransi
-    textual
-  ];
+    pythonImportsCheck = ["textual_paint"];
 
-  pythonImportsCheck = [ "textual_paint" ];
-
-  meta = with lib; {
-    description = "TUI image editor inspired by MS Paint";
-    homepage = "https://github.com/1j01/textual-paint";
-    license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
-    mainProgram = "textual-paint";
-  };
-}
+    meta = with lib; {
+      description = "TUI image editor inspired by MS Paint";
+      homepage = "https://github.com/1j01/textual-paint";
+      license = licenses.mit;
+      maintainers = with maintainers; [figsoda];
+      mainProgram = "textual-paint";
+    };
+  }

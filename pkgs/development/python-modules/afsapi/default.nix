@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "afsapi";
   version = "0.2.8";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-eE5BsXNtSU6YUhRn4/SKpMrqaYf8tyfLKdxxGOmNJ9I=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     aiohttp
@@ -36,15 +35,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "async_tests.py" ];
+  pytestFlagsArray = ["async_tests.py"];
 
-  pythonImportsCheck = [ "afsapi" ];
+  pythonImportsCheck = ["afsapi"];
 
   meta = with lib; {
     description = "Python implementation of the Frontier Silicon API";
     homepage = "https://github.com/wlcrs/python-afsapi";
     changelog = "https://github.com/wlcrs/python-afsapi/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

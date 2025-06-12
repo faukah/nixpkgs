@@ -1,11 +1,9 @@
 {
   callPackage,
   fetchurl,
-}:
-let
-  common = opts: callPackage (import ./common.nix opts) { };
-in
-rec {
+}: let
+  common = opts: callPackage (import ./common.nix opts) {};
+in rec {
   openconnect = common rec {
     version = "9.12";
     src = fetchurl {

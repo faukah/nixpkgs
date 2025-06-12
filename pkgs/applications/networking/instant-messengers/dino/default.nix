@@ -34,7 +34,6 @@
   gst-vaapi,
   webrtc-audio-processing_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dino";
   version = "0.5.0";
@@ -121,6 +120,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dino/dino";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
   };
 })

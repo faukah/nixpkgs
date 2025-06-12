@@ -23,7 +23,6 @@
   websockets,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "gql";
   version = "3.5.3";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-0mVMhJHlF6EZ3D9fuNrzkoHm9vIAKxbuajmUs1JL0HY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     anyio
@@ -47,15 +46,17 @@ buildPythonPackage rec {
     yarl
   ];
 
-  nativeCheckInputs = [
-    aiofiles
-    mock
-    parse
-    pytest-asyncio
-    pytest-console-scripts
-    pytestCheckHook
-    vcrpy
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      aiofiles
+      mock
+      parse
+      pytest-asyncio
+      pytest-console-scripts
+      pytestCheckHook
+      vcrpy
+    ]
+    ++ optional-dependencies.all;
 
   optional-dependencies = {
     all = [
@@ -67,15 +68,15 @@ buildPythonPackage rec {
       urllib3
       websockets
     ];
-    aiohttp = [ aiohttp ];
-    httpx = [ httpx ];
+    aiohttp = [aiohttp];
+    httpx = [httpx];
     requests = [
       requests
       requests-toolbelt
       urllib3
     ];
-    websockets = [ websockets ];
-    botocore = [ botocore ];
+    websockets = [websockets];
+    botocore = [botocore];
   };
 
   preCheck = ''
@@ -107,7 +108,7 @@ buildPythonPackage rec {
     "tests/test_httpx_async.py"
   ];
 
-  pythonImportsCheck = [ "gql" ];
+  pythonImportsCheck = ["gql"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -116,7 +117,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/graphql-python/gql";
     changelog = "https://github.com/graphql-python/gql/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "gql-cli";
   };
 }

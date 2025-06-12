@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   flet-client-flutter,
-
   # build-system
   poetry-core,
   pytestCheckHook,
-
   # propagates
   fastapi,
   httpx,
@@ -20,7 +18,6 @@
   websocket-client,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "flet";
   inherit (flet-client-flutter) version src;
@@ -28,9 +25,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python/packages/flet";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   makeWrapperArgs = [
     "--prefix"
@@ -71,7 +68,7 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  pythonImportsCheck = [ "flet" ];
+  pythonImportsCheck = ["flet"];
 
   meta = {
     description = "Framework that enables you to easily build realtime web, mobile, and desktop apps in Python";

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubergrunt";
   version = "0.17.3";
@@ -31,6 +30,6 @@ buildGoModule rec {
     mainProgram = "kubergrunt";
     homepage = "https://github.com/gruntwork-io/kubergrunt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
   };
 }

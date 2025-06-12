@@ -2,21 +2,17 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-
   clang_14,
   pkg-config,
-
   elfutils,
   libbpf,
   zlib,
   zstd,
-
   nixosTests,
   testers,
   tracee,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "tracee";
   version = "0.23.1";
@@ -37,7 +33,7 @@ buildGoModule rec {
 
   enableParallelBuilding = true;
   # needed to build bpf libs
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   nativeBuildInputs = [
     clang_14
@@ -89,7 +85,7 @@ buildGoModule rec {
 
   passthru.tests = {
     integration = nixosTests.tracee;
-    integration-test-cli = import ./integration-tests.nix { inherit lib tracee makeWrapper; };
+    integration-test-cli = import ./integration-tests.nix {inherit lib tracee makeWrapper;};
     version = testers.testVersion {
       package = tracee;
       version = "v${version}";
@@ -115,7 +111,7 @@ buildGoModule rec {
       # pkg/ebpf/c/*
       gpl2Plus
     ];
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

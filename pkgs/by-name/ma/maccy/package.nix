@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "maccy";
   version = "2.3.0";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Simple clipboard manager for macOS";
     homepage = "https://maccy.app";
     license = licenses.mit;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       emilytrau
       baongoc124

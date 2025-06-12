@@ -10,7 +10,6 @@
   resholve,
   xrandr,
 }:
-
 resholve.mkDerivation {
   pname = "mons";
   version = "unstable-2020-03-20";
@@ -24,16 +23,16 @@ resholve.mkDerivation {
   };
 
   /*
-    Remove reference to `%LIBDIR%/liblist.sh`. This would be linked to the
-    non-resholved of the library in the final derivation.
+  Remove reference to `%LIBDIR%/liblist.sh`. This would be linked to the
+  non-resholved of the library in the final derivation.
 
-    Patching out the library check; it's bad on multiple levels:
-    1. The check literally breaks if it fails.
-       See https://github.com/Ventto/mons/pull/49
-    2. It doesn't need to do this; source would fail with a
-       sensible message if the script was missing.
-    3. resholve can't wrestle with test/[] (at least until
-       https://github.com/abathur/resholve/issues/78)
+  Patching out the library check; it's bad on multiple levels:
+  1. The check literally breaks if it fails.
+     See https://github.com/Ventto/mons/pull/49
+  2. It doesn't need to do this; source would fail with a
+     sensible message if the script was missing.
+  3. resholve can't wrestle with test/[] (at least until
+     https://github.com/abathur/resholve/issues/78)
   */
   postPatch = ''
     substituteInPlace mons.sh \
@@ -57,13 +56,13 @@ resholve.mkDerivation {
         xrandr
       ];
       fix = {
-        "$lib" = [ "lib/libshlist/liblist.sh" ];
-        "$XRANDR" = [ "xrandr" ];
+        "$lib" = ["lib/libshlist/liblist.sh"];
+        "$XRANDR" = ["xrandr"];
       };
       keep = {
         /*
-          has a whole slate of *flag variables that it sets to either
-          the true or false builtin and then executes...
+        has a whole slate of *flag variables that it sets to either
+        the true or false builtin and then executes...
         */
         "$aFlag" = true;
         "$dFlag" = true;
@@ -82,7 +81,7 @@ resholve.mkDerivation {
     };
   };
 
-  nativeBuildInputs = [ help2man ];
+  nativeBuildInputs = [help2man];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -93,7 +92,7 @@ resholve.mkDerivation {
     description = "POSIX Shell script to quickly manage 2-monitors display";
     homepage = "https://github.com/Ventto/mons.git";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     platforms = platforms.unix;
     mainProgram = "mons";
   };

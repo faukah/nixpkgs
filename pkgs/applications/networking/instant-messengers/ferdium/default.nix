@@ -4,9 +4,7 @@
   fetchurl,
   xorg,
   stdenv,
-}:
-
-let
+}: let
   arch =
     {
       x86_64-linux = "amd64";
@@ -20,30 +18,30 @@ let
     }
     ."${arch}-linux_hash";
 in
-mkFranzDerivation rec {
-  pname = "ferdium";
-  name = "Ferdium";
-  version = "7.0.1";
-  src = fetchurl {
-    url = "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-${arch}.deb";
-    inherit hash;
-  };
+  mkFranzDerivation rec {
+    pname = "ferdium";
+    name = "Ferdium";
+    version = "7.0.1";
+    src = fetchurl {
+      url = "https://github.com/ferdium/ferdium-app/releases/download/v${version}/Ferdium-linux-${version}-${arch}.deb";
+      inherit hash;
+    };
 
-  extraBuildInputs = [ xorg.libxshmfence ];
+    extraBuildInputs = [xorg.libxshmfence];
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+    };
 
-  meta = with lib; {
-    description = "All your services in one place built by the community";
-    homepage = "https://ferdium.org/";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ magnouvean ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    hydraPlatforms = [ ];
-  };
-}
+    meta = with lib; {
+      description = "All your services in one place built by the community";
+      homepage = "https://ferdium.org/";
+      license = licenses.asl20;
+      maintainers = with maintainers; [magnouvean];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      hydraPlatforms = [];
+    };
+  }

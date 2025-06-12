@@ -8,7 +8,6 @@
   setuptools,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "pychromecast";
   version = "14.0.7";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
        --replace-fail "setuptools>=65.6,<78.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     casttube
@@ -39,14 +38,14 @@ buildPythonPackage rec {
   # no tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "pychromecast" ];
+  pythonImportsCheck = ["pychromecast"];
 
   meta = with lib; {
     description = "Library for Python to communicate with the Google Chromecast";
     homepage = "https://github.com/home-assistant-libs/pychromecast";
     changelog = "https://github.com/home-assistant-libs/pychromecast/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

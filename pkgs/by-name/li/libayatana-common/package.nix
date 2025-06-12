@@ -14,7 +14,6 @@
   systemd,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libayatana-common";
   version = "0.9.11";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AyatanaIndicators/libayatana-common";
     changelog = "https://github.com/AyatanaIndicators/libayatana-common/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "libayatana-common"

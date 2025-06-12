@@ -5,14 +5,13 @@
   bootstrapVersion,
   bootstrapHashes,
   selectRustPackage,
-  rustcPatches ? [ ],
+  rustcPatches ? [],
   llvmShared,
   llvmSharedForBuild,
   llvmSharedForHost,
   llvmSharedForTarget,
   llvmPackages, # Exposed through rustc for LTO in Firefox
-}:
-{
+}: {
   stdenv,
   lib,
   newScope,
@@ -23,9 +22,7 @@
   pkgsTargetTarget,
   makeRustPlatform,
   wrapRustcWith,
-}:
-
-let
+}: let
   # Use `import` to make sure no packages sneak in here.
   lib' = import ../../../build-support/rust/lib {
     inherit
@@ -39,12 +36,12 @@ let
   # Allow faster cross compiler generation by reusing Build artifacts
   fastCross =
     (stdenv.buildPlatform == stdenv.hostPlatform) && (stdenv.hostPlatform != stdenv.targetPlatform);
-in
-{
+in {
   lib = lib';
 
   # Backwards compat before `lib` was factored out.
-  inherit (lib')
+  inherit
+    (lib')
     toTargetArch
     toTargetOs
     toRustTarget
@@ -71,33 +68,35 @@ in
       hashes = bootstrapHashes;
     };
     stable = lib.makeScope newScope (
-      self:
-      let
+      self: let
         # Like `buildRustPackages`, but may also contain prebuilt binaries to
         # break cycle. Just like `bootstrapTools` for nixpkgs as a whole,
         # nothing in the final package set should refer to this.
         bootstrapRustPackages =
-          if fastCross then
-            pkgsBuildBuild.rustPackages
+          if fastCross
+          then pkgsBuildBuild.rustPackages
           else
             self.buildRustPackages.overrideScope (
               _: _:
-              lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
+                lib.optionalAttrs (stdenv.buildPlatform == stdenv.hostPlatform)
                 (selectRustPackage pkgsBuildHost).packages.prebuilt
             );
         bootRustPlatform = makeRustPlatform bootstrapRustPackages;
-      in
-      {
+      in {
         # Packages suitable for build-time, e.g. `build.rs`-type stuff.
-        buildRustPackages = (selectRustPackage pkgsBuildHost).packages.stable // {
-          # Prevent `pkgs/top-level/release-attrpaths-superset.nix` from recursing more than one level here.
-          buildRustPackages = self.buildRustPackages // {
-            __attrsFailEvaluation = true;
+        buildRustPackages =
+          (selectRustPackage pkgsBuildHost).packages.stable
+          // {
+            # Prevent `pkgs/top-level/release-attrpaths-superset.nix` from recursing more than one level here.
+            buildRustPackages =
+              self.buildRustPackages
+              // {
+                __attrsFailEvaluation = true;
+              };
           };
-        };
         # Analogous to stdenv
         rustPlatform = makeRustPlatform self.buildRustPackages;
-        rustc-unwrapped = self.callPackage ./rustc.nix ({
+        rustc-unwrapped = self.callPackage ./rustc.nix {
           version = rustcVersion;
           sha256 = rustcSha256;
           inherit enableRustcDev;
@@ -114,24 +113,27 @@ in
 
           # Use boot package set to break cycle
           inherit (bootstrapRustPackages) cargo rustc rustfmt;
-        });
+        };
         rustc = wrapRustcWith {
           inherit (self) rustc-unwrapped;
-          sysroot = if fastCross then self.rustc-unwrapped else null;
+          sysroot =
+            if fastCross
+            then self.rustc-unwrapped
+            else null;
         };
         rustfmt = self.callPackage ./rustfmt.nix {
           inherit (self.buildRustPackages) rustc;
         };
         cargo =
-          if (!fastCross) then
+          if (!fastCross)
+          then
             self.callPackage ./cargo.nix {
               # Use boot package set to break cycle
               rustPlatform = bootRustPlatform;
             }
-          else
-            self.callPackage ./cargo_cross.nix { };
-        cargo-auditable = self.callPackage ./cargo-auditable.nix { };
-        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
+          else self.callPackage ./cargo_cross.nix {};
+        cargo-auditable = self.callPackage ./cargo-auditable.nix {};
+        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix {};
         clippy = self.callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports

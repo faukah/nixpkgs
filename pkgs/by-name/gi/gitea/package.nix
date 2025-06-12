@@ -13,9 +13,7 @@
   sqliteSupport ? true,
   nixosTests,
   buildNpmPackage,
-}:
-
-let
+}: let
   frontend = buildNpmPackage {
     pname = "gitea-frontend";
     inherit (gitea) src version;
@@ -33,62 +31,62 @@ let
     '';
   };
 in
-buildGoModule rec {
-  pname = "gitea";
-  version = "1.24.0";
+  buildGoModule rec {
+    pname = "gitea";
+    version = "1.24.0";
 
-  src = fetchFromGitHub {
-    owner = "go-gitea";
-    repo = "gitea";
-    tag = "v${gitea.version}";
-    hash = "sha256-lKeqoNL6RMjhm9egk6upbovJaWwm3r2kxi0Z9bjNxtI=";
-  };
+    src = fetchFromGitHub {
+      owner = "go-gitea";
+      repo = "gitea";
+      tag = "v${gitea.version}";
+      hash = "sha256-lKeqoNL6RMjhm9egk6upbovJaWwm3r2kxi0Z9bjNxtI=";
+    };
 
-  proxyVendor = true;
+    proxyVendor = true;
 
-  vendorHash = "sha256-nC8y3skBhnOo7Ki9nc7Ni6UpheArB8bGK4AR/1Gdjr0=";
+    vendorHash = "sha256-nC8y3skBhnOo7Ki9nc7Ni6UpheArB8bGK4AR/1Gdjr0=";
 
-  outputs = [
-    "out"
-    "data"
-  ];
+    outputs = [
+      "out"
+      "data"
+    ];
 
-  patches = [ ./static-root-path.patch ];
+    patches = [./static-root-path.patch];
 
-  # go-modules derivation doesn't provide $data
-  # so we need to wait until it is built, and then
-  # at that time we can then apply the substituteInPlace
-  overrideModAttrs = _: { postPatch = null; };
+    # go-modules derivation doesn't provide $data
+    # so we need to wait until it is built, and then
+    # at that time we can then apply the substituteInPlace
+    overrideModAttrs = _: {postPatch = null;};
 
-  postPatch = ''
-    substituteInPlace modules/setting/server.go --subst-var data
-  '';
+    postPatch = ''
+      substituteInPlace modules/setting/server.go --subst-var data
+    '';
 
-  subPackages = [ "." ];
+    subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  tags = lib.optionals sqliteSupport [
-    "sqlite"
-    "sqlite_unlock_notify"
-  ];
+    tags = lib.optionals sqliteSupport [
+      "sqlite"
+      "sqlite_unlock_notify"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.Version=${version}"
-    "-X 'main.Tags=${lib.concatStringsSep " " tags}'"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.Version=${version}"
+      "-X 'main.Tags=${lib.concatStringsSep " " tags}'"
+    ];
 
-  postInstall = ''
-    mkdir $data
-    ln -s ${frontend}/public $data/public
-    cp -R ./{templates,options} $data
-    mkdir -p $out
-    cp -R ./options/locale $out/locale
+    postInstall = ''
+      mkdir $data
+      ln -s ${frontend}/public $data/public
+      cp -R ./{templates,options} $data
+      mkdir -p $out
+      cp -R ./options/locale $out/locale
 
-    wrapProgram $out/bin/gitea \
-      --prefix PATH : ${
+      wrapProgram $out/bin/gitea \
+        --prefix PATH : ${
         lib.makeBinPath [
           bash
           coreutils
@@ -97,24 +95,24 @@ buildGoModule rec {
           openssh
         ]
       }
-  '';
+    '';
 
-  passthru = {
-    data-compressed =
-      lib.warn "gitea.passthru.data-compressed is deprecated. Use \"compressDrvWeb gitea.data\"."
-        (compressDrvWeb gitea.data { });
+    passthru = {
+      data-compressed =
+        lib.warn "gitea.passthru.data-compressed is deprecated. Use \"compressDrvWeb gitea.data\"."
+        (compressDrvWeb gitea.data {});
 
-    tests = nixosTests.gitea;
-  };
+      tests = nixosTests.gitea;
+    };
 
-  meta = with lib; {
-    description = "Git with a cup of tea";
-    homepage = "https://about.gitea.com";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      techknowlogick
-      SuperSandro2000
-    ];
-    mainProgram = "gitea";
-  };
-}
+    meta = with lib; {
+      description = "Git with a cup of tea";
+      homepage = "https://about.gitea.com";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        techknowlogick
+        SuperSandro2000
+      ];
+      mainProgram = "gitea";
+    };
+  }

@@ -9,7 +9,6 @@
   lib,
   wrapGAppsHook3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "break-time";
   version = "0.1.2";
@@ -46,8 +45,8 @@ rustPlatform.buildRustPackage rec {
     description = "Break timer that forces you to take a break";
     mainProgram = "break-time";
     homepage = "https://github.com/cdepillabout/break-time";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ cdepillabout ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [cdepillabout];
     platforms = platforms.linux;
   };
 }

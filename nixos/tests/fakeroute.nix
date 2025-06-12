@@ -1,21 +1,22 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "fakeroute";
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [ ../modules/profiles/minimal.nix ];
-      services.fakeroute.enable = true;
-      services.fakeroute.route = [
-        "216.102.187.130"
-        "4.0.1.122"
-        "198.116.142.34"
-        "63.199.8.242"
-      ];
-      environment.systemPackages = [ pkgs.traceroute ];
-    };
+  nodes.machine = {...}: {
+    imports = [../modules/profiles/minimal.nix];
+    services.fakeroute.enable = true;
+    services.fakeroute.route = [
+      "216.102.187.130"
+      "4.0.1.122"
+      "198.116.142.34"
+      "63.199.8.242"
+    ];
+    environment.systemPackages = [pkgs.traceroute];
+  };
 
   testScript = ''
     start_all()

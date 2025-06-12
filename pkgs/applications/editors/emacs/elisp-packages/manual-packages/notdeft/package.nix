@@ -15,7 +15,6 @@
   # Include Ivy integration
   withIvy ? false,
 }:
-
 melpaBuild {
   pname = "notdeft";
   version = "0-unstable-2025-02-04";
@@ -42,7 +41,7 @@ melpaBuild {
      ${lib.optionalString withIvy ''"extras/notdeft-ivy.el"''})
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     tclap
@@ -58,13 +57,13 @@ melpaBuild {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = {
     homepage = "https://tero.hasu.is/notdeft/";
     description = "Fork of Deft that uses Xapian as a search engine";
-    maintainers = [ lib.maintainers.nessdoor ];
+    maintainers = [lib.maintainers.nessdoor];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
   };

@@ -7,7 +7,6 @@
   libusb1,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "probe-rs-tools";
   version = "0.29.0";

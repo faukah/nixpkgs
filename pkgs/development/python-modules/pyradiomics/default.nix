@@ -12,7 +12,6 @@
   six,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyradiomics";
   version = "3.1.0";
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   preCheck = ''
     rm -rf radiomics
   '';
   # tries to access network at collection time:
-  disabledTestPaths = [ "tests/test_wavelet.py" ];
+  disabledTestPaths = ["tests/test_wavelet.py"];
   # various urllib download errors and (probably related) missing feature errors:
   disabledTests = [
     "brain1_shape2D-original_shape2D"
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     "-k '${toString (lib.intersperse "and" (lib.forEach disabledTests (t: "not ${t}")))}'"
   ];
 
-  pythonImportsCheck = [ "radiomics" ];
+  pythonImportsCheck = ["radiomics"];
 
   meta = with lib; {
     homepage = "https://pyradiomics.readthedocs.io";
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     mainProgram = "pyradiomics";
     changelog = "https://github.com/AIM-Harvard/pyradiomics/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

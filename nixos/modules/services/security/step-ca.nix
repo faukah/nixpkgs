@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.step-ca;
-  settingsFormat = (pkgs.formats.json { });
-in
-{
-  meta.maintainers = [ ];
+  settingsFormat = pkgs.formats.json {};
+in {
+  meta.maintainers = [];
 
   options = {
     services.step-ca = {
@@ -87,16 +85,15 @@ in
           address = cfg.address + ":" + toString cfg.port;
         }
       );
-    in
-    {
-      systemd.packages = [ cfg.package ];
+    in {
+      systemd.packages = [cfg.package];
 
       # configuration file indirection is needed to support reloading
       environment.etc."smallstep/ca.json".source = configFile;
 
       systemd.services."step-ca" = {
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ configFile ];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [configFile];
         unitConfig = {
           ConditionFileNotEmpty = ""; # override upstream
         };
@@ -131,10 +128,10 @@ in
         isSystemUser = true;
       };
 
-      users.groups.step-ca = { };
+      users.groups.step-ca = {};
 
       networking.firewall = lib.mkIf cfg.openFirewall {
-        allowedTCPPorts = [ cfg.port ];
+        allowedTCPPorts = [cfg.port];
       };
     }
   );

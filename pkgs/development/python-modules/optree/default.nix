@@ -9,7 +9,6 @@
   pybind11,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "optree";
   version = "0.14.1";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
   nativeBuildInputs = [
     setuptools
     pybind11
     cmake
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # prevent import failures from pytest
   preCheck = ''
     rm -r optree
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     # Fails because the 'test_treespec' module can't be found
     "test_treespec_pickle_missing_registration"
   ];
-  pythonImportsCheck = [ "optree" ];
+  pythonImportsCheck = ["optree"];
 
   meta = {
     description = "Optimized PyTree Utilities";
     homepage = "https://github.com/metaopt/optree";
     changelog = "https://github.com/metaopt/optree/releases";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

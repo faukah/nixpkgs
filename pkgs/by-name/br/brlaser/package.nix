@@ -6,7 +6,6 @@
   zlib,
   cups,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brlaser";
   version = "6.2.7";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Owl-Maintain/brlaser/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

@@ -12,10 +12,8 @@
   ninja,
   xmlto,
   python3,
-
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pax-utils";
   version = "1.3.8";
@@ -32,7 +30,7 @@ stdenv.mkDerivation rec {
     (lib.mesonEnable "use_libcap" withLibcap)
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     docbook_xml_dtd_44
     docbook_xsl
@@ -41,9 +39,9 @@ stdenv.mkDerivation rec {
     pkg-config
     xmlto
   ];
-  buildInputs = lib.optionals withLibcap [ libcap ];
+  buildInputs = lib.optionals withLibcap [libcap];
   # Needed for lddtree
-  propagatedBuildInputs = [ (python3.withPackages (p: with p; [ pyelftools ])) ];
+  propagatedBuildInputs = [(python3.withPackages (p: with p; [pyelftools]))];
 
   passthru.updateScript = gitUpdater {
     url = "https://anongit.gentoo.org/git/proj/pax-utils.git";

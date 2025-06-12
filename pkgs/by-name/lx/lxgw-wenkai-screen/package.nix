@@ -3,7 +3,6 @@
   fetchurl,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lxgw-wenkai-screen";
   version = "1.510";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/lxgw/LxgwWenKai-Screen";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lebensterben ];
+    maintainers = with lib.maintainers; [lebensterben];
   };
 })

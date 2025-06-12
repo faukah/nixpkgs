@@ -26,9 +26,7 @@
   statsmodels,
   tensorflow-probability,
   termcolor,
-}:
-
-let
+}: let
   bsuite = buildPythonPackage rec {
     pname = "bsuite";
     version = "0.3.5";
@@ -55,7 +53,7 @@ let
       })
     ];
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     dependencies = [
       absl-py
@@ -84,7 +82,7 @@ let
       tensorflow-probability
     ];
 
-    pythonImportsCheck = [ "bsuite" ];
+    pythonImportsCheck = ["bsuite"];
 
     disabledTests = [
       # Tests require network connection
@@ -119,8 +117,8 @@ let
       homepage = "https://github.com/deepmind/bsuite";
       changelog = "https://github.com/google-deepmind/bsuite/releases/tag/${version}";
       license = licenses.asl20;
-      maintainers = with maintainers; [ onny ];
+      maintainers = with maintainers; [onny];
     };
   };
 in
-bsuite
+  bsuite

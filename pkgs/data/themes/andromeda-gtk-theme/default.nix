@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gtk-engine-murrine,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "andromeda-gtk-theme";
   version = "0-unstable-2024-06-24";

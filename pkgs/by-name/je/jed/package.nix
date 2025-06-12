@@ -10,7 +10,6 @@
   ncurses5,
   slang,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jed";
   version = "0.99-19";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vzeX0P+2+IuKtrX+2lQDeJj7VMDS6XurD2pb2jhxy2Q=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gpm
     libXext
@@ -98,3 +97,4 @@ stdenv.mkDerivation rec {
   };
 }
 # TODO: build tex documentation
+

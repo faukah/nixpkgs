@@ -10,10 +10,7 @@
   libglut,
   opencl-headers,
   ocl-icd,
-}:
-
-let
-
+}: let
   examples = stdenv.mkDerivation {
     pname = "amd-app-samples";
     version = "2018-06-10";
@@ -47,42 +44,41 @@ let
       runHook postInstall
     '';
 
-    cmakeFlags = [ "-DBUILD_CPP_CL=OFF" ];
+    cmakeFlags = ["-DBUILD_CPP_CL=OFF"];
 
     meta = with lib; {
       description = "Samples from the AMD APP SDK (with OpenCRun support)";
       homepage = "https://github.com/OpenCL/AMD_APP_samples";
       license = licenses.bsd2;
       platforms = platforms.linux;
-      teams = [ lib.teams.rocm ];
+      teams = [lib.teams.rocm];
     };
   };
-
 in
-makeImpureTest {
-  name = "opencl-example";
-  testedPackage = "rocmPackages_6.clr";
+  makeImpureTest {
+    name = "opencl-example";
+    testedPackage = "rocmPackages_6.clr";
 
-  sandboxPaths = [
-    "/sys"
-    "/dev/dri"
-    "/dev/kfd"
-  ];
+    sandboxPaths = [
+      "/sys"
+      "/dev/dri"
+      "/dev/kfd"
+    ];
 
-  nativeBuildInputs = [ examples ];
+    nativeBuildInputs = [examples];
 
-  OCL_ICD_VENDORS = "${clr.icd}/etc/OpenCL/vendors";
+    OCL_ICD_VENDORS = "${clr.icd}/etc/OpenCL/vendors";
 
-  testScript = ''
-    # Examples load resources from current directory
-    cd ${examples}/bin
-    echo OCL_ICD_VENDORS=$OCL_ICD_VENDORS
-    pwd
+    testScript = ''
+      # Examples load resources from current directory
+      cd ${examples}/bin
+      echo OCL_ICD_VENDORS=$OCL_ICD_VENDORS
+      pwd
 
-    HelloWorld | grep HelloWorld
-  '';
+      HelloWorld | grep HelloWorld
+    '';
 
-  meta = with lib; {
-    teams = [ teams.rocm ];
-  };
-}
+    meta = with lib; {
+      teams = [teams.rocm];
+    };
+  }

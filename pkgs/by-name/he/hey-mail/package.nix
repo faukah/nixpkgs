@@ -37,8 +37,7 @@
   nspr,
   dbus,
   expat,
-}:
-let
+}: let
   deps = [
     c-ares
     gtk3-x11
@@ -82,92 +81,92 @@ let
     stdenv.cc.cc
   ];
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "hey-mail";
-  version = "1.2.17";
-  rev = "28";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "hey-mail";
+    version = "1.2.17";
+    rev = "28";
 
-  src = fetchurl {
-    url = "https://api.snapcraft.io/api/v1/snaps/download/lfWUNpR7PrPGsDfuxIhVxbj0wZHoH7bK_${finalAttrs.rev}.snap";
-    hash = "sha512-X4iJ8r0VFHD+dtFkyABUEFeoI3CSpmT70JjgJGsW7nqzCLriF4eekdHKJgySusnLW250RlEVtEO5wKMW+2bqCQ==";
-  };
+    src = fetchurl {
+      url = "https://api.snapcraft.io/api/v1/snaps/download/lfWUNpR7PrPGsDfuxIhVxbj0wZHoH7bK_${finalAttrs.rev}.snap";
+      hash = "sha512-X4iJ8r0VFHD+dtFkyABUEFeoI3CSpmT70JjgJGsW7nqzCLriF4eekdHKJgySusnLW250RlEVtEO5wKMW+2bqCQ==";
+    };
 
-  nativeBuildInputs = [
-    squashfsTools
-    makeWrapper
-    autoPatchelfHook
-    wrapGAppsHook3
-    imagemagick
-  ];
+    nativeBuildInputs = [
+      squashfsTools
+      makeWrapper
+      autoPatchelfHook
+      wrapGAppsHook3
+      imagemagick
+    ];
 
-  buildInputs = deps;
+    buildInputs = deps;
 
-  unpackPhase = ''
-    runHook preUnpack
-    unsquashfs "$src"
-    cd squashfs-root
-    runHook postUnpack
-  '';
+    unpackPhase = ''
+      runHook preUnpack
+      unsquashfs "$src"
+      cd squashfs-root
+      runHook postUnpack
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/lib $out/share/applications/ $out/share/icons/ $out/bin
-    mv ./* $out/
+      mkdir -p $out/lib $out/share/applications/ $out/share/icons/ $out/bin
+      mv ./* $out/
 
-    ln -s $out/meta/snap.yaml $out/snap.yaml
+      ln -s $out/meta/snap.yaml $out/snap.yaml
 
-    librarypath="${lib.makeLibraryPath deps}"
+      librarypath="${lib.makeLibraryPath deps}"
 
-    wrapProgram $out/hey-mail \
-      --prefix LD_LIBRARY_PATH : "$librarypath"
+      wrapProgram $out/hey-mail \
+        --prefix LD_LIBRARY_PATH : "$librarypath"
 
-    ln -s $out/hey-mail $out/bin/hey-mail
+      ln -s $out/hey-mail $out/bin/hey-mail
 
-    # fix icon line in the desktop file
-    sed -i "s:^Icon=.*:Icon=hey-mail:" "$out/meta/gui/hey-mail.desktop"
+      # fix icon line in the desktop file
+      sed -i "s:^Icon=.*:Icon=hey-mail:" "$out/meta/gui/hey-mail.desktop"
 
-    # Copy desktop file
-    cp "$out/meta/gui/hey-mail.desktop" "$out/share/applications/"
+      # Copy desktop file
+      cp "$out/meta/gui/hey-mail.desktop" "$out/share/applications/"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postInstall = ''
-    for i in 16 24 32 48 64 96 128 256 512; do
-      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
-      magick $out/meta/gui/icon.png -background none -resize ''${i}x''${i} $out/share/icons/hicolor/''${i}x''${i}/apps/hey-mail.png
-    done
-  '';
+    postInstall = ''
+      for i in 16 24 32 48 64 96 128 256 512; do
+        mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+        magick $out/meta/gui/icon.png -background none -resize ''${i}x''${i} $out/share/icons/hicolor/''${i}x''${i}/apps/hey-mail.png
+      done
+    '';
 
-  passthru.updateScript = writeScript "update-hey-mail" ''
-    #!/usr/bin/env nix-shell
-    #!nix-shell -i bash -p common-updater-scripts curl jq
+    passthru.updateScript = writeScript "update-hey-mail" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p common-updater-scripts curl jq
 
-    set -eu -o pipefail
+      set -eu -o pipefail
 
-    data=$(curl -H 'X-Ubuntu-Series: 16' \
-    'https://api.snapcraft.io/api/v1/snaps/details/hey-mail?fields=download_sha512,revision,version')
+      data=$(curl -H 'X-Ubuntu-Series: 16' \
+      'https://api.snapcraft.io/api/v1/snaps/details/hey-mail?fields=download_sha512,revision,version')
 
-    version=$(jq -r .version <<<"$data")
+      version=$(jq -r .version <<<"$data")
 
-    if [[ "x$UPDATE_NIX_OLD_VERSION" != "x$version" ]]; then
+      if [[ "x$UPDATE_NIX_OLD_VERSION" != "x$version" ]]; then
 
-        revision=$(jq -r .revision <<<"$data")
-        hash=$(nix hash to-sri "sha512:$(jq -r .download_sha512 <<<"$data")")
+          revision=$(jq -r .revision <<<"$data")
+          hash=$(nix hash to-sri "sha512:$(jq -r .download_sha512 <<<"$data")")
 
-        update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" "$hash"
-        update-source-version --ignore-same-hash --version-key=rev "$UPDATE_NIX_ATTR_PATH" "$revision" "$hash"
+          update-source-version "$UPDATE_NIX_ATTR_PATH" "$version" "$hash"
+          update-source-version --ignore-same-hash --version-key=rev "$UPDATE_NIX_ATTR_PATH" "$revision" "$hash"
 
-    fi
-  '';
+      fi
+    '';
 
-  meta = {
-    homepage = "https://hey.com";
-    description = "Desktop client for HEY email";
-    license = lib.licenses.unfree;
-    mainProgram = "hey-mail";
-    maintainers = [ lib.maintainers.peret ];
-    platforms = [ "x86_64-linux" ];
-  };
-})
+    meta = {
+      homepage = "https://hey.com";
+      description = "Desktop client for HEY email";
+      license = lib.licenses.unfree;
+      mainProgram = "hey-mail";
+      maintainers = [lib.maintainers.peret];
+      platforms = ["x86_64-linux"];
+    };
+  })

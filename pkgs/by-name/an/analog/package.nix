@@ -7,7 +7,6 @@
   libjpeg,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "analog";
   version = "6.0.18";
@@ -53,5 +52,4 @@ stdenv.mkDerivation rec {
     platforms = lib.platforms.all;
     mainProgram = "analog";
   };
-
 }

@@ -4,7 +4,6 @@
   gitUpdater,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "jefferson";
   version = "0.4.6";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {

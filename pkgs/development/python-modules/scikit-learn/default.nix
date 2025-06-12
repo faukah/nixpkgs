@@ -3,14 +3,12 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   cython,
   gfortran,
   meson-python,
   numpy,
   scipy,
-
   # native dependencies
   glibcLocales,
   llvmPackages,
@@ -21,7 +19,6 @@
   threadpoolctl,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-learn";
   version = "1.6.1";
@@ -41,11 +38,13 @@ buildPythonPackage rec {
       "'${version}',"
   '';
 
-  buildInputs = [
-    numpy.blas
-    pillow
-    glibcLocales
-  ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs =
+    [
+      numpy.blas
+      pillow
+      glibcLocales
+    ]
+    ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   nativeBuildInputs = [
     gfortran
@@ -107,19 +106,17 @@ buildPythonPackage rec {
     export OMP_NUM_THREADS=1
   '';
 
-  pythonImportsCheck = [ "sklearn" ];
+  pythonImportsCheck = ["sklearn"];
 
   meta = with lib; {
     description = "Set of python modules for machine learning and data mining";
-    changelog =
-      let
-        major = versions.major version;
-        minor = versions.minor version;
-        dashVer = replaceStrings [ "." ] [ "-" ] version;
-      in
-      "https://scikit-learn.org/stable/whats_new/v${major}.${minor}.html#version-${dashVer}";
+    changelog = let
+      major = versions.major version;
+      minor = versions.minor version;
+      dashVer = replaceStrings ["."] ["-"] version;
+    in "https://scikit-learn.org/stable/whats_new/v${major}.${minor}.html#version-${dashVer}";
     homepage = "https://scikit-learn.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ davhau ];
+    maintainers = with maintainers; [davhau];
   };
 }

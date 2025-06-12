@@ -15,7 +15,6 @@
   nix,
   disnix,
 }:
-
 stdenv.mkDerivation {
   version = "unstable-2020-11-02";
   pname = "dydisnix";
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
       Dynamic Disnix is a (very experimental!) prototype extension framework for Disnix supporting dynamic (re)deployment of service-oriented systems.
     '';
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.tomberek ];
+    maintainers = [lib.maintainers.tomberek];
     platforms = lib.platforms.unix;
   };
 }

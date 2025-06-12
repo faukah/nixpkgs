@@ -7,7 +7,6 @@
   which,
   installTool ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "azimuth";
   version = "1.0.3";
@@ -19,13 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "1znfvpmqiixd977jv748glk5zc4cmhw5813zp81waj07r9b0828r";
   };
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
   buildInputs = [
     libGL
     SDL
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=maybe-uninitialized" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=maybe-uninitialized"];
 
   preConfigure = ''
     substituteInPlace data/azimuth.desktop \
@@ -33,10 +32,16 @@ stdenv.mkDerivation rec {
       --replace "Version=%AZ_VERSION_NUMBER" "Version=${version}"
   '';
 
-  makeFlags = [
-    "BUILDTYPE=release"
-    "INSTALLDIR=$(out)"
-  ] ++ (if installTool then [ "INSTALLTOOL=true" ] else [ "INSTALLTOOL=false" ]);
+  makeFlags =
+    [
+      "BUILDTYPE=release"
+      "INSTALLDIR=$(out)"
+    ]
+    ++ (
+      if installTool
+      then ["INSTALLTOOL=true"]
+      else ["INSTALLTOOL=false"]
+    );
 
   enableParallelBuilding = true;
 
@@ -55,8 +60,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
     homepage = "https://mdsteele.games/azimuth/index.html";
-    maintainers = with lib.maintainers; [ marius851000 ];
+    maintainers = with lib.maintainers; [marius851000];
     platforms = lib.platforms.linux;
   };
-
 }

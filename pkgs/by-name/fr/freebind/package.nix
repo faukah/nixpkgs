@@ -5,7 +5,6 @@
   libnetfilter_queue,
   libnfnetlink,
 }:
-
 stdenv.mkDerivation {
   pname = "freebind";
   version = "2017-12-27";
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/blechschmidt/freebind";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

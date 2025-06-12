@@ -6,7 +6,6 @@
   unittestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "justbytes";
   version = "0.15.2";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-+jwIK1ZU+j58VoOfZAm7GdFy7KHU28khwzxhYhcws74=";
   };
 
-  propagatedBuildInputs = [ justbases ];
+  propagatedBuildInputs = [justbases];
   nativeCheckInputs = [
     unittestCheckHook
     hypothesis
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "computing with and displaying bytes";
     homepage = "https://github.com/mulkieran/justbytes";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

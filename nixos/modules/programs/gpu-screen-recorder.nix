@@ -3,18 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.gpu-screen-recorder;
   package = cfg.package.override {
     inherit (config.security) wrapperDir;
   };
-in
-{
+in {
   options = {
     programs.gpu-screen-recorder = {
-      package = lib.mkPackageOption pkgs "gpu-screen-recorder" { };
+      package = lib.mkPackageOption pkgs "gpu-screen-recorder" {};
 
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -42,5 +39,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ timschumi ];
+  meta.maintainers = with lib.maintainers; [timschumi];
 }

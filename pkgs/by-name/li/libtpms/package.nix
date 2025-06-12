@@ -7,7 +7,6 @@
   openssl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtpms";
   version = "0.10.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     perl # needed for pod2man
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   outputs = [
     "out"
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Libtpms library provides software emulation of a Trusted Platform Module (TPM 1.2 and TPM 2.0)";
     homepage = "https://github.com/stefanberger/libtpms";
     license = licenses.bsd3;
-    maintainers = [ maintainers.baloo ];
+    maintainers = [maintainers.baloo];
   };
 }

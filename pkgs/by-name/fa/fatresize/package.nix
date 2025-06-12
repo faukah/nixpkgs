@@ -6,9 +6,7 @@
   util-linux,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
-
   version = "1.1.0";
   pname = "fatresize";
 
@@ -23,7 +21,7 @@ stdenv.mkDerivation rec {
     parted
     util-linux
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     parted

@@ -5,7 +5,6 @@
   libpcap,
   tcpdump,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tcpreplay";
   version = "4.5.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Leeb/Wfsksqa4v+1BFbdHVP/QPP6cbQixl6AYgE8noU=";
   };
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   configureFlags = [
     "--disable-local-libopts"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       bsdOriginalUC
       gpl3Only
     ];
-    maintainers = with maintainers; [ eleanor ];
+    maintainers = with maintainers; [eleanor];
     platforms = platforms.unix;
   };
 }

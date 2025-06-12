@@ -4,7 +4,6 @@
   fetchFromSourcehut,
   sqlite,
 }:
-
 buildGoModule rec {
   pname = "mobsql";
   version = "0.9.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-YqduGY9c4zRQscjqze3ZOAB8EYj+0/6V7NceRwLe3DY=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   buildPhase = ''
     runHook preBuild
@@ -44,7 +43,7 @@ buildGoModule rec {
     '';
     homepage = "https://git.sr.ht/~mil/mobsql";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
     mainProgram = "mobsql";
     platforms = platforms.unix;
   };

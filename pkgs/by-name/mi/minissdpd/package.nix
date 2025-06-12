@@ -4,7 +4,6 @@
   fetchurl,
   libnfnetlink,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minissdpd";
   version = "1.6.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     ./makefile-install-dir.patch
   ];
 
-  buildInputs = [ libnfnetlink ];
+  buildInputs = [libnfnetlink];
 
   installFlags = [
     "PREFIX=$(out)"

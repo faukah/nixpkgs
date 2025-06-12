@@ -11,7 +11,6 @@
   responses,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "dohq-artifactory";
   version = "1.0.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -36,22 +35,22 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-  pythonImportsCheck = [ "artifactory" ];
+  pythonImportsCheck = ["artifactory"];
 
   nativeCheckInputs = [
     pytestCheckHook
     responses
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Python interface library for JFrog Artifactory";
     homepage = "https://devopshq.github.io/artifactory/";
     changelog = "https://github.com/devopshq/artifactory/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
   };
 }

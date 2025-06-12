@@ -12,7 +12,6 @@
   sphinx,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-sphinx";
   version = "0.5.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-o/i3WravKZPf7uw2H4SVYfAyaZGf19ZJlkmeHCWcGtE=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     ipykernel
@@ -38,11 +37,11 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "jupyter_sphinx" ];
+  pythonImportsCheck = ["jupyter_sphinx"];
 
   env.JUPYTER_PLATFORM_DIRS = 1;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/jupyter/jupyter-sphinx/issues/280"

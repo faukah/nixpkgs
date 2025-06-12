@@ -11,7 +11,6 @@
   librsvg,
   fortune,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xcowsay";
   version = "1.6";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--enable-dbus" ];
+  configureFlags = ["--enable-dbus"];
 
   postInstall = ''
     for tool in xcowdream xcowsay xcowthink xcowfortune; do
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.doof.me.uk/xcowsay";
     description = "Tool to display a cute cow and messages";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

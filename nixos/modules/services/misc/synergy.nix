@@ -3,21 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfgC = config.services.synergy.client;
   cfgS = config.services.synergy.server;
-
-in
-
-{
+in {
   ###### interface
 
   options = {
-
     services.synergy = {
-
       # !!! All these option descriptions needs to be cleaned up.
 
       client = {
@@ -94,7 +87,6 @@ in
         };
       };
     };
-
   };
 
   ###### implementation
@@ -108,10 +100,10 @@ in
         ];
         description = "Synergy client";
         wantedBy = lib.optional cfgC.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
+        path = [pkgs.synergy];
         serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergyc -f ${
-          lib.optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
-        } ${cfgC.serverAddress}'';
+            lib.optionalString (cfgC.screenName != "") "-n ${cfgC.screenName}"
+          } ${cfgC.serverAddress}'';
         serviceConfig.Restart = "on-failure";
       };
     })
@@ -123,43 +115,42 @@ in
         ];
         description = "Synergy server";
         wantedBy = lib.optional cfgS.autoStart "graphical-session.target";
-        path = [ pkgs.synergy ];
+        path = [pkgs.synergy];
         serviceConfig.ExecStart = ''${pkgs.synergy}/bin/synergys -c ${cfgS.configFile} -f${
-          lib.optionalString (cfgS.address != "") " -a ${cfgS.address}"
-        }${
-          lib.optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"
-        }${lib.optionalString cfgS.tls.enable " --enable-crypto"}${
-          lib.optionalString (cfgS.tls.cert != null) (" --tls-cert ${cfgS.tls.cert}")
-        }'';
+            lib.optionalString (cfgS.address != "") " -a ${cfgS.address}"
+          }${
+            lib.optionalString (cfgS.screenName != "") " -n ${cfgS.screenName}"
+          }${lib.optionalString cfgS.tls.enable " --enable-crypto"}${
+            lib.optionalString (cfgS.tls.cert != null) " --tls-cert ${cfgS.tls.cert}"
+          }'';
         serviceConfig.Restart = "on-failure";
       };
     })
   ];
-
 }
-
 /*
-  SYNERGY SERVER example configuration file
-  section: screens
+SYNERGY SERVER example configuration file
+section: screens
+  laptop:
+  dm:
+  win:
+end
+section: aliases
     laptop:
+      192.168.5.5
     dm:
+      192.168.5.78
     win:
-  end
-  section: aliases
-      laptop:
-        192.168.5.5
-      dm:
-        192.168.5.78
-      win:
-        192.168.5.54
-  end
-  section: links
-     laptop:
-         left = dm
-     dm:
-         right = laptop
-         left = win
-    win:
-        right = dm
-  end
+      192.168.5.54
+end
+section: links
+   laptop:
+       left = dm
+   dm:
+       right = laptop
+       left = win
+  win:
+      right = dm
+end
 */
+

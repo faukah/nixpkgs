@@ -18,7 +18,6 @@
   sh,
   ninja,
 }:
-
 buildPythonPackage {
   pname = "notobuilder";
   version = "0-unstable-2025-05-20";
@@ -41,31 +40,33 @@ buildPythonPackage {
     setuptools-scm
   ];
 
-  dependencies = [
-    fonttools
-    ufomerge
-    fontmake
-    glyphslib
-    ttfautohint-py
-    ufo2ft
-    gftools
-    fontbakery
-    diffenator2
-    chevron
-    sh
-  ] ++ gftools.optional-dependencies.qa;
+  dependencies =
+    [
+      fonttools
+      ufomerge
+      fontmake
+      glyphslib
+      ttfautohint-py
+      ufo2ft
+      gftools
+      fontbakery
+      diffenator2
+      chevron
+      sh
+    ]
+    ++ gftools.optional-dependencies.qa;
 
   pythonImportsCheck = [
     "notobuilder"
     "notoqa"
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Python module for building Noto fonts";
     homepage = "https://github.com/notofonts/notobuilder";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

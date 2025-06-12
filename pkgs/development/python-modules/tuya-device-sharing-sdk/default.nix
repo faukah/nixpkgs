@@ -6,38 +6,37 @@
   requests,
   paho-mqtt,
   cryptography,
-}:
-let
+}: let
   pname = "tuya-device-sharing-sdk";
   version = "0.2.1";
 in
-buildPythonPackage {
-  inherit pname version;
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-cuLJfCIQmnySCN1yezxyqtFmnTUdhD9tY9sBYNh9iUI=";
-  };
 
-  # workaround needed, upstream issue: https://github.com/tuya/tuya-device-sharing-sdk/issues/10
-  postPatch = ''
-    touch requirements.txt
-  '';
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-cuLJfCIQmnySCN1yezxyqtFmnTUdhD9tY9sBYNh9iUI=";
+    };
 
-  build-system = [ setuptools ];
+    # workaround needed, upstream issue: https://github.com/tuya/tuya-device-sharing-sdk/issues/10
+    postPatch = ''
+      touch requirements.txt
+    '';
 
-  dependencies = [
-    requests
-    paho-mqtt
-    cryptography
-  ];
+    build-system = [setuptools];
 
-  doCheck = false; # no tests
+    dependencies = [
+      requests
+      paho-mqtt
+      cryptography
+    ];
 
-  meta = with lib; {
-    description = "Tuya Device Sharing SDK";
-    homepage = "https://github.com/tuya/tuya-device-sharing-sdk";
-    license = licenses.mit;
-    maintainers = with maintainers; [ aciceri ];
-  };
-}
+    doCheck = false; # no tests
+
+    meta = with lib; {
+      description = "Tuya Device Sharing SDK";
+      homepage = "https://github.com/tuya/tuya-device-sharing-sdk";
+      license = licenses.mit;
+      maintainers = with maintainers; [aciceri];
+    };
+  }

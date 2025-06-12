@@ -5,7 +5,6 @@
   lib,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "node-red";
   version = "4.0.9";
@@ -19,16 +18,14 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-J6d6lutqClRN/QK32civgDQHL8gCQHHs3EZYegdpQaI=";
 
-  postPatch =
-    let
-      packageDir = "packages/node_modules/node-red";
-    in
-    ''
-      ln -s ${./package-lock.json} package-lock.json
+  postPatch = let
+    packageDir = "packages/node_modules/node-red";
+  in ''
+    ln -s ${./package-lock.json} package-lock.json
 
-      ${lib.getExe jq} '. += {"bin": {"node-red": "${packageDir}/red.js", "node-red-pi": "${packageDir}/bin/node-red-pi"}}' package.json > package.json.tmp
-      mv package.json.tmp package.json
-    '';
+    ${lib.getExe jq} '. += {"bin": {"node-red": "${packageDir}/red.js", "node-red-pi": "${packageDir}/bin/node-red-pi"}}' package.json > package.json.tmp
+    mv package.json.tmp package.json
+  '';
 
   makeCacheWritable = true;
 
@@ -45,6 +42,6 @@ buildNpmPackage rec {
     homepage = "https://nodered.org/";
     license = lib.licenses.asl20;
     mainProgram = "node-red";
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
   };
 }

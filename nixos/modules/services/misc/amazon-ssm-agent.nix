@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.amazon-ssm-agent;
 
   # The SSM agent doesn't pay attention to our /etc/os-release yet, and the lsb-release tool
@@ -20,39 +19,40 @@ let
   '';
 
   sudoRule = {
-    users = [ "ssm-user" ];
+    users = ["ssm-user"];
     commands = [
       {
         command = "ALL";
-        options = [ "NOPASSWD" ];
+        options = ["NOPASSWD"];
       }
     ];
   };
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "ssm-agent" "enable" ]
-      [ "services" "amazon-ssm-agent" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "ssm-agent" "enable"]
+      ["services" "amazon-ssm-agent" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "ssm-agent" "package" ]
-      [ "services" "amazon-ssm-agent" "package" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "ssm-agent" "package"]
+      ["services" "amazon-ssm-agent" "package"]
     )
   ];
 
   options.services.amazon-ssm-agent = {
     enable = lib.mkEnableOption "Amazon SSM agent";
-    package = lib.mkPackageOption pkgs "amazon-ssm-agent" { };
+    package = lib.mkPackageOption pkgs "amazon-ssm-agent" {};
   };
 
   config = lib.mkIf cfg.enable {
     # See https://github.com/aws/amazon-ssm-agent/blob/mainline/packaging/linux/amazon-ssm-agent.service
     systemd.services.amazon-ssm-agent = {
       inherit (cfg.package.meta) description;
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       path = [
         fake-lsb-release
@@ -74,22 +74,19 @@ in
 
     # Add user that Session Manager needs, and give it sudo.
     # This is consistent with Amazon Linux 2 images.
-    security.sudo.extraRules = [ sudoRule ];
-    security.sudo-rs.extraRules = [ sudoRule ];
+    security.sudo.extraRules = [sudoRule];
+    security.sudo-rs.extraRules = [sudoRule];
 
     # On Amazon Linux 2 images, the ssm-user user is pretty much a
     # normal user with its own group. We do the same.
-    users.groups.ssm-user = { };
+    users.groups.ssm-user = {};
     users.users.ssm-user = {
       isNormalUser = true;
       group = "ssm-user";
     };
 
-    environment.etc."amazon/ssm/seelog.xml".source =
-      "${cfg.package}/etc/amazon/ssm/seelog.xml.template";
+    environment.etc."amazon/ssm/seelog.xml".source = "${cfg.package}/etc/amazon/ssm/seelog.xml.template";
 
-    environment.etc."amazon/ssm/amazon-ssm-agent.json".source =
-      "${cfg.package}/etc/amazon/ssm/amazon-ssm-agent.json.template";
-
+    environment.etc."amazon/ssm/amazon-ssm-agent.json".source = "${cfg.package}/etc/amazon/ssm/amazon-ssm-agent.json.template";
   };
 }

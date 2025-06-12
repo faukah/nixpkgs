@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   meta = {
     maintainers = lib.teams.freedesktop.members;
   };
@@ -29,5 +28,4 @@
       "/share/sounds"
     ];
   };
-
 }

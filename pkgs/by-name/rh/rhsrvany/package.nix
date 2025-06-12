@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rhsrvany";
   version = "1.1";
@@ -18,13 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = {
     description = "Free equivalent of Windows \"srvany\" program for turning any Windows program or script into a service";
     homepage = "https://github.com/rwmjones/rhsrvany";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lukts30 ];
+    maintainers = with lib.maintainers; [lukts30];
     platforms = lib.platforms.windows;
   };
 })

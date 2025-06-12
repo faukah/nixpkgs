@@ -9,7 +9,6 @@
   setuptools,
   setuptools-rust,
 }:
-
 buildPythonPackage rec {
   pname = "cryptg";
   version = "0.5.post0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cryptg" ];
+  pythonImportsCheck = ["cryptg"];
 
   postPatch = ''
     substituteInPlace pyproject.toml --replace-fail "setuptools[core]" "setuptools"
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Official Telethon extension to provide much faster cryptography for Telegram API requests";
     homepage = "https://github.com/cher-nov/cryptg";
     license = licenses.cc0;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

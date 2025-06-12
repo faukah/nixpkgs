@@ -15,7 +15,6 @@
   sqlite,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-pinyin";
   version = "1.5.1";
@@ -44,13 +43,13 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     isIbusEngine = true;
     description = "The PinYin engine for IBus";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     platforms = lib.platforms.linux;
   };
 }

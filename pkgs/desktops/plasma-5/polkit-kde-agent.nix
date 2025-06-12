@@ -12,10 +12,9 @@
   kwindowsystem,
   polkit-qt,
 }:
-
 mkDerivation {
   pname = "polkit-kde-agent";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     kdbusaddons
     kwidgetsaddons

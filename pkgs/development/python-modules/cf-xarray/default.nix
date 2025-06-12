@@ -2,12 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
   xarray,
-
   # optional-dependencies
   matplotlib,
   pint,
@@ -15,13 +13,11 @@
   regex,
   rich,
   shapely,
-
   # tests
   dask,
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "cf-xarray";
   version = "0.10.5";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     xarray
   ];
 
-  dependencies = [ xarray ];
+  dependencies = [xarray];
 
   optional-dependencies = {
     all = [
@@ -53,13 +49,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    dask
-    pytestCheckHook
-    scipy
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      dask
+      pytestCheckHook
+      scipy
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "cf_xarray" ];
+  pythonImportsCheck = ["cf_xarray"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -73,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xarray-contrib/cf-xarray";
     changelog = "https://github.com/xarray-contrib/cf-xarray/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

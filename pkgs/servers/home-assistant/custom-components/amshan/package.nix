@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   amshan,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "toreamun";
   domain = "amshan";
@@ -29,6 +28,6 @@ buildHomeAssistantComponent rec {
     '';
     homepage = "https://github.com/toreamun/amshan-homeassistant";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
   };
 }

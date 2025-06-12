@@ -3,22 +3,21 @@
   config,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     optional
     optionalString
     ;
   cfg = config.programs.skim;
-in
-{
+in {
   options = {
     programs.skim = {
       fuzzyCompletion = mkEnableOption "fuzzy completion with skim";
       keybindings = mkEnableOption "skim keybindings";
-      package = mkPackageOption pkgs "skim" { };
+      package = mkPackageOption pkgs "skim" {};
     };
   };
 

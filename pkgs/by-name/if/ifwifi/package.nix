@@ -7,7 +7,6 @@
   networkmanager,
   iw,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ifwifi";
   version = "1.2.0";
@@ -22,19 +21,19 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-oxuOc9FSKYq6UjimZPLayJ+5xsWzh3gZV/mVpPbPWHk=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/ifwifi" \
       --prefix PATH : "${
-        lib.makeBinPath (
-          # `ifwifi` runtime dep
-          [ networkmanager ]
-          # `wifiscanner` crate's runtime deps
-          ++ (lib.optional stdenv.hostPlatform.isLinux iw)
-          # ++ (lib.optional stdenv.hostPlatform.isDarwin airport) # airport isn't packaged
-        )
-      }"
+      lib.makeBinPath (
+        # `ifwifi` runtime dep
+        [networkmanager]
+        # `wifiscanner` crate's runtime deps
+        ++ (lib.optional stdenv.hostPlatform.isLinux iw)
+        # ++ (lib.optional stdenv.hostPlatform.isDarwin airport) # airport isn't packaged
+      )
+    }"
   '';
 
   doCheck = true;
@@ -51,8 +50,8 @@ rustPlatform.buildRustPackage rec {
       project that gave me almost everything I wanted to create this tool.
     '';
     homepage = "https://github.com/araujobsd/ifwifi";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [];
     # networkmanager doesn't work on darwin
     # even though the `wifiscanner` crate would work
     platforms = with platforms; linux; # ++ darwin;

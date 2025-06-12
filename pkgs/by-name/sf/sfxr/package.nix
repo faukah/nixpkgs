@@ -10,7 +10,6 @@
   gsettings-desktop-schemas,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sfxr";
   version = "1.2.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Videogame sound effect generator";
     mainProgram = "sfxr";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.unix;
   };
 })

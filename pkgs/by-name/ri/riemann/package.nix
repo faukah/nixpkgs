@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "riemann";
   version = "0.3.11";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-B09QBOVRHxwPR7oBZaurXMglx5cR/oN7eEKVhs3ZUyc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     substituteInPlace bin/riemann --replace '$top/lib/riemann.jar' "$out/share/java/riemann.jar"
@@ -32,9 +31,9 @@ stdenv.mkDerivation rec {
     homepage = "http://riemann.io/";
     description = "Network monitoring system";
     mainProgram = "riemann";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
     platforms = platforms.all;
-    maintainers = with maintainers; [ crimeminister ];
+    maintainers = with maintainers; [crimeminister];
   };
 }

@@ -1,26 +1,33 @@
-{ stdenv, lib }:
-
-let
-  mkVersionInfo =
-    _:
-    {
-      major,
-      minor,
-      patch,
-      x64hash,
-      x86hash,
-      x64suffix,
-      x86suffix,
-      homepage,
-    }:
-    {
-      inherit homepage;
-      version = "${major}.${minor}.${patch}.${
-        if stdenv.hostPlatform.is64bit then x64suffix else x86suffix
-      }";
-      prefix = "linuxx${if stdenv.hostPlatform.is64bit then "64" else "86"}";
-      hash = if stdenv.hostPlatform.is64bit then x64hash else x86hash;
-    };
+{
+  stdenv,
+  lib,
+}: let
+  mkVersionInfo = _: {
+    major,
+    minor,
+    patch,
+    x64hash,
+    x86hash,
+    x64suffix,
+    x86suffix,
+    homepage,
+  }: {
+    inherit homepage;
+    version = "${major}.${minor}.${patch}.${
+      if stdenv.hostPlatform.is64bit
+      then x64suffix
+      else x86suffix
+    }";
+    prefix = "linuxx${
+      if stdenv.hostPlatform.is64bit
+      then "64"
+      else "86"
+    }";
+    hash =
+      if stdenv.hostPlatform.is64bit
+      then x64hash
+      else x86hash;
+  };
 
   # Attribute-set with all actively supported versions of the Citrix workspace app
   # for Linux.
@@ -93,7 +100,6 @@ let
       x86suffix = "";
       homepage = "https://www.citrix.com/downloads/workspace-app/linux/workspace-app-for-linux-latest.html";
     };
-
   };
 
   # Retain attribute-names for abandoned versions of Citrix workspace to
@@ -105,7 +111,6 @@ let
     "23.02.0"
     "23.07.0"
   ];
-in
-{
+in {
   inherit supportedVersions unsupportedVersions;
 }

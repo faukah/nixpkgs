@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "duct-py";
   version = "0.6.4";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-4ja/SQ9R/SbKlf3NqKxLi+Fl/4JI0Fl/zG9EmTZjWZc=";
   };
 
-  pythonImportsCheck = [ "duct" ];
+  pythonImportsCheck = ["duct"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # This test completely empties the environment then tries to run a Python command.
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Python library for running child processes";
     homepage = "https://github.com/oconnor663/duct.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ zmitchell ];
+    maintainers = with maintainers; [zmitchell];
   };
 }

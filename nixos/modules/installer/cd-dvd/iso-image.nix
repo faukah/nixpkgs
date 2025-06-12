@@ -6,91 +6,93 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   # Builds a single menu entry
-  menuBuilderGrub2 =
-    {
-      name,
-      class,
-      image,
-      params,
-      initrd,
-    }:
-    ''
-      menuentry '${name}' --class ${class} {
-        # Fallback to UEFI console for boot, efifb sometimes has difficulties.
-        terminal_output console
+  menuBuilderGrub2 = {
+    name,
+    class,
+    image,
+    params,
+    initrd,
+  }: ''
+    menuentry '${name}' --class ${class} {
+      # Fallback to UEFI console for boot, efifb sometimes has difficulties.
+      terminal_output console
 
-        linux ${image} \''${isoboot} ${params}
-        initrd ${initrd}
-      }
-    '';
+      linux ${image} \''${isoboot} ${params}
+      initrd ${initrd}
+    }
+  '';
 
   # Builds all menu entries
-  buildMenuGrub2 =
-    {
-      cfg ? config,
-      params ? [ ],
-    }:
-    let
-      menuConfig = {
-        name = lib.concatStrings [
-          cfg.isoImage.prependToMenuLabel
-          cfg.system.nixos.distroName
-          " "
-          cfg.system.nixos.label
-          cfg.isoImage.appendToMenuLabel
-          (lib.optionalString (cfg.isoImage.configurationName != null) (" " + cfg.isoImage.configurationName))
-        ];
-        params = "init=${cfg.system.build.toplevel}/init ${toString cfg.boot.kernelParams} ${toString params}";
-        image = "/boot/${cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile}";
-        initrd = "/boot/${cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile}";
-        class = "installer";
-      };
-    in
-    ''
-      ${lib.optionalString cfg.isoImage.showConfiguration (menuBuilderGrub2 menuConfig)}
-      ${lib.concatStringsSep "\n" (
-        lib.mapAttrsToList (
-          specName:
-          { configuration, ... }:
+  buildMenuGrub2 = {
+    cfg ? config,
+    params ? [],
+  }: let
+    menuConfig = {
+      name = lib.concatStrings [
+        cfg.isoImage.prependToMenuLabel
+        cfg.system.nixos.distroName
+        " "
+        cfg.system.nixos.label
+        cfg.isoImage.appendToMenuLabel
+        (lib.optionalString (cfg.isoImage.configurationName != null) (" " + cfg.isoImage.configurationName))
+      ];
+      params = "init=${cfg.system.build.toplevel}/init ${toString cfg.boot.kernelParams} ${toString params}";
+      image = "/boot/${cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile}";
+      initrd = "/boot/${cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile}";
+      class = "installer";
+    };
+  in ''
+    ${lib.optionalString cfg.isoImage.showConfiguration (menuBuilderGrub2 menuConfig)}
+    ${lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (
+        specName: {configuration, ...}:
           buildMenuGrub2 {
             cfg = configuration;
             inherit params;
           }
-        ) cfg.specialisation
-      )}
-    '';
+      )
+      cfg.specialisation
+    )}
+  '';
 
-  targetArch = if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
+  targetArch =
+    if config.boot.loader.grub.forcei686
+    then "ia32"
+    else pkgs.stdenv.hostPlatform.efiArch;
 
   # Timeout in syslinux is in units of 1/10 of a second.
   # null means max timeout (35996, just under 1h in 1/10 seconds)
   # 0 means disable timeout
   syslinuxTimeout =
-    if config.boot.loader.timeout == null then 35996 else config.boot.loader.timeout * 10;
+    if config.boot.loader.timeout == null
+    then 35996
+    else config.boot.loader.timeout * 10;
 
   # Timeout in grub is in seconds.
   # null means max timeout (infinity)
   # 0 means disable timeout
-  grubEfiTimeout = if config.boot.loader.timeout == null then -1 else config.boot.loader.timeout;
+  grubEfiTimeout =
+    if config.boot.loader.timeout == null
+    then -1
+    else config.boot.loader.timeout;
 
   optionsSubMenus = [
     {
       title = "Copy ISO Files to RAM";
       class = "copytoram";
-      params = [ "copytoram" ];
+      params = ["copytoram"];
     }
     {
       title = "No modesetting";
       class = "nomodeset";
-      params = [ "nomodeset" ];
+      params = ["nomodeset"];
     }
     {
       title = "Debug Console Output";
       class = "debug";
-      params = [ "debug" ];
+      params = ["debug"];
     }
     # If we boot into a graphical environment where X is autoran
     # and always crashes, it makes the media unusable. Allow the user
@@ -109,23 +111,23 @@ let
     {
       title = "Rotate framebuffer Clockwise";
       class = "rotate-90cw";
-      params = [ "fbcon=rotate:1" ];
+      params = ["fbcon=rotate:1"];
     }
     {
       title = "Rotate framebuffer Upside-Down";
       class = "rotate-180";
-      params = [ "fbcon=rotate:2" ];
+      params = ["fbcon=rotate:2"];
     }
     {
       title = "Rotate framebuffer Counter-Clockwise";
       class = "rotate-90ccw";
-      params = [ "fbcon=rotate:3" ];
+      params = ["fbcon=rotate:3"];
     }
     # Serial access is a must!
     {
       title = "Serial console=ttyS0,115200n8";
       class = "serial";
-      params = [ "console=ttyS0,115200n8" ];
+      params = ["console=ttyS0,115200n8"];
     }
   ];
 
@@ -142,34 +144,33 @@ let
   #   * COM32 entries (chainload, reboot, poweroff) are not recognized. They
   #     result in incorrect boot entries.
 
-  menuBuilderIsolinux =
-    {
-      cfg ? config,
-      label,
-      params ? [ ],
-    }:
-    ''
-      ${lib.optionalString cfg.isoImage.showConfiguration ''
-        LABEL ${label}
-        MENU LABEL ${cfg.isoImage.prependToMenuLabel}${cfg.system.nixos.distroName} ${cfg.system.nixos.label}${cfg.isoImage.appendToMenuLabel}${
-          lib.optionalString (cfg.isoImage.configurationName != null) (" " + cfg.isoImage.configurationName)
-        }
-        LINUX /boot/${cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile}
-        APPEND init=${cfg.system.build.toplevel}/init ${toString cfg.boot.kernelParams} ${toString params}
-        INITRD /boot/${cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile}
-      ''}
+  menuBuilderIsolinux = {
+    cfg ? config,
+    label,
+    params ? [],
+  }: ''
+    ${lib.optionalString cfg.isoImage.showConfiguration ''
+      LABEL ${label}
+      MENU LABEL ${cfg.isoImage.prependToMenuLabel}${cfg.system.nixos.distroName} ${cfg.system.nixos.label}${cfg.isoImage.appendToMenuLabel}${
+        lib.optionalString (cfg.isoImage.configurationName != null) (" " + cfg.isoImage.configurationName)
+      }
+      LINUX /boot/${cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile}
+      APPEND init=${cfg.system.build.toplevel}/init ${toString cfg.boot.kernelParams} ${toString params}
+      INITRD /boot/${cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile}
+    ''}
 
-      ${lib.concatStringsSep "\n\n" (
-        lib.mapAttrsToList (
-          name: specCfg:
+    ${lib.concatStringsSep "\n\n" (
+      lib.mapAttrsToList (
+        name: specCfg:
           menuBuilderIsolinux {
             cfg = specCfg.configuration;
             label = "${label}-${name}";
             inherit params;
           }
-        ) cfg.specialisation
-      )}
-    '';
+      )
+      cfg.specialisation
+    )}
+  '';
 
   baseIsolinuxCfg = ''
     SERIAL 0 115200
@@ -181,25 +182,25 @@ let
 
     DEFAULT boot
 
-    ${menuBuilderIsolinux { label = "boot"; }}
+    ${menuBuilderIsolinux {label = "boot";}}
 
     MENU BEGIN Options
 
     ${lib.concatMapStringsSep "\n" (
-      {
-        title,
-        class,
-        params,
-      }:
-      ''
-        MENU BEGIN ${title}
-        ${menuBuilderIsolinux {
-          label = "boot-${class}";
-          inherit params;
-        }}
-        MENU END
-      ''
-    ) optionsSubMenus}
+        {
+          title,
+          class,
+          params,
+        }: ''
+          MENU BEGIN ${title}
+          ${menuBuilderIsolinux {
+            label = "boot-${class}";
+            inherit params;
+          }}
+          MENU END
+        ''
+      )
+      optionsSubMenus}
 
     MENU END
   '';
@@ -212,23 +213,27 @@ let
   '';
 
   isolinuxCfg = lib.concatStringsSep "\n" (
-    [ baseIsolinuxCfg ] ++ lib.optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
+    [baseIsolinuxCfg] ++ lib.optional config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry
   );
 
   refindBinary =
-    if targetArch == "x64" || targetArch == "aa64" then "refind_${targetArch}.efi" else null;
+    if targetArch == "x64" || targetArch == "aa64"
+    then "refind_${targetArch}.efi"
+    else null;
 
   # Setup instructions for rEFInd.
   refind =
-    if refindBinary != null then
-      ''
-        # Adds rEFInd to the ISO.
-        cp -v ${pkgs.refind}/share/refind/${refindBinary} $out/EFI/BOOT/
-      ''
-    else
-      "# No refind for ${targetArch}";
+    if refindBinary != null
+    then ''
+      # Adds rEFInd to the ISO.
+      cp -v ${pkgs.refind}/share/refind/${refindBinary} $out/EFI/BOOT/
+    ''
+    else "# No refind for ${targetArch}";
 
-  grubPkgs = if config.boot.loader.grub.forcei686 then pkgs.pkgsi686Linux else pkgs;
+  grubPkgs =
+    if config.boot.loader.grub.forcei686
+    then pkgs.pkgsi686Linux
+    else pkgs;
 
   grubMenuCfg = ''
     set textmode=${lib.boolToString (config.isoImage.forceTextMode)}
@@ -276,26 +281,25 @@ let
 
     ${
       # When there is a theme configured, use it, otherwise use the background image.
-      if config.isoImage.grubTheme != null then
-        ''
-          # Sets theme.
-          set theme=(\$root)/EFI/BOOT/grub-theme/theme.txt
-          # Load theme fonts
-          $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/BOOT/grub-theme/%P\n")
-        ''
-      else
-        ''
-          if background_image (\$root)/EFI/BOOT/efi-background.png; then
-            # Black background means transparent background when there
-            # is a background image set... This seems undocumented :(
-            set color_normal=black/black
-            set color_highlight=white/blue
-          else
-            # Falls back again to proper colors.
-            set menu_color_normal=cyan/blue
-            set menu_color_highlight=white/blue
-          fi
-        ''
+      if config.isoImage.grubTheme != null
+      then ''
+        # Sets theme.
+        set theme=(\$root)/EFI/BOOT/grub-theme/theme.txt
+        # Load theme fonts
+        $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/BOOT/grub-theme/%P\n")
+      ''
+      else ''
+        if background_image (\$root)/EFI/BOOT/efi-background.png; then
+          # Black background means transparent background when there
+          # is a background image set... This seems undocumented :(
+          set color_normal=black/black
+          set color_highlight=white/blue
+        else
+          # Falls back again to proper colors.
+          set menu_color_normal=cyan/blue
+          set menu_color_highlight=white/blue
+        fi
+      ''
     }
 
     hiddenentry 'Text mode' --hotkey 't' {
@@ -319,210 +323,207 @@ let
   #    will get white-on-black console-like text on sub-menus. *sigh*
   efiDir =
     pkgs.runCommand "efi-directory"
-      {
-        nativeBuildInputs = [ pkgs.buildPackages.grub2_efi ];
-        strictDeps = true;
-      }
-      ''
-        mkdir -p $out/EFI/BOOT
+    {
+      nativeBuildInputs = [pkgs.buildPackages.grub2_efi];
+      strictDeps = true;
+    }
+    ''
+      mkdir -p $out/EFI/BOOT
 
-        # Add a marker so GRUB can find the filesystem.
-        touch $out/EFI/nixos-installer-image
+      # Add a marker so GRUB can find the filesystem.
+      touch $out/EFI/nixos-installer-image
 
-        # ALWAYS required modules.
-        MODULES=(
-          # Basic modules for filesystems and partition schemes
-          "fat"
-          "iso9660"
-          "part_gpt"
-          "part_msdos"
+      # ALWAYS required modules.
+      MODULES=(
+        # Basic modules for filesystems and partition schemes
+        "fat"
+        "iso9660"
+        "part_gpt"
+        "part_msdos"
 
-          # Basic stuff
-          "normal"
-          "boot"
-          "linux"
-          "configfile"
-          "loopback"
-          "chain"
-          "halt"
+        # Basic stuff
+        "normal"
+        "boot"
+        "linux"
+        "configfile"
+        "loopback"
+        "chain"
+        "halt"
 
-          # Allows rebooting into firmware setup interface
-          "efifwsetup"
+        # Allows rebooting into firmware setup interface
+        "efifwsetup"
 
-          # EFI Graphics Output Protocol
-          "efi_gop"
+        # EFI Graphics Output Protocol
+        "efi_gop"
 
-          # User commands
-          "ls"
+        # User commands
+        "ls"
 
-          # System commands
-          "search"
-          "search_label"
-          "search_fs_uuid"
-          "search_fs_file"
-          "echo"
+        # System commands
+        "search"
+        "search_label"
+        "search_fs_uuid"
+        "search_fs_file"
+        "echo"
 
-          # We're not using it anymore, but we'll leave it in so it can be used
-          # by user, with the console using "C"
-          "serial"
+        # We're not using it anymore, but we'll leave it in so it can be used
+        # by user, with the console using "C"
+        "serial"
 
-          # Graphical mode stuff
-          "gfxmenu"
-          "gfxterm"
-          "gfxterm_background"
-          "gfxterm_menu"
-          "test"
-          "loadenv"
-          "all_video"
-          "videoinfo"
+        # Graphical mode stuff
+        "gfxmenu"
+        "gfxterm"
+        "gfxterm_background"
+        "gfxterm_menu"
+        "test"
+        "loadenv"
+        "all_video"
+        "videoinfo"
 
-          # File types for graphical mode
-          "png"
-        )
+        # File types for graphical mode
+        "png"
+      )
 
-        echo "Building GRUB with modules:"
-        for mod in ''${MODULES[@]}; do
+      echo "Building GRUB with modules:"
+      for mod in ''${MODULES[@]}; do
+        echo " - $mod"
+      done
+
+      # Modules that may or may not be available per-platform.
+      echo "Adding additional modules:"
+      for mod in efi_uga; do
+        if [ -f ${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget}/$mod.mod ]; then
           echo " - $mod"
-        done
+          MODULES+=("$mod")
+        fi
+      done
 
-        # Modules that may or may not be available per-platform.
-        echo "Adding additional modules:"
-        for mod in efi_uga; do
-          if [ -f ${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget}/$mod.mod ]; then
-            echo " - $mod"
-            MODULES+=("$mod")
-          fi
-        done
+      # Make our own efi program, we can't rely on "grub-install" since it seems to
+      # probe for devices, even with --skip-fs-probe.
+      grub-mkimage \
+        --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} \
+        -o $out/EFI/BOOT/BOOT${lib.toUpper targetArch}.EFI \
+        -p /EFI/BOOT \
+        -O ${grubPkgs.grub2_efi.grubTarget} \
+        ''${MODULES[@]}
+      cp ${grubPkgs.grub2_efi}/share/grub/unicode.pf2 $out/EFI/BOOT/
 
-        # Make our own efi program, we can't rely on "grub-install" since it seems to
-        # probe for devices, even with --skip-fs-probe.
-        grub-mkimage \
-          --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} \
-          -o $out/EFI/BOOT/BOOT${lib.toUpper targetArch}.EFI \
-          -p /EFI/BOOT \
-          -O ${grubPkgs.grub2_efi.grubTarget} \
-          ''${MODULES[@]}
-        cp ${grubPkgs.grub2_efi}/share/grub/unicode.pf2 $out/EFI/BOOT/
+      cat <<EOF > $out/EFI/BOOT/grub.cfg
 
-        cat <<EOF > $out/EFI/BOOT/grub.cfg
+      set timeout=${toString grubEfiTimeout}
 
-        set timeout=${toString grubEfiTimeout}
+      clear
+      # This message will only be viewable on the default (UEFI) console.
+      echo ""
+      echo "Loading graphical boot menu..."
+      echo ""
+      echo "Press 't' to use the text boot menu on this console..."
+      echo ""
 
-        clear
-        # This message will only be viewable on the default (UEFI) console.
-        echo ""
-        echo "Loading graphical boot menu..."
-        echo ""
-        echo "Press 't' to use the text boot menu on this console..."
-        echo ""
+      ${grubMenuCfg}
 
+      # If the parameter iso_path is set, append the findiso parameter to the kernel
+      # line. We need this to allow the nixos iso to be booted from grub directly.
+      if [ \''${iso_path} ] ; then
+        set isoboot="findiso=\''${iso_path}"
+      fi
+
+      #
+      # Menu entries
+      #
+
+      ${buildMenuGrub2 {}}
+      submenu "Options" --class submenu --class hidpi {
         ${grubMenuCfg}
 
-        # If the parameter iso_path is set, append the findiso parameter to the kernel
-        # line. We need this to allow the nixos iso to be booted from grub directly.
-        if [ \''${iso_path} ] ; then
-          set isoboot="findiso=\''${iso_path}"
-        fi
-
-        #
-        # Menu entries
-        #
-
-        ${buildMenuGrub2 { }}
-        submenu "Options" --class submenu --class hidpi {
-          ${grubMenuCfg}
-
-          ${lib.concatMapStringsSep "\n" (
-            {
-              title,
-              class,
-              params,
-            }:
-            ''
-              submenu "${title}" --class ${class} {
-                ${grubMenuCfg}
-                ${buildMenuGrub2 { inherit params; }}
-              }
-            ''
-          ) optionsSubMenus}
-        }
-
-        ${lib.optionalString (refindBinary != null) ''
-          # GRUB apparently cannot do "chainloader" operations on "CD".
-          if [ "\$root" != "cd0" ]; then
-            menuentry 'rEFInd' --class refind {
-              # Force root to be the FAT partition
-              # Otherwise it breaks rEFInd's boot
-              search --set=root --no-floppy --fs-uuid 1234-5678
-              chainloader (\$root)/EFI/BOOT/${refindBinary}
+        ${lib.concatMapStringsSep "\n" (
+          {
+            title,
+            class,
+            params,
+          }: ''
+            submenu "${title}" --class ${class} {
+              ${grubMenuCfg}
+              ${buildMenuGrub2 {inherit params;}}
             }
-          fi
-        ''}
-        menuentry 'Firmware Setup' --class settings {
-          fwsetup
-          clear
-          echo ""
-          echo "If you see this message, your EFI system doesn't support this feature."
-          echo ""
-        }
-        menuentry 'Shutdown' --class shutdown {
-          halt
-        }
-        EOF
+          ''
+        )
+        optionsSubMenus}
+      }
 
-        grub-script-check $out/EFI/BOOT/grub.cfg
+      ${lib.optionalString (refindBinary != null) ''
+        # GRUB apparently cannot do "chainloader" operations on "CD".
+        if [ "\$root" != "cd0" ]; then
+          menuentry 'rEFInd' --class refind {
+            # Force root to be the FAT partition
+            # Otherwise it breaks rEFInd's boot
+            search --set=root --no-floppy --fs-uuid 1234-5678
+            chainloader (\$root)/EFI/BOOT/${refindBinary}
+          }
+        fi
+      ''}
+      menuentry 'Firmware Setup' --class settings {
+        fwsetup
+        clear
+        echo ""
+        echo "If you see this message, your EFI system doesn't support this feature."
+        echo ""
+      }
+      menuentry 'Shutdown' --class shutdown {
+        halt
+      }
+      EOF
 
-        ${refind}
-      '';
+      grub-script-check $out/EFI/BOOT/grub.cfg
+
+      ${refind}
+    '';
 
   efiImg =
     pkgs.runCommand "efi-image_eltorito"
-      {
-        nativeBuildInputs = [
-          pkgs.buildPackages.mtools
-          pkgs.buildPackages.libfaketime
-          pkgs.buildPackages.dosfstools
-        ];
-        strictDeps = true;
-      }
-      # Be careful about determinism: du --apparent-size,
-      #   dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
-      ''
-        mkdir ./contents && cd ./contents
-        mkdir -p ./EFI/BOOT
-        cp -rp "${efiDir}"/EFI/BOOT/{grub.cfg,*.EFI,*.efi} ./EFI/BOOT
+    {
+      nativeBuildInputs = [
+        pkgs.buildPackages.mtools
+        pkgs.buildPackages.libfaketime
+        pkgs.buildPackages.dosfstools
+      ];
+      strictDeps = true;
+    }
+    # Be careful about determinism: du --apparent-size,
+    #   dates (cp -p, touch, mcopy -m, faketime for label), IDs (mkfs.vfat -i)
+    ''
+      mkdir ./contents && cd ./contents
+      mkdir -p ./EFI/BOOT
+      cp -rp "${efiDir}"/EFI/BOOT/{grub.cfg,*.EFI,*.efi} ./EFI/BOOT
 
-        # Rewrite dates for everything in the FS
-        find . -exec touch --date=2000-01-01 {} +
+      # Rewrite dates for everything in the FS
+      find . -exec touch --date=2000-01-01 {} +
 
-        # Round up to the nearest multiple of 1MB, for more deterministic du output
-        usage_size=$(( $(du -s --block-size=1M --apparent-size . | tr -cd '[:digit:]') * 1024 * 1024 ))
-        # Make the image 110% as big as the files need to make up for FAT overhead
-        image_size=$(( ($usage_size * 110) / 100 ))
-        # Make the image fit blocks of 1M
-        block_size=$((1024*1024))
-        image_size=$(( ($image_size / $block_size + 1) * $block_size ))
-        echo "Usage size: $usage_size"
-        echo "Image size: $image_size"
-        truncate --size=$image_size "$out"
-        mkfs.vfat --invariant -i 12345678 -n EFIBOOT "$out"
+      # Round up to the nearest multiple of 1MB, for more deterministic du output
+      usage_size=$(( $(du -s --block-size=1M --apparent-size . | tr -cd '[:digit:]') * 1024 * 1024 ))
+      # Make the image 110% as big as the files need to make up for FAT overhead
+      image_size=$(( ($usage_size * 110) / 100 ))
+      # Make the image fit blocks of 1M
+      block_size=$((1024*1024))
+      image_size=$(( ($image_size / $block_size + 1) * $block_size ))
+      echo "Usage size: $usage_size"
+      echo "Image size: $image_size"
+      truncate --size=$image_size "$out"
+      mkfs.vfat --invariant -i 12345678 -n EFIBOOT "$out"
 
-        # Force a fixed order in mcopy for better determinism, and avoid file globbing
-        for d in $(find EFI -type d | sort); do
-          faketime "2000-01-01 00:00:00" mmd -i "$out" "::/$d"
-        done
+      # Force a fixed order in mcopy for better determinism, and avoid file globbing
+      for d in $(find EFI -type d | sort); do
+        faketime "2000-01-01 00:00:00" mmd -i "$out" "::/$d"
+      done
 
-        for f in $(find EFI -type f | sort); do
-          mcopy -pvm -i "$out" "$f" "::/$f"
-        done
+      for f in $(find EFI -type f | sort); do
+        mcopy -pvm -i "$out" "$f" "::/$f"
+      done
 
-        # Verify the FAT partition.
-        fsck.vfat -vn "$out"
-      ''; # */
-
-in
-
-{
+      # Verify the FAT partition.
+      fsck.vfat -vn "$out"
+    ''; # */
+in {
   imports = [
     (lib.mkRenamedOptionModuleWith {
       sinceRelease = 2505;
@@ -550,7 +551,6 @@ in
   ];
 
   options = {
-
     isoImage.compressImage = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -753,9 +753,11 @@ in
       '';
     };
 
-    isoImage.showConfiguration = lib.mkEnableOption "show this configuration in the menu" // {
-      default = true;
-    };
+    isoImage.showConfiguration =
+      lib.mkEnableOption "show this configuration in the menu"
+      // {
+        default = true;
+      };
 
     isoImage.forceTextMode = lib.mkOption {
       default = false;
@@ -770,7 +772,6 @@ in
         If text mode is required off-handedly (e.g. for serial use) you can use the `T` key, after being prompted, to use text mode for the current boot.
       '';
     };
-
   };
 
   # store them in lib so we can mkImageMediaOverride the
@@ -778,7 +779,7 @@ in
   config.lib.isoFileSystems = {
     "/" = lib.mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
     };
 
     # Note that /dev/root is a symlink to the actual root device
@@ -795,15 +796,17 @@ in
     "/nix/.ro-store" = lib.mkImageMediaOverride {
       fsType = "squashfs";
       device = "/iso/nix-store.squashfs";
-      options = [
-        "loop"
-      ] ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
+      options =
+        [
+          "loop"
+        ]
+        ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
       neededForBoot = true;
     };
 
     "/nix/.rw-store" = lib.mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
       neededForBoot = true;
     };
 
@@ -834,22 +837,21 @@ in
         assertion = !(lib.stringLength config.isoImage.volumeID > 32);
         # https://wiki.osdev.org/ISO_9660#The_Primary_Volume_Descriptor
         # Volume Identifier can only be 32 bytes
-        message =
-          let
-            length = lib.stringLength config.isoImage.volumeID;
-            howmany = toString length;
-            toomany = toString (length - 32);
-          in
-          "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
+        message = let
+          length = lib.stringLength config.isoImage.volumeID;
+          howmany = toString length;
+          toomany = toString (length - 32);
+        in "isoImage.volumeID ${config.isoImage.volumeID} is ${howmany} characters. That is ${toomany} characters longer than the limit of 32.";
       }
       (
         let
-          badSpecs = lib.filterAttrs (
-            specName: specCfg: specCfg.configuration.isoImage.volumeID != config.isoImage.volumeID
-          ) config.specialisation;
-        in
-        {
-          assertion = badSpecs == { };
+          badSpecs =
+            lib.filterAttrs (
+              specName: specCfg: specCfg.configuration.isoImage.volumeID != config.isoImage.volumeID
+            )
+            config.specialisation;
+        in {
+          assertion = badSpecs == {};
           message = ''
             All specialisations must use the same 'isoImage.volumeID'.
 
@@ -867,10 +869,12 @@ in
     # here and it causes a cyclic dependency.
     boot.loader.grub.enable = false;
 
-    environment.systemPackages = [
-      grubPkgs.grub2
-    ] ++ lib.optional (config.isoImage.makeBiosBootable) pkgs.syslinux;
-    system.extraDependencies = [ grubPkgs.grub2_efi ];
+    environment.systemPackages =
+      [
+        grubPkgs.grub2
+      ]
+      ++ lib.optional (config.isoImage.makeBiosBootable) pkgs.syslinux;
+    system.extraDependencies = [grubPkgs.grub2_efi];
 
     # In stage 1 of the boot, mount the CD as the root FS by label so
     # that we don't need to know its device.  We pass the label of the
@@ -902,29 +906,27 @@ in
     # Closures to be copied to the Nix store on the CD, namely the init
     # script and the top-level system configuration directory.
     isoImage.storeContents =
-      [ config.system.build.toplevel ]
+      [config.system.build.toplevel]
       ++ lib.optional config.isoImage.includeSystemBuildDependencies config.system.build.toplevel.drvPath;
 
     # Individual files to be included on the CD, outside of the Nix
     # store on the CD.
-    isoImage.contents =
-      let
-        cfgFiles =
-          cfg:
-          lib.optionals cfg.isoImage.showConfiguration ([
-            {
-              source = cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile;
-              target = "/boot/" + cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile;
-            }
-            {
-              source = cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile;
-              target = "/boot/" + cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile;
-            }
-          ])
-          ++ lib.concatLists (
-            lib.mapAttrsToList (_: { configuration, ... }: cfgFiles configuration) cfg.specialisation
-          );
-      in
+    isoImage.contents = let
+      cfgFiles = cfg:
+        lib.optionals cfg.isoImage.showConfiguration [
+          {
+            source = cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile;
+            target = "/boot/" + cfg.boot.kernelPackages.kernel + "/" + cfg.system.boot.loader.kernelFile;
+          }
+          {
+            source = cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile;
+            target = "/boot/" + cfg.system.build.initialRamdisk + "/" + cfg.system.boot.loader.initrdFile;
+          }
+        ]
+        ++ lib.concatLists (
+          lib.mapAttrsToList (_: {configuration, ...}: cfgFiles configuration) cfg.specialisation
+        );
+    in
       [
         {
           source = pkgs.writeText "version" config.system.nixos.label;
@@ -980,7 +982,10 @@ in
     boot.loader.timeout = 10;
 
     # Create the ISO image.
-    image.extension = if config.isoImage.compressImage then "iso.zst" else "iso";
+    image.extension =
+      if config.isoImage.compressImage
+      then "iso.zst"
+      else "iso";
     image.filePath = "iso/${config.image.fileName}";
     image.baseName = "nixos${
       lib.optionalString (config.isoImage.edition != "") "-${config.isoImage.edition}"
@@ -992,7 +997,10 @@ in
         isoName = "${config.image.baseName}.iso";
         bootable = config.isoImage.makeBiosBootable;
         bootImage = "/isolinux/isolinux.bin";
-        syslinux = if config.isoImage.makeBiosBootable then pkgs.syslinux else null;
+        syslinux =
+          if config.isoImage.makeBiosBootable
+          then pkgs.syslinux
+          else null;
         squashfsContents = config.isoImage.storeContents;
         squashfsCompression = config.isoImage.squashfsCompression;
       }
@@ -1019,8 +1027,6 @@ in
 
     # Add vfat support to the initrd to enable people to copy the
     # contents of the CD to a bootable USB stick.
-    boot.initrd.supportedFilesystems = [ "vfat" ];
-
+    boot.initrd.supportedFilesystems = ["vfat"];
   };
-
 }

@@ -3,7 +3,6 @@
   calendar,
   caqti,
 }:
-
 buildDunePackage {
   pname = "caqti-type-calendar";
   inherit (caqti) src version;
@@ -13,7 +12,9 @@ buildDunePackage {
     caqti
   ];
 
-  meta = caqti.meta // {
-    description = "Date and time field types using the calendar library";
-  };
+  meta =
+    caqti.meta
+    // {
+      description = "Date and time field types using the calendar library";
+    };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fasthenry";
   # later versions are Windows only ports
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Wno-error=return-mismatch"
   ];
 
-  makeFlags = [ "all" ]; # need "all" to be explicitely set
+  makeFlags = ["all"]; # need "all" to be explicitely set
 
   installPhase = ''
     runHook preInstall
@@ -51,8 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
       multipole-accelerated algorithm.'';
     homepage = "https://www.fastfieldsolvers.com/fasthenry2.htm";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ fbeffa ];
-    platforms = with lib.platforms; lib.intersectLists (linux) (x86_64 ++ x86);
+    maintainers = with lib.maintainers; [fbeffa];
+    platforms = with lib.platforms; lib.intersectLists linux (x86_64 ++ x86);
     mainProgram = "fasthenry";
   };
 })

@@ -8,7 +8,6 @@
   qt6Packages,
   docbook-xsl-nons,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vmpk";
   version = "0.9.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     mainProgram = "vmpk";
     homepage = "http://vmpk.sourceforge.net/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

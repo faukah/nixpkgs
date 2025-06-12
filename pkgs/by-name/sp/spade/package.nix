@@ -13,7 +13,6 @@
   python312,
   swim,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "spade";
   version = "0.13.0";
@@ -53,9 +52,11 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ python312 ];
+  buildInputs =
+    [
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [python312];
   env.NIX_CFLAGS_LINK = lib.optionalString stdenv.hostPlatform.isDarwin "-L${python312}/lib/python3.12/config-3.12-darwin -lpython3.12";
 
   passthru.tests = {
@@ -72,7 +73,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
     mainProgram = "spade";
   };
 }

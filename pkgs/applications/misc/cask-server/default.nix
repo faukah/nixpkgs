@@ -5,7 +5,6 @@
   cmake,
   extra-cmake-modules,
 }:
-
 mkDerivation rec {
   pname = "cask-server";
   version = "0.6.0";
@@ -31,7 +30,6 @@ mkDerivation rec {
       lgpl21Plus
       cc0
     ];
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
-
 }

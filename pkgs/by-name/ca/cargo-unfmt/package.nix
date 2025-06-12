@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cargo-unfmt";
   version = "0.3.3";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/fprasx/cargo-unfmt";
     license = licenses.gpl3Plus;
     mainProgram = "cargo-unfmt";
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
   };
 }

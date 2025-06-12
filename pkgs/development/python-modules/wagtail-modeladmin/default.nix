@@ -7,7 +7,6 @@
   dj-database-url,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "wagtail-modeladmin";
   version = "2.2.0";
@@ -32,15 +31,15 @@ buildPythonPackage rec {
         "def no_test_model_with_two_tabbed_panels_only("
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     wagtail
   ];
 
-  nativeCheckInputs = [ dj-database-url ];
+  nativeCheckInputs = [dj-database-url];
 
-  pythonImportsCheck = [ "wagtail_modeladmin" ];
+  pythonImportsCheck = ["wagtail_modeladmin"];
 
   checkPhase = ''
     runHook preCheck
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wagtail-nest/wagtail-modeladmin";
     changelog = "https://github.com/wagtail/wagtail-modeladmin/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sephi ];
+    maintainers = with lib.maintainers; [sephi];
   };
 }

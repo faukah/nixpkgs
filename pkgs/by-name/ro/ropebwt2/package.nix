@@ -13,8 +13,8 @@ stdenv.mkDerivation {
     rev = "bd8dbd3db2e9e3cff74acc2907c0742c9ebbf033";
     hash = "sha256-R/VvbprwcfXF2TBZOYmc1MU3AzCcXFfWCHoYYumXtI8=";
   };
-  buildInputs = [ zlib ];
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  buildInputs = [zlib];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
   installPhase = ''
     runHook preInstall
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     description = "Incremental construction of FM-index for DNA sequences";
     mainProgram = "ropebwt2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ apraga ];
+    maintainers = with lib.maintainers; [apraga];
     platforms = lib.platforms.unix;
   };
 }

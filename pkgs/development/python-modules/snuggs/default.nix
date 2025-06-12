@@ -9,7 +9,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "snuggs";
   version = "1.4.7";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "S-expressions for Numpy";
     license = licenses.mit;
     homepage = "https://github.com/mapbox/snuggs";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

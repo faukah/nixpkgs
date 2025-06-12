@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jepsen-io/maelstrom";
     changelog = "https://github.com/jepsen-io/maelstrom/releases/tag/${version}";
     mainProgram = "maelstrom";
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
     license = lib.licenses.epl10;
-    maintainers = [ lib.maintainers.emilioziniades ];
+    maintainers = [lib.maintainers.emilioziniades];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

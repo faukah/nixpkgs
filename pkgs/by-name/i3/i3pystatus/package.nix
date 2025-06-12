@@ -7,16 +7,15 @@
   python3Packages,
   unstableGitUpdater,
   fetchpatch2,
-  extraLibs ? [ ],
+  extraLibs ? [],
 }:
-
 python3Packages.buildPythonApplication rec {
   # i3pystatus moved to rolling release:
   # https://github.com/enkore/i3pystatus/issues/584
   version = "3.35-unstable-2024-06-13";
   pname = "i3pystatus";
   pyproject = true;
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   src = fetchFromGitHub {
     owner = "enkore";
@@ -34,19 +33,18 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
 
   buildInputs = [
     libpulseaudio
     libnotify
   ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
-  checkInputs = [ python3Packages.requests ];
+  checkInputs = [python3Packages.requests];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       keyring
       colour
@@ -65,7 +63,7 @@ python3Packages.buildPythonApplication rec {
     "--suffix"
     "LD_LIBRARY_PATH"
     ":"
-    "${lib.makeLibraryPath [ libpulseaudio ]}"
+    "${lib.makeLibraryPath [libpulseaudio]}"
   ];
 
   postPatch = ''
@@ -78,7 +76,7 @@ python3Packages.buildPythonApplication rec {
       ''${makeWrapperArgs[@]}
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     mainProgram = "i3pystatus";

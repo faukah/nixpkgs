@@ -15,31 +15,26 @@
   pango,
   pkg-config,
   xorg,
-}:
-let
-  buildVM =
-    {
-      # VM-specific information, manually extracted from building/<platformDir>/<vmName>/build/mvm
-      platformDir,
-      vmName,
-      scriptName,
-      configureFlagsArray,
-      configureFlags,
-    }:
-    let
-      src = fetchFromGitHub {
-        owner = "OpenSmalltalk";
-        repo = "opensmalltalk-vm";
-        rev = "202206021410";
-        hash = "sha256-QqElPiJuqD5svFjWrLz1zL0Tf+pHxQ2fPvkVRn2lyBI=";
-      };
-    in
+}: let
+  buildVM = {
+    # VM-specific information, manually extracted from building/<platformDir>/<vmName>/build/mvm
+    platformDir,
+    vmName,
+    scriptName,
+    configureFlagsArray,
+    configureFlags,
+  }: let
+    src = fetchFromGitHub {
+      owner = "OpenSmalltalk";
+      repo = "opensmalltalk-vm";
+      rev = "202206021410";
+      hash = "sha256-QqElPiJuqD5svFjWrLz1zL0Tf+pHxQ2fPvkVRn2lyBI=";
+    };
+  in
     stdenv.mkDerivation {
-      pname =
-        let
-          vmNameNoDots = builtins.replaceStrings [ "." ] [ "-" ] vmName;
-        in
-        "opensmalltalk-vm-${platformDir}-${vmNameNoDots}";
+      pname = let
+        vmNameNoDots = builtins.replaceStrings ["."] ["-"] vmName;
+      in "opensmalltalk-vm-${platformDir}-${vmNameNoDots}";
       version = src.rev;
 
       inherit src;
@@ -71,9 +66,9 @@ let
 
       configureScript = "../../../../platforms/unix/config/configure";
 
-      configureFlags = [ "--with-scriptname=${scriptName}" ] ++ configureFlags;
+      configureFlags = ["--with-scriptname=${scriptName}"] ++ configureFlags;
 
-      buildFlags = [ "all" ];
+      buildFlags = ["all"];
 
       enableParallelBuilding = true;
 
@@ -108,9 +103,9 @@ let
         description = "Cross-platform virtual machine for Squeak, Pharo, Cuis, and Newspeak";
         mainProgram = scriptName;
         homepage = "https://opensmalltalk.org/";
-        license = with lib.licenses; [ mit ];
-        maintainers = with lib.maintainers; [ jakewaksbaum ];
-        platforms = [ stdenv.targetPlatform.system ];
+        license = with lib.licenses; [mit];
+        maintainers = with lib.maintainers; [jakewaksbaum];
+        platforms = [stdenv.targetPlatform.system];
       };
     };
 
@@ -190,7 +185,9 @@ let
 
   platform = stdenv.targetPlatform.system;
 in
-vmsByPlatform.${platform} or (throw (
-  "Unsupported platform ${platform}: only the following platforms are supported: "
-  + builtins.toString (builtins.attrNames vmsByPlatform)
-))
+  vmsByPlatform.${
+    platform
+  } or (throw (
+    "Unsupported platform ${platform}: only the following platforms are supported: "
+    + builtins.toString (builtins.attrNames vmsByPlatform)
+  ))

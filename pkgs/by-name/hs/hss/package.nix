@@ -4,7 +4,6 @@
   ruby,
   openssh,
 }:
-
 # Example ~/.hss.yml
 #---
 #patterns:
@@ -12,7 +11,6 @@
 #    example: g -> github
 #    short: '^g$'
 #    long: 'git@github.com'
-
 buildRubyGem rec {
   name = "hss-${version}";
   inherit ruby;
@@ -33,7 +31,7 @@ buildRubyGem rec {
     '';
     homepage = "https://github.com/akerl/hss";
     license = licenses.mit;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
     platforms = platforms.unix;
     mainProgram = "hss";
   };

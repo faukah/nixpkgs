@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ec2-metadata-mock";
   version = "1.12.0";
@@ -26,6 +25,6 @@ buildGoModule rec {
     mainProgram = "ec2-metadata-mock";
     homepage = "https://github.com/aws/amazon-ec2-metadata-mock";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ymatsiuk ];
+    maintainers = with maintainers; [ymatsiuk];
   };
 }

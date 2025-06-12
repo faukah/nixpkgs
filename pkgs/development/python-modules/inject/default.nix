@@ -7,7 +7,6 @@
   nix-update-script,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "inject";
   version = "5.2.1";
@@ -29,15 +28,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "inject" ];
+  pythonImportsCheck = ["inject"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Python dependency injection framework";
     homepage = "https://github.com/ivankorobkov/python-inject";
     changelog = "https://github.com/ivankorobkov/python-inject/blob/${version}/CHANGES.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

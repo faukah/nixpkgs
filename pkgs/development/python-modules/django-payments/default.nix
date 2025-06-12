@@ -15,7 +15,6 @@
   suds-community,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "django-payments";
   version = "3.0.1";
@@ -35,24 +34,26 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    django
-    django-phonenumber-field
-    requests
-  ] ++ django-phonenumber-field.optional-dependencies.phonenumberslite;
+  dependencies =
+    [
+      django
+      django-phonenumber-field
+      requests
+    ]
+    ++ django-phonenumber-field.optional-dependencies.phonenumberslite;
 
   # require internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "payments" ];
+  pythonImportsCheck = ["payments"];
 
   optional-dependencies = {
-    braintree = [ braintree ];
-    cybersource = [ suds-community ];
-    mercadopago = [ mercadopago ];
-    sagepay = [ cryptography ];
-    sofort = [ xmltodict ];
-    stripe = [ stripe ];
+    braintree = [braintree];
+    cybersource = [suds-community];
+    mercadopago = [mercadopago];
+    sagepay = [cryptography];
+    sofort = [xmltodict];
+    stripe = [stripe];
   };
 
   meta = with lib; {
@@ -60,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-payments/";
     changelog = "https://github.com/jazzband/django-payments/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

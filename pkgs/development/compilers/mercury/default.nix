@@ -11,7 +11,6 @@
   makeWrapper,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mercury";
   version = "22.01.8";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oJfozI7KAVLtlSfByvc+XJyD9q2h0xOiW4D+eQcvutg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     gcc
     flex
@@ -77,6 +76,6 @@ stdenv.mkDerivation rec {
     changelog = "https://dl.mercurylang.org/release/release-notes-${version}.html";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ vieta ];
+    maintainers = with lib.maintainers; [vieta];
   };
 }

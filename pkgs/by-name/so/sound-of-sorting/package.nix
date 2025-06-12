@@ -7,7 +7,6 @@
   SDL2,
   wxGTK32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sound-of-sorting";
   version = "0.6.5-unstable-2022-10-12";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://panthema.net/2013/sound-of-sorting/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "sound-of-sorting";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (SDL2.meta) platforms;
   };
 })

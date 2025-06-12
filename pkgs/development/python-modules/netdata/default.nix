@@ -10,7 +10,6 @@
   pytestCheckHook,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "netdata";
   version = "1.3.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-Et9T/+xonHSXjGQabgizW4pVBIYpTz0flud+vlfBNQE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     httpx
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "netdata" ];
+  pythonImportsCheck = ["netdata"];
 
   meta = with lib; {
     description = "Python API for interacting with Netdata";
     homepage = "https://github.com/home-assistant-ecosystem/python-netdata";
     changelog = "https://github.com/home-assistant-ecosystem/python-netdata/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

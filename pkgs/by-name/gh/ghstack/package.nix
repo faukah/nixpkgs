@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "ghstack";
   version = "0.9.4";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-Ywwjeupa8eE/vkrbl5SIbvQs53xaLnq9ieWRFwzmuuc=";
   };
 
-  build-system = [ python3.pkgs.poetry-core ];
+  build-system = [python3.pkgs.poetry-core];
 
   dependencies = with python3.pkgs; [
     aiohttp
@@ -27,13 +26,13 @@ python3.pkgs.buildPythonApplication {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "ghstack" ];
+  pythonImportsCheck = ["ghstack"];
 
   meta = {
     description = "Submit stacked diffs to GitHub on the command line";
     homepage = "https://github.com/ezyang/ghstack";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ munksgaard ];
+    maintainers = with lib.maintainers; [munksgaard];
     mainProgram = "ghstack";
   };
 }

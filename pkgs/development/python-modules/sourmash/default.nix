@@ -41,7 +41,7 @@ buildPythonPackage rec {
     bindgenHook
   ];
 
-  buildInputs = [ iconv ];
+  buildInputs = [iconv];
 
   propagatedBuildInputs = [
     bitstring
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     screed
   ];
 
-  pythonImportsCheck = [ "sourmash" ];
+  pythonImportsCheck = ["sourmash"];
   nativeCheckInputs = [
     hypothesis
     pytest-xdist
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     mainProgram = "sourmash";
     homepage = "https://sourmash.bio";
     changelog = "https://github.com/sourmash-bio/sourmash/releases/tag/v${version}";
-    maintainers = with maintainers; [ luizirber ];
+    maintainers = with maintainers; [luizirber];
     license = licenses.bsd3;
   };
 }

@@ -5,7 +5,6 @@
   virtualenv,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "virtualenv-clone";
   version = "0.5.7";
@@ -35,15 +34,15 @@ buildPythonPackage rec {
         "pth = '$(mktemp -d)/test_fixup_pth_file.pth'"
   '';
 
-  propagatedBuildInputs = [ virtualenv ];
+  propagatedBuildInputs = [virtualenv];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/edwardgeorge/virtualenv-clone";
     description = "Script to clone virtualenvs";
     mainProgram = "virtualenv-clone";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

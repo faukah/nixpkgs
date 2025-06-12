@@ -14,7 +14,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "yarl";
   version = "1.18.3";
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "yarl" ];
+  pythonImportsCheck = ["yarl"];
 
   meta = with lib; {
     changelog = "https://github.com/aio-libs/yarl/blob/v${version}/CHANGES.rst";
     description = "Yet another URL library";
     homepage = "https://github.com/aio-libs/yarl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

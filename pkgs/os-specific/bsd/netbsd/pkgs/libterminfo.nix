@@ -12,7 +12,6 @@
   tic,
   compatIfNeeded,
 }:
-
 mkDerivation {
   path = "lib/libterminfo";
   nativeBuildInputs = [
@@ -40,5 +39,5 @@ mkDerivation {
   postInstall = ''
     make -C $BSDSRCDIR/share/terminfo $makeFlags BINDIR=$out/share install
   '';
-  extraPaths = [ "share/terminfo" ];
+  extraPaths = ["share/terminfo"];
 }

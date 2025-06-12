@@ -3,7 +3,6 @@
   posix-base,
   unix-errno,
 }:
-
 buildDunePackage {
   pname = "posix-math2";
   inherit (posix-base) src version;
@@ -13,7 +12,9 @@ buildDunePackage {
     unix-errno
   ];
 
-  meta = posix-base.meta // {
-    description = "Bindings for posix math";
-  };
+  meta =
+    posix-base.meta
+    // {
+      description = "Bindings for posix math";
+    };
 }

@@ -27,7 +27,6 @@
   libseccomp,
   glycin-loaders,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fractal";
   version = "11.1";
@@ -104,7 +103,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -112,7 +111,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/fractal";
     changelog = "https://gitlab.gnome.org/World/fractal/-/releases/${version}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
     mainProgram = "fractal";
   };

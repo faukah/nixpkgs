@@ -5,7 +5,7 @@
 }:
 mkDerivation {
   path = "sbin/init";
-  extraPaths = [ "sbin/mount" ];
+  extraPaths = ["sbin/mount"];
   MK_TESTS = "no";
 
   meta = {

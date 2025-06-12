@@ -7,23 +7,22 @@
   QuickChick,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "async-test";
   owner = "liyishuai";
   repo = "coq-async-test";
   inherit version;
 
-  defaultVersion =
-    let
-      inherit (lib.versions) range;
-    in
+  defaultVersion = let
+    inherit (lib.versions) range;
+  in
     lib.switch coq.coq-version [
       {
         case = range "8.12" "8.19";
         out = "0.1.0";
       }
-    ] null;
+    ]
+    null;
   release = {
     "0.1.0".sha256 = "sha256-0DBUS20337tpBi64mlJIWTQvIAdUvWbFCM9Sat7MEA8=";
   };

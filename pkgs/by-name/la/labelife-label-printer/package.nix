@@ -6,7 +6,6 @@
   autoPatchelfHook,
   detox,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "labelife-label-printer";
   version = "2.0.0";
@@ -18,7 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
       i686-linux = "i386";
       x86_64-linux = "x86_64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchzip {
     url = "https://oss.qu-in.ltd/Labelife/Label_Printer_Driver_Linux.zip";
@@ -29,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelfHook
     detox
   ];
-  buildInputs = [ cups ];
+  buildInputs = [cups];
 
   unpackPhase = ''
     runHook preUnpack
@@ -70,13 +71,13 @@ stdenv.mkDerivation (finalAttrs: {
       - Omezizy
       - Aimo
     '';
-    maintainers = with lib.maintainers; [ daniel-fahey ];
+    maintainers = with lib.maintainers; [daniel-fahey];
     platforms = [
       "aarch64-linux"
       "armv7l-linux"
       "i686-linux"
       "x86_64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

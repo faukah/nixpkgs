@@ -26,7 +26,6 @@
   installShellFiles,
   reflection-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "contour";
   version = "0.6.1.7494";
@@ -38,21 +37,23 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jgasZhdcJ+UF3VIl8HLcxBayvbA/dkaOG8UtANRgeP4=";
   };
 
-  patches = [ ./dont-fix-app-bundle.diff ];
+  patches = [./dont-fix-app-bundle.diff];
 
   outputs = [
     "out"
     "terminfo"
   ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    ncurses
-    file
-    qt6.wrapQtAppsHook
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ sigtool ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      ncurses
+      file
+      qt6.wrapQtAppsHook
+      installShellFiles
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [sigtool];
 
   buildInputs =
     [
@@ -72,12 +73,12 @@ stdenv.mkDerivation (finalAttrs: {
       yaml-cpp
       reflection-cpp
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libutempter ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libutempter]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libutil
     ];
 
-  cmakeFlags = [ "-DCONTOUR_QT_VERSION=6" ];
+  cmakeFlags = ["-DCONTOUR_QT_VERSION=6"];
 
   postInstall =
     ''
@@ -104,7 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/contour-terminal/contour";
     changelog = "https://github.com/contour-terminal/contour/raw/v${finalAttrs.version}/Changelog.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     platforms = lib.platforms.unix;
     mainProgram = "contour";
   };

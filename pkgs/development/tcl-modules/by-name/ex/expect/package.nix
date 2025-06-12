@@ -9,7 +9,6 @@
   fetchpatch,
   replaceVars,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "expect";
   version = "5.45.4";
@@ -55,10 +54,10 @@ tcl.mkTclDerivation rec {
     NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
-    tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ tcl ]})
+    tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [tcl]})
     ${lib.optionalString stdenv.hostPlatform.isDarwin "tclWrapperArgs+=(--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version})"}
   '';
 
@@ -73,6 +72,6 @@ tcl.mkTclDerivation rec {
     license = licenses.publicDomain;
     platforms = platforms.unix;
     mainProgram = "expect";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

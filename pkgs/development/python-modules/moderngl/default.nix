@@ -8,7 +8,6 @@
   glcontext,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "moderngl";
   version = "5.12.0";
@@ -27,26 +26,26 @@ buildPythonPackage rec {
       --replace-fail '"libEGL.so"' '"${libGL}/lib/libEGL.so"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     libGL
     libX11
   ];
 
-  dependencies = [ glcontext ];
+  dependencies = [glcontext];
 
   # Tests need a display to run.
   doCheck = false;
 
-  pythonImportsCheck = [ "moderngl" ];
+  pythonImportsCheck = ["moderngl"];
 
   meta = with lib; {
     description = "High performance rendering for Python";
     homepage = "https://github.com/moderngl/moderngl";
     changelog = "https://github.com/moderngl/moderngl/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ c0deaddict ];
+    maintainers = with maintainers; [c0deaddict];
     # should be mesa.meta.platforms, darwin build breaks.
     platforms = platforms.linux;
   };

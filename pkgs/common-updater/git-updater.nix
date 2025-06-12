@@ -2,9 +2,7 @@
   lib,
   genericUpdater,
   common-updater-scripts,
-}:
-
-{
+}: {
   pname ? null,
   version ? null,
   attrPath ? null,
@@ -18,7 +16,6 @@
   # point to a git repo (eg. when using fetchurl, fetchzip, ...)
   url ? null,
 }:
-
 genericUpdater {
   inherit
     pname

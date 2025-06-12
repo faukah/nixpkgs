@@ -11,7 +11,6 @@
   itstool,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "etherape";
   version = "0.9.20";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://etherape.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
   };
 }

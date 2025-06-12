@@ -6,7 +6,6 @@
   alcotest,
   ohex,
 }:
-
 buildDunePackage rec {
   pname = "hkdf";
   version = "2.0.0";
@@ -18,7 +17,7 @@ buildDunePackage rec {
     hash = "sha256-VLBxJ5viTTn1nK0QNIAGq/8961x0/RGHZN/C/7ITWNM=";
   };
 
-  propagatedBuildInputs = [ digestif ];
+  propagatedBuildInputs = [digestif];
   checkInputs = [
     alcotest
     ohex
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "HMAC-based Extract-and-Expand Key Derivation Function (RFC 5869)";
     homepage = "https://github.com/hannesm/ocaml-hkdf";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

@@ -1,12 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}:
-
-let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
-  inherit (pkgs.lib)
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
+}: let
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
+  inherit
+    (pkgs.lib)
     concatStringsSep
     maintainers
     mapAttrs
@@ -19,53 +18,53 @@ let
     ;
 
   /*
-    * The attrset `exporterTests` contains one attribute
-    * for each exporter test. Each of these attributes
-    * is expected to be an attrset containing:
-    *
-    *  `exporterConfig`:
-    *    this attribute set contains config for the exporter itself
-    *
-    *  `exporterTest`
-    *    this attribute set contains test instructions
-    *
-    *  `metricProvider` (optional)
-    *    this attribute contains additional machine config
-    *
-    *  `nodeName` (optional)
-    *    override an incompatible testnode name
-    *
-    *  Example:
-    *    exporterTests.<exporterName> = {
-    *      exporterConfig = {
-    *        enable = true;
-    *      };
-    *      metricProvider = {
-    *        services.<metricProvider>.enable = true;
-    *      };
-    *      exporterTest = ''
-    *        wait_for_unit("prometheus-<exporterName>-exporter.service")
-    *        wait_for_open_port(1234)
-    *        succeed("curl -sSf 'localhost:1234/metrics'")
-    *      '';
-    *    };
-    *
-    *  # this would generate the following test config:
-    *
-    *    nodes.<exporterName> = {
-    *      services.prometheus.<exporterName> = {
-    *        enable = true;
-    *      };
-    *      services.<metricProvider>.enable = true;
-    *    };
-    *
-    *    testScript = ''
-    *      <exporterName>.start()
-    *      <exporterName>.wait_for_unit("prometheus-<exporterName>-exporter.service")
-    *      <exporterName>.wait_for_open_port(1234)
-    *      <exporterName>.succeed("curl -sSf 'localhost:1234/metrics'")
-    *      <exporterName>.shutdown()
-    *    '';
+  * The attrset `exporterTests` contains one attribute
+  * for each exporter test. Each of these attributes
+  * is expected to be an attrset containing:
+  *
+  *  `exporterConfig`:
+  *    this attribute set contains config for the exporter itself
+  *
+  *  `exporterTest`
+  *    this attribute set contains test instructions
+  *
+  *  `metricProvider` (optional)
+  *    this attribute contains additional machine config
+  *
+  *  `nodeName` (optional)
+  *    override an incompatible testnode name
+  *
+  *  Example:
+  *    exporterTests.<exporterName> = {
+  *      exporterConfig = {
+  *        enable = true;
+  *      };
+  *      metricProvider = {
+  *        services.<metricProvider>.enable = true;
+  *      };
+  *      exporterTest = ''
+  *        wait_for_unit("prometheus-<exporterName>-exporter.service")
+  *        wait_for_open_port(1234)
+  *        succeed("curl -sSf 'localhost:1234/metrics'")
+  *      '';
+  *    };
+  *
+  *  # this would generate the following test config:
+  *
+  *    nodes.<exporterName> = {
+  *      services.prometheus.<exporterName> = {
+  *        enable = true;
+  *      };
+  *      services.<metricProvider>.enable = true;
+  *    };
+  *
+  *    testScript = ''
+  *      <exporterName>.start()
+  *      <exporterName>.wait_for_unit("prometheus-<exporterName>-exporter.service")
+  *      <exporterName>.wait_for_open_port(1234)
+  *      <exporterName>.succeed("curl -sSf 'localhost:1234/metrics'")
+  *      <exporterName>.shutdown()
+  *    '';
   */
 
   exporterTests = {
@@ -158,8 +157,7 @@ let
       };
       metricProvider = {
         services.bitcoind.default.enable = true;
-        services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC =
-          "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
+        services.bitcoind.default.rpc.users.bitcoinrpc.passwordHMAC = "e8fe33f797e698ac258c16c8d7aadfbe$872bdb8f4d787367c26bcfd75e6c23c4f19d44a69f5d1ad329e5adf3f82710f7";
       };
       exporterTest = ''
         wait_for_unit("prometheus-bitcoin-exporter.service")
@@ -197,7 +195,7 @@ let
       };
       metricProvider = {
         services.borgmatic.enable = true;
-        services.borgmatic.settings.source_directories = [ "/home" ];
+        services.borgmatic.settings.source_directories = ["/home"];
         services.borgmatic.settings.repositories = [
           {
             label = "local";
@@ -218,36 +216,34 @@ let
     collectd = {
       exporterConfig = {
         enable = true;
-        extraFlags = [ "--web.collectd-push-path /collectd" ];
+        extraFlags = ["--web.collectd-push-path /collectd"];
       };
-      exporterTest =
-        let
-          postData = replaceStrings [ "\n" ] [ "" ] ''
-            [{
-              "values":[23],
-              "dstypes":["gauge"],
-              "type":"gauge",
-              "interval":1000,
-              "host":"testhost",
-              "plugin":"testplugin",
-              "time":DATE
-            }]
-          '';
-        in
-        ''
-          wait_for_unit("prometheus-collectd-exporter.service")
-          wait_for_open_port(9103)
-          succeed(
-              'echo \'${postData}\'> /tmp/data.json'
-          )
-          succeed('sed -i -e "s DATE $(date +%s) " /tmp/data.json')
-          succeed(
-              "curl -sSfH 'Content-Type: application/json' -X POST --data @/tmp/data.json localhost:9103/collectd"
-          )
-          succeed(
-              "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
-          )
+      exporterTest = let
+        postData = replaceStrings ["\n"] [""] ''
+          [{
+            "values":[23],
+            "dstypes":["gauge"],
+            "type":"gauge",
+            "interval":1000,
+            "host":"testhost",
+            "plugin":"testplugin",
+            "time":DATE
+          }]
         '';
+      in ''
+        wait_for_unit("prometheus-collectd-exporter.service")
+        wait_for_open_port(9103)
+        succeed(
+            'echo \'${postData}\'> /tmp/data.json'
+        )
+        succeed('sed -i -e "s DATE $(date +%s) " /tmp/data.json')
+        succeed(
+            "curl -sSfH 'Content-Type: application/json' -X POST --data @/tmp/data.json localhost:9103/collectd"
+        )
+        succeed(
+            "curl -sSf localhost:9103/metrics | grep 'collectd_testplugin_gauge{instance=\"testhost\"} 23'"
+        )
+      '';
     };
 
     deluge = {
@@ -308,7 +304,7 @@ let
             }
           ];
         };
-        resolvers = [ "127.0.0.1:53" ];
+        resolvers = ["127.0.0.1:53"];
       };
       metricProvider = {
         services.knot = {
@@ -319,17 +315,17 @@ let
             template:
               - id: default
                 storage: ${
-                  pkgs.buildEnv {
-                    name = "zones";
-                    paths = [
-                      (pkgs.writeTextDir "example.com.zone" ''
-                        @ SOA ns1.example.com. noc.example.com. 2024032401 86400 7200 3600000 172800
-                        @       NS      ns1
-                        ns1     A       192.168.0.1
-                      '')
-                    ];
-                  }
-                }
+              pkgs.buildEnv {
+                name = "zones";
+                paths = [
+                  (pkgs.writeTextDir "example.com.zone" ''
+                    @ SOA ns1.example.com. noc.example.com. 2024032401 86400 7200 3600000 172800
+                    @       NS      ns1
+                    ns1     A       192.168.0.1
+                  '')
+                ];
+              }
+            }
                 zonefile-load: difference
                 zonefile-sync: -1
             zone:
@@ -365,7 +361,7 @@ let
     dovecot = {
       exporterConfig = {
         enable = true;
-        scopes = [ "global" ];
+        scopes = ["global"];
         socketPath = "/var/run/dovecot2/old-stats";
         user = "root"; # <- don't use user root in production
       };
@@ -381,36 +377,34 @@ let
       '';
     };
 
-    exportarr-sonarr =
-      let
-        apikey = "eccff6a992bc2e4b88e46d064b26bb4e";
-      in
-      {
-        nodeName = "exportarr_sonarr";
-        exporterConfig = {
-          enable = true;
-          url = "http://127.0.0.1:8989";
-          apiKeyFile = pkgs.writeText "dummy-api-key" apikey;
-        };
-        metricProvider = {
-          services.sonarr = {
-            enable = true;
-            environmentFiles = [ (pkgs.writeText "sonarr-env" "SONARR__AUTH__APIKEY=${apikey}") ];
-          };
-        };
-        exporterTest = ''
-          wait_for_unit("sonarr.service")
-          wait_for_open_port(8989)
-          wait_for_unit("prometheus-exportarr-sonarr-exporter.service")
-          wait_for_open_port(9708)
-          succeed("curl -sSf http://localhost:9708/metrics | grep sonarr_series_total")
-        '';
+    exportarr-sonarr = let
+      apikey = "eccff6a992bc2e4b88e46d064b26bb4e";
+    in {
+      nodeName = "exportarr_sonarr";
+      exporterConfig = {
+        enable = true;
+        url = "http://127.0.0.1:8989";
+        apiKeyFile = pkgs.writeText "dummy-api-key" apikey;
       };
+      metricProvider = {
+        services.sonarr = {
+          enable = true;
+          environmentFiles = [(pkgs.writeText "sonarr-env" "SONARR__AUTH__APIKEY=${apikey}")];
+        };
+      };
+      exporterTest = ''
+        wait_for_unit("sonarr.service")
+        wait_for_open_port(8989)
+        wait_for_unit("prometheus-exportarr-sonarr-exporter.service")
+        wait_for_open_port(9708)
+        succeed("curl -sSf http://localhost:9708/metrics | grep sonarr_series_total")
+      '';
+    };
 
     ebpf = {
       exporterConfig = {
         enable = true;
-        names = [ "timers" ];
+        names = ["timers"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-ebpf-exporter.service")
@@ -531,7 +525,7 @@ let
         enable = true;
       };
       metricProvider = {
-        systemd.services.prometheus-jitsi-exporter.after = [ "jitsi-videobridge2.service" ];
+        systemd.services.prometheus-jitsi-exporter.after = ["jitsi-videobridge2.service"];
         services.jitsi-videobridge = {
           enable = true;
           colibriRestApi = true;
@@ -568,7 +562,7 @@ let
         );
       };
       metricProvider = {
-        systemd.services.prometheus-json-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-json-exporter.after = ["nginx.service"];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/".extraConfig = ''
@@ -594,7 +588,7 @@ let
       metricProvider = {
         services.knot = {
           enable = true;
-          extraArgs = [ "-v" ];
+          extraArgs = ["-v"];
           settingsFile = pkgs.writeText "knot.conf" ''
             server:
               listen: 127.0.0.1@53
@@ -606,18 +600,18 @@ let
                 zonefile-sync: -1
                 zonefile-load: difference
                 storage: ${
-                  pkgs.buildEnv {
-                    name = "foo";
-                    paths = [
-                      (pkgs.writeTextDir "test.zone" ''
-                        @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
-                        @       NS      ns1
-                        @       NS      ns2
-                        ns1     A       192.168.0.1
-                      '')
-                    ];
-                  }
-                }
+              pkgs.buildEnv {
+                name = "foo";
+                paths = [
+                  (pkgs.writeTextDir "test.zone" ''
+                    @ SOA ns.example.com. noc.example.com. 2019031301 86400 7200 3600000 172800
+                    @       NS      ns1
+                    @       NS      ns2
+                    ns1     A       192.168.0.1
+                  '')
+                ];
+              }
+            }
 
             mod-stats:
               - id: custom
@@ -663,11 +657,11 @@ let
         enable = true;
         lndTlsPath = "/var/lib/lnd/tls.cert";
         lndMacaroonDir = "/var/lib/lnd";
-        extraFlags = [ "--lnd.network=regtest" ];
+        extraFlags = ["--lnd.network=regtest"];
       };
       metricProvider = {
         systemd.services.prometheus-lnd-exporter.serviceConfig.RestartSec = 15;
-        systemd.services.prometheus-lnd-exporter.after = [ "lnd.service" ];
+        systemd.services.prometheus-lnd-exporter.after = ["lnd.service"];
         services.bitcoind.regtest = {
           enable = true;
           extraConfig = ''
@@ -677,7 +671,7 @@ let
             # https://github.com/lightningnetwork/lnd/issues/9163
             deprecatedrpc=warnings
           '';
-          extraCmdlineOptions = [ "-regtest" ];
+          extraCmdlineOptions = ["-regtest"];
         };
         systemd.services.lnd = {
           serviceConfig.ExecStart = ''
@@ -696,8 +690,8 @@ let
               --readonlymacaroonpath=/var/lib/lnd/readonly.macaroon
           '';
           serviceConfig.StateDirectory = "lnd";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
         };
         # initialize wallet, creates macaroon needed by exporter
         systemd.services.lnd.postStart = ''
@@ -748,8 +742,8 @@ let
       metricProvider = {
         services.postfix.enable = true;
         systemd.services.prometheus-mail-exporter = {
-          after = [ "postfix.service" ];
-          requires = [ "postfix.service" ];
+          after = ["postfix.service"];
+          requires = ["postfix.service"];
           serviceConfig = {
             ExecStartPre = [
               "${pkgs.writeShellScript "create-maildir" ''
@@ -766,7 +760,7 @@ let
           isSystemUser = true;
           group = "mailexporter";
         };
-        users.groups.mailexporter = { };
+        users.groups.mailexporter = {};
       };
       exporterTest = ''
         wait_for_unit("postfix.service")
@@ -781,7 +775,7 @@ let
     mikrotik = {
       exporterConfig = {
         enable = true;
-        extraFlags = [ "-timeout=1s" ];
+        extraFlags = ["-timeout=1s"];
         configuration = {
           devices = [
             {
@@ -859,15 +853,15 @@ let
           listeners = [
             {
               users.exporter = {
-                acl = [ "read #" ];
+                acl = ["read #"];
                 passwordFile = pkgs.writeText "mosquitto-password" "testpassword";
               };
             }
           ];
         };
         systemd.services.prometheus-mqtt-exporter = {
-          wants = [ "mosquitto.service" ];
-          after = [ "mosquitto.service" ];
+          wants = ["mosquitto.service"];
+          after = ["mosquitto.service"];
         };
       };
       exporterTest = ''
@@ -922,17 +916,15 @@ let
         url = "http://localhost";
       };
       metricProvider = {
-        systemd.services.nc-pwfile =
-          let
-            passfile = (pkgs.writeText "pwfile" "snakeoilpw");
-          in
-          {
-            requiredBy = [ "prometheus-nextcloud-exporter.service" ];
-            before = [ "prometheus-nextcloud-exporter.service" ];
-            serviceConfig.ExecStart = ''
-              ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
-            '';
-          };
+        systemd.services.nc-pwfile = let
+          passfile = pkgs.writeText "pwfile" "snakeoilpw";
+        in {
+          requiredBy = ["prometheus-nextcloud-exporter.service"];
+          before = ["prometheus-nextcloud-exporter.service"];
+          serviceConfig.ExecStart = ''
+            ${pkgs.coreutils}/bin/install -o nextcloud-exporter -m 0400 ${passfile} /var/nextcloud-pwfile
+          '';
+        };
         services.nginx = {
           enable = true;
           virtualHosts."localhost" = {
@@ -955,7 +947,7 @@ let
     nginx = {
       exporterConfig = {
         enable = true;
-        constLabels = [ "foo=bar" ];
+        constLabels = ["foo=bar"];
       };
       metricProvider = {
         services.nginx = {
@@ -981,7 +973,7 @@ let
             {
               name = "filelogger";
               source = {
-                files = [ "/var/log/nginx/filelogger.access.log" ];
+                files = ["/var/log/nginx/filelogger.access.log"];
               };
             }
             {
@@ -990,7 +982,7 @@ let
                 syslog = {
                   listen_address = "udp://127.0.0.1:10000";
                   format = "rfc3164";
-                  tags = [ "nginx" ];
+                  tags = ["nginx"];
                 };
               };
             }
@@ -1050,7 +1042,7 @@ let
       nodeName = "node_cert";
       exporterConfig = {
         enable = true;
-        paths = [ "/run/certs" ];
+        paths = ["/run/certs"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-node-cert-exporter.service")
@@ -1148,7 +1140,7 @@ let
           isSystemUser = true;
           group = "php-fpm-exporter";
         };
-        users.groups."php-fpm-exporter" = { };
+        users.groups."php-fpm-exporter" = {};
         services.phpfpm.pools."php-fpm-exporter" = {
           user = "php-fpm-exporter";
           group = "php-fpm-exporter";
@@ -1163,7 +1155,7 @@ let
             "listen" = "127.0.0.1:9000";
             "listen.allowed_clients" = "127.0.0.1";
           };
-          phpEnv."PATH" = makeBinPath [ pkgs.php ];
+          phpEnv."PATH" = makeBinPath [pkgs.php];
         };
       };
       exporterTest = ''
@@ -1199,10 +1191,10 @@ let
               };
             }
             {
-              "google.com" = { };
+              "google.com" = {};
             }
           ];
-          dns = { };
+          dns = {};
           ping = {
             interval = "2s";
             timeout = "3s";
@@ -1280,7 +1272,7 @@ let
           # Remove nix store path from process name
           {
             name = "{{.Matches.Wrapped}} {{ .Matches.Args }}";
-            cmdline = [ "^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)" ];
+            cmdline = ["^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)"];
           }
         ];
       };
@@ -1295,28 +1287,26 @@ let
       '';
     };
 
-    pve =
-      let
-        pveExporterEnvFile = pkgs.writeTextFile {
-          name = "pve.env";
-          text = ''
-            PVE_USER="test_user@pam"
-            PVE_PASSWORD="hunter3"
-            PVE_VERIFY_SSL="false"
-          '';
-        };
-      in
-      {
-        exporterConfig = {
-          enable = true;
-          environmentFile = pveExporterEnvFile;
-        };
-        exporterTest = ''
-          wait_for_unit("prometheus-pve-exporter.service")
-          wait_for_open_port(9221)
-          wait_until_succeeds("curl localhost:9221")
+    pve = let
+      pveExporterEnvFile = pkgs.writeTextFile {
+        name = "pve.env";
+        text = ''
+          PVE_USER="test_user@pam"
+          PVE_PASSWORD="hunter3"
+          PVE_VERIFY_SSL="false"
         '';
       };
+    in {
+      exporterConfig = {
+        enable = true;
+        environmentFile = pveExporterEnvFile;
+      };
+      exporterTest = ''
+        wait_for_unit("prometheus-pve-exporter.service")
+        wait_for_open_port(9221)
+        wait_until_succeeds("curl localhost:9221")
+      '';
+    };
 
     py-air-control = {
       nodeName = "py_air_control";
@@ -1347,38 +1337,36 @@ let
       '';
     };
 
-    restic =
-      let
-        repository = "rest:http://127.0.0.1:8000";
-        passwordFile = pkgs.writeText "restic-test-password" "test-password";
-      in
-      {
-        exporterConfig = {
-          enable = true;
-          inherit repository passwordFile;
-        };
-        metricProvider = {
-          services.restic.server = {
-            enable = true;
-            extraFlags = [ "--no-auth" ];
-          };
-          environment.systemPackages = [ pkgs.restic ];
-        };
-        exporterTest = ''
-          # prometheus-restic-exporter.service fails without initialised repository
-          systemctl("stop prometheus-restic-exporter.service")
-
-          # Initialise the repository
-          wait_for_unit("restic-rest-server.service")
-          wait_for_open_port(8000)
-          succeed("restic init --repo ${repository} --password-file ${passwordFile}")
-
-          systemctl("start prometheus-restic-exporter.service")
-          wait_for_unit("prometheus-restic-exporter.service")
-          wait_for_open_port(9753)
-          wait_until_succeeds("curl -sSf localhost:9753/metrics | grep 'restic_check_success 1.0'")
-        '';
+    restic = let
+      repository = "rest:http://127.0.0.1:8000";
+      passwordFile = pkgs.writeText "restic-test-password" "test-password";
+    in {
+      exporterConfig = {
+        enable = true;
+        inherit repository passwordFile;
       };
+      metricProvider = {
+        services.restic.server = {
+          enable = true;
+          extraFlags = ["--no-auth"];
+        };
+        environment.systemPackages = [pkgs.restic];
+      };
+      exporterTest = ''
+        # prometheus-restic-exporter.service fails without initialised repository
+        systemctl("stop prometheus-restic-exporter.service")
+
+        # Initialise the repository
+        wait_for_unit("restic-rest-server.service")
+        wait_for_open_port(8000)
+        succeed("restic init --repo ${repository} --password-file ${passwordFile}")
+
+        systemctl("start prometheus-restic-exporter.service")
+        wait_for_unit("prometheus-restic-exporter.service")
+        wait_for_open_port(9753)
+        wait_until_succeeds("curl -sSf localhost:9753/metrics | grep 'restic_check_success 1.0'")
+      '';
+    };
 
     rspamd = {
       exporterConfig = {
@@ -1406,7 +1394,7 @@ let
         # Mock rtl_433 binary to return a dummy metric stream.
         nixpkgs.overlays = [
           (self: super: {
-            rtl_433 = self.runCommand "rtl_433" { } ''
+            rtl_433 = self.runCommand "rtl_433" {} ''
               mkdir -p "$out/bin"
               cat <<EOF > "$out/bin/rtl_433"
               #!/bin/sh
@@ -1446,14 +1434,14 @@ let
         services.sabnzbd.enable = true;
 
         # unrar is required for sabnzbd
-        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "unrar" ];
+        nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) ["unrar"];
 
         # extract the generated api key before starting
         systemd.services.sabnzbd-apikey = {
-          requires = [ "sabnzbd.service" ];
-          after = [ "sabnzbd.service" ];
-          requiredBy = [ "prometheus-sabnzbd-exporter.service" ];
-          before = [ "prometheus-sabnzbd-exporter.service" ];
+          requires = ["sabnzbd.service"];
+          after = ["sabnzbd.service"];
+          requiredBy = ["prometheus-sabnzbd-exporter.service"];
+          before = ["prometheus-sabnzbd-exporter.service"];
           script = ''
             grep -Po '^api_key = \K.+' /var/lib/sabnzbd/sabnzbd.ini > /var/sabnzbd-apikey
           '';
@@ -1476,7 +1464,7 @@ let
         enable = true;
       };
       metricProvider = {
-        boot.kernelModules = [ "intel_rapl_common" ];
+        boot.kernelModules = ["intel_rapl_common"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-scaphandre-exporter.service")
@@ -1539,7 +1527,7 @@ let
     smokeping = {
       exporterConfig = {
         enable = true;
-        hosts = [ "127.0.0.1" ];
+        hosts = ["127.0.0.1"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-smokeping-exporter.service")
@@ -1583,9 +1571,9 @@ let
           ];
           queries = {
             points = {
-              labels = [ "name" ];
+              labels = ["name"];
               help = "Amount of points accumulated per person";
-              values = [ "amount" ];
+              values = ["amount"];
               query = "SELECT SUM(amount) as amount, name FROM points GROUP BY name";
             };
           };
@@ -1609,7 +1597,7 @@ let
             GRANT SELECT ON points TO "prometheus-sql-exporter";
           '';
         };
-        systemd.services.prometheus-sql-exporter.after = [ "postgresql.service" ];
+        systemd.services.prometheus-sql-exporter.after = ["postgresql.service"];
       };
       exporterTest = ''
         wait_for_unit("prometheus-sql-exporter.service")
@@ -1645,7 +1633,7 @@ let
         modemAddress = "localhost";
       };
       metricProvider = {
-        systemd.services.prometheus-surfboard-exporter.after = [ "nginx.service" ];
+        systemd.services.prometheus-surfboard-exporter.after = ["nginx.service"];
         services.nginx = {
           enable = true;
           virtualHosts.localhost.locations."/cgi-bin/status".extraConfig = ''
@@ -1670,7 +1658,7 @@ let
           "--systemd.collector.enable-restart-count"
         ];
       };
-      metricProvider = { };
+      metricProvider = {};
       exporterTest = ''
         wait_for_unit("prometheus-systemd-exporter.service")
         wait_for_open_port(9558)
@@ -1690,7 +1678,7 @@ let
     unpoller = {
       nodeName = "unpoller";
       exporterConfig.enable = true;
-      exporterConfig.controllers = [ { } ];
+      exporterConfig.controllers = [{}];
       exporterTest = ''
         wait_until_succeeds(
             'journalctl -eu prometheus-unpoller-exporter.service -o cat | grep "Connection Error"'
@@ -1709,7 +1697,7 @@ let
           localControlSocketPath = "/run/unbound/unbound.ctl";
         };
         systemd.services.prometheus-unbound-exporter.serviceConfig = {
-          SupplementaryGroups = [ "unbound" ];
+          SupplementaryGroups = ["unbound"];
         };
       };
       exporterTest = ''
@@ -1726,14 +1714,14 @@ let
       };
 
       metricProvider = {
-        systemd.services.prometheus-nginx-exporter.after = [ "v2ray.service" ];
+        systemd.services.prometheus-nginx-exporter.after = ["v2ray.service"];
         services.v2ray = {
           enable = true;
           config = {
-            stats = { };
+            stats = {};
             api = {
               tag = "api";
-              services = [ "StatsService" ];
+              services = ["StatsService"];
             };
             inbounds = [
               {
@@ -1757,7 +1745,7 @@ let
               }
               {
                 protocol = "freedom";
-                settings = { };
+                settings = {};
                 tag = "api";
               }
             ];
@@ -1766,7 +1754,7 @@ let
               settings = {
                 rules = [
                   {
-                    inboundTag = [ "api" ];
+                    inboundTag = ["api"];
                     outboundTag = "api";
                     type = "field";
                   }
@@ -1813,49 +1801,47 @@ let
       '';
     };
 
-    wireguard =
-      let
-        snakeoil = import ./wireguard/snakeoil-keys.nix;
-        publicKeyWithoutNewlines = replaceStrings [ "\n" ] [ "" ] snakeoil.peer1.publicKey;
-      in
-      {
-        exporterConfig.enable = true;
-        metricProvider = {
-          networking.wireguard.interfaces.wg0 = {
-            ips = [
-              "10.23.42.1/32"
-              "fc00::1/128"
+    wireguard = let
+      snakeoil = import ./wireguard/snakeoil-keys.nix;
+      publicKeyWithoutNewlines = replaceStrings ["\n"] [""] snakeoil.peer1.publicKey;
+    in {
+      exporterConfig.enable = true;
+      metricProvider = {
+        networking.wireguard.interfaces.wg0 = {
+          ips = [
+            "10.23.42.1/32"
+            "fc00::1/128"
+          ];
+          listenPort = 23542;
+
+          inherit (snakeoil.peer0) privateKey;
+
+          peers = singleton {
+            allowedIPs = [
+              "10.23.42.2/32"
+              "fc00::2/128"
             ];
-            listenPort = 23542;
 
-            inherit (snakeoil.peer0) privateKey;
-
-            peers = singleton {
-              allowedIPs = [
-                "10.23.42.2/32"
-                "fc00::2/128"
-              ];
-
-              inherit (snakeoil.peer1) publicKey;
-            };
+            inherit (snakeoil.peer1) publicKey;
           };
-          systemd.services.prometheus-wireguard-exporter.after = [ "wireguard-wg0.service" ];
         };
-        exporterTest = ''
-          wait_for_unit("prometheus-wireguard-exporter.service")
-          wait_for_open_port(9586)
-          wait_until_succeeds(
-              "curl -sSf http://localhost:9586/metrics | grep '${publicKeyWithoutNewlines}'"
-          )
-        '';
+        systemd.services.prometheus-wireguard-exporter.after = ["wireguard-wg0.service"];
       };
+      exporterTest = ''
+        wait_for_unit("prometheus-wireguard-exporter.service")
+        wait_for_open_port(9586)
+        wait_until_succeeds(
+            "curl -sSf http://localhost:9586/metrics | grep '${publicKeyWithoutNewlines}'"
+        )
+      '';
+    };
 
     zfs = {
       exporterConfig = {
         enable = true;
       };
       metricProvider = {
-        boot.supportedFilesystems = [ "zfs" ];
+        boot.supportedFilesystems = ["zfs"];
         networking.hostId = "7327ded7";
       };
       exporterTest = ''
@@ -1867,45 +1853,41 @@ let
     };
   };
 in
-mapAttrs (
-  exporter: testConfig:
-  (makeTest (
-    let
-      nodeName = testConfig.nodeName or exporter;
+  mapAttrs (
+    exporter: testConfig: (makeTest (
+      let
+        nodeName = testConfig.nodeName or exporter;
+      in {
+        name = "prometheus-${exporter}-exporter";
 
-    in
-    {
-      name = "prometheus-${exporter}-exporter";
+        nodes.${nodeName} = mkMerge [
+          {
+            services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
+          }
+          testConfig.metricProvider or {}
+        ];
 
-      nodes.${nodeName} = mkMerge [
-        {
-          services.prometheus.exporters.${exporter} = testConfig.exporterConfig;
-        }
-        testConfig.metricProvider or { }
-      ];
+        testScript = ''
+          ${nodeName}.start()
+          ${concatStringsSep "\n" (
+            map (
+              line:
+                if
+                  builtins.any (b: b) [
+                    (builtins.match "^[[:space:]]*$" line != null)
+                    (builtins.substring 0 1 line == "#")
+                    (builtins.substring 0 1 line == " ")
+                    (builtins.substring 0 1 line == ")")
+                  ]
+                then line
+                else "${nodeName}.${line}"
+            ) (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
+          )}
+          ${nodeName}.shutdown()
+        '';
 
-      testScript = ''
-        ${nodeName}.start()
-        ${concatStringsSep "\n" (
-          map (
-            line:
-            if
-              builtins.any (b: b) [
-                (builtins.match "^[[:space:]]*$" line != null)
-                (builtins.substring 0 1 line == "#")
-                (builtins.substring 0 1 line == " ")
-                (builtins.substring 0 1 line == ")")
-              ]
-            then
-              line
-            else
-              "${nodeName}.${line}"
-          ) (splitString "\n" (removeSuffix "\n" testConfig.exporterTest))
-        )}
-        ${nodeName}.shutdown()
-      '';
-
-      meta.maintainers = [ ];
-    }
-  ))
-) exporterTests
+        meta.maintainers = [];
+      }
+    ))
+  )
+  exporterTests

@@ -4,7 +4,6 @@
   fetchurl,
   unzrip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "yasashisa-gothic";
   version = "0-unstable-2014-03-13";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation {
       mplus
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
   };
 }

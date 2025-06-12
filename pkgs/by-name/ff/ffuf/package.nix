@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "ffuf";
   version = "2.1.0";
@@ -43,6 +42,6 @@ buildGoModule rec {
     homepage = "https://github.com/ffuf/ffuf";
     changelog = "https://github.com/ffuf/ffuf/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

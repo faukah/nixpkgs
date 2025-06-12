@@ -30,13 +30,13 @@ buildPythonPackage rec {
 
   # Checks require availability of the kicad symbol libraries.
   doCheck = false;
-  pythonImportsCheck = [ "skidl" ];
+  pythonImportsCheck = ["skidl"];
 
   meta = with lib; {
     description = "SKiDL is a module that extends Python with the ability to design electronic circuits";
     mainProgram = "netlist_to_skidl";
     homepage = "https://devbisme.github.io/skidl/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "svgelements";
   version = "1.9.6";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "svgelements" ];
+  pythonImportsCheck = ["svgelements"];
 
   nativeCheckInputs = [
     anyio
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "SVG Parsing for Elements, Paths, and other SVG Objects";
     homepage = "https://github.com/meerk40t/svgelements";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

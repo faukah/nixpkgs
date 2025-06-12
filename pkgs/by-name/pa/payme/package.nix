@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "payme";
   version = "1.2.3";
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "payme";
     homepage = "https://github.com/jovandeginste/payme";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cimm ];
+    maintainers = with lib.maintainers; [cimm];
   };
 }

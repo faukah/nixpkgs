@@ -6,7 +6,6 @@
   gfortran,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxc";
   version = "6.2.2";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tddft.org/programs/Libxc/";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

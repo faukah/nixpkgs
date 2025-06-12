@@ -3,7 +3,6 @@
 # Rather than returning a stdenv, this returns a list of functions---one per
 # each bootstrapping stage. See `./booter.nix` for exactly what this list should
 # contain.
-
 {
   # Args just for stdenvs' usage
   lib,
@@ -12,10 +11,8 @@
   crossSystem,
   config,
   overlays,
-  crossOverlays ? [ ],
-}@args:
-
-let
+  crossOverlays ? [],
+} @ args: let
   # The native (i.e., impure) build environment.  This one uses the
   # tools installed on the system outside of the Nix environment,
   # i.e., the stuff in /bin, /usr/bin, etc.  This environment should
@@ -24,7 +21,7 @@ let
   stagesNative = import ./native args;
 
   # The Nix build environment.
-  stagesNix = import ./nix (args // { bootStages = stagesNative; });
+  stagesNix = import ./nix (args // {bootStages = stagesNative;});
 
   stagesFreeBSD = import ./freebsd args;
 
@@ -38,24 +35,25 @@ let
   stagesCross = import ./cross args;
 
   stagesCustom = import ./custom args;
-
 in
-# Select the appropriate stages for the platform `system'.
-if crossSystem != localSystem || crossOverlays != [ ] then
-  stagesCross
-else if config ? replaceStdenv then
-  stagesCustom
-else if localSystem.isLinux then
-  stagesLinux
-else if localSystem.isDarwin then
-  stagesDarwin
-# misc special cases
-else
-  {
-    # switch
-    x86_64-solaris = stagesNix;
-    i686-cygwin = stagesNative;
-    x86_64-cygwin = stagesNative;
-    x86_64-freebsd = stagesFreeBSD;
-  }
-  .${localSystem.system} or stagesNative
+  # Select the appropriate stages for the platform `system'.
+  if crossSystem != localSystem || crossOverlays != []
+  then stagesCross
+  else if config ? replaceStdenv
+  then stagesCustom
+  else if localSystem.isLinux
+  then stagesLinux
+  else if localSystem.isDarwin
+  then stagesDarwin
+  # misc special cases
+  else
+    {
+      # switch
+      x86_64-solaris = stagesNix;
+      i686-cygwin = stagesNative;
+      x86_64-cygwin = stagesNative;
+      x86_64-freebsd = stagesFreeBSD;
+    }
+  .${
+      localSystem.system
+    } or stagesNative

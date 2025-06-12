@@ -51,7 +51,7 @@ stdenv.mkDerivation {
     description = "Open-source hosting platform made for podcasters who want to engage and interact with their audience";
     homepage = "https://castopod.org";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ alexoundos ];
+    maintainers = with maintainers; [alexoundos];
     platforms = platforms.all;
   };
 }

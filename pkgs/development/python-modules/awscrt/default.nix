@@ -8,7 +8,6 @@
   stdenv,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "awscrt";
   version = "0.27.2";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-DJYLxI3mDxG6jJsyzhoepJhd8QtmXgpDDML5CjIib7A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ perl ];
+  nativeBuildInputs = [cmake] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [perl];
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "awscrt" ];
+  pythonImportsCheck = ["awscrt"];
 
   # Unable to import test module
   # https://github.com/awslabs/aws-crt-python/issues/281
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/awslabs/aws-crt-python/releases/tag/v${version}";
     description = "Python bindings for the AWS Common Runtime";
     license = licenses.asl20;
-    maintainers = with maintainers; [ davegallant ];
+    maintainers = with maintainers; [davegallant];
   };
 }

@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # tests
   objgraph,
   psutil,
   python,
   unittestCheckHook,
-}:
-
-let
+}: let
   greenlet = buildPythonPackage rec {
     pname = "greenlet";
     version = "3.2.1";
@@ -24,7 +20,7 @@ let
       hash = "sha256-n03UtJRrFLs78Dj4Hh0uU1t9lPGypZ/boSk82cGgpNc=";
     };
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     # tests in passthru, infinite recursion via objgraph/graphviz
     doCheck = false;
@@ -39,7 +35,7 @@ let
       pushd ${placeholder "out"}/${python.sitePackages}
     '';
 
-    unittestFlagsArray = [ "greenlet.tests" ];
+    unittestFlagsArray = ["greenlet.tests"];
 
     postCheck = ''
       popd
@@ -60,4 +56,4 @@ let
     };
   };
 in
-greenlet
+  greenlet

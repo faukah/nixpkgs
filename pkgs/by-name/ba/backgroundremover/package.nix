@@ -5,9 +5,7 @@
   fetchFromGitHub,
   fetchurl,
   gitUpdater,
-}:
-
-let
+}: let
   p = python3.pkgs;
   self = p.buildPythonApplication rec {
     pname = "backgroundremover";
@@ -25,7 +23,7 @@ let
       hash = "sha256-fWazMDjc+EoXvO7Iq+zwtJaMEU64ajpO6JtlvU5T0nc=";
     };
 
-    models = runCommand "background-remover-models" { } ''
+    models = runCommand "background-remover-models" {} ''
       mkdir $out
       cat ${src}/models/u2a{a,b,c,d} > $out/u2net.pth
       cat ${src}/models/u2ha{a,b,c,d} > $out/u2net_human_seg.pth
@@ -72,29 +70,28 @@ let
       p.waitress
     ];
 
-    pythonImportsCheck = [ "backgroundremover" ];
+    pythonImportsCheck = ["backgroundremover"];
 
     passthru = {
       inherit models;
       tests = {
-        image =
-          let
-            # random no copyright car image from the internet
-            demoImage = fetchurl {
-              url = "https://pics.craiyon.com/2023-07-16/38653769ac3b4e068181cb5ab1e542a1.webp";
-              hash = "sha256-Kvd06eZdibgDbabVVe0+cNTeS1rDnMXIZZpPlHIlfBo=";
-            };
-          in
+        image = let
+          # random no copyright car image from the internet
+          demoImage = fetchurl {
+            url = "https://pics.craiyon.com/2023-07-16/38653769ac3b4e068181cb5ab1e542a1.webp";
+            hash = "sha256-Kvd06eZdibgDbabVVe0+cNTeS1rDnMXIZZpPlHIlfBo=";
+          };
+        in
           runCommand "backgroundremover-image-test.png"
-            {
-              buildInputs = [ self ];
-            }
-            ''
-              export NUMBA_CACHE_DIR=$(mktemp -d)
-              backgroundremover -i ${demoImage} -o $out
-            '';
+          {
+            buildInputs = [self];
+          }
+          ''
+            export NUMBA_CACHE_DIR=$(mktemp -d)
+            backgroundremover -i ${demoImage} -o $out
+          '';
       };
-      updateScript = gitUpdater { rev-prefix = "v"; };
+      updateScript = gitUpdater {rev-prefix = "v";};
     };
 
     doCheck = false; # no tests
@@ -105,8 +102,8 @@ let
       homepage = "https://BackgroundRemoverAI.com";
       downloadPage = "https://github.com/nadermx/backgroundremover/releases";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.lucasew ];
+      maintainers = [lib.maintainers.lucasew];
     };
   };
 in
-self
+  self

@@ -6,7 +6,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "ucsmsdk";
   version = "0.9.22";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-zpb43Id6uHBKpEORDGKNW8lXP10fQJm9lGOztxaTZSI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyparsing
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # most tests are broken
   doCheck = false;
 
-  pythonImportsCheck = [ "ucsmsdk" ];
+  pythonImportsCheck = ["ucsmsdk"];
 
   meta = with lib; {
     description = "Python SDK for Cisco UCS";
     homepage = "https://github.com/CiscoUcs/ucsmsdk";
     changelog = "https://github.com/CiscoUcs/ucsmsdk/blob/${src.tag}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

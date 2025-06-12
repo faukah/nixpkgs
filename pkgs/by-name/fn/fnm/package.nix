@@ -5,7 +5,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fnm";
   version = "1.38.1";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-WW+jWaClDn78Fw/xj6WvnEUlBI99HA5hQFUpwsYKmbI=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-mxYTV3kNetIHB8XcvFdqp7t78E9EzMdMgD4ENIAYyec=";
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "fnm";
     homepage = "https://github.com/Schniz/fnm";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ kidonng ];
+    maintainers = with lib.maintainers; [kidonng];
   };
 }

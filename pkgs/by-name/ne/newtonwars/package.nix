@@ -7,7 +7,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation {
   pname = "newtonwars";
   version = "unstable-2023-04-08";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     hash = "sha256-qkvgQraYR+EXWUQkEvSOcbNFn2oRTjwj5U164tVto8M=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libglut
     libGL
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Space battle game with gravity as the main theme";
     mainProgram = "nw";
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
     license = licenses.mit;
   };

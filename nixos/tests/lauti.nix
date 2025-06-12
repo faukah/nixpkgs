@@ -2,11 +2,9 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   name = "eintopf";
-  meta.maintainers = with lib.maintainers; [ onny ];
+  meta.maintainers = with lib.maintainers; [onny];
 
   nodes = {
     eintopf = {
@@ -20,5 +18,4 @@
     eintopf.wait_for_open_port(3333)
     eintopf.succeed("curl -sSfL http://eintopf:3333 | grep 'No events available'")
   '';
-
 }

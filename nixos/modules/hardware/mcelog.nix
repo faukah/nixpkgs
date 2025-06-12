@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-{
-  meta.maintainers = with lib.maintainers; [ grahamc ];
+}: {
+  meta.maintainers = with lib.maintainers; [grahamc];
   options = {
-
     hardware.mcelog = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -17,15 +15,14 @@
         '';
       };
     };
-
   };
 
   config = lib.mkIf config.hardware.mcelog.enable {
     systemd = {
-      packages = [ pkgs.mcelog ];
+      packages = [pkgs.mcelog];
 
       services.mcelog = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           ProtectHome = true;
           PrivateNetwork = true;

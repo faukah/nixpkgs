@@ -12,7 +12,6 @@
   python,
   mesa,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt6-webengine";
   version = "6.8.0";
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     qmake
   ];
 
-  buildInputs = with qt6Packages; [ qtwebengine ];
+  buildInputs = with qt6Packages; [qtwebengine];
 
   passthru = {
     inherit sip;

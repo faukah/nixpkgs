@@ -15,7 +15,6 @@
   polkit,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pantheon-agent-polkit";
   version = "8.0.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/pantheon-agent-polkit";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

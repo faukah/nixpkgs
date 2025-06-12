@@ -8,7 +8,6 @@
   nodejs,
   olm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hydrogen-web";
   version = "0.5.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Lightweight matrix client with legacy and mobile browser support";
     homepage = "https://github.com/element-hq/hydrogen-web";
-    teams = [ lib.teams.matrix ];
+    teams = [lib.teams.matrix];
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     inherit (olm.meta) knownVulnerabilities;

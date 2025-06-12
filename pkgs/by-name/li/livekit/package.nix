@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "livekit";
   version = "1.9.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-3zrP84YkPRn4NC3l9XRhtNraX8G5WnRxo2CNOmMfVJs=";
 
-  subPackages = [ "cmd/server" ];
+  subPackages = ["cmd/server"];
 
   postInstall = ''
     mv $out/bin/server $out/bin/livekit-server
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "End-to-end stack for WebRTC. SFU media server and SDKs";
     homepage = "https://livekit.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mgdelacroix ];
+    maintainers = with maintainers; [mgdelacroix];
     mainProgram = "livekit-server";
   };
 }

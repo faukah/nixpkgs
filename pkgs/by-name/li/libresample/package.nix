@@ -8,7 +8,6 @@
   libsndfile,
   libsamplerate,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libresample";
   version = "0.1.4-unstable-2024-08-23";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       libsamplerate
     ];
 
-  mesonFlags = [ (lib.mesonEnable "compareresample" (!libsamplerate.meta.broken)) ];
+  mesonFlags = [(lib.mesonEnable "compareresample" (!libsamplerate.meta.broken))];
 
   doCheck = true;
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Real-time library for sampling rate conversion library";
     homepage = "https://github.com/minorninth/libresample";
     license = lib.licenses.bsd2; # OR LGPL-2.1-or-later
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     platforms = lib.platforms.all;
     maintainers = [
       lib.maintainers.sander

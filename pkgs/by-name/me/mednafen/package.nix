@@ -18,7 +18,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mednafen";
   version = "1.32.1";
@@ -110,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "mednafen";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

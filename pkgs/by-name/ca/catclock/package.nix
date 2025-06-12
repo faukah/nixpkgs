@@ -8,7 +8,6 @@
   libpulseaudio,
   aubio,
 }:
-
 stdenv.mkDerivation {
   pname = "catclock";
   version = "unstable-2021-11-15";
@@ -26,10 +25,12 @@ stdenv.mkDerivation {
     cp xclock.man $out/share/man/man1/xclock.1
   '';
 
-  makeFlags = [
-    "DESTINATION=$(out)/bin/"
-    "CFLAGS=-Wno-incompatible-pointer-types"
-  ] ++ lib.optional withAudioTracking "WITH_TEMPO_TRACKER=1";
+  makeFlags =
+    [
+      "DESTINATION=$(out)/bin/"
+      "CFLAGS=-Wno-incompatible-pointer-types"
+    ]
+    ++ lib.optional withAudioTracking "WITH_TEMPO_TRACKER=1";
 
   buildInputs =
     [
@@ -47,7 +48,7 @@ stdenv.mkDerivation {
     homepage = "http://codefromabove.com/2014/05/catclock/";
     description = "Analog / Digital / Cat clock for X";
     license = with licenses; mit;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     mainProgram = "xclock";
     platforms = with platforms; linux ++ darwin;
   };

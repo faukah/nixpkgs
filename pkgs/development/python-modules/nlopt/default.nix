@@ -2,4 +2,4 @@
   toPythonModule,
   pkgs,
 }:
-toPythonModule (pkgs.nlopt.override { withPython = true; })
+toPythonModule (pkgs.nlopt.override {withPython = true;})

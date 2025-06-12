@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "sahel-fonts";
   version = "3.4.0";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Persian (farsi) Font - فونت (قلم) فارسی ساحل";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

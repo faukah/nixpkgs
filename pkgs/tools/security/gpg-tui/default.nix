@@ -13,7 +13,6 @@
   libxcb,
   libxkbcommon,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gpg-tui";
   version = "0.11.1";

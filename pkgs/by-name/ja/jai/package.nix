@@ -5,8 +5,7 @@
   runCommand,
   stdenv,
   unzip,
-}:
-let
+}: let
   pname = "jai";
   minor = "2";
   patch = "012";
@@ -22,14 +21,14 @@ let
       name = zipName;
       sha256 = "sha256-1cUEQ+C3qwo3v4E2ioH2NcIH864Cay2dxQT+Yo/fZJ8=";
     };
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     buildCommand = "unzip $src -d $out";
   };
   meta = {
     description = "Powerful language to write efficient reliable software in simple ways";
     license = lib.licenses.unfree;
     mainProgram = "jai";
-    maintainers = with lib.maintainers; [ samestep ];
+    maintainers = with lib.maintainers; [samestep];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"
@@ -37,14 +36,15 @@ let
     ];
   };
 in
-if stdenv.hostPlatform.isLinux then
-  buildFHSEnv {
-    inherit meta pname version;
-    targetPkgs = pkgs: [ pkgs.zlib ];
-    runScript = "${jai}/jai/bin/jai-linux";
-  }
-else
-  runCommand "jai" { inherit meta pname version; } ''
-    mkdir -p $out/bin
-    ln -s ${jai}/jai/bin/jai-macos $out/bin/jai
-  ''
+  if stdenv.hostPlatform.isLinux
+  then
+    buildFHSEnv {
+      inherit meta pname version;
+      targetPkgs = pkgs: [pkgs.zlib];
+      runScript = "${jai}/jai/bin/jai-linux";
+    }
+  else
+    runCommand "jai" {inherit meta pname version;} ''
+      mkdir -p $out/bin
+      ln -s ${jai}/jai/bin/jai-macos $out/bin/jai
+    ''

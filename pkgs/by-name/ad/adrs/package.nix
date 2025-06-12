@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "adrs";
   version = "0.3.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ dannixon ];
+    maintainers = with lib.maintainers; [dannixon];
     mainProgram = "adrs";
   };
 }

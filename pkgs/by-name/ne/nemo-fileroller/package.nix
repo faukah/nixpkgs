@@ -11,7 +11,6 @@
   file-roller,
   cinnamon-translations,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nemo-fileroller";
   version = "6.4.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Nemo file roller extension";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

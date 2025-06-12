@@ -5,7 +5,6 @@
   jre,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vue";
   version = "3.3.0";
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Visual Understanding Environment - mind mapping software";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = with lib.platforms; linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.ecl20;
     mainProgram = "vue";
   };

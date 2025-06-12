@@ -15,7 +15,6 @@
   portaudio,
   libsamplerate,
 }:
-
 stdenv.mkDerivation {
   pname = "paulstretch";
   version = "2.2-2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     sha256 = "06dy03dbz1yznhsn0xvsnkpc5drzwrgxbxdx0hfpsjn2xcg0jrnc";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     audiofile

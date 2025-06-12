@@ -13,7 +13,6 @@
   tzdata,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "timed";
   version = "3.6.23";
@@ -97,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
       # Version fields exclude patch-level
@@ -110,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/sailfishos/timed/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl21Only;
     mainProgram = "timed";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "timed-qt${lib.versions.major qtbase.version}"

@@ -11,7 +11,6 @@
   pyusb,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "alarmdecoder";
   version = "1.13.14";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail assertEquals assertEqual
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     pyftdi
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     "test_ssl_exception"
   ];
 
-  pythonImportsCheck = [ "alarmdecoder" ];
+  pythonImportsCheck = ["alarmdecoder"];
 
   meta = with lib; {
     description = "Python interface for the Alarm Decoder (AD2USB, AD2SERIAL and AD2PI) devices";
     homepage = "https://github.com/nutechsoftware/alarmdecoder";
     changelog = "https://github.com/nutechsoftware/alarmdecoder/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

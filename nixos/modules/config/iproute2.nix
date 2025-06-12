@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.networking.iproute2;
-in
-{
+in {
   options.networking.iproute2 = {
     enable = lib.mkEnableOption "copying IP route configuration files";
     rttablesExtraConfig = lib.mkOption {

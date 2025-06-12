@@ -3,19 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.dae;
   assets = cfg.assets;
-  genAssetsDrv =
-    paths:
+  genAssetsDrv = paths:
     pkgs.symlinkJoin {
       name = "dae-assets";
       inherit paths;
     };
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [
     pokon548
     oluceps
@@ -25,7 +21,7 @@ in
     services.dae = with lib; {
       enable = mkEnableOption "dae, a Linux high-performance transparent proxy solution based on eBPF";
 
-      package = mkPackageOption pkgs "dae" { };
+      package = mkPackageOption pkgs "dae" {};
 
       assets = mkOption {
         type = with types; (listOf path);
@@ -55,8 +51,7 @@ in
       };
 
       openFirewall = mkOption {
-        type =
-          with types;
+        type = with types;
           submodule {
             options = {
               enable = mkEnableOption "opening {option}`port` in the firewall";
@@ -103,87 +98,85 @@ in
         '';
       };
 
-      disableTxChecksumIpGeneric = mkEnableOption "" // {
-        description = "See <https://github.com/daeuniverse/dae/issues/43>";
-      };
-
+      disableTxChecksumIpGeneric =
+        mkEnableOption ""
+        // {
+          description = "See <https://github.com/daeuniverse/dae/issues/43>";
+        };
     };
   };
 
   config =
     lib.mkIf cfg.enable
+    {
+      environment.systemPackages = [cfg.package];
+      systemd.packages = [cfg.package];
 
-      {
-        environment.systemPackages = [ cfg.package ];
-        systemd.packages = [ cfg.package ];
-
-        networking = lib.mkIf cfg.openFirewall.enable {
-          firewall =
-            let
-              portToOpen = cfg.openFirewall.port;
-            in
-            {
-              allowedTCPPorts = [ portToOpen ];
-              allowedUDPPorts = [ portToOpen ];
-            };
+      networking = lib.mkIf cfg.openFirewall.enable {
+        firewall = let
+          portToOpen = cfg.openFirewall.port;
+        in {
+          allowedTCPPorts = [portToOpen];
+          allowedUDPPorts = [portToOpen];
         };
-
-        systemd.services.dae =
-          let
-            daeBin = lib.getExe cfg.package;
-
-            configPath =
-              if cfg.configFile != null then cfg.configFile else pkgs.writeText "config.dae" cfg.config;
-
-            TxChecksumIpGenericWorkaround =
-              with lib;
-              (getExe pkgs.writeShellApplication {
-                name = "disable-tx-checksum-ip-generic";
-                text = with pkgs; ''
-                  iface=$(${iproute2}/bin/ip route | ${lib.getExe gawk} '/default/ {print $5}')
-                  ${lib.getExe ethtool} -K "$iface" tx-checksum-ip-generic off
-                '';
-              });
-          in
-          {
-            wantedBy = [ "multi-user.target" ];
-            serviceConfig = {
-              LoadCredential = [ "config.dae:${configPath}" ];
-              ExecStartPre = [
-                ""
-                "${daeBin} validate -c \${CREDENTIALS_DIRECTORY}/config.dae"
-              ] ++ (with lib; optional cfg.disableTxChecksumIpGeneric TxChecksumIpGenericWorkaround);
-              ExecStart = [
-                ""
-                "${daeBin} run --disable-timestamp -c \${CREDENTIALS_DIRECTORY}/config.dae"
-              ];
-              Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
-            };
-          };
-
-        assertions = [
-          {
-            assertion = lib.pathExists (toString (genAssetsDrv cfg.assets) + "/share/v2ray");
-            message = ''
-              Packages in `assets` has no preset paths included.
-              Please set `assetsPath` instead.
-            '';
-          }
-
-          {
-            assertion = !((config.services.dae.config != null) && (config.services.dae.configFile != null));
-            message = ''
-              Option `config` and `configFile` could not be set
-              at the same time.
-            '';
-          }
-
-          {
-            assertion = !((config.services.dae.config == null) && (config.services.dae.configFile == null));
-            message = ''
-              Either `config` or `configFile` should be set.
-            '';
-          }
-        ];
       };
+
+      systemd.services.dae = let
+        daeBin = lib.getExe cfg.package;
+
+        configPath =
+          if cfg.configFile != null
+          then cfg.configFile
+          else pkgs.writeText "config.dae" cfg.config;
+
+        TxChecksumIpGenericWorkaround = with lib; (getExe pkgs.writeShellApplication {
+          name = "disable-tx-checksum-ip-generic";
+          text = with pkgs; ''
+            iface=$(${iproute2}/bin/ip route | ${lib.getExe gawk} '/default/ {print $5}')
+            ${lib.getExe ethtool} -K "$iface" tx-checksum-ip-generic off
+          '';
+        });
+      in {
+        wantedBy = ["multi-user.target"];
+        serviceConfig = {
+          LoadCredential = ["config.dae:${configPath}"];
+          ExecStartPre =
+            [
+              ""
+              "${daeBin} validate -c \${CREDENTIALS_DIRECTORY}/config.dae"
+            ]
+            ++ (with lib; optional cfg.disableTxChecksumIpGeneric TxChecksumIpGenericWorkaround);
+          ExecStart = [
+            ""
+            "${daeBin} run --disable-timestamp -c \${CREDENTIALS_DIRECTORY}/config.dae"
+          ];
+          Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
+        };
+      };
+
+      assertions = [
+        {
+          assertion = lib.pathExists (toString (genAssetsDrv cfg.assets) + "/share/v2ray");
+          message = ''
+            Packages in `assets` has no preset paths included.
+            Please set `assetsPath` instead.
+          '';
+        }
+
+        {
+          assertion = !((config.services.dae.config != null) && (config.services.dae.configFile != null));
+          message = ''
+            Option `config` and `configFile` could not be set
+            at the same time.
+          '';
+        }
+
+        {
+          assertion = !((config.services.dae.config == null) && (config.services.dae.configFile == null));
+          message = ''
+            Either `config` or `configFile` should be set.
+          '';
+        }
+      ];
+    };
 }

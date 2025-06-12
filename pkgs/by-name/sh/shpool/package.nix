@@ -6,7 +6,6 @@
   testers,
   shpool,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shpool";
   version = "0.8.0";
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/shell-pool/shpool";
     license = lib.licenses.asl20;
     mainProgram = "shpool";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

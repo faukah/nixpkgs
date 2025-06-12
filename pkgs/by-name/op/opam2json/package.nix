@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     description = "convert opam file syntax to JSON";
     mainProgram = "opam2json";
-    maintainers = [ maintainers.balsoft ];
+    maintainers = [maintainers.balsoft];
     license = licenses.gpl3;
     homepage = "https://github.com/tweag/opam2json";
   };

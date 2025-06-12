@@ -9,7 +9,6 @@
   sqlite,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "newsraft";
   version = "0.31";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XnVGt9frUKeAjxYk2cr3q3a5HpqVH0CHnNiKdTTBnqA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     curl
     expat
@@ -30,12 +29,12 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   installTargets = "install install-desktop";
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-D_DARWIN_C_SOURCE";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Feed reader for terminal";

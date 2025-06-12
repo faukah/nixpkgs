@@ -9,7 +9,6 @@
   jq,
   xdg-utils,
   writeText,
-
   ## various stuff that can be plugged in
   ffmpeg,
   xorg,
@@ -32,174 +31,163 @@
   libjack2,
   speechd-minimal,
 }:
-
 ## configurability of the wrapper itself
-
-browser:
-
-let
+browser: let
   isDarwin = stdenv.hostPlatform.isDarwin;
-  wrapper =
-    {
-      applicationName ? browser.binaryName or (lib.getName browser), # Note: this is actually *binary* name and is different from browser.applicationName, which is *app* name!
-      pname ? applicationName,
-      version ? lib.getVersion browser,
-      nameSuffix ? "",
-      icon ? applicationName,
-      wmClass ? applicationName,
-      nativeMessagingHosts ? [ ],
-      pkcs11Modules ? [ ],
-      useGlvnd ? (!isDarwin),
-      cfg ? config.${applicationName} or { },
+  wrapper = {
+    applicationName ? browser.binaryName or (lib.getName browser), # Note: this is actually *binary* name and is different from browser.applicationName, which is *app* name!
+    pname ? applicationName,
+    version ? lib.getVersion browser,
+    nameSuffix ? "",
+    icon ? applicationName,
+    wmClass ? applicationName,
+    nativeMessagingHosts ? [],
+    pkcs11Modules ? [],
+    useGlvnd ? (!isDarwin),
+    cfg ? config.${applicationName} or {},
+    ## Following options are needed for extra prefs & policies
+    # For more information about anti tracking (german website)
+    # visit https://wiki.kairaven.de/open/app/firefox
+    extraPrefs ? "",
+    extraPrefsFiles ? [],
+    # For more information about policies visit
+    # https://mozilla.github.io/policy-templates/
+    extraPolicies ? {},
+    extraPoliciesFiles ? [],
+    libName ? browser.libName or applicationName, # Important for tor package or the like
+    nixExtensions ? null,
+    hasMozSystemDirPatch ? (lib.hasPrefix "firefox" pname && !lib.hasSuffix "-bin" pname),
+  }: let
+    ffmpegSupport = browser.ffmpegSupport or false;
+    gssSupport = browser.gssSupport or false;
+    alsaSupport = browser.alsaSupport or false;
+    pipewireSupport = browser.pipewireSupport or false;
+    sndioSupport = browser.sndioSupport or false;
+    jackSupport = browser.jackSupport or false;
+    # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
+    smartcardSupport = cfg.smartcardSupport or false;
 
-      ## Following options are needed for extra prefs & policies
-      # For more information about anti tracking (german website)
-      # visit https://wiki.kairaven.de/open/app/firefox
-      extraPrefs ? "",
-      extraPrefsFiles ? [ ],
-      # For more information about policies visit
-      # https://mozilla.github.io/policy-templates/
-      extraPolicies ? { },
-      extraPoliciesFiles ? [ ],
-      libName ? browser.libName or applicationName, # Important for tor package or the like
-      nixExtensions ? null,
-      hasMozSystemDirPatch ? (lib.hasPrefix "firefox" pname && !lib.hasSuffix "-bin" pname),
-    }:
+    allNativeMessagingHosts = builtins.map lib.getBin nativeMessagingHosts;
 
-    let
-      ffmpegSupport = browser.ffmpegSupport or false;
-      gssSupport = browser.gssSupport or false;
-      alsaSupport = browser.alsaSupport or false;
-      pipewireSupport = browser.pipewireSupport or false;
-      sndioSupport = browser.sndioSupport or false;
-      jackSupport = browser.jackSupport or false;
-      # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
-      smartcardSupport = cfg.smartcardSupport or false;
+    libs =
+      lib.optionals stdenv.hostPlatform.isLinux (
+        [
+          udev
+          libva
+          libgbm
+          libnotify
+          xorg.libXScrnSaver
+          cups
+          pciutils
+          vulkan-loader
+        ]
+        ++ lib.optional (cfg.speechSynthesisSupport or true) speechd-minimal
+      )
+      ++ lib.optional pipewireSupport pipewire
+      ++ lib.optional ffmpegSupport ffmpeg
+      ++ lib.optional gssSupport libkrb5
+      ++ lib.optional useGlvnd libglvnd
+      ++ lib.optionals (cfg.enableQuakeLive or false) (
+        with xorg; [
+          stdenv.cc
+          libX11
+          libXxf86dga
+          libXxf86vm
+          libXext
+          libXt
+          alsa-lib
+          zlib
+        ]
+      )
+      ++ lib.optional (config.pulseaudio or (!isDarwin)) libpulseaudio
+      ++ lib.optional alsaSupport alsa-lib
+      ++ lib.optional sndioSupport sndio
+      ++ lib.optional jackSupport libjack2
+      ++ lib.optional smartcardSupport opensc
+      ++ pkcs11Modules
+      ++ lib.optionals (!isDarwin) gtk_modules;
+    gtk_modules = [libcanberra-gtk3];
 
-      allNativeMessagingHosts = builtins.map lib.getBin nativeMessagingHosts;
+    # Darwin does not rename bundled binaries
+    launcherName = "${applicationName}${lib.optionalString (!isDarwin) nameSuffix}";
 
-      libs =
-        lib.optionals stdenv.hostPlatform.isLinux (
-          [
-            udev
-            libva
-            libgbm
-            libnotify
-            xorg.libXScrnSaver
-            cups
-            pciutils
-            vulkan-loader
-          ]
-          ++ lib.optional (cfg.speechSynthesisSupport or true) speechd-minimal
-        )
-        ++ lib.optional pipewireSupport pipewire
-        ++ lib.optional ffmpegSupport ffmpeg
-        ++ lib.optional gssSupport libkrb5
-        ++ lib.optional useGlvnd libglvnd
-        ++ lib.optionals (cfg.enableQuakeLive or false) (
-          with xorg;
-          [
-            stdenv.cc
-            libX11
-            libXxf86dga
-            libXxf86vm
-            libXext
-            libXt
-            alsa-lib
-            zlib
-          ]
-        )
-        ++ lib.optional (config.pulseaudio or (!isDarwin)) libpulseaudio
-        ++ lib.optional alsaSupport alsa-lib
-        ++ lib.optional sndioSupport sndio
-        ++ lib.optional jackSupport libjack2
-        ++ lib.optional smartcardSupport opensc
-        ++ pkcs11Modules
-        ++ lib.optionals (!isDarwin) gtk_modules;
-      gtk_modules = [ libcanberra-gtk3 ];
+    #########################
+    #                       #
+    #   EXTRA PREF CHANGES  #
+    #                       #
+    #########################
+    policiesJson = writeText "policies.json" (builtins.toJSON enterprisePolicies);
 
-      # Darwin does not rename bundled binaries
-      launcherName = "${applicationName}${lib.optionalString (!isDarwin) nameSuffix}";
+    usesNixExtensions = nixExtensions != null;
 
-      #########################
-      #                       #
-      #   EXTRA PREF CHANGES  #
-      #                       #
-      #########################
-      policiesJson = writeText "policies.json" (builtins.toJSON enterprisePolicies);
+    nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
 
-      usesNixExtensions = nixExtensions != null;
+    # Check that every extension has a unique .name attribute
+    # and an extid attribute
+    extensions =
+      if nameArray != (lib.unique nameArray)
+      then throw "Firefox addon name needs to be unique"
+      else if browser.requireSigning || !browser.allowAddonSideload
+      then throw "Nix addons are only supported with signature enforcement disabled and addon sideloading enabled (eg. LibreWolf)"
+      else
+        builtins.map (
+          a:
+            if !(builtins.hasAttr "extid" a)
+            then throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchFirefoxAddon"
+            else a
+        ) (lib.optionals usesNixExtensions nixExtensions);
 
-      nameArray = builtins.map (a: a.name) (lib.optionals usesNixExtensions nixExtensions);
-
-      # Check that every extension has a unique .name attribute
-      # and an extid attribute
-      extensions =
-        if nameArray != (lib.unique nameArray) then
-          throw "Firefox addon name needs to be unique"
-        else if browser.requireSigning || !browser.allowAddonSideload then
-          throw "Nix addons are only supported with signature enforcement disabled and addon sideloading enabled (eg. LibreWolf)"
-        else
-          builtins.map (
-            a:
-            if !(builtins.hasAttr "extid" a) then
-              throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchFirefoxAddon"
-            else
-              a
-          ) (lib.optionals usesNixExtensions nixExtensions);
-
-      enterprisePolicies = {
-        policies =
-          {
-            DisableAppUpdate = true;
-          }
-          // lib.optionalAttrs usesNixExtensions {
-            ExtensionSettings =
-              {
-                "*" = {
-                  blocked_install_message = "You can't have manual extension mixed with nix extensions";
-                  installation_mode = "blocked";
-                };
-              }
-              // lib.foldr (
-                e: ret:
+    enterprisePolicies = {
+      policies =
+        {
+          DisableAppUpdate = true;
+        }
+        // lib.optionalAttrs usesNixExtensions {
+          ExtensionSettings =
+            {
+              "*" = {
+                blocked_install_message = "You can't have manual extension mixed with nix extensions";
+                installation_mode = "blocked";
+              };
+            }
+            // lib.foldr (
+              e: ret:
                 ret
                 // {
                   "${e.extid}" = {
                     installation_mode = "allowed";
                   };
                 }
-              ) { } extensions;
+            ) {}
+            extensions;
 
-            Extensions = {
-              Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;
-            };
-          }
-          // lib.optionalAttrs smartcardSupport {
-            SecurityDevices = {
-              "OpenSC PKCS#11 Module" = "opensc-pkcs11.so";
-            };
-          }
-          // extraPolicies;
-      };
+          Extensions = {
+            Install = lib.foldr (e: ret: ret ++ ["${e.outPath}/${e.extid}.xpi"]) [] extensions;
+          };
+        }
+        // lib.optionalAttrs smartcardSupport {
+          SecurityDevices = {
+            "OpenSC PKCS#11 Module" = "opensc-pkcs11.so";
+          };
+        }
+        // extraPolicies;
+    };
 
-      mozillaCfg = ''
-        // First line must be a comment
+    mozillaCfg = ''
+      // First line must be a comment
 
-        // Disables addon signature checking
-        // to be able to install addons that do not have an extid
-        // Security is maintained because only user whitelisted addons
-        // with a checksum can be installed
-        ${lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false);''}
-      '';
-
-      #############################
-      #                           #
-      #   END EXTRA PREF CHANGES  #
-      #                           #
-      #############################
-
-    in
+      // Disables addon signature checking
+      // to be able to install addons that do not have an extid
+      // Security is maintained because only user whitelisted addons
+      // with a checksum can be installed
+      ${lib.optionalString usesNixExtensions ''lockPref("xpinstall.signatures.required", false);''}
+    '';
+    #############################
+    #                           #
+    #   END EXTRA PREF CHANGES  #
+    #                           #
+    #############################
+  in
     stdenv.mkDerivation (finalAttrs: {
       __structuredAttrs = true;
       inherit pname version;
@@ -215,72 +203,71 @@ let
           terminal = false;
         }
         // (
-          if libName == "thunderbird" then
-            {
-              genericName = "Email Client";
-              comment = "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
-              categories = [
-                "Network"
-                "Chat"
-                "Email"
-                "Feed"
-                "GTK"
-                "News"
-              ];
-              keywords = [
-                "mail"
-                "email"
-                "e-mail"
-                "messages"
-                "rss"
-                "calendar"
-                "address book"
-                "addressbook"
-                "chat"
-              ];
-              mimeTypes = [
-                "message/rfc822"
-                "x-scheme-handler/mailto"
-                "text/calendar"
-                "text/x-vcard"
-              ];
-              actions = {
-                profile-manager-window = {
-                  name = "Profile Manager";
-                  exec = "${launcherName} --ProfileManager";
-                };
+          if libName == "thunderbird"
+          then {
+            genericName = "Email Client";
+            comment = "Read and write e-mails or RSS feeds, or manage tasks on calendars.";
+            categories = [
+              "Network"
+              "Chat"
+              "Email"
+              "Feed"
+              "GTK"
+              "News"
+            ];
+            keywords = [
+              "mail"
+              "email"
+              "e-mail"
+              "messages"
+              "rss"
+              "calendar"
+              "address book"
+              "addressbook"
+              "chat"
+            ];
+            mimeTypes = [
+              "message/rfc822"
+              "x-scheme-handler/mailto"
+              "text/calendar"
+              "text/x-vcard"
+            ];
+            actions = {
+              profile-manager-window = {
+                name = "Profile Manager";
+                exec = "${launcherName} --ProfileManager";
               };
-            }
-          else
-            {
-              genericName = "Web Browser";
-              categories = [
-                "Network"
-                "WebBrowser"
-              ];
-              mimeTypes = [
-                "text/html"
-                "text/xml"
-                "application/xhtml+xml"
-                "application/vnd.mozilla.xul+xml"
-                "x-scheme-handler/http"
-                "x-scheme-handler/https"
-              ];
-              actions = {
-                new-window = {
-                  name = "New Window";
-                  exec = "${launcherName} --new-window %U";
-                };
-                new-private-window = {
-                  name = "New Private Window";
-                  exec = "${launcherName} --private-window %U";
-                };
-                profile-manager-window = {
-                  name = "Profile Manager";
-                  exec = "${launcherName} --ProfileManager";
-                };
+            };
+          }
+          else {
+            genericName = "Web Browser";
+            categories = [
+              "Network"
+              "WebBrowser"
+            ];
+            mimeTypes = [
+              "text/html"
+              "text/xml"
+              "application/xhtml+xml"
+              "application/vnd.mozilla.xul+xml"
+              "x-scheme-handler/http"
+              "x-scheme-handler/https"
+            ];
+            actions = {
+              new-window = {
+                name = "New Window";
+                exec = "${launcherName} --new-window %U";
               };
-            }
+              new-private-window = {
+                name = "New Private Window";
+                exec = "${launcherName} --private-window %U";
+              };
+              profile-manager-window = {
+                name = "Profile Manager";
+                exec = "${launcherName} --ProfileManager";
+              };
+            };
+          }
         )
       );
 
@@ -289,7 +276,7 @@ let
         lndir
         jq
       ];
-      buildInputs = lib.optionals (!isDarwin) [ browser.gtk3 ];
+      buildInputs = lib.optionals (!isDarwin) [browser.gtk3];
 
       makeWrapperArgs =
         [
@@ -329,44 +316,49 @@ let
           "--set-default"
           "MOZ_ENABLE_WAYLAND"
           "1"
-
         ]
         ++ lib.optionals (!xdg-utils.meta.broken && !isDarwin) [
           # make xdg-open overridable at runtime
           "--suffix"
           "PATH"
           ":"
-          "${lib.makeBinPath [ xdg-utils ]}"
-
+          "${lib.makeBinPath [xdg-utils]}"
         ]
         ++ lib.optionals hasMozSystemDirPatch [
           "--set"
           "MOZ_SYSTEM_DIR"
           "${placeholder "out"}/lib/mozilla"
-
         ]
-        ++ lib.optionals (!hasMozSystemDirPatch && allNativeMessagingHosts != [ ]) [
+        ++ lib.optionals (!hasMozSystemDirPatch && allNativeMessagingHosts != []) [
           "--run"
           ''mkdir -p ''${MOZ_HOME:-~/.mozilla}/native-messaging-hosts''
-
         ]
         ++ lib.optionals (!hasMozSystemDirPatch) (
           lib.concatMap (ext: [
             "--run"
             ''ln -sfLt ''${MOZ_HOME:-~/.mozilla}/native-messaging-hosts ${ext}/lib/mozilla/native-messaging-hosts/*''
-          ]) allNativeMessagingHosts
+          ])
+          allNativeMessagingHosts
         );
 
-      buildCommand =
-        let
-          appPath = "Applications/${browser.applicationName}.app";
-          executablePrefix = if isDarwin then "${appPath}/Contents/MacOS" else "bin";
-          executablePath = "${executablePrefix}/${applicationName}";
-          finalBinaryPath = "${executablePath}" + lib.optionalString (!isDarwin) "${nameSuffix}";
-          sourceBinary = "${browser}/${executablePath}";
-          libDir = if isDarwin then "${appPath}/Contents/Resources" else "lib/${libName}";
-          prefsDir = if isDarwin then "${libDir}/browser/defaults/preferences" else "${libDir}/defaults/pref";
-        in
+      buildCommand = let
+        appPath = "Applications/${browser.applicationName}.app";
+        executablePrefix =
+          if isDarwin
+          then "${appPath}/Contents/MacOS"
+          else "bin";
+        executablePath = "${executablePrefix}/${applicationName}";
+        finalBinaryPath = "${executablePath}" + lib.optionalString (!isDarwin) "${nameSuffix}";
+        sourceBinary = "${browser}/${executablePath}";
+        libDir =
+          if isDarwin
+          then "${appPath}/Contents/Resources"
+          else "lib/${libName}";
+        prefsDir =
+          if isDarwin
+          then "${libDir}/browser/defaults/preferences"
+          else "${libDir}/defaults/pref";
+      in
         ''
           if [ ! -x "${sourceBinary}" ]
           then
@@ -563,13 +555,15 @@ let
         unwrapped = browser;
       };
 
-      disallowedRequisites = [ stdenv.cc ];
-      meta = browser.meta // {
-        inherit (browser.meta) description;
-        mainProgram = launcherName;
-        hydraPlatforms = [ ];
-        priority = (browser.meta.priority or lib.meta.defaultPriority) - 1; # prefer wrapper over the package
-      };
+      disallowedRequisites = [stdenv.cc];
+      meta =
+        browser.meta
+        // {
+          inherit (browser.meta) description;
+          mainProgram = launcherName;
+          hydraPlatforms = [];
+          priority = (browser.meta.priority or lib.meta.defaultPriority) - 1; # prefer wrapper over the package
+        };
     });
 in
-lib.makeOverridable wrapper
+  lib.makeOverridable wrapper

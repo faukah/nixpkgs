@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "esp-generate";
   version = "0.3.1";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = [ lib.maintainers.eymeric ];
+    maintainers = [lib.maintainers.eymeric];
   };
 }

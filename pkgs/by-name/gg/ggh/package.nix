@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "ggh";
   version = "0.1.4";
@@ -24,14 +23,14 @@ buildGoModule (finalAttrs: {
     "-X main.version=v${finalAttrs.version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Recall your SSH sessions (also search your SSH config file)";
     homepage = "https://github.com/byawitz/ggh";
     changelog = "https://github.com/byawitz/ggh/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ilarvne ];
+    maintainers = [lib.maintainers.ilarvne];
     platforms = lib.platforms.unix;
     mainProgram = "ggh";
   };

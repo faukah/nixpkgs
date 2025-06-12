@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "configupdater";
   version = "3.2";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
       --replace '--cov configupdater --cov-report term-missing' ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "configupdater" ];
+  pythonImportsCheck = ["configupdater"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Parser like ConfigParser but for updating configuration files";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
       mit
       psfl
     ];
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

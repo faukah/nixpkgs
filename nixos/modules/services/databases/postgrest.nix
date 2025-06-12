@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.postgrest;
 
   # Turns an attrset of libpq connection params:
@@ -15,7 +13,7 @@ let
   #   }
   # into a libpq connection string:
   #   dbname=postgres user=authenticator
-  db-uri = lib.pipe (cfg.settings.db-uri or { }) [
+  db-uri = lib.pipe (cfg.settings.db-uri or {}) [
     (lib.filterAttrs (_: v: v != null))
     (lib.mapAttrsToList (k: v: "${k}=${v}"))
     (lib.concatStringsSep " ")
@@ -24,38 +22,34 @@ let
   # Writes a postgrest config file according to:
   #   https://hackage.haskell.org/package/configurator-0.3.0.0/docs/Data-Configurator.html
   # Only a subset of the functionality is used by PostgREST.
-  configFile = lib.pipe (cfg.settings // { inherit db-uri; }) [
+  configFile = lib.pipe (cfg.settings // {inherit db-uri;}) [
     (lib.filterAttrs (_: v: v != null))
 
     (lib.mapAttrs (
       _: v:
-      if true == v then
-        "true"
-      else if false == v then
-        "false"
-      else if lib.isInt v then
-        toString v
-      else
-        "\"${lib.escape [ "\"" ] v}\""
+        if true == v
+        then "true"
+        else if false == v
+        then "false"
+        else if lib.isInt v
+        then toString v
+        else "\"${lib.escape ["\""] v}\""
     ))
 
     (lib.mapAttrsToList (k: v: "${k} = ${v}"))
     (lib.concatStringsSep "\n")
     (pkgs.writeText "postgrest.conf")
   ];
-in
-
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ wolfgangwalther ];
+    maintainers = with lib.maintainers; [wolfgangwalther];
   };
 
   options.services.postgrest = {
     enable = lib.mkEnableOption "PostgREST";
 
     pgpassFile = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (pathWith {
           inStore = false;
           absolute = true;
@@ -77,8 +71,7 @@ in
     };
 
     jwtSecretFile = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         nullOr (pathWith {
           inStore = false;
           absolute = true;
@@ -96,8 +89,7 @@ in
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
+        freeformType = with lib.types;
           attrsOf (oneOf [
             bool
             ints.unsigned
@@ -147,7 +139,7 @@ in
                 internal = true;
               };
             };
-            default = { };
+            default = {};
             description = ''
               libpq connection parameters as documented in:
 
@@ -206,7 +198,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         PostgREST configuration as documented in:
         <https://docs.postgrest.org/en/stable/references/configuration.html#list-of-parameters>
@@ -243,7 +235,7 @@ in
 
     warnings =
       lib.optional (cfg.settings.admin-server-port != null && cfg.settings.server-host != "127.0.0.1")
-        "The PostgREST admin server is potentially listening on a public host. This may expose sensitive information via the `/config` endpoint.";
+      "The PostgREST admin server is potentially listening on a public host. This may expose sensitive information via the `/config` endpoint.";
 
     # Since we're using DynamicUser, we can't add the e.g. nginx user to
     # a postgrest group, so the unix socket must be world-readable to make it useful.
@@ -252,8 +244,8 @@ in
     systemd.services.postgrest = {
       description = "PostgREST";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "postgresql.service"
@@ -273,7 +265,7 @@ in
         User = "postgrest";
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;
@@ -298,7 +290,7 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         SystemCallArchitectures = "native";
-        SystemCallFilter = [ "" ];
+        SystemCallFilter = [""];
         UMask = "0077";
       };
 

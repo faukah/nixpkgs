@@ -8,19 +8,16 @@
   pkg-config,
   makeBinaryWrapper,
   replaceVars,
-
   gtk4,
   libadwaita,
   glib,
   libgee,
   pciutils,
   wrapGAppsHook4,
-
   mangohud,
   mesa-demos,
   vulkan-tools,
   vkbasalt,
-
   nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -60,28 +57,26 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   dontWrapGApps = true;
 
-  postFixup =
-    let
-      path = lib.makeBinPath [
-        mangohud
-        mesa-demos # glxgears
-        pciutils # lspci
-        vulkan-tools # vkcube
-      ];
-    in
-    ''
-      wrapProgram $out/bin/mangojuice \
-        --prefix PATH : ${path} \
-        "''${gappsWrapperArgs[@]}"
-    '';
+  postFixup = let
+    path = lib.makeBinPath [
+      mangohud
+      mesa-demos # glxgears
+      pciutils # lspci
+      vulkan-tools # vkcube
+    ];
+  in ''
+    wrapProgram $out/bin/mangojuice \
+      --prefix PATH : ${path} \
+      "''${gappsWrapperArgs[@]}"
+  '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Convenient alternative to GOverlay for setting up MangoHud";
     homepage = "https://github.com/radiolamp/mangojuice";
     changelog = "https://github.com/radiolamp/mangojuice/releases/tag/${finalAttrs.version}";
-    license = with lib.licenses; [ gpl3Only ];
+    license = with lib.licenses; [gpl3Only];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [
       pluiedev

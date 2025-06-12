@@ -19,7 +19,6 @@
   libappindicator-gtk3,
   libayatana-appindicator,
 }:
-
 buildPythonApplication rec {
   pname = "protonvpn-gui";
   version = "4.9.6";

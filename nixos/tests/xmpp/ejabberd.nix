@@ -1,23 +1,23 @@
 let
-  cert =
-    pkgs:
-    pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+  cert = pkgs:
+    pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
       openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=muc.example.com/CN=matrix.example.com' -days 36500
       mkdir -p $out
       cp key.pem cert.pem $out
     '';
 in
-{ pkgs, ... }:
-{
-  name = "ejabberd";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ ];
-  };
-  nodes = {
-    client =
-      { nodes, pkgs, ... }:
-      {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+  {pkgs, ...}: {
+    name = "ejabberd";
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [];
+    };
+    nodes = {
+      client = {
+        nodes,
+        pkgs,
+        ...
+      }: {
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         networking.extraHosts = ''
           ${nodes.server.networking.primaryIPAddress} example.com
         '';
@@ -28,10 +28,12 @@ in
           })
         ];
       };
-    server =
-      { config, pkgs, ... }:
-      {
-        security.pki.certificateFiles = [ "${cert pkgs}/cert.pem" ];
+      server = {
+        config,
+        pkgs,
+        ...
+      }: {
+        security.pki.certificateFiles = ["${cert pkgs}/cert.pem"];
         networking.extraHosts = ''
           ${config.networking.primaryIPAddress} example.com
           ${config.networking.primaryIPAddress} matrix.example.com
@@ -292,11 +294,9 @@ in
         '';
         networking.firewall.enable = false;
       };
-  };
+    };
 
-  testScript =
-    { nodes, ... }:
-    ''
+    testScript = {nodes, ...}: ''
       ejabberd_prefix = "su ejabberd -s $(which ejabberdctl) "
 
       server.wait_for_unit("ejabberd.service")
@@ -316,4 +316,4 @@ in
           ejabberd_prefix + "unregister azurediamond example.com",
       )
     '';
-}
+  }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "muparserx";
   version = "4.0.12";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rekPXmncNdVX6LvPQP1M2Pzs3pyiCCcLPLnPFiyWJ4s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
   checkPhase = ''
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "C++ Library for Parsing Expressions with Strings, Complex Numbers, Vectors, Matrices and more";
     homepage = "https://beltoforion.de/en/muparserx/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

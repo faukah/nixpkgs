@@ -3,7 +3,6 @@
   apple-sdk,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "libunwind";
   inherit (apple-sdk) version;
@@ -21,8 +20,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Compatibility package for libunwind on Darwin";
-    teams = [ lib.teams.darwin ];
+    teams = [lib.teams.darwin];
     platforms = lib.platforms.darwin;
-    pkgConfigModules = [ "libunwind" ];
+    pkgConfigModules = ["libunwind"];
   };
 })

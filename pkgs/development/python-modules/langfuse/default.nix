@@ -15,7 +15,6 @@
   requests,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "langfuse";
   version = "2.60.7";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-8IlqHO46Kzz+ifmIu2y5SxshNv/lpZO74b1KTE2Opk4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "packaging" ];
+  pythonRelaxDeps = ["packaging"];
 
   dependencies = [
     anyio
@@ -44,12 +43,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    langchain = [ langchain ];
-    llama-index = [ llama-index ];
-    openai = [ openai ];
+    langchain = [langchain];
+    llama-index = [llama-index];
+    openai = [openai];
   };
 
-  pythonImportsCheck = [ "langfuse" ];
+  pythonImportsCheck = ["langfuse"];
 
   # tests require network access and openai api key
   doCheck = false;
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/langfuse/langfuse-python";
     changelog = "https://github.com/langfuse/langfuse-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

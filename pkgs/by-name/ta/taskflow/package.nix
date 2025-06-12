@@ -6,7 +6,6 @@
   replaceVars,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taskflow";
   version = "3.9.0";
@@ -45,13 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "General-purpose Parallel and Heterogeneous Task Programming System";
     homepage = "https://taskflow.github.io/";
-    changelog =
-      let
-        release = lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version;
-      in
-      "https://taskflow.github.io/taskflow/release-${release}.html";
+    changelog = let
+      release = lib.replaceStrings ["."] ["-"] finalAttrs.version;
+    in "https://taskflow.github.io/taskflow/release-${release}.html";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 })

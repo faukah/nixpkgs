@@ -8,7 +8,6 @@
   pandoc,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stenc";
   version = "2.0.0";
@@ -38,14 +37,14 @@ stdenv.mkDerivation rec {
     installShellCompletion --bash bash-completion/stenc
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "SCSI Tape Encryption Manager";
     mainProgram = "stenc";
     homepage = "https://github.com/scsitape/stenc";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ woffs ];
+    maintainers = with lib.maintainers; [woffs];
     platforms = lib.platforms.linux;
   };
 }

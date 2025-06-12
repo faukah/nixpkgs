@@ -5,40 +5,36 @@ import ../make-test-python.nix (
     lib,
     k3s,
     ...
-  }:
-  let
+  }: let
     nodeName = "test";
-  in
-  {
+  in {
     name = "${k3s.name}-containerd-config";
-    nodes.machine =
-      { ... }:
-      {
-        environment.systemPackages = [ pkgs.jq ];
-        # k3s uses enough resources the default vm fails.
-        virtualisation.memorySize = 1536;
-        virtualisation.diskSize = 4096;
+    nodes.machine = {...}: {
+      environment.systemPackages = [pkgs.jq];
+      # k3s uses enough resources the default vm fails.
+      virtualisation.memorySize = 1536;
+      virtualisation.diskSize = 4096;
 
-        services.k3s = {
-          enable = true;
-          package = k3s;
-          # Slightly reduce resource usage
-          extraFlags = [
-            "--disable coredns"
-            "--disable local-storage"
-            "--disable metrics-server"
-            "--disable servicelb"
-            "--disable traefik"
-            "--node-name ${nodeName}"
-          ];
-          containerdConfigTemplate = ''
-            # Base K3s config
-            {{ template "base" . }}
+      services.k3s = {
+        enable = true;
+        package = k3s;
+        # Slightly reduce resource usage
+        extraFlags = [
+          "--disable coredns"
+          "--disable local-storage"
+          "--disable metrics-server"
+          "--disable servicelb"
+          "--disable traefik"
+          "--node-name ${nodeName}"
+        ];
+        containerdConfigTemplate = ''
+          # Base K3s config
+          {{ template "base" . }}
 
-            # MAGIC COMMENT
-          '';
-        };
+          # MAGIC COMMENT
+        '';
       };
+    };
 
     testScript = ''
       start_all()

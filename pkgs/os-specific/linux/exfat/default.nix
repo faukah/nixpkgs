@@ -4,7 +4,6 @@
   fetchFromGitHub,
   kernel,
 }:
-
 stdenv.mkDerivation rec {
   name = "exfat-nofuse-${version}-${kernel.version}";
   version = "2020-04-15";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "14jahy7n6pr482fjfrlf9ck3f2rkr5ds0n5r85xdfsla37ria26d";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "exfat kernel module";
     inherit (src.meta) homepage;
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
     platforms = lib.platforms.linux;
     broken = true;
   };

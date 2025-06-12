@@ -28,7 +28,6 @@
   testers,
   zlib-ng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dosbox-staging";
   version = "0.82.1";
@@ -49,25 +48,27 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    SDL2
-    SDL2_net
-    fluidsynth
-    glib
-    iir1
-    libGL
-    libGLU
-    libjack2
-    libmt32emu
-    libogg
-    libpng
-    libpulseaudio
-    libslirp
-    libsndfile
-    opusfile
-    speexdsp
-    zlib-ng
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ alsa-lib ];
+  buildInputs =
+    [
+      SDL2
+      SDL2_net
+      fluidsynth
+      glib
+      iir1
+      libGL
+      libGLU
+      libjack2
+      libmt32emu
+      libogg
+      libpng
+      libpulseaudio
+      libslirp
+      libsndfile
+      opusfile
+      speexdsp
+      zlib-ng
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [alsa-lib];
 
   outputs = [
     "out"
@@ -80,8 +81,8 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "meson.project_source_root() + '/scripts/get-version.sh'," "'printf'," \
       --replace-fail "'version', check: true," "'${finalAttrs.version}', check: true," \
       --replace-fail "'./scripts/get-version.sh', 'hash'," "'printf', '${
-        builtins.substring 0 5 finalAttrs.shortRev
-      }',"
+      builtins.substring 0 5 finalAttrs.shortRev
+    }',"
   '';
 
   postInstall = ''

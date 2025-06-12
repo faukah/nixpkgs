@@ -16,7 +16,6 @@
   kwidgetsaddons,
   kwindowsystem,
 }:
-
 mkDerivation {
   pname = "libkleo";
   meta = {
@@ -43,7 +42,7 @@ mkDerivation {
     kwidgetsaddons
     kwindowsystem
   ];
-  propagatedBuildInputs = [ qgpgme ];
+  propagatedBuildInputs = [qgpgme];
   outputs = [
     "out"
     "dev"

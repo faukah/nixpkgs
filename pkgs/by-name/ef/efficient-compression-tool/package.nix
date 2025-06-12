@@ -9,7 +9,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "efficient-compression-tool";
   version = "0.9.5";
@@ -49,15 +48,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeDir = "../src";
 
-  cmakeFlags = [ "-DECT_FOLDER_SUPPORT=ON" ];
+  cmakeFlags = ["-DECT_FOLDER_SUPPORT=ON"];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
   versionCheckProgramArg = "-help";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

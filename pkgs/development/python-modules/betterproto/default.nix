@@ -18,7 +18,6 @@
   tomlkit,
   grpcio-tools,
 }:
-
 buildPythonPackage rec {
   pname = "betterproto";
   version = "2.0.0b6";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace-fail "poetry-core>=1.0.0,<2" "poetry-core"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     grpclib
@@ -52,16 +51,18 @@ buildPythonPackage rec {
     isort
   ];
 
-  nativeCheckInputs = [
-    grpcio-tools
-    pydantic
-    pytest-asyncio_0_21
-    pytest-mock
-    pytest7CheckHook
-    tomlkit
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      grpcio-tools
+      pydantic
+      pytest-asyncio_0_21
+      pytest-mock
+      pytest7CheckHook
+      tomlkit
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "betterproto" ];
+  pythonImportsCheck = ["betterproto"];
 
   # The tests require the generation of code before execution. This requires
   # the protoc-gen-python_betterproto script from the package to be on PATH.
@@ -94,6 +95,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/danielgtaylor/python-betterproto";
     changelog = "https://github.com/danielgtaylor/python-betterproto/blob/v.${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nikstur ];
+    maintainers = with lib.maintainers; [nikstur];
   };
 }

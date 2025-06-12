@@ -7,7 +7,6 @@
   bitlist,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fountains";
   version = "2.2.0";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ bitlist ];
+  propagatedBuildInputs = [bitlist];
 
   # Module has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "fountains" ];
+  pythonImportsCheck = ["fountains"];
 
   meta = with lib; {
     description = "Python library for generating and embedding data for unit testing";
     homepage = "https://github.com/reity/fountains";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

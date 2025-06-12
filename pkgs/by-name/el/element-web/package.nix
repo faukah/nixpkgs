@@ -3,11 +3,10 @@
   stdenv,
   jq,
   element-web-unwrapped,
-  conf ? { },
+  conf ? {},
 }:
-
-if (conf == { }) then
-  element-web-unwrapped
+if (conf == {})
+then element-web-unwrapped
 else
   stdenv.mkDerivation {
     pname = "${element-web-unwrapped.pname}-wrapped";
@@ -15,7 +14,7 @@ else
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ jq ];
+    nativeBuildInputs = [jq];
 
     installPhase = ''
       runHook preInstall

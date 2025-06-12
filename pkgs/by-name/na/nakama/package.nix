@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nakama";
   version = "3.27.1";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -33,7 +32,7 @@ buildGoModule rec {
     changelog = "https://github.com/heroiclabs/nakama/releases/tag/v${version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.qxrein ];
+    maintainers = [lib.maintainers.qxrein];
     mainProgram = "nakama";
   };
 }

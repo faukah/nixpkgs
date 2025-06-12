@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (pkgs) glusterfs rsync;
 
   tlsCmd =
-    if (cfg.tlsSettings != null) then
-      ''
-        mkdir -p /var/lib/glusterd
-        touch /var/lib/glusterd/secure-access
-      ''
-    else
-      ''
-        rm -f /var/lib/glusterd/secure-access
-      '';
+    if (cfg.tlsSettings != null)
+    then ''
+      mkdir -p /var/lib/glusterd
+      touch /var/lib/glusterd/secure-access
+    ''
+    else ''
+      rm -f /var/lib/glusterd/secure-access
+    '';
 
   restartTriggers = lib.optionals (cfg.tlsSettings != null) [
     config.environment.etc."ssl/glusterfs.pem".source
@@ -25,17 +23,11 @@ let
   ];
 
   cfg = config.services.glusterfs;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.glusterfs = {
-
       enable = lib.mkEnableOption "GlusterFS Daemon";
 
       logLevel = lib.mkOption {
@@ -111,7 +103,7 @@ in
       extraFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         description = "Extra flags passed to the GlusterFS daemon";
-        default = [ ];
+        default = [];
       };
 
       tlsSettings = lib.mkOption {
@@ -153,7 +145,7 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.glusterfs ];
+    environment.systemPackages = [pkgs.glusterfs];
 
     services.rpcbind.enable = cfg.useRpcbind;
 
@@ -168,10 +160,10 @@ in
 
       description = "GlusterFS, a clustered file-system server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       requires = lib.optional cfg.useRpcbind "rpcbind.service";
-      after = [ "network.target" ] ++ lib.optional cfg.useRpcbind "rpcbind.service";
+      after = ["network.target"] ++ lib.optional cfg.useRpcbind "rpcbind.service";
 
       preStart =
         ''
@@ -205,16 +197,16 @@ in
 
       description = "Gluster Events Notifier";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       preStart = ''
         install -m 0755 -d /var/log/glusterfs
       '';
 
       # glustereventsd uses the `gluster` executable
-      path = [ glusterfs ];
+      path = [glusterfs];
 
       serviceConfig = {
         Type = "simple";

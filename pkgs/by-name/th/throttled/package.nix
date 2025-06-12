@@ -7,7 +7,6 @@
   pciutils,
   wrapGAppsNoGuiHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "throttled";
   version = "0.11";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Fix for Intel CPU throttling issues";
     homepage = "https://github.com/erpalma/throttled";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
   };
 }

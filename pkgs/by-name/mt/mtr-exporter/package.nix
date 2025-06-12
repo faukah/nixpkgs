@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mtr-exporter";
   version = "0.6.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/mgumz/mtr-exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jakubgs ];
+    maintainers = with maintainers; [jakubgs];
     mainProgram = "mtr-exporter";
   };
 }

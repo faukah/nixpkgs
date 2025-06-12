@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   stdenv,
-
   # build-system
   hatchling,
-
   # dependencies
   absl-py,
   dm-env,
@@ -31,13 +29,11 @@
   scipy,
   tensorboardx,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-xdist,
   transforms3d,
 }:
-
 buildPythonPackage rec {
   pname = "brax";
   version = "0.12.3";
@@ -105,6 +101,6 @@ buildPythonPackage rec {
     description = "Massively parallel rigidbody physics simulation on accelerator hardware";
     homepage = "https://github.com/google/brax";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

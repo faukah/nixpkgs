@@ -24,7 +24,6 @@
   rsa,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-auth";
   version = "2.38.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-goURNgfTuAo/FUO3WWJEe6ign+hXg0MqeE/e72rAlMQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cachetools
@@ -63,21 +62,23 @@ buildPythonPackage rec {
       cryptography
       pyjwt
     ];
-    reauth = [ pyu2f ];
-    requests = [ requests ];
+    reauth = [pyu2f];
+    requests = [requests];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    flask
-    freezegun
-    grpcio
-    mock
-    pytest-asyncio
-    pytest-localserver
-    pytestCheckHook
-    responses
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aioresponses
+      flask
+      freezegun
+      grpcio
+      mock
+      pytest-asyncio
+      pytest-localserver
+      pytestCheckHook
+      responses
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pythonImportsCheck = [
     "google.auth"
@@ -100,6 +101,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-auth-library-python";
     changelog = "https://github.com/googleapis/google-auth-library-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

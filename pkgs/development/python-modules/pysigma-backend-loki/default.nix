@@ -6,7 +6,6 @@
   pysigma,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pysigma-backend-loki";
   version = "0.12.3";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-tsAtD98vWU8mB+Y3ePp2S54dSDu5R7DIDYDin+JJgSg=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pysigma ];
+  dependencies = [pysigma];
 
-  pythonRelaxDeps = [ "pysigma" ];
+  pythonRelaxDeps = ["pysigma"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sigma.backends.loki" ];
+  pythonImportsCheck = ["sigma.backends.loki"];
 
   disabledTestPaths = [
     # Tests are out-dated
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Library to support the loki backend for pySigma";
     homepage = "https://github.com/grafana/pySigma-backend-loki";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ peterromfeldhk ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [peterromfeldhk];
   };
 }

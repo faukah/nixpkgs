@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "aiostream";
   version = "0.6.4";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-hRbPK1JsB/JQuSjj81YMUAI8eDUyXCOFhdW22ZJ47xU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiostream" ];
+  pythonImportsCheck = ["aiostream"];
 
   meta = with lib; {
     description = "Generator-based operators for asynchronous iteration";
     homepage = "https://aiostream.readthedocs.io";
     changelog = "https://github.com/vxgmichel/aiostream/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

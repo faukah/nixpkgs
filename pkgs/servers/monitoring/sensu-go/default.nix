@@ -2,16 +2,13 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-}:
-
-let
-  generic =
-    {
-      subPackages,
-      pname,
-      postInstall ? "",
-      mainProgram,
-    }:
+}: let
+  generic = {
+    subPackages,
+    pname,
+    postInstall ? "",
+    mainProgram,
+  }:
     buildGoModule rec {
       inherit pname;
       version = "6.11.0";
@@ -37,14 +34,12 @@ let
 
       doCheck = false;
 
-      ldflags =
-        let
-          versionPkg = "github.com/sensu/sensu-go/version";
-        in
-        [
-          "-X ${versionPkg}.Version=${version}"
-          "-X ${versionPkg}.BuildSHA=${shortRev}"
-        ];
+      ldflags = let
+        versionPkg = "github.com/sensu/sensu-go/version";
+      in [
+        "-X ${versionPkg}.Version=${version}"
+        "-X ${versionPkg}.BuildSHA=${shortRev}"
+      ];
 
       meta = {
         inherit mainProgram;
@@ -57,11 +52,10 @@ let
         ];
       };
     };
-in
-{
+in {
   sensu-go-cli = generic {
     pname = "sensu-go-cli";
-    subPackages = [ "cmd/sensuctl" ];
+    subPackages = ["cmd/sensuctl"];
     postInstall = ''
       mkdir -p \
         "''${!outputBin}/share/bash-completion/completions" \
@@ -82,13 +76,13 @@ in
 
   sensu-go-backend = generic {
     pname = "sensu-go-backend";
-    subPackages = [ "cmd/sensu-backend" ];
+    subPackages = ["cmd/sensu-backend"];
     mainProgram = "sensu-backend";
   };
 
   sensu-go-agent = generic {
     pname = "sensu-go-agent";
-    subPackages = [ "cmd/sensu-agent" ];
+    subPackages = ["cmd/sensu-agent"];
     mainProgram = "sensu-agent";
   };
 }

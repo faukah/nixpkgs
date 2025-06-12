@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vdmfec";
   version = "1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Program that adds error correction blocks";
     homepage = "http://members.tripod.com/professor_tom/archives/index.html";
-    maintainers = [ maintainers.ar1a ];
+    maintainers = [maintainers.ar1a];
     license = with licenses; [
       gpl2 # for vdmfec
       bsd2 # for fec

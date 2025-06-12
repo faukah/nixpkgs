@@ -19,7 +19,6 @@
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccache";
   version = "4.11.3";
@@ -80,13 +79,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [
-    # test/run requires the compgen function which is available in
-    # bashInteractive, but not bash.
-    bashInteractive
-    ctestCheckHook
-    writableTmpDirAsHomeHook
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin xcodebuild;
+  nativeCheckInputs =
+    [
+      # test/run requires the compgen function which is available in
+      # bashInteractive, but not bash.
+      bashInteractive
+      ctestCheckHook
+      writableTmpDirAsHomeHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin xcodebuild;
 
   checkInputs = [
     doctest
@@ -106,8 +107,10 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     # A derivation that provides gcc and g++ commands, but that
     # will end up calling ccache for the given cacheDir
-    links =
-      { unwrappedCC, extraConfig }:
+    links = {
+      unwrappedCC,
+      extraConfig,
+    }:
       stdenv.mkDerivation {
         pname = "ccache-links";
         inherit (finalAttrs) version;
@@ -117,50 +120,48 @@ stdenv.mkDerivation (finalAttrs: {
           isCcache = true;
         };
         lib = lib.getLib unwrappedCC;
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
         # Unwrapped clang does not have a targetPrefix because it is multi-target
         # target is decided with argv0.
-        buildCommand =
-          let
-            targetPrefix =
-              if unwrappedCC.isClang or false then
-                ""
-              else
-                (lib.optionalString (
-                  unwrappedCC ? targetConfig && unwrappedCC.targetConfig != null && unwrappedCC.targetConfig != ""
-                ) "${unwrappedCC.targetConfig}-");
-          in
-          ''
-            mkdir -p $out/bin
+        buildCommand = let
+          targetPrefix =
+            if unwrappedCC.isClang or false
+            then ""
+            else
+              (lib.optionalString (
+                unwrappedCC ? targetConfig && unwrappedCC.targetConfig != null && unwrappedCC.targetConfig != ""
+              ) "${unwrappedCC.targetConfig}-");
+        in ''
+          mkdir -p $out/bin
 
-            wrap() {
-              local cname="${targetPrefix}$1"
-              if [ -x "${unwrappedCC}/bin/$cname" ]; then
-                makeWrapper ${finalAttrs.finalPackage}/bin/ccache $out/bin/$cname \
-                  --run ${lib.escapeShellArg extraConfig} \
-                  --add-flags ${unwrappedCC}/bin/$cname
-              fi
-            }
+          wrap() {
+            local cname="${targetPrefix}$1"
+            if [ -x "${unwrappedCC}/bin/$cname" ]; then
+              makeWrapper ${finalAttrs.finalPackage}/bin/ccache $out/bin/$cname \
+                --run ${lib.escapeShellArg extraConfig} \
+                --add-flags ${unwrappedCC}/bin/$cname
+            fi
+          }
 
-            wrap cc
-            wrap c++
-            wrap gcc
-            wrap g++
-            wrap clang
-            wrap clang++
+          wrap cc
+          wrap c++
+          wrap gcc
+          wrap g++
+          wrap clang
+          wrap clang++
 
-            for executable in $(ls ${unwrappedCC}/bin); do
-              if [ ! -x "$out/bin/$executable" ]; then
-                ln -s ${unwrappedCC}/bin/$executable $out/bin/$executable
-              fi
-            done
-            for file in $(ls ${unwrappedCC} | grep -vw bin); do
-              ln -s ${unwrappedCC}/$file $out/$file
-            done
-          '';
+          for executable in $(ls ${unwrappedCC}/bin); do
+            if [ ! -x "$out/bin/$executable" ]; then
+              ln -s ${unwrappedCC}/bin/$executable $out/bin/$executable
+            fi
+          done
+          for file in $(ls ${unwrappedCC} | grep -vw bin); do
+            ln -s ${unwrappedCC}/$file $out/$file
+          done
+        '';
       };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -168,7 +169,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ccache.dev";
     downloadPage = "https://ccache.dev/download.html";
     changelog = "https://ccache.dev/releasenotes.html#_ccache_${
-      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["_"] finalAttrs.version
     }";
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [

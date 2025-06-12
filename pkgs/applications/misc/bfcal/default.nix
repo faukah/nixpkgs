@@ -8,7 +8,6 @@
   wrapQtAppsHook,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bfcal";
   version = "1.0.1";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sr.ht/~bitfehler/bfcal";
     license = licenses.gpl3Plus;
     platforms = qtbase.meta.platforms;
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
   };
 }

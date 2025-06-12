@@ -4,7 +4,6 @@
   faraday-lwt-unix,
   lwt,
 }:
-
 buildDunePackage {
   pname = "httpaf-lwt-unix";
   inherit (httpaf) version src;
@@ -17,7 +16,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = httpaf.meta // {
-    description = "Lwt support for http/af";
-  };
+  meta =
+    httpaf.meta
+    // {
+      description = "Lwt support for http/af";
+    };
 }

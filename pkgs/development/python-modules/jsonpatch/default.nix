@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jsonpatch";
   version = "1.33";
@@ -21,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-JHBB64LExzHQVoFF2xcsqGlNWX/YeEBa1M/TmfeQLWI=";
   };
 
-  propagatedBuildInputs = [ jsonpointer ];
+  propagatedBuildInputs = [jsonpointer];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonpatch" ];
+  pythonImportsCheck = ["jsonpatch"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   meta = with lib; {
     description = "Library to apply JSON Patches according to RFC 6902";
     homepage = "https://github.com/stefankoegl/python-json-patch";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

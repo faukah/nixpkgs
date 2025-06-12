@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "graphql-client";
   version = "0.13.0";
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

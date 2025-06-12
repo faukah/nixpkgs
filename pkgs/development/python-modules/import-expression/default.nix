@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "import-expression";
   version = "2.2.1.post1";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-HIMb8mvvft82qXs0xoe5Yuer4GEWxm8A4U+aMhhiPU8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "import_expression" ];
+  pythonImportsCheck = ["import_expression"];
 
   meta = {
     description = "Transpiles a superset of python to allow easy inline imports";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       mit
       psfl
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "import-expression";
   };
 }

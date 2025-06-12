@@ -3,22 +3,18 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   poetry-core,
-
   # dependencies
   boto3,
   langchain-core,
   numpy,
   pydantic,
-
   # tests
   langchain-tests,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-aws";
   version = "0.2.22";
@@ -41,7 +37,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/aws";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     boto3
@@ -64,9 +60,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_aws" ];
+  pythonImportsCheck = ["langchain_aws"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

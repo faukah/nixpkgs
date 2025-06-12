@@ -3,17 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.photonvision;
-in
-{
+in {
   options = {
     services.photonvision = {
       enable = lib.mkEnableOption "PhotonVision";
 
-      package = lib.mkPackageOption pkgs "photonvision" { };
+      package = lib.mkPackageOption pkgs "photonvision" {};
 
       openFirewall = lib.mkOption {
         description = ''
@@ -29,8 +26,8 @@ in
     systemd.services.photonvision = {
       description = "PhotonVision, the free, fast, and easy-to-use computer vision solution for the FIRST Robotics Competition";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;
@@ -62,7 +59,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 5800 ];
+      allowedTCPPorts = [5800];
       allowedTCPPortRanges = [
         {
           from = 1180;

@@ -5,7 +5,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "class-registry";
   version = "5.1.1";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-MI63b77ydmhQSbtKovla7BCEUjLF43DW80VABjAVEI0=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "class_registry" ];
+  pythonImportsCheck = ["class_registry"];
 
   meta = with lib; {
     description = "Factory and registry pattern for Python classes";

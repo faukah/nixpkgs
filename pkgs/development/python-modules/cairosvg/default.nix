@@ -10,7 +10,6 @@
   setuptools,
   tinycss2,
 }:
-
 buildPythonPackage rec {
   pname = "cairosvg";
   version = "2.7.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-QyUx1yNHKRuanr+2d3AmtgdWP9hxnEbudC2wrvcnG6A=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cairocffi
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     tinycss2
   ];
 
-  propagatedNativeBuildInputs = [ cairocffi ];
+  propagatedNativeBuildInputs = [cairocffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -46,9 +45,9 @@ buildPythonPackage rec {
       --replace "--isort" ""
   '';
 
-  pytestFlagsArray = [ "cairosvg/test_api.py" ];
+  pytestFlagsArray = ["cairosvg/test_api.py"];
 
-  pythonImportsCheck = [ "cairosvg" ];
+  pythonImportsCheck = ["cairosvg"];
 
   meta = {
     homepage = "https://cairosvg.org";
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     license = lib.licenses.lgpl3Plus;
     description = "SVG converter based on Cairo";
     mainProgram = "cairosvg";
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

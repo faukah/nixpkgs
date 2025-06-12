@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "convimg";
   version = "9.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   checkPhase = ''
     pushd test
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mateoconlechuga/convimg";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "convimg";
   };

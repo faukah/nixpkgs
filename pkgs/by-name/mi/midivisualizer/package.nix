@@ -13,7 +13,6 @@
   gtk3,
   ffmpeg-full,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "midivisualizer";
   version = "7.0";
@@ -45,20 +44,19 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir -p $out/Applications $out/bin
-        cp -r MIDIVisualizer.app $out/Applications/
-        ln -s ../Applications/MIDIVisualizer.app/Contents/MacOS/MIDIVisualizer $out/bin/
-      ''
-    else
-      ''
-        mkdir -p $out/bin
-        cp MIDIVisualizer $out/bin
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir -p $out/Applications $out/bin
+      cp -r MIDIVisualizer.app $out/Applications/
+      ln -s ../Applications/MIDIVisualizer.app/Contents/MacOS/MIDIVisualizer $out/bin/
+    ''
+    else ''
+      mkdir -p $out/bin
+      cp MIDIVisualizer $out/bin
 
-        wrapProgram $out/bin/MIDIVisualizer \
-          --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
-      '';
+      wrapProgram $out/bin/MIDIVisualizer \
+        --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_DATA_DIRS"
+    '';
 
   meta = with lib; {
     description = "Small MIDI visualizer tool, using OpenGL";
@@ -66,6 +64,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kosua20/MIDIVisualizer";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ericdallo ];
+    maintainers = [maintainers.ericdallo];
   };
 })

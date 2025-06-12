@@ -12,7 +12,6 @@
   torch,
   torchaudio,
 }:
-
 buildPythonPackage rec {
   pname = "torch-audiomentations";
   version = "0.12.0";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-5ccVO1ECiIn0q7m8ZLHxqD2fhaXeMDKUEswa49dRTsY=";
   };
 
-  pythonRelaxDeps = [ "torchaudio" ];
+  pythonRelaxDeps = ["torchaudio"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     julius
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "torch_audiomentations" ];
+  pythonImportsCheck = ["torch_audiomentations"];
 
   disabledTestPaths = [
     # librosa issues
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     "tests/test_background_noise.py"
   ];
 
-  disabledTests = [ "test_transform_is_differentiable" ];
+  disabledTests = ["test_transform_is_differentiable"];
 
   meta = with lib; {
     description = "Fast audio data augmentation in PyTorch";
     homepage = "https://github.com/asteroid-team/torch-audiomentations";
     changelog = "https://github.com/asteroid-team/torch-audiomentations/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

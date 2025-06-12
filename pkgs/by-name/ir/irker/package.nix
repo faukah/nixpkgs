@@ -9,7 +9,6 @@
   docbook_xsl,
   docbook_xml_dtd_412,
 }:
-
 stdenv.mkDerivation {
   pname = "irker";
   version = "2017-02-12";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     description = "IRC client that runs as a daemon accepting notification requests";
     homepage = "https://gitlab.com/esr/irker";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "irkerd";
     platforms = platforms.unix;
   };

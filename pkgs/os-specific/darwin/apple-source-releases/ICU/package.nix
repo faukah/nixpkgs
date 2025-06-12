@@ -7,7 +7,6 @@
   python3,
   testers,
 }:
-
 # Based on:
 # - ../../../development/libraries/icu/make-icu.nix
 # - https://github.com/apple-oss-distributions/ICU/blob/main/makefile
@@ -51,9 +50,9 @@ let
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         (lib.withFeatureAs true "cross-build" nativeBuildRoot)
       ]
-      ++ lib.optionals withStatic [ (lib.enableFeature true "static") ];
+      ++ lib.optionals withStatic [(lib.enableFeature true "static")];
 
-    nativeBuildInputs = [ python3 ];
+    nativeBuildInputs = [python3];
 
     enableParallelBuilding = true;
 
@@ -68,8 +67,8 @@ let
 
     meta = {
       description = "Unicode and globalization support library with Apple customizations";
-      license = [ lib.licenses.icu ];
-      teams = [ lib.teams.darwin ];
+      license = [lib.licenses.icu];
+      teams = [lib.teams.darwin];
       platforms = lib.platforms.darwin;
       pkgConfigModules = [
         "icu-i18n"
@@ -80,10 +79,12 @@ let
   };
 
   realAttrs = self: super: {
-    outputs = [
-      "out"
-      "dev"
-    ] ++ lib.optional withStatic "static";
+    outputs =
+      [
+        "out"
+        "dev"
+      ]
+      ++ lib.optional withStatic "static";
     outputBin = "dev";
 
     postPatch = lib.optionalString self.finalPackage.doCheck ''
@@ -131,24 +132,23 @@ let
             } # --incpkgdatafile
           ];
         in
-        ''
-          rm $out/share/icu/*/install-sh $out/share/icu/*/mkinstalldirs # Avoid having a runtime dependency on bash
+          ''
+            rm $out/share/icu/*/install-sh $out/share/icu/*/mkinstalldirs # Avoid having a runtime dependency on bash
 
-          substituteInPlace "$dev/bin/icu-config" \
-            ${lib.concatMapStringsSep " " (r: "--replace-fail '${r.from}' '${r.to}'") replacements}
-        ''
-        # Create library with everything reexported to provide the same ABI as the system ICU.
-        + lib.optionalString stdenv.hostPlatform.isDarwin (
-          if stdenv.hostPlatform.isStatic then
-            ''
+            substituteInPlace "$dev/bin/icu-config" \
+              ${lib.concatMapStringsSep " " (r: "--replace-fail '${r.from}' '${r.to}'") replacements}
+          ''
+          # Create library with everything reexported to provide the same ABI as the system ICU.
+          + lib.optionalString stdenv.hostPlatform.isDarwin (
+            if stdenv.hostPlatform.isStatic
+            then ''
               ${stdenv.cc.targetPrefix}ar qL "$out/lib/libicucore.a" \
                 "$out/lib/libicuuc.a" \
                 "$out/lib/libicudata.a" \
                 "$out/lib/libicui18n.a" \
                 "$out/lib/libicuio.a"
             ''
-          else
-            ''
+            else ''
               icuVersion=$(basename "$out/share/icu/"*)
               ${stdenv.cc.targetPrefix}clang -dynamiclib \
                 -L "$out/lib" \
@@ -162,14 +162,14 @@ let
                 -o "$out/lib/libicucore.A.dylib"
               ln -s libicucore.A.dylib "$out/lib/libicucore.dylib"
             ''
-        )
+          )
       );
 
     postFixup = ''moveToOutput lib/icu "$dev" '';
 
     doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-    nativeCheckInputs = [ python3 ];
+    nativeCheckInputs = [python3];
 
     # Some tests use `log(name)`, which clang identifies as potentially insecure.
     checkFlags = [
@@ -206,4 +206,4 @@ let
 
   mkWithAttrs = attrs: mkAppleDerivation (lib.extends attrs baseAttrs);
 in
-mkWithAttrs realAttrs
+  mkWithAttrs realAttrs

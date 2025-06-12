@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   filelock,
   huggingface-hub,
@@ -18,7 +16,6 @@
   tokenizers,
   safetensors,
   tqdm,
-
   # optional-dependencies
   diffusers,
   scikit-learn,
@@ -56,7 +53,6 @@
   sentencepiece,
   hf-xet,
 }:
-
 buildPythonPackage rec {
   pname = "transformers";
   version = "4.52.4";
@@ -69,7 +65,7 @@ buildPythonPackage rec {
     hash = "sha256-n4p+Ge+nO/wR3cAcPL3lHqOKBIlV0mAlX7ZuWs5gAqI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     filelock
@@ -84,111 +80,109 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  optional-dependencies =
-    let
-      audio = [
-        librosa
-        # pyctcdecode
-        phonemizer
-        # kenlm
-      ];
-      vision = [ pillow ];
-    in
-    {
-      agents = [
-        diffusers
-        accelerate
-        datasets
-        torch
-        sentencepiece
-        opencv4
-        pillow
-      ];
-      ja = [
-        # fugashi
-        # ipadic
-        # rhoknp
-        # sudachidict_core
-        # sudachipy
-        # unidic
-        # unidic_lite
-      ];
-      sklearn = [ scikit-learn ];
-      tf = [
-        tensorflow
-        onnxconverter-common
-        tf2onnx
-        # tensorflow-text
-        # keras-nlp
-      ];
-      torch = [
-        torch
-        accelerate
-      ];
-      retrieval = [
-        faiss
-        datasets
-      ];
-      flax = [
-        jax
-        jaxlib
-        flax
-        optax
-      ];
-      hf_xet = [
-        hf-xet
-      ];
-      tokenizers = [ tokenizers ];
-      ftfy = [ ftfy ];
-      onnxruntime = [
-        onnxruntime
-        onnxruntime-tools
-      ];
-      onnx = [
-        onnxconverter-common
-        tf2onnx
-        onnxruntime
-        onnxruntime-tools
-      ];
-      modelcreation = [ cookiecutter ];
-      sagemaker = [ sagemaker ];
-      deepspeed = [
-        # deepspeed
-        accelerate
-      ];
-      fairscale = [ fairscale ];
-      optuna = [ optuna ];
-      ray = [ ray ] ++ ray.optional-dependencies.tune;
-      # sigopt = [ sigopt ];
-      # integrations = ray ++ optuna ++ sigopt;
-      serving = [
-        pydantic
-        uvicorn
-        fastapi
-        starlette
-      ];
-      audio = audio;
-      speech = [ torchaudio ] ++ audio;
-      torch-speech = [ torchaudio ] ++ audio;
-      tf-speech = audio;
-      flax-speech = audio;
-      timm = [ timm ];
-      torch-vision = [ torchvision ] ++ vision;
-      # natten = [ natten ];
-      # codecarbon = [ codecarbon ];
-      video = [
-        av
-      ];
-      sentencepiece = [
-        sentencepiece
-        protobuf
-      ];
-    };
+  optional-dependencies = let
+    audio = [
+      librosa
+      # pyctcdecode
+      phonemizer
+      # kenlm
+    ];
+    vision = [pillow];
+  in {
+    agents = [
+      diffusers
+      accelerate
+      datasets
+      torch
+      sentencepiece
+      opencv4
+      pillow
+    ];
+    ja = [
+      # fugashi
+      # ipadic
+      # rhoknp
+      # sudachidict_core
+      # sudachipy
+      # unidic
+      # unidic_lite
+    ];
+    sklearn = [scikit-learn];
+    tf = [
+      tensorflow
+      onnxconverter-common
+      tf2onnx
+      # tensorflow-text
+      # keras-nlp
+    ];
+    torch = [
+      torch
+      accelerate
+    ];
+    retrieval = [
+      faiss
+      datasets
+    ];
+    flax = [
+      jax
+      jaxlib
+      flax
+      optax
+    ];
+    hf_xet = [
+      hf-xet
+    ];
+    tokenizers = [tokenizers];
+    ftfy = [ftfy];
+    onnxruntime = [
+      onnxruntime
+      onnxruntime-tools
+    ];
+    onnx = [
+      onnxconverter-common
+      tf2onnx
+      onnxruntime
+      onnxruntime-tools
+    ];
+    modelcreation = [cookiecutter];
+    sagemaker = [sagemaker];
+    deepspeed = [
+      # deepspeed
+      accelerate
+    ];
+    fairscale = [fairscale];
+    optuna = [optuna];
+    ray = [ray] ++ ray.optional-dependencies.tune;
+    # sigopt = [ sigopt ];
+    # integrations = ray ++ optuna ++ sigopt;
+    serving = [
+      pydantic
+      uvicorn
+      fastapi
+      starlette
+    ];
+    audio = audio;
+    speech = [torchaudio] ++ audio;
+    torch-speech = [torchaudio] ++ audio;
+    tf-speech = audio;
+    flax-speech = audio;
+    timm = [timm];
+    torch-vision = [torchvision] ++ vision;
+    # natten = [ natten ];
+    # codecarbon = [ codecarbon ];
+    video = [
+      av
+    ];
+    sentencepiece = [
+      sentencepiece
+      protobuf
+    ];
+  };
 
   # Many tests require internet access.
   doCheck = false;
 
-  pythonImportsCheck = [ "transformers" ];
+  pythonImportsCheck = ["transformers"];
 
   meta = {
     homepage = "https://github.com/huggingface/transformers";

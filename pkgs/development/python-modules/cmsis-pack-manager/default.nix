@@ -12,7 +12,6 @@
   pytestCheckHook,
   unzip,
 }:
-
 buildPythonPackage rec {
   pname = "cmsis-pack-manager";
   version = "0.5.2";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     rustPlatform.cargoSetupHook
     rustPlatform.maturinBuildHook
   ];
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
   buildInputs = [
     libiconv
   ];

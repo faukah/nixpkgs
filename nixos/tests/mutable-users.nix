@@ -1,10 +1,8 @@
 # Mutable users tests.
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "mutable-users";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ gleber ];
+    maintainers = [gleber];
   };
 
   nodes = {

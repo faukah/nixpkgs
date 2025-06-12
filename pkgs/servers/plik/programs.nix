@@ -5,9 +5,7 @@
   makeWrapper,
   runCommand,
   nixosTests,
-}:
-
-let
+}: let
   version = "1.3.8";
 
   src = fetchFromGitHub {
@@ -22,7 +20,7 @@ let
   meta = with lib; {
     homepage = "https://plik.root.gg/";
     description = "Scalable & friendly temporary file upload system";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.mit;
     mainProgram = "plik";
   };
@@ -35,10 +33,7 @@ let
   passthru.tests = {
     inherit (nixosTests) plikd;
   };
-
-in
-{
-
+in {
   plik = buildGoModule {
     pname = "plik";
     inherit
@@ -50,7 +45,7 @@ in
       passthru
       ;
 
-    subPackages = [ "client" ];
+    subPackages = ["client"];
     postInstall = ''
       mv $out/bin/client $out/bin/plik
     '';
@@ -66,7 +61,7 @@ in
       passthru
       ;
 
-    subPackages = [ "server" ];
+    subPackages = ["server"];
     postFixup = ''
       mv $out/bin/server $out/bin/plikd
     '';

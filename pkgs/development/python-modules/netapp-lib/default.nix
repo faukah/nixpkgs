@@ -6,7 +6,6 @@
   six,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "netapp-lib";
   version = "2021.6.25";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
   # no tests in sdist and no other download available
   doCheck = false;
 
-  pythonImportsCheck = [ "netapp_lib" ];
+  pythonImportsCheck = ["netapp_lib"];
 
   meta = with lib; {
     description = "netapp-lib is required for Ansible deployments to interact with NetApp storage systems";
     homepage = "https://netapp.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

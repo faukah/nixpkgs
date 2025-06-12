@@ -11,7 +11,6 @@
   texlive,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eukleides";
   version = "1.5.4";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/euktoeps \
-      --prefix PATH : ${lib.makeBinPath [ getopt ]}
+      --prefix PATH : ${lib.makeBinPath [getopt]}
   '';
 
   outputs = [
@@ -95,11 +94,11 @@ stdenv.mkDerivation (finalAttrs: {
       iftex
       moreverb
     ];
-    pkgs = [ finalAttrs.finalPackage.tex ];
+    pkgs = [finalAttrs.finalPackage.tex];
   };
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {

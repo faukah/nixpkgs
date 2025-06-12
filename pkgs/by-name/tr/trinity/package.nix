@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trinity";
   version = "1.9-unstable-2024-09-19";
@@ -23,16 +22,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
-  passthru.updateScript = unstableGitUpdater { tagPrefix = "v"; };
+  passthru.updateScript = unstableGitUpdater {tagPrefix = "v";};
 
   meta = {
     description = "Linux System call fuzz tester";
     mainProgram = "trinity";
     homepage = "https://github.com/kernelslacker/trinity";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.dezgeg ];
+    maintainers = [lib.maintainers.dezgeg];
     platforms = lib.platforms.linux;
   };
 })

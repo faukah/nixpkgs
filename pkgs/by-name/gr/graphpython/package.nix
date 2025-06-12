@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "graphpython";
   version = "1.0-unstable-2024-07-28";
@@ -17,7 +16,7 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-64M/Cc49mlceY5roBVuSsDIcbDx+lrX6oSjPAu9YDwA=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     beautifulsoup4
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication {
     tqdm
   ];
 
-  pythonImportsCheck = [ "Graphpython" ];
+  pythonImportsCheck = ["Graphpython"];
 
   # Project has no tests
   doCheck = false;
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication {
     description = "Microsoft Graph API (Entra, o365, and Intune) enumeration and exploitation toolkit";
     homepage = "https://github.com/mlcsec/Graphpython";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "graphpython";
   };
 }

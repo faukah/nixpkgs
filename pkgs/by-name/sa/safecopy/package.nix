@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "safecopy";
   version = "1.7";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
 
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.bluescreen303 ];
+    maintainers = [lib.maintainers.bluescreen303];
     mainProgram = "safecopy";
   };
 }

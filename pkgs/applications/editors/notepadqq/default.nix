@@ -11,7 +11,6 @@
   qtwebengine,
   qtwebsockets,
 }:
-
 mkDerivation rec {
   pname = "notepadqq";
   # shipping a beta build as there's no proper release which supports qtwebengine
@@ -64,7 +63,7 @@ mkDerivation rec {
     description = "Notepad++-like editor for the Linux desktop";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rszibele ];
+    maintainers = [maintainers.rszibele];
     mainProgram = "notepadqq";
   };
 }

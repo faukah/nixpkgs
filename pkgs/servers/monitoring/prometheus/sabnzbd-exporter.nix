@@ -4,7 +4,6 @@
   python3Packages,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sabnzbd_exporter";
   version = "0.1.78";
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "Prometheus exporter for sabnzbd";
     homepage = "https://github.com/msroest/sabnzbd_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ fugi ];
+    maintainers = with maintainers; [fugi];
     platforms = platforms.all;
     mainProgram = "sabnzbd_exporter.py";
   };

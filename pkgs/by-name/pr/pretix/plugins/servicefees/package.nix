@@ -6,7 +6,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-servicefees";
   version = "1.14.0";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "pretix_servicefees" ];
+  pythonImportsCheck = ["pretix_servicefees"];
 
   meta = with lib; {
     description = "Allows to charge a flat fee on all orders";
     homepage = "https://github.com/pretix/pretix-servicefees";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

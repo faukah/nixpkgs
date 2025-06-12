@@ -11,7 +11,6 @@
   pugl,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lvtk";
   version = "1.2.0-unstable-2024-11-06";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Set C++ wrappers around the LV2 C API";
     homepage = "https://lvtk.org/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
     badPlatforms = [
       "x86_64-darwin"

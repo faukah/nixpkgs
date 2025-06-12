@@ -14,7 +14,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-greeter";
   version = "1.0.0-alpha.7";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   env.VERGEN_GIT_COMMIT_DATE = "2025-04-25";
   env.VERGEN_GIT_SHA = finalAttrs.src.tag;
 
-  cargoBuildFlags = [ "--all" ];
+  cargoBuildFlags = ["--all"];
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
@@ -76,7 +75,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -98,7 +98,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Greeter for the COSMIC Desktop Environment";
     mainProgram = "cosmic-greeter";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

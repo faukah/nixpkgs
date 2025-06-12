@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ada";
   version = "3.2.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tC7Hpf9xCysraTtVC+mYE/DVNrG02lwLAlDiTeaWpY4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # uses CPM that requires network access
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
     platforms = lib.platforms.all;
   };
 }

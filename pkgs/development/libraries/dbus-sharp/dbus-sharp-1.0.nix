@@ -6,7 +6,6 @@
   mono,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-sharp";
   version = "0.7";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     mono # gmcs
   ];
-  buildInputs = [ mono ];
+  buildInputs = [mono];
 
   dontStrip = true;
 

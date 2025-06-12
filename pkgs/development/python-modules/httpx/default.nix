@@ -28,7 +28,6 @@
   uvicorn,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "httpx";
   version = "0.28.1";
@@ -56,29 +55,34 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
+    brotli =
+      if isPyPy
+      then [brotlicffi]
+      else [brotli];
     cli = [
       click
       rich
       pygments
     ];
-    http2 = [ h2 ];
-    socks = [ socksio ];
-    zstd = [ zstandard ];
+    http2 = [h2];
+    socks = [socksio];
+    zstd = [zstandard];
   };
 
   # trustme uses pyopenssl
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64);
 
-  nativeCheckInputs = [
-    chardet
-    multipart
-    pytestCheckHook
-    pytest-asyncio
-    pytest-trio
-    trustme
-    uvicorn
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      chardet
+      multipart
+      pytestCheckHook
+      pytest-asyncio
+      pytest-trio
+      trustme
+      uvicorn
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # testsuite wants to find installed packages for testing entrypoint
   preCheck = ''
@@ -102,9 +106,9 @@ buildPythonPackage rec {
     "test_write_timeout" # trio variant
   ];
 
-  disabledTestPaths = [ "tests/test_main.py" ];
+  disabledTestPaths = ["tests/test_main.py"];
 
-  pythonImportsCheck = [ "httpx" ];
+  pythonImportsCheck = ["httpx"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -118,6 +122,6 @@ buildPythonPackage rec {
     mainProgram = "httpx";
     homepage = "https://github.com/encode/httpx";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

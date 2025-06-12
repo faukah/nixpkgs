@@ -19,7 +19,6 @@
   withKWallet ? true,
   withLibsecret ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sirikali";
   version = "1.8.2";
@@ -38,8 +37,8 @@ stdenv.mkDerivation rec {
       hicolor-icon-theme
       libgcrypt
     ]
-    ++ lib.optionals withKWallet [ kdePackages.kwallet ]
-    ++ lib.optionals withLibsecret [ libsecret ];
+    ++ lib.optionals withKWallet [kdePackages.kwallet]
+    ++ lib.optionals withLibsecret [libsecret];
 
   nativeBuildInputs = [
     qt6.wrapQtAppsHook
@@ -49,23 +48,31 @@ stdenv.mkDerivation rec {
 
   qtWrapperArgs = [
     ''--prefix PATH : ${
-      lib.makeBinPath [
-        cryfs
-        encfs
-        fscrypt-experimental
-        gocryptfs
-        securefs
-        sshfs
-      ]
-    }''
+        lib.makeBinPath [
+          cryfs
+          encfs
+          fscrypt-experimental
+          gocryptfs
+          securefs
+          sshfs
+        ]
+      }''
   ];
 
   doCheck = true;
 
   cmakeFlags = [
     "-DINTERNAL_LXQT_WALLET=false"
-    "-DNOKDESUPPORT=${if withKWallet then "false" else "true"}"
-    "-DNOSECRETSUPPORT=${if withLibsecret then "false" else "true"}"
+    "-DNOKDESUPPORT=${
+      if withKWallet
+      then "false"
+      else "true"
+    }"
+    "-DNOSECRETSUPPORT=${
+      if withLibsecret
+      then "false"
+      else "true"
+    }"
     "-DBUILD_WITH_QT6=true"
   ];
 
@@ -74,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mhogomchungu/sirikali";
     changelog = "https://github.com/mhogomchungu/sirikali/blob/${src.rev}/changelog";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ linuxissuper ];
+    maintainers = with maintainers; [linuxissuper];
     mainProgram = "sirikali";
     platforms = platforms.all;
   };

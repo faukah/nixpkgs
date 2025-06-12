@@ -6,7 +6,6 @@
   jdk,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   version = "6.0.1";
   pname = "omegat";
@@ -45,9 +44,9 @@ stdenv.mkDerivation {
       translation leveraging into updated projects.
     '';
     homepage = "http://www.omegat.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ t184256 ];
+    maintainers = with maintainers; [t184256];
     platforms = [
       "i686-linux"
       "x86_64-linux"

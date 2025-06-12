@@ -11,7 +11,6 @@
   cacert,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequoia-sq";
   version = "1.3.1";
@@ -59,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --zsh /tmp/shell-completions/_sq
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line application exposing a useful set of OpenPGP functionality for common tasks";

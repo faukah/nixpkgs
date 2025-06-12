@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp rec {
   pname = "coltrane";
   gemdir = ./.;
-  exes = [ "coltrane" ];
+  exes = ["coltrane"];
 
   passthru.updateScript = bundlerUpdateScript pname;
 
@@ -19,7 +18,7 @@ bundlerApp rec {
       guitar, bass, piano and ukelele
     '';
     license = licenses.mit;
-    maintainers = [ maintainers.panaeon ];
+    maintainers = [maintainers.panaeon];
     mainProgram = "coltrane";
   };
 }

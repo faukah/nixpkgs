@@ -12,7 +12,6 @@
   libdbusmenu-gtk3,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "eww";
   version = "0.6.0-unstable-2025-05-18";
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/eww shell-completions --shell zsh)
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     description = "Widget system made in Rust to create widgets for any WM";

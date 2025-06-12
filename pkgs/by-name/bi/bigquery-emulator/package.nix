@@ -3,12 +3,11 @@
   pkgs,
   fetchFromGitHub,
   lib,
-}:
-let
+}: let
   version = "0.6.6";
   pname = "bigquery-emulator";
 in
-buildGoModule.override
+  buildGoModule.override
   {
     stdenv = pkgs.clangStdenv;
   }
@@ -29,7 +28,7 @@ buildGoModule.override
       rm -r internal/cmd/generator
     '';
 
-    ldflags = [ "-s -w -X main.version=${version} -X main.revision=v${version}" ];
+    ldflags = ["-s -w -X main.version=${version} -X main.revision=v${version}"];
 
     doCheck = false;
 
@@ -38,7 +37,7 @@ buildGoModule.override
       homepage = "https://github.com/goccy/bigquery-emulator";
       changelog = "https://github.com/goccy/pname/releases/tag/v${version}";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ tarantoj ];
+      maintainers = with lib.maintainers; [tarantoj];
       mainProgram = "bigquery-emulator";
     };
   }

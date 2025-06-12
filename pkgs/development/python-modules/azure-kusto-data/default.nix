@@ -16,7 +16,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-kusto-data";
   version = "4.6.3";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-core
@@ -49,15 +48,17 @@ buildPythonPackage rec {
       aiohttp
       asgiref
     ];
-    pandas = [ pandas ];
+    pandas = [pandas];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "azure.kusto.data" ];
+  pythonImportsCheck = ["azure.kusto.data"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -71,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/azure-kusto-data/";
     changelog = "https://github.com/Azure/azure-kusto-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

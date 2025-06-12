@@ -4,7 +4,6 @@
   buildPythonPackage,
   flake8,
 }:
-
 buildPythonPackage rec {
   pname = "pure-cdb";
   version = "4.0.0";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-7zxQO+oTZJhXfM2yijGXchLixiQRuFTOSESVlEc+T0s=";
   };
 
-  nativeCheckInputs = [ flake8 ];
+  nativeCheckInputs = [flake8];
 
-  pythonImportsCheck = [ "cdblib" ];
+  pythonImportsCheck = ["cdblib"];
 
   meta = with lib; {
     description = "Python library for working with constant databases";
     homepage = "https://python-pure-cdb.readthedocs.io/en/latest";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

@@ -12,7 +12,6 @@
   libXrandr,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bonzomatic";
   version = "2023-06-15";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Live shader coding tool and Shader Showdown workhorse";
     homepage = "https://github.com/gargaj/bonzomatic";
     license = licenses.unlicense;
-    maintainers = [ maintainers.ilian ];
+    maintainers = [maintainers.ilian];
     platforms = [
       "i686-linux"
       "x86_64-linux"

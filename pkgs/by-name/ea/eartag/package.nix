@@ -19,7 +19,6 @@
   blueprint-compiler,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eartag";
   version = "0.6.5";
@@ -40,19 +39,21 @@ python3Packages.buildPythonApplication rec {
       --replace "gtk-update-icon-cache" "gtk4-update-icon-cache"
   '';
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    glib
-    desktop-file-utils
-    appstream
-    appstream-glib
-    pkg-config
-    gettext
-    gobject-introspection
-    wrapGAppsHook4
-    blueprint-compiler
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin gtk4; # for gtk4-update-icon-cache
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      glib
+      desktop-file-utils
+      appstream
+      appstream-glib
+      pkg-config
+      gettext
+      gobject-introspection
+      wrapGAppsHook4
+      blueprint-compiler
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin gtk4; # for gtk4-update-icon-cache
 
   buildInputs = [
     librsvg
@@ -75,7 +76,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -86,7 +87,7 @@ python3Packages.buildPythonApplication rec {
     # being incorrectly identified as unfree software.
     license = licenses.mit;
     mainProgram = "eartag";
-    maintainers = with maintainers; [ foo-dogsquared ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [foo-dogsquared];
+    teams = [teams.gnome-circle];
   };
 }

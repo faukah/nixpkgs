@@ -10,7 +10,6 @@
   pandas,
   feedparser,
 }:
-
 buildPythonPackage rec {
   pname = "nptyping";
   version = "2.5.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     ./numpy-2.0-compat.patch
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     beartype
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     "tests/test_lib_export.py"
   ];
 
-  pythonImportsCheck = [ "nptyping" ];
+  pythonImportsCheck = ["nptyping"];
 
   meta = with lib; {
     description = "Type hints for numpy";

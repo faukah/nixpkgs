@@ -5,9 +5,7 @@
   poppler-utils,
   netpbm,
 }:
-
 buildPythonPackage rec {
-
   pname = "pnglatex";
   version = "1.1";
   format = "setuptools";
@@ -30,6 +28,6 @@ buildPythonPackage rec {
     description = "Small program that converts LaTeX snippets to png";
     mainProgram = "pnglatex";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

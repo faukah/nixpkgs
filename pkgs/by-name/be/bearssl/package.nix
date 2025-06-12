@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bearssl";
   version = "0.6";
@@ -22,12 +21,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "AR=${stdenv.cc.targetPrefix}ar"
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "LD=${stdenv.cc.targetPrefix}cc"
-    "LDDLL=${stdenv.cc.targetPrefix}cc"
-  ] ++ lib.optional stdenv.hostPlatform.isStatic "DLL=no";
+  makeFlags =
+    [
+      "AR=${stdenv.cc.targetPrefix}ar"
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "LD=${stdenv.cc.targetPrefix}cc"
+      "LDDLL=${stdenv.cc.targetPrefix}cc"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isStatic "DLL=no";
 
   installPhase = ''
     runHook preInstall
@@ -65,7 +66,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
-
 }

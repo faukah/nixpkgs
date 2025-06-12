@@ -10,7 +10,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtxdg-tools";
   version = "4.2.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     qtsvg
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/qtxdg-tools";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     mainProgram = "qtxdg-mat";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

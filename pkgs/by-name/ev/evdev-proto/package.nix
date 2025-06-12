@@ -6,7 +6,6 @@
   runCommandCC,
   buildPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "evdev-proto";
   inherit (linuxHeaders) version;
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
 
   useTempPrefix = true;
 
-  nativeBuildInputs = [ freebsd.makeMinimal ];
+  nativeBuildInputs = [freebsd.makeMinimal];
 
   ARCH = freebsd.makeMinimal.MACHINE_ARCH;
   OPSYS = "FreeBSD";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
   TOUCH = "touch";
   XARGS = "xargs";
 
-  ABI_FILE = runCommandCC "abifile" { } "$CC -shared -o $out";
+  ABI_FILE = runCommandCC "abifile" {} "$CC -shared -o $out";
   CLEAN_FETCH_ENV = true;
   INSTALL_AS_USER = true;
   NO_CHECKSUM = true;
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
         linux-${linuxHeaders.version}/include/uapi/linux
   '';
 
-  makeFlags = [ "DIST_SUBDIR=evdev-proto" ];
+  makeFlags = ["DIST_SUBDIR=evdev-proto"];
 
   postInstall = ''
     mv $prefix $out
@@ -64,7 +63,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Input event device header files for FreeBSD";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.freebsd;
     license = licenses.gpl2Only;
   };

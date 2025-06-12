@@ -11,45 +11,44 @@
   version,
   hash,
   buildPackages,
-}:
-let
+}: let
   majorVersion = lib.versions.major version;
 in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "pnpm";
-  inherit version;
+  stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "pnpm";
+    inherit version;
 
-  src = fetchurl {
-    url = "https://registry.npmjs.org/pnpm/-/pnpm-${finalAttrs.version}.tgz";
-    inherit hash;
-  };
-  # Remove binary files from src, we don't need them, and this way we make sure
-  # our distribution is free of binaryNativeCode
-  preConfigure = ''
-    rm -r dist/reflink.*node dist/vendor
-  '';
+    src = fetchurl {
+      url = "https://registry.npmjs.org/pnpm/-/pnpm-${finalAttrs.version}.tgz";
+      inherit hash;
+    };
+    # Remove binary files from src, we don't need them, and this way we make sure
+    # our distribution is free of binaryNativeCode
+    preConfigure = ''
+      rm -r dist/reflink.*node dist/vendor
+    '';
 
-  buildInputs = lib.optionals withNode [ nodejs ];
+    buildInputs = lib.optionals withNode [nodejs];
 
-  nativeBuildInputs = [
-    installShellFiles
-    nodejs
-  ];
+    nativeBuildInputs = [
+      installShellFiles
+      nodejs
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -d $out/{bin,libexec}
-    cp -R . $out/libexec/pnpm
-    ln -s $out/libexec/pnpm/bin/pnpm.cjs $out/bin/pnpm
-    ln -s $out/libexec/pnpm/bin/pnpx.cjs $out/bin/pnpx
+      install -d $out/{bin,libexec}
+      cp -R . $out/libexec/pnpm
+      ln -s $out/libexec/pnpm/bin/pnpm.cjs $out/bin/pnpm
+      ln -s $out/libexec/pnpm/bin/pnpx.cjs $out/bin/pnpx
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postInstall =
-    if lib.toInt (lib.versions.major version) < 9 then
-      ''
+    postInstall =
+      if lib.toInt (lib.versions.major version) < 9
+      then ''
         export HOME="$PWD"
         node $out/bin/pnpm install-completion bash
         node $out/bin/pnpm install-completion fish
@@ -60,8 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           .config/tabtab/fish/pnpm.fish \
           .config/tabtab/zsh/pnpm.zsh
       ''
-    else
-      ''
+      else ''
         node $out/bin/pnpm completion bash >pnpm.bash
         node $out/bin/pnpm completion fish >pnpm.fish
         node $out/bin/pnpm completion zsh >pnpm.zsh
@@ -69,18 +67,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         installShellCompletion pnpm.{bash,fish,zsh}
       '';
 
-  passthru =
-    let
+    passthru = let
       fetchDepsAttrs = callPackages ./fetch-deps {
         pnpm = buildPackages."pnpm_${lib.versions.major version}";
       };
-    in
-    {
+    in {
       inherit (fetchDepsAttrs) fetchDeps configHook;
       inherit majorVersion;
 
       tests.version = lib.optionalAttrs withNode (
-        testers.testVersion { package = finalAttrs.finalPackage; }
+        testers.testVersion {package = finalAttrs.finalPackage;}
       );
       updateScript = writeScript "pnpm-update-script" ''
         #!/usr/bin/env nix-shell
@@ -105,16 +101,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       '';
     };
 
-  meta = {
-    description = "Fast, disk space efficient package manager for JavaScript";
-    homepage = "https://pnpm.io/";
-    changelog = "https://github.com/pnpm/pnpm/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      Scrumplex
-      gepbird
-    ];
-    platforms = lib.platforms.all;
-    mainProgram = "pnpm";
-  };
-})
+    meta = {
+      description = "Fast, disk space efficient package manager for JavaScript";
+      homepage = "https://pnpm.io/";
+      changelog = "https://github.com/pnpm/pnpm/releases/tag/v${finalAttrs.version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        Scrumplex
+        gepbird
+      ];
+      platforms = lib.platforms.all;
+      mainProgram = "pnpm";
+    };
+  })

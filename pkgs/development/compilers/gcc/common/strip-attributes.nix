@@ -2,9 +2,7 @@
   lib,
   stdenv,
   langJit,
-}:
-
-{
+}: {
   # Note [Cross-compiler stripping]
   # gcc requires delicate stripping as it installs ELF files for both
   # HOST and TARGET platforms. It requires according strip tool otherwise
@@ -37,7 +35,7 @@
     "bin"
     "libexec"
   ];
-  stripDebugListTarget = [ stdenv.targetPlatform.config ];
+  stripDebugListTarget = [stdenv.targetPlatform.config];
 
   preFixup =
     ''

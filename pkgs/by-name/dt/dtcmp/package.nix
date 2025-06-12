@@ -7,7 +7,6 @@
   mpi,
   lwgrp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtcmp";
   version = "1.1.5";
@@ -28,17 +27,17 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ lwgrp ];
+  buildInputs = [lwgrp];
 
-  configureFlags = [ "--with-lwgrp=${lib.getDev lwgrp}" ];
+  configureFlags = ["--with-lwgrp=${lib.getDev lwgrp}"];
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   meta = with lib; {
     description = "MPI datatype comparison library";
     homepage = "https://github.com/LLNL/dtcmp";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "shrikhand";
   version = "unstable-2016-03-03";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://jonpinhorn.github.io/shrikhand/";
     description = "Vibrant and playful typeface for both Latin and Gujarati writing systems";
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
     platforms = platforms.all;
     license = licenses.ofl;
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "3proxy";
   version = "0.9.5";
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/3proxy/3proxy";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
   };
 }

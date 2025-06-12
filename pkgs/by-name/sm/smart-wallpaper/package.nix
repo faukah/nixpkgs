@@ -9,7 +9,6 @@
   swaybg,
   redshift,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "smart-wallpaper";
   version = "unstable-2022-09-15";
@@ -21,27 +20,27 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-IymFjyfqNycTLalZBiqmjJP5U6AFefe9BSWn3Mpoz4c=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 -t $out/bin smart-wallpaper
     wrapProgram $out/bin/smart-wallpaper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          xdpyinfo
-          killall
-          xwinwrap
-          swaybg
-          redshift
-        ]
-      }
+      lib.makeBinPath [
+        xdpyinfo
+        killall
+        xwinwrap
+        swaybg
+        redshift
+      ]
+    }
   '';
 
   meta = with lib; {
     homepage = "https://github.com/Baitinq/smart-wallpaper";
     description = "Simple bash script that automatically changes your wallpaper depending on if its daytime or nighttime";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
     platforms = platforms.linux;
     mainProgram = "smart-wallpaper";
   };

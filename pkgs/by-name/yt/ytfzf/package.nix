@@ -13,7 +13,6 @@
   ueberzugpp,
   yt-dlp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ytfzf";
   version = "2.6.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-rwCVOdu9UfTArISt8ITQtLU4Gj2EZd07bcFKvxXQ7Bc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -39,18 +38,18 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram "$out/bin/ytfzf" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          curl
-          dmenu
-          fzf
-          gnused
-          jq
-          mpv
-          ueberzugpp
-          yt-dlp
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        curl
+        dmenu
+        fzf
+        gnused
+        jq
+        mpv
+        ueberzugpp
+        yt-dlp
+      ]
+    } \
       --set YTFZF_SYSTEM_ADDON_DIR "$out/share/ytfzf/addons"
   '';
 
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pystardust/ytfzf";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "ytfzf";
   };
 }

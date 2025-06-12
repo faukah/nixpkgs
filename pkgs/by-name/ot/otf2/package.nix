@@ -6,7 +6,6 @@
   which,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "otf2";
   version = "3.1.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   strictDeps = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   configureFlags =
     [
@@ -49,19 +48,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doCheck = true;
   enableParallelChecking = true;
   doInstallCheck = true;
 
-  versionCheckProgram = [ "${placeholder "out"}/bin/otf2-config" ];
+  versionCheckProgram = ["${placeholder "out"}/bin/otf2-config"];
 
   meta = {
     homepage = "https://www.vi-hps.org/projects/score-p";
     changelog = "https://perftools.pages.jsc.fz-juelich.de/cicd/otf2/tags/otf2-${finalAttrs.version}/ChangeLog.txt";
     description = "Open Trace Format 2 library";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
   };
 })

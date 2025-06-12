@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sysstat;
-in
-{
+in {
   options = {
     services.sysstat = {
       enable = lib.mkEnableOption "sar system activity collection";
@@ -33,7 +31,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.sysstat = {
       description = "Resets System Activity Logs";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "root";
@@ -57,7 +55,7 @@ in
 
     systemd.timers.sysstat-collect = {
       description = "Run system activity accounting tool on a regular basis";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.collect-frequency;
     };
 
@@ -74,7 +72,7 @@ in
 
     systemd.timers.sysstat-summary = {
       description = "Generate summary of yesterday's process accounting";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = "00:07:00";
     };
   };

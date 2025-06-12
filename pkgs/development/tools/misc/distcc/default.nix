@@ -17,9 +17,7 @@
   runtimeShell,
   sysconfDir ? "", # set this parameter to override the default value $out/etc
   static ? false,
-}:
-
-let
+}: let
   pname = "distcc";
   version = "2021-03-11";
   distcc = stdenv.mkDerivation {
@@ -36,7 +34,7 @@ let
       autoconf
       automake
       which
-      (python3.withPackages (p: [ p.setuptools ]))
+      (python3.withPackages (p: [p.setuptools]))
     ];
     buildInputs = [
       popt
@@ -74,27 +72,25 @@ let
       #
       # extraConfig is meant to be sh lines exporting environment
       # variables like DISTCC_HOSTS, DISTCC_DIR, ...
-      links =
-        extraConfig:
-        (runCommand "distcc-links" { passthru.gcc = gcc.cc; } ''
-          mkdir -p $out/bin
-          if [ -x "${gcc.cc}/bin/gcc" ]; then
-            cat > $out/bin/gcc << EOF
-            #!${runtimeShell}
-            ${extraConfig}
-            exec ${distcc}/bin/distcc gcc "\$@"
-          EOF
-            chmod +x $out/bin/gcc
-          fi
-          if [ -x "${gcc.cc}/bin/g++" ]; then
-            cat > $out/bin/g++ << EOF
-            #!${runtimeShell}
-            ${extraConfig}
-            exec ${distcc}/bin/distcc g++ "\$@"
-          EOF
-            chmod +x $out/bin/g++
-          fi
-        '');
+      links = extraConfig: (runCommand "distcc-links" {passthru.gcc = gcc.cc;} ''
+        mkdir -p $out/bin
+        if [ -x "${gcc.cc}/bin/gcc" ]; then
+          cat > $out/bin/gcc << EOF
+          #!${runtimeShell}
+          ${extraConfig}
+          exec ${distcc}/bin/distcc gcc "\$@"
+        EOF
+          chmod +x $out/bin/gcc
+        fi
+        if [ -x "${gcc.cc}/bin/g++" ]; then
+          cat > $out/bin/g++ << EOF
+          #!${runtimeShell}
+          ${extraConfig}
+          exec ${distcc}/bin/distcc g++ "\$@"
+        EOF
+          chmod +x $out/bin/g++
+        fi
+      '');
     };
 
     meta = {
@@ -103,8 +99,8 @@ let
       license = "GPL";
 
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ anderspapitto ];
+      maintainers = with lib.maintainers; [anderspapitto];
     };
   };
 in
-distcc
+  distcc

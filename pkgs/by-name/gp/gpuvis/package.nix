@@ -10,7 +10,6 @@
   stdenv,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpuvis";
   version = "0.1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gpuvis";
     homepage = "https://github.com/mikesart/gpuvis";
     license = licenses.mit;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = platforms.linux;
   };
 }

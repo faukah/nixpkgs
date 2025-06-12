@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyspeex-noise";
   version = "1.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "pyspeex_noise" ];
+  pythonImportsCheck = ["pyspeex_noise"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,6 +37,6 @@ buildPythonPackage rec {
       mit # pyspeex-noise
       bsd3 # speex (vendored)
     ];
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

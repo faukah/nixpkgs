@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nmap-formatter";
   version = "3.0.5";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/vdjagilev/nmap-formatter";
     changelog = "https://github.com/vdjagilev/nmap-formatter/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

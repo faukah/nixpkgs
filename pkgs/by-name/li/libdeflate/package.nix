@@ -8,7 +8,6 @@
   zlib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdeflate";
   version = "1.23";
@@ -20,12 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bucVkRgZdzLe2HFzIP+Trq4+FJ5kLYdIVNUiJ2f52zg=";
   };
 
-  cmakeFlags = [
-    "-DLIBDEFLATE_BUILD_TESTS=ON"
-  ] ++ lib.optionals stdenv.hostPlatform.isStatic [ "-DLIBDEFLATE_BUILD_SHARED_LIB=OFF" ];
+  cmakeFlags =
+    [
+      "-DLIBDEFLATE_BUILD_TESTS=ON"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isStatic ["-DLIBDEFLATE_BUILD_SHARED_LIB=OFF"];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = [zlib];
 
   passthru.tests = {
     static = pkgsStatic.libdeflate;
@@ -46,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
       orivej
       kaction
     ];
-    pkgConfigModules = [ "libdeflate" ];
+    pkgConfigModules = ["libdeflate"];
   };
 })

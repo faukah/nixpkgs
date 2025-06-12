@@ -1,5 +1,4 @@
-{ callPackage }:
-
+{callPackage}:
 callPackage ./generic.nix {
   pname = "ssh-openpgp-auth";
   version = "0.2.3";

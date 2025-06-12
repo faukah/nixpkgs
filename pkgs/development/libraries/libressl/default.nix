@@ -6,18 +6,18 @@
   cacert,
   fetchpatch,
   buildShared ? !stdenv.hostPlatform.isStatic,
-}:
+}: let
+  ldLibPathEnvName =
+    if stdenv.hostPlatform.isDarwin
+    then "DYLD_LIBRARY_PATH"
+    else "LD_LIBRARY_PATH";
 
-let
-  ldLibPathEnvName = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-
-  generic =
-    {
-      version,
-      hash,
-      patches ? [ ],
-      knownVulnerabilities ? [ ],
-    }:
+  generic = {
+    version,
+    hash,
+    patches ? [],
+    knownVulnerabilities ? [],
+  }:
     stdenv.mkDerivation rec {
       pname = "libressl";
       inherit version;
@@ -27,18 +27,20 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
-      cmakeFlags = [
-        "-DENABLE_NC=ON"
-        # Ensure that the output libraries do not require an executable stack.
-        # Without this define, assembly files in libcrypto do not include a
-        # .note.GNU-stack section, and if that section is missing from any object,
-        # the linker will make the stack executable.
-        "-DCMAKE_C_FLAGS=-DHAVE_GNU_STACK"
-        # libressl will append this to the regular prefix for libdir
-        "-DCMAKE_INSTALL_LIBDIR=lib"
-      ] ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
+      cmakeFlags =
+        [
+          "-DENABLE_NC=ON"
+          # Ensure that the output libraries do not require an executable stack.
+          # Without this define, assembly files in libcrypto do not include a
+          # .note.GNU-stack section, and if that section is missing from any object,
+          # the linker will make the stack executable.
+          "-DCMAKE_C_FLAGS=-DHAVE_GNU_STACK"
+          # libressl will append this to the regular prefix for libdir
+          "-DCMAKE_INSTALL_LIBDIR=lib"
+        ]
+        ++ lib.optional buildShared "-DBUILD_SHARED_LIBS=ON";
 
       # The autoconf build is broken as of 2.9.1, resulting in the following error:
       # libressl-2.9.1/tls/.libs/libtls.a', needed by 'handshake_table'.
@@ -116,16 +118,14 @@ let
         ];
       };
     };
-
-in
-{
+in {
   libressl_3_6 = generic {
     version = "3.6.3";
     hash = "sha256-h7G7426e7I0K5fBMg9NrLFsOWBeEx+sIFwJe0p6t6jc=";
     patches = [
       (fetchpatch {
         url = "https://github.com/libressl/portable/commit/86e4965d7f20c3a6afc41d95590c9f6abb4fe788.patch";
-        includes = [ "tests/tlstest.sh" ];
+        includes = ["tests/tlstest.sh"];
         hash = "sha256-XmmKTvP6+QaWxyGFCX6/gDfME9GqBWSx4X8RH8QbDXA=";
       })
     ];
@@ -137,7 +137,7 @@ in
     patches = [
       (fetchpatch {
         url = "https://github.com/libressl/portable/commit/86e4965d7f20c3a6afc41d95590c9f6abb4fe788.patch";
-        includes = [ "tests/tlstest.sh" ];
+        includes = ["tests/tlstest.sh"];
         hash = "sha256-XmmKTvP6+QaWxyGFCX6/gDfME9GqBWSx4X8RH8QbDXA=";
       })
     ];

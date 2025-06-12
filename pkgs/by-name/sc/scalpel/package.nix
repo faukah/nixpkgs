@@ -7,7 +7,6 @@
   libtool,
   tre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "scalpel";
   version = "2.1";
@@ -54,8 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sleuthkit/scalpel";
     description = "Recover files based on their headers, footers and internal data structures, based on Foremost";
     mainProgram = "scalpel";
-    maintainers = with maintainers; [ shard7 ];
+    maintainers = with maintainers; [shard7];
     platforms = platforms.unix;
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
   };
 })

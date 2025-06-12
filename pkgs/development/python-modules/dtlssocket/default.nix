@@ -8,7 +8,6 @@
   pkg-config,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dtlssocket";
   version = "0.2.2";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # no tests on PyPI, no tags on GitLab
   doCheck = false;
 
-  pythonImportsCheck = [ "DTLSSocket" ];
+  pythonImportsCheck = ["DTLSSocket"];
 
   meta = with lib; {
     description = "Cython wrapper for tinydtls with a Socket like interface";
     homepage = "https://git.fslab.de/jkonra2m/tinydtls-cython";
     license = licenses.epl10;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plantuml-server";
   version = "1.2025.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Web application to generate UML diagrams on-the-fly";
     homepage = "https://plantuml.com/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     maintainers = with maintainers; [

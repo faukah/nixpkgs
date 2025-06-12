@@ -7,7 +7,6 @@
   setuptools,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "bsddb3";
   version = "6.2.9";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     sha256 = "70d05ec8dc568f42e70fc919a442e0daadc2a905a1cfb7ca77f549d49d6e7801";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pkgs.db ];
+  buildInputs = [pkgs.db];
 
   # See : https://github.com/NixOS/nixpkgs/pull/311198#discussion_r1599257522
   # More details here : https://www.jcea.es/programacion/pybsddb.htm
@@ -47,7 +46,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python bindings for Oracle Berkeley DB";
     homepage = "https://www.jcea.es/programacion/pybsddb.htm";
-    license = with licenses; [ agpl3Only ]; # License changed from bsd3 to agpl3 since 6.x
-    maintainers = [ ];
+    license = with licenses; [agpl3Only]; # License changed from bsd3 to agpl3 since 6.x
+    maintainers = [];
   };
 }

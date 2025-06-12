@@ -4,7 +4,6 @@
   fetchFromGitHub,
   SDL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cg-term";
   version = "1.7b2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C/G telnet client for C64 BBS's";
     homepage = "https://github.com/MagerValp/CGTerm";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "cg-term";
     platforms = platforms.all;
   };

@@ -5,7 +5,6 @@
   runCommand,
   diagrams-as-code,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "diagrams-as-code";
   version = "0.0.4";
@@ -18,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     hash = "sha256-cd602eQvNCUQuCdn/RpcfURcDHjXLZ0gAG+SObB++Q0=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     diagrams
@@ -32,12 +31,12 @@ python3Packages.buildPythonPackage rec {
     "pyyaml"
   ];
 
-  pythonImportsCheck = [ "diagrams_as_code" ];
+  pythonImportsCheck = ["diagrams_as_code"];
 
   doCheck = false; # no tests
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" { } ''
+    simple = runCommand "${pname}-test" {} ''
       # giving full path to diagrams-as-code causes
       # a bad path concatenation
       cp ${diagrams-as-code.src}/examples/all-fields.yaml .
@@ -52,7 +51,7 @@ python3Packages.buildPythonPackage rec {
     description = "Declarative configurations using YAML for drawing cloud system architectures";
     homepage = "https://github.com/dmytrostriletskyi/diagrams-as-code";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "diagrams-as-code";
   };
 }

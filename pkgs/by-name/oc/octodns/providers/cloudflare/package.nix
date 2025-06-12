@@ -9,7 +9,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "octodns-cloudflare";
   version = "1.0.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "octodns_cloudflare" ];
+  pythonImportsCheck = ["octodns_cloudflare"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/octodns/octodns-cloudflare/";
     changelog = "https://github.com/octodns/octodns-cloudflare/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ret2pop ];
-    teams = [ lib.teams.octodns ];
+    maintainers = [lib.maintainers.ret2pop];
+    teams = [lib.teams.octodns];
   };
 }

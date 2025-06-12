@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mnemonicode";
   version = "1.0.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ kirillrdy ];
+    maintainers = with maintainers; [kirillrdy];
     mainProgram = "mnencode";
   };
 })

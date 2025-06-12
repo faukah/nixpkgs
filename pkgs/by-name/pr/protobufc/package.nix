@@ -8,7 +8,6 @@
   zlib,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "protobuf-c";
   version = "1.5.2";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "C bindings for Google's Protocol Buffers";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

@@ -9,13 +9,11 @@
   pcre2,
   neko,
   mbedtls_2,
-}:
-let
-  ocamlDependencies =
-    version:
-    if lib.versionAtLeast version "4.3" then
-      with ocaml-ng.ocamlPackages_4_14;
-      [
+}: let
+  ocamlDependencies = version:
+    if lib.versionAtLeast version "4.3"
+    then
+      with ocaml-ng.ocamlPackages_4_14; [
         ocaml
         findlib
         sedlex
@@ -28,8 +26,7 @@ let
         extlib
       ]
     else
-      with ocaml-ng.ocamlPackages_4_10;
-      [
+      with ocaml-ng.ocamlPackages_4_10; [
         ocaml
         findlib
         sedlex
@@ -47,13 +44,12 @@ let
       --replace '"neko"' '"${neko}/bin/neko"'
   '';
 
-  generic =
-    {
-      hash,
-      version,
-      prePatch ? defaultPatch,
-      patches ? [ ],
-    }:
+  generic = {
+    hash,
+    version,
+    prePatch ? defaultPatch,
+    patches ? [],
+  }:
     stdenv.mkDerivation {
       pname = "haxe";
       inherit version;
@@ -63,7 +59,11 @@ let
           zlib
           neko
         ]
-        ++ (if lib.versionAtLeast version "4.3" then [ pcre2 ] else [ pcre ])
+        ++ (
+          if lib.versionAtLeast version "4.3"
+          then [pcre2]
+          else [pcre]
+        )
         ++ lib.optional (lib.versionAtLeast version "4.1") mbedtls_2
         ++ ocamlDependencies version;
 
@@ -151,8 +151,7 @@ let
         platforms = platforms.linux ++ platforms.darwin;
       };
     };
-in
-{
+in {
   haxe_4_0 = generic {
     version = "4.0.5";
     hash = "sha256-Ck/py+tZS7dBu/uikhSLKBRNljpg2h5PARX0Btklozg=";
@@ -164,6 +163,6 @@ in
   haxe_4_3 = generic {
     version = "4.3.6";
     hash = "sha256-m/A0xxB3fw+syPmH1GPKKCcj0a2G/HMRKOu+FKrO5jQ=";
-    patches = [ ./extlib-1.8.0.patch ];
+    patches = [./extlib-1.8.0.patch];
   };
 }

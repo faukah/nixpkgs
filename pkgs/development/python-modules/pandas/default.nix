@@ -5,7 +5,6 @@
   fetchFromGitHub,
   fetchpatch,
   pythonOlder,
-
   # build-system
   cython,
   meson-python,
@@ -13,13 +12,11 @@
   pkg-config,
   versioneer,
   wheel,
-
   # propagates
   numpy,
   python-dateutil,
   pytz,
   tzdata,
-
   # optionals
   beautifulsoup4,
   bottleneck,
@@ -49,7 +46,6 @@
   xlrd,
   xlsxwriter,
   zstandard,
-
   # tests
   adv_cmds,
   glibc,
@@ -59,9 +55,7 @@
   pytest-asyncio,
   python,
   runtimeShell,
-}:
-
-let
+}: let
   pandas = buildPythonPackage rec {
     pname = "pandas";
     version = "2.2.3";
@@ -102,15 +96,17 @@ let
         --replace-fail "meson==1.2.1" "meson>=1.2.1"
     '';
 
-    nativeBuildInputs = [
-      cython
-      meson-python
-      meson
-      numpy
-      pkg-config
-      versioneer
-      wheel
-    ] ++ versioneer.optional-dependencies.toml;
+    nativeBuildInputs =
+      [
+        cython
+        meson-python
+        meson
+        numpy
+        pkg-config
+        versioneer
+        wheel
+      ]
+      ++ versioneer.optional-dependencies.toml;
 
     enableParallelBuilding = true;
 
@@ -121,66 +117,65 @@ let
       tzdata
     ];
 
-    optional-dependencies =
-      let
-        extras = {
-          aws = [ s3fs ];
-          clipboard = [
-            pyqt5
-            qtpy
-          ];
-          compression = [ zstandard ];
-          computation = [
-            scipy
-            xarray
-          ];
-          excel = [
-            odfpy
-            openpyxl
-            # TODO: pyxlsb
-            xlrd
-            xlsxwriter
-          ];
-          feather = [ pyarrow ];
-          fss = [ fsspec ];
-          gcp = [
-            gcsfs
-            # TODO: pandas-gqb
-          ];
-          hdf5 = [
-            blosc2
-            tables
-          ];
-          html = [
-            beautifulsoup4
-            html5lib
-            lxml
-          ];
-          mysql = [
-            sqlalchemy
-            pymysql
-          ];
-          output_formatting = [
-            jinja2
-            tabulate
-          ];
-          parquet = [ pyarrow ];
-          performance = [
-            bottleneck
-            numba
-            numexpr
-          ];
-          plot = [ matplotlib ];
-          postgresql = [
-            sqlalchemy
-            psycopg2
-          ];
-          spss = [ pyreadstat ];
-          sql-other = [ sqlalchemy ];
-          xml = [ lxml ];
-        };
-      in
-      extras // { all = lib.concatLists (lib.attrValues extras); };
+    optional-dependencies = let
+      extras = {
+        aws = [s3fs];
+        clipboard = [
+          pyqt5
+          qtpy
+        ];
+        compression = [zstandard];
+        computation = [
+          scipy
+          xarray
+        ];
+        excel = [
+          odfpy
+          openpyxl
+          # TODO: pyxlsb
+          xlrd
+          xlsxwriter
+        ];
+        feather = [pyarrow];
+        fss = [fsspec];
+        gcp = [
+          gcsfs
+          # TODO: pandas-gqb
+        ];
+        hdf5 = [
+          blosc2
+          tables
+        ];
+        html = [
+          beautifulsoup4
+          html5lib
+          lxml
+        ];
+        mysql = [
+          sqlalchemy
+          pymysql
+        ];
+        output_formatting = [
+          jinja2
+          tabulate
+        ];
+        parquet = [pyarrow];
+        performance = [
+          bottleneck
+          numba
+          numexpr
+        ];
+        plot = [matplotlib];
+        postgresql = [
+          sqlalchemy
+          psycopg2
+        ];
+        spss = [pyreadstat];
+        sql-other = [sqlalchemy];
+        xml = [lxml];
+      };
+    in
+      extras // {all = lib.concatLists (lib.attrValues extras);};
 
     doCheck = false; # various infinite recursions
 
@@ -253,7 +248,7 @@ let
         export PATH=$(pwd):$PATH
       '';
 
-    pythonImportsCheck = [ "pandas" ];
+    pythonImportsCheck = ["pandas"];
 
     meta = with lib; {
       # pandas devs no longer test i686, it's commonly broken
@@ -274,4 +269,4 @@ let
     };
   };
 in
-pandas
+  pandas

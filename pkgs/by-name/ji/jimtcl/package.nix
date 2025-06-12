@@ -2,21 +2,17 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   asciidoc,
   pkg-config,
   inetutils,
   tcl,
-
   sqlite,
   readline,
   SDL2,
   SDL2_gfx,
   openssl,
-
   SDLSupport ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jimtcl";
   version = "0.82";
@@ -45,17 +41,19 @@ stdenv.mkDerivation (finalAttrs: {
       SDL2_gfx
     ]);
 
-  configureFlags = [
-    "--shared"
-    "--with-ext=oo"
-    "--with-ext=tree"
-    "--with-ext=binary"
-    "--with-ext=sqlite3"
-    "--with-ext=readline"
-    "--with-ext=json"
-    "--enable-utf8"
-    "--ipv6"
-  ] ++ (lib.optional SDLSupport "--with-ext=sdl");
+  configureFlags =
+    [
+      "--shared"
+      "--with-ext=oo"
+      "--with-ext=tree"
+      "--with-ext=binary"
+      "--with-ext=sqlite3"
+      "--with-ext=readline"
+      "--with-ext=json"
+      "--enable-utf8"
+      "--ipv6"
+    ]
+    ++ (lib.optional SDLSupport "--with-ext=sdl");
 
   enableParallelBuilding = true;
 
@@ -71,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # test posix-1.6 needs the "hostname" command
-  nativeCheckInputs = [ inetutils ];
+  nativeCheckInputs = [inetutils];
 
   meta = {
     description = "Open source small-footprint implementation of the Tcl programming language";

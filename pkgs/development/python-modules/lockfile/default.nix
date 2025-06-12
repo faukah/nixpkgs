@@ -6,7 +6,6 @@
   pbr,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lockfile";
   version = "0.12.2";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-au0C3gPLok76vNYAswVAFAY0/AbPpgOCLVCNU2Hp95k=";
   };
 
-  patches = [ ./fix-tests.patch ];
+  patches = [./fix-tests.patch];
 
   build-system = [
     pbr
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://launchpad.net/pylockfile";

@@ -7,7 +7,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "mistune";
   version = "3.1.2";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mistune" ];
+  pythonImportsCheck = ["mistune"];
 
   meta = {
     changelog = "https://github.com/lepture/mistune/blob/${src.tag}/docs/changes.rst";
     description = "Sane Markdown parser with useful plugins and renderers";
     homepage = "https://github.com/lepture/mistune";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

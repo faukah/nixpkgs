@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   imports = [
     (lib.mkRemovedOptionModule [
       "programs"

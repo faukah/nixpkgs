@@ -15,7 +15,6 @@
   # Update
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "corsix-th";
   version = "0.68.0";
@@ -37,29 +36,28 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
   ];
 
-  buildInputs =
-    let
-      luaEnv = lua.withPackages (
-        p: with p; [
+  buildInputs = let
+    luaEnv = lua.withPackages (
+      p:
+        with p; [
           luafilesystem
           lpeg
           luasec
           luasocket
         ]
-      );
-    in
-    [
-      curl
-      ffmpeg
-      freetype
-      lua
-      luaEnv
-      SDL2
-      SDL2_mixer
-      timidity
-    ];
+    );
+  in [
+    curl
+    ffmpeg
+    freetype
+    lua
+    luaEnv
+    SDL2
+    SDL2_mixer
+    timidity
+  ];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   postInstall =
     lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -75,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
         --set LUA_CPATH "$LUA_CPATH"
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Reimplementation of the 1997 Bullfrog business sim Theme Hospital";

@@ -4,7 +4,6 @@
   rustPlatform,
   notmuch,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mujmap";
   version = "0.2.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "JMAP integration for notmuch mail";
     homepage = "https://github.com/elizagamedev/mujmap/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ elizagamedev ];
+    maintainers = with maintainers; [elizagamedev];
     mainProgram = "mujmap";
   };
 }

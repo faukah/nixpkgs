@@ -5,7 +5,6 @@
   testers,
   jrnl,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "jrnl";
   version = "4.2";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail "from pytest_bdd.steps import inject_fixture" "from pytest_bdd.compat import inject_fixture"
   '';
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     asteval
@@ -41,12 +40,12 @@ python3.pkgs.buildPythonApplication rec {
     rich
   ];
 
-  pythonRelaxDeps = [ "rich" ];
+  pythonRelaxDeps = ["rich"];
 
   nativeCheckInputs = with python3.pkgs; [
     pytest-bdd
     pytest-xdist
-    (pytestCheckHook.override { pytest = pytest_7; })
+    (pytestCheckHook.override {pytest = pytest_7;})
     toml
   ];
 
@@ -54,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "jrnl" ];
+  pythonImportsCheck = ["jrnl"];
 
   passthru.tests.version = testers.testVersion {
     package = jrnl;

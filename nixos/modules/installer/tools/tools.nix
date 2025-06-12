@@ -1,17 +1,13 @@
 # This module generates nixos-install, nixos-rebuild,
 # nixos-generate-config, etc.
-
 {
   config,
   lib,
   pkgs,
   options,
   ...
-}:
-
-let
-  makeProg =
-    args:
+}: let
+  makeProg = args:
     pkgs.replaceVarsWith (
       args
       // {
@@ -67,8 +63,8 @@ let
     manPage = ./manpages/nixos-version.8;
   };
 
-  nixos-install = pkgs.nixos-install.override { };
-  nixos-rebuild = pkgs.nixos-rebuild.override { nix = config.nix.package; };
+  nixos-install = pkgs.nixos-install.override {};
+  nixos-rebuild = pkgs.nixos-rebuild.override {nix = config.nix.package;};
   nixos-rebuild-ng = pkgs.nixos-rebuild-ng.override {
     nix = config.nix.package;
     withNgSuffix = false;
@@ -211,10 +207,8 @@ let
 
     }
   '';
-in
-{
+in {
   options.system.nixos-generate-config = {
-
     flake = lib.mkOption {
       internal = true;
       type = lib.types.str;
@@ -252,7 +246,7 @@ in
     desktopConfiguration = lib.mkOption {
       internal = true;
       type = lib.types.listOf lib.types.lines;
-      default = [ ];
+      default = [];
       description = ''
         Text to preseed the desktop configuration that `nixos-generate-config`
         saves to `/etc/nixos/configuration.nix`.
@@ -279,57 +273,56 @@ in
     '';
   };
 
-  options.system.rebuild.enableNg = lib.mkEnableOption "" // {
-    default = true;
-    description = ''
-      Whether to use ‘nixos-rebuild-ng’ in place of ‘nixos-rebuild’, the
-      Python-based re-implementation of the original in Bash.
-    '';
-  };
+  options.system.rebuild.enableNg =
+    lib.mkEnableOption ""
+    // {
+      default = true;
+      description = ''
+        Whether to use ‘nixos-rebuild-ng’ in place of ‘nixos-rebuild’, the
+        Python-based re-implementation of the original in Bash.
+      '';
+    };
 
-  imports =
-    let
-      mkToolModule =
-        {
-          name,
-          package ? pkgs.${name},
-        }:
-        { config, ... }:
-        {
-          options.system.tools.${name}.enable = lib.mkEnableOption "${name} script" // {
-            default = config.nix.enable && !config.system.disableInstallerTools;
-            defaultText = "config.nix.enable && !config.system.disableInstallerTools";
-          };
-
-          config = lib.mkIf config.system.tools.${name}.enable {
-            environment.systemPackages = [ package ];
-          };
+  imports = let
+    mkToolModule = {
+      name,
+      package ? pkgs.${name},
+    }: {config, ...}: {
+      options.system.tools.${name}.enable =
+        lib.mkEnableOption "${name} script"
+        // {
+          default = config.nix.enable && !config.system.disableInstallerTools;
+          defaultText = "config.nix.enable && !config.system.disableInstallerTools";
         };
-    in
-    [
-      (mkToolModule { name = "nixos-build-vms"; })
-      (mkToolModule { name = "nixos-enter"; })
-      (mkToolModule {
-        name = "nixos-generate-config";
-        package = config.system.build.nixos-generate-config;
-      })
-      (mkToolModule {
-        name = "nixos-install";
-        package = config.system.build.nixos-install;
-      })
-      (mkToolModule { name = "nixos-option"; })
-      (mkToolModule {
-        name = "nixos-rebuild";
-        package = config.system.build.nixos-rebuild;
-      })
-      (mkToolModule {
-        name = "nixos-version";
-        package = nixos-version;
-      })
-    ];
+
+      config = lib.mkIf config.system.tools.${name}.enable {
+        environment.systemPackages = [package];
+      };
+    };
+  in [
+    (mkToolModule {name = "nixos-build-vms";})
+    (mkToolModule {name = "nixos-enter";})
+    (mkToolModule {
+      name = "nixos-generate-config";
+      package = config.system.build.nixos-generate-config;
+    })
+    (mkToolModule {
+      name = "nixos-install";
+      package = config.system.build.nixos-install;
+    })
+    (mkToolModule {name = "nixos-option";})
+    (mkToolModule {
+      name = "nixos-rebuild";
+      package = config.system.build.nixos-rebuild;
+    })
+    (mkToolModule {
+      name = "nixos-version";
+      package = nixos-version;
+    })
+  ];
 
   config = {
-    documentation.man.man-db.skipPackages = [ nixos-version ];
+    documentation.man.man-db.skipPackages = [nixos-version];
 
     warnings = lib.optional (!config.system.disableInstallerTools && !config.system.rebuild.enableNg) ''
       The Bash implementation of nixos-rebuild will be deprecated and removed in the 26.05 release of NixOS.
@@ -340,7 +333,10 @@ in
     # These may be used in auxiliary scripts (ie not part of toplevel), so they are defined unconditionally.
     system.build = {
       inherit nixos-generate-config nixos-install;
-      nixos-rebuild = if config.system.rebuild.enableNg then nixos-rebuild-ng else nixos-rebuild;
+      nixos-rebuild =
+        if config.system.rebuild.enableNg
+        then nixos-rebuild-ng
+        else nixos-rebuild;
       nixos-option = lib.warn "Accessing nixos-option through `config.system.build` is deprecated, use `pkgs.nixos-option` instead." pkgs.nixos-option;
       nixos-enter = lib.warn "Accessing nixos-enter through `config.system.build` is deprecated, use `pkgs.nixos-enter` instead." pkgs.nixos-enter;
     };

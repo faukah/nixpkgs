@@ -4,7 +4,6 @@
   fetchFromGitHub,
   msmart-ng,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "mill1000";
   domain = "midea_ac";
@@ -17,7 +16,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-6CNxhgygAyzpy3idj3RkVvI8WMHCfar9v0GG21Y7YKE=";
   };
 
-  dependencies = [ msmart-ng ];
+  dependencies = [msmart-ng];
 
   meta = with lib; {
     description = "Home Assistant custom integration to control Midea (and associated brands) air conditioners via LAN";

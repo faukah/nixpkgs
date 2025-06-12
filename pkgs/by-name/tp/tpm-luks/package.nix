@@ -8,7 +8,6 @@
   cryptsetup,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "tpm-luks";
   version = "unstable-2015-07-11";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     ./signed-ptr.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     gawk
     trousers
@@ -43,8 +42,8 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "LUKS key storage in TPM NVRAM";
     homepage = "https://github.com/shpedoikal/tpm-luks/";
-    maintainers = [ ];
-    license = with licenses; [ gpl2Only ];
+    maintainers = [];
+    license = with licenses; [gpl2Only];
     platforms = platforms.linux;
   };
 }

@@ -3,11 +3,10 @@
   fetchFromGitHub,
   lib,
   variant ? "Gruvbox-Dark-Brown",
-}:
-let
+}: let
   pname = "gruvbox-kvantum";
 in
-lib.checkListOfEnum "${pname}: variant"
+  lib.checkListOfEnum "${pname}: variant"
   [
     "Gruvbox-Dark-Blue"
     "Gruvbox-Dark-Brown"
@@ -16,8 +15,7 @@ lib.checkListOfEnum "${pname}: variant"
     "Gruvbox_Light_Brown"
     "Gruvbox_Light_Green"
   ]
-  [ variant ]
-
+  [variant]
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -42,6 +40,6 @@ lib.checkListOfEnum "${pname}: variant"
       homepage = "https://github.com/sachnr/gruvbox-kvantum-themes";
       license = lib.licenses.gpl3;
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ istudyatuni ];
+      maintainers = with lib.maintainers; [istudyatuni];
     };
   }

@@ -3,7 +3,6 @@
   fetchzip,
   lilypond,
 }:
-
 lilypond.overrideAttrs (oldAttrs: rec {
   version = "2.25.26";
   src = fetchzip {
@@ -16,6 +15,6 @@ lilypond.overrideAttrs (oldAttrs: rec {
       ./update.sh
       "unstable"
     ];
-    supportedFeatures = [ "commit" ];
+    supportedFeatures = ["commit"];
   };
 })

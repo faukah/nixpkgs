@@ -20,7 +20,6 @@
   youtube-dl,
   ffmpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "headlines";
   version = "0.7.2";
@@ -55,19 +54,19 @@ stdenv.mkDerivation rec {
       gstreamer
       gst-libav
       gst-plugins-base
-      (gst-plugins-good.override { gtkSupport = true; })
+      (gst-plugins-good.override {gtkSupport = true;})
       gst-plugins-bad
     ]);
 
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          xdg-utils
-          youtube-dl
-          ffmpeg
-        ]
-      }"
+      lib.makeBinPath [
+        xdg-utils
+        youtube-dl
+        ffmpeg
+      ]
+    }"
     )
   '';
 
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/caveman250/Headlines";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     mainProgram = "headlines";
   };
 }

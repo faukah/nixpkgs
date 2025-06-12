@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qgrep";
   version = "1.3";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     mainProgram = "qgrep";
     homepage = "https://github.com/zeux/qgrep";
     license = licenses.mit;
-    maintainers = [ maintainers.yrashk ];
+    maintainers = [maintainers.yrashk];
     platforms = platforms.all;
   };
 }

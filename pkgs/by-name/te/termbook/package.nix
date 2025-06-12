@@ -7,7 +7,6 @@
   oniguruma,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "termbook-cli";
   version = "1.4.6";
@@ -54,6 +53,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Byron/termbook/";
     changelog = "https://github.com/Byron/termbook/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

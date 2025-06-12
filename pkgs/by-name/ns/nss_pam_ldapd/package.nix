@@ -9,7 +9,6 @@
   python3,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nss-pam-ldapd";
   version = "0.9.13";

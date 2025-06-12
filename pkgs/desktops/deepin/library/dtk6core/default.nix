@@ -12,7 +12,6 @@
   dtkcommon,
   dtk6log,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtk6core";
   version = "6.0.33";
@@ -93,6 +92,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linuxdeepin/dtk6core";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

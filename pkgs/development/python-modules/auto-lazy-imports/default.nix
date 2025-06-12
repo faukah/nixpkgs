@@ -8,7 +8,6 @@
   pytestCheckHook,
   runCommand,
 }:
-
 buildPythonPackage rec {
   pname = "auto-lazy-imports"; # matches pypi
   version = "0.4.2";
@@ -52,17 +51,17 @@ buildPythonPackage rec {
   passthru.tests = {
     check-autorun-pyenv =
       runCommand "${pname}-check-autorun-pyenv"
-        {
-          nativeBuildInputs = [
-            (python.withPackages (ps: [
-              ps.auto-lazy-imports
-              ps.pytest
-            ]))
-          ];
-        }
-        ''
-          pytest ${src}/tests && touch $out
-        '';
+      {
+        nativeBuildInputs = [
+          (python.withPackages (ps: [
+            ps.auto-lazy-imports
+            ps.pytest
+          ]))
+        ];
+      }
+      ''
+        pytest ${src}/tests && touch $out
+      '';
 
     # TODO: this requires user to set NIX_PYTHONPATH
     # check-autorun-env =
@@ -83,6 +82,6 @@ buildPythonPackage rec {
     description = "Enable lazy imports using native python syntax";
     homepage = "https://github.com/hmiladhia/lazyimports";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
   };
 }

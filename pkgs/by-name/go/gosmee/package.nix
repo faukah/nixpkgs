@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "gosmee";
   version = "0.26.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
   };
   vendorHash = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     printf ${version} > gosmee/templates/version

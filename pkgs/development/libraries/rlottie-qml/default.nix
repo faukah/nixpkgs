@@ -10,7 +10,6 @@
   quazip,
   rlottie,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rlottie-qml";
   version = "0-unstable-2021-05-03";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for using rlottie via QML";
     homepage = "https://gitlab.com/mymike00/rlottie-qml";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 })

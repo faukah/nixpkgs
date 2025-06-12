@@ -21,7 +21,6 @@
   wlr-protocols,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-clipman-plugin";
   version = "1.7.0";
@@ -63,13 +62,13 @@ stdenv.mkDerivation (finalAttrs: {
     wlr-protocols
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-clipman-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-clipman-plugin-";};
 
   meta = {
     description = "Clipboard manager for Xfce panel";
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-clipman-plugin";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

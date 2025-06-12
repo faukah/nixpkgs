@@ -4,7 +4,6 @@
   fetchFromGitLab,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "eigen";
   version = "3.4.0-unstable-2022-05-19";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     ./include-dir.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://eigen.tuxfamily.org";

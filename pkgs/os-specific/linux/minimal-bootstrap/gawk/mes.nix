@@ -9,9 +9,8 @@
   gnupatch,
   gnused,
   gnugrep,
-}:
-let
-  inherit (import ./common.nix { inherit lib; }) meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) meta;
   pname = "gawk-mes";
   # >=3.1.x is incompatible with mes-libc
   version = "3.0.6";
@@ -26,7 +25,7 @@ let
     ./no-stamp.patch
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 
@@ -38,9 +37,8 @@ bash.runCommand "${pname}-${version}"
       gnugrep
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/awk --version
         mkdir $out
       '';

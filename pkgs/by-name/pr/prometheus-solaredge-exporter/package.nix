@@ -28,9 +28,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-ltCjuihbm0/bj2SPkiITTHzYmcQsX12xvt+OpYROivU=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
   versionCheckProgramArg = "--version";
@@ -41,6 +41,6 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for solaredge solar inverter local tcp modbus interface";
     license = lib.licenses.mit;
     mainProgram = "solaredge_exporter";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

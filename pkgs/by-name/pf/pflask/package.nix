@@ -7,7 +7,6 @@
   wafHook,
   waf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pflask";
   version = "unstable-2018-01-23";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ghedo.github.io/pflask/";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 })

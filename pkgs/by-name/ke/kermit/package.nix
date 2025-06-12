@@ -5,7 +5,6 @@
   ncurses,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "kermit";
   version = "9.0.302";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     homepage = "https://www.kermitproject.org/ck90.html";
     description = "Portable Scriptable Network and Serial Communication Software";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; linux;
   };
 }

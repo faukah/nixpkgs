@@ -17,7 +17,6 @@
   wrapGAppsHook4,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnote";
   version = "48.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gnote";
     description = "Note taking application";
     mainProgram = "gnote";
-    maintainers = with maintainers; [ jfvillablanca ];
+    maintainers = with maintainers; [jfvillablanca];
     license = licenses.gpl3Only;
     platforms = platforms.linux;
   };

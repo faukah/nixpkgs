@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   datasets,
   huggingface-hub,
@@ -14,7 +12,6 @@
   packaging,
   torch,
   transformers,
-
   # optional-dependencies
   diffusers,
   h5py,
@@ -25,7 +22,6 @@
   tf2onnx,
   timm,
 }:
-
 buildPythonPackage rec {
   pname = "optimum";
   version = "1.25.3";
@@ -40,17 +36,19 @@ buildPythonPackage rec {
     hash = "sha256-SVyGtWFI5GjfxbaVKICf+QSSMYI62dDVMzphu8TngvY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "transformers" ];
+  pythonRelaxDeps = ["transformers"];
 
-  dependencies = [
-    huggingface-hub
-    numpy
-    packaging
-    torch
-    transformers
-  ] ++ transformers.optional-dependencies.sentencepiece;
+  dependencies =
+    [
+      huggingface-hub
+      numpy
+      packaging
+      torch
+      transformers
+    ]
+    ++ transformers.optional-dependencies.sentencepiece;
 
   optional-dependencies = {
     onnxruntime = [
@@ -75,7 +73,7 @@ buildPythonPackage rec {
       datasets
       tensorflow
     ];
-    diffusers = [ diffusers ];
+    diffusers = [diffusers];
     intel = [
       # optimum-intel
     ];
@@ -109,7 +107,7 @@ buildPythonPackage rec {
   # almost all tests try to connect to https://huggingface.co
   doCheck = false;
 
-  pythonImportsCheck = [ "optimum" ];
+  pythonImportsCheck = ["optimum"];
 
   meta = {
     description = "Accelerate training and inference of 🤗 Transformers and 🤗 Diffusers with easy to use hardware optimization tools";
@@ -117,6 +115,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/optimum";
     changelog = "https://github.com/huggingface/optimum/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

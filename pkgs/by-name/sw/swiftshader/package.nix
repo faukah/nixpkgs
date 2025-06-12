@@ -6,7 +6,6 @@
   cmake,
   jq,
 }:
-
 stdenv.mkDerivation {
   pname = "swiftshader";
   version = "2023-09-11";
@@ -56,6 +55,6 @@ stdenv.mkDerivation {
     # Should be possible to support Darwin by changing the install phase with
     # 's/Linux/Darwin/' and 's/so/dylib/' or something similar.
     platforms = with platforms; linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

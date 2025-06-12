@@ -20,11 +20,8 @@
   gss,
   libintl,
 }:
-
 assert avahiSupport -> avahi != null;
-assert gtkWidgets -> gtk3 != null;
-
-let
+assert gtkWidgets -> gtk3 != null; let
   self = stdenv.mkDerivation rec {
     pname = "libinfinity";
     version = "0.7.2";
@@ -61,7 +58,7 @@ let
       ++ lib.optional gtkWidgets gtk3
       ++ lib.optional avahiSupport avahi;
 
-    propagatedBuildInputs = [ gnutls ];
+    propagatedBuildInputs = [gnutls];
 
     configureFlags = [
       (lib.enableFeature true "gtk-doc")
@@ -82,9 +79,9 @@ let
       description = "Implementation of the Infinote protocol written in GObject-based C";
       mainProgram = "infinoted-0.7";
       license = lib.licenses.lgpl2Plus;
-      maintainers = [ ];
+      maintainers = [];
       platforms = with lib.platforms; linux ++ darwin;
     };
   };
 in
-self
+  self

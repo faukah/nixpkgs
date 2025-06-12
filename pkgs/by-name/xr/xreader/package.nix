@@ -33,7 +33,6 @@
     "epub"
   ],
 }:
-
 stdenv.mkDerivation rec {
   pname = "xreader";
   version = "4.2.6";
@@ -55,10 +54,12 @@ stdenv.mkDerivation rec {
     intltool
   ];
 
-  mesonFlags = [
-    "-Dmathjax-directory=${nodePackages.mathjax}"
-    "-Dintrospection=true"
-  ] ++ (map (x: "-D${x}=true") backends);
+  mesonFlags =
+    [
+      "-Dmathjax-directory=${nodePackages.mathjax}"
+      "-Dintrospection=true"
+    ]
+    ++ (map (x: "-D${x}=true") backends);
 
   buildInputs = [
     glib
@@ -82,6 +83,6 @@ document formats like PDF and Postscript";
     homepage = "https://github.com/linuxmint/xreader";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # dependencies
   flask,
   jsonschema,
@@ -11,11 +10,9 @@
   pyyaml,
   six,
   werkzeug,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flasgger";
   version = "0.9.7.1";
@@ -50,9 +47,9 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "flasgger" ];
+  pythonImportsCheck = ["flasgger"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = false; # missing flex dependency
 
@@ -60,6 +57,6 @@ buildPythonPackage rec {
     description = "Easy OpenAPI specs and Swagger UI for your Flask API";
     homepage = "https://github.com/flasgger/flasgger/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

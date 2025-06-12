@@ -3,19 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.alertmanagerWebhookLogger;
-in
-{
+in {
   options.services.prometheus.alertmanagerWebhookLogger = {
     enable = lib.mkEnableOption "Alertmanager Webhook Logger";
 
-    package = lib.mkPackageOption pkgs "alertmanager-webhook-logger" { };
+    package = lib.mkPackageOption pkgs "alertmanager-webhook-logger" {};
 
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = "Extra command line options to pass to alertmanager-webhook-logger.";
     };
   };
@@ -24,9 +22,9 @@ in
     systemd.services.alertmanager-webhook-logger = {
       description = "Alertmanager Webhook Logger";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
 
       serviceConfig = {
         ExecStart = ''
@@ -34,8 +32,8 @@ in
           ${lib.escapeShellArgs cfg.extraFlags}
         '';
 
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         DynamicUser = true;
         NoNewPrivileges = true;
 
@@ -82,5 +80,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.jpds ];
+  meta.maintainers = [lib.maintainers.jpds];
 }

@@ -37,14 +37,12 @@
     ]
   ),
 }:
-
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     supportsTargetArches =
       (builtins.any (lib.strings.hasPrefix "gfx9") gpuTargets)
       || (builtins.any (lib.strings.hasPrefix "gfx11") gpuTargets);
-    tensile' = (tensile.override { isTensileLite = true; }).overrideAttrs {
+    tensile' = (tensile.override {isTensileLite = true;}).overrideAttrs {
       inherit (finalAttrs) src;
       sourceRoot = "${finalAttrs.src.name}/tensilelite";
     };
@@ -56,8 +54,7 @@ stdenv.mkDerivation (
     gpuTargets' = lib.optionalString supportsTargetArches (lib.concatStringsSep ";" gpuTargets);
     compiler = "amdclang++";
     cFlags = "-O3 -I${msgpack}/include"; # FIXME: cmake files need patched to include this properly
-  in
-  {
+  in {
     pname = "hipblaslt${clr.gpuArchSuffix}";
     version = "6.3.3";
 
@@ -75,7 +72,7 @@ stdenv.mkDerivation (
     env.TENSILE_GEN_ASSEMBLY_TOOLCHAIN = lib.getExe' clr "amdclang++";
     # Some tensile scripts look for this as an env var rather than a cmake flag
     env.CMAKE_CXX_COMPILER = lib.getExe' clr "amdclang++";
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     outputs =
       [
@@ -227,8 +224,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "hipBLASLt is a library that provides general matrix-matrix operations with a flexible API";
       homepage = "https://github.com/ROCm/hipBLASlt";
-      license = with licenses; [ mit ];
-      teams = [ teams.rocm ];
+      license = with licenses; [mit];
+      teams = [teams.rocm];
       platforms = platforms.linux;
     };
   }

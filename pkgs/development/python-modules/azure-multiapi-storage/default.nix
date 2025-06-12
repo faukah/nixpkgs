@@ -11,7 +11,6 @@
   setuptools,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "azure-multiapi-storage";
   version = "1.4.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-RfFd+1xL2ouWJ3NLXMcsRfQ215bi4ha+iCOcYXjND3E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   # fix namespace
-  pythonNamespaces = [ "azure.multiapi" ];
+  pythonNamespaces = ["azure.multiapi"];
 
   # no tests included
   doCheck = false;
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Storage Client Library for Python with multi API version support";
     homepage = "https://github.com/Azure/azure-multiapi-storage-python";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

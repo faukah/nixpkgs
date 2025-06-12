@@ -7,7 +7,6 @@
   wrapGAppsHook3,
   xterm,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zenmap";
   version = nmap.version;
@@ -45,7 +44,7 @@ python3Packages.buildPythonApplication rec {
   dontWrapGApps = true;
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ nmap ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [nmap]})
   '';
   postInstall = ''
     # Icons
@@ -70,12 +69,14 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  meta = nmap.meta // {
-    description = "Offical nmap Security Scanner GUI";
-    homepage = "https://nmap.org/zenmap/";
-    maintainers = with lib.maintainers; [
-      dvaerum
-      mymindstorm
-    ];
-  };
+  meta =
+    nmap.meta
+    // {
+      description = "Offical nmap Security Scanner GUI";
+      homepage = "https://nmap.org/zenmap/";
+      maintainers = with lib.maintainers; [
+        dvaerum
+        mymindstorm
+      ];
+    };
 }

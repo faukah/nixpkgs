@@ -7,7 +7,6 @@
   imlib2,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xteddy";
   version = "2.2-5";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Cuddly teddy bear for your X desktop";
     homepage = "https://weber.itn.liu.se/~stegu/xteddy/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.xaverdh ];
+    maintainers = [maintainers.xaverdh];
     platforms = platforms.linux;
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-dynamic-versioning";
   version = "1.7.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-V5UuODRwm829c1KPdQm9oqeN6YdcCo1ODDsEHbm4e/Y=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     dunamai
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     "test_integration"
   ];
 
-  pythonImportsCheck = [ "poetry_dynamic_versioning" ];
+  pythonImportsCheck = ["poetry_dynamic_versioning"];
 
   setupHook = ./setup-hook.sh;
 
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mtkennerly/poetry-dynamic-versioning";
     changelog = "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

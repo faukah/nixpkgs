@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pyfdt";
   version = "0.3";
@@ -16,12 +15,12 @@ buildPythonPackage rec {
 
   doCheck = false; # tests do not compile, see https://github.com/superna9999/pyfdt/issues/21
 
-  pythonImportsCheck = [ "pyfdt" ];
+  pythonImportsCheck = ["pyfdt"];
 
   meta = {
     homepage = "https://github.com/superna9999/pyfdt";
     description = "Flattened device tree parser";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ralismark ];
+    maintainers = with lib.maintainers; [ralismark];
   };
 }

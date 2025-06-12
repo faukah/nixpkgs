@@ -5,7 +5,6 @@
   lib,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zs-wait4host";
   version = "0.3.2";
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Wait for a host to come up/go down";
     homepage = "https://ytrizja.de/";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

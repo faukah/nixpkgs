@@ -6,7 +6,6 @@
   libmnl,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.9";
   pname = "libnftnl";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
     stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17"
   ) "LDFLAGS=-Wl,--undefined-version";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libmnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libmnl];
 
   enableParallelBuilding = true;
 
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/libnftnl/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

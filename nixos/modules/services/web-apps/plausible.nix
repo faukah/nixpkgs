@@ -4,24 +4,21 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.plausible;
-
-in
-{
+in {
   options.services.plausible = {
     enable = mkEnableOption "plausible";
 
-    package = mkPackageOption pkgs "plausible" { };
+    package = mkPackageOption pkgs "plausible" {};
 
     database = {
       clickhouse = {
-        setup = mkEnableOption "creating a clickhouse instance" // {
-          default = true;
-        };
+        setup =
+          mkEnableOption "creating a clickhouse instance"
+          // {
+            default = true;
+          };
         url = mkOption {
           default = "http://localhost:8123/default";
           type = types.str;
@@ -31,9 +28,11 @@ in
         };
       };
       postgres = {
-        setup = mkEnableOption "creating a postgresql instance" // {
-          default = true;
-        };
+        setup =
+          mkEnableOption "creating a postgresql instance"
+          // {
+            default = true;
+          };
         dbname = mkOption {
           default = "plausible";
           type = types.str;
@@ -147,7 +146,8 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule [ "services" "plausible" "releaseCookiePath" ]
+    (
+      mkRemovedOptionModule ["services" "plausible" "releaseCookiePath"]
       "Plausible uses no distributed Erlang features, so this option is no longer necessary and was removed"
     )
     (mkRemovedOptionModule [
@@ -185,14 +185,14 @@ in
       enable = true;
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services = mkMerge [
       {
         plausible = {
           inherit (cfg.package.meta) description;
-          documentation = [ "https://plausible.io/docs/self-hosting" ];
-          wantedBy = [ "multi-user.target" ];
+          documentation = ["https://plausible.io/docs/self-hosting"];
+          wantedBy = ["multi-user.target"];
           after =
             optional cfg.database.clickhouse.setup "clickhouse.service"
             ++ optionals cfg.database.postgres.setup [
@@ -242,10 +242,9 @@ in
               ERL_EPMD_ADDRESS = "127.0.0.1";
 
               DISABLE_REGISTRATION =
-                if isBool cfg.server.disableRegistration then
-                  boolToString cfg.server.disableRegistration
-                else
-                  cfg.server.disableRegistration;
+                if isBool cfg.server.disableRegistration
+                then boolToString cfg.server.disableRegistration
+                else cfg.server.disableRegistration;
 
               RELEASE_TMP = "/var/lib/plausible/tmp";
               # Home is needed to connect to the node with iex
@@ -268,7 +267,7 @@ in
               SMTP_USER_NAME = cfg.mail.smtp.user;
             });
 
-          path = [ cfg.package ] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
+          path = [cfg.package] ++ optional cfg.database.postgres.setup config.services.postgresql.package;
           script = ''
             # Elixir does not start up if `RELEASE_COOKIE` is not set,
             # even though we set `RELEASE_DISTRIBUTION=none` so the cookie should be unused.
@@ -309,8 +308,8 @@ in
       (mkIf cfg.database.postgres.setup {
         # `plausible' requires the `citext'-extension.
         plausible-postgres = {
-          after = [ "postgresql.service" ];
-          partOf = [ "plausible.service" ];
+          after = ["postgresql.service"];
+          partOf = ["plausible.service"];
           serviceConfig = {
             Type = "oneshot";
             User = config.services.postgresql.superUser;

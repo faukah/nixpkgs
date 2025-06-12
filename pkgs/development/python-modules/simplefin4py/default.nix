@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "simplefin4py";
   version = "0.0.18";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-S+E2zwvrXN0YDY6IxplG0D15zSoeUPMyQt2oyM3QB2Q=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
     dataclasses-json
   ];
 
-  pythonImportsCheck = [ "simplefin4py" ];
+  pythonImportsCheck = ["simplefin4py"];
 
   nativeCheckInputs = [
     aioresponses
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Python API for Accessing SimpleFIN";
     homepage = "https://github.com/jeeftor/SimpleFin4py";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

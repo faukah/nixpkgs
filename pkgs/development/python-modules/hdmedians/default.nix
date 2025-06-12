@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "0.14.2";
   pname = "hdmedians";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  pythonImportsCheck = [ "hdmedians" ];
+  pythonImportsCheck = ["hdmedians"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/daleroberts/hdmedians";
     description = "High-dimensional medians";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

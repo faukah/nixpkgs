@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "fetzerch-sunandmoon-datasource";
   version = "0.3.3";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "SunAndMoon is a Datasource Plugin for Grafana that calculates the position of Sun and Moon as well as the Moon illumination using SunCalc.";
     license = licenses.mit;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

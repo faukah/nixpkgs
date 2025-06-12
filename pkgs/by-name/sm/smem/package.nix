@@ -4,7 +4,6 @@
   fetchurl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smem";
   version = "1.5";
@@ -15,10 +14,10 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    (python3.withPackages (pp: [ pp.matplotlib ]))
+    (python3.withPackages (pp: [pp.matplotlib]))
   ];
 
-  makeFlags = [ "smemcap" ];
+  makeFlags = ["smemcap"];
 
   installPhase = ''
     install -Dm555 -t $out/bin/ smem smemcap
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.selenic.com/smem/";
     description = "Memory usage reporting tool that takes shared memory into account";
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = lib.licenses.gpl2Plus;
   };
 }

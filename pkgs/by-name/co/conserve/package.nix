@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "conserve";
   version = "24.8.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "Robust portable backup tool in Rust";
     homepage = "https://github.com/sourcefrog/conserve";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     mainProgram = "conserve";
   };
 }

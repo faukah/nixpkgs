@@ -10,7 +10,6 @@
   libXmu,
   libXt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xedit";
   version = "1.2.4";
@@ -50,8 +49,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simple graphical text editor using Athena Widgets (Xaw)";
     homepage = "https://gitlab.freedesktop.org/xorg/app/xedit";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ shamilton ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.unix;
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin;

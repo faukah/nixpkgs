@@ -15,7 +15,6 @@
   qtmultimedia,
   qwt,
 }:
-
 mkDerivation rec {
   pname = "guglielmo";
   version = "0.5";
@@ -58,7 +57,7 @@ mkDerivation rec {
     mainProgram = "guglielmo";
     homepage = "https://github.com/marcogrecopriolo/guglielmo";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

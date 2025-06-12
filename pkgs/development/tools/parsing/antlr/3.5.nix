@@ -6,7 +6,6 @@
   fetchFromGitHub,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "antlr";
   version = "3.5.2";
@@ -52,9 +51,9 @@ stdenv.mkDerivation rec {
       walk parse trees.
     '';
     homepage = "https://www.antlr.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ lib.maintainers.farlion ];
+    maintainers = [lib.maintainers.farlion];
   };
 }

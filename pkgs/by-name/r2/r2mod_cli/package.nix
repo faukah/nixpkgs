@@ -7,7 +7,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "r2mod_cli";
   version = "1.3.3.1";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Y9ZffztxfGYiUSphqwhe3rTbnJ/vmGGi1pLml+1tLP8=";
   };
 
-  buildInputs = [ bashInteractive ];
+  buildInputs = [bashInteractive];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   makeFlags = [
     "DESTDIR="
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Risk of Rain 2 Mod Manager in Bash";
     homepage = "https://github.com/foldex/r2mod_cli";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.reedrw ];
+    maintainers = [maintainers.reedrw];
     mainProgram = "r2mod";
     platforms = platforms.unix;
   };

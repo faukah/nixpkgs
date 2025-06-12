@@ -4,9 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   name = "snapserver";
 
   cfg = config.services.snapserver;
@@ -30,13 +28,11 @@ let
     example = "flac";
   };
 
-  streamToOption =
-    name: opt:
-    let
-      os = val: lib.optionalString (val != null) "${val}";
-      os' = prefix: val: lib.optionalString (val != null) (prefix + "${val}");
-      toQueryString = key: value: "&${key}=${value}";
-    in
+  streamToOption = name: opt: let
+    os = val: lib.optionalString (val != null) "${val}";
+    os' = prefix: val: lib.optionalString (val != null) (prefix + "${val}");
+    toQueryString = key: value: "&${key}=${value}";
+  in
     "--stream.stream=\"${opt.type}://"
     + os opt.location
     + "?"
@@ -51,43 +47,40 @@ let
   optionString = lib.concatStringsSep " " (
     lib.mapAttrsToList streamToOption cfg.streams
     # global options
-    ++ [ "--stream.bind_to_address=${cfg.listenAddress}" ]
-    ++ [ "--stream.port=${toString cfg.port}" ]
+    ++ ["--stream.bind_to_address=${cfg.listenAddress}"]
+    ++ ["--stream.port=${toString cfg.port}"]
     ++ optionalNull cfg.sampleFormat "--stream.sampleformat=${cfg.sampleFormat}"
     ++ optionalNull cfg.codec "--stream.codec=${cfg.codec}"
     ++ optionalNull cfg.streamBuffer "--stream.stream_buffer=${toString cfg.streamBuffer}"
     ++ optionalNull cfg.buffer "--stream.buffer=${toString cfg.buffer}"
     ++ lib.optional cfg.sendToMuted "--stream.send_to_muted"
     # tcp json rpc
-    ++ [ "--tcp.enabled=${toString cfg.tcp.enable}" ]
+    ++ ["--tcp.enabled=${toString cfg.tcp.enable}"]
     ++ lib.optionals cfg.tcp.enable [
       "--tcp.bind_to_address=${cfg.tcp.listenAddress}"
       "--tcp.port=${toString cfg.tcp.port}"
     ]
     # http json rpc
-    ++ [ "--http.enabled=${toString cfg.http.enable}" ]
+    ++ ["--http.enabled=${toString cfg.http.enable}"]
     ++ lib.optionals cfg.http.enable [
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
     ]
     ++ lib.optional (cfg.http.docRoot != null) "--http.doc_root=\"${toString cfg.http.docRoot}\""
   );
-
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "snapserver" "controlPort" ]
-      [ "services" "snapserver" "tcp" "port" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "snapserver" "controlPort"]
+      ["services" "snapserver" "tcp" "port"]
     )
   ];
 
   ###### interface
 
   options = {
-
     services.snapserver = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -96,7 +89,7 @@ in
         '';
       };
 
-      package = lib.options.mkPackageOption pkgs "snapcast" { };
+      package = lib.options.mkPackageOption pkgs "snapcast" {};
 
       listenAddress = lib.mkOption {
         type = lib.types.str;
@@ -212,8 +205,7 @@ in
       };
 
       streams = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (submodule {
             options = {
               location = lib.mkOption {
@@ -254,7 +246,7 @@ in
               };
               query = lib.mkOption {
                 type = attrsOf str;
-                default = { };
+                default = {};
                 description = ''
                   Key-value pairs that convey additional parameters about a stream.
                 '';
@@ -283,7 +275,7 @@ in
             };
           });
         default = {
-          default = { };
+          default = {};
         };
         description = ''
           The definition for an input source.
@@ -305,16 +297,16 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     warnings =
       # https://github.com/badaix/snapcast/blob/98ac8b2fb7305084376607b59173ce4097c620d8/server/streamreader/stream_manager.cpp#L85
       lib.filter (w: w != "") (
         lib.mapAttrsToList (
           k: v:
-          lib.optionalString (v.type == "spotify") ''
-            services.snapserver.streams.${k}.type = "spotify" is deprecated, use services.snapserver.streams.${k}.type = "librespot" instead.
-          ''
-        ) cfg.streams
+            lib.optionalString (v.type == "spotify") ''
+              services.snapserver.streams.${k}.type = "spotify" is deprecated, use services.snapserver.streams.${k}.type = "librespot" instead.
+            ''
+        )
+        cfg.streams
       );
 
     systemd.services.snapserver = {
@@ -323,7 +315,7 @@ in
         "nss-lookup.target"
       ];
       description = "Snapserver";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "mpd.service"
         "mopidy.service"
@@ -349,13 +341,12 @@ in
     };
 
     networking.firewall.allowedTCPPorts =
-      lib.optionals cfg.openFirewall [ cfg.port ]
+      lib.optionals cfg.openFirewall [cfg.port]
       ++ lib.optional (cfg.openFirewall && cfg.tcp.enable) cfg.tcp.port
       ++ lib.optional (cfg.openFirewall && cfg.http.enable) cfg.http.port;
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ tobim ];
+    maintainers = with lib.maintainers; [tobim];
   };
-
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.murmur;
   forking = cfg.logFile != null;
   configFile = pkgs.writeText "murmurd.ini" ''
@@ -49,8 +47,7 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.murmur = {
       enable = lib.mkEnableOption "Mumble server";
@@ -133,7 +130,7 @@ in
         description = "Host to bind to. Defaults binding on all addresses.";
       };
 
-      package = lib.mkPackageOption pkgs "murmur" { };
+      package = lib.mkPackageOption pkgs "murmur" {};
 
       password = lib.mkOption {
         type = lib.types.str;
@@ -308,14 +305,14 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-      allowedUDPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
+      allowedUDPPorts = [cfg.port];
     };
 
     systemd.services.murmur = {
       description = "Murmur Chat Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = ''
         ${pkgs.envsubst}/bin/envsubst \
           -o /run/murmur/murmurd.ini \
@@ -324,7 +321,10 @@ in
 
       serviceConfig = {
         # murmurd doesn't fork when logging to the console.
-        Type = if forking then "forking" else "simple";
+        Type =
+          if forking
+          then "forking"
+          else "simple";
         PIDFile = lib.mkIf forking "/run/murmur/murmurd.pid";
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/mumble-server -ini /run/murmur/murmurd.ini";
@@ -392,7 +392,7 @@ in
           include <abstractions/base>
           include <abstractions/nameservice>
           include <abstractions/ssl_certs>
-          include "${pkgs.apparmorRulesFromClosure { name = "mumble-server"; } cfg.package}"
+          include "${pkgs.apparmorRulesFromClosure {name = "mumble-server";} cfg.package}"
           pix ${cfg.package}/bin/.mumble-server-wrapped,
 
           r ${config.environment.etc."os-release".source},
@@ -424,5 +424,5 @@ in
       '';
   };
 
-  meta.maintainers = with lib.maintainers; [ felixsinger ];
+  meta.maintainers = with lib.maintainers; [felixsinger];
 }

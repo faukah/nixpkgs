@@ -6,7 +6,6 @@
   cppunit,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cpp-utilities";
   version = "5.28.1";
@@ -18,13 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-+VbVVRtOKNjJNQYU/QOU5hfARxHicsQQgm2TH5y8qx8=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ cppunit ];
+  nativeBuildInputs = [cmake];
+  nativeCheckInputs = [cppunit];
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     libiconv # needed on Darwin, see https://github.com/Martchus/cpp-utilities/issues/4
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   # Otherwise, tests fail since the resulting shared object libc++utilities.so is only available in PWD of the make files
   preCheck = ''
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Martchus/cpp-utilities";
     description = "Common C++ classes and routines used by @Martchus' applications featuring argument parser, IO and conversion utilities";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux ++ platforms.darwin;
   };
 })

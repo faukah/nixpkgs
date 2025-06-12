@@ -3,17 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.alvr;
-in
-{
+in {
   options = {
     programs.alvr = {
       enable = lib.mkEnableOption "ALVR, the VR desktop streamer";
 
-      package = lib.mkPackageOption pkgs "alvr" { };
+      package = lib.mkPackageOption pkgs "alvr" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -26,7 +23,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     networking.firewall = lib.mkIf cfg.openFirewall {
       allowedTCPPorts = [
@@ -40,5 +37,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ passivelemon ];
+  meta.maintainers = with lib.maintainers; [passivelemon];
 }

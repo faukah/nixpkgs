@@ -4,7 +4,6 @@
   fetchurl,
   brotli,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.4.0";
   pname = "angie-console-light";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ brotli ];
+  nativeBuildInputs = [brotli];
 
   dontConfigure = true;
   dontBuild = true;
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://angie.software/en/console/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ izorkin ];
+    maintainers = with lib.maintainers; [izorkin];
   };
 }

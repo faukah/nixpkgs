@@ -11,7 +11,6 @@
   vte,
   withGamt ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "amtterm";
   version = "1.7-1-unstable-2023-10-27";
@@ -21,8 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
       perl
       SOAPLite
     ])
-    ++ [ openssl ]
-
+    ++ [openssl]
     ++ lib.optionals withGamt [
       gtk3
       vte

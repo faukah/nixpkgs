@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gomp";
   version = "1.1.1";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     description = "Tool for comparing Git branches";
     homepage = "https://github.com/MarkForged/GOMP";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.unix;
     mainProgram = "gomp";
   };

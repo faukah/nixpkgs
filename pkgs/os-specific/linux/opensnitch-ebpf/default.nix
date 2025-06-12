@@ -10,7 +10,6 @@
   bc,
   opensnitch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensnitch_ebpf";
   version = "${opensnitch.version}-${kernel.version}";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "eBPF process monitor module for OpenSnitch";
     homepage = "https://github.com/evilsocket/opensnitch";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

@@ -10,7 +10,6 @@
   websocket-client,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jellyfin-apiclient-python";
   version = "1.11.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TFF0pENSXWbmIb7IM1bayDACd0VOCTKc1WzLRvTJYNA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -34,14 +33,14 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jellyfin_apiclient_python" ];
+  pythonImportsCheck = ["jellyfin_apiclient_python"];
 
   meta = with lib; {
     description = "Python API client for Jellyfin";
     homepage = "https://github.com/jellyfin/jellyfin-apiclient-python";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

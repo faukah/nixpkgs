@@ -4,7 +4,6 @@
   fetchgit,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pavolctld";
   version = "1.0.2";
@@ -15,16 +14,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-gNEXED+9BkCCLi8oW2GZi9Azd/zOWUvu/bY0a1WbE/A=";
   };
 
-  buildInputs = [ libpulseaudio ];
+  buildInputs = [libpulseaudio];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Minimal volume control/monitoring daemon for PulseAudio and PipeWire";
     homepage = "https://tjkeller.xyz/projects/pavolctld";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.tjkeller ];
+    maintainers = [lib.maintainers.tjkeller];
     mainProgram = "pavolctld";
   };
 })

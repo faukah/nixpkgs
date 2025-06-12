@@ -2,80 +2,71 @@
   lib,
   stdenv,
   fetchurl,
-}:
+}: let
+  mkNixBackground = {
+    name,
+    src,
+    description,
+    license ? lib.licenses.free,
+  }: let
+    pkg = stdenv.mkDerivation {
+      inherit name src;
 
-let
-  mkNixBackground =
-    {
-      name,
-      src,
-      description,
-      license ? lib.licenses.free,
-    }:
+      dontUnpack = true;
 
-    let
-      pkg = stdenv.mkDerivation {
-        inherit name src;
+      installPhase = ''
+                runHook preInstall
 
-        dontUnpack = true;
+                # GNOME
+                mkdir -p $out/share/backgrounds/nixos
+                ln -s $src $out/share/backgrounds/nixos/${src.name}
 
-        installPhase = ''
-                  runHook preInstall
+                mkdir -p $out/share/gnome-background-properties/
+                cat <<EOF > $out/share/gnome-background-properties/${name}.xml
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
+        <wallpapers>
+          <wallpaper deleted="false">
+            <name>${name}</name>
+            <filename>${src}</filename>
+            <options>zoom</options>
+            <shade_type>solid</shade_type>
+            <pcolor>#ffffff</pcolor>
+            <scolor>#000000</scolor>
+          </wallpaper>
+        </wallpapers>
+        EOF
 
-                  # GNOME
-                  mkdir -p $out/share/backgrounds/nixos
-                  ln -s $src $out/share/backgrounds/nixos/${src.name}
+                # TODO: is this path still needed?
+                mkdir -p $out/share/artwork/gnome
+                ln -s $src $out/share/artwork/gnome/${src.name}
 
-                  mkdir -p $out/share/gnome-background-properties/
-                  cat <<EOF > $out/share/gnome-background-properties/${name}.xml
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE wallpapers SYSTEM "gnome-wp-list.dtd">
-          <wallpapers>
-            <wallpaper deleted="false">
-              <name>${name}</name>
-              <filename>${src}</filename>
-              <options>zoom</options>
-              <shade_type>solid</shade_type>
-              <pcolor>#ffffff</pcolor>
-              <scolor>#000000</scolor>
-            </wallpaper>
-          </wallpapers>
-          EOF
+                # KDE
+                mkdir -p $out/share/wallpapers/${name}/contents/images
+                ln -s $src $out/share/wallpapers/${name}/contents/images/${src.name}
+                cat >>$out/share/wallpapers/${name}/metadata.desktop <<_EOF
+        [Desktop Entry]
+        Name=${name}
+        X-KDE-PluginInfo-Name=${name}
+        _EOF
 
-                  # TODO: is this path still needed?
-                  mkdir -p $out/share/artwork/gnome
-                  ln -s $src $out/share/artwork/gnome/${src.name}
+                runHook postInstall
+      '';
 
-                  # KDE
-                  mkdir -p $out/share/wallpapers/${name}/contents/images
-                  ln -s $src $out/share/wallpapers/${name}/contents/images/${src.name}
-                  cat >>$out/share/wallpapers/${name}/metadata.desktop <<_EOF
-          [Desktop Entry]
-          Name=${name}
-          X-KDE-PluginInfo-Name=${name}
-          _EOF
-
-                  runHook postInstall
-        '';
-
-        passthru = {
-          gnomeFilePath = "${pkg}/share/backgrounds/nixos/${src.name}";
-          kdeFilePath = "${pkg}/share/wallpapers/${name}/contents/images/${src.name}";
-        };
-
-        meta = with lib; {
-          inherit description license;
-          homepage = "https://github.com/NixOS/nixos-artwork";
-          platforms = platforms.all;
-        };
+      passthru = {
+        gnomeFilePath = "${pkg}/share/backgrounds/nixos/${src.name}";
+        kdeFilePath = "${pkg}/share/wallpapers/${name}/contents/images/${src.name}";
       };
-    in
+
+      meta = with lib; {
+        inherit description license;
+        homepage = "https://github.com/NixOS/nixos-artwork";
+        platforms = platforms.all;
+      };
+    };
+  in
     pkg;
-
-in
-
-rec {
-
+in rec {
   binary-black = mkNixBackground {
     name = "binary-black-2024-02-15";
     description = "Black binary wallpaper for Nix";
@@ -437,5 +428,4 @@ rec {
     };
     license = lib.licenses.cc-by-sa-40;
   };
-
 }

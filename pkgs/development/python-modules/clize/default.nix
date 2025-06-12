@@ -13,7 +13,6 @@
   sigtools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "clize";
   version = "5.0.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-BH9aRHNgJxirG4VnKn4VMDOHF41agcJ13EKd+sHstRA=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     attrs
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    datetime = [ python-dateutil ];
+    datetime = [python-dateutil];
   };
 
   nativeCheckInputs = [
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     repeated-test
   ];
 
-  pythonImportsCheck = [ "clize" ];
+  pythonImportsCheck = ["clize"];
 
   meta = with lib; {
     description = "Command-line argument parsing for Python";
     homepage = "https://github.com/epsy/clize";
     changelog = "https://github.com/epsy/clize/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

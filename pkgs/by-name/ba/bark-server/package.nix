@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "bark-server";
   version = "2.2.1";
@@ -51,14 +50,14 @@ buildGoModule (finalAttrs: {
     versionCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Backend of Bark, an iOS App which allows you to push customed notifications to your iPhone";
     homepage = "https://github.com/Finb/bark-server";
     changelog = "https://github.com/Finb/bark-server/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "bark-server";
   };
 })

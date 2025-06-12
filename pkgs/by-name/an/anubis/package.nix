@@ -4,14 +4,11 @@
   fetchFromGitHub,
   nixosTests,
   stdenv,
-
   anubis-xess,
-
   esbuild,
   brotli,
   zstd,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "anubis";
   version = "1.19.1";
@@ -57,7 +54,7 @@ buildGoModule (finalAttrs: {
     export DONT_USE_NETWORK=1
   '';
 
-  passthru.tests = { inherit (nixosTests) anubis; };
+  passthru.tests = {inherit (nixosTests) anubis;};
 
   meta = {
     description = "Weighs the soul of incoming HTTP requests using proof-of-work to stop AI crawlers";

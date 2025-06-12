@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "synapse-bt";
   version = "unstable-2023-02-16";
@@ -20,15 +19,15 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ebqUH01h4B3Aq3apSKpae8ncaFirbrZiDxjiQM9kzg4=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
-  cargoBuildFlags = [ "--all" ];
+  cargoBuildFlags = ["--all"];
 
   meta = with lib; {
     description = "Flexible and fast BitTorrent daemon";
     homepage = "https://synapse-bt.org/";
     license = licenses.isc;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

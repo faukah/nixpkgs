@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "uv-sort";
   version = "0.6.0";
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     description = "Sort uv's dependencies alphabetically";
     homepage = "https://github.com/ninoseki/uv-sort";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "uv-sort";
   };
 }

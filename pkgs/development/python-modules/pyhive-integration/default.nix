@@ -12,7 +12,6 @@
   pyquery,
   loguru,
 }:
-
 buildPythonPackage rec {
   pname = "pyhive-integration";
   version = "1.0.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-lfBr889s6NHcos/kdzQa9HJEcQ4dfCEMjuLYiLzesfE=";
   };
 
-  pythonRemoveDeps = [ "pre-commit" ];
+  pythonRemoveDeps = ["pre-commit"];
 
   nativeBuildInputs = [
     setuptools
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "pyhiveapi" ];
+  pythonImportsCheck = ["pyhiveapi"];
 
   meta = with lib; {
     description = "Python library to interface with the Hive API";
     homepage = "https://github.com/Pyhass/Pyhiveapi";
     changelog = "https://github.com/Pyhass/Pyhiveapi/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

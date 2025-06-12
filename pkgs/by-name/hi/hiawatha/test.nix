@@ -6,14 +6,15 @@
   mbedtls,
   enableTls,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "hiawatha-test";
 
-  nativeBuildInputs = [
-    hiawatha
-    curl
-  ] ++ lib.optional enableTls mbedtls;
+  nativeBuildInputs =
+    [
+      hiawatha
+      curl
+    ]
+    ++ lib.optional enableTls mbedtls;
 
   env = {
     inherit enableTls;
@@ -81,5 +82,5 @@ stdenvNoCC.mkDerivation {
     StartFile = index.html
   '';
 
-  passAsFile = [ "serverConfig" ];
+  passAsFile = ["serverConfig"];
 }

@@ -14,7 +14,6 @@
   seaborn,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hyppo";
   version = "0.5.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     substituteInPlace pytest.ini --replace-fail "addopts = --doctest-modules" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     autograd
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     description = "Python package for multivariate hypothesis testing";
     changelog = "https://github.com/neurodata/hyppo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

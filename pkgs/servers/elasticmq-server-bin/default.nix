@@ -9,7 +9,6 @@
   python3Packages,
   writeText,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "elasticmq-server";
   version = "1.6.12";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   # don't do anything?
   unpackPhase = "${jdk}/bin/jar xf $src favicon.png";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     mkdir -p $out/bin $out/share/elasticmq-server
@@ -43,10 +42,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Message queueing system with Java, Scala and Amazon SQS-compatible interfaces";
     homepage = "https://github.com/softwaremill/elasticmq";
     changelog = "https://github.com/softwaremill/elasticmq/releases/tag/v${finalAttrs.version}";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ peterromfeldhk ];
+    maintainers = with maintainers; [peterromfeldhk];
     mainProgram = "elasticmq-server";
   };
 })

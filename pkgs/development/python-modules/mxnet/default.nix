@@ -10,14 +10,13 @@
   python,
   isPy3k,
 }:
-
 buildPythonPackage {
   inherit (pkgs.mxnet) pname version src;
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pkgs.mxnet ];
+  buildInputs = [pkgs.mxnet];
 
   dependencies = [
     distutils
@@ -31,7 +30,7 @@ buildPythonPackage {
     "numpy"
   ];
 
-  LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.mxnet ];
+  LD_LIBRARY_PATH = lib.makeLibraryPath [pkgs.mxnet];
 
   doCheck = !isPy3k;
 

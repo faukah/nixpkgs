@@ -6,7 +6,6 @@
   ogg,
   libvorbis,
 }:
-
 buildDunePackage rec {
   pname = "vorbis";
   version = "0.8.0";
@@ -20,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-iCoE7I70wAp4n4XfETVKeaob2811E97/e6144bY/nqk=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ogg
     libvorbis
@@ -30,6 +29,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-vorbis";
     description = "Bindings to libvorbis";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

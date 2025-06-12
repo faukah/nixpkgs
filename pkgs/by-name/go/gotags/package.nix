@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule {
   pname = "gotags";
   version = "1.4.1";
@@ -36,6 +35,6 @@ buildGoModule {
     mainProgram = "gotags";
     homepage = "https://github.com/jstemmer/gotags";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

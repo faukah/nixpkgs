@@ -5,7 +5,6 @@
   xorg,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "vanilla-dmz";
   version = "0.4.5";
@@ -57,6 +56,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Style neutral scalable cursor theme";
     platforms = platforms.all;
     license = licenses.cc-by-sa-30;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

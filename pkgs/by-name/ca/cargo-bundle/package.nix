@@ -7,7 +7,6 @@
   libxkbcommon,
   wayland,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cargo-bundle";
   # the latest stable release fails to build on darwin
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

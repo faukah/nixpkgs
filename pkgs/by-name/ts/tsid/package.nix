@@ -12,7 +12,6 @@
   pythonSupport ? false,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tsid";
   version = "1.8.0";
@@ -57,13 +56,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional pythonSupport python3Packages.pinocchio;
 
   doCheck = true;
-  pythonImportsCheck = [ "tsid" ];
+  pythonImportsCheck = ["tsid"];
 
   meta = {
     description = "Efficient Task Space Inverse Dynamics (TSID) based on Pinocchio";
     homepage = "https://github.com/stack-of-tasks/tsid";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

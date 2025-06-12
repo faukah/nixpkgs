@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "plumbum";
   version = "1.9.0";
@@ -33,16 +32,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ssh = [ paramiko ];
+    ssh = [paramiko];
   };
 
-  nativeCheckInputs = [
-    psutil
-    pytest-cov-stub
-    pytest-mock
-    pytest-timeout
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      psutil
+      pytest-cov-stub
+      pytest-mock
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$TMP
@@ -68,6 +69,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/tomerfiliba/plumbum/releases/tag/v${version}";
     homepage = " https://github.com/tomerfiliba/plumbum";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

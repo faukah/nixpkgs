@@ -8,7 +8,6 @@
   gettext,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sdcv";
   version = "0.5.5";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EyvljVXhOsdxIYOGTzD+T16nvW7/RNx3DuQ2OdhjXJ4=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://dushistov.github.io/sdcv/";
     description = "Console version of StarDict";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     license = licenses.gpl2;
     platforms = platforms.unix;
     mainProgram = "sdcv";

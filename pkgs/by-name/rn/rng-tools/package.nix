@@ -24,7 +24,6 @@
   withRtlsdr ? true,
   withQrypt ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rng-tools";
   version = "6.17";
@@ -43,11 +42,11 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags = [
-    (lib.enableFeature (withJitterEntropy) "jitterentropy")
-    (lib.withFeature (withNistBeacon) "nistbeacon")
-    (lib.withFeature (withPkcs11) "pkcs11")
-    (lib.withFeature (withRtlsdr) "rtlsdr")
-    (lib.withFeature (withQrypt) "qrypt")
+    (lib.enableFeature withJitterEntropy "jitterentropy")
+    (lib.withFeature withNistBeacon "nistbeacon")
+    (lib.withFeature withPkcs11 "pkcs11")
+    (lib.withFeature withRtlsdr "rtlsdr")
+    (lib.withFeature withQrypt "qrypt")
   ];
 
   buildInputs =
@@ -55,8 +54,8 @@ stdenv.mkDerivation rec {
       openssl
       libcap
     ]
-    ++ lib.optionals stdenv.hostPlatform.isMusl [ argp-standalone ]
-    ++ lib.optionals withJitterEntropy [ jitterentropy ]
+    ++ lib.optionals stdenv.hostPlatform.isMusl [argp-standalone]
+    ++ lib.optionals withJitterEntropy [jitterentropy]
     ++ lib.optionals withNistBeacon [
       curl
       jansson
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       libp11
       libp11.passthru.openssl
     ]
-    ++ lib.optionals withRtlsdr [ rtl-sdr ]
+    ++ lib.optionals withRtlsdr [rtl-sdr]
     ++ lib.optionals withQrypt [
       curl
       jansson
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
   # for the test cases.
   # Patching the timeout to a larger value was declined upstream,
   # see (https://github.com/nhorman/rng-tools/pull/178).
-  nativeCheckInputs = [ psmisc ]; # rngtestjitter.sh needs killall
+  nativeCheckInputs = [psmisc]; # rngtestjitter.sh needs killall
 
   doInstallCheck = true;
   installCheckPhase = ''

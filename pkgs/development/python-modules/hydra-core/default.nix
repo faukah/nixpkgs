@@ -2,28 +2,22 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # patches
   replaceVars,
   antlr4,
   fetchpatch,
-
   # nativeBuildInputs
   jre_headless,
-
   # dependencies
   antlr4-python3-runtime,
   omegaconf,
   packaging,
-
   # tests
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "hydra-core";
   version = "1.3.2";
@@ -58,7 +52,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ jre_headless ];
+  nativeBuildInputs = [jre_headless];
 
   pythonRelaxDeps = [
     "antlr4-python3-runtime"
@@ -70,7 +64,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "-W"
@@ -91,7 +85,7 @@ buildPythonPackage rec {
       "test_failure"
     ];
 
-  disabledTestPaths = [ "tests/test_hydra.py" ];
+  disabledTestPaths = ["tests/test_hydra.py"];
 
   pythonImportsCheck = [
     "hydra"
@@ -104,6 +98,6 @@ buildPythonPackage rec {
     homepage = "https://hydra.cc";
     changelog = "https://github.com/facebookresearch/hydra/blob/v${version}/NEWS.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

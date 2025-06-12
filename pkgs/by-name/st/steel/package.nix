@@ -10,11 +10,9 @@
   openssl,
   sqlite,
   zlib,
-
   unstableGitUpdater,
   writeShellScript,
   yq,
-
   includeLSP ? true,
   includeForge ? true,
 }:
@@ -118,9 +116,9 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     mainProgram = "steel";
     platforms = lib.platforms.unix;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

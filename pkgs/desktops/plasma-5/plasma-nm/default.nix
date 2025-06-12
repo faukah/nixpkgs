@@ -32,7 +32,6 @@
   qtdeclarative,
   qttools,
 }:
-
 mkDerivation {
   pname = "plasma-nm";
   nativeBuildInputs = [

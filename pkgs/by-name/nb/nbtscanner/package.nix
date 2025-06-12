@@ -4,7 +4,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nbtscanner";
   version = "0.0.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       --replace-fail '.version("0.1")' '.version("${version}")'
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jonkgrimes/nbtscanner";
     changelog = "https://github.com/jonkgrimes/nbtscanner/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "nbtscanner";
   };
 }

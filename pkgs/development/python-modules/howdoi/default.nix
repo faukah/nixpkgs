@@ -17,7 +17,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "howdoi";
   version = "2.0.20";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     appdirs
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -76,13 +75,13 @@ buildPythonPackage rec {
     "test_unicode_answer"
   ];
 
-  pythonImportsCheck = [ "howdoi" ];
+  pythonImportsCheck = ["howdoi"];
 
   meta = with lib; {
     description = "Instant coding answers via the command line";
     homepage = "https://github.com/gleitz/howdoi";
     changelog = "https://github.com/gleitz/howdoi/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

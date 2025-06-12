@@ -13,7 +13,6 @@
   six,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "flask-restful";
   version = "0.3.10";
@@ -29,8 +28,8 @@ buildPythonPackage rec {
 
   # conditional so that overrides are easier for web applications
   patches =
-    lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0") [ ./werkzeug-2.1.0-compat.patch ]
-    ++ lib.optionals (lib.versionAtLeast flask.version "3.0.0") [ ./flask-3.0-compat.patch ]
+    lib.optionals (lib.versionAtLeast werkzeug.version "2.1.0") [./werkzeug-2.1.0-compat.patch]
+    ++ lib.optionals (lib.versionAtLeast flask.version "3.0.0") [./flask-3.0-compat.patch]
     ++ [
       # replace use nose by pytest: https://github.com/flask-restful/flask-restful/pull/970
       (fetchpatch2 {
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     "test_rfc822_date_field_with_offset"
   ];
 
-  pythonImportsCheck = [ "flask_restful" ];
+  pythonImportsCheck = ["flask_restful"];
 
   meta = with lib; {
     description = "Framework for creating REST APIs";
@@ -74,6 +73,6 @@ buildPythonPackage rec {
       REST API.
     '';
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

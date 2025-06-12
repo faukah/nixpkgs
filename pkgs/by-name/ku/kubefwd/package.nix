@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubefwd";
   version = "1.22.5";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Bulk port forwarding Kubernetes services for local development";
     homepage = "https://github.com/txn2/kubefwd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [iogamaster];
     mainProgram = "kubefwd";
   };
 }

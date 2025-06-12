@@ -4,7 +4,6 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "pyalsaaudio";
   version = "0.11.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     alsa-lib
   ];
 
-  pythonImportsCheck = [ "alsaaudio" ];
+  pythonImportsCheck = ["alsaaudio"];
 
   # Unit tests exist in test.py, but they require hardware (and therefore /dev) access.
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/larsimmisch/pyalsaaudio";
     changelog = "https://github.com/larsimmisch/pyalsaaudio/blob/${version}/CHANGES.md";
     license = licenses.psfl;
-    maintainers = with maintainers; [ timschumi ];
+    maintainers = with maintainers; [timschumi];
   };
 }

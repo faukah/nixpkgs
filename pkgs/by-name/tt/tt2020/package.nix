@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "TT2020";
   version = "0.2.1";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Advanced, open source, hyperrealistic, multilingual typewriter font for a new decade";
     homepage = "https://ctrlcctrlv.github.io/TT2020";
     license = licenses.ofl;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.all;
   };
 }

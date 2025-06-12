@@ -8,20 +8,18 @@
   runCommand,
   wine,
   wine64,
-}:
-
-let
+}: let
   inherit (stdenv) buildPlatform;
 in
-{
-  version = testers.testVersion {
-    package = cloudflared;
-    command = "cloudflared help";
-  };
-  refuses-to-autoupdate =
-    runCommand "cloudflared-${version}-refuses-to-autoupdate"
+  {
+    version = testers.testVersion {
+      package = cloudflared;
+      command = "cloudflared help";
+    };
+    refuses-to-autoupdate =
+      runCommand "cloudflared-${version}-refuses-to-autoupdate"
       {
-        nativeBuildInputs = [ cloudflared ];
+        nativeBuildInputs = [cloudflared];
       }
       ''
         set -e
@@ -33,12 +31,12 @@ in
         fi
         mkdir $out
       '';
-}
-// lib.optionalAttrs (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64)) {
-  runs-through-wine =
-    runCommand "cloudflared-${version}-runs-through-wine"
+  }
+  // lib.optionalAttrs (buildPlatform.isLinux && (buildPlatform.isi686 || buildPlatform.isx86_64)) {
+    runs-through-wine =
+      runCommand "cloudflared-${version}-runs-through-wine"
       {
-        nativeBuildInputs = [ wine ];
+        nativeBuildInputs = [wine];
         exe = "${pkgsCross.mingw32.cloudflared}/bin/cloudflared.exe";
       }
       ''
@@ -46,12 +44,12 @@ in
         wine $exe help
         mkdir $out
       '';
-}
-// lib.optionalAttrs (buildPlatform.isLinux && buildPlatform.isx86_64) {
-  runs-through-wine64 =
-    runCommand "cloudflared-${version}-runs-through-wine64"
+  }
+  // lib.optionalAttrs (buildPlatform.isLinux && buildPlatform.isx86_64) {
+    runs-through-wine64 =
+      runCommand "cloudflared-${version}-runs-through-wine64"
       {
-        nativeBuildInputs = [ wine64 ];
+        nativeBuildInputs = [wine64];
         exe = "${pkgsCross.mingwW64.cloudflared}/bin/cloudflared.exe";
       }
       ''
@@ -59,4 +57,4 @@ in
         wine64 $exe help
         mkdir $out
       '';
-}
+  }

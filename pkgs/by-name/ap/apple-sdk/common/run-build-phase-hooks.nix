@@ -1,6 +1,4 @@
-{ }:
-
-self: super: {
+{}: self: super: {
   buildPhase = ''
     runHook preBuild
     ${super.buildPhase or ""}

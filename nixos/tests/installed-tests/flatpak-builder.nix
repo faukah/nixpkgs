@@ -1,5 +1,8 @@
-{ pkgs, makeInstalledTest, ... }:
-
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 makeInstalledTest {
   tested = pkgs.flatpak-builder;
 
@@ -7,12 +10,11 @@ makeInstalledTest {
     services.flatpak.enable = true;
     xdg.portal = {
       enable = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk];
       config.common.default = "gtk";
     };
-    environment.systemPackages =
-      with pkgs;
-      [ flatpak-builder ] ++ flatpak-builder.installedTestsDependencies;
+    environment.systemPackages = with pkgs;
+      [flatpak-builder] ++ flatpak-builder.installedTestsDependencies;
     virtualisation.diskSize = 2048;
   };
 

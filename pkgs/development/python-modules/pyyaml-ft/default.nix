@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyyaml-ft";
   version = "7.0.1";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
-  pythonImportsCheck = [ "yaml" ];
+  pythonImportsCheck = ["yaml"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     changelog = "https://github.com/Quansight-Labs/pyyaml-ft/blob/${src.tag}/CHANGES";
     description = "YAML parser and emitter for Python with support for free-threading";
     homepage = "https://github.com/Quansight-Labs/pyyaml-ft";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

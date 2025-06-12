@@ -11,7 +11,6 @@
   gobject-introspection,
   mateUpdateScript,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mozo";
   version = "1.28.0";
@@ -43,14 +42,14 @@ python3.pkgs.buildPythonApplication rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE Desktop menu editor";
     mainProgram = "mozo";
     homepage = "https://github.com/mate-desktop/mozo";
-    license = with licenses; [ lgpl2Plus ];
+    license = with licenses; [lgpl2Plus];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

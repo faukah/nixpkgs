@@ -8,7 +8,6 @@
   sphinxcontrib-jquery,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-rtd-theme";
   version = "3.0.2";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     "sphinxcontrib-jquery"
   ];
 
-  pythonImportsCheck = [ "sphinx_rtd_theme" ];
+  pythonImportsCheck = ["sphinx_rtd_theme"];
 
   meta = with lib; {
     description = "Sphinx theme for readthedocs.org";

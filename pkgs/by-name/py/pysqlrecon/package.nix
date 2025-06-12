@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pysqlrecon";
   version = "0.3.0";
@@ -22,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     "typer"
   ];
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     impacket
@@ -34,14 +33,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pysqlrecon" ];
+  pythonImportsCheck = ["pysqlrecon"];
 
   meta = {
     description = "Offensive MSSQL toolkit";
     homepage = "https://github.com/Tw1sm/PySQLRecon";
     changelog = "https://github.com/Tw1sm/PySQLRecon/blob/${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "pysqlrecon";
   };
 }

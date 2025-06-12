@@ -4,7 +4,6 @@
   fetchFromGitHub,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "deeptools";
   version = "3.5.6";
@@ -61,6 +60,6 @@ python3Packages.buildPythonApplication rec {
       mit
       bsd3
     ];
-    maintainers = with lib.maintainers; [ scalavision ];
+    maintainers = with lib.maintainers; [scalavision];
   };
 }

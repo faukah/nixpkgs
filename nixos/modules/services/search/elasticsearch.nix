@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.elasticsearch;
 
   es7 = builtins.compareVersions cfg.package.version "7" >= 0;
@@ -42,10 +39,7 @@ let
     paths = cfg.plugins;
     postBuild = "${pkgs.coreutils}/bin/mkdir -p $out/plugins";
   };
-
-in
-{
-
+in {
   ###### interface
 
   options.services.elasticsearch = {
@@ -55,7 +49,7 @@ in
       type = types.bool;
     };
 
-    package = mkPackageOption pkgs "elasticsearch" { };
+    package = mkPackageOption pkgs "elasticsearch" {};
 
     listenAddress = mkOption {
       description = "Elasticsearch listen address.";
@@ -125,20 +119,20 @@ in
 
     extraCmdLineOptions = mkOption {
       description = "Extra command line options for the elasticsearch launcher.";
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
     };
 
     extraJavaOptions = mkOption {
       description = "Extra command line options for Java.";
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "-Djava.net.preferIPv4Stack=true" ];
+      example = ["-Djava.net.preferIPv4Stack=true"];
     };
 
     plugins = mkOption {
       description = "Extra elasticsearch plugins";
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = lib.literalExpression "[ pkgs.elasticsearchPlugins.discovery-ec2 ]";
     };
@@ -153,7 +147,6 @@ in
       '';
       default = true;
     };
-
   };
 
   ###### implementation
@@ -161,9 +154,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.elasticsearch = {
       description = "Elasticsearch Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.inetutils ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.inetutils];
       inherit (cfg) restartIfChanged;
       environment = {
         ES_HOME = cfg.dataDir;
@@ -224,7 +217,7 @@ in
       '';
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users = {
       groups.elasticsearch.gid = config.ids.gids.elasticsearch;

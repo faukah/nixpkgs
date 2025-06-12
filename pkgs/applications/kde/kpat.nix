@@ -8,7 +8,6 @@
   freecell-solver,
   black-hole-solver,
 }:
-
 mkDerivation {
   pname = "kpat";
   nativeBuildInputs = [
@@ -27,6 +26,6 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
   };
 }

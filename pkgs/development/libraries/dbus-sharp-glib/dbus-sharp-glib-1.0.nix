@@ -7,7 +7,6 @@
   mono,
   dbus-sharp-1_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-sharp-glib";
   version = "0.5";

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "pymumble";
   version = "unstable-2024-10-20";

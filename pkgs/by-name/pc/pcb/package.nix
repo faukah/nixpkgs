@@ -21,7 +21,6 @@
   gd,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcb";
   version = "4.3.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Printed Circuit Board editor";
     homepage = "https://sourceforge.net/projects/pcb/";
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

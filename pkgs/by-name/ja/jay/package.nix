@@ -14,7 +14,6 @@
   vulkan-loader,
   autoPatchelfHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jay";
   version = "1.10.0";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mahkoh/jay";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "jay";
   };
 }

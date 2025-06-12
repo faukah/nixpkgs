@@ -8,7 +8,6 @@
   fetchurl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ltris";
   version = "2.0.3";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     SDL2_ttf
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.updateScript = directoryListingUpdater {
     inherit (finalAttrs) pname version;
@@ -36,9 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://lgames.sourceforge.io/LTris/";
     description = "Tetris clone from the LGames series";
-    license = with lib.licenses; [ gpl3Plus ];
+    license = with lib.licenses; [gpl3Plus];
     mainProgram = "ltris2";
-    maintainers = with lib.maintainers; [ marcin-serwin ];
+    maintainers = with lib.maintainers; [marcin-serwin];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

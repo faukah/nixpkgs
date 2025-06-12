@@ -6,7 +6,6 @@
   ninja,
   quilt,
 }:
-
 stdenv.mkDerivation {
   pname = "jxrlib";
   version = "1.2~git20170615.f752187-5.2";
@@ -28,8 +27,8 @@ stdenv.mkDerivation {
   strictDeps = true;
 
   env.NIX_CFLAGS_COMPILE = lib.concatStringsSep " " (
-    [ "-Wno-error=implicit-function-declaration" ]
-    ++ lib.optionals stdenv.cc.isGNU [ "-Wno-error=incompatible-pointer-types" ]
+    ["-Wno-error=implicit-function-declaration"]
+    ++ lib.optionals stdenv.cc.isGNU ["-Wno-error=incompatible-pointer-types"]
   );
 
   postPatch = ''
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     homepage = "https://jxrlib.codeplex.com";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

@@ -1,16 +1,12 @@
 # Global configuration for wvdial.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.environment.wvdial;
-in
-{
+in {
   options = {
     environment.wvdial = {
       dialerDefaults = lib.mkOption {

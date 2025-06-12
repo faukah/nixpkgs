@@ -6,7 +6,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppfront";
   version = "0.8.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     tests.hello-world = stdenv.mkDerivation (finalAttrs': {
       pname = "${finalAttrs.pname}-hello-world-test";

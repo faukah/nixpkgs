@@ -15,9 +15,7 @@
   webkitgtk_4_0,
   wrapGAppsHook3,
   xvfb-run,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = (
@@ -29,86 +27,86 @@ let
     );
   };
 in
-python.pkgs.buildPythonApplication rec {
-  pname = "pytrainer";
-  version = "2.2.1";
+  python.pkgs.buildPythonApplication rec {
+    pname = "pytrainer";
+    version = "2.2.1";
 
-  src = fetchFromGitHub {
-    owner = "pytrainer";
-    repo = "pytrainer";
-    rev = "v${version}";
-    hash = "sha256-t61vHVTKN5KsjrgbhzljB7UZdRask7qfYISd+++QbV0=";
-  };
+    src = fetchFromGitHub {
+      owner = "pytrainer";
+      repo = "pytrainer";
+      rev = "v${version}";
+      hash = "sha256-t61vHVTKN5KsjrgbhzljB7UZdRask7qfYISd+++QbV0=";
+    };
 
-  propagatedBuildInputs = with python.pkgs; [
-    sqlalchemy
-    python-dateutil
-    matplotlib
-    lxml
-    setuptools
-    requests
-    gdal
-  ];
-
-  nativeBuildInputs = [
-    gobject-introspection
-    wrapGAppsHook3
-  ];
-
-  buildInputs = [
-    sqlite
-    gtk3
-    webkitgtk_4_0
-    glib-networking
-    adwaita-icon-theme
-    gdk-pixbuf
-  ];
-
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.makeBinPath [
-      perl
-      gpsbabel
-    ])
-  ];
-
-  nativeCheckInputs =
-    [
-      glibcLocales
-      perl
-      xvfb-run
-    ]
-    ++ (with python.pkgs; [
-      mysqlclient
-      psycopg2
-    ]);
-
-  postPatch = ''
-    substituteInPlace pytrainer/platform.py \
-        --replace 'sys.prefix' "\"$out\""
-  '';
-
-  checkPhase = ''
-    env \
-      HOME=$TEMPDIR \
-      TZDIR=${tzdata}/share/zoneinfo \
-      TZ=Europe/Kaliningrad \
-      LC_TIME=C \
-      xvfb-run -s '-screen 0 800x600x24' \
-      ${python.interpreter} -m unittest
-  '';
-
-  meta = with lib; {
-    homepage = "https://github.com/pytrainer/pytrainer";
-    description = "Application for logging and graphing sporting excursions";
-    mainProgram = "pytrainer";
-    maintainers = with maintainers; [
-      rycee
-      dotlambda
+    propagatedBuildInputs = with python.pkgs; [
+      sqlalchemy
+      python-dateutil
+      matplotlib
+      lxml
+      setuptools
+      requests
+      gdal
     ];
-    license = licenses.gpl2Plus;
-    platforms = platforms.linux;
-  };
-}
+
+    nativeBuildInputs = [
+      gobject-introspection
+      wrapGAppsHook3
+    ];
+
+    buildInputs = [
+      sqlite
+      gtk3
+      webkitgtk_4_0
+      glib-networking
+      adwaita-icon-theme
+      gdk-pixbuf
+    ];
+
+    makeWrapperArgs = [
+      "--prefix"
+      "PATH"
+      ":"
+      (lib.makeBinPath [
+        perl
+        gpsbabel
+      ])
+    ];
+
+    nativeCheckInputs =
+      [
+        glibcLocales
+        perl
+        xvfb-run
+      ]
+      ++ (with python.pkgs; [
+        mysqlclient
+        psycopg2
+      ]);
+
+    postPatch = ''
+      substituteInPlace pytrainer/platform.py \
+          --replace 'sys.prefix' "\"$out\""
+    '';
+
+    checkPhase = ''
+      env \
+        HOME=$TEMPDIR \
+        TZDIR=${tzdata}/share/zoneinfo \
+        TZ=Europe/Kaliningrad \
+        LC_TIME=C \
+        xvfb-run -s '-screen 0 800x600x24' \
+        ${python.interpreter} -m unittest
+    '';
+
+    meta = with lib; {
+      homepage = "https://github.com/pytrainer/pytrainer";
+      description = "Application for logging and graphing sporting excursions";
+      mainProgram = "pytrainer";
+      maintainers = with maintainers; [
+        rycee
+        dotlambda
+      ];
+      license = licenses.gpl2Plus;
+      platforms = platforms.linux;
+    };
+  }

@@ -6,7 +6,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wee-slack";
   version = "2.11.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     substituteInPlace wee_slack.py --subst-var out
   '';
 
-  passthru.scripts = [ "wee_slack.py" ];
+  passthru.scripts = ["wee_slack.py"];
 
   installPhase = ''
     mkdir -p $out/share
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/wee-slack/wee-slack";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     description = ''
       A WeeChat plugin for Slack.com. Synchronizes read markers, provides typing notification, search, etc..
     '';

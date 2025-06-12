@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "0.1.4";
   pname = "forbiddenfruit";
@@ -17,11 +16,11 @@ buildPythonPackage rec {
     hash = "sha256-yHIZsVn2UVmWeBNIzWDE6AOwAXZilPqXo+bVtXqGkJk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   env.FFRUIT_EXTENSION = "true";
 
-  pythonImportsCheck = [ "forbiddenfruit" ];
+  pythonImportsCheck = ["forbiddenfruit"];
 
   doCheck = false; # uses nose
 
@@ -33,6 +32,6 @@ buildPythonPackage rec {
       mit
       gpl3Plus
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

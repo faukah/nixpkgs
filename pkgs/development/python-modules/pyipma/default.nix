@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyipma";
   version = "3.0.9";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-1EUOkNwNoZQEetJ5v6httas0S0a3bHLv/lDRXQsT/Ds=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyipma" ];
+  pythonImportsCheck = ["pyipma"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dgomes/pyipma";
     changelog = "https://github.com/dgomes/pyipma/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

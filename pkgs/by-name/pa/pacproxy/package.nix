@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pacproxy";
   version = "2.0.5";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/williambailey/pacproxy";
     changelog = "https://github.com/williambailey/pacproxy/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ terlar ];
+    maintainers = with lib.maintainers; [terlar];
     mainProgram = "pacproxy";
   };
 }

@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation {
   pname = "frozen";
   # pin to a newer release if frozen releases again, see cesanta/frozen#72
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/cesanta/frozen";
     description = "Minimal JSON parser for C, targeted for embedded systems";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ thillux ];
+    maintainers = with lib.maintainers; [thillux];
     platforms = lib.platforms.unix;
   };
 }

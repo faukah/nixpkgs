@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     ./libap4.patch # include all libraries as shared, not static
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Full-featured MP4 format and MPEG DASH library and tools";
     homepage = "http://bento4.com";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
     platforms = platforms.unix;
   };
 }

@@ -3,87 +3,86 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.dconf;
 
   # Compile keyfiles to dconf DB
-  compileDconfDb =
-    dir:
+  compileDconfDb = dir:
     pkgs.runCommand "dconf-db" {
-      nativeBuildInputs = [ (lib.getBin pkgs.dconf) ];
+      nativeBuildInputs = [(lib.getBin pkgs.dconf)];
     } "dconf compile $out ${dir}";
 
   # Check if dconf keyfiles are valid
-  checkDconfKeyfiles =
-    dir:
+  checkDconfKeyfiles = dir:
     pkgs.runCommand "check-dconf-keyfiles"
-      {
-        nativeBuildInputs = [ (lib.getBin pkgs.dconf) ];
-      }
-      ''
-        if [[ -f ${dir} ]]; then
-          echo "dconf keyfiles should be a directory but a file is provided: ${dir}"
-          exit 1
-        fi
+    {
+      nativeBuildInputs = [(lib.getBin pkgs.dconf)];
+    }
+    ''
+      if [[ -f ${dir} ]]; then
+        echo "dconf keyfiles should be a directory but a file is provided: ${dir}"
+        exit 1
+      fi
 
-        dconf compile db ${dir} || (
-          echo "The dconf keyfiles are invalid: ${dir}"
-          exit 1
-        )
-        cp -R ${dir} $out
-      '';
+      dconf compile db ${dir} || (
+        echo "The dconf keyfiles are invalid: ${dir}"
+        exit 1
+      )
+      cp -R ${dir} $out
+    '';
 
-  mkAllLocks =
-    settings:
+  mkAllLocks = settings:
     lib.flatten (lib.mapAttrsToList (k: v: lib.mapAttrsToList (k': _: "/${k}/${k'}") v) settings);
 
   # Generate dconf DB from dconfDatabase and keyfiles
-  mkDconfDb =
-    val:
+  mkDconfDb = val:
     compileDconfDb (
       pkgs.symlinkJoin {
         name = "nixos-generated-dconf-keyfiles";
-        paths = [
-          (pkgs.writeTextDir "nixos-generated-dconf-keyfiles" (lib.generators.toDconfINI val.settings))
-          (pkgs.writeTextDir "locks/nixos-generated-dconf-locks" (
-            lib.concatStringsSep "\n" (if val.lockAll then mkAllLocks val.settings else val.locks)
-          ))
-        ] ++ (map checkDconfKeyfiles val.keyfiles);
+        paths =
+          [
+            (pkgs.writeTextDir "nixos-generated-dconf-keyfiles" (lib.generators.toDconfINI val.settings))
+            (pkgs.writeTextDir "locks/nixos-generated-dconf-locks" (
+              lib.concatStringsSep "\n" (
+                if val.lockAll
+                then mkAllLocks val.settings
+                else val.locks
+              )
+            ))
+          ]
+          ++ (map checkDconfKeyfiles val.keyfiles);
       }
     );
 
   # Check if a dconf DB file is valid. The dconf cli doesn't return 1 when it can't
   # open the database file so we have to check if the output is empty.
-  checkDconfDb =
-    file:
+  checkDconfDb = file:
     pkgs.runCommand "check-dconf-db"
-      {
-        nativeBuildInputs = [ (lib.getBin pkgs.dconf) ];
-      }
-      ''
-        if [[ -d ${file} ]]; then
-          echo "dconf DB should be a file but a directory is provided: ${file}"
-          exit 1
-        fi
+    {
+      nativeBuildInputs = [(lib.getBin pkgs.dconf)];
+    }
+    ''
+      if [[ -d ${file} ]]; then
+        echo "dconf DB should be a file but a directory is provided: ${file}"
+        exit 1
+      fi
 
-        echo "file-db:${file}" > profile
-        DCONF_PROFILE=$(pwd)/profile dconf dump / > output 2> error
-        if [[ ! -s output ]] && [[ -s error ]]; then
-          cat error
-          echo "The dconf DB file is invalid: ${file}"
-          exit 1
-        fi
+      echo "file-db:${file}" > profile
+      DCONF_PROFILE=$(pwd)/profile dconf dump / > output 2> error
+      if [[ ! -s output ]] && [[ -s error ]]; then
+        cat error
+        echo "The dconf DB file is invalid: ${file}"
+        exit 1
+      fi
 
-        cp ${file} $out
-      '';
+      cp ${file} $out
+    '';
 
   # Generate dconf profile
-  mkDconfProfile =
-    name: value:
-    if lib.isDerivation value || lib.isPath value then
-      pkgs.runCommand "dconf-profile" { } ''
+  mkDconfProfile = name: value:
+    if lib.isDerivation value || lib.isPath value
+    then
+      pkgs.runCommand "dconf-profile" {} ''
         if [[ -d ${value} ]]; then
           echo "Dconf profile should be a file but a directory is provided."
           exit 1
@@ -96,17 +95,18 @@ let
         lib.concatMapStrings (x: "${x}\n") (
           (lib.optional value.enableUserDb "user-db:user")
           ++ (map (
-            value:
-            let
-              db = if lib.isAttrs value && !lib.isDerivation value then mkDconfDb value else checkDconfDb value;
-            in
-            "file-db:${db}"
-          ) value.databases)
+              value: let
+                db =
+                  if lib.isAttrs value && !lib.isDerivation value
+                  then mkDconfDb value
+                  else checkDconfDb value;
+              in "file-db:${db}"
+            )
+            value.databases)
         )
       );
 
-  dconfDatabase =
-    with lib.types;
+  dconfDatabase = with lib.types;
     submodule {
       options = {
         keyfiles = lib.mkOption {
@@ -114,12 +114,12 @@ let
             path
             package
           ]);
-          default = [ ];
+          default = [];
           description = "A list of dconf keyfile directories.";
         };
         settings = lib.mkOption {
           type = attrs;
-          default = { };
+          default = {};
           description = "An attrset used to generate dconf keyfile.";
           example = literalExpression ''
             with lib.gvariant;
@@ -133,7 +133,7 @@ let
         };
         locks = lib.mkOption {
           type = with lib.types; listOf str;
-          default = [ ];
+          default = [];
           description = ''
             A list of dconf keys to be lockdown. This doesn't take effect if `lockAll`
             is set.
@@ -150,8 +150,7 @@ let
       };
     };
 
-  dconfProfile =
-    with lib.types;
+  dconfProfile = with lib.types;
     submodule {
       options = {
         enableUserDb = lib.mkOption {
@@ -161,14 +160,13 @@ let
         };
 
         databases = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             listOf (oneOf [
               path
               package
               dconfDatabase
             ]);
-          default = [ ];
+          default = [];
           description = ''
             List of data sources for the profile. An element can be an attrset,
             or the path of an already compiled database. Each element is converted
@@ -182,22 +180,19 @@ let
         };
       };
     };
-
-in
-{
+in {
   options = {
     programs.dconf = {
       enable = lib.mkEnableOption "dconf";
 
       profiles = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             path
             package
             dconfProfile
           ]);
-        default = { };
+        default = {};
         description = ''
           Attrset of dconf profiles. By default the `user` profile is used which
           ends up in `/etc/dconf/profile/user`.
@@ -220,20 +215,20 @@ in
 
       packages = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         description = "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
       };
     };
   };
 
-  config = lib.mkIf (cfg.profiles != { } || cfg.enable) {
+  config = lib.mkIf (cfg.profiles != {} || cfg.enable) {
     programs.dconf.packages = lib.mapAttrsToList mkDconfProfile cfg.profiles;
 
-    environment.etc.dconf = lib.mkIf (cfg.packages != [ ]) {
+    environment.etc.dconf = lib.mkIf (cfg.packages != []) {
       source = pkgs.symlinkJoin {
         name = "dconf-system-config";
         paths = map (x: "${x}/etc/dconf") cfg.packages;
-        nativeBuildInputs = [ (lib.getBin pkgs.dconf) ];
+        nativeBuildInputs = [(lib.getBin pkgs.dconf)];
         postBuild = ''
           if test -d $out/db; then
             dconf update $out/db
@@ -242,16 +237,16 @@ in
       };
     };
 
-    services.dbus.packages = [ pkgs.dconf ];
+    services.dbus.packages = [pkgs.dconf];
 
-    systemd.packages = [ pkgs.dconf ];
+    systemd.packages = [pkgs.dconf];
 
     # For dconf executable
-    environment.systemPackages = [ pkgs.dconf ];
+    environment.systemPackages = [pkgs.dconf];
 
     environment.sessionVariables = lib.mkIf cfg.enable {
       # Needed for unwrapped applications
-      GIO_EXTRA_MODULES = [ "${pkgs.dconf.lib}/lib/gio/modules" ];
+      GIO_EXTRA_MODULES = ["${pkgs.dconf.lib}/lib/gio/modules"];
     };
   };
 }

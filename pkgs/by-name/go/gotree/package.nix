@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotree";
   version = "1.4.3";
@@ -23,6 +22,6 @@ buildGoModule rec {
     changelog = "https://github.com/elbachir-one/gt/releases/tag/v${version}";
     license = lib.licenses.bsd3;
     mainProgram = "gt";
-    maintainers = with lib.maintainers; [ schnow265 ];
+    maintainers = with lib.maintainers; [schnow265];
   };
 }

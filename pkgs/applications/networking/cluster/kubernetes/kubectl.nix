@@ -1,5 +1,7 @@
-{ lib, kubernetes }:
-
+{
+  lib,
+  kubernetes,
+}:
 kubernetes.overrideAttrs (_: {
   pname = "kubectl";
 
@@ -28,10 +30,12 @@ kubernetes.overrideAttrs (_: {
     runHook postInstall
   '';
 
-  meta = kubernetes.meta // {
-    description = "Kubernetes CLI";
-    homepage = "https://github.com/kubernetes/kubectl";
-    mainProgram = "kubectl";
-    platforms = lib.platforms.unix;
-  };
+  meta =
+    kubernetes.meta
+    // {
+      description = "Kubernetes CLI";
+      homepage = "https://github.com/kubernetes/kubectl";
+      mainProgram = "kubectl";
+      platforms = lib.platforms.unix;
+    };
 })

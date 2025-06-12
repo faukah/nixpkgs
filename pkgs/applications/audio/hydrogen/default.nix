@@ -18,7 +18,6 @@
   qttools,
   qtxmlpatterns,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hydrogen";
   version = "1.2.4";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.hydrogen-music.org";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

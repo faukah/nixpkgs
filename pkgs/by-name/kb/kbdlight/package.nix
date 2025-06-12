@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kbdlight";
   version = "1.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Very simple application that changes MacBooks' keyboard backlight level";
     mainProgram = "kbdlight";
     license = licenses.isc;
-    maintainers = [ maintainers.womfoo ];
+    maintainers = [maintainers.womfoo];
     platforms = platforms.linux;
   };
 }

@@ -5,12 +5,11 @@
   bsdSetupHook,
   netbsdSetupHook,
 }:
-
 mkDerivation {
   path = "share/mk";
   noCC = true;
 
-  buildInputs = [ ];
+  buildInputs = [];
   nativeBuildInputs = [
     bsdSetupHook
     netbsdSetupHook

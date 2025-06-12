@@ -8,7 +8,6 @@
   testers,
   sozu,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sozu";
   version = "1.0.6";
@@ -23,12 +22,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-AIj59MqK+TqyTTDjGzN1Oec3svPaXRBkHJTBtxTwZNg=";
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = sozu;
       command = "sozu --version";

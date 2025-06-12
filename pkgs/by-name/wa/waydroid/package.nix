@@ -18,7 +18,6 @@
   runtimeShell,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "waydroid";
   version = "1.5.1";
@@ -72,13 +71,13 @@ python3Packages.buildPythonApplication rec {
     patchShebangs --host $out/lib/waydroid/data/scripts
     wrapProgram $out/lib/waydroid/data/scripts/waydroid-net.sh \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          dnsmasq
-          getent
-          iproute2
-          iptables
-        ]
-      }
+      lib.makeBinPath [
+        dnsmasq
+        getent
+        iproute2
+        iptables
+      ]
+    }
 
     wrapPythonProgramsIn $out/lib/waydroid/ "${
       lib.concatStringsSep " " (
@@ -100,7 +99,7 @@ python3Packages.buildPythonApplication rec {
       --replace '"sh"' '"${runtimeShell}"'
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Container-based approach to boot a full Android system on a regular GNU/Linux system";
@@ -108,6 +107,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/waydroid/waydroid";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

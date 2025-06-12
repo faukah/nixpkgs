@@ -1,94 +1,95 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "kthxbye";
 
   meta = with lib.maintainers; {
-    maintainers = [ nukaduka ];
+    maintainers = [nukaduka];
   };
 
-  nodes.server =
-    { ... }:
-    {
-      environment.systemPackages = with pkgs; [ prometheus-alertmanager ];
-      services.prometheus = {
-        enable = true;
+  nodes.server = {...}: {
+    environment.systemPackages = with pkgs; [prometheus-alertmanager];
+    services.prometheus = {
+      enable = true;
 
-        globalConfig = {
+      globalConfig = {
+        scrape_interval = "5s";
+        scrape_timeout = "5s";
+        evaluation_interval = "5s";
+      };
+
+      scrapeConfigs = [
+        {
+          job_name = "prometheus";
           scrape_interval = "5s";
-          scrape_timeout = "5s";
-          evaluation_interval = "5s";
-        };
-
-        scrapeConfigs = [
-          {
-            job_name = "prometheus";
-            scrape_interval = "5s";
-            static_configs = [
-              {
-                targets = [ "localhost:9090" ];
-              }
-            ];
-          }
-        ];
-
-        rules = [
-          ''
-            groups:
-              - name: test
-                rules:
-                  - alert: node_up
-                    expr: up != 0
-                    for: 5s
-                    labels:
-                      severity: bottom of the barrel
-                    annotations:
-                      summary: node is fine
-          ''
-        ];
-
-        alertmanagers = [
-          {
-            static_configs = [
-              {
-                targets = [
-                  "localhost:9093"
-                ];
-              }
-            ];
-          }
-        ];
-
-        alertmanager = {
-          enable = true;
-          openFirewall = true;
-          configuration.route = {
-            receiver = "test";
-            group_wait = "5s";
-            group_interval = "5s";
-            group_by = [ "..." ];
-          };
-          configuration.receivers = [
+          static_configs = [
             {
-              name = "test";
-              webhook_configs = [
-                {
-                  url = "http://localhost:1234";
-                }
+              targets = ["localhost:9090"];
+            }
+          ];
+        }
+      ];
+
+      rules = [
+        ''
+          groups:
+            - name: test
+              rules:
+                - alert: node_up
+                  expr: up != 0
+                  for: 5s
+                  labels:
+                    severity: bottom of the barrel
+                  annotations:
+                    summary: node is fine
+        ''
+      ];
+
+      alertmanagers = [
+        {
+          static_configs = [
+            {
+              targets = [
+                "localhost:9093"
               ];
             }
           ];
-        };
-      };
+        }
+      ];
 
-      services.kthxbye = {
+      alertmanager = {
         enable = true;
         openFirewall = true;
-        extendIfExpiringIn = "30s";
-        logJSON = true;
-        maxDuration = "15m";
-        interval = "5s";
+        configuration.route = {
+          receiver = "test";
+          group_wait = "5s";
+          group_interval = "5s";
+          group_by = ["..."];
+        };
+        configuration.receivers = [
+          {
+            name = "test";
+            webhook_configs = [
+              {
+                url = "http://localhost:1234";
+              }
+            ];
+          }
+        ];
       };
     };
+
+    services.kthxbye = {
+      enable = true;
+      openFirewall = true;
+      extendIfExpiringIn = "30s";
+      logJSON = true;
+      maxDuration = "15m";
+      interval = "5s";
+    };
+  };
 
   testScript = ''
     with subtest("start the server"):

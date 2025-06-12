@@ -6,7 +6,6 @@
   libxkbcommon,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rwpspread";
   version = "0.4.0";
@@ -20,17 +19,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-NuOOg9aIa0JW+urxDVaPn66bS4H7+0tbKYNVDUV8D80=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Multi-Monitor Wallpaper Utility";
     homepage = "https://github.com/0xk1f0/rwpspread";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fsnkty ];
+    maintainers = with lib.maintainers; [fsnkty];
     platforms = lib.platforms.linux;
     mainProgram = "rwpspread";
   };

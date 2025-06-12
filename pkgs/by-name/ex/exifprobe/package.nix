@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "exifprobe";
   version = "unstable-2018-06-19";
@@ -15,9 +14,9 @@ stdenv.mkDerivation {
     sha256 = "1c1fhc0v1m452lgnfcijnvrc0by06qfbhn3zkliqi60kv8l2isbp";
   };
 
-  CFLAGS = [ "-O2" ];
+  CFLAGS = ["-O2"];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     mv $out/usr/bin $out/bin
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     description = "Tool for reading EXIF data from image files produced by digital cameras";
     homepage = "https://github.com/hfiguiere/exifprobe";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

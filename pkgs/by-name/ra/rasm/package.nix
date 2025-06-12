@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rasm";
   version = "2.3.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   # by default the EXEC variable contains `rasm.exe`
-  makeFlags = [ "EXEC=rasm" ];
+  makeFlags = ["EXEC=rasm"];
 
   installPhase = ''
     install -Dt $out/bin rasm
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     mainProgram = "rasm";
     # use -n option to display all licenses
     license = lib.licenses.mit; # expat version
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 }

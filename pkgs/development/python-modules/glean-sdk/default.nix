@@ -10,7 +10,6 @@
   semver,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "glean-sdk";
   version = "64.0.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "glean-core/python/tests" ];
+  pytestFlagsArray = ["glean-core/python/tests"];
 
   disabledTests = [
     # RuntimeError: No ping received.
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     "test_get_language_tag_reports_the_tag_for_the_default_locale"
   ];
 
-  pythonImportsCheck = [ "glean" ];
+  pythonImportsCheck = ["glean"];
 
   meta = {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Telemetry client libraries and are a part of the Glean project";
     homepage = "https://mozilla.github.io/glean/book/index.html";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ melling ];
+    maintainers = with lib.maintainers; [melling];
   };
 }

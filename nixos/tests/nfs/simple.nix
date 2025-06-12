@@ -3,46 +3,39 @@ import ../make-test-python.nix (
     pkgs,
     version ? 4,
     ...
-  }:
-
-  let
-
-    client =
-      { pkgs, ... }:
-      {
-        virtualisation.fileSystems = {
-          "/data" = {
-            # nfs4 exports the export with fsid=0 as a virtual root directory
-            device = if (version == 4) then "server:/" else "server:/data";
-            fsType = "nfs";
-            options = [ "vers=${toString version}" ];
-          };
+  }: let
+    client = {pkgs, ...}: {
+      virtualisation.fileSystems = {
+        "/data" = {
+          # nfs4 exports the export with fsid=0 as a virtual root directory
+          device =
+            if (version == 4)
+            then "server:/"
+            else "server:/data";
+          fsType = "nfs";
+          options = ["vers=${toString version}"];
         };
-        networking.firewall.enable = false; # FIXME: only open statd
       };
-
-  in
-
-  {
+      networking.firewall.enable = false; # FIXME: only open statd
+    };
+  in {
     name = "nfs";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ ];
+      maintainers = [];
     };
 
     nodes = {
       client1 = client;
       client2 = client;
 
-      server =
-        { ... }:
-        {
-          services.nfs.server.enable = true;
-          services.nfs.server.exports = ''
-            /data 192.168.1.0/255.255.255.0(rw,no_root_squash,no_subtree_check,fsid=0)
-          '';
-          services.nfs.server.createMountPoints = true;
-          networking.firewall.enable = false; # FIXME: figure out what ports need to be allowed
-        };
+      server = {...}: {
+        services.nfs.server.enable = true;
+        services.nfs.server.exports = ''
+          /data 192.168.1.0/255.255.255.0(rw,no_root_squash,no_subtree_check,fsid=0)
+        '';
+        services.nfs.server.createMountPoints = true;
+        networking.firewall.enable = false; # FIXME: figure out what ports need to be allowed
+      };
     };
 
     testScript = ''

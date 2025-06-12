@@ -31,8 +31,7 @@ python3Packages.buildPythonPackage rec {
     python3Packages.poetry-core
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       click
       distro
@@ -45,10 +44,10 @@ python3Packages.buildPythonPackage rec {
       pyasyncore
       requests
     ]
-    ++ [ getent ];
+    ++ [getent];
 
   doCheck = false;
-  pythonImportsCheck = [ "auto_cpufreq" ];
+  pythonImportsCheck = ["auto_cpufreq"];
 
   patches = [
     # hardcodes version output
@@ -106,6 +105,6 @@ python3Packages.buildPythonPackage rec {
     description = "Automatic CPU speed & power optimizer for Linux";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ sarcasticadmin ];
+    maintainers = with lib.maintainers; [sarcasticadmin];
   };
 }

@@ -6,7 +6,6 @@
   hdf5,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minia";
   version = "3.2.1";
@@ -19,11 +18,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./no-bundle.patch ];
+  patches = [./no-bundle.patch];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wformat" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wformat"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     hdf5
     boost
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "minia";
     homepage = "https://github.com/GATB/minia";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ jbedo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jbedo];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -36,7 +36,6 @@
   qtx11extras,
   xorg,
 }:
-
 mkDerivation {
   pname = "kdelibs4support";
   patches = [
@@ -47,7 +46,7 @@ mkDerivation {
     extra-cmake-modules
     qttools
   ];
-  propagatedNativeBuildInputs = [ kdoctools ];
+  propagatedNativeBuildInputs = [kdoctools];
   buildInputs = [
     kcompletion
     kconfig

@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-gfm";
   version = "0.3.6";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-c1jJwyTL8IgQnIAJFoPSuJ8VEYgnQ4slZyV0bHlUHLQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     markdown-it-py
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     linkify-it-py
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_default_style__api"
     "test_default_style__cli"
   ];
 
-  pythonImportsCheck = [ "mdformat_gfm" ];
+  pythonImportsCheck = ["mdformat_gfm"];
 
   meta = with lib; {
     description = "Mdformat plugin for GitHub Flavored Markdown compatibility";

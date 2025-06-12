@@ -8,7 +8,6 @@
   gtk4,
   libadwaita,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fclones-gui";
   version = "0.2.0";
@@ -48,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/pkolaczk/fclones-gui";
     changelog = "https://github.com/pkolaczk/fclones-gui/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

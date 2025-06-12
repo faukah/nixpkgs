@@ -1,26 +1,16 @@
 # This module enables Network Address Translation (NAT).
 # XXX: todo: support multiple upstream links
 # see http://yesican.chsoft.biz/lartc/MultihomedLinuxNetworking.html
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.networking.nat;
-
-in
-
-{
-
+in {
   options = {
-
     networking.nat.enable = mkOption {
       type = types.bool;
       default = false;
@@ -42,8 +32,8 @@ in
 
     networking.nat.internalInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "eth0" ];
+      default = [];
+      example = ["eth0"];
       description = ''
         The interfaces for which to perform NAT. Packets coming from
         these interface and destined for the external interface will
@@ -53,8 +43,8 @@ in
 
     networking.nat.internalIPs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "192.168.1.0/24" ];
+      default = [];
+      example = ["192.168.1.0/24"];
       description = ''
         The IP address ranges for which to perform NAT.  Packets
         coming from these addresses (on any interface) and destined
@@ -64,8 +54,8 @@ in
 
     networking.nat.internalIPv6s = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "fc00::/64" ];
+      default = [];
+      example = ["fc00::/64"];
       description = ''
         The IPv6 address ranges for which to perform NAT.  Packets
         coming from these addresses (on any interface) and destined
@@ -109,8 +99,7 @@ in
     };
 
     networking.nat.forwardPorts = mkOption {
-      type =
-        with types;
+      type = with types;
         listOf (submodule {
           options = {
             sourcePort = mkOption {
@@ -134,13 +123,13 @@ in
 
             loopbackIPs = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = literalExpression ''[ "55.1.2.3" ]'';
               description = "Public IPs for NAT reflection; for connections to `loopbackip:sourcePort` from the host itself and from other hosts behind NAT";
             };
           };
         });
-      default = [ ];
+      default = [];
       example = [
         {
           sourcePort = 8080;
@@ -169,11 +158,9 @@ in
         forwarding rule is forwarded.
       '';
     };
-
   };
 
   config = mkIf config.networking.nat.enable {
-
     assertions = [
       {
         assertion = cfg.enableIPv6 -> config.networking.enableIPv6;
@@ -184,7 +171,7 @@ in
         message = "networking.nat.dmzHost requires networking.nat.externalInterface";
       }
       {
-        assertion = (cfg.forwardPorts != [ ]) -> (cfg.externalInterface != null);
+        assertion = (cfg.forwardPorts != []) -> (cfg.externalInterface != null);
         message = "networking.nat.forwardPorts requires networking.nat.externalInterface";
       }
     ];
@@ -192,10 +179,10 @@ in
     # Use the same iptables package as in config.networking.firewall.
     # When the firewall is enabled, this should be deduplicated without any
     # error.
-    environment.systemPackages = [ config.networking.firewall.package ];
+    environment.systemPackages = [config.networking.firewall.package];
 
     boot = {
-      kernelModules = [ "nf_nat_ftp" ];
+      kernelModules = ["nf_nat_ftp"];
       kernel.sysctl =
         {
           "net.ipv4.conf.all.forwarding" = mkOverride 99 true;
@@ -212,6 +199,5 @@ in
           "net.ipv6.conf.default.forwarding" = mkOverride 99 true;
         };
     };
-
   };
 }

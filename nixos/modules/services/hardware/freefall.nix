@@ -4,16 +4,10 @@
   pkgs,
   utils,
   ...
-}:
-let
-
+}: let
   cfg = config.services.freefall;
-
-in
-{
-
+in {
   options.services.freefall = {
-
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -22,45 +16,36 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "freefall" { };
+    package = lib.mkPackageOption pkgs "freefall" {};
 
     devices = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "/dev/sda" ];
+      default = ["/dev/sda"];
       description = ''
         Device paths to all internal spinning hard drives.
       '';
     };
-
   };
 
-  config =
-    let
-
-      mkService =
-        dev:
-        assert dev != "";
-        let
-          dev' = utils.escapeSystemdPath dev;
-        in
+  config = let
+    mkService = dev:
+      assert dev != ""; let
+        dev' = utils.escapeSystemdPath dev;
+      in
         lib.nameValuePair "freefall-${dev'}" {
           description = "Free-fall protection for ${dev}";
-          after = [ "${dev'}.device" ];
-          wantedBy = [ "${dev'}.device" ];
+          after = ["${dev'}.device"];
+          wantedBy = ["${dev'}.device"];
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/freefall ${dev}";
             Restart = "on-failure";
             Type = "forking";
           };
         };
-
-    in
+  in
     lib.mkIf cfg.enable {
-
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       systemd.services = builtins.listToAttrs (map mkService cfg.devices);
-
     };
-
 }

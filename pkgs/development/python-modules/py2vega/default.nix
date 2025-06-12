@@ -6,7 +6,6 @@
   setuptools,
   gast,
 }:
-
 buildPythonPackage rec {
   pname = "py2vega";
   version = "0.6.1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-M6vrObEj4cB53nvEi1oQdVWABlqGwG3xc2unY44Yhuc=";
   };
 
-  pythonRelaxDeps = [ "gast" ];
+  pythonRelaxDeps = ["gast"];
 
   build-system = [
     setuptools
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Python to Vega-expression transpiler";
     homepage = "https://github.com/QuantStack/py2vega";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

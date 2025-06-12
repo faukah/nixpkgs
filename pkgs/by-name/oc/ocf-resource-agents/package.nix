@@ -13,9 +13,7 @@
   glib,
   drbd,
   pacemaker,
-}:
-
-let
+}: let
   drbdForOCF = drbd.override {
     forOCF = true;
   };
@@ -72,12 +70,10 @@ let
       ];
     };
   };
-
 in
-
-# This combines together OCF definitions from other derivations.
-# https://github.com/ClusterLabs/resource-agents/blob/master/doc/dev-guides/ra-dev-guide.asc
-runCommand "ocf-resource-agents"
+  # This combines together OCF definitions from other derivations.
+  # https://github.com/ClusterLabs/resource-agents/blob/master/doc/dev-guides/ra-dev-guide.asc
+  runCommand "ocf-resource-agents"
   {
     # Fix derivation location so things like
     #   $ nix edit -f. ocf-resource-agents

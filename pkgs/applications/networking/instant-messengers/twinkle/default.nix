@@ -19,7 +19,6 @@
   mkDerivation,
   bcg729,
 }:
-
 mkDerivation rec {
   pname = "twinkle";
   version = "unstable-2024-20-11";
@@ -66,7 +65,7 @@ mkDerivation rec {
     description = "SIP-based VoIP client";
     homepage = "http://twinkle.dolezel.info/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.mkg20001 ];
+    maintainers = [lib.maintainers.mkg20001];
     platforms = lib.platforms.linux;
   };
 }

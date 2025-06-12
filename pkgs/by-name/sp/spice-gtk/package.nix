@@ -40,7 +40,6 @@
   wrapGAppsHook3,
   withPolkit ? stdenv.hostPlatform.isLinux,
 }:
-
 # If this package is built with polkit support (withPolkit=true),
 # usb redirection requires spice-client-glib-usb-acl-helper to run setuid root.
 # The helper confirms via polkit that the user has an active session,
@@ -50,7 +49,6 @@
 #   "${pkgs.spice-gtk}/bin/spice-client-glib-usb-acl-helper";
 # On non-NixOS installations, make a setuid copy of the helper
 # outside the store and adjust PATH to find the setuid version.
-
 # If this package is built without polkit support (withPolkit=false),
 # usb redirection requires read-write access to usb devices.
 # This can be granted by adding users to a custom group like "usb"
@@ -61,7 +59,6 @@
 #  services.udev.extraRules = ''
 #    KERNEL=="*", SUBSYSTEMS=="usb", MODE="0664", GROUP="usb"
 #  '';
-
 stdenv.mkDerivation rec {
   pname = "spice-gtk";
   version = "0.42";
@@ -185,7 +182,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.spice-space.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.xeji ];
+    maintainers = [maintainers.xeji];
     platforms = platforms.unix;
   };
 }

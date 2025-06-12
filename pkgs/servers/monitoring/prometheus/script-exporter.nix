@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "script_exporter";
   version = "1.2.0";
@@ -18,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-Hs1SNpC+t1OCcoF3FBgpVGkhR97ulq6zYhi8BQlgfVc=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) script; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) script;};
 
   meta = with lib; {
     description = "Shell script prometheus exporter";
     mainProgram = "script_exporter";
     homepage = "https://github.com/adhocteam/script_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     platforms = platforms.linux;
   };
 }

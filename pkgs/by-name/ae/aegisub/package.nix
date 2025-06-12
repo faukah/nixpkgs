@@ -38,7 +38,6 @@
   spellcheckSupport ? true,
   useBundledLuaJIT ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aegisub";
   version = "3.4.2";
@@ -78,12 +77,12 @@ stdenv.mkDerivation (finalAttrs: {
       wxGTK32
       zlib
     ]
-    ++ lib.optionals alsaSupport [ alsa-lib ]
-    ++ lib.optionals (openalSupport && !stdenv.hostPlatform.isDarwin) [ openal ]
-    ++ lib.optionals portaudioSupport [ portaudio ]
-    ++ lib.optionals pulseaudioSupport [ libpulseaudio ]
-    ++ lib.optionals spellcheckSupport [ hunspell ]
-    ++ lib.optionals (!useBundledLuaJIT) [ luajit ];
+    ++ lib.optionals alsaSupport [alsa-lib]
+    ++ lib.optionals (openalSupport && !stdenv.hostPlatform.isDarwin) [openal]
+    ++ lib.optionals portaudioSupport [portaudio]
+    ++ lib.optionals pulseaudioSupport [libpulseaudio]
+    ++ lib.optionals spellcheckSupport [hunspell]
+    ++ lib.optionals (!useBundledLuaJIT) [luajit];
 
   mesonFlags = [
     (lib.mesonEnable "alsa" alsaSupport)
@@ -146,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsd3
     ];
     mainProgram = "aegisub";
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.unix;
   };
 })

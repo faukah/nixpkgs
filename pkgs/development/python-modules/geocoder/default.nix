@@ -10,7 +10,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "geocoder";
   version = "1.38.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-yZJTdMlhV30K7kA7Ceb46hlx2RPwEfAMpwx2vq96d+c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -33,12 +32,12 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "geocoder" ];
+  pythonImportsCheck = ["geocoder"];
 
   meta = with lib; {
     description = "Module for geocoding";
     homepage = "https://pypi.org/project/geocoder/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,18 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib.types) package str;
-  inherit (lib)
+  inherit
+    (lib)
     mkIf
     mkOption
     mkEnableOption
     mkPackageOption
     ;
   cfg = config.services.dashy;
-in
-{
+in {
   options.services.dashy = {
     enable = mkEnableOption ''
       Dashy, a highly customizable, easy to use, privacy-respecting dashboard app.
@@ -47,12 +46,14 @@ in
       };
     };
 
-    package = mkPackageOption pkgs "dashy-ui" { };
+    package = mkPackageOption pkgs "dashy-ui" {};
 
     finalDrv = mkOption {
       readOnly = true;
       default =
-        if cfg.settings != { } then cfg.package.override { inherit (cfg) settings; } else cfg.package;
+        if cfg.settings != {}
+        then cfg.package.override {inherit (cfg) settings;}
+        else cfg.package;
       defaultText = ''
         if cfg.settings != {}
         then cfg.package.override {inherit (cfg) settings;}
@@ -65,7 +66,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         Settings serialized into `user-data/conf.yml` before build.
         If left empty, the default configuration shipped with the package will be used instead.
@@ -151,7 +152,7 @@ in
           ];
         }
       '';
-      inherit (pkgs.formats.json { }) type;
+      inherit (pkgs.formats.json {}) type;
     };
   };
 

@@ -16,7 +16,6 @@
   gitUpdater,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tang";
   version = "15";
@@ -49,9 +48,9 @@ stdenv.mkDerivation rec {
   ];
 
   postFixup = ''
-    wrapProgram $out/bin/tang-show-keys --prefix PATH ":" ${lib.makeBinPath [ jose ]}
-    wrapProgram $out/libexec/tangd-keygen --prefix PATH ":" ${lib.makeBinPath [ jose ]}
-    wrapProgram $out/libexec/tangd-rotate-keys --prefix PATH ":" ${lib.makeBinPath [ jose ]}
+    wrapProgram $out/bin/tang-show-keys --prefix PATH ":" ${lib.makeBinPath [jose]}
+    wrapProgram $out/libexec/tangd-keygen --prefix PATH ":" ${lib.makeBinPath [jose]}
+    wrapProgram $out/libexec/tangd-rotate-keys --prefix PATH ":" ${lib.makeBinPath [jose]}
   '';
 
   passthru = {
@@ -63,14 +62,14 @@ stdenv.mkDerivation rec {
         version = "tangd ${version}";
       };
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Server for binding data to network presence";
     homepage = "https://github.com/latchset/tang";
     changelog = "https://github.com/latchset/tang/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     license = lib.licenses.gpl3Plus;
     mainProgram = "tangd";
   };

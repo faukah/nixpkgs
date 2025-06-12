@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yuicompressor";
   version = "2.4.8";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "1qjxlak9hbl9zd3dl5ks0w4zx5z64wjsbk7ic73r1r45fasisdrh";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   buildCommand = ''
     mkdir -p $out/{bin,lib}
@@ -29,9 +28,9 @@ stdenv.mkDerivation rec {
     description = "JavaScript and CSS minifier";
     mainProgram = "yuicompressor";
     homepage = "http://yui.github.io/yuicompressor/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jwiegley ];
+    maintainers = with maintainers; [jwiegley];
     platforms = platforms.all;
   };
 }

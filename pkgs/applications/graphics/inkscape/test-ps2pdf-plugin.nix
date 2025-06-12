@@ -2,9 +2,7 @@
   inkscape,
   runCommand,
   writeTextFile,
-}:
-
-let
+}: let
   svg_file = writeTextFile {
     name = "test.svg";
     text = ''
@@ -14,9 +12,9 @@ let
       </svg>'';
   };
 in
-runCommand "inkscape-test-eps"
+  runCommand "inkscape-test-eps"
   {
-    nativeBuildInputs = [ inkscape ];
+    nativeBuildInputs = [inkscape];
   }
   ''
     echo ps test

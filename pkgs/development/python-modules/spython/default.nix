@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "spython";
   version = "0.3.14";
@@ -26,11 +25,11 @@ buildPythonPackage rec {
       --replace-fail '"pytest-runner"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "spython" ];
+  pythonImportsCheck = ["spython"];
 
   disabledTests = [
     # Assertion errors
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/singularityhub/singularity-cli";
     changelog = "https://github.com/singularityhub/singularity-cli/blob/${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "spython";
   };
 }

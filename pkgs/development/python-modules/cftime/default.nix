@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cftime";
   version = "1.6.4.post1";
@@ -26,19 +25,19 @@ buildPythonPackage rec {
     numpy
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     pytest-cov-stub
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cftime" ];
+  pythonImportsCheck = ["cftime"];
 
   meta = with lib; {
     description = "Time-handling functionality from netcdf4-python";
     homepage = "https://github.com/Unidata/cftime";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

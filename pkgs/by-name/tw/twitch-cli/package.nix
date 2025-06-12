@@ -5,7 +5,6 @@
   testers,
   twitch-cli,
 }:
-
 buildGoModule rec {
   pname = "twitch-cli";
   version = "1.1.25";
@@ -46,6 +45,6 @@ buildGoModule rec {
     mainProgram = "twitch-cli";
     homepage = "https://github.com/twitchdev/twitch-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benediktbroich ];
+    maintainers = with maintainers; [benediktbroich];
   };
 }

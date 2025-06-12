@@ -7,7 +7,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qqwing";
   version = "1.3.4";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Sudoku generating and solving software";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
     mainProgram = "qqwing";
   };
 }

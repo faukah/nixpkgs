@@ -12,7 +12,6 @@
   boost,
   libcanberra,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scantailor-universal";
   version = "0.2.14";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Interactive post-processing tool for scanned pages";
     homepage = "https://github.com/trufanov-nok/scantailor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ unclamped ];
+    maintainers = with maintainers; [unclamped];
     platforms = platforms.unix;
     mainProgram = "scantailor-universal-cli";
   };

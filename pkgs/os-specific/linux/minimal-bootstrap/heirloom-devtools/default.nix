@@ -6,8 +6,7 @@
   gnumake,
   gnupatch,
   coreutils,
-}:
-let
+}: let
   pname = "heirloom-devtools";
   version = "070527";
 
@@ -33,7 +32,7 @@ let
     })
   ];
 in
-kaem.runCommand "${pname}-${version}"
+  kaem.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -52,7 +51,7 @@ kaem.runCommand "${pname}-${version}"
         bsdOriginalUC
         caldera
       ];
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

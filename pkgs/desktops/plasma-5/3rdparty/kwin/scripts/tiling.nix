@@ -7,7 +7,6 @@
   plasma-framework,
   systemsettings,
 }:
-
 mkDerivation rec {
   pname = "kwin-tiling";
   version = "2.4";
@@ -47,7 +46,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Tiling script for kwin";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;
   };

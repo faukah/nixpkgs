@@ -30,7 +30,6 @@
   apple-sdk_15,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "tg_owt";
   version = "0-unstable-2025-06-02";
@@ -93,13 +92,13 @@ stdenv.mkDerivation {
       apple-sdk_15
     ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fork of Google's webrtc library for telegram-desktop";
     homepage = "https://github.com/desktop-app/tg_owt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ oxalica ];
+    maintainers = with lib.maintainers; [oxalica];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

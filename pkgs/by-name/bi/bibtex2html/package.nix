@@ -5,7 +5,6 @@
   ocaml,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "bibtex2html";
   version = "1.99";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     description = "Collection of tools for translating from BibTeX to HTML";
     homepage = "https://www.lri.fr/~filliatr/bibtex2html/";
     license = licenses.gpl2Only;
-    platforms = ocaml.meta.platforms or [ ];
-    maintainers = [ maintainers.scolobb ];
+    platforms = ocaml.meta.platforms or [];
+    maintainers = [maintainers.scolobb];
   };
 }

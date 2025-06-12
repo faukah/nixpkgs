@@ -9,21 +9,18 @@
   lib,
   ocaml,
   version ?
-    if lib.versionAtLeast ocaml.version "5.3" then
-      "1.22.0"
-    else if lib.versionAtLeast ocaml.version "5.2" then
-      "1.21.0"
-    else if lib.versionAtLeast ocaml.version "4.14" then
-      "1.18.0"
-    else if lib.versionAtLeast ocaml.version "4.13" then
-      "1.10.5"
-    else if lib.versionAtLeast ocaml.version "4.12" then
-      "1.9.0"
-    else
-      "1.4.1",
-}:
-
-let
+    if lib.versionAtLeast ocaml.version "5.3"
+    then "1.22.0"
+    else if lib.versionAtLeast ocaml.version "5.2"
+    then "1.21.0"
+    else if lib.versionAtLeast ocaml.version "4.14"
+    then "1.18.0"
+    else if lib.versionAtLeast ocaml.version "4.13"
+    then "1.10.5"
+    else if lib.versionAtLeast ocaml.version "4.12"
+    then "1.9.0"
+    else "1.4.1",
+}: let
   params =
     {
       "1.22.0" = {
@@ -69,40 +66,37 @@ let
     }
     ."${version}";
 in
+  buildDunePackage rec {
+    pname = "jsonrpc";
+    inherit version;
+    src = fetchurl {
+      url = "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
+      inherit (params) sha256;
+    };
 
-buildDunePackage rec {
-  pname = "jsonrpc";
-  inherit version;
-  src = fetchurl {
-    url = "https://github.com/ocaml/ocaml-lsp/releases/download/${version}/${params.name}-${version}.tbz";
-    inherit (params) sha256;
-  };
+    inherit (params) minimalOCamlVersion;
 
-  inherit (params) minimalOCamlVersion;
-
-  buildInputs =
-    if lib.versionAtLeast version "1.7.0" then
-      [ ]
-    else
-      [
+    buildInputs =
+      if lib.versionAtLeast version "1.7.0"
+      then []
+      else [
         yojson
         stdlib-shims
         ocaml-syntax-shims
       ];
 
-  propagatedBuildInputs =
-    if lib.versionAtLeast version "1.7.0" then
-      [ ]
-    else
-      [
+    propagatedBuildInputs =
+      if lib.versionAtLeast version "1.7.0"
+      then []
+      else [
         ppx_yojson_conv_lib
         result
       ];
 
-  meta = with lib; {
-    description = "Jsonrpc protocol implementation in OCaml";
-    license = licenses.isc;
-    platforms = platforms.unix;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      description = "Jsonrpc protocol implementation in OCaml";
+      license = licenses.isc;
+      platforms = platforms.unix;
+      maintainers = [];
+    };
+  }

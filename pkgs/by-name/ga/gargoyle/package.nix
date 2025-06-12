@@ -16,7 +16,6 @@
   mpg123,
   qt6,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gargoyle";
   version = "2023.1";
@@ -84,6 +83,6 @@ stdenv.mkDerivation rec {
     description = "Interactive fiction interpreter GUI";
     mainProgram = "gargoyle";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

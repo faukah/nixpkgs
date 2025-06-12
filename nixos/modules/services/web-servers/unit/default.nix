@@ -4,20 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.unit;
 
   configFile = pkgs.writeText "unit.json" cfg.config;
-
-in
-{
+in {
   options = {
     services.unit = {
       enable = mkEnableOption "Unit App Server";
-      package = mkPackageOption pkgs "unit" { };
+      package = mkPackageOption pkgs "unit" {};
       user = mkOption {
         type = types.str;
         default = "unit";
@@ -82,8 +77,7 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"
@@ -92,8 +86,8 @@ in
 
     systemd.services.unit = {
       description = "Unit App Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         [ ! -e '${cfg.stateDir}/conf.json' ] || rm -f '${cfg.stateDir}/conf.json'
       '';
@@ -156,8 +150,7 @@ in
     };
 
     users.groups = optionalAttrs (cfg.group == "unit") {
-      unit = { };
+      unit = {};
     };
-
   };
 }

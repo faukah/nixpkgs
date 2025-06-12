@@ -7,17 +7,15 @@
   buildFHSEnv,
   writeShellScript,
   makeBinaryWrapper,
-}:
-
-let
+}: let
   pname = "aja-desktop-software";
   version = "17.1.3";
   meta = {
     description = "Graphical utilities for interacting with AJA desktop video cards";
     homepage = "https://www.aja.com/products/aja-control-room";
     license = lib.licenses.unfree; # https://www.aja.com/software-license-agreement
-    maintainers = [ lib.maintainers.lukegb ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.lukegb];
+    platforms = ["x86_64-linux"];
     sourceProvenance = [
       lib.sourceTypes.binaryNativeCode
       lib.sourceTypes.binaryFirmware
@@ -64,63 +62,64 @@ let
     inherit meta;
   };
 in
-buildFHSEnv {
-  inherit pname version;
+  buildFHSEnv {
+    inherit pname version;
 
-  targetPkgs =
-    pkgs:
-    [ unwrapped ]
-    ++ (with pkgs; [
-      ocl-icd
-      libGL
-      udev
-      libpulseaudio
-      zstd
-      glib
-      fontconfig
-      freetype
-      xorg.libxcb
-      xorg.libX11
-      xorg.xcbutilwm
-      xorg.xcbutilimage
-      xorg.xcbutilkeysyms
-      xorg.xcbutilrenderutil
-      xorg.libSM
-      xorg.libICE
-      libxkbcommon
-      dbus
-      avahi
-    ]);
+    targetPkgs = pkgs:
+      [unwrapped]
+      ++ (with pkgs; [
+        ocl-icd
+        libGL
+        udev
+        libpulseaudio
+        zstd
+        glib
+        fontconfig
+        freetype
+        xorg.libxcb
+        xorg.libX11
+        xorg.xcbutilwm
+        xorg.xcbutilimage
+        xorg.xcbutilkeysyms
+        xorg.xcbutilrenderutil
+        xorg.libSM
+        xorg.libICE
+        libxkbcommon
+        dbus
+        avahi
+      ]);
 
-  nativeBuildInputs = [
-    makeBinaryWrapper
-  ];
+    nativeBuildInputs = [
+      makeBinaryWrapper
+    ];
 
-  unshareIpc = false;
-  unsharePid = false;
+    unshareIpc = false;
+    unsharePid = false;
 
-  runScript = writeShellScript "aja" ''
-    exec_binary="$1"
-    shift
-    export QT_PLUGIN_PATH="${unwrapped}/opt/aja/plugins"
-    exec "${unwrapped}/opt/aja/bin/$exec_binary" "$@"
-  '';
+    runScript = writeShellScript "aja" ''
+      exec_binary="$1"
+      shift
+      export QT_PLUGIN_PATH="${unwrapped}/opt/aja/plugins"
+      exec "${unwrapped}/opt/aja/bin/$exec_binary" "$@"
+    '';
 
-  extraInstallCommands = ''
-    mkdir -p $out/libexec/aja-desktop
-    mv $out/bin/${pname} $out/libexec/aja-desktop/${pname}
+    extraInstallCommands = ''
+      mkdir -p $out/libexec/aja-desktop
+      mv $out/bin/${pname} $out/libexec/aja-desktop/${pname}
 
-    for binary in controlpanel controlroom ajanmos systemtest; do
-      makeWrapper "$out/libexec/aja-desktop/${pname}" "$out/bin/aja-$binary" \
-        --add-flags "$binary"
-    done
-  '';
+      for binary in controlpanel controlroom ajanmos systemtest; do
+        makeWrapper "$out/libexec/aja-desktop/${pname}" "$out/bin/aja-$binary" \
+          --add-flags "$binary"
+      done
+    '';
 
-  passthru = {
-    inherit unwrapped;
-  };
+    passthru = {
+      inherit unwrapped;
+    };
 
-  meta = meta // {
-    mainProgram = "aja-controlpanel";
-  };
-}
+    meta =
+      meta
+      // {
+        mainProgram = "aja-controlpanel";
+      };
+  }

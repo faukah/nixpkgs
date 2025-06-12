@@ -6,7 +6,6 @@
   nixosTests,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "calibre-web";
   version = "0.6.24";
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail 'cps = "calibreweb:main"' 'calibre-web = "calibreweb:main"'
   '';
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   dependencies = with python3Packages; [
     apscheduler
@@ -99,7 +98,7 @@ python3Packages.buildPythonApplication rec {
     # archived and depends on other long unmaintained packages (rauth & nose)
     # goodreads = [ ];
 
-    kobo = with python3Packages; [ jsonschema ];
+    kobo = with python3Packages; [jsonschema];
 
     ldap = with python3Packages; [
       flask-simpleldap
@@ -137,11 +136,11 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "calibreweb" ];
+  pythonImportsCheck = ["calibreweb"];
 
   passthru = {
-    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux { inherit (nixosTests) calibre-web; };
-    updateScript = nix-update-script { };
+    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {inherit (nixosTests) calibre-web;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -149,7 +148,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/janeczku/calibre-web";
     changelog = "https://github.com/janeczku/calibre-web/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ pborzenkov ];
+    maintainers = with lib.maintainers; [pborzenkov];
     mainProgram = "calibre-web";
     platforms = lib.platforms.all;
   };

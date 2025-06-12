@@ -14,7 +14,6 @@
   pixman,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pharo";
   version = "10.3.4+3.884643b";
@@ -77,21 +76,19 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  preFixup =
-    let
-      libPath = lib.makeLibraryPath (
-        finalAttrs.buildInputs
-        ++ [
-          stdenv.cc.cc
-          "$out"
-        ]
-      );
-    in
-    ''
-      patchelf --allowed-rpath-prefixes "$NIX_STORE" --shrink-rpath "$out/bin/pharo"
-      ln -s "${libgit2}/lib/libgit2.so" $out/lib/libgit2.so.1.1
-      wrapProgram "$out/bin/pharo" --argv0 $out/bin/pharo --prefix LD_LIBRARY_PATH ":" "${libPath}"
-    '';
+  preFixup = let
+    libPath = lib.makeLibraryPath (
+      finalAttrs.buildInputs
+      ++ [
+        stdenv.cc.cc
+        "$out"
+      ]
+    );
+  in ''
+    patchelf --allowed-rpath-prefixes "$NIX_STORE" --shrink-rpath "$out/bin/pharo"
+    ln -s "${libgit2}/lib/libgit2.so" $out/lib/libgit2.so.1.1
+    wrapProgram "$out/bin/pharo" --argv0 $out/bin/pharo --prefix LD_LIBRARY_PATH ":" "${libPath}"
+  '';
 
   meta = {
     description = "Clean and innovative Smalltalk-inspired environment";
@@ -104,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
       system, excellent dev tools, and maintained releases, Pharo is an
       attractive platform to build and deploy mission critical applications.
     '';
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "pharo";
     platforms = lib.platforms.linux;
   };

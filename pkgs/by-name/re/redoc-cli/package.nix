@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "redoc-cli";
   version = "0.13.21";
@@ -30,7 +29,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/Redocly/redoc/tree/redoc-cli/cli";
     license = lib.licenses.mit;
     mainProgram = "redoc-cli";
-    maintainers = with lib.maintainers; [ veehaitch ];
+    maintainers = with lib.maintainers; [veehaitch];
     # https://github.com/NixOS/nixpkgs/issues/272217
     broken = true;
   };

@@ -5,7 +5,6 @@
   coreutils,
   patsh,
 }:
-
 stdenv.mkDerivation rec {
   pname = "csvquote";
   version = "0.1.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   # needed for cross
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   makeFlags = [
     "BINDIR=$(out)/bin"
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Enables common unix utilities like cut, awk, wc, head to work correctly with csv data containing delimiters and newlines";
     homepage = "https://github.com/dbro/csvquote";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.all;
   };
 }

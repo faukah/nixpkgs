@@ -21,7 +21,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiobotocore";
   version = "2.19.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
 
   # Relax version constraints: aiobotocore works with newer botocore versions
   # the pinning used to match some `extras_require` we're not using.
-  pythonRelaxDeps = [ "botocore" ];
+  pythonRelaxDeps = ["botocore"];
 
   build-system = [
     setuptools
@@ -56,20 +55,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    awscli = [ awscli ];
-    boto3 = [ boto3 ];
+    awscli = [awscli];
+    boto3 = [boto3];
   };
 
-  nativeCheckInputs = [
-    dill
-    moto
-    pytest-asyncio
-    time-machine
-    werkzeug
-    pytestCheckHook
-  ] ++ moto.optional-dependencies.server;
+  nativeCheckInputs =
+    [
+      dill
+      moto
+      pytest-asyncio
+      time-machine
+      werkzeug
+      pytestCheckHook
+    ]
+    ++ moto.optional-dependencies.server;
 
-  pythonImportsCheck = [ "aiobotocore" ];
+  pythonImportsCheck = ["aiobotocore"];
 
   disabledTestPaths = [
     # Test requires network access
@@ -96,6 +97,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aio-libs/aiobotocore";
     changelog = "https://github.com/aio-libs/aiobotocore/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ teh ];
+    maintainers = with lib.maintainers; [teh];
   };
 }

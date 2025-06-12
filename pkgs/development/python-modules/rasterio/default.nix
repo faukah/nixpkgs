@@ -6,7 +6,6 @@
   pythonOlder,
   stdenv,
   testers,
-
   affine,
   attrs,
   boto3,
@@ -27,10 +26,8 @@
   shapely,
   snuggs,
   wheel,
-
   rasterio, # required to run version test
 }:
-
 buildPythonPackage rec {
   pname = "rasterio";
   version = "1.4.3";
@@ -65,9 +62,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ipython = [ ipython ];
-    plot = [ matplotlib ];
-    s3 = [ boto3 ];
+    ipython = [ipython];
+    plot = [matplotlib];
+    s3 = [boto3];
   };
 
   nativeCheckInputs = [
@@ -84,22 +81,24 @@ buildPythonPackage rec {
     rm -r rasterio # prevent importing local rasterio
   '';
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
-  disabledTests = [
-    # flaky
-    "test_outer_boundless_pixel_fidelity"
-    # network access
-    "test_issue1982"
-    "test_opener_fsspec_http_fs"
-    "test_fsspec_http_msk_sidecar"
-    # expect specific magic numbers that our version of GDAL does not produce
-    "test_warp"
-    "test_warpedvrt"
-    "test_rio_warp"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_reproject_error_propagation" ];
+  disabledTests =
+    [
+      # flaky
+      "test_outer_boundless_pixel_fidelity"
+      # network access
+      "test_issue1982"
+      "test_opener_fsspec_http_fs"
+      "test_fsspec_http_msk_sidecar"
+      # expect specific magic numbers that our version of GDAL does not produce
+      "test_warp"
+      "test_warpedvrt"
+      "test_rio_warp"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_reproject_error_propagation"];
 
-  pythonImportsCheck = [ "rasterio" ];
+  pythonImportsCheck = ["rasterio"];
 
   passthru.tests.version = testers.testVersion {
     package = rasterio;
@@ -113,6 +112,6 @@ buildPythonPackage rec {
     homepage = "https://rasterio.readthedocs.io/";
     changelog = "https://github.com/rasterio/rasterio/blob/${version}/CHANGES.txt";
     license = licenses.bsd3;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

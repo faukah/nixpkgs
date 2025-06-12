@@ -7,7 +7,6 @@
   perl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tippecanoe";
   version = "2.78.0";
@@ -23,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     sqlite
     zlib
   ];
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Build vector tilesets from large collections of GeoJSON features";
     homepage = "https://github.com/felt/tippecanoe";
     license = lib.licenses.bsd2;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     platforms = lib.platforms.unix;
     mainProgram = "tippecanoe";
   };

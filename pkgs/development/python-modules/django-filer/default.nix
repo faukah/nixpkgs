@@ -13,7 +13,6 @@
   django-app-helper,
   distutils,
 }:
-
 buildPythonPackage rec {
   pname = "django-filer";
   version = "3.3.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-9Gy6yXYRCARXAqJ9+ZoDbNAEQGzhLLtJzbAevF+j/2Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    heif = [ pillow-heif ];
+    heif = [pillow-heif];
   };
 
   checkInputs = [
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "File management application for Django";
     homepage = "https://github.com/django-cms/django-filer";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

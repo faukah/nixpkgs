@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cmrc";
   version = "2.0.1";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Resource Compiler in a Single CMake Script";
     homepage = "https://github.com/vector-of-bool/cmrc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ guekka ];
+    maintainers = with lib.maintainers; [guekka];
     platforms = lib.platforms.all;
   };
 })

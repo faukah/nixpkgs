@@ -13,7 +13,6 @@
   nautilus,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nautilus-python";
   version = "4.0.1";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Python bindings for the Nautilus Extension API";
     homepage = "https://gitlab.gnome.org/GNOME/nautilus-python";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

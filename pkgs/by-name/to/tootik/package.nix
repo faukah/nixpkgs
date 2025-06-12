@@ -5,7 +5,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 buildGoModule rec {
   pname = "tootik";
   version = "0.16.1";
@@ -19,15 +18,15 @@ buildGoModule rec {
 
   vendorHash = "sha256-gGQA/nvtQeJccTGTJtnoiR1hpruJziCEo5sbTQVR9d8=";
 
-  nativeBuildInputs = [ openssl ];
+  nativeBuildInputs = [openssl];
 
   preBuild = ''
     go generate ./migrations
   '';
 
-  ldflags = [ "-X github.com/dimkr/tootik/buildinfo.Version=${version}" ];
+  ldflags = ["-X github.com/dimkr/tootik/buildinfo.Version=${version}"];
 
-  tags = [ "fts5" ];
+  tags = ["fts5"];
 
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64);
 
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Federated nanoblogging service with a Gemini frontend";
     homepage = "https://github.com/dimkr/tootik";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "tootik";
   };
 }

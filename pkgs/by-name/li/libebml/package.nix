@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libebml";
   version = "1.4.5";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Extensible Binary Meta Language library";
     homepage = "https://dl.matroska.org/downloads/libebml/";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -6,7 +6,6 @@
   setuptools,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-jinjadomain";
   version = "0.5.1";
@@ -22,17 +21,17 @@ buildPythonPackage rec {
       --replace-fail "content.sort(key=lambda (k, v): k)" "content.sort(key=lambda kv: kv[0])"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ sphinx ];
+  dependencies = [sphinx];
 
-  pythonImportsCheck = [ "sphinxcontrib.jinjadomain" ];
+  pythonImportsCheck = ["sphinxcontrib.jinjadomain"];
 
   meta = {
     description = "Sphinx domain for describing jinja templates";
     homepage = "https://github.com/offlinehacker/sphinxcontrib.jinjadomain";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "sphinxcontrib-jinjadomain";
   };
 }

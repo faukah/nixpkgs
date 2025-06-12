@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "bitmagnet";
   version = "0.10.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Scper1eR6I4pCXus/jytSpW8a1omg7sJIPvOn3jYcLM=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -26,7 +25,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -36,7 +35,7 @@ buildGoModule rec {
     '';
     homepage = "https://bitmagnet.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
     mainProgram = "bitmagnet";
   };
 }

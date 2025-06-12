@@ -6,7 +6,6 @@
   requests,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "pysolr";
   version = "3.10.0";
@@ -17,11 +16,11 @@ buildPythonPackage rec {
     sha256 = "sha256-EntKLdFpI0rLFYZkOmzR4+lLkXkh5pv1adeyoqoO9Ak=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   doCheck = false; # requires network access
 

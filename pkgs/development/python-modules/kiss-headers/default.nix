@@ -6,7 +6,6 @@
   requests,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "kiss-headers";
   version = "2.4.3";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-WeAzlC1yT+0nPSuB278z8T0XvPjbre051f/Rva5ujAk=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     "tests/test_with_http_request.py"
   ];
 
-  pythonImportsCheck = [ "kiss_headers" ];
+  pythonImportsCheck = ["kiss_headers"];
 
   meta = with lib; {
     description = "Python package for HTTP/1.1 style headers";
     homepage = "https://github.com/Ousret/kiss-headers";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

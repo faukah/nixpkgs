@@ -9,7 +9,6 @@
   libxslt,
   docbook_xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-crypt";
   version = "0.7.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace commands.cpp \
@@ -49,11 +48,11 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/git-crypt \
       --suffix PATH : ${
-        lib.makeBinPath [
-          git
-          gnupg
-        ]
-      }
+      lib.makeBinPath [
+        git
+        gnupg
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -72,9 +71,8 @@ stdenv.mkDerivation rec {
     '';
     downloadPage = "https://github.com/AGWA/git-crypt/releases";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ dochang ];
+    maintainers = with maintainers; [dochang];
     platforms = platforms.unix;
     mainProgram = "git-crypt";
   };
-
 }

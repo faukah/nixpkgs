@@ -29,14 +29,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/hyprwm/hyprwayland-scanner";
     description = "Hyprland version of wayland-scanner in and for C++";
     changelog = "https://github.com/hyprwm/hyprwayland-scanner/releases/tag/${finalAttrs.version}";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hyprwayland-scanner";
     platforms = lib.platforms.linux;
   };

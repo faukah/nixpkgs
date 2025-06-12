@@ -6,7 +6,6 @@
   libxcrypt,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "popa3d";
   version = "1.0.3";

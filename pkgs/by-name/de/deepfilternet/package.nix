@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "deepfilternet";
   version = "0.5.6";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ ralismark ];
+    maintainers = with lib.maintainers; [ralismark];
     changelog = "https://github.com/Rikorose/DeepFilterNet/releases/tag/${src.rev}";
   };
 }

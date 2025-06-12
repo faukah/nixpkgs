@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-servicefabricmanagedclusters";
   version = "2.0.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-Bw+pMc0H9Gk8t4vaaOgwSMZ/zqzUJHGZ7keH+ylZnVw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     isodate
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # Module has tests in mono-repo
   doCheck = false;
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/servicefabricmanagedclusters/azure-mgmt-servicefabricmanagedclusters";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-servicefabricmanagedclusters_${version}/sdk/servicefabricmanagedclusters/azure-mgmt-servicefabricmanagedclusters/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

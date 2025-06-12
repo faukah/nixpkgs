@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trf";
   version = "4.09.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     description = "Tandem Repeats Finder: a program to analyze DNA sequences";
     homepage = "https://tandem.bu.edu/trf/trf.html";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 }

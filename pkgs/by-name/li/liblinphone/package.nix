@@ -16,7 +16,6 @@
   xercesc,
   zxing-cpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liblinphone";
   version = "5.2.98";
@@ -90,6 +89,6 @@ stdenv.mkDerivation rec {
     description = "Library for SIP calls and instant messaging";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

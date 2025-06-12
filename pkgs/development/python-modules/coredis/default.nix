@@ -15,7 +15,6 @@
   typing-extensions,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "coredis";
   version = "4.22.0";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     pytest-lazy-fixtures
   ];
 
-  pythonImportsCheck = [ "coredis" ];
+  pythonImportsCheck = ["coredis"];
 
   pytestFlagsArray = [
     # All other tests require Docker
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/alisaifee/coredis";
     changelog = "https://github.com/alisaifee/coredis/blob/${src.tag}/HISTORY.rst";
     license = lib.licenses.mit;
-    teams = [ lib.teams.wdz ];
+    teams = [lib.teams.wdz];
   };
 }

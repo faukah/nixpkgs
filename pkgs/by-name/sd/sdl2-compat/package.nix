@@ -9,7 +9,6 @@
   libX11,
   libGL,
   nix-update-script,
-
   # passthru tests
   SDL2_ttf,
   SDL2_net,
@@ -21,7 +20,6 @@
   ffmpeg,
   qemu,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdl2-compat";
   version = "2.32.56";
@@ -43,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     libX11
   ];
 
-  checkInputs = [ libGL ];
+  checkInputs = [libGL];
 
   outputs = [
     "out"
@@ -57,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags = [
     (lib.cmakeBool "SDL2COMPAT_TESTS" finalAttrs.finalPackage.doCheck)
-    (lib.cmakeFeature "CMAKE_INSTALL_RPATH" (lib.makeLibraryPath [ sdl3 ]))
+    (lib.cmakeFeature "CMAKE_INSTALL_RPATH" (lib.makeLibraryPath [sdl3]))
   ];
 
   # skip timing-based tests as those are flaky
@@ -65,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  patches = [ ./find-headers.patch ];
+  patches = [./find-headers.patch];
   setupHook = ./setup-hook.sh;
 
   postFixup = ''
@@ -110,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       nadiaholmquist
     ];
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     platforms = lib.platforms.all;
     pkgConfigModules = [
       "sdl2-compat"

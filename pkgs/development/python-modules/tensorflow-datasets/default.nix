@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   array-record,
   dill,
@@ -20,7 +19,6 @@
   tensorflow-metadata,
   termcolor,
   tqdm,
-
   # tests
   apache-beam,
   beautifulsoup4,
@@ -54,7 +52,6 @@
   tifffile,
   zarr,
 }:
-
 buildPythonPackage rec {
   pname = "tensorflow-datasets";
   version = "4.9.9";
@@ -86,7 +83,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "tensorflow_datasets" ];
+  pythonImportsCheck = ["tensorflow_datasets"];
 
   nativeCheckInputs = [
     apache-beam
@@ -199,6 +196,6 @@ buildPythonPackage rec {
     homepage = "https://www.tensorflow.org/datasets/overview";
     changelog = "https://github.com/tensorflow/datasets/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

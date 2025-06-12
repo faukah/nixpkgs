@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "anuko-time-tracker";
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ michaelshmitty ];
+    maintainers = with pkgs.lib.maintainers; [michaelshmitty];
   };
   nodes = {
     machine = {

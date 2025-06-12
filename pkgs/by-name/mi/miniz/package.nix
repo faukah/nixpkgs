@@ -7,7 +7,6 @@
   validatePkgConfig,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "miniz";
   version = "3.0.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     rev = finalAttrs.version;
     hash = "sha256-3J0bkr2Yk+MJXilUqOCHsWzuykySv5B1nepmucvA4hg=";
   };
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   strictDeps = true;
   nativeBuildInputs = [
@@ -41,8 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Single C source file zlib-replacement library";
     homepage = "https://github.com/richgel999/miniz";
     license = licenses.mit;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = platforms.unix;
-    pkgConfigModules = [ "miniz" ];
+    pkgConfigModules = ["miniz"];
   };
 })

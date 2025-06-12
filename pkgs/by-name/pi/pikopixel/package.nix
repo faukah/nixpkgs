@@ -5,7 +5,6 @@
   gnustep-back,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "pikopixel";
   version = "1.0-b10";
@@ -42,7 +41,7 @@ clangStdenv.mkDerivation rec {
     homepage = "https://twilightedge.com/mac/pikopixel/";
     downloadPage = "https://twilightedge.com/mac/pikopixel/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

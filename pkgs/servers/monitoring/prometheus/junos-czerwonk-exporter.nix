@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "junos-czerwonk-exporter";
   version = "0.14.2";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "junos_exporter";
     homepage = "https://github.com/czerwonk/junos_exporter";
     license = licenses.mit;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 }

@@ -9,7 +9,6 @@
   bash,
   dataDir ? "/var/lib/softether",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "softether";
   version = "4.44-9807-rtm";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-Source Free Cross-platform Multi-protocol VPN Program";
     homepage = "https://www.softether.org/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.rick68 ];
+    maintainers = [lib.maintainers.rick68];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

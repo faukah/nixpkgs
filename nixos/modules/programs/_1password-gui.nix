@@ -3,16 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs._1password-gui;
-
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "programs" "_1password-gui" "gid" ] ''
+    (lib.mkRemovedOptionModule ["programs" "_1password-gui" "gid"] ''
       A preallocated GID will be used instead.
     '')
   ];
@@ -23,7 +18,7 @@ in
 
       polkitPolicyOwners = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''["user1" "user2" "user3"]'';
         description = ''
           A list of users who should be able to integrate 1Password with polkit-based authentication mechanisms.
@@ -31,19 +26,18 @@ in
       };
 
       package = lib.mkPackageOption pkgs "1Password GUI" {
-        default = [ "_1password-gui" ];
+        default = ["_1password-gui"];
       };
     };
   };
 
-  config =
-    let
-      package = cfg.package.override {
-        polkitPolicyOwners = cfg.polkitPolicyOwners;
-      };
-    in
+  config = let
+    package = cfg.package.override {
+      polkitPolicyOwners = cfg.polkitPolicyOwners;
+    };
+  in
     lib.mkIf cfg.enable {
-      environment.systemPackages = [ package ];
+      environment.systemPackages = [package];
       users.groups.onepassword.gid = config.ids.gids.onepassword;
 
       security.wrappers = {
@@ -55,6 +49,5 @@ in
           setgid = true;
         };
       };
-
     };
 }

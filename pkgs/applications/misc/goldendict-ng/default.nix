@@ -27,7 +27,6 @@
   wrapQtAppsHook,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "goldendict-ng";
   version = "25.05.0";

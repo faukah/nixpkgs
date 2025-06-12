@@ -15,7 +15,6 @@
   djvulibre,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-reader";
   version = "6.0.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-G5UZ8lBrUo5G3jMae70p/zi9kOVqHWMNCedOy45L1PA=";
   };
 
-  patches = [ ./0001-build-tests-with-cpp-14.patch ];
+  patches = [./0001-build-tests-with-cpp-14.patch];
 
   # don't use vendored htmltopdf
   postPatch = ''
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  qmakeFlags = [ "DEFINES+=VERSION=${version}" ];
+  qmakeFlags = ["DEFINES+=VERSION=${version}"];
 
   meta = with lib; {
     description = "Simple memo software with texts and voice recordings";
@@ -67,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-reader";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

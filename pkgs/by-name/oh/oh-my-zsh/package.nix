@@ -17,7 +17,6 @@
   cacert,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   version = "2025-05-24";
   pname = "oh-my-zsh";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   installPhase = ''
     runHook preInstall
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) oh-my-zsh; };
+    tests = {inherit (nixosTests) oh-my-zsh;};
 
     updateScript = writeScript "update.sh" ''
       #!${stdenv.shell}
@@ -130,6 +129,6 @@ stdenv.mkDerivation rec {
     homepage = "https://ohmyz.sh/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ nequissimus ];
+    maintainers = with maintainers; [nequissimus];
   };
 }

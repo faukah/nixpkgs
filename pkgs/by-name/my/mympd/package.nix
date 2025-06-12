@@ -15,7 +15,6 @@
   jq,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mympd";
   version = "21.0.1";
@@ -62,12 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) mympd; };
+  passthru.tests = {inherit (nixosTests) mympd;};
 
   meta = {
     homepage = "https://jcorporation.github.io/myMPD";
     description = "Standalone and mobile friendly web mpd client with a tiny footprint and advanced features";
-    maintainers = [ lib.maintainers.doronbehar ];
+    maintainers = [lib.maintainers.doronbehar];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
     mainProgram = "mympd";

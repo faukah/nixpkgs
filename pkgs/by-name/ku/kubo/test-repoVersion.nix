@@ -1,6 +1,8 @@
-{ runCommand, kubo }:
-
-runCommand "kubo-test-repoVersion" { } ''
+{
+  runCommand,
+  kubo,
+}:
+runCommand "kubo-test-repoVersion" {} ''
   export IPFS_PATH="$TMPDIR"
   "${kubo}/bin/ipfs" init --empty-repo
   declared_repo_version='${kubo.repoVersion}'

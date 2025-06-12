@@ -8,12 +8,11 @@
   ronn,
   shellcheck,
 }:
-
 buildGoModule rec {
   pname = "actionlint";
   version = "1.7.7";
 
-  subPackages = [ "cmd/actionlint" ];
+  subPackages = ["cmd/actionlint"];
 
   src = fetchFromGitHub {
     owner = "rhysd";
@@ -35,11 +34,11 @@ buildGoModule rec {
     installManPage man/actionlint.1
     wrapProgram "$out/bin/actionlint" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          python3Packages.pyflakes
-          shellcheck
-        ]
-      }
+      lib.makeBinPath [
+        python3Packages.pyflakes
+        shellcheck
+      ]
+    }
   '';
 
   ldflags = [
@@ -53,7 +52,7 @@ buildGoModule rec {
     description = "Static checker for GitHub Actions workflow files";
     changelog = "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ momeemt ];
+    maintainers = with lib.maintainers; [momeemt];
     mainProgram = "actionlint";
   };
 }

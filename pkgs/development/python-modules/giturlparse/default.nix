@@ -24,12 +24,12 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "giturlparse" ];
+  pythonImportsCheck = ["giturlparse"];
 
   meta = {
     description = "Parse & rewrite git urls (supports GitHub, Bitbucket, Assembla ...)";
     homepage = "https://github.com/nephila/giturlparse";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ yajo ];
+    maintainers = with lib.maintainers; [yajo];
   };
 }

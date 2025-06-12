@@ -4,20 +4,17 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kustomize";
   version = "5.6.0";
 
-  ldflags =
-    let
-      t = "sigs.k8s.io/kustomize/api/provenance";
-    in
-    [
-      "-s"
-      "-X ${t}.version=${version}"
-      "-X ${t}.gitCommit=${src.rev}"
-    ];
+  ldflags = let
+    t = "sigs.k8s.io/kustomize/api/provenance";
+  in [
+    "-s"
+    "-X ${t}.version=${version}"
+    "-X ${t}.gitCommit=${src.rev}"
+  ];
 
   src = fetchFromGitHub {
     owner = "kubernetes-sigs";
@@ -31,7 +28,7 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-ZYDrYhEWUEJFxFWj/LLrW8epLX2hJNqQ1CteShEbQ+M=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd kustomize \

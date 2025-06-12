@@ -6,13 +6,11 @@
   stdlib,
   version ? null,
 }:
-
 (mkCoqDerivation {
   pname = "bignums";
   owner = "coq";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "9.0" "9.0";
@@ -26,7 +24,8 @@
         case = range "8.6" "8.17";
         out = "${coq.coq-version}.0";
       }
-    ] null;
+    ]
+    null;
 
   release."9.0.0+rocq9.0".sha256 = "sha256-ctnwpyNVhryEUA5YEsAImrcJsNMhtBgDSOz+z5Z4R78=";
   release."9.0.0+coq8.20".sha256 = "sha256-pkvyDaMXRalc6Uu1eBTuiqTpRauRrzu946c6TavyTKY=";
@@ -50,31 +49,35 @@
   release."8.7.0".sha256 = "11c4sdmpd3l6jjl4v6k213z9fhrmmm1xnly3zmzam1wrrdif4ghl";
   release."8.6.0".rev = "v8.6.0";
   release."8.6.0".sha256 = "0553pcsy21cyhmns6k9qggzb67az8kl31d0lwlnz08bsqswigzrj";
-  releaseRev = v: "${if lib.versions.isGe "9.0" v then "v" else "V"}${v}";
+  releaseRev = v: "${
+    if lib.versions.isGe "9.0" v
+    then "v"
+    else "V"
+  }${v}";
 
   mlPlugin = true;
 
-  propagatedBuildInputs = [ stdlib ];
+  propagatedBuildInputs = [stdlib];
 
   meta = {
     license = lib.licenses.lgpl2;
   };
 }).overrideAttrs
-  (
-    o:
-    # this is just a wrapper for rocPackages.bignums for Rocq >= 9.0
+(
+  o:
+  # this is just a wrapper for rocPackages.bignums for Rocq >= 9.0
     lib.optionalAttrs
-      (coq.version != null && (coq.version == "dev" || lib.versions.isGe "9.0" coq.version))
-      {
-        configurePhase = ''
-          echo no configuration
-        '';
-        buildPhase = ''
-          echo building nothing
-        '';
-        installPhase = ''
-          echo installing nothing
-        '';
-        propagatedBuildInputs = o.propagatedBuildInputs ++ [ rocqPackages.bignums ];
-      }
-  )
+    (coq.version != null && (coq.version == "dev" || lib.versions.isGe "9.0" coq.version))
+    {
+      configurePhase = ''
+        echo no configuration
+      '';
+      buildPhase = ''
+        echo building nothing
+      '';
+      installPhase = ''
+        echo installing nothing
+      '';
+      propagatedBuildInputs = o.propagatedBuildInputs ++ [rocqPackages.bignums];
+    }
+)

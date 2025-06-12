@@ -5,7 +5,6 @@
   nix-update-script,
   withKeyring ? true,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "isrcsubmit";
   version = "2.1.0-unstable-2023-08-10";
@@ -24,8 +23,7 @@ python3Packages.buildPythonApplication {
     substituteInPlace isrcsubmit.py --replace-fail "main(argv):" "main(argv=sys.argv):"
   '';
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       musicbrainzngs
       discid
@@ -35,14 +33,14 @@ python3Packages.buildPythonApplication {
     ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     description = "Script to submit ISRCs from disc to MusicBrainz";
     license = lib.licenses.gpl3Plus;
     homepage = "http://jonnyjd.github.io/musicbrainz-isrcsubmit/";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "isrcsubmit";
   };
 }

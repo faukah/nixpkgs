@@ -2,18 +2,16 @@
   config,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkOption
     types
     ;
 
-  inherit (import ./common.nix { inherit lib; }) tlsRecommendationsOption;
-in
-{
+  inherit (import ./common.nix {inherit lib;}) tlsRecommendationsOption;
+in {
   options = {
     serverName = mkOption {
       type = types.nullOr types.nonEmptyStr;
@@ -27,7 +25,7 @@ in
 
     serverAliases = mkOption {
       type = types.listOf types.nonEmptyStr;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "example.org"
@@ -131,25 +129,25 @@ in
                   };
                 }
               );
-              default = [ ];
+              default = [];
               description = ''
                 Key / certificate pairs for the virtual host.
               '';
               example =
                 literalExpression
-                  # nix
-                  ''
-                    [
-                      {
-                        key-file = "/path/to/rsa.key";
-                        certificate-file = "/path/to/rsa.crt";
-                      }
-                      {
-                        key-file = "/path/to/ecdsa.key";
-                        certificate-file = "/path/to/ecdsa.crt";
-                      }
-                    ]
-                  '';
+                # nix
+                ''
+                  [
+                    {
+                      key-file = "/path/to/rsa.key";
+                      certificate-file = "/path/to/rsa.crt";
+                    }
+                    {
+                      key-file = "/path/to/ecdsa.key";
+                      certificate-file = "/path/to/ecdsa.crt";
+                    }
+                  ]
+                '';
             };
             recommendations = tlsRecommendationsOption;
             quic = mkOption {
@@ -162,30 +160,30 @@ in
               '';
               example =
                 literalExpression
-                  # nix
-                  ''
-                    {
-                      amp-limit = 2;
-                      handshake-timeout-rtt-multiplier = 300;
-                      retry = "ON";
-                    }
-                  '';
+                # nix
+                ''
+                  {
+                    amp-limit = 2;
+                    handshake-timeout-rtt-multiplier = 300;
+                    retry = "ON";
+                  }
+                '';
             };
             extraSettings = mkOption {
               type = types.attrs;
-              default = { };
+              default = {};
               description = ''
                 Additional TLS/SSL-related configuration options. See
                 <https://h2o.examp1e.net/configure/base_directives.html#listen-ssl>.
               '';
               example =
                 literalExpression
-                  # nix
-                  ''
-                    {
-                      minimum-version = "TLSv1.3";
-                    }
-                  '';
+                # nix
+                ''
+                  {
+                    minimum-version = "TLSv1.3";
+                  }
+                '';
             };
           };
         }
@@ -239,7 +237,7 @@ in
 
     settings = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = ''
         Attrset to be transformed into YAML for host config. Note that the HTTP
         / TLS configurations will override these config values. See

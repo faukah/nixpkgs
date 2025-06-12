@@ -2,7 +2,6 @@
   lib,
   buildDotnetGlobalTool,
 }:
-
 buildDotnetGlobalTool rec {
   pname = "dotnet-gitversion";
   nugetName = "GitVersion.Tool";
@@ -17,6 +16,6 @@ buildDotnetGlobalTool rec {
     downloadPage = "https://github.com/GitTools/GitVersion";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux ++ lib.platforms.windows ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ acesyde ];
+    maintainers = with lib.maintainers; [acesyde];
   };
 }

@@ -56,21 +56,23 @@ stdenv.mkDerivation (finalAttrs: {
       # to ensure that they gets their dependency when invoked separately.
       lib.listToAttrs (
         map
-          (
-            pluginName:
+        (
+          pluginName:
             lib.nameValuePair "gfal2-${pluginName}" (
               finalAttrs.finalPackage.overrideAttrs (previousAttrs: {
-                passthru = previousAttrs.passthru // {
-                  enablePluginStatus = lib.mapAttrs (n: v: n == pluginName) previousAttrs.passthru.enablePluginStatus;
-                };
+                passthru =
+                  previousAttrs.passthru
+                  // {
+                    enablePluginStatus = lib.mapAttrs (n: v: n == pluginName) previousAttrs.passthru.enablePluginStatus;
+                  };
               })
             )
+        )
+        (
+          lib.filter (lib.flip lib.getAttr finalAttrs.passthru.enablePluginStatus) (
+            lib.attrNames finalAttrs.passthru.enablePluginStatus
           )
-          (
-            lib.filter (lib.flip lib.getAttr finalAttrs.passthru.enablePluginStatus) (
-              lib.attrNames finalAttrs.passthru.enablePluginStatus
-            )
-          )
+        )
       )
     )
     // {
@@ -96,13 +98,13 @@ stdenv.mkDerivation (finalAttrs: {
       openldap
       pugixml # Optional, for MDS Cache.
     ]
-    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.dcap [ dcap ]
+    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.dcap [dcap]
     ++ lib.optionals finalAttrs.passthru.enablePluginStatus.http [
       cryptopp
       davix-copy
     ]
-    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.mock [ libuuid ]
-    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.sftp [ libssh2 ]
+    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.mock [libuuid]
+    ++ lib.optionals finalAttrs.passthru.enablePluginStatus.sftp [libssh2]
     ++ lib.optionals finalAttrs.passthru.enablePluginStatus.xrootd [
       xrootd
       libuuid
@@ -111,13 +113,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags =
     (map (
-      pluginName:
-      "-DPLUGIN_${lib.toUpper pluginName}=${
+      pluginName: "-DPLUGIN_${lib.toUpper pluginName}=${
         lib.toUpper (lib.boolToString finalAttrs.passthru.enablePluginStatus.${pluginName})
       }"
     ) (lib.attrNames finalAttrs.passthru.enablePluginStatus))
-    ++ [ "-DSKIP_TESTS=${lib.toUpper (lib.boolToString (!finalAttrs.finalPackage.doCheck))}" ]
-    ++ lib.optionals finalAttrs.finalPackage.doCheck [ "-DGTEST_INCLUDE_DIR=${gtest.dev}/include" ]
+    ++ ["-DSKIP_TESTS=${lib.toUpper (lib.boolToString (!finalAttrs.finalPackage.doCheck))}"]
+    ++ lib.optionals finalAttrs.finalPackage.doCheck ["-DGTEST_INCLUDE_DIR=${gtest.dev}/include"]
     ++ lib.optionals finalAttrs.passthru.enablePluginStatus.http [
       "-DCRYPTOPP_INCLUDE_DIRS=${cryptopp.dev}/include/cryptopp"
     ]
@@ -143,7 +144,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/cern-fts/gfal2";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
     mainProgram = "gfal2";
   };
 })

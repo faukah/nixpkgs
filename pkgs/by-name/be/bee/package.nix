@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "bee";
   version = "2.5.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-1Hl0tT6ZI3otEdOQw9adipOGcSyZXLbSLC8s7YsFRZA=";
 
-  subPackages = [ "cmd/bee" ];
+  subPackages = ["cmd/bee"];
 
   ldflags = [
     "-s"
@@ -51,7 +50,7 @@ buildGoModule rec {
 
       Bee is a Swarm node implementation, written in Go.
     '';
-    license = with licenses; [ bsd3 ];
-    maintainers = [ ];
+    license = with licenses; [bsd3];
+    maintainers = [];
   };
 }

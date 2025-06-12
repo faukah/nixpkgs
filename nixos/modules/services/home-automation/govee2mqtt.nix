@@ -3,18 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.govee2mqtt;
-in
-{
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+in {
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 
   options.services.govee2mqtt = {
     enable = lib.mkEnableOption "Govee2MQTT";
 
-    package = lib.mkPackageOption pkgs "govee2mqtt" { };
+    package = lib.mkPackageOption pkgs "govee2mqtt" {};
 
     user = lib.mkOption {
       type = lib.types.str;
@@ -41,7 +38,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users = {
-      groups.${cfg.group} = { };
+      groups.${cfg.group} = {};
       users.${cfg.user} = {
         description = "Govee2MQTT service user";
         inherit (cfg) group;
@@ -51,8 +48,8 @@ in
 
     systemd.services.govee2mqtt = {
       description = "Govee2MQTT Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       serviceConfig = {
         CacheDirectory = "govee2mqtt";
         Environment = [

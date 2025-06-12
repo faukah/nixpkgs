@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "swagger-cli";
   version = "4.0.4";
@@ -29,7 +28,7 @@ buildNpmPackage rec {
     description = "Swagger 2.0 and OpenAPI 3.0 command-line tool";
     homepage = "https://apitools.dev/swagger-cli/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "swagger-cli";
   };
 }

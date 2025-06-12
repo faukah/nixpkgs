@@ -8,7 +8,6 @@
   pkg-config,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   version = "20231119";
   pname = "libewf";
@@ -18,12 +17,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-7AjUEaXasOzJV9ErZK2a4HMTaqhcBbLKd8M+A5SbKrc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    zlib
-    openssl
-    libuuid
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ bzip2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs =
+    [
+      zlib
+      openssl
+      libuuid
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [bzip2];
 
   # cannot run test program while cross compiling
   configureFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
@@ -34,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Library for support of the Expert Witness Compression Format";
     homepage = "https://sourceforge.net/projects/libewf/";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 }

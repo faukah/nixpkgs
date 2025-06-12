@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyelectra";
   version = "1.2.4";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-3g+6AXbHMStk77k+1Qh5kgDswUZ8I627YiA/PguUGBg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "electrasmart" ];
+  pythonImportsCheck = ["electrasmart"];
 
   # upstream has no tests
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Electra Smart Python Integration";
     homepage = "https://github.com/jafar-atili/pyelectra";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

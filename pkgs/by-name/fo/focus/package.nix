@@ -5,7 +5,6 @@
   libX11,
   libXinerama,
 }:
-
 stdenv.mkDerivation {
   pname = "focus";
   version = "unstable-2021-02-23";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     libXinerama
   ];
 
-  makeFlags = [ "PREFIX=\${out}" ];
+  makeFlags = ["PREFIX=\${out}"];
 
   meta = with lib; {
     description = "Focus window, workspace or monitor by direction or cycle through them";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/phillbush/focus";
     license = licenses.publicDomain;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

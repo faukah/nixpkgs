@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   emoji,
   python-yakh,
   questo,
   rich,
-
   # nativeCheckInputs
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "beaupy";
   version = "3.10.1";
@@ -51,6 +47,6 @@ buildPythonPackage rec {
     description = "A Python library of interactive CLI elements you have been looking for";
     homepage = "https://github.com/petereon/beaupy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

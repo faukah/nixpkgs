@@ -4,12 +4,10 @@
   pkgs,
   ...
 }:
-
 # TODO: This may file may need additional review, eg which configurations to
 # expose to the user.
 #
 # I only used it to access some simple databases.
-
 # test:
 # isql, then type the following commands:
 # CREATE DATABASE '/var/db/firebird/data/test.fdb' USER 'SYSDBA' PASSWORD 'masterkey';
@@ -18,30 +16,22 @@
 # DROP DATABASE;
 #
 # Be careful, virtuoso-opensource also provides a different isql command !
-
 # There are at least two ways to run firebird. superserver has been chosen
 # however there are no strong reasons to prefer this or the other one AFAIK
 # Eg superserver is said to be most efficiently using resources according to
 # https://www.firebirdsql.org/manual/qsg25-classic-or-super.html
 let
-
   cfg = config.services.firebird;
 
   firebird = cfg.package;
 
   dataDir = "${cfg.baseDir}/data";
   systemDir = "${cfg.baseDir}/system";
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.firebird = {
-
       enable = lib.mkEnableOption "the Firebird super server";
 
       package = lib.mkPackageOption pkgs "firebird" {
@@ -75,16 +65,13 @@ in
           data/ stores the databases, system/ stores the password database security2.fdb.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.firebird.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
       "d '${dataDir}' 0700 ${cfg.user} - - -"
@@ -94,7 +81,7 @@ in
     systemd.services.firebird = {
       description = "Firebird Super-Server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # TODO: moving security2.fdb into the data directory works, maybe there
       # is a better way
@@ -159,6 +146,5 @@ in
     };
 
     users.groups.firebird.gid = config.ids.gids.firebird;
-
   };
 }

@@ -187,19 +187,19 @@ buildPythonPackage rec {
           popd
         '';
       })).override
-        {
-          lapackSupport = false;
-          lapack.isILP64 = stdenv.hostPlatform.is64bit;
-          blas = lapack;
-          kluSupport = false;
-        };
+      {
+        lapackSupport = false;
+        lapack.isILP64 = stdenv.hostPlatform.is64bit;
+        blas = lapack;
+        kluSupport = false;
+      };
 
     # Simulate reference FMUs from
     # <https://github.com/modelica/Reference-FMUs>.
     #
     # Just check that the execution passes; don't verify any numerical
     # results, but save them in case of future or manual check use.
-    tests.simulate-reference-fmus = runCommand "${pname}-simulate-reference-fmus" { } ''
+    tests.simulate-reference-fmus = runCommand "${pname}-simulate-reference-fmus" {} ''
       mkdir $out
       # NB(find ! -name): Clocks.fmu is marked TODO upstream and is of a
       # FMI type that FMPy doesn't support currently (ModelExchange)
@@ -222,11 +222,11 @@ buildPythonPackage rec {
     description = "Simulate Functional Mockup Units (FMUs) in Python";
     homepage = "https://github.com/CATIA-Systems/FMPy";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ tmplt ];
+    maintainers = with lib.maintainers; [tmplt];
     # Supported platforms are not exhaustively and explicitly stated,
     # but inferred from the artifacts that are vendored in upstream CI
     # builds. C.f.
     # <https://github.com/CATIA-Systems/FMPy/blob/v0.3.23/pyproject.toml?plain=1#L71-L112>
-    platforms = lib.platforms.x86_64 ++ [ "i686-windows" ];
+    platforms = lib.platforms.x86_64 ++ ["i686-windows"];
   };
 }

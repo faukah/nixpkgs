@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "better-exceptions";
   version = "0.3.3";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-5Oa8GERNXwTm6JSxA4Hl6SHT1UQkBBgWLH21fp6zRTs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "better_exceptions" ];
+  pythonImportsCheck = ["better_exceptions"];
 
   # As noted by @WolfangAukang, some check files need to be disabled because of various errors, same with some tests.
   # After disabling and running the build, no tests are collected.
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Pretty and more helpful exceptions in Python, automatically";
     homepage = "https://github.com/qix-/better-exceptions";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.alex-nt ];
+    maintainers = [lib.maintainers.alex-nt];
   };
 }

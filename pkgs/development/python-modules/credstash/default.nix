@@ -11,7 +11,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "credstash";
   version = "1.17.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   # file ensures that Python imports the module from site-packages library.
   postInstall = "rm $out/bin/credstash.py";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boto3
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Tests require a region
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/LuminalOSS/credstash";
     changelog = "https://github.com/fugue/credstash/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "credstash";
   };
 }

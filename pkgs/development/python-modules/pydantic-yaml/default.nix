@@ -10,7 +10,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydantic-yaml";
   version = "1.5.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     importlib-metadata
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "pydantic_yaml" ];
+  pythonImportsCheck = ["pydantic_yaml"];
 
   nativeCheckInputs = [
     pytest-mock
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/NowanIlfideme/pydantic-yaml";
     changelog = "https://github.com/NowanIlfideme/pydantic-yaml/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
   };
 }

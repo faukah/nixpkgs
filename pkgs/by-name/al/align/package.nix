@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "align";
   version = "1.1.3";
@@ -21,7 +20,7 @@ buildGoModule rec {
     homepage = "https://github.com/Guitarbum722/align";
     description = "General purpose application and library for aligning text";
     mainProgram = "align";
-    maintainers = with maintainers; [ hrhino ];
+    maintainers = with maintainers; [hrhino];
     license = licenses.mit;
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-table-others";
   version = "1.3.20";

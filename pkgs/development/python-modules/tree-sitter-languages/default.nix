@@ -8,7 +8,6 @@
   pytestCheckHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-languages";
   version = "1.10.2";
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     setuptools
     cython
   ];
-  dependencies = [ tree-sitter ];
+  dependencies = [tree-sitter];
   # Generate languages.so file (build won't fail without this, but tests will).
   preBuild = ''
     ${python.pythonOnBuildForHost.interpreter} build.py
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # Without cd $out, tests fail to import the compiled cython extensions.
   # Without copying the ./tests/ directory to $out, pytest won't detect the
   # tests and run them. See also:
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     cd $out
   '';
 
-  pythonImportsCheck = [ "tree_sitter_languages" ];
+  pythonImportsCheck = ["tree_sitter_languages"];
 
   meta = with lib; {
     description = "Binary Python wheels for all tree sitter languages";
     homepage = "https://github.com/grantjenks/py-tree-sitter-languages";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     # https://github.com/grantjenks/py-tree-sitter-languages/issues/67
     broken = versionAtLeast tree-sitter.version "0.22";
   };

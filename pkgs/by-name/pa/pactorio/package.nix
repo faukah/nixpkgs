@@ -6,7 +6,6 @@
   pkg-config,
   bzip2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pactorio";
   version = "0.6.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ bzip2 ];
+  buildInputs = [bzip2];
 
   postInstall = ''
     installManPage artifacts/pactorio.1
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/figsoda/pactorio";
     changelog = "https://github.com/figsoda/pactorio/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

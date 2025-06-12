@@ -12,7 +12,6 @@
   appstream-glib,
   desktop-file-utils,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "wordbook";
   version = "0.4.0";
@@ -49,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH ":" "${lib.makeBinPath [ espeak-ng ]}"
+      --prefix PATH ":" "${lib.makeBinPath [espeak-ng]}"
       "''${gappsWrapperArgs[@]}"
     )
   '';
@@ -60,6 +59,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/fushinari/Wordbook";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 }

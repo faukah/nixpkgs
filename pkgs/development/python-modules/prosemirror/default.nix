@@ -7,7 +7,6 @@
   lxml,
   cssselect,
 }:
-
 buildPythonPackage rec {
   pname = "prosemirror";
   version = "0.5.2";
@@ -18,22 +17,22 @@ buildPythonPackage rec {
     hash = "sha256-cZwqoKQ+B7d07R20dXTiDsiBIYYTyaWa2SnGs8o8Hl8=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     lxml
     cssselect
   ];
 
-  pythonImportsCheck = [ "prosemirror" ];
+  pythonImportsCheck = ["prosemirror"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Python implementation of core ProseMirror modules for collaborative editing";
     homepage = "https://pypi.org/project/prosemirror";
     changelog = "https://github.com/fellowapp/prosemirror-py/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

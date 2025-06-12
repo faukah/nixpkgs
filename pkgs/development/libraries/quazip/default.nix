@@ -8,7 +8,6 @@
   cmake,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "quazip";
   version = "1.5";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
     zlib
     qtbase
   ];
-  propagatedBuildInputs = [ qt5compat ];
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  propagatedBuildInputs = [qt5compat];
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   dontWrapQtApps = true;
 

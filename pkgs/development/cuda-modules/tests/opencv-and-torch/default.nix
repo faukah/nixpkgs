@@ -6,8 +6,7 @@
   openCVFirst,
   useOpenCVDefaultCuda,
   useTorchDefaultCuda,
-}:
-let
+}: let
   inherit (lib.strings) optionalString;
 
   openCVBlock = ''
@@ -48,34 +47,45 @@ let
 
   '';
 
-  content = if openCVFirst then openCVBlock + torchBlock else torchBlock + openCVBlock;
+  content =
+    if openCVFirst
+    then openCVBlock + torchBlock
+    else torchBlock + openCVBlock;
 
   torchName = "torch" + optionalString useTorchDefaultCuda "-with-default-cuda";
   openCVName = "opencv4" + optionalString useOpenCVDefaultCuda "-with-default-cuda";
 in
-# TODO: Ensure the expected CUDA libraries are loaded.
-# TODO: Ensure GPU access works as expected.
-writeGpuTestPython {
-  name = if openCVFirst then "${openCVName}-then-${torchName}" else "${torchName}-then-${openCVName}";
-  libraries =
-    # NOTE: These are purposefully in this order.
-    pythonPackages:
-    let
-      effectiveOpenCV = pythonPackages.opencv4.override (prevAttrs: {
-        cudaPackages = if useOpenCVDefaultCuda then prevAttrs.cudaPackages else cudaPackages;
-      });
-      effectiveTorch = pythonPackages.torchWithCuda.override (prevAttrs: {
-        cudaPackages = if useTorchDefaultCuda then prevAttrs.cudaPackages else cudaPackages;
-      });
-    in
-    if openCVFirst then
-      [
-        effectiveOpenCV
-        effectiveTorch
-      ]
-    else
-      [
-        effectiveTorch
-        effectiveOpenCV
-      ];
-} content
+  # TODO: Ensure the expected CUDA libraries are loaded.
+  # TODO: Ensure GPU access works as expected.
+  writeGpuTestPython {
+    name =
+      if openCVFirst
+      then "${openCVName}-then-${torchName}"
+      else "${torchName}-then-${openCVName}";
+    libraries =
+      # NOTE: These are purposefully in this order.
+      pythonPackages: let
+        effectiveOpenCV = pythonPackages.opencv4.override (prevAttrs: {
+          cudaPackages =
+            if useOpenCVDefaultCuda
+            then prevAttrs.cudaPackages
+            else cudaPackages;
+        });
+        effectiveTorch = pythonPackages.torchWithCuda.override (prevAttrs: {
+          cudaPackages =
+            if useTorchDefaultCuda
+            then prevAttrs.cudaPackages
+            else cudaPackages;
+        });
+      in
+        if openCVFirst
+        then [
+          effectiveOpenCV
+          effectiveTorch
+        ]
+        else [
+          effectiveTorch
+          effectiveOpenCV
+        ];
+  }
+  content

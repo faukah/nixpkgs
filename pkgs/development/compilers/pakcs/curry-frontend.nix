@@ -46,7 +46,7 @@ mkDerivation {
     time
     transformers
   ];
-  executableHaskellDepends = [ base ];
+  executableHaskellDepends = [base];
   testHaskellDepends = [
     base
     bytestring

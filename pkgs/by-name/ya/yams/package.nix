@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "yams";
   # nixpkgs-update: no auto update
@@ -30,6 +29,6 @@ python3Packages.buildPythonPackage rec {
     description = "Last.FM scrobbler for MPD";
     mainProgram = "yams";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ccellado ];
+    maintainers = with maintainers; [ccellado];
   };
 }

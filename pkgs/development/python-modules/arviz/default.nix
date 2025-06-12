@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   packaging,
   setuptools,
-
   # dependencies
   h5netcdf,
   matplotlib,
@@ -17,7 +15,6 @@
   typing-extensions,
   xarray,
   xarray-einstats,
-
   # tests
   bokeh,
   cloudpickle,
@@ -36,7 +33,6 @@
   writableTmpDirAsHomeHook,
   zarr,
 }:
-
 buildPythonPackage rec {
   pname = "arviz";
   version = "0.21.0";
@@ -109,13 +105,13 @@ buildPythonPackage rec {
   # Tests segfault on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  pythonImportsCheck = [ "arviz" ];
+  pythonImportsCheck = ["arviz"];
 
   meta = {
     description = "Library for exploratory analysis of Bayesian models";
     homepage = "https://arviz-devs.github.io/arviz/";
     changelog = "https://github.com/arviz-devs/arviz/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ omnipotententity ];
+    maintainers = with lib.maintainers; [omnipotententity];
   };
 }

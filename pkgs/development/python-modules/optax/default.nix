@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   absl-py,
   chex,
   jax,
   jaxlib,
   numpy,
-
   # tests
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "optax";
   version = "0.2.5";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     "testsout"
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     absl-py
@@ -49,13 +45,13 @@ buildPythonPackage rec {
     cp -R examples $testsout/examples
   '';
 
-  pythonImportsCheck = [ "optax" ];
+  pythonImportsCheck = ["optax"];
 
   # check in passthru.tests.pytest to escape infinite recursion with flax
   doCheck = false;
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = {
@@ -63,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/optax";
     changelog = "https://github.com/deepmind/optax/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

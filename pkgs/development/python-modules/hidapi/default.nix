@@ -11,7 +11,6 @@
   libusb1,
   udev,
 }:
-
 buildPythonPackage rec {
   pname = "hidapi";
   version = "0.14.0.post4";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.hostPlatform.isDarwin [xcbuild];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     hidapi
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     HIDAPI_SYSTEM_HIDAPI = true;
   };
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ udev ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [udev];
 
-  pythonImportsCheck = [ "hid" ];
+  pythonImportsCheck = ["hid"];
 
   meta = with lib; {
     description = "Cython interface to the hidapi from https://github.com/libusb/hidapi";

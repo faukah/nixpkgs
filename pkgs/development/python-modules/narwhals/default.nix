@@ -18,7 +18,6 @@
   rich,
   sqlframe,
 }:
-
 buildPythonPackage rec {
   pname = "narwhals";
   version = "1.40.0";
@@ -31,33 +30,35 @@ buildPythonPackage rec {
     hash = "sha256-cCgWKH4DzENTI1vwxOU+GRp/poUe55XqSPY8UHYy9PI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   optional-dependencies = {
     # cudf = [ cudf ];
-    dask = [ dask ] ++ dask.optional-dependencies.dataframe;
+    dask = [dask] ++ dask.optional-dependencies.dataframe;
     # modin = [ modin ];
-    pandas = [ pandas ];
-    polars = [ polars ];
-    pyarrow = [ pyarrow ];
-    pyspark = [ pyspark ];
+    pandas = [pandas];
+    polars = [polars];
+    pyarrow = [pyarrow];
+    pyspark = [pyspark];
     ibis = [
       ibis-framework
       rich
       packaging
       pyarrow-hotfix
     ];
-    sqlframe = [ sqlframe ];
+    sqlframe = [sqlframe];
   };
 
-  nativeCheckInputs = [
-    duckdb
-    hypothesis
-    pytest-env
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      duckdb
+      hypothesis
+      pytest-env
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "narwhals" ];
+  pythonImportsCheck = ["narwhals"];
 
   disabledTests = [
     # Flaky
@@ -79,6 +80,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/narwhals-dev/narwhals";
     changelog = "https://github.com/narwhals-dev/narwhals/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

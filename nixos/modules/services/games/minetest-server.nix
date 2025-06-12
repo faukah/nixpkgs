@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   CONTAINS_NEWLINE_RE = ".*\n.*";
   # The following values are reserved as complete option values:
   # { - start of a group.
@@ -15,36 +14,34 @@ let
   # There is no way to encode """ on its own line in a Minetest config.
   UNESCAPABLE_RE = ".*\n\"\"\"\n.*";
 
-  toConfMultiline =
-    name: value:
+  toConfMultiline = name: value:
     assert lib.assertMsg (
       (builtins.match UNESCAPABLE_RE value) == null
-    ) ''""" can't be on its own line in a minetest config.'';
-    "${name} = \"\"\"\n${value}\n\"\"\"\n";
+    ) ''""" can't be on its own line in a minetest config.''; "${name} = \"\"\"\n${value}\n\"\"\"\n";
 
-  toConf =
-    values:
+  toConf = values:
     lib.concatStrings (
       lib.mapAttrsToList (
         name: value:
-        {
-          bool = "${name} = ${toString value}\n";
-          int = "${name} = ${toString value}\n";
-          null = "";
-          set = "${name} = {\n${toConf value}}\n";
-          string =
-            if (builtins.match NEEDS_MULTILINE_RE value) != null then
-              toConfMultiline name value
-            else
-              "${name} = ${value}\n";
-        }
-        .${builtins.typeOf value}
-      ) values
+          {
+            bool = "${name} = ${toString value}\n";
+            int = "${name} = ${toString value}\n";
+            null = "";
+            set = "${name} = {\n${toConf value}}\n";
+            string =
+              if (builtins.match NEEDS_MULTILINE_RE value) != null
+              then toConfMultiline name value
+              else "${name} = ${value}\n";
+          }
+        .${
+            builtins.typeOf value
+          }
+      )
+      values
     );
 
   cfg = config.services.minetest-server;
-  flag =
-    val: name:
+  flag = val: name:
     lib.optionals (val != null) [
       "--${name}"
       "${toString val}"
@@ -55,24 +52,22 @@ let
       "--server"
     ]
     ++ (
-      if cfg.configPath != null then
-        [
-          "--config"
-          cfg.configPath
-        ]
-      else
-        [
-          "--config"
-          (builtins.toFile "minetest.conf" (toConf cfg.config))
-        ]
+      if cfg.configPath != null
+      then [
+        "--config"
+        cfg.configPath
+      ]
+      else [
+        "--config"
+        (builtins.toFile "minetest.conf" (toConf cfg.config))
+      ]
     )
     ++ (flag cfg.gameId "gameid")
     ++ (flag cfg.world "world")
     ++ (flag cfg.logPath "logfile")
     ++ (flag cfg.port "port")
     ++ cfg.extraArgs;
-in
-{
+in {
   options = {
     services.minetest-server = {
       enable = lib.mkOption {
@@ -116,7 +111,7 @@ in
 
       config = lib.mkOption {
         type = lib.types.attrsOf lib.types.anything;
-        default = { };
+        default = {};
         description = ''
           Settings to add to the minetest config file.
 
@@ -147,7 +142,7 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Additional command line flags to pass to the minetest executable.
         '';
@@ -167,8 +162,8 @@ in
 
     systemd.services.minetest-server = {
       description = "Minetest Server Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig.Restart = "always";
       serviceConfig.User = "minetest";

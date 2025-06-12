@@ -11,7 +11,6 @@
   makeWrapper,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mjolnir";
   version = "1.9.2";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
       uses across an entire homeserver.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jojosch ];
+    maintainers = with lib.maintainers; [jojosch];
     mainProgram = "mjolnir";
   };
 })

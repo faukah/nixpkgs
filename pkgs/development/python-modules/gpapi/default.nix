@@ -9,7 +9,6 @@
   protobuf_27,
   setuptools,
 }:
-
 buildPythonPackage rec {
   version = "0.4.4";
   pname = "gpapi";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail 'PROTOC_EXEC = "protoc"' 'PROTOC_EXEC = "${lib.getExe protobuf_27}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     protobuf_27
@@ -46,12 +45,12 @@ buildPythonPackage rec {
   # scripts in ./test require networking
   doCheck = false;
 
-  pythonImportsCheck = [ "gpapi.googleplay" ];
+  pythonImportsCheck = ["gpapi.googleplay"];
 
   meta = {
     homepage = "https://github.com/NoMore201/googleplay-api";
     license = lib.licenses.gpl3Only;
     description = "Google Play Unofficial Python API";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

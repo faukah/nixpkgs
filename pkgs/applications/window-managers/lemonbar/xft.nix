@@ -6,7 +6,6 @@
   libxcb,
   libXft,
 }:
-
 stdenv.mkDerivation {
   pname = "lemonbar-xft";
   version = "unstable-2020-09-10";
@@ -35,6 +34,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/drscream/lemonbar-xft";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

@@ -5,9 +5,7 @@
   runCommand,
   writeShellApplication,
   xorg,
-}:
-
-let
+}: let
   testScript = writeShellApplication {
     name = "zoom-us-test-script";
     runtimeInputs = [
@@ -38,7 +36,7 @@ let
     '';
   };
 in
-runCommand "zoom-us-test" { buildInputs = [ xvfb-run ]; } ''
-  HOME=$PWD xvfb-run ${lib.getExe testScript}
-  touch ${placeholder "out"}
-''
+  runCommand "zoom-us-test" {buildInputs = [xvfb-run];} ''
+    HOME=$PWD xvfb-run ${lib.getExe testScript}
+    touch ${placeholder "out"}
+  ''

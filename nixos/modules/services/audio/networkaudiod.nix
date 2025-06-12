@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   name = "networkaudiod";
   cfg = config.services.networkaudiod;
-in
-{
+in {
   options = {
     services.networkaudiod = {
       enable = lib.mkEnableOption "Networkaudiod (NAA)";
@@ -16,7 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.packages = [ pkgs.networkaudiod ];
-    systemd.services.networkaudiod.wantedBy = [ "multi-user.target" ];
+    systemd.packages = [pkgs.networkaudiod];
+    systemd.services.networkaudiod.wantedBy = ["multi-user.target"];
   };
 }

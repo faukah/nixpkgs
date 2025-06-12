@@ -7,7 +7,6 @@
   ncurses,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "boinctui";
   version = "2.7.1-unstable-2023-12-14";
@@ -33,8 +32,8 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--without-gnutls" ];
-  nativeBuildInputs = [ autoreconfHook ];
+  configureFlags = ["--without-gnutls"];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     expat
     ncurses
@@ -46,7 +45,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/suleman1971/boinctui";
     changelog = "https://github.com/suleman1971/boinctui/blob/master/changelog";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ christoph-heiss ];
+    maintainers = with maintainers; [christoph-heiss];
     platforms = platforms.linux;
     mainProgram = "boinctui";
   };

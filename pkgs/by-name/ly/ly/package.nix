@@ -9,7 +9,6 @@
   callPackage,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "ly";
   version = "1.0.3";
@@ -38,13 +37,13 @@ stdenv.mkDerivation {
     } $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
-  passthru.tests = { inherit (nixosTests) ly; };
+  passthru.tests = {inherit (nixosTests) ly;};
 
   meta = with lib; {
     description = "TUI display manager";
     license = licenses.wtfpl;
     homepage = "https://github.com/fairyglade/ly";
-    maintainers = [ maintainers.vidister ];
+    maintainers = [maintainers.vidister];
     platforms = platforms.linux;
     mainProgram = "ly";
   };

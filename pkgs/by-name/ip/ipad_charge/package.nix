@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipad_charge";
   version = "2015-02-03";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     owner = "mkorenkov";
   };
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   postPatch = ''
     substituteInPlace Makefile \

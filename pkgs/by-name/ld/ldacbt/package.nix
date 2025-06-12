@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ldacBT";
   version = "2.0.2.3";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     # libldac code detects & #error's out on non-LE byte order
     platforms = platforms.littleEndian;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

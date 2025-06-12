@@ -3,31 +3,32 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.nitter;
   configFile = pkgs.writeText "nitter.conf" ''
-    ${lib.generators.toINI
+    ${
+      lib.generators.toINI
       {
         # String values need to be quoted
         mkKeyValue = lib.generators.mkKeyValueDefault {
-          mkValueString =
-            v:
-            if lib.isString v then
-              "\"" + (lib.escape [ "\"" ] (toString v)) + "\""
-            else
-              lib.generators.mkValueStringDefault { } v;
+          mkValueString = v:
+            if lib.isString v
+            then "\"" + (lib.escape ["\""] (toString v)) + "\""
+            else lib.generators.mkValueStringDefault {} v;
         } " = ";
       }
       (
         lib.recursiveUpdate {
           Server = cfg.server;
           Cache = cfg.cache;
-          Config = cfg.config // {
-            hmacKey = "@hmac@";
-          };
+          Config =
+            cfg.config
+            // {
+              hmacKey = "@hmac@";
+            };
           Preferences = cfg.preferences;
-        } cfg.settings
+        }
+        cfg.settings
       )
     }
   '';
@@ -35,7 +36,7 @@ let
   # Generate it on first launch, then copy configuration and replace
   # `@hmac@` with this value.
   # We are not using sed as it would leak the value in the command line.
-  preStart = pkgs.writers.writePython3 "nitter-prestart" { } ''
+  preStart = pkgs.writers.writePython3 "nitter-prestart" {} ''
     import os
     import secrets
 
@@ -55,8 +56,7 @@ let
         with open(f"{state_dir}/nitter.conf", "w") as f_out:
             f_out.write(f_in.read().replace("@hmac@", hmac))
   '';
-in
-{
+in {
   imports = [
     # https://github.com/zedeus/nitter/pull/772
     (lib.mkRemovedOptionModule [
@@ -64,9 +64,10 @@ in
       "nitter"
       "replaceInstagram"
     ] "Nitter no longer supports this option as Bibliogram has been discontinued.")
-    (lib.mkRenamedOptionModule
-      [ "services" "nitter" "guestAccounts" ]
-      [ "services" "nitter" "sessionsFile" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "nitter" "guestAccounts"]
+      ["services" "nitter" "sessionsFile"]
     )
   ];
 
@@ -74,7 +75,7 @@ in
     services.nitter = {
       enable = lib.mkEnableOption "Nitter, an alternative Twitter front-end";
 
-      package = lib.mkPackageOption pkgs "nitter" { };
+      package = lib.mkPackageOption pkgs "nitter" {};
 
       server = {
         address = lib.mkOption {
@@ -175,9 +176,11 @@ in
           description = "Use base64 encoding for proxied media URLs.";
         };
 
-        enableRSS = lib.mkEnableOption "RSS feeds" // {
-          default = true;
-        };
+        enableRSS =
+          lib.mkEnableOption "RSS feeds"
+          // {
+            default = true;
+          };
 
         enableDebug = lib.mkEnableOption "request logs and debug endpoints";
 
@@ -317,7 +320,7 @@ in
 
       settings = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         description = ''
           Add settings here to override NixOS module generated settings.
 
@@ -368,9 +371,9 @@ in
 
     systemd.services.nitter = {
       description = "Nitter (An alternative Twitter front-end)";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         DynamicUser = true;
         LoadCredential = "sessionsFile:${cfg.sessionsFile}";
@@ -384,18 +387,21 @@ in
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
-        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) ["CAP_NET_BIND_SERVICE"];
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet =
+          if (cfg.server.port < 1024)
+          then ["CAP_NET_BIND_SERVICE"]
+          else [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
         # A private user cannot have process capabilities on the host's user
         # namespace and thus CAP_NET_BIND_SERVICE has no effect.
-        PrivateUsers = (cfg.server.port >= 1024);
+        PrivateUsers = cfg.server.port >= 1024;
         ProcSubset = "pid";
         ProtectClock = true;
         ProtectControlGroups = true;
@@ -428,7 +434,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.server.port ];
+      allowedTCPPorts = [cfg.server.port];
     };
   };
 }

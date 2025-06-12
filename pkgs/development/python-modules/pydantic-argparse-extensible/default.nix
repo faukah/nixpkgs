@@ -6,7 +6,6 @@
   pydantic,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "pydantic-argparse-extensible";
   version = "1.3.6";
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     "pydantic_argparse_extensible"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "A typed wrapper around argparse using pydantic models";
     homepage = "https://pypi.org/project/pydantic-argparse-extensible";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers._9999years ];
+    maintainers = [lib.maintainers._9999years];
   };
 }

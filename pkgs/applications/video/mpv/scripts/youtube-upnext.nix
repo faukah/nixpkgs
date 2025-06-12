@@ -5,7 +5,6 @@
   unstableGitUpdater,
   lib,
 }:
-
 buildLua rec {
   pname = "youtube-upnext";
   version = "1.1";
@@ -22,12 +21,12 @@ buildLua rec {
       --replace-fail '"curl"' '"${lib.getExe curl}"'
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Userscript that allows you to play 'up next'/recommended youtube videos";
     homepage = "https://github.com/cvzi/mpv-youtube-upnext";
-    maintainers = with maintainers; [ bddvlpr ];
+    maintainers = with maintainers; [bddvlpr];
     license = licenses.unfree;
   };
 }

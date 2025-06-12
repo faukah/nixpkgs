@@ -8,7 +8,6 @@
   withLLVM ? true,
   withSinglepass ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wasmer";
   version = "5.0.4";

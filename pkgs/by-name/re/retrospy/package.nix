@@ -6,8 +6,7 @@
   makeDesktopItem,
   lib,
   runCommandLocal,
-}:
-let
+}: let
   version = "6.9";
 
   src = fetchFromGitHub {
@@ -24,58 +23,59 @@ let
     "UsbUpdater"
   ];
 
-  retrospy-icons = runCommandLocal "retrospy-icons" { } ''
+  retrospy-icons = runCommandLocal "retrospy-icons" {} ''
     mkdir -p $out/share/retrospy
     ${builtins.concatStringsSep "\n" (
       map (e: "cp ${src}/${e}.ico $out/share/retrospy/${e}.ico") executables
     )}
   '';
 in
-buildDotnetModule {
-  pname = "retrospy";
-  inherit version;
+  buildDotnetModule {
+    pname = "retrospy";
+    inherit version;
 
-  inherit src;
+    inherit src;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+    ];
 
-  projectFile = [
-    "RetroSpyX/RetroSpyX.csproj"
-    "GBPemuX/GBPemuX.csproj"
-    "GBPUpdaterX2/GBPUpdaterX2.csproj"
-    "UsbUpdaterX2/UsbUpdaterX2.csproj"
-  ];
+    projectFile = [
+      "RetroSpyX/RetroSpyX.csproj"
+      "GBPemuX/GBPemuX.csproj"
+      "GBPUpdaterX2/GBPUpdaterX2.csproj"
+      "UsbUpdaterX2/UsbUpdaterX2.csproj"
+    ];
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
-  nugetDeps = ./deps.json;
+    nugetDeps = ./deps.json;
 
-  inherit executables;
+    inherit executables;
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  desktopItems = map (
-    e:
-    (makeDesktopItem {
-      name = e;
-      exec = e;
-      icon = "${retrospy-icons}/share/retrospy/${e}.ico";
-      desktopName = "${e}";
-      categories = [ "Utility" ];
-      startupWMClass = e;
-    })
-  ) executables;
+    desktopItems =
+      map (
+        e: (makeDesktopItem {
+          name = e;
+          exec = e;
+          icon = "${retrospy-icons}/share/retrospy/${e}.ico";
+          desktopName = "${e}";
+          categories = ["Utility"];
+          startupWMClass = e;
+        })
+      )
+      executables;
 
-  meta = {
-    description = "Live controller viewer for Nintendo consoles as well as many other retro consoles and computers";
-    homepage = "https://retro-spy.com/";
-    changelog = "https://github.com/retrospy/RetroSpy/releases/tag/${src.rev}";
-    license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.naxdy ];
-    platforms = lib.platforms.linux;
-    mainProgram = "RetroSpy";
-  };
-}
+    meta = {
+      description = "Live controller viewer for Nintendo consoles as well as many other retro consoles and computers";
+      homepage = "https://retro-spy.com/";
+      changelog = "https://github.com/retrospy/RetroSpy/releases/tag/${src.rev}";
+      license = lib.licenses.gpl3;
+      maintainers = [lib.maintainers.naxdy];
+      platforms = lib.platforms.linux;
+      mainProgram = "RetroSpy";
+    };
+  }

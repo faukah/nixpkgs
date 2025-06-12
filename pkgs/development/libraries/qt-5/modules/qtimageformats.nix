@@ -7,7 +7,6 @@
   libmng,
   libtiff,
 }:
-
 qtModule {
   pname = "qtimageformats";
   propagatedBuildInputs =

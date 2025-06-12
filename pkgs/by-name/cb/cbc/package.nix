@@ -5,7 +5,6 @@
   zlib,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cbc";
   version = "2.10.4";
@@ -19,14 +18,16 @@ stdenv.mkDerivation rec {
   };
 
   # or-tools has a hard dependency on Cbc static libraries, so we build both
-  configureFlags = [
-    "-C"
-    "--enable-static"
-  ] ++ lib.optionals stdenv.cc.isClang [ "CXXFLAGS=-std=c++14" ];
+  configureFlags =
+    [
+      "-C"
+      "--enable-static"
+    ]
+    ++ lib.optionals stdenv.cc.isClang ["CXXFLAGS=-std=c++14"];
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = [
     zlib
@@ -38,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://projects.coin-or.org/Cbc";
     license = lib.licenses.epl10;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     description = "Mixed integer programming solver";
   };

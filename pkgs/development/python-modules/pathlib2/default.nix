@@ -7,7 +7,6 @@
   scandir ? null,
   typing,
 }:
-
 buildPythonPackage rec {
   pname = "pathlib2";
   version = "2.3.7.post1";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ six ]
+    [six]
     ++ lib.optionals (pythonOlder "3.5") [
       scandir
       typing
@@ -28,7 +27,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "This module offers classes representing filesystem paths with semantics appropriate for different operating systems";
     homepage = "https://pypi.org/project/pathlib2/";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
   };
 }

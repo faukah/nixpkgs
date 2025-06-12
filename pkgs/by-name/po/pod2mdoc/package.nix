@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pod2mdoc";
   version = "0.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "converter from POD into mdoc";
     license = lib.licenses.isc;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ramkromberg ];
+    maintainers = with lib.maintainers; [ramkromberg];
     mainProgram = "pod2mdoc";
   };
 })

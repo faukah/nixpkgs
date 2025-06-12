@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sigstore-rekor-types";
   version = "0.0.18";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-vOGKDWhOg8dsgxyxOtM+czR+NOM26v0T0ctkFPUAYEo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pydantic ] ++ pydantic.optional-dependencies.email;
+  dependencies = [pydantic] ++ pydantic.optional-dependencies.email;
 
   # Module has no tests
   doCheck = false;

@@ -5,7 +5,6 @@
   clang,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "pwru";
   version = "1.0.9";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ clang ];
+  nativeBuildInputs = [clang];
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   postPatch = ''
     substituteInPlace internal/libpcap/compile.go \
@@ -29,7 +28,7 @@ buildGoModule rec {
   '';
 
   # this breaks go generate as bpf does not support -fzero-call-used-regs=used-gpr
-  hardeningDisable = [ "zerocallusedregs" ];
+  hardeningDisable = ["zerocallusedregs"];
 
   preBuild = ''
     TARGET_GOARCH="$GOARCH" GOOS= GOARCH= go generate
@@ -39,7 +38,7 @@ buildGoModule rec {
     description = "eBPF-based Linux kernel networking debugger";
     homepage = "https://github.com/cilium/pwru";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.linux;
     mainProgram = "pwru";
   };

@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pysigma-pipeline-windows";
   version = "1.2.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-Ss0OMd8urCYQUlvsm/m8Kz0jY4pVSEoZuLxs1JLWxQA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pysigma ];
+  propagatedBuildInputs = [pysigma];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sigma.pipelines.windows" ];
+  pythonImportsCheck = ["sigma.pipelines.windows"];
 
   meta = with lib; {
     description = "Library to support Windows service pipeline for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-pipeline-windows";
     changelog = "https://github.com/SigmaHQ/pySigma-pipeline-windows/releases/tag/v${version}";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

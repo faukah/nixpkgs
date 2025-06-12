@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "iam-policy-json-to-terraform";
   version = "1.9.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/flosell/iam-policy-json-to-terraform";
     changelog = "https://github.com/flosell/iam-policy-json-to-terraform/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

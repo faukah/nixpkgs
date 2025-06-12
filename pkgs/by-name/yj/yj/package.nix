@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "yj";
   version = "5.1.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Convert YAML <=> TOML <=> JSON <=> HCL";
     license = licenses.asl20;
     mainProgram = "yj";
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
     homepage = "https://github.com/sclevine/yj";
   };
 }

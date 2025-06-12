@@ -10,7 +10,6 @@
   python3,
   help2man,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vsmartcard-vpcd";
   version = "0.9-unstable-2025-01-25";
@@ -35,13 +34,14 @@ stdenv.mkDerivation (finalAttrs: {
     pcsclite
     qrencode
     (python3.withPackages (
-      pp: with pp; [
-        pyscard
-        pycrypto
-        pbkdf2
-        pillow
-        gnureadline
-      ]
+      pp:
+        with pp; [
+          pyscard
+          pycrypto
+          pbkdf2
+          pillow
+          gnureadline
+        ]
     ))
   ];
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
   };
 })

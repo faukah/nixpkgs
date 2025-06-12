@@ -11,7 +11,6 @@
   readline,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wordgrinder";
   version = "0.8";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "Text-based word processor";
     homepage = "https://cowlark.com/wordgrinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

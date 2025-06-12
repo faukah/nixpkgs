@@ -14,9 +14,8 @@
   isocodes,
   python3,
   tesseract4,
-  extraOcrEngines ? [ ], # other supported engines are: ocrad gocr cuneiform
+  extraOcrEngines ? [], # other supported engines are: ocrad gocr cuneiform
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocrfeeder";
   version = "0.8.5";
@@ -48,14 +47,15 @@ stdenv.mkDerivation (finalAttrs: {
     gtkspell3
     isocodes
     (python3.withPackages (
-      ps: with ps; [
-        pyenchant
-        sane
-        pillow
-        reportlab
-        odfpy
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pyenchant
+          sane
+          pillow
+          reportlab
+          odfpy
+          pygobject3
+        ]
     ))
   ];
   patches = [
@@ -79,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://gitlab.gnome.org/GNOME/ocrfeeder";
     description = "Complete Optical Character Recognition and Document Analysis and Recognition program";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };

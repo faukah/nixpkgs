@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   feedparser,
   requests,
-
   # tests
   mock,
   pytestCheckHook,
@@ -26,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-/lXUWRJ1lbRPWUC/gMRA0NIcuV0HNzFlUVLyhcPAsCQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     feedparser
@@ -58,13 +55,13 @@ buildPythonPackage rec {
     "test_search_results_offset"
   ];
 
-  pythonImportsCheck = [ "arxiv" ];
+  pythonImportsCheck = ["arxiv"];
 
   meta = {
     description = "Python wrapper for the arXiv API";
     homepage = "https://github.com/lukasschwab/arxiv.py";
     changelog = "https://github.com/lukasschwab/arxiv.py/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.octvs ];
+    maintainers = [lib.maintainers.octvs];
   };
 }

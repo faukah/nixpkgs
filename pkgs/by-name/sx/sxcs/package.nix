@@ -5,7 +5,6 @@
   xorg,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "sxcs";
   version = "1.1.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     xorg.libX11
     xorg.libXcursor
   ];
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildPhase = ''
     runHook preBuild
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Minimal X11 Color Picker and Magnifier";
     homepage = "https://codeberg.org/NRK/sxcs";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
   };
 })

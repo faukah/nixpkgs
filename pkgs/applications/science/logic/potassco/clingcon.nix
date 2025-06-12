@@ -6,7 +6,6 @@
   clingo,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clingcon";
   version = "5.2.1";

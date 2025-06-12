@@ -6,7 +6,6 @@
   zlib,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unshield";
   version = "1.6.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CYlrPwNPneJIwvQCnzyfi6MZiXoflMDfUDCRL79+yBk=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     openssl

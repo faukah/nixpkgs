@@ -10,7 +10,6 @@
   nix-update-script,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ntpd-rs";
   version = "1.5.0";
@@ -66,7 +65,7 @@ rustPlatform.buildRustPackage rec {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

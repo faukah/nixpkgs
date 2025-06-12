@@ -26,7 +26,7 @@ buildDotnetModule rec {
     "TechnitiumLibrary.Net/TechnitiumLibrary.Net.csproj"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/TechnitiumSoftware/DnsServer/blob/master/CHANGELOG.md";
@@ -34,7 +34,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/TechnitiumSoftware/DnsServer";
     license = lib.licenses.gpl3Only;
     mainProgram = "technitium-dns-server-library";
-    maintainers = with lib.maintainers; [ fabianrig ];
+    maintainers = with lib.maintainers; [fabianrig];
     platforms = lib.platforms.linux;
   };
 }

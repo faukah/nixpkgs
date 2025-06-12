@@ -8,7 +8,6 @@
   pytestCheckHook,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "pywavelets";
   version = "1.8.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     numpy
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd $out

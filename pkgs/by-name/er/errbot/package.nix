@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "errbot";
   version = "6.2.0";
@@ -47,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # errbot-backend-slackv3 has not been packaged
-  pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
+  pytestFlagsArray = ["--ignore=tests/backend_tests/slack_test.py"];
 
   disabledTests = [
     # require networking
@@ -57,13 +56,13 @@ python3.pkgs.buildPythonApplication rec {
     "test_entrypoint_paths"
   ];
 
-  pythonImportsCheck = [ "errbot" ];
+  pythonImportsCheck = ["errbot"];
 
   meta = {
     changelog = "https://github.com/errbotio/errbot/blob/${version}/CHANGES.rst";
     description = "Chatbot designed to be simple to extend with plugins written in Python";
     homepage = "http://errbot.io/";
-    maintainers = with lib.maintainers; [ hlad ];
+    maintainers = with lib.maintainers; [hlad];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     # flaky on darwin, "RuntimeError: can't start new thread"

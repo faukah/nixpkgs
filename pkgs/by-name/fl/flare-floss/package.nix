@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "flare-floss";
   version = "3.1.1";
@@ -22,15 +21,14 @@ python3.pkgs.buildPythonPackage rec {
       --replace 'sigs_path = os.path.join(get_default_root(), "sigs")' 'sigs_path = "'"$out"'/share/flare-floss/sigs"'
   '';
 
-  pythonRelaxDeps = [ "networkx" ];
+  pythonRelaxDeps = ["networkx"];
 
   build-system = with python3.pkgs; [
     setuptools
     setuptools-scm
   ];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       binary2strings
       dncil
@@ -67,6 +65,6 @@ python3.pkgs.buildPythonPackage rec {
     changelog = "https://github.com/mandiant/flare-floss/releases/tag/v${version}";
     license = lib.licenses.asl20;
     mainProgram = "floss";
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

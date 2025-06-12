@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitea,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "seehecht";
   version = "3.0.3";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to quickly open a markdown document with already filled out frontmatter";
     license = licenses.lgpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

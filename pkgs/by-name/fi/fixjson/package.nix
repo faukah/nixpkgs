@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "fixjson";
   version = "1.1.2-unstable-2021-01-05";
@@ -23,6 +22,6 @@ buildNpmPackage {
     homepage = "https://github.com/rhysd/fixjson";
     license = lib.licenses.mit;
     mainProgram = "fixjson";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

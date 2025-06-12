@@ -4,20 +4,18 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.kea;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkRenamedOptionModule
     literalExpression
     ;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "controlSocketPaths" ] [ "targets" ])
+    (mkRenamedOptionModule ["controlSocketPaths"] ["targets"])
   ];
   port = 9547;
   extraOpts = {

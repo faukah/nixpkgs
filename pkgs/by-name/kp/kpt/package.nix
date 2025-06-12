@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "kpt";
   version = "1.0.0-beta.55";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2jJCvBtTiIYmpxA92p8eZnKl1UO74pKr1YFRH14keZY=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,6 +29,6 @@ buildGoModule rec {
     mainProgram = "kpt";
     homepage = "https://github.com/kptdev/kpt";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mikefaille ];
+    maintainers = with lib.maintainers; [mikefaille];
   };
 }

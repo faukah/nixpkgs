@@ -17,7 +17,7 @@ buildGoModule rec {
     hash = "sha256-lsraJwx56I2Gn8CePWUlQu1qdMp78P4xwPzLxetYUcw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-QlNOx2jm1LVz066t9khppf//T5c9z3YUrSOr6qzbUzI=";
 
@@ -31,7 +31,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/grafana-reporter \
-      --prefix PATH : ${lib.makeBinPath [ tetex ]}
+      --prefix PATH : ${lib.makeBinPath [tetex]}
   '';
 
   meta = {
@@ -39,6 +39,6 @@ buildGoModule rec {
     mainProgram = "grafana-reporter";
     homepage = "https://github.com/IzakMarais/reporter";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.disassembler ];
+    maintainers = [lib.maintainers.disassembler];
   };
 }

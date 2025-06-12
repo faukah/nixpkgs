@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   options.image = {
     baseName = lib.mkOption {
       type = lib.types.str;

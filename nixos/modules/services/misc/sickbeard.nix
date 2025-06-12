@@ -4,18 +4,13 @@
   options,
   pkgs,
   ...
-}:
-let
-
+}: let
   name = "sickbeard";
 
   cfg = config.services.sickbeard;
   opt = options.services.sickbeard;
   sickbeard = cfg.package;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
@@ -64,7 +59,6 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users = lib.optionalAttrs (cfg.user == name) {
       ${name} = {
         uid = config.ids.uids.sickbeard;
@@ -81,8 +75,8 @@ in
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = cfg.user;

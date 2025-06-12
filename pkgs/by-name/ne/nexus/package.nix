@@ -7,7 +7,6 @@
   gawk,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nexus";
   version = "3.70.1-02";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${pname}-${version}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     ./nexus-bin.patch
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/nexus \
       --set JAVA_HOME ${jre_headless} \
       --set ALTERNATIVE_NAME "nexus" \
-      --prefix PATH "${lib.makeBinPath [ gawk ]}"
+      --prefix PATH "${lib.makeBinPath [gawk]}"
 
     runHook postInstall
   '';
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Repository manager for binary software components";
     homepage = "https://www.sonatype.com/products/sonatype-nexus-oss";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
     platforms = lib.platforms.all;
     maintainers = with lib.maintainers; [

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   bash,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "kubectl-node-shell";
   version = "1.11.0";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     mainProgram = "kubectl-node_shell";
     homepage = "https://github.com/kvaps/kubectl-node-shell";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jocelynthode ];
+    maintainers = with maintainers; [jocelynthode];
     platforms = platforms.unix;
   };
 }

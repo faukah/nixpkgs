@@ -3,27 +3,22 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   h5py,
   numpy,
   wasserstein,
-
   # optional-dependencies
   igraph,
   scikit-learn,
   tensorflow,
-
   # tests
   pot,
   pytestCheckHook,
   tf-keras,
 }:
-
 buildPythonPackage rec {
   pname = "energyflow";
   version = "1.4.0";
@@ -57,14 +52,16 @@ buildPythonPackage rec {
       scikit-learn
       tensorflow
     ];
-    generation = [ igraph ];
+    generation = [igraph];
   };
 
-  nativeCheckInputs = [
-    pot
-    pytestCheckHook
-    tf-keras
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pot
+      pytestCheckHook
+      tf-keras
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTests =
     [
@@ -81,13 +78,13 @@ buildPythonPackage rec {
       "test_emde"
     ];
 
-  pythonImportsCheck = [ "energyflow" ];
+  pythonImportsCheck = ["energyflow"];
 
   meta = {
     description = "Python package for the EnergyFlow suite of tools";
     homepage = "https://energyflow.network/";
     changelog = "https://github.com/thaler-lab/EnergyFlow/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

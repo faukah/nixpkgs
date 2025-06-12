@@ -7,7 +7,6 @@
   python310,
   kluctl,
 }:
-
 buildGoModule rec {
   pname = "kluctl";
   version = "2.26.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
     hash = "sha256-qtntImc+fiRPMUHVM4A8d2e17zklV47CJ10M9A8oa7k=";
   };
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   vendorHash = "sha256-89VEYX8xBdV36hHNIaRP8JoXTEGXmgzL7iL/Y4+1mzA=";
 
@@ -45,7 +44,7 @@ buildGoModule rec {
     mv $out/bin/{cmd,kluctl}
     wrapProgram $out/bin/kluctl \
         --set KLUCTL_USE_SYSTEM_PYTHON 1 \
-        --prefix PATH : '${lib.makeBinPath [ python310 ]}'
+        --prefix PATH : '${lib.makeBinPath [python310]}'
   '';
 
   meta = with lib; {

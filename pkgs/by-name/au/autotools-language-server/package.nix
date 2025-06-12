@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "autotools-language-server";
   version = "0.0.22";
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Autotools language server, support configure.ac, Makefile.am, Makefile";
     homepage = "https://github.com/Freed-Wu/autotools-language-server";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "autotools-language-server";
   };
 }

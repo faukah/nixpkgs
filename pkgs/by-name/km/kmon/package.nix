@@ -5,7 +5,6 @@
   installShellFiles,
   libxcb,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kmon";
   version = "1.7.1";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-B1sxbifMTnr6tLZCAuxVlQPL5oKCUL0wtw3/wOyfyyw=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ libxcb ];
+  buildInputs = [libxcb];
 
   postInstall = ''
     installManPage $releaseDir/../man/kmon.8

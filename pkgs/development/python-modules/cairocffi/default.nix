@@ -17,7 +17,6 @@
   glib,
   gdk-pixbuf,
 }:
-
 buildPythonPackage rec {
   pname = "cairocffi";
   version = "1.7.1";
@@ -41,12 +40,14 @@ buildPythonPackage rec {
     ./fix_test_scaled_font.patch
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [
-    cairo
-    cffi
-  ] ++ lib.optional withXcffib xcffib;
+  propagatedBuildInputs =
+    [
+      cairo
+      cffi
+    ]
+    ++ lib.optional withXcffib xcffib;
 
   nativeCheckInputs = [
     numpy
@@ -54,17 +55,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cairocffi" ];
+  pythonImportsCheck = ["cairocffi"];
 
   # Cairo tries to load system fonts by default.
   # It's surfaced as a Cairo "out of memory" error in tests.
-  __impureHostDeps = [ "/System/Library/Fonts" ];
+  __impureHostDeps = ["/System/Library/Fonts"];
 
   meta = with lib; {
     changelog = "https://github.com/Kozea/cairocffi/blob/v${version}/NEWS.rst";
     homepage = "https://github.com/SimonSapin/cairocffi";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     description = "cffi-based cairo bindings for Python";
   };
 }

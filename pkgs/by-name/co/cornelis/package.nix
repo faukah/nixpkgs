@@ -2,26 +2,24 @@
   lib,
   haskell,
   haskellPackages,
-
   # Test dependencies
   cornelis,
   runCommand,
-}:
-let
+}: let
   inherit (haskell.lib.compose) overrideCabal justStaticExecutables;
   overrides = {
     description = "agda-mode for Neovim";
 
     passthru = {
-      tests = runCommand "cornelis-tests" { nativeBuildInputs = [ cornelis ]; } ''
+      tests = runCommand "cornelis-tests" {nativeBuildInputs = [cornelis];} ''
         cornelis --help > $out
       '';
     };
   };
 in
-lib.pipe haskellPackages.cornelis [
-  (overrideCabal overrides)
+  lib.pipe haskellPackages.cornelis [
+    (overrideCabal overrides)
 
-  # Reduce closure size
-  justStaticExecutables
-]
+    # Reduce closure size
+    justStaticExecutables
+  ]

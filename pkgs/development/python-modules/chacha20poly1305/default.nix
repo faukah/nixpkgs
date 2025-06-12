@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "chacha20poly1305";
   version = "0.0.3";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "chacha20poly1305" ];
+  pythonImportsCheck = ["chacha20poly1305"];
 
   meta = with lib; {
     description = "Module that implements ChaCha20Poly1305";
     homepage = "https://github.com/ph4r05/py-chacha20poly1305";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

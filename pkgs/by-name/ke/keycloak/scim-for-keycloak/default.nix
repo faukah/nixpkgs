@@ -3,7 +3,6 @@
   fetchFromGitHub,
   maven,
 }:
-
 maven.buildMavenPackage rec {
   pname = "scim-for-keycloak";
   version = "kc-20-b1"; # When updating also update mvnHash
@@ -29,6 +28,6 @@ maven.buildMavenPackage rec {
       binaryBytecode # dependencies
     ];
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

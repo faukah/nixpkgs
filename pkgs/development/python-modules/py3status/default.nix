@@ -24,7 +24,6 @@
   glib,
   gobject-introspection,
 }:
-
 buildPythonPackage rec {
   pname = "py3status";
   version = "3.61";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   propagatedBuildInputs = [
     pytz
@@ -81,6 +80,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ultrabug/py3status";
     changelog = "https://github.com/ultrabug/py3status/blob/${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

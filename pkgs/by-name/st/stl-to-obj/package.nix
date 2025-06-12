@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stl-to-obj";
   version = "0.3";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C++ stl to obj file converter and vice versa";
     homepage = "https://github.com/Neizvestnyj/stl-to-obj";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     mainProgram = "stl2obj";
     platforms = lib.platforms.all;
   };

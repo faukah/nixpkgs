@@ -3,7 +3,6 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   wrapGAppsHook4,
   pkg-config,
   blueprint-compiler,
@@ -12,16 +11,13 @@
   rustc,
   cargo,
   desktop-file-utils,
-
   gtk4,
   libadwaita,
   glib,
   poppler,
   gtksourceview5,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clapgrep";
   version = "25.05+1";
@@ -58,14 +54,14 @@ stdenv.mkDerivation (finalAttrs: {
     gtksourceview5
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Search through all your files";
     homepage = "https://github.com/luleyleo/clapgrep";
-    license = with lib.licenses; [ gpl3Only ];
+    license = with lib.licenses; [gpl3Only];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "clapgrep";
   };
 })

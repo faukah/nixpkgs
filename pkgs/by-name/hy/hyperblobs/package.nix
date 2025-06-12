@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "hyperblobs";
   version = "2.8.0";
@@ -34,14 +33,14 @@ buildNpmPackage (finalAttrs: {
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Blob Store for Hypercore";
     homepage = "https://github.com/holepunchto/hyperblobs";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [];
   };
 })

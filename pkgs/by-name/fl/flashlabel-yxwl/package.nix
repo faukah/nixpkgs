@@ -5,7 +5,6 @@
   requireFile,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flashlabel-yxwl";
   version = "1.2.1";
@@ -35,8 +34,8 @@ stdenv.mkDerivation rec {
     runHook postPatch
   '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ cups ];
+  nativeBuildInputs = [autoPatchelfHook];
+  buildInputs = [cups];
 
   dontConfigure = true;
   dontBuild = true;
@@ -77,8 +76,8 @@ stdenv.mkDerivation rec {
     homepage = "https://help.flashlabel.com/support/solutions/articles/150000191214";
     downloadPage = "https://flashlabel.net/YXWL-A4driver-linux";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
     maintainers = with lib.maintainers; [
       altsalt
       AndrewKvalheim

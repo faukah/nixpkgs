@@ -9,7 +9,6 @@
   setuptools,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "pyezvizapi";
   version = "1.0.0.9";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-iqTNkfecBrxJ3BwACbMmcHqequ6IUzjL550ip+jNIrs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     paho-mqtt
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonImportsCheck = [ "pyezvizapi" ];
+  pythonImportsCheck = ["pyezvizapi"];
 
   # test_cam_rtsp.py is not actually a unit test
   doCheck = false;
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/RenierM26/pyEzvizApi";
     changelog = "https://github.com/RenierM26/pyEzvizApi/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     mainProgram = "pyezviz";
   };
 }

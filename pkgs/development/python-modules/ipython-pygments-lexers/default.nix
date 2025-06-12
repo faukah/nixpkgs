@@ -6,7 +6,6 @@
   pygments,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ipython-pygments-lexers";
   version = "1.1.1";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-p2WrFvCzHOuxPec9Wc1/xT6+fEUdcdDC1HTNmu5dm5Q=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ pygments ];
+  dependencies = [pygments];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ipython_pygments_lexers" ];
+  pythonImportsCheck = ["ipython_pygments_lexers"];
 
   meta = {
     description = "Pygments lexers for syntax-highlighting IPython code & sessions";
     homepage = "https://github.com/ipython/ipython-pygments-lexers";
     changelog = "https://github.com/ipython/ipython-pygments-lexers/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

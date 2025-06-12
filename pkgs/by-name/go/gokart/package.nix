@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gokart";
   version = "0.5.1";
@@ -25,6 +24,6 @@ buildGoModule rec {
     mainProgram = "gokart";
     homepage = "https://github.com/praetorian-inc/gokart";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

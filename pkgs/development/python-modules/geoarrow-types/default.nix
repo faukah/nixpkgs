@@ -23,7 +23,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/geoarrow-types";
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -32,7 +32,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  pythonImportsCheck = [ "geoarrow.types" ];
+  pythonImportsCheck = ["geoarrow.types"];
 
   meta = with lib; {
     description = "PyArrow types for geoarrow";

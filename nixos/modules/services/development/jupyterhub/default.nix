@@ -3,14 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.jupyterhub;
 
   kernels = (
     pkgs.jupyter-kernel.create {
-      definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
+      definitions =
+        if cfg.kernels != null
+        then cfg.kernels
+        else pkgs.jupyter-kernel.default;
     }
   );
 
@@ -28,9 +29,8 @@ let
 
     ${cfg.extraConfig}
   '';
-in
-{
-  meta.maintainers = with lib.maintainers; [ costrouc ];
+in {
+  meta.maintainers = with lib.maintainers; [costrouc];
 
   options.services.jupyterhub = {
     enable = lib.mkEnableOption "Jupyterhub development server";
@@ -78,10 +78,11 @@ in
     jupyterhubEnv = lib.mkOption {
       type = lib.types.package;
       default = pkgs.python3.withPackages (
-        p: with p; [
-          jupyterhub
-          jupyterhub-systemdspawner
-        ]
+        p:
+          with p; [
+            jupyterhub
+            jupyterhub-systemdspawner
+          ]
       );
       defaultText = lib.literalExpression ''
         pkgs.python3.withPackages (p: with p; [
@@ -102,10 +103,11 @@ in
     jupyterlabEnv = lib.mkOption {
       type = lib.types.package;
       default = pkgs.python3.withPackages (
-        p: with p; [
-          jupyterhub
-          jupyterlab
-        ]
+        p:
+          with p; [
+            jupyterhub
+            jupyterlab
+          ]
       );
       defaultText = lib.literalExpression ''
         pkgs.python3.withPackages (p: with p; [
@@ -199,8 +201,8 @@ in
       systemd.services.jupyterhub = {
         description = "Jupyterhub development server";
 
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Restart = "always";

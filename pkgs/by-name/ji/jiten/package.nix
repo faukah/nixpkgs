@@ -10,7 +10,6 @@
   sqlite,
   nodejs,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "jiten";
   version = "1.1.0";
@@ -48,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     flask
     kanjidraw
   ];
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
 
   preBuild = ''
     export JITEN_VERSION=${version}   # override `git describe`
@@ -123,6 +122,6 @@ python3.pkgs.buildPythonApplication rec {
       cc-by-sa-30 # jmdict/kanjidic
       unfreeRedistributable # pitch data & audio are non-commercial
     ];
-    maintainers = [ maintainers.obfusk ];
+    maintainers = [maintainers.obfusk];
   };
 }

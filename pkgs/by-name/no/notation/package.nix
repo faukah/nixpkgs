@@ -5,7 +5,6 @@
   installShellFiles,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "notation";
   version = "1.3.2";
@@ -24,7 +23,7 @@ buildGoModule (finalAttrs: {
   ];
 
   # This is a Go sub-module and cannot be built directly (e2e tests).
-  excludedPackages = [ "./test" ];
+  excludedPackages = ["./test"];
 
   ldflags = [
     "-s"
@@ -49,7 +48,7 @@ buildGoModule (finalAttrs: {
     description = "CLI tool to sign and verify OCI artifacts and container images";
     homepage = "https://notaryproject.dev/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "notation";
   };
 })

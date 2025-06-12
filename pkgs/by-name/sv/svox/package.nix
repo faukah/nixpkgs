@@ -5,7 +5,6 @@
   autoreconfHook,
   popt,
 }:
-
 stdenv.mkDerivation {
   pname = "svox";
   version = "2018-02-14";
@@ -22,16 +21,16 @@ stdenv.mkDerivation {
     cd pico
   '';
 
-  buildInputs = [ popt ];
+  buildInputs = [popt];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Text-to-speech engine";
     homepage = "https://android.googlesource.com/platform/external/svox";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "pico2wave";
   };
 }

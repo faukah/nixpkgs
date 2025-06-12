@@ -10,14 +10,13 @@
   freetype,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ploticus";
   version = "2.42";
 
   src = fetchurl {
     url = "mirror://sourceforge/ploticus/ploticus/${finalAttrs.version}/ploticus${
-      lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      lib.replaceStrings ["."] [""] finalAttrs.version
     }_src.tar.gz";
     hash = "sha256-PynkufQFIDqT7+yQDlgW2eG0OBghiB4kHAjKt91m4LA=";
   };
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     libjpeg
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     substituteInPlace src/pl.h --subst-var out
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     cd src
   '';
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   enableParallelBuilding = true;
 
@@ -81,14 +80,14 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests = {
     prefab =
       runCommand "ploticus-prefab-test"
-        {
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          # trivial test to see if the prefab path munging works
-          mkdir $out/
-          pl -prefab scat inlinedata="A 1 2" x=2 y=3 -png -o $out/out.png
-        '';
+      {
+        nativeBuildInputs = [finalAttrs.finalPackage];
+      }
+      ''
+        # trivial test to see if the prefab path munging works
+        mkdir $out/
+        pl -prefab scat inlinedata="A 1 2" x=2 y=3 -png -o $out/out.png
+      '';
   };
 
   meta = {
@@ -102,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
       over colors, styles, options and details.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     homepage = "https://ploticus.sourceforge.net/";
     platforms = with lib.platforms; linux ++ darwin;
   };

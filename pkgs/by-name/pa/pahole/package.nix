@@ -11,7 +11,6 @@
   musl-obstack,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pahole";
   version = "1.29";

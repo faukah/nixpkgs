@@ -6,7 +6,6 @@
   rust,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "libdovi";
   version = "3.3.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ cargo-c ];
+  nativeBuildInputs = [cargo-c];
 
   buildPhase = ''
     runHook preBuild
@@ -47,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     description = "C library for Dolby Vision metadata parsing and writing";
     homepage = "https://crates.io/crates/dolby_vision";
     license = licenses.mit;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

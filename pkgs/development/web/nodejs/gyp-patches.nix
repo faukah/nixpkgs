@@ -1,9 +1,7 @@
-{ fetchpatch2 }:
-let
+{fetchpatch2}: let
   name = "gyp-darwin-sandbox.patch";
   url = "https://github.com/nodejs/gyp-next/commit/706d04aba5bd18f311dc56f84720e99f64c73466.patch";
-in
-[
+in [
   # Fixes builds with Nix sandbox on Darwin for gyp.
   # See https://github.com/NixOS/nixpkgs/issues/261820
   # and https://github.com/nodejs/gyp-next/pull/216

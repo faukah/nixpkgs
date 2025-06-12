@@ -16,7 +16,6 @@
   simpleitk,
   statsmodels,
 }:
-
 buildPythonPackage rec {
   pname = "intensity-normalization";
   version = "2.2.4";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "pytest-runner" ""
   '';
 
-  pythonRelaxDeps = [ "nibabel" ];
+  pythonRelaxDeps = ["nibabel"];
 
   propagatedBuildInputs = [
     matplotlib
@@ -51,8 +50,8 @@ buildPythonPackage rec {
     statsmodels
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "tests" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["tests"];
 
   pythonImportsCheck = [
     "intensity_normalization"
@@ -64,7 +63,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/jcreinhold/intensity-normalization";
     description = "MRI intensity normalization tools";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     license = licenses.asl20;
   };
 }

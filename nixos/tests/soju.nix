@@ -1,26 +1,26 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
 
   user = "testuser";
   pass = "hunter2";
-in
-{
+in {
   name = "soju";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.soju = {
-        enable = true;
-        adminSocket.enable = true;
-        hostName = domain;
-        tlsCertificate = certs.${domain}.cert;
-        tlsCertificateKey = certs.${domain}.key;
-      };
+  nodes.machine = {...}: {
+    services.soju = {
+      enable = true;
+      adminSocket.enable = true;
+      hostName = domain;
+      tlsCertificate = certs.${domain}.cert;
+      tlsCertificateKey = certs.${domain}.key;
     };
+  };
 
   testScript = ''
     start_all()

@@ -5,7 +5,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dotherside";
   version = "0.9.0";
@@ -37,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://filcuc.github.io/dotherside";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ toastal ];
+    maintainers = with maintainers; [toastal];
   };
 })

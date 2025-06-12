@@ -8,7 +8,6 @@
   wrapGAppsHook4,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "packetry";
   version = "0.4.0";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     sed -i 's:#\[test\]:#[test] #[ignore]:' src/test_replay.rs
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     description = "USB 2.0 protocol analysis application for use with Cynthion";
     homepage = "https://github.com/greatscottgadgets/packetry";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ carlossless ];
+    maintainers = with lib.maintainers; [carlossless];
     mainProgram = "packetry";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

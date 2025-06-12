@@ -6,7 +6,6 @@
   discord,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "discocss";
   version = "0.2.3";
@@ -20,7 +19,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     ''
@@ -40,7 +39,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/mlvzk/discocss";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mlvzk ];
+    maintainers = with lib.maintainers; [mlvzk];
     mainProgram = "discocss";
   };
 }

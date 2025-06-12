@@ -13,7 +13,6 @@
   fltk,
   withGui ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "limesuite";
   version = "23.11.0";
@@ -25,11 +24,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f1cXrkVCIc1MqTvlCUBFqzHLhIVueybVxipNZRlF2gE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [
-    "-DOpenGL_GL_PREFERENCE=GLVND"
-  ] ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
+  cmakeFlags =
+    [
+      "-DOpenGL_GL_PREFERENCE=GLVND"
+    ]
+    ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
 
   buildInputs =
     [
@@ -55,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Driver and GUI for LMS7002M-based SDR platforms";
     homepage = "https://github.com/myriadrf/LimeSuite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     platforms = platforms.unix;
     badPlatforms = lib.optionals withGui platforms.darwin; # withGui transitively depends on mesa, which is broken on darwin
   };

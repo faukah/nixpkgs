@@ -5,34 +5,30 @@
   unzip,
   sqlite,
   tcl,
-}:
-
-let
+}: let
   archiveVersion = import ./archive-version.nix lib;
-  mkTool =
-    {
-      pname,
-      makeTarget,
-      description,
-      homepage,
-      mainProgram,
-    }:
+  mkTool = {
+    pname,
+    makeTarget,
+    description,
+    homepage,
+    mainProgram,
+  }:
     stdenv.mkDerivation rec {
       inherit pname;
       version = "3.48.0";
 
       # nixpkgs-update: no auto update
-      src =
-        assert version == sqlite.version;
+      src = assert version == sqlite.version;
         fetchurl {
           url = "https://sqlite.org/2025/sqlite-src-${archiveVersion version}.zip";
           hash = "sha256-LXsDK2/f6MRCqoCfhQaHqB0GOB3uzXvjMSYB0oYS5kA=";
         };
 
-      nativeBuildInputs = [ unzip ];
-      buildInputs = [ tcl ];
+      nativeBuildInputs = [unzip];
+      buildInputs = [tcl];
 
-      makeFlags = [ makeTarget ];
+      makeFlags = [makeTarget];
 
       installPhase = "install -Dt $out/bin ${makeTarget}";
 
@@ -40,12 +36,11 @@ let
         inherit description homepage mainProgram;
         downloadPage = "http://sqlite.org/download.html";
         license = licenses.publicDomain;
-        maintainers = with maintainers; [ johnazoidberg ];
+        maintainers = with maintainers; [johnazoidberg];
         platforms = platforms.unix;
       };
     };
-in
-{
+in {
   sqldiff = mkTool {
     pname = "sqldiff";
     makeTarget = "sqldiff";

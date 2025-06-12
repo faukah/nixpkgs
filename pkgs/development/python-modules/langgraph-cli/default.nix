@@ -2,22 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   click,
-
   # testing
   pytest-asyncio,
   pytestCheckHook,
   docker-compose,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langgraph-cli";
   version = "0.2.10";
@@ -32,9 +27,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/cli";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ click ];
+  dependencies = [click];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -42,9 +37,9 @@ buildPythonPackage rec {
     docker-compose
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langgraph_cli" ];
+  pythonImportsCheck = ["langgraph_cli"];
 
   disabledTests = [
     # Flaky tests that generate a Docker configuration then compare to exact text
@@ -72,6 +67,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/langchain-ai/langgraph/releases/tag/${version}";
     mainProgram = "langgraph";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openmp ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "b2sum";
   version = "20190724";
@@ -25,15 +24,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/b2sum";
 
-  buildInputs = [ openmp ];
+  buildInputs = [openmp];
 
-  buildFlags = [ (lib.optional (openmp == null) "NO_OPENMP=1") ];
+  buildFlags = [(lib.optional (openmp == null) "NO_OPENMP=1")];
 
   # clang builds require at least C99 or the build fails with:
   # error: unknown type name 'inline'
   env.NIX_CFLAGS_COMPILE = "-std=c99";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "B2sum utility is similar to the md5sum or shasum utilities but for BLAKE2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
       openssl
     ];
-    maintainers = with maintainers; [ kirelagin ];
+    maintainers = with maintainers; [kirelagin];
     platforms = platforms.unix;
   };
 })

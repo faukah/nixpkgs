@@ -15,7 +15,6 @@
   libXrandr,
   libXrender,
 }:
-
 stdenv.mkDerivation rec {
   pname = "proteus";
   version = "1.2";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/GuitarML/Proteus";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     mainProgram = "Proteus";
   };
 }

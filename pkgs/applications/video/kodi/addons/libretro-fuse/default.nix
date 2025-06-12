@@ -5,7 +5,6 @@
   libretro,
   fuse,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "libretro-fuse";
   namespace = "game.libretro.fuse";
@@ -22,7 +21,7 @@ buildKodiBinaryAddon rec {
     "-DFUSE_LIB=${fuse}/lib/retroarch/cores/fuse_libretro.so"
   ];
 
-  extraBuildInputs = [ fuse ];
+  extraBuildInputs = [fuse];
   propagatedBuildInputs = [
     libretro
   ];
@@ -32,7 +31,7 @@ buildKodiBinaryAddon rec {
     description = "Sinclair - ZX Spectrum (Fuse) GameClient for Kodi";
     platforms = platforms.all;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kazenyuk ];
-    teams = [ teams.kodi ];
+    maintainers = with maintainers; [kazenyuk];
+    teams = [teams.kodi];
   };
 }

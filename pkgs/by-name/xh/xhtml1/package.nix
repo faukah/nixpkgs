@@ -4,7 +4,6 @@
   fetchurl,
   libxml2,
 }:
-
 stdenv.mkDerivation {
   pname = "xhtml1";
   version = "unstable-2002-08-01";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "0rr0d89i0z75qvjbm8il93bippx09hbmjwy0y2sj44n9np69x3hl";
   };
 
-  nativeBuildInputs = [ libxml2 ];
+  nativeBuildInputs = [libxml2];
 
   installPhase = ''
     mkdir -p $out/xml/dtd/xhtml1

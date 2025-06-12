@@ -2,9 +2,7 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-}:
-
-let
+}: let
   version = "0.6.3";
   src = fetchFromGitHub {
     owner = "bscan";
@@ -43,40 +41,40 @@ let
     '';
   };
 in
-buildNpmPackage rec {
-  pname = "perlnavigator";
-  inherit version src;
+  buildNpmPackage rec {
+    pname = "perlnavigator";
+    inherit version src;
 
-  npmDepsHash = "sha256-nEinmgrbbFC+nkfTwu9djiUS+tj0VM4WKl2oqKpcGtM=";
+    npmDepsHash = "sha256-nEinmgrbbFC+nkfTwu9djiUS+tj0VM4WKl2oqKpcGtM=";
 
-  postPatch = ''
-    sed -i /postinstall/d package.json
+    postPatch = ''
+      sed -i /postinstall/d package.json
 
-    rm -r browser-ext client server
-    cp -r ${browser-ext} browser-ext
-    cp -r ${client} client
-    cp -r ${server} server
-    chmod +w browser-ext client server
-  '';
+      rm -r browser-ext client server
+      cp -r ${browser-ext} browser-ext
+      cp -r ${client} client
+      cp -r ${server} server
+      chmod +w browser-ext client server
+    '';
 
-  env = {
-    PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = 1;
-  };
+    env = {
+      PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = 1;
+    };
 
-  npmBuildScript = "compile";
+    npmBuildScript = "compile";
 
-  postInstall = ''
-    cp -r ${browser-ext}/node_modules "$out/lib/node_modules/perlnavigator/browser-ext"
-    cp -r ${client}/node_modules "$out/lib/node_modules/perlnavigator/client"
-    cp -r ${server}/node_modules "$out/lib/node_modules/perlnavigator/server"
-  '';
+    postInstall = ''
+      cp -r ${browser-ext}/node_modules "$out/lib/node_modules/perlnavigator/browser-ext"
+      cp -r ${client}/node_modules "$out/lib/node_modules/perlnavigator/client"
+      cp -r ${server}/node_modules "$out/lib/node_modules/perlnavigator/server"
+    '';
 
-  meta = {
-    changelog = "https://github.com/bscan/PerlNavigator/blob/${src.rev}/CHANGELOG.md";
-    description = "Perl Language Server that includes syntax checking, perl critic, and code navigation";
-    homepage = "https://github.com/bscan/PerlNavigator/tree/main/server";
-    license = lib.licenses.mit;
-    mainProgram = "perlnavigator";
-    maintainers = [ ];
-  };
-}
+    meta = {
+      changelog = "https://github.com/bscan/PerlNavigator/blob/${src.rev}/CHANGELOG.md";
+      description = "Perl Language Server that includes syntax checking, perl critic, and code navigation";
+      homepage = "https://github.com/bscan/PerlNavigator/tree/main/server";
+      license = lib.licenses.mit;
+      mainProgram = "perlnavigator";
+      maintainers = [];
+    };
+  }

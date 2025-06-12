@@ -23,7 +23,6 @@
   tzdata,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "exchangelib";
   version = "5.5.1";
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     hash = "sha256-HO88wM0yzETWS0eBnLABCjYHGE5wFpcjQgC8wsSumWA=";
   };
 
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cached-property
@@ -62,7 +61,7 @@ buildPythonPackage rec {
       requests-gssapi
       # requests-negotiate-sspi
     ];
-    kerberos = [ requests-gssapi ];
+    kerberos = [requests-gssapi];
     # sspi = [
     #   requests-negotiate-sspi
     # ];
@@ -76,13 +75,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "exchangelib" ];
+  pythonImportsCheck = ["exchangelib"];
 
   meta = with lib; {
     description = "Client for Microsoft Exchange Web Services (EWS)";
     homepage = "https://github.com/ecederstrand/exchangelib";
     changelog = "https://github.com/ecederstrand/exchangelib/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

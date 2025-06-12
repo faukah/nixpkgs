@@ -19,7 +19,6 @@
   setuptools,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "astroquery";
   version = "0.4.10";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "auto_use = True" "auto_use = False"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     matplotlib
@@ -75,12 +74,12 @@ buildPythonPackage rec {
     cd build/lib
   '';
 
-  pythonImportsCheck = [ "astroquery" ];
+  pythonImportsCheck = ["astroquery"];
 
   meta = with pkgs.lib; {
     description = "Functions and classes to access online data resources";
     homepage = "https://astroquery.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
   };
 }

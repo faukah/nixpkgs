@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   pyserial,
 }:
-
 buildPythonPackage rec {
   pname = "adafruit-board-toolkit";
   version = "1.1.2";
@@ -36,13 +33,13 @@ buildPythonPackage rec {
   # Project has not published tests yet
   doCheck = false;
 
-  pythonImportsCheck = [ "adafruit_board_toolkit" ];
+  pythonImportsCheck = ["adafruit_board_toolkit"];
 
   meta = {
     description = "CircuitPython board identification and information";
     homepage = "https://github.com/adafruit/Adafruit_Board_Toolkit";
     changelog = "https://github.com/adafruit/Adafruit_Board_Toolkit/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ talhaHavadar ];
+    maintainers = with lib.maintainers; [talhaHavadar];
   };
 }

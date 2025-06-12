@@ -5,7 +5,6 @@
   testers,
   rain,
 }:
-
 buildGoModule rec {
   pname = "rain";
   version = "1.23.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-5i6dAjgWclyEkRrDzrkiIRQKTeNz4GM1LU+2J3t/+Yc=";
 
-  subPackages = [ "cmd/rain" ];
+  subPackages = ["cmd/rain"];
 
   ldflags = [
     "-s"
@@ -37,6 +36,6 @@ buildGoModule rec {
     mainProgram = "rain";
     homepage = "https://github.com/aws-cloudformation/rain";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
   };
 }

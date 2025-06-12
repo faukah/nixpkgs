@@ -10,7 +10,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_ca";
   version = "0.2.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HGnhypOO0WOgRw9i9oqO4da131zAwBXOdrc9dypFjyk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     apacheHttpd
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   # Note that configureFlags and installFlags are inherited by
   # the various submodules.
   #
-  configureFlags = [ "--with-apxs=${apacheHttpd.dev}/bin/apxs" ];
+  configureFlags = ["--with-apxs=${apacheHttpd.dev}/bin/apxs"];
 
   installFlags = [
     "INCLUDEDIR=${placeholder "out"}/include"
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://source.redwax.eu/projects/RS/repos/mod_ca/browse/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

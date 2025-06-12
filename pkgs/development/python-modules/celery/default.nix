@@ -32,7 +32,6 @@
   setuptools,
   vine,
 }:
-
 buildPythonPackage rec {
   pname = "celery";
   version = "5.5.2";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-TWkw81T50pKVQl16NyYSRcdKMoB8Rddkvtwoav0Ock4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     billiard
@@ -63,27 +62,29 @@ buildPythonPackage rec {
       azure-identity
       azure-storage-blob
     ];
-    gevent = [ gevent ];
+    gevent = [gevent];
     gcs = [
       google-cloud-firestore
       google-cloud-storage
     ];
-    mongodb = [ pymongo ];
-    msgpack = [ msgpack ];
-    yaml = [ pyyaml ];
-    redis = [ redis ];
-    pydantic = [ pydantic ];
+    mongodb = [pymongo];
+    msgpack = [msgpack];
+    yaml = [pyyaml];
+    redis = [redis];
+    pydantic = [pydantic];
   };
 
-  nativeCheckInputs = [
-    moto
-    pytest-celery
-    pytest-click
-    pytest-subtests
-    pytest-timeout
-    pytest-xdist
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      moto
+      pytest-celery
+      pytest-click
+      pytest-subtests
+      pytest-timeout
+      pytest-xdist
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   disabledTestPaths = [
     # test_eventlet touches network
@@ -116,7 +117,7 @@ buildPythonPackage rec {
       "test_with_file_descriptor_safety"
     ];
 
-  pythonImportsCheck = [ "celery" ];
+  pythonImportsCheck = ["celery"];
 
   passthru.tests = {
     inherit (nixosTests) sourcehut;
@@ -127,7 +128,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/celery/celery/";
     changelog = "https://github.com/celery/celery/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "celery";
   };
 }

@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   pdm-backend,
-
   # native dependencies
   glibcLocales,
   git,
   pandoc,
   typogrify,
-
   # dependencies
   blinker,
   docutils,
@@ -26,7 +23,6 @@
   tzdata,
   unidecode,
   watchfiles,
-
   # tests
   beautifulsoup4,
   lxml,
@@ -34,7 +30,6 @@
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "pelican";
   version = "4.11.0";
@@ -59,9 +54,9 @@ buildPythonPackage rec {
       --replace "'git'" "'${git}/bin/git'"
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  pythonRelaxDeps = [ "pygments" ];
+  pythonRelaxDeps = ["pygments"];
 
   buildInputs = [
     glibcLocales
@@ -86,7 +81,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    markdown = [ markdown ];
+    markdown = [markdown];
   };
 
   nativeCheckInputs = [
@@ -126,7 +121,7 @@ buildPythonPackage rec {
     patchShebangs $out/bin
   '';
 
-  pythonImportsCheck = [ "pelican" ];
+  pythonImportsCheck = ["pelican"];
 
   meta = with lib; {
     description = "Static site generator that requires no database or server-side logic";

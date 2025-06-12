@@ -4,7 +4,6 @@
   cmake,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libplctag";
   version = "2.6.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     ];
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     homepage = "https://github.com/libplctag/libplctag";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl2Plus
       mpl20
     ];
-    maintainers = with lib.maintainers; [ petterstorvik ];
+    maintainers = with lib.maintainers; [petterstorvik];
     platforms = lib.platforms.all;
   };
 })

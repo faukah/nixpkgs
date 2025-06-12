@@ -4,7 +4,6 @@
   stdenv,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "argos";
   version = "unstable-2024-10-28";
@@ -24,13 +23,13 @@ stdenv.mkDerivation {
   passthru = {
     extensionUuid = "argos@pew.worldwidemann.com";
     extensionPortalSlug = "argos";
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "Create GNOME Shell extensions in seconds";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     homepage = "https://github.com/p-e-w/argos";
   };
 }

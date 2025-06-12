@@ -11,7 +11,6 @@
   python-dotenv,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyloadapi";
   version = "1.4.2";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     aioresponses
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     python-dotenv
   ];
 
-  pythonImportsCheck = [ "pyloadapi" ];
+  pythonImportsCheck = ["pyloadapi"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tr4nt0r/pyloadapi";
     changelog = "https://github.com/tr4nt0r/pyloadapi/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

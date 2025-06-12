@@ -8,11 +8,9 @@
   topkg,
   astring,
 }:
-
-if lib.versionOlder ocaml.version "4.03" then
-  throw "fpath is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.03"
+then throw "fpath is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml${ocaml.version}-fpath";
     version = "0.7.3";
@@ -28,9 +26,9 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
-    propagatedBuildInputs = [ astring ];
+    propagatedBuildInputs = [astring];
 
     strictDeps = true;
 
@@ -40,7 +38,7 @@ else
       description = "OCaml module for handling file system paths with POSIX and Windows conventions";
       homepage = "https://erratique.ch/software/fpath";
       license = lib.licenses.isc;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

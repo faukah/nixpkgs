@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bindle";
   version = "0.9.1";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false; # Tests require a network
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-cTgR1yp6TFwotm5VEG5e0O7R1zCMbQmcH2zmRmF7cjI=";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Bindle: Aggregate Object Storage";
     homepage = "https://github.com/deislabs/bindle";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

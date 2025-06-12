@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aeacus";
   version = "2.1.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/elysium-suite/aeacus";
     changelog = "https://github.com/elysium-suite/aeacus/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "aeacus";
     platforms = lib.platforms.linux;
   };

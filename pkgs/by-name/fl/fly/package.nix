@@ -5,7 +5,6 @@
   lib,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "fly";
   version = "7.13.2";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WC4uzTgvW15IumwmsWXXeiF5qagbeb5XWRaSjd1XLvA=";
 
-  subPackages = [ "fly" ];
+  subPackages = ["fly"];
 
   ldflags = [
     "-s"
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X github.com/concourse/concourse.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 

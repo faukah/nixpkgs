@@ -10,7 +10,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "google-auth-oauthlib";
   version = "1.2.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-EQRvuNM0iyljAt2Tms6K8KckBC6AKcG4cth/q8n0FoQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     google-auth
@@ -30,13 +29,15 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    tool = [ click ];
+    tool = [click];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ optional-dependencies.tool;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.tool;
 
   disabledTests =
     [
@@ -48,7 +49,7 @@ buildPythonPackage rec {
       "test_run_local_server_bind_addr"
     ];
 
-  pythonImportsCheck = [ "google_auth_oauthlib" ];
+  pythonImportsCheck = ["google_auth_oauthlib"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -57,7 +58,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/GoogleCloudPlatform/google-auth-library-python-oauthlib";
     changelog = "https://github.com/googleapis/google-auth-library-python-oauthlib/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ terlar ];
+    maintainers = with lib.maintainers; [terlar];
     mainProgram = "google-oauthlib-tool";
   };
 }

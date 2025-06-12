@@ -4,7 +4,6 @@
   lib,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wiki-js";
   version = "2.5.307";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) wiki-js; };
+    tests = {inherit (nixosTests) wiki-js;};
     updateScript = ./update.sh;
   };
 
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://js.wiki/";
     description = "Modern and powerful wiki app built on Node.js";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

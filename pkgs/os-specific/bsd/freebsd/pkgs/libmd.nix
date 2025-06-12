@@ -13,17 +13,18 @@
   # this is set to true when used as the dependency of install
   # this is set to false when used as the dependency of libc
   bootstrapInstallation ? false,
-  extraSrc ? [ ],
+  extraSrc ? [],
 }:
-
 mkDerivation (
   {
     pname = "libmd" + lib.optionalString bootstrapInstallation "-boot";
     path = "lib/libmd";
-    extraPaths = [
-      "sys/crypto"
-      "sys/sys"
-    ] ++ extraSrc;
+    extraPaths =
+      [
+        "sys/crypto"
+        "sys/sys"
+      ]
+      ++ extraSrc;
 
     outputs = [
       "out"
@@ -50,22 +51,21 @@ mkDerivation (
       '';
 
     installPhase =
-      if (!bootstrapInstallation) then
-        null
-      else
-        ''
-          # libmd is used by install. do it yourself!
-          mkdir -p $out/include $out/lib $man/share/man
-          cp libmd.a $out/lib/libmd.a
-          for f in $(make $makeFlags -V INCS); do
-            if [ -e "$f" ]; then cp "$f" "$out/include/$f"; fi
-            if [ -e "$BSDSRCDIR/sys/crypto/sha2/$f" ]; then cp "$BSDSRCDIR/sys/crypto/sha2/$f" "$out/include/$f"; fi
-            if [ -e "$BSDSRCDIR/sys/crypto/skein/$f" ]; then cp "$BSDSRCDIR/sys/crypto/skein/$f" "$out/include/$f"; fi
-          done
-          for f in $(make $makeFlags -V MAN); do
-            cp "$f" "$man/share/man/$f"
-          done
-        '';
+      if (!bootstrapInstallation)
+      then null
+      else ''
+        # libmd is used by install. do it yourself!
+        mkdir -p $out/include $out/lib $man/share/man
+        cp libmd.a $out/lib/libmd.a
+        for f in $(make $makeFlags -V INCS); do
+          if [ -e "$f" ]; then cp "$f" "$out/include/$f"; fi
+          if [ -e "$BSDSRCDIR/sys/crypto/sha2/$f" ]; then cp "$BSDSRCDIR/sys/crypto/sha2/$f" "$out/include/$f"; fi
+          if [ -e "$BSDSRCDIR/sys/crypto/skein/$f" ]; then cp "$BSDSRCDIR/sys/crypto/skein/$f" "$out/include/$f"; fi
+        done
+        for f in $(make $makeFlags -V MAN); do
+          cp "$f" "$man/share/man/$f"
+        done
+      '';
   }
   // lib.optionalAttrs bootstrapInstallation {
     nativeBuildInputs = [

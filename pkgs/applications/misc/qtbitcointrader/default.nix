@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "qtbitcointrader";
   version = "1.42.21";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttr: {
     hash = "sha256-u3+Kwn8KunYUpWCd55TQuVVfoSp8hdti93d6hk7Uqx8=";
   };
 
-  nativeBuildInputs = [ libsForQt5.wrapQtAppsHook ];
+  nativeBuildInputs = [libsForQt5.wrapQtAppsHook];
 
   buildInputs = [
     libsForQt5.qtbase

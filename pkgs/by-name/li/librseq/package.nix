@@ -5,7 +5,6 @@
   autoreconfHook,
   linuxHeaders,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librseq";
   version = "0.1.0pre71_${builtins.substring 0 7 src.rev}";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
     "dev"
     "man"
   ];
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ linuxHeaders ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [linuxHeaders];
 
   installTargets = [
     "install"
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/compudj/librseq";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

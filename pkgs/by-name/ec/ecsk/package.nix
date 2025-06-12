@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "ecsk";
   version = "0.9.3";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-Eyqpc7GyG/7u/I4tStADQikxcbIatjeAJN9wUDgzdFY=";
 
-  subPackages = [ "cmd/ecsk" ];
+  subPackages = ["cmd/ecsk"];
 
   meta = {
     description = "Interactively call Amazon ECS APIs, copy files between ECS and local, and view logs";
     license = lib.licenses.mit;
     mainProgram = "ecsk";
     homepage = "https://github.com/yukiarrr/ecsk";
-    maintainers = with lib.maintainers; [ whtsht ];
+    maintainers = with lib.maintainers; [whtsht];
   };
 }

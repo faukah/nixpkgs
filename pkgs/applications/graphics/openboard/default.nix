@@ -24,9 +24,7 @@
   libass,
   libXext,
   libXfixes,
-}:
-
-let
+}: let
   importer = stdenv.mkDerivation {
     pname = "openboard-importer";
     version = "unstable-2016-10-08";
@@ -42,7 +40,7 @@ let
       libsForQt5.qmake
       libsForQt5.wrapQtAppsHook
     ];
-    buildInputs = [ libsForQt5.qtbase ];
+    buildInputs = [libsForQt5.qtbase];
     dontWrapQtApps = true;
 
     installPhase = ''
@@ -50,73 +48,73 @@ let
     '';
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "openboard";
-  version = "1.7.3";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "openboard";
+    version = "1.7.3";
 
-  src = fetchFromGitHub {
-    owner = "OpenBoard-org";
-    repo = "OpenBoard";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-Igp5WSVQ9FrzS2AhDDPwVBo76SaFw9xP6lqgW7S/KIE=";
-  };
+    src = fetchFromGitHub {
+      owner = "OpenBoard-org";
+      repo = "OpenBoard";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-Igp5WSVQ9FrzS2AhDDPwVBo76SaFw9xP6lqgW7S/KIE=";
+    };
 
-  postPatch = ''
-    substituteInPlace resources/etc/OpenBoard.config \
-      --replace-fail 'EnableAutomaticSoftwareUpdates=true' 'EnableAutomaticSoftwareUpdates=false' \
-      --replace-fail 'EnableSoftwareUpdates=true' 'EnableAutomaticSoftwareUpdates=false' \
-      --replace-fail 'HideCheckForSoftwareUpdate=false' 'HideCheckForSoftwareUpdate=true'
-  '';
+    postPatch = ''
+      substituteInPlace resources/etc/OpenBoard.config \
+        --replace-fail 'EnableAutomaticSoftwareUpdates=true' 'EnableAutomaticSoftwareUpdates=false' \
+        --replace-fail 'EnableSoftwareUpdates=true' 'EnableAutomaticSoftwareUpdates=false' \
+        --replace-fail 'HideCheckForSoftwareUpdate=false' 'HideCheckForSoftwareUpdate=true'
+    '';
 
-  # Required by Poppler
-  cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=20"
-  ];
-
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    libsForQt5.wrapQtAppsHook
-  ];
-
-  buildInputs = [
-    libsForQt5.qtbase
-    libsForQt5.qtxmlpatterns
-    libsForQt5.qttools
-    libsForQt5.qtwebengine
-    libGL
-    fontconfig
-    openssl
-    poppler
-    ffmpeg
-    libva
-    alsa-lib
-    SDL
-    x264
-    libvpx
-    libvorbis
-    libtheora
-    libogg
-    libopus
-    lame
-    fdk_aac
-    libass
-    libsForQt5.quazip
-    libXext
-    libXfixes
-  ];
-
-  propagatedBuildInputs = [ importer ];
-
-  meta = with lib; {
-    description = "Interactive whiteboard application";
-    homepage = "https://openboard.ch/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      atinba
-      fufexan
+    # Required by Poppler
+    cmakeFlags = [
+      "-DCMAKE_CXX_STANDARD=20"
     ];
-    platforms = platforms.linux;
-    mainProgram = "openboard";
-  };
-})
+
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      libsForQt5.wrapQtAppsHook
+    ];
+
+    buildInputs = [
+      libsForQt5.qtbase
+      libsForQt5.qtxmlpatterns
+      libsForQt5.qttools
+      libsForQt5.qtwebengine
+      libGL
+      fontconfig
+      openssl
+      poppler
+      ffmpeg
+      libva
+      alsa-lib
+      SDL
+      x264
+      libvpx
+      libvorbis
+      libtheora
+      libogg
+      libopus
+      lame
+      fdk_aac
+      libass
+      libsForQt5.quazip
+      libXext
+      libXfixes
+    ];
+
+    propagatedBuildInputs = [importer];
+
+    meta = with lib; {
+      description = "Interactive whiteboard application";
+      homepage = "https://openboard.ch/";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [
+        atinba
+        fufexan
+      ];
+      platforms = platforms.linux;
+      mainProgram = "openboard";
+    };
+  })

@@ -7,7 +7,6 @@
   gtk2,
   useGTK ? config.libiodbc.gtk or false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libiodbc";
   version = "3.52.16";
@@ -21,8 +20,8 @@ stdenv.mkDerivation rec {
     "--disable-libodbc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = lib.optionals useGTK [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = lib.optionals useGTK [gtk2];
 
   preBuild = ''
     export NIX_LDFLAGS_BEFORE="-rpath $out/lib"

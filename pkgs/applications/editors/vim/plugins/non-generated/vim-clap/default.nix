@@ -8,9 +8,7 @@
   zlib,
   vimUtils,
   nix-update-script,
-}:
-
-let
+}: let
   version = "0.54";
 
   src = fetchFromGitHub {
@@ -26,7 +24,7 @@ let
     homepage = "https://github.com/liuchengxu/vim-clap";
     changelog = "https://github.com/liuchengxu/vim-clap/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 
   maple = rustPlatform.buildRustPackage {
@@ -55,19 +53,18 @@ let
     ];
   };
 in
+  vimUtils.buildVimPlugin {
+    pname = "vim-clap";
+    inherit version src meta;
 
-vimUtils.buildVimPlugin {
-  pname = "vim-clap";
-  inherit version src meta;
+    postInstall = ''
+      ln -s ${maple}/bin/maple $out/bin/maple
+    '';
 
-  postInstall = ''
-    ln -s ${maple}/bin/maple $out/bin/maple
-  '';
-
-  passthru = {
-    inherit maple;
-    updateScript = nix-update-script {
-      attrPath = "vimPlugins.vim-clap.maple";
+    passthru = {
+      inherit maple;
+      updateScript = nix-update-script {
+        attrPath = "vimPlugins.vim-clap.maple";
+      };
     };
-  };
-}
+  }

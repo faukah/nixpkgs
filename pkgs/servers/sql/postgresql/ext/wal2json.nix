@@ -5,10 +5,9 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "wal2json";
-  version = "${builtins.replaceStrings [ "_" ] [ "." ] (
+  version = "${builtins.replaceStrings ["_"] ["."] (
     lib.strings.removePrefix "wal2json_" finalAttrs.src.rev
   )}";
 
@@ -19,7 +18,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-+QoACPCKiFfuT2lJfSUmgfzC5MXf75KpSoc2PzPxKyM=";
   };
 
-  makeFlags = [ "USE_PGXS=1" ];
+  makeFlags = ["USE_PGXS=1"];
 
   passthru.tests = nixosTests.postgresql.wal2json.passthru.override postgresql;
 
@@ -27,7 +26,7 @@ postgresqlBuildExtension (finalAttrs: {
     description = "PostgreSQL JSON output plugin for changeset extraction";
     homepage = "https://github.com/eulerto/wal2json";
     changelog = "https://github.com/eulerto/wal2json/releases/tag/${finalAttrs.src.rev}";
-    maintainers = with lib.maintainers; [ euank ];
+    maintainers = with lib.maintainers; [euank];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.bsd3;
   };

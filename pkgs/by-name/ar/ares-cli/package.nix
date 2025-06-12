@@ -21,7 +21,7 @@ buildNpmPackage rec {
   dontNpmBuild = true;
   npmDepsHash = "sha256-ATIxe/sulfOpz5KiWauDAPZrlfUOFyiTa+5ECFbVd+0=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://webostv.developer.lge.com/develop/tools/cli-introduction";
@@ -33,6 +33,6 @@ buildNpmPackage rec {
     '';
     mainProgram = "ares";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rucadi ];
+    maintainers = with lib.maintainers; [rucadi];
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   robin-map,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "gnustep-libobjc";
   version = "2.2.1";
@@ -18,11 +17,11 @@ clangStdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ robin-map ];
+  buildInputs = [robin-map];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
   meta = with lib; {
     broken = clangStdenv.hostPlatform.isDarwin;

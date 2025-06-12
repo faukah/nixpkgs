@@ -12,7 +12,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "r2modman";
   version = "3.2.0";
@@ -99,8 +98,8 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "r2modman";
       desktopName = "r2modman";
       comment = finalAttrs.meta.description;
-      categories = [ "Game" ];
-      mimeTypes = [ "x-scheme-handler/ror2mm" ];
+      categories = ["Game"];
+      mimeTypes = ["x-scheme-handler/ror2mm"];
       keywords = [
         "launcher"
         "mod manager"
@@ -109,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/ebkr/r2modmanPlus/releases/tag/v${finalAttrs.version}";

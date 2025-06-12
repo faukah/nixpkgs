@@ -2,24 +2,22 @@
   lib,
   pkgs,
   treefmt,
-}:
-{
+}: {
   /**
-    Evaluate a treefmt configuration.
+  Evaluate a treefmt configuration.
 
-    # Type
+  # Type
 
-    ```
-    Module -> Configuration
-    ```
+  ```
+  Module -> Configuration
+  ```
 
-    # Inputs
+  # Inputs
 
-    `module`
-    : A treefmt module. See [options reference](#sec-treefmt-options-reference).
+  `module`
+  : A treefmt module. See [options reference](#sec-treefmt-options-reference).
   */
-  evalConfig =
-    module:
+  evalConfig = module:
     lib.evalModules {
       class = "treefmtConfig";
       specialArgs.modulesPath = ./modules;
@@ -38,52 +36,48 @@
     };
 
   /**
-    Wrap treefmt, configured using structured settings.
+  Wrap treefmt, configured using structured settings.
 
-    # Type
+  # Type
 
-    ```
-    Module -> Derivation
-    ```
+  ```
+  Module -> Derivation
+  ```
 
-    # Inputs
+  # Inputs
 
-    `module`
-    : A treefmt module. See [options reference](#sec-treefmt-options-reference).
+  `module`
+  : A treefmt module. See [options reference](#sec-treefmt-options-reference).
   */
-  withConfig =
-    module:
-    let
-      configuration = treefmt.evalConfig {
-        _file = "<treefmt.withConfig args>";
-        imports = lib.toList module;
-      };
-    in
+  withConfig = module: let
+    configuration = treefmt.evalConfig {
+      _file = "<treefmt.withConfig args>";
+      imports = lib.toList module;
+    };
+  in
     configuration.config.result;
 
   /**
-    Build a treefmt config file from structured settings.
+  Build a treefmt config file from structured settings.
 
-    # Type
+  # Type
 
-    ```
-    Module -> Derivation
-    ```
+  ```
+  Module -> Derivation
+  ```
 
-    # Inputs
+  # Inputs
 
-    `settings`
-    : A settings module, used to build a treefmt config file.
-      See [`settings` option reference](#opt-treefmt-settings).
+  `settings`
+  : A settings module, used to build a treefmt config file.
+    See [`settings` option reference](#opt-treefmt-settings).
   */
-  buildConfig =
-    module:
-    let
-      configuration = treefmt.evalConfig {
-        _file = "<treefmt.buildConfig args>";
-        settings.imports = lib.toList module;
-      };
-    in
+  buildConfig = module: let
+    configuration = treefmt.evalConfig {
+      _file = "<treefmt.buildConfig args>";
+      settings.imports = lib.toList module;
+    };
+  in
     configuration.config.configFile.overrideAttrs {
       passthru = {
         inherit (configuration.config) settings;

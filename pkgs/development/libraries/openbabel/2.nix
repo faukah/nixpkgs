@@ -12,7 +12,6 @@
   pcre,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openbabel";
   version = "2.4.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "openbabel";
     repo = "openbabel";
-    rev = "openbabel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "openbabel-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-+pXsWMzex7rB1mm6dnTHzAcyw9jImgx1OZuLeCvbeJ0=";
   };
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     pcre
   ];
 
-  cmakeFlags = [ "-DCMAKE_CXX_STANDARD=14" ];
+  cmakeFlags = ["-DCMAKE_CXX_STANDARD=14"];
 
   nativeBuildInputs = [
     cmake
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Toolbox designed to speak the many languages of chemical data";
     homepage = "http://openbabel.org";
     platforms = platforms.all;
-    maintainers = with maintainers; [ danielbarter ];
+    maintainers = with maintainers; [danielbarter];
     license = licenses.gpl2Plus;
   };
 }

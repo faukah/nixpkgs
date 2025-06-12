@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "artem";
   version = "3.0.0";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/finefindus/artem";
     changelog = "https://github.com/finefindus/artem/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "artem";
   };
 }

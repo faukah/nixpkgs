@@ -7,13 +7,10 @@
   python,
   encryptionSupport ? true,
   sqliteSupport ? true,
-}:
-
-let
+}: let
   # save for overriding it
   python' = python;
-in
-let
+in let
   python = python'.override {
     self = python;
     packageOverrides = final: prev: {
@@ -57,11 +54,10 @@ let
       })
     ];
 
-    propagatedBuildInputs =
-      with python.pkgs;
+    propagatedBuildInputs = with python.pkgs;
       [
         # requirements.txt
-        (mautrix.override { withOlm = encryptionSupport; })
+        (mautrix.override {withOlm = encryptionSupport;})
         aiohttp
         yarl
         asyncpg
@@ -101,35 +97,33 @@ let
       "maubot"
     ];
 
-    passthru =
-      let
-        wrapper = callPackage ./wrapper.nix {
-          unwrapped = maubot;
-          python3 = python;
-        };
-      in
-      {
-        tests = {
-          simple = runCommand "${pname}-tests" { } ''
-            ${maubot}/bin/mbc --help > $out
-          '';
-        };
-
-        inherit python;
-
-        plugins = callPackage ./plugins {
-          maubot = maubot;
-          python3 = python;
-        };
-
-        withPythonPackages = pythonPackages: wrapper { inherit pythonPackages; };
-
-        # This adds the plugins to lib/maubot-plugins
-        withPlugins = plugins: wrapper { inherit plugins; };
-
-        # This changes example-config.yaml in module directory
-        withBaseConfig = baseConfig: wrapper { inherit baseConfig; };
+    passthru = let
+      wrapper = callPackage ./wrapper.nix {
+        unwrapped = maubot;
+        python3 = python;
       };
+    in {
+      tests = {
+        simple = runCommand "${pname}-tests" {} ''
+          ${maubot}/bin/mbc --help > $out
+        '';
+      };
+
+      inherit python;
+
+      plugins = callPackage ./plugins {
+        maubot = maubot;
+        python3 = python;
+      };
+
+      withPythonPackages = pythonPackages: wrapper {inherit pythonPackages;};
+
+      # This adds the plugins to lib/maubot-plugins
+      withPlugins = plugins: wrapper {inherit plugins;};
+
+      # This changes example-config.yaml in module directory
+      withBaseConfig = baseConfig: wrapper {inherit baseConfig;};
+    };
 
     meta = with lib; {
       description = "Plugin-based Matrix bot system written in Python";
@@ -140,9 +134,8 @@ let
       # for interacting with Maubot rather than Maubot itself, which should be used as
       # a NixOS module.
       mainProgram = "mbc";
-      maintainers = with maintainers; [ chayleaf ];
+      maintainers = with maintainers; [chayleaf];
     };
   };
-
 in
-maubot
+  maubot

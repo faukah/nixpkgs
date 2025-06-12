@@ -6,11 +6,10 @@
   bsdSetupHook,
   freebsdSetupHook,
 }:
-
 mkDerivation {
   inherit (make) path;
 
-  buildInputs = [ ];
+  buildInputs = [];
   nativeBuildInputs = [
     bsdSetupHook
     freebsdSetupHook
@@ -18,14 +17,14 @@ mkDerivation {
 
   skipIncludesPhase = true;
 
-  makeFlags = [ ];
+  makeFlags = [];
 
   postPatch = ''
     patchShebangs configure
     ${make.postPatch}
   '';
 
-  configureFlags = [ "--with-filemon=no" ];
+  configureFlags = ["--with-filemon=no"];
 
   buildPhase = ''
     runHook preBuild

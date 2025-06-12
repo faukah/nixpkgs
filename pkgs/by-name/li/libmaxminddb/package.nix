@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmaxminddb";
   version = "1.12.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "C library for working with MaxMind geolocation DB files";
     homepage = "https://github.com/maxmind/libmaxminddb";
     license = licenses.asl20;
-    teams = [ teams.helsinki-systems ];
+    teams = [teams.helsinki-systems];
     mainProgram = "mmdblookup";
     platforms = platforms.all;
   };

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "work-sans";
   version = "2.010";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Grotesque sans";
     homepage = "https://weiweihuanghuang.github.io/Work-Sans/";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

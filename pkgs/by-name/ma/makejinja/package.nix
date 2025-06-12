@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "makejinja";
   version = "2.7.2";
@@ -16,10 +15,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-WyTv4eTsEPn3pCCXUB0YUfv9SyR/6Ml4UU4zt1k5z2c=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       jinja2
       pyyaml

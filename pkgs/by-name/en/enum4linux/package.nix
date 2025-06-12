@@ -7,7 +7,6 @@
   perl,
   openldap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enum4linux";
   version = "0.9.1";
@@ -37,11 +36,11 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/enum4linux \
       --prefix PATH : ${
-        lib.makeBinPath [
-          samba
-          openldap
-        ]
-      }
+      lib.makeBinPath [
+        samba
+        openldap
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "enum4linux";
     homepage = "https://labs.portcullis.co.uk/tools/enum4linux/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fishi0x01 ];
+    maintainers = with maintainers; [fishi0x01];
     platforms = platforms.unix;
   };
 }

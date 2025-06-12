@@ -15,7 +15,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-postgresql-netfields";
   version = "1.3.1";
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jimfunk/django-postgresql-netfields";
     changelog = "https://github.com/jimfunk/django-postgresql-netfields/blob/v${version}/CHANGELOG";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

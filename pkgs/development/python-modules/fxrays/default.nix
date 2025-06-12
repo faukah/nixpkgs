@@ -6,7 +6,6 @@
   setuptools,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "fxrays";
   version = "1.3.6";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     cython
   ];
 
-  pythonImportsCheck = [ "FXrays" ];
+  pythonImportsCheck = ["FXrays"];
 
   checkPhase = ''
     runHook preCheck
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/3-manifolds/FXrays/releases/tag/${src.tag}";
     homepage = "https://github.com/3-manifolds/FXrays";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ noiioiu ];
+    maintainers = with lib.maintainers; [noiioiu];
   };
 }

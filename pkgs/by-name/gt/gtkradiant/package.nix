@@ -16,9 +16,7 @@
   runtimeShell,
   makeDesktopItem,
   copyDesktopItems,
-}:
-
-let
+}: let
   q3Pack = fetchsvn {
     url = "svn://svn.icculus.org/gtkradiant-gamepacks/Q3Pack/trunk";
     rev = 144;
@@ -149,7 +147,7 @@ let
     rev = 53;
     sha256 = "sha256-IQ12fEKnq0cJxef+ddvTXcwM8lQ8nlUoMJy81XJ7ANY=";
   };
-  packs = runCommand "gtkradiant-packs" { } ''
+  packs = runCommand "gtkradiant-packs" {} ''
     mkdir -p $out
     ln -s ${q3Pack} $out/Q3Pack
     ln -s ${urtPack} $out/UrTPack
@@ -178,26 +176,25 @@ let
     ln -s ${ufoaiPack} $out/UFOAIPack
     ln -s ${warsowPack} $out/WarsowPack
   '';
-
 in
-stdenv.mkDerivation rec {
-  pname = "gtkradiant";
+  stdenv.mkDerivation rec {
+    pname = "gtkradiant";
 
-  version = "unstable-2023-04-24";
+    version = "unstable-2023-04-24";
 
-  src = fetchFromGitHub {
-    owner = "TTimo";
-    repo = "GtkRadiant";
-    rev = "ddbaf03d723a633d53fa442c2f802f7ad164dd6c";
-    sha256 = "sha256-qI+KGx73AbM5PLFR2JDXKDbiqmU0gS/43rhjRKm/Gms=";
-  };
+    src = fetchFromGitHub {
+      owner = "TTimo";
+      repo = "GtkRadiant";
+      rev = "ddbaf03d723a633d53fa442c2f802f7ad164dd6c";
+      sha256 = "sha256-qI+KGx73AbM5PLFR2JDXKDbiqmU0gS/43rhjRKm/Gms=";
+    };
 
-  nativeBuildInputs =
-    let
+    nativeBuildInputs = let
       python = python3.withPackages (
-        ps: with ps; [
-          urllib3
-        ]
+        ps:
+          with ps; [
+            urllib3
+          ]
       );
       svn = writeScriptBin "svn" ''
         #!${runtimeShell} -e
@@ -215,8 +212,7 @@ stdenv.mkDerivation rec {
           exit 1
         fi
       '';
-    in
-    [
+    in [
       scons
       pkg-config
       python
@@ -224,63 +220,63 @@ stdenv.mkDerivation rec {
       copyDesktopItems
     ];
 
-  buildInputs = [
-    glib
-    libxml2
-    gtk2
-    libGLU
-    gnome2.gtkglext
-  ];
-
-  enableParallelBuilding = true;
-
-  # GCC 14 makes these errors by default
-  env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=int-conversion";
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gtkradiant";
-      exec = "gtkradiant";
-      desktopName = "GtkRadiant";
-      comment = meta.description;
-      categories = [ "Development" ];
-      icon = "gtkradiant";
-      # includes its own splash screen
-      startupNotify = false;
-    })
-  ];
-
-  postInstall = ''
-    mkdir -p $out/{bin,lib}
-    cp -ar install $out/lib/gtkradiant
-    for pack in ${packs}/* ; do
-      name=$(basename "$pack")
-      if ! [ -e $out/lib/gtkradiant/installs/$name ]; then
-        ln -s $pack $out/lib/gtkradiant/installs/$name
-      fi
-    done
-
-    cat >$out/bin/gtkradiant <<EOF
-    #!${runtimeShell} -e
-    export XDG_DATA_HOME="\''${XDG_DATA_HOME:-\$HOME/.local/share}"
-    exec "$out/lib/gtkradiant/radiant.bin" "\$@"
-    EOF
-    chmod +x $out/bin/gtkradiant
-    ln -s ../lib/gtkradiant/{q3map2,q3map2_urt,q3data} $out/bin/
-
-    mkdir -p $out/share/pixmaps
-    ln -s ../../lib/gtkradiant/bitmaps/icon.png $out/share/pixmaps/gtkradiant.png
-  '';
-
-  meta = with lib; {
-    description = "Level editor for idTech games";
-    homepage = "https://icculus.org/gtkradiant/";
-    license = with licenses; [
-      gpl2Only
-      bsdOriginal
-      lgpl21Only
+    buildInputs = [
+      glib
+      libxml2
+      gtk2
+      libGLU
+      gnome2.gtkglext
     ];
-    maintainers = with maintainers; [ astro ];
-    platforms = platforms.unix;
-  };
-}
+
+    enableParallelBuilding = true;
+
+    # GCC 14 makes these errors by default
+    env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types -Wno-error=implicit-function-declaration -Wno-error=int-conversion";
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "gtkradiant";
+        exec = "gtkradiant";
+        desktopName = "GtkRadiant";
+        comment = meta.description;
+        categories = ["Development"];
+        icon = "gtkradiant";
+        # includes its own splash screen
+        startupNotify = false;
+      })
+    ];
+
+    postInstall = ''
+      mkdir -p $out/{bin,lib}
+      cp -ar install $out/lib/gtkradiant
+      for pack in ${packs}/* ; do
+        name=$(basename "$pack")
+        if ! [ -e $out/lib/gtkradiant/installs/$name ]; then
+          ln -s $pack $out/lib/gtkradiant/installs/$name
+        fi
+      done
+
+      cat >$out/bin/gtkradiant <<EOF
+      #!${runtimeShell} -e
+      export XDG_DATA_HOME="\''${XDG_DATA_HOME:-\$HOME/.local/share}"
+      exec "$out/lib/gtkradiant/radiant.bin" "\$@"
+      EOF
+      chmod +x $out/bin/gtkradiant
+      ln -s ../lib/gtkradiant/{q3map2,q3map2_urt,q3data} $out/bin/
+
+      mkdir -p $out/share/pixmaps
+      ln -s ../../lib/gtkradiant/bitmaps/icon.png $out/share/pixmaps/gtkradiant.png
+    '';
+
+    meta = with lib; {
+      description = "Level editor for idTech games";
+      homepage = "https://icculus.org/gtkradiant/";
+      license = with licenses; [
+        gpl2Only
+        bsdOriginal
+        lgpl21Only
+      ];
+      maintainers = with maintainers; [astro];
+      platforms = platforms.unix;
+    };
+  }

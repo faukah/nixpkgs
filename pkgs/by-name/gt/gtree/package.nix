@@ -5,7 +5,6 @@
   testers,
   gtree,
 }:
-
 buildGoModule rec {
   pname = "gtree";
   version = "1.11.7";
@@ -42,6 +41,6 @@ buildGoModule rec {
     homepage = "https://github.com/ddddddO/gtree";
     changelog = "https://github.com/ddddddO/gtree/releases/tag/${src.rev}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

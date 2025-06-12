@@ -7,7 +7,6 @@
   pkg-config,
   ninja,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "hicolor-icon-theme";
   version = "0.18";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.freedesktop.org/xdg/default-icon-theme/-/blob/${finalAttrs.src.rev}/NEWS";
     platforms = platforms.unix;
     license = licenses.gpl2Only;
-    pkgConfigModules = [ "default-icon-theme" ];
-    maintainers = with maintainers; [ jopejoe1 ];
+    pkgConfigModules = ["default-icon-theme"];
+    maintainers = with maintainers; [jopejoe1];
   };
 })

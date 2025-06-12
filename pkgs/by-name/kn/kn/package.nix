@@ -5,7 +5,6 @@
   getent,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kn";
   version = "1.18.0";
@@ -21,11 +20,11 @@ buildGoModule (finalAttrs: {
 
   env.GOWORK = "off";
 
-  subPackages = [ "cmd/kn" ];
+  subPackages = ["cmd/kn"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags = [ "-X knative.dev/client/pkg/commands/version.Version=v${finalAttrs.version}" ];
+  ldflags = ["-X knative.dev/client/pkg/commands/version.Version=v${finalAttrs.version}"];
 
   postInstall = ''
     installShellCompletion --cmd kn \
@@ -49,6 +48,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/knative/client";
     changelog = "https://github.com/knative/client/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bryanasdev000 ];
+    maintainers = with lib.maintainers; [bryanasdev000];
   };
 })

@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "securetar";
   version = "2025.2.1";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-uVzyVgS8bWxS7jhwVyv7wTNF8REW+dJIhkRaS/8/FmY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "securetar" ];
+  pythonImportsCheck = ["securetar"];
 
   meta = with lib; {
     description = "Module to handle tarfile backups";
     homepage = "https://github.com/pvizeli/securetar";
     changelog = "https://github.com/pvizeli/securetar/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

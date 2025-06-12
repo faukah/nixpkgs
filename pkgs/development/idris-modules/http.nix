@@ -27,6 +27,6 @@ build-idris-package {
     description = "HTTP library for idris";
     homepage = "https://github.com/uwap/idris-http";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

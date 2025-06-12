@@ -7,7 +7,6 @@
   makeWrapper,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "mighty-mike";
   version = "3.0.2-unstable-2024-04-01";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   strictDeps = true;
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Port of Mighty Mike, a 1995 Macintosh game by Pangea Software, for modern operating systems";
@@ -57,7 +56,7 @@ stdenv.mkDerivation {
     homepage = "https://jorio.itch.io/mightymike";
     license = lib.licenses.cc-by-nc-sa-40;
     mainProgram = "MightyMike";
-    maintainers = with lib.maintainers; [ nateeag ];
+    maintainers = with lib.maintainers; [nateeag];
     platforms = lib.platforms.linux;
   };
 }

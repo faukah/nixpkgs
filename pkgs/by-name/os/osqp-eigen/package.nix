@@ -8,7 +8,6 @@
   stdenv,
   valgrind,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "osqp-eigen";
   version = "0.10.1";
@@ -25,12 +24,12 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "OSQPEIGEN_RUN_Valgrind_tests" stdenv.hostPlatform.isLinux)
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   propagatedBuildInputs = [
     eigen
     osqp
   ];
-  checkInputs = [ catch2 ];
+  checkInputs = [catch2];
   nativeCheckInputs = lib.optional stdenv.hostPlatform.isLinux valgrind;
 
   doCheck = true;
@@ -39,6 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple Eigen-C++ wrapper for OSQP library";
     homepage = "https://github.com/robotology/osqp-eigen";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 })

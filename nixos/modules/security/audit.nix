@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.audit;
   enabled = cfg.enable == "lock" || cfg.enable;
 
@@ -38,7 +37,11 @@ let
 
     # Enable and configure auditing
     auditctl \
-      -e ${if cfg.enable == "lock" then "2" else "1"} \
+      -e ${
+      if cfg.enable == "lock"
+      then "2"
+      else "1"
+    } \
       -b ${toString cfg.backlogLimit} \
       -f ${toString failureModes.${cfg.failureMode}} \
       -r ${toString cfg.rateLimit}
@@ -52,8 +55,7 @@ let
     # Disable auditing
     auditctl -e 0
   '';
-in
-{
+in {
   options = {
     security.audit = {
       enable = lib.mkOption {
@@ -101,8 +103,8 @@ in
 
       rules = lib.mkOption {
         type = lib.types.listOf lib.types.str; # (types.either types.str (types.submodule rule));
-        default = [ ];
-        example = [ "-a exit,always -F arch=b64 -S execve" ];
+        default = [];
+        example = ["-a exit,always -F arch=b64 -S execve"];
         description = ''
           The ordered audit rules, with each string appearing as one line of the audit.rules file.
         '';
@@ -113,19 +115,23 @@ in
   config = {
     systemd.services.audit = {
       description = "Kernel Auditing";
-      wantedBy = [ "basic.target" ];
+      wantedBy = ["basic.target"];
 
       unitConfig = {
         ConditionVirtualization = "!container";
-        ConditionSecurity = [ "audit" ];
+        ConditionSecurity = ["audit"];
       };
 
-      path = [ pkgs.audit ];
+      path = [pkgs.audit];
 
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "@${if enabled then startScript else disableScript} audit-start";
+        ExecStart = "@${
+          if enabled
+          then startScript
+          else disableScript
+        } audit-start";
         ExecStop = "@${stopScript} audit-stop";
       };
     };

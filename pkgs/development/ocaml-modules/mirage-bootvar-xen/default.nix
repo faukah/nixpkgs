@@ -6,7 +6,6 @@
   parse-argv,
   lwt,
 }:
-
 buildDunePackage rec {
   pname = "mirage-bootvar-xen";
   version = "0.8.0";
@@ -29,7 +28,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Handle boot-time arguments for Xen platform";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     homepage = "https://github.com/mirage/mirage-bootvar-xen";
   };
 }

@@ -6,7 +6,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pycfdns";
   version = "3.0.0";
@@ -26,20 +25,20 @@ buildPythonPackage rec {
       --replace 'version="0",' 'version="${version}",'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pycfdns" ];
+  pythonImportsCheck = ["pycfdns"];
 
   meta = with lib; {
     description = "Python module for updating Cloudflare DNS A records";
     homepage = "https://github.com/ludeeus/pycfdns";
     changelog = "https://github.com/ludeeus/pycfdns/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "f2c";
   version = "20240312";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     description = "Convert Fortran 77 source code to C";
     homepage = "https://www.netlib.org/f2c/";
     license = licenses.mit;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.unix;
   };
 }

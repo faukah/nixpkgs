@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchYarnDeps,
 }:
-
 mkYarnPackage rec {
   pname = "multiple-entity-row";
   version = "4.5.1";
@@ -47,6 +46,6 @@ mkYarnPackage rec {
     homepage = "https://github.com/benct/lovelace-multiple-entity-row";
     changelog = "https://github.com/benct/lovelace-multiple-entity-row/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

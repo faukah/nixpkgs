@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   attrs,
   duet,
@@ -26,15 +24,12 @@
   pylatex ? null,
   pyquil ? null,
   quimb ? null,
-
   # tests
   freezegun,
   pytest-asyncio,
   pytestCheckHook,
-
   withContribRequires ? false,
 }:
-
 buildPythonPackage rec {
   pname = "cirq-core";
   version = "1.5.0";
@@ -49,9 +44,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  pythonRelaxDeps = [ "matplotlib" ];
+  pythonRelaxDeps = ["matplotlib"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [

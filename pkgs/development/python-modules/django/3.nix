@@ -13,7 +13,6 @@
   pythonOlder,
   withGdal ? false,
 }:
-
 buildPythonPackage rec {
   pname = "django";
   version = "3.2.25";
@@ -49,13 +48,13 @@ buildPythonPackage rec {
   # too complicated to setup
   doCheck = false;
 
-  pythonImportsCheck = [ "django" ];
+  pythonImportsCheck = ["django"];
 
   meta = with lib; {
     description = "High-level Python Web framework";
     homepage = "https://www.djangoproject.com/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ georgewhewell ];
+    maintainers = with maintainers; [georgewhewell];
     knownVulnerabilities = [
       "Support for Django 3.2 ended on 2024-04-01, see https://www.djangoproject.com/download/#supported-versions."
     ];

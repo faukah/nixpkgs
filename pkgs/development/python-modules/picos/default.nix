@@ -10,7 +10,6 @@
   pythonOlder,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "picos";
   version = "2.6.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
   };
 
   # Needed only for the tests
-  nativeCheckInputs = [ networkx ];
+  nativeCheckInputs = [networkx];
 
   dependencies = [
     numpy
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     description = "Python interface to conic optimization solvers";
     homepage = "https://gitlab.com/picos-api/picos";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ tobiasBora ];
+    maintainers = with lib.maintainers; [tobiasBora];
   };
 }

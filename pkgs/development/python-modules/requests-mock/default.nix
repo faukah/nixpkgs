@@ -11,7 +11,6 @@
   setuptools-scm,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "requests-mock";
   version = "1.12.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     fixtures
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://requests-mock.readthedocs.io";
     changelog = "https://github.com/jamielennox/requests-mock/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

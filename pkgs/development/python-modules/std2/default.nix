@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "std2";
   version = "0-unstable-2025-02-06";
@@ -17,14 +16,14 @@ buildPythonPackage {
     hash = "sha256-n+6FxVQjzYhjQMJr+i+D8uSiVjI7HFkegxy5keVjKGs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "std2" ];
+  pythonImportsCheck = ["std2"];
 
   meta = {
     homepage = "https://github.com/ms-jpq/std2";
     description = "Dependency to chadtree and coq_nvim plugins";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

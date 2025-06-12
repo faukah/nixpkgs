@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ooniprobe-cli";
   version = "3.25.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WPfeelgKGY0zTfP19+x8PLBrCFpla2uJFstXxJM966o=";
 
-  subPackages = [ "cmd/ooniprobe" ];
+  subPackages = ["cmd/ooniprobe"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Open Observatory of Network Interference command line network probe";
     homepage = "https://ooni.org/install/cli";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "ooniprobe";
   };
 }

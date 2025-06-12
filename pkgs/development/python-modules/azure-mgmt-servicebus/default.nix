@@ -7,7 +7,6 @@
   azure-mgmt-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-servicebus";
   version = "8.2.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-i+kgjxQdmnifaNuNIZdU/3gGn9j5OQ6fdkS7laO+nsI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msrest
@@ -30,14 +29,14 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.servicebus" ];
+  pythonImportsCheck = ["azure.mgmt.servicebus"];
 
   meta = {
     description = "This is the Microsoft Azure Service Bus Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ maxwilson ];
+    maintainers = with lib.maintainers; [maxwilson];
   };
 }

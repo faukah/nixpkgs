@@ -7,7 +7,7 @@
   bcrypt,
   certifi,
   cffi,
-  cryptography-vectors ? (callPackage ./vectors.nix { }),
+  cryptography-vectors ? (callPackage ./vectors.nix {}),
   fetchFromGitHub,
   isPyPy,
   libiconv,
@@ -20,7 +20,6 @@
   pythonOlder,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "cryptography";
   version = "44.0.2"; # Also update the hash in vectors.nix
@@ -45,33 +44,37 @@ buildPythonPackage rec {
       --replace-fail "--benchmark-disable" ""
   '';
 
-  build-system = [
-    rustPlatform.cargoSetupHook
-    rustPlatform.maturinBuildHook
-    pkg-config
-    setuptools
-  ] ++ lib.optionals (!isPyPy) [ cffi ];
+  build-system =
+    [
+      rustPlatform.cargoSetupHook
+      rustPlatform.maturinBuildHook
+      pkg-config
+      setuptools
+    ]
+    ++ lib.optionals (!isPyPy) [cffi];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ]
-    ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+    ++ lib.optionals (pythonOlder "3.9") [libxcrypt];
 
-  dependencies = lib.optionals (!isPyPy) [ cffi ];
+  dependencies = lib.optionals (!isPyPy) [cffi];
 
-  optional-dependencies.ssh = [ bcrypt ];
+  optional-dependencies.ssh = [bcrypt];
 
-  nativeCheckInputs = [
-    certifi
-    cryptography-vectors
-    pretend
-    pytestCheckHook
-    pytest-xdist
-  ] ++ optional-dependencies.ssh;
+  nativeCheckInputs =
+    [
+      certifi
+      cryptography-vectors
+      pretend
+      pytestCheckHook
+      pytest-xdist
+    ]
+    ++ optional-dependencies.ssh;
 
-  pytestFlagsArray = [ "--disable-pytest-warnings" ];
+  pytestFlagsArray = ["--disable-pytest-warnings"];
 
   disabledTestPaths = [
     # save compute time by not running benchmarks
@@ -91,12 +94,12 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/pyca/cryptography";
     changelog =
-      "https://cryptography.io/en/latest/changelog/#v" + replaceStrings [ "." ] [ "-" ] version;
+      "https://cryptography.io/en/latest/changelog/#v" + replaceStrings ["."] ["-"] version;
     license = with licenses; [
       asl20
       bsd3
       psfl
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

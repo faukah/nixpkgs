@@ -6,9 +6,7 @@
   zlib,
   ncurses,
   expect,
-
 }:
-
 stdenv.mkDerivation rec {
   pname = "kerf";
   version = "unstable-2022-08-05";
@@ -27,7 +25,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  nativeCheckInputs = [ expect ];
+  nativeCheckInputs = [expect];
   doCheck = true;
 
   makeFlags = [
@@ -44,7 +42,7 @@ stdenv.mkDerivation rec {
       "gnu-variable-sized-type-not-at-end"
       "unused-result"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "-fcommon" ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["-fcommon"]
   );
 
   patchPhase = ''
@@ -90,13 +88,13 @@ stdenv.mkDerivation rec {
       used for local analytics, timeseries, logfile processing,
       and more.
     '';
-    license = with licenses; [ bsd2 ];
+    license = with licenses; [bsd2];
     homepage = "https://github.com/kevinlawler/kerf1";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
 
     # aarch64-linux seems hopeless, with over 2,000 warnings
     # generated?
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
   };
 }

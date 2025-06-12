@@ -10,7 +10,6 @@
   libiconv,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tremor";
   version = "0.13.0-rc.33";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -87,7 +86,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=connectors::utils::tls::tests::client_config"
   ];
 
-  cargoBuildFlags = [ "-p tremor-cli" ];
+  cargoBuildFlags = ["-p tremor-cli"];
 
   meta = with lib; {
     description = ''

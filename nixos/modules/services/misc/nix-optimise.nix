@@ -1,10 +1,10 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.nix.optimise;
-in
-
 {
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.nix.optimise;
+in {
   options = {
     nix.optimise = {
       automatic = lib.mkOption {
@@ -14,7 +14,7 @@ in
       };
 
       dates = lib.mkOption {
-        default = [ "03:45" ];
+        default = ["03:45"];
         apply = lib.toList;
         type = with lib.types; either singleLineStr (listOf str);
         description = ''

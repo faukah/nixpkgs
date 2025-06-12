@@ -7,7 +7,6 @@
   jinja2,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "django-jinja";
   version = "2.11.0";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/niwinz/django-jinja";
     changelog = "https://github.com/niwinz/django-jinja/blob/${src.rev}/CHANGES.adoc";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -37,7 +37,6 @@
   withAsan ? false,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "389-ds-base";
   version = "3.1.2";
@@ -56,15 +55,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-8A2xnJI22mjupX5FVsvRa5RfWyOE+VLH2aJwBHjDOME=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-    pkg-config
-    python3
-    cargo
-    rustc
-  ] ++ lib.optional withCockpit rsync;
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      libtool
+      pkg-config
+      python3
+      cargo
+      rustc
+    ]
+    ++ lib.optional withCockpit rsync;
 
   buildInputs =
     [
@@ -143,13 +144,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.version = finalAttrs.version;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://www.port389.org/";
     description = "Enterprise-class Open Source LDAP server for Linux";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.ners ];
+    maintainers = [lib.maintainers.ners];
   };
 })

@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     src = "${src}/ui";
     npmDepsHash = "sha256-zx8G6Raop1EZAVy1YCF5ag5aL9NutRxbPfTARmjP2SY=";
     makeCacheWritable = true;
-    npmFlags = [ "--legacy-peer-deps" ];
+    npmFlags = ["--legacy-peer-deps"];
     installPhase = ''
       runHook preInstall
       mv public/ $out
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://cooklang.org/";
     license = lib.licenses.mit;
     mainProgram = "cook";
-    maintainers = [ lib.maintainers.emilioziniades ];
+    maintainers = [lib.maintainers.emilioziniades];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

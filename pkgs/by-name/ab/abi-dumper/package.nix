@@ -7,7 +7,6 @@
   elfutils,
   vtable-dumper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abi-dumper";
   version = "1.4";
@@ -34,14 +33,14 @@ stdenv.mkDerivation rec {
   ];
 
   preBuild = "mkdir -p $out";
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/lvc/abi-dumper";
     description = "Dump ABI of an ELF object containing DWARF debug info";
     mainProgram = "abi-dumper";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.bhipple ];
+    maintainers = [maintainers.bhipple];
     platforms = platforms.all;
   };
 }

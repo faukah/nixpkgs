@@ -8,7 +8,6 @@
   gtk2,
   poppler,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdf2svg";
   version = "0.2.4";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "PDF converter to SVG format";
     homepage = "http://www.cityinthesky.co.uk/opensource/pdf2svg";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ianwookim ];
+    maintainers = [maintainers.ianwookim];
     platforms = platforms.unix;
     mainProgram = "pdf2svg";
   };

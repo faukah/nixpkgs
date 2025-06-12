@@ -3,19 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   defaultUserGroup = "usbmux";
   apple = "05ac";
 
   cfg = config.services.usbmuxd;
-
-in
-
-{
+in {
   options.services.usbmuxd = {
-
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -53,11 +47,9 @@ in
         "usbmuxd2"
       ];
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users = lib.optionalAttrs (cfg.user == defaultUserGroup) {
       ${cfg.user} = {
         description = "usbmuxd user";
@@ -67,7 +59,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == defaultUserGroup) {
-      ${cfg.group} = { };
+      ${cfg.group} = {};
     };
 
     # Give usbmuxd permission for Apple devices
@@ -77,7 +69,7 @@ in
 
     systemd.services.usbmuxd = {
       description = "usbmuxd";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       unitConfig.Documentation = "man:usbmuxd(8)";
       serviceConfig = {
         # Trigger the udev rule manually. This doesn't require replugging the
@@ -86,6 +78,5 @@ in
         ExecStart = "${cfg.package}/bin/usbmuxd -U ${cfg.user} -v";
       };
     };
-
   };
 }

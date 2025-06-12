@@ -6,7 +6,6 @@
   python-lsp-server,
   isort,
 }:
-
 buildPythonPackage rec {
   pname = "pyls-isort";
   version = "0.2.2";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyls_isort" ];
+  pythonImportsCheck = ["pyls_isort"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     isort
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/paradoxxxzero/pyls-isort";
     description = "Isort plugin for python-lsp-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cpcloud ];
+    maintainers = with lib.maintainers; [cpcloud];
   };
 }

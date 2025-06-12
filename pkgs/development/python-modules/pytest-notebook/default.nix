@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   attrs,
   jsonschema,
   nbclient,
   nbdime,
   nbformat,
-
   # buildInputs
   pytest,
-
   # tests
   black,
   coverage,
@@ -26,7 +22,6 @@
   writableTmpDirAsHomeHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-notebook";
   version = "0.10.0";
@@ -56,9 +51,9 @@ buildPythonPackage rec {
     nbformat
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  pythonImportsCheck = [ "pytest_notebook" ];
+  pythonImportsCheck = ["pytest_notebook"];
 
   nativeCheckInputs = [
     black
@@ -95,6 +90,6 @@ buildPythonPackage rec {
     description = "Pytest plugin for regression testing and regenerating Jupyter Notebooks";
     homepage = "https://github.com/chrisjsewell/pytest-notebook";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

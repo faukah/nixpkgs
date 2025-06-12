@@ -8,7 +8,6 @@
   mock,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "readthedocs-sphinx-ext";
   version = "2.2.5";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-7l/VuZ258MGAsjlsvOUoqjZnGVG5UmuwJy2/zlUXvSc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook

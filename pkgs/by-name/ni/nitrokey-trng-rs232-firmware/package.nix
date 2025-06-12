@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkgsCross,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nitrokey-trng-rs232-firmware";
   version = "1.0.0";
@@ -16,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vY/9KAGB6lTkkjW9zUiHA3wD2d35cEBVBTr12bHCy4k=";
   };
 
-  nativeBuildInputs = [ pkgsCross.avr.stdenv.cc ];
+  nativeBuildInputs = [pkgsCross.avr.stdenv.cc];
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
 
   installPhase = ''
     runHook preInstall

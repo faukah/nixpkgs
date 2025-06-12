@@ -26,7 +26,6 @@
   solid,
   phonon-backend-gstreamer,
 }:
-
 mkDerivation {
   pname = "dragon";
   meta = {
@@ -37,7 +36,7 @@ mkDerivation {
     ];
     description = "Simple media player for KDE";
     mainProgram = "dragon";
-    maintainers = [ lib.maintainers.jonathanreeve ];
+    maintainers = [lib.maintainers.jonathanreeve];
   };
   nativeBuildInputs = [
     extra-cmake-modules

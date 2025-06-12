@@ -8,7 +8,6 @@
   cargo-semver-checks,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-semver-checks";
   version = "0.41.0";
@@ -51,8 +50,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = cargo-semver-checks; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = cargo-semver-checks;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

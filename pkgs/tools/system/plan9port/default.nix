@@ -13,7 +13,6 @@
   ed,
   DarwinTools, # For building on Darwin
 }:
-
 stdenv.mkDerivation rec {
   pname = "plan9port";
   version = "2025-01-29";
@@ -43,26 +42,25 @@ stdenv.mkDerivation rec {
     EOF
   '';
 
-  nativeBuildInputs = [ ed ];
+  nativeBuildInputs = [ed];
   buildInputs =
     [
       perl
       which
     ]
     ++ (
-      if !stdenv.hostPlatform.isDarwin then
-        [
-          fontconfig
-          freetype # fontsrv uses these
-          libX11
-          libXext
-          libXt
-          xorgproto
-        ]
-      else
-        [
-          DarwinTools
-        ]
+      if !stdenv.hostPlatform.isDarwin
+      then [
+        fontconfig
+        freetype # fontsrv uses these
+        libX11
+        libXext
+        libXt
+        xorgproto
+      ]
+      else [
+        DarwinTools
+      ]
     );
 
   configurePhase = ''
@@ -147,3 +145,4 @@ stdenv.mkDerivation rec {
   };
 }
 # TODO: investigate the mouse chording support patch
+

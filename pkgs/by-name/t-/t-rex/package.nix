@@ -6,7 +6,6 @@
   gdal,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "t-rex";
   version = "0.15.0-alpha3";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://t-rex.tileserver.ch/";
     changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     mainProgram = "t_rex";
     platforms = lib.platforms.unix;
     broken = true; # see https://github.com/t-rex-tileserver/t-rex/issues/320

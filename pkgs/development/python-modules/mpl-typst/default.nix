@@ -9,7 +9,6 @@
   pillow,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "mpl-typst";
   version = "0.1.0";
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     "mpl_typst.as_default"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Typst backend for matplotlib";
     homepage = "https://github.com/daskol/mpl-typst";
     changelog = "https://github.com/daskol/mpl-typst/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

@@ -6,7 +6,6 @@
   gawk,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "m17n-db";
   version = "1.8.10";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-MQJOBRNTNEi5sx6jKU01pkJuZpDrRGKGgHMaqVXAwWw=";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
   buildInputs = [
     gettext
     gawk
@@ -25,17 +24,17 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configureFlags = [ "--with-charmaps=${stdenv.cc.libc}/share/i18n/charmaps" ];
+  configureFlags = ["--with-charmaps=${stdenv.cc.libc}/share/i18n/charmaps"];
 
   meta = {
     homepage = "https://www.nongnu.org/m17n/";
     description = "Multilingual text processing library (database)";
     mainProgram = "m17n-db";
     changelog = "https://git.savannah.nongnu.org/cgit/m17n/m17n-db.git/plain/NEWS?h=REL-${
-      lib.replaceStrings [ "." ] [ "-" ] version
+      lib.replaceStrings ["."] ["-"] version
     }";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ astsmtl ];
+    maintainers = with lib.maintainers; [astsmtl];
   };
 }

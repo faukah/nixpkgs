@@ -2,23 +2,19 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   pdm-backend,
-
   # dependencies
   django-gravatar2,
   django-allauth,
   mailmanclient,
   pytz,
-
   # tests
   django,
   pytest-django,
   pytestCheckHook,
   nixosTests,
 }:
-
 buildPythonPackage rec {
   pname = "django-mailman3";
   version = "1.3.15";
@@ -30,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-+ZFrJpy5xdW6Yde/XEvxoAN8+TSQdiI0PfjZ7bHG0Rs=";
   };
 
-  pythonRelaxDeps = [ "django-allauth" ];
+  pythonRelaxDeps = ["django-allauth"];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies =
     [
@@ -54,7 +50,7 @@ buildPythonPackage rec {
     export DJANGO_SETTINGS_MODULE=django_mailman3.tests.settings_test
   '';
 
-  pythonImportsCheck = [ "django_mailman3" ];
+  pythonImportsCheck = ["django_mailman3"];
 
   passthru.tests = {
     inherit (nixosTests) mailman;
@@ -64,7 +60,7 @@ buildPythonPackage rec {
     description = "Django library for Mailman UIs";
     homepage = "https://gitlab.com/mailman/django-mailman3";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     broken = lib.versionAtLeast django-allauth.version "65.0.0";
   };
 }

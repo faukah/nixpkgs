@@ -9,7 +9,6 @@
   binlore,
   esh,
 }:
-
 stdenv.mkDerivation rec {
   pname = "esh";
   version = "0.1.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ddaji5nplf1dyvgkrhqjy8m5djaycqcfhjv30yprj1avjymlj6w";
   };
 
-  nativeBuildInputs = [ asciidoctor ];
+  nativeBuildInputs = [asciidoctor];
 
   buildInputs = [
     gawk
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     mainProgram = "esh";
     homepage = "https://github.com/jirutka/esh";
     license = licenses.mit;
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     platforms = platforms.unix;
   };
 }

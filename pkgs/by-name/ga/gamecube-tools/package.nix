@@ -6,12 +6,11 @@
   freeimage,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.6";
   pname = "gamecube-tools";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     freeimage
     libGL
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "Tools for gamecube/wii projects";
     homepage = "https://github.com/devkitPro/gamecube-tools/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ tomsmeets ];
+    maintainers = with maintainers; [tomsmeets];
   };
 }

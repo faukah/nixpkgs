@@ -8,7 +8,6 @@
   pytest-cov-stub,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "runstats";
   version = "2.0.0";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "runstats" ];
+  pythonImportsCheck = ["runstats"];
 
   meta = {
     description = "Python module for computing statistics and regression in a single pass";
     homepage = "https://github.com/grantjenks/python-runstats";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ osbm ];
+    maintainers = with lib.maintainers; [osbm];
   };
 }

@@ -10,7 +10,6 @@
   cffi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "symbolic";
   version = "12.14.1";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     milksnake
   ];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   preBuild = ''
     cd py
@@ -48,17 +47,17 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "py" ];
+  pytestFlagsArray = ["py"];
 
-  pythonImportsCheck = [ "symbolic" ];
+  pythonImportsCheck = ["symbolic"];
 
   meta = {
     description = "Python library for dealing with symbol files and more";
     homepage = "https://github.com/getsentry/symbolic";
     changelog = "https://github.com/getsentry/symbolic/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

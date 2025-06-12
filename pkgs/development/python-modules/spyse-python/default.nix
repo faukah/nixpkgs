@@ -10,7 +10,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "spyse-python";
   version = "2.2.3";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRemoveDeps = [ "dataclasses" ];
+  pythonRemoveDeps = ["dataclasses"];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -44,7 +43,7 @@ buildPythonPackage rec {
       --replace-fail "requests~=2.26.0" "requests>=2.26.0"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -56,13 +55,13 @@ buildPythonPackage rec {
   # Tests requires an API token
   doCheck = false;
 
-  pythonImportsCheck = [ "spyse" ];
+  pythonImportsCheck = ["spyse"];
 
   meta = with lib; {
     description = "Python module for spyse.com API";
     homepage = "https://github.com/spyse-com/spyse-python";
     changelog = "https://github.com/spyse-com/spyse-python/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

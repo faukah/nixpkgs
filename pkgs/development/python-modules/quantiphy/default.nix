@@ -12,7 +12,6 @@
   quantiphy-eval,
   rkm-codes,
 }:
-
 buildPythonPackage rec {
   pname = "quantiphy";
   version = "2.20";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-QXCs93plNSVNiCLEoXx2raH6EbH1rXyjvpBfl+8eXjc=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     quantiphy-eval
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     voluptuous
   ];
 
-  pythonImportsCheck = [ "quantiphy" ];
+  pythonImportsCheck = ["quantiphy"];
 
   meta = with lib; {
     description = "Module for physical quantities (numbers with units)";
     homepage = "https://quantiphy.readthedocs.io";
     changelog = "https://github.com/KenKundert/quantiphy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

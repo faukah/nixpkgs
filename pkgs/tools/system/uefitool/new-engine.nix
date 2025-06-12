@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   zip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uefitool";
   version = "A71";
@@ -19,19 +18,19 @@ stdenv.mkDerivation (finalAttrs: {
     tag = finalAttrs.version;
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
   nativeBuildInputs = [
     cmake
     zip
     wrapQtAppsHook
   ];
-  patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./bundle-destination.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [./bundle-destination.patch];
 
   meta = {
     description = "UEFI firmware image viewer and editor";
     homepage = "https://github.com/LongSoft/uefitool";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ athre0z ];
+    maintainers = with lib.maintainers; [athre0z];
     platforms = lib.platforms.unix;
     mainProgram = "uefitool";
   };

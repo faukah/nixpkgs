@@ -10,9 +10,7 @@
   liberation_ttf_v1,
   writeScript,
   xorg,
-}:
-
-let
+}: let
   # var/www/onlyoffice/documentserver/server/DocService/docservice
   onlyoffice-documentserver = stdenv.mkDerivation rec {
     pname = "onlyoffice-documentserver";
@@ -29,7 +27,9 @@ let
           sha256 = "sha256-dBA/TlTwG+9eRY5QdqVw0cghnXPRNCUfs9QoaNFFLB0=";
         };
       }
-      .${stdenv.hostPlatform.system} or (throw "unsupported system ${stdenv.hostPlatform.system}")
+      .${
+        stdenv.hostPlatform.system
+      } or (throw "unsupported system ${stdenv.hostPlatform.system}")
     );
 
     preferLocalBuild = true;
@@ -168,9 +168,9 @@ let
         "x86_64-linux"
         "aarch64-linux"
       ];
-      sourceProvenance = [ sourceTypes.binaryNativeCode ];
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in
-onlyoffice-documentserver
+  onlyoffice-documentserver

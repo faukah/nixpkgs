@@ -10,7 +10,6 @@
   camlp-streams,
   doCheck ? lib.versionAtLeast ocaml.version "4.08",
 }:
-
 buildDunePackage rec {
   pname = "batteries";
   version = "3.9.0";
@@ -24,7 +23,7 @@ buildDunePackage rec {
     hash = "sha256-+PGfExdvp3WyX1s8dLTBYp1SoUOBkzrxyqMUuaW6Bto=";
   };
 
-  nativeCheckInputs = [ qtest ];
+  nativeCheckInputs = [qtest];
   checkInputs = [
     ounit
     qcheck

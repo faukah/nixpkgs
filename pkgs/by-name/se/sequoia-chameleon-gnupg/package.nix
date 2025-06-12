@@ -8,7 +8,6 @@
   openssl,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sequoia-chameleon-gnupg";
   version = "0.13.1";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Sequoia's reimplementation of the GnuPG interface";
     homepage = "https://gitlab.com/sequoia-pgp/sequoia-chameleon-gnupg";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "gpg-sq";
   };
 }

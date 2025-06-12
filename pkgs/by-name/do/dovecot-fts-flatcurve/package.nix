@@ -7,7 +7,6 @@
   dovecot,
   xapian,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dovecot-fts-flatcurve";
   version = "1.0.5";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://slusarz.github.io/dovecot-fts-flatcurve/";
     description = "Dovecot FTS Flatcurve plugin (Xapian)";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
     platforms = platforms.unix;
   };
 }

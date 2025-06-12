@@ -20,15 +20,12 @@
   docbook_xml_dtd_42,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland";
   version = "1.23.1";
 
   src = fetchurl {
-    url =
-      with finalAttrs;
-      "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
+    url = with finalAttrs; "https://gitlab.freedesktop.org/wayland/wayland/-/releases/${version}/downloads/${pname}-${version}.tar.xz";
     hash = "sha256-hk+yqDmeLQ7DnVbp2bdTwJN3W+rcYCLOgfRBkpqB5e0=";
   };
 
@@ -75,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
       wayland-scanner
     ]
     ++ lib.optionals withDocumentation [
-      (graphviz-nox.override { pango = null; }) # To avoid an infinite recursion
+      (graphviz-nox.override {pango = null;}) # To avoid an infinite recursion
       doxygen
       libxslt
       xmlto

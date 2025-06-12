@@ -5,7 +5,6 @@
   lib,
   moreutils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "craftos-pc";
@@ -37,7 +36,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=jackmacwindows.craftos-pc";
     homepage = "https://www.craftos-pc.cc/docs/extension";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
     platforms = craftos-pc.meta.platforms;
   };
 }

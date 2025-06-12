@@ -11,7 +11,6 @@
   alsa-lib,
   pipewire,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qpwgraph";
   version = "0.9.3";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     pipewire
   ];
 
-  cmakeFlags = [ "-DCONFIG_WAYLAND=ON" ];
+  cmakeFlags = ["-DCONFIG_WAYLAND=ON"];
 
   meta = with lib; {
     description = "Qt graph manager for PipeWire, similar to QjackCtl";

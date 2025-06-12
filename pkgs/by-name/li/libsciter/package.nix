@@ -9,7 +9,6 @@
   fetchurl,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "libsciter";
   version = "4.4.8.23-bis"; # Version specified in GitHub commit title
@@ -44,9 +43,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://sciter.com";
     description = "Embeddable HTML/CSS/JavaScript engine for modern UI development";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ leixb ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [leixb];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
   };
 }

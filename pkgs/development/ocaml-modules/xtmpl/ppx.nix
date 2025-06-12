@@ -3,7 +3,6 @@
   xtmpl,
   ppxlib,
 }:
-
 buildDunePackage {
   pname = "xtmpl_ppx";
   minimalOCamlVersion = "4.11";
@@ -16,7 +15,9 @@ buildDunePackage {
     xtmpl
   ];
 
-  meta = xtmpl.meta // {
-    description = "Xml templating library, ppx extension";
-  };
+  meta =
+    xtmpl.meta
+    // {
+      description = "Xml templating library, ppx extension";
+    };
 }

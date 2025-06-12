@@ -6,7 +6,6 @@
   libtool,
   libtommath,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtomcrypt";
   version = "1.18.2";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
       publicDomain
       wtfpl
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

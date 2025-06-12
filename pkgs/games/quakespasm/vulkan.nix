@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
       vulkan-headers
     ];
 
-  buildFlags = [ "DO_USERDIRS=1" ];
+  buildFlags = ["DO_USERDIRS=1"];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_CFLAGS_COMPILE = lib.concatStringsSep " " [
@@ -85,13 +85,13 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "vkquake";
       comment = finalAttrs.meta.description;
       desktopName = "vkQuake";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
   postFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     patchelf $out/bin/vkquake \
-      --add-rpath ${lib.makeLibraryPath [ vulkan-loader ]}
+      --add-rpath ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   meta = {

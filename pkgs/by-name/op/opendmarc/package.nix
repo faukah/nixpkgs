@@ -8,7 +8,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opendmarc";
   version = "1.4.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "trusteddomainproject";
     repo = "opendmarc";
-    rev = "rel-opendmarc-${builtins.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "rel-opendmarc-${builtins.replaceStrings ["."] ["-"] version}";
     hash = "sha256-vnWtTvHhzCed7P6rN3wAz6zfRvtV0cLn5GhDxLF8H3c=";
   };
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   nativeBuildInputs = [
     autoreconfHook
     makeWrapper
@@ -45,16 +44,15 @@ stdenv.mkDerivation rec {
   postFixup = ''
     for b in $bin/bin/opendmarc-{expire,import,params,reports}; do
       wrapProgram $b --set PERL5LIB ${
-        perlPackages.makeFullPerlPath (
-          with perlPackages;
-          [
-            Switch
-            DBI
-            DBDmysql
-            HTTPMessage
-          ]
-        )
-      }
+      perlPackages.makeFullPerlPath (
+        with perlPackages; [
+          Switch
+          DBI
+          DBDmysql
+          HTTPMessage
+        ]
+      )
+    }
     done
   '';
 
@@ -65,6 +63,6 @@ stdenv.mkDerivation rec {
       bsd3
       sendmail
     ];
-    teams = [ teams.helsinki-systems ];
+    teams = [teams.helsinki-systems];
   };
 }

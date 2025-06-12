@@ -13,13 +13,11 @@
   facedetect,
   fbida,
 }:
-
 # TODO: add optional dependencies (snippet from fgallery source):
 #
 # if(system("jpegoptim -V >/dev/null 2>&1")) {
 #   $jpegoptim = 0;
 # }
-
 stdenv.mkDerivation rec {
   pname = "fgallery";
   version = "1.9.1";
@@ -34,8 +32,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
   buildInputs = (
-    with perlPackages;
-    [
+    with perlPackages; [
       perl
       ImageExifTool
       CpanelJSONXS
@@ -62,16 +59,16 @@ stdenv.mkDerivation rec {
     wrapProgram "$out/share/fgallery/fgallery" \
         --set PERL5LIB "$PERL5LIB" \
         --set PATH "${
-          lib.makeBinPath [
-            coreutils
-            zip
-            imagemagick
-            pngcrush
-            lcms2
-            facedetect
-            fbida
-          ]
-        }"
+      lib.makeBinPath [
+        coreutils
+        zip
+        imagemagick
+        pngcrush
+        lcms2
+        facedetect
+        fbida
+      ]
+    }"
   '';
 
   meta = with lib; {
@@ -79,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.thregr.org/~wavexx/software/fgallery/";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "fgallery";
   };
 }

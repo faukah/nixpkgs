@@ -11,23 +11,18 @@
   gsettings-desktop-schemas,
   sweethome3dApp,
   unzip,
-}:
-
-let
-
+}: let
   sweetExec = m: "sweethome3d-" + lib.removeSuffix "libraryeditor" (lib.toLower m) + "-editor";
 
-  mkEditorProject =
-    {
-      pname,
-      module,
-      version,
-      src,
-      license,
-      description,
-      desktopName,
-    }:
-
+  mkEditorProject = {
+    pname,
+    module,
+    version,
+    src,
+    license,
+    description,
+    desktopName,
+  }:
     stdenv.mkDerivation rec {
       application = sweethome3dApp;
       inherit
@@ -93,18 +88,14 @@ let
         homepage = "http://www.sweethome3d.com/index.jsp";
         inherit description;
         inherit license;
-        maintainers = [ lib.maintainers.edwtjo ];
+        maintainers = [lib.maintainers.edwtjo];
         platforms = lib.platforms.linux;
         mainProgram = exec;
       };
-
     };
 
-  d2u = lib.replaceStrings [ "." ] [ "_" ];
-
-in
-{
-
+  d2u = lib.replaceStrings ["."] ["_"];
+in {
   textures-editor = mkEditorProject rec {
     version = "1.7";
     module = "TexturesLibraryEditor";
@@ -130,5 +121,4 @@ in
     };
     desktopName = "Sweet Home 3D - Furniture Library Editor";
   };
-
 }

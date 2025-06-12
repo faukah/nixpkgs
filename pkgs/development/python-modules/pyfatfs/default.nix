@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "pyfatfs";
   version = "1.1.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ fs ];
+  dependencies = [fs];
 
   postPatch = ''
     substituteInPlace ./pyproject.toml \
@@ -42,13 +41,13 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Python based FAT12/FAT16/FAT32 implementation with VFAT support";
     homepage = "https://github.com/nathanhi/pyfatfs";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ vlaci ];
+    maintainers = with lib.maintainers; [vlaci];
   };
 }

@@ -1,5 +1,7 @@
-{ fetchurl, callPackage }:
-let
+{
+  fetchurl,
+  callPackage,
+}: let
   # More examples can be found at https://www.dangermouse.net/esoteric/piet/samples.html
   hello-program = fetchurl {
     url = "https://www.dangermouse.net/esoteric/piet/hw6.png";
@@ -13,8 +15,7 @@ let
     url = "https://www.dangermouse.net/esoteric/piet/piet_bfi.gif";
     hash = "sha256-LIfOG0KFpr4nxAtLLeIsPQl+8Ujyvfz/YnEm/HRoVjY=";
   };
-in
-{
+in {
   hello = callPackage ./run-test.nix {
     testName = "hello";
     programPath = hello-program;

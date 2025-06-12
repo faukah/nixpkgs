@@ -18,7 +18,6 @@
   gtest,
   indi-full,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "indilib";
   version = "2.1.3";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DINDI_BUILD_INTEGTESTS=ON"
     ];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   doCheck = true;
 

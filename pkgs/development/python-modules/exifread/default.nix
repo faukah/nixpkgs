@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "exifread";
   version = "3.0.0";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     mainProgram = "EXIF.py";
     homepage = "https://github.com/ianare/exif-py";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   gtk4,
   libsoup_3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gssdp-tools";
   inherit (gssdp_1_6) version src;

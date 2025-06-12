@@ -31,7 +31,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-control-center";
   version = "1.28.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
       --replace-fail "/usr/bin/mate-about" "${mate-desktop}/bin/mate-about"
   '';
 
-  configureFlags = [ "--disable-update-mimedb" ];
+  configureFlags = ["--disable-update-mimedb"];
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -90,13 +89,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Utilities to configure the MATE desktop";
     homepage = "https://github.com/mate-desktop/mate-control-center";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

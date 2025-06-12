@@ -8,8 +8,7 @@
   nixosTests,
   withPostgres ? true,
   ...
-}@args:
-
+} @ args:
 callPackage ../nginx/generic.nix args rec {
   pname = "openresty";
   nginxVersion = "1.27.1";
@@ -23,12 +22,10 @@ callPackage ../nginx/generic.nix args rec {
   # generic.nix applies fixPatch on top of every patch defined there.
   # This allows updating the patch destination, as openresty has
   # nginx source code in a different folder.
-  fixPatch =
-    patch:
-    let
-      name = patch.name or (builtins.baseNameOf patch);
-    in
-    runCommand "openresty-${name}" { src = patch; } ''
+  fixPatch = patch: let
+    name = patch.name or (builtins.baseNameOf patch);
+  in
+    runCommand "openresty-${name}" {src = patch;} ''
       substitute $src $out \
         --replace "a/" "a/bundle/nginx-${nginxVersion}/" \
         --replace "b/" "b/bundle/nginx-${nginxVersion}/"
@@ -39,7 +36,7 @@ callPackage ../nginx/generic.nix args rec {
     perl
   ];
 
-  buildInputs = [ libpq ];
+  buildInputs = [libpq];
 
   postPatch = ''
     substituteInPlace bundle/nginx-${nginxVersion}/src/http/ngx_http_core_module.c \
@@ -49,7 +46,7 @@ callPackage ../nginx/generic.nix args rec {
     patchShebangs configure bundle/
   '';
 
-  configureFlags = lib.optional withPostgres [ "--with-http_postgres_module" ];
+  configureFlags = lib.optional withPostgres ["--with-http_postgres_module"];
 
   postInstall = ''
     ln -s $out/luajit/bin/luajit-2.1.ROLLING $out/bin/luajit-openresty

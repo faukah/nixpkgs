@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kamilalisp";
   version = "0.3.0.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -pv $out/share/java $out/bin
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "kamilalisp";
     license = lib.licenses.gpl3Plus;
     inherit (jre.meta) platforms;
-    maintainers = with lib.maintainers; [ cafkafk ];
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    maintainers = with lib.maintainers; [cafkafk];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
   };
 }

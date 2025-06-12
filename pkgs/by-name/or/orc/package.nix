@@ -8,22 +8,22 @@
   docbook-xsl-nons,
   gtk-doc ? null,
   buildDevDoc ? gtk-doc != null,
-
   # for passthru.tests
   gnuradio,
   gst_all_1,
   qt6,
   vips,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "orc";
   version = "0.4.41";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional buildDevDoc "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional buildDevDoc "devdoc";
   outputBin = "dev"; # compilation tools
 
   src = fetchurl {
@@ -77,6 +77,6 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
     ];
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

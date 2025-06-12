@@ -4,7 +4,6 @@
   rustPlatform,
   withCitation ? true,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "simple-completion-language-server";
   version = "0-unstable-2025-01-31";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-L0Xa+B5hMkVKdOD0YAyGErbgAY68CHzzeP0CLew0BMs=";
 
-  buildFeatures = lib.optional withCitation [ "citation" ];
+  buildFeatures = lib.optional withCitation ["citation"];
 
   meta = {
     description = "Language server to enable word completion and snippets for Helix editor";
     homepage = "https://github.com/estin/simple-completion-language-server";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.kpbaks ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.kpbaks];
     mainProgram = "simple-completion-language-server";
     platforms = lib.platforms.all;
   };

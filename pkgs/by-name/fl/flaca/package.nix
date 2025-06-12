@@ -4,7 +4,6 @@
   rustPlatform,
   fetchurl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flaca";
   version = "3.3.2";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ln -s ${finalAttrs.lockFile} ${finalAttrs.src.name}/Cargo.lock
   '';
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-i4eYyS3s7q/1PaqwawpWeDbUHUGEvIfN65xfvpLkOpY=";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     longDescription = "A CLI tool for x86-64 Linux machines that simplifies the task of maximally, losslessly compressing JPEG and PNG images for use in production web environments";
     homepage = "https://github.com/Blobfolio/flaca";
     changelog = "https://github.com/Blobfolio/flaca/releases/tag/v${finalAttrs.version}";
-    maintainers = with maintainers; [ zzzsy ];
+    maintainers = with maintainers; [zzzsy];
     platforms = platforms.linux;
     license = licenses.wtfpl;
     mainProgram = "flaca";

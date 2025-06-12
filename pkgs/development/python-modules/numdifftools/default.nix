@@ -6,7 +6,6 @@
   pythonOlder,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "numdifftools";
   version = "0.9.41";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
       --replace "statsmodels>=0.6" ""
   '';
 
-  pythonImportsCheck = [ "numdifftools" ];
+  pythonImportsCheck = ["numdifftools"];
 
   meta = with lib; {
     description = "Library to solve automatic numerical differentiation problems in one or more variables";
     homepage = "https://github.com/pbrod/numdifftools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

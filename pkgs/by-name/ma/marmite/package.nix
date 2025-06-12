@@ -7,7 +7,6 @@
   stdenv,
   darwin,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "marmite";
   version = "0.2.5";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     description = "Static Site Generator for Blogs";
     homepage = "https://github.com/rochacbruno/marmite";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     mainProgram = "marmite";
   };
 }

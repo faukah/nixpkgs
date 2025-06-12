@@ -24,7 +24,6 @@
   testtools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "keystoneauth1";
   version = "5.11.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-mvahZfoHR+1zn/w0sRXqDXz8VjDuEpSK+U8D7Q+ciTQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -54,22 +53,24 @@ buildPythonPackage rec {
       betamax
       pyyaml
     ];
-    kerberos = [ requests-kerberos ];
-    oauth1 = [ oauthlib ];
-    saml2 = [ lxml ];
+    kerberos = [requests-kerberos];
+    oauth1 = [oauthlib];
+    saml2 = [lxml];
   };
 
-  nativeCheckInputs = [
-    fixtures
-    hacking
-    oslo-config
-    oslo-utils
-    pycodestyle
-    requests-mock
-    stestr
-    testresources
-    testtools
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      fixtures
+      hacking
+      oslo-config
+      oslo-utils
+      pycodestyle
+      requests-mock
+      stestr
+      testresources
+      testtools
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # test_keystoneauth_betamax_fixture is incompatible with urllib3 2.0.0
   # https://bugs.launchpad.net/keystoneauth/+bug/2020112
@@ -78,12 +79,12 @@ buildPythonPackage rec {
       -E "keystoneauth1.tests.unit.test_betamax_fixture.TestBetamaxFixture.test_keystoneauth_betamax_fixture"
   '';
 
-  pythonImportsCheck = [ "keystoneauth1" ];
+  pythonImportsCheck = ["keystoneauth1"];
 
   meta = with lib; {
     description = "Authentication Library for OpenStack Identity";
     homepage = "https://github.com/openstack/keystoneauth";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

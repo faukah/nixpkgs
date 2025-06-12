@@ -3,18 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib.trivial) isFloat isInt isBool;
   inherit (lib.modules) mkIf;
-  inherit (lib.options)
+  inherit
+    (lib.options)
     literalExpression
     mkOption
     mkPackageOption
     mkEnableOption
     ;
-  inherit (lib.strings)
+  inherit
+    (lib.strings)
     isString
     escapeShellArg
     escapeShellArgs
@@ -29,7 +29,8 @@ let
     match
     ;
   inherit (lib.lists) all isList flatten;
-  inherit (lib.attrsets)
+  inherit
+    (lib.attrsets)
     attrsToList
     filterAttrs
     optionalAttrs
@@ -41,11 +42,9 @@ let
   inherit (lib) types;
 
   # Deeply checks types for a given type function. Calls `override` with type and value.
-  deep =
-    func: override: type:
-    let
-      prev = func type;
-    in
+  deep = func: override: type: let
+    prev = func type;
+  in
     prev
     // {
       check = value: prev.check value && (override type value);
@@ -58,8 +57,7 @@ let
   attrsOf' = deep types.attrsOf (type: value: all (item: type.check item.value) (attrsToList value));
 
   # Kismet config atoms.
-  atom =
-    with types;
+  atom = with types;
     oneOf [
       number
       bool
@@ -78,20 +76,18 @@ let
   headerKvPairs = attrsOf' (listOf' (attrsOf' atomOrList));
 
   # Toplevel config type.
-  topLevel =
-    let
-      topLevel' =
-        with types;
-        oneOf [
-          headerKvPairs
-          headerKvPair
-          kvPairs
-          kvPair
-          listOfAtom
-          lists
-          atom
-        ];
-    in
+  topLevel = let
+    topLevel' = with types;
+      oneOf [
+        headerKvPairs
+        headerKvPair
+        kvPairs
+        kvPair
+        listOfAtom
+        lists
+        atom
+      ];
+  in
     topLevel'
     // {
       description = "Kismet config stanza";
@@ -101,39 +97,31 @@ let
   invalid = atom: throw "invalid value '${toString atom}' of type '${typeOf atom}'";
 
   # Converts an atom.
-  mkAtom =
-    atom:
-    if isString atom then
-      if hasInfix "\"" atom || hasInfix "," atom then
-        ''"${replaceStrings [ ''"'' ] [ ''\"'' ] atom}"''
-      else
-        atom
-    else if isFloat atom || isInt atom || isBool atom then
-      toString atom
-    else
-      invalid atom;
+  mkAtom = atom:
+    if isString atom
+    then
+      if hasInfix "\"" atom || hasInfix "," atom
+      then ''"${replaceStrings [''"''] [''\"''] atom}"''
+      else atom
+    else if isFloat atom || isInt atom || isBool atom
+    then toString atom
+    else invalid atom;
 
   # Converts an inline atom or list to a string.
-  mkAtomOrListInline =
-    atomOrList:
-    if isList atomOrList then
-      mkAtom "${concatMapStringsSep "," mkAtom atomOrList}"
-    else
-      mkAtom atomOrList;
+  mkAtomOrListInline = atomOrList:
+    if isList atomOrList
+    then mkAtom "${concatMapStringsSep "," mkAtom atomOrList}"
+    else mkAtom atomOrList;
 
   # Converts an out of line atom or list to a string.
-  mkAtomOrList =
-    atomOrList:
-    if isList atomOrList then
-      "${concatMapStringsSep "," mkAtomOrListInline atomOrList}"
-    else
-      mkAtom atomOrList;
+  mkAtomOrList = atomOrList:
+    if isList atomOrList
+    then "${concatMapStringsSep "," mkAtomOrListInline atomOrList}"
+    else mkAtom atomOrList;
 
   # Throws if the string matches the given regex.
-  deny =
-    regex: str:
-    assert (match regex str) == null;
-    str;
+  deny = regex: str:
+    assert (match regex str) == null; str;
 
   # Converts a set of k/v pairs.
   convertKv = concatMapAttrsStringSep "," (
@@ -145,47 +133,47 @@ let
 
   # Converts the entire config.
   convertConfig = mapAttrs' (
-    name: value:
-    let
+    name: value: let
       # Convert foo' into 'foo+' for support for '+=' syntax.
-      newName = if hasSuffix "'" name then substring 0 (stringLength name - 1) name + "+" else name;
+      newName =
+        if hasSuffix "'" name
+        then substring 0 (stringLength name - 1) name + "+"
+        else name;
 
       # Get the stringified value.
       newValue =
-        if headerKvPairs.check value then
+        if headerKvPairs.check value
+        then
           flatten (
             mapAttrsToList (header: values: (map (value: convertKvWithHeader header value) values)) value
           )
-        else if headerKvPair.check value then
-          mapAttrsToList convertKvWithHeader value
-        else if kvPairs.check value then
-          map convertKv value
-        else if kvPair.check value then
-          convertKv value
-        else if listOfAtom.check value then
-          mkAtomOrList value
-        else if lists.check value then
-          map mkAtomOrList value
-        else if atom.check value then
-          mkAtom value
-        else
-          invalid value;
+        else if headerKvPair.check value
+        then mapAttrsToList convertKvWithHeader value
+        else if kvPairs.check value
+        then map convertKv value
+        else if kvPair.check value
+        then convertKv value
+        else if listOfAtom.check value
+        then mkAtomOrList value
+        else if lists.check value
+        then map mkAtomOrList value
+        else if atom.check value
+        then mkAtom value
+        else invalid value;
     in
-    nameValuePair newName newValue
+      nameValuePair newName newValue
   );
 
-  mkKismetConf =
-    options:
-    (toKeyValue { listsAsDuplicateKeys = true; }) (
+  mkKismetConf = options:
+    (toKeyValue {listsAsDuplicateKeys = true;}) (
       filterAttrs (_: value: value != null) (convertConfig options)
     );
 
   cfg = config.services.kismet;
-in
-{
+in {
   options.services.kismet = {
     enable = mkEnableOption "kismet";
-    package = mkPackageOption pkgs "kismet" { };
+    package = mkPackageOption pkgs "kismet" {};
     user = mkOption {
       description = "The user to run Kismet as.";
       type = types.str;
@@ -209,7 +197,7 @@ in
     logTypes = mkOption {
       description = "The log types.";
       type = with types; listOf str;
-      default = [ "kismet" ];
+      default = ["kismet"];
     };
     dataDir = mkOption {
       description = "The Kismet data directory.";
@@ -238,7 +226,7 @@ in
         Options for Kismet. See:
         https://www.kismetwireless.net/docs/readme/configuring/configfiles/
       '';
-      default = { };
+      default = {};
       type = with types; attrsOf topLevel;
       example = literalExpression ''
         {
@@ -311,24 +299,23 @@ in
     };
   };
 
-  config =
-    let
-      configDir = "${cfg.dataDir}/.kismet";
-      settings =
-        cfg.settings
-        // {
-          server_name = cfg.serverName;
-          server_description = cfg.serverDescription;
-          logging_enabled = cfg.logTypes != [ ];
-          log_types = cfg.logTypes;
-        }
-        // optionalAttrs cfg.httpd.enable {
-          httpd_bind_address = cfg.httpd.address;
-          httpd_port = cfg.httpd.port;
-          httpd_auth_file = "${configDir}/kismet_httpd.conf";
-          httpd_home = "${cfg.package}/share/kismet/httpd";
-        };
-    in
+  config = let
+    configDir = "${cfg.dataDir}/.kismet";
+    settings =
+      cfg.settings
+      // {
+        server_name = cfg.serverName;
+        server_description = cfg.serverDescription;
+        logging_enabled = cfg.logTypes != [];
+        log_types = cfg.logTypes;
+      }
+      // optionalAttrs cfg.httpd.enable {
+        httpd_bind_address = cfg.httpd.address;
+        httpd_port = cfg.httpd.port;
+        httpd_auth_file = "${configDir}/kismet_httpd.conf";
+        httpd_home = "${cfg.package}/share/kismet/httpd";
+      };
+  in
     mkIf cfg.enable {
       systemd.tmpfiles.settings = {
         "10-kismet" = {
@@ -346,107 +333,103 @@ in
           };
         };
       };
-      systemd.services.kismet =
-        let
-          kismetConf = pkgs.writeText "kismet.conf" ''
-            ${mkKismetConf settings}
-            ${cfg.extraConfig}
-          '';
-        in
-        {
-          description = "Kismet monitoring service";
-          wants = [ "basic.target" ];
-          after = [
-            "basic.target"
-            "network.target"
+      systemd.services.kismet = let
+        kismetConf = pkgs.writeText "kismet.conf" ''
+          ${mkKismetConf settings}
+          ${cfg.extraConfig}
+        '';
+      in {
+        description = "Kismet monitoring service";
+        wants = ["basic.target"];
+        after = [
+          "basic.target"
+          "network.target"
+        ];
+        wantedBy = ["multi-user.target"];
+        serviceConfig = let
+          capabilities = [
+            "CAP_NET_ADMIN"
+            "CAP_NET_RAW"
           ];
-          wantedBy = [ "multi-user.target" ];
-          serviceConfig =
-            let
-              capabilities = [
-                "CAP_NET_ADMIN"
-                "CAP_NET_RAW"
-              ];
-              kismetPreStart = pkgs.writeShellScript "kismet-pre-start" ''
-                owner=${escapeShellArg "${cfg.user}:${cfg.group}"}
-                mkdir -p ~/.kismet
+          kismetPreStart = pkgs.writeShellScript "kismet-pre-start" ''
+            owner=${escapeShellArg "${cfg.user}:${cfg.group}"}
+            mkdir -p ~/.kismet
 
-                # Ensure permissions on directories Kismet uses.
-                chown "$owner" ~/ ~/.kismet
-                cd ~/.kismet
+            # Ensure permissions on directories Kismet uses.
+            chown "$owner" ~/ ~/.kismet
+            cd ~/.kismet
 
-                package=${cfg.package}
-                if [ -d "$package/etc" ]; then
-                  for file in "$package/etc"/*.conf; do
-                    # Symlink the config files if they exist or are already a link.
-                    base="''${file##*/}"
-                    if [ ! -f "$base" ] || [ -L "$base" ]; then
-                      ln -sf "$file" "$base"
-                    fi
-                  done
+            package=${cfg.package}
+            if [ -d "$package/etc" ]; then
+              for file in "$package/etc"/*.conf; do
+                # Symlink the config files if they exist or are already a link.
+                base="''${file##*/}"
+                if [ ! -f "$base" ] || [ -L "$base" ]; then
+                  ln -sf "$file" "$base"
                 fi
+              done
+            fi
 
-                for file in kismet_httpd.conf; do
-                  # Un-symlink these files.
-                  if [ -L "$file" ]; then
-                    cp "$file" ".$file"
-                    rm -f "$file"
-                    mv ".$file" "$file"
-                    chmod 0640 "$file"
-                    chown "$owner" "$file"
-                  fi
-                done
+            for file in kismet_httpd.conf; do
+              # Un-symlink these files.
+              if [ -L "$file" ]; then
+                cp "$file" ".$file"
+                rm -f "$file"
+                mv ".$file" "$file"
+                chmod 0640 "$file"
+                chown "$owner" "$file"
+              fi
+            done
 
-                # Link the site config.
-                ln -sf ${kismetConf} kismet_site.conf
-              '';
-            in
-            {
-              Type = "simple";
-              ExecStart = escapeShellArgs [
-                "${cfg.package}/bin/kismet"
-                "--homedir"
-                cfg.dataDir
-                "--confdir"
-                configDir
-                "--datadir"
-                "${cfg.package}/share"
-                "--no-ncurses"
-                "-f"
-                "${configDir}/kismet.conf"
-              ];
-              WorkingDirectory = cfg.dataDir;
-              ExecStartPre = "+${kismetPreStart}";
-              Restart = "always";
-              KillMode = "control-group";
-              CapabilityBoundingSet = capabilities;
-              AmbientCapabilities = capabilities;
-              LockPersonality = true;
-              NoNewPrivileges = true;
-              PrivateDevices = false;
-              PrivateTmp = true;
-              PrivateUsers = false;
-              ProtectClock = true;
-              ProtectControlGroups = true;
-              ProtectHome = true;
-              ProtectHostname = true;
-              ProtectKernelLogs = true;
-              ProtectKernelModules = true;
-              ProtectKernelTunables = true;
-              ProtectProc = "invisible";
-              ProtectSystem = "full";
-              RestrictNamespaces = true;
-              RestrictSUIDSGID = true;
-              User = cfg.user;
-              Group = cfg.group;
-              UMask = "0007";
-              TimeoutStopSec = 30;
-            };
-
-          # Allow it to restart if the wifi interface is not up
-          unitConfig.StartLimitIntervalSec = 5;
+            # Link the site config.
+            ln -sf ${kismetConf} kismet_site.conf
+          '';
+        in {
+          Type = "simple";
+          ExecStart = escapeShellArgs [
+            "${cfg.package}/bin/kismet"
+            "--homedir"
+            cfg.dataDir
+            "--confdir"
+            configDir
+            "--datadir"
+            "${cfg.package}/share"
+            "--no-ncurses"
+            "-f"
+            "${configDir}/kismet.conf"
+          ];
+          WorkingDirectory = cfg.dataDir;
+          ExecStartPre = "+${kismetPreStart}";
+          Restart = "always";
+          KillMode = "control-group";
+          CapabilityBoundingSet = capabilities;
+          AmbientCapabilities = capabilities;
+          LockPersonality = true;
+          NoNewPrivileges = true;
+          PrivateDevices = false;
+          PrivateTmp = true;
+          PrivateUsers = false;
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = "full";
+          RestrictNamespaces = true;
+          RestrictSUIDSGID = true;
+          User = cfg.user;
+          Group = cfg.group;
+          UMask = "0007";
+          TimeoutStopSec = 30;
         };
-      users.groups.${cfg.group} = { };
+
+        # Allow it to restart if the wifi interface is not up
+        unitConfig.StartLimitIntervalSec = 5;
+      };
+      users.groups.${cfg.group} = {};
       users.users.${cfg.user} = {
         inherit (cfg) group;
         description = "User for running Kismet";
@@ -455,5 +438,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ numinit ];
+  meta.maintainers = with lib.maintainers; [numinit];
 }

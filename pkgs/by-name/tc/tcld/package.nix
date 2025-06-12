@@ -7,7 +7,6 @@
   nix-update-script,
   ...
 }:
-
 buildGoModule (finalAttrs: {
   pname = "tcld";
   version = "0.40.0";
@@ -24,24 +23,24 @@ buildGoModule (finalAttrs: {
   ];
 
   # FIXME: Remove after https://github.com/temporalio/tcld/pull/447 lands.
-  patches = [ ./compgen.patch ];
+  patches = [./compgen.patch];
 
   # NOTE: Some tests appear to require (local only?) network access, which
   # doesn't work in the sandbox.
   __darwinAllowLocalNetworking = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenvNoCC.buildPlatform.canExecute stdenvNoCC.hostPlatform) ''
     installShellCompletion --cmd tcld --bash ${./bash_autocomplete}
     installShellCompletion --cmd tcld --zsh ${./zsh_autocomplete}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Temporal cloud cli";
     homepage = "https://www.github.com/temporalio/tcld";
     license = lib.licenses.mit;
-    teams = [ lib.teams.mercury ];
+    teams = [lib.teams.mercury];
   };
 })

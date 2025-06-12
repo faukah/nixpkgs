@@ -6,7 +6,6 @@
   domain-local-timeout,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "kcas";
   version = "0.6.1";
@@ -22,12 +21,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     homepage = "https://github.com/ocaml-multicore/kcas";
     description = "STM based on lock-free MCAS";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

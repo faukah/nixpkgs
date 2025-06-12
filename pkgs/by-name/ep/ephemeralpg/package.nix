@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     url = "https://eradman.com/ephemeralpg/code/${pname}-${version}.tar.gz";
     hash = "sha256-IwAIJFW/ahDXGgINi4N9mG3XKw74JXK6+SLxGMZ8tS0=";
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     mkdir -p $out
     PREFIX=$out make install

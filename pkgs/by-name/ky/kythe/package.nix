@@ -5,7 +5,6 @@
   fetchurl,
   ncurses5,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.0.30";
   pname = "kythe";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "12bwhqkxfbkh3mm4wfvqflwhmbzpmlhlfykdpy6h7p9ih9ky8w6r";
   };
 
-  buildInputs = [ binutils ];
+  buildInputs = [binutils];
 
   doCheck = false;
 
@@ -29,11 +28,11 @@ stdenv.mkDerivation rec {
       echo "Patching:" $exe
       patchelf --interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $exe
       patchelf --set-rpath "${
-        lib.makeLibraryPath [
-          stdenv.cc.cc
-          ncurses5
-        ]
-      }" $exe
+      lib.makeLibraryPath [
+        stdenv.cc.cc
+        ncurses5
+      ]
+    }" $exe
     done
     cd ../
     cp -R ./ $out
@@ -51,9 +50,9 @@ stdenv.mkDerivation rec {
         analyses, editors, code-review applications, and more — to share
         information with each other smoothly.  '';
     homepage = "https://kythe.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mpickering ];
+    maintainers = [maintainers.mpickering];
   };
 }

@@ -13,7 +13,6 @@
   pythonOlder,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "roombapy";
   version = "1.9.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "orjson" ];
+  pythonRelaxDeps = ["orjson"];
 
   propagatedBuildInputs = [
     mashumaro
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     "test_roomba_connect"
   ];
 
-  pythonImportsCheck = [ "roombapy" ];
+  pythonImportsCheck = ["roombapy"];
 
   meta = with lib; {
     description = "Python program and library to control Wi-Fi enabled iRobot Roombas";
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pschmitt/roombapy";
     changelog = "https://github.com/pschmitt/roombapy/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

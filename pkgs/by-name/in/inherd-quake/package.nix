@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inherd-quake";
   version = "0.5.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-klxigm3RpTfwbENva2WmOPaiJEV2yujY323xRkAML0I=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Knowledge management meta-framework for geeks";
     homepage = "https://github.com/phodal/quake";
     license = licenses.mit;
-    maintainers = [ maintainers.elliot ];
+    maintainers = [maintainers.elliot];
     mainProgram = "quake";
   };
 }

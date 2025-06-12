@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "graphqlmaker";
   version = "0-unstable-2024-05-18";
@@ -27,7 +26,7 @@ buildGoModule {
     homepage = "https://github.com/xssdoctor/graphqlMaker";
     # https://github.com/xssdoctor/graphqlMaker/issues/1
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "graphqlMaker";
   };
 }

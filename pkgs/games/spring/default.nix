@@ -27,7 +27,6 @@
   zlib,
   withAI ? true, # support for AI Interfaces and Skirmish AIs
 }:
-
 stdenv.mkDerivation rec {
   pname = "spring";
   version = "106.0";
@@ -89,7 +88,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/bin/spring" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ stdenv.cc.cc ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [stdenv.cc.cc]}"
   '';
 
   meta = with lib; {
@@ -100,7 +99,7 @@ stdenv.mkDerivation rec {
       qknight
       sorki
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     broken = true;
   };
 }

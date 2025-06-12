@@ -7,7 +7,6 @@
   glib,
   json-glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aseq2json";
   version = "unstable-2018-04-28";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
   sourceRoot = "${finalAttrs.src.name}/aseq2json";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     glib
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "aseq2json";
     homepage = "https://github.com/google/midi-dump-tools";
     license = licenses.asl20;
-    maintainers = [ maintainers.queezle ];
+    maintainers = [maintainers.queezle];
     platforms = platforms.linux;
   };
 })

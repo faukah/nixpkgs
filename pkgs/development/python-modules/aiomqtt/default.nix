@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiomqtt";
   version = "2.4.0";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-b7kCLpJzZGx8YpC0M4O4fqFh3xP73CXFWbKaggD6bOI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ paho-mqtt ];
+  dependencies = [paho-mqtt];
 
   nativeCheckInputs = [
     anyio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiomqtt" ];
+  pythonImportsCheck = ["aiomqtt"];
 
   pytestFlagsArray = [
     "-m"
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sbtinstruments/aiomqtt";
     changelog = "https://github.com/sbtinstruments/aiomqtt/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

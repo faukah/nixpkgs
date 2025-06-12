@@ -8,7 +8,6 @@
   pyasyncore,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pymilter";
   version = "1.0.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ libmilter ];
+  buildInputs = [libmilter];
 
   nativeCheckInputs = [
     pyasyncore
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     rm testpolicy.py
   '';
 
-  pythonImportsCheck = [ "Milter" ];
+  pythonImportsCheck = ["Milter"];
 
   meta = with lib; {
     homepage = "http://bmsi.com/python/milter.html";
     description = "Python bindings for libmilter api";
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
     license = licenses.gpl2;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "nova-password";
   version = "0.5.9";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/sapcc/nova-password";
     license = lib.licenses.asl20;
     mainProgram = "nova-password";
-    maintainers = with lib.maintainers; [ vinetos ];
+    maintainers = with lib.maintainers; [vinetos];
     platforms = lib.platforms.all;
   };
 }

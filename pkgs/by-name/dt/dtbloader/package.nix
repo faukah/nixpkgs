@@ -5,7 +5,6 @@
   llvmPackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dtbloader";
   version = "1.4.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   # Disable hardening which adds incompatible flags like -fPIC
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   enableParallelBuilding = true;
 
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
       # EFI file only works on aarch64 platforms
       "aarch64-linux"
     ];
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
   };
 })

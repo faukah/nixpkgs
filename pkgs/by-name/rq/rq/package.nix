@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rq";
   version = "1.0.4";
@@ -40,14 +39,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Tool for doing record analysis and transformation";
     mainProgram = "rq";
     homepage = "https://github.com/dflemstr/rq";
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     maintainers = with lib.maintainers; [
       aristid
       Br1ght0ne

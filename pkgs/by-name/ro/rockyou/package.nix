@@ -15,7 +15,9 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = seclists.meta // {
-    description = "Famous wordlist often used for brute force attacks";
-  };
+  meta =
+    seclists.meta
+    // {
+      description = "Famous wordlist often used for brute force attacks";
+    };
 }

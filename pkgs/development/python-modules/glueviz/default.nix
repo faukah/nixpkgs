@@ -23,7 +23,6 @@
   shapely,
   xlrd,
 }:
-
 buildPythonPackage rec {
   pname = "glueviz";
   version = "1.22.2";
@@ -38,9 +37,9 @@ buildPythonPackage rec {
     hash = "sha256-5YwZxVer3icA/7YmUIXTuyIlZYKrlFn5+4OYMbfvIlU=";
   };
 
-  buildInputs = [ pyqt-builder ];
+  buildInputs = [pyqt-builder];
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+  nativeBuildInputs = [qt6.wrapQtAppsHook];
 
   build-system = [
     setuptools
@@ -71,9 +70,9 @@ buildPythonPackage rec {
   # qt.qpa.plugin: Could not load the Qt platform plugin "xcb" in "" even though it was found.
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "glue" ];
+  pythonImportsCheck = ["glue"];
 
   dontWrapQtApps = true;
 
@@ -85,6 +84,6 @@ buildPythonPackage rec {
     homepage = "https://glueviz.org";
     description = "Linked Data Visualizations Across Multiple Files";
     license = licenses.bsd3; # https://github.com/glue-viz/glue/blob/main/LICENSE
-    maintainers = with maintainers; [ ifurther ];
+    maintainers = with maintainers; [ifurther];
   };
 }

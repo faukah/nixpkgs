@@ -14,7 +14,6 @@
   python3,
   testers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vapoursynth";
   version = "72";
@@ -35,10 +34,11 @@ stdenv.mkDerivation rec {
     zimg
     libass
     (python3.withPackages (
-      ps: with ps; [
-        sphinx
-        cython
-      ]
+      ps:
+        with ps; [
+          sphinx
+          cython
+        ]
     ))
   ];
 

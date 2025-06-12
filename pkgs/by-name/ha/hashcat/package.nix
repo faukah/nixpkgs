@@ -3,7 +3,7 @@
   stdenv,
   addDriverRunpath,
   config,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudaSupport ? config.cudaSupport,
   fetchurl,
   makeWrapper,
@@ -14,7 +14,6 @@
   zlib,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashcat";
   version = "6.2.6";
@@ -63,7 +62,11 @@ stdenv.mkDerivation rec {
       "USE_SYSTEM_ZLIB=1"
     ]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform == stdenv.buildPlatform) [
-      "IS_APPLE_SILICON='${if stdenv.hostPlatform.isAarch64 then "1" else "0"}'"
+      "IS_APPLE_SILICON='${
+        if stdenv.hostPlatform.isAarch64
+        then "1"
+        else "0"
+      }'"
     ];
 
   enableParallelBuilding = true;
@@ -76,17 +79,16 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  postFixup =
-    let
-      LD_LIBRARY_PATH = builtins.concatStringsSep ":" (
-        [
-          "${ocl-icd}/lib"
-        ]
-        ++ lib.optionals cudaSupport [
-          "${cudaPackages.cudatoolkit}/lib"
-        ]
-      );
-    in
+  postFixup = let
+    LD_LIBRARY_PATH = builtins.concatStringsSep ":" (
+      [
+        "${ocl-icd}/lib"
+      ]
+      ++ lib.optionals cudaSupport [
+        "${cudaPackages.cudatoolkit}/lib"
+      ]
+    );
+  in
     ''
       wrapProgram $out/bin/hashcat \
         --prefix LD_LIBRARY_PATH : ${lib.escapeShellArg LD_LIBRARY_PATH}

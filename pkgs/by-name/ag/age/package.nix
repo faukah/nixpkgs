@@ -13,7 +13,6 @@
   makeWrapper,
   runCommand,
 }:
-
 buildGoModule (final: {
   pname = "age";
   version = "1.2.1";
@@ -71,16 +70,15 @@ buildGoModule (final: {
   };
 
   # convenience function for wrapping sops with plugins
-  passthru.withPlugins =
-    filter:
+  passthru.withPlugins = filter:
     runCommand "age-${final.version}-with-plugins"
-      {
-        nativeBuildInputs = [ makeWrapper ];
-      }
-      ''
-        makeWrapper ${lib.getBin final.finalPackage}/bin/age $out/bin/age \
-          --prefix PATH : "${lib.makeBinPath (filter final.passthru.plugins)}"
-      '';
+    {
+      nativeBuildInputs = [makeWrapper];
+    }
+    ''
+      makeWrapper ${lib.getBin final.finalPackage}/bin/age $out/bin/age \
+        --prefix PATH : "${lib.makeBinPath (filter final.passthru.plugins)}"
+    '';
 
   meta = with lib; {
     changelog = "https://github.com/FiloSottile/age/releases/tag/v${final.version}";
@@ -88,6 +86,6 @@ buildGoModule (final: {
     description = "Modern encryption tool with small explicit keys";
     license = licenses.bsd3;
     mainProgram = "age";
-    maintainers = with maintainers; [ tazjin ];
+    maintainers = with maintainers; [tazjin];
   };
 })

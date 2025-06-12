@@ -41,11 +41,11 @@ rustPlatform.buildRustPackage rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/ttysvr \
       --add-rpath ${
-        lib.makeLibraryPath [
-          libGL
-          vulkan-loader
-        ]
-      }
+      lib.makeLibraryPath [
+        libGL
+        vulkan-loader
+      ]
+    }
   '';
 
   nativeInstallCheckInputs = [
@@ -55,7 +55,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ griffi-gh ];
+    maintainers = with lib.maintainers; [griffi-gh];
     mainProgram = "ttysvr";
     platforms = with lib.platforms; linux;
   };

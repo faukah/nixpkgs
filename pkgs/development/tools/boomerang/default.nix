@@ -9,7 +9,6 @@
   bison,
   flex,
 }:
-
 mkDerivation rec {
   pname = "boomerang";
   version = "0.5.2";
@@ -50,6 +49,6 @@ mkDerivation rec {
     homepage = "https://github.com/BoomerangDecompiler/boomerang";
     license = licenses.bsd3;
     description = "General, open source, retargetable decompiler";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -1,13 +1,10 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "whisparr";
-  meta.maintainers = [ lib.maintainers.paveloom ];
+  meta.maintainers = [lib.maintainers.paveloom];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.whisparr.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.whisparr.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_unit("whisparr.service")

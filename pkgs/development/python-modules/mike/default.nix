@@ -17,7 +17,6 @@
   shtab,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "mike";
   version = "2.1.3";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     verspec
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -68,14 +67,14 @@ buildPythonPackage rec {
         --replace-fail "/home/nonexist" "$(mktemp -d)"
     '';
 
-  pythonImportsCheck = [ "mike" ];
+  pythonImportsCheck = ["mike"];
 
   meta = {
     description = "Manage multiple versions of your MkDocs-powered documentation via Git";
     homepage = "https://github.com/jimporter/mike";
     changelog = "https://github.com/jimporter/mike/blob/v${version}/CHANGES.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ marcel ];
+    maintainers = with lib.maintainers; [marcel];
     mainProgram = "mike";
   };
 }

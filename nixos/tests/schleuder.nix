@@ -2,12 +2,10 @@ let
   certs = import ./common/acme/server/snakeoil-certs.nix;
   domain = certs.domain;
 in
-import ./make-test-python.nix {
-  name = "schleuder";
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  import ./make-test-python.nix {
+    name = "schleuder";
+    nodes.machine = {pkgs, ...}: {
+      imports = [./common/user-account.nix];
       services.postfix = {
         enable = true;
         enableSubmission = true;
@@ -15,7 +13,7 @@ import ./make-test-python.nix {
         sslCert = "${certs.${domain}.cert}";
         sslKey = "${certs.${domain}.key}";
         inherit domain;
-        destination = [ domain ];
+        destination = [domain];
         localRecipients = [
           "root"
           "alice"
@@ -32,7 +30,7 @@ import ./make-test-python.nix {
             valid_api_keys:
               - fnord
         '';
-        lists = [ "security@${domain}" ];
+        lists = ["security@${domain}"];
         settings.api = {
           tls_cert_file = "${certs.${domain}.cert}";
           tls_key_file = "${certs.${domain}.key}";
@@ -83,7 +81,7 @@ import ./make-test-python.nix {
         # pkgs.vim pkgs.openssl pkgs.sqliteinteractive
       ];
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+      security.pki.certificateFiles = [certs.ca.cert];
 
       # Since we don't have internet here, use dnsmasq to provide MX records from /etc/hosts
       services.dnsmasq = {
@@ -107,34 +105,32 @@ import ./make-test-python.nix {
       # Refs:
       # https://0xacab.org/schleuder/schleuder-cli/-/issues/16
       # https://0xacab.org/schleuder/schleuder-cli/-/blob/f8895b9f47083d8c7b99a2797c93f170f3c6a3c0/lib/schleuder-cli/helper.rb#L230-238
-      systemd.tmpfiles.rules =
-        let
-          cliconfig =
-            pkgs.runCommand "schleuder-cli.yml"
-              {
-                nativeBuildInputs = [
-                  pkgs.jq
-                  pkgs.openssl
-                ];
-              }
-              ''
-                fp=$(openssl x509 -in ${certs.${domain}.cert} -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
-                cat > $out <<EOF
-                host: localhost
-                port: 4443
-                tls_fingerprint: "$fp"
-                api_key: fnord
-                EOF
-              '';
-        in
-        [
-          "L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}"
-        ];
+      systemd.tmpfiles.rules = let
+        cliconfig =
+          pkgs.runCommand "schleuder-cli.yml"
+          {
+            nativeBuildInputs = [
+              pkgs.jq
+              pkgs.openssl
+            ];
+          }
+          ''
+            fp=$(openssl x509 -in ${certs.${domain}.cert} -noout -fingerprint -sha256 | cut -d = -f 2 | tr -d : | tr 'A-Z' 'a-z')
+            cat > $out <<EOF
+            host: localhost
+            port: 4443
+            tls_fingerprint: "$fp"
+            api_key: fnord
+            EOF
+          '';
+      in [
+        "L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}"
+      ];
     };
 
-  testScript = ''
-    machine.wait_for_unit("multi-user.target")
-    machine.wait_until_succeeds("nc -z localhost 4443")
-    machine.succeed("do-test")
-  '';
-}
+    testScript = ''
+      machine.wait_for_unit("multi-user.target")
+      machine.wait_until_succeeds("nc -z localhost 4443")
+      machine.succeed("do-test")
+    '';
+  }

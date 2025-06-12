@@ -8,7 +8,6 @@
   zlib,
   gitMinimal,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-dive";
   version = "0.1.6";
@@ -64,7 +63,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "git-dive";
   };
 }

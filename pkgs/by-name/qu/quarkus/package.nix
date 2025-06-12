@@ -5,7 +5,6 @@
   makeWrapper,
   jdk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "quarkus-cli";
   version = "3.22.3";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-kUIjIsVK7hn2tNOpuqfNdwuX1ZQewcY8SItAknG7cRk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -40,9 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://quarkus.io";
     changelog = "https://github.com/quarkusio/quarkus/releases/tag/${finalAttrs.version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.vinetos ];
+    maintainers = [maintainers.vinetos];
     platforms = platforms.all;
     mainProgram = "quarkus";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 })

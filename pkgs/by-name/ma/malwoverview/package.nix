@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "malwoverview";
   version = "6.1.1";
@@ -48,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/alexandreborges/malwoverview";
     changelog = "https://github.com/alexandreborges/malwoverview/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "malwoverview.py";
   };
 }

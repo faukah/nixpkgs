@@ -12,7 +12,6 @@
   requests,
   openssl,
 }:
-
 buildPythonPackage rec {
   pname = "proton-client";
   version = "0.7.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   patches = [
     # Patches library by fixing the openssl path
@@ -43,20 +42,20 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     #ValueError: Invalid modulus
     "test_modulus_verification"
   ];
 
-  pythonImportsCheck = [ "proton" ];
+  pythonImportsCheck = ["proton"];
 
   meta = with lib; {
     description = "Python Proton client module";
     homepage = "https://github.com/ProtonMail/proton-python-client";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

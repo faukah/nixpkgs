@@ -8,7 +8,6 @@
   pytestCheckHook,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "flask-sqlalchemy-lite";
   version = "0.1.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-LpdPp5Gp74DSJqD1DJqwNeaMKdN5pEAUkxnKGYZcVis=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies =
     [
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     ++ flask.optional-dependencies.async
     ++ sqlalchemy.optional-dependencies.asyncio;
 
-  pythonImportsCheck = [ "flask_sqlalchemy_lite" ];
+  pythonImportsCheck = ["flask_sqlalchemy_lite"];
 
   nativeCheckInputs = [
     aiosqlite
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Integrate SQLAlchemy with Flask";
     homepage = "https://github.com/pallets-eco/flask-sqlalchemy-lite";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

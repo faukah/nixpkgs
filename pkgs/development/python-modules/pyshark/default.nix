@@ -13,7 +13,6 @@
   termcolor,
   wireshark-cli,
 }:
-
 buildPythonPackage rec {
   pname = "pyshark";
   version = "0.6";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   };
 
   # `stripLen` does not seem to work here
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   patches = [
     # fixes capture test
@@ -73,15 +72,15 @@ buildPythonPackage rec {
       "test_iterate_empty_psml_capture"
     ];
 
-  pythonImportsCheck = [ "pyshark" ];
+  pythonImportsCheck = ["pyshark"];
 
-  pytestFlagsArray = [ "../tests/" ];
+  pytestFlagsArray = ["../tests/"];
 
   meta = with lib; {
     description = "Python wrapper for tshark, allowing Python packet parsing using Wireshark dissectors";
     homepage = "https://github.com/KimiNewt/pyshark/";
     changelog = "https://github.com/KimiNewt/pyshark/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

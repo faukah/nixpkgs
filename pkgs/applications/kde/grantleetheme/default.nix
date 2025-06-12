@@ -12,7 +12,6 @@
   kxmlgui,
   qtbase,
 }:
-
 mkDerivation {
   pname = "grantleetheme";
   meta = {

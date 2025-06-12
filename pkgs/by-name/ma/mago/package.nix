@@ -7,7 +7,6 @@
   testers,
   mago,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mago";
   version = "0.23.0";
@@ -27,9 +26,9 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     description = "Toolchain for PHP that aims to provide a set of tools to help developers write better code";
     homepage = "https://github.com/carthage-software/mago";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     mainProgram = "mago";
   };
 }

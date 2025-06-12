@@ -21,7 +21,7 @@ maven.buildMavenPackage rec {
     hash = "sha256-2g16PJdbC4OgFzLonfZgE7LRw2dKGjLCb2AYvrr8lxA=";
   };
 
-  patches = [ ./stable-maven-plugins.patch ];
+  patches = [./stable-maven-plugins.patch];
 
   # FIXME: this hash keeps changing over time??
   mvnHash = "sha256-uFY92BFsIu9B6clwQV3l718DsBxvswANrKEBIFGNXN4=";
@@ -59,8 +59,8 @@ maven.buildMavenPackage rec {
         "Development"
         "Utility"
       ];
-      keywords = [ "PDF" ];
-      mimeTypes = [ "application/pdf" ];
+      keywords = ["PDF"];
+      mimeTypes = ["application/pdf"];
     })
   ];
 

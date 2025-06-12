@@ -108,7 +108,6 @@
   gst-plugins-bad,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-bad";
   version = "1.26.0";
@@ -284,8 +283,16 @@ stdenv.mkDerivation (finalAttrs: {
       "-Ddirectshow=disabled" # Windows-only
       "-Dqt6d3d11=disabled" # Windows-only
       "-Ddts=disabled" # required `libdca` library not packaged in nixpkgs as of writing, and marked as "BIG FAT WARNING: libdca is still in early development"
-      "-Dzbar=${if enableZbar then "enabled" else "disabled"}"
-      "-Dfaac=${if faacSupport then "enabled" else "disabled"}"
+      "-Dzbar=${
+        if enableZbar
+        then "enabled"
+        else "disabled"
+      }"
+      "-Dfaac=${
+        if faacSupport
+        then "enabled"
+        else "disabled"
+      }"
       "-Diqa=disabled" # required `dssim` library not packaging in nixpkgs as of writing, also this is AGPL so update license when adding support
       "-Dlcevcencoder=disabled" # not packaged in nixpkgs as of writing
       "-Dmagicleap=disabled" # required `ml_audio` library not packaged in nixpkgs as of writing
@@ -317,10 +324,26 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dgs=disabled" # depends on `google-cloud-cpp`
       "-Donnx=disabled" # depends on `libonnxruntime` not packaged in nixpkgs as of writing
       "-Dopenaptx=enabled" # since gstreamer-1.20.1 `libfreeaptx` is supported for circumventing the dubious license conflict with `libopenaptx`
-      "-Dopencv=${if opencvSupport then "enabled" else "disabled"}" # Reduces rebuild size when `config.cudaSupport = true`
-      "-Daja=${if ajaSupport then "enabled" else "disabled"}"
-      "-Dmicrodns=${if microdnsSupport then "enabled" else "disabled"}"
-      "-Dbluez=${if bluezSupport then "enabled" else "disabled"}"
+      "-Dopencv=${
+        if opencvSupport
+        then "enabled"
+        else "disabled"
+      }" # Reduces rebuild size when `config.cudaSupport = true`
+      "-Daja=${
+        if ajaSupport
+        then "enabled"
+        else "disabled"
+      }"
+      "-Dmicrodns=${
+        if microdnsSupport
+        then "enabled"
+        else "disabled"
+      }"
+      "-Dbluez=${
+        if bluezSupport
+        then "enabled"
+        else "disabled"
+      }"
       (lib.mesonEnable "openh264" openh264Support)
       (lib.mesonEnable "doc" enableDocumentation)
       (lib.mesonEnable "directfb" false)
@@ -350,12 +373,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dv4l2codecs=disabled" # requires gudev
       "-Dladspa=disabled" # requires lrdf
     ]
-    ++
-      lib.optionals
-        (!stdenv.hostPlatform.isLinux || !stdenv.hostPlatform.isx86_64 || !gst-plugins-base.waylandEnabled)
-        [
-          "-Dqsv=disabled" # Linux (and Windows) x86 only, makes va required
-        ]
+    ++ lib.optionals
+    (!stdenv.hostPlatform.isLinux || !stdenv.hostPlatform.isx86_64 || !gst-plugins-base.waylandEnabled)
+    [
+      "-Dqsv=disabled" # Linux (and Windows) x86 only, makes va required
+    ]
     ++ lib.optionals (!gst-plugins-base.glEnabled) [
       "-Dgl=disabled"
     ]
@@ -369,20 +391,19 @@ stdenv.mkDerivation (finalAttrs: {
       "-Dapplemedia=disabled"
     ]
     ++ (
-      if enableGplPlugins then
-        [
-          "-Dgpl=enabled"
-        ]
-      else
-        [
-          "-Ddts=disabled"
-          "-Dfaad=disabled"
-          "-Diqa=disabled"
-          "-Dmpeg2enc=disabled"
-          "-Dmplex=disabled"
-          "-Dresindvd=disabled"
-          "-Dx265=disabled"
-        ]
+      if enableGplPlugins
+      then [
+        "-Dgpl=enabled"
+      ]
+      else [
+        "-Ddts=disabled"
+        "-Dfaad=disabled"
+        "-Diqa=disabled"
+        "-Dmpeg2enc=disabled"
+        "-Dmplex=disabled"
+        "-Dresindvd=disabled"
+        "-Dx265=disabled"
+      ]
     );
 
   # Argument list too long
@@ -395,7 +416,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # This package has some `_("string literal")` string formats
   # that trip up clang with format security enabled.
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # fails 20 out of 58 tests, expensive
 
@@ -412,7 +433,7 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
@@ -425,8 +446,11 @@ stdenv.mkDerivation (finalAttrs: {
       something - be it a good code review, some documentation, a set of tests,
       a real live maintainer, or some actual wide use.
     '';
-    license = if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
+    license =
+      if enableGplPlugins
+      then licenses.gpl2Plus
+      else licenses.lgpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 })

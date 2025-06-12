@@ -10,7 +10,6 @@
   glyphslib,
   bump2version,
 }:
-
 buildPythonPackage rec {
   pname = "bumpfontversion";
   version = "0.4.0";
@@ -29,11 +28,11 @@ buildPythonPackage rec {
       --replace-fail 'poetry.masonry.api' 'poetry.core.masonry.api'
   '';
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "glyphslib" ];
+  pythonRelaxDeps = ["glyphslib"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     fonttools
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simoncozens/bumpfontversion";
     license = lib.licenses.asl20;
     mainProgram = "bumpfontversion";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

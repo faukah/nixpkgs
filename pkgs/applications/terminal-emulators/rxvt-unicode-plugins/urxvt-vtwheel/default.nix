@@ -4,7 +4,6 @@
   fetchgit,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "rxvt-unicode-vtwheel";
   version = "0.3.2";
@@ -25,8 +24,7 @@ stdenv.mkDerivation {
     description = "Pass mouse wheel commands to secondary screens (screen, less, nano, etc)";
     homepage = "https://aur.archlinux.org/packages/urxvt-vtwheel";
     license = licenses.mit;
-    maintainers = with maintainers; [ danbst ];
+    maintainers = with maintainers; [danbst];
     platforms = with platforms; unix;
   };
-
 }

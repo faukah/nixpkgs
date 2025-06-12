@@ -7,12 +7,10 @@
   python3,
   amd-blis,
   aocl-utils,
-
   withOpenMP ? true,
   blas64 ? false,
   withAMDOpt ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amd-libflame";
   version = "5.1";
@@ -69,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "LAPACK-compatible linear algebra library optimized for AMD CPUs";
     homepage = "https://developer.amd.com/amd-aocl/blas-library/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.markuskowa];
+    platforms = ["x86_64-linux"];
   };
 }

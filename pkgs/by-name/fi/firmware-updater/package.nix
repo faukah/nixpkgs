@@ -4,7 +4,6 @@
   flutter329,
   fetchFromGitHub,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "firmware-updater";
   version = "0-unstable-2024-20-11";
@@ -29,7 +28,7 @@ flutter329.buildFlutterApplication rec {
     mainProgram = "firmware-updater";
     homepage = "https://github.com/canonical/firmware-updater";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     platforms = platforms.linux;
   };
 }

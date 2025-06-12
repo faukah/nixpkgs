@@ -11,7 +11,6 @@
   rsa,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-jose";
   version = "3.5.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     "pyasn1"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ecdsa
@@ -38,22 +37,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cryptography = [ cryptography ];
-    pycrypto = [ pycrypto ];
-    pycryptodome = [ pycryptodome ];
+    cryptography = [cryptography];
+    pycrypto = [pycrypto];
+    pycryptodome = [pycryptodome];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "jose" ];
+  pythonImportsCheck = ["jose"];
 
   meta = with lib; {
     description = "JOSE implementation in Python";
     homepage = "https://github.com/mpdavis/python-jose";
     changelog = "https://github.com/mpdavis/python-jose/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

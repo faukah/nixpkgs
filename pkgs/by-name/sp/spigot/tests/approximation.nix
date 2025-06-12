@@ -2,12 +2,11 @@
   stdenv,
   spigot,
 }:
-
 stdenv.mkDerivation {
   pname = "spigot-approximation";
   inherit (spigot) version;
 
-  nativeBuildInputs = [ spigot ];
+  nativeBuildInputs = [spigot];
 
   dontInstall = true;
 

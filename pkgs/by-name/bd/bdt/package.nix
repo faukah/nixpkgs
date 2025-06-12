@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/datafusion-contrib/bdt";
     license = licenses.asl20;
     mainProgram = "bdt";
-    maintainers = with maintainers; [ matthiasq ];
+    maintainers = with maintainers; [matthiasq];
   };
 }

@@ -1,7 +1,6 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "db-rest";
-  meta.maintainers = with pkgs.lib.maintainers; [ marie ];
+  meta.maintainers = with pkgs.lib.maintainers; [marie];
 
   nodes = {
     database = {
@@ -14,7 +13,7 @@
             }
           ];
         };
-        firewall.allowedTCPPorts = [ 31638 ];
+        firewall.allowedTCPPorts = [31638];
       };
 
       services.redis.servers.db-rest = {
@@ -25,70 +24,66 @@
       };
     };
 
-    serverWithTcp =
-      { pkgs, ... }:
-      {
-        environment = {
-          etc = {
-            "db-rest/password-redis-db".text = ''
-              choochoo
-            '';
-          };
-        };
-
-        networking = {
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.11";
-                prefixLength = 24;
-              }
-            ];
-          };
-          firewall.allowedTCPPorts = [ 3000 ];
-        };
-
-        services.db-rest = {
-          enable = true;
-          host = "0.0.0.0";
-          redis = {
-            enable = true;
-            createLocally = false;
-            host = "192.168.2.10";
-            port = 31638;
-            passwordFile = "/etc/db-rest/password-redis-db";
-            useSSL = false;
-          };
+    serverWithTcp = {pkgs, ...}: {
+      environment = {
+        etc = {
+          "db-rest/password-redis-db".text = ''
+            choochoo
+          '';
         };
       };
 
-    serverWithUnixSocket =
-      { pkgs, ... }:
-      {
-        networking = {
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.12";
-                prefixLength = 24;
-              }
-            ];
-          };
-          firewall.allowedTCPPorts = [ 3000 ];
+      networking = {
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "192.168.2.11";
+              prefixLength = 24;
+            }
+          ];
         };
+        firewall.allowedTCPPorts = [3000];
+      };
 
-        services.db-rest = {
+      services.db-rest = {
+        enable = true;
+        host = "0.0.0.0";
+        redis = {
           enable = true;
-          host = "0.0.0.0";
-          redis = {
-            enable = true;
-            createLocally = true;
-          };
+          createLocally = false;
+          host = "192.168.2.10";
+          port = 31638;
+          passwordFile = "/etc/db-rest/password-redis-db";
+          useSSL = false;
         };
       };
+    };
+
+    serverWithUnixSocket = {pkgs, ...}: {
+      networking = {
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "192.168.2.12";
+              prefixLength = 24;
+            }
+          ];
+        };
+        firewall.allowedTCPPorts = [3000];
+      };
+
+      services.db-rest = {
+        enable = true;
+        host = "0.0.0.0";
+        redis = {
+          enable = true;
+          createLocally = true;
+        };
+      };
+    };
 
     client = {
-      environment.systemPackages = [ pkgs.jq ];
+      environment.systemPackages = [pkgs.jq];
       networking = {
         interfaces.eth1 = {
           ipv4.addresses = [

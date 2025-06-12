@@ -3,10 +3,8 @@
   stdenv,
   fetchFromGitHub,
   mbrola,
-  languages ? [ ],
-}:
-
-let
+  languages ? [],
+}: let
   src = fetchFromGitHub {
     owner = "numediart";
     repo = "MBROLA-voices";
@@ -20,31 +18,30 @@ let
     license = mbrola.meta.license;
   };
 in
+  if (languages == [])
+  then src // {inherit meta;}
+  else
+    stdenv.mkDerivation {
+      pname = "mbrola-voices";
+      version = "0-unstable-2020-03-30";
 
-if (languages == [ ]) then
-  src // { inherit meta; }
-else
-  stdenv.mkDerivation {
-    pname = "mbrola-voices";
-    version = "0-unstable-2020-03-30";
+      inherit src;
 
-    inherit src;
+      postPatch = ''
+        shopt -s extglob
+        pushd data
+        rm -rfv !(${lib.concatStringsSep "|" languages})
+        popd
+      '';
 
-    postPatch = ''
-      shopt -s extglob
-      pushd data
-      rm -rfv !(${lib.concatStringsSep "|" languages})
-      popd
-    '';
+      installPhase = ''
+        runHook preInstall
 
-    installPhase = ''
-      runHook preInstall
+        mkdir $out
+        cp -R data $out/
 
-      mkdir $out
-      cp -R data $out/
+        runHook postInstall
+      '';
 
-      runHook postInstall
-    '';
-
-    inherit meta;
-  }
+      inherit meta;
+    }

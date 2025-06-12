@@ -13,7 +13,6 @@
   # Enable jack session support
   jackSession ? false,
 }:
-
 mkDerivation rec {
   version = "0.9.91";
   pname = "qjackctl";
@@ -23,7 +22,7 @@ mkDerivation rec {
   src = fetchFromGitHub {
     owner = "rncbc";
     repo = "qjackctl";
-    rev = "${pname}_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "${pname}_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-YfdRyylU/ktFvsh18FjpnG9MkV1HxHJBhRnHWQ7I+hY=";
   };
 
@@ -51,7 +50,7 @@ mkDerivation rec {
     mainProgram = "qjackctl";
     homepage = "https://github.com/rncbc/qjackctl";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

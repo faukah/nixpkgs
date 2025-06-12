@@ -7,7 +7,6 @@
   numpy,
   simpleitk,
 }:
-
 buildPythonPackage rec {
   pname = "medvol";
   version = "0.0.15";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-JOw0ODx5yuBY5FyXy9z5C/NE/iok5GwiInalgXW/1J8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -31,13 +30,13 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "medvol" ];
+  pythonImportsCheck = ["medvol"];
 
   meta = {
     description = "Wrapper for loading medical 3D image volumes such as NIFTI or NRRD images";
     homepage = "https://github.com/MIC-DKFZ/medvol";
     changelog = "https://github.com/MIC-DKFZ/MedVol/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

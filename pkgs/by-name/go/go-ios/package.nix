@@ -6,7 +6,6 @@
   pkg-config,
   libusb1,
 }:
-
 buildGoModule rec {
   pname = "go-ios";
   version = "1.0.177";
@@ -40,22 +39,21 @@ buildGoModule rec {
 
   # skips all the integration tests (requires iOS device) (`-tags=fast`)
   # as well as tests that requires networking
-  checkFlags =
-    let
-      skippedTests = [
-        "TestWorksWithoutProxy"
-        "TestUsesProxy"
-      ];
-    in
-    [ "-tags=fast" ] ++ [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      "TestWorksWithoutProxy"
+      "TestUsesProxy"
+    ];
+  in
+    ["-tags=fast"] ++ ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Operating system independent implementation of iOS device features";
     homepage = "https://github.com/danielpaulus/go-ios";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
     mainProgram = "ios";
   };
 }

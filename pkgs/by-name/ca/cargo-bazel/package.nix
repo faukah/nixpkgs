@@ -5,7 +5,6 @@
   rustPlatform,
   libz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bazel";
   version = "0.8.0";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo-bazel";
     homepage = "https://github.com/bazelbuild/rules_rust";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rickvanprim ];
+    maintainers = with maintainers; [rickvanprim];
   };
 }

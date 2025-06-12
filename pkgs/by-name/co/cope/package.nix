@@ -4,7 +4,6 @@
   perl,
   perlPackages,
 }:
-
 perlPackages.buildPerlPackage {
   pname = "cope";
   version = "0-unstable-2024-03-27";
@@ -39,6 +38,6 @@ perlPackages.buildPerlPackage {
       artistic1
       gpl1Plus
     ];
-    maintainers = with lib.maintainers; [ deftdawg ];
+    maintainers = with lib.maintainers; [deftdawg];
   };
 }

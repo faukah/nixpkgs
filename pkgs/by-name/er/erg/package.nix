@@ -7,7 +7,6 @@
   which,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "erg";
   version = "0.6.52";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     which
   ];
 
-  buildFeatures = [ "full" ];
+  buildFeatures = ["full"];
 
   env = {
     BUILD_DATE = "1970/01/01 00:00:00";
@@ -66,6 +65,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

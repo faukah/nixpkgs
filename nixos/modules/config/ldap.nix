@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkMerge
@@ -50,23 +49,17 @@ let
   # nslcd normally reads configuration from /etc/nslcd.conf.
   # this file might contain secrets. We append those at runtime,
   # so redirect its location to something more temporary.
-  nslcdWrapped = pkgs.runCommand "nslcd-wrapped" { nativeBuildInputs = [ pkgs.makeWrapper ]; } ''
+  nslcdWrapped = pkgs.runCommand "nslcd-wrapped" {nativeBuildInputs = [pkgs.makeWrapper];} ''
     mkdir -p $out/bin
     makeWrapper ${pkgs.nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
       --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
       --set NIX_REDIRECTS "/etc/nslcd.conf=/run/nslcd/nslcd.conf"
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     users.ldap = {
-
       enable = mkEnableOption "authentication against an LDAP server";
 
       loginPam = mkOption {
@@ -225,21 +218,22 @@ in
           {option}`users.ldap.daemon.extraConfig` instead.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     environment.etc = lib.optionalAttrs (!cfg.daemon.enable) {
       "ldap.conf" = ldapConfig;
     };
 
     system.nssModules = mkIf cfg.nsswitch (
-      lib.singleton (if cfg.daemon.enable then pkgs.nss_pam_ldapd else pkgs.nss_ldap)
+      lib.singleton (
+        if cfg.daemon.enable
+        then pkgs.nss_pam_ldapd
+        else pkgs.nss_ldap
+      )
     );
 
     system.nssDatabases.group = lib.optional cfg.nsswitch "ldap";
@@ -261,12 +255,12 @@ in
     systemd.services = mkMerge [
       (mkIf (!cfg.daemon.enable) {
         ldap-password = {
-          wantedBy = [ "sysinit.target" ];
+          wantedBy = ["sysinit.target"];
           before = [
             "sysinit.target"
             "shutdown.target"
           ];
-          conflicts = [ "shutdown.target" ];
+          conflicts = ["shutdown.target"];
           unitConfig.DefaultDependencies = false;
           serviceConfig.Type = "oneshot";
           serviceConfig.RemainAfterExit = true;
@@ -284,7 +278,7 @@ in
 
       (mkIf cfg.daemon.enable {
         nslcd = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
           preStart = ''
             umask 0077
@@ -311,20 +305,20 @@ in
             Restart = "always";
             User = "nslcd";
             Group = "nslcd";
-            RuntimeDirectory = [ "nslcd" ];
+            RuntimeDirectory = ["nslcd"];
             PIDFile = "/run/nslcd/nslcd.pid";
             AmbientCapabilities = "CAP_SYS_RESOURCE";
           };
         };
       })
     ];
-
   };
 
   imports = [
-    (mkRenamedOptionModule
-      [ "users" "ldap" "bind" "password" ]
-      [ "users" "ldap" "bind" "passwordFile" ]
+    (
+      mkRenamedOptionModule
+      ["users" "ldap" "bind" "password"]
+      ["users" "ldap" "bind" "passwordFile"]
     )
   ];
 }

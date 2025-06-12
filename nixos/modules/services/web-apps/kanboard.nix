@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.kanboard;
 
   toStringAttrs = lib.mapAttrs (lib.const toString);
-in
-{
-  meta.maintainers = with lib.maintainers; [ yzx9 ];
+in {
+  meta.maintainers = with lib.maintainers; [yzx9];
 
   options.services.kanboard = {
     enable = lib.mkEnableOption "Kanboard";
 
-    package = lib.mkPackageOption pkgs "kanboard" { };
+    package = lib.mkPackageOption pkgs "kanboard" {};
 
     dataDir = lib.mkOption {
       type = lib.types.str;
@@ -38,15 +35,14 @@ in
     };
 
     settings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           str
           int
           bool
         ]);
 
-      default = { };
+      default = {};
 
       description = ''
         Customize the default settings, refer to <https://github.com/kanboard/kanboard/blob/main/config.default.php>
@@ -63,9 +59,9 @@ in
     };
     nginx = lib.mkOption {
       type = lib.types.nullOr (
-        lib.types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+        lib.types.submodule (import ../web-servers/nginx/vhost-options.nix {inherit config lib;})
       );
-      default = { };
+      default = {};
       description = ''
         With this option, you can customize an NGINX virtual host which already
         has sensible defaults for Kanboard. Set to `{ }` if you do not need any
@@ -82,15 +78,14 @@ in
     };
 
     phpfpm.settings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           int
           str
           bool
         ]);
 
-      default = { };
+      default = {};
 
       description = ''
         Options for kanboard's PHPFPM pool.
@@ -110,7 +105,7 @@ in
       };
 
       groups = lib.mkIf (cfg.group == "kanboard") {
-        kanboard = { };
+        kanboard = {};
       };
     };
 
@@ -135,7 +130,7 @@ in
       ];
 
       phpEnv = lib.mkMerge [
-        { DATA_DIR = cfg.dataDir; }
+        {DATA_DIR = cfg.dataDir;}
         (toStringAttrs cfg.settings)
       ];
     };

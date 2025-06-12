@@ -8,7 +8,6 @@
   libxfce4util,
   xfconf,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "thunar-volman";
@@ -29,6 +28,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Thunar extension for automatic management of removable drives and media";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

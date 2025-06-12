@@ -12,8 +12,7 @@
   vulkan-headers,
   vulkan-loader,
   vulkan-validation-layers,
-}:
-let
+}: let
   # From https://github.com/google/amber/blob/main/DEPS
   glslang = fetchFromGitHub {
     owner = "KhronosGroup";
@@ -49,61 +48,60 @@ let
     rev = "13b59bf1d84054b8ccd29cdc6b1303f69e8f9e77";
     hash = "sha256-k/mTHiLbZdnslC24fjcrzqsZYMyVaAADGEqngqJcC2c=";
   };
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "amber";
-  version = "unstable-2025-02-03";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "amber";
+    version = "unstable-2025-02-03";
 
-  src = fetchFromGitHub {
-    owner = "google";
-    repo = "amber";
-    rev = "3f078e41d86ca1a5881560f00e26198f59bb8ac0";
-    hash = "sha256-pAotVFmtEGp9GKmDD0vrbfbO+Xt2URmM8gYCjl0LEnk=";
-  };
+    src = fetchFromGitHub {
+      owner = "google";
+      repo = "amber";
+      rev = "3f078e41d86ca1a5881560f00e26198f59bb8ac0";
+      hash = "sha256-pAotVFmtEGp9GKmDD0vrbfbO+Xt2URmM8gYCjl0LEnk=";
+    };
 
-  buildInputs = [
-    vulkan-headers
-    vulkan-loader
-  ];
-
-  nativeBuildInputs =
-    [
-      cmake
-      makeWrapper
-      pkg-config
-      python3
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      cctools
+    buildInputs = [
+      vulkan-headers
+      vulkan-loader
     ];
 
-  # Tests are disabled so we do not have to pull in googletest and more dependencies
-  cmakeFlags = [
-    "-DAMBER_SKIP_TESTS=ON"
-    "-DAMBER_DISABLE_WERROR=ON"
-  ];
+    nativeBuildInputs =
+      [
+        cmake
+        makeWrapper
+        pkg-config
+        python3
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        cctools
+      ];
 
-  prePatch = ''
-    cp -r ${glslang}/ third_party/glslang
-    cp -r ${lodepng}/ third_party/lodepng
-    cp -r ${shaderc}/ third_party/shaderc
-    cp -r ${spirv-tools}/ third_party/spirv-tools
-    cp -r ${spirv-headers}/ third_party/spirv-headers
-    chmod u+w -R third_party
+    # Tests are disabled so we do not have to pull in googletest and more dependencies
+    cmakeFlags = [
+      "-DAMBER_SKIP_TESTS=ON"
+      "-DAMBER_DISABLE_WERROR=ON"
+    ];
 
-    substituteInPlace tools/update_build_version.py \
-      --replace "not os.path.exists(directory)" "True"
-  '';
+    prePatch = ''
+      cp -r ${glslang}/ third_party/glslang
+      cp -r ${lodepng}/ third_party/lodepng
+      cp -r ${shaderc}/ third_party/shaderc
+      cp -r ${spirv-tools}/ third_party/spirv-tools
+      cp -r ${spirv-headers}/ third_party/spirv-headers
+      chmod u+w -R third_party
 
-  installPhase = ''
-    install -Dm755 -t $out/bin amber image_diff
-    wrapProgram $out/bin/amber \
-      --suffix VK_LAYER_PATH : ${vulkan-validation-layers}/share/vulkan/explicit_layer.d
-  '';
+      substituteInPlace tools/update_build_version.py \
+        --replace "not os.path.exists(directory)" "True"
+    '';
 
-  passthru.tests.lavapipe =
-    runCommand "vulkan-cts-tests-lavapipe"
+    installPhase = ''
+      install -Dm755 -t $out/bin amber image_diff
+      wrapProgram $out/bin/amber \
+        --suffix VK_LAYER_PATH : ${vulkan-validation-layers}/share/vulkan/explicit_layer.d
+    '';
+
+    passthru.tests.lavapipe =
+      runCommand "vulkan-cts-tests-lavapipe"
       {
         nativeBuildInputs = [
           finalAttrs.finalPackage
@@ -151,10 +149,10 @@ stdenv.mkDerivation (finalAttrs: {
         touch $out
       '';
 
-  meta = with lib; {
-    description = "Multi-API shader test framework";
-    homepage = "https://github.com/google/amber";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ Flakebi ];
-  };
-})
+    meta = with lib; {
+      description = "Multi-API shader test framework";
+      homepage = "https://github.com/google/amber";
+      license = licenses.asl20;
+      maintainers = with maintainers; [Flakebi];
+    };
+  })

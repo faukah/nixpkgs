@@ -4,7 +4,6 @@
   buildPythonPackage,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-material-extensions";
   version = "1.3.1";
@@ -17,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-/jU30Ol10/4haR3ZPJWZ3iWRfXG/RUOU1oclOYGjjAY=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   doCheck = false; # Circular dependency
 
-  pythonImportsCheck = [ "materialx" ];
+  pythonImportsCheck = ["materialx"];
 
   meta = with lib; {
     description = "Markdown extension resources for MkDocs Material";
     homepage = "https://github.com/facelessuser/mkdocs-material-extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

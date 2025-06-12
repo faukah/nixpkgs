@@ -12,7 +12,6 @@
   callPackage,
   nixosTests,
 }:
-
 mkDerivation rec {
   pname = "sfxr-qt";
   version = "1.5.1";
@@ -29,11 +28,12 @@ mkDerivation rec {
     cmake
     extra-cmake-modules
     (python3.withPackages (
-      pp: with pp; [
-        pyyaml
-        jinja2
-        setuptools
-      ]
+      pp:
+        with pp; [
+          pyyaml
+          jinja2
+          setuptools
+        ]
     ))
   ];
 
@@ -54,7 +54,7 @@ mkDerivation rec {
   doCheck = true;
 
   passthru.tests = {
-    export-square-wave = callPackage ./test-export-square-wave { };
+    export-square-wave = callPackage ./test-export-square-wave {};
     sfxr-qt-starts = nixosTests.sfxr-qt;
   };
 
@@ -63,7 +63,7 @@ mkDerivation rec {
     description = "Sound effect generator, QtQuick port of sfxr";
     mainProgram = "sfxr-qt";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
   };
 }

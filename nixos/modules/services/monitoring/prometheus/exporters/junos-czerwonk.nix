@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.junos-czerwonk;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     escapeShellArg
@@ -17,13 +16,14 @@ let
     ;
 
   configFile =
-    if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configurationFile);
+    if cfg.configuration != null
+    then configurationFile
+    else (escapeShellArg cfg.configurationFile);
 
   configurationFile = pkgs.writeText "prometheus-junos-czerwonk-exporter.conf" (
     builtins.toJSON (cfg.configuration)
   );
-in
-{
+in {
   port = 9326;
   extraOpts = {
     environmentFile = mkOption {
@@ -66,7 +66,7 @@ in
   serviceOpts = {
     serviceConfig = {
       DynamicUser = false;
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       RuntimeDirectory = "prometheus-junos-czerwonk-exporter";
       ExecStartPre = [
         "${pkgs.writeShellScript "subst-secrets-junos-czerwonk-exporter" ''

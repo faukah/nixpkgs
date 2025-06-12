@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "questionary";
   version = "2.1.0";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-HiQsOkG3oK+hnyeFjebnVASxpZhUPGBGz69JvPO43fM=";
   };
 
-  pythonRelaxDeps = [ "prompt_toolkit" ];
+  pythonRelaxDeps = ["prompt_toolkit"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ prompt-toolkit ];
+  dependencies = [prompt-toolkit];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
     ulimit -n 1024
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "test_blank_line_fix"
   ];
 
-  pythonImportsCheck = [ "questionary" ];
+  pythonImportsCheck = ["questionary"];
 
   meta = with lib; {
     description = "Python library to build command line user prompts";
     homepage = "https://github.com/tmbo/questionary";
     changelog = "https://github.com/tmbo/questionary/blob/${src.rev}/docs/pages/changelog.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

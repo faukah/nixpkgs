@@ -4,7 +4,6 @@
   fetchFromGitLab,
   unicode-emoji,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "emocli";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildNimPackage (finalAttrs: {
     homepage = "https://gitlab.com/AsbjornOlling/emocli";
     description = "Emoji picker for your command line";
     license = lib.licenses.eupl12;
-    maintainers = with lib.maintainers; [ asbjornolling ];
+    maintainers = with lib.maintainers; [asbjornolling];
     mainProgram = "emocli";
   };
 })

@@ -7,7 +7,6 @@
   python3,
   perl,
 }:
-
 buildGoModule rec {
   pname = "goredo";
   version = "2.6.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     ./fix-tests.diff
   ];
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   nativeCheckInputs = lib.optionals doCheck [
     python3
@@ -34,7 +33,7 @@ buildGoModule rec {
   vendorHash = null;
 
   modRoot = "./src";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postBuild = ''
     ( cd $GOPATH/bin; ./goredo -symlinks )
@@ -60,10 +59,10 @@ buildGoModule rec {
   ];
 
   meta = with lib; {
-    outputsToInstall = [ "out" ];
+    outputsToInstall = ["out"];
     description = "djb's redo, a system for building files from source files. Written in Go";
     homepage = "https://www.goredo.cypherpunks.ru";
     license = licenses.gpl3;
-    maintainers = [ maintainers.spacefrogg ];
+    maintainers = [maintainers.spacefrogg];
   };
 }

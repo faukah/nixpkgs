@@ -14,7 +14,6 @@
   libadwaita,
   pango,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "geteduroam";
   version = "0.12";
@@ -84,7 +83,7 @@ buildGoModule (finalAttrs: {
     description = "GUI client to configure eduroam";
     homepage = "https://eduroam.app";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     platforms = lib.platforms.linux;
     changelog = "https://github.com/geteduroam/linux-app/releases/tag/${finalAttrs.version}";
     mainProgram = "geteduroam-gui";

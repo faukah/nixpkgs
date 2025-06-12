@@ -7,7 +7,6 @@
   paho-mqtt,
   pyaml,
 }:
-
 buildPythonPackage rec {
   pname = "bch";
   version = "1.2.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       bch/cli.py setup.py
   '';
 
-  pythonImportsCheck = [ "bch" ];
+  pythonImportsCheck = ["bch"];
 
   meta = with lib; {
     homepage = "https://github.com/hardwario/bch-control-tool";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     mainProgram = "bch";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ cynerd ];
+    maintainers = with maintainers; [cynerd];
   };
 }

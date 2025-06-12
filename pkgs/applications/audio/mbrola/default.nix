@@ -4,15 +4,13 @@
   fetchFromGitHub,
   runCommandLocal,
   mbrola-voices,
-}:
-
-let
+}: let
   pname = "mbrola";
   version = "3.3-unstable-2024-01-29";
 
   meta = with lib; {
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = platforms.all;
     description = "Speech synthesizer based on the concatenation of diphones";
     homepage = "https://github.com/numediart/MBROLA";
@@ -30,7 +28,7 @@ let
     };
 
     # required for cross compilation
-    makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+    makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
     env = lib.optionalAttrs stdenv.cc.isGNU {
       NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
@@ -43,13 +41,14 @@ let
       runHook postInstall
     '';
 
-    meta = meta // {
-      description = "Speech synthesizer based on the concatenation of diphones (binary only)";
-    };
+    meta =
+      meta
+      // {
+        description = "Speech synthesizer based on the concatenation of diphones (binary only)";
+      };
   };
-
 in
-runCommandLocal "${pname}-${version}"
+  runCommandLocal "${pname}-${version}"
   {
     inherit pname version meta;
   }

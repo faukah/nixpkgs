@@ -32,10 +32,10 @@ mkKdeDerivation {
     wrapGAppsHook3
     sass
   ];
-  extraBuildInputs = [ qtsvg ];
+  extraBuildInputs = [qtsvg];
   dontWrapGApps = true; # There is nothing to wrap
 
-  extraCmakeFlags = [ "-DGLIB_SCHEMAS_DIR=${gsettings-desktop-schemas.out}/" ];
+  extraCmakeFlags = ["-DGLIB_SCHEMAS_DIR=${gsettings-desktop-schemas.out}/"];
 
   # Hardcoded as QStrings, which are UTF-16 so Nix can't pick these up automatically
   postFixup = ''

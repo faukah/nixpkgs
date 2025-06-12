@@ -5,7 +5,6 @@
   makeWrapper,
   tmux,
 }:
-
 stdenv.mkDerivation {
   pname = "tmux-cssh";
   version = "unstable-2015-10-15";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-Rz4n87aYZLkF0TQNl5F80gJwXHYWEes67EwkUh9ptSw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     license = lib.licenses.asl20;
 
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
     mainProgram = "tmux-cssh";
   };
 }

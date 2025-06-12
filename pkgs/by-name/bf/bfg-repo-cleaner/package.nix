@@ -6,7 +6,6 @@
   makeWrapper,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bfg-repo-cleaner";
   version = "1.15.0";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-3+KIWtwpFjeQk/AqgBgSAFNoVsmph78hxJLkUq3v73o=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -51,12 +50,11 @@ stdenv.mkDerivation rec {
       it's faster (10-720x), simpler (dedicated to just removing things), and
       beautiful (can use Scala instead of bash to script customizations).
     '';
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.changlinli ];
+    maintainers = [maintainers.changlinli];
     mainProgram = "bfg";
     platforms = platforms.unix;
     downloadPage = "https://mvnrepository.com/artifact/com.madgag/bfg/${version}";
   };
-
 }

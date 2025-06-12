@@ -10,7 +10,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "duo-client";
   version = "5.5.0";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
       --replace-fail "flake8" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   nativeCheckInputs = [
     freezegun
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "duo_client" ];
+  pythonImportsCheck = ["duo_client"];
 
   disabledTests = [
     # Tests require network access
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/duosecurity/duo_client_python";
     changelog = "https://github.com/duosecurity/duo_client_python/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

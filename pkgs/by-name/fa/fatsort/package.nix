@@ -5,7 +5,6 @@
   help2man,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.6.5.640";
   pname = "fatsort";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://fatsort.sourceforge.net/";
     description = "Sorts FAT partition table, for devices that don't do sorting of files";
-    maintainers = [ maintainers.kovirobi ];
+    maintainers = [maintainers.kovirobi];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     mainProgram = "fatsort";

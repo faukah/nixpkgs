@@ -8,13 +8,12 @@
   zarith,
   gmp,
 }:
-
 buildDunePackage {
   pname = "mirage-crypto-pk";
 
   inherit (mirage-crypto) version src;
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
   propagatedBuildInputs = [
     mirage-crypto
     mirage-crypto-rng
@@ -28,7 +27,9 @@ buildDunePackage {
     randomconv
   ];
 
-  meta = mirage-crypto.meta // {
-    description = "Simple public-key cryptography for the modern age";
-  };
+  meta =
+    mirage-crypto.meta
+    // {
+      description = "Simple public-key cryptography for the modern age";
+    };
 }

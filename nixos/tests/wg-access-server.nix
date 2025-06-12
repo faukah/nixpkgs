@@ -3,11 +3,10 @@
   lib,
   kernelPackages ? null,
   ...
-}:
-{
+}: {
   name = "wg-access-server";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ xanderio ];
+    maintainers = [xanderio];
   };
 
   nodes = {

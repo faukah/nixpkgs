@@ -4,10 +4,8 @@
   fetchFromGitHub,
   rustPlatform,
   pytestCheckHook,
-
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "pcodec";
   version = "0.4.2";
@@ -27,7 +25,7 @@ buildPythonPackage rec {
 
   buildAndTestSubdir = "pco_python";
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeBuildInputs = [
     rustPlatform.cargoSetupHook
@@ -38,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pcodec" ];
+  pythonImportsCheck = ["pcodec"];
 
   meta = {
     description = "Lossless codec for numerical data";

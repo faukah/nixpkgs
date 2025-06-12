@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ libyaml ];
+  buildInputs = [libyaml];
 
   doCheck = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/tomalok/yx";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ twz123 ];
+    maintainers = with maintainers; [twz123];
     mainProgram = "yx";
   };
 }

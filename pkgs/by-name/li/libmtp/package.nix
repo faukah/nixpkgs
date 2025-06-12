@@ -11,7 +11,6 @@
   pkg-config,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmtp";
   version = "1.1.22";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "libmtp";
     repo = "libmtp";
-    rev = "libmtp-${builtins.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "libmtp-${builtins.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-hIH6W8qQ6DB4ST7SlFz6CCnLsEGOWgmUb9HoHMNA3wY=";
   };
 
@@ -37,13 +36,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
-  propagatedBuildInputs = [ libusb1 ];
+  propagatedBuildInputs = [libusb1];
 
   preConfigure = "NOCONFIGURE=1 ./autogen.sh";
 
-  configureFlags = [ "--with-udev=${placeholder "out"}/lib/udev" ];
+  configureFlags = ["--with-udev=${placeholder "out"}/lib/udev"];
 
   configurePlatforms = [
     "build"
@@ -52,9 +51,9 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     lib.optionals (stdenv.hostPlatform.isLinux && !stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-      [
-        "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug"
-      ];
+    [
+      "MTP_HOTPLUG=${buildPackages.libmtp}/bin/mtp-hotplug"
+    ];
 
   enableParallelBuilding = true;
 
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

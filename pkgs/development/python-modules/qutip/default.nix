@@ -3,30 +3,25 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython_0,
   oldest-supported-numpy,
   setuptools,
-
   # dependencies
   numpy,
   packaging,
   scipy,
-
   # tests
   pytestCheckHook,
   pytest-rerunfailures,
   writableTmpDirAsHomeHook,
   python,
-
   # optional-dependencies
   matplotlib,
   ipython,
   cvxopt,
   cvxpy,
 }:
-
 buildPythonPackage rec {
   pname = "qutip";
   version = "5.1.1";
@@ -58,11 +53,13 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-rerunfailures
-    writableTmpDirAsHomeHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-rerunfailures
+      writableTmpDirAsHomeHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # QuTiP tries to access the home directory to create an rc file for us.
   # We need to go to another directory to run the tests from there.
@@ -80,11 +77,11 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "qutip" ];
+  pythonImportsCheck = ["qutip"];
 
   optional-dependencies = {
-    graphics = [ matplotlib ];
-    ipython = [ ipython ];
+    graphics = [matplotlib];
+    ipython = [ipython];
     semidefinite = [
       cvxopt
       cvxpy
@@ -96,7 +93,7 @@ buildPythonPackage rec {
     homepage = "https://qutip.org/";
     changelog = "https://github.com/qutip/qutip/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fabiangd ];
+    maintainers = with lib.maintainers; [fabiangd];
     badPlatforms = [
       # Tests fail at ~80%
       # ../tests/test_animation.py::test_result_state Fatal Python error: Aborted

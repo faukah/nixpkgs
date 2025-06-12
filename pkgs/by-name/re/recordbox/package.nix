@@ -21,7 +21,6 @@
   sqlite,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "recordbox";
   version = "0.9.3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "['validate', appstream_file]" "['validate-relax', '--nonet', appstream_file]"
   '';
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   strictDeps = true;
 
@@ -84,7 +83,10 @@ stdenv.mkDerivation (finalAttrs: {
   mesonBuildType = "release";
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  cargoCheckType = if (finalAttrs.mesonBuildType != "debug") then "release" else "debug";
+  cargoCheckType =
+    if (finalAttrs.mesonBuildType != "debug")
+    then "release"
+    else "debug";
 
   checkPhase = ''
     runHook preCheck
@@ -96,14 +98,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+    updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
   };
 
   meta = {
     description = "Relatively simple music player";
     homepage = "https://codeberg.org/edestcroix/Recordbox";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "recordbox";
     platforms = lib.platforms.linux;
   };

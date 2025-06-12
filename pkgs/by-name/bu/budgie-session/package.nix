@@ -28,7 +28,6 @@
   libepoxy,
   bash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-session";
   version = "0.9.1";
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   separateDebugInfo = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -107,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-session";
     changelog = "https://github.com/BuddiesOfBudgie/budgie-session/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
     platforms = lib.platforms.linux;
   };
 })

@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "unicode-character-database";
   version = "16.0.0";

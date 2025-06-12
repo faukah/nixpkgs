@@ -6,7 +6,6 @@
   pkg-config,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gotify-desktop";
   version = "1.4.1";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-fNOC8atr5/LgQcGf9jdxec9AQt3YIR+hem/xL10YYqY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Small Gotify daemon to send messages as desktop notifications";

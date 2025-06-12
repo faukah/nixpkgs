@@ -15,7 +15,6 @@
   typing-extensions,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "simple-salesforce";
   version = "1.12.6";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-nrfIyXftS2X2HuuLFRZpWLz/IbRasqUzv+r/HvhxfAw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cryptography
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "simple_salesforce" ];
+  pythonImportsCheck = ["simple_salesforce"];
 
   meta = with lib; {
     description = "Very simple Salesforce.com REST API client for Python";
     homepage = "https://github.com/simple-salesforce/simple-salesforce";
     changelog = "https://github.com/simple-salesforce/simple-salesforce/blob/v${version}/CHANGES";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

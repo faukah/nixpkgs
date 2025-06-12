@@ -14,7 +14,6 @@
   libexif,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgdiplus";
   version = "6.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     autoreconfHook

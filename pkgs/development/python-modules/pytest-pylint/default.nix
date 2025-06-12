@@ -9,7 +9,6 @@
   pythonOlder,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-pylint";
   version = "0.21.0";
@@ -27,23 +26,23 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     pylint
     toml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_pylint" ];
+  pythonImportsCheck = ["pytest_pylint"];
 
   meta = with lib; {
     description = "Pytest plugin to check source code with pylint";
     homepage = "https://github.com/carsongee/pytest-pylint";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

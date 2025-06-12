@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "colo";
   version = "0.4.1";
@@ -22,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Displays colors in various color spaces";
     homepage = "https://aloso.github.io/colo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ llakala ];
+    maintainers = with lib.maintainers; [llakala];
   };
 }

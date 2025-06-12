@@ -6,7 +6,6 @@
   rustPlatform,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "commitlint-rs";
   version = "0.2.2";
@@ -22,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-qTJ7/3jIqDXSu6H16YZJqtc/AqMIb4t7SulTtcVbKMI=";
 
   passthru = {
-    tests.version = testers.testVersion { package = commitlint-rs; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = commitlint-rs;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

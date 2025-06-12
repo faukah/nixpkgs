@@ -7,7 +7,6 @@
   pkg-config,
   rofi-unwrapped,
 }:
-
 stdenv.mkDerivation {
   pname = "rofi-blezz";
   version = "2023-03-27";
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     description = "Plugin for rofi that emulates blezz behaviour";
     homepage = "https://github.com/davatorium/rofi-blezz";
     license = licenses.mit;
-    maintainers = with maintainers; [ johnjohnstone ];
+    maintainers = with maintainers; [johnjohnstone];
     platforms = platforms.linux;
   };
 }

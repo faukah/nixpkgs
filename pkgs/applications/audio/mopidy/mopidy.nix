@@ -10,7 +10,6 @@
   pipewire,
   nixosTests,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy";
   version = "3.4.2";
@@ -22,10 +21,9 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "sha256-2OFav2HaQq/RphmZxLyL1n3suwzt1Y/d4h33EdbStjk=";
   };
 
-  nativeBuildInputs = [ wrapGAppsNoGuiHook ];
+  nativeBuildInputs = [wrapGAppsNoGuiHook];
 
-  buildInputs =
-    with gst_all_1;
+  buildInputs = with gst_all_1;
     [
       glib-networking
       gst-plugins-bad
@@ -43,30 +41,32 @@ pythonPackages.buildPythonApplication rec {
           });
 
           # https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/merge_requests/1801/
-          patches = oldAttrs.patches or [ ] ++ [
-            ./spotify-access-token-auth.patch
-          ];
+          patches =
+            oldAttrs.patches or []
+            ++ [
+              ./spotify-access-token-auth.patch
+            ];
         }
       ))
     ]
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) pipewire;
 
   propagatedBuildInputs =
-    [ gobject-introspection ]
+    [gobject-introspection]
     ++ (
       with pythonPackages;
-      [
-        gst-python
-        pygobject3
-        pykka
-        requests
-        setuptools
-        tornado
-      ]
-      ++ lib.optional (!stdenv.hostPlatform.isDarwin) dbus-python
+        [
+          gst-python
+          pygobject3
+          pykka
+          requests
+          setuptools
+          tornado
+        ]
+        ++ lib.optional (!stdenv.hostPlatform.isDarwin) dbus-python
     );
 
-  propagatedNativeBuildInputs = [ gobject-introspection ];
+  propagatedNativeBuildInputs = [gobject-introspection];
 
   # There are no tests
   doCheck = false;
@@ -80,7 +80,7 @@ pythonPackages.buildPythonApplication rec {
     description = "Extensible music server that plays music from local disk, Spotify, SoundCloud, and more";
     mainProgram = "mopidy";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.fpletz ];
-    hydraPlatforms = [ ];
+    maintainers = [lib.maintainers.fpletz];
+    hydraPlatforms = [];
   };
 }

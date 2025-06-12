@@ -23,7 +23,6 @@
   soapysdr-with-plugins,
   gnuradioAtLeast,
 }:
-
 mkDerivation rec {
   pname = "gr-osmosdr";
   version = "0.2.6";
@@ -70,7 +69,11 @@ mkDerivation rec {
       python.pkgs.pybind11
     ];
   cmakeFlags = [
-    (if (gnuradio.hasFeature "python-support") then "-DENABLE_PYTHON=ON" else "-DENABLE_PYTHON=OFF")
+    (
+      if (gnuradio.hasFeature "python-support")
+      then "-DENABLE_PYTHON=ON"
+      else "-DENABLE_PYTHON=OFF"
+    )
   ];
   nativeBuildInputs =
     [
@@ -86,7 +89,7 @@ mkDerivation rec {
     description = "Gnuradio block for OsmoSDR and rtl-sdr";
     homepage = "https://sdr.osmocom.org/trac/wiki/GrOsmoSDR";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
     platforms = lib.platforms.unix;
   };
 }

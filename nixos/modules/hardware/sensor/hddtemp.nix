@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) mkIf mkOption types;
 
   cfg = config.hardware.sensor.hddtemp;
@@ -25,10 +24,8 @@ let
       --file=$file \
       ''${drives[@]}
   '';
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+in {
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   ###### interface
 
@@ -59,13 +56,13 @@ in
       dbEntries = mkOption {
         description = "Additional DB entries";
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
 
       extraArgs = mkOption {
         description = "Additional arguments passed to the daemon.";
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -75,8 +72,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.hddtemp = {
       description = "HDD/SSD temperature";
-      documentation = [ "man:hddtemp(8)" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["man:hddtemp(8)"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         ExecStart = wrapper;

@@ -15,7 +15,6 @@
   wrapGAppsHook4,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notejot";
   version = "3.5.1";
@@ -51,13 +50,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/lainsce/notejot";
     description = "Stupidly-simple notes app";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "io.github.lainsce.Notejot";
   };

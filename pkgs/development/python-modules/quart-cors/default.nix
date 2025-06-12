@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   pdm-backend,
-
   # propagates
   quart,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "quart-cors";
   version = "0.8.0";
@@ -29,11 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-f+l+j0bjzi5FTwJzdXNyCgh3uT4zldpg22ZOgW1Wub4=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  dependencies = [ quart ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  dependencies = [quart] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
-  pythonImportsCheck = [ "quart_cors" ];
+  pythonImportsCheck = ["quart_cors"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pgjones/quart-cors/";
     changelog = "https://github.com/pgjones/quart-cors/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

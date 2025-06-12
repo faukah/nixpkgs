@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "snapcast";
   version = "2.3.7";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-k6U13vkeOAip94hcEjssFgvMnhpOXG87E0R2Zu1YyY4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     construct
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "snapcast" ];
+  pythonImportsCheck = ["snapcast"];
 
   disabledTests = [
     # AssertionError and TypeError
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Control Snapcast, a multi-room synchronous audio solution";
     homepage = "https://github.com/happyleavesaoc/python-snapcast/";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

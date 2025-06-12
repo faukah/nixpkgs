@@ -5,18 +5,17 @@
   xorg,
   wrapGAppsHook3,
   budgie-desktop,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 stdenv.mkDerivation {
   pname = "${budgie-desktop.pname}-with-plugins";
   inherit (budgie-desktop) version;
 
   src = null;
 
-  paths = [ budgie-desktop ] ++ plugins;
+  paths = [budgie-desktop] ++ plugins;
 
-  passAsFile = [ "paths" ];
+  passAsFile = ["paths"];
 
   nativeBuildInputs = [
     glib
@@ -49,7 +48,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    inherit (budgie-desktop.meta)
+    inherit
+      (budgie-desktop.meta)
       description
       homepage
       changelog

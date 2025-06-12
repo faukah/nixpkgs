@@ -9,9 +9,7 @@
   pyyaml,
   requests,
   setuptools,
-}:
-
-let
+}: let
   finalAttrs = {
     pname = "duden";
     version = "0.19.1";
@@ -24,7 +22,7 @@ let
       hash = "sha256-c6IItrjFVbsdYg3sDrExcxv7aRcKhd/M5hiZD+wBZ2Y=";
     };
 
-    nativeBuildInputs = [ poetry-core ];
+    nativeBuildInputs = [poetry-core];
 
     propagatedBuildInputs = [
       beautifulsoup4
@@ -35,7 +33,7 @@ let
       setuptools
     ];
 
-    pythonImportsCheck = [ "duden" ];
+    pythonImportsCheck = ["duden"];
 
     meta = {
       homepage = "https://github.com/radomirbosak/duden";
@@ -46,7 +44,7 @@ let
         various information about given german word. The provided data are
         parsed from german dictionary duden.de.
       '';
-      license = with lib.licenses; [ mit ];
+      license = with lib.licenses; [mit];
       mainProgram = "duden";
       maintainers = with lib.maintainers; [
         linuxissuper
@@ -54,4 +52,4 @@ let
     };
   };
 in
-buildPythonPackage finalAttrs
+  buildPythonPackage finalAttrs

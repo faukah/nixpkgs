@@ -18,10 +18,8 @@
   withFonts ? true,
   freetype,
 }:
-
 # Info on how to use:
 # https://wiki.archlinux.org/index.php/BluRay
-
 stdenv.mkDerivation rec {
   pname = "libbluray";
   version = "1.3.4";
@@ -43,7 +41,7 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ fontconfig ] ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype;
+    [fontconfig] ++ lib.optional withMetadata libxml2 ++ lib.optional withFonts freetype;
 
   propagatedBuildInputs = lib.optional withAACS libaacs;
 
@@ -61,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.videolan.org/developers/libbluray.html";
     description = "Library to access Blu-Ray disks for video playback";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

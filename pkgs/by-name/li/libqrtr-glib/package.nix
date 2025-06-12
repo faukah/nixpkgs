@@ -12,7 +12,6 @@
   docbook_xml_dtd_43,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libqrtr-glib";
   version = "1.2.2";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mobile-broadband/libqrtr-glib";
     description = "Qualcomm IPC Router protocol helper library";
-    teams = [ teams.freedesktop ];
+    teams = [teams.freedesktop];
     platforms = platforms.linux;
     license = licenses.lgpl2Plus;
   };

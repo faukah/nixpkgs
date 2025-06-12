@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "protols";
   version = "0.12.5";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/coder3101/protols";
     changelog = "https://github.com/coder3101/protols/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nartsiss ];
+    maintainers = with lib.maintainers; [nartsiss];
     mainProgram = "protols";
   };
 }

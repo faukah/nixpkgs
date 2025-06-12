@@ -3,13 +3,10 @@
   buildPythonPackage,
   fetchpatch,
   fetchPypi,
-
   matplotlib,
   numpy,
-
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "july";
   version = "0.1.3";
@@ -38,7 +35,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "july" ];
+  pythonImportsCheck = ["july"];
 
   # No tests
   doCheck = false;
@@ -47,6 +44,6 @@ buildPythonPackage rec {
     description = "Small library for creating pretty heatmaps of daily data.";
     homepage = "https://github.com/e-hulten/july";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

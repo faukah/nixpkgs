@@ -16,7 +16,6 @@
   pytestCheckHook,
   httpretty,
 }:
-
 buildPythonPackage rec {
   pname = "trino-python-client";
   version = "0.323.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-Nr7p7x5cxxuPv2NUh1uMth97OQ+H2KBlu0SHVJ7Zu1M=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pytz
@@ -38,18 +37,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = lib.fix (self: {
-    kerberos = [ requests-kerberos ];
-    sqlalchemy = [ sqlalchemy ];
-    external-authentication-token-cache = [ keyring ];
+    kerberos = [requests-kerberos];
+    sqlalchemy = [sqlalchemy];
+    external-authentication-token-cache = [keyring];
     all = self.kerberos ++ self.sqlalchemy;
   });
 
-  nativeCheckInputs = [
-    httpretty
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      httpretty
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
-  pythonImportsCheck = [ "trino" ];
+  pythonImportsCheck = ["trino"];
 
   disabledTestPaths = [
     # these all require a running trino instance
@@ -58,7 +59,7 @@ buildPythonPackage rec {
     "tests/integration/test_sqlalchemy_integration.py"
   ];
 
-  pytestFlagsArray = [ "-k 'not auth'" ];
+  pytestFlagsArray = ["-k 'not auth'"];
 
   meta = with lib; {
     changelog = "https://github.com/trinodb/trino-python-client/blob/${version}/CHANGES.md";

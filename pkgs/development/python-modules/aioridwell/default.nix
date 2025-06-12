@@ -16,7 +16,6 @@
   titlecase,
   types-pytz,
 }:
-
 buildPythonPackage rec {
   pname = "aioridwell";
   version = "2024.01.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-B5k8uXDHq0U6fJVW8oy2sWUj5OIVGUfe9EtCjnIr3OE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -62,13 +61,13 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "aioridwell" ];
+  pythonImportsCheck = ["aioridwell"];
 
   meta = with lib; {
     description = "Python library for interacting with Ridwell waste recycling";
     homepage = "https://github.com/bachya/aioridwell";
     changelog = "https://github.com/bachya/aioridwell/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pantalaimon-headless;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
-  mkConfigFile =
-    name: instanceConfig:
+  mkConfigFile = name: instanceConfig:
     iniFmt.generate "pantalaimon.conf" {
       Default = {
         LogLevel = instanceConfig.logLevel;
@@ -27,17 +25,17 @@ let
           # Set some settings to prevent user interaction for headless operation
           IgnoreVerification = true;
           UseKeyring = false;
-        } instanceConfig.extraSettings
+        }
+        instanceConfig.extraSettings
       );
     };
 
-  mkPantalaimonService =
-    name: instanceConfig:
+  mkPantalaimonService = name: instanceConfig:
     lib.nameValuePair "pantalaimon-${name}" {
       description = "pantalaimon instance ${name} - E2EE aware proxy daemon for matrix clients";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = ''${pkgs.pantalaimon-headless}/bin/pantalaimon --config ${mkConfigFile name instanceConfig} --data-path ${instanceConfig.dataPath}'';
@@ -51,10 +49,9 @@ let
         StateDirectory = "pantalaimon-${name}";
       };
     };
-in
-{
+in {
   options.services.pantalaimon-headless.instances = lib.mkOption {
-    default = { };
+    default = {};
     type = lib.types.attrsOf (lib.types.submodule (import ./pantalaimon-options.nix));
     description = ''
       Declarative instance config.
@@ -64,11 +61,11 @@ in
     '';
   };
 
-  config = lib.mkIf (config.services.pantalaimon-headless.instances != { }) {
+  config = lib.mkIf (config.services.pantalaimon-headless.instances != {}) {
     systemd.services = lib.mapAttrs' mkPantalaimonService config.services.pantalaimon-headless.instances;
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ jojosch ];
+    maintainers = with lib.maintainers; [jojosch];
   };
 }

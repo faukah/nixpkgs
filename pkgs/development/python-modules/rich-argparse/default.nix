@@ -7,7 +7,6 @@
   pythonOlder,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "rich-argparse";
   version = "1.7.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-XuRQeE9JrF4ym2H1ky1yH0fENnsWbL90vboQzTo23w0=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ rich ];
+  dependencies = [rich];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rich_argparse" ];
+  pythonImportsCheck = ["rich_argparse"];
 
   meta = with lib; {
     description = "Format argparse help output using rich";
     homepage = "https://github.com/hamdanal/rich-argparse";
     changelog = "https://github.com/hamdanal/rich-argparse/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ graham33 ];
+    maintainers = with maintainers; [graham33];
   };
 }

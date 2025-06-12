@@ -1,22 +1,19 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "graphite";
   nodes = {
-    one =
-      { ... }:
-      {
-        time.timeZone = "UTC";
-        services.graphite = {
-          web = {
-            enable = true;
-            extraConfig = ''
-              SECRET_KEY = "abcd";
-            '';
-          };
-          carbon.enableCache = true;
-          seyren.enable = false; # Implicitly requires openssl-1.0.2u which is marked insecure
+    one = {...}: {
+      time.timeZone = "UTC";
+      services.graphite = {
+        web = {
+          enable = true;
+          extraConfig = ''
+            SECRET_KEY = "abcd";
+          '';
         };
+        carbon.enableCache = true;
+        seyren.enable = false; # Implicitly requires openssl-1.0.2u which is marked insecure
       };
+    };
   };
 
   testScript = ''

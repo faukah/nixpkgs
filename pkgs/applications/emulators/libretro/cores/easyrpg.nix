@@ -78,7 +78,7 @@ mkLibretroCore rec {
 
   # Since liblcf needs to be updated before this, we should not
   # use the default unstableGitUpdater.
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "EasyRPG Player libretro port";

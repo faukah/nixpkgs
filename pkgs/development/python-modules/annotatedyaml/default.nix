@@ -13,7 +13,6 @@
   setuptools,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "annotatedyaml";
   version = "0.4.5";
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "annotatedyaml" ];
+  pythonImportsCheck = ["annotatedyaml"];
 
   meta = {
     description = "Annotated YAML that supports secrets for Python";
     homepage = "https://github.com/home-assistant-libs/annotatedyaml";
     changelog = "https://github.com/home-assistant-libs/annotatedyaml/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

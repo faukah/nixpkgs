@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dontgo403";
   version = "1.0.2";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/devploit/dontgo403";
     changelog = "https://github.com/devploit/dontgo403/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

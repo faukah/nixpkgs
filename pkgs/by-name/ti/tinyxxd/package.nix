@@ -5,7 +5,6 @@
   installShellFiles,
   vim,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinyxxd";
   version = "1.3.7";
@@ -17,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Yj9n/reWAjKY1spXiW/fjPGTgj1Yc18FzFln6f5LK9c=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     installManPage tinyxxd.1

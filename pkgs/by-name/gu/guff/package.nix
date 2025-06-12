@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guff";
   version = "0.1.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0n8mc9j3044j4b3vgc94ryd2j9ik6g73fqja54yxfdfrks4ksyds";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     description = "Plot device";
     homepage = "https://github.com/silentbicycle/guff";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "guff";
   };

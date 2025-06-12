@@ -13,7 +13,6 @@
   sphinx-autoapi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-bibtex";
   version = "2.6.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-cqz5Jamtlflo5rFhWPCPlYoymApUtXPG4oTRjfDI+WY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -47,14 +46,14 @@ buildPythonPackage rec {
     sphinx-autoapi
   ];
 
-  pythonImportsCheck = [ "sphinxcontrib.bibtex" ];
+  pythonImportsCheck = ["sphinxcontrib.bibtex"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx extension for BibTeX style citations";
     homepage = "https://github.com/mcmtroffaes/sphinxcontrib-bibtex";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

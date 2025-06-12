@@ -11,7 +11,6 @@
   defaultMakeFlags,
   libterminfo,
 }:
-
 mkDerivation {
   path = "tools/tic";
   HOSTPROG = "tic";
@@ -25,7 +24,7 @@ mkDerivation {
     groff
     nbperf
   ];
-  makeFlags = defaultMakeFlags ++ [ "TOOLDIR=$(out)" ];
+  makeFlags = defaultMakeFlags ++ ["TOOLDIR=$(out)"];
   extraPaths = [
     libterminfo.path
     "usr.bin/tic"

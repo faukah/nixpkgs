@@ -5,7 +5,6 @@
   rustPlatform,
   fetchNextcloudApp,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "notify_push";
 
@@ -45,14 +44,17 @@ rustPlatform.buildRustPackage rec {
       useFetchCargoVendor = true;
       cargoHash = "sha256-PkRWyz4Gd2gGg9n4yChtR96QNOjEK5HNVhBwkkVjVPE=";
 
-      meta = meta // {
-        mainProgram = "test_client";
-      };
+      meta =
+        meta
+        // {
+          mainProgram = "test_client";
+        };
     };
     tests =
       lib.filterAttrs (
         key: lib.const (lib.hasPrefix "with-postgresql-and-redis" key)
-      ) nixosTests.nextcloud
+      )
+      nixosTests.nextcloud
       // {
         inherit test_client;
       };
@@ -65,6 +67,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nextcloud/notify_push";
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.helsinki-systems ];
+    teams = [teams.helsinki-systems];
   };
 }

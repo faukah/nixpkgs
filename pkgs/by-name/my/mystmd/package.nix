@@ -6,7 +6,6 @@
   testers,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "mystmd";
   version = "1.3.18";
@@ -35,7 +34,7 @@ buildNpmPackage rec {
       package = mystmd;
       version = "v${version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -43,7 +42,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/executablebooks/mystmd";
     changelog = "https://github.com/executablebooks/mystmd/blob/${src.rev}/packages/myst-cli/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "myst";
   };
 }

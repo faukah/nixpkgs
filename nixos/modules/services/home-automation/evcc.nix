@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkEnableOption
     mkIf
@@ -16,23 +16,21 @@ let
 
   cfg = config.services.evcc;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "evcc.yml" cfg.settings;
 
   package = pkgs.evcc;
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ hexa ];
+in {
+  meta.maintainers = with lib.maintainers; [hexa];
 
   options.services.evcc = with lib.types; {
     enable = mkEnableOption "EVCC, the extensible EV Charge Controller and Home Energy Management System";
 
-    package = mkPackageOption pkgs "evcc" { };
+    package = mkPackageOption pkgs "evcc" {};
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Extra arguments to pass to the `evcc` executable.
       '';
@@ -61,7 +59,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.evcc = {
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
       after = [
         "network-online.target"
         "mosquitto.target"
@@ -74,7 +72,7 @@ in
         getent
       ];
       serviceConfig = {
-        EnvironmentFile = lib.optionals (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.optionals (cfg.environmentFile != null) [cfg.environmentFile];
         ExecStartPre = utils.escapeSystemdExecArgs [
           (getExe pkgs.envsubst)
           "-i"
@@ -89,7 +87,7 @@ in
           ]
           ++ cfg.extraArgs
         );
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = [
           "char-ttyUSB"
         ];

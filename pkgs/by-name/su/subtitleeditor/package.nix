@@ -18,7 +18,6 @@
   isocodes,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "subtitleeditor";
   version = "unstable-2019-11-30";
@@ -61,7 +60,7 @@ stdenv.mkDerivation {
 
   preConfigure = "substituteInPlace ./configure --replace /usr/bin/file ${file}/bin/file";
 
-  configureFlags = [ "--disable-debug" ];
+  configureFlags = ["--disable-debug"];
 
   meta = {
     description = "GTK 3 application to edit video subtitles";
@@ -74,7 +73,7 @@ stdenv.mkDerivation {
     homepage = "http://kitone.github.io/subtitleeditor/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.plcplc ];
+    maintainers = [lib.maintainers.plcplc];
     mainProgram = "subtitleeditor";
   };
 }

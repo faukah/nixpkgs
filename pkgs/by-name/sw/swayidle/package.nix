@@ -13,7 +13,6 @@
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swayidle";
   version = "1.8.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -34,14 +33,20 @@ stdenv.mkDerivation rec {
     scdoc
     wayland-scanner
   ];
-  buildInputs = [
-    wayland
-    wayland-protocols
-  ] ++ lib.optionals systemdSupport [ systemd ];
+  buildInputs =
+    [
+      wayland
+      wayland-protocols
+    ]
+    ++ lib.optionals systemdSupport [systemd];
 
   mesonFlags = [
     "-Dman-pages=enabled"
-    "-Dlogind=${if systemdSupport then "enabled" else "disabled"}"
+    "-Dlogind=${
+      if systemdSupport
+      then "enabled"
+      else "disabled"
+    }"
   ];
 
   postPatch = ''
@@ -58,7 +63,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     mainProgram = "swayidle";
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
     platforms = platforms.linux;
   };
 }

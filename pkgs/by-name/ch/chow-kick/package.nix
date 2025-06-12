@@ -35,7 +35,6 @@
   util-linuxMinimal,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chow-kick";
   version = "1.2.0";
@@ -100,8 +99,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/Chowdhury-DSP/ChowKick";
     description = "Kick synthesizer based on old-school drum machine circuits";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ magnetophon ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
     mainProgram = "ChowKick";
   };

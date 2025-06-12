@@ -12,7 +12,6 @@
   pkg-config,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-poppler-qt5";
   version = "21.3.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     sip
     setuptools
   ];
-  propagatedBuildInputs = [ pyqt5.dev ];
+  propagatedBuildInputs = [pyqt5.dev];
 
   format = "pyproject";
   dontConfigure = true;
@@ -49,13 +48,13 @@ buildPythonPackage rec {
 
   # no tests, just bindings for `poppler_qt5`
   doCheck = false;
-  pythonImportsCheck = [ "popplerqt5" ];
+  pythonImportsCheck = ["popplerqt5"];
 
   dontWrapQtApps = true;
 
   meta = with lib; {
     homepage = "https://github.com/frescobaldi/python-poppler-qt5";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

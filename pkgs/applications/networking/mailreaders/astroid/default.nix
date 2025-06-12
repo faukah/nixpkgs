@@ -19,14 +19,11 @@
   gsettings-desktop-schemas,
   gobject-introspection,
   python3,
-
   # vim to be used, should support the GUI mode.
   vim,
-
   # additional python3 packages to be available within plugins
-  extraPythonPackages ? [ ],
+  extraPythonPackages ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "astroid";
   version = "0.17";

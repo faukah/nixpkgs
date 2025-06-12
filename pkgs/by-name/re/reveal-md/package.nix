@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "reveal-md";
   version = "6.1.4";
@@ -38,6 +37,6 @@ buildNpmPackage rec {
     mainProgram = "reveal-md";
     homepage = "https://github.com/webpro/reveal-md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sagikazarmark ];
+    maintainers = with lib.maintainers; [sagikazarmark];
   };
 }

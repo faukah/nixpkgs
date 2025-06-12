@@ -6,15 +6,14 @@
   autoreconfHook,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wavpack";
   version = "5.8.1";
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libiconv ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libiconv];
 
   # autogen.sh:9
   preAutoreconf = "cp ${gettext}/share/gettext/config.rpath .";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/dbry/WavPack/releases/tag/${version}";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ codyopel ];
+    maintainers = with lib.maintainers; [codyopel];
   };
 }

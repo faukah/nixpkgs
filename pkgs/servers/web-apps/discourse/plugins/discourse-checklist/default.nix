@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-checklist";
   src = fetchFromGitHub {
@@ -14,7 +13,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-checklist";
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     license = licenses.gpl2Only;
     description = "Simple checklist rendering plugin for discourse";
   };

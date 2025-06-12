@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "virtual-glob";
   version = "0.2.0";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     "test_baseline_pathlib"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Globbing of virtual file systems";
     homepage = "https://pypi.org/project/virtual_glob/";
-    maintainers = with lib.maintainers; [ PopeRigby ];
+    maintainers = with lib.maintainers; [PopeRigby];
     license = lib.licenses.mit;
   };
 }

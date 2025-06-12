@@ -7,7 +7,6 @@
   sphinx,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-katex";
   version = "0.9.10";
@@ -21,21 +20,21 @@ buildPythonPackage rec {
     hash = "sha256-MJqS2uJF28WE/36l+2VJcnuuleTlIAi3TSWdL9GtDew=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ sphinx ];
+  dependencies = [sphinx];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sphinxcontrib.katex" ];
+  pythonImportsCheck = ["sphinxcontrib.katex"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx extension using KaTeX to render math in HTML";
     homepage = "https://github.com/hagenw/sphinxcontrib-katex";
     changelog = "https://github.com/hagenw/sphinxcontrib-katex/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

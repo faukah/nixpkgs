@@ -6,7 +6,6 @@
   pillow,
   numpy,
 }:
-
 buildPythonPackage {
   pname = "blurhash";
   version = "1.1.4";
@@ -30,12 +29,12 @@ buildPythonPackage {
     numpy
   ];
 
-  pythonImportsCheck = [ "blurhash" ];
+  pythonImportsCheck = ["blurhash"];
 
   meta = with lib; {
     description = "Pure-Python implementation of the blurhash algorithm";
     homepage = "https://github.com/halcy/blurhash-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

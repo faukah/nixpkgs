@@ -33,17 +33,17 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  buildInputs = [ pkgs.yara-x ];
+  buildInputs = [pkgs.yara-x];
 
-  pythonImportsCheck = [ "yara_x" ];
+  pythonImportsCheck = ["yara_x"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "The official Python library for YARA-X";
     homepage = "https://github.com/VirusTotal/yara-x/tree/main/py";
     changelog = "https://github.com/VirusTotal/yara-x/tree/v${version}/py";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ivyfanchiang ];
+    maintainers = with lib.maintainers; [ivyfanchiang];
   };
 }

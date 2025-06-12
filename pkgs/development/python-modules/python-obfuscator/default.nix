@@ -6,7 +6,6 @@
   regex,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-obfuscator";
   version = "0.0.2";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-LUD+9vNd1sdigbKG2tm5hE3zLtmor/2LqsIarUWS2Ek=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ regex ];
+  dependencies = [regex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "python_obfuscator" ];
+  pythonImportsCheck = ["python_obfuscator"];
 
   meta = {
     description = "Module to obfuscate code";
     homepage = "https://github.com/davidteather/python-obfuscator";
     changelog = "https://github.com/davidteather/python-obfuscator/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -9,7 +9,6 @@
   bash,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sshlatex";
   version = "0.8";
@@ -21,23 +20,21 @@ stdenv.mkDerivation rec {
     sha256 = "0kaah8is74zba9373xccmsxmnnn6kh0isr4qpg21x3qhdzhlxl7q";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  installPhase =
-    let
-      binPath = lib.makeBinPath [
-        openssh
-        perl
-        gnutar
-        bash
-        inotify-tools
-      ];
-    in
-    ''
-      mkdir -p $out/bin
-      cp sshlatex $out/bin
-      wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"
-    '';
+  installPhase = let
+    binPath = lib.makeBinPath [
+      openssh
+      perl
+      gnutar
+      bash
+      inotify-tools
+    ];
+  in ''
+    mkdir -p $out/bin
+    cp sshlatex $out/bin
+    wrapProgram $out/bin/sshlatex --prefix PATH : "${binPath}"
+  '';
 
   meta = with lib; {
     description = "Collection of hacks to efficiently run LaTeX via ssh";
@@ -51,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/iblech/sshlatex";
     license = lib.licenses.gpl3Plus; # actually dual-licensed gpl3Plus | lppl13cplus
     platforms = lib.platforms.all;
-    maintainers = [ maintainers.iblech ];
+    maintainers = [maintainers.iblech];
     mainProgram = "sshlatex";
   };
 }

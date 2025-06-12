@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "oscrypto";
   version = "1.3.0";
@@ -42,11 +41,11 @@ buildPythonPackage rec {
     done
   '';
 
-  propagatedBuildInputs = [ asn1crypto ];
+  propagatedBuildInputs = [asn1crypto];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oscrypto" ];
+  pythonImportsCheck = ["oscrypto"];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     description = "Encryption library for Python";
     homepage = "https://github.com/wbond/oscrypto";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

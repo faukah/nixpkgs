@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zfs_exporter";
   version = "2.3.8";
@@ -36,6 +35,6 @@ buildGoModule rec {
     mainProgram = "zfs_exporter";
     homepage = "https://github.com/pdf/zfs_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

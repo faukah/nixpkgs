@@ -6,7 +6,6 @@
   # "dlsym" for OSX version < 12
   darwinHookMethod ? "dyld",
 }:
-
 stdenv.mkDerivation rec {
   pname = "proxychains-ng";
   version = "4.17";

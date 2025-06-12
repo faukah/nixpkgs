@@ -7,7 +7,6 @@
   openssl,
   pe-parse,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uthenticode";
   version = "2.0.1";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
     "-DUSE_EXTERNAL_GTEST=1"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  nativeCheckInputs = [ gtest ];
+  nativeBuildInputs = [cmake];
+  nativeCheckInputs = [gtest];
   buildInputs = [
     pe-parse
     openssl
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trailofbits/uthenticode";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

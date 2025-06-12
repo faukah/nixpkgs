@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lacus";
   version = "1.14.0";
@@ -41,6 +40,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ail-project/lacus";
     changelog = "https://github.com/ail-project/lacus/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

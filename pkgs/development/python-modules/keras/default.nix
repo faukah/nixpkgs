@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   distutils,
@@ -22,7 +20,6 @@
   rich,
   scikit-learn,
   tensorflow,
-
   # tests
   dm-tree,
   jax,
@@ -33,7 +30,6 @@
   torch,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "keras";
   version = "3.10.0";
@@ -50,20 +46,22 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    absl-py
-    h5py
-    ml-dtypes
-    namex
-    numpy
-    tf2onnx
-    onnxruntime
-    optree
-    packaging
-    rich
-    scikit-learn
-    tensorflow
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ distutils ];
+  dependencies =
+    [
+      absl-py
+      h5py
+      ml-dtypes
+      namex
+      numpy
+      tf2onnx
+      onnxruntime
+      optree
+      packaging
+      rich
+      scikit-learn
+      tensorflow
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [distutils];
 
   pythonImportsCheck = [
     "keras"
@@ -131,6 +129,6 @@ buildPythonPackage rec {
     homepage = "https://keras.io";
     changelog = "https://github.com/keras-team/keras/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

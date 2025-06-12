@@ -5,7 +5,6 @@
   autoreconfHook,
   cups,
 }:
-
 stdenv.mkDerivation {
   pname = "epson-inkjet-printer-escpr2";
   version = "1.2.28";
@@ -18,7 +17,7 @@ stdenv.mkDerivation {
     hash = "sha256-lv8Hgo7JzT4igY8ek7EXdyFO34l735dpMC+gWkO5rvY=";
   };
 
-  buildInputs = [ cups ];
+  buildInputs = [cups];
   nativeBuildInputs = [
     autoreconfHook
   ];

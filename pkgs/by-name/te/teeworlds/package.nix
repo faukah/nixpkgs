@@ -18,7 +18,6 @@
   nixosTests,
   buildClient ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "teeworlds";
   version = "0.7.5";
@@ -91,7 +90,11 @@ stdenv.mkDerivation rec {
     );
 
   cmakeFlags = [
-    "-DCLIENT=${if buildClient then "ON" else "OFF"}"
+    "-DCLIENT=${
+      if buildClient
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   postInstall = lib.optionalString buildClient (

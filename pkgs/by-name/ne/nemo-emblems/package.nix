@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cinnamon-translations,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "nemo-emblems";
   version = "6.4.0";
@@ -38,6 +37,6 @@ python3.pkgs.buildPythonApplication rec {
     '';
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

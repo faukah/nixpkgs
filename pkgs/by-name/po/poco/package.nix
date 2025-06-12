@@ -14,7 +14,6 @@
   unixODBC,
   libmysqlclient,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poco";
 

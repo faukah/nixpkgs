@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "Formats commit messages better than fmt(1) and Vim";
     mainProgram = "commitmsgfmt";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mmlb ];
+    maintainers = with lib.maintainers; [mmlb];
   };
 }

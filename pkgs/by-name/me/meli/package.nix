@@ -3,7 +3,6 @@
   lib,
   fetchzip,
   rustPlatform,
-
   # native build inputs
   pkg-config,
   installShellFiles,
@@ -12,17 +11,14 @@
   rustfmt,
   file,
   writableTmpDirAsHomeHook,
-
   # build inputs
   openssl,
   dbus,
   sqlite,
-
   # runtime deps
   gpgme,
   gnum4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "meli";
   version = "0.8.12";
@@ -47,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     makeWrapper
     mandoc
-    (rustfmt.override { asNightly = true; })
+    (rustfmt.override {asNightly = true;})
   ];
 
   buildInputs = [
@@ -66,8 +62,8 @@ rustPlatform.buildRustPackage rec {
     installManPage meli/docs/*.{1,5,7}
 
     wrapProgram $out/bin/meli \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gpgme ]} \
-      --prefix PATH : ${lib.makeBinPath [ gnum4 ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [gpgme]} \
+      --prefix PATH : ${lib.makeBinPath [gnum4]}
   '';
 
   checkFlags = [

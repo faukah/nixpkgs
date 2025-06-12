@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   awkward,
   cramjam,
   fsspec,
   numpy,
   packaging,
-
   # tests
   awkward-pandas,
   pandas,
@@ -24,7 +21,6 @@
   writableTmpDirAsHomeHook,
   xxhash,
 }:
-
 buildPythonPackage rec {
   pname = "uproot";
   version = "5.6.2";
@@ -98,13 +94,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "uproot" ];
+  pythonImportsCheck = ["uproot"];
 
   meta = {
     description = "ROOT I/O in pure Python and Numpy";
     homepage = "https://github.com/scikit-hep/uproot5";
     changelog = "https://github.com/scikit-hep/uproot5/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

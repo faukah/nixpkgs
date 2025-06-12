@@ -1,17 +1,15 @@
 /*
-  Declares what makes the nix-daemon work on systemd.
-  See also
-   - nixos/modules/config/nix.nix: the nix.conf
-   - nixos/modules/config/nix-remote-build.nix: the nix.conf
+Declares what makes the nix-daemon work on systemd.
+See also
+ - nixos/modules/config/nix.nix: the nix.conf
+ - nixos/modules/config/nix-remote-build.nix: the nix.conf
 */
 {
   config,
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.nix;
 
   nixPackage = cfg.package.out;
@@ -26,22 +24,19 @@ let
       description = "Nix build user ${toString nr}";
 
       /*
-        For consistency with the setgid(2), setuid(2), and setgroups(2)
-        calls in `libstore/build.cc', don't add any supplementary group
-        here except "nixbld".
+      For consistency with the setgid(2), setuid(2), and setgroups(2)
+      calls in `libstore/build.cc', don't add any supplementary group
+      here except "nixbld".
       */
       uid = builtins.add config.ids.uids.nixbld nr;
       isSystemUser = true;
       group = "nixbld";
-      extraGroups = [ "nixbld" ];
+      extraGroups = ["nixbld"];
     };
   };
 
   nixbldUsers = lib.listToAttrs (map makeNixBuildUser (lib.range 1 cfg.nrBuildUsers));
-
-in
-
-{
+in {
   imports = [
     (lib.mkRenamedOptionModuleWith {
       sinceRelease = 2205;
@@ -65,15 +60,13 @@ in
         "readOnlyNixStore"
       ];
     })
-    (lib.mkRemovedOptionModule [ "nix" "daemonNiceLevel" ] "Consider nix.daemonCPUSchedPolicy instead.")
+    (lib.mkRemovedOptionModule ["nix" "daemonNiceLevel"] "Consider nix.daemonCPUSchedPolicy instead.")
   ];
 
   ###### interface
 
   options = {
-
     nix = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = true;
@@ -169,7 +162,7 @@ in
       envVars = lib.mkOption {
         type = lib.types.attrs;
         internal = true;
-        default = { };
+        default = {};
         description = "Environment variables used by Nix.";
       };
 
@@ -188,16 +181,18 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
-      nixPackage
-      pkgs.nix-info
-    ] ++ lib.optional (config.programs.bash.completion.enable) pkgs.nix-bash-completions;
+    environment.systemPackages =
+      [
+        nixPackage
+        pkgs.nix-info
+      ]
+      ++ lib.optional (config.programs.bash.completion.enable) pkgs.nix-bash-completions;
 
-    systemd.packages = [ nixPackage ];
+    systemd.packages = [nixPackage];
 
     systemd.tmpfiles = lib.mkMerge [
       (lib.mkIf (isNixAtLeast "2.8") {
-        packages = [ nixPackage ];
+        packages = [nixPackage];
       })
       (lib.mkIf (!isNixAtLeast "2.8") {
         rules = [
@@ -206,14 +201,16 @@ in
       })
     ];
 
-    systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
+    systemd.sockets.nix-daemon.wantedBy = ["sockets.target"];
 
     systemd.services.nix-daemon = {
-      path = [
-        nixPackage
-        pkgs.util-linux
-        config.programs.ssh.package
-      ] ++ lib.optionals cfg.distributedBuilds [ pkgs.gzip ];
+      path =
+        [
+          nixPackage
+          pkgs.util-linux
+          config.programs.ssh.package
+        ]
+        ++ lib.optionals cfg.distributedBuilds [pkgs.gzip];
 
       environment =
         cfg.envVars
@@ -232,7 +229,7 @@ in
         Delegate = "yes";
       };
 
-      restartTriggers = [ config.environment.etc."nix/nix.conf".source ];
+      restartTriggers = [config.environment.etc."nix/nix.conf".source];
 
       # `stopIfChanged = false` changes to switch behavior
       # from   stop -> update units -> start
@@ -266,17 +263,20 @@ in
       # nix-daemon must do so on its own accord, and only when the new version
       # starts and detects that Nix's persistent state needs an upgrade.
       stopIfChanged = false;
-
     };
 
     # Set up the environment variables for running Nix.
     environment.sessionVariables = cfg.envVars;
 
     nix.nrBuildUsers = lib.mkDefault (
-      if cfg.settings.auto-allocate-uids or false then
-        0
+      if cfg.settings.auto-allocate-uids or false
+      then 0
       else
-        lib.max 32 (if cfg.settings.max-jobs == "auto" then 0 else cfg.settings.max-jobs)
+        lib.max 32 (
+          if cfg.settings.max-jobs == "auto"
+          then 0
+          else cfg.settings.max-jobs
+        )
     );
 
     users.users = nixbldUsers;
@@ -285,9 +285,7 @@ in
 
     # Legacy configuration conversion.
     nix.settings = lib.mkMerge [
-      (lib.mkIf (isNixAtLeast "2.3pre") { sandbox-fallback = false; })
+      (lib.mkIf (isNixAtLeast "2.3pre") {sandbox-fallback = false;})
     ];
-
   };
-
 }

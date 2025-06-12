@@ -9,7 +9,6 @@
   popt,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "efibootmgr";
   version = "18";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     efivar
@@ -47,11 +46,11 @@ stdenv.mkDerivation (finalAttrs: {
     "PKG_CONFIG=${stdenv.cc.targetPrefix}pkg-config"
   ];
 
-  installFlags = [ "prefix=${placeholder "out"}" ];
+  installFlags = ["prefix=${placeholder "out"}"];
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rhboot/efibootmgr";
     changelog = "https://github.com/rhboot/efibootmgr/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "efibootmgr";
     platforms = lib.platforms.linux;
   };

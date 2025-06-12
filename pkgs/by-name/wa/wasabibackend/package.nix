@@ -52,9 +52,9 @@ buildDotnetModule rec {
   meta = with lib; {
     description = "Backend for the Wasabi Wallet";
     homepage = "https://wasabiwallet.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [mmahut];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -7,7 +7,6 @@
   fftw,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sc3-plugins";
   version = "3.13.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     supercollider
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Community plugins for SuperCollider";
     homepage = "https://supercollider.github.io/sc3-plugins/";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

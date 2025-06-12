@@ -1,30 +1,32 @@
-{ lib }:
-{
+{lib}: {
   # See ./cuda.nix for documentation.
-  inherit (import ./cuda.nix { inherit lib; })
+  inherit
+    (import ./cuda.nix {inherit lib;})
     cudaCapabilityToInfo
     ;
 
   # See ./nvcc.nix for documentation.
-  inherit (import ./nvcc.nix)
+  inherit
+    (import ./nvcc.nix)
     nvccCompatibilities
     ;
 
   # See ./redist.nix for documentation.
-  inherit (import ./redist.nix)
+  inherit
+    (import ./redist.nix)
     redistNames
     redistSystems
     redistUrlPrefix
     ;
 
   /**
-    The path to the CUDA packages root directory, for use with `callPackage` to create new package sets.
+  The path to the CUDA packages root directory, for use with `callPackage` to create new package sets.
 
-    # Type
+  # Type
 
-    ```
-    cudaPackagesPath :: Path
-    ```
+  ```
+  cudaPackagesPath :: Path
+  ```
   */
   cudaPackagesPath = ./../../..;
 }

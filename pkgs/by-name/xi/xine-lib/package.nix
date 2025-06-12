@@ -29,7 +29,6 @@
   vcdimager,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xine-lib";
   version = "1.2.13-unstable-2024-06-29";
@@ -98,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl2Plus
     ];
     # No useful mainProgram
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

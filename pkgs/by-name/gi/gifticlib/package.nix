@@ -8,7 +8,6 @@
   zlib,
   ctestCheckHook,
 }:
-
 stdenv.mkDerivation {
   pname = "gifticlib";
   version = "unstable-2020-07-07";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     "-DDOWNLOAD_TEST_DATA=OFF"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     expat
     nifticlib
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
 
   # without the test data, this is only a few basic tests
   doCheck = !stdenv.hostPlatform.isDarwin;
-  nativeCheckInputs = [ ctestCheckHook ];
+  nativeCheckInputs = [ctestCheckHook];
   checkFlags = [
     "-LE"
     "NEEDS_DATA"
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://www.nitrc.org/projects/gifti";
     description = "Medical imaging geometry format C API";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.publicDomain;
   };

@@ -20,7 +20,6 @@
   lz4,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pyosmium";
   version = "4.0.2";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     hash = "sha256-pW2w/M4P4DtGhnTy72w0wjMtpLtSgvYGaemme/rRrwM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libosmium
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     lz4
   ];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   preBuild = "cd ..";
 
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://osmcode.org/pyosmium";
     changelog = "https://github.com/osmcode/pyosmium/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
   };
 }

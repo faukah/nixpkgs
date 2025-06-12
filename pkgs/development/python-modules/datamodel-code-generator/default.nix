@@ -22,7 +22,6 @@
   pyyaml,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "datamodel-code-generator";
   version = "0.26.5";
@@ -68,7 +67,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "datamodel_code_generator" ];
+  pythonImportsCheck = ["datamodel_code_generator"];
 
   disabledTests = [
     # remote testing, name resolution failure.
@@ -79,7 +78,7 @@ buildPythonPackage rec {
     description = "Pydantic model and dataclasses.dataclass generator for easy conversion of JSON, OpenAPI, JSON Schema, and YAML data sources";
     homepage = "https://github.com/koxudaxi/datamodel-code-generator";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "datamodel-code-generator";
   };
 }

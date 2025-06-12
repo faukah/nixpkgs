@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "volkswagencarnet";
   version = "5.0.2";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail 'pytest_plugins = ["pytest_cov"]' 'pytest_plugins = []'
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pyjwt
   ];
 
-  pythonImportsCheck = [ "volkswagencarnet" ];
+  pythonImportsCheck = ["volkswagencarnet"];
 
   nativeCheckInputs = [
     freezegun
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "A python library for volkswagen carnet";
     homepage = "https://github.com/robinostlund/volkswagencarnet";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -50,10 +50,11 @@ stdenv.mkDerivation rec {
     ninja
     qt5.qmake
     (python.withPackages (
-      ps: with ps; [
-        distutils
-        setuptools
-      ]
+      ps:
+        with ps; [
+          distutils
+          setuptools
+        ]
     ))
   ];
 
@@ -74,14 +75,14 @@ stdenv.mkDerivation rec {
       qtsvg
       qt3d
     ])
-    ++ (with python.pkgs; [ setuptools ])
+    ++ (with python.pkgs; [setuptools])
     ++ (lib.optionals (python.pythonOlder "3.9") [
       # see similar issue: 202262
       # libxcrypt is required for crypt.h for building older python modules
       libxcrypt
     ]);
 
-  propagatedBuildInputs = [ shiboken2 ];
+  propagatedBuildInputs = [shiboken2];
 
   dontWrapQtApps = true;
 
@@ -95,7 +96,7 @@ stdenv.mkDerivation rec {
     description = "LGPL-licensed Python bindings for Qt";
     license = licenses.lgpl21;
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

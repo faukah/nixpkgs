@@ -15,7 +15,6 @@
   libjack2,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tonelib-zoom";
   version = "4.3.1";
@@ -30,13 +29,15 @@ stdenv.mkDerivation rec {
     dpkg
   ];
 
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    alsa-lib
-    freetype
-    libglvnd
-    webkitgtk_4_0
-  ] ++ runtimeDependencies;
+  buildInputs =
+    [
+      (lib.getLib stdenv.cc.cc)
+      alsa-lib
+      freetype
+      libglvnd
+      webkitgtk_4_0
+    ]
+    ++ runtimeDependencies;
 
   runtimeDependencies = map lib.getLib [
     curl
@@ -57,10 +58,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "ToneLib Zoom – change and save all the settings in your Zoom(r) guitar pedal";
     homepage = "https://tonelib.net/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ dan4ik605743 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [dan4ik605743];
+    platforms = ["x86_64-linux"];
     mainProgram = "ToneLib-Zoom";
   };
 }

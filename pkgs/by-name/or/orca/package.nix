@@ -26,7 +26,6 @@
   liblouis,
   gst_all_1,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "orca";
   version = "48.1";
@@ -111,8 +110,8 @@ python3.pkgs.buildPythonApplication rec {
 
       Needs `services.gnome.at-spi2-core.enable = true;` in `configuration.nix`.
     '';
-    maintainers = with maintainers; [ berce ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [berce];
+    teams = [teams.gnome];
     license = licenses.lgpl21;
     platforms = platforms.linux;
   };

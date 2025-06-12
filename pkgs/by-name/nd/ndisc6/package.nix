@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ndisc6";
   version = "1.0.4";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "07swyar1hl83zxmd7fqwb2q0c0slvrswkcfp3nz5lknrk15dmcdb";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.remlab.net/ndisc6/";
     description = "Small collection of useful tools for IPv6 networking";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

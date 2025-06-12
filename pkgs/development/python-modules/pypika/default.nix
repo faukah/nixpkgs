@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-9HKT1xRu23F5ptiKhIgIR8srLIcpDzpowBNuYOhqMU0=";
   };
 
-  pythonImportsCheck = [ "pypika" ];
+  pythonImportsCheck = ["pypika"];
 
   nativeCheckInputs = [
     parameterized
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Python SQL query builder";
     homepage = "https://github.com/kayak/pypika";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

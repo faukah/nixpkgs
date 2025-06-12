@@ -8,7 +8,6 @@
   zlib,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iqtree";
   version = "2.3.6";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Efficient and versatile phylogenomic software by maximum likelihood";
     mainProgram = "iqtree2";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-redoc-tag";
   version = "0.1.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     mkdocs-material
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/blueswen/mkdocs-redoc-tag";
     changelog = "https://github.com/blueswen/mkdocs-redoc-tag/blob/v${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ benhiemer ];
+    maintainers = with maintainers; [benhiemer];
   };
 }

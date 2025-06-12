@@ -4,7 +4,6 @@
   pythonPackages,
   mopidy,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "Mopidy-Notify";
   version = "0.2.1";
@@ -23,12 +22,12 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mopidy_notify" ];
+  pythonImportsCheck = ["mopidy_notify"];
 
   meta = with lib; {
     homepage = "https://github.com/phijor/mopidy-notify";
     description = "Mopidy extension for showing desktop notifications on track change";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

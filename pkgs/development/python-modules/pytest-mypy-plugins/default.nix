@@ -15,7 +15,6 @@
   setuptools,
   tomlkit,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mypy-plugins";
   version = "3.2.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-60VxMUUCIP+Mp+OsgdyRTPZVLGC/3iaMxxhw02ABB9k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     decorator
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     tomlkit
   ];
 
-  pythonImportsCheck = [ "pytest_mypy_plugins" ];
+  pythonImportsCheck = ["pytest_mypy_plugins"];
 
   nativeCheckInputs = [
     mypy
@@ -56,13 +55,13 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  disabledTestPaths = [ "pytest_mypy_plugins/tests/test_explicit_configs.py" ];
+  disabledTestPaths = ["pytest_mypy_plugins/tests/test_explicit_configs.py"];
 
   meta = with lib; {
     description = "Pytest plugin for testing mypy types, stubs, and plugins";
     homepage = "https://github.com/TypedDjango/pytest-mypy-plugins";
     changelog = "https://github.com/typeddjango/pytest-mypy-plugins/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

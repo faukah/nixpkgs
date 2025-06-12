@@ -1,26 +1,22 @@
 # hyphen dictionaries
-
 {
   hyphen,
   stdenv,
   lib,
   fetchgit,
   fetchurl,
-}:
-
-let
+}: let
   libreofficeRepository = "https://anongit.freedesktop.org/git/libreoffice/dictionaries.git";
   libreofficeCommit = "9e27d044d98e65f89af8c86df722a77be827bdc8";
   libreofficeSubdir = "de";
 
-  mkDictFromLibreofficeGit =
-    {
-      subdir,
-      shortName,
-      shortDescription,
-      dictFileName,
-      readmeFileName,
-    }:
+  mkDictFromLibreofficeGit = {
+    subdir,
+    shortName,
+    shortDescription,
+    dictFileName,
+    readmeFileName,
+  }:
     stdenv.mkDerivation rec {
       version = "24.8";
       pname = "hyphen-dict-${shortName}-libreoffice";
@@ -32,8 +28,8 @@ let
       meta = with lib; {
         description = "Hyphen dictionary for ${shortDescription} from LibreOffice";
         homepage = "https://wiki.documentfoundation.org/Development/Dictionaries";
-        license = with licenses; [ mpl20 ];
-        maintainers = with maintainers; [ theCapypara ];
+        license = with licenses; [mpl20];
+        maintainers = with maintainers; [theCapypara];
         platforms = platforms.all;
       };
       dontBuild = true;
@@ -48,10 +44,7 @@ let
         runHook postInstall
       '';
     };
-
-in
-rec {
-
+in rec {
   # ENGLISH
 
   en_US = en-us;
@@ -61,7 +54,8 @@ rec {
     pname = "hyphen-dict-en-us";
     src = hyphen.src;
     meta = {
-      inherit (hyphen.meta)
+      inherit
+        (hyphen.meta)
         homepage
         platforms
         license

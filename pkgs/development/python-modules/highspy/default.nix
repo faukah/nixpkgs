@@ -30,16 +30,16 @@ buildPythonPackage {
 
   dontUseCmakeConfigure = true;
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  pythonImportsCheck = [ "highspy" ];
+  pythonImportsCheck = ["highspy"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Linear optimization software";
     homepage = "https://github.com/ERGO-Code/HiGHS";
     license = licenses.mit;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
   };
 }

@@ -5,7 +5,6 @@
   cmdliner,
   menhir,
 }:
-
 buildDunePackage rec {
   pname = "dedukti";
   version = "2.7";
@@ -19,8 +18,8 @@ buildDunePackage rec {
     hash = "sha256-SFxbgq2znO+OCEFzuekVquvtOEuCQanseKy+iZAeWbc=";
   };
 
-  nativeBuildInputs = [ menhir ];
-  buildInputs = [ cmdliner ];
+  nativeBuildInputs = [menhir];
+  buildInputs = [cmdliner];
 
   doCheck = false; # requires `tezt`
 
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "Logical framework based on the λΠ-calculus modulo rewriting";
     license = licenses.cecill-b;
     changelog = "https://github.com/Deducteam/Dedukti/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

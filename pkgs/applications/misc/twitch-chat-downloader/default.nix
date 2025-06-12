@@ -6,7 +6,6 @@
   progressbar2,
   requests,
 }:
-
 buildPythonApplication rec {
   pname = "twitch-chat-downloader";
   version = "2.5.4";
@@ -36,13 +35,13 @@ buildPythonApplication rec {
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "tcd" ];
+  pythonImportsCheck = ["tcd"];
 
   meta = with lib; {
     description = "Twitch Chat Downloader";
     mainProgram = "tcd";
     homepage = "https://github.com/TheDrHax/Twitch-Chat-Downloader";
     license = licenses.mit;
-    maintainers = with maintainers; [ assistant ];
+    maintainers = with maintainers; [assistant];
   };
 }

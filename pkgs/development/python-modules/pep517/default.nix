@@ -13,7 +13,6 @@
   mock,
   pip,
 }:
-
 buildPythonPackage rec {
   pname = "pep517";
   version = "0.13.1";
@@ -24,10 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-Gy+i/9OTi7S+/+XWFGy8sr2plqWk2p8xq//Ysk4Hsxc=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs =
-    [ tomli ]
+    [tomli]
     ++ lib.optionals (pythonOlder "3.8") [
       importlib-metadata
       zipp

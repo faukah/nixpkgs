@@ -4,10 +4,8 @@
   fetchFromGitHub,
   xrdb,
 }:
-
 # requires openrazer-daemon to be running on the system
 # on NixOS hardware.openrazer.enable or pkgs.openrazer-daemon
-
 python3.pkgs.buildPythonApplication rec {
   pname = "razer-cli";
   version = "2.3.0";
@@ -37,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Command line interface for controlling Razer devices on Linux";
     mainProgram = "razer-cli";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.kaylorben ];
+    maintainers = [lib.maintainers.kaylorben];
     platforms = lib.platforms.linux;
   };
 }

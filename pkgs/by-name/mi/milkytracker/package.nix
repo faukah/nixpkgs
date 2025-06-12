@@ -14,7 +14,6 @@
   zlib,
   zziplib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "milkytracker";
   version = "1.05.01";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.unix;
     # ibtool -> real Xcode -> I can't get that, and Ofborg can't test that
     broken = stdenv.hostPlatform.isDarwin;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     mainProgram = "milkytracker";
   };
 })

@@ -6,7 +6,6 @@
   gmp,
   ecm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "msieve";
   version = "1056";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-6ErVn4pYPMG5VFjOQURLsHNpN0pGdp55+rjY8988onU=";
   };
 
-  patches = [ ./savefile_t-pointer-type.patch ];
+  patches = [./savefile_t-pointer-type.patch];
 
   buildInputs = [
     zlib
@@ -25,7 +24,10 @@ stdenv.mkDerivation rec {
     ecm
   ];
 
-  ECM = if ecm == null then "0" else "1";
+  ECM =
+    if ecm == null
+    then "0"
+    else "1";
 
   # Doesn't hurt Linux but lets clang-based platforms like Darwin work fine too
   makeFlags = [
@@ -45,7 +47,7 @@ stdenv.mkDerivation rec {
     mainProgram = "msieve";
     license = lib.licenses.publicDomain;
     homepage = "http://msieve.sourceforge.net/";
-    maintainers = [ lib.maintainers.roconnor ];
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
+    maintainers = [lib.maintainers.roconnor];
+    platforms = ["x86_64-linux"] ++ lib.platforms.darwin;
   };
 }

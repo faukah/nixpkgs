@@ -10,7 +10,6 @@
   libwapcaplet,
   libhubbub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libdom";
   version = "0.4.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     expat

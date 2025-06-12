@@ -21,7 +21,6 @@
   sphinx-rtd-theme,
   sphinxHook,
 }:
-
 buildPythonPackage rec {
   pname = "firebase-messaging";
   version = "0.4.4";
@@ -45,9 +44,11 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  nativeBuildInputs = [
-    sphinxHook
-  ] ++ optional-dependencies.docs;
+  nativeBuildInputs =
+    [
+      sphinxHook
+    ]
+    ++ optional-dependencies.docs;
 
   pythonRelaxDeps = [
     "http-ece"
@@ -70,7 +71,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "firebase_messaging" ];
+  pythonImportsCheck = ["firebase_messaging"];
 
   nativeCheckInputs = [
     aioresponses
@@ -87,6 +88,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sdb9696/firebase-messaging";
     changelog = "https://github.com/sdb9696/firebase-messaging/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

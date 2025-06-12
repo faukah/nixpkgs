@@ -17,7 +17,6 @@
   slop,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "recapp";
   version = "1.1.1";
@@ -70,11 +69,11 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
       "--prefix" "PATH" ":" "${
-        lib.makeBinPath [
-          gst_all_1.gstreamer.dev
-          slop
-        ]
-      }"
+      lib.makeBinPath [
+        gst_all_1.gstreamer.dev
+        slop
+      ]
+    }"
     )
   '';
 
@@ -82,7 +81,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "User friendly Open Source screencaster for Linux written in GTK";
     homepage = "https://github.com/amikha1lov/RecApp";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "recapp";
   };
 }

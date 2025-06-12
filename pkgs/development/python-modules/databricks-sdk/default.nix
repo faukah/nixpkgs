@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   google-auth,
   requests,
-
   # tests
   langchain-openai,
   openai,
@@ -18,7 +15,6 @@
   pytest-mock,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "databricks-sdk";
   version = "0.56.0";
@@ -84,6 +80,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/databricks/databricks-sdk-py";
     changelog = "https://github.com/databricks/databricks-sdk-py/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

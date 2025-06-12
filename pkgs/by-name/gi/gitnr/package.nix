@@ -8,7 +8,6 @@
   stdenv,
   wayland,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gitnr";
   version = "0.2.2";

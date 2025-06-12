@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "zwave-js-server";
   version = "3.0.2";
@@ -19,7 +18,7 @@ buildNpmPackage rec {
   npmDepsHash = "sha256-Px8Hs6Nol3fYvLPWFv+RK2ltqFN/hAxtuGtR3dA+4yI=";
 
   # For some reason the zwave-js dependency is in devDependencies
-  npmFlags = [ "--include=dev" ];
+  npmFlags = ["--include=dev"];
 
   passthru = {
     tests = {
@@ -32,6 +31,6 @@ buildNpmPackage rec {
     description = "Small server wrapper around Z-Wave JS to access it via a WebSocket";
     license = lib.licenses.asl20;
     homepage = "https://github.com/zwave-js/zwave-js-server";
-    maintainers = with lib.maintainers; [ graham33 ];
+    maintainers = with lib.maintainers; [graham33];
   };
 }

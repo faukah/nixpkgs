@@ -18,7 +18,6 @@
   trustme,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "elastic-transport";
   version = "8.17.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace " --cov-report=term-missing --cov=elastic_transport" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     urllib3
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "elastic_transport" ];
+  pythonImportsCheck = ["elastic_transport"];
 
   pytestFlagsArray = [
     "-W"
@@ -90,6 +89,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/elasticsearch/elastic-transport-python";
     changelog = "https://github.com/elastic/elastic-transport-python/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

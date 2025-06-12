@@ -4,9 +4,7 @@
   fetchurl,
   appimageTools,
   segger-jlink-headless,
-}:
-
-let
+}: let
   pname = "nrfconnect";
   version = "5.1.0";
 
@@ -19,29 +17,28 @@ let
   appimageContents = appimageTools.extractType2 {
     inherit pname version src;
   };
-
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraPkgs = pkgs: [
-    segger-jlink-headless
-  ];
+    extraPkgs = pkgs: [
+      segger-jlink-headless
+    ];
 
-  extraInstallCommands = ''
-    install -Dm444 ${appimageContents}/nrfconnect.desktop -t $out/share/applications
-    install -Dm444 ${appimageContents}/usr/share/icons/hicolor/512x512/apps/nrfconnect.png \
-      -t $out/share/icons/hicolor/512x512/apps
-    substituteInPlace $out/share/applications/nrfconnect.desktop \
-      --replace-fail 'Exec=AppRun' 'Exec=nrfconnect'
-  '';
+    extraInstallCommands = ''
+      install -Dm444 ${appimageContents}/nrfconnect.desktop -t $out/share/applications
+      install -Dm444 ${appimageContents}/usr/share/icons/hicolor/512x512/apps/nrfconnect.png \
+        -t $out/share/icons/hicolor/512x512/apps
+      substituteInPlace $out/share/applications/nrfconnect.desktop \
+        --replace-fail 'Exec=AppRun' 'Exec=nrfconnect'
+    '';
 
-  meta = {
-    description = "Nordic Semiconductor nRF Connect for Desktop";
-    homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
-    license = lib.licenses.unfree;
-    platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ stargate01 ];
-    mainProgram = "nrfconnect";
-  };
-}
+    meta = {
+      description = "Nordic Semiconductor nRF Connect for Desktop";
+      homepage = "https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-desktop";
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.linux;
+      maintainers = with lib.maintainers; [stargate01];
+      mainProgram = "nrfconnect";
+    };
+  }

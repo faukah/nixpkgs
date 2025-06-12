@@ -5,12 +5,11 @@
   evolution-data-server,
   plugins,
 }:
-
 symlinkJoin {
   name = "evolution-with-plugins";
-  paths = [ evolution-data-server ] ++ plugins;
+  paths = [evolution-data-server] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     declare -a schemas;

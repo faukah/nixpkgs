@@ -5,7 +5,6 @@
   stdenv,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lutgen";
   version = "0.12.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-H913/EjCh14AcCIj/Em6neP5F6i88rSVbPMmnS3po/I=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd lutgen \

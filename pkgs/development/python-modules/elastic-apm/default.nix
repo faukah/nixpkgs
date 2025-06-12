@@ -30,7 +30,6 @@
   webob,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "elastic-apm";
   version = "6.23.0";
@@ -53,9 +52,9 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonRelaxDeps = [ "wrapt" ];
+  pythonRelaxDeps = ["wrapt"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -101,14 +100,14 @@ buildPythonPackage rec {
       "tests/utils/threading_tests.py"
     ];
 
-  pythonImportsCheck = [ "elasticapm" ];
+  pythonImportsCheck = ["elasticapm"];
 
   meta = with lib; {
     description = "Python agent for the Elastic APM";
     homepage = "https://github.com/elastic/apm-agent-python";
     changelog = "https://github.com/elastic/apm-agent-python/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     mainProgram = "elasticapm-run";
   };
 }

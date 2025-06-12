@@ -10,7 +10,6 @@
   pycountry,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "formencode";
   version = "2.1.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     sed -i '/setuptools_scm_git_archive/d' setup.py
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     six
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "FormEncode validates and converts nested structures";
     homepage = "http://formencode.org";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "watermark";
   version = "2.5.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-UR4kV6UoZ/JLO19on+qEH+M05QIsT0SXvXJtTMCKuZM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     ipython
@@ -32,20 +31,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    gpu = [ py3nvml ];
+    gpu = [py3nvml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "watermark" ];
+  pythonImportsCheck = ["watermark"];
 
   meta = with lib; {
     description = "IPython extension for printing date and timestamps, version numbers, and hardware information";
     homepage = "https://github.com/rasbt/watermark";
     changelog = "https://github.com/rasbt/watermark/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nphilou ];
+    maintainers = with maintainers; [nphilou];
   };
 }

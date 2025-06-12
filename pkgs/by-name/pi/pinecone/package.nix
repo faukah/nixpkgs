@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "pinecone";
   version = "0.11.0-unstable-2023-08-10";
@@ -21,7 +20,7 @@ buildGoModule {
     description = "Peer-to-peer overlay routing for the Matrix ecosystem";
     homepage = "https://matrix-org.github.io/pinecone/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ networkexception ];
+    maintainers = with maintainers; [networkexception];
     mainProgram = "pinecone";
   };
 }

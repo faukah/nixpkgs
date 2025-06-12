@@ -5,7 +5,6 @@
   cmake,
   asmjit,
 }:
-
 stdenv.mkDerivation {
   pname = "blend2d";
   version = "0.12";
@@ -22,15 +21,15 @@ stdenv.mkDerivation {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ (lib.cmakeFeature "ASMJIT_DIR" (toString asmjit.src)) ];
+  cmakeFlags = [(lib.cmakeFeature "ASMJIT_DIR" (toString asmjit.src))];
 
   meta = {
     description = "2D Vector Graphics Engine Powered by a JIT Compiler";
     homepage = "https://blend2d.com";
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.all;
   };
 }

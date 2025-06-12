@@ -5,7 +5,6 @@
   libsForQt5,
   graphicsmagick,
 }:
-
 stdenv.mkDerivation rec {
   pname = "photoflare";
   version = "1.6.13";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     graphicsmagick
   ];
 
-  qmakeFlags = [ "PREFIX=${placeholder "out"}" ];
+  qmakeFlags = ["PREFIX=${placeholder "out"}"];
 
   env.NIX_CFLAGS_COMPILE = "-I${graphicsmagick}/include/GraphicsMagick";
 
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Cross-platform image editor with a powerful features and a very friendly graphical user interface";
     mainProgram = "photoflare";
     homepage = "https://photoflare.io";
-    maintainers = [ maintainers.omgbebebe ];
+    maintainers = [maintainers.omgbebebe];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

@@ -2,15 +2,12 @@
   lib,
   rustPlatform,
   fetchFromGitLab,
-
   libzip,
   openssl,
   pkg-config,
-
   berryVersion,
   berryCacheVersion,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "yarn-berry-${toString berryVersion}-fetcher";
   version = "1.2.3";

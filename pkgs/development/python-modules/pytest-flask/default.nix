@@ -10,7 +10,6 @@
   setuptools-scm,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-flask";
   version = "1.3.0";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-WL4cl7Ibo8TUfgp2ketBAHdIUGw2v1EAT3jfEGkfqV4=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     flask
     werkzeug
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_flask" ];
+  pythonImportsCheck = ["pytest_flask"];
 
   pytestFlagsArray = lib.optionals stdenv.hostPlatform.isDarwin [
     "--ignore=tests/test_live_server.py"
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://pytest-flask.readthedocs.io/";
     changelog = "https://github.com/pytest-dev/pytest-flask/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

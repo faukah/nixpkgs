@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "clapboard";
   version = "1.0.3";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Wayland clipboard manager that will make you clap";
     homepage = "https://github.com/bjesus/clapboard";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     platforms = platforms.linux;
     mainProgram = "clapboard";
   };

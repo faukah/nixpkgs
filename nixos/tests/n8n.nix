@@ -1,9 +1,7 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   port = 5678;
   webhookUrl = "http://example.com";
-in
-{
+in {
   name = "n8n";
   meta.maintainers = with lib.maintainers; [
     freezeboy
@@ -12,20 +10,17 @@ in
 
   node.pkgsReadOnly = false;
 
-  nodes.machine =
-    { ... }:
-    {
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "n8n"
-        ];
+  nodes.machine = {...}: {
+    nixpkgs.config.allowUnfreePredicate = pkg:
+      builtins.elem (lib.getName pkg) [
+        "n8n"
+      ];
 
-      services.n8n = {
-        enable = true;
-        webhookUrl = webhookUrl;
-      };
+    services.n8n = {
+      enable = true;
+      webhookUrl = webhookUrl;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("n8n.service")

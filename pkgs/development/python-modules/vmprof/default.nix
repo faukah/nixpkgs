@@ -12,7 +12,6 @@
   libunwind,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "vmprof";
   version = "0.4.17";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-7k6mtEdPmp1eNzB4l/k/ExSYtRJVmRxcx50ql8zR36k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     pytz
   ];
 
-  buildInputs = [ libunwind ];
+  buildInputs = [libunwind];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_gzip_call"
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     "test_get_runtime"
   ];
 
-  pythonImportsCheck = [ "vmprof" ];
+  pythonImportsCheck = ["vmprof"];
 
   meta = with lib; {
     description = "Vmprof client";

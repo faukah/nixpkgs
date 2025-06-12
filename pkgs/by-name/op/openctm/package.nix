@@ -7,7 +7,6 @@
   gtk2,
   libGLU,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openctm";
   version = "1.0.3";
@@ -24,12 +23,14 @@ stdenv.mkDerivation (finalAttrs: {
     "out"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [
-    libglut
-    libGLU
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ gtk2 ];
+  buildInputs =
+    [
+      libglut
+      libGLU
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [gtk2];
 
   postPatch =
     lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -55,7 +56,10 @@ stdenv.mkDerivation (finalAttrs: {
     "MAN1DIR=$(man)/share/man//man1"
   ];
 
-  makefile = if stdenv.hostPlatform.isDarwin then "Makefile.macosx" else "Makefile.linux";
+  makefile =
+    if stdenv.hostPlatform.isDarwin
+    then "Makefile.macosx"
+    else "Makefile.linux";
 
   preInstall = "mkdir -p $bin/bin $dev/include $out/lib $man/share/man/man1";
 
@@ -63,6 +67,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "File format, software library and a tool set for compression of 3D triangle meshes";
     homepage = "https://sourceforge.net/projects/openctm/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 })

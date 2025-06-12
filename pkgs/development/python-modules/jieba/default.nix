@@ -5,7 +5,6 @@
   python,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "jieba";
   version = "0.42.1";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Chinese Words Segementation Utilities";
     homepage = "https://github.com/fxsjy/jieba";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

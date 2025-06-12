@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitea,
 }:
-
 buildGoModule rec {
   pname = "lenpaste";
   version = "1.3";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/lenpaste
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Web service that allows you to share notes anonymously, an alternative to pastebin.com";
     homepage = "https://git.lcomrade.su/root/lenpaste";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ vector1dev ];
+    maintainers = with maintainers; [vector1dev];
     mainProgram = "lenpaste";
   };
 }

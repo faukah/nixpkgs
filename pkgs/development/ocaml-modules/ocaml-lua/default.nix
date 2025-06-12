@@ -5,7 +5,6 @@
   lua5_1,
   pkg-config,
 }:
-
 buildDunePackage {
   pname = "ocaml-lua";
   version = "1.8";
@@ -29,8 +28,8 @@ buildDunePackage {
                 "(libraries unix threads) (c_library_flags -llua)"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lua5_1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [lua5_1];
 
   doCheck = true;
 
@@ -38,6 +37,6 @@ buildDunePackage {
     description = "Lua bindings for OCaml";
     homepage = "https://pdonadeo.github.io/ocaml-lua";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.kenran ];
+    maintainers = [lib.maintainers.kenran];
   };
 }

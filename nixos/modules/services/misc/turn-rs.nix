@@ -3,16 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.turn-rs;
-  format = pkgs.formats.toml { };
-in
-{
+  format = pkgs.formats.toml {};
+in {
   options.services.turn-rs = {
     enable = lib.mkEnableOption "turn-rs server";
-    package = lib.mkPackageOption pkgs "turn-rs" { };
+    package = lib.mkPackageOption pkgs "turn-rs" {};
 
     secretFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
@@ -32,7 +29,7 @@ in
         freeformType = format.type;
       };
       description = "Turn-rs server config file";
-      default = { };
+      default = {};
       example = {
         turn = {
           realm = "localhost";
@@ -66,15 +63,13 @@ in
 
     systemd.services.turn-rs = {
       enable = true;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       description = "Turn-rs Server Daemon";
-      preStart =
-        let
-          configFile = format.generate "turn-rs-config.toml" cfg.settings;
-        in
-        ''
-          ${lib.getExe pkgs.envsubst} -i "${configFile}" -o /run/turn-rs/config.toml
-        '';
+      preStart = let
+        configFile = format.generate "turn-rs-config.toml" cfg.settings;
+      in ''
+        ${lib.getExe pkgs.envsubst} -i "${configFile}" -o /run/turn-rs/config.toml
+      '';
       serviceConfig = {
         RuntimeDirectory = "turn-rs";
         EnvironmentFile = lib.optional (cfg.secretFile != null) cfg.secretFile;

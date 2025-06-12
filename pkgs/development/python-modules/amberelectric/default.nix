@@ -11,7 +11,6 @@
   pythonOlder,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "amberelectric";
   version = "2.0.12";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-HTelfgOucyQINz34hT3kGxhJf68pxKbiO3L54nt5New=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aenum
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "amberelectric" ];
+  pythonImportsCheck = ["amberelectric"];
 
   meta = with lib; {
     description = "Python Amber Electric API interface";
     homepage = "https://github.com/madpilot/amberelectric.py";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

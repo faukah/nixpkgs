@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tzupdate;
-in
-{
+in {
   options.services.tzupdate = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -19,7 +17,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "tzupdate" { };
+    package = lib.mkPackageOption pkgs "tzupdate" {};
 
     timer.enable = lib.mkOption {
       type = lib.types.bool;
@@ -50,9 +48,9 @@ in
     # at that point. It can also be run manually with `systemctl start tzupdate`.
     systemd.services.tzupdate = {
       description = "tzupdate timezone update service";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       script = ''
         timezone="$(${lib.getExe cfg.package} --print-only)"
         if [[ -n "$timezone" ]]; then
@@ -73,9 +71,9 @@ in
         OnCalendar = cfg.timer.interval;
         Persistent = true;
       };
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ doronbehar ];
+  meta.maintainers = with lib.maintainers; [doronbehar];
 }

@@ -8,7 +8,6 @@
   packaging,
   pyxdg,
 }:
-
 buildPythonPackage rec {
   pname = "show-in-file-manager";
   version = "1.1.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optional (stdenv.hostPlatform.isLinux) pyxdg;
+  propagatedBuildInputs = [packaging] ++ lib.optional (stdenv.hostPlatform.isLinux) pyxdg;
 
   meta = with lib; {
     homepage = "https://github.com/damonlynch/showinfilemanager";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
       something with them.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

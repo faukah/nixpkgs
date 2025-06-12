@@ -9,7 +9,6 @@
   pygraphviz,
   setuptools,
 }:
-
 python.pkgs.buildPythonApplication {
   version = "1.0.5-unstable-2024-01-17";
   pname = "nix-visualize";
@@ -24,10 +23,10 @@ python.pkgs.buildPythonApplication {
 
   postInstall = ''
     wrapProgram $out/bin/nix-visualize \
-      --prefix PATH : ${lib.makeBinPath [ nix ]}
+      --prefix PATH : ${lib.makeBinPath [nix]}
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     matplotlib
@@ -36,7 +35,7 @@ python.pkgs.buildPythonApplication {
     pygraphviz
   ];
 
-  pythonImportsCheck = [ "nix_visualize" ];
+  pythonImportsCheck = ["nix_visualize"];
   # No tests
   doCheck = false;
 
@@ -44,7 +43,7 @@ python.pkgs.buildPythonApplication {
     description = "Generate dependency graphs of a given nix package";
     mainProgram = "nix-visualize";
     homepage = "https://github.com/craigmbooth/nix-visualize";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ henrirosten ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [henrirosten];
   };
 }

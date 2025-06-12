@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin rec {
   pname = "grafana-clickhouse-datasource";
   version = "4.8.2";
@@ -12,8 +14,8 @@ grafanaPlugin rec {
   meta = with lib; {
     description = "Connects Grafana to ClickHouse";
     license = licenses.asl20;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ moody ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [moody];
     platforms = attrNames zipHash;
   };
 }

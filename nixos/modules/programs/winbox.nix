@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.winbox;
-in
-{
+in {
   options.programs.winbox = {
-    enable = lib.mkEnableOption ("MikroTik Winbox");
-    package = lib.mkPackageOption pkgs "winbox" { };
+    enable = lib.mkEnableOption "MikroTik Winbox";
+    package = lib.mkPackageOption pkgs "winbox" {};
 
     openFirewall = lib.mkOption {
       description = ''
@@ -23,7 +20,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [ 5678 ];
+    environment.systemPackages = [cfg.package];
+    networking.firewall.allowedUDPPorts = lib.optionals cfg.openFirewall [5678];
   };
 }

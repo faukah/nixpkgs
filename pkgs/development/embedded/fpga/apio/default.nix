@@ -14,7 +14,6 @@
   flit-core,
   pytestCheckHook,
 }:
-
 buildPythonApplication rec {
   pname = "apio";
   version = "0.9.5";
@@ -76,7 +75,7 @@ buildPythonApplication rec {
     "test2"
   ];
 
-  pytestFlagsArray = [ "--offline" ];
+  pytestFlagsArray = ["--offline"];
 
   strictDeps = true;
 
@@ -85,6 +84,6 @@ buildPythonApplication rec {
     mainProgram = "apio";
     homepage = "https://github.com/FPGAwars/apio";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

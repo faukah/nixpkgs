@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycodestyle";
   version = "2.13.0";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-jpF0/sVzRjot8KRdXqvhWpdafzC/Fska6jmG3s2U6Wk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pycodestyle" ];
+  pythonImportsCheck = ["pycodestyle"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # https://github.com/PyCQA/pycodestyle/blob/2.13.0/tox.ini#L16
   postCheck = ''
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     mainProgram = "pycodestyle";
     homepage = "https://pycodestyle.pycqa.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

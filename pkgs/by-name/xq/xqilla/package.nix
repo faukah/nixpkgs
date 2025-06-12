@@ -5,7 +5,6 @@
   fetchpatch,
   xercesc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xqilla";
   version = "2.3.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "XQuery and XPath 2 library and command line utility written in C++, implemented on top of the Xerces-C library";
     mainProgram = "xqilla";
     license = licenses.asl20;
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.all;
   };
 }

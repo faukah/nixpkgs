@@ -11,11 +11,11 @@
 #   - the server acts as NDP proxy for the client, so that the latter
 #     becomes reachable at its assigned IPv6 via the server.
 #   - the client falls back to TCP if UDP is blocked
-
-{ lib, pkgs, ... }:
-
-let
-
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # Common network setup
   baseNetwork = {
     # shared hosts file
@@ -26,7 +26,7 @@ let
       192.168.1.1 client
     '';
     # open a port for testing
-    networking.firewall.allowedUDPPorts = [ 1234 ];
+    networking.firewall.allowedUDPPorts = [1234];
   };
 
   # Common IPsec configuration
@@ -55,17 +55,13 @@ let
       }
     ];
   };
-
-in
-
-{
+in {
   name = "libreswan-nat";
   meta = with lib.maintainers; {
-    maintainers = [ rnhmjoj ];
+    maintainers = [rnhmjoj];
   };
 
-  nodes.router =
-    { pkgs, ... }:
+  nodes.router = {pkgs, ...}:
     lib.mkMerge [
       baseNetwork
       (setAddress4 "eth1" "203.0.113.1")
@@ -75,20 +71,20 @@ in
           1
           2
         ];
-        environment.systemPackages = [ pkgs.tcpdump ];
+        environment.systemPackages = [pkgs.tcpdump];
         networking.nat = {
           enable = true;
           externalInterface = "eth1";
-          internalInterfaces = [ "eth2" ];
+          internalInterfaces = ["eth2"];
         };
-        networking.firewall.trustedInterfaces = [ "eth2" ];
+        networking.firewall.trustedInterfaces = ["eth2"];
       }
     ];
 
   nodes.inner = lib.mkMerge [
     baseNetwork
     (setAddress6 "eth1" "2001:db8::2")
-    { virtualisation.vlans = [ 3 ]; }
+    {virtualisation.vlans = [3];}
   ];
 
   nodes.server = lib.mkMerge [
@@ -105,7 +101,7 @@ in
         500
         4500
       ];
-      networking.firewall.allowedTCPPorts = [ 993 ];
+      networking.firewall.allowedTCPPorts = [993];
 
       # see https://github.com/NixOS/nixpkgs/pull/310857
       networking.firewall.checkReversePath = false;
@@ -160,7 +156,7 @@ in
     baseTunnel
     (setAddress4 "eth1" "192.168.1.2")
     {
-      virtualisation.vlans = [ 2 ];
+      virtualisation.vlans = [2];
       networking.defaultGateway = {
         address = "192.168.1.1";
         interface = "eth1";

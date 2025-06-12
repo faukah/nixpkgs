@@ -11,12 +11,12 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "arocc";
   inherit version src;
 
-  nativeBuildInputs = [ zig.hook ];
+  nativeBuildInputs = [zig.hook];
 
   passthru = {
     inherit zig;
     isArocc = true;
-    wrapped = wrapCCWith { cc = finalAttrs.finalPackage; };
+    wrapped = wrapCCWith {cc = finalAttrs.finalPackage;};
     stdenv = overrideCC stdenv finalAttrs.passthru.wrapped;
   };
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       unicode-30
     ];
-    maintainers = with lib.maintainers; [ RossComputerGuy ];
+    maintainers = with lib.maintainers; [RossComputerGuy];
     mainProgram = "arocc";
   };
 })

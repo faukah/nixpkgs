@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "august";
   version = "unstable-2023-08-13";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "ag";
   };
 }

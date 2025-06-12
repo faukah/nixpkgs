@@ -3,11 +3,10 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aiac";
   version = "5.3.0";
-  excludedPackages = [ ".ci" ];
+  excludedPackages = [".ci"];
 
   src = fetchFromGitHub {
     owner = "gofireflyio";
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "aiac";
     homepage = "https://github.com/gofireflyio/aiac/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qjoly ];
+    maintainers = with maintainers; [qjoly];
   };
 }

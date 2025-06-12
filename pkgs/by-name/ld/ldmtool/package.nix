@@ -16,7 +16,6 @@
   docbook_xsl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ldmtool";
   version = "0.2.4";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tool and library for managing Microsoft Windows Dynamic Disks";
     homepage = "https://github.com/mdbooth/libldm";
-    maintainers = with maintainers; [ jensbin ];
+    maintainers = with maintainers; [jensbin];
     license = licenses.gpl3;
     platforms = platforms.linux;
     mainProgram = "ldmtool";

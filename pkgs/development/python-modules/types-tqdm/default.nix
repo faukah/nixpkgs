@@ -5,7 +5,6 @@
   setuptools,
   types-requests,
 }:
-
 buildPythonPackage rec {
   pname = "types-tqdm";
   version = "4.67.0.20250516";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-IwzKuKMy008ZP8AH6xMqbvVLRRJFLnGL8hrgp8rrWms=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ types-requests ];
+  dependencies = [types-requests];
 
   # This package does not have tests.
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Typing stubs for tqdm";
     homepage = "https://pypi.org/project/types-tqdm/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

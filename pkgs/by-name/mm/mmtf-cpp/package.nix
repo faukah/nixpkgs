@@ -5,7 +5,6 @@
   cmake,
   msgpack,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmtf-cpp";
   version = "1.1.0";
@@ -17,15 +16,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-8JrNobvekMggS8L/VORKA32DNUdXiDrYMObjd29wQmc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ msgpack ];
+  buildInputs = [msgpack];
 
   meta = with lib; {
     description = "Library of exchange-correlation functionals with arbitrary-order derivatives";
     homepage = "https://github.com/rcsb/mmtf-cpp";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 })

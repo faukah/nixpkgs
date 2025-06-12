@@ -10,7 +10,6 @@
   imnodes,
   withExamples ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "imnodes";
   version = "unstable-2024-03-12";
@@ -33,23 +32,23 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
-    [ imgui ]
+    [imgui]
     ++ lib.optionals withExamples [
       SDL2
       xorg.libXext
     ];
 
-  cmakeFlags = [ (lib.cmakeBool "IMNODES_EXAMPLES" withExamples) ];
+  cmakeFlags = [(lib.cmakeBool "IMNODES_EXAMPLES" withExamples)];
 
-  passthru.tests.examples = imnodes.override { withExamples = true; };
+  passthru.tests.examples = imnodes.override {withExamples = true;};
 
   meta = {
     description = "Small, dependency-free node editor for dear imgui";
     homepage = "https://github.com/Nelarius/imnodes";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
     mainProgram = "imnodes";
     platforms = lib.platforms.all;
   };

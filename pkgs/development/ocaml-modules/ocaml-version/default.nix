@@ -4,7 +4,6 @@
   buildDunePackage,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "ocaml-version";
   version = "4.0.0";
@@ -14,7 +13,7 @@ buildDunePackage rec {
     hash = "sha256-+xV3bFFWwp2s4OtbBCJCR33l+LctWQVkgwWMrOciPms=";
   };
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -25,6 +24,6 @@ buildDunePackage rec {
     description = "Manipulate, parse and generate OCaml compiler version strings";
     homepage = "https://github.com/ocurrent/ocaml-version";
     license = licenses.isc;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

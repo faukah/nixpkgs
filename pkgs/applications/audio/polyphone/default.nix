@@ -15,7 +15,6 @@
   qtwayland,
   rtmidi,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.4.1";
   pname = "polyphone";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Soundfont editor for creating musical instruments";
     mainProgram = "polyphone";
     homepage = "https://www.polyphone-soundfonts.com/";

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-JBwdfYM7J5R7HZyw5kVXwu4FlZUd2QPrsTaGuXnyAJI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     python3
@@ -47,14 +47,14 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "BUILD_LIBMAMBA" false)
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = with lib; {
     description = "Reimplementation of the conda package manager";
     homepage = "https://github.com/mamba-org/mamba";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ klchen0112 ];
+    maintainers = with maintainers; [klchen0112];
     mainProgram = "mamba";
   };
 }

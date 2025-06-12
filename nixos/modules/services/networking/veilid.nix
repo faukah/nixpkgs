@@ -4,29 +4,27 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.veilid;
   dataDir = "/var/db/veilid-server";
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "veilid-server.conf" cfg.settings;
-in
-{
+in {
   config = mkIf cfg.enable {
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 5150 ];
-      allowedUDPPorts = [ 5150 ];
+      allowedTCPPorts = [5150];
+      allowedUDPPorts = [5150];
     };
 
     # Based on https://gitlab.com/veilid/veilid/-/blob/main/package/systemd/veilid-server.service?ref_type=heads
     systemd.services.veilid = {
       enable = true;
       description = "Veilid Headless Node";
-      wants = [ "network-online.target" ];
-      before = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      wants = ["network-online.target"];
+      before = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
       environment = {
         RUST_BACKTRACE = "1";
       };
@@ -41,7 +39,7 @@ in
         UMask = "0002";
 
         CapabilityBoundingSet = "";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
         PrivateDevices = true;
@@ -69,12 +67,12 @@ in
       home = dataDir;
       createHome = true;
     };
-    users.groups.veilid = { };
+    users.groups.veilid = {};
 
     environment = {
-      systemPackages = [ pkgs.veilid ];
+      systemPackages = [pkgs.veilid];
     };
-    services.veilid.settings = { };
+    services.veilid.settings = {};
   };
 
   options.services.veilid = {
@@ -150,8 +148,8 @@ in
             capabilities = {
               disable = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "APPM" ];
+                default = [];
+                example = ["APPM"];
                 description = "A list of capabilities to disable (for example, DHTV to say you cannot store DHT information).";
               };
             };
@@ -190,7 +188,7 @@ in
               routing_table = {
                 bootstrap = mkOption {
                   type = types.listOf types.str;
-                  default = [ "bootstrap.veilid.net" ];
+                  default = ["bootstrap.veilid.net"];
                   description = "Host name of existing well-known Veilid bootstrap servers for the network to connect to.";
                 };
                 node_id = lib.mkOption {
@@ -223,5 +221,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ figboy9 ];
+  meta.maintainers = with maintainers; [figboy9];
 }

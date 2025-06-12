@@ -23,7 +23,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "limits";
   version = "4.0.1";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     echo 'def get_versions(): return {"version": "${version}"}' > limits/_version.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     deprecated
@@ -69,17 +68,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    redis = [ redis ];
-    rediscluster = [ redis ];
-    memcached = [ pymemcache ];
-    mongodb = [ pymongo ];
-    etcd = [ etcd3 ];
-    async-redis = [ coredis ];
+    redis = [redis];
+    rediscluster = [redis];
+    memcached = [pymemcache];
+    mongodb = [pymongo];
+    etcd = [etcd3];
+    async-redis = [coredis];
     # async-memcached = [
     #   emcache  # Missing module
     # ];
-    async-mongodb = [ motor ];
-    async-etcd = [ aetcd ];
+    async-mongodb = [motor];
+    async-etcd = [aetcd];
   };
 
   env = {
@@ -88,25 +87,27 @@ buildPythonPackage rec {
     PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
   };
 
-  nativeCheckInputs = [
-    flaky
-    hiro
-    pytest-asyncio
-    pytest-benchmark
-    pytest-cov-stub
-    pytest-lazy-fixtures
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      flaky
+      hiro
+      pytest-asyncio
+      pytest-benchmark
+      pytest-cov-stub
+      pytest-lazy-fixtures
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  disabledTests = [ "test_moving_window_memcached" ];
+  disabledTests = ["test_moving_window_memcached"];
 
-  pythonImportsCheck = [ "limits" ];
+  pythonImportsCheck = ["limits"];
 
   meta = with lib; {
     description = "Rate limiting using various strategies and storage backends such as redis & memcached";
     homepage = "https://github.com/alisaifee/limits";
     changelog = "https://github.com/alisaifee/limits/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

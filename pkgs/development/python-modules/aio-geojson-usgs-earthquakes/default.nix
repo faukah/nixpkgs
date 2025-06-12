@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aio-geojson-usgs-earthquakes";
   version = "0.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UzLnctft/D38bqClqyyJ4b5GvVXM4CFSd6TypuLo0Y4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aio-geojson-client
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aio_geojson_usgs_earthquakes" ];
+  pythonImportsCheck = ["aio_geojson_usgs_earthquakes"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/exxamalte/python-aio-geojson-usgs-earthquakes";
     changelog = "https://github.com/exxamalte/python-aio-geojson-usgs-earthquakes/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

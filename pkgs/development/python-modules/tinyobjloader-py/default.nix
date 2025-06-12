@@ -4,7 +4,6 @@
   pybind11,
   tinyobjloader,
 }:
-
 buildPythonPackage {
   pname = "tinyobjloader-py";
   format = "setuptools";
@@ -15,13 +14,15 @@ buildPythonPackage {
     cd python
   '';
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   # No tests are included upstream
   doCheck = false;
-  pythonImportsCheck = [ "tinyobjloader" ];
+  pythonImportsCheck = ["tinyobjloader"];
 
-  meta = tinyobjloader.meta // {
-    description = "Python wrapper for the C++ wavefront .obj loader tinyobjloader";
-  };
+  meta =
+    tinyobjloader.meta
+    // {
+      description = "Python wrapper for the C++ wavefront .obj loader tinyobjloader";
+    };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubedock";
   version = "0.18.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Minimal implementation of the Docker API that will orchestrate containers on a Kubernetes cluster";
     homepage = "https://github.com/joyrex2001/kubedock";
     license = licenses.mit;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
     mainProgram = "kubedock";
   };
 }

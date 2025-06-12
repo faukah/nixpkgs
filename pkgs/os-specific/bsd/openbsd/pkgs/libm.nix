@@ -1,5 +1,7 @@
-{ lib, mkDerivation }:
-
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "lib/libm";
 
@@ -10,7 +12,7 @@ mkDerivation {
     "man"
   ];
 
-  extraPaths = [ "sys" ];
+  extraPaths = ["sys"];
 
   meta.platforms = lib.platforms.openbsd;
 }

@@ -16,7 +16,6 @@
   doxygen,
   graphviz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ikos";
   version = "3.5";
@@ -79,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NASA-SW-VnV/ikos";
     description = "Static analyzer for C/C++ based on the theory of Abstract Interpretation";
     license = licenses.nasa13;
-    maintainers = with maintainers; [ atnnn ];
+    maintainers = with maintainers; [atnnn];
   };
 }

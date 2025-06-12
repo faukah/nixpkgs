@@ -13,7 +13,6 @@
   autoreconfHook,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wv";
   version = "1.2.9";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "AbiWord";
     repo = "wv";
-    rev = "wv-${builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version}";
+    rev = "wv-${builtins.replaceStrings ["."] ["-"] finalAttrs.version}";
     hash = "sha256-xcC+/M1EzFqQFeF5Dw9qd8VIy7r8JdKMp2X/GHkFiPA=";
   };
 
@@ -46,9 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE =
     # Suppress incompatible function pointer and int conversion errors when building with newer versions of clang 16.
     lib.optionalString stdenv.cc.isClang
-      "-Wno-error=incompatible-function-pointer-types -Wno-error=int-conversion";
+    "-Wno-error=incompatible-function-pointer-types -Wno-error=int-conversion";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 

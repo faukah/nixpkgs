@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chrpath";
   version = "0.18";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://codeberg.org/pere/chrpath";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

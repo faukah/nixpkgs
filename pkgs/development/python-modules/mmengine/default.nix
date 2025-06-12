@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   addict,
   matplotlib,
@@ -16,7 +14,6 @@
   rich,
   termcolor,
   yapf,
-
   # tests
   bitsandbytes,
   coverage,
@@ -29,7 +26,6 @@
   transformers,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "mmengine";
   version = "0.10.7";
@@ -52,7 +48,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     addict
@@ -65,7 +61,7 @@ buildPythonPackage rec {
     yapf
   ];
 
-  pythonImportsCheck = [ "mmengine" ];
+  pythonImportsCheck = ["mmengine"];
 
   nativeCheckInputs = [
     bitsandbytes
@@ -120,7 +116,7 @@ buildPythonPackage rec {
     description = "Library for training deep learning models based on PyTorch";
     homepage = "https://github.com/open-mmlab/mmengine";
     changelog = "https://github.com/open-mmlab/mmengine/releases/tag/v${version}";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ rxiao ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [rxiao];
   };
 }

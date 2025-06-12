@@ -12,7 +12,6 @@
   plotly,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "igraph";
   version = "0.11.9";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     rm -r vendor
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   build-system = [
     cmake
@@ -43,15 +42,15 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ igraph ];
+  buildInputs = [igraph];
 
-  dependencies = [ texttable ];
+  dependencies = [texttable];
 
   optional-dependencies = {
-    cairo = [ cairocffi ];
-    matplotlib = [ matplotlib ];
-    plotly = [ plotly ];
-    plotting = [ cairocffi ];
+    cairo = [cairocffi];
+    matplotlib = [matplotlib];
+    plotly = [plotly];
+    plotting = [cairocffi];
   };
 
   # NB: We want to use our igraph, not vendored igraph, but even with
@@ -59,16 +58,18 @@ buildPythonPackage rec {
   # told to do it. ~ C.
   env.IGRAPH_USE_PKG_CONFIG = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     "testAuthorityScore"
     "test_labels"
   ];
 
-  pythonImportsCheck = [ "igraph" ];
+  pythonImportsCheck = ["igraph"];
 
   meta = with lib; {
     description = "High performance graph data structures and algorithms";

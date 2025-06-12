@@ -12,7 +12,6 @@
   pkg-config,
   withPDFDoc ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "algol68g";
   version = "3.5.14";
@@ -22,10 +21,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uIy8rIhUjohiQJ/K5EprsIISXMAx1w27I3cGo/9H9Wk=";
   };
 
-  outputs = [
-    "out"
-    "man"
-  ] ++ lib.optionals withPDFDoc [ "doc" ];
+  outputs =
+    [
+      "out"
+      "man"
+    ]
+    ++ lib.optionals withPDFDoc ["doc"];
 
   nativeBuildInputs = [
     pkg-config
@@ -43,13 +44,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  postInstall =
-    let
-      pdfdoc = fetchurl {
-        url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
-        hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
-      };
-    in
+  postInstall = let
+    pdfdoc = fetchurl {
+      url = "https://jmvdveer.home.xs4all.nl/learning-algol-68-genie.pdf";
+      hash = "sha256-QCwn1e/lVfTYTeolCFErvfMhvwCgsBnASqq2K+NYmlU=";
+    };
+  in
     lib.optionalString withPDFDoc ''
       install -m644 ${pdfdoc} ${placeholder "doc"}/share/doc/algol68g/learning-algol-68-genie.pdf
     '';
@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "a68g";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

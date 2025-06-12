@@ -4,19 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.cmt;
   etcPath = "X11/xorg.conf.d";
-
-in
-{
-
+in {
   options = {
-
     services.xserver.cmt = {
       enable = mkOption {
         type = types.bool;
@@ -84,8 +76,7 @@ in
   }; # closes options
 
   config = mkIf cfg.enable {
-
-    services.xserver.modules = [ pkgs.xf86_input_cmt ];
+    services.xserver.modules = [pkgs.xf86_input_cmt];
 
     environment.etc = {
       "${etcPath}/40-touchpad-cmt.conf" = {

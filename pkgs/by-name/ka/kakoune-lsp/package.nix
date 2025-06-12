@@ -5,7 +5,6 @@
   replaceVars,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kakoune-lsp";
   version = "18.2.0";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-71XnCHAXOcrXu0xizwdwJPkhnmfEjmVP++6mxmTcnM4=";
   };
 
-  patches = [ (replaceVars ./Hardcode-perl.patch { inherit perl; }) ];
+  patches = [(replaceVars ./Hardcode-perl.patch {inherit perl;})];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-cr/fvV2JjjfLdsT0Ej2aNoNKDLqmJsOOREcwxWpjfE0=";

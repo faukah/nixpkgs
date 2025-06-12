@@ -8,7 +8,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asdf-coordinates-schemas";
   version = "0.4.0";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Circular dependency with asdf-astropy
   doCheck = false;
 
-  pythonImportsCheck = [ "asdf_coordinates_schemas" ];
+  pythonImportsCheck = ["asdf_coordinates_schemas"];
 
   meta = with lib; {
     description = "ASDF schemas for coordinates";
     homepage = "https://github.com/asdf-format/asdf-coordinates-schemas";
     changelog = "https://github.com/asdf-format/asdf-coordinates-schemas/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

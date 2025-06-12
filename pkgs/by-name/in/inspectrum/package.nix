@@ -9,7 +9,6 @@
   qt5,
   liquid-dsp,
 }:
-
 gnuradioMinimal.pkgs.mkDerivation rec {
   pname = "inspectrum";
   version = "0.3.1";
@@ -41,7 +40,7 @@ gnuradioMinimal.pkgs.mkDerivation rec {
     description = "Tool for analysing captured signals from sdr receivers";
     mainProgram = "inspectrum";
     homepage = "https://github.com/miek/inspectrum";
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

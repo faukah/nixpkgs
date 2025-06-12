@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "terracognita";
   version = "0.8.4";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -33,6 +32,6 @@ buildGoModule rec {
     homepage = "https://github.com/cycloidio/terracognita";
     changelog = "https://github.com/cycloidio/terracognita/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

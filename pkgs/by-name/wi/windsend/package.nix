@@ -5,7 +5,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "windsend";
   version = "1.5.4";
@@ -27,7 +26,7 @@ flutter329.buildFlutterApplication rec {
 
   sourceRoot = "${src.name}/flutter/wind_send";
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   desktopItems = [
     (makeDesktopItem {
@@ -48,8 +47,8 @@ flutter329.buildFlutterApplication rec {
     description = "Quickly and securely sync clipboard, transfer files and directories between devices";
     homepage = "https://github.com/doraemonkeys/WindSend";
     mainProgram = "WindSend";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [emaryn];
     platforms = lib.platforms.linux;
   };
 }

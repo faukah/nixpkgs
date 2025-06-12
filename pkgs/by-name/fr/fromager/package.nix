@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fromager";
   version = "0.47.0";
@@ -56,7 +55,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Wheel maker";
     homepage = "https://pypi.org/project/fromager/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
     mainProgram = "fromager";
   };
 }

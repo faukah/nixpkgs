@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyvicare";
   version = "2.44.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.1.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     authlib
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "PyViCare" ];
+  pythonImportsCheck = ["PyViCare"];
 
   meta = with lib; {
     changelog = "https://github.com/openviess/PyViCare/releases/tag/${src.tag}";
     description = "Python Library to access Viessmann ViCare API";
     homepage = "https://github.com/somm15/PyViCare";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

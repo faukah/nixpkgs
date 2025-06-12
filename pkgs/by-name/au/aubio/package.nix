@@ -11,7 +11,6 @@
   python311,
   wafHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aubio";
   version = "0.4.9";

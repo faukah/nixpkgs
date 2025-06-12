@@ -4,7 +4,6 @@
   fetchurl,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.16";
   pname = "aescrypt";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     cp aescrypt_keygen $out/bin
   '';
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   meta = with lib; {
     description = "Encrypt files with Advanced Encryption Standard (AES)";

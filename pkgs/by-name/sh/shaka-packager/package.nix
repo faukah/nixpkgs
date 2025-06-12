@@ -19,7 +19,6 @@
   protobuf_29,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shaka-packager";
   version = "3.4.2";
@@ -89,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
       version = "v${finalAttrs.version}-nixpkgs-release";
@@ -102,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/shaka-project/shaka-packager/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     mainProgram = "packager";
-    maintainers = with lib.maintainers; [ niklaskorz ];
+    maintainers = with lib.maintainers; [niklaskorz];
     platforms = lib.platforms.all;
   };
 })

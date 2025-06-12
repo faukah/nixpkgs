@@ -5,7 +5,6 @@
   gnome-themes-extra,
   gtk-engine-murrine,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "everforest-gtk-theme";
   version = "0-unstable-2023-03-20";
@@ -39,7 +38,7 @@ stdenvNoCC.mkDerivation {
     description = "Everforest colour palette for GTK";
     homepage = "https://github.com/Fausto-Korpsvart/Everforest-GTK-Theme";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jn-sena ];
+    maintainers = with maintainers; [jn-sena];
     platforms = platforms.unix;
   };
 }

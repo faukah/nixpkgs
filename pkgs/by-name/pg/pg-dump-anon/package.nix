@@ -6,7 +6,6 @@
   postgresql,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "pg-dump-anon";
   version = "1.3.2";
@@ -21,18 +20,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-CwU1zoIayxvfnGL9kPdummPJiV+ECfSz4+q6gZGb8pw=";
 
-  passthru.tests = { inherit (nixosTests.postgresql) anonymizer; };
+  passthru.tests = {inherit (nixosTests.postgresql) anonymizer;};
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
     wrapProgram $out/bin/pg_dump_anon \
-      --prefix PATH : ${lib.makeBinPath [ postgresql ]}
+      --prefix PATH : ${lib.makeBinPath [postgresql]}
   '';
 
   meta = with lib; {
     description = "Export databases with data being anonymized with the anonymizer extension";
     homepage = "https://postgresql-anonymizer.readthedocs.io/en/stable/";
-    teams = [ teams.flyingcircus ];
+    teams = [teams.flyingcircus];
     license = licenses.postgresql;
     mainProgram = "pg_dump_anon";
   };

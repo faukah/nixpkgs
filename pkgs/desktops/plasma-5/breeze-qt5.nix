@@ -15,11 +15,10 @@
   qtx11extras,
   fftw,
 }:
-
 mkDerivation {
   pname = "breeze-qt5";
   sname = "breeze";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     frameworkintegration
     kcmutils
@@ -40,5 +39,5 @@ mkDerivation {
     "dev"
     "out"
   ];
-  cmakeFlags = [ "-DUSE_Qt4=OFF" ];
+  cmakeFlags = ["-DUSE_Qt4=OFF"];
 }

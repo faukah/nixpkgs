@@ -21,11 +21,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-o5pplwNtIe2z88ZwtCHree32kv16U/ryv8PmPIqxtPQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ alsa-lib ] ++ lib.optionals withPulseaudio [ libpulseaudio ];
+  buildInputs = [alsa-lib] ++ lib.optionals withPulseaudio [libpulseaudio];
 
-  buildFeatures = lib.optionals withPulseaudio [ "pulseaudio" ];
+  buildFeatures = lib.optionals withPulseaudio ["pulseaudio"];
 
   doCheck = false; # no tests
 

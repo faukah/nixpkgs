@@ -9,7 +9,6 @@
   gettext,
   stdenv,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pdfarranger";
   version = "1.12.0";
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-//JjIPDeyI+JZoFT2GU+wCP+tkKCchgS9ftMT5rUEOM=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ gettext ];
+  nativeBuildInputs = [wrapGAppsHook3] ++ lib.optionals stdenv.hostPlatform.isDarwin [gettext];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
     LINTL="${lib.getLib gettext}/lib/libintl.8.dylib"
@@ -32,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     unset LINTL
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   buildInputs = [
     gtk3
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
   # incompatible with wrapGAppsHook3
   strictDeps = false;
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   doCheck = false; # no tests
 

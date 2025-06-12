@@ -8,7 +8,6 @@
   protobuf,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "GameNetworkingSockets";
   version = "1.4.1";
@@ -26,19 +25,19 @@ stdenv.mkDerivation rec {
     go
   ];
 
-  cmakeFlags = [ "-G Ninja" ];
+  cmakeFlags = ["-G Ninja"];
 
   # tmp home for go
   preBuild = "export HOME=\"$TMPDIR\"";
 
-  buildInputs = [ protobuf ];
-  propagatedBuildInputs = [ openssl ];
+  buildInputs = [protobuf];
+  propagatedBuildInputs = [openssl];
 
   meta = with lib; {
     description = "GameNetworkingSockets is a basic transport layer for games";
     license = licenses.bsd3;
     platforms = platforms.unix;
     inherit (src.meta) homepage;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

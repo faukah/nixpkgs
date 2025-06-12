@@ -1,6 +1,8 @@
-{ lib, fetchFromGitHub, ... }:
-
 {
+  lib,
+  fetchFromGitHub,
+  ...
+}: {
   pname = "smug-gerbil";
   version = "unstable-2020-12-12";
   git-version = "0.4.20";
@@ -20,6 +22,6 @@
     homepage = "https://github.com/drewc/smug-gerbil";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

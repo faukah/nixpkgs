@@ -7,7 +7,6 @@
   rocm-cmake,
   gfortran,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipfort";
   version = "6.3.3";
@@ -59,8 +58,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Fortran interfaces for ROCm libraries";
     homepage = "https://github.com/ROCm/hipfort";
-    license = with licenses; [ mit ]; # mitx11
-    teams = [ teams.rocm ];
+    license = with licenses; [mit]; # mitx11
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

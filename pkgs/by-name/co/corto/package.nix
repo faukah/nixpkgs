@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "corto";
   version = "0-unstable-2024-04-05";
@@ -16,12 +15,12 @@ stdenv.mkDerivation {
     hash = "sha256-0OUijrf+0ZNv3oYko2r8Kp9zgtg8b9RPL7DXHf15Ryc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Mesh compression library, designed for rendering and speed";
     homepage = "https://github.com/cnr-isti-vclab/corto";
     license = licenses.mit;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 }

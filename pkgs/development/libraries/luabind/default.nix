@@ -6,7 +6,6 @@
   boost,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "luabind";
   version = "0.9.1";
@@ -18,17 +17,17 @@ stdenv.mkDerivation {
     sha256 = "sha256-JcOsoQHRvdzF2rsZBW6egOwIy7+7C4wy0LiYmbV590Q";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
-  propagatedBuildInputs = [ lua ];
+  propagatedBuildInputs = [lua];
 
   passthru = {
     inherit lua;
   };
 
-  patches = [ ./0.9.1-discover-luajit.patch ];
+  patches = [./0.9.1-discover-luajit.patch];
 
   meta = {
     homepage = "https://github.com/Oberon00/luabind";

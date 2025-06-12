@@ -4,7 +4,6 @@
   fetchurl,
   autoconf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tradcpp";
   version = "0.5.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # tradcpp only comes with BSD-make Makefile; the patch adds configure support
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
   preConfigure = "autoconf";
   patches = [
     ./tradcpp-configure.patch
@@ -29,5 +28,4 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
     license = licenses.bsd2;
   };
-
 }

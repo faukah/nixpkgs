@@ -6,7 +6,6 @@
   ply,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "calmjs-parse";
   version = "1.3.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail "env['PYTHONPATH'] = 'src'" "env['PYTHONPATH'] += ':src'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Various parsers for ECMA standards";
     homepage = "https://github.com/calmjs/calmjs.parse";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

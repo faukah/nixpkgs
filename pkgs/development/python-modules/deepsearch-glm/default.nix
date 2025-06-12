@@ -25,7 +25,6 @@
   utf8cpp,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "deepsearch-glm";
   version = "1.0.0";
@@ -101,6 +100,6 @@ buildPythonPackage rec {
     description = "Create fast graph language models from converted PDF documents for knowledge extraction and Q&A";
     homepage = "https://github.com/DS4SD/deepsearch-glm";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
   };
 }

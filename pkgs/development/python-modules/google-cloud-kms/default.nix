@@ -12,7 +12,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-kms";
   version = "3.4.1";
@@ -27,14 +26,16 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/google-cloud-kms";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    grpc-google-iam-v1
-    google-api-core
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      grpc-google-iam-v1
+      google-api-core
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -63,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-kms";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/${src.tag}/packages/google-cloud-kms/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

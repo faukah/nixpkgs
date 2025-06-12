@@ -11,7 +11,6 @@
   libGL,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-ui";
   version = "0.3.3";
@@ -47,11 +46,11 @@ rustPlatform.buildRustPackage rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf $out/bin/cargo-ui \
       --add-rpath ${
-        lib.makeLibraryPath [
-          fontconfig
-          libGL
-        ]
-      }
+      lib.makeLibraryPath [
+        fontconfig
+        libGL
+      ]
+    }
   '';
 
   env = {

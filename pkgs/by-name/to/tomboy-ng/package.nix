@@ -5,7 +5,6 @@
   fpc,
   lazarus,
   autoPatchelfHook,
-
   glib,
   cairo,
   pango,
@@ -14,7 +13,6 @@
   at-spi2-atk,
   xorg,
   libnotify,
-
   nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -52,11 +50,11 @@ stdenv.mkDerivation (finalAttrs: {
     libnotify
   ];
 
-  patches = [ ./simplify-build-script.patch ];
+  patches = [./simplify-build-script.patch];
 
   postPatch = "ln -s ${finalAttrs.kcontrols} kcontrols";
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru.updateScript = nix-update-script {
     # Stable releases only
@@ -74,8 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Note taking app that works and synchronises between Linux, Windows and macOS";
     homepage = "https://github.com/tomboy-notes/tomboy-ng";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ pluiedev ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "tomboy-ng";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };

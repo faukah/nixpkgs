@@ -10,7 +10,6 @@
   bson,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dataclasses-serialization";
   version = "1.3.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   '';
 
   # dataclasses is included in Python 3.7
-  pythonRemoveDeps = [ "dataclasses" ];
+  pythonRemoveDeps = ["dataclasses"];
 
   propagatedBuildInputs = [
     more-properties
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "Serialize/deserialize Python dataclasses to various other data formats";
     homepage = "https://github.com/madman-bob/python-dataclasses-serialization";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

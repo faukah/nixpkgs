@@ -8,7 +8,6 @@
   regex,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "beancount-plugin-utils";
   version = "0.0.4";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-oyfL2K/sS4zZ7cq1P36h0dTcW1m5GUyQ9+IyZGfpb2E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ beancount ];
+  dependencies = [beancount];
 
   nativeCheckInputs = [
     pytest-bdd
@@ -31,14 +30,14 @@ buildPythonPackage rec {
     regex
   ];
 
-  pytestFlagsArray = [ "--fixtures tests/" ];
+  pytestFlagsArray = ["--fixtures tests/"];
 
-  pythonImportsCheck = [ "beancount" ];
+  pythonImportsCheck = ["beancount"];
 
   meta = with lib; {
     homepage = "https://github.com/Akuukis/beancount_plugin_utils";
     description = "Utils for beancount plugin writers - BeancountError, mark, metaset, etc";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ alapshin ];
+    maintainers = with maintainers; [alapshin];
   };
 }

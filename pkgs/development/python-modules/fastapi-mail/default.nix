@@ -17,7 +17,6 @@
   redis,
   starlette,
 }:
-
 buildPythonPackage rec {
   pname = "fastapi-mail";
   version = "1.5.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     "pydantic"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiosmtplib
@@ -51,8 +50,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    httpx = [ httpx ];
-    redis = [ redis ];
+    httpx = [httpx];
+    redis = [redis];
   };
 
   nativeCheckInputs = [
@@ -67,13 +66,13 @@ buildPythonPackage rec {
     "test_local_hostname_resolving"
   ];
 
-  pythonImportsCheck = [ "fastapi_mail" ];
+  pythonImportsCheck = ["fastapi_mail"];
 
   meta = with lib; {
     description = "Module for sending emails and attachments";
     homepage = "https://github.com/sabuhish/fastapi-mail";
     changelog = "https://github.com/sabuhish/fastapi-mail/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

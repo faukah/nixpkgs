@@ -6,8 +6,7 @@
   rustPlatform,
   libiconv,
   fetchFromGitHub,
-}:
-let
+}: let
   pname = "nh3";
   version = "0.2.21";
   src = fetchFromGitHub {
@@ -17,31 +16,31 @@ let
     hash = "sha256-DskjcKjdz1HmKzmA568zRCjh4UK1/LBD5cSIu7Rfwok=";
   };
 in
-buildPythonPackage {
-  inherit pname version src;
-  format = "pyproject";
-  disabled = pythonOlder "3.8";
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
+  buildPythonPackage {
     inherit pname version src;
-    hash = "sha256-1Ytca/GiHidR8JOcz+DydN6N/iguLchbP8Wnrd/0NTk=";
-  };
+    format = "pyproject";
+    disabled = pythonOlder "3.8";
 
-  nativeBuildInputs = with rustPlatform; [
-    cargoSetupHook
-    maturinBuildHook
-  ];
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit pname version src;
+      hash = "sha256-1Ytca/GiHidR8JOcz+DydN6N/iguLchbP8Wnrd/0NTk=";
+    };
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    libiconv
-  ];
+    nativeBuildInputs = with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+    ];
 
-  pythonImportsCheck = [ "nh3" ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+      libiconv
+    ];
 
-  meta = with lib; {
-    description = "Python binding to Ammonia HTML sanitizer Rust crate";
-    homepage = "https://github.com/messense/nh3";
-    license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    pythonImportsCheck = ["nh3"];
+
+    meta = with lib; {
+      description = "Python binding to Ammonia HTML sanitizer Rust crate";
+      homepage = "https://github.com/messense/nh3";
+      license = licenses.mit;
+      maintainers = with maintainers; [happysalada];
+    };
+  }

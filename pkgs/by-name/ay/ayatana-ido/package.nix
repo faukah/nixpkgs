@@ -7,7 +7,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ayatana-ido";
   version = "0.10.4";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   strictDeps = true;
 
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
       lib.licenses.lgpl3Plus
       lib.licenses.lgpl21Plus
     ];
-    maintainers = [ lib.maintainers.nickhu ];
+    maintainers = [lib.maintainers.nickhu];
     platforms = lib.platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blueutil";
   version = "2.12.0";
@@ -29,8 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/toy/blueutil";
     license = lib.licenses.mit;
     mainProgram = "blueutil";
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     platforms = lib.platforms.darwin;
   };
 })

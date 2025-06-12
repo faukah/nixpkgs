@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   pbr,
   setuptools,
-
   # dependencies
   debtcollector,
   iso8601,
@@ -18,7 +16,6 @@
   pyparsing,
   pytz,
   tzdata,
-
   # tests
   ddt,
   eventlet,
@@ -34,7 +31,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-utils";
   version = "9.0.0";
@@ -102,12 +98,12 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "oslo_utils" ];
+  pythonImportsCheck = ["oslo_utils"];
 
   meta = {
     description = "Oslo Utility library";
     homepage = "https://github.com/openstack/oslo.utils";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

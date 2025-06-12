@@ -1,39 +1,35 @@
 # Miscellaneous small tests that don't warrant their own VM run.
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   inherit (pkgs) lib;
-  tests.default = testsForPackage { nixPackage = pkgs.nix; };
+  tests.default = testsForPackage {nixPackage = pkgs.nix;};
 
   testsForPackage = args: {
     # If the attribute is not named 'test'
     # You will break all the universe on the release-*.nix side of things.
     # `discoverTests` relies on `test` existence to perform a `callTest`.
-    test = testMiscFeatures args // {
-      passthru.override = args': (testsForPackage (args // args')).test;
-    };
+    test =
+      testMiscFeatures args
+      // {
+        passthru.override = args': (testsForPackage (args // args')).test;
+      };
   };
 
-  testMiscFeatures =
-    { nixPackage, ... }:
+  testMiscFeatures = {nixPackage, ...}:
     pkgs.testers.nixosTest (
       let
         foo = pkgs.writeText "foo" "Hello World";
-      in
-      {
+      in {
         name = "${nixPackage.pname}-misc";
         meta.maintainers = with lib.maintainers; [
           raitobezarius
           artturin
         ];
 
-        nodes.machine =
-          { lib, ... }:
-          {
-            system.extraDependencies = [ foo ];
+        nodes.machine = {lib, ...}: {
+          system.extraDependencies = [foo];
 
-            nix.package = nixPackage;
-          };
+          nix.package = nixPackage;
+        };
 
         testScript = ''
           import json
@@ -65,4 +61,4 @@ let
       }
     );
 in
-tests
+  tests

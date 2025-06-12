@@ -5,7 +5,6 @@
   gitUpdater,
   ffmpeg,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "vr-reversal";
   version = "1.1";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     rev = "v${version}";
     sha256 = "1wn2ngcvn7wcsl3kmj782x5q9130qw951lj6ilrkafp6q6zscpqr";
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   dontBuild = true;
 
@@ -37,6 +36,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/dfaker/VR-reversal";
     license = licenses.unlicense;
     platforms = platforms.all;
-    maintainers = with maintainers; [ schnusch ];
+    maintainers = with maintainers; [schnusch];
   };
 }

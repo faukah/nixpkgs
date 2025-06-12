@@ -1,6 +1,5 @@
 # This module allows the test driver to connect to the virtual machine
 # via a root shell attached to port 514.
-
 {
   options,
   config,
@@ -8,13 +7,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.testing;
 
-  qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
+  qemu-common = import ../../lib/qemu-common.nix {inherit lib pkgs;};
 
   backdoorService = {
     requires = [
@@ -71,13 +67,8 @@ let
     '';
     serviceConfig.KillSignal = "SIGHUP";
   };
-
-in
-
-{
-
+in {
   options.testing = {
-
     initrdBackdoor = lib.mkEnableOption ''
       backdoor.service in initrd. Requires
       boot.initrd.systemd.enable to be enabled. Boot will pause in
@@ -89,7 +80,6 @@ in
   };
 
   config = {
-
     assertions = [
       {
         assertion = cfg.initrdBackdoor -> config.boot.initrd.systemd.enable;
@@ -102,7 +92,7 @@ in
     systemd.services.backdoor = lib.mkMerge [
       backdoorService
       {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       }
     ];
 
@@ -138,7 +128,7 @@ in
             # e.g. systemd-boot.update relies on /boot being mounted
             # as soon as backdoor starts. But it can be useful for
             # backdoor to start even earlier.
-            wantedBy = [ "sysinit.target" ];
+            wantedBy = ["sysinit.target"];
             unitConfig.DefaultDependencies = false;
             conflicts = [
               "shutdown.target"
@@ -201,7 +191,7 @@ in
     ];
 
     # `xwininfo' is used by the test driver to query open windows.
-    environment.systemPackages = [ pkgs.xorg.xwininfo ];
+    environment.systemPackages = [pkgs.xorg.xwininfo];
 
     # Log everything to the serial console.
     services.journald.extraConfig = ''
@@ -227,7 +217,7 @@ in
 
     # Prevent tests from accessing the Internet.
     networking.defaultGateway = mkOverride 150 null;
-    networking.nameservers = mkOverride 150 [ ];
+    networking.nameservers = mkOverride 150 [];
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isYes "SERIAL_8250_CONSOLE")
@@ -254,5 +244,4 @@ in
     # Squelch warning about unset system.stateVersion
     system.stateVersion = (lib.mkOverride 1200) lib.trivial.release;
   };
-
 }

@@ -14,7 +14,6 @@
   setuptools,
   uritools,
 }:
-
 buildPythonPackage rec {
   pname = "pyhanko-certvalidator";
   version = "0.26.5";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-+/3n+v/8Tpqt7UoOrBi4S84N6Jioay7e2j+SvKJeoLA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asn1crypto
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyhanko_certvalidator" ];
+  pythonImportsCheck = ["pyhanko_certvalidator"];
 
   meta = with lib; {
     description = "Python library for validating X.509 certificates and paths";
     homepage = "https://github.com/MatthiasValvekens/certvalidator";
     changelog = "https://github.com/MatthiasValvekens/certvalidator/blob/v${version}/changelog.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

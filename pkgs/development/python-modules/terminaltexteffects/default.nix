@@ -5,7 +5,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "terminaltexteffects";
   version = "0.12.0";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-hL+n7vxNA+3jual5TSaiJN80hRU0+ZPfaiN/23RFQu8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonImportsCheck = [ "terminaltexteffects" ];
+  pythonImportsCheck = ["terminaltexteffects"];
 
   meta = with lib; {
     description = "A collection of visual effects that can be applied to terminal piped stdin text";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     changelog = "https://chrisbuilds.github.io/terminaltexteffects/changeblog/";
     license = licenses.mit;
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ qwqawawow ];
+    maintainers = with maintainers; [qwqawawow];
     mainProgram = "tte";
   };
 }

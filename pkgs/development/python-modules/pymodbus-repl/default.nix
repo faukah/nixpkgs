@@ -14,7 +14,6 @@
   tabulate,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "pymodbus-repl";
   version = "2.0.5";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-jGoYp2nDWMWMX8n0aaG/YP+rQcj2npFbhdy7T1qxByc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "typer"
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [ "pymodbus_repl" ];
+  pythonImportsCheck = ["pymodbus_repl"];
 
   inherit doCheck;
 
@@ -53,7 +52,7 @@ buildPythonPackage rec {
 
   passthru.tests = {
     # currently expected to fail: https://github.com/pymodbus-dev/repl/pull/26
-    pytest = pymodbus-repl.override { doCheck = true; };
+    pytest = pymodbus-repl.override {doCheck = true;};
   };
 
   meta = {
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "REPL client and server for pymodbus";
     homepage = "https://github.com/pymodbus-dev/repl";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

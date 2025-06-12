@@ -9,52 +9,44 @@
   pkg-config,
   gettext,
   which,
-
   # GUI support
   gtk3,
   qt5,
-
   pluginSearchPaths ? [
     "/run/current-system/sw/lib/gwenhywfar/plugins"
     ".nix-profile/lib/gwenhywfar/plugins"
   ],
-}:
-
-let
+}: let
   inherit ((import ./sources.nix).gwenhywfar) hash releaseId version;
 in
-stdenv.mkDerivation rec {
-  pname = "gwenhywfar";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "gwenhywfar";
+    inherit version;
 
-  src = fetchurl {
-    url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
-    inherit hash;
-  };
+    src = fetchurl {
+      url = "https://www.aquamaniac.de/rdm/attachments/download/${releaseId}/${pname}-${version}.tar.gz";
+      inherit hash;
+    };
 
-  configureFlags = [
-    "--with-openssl-includes=${openssl.dev}/include"
-    "--with-openssl-libs=${lib.getLib openssl}/lib"
-  ];
+    configureFlags = [
+      "--with-openssl-includes=${openssl.dev}/include"
+      "--with-openssl-libs=${lib.getLib openssl}/lib"
+    ];
 
-  preConfigure = ''
-    configureFlagsArray+=("--with-guis=gtk3 qt5")
-  '';
+    preConfigure = ''
+      configureFlagsArray+=("--with-guis=gtk3 qt5")
+    '';
 
-  postPatch =
-    let
+    postPatch = let
       isRelative = path: builtins.substring 0 1 path != "/";
-      mkSearchPath =
-        path:
+      mkSearchPath = path:
         ''
           p; g; s,\<PLUGINDIR\>,"${path}",g;
         ''
         + lib.optionalString (isRelative path) ''
           s/AddPath(\(.*\));/AddRelPath(\1, GWEN_PathManager_RelModeHome);/g
         '';
-
-    in
-    ''
+    in ''
       sed -i -e '/GWEN_PathManager_DefinePath.*GWEN_PM_PLUGINDIR/,/^#endif/ {
         /^#if/,/^#endif/ {
           H; /^#endif/ {
@@ -69,28 +61,28 @@ stdenv.mkDerivation rec {
         configure
     '';
 
-  nativeBuildInputs = [
-    pkg-config
-    gettext
-    which
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      gettext
+      which
+    ];
 
-  buildInputs = [
-    gtk3
-    qt5.qtbase
-    gnutls
-    openssl
-    libgcrypt
-    libgpg-error
-  ];
+    buildInputs = [
+      gtk3
+      qt5.qtbase
+      gnutls
+      openssl
+      libgcrypt
+      libgpg-error
+    ];
 
-  dontWrapQtApps = true;
+    dontWrapQtApps = true;
 
-  meta = with lib; {
-    description = "OS abstraction functions used by aqbanking and related tools";
-    homepage = "https://www.aquamaniac.de/rdm/projects/gwenhywfar";
-    license = licenses.lgpl21Plus;
-    maintainers = [ ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "OS abstraction functions used by aqbanking and related tools";
+      homepage = "https://www.aquamaniac.de/rdm/projects/gwenhywfar";
+      license = licenses.lgpl21Plus;
+      maintainers = [];
+      platforms = platforms.linux;
+    };
+  }

@@ -7,7 +7,6 @@
   python3,
   wafHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fomp";
   version = "1.2.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://drobilla.net/software/fomp.html";
     description = "LV2 port of the MCP, VCO, FIL, and WAH plugins by Fons Adriaensen";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

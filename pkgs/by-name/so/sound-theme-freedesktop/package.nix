@@ -4,7 +4,6 @@
   fetchurl,
   intltool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sound-theme-freedesktop";
   version = "0.8";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     url = "https://people.freedesktop.org/~mccann/dist/${pname}-${version}.tar.bz2";
   };
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
 
   meta = with lib; {
     description = "Freedesktop reference sound theme";

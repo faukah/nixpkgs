@@ -6,7 +6,6 @@
   fetchurl,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "adept";
   version = "2.1.1";

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "sqlite-zandronum";
   version = "3.0";
@@ -24,6 +23,6 @@ stdenv.mkDerivation {
     homepage = "http://www.sqlite.org/";
     description = "Single C code file, named sqlite3.c, that contains all C code for the core SQLite library and the FTS3 and RTREE extensions";
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.lassulus ];
+    maintainers = [lib.maintainers.lassulus];
   };
 }

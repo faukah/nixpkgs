@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "code2prompt";
   version = "1.1.0";
@@ -26,15 +25,15 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "CLI tool that converts your codebase into a single LLM prompt with a source tree, prompt templating, and token counting";
     homepage = "https://github.com/mufeedvh/code2prompt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ heisfer ];
+    maintainers = with lib.maintainers; [heisfer];
     mainProgram = "code2prompt";
   };
 }

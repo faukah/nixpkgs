@@ -11,7 +11,6 @@
   bash-completion,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "netplan";
   version = "0.106.1";
@@ -34,12 +33,13 @@ stdenv.mkDerivation rec {
     glib
     libyaml
     (python3.withPackages (
-      p: with p; [
-        pyyaml
-        netifaces
-        dbus-python
-        rich
-      ]
+      p:
+        with p; [
+          pyyaml
+          netifaces
+          dbus-python
+          rich
+        ]
     ))
     libuuid
     bash-completion
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Backend-agnostic network configuration in YAML";
     homepage = "https://netplan.io";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     platforms = platforms.linux;
     mainProgram = "netplan";
   };

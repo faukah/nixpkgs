@@ -9,7 +9,6 @@
   libusb-compat-0_1,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "xpwn";
   version = "0.5.8-unstable-2024-04-01";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     libpng

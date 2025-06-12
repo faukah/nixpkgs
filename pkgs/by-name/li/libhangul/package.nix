@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhangul";
   version = "0.1.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     mainProgram = "hangul";
     homepage = "https://github.com/choehwanjin/libhangul";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.ianwookim ];
+    maintainers = [maintainers.ianwookim];
     platforms = platforms.linux;
   };
 }

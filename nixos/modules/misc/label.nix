@@ -1,12 +1,11 @@
-{ config, lib, ... }:
-let
-  cfg = config.system.nixos;
-in
-
 {
-
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.system.nixos;
+in {
   options.system = {
-
     nixos.label = lib.mkOption {
       type = lib.types.strMatching "[a-zA-Z0-9:_\\.-]*";
       description = ''
@@ -42,8 +41,8 @@ in
 
     nixos.tags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "with-xen" ];
+      default = [];
+      example = ["with-xen"];
       description = ''
         Strings to prefix to the default
         {option}`system.nixos.label`.
@@ -59,7 +58,6 @@ in
         ```
       '';
     };
-
   };
 
   config = {
@@ -68,10 +66,9 @@ in
     system.nixos.label = lib.mkDefault (
       lib.maybeEnv "NIXOS_LABEL" (
         lib.concatStringsSep "-" (
-          (lib.sort (x: y: x < y) cfg.tags) ++ [ (lib.maybeEnv "NIXOS_LABEL_VERSION" cfg.version) ]
+          (lib.sort (x: y: x < y) cfg.tags) ++ [(lib.maybeEnv "NIXOS_LABEL_VERSION" cfg.version)]
         )
       )
     );
   };
-
 }

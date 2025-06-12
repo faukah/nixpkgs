@@ -5,7 +5,6 @@
   lib,
   csvq,
 }:
-
 buildGoModule rec {
   pname = "csvq";
   version = "1.18.1";
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://mithrandie.github.io/csvq/";
     changelog = "https://github.com/mithrandie/csvq/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomodachi94 ];
+    maintainers = with lib.maintainers; [tomodachi94];
   };
 }

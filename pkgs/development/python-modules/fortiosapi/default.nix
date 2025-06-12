@@ -10,7 +10,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "fortiosapi";
   version = "1.0.5";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   # Tests require a local VM
   doCheck = false;
 
-  pythonImportsCheck = [ "fortiosapi" ];
+  pythonImportsCheck = ["fortiosapi"];
 
   meta = with lib; {
     description = "Python module to work with Fortigate/Fortios devices";
     homepage = "https://github.com/fortinet-solutions-cse/fortiosapi";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

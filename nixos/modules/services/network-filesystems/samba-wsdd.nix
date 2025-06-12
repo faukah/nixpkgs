@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.samba-wsdd;
-
-in
-{
+in {
   options = {
     services.samba-wsdd = {
       enable = lib.mkEnableOption ''
@@ -63,7 +60,7 @@ in
       };
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ "--shortlog" ];
+        default = ["--shortlog"];
         example = [
           "--verbose"
           "--no-http"
@@ -76,13 +73,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.wsdd ];
+    environment.systemPackages = [pkgs.wsdd];
 
     systemd.services.samba-wsdd = {
       description = "Web Services Dynamic Discovery host daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         Type = "simple";
@@ -91,11 +87,11 @@ in
             lib.optionalString (cfg.interface != null) "--interface '${cfg.interface}'"
           } \
                                 ${
-                                  lib.optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"
-                                } \
+            lib.optionalString (cfg.hoplimit != null) "--hoplimit '${toString cfg.hoplimit}'"
+          } \
                                 ${
-                                  lib.optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"
-                                } \
+            lib.optionalString (cfg.workgroup != null) "--workgroup '${cfg.workgroup}'"
+          } \
                                 ${lib.optionalString (cfg.hostname != null) "--hostname '${cfg.hostname}'"} \
                                 ${lib.optionalString (cfg.domain != null) "--domain '${cfg.domain}'"} \
                                 ${lib.optionalString cfg.discovery "--discovery --listen '${cfg.listen}'"} \
@@ -141,8 +137,8 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 5357 ];
-      allowedUDPPorts = [ 3702 ];
+      allowedTCPPorts = [5357];
+      allowedUDPPorts = [3702];
     };
   };
 }

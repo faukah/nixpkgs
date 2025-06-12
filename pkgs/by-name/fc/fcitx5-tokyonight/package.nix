@@ -32,13 +32,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Fcitx5 theme based on Tokyo Night color";
     homepage = "https://github.com/ch3n9w/fcitx5-Tokyonight";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Guanran928 ];
+    maintainers = with maintainers; [Guanran928];
     platforms = platforms.all;
   };
 }

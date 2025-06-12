@@ -7,7 +7,6 @@
   which,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rbspy";
   version = "0.34.0";
@@ -55,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     which
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://rbspy.github.io/";
@@ -63,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "rbspy";
     changelog = "https://github.com/rbspy/rbspy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

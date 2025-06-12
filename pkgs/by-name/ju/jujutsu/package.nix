@@ -11,7 +11,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "jujutsu";
   version = "0.30.0";
@@ -66,10 +65,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     LIBSSH2_SYS_USE_PKG_CONFIG = "1";
   };
 
-  postInstall =
-    let
-      jj = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/jj";
-    in
+  postInstall = let
+    jj = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/jj";
+  in
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       mkdir -p $out/share/man
       ${jj} util install-man-pages $out/share/man/
@@ -81,12 +79,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/jj";
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

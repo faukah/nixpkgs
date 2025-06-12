@@ -18,7 +18,6 @@
   libuuid,
   zbar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "otpclient";
   version = "4.1.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/paolostivanin/OTPClient";
     changelog = "https://github.com/paolostivanin/OTPClient/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ alexbakker ];
+    maintainers = with lib.maintainers; [alexbakker];
     platforms = lib.platforms.linux;
   };
 }

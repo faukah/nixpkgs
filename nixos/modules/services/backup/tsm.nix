@@ -1,7 +1,8 @@
-{ config, lib, ... }:
-
-let
-
+{
+  config,
+  lib,
+  ...
+}: let
   inherit (lib.attrsets) hasAttr;
   inherit (lib.meta) getExe';
   inherit (lib.modules) mkDefault mkIf;
@@ -69,11 +70,7 @@ let
       message = "TSM service requires automatic password generation";
     }
   ];
-
-in
-
-{
-
+in {
   inherit options;
 
   config = mkIf cfg.enable {
@@ -119,6 +116,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.yarny ];
-
+  meta.maintainers = [lib.maintainers.yarny];
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gam";
   version = "6.58";
@@ -69,7 +68,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/GAM-team/GAM/wiki";
     changelog = "https://github.com/GAM-team/GAM/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ thanegill ];
+    maintainers = with lib.maintainers; [thanegill];
   };
-
 }

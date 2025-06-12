@@ -21,7 +21,6 @@
   gsettings-desktop-schemas,
   withGui ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxi-tools";
   version = "2.8";
@@ -33,12 +32,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lmWZpKI3TXwF76LDFfZcOGUtPeBmBu+0Lu/3eCMMb3Y=";
   };
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    cmake
-    pkg-config
-  ] ++ lib.optional withGui wrapGAppsHook4;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      cmake
+      pkg-config
+    ]
+    ++ lib.optional withGui wrapGAppsHook4;
 
   buildInputs =
     [
@@ -75,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://lxi-tools.github.io/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.vq ];
+    maintainers = [maintainers.vq];
     mainProgram = "lxi";
   };
 }

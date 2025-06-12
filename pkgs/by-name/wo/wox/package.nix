@@ -19,9 +19,7 @@
   xdg-utils,
   copyDesktopItems,
   makeDesktopItem,
-}:
-
-let
+}: let
   version = "2.0.0-beta.2";
 
   src = fetchFromGitHub {
@@ -34,8 +32,8 @@ let
   metaCommon = {
     description = "Cross-platform launcher that simply works";
     homepage = "https://github.com/Wox-launcher/Wox";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [emaryn];
   };
 
   ui-flutter = flutter327.buildFlutterApplication {
@@ -46,14 +44,16 @@ let
 
     pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-    buildInputs = [ keybinder3 ];
+    buildInputs = [keybinder3];
 
-    meta = metaCommon // {
-      mainProgram = "wox";
-      platforms = lib.platforms.linux;
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "wox";
+        platforms = lib.platforms.linux;
+      };
   };
 
   plugin-host-nodejs = stdenv.mkDerivation (finalAttrs: {
@@ -68,7 +68,8 @@ let
     ];
 
     pnpmDeps = pnpm_9.fetchDeps {
-      inherit (finalAttrs)
+      inherit
+        (finalAttrs)
         pname
         version
         src
@@ -103,7 +104,7 @@ let
 
     sourceRoot = "${src.name}/wox.plugin.python";
 
-    build-system = with python3Packages; [ hatchling ];
+    build-system = with python3Packages; [hatchling];
 
     meta = metaCommon;
   };
@@ -115,9 +116,9 @@ let
 
     sourceRoot = "${src.name}/wox.plugin.host.python";
 
-    build-system = with python3Packages; [ hatchling ];
+    build-system = with python3Packages; [hatchling];
 
-    nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+    nativeBuildInputs = [writableTmpDirAsHomeHook];
 
     buildInputs = with python3Packages; [
       loguru
@@ -131,79 +132,83 @@ let
       plugin-python
     ];
 
-    meta = metaCommon // {
-      mainProgram = "run";
-    };
+    meta =
+      metaCommon
+      // {
+        mainProgram = "run";
+      };
   };
 in
-buildGoModule {
-  pname = "wox";
-  inherit version src;
+  buildGoModule {
+    pname = "wox";
+    inherit version src;
 
-  sourceRoot = "${src.name}/wox.core";
+    sourceRoot = "${src.name}/wox.core";
 
-  postPatch = ''
-    substituteInPlace plugin/host/host_python.go \
-      --replace-fail 'n.findPythonPath(ctx), path.Join(util.GetLocation().GetHostDirectory(), "python-host.pyz")' '"env", "${plugin-host-python}/bin/run"'
-    substituteInPlace plugin/host/host_nodejs.go \
-      --replace-fail "/usr/bin/node" "${lib.getExe nodejs}"
-    substituteInPlace util/deeplink.go \
-      --replace-fail "update-desktop-database" "${desktop-file-utils}/bin/update-desktop-database" \
-      --replace-fail "xdg-mime" "${xdg-utils}/bin/xdg-mime" \
-      --replace-fail "Exec=%s" "Exec=wox"
-  '';
+    postPatch = ''
+      substituteInPlace plugin/host/host_python.go \
+        --replace-fail 'n.findPythonPath(ctx), path.Join(util.GetLocation().GetHostDirectory(), "python-host.pyz")' '"env", "${plugin-host-python}/bin/run"'
+      substituteInPlace plugin/host/host_nodejs.go \
+        --replace-fail "/usr/bin/node" "${lib.getExe nodejs}"
+      substituteInPlace util/deeplink.go \
+        --replace-fail "update-desktop-database" "${desktop-file-utils}/bin/update-desktop-database" \
+        --replace-fail "xdg-mime" "${xdg-utils}/bin/xdg-mime" \
+        --replace-fail "Exec=%s" "Exec=wox"
+    '';
 
-  vendorHash = "sha256-MKxMHABeKotErM+PEhWxeQmPcHH4jJSGWa8wzj42hoE=";
+    vendorHash = "sha256-MKxMHABeKotErM+PEhWxeQmPcHH4jJSGWa8wzj42hoE=";
 
-  proxyVendor = true;
+    proxyVendor = true;
 
-  nativeBuildInputs = [
-    pkg-config
-    autoPatchelfHook
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      autoPatchelfHook
+      copyDesktopItems
+    ];
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXtst
-    libxkbcommon
-    libayatana-appindicator
-    gtk3
-  ];
+    buildInputs = [
+      xorg.libX11
+      xorg.libXtst
+      libxkbcommon
+      libayatana-appindicator
+      gtk3
+    ];
 
-  env.CGO_ENABLED = 1;
+    env.CGO_ENABLED = 1;
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X 'wox/util.ProdEnv=true'"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X 'wox/util.ProdEnv=true'"
+    ];
 
-  preBuild = ''
-    mkdir -p resource/ui/flutter resource/hosts
-    cp -r ${ui-flutter}/app/${ui-flutter.pname} resource/ui/flutter/wox
-    cp ${plugin-host-nodejs}/node-host.js resource/hosts/node-host.js
-  '';
+    preBuild = ''
+      mkdir -p resource/ui/flutter resource/hosts
+      cp -r ${ui-flutter}/app/${ui-flutter.pname} resource/ui/flutter/wox
+      cp ${plugin-host-nodejs}/node-host.js resource/hosts/node-host.js
+    '';
 
-  # XOpenDisplay failure!
-  # XkbGetKeyboard failed to locate a valid keyboard!
-  doCheck = false;
+    # XOpenDisplay failure!
+    # XkbGetKeyboard failed to locate a valid keyboard!
+    doCheck = false;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "wox";
-      exec = "wox %U";
-      icon = "wox";
-      desktopName = "Wox";
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "wox";
+        exec = "wox %U";
+        icon = "wox";
+        desktopName = "Wox";
+      })
+    ];
 
-  postInstall = ''
-    install -Dm644 ../assets/app.png $out/share/pixmaps/wox.png
-  '';
+    postInstall = ''
+      install -Dm644 ../assets/app.png $out/share/pixmaps/wox.png
+    '';
 
-  meta = metaCommon // {
-    mainProgram = "wox";
-    platforms = lib.platforms.linux;
-  };
-}
+    meta =
+      metaCommon
+      // {
+        mainProgram = "wox";
+        platforms = lib.platforms.linux;
+      };
+  }

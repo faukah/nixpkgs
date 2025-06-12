@@ -8,7 +8,6 @@
   testers,
   linuxkit,
 }:
-
 buildGoModule rec {
   pname = "linuxkit";
   version = "1.6.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
   #   able to use the Virtualization framework at runtime.
   # - sigtool is allows us to validly sign such executables with a dummy
   #   authority.
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ sigtool ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [sigtool];
 
   ldflags = [
     "-s"
@@ -41,7 +40,7 @@ buildGoModule rec {
     "-X github.com/linuxkit/linuxkit/src/cmd/linuxkit/version.Version=${version}"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   # - Because this package definition doesn't build using the source's Makefile,
   #   we must manually call the sign target.
@@ -64,6 +63,6 @@ buildGoModule rec {
     mainProgram = "linuxkit";
     license = licenses.asl20;
     homepage = "https://github.com/linuxkit/linuxkit";
-    maintainers = with maintainers; [ nicknovitski ];
+    maintainers = with maintainers; [nicknovitski];
   };
 }

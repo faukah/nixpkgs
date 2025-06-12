@@ -6,7 +6,6 @@
   gettext,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osinfo-db";
   version = "20250606";
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/libosinfo/osinfo-db/-/commits/v${version}";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
   };
 }

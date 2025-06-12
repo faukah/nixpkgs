@@ -6,7 +6,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sway-launcher-desktop";
   version = "1.7.0";
@@ -26,18 +25,18 @@ stdenv.mkDerivation rec {
     fzf
     gawk
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -d $out/bin
     install ${pname}.sh $out/bin/${pname}
     wrapProgram $out/bin/${pname} \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gawk
-          fzf
-        ]
-      }
+      lib.makeBinPath [
+        gawk
+        fzf
+      ]
+    }
   '';
 
   meta = {
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Biont/sway-launcher-desktop/releases/tag/v${version}";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.pyrox0 ];
+    maintainers = [lib.maintainers.pyrox0];
   };
 }

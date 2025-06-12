@@ -4,7 +4,6 @@
   coq,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "smpl";
   owner = "uds-psl";
@@ -17,8 +16,7 @@ mkCoqDerivation {
   releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = isEq "8.15";
@@ -40,13 +38,14 @@ mkCoqDerivation {
         case = "8.10.2";
         out = "8.10.2";
       }
-    ] null;
+    ]
+    null;
 
   mlPlugin = true;
 
   meta = with lib; {
     description = "Coq plugin providing an extensible tactic similar to first";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.mit;
     platforms = platforms.unix;
   };

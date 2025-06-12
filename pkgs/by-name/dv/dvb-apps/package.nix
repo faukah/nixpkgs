@@ -49,16 +49,16 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   dontConfigure = true; # skip configure
 
   meta = {
     description = "Linux DVB API applications and utilities";
     homepage = "https://linuxtv.org/";
-    maintainers = with lib.maintainers; [ volfyd ];
+    maintainers = with lib.maintainers; [volfyd];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

@@ -5,7 +5,6 @@
   libsixel,
   withSixel ? false,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "viu";
   version = "1.5.1";

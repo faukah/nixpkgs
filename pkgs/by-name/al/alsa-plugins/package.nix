@@ -10,7 +10,6 @@
   libpulseaudio,
   speexdsp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alsa-plugins";
   version = "1.2.12";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-e9ioPTBOji2GoliV2Nyw7wJFqN8y4nGVnNvcavObZvI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Various plugins for ALSA";
     homepage = "http://alsa-project.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.linux;
   };
 }

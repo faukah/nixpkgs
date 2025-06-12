@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "colord-kde";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     lcms2
     xorg.libXrandr

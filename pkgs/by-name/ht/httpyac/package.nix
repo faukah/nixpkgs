@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "httpyac";
   version = "6.16.7";
@@ -25,7 +24,7 @@ buildNpmPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/anweber/httpyac";
     license = lib.licenses.mit;
     mainProgram = "httpyac";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.all;
   };
 }

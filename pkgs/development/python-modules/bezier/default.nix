@@ -8,10 +8,8 @@
   matplotlib,
   scipy,
   sympy,
-
   cmake,
   gfortran,
-
   nix-update-script,
 }:
 buildPythonPackage rec {
@@ -26,9 +24,9 @@ buildPythonPackage rec {
 
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
   optional-dependencies = {
     full = [
       matplotlib
@@ -55,15 +53,15 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "bezier" ];
+  pythonImportsCheck = ["bezier"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Helper for Bézier Curves, Triangles, and Higher Order Objects";
     changelog = "https://bezier.readthedocs.io/en/latest/releases/latest.html";
     homepage = "https://github.com/dhermes/bezier";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ WeetHet ];
+    maintainers = with lib.maintainers; [WeetHet];
   };
 }

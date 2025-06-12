@@ -8,7 +8,6 @@
   wrapGAppsHook3,
   lib,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "camset";
   version = "0-unstable-2023-05-20";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication {
     hash = "sha256-vTF3MJQi9fZZDlbEj5800H22GGWOte3+KZCpSnsSTaQ=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -39,7 +38,7 @@ python3Packages.buildPythonApplication {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      --prefix PATH : ${lib.makeBinPath [ v4l-utils ]}
+      --prefix PATH : ${lib.makeBinPath [v4l-utils]}
     )
   '';
 
@@ -62,6 +61,6 @@ python3Packages.buildPythonApplication {
     description = "GUI for Video4Linux adjustments of webcams";
     homepage = "https://github.com/azeam/camset";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ averdow ];
+    maintainers = with lib.maintainers; [averdow];
   };
 }

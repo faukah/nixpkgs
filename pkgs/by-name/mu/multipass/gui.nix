@@ -3,7 +3,6 @@
   multipass_src,
   multipassd,
   version,
-
   autoPatchelfHook,
   flutter327,
   gtkmm3,
@@ -60,7 +59,7 @@ flutter327.buildFlutterApplication {
       google/protobuf/timestamp.proto
   '';
 
-  runtimeDependencies = [ multipassd ];
+  runtimeDependencies = [multipassd];
 
   postFixup = ''
     mv $out/bin/multipass_gui $out/bin/multipass.gui
@@ -72,7 +71,9 @@ flutter327.buildFlutterApplication {
       $out/share/applications/multipass.gui.desktop
   '';
 
-  meta = commonMeta // {
-    description = "Flutter frontend application for managing Ubuntu VMs";
-  };
+  meta =
+    commonMeta
+    // {
+      description = "Flutter frontend application for managing Ubuntu VMs";
+    };
 }

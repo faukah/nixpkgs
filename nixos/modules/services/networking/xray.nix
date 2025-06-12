@@ -4,12 +4,8 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   options = {
-
     services.xray = {
       enable = mkOption {
         type = types.bool;
@@ -21,7 +17,7 @@ with lib;
         '';
       };
 
-      package = mkPackageOption pkgs "xray" { };
+      package = mkPackageOption pkgs "xray" {};
 
       settingsFile = mkOption {
         type = types.nullOr types.path;
@@ -62,25 +58,22 @@ with lib;
         '';
       };
     };
-
   };
 
-  config =
-    let
-      cfg = config.services.xray;
-      settingsFile =
-        if cfg.settingsFile != null then
-          cfg.settingsFile
-        else
-          pkgs.writeTextFile {
-            name = "xray.json";
-            text = builtins.toJSON cfg.settings;
-            checkPhase = ''
-              ${cfg.package}/bin/xray -test -config $out
-            '';
-          };
-
-    in
+  config = let
+    cfg = config.services.xray;
+    settingsFile =
+      if cfg.settingsFile != null
+      then cfg.settingsFile
+      else
+        pkgs.writeTextFile {
+          name = "xray.json";
+          text = builtins.toJSON cfg.settings;
+          checkPhase = ''
+            ${cfg.package}/bin/xray -test -config $out
+          '';
+        };
+  in
     mkIf cfg.enable {
       assertions = [
         {
@@ -91,8 +84,8 @@ with lib;
 
       systemd.services.xray = {
         description = "xray Daemon";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         script = ''
           exec "${cfg.package}/bin/xray" -config "$CREDENTIALS_DIRECTORY/config.json"
         '';

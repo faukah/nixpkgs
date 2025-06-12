@@ -3,12 +3,10 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   hatchling,
   hatch-fancy-pypi-readme,
   manim,
   ffmpeg,
-
   beautifulsoup4,
   click,
   click-default-group,
@@ -25,10 +23,8 @@
   rtoml,
   tqdm,
   pyqt6,
-
   # Optional dependencies
   ipython,
-
   # As Module or application?
   withGui ? false,
 }:
@@ -80,12 +76,11 @@ buildPythonPackage rec {
       manim
     ]
     ++ lib.lists.optional (!withGui) ipython
-    ++
-      lib.lists.optional withGui
-        # dependency of qtpy (could also be pyqt5)
-        pyqt6;
+    ++ lib.lists.optional withGui
+    # dependency of qtpy (could also be pyqt5)
+    pyqt6;
 
-  pythonImportsCheck = [ "manim_slides" ];
+  pythonImportsCheck = ["manim_slides"];
 
   meta = {
     changelog = "https://github.com/jeertmans/manim-slides/blob/${src.tag}/CHANGELOG.md";
@@ -93,6 +88,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jeertmans/manim-slides";
     license = lib.licenses.mit;
     mainProgram = "manim-slides";
-    maintainers = with lib.maintainers; [ bpeetz ];
+    maintainers = with lib.maintainers; [bpeetz];
   };
 }

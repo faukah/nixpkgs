@@ -6,7 +6,6 @@
   SDL_image,
   SDL_mixer,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vectoroids";
   version = "1.1.0";

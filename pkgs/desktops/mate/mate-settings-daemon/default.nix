@@ -20,7 +20,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-settings-daemon";
   version = "1.28.0";
@@ -36,18 +35,20 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    libxklavier
-    libcanberra-gtk3
-    libnotify
-    libmatekbd
-    libmatemixer
-    nss
-    polkit
-    gtk3
-    dconf
-    mate-desktop
-  ] ++ lib.optional pulseaudioSupport libpulseaudio;
+  buildInputs =
+    [
+      libxklavier
+      libcanberra-gtk3
+      libnotify
+      libmatekbd
+      libmatemixer
+      nss
+      polkit
+      gtk3
+      dconf
+      mate-desktop
+    ]
+    ++ lib.optional pulseaudioSupport libpulseaudio;
 
   configureFlags = lib.optional pulseaudioSupport "--enable-pulse";
 
@@ -55,7 +56,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE settings daemon";
@@ -67,6 +68,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

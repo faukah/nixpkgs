@@ -10,7 +10,6 @@
   rpcbind,
   systemdLibs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ypbind-mt";
   version = "2.7.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/thkukuk/ypbind-mt/blob/master/NEWS";
     license = lib.licenses.gpl2Plus;
     mainProgram = "ypbind";
-    maintainers = with lib.maintainers; [ BarrOff ];
+    maintainers = with lib.maintainers; [BarrOff];
     platforms = lib.platforms.linux;
   };
 }

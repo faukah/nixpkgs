@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   versioningit,
-
   # dependencies
   autobahn,
   cffi,
@@ -15,14 +13,12 @@
   pandas,
   qcodes,
   python-dotenv,
-
   # tests
   pytest-mock,
   pytestCheckHook,
   pyvisa-sim,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "qcodes-contrib-drivers";
   version = "0.23.0";
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "qcodes_contrib_drivers" ];
+  pythonImportsCheck = ["qcodes_contrib_drivers"];
 
   disabledTests =
     lib.optionals stdenv.hostPlatform.isDarwin [
@@ -73,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/QCoDeS/Qcodes_contrib_drivers";
     changelog = "https://github.com/QCoDeS/Qcodes_contrib_drivers/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ evilmav ];
+    maintainers = with lib.maintainers; [evilmav];
   };
 }

@@ -3,15 +3,12 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
-}:
-
-let
-  buildStyle =
-    {
-      name,
-      stylePath ? name,
-      ...
-    }@args:
+}: let
+  buildStyle = {
+    name,
+    stylePath ? name,
+    ...
+  } @ args:
     stdenvNoCC.mkDerivation (
       {
         pname = "vale-style-${lib.toLower name}";
@@ -28,21 +25,21 @@ let
           runHook postInstall
         '';
 
-        passthru.updateScript = nix-update-script { };
+        passthru.updateScript = nix-update-script {};
 
-        meta = {
-          platforms = lib.platforms.all;
-          maintainers = with lib.maintainers; [ katexochen ];
-        } // (args.meta or { });
+        meta =
+          {
+            platforms = lib.platforms.all;
+            maintainers = with lib.maintainers; [katexochen];
+          }
+          // (args.meta or {});
       }
       // removeAttrs args [
         "meta"
         "name"
       ]
     );
-in
-
-{
+in {
   alex = buildStyle rec {
     name = "alex";
     version = "0.2.3";

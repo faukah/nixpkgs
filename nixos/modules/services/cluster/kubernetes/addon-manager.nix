@@ -3,14 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   top = config.services.kubernetes;
   cfg = top.addonManager;
 
   isRBACEnabled = lib.elem "RBAC" top.apiserver.authorizationMode;
 
-  addons = pkgs.runCommand "kubernetes-addons" { } ''
+  addons = pkgs.runCommand "kubernetes-addons" {} ''
     mkdir -p $out
     # since we are mounting the addons to the addon manager, they need to be copied
     ${lib.concatMapStringsSep ";" (a: "cp -v ${a}/* $out/") (
@@ -19,17 +18,15 @@ let
       )
     )}
   '';
-in
-{
+in {
   ###### interface
   options.services.kubernetes.addonManager = with lib.types; {
-
     bootstrapAddons = lib.mkOption {
       description = ''
         Bootstrap addons are like regular addons, but they are applied with cluster-admin rights.
         They are applied at addon-manager startup only.
       '';
-      default = { };
+      default = {};
       type = attrsOf attrs;
       example = lib.literalExpression ''
         {
@@ -48,7 +45,7 @@ in
 
     addons = lib.mkOption {
       description = "Kubernetes addons (any kind of Kubernetes resource can be an addon).";
-      default = { };
+      default = {};
       type = attrsOf (either attrs (listOf attrs));
       example = lib.literalExpression ''
         {
@@ -75,10 +72,10 @@ in
 
     systemd.services.kube-addon-manager = {
       description = "Kubernetes addon manager";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       environment.ADDON_PATH = "/etc/kubernetes/addons/";
-      path = [ pkgs.gawk ];
+      path = [pkgs.gawk];
       serviceConfig = {
         Slice = "kubernetes.slice";
         ExecStart = "${top.package}/bin/kube-addons";
@@ -97,9 +94,7 @@ in
       let
         name = "system:kube-addon-manager";
         namespace = "kube-system";
-      in
-      {
-
+      in {
         kube-addon-manager-r = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "Role";
@@ -108,9 +103,9 @@ in
           };
           rules = [
             {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "*" ];
+              apiGroups = ["*"];
+              resources = ["*"];
+              verbs = ["*"];
             }
           ];
         };
@@ -143,9 +138,9 @@ in
           };
           rules = [
             {
-              apiGroups = [ "*" ];
-              resources = [ "*" ];
-              verbs = [ "list" ];
+              apiGroups = ["*"];
+              resources = ["*"];
+              verbs = ["list"];
             }
           ];
         };

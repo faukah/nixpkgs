@@ -10,7 +10,6 @@
   util-linux,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "otpw";
   version = "1.5";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     "stackprotector"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
   doInstallCheck = true;
 
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "otpw-gen";
     homepage = "http://www.cl.cam.ac.uk/~mgk25/otpw.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

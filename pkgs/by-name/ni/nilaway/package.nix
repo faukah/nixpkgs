@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "nilaway";
   version = "0-unstable-2025-03-07";
@@ -17,8 +16,8 @@ buildGoModule {
 
   vendorHash = "sha256-pthCLpy5pISKwdmeaJxPq8BxJLUwLwS2/hGMBt6/O4I=";
 
-  subPackages = [ "cmd/nilaway" ];
-  excludedPackages = [ "tools" ];
+  subPackages = ["cmd/nilaway"];
+  excludedPackages = ["tools"];
 
   ldflags = [
     "-s"

@@ -6,7 +6,6 @@
   scikit-learn,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "seqeval";
   version = "1.2.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # tests call perl script and get stuck in there
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Python framework for sequence labeling evaluation";
     homepage = "https://github.com/chakki-works/seqeval";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

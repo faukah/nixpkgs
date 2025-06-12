@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
   setuptools,
-
   # optional dependencies
   azure-storage-blob,
   boto3,
@@ -12,13 +11,11 @@
   google-cloud-storage,
   pymongo,
   redis,
-
   # testing
   mock,
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "simplekv";
   version = "0.14.1";
@@ -33,15 +30,17 @@ buildPythonPackage rec {
     hash = "sha256-seUGDj2q84+AjDFM1pxMLlHbe9uBgEhmqA96UHjnCmo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-    six
-  ] ++ optional-dependencies.git;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+      six
+    ]
+    ++ optional-dependencies.git;
 
-  pythonImportsCheck = [ "simplekv" ];
+  pythonImportsCheck = ["simplekv"];
 
   disabledTests = [
     # Issue with fixture
@@ -49,16 +48,16 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    amazon = [ boto3 ];
-    azure = [ azure-storage-blob ];
-    google = [ google-cloud-storage ];
-    redis = [ redis ];
-    mongodb = [ pymongo ];
-    git = [ dulwich ];
+    amazon = [boto3];
+    azure = [azure-storage-blob];
+    google = [google-cloud-storage];
+    redis = [redis];
+    mongodb = [pymongo];
+    git = [dulwich];
     /*
-      Additional potential dependencies not exposed here:
-        sqlalchemy: Our version is too new for simplekv
-        appengine-python-standard: Not packaged in nixpkgs
+    Additional potential dependencies not exposed here:
+      sqlalchemy: Our version is too new for simplekv
+      appengine-python-standard: Not packaged in nixpkgs
     */
   };
 

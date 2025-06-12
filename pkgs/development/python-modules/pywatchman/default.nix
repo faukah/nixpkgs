@@ -4,7 +4,6 @@
   fetchPypi,
   watchman,
 }:
-
 buildPythonPackage rec {
   pname = "pywatchman";
   version = "2.0.0";

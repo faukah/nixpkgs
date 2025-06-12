@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "preshed";
   version = "3.0.10";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-WlyOaF6UH0/+yX8fvzJpS4EHhYiRpLw0EH+smB2Clv8=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     cymem
     murmurhash
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests have import issues with 3.0.8
   doCheck = false;
 
-  pythonImportsCheck = [ "preshed" ];
+  pythonImportsCheck = ["preshed"];
 
   # don't update to 4.0.0, version was yanked
   passthru.skipBulkUpdate = true;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Cython hash tables that assume keys are pre-hashed";
     homepage = "https://github.com/explosion/preshed";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

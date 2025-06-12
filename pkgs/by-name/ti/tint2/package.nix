@@ -24,7 +24,6 @@
   wrapGAppsHook3,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tint2";
   version = "17.1.3";
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
       --replace-fail /usr/share/ /run/current-system/sw/share/
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   meta = with lib; {
@@ -95,6 +94,6 @@ stdenv.mkDerivation rec {
     description = "Simple panel/taskbar unintrusive and light (memory, cpu, aestetic)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

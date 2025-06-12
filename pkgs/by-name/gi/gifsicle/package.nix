@@ -8,7 +8,6 @@
   gifview ? false,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gifsicle";
   version = "1.96";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lcdf.org/gifsicle/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

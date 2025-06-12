@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tor;
   opt = options.services.tor;
   stateDir = "/var/lib/tor";
@@ -15,58 +14,58 @@ let
   '';
   bindsPrivilegedPort =
     lib.any
-      (
-        p0:
-        let
-          p1 = if p0 ? "port" then p0.port else p0;
+    (
+      p0: let
+        p1 =
+          if p0 ? "port"
+          then p0.port
+          else p0;
+      in
+        if p1 == "auto"
+        then false
+        else let
+          p2 =
+            if lib.isInt p1
+            then p1
+            else lib.toInt p1;
         in
-        if p1 == "auto" then
-          false
-        else
-          let
-            p2 = if lib.isInt p1 then p1 else lib.toInt p1;
-          in
           p1 != null && 0 < p2 && p2 < 1024
-      )
-      (
-        lib.flatten [
-          cfg.settings.ORPort
-          cfg.settings.DirPort
-          cfg.settings.DNSPort
-          cfg.settings.ExtORPort
-          cfg.settings.HTTPTunnelPort
-          cfg.settings.NATDPort
-          cfg.settings.SOCKSPort
-          cfg.settings.TransPort
-        ]
-      );
-  optionBool =
-    optionName:
+    )
+    (
+      lib.flatten [
+        cfg.settings.ORPort
+        cfg.settings.DirPort
+        cfg.settings.DNSPort
+        cfg.settings.ExtORPort
+        cfg.settings.HTTPTunnelPort
+        cfg.settings.NATDPort
+        cfg.settings.SOCKSPort
+        cfg.settings.TransPort
+      ]
+    );
+  optionBool = optionName:
     lib.mkOption {
       type = with lib.types; nullOr bool;
       default = null;
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
-  optionInt =
-    optionName:
+  optionInt = optionName:
     lib.mkOption {
       type = with lib.types; nullOr int;
       default = null;
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
-  optionString =
-    optionName:
+  optionString = optionName:
     lib.mkOption {
       type = with lib.types; nullOr str;
       default = null;
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
-  optionStrings =
-    optionName:
+  optionStrings = optionName:
     lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
-      description = (descriptionGeneric optionName);
+      default = [];
+      description = descriptionGeneric optionName;
     };
   optionAddress = lib.mkOption {
     type = with lib.types; nullOr str;
@@ -84,29 +83,25 @@ let
     '';
   };
   optionPort = lib.mkOption {
-    type =
-      with lib.types;
+    type = with lib.types;
       nullOr (oneOf [
         port
-        (enum [ "auto" ])
+        (enum ["auto"])
       ]);
     default = null;
   };
-  optionPorts =
-    optionName:
+  optionPorts = optionName:
     lib.mkOption {
       type = with lib.types; listOf port;
-      default = [ ];
-      description = (descriptionGeneric optionName);
+      default = [];
+      description = descriptionGeneric optionName;
     };
-  optionIsolablePort =
-    with lib.types;
+  optionIsolablePort = with lib.types;
     oneOf [
       port
-      (enum [ "auto" ])
+      (enum ["auto"])
       (submodule (
-        { config, ... }:
-        {
+        {config, ...}: {
           options =
             {
               addr = optionAddress;
@@ -119,10 +114,10 @@ let
             }
             // lib.genAttrs isolateFlags (
               name:
-              lib.mkOption {
-                type = types.bool;
-                default = false;
-              }
+                lib.mkOption {
+                  type = types.bool;
+                  default = false;
+                }
             );
           config = {
             flags =
@@ -132,12 +127,11 @@ let
         }
       ))
     ];
-  optionIsolablePorts =
-    optionName:
+  optionIsolablePorts = optionName:
     lib.mkOption {
-      default = [ ];
+      default = [];
       type = with lib.types; either optionIsolablePort (listOf optionIsolablePort);
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
   isolateFlags = [
     "IsolateClientAddr"
@@ -147,10 +141,9 @@ let
     "IsolateSOCKSAuth"
     "KeepAliveIsolateSOCKSAuth"
   ];
-  optionSOCKSPort =
-    doConfig:
-    let
-      flags = [
+  optionSOCKSPort = doConfig: let
+    flags =
+      [
         "CacheDNS"
         "CacheIPv4DNS"
         "CacheIPv6DNS"
@@ -167,69 +160,65 @@ let
         "UseIPv4Cache"
         "UseIPv6Cache"
         "WorldWritable"
-      ] ++ isolateFlags;
-    in
+      ]
+      ++ isolateFlags;
+  in
     with lib.types;
-    oneOf [
-      port
-      (submodule (
-        { config, ... }:
-        {
-          options =
-            {
-              unix = optionUnix;
-              addr = optionAddress;
-              port = optionPort;
-              flags = optionFlags;
-              SessionGroup = lib.mkOption {
-                type = nullOr int;
-                default = null;
-              };
-            }
-            // lib.genAttrs flags (
-              name:
-              lib.mkOption {
-                type = types.bool;
-                default = false;
+      oneOf [
+        port
+        (submodule (
+          {config, ...}: {
+            options =
+              {
+                unix = optionUnix;
+                addr = optionAddress;
+                port = optionPort;
+                flags = optionFlags;
+                SessionGroup = lib.mkOption {
+                  type = nullOr int;
+                  default = null;
+                };
               }
-            );
-          config = lib.mkIf doConfig {
-            # Only add flags in SOCKSPort to avoid duplicates
-            flags =
-              lib.filter (name: config.${name} == true) flags
-              ++ lib.optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
-          };
-        }
-      ))
-    ];
+              // lib.genAttrs flags (
+                name:
+                  lib.mkOption {
+                    type = types.bool;
+                    default = false;
+                  }
+              );
+            config = lib.mkIf doConfig {
+              # Only add flags in SOCKSPort to avoid duplicates
+              flags =
+                lib.filter (name: config.${name} == true) flags
+                ++ lib.optional (config.SessionGroup != null) "SessionGroup=${toString config.SessionGroup}";
+            };
+          }
+        ))
+      ];
   optionFlags = lib.mkOption {
     type = with lib.types; listOf str;
-    default = [ ];
+    default = [];
   };
-  optionORPort =
-    optionName:
+  optionORPort = optionName:
     lib.mkOption {
-      default = [ ];
+      default = [];
       example = 443;
-      type =
-        with lib.types;
+      type = with lib.types;
         oneOf [
           port
-          (enum [ "auto" ])
+          (enum ["auto"])
           (listOf (oneOf [
             port
-            (enum [ "auto" ])
+            (enum ["auto"])
             (submodule (
-              { config, ... }:
-              let
+              {config, ...}: let
                 flags = [
                   "IPv4Only"
                   "IPv6Only"
                   "NoAdvertise"
                   "NoListen"
                 ];
-              in
-              {
+              in {
                 options =
                   {
                     addr = optionAddress;
@@ -238,10 +227,10 @@ let
                   }
                   // lib.genAttrs flags (
                     name:
-                    lib.mkOption {
-                      type = types.bool;
-                      default = false;
-                    }
+                      lib.mkOption {
+                        type = types.bool;
+                        default = false;
+                      }
                   );
                 config = {
                   flags = lib.filter (name: config.${name} == true) flags;
@@ -250,52 +239,53 @@ let
             ))
           ]))
         ];
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
-  optionBandwidth =
-    optionName:
+  optionBandwidth = optionName:
     lib.mkOption {
       type = with lib.types; nullOr (either int str);
       default = null;
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
-  optionPath =
-    optionName:
+  optionPath = optionName:
     lib.mkOption {
       type = with lib.types; nullOr path;
       default = null;
-      description = (descriptionGeneric optionName);
+      description = descriptionGeneric optionName;
     };
 
-  mkValueString =
-    k: v:
-    if v == null then
-      ""
-    else if lib.isBool v then
-      (if v then "1" else "0")
-    else if v ? "unix" && v.unix != null then
-      "unix:" + v.unix + lib.optionalString (v ? "flags") (" " + lib.concatStringsSep " " v.flags)
-    else if v ? "port" && v.port != null then
+  mkValueString = k: v:
+    if v == null
+    then ""
+    else if lib.isBool v
+    then
+      (
+        if v
+        then "1"
+        else "0"
+      )
+    else if v ? "unix" && v.unix != null
+    then "unix:" + v.unix + lib.optionalString (v ? "flags") (" " + lib.concatStringsSep " " v.flags)
+    else if v ? "port" && v.port != null
+    then
       lib.optionalString (v ? "addr" && v.addr != null) "${v.addr}:"
       + toString v.port
       + lib.optionalString (v ? "flags") (" " + lib.concatStringsSep " " v.flags)
-    else if k == "ServerTransportPlugin" then
-      lib.optionalString (v.transports != [ ]) "${lib.concatStringsSep "," v.transports} exec ${v.exec}"
-    else if k == "HidServAuth" then
-      v.onion + " " + v.auth
-    else
-      lib.generators.mkValueStringDefault { } v;
-  genTorrc =
-    settings:
+    else if k == "ServerTransportPlugin"
+    then lib.optionalString (v.transports != []) "${lib.concatStringsSep "," v.transports} exec ${v.exec}"
+    else if k == "HidServAuth"
+    then v.onion + " " + v.auth
+    else lib.generators.mkValueStringDefault {} v;
+  genTorrc = settings:
     lib.generators.toKeyValue
-      {
-        listsAsDuplicateKeys = true;
-        mkKeyValue = k: lib.generators.mkKeyValueDefault { mkValueString = mkValueString k; } " " k;
-      }
-      (
-        lib.mapAttrs (
-          k: v:
-          # Not necessary, but prettier rendering
+    {
+      listsAsDuplicateKeys = true;
+      mkKeyValue = k: lib.generators.mkKeyValueDefault {mkValueString = mkValueString k;} " " k;
+    }
+    (
+      lib.mapAttrs (
+        k: v:
+        # Not necessary, but prettier rendering
           if
             lib.elem k [
               "AutomapHostsSuffixes"
@@ -303,27 +293,26 @@ let
               "ExitPolicy"
               "SocksPolicy"
             ]
-            && v != [ ]
-          then
-            lib.concatStringsSep "," v
-          else
-            v
-        ) (lib.filterAttrs (k: v: !(v == null || v == "")) settings)
-      );
+            && v != []
+          then lib.concatStringsSep "," v
+          else v
+      ) (lib.filterAttrs (k: v: !(v == null || v == "")) settings)
+    );
   torrc = pkgs.writeText "torrc" (
     genTorrc cfg.settings
     + lib.concatStrings (
       lib.mapAttrsToList (
         name: onion: "HiddenServiceDir ${onion.path}\n" + genTorrc onion.settings
-      ) cfg.relay.onionServices
+      )
+      cfg.relay.onionServices
     )
   );
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "client" "dns" "automapHostsSuffixes" ]
-      [ "services" "tor" "settings" "AutomapHostsSuffixes" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "client" "dns" "automapHostsSuffixes"]
+      ["services" "tor" "settings" "AutomapHostsSuffixes"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -358,9 +347,10 @@ in
       "client"
       "socksListenAddressFaster"
     ] "Use services.tor.settings.SOCKSPort instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "client" "socksPolicy" ]
-      [ "services" "tor" "settings" "SocksPolicy" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "client" "socksPolicy"]
+      ["services" "tor" "settings" "SocksPolicy"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -376,50 +366,60 @@ in
       "transparentProxy"
       "listenAddress"
     ] "Use services.tor.settings.TransPort instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "controlPort" ]
-      [ "services" "tor" "settings" "ControlPort" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "controlPort"]
+      ["services" "tor" "settings" "ControlPort"]
     )
     (lib.mkRemovedOptionModule [
       "services"
       "tor"
       "extraConfig"
     ] "Please use services.tor.settings instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "hiddenServices" ]
-      [ "services" "tor" "relay" "onionServices" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "hiddenServices"]
+      ["services" "tor" "relay" "onionServices"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "accountingMax" ]
-      [ "services" "tor" "settings" "AccountingMax" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "accountingMax"]
+      ["services" "tor" "settings" "AccountingMax"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "accountingStart" ]
-      [ "services" "tor" "settings" "AccountingStart" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "accountingStart"]
+      ["services" "tor" "settings" "AccountingStart"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "address" ]
-      [ "services" "tor" "settings" "Address" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "address"]
+      ["services" "tor" "settings" "Address"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "bandwidthBurst" ]
-      [ "services" "tor" "settings" "BandwidthBurst" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "bandwidthBurst"]
+      ["services" "tor" "settings" "BandwidthBurst"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "bandwidthRate" ]
-      [ "services" "tor" "settings" "BandwidthRate" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "bandwidthRate"]
+      ["services" "tor" "settings" "BandwidthRate"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "bridgeTransports" ]
-      [ "services" "tor" "settings" "ServerTransportPlugin" "transports" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "bridgeTransports"]
+      ["services" "tor" "settings" "ServerTransportPlugin" "transports"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "contactInfo" ]
-      [ "services" "tor" "settings" "ContactInfo" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "contactInfo"]
+      ["services" "tor" "settings" "ContactInfo"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "exitPolicy" ]
-      [ "services" "tor" "settings" "ExitPolicy" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "exitPolicy"]
+      ["services" "tor" "settings" "ExitPolicy"]
     )
     (lib.mkRemovedOptionModule [
       "services"
@@ -433,17 +433,20 @@ in
       "relay"
       "isExit"
     ] "Use services.tor.relay.role instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "nickname" ]
-      [ "services" "tor" "settings" "Nickname" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "nickname"]
+      ["services" "tor" "settings" "Nickname"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "port" ]
-      [ "services" "tor" "settings" "ORPort" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "port"]
+      ["services" "tor" "settings" "ORPort"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "tor" "relay" "portSpec" ]
-      [ "services" "tor" "settings" "ORPort" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "tor" "relay" "portSpec"]
+      ["services" "tor" "settings" "ORPort"]
     )
   ];
 
@@ -456,7 +459,7 @@ in
 
       openFirewall = lib.mkEnableOption "opening of the relay port(s) in the firewall";
 
-      package = lib.mkPackageOption pkgs "tor" { };
+      package = lib.mkPackageOption pkgs "tor" {};
 
       enableGeoIP =
         lib.mkEnableOption ''
@@ -498,17 +501,16 @@ in
         };
 
         onionServices = lib.mkOption {
-          description = (descriptionGeneric "HiddenServiceDir");
-          default = { };
+          description = descriptionGeneric "HiddenServiceDir";
+          default = {};
           example = {
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" = {
-              clientAuthorizations = [ "/run/keys/tor/alice.prv.x25519" ];
+              clientAuthorizations = ["/run/keys/tor/alice.prv.x25519"];
             };
           };
           type = lib.types.attrsOf (
             lib.types.submodule (
-              { ... }:
-              {
+              {...}: {
                 options.clientAuthorizations = lib.mkOption {
                   description = ''
                     Clients' authorizations for a v3 onion service,
@@ -519,8 +521,8 @@ in
                     ${descriptionGeneric "_client_authorization"}
                   '';
                   type = with lib.types; listOf path;
-                  default = [ ];
-                  example = [ "/run/keys/tor/alice.prv.x25519" ];
+                  default = [];
+                  example = ["/run/keys/tor/alice.prv.x25519"];
                 };
               }
             )
@@ -529,20 +531,22 @@ in
       };
 
       relay = {
-        enable = lib.mkEnableOption "tor relaying" // {
-          description = ''
-            Whether to enable relaying of Tor traffic for others.
+        enable =
+          lib.mkEnableOption "tor relaying"
+          // {
+            description = ''
+              Whether to enable relaying of Tor traffic for others.
 
-            See <https://www.torproject.org/docs/tor-doc-relay>
-            for details.
+              See <https://www.torproject.org/docs/tor-doc-relay>
+              for details.
 
-            Setting this to true requires setting
-            {option}`services.tor.relay.role`
-            and
-            {option}`services.tor.settings.ORPort`
-            options.
-          '';
-        };
+              Setting this to true requires setting
+              {option}`services.tor.relay.role`
+              and
+              {option}`services.tor.settings.ORPort`
+              options.
+            '';
+          };
 
         role = lib.mkOption {
           type = lib.types.enum [
@@ -636,11 +640,11 @@ in
         };
 
         onionServices = lib.mkOption {
-          description = (descriptionGeneric "HiddenServiceDir");
-          default = { };
+          description = descriptionGeneric "HiddenServiceDir";
+          default = {};
           example = {
             "example.org/www" = {
-              map = [ 80 ];
+              map = [80];
               authorizedClients = [
                 "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
               ];
@@ -648,8 +652,11 @@ in
           };
           type = lib.types.attrsOf (
             lib.types.submodule (
-              { name, config, ... }:
               {
+                name,
+                config,
+                ...
+              }: {
                 options.path = lib.mkOption {
                   type = lib.types.path;
                   description = ''
@@ -672,12 +679,11 @@ in
                   '';
                 };
                 options.authorizeClient = lib.mkOption {
-                  description = (descriptionGeneric "HiddenServiceAuthorizeClient");
+                  description = descriptionGeneric "HiddenServiceAuthorizeClient";
                   default = null;
                   type = lib.types.nullOr (
                     lib.types.submodule (
-                      { ... }:
-                      {
+                      {...}: {
                         options = {
                           authType = lib.mkOption {
                             type = lib.types.enum [
@@ -714,26 +720,23 @@ in
                     ${descriptionGeneric "_client_authorization"}
                   '';
                   type = with lib.types; listOf str;
-                  default = [ ];
-                  example = [ "descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" ];
+                  default = [];
+                  example = ["descriptor:x25519:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"];
                 };
                 options.map = lib.mkOption {
-                  description = (descriptionGeneric "HiddenServicePort");
-                  type =
-                    with lib.types;
+                  description = descriptionGeneric "HiddenServicePort";
+                  type = with lib.types;
                     listOf (oneOf [
                       port
                       (submodule (
-                        { ... }:
-                        {
+                        {...}: {
                           options = {
                             port = optionPort;
                             target = lib.mkOption {
                               default = null;
                               type = nullOr (
                                 submodule (
-                                  { ... }:
-                                  {
+                                  {...}: {
                                     options = {
                                       unix = optionUnix;
                                       addr = optionAddress;
@@ -749,19 +752,17 @@ in
                     ]);
                   apply = map (
                     v:
-                    if lib.isInt v then
-                      {
+                      if lib.isInt v
+                      then {
                         port = v;
                         target = null;
                       }
-                    else
-                      v
+                      else v
                   );
                 };
                 options.version = lib.mkOption {
-                  description = (descriptionGeneric "HiddenServiceVersion");
-                  type =
-                    with lib.types;
+                  description = descriptionGeneric "HiddenServiceVersion";
+                  type = with lib.types;
                     nullOr (enum [
                       2
                       3
@@ -773,10 +774,9 @@ in
                     Settings of the onion service.
                     ${descriptionGeneric "_hidden_service_options"}
                   '';
-                  default = { };
+                  default = {};
                   type = lib.types.submodule {
-                    freeformType =
-                      with lib.types;
+                    freeformType = with lib.types;
                       (attrsOf (
                         nullOr (oneOf [
                           str
@@ -791,18 +791,18 @@ in
                     options.HiddenServiceAllowUnknownPorts = optionBool "HiddenServiceAllowUnknownPorts";
                     options.HiddenServiceDirGroupReadable = optionBool "HiddenServiceDirGroupReadable";
                     options.HiddenServiceExportCircuitID = lib.mkOption {
-                      description = (descriptionGeneric "HiddenServiceExportCircuitID");
-                      type = with lib.types; nullOr (enum [ "haproxy" ]);
+                      description = descriptionGeneric "HiddenServiceExportCircuitID";
+                      type = with lib.types; nullOr (enum ["haproxy"]);
                       default = null;
                     };
                     options.HiddenServiceMaxStreams = lib.mkOption {
-                      description = (descriptionGeneric "HiddenServiceMaxStreams");
+                      description = descriptionGeneric "HiddenServiceMaxStreams";
                       type = with lib.types; nullOr (ints.between 0 65535);
                       default = null;
                     };
                     options.HiddenServiceMaxStreamsCloseCircuit = optionBool "HiddenServiceMaxStreamsCloseCircuit";
                     options.HiddenServiceNumIntroductionPoints = lib.mkOption {
-                      description = (descriptionGeneric "HiddenServiceNumIntroductionPoints");
+                      description = descriptionGeneric "HiddenServiceNumIntroductionPoints";
                       type = with lib.types; nullOr (ints.between 0 20);
                       default = null;
                     };
@@ -811,16 +811,22 @@ in
                   };
                 };
                 config = {
-                  path = lib.mkDefault ((if config.secretKey == null then stateDir else runDir) + "/onion/${name}");
+                  path = lib.mkDefault ((
+                      if config.secretKey == null
+                      then stateDir
+                      else runDir
+                    )
+                    + "/onion/${name}");
                   settings.HiddenServiceVersion = config.version;
                   settings.HiddenServiceAuthorizeClient =
-                    if config.authorizeClient != null then
-                      config.authorizeClient.authType + " " + lib.concatStringsSep "," config.authorizeClient.clientNames
-                    else
-                      null;
-                  settings.HiddenServicePort = map (
-                    p: mkValueString "" p.port + " " + mkValueString "" p.target
-                  ) config.map;
+                    if config.authorizeClient != null
+                    then config.authorizeClient.authType + " " + lib.concatStringsSep "," config.authorizeClient.clientNames
+                    else null;
+                  settings.HiddenServicePort =
+                    map (
+                      p: mkValueString "" p.port + " " + mkValueString "" p.target
+                    )
+                    config.map;
                 };
               }
             )
@@ -833,10 +839,9 @@ in
           See [torrc manual](https://2019.www.torproject.org/docs/tor-manual.html.en)
           for documentation.
         '';
-        default = { };
+        default = {};
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             (attrsOf (
               nullOr (oneOf [
                 str
@@ -859,27 +864,31 @@ in
           options.AuthDirTestEd25519LinkKeys = optionBool "AuthDirTestEd25519LinkKeys";
           options.AuthoritativeDirectory = optionBool "AuthoritativeDirectory";
           options.AutomapHostsOnResolve = optionBool "AutomapHostsOnResolve";
-          options.AutomapHostsSuffixes = optionStrings "AutomapHostsSuffixes" // {
-            default = [
-              ".onion"
-              ".exit"
-            ];
-            example = [ ".onion" ];
-          };
+          options.AutomapHostsSuffixes =
+            optionStrings "AutomapHostsSuffixes"
+            // {
+              default = [
+                ".onion"
+                ".exit"
+              ];
+              example = [".onion"];
+            };
           options.BandwidthBurst = optionBandwidth "BandwidthBurst";
           options.BandwidthRate = optionBandwidth "BandwidthRate";
           options.BridgeAuthoritativeDir = optionBool "BridgeAuthoritativeDir";
           options.BridgeRecordUsageByCountry = optionBool "BridgeRecordUsageByCountry";
-          options.BridgeRelay = optionBool "BridgeRelay" // {
-            default = false;
-          };
+          options.BridgeRelay =
+            optionBool "BridgeRelay"
+            // {
+              default = false;
+            };
           options.CacheDirectory = optionPath "CacheDirectory";
           options.CacheDirectoryGroupReadable = optionBool "CacheDirectoryGroupReadable"; # default is null and like "auto"
           options.CellStatistics = optionBool "CellStatistics";
           options.ClientAutoIPv6ORPort = optionBool "ClientAutoIPv6ORPort";
           options.ClientDNSRejectInternalAddresses = optionBool "ClientDNSRejectInternalAddresses";
           options.ClientOnionAuthDir = lib.mkOption {
-            description = (descriptionGeneric "ClientOnionAuthDir");
+            description = descriptionGeneric "ClientOnionAuthDir";
             default = null;
             type = with lib.types; nullOr path;
           };
@@ -892,27 +901,24 @@ in
           options.ConstrainedSockets = optionBool "ConstrainedSockets";
           options.ContactInfo = optionString "ContactInfo";
           options.ControlPort = lib.mkOption {
-            description = (descriptionGeneric "ControlPort");
-            default = [ ];
-            example = [ { port = 9051; } ];
-            type =
-              with lib.types;
+            description = descriptionGeneric "ControlPort";
+            default = [];
+            example = [{port = 9051;}];
+            type = with lib.types;
               oneOf [
                 port
-                (enum [ "auto" ])
+                (enum ["auto"])
                 (listOf (oneOf [
                   port
-                  (enum [ "auto" ])
+                  (enum ["auto"])
                   (submodule (
-                    { config, ... }:
-                    let
+                    {config, ...}: let
                       flags = [
                         "GroupWritable"
                         "RelaxDirModeCheck"
                         "WorldWritable"
                       ];
-                    in
-                    {
+                    in {
                       options =
                         {
                           unix = optionUnix;
@@ -922,10 +928,10 @@ in
                         }
                         // lib.genAttrs flags (
                           name:
-                          lib.mkOption {
-                            type = types.bool;
-                            default = false;
-                          }
+                            lib.mkOption {
+                              type = types.bool;
+                              default = false;
+                            }
                         );
                       config = {
                         flags = lib.filter (name: config.${name} == true) flags;
@@ -942,9 +948,11 @@ in
           options.CookieAuthFile = optionPath "CookieAuthFile";
           options.CookieAuthFileGroupReadable = optionBool "CookieAuthFileGroupReadable";
           options.CookieAuthentication = optionBool "CookieAuthentication";
-          options.DataDirectory = optionPath "DataDirectory" // {
-            default = stateDir;
-          };
+          options.DataDirectory =
+            optionPath "DataDirectory"
+            // {
+              default = stateDir;
+            };
           options.DataDirectoryGroupReadable = optionBool "DataDirectoryGroupReadable";
           options.DirPortFrontPage = optionPath "DirPortFrontPage";
           options.DirAllowPrivateAddresses = optionBool "DirAllowPrivateAddresses";
@@ -953,10 +961,10 @@ in
           options.DormantTimeoutDisabledByIdleStreams = optionBool "DormantTimeoutDisabledByIdleStreams";
           options.DirCache = optionBool "DirCache";
           options.DirPolicy = lib.mkOption {
-            description = (descriptionGeneric "DirPolicy");
+            description = descriptionGeneric "DirPolicy";
             type = with lib.types; listOf str;
-            default = [ ];
-            example = [ "accept *:*" ];
+            default = [];
+            example = ["accept *:*"];
           };
           options.DirPort = optionORPort "DirPort";
           options.DirReqStatistics = optionBool "DirReqStatistics";
@@ -971,25 +979,25 @@ in
           options.DownloadExtraInfo = optionBool "DownloadExtraInfo";
           options.EnforceDistinctSubnets = optionBool "EnforceDistinctSubnets";
           options.EntryStatistics = optionBool "EntryStatistics";
-          options.ExitPolicy = optionStrings "ExitPolicy" // {
-            default = [ "reject *:*" ];
-            example = [ "accept *:*" ];
-          };
+          options.ExitPolicy =
+            optionStrings "ExitPolicy"
+            // {
+              default = ["reject *:*"];
+              example = ["accept *:*"];
+            };
           options.ExitPolicyRejectLocalInterfaces = optionBool "ExitPolicyRejectLocalInterfaces";
           options.ExitPolicyRejectPrivate = optionBool "ExitPolicyRejectPrivate";
           options.ExitPortStatistics = optionBool "ExitPortStatistics";
           options.ExitRelay = optionBool "ExitRelay"; # default is null and like "auto"
           options.ExtORPort = lib.mkOption {
-            description = (descriptionGeneric "ExtORPort");
+            description = descriptionGeneric "ExtORPort";
             default = null;
-            type =
-              with lib.types;
+            type = with lib.types;
               nullOr (oneOf [
                 port
-                (enum [ "auto" ])
+                (enum ["auto"])
                 (submodule (
-                  { ... }:
-                  {
+                  {...}: {
                     options = {
                       addr = optionAddress;
                       port = optionPort;
@@ -997,7 +1005,10 @@ in
                   }
                 ))
               ]);
-            apply = p: if lib.isInt p || lib.isString p then { port = p; } else p;
+            apply = p:
+              if lib.isInt p || lib.isString p
+              then {port = p;}
+              else p;
           };
           options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
           options.ExtORPortCookieAuthFileGroupReadable = optionBool "ExtORPortCookieAuthFileGroupReadable";
@@ -1016,10 +1027,9 @@ in
           options.GeoIPv6File = optionPath "GeoIPv6File";
           options.GuardfractionFile = optionPath "GuardfractionFile";
           options.HidServAuth = lib.mkOption {
-            description = (descriptionGeneric "HidServAuth");
-            default = [ ];
-            type =
-              with lib.types;
+            description = descriptionGeneric "HidServAuth";
+            default = [];
+            type = with lib.types;
               listOf (oneOf [
                 (submodule {
                   options = {
@@ -1069,9 +1079,8 @@ in
           options.ProtocolWarnings = optionBool "ProtocolWarnings";
           options.PublishHidServDescriptors = optionBool "PublishHidServDescriptors";
           options.PublishServerDescriptor = lib.mkOption {
-            description = (descriptionGeneric "PublishServerDescriptor");
-            type =
-              with lib.types;
+            description = descriptionGeneric "PublishServerDescriptor";
+            type = with lib.types;
               nullOr (enum [
                 false
                 true
@@ -1098,14 +1107,12 @@ in
           options.ServerDNSResolvConfFile = optionPath "ServerDNSResolvConfFile";
           options.ServerDNSSearchDomains = optionBool "ServerDNSSearchDomains";
           options.ServerTransportPlugin = lib.mkOption {
-            description = (descriptionGeneric "ServerTransportPlugin");
+            description = descriptionGeneric "ServerTransportPlugin";
             default = null;
-            type =
-              with lib.types;
+            type = with lib.types;
               nullOr (
                 submodule (
-                  { ... }:
-                  {
+                  {...}: {
                     options = {
                       transports = lib.mkOption {
                         description = "List of pluggable transports.";
@@ -1129,28 +1136,29 @@ in
           options.ShutdownWaitLength = lib.mkOption {
             type = lib.types.int;
             default = 30;
-            description = (descriptionGeneric "ShutdownWaitLength");
+            description = descriptionGeneric "ShutdownWaitLength";
           };
-          options.SocksPolicy = optionStrings "SocksPolicy" // {
-            example = [ "accept *:*" ];
-          };
+          options.SocksPolicy =
+            optionStrings "SocksPolicy"
+            // {
+              example = ["accept *:*"];
+            };
           options.SOCKSPort = lib.mkOption {
-            description = (descriptionGeneric "SOCKSPort");
-            default = lib.optionals cfg.settings.HiddenServiceNonAnonymousMode [ { port = 0; } ];
+            description = descriptionGeneric "SOCKSPort";
+            default = lib.optionals cfg.settings.HiddenServiceNonAnonymousMode [{port = 0;}];
             defaultText = lib.literalExpression ''
               if config.${opt.settings}.HiddenServiceNonAnonymousMode == true
               then [ { port = 0; } ]
               else [ ]
             '';
-            example = [ { port = 9090; } ];
+            example = [{port = 9090;}];
             type = lib.types.listOf (optionSOCKSPort true);
           };
           options.TestingTorNetwork = optionBool "TestingTorNetwork";
           options.TransPort = optionIsolablePorts "TransPort";
           options.TransProxyType = lib.mkOption {
-            description = (descriptionGeneric "TransProxyType");
-            type =
-              with lib.types;
+            description = descriptionGeneric "TransProxyType";
+            type = with lib.types;
               nullOr (enum [
                 "default"
                 "TPROXY"
@@ -1179,40 +1187,41 @@ in
     # sends a lot of stats
     warnings =
       lib.optional
-        (
-          cfg.settings.BridgeRelay
-          && lib.flatten (lib.mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != [ ]
-        )
-        ''
-          Running Tor hidden services on a public relay makes the
-          presence of hidden services visible through simple statistical
-          analysis of publicly available data.
-          See https://trac.torproject.org/projects/tor/ticket/8742
+      (
+        cfg.settings.BridgeRelay
+        && lib.flatten (lib.mapAttrsToList (n: o: o.map) cfg.relay.onionServices) != []
+      )
+      ''
+        Running Tor hidden services on a public relay makes the
+        presence of hidden services visible through simple statistical
+        analysis of publicly available data.
+        See https://trac.torproject.org/projects/tor/ticket/8742
 
-          You can safely ignore this warning if you don't intend to
-          actually hide your hidden services. In either case, you can
-          always create a container/VM with a separate Tor daemon instance.
-        ''
+        You can safely ignore this warning if you don't intend to
+        actually hide your hidden services. In either case, you can
+        always create a container/VM with a separate Tor daemon instance.
+      ''
       ++ lib.flatten (
         lib.mapAttrsToList (
           n: o:
-          lib.optionals (o.settings.HiddenServiceVersion == 2) [
-            (lib.optional (o.settings.HiddenServiceExportCircuitID != null) ''
-              HiddenServiceExportCircuitID is used in the HiddenService: ${n}
-              but this option is only for v3 hidden services.
-            '')
-          ]
-          ++ lib.optionals (o.settings.HiddenServiceVersion != 2) [
-            (lib.optional (o.settings.HiddenServiceAuthorizeClient != null) ''
-              HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-            (lib.optional (o.settings.RendPostPeriod != null) ''
-              RendPostPeriod is used in the HiddenService: ${n}
-              but this option is only for v2 hidden services.
-            '')
-          ]
-        ) cfg.relay.onionServices
+            lib.optionals (o.settings.HiddenServiceVersion == 2) [
+              (lib.optional (o.settings.HiddenServiceExportCircuitID != null) ''
+                HiddenServiceExportCircuitID is used in the HiddenService: ${n}
+                but this option is only for v3 hidden services.
+              '')
+            ]
+            ++ lib.optionals (o.settings.HiddenServiceVersion != 2) [
+              (lib.optional (o.settings.HiddenServiceAuthorizeClient != null) ''
+                HiddenServiceAuthorizeClient is used in the HiddenService: ${n}
+                but this option is only for v2 hidden services.
+              '')
+              (lib.optional (o.settings.RendPostPeriod != null) ''
+                RendPostPeriod is used in the HiddenService: ${n}
+                but this option is only for v2 hidden services.
+              '')
+            ]
+        )
+        cfg.relay.onionServices
       );
 
     users.groups.tor.gid = config.ids.gids.tor;
@@ -1240,20 +1249,19 @@ in
       })
       (lib.mkIf cfg.relay.enable (
         lib.optionalAttrs (cfg.relay.role != "exit") {
-          ExitPolicy = lib.mkForce [ "reject *:*" ];
+          ExitPolicy = lib.mkForce ["reject *:*"];
         }
-        //
-          lib.optionalAttrs
-            (lib.elem cfg.relay.role [
-              "bridge"
-              "private-bridge"
-            ])
-            {
-              BridgeRelay = true;
-              ExtORPort.port = lib.mkDefault "auto";
-              ServerTransportPlugin.transports = lib.mkDefault [ "obfs4" ];
-              ServerTransportPlugin.exec = lib.mkDefault "${lib.getExe pkgs.obfs4} managed";
-            }
+        // lib.optionalAttrs
+        (lib.elem cfg.relay.role [
+          "bridge"
+          "private-bridge"
+        ])
+        {
+          BridgeRelay = true;
+          ExtORPort.port = lib.mkDefault "auto";
+          ServerTransportPlugin.transports = lib.mkDefault ["obfs4"];
+          ServerTransportPlugin.exec = lib.mkDefault "${lib.getExe pkgs.obfs4} managed";
+        }
         // lib.optionalAttrs (cfg.relay.role == "private-bridge") {
           ExtraInfoStatistics = false;
           PublishServerDescriptor = false;
@@ -1265,18 +1273,18 @@ in
         # which can trigger all sort of problems when not carefully done,
         # like the blocklisting of the machine's IP addresses
         # by some hosting providers...
-        DirPort = lib.mkForce [ ];
-        ORPort = lib.mkForce [ ];
+        DirPort = lib.mkForce [];
+        ORPort = lib.mkForce [];
         PublishServerDescriptor = lib.mkForce false;
       })
       (lib.mkIf (!cfg.client.enable) {
         # Make sure application connections via SOCKS are disabled
         # when services.tor.client.enable is false
-        SOCKSPort = lib.mkForce [ 0 ];
+        SOCKSPort = lib.mkForce [0];
       })
       (lib.mkIf cfg.client.enable (
         {
-          SOCKSPort = [ cfg.client.socksListenAddress ];
+          SOCKSPort = [cfg.client.socksListenAddress];
         }
         // lib.optionalAttrs cfg.client.transparentProxy.enable {
           TransPort = [
@@ -1295,41 +1303,39 @@ in
           ];
           AutomapHostsOnResolve = true;
         }
-        //
-          lib.optionalAttrs
-            (lib.flatten (lib.mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [ ])
-            {
-              ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
-            }
+        // lib.optionalAttrs
+        (lib.flatten (lib.mapAttrsToList (n: o: o.clientAuthorizations) cfg.client.onionServices) != [])
+        {
+          ClientOnionAuthDir = runDir + "/ClientOnionAuthDir";
+        }
       ))
     ];
 
     networking.firewall = lib.mkIf cfg.openFirewall {
       allowedTCPPorts =
         lib.concatMap
-          (
-            o:
-            if lib.isInt o && o > 0 then
-              [ o ]
-            else
-              lib.optionals (o ? "port" && lib.isInt o.port && o.port > 0) [ o.port ]
-          )
-          (
-            lib.flatten [
-              cfg.settings.ORPort
-              cfg.settings.DirPort
-            ]
-          );
+        (
+          o:
+            if lib.isInt o && o > 0
+            then [o]
+            else lib.optionals (o ? "port" && lib.isInt o.port && o.port > 0) [o.port]
+        )
+        (
+          lib.flatten [
+            cfg.settings.ORPort
+            cfg.settings.DirPort
+          ]
+        );
     };
 
     systemd.services.tor = {
       description = "Tor Daemon";
-      documentation = [ "man:tor(8)" ];
-      path = [ pkgs.tor ];
+      documentation = ["man:tor(8)"];
+      path = [pkgs.tor];
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      restartTriggers = [ torrc ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      restartTriggers = [torrc];
 
       serviceConfig = {
         Type = "simple";
@@ -1343,41 +1349,43 @@ in
             + pkgs.writeShellScript "ExecStartPre" (
               lib.concatStringsSep "\n" (
                 lib.flatten (
-                  [ "set -eu" ]
+                  ["set -eu"]
                   ++ lib.mapAttrsToList (
                     name: onion:
-                    lib.optional (onion.authorizedClients != [ ]) ''
-                      rm -rf ${lib.escapeShellArg onion.path}/authorized_clients
-                      install -d -o tor -g tor -m 0700 ${lib.escapeShellArg onion.path} ${lib.escapeShellArg onion.path}/authorized_clients
-                    ''
-                    ++ lib.imap0 (i: pubKey: ''
-                      echo ${pubKey} |
-                      install -o tor -g tor -m 0400 /dev/stdin ${lib.escapeShellArg onion.path}/authorized_clients/${toString i}.auth
-                    '') onion.authorizedClients
-                    ++ lib.optional (onion.secretKey != null) ''
-                      install -d -o tor -g tor -m 0700 ${lib.escapeShellArg onion.path}
-                      key="$(cut -f1 -d: ${lib.escapeShellArg onion.secretKey} | head -1)"
-                      case "$key" in
-                       ("== ed25519v"*"-secret")
-                        install -o tor -g tor -m 0400 ${lib.escapeShellArg onion.secretKey} ${lib.escapeShellArg onion.path}/hs_ed25519_secret_key;;
-                       (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
-                      esac
-                    ''
-                  ) cfg.relay.onionServices
+                      lib.optional (onion.authorizedClients != []) ''
+                        rm -rf ${lib.escapeShellArg onion.path}/authorized_clients
+                        install -d -o tor -g tor -m 0700 ${lib.escapeShellArg onion.path} ${lib.escapeShellArg onion.path}/authorized_clients
+                      ''
+                      ++ lib.imap0 (i: pubKey: ''
+                        echo ${pubKey} |
+                        install -o tor -g tor -m 0400 /dev/stdin ${lib.escapeShellArg onion.path}/authorized_clients/${toString i}.auth
+                      '')
+                      onion.authorizedClients
+                      ++ lib.optional (onion.secretKey != null) ''
+                        install -d -o tor -g tor -m 0700 ${lib.escapeShellArg onion.path}
+                        key="$(cut -f1 -d: ${lib.escapeShellArg onion.secretKey} | head -1)"
+                        case "$key" in
+                         ("== ed25519v"*"-secret")
+                          install -o tor -g tor -m 0400 ${lib.escapeShellArg onion.secretKey} ${lib.escapeShellArg onion.path}/hs_ed25519_secret_key;;
+                         (*) echo >&2 "NixOS does not (yet) support secret key type for onion: ${name}"; exit 1;;
+                        esac
+                      ''
+                  )
+                  cfg.relay.onionServices
                   ++ lib.mapAttrsToList (
                     name: onion:
-                    lib.imap0 (
-                      i: prvKeyPath:
-                      let
-                        hostname = lib.removeSuffix ".onion" name;
-                      in
-                      ''
-                        printf "%s:" ${lib.escapeShellArg hostname} | cat - ${lib.escapeShellArg prvKeyPath} |
-                        install -o tor -g tor -m 0700 /dev/stdin \
-                         ${runDir}/ClientOnionAuthDir/${lib.escapeShellArg hostname}.${toString i}.auth_private
-                      ''
-                    ) onion.clientAuthorizations
-                  ) cfg.client.onionServices
+                      lib.imap0 (
+                        i: prvKeyPath: let
+                          hostname = lib.removeSuffix ".onion" name;
+                        in ''
+                          printf "%s:" ${lib.escapeShellArg hostname} | cat - ${lib.escapeShellArg prvKeyPath} |
+                          install -o tor -g tor -m 0700 /dev/stdin \
+                           ${runDir}/ClientOnionAuthDir/${lib.escapeShellArg hostname}.${toString i}.auth_private
+                        ''
+                      )
+                      onion.clientAuthorizations
+                  )
+                  cfg.client.onionServices
                 )
               )
             )
@@ -1406,7 +1414,8 @@ in
           ++ lib.flatten (
             lib.mapAttrsToList (
               name: onion: lib.optional (onion.secretKey == null) "tor/onion/${name}"
-            ) cfg.relay.onionServices
+            )
+            cfg.relay.onionServices
           );
         # The following options are only to optimize:
         # systemd-analyze security tor
@@ -1414,7 +1423,7 @@ in
         RootDirectoryStartOnly = true;
         #InaccessiblePaths = [ "-+${runDir}/root" ];
         UMask = "0066";
-        BindPaths = [ stateDir ];
+        BindPaths = [stateDir];
         BindReadOnlyPaths =
           [
             builtins.storeDir
@@ -1424,8 +1433,8 @@ in
             "/run/systemd/resolve/stub-resolv.conf"
             "/run/systemd/resolve/resolv.conf"
           ];
-        AmbientCapabilities = [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
-        CapabilityBoundingSet = [ "" ] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        AmbientCapabilities = [""] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = [""] ++ lib.optional bindsPrivilegedPort "CAP_NET_BIND_SERVICE";
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
@@ -1477,8 +1486,8 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ julm ];
+  meta.maintainers = with lib.maintainers; [julm];
 }

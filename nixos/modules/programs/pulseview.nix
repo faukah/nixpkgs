@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.pulseview;
-in
-{
+in {
   options.programs.pulseview = {
     enable = lib.mkEnableOption "pulseview, a sigrok GUI";
   };

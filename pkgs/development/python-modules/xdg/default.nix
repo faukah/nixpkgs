@@ -6,7 +6,6 @@
   clikit,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   version = "6.0.0";
   pname = "xdg";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-JCeAlPLUXoRtHrKKLruS17Z/wMq1JJ7jzojJX2SaHJI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ clikit ];
+  propagatedBuildInputs = [clikit];
 
   # sdist has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "xdg" ];
+  pythonImportsCheck = ["xdg"];
 
   meta = with lib; {
     description = "XDG Base Directory Specification for Python";
     homepage = "https://github.com/srstevenson/xdg";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

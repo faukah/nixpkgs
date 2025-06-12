@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elfcat";
   version = "0.1.10";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "ELF visualizer, generates HTML files from ELF binaries";
     homepage = "https://github.com/ruslashev/elfcat";
     license = licenses.zlib;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
     mainProgram = "elfcat";
   };
 }

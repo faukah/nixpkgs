@@ -6,7 +6,6 @@
   testers,
   treegen,
 }:
-
 buildGoModule rec {
   pname = "treegen";
   version = "1.1.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -43,7 +42,7 @@ buildGoModule rec {
     homepage = "https://github.com/bilbilak/treegen";
     license = lib.licenses.gpl3Only;
     mainProgram = "treegen";
-    maintainers = with lib.maintainers; [ _4r7if3x ];
+    maintainers = with lib.maintainers; [_4r7if3x];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

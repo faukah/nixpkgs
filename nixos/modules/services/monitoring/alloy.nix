@@ -3,11 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.alloy;
-in
-{
+in {
   meta = {
     maintainers = with lib.maintainers; [
       flokli
@@ -18,7 +16,7 @@ in
   options.services.alloy = {
     enable = lib.mkEnableOption "Grafana Alloy";
 
-    package = lib.mkPackageOption pkgs "grafana-alloy" { };
+    package = lib.mkPackageOption pkgs "grafana-alloy" {};
 
     configPath = lib.mkOption {
       type = lib.types.path;
@@ -59,7 +57,7 @@ in
 
     extraFlags = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "--server.http.listen-addr=127.0.0.1:12346"
         "--disable-reporting"
@@ -74,8 +72,8 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.alloy = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       reloadTriggers = lib.mapAttrsToList (_: v: v.source or null) (
         lib.filterAttrs (n: _: lib.hasPrefix "alloy/" n && lib.hasSuffix ".alloy" n) config.environment.etc
       );
@@ -93,7 +91,7 @@ in
         StateDirectory = "alloy";
         WorkingDirectory = "%S/alloy";
         Type = "simple";
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       };
     };
   };

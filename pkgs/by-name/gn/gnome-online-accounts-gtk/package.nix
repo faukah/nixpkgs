@@ -12,7 +12,6 @@
   gtk4,
   libadwaita,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-online-accounts-gtk";
   version = "3.50.6";
@@ -44,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/xapp-project/gnome-online-accounts-gtk";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 })

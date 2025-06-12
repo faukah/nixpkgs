@@ -1,8 +1,9 @@
 # DO NOT EDIT! This file is generated automatically.
 # Command: ./maintainers/scripts/fetch-kde-qt.sh pkgs/desktops/plasma-5/
-{ fetchurl, mirror }:
-
 {
+  fetchurl,
+  mirror,
+}: {
   aura-browser = {
     version = "5.27.11";
     src = fetchurl {

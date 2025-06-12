@@ -5,7 +5,6 @@
   pillow,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "staticmap";
   version = "0.5.7";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  pythonImportsCheck = [ "staticmap" ];
+  pythonImportsCheck = ["staticmap"];
 
   # Tests seem to be broken
   doCheck = false;
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Small, python-based library for creating map images with lines and markers";
     homepage = "https://pypi.org/project/staticmap/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ traxys ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [traxys];
   };
 }

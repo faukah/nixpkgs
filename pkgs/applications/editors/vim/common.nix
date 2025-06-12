@@ -1,5 +1,7 @@
-{ lib, fetchFromGitHub }:
-rec {
+{
+  lib,
+  fetchFromGitHub,
+}: rec {
   version = "9.1.1336";
 
   outputs = [
@@ -17,7 +19,7 @@ rec {
   enableParallelBuilding = true;
   enableParallelInstalling = false;
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   # Use man from $PATH; escape sequences are still problematic.
   postPatch = ''

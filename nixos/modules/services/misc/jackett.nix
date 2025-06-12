@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.jackett;
-
-in
-{
+in {
   options = {
     services.jackett = {
       enable = lib.mkEnableOption "Jackett, API support for your favorite torrent trackers";
@@ -45,7 +42,7 @@ in
         description = "Group under which Jackett runs.";
       };
 
-      package = lib.mkPackageOption pkgs "jackett" { };
+      package = lib.mkPackageOption pkgs "jackett" {};
     };
   };
 
@@ -56,8 +53,8 @@ in
 
     systemd.services.jackett = {
       description = "Jackett";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -118,7 +115,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     users.users = lib.mkIf (cfg.user == "jackett") {

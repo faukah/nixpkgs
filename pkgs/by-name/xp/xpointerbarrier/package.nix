@@ -8,7 +8,6 @@
   libXrandr,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xpointerbarrier";
   version = "23.08";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-d0PcZ4z8JgN4ncPUGeJZwIV5vB7M0Jo7o1/L6mrJtUc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     libXrandr
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   passthru.updateScript = gitUpdater {
     url = "https://www.uninformativ.de/git/xpointerbarrier.git/";

@@ -1,3 +1,2 @@
-{ a }:
-assert a == "a";
-"b"
+{a}:
+assert a == "a"; "b"

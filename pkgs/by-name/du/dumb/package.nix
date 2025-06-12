@@ -6,12 +6,11 @@
   allegro,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dumb";
   version = "2.0.3";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     allegro
     SDL2
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kode54/dumb";
     description = "Module/tracker based music format parser and player library";
     license = licenses.free; # Derivative of GPL
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     platforms = platforms.all;
   };
 }

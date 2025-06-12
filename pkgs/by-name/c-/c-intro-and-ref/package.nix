@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "GNU C Language Intro and Reference Manual";
@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gnu.org/software/c-intro-and-ref/";
     changelog = "https://git.savannah.nongnu.org/cgit/c-intro-and-ref.git/plain/ChangeLog?id=${finalAttrs.src.rev}";
     license = lib.licenses.fdl13Plus;
-    maintainers = with lib.maintainers; [ rc-zb ];
+    maintainers = with lib.maintainers; [rc-zb];
     platforms = lib.platforms.all;
   };
 })

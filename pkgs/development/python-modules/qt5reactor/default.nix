@@ -8,7 +8,6 @@
   pytest-twisted,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "qt5reactor";
   version = "0.6.3";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "qt5reactor" ];
+  pythonImportsCheck = ["qt5reactor"];
 
   meta = with lib; {
     description = "Twisted Qt Integration";
     homepage = "https://github.com/twisted/qt5reactor";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cfgv";
   version = "3.4.0";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-P02j53dltwdrlUBG89AI+P2GkXYKTVrQNF15rZt58jw=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cfgv" ];
+  pythonImportsCheck = ["cfgv"];
 
   meta = with lib; {
     description = "Validate configuration and produce human readable error messages";
     homepage = "https://github.com/asottile/cfgv";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

@@ -10,7 +10,6 @@
 # Like many google projects, shaderc doesn't gracefully support separately compiled dependencies, so we can't easily use
 # the versions of glslang and spirv-tools used by vulkan-loader. Exact revisions are taken from
 # https://github.com/google/shaderc/blob/known-good/known_good.json
-
 # Future work: extract and fetch all revisions automatically based on a revision of shaderc's known-good branch.
 let
   glslang = fetchFromGitHub {
@@ -32,59 +31,59 @@ let
     hash = "sha256-RKjw3H1z02bl6730xsbo38yjMaOCsHZP9xJOQbmWpnw=";
   };
 in
-stdenv.mkDerivation rec {
-  pname = "shaderc";
-  version = "2024.0";
+  stdenv.mkDerivation rec {
+    pname = "shaderc";
+    version = "2024.0";
 
-  outputs = [
-    "out"
-    "lib"
-    "bin"
-    "dev"
-    "static"
-  ];
-
-  src = fetchFromGitHub {
-    owner = "google";
-    repo = "shaderc";
-    rev = "v${version}";
-    hash = "sha256-Cwp7WbaKWw/wL9m70wfYu47xoUGQW+QGeoYhbyyzstQ=";
-  };
-
-  postPatch = ''
-    cp -r --no-preserve=mode ${glslang} third_party/glslang
-    cp -r --no-preserve=mode ${spirv-tools} third_party/spirv-tools
-    ln -s ${spirv-headers} third_party/spirv-tools/external/spirv-headers
-    patchShebangs --build utils/
-  '';
-
-  nativeBuildInputs =
-    [
-      cmake
-      python3
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ cctools ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
-      autoSignDarwinBinariesHook
+    outputs = [
+      "out"
+      "lib"
+      "bin"
+      "dev"
+      "static"
     ];
 
-  postInstall = ''
-    moveToOutput "lib/*.a" $static
-  '';
+    src = fetchFromGitHub {
+      owner = "google";
+      repo = "shaderc";
+      rev = "v${version}";
+      hash = "sha256-Cwp7WbaKWw/wL9m70wfYu47xoUGQW+QGeoYhbyyzstQ=";
+    };
 
-  cmakeFlags = [ "-DSHADERC_SKIP_TESTS=ON" ];
+    postPatch = ''
+      cp -r --no-preserve=mode ${glslang} third_party/glslang
+      cp -r --no-preserve=mode ${spirv-tools} third_party/spirv-tools
+      ln -s ${spirv-headers} third_party/spirv-tools/external/spirv-headers
+      patchShebangs --build utils/
+    '';
 
-  # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
-  postFixup = ''
-    substituteInPlace "$dev"/lib/pkgconfig/*.pc \
-      --replace '=''${prefix}//' '=/' \
-      --replace "$dev/$dev/" "$dev/"
-  '';
+    nativeBuildInputs =
+      [
+        cmake
+        python3
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [cctools]
+      ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
+        autoSignDarwinBinariesHook
+      ];
 
-  meta = with lib; {
-    inherit (src.meta) homepage;
-    description = "Collection of tools, libraries and tests for shader compilation";
-    platforms = platforms.all;
-    license = [ licenses.asl20 ];
-  };
-}
+    postInstall = ''
+      moveToOutput "lib/*.a" $static
+    '';
+
+    cmakeFlags = ["-DSHADERC_SKIP_TESTS=ON"];
+
+    # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
+    postFixup = ''
+      substituteInPlace "$dev"/lib/pkgconfig/*.pc \
+        --replace '=''${prefix}//' '=/' \
+        --replace "$dev/$dev/" "$dev/"
+    '';
+
+    meta = with lib; {
+      inherit (src.meta) homepage;
+      description = "Collection of tools, libraries and tests for shader compilation";
+      platforms = platforms.all;
+      license = [licenses.asl20];
+    };
+  }

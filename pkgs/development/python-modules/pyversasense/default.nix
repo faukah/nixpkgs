@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyversasense";
   version = "0.0.6";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     sha256 = "vTaDEwImWDMInwti0Jj+j+RFEtXOOKtiH5wOMD6ZmJk=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   doCheck = pythonOlder "3.11"; # asynctest unsupported on python3.11
 
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/test.py" ];
+  pytestFlagsArray = ["tests/test.py"];
 
   disabledTests = [
     # Tests are not properly mocking network requests
@@ -43,12 +42,12 @@ buildPythonPackage rec {
     "test_samples"
   ];
 
-  pythonImportsCheck = [ "pyversasense" ];
+  pythonImportsCheck = ["pyversasense"];
 
   meta = with lib; {
     description = "Python library to communicate with the VersaSense API";
     homepage = "https://github.com/imstevenxyz/pyversasense";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

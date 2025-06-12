@@ -3,30 +3,24 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   cmake,
   pkg-config,
   rustPlatform,
-
   # native dependencies
   cyrus_sasl,
   openssl,
   protobuf,
-
   # dependencies
   jsonpickle,
   prometheus-client,
-
   # optional dependencies
   confluent-kafka,
-
   # test
   myst-docutils,
   pytestCheckHook,
   pytest-benchmark,
 }:
-
 buildPythonPackage rec {
   pname = "bytewax";
   version = "0.21.1";
@@ -71,18 +65,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    kafka = [ confluent-kafka ];
+    kafka = [confluent-kafka];
   };
 
   preCheck = ''
     export PY_IGNORE_IMPORTMISMATCH=1
   '';
 
-  nativeCheckInputs = [
-    myst-docutils
-    pytestCheckHook
-    pytest-benchmark
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      myst-docutils
+      pytestCheckHook
+      pytest-benchmark
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "--benchmark-disable"
@@ -94,7 +90,7 @@ buildPythonPackage rec {
     "docs"
   ];
 
-  pythonImportsCheck = [ "bytewax" ];
+  pythonImportsCheck = ["bytewax"];
 
   meta = with lib; {
     description = "Python Stream Processing";

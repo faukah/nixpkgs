@@ -5,7 +5,6 @@
   fetchpatch,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "3mux";
   version = "1.1.0";
@@ -33,13 +32,13 @@ buildGoModule rec {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-KMcl6mj+cEgvdZMzBxUtGJsgwPdFuXrY3yjmkB3CS4o=";
 
   # This is a package used for internally testing 3mux. It's meant for
   # use by 3mux maintainers/contributors only.
-  excludedPackages = [ "fuzz" ];
+  excludedPackages = ["fuzz"];
 
   # 3mux needs to have itself in the path so users can run `3mux detach`.
   # This ensures that, while inside 3mux, the binary in the path is the

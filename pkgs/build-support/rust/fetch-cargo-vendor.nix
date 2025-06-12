@@ -7,9 +7,7 @@
   cargo,
   nix-prefetch-git,
   cacert,
-}:
-
-let
+}: let
   replaceWorkspaceValues = writers.writePython3Bin "replace-workspace-values" {
     libraries = with python3Packages; [
       tomli
@@ -30,74 +28,78 @@ let
     ];
   } (builtins.readFile ./fetch-cargo-vendor-util.py);
 in
+  {
+    name ?
+      if args ? pname && args ? version
+      then "${args.pname}-${args.version}"
+      else "cargo-deps",
+    hash ? (throw "fetchCargoVendor requires a `hash` value to be set for ${name}"),
+    nativeBuildInputs ? [],
+    ...
+  } @ args:
+  # TODO: add asserts about pname version and name
+  let
+    removedArgs = [
+      "name"
+      "pname"
+      "version"
+      "nativeBuildInputs"
+      "hash"
+    ];
 
-{
-  name ? if args ? pname && args ? version then "${args.pname}-${args.version}" else "cargo-deps",
-  hash ? (throw "fetchCargoVendor requires a `hash` value to be set for ${name}"),
-  nativeBuildInputs ? [ ],
-  ...
-}@args:
+    vendorStaging = stdenvNoCC.mkDerivation (
+      {
+        name = "${name}-vendor-staging";
 
-# TODO: add asserts about pname version and name
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
-let
-  removedArgs = [
-    "name"
-    "pname"
-    "version"
-    "nativeBuildInputs"
-    "hash"
-  ];
+        nativeBuildInputs =
+          [
+            fetchCargoVendorUtil
+            cacert
+            # break loop of nix-prefetch-git -> git-lfs -> asciidoctor -> ruby (yjit) -> fetchCargoVendor -> nix-prefetch-git
+            # Cargo does not currently handle git-lfs: https://github.com/rust-lang/cargo/issues/9692
+            (nix-prefetch-git.override {git-lfs = null;})
+          ]
+          ++ nativeBuildInputs;
 
-  vendorStaging = stdenvNoCC.mkDerivation (
+        buildPhase = ''
+          runHook preBuild
+
+          if [ -n "''${cargoRoot-}" ]; then
+            cd "$cargoRoot"
+          fi
+
+          fetch-cargo-vendor-util create-vendor-staging ./Cargo.lock "$out"
+
+          runHook postBuild
+        '';
+
+        strictDeps = true;
+
+        dontConfigure = true;
+        dontInstall = true;
+        dontFixup = true;
+
+        outputHash = hash;
+        outputHashAlgo =
+          if hash == ""
+          then "sha256"
+          else null;
+        outputHashMode = "recursive";
+      }
+      // builtins.removeAttrs args removedArgs
+    );
+  in
+    runCommand "${name}-vendor"
     {
-      name = "${name}-vendor-staging";
-
-      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-
+      inherit vendorStaging;
       nativeBuildInputs = [
         fetchCargoVendorUtil
-        cacert
-        # break loop of nix-prefetch-git -> git-lfs -> asciidoctor -> ruby (yjit) -> fetchCargoVendor -> nix-prefetch-git
-        # Cargo does not currently handle git-lfs: https://github.com/rust-lang/cargo/issues/9692
-        (nix-prefetch-git.override { git-lfs = null; })
-      ] ++ nativeBuildInputs;
-
-      buildPhase = ''
-        runHook preBuild
-
-        if [ -n "''${cargoRoot-}" ]; then
-          cd "$cargoRoot"
-        fi
-
-        fetch-cargo-vendor-util create-vendor-staging ./Cargo.lock "$out"
-
-        runHook postBuild
-      '';
-
-      strictDeps = true;
-
-      dontConfigure = true;
-      dontInstall = true;
-      dontFixup = true;
-
-      outputHash = hash;
-      outputHashAlgo = if hash == "" then "sha256" else null;
-      outputHashMode = "recursive";
+        cargo
+        replaceWorkspaceValues
+      ];
     }
-    // builtins.removeAttrs args removedArgs
-  );
-in
-
-runCommand "${name}-vendor"
-  {
-    inherit vendorStaging;
-    nativeBuildInputs = [
-      fetchCargoVendorUtil
-      cargo
-      replaceWorkspaceValues
-    ];
-  }
-  ''
-    fetch-cargo-vendor-util create-vendor "$vendorStaging" "$out"
-  ''
+    ''
+      fetch-cargo-vendor-util create-vendor "$vendorStaging" "$out"
+    ''

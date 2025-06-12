@@ -4,22 +4,16 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.shellhub-agent;
-in
-{
+in {
   ###### interface
 
   options = {
-
     services.shellhub-agent = {
-
       enable = mkEnableOption "ShellHub Agent daemon";
 
-      package = mkPackageOption pkgs "shellhub-agent" { };
+      package = mkPackageOption pkgs "shellhub-agent" {};
 
       preferredHostname = mkOption {
         type = types.str;
@@ -71,13 +65,12 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     systemd.services.shellhub-agent = {
       description = "ShellHub Agent";
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "local-fs.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["local-fs.target"];
+      wants = ["network-online.target"];
       after = [
         "local-fs.target"
         "network.target"

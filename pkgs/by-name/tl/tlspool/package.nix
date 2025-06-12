@@ -17,7 +17,6 @@
   unbound,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tlspool";
   version = "0.9.7";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     unbound
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "TLS daemon with PKCS #11 backend";
@@ -62,8 +61,8 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-sa-40 # docs
       bsd2 # userspace
     ];
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = lib.platforms.linux;
     mainProgram = "tlsserver";
   };

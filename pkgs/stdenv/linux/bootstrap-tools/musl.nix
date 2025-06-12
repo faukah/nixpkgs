@@ -3,7 +3,6 @@
   bootstrapFiles,
   extraAttrs,
 }:
-
 derivation (
   {
     name = "bootstrap-tools";

@@ -10,9 +10,11 @@
   menhir,
   menhirLib,
   sedlex,
-  version ? if lib.versionAtLeast ocaml.version "4.11" then "6.0.1" else "5.8.2",
+  version ?
+    if lib.versionAtLeast ocaml.version "4.11"
+    then "6.0.1"
+    else "5.8.2",
 }:
-
 buildDunePackage {
   pname = "js_of_ocaml-compiler";
   inherit version;
@@ -29,7 +31,7 @@ buildDunePackage {
       ."${version}";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   buildInputs = [
     cmdliner
     ppxlib
@@ -46,7 +48,7 @@ buildDunePackage {
     description = "Compiler from OCaml bytecode to Javascript";
     homepage = "https://ocsigen.org/js_of_ocaml/";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "js_of_ocaml";
   };
 }

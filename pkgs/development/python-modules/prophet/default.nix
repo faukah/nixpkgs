@@ -4,7 +4,6 @@
   pythonOlder,
   fetchFromGitHub,
   setuptools,
-
   cmdstanpy,
   numpy,
   matplotlib,
@@ -12,13 +11,10 @@
   holidays,
   tqdm,
   importlib-resources,
-
   dask,
   distributed,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "prophet";
   version = "1.1.7";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
 
   env.PROPHET_REPACKAGE_CMDSTAN = "false";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cmdstanpy
@@ -49,10 +45,12 @@ buildPythonPackage rec {
     importlib-resources
   ];
 
-  optional-dependencies.parallel = [
-    dask
-    distributed
-  ] ++ dask.optional-dependencies.dataframe;
+  optional-dependencies.parallel =
+    [
+      dask
+      distributed
+    ]
+    ++ dask.optional-dependencies.dataframe;
 
   preCheck = ''
     # use the generated files from $out for testing
@@ -60,15 +58,15 @@ buildPythonPackage rec {
     rm -r prophet
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "prophet" ];
+  pythonImportsCheck = ["prophet"];
 
   meta = {
     changelog = "https://github.com/facebook/prophet/releases/tag/${src.tag}";
     description = "Tool for producing high quality forecasts for time series data that has multiple seasonality with linear or non-linear growth";
     homepage = "https://facebook.github.io/prophet/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

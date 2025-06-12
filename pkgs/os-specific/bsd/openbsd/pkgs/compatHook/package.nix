@@ -3,11 +3,11 @@
   makeSetupHook,
   compat,
 }:
-
 makeSetupHook {
   name = "openbsd-compat-hook";
   substitutions = {
     inherit compat;
     inherit (stdenv.cc) suffixSalt;
   };
-} ./setup-hook.sh
+}
+./setup-hook.sh

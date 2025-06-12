@@ -12,7 +12,6 @@
   pytest-django,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "django-apscheduler";
   version = "0.7.0";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "APScheduler for Django";
     homepage = "https://github.com/jcass77/django-apscheduler";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

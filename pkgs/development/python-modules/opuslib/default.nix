@@ -10,7 +10,6 @@
   replaceVars,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "opuslib";
   version = "3.0.3";
@@ -43,9 +42,9 @@ buildPythonPackage {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "tests/{decoder,encoder,hl_decoder,hl_encoder}.py"
@@ -56,6 +55,6 @@ buildPythonPackage {
     homepage = "https://github.com/orion-labs/opuslib";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thelegy ];
+    maintainers = with maintainers; [thelegy];
   };
 }

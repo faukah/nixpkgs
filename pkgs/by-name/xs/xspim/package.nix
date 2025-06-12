@@ -7,7 +7,6 @@
   flex,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "xspim";
   version = "9.1.22";
@@ -64,7 +63,7 @@ stdenv.mkDerivation {
     description = "MIPS32 simulator";
     homepage = "https://spimsimulator.sourceforge.net/";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.linux;
   };
 }

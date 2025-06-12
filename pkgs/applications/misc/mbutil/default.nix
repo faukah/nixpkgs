@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonApplication rec {
   pname = "mbutil";
   version = "0.3.0";
@@ -18,12 +17,12 @@ buildPythonApplication rec {
     hash = "sha256-vxAF49NluEI/cZMUv1dlQBpUh1jfZ6KUVkYAmFAWphk=";
   };
 
-  patches = [ ./migrate_to_pytest.patch ];
+  patches = [./migrate_to_pytest.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "test/test.py" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["test/test.py"];
 
   meta = {
     description = "Importer and exporter for MBTiles";
@@ -31,6 +30,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/mapbox/mbutil";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
   };
 }

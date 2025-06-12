@@ -15,7 +15,6 @@
   cudaSupport ? config.cudaSupport,
   cupy,
 }:
-
 buildPythonPackage rec {
   pname = "array-api-compat";
   version = "1.11.2";
@@ -28,20 +27,22 @@ buildPythonPackage rec {
     hash = "sha256-qGf1XDhRx9hJJP0LcZF7lA8tl+LKYNCw0xTqGjsZYj8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    numpy
-    jaxlib
-    jax
-    torch
-    dask
-    sparse
-    array-api-strict
-  ] ++ lib.optionals cudaSupport [ cupy ];
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      numpy
+      jaxlib
+      jax
+      torch
+      dask
+      sparse
+      array-api-strict
+    ]
+    ++ lib.optionals cudaSupport [cupy];
 
-  pythonImportsCheck = [ "array_api_compat" ];
+  pythonImportsCheck = ["array_api_compat"];
 
   # CUDA (used via cupy) is not available in the testing sandbox
   pytestFlagsArray = [
@@ -54,6 +55,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/data-apis/array-api-compat/releases/tag/${src.tag}";
     description = "Compatibility layer for NumPy to support the Python array API";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ berquist ];
+    maintainers = with lib.maintainers; [berquist];
   };
 }

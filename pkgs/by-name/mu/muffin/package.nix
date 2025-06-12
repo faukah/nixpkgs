@@ -40,7 +40,6 @@
   xwayland,
   zenity,
 }:
-
 stdenv.mkDerivation rec {
   pname = "muffin";
   version = "6.4.1";
@@ -126,6 +125,6 @@ stdenv.mkDerivation rec {
     mainProgram = "muffin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

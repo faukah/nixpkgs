@@ -28,7 +28,6 @@
   python3,
   libdazzle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gitg";
   version = "44";

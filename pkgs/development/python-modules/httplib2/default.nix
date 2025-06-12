@@ -13,7 +13,6 @@
   pythonAtLeast,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "httplib2";
   version = "0.22.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   nativeCheckInputs = [
     cryptography
@@ -65,14 +64,14 @@ buildPythonPackage rec {
       "test_connection_close"
     ];
 
-  pytestFlagsArray = [ "--ignore python2" ];
+  pytestFlagsArray = ["--ignore python2"];
 
-  pythonImportsCheck = [ "httplib2" ];
+  pythonImportsCheck = ["httplib2"];
 
   meta = with lib; {
     description = "Comprehensive HTTP client library";
     homepage = "https://github.com/httplib2/httplib2";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   testers,
   kube-router,
 }:
-
 buildGoModule rec {
   pname = "kube-router";
   version = "2.5.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     description = "All-in-one router, firewall and service proxy for Kubernetes";
     mainProgram = "kube-router";
     license = licenses.asl20;
-    maintainers = with maintainers; [ johanot ];
+    maintainers = with maintainers; [johanot];
     platforms = platforms.linux;
   };
 }

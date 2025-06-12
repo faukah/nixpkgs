@@ -1,23 +1,20 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   port = 50001;
-in
-{
+in {
   name = "rtorrent";
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ thiagokokada ];
+    maintainers = with pkgs.lib.maintainers; [thiagokokada];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.rtorrent = {
-        inherit port;
-        enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.rtorrent = {
+      inherit port;
+      enable = true;
     };
+  };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       machine.start()
       machine.wait_for_unit("rtorrent.service")

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "keba-kecontact";
   version = "4.3.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-gIqHo+J/I4vqJCs/r3ZHo3kChefTRqpVmdw3r3y3Hzk=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     asyncio-dgram
     ifaddr
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "keba_kecontact" ];
+  pythonImportsCheck = ["keba_kecontact"];
 
   meta = with lib; {
     description = "Python library for controlling KEBA charging stations";
     homepage = "https://github.com/dannerph/keba-kecontact";
     changelog = "https://github.com/dannerph/keba-kecontact/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

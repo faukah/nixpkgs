@@ -2,23 +2,18 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   pkg-config,
-
   jsoncpp,
   libarchive,
   libcpr,
   libloot,
   lz4,
   pugixml,
-
   libsForQt5,
-
   withUnrar ? false,
   unrar, # has an unfree license
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "limo";
   version = "1.2.2";
@@ -64,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       (lib.cmakeFeature "LIMO_INSTALL_PREFIX" (placeholder "out"))
     ]
-    ++ lib.optionals (withUnrar) [
+    ++ lib.optionals withUnrar [
       (lib.cmakeBool "USE_SYSTEM_LIBUNRAR" true)
     ]
     ++ lib.optionals (!withUnrar) [

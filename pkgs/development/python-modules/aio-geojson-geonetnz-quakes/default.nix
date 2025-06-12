@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aio-geojson-geonetnz-quakes";
   version = "0.17";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-RZ+wgLYMl7y3CdmlipsfZGcew1pYSMEhkyyeLqIwVwI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aio-geojson-client
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aio_geojson_geonetnz_quakes" ];
+  pythonImportsCheck = ["aio_geojson_geonetnz_quakes"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes";
     changelog = "https://github.com/exxamalte/python-aio-geojson-geonetnz-quakes/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

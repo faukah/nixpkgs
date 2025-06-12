@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   mpmath,
   numpy,
   scipy,
-
   # tests
   pytestCheckHook,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "hankel";
   version = "1.2.2";
@@ -40,7 +36,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "hankel" ];
+  pythonImportsCheck = ["hankel"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/steven-murray/hankel";
     changelog = "https://github.com/steven-murray/hankel/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

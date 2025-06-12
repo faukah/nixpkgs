@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "curtsies";
   version = "0.4.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-br4zIVvXyShRpQYEnHIMykz1wZLBZlwdepigTEcCdg4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     blessed
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/bpython/curtsies";
     changelog = "https://github.com/bpython/curtsies/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

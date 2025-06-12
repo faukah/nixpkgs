@@ -3,8 +3,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.zapret;
 
   whitelist = lib.optionalString (
@@ -13,18 +12,17 @@ let
 
   blacklist =
     lib.optionalString ((builtins.length cfg.blacklist) != 0)
-      "--hostlist-exclude ${pkgs.writeText "zapret-blacklist" (lib.concatStringsSep "\n" cfg.blacklist)}";
+    "--hostlist-exclude ${pkgs.writeText "zapret-blacklist" (lib.concatStringsSep "\n" cfg.blacklist)}";
 
   params = lib.concatStringsSep " " cfg.params;
 
   qnum = toString cfg.qnum;
-in
-{
+in {
   options.services.zapret = {
     enable = lib.mkEnableOption "the Zapret DPI bypass service.";
-    package = lib.mkPackageOption pkgs "zapret" { };
+    package = lib.mkPackageOption pkgs "zapret" {};
     params = lib.mkOption {
-      default = [ ];
+      default = [];
       type = with lib.types; listOf str;
       example = ''
         [
@@ -42,7 +40,7 @@ in
       '';
     };
     whitelist = lib.mkOption {
-      default = [ ];
+      default = [];
       type = with lib.types; listOf str;
       example = ''
         [
@@ -61,7 +59,7 @@ in
       '';
     };
     blacklist = lib.mkOption {
-      default = [ ];
+      default = [];
       type = with lib.types; listOf str;
       example = ''
         [
@@ -122,7 +120,7 @@ in
       '';
     };
     udpPorts = lib.mkOption {
-      default = [ ];
+      default = [];
       type = with lib.types; listOf str;
       example = ''
         [
@@ -161,8 +159,8 @@ in
 
         systemd.services.zapret = {
           description = "DPI bypass service";
-          wantedBy = [ "multi-user.target" ];
-          after = [ "network.target" ];
+          wantedBy = ["multi-user.target"];
+          after = ["network.target"];
           serviceConfig = {
             ExecStart = "${cfg.package}/bin/nfqws --pidfile=/run/nfqws.pid ${params} ${whitelist} ${blacklist} --qnum=${qnum}";
             Type = "simple";
@@ -192,14 +190,13 @@ in
 
       # Route system traffic via service for specified ports.
       (lib.mkIf cfg.configureFirewall {
-        networking.firewall.extraCommands =
-          let
-            httpParams = lib.optionalString (
-              cfg.httpMode == "first"
-            ) "-m connbytes --connbytes-dir=original --connbytes-mode=packets --connbytes 1:6";
+        networking.firewall.extraCommands = let
+          httpParams = lib.optionalString (
+            cfg.httpMode == "first"
+          ) "-m connbytes --connbytes-dir=original --connbytes-mode=packets --connbytes 1:6";
 
-            udpPorts = lib.concatStringsSep "," cfg.udpPorts;
-          in
+          udpPorts = lib.concatStringsSep "," cfg.udpPorts;
+        in
           ''
             ip46tables -t mangle -I POSTROUTING -p tcp --dport 443 -m connbytes --connbytes-dir=original --connbytes-mode=packets --connbytes 1:6 -m mark ! --mark 0x40000000/0x40000000 -j NFQUEUE --queue-num ${qnum} --queue-bypass
           ''

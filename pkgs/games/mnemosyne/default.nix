@@ -3,7 +3,6 @@
   fetchurl,
   anki,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mnemosyne";
   version = "2.10.1";
@@ -13,9 +12,9 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-zI79iuRXb5S0Y87KfdG+HKc0XVNQOAcBR7Zt/OdaBP4=";
   };
 
-  nativeBuildInputs = with python3Packages; [ pyqtwebengine.wrapQtAppsHook ];
+  nativeBuildInputs = with python3Packages; [pyqtwebengine.wrapQtAppsHook];
 
-  buildInputs = [ anki ];
+  buildInputs = [anki];
 
   propagatedBuildInputs = with python3Packages; [
     cheroot

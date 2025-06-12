@@ -4,7 +4,6 @@
   buildDunePackage,
   ounit,
 }:
-
 buildDunePackage {
   pname = "mlbdd";
   version = "0.7.3";
@@ -18,13 +17,13 @@ buildDunePackage {
     hash = "sha256-TUdgx+B5341VJsnP7iTHID7hNC+5G/I2xNM5F3mdb/A=";
   };
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   doCheck = true;
 
   meta = {
     homepage = "https://github.com/arlencox/mlbdd";
     description = "A not-quite-so-simple Binary Decision Diagrams implementation for OCaml";
-    maintainers = with lib.maintainers; [ katrinafyi ];
+    maintainers = with lib.maintainers; [katrinafyi];
   };
 }

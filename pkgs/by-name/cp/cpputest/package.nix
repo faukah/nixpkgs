@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpputest";
   version = "4.0";
@@ -18,6 +17,6 @@ stdenv.mkDerivation rec {
     description = "Unit testing and mocking framework for C/C++";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

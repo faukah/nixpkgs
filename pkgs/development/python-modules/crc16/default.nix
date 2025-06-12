@@ -5,7 +5,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "crc16";
   version = "0.1.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-wfhqoDkPS68H0mMbFrl5WA6uHZqXOoJs5FNToi7o05Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Tests are outdated
   doCheck = false;
 
-  pythonImportsCheck = [ "crc16" ];
+  pythonImportsCheck = ["crc16"];
 
   meta = with lib; {
     description = "Python library for calculating CRC16";
     homepage = "https://code.google.com/archive/p/pycrc16/";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

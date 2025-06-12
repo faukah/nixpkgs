@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-component";
   version = "0.21.1";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/bytecodealliance/cargo-component";
     changelog = "https://github.com/bytecodealliance/cargo-component/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "cargo-component";
   };
 }

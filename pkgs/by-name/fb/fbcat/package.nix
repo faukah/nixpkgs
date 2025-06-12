@@ -4,7 +4,6 @@
   fetchFromGitHub,
   netpbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fbcat";
   version = "0.5.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "http://jwilk.net/software/fbcat";
     description = "Framebuffer screenshot tool";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "anew";
   version = "0.1.1";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "anew";
     homepage = "https://github.com/tomnomnom/anew";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

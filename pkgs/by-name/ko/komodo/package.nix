@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "komodo";
   version = "1.17.5";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   # > error: doctest failed, to rerun pass `-p komodo_client --doc`
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to build and deploy software on many servers";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://komo.do";
     changelog = "https://github.com/moghtech/komodo/releases/tag/v${version}";
     mainProgram = "komodo";
-    maintainers = with lib.maintainers; [ r17x ];
+    maintainers = with lib.maintainers; [r17x];
     license = lib.licenses.gpl3;
   };
 }

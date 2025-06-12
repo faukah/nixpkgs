@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "oterm";
   version = "0.12.1";
@@ -31,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     "typer"
   ];
 
-  build-system = with python3Packages; [ hatchling ];
+  build-system = with python3Packages; [hatchling];
 
   dependencies = with python3Packages; [
     aiohttp
@@ -52,7 +51,7 @@ python3Packages.buildPythonApplication rec {
     typer
   ];
 
-  pythonImportsCheck = [ "oterm" ];
+  pythonImportsCheck = ["oterm"];
 
   # Python tests require a HTTP connection to ollama
 
@@ -63,7 +62,7 @@ python3Packages.buildPythonApplication rec {
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -71,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ggozad/oterm";
     changelog = "https://github.com/ggozad/oterm/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelj ];
+    maintainers = with lib.maintainers; [gaelj];
     mainProgram = "oterm";
   };
 }

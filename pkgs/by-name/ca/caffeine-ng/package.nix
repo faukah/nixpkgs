@@ -16,7 +16,6 @@
   xfce,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "caffeine-ng";
   version = "4.2.0";
@@ -70,21 +69,21 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${
-        lib.makeBinPath [
-          procps
-          xautolock
-          xscreensaver
-          xfce.xfconf
-          xset
-        ]
-      }
+      lib.makeBinPath [
+        procps
+        xautolock
+        xscreensaver
+        xfce.xfconf
+        xset
+      ]
+    }
     )
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
   meta = {
     mainProgram = "caffeine";
-    maintainers = with lib.maintainers; [ marzipankaiser ];
+    maintainers = with lib.maintainers; [marzipankaiser];
     description = "Status bar application to temporarily inhibit screensaver and sleep mode";
     homepage = "https://codeberg.org/WhyNotHugo/caffeine-ng";
     changelog = "https://codeberg.org/WhyNotHugo/caffeine-ng/src/tag/v${version}/CHANGELOG.rst";

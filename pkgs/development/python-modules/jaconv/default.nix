@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jaconv";
   version = "0.3.4";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
     ./use-pytest.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jaconv" ];
+  pythonImportsCheck = ["jaconv"];
 
   meta = with lib; {
     description = "Python Japanese character interconverter for Hiragana, Katakana, Hankaku and Zenkaku";
     homepage = "https://github.com/ikegami-yukino/jaconv";
     changelog = "https://github.com/ikegami-yukino/jaconv/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

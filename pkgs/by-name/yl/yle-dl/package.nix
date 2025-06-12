@@ -9,7 +9,6 @@
   testers,
   yle-dl,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "yle-dl";
   version = "20250316";
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   doCheck = false; # tests require network access
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   passthru.tests.version = testers.testVersion {
     package = yle-dl;
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://aajanki.github.io/yle-dl/";
     changelog = "https://github.com/aajanki/yle-dl/blob/${version}/ChangeLog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dezgeg ];
+    maintainers = with lib.maintainers; [dezgeg];
     platforms = lib.platforms.unix;
     mainProgram = "yle-dl";
   };

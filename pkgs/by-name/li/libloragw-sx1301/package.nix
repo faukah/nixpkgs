@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-YxnFWJhH5iUR+6zA0Pf7a+VxFwYkw84CeoQmd01efqU=";
   };
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   makeFlags = [
     "-e"
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.bsd3
       lib.licenses.mit
     ];
-    maintainers = [ lib.maintainers.stv0g ];
+    maintainers = [lib.maintainers.stv0g];
     platforms = lib.platforms.linux;
   };
 })

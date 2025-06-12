@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "ryzen-monitor-ng";
   version = "2.0.5-unstable-2023-11-05";
@@ -26,17 +25,17 @@ stdenv.mkDerivation {
     '';
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Access Ryzen SMU information exposed by the ryzen_smu driver";
     homepage = "https://github.com/plasmin/ryzen_monitor_ng";
     changelog = "https://github.com/plasmin/ryzen_monitor_ng/blob/master/CHANGELOG.md";
     license = licenses.agpl3Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ phdyellow ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [phdyellow];
     mainProgram = "ryzen_monitor";
   };
 }

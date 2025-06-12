@@ -12,11 +12,10 @@
   postInstall,
   meta,
 }:
-
 deployAndroidPackage {
   name = "androidsdk-tools";
   inherit package os arch;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs = lib.optional (os == "linux") (
     (with pkgs; [
       glibc
@@ -31,8 +30,7 @@ deployAndroidPackage {
       libXext
     ])
     ++ lib.optionals (os == "linux" && stdenv.isx86_64) (
-      with pkgsi686Linux;
-      [
+      with pkgsi686Linux; [
         glibc
         xorg.libX11
         xorg.libXrender
@@ -63,14 +61,13 @@ deployAndroidPackage {
     wrapProgram $PWD/monitor \
       --prefix PATH : ${pkgs.jdk8}/bin \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath (
-          with pkgs;
-          [
-            xorg.libX11
-            xorg.libXtst
-          ]
-        )
-      }
+      lib.makeLibraryPath (
+        with pkgs; [
+          xorg.libX11
+          xorg.libXtst
+        ]
+      )
+    }
 
     # Patch all script shebangs
     patchShebangs .

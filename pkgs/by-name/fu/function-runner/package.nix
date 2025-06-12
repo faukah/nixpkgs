@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "function-runner";
   version = "9.0.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "function-runner";
     homepage = "https://github.com/Shopify/function-runner";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nintron ];
+    maintainers = with maintainers; [nintron];
   };
 }

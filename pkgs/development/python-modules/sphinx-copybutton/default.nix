@@ -4,7 +4,6 @@
   fetchFromGitHub,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-copybutton";
   version = "0.5.2";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "sphinx_copybutton" ];
+  pythonImportsCheck = ["sphinx_copybutton"];
 
   meta = with lib; {
     description = "Small sphinx extension to add a \"copy\" button to code blocks";
     homepage = "https://github.com/executablebooks/sphinx-copybutton";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

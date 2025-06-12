@@ -5,7 +5,6 @@
   pythonOlder,
   # build-system
   poetry-core,
-
   # dependencies
   numpy,
   click,
@@ -13,14 +12,12 @@
   pydantic,
   pyparsing,
   typing-extensions,
-
   # optional dependencies
   pygls,
   lsprotocol,
   drawsvg,
   pygments,
   shapely,
-
   # test
   filelock,
   dulwich,
@@ -31,9 +28,7 @@
   pytest-asyncio,
   pytest-mock,
   pytestCheckHook,
-
 }:
-
 buildPythonPackage rec {
   pname = "pygerber";
   version = "2.4.3";
@@ -48,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-0AoRmIN1FNlummJSHdysO2IDBHtfNPhVnh9j0lyWNFI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
   dependencies = [
     numpy
     click
@@ -63,9 +58,9 @@ buildPythonPackage rec {
       pygls
       lsprotocol
     ];
-    svg = [ drawsvg ];
-    pygments = [ pygments ];
-    shapely = [ shapely ];
+    svg = [drawsvg];
+    pygments = [pygments];
+    shapely = [shapely];
     all = [
       pygls
       lsprotocol
@@ -94,13 +89,13 @@ buildPythonPackage rec {
     "test/gerberx3/test_language_server/tests.py"
   ];
 
-  pythonImportsCheck = [ "pygerber" ];
+  pythonImportsCheck = ["pygerber"];
 
   meta = {
     description = "Implementation of the Gerber X3/X2 format, based on Ucamco's The Gerber Layer Format Specification";
     homepage = "https://github.com/Argmaster/pygerber";
     changelog = "https://argmaster.github.io/pygerber/stable/Changelog.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ clemjvdm ];
+    maintainers = with lib.maintainers; [clemjvdm];
   };
 }

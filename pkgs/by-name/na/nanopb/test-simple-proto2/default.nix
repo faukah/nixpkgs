@@ -3,16 +3,15 @@
   stdenv,
   nanopb,
 }:
-
 stdenv.mkDerivation {
   name = "nanopb-test-simple-proto2";
   meta.timeout = 60;
   src = lib.fileset.toSource {
     root = ./.;
-    fileset = lib.fileset.unions [ ./simple.proto ];
+    fileset = lib.fileset.unions [./simple.proto];
   };
 
-  buildInputs = [ nanopb ];
+  buildInputs = [nanopb];
 
   # protoc requires any .proto file to be compiled to reside within it's
   # proto_path. By default the current directory is automatically added to the

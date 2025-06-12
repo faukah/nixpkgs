@@ -11,7 +11,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcomps";
   version = "0.1.21";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Comps XML file manipulation library";
     homepage = "https://github.com/rpm-software-management/libcomps";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ katexochen ];
+    maintainers = with maintainers; [katexochen];
     platforms = platforms.unix;
   };
 }

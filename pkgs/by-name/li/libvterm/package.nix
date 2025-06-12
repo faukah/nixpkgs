@@ -6,7 +6,6 @@
   glib,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libvterm";
   version = "0.99.7";
@@ -30,12 +29,12 @@ stdenv.mkDerivation rec {
   '';
 
   # For headers
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     homepage = "http://libvterm.sourceforge.net/";

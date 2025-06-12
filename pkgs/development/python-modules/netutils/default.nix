@@ -11,7 +11,6 @@
   pyyaml,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "netutils";
   version = "1.13.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-lUtxTzL3nkdICvTKozdnyx1wtwE4xwY7mcUqv3Wgw3Y=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ jsonschema ];
+  dependencies = [jsonschema];
 
   optional-dependencies.optionals = [
     jsonschema
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "netutils" ];
+  pythonImportsCheck = ["netutils"];
 
   disabledTests = [
     # Tests require network access
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/networktocode/netutils";
     changelog = "https://github.com/networktocode/netutils/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

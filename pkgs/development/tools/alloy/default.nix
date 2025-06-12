@@ -5,11 +5,11 @@
   jre,
   makeWrapper,
   makeDesktopItem,
-}:
-
-let
-  generic =
-    { version, sha256 }:
+}: let
+  generic = {
+    version,
+    sha256,
+  }:
     stdenv.mkDerivation rec {
       pname = "alloy${lib.versions.major version}";
       inherit version;
@@ -33,7 +33,7 @@ let
         ];
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       buildCommand = ''
         jar=$out/share/alloy/${pname}.jar
@@ -60,15 +60,13 @@ let
         '';
         homepage = "https://alloytools.org/";
         downloadPage = "https://alloytools.org/download.html";
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
+        sourceProvenance = with sourceTypes; [binaryBytecode];
         license = licenses.mit;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ notbandali ];
+        maintainers = with maintainers; [notbandali];
       };
     };
-
-in
-rec {
+in rec {
   alloy5 = generic {
     version = "5.1.0";
     sha256 = "sha256-o7Q+jsmWeUeuotUQG9lrPE6w2B6z3Ju6QcyWSTScaQo=";

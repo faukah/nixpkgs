@@ -26,7 +26,6 @@
   wrapGAppsHook3,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ares";
   version = "144";
@@ -85,38 +84,36 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   postInstall =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        mkdir $out/Applications
-        cp -a desktop-ui/ares.app $out/Applications/ares.app
-        # Shaders directory is already populated with Metal shaders, so can't simply symlink the slang shaders directory itself
-        for f in ${libretro-shaders-slang}/share/libretro/shaders/shaders_slang/*; do
-          ln -s "$f" $out/Applications/ares.app/Contents/Resources/Shaders/
-        done
-      ''
-    else
-      ''
-        ln -s ${libretro-shaders-slang}/share/libretro $out/share/libretro
-      '';
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      mkdir $out/Applications
+      cp -a desktop-ui/ares.app $out/Applications/ares.app
+      # Shaders directory is already populated with Metal shaders, so can't simply symlink the slang shaders directory itself
+      for f in ${libretro-shaders-slang}/share/libretro/shaders/shaders_slang/*; do
+        ln -s "$f" $out/Applications/ares.app/Contents/Resources/Shaders/
+      done
+    ''
+    else ''
+      ln -s ${libretro-shaders-slang}/share/libretro $out/share/libretro
+    '';
 
   postFixup =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        install_name_tool \
-          -add_rpath ${librashader}/lib \
-          -add_rpath ${moltenvk}/lib \
-          $out/Applications/ares.app/Contents/MacOS/ares
-      ''
-    else
-      ''
-        patchelf $out/bin/.ares-wrapped \
-          --add-rpath ${
-            lib.makeLibraryPath [
-              librashader
-              vulkan-loader
-            ]
-          }
-      '';
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      install_name_tool \
+        -add_rpath ${librashader}/lib \
+        -add_rpath ${moltenvk}/lib \
+        $out/Applications/ares.app/Contents/MacOS/ares
+    ''
+    else ''
+      patchelf $out/bin/.ares-wrapped \
+        --add-rpath ${
+        lib.makeLibraryPath [
+          librashader
+          vulkan-loader
+        ]
+      }
+    '';
 
   meta = {
     homepage = "https://ares-emu.net";

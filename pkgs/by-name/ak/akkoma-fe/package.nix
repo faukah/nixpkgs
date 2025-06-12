@@ -12,7 +12,6 @@
   nodePackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "akkoma-fe";
   version = "3.15.0";
@@ -93,6 +92,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Frontend for Akkoma";
     homepage = "https://akkoma.dev/AkkomaGang/akkoma-fe/";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mvs ];
+    maintainers = with lib.maintainers; [mvs];
   };
 })

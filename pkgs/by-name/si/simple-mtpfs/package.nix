@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/phatina/simple-mtpfs";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
     mainProgram = "simple-mtpfs";
   };
 }

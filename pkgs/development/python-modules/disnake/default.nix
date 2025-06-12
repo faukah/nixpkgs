@@ -10,7 +10,6 @@
   withVoice ? true,
   ffmpeg,
 }:
-
 buildPythonPackage rec {
   pname = "disnake";
   version = "2.10.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-MQxYkUA3uclmY2cKBr4DsBg79ovsH1EsMOjiVPGaLVE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://disnake.dev/";
     changelog = "https://github.com/DisnakeDev/disnake/blob/v${version}/docs/whats_new.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

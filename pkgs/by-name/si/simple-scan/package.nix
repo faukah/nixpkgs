@@ -25,7 +25,6 @@
   gnome,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simple-scan";
   version = "46.0";
@@ -96,7 +95,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/simple-scan";
     changelog = "https://gitlab.gnome.org/GNOME/simple-scan/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

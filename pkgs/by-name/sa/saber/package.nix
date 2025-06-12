@@ -14,7 +14,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "saber";
   version = "0.25.6";
@@ -34,7 +33,7 @@ flutter329.buildFlutterApplication rec {
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     gst_all_1.gstreamer
@@ -58,15 +57,15 @@ flutter329.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (saber) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (saber) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "saber.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -75,8 +74,8 @@ flutter329.buildFlutterApplication rec {
     description = "Cross-platform open-source app built for handwriting";
     homepage = "https://github.com/saber-notes/saber";
     mainProgram = "saber";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

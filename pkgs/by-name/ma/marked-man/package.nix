@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "marked-man";
   version = "2.1.0";
@@ -29,7 +28,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/kapouer/marked-man";
     changelog = "https://github.com/kapouer/marked-man/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ atemu ];
+    maintainers = with lib.maintainers; [atemu];
     mainProgram = "marked-man";
     platforms = lib.platforms.all;
   };

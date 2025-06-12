@@ -14,7 +14,6 @@
   libayatana-appindicator,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pystray";
   version = "0.19.5";
@@ -76,6 +75,6 @@ buildPythonPackage rec {
       lgpl3Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

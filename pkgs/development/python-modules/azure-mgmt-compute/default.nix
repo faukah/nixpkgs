@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-compute";
   version = "34.1.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-zZ010cwbjLC9JBrVXJG3fRTgSuc8YyraEUATX5whf+E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-mgmt-common
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     isodate
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.compute" ];
+  pythonImportsCheck = ["azure.mgmt.compute"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Compute Management Client Library";

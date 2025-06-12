@@ -6,7 +6,6 @@
   pkg-config,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "e2tools";
   version = "0.1.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ e2fsprogs ];
+  buildInputs = [e2fsprogs];
 
   enableParallelBuilding = true;
 
@@ -32,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Utilities to read/write/manipulate files in an ext2/ext3 filesystem";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.leenaars ];
+    maintainers = [lib.maintainers.leenaars];
   };
 })

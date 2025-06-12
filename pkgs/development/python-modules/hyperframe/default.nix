@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "hyperframe";
   version = "6.1.0";
@@ -16,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-9jCQigCFSnreq9Y4K0OSOkxM1Lgh/LUn5queFTgqOwg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hyperframe" ];
+  pythonImportsCheck = ["hyperframe"];
 
   meta = with lib; {
     description = "HTTP/2 framing layer for Python";
     homepage = "https://github.com/python-hyper/hyperframe/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

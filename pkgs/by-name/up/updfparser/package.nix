@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitea,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "updfparser";
   version = "0-unstable-2024-03-24";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Very simple PDF parser";
     homepage = "https://forge.soutade.fr/soutade/updfparser";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ autumnal ];
+    maintainers = with maintainers; [autumnal];
     platforms = platforms.all;
   };
 })

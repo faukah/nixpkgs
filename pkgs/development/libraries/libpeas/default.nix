@@ -16,7 +16,6 @@
   ncurses,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libpeas";
   version = "1.36.0";
@@ -91,6 +90,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/libpeas";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

@@ -18,7 +18,6 @@
   uri,
   vg,
 }:
-
 buildDunePackage rec {
   pname = "biotk";
   version = "0.3";
@@ -30,9 +29,9 @@ buildDunePackage rec {
     hash = "sha256-9eRd3qYteUxu/xNEUER/DHodr6cTCuPtSKr38x32gig=";
   };
 
-  nativeBuildInputs = [ ocaml-crunch ];
+  nativeBuildInputs = [ocaml-crunch];
 
-  buildInputs = [ ppx_csv_conv ];
+  buildInputs = [ppx_csv_conv];
 
   propagatedBuildInputs = [
     angstrom-unix

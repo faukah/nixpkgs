@@ -10,7 +10,6 @@
   pytestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "python-izone";
   version = "1.2.9";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-0rj+tKn2pbFe+nczTMGLwIwmc4jCznGGF4/IMjlEvQg=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     aiohttp
@@ -40,12 +39,12 @@ buildPythonPackage rec {
 
   doCheck = false; # most tests access network
 
-  pythonImportsCheck = [ "pizone" ];
+  pythonImportsCheck = ["pizone"];
 
   meta = with lib; {
     description = "Python interface to the iZone airconditioner controller";
     homepage = "https://github.com/Swamp-Ig/pizone";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

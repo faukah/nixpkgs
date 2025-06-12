@@ -1,5 +1,4 @@
 {
-
   "elm/browser" = {
     sha256 = "0nagb9ajacxbbg985r4k9h0jadqpp0gp84nm94kcgbr5sf8i9x13";
     version = "1.0.2";

@@ -5,7 +5,6 @@
   ninja,
   lib,
 }:
-
 stdenv.mkDerivation {
   pname = "asmjit";
   version = "unstable-2025-02-12";
@@ -34,6 +33,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://asmjit.com/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ thillux ];
+    maintainers = with maintainers; [thillux];
   };
 }

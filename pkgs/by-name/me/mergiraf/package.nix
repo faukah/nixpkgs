@@ -3,12 +3,10 @@
   fetchFromGitea,
   rustPlatform,
   nix-update-script,
-
   # native check inputs
   git,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mergiraf";
   version = "0.10.0";
@@ -24,14 +22,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-jShWfd3m9g6YlUFLOzlMPFtuXAAfjh+sBujCJ9F2Uj0=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Syntax-aware git merge driver for a growing collection of programming languages and file formats";

@@ -7,7 +7,6 @@
   pytest,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiomisc-pytest";
   version = "1.2.1";
@@ -21,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-4mWP77R3CoX+XhoT6BbxQtxpINpdmeozjYUsegNfMyU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "pytest" ];
+  pythonRelaxDeps = ["pytest"];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ aiomisc ];
+  dependencies = [aiomisc];
 
-  pythonImportsCheck = [ "aiomisc_pytest" ];
+  pythonImportsCheck = ["aiomisc_pytest"];
 
   # Module has no tests
   doCheck = false;
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Pytest integration for aiomisc";
     homepage = "https://github.com/aiokitchen/aiomisc-pytest";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

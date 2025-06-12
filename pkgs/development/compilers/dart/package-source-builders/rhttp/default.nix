@@ -3,11 +3,11 @@
   rustPlatform,
   stdenv,
   replaceVars,
-}:
-
-{ version, src, ... }:
-
-let
+}: {
+  version,
+  src,
+  ...
+}: let
   rustDep = rustPlatform.buildRustPackage {
     pname = "rhttp-rs";
     inherit version src;
@@ -37,7 +37,9 @@ let
         _0_11_0 = "sha256-sngh5k9GoCZhnIFTpnAVHZjxTcOv+Ui6pJ2cFyriL84=";
         _0_12_0 = "sha256-W2DcBy1n73nR2oZIQcFt6A+NElQWtfEtKB1YIweQUVo=";
       }
-      .${"_" + (lib.replaceStrings [ "." ] [ "_" ] version)} or (throw ''
+      .${
+        "_" + (lib.replaceStrings ["."] ["_"] version)
+      } or (throw ''
         Unsupported version of pub 'rhttp': '${version}'
         Please add cargoHash here. If the cargoHash
         is the same with existing versions, add an alias here.
@@ -47,32 +49,31 @@ let
 
     passthru.libraryPath = "lib/librhttp.so";
   };
-
 in
-stdenv.mkDerivation {
-  pname = "rhttp";
-  inherit version src;
-  inherit (src) passthru;
+  stdenv.mkDerivation {
+    pname = "rhttp";
+    inherit version src;
+    inherit (src) passthru;
 
-  prePatch = ''
-    if [ -d rhttp ]; then pushd rhttp; fi
-  '';
+    prePatch = ''
+      if [ -d rhttp ]; then pushd rhttp; fi
+    '';
 
-  patches = [
-    (replaceVars ./cargokit.patch {
-      output_lib = "${rustDep}/${rustDep.passthru.libraryPath}";
-    })
-  ];
+    patches = [
+      (replaceVars ./cargokit.patch {
+        output_lib = "${rustDep}/${rustDep.passthru.libraryPath}";
+      })
+    ];
 
-  postPatch = ''
-    popd || true
-  '';
+    postPatch = ''
+      popd || true
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cp -r . $out
+      cp -r . $out
 
-    runHook postInstall
-  '';
-}
+      runHook postInstall
+    '';
+  }

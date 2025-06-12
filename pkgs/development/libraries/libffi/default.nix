@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # test suite depends on dejagnu which cannot be used during bootstrapping
   # dejagnu also requires tcl which can't be built statically at the moment
   doCheck ? !(stdenv.hostPlatform.isStatic),
@@ -10,15 +9,12 @@
   nix-update-script,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libffi";
   version = "3.4.8";
 
   src = fetchurl {
-    url =
-      with finalAttrs;
-      "https://github.com/libffi/libffi/releases/download/v${version}/${pname}-${version}.tar.gz";
+    url = with finalAttrs; "https://github.com/libffi/libffi/releases/download/v${version}/${pname}-${version}.tar.gz";
     hash = "sha256-vJhCoYiYv6yw7RJSxP68x+ePoTn9J/3Ho+MNnZNWEZs=";
   };
 
@@ -59,10 +55,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   inherit doCheck;
 
-  nativeCheckInputs = [ dejagnu ];
+  nativeCheckInputs = [dejagnu];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       pkg-config = testers.hasPkgConfigModules {
         package = finalAttrs.finalPackage;
@@ -88,8 +84,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "http://sourceware.org/libffi/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.all;
-    pkgConfigModules = [ "libffi" ];
+    pkgConfigModules = ["libffi"];
   };
 })

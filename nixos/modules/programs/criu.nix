@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.criu;
-in
-{
-
+in {
   options = {
     programs.criu = {
       enable = lib.mkOption {
@@ -26,7 +22,6 @@ in
       (isYes "CHECKPOINT_RESTORE")
     ];
     boot.kernel.features.criu = true;
-    environment.systemPackages = [ pkgs.criu ];
+    environment.systemPackages = [pkgs.criu];
   };
-
 }

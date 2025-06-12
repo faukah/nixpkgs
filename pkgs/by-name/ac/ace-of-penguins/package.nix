@@ -9,7 +9,6 @@
   makeDesktopItem,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ace-of-penguins";
   version = "1.4";
@@ -38,16 +37,15 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
   ];
 
-  desktopItems =
-    let
-      generateItem = gameName: {
-        name = "ace-of-penguins-${gameName}";
-        exec = "${placeholder "out"}/bin/${gameName}";
-        comment = "Ace of Penguins ${gameName} Card Game";
-        desktopName = gameName;
-        genericName = gameName;
-      };
-    in
+  desktopItems = let
+    generateItem = gameName: {
+      name = "ace-of-penguins-${gameName}";
+      exec = "${placeholder "out"}/bin/${gameName}";
+      comment = "Ace of Penguins ${gameName} Card Game";
+      desktopName = gameName;
+      genericName = gameName;
+    };
+  in
     map (x: makeDesktopItem (generateItem x)) [
       "canfield"
       "freecell"
@@ -77,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
       Martin Thornquist).
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

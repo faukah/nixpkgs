@@ -22,7 +22,6 @@
   torch,
   transformers,
 }:
-
 buildPythonPackage rec {
   pname = "outlines";
   version = "0.1.13";
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     description = "Structured text generation";
     homepage = "https://github.com/outlines-dev/outlines";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lach ];
+    maintainers = with maintainers; [lach];
   };
 }

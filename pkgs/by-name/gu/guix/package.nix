@@ -32,12 +32,10 @@
   libgcrypt,
   sqlite,
   nixosTests,
-
   stateDir ? "/var",
   storeDir ? "/gnu/store",
   confDir ? "/etc",
 }:
-
 stdenv.mkDerivation rec {
   pname = "guix";
   version = "1.4.0";

@@ -6,7 +6,6 @@
   writeScript,
   libfaketime,
 }:
-
 stdenv.mkDerivation rec {
   version = "542";
   pname = "dict-db-wordnet";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://wordnet.princeton.edu/";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

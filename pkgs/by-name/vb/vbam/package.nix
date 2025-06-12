@@ -19,7 +19,6 @@
   wrapGAppsHook3,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "visualboyadvance-m";
   version = "2.1.11";

@@ -12,7 +12,6 @@
   # the handling here from postInstall to passing the required argument to the builder.
   exaAlias ? true,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "eza";
   version = "0.21.4";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellFiles
     pandoc
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional gitSupport "git";

@@ -8,7 +8,6 @@
   installer,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "installer";
   version = "0.7.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     ./python313-compat.patch
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # We need to disable tests because this package is part of the bootstrap chain
   # and its test dependencies cannot be built yet when this is being built.
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pypa/installer";
     changelog = "https://github.com/pypa/installer/blob/${src.rev}/docs/changelog.md";
     license = licenses.mit;
-    maintainers = [ maintainers.cpcloud ];
-    teams = [ teams.python ];
+    maintainers = [maintainers.cpcloud];
+    teams = [teams.python];
   };
 }

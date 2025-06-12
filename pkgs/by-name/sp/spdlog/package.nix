@@ -6,13 +6,11 @@
   fmt,
   catch2_3,
   staticBuild ? stdenv.hostPlatform.isStatic,
-
   # passthru
   bear,
   tiledb,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spdlog";
   version = "1.15.2";
@@ -24,10 +22,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9RhB4GdFjZbCIfMOWWriLAUf9DE/i/+FTXczr0pD0Vg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   # Required to build tests, even if they aren't executed
-  buildInputs = [ catch2_3 ];
-  propagatedBuildInputs = [ fmt ];
+  buildInputs = [catch2_3];
+  propagatedBuildInputs = [fmt];
 
   cmakeFlags = [
     (lib.cmakeBool "SPDLOG_BUILD_SHARED" (!staticBuild))
@@ -60,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit bear tiledb;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -68,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/gabime/spdlog";
     changelog = "https://github.com/gabime/spdlog/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ obadz ];
+    maintainers = with lib.maintainers; [obadz];
     platforms = lib.platforms.all;
   };
 })

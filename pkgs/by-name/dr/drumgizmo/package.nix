@@ -17,7 +17,6 @@
   pkg-config,
   zita-resampler,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.20";
   pname = "drumgizmo";
@@ -37,9 +36,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ "--enable-lv2" ];
+  configureFlags = ["--enable-lv2"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.drumgizmo.org";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
   };
 }

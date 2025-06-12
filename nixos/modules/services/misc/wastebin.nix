@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.wastebin;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkIf
@@ -19,14 +18,11 @@ let
     boolToString
     optionalAttrs
     ;
-in
-{
-
+in {
   options.services.wastebin = {
-
     enable = mkEnableOption "Wastebin, a pastebin service";
 
-    package = mkPackageOption pkgs "wastebin" { };
+    package = mkPackageOption pkgs "wastebin" {};
 
     stateDir = mkOption {
       type = types.path;
@@ -53,7 +49,6 @@ in
     };
 
     settings = mkOption {
-
       description = ''
         Additional configuration for wastebin, see
         <https://github.com/matze/wastebin#usage> for supported values.
@@ -61,9 +56,7 @@ in
       '';
 
       type = types.submodule {
-
-        freeformType =
-          with types;
+        freeformType = with types;
           attrsOf (oneOf [
             bool
             int
@@ -71,7 +64,6 @@ in
           ]);
 
         options = {
-
           WASTEBIN_ADDRESS_PORT = mkOption {
             type = types.str;
             default = "0.0.0.0:8088";
@@ -130,7 +122,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       example = {
         WASTEBIN_TITLE = "My awesome pastebin";
@@ -140,9 +132,13 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.wastebin = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = mapAttrs (_: v: if isBool v then boolToString v else toString v) cfg.settings;
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      environment = mapAttrs (_: v:
+        if isBool v
+        then boolToString v
+        else toString v)
+      cfg.settings;
       serviceConfig =
         {
           DevicePolicy = "closed";
@@ -165,8 +161,8 @@ in
           ];
           RestrictNamespaces = true;
           RestrictRealtime = true;
-          SystemCallArchitectures = [ "native" ];
-          SystemCallFilter = [ "@system-service" ];
+          SystemCallArchitectures = ["native"];
+          SystemCallFilter = ["@system-service"];
           StateDirectory = baseNameOf cfg.stateDir;
           ReadWritePaths = cfg.stateDir;
         }
@@ -176,5 +172,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ pinpox ];
+  meta.maintainers = with lib.maintainers; [pinpox];
 }

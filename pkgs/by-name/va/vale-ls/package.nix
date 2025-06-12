@@ -8,7 +8,6 @@
   openssl,
   vale,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vale-ls";
   version = "0.3.8";
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/vale-ls \
-      --suffix PATH : ${lib.makeBinPath [ vale ]}
+      --suffix PATH : ${lib.makeBinPath [vale]}
   '';
 
   meta = with lib; {

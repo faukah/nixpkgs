@@ -30,9 +30,7 @@
   sympy,
   zlib,
   nixosTests,
-}:
-
-let
+}: let
   version = "2019.1.0";
 
   dijitso = buildPythonPackage {
@@ -46,7 +44,7 @@ let
       numpy
       six
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     preCheck = ''
       export HOME=$PWD
     '';
@@ -75,7 +73,7 @@ let
       six
       sympy
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
 
     preCheck = ''
       # Workaround pytest 4.6.3 issue.
@@ -114,7 +112,7 @@ let
       numpy
       six
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     checkPhase = ''
       runHook preCheck
       py.test test/
@@ -142,7 +140,7 @@ let
         hash = "sha256-TcLQZ44C+uR2ryxtCBjR/5Tjn7B0S4MqoYi0nlP8JwI=";
       })
     ];
-    nativeBuildInputs = [ pybind11 ];
+    nativeBuildInputs = [pybind11];
     propagatedBuildInputs = [
       dijitso
       fiat
@@ -152,7 +150,7 @@ let
       ufl
       setuptools
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     preCheck = ''
       export HOME=$PWD
       rm test/unit/ufc/finite_element/test_evaluate.py
@@ -303,4 +301,4 @@ let
     };
   };
 in
-python-dolfin
+  python-dolfin

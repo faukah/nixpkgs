@@ -6,7 +6,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "josepy";
   version = "2.0.0";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-9hY3A+XSoVrRLds4tNV+5HWkmMwcS9UtehrKoj0OIEw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     cryptography
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "josepy" ];
+  pythonImportsCheck = ["josepy"];
 
   meta = {
     changelog = "https://github.com/certbot/josepy/blob/${src.tag}/CHANGELOG.rst";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     mainProgram = "jws";
     homepage = "https://github.com/certbot/josepy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.sniffnet;
-in
-
-{
+in {
   options = {
     programs.sniffnet = {
       enable = lib.mkEnableOption "sniffnet, a network traffic monitor application";
@@ -25,5 +21,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ figsoda ];
+  meta.maintainers = with lib.maintainers; [figsoda];
 }

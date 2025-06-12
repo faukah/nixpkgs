@@ -9,7 +9,6 @@
   six,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "click-spinner";
   version = "0.1.10";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "click_spinner" ];
+  pythonImportsCheck = ["click_spinner"];
 
   meta = with lib; {
     description = "Add support for showwing that command line app is active to Click";
     homepage = "https://github.com/click-contrib/click-spinner";
     changelog = "https://github.com/click-contrib/click-spinner/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -56,7 +56,7 @@ flutter327.buildFlutterApplication rec {
     description = "Easy-to-use Jellyfin client for movies and shows";
     homepage = "https://github.com/jellyflix-app/jellyflix";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ jvanbruegge ];
+    maintainers = with lib.maintainers; [jvanbruegge];
     mainProgram = "jellyflix";
     platforms = lib.platforms.linux;
   };

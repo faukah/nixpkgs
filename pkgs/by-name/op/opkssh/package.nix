@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "opkssh";
   version = "0.7.0";
@@ -17,7 +16,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-8fbOhyrHgNG9ulu/DZvUHzIojvoHG/gb5+Ft/RmMHXk=";
   };
 
-  ldflags = [ "-X main.Version=${finalAttrs.version}" ];
+  ldflags = ["-X main.Version=${finalAttrs.version}"];
 
   vendorHash = "sha256-bkTQqtlZhZ2/WnQNRdZzfblkGKjaAS22RFl6I1O3/yA=";
 
@@ -27,7 +26,7 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/openpubkey/opkssh";

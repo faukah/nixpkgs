@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     hash = "sha256-ieFHREAVeD7IwDUCtsMG5UKxahxM+wzNCAqCOHIHwu8=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   nativeBuildInputs = [
     cmake
@@ -54,6 +54,6 @@ stdenv.mkDerivation {
     homepage = "http://www.mmgtools.org/";
     platforms = platforms.unix;
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ mkez ];
+    maintainers = with maintainers; [mkez];
   };
 }

@@ -5,7 +5,6 @@
   replaceVars,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-benchcmp";
   version = "0.4.5";
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage rec {
       mit
       unlicense
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

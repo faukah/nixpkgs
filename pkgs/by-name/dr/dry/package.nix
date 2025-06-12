@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dry";
   version = "0.11.2";
@@ -23,7 +22,7 @@ buildGoModule rec {
     homepage = "https://moncho.github.io/dry/";
     changelog = "https://github.com/moncho/dry/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.dump_stack ];
+    maintainers = [lib.maintainers.dump_stack];
     mainProgram = "dry";
   };
 }

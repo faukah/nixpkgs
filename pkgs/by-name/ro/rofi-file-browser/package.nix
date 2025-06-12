@@ -7,7 +7,6 @@
   rofi,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rofi-file-browser-extended";
   version = "1.3.1";

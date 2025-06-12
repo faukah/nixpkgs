@@ -36,7 +36,7 @@ buildDunePackage rec {
     description = "Library to read and write WebAssembly (Wasm) files and manipulate their AST";
     mainProgram = "wasm";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/WebAssembly/spec/tree/main/interpreter";
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "apt-swarm";
   version = "0.5.1";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kpcyrd/apt-swarm";
     changelog = "https://github.com/kpcyrd/apt-swarm/releases/tag/v${version}";
     mainProgram = "apt-swarm";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ kpcyrd ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [kpcyrd];
     platforms = lib.platforms.all;
   };
 }

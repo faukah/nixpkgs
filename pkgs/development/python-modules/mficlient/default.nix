@@ -8,7 +8,6 @@
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mficlient";
   version = "0.5.0";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
     EOF
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     requests
   ];
 
-  pythonImportsCheck = [ "mficlient" ];
+  pythonImportsCheck = ["mficlient"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/uilibs/mficlient";
     license = lib.licenses.mit;
     mainProgram = "mfi";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

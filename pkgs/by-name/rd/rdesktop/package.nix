@@ -15,7 +15,6 @@
   fetchpatch,
   enableCredssp ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rdesktop";
   version = "1.9.0";
@@ -43,11 +42,13 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional enableCredssp krb5
     ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  configureFlags = [
-    "--with-ipv6"
-    "--with-openssl=${openssl.dev}"
-    "--disable-smartcard"
-  ] ++ lib.optional (!enableCredssp) "--disable-credssp";
+  configureFlags =
+    [
+      "--with-ipv6"
+      "--with-openssl=${openssl.dev}"
+      "--disable-smartcard"
+    ]
+    ++ lib.optional (!enableCredssp) "--disable-credssp";
 
   patches = [
     ./rdesktop-configure-c99.patch

@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ascii-draw";
   version = "1.1.0";
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Nokse22/ascii-draw";
     license = lib.licenses.gpl3Plus;
     mainProgram = "ascii-draw";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     # gnulib bindtextdomain is missing on various other unix platforms
     platforms = lib.platforms.linux;
   };

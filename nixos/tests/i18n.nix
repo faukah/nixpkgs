@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "glibLocales-custom-builds";
-  meta.maintainers = with lib.maintainers; [ doronbehar ];
+  meta.maintainers = with lib.maintainers; [doronbehar];
 
   nodes = {
     nonUTF8Charset = {
@@ -39,5 +38,5 @@
       };
     };
   };
-  testScript = { nodes, ... }: "";
+  testScript = {nodes, ...}: "";
 }

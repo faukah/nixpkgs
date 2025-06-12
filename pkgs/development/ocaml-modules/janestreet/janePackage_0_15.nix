@@ -3,18 +3,15 @@
   fetchFromGitHub,
   buildDunePackage,
   defaultVersion ? "0.15.0",
-}:
-
-{
+}: {
   pname,
   version ? defaultVersion,
   hash,
   minimalOCamlVersion ? "4.11",
   doCheck ? true,
-  buildInputs ? [ ],
+  buildInputs ? [],
   ...
-}@args:
-
+} @ args:
 buildDunePackage (
   args
   // {
@@ -32,9 +29,11 @@ buildDunePackage (
 
     inherit doCheck;
 
-    meta = {
-      license = lib.licenses.mit;
-      homepage = "https://github.com/janestreet/${pname}";
-    } // args.meta;
+    meta =
+      {
+        license = lib.licenses.mit;
+        homepage = "https://github.com/janestreet/${pname}";
+      }
+      // args.meta;
   }
 )

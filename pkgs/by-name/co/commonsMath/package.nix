@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.6.1";
   pname = "commons-math";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-math/";
     description = "Library of lightweight, self-contained mathematics and statistics components";
-    maintainers = [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

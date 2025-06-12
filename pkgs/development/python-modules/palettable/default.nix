@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "palettable";
   version = "3.3.3";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-CU3X2aX8HMpIVHc+XB/GoxWzO9WzqPRwZJKPrK8EkKg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "palettable"
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://jiffyclub.github.io/palettable/";
     changelog = "https://github.com/jiffyclub/palettable/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

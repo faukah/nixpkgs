@@ -5,7 +5,6 @@
   junit,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "junit_alcotest";
 

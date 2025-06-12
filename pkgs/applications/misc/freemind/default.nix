@@ -8,7 +8,6 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freemind";
   version = "1.0.1";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Mind-mapping software";
     homepage = "https://freemind.sourceforge.net/wiki/index.php/Main_Page";
     mainProgram = "freemind";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     sourceProvenance = with lib.sourceTypes; [

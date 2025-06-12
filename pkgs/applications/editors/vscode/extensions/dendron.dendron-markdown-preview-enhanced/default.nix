@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "dendron-markdown-preview-enhanced";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=dendron.dendron-markdown-preview-enhanced";
     homepage = "https://github.com/dendronhq/markdown-preview-enhanced";
     license = lib.licenses.ncsa;
-    maintainers = [ lib.maintainers.ivyfanchiang ];
+    maintainers = [lib.maintainers.ivyfanchiang];
   };
 }

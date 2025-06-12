@@ -5,7 +5,6 @@
   makeWrapper,
   chromium,
 }:
-
 buildNpmPackage rec {
   pname = "mermaid-filter";
   version = "1.4.7";
@@ -19,7 +18,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-Hj4h8xTch2Z3ByUhxzPhbCTSXNOXuTXC6XUrBkRvQ/U=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = 1;
 
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     description = "Pandoc filter for creating diagrams in mermaid syntax blocks in markdown docs";
     homepage = "https://github.com/raghur/mermaid-filter";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ners ];
+    maintainers = with maintainers; [ners];
     platforms = chromium.meta.platforms;
     mainProgram = "mermaid-filter";
   };

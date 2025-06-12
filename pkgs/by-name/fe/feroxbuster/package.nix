@@ -8,7 +8,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "feroxbuster";
   version = "2.11.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     versionCheckHook
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # Tests require network access
   doCheck = false;
@@ -40,14 +39,14 @@ rustPlatform.buildRustPackage rec {
 
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Recursive content discovery tool";
     homepage = "https://github.com/epi052/feroxbuster";
     changelog = "https://github.com/epi052/feroxbuster/releases/tag/v${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.unix;
     mainProgram = "feroxbuster";
   };

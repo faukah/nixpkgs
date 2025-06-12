@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     inherit url hash;
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 

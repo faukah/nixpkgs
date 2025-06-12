@@ -5,7 +5,6 @@
   openssh,
   debugLevel ? 0,
 }:
-
 stdenv.mkDerivation {
   pname = "scponly";
   version = "4.8";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "U0K7lOp18ytNjh3KVFmc6vL+/tG4ETnwLEPQEhM4lXE=";
   };
 
-  patches = [ ./scponly-fix-make.patch ];
+  patches = [./scponly-fix-make.patch];
 
   strictDeps = true;
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     description = "Shell that only permits scp and sftp-server";
     mainProgram = "scponly";
     homepage = "https://github.com/scponly/scponly";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ wmertens ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [wmertens];
   };
 }

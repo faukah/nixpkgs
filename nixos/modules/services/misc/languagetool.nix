@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.languagetool;
-  settingsFormat = pkgs.formats.javaProperties { };
-in
-{
+  settingsFormat = pkgs.formats.javaProperties {};
+in {
   options.services.languagetool = {
     enable = lib.mkEnableOption "the LanguageTool server, a multilingual spelling, style, and grammar checker that helps correct or paraphrase texts";
 
-    package = lib.mkPackageOption pkgs "languagetool" { };
+    package = lib.mkPackageOption pkgs "languagetool" {};
 
     port = lib.mkOption {
       type = lib.types.port;
@@ -47,7 +45,7 @@ in
           description = "Number of sentences cached.";
         };
       };
-      default = { };
+      default = {};
       description = ''
         Configuration file options for LanguageTool, see
         'languagetool-http-server --help'
@@ -55,14 +53,14 @@ in
       '';
     };
 
-    jrePackage = lib.mkPackageOption pkgs "jre" { };
+    jrePackage = lib.mkPackageOption pkgs "jre" {};
 
     jvmOptions = lib.mkOption {
       description = ''
         Extra command line options for the JVM running languagetool.
         More information can be found here: <https://docs.oracle.com/en/java/javase/19/docs/specs/man/java.html#standard-options-for-java>
       '';
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
       example = [
         "-Xmx512m"
@@ -71,17 +69,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.languagetool = {
       description = "LanguageTool HTTP server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         User = "languagetool";
         Group = "languagetool";
-        CapabilityBoundingSet = [ "" ];
-        RestrictNamespaces = [ "" ];
+        CapabilityBoundingSet = [""];
+        RestrictNamespaces = [""];
         SystemCallFilter = [
           "@system-service"
           "~ @privileged"

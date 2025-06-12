@@ -5,10 +5,8 @@
   pkgsBuildHost,
   versionCheckHook,
 }:
-
 # Changing the variables CPPFLAGS and BUILD_CONFIG_NAME can be done by
 # overriding the same-named attributes. See ./presets.nix for examples.
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mkspiffs";
   version = "0.2.3";
@@ -33,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  buildFlags = [ "dist" ];
+  buildFlags = ["dist"];
 
   makeFlags = [
     "VERSION=${finalAttrs.version}"
@@ -44,14 +42,14 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 -t $out/bin mkspiffs
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   meta = {
     description = "Tool to build and unpack SPIFFS images";
     license = lib.licenses.mit;
     homepage = "https://github.com/igrr/mkspiffs";
-    maintainers = [ lib.maintainers.haslersn ];
+    maintainers = [lib.maintainers.haslersn];
     platforms = lib.platforms.all;
     mainProgram = "mkspiffs";
   };

@@ -2,9 +2,7 @@
   lib,
   fetchurl,
   appimageTools,
-}:
-
-let
+}: let
   pname = "labymod-launcher";
   version = "2.1.10";
 
@@ -14,25 +12,25 @@ let
     hash = "sha256-yRzk1bish/KBe15rnnbaft3358zSv7WaejdvXAdpEC4=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    install -Dm444 ${appimageContents}/labymodlauncher.desktop $out/share/applications/labymod-launcher.desktop
-    install -Dm444 ${appimageContents}/resources/icons/icon.png $out/share/pixmaps/labymod-launcher.png
-    substituteInPlace $out/share/applications/labymod-launcher.desktop \
-      --replace-fail 'Exec=labymodlauncher' 'Exec=labymod-launcher' \
-      --replace-fail 'Icon=labymodlauncher' 'Icon=labymod-launcher'
-  '';
+    extraInstallCommands = ''
+      install -Dm444 ${appimageContents}/labymodlauncher.desktop $out/share/applications/labymod-launcher.desktop
+      install -Dm444 ${appimageContents}/resources/icons/icon.png $out/share/pixmaps/labymod-launcher.png
+      substituteInPlace $out/share/applications/labymod-launcher.desktop \
+        --replace-fail 'Exec=labymodlauncher' 'Exec=labymod-launcher' \
+        --replace-fail 'Icon=labymodlauncher' 'Icon=labymod-launcher'
+    '';
 
-  meta = {
-    description = "Minecraft modification that enhances gameplay with features like in-game TeamSpeak integration, custom animations, and additional settings";
-    homepage = "https://www.labymod.net/";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ httprafa ];
-    mainProgram = "labymod-launcher";
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Minecraft modification that enhances gameplay with features like in-game TeamSpeak integration, custom animations, and additional settings";
+      homepage = "https://www.labymod.net/";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [httprafa];
+      mainProgram = "labymod-launcher";
+      platforms = ["x86_64-linux"];
+    };
+  }

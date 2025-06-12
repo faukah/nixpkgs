@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "tunnelgraf";
   version = "1.0.6";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     "pydantic"
   ];
 
-  build-system = with python3.pkgs; [ hatchling ];
+  build-system = with python3.pkgs; [hatchling];
 
   dependencies = with python3.pkgs; [
     click
@@ -41,14 +40,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tunnelgraf" ];
+  pythonImportsCheck = ["tunnelgraf"];
 
   meta = {
     description = "Tool to manage SSH tunnel hops to many endpoints";
     homepage = "https://github.com/denniswalker/tunnelgraf";
     changelog = "https://github.com/denniswalker/tunnelgraf/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "tunnelgraf";
   };
 }

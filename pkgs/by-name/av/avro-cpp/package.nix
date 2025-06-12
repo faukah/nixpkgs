@@ -8,7 +8,6 @@
   fmt,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "avro-c++";
   version = "1.12.0";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     mainProgram = "avrogencpp";
     homepage = "https://avro.apache.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rasendubi ];
+    maintainers = with lib.maintainers; [rasendubi];
     platforms = lib.platforms.all;
   };
 }

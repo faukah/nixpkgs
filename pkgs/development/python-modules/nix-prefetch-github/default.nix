@@ -12,7 +12,6 @@
   setuptools,
   nix,
 }:
-
 buildPythonPackage rec {
   pname = "nix-prefetch-github";
   version = "7.1.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-eQd/MNlnuzXzgFzvwUMchvHoIvkIrbpGKV7iknO14Cc=";
   };
 
-  dependencies = [ nix ];
+  dependencies = [nix];
 
   nativeBuildInputs = [
     sphinxHook
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     parameterized
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
   sphinxRoot = "docs";
 
   # ignore tests which are impure
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Prefetch sources from github";
     homepage = "https://github.com/seppeljordan/nix-prefetch-github";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ seppeljordan ];
+    maintainers = with maintainers; [seppeljordan];
   };
 }

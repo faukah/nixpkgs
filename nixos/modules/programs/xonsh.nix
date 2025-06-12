@@ -1,25 +1,16 @@
 # This module defines global configuration for the xonsh.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.xonsh;
-  package = cfg.package.override { inherit (cfg) extraPackages; };
+  package = cfg.package.override {inherit (cfg) extraPackages;};
   bashCompletionPath = "${cfg.bashCompletion.package}/share/bash-completion/bash_completion";
-in
-
-{
-
+in {
   options = {
-
     programs.xonsh = {
-
       enable = lib.mkOption {
         default = false;
         description = ''
@@ -45,13 +36,12 @@ in
       };
 
       extraPackages = lib.mkOption {
-        default = (ps: [ ]);
+        default = ps: [];
         defaultText = lib.literalExpression "ps: [ ]";
         example = lib.literalExpression ''
           ps: with ps; [ numpy xonsh.xontribs.xontrib-vox ]
         '';
-        type =
-          with lib.types;
+        type = with lib.types;
           coercedTo (listOf lib.types.package) (v: (_: v)) (functionTo (listOf lib.types.package));
         description = ''
           Xontribs and extra Python packages to be available in xonsh.
@@ -59,17 +49,17 @@ in
       };
 
       bashCompletion = {
-        enable = lib.mkEnableOption "bash completions for xonsh" // {
-          default = true;
-        };
-        package = lib.mkPackageOption pkgs "bash-completion" { };
+        enable =
+          lib.mkEnableOption "bash completions for xonsh"
+          // {
+            default = true;
+          };
+        package = lib.mkPackageOption pkgs "bash-completion" {};
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.etc."xonsh/xonshrc".text = ''
       # /etc/xonsh/xonshrc: DO NOT EDIT -- this file has been generated automatically.
 
@@ -98,7 +88,7 @@ in
       ${cfg.config}
     '';
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
     environment.shells = [
       "/run/current-system/sw/bin/xonsh"

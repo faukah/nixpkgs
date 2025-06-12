@@ -6,7 +6,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scheme-bytestructures";
   version = "2.0.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   # In procedure bytevector-u8-ref: Argument 2 out of range
   dontStrip = stdenv.hostPlatform.isDarwin;
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "Structured access to bytevector contents";
     homepage = "https://github.com/TaylanUB/scheme-bytestructures";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
     platforms = platforms.unix;
   };
 }

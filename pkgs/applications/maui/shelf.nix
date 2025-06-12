@@ -17,7 +17,6 @@
   qtquickcontrols2,
   poppler,
 }:
-
 mkDerivation {
   pname = "shelf";
 
@@ -47,6 +46,6 @@ mkDerivation {
     mainProgram = "shelf";
     homepage = "https://invent.kde.org/maui/shelf";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -7,7 +7,6 @@
   gnused,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "any-nix-shell";
   version = "2.0.1";
@@ -21,9 +20,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   installPhase = ''
     runHook preInstall
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "fish, xonsh and zsh support for nix-shell";
     license = lib.licenses.mit;
     homepage = "https://github.com/haslersn/any-nix-shell";
-    maintainers = with lib.maintainers; [ haslersn ];
+    maintainers = with lib.maintainers; [haslersn];
     mainProgram = "any-nix-shell";
   };
 }

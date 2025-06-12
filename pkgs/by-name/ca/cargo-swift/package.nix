@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-swift";
   version = "0.9.0";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
   };
 }

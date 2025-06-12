@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mapAttrs
     mkIf
     mkOption
@@ -23,8 +23,7 @@ let
     destination = "/kmscon.conf";
     text = cfg.extraConfig;
   };
-in
-{
+in {
   options = {
     services.kmscon = {
       enable = mkOption {
@@ -49,22 +48,20 @@ in
         description = "Fonts used by kmscon, in order of priority.";
         default = null;
         example = lib.literalExpression ''[ { name = "Source Code Pro"; package = pkgs.source-code-pro; } ]'';
-        type =
-          with types;
-          let
-            fontType = submodule {
-              options = {
-                name = mkOption {
-                  type = str;
-                  description = "Font name, as used by fontconfig.";
-                };
-                package = mkOption {
-                  type = package;
-                  description = "Package providing the font.";
-                };
+        type = with types; let
+          fontType = submodule {
+            options = {
+              name = mkOption {
+                type = str;
+                description = "Font name, as used by fontconfig.";
+              };
+              package = mkOption {
+                type = package;
+                description = "Package providing the font.";
               };
             };
-          in
+          };
+        in
           nullOr (nonEmptyListOf fontType);
       };
 
@@ -100,14 +97,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.kmscon ];
+    systemd.packages = [pkgs.kmscon];
 
     systemd.services."kmsconvt@" = {
       after = [
         "systemd-logind.service"
         "systemd-vconsole-setup.service"
       ];
-      requires = [ "systemd-logind.service" ];
+      requires = ["systemd-logind.service"];
 
       serviceConfig.ExecStart = [
         ""
@@ -117,20 +114,19 @@ in
       ];
 
       restartIfChanged = false;
-      aliases = [ "autovt@.service" ];
+      aliases = ["autovt@.service"];
     };
 
-    systemd.suppressedSystemUnits = [ "autovt@.service" ];
+    systemd.suppressedSystemUnits = ["autovt@.service"];
 
     systemd.services.systemd-vconsole-setup.enable = false;
     systemd.services.reload-systemd-vconsole-setup.enable = false;
 
-    services.kmscon.extraConfig =
-      let
-        xkb = optionals cfg.useXkbConfig (
-          lib.mapAttrsToList (n: v: "xkb-${n}=${v}") (
-            lib.filterAttrs (
-              n: v:
+    services.kmscon.extraConfig = let
+      xkb = optionals cfg.useXkbConfig (
+        lib.mapAttrsToList (n: v: "xkb-${n}=${v}") (
+          lib.filterAttrs (
+            n: v:
               builtins.elem n [
                 "layout"
                 "model"
@@ -138,17 +134,18 @@ in
                 "variant"
               ]
               && v != ""
-            ) config.services.xserver.xkb
           )
-        );
-        render = optionals cfg.hwRender [
-          "drm"
-          "hwaccel"
-        ];
-        fonts =
-          optional (cfg.fonts != null)
-            "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
-      in
+          config.services.xserver.xkb
+        )
+      );
+      render = optionals cfg.hwRender [
+        "drm"
+        "hwaccel"
+      ];
+      fonts =
+        optional (cfg.fonts != null)
+        "font-name=${lib.concatMapStringsSep ", " (f: f.name) cfg.fonts}";
+    in
       lib.concatLines (xkb ++ render ++ fonts);
 
     hardware.graphics.enable = mkIf cfg.hwRender true;

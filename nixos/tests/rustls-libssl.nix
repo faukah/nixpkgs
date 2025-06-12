@@ -1,13 +1,15 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   caCert = builtins.readFile ./common/acme/server/ca.cert.pem;
   certPath = ./common/acme/server/acme.test.cert.pem;
   keyPath = ./common/acme/server/acme.test.key.pem;
   hosts = ''
     192.168.2.101 acme.test
   '';
-in
-{
+in {
   name = "rustls-libssl";
   meta.maintainers = with pkgs.lib.maintainers; [
     stephank
@@ -15,70 +17,70 @@ in
   ];
 
   nodes = {
-    server =
-      { lib, pkgs, ... }:
-      {
-        networking = {
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.101";
-                prefixLength = 24;
-              }
-            ];
-          };
-          extraHosts = hosts;
-          firewall.allowedTCPPorts = [ 443 ];
+    server = {
+      lib,
+      pkgs,
+      ...
+    }: {
+      networking = {
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "192.168.2.101";
+              prefixLength = 24;
+            }
+          ];
         };
-
-        security.pki.certificates = [ caCert ];
-
-        services.nginx = {
-          enable = true;
-          package = pkgs.nginxMainline.override {
-            openssl = pkgs.rustls-libssl;
-            modules = [ ]; # slightly reduces the size of the build
-          };
-
-          # Hardcoded sole input accepted by rustls-libssl.
-          sslCiphers = "HIGH:!aNULL:!MD5";
-
-          virtualHosts."acme.test" = {
-            onlySSL = true;
-            sslCertificate = certPath;
-            sslCertificateKey = keyPath;
-            http2 = true;
-            reuseport = true;
-            root = lib.mkForce (
-              pkgs.runCommandLocal "testdir" { } ''
-                mkdir "$out"
-                cat > "$out/index.html" <<EOF
-                <html><body>Hello World!</body></html>
-                EOF
-              ''
-            );
-          };
-        };
+        extraHosts = hosts;
+        firewall.allowedTCPPorts = [443];
       };
 
-    client =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [ pkgs.curlHTTP3 ];
-        networking = {
-          interfaces.eth1 = {
-            ipv4.addresses = [
-              {
-                address = "192.168.2.201";
-                prefixLength = 24;
-              }
-            ];
-          };
-          extraHosts = hosts;
+      security.pki.certificates = [caCert];
+
+      services.nginx = {
+        enable = true;
+        package = pkgs.nginxMainline.override {
+          openssl = pkgs.rustls-libssl;
+          modules = []; # slightly reduces the size of the build
         };
 
-        security.pki.certificates = [ caCert ];
+        # Hardcoded sole input accepted by rustls-libssl.
+        sslCiphers = "HIGH:!aNULL:!MD5";
+
+        virtualHosts."acme.test" = {
+          onlySSL = true;
+          sslCertificate = certPath;
+          sslCertificateKey = keyPath;
+          http2 = true;
+          reuseport = true;
+          root = lib.mkForce (
+            pkgs.runCommandLocal "testdir" {} ''
+              mkdir "$out"
+              cat > "$out/index.html" <<EOF
+              <html><body>Hello World!</body></html>
+              EOF
+            ''
+          );
+        };
       };
+    };
+
+    client = {pkgs, ...}: {
+      environment.systemPackages = [pkgs.curlHTTP3];
+      networking = {
+        interfaces.eth1 = {
+          ipv4.addresses = [
+            {
+              address = "192.168.2.201";
+              prefixLength = 24;
+            }
+          ];
+        };
+        extraHosts = hosts;
+      };
+
+      security.pki.certificates = [caCert];
+    };
   };
 
   testScript = ''

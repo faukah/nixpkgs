@@ -5,7 +5,6 @@
   libX11,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "netclient";
   version = "0.90.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isLinux libX11;
 
-  hardeningEnabled = [ "pie" ];
+  hardeningEnabled = ["pie"];
 
   meta = {
     description = "Automated WireGuard® Management Client";
@@ -29,6 +28,6 @@ buildGoModule rec {
     homepage = "https://netmaker.io";
     changelog = "https://github.com/gravitl/netclient/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ wexder ];
+    maintainers = with lib.maintainers; [wexder];
   };
 }

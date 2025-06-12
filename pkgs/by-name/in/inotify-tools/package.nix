@@ -6,7 +6,6 @@
   nix-update-script,
   fanotifySupport ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "inotify-tools";
   version = "4.23.9.0";
@@ -22,10 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.enableFeature fanotifySupport "fanotify")
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

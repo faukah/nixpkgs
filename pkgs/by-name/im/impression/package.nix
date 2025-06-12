@@ -21,7 +21,6 @@
   pango,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "impression";
   version = "3.4.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -70,8 +69,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/adhami3310/Impression";
     license = lib.licenses.gpl3Only;
     mainProgram = "impression";
-    maintainers = with lib.maintainers; [ dotlambda ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [dotlambda];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

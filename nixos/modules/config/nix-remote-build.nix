@@ -1,14 +1,17 @@
 /*
-  Manages the remote build configuration, /etc/nix/machines
+Manages the remote build configuration, /etc/nix/machines
 
-  See also
-   - ./nix.nix
-   - nixos/modules/services/system/nix-daemon.nix
+See also
+ - ./nix.nix
+ - nixos/modules/services/system/nix-daemon.nix
 */
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     any
     concatMapStrings
     concatStringsSep
@@ -29,46 +32,55 @@ let
 
   isNixAtLeast = versionAtLeast (getVersion nixPackage);
 
-  buildMachinesText = concatMapStrings (
-    machine:
-    (concatStringsSep " " (
-      [
-        "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
-          optionalString (machine.sshUser != null) "${machine.sshUser}@"
-        }${machine.hostName}"
-        (
-          if machine.system != null then
-            machine.system
-          else if machine.systems != [ ] then
-            concatStringsSep "," machine.systems
-          else
-            "-"
-        )
-        (if machine.sshKey != null then machine.sshKey else "-")
-        (toString machine.maxJobs)
-        (toString machine.speedFactor)
-        (
-          let
-            res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-          in
-          if (res == [ ]) then "-" else (concatStringsSep "," res)
-        )
-        (
-          let
-            res = machine.mandatoryFeatures;
-          in
-          if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
-        )
-      ]
-      ++ optional (isNixAtLeast "2.4pre") (
-        if machine.publicHostKey != null then machine.publicHostKey else "-"
-      )
-    ))
-    + "\n"
-  ) cfg.buildMachines;
-
-in
-{
+  buildMachinesText =
+    concatMapStrings (
+      machine:
+        (concatStringsSep " " (
+          [
+            "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
+              optionalString (machine.sshUser != null) "${machine.sshUser}@"
+            }${machine.hostName}"
+            (
+              if machine.system != null
+              then machine.system
+              else if machine.systems != []
+              then concatStringsSep "," machine.systems
+              else "-"
+            )
+            (
+              if machine.sshKey != null
+              then machine.sshKey
+              else "-"
+            )
+            (toString machine.maxJobs)
+            (toString machine.speedFactor)
+            (
+              let
+                res = machine.supportedFeatures ++ machine.mandatoryFeatures;
+              in
+                if (res == [])
+                then "-"
+                else (concatStringsSep "," res)
+            )
+            (
+              let
+                res = machine.mandatoryFeatures;
+              in
+                if (res == [])
+                then "-"
+                else (concatStringsSep "," machine.mandatoryFeatures)
+            )
+          ]
+          ++ optional (isNixAtLeast "2.4pre") (
+            if machine.publicHostKey != null
+            then machine.publicHostKey
+            else "-"
+          )
+        ))
+        + "\n"
+    )
+    cfg.buildMachines;
+in {
   options = {
     nix = {
       buildMachines = mkOption {
@@ -112,7 +124,7 @@ in
               };
               systems = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "x86_64-linux"
                   "aarch64-linux"
@@ -170,8 +182,8 @@ in
               };
               mandatoryFeatures = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "big-parallel" ];
+                default = [];
+                example = ["big-parallel"];
                 description = ''
                   A list of features mandatory for this builder. The builder will
                   be ignored for derivations that don't require all features in
@@ -181,7 +193,7 @@ in
               };
               supportedFeatures = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "kvm"
                   "big-parallel"
@@ -204,7 +216,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = ''
           This option lists the machines to be used if distributed builds are
           enabled (see {option}`nix.distributedBuilds`).
@@ -228,30 +240,28 @@ in
   # distributedBuilds does *not* inhibit /etc/nix/machines generation; caller may
   # override that nix option.
   config = mkIf cfg.enable {
-    assertions =
-      let
-        badMachine = m: m.system == null && m.systems == [ ];
-      in
-      [
-        {
-          assertion = !(any badMachine cfg.buildMachines);
-          message =
-            ''
-              At least one system type (via <varname>system</varname> or
-                <varname>systems</varname>) must be set for every build machine.
-                Invalid machine specifications:
-            ''
-            + "      "
-            + (concatStringsSep "\n      " (map (m: m.hostName) (filter (badMachine) cfg.buildMachines)));
-        }
-      ];
+    assertions = let
+      badMachine = m: m.system == null && m.systems == [];
+    in [
+      {
+        assertion = !(any badMachine cfg.buildMachines);
+        message =
+          ''
+            At least one system type (via <varname>system</varname> or
+              <varname>systems</varname>) must be set for every build machine.
+              Invalid machine specifications:
+          ''
+          + "      "
+          + (concatStringsSep "\n      " (map (m: m.hostName) (filter badMachine cfg.buildMachines)));
+      }
+    ];
 
     # List of machines for distributed Nix builds
-    environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
+    environment.etc."nix/machines" = mkIf (cfg.buildMachines != []) {
       text = buildMachinesText;
     };
 
     # Legacy configuration conversion.
-    nix.settings = mkIf (!cfg.distributedBuilds) { builders = null; };
+    nix.settings = mkIf (!cfg.distributedBuilds) {builders = null;};
   };
 }

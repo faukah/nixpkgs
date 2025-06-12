@@ -12,7 +12,6 @@
   airspy,
   soapysdr-with-plugins,
 }:
-
 stdenv.mkDerivation rec {
   pname = "abracadabra";
   version = "3.2.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KejPi/AbracaDABra";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     mainProgram = "AbracaDABra";
   };
 }

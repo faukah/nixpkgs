@@ -13,7 +13,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "fs";
   version = "2.4.16";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace ThreadedTestFTPd FtpdThreadWrapper
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
@@ -74,7 +73,7 @@ buildPythonPackage rec {
       "test_ftpfs"
     ];
 
-  pythonImportsCheck = [ "fs" ];
+  pythonImportsCheck = ["fs"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -83,7 +82,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyFilesystem/pyfilesystem2";
     changelog = "https://github.com/PyFilesystem/pyfilesystem2/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

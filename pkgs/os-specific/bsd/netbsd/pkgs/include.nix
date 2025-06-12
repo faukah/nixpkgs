@@ -12,7 +12,6 @@
   defaultMakeFlags,
   stdenv,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "include";
@@ -42,9 +41,9 @@ mkDerivation {
     makeFlags=''${makeFlags/INCSDIR/INCSDIR0}
   '';
 
-  extraPaths = [ "common" ];
+  extraPaths = ["common"];
   headersOnly = true;
   noCC = true;
   meta.platforms = lib.platforms.netbsd;
-  makeFlags = defaultMakeFlags ++ [ "RPCGEN_CPP=${stdenv.cc.cc}/bin/cpp" ];
+  makeFlags = defaultMakeFlags ++ ["RPCGEN_CPP=${stdenv.cc.cc}/bin/cpp"];
 }

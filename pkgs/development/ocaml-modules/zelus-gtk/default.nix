@@ -3,7 +3,6 @@
   zelus,
   lablgtk,
 }:
-
 buildDunePackage {
   pname = "zelus-gtk";
   inherit (zelus) version src postPatch;

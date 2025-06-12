@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tidy-viewer";
   version = "1.5.2";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/alexhallam/tv";
     changelog = "https://github.com/alexhallam/tv/blob/${version}/CHANGELOG.md";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

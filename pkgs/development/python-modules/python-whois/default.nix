@@ -8,7 +8,6 @@
   setuptools,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "python-whois";
   version = "0.9.5";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-GJaMIUhHUvzEuaXwr0d+9rjcLou38b1cM4MUmcDdQco=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     "test_simple_unicode_domain"
   ];
 
-  pythonImportsCheck = [ "whois" ];
+  pythonImportsCheck = ["whois"];
 
   meta = with lib; {
     description = "Python module to produce parsed WHOIS data";
     homepage = "https://github.com/richardpenman/whois";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

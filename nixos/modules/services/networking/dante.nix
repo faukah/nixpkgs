@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dante;
   confFile = pkgs.writeText "dante-sockd.conf" ''
     user.privileged: root
@@ -13,11 +12,9 @@ let
 
     ${cfg.config}
   '';
-in
-
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ arobyn ];
+    maintainers = with lib.maintainers; [arobyn];
   };
 
   options = {
@@ -47,13 +44,13 @@ in
       isSystemUser = true;
       group = "dante";
     };
-    users.groups.dante = { };
+    users.groups.dante = {};
 
     systemd.services.dante = {
       description = "Dante SOCKS v4 and v5 compatible proxy server";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";

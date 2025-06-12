@@ -3,11 +3,10 @@
   byacc,
   flex,
 }:
-
 mkDerivation {
   path = "usr.bin/mkesdb";
 
-  extraPaths = [ "lib/libc/iconv" ];
+  extraPaths = ["lib/libc/iconv"];
 
   extraNativeBuildInputs = [
     byacc

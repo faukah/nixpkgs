@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-replay-source";
   version = "1.8.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+PSALDqHXPyR0J7YnLn3QgPN6eIoH3yTIm1Bp7Li8c8=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     rm -rf $out/obs-plugins $out/data

@@ -13,7 +13,6 @@
   pv,
   withBfbInstall ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rshim-user-space";
   version = "2.2.4";
@@ -25,11 +24,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-z0Uk520vsBERbeVtxBqXPXSWhO0sLD5GCQy1dQsJdEg=";
   };
 
-  nativeBuildInputs = [
-    autoconf
-    automake
-    pkg-config
-  ] ++ lib.optionals withBfbInstall [ makeBinaryWrapper ];
+  nativeBuildInputs =
+    [
+      autoconf
+      automake
+      pkg-config
+    ]
+    ++ lib.optionals withBfbInstall [makeBinaryWrapper];
 
   buildInputs = [
     pciutils
@@ -57,11 +58,11 @@ stdenv.mkDerivation rec {
   postFixup = lib.optionalString withBfbInstall ''
     wrapProgram $out/bin/bfb-install \
       --set PATH ${
-        lib.makeBinPath [
-          busybox
-          pv
-        ]
-      }
+      lib.makeBinPath [
+        busybox
+        pv
+      ]
+    }
   '';
 
   meta = with lib; {

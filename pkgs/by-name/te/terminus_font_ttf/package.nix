@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "terminus-font-ttf";
   version = "4.49.3";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://files.ax86.net/terminus-ttf";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

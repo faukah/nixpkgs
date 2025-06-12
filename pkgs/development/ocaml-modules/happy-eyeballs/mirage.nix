@@ -11,7 +11,6 @@
   mirage-sleep,
   tcpip,
 }:
-
 buildDunePackage {
   pname = "happy-eyeballs-mirage";
 
@@ -37,7 +36,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = happy-eyeballs.meta // {
-    description = "Connecting to a remote host via IP version 4 or 6 using Mirage";
-  };
+  meta =
+    happy-eyeballs.meta
+    // {
+      description = "Connecting to a remote host via IP version 4 or 6 using Mirage";
+    };
 }

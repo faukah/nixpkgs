@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "trillian";
   version = "1.7.2";
@@ -27,7 +26,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/google/trillian";
     description = "Transparent, highly scalable and cryptographically verifiable data store";
-    license = [ licenses.asl20 ];
-    maintainers = [ ];
+    license = [licenses.asl20];
+    maintainers = [];
   };
 }

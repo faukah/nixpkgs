@@ -9,7 +9,6 @@
   python3,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "linux-kernel-latest-htmldocs";
 
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
   '';
 
   FONTCONFIG_FILE = makeFontsConf {
-    fontDirectories = [ ];
+    fontDirectories = [];
   };
 
   nativeBuildInputs = [
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     export XDG_CACHE_HOME="$(mktemp -d)"
   '';
 
-  makeFlags = [ "htmldocs" ];
+  makeFlags = ["htmldocs"];
 
   installPhase = ''
     mkdir -p $out/share/doc
@@ -53,6 +52,6 @@ stdenv.mkDerivation {
     homepage = "https://www.kernel.org/doc/htmldocs/";
     platforms = lib.platforms.linux;
     inherit (linux_latest.meta) license;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

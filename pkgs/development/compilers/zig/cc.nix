@@ -5,18 +5,17 @@
   stdenv,
   makeWrapper,
   coreutils,
-}:
-let
+}: let
   targetPrefix = lib.optionalString (
     stdenv.hostPlatform != stdenv.targetPlatform
   ) "${stdenv.targetPlatform.config}-";
 in
-runCommand "zig-cc-${zig.version}"
+  runCommand "zig-cc-${zig.version}"
   {
     pname = "zig-cc";
     inherit (zig) version meta;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     passthru = {
       isZig = true;
@@ -30,7 +29,7 @@ runCommand "zig-cc-${zig.version}"
     for tool in cc c++ ld.lld; do
       makeWrapper "$zig/bin/zig" "$out/bin/$tool" \
         --add-flags "$tool" \
-        --suffix PATH : "${lib.makeBinPath [ coreutils ]}" \
+        --suffix PATH : "${lib.makeBinPath [coreutils]}" \
         --run "export ZIG_GLOBAL_CACHE_DIR=\$(mktemp -d)"
     done
 

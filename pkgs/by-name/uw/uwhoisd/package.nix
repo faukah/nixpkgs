@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "uwhoisd";
   version = "0.1.0-unstable-2024-02-24";
@@ -25,8 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     poetry-core
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       beautifulsoup4
       publicsuffix2
@@ -43,6 +41,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Lookyloo/uwhoisd";
     changelog = "https://github.com/Lookyloo/uwhoisd/blob/${version}/ChangeLog";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

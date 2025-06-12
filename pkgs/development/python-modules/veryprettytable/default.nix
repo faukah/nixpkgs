@@ -5,7 +5,6 @@
   termcolor,
   colorama,
 }:
-
 buildPythonPackage rec {
   pname = "veryprettytable";
   version = "0.8.1";

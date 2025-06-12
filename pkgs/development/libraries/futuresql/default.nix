@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     cmake
     extra-cmake-modules
   ];
-  buildInputs = [ qtbase ];
-  cmakeFlags = [ "-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}" ];
+  buildInputs = [qtbase];
+  cmakeFlags = ["-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}"];
 
   # a library, nothing to wrap
   dontWrapQtApps = true;

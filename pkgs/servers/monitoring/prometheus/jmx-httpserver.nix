@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jmx-prometheus-httpserver";
   version = "0.15.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "0fr3svn8kjp7bq1wzbkvv5awylwn8b01bngj04zvk7fpzqpgs7mz";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   dontUnpack = true;
 
@@ -33,9 +32,9 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/prometheus/jmx_exporter";
     description = "Process for exposing JMX Beans via HTTP for Prometheus consumption";
     mainProgram = "jmx_prometheus_httpserver";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
     platforms = platforms.unix;
   };
 }

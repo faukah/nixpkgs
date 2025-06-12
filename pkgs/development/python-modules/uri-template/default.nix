@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "uri-template";
   version = "1.3.0";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     ${python.interpreter} test.py
   '';
 
-  pythonImportsCheck = [ "uri_template" ];
+  pythonImportsCheck = ["uri_template"];
 
   meta = with lib; {
     description = "Implementation of RFC 6570 URI Templates";
     homepage = "https://github.com/plinss/uri_template/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

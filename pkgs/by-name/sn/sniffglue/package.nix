@@ -7,7 +7,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sniffglue";
   version = "0.16.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-4aOp9z1xAZ4+GfvcP4rwiS35BfNBnftNhK/oJDixa8w=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "Secure multithreaded packet sniffer";
     homepage = "https://github.com/kpcyrd/sniffglue";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "sniffglue";
   };

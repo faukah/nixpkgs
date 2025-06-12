@@ -4,20 +4,19 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.flood;
-in
-{
-  meta.maintainers = with lib.maintainers; [ thiagokokada ];
+in {
+  meta.maintainers = with lib.maintainers; [thiagokokada];
 
   options.services.flood = {
     enable = lib.mkEnableOption "flood";
-    package = lib.mkPackageOption pkgs "flood" { };
-    openFirewall = lib.mkEnableOption "" // {
-      description = "Whether to open the firewall for the port in {option}`services.flood.port`.";
-    };
+    package = lib.mkPackageOption pkgs "flood" {};
+    openFirewall =
+      lib.mkEnableOption ""
+      // {
+        description = "Whether to open the firewall for the port in {option}`services.flood.port`.";
+      };
     port = lib.mkOption {
       type = lib.types.int;
       description = "Port to bind webserver.";
@@ -33,16 +32,16 @@ in
     extraArgs = lib.mkOption {
       type = with lib.types; listOf str;
       description = "Extra arguments passed to `flood`.";
-      default = [ ];
-      example = [ "--baseuri=/" ];
+      default = [];
+      example = ["--baseuri=/"];
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.flood = {
       description = "A modern web UI for various torrent clients.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         Documentation = "https://github.com/jesec/flood/wiki";
       };
@@ -61,7 +60,7 @@ in
           ++ cfg.extraArgs
         );
 
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         LockPersonality = true;
         NoNewPrivileges = true;

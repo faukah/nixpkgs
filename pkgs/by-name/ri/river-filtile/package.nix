@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "river-filtile";
   version = "1.2.1";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     description = "Layout manager for the River window manager";
     homepage = "https://github.com/pkulak/filtile";
     license = licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ pkulak ];
+    maintainers = with lib.maintainers; [pkulak];
     mainProgram = "filtile";
   };
 }

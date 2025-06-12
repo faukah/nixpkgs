@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonAtLeast,
-
   # build-system
   setuptools,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "paginate";
   version = "0.5.7";
@@ -23,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-+zX9uGNWcV4BWbD2lcd1u9zZ4m7CnbsYZnc99HNaF8I=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "paginate" ];
+  pythonImportsCheck = ["paginate"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # https://github.com/Pylons/paginate/issues/19
@@ -40,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Pylons/paginate";
     changelog = "https://github.com/Pylons/paginate/blob/${src.rev}/CHANGELOG.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

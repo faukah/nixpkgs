@@ -5,9 +5,7 @@
   ctestCheckHook,
   fetchFromGitHub,
   testers,
-
   enableE57 ? lib.meta.availableOn stdenv.hostPlatform libe57format,
-
   cmake,
   curl,
   gdal,
@@ -27,7 +25,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdal";
   version = "2.8.4";
@@ -69,7 +66,11 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   cmakeFlags = [
-    "-DBUILD_PLUGIN_E57=${if enableE57 then "ON" else "OFF"}"
+    "-DBUILD_PLUGIN_E57=${
+      if enableE57
+      then "ON"
+      else "OFF"
+    }"
     "-DBUILD_PLUGIN_HDF=ON"
     "-DBUILD_PLUGIN_PGPOINTCLOUD=ON"
     "-DBUILD_PLUGIN_TILEDB=ON"
@@ -136,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
       command = "pdal --version";
       version = "pdal ${finalAttrs.finalPackage.version}";
     };
-    pdal = callPackage ./tests.nix { pdal = finalAttrs.finalPackage; };
+    pdal = callPackage ./tests.nix {pdal = finalAttrs.finalPackage;};
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
     };
@@ -146,8 +147,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "PDAL is Point Data Abstraction Library. GDAL for point cloud data";
     homepage = "https://pdal.io";
     license = licenses.bsd3;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
     platforms = platforms.all;
-    pkgConfigModules = [ "pdal" ];
+    pkgConfigModules = ["pdal"];
   };
 })

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eschalot";
   version = "1.2.0.20191006";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wbi0azc2b57nmmx6c1wmvng70d9ph1s83yhnl5lxaaqaj85h22g";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   installPhase = ''
     install -D -t $out/bin eschalot worgen
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

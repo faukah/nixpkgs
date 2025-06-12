@@ -2,9 +2,7 @@
   pkgs,
   extraInit ? "",
   extraShutdown ? "",
-}:
-
-''
+}: ''
   start_all()
 
   ${extraInit}

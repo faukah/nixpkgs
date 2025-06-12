@@ -5,7 +5,6 @@
   fetchPypi,
   git,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gigalixir";
   version = "1.13.1";
@@ -62,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Gigalixir Command-Line Interface";
     homepage = "https://github.com/gigalixir/gigalixir-cli";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "gigalixir";
   };
 }

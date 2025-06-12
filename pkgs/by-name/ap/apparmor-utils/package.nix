@@ -10,7 +10,6 @@
   python3Packages,
   bashNonInteractive,
   buildPackages,
-
   # apparmor deps
   libapparmor,
   apparmor-parser,
@@ -75,12 +74,14 @@ python3Packages.buildPythonApplication {
 
   postInstall = ''
     wrapProgram $out/bin/aa-remove-unknown \
-     --prefix PATH : ${lib.makeBinPath [ gawk ]}
+     --prefix PATH : ${lib.makeBinPath [gawk]}
 
     ln -s ${lib.getExe apparmor-teardown} $out/bin/aa-teardown
   '';
 
-  meta = libapparmor.meta // {
-    description = "Mandatory access control system - script user-land utilities";
-  };
+  meta =
+    libapparmor.meta
+    // {
+      description = "Mandatory access control system - script user-land utilities";
+    };
 }

@@ -17,7 +17,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "fastparquet";
   version = "2024.11.0";
@@ -53,10 +52,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    lzo = [ python-lzo ];
+    lzo = [python-lzo];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Workaround https://github.com/NixOS/nixpkgs/issues/123561
   preCheck = ''
@@ -70,13 +69,13 @@ buildPythonPackage rec {
     rm "$fastparquet_test"
   '';
 
-  pythonImportsCheck = [ "fastparquet" ];
+  pythonImportsCheck = ["fastparquet"];
 
   meta = with lib; {
     description = "Implementation of the parquet format";
     homepage = "https://github.com/dask/fastparquet";
     changelog = "https://github.com/dask/fastparquet/blob/${version}/docs/source/releasenotes.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

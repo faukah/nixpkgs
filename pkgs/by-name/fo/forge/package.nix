@@ -17,7 +17,6 @@
   stdenv,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "forge";
   version = "1.0.8";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
 
   # This patch ensures that Forge does not try to fetch glad from GitHub and
   # uses our sources that we've checked out via Nix.
-  patches = [ ./no-download-glad.patch ];
+  patches = [./no-download-glad.patch];
 
   postPatch = ''
     mkdir -p ./extern
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     ln -s ${opencl-clhpp} ./extern/cl2hpp
   '';
 
-  cmakeFlags = [ "-DFETCHCONTENT_FULLY_DISCONNECTED=ON" ];
+  cmakeFlags = ["-DFETCHCONTENT_FULLY_DISCONNECTED=ON"];
 
   nativeBuildInputs = [
     cmake

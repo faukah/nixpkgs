@@ -10,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "proksi";
   version = "0.6.0";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     zstd
   ];
 
-  cargoBuildFlags = [ "--package=proksi" ];
+  cargoBuildFlags = ["--package=proksi"];
   cargoTestFlags = finalAttrs.cargoBuildFlags;
 
   checkFlags = [
@@ -58,11 +57,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ZSTD_SYS_USE_PKG_CONFIG = true;
   };
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=proksi-v(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=proksi-v(.*)"];};
 
   meta = {
     description = "Batteries-included CDN, reverse proxy and Load Balancer using Cloudflare Pingora";
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "proksi";
   };
 })

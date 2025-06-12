@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "pycdc";
   version = "0-unstable-2024-10-13";
@@ -16,13 +15,13 @@ stdenv.mkDerivation {
     hash = "sha256-c/mfM2I8Rw136aQ3IAQOkkrOEtZ5LC/xKuWXzCItW2w=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "C++ python bytecode disassembler and decompiler";
     homepage = "https://github.com/zrax/pycdc";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ msm ];
+    maintainers = with lib.maintainers; [msm];
     mainProgram = "pycdc";
   };
 }

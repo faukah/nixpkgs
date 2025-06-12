@@ -8,7 +8,6 @@
   procps,
   kbd,
 }:
-
 stdenv.mkDerivation {
   pname = "logkeys";
   version = "2018-01-22";

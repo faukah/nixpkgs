@@ -17,7 +17,6 @@
   time-machine,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "aioautomower";
   version = "2025.5.1";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "aioautomower" ];
+  pythonImportsCheck = ["aioautomower"];
 
   disabledTests = [
     # File is missing
@@ -75,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Thomas55555/aioautomower";
     changelog = "https://github.com/Thomas55555/aioautomower/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

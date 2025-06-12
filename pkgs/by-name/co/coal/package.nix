@@ -14,7 +14,6 @@
   python3Packages,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coal";
   version = "3.0.1";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/coal-library/coal";
     changelog = "https://github.com/coal-library/coal/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

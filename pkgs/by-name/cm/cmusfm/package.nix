@@ -10,7 +10,6 @@
   libnotifySupport ? stdenv.hostPlatform.isLinux,
   debug ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cmusfm";
   version = "0.5.0";
@@ -31,10 +30,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [
-    curl
-    gdk-pixbuf
-  ] ++ lib.optional libnotifySupport libnotify;
+  buildInputs =
+    [
+      curl
+      gdk-pixbuf
+    ]
+    ++ lib.optional libnotifySupport libnotify;
 
   meta = with lib; {
     description = "Last.fm and Libre.fm standalone scrobbler for the cmus music player";

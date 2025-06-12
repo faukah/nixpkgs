@@ -17,7 +17,6 @@
   _experimental-update-script-combinators,
   fletTarget ? "linux",
 }:
-
 flutter327.buildFlutterApplication rec {
   pname = "flet-client-flutter";
   version = "0.27.6";
@@ -63,13 +62,13 @@ flutter327.buildFlutterApplication rec {
 
   passthru = {
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       {
         command = [
           "env"
           "PATH=${
             lib.makeBinPath [
-              (python3.withPackages (p: [ p.pyyaml ]))
+              (python3.withPackages (p: [p.pyyaml]))
               nix-prefetch-git
               nix
             ]
@@ -77,7 +76,7 @@ flutter327.buildFlutterApplication rec {
           "python3"
           ./update-lockfiles.py
         ];
-        supportedFeatures = [ "silent" ];
+        supportedFeatures = ["silent"];
       }
     ];
   };

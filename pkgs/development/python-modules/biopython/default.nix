@@ -6,7 +6,6 @@
   setuptools,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "biopython";
   version = "1.85";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-Xa+rdAWd5OePSfa1aE7drm585G8Jz6BZwdEznoseoKY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  pythonImportsCheck = [ "Bio" ];
+  pythonImportsCheck = ["Bio"];
 
   checkPhase = ''
     runHook preCheck
@@ -45,7 +44,7 @@ buildPythonPackage rec {
       bioinformatics.
     '';
     homepage = "https://biopython.org/wiki/Documentation";
-    maintainers = with lib.maintainers; [ luispedro ];
+    maintainers = with lib.maintainers; [luispedro];
     license = lib.licenses.bsd3;
   };
 }

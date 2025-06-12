@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ready-check";
   version = "1.2.6";
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/sesh/ready";
     changelog = "https://github.com/sesh/ready/releases/tag/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "ready";
   };
 }

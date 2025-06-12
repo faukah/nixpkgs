@@ -14,7 +14,6 @@
   kactivities,
   plasma-workspace,
 }:
-
 mkDerivation {
   pname = "plasma-browser-integration";
   nativeBuildInputs = [

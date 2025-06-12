@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "godspeed";
   version = "1.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-DCDAuKvov4tkf77nJNo9mQU/bAeQasp4VBQRtLX+U6c=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   postFixup = ''
     mv $out/bin/GodSpeed $out/bin/${pname}
@@ -30,8 +29,8 @@ buildGoModule rec {
     homepage = "https://github.com/redcode-labs/GodSpeed";
     changelog = "https://github.com/redcode-labs/GodSpeed/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
-    teams = [ lib.teams.redcodelabs ];
+    maintainers = with lib.maintainers; [fab];
+    teams = [lib.teams.redcodelabs];
     mainProgram = "godspeed";
     broken = stdenv.hostPlatform.isDarwin;
   };

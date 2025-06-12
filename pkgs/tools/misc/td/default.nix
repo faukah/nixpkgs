@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "td";
   gemdir = ./.;
-  exes = [ "td" ];
+  exes = ["td"];
 
   passthru.updateScript = bundlerUpdateScript "td";
 

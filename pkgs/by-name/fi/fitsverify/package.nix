@@ -4,7 +4,6 @@
   fetchurl,
   cfitsio,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fitsverify";
   version = "4.22";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://heasarc.gsfc.nasa.gov/docs/software/ftools/fitsverify/";
     license = licenses.mit;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 })

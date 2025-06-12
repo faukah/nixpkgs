@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-github";
   bundlerEnvArgs.gemdir = ./.;
@@ -15,9 +14,8 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-github";
-    maintainers = with maintainers; [ talyz ];
+    maintainers = with maintainers; [talyz];
     license = licenses.mit;
     description = "Adds GitHub badges and linkback functionality";
   };
-
 }

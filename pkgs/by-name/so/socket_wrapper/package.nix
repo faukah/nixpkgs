@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "socket_wrapper";
   version = "1.5.0";

@@ -11,7 +11,6 @@
   setuptools,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "reconplogger";
   version = "4.16.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-F/6vT3jLxpteUFtYNtGyiO/JxeRtwJKpdGXTFJ6IDCE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     logmatic-python
@@ -45,14 +44,14 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  pythonImportsCheck = [ "reconplogger" ];
+  pythonImportsCheck = ["reconplogger"];
 
-  pytestFlagsArray = [ "reconplogger_tests.py" ];
+  pytestFlagsArray = ["reconplogger_tests.py"];
 
   meta = with lib; {
     description = "Module to ease the standardization of logging within omni:us";
     homepage = "https://github.com/omni-us/reconplogger";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

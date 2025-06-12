@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pfetch-rs";
   version = "2.11.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Gobidev/pfetch-rs";
     changelog = "https://github.com/Gobidev/pfetch-rs/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gobidev ];
+    maintainers = with lib.maintainers; [gobidev];
     mainProgram = "pfetch";
   };
 }

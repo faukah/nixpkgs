@@ -9,7 +9,6 @@
   flex,
   rdma-core,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensm";
   version = "3.3.24";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     flex
   ];
 
-  buildInputs = [ rdma-core ];
+  buildInputs = [rdma-core];
 
   preConfigure = ''
     patchShebangs ./autogen.sh
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Infiniband subnet manager";
     homepage = "https://www.openfabrics.org/";
     license = licenses.gpl2Only; # dual licensed as 2-clause BSD
-    maintainers = [ maintainers.aij ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.aij];
+    platforms = ["x86_64-linux"];
   };
 }

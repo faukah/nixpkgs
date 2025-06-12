@@ -11,7 +11,6 @@
   tcl,
   tk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xschem";
   version = "3.4.5";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     tk
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xschem.sourceforge.io/stefan/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.all;
   };
 }

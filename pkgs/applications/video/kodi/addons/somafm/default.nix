@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "somafm";
   namespace = "plugin.audio.somafm";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/Soma-FM-Kodi-Add-On/plugin.audio.somafm";
     description = "SomaFM addon for Kodi";
     license = licenses.gpl3Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -19,7 +19,6 @@
   python3,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-taquin";
   version = "3.38.1";
@@ -62,14 +61,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-taquin"; };
+    updateScript = gnome.updateScript {packageName = "gnome-taquin";};
   };
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-taquin";
     description = "Move tiles so that they reach their places";
     mainProgram = "gnome-taquin";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

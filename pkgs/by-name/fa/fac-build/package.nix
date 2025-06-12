@@ -5,7 +5,6 @@
   fetchCrate,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fac-build";
   version = "0.5.4";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   # fac includes a unit test called ls_files_works which assumes it's
   # running in a git repo. Nix's sandbox runs cargo build outside git,
   # so this test won't work.
-  checkFlags = [ "--skip=ls_files_works" ];
+  checkFlags = ["--skip=ls_files_works"];
 
   # fac calls git at runtime, expecting it to be in the PATH,
   # so we need to patch it to call git by absolute path instead.
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = ''
       A build system that uses ptrace to handle dependencies automatically
     '';
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://physics.oregonstate.edu/~roundyd/fac";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dpercy ];
+    maintainers = with maintainers; [dpercy];
     mainProgram = "fac";
   };
 }

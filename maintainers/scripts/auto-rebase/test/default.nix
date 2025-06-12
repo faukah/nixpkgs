@@ -1,10 +1,11 @@
 let
   pkgs = import ../../../.. {
-    config = { };
-    overlays = [ ];
+    config = {};
+    overlays = [];
   };
 
-  inherit (pkgs)
+  inherit
+    (pkgs)
     lib
     stdenvNoCC
     gitMinimal
@@ -12,35 +13,34 @@ let
     nixfmt-rfc-style
     ;
 in
-
-stdenvNoCC.mkDerivation {
-  name = "test";
-  src = lib.fileset.toSource {
-    root = ./..;
-    fileset = lib.fileset.unions [
-      ../run.sh
-      ./run.sh
-      ./first.diff
-      ./second.diff
+  stdenvNoCC.mkDerivation {
+    name = "test";
+    src = lib.fileset.toSource {
+      root = ./..;
+      fileset = lib.fileset.unions [
+        ../run.sh
+        ./run.sh
+        ./first.diff
+        ./second.diff
+      ];
+    };
+    nativeBuildInputs = [
+      gitMinimal
+      treefmt
+      nixfmt-rfc-style
     ];
-  };
-  nativeBuildInputs = [
-    gitMinimal
-    treefmt
-    nixfmt-rfc-style
-  ];
-  patchPhase = ''
-    patchShebangs .
-  '';
+    patchPhase = ''
+      patchShebangs .
+    '';
 
-  buildPhase = ''
-    export HOME=$(mktemp -d)
-    export PAGER=true
-    git config --global user.email "Your Name"
-    git config --global user.name "your.name@example.com"
-    ./test/run.sh
-  '';
-  installPhase = ''
-    touch $out
-  '';
-}
+    buildPhase = ''
+      export HOME=$(mktemp -d)
+      export PAGER=true
+      git config --global user.email "Your Name"
+      git config --global user.name "your.name@example.com"
+      ./test/run.sh
+    '';
+    installPhase = ''
+      touch $out
+    '';
+  }

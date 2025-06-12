@@ -5,7 +5,6 @@
   testers,
   tailer,
 }:
-
 buildGoModule rec {
   pname = "tailer";
   version = "0.1.1";
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "CLI tool to insert lines when command output stops";
     homepage = "https://github.com/hionay/tailer";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "tailer";
   };
 }

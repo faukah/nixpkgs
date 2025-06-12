@@ -5,12 +5,11 @@
   kernelModuleMakeFlags,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "can-isotp";
   version = "20200910";
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   src = fetchFromGitHub {
     owner = "hartkopp";
@@ -19,13 +18,15 @@ stdenv.mkDerivation {
     sha256 = "1laax93czalclg7cy9iq1r7hfh9jigh7igj06y9lski75ap2vhfq";
   };
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNELDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
 
-  buildFlags = [ "modules" ];
-  installTargets = [ "modules_install" ];
+  buildFlags = ["modules"];
+  installTargets = ["modules_install"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -35,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/hartkopp/can-isotp";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.evck ];
+    maintainers = [maintainers.evck];
   };
 }

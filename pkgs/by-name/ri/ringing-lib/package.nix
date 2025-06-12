@@ -8,7 +8,6 @@
   xercesc,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ringing-lib";
   version = "0-unstable-2024-05-31";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   meta = {
     description = "Library of C++ classes and utilities for change ringing";
     homepage = "https://ringing-lib.github.io/";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       lgpl2Plus
     ];
-    maintainers = with lib.maintainers; [ jshholland ];
+    maintainers = with lib.maintainers; [jshholland];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,7 +3,6 @@
   lib,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "anime4k";
   version = "4.0.1";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "High-quality real time upscaler for anime";
     homepage = "https://github.com/bloc97/Anime4K";
     license = licenses.mit;
-    maintainers = with maintainers; [ surfaceflinger ];
+    maintainers = with maintainers; [surfaceflinger];
     platforms = platforms.all;
   };
 })

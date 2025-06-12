@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "duckstation-bin";
   version = "0.1-7371";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-ukORbTG0lZIsUInkEnyPB9+PwFxxK5hbgj9D6tjOEAY=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontPatch = true;
   dontConfigure = true;
@@ -38,8 +37,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Fast PlayStation 1 emulator for x86-64/AArch32/AArch64";
     changelog = "https://github.com/stenzek/duckstation/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ matteopacini ];
+    maintainers = with lib.maintainers; [matteopacini];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

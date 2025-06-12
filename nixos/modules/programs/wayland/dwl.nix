@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.dwl;
-in
-{
+in {
   options.programs.dwl = {
     enable = lib.mkEnableOption ''
       Dwl is a compact, hackable compositor for Wayland based on wlroots.
@@ -44,15 +42,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # Create systemd target for dwl session
     systemd.user.targets.dwl-session = {
       description = "dwl compositor session";
-      documentation = [ "man:systemd.special(7)" ];
-      bindsTo = [ "graphical-session.target" ];
-      wants = [ "graphical-session-pre.target" ];
-      after = [ "graphical-session-pre.target" ];
+      documentation = ["man:systemd.special(7)"];
+      bindsTo = ["graphical-session.target"];
+      wants = ["graphical-session-pre.target"];
+      after = ["graphical-session-pre.target"];
     };
 
     # Create wrapper script for dwl
@@ -71,27 +69,25 @@ in
     };
 
     # Create desktop entry for display managers
-    services.displayManager.sessionPackages =
-      let
-        dwlDesktopFile = pkgs.writeTextFile {
-          name = "dwl-desktop-entry";
-          destination = "/share/wayland-sessions/dwl.desktop";
-          text = ''
-            [Desktop Entry]
-            Name=dwl
-            Comment=Dynamic window manager for Wayland
-            Exec=/etc/xdg/dwl-session
-            Type=Application
-          '';
-        };
+    services.displayManager.sessionPackages = let
+      dwlDesktopFile = pkgs.writeTextFile {
+        name = "dwl-desktop-entry";
+        destination = "/share/wayland-sessions/dwl.desktop";
+        text = ''
+          [Desktop Entry]
+          Name=dwl
+          Comment=Dynamic window manager for Wayland
+          Exec=/etc/xdg/dwl-session
+          Type=Application
+        '';
+      };
 
-        dwlSession = pkgs.symlinkJoin {
-          name = "dwl-session";
-          paths = [ dwlDesktopFile ];
-          passthru.providedSessions = [ "dwl" ];
-        };
-      in
-      [ dwlSession ];
+      dwlSession = pkgs.symlinkJoin {
+        name = "dwl-session";
+        paths = [dwlDesktopFile];
+        passthru.providedSessions = ["dwl"];
+      };
+    in [dwlSession];
 
     # Configure XDG portal for dwl (minimal configuration)
     xdg.portal.config.dwl.default = lib.mkDefault [
@@ -100,5 +96,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ gurjaka ];
+  meta.maintainers = with lib.maintainers; [gurjaka];
 }

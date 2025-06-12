@@ -13,7 +13,6 @@
   qmake,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "engauge-digitizer";
   version = "12.2.2";
@@ -69,8 +68,8 @@ stdenv.mkDerivation rec {
     description = "Engauge Digitizer is a tool for recovering graph data from an image file";
     mainProgram = "engauge";
     homepage = "https://markummitchell.github.io/engauge-digitizer";
-    license = with licenses; [ gpl2Only ];
+    license = with licenses; [gpl2Only];
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

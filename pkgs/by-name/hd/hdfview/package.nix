@@ -11,7 +11,6 @@
   strip-nondeterminism,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hdfview";
   version = "3.3.2";
@@ -40,20 +39,21 @@ stdenv.mkDerivation (finalAttrs: {
     stripJavaArchivesHook
   ];
 
-  HDFLIBS = (hdf4.override { javaSupport = true; }).out;
-  HDF5LIBS = (hdf5.override { javaSupport = true; }).out;
+  HDFLIBS = (hdf4.override {javaSupport = true;}).out;
+  HDF5LIBS = (hdf5.override {javaSupport = true;}).out;
 
-  buildPhase =
-    let
-      arch = if stdenv.hostPlatform.isx86_64 then "x86_64" else "aarch64";
-    in
-    ''
-      runHook preBuild
+  buildPhase = let
+    arch =
+      if stdenv.hostPlatform.isx86_64
+      then "x86_64"
+      else "aarch64";
+  in ''
+    runHook preBuild
 
-      ant createJPackage -Dmachine.arch=${arch}
+    ant createJPackage -Dmachine.arch=${arch}
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   desktopItem = makeDesktopItem rec {
     name = "HDFView";
@@ -100,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.hdfgroup.org/downloads/hdfview";
     downloadPage = "https://github.com/HDFGroup/hdfview";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ jiegec ];
+    maintainers = with lib.maintainers; [jiegec];
     mainProgram = "HDFView";
     # Startup issue is described here:
     # https://github.com/NixOS/nixpkgs/issues/340048 A possible solution is

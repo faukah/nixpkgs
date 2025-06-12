@@ -16,16 +16,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OaWj0AKw3+sEhcAbIjgOLfxwCKRG6O1k+zSp0GnnFn8=";
   };
 
-  patches = [ ./allow-read-only-store-help-page.patch ];
+  patches = [./allow-read-only-store-help-page.patch];
 
   postPatch = ''
     substituteInPlace src/main.c \
       --replace-fail "@help@" "${placeholder "out"}/share/help"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   hardeningDisable = [
     "format"
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/CobbCoding1/Cano";
     license = lib.licenses.asl20;
     mainProgram = "Cano";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
   };
 })

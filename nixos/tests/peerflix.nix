@@ -1,18 +1,14 @@
 # This test runs peerflix and checks if peerflix starts
-
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "peerflix";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ offline ];
+    maintainers = [offline];
   };
 
   nodes = {
-    peerflix =
-      { ... }:
-      {
-        services.peerflix.enable = true;
-      };
+    peerflix = {...}: {
+      services.peerflix.enable = true;
+    };
   };
 
   testScript = ''

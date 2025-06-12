@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liblscp";
   version = "1.0.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.linuxsampler.org";
     description = "LinuxSampler Control Protocol (LSCP) wrapper library";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

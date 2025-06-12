@@ -23,9 +23,11 @@
   withGui,
   withWallet ? true,
 }:
-
 stdenv.mkDerivation rec {
-  pname = if withGui then "elements" else "elementsd";
+  pname =
+    if withGui
+    then "elements"
+    else "elementsd";
   version = "23.2.4";
 
   src = fetchFromGitHub {
@@ -48,12 +50,12 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ hexdump ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [util-linux]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [hexdump]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
       autoSignDarwinBinariesHook
     ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -97,12 +99,12 @@ stdenv.mkDerivation rec {
     "stackprotector"
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = true;
 
   checkFlags =
-    [ "LC_ALL=en_US.UTF-8" ]
+    ["LC_ALL=en_US.UTF-8"]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Bitcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
@@ -118,7 +120,7 @@ stdenv.mkDerivation rec {
       tokens.
     '';
     homepage = "https://www.github.com/ElementsProject/elements";
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     license = licenses.mit;
     platforms = platforms.unix;
   };

@@ -17,7 +17,6 @@
   pytest-timeout,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "gcsfs";
   version = "2025.3.1";
@@ -47,8 +46,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    gcsfuse = [ fusepy ];
-    crc = [ crcmod ];
+    gcsfuse = [fusepy];
+    crc = [crcmod];
   };
 
   nativeCheckInputs = [
@@ -71,13 +70,13 @@ buildPythonPackage rec {
     "gcsfs/tests/test_inventory_report_listing.py"
   ];
 
-  pythonImportsCheck = [ "gcsfs" ];
+  pythonImportsCheck = ["gcsfs"];
 
   meta = {
     description = "Convenient Filesystem interface over GCS";
     homepage = "https://github.com/fsspec/gcsfs";
     changelog = "https://github.com/fsspec/gcsfs/raw/${version}/docs/source/changelog.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nbren12 ];
+    maintainers = with lib.maintainers; [nbren12];
   };
 }

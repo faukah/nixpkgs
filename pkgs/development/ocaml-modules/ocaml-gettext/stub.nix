@@ -5,18 +5,17 @@
   dune-configurator,
   ounit2,
 }:
-
 buildDunePackage {
   pname = "gettext-stub";
   inherit (ocaml_gettext) src version;
 
   minimalOCamlVersion = "4.14";
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ ocaml_gettext ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [ocaml_gettext];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
-  meta = builtins.removeAttrs ocaml_gettext.meta [ "mainProgram" ];
+  meta = builtins.removeAttrs ocaml_gettext.meta ["mainProgram"];
 }

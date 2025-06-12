@@ -5,48 +5,48 @@
   anki,
   anki-utils,
   writeTextDir,
-  ankiAddons ? [ ],
+  ankiAddons ? [],
 }:
 /*
-  `ankiAddons`
-   :  A set of Anki add-ons to be installed. Here's a an example:
+`ankiAddons`
+ :  A set of Anki add-ons to be installed. Here's a an example:
 
-      ~~~
-      pkgs.anki.withAddons [
-        # When the add-on is already available in nixpkgs
-        pkgs.ankiAddons.anki-connect
+    ~~~
+    pkgs.anki.withAddons [
+      # When the add-on is already available in nixpkgs
+      pkgs.ankiAddons.anki-connect
 
-        # When the add-on is not available in nixpkgs
-        (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
-          pname = "recolor";
-          version = "3.1";
-          src = pkgs.fetchFromGitHub {
-            owner = "AnKing-VIP";
-            repo = "AnkiRecolor";
-            rev = finalAttrs.version;
-            sparseCheckout = [ "src/addon" ];
-            hash = "sha256-28DJq2l9DP8O6OsbNQCZ0pm4S6CQ3Yz0Vfvlj+iQw8Y=";
-          };
-          sourceRoot = "source/src/addon";
-        }))
-
-        # When the add-on needs to be configured
-        pkgs.ankiAddons.passfail2.withConfig {
-          config = {
-            again_button_name = "not quite";
-            good_button_name = "excellent";
-          };
-
-          user_files = ./dir-to-be-merged-into-addon-user-files-dir;
+      # When the add-on is not available in nixpkgs
+      (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
+        pname = "recolor";
+        version = "3.1";
+        src = pkgs.fetchFromGitHub {
+          owner = "AnKing-VIP";
+          repo = "AnkiRecolor";
+          rev = finalAttrs.version;
+          sparseCheckout = [ "src/addon" ];
+          hash = "sha256-28DJq2l9DP8O6OsbNQCZ0pm4S6CQ3Yz0Vfvlj+iQw8Y=";
         };
-      ]
-      ~~~
+        sourceRoot = "source/src/addon";
+      }))
 
-      The original `anki` executable will be wrapped so that it uses the addons from
-      `ankiAddons`.
+      # When the add-on needs to be configured
+      pkgs.ankiAddons.passfail2.withConfig {
+        config = {
+          again_button_name = "not quite";
+          good_button_name = "excellent";
+        };
 
-      This only works with Anki versions patched to support the `ANKI_ADDONS` environment
-      variable. `pkgs.anki` has this, but `pkgs.anki-bin` does not.
+        user_files = ./dir-to-be-merged-into-addon-user-files-dir;
+      };
+    ]
+    ~~~
+
+    The original `anki` executable will be wrapped so that it uses the addons from
+    `ankiAddons`.
+
+    This only works with Anki versions patched to support the `ANKI_ADDONS` environment
+    variable. `pkgs.anki` has this, but `pkgs.anki-bin` does not.
 */
 let
   defaultAddons = [
@@ -83,25 +83,25 @@ let
         aqt.gui_hooks.addons_dialog_will_show.append(addons_dialog_will_show)
         aqt.mw.addonManager.writeConfig = addon_tried_to_write_config
       '';
-      meta.maintainers = with lib.maintainers; [ junestepp ];
+      meta.maintainers = with lib.maintainers; [junestepp];
     })
   ];
 in
-symlinkJoin {
-  inherit (anki) version;
-  pname = "${anki.pname}-with-addons";
+  symlinkJoin {
+    inherit (anki) version;
+    pname = "${anki.pname}-with-addons";
 
-  paths = [ anki ];
+    paths = [anki];
 
-  nativeBuildInputs = [ makeWrapper ];
-  postBuild = ''
-    wrapProgram $out/bin/anki \
-      --set ANKI_ADDONS "${anki-utils.buildAnkiAddonsDir (ankiAddons ++ defaultAddons)}"
-  '';
+    nativeBuildInputs = [makeWrapper];
+    postBuild = ''
+      wrapProgram $out/bin/anki \
+        --set ANKI_ADDONS "${anki-utils.buildAnkiAddonsDir (ankiAddons ++ defaultAddons)}"
+    '';
 
-  meta = builtins.removeAttrs anki.meta [
-    "name"
-    "outputsToInstall"
-    "position"
-  ];
-}
+    meta = builtins.removeAttrs anki.meta [
+      "name"
+      "outputsToInstall"
+      "position"
+    ];
+  }

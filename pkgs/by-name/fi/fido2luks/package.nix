@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildInputs = [ cryptsetup ];
+  buildInputs = [cryptsetup];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-WJXrT1jLytFkJ0gTE/4GYmfMqgqAyVFKi0SdyYGI/ug=";
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "Decrypt your LUKS partition using a FIDO2 compatible authenticator";
     homepage = "https://github.com/shimunn/fido2luks";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ mmahut ];
+    maintainers = with lib.maintainers; [mmahut];
     platforms = lib.platforms.linux;
   };
 }

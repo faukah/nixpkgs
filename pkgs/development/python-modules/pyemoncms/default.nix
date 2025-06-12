@@ -7,7 +7,6 @@
   pytest-aiohttp,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyemoncms";
   version = "0.1.1";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-IBrYys0i9pTAw9ul8bqni0H3KNSvKQYNU6D4OSfR6ZE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "pyemoncms" ];
+  pythonImportsCheck = ["pyemoncms"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Python library for emoncms API";
     homepage = "https://github.com/Open-Building-Management/pyemoncms";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

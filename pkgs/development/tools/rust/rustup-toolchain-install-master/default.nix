@@ -10,7 +10,6 @@
   openssl,
   xz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustup-toolchain-install-master";
   version = "1.7.3";
@@ -26,26 +25,25 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
   };
 
-  patches =
-    let
-      patchelfPatch =
-        runCommand "0001-dynamically-patchelf-binaries.patch"
-          {
-            CC = stdenv.cc;
-            patchelf = patchelf;
-            libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [ zlib ]}";
-          }
-          ''
-            export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
-            substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
-              --subst-var patchelf \
-              --subst-var dynamicLinker \
-              --subst-var libPath
-          '';
-    in
-    lib.optionals stdenv.hostPlatform.isLinux [ patchelfPatch ];
+  patches = let
+    patchelfPatch =
+      runCommand "0001-dynamically-patchelf-binaries.patch"
+      {
+        CC = stdenv.cc;
+        patchelf = patchelf;
+        libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [zlib]}";
+      }
+      ''
+        export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
+        substitute ${./0001-dynamically-patchelf-binaries.patch} $out \
+          --subst-var patchelf \
+          --subst-var dynamicLinker \
+          --subst-var libPath
+      '';
+  in
+    lib.optionals stdenv.hostPlatform.isLinux [patchelfPatch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     xz
@@ -61,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "rustup-toolchain-install-master";
     homepage = "https://github.com/kennytm/rustup-toolchain-install-master";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

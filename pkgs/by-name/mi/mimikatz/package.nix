@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mimikatz";
   version = "2.2.0-20220919";
@@ -24,9 +23,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/gentilkiwi/mimikatz";
     description = "Little tool to play with Windows security";
-    license = with lib.licenses; [ cc-by-40 ];
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    license = with lib.licenses; [cc-by-40];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

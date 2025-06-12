@@ -15,7 +15,6 @@
   hatchling,
   parameterized,
 }:
-
 buildPythonPackage rec {
   pname = "pyfxa";
   version = "0.8.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-3zxXWzFOjWcnX8hAQpRzGlzTmnXjZjn9jF+MdsHuGkw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     cryptography
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     parameterized
   ];
 
-  pythonImportsCheck = [ "fxa" ];
+  pythonImportsCheck = ["fxa"];
 
   disabledTestPaths = [
     # Requires network access
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     mainProgram = "fxa-client";
     homepage = "https://github.com/mozilla/PyFxA";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

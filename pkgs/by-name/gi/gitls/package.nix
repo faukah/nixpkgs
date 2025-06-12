@@ -5,7 +5,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildGoModule rec {
   pname = "gitls";
   version = "1.0.4";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/hahwul/gitls";
     changelog = "https://github.com/hahwul/gitls/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gitls";
   };
 }

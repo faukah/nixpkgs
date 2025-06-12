@@ -7,7 +7,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "file-read-backwards";
   version = "3.1.0";
@@ -21,20 +20,20 @@ buildPythonPackage rec {
     hash = "sha256-vQRZO8GTigAyJL5FHV1zXx9EkOHnClaM6NMwu3ZSpoQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     mock
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "file_read_backwards" ];
+  pythonImportsCheck = ["file_read_backwards"];
 
   meta = with lib; {
     description = "Memory efficient way of reading files line-by-line from the end of file";
     homepage = "https://github.com/RobinNil/file_read_backwards";
     changelog = "https://github.com/RobinNil/file_read_backwards/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
   };
 }

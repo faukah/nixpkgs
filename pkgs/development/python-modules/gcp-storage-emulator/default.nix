@@ -10,7 +10,6 @@
   pytest-cov-stub,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "gcp-storage-emulator";
   version = "2024.08.03";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     description = "Local emulator for Google Cloud Storage";
     homepage = "https://github.com/oittaa/gcp-storage-emulator";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "gcp-storage-emulator";
   };
 }

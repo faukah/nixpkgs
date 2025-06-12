@@ -1,28 +1,27 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "ttyd";
-  meta.maintainers = with lib.maintainers; [ stunkymonkey ];
+  meta.maintainers = with lib.maintainers; [stunkymonkey];
 
-  nodes.readonly =
-    { pkgs, ... }:
-    {
-      services.ttyd = {
-        enable = true;
-        entrypoint = [ (lib.getExe pkgs.htop) ];
-        writeable = false;
-      };
+  nodes.readonly = {pkgs, ...}: {
+    services.ttyd = {
+      enable = true;
+      entrypoint = [(lib.getExe pkgs.htop)];
+      writeable = false;
     };
+  };
 
-  nodes.writeable =
-    { pkgs, ... }:
-    {
-      services.ttyd = {
-        enable = true;
-        username = "foo";
-        passwordFile = pkgs.writeText "password" "bar";
-        writeable = true;
-      };
+  nodes.writeable = {pkgs, ...}: {
+    services.ttyd = {
+      enable = true;
+      username = "foo";
+      passwordFile = pkgs.writeText "password" "bar";
+      writeable = true;
     };
+  };
 
   testScript = ''
     for machine in [readonly, writeable]:

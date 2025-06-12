@@ -11,7 +11,6 @@
   libxml2,
   tinyxml-2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "docparser";
   version = "1.0.11";
@@ -39,13 +38,13 @@ stdenv.mkDerivation rec {
     tinyxml-2
   ];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = {
     description = "Document parser library ported from document2html";
     homepage = "https://github.com/linuxdeepin/docparser";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

@@ -6,7 +6,6 @@
   nix-update-script,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "evil-helix";
   version = "20250601";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-epI/Xvw0mgc1IoDXpACws7Lsbkj1Xdk7conzJlUqRxY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env = {
     # disable fetching and building of tree-sitter grammars in the helix-term build.rs
@@ -41,13 +40,13 @@ rustPlatform.buildRustPackage rec {
     cp contrib/helix.png $out/share/icons/hicolor/256x256/apps
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Post-modern modal text editor, with vim keybindings";
     homepage = "https://github.com/usagi-flow/evil-helix";
     license = lib.licenses.mpl20;
     mainProgram = "hx";
-    maintainers = with lib.maintainers; [ thiagokokada ];
+    maintainers = with lib.maintainers; [thiagokokada];
   };
 }

@@ -9,7 +9,6 @@
   upnpSupport ? true,
   miniupnpc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "i2pd";
   version = "2.56.0";
@@ -26,18 +25,24 @@ stdenv.mkDerivation rec {
       --replace-fail "-msse" ""
   '';
 
-  buildInputs = [
-    boost
-    zlib
-    openssl
-  ] ++ lib.optional upnpSupport miniupnpc;
+  buildInputs =
+    [
+      boost
+      zlib
+      openssl
+    ]
+    ++ lib.optional upnpSupport miniupnpc;
 
   nativeBuildInputs = [
     installShellFiles
   ];
 
   makeFlags = [
-    "USE_UPNP=${if upnpSupport then "yes" else "no"}"
+    "USE_UPNP=${
+      if upnpSupport
+      then "yes"
+      else "no"
+    }"
   ];
 
   enableParallelBuilding = true;
@@ -52,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://i2pd.website";
     description = "Minimal I2P router written in C++";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.unix;
     mainProgram = "i2pd";
   };

@@ -30,7 +30,6 @@
   suggestionColor ? null, # Secondary color for 'suggested' buttons (Default: #673AB7 = DPurple500)
   destructionColor ? null, # Tertiary color for 'destructive' buttons (Default: #F44336 = Red500)
 }:
-
 stdenv.mkDerivation rec {
   pname = "plata-theme";
   version = "0.9.9";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional telegramSupport zip;
 
-  buildInputs = [ gtk_engines ];
+  buildInputs = [gtk_engines];
 
   propagatedUserEnvPkgs = [
     gtk-engine-murrine
@@ -66,11 +65,10 @@ stdenv.mkDerivation rec {
 
   postPatch = "patchShebangs .";
 
-  configureFlags =
-    let
-      inherit (lib) enableFeature optional;
-      withOptional = value: feat: optional (value != null) "--with-${feat}=${value}";
-    in
+  configureFlags = let
+    inherit (lib) enableFeature optional;
+    withOptional = value: feat: optional (value != null) "--with-${feat}=${value}";
+  in
     [
       "--enable-parallel"
       (enableFeature cinnamonSupport "cinnamon")
@@ -105,6 +103,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-40
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.tadfisher ];
+    maintainers = [maintainers.tadfisher];
   };
 }

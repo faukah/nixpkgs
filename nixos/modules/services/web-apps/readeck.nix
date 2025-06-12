@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -14,19 +13,16 @@ let
     types
     ;
   cfg = config.services.readeck;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "readeck.toml" cfg.settings;
-
-in
-{
-
-  meta.maintainers = [ lib.maintainers.julienmalka ];
+in {
+  meta.maintainers = [lib.maintainers.julienmalka];
 
   options = {
     services.readeck = {
       enable = mkEnableOption "Readeck";
 
-      package = mkPackageOption pkgs "readeck" { };
+      package = mkPackageOption pkgs "readeck" {};
 
       environmentFile = mkOption {
         type = types.nullOr types.path;
@@ -39,7 +35,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         example = {
           main.log_level = "debug";
           server.port = 9000;
@@ -50,16 +46,15 @@ in
           for supported values.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.readeck = {
       description = "Readeck";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         StateDirectory = "readeck";

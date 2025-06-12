@@ -8,7 +8,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "sievelib";
   version = "1.4.2";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-YOoANqVRTiYQ5b9WFYbzJOdf/ZGnIJ9fueBrj+KLBrs=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sievelib" ];
+  pythonImportsCheck = ["sievelib"];
 
   meta = with lib; {
     description = "Client-side Sieve and Managesieve library";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tonioo/sievelib";
     changelog = "https://github.com/tonioo/sievelib/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

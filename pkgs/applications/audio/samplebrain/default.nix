@@ -12,7 +12,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "samplebrain";
   version = "0.18.5";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     comment = "A sample masher designed by Aphex Twin";
     exec = pname;
     icon = pname;
-    categories = [ "Audio" ];
+    categories = ["Audio"];
   };
 
   installPhase = ''
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     mainProgram = "samplebrain";
     homepage = "https://thentrythis.org/projects/samplebrain";
     changelog = "https://gitlab.com/then-try-this/samplebrain/-/releases/v${version}_release";
-    maintainers = with lib.maintainers; [ mitchmindtree ];
+    maintainers = with lib.maintainers; [mitchmindtree];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
   };

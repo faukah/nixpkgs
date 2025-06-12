@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 # This package provides a binary "apython" which sometimes invokes
 # [sys.executable, '-m', 'aioconsole'] as a subprocess. If apython is
 # run directly out of this derivation, it won't work, because
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail " --strict-markers --count 2 -vv" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -52,14 +51,14 @@ buildPythonPackage rec {
     "test_interact_multiple_indented_lines"
   ];
 
-  pythonImportsCheck = [ "aioconsole" ];
+  pythonImportsCheck = ["aioconsole"];
 
   meta = with lib; {
     description = "Asynchronous console and interfaces for asyncio";
     changelog = "https://github.com/vxgmichel/aioconsole/releases/tag/v${version}";
     homepage = "https://github.com/vxgmichel/aioconsole";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
     mainProgram = "apython";
   };
 }

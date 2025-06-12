@@ -10,7 +10,6 @@
   packaging,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pydata-sphinx-theme";
   version = "0.16.1";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "pydata_sphinx_theme" ];
+  pythonImportsCheck = ["pydata_sphinx_theme"];
 
   meta = with lib; {
     description = "Bootstrap-based Sphinx theme from the PyData community";
     homepage = "https://github.com/pydata/pydata-sphinx-theme";
     changelog = "https://github.com/pydata/pydata-sphinx-theme/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/r-c-f/waynergy";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ maxhero ];
+    maintainers = with maintainers; [maxhero];
   };
 }

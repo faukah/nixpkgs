@@ -25,7 +25,7 @@ buildNpmPackage rec {
   '';
 
   npmDepsHash = "sha256-F3EUANBvniczR7QxNfo1LlksYPxXt16uqJDFzN6u64Y=";
-  npmInstallFlags = [ "--omit=dev" ];
+  npmInstallFlags = ["--omit=dev"];
 
   dontNpmBuild = true;
   dontNpmPrune = true;
@@ -34,6 +34,6 @@ buildNpmPackage rec {
     description = "Find and fix problems in your JavaScript code";
     homepage = "https://eslint.org";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

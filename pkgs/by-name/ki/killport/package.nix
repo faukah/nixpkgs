@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "killport";
   version = "1.1.0";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-+PhaRVpsM/6GOnGkGDROoOGasrZsagK1LqBZTo9IbSI=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   checkFlags = [
     # assertion failed: re.is_match(data)
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Command-line tool to easily kill processes running on a specified port";
     homepage = "https://github.com/jkfran/killport";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "killport";
   };
 })

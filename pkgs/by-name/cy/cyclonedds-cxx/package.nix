@@ -5,7 +5,6 @@
   cmake,
   cyclonedds,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyclonedds-cxx";
   version = "0.10.5";
@@ -22,9 +21,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-whFVEQec/Ca+dr6R7z9mMrNg315z3oIWchVT+vQ36So=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ cyclonedds ];
+  buildInputs = [cyclonedds];
 
   meta = with lib; {
     description = "C++ binding for Eclipse Cyclone DDS";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
       epl20
       asl20
     ];
-    maintainers = with maintainers; [ linbreux ];
+    maintainers = with maintainers; [linbreux];
   };
 }

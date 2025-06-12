@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-calc";
   version = "1.28.0";
@@ -41,13 +40,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Calculator for the MATE desktop";
     homepage = "https://mate-desktop.org";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.linux;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

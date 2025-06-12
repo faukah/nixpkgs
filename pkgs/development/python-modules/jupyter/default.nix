@@ -10,7 +10,6 @@
   nbconvert,
   notebook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter";
   version = "1.1.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-1VRnvOq96knX42JK9+M9WcN//1PtOjUOGslXvtcx3no=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ipykernel

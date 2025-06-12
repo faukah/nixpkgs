@@ -3,19 +3,16 @@
   config,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.ntpd-rs;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   configFile = format.generate "ntpd-rs.toml" cfg.settings;
-in
-{
+in {
   options.services.ntpd-rs = {
     enable = lib.mkEnableOption "Network Time Service (ntpd-rs)";
     metrics.enable = lib.mkEnableOption "ntpd-rs Prometheus Metrics Exporter";
 
-    package = lib.mkPackageOption pkgs "ntpd-rs" { };
+    package = lib.mkPackageOption pkgs "ntpd-rs" {};
 
     useNetworkingTimeServers = lib.mkOption {
       type = lib.types.bool;
@@ -29,7 +26,7 @@ in
       type = lib.types.submodule {
         freeformType = format.type;
       };
-      default = { };
+      default = {};
       description = ''
         Settings to write to {file}`ntp.toml`
 
@@ -49,8 +46,8 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    systemd.packages = [cfg.package];
 
     services.timesyncd.enable = false;
     systemd.services.systemd-timedated.environment = {
@@ -63,38 +60,42 @@ in
       };
       source = lib.mkIf cfg.useNetworkingTimeServers (
         map (ts: {
-          mode = if lib.strings.hasInfix "pool" ts then "pool" else "server";
+          mode =
+            if lib.strings.hasInfix "pool" ts
+            then "pool"
+            else "server";
           address = ts;
-        }) config.networking.timeServers
+        })
+        config.networking.timeServers
       );
     };
 
     systemd.services.ntpd-rs = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "";
         Group = "";
         DynamicUser = true;
         ExecStart = [
           ""
-          "${lib.makeBinPath [ cfg.package ]}/ntp-daemon --config=${configFile}"
+          "${lib.makeBinPath [cfg.package]}/ntp-daemon --config=${configFile}"
         ];
       };
     };
 
     systemd.services.ntpd-rs-metrics = lib.mkIf cfg.metrics.enable {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "";
         Group = "";
         DynamicUser = true;
         ExecStart = [
           ""
-          "${lib.makeBinPath [ cfg.package ]}/ntp-metrics-exporter --config=${configFile}"
+          "${lib.makeBinPath [cfg.package]}/ntp-metrics-exporter --config=${configFile}"
         ];
       };
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ fpletz ];
+  meta.maintainers = with lib.maintainers; [fpletz];
 }

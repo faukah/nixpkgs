@@ -9,7 +9,6 @@
   libnetfilter_queue,
   libusb1,
 }:
-
 buildGoModule rec {
   pname = "bettercap";
   version = "2.41.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libpcap
@@ -44,8 +43,8 @@ buildGoModule rec {
       in realtime, sniff for credentials and much more.
     '';
     homepage = "https://www.bettercap.org/";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ y0no ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [y0no];
     mainProgram = "bettercap";
     # Broken on darwin for Go toolchain > 1.22, with error:
     # 'link: golang.org/x/net/internal/socket: invalid reference to syscall.recvmsg'

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numba,
   numpy,
@@ -13,7 +11,6 @@
   scikit-learn,
   scipy,
   tqdm,
-
   # optional-dependencies
   bokeh,
   colorcet,
@@ -26,12 +23,10 @@
   seaborn,
   tensorflow,
   tensorflow-probability,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "umap-learn";
   version = "0.5.8";
@@ -44,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-VR+qBZyFtpW/xuFXI8pxDkkwJKt9qajnUtvuZLFZtF0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numba
@@ -73,7 +68,7 @@ buildPythonPackage rec {
       tensorflow-probability
     ];
 
-    tbb = [ tbb ];
+    tbb = [tbb];
 
     all = plot ++ parametric_umap ++ tbb;
   };
@@ -103,6 +98,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lmcinnes/umap";
     changelog = "https://github.com/lmcinnes/umap/releases/tag/release-${version}";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

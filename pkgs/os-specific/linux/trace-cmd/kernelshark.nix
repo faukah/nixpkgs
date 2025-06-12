@@ -16,7 +16,6 @@
   wrapQtAppsHook,
   qtwayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kernelshark";
   version = "2.4.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-OT6ClyZRE+pxWwm+sfzvN3CnoCIyxcAiVsi1fdzaT4M=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   nativeBuildInputs = [
     pkg-config
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://kernelshark.org/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ basvandijk ];
+    maintainers = with maintainers; [basvandijk];
   };
 })

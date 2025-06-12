@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     isBool
     listToAttrs
@@ -21,7 +21,8 @@ let
     toLower
     types
     ;
-  inherit (types)
+  inherit
+    (types)
     bool
     either
     listOf
@@ -31,14 +32,16 @@ let
 
   cfg = config.programs.pay-respects;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   inherit (settingsFormat) generate type;
 
   finalPackage =
-    if cfg.aiIntegration != true then
-      (pkgs.runCommand "pay-respects-wrapper"
+    if cfg.aiIntegration != true
+    then
+      (
+        pkgs.runCommand "pay-respects-wrapper"
         {
-          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+          nativeBuildInputs = [pkgs.makeBinaryWrapper];
           inherit (cfg.package) meta;
         }
         ''
@@ -46,32 +49,28 @@ let
           makeWrapper ${getExe cfg.package} $out/bin/${cfg.package.meta.mainProgram} \
             ${optionalString (cfg.aiIntegration == false) "--set _PR_AI_DISABLE true"}
             ${optionalString (cfg.aiIntegration != false) ''
-              --set _PR_AI_URL ${cfg.aiIntegration.url} \
-              --set _PR_AI_MODEL ${cfg.aiIntegration.model} \
-              --set _PR_AI_LOCALE ${cfg.aiIntegration.locale}
-            ''}
+            --set _PR_AI_URL ${cfg.aiIntegration.url} \
+            --set _PR_AI_MODEL ${cfg.aiIntegration.model} \
+            --set _PR_AI_LOCALE ${cfg.aiIntegration.locale}
+          ''}
         ''
       )
-    else
-      cfg.package;
+    else cfg.package;
 
-  initScript =
-    shell:
-    if (shell != "fish") then
-      ''
-        eval "$(${getExe finalPackage} ${shell} --alias ${cfg.alias})"
-      ''
-    else
-      ''
-        ${getExe finalPackage} ${shell} --alias ${cfg.alias} | source
-      '';
-in
-{
+  initScript = shell:
+    if (shell != "fish")
+    then ''
+      eval "$(${getExe finalPackage} ${shell} --alias ${cfg.alias})"
+    ''
+    else ''
+      ${getExe finalPackage} ${shell} --alias ${cfg.alias} | source
+    '';
+in {
   options = {
     programs.pay-respects = {
       enable = mkEnableOption "pay-respects, an app which corrects your previous console command";
 
-      package = mkPackageOption pkgs "pay-respects" { };
+      package = mkPackageOption pkgs "pay-respects" {};
 
       alias = mkOption {
         default = "f";
@@ -83,7 +82,7 @@ in
       };
       runtimeRules = mkOption {
         type = listOf type;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             {
@@ -142,7 +141,7 @@ in
               description = "The model used by `pay-respects` to generate command corrections.";
             };
             locale = mkOption {
-              default = toLower (replaceChars [ "_" ] [ "-" ] (substring 0 5 config.i18n.defaultLocale));
+              default = toLower (replaceChars ["_"] ["-"] (substring 0 5 config.i18n.defaultLocale));
               example = "nl-be";
               type = str;
               description = ''
@@ -159,16 +158,16 @@ in
   config = mkIf cfg.enable {
     assertions =
       map
-        (attr: {
-          assertion = (!isBool cfg.aiIntegration) -> (cfg.aiIntegration.${attr} != "");
-          message = ''
-            programs.pay-respects.aiIntegration is configured as a submodule, but you have not configured a value for programs.pay-respects.aiIntegration.${attr}!
-          '';
-        })
-        [
-          "url"
-          "model"
-        ];
+      (attr: {
+        assertion = (!isBool cfg.aiIntegration) -> (cfg.aiIntegration.${attr} != "");
+        message = ''
+          programs.pay-respects.aiIntegration is configured as a submodule, but you have not configured a value for programs.pay-respects.aiIntegration.${attr}!
+        '';
+      })
+      [
+        "url"
+        "model"
+      ];
 
     environment = {
       etc = listToAttrs (
@@ -177,10 +176,11 @@ in
           value = {
             source = generate "${rule.command}.toml" rule;
           };
-        }) cfg.runtimeRules
+        })
+        cfg.runtimeRules
       );
 
-      systemPackages = [ finalPackage ];
+      systemPackages = [finalPackage];
     };
 
     programs = {
@@ -189,5 +189,5 @@ in
       zsh.interactiveShellInit = optionalString config.programs.zsh.enable (initScript "zsh");
     };
   };
-  meta.maintainers = with maintainers; [ sigmasquadron ];
+  meta.maintainers = with maintainers; [sigmasquadron];
 }

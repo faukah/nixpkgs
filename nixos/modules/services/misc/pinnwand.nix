@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pinnwand;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   configFile = format.generate "pinnwand.toml" cfg.settings;
-in
-{
+in {
   options.services.pinnwand = {
     enable = lib.mkEnableOption "Pinnwand, a pastebin";
 
@@ -21,7 +19,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Your {file}`pinnwand.toml` as a Nix attribute set. Look up
         possible options in the [documentation](https://pinnwand.readthedocs.io/en/v${pkgs.pinnwand.version}/configuration.html).
@@ -74,8 +72,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.pinnwand = {
       description = "Pinnwannd HTTP Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       unitConfig.Documentation = "https://pinnwand.readthedocs.io/en/latest/";
 
@@ -87,7 +85,7 @@ in
         StateDirectory = "pinnwand";
         StateDirectoryMode = "0700";
 
-        AmbientCapabilities = [ ];
+        AmbientCapabilities = [];
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "coffeescript";
   version = "2.7.0";
@@ -28,6 +27,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/jashkenas/coffeescript";
     license = lib.licenses.mit;
     mainProgram = "coffee";
-    maintainers = with lib.maintainers; [ cdmistman ];
+    maintainers = with lib.maintainers; [cdmistman];
   };
 }

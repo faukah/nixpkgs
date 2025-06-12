@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pql";
   version = "0.2.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Pipelined Query Language";
     homepage = "https://github.com/runreveal/pql";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "pql";
   };
 }

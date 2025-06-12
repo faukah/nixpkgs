@@ -5,7 +5,6 @@
   pkg-config,
   libsecret,
 }:
-
 buildGoModule rec {
   pname = "protonmail-bridge";
   version = "3.20.0";
@@ -19,25 +18,23 @@ buildGoModule rec {
 
   vendorHash = "sha256-KXq2KIVHCaY/b1nT+GMBY8pT4GLl9l6sT2RiNIH/6Wo=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   preBuild = ''
     patchShebangs ./utils/
     (cd ./utils/ && ./credits.sh bridge)
   '';
 
-  ldflags =
-    let
-      constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
-    in
-    [
-      "-X ${constants}.Version=${version}"
-      "-X ${constants}.Revision=${src.rev}"
-      "-X ${constants}.buildTime=unknown"
-      "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
-    ];
+  ldflags = let
+    constants = "github.com/ProtonMail/proton-bridge/v3/internal/constants";
+  in [
+    "-X ${constants}.Version=${version}"
+    "-X ${constants}.Revision=${src.rev}"
+    "-X ${constants}.buildTime=unknown"
+    "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
+  ];
 
   subPackages = [
     "cmd/Desktop-Bridge"

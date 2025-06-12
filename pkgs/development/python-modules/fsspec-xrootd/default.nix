@@ -3,20 +3,16 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   fsspec,
   xrootd,
-
   # tests
   pkgs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fsspec-xrootd";
   version = "0.5.1";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     xrootd
   ];
 
-  pythonImportsCheck = [ "fsspec_xrootd" ];
+  pythonImportsCheck = ["fsspec_xrootd"];
 
   nativeCheckInputs = [
     pkgs.xrootd
@@ -53,13 +49,13 @@ buildPythonPackage rec {
   ];
 
   # Timeout related tests hang indifinetely
-  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [ "tests/test_basicio.py" ];
+  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin ["tests/test_basicio.py"];
 
   meta = {
     description = "XRootD implementation for fsspec";
     homepage = "https://github.com/CoffeaTeam/fsspec-xrootd";
     changelog = "https://github.com/CoffeaTeam/fsspec-xrootd/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

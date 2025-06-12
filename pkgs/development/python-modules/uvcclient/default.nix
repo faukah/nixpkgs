@@ -8,7 +8,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "uvcclient";
   version = "0.12.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-V7xIvZ9vIXHPpkEeJZ6QedWk+4ZVNwCzj5ffLyixFz4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     mock
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     mainProgram = "uvc";
     homepage = "https://github.com/kk7ds/uvcclient";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

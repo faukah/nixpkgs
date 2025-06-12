@@ -116,7 +116,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "qqmusic";
       startupWMClass = "qqmusic";
       comment = "Tencent QQMusic";
-      categories = [ "AudioVideo" ];
+      categories = ["AudioVideo"];
       extraConfig = {
         "Name[zh_CN]" = "QQ音乐";
         "Name[zh_TW]" = "QQ音乐";
@@ -127,11 +127,11 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    maintainers = with lib.maintainers; [ xddxdd ];
+    maintainers = with lib.maintainers; [xddxdd];
     description = "Tencent QQ Music";
     homepage = "https://y.qq.com/";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

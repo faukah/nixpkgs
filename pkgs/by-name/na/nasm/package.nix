@@ -5,7 +5,6 @@
   perl,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nasm";
   version = "2.16.03";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-FBKhx2C70F2wJrbA0WV6/9ZjHNCmPN229zzG1KphYUg=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   enableParallelBuilding = true;
 

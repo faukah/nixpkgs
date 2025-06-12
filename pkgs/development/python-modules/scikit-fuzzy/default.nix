@@ -10,7 +10,6 @@
   scipy,
   pytest7CheckHook,
 }:
-
 buildPythonPackage {
   pname = "scikit-fuzzy";
   version = "0.4.2-unstable-2023-09-14";
@@ -25,7 +24,7 @@ buildPythonPackage {
     hash = "sha256-91Udm2dIaIwTVG6V1EqYA/4qryuS4APgaa7tIa3sSQE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     networkx
@@ -40,12 +39,12 @@ buildPythonPackage {
 
   preCheck = "rm -rf build";
 
-  pythonImportsCheck = [ "skfuzzy" ];
+  pythonImportsCheck = ["skfuzzy"];
 
   meta = with lib; {
     homepage = "https://github.com/scikit-fuzzy/scikit-fuzzy";
     description = "Fuzzy logic toolkit for scientific Python";
     license = licenses.bsd3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

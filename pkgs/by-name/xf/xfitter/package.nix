@@ -20,7 +20,6 @@
   root,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "xfitter";
   version = "2.2.0";
@@ -68,7 +67,7 @@ stdenv.mkDerivation {
   ) "-I${libtirpc.dev}/include/tirpc";
   NIX_LDFLAGS = lib.optional (stdenv.hostPlatform.libc == "glibc") "-ltirpc";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # workaround wrong library IDs
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -80,6 +79,6 @@ stdenv.mkDerivation {
     license = licenses.gpl3;
     homepage = "https://www.xfitter.org/xFitter";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

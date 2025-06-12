@@ -4,20 +4,16 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.robustirc-bridge;
-in
-{
+in {
   options = {
     services.robustirc-bridge = {
       enable = mkEnableOption "RobustIRC bridge";
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''Extra flags passed to the {command}`robustirc-bridge` command. See [RobustIRC Documentation](https://robustirc.net/docs/adminguide.html#_bridge) or {manpage}`robustirc-bridge(1)` for details.'';
         example = [
           "-network robustirc.net"
@@ -33,8 +29,8 @@ in
         "man:robustirc-bridge(1)"
         "https://robustirc.net/"
       ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         DynamicUser = true;

@@ -10,7 +10,6 @@
   ktextwidgets,
   kcrash,
 }:
-
 mkDerivation rec {
   pname = "rsibreak";
   version = "0.12.13";
@@ -37,6 +36,6 @@ mkDerivation rec {
     mainProgram = "rsibreak";
     license = licenses.gpl2;
     homepage = "https://www.kde.org/applications/utilities/rsibreak/";
-    maintainers = with maintainers; [ vandenoever ];
+    maintainers = with maintainers; [vandenoever];
   };
 }

@@ -9,7 +9,6 @@
   ncurses,
   check,
 }:
-
 stdenv.mkDerivation rec {
   pname = "numatop";
   version = "2.2";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     numactl
     ncurses
   ];
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   patches = [
     (fetchpatch {
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     mainProgram = "numatop";
     homepage = "https://01.org/numatop";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     platforms = [
       "i686-linux"
       "x86_64-linux"

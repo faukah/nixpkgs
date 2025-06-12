@@ -5,7 +5,6 @@
   hatchling,
   hatch-vcs,
 }:
-
 buildPythonPackage rec {
   pname = "human-readable";
   version = "2.0.0";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Library to make data intended for machines, readable to humans";
     homepage = "https://github.com/staticdev/human-readable";
     license = licenses.mit;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

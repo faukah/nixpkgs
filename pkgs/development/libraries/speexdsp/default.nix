@@ -7,7 +7,6 @@
   fftw,
   withFftw3 ? (!stdenv.hostPlatform.isMinGW),
 }:
-
 stdenv.mkDerivation rec {
   pname = "speexdsp";
   version = "1.2.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jHdzQ+SmOZVpxyq8OKlbJNtWiCyD29tsZCSl9K61TT0=";
   };
 
-  patches = [ ./build-fix.patch ];
+  patches = [./build-fix.patch];
   postPatch = "sed '3i#include <stdint.h>' -i ./include/speex/speexdsp_config_types.h.in";
 
   outputs = [
@@ -30,10 +29,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = lib.optionals withFftw3 [ fftw ];
+  buildInputs = lib.optionals withFftw3 [fftw];
 
   configureFlags =
-    lib.optionals withFftw3 [ "--with-fft=gpl-fftw3" ]
+    lib.optionals withFftw3 ["--with-fft=gpl-fftw3"]
     ++ lib.optional stdenv.hostPlatform.isAarch64 "--disable-neon";
 
   meta = with lib; {

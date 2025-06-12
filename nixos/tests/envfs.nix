@@ -1,5 +1,8 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   pythonShebang = pkgs.writeScript "python-shebang" ''
     #!/usr/bin/python
     print("OK")
@@ -9,8 +12,7 @@ let
     #!/usr/bin/bash
     echo "OK"
   '';
-in
-{
+in {
   name = "envfs";
   nodes.machine.services.envfs.enable = true;
 

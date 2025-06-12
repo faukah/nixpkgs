@@ -9,7 +9,6 @@
   ueberzug,
   fetchpatch,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "neofetch";
   version = "unstable-2021-12-10";
@@ -47,8 +46,8 @@ stdenvNoCC.mkDerivation {
   ];
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [bash];
+  nativeBuildInputs = [makeWrapper];
   postPatch = ''
     patchShebangs --host neofetch
   '';
@@ -56,10 +55,10 @@ stdenvNoCC.mkDerivation {
   postInstall = ''
     wrapProgram $out/bin/neofetch \
       --prefix PATH : ${
-        lib.makeBinPath (
-          lib.optional (!stdenvNoCC.hostPlatform.isOpenBSD) pciutils ++ lib.optional x11Support ueberzug
-        )
-      }
+      lib.makeBinPath (
+        lib.optional (!stdenvNoCC.hostPlatform.isOpenBSD) pciutils ++ lib.optional x11Support ueberzug
+      )
+    }
   '';
 
   makeFlags = [
@@ -72,7 +71,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/dylanaraps/neofetch";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ konimex ];
+    maintainers = with maintainers; [konimex];
     mainProgram = "neofetch";
   };
 }

@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     description = "Decentralized Operating System for Zero-Knowledge Applications";
     homepage = "https://snarkos.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = platforms.unix;
     mainProgram = "snarkos";
   };

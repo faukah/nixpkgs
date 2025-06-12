@@ -3,22 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.xserver.displayManager.startx;
 
   # WM session script
   # Note: this assumes a single WM has been enabled
-  sessionScript = lib.concatMapStringsSep "\n" (
-    i: i.start
-  ) config.services.xserver.windowManager.session;
-
-in
-
-{
-
+  sessionScript =
+    lib.concatMapStringsSep "\n" (
+      i: i.start
+    )
+    config.services.xserver.windowManager.session;
+in {
   ###### interface
 
   options = {
@@ -59,7 +54,6 @@ in
           Shell commands to be added to the system-wide xinitrc script.
         '';
       };
-
     };
   };
 
@@ -100,8 +94,6 @@ in
       '';
     };
 
-    environment.systemPackages = with pkgs; [ xorg.xinit ];
-
+    environment.systemPackages = with pkgs; [xorg.xinit];
   };
-
 }

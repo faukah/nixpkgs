@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gorilla-cli";
   version = "0.0.9";
@@ -25,7 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     prompt-toolkit
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   # no tests
   doCheck = false;
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/gorilla-llm/gorilla-cli";
     changelog = "https://github.com/gorilla-llm/gorilla-cli/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     mainProgram = "gorilla";
   };
 }

@@ -7,7 +7,6 @@
   imake,
   gccmakedep,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmountains";
   version = "2.11";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "X11 based fractal landscape generator";
     homepage = "https://spbooth.github.io/xmountains";
     license = lib.licenses.hpndSellVariant;
-    maintainers = with lib.maintainers; [ djanatyn ];
+    maintainers = with lib.maintainers; [djanatyn];
     mainProgram = "xmountains";
   };
 })

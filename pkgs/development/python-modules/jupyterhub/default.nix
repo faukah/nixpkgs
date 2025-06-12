@@ -4,15 +4,12 @@
   fetchFromGitHub,
   fetchNpmDeps,
   configurable-http-proxy,
-
   # nativeBuildInputs
   nodejs,
   npmHooks,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   alembic,
   certipy,
@@ -32,7 +29,6 @@
   pythonOlder,
   async-generator,
   importlib-metadata,
-
   # tests
   addBinToPathHook,
   beautifulsoup4,
@@ -48,7 +44,6 @@
   versionCheckHook,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterhub";
   version = "5.3.0";
@@ -111,7 +106,7 @@ buildPythonPackage rec {
       importlib-metadata
     ];
 
-  pythonImportsCheck = [ "jupyterhub" ];
+  pythonImportsCheck = ["jupyterhub"];
 
   nativeCheckInputs = [
     addBinToPathHook
@@ -179,7 +174,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyterhub/jupyterhub";
     changelog = "https://github.com/jupyterhub/jupyterhub/blob/${version}/docs/source/reference/changelog.md";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
     badPlatforms = [
       # E   OSError: dlopen(/nix/store/43zml0mlr17r5jsagxr00xxx91hz9lky-openpam-20170430/lib/libpam.so, 6): image not found
       lib.systems.inspect.patterns.isDarwin

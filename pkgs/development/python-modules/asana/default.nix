@@ -11,7 +11,6 @@
   six,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "asana";
   version = "5.1.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-TYZi/cjwAHuluHpunfStlfPg0SSyaKKWtkJhTun/hQ0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "asana" ];
+  pythonImportsCheck = ["asana"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/asana/python-asana";
     changelog = "https://github.com/Asana/python-asana/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

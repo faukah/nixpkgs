@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "obj-magic";
   version = "0.5-unstable-2020-09-20";
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     description = "Command line tool for manipulating Wavefront OBJ 3D meshes";
     homepage = "https://github.com/tapio/obj-magic";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ lorenz ];
+    maintainers = with lib.maintainers; [lorenz];
     platforms = lib.platforms.unix;
     mainProgram = "obj-magic";
   };

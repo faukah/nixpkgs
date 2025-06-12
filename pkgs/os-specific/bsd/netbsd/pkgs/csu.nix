@@ -18,7 +18,6 @@
   sys-headers,
   ld_elf_so,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "lib/csu";
@@ -38,7 +37,7 @@ mkDerivation {
     tsort
     statHook
   ];
-  buildInputs = [ headers ];
+  buildInputs = [headers];
   extraPaths = [
     sys-headers.path
     ld_elf_so.path

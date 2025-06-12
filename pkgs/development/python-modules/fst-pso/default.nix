@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fst-pso";
   version = "1.9.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-znf1A/Vcz5ELFGFrpDzdj8O3XEDxpu+mCCb35GfWqN8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     miniful
@@ -31,13 +30,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fstpso" ];
+  pythonImportsCheck = ["fstpso"];
 
   meta = with lib; {
     description = "Fuzzy Self-Tuning PSO global optimization library";
     homepage = "https://github.com/aresio/fst-pso";
     changelog = "https://github.com/aresio/fst-pso/releases/tag/${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

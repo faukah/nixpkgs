@@ -7,7 +7,6 @@
   pkg-config,
   withGui ? true,
 }:
-
 buildGoModule rec {
   pname = "go2tv" + lib.optionalString (!withGui) "-lite";
   version = "1.18.1";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-xp/zdkNV4z3rQMV0b/7TD+ApiaDWxR/aqOKvakGKAcI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     xorg.libX11
@@ -41,7 +40,7 @@ buildGoModule rec {
   ];
 
   # conditionally build with GUI or not (go2tv or go2tv-lite sub-packages)
-  subPackages = [ "cmd/${pname}" ];
+  subPackages = ["cmd/${pname}"];
 
   doCheck = false;
 
@@ -50,7 +49,7 @@ buildGoModule rec {
     homepage = "https://github.com/alexballas/go2tv";
     changelog = "https://github.com/alexballas/go2tv/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gdamjan ];
+    maintainers = with lib.maintainers; [gdamjan];
     mainProgram = pname;
   };
 }

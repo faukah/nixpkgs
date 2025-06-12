@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hyrule";
   version = "1.0.0";
@@ -19,22 +18,22 @@ buildPythonPackage rec {
     hash = "sha256-HSs5YUbhdaOgpBaxXe9LibJN4G3UJvEvEdnYt6ORQBo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ hy ];
+  dependencies = [hy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Some tests depends on hy on PATH
   preCheck = "PATH=${hy}/bin:$PATH";
 
-  pythonImportsCheck = [ "hyrule" ];
+  pythonImportsCheck = ["hyrule"];
 
   meta = with lib; {
     description = "Utility library for the Hy programming language";
     homepage = "https://github.com/hylang/hyrule";
     changelog = "https://github.com/hylang/hyrule/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

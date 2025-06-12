@@ -15,7 +15,6 @@
   qtsvg,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "qdigidoc";
   version = "4.7.0";

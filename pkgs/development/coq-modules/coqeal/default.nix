@@ -8,91 +8,87 @@
   mathcomp-real-closed,
   lib,
   version ? null,
-}:
-
-let
+}: let
   derivation = mkCoqDerivation {
-
     pname = "CoqEAL";
 
     inherit version;
-    defaultVersion =
-      with lib.versions;
+    defaultVersion = with lib.versions;
       lib.switch
-        [ coq.version mathcomp.version ]
-        [
-          {
-            cases = [
-              (range "8.20" "9.0")
-              (isGe "2.3.0")
-            ];
-            out = "2.1.0";
-          }
-          {
-            cases = [
-              (range "8.16" "8.20")
-              (isGe "2.1.0")
-            ];
-            out = "2.0.3";
-          }
-          {
-            cases = [
-              (range "8.16" "8.20")
-              (isGe "2.0.0")
-            ];
-            out = "2.0.1";
-          }
-          {
-            cases = [
-              (range "8.16" "8.17")
-              (isGe "2.0.0")
-            ];
-            out = "2.0.0";
-          }
-          {
-            cases = [
-              (range "8.15" "8.18")
-              (range "1.15.0" "1.18.0")
-            ];
-            out = "1.1.3";
-          }
-          {
-            cases = [
-              (range "8.13" "8.17")
-              (range "1.13.0" "1.18.0")
-            ];
-            out = "1.1.1";
-          }
-          {
-            cases = [
-              (range "8.10" "8.15")
-              (range "1.12.0" "1.18.0")
-            ];
-            out = "1.1.0";
-          }
-          {
-            cases = [
-              (isGe "8.10")
-              (range "1.11.0" "1.12.0")
-            ];
-            out = "1.0.5";
-          }
-          {
-            cases = [
-              (isGe "8.7")
-              "1.11.0"
-            ];
-            out = "1.0.4";
-          }
-          {
-            cases = [
-              (isGe "8.7")
-              "1.10.0"
-            ];
-            out = "1.0.3";
-          }
-        ]
-        null;
+      [coq.version mathcomp.version]
+      [
+        {
+          cases = [
+            (range "8.20" "9.0")
+            (isGe "2.3.0")
+          ];
+          out = "2.1.0";
+        }
+        {
+          cases = [
+            (range "8.16" "8.20")
+            (isGe "2.1.0")
+          ];
+          out = "2.0.3";
+        }
+        {
+          cases = [
+            (range "8.16" "8.20")
+            (isGe "2.0.0")
+          ];
+          out = "2.0.1";
+        }
+        {
+          cases = [
+            (range "8.16" "8.17")
+            (isGe "2.0.0")
+          ];
+          out = "2.0.0";
+        }
+        {
+          cases = [
+            (range "8.15" "8.18")
+            (range "1.15.0" "1.18.0")
+          ];
+          out = "1.1.3";
+        }
+        {
+          cases = [
+            (range "8.13" "8.17")
+            (range "1.13.0" "1.18.0")
+          ];
+          out = "1.1.1";
+        }
+        {
+          cases = [
+            (range "8.10" "8.15")
+            (range "1.12.0" "1.18.0")
+          ];
+          out = "1.1.0";
+        }
+        {
+          cases = [
+            (isGe "8.10")
+            (range "1.11.0" "1.12.0")
+          ];
+          out = "1.0.5";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            "1.11.0"
+          ];
+          out = "1.0.4";
+        }
+        {
+          cases = [
+            (isGe "8.7")
+            "1.10.0"
+          ];
+          out = "1.0.3";
+        }
+      ]
+      null;
 
     release."2.1.0".sha256 = "sha256-UoDxy2BKraDyRsO42GXRo26O74OF51biZQGkIMWLf8Y=";
     release."2.0.3".sha256 = "sha256-5lDq7IWlEW0EkNzYPu+dA6KOvRgy53W/alikpDr/Kd0=";
@@ -128,4 +124,4 @@ let
       ++ lib.optional (lib.versions.isLe "2.0.3" o.version && o.version != "dev") paramcoq;
   });
 in
-patched-derivation
+  patched-derivation

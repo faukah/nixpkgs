@@ -5,7 +5,6 @@
   zeroconf,
   pytestCheckHook,
   home-assistant,
-
 }:
 buildHomeAssistantComponent rec {
   owner = "AlexxIT";
@@ -23,15 +22,17 @@ buildHomeAssistantComponent rec {
     zeroconf
   ];
 
-  nativeCheckInputs = [
-    home-assistant
-    pytestCheckHook
-  ] ++ (home-assistant.getPackages "stream" home-assistant.python.pkgs);
+  nativeCheckInputs =
+    [
+      home-assistant
+      pytestCheckHook
+    ]
+    ++ (home-assistant.getPackages "stream" home-assistant.python.pkgs);
 
   meta = {
     description = "Controlling Yandex.Station and other smart home devices with Alice from Home Assistant";
     homepage = "https://github.com/AlexxIT/YandexStation";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ferrine ];
+    maintainers = with lib.maintainers; [ferrine];
   };
 }

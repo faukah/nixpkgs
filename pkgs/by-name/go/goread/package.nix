@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goread";
   version = "1.7.3";
@@ -25,6 +24,6 @@ buildGoModule rec {
     changelog = "https://github.com/TypicalAM/goread/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "goread";
-    maintainers = with lib.maintainers; [ schnow265 ];
+    maintainers = with lib.maintainers; [schnow265];
   };
 }

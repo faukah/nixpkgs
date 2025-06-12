@@ -6,7 +6,6 @@
   python3,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "py-spy";
   version = "0.4.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-velwX7lcNQvwg3VAUTbgsOPLlA5fAcPiPvczrBBsMvs=";
 
-  buildFeatures = [ "unwind" ];
+  buildFeatures = ["unwind"];
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/benfred/py-spy";
     changelog = "https://github.com/benfred/py-spy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lnl7 ];
+    maintainers = with lib.maintainers; [lnl7];
     platforms = lib.platforms.linux;
     # https://github.com/benfred/py-spy/pull/330
     broken = stdenv.hostPlatform.isAarch64;

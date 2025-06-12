@@ -4,9 +4,8 @@
   stdenvNoCC,
   writeText,
   ...
-}:
-let
-  libconfig = formats.libconfig { };
+}: let
+  libconfig = formats.libconfig {};
 
   include_expr = {
     val = 1;
@@ -64,7 +63,7 @@ let
     nasty_string = "\"@\n\\\t^*bf\n0\";'''$";
 
     weirderTypes = {
-      _includes = [ include_file ];
+      _includes = [include_file];
       pi = 3.141592654;
       bigint = 9223372036854775807;
       hex = libconfig.lib.mkHex "0x1FC3";
@@ -88,24 +87,24 @@ let
 
   libconfig-test-cfg = libconfig.generate "libconfig-test.cfg" expression;
 in
-stdenvNoCC.mkDerivation {
-  name = "pkgs.formats.libconfig-test-comprehensive";
+  stdenvNoCC.mkDerivation {
+    name = "pkgs.formats.libconfig-test-comprehensive";
 
-  dontUnpack = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontBuild = true;
 
-  doCheck = true;
-  checkPhase = ''
-    cp ${./expected.txt} expected.txt
-    substituteInPlace expected.txt \
-        --subst-var-by include_file "${include_file}"
-    diff -U3 ./expected.txt ${libconfig-test-cfg}
-  '';
+    doCheck = true;
+    checkPhase = ''
+      cp ${./expected.txt} expected.txt
+      substituteInPlace expected.txt \
+          --subst-var-by include_file "${include_file}"
+      diff -U3 ./expected.txt ${libconfig-test-cfg}
+    '';
 
-  installPhase = ''
-    mkdir $out
-    cp expected.txt $out
-    cp ${libconfig-test-cfg} $out/libconfig-test.cfg
-    cp ${libconfig-test-cfg.passthru.json} $out/libconfig-test.json
-  '';
-}
+    installPhase = ''
+      mkdir $out
+      cp expected.txt $out
+      cp ${libconfig-test-cfg} $out/libconfig-test.cfg
+      cp ${libconfig-test-cfg.passthru.json} $out/libconfig-test.json
+    '';
+  }

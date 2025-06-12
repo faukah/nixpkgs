@@ -1,18 +1,15 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "wastebin";
 
   meta = {
-    maintainers = with lib.maintainers; [ pinpox ];
+    maintainers = with lib.maintainers; [pinpox];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.wastebin = {
-        enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.wastebin = {
+      enable = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("wastebin.service")

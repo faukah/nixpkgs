@@ -13,7 +13,6 @@
   pytest-trio,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "pyfuse3";
   version = "3.4.0";
@@ -39,11 +38,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
-  dependencies = [ trio ];
+  dependencies = [trio];
 
   preBuild = ''
     ${python.pythonOnBuildForHost.interpreter} setup.py build_cython
@@ -57,7 +56,7 @@ buildPythonPackage rec {
   ];
 
   # Checks if a /usr/bin directory exists, can't work on NixOS
-  disabledTests = [ "test_listdir" ];
+  disabledTests = ["test_listdir"];
 
   pythonImportsCheck = [
     "pyfuse3"

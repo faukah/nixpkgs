@@ -4,7 +4,6 @@
   php81,
   nix-update-script,
 }:
-
 php81.buildComposerProject2 (finalAttrs: {
   pname = "n98-magerun";
   version = "2.3.0";
@@ -32,6 +31,6 @@ php81.buildComposerProject2 (finalAttrs: {
     homepage = "https://magerun.net/";
     license = lib.licenses.mit;
     mainProgram = "n98-magerun";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

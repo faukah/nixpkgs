@@ -6,7 +6,6 @@
   ghostscript,
   installShellFiles,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "ps2eps";
   version = "1.70";
@@ -66,6 +65,6 @@ perlPackages.buildPerlPackage rec {
     description = "Calculate correct bounding boxes for PostScript and PDF files";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
   };
 }

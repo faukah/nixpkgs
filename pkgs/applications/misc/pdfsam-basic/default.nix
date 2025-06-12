@@ -8,7 +8,6 @@
   glib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdfsam-basic";
   version = "5.3.1";
@@ -23,8 +22,8 @@ stdenv.mkDerivation rec {
     tar xvf data.tar.gz
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
-  buildInputs = [ glib ];
+  nativeBuildInputs = [wrapGAppsHook3];
+  buildInputs = [glib];
 
   preFixup = ''
     gappsWrapperArgs+=(--set JAVA_HOME "${jdk21}" --set PDFSAM_JAVA_PATH "${jdk21}")
@@ -44,11 +43,11 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "PDFsam Basic";
     genericName = "PDF Split and Merge";
-    mimeTypes = [ "application/pdf" ];
-    categories = [ "Office" ];
+    mimeTypes = ["application/pdf"];
+    categories = ["Office"];
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/torakiki/pdfsam";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.agpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ _1000101 ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [_1000101];
   };
 }

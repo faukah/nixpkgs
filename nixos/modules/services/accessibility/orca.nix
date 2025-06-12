@@ -3,24 +3,23 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.orca;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkPackageOption
     ;
-in
-{
+in {
   options.services.orca = {
     enable = mkEnableOption "Orca screen reader";
-    package = mkPackageOption pkgs "orca" { };
+    package = mkPackageOption pkgs "orca" {};
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    systemd.services.display-manager.path = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    systemd.services.display-manager.path = [cfg.package];
     services.speechd.enable = true;
   };
 }

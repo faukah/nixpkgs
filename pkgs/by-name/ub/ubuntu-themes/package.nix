@@ -10,7 +10,6 @@
   humanity-icon-theme,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ubuntu-themes";
   version = "24.04";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
       gpl3
     ];
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

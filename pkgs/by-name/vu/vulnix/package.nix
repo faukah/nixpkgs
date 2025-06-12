@@ -5,7 +5,6 @@
   nix,
   ronn,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "vulnix";
   version = "1.11.0";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     "doc"
     "man"
   ];
-  nativeBuildInputs = [ ronn ];
+  nativeBuildInputs = [ronn];
 
   nativeCheckInputs = with python3Packages; [
     freezegun
@@ -64,6 +63,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "vulnix";
     homepage = "https://github.com/nix-community/vulnix";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ henrirosten ];
+    maintainers = with maintainers; [henrirosten];
   };
 }

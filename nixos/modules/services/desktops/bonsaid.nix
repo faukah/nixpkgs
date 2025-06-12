@@ -3,9 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-let
-  json = pkgs.formats.json { };
+}: let
+  json = pkgs.formats.json {};
   transitionType = lib.types.submodule {
     freeformType = json.type;
     options.type = lib.mkOption {
@@ -52,7 +51,7 @@ let
     };
     options.transitions = lib.mkOption {
       type = lib.types.listOf transitionType;
-      default = [ ];
+      default = [];
       description = ''
         List of transitions out of this state.
         If left empty, then this state is considered a terminal state and entering it will
@@ -62,16 +61,15 @@ let
     };
   };
   cfg = config.services.bonsaid;
-in
-{
-  meta.maintainers = [ lib.maintainers.colinsane ];
+in {
+  meta.maintainers = [lib.maintainers.colinsane];
 
   options.services.bonsaid = {
     enable = lib.mkEnableOption "bonsaid";
-    package = lib.mkPackageOption pkgs "bonsai" { };
+    package = lib.mkPackageOption pkgs "bonsai" {};
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra flags to pass to `bonsaid`, such as `[ "-v" ]` to enable verbose logging.
       '';
@@ -104,7 +102,7 @@ in
                   ];
                   # `transitions = []` marks this as a terminal state,
                   # so bonsai will return to the root state immediately after executing the above command.
-                  transitions = [ ];
+                  transitions = [];
                 }
               ];
             }
@@ -112,7 +110,7 @@ in
               # If the power button is released before the 600ms elapses, return to the root state.
               type = "event";
               event_name = "power_button_released";
-              transitions = [ ];
+              transitions = [];
             }
           ];
         }
@@ -129,28 +127,25 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.bonsaid.configFile =
-      let
-        filterNulls =
-          v:
-          if lib.isAttrs v then
-            lib.mapAttrs (_: filterNulls) (lib.filterAttrs (_: a: a != null) v)
-          else if lib.isList v then
-            lib.map filterNulls (lib.filter (a: a != null) v)
-          else
-            v;
-      in
+    services.bonsaid.configFile = let
+      filterNulls = v:
+        if lib.isAttrs v
+        then lib.mapAttrs (_: filterNulls) (lib.filterAttrs (_: a: a != null) v)
+        else if lib.isList v
+        then lib.map filterNulls (lib.filter (a: a != null) v)
+        else v;
+    in
       lib.mkDefault (json.generate "bonsai_tree.json" (filterNulls cfg.settings));
 
     # bonsaid is controlled by bonsaictl, so place the latter in the environment by default.
     # bonsaictl is typically invoked by scripts or a DE so this isn't strictly necessary,
     # but it's helpful while administering the service generally.
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.user.services.bonsaid = {
       description = "Bonsai Finite State Machine daemon";
-      documentation = [ "https://git.sr.ht/~stacyharper/bonsai" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://git.sr.ht/~stacyharper/bonsai"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = lib.escapeShellArgs (
           [

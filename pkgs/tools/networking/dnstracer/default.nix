@@ -5,7 +5,6 @@
   libresolv,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.10";
   pname = "dnstracer";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     install -Dm755 -t $man/share/man/man8 dnstracer.8
   '';
 
-  buildInputs = [ ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libresolv ];
+  buildInputs = [] ++ lib.optionals stdenv.hostPlatform.isDarwin [libresolv];
 
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-lresolv";
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Determines where a given Domain Name Server (DNS) gets its information from, and follows the chain of DNS servers back to the servers which know the data";
     homepage = "http://www.mavetju.org/unix/general.php";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "dnstracer";
   };

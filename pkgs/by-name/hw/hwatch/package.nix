@@ -6,7 +6,6 @@
   hwatch,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hwatch";
   version = "0.3.19";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-UnaZZEmX5XoTVFLEFj5JkJXJkjoUBwzJokfffJTPP4M=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd hwatch \
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       execution results and can check this differences at after.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ hamburger1984 ];
+    maintainers = with maintainers; [hamburger1984];
     mainProgram = "hwatch";
   };
 }

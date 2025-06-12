@@ -31,7 +31,6 @@
   sassc,
   pantheon,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SwayNotificationCenter";
   version = "0.11.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # build pkg-config is required to locate the native `scdoc` input
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     bash-completion

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fp16";
   version = "0-unstable-2024-20-06";
@@ -33,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Maratyszcza/FP16";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ phodina ];
+    maintainers = with lib.maintainers; [phodina];
   };
 })

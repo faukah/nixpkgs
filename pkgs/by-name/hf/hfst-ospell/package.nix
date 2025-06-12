@@ -7,7 +7,6 @@
   libarchive,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hfst-ospell";
   version = "0.5.4";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hfst/hfst-ospell/";
     description = "HFST spell checker library and command line tool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
     platforms = platforms.unix;
   };
 })

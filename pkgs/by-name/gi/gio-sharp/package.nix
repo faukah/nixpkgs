@@ -10,7 +10,6 @@
   glib,
   gtk-sharp-2_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gio-sharp";
   version = "0.3";

@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   top = config.services.kubernetes;
   cfg = top.pki;
 
@@ -28,7 +25,7 @@ let
         size = 2048;
       };
       CN = top.masterAddress;
-      hosts = [ top.masterAddress ] ++ cfg.cfsslAPIExtraSANs;
+      hosts = [top.masterAddress] ++ cfg.cfsslAPIExtraSANs;
     }
   );
 
@@ -37,8 +34,7 @@ let
   certmgrAPITokenPath = "${top.secretsPath}/${cfsslAPITokenBaseName}";
   cfsslAPITokenLength = 32;
 
-  clusterAdminKubeconfig =
-    with cfg.certs.clusterAdmin;
+  clusterAdminKubeconfig = with cfg.certs.clusterAdmin;
     top.lib.mkKubeConfig "cluster-admin" {
       server = top.apiserverAddress;
       certFile = cert;
@@ -46,16 +42,14 @@ let
     };
 
   remote = with config.services; "https://${kubernetes.masterAddress}:${toString cfssl.port}";
-in
-{
+in {
   ###### interface
   options.services.kubernetes.pki = with lib.types; {
-
     enable = mkEnableOption "easyCert issuer service";
 
     certs = mkOption {
       description = "List of certificate specs to feed to cert generator.";
-      default = { };
+      default = {};
       type = attrs;
     };
 
@@ -81,8 +75,8 @@ in
       description = ''
         Extra x509 Subject Alternative Names to be added to the cfssl API webserver TLS cert.
       '';
-      default = [ ];
-      example = [ "subdomain.example.com" ];
+      default = [];
+      example = ["subdomain.example.com"];
       type = listOf str;
     };
 
@@ -131,7 +125,6 @@ in
       default = null;
       type = nullOr str;
     };
-
   };
 
   ###### implementation
@@ -140,9 +133,7 @@ in
       cfsslCertPathPrefix = "${config.services.cfssl.dataDir}/cfssl";
       cfsslCert = "${cfsslCertPathPrefix}.pem";
       cfsslKey = "${cfsslCertPathPrefix}-key.pem";
-    in
-    {
-
+    in {
       services.cfssl = mkIf (top.apiserver.enable) {
         enable = true;
         address = "0.0.0.0";
@@ -154,7 +145,7 @@ in
               signing = {
                 profiles = {
                   default = {
-                    usages = [ "digital signature" ];
+                    usages = ["digital signature"];
                     auth_key = "default";
                     expiry = "720h";
                   };
@@ -171,9 +162,8 @@ in
         );
       };
 
-      systemd.services.cfssl.preStart =
-        with pkgs;
-        with config.services.cfssl;
+      systemd.services.cfssl.preStart = with pkgs;
+      with config.services.cfssl;
         mkIf (top.apiserver.enable) (
           concatStringsSep "\n" [
             "set -e"
@@ -192,8 +182,8 @@ in
             (optionalString cfg.genCfsslAPIToken ''
               if [ ! -f "${cfsslAPITokenPath}" ]; then
                 install -o cfssl -m 400 <(head -c ${
-                  toString (cfsslAPITokenLength / 2)
-                } /dev/urandom | od -An -t x | tr -d ' ') "${cfsslAPITokenPath}"
+                toString (cfsslAPITokenLength / 2)
+              } /dev/urandom | od -An -t x | tr -d ' ') "${cfsslAPITokenPath}"
               fi
             '')
           ]
@@ -201,8 +191,8 @@ in
 
       systemd.services.kube-certmgr-bootstrap = {
         description = "Kubernetes certmgr bootstrapper";
-        wantedBy = [ "certmgr.service" ];
-        after = [ "cfssl.target" ];
+        wantedBy = ["certmgr.service"];
+        after = ["cfssl.target"];
         script = concatStringsSep "\n" [
           ''
             set -e
@@ -236,31 +226,30 @@ in
         enable = true;
         package = pkgs.certmgr;
         svcManager = "command";
-        specs =
-          let
-            mkSpec = _: cert: {
-              inherit (cert) action;
-              authority = {
-                inherit remote;
-                root_ca = cert.caCert;
-                profile = "default";
-                auth_key_file = certmgrAPITokenPath;
-              };
-              certificate = {
-                path = cert.cert;
-              };
-              private_key = cert.privateKeyOptions;
-              request = {
-                hosts = [ cert.CN ] ++ cert.hosts;
-                inherit (cert) CN;
-                key = {
-                  algo = "rsa";
-                  size = 2048;
-                };
-                names = [ cert.fields ];
-              };
+        specs = let
+          mkSpec = _: cert: {
+            inherit (cert) action;
+            authority = {
+              inherit remote;
+              root_ca = cert.caCert;
+              profile = "default";
+              auth_key_file = certmgrAPITokenPath;
             };
-          in
+            certificate = {
+              path = cert.cert;
+            };
+            private_key = cert.privateKeyOptions;
+            request = {
+              hosts = [cert.CN] ++ cert.hosts;
+              inherit (cert) CN;
+              key = {
+                algo = "rsa";
+                size = 2048;
+              };
+              names = [cert.fields];
+            };
+          };
+        in
           mapAttrs mkSpec cfg.certs;
       };
 
@@ -271,8 +260,7 @@ in
       # - it would be better with a more Nix-oriented way of managing addons
       systemd.services.kube-addon-manager = mkIf top.addonManager.enable (mkMerge [
         {
-          environment.KUBECONFIG =
-            with cfg.certs.addonManager;
+          environment.KUBECONFIG = with cfg.certs.addonManager;
             top.lib.mkKubeConfig "addon-manager" {
               server = top.apiserverAddress;
               certFile = cert;
@@ -280,25 +268,26 @@ in
             };
         }
 
-        (optionalAttrs (top.addonManager.bootstrapAddons != { }) {
+        (optionalAttrs (top.addonManager.bootstrapAddons != {}) {
           serviceConfig.PermissionsStartOnly = true;
-          preStart =
-            with pkgs;
-            let
-              files = mapAttrsToList (
+          preStart = with pkgs; let
+            files =
+              mapAttrsToList (
                 n: v: writeText "${n}.json" (builtins.toJSON v)
-              ) top.addonManager.bootstrapAddons;
-            in
-            ''
-              export KUBECONFIG=${clusterAdminKubeconfig}
-              ${top.package}/bin/kubectl apply -f ${concatStringsSep " \\\n -f " files}
-            '';
+              )
+              top.addonManager.bootstrapAddons;
+          in ''
+            export KUBECONFIG=${clusterAdminKubeconfig}
+            ${top.package}/bin/kubectl apply -f ${concatStringsSep " \\\n -f " files}
+          '';
         })
       ]);
 
-      environment.etc.${cfg.etcClusterAdminKubeconfig}.source = mkIf (
-        cfg.etcClusterAdminKubeconfig != null
-      ) clusterAdminKubeconfig;
+      environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
+        mkIf (
+          cfg.etcClusterAdminKubeconfig != null
+        )
+        clusterAdminKubeconfig;
 
       environment.systemPackages = mkIf (top.kubelet.enable || top.proxy.enable) [
         (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''
@@ -356,11 +345,11 @@ in
       # isolate etcd on loopback at the master node
       # easyCerts doesn't support multimaster clusters anyway atm.
       services.etcd = with cfg.certs.etcd; {
-        listenClientUrls = [ "https://127.0.0.1:2379" ];
-        listenPeerUrls = [ "https://127.0.0.1:2380" ];
-        advertiseClientUrls = [ "https://etcd.local:2379" ];
-        initialCluster = [ "${top.masterAddress}=https://etcd.local:2380" ];
-        initialAdvertisePeerUrls = [ "https://etcd.local:2380" ];
+        listenClientUrls = ["https://127.0.0.1:2379"];
+        listenPeerUrls = ["https://127.0.0.1:2380"];
+        advertiseClientUrls = ["https://etcd.local:2379"];
+        initialCluster = ["${top.masterAddress}=https://etcd.local:2380"];
+        initialAdvertisePeerUrls = ["https://etcd.local:2380"];
         certFile = mkDefault cert;
         keyFile = mkDefault key;
         trustedCaFile = mkDefault caCert;
@@ -378,12 +367,10 @@ in
       };
 
       services.kubernetes = {
-
         apiserver = mkIf top.apiserver.enable (
-          with cfg.certs.apiServer;
-          {
+          with cfg.certs.apiServer; {
             etcd = with cfg.certs.apiserverEtcdClient; {
-              servers = [ "https://etcd.local:2379" ];
+              servers = ["https://etcd.local:2379"];
               certFile = mkDefault cert;
               keyFile = mkDefault key;
               caFile = mkDefault caCert;

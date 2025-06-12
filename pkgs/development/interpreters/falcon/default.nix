@@ -8,7 +8,6 @@
   zlib,
   sqlite,
 }:
-
 stdenv.mkDerivation {
   pname = "falcon";
   version = "unstable-2018-10-23";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Programming language with macros and syntax at once";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
   };
 }

@@ -8,7 +8,6 @@
   numpy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cmaes";
   version = "0.11.1";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-u2CgU9n8N9AMxfMBbDbnYzBMdl/IGOLTxOeh8RlnB/Y=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cmaes" ];
+  pythonImportsCheck = ["cmaes"];
 
   disabledTests = [
     # Disable time-sensitive test
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/CyberAgentAILab/cmaes";
     changelog = "https://github.com/CyberAgentAILab/cmaes/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

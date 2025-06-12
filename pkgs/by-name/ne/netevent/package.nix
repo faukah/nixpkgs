@@ -5,7 +5,6 @@
   docutils,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "netevent";
   version = "20230429";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     sha256 = "ikC6S1LNkmv474dlhajtEuHat497Rcdo9O+bCQMXTHQ=";
   };
 
-  buildInputs = [ docutils ];
-  nativeBuildInputs = [ installShellFiles ];
+  buildInputs = [docutils];
+  nativeBuildInputs = [installShellFiles];
 
   outputs = [
     "out"
@@ -46,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Blub/netevent";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rgrunbla ];
+    maintainers = with maintainers; [rgrunbla];
   };
 }

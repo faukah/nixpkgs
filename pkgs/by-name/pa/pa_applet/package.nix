@@ -12,7 +12,6 @@
   libX11,
   xf86inputevdev,
 }:
-
 stdenv.mkDerivation {
   pname = "pa-applet";
   version = "unstable-2012-04-11";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     description = "";
     mainProgram = "pa-applet";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

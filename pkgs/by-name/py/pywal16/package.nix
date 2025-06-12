@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pywal16";
   version = "3.8.9";
@@ -19,9 +18,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-43nKFTkIqaG9UzAjvNbZAog3NLMRKdtnZHxiiiBuD/4=";
   };
 
-  build-system = [ python3.pkgs.setuptools ];
+  build-system = [python3.pkgs.setuptools];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeCheckInputs = [
     python3.pkgs.pytestCheckHook
@@ -36,13 +35,13 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "pywal" ];
+  pythonImportsCheck = ["pywal"];
 
   optional-dependencies = with python3.pkgs; {
-    colorthief = [ colorthief ];
-    colorz = [ colorz ];
-    fast-colorthief = [ fast-colorthief ];
-    haishoku = [ haishoku ];
+    colorthief = [colorthief];
+    colorz = [colorz];
+    fast-colorthief = [fast-colorthief];
+    haishoku = [haishoku];
     all = [
       colorthief
       colorz
@@ -51,14 +50,14 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "16 colors fork of pywal";
     homepage = "https://github.com/eylles/pywal16";
     changelog = "https://github.com/eylles/pywal16/blob/refs/tags/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "wal";
   };
 }

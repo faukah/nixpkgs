@@ -12,7 +12,6 @@
   ocaml,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "dose3";
   version = "7.0.0";

@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyephember2";
   version = "0.4.12";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-R63Ts+1620QQOFF8o2/6CFNZi5jAeWTQkElgqZhNA7c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     paho-mqtt
     requests
   ];
 
-  pythonImportsCheck = [ "pyephember2" ];
+  pythonImportsCheck = ["pyephember2"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python library to work with ember from EPH Controls";
     homepage = "https://github.com/ttroy50/pyephember";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

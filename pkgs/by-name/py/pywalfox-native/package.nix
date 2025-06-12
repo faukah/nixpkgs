@@ -14,13 +14,13 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-i1DgdYmNVvG+mZiFiBmVHsQnFvfDFOFTGf0GEy81lpE=";
   };
 
-  pythonImportsCheck = [ "pywalfox" ];
+  pythonImportsCheck = ["pywalfox"];
 
   meta = with lib; {
     homepage = "https://github.com/Frewacom/pywalfox-native";
     description = "Native app used alongside the Pywalfox addon";
     mainProgram = "pywalfox";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ tsandrini ];
+    maintainers = with maintainers; [tsandrini];
   };
 }

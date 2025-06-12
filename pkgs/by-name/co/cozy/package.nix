@@ -12,7 +12,6 @@
   libadwaita,
   gst_all_1,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cozy";
   version = "1.3.0";

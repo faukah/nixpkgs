@@ -5,20 +5,16 @@
   fetchPypi,
   pythonAtLeast,
   stdenv,
-
   # build-system
   setuptools,
-
   # propagates (optional, but unspecified)
   # https://github.com/joblib/joblib#dependencies
   lz4,
   psutil,
-
   # tests
   pytestCheckHook,
   threadpoolctl,
 }:
-
 buildPythonPackage rec {
   pname = "joblib";
   version = "1.4.2";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-I4LFgWsmNvvSCgng9Ona1HNnZf37fcpYKUO5wTZrPw4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     lz4
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     threadpoolctl
   ];
 
-  pytestFlagsArray = [ "joblib/test" ];
+  pytestFlagsArray = ["joblib/test"];
 
   disabledTests =
     [
@@ -66,6 +62,6 @@ buildPythonPackage rec {
     description = "Lightweight pipelining: using Python functions as pipeline jobs";
     homepage = "https://joblib.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -12,7 +12,6 @@
   automake,
   help2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mmv";
   version = "2.10";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Utility for wildcard renaming, copying, etc";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ siraben ];
+    maintainers = with lib.maintainers; [siraben];
   };
 }

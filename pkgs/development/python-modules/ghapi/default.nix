@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ghapi";
   version = "1.0.6";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-ii19wuFAxMiGce37TNXRNSdvMcGWQjCfPukeqxySYnc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fastcore
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ghapi" ];
+  pythonImportsCheck = ["ghapi"];
 
   meta = with lib; {
     description = "Python interface to GitHub's API";
     homepage = "https://github.com/fastai/ghapi";
     changelog = "https://github.com/fastai/ghapi/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

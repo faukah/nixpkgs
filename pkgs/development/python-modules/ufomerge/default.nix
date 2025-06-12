@@ -10,7 +10,6 @@
   fontfeatures,
   ufolib2,
 }:
-
 buildPythonPackage rec {
   pname = "ufomerge";
   version = "1.9.3";
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     "test_28"
   ];
 
-  pythonImportsCheck = [ "ufomerge" ];
+  pythonImportsCheck = ["ufomerge"];
 
   meta = {
     description = "Command line utility and Python library that merges two UFO source format fonts into a single file";
     homepage = "https://github.com/googlefonts/ufomerge";
     changelog = "https://github.com/googlefonts/ufomerge/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -29,8 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Disk usage utility for Mac OS X";
     homepage = "https://www.derlien.com";
     license = licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ emilytrau ];
-    platforms = [ "x86_64-darwin" ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [emilytrau];
+    platforms = ["x86_64-darwin"];
   };
 })

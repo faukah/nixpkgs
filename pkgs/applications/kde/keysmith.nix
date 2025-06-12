@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kdbusaddons,
   ki18n,
   kirigami2,
@@ -13,7 +11,6 @@
   libsodium,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "keysmith";
 
@@ -37,7 +34,7 @@ mkDerivation {
     mainProgram = "keysmith";
     license = licenses.gpl3;
     homepage = "https://github.com/KDE/keysmith";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

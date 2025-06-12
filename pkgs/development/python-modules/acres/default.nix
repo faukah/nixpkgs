@@ -6,7 +6,6 @@
   importlib-resources,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "acres";
   version = "0.5.0";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nipreps/acres";
     changelog = "https://github.com/nipreps/acres/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

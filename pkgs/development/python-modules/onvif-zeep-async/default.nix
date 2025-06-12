@@ -9,7 +9,6 @@
   yarl,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "onvif-zeep-async";
   version = "3.2.5";
@@ -24,16 +23,18 @@ buildPythonPackage rec {
     hash = "sha256-tEJTVdFQXr2nz0DkuIUjNDSSZUdD457SMrNAUqqsiH8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    ciso8601
-    httpx
-    yarl
-    zeep
-  ] ++ zeep.optional-dependencies.async;
+  dependencies =
+    [
+      ciso8601
+      httpx
+      yarl
+      zeep
+    ]
+    ++ zeep.optional-dependencies.async;
 
-  pythonImportsCheck = [ "onvif" ];
+  pythonImportsCheck = ["onvif"];
 
   # Tests are not shipped
   doCheck = false;
@@ -43,7 +44,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/hunterjm/python-onvif-zeep-async";
     changelog = "https://github.com/openvideolibs/python-onvif-zeep-async/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "onvif-cli";
   };
 }

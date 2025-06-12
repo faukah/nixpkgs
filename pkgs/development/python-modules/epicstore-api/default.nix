@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "epicstore-api";
   version = "0.1.9";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-9Gh9bsNgZx/SinKr7t1dvqrOUP+z4Gs8BFMLYtboFmg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  pythonImportsCheck = [ "epicstore_api" ];
+  pythonImportsCheck = ["epicstore_api"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # tests directory exists but contains no test cases
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Epic Games Store Web API Wrapper written in Python";
     homepage = "https://github.com/SD4RK/epicstore_api";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

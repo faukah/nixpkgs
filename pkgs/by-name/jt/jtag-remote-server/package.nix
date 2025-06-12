@@ -6,7 +6,6 @@
   pkg-config,
   libftdi1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jtag-remote-server";
   version = "1.2";
@@ -22,14 +21,14 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ libftdi1 ];
+  buildInputs = [libftdi1];
 
   meta = with lib; {
     description = "Remote JTAG server for remote debugging";
     mainProgram = "jtag-remote-server";
     homepage = "https://github.com/jiegec/jtag-remote-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   gitMinimal,
 }:
-
 buildGoModule rec {
   pname = "krew";
   version = "0.4.5";
@@ -19,20 +18,20 @@ buildGoModule rec {
 
   vendorHash = "sha256-r4Dywm0+YxWWD59oaKodkldE2uq8hlt9MwOMYDaj6Gc=";
 
-  subPackages = [ "cmd/krew" ];
+  subPackages = ["cmd/krew"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/krew \
-      --prefix PATH : ${lib.makeBinPath [ gitMinimal ]}
+      --prefix PATH : ${lib.makeBinPath [gitMinimal]}
   '';
 
   meta = with lib; {
     description = "Package manager for kubectl plugins";
     mainProgram = "krew";
     homepage = "https://github.com/kubernetes-sigs/krew";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     license = lib.licenses.asl20;
   };
 }

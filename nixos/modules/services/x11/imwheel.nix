@@ -4,19 +4,17 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.xserver.imwheel;
-in
-{
+in {
   options = {
     services.xserver.imwheel = {
       enable = mkEnableOption "IMWheel service";
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ "--buttons=45" ];
-        example = [ "--debug" ];
+        default = ["--buttons=45"];
+        example = ["--debug"];
         description = ''
           Additional command-line arguments to pass to
           {command}`imwheel`.
@@ -25,7 +23,7 @@ in
 
       rules = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             ".*" = '''
@@ -50,7 +48,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.imwheel ];
+    environment.systemPackages = [pkgs.imwheel];
 
     environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc" (
       concatStringsSep "\n\n" (mapAttrsToList (rule: conf: "\"${rule}\"\n${conf}") cfg.rules)
@@ -58,8 +56,8 @@ in
 
     systemd.user.services.imwheel = {
       description = "imwheel service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig = {
         ExecStart =
           "${pkgs.imwheel}/bin/imwheel "

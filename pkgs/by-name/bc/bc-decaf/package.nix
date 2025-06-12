@@ -5,12 +5,11 @@
   python3,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "bc-decaf";
   version = "unstable-2022-07-20";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     python3
   ];
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     description = "Elliptic curve library supporting Ed448-Goldilocks and Curve25519. Belledonne Communications' fork for Linphone";
     homepage = "https://gitlab.linphone.org/BC/public/bctoolbox";
     license = licenses.mit;
-    maintainers = with maintainers; [ thibaultlemaire ];
+    maintainers = with maintainers; [thibaultlemaire];
     platforms = platforms.linux;
   };
 }

@@ -9,24 +9,21 @@
   callPackage,
 }:
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     # Use bundlerEnvArgs from passthru to allow overriding bundlerEnv arguments.
     rubyEnv = bundlerEnv finalAttrs.passthru.bundlerEnvArgs;
     # We also need a separate nativeRubyEnv to precompile assets on the build
     # host. If possible, reuse existing rubyEnv derivation.
     nativeRubyEnv =
-      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-        rubyEnv
-      else
-        buildPackages.bundlerEnv finalAttrs.passthru.bundlerEnvArgs;
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then rubyEnv
+      else buildPackages.bundlerEnv finalAttrs.passthru.bundlerEnvArgs;
 
     bundlerEnvArgs = {
       name = "${finalAttrs.pname}-${finalAttrs.version}-gems";
       gemdir = ./.;
     };
-  in
-  {
+  in {
     pname = "pghero";
     version = "3.6.1";
 
@@ -64,7 +61,7 @@ stdenv.mkDerivation (
 
     passthru = {
       inherit bundlerEnvArgs;
-      updateScript = callPackage ./update.nix { };
+      updateScript = callPackage ./update.nix {};
       tests = {
         inherit (nixosTests) pghero;
       };
@@ -75,7 +72,7 @@ stdenv.mkDerivation (
       description = "Performance dashboard for Postgres";
       mainProgram = "pghero";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.tie ];
+      maintainers = [lib.maintainers.tie];
     };
   }
 )

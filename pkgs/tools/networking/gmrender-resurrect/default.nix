@@ -12,9 +12,7 @@
   gst-plugins-ugly,
   gst-libav,
   libupnp,
-}:
-
-let
+}: let
   version = "0.3";
 
   pluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" [
@@ -26,42 +24,42 @@ let
     gst-libav
   ];
 in
-stdenv.mkDerivation {
-  pname = "gmrender-resurrect";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "gmrender-resurrect";
+    inherit version;
 
-  src = fetchFromGitHub {
-    owner = "hzeller";
-    repo = "gmrender-resurrect";
-    rev = "v${version}";
-    sha256 = "sha256-Zt8YYRqqX5L/MGLsFzR8JOdYoNX9ypXLX5i+fqkzPkk=";
-  };
+    src = fetchFromGitHub {
+      owner = "hzeller";
+      repo = "gmrender-resurrect";
+      rev = "v${version}";
+      sha256 = "sha256-Zt8YYRqqX5L/MGLsFzR8JOdYoNX9ypXLX5i+fqkzPkk=";
+    };
 
-  buildInputs = [
-    gstreamer
-    libupnp
-  ];
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-    makeWrapper
-  ];
-
-  postInstall = ''
-    for prog in "$out/bin/"*; do
-        wrapProgram "$prog" --suffix GST_PLUGIN_SYSTEM_PATH_1_0 : "${pluginPath}"
-    done
-  '';
-
-  meta = with lib; {
-    description = "Resource efficient UPnP/DLNA renderer, optimal for Raspberry Pi, CuBox or a general MediaServer";
-    mainProgram = "gmediarender";
-    homepage = "https://github.com/hzeller/gmrender-resurrect";
-    license = licenses.gpl2Plus;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [
-      koral
-      hzeller
+    buildInputs = [
+      gstreamer
+      libupnp
     ];
-  };
-}
+    nativeBuildInputs = [
+      autoreconfHook
+      pkg-config
+      makeWrapper
+    ];
+
+    postInstall = ''
+      for prog in "$out/bin/"*; do
+          wrapProgram "$prog" --suffix GST_PLUGIN_SYSTEM_PATH_1_0 : "${pluginPath}"
+      done
+    '';
+
+    meta = with lib; {
+      description = "Resource efficient UPnP/DLNA renderer, optimal for Raspberry Pi, CuBox or a general MediaServer";
+      mainProgram = "gmediarender";
+      homepage = "https://github.com/hzeller/gmrender-resurrect";
+      license = licenses.gpl2Plus;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [
+        koral
+        hzeller
+      ];
+    };
+  }

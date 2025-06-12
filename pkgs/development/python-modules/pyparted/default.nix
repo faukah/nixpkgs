@@ -8,7 +8,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyparted";
   version = "3.13.0";
@@ -39,18 +38,18 @@ buildPythonPackage rec {
     PATH="${pkgs.parted}/sbin:$PATH"
   '';
 
-  nativeBuildInputs = [ pkgs.pkg-config ];
+  nativeBuildInputs = [pkgs.pkg-config];
   nativeCheckInputs = [
     six
     pytestCheckHook
   ];
-  propagatedBuildInputs = [ pkgs.parted ];
+  propagatedBuildInputs = [pkgs.parted];
 
   meta = with lib; {
     homepage = "https://github.com/dcantrell/pyparted/";
     description = "Python interface for libparted";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lsix ];
+    maintainers = with maintainers; [lsix];
   };
 }

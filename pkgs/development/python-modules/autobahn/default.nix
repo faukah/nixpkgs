@@ -29,7 +29,6 @@
   ujson,
   zope-interface,
 }:
-
 buildPythonPackage rec {
   pname = "autobahn";
   version = "24.4.2";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -80,7 +79,7 @@ buildPythonPackage rec {
     "./autobahn"
   ];
 
-  pythonImportsCheck = [ "autobahn" ];
+  pythonImportsCheck = ["autobahn"];
 
   optional-dependencies = lib.fix (self: {
     all =
@@ -95,14 +94,14 @@ buildPythonPackage rec {
     accelerate = [
       # wsaccel
     ];
-    compress = [ python-snappy ];
+    compress = [python-snappy];
     encryption = [
       pynacl
       pyopenssl
       qrcode # pytrie
       service-identity
     ];
-    nvx = [ cffi ];
+    nvx = [cffi];
     scram = [
       argon2-cffi
       cffi
@@ -120,7 +119,7 @@ buildPythonPackage rec {
       twisted
       zope-interface
     ];
-    ui = [ pygobject3 ];
+    ui = [pygobject3];
   });
 
   meta = with lib; {
@@ -128,6 +127,6 @@ buildPythonPackage rec {
     description = "WebSocket and WAMP in Python for Twisted and asyncio";
     homepage = "https://crossbar.io/autobahn";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

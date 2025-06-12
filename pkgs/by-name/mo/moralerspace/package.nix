@@ -5,7 +5,6 @@
   _experimental-update-script-combinators,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "moralerspace";
   version = "1.1.0";
@@ -24,26 +23,26 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (nix-update-script { })
+    (nix-update-script {})
     (nix-update-script {
       attrPath = "moralerspace-hw";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
     (nix-update-script {
       attrPath = "moralerspace-hwjpdoc";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
     (nix-update-script {
       attrPath = "moralerspace-hwnf";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
     (nix-update-script {
       attrPath = "moralerspace-jpdoc";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
     (nix-update-script {
       attrPath = "moralerspace-nf";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
   ];
 
@@ -52,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/yuru7/moralerspace";
     changelog = "https://github.com/yuru7/moralerspace/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = lib.platforms.all;
   };
 })

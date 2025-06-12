@@ -14,7 +14,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "rstcheck-core";
   version = "1.2.1";
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     "test_check_yaml_returns_error_on_bad_code_block"
   ];
 
-  pythonImportsCheck = [ "rstcheck_core" ];
+  pythonImportsCheck = ["rstcheck_core"];
 
   meta = with lib; {
     description = "Library for checking syntax of reStructuredText";
     homepage = "https://github.com/rstcheck/rstcheck-core";
     changelog = "https://github.com/rstcheck/rstcheck-core/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

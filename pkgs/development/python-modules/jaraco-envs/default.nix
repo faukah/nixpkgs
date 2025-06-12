@@ -8,7 +8,6 @@
   virtualenv,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-envs";
   version = "2.6.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-yRMX0H6yWN8TiO/LGAr4HyrVS8ZhBjuR885/+UQscP0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     path
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  pythonImportsCheck = [ "jaraco.envs" ];
+  pythonImportsCheck = ["jaraco.envs"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # requires networking
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Classes for orchestrating Python (virtual) environments";
     homepage = "https://github.com/jaraco/jaraco.envs";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

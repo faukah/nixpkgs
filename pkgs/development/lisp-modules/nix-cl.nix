@@ -9,17 +9,14 @@
 # - hard one: remove unrelated sources ( of systems not being built)
 # - figure out a less awkward way to patch sources
 #   (have to build from src directly for SLIME to work, so can't just patch sources in place)
-
 {
   pkgs,
   lib,
   stdenv,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     length
     filter
     foldl
@@ -50,7 +47,8 @@ let
     recurseIntoAttrs
     ;
 
-  inherit (builtins)
+  inherit
+    (builtins)
     head
     tail
     elem
@@ -58,42 +56,45 @@ let
     storeDir
     ;
 
-  inherit (pkgs)
+  inherit
+    (pkgs)
     replaceVars
     ;
 
   # Stolen from python-packages.nix
   # Actually no idea how this works
-  makeOverridableLispPackage =
-    f: origArgs:
-    let
-      ff = f origArgs;
-      overrideWith =
-        newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
-    in
-    if builtins.isAttrs ff then
+  makeOverridableLispPackage = f: origArgs: let
+    ff = f origArgs;
+    overrideWith = newArgs:
+      origArgs
+      // (
+        if pkgs.lib.isFunction newArgs
+        then newArgs origArgs
+        else newArgs
+      );
+  in
+    if builtins.isAttrs ff
+    then
       (
         ff
         // {
           overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
         }
       )
-    else if builtins.isFunction ff then
-      {
-        overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
-        __functor = self: ff;
-      }
-    else
-      ff;
+    else if builtins.isFunction ff
+    then {
+      overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
+      __functor = self: ff;
+    }
+    else ff;
 
-  buildAsdf =
-    {
-      asdf,
-      pkg,
-      program,
-      flags,
-      faslExt,
-    }:
+  buildAsdf = {
+    asdf,
+    pkg,
+    program,
+    flags,
+    faslExt,
+  }:
     stdenv.mkDerivation {
       inherit (asdf) pname version;
       dontUnpack = true;
@@ -115,35 +116,26 @@ let
       pname,
       version,
       src ? null,
-      patches ? [ ],
-
+      patches ? [],
       # Native libraries, will be appended to the library path
-      nativeLibs ? [ ],
-
+      nativeLibs ? [],
       # Java libraries for ABCL, will be appended to the class path
-      javaLibs ? [ ],
-
+      javaLibs ? [],
       # Lisp dependencies
       # these should be packages built with `build-asdf-system`
       # TODO(kasper): use propagatedBuildInputs
-      lispLibs ? [ ],
-
+      lispLibs ? [],
       # Derivation containing the CL implementation package
       pkg,
-
       # Name of the Lisp executable
       program ? pkg.meta.mainProgram or pkg.pname,
-
       # General flags to the Lisp executable
-      flags ? [ ],
-
+      flags ? [],
       # Extension for implementation-dependent FASL files
       faslExt,
-
       # ASDF amalgamation file to use
       # Created in build/asdf.lisp by `make` in ASDF source tree
       asdf,
-
       # Some libraries have multiple systems under one project, for
       # example, cffi has cffi-grovel, cffi-toolchain etc.  By
       # default, only the `pname` system is build.
@@ -154,17 +146,13 @@ let
       #
       # Also useful when the pname is different than the system name,
       # such as when using reverse domain naming.
-      systems ? [ pname ],
-
+      systems ? [pname],
       # The .asd files that this package provides
       # TODO(kasper): remove
       asds ? systems,
-
       # Other args to mkDerivation
       ...
-    }@args:
-
-    (
+    } @ args: (
       stdenv.mkDerivation (
         rec {
           inherit
@@ -238,57 +226,54 @@ let
           # stuff like 'iolib.asdf.asd' for system 'iolib.asd'
           #
           # Same with '/': `local-time.asd` for system `cl-postgres+local-time.asd`
-          installPhase =
-            let
-              mkSystemsRegex =
-                systems: concatMapStringsSep "\\|" (replaceStrings [ "." "+" ] [ "[.]" "[+]" ]) systems;
-            in
-            ''
-              runHook preInstall
+          installPhase = let
+            mkSystemsRegex = systems: concatMapStringsSep "\\|" (replaceStrings ["." "+"] ["[.]" "[+]"]) systems;
+          in ''
+            runHook preInstall
 
-              mkdir -pv $out
-              cp -r * $out
+            mkdir -pv $out
+            cp -r * $out
 
-              # Remove all .asd files except for those in `systems`.
-              find $out -name "*.asd" \
-              | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
-              | xargs rm -fv || true
+            # Remove all .asd files except for those in `systems`.
+            find $out -name "*.asd" \
+            | grep -v "/\(${mkSystemsRegex systems}\)\.asd$" \
+            | xargs rm -fv || true
 
-              runHook postInstall
-            '';
+            runHook postInstall
+          '';
 
           dontPatchShebangs = true;
 
           # Not sure if it's needed, but caused problems with SBCL
           # save-lisp-and-die binaries in the past
           dontStrip = true;
-
         }
         // (
           args
           // (
             let
               isJVM = args.pkg.pname == "abcl";
-              javaLibs = lib.optionals isJVM args.javaLibs or [ ];
-            in
-            {
+              javaLibs = lib.optionals isJVM args.javaLibs or [];
+            in {
               pname = "${args.pkg.pname}-${args.pname}";
               src =
-                if args ? patches || args ? postPatch then
+                if args ? patches || args ? postPatch
+                then
                   pkgs.applyPatches {
                     inherit (args) src;
-                    patches = args.patches or [ ];
+                    patches = args.patches or [];
                     postPatch = args.postPatch or "";
                   }
-                else
-                  args.src;
-              patches = [ ];
+                else args.src;
+              patches = [];
               inherit javaLibs;
-              propagatedBuildInputs = args.propagatedBuildInputs or [ ] ++ lispLibs ++ javaLibs ++ nativeLibs;
-              meta = (args.meta or { }) // {
-                maintainers = args.meta.maintainers or [ ];
-                teams = args.meta.teams or [ lib.teams.lisp ];
-              };
+              propagatedBuildInputs = args.propagatedBuildInputs or [] ++ lispLibs ++ javaLibs ++ nativeLibs;
+              meta =
+                (args.meta or {})
+                // {
+                  maintainers = args.meta.maintainers or [];
+                  teams = args.meta.teams or [lib.teams.lisp];
+                };
             }
           )
         )
@@ -315,22 +300,18 @@ let
   #
   # E.g if a QL package depends on cl-unicode it won't build out of
   # the box.
-  commonLispPackagesFor =
-    spec:
-    let
-      build-asdf-system' = body: build-asdf-system (body // spec);
-    in
+  commonLispPackagesFor = spec: let
+    build-asdf-system' = body: build-asdf-system (body // spec);
+  in
     pkgs.callPackage ./packages.nix {
       inherit spec quicklispPackagesFor;
       build-asdf-system = build-asdf-system';
     };
 
   # Build the set of packages imported from quicklisp using `lisp`
-  quicklispPackagesFor =
-    spec:
-    let
-      build-asdf-system' = body: build-asdf-system (body // spec);
-    in
+  quicklispPackagesFor = spec: let
+    build-asdf-system' = body: build-asdf-system (body // spec);
+  in
     pkgs.callPackage ./ql.nix {
       build-asdf-system = build-asdf-system';
     };
@@ -341,13 +322,12 @@ let
   # packages - as argument and returns the list of packages to be
   # installed
   # TODO(kasper): assert each package has the same lisp and asdf?
-  lispWithPackages =
-    clpkgs: packages:
-    let
-      first = head (lib.attrValues clpkgs);
-    in
+  lispWithPackages = clpkgs: packages: let
+    first = head (lib.attrValues clpkgs);
+  in
     (build-asdf-system {
-      inherit (first)
+      inherit
+        (first)
         pkg
         program
         flags
@@ -359,38 +339,48 @@ let
       pname = "with";
       version = "packages";
       lispLibs = packages clpkgs;
-      systems = [ ];
+      systems = [];
     }).overrideAttrs
-      (o: {
-        nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-        installPhase = ''
-          mkdir -pv $out/bin
-          makeWrapper \
-            ${o.pkg}/bin/${o.program} \
-            $out/bin/${o.program} \
-            --add-flags "${toString o.flags}" \
-            --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
-            --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY''${CL_SOURCE_REGISTRY:+:}" \
-            --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
-            --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
-            --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
-            --prefix CLASSPATH : "$CLASSPATH" \
-            --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
-            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-        '';
-      });
+    (o: {
+      nativeBuildInputs = [pkgs.makeBinaryWrapper];
+      installPhase = ''
+        mkdir -pv $out/bin
+        makeWrapper \
+          ${o.pkg}/bin/${o.program} \
+          $out/bin/${o.program} \
+          --add-flags "${toString o.flags}" \
+          --set ASDF "${o.asdfFasl}/asdf.${o.faslExt}" \
+          --prefix CL_SOURCE_REGISTRY : "$CL_SOURCE_REGISTRY''${CL_SOURCE_REGISTRY:+:}" \
+          --prefix ASDF_OUTPUT_TRANSLATIONS : "$(echo $CL_SOURCE_REGISTRY | sed s,//:,::,g):" \
+          --prefix LD_LIBRARY_PATH : "$LD_LIBRARY_PATH" \
+          --prefix DYLD_LIBRARY_PATH : "$DYLD_LIBRARY_PATH" \
+          --prefix CLASSPATH : "$CLASSPATH" \
+          --prefix GI_TYPELIB_PATH : "$GI_TYPELIB_PATH" \
+          --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [])}"
+      '';
+    });
 
-  wrapLisp =
-    {
-      pkg,
-      faslExt,
-      program ? pkg.meta.mainProgram or pkg.pname,
-      flags ? [ ],
-      asdf ? pkgs.asdf_3_3,
-      packageOverrides ? (self: super: { }),
-    }:
-    let
-      spec = {
+  wrapLisp = {
+    pkg,
+    faslExt,
+    program ? pkg.meta.mainProgram or pkg.pname,
+    flags ? [],
+    asdf ? pkgs.asdf_3_3,
+    packageOverrides ? (self: super: {}),
+  }: let
+    spec = {
+      inherit
+        pkg
+        faslExt
+        program
+        flags
+        asdf
+        ;
+    };
+    pkgs = (commonLispPackagesFor spec).overrideScope packageOverrides;
+    withPackages = lispWithPackages pkgs;
+    withOverrides = packageOverrides:
+      wrapLisp {
         inherit
           pkg
           faslExt
@@ -398,23 +388,10 @@ let
           flags
           asdf
           ;
+        inherit packageOverrides;
       };
-      pkgs = (commonLispPackagesFor spec).overrideScope packageOverrides;
-      withPackages = lispWithPackages pkgs;
-      withOverrides =
-        packageOverrides:
-        wrapLisp {
-          inherit
-            pkg
-            faslExt
-            program
-            flags
-            asdf
-            ;
-          inherit packageOverrides;
-        };
-      buildASDFSystem = args: build-asdf-system (args // spec);
-    in
+    buildASDFSystem = args: build-asdf-system (args // spec);
+  in
     pkg
     // {
       inherit
@@ -424,6 +401,5 @@ let
         buildASDFSystem
         ;
     };
-
 in
-wrapLisp
+  wrapLisp

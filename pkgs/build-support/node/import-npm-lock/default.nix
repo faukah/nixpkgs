@@ -4,10 +4,9 @@
   stdenv,
   callPackages,
   runCommand,
-}:
-
-let
-  inherit (builtins)
+}: let
+  inherit
+    (builtins)
     match
     elemAt
     toJSON
@@ -20,50 +19,48 @@ let
   getVersion = package: package.version or "0.0.0";
 
   # Fetch a module from package-lock.json -> packages
-  fetchModule =
-    {
-      module,
-      npmRoot ? null,
-      fetcherOpts,
-    }:
-    (
-      if module ? "resolved" && module.resolved != null then
-        (
-          let
-            # Parse scheme from URL
-            mUrl = match "(.+)://(.+)" module.resolved;
-            scheme = elemAt mUrl 0;
-          in
-          (
-            if mUrl == null then
-              (
-                assert npmRoot != null;
-                {
-                  outPath = npmRoot + "/${module.resolved}";
-                }
-              )
-            else if (scheme == "http" || scheme == "https") then
-              (fetchurl (
-                {
-                  url = module.resolved;
-                  hash = module.integrity;
-                }
-                // fetcherOpts
-              ))
-            else if lib.hasPrefix "git" module.resolved then
-              (builtins.fetchGit (
-                {
-                  url = module.resolved;
-                }
-                // fetcherOpts
-              ))
-            else
-              throw "Unsupported URL scheme: ${scheme}"
-          )
+  fetchModule = {
+    module,
+    npmRoot ? null,
+    fetcherOpts,
+  }: (
+    if module ? "resolved" && module.resolved != null
+    then
+      (
+        let
+          # Parse scheme from URL
+          mUrl = match "(.+)://(.+)" module.resolved;
+          scheme = elemAt mUrl 0;
+        in (
+          if mUrl == null
+          then
+            (
+              assert npmRoot != null; {
+                outPath = npmRoot + "/${module.resolved}";
+              }
+            )
+          else if (scheme == "http" || scheme == "https")
+          then
+            (fetchurl (
+              {
+                url = module.resolved;
+                hash = module.integrity;
+              }
+              // fetcherOpts
+            ))
+          else if lib.hasPrefix "git" module.resolved
+          then
+            (builtins.fetchGit (
+              {
+                url = module.resolved;
+              }
+              // fetcherOpts
+            ))
+          else throw "Unsupported URL scheme: ${scheme}"
         )
-      else
-        null
-    );
+      )
+    else null
+  );
 
   cleanModule = lib.flip removeAttrs [
     "link" # Remove link not to symlink directories. These have been processed to store paths already.
@@ -71,12 +68,10 @@ let
   ];
 
   # Manage node_modules outside of the store with hooks
-  hooks = callPackages ./hooks { };
-
+  hooks = callPackages ./hooks {};
 in
-lib.fix (self: {
-  importNpmLock =
-    {
+  lib.fix (self: {
+    importNpmLock = {
       npmRoot ? null,
       package ? importJSON (npmRoot + "/package.json"),
       packageLock ? importJSON (npmRoot + "/package-lock.json"),
@@ -85,55 +80,57 @@ lib.fix (self: {
       # A map of additional fetcher options forwarded to the fetcher used to download the package.
       # Example: { "node_modules/axios" = { curlOptsList = [ "--verbose" ]; }; }
       # This will download the axios package with curl's verbose option.
-      fetcherOpts ? { },
+      fetcherOpts ? {},
       # A map from node_module path to an alternative package to use instead of fetching the source in package-lock.json.
       # Example: { "node_modules/axios" = stdenv.mkDerivation { ... }; }
       # This is useful if you want to inject custom sources for a specific package.
-      packageSourceOverrides ? { },
-    }:
-    let
+      packageSourceOverrides ? {},
+    }: let
       mapLockDependencies = mapAttrs (
-        name: version:
-        (
+        name: version: (
           # Substitute the constraint with the version of the dependency from the top-level of package-lock.
           if
             (
               # if the version is `latest`
-              version == "latest"
+              version
+              == "latest"
               ||
-                # Or if it's a github reference
-                matchGitHubReference version != null
+              # Or if it's a github reference
+              matchGitHubReference version != null
             )
-          then
-            packageLock'.packages.${"node_modules/${name}"}.version
+          then packageLock'.packages.${"node_modules/${name}"}.version
           # But not a regular version constraint
-          else
-            version
+          else version
         )
       );
 
-      packageLock' = packageLock // {
-        packages = mapAttrs (
-          modulePath: module:
-          let
-            src =
-              packageSourceOverrides.${modulePath} or (fetchModule {
-                inherit module npmRoot;
-                fetcherOpts = fetcherOpts.${modulePath} or { };
-              });
-          in
-          cleanModule module
-          // lib.optionalAttrs (src != null) {
-            resolved = "file:${src}";
-          }
-          // lib.optionalAttrs (module ? dependencies) {
-            dependencies = mapLockDependencies module.dependencies;
-          }
-          // lib.optionalAttrs (module ? optionalDependencies) {
-            optionalDependencies = mapLockDependencies module.optionalDependencies;
-          }
-        ) packageLock.packages;
-      };
+      packageLock' =
+        packageLock
+        // {
+          packages =
+            mapAttrs (
+              modulePath: module: let
+                src =
+                  packageSourceOverrides.${
+                    modulePath
+                  } or (fetchModule {
+                    inherit module npmRoot;
+                    fetcherOpts = fetcherOpts.${modulePath} or {};
+                  });
+              in
+                cleanModule module
+                // lib.optionalAttrs (src != null) {
+                  resolved = "file:${src}";
+                }
+                // lib.optionalAttrs (module ? dependencies) {
+                  dependencies = mapLockDependencies module.dependencies;
+                }
+                // lib.optionalAttrs (module ? optionalDependencies) {
+                  optionalDependencies = mapLockDependencies module.optionalDependencies;
+                }
+            )
+            packageLock.packages;
+        };
 
       mapPackageDependencies = mapAttrs (
         name: _: packageLock'.packages.${"node_modules/${name}"}.resolved
@@ -150,9 +147,8 @@ lib.fix (self: {
         };
 
       pname = package.name or "unknown";
-
     in
-    runCommand "${pname}-${version}-sources"
+      runCommand "${pname}-${version}-sources"
       {
         inherit pname version;
 
@@ -170,62 +166,65 @@ lib.fix (self: {
         cp "$packageLockPath" $out/package-lock.json
       '';
 
-  # Build node modules from package.json & package-lock.json
-  buildNodeModules =
-    {
+    # Build node modules from package.json & package-lock.json
+    buildNodeModules = {
       npmRoot ? null,
       package ? importJSON (npmRoot + "/package.json"),
       packageLock ? importJSON (npmRoot + "/package-lock.json"),
       nodejs,
-      derivationArgs ? { },
+      derivationArgs ? {},
     }:
-    stdenv.mkDerivation (
-      {
-        pname = derivationArgs.pname or "${getName package}-node-modules";
-        version = derivationArgs.version or getVersion package;
+      stdenv.mkDerivation (
+        {
+          pname = derivationArgs.pname or "${getName package}-node-modules";
+          version = derivationArgs.version or getVersion package;
 
-        dontUnpack = true;
+          dontUnpack = true;
 
-        npmDeps = self.importNpmLock {
-          inherit npmRoot package packageLock;
-        };
+          npmDeps = self.importNpmLock {
+            inherit npmRoot package packageLock;
+          };
 
-        package = toJSON package;
-        packageLock = toJSON packageLock;
+          package = toJSON package;
+          packageLock = toJSON packageLock;
 
-        installPhase = ''
-          runHook preInstall
-          mkdir $out
-          cp package.json $out/
-          cp package-lock.json $out/
-          [[ -d node_modules ]] && mv node_modules $out/
-          runHook postInstall
-        '';
-      }
-      // derivationArgs
-      // {
-        nativeBuildInputs = [
-          nodejs
-          nodejs.passthru.python
-          hooks.npmConfigHook
-        ] ++ derivationArgs.nativeBuildInputs or [ ];
+          installPhase = ''
+            runHook preInstall
+            mkdir $out
+            cp package.json $out/
+            cp package-lock.json $out/
+            [[ -d node_modules ]] && mv node_modules $out/
+            runHook postInstall
+          '';
+        }
+        // derivationArgs
+        // {
+          nativeBuildInputs =
+            [
+              nodejs
+              nodejs.passthru.python
+              hooks.npmConfigHook
+            ]
+            ++ derivationArgs.nativeBuildInputs or [];
 
-        passAsFile = [
-          "package"
-          "packageLock"
-        ] ++ derivationArgs.passAsFile or [ ];
+          passAsFile =
+            [
+              "package"
+              "packageLock"
+            ]
+            ++ derivationArgs.passAsFile or [];
 
-        postPatch =
-          ''
-            cp --no-preserve=mode "$packagePath" package.json
-            cp --no-preserve=mode "$packageLockPath" package-lock.json
-          ''
-          + derivationArgs.postPatch or "";
-      }
-    );
+          postPatch =
+            ''
+              cp --no-preserve=mode "$packagePath" package.json
+              cp --no-preserve=mode "$packageLockPath" package-lock.json
+            ''
+            + derivationArgs.postPatch or "";
+        }
+      );
 
-  inherit hooks;
-  inherit (hooks) npmConfigHook linkNodeModulesHook;
+    inherit hooks;
+    inherit (hooks) npmConfigHook linkNodeModulesHook;
 
-  __functor = self: self.importNpmLock;
-})
+    __functor = self: self.importNpmLock;
+  })

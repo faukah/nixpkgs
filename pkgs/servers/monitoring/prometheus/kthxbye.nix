@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "kthxbye";
   version = "0.16";
@@ -36,6 +35,6 @@ buildGoModule rec {
     mainProgram = "kthxbye";
     homepage = "https://github.com/prymitive/kthxbye";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nukaduka ];
+    maintainers = with maintainers; [nukaduka];
   };
 }

@@ -8,7 +8,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "markdown";
   version = "3.7";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-bIBen693MC56k4LZ+8vhbvP+E3myFXoaXpNHOlnIdG8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     unittestCheckHook
     pyyaml
   ];
 
-  pythonImportsCheck = [ "markdown" ];
+  pythonImportsCheck = ["markdown"];
 
   meta = with lib; {
     changelog = "https://github.com/Python-Markdown/markdown/blob/${src.rev}/docs/changelog.md";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     mainProgram = "markdown_py";
     homepage = "https://github.com/Python-Markdown/markdown";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

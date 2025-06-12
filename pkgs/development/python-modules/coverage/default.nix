@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "coverage";
   version = "7.8.0";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-ej1is7A7S2/UGghfNXSHTPlGy0YE0rTT6NyozVcMpQE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # No tests in archive
   doCheck = false;
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   meta = {
     description = "Code coverage measurement for python";

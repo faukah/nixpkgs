@@ -23,7 +23,6 @@
   qtbase,
   yt-dlp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "haruna";
   version = "1.4.0";

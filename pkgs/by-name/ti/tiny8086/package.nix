@@ -7,7 +7,6 @@
   sdlSupport ? true,
   SDL,
 }:
-
 stdenv.mkDerivation {
   pname = "8086tiny";
   version = "1.25";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optional localBios nasm ++ lib.optional sdlSupport SDL;
 
-  makeFlags = [ "8086tiny" ];
+  makeFlags = ["8086tiny"];
 
   postBuild = lib.optionalString localBios ''
     pushd bios_source
@@ -62,7 +61,7 @@ stdenv.mkDerivation {
       "unobfuscated" version :)
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "8086tiny";
   };

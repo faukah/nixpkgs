@@ -3,7 +3,6 @@
   lib,
   testers,
 }:
-
 buildDotnetGlobalTool (finalAttrs: {
   pname = "fable";
   version = "4.25.0";

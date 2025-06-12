@@ -10,7 +10,6 @@
   pytestCheckHook,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "aspectlib";
   version = "2.0.0";
@@ -33,9 +32,9 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ fields ];
+  propagatedBuildInputs = [fields];
 
   pythonImportsCheck = [
     "aspectlib"
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     tornado
   ];
 
-  pytestFlagsArray = [ "-W ignore::DeprecationWarning" ];
+  pytestFlagsArray = ["-W ignore::DeprecationWarning"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     description = "Aspect-oriented programming, monkey-patch and decorators library";
     homepage = "https://github.com/ionelmc/python-aspectlib";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

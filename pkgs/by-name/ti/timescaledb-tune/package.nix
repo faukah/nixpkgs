@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "timescaledb-tune";
   version = "0.18.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "timescaledb-tune";
     homepage = "https://github.com/timescale/timescaledb-tune";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

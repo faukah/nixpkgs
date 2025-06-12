@@ -6,7 +6,6 @@
   autoreconfHook,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "macchanger";
   version = "1.7.0";

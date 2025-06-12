@@ -4,7 +4,6 @@
   dune_3,
   csexp,
 }:
-
 buildDunePackage {
   pname = "dune-configurator";
 
@@ -19,11 +18,11 @@ buildDunePackage {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ csexp ];
+  propagatedBuildInputs = [csexp];
 
   meta = with lib; {
     description = "Helper library for gathering system configuration";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

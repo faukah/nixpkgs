@@ -4,18 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.molly-brown;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "molly-brown.toml" cfg.settings;
-in
-{
-
+in {
   options.services.molly-brown = {
-
     enable = mkEnableOption "Molly-Brown Gemini server";
 
     port = mkOption {
@@ -67,36 +61,32 @@ in
 
     settings = mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = ''
         molly-brown configuration. Refer to
         <https://tildegit.org/solderpunk/molly-brown/src/branch/master/example.conf>
         for details on supported values.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-
-    services.molly-brown.settings =
-      let
-        logDir = "/var/log/molly-brown";
-      in
-      {
-        Port = cfg.port;
-        Hostname = cfg.hostName;
-        CertPath = cfg.certPath;
-        KeyPath = cfg.keyPath;
-        DocBase = cfg.docBase;
-        AccessLog = "${logDir}/access.log";
-        ErrorLog = "${logDir}/error.log";
-      };
+    services.molly-brown.settings = let
+      logDir = "/var/log/molly-brown";
+    in {
+      Port = cfg.port;
+      Hostname = cfg.hostName;
+      CertPath = cfg.certPath;
+      KeyPath = cfg.keyPath;
+      DocBase = cfg.docBase;
+      AccessLog = "${logDir}/access.log";
+      ErrorLog = "${logDir}/error.log";
+    };
 
     systemd.services.molly-brown = {
       description = "Molly Brown gemini server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         LogsDirectory = "molly-brown";
@@ -104,7 +94,5 @@ in
         Restart = "always";
       };
     };
-
   };
-
 }

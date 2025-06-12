@@ -8,7 +8,6 @@
   kwidgetsaddons,
   qtbase,
 }:
-
 mkDerivation {
   pname = "ksshaskpass";
   nativeBuildInputs = [

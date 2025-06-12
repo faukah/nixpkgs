@@ -7,7 +7,6 @@
   bluez,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obexftp";
   version = "0.24.2";
@@ -22,9 +21,9 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
-  propagatedBuildInputs = [ openobex ];
+  propagatedBuildInputs = [openobex];
 
   # https://sourceforge.net/p/openobex/bugs/66/
   postPatch = ''

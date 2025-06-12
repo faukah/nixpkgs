@@ -13,7 +13,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "rednotebook";
   version = "2.39";
@@ -29,9 +28,9 @@ buildPythonApplication rec {
   # We have not packaged tests.
   doCheck = false;
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     gdk-pixbuf
@@ -50,14 +49,14 @@ buildPythonApplication rec {
     "--suffix XDG_DATA_DIRS : $XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH"
   ];
 
-  pythonImportsCheck = [ "rednotebook" ];
+  pythonImportsCheck = ["rednotebook"];
 
   meta = with lib; {
     homepage = "https://rednotebook.sourceforge.io/";
     changelog = "https://github.com/jendrikseipp/rednotebook/blob/${src.tag}/CHANGELOG.md";
     description = "Modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     mainProgram = "rednotebook";
   };
 }

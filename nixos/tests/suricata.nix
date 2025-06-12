@@ -1,7 +1,10 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "suricata";
-  meta.maintainers = with lib.maintainers; [ felbinger ];
+  meta.maintainers = with lib.maintainers; [felbinger];
 
   nodes = {
     ids = {
@@ -19,15 +22,15 @@
       systemd.services.suricata-update.enable = false;
 
       # install suricata package to make suricatasc program available
-      environment.systemPackages = with pkgs; [ suricata ];
+      environment.systemPackages = with pkgs; [suricata];
 
       services.suricata = {
         enable = true;
         settings = {
           vars.address-groups.HOME_NET = "192.168.1.0/24";
           unix-command.enabled = true;
-          outputs = [ { fast.enabled = true; } ];
-          af-packet = [ { interface = "eth1"; } ];
+          outputs = [{fast.enabled = true;}];
+          af-packet = [{interface = "eth1";}];
           classification-file = "${pkgs.suricata}/etc/suricata/classification.config";
         };
       };
@@ -38,7 +41,7 @@
       ];
     };
     helper = {
-      imports = [ ../modules/profiles/minimal.nix ];
+      imports = [../modules/profiles/minimal.nix];
 
       networking.interfaces.eth1 = {
         useDHCP = false;
@@ -56,7 +59,7 @@
           "/id/".return = "200 'uid=0(root) gid=0(root) groups=0(root)'";
         };
       };
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [80];
     };
   };
 

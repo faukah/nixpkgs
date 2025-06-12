@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "setup-envtest";
   version = "0.19.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "Tool that manages binaries for envtest, allowing the download of new binaries, listing installed and available ones, and cleaning up versions";
     homepage = "https://github.com/kubernetes-sigs/controller-runtime/tree/v${version}/tools/setup-envtest";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "setup-envtest";
   };
 }

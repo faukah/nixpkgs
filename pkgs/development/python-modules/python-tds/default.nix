@@ -11,7 +11,6 @@
   pydes,
   cryptography,
 }:
-
 buildPythonPackage rec {
   pname = "python-tds";
   version = "1.13.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
       --replace-fail "version.get_git_version()" '"${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -60,12 +59,12 @@ buildPythonPackage rec {
     "test_encrypted_socket"
   ];
 
-  pythonImportsCheck = [ "pytds" ];
+  pythonImportsCheck = ["pytds"];
 
   meta = with lib; {
     description = "Python DBAPI driver for MSSQL using pure Python TDS (Tabular Data Stream) protocol implementation";
     homepage = "https://python-tds.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

@@ -6,7 +6,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation {
   pname = "gasket";
   version = "1.0-18-unstable-2024-04-25";
@@ -32,15 +31,17 @@ stdenv.mkDerivation {
     cd src
   '';
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "-C"
-    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "M=$(PWD)"
-  ];
-  buildFlags = [ "modules" ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "-C"
+      "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "M=$(PWD)"
+    ];
+  buildFlags = ["modules"];
 
-  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-  installTargets = [ "modules_install" ];
+  installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+  installTargets = ["modules_install"];
 
   hardeningDisable = [
     "pic"
@@ -52,7 +53,7 @@ stdenv.mkDerivation {
     description = "Coral Gasket Driver allows usage of the Coral EdgeTPU on Linux systems";
     homepage = "https://github.com/google/gasket-driver";
     license = licenses.gpl2Only;
-    maintainers = [ lib.maintainers.kylehendricks ];
+    maintainers = [lib.maintainers.kylehendricks];
     platforms = platforms.linux;
     broken = versionOlder kernel.version "5.15";
   };

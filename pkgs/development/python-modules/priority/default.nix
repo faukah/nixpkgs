@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "priority";
   version = "2.0.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "priority" ];
+  pythonImportsCheck = ["priority"];
 
   nativeCheckInputs = [
     hypothesis
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Pure-Python implementation of the HTTP/2 priority tree";
     homepage = "https://github.com/python-hyper/priority/";
     license = licenses.mit;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
   };
 }

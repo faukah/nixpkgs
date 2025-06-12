@@ -8,7 +8,6 @@
   fetchFromGitLab,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-desktop-testing";
   version = "2021.1";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-desktop-testing";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.jtojnar ];
+    maintainers = [maintainers.jtojnar];
   };
 }

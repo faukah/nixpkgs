@@ -11,7 +11,7 @@
 mkDerivation {
   pname = "libcxxrt";
   path = "lib/libcxxrt";
-  extraPaths = [ "contrib/libcxxrt" ];
+  extraPaths = ["contrib/libcxxrt"];
   outputs = [
     "out"
     "dev"

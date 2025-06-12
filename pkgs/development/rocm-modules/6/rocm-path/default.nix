@@ -22,6 +22,6 @@ symlinkJoin {
     rocsparse
     rocm-device-libs
     rocm-smi
-    (linkFarm "rocm-llvm-subdir" { llvm = llvm.clang; })
+    (linkFarm "rocm-llvm-subdir" {llvm = llvm.clang;})
   ];
 }

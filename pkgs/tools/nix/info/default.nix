@@ -10,7 +10,6 @@
   doCheck ? false,
   shellcheck,
 }:
-
 stdenv.mkDerivation {
   name = "nix-info";
   src = ./info.sh;
@@ -21,9 +20,12 @@ stdenv.mkDerivation {
       findutils
       gnugrep
     ]
-    ++ (lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ])
+    ++ (lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools])
   );
-  is_darwin = if stdenv.hostPlatform.isDarwin then "yes" else "no";
+  is_darwin =
+    if stdenv.hostPlatform.isDarwin
+    then "yes"
+    else "no";
 
   sandboxtest = ./sandbox.nix;
   relaxedsandboxtest = ./relaxedsandbox.nix;
@@ -40,8 +42,8 @@ stdenv.mkDerivation {
 
   inherit doCheck;
   strictDeps = true;
-  nativeCheckInputs = [ shellcheck ];
-  buildInputs = [ bash ];
+  nativeCheckInputs = [shellcheck];
+  buildInputs = [bash];
 
   checkPhase = ''
     shellcheck ./nix-info

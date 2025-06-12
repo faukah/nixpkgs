@@ -16,7 +16,6 @@
   pytestCheckHook,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "django-q2";
   version = "1.7.6";
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "django_q" ];
+  pythonImportsCheck = ["django_q"];
 
   preCheck = ''
     ${pkgs.valkey}/bin/redis-server &
@@ -99,7 +98,7 @@ buildPythonPackage rec {
     "django_q/tests/test_commands.py"
   ];
 
-  pytestFlagsArray = [ "-vv" ];
+  pytestFlagsArray = ["-vv"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -108,6 +107,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/django-q2/django-q2";
     changelog = "https://github.com/django-q2/django-q2/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

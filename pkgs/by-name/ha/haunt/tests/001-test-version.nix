@@ -2,12 +2,11 @@
   stdenv,
   haunt,
 }:
-
 stdenv.mkDerivation {
   pname = "haunt-test-version";
   inherit (haunt) version;
 
-  nativeBuildInputs = [ haunt ];
+  nativeBuildInputs = [haunt];
 
   dontInstall = true;
 

@@ -7,7 +7,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   version = "3.0.0";
   pname = "conjure-python-client";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     echo '__version__ = "${version}"' > ./conjure_python_client/_version.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     "test/serde/test_decode_union.py"
   ];
 
-  pythonImportsCheck = [ "conjure_python_client" ];
+  pythonImportsCheck = ["conjure_python_client"];
 
   meta = {
     description = "Python client and JSON encoders for use with generated Conjure clients";
     homepage = "https://github.com/palantir/conjure-python-client";
     changelog = "https://github.com/palantir/conjure-python-client/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ alkasm ];
+    maintainers = with lib.maintainers; [alkasm];
   };
 }

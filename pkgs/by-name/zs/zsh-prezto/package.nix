@@ -5,7 +5,6 @@
   unstableGitUpdater,
   bash,
 }:
-
 stdenv.mkDerivation {
   pname = "zsh-prezto";
   version = "0-unstable-2025-01-10";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   postPatch = ''
     # make zshrc aware of where zsh-prezto is installed
@@ -31,7 +30,7 @@ stdenv.mkDerivation {
     cp -R ./ $out/share/zsh-prezto
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Configuration framework for Zsh";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/sorin-ionescu/prezto";
     license = licenses.mit;
-    maintainers = with maintainers; [ holymonson ];
+    maintainers = with maintainers; [holymonson];
     platforms = platforms.unix;
   };
 }

@@ -7,7 +7,6 @@
   libusb1,
   libev,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rtl_fm_streamer";
   version = "unstable-2021-06-08";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Turns your Realtek RTL2832 based DVB dongle into a FM radio stereo receiver";
     homepage = "https://github.com/AlbrechtL/rtl_fm_streamer";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
   };
 })

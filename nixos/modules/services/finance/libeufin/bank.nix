@@ -3,9 +3,8 @@
   config,
   options,
   ...
-}:
-{
-  imports = [ (import ./common.nix "bank") ];
+}: {
+  imports = [(import ./common.nix "bank")];
 
   options.services.libeufin.bank = {
     initialAccounts = lib.mkOption {
@@ -19,7 +18,7 @@
 
         Don't forget to change the account passwords afterwards.
       '';
-      default = [ ];
+      default = [];
     };
 
     settings = lib.mkOption {
@@ -83,9 +82,11 @@
   };
 
   config = {
-    services.libeufin.bank.settings.libeufin-bank.CURRENCY = lib.mkIf (
-      config.services.taler.enable && (config.services.taler.settings.taler ? CURRENCY)
-    ) config.services.taler.settings.taler.CURRENCY;
+    services.libeufin.bank.settings.libeufin-bank.CURRENCY =
+      lib.mkIf (
+        config.services.taler.enable && (config.services.taler.settings.taler ? CURRENCY)
+      )
+      config.services.taler.settings.taler.CURRENCY;
 
     services.libeufin.bank.settings.libeufin-bankdb-postgres.CONFIG =
       lib.mkIf config.services.libeufin.bank.createLocalDatabase "postgresql:///libeufin-bank";

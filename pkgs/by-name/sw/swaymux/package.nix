@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       Swaymux allows the user to quickly navigate and administrate outputs, workspaces and containers in a tmux-style approach.
     '';
     mainProgram = "swaymux";
-    maintainers = with maintainers; [ grimmauld ];
+    maintainers = with maintainers; [grimmauld];
     platforms = platforms.linux;
   };
 })

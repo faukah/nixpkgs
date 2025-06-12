@@ -18,7 +18,6 @@
   libGL,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "manaplus";
   version = "2.1.3.17-unstable-2024-08-15";
@@ -71,11 +70,11 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   meta = {
-    maintainers = [ ];
+    maintainers = [];
     description = "Free OpenSource 2D MMORPG client";
     homepage = "https://manaplus.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    badPlatforms = [ lib.systems.inspect.patterns.isDarwin ];
+    badPlatforms = [lib.systems.inspect.patterns.isDarwin];
   };
 })

@@ -1,20 +1,18 @@
-{
-  nixpkgs ? import ../.. { },
-}:
-with nixpkgs;
-let
+{nixpkgs ? import ../.. {}}:
+with nixpkgs; let
   pyEnv = python3.withPackages (
-    ps: with ps; [
-      packaging
-      requests
-      toolz
-      pyyaml
-    ]
+    ps:
+      with ps; [
+        packaging
+        requests
+        toolz
+        pyyaml
+      ]
   );
 in
-mkShell {
-  packages = [
-    pyEnv
-    nix-prefetch-scripts
-  ];
-}
+  mkShell {
+    packages = [
+      pyEnv
+      nix-prefetch-scripts
+    ];
+  }

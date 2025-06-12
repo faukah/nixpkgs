@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oam-tools";
   version = "0.1.2";
@@ -26,6 +25,6 @@ buildGoModule rec {
     description = "Analysis and management tools for an Open Asset Model database";
     homepage = "https://github.com/owasp-amass/oam-tools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

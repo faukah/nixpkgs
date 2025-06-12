@@ -7,14 +7,12 @@
   mathcomp-boot,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "coquelicot";
   owner = "coquelicot";
   domain = "gitlab.inria.fr";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.12" "9.0";
@@ -44,7 +42,8 @@ mkCoqDerivation {
         case = range "8.5" "8.9";
         out = "3.0.2";
       }
-    ] null;
+    ]
+    null;
   release."3.4.3".sha256 = "sha256-bzzAIENU2OYTtmdBU9Xw8zyBvz9vqTiqjWSm7RnXXRA=";
   release."3.4.2".sha256 = "sha256-aBTF8ZKu67Rb3ryCqFyejUXf/65KgG8i5je/ZMFSrj4=";
   release."3.4.1".sha256 = "sha256-REhvIBl3EaL8CQqI34Gn7Xjf9NhPI3nrUAO26pSLbm0=";
@@ -56,7 +55,7 @@ mkCoqDerivation {
   release."3.0.2".sha256 = "1rqfbbskgz7b1bcpva8wh3v3456sq2364y804f94sc8y5sij23nl";
   releaseRev = v: "coquelicot-${v}";
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
   propagatedBuildInputs = [
     stdlib
     mathcomp-boot
@@ -67,6 +66,6 @@ mkCoqDerivation {
     homepage = "http://coquelicot.saclay.inria.fr/";
     description = "Coq library for Reals";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -12,7 +12,6 @@
 #
 # These tests are split out from the parent pkg since recompiling the parent
 # takes like 30 min : )
-
 {
   lib,
   openssl,
@@ -92,7 +91,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "TestApp";
   };
 }

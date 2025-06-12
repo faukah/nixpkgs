@@ -13,7 +13,6 @@
   which,
   pulseaudioSupport ? config.pulseaudio or stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pcaudiolib";
   version = "1.3";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/espeak-ng/pcaudiolib";
     description = "Provides a C API to different audio devices";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aske ];
+    maintainers = with maintainers; [aske];
     platforms = platforms.unix;
   };
 })

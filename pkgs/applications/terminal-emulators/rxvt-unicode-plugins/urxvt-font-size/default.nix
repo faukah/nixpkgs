@@ -5,7 +5,6 @@
   xrdb,
   xlsfonts,
 }:
-
 stdenv.mkDerivation rec {
   pname = "urxvt-font-size";
   version = "1.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Change the urxvt font size on the fly";
     homepage = "https://github.com/majutsushi/urxvt-font-size";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

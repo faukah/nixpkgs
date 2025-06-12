@@ -5,7 +5,6 @@
   testers,
   stackql,
 }:
-
 buildGoModule rec {
   pname = "stackql";
   version = "0.8.141";
@@ -31,7 +30,7 @@ buildGoModule rec {
 
   __darwinAllowLocalNetworking = true;
 
-  checkFlags = [ "--tags json1,sqleanal" ];
+  checkFlags = ["--tags json1,sqleanal"];
 
   passthru.tests.version = testers.testVersion {
     package = stackql;
@@ -43,6 +42,6 @@ buildGoModule rec {
     description = "Deploy, manage and query cloud resources and interact with APIs using SQL";
     mainProgram = "stackql";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jonochang ];
+    maintainers = with lib.maintainers; [jonochang];
   };
 }

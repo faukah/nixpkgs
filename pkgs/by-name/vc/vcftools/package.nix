@@ -7,7 +7,6 @@
   pkg-config,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vcftools";
   version = "0.1.17";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl3;
     platforms = platforms.linux;
     homepage = "https://vcftools.github.io/index.html";
-    maintainers = [ maintainers.rybern ];
+    maintainers = [maintainers.rybern];
   };
 }

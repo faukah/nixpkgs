@@ -7,7 +7,6 @@
   oniguruma,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oranda";
   version = "0.6.5";
@@ -55,7 +54,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "oranda";
   };
 }

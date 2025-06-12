@@ -4,21 +4,17 @@
   pythonAtLeast,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   jaxlib,
   jmp,
   numpy,
   tabulate,
-
   # optional-dependencies
   jax,
   flax,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
@@ -31,9 +27,7 @@
   optax,
   rlax,
   tensorflow,
-}:
-
-let
+}: let
   dm-haiku = buildPythonPackage rec {
     pname = "dm-haiku";
     version = "0.0.13";
@@ -69,7 +63,7 @@ let
         --replace-fail "jax.core.Jaxpr" "jax.extend.core.Jaxpr"
     '';
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     dependencies = [
       absl-py
@@ -84,10 +78,10 @@ let
         jax
         jaxlib
       ];
-      flax = [ flax ];
+      flax = [flax];
     };
 
-    pythonImportsCheck = [ "haiku" ];
+    pythonImportsCheck = ["haiku"];
 
     nativeCheckInputs = [
       bsuite
@@ -144,8 +138,8 @@ let
       description = "Haiku is a simple neural network library for JAX developed by some of the authors of Sonnet";
       homepage = "https://github.com/deepmind/dm-haiku";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ ndl ];
+      maintainers = with lib.maintainers; [ndl];
     };
   };
 in
-dm-haiku
+  dm-haiku

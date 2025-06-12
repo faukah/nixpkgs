@@ -8,7 +8,6 @@
   libxml2,
   libgee,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libisocodes";
   version = "1.2.5";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/toddy15/libisocodes";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "leaf";
   version = "0.2.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Simple system fetch written in rust";
     homepage = "https://github.com/IogaMaster/leaf";
     license = licenses.mit;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [iogamaster];
     mainProgram = "leaf";
   };
 }

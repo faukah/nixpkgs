@@ -8,7 +8,6 @@
   zlib,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gitu";
   version = "0.33.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/altsem/gitu";
     changelog = "https://github.com/altsem/gitu/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ evanrichter ];
+    maintainers = with maintainers; [evanrichter];
     mainProgram = "gitu";
   };
 }

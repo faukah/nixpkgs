@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "mod";
   version = "0.8.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mod" ];
+  subPackages = ["cmd/mod"];
 
   meta = with lib; {
     description = "Automated Semantic Import Versioning Upgrades for Go";
@@ -30,7 +29,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/marwan-at-work/mod";
     license = licenses.mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

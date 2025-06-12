@@ -8,8 +8,7 @@
   otherSplices,
   version,
   src,
-}:
-let
+}: let
   officialRelease = true;
 
   # A new scope, so that we can use `callPackage` to inject our own interdependencies
@@ -18,24 +17,23 @@ let
   # we can iterate over.
   nixComponents =
     lib.makeScopeWithSplicing'
-      {
-        inherit splicePackages;
-        inherit (nixDependencies) newScope;
-      }
-      {
-        inherit otherSplices;
-        f = import ./packaging/components.nix {
-          inherit
-            lib
-            maintainers
-            teams
-            officialRelease
-            pkgs
-            src
-            version
-            ;
-        };
+    {
+      inherit splicePackages;
+      inherit (nixDependencies) newScope;
+    }
+    {
+      inherit otherSplices;
+      f = import ./packaging/components.nix {
+        inherit
+          lib
+          maintainers
+          teams
+          officialRelease
+          pkgs
+          src
+          version
+          ;
       };
-
+    };
 in
-nixComponents.overrideSource src
+  nixComponents.overrideSource src

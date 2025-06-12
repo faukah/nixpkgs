@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "circom";
   version = "2.2.2";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/iden3/circom";
     changelog = "https://github.com/iden3/circom/blob/${src.rev}/RELEASES.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

@@ -9,7 +9,6 @@
   dbus,
   ninja,
 }:
-
 stdenv.mkDerivation {
   pname = "iio-hyprland";
   version = "0-unstable-2025-03-18";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     hash = "sha256-lmzSEP6oqnnOfiwMzMtp33lUlOqrVtbliMEnO8Pl/4s=";
   };
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
   nativeBuildInputs = [
     meson
     cmake
@@ -29,13 +28,13 @@ stdenv.mkDerivation {
     ninja
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Listens to iio-sensor-proxy and automatically changes Hyprland output orientation";
     homepage = "https://github.com/JeanSchoeller/iio-hyprland/tree/master";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ yusuf-duran ];
+    maintainers = with lib.maintainers; [yusuf-duran];
     platforms = lib.platforms.linux;
     mainProgram = "iio-hyprland";
   };

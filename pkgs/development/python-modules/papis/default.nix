@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   arxiv,
   beautifulsoup4,
@@ -26,7 +24,6 @@
   pyyaml,
   requests,
   stevedore,
-
   # tests
   docutils,
   git,
@@ -46,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-V4YswLNYwfBYe/Td0PEeDG++ClZoF08yxXjUXuyppPI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     arxiv
@@ -75,7 +72,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=papis" ""
   '';
 
-  pythonImportsCheck = [ "papis" ];
+  pythonImportsCheck = ["papis"];
 
   nativeCheckInputs = [
     docutils

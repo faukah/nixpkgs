@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule {
   pname = "solitaire-tui";
   version = "0-unstable-2023-04-20";
@@ -26,7 +25,7 @@ buildGoModule {
     homepage = "https://github.com/brianstrauch/solitaire-tui";
     description = "Klondike solitaire for the terminal";
     mainProgram = "solitaire-tui";
-    maintainers = with maintainers; [ nyadiia ];
+    maintainers = with maintainers; [nyadiia];
     license = licenses.asl20;
   };
 }

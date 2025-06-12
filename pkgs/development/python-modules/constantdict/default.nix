@@ -5,7 +5,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "constantdict";
   version = "2025.1.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "test_pickle_hash"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://matthiasdiener.github.io/constantdict";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Immutable dictionary class for Python, implemented as a thin layer around Python's builtin dict class";
     changelog = "https://github.com/matthiasdiener/constantdict/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

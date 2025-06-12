@@ -18,7 +18,6 @@
   libsoup_2_4,
   pantheon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spice-up";
   version = "1.9.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       samdroid-apps
       xiorcale
     ];
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     # The COPYING file has GPLv3; some files have GPLv2+ and some have GPLv3+
     license = licenses.gpl3Plus;

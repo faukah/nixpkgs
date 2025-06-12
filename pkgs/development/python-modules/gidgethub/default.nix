@@ -13,7 +13,6 @@
   pytest-asyncio,
   pytest-tornasync,
 }:
-
 buildPythonPackage rec {
   pname = "gidgethub";
   version = "5.3.0";
@@ -26,12 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-ns59N/vOuBm4BWDn7Vj5NuSKZdN+xfVtt5FFFWtCaiU=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
-  propagatedBuildInputs = [
-    uritemplate
-    pyjwt
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs =
+    [
+      uritemplate
+      pyjwt
+    ]
+    ++ pyjwt.optional-dependencies.crypto;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,6 +53,6 @@ buildPythonPackage rec {
     description = "Async GitHub API library";
     homepage = "https://github.com/brettcannon/gidgethub";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -27,7 +27,6 @@
   flac,
   libogg,
 }:
-
 stdenv.mkDerivation {
   pname = "asc";
   version = "2.6.3.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     sha256 = "atamYCN2mOqxV6auToTeWdpKuFfC+GLfLdRsfT0ouwQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL
@@ -80,7 +79,7 @@ stdenv.mkDerivation {
 
     license = licenses.gpl2Plus;
 
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

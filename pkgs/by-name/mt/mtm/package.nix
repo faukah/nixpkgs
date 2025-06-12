@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mtm";
   version = "1.2.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gibrvah059z37jvn1qs4b6kvd4ivk2mfihmcpgx1vz6yg70zghv";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makeFlags = [
     "DESTDIR=${placeholder "out"}"
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/deadpixi/mtm";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "mtm";
   };
 }

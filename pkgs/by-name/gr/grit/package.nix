@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "grit";
   version = "0.3.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
     description = "Multitree-based personal task manager";
     homepage = "https://github.com/climech/grit";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "grit";
   };
 }

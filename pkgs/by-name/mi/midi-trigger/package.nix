@@ -5,7 +5,6 @@
   pkg-config,
   lv2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "midi-trigger";
   version = "0.0.4";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-tMnN8mTd6Bm46ZIDy0JPSVe77xCZws2XwQLQexDWPgU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ lv2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [lv2];
 
   makeFlags = [
     "CXX=cc"
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/unclechu/MIDI-Trigger";
     description = "LV2 plugin which generates MIDI notes by detected audio signal peaks";
-    maintainers = with maintainers; [ unclechu ];
+    maintainers = with maintainers; [unclechu];
     license = licenses.gpl3Only;
     platforms = platforms.unix;
   };

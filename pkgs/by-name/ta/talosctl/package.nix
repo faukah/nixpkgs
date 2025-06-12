@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "talosctl";
   version = "1.10.3";
@@ -26,9 +25,9 @@ buildGoModule rec {
 
   env.GOWORK = "off";
 
-  subPackages = [ "cmd/talosctl" ];
+  subPackages = ["cmd/talosctl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd talosctl \
@@ -40,7 +39,7 @@ buildGoModule rec {
   doCheck = false; # no tests
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   meta = with lib; {
@@ -48,6 +47,6 @@ buildGoModule rec {
     mainProgram = "talosctl";
     homepage = "https://www.talos.dev/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

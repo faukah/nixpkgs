@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pyparsing,
 }:
-
 buildPythonPackage rec {
   pname = "asn1ate";
   format = "setuptools";
@@ -17,13 +16,13 @@ buildPythonPackage rec {
     repo = "asn1ate";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   meta = with lib; {
     description = "Python library for translating ASN.1 into other forms";
     mainProgram = "asn1ate";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

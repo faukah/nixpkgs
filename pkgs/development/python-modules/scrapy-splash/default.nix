@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "scrapy-splash";
   version = "0.11.1";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-eOWqSCuuZtUtaEuAew4g0P67N0zClaguHn2u4ZMT3FU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     scrapy
     six
   ];
 
-  pythonImportsCheck = [ "scrapy_splash" ];
+  pythonImportsCheck = ["scrapy_splash"];
 
   nativeCheckInputs = [
     hypothesis
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Scrapy+Splash for JavaScript integration";
     homepage = "https://github.com/scrapy-plugins/scrapy-splash";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ evanjs ];
+    maintainers = with lib.maintainers; [evanjs];
   };
 }

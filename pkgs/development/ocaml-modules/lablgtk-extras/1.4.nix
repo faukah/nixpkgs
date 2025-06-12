@@ -9,7 +9,6 @@
   lablgtk,
   xmlm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml-lablgtk-extras";
   version = "1.4";
@@ -35,8 +34,8 @@ stdenv.mkDerivation rec {
   createFindlibDestdir = true;
 
   meta = {
-    platforms = ocaml.meta.platforms or [ ];
-    maintainers = with lib.maintainers; [ vbgl ];
+    platforms = ocaml.meta.platforms or [];
+    maintainers = with lib.maintainers; [vbgl];
     homepage = "http://gtk-extras.forge.ocamlcore.org/";
     description = "Collection of libraries and modules useful when developing OCaml/LablGtk2 applications";
     license = lib.licenses.lgpl2Plus;

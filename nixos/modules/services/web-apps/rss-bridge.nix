@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkDefault
     mkEnableOption
@@ -21,24 +21,23 @@ let
   cfgEnv = lib.pipe cfg.config [
     (lib.mapAttrsRecursive (
       path: value:
-      lib.optionalAttrs (value != null) {
-        name = lib.toUpper "RSSBRIDGE_${lib.concatStringsSep "_" path}";
-        value =
-          if lib.isList value then
-            lib.concatStringsSep "," value
-          else if lib.isBool value then
-            lib.boolToString value
-          else
-            toString value;
-      }
+        lib.optionalAttrs (value != null) {
+          name = lib.toUpper "RSSBRIDGE_${lib.concatStringsSep "_" path}";
+          value =
+            if lib.isList value
+            then lib.concatStringsSep "," value
+            else if lib.isBool value
+            then lib.boolToString value
+            else toString value;
+        }
     ))
     (lib.collect (x: lib.isString x.name or false && lib.isString x.value or false))
     lib.listToAttrs
   ];
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "rss-bridge"
@@ -60,7 +59,10 @@ in
 
       user = mkOption {
         type = types.str;
-        default = if cfg.webserver == null then "rss-bridge" else cfg.webserver;
+        default =
+          if cfg.webserver == null
+          then "rss-bridge"
+          else cfg.webserver;
         defaultText = "{option}`config.services.rss-bridge.webserver` or \"rss-bridge\"";
         description = ''
           The user account under which both the service and the web application run.
@@ -69,14 +71,17 @@ in
 
       group = mkOption {
         type = types.str;
-        default = if cfg.webserver == null then "rss-bridge" else cfg.webserver;
+        default =
+          if cfg.webserver == null
+          then "rss-bridge"
+          else cfg.webserver;
         defaultText = "{option}`config.services.rss-bridge.webserver` or \"rss-bridge\"";
         description = ''
           The group under which the web application runs.
         '';
       };
 
-      package = mkPackageOption pkgs "rss-bridge" { };
+      package = mkPackageOption pkgs "rss-bridge" {};
 
       pool = mkOption {
         type = types.nullOr types.str;
@@ -119,7 +124,7 @@ in
 
       config = mkOption {
         type = types.submodule {
-          freeformType = (pkgs.formats.ini { }).type;
+          freeformType = (pkgs.formats.ini {}).type;
           options = {
             system = {
               enabled_bridges = mkOption {
@@ -223,5 +228,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ quantenzitrone ];
+  meta.maintainers = with lib.maintainers; [quantenzitrone];
 }

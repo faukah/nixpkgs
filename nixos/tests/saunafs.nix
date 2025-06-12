@@ -1,90 +1,86 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}: let
+  master = {pkgs, ...}: {
+    # data base is stored in memory
+    # server may crash with default memory size
+    virtualisation.memorySize = 1024;
 
-let
-  master =
-    { pkgs, ... }:
-    {
-      # data base is stored in memory
-      # server may crash with default memory size
-      virtualisation.memorySize = 1024;
-
-      services.saunafs.master = {
-        enable = true;
-        openFirewall = true;
-        exports = [
-          "* / rw,alldirs,maproot=0:0"
-        ];
-      };
-    };
-
-  chunkserver =
-    { pkgs, ... }:
-    {
-      virtualisation.emptyDiskImages = [ 4096 ];
-      boot.initrd.postDeviceCommands = ''
-        ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
-      '';
-
-      fileSystems = pkgs.lib.mkVMOverride {
-        "/data" = {
-          device = "/dev/disk/by-label/data";
-          fsType = "ext4";
-        };
-      };
-
-      services.saunafs = {
-        masterHost = "master";
-        chunkserver = {
-          openFirewall = true;
-          enable = true;
-          hdds = [ "/data" ];
-
-          # The test image is too small and gets set to "full"
-          settings.HDD_LEAVE_SPACE_DEFAULT = "100M";
-        };
-      };
-    };
-
-  metalogger =
-    { pkgs, ... }:
-    {
-      services.saunafs = {
-        masterHost = "master";
-        metalogger.enable = true;
-      };
-    };
-
-  client =
-    { pkgs, lib, ... }:
-    {
-      services.saunafs.client.enable = true;
-      # systemd.tmpfiles.rules = [ "d /sfs 755 root root -" ];
-      systemd.network.enable = true;
-
-      # Use networkd to have properly functioning
-      # network-online.target
-      networking = {
-        useDHCP = false;
-        useNetworkd = true;
-      };
-
-      systemd.mounts = [
-        {
-          requires = [ "network-online.target" ];
-          after = [ "network-online.target" ];
-          wantedBy = [ "remote-fs.target" ];
-          type = "saunafs";
-          what = "master:/";
-          where = "/sfs";
-        }
+    services.saunafs.master = {
+      enable = true;
+      openFirewall = true;
+      exports = [
+        "* / rw,alldirs,maproot=0:0"
       ];
     };
+  };
 
-in
-{
+  chunkserver = {pkgs, ...}: {
+    virtualisation.emptyDiskImages = [4096];
+    boot.initrd.postDeviceCommands = ''
+      ${pkgs.e2fsprogs}/bin/mkfs.ext4 -L data /dev/vdb
+    '';
+
+    fileSystems = pkgs.lib.mkVMOverride {
+      "/data" = {
+        device = "/dev/disk/by-label/data";
+        fsType = "ext4";
+      };
+    };
+
+    services.saunafs = {
+      masterHost = "master";
+      chunkserver = {
+        openFirewall = true;
+        enable = true;
+        hdds = ["/data"];
+
+        # The test image is too small and gets set to "full"
+        settings.HDD_LEAVE_SPACE_DEFAULT = "100M";
+      };
+    };
+  };
+
+  metalogger = {pkgs, ...}: {
+    services.saunafs = {
+      masterHost = "master";
+      metalogger.enable = true;
+    };
+  };
+
+  client = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    services.saunafs.client.enable = true;
+    # systemd.tmpfiles.rules = [ "d /sfs 755 root root -" ];
+    systemd.network.enable = true;
+
+    # Use networkd to have properly functioning
+    # network-online.target
+    networking = {
+      useDHCP = false;
+      useNetworkd = true;
+    };
+
+    systemd.mounts = [
+      {
+        requires = ["network-online.target"];
+        after = ["network-online.target"];
+        wantedBy = ["remote-fs.target"];
+        type = "saunafs";
+        what = "master:/";
+        where = "/sfs";
+      }
+    ];
+  };
+in {
   name = "saunafs";
 
-  meta.maintainers = [ lib.maintainers.markuskowa ];
+  meta.maintainers = [lib.maintainers.markuskowa];
 
   nodes = {
     inherit master metalogger;

@@ -7,7 +7,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openstep-plist";
   version = "0.5.0";
@@ -25,15 +24,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "openstep_plist" ];
+  pythonImportsCheck = ["openstep_plist"];
 
   meta = {
     changelog = "https://github.com/fonttools/openstep-plist/releases/tag/v${version}";
     description = "Parser for the 'old style' OpenStep property list format also known as ASCII plist";
     homepage = "https://github.com/fonttools/openstep-plist";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.BarinovMaxim ];
+    maintainers = [lib.maintainers.BarinovMaxim];
   };
 }

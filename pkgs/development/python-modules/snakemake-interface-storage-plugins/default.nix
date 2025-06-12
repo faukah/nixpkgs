@@ -9,7 +9,6 @@
   throttler,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "snakemake-interface-storage-plugins";
   version = "4.2.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-mGpKmKWWL4ue9Dddjs4fXCaITrC97yHC58Jh2vclXAY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     humanfriendly
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  pythonImportsCheck = [ "snakemake_interface_storage_plugins" ];
+  pythonImportsCheck = ["snakemake_interface_storage_plugins"];
 
   meta = with lib; {
     description = "This package provides a stable interface for interactions between Snakemake and its storage plugins";
     homepage = "https://github.com/snakemake/snakemake-interface-storage-plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

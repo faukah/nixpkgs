@@ -2,20 +2,17 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   cargo-tauri,
   jq,
   moreutils,
   nodejs,
   pkg-config,
   pnpm_9,
-
   libayatana-appindicator,
   libsoup_3,
   openssl,
   webkitgtk_4_1,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "overlayed";
   version = "0.6.2";
@@ -72,7 +69,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/overlayeddev/overlayed";
     changelog = "https://github.com/overlayeddev/overlayed/releases/tag/v${version}";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.agpl3Plus;
     mainProgram = "overlayed";
   };

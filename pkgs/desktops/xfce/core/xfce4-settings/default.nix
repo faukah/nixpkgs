@@ -23,7 +23,6 @@
   colord,
   withColord ? true,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "xfce4-settings";
@@ -52,19 +51,19 @@ mkXfceDerivation {
       xf86inputlibinput
       xfconf
     ]
-    ++ lib.optionals withUpower [ upower ]
-    ++ lib.optionals withColord [ colord ];
+    ++ lib.optionals withUpower [upower]
+    ++ lib.optionals withColord [colord];
 
   configureFlags =
     [
       "--enable-pluggable-dialogs"
       "--enable-sound-settings"
     ]
-    ++ lib.optionals withUpower [ "--enable-upower-glib" ]
-    ++ lib.optionals withColord [ "--enable-colord" ];
+    ++ lib.optionals withUpower ["--enable-upower-glib"]
+    ++ lib.optionals withColord ["--enable-colord"];
 
   meta = with lib; {
     description = "Settings manager for Xfce";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

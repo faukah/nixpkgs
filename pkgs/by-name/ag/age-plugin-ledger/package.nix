@@ -7,7 +7,6 @@
   openssl,
   rage,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "age-plugin-ledger";
   version = "0.1.2";
@@ -43,6 +42,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
   };
 }

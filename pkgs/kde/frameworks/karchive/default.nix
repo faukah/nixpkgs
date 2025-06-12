@@ -11,5 +11,5 @@ mkKdeDerivation {
     qttools
     pkg-config
   ];
-  extraBuildInputs = [ xz ];
+  extraBuildInputs = [xz];
 }

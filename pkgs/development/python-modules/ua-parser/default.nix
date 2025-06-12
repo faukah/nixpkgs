@@ -10,7 +10,6 @@
   ua-parser-builtins,
   ua-parser-rs,
 }:
-
 buildPythonPackage rec {
   pname = "ua-parser";
   version = "1.0.1";
@@ -35,20 +34,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    yaml = [ pyyaml ];
-    re2 = [ google-re2 ];
-    regex = [ ua-parser-rs ];
+    yaml = [pyyaml];
+    re2 = [google-re2];
+    regex = [ua-parser-rs];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ua_parser" ];
+  pythonImportsCheck = ["ua_parser"];
 
   meta = {
     changelog = "https://github.com/ua-parser/uap-python/releases/tag/${version}";
     description = "Python implementation of the UA Parser";
     homepage = "https://github.com/ua-parser/uap-python";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

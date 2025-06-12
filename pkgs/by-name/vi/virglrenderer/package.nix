@@ -19,7 +19,6 @@
   vulkan-loader,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "virglrenderer";
   version = "1.1.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     [
       libepoxy
     ]
-    ++ lib.optionals vaapiSupport [ libva ]
+    ++ lib.optionals vaapiSupport [libva]
     ++ lib.optionals vulkanSupport [
       vulkan-headers
       vulkan-loader
@@ -78,6 +77,6 @@ stdenv.mkDerivation rec {
     homepage = "https://virgil3d.github.io/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.xeji ];
+    maintainers = [maintainers.xeji];
   };
 }

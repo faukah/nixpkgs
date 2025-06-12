@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "inifile";
   version = "0.4.1";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     description = "Small INI library for Python";
     homepage = "https://github.com/mitsuhiko/python-inifile";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

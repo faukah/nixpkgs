@@ -5,7 +5,6 @@
   libfaketime,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "creep";
   version = "0.31";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/romeovs/creep";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

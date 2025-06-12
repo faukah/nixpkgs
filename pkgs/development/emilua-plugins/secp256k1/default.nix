@@ -17,7 +17,6 @@
   fmt,
   secp256k1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emilua-secp256k1";
   version = "0.5.1";
@@ -49,14 +48,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     description = "Emilua bindings to libsecp256k1";
     homepage = "https://emilua.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ manipuladordedados ];
+    maintainers = with maintainers; [manipuladordedados];
     platforms = platforms.linux;
   };
 }

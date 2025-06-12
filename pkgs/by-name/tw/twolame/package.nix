@@ -6,9 +6,7 @@
   pkg-config,
   libsndfile,
 }:
-
 stdenv.mkDerivation {
-
   pname = "twolame";
   version = "2017-09-27";
 
@@ -23,7 +21,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libsndfile ];
+  buildInputs = [libsndfile];
 
   doCheck = false; # fails with "../build-scripts/test-driver: line 107: -Mstrict: command not found"
 
@@ -36,8 +34,8 @@ stdenv.mkDerivation {
       code and portions of LAME.
     '';
     homepage = "https://www.twolame.org/";
-    license = with licenses; [ lgpl2Plus ];
+    license = with licenses; [lgpl2Plus];
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

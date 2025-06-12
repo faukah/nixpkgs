@@ -16,7 +16,6 @@
   udev,
   gtk-layer-shell,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sc-controller";
   version = "0.5.2";
@@ -39,8 +38,7 @@ python3Packages.buildPythonApplication rec {
     librsvg
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       evdev
       pygobject3
@@ -59,7 +57,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.toml
   ];
 
-  patches = [ ./scc_osd_keyboard.patch ];
+  patches = [./scc_osd_keyboard.patch];
 
   postPatch = ''
     substituteInPlace scc/paths.py --replace sys.prefix "'$out'"

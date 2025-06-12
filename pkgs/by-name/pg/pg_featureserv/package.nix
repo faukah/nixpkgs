@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "pg_featureserv";
   version = "1.3.1";
@@ -48,6 +47,6 @@ buildGoModule rec {
     mainProgram = "pg_featureserv";
     homepage = "https://github.com/CrunchyData/pg_featureserv";
     license = licenses.asl20;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

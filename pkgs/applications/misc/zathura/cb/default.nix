@@ -12,7 +12,6 @@
   desktop-file-utils,
   appstream-glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura-cb";
   version = "0.1.11";
@@ -47,6 +46,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ jlesquembre ];
+    maintainers = with lib.maintainers; [jlesquembre];
   };
 })

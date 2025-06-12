@@ -15,7 +15,6 @@
   libdbusmenu,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation {
   pname = "applet-window-appmenu";
   version = "unstable-2022-06-27";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     description = "Plasma 5 applet in order to show window menu in your panels";
     homepage = "https://github.com/psifidotos/applet-window-appmenu";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ greydot ];
+    maintainers = with maintainers; [greydot];
     platforms = platforms.linux;
   };
 }

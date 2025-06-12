@@ -5,7 +5,6 @@
   setuptools,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "pygments-better-html";
   version = "0.1.5";
@@ -17,19 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-SLAe5ubIGEchUNoHCct6CWisBja3WNEfpE48v9CTzPQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pygments ];
+  dependencies = [pygments];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pygments_better_html" ];
+  pythonImportsCheck = ["pygments_better_html"];
 
   meta = {
     homepage = "https://github.com/Kwpolska/pygments_better_html";
     description = "Improved line numbering for Pygments’ HTML formatter";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

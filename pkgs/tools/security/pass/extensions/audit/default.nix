@@ -6,7 +6,6 @@
   python3,
   gnupg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pass-audit";
   version = "1.2";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
   dependencies = with python3.pkgs; [
     requests
     setuptools
@@ -64,13 +63,13 @@ python3.pkgs.buildPythonApplication rec {
       --run "export COMMAND"
   '';
 
-  pythonImportsCheck = [ "pass_audit" ];
+  pythonImportsCheck = ["pass_audit"];
 
   meta = with lib; {
     description = "Pass extension for auditing your password repository";
     homepage = "https://github.com/roddhjav/pass-audit";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

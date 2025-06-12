@@ -7,7 +7,6 @@
   freenub,
   mashumaro,
 }:
-
 buildPythonPackage rec {
   pname = "python-snoo";
   version = "0.6.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail poetry-core==1.8.0 poetry-core
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     mashumaro
   ];
 
-  pythonImportsCheck = [ "python_snoo" ];
+  pythonImportsCheck = ["python_snoo"];
 
   # upstream has no tests
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Control Snoo devices via python and get auto updates";
     homepage = "https://github.com/Lash-L/python-snoo";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

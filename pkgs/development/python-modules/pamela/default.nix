@@ -4,7 +4,6 @@
   fetchPypi,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "pamela";
   version = "1.2.0";

@@ -5,7 +5,6 @@
   flask,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   version = "0.2.14";
   format = "setuptools";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     license = licenses.mit;
     description = "Extract swagger specs from your flask project";
     mainProgram = "flaskswagger";
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

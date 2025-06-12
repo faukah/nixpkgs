@@ -11,7 +11,6 @@
   ujson,
   xarray,
 }:
-
 buildPythonPackage rec {
   pname = "osmpythontools";
   version = "0.3.5";
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mocnik-science/osm-python-tools";
     license = licenses.gpl3Only;
     changelog = "https://raw.githubusercontent.com/mocnik-science/osm-python-tools/v${version}/version-history.md";
-    maintainers = with maintainers; [ das-g ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [das-g];
+    teams = [teams.geospatial];
   };
 }

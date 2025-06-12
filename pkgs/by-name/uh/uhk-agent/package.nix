@@ -9,9 +9,7 @@
   asar,
   autoPatchelfHook,
   libusb1,
-}:
-
-let
+}: let
   pname = "uhk-agent";
   version = "7.0.1";
 
@@ -25,59 +23,59 @@ let
     inherit pname version src;
   };
 in
-stdenvNoCC.mkDerivation {
-  inherit pname version src;
+  stdenvNoCC.mkDerivation {
+    inherit pname version src;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [
-    asar
-    makeWrapper
-    autoPatchelfHook
-  ];
-
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    libusb1
-  ];
-
-  autoPatchelfIgnoreMissingDeps = [
-    "libc.musl-x86_64.so.1"
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p "$out"/{opt,share/applications}
-
-    cp -r --no-preserve=mode "${appimageContents}/resources"        "$out/opt/${pname}"
-    cp -r --no-preserve=mode "${appimageContents}/usr/share/icons"  "$out/share/icons"
-    cp -r --no-preserve=mode "${appimageContents}/${pname}.desktop" "$out/share/applications/${pname}.desktop"
-
-    substituteInPlace "$out/share/applications/${pname}.desktop" \
-      --replace "Exec=AppRun" "Exec=${pname}"
-
-    asar extract "$out/opt/${pname}/app.asar" "$out/opt/${pname}/app.asar.unpacked"
-    rm           "$out/opt/${pname}/app.asar"
-
-    makeWrapper "${electron}/bin/electron" "$out/bin/${pname}" \
-      --add-flags "$out/opt/${pname}/app.asar.unpacked" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
-      --set-default ELECTRON_IS_DEV 0 \
-      --inherit-argv0
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Agent is the configuration application of the Ultimate Hacking Keyboard";
-    homepage = "https://github.com/UltimateHackingKeyboard/agent";
-    license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [
-      ngiger
-      nickcao
+    nativeBuildInputs = [
+      asar
+      makeWrapper
+      autoPatchelfHook
     ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-  };
-}
+
+    buildInputs = [
+      (lib.getLib stdenv.cc.cc)
+      libusb1
+    ];
+
+    autoPatchelfIgnoreMissingDeps = [
+      "libc.musl-x86_64.so.1"
+    ];
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p "$out"/{opt,share/applications}
+
+      cp -r --no-preserve=mode "${appimageContents}/resources"        "$out/opt/${pname}"
+      cp -r --no-preserve=mode "${appimageContents}/usr/share/icons"  "$out/share/icons"
+      cp -r --no-preserve=mode "${appimageContents}/${pname}.desktop" "$out/share/applications/${pname}.desktop"
+
+      substituteInPlace "$out/share/applications/${pname}.desktop" \
+        --replace "Exec=AppRun" "Exec=${pname}"
+
+      asar extract "$out/opt/${pname}/app.asar" "$out/opt/${pname}/app.asar.unpacked"
+      rm           "$out/opt/${pname}/app.asar"
+
+      makeWrapper "${electron}/bin/electron" "$out/bin/${pname}" \
+        --add-flags "$out/opt/${pname}/app.asar.unpacked" \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+        --set-default ELECTRON_IS_DEV 0 \
+        --inherit-argv0
+
+      runHook postInstall
+    '';
+
+    meta = with lib; {
+      description = "Agent is the configuration application of the Ultimate Hacking Keyboard";
+      homepage = "https://github.com/UltimateHackingKeyboard/agent";
+      license = licenses.unfreeRedistributable;
+      maintainers = with maintainers; [
+        ngiger
+        nickcao
+      ];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    };
+  }

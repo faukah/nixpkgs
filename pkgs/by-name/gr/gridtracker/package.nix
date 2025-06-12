@@ -6,7 +6,6 @@
   nwjs,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gridtracker";
   version = "1.24.0922";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-6WgP13JVOzYnYtCDH3qCQXT70X9j4yqlUb18FFf1aSY=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     "NO_DIST_INSTALL=1"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Amateur radio companion to WSJT-X or JTDX";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gridtracker.org";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

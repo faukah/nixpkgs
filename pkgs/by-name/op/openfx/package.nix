@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "openfx";
   version = "1.4";
@@ -37,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "https://openeffects.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
   };
 }

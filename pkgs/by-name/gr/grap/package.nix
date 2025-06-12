@@ -11,7 +11,6 @@
   python3Packages,
   makeShellWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "grap";
   version = "1.3.1";
@@ -76,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/QuoSecGmbH/grap/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ s1341 ];
+    maintainers = with lib.maintainers; [s1341];
     platforms = lib.platforms.linux;
     mainProgram = "grap";
   };

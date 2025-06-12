@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tz";
   version = "0.8.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Time zone helper";
     homepage = "https://github.com/oz/tz";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     mainProgram = "tz";
   };
 }

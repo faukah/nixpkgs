@@ -16,7 +16,6 @@
   glib,
   pipewire,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-luminous";
   version = "0.1.8";
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/waycrate/xdg-desktop-portal-luminous";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Rishik-Y ];
+    maintainers = with lib.maintainers; [Rishik-Y];
   };
 })

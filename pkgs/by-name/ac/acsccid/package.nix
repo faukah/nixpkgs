@@ -13,7 +13,6 @@
   libusb1,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.8";
   pname = "acsccid";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = src.meta.homepage;
     license = licenses.lgpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

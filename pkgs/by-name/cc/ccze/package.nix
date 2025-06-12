@@ -7,7 +7,6 @@
   pcre2,
   quilt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ccze";
   version = "0.2.1-8";

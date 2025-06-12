@@ -6,7 +6,6 @@
   testers,
   afew,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "afew";
   version = "3.0.1";
@@ -65,6 +64,6 @@ python3Packages.buildPythonApplication rec {
     description = "Initial tagging script for notmuch mail";
     mainProgram = "afew";
     license = licenses.isc;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

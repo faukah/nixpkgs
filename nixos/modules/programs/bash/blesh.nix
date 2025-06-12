@@ -3,11 +3,9 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.bash.blesh;
-in
-{
+in {
   options = {
     programs.bash.blesh.enable = lib.mkEnableOption "blesh, a full-featured line editor written in pure Bash";
   };
@@ -17,5 +15,5 @@ in
       source ${pkgs.blesh}/share/blesh/ble.sh
     '';
   };
-  meta.maintainers = with lib.maintainers; [ laalsaas ];
+  meta.maintainers = with lib.maintainers; [laalsaas];
 }

@@ -1,9 +1,6 @@
-{
-  mkDerivation,
-}:
-
+{mkDerivation}:
 mkDerivation {
   path = "sbin/mount";
   meta.mainProgram = "mount";
-  patches = [ ./search-path.patch ];
+  patches = [./search-path.patch];
 }

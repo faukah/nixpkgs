@@ -6,7 +6,6 @@
   qttools,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "heimer";
   version = "4.5.0";
@@ -33,7 +32,7 @@ mkDerivation rec {
     homepage = "https://github.com/juzzlin/Heimer";
     changelog = "https://github.com/juzzlin/Heimer/blob/${version}/CHANGELOG";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

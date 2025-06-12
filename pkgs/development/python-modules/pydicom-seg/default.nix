@@ -3,20 +3,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   poetry-core,
-
   # dependencies
   jsonschema,
   numpy,
   pydicom,
   simpleitk,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydicom-seg";
   version = "0.4.1";
@@ -44,7 +40,7 @@ buildPythonPackage rec {
     "numpy"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     jsonschema
@@ -53,16 +49,16 @@ buildPythonPackage rec {
     simpleitk
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pydicom_seg" ];
+  pythonImportsCheck = ["pydicom_seg"];
 
   meta = {
     description = "Medical segmentation file reading and writing";
     homepage = "https://github.com/razorx89/pydicom-seg";
     changelog = "https://github.com/razorx89/pydicom-seg/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     # ModuleNotFoundError: No module named 'pydicom._storage_sopclass_uids'
     broken = true;
   };

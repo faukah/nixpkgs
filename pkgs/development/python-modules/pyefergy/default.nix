@@ -9,7 +9,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "pyefergy";
   version = "22.5.0";
@@ -43,13 +42,13 @@ buildPythonPackage rec {
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "pyefergy" ];
+  pythonImportsCheck = ["pyefergy"];
 
   meta = with lib; {
     changelog = "https://github.com/tkdrob/pyefergy/releases/tag/v${version}";
     description = "Python API library for Efergy energy meters";
     homepage = "https://github.com/tkdrob/pyefergy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

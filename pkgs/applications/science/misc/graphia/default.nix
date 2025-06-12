@@ -10,7 +10,6 @@
   qtsvg,
   qtwebengine,
 }:
-
 stdenv.mkDerivation rec {
   pname = "graphia";
   version = "5.2";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://graphia.app";
     license = licenses.gpl3Only;
     mainProgram = "Graphia";
-    maintainers = [ maintainers.bgamari ];
+    maintainers = [maintainers.bgamari];
     platforms = platforms.all;
   };
 }

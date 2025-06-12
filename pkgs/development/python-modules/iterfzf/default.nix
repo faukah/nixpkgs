@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "iterfzf";
   version = "1.8.0.62.0";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  dependencies = [ fzf ];
+  dependencies = [fzf];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AttributeError
@@ -51,14 +50,14 @@ buildPythonPackage rec {
     "test_supports_color_kwarg"
   ];
 
-  pythonImportsCheck = [ "iterfzf" ];
+  pythonImportsCheck = ["iterfzf"];
 
   meta = {
     description = "Pythonic interface to fzf, a CLI fuzzy finder";
     homepage = "https://github.com/dahlia/iterfzf";
     changelog = "https://github.com/dahlia/iterfzf/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     platforms = lib.platforms.unix;
   };
 }

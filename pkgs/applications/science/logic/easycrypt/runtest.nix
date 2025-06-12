@@ -1,5 +1,7 @@
-{ python3Packages, easycrypt }:
-
+{
+  python3Packages,
+  easycrypt,
+}:
 python3Packages.buildPythonApplication {
   inherit (easycrypt) src version;
   format = "other";
@@ -10,7 +12,7 @@ python3Packages.buildPythonApplication {
   dontBuild = true;
   doCheck = false;
 
-  pythonPath = with python3Packages; [ pyyaml ];
+  pythonPath = with python3Packages; [pyyaml];
 
   installPhase = ''
     runHook preInstall
@@ -19,8 +21,10 @@ python3Packages.buildPythonApplication {
     runHook postInstall
   '';
 
-  meta = easycrypt.meta // {
-    description = "Testing program for EasyCrypt formalizations";
-    mainProgram = "ec-runtest";
-  };
+  meta =
+    easycrypt.meta
+    // {
+      description = "Testing program for EasyCrypt formalizations";
+      mainProgram = "ec-runtest";
+    };
 }

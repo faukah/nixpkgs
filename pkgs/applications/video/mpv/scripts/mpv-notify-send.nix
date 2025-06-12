@@ -5,7 +5,6 @@
   unstableGitUpdater,
   libnotify,
 }:
-
 buildLua {
   pname = "mpv-notify-send";
   version = "0-unstable-2024-07-11";
@@ -21,15 +20,15 @@ buildLua {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ libnotify ])
+    (lib.makeBinPath [libnotify])
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Lua script for mpv to send notifications with notify-send";
     homepage = "https://github.com/Parranoh/mpv-notify-send";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ r3n3gad3p3arl ];
+    maintainers = with lib.maintainers; [r3n3gad3p3arl];
   };
 }

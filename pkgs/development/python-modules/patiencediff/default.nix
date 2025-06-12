@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "patiencediff";
   version = "0.2.15";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-SFu1oN1yE9tKeBgWhgWjDpR31AptGrls0D5kKQed+HI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "patiencediff" ];
+  pythonImportsCheck = ["patiencediff"];
 
   meta = with lib; {
     description = "C implementation of patiencediff algorithm for Python";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/breezy-team/patiencediff";
     changelog = "https://github.com/breezy-team/patiencediff/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wildsebastian ];
+    maintainers = with maintainers; [wildsebastian];
   };
 }

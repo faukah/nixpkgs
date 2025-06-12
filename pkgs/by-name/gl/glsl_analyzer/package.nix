@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zig_0_13,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glsl_analyzer";
   version = "1.5.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nolanderc/glsl_analyzer";
     mainProgram = "glsl_analyzer";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ wr7 ];
+    maintainers = with lib.maintainers; [wr7];
     platforms = lib.platforms.unix;
   };
 })

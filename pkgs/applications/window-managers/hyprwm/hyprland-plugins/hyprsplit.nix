@@ -23,7 +23,7 @@ mkHyprlandPlugin hyprland rec {
     ninja
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/shezdy/hyprsplit";

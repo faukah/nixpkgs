@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-mute-filter";
   version = "0.3.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UVYN9R7TnwD3a+KIYTXvxOQWfNUtR8cSWUoKZuNoBJc=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     mkdir $out/lib $out/share
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio plugin to mute audio of a source";
     homepage = "https://github.com/norihiro/obs-mute-filter";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

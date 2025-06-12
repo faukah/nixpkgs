@@ -10,7 +10,6 @@
   pytest-recording,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-command-r";
   version = "0.3.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-PxICRds9NJQP64HwoL7Oxd39yaIrMdAyQEbhaumJCgo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cohere
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_command_r" ];
+  pythonImportsCheck = ["llm_command_r"];
 
   passthru.tests = llm.mkPluginTest llm-command-r;
 
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-command-r";
     changelog = "https://github.com/simonw/llm-command-r/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

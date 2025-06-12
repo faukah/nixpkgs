@@ -14,7 +14,6 @@
   pantheon,
   indicator-application-gtk3,
 }:
-
 stdenv.mkDerivation {
   pname = "wingpanel-indicator-namarupa";
   version = "0.0.0-unstable-2024-12-17";
@@ -59,6 +58,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/lenemter/wingpanel-indicator-namarupa";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

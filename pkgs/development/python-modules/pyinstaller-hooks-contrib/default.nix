@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyinstaller-hooks-contrib";
   version = "2025.4";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-XOGv0Zl7A+cPVGIHAxz98nggMKq6zBAhkGdwWeKFZEY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # There are tests for every hook, which means that
   # new updates are going to require changes to test inputs
@@ -40,6 +39,6 @@ buildPythonPackage rec {
       gpl2Plus
       asl20
     ];
-    maintainers = with lib.maintainers; [ h7x4 ];
+    maintainers = with lib.maintainers; [h7x4];
   };
 }

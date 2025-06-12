@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule {
   pname = "sqlboiler-crbd";
   version = "unstable-2022-06-12";
@@ -23,7 +22,7 @@ buildGoModule {
     description = "CockroachDB generator for usage with SQLBoiler";
     mainProgram = "sqlboiler-crdb";
     homepage = "https://github.com/glerchundi/sqlboiler-crdb/";
-    maintainers = with maintainers; [ dgollings ];
+    maintainers = with maintainers; [dgollings];
     platforms = platforms.unix;
   };
 }

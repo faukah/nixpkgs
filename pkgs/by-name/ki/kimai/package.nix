@@ -4,7 +4,6 @@
   lib,
   nixosTests,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "kimai";
   version = "2.35.1";
@@ -18,17 +17,20 @@ php.buildComposerProject2 (finalAttrs: {
 
   php = php.buildEnv {
     extensions = (
-      { enabled, all }:
-      enabled
-      ++ (with all; [
-        gd
-        intl
-        mbstring
-        pdo
-        tokenizer
-        xsl
-        zip
-      ])
+      {
+        enabled,
+        all,
+      }:
+        enabled
+        ++ (with all; [
+          gd
+          intl
+          mbstring
+          pdo
+          tokenizer
+          xsl
+          zip
+        ])
     );
 
     # Asset building and (later) cache building process requires a little bit
@@ -63,7 +65,7 @@ php.buildComposerProject2 (finalAttrs: {
       everyone: freelancers, companies, organizations - everyone can track their
       times, generate reports, create invoices and do so much more.
     ";
-    maintainers = with lib.maintainers; [ peat-psuwit ];
+    maintainers = with lib.maintainers; [peat-psuwit];
     platforms = lib.platforms.all;
   };
 })

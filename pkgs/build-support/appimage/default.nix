@@ -9,9 +9,7 @@
   squashfsTools,
   buildFHSEnv,
   pkgs,
-}:
-
-rec {
+}: rec {
   appimage-exec = pkgs.replaceVarsWith {
     src = ./appimage-exec.sh;
     isExecutable = true;
@@ -30,21 +28,20 @@ rec {
     };
   };
 
-  extract =
-    args@{
-      pname,
-      version,
-      name ? null,
-      postExtract ? "",
-      src,
-      ...
-    }:
+  extract = args @ {
+    pname,
+    version,
+    name ? null,
+    postExtract ? "",
+    src,
+    ...
+  }:
     assert lib.assertMsg (
       name == null
     ) "The `name` argument is deprecated. Use `pname` and `version` instead to construct the name.";
-    pkgs.runCommand "${pname}-${version}-extracted"
+      pkgs.runCommand "${pname}-${version}-extracted"
       {
-        nativeBuildInputs = [ appimage-exec ];
+        nativeBuildInputs = [appimage-exec];
         strictDeps = true;
       }
       ''
@@ -57,33 +54,33 @@ rec {
   extractType2 = extract;
   wrapType1 = wrapType2;
 
-  wrapAppImage =
-    args@{
-      src,
-      extraPkgs ? pkgs: [ ],
-      meta ? { },
-      ...
-    }:
+  wrapAppImage = args @ {
+    src,
+    extraPkgs ? pkgs: [],
+    meta ? {},
+    ...
+  }:
     buildFHSEnv (
       defaultFhsEnvArgs
       // {
-        targetPkgs = pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
+        targetPkgs = pkgs: [appimage-exec] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
 
         runScript = "appimage-exec.sh -w ${src} --";
 
-        meta = {
-          sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-        } // meta;
+        meta =
+          {
+            sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+          }
+          // meta;
       }
       // (removeAttrs args (builtins.attrNames (builtins.functionArgs wrapAppImage)))
     );
 
-  wrapType2 =
-    args@{
-      src,
-      extraPkgs ? pkgs: [ ],
-      ...
-    }:
+  wrapType2 = args @ {
+    src,
+    extraPkgs ? pkgs: [],
+    ...
+  }:
     wrapAppImage (
       args
       // {
@@ -91,12 +88,13 @@ rec {
         src = extract (
           lib.filterAttrs (
             key: value:
-            builtins.elem key [
-              "pname"
-              "version"
-              "src"
-            ]
-          ) args
+              builtins.elem key [
+                "pname"
+                "version"
+                "src"
+              ]
+          )
+          args
         );
 
         # passthru src to make nix-update work
@@ -107,14 +105,14 @@ rec {
             (lib.remove "src")
             (removeAttrs args)
           ]
-          // args.passthru or { };
+          // args.passthru or {};
       }
     );
 
   defaultFhsEnvArgs = {
     # Most of the packages were taken from the Steam chroot
-    targetPkgs =
-      pkgs: with pkgs; [
+    targetPkgs = pkgs:
+      with pkgs; [
         gtk3
         bashInteractive
         zenity
@@ -130,8 +128,8 @@ rec {
 
     # list of libraries expected in an appimage environment:
     # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
-    multiPkgs =
-      pkgs: with pkgs; [
+    multiPkgs = pkgs:
+      with pkgs; [
         desktop-file-utils
         xorg.libXcomposite
         xorg.libXtst

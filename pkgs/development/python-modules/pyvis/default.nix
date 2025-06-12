@@ -10,7 +10,6 @@
   pytestCheckHook,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "pyvis";
   version = "0.3.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-eo9Mk2c0hrBarCrzwmkXha3Qt4Bl1qR7Lhl9EkUx96E=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     jinja2
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     "pyvis/tests/test_html.py"
   ];
 
-  pythonImportsCheck = [ "pyvis" ];
+  pythonImportsCheck = ["pyvis"];
 
   meta = with lib; {
     homepage = "https://github.com/WestHealth/pyvis";
     description = "Python package for creating and visualizing interactive network graphs";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

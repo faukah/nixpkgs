@@ -12,17 +12,15 @@
   nixosTests,
   libargon2,
   withInternalArgon2 ? false,
-
   # Programs enabled by default upstream are implicitly enabled unless
   # manually set to false.
-  programs ? { },
+  programs ? {},
   # The release tarballs contain precomputed manpage files, so we don't need
   # to run asciidoctor on the man sources. By avoiding asciidoctor, we make
   # the bare NixOS build hash independent of changes to the ruby ecosystem,
   # saving mass-rebuilds.
   rebuildMan ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cryptsetup";
   version = "2.7.5";
@@ -77,14 +75,16 @@ stdenv.mkDerivation rec {
     ]
     ++ (lib.mapAttrsToList (lib.flip lib.enableFeature)) programs;
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals rebuildMan [ asciidoctor ];
-  propagatedBuildInputs = [
-    lvm2
-    json_c
-    openssl
-    libuuid
-    popt
-  ] ++ lib.optional (!withInternalArgon2) libargon2;
+  nativeBuildInputs = [pkg-config] ++ lib.optionals rebuildMan [asciidoctor];
+  propagatedBuildInputs =
+    [
+      lvm2
+      json_c
+      openssl
+      libuuid
+      popt
+    ]
+    ++ lib.optional (!withInternalArgon2) libargon2;
 
   # The test [7] header backup in compat-test fails with a mysterious
   # "out of memory" error, even though tons of memory is available.

@@ -28,7 +28,6 @@
   libadwaita,
   gsettings-desktop-schemas,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-music";
   version = "48.0";
@@ -98,14 +97,14 @@ python3.pkgs.buildPythonApplication rec {
   strictDeps = false;
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-music"; };
+    updateScript = gnome.updateScript {packageName = "gnome-music";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Music/";
     description = "Music player and management application for the GNOME desktop environment";
     mainProgram = "gnome-music";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

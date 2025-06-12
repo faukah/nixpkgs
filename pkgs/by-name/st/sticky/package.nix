@@ -13,7 +13,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sticky";
   version = "1.24";

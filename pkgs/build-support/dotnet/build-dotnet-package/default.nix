@@ -5,34 +5,33 @@
   pkg-config,
   mono,
   dotnetbuildhelpers,
-}:
-
-attrsOrig@{
+}: attrsOrig @ {
   pname,
   version,
-  nativeBuildInputs ? [ ],
-  xBuildFiles ? [ ],
-  xBuildFlags ? [ "/p:Configuration=Release" ],
-  outputFiles ? [ "bin/Release/*" ],
-  dllFiles ? [ "*.dll" ],
-  exeFiles ? [ "*.exe" ],
+  nativeBuildInputs ? [],
+  xBuildFiles ? [],
+  xBuildFlags ? ["/p:Configuration=Release"],
+  outputFiles ? ["bin/Release/*"],
+  dllFiles ? ["*.dll"],
+  exeFiles ? ["*.exe"],
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
   ...
-}:
-let
-  arrayToShell = (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>\t")) a));
+}: let
+  arrayToShell = a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>\t")) a);
 
   attrs = {
     inherit pname version;
 
-    nativeBuildInputs = [
-      pkg-config
-      makeWrapper
-      dotnetbuildhelpers
-      mono
-    ] ++ nativeBuildInputs;
+    nativeBuildInputs =
+      [
+        pkg-config
+        makeWrapper
+        dotnetbuildhelpers
+        mono
+      ]
+      ++ nativeBuildInputs;
 
     configurePhase = ''
       runHook preConfigure
@@ -121,4 +120,4 @@ let
     '';
   };
 in
-stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig [ "nativeBuildInputs" ]))
+  stdenv.mkDerivation (attrs // (builtins.removeAttrs attrsOrig ["nativeBuildInputs"]))

@@ -7,7 +7,6 @@
   plasma-framework,
   systemsettings,
 }:
-
 mkDerivation rec {
   pname = "dynamic_workspaces";
   version = "1.0.1";
@@ -42,7 +41,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "KWin script that automatically adds/removes virtual desktops";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;
   };

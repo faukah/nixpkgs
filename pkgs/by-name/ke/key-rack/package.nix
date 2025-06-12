@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mthXtTlyrIChaKKwKosTsV1hK9OQ/zLScjrq6D3CRsg=";
   };
 
-  patches = [ ./0001-fix-E0716.patch ];
+  patches = [./0001-fix-E0716.patch];
 
   postPatch = ''
     patchShebangs --build build-aux/{checks.sh,read-manifest.py}
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   # Workaround for the gettext-sys issue
   # https://github.com/Koka/gettext-rs/issues/114
@@ -56,14 +56,14 @@ stdenv.mkDerivation (finalAttrs: {
   ) "-Wno-error=incompatible-function-pointer-types";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "View and edit your apps’ keys";
     homepage = "https://gitlab.gnome.org/sophie-h/key-rack";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "key-rack";
     platforms = lib.platforms.linux;
   };

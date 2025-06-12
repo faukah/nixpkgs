@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "savepagenow";
   version = "1.1.1";
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     description = "Simple Python wrapper for archive.org's \"Save Page Now\" capturing service";
     homepage = "https://github.com/pastpages/savepagenow";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "savepagenow";
   };
 }

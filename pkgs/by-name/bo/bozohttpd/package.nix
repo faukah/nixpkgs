@@ -19,7 +19,6 @@
   luaSupport ? !minimal,
   htpasswdSupport ? !minimal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bozohttpd";
   version = "20240126";
@@ -31,10 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha512-fr1PnyYAS3wkpmj/npRC3A87UL9LIXw4thlM4GfrtlJbuX5EkWGVJnHJW/EmYp7z+N91dcdRJgdO79l6WJsKpg==";
   };
 
-  buildInputs = [
-    libxcrypt
-    openssl
-  ] ++ lib.optionals (luaSupport) [ lua ];
+  buildInputs =
+    [
+      libxcrypt
+      openssl
+    ]
+    ++ lib.optionals luaSupport [lua];
 
   nativeBuildInputs = [
     bmake
@@ -59,29 +60,29 @@ stdenv.mkDerivation (finalAttrs: {
         # unpackaged dependency: https://man.netbsd.org/blocklist.3
         "-DNO_BLOCKLIST_SUPPORT"
       ]
-      ++ lib.optionals (htpasswdSupport) [ "-DDO_HTPASSWD" ]
-      ++ lib.optionals (!cgiSupport) [ "-DNO_CGIBIN_SUPPORT" ]
-      ++ lib.optionals (!dirIndexSupport) [ "-DNO_DIRINDEX_SUPPORT" ]
-      ++ lib.optionals (!dynamicContentSupport) [ "-DNO_DYNAMIC_CONTENT" ]
-      ++ lib.optionals (!luaSupport) [ "-DNO_LUA_SUPPORT" ]
-      ++ lib.optionals (!sslSupport) [ "-DNO_SSL_SUPPORT" ]
-      ++ lib.optionals (!userSupport) [ "-DNO_USER_SUPPORT" ]
+      ++ lib.optionals htpasswdSupport ["-DDO_HTPASSWD"]
+      ++ lib.optionals (!cgiSupport) ["-DNO_CGIBIN_SUPPORT"]
+      ++ lib.optionals (!dirIndexSupport) ["-DNO_DIRINDEX_SUPPORT"]
+      ++ lib.optionals (!dynamicContentSupport) ["-DNO_DYNAMIC_CONTENT"]
+      ++ lib.optionals (!luaSupport) ["-DNO_LUA_SUPPORT"]
+      ++ lib.optionals (!sslSupport) ["-DNO_SSL_SUPPORT"]
+      ++ lib.optionals (!userSupport) ["-DNO_USER_SUPPORT"]
     );
 
     _LDADD = lib.concatStringsSep " " (
-      [ "-lm" ]
-      ++ lib.optionals (stdenv.hostPlatform.libc != "libSystem") [ "-lcrypt" ]
-      ++ lib.optionals (luaSupport) [ "-llua" ]
-      ++ lib.optionals (sslSupport) [
+      ["-lm"]
+      ++ lib.optionals (stdenv.hostPlatform.libc != "libSystem") ["-lcrypt"]
+      ++ lib.optionals luaSupport ["-llua"]
+      ++ lib.optionals sslSupport [
         "-lcrypto"
         "-lssl"
       ]
     );
   };
 
-  makeFlags = [ "LDADD=$(_LDADD)" ];
+  makeFlags = ["LDADD=$(_LDADD)"];
 
-  checkFlags = lib.optionals (!cgiSupport) [ "CGITESTS=" ];
+  checkFlags = lib.optionals (!cgiSupport) ["CGITESTS="];
 
   doCheck = true;
 
@@ -101,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "http://www.eterna23.net/bozohttpd/CHANGES";
     license = lib.licenses.bsd2;
     mainProgram = "bozohttpd";
-    maintainers = [ lib.maintainers.embr ];
+    maintainers = [lib.maintainers.embr];
     platforms = lib.platforms.all;
   };
 })

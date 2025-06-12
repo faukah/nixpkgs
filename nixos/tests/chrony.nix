@@ -1,10 +1,9 @@
 import ./make-test-python.nix (
-  { lib, ... }:
-  {
+  {lib, ...}: {
     name = "chrony";
 
     meta = {
-      maintainers = with lib.maintainers; [ fpletz ];
+      maintainers = with lib.maintainers; [fpletz];
     };
 
     nodes = {

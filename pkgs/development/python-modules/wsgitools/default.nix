@@ -7,7 +7,6 @@
   pyasyncore,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wsgitools";
   version = "0.3.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-MTh2BwNTu7NsTHuvoH+r0YHjEGfphX84f04Ah2eu02A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # the built-in asyncore library was removed in python 3.12
-  dependencies = lib.optionals (pythonAtLeast "3.12") [ pyasyncore ];
+  dependencies = lib.optionals (pythonAtLeast "3.12") [pyasyncore];
 
-  pythonImportsCheck = [ "wsgitools" ];
+  pythonImportsCheck = ["wsgitools"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
-    maintainers = with maintainers; [ clkamp ];
+    maintainers = with maintainers; [clkamp];
     description = "Set of tools working with WSGI";
     longDescription = ''
       wsgitools is a set of tools working with WSGI (see PEP 333). It

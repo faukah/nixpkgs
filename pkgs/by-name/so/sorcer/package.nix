@@ -10,7 +10,6 @@
   ntk,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sorcer";
   version = "1.1.3";
@@ -46,11 +45,11 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     homepage = "http://openavproductions.com/sorcer/";
     description = "Wavetable LV2 plugin synth, targeted at the electronic / dubstep genre";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

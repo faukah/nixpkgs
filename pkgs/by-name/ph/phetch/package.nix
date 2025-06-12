@@ -8,7 +8,6 @@
   scdoc,
   which,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "phetch";
   version = "1.2.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     scdoc
     which
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postInstall = ''
     make manual
@@ -60,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/xvxx/phetch/releases/tag/v${version}";
     homepage = "https://github.com/xvxx/phetch";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ felixalbrigtsen ];
+    maintainers = with lib.maintainers; [felixalbrigtsen];
   };
 }

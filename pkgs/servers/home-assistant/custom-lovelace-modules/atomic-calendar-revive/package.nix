@@ -4,7 +4,6 @@
   fetchYarnDeps,
   fetchFromGitHub,
 }:
-
 mkYarnPackage rec {
   pname = "atomic-calendar-revive";
   version = "10.0.0";
@@ -50,7 +49,7 @@ mkYarnPackage rec {
     description = "An advanced calendar card for Home Assistant Lovelace";
     homepage = "https://github.com/totaldebug/atomic-calendar-revive";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.all;
   };
 }

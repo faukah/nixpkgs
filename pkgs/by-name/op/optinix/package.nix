@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gnxG4VqdZbGQyXc1dl3pU7yr3BbZPH17OLAB3dffcrk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd optinix \
@@ -27,7 +27,7 @@ buildGoModule rec {
       --zsh <($out/bin/optinix completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool for searching options in Nix";

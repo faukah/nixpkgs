@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flow";
   version = "0.238.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/services/inference/check_cache.ml --replace 'Core_kernel' 'Core'
   '';
 
-  makeFlags = [ "FLOW_RELEASE=1" ];
+  makeFlags = ["FLOW_RELEASE=1"];
 
   installPhase = ''
     install -Dm755 bin/flow $out/bin/flow
@@ -38,21 +37,21 @@ stdenv.mkDerivation rec {
 
   buildInputs = (
     with ocamlPackages;
-    [
-      core_kernel
-      dtoa
-      fileutils
-      lwt_log
-      lwt_ppx
-      ocaml_lwt
-      ppx_deriving
-      ppx_gen_rec
-      ppx_let
-      sedlex
-      visitors
-      wtf8
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ inotify ]
+      [
+        core_kernel
+        dtoa
+        fileutils
+        lwt_log
+        lwt_ppx
+        ocaml_lwt
+        ppx_deriving
+        ppx_gen_rec
+        ppx_let
+        sedlex
+        visitors
+        wtf8
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [inotify]
   );
 
   meta = with lib; {
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/facebook/flow/blob/v${version}/Changelog.md";
     license = licenses.mit;
     platforms = ocamlPackages.ocaml.meta.platforms;
-    maintainers = with maintainers; [ puffnfresh ];
+    maintainers = with maintainers; [puffnfresh];
   };
 }

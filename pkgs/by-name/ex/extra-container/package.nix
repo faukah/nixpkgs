@@ -6,7 +6,6 @@
   glibcLocales,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "extra-container";
   version = "0.13";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     install $src/eval-config.nix -Dt $share
 
     # Use existing PATH for systemctl and machinectl
-    scriptPath="export PATH=${lib.makeBinPath [ openssh ]}:\$PATH"
+    scriptPath="export PATH=${lib.makeBinPath [openssh]}:\$PATH"
 
     sed -i "
       s|evalConfig=.*|evalConfig=$share/eval-config.nix|
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/erikarvstedt/extra-container/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.erikarvstedt ];
+    maintainers = [lib.maintainers.erikarvstedt];
     mainProgram = "extra-container";
   };
 }

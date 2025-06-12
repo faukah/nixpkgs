@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "log-symbols";
   version = "0.0.14";
@@ -17,18 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-zwu8b+Go5T8NF0pxa8YlxPhwQ8wh61XdinQM/iJoBVY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ colorama ];
+  dependencies = [colorama];
 
   # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;
-  pythonImportsCheck = [ "log_symbols" ];
+  pythonImportsCheck = ["log_symbols"];
 
   meta = {
     description = "Colored Symbols for Various Log Levels";
     homepage = "https://github.com/manrajgrover/py-log-symbols";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ urbas ];
+    maintainers = with lib.maintainers; [urbas];
   };
 }

@@ -10,9 +10,7 @@
   withXclip ? null,
   withWlClipboard ? null,
   withWlclip ? null,
-}:
-
-let
+}: let
   self = buildGoModule {
     pname = "micro";
     version = "2.0.14";
@@ -26,25 +24,23 @@ let
 
     vendorHash = "sha256-ePhObvm3m/nT+7IyT0W6K+y+9UNkfd2kYjle2ffAd9Y=";
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     outputs = [
       "out"
       "man"
     ];
 
-    subPackages = [ "cmd/micro" ];
+    subPackages = ["cmd/micro"];
 
-    ldflags =
-      let
-        t = "github.com/zyedidia/micro/v2/internal";
-      in
-      [
-        "-s"
-        "-w"
-        "-X ${t}/util.Version=${self.version}"
-        "-X ${t}/util.CommitHash=${self.src.rev}"
-      ];
+    ldflags = let
+      t = "github.com/zyedidia/micro/v2/internal";
+    in [
+      "-s"
+      "-w"
+      "-X ${t}/util.Version=${self.version}"
+      "-X ${t}/util.CommitHash=${self.src.rev}"
+    ];
 
     strictDeps = true;
 
@@ -63,7 +59,7 @@ let
         inherit callPackage;
         directory = ./tests;
       };
-      wrapper = callPackage ./wrapper.nix { micro = self; };
+      wrapper = callPackage ./wrapper.nix {micro = self;};
     };
 
     meta = {
@@ -88,11 +84,12 @@ let
     };
   };
 in
-lib.warnIf (withXclip != null || withWlClipboard != null || withWlclip != null) ''
-  The options `withXclip`, `withWlClipboard`, `withWlclip` were removed. If
-  you are seeking for clipboard support, please consider the following
-  packages:
-  - `micro-with-wl-clipboard`
-  - `micro-with-xclip`
-  - `micro-full`
-'' self
+  lib.warnIf (withXclip != null || withWlClipboard != null || withWlclip != null) ''
+    The options `withXclip`, `withWlClipboard`, `withWlclip` were removed. If
+    you are seeking for clipboard support, please consider the following
+    packages:
+    - `micro-with-wl-clipboard`
+    - `micro-with-xclip`
+    - `micro-full`
+  ''
+  self

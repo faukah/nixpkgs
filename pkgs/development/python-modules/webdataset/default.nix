@@ -3,15 +3,12 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   braceexpand,
   numpy,
   pyyaml,
-
   # tests
   imageio,
   lmdb,
@@ -51,7 +48,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  pythonImportsCheck = [ "webdataset" ];
+  pythonImportsCheck = ["webdataset"];
 
   preCheck = ''
     export WIDS_CACHE=$TMPDIR
@@ -103,6 +100,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/webdataset/webdataset";
     changelog = "https://github.com/webdataset/webdataset/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ iynaix ];
+    maintainers = with lib.maintainers; [iynaix];
   };
 }

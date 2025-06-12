@@ -4,7 +4,6 @@
   git,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "troubadix";
   version = "25.2.4";
@@ -22,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     "validators"
   ];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     chardet
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "troubadix" ];
+  pythonImportsCheck = ["troubadix"];
 
   disabledTests = [
     # AssertionError
@@ -57,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/greenbone/troubadix";
     changelog = "https://github.com/greenbone/troubadix/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "troubadix";
   };
 }

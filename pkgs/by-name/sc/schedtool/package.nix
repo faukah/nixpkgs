@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "schedtool";
   version = "1.3.0";
@@ -32,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/freequaos/schedtool";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 })

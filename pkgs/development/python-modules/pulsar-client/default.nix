@@ -2,28 +2,23 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build
   setuptools,
   cmake,
   pkg-config,
-
   # dependencies
   libpulsar,
   pybind11,
   certifi,
-
   # optional dependencies
   fastavro,
   grpcio,
   prometheus-client,
   protobuf,
   ratelimit,
-
   # test
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pulsar-client";
   version = "3.7.0";
@@ -56,7 +51,7 @@ buildPythonPackage rec {
     cd ..
   '';
 
-  dependencies = [ certifi ];
+  dependencies = [certifi];
 
   optional-dependencies = {
     functions = [
@@ -66,20 +61,22 @@ buildPythonPackage rec {
       protobuf
       ratelimit
     ];
-    avro = [ fastavro ];
+    avro = [fastavro];
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
   };
 
-  nativeCheckInputs = [
-    unittestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      unittestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
   unittestFlagsArray = [
     "-s"
     "test"
   ];
 
-  pythonImportsCheck = [ "pulsar" ];
+  pythonImportsCheck = ["pulsar"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -88,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://pulsar.apache.org/docs/next/client-libraries-python/";
     changelog = "https://github.com/apache/pulsar-client-python/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
   };
 }

@@ -14,11 +14,11 @@ buildLua {
     rev = "bf6776f5c3dae8d83ba29b820496af89dc436613";
     sha256 = "9ApUBXjH4TKPP4P/fUXSNYbJu2AH6HBYt+1K+sHB7yE=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "various audio visualization";
     homepage = "https://github.com/mfcc64/mpv-scripts";
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

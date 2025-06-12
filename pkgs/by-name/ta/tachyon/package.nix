@@ -7,7 +7,6 @@
   withJpegSupport ? true, # support jpeg output
   withPngSupport ? true, # support png output
 }:
-
 stdenv.mkDerivation rec {
   pname = "tachyon";
   version = "0.99.5";
@@ -35,31 +34,30 @@ stdenv.mkDerivation rec {
       export PNGLIB=" -lpng -lz"
     '';
   arch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "linux-64-thr"
-    else if stdenv.hostPlatform.system == "i686-linux" then
-      "linux-thr"
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then "linux-64-thr"
+    else if stdenv.hostPlatform.system == "i686-linux"
+    then "linux-thr"
     else
-    # 2021-03-29: multithread (-DTHR -D_REENTRANT) was disabled on linux-arm
-    # because it caused Sage's 3D plotting tests to hang indefinitely.
-    # see https://github.com/NixOS/nixpkgs/pull/117465
-    if stdenv.hostPlatform.system == "aarch64-linux" then
-      "linux-arm"
-    else if stdenv.hostPlatform.system == "armv7l-linux" then
-      "linux-arm"
-    else if stdenv.hostPlatform.system == "aarch64-darwin" then
-      "macosx"
-    else if stdenv.hostPlatform.system == "x86_64-darwin" then
-      "macosx-x86-64-thr"
-    else if stdenv.hostPlatform.system == "i686-cygwin" then
-      "win32"
-    else if stdenv.hostPlatform.system == "x86_64-freebsd" then
-      "bsd"
-    else if stdenv.hostPlatform.system == "x686-freebsd" then
-      "bsd"
-    else
-      throw "Don't know what arch to select for tachyon build";
-  makeFlags = [ arch ];
+      # 2021-03-29: multithread (-DTHR -D_REENTRANT) was disabled on linux-arm
+      # because it caused Sage's 3D plotting tests to hang indefinitely.
+      # see https://github.com/NixOS/nixpkgs/pull/117465
+      if stdenv.hostPlatform.system == "aarch64-linux"
+      then "linux-arm"
+      else if stdenv.hostPlatform.system == "armv7l-linux"
+      then "linux-arm"
+      else if stdenv.hostPlatform.system == "aarch64-darwin"
+      then "macosx"
+      else if stdenv.hostPlatform.system == "x86_64-darwin"
+      then "macosx-x86-64-thr"
+      else if stdenv.hostPlatform.system == "i686-cygwin"
+      then "win32"
+      else if stdenv.hostPlatform.system == "x86_64-freebsd"
+      then "bsd"
+      else if stdenv.hostPlatform.system == "x686-freebsd"
+      then "bsd"
+      else throw "Don't know what arch to select for tachyon build";
+  makeFlags = [arch];
 
   patches = [
     # Remove absolute paths in Make-config (and unset variables so they can be set in preBuild)
@@ -87,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Parallel / Multiprocessor Ray Tracing System";
     mainProgram = "tachyon";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = with lib.platforms; linux ++ cygwin ++ darwin;
     homepage = "http://jedi.ks.uiuc.edu/~johns/tachyon/";
   };

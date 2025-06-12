@@ -7,7 +7,6 @@
   unstableGitUpdater,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dmg2img";
   version = "1.6.7-unstable-2020-12-27";
@@ -37,14 +36,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Tool which allows converting Apple compressed dmg archives to standard (hfsplus) image disk files";
     homepage = "https://github.com/Lekensteyn/dmg2img";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ KSJ2000 ];
+    maintainers = with lib.maintainers; [KSJ2000];
     mainProgram = "dmg2img";
   };
 })

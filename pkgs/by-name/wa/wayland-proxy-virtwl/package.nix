@@ -6,7 +6,6 @@
   libdrm,
   unstableGitUpdater,
 }:
-
 ocamlPackages.buildDunePackage {
   pname = "wayland-proxy-virtwl";
   version = "0-unstable-2025-01-07";
@@ -25,7 +24,7 @@ ocamlPackages.buildDunePackage {
   ];
 
   buildInputs =
-    [ libdrm ]
+    [libdrm]
     ++ (with ocamlPackages; [
       dune-configurator
       eio_main
@@ -38,7 +37,7 @@ ocamlPackages.buildDunePackage {
 
   doCheck = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/talex5/wayland-virtwl-proxy";

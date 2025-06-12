@@ -5,7 +5,6 @@
   dotnetCorePackages,
   altcoinSupport ? false,
 }:
-
 buildDotnetModule rec {
   pname = "btcpayserver";
   version = "2.1.4";
@@ -23,7 +22,10 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
 
-  buildType = if altcoinSupport then "Altcoins-Release" else "Release";
+  buildType =
+    if altcoinSupport
+    then "Altcoins-Release"
+    else "Release";
 
   # macOS has a case-insensitive filesystem, so these two can be the same file
   postFixup = ''

@@ -5,9 +5,7 @@
   meta,
   appimageTools,
   libgpg-error,
-}:
-
-let
+}: let
   src' = appimageTools.extract {
     inherit pname version;
     src = src;
@@ -18,29 +16,28 @@ let
     '';
   };
 in
+  appimageTools.wrapAppImage {
+    inherit pname version meta;
+    src = src';
 
-appimageTools.wrapAppImage {
-  inherit pname version meta;
-  src = src';
+    extraPkgs = pkgs:
+      with pkgs; [
+        libgpg-error
+        fontconfig
+        libGL
+        libgbm
+        wayland
+        pipewire
+        fribidi
+        harfbuzz
+        freetype
+        libthai
+        e2fsprogs
+        zlib
+        libp11
+        xorg.libX11
+        xorg.libSM
+      ];
 
-  extraPkgs =
-    pkgs: with pkgs; [
-      libgpg-error
-      fontconfig
-      libGL
-      libgbm
-      wayland
-      pipewire
-      fribidi
-      harfbuzz
-      freetype
-      libthai
-      e2fsprogs
-      zlib
-      libp11
-      xorg.libX11
-      xorg.libSM
-    ];
-
-  multiArch = true;
-}
+    multiArch = true;
+  }

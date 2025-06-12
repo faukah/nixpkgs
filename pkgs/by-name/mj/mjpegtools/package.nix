@@ -12,12 +12,10 @@
   SDL_gfx,
   withMinimal ? true,
 }:
-
 # TODO:
 # - make dependencies optional
 # - libpng-apng as alternative to libpng?
 # - libXxf86dga support? checking for XF86DGAQueryExtension in -lXxf86dga... no
-
 stdenv.mkDerivation rec {
   pname = "mjpegtools";
   version = "2.2.1";
@@ -37,9 +35,9 @@ stdenv.mkDerivation rec {
     ./remove-subtract-and-union-debug.diff
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libdv
@@ -71,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "http://mjpeg.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

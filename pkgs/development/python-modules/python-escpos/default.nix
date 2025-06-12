@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   setuptools-scm,
-
   pillow,
   qrcode,
   python-barcode,
@@ -14,11 +12,9 @@
   pyyaml,
   argcomplete,
   importlib-resources,
-
   pyusb,
   pyserial,
   pycups,
-
   jaconv,
   pytestCheckHook,
   pytest-mock,
@@ -26,7 +22,6 @@
   mock,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "python-escpos";
   version = "3.1";
@@ -57,9 +52,9 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    usb = [ pyusb ];
-    serial = [ pyserial ];
-    cups = [ pycups ];
+    usb = [pyusb];
+    serial = [pyserial];
+    cups = [pycups];
     all = [
       pyusb
       pyserial
@@ -79,16 +74,18 @@ buildPythonPackage rec {
     export PATH="$out/bin:$PATH"
   '';
 
-  nativeCheckInputs = [
-    jaconv
-    pytestCheckHook
-    pytest-mock
-    scripttest
-    mock
-    hypothesis
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      jaconv
+      pytestCheckHook
+      pytest-mock
+      scripttest
+      mock
+      hypothesis
+    ]
+    ++ optional-dependencies.all;
 
-  pythonImportsCheck = [ "escpos" ];
+  pythonImportsCheck = ["escpos"];
 
   meta = {
     changelog = "https://github.com/python-escpos/python-escpos/blob/${src.rev}/CHANGELOG.rst";
@@ -96,6 +93,6 @@ buildPythonPackage rec {
     homepage = "https://python-escpos.readthedocs.io/";
     license = lib.licenses.mit;
     mainProgram = "python-escpos";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

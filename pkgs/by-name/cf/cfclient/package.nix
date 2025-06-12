@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt6,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cfclient";
   version = "2025.2";
@@ -73,7 +72,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/bitcraze/crazyflie-clients-python";
     changelog = "https://github.com/bitcraze/crazyflie-clients-python/releases/tag/${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.brianmcgillion ];
+    maintainers = [lib.maintainers.brianmcgillion];
     platforms = lib.platforms.linux;
   };
 }

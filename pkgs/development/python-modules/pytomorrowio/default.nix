@@ -8,7 +8,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytomorrowio";
   version = "0.3.6";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-ZCA+GYuZuRgc4Pi9Bcg4zthOnkmQ+/IddFMkR0WYfKk=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -34,12 +33,12 @@ buildPythonPackage rec {
     "test_errors"
   ];
 
-  pythonImportsCheck = [ "pytomorrowio" ];
+  pythonImportsCheck = ["pytomorrowio"];
 
   meta = {
     description = "Async Python package to access the Tomorrow.io API";
     homepage = "https://github.com/raman325/pytomorrowio";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

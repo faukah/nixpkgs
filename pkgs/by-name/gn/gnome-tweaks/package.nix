@@ -25,7 +25,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gnome-tweaks";
   version = "46.1";
@@ -92,7 +91,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-tweaks";
     description = "Tool to customize advanced GNOME 3 options";
     mainProgram = "gnome-tweaks";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

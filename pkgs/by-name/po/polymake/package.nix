@@ -19,11 +19,9 @@
   perlPackages,
   makeWrapper,
 }:
-
 # polymake compiles its own version of sympol and atint because we
 # don't have those packages. other missing optional dependencies:
 # javaview, libnormaliz, scip, soplex, jreality.
-
 stdenv.mkDerivation rec {
   pname = "polymake";
   version = "4.13";
@@ -80,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.polymake.org/doku.php";
     changelog = "https://github.com/polymake/polymake/blob/V${version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.sage ];
+    teams = [lib.teams.sage];
     platforms = lib.platforms.linux;
   };
 }

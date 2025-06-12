@@ -2,16 +2,13 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   boost,
   eigen,
   opencv,
   tbb,
-
   avx2Support ? stdenv.hostPlatform.avx2Support,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cctag";
   version = "1.0.4";
@@ -32,9 +29,17 @@ stdenv.mkDerivation rec {
     # Feel free to create a PR to add CUDA support
     "-DCCTAG_WITH_CUDA=OFF"
 
-    "-DCCTAG_ENABLE_SIMD_AVX2=${if avx2Support then "ON" else "OFF"}"
+    "-DCCTAG_ENABLE_SIMD_AVX2=${
+      if avx2Support
+      then "ON"
+      else "OFF"
+    }"
 
-    "-DCCTAG_BUILD_TESTS=${if doCheck then "ON" else "OFF"}"
+    "-DCCTAG_BUILD_TESTS=${
+      if doCheck
+      then "ON"
+      else "OFF"
+    }"
     "-DCCTAG_BUILD_APPS=OFF"
   ];
 
@@ -71,6 +76,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/alicevision/CCTag";
     license = licenses.mpl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tmarkus ];
+    maintainers = with maintainers; [tmarkus];
   };
 }

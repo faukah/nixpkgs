@@ -9,7 +9,6 @@
   yarnInstallHook,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "yalc";
   version = "0-unstable-2023-07-04";
@@ -34,13 +33,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     nodejs
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Work with yarn/npm packages locally like a boss";
     mainProgram = "yalc";
     homepage = "https://github.com/wclr/yalc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

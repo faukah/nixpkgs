@@ -5,31 +5,23 @@
   makeWrapper,
   runCommand,
   writeScript,
-}:
-
-{
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  propagatedBuildInputs ? [ ],
-  checkInputs ? [ ],
-  nativeCheckInputs ? [ ],
-
+}: {
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  propagatedBuildInputs ? [],
+  checkInputs ? [],
+  nativeCheckInputs ? [],
   # true if we should skip the configuration phase altogether
   dontConfigure ? false,
-
   # Extra flags passed to configure step
-  configureFlags ? [ ],
-
+  configureFlags ? [],
   # Whether or not we should add common Tcl-related configure flags
   addTclConfigureFlags ? true,
-
-  meta ? { },
-  passthru ? { },
+  meta ? {},
+  passthru ? {},
   doCheck ? true,
   ...
-}@attrs:
-
-let
+} @ attrs: let
   inherit (tcl) stdenv;
   inherit (lib) getBin optionalAttrs;
 
@@ -49,39 +41,39 @@ let
         "doCheck"
       ])
       // {
-
-        buildInputs = buildInputs ++ [ tcl.tclPackageHook ];
-        nativeBuildInputs = nativeBuildInputs ++ [
-          makeWrapper
-          tcl
-        ];
-        propagatedBuildInputs = propagatedBuildInputs ++ [ tcl ];
+        buildInputs = buildInputs ++ [tcl.tclPackageHook];
+        nativeBuildInputs =
+          nativeBuildInputs
+          ++ [
+            makeWrapper
+            tcl
+          ];
+        propagatedBuildInputs = propagatedBuildInputs ++ [tcl];
 
         TCLSH = "${getBin tcl}/bin/tclsh";
 
         # Run tests after install, at which point we've done all TCLLIBPATH setup
         doCheck = false;
         doInstallCheck = attrs.doCheck or (attrs.doInstallCheck or false);
-        installCheckInputs = checkInputs ++ (attrs.installCheckInputs or [ ]);
-        nativeInstallCheckInputs = nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ]);
+        installCheckInputs = checkInputs ++ (attrs.installCheckInputs or []);
+        nativeInstallCheckInputs = nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or []);
 
         # Add typical values expected by TEA for configureFlags
         configureFlags =
-          if (!dontConfigure && addTclConfigureFlags) then
-            (configureFlags ++ defaultTclPkgConfigureFlags)
-          else
-            configureFlags;
+          if (!dontConfigure && addTclConfigureFlags)
+          then (configureFlags ++ defaultTclPkgConfigureFlags)
+          else configureFlags;
 
-        meta = {
-          platforms = tcl.meta.platforms;
-        } // meta;
-
+        meta =
+          {
+            platforms = tcl.meta.platforms;
+          }
+          // meta;
       }
       // optionalAttrs (attrs ? checkPhase) {
         installCheckPhase = attrs.checkPhase;
       }
     )
   );
-
 in
-lib.extendDerivation true passthru self
+  lib.extendDerivation true passthru self

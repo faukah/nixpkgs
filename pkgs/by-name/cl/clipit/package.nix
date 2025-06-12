@@ -12,7 +12,6 @@
   which,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clipit";
   version = "1.4.5";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "clipit";
-    maintainers = with maintainers; [ kamilchm ];
+    maintainers = with maintainers; [kamilchm];
   };
 }

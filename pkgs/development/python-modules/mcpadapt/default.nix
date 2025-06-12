@@ -13,7 +13,6 @@
   python-dotenv,
   smolagents,
 }:
-
 buildPythonPackage rec {
   pname = "mcpadapt";
   version = "0.1.9";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-sczXScP1wDUntAwVEfiGfJe0ghBpqPQH1YaXhFGj97Y=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     jsonref
@@ -40,10 +39,10 @@ buildPythonPackage rec {
       # langchain-anthropic
       langgraph
     ];
-    llamaindex = [ llama-index ];
+    llamaindex = [llama-index];
   };
 
-  pythonImportsCheck = [ "mcpadapt" ];
+  pythonImportsCheck = ["mcpadapt"];
 
   # Circular dependency smolagents
   doCheck = false;
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/grll/mcpadapt";
     changelog = "https://github.com/grll/mcpadapt/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

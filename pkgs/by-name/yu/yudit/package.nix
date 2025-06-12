@@ -4,7 +4,6 @@
   fetchurl,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yudit";
   version = "3.1.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://www.yudit.org/download/CHANGELOG.TXT";
     mainProgram = "yudit";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     # Might work on Darwin but currently fails, and upstream doesn't officially
     # supports it.
     platforms = lib.platforms.linux;

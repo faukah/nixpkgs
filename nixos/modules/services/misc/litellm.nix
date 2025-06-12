@@ -3,18 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
   cfg = config.services.litellm;
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options = {
     services.litellm = {
       enable = lib.mkEnableOption "LiteLLM server";
-      package = lib.mkPackageOption pkgs "litellm" { };
+      package = lib.mkPackageOption pkgs "litellm" {};
 
       stateDir = lib.mkOption {
         type = types.path;
@@ -50,14 +48,14 @@ in
               description = ''
                 List of supported models on the server, with model-specific configs.
               '';
-              default = [ ];
+              default = [];
             };
             router_settings = lib.mkOption {
               type = settingsFormat.type;
               description = ''
                 LiteLLM Router settings
               '';
-              default = { };
+              default = {};
             };
 
             litellm_settings = lib.mkOption {
@@ -65,7 +63,7 @@ in
               description = ''
                 LiteLLM Module settings
               '';
-              default = { };
+              default = {};
             };
 
             general_settings = lib.mkOption {
@@ -73,7 +71,7 @@ in
               description = ''
                 LiteLLM Server settings
               '';
-              default = { };
+              default = {};
             };
 
             environment_variables = lib.mkOption {
@@ -81,11 +79,11 @@ in
               description = ''
                 Environment variables to pass to the Lite
               '';
-              default = { };
+              default = {};
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Configuration for LiteLLM.
           See <https://docs.litellm.ai/docs/proxy/configs> for more.
@@ -134,49 +132,47 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.litellm = {
       description = "LLM Gateway to provide model access, fallbacks and spend tracking across 100+ LLMs.";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       environment = cfg.environment;
 
-      serviceConfig =
-        let
-          configFile = settingsFormat.generate "config.yaml" cfg.settings;
-        in
-        {
-          ExecStart = "${lib.getExe cfg.package} --host \"${cfg.host}\" --port ${toString cfg.port} --config ${configFile}";
-          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-          WorkingDirectory = cfg.stateDir;
-          StateDirectory = "litellm";
-          RuntimeDirectory = "litellm";
-          RuntimeDirectoryMode = "0755";
-          PrivateTmp = true;
-          DynamicUser = true;
-          DevicePolicy = "closed";
-          LockPersonality = true;
-          PrivateUsers = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectControlGroups = true;
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          SystemCallArchitectures = "native";
-          UMask = "0077";
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-            "AF_UNIX"
-          ];
-          ProtectClock = true;
-          ProtectProc = "invisible";
-        };
+      serviceConfig = let
+        configFile = settingsFormat.generate "config.yaml" cfg.settings;
+      in {
+        ExecStart = "${lib.getExe cfg.package} --host \"${cfg.host}\" --port ${toString cfg.port} --config ${configFile}";
+        EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        WorkingDirectory = cfg.stateDir;
+        StateDirectory = "litellm";
+        RuntimeDirectory = "litellm";
+        RuntimeDirectoryMode = "0755";
+        PrivateTmp = true;
+        DynamicUser = true;
+        DevicePolicy = "closed";
+        LockPersonality = true;
+        PrivateUsers = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        SystemCallArchitectures = "native";
+        UMask = "0077";
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        ProtectClock = true;
+        ProtectProc = "invisible";
+      };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 
-  meta.maintainers = with lib.maintainers; [ drupol ];
+  meta.maintainers = with lib.maintainers; [drupol];
 }

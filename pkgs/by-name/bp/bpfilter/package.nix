@@ -17,7 +17,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bpfilter";
   version = "0.4.0";
@@ -71,14 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace $lib/lib/pkgconfig/bpfilter.pc --replace-fail \''${prefix}/ ""
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "BPF-based packet filtering framework";
     homepage = "https://bpfilter.io";
     changelog = "https://github.com/facebook/bpfilter/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.jmbaur ];
+    maintainers = [lib.maintainers.jmbaur];
     mainProgram = "bpfilter";
     platforms = lib.platforms.linux;
   };

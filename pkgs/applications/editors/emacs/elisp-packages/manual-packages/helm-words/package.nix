@@ -5,7 +5,6 @@
   helm,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "helm-words";
   version = "0-unstable-2019-03-12";

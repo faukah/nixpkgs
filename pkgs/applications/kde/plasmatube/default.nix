@@ -13,7 +13,6 @@
   qtquickcontrols2,
   yt-dlp,
 }:
-
 mkDerivation {
   pname = "plasmatube";
 
@@ -43,7 +42,7 @@ mkDerivation {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ yt-dlp ])
+    (lib.makeBinPath [yt-dlp])
   ];
 
   preFixup = ''
@@ -56,6 +55,6 @@ mkDerivation {
     mainProgram = "plasmatube";
     homepage = "https://invent.kde.org/plasma-mobile/plasmatube";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

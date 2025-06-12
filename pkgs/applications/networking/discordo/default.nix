@@ -7,7 +7,6 @@
   xsel,
   wl-clipboard,
 }:
-
 buildGoModule rec {
   pname = "discordo";
   version = "0-unstable-2025-06-03";
@@ -29,27 +28,27 @@ buildGoModule rec {
   ];
 
   # Clipboard support on X11 and Wayland
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/discordo \
       --prefix PATH : ${
-        lib.makeBinPath [
-          xsel
-          wl-clipboard
-        ]
-      }
+      lib.makeBinPath [
+        xsel
+        wl-clipboard
+      ]
+    }
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = with lib; {
     description = "Lightweight, secure, and feature-rich Discord terminal client";
     homepage = "https://github.com/ayn2op/discordo";
     license = licenses.mit;
-    maintainers = [ maintainers.arian-d ];
+    maintainers = [maintainers.arian-d];
     mainProgram = "discordo";
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "autograd";
   version = "1.7.0";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-3nQ/02jW31I803MF3NFxhhqXUqFESTZ30sn1pWmD/y8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autograd" ];
+  pythonImportsCheck = ["autograd"];
 
   meta = with lib; {
     description = "Compute derivatives of NumPy code efficiently";
     homepage = "https://github.com/HIPS/autograd";
     changelog = "https://github.com/HIPS/autograd/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

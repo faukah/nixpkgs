@@ -9,7 +9,6 @@
   hdr10plus,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "svt-av1-psy";
   version = "3.0.2-unstable-2025-04-21";
@@ -25,16 +24,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeFlags =
     lib.mapAttrsToList
-      (
-        n: v:
+    (
+      n: v:
         lib.cmakeOptionType (builtins.typeOf v) n (
-          if builtins.isBool v then lib.boolToString v else toString v
+          if builtins.isBool v
+          then lib.boolToString v
+          else toString v
         )
-      )
-      {
-        LIBDOVI_FOUND = true;
-        LIBHDR10PLUS_RS_FOUND = true;
-      };
+    )
+    {
+      LIBDOVI_FOUND = true;
+      LIBHDR10PLUS_RS_FOUND = true;
+    };
 
   nativeBuildInputs =
     [
@@ -73,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsd3
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
     mainProgram = "SvtAv1EncApp";
   };
 })

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "srisum";
   version = "5.0.0";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line utility to compute and check subresource integrity hashes";
     homepage = "https://github.com/zkat/srisum-rs";
     changelog = "https://github.com/zkat/srisum-rs/raw/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ pjjw ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [pjjw];
     platforms = lib.platforms.all;
     mainProgram = "srisum";
   };

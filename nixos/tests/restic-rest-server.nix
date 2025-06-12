@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   remoteRepository = "rest:http://restic_rest_server:8001/";
 
   backupPrepareCommand = ''
@@ -26,26 +24,25 @@ let
   };
 
   passwordFile = "${pkgs.writeText "password" "correcthorsebatterystaple"}";
-  paths = [ "/opt" ];
-  exclude = [ "/opt/excluded_file_*" ];
+  paths = ["/opt"];
+  exclude = ["/opt/excluded_file_*"];
   pruneOpts = [
     "--keep-daily 2"
     "--keep-weekly 1"
     "--keep-monthly 1"
     "--keep-yearly 99"
   ];
-in
-{
+in {
   name = "restic-rest-server";
 
   nodes = {
     restic_rest_server = {
       services.restic.server = {
         enable = true;
-        extraFlags = [ "--no-auth" ];
+        extraFlags = ["--no-auth"];
         listenAddress = "8001";
       };
-      networking.firewall.allowedTCPPorts = [ 8001 ];
+      networking.firewall.allowedTCPPorts = [8001];
     };
     server = {
       services.restic.backups = {
@@ -65,7 +62,7 @@ in
         remoteprune = {
           inherit passwordFile;
           repository = remoteRepository;
-          pruneOpts = [ "--keep-last 1" ];
+          pruneOpts = ["--keep-last 1"];
         };
       };
     };

@@ -21,15 +21,16 @@
   brotli,
   libnghttp2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsoup";
   version = "3.6.5";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";

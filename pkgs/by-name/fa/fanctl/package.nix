@@ -3,7 +3,6 @@
   fetchFromGitLab,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "0.6.4";
   pname = "fanctl";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "fanctl";
     homepage = "https://gitlab.com/mcoffin/fanctl";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ icewind1991 ];
+    maintainers = with maintainers; [icewind1991];
     platforms = platforms.linux;
   };
 }

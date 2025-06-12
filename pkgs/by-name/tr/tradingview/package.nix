@@ -20,7 +20,6 @@
   wayland,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tradingview";
   version = "2.9.6";
@@ -92,10 +91,10 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Charting platform for traders and investors";
     homepage = "https://www.tradingview.com/desktop/";
     changelog = "https://www.tradingview.com/support/solutions/43000673888/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ prominentretail ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [prominentretail];
+    platforms = ["x86_64-linux"];
     mainProgram = "tradingview";
   };
 })

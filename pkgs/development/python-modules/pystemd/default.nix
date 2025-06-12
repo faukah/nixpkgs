@@ -11,7 +11,6 @@
   pkg-config,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "pystemd";
   version = "0.13.2";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     rm pystemd/*.c
   '';
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   build-system = [
     setuptools
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pystemd" ];
+  pythonImportsCheck = ["pystemd"];
 
   meta = {
     description = ''
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/facebookincubator/pystemd/";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

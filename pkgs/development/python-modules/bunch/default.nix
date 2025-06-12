@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "bunch";
   version = "unstable-2017-11-21";
@@ -28,12 +27,12 @@ buildPythonPackage {
   # No real tests available
   doCheck = false;
 
-  pythonImportsCheck = [ "bunch" ];
+  pythonImportsCheck = ["bunch"];
 
   meta = with lib; {
     description = "Python dictionary that provides attribute-style access";
     homepage = "https://github.com/dsc/bunch";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,21 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.alice-lg;
-  settingsFormat = pkgs.formats.ini { };
-in
-{
+  settingsFormat = pkgs.formats.ini {};
+in {
   options = {
     services.alice-lg = {
       enable = lib.mkEnableOption "Alice Looking Glass";
 
-      package = lib.mkPackageOption pkgs "alice-lg" { };
+      package = lib.mkPackageOption pkgs "alice-lg" {};
 
       settings = lib.mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = ''
           alice-lg configuration, for configuration options see the example on [github](https://github.com/alice-lg/alice-lg/blob/main/etc/alice-lg/alice.example.conf)
         '';
@@ -56,9 +54,9 @@ in
     };
     systemd.services = {
       alice-lg = {
-        wants = [ "network.target" ];
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        wants = ["network.target"];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         description = "Alice Looking Glass";
         serviceConfig = {
           DynamicUser = true;
@@ -80,7 +78,7 @@ in
           ProtectKernelModules = true;
           ProtectKernelLogs = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+          RestrictAddressFamilies = ["AF_INET AF_INET6"];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           RestrictRealtime = true;

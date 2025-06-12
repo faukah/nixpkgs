@@ -1,20 +1,15 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   port = 42069;
-in
-{
+in {
   name = "bazarr";
-  meta.maintainers = with lib.maintainers; [ d-xo ];
+  meta.maintainers = with lib.maintainers; [d-xo];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.bazarr = {
-        enable = true;
-        listenPort = port;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.bazarr = {
+      enable = true;
+      listenPort = port;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("bazarr.service")

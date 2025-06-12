@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zdns";
   version = "2.0.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "CLI DNS lookup tool";
     mainProgram = "zdns";
     homepage = "https://github.com/zmap/zdns";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [fab];
   };
 }

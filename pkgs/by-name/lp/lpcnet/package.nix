@@ -7,7 +7,6 @@
   codec2,
   sox,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "LPCNet";
   version = "0.5-unstable-2025-01-19";

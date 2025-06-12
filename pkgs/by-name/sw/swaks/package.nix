@@ -6,7 +6,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swaks";
   version = "20240103.0";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DlMbTRZAWIAucmaxT03BiXCZ0Jb5MIIN4vm16wjc2+g=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -25,14 +24,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/swaks --set PERL5LIB \
       "${
-        with perlPackages;
+      with perlPackages;
         makePerlPath [
           NetSSLeay
           AuthenSASL
           NetDNS
           IOSocketINET6
         ]
-      }"
+    }"
   '';
 
   meta = with lib; {
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
     description = "Featureful, flexible, scriptable, transaction-oriented SMTP test tool";
     mainProgram = "swaks";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
-
 }

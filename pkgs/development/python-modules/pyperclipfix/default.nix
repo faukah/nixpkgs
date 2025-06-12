@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   version = "1.9.4-unstable-2024-01-23";
   pname = "pyperclipfix";
@@ -18,16 +17,16 @@ buildPythonPackage {
     hash = "sha256-sREtSNEMj0Q+XWQsJu/7u9M1UdiocDq/YkrCPGRLhHA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     substituteInPlace tests/test_pyperclip.py \
       --replace-fail "pyperclip" "pyperclipfix"
   '';
 
-  pythonImportsCheck = [ "pyperclipfix" ];
+  pythonImportsCheck = ["pyperclipfix"];
 
   # test file is trying to import pyperclip
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage {
     homepage = "https://github.com/AuroraWright/pyperclipfix";
     license = lib.licenses.bsd3;
     description = "Cross-platform clipboard module with various fixes";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

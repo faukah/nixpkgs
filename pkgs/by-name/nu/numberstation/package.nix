@@ -13,7 +13,6 @@
   pkg-config,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "numberstation";
   version = "1.4.0";
@@ -66,6 +65,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "numberstation";
     homepage = "https://sr.ht/~martijnbraam/numberstation/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

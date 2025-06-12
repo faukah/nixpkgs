@@ -17,6 +17,6 @@ mkYaziPlugin {
     description = "Simple rsync plugin for yazi file manager";
     homepage = "https://github.com/GianniBYoung/rsync.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ teto ];
+    maintainers = with lib.maintainers; [teto];
   };
 }

@@ -9,7 +9,6 @@
   udev,
   linuxPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libajantv2";
   version = "17.1.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "aja-video";
     repo = "libajantv2";
-    rev = "ntv2_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "ntv2_${builtins.replaceStrings ["."] ["_"] version}";
     hash = "sha256-7APoPj2LnvdwfuVforoJz0YxKU1WmAgRqIfXao4IZmY=";
   };
   patches = [
@@ -67,8 +66,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "AJA NTV2 Open Source Static Libs and Headers for building applications that only wish to statically link against";
     homepage = "https://github.com/aja-video/libajantv2";
-    license = with licenses; [ mit ];
-    maintainers = [ lib.maintainers.lukegb ];
+    license = with licenses; [mit];
+    maintainers = [lib.maintainers.lukegb];
     platforms = platforms.linux;
   };
 }

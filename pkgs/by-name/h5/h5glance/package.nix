@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "h5glance";
   version = "0.9";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/European-XFEL/h5glance";
     changelog = "https://github.com/European-XFEL/h5glance/blob/${src.rev}/CHANGES.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "h5glance";
   };
 }

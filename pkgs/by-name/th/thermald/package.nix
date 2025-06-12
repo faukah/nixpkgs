@@ -16,7 +16,6 @@
   stdenv,
   upower,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thermald";
   version = "2.5.9";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     mainProgram = "thermald";
   };
 }

@@ -8,10 +8,7 @@
   nss,
   autoPatchelfHook,
   unzip,
-}:
-
-version: hashes:
-let
+}: version: hashes: let
   pname = "electron-chromedriver";
 
   meta = with lib; {
@@ -25,7 +22,7 @@ let
       an unofficial build of ChromeDriver compiled by the Electronjs
       project.
     '';
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     maintainers = with maintainers; [
       liammurphy14
@@ -41,8 +38,7 @@ let
     mainProgram = "chromedriver";
   };
 
-  fetcher =
-    vers: tag: hash:
+  fetcher = vers: tag: hash:
     fetchurl {
       url = "https://github.com/electron/electron/releases/download/v${vers}/chromedriver-v${vers}-${tag}.zip";
       sha256 = hash;
@@ -89,7 +85,7 @@ let
   };
 
   darwin = {
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     dontUnpack = true;
     dontBuild = true;
@@ -105,6 +101,11 @@ let
     '';
   };
 in
-stdenv.mkDerivation (
-  (common stdenv.hostPlatform) // (if stdenv.hostPlatform.isDarwin then darwin else linux)
-)
+  stdenv.mkDerivation (
+    (common stdenv.hostPlatform)
+    // (
+      if stdenv.hostPlatform.isDarwin
+      then darwin
+      else linux
+    )
+  )

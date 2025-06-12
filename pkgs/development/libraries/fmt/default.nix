@@ -5,21 +5,17 @@
   fetchpatch,
   cmake,
   enableShared ? !stdenv.hostPlatform.isStatic,
-
   # tests
   mpd,
   openimageio,
   fcitx5,
   spdlog,
-}:
-
-let
-  generic =
-    {
-      version,
-      hash,
-      patches ? [ ],
-    }:
+}: let
+  generic = {
+    version,
+    hash,
+    patches ? [],
+  }:
     stdenv.mkDerivation {
       pname = "fmt";
       inherit version;
@@ -38,9 +34,9 @@ let
 
       inherit patches;
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
-      cmakeFlags = [ (lib.cmakeBool "BUILD_SHARED_LIBS" enableShared) ];
+      cmakeFlags = [(lib.cmakeBool "BUILD_SHARED_LIBS" enableShared)];
 
       doCheck = true;
 
@@ -62,13 +58,12 @@ let
         homepage = "https://fmt.dev/";
         changelog = "https://github.com/fmtlib/fmt/blob/${version}/ChangeLog.rst";
         downloadPage = "https://github.com/fmtlib/fmt/";
-        maintainers = [ maintainers.jdehaas ];
+        maintainers = [maintainers.jdehaas];
         license = licenses.mit;
         platforms = platforms.all;
       };
     };
-in
-{
+in {
   fmt_9 = generic {
     version = "9.1.0";
     hash = "sha256-rP6ymyRc7LnKxUXwPpzhHOQvpJkpnRFOt2ctvUNlYI0=";

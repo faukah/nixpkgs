@@ -6,7 +6,6 @@
   sphinx,
   tkinter,
 }:
-
 buildPythonPackage rec {
   pname = "plink";
   version = "2.4.6";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  dependencies = [ tkinter ];
+  dependencies = [tkinter];
 
-  pythonImportsCheck = [ "plink" ];
+  pythonImportsCheck = ["plink"];
 
   meta = {
     description = "Full featured Tk-based knot and link editor";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://3-manifolds.github.io/PLink";
     changelog = "https://github.com/3-manifolds/PLink/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ noiioiu ];
+    maintainers = with lib.maintainers; [noiioiu];
   };
 }

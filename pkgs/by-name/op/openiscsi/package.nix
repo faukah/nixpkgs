@@ -14,7 +14,6 @@
   runtimeShell,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "open-iscsi";
   version = "2.1.11";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     "-Ddbroot=/etc/iscsi"
   ];
 
-  passthru.tests = { inherit (nixosTests) iscsi-root; };
+  passthru.tests = {inherit (nixosTests) iscsi-root;};
 
   meta = with lib; {
     description = "High performance, transport independent, multi-platform implementation of RFC3720";

@@ -11,7 +11,6 @@
   unstableGitUpdater,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "dublin-traceroute";
   version = "0.4.2-unstable-2024-04-11";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
 
   passthru = {
     # 0.4.2 was tagged in 2017
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
 
     tests = {
       inherit (nixosTests) dublin-traceroute;
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     description = "NAT-aware multipath traceroute tool";
     homepage = "https://dublin-traceroute.net/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
     platforms = platforms.unix;
     mainProgram = "dublin-traceroute";
     broken = stdenv.hostPlatform.isDarwin;

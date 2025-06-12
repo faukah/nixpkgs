@@ -21,7 +21,6 @@
   libtool,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taler-exchange";
   version = "1.0.4";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-k2e9pzy7vSIjCVGOVif9ntYvLcvoJA6J63vB/lg3iwA=";
   };
 
-  patches = [ ./0001-add-TALER_TEMPLATING_init_path.patch ];
+  patches = [./0001-add-TALER_TEMPLATING_init_path.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  propagatedBuildInputs = [ gnunet ];
+  propagatedBuildInputs = [gnunet];
 
   # From ./bootstrap
   preAutoreconf = ''
@@ -127,8 +126,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://taler.net/";
     changelog = "https://git.taler.net/exchange.git/tree/ChangeLog";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ astro ];
-    teams = with lib.teams; [ ngi ];
+    maintainers = with lib.maintainers; [astro];
+    teams = with lib.teams; [ngi];
     platforms = lib.platforms.linux;
   };
 })

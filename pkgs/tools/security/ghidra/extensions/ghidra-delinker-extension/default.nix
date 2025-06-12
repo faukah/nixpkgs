@@ -3,8 +3,7 @@
   ghidra,
   gradle,
   fetchFromGitHub,
-}:
-let
+}: let
   version = "0.5.1";
   self = ghidra.buildGhidraExtension {
     pname = "ghidra-delinker-extension";
@@ -35,9 +34,9 @@ let
       description = "Ghidra extension for delinking executables back to object files";
       homepage = "https://github.com/boricj/ghidra-delinker-extension";
       license = lib.licenses.asl20;
-      maintainers = [ lib.maintainers.jchw ];
+      maintainers = [lib.maintainers.jchw];
       platforms = lib.platforms.unix;
     };
   };
 in
-self
+  self

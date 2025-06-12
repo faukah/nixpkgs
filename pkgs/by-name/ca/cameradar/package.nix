@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 buildGoModule rec {
   pname = "cameradar";
   version = "5.0.2";
@@ -37,8 +36,8 @@ buildGoModule rec {
     description = "RTSP stream access tool";
     homepage = "https://github.com/Ullaakut/cameradar";
     changelog = "https://github.com/Ullaakut/cameradar/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fab];
     # Upstream issue, doesn't build with latest curl, see
     # https://github.com/Ullaakut/cameradar/issues/320
     # https://github.com/andelf/go-curl/issues/84

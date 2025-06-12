@@ -9,7 +9,6 @@
   stdenv,
   which,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pgtap";
   version = "1.3.3";
@@ -33,9 +32,9 @@ postgresqlBuildExtension (finalAttrs: {
     doCheck = true;
     nativeCheckInputs = [
       postgresqlTestHook
-      (postgresql.withPackages (_: [ finalAttrs.finalPackage ]))
+      (postgresql.withPackages (_: [finalAttrs.finalPackage]))
     ];
-    passAsFile = [ "sql" ];
+    passAsFile = ["sql"];
     sql = ''
       CREATE EXTENSION pgtap;
 
@@ -61,7 +60,7 @@ postgresqlBuildExtension (finalAttrs: {
       as well as the ability to integrate with other TAP-emitting test frameworks.
       It can also be used in the xUnit testing style.
     '';
-    maintainers = [ ];
+    maintainers = [];
     homepage = "https://pgtap.org";
     inherit (postgresql.meta) platforms;
     license = lib.licenses.mit;

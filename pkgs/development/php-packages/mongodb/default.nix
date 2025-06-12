@@ -12,7 +12,6 @@
   snappy,
   zlib,
 }:
-
 buildPecl rec {
   pname = "mongodb";
   version = "2.1.0";
@@ -25,7 +24,7 @@ buildPecl rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       cyrus_sasl
@@ -43,6 +42,6 @@ buildPecl rec {
     description = "Official MongoDB PHP driver";
     homepage = "https://github.com/mongodb/mongo-php-driver";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 }

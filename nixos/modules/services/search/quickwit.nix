@@ -3,23 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.quickwit;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   quickwitYml = settingsFormat.generate "quickwit.yml" cfg.settings;
 
   usingDefaultDataDir = cfg.dataDir == "/var/lib/quickwit";
   usingDefaultUserAndGroup = cfg.user == "quickwit" && cfg.group == "quickwit";
-in
-{
-
+in {
   options.services.quickwit = {
     enable = lib.mkEnableOption "Quickwit";
 
     package = lib.mkPackageOption pkgs "Quickwit" {
-      default = [ "quickwit" ];
+      default = ["quickwit"];
     };
 
     settings = lib.mkOption {
@@ -27,7 +24,7 @@ in
         freeformType = settingsFormat.type;
 
         options."rest" = lib.mkOption {
-          default = { };
+          default = {};
           description = ''
             Rest server configuration for Quickwit
           '';
@@ -70,7 +67,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       description = ''
         Quickwit configuration.
@@ -111,7 +108,7 @@ in
 
     extraFlags = lib.mkOption {
       description = "Extra command line options to pass to Quickwit.";
-      default = [ ];
+      default = [];
       type = lib.types.listOf lib.types.str;
     };
 
@@ -130,8 +127,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.quickwit = {
       description = "Quickwit";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       inherit (cfg) restartIfChanged;
       environment = {
         QW_DATA_DIR = cfg.dataDir;
@@ -146,7 +143,7 @@ in
           Group = cfg.group;
           Restart = "on-failure";
           DynamicUser = usingDefaultUserAndGroup && usingDefaultDataDir;
-          CapabilityBoundingSet = [ "" ];
+          CapabilityBoundingSet = [""];
           DevicePolicy = "closed";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
@@ -183,12 +180,12 @@ in
             "@chown"
           ];
         }
-        // (lib.optionalAttrs (usingDefaultDataDir) {
+        // (lib.optionalAttrs usingDefaultDataDir {
           StateDirectory = "quickwit";
           StateDirectoryMode = "0700";
         });
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

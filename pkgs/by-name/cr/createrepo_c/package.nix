@@ -19,7 +19,6 @@
   zchunk,
   libmodulemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "createrepo_c";
   version = "1.2.1";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://rpm-software-management.github.io/createrepo_c/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

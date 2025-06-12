@@ -14,7 +14,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "msgraph-core";
   version = "1.3.4";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-F3vZUglO0AvWZPwV8329Wrd5S4PHShBv8Gg3Jvsz6Kk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "msgraph_core" ];
+  pythonImportsCheck = ["msgraph_core"];
 
   disabledTestPaths = [
     # client_id should be the id of a Microsoft Entra application
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/microsoftgraph/msgraph-sdk-python-core";
     changelog = "https://github.com/microsoftgraph/msgraph-sdk-python-core/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

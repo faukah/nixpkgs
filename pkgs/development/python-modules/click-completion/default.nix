@@ -3,14 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   isPy27,
-
   # propagates
   click,
   jinja2,
   shellingham,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "click-completion";
   version = "0.5.2";
@@ -29,7 +27,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "click_completion" ];
+  pythonImportsCheck = ["click_completion"];
 
   # has no tests
   doCheck = false;
@@ -38,6 +36,6 @@ buildPythonPackage rec {
     description = "Add or enhance bash, fish, zsh and powershell completion in Click";
     homepage = "https://github.com/click-contrib/click-completion";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbode ];
+    maintainers = with maintainers; [mbode];
   };
 }

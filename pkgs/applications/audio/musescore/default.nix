@@ -33,7 +33,6 @@
   qttools,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "musescore";
   version = "4.5.2";
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     [
       # MuseScore JACK backend loads libjack at runtime.
       "--prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [ libjack2 ]
+        lib.makeLibraryPath [libjack2]
       }"
     ]
     ++ lib.optionals (stdenv.hostPlatform.isLinux) [

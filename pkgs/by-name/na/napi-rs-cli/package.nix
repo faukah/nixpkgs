@@ -5,7 +5,6 @@
   makeWrapper,
   nodejs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "napi-rs-cli";
   version = "2.17.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-DeqH3pEtGZoKEBz5G0RfDO9LWHGMKL2OiWS1uWk4v44=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "napi";
     homepage = "https://napi.rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     inherit (nodejs.meta) platforms;
   };
 }

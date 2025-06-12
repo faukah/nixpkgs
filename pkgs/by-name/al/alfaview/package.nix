@@ -23,7 +23,6 @@
   systemd,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alfaview";
   version = "9.21.1";
@@ -90,10 +89,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Video-conferencing application, specialized in virtual online meetings, seminars, training sessions and conferences";
     homepage = "https://alfaview.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "alfaview";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "musl-obstack";
   version = "1.2.3";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "Extraction of the obstack functions and macros from GNU libiberty for use with musl-libc";
     platforms = platforms.unix;
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.pjjw ];
+    maintainers = [maintainers.pjjw];
   };
 }

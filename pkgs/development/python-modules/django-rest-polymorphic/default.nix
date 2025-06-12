@@ -10,7 +10,6 @@
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage {
   pname = "django-rest-polymorphic";
   version = "0.1.10";
@@ -37,12 +36,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rest_polymorphic" ];
+  pythonImportsCheck = ["rest_polymorphic"];
 
   meta = with lib; {
     description = "Polymorphic serializers for Django REST Framework";
     homepage = "https://github.com/apirobot/django-rest-polymorphic";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

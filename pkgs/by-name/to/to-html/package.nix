@@ -4,7 +4,6 @@
   installShellFiles,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "0.1.6";
   pname = "to-html";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   # Requires external resources
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion \
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/Aloso/to-html/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ icewind1991 ];
+    maintainers = with lib.maintainers; [icewind1991];
   };
 }

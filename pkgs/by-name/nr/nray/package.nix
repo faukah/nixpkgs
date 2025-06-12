@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nray";
   version = "1.1.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/nray-scanner/nray";
     changelog = "https://github.com/nray-scanner/nray/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "nray";
     platforms = lib.platforms.linux;
   };

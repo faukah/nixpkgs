@@ -11,7 +11,6 @@
   pdm-backend,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocstrings-python";
   version = "1.16.12";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-NL5gn8HgT0hvIlUDs//sErAaSVXvxLDJGT7nZX65ZVU=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     griffe
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mkdocstrings_handlers" ];
+  pythonImportsCheck = ["mkdocstrings_handlers"];
 
   disabledTests = [
     # Tests fails with AssertionError
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkdocstrings/python";
     changelog = "https://github.com/mkdocstrings/python/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

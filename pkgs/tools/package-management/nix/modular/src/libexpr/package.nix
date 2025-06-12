@@ -2,11 +2,9 @@
   lib,
   stdenv,
   mkMesonLibrary,
-
   bison,
   flex,
   cmake, # for resolving toml11 dep
-
   nix-util,
   nix-store,
   nix-fetchers,
@@ -14,11 +12,8 @@
   boehmgc,
   nlohmann_json,
   toml11,
-
   # Configuration Options
-
   version,
-
   # Whether to use garbage collection for the Nix language evaluator.
   #
   # If it is disabled, we just leak memory, but this is not as bad as it
@@ -30,7 +25,6 @@
   # symbol is missing during linking.
   enableGC ? !stdenv.hostPlatform.isWindows,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-expr";
   inherit version;
@@ -47,17 +41,21 @@ mkMesonLibrary (finalAttrs: {
     toml11
   ];
 
-  propagatedBuildInputs = [
-    nix-util
-    nix-store
-    nix-fetchers
-  ] ++ finalAttrs.passthru.externalPropagatedBuildInputs;
+  propagatedBuildInputs =
+    [
+      nix-util
+      nix-store
+      nix-fetchers
+    ]
+    ++ finalAttrs.passthru.externalPropagatedBuildInputs;
 
   # Hack for sake of the dev shell
-  passthru.externalPropagatedBuildInputs = [
-    boost
-    nlohmann_json
-  ] ++ lib.optional enableGC boehmgc;
+  passthru.externalPropagatedBuildInputs =
+    [
+      boost
+      nlohmann_json
+    ]
+    ++ lib.optional enableGC boehmgc;
 
   mesonFlags = [
     (lib.mesonEnable "gc" enableGC)
@@ -73,5 +71,4 @@ mkMesonLibrary (finalAttrs: {
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

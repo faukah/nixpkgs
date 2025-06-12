@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "websploit";
   version = "4.0.4";
@@ -37,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/f4rih/websploit";
     changelog = "https://github.com/f4rih/websploit/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     mainProgram = "websploit";
   };
 }

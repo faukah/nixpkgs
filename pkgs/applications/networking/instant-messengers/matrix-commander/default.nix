@@ -15,7 +15,6 @@
   python-olm,
   emoji,
 }:
-
 buildPythonApplication rec {
   pname = "matrix-commander";
   version = "8.0.4";
@@ -42,7 +41,7 @@ buildPythonApplication rec {
   propagatedBuildInputs = [
     cacert
     setuptools
-    (matrix-nio.override { withOlm = true; })
+    (matrix-nio.override {withOlm = true;})
     python-magic
     markdown
     pillow
@@ -60,6 +59,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/8go/matrix-commander";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.seb314 ];
+    maintainers = [maintainers.seb314];
   };
 }

@@ -7,7 +7,6 @@
   six,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "more-itertools";
   version = "10.6.0";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-LNf60QCcMcyftqA1EIUJ5lR1R6enODdPEL1JoJ6z7js=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # iterable = range(10 ** 10)  # Is efficiently reversible
   # OverflowError: Python int too large to convert to C long
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     changelog = "https://more-itertools.readthedocs.io/en/stable/versions.html";
     description = "Expansion of the itertools module";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

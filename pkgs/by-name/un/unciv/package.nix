@@ -9,8 +9,7 @@
   libGL,
   libpulseaudio,
   libXxf86vm,
-}:
-let
+}: let
   version = "4.16.5";
 
   desktopItem = makeDesktopItem {
@@ -19,7 +18,7 @@ let
     comment = "An open-source Android/Desktop remake of Civ V";
     desktopName = "Unciv";
     icon = "unciv";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   desktopIcon = fetchurl {
@@ -34,46 +33,45 @@ let
       libXxf86vm
     ]
   );
-
 in
-stdenv.mkDerivation rec {
-  pname = "unciv";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "unciv";
+    inherit version;
 
-  src = fetchurl {
-    url = "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
-    hash = "sha256-CMyZlQ5zXHxUExH7aMIJ4nreEPz8Y0eeJ5nnt267SqU=";
-  };
+    src = fetchurl {
+      url = "https://github.com/yairm210/Unciv/releases/download/${version}/Unciv.jar";
+      hash = "sha256-CMyZlQ5zXHxUExH7aMIJ4nreEPz8Y0eeJ5nnt267SqU=";
+    };
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      copyDesktopItems
+      makeWrapper
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    makeWrapper ${jre}/bin/java $out/bin/unciv \
-      --prefix LD_LIBRARY_PATH : "${envLibPath}" \
-      --prefix PATH : ${lib.makeBinPath [ jre ]} \
-      --add-flags "-jar ${src}"
+      makeWrapper ${jre}/bin/java $out/bin/unciv \
+        --prefix LD_LIBRARY_PATH : "${envLibPath}" \
+        --prefix PATH : ${lib.makeBinPath [jre]} \
+        --add-flags "-jar ${src}"
 
-    install -Dm444 ${desktopIcon} $out/share/icons/hicolor/512x512/apps/unciv.png
+      install -Dm444 ${desktopIcon} $out/share/icons/hicolor/512x512/apps/unciv.png
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  desktopItems = [ desktopItem ];
+    desktopItems = [desktopItem];
 
-  meta = with lib; {
-    description = "Open-source Android/Desktop remake of Civ V";
-    mainProgram = "unciv";
-    homepage = "https://github.com/yairm210/Unciv";
-    maintainers = with maintainers; [ tex ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.mpl20;
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "Open-source Android/Desktop remake of Civ V";
+      mainProgram = "unciv";
+      homepage = "https://github.com/yairm210/Unciv";
+      maintainers = with maintainers; [tex];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
+      license = licenses.mpl20;
+      platforms = platforms.all;
+    };
+  }

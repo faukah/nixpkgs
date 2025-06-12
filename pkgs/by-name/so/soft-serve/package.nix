@@ -7,7 +7,6 @@
   git,
   bash,
 }:
-
 buildGoModule rec {
   pname = "soft-serve";
   version = "0.8.5";
@@ -29,18 +28,18 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     # Soft-serve generates git-hooks at run-time.
     # The scripts require git and bash inside the path.
     wrapProgram $out/bin/soft \
       --prefix PATH : "${
-        lib.makeBinPath [
-          git
-          bash
-        ]
-      }"
+      lib.makeBinPath [
+        git
+        bash
+      ]
+    }"
   '';
 
   passthru.tests = nixosTests.soft-serve;
@@ -51,6 +50,6 @@ buildGoModule rec {
     changelog = "https://github.com/charmbracelet/soft-serve/releases/tag/v${version}";
     mainProgram = "soft";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ penguwin ];
+    maintainers = with lib.maintainers; [penguwin];
   };
 }

@@ -5,22 +5,15 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.lxqt;
-
-in
-
-{
+in {
   meta = {
     maintainers = teams.lxqt.members;
   };
 
   options = {
-
     services.xserver.desktopManager.lxqt.enable = mkOption {
       type = types.bool;
       default = false;
@@ -28,16 +21,14 @@ in
     };
 
     environment.lxqt.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.lxqt.qterminal ]";
       type = types.listOf types.package;
       description = "Which LXQt packages to exclude from the default environment";
     };
-
   };
 
   config = mkIf cfg.enable {
-
     services.xserver.desktopManager.session = singleton {
       name = "lxqt";
       bgSupport = true;
@@ -64,7 +55,7 @@ in
       ++ (utils.removePackagesByName pkgs.lxqt.optionalPackages config.environment.lxqt.excludePackages);
 
     # Link some extra directories in /run/current-system/software/share
-    environment.pathsToLink = [ "/share" ];
+    environment.pathsToLink = ["/share"];
 
     programs.gnupg.agent.pinentryPackage = mkDefault pkgs.pinentry-qt;
 
@@ -83,5 +74,4 @@ in
       "gtk"
     ];
   };
-
 }

@@ -7,7 +7,6 @@
   cstruct-unix,
   core_kernel,
 }:
-
 buildDunePackage rec {
   pname = "dbf";
   version = "0.2.0";
@@ -23,7 +22,7 @@ buildDunePackage rec {
     hash = "sha256-096GodM3J/4dsVdylG+6xz/p6ogUkhDGdFjiPwl/jLQ=";
   };
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
   propagatedBuildInputs = [
     rresult
     cstruct-unix
@@ -34,6 +33,6 @@ buildDunePackage rec {
     description = "DBF format parsing";
     homepage = "https://github.com/pveber/dbf";
     license = licenses.isc;
-    maintainers = [ maintainers.deltadelta ];
+    maintainers = [maintainers.deltadelta];
   };
 }

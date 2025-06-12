@@ -5,7 +5,6 @@
   gettext,
   python3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "folder-color-switcher";
   version = "1.6.7";
@@ -44,13 +43,13 @@ stdenvNoCC.mkDerivation {
 
   # For Gdk.cairo_surface_create_from_pixbuf()
   # TypeError: Couldn't find foreign struct converter for 'cairo.Surface'
-  passthru.nemoPythonExtensionDeps = [ python3.pkgs.pycairo ];
+  passthru.nemoPythonExtensionDeps = [python3.pkgs.pycairo];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/folder-color-switcher";
     description = "Change folder colors for Nemo and Caja";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

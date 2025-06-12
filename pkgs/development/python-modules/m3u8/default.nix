@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "m3u8";
   version = "6.0.0";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-1SOuKKNBg67Yc0a6Iqb1goTE7sraptzpFIB2lvrbMQg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ iso8601 ];
+  dependencies = [iso8601];
 
   nativeCheckInputs = [
     bottle
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "test_raise_timeout_exception_if_timeout_happens_when_loading_from_uri"
   ];
 
-  pythonImportsCheck = [ "m3u8" ];
+  pythonImportsCheck = ["m3u8"];
 
   meta = with lib; {
     description = "Python m3u8 parser";
     homepage = "https://github.com/globocom/m3u8";
     changelog = "https://github.com/globocom/m3u8/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

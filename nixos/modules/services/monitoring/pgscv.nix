@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -17,14 +16,13 @@ let
 
   cfg = config.services.pgscv;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yaml" cfg.settings;
-in
-{
+in {
   options.services.pgscv = {
     enable = mkEnableOption "pgSCV, a PostgreSQL ecosystem metrics collector";
 
-    package = mkPackageOption pkgs "pgscv" { };
+    package = mkPackageOption pkgs "pgscv" {};
 
     logLevel = mkOption {
       type = types.enum [
@@ -39,7 +37,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for pgSCV, in YAML format.
 
@@ -51,10 +49,10 @@ in
   config = mkIf cfg.enable {
     systemd.services.pgscv = {
       description = "pgSCV - PostgreSQL ecosystem metrics collector";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      path = [ pkgs.glibc ]; # shells out to getconf
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
+      path = [pkgs.glibc]; # shells out to getconf
 
       serviceConfig = {
         User = "postgres";

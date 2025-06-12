@@ -7,7 +7,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-tree-queries";
   version = "0.19";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/feincms/django-tree-queries";
     changelog = "https://github.com/feincms/django-tree-queries/blob/${src.tag}/CHANGELOG.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

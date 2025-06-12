@@ -29,7 +29,6 @@
   gdk-pixbuf,
   xvfb-run,
 }:
-
 stdenv.mkDerivation rec {
   pname = "totem";
   version = "43.1";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     grilo-plugins
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
     gst_all_1.gst-libav
@@ -112,7 +111,7 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/Totem/";
     changelog = "https://gitlab.gnome.org/GNOME/totem/-/blob/${version}/NEWS?ref_type=tags";
     description = "Movie player for the GNOME desktop based on GStreamer";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.gpl2Plus; # with exception to allow use of non-GPL compatible plug-ins
     platforms = lib.platforms.linux;
     # gst-inspect-1.0 is not smart enough for cross compiling

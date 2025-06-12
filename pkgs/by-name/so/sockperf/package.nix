@@ -7,7 +7,6 @@
   enableTool ? false,
   enableTest ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sockperf";
   version = "3.10";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--enable-doc" ]
+    ["--enable-doc"]
     ++ lib.optional enableTest "--enable-test"
     ++ lib.optional enableTool "--enable-tool";
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Network Benchmarking Utility";
     homepage = "https://github.com/Mellanox/sockperf";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
     mainProgram = "sockperf";
   };

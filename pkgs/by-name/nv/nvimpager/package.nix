@@ -10,7 +10,6 @@
   lua51Packages,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nvimpager";
   version = "0.13.0";
@@ -25,11 +24,11 @@ stdenv.mkDerivation rec {
   buildInputs = [
     bash
   ];
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
   strictDeps = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   buildFlags = [
     "nvimpager.configured"
     "nvimpager.1"
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lucc/nvimpager";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.lucc ];
+    maintainers = [maintainers.lucc];
     mainProgram = "nvimpager";
   };
 }

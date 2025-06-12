@@ -5,14 +5,12 @@
   stdenv,
   zlib,
   lib,
-
   # for passthru.tests
   knot-dns,
   nixosTests,
   systemd,
   tracee,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libbpf";
   version = "1.5.0";
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+L/rbp0a3p4PHq1yTJmuMcNj0gT5sqAPeaNRo3Sh6U8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     elfutils
     zlib
@@ -39,7 +37,7 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     inherit knot-dns tracee;
     bpf = nixosTests.bpf;
-    systemd = systemd.override { withLibBPF = true; };
+    systemd = systemd.override {withLibBPF = true;};
   };
 
   postInstall = ''

@@ -10,7 +10,6 @@
   merecat,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "merecat";
   version = "2.31";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Small and made-easy HTTP/HTTPS server based on Jef Poskanzer's thttpd";
     homepage = "https://troglobit.com/projects/merecat/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # Strange header and/or linker errors
     broken = stdenv.hostPlatform.isDarwin;

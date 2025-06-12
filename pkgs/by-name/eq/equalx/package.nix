@@ -2,20 +2,17 @@
   lib,
   stdenv,
   fetchFromGitLab,
-
   # nativeBuildInputs
   protobuf,
   qt5,
   libsForQt5,
   pkg-config,
   installShellFiles,
-
   # buildInputs
   ghostscript,
   poppler-utils,
   exempi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "equalx";
   version = "0.7.1-unstable-2020-02-26";
@@ -66,6 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "equalx";
     downloadPage = "https://gitlab.com/q-quark/equalx";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 })

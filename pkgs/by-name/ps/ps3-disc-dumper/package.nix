@@ -7,7 +7,6 @@
   dotnetCorePackages,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "ps3-disc-dumper";
   version = "4.3.6";
@@ -21,8 +20,8 @@ buildDotnetModule rec {
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
   dotnet-runtime = dotnetCorePackages.sdk_9_0;
-  dotnetFlags = [ "-p:TargetFramework=net9.0" ];
-  dotnetRestoreFlags = [ "-p:Configuration=${buildType}" ];
+  dotnetFlags = ["-p:TargetFramework=net9.0"];
+  dotnetRestoreFlags = ["-p:Configuration=${buildType}"];
   buildType = "Linux";
   projectFile = "UI.Avalonia/UI.Avalonia.csproj";
   nugetDeps = ./deps.json;
@@ -32,7 +31,7 @@ buildDotnetModule rec {
     openssl
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Handy utility to make decrypted PS3 disc dumps";
@@ -43,6 +42,6 @@ buildDotnetModule rec {
       evanjs
       gepbird
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

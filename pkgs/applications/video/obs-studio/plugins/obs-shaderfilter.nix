@@ -6,7 +6,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-shaderfilter";
   version = "2.5.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HJFgGicOtEZMMJyAkwgHCvWPoj00C6YGU9NwagD4Fpw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "OBS Studio filter for applying an arbitrary shader to a source";
     homepage = "https://github.com/exeldro/obs-shaderfilter";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

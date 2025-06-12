@@ -11,7 +11,6 @@
   makeDesktopItem,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "outfox";
   version = "0.5.0-pre042";
@@ -35,7 +34,9 @@ stdenv.mkDerivation rec {
         hash = "sha256-PRp7kuqFBRy7nextTCB+/poc+A9AX2EiQphx6aUfT8E=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
     genericName = "Rhythm game engine";
     exec = "OutFox";
     tryExec = "OutFox";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   patchPhase = ''
@@ -74,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Rhythm game engine forked from StepMania";
     homepage = "https://projectoutfox.com";
     changelog = "https://projectoutfox.com/releases/${version}";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     platforms = [
       "x86_64-linux"
@@ -82,7 +83,7 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "armv7l-linux"
     ];
-    maintainers = with lib.maintainers; [ maxwell-lt ];
+    maintainers = with lib.maintainers; [maxwell-lt];
     mainProgram = "OutFox";
   };
 }

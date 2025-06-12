@@ -8,9 +8,7 @@
   irmin-test,
   irmin-watcher,
 }:
-
 buildDunePackage {
-
   pname = "irmin-fs";
 
   inherit (irmin) version src;
@@ -30,8 +28,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = irmin.meta // {
-    description = "Generic file-system backend for Irmin";
-  };
-
+  meta =
+    irmin.meta
+    // {
+      description = "Generic file-system backend for Irmin";
+    };
 }

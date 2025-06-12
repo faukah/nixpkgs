@@ -20,12 +20,16 @@
   writeScript,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "palemoon-bin";
   version = "33.7.2";
 
-  src = finalAttrs.passthru.sources."gtk${if withGTK3 then "3" else "2"}";
+  src =
+    finalAttrs.passthru.sources."gtk${
+      if withGTK3
+      then "3"
+      else "2"
+    }";
 
   preferLocalBuild = true;
 
@@ -146,41 +150,37 @@ stdenv.mkDerivation (finalAttrs: {
     # Make optional dependencies available
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          ffmpeg_6
-          libglvnd
-          libpulseaudio
-        ]
-      }"
+      lib.makeLibraryPath [
+        ffmpeg_6
+        libglvnd
+        libpulseaudio
+      ]
+    }"
     )
     wrapGApp $out/lib/palemoon/palemoon
   '';
 
   passthru = {
-    sources =
-      let
-        urlRegionVariants =
-          buildVariant:
-          map
-            (
-              region:
-              "https://rm-${region}.palemoon.org/release/palemoon-${finalAttrs.version}.linux-x86_64-${buildVariant}.tar.xz"
-            )
-            [
-              "eu"
-              "us"
-            ];
-      in
-      {
-        gtk3 = fetchzip {
-          urls = urlRegionVariants "gtk3";
-          hash = "sha256-GE45GZ+OmNNwRLTD2pcZpqRA66k4q/+lkQnGJG+z6nQ=";
-        };
-        gtk2 = fetchzip {
-          urls = urlRegionVariants "gtk2";
-          hash = "sha256-yJPmmQ9IkGzort9OPPWzv+LSeJci8VNoso3NLYev51Q=";
-        };
+    sources = let
+      urlRegionVariants = buildVariant:
+        map
+        (
+          region: "https://rm-${region}.palemoon.org/release/palemoon-${finalAttrs.version}.linux-x86_64-${buildVariant}.tar.xz"
+        )
+        [
+          "eu"
+          "us"
+        ];
+    in {
+      gtk3 = fetchzip {
+        urls = urlRegionVariants "gtk3";
+        hash = "sha256-GE45GZ+OmNNwRLTD2pcZpqRA66k4q/+lkQnGJG+z6nQ=";
       };
+      gtk2 = fetchzip {
+        urls = urlRegionVariants "gtk2";
+        hash = "sha256-yJPmmQ9IkGzort9OPPWzv+LSeJci8VNoso3NLYev51Q=";
+      };
+    };
 
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
@@ -228,10 +228,10 @@ stdenv.mkDerivation (finalAttrs: {
         # TODO free, redistributable? Has strict limitations on what modifications may be done & shipped by packagers
       }
     ];
-    maintainers = with maintainers; [ OPNA2608 ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [OPNA2608];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "palemoon";
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
   };
 })

@@ -6,7 +6,6 @@
   cmake,
   kdePackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "krusader";
   version = "2.9.0";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.krusader.org";
     description = "Norton/Total Commander clone for KDE";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ sander ];
+    maintainers = with lib.maintainers; [sander];
     mainProgram = "krusader";
   };
 }

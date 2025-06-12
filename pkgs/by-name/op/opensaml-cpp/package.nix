@@ -12,7 +12,6 @@
   xml-tooling-c,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opensaml-cpp";
   version = "3.0.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--with-xmltooling=${xml-tooling-c}" ];
+  configureFlags = ["--with-xmltooling=${xml-tooling-c}"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString (!stdenv.hostPlatform.isDarwin) "-std=c++14";
 
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     mainProgram = "samlsign";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

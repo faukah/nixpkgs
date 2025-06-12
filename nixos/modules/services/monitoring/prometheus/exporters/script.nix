@@ -4,24 +4,21 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.script;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     literalExpression
     concatStringsSep
     ;
   configFile = pkgs.writeText "script-exporter.yaml" (builtins.toJSON cfg.settings);
-in
-{
+in {
   port = 9172;
   extraOpts = {
     settings.scripts = mkOption {
-      type =
-        with types;
+      type = with types;
         listOf (submodule {
           options = {
             name = mkOption {

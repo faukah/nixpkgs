@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "fstar-vscode-assistant";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=FStarLang.fstar-vscode-assistant";
     homepage = "https://github.com/FStarLang/fstar-vscode-assistant";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.parrot7483 ];
+    maintainers = [lib.maintainers.parrot7483];
   };
 }

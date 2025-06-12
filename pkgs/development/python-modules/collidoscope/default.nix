@@ -12,7 +12,6 @@
   unittestCheckHook,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "collidoscope";
   version = "0.6.5";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     uharfbuzz
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
   unittestFlagsArray = [
     "-s"
     "test"
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Python library to detect glyph collisions in fonts";
     homepage = "https://github.com/googlefonts/collidoscope";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ danc86 ];
+    maintainers = with lib.maintainers; [danc86];
   };
 }

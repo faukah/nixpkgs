@@ -5,7 +5,6 @@
   fetchpatch,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "pacvim";
   version = "2018-05-16";
@@ -25,14 +24,14 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ ncurses ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  buildInputs = [ncurses];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/jmoon018/PacVim";
     description = "Game that teaches you vim commands";
     mainProgram = "pacvim";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl3;
     platforms = platforms.unix;
   };

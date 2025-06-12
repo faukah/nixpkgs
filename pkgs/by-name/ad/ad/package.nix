@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ad";
   version = "0.3.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256:12g3fcym8184py66fgwahpb9q05dm9r9rbhh4l50yd62gkmifc93";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   checkFlags = [
     # both assume `/usr/bin/sh` exists
@@ -54,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/sminez/ad";
     license = lib.licenses.mit;
     mainProgram = "ad";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     # rely on unix domain socket
     # https://github.com/sminez/ad/issues/28
     platforms = lib.platforms.unix;

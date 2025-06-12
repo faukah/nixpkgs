@@ -2,9 +2,7 @@
   lib,
   callPackage,
   build ? null,
-}:
-
-let
+}: let
   pkgs = {
     mod = {
     };
@@ -13,22 +11,19 @@ let
     };
 
     tileset = {
-      UndeadPeople = callPackage ./tilesets/UndeadPeople { };
+      UndeadPeople = callPackage ./tilesets/UndeadPeople {};
     };
   };
 
   pkgs' = lib.mapAttrs (_: mods: lib.filterAttrs isAvailable mods) pkgs;
 
-  isAvailable =
-    _: mod:
-    if (build == null) then
-      true
-    else if build.isTiles then
-      mod.forTiles or false
-    else if build.isCurses then
-      mod.forCurses or false
-    else
-      false;
+  isAvailable = _: mod:
+    if (build == null)
+    then true
+    else if build.isTiles
+    then mod.forTiles or false
+    else if build.isCurses
+    then mod.forCurses or false
+    else false;
 in
-
-lib.makeExtensible (_: pkgs')
+  lib.makeExtensible (_: pkgs')

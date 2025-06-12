@@ -14,7 +14,6 @@
   sqlalchemy-i18n,
   sqlalchemy-utils,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-continuum";
   version = "1.4.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-D9K+efcY7aR8IgaHnZLsTr8YiTZGN7PK8+5dNL0ZyOM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     sqlalchemy
@@ -36,10 +35,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    flask = [ flask ];
-    flask-login = [ flask-login ];
-    flask-sqlalchemy = [ flask-sqlalchemy ];
-    i18n = [ sqlalchemy-i18n ];
+    flask = [flask];
+    flask-login = [flask-login];
+    flask-sqlalchemy = [flask-sqlalchemy];
+    i18n = [sqlalchemy-i18n];
   };
 
   nativeCheckInputs =
@@ -62,13 +61,13 @@ buildPythonPackage rec {
     export DB=sqlite
   '';
 
-  pythonImportsCheck = [ "sqlalchemy_continuum" ];
+  pythonImportsCheck = ["sqlalchemy_continuum"];
 
   meta = with lib; {
     description = "Versioning and auditing extension for SQLAlchemy";
     homepage = "https://github.com/kvesteri/sqlalchemy-continuum/";
     changelog = "https://github.com/kvesteri/sqlalchemy-continuum/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

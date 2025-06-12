@@ -26,7 +26,6 @@
   tinytag,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "pyatv";
   version = "0.16.0";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     "zeroconf"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -104,13 +103,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pyatv" ];
+  pythonImportsCheck = ["pyatv"];
 
   meta = with lib; {
     description = "Python client library for the Apple TV";
     homepage = "https://github.com/postlund/pyatv";
     changelog = "https://github.com/postlund/pyatv/blob/v${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

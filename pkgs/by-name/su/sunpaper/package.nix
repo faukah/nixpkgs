@@ -5,7 +5,6 @@
   sunwait,
   wallutils,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sunpaper";
   version = "2.1";
@@ -51,7 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hexive/sunpaper";
     license = lib.licenses.asl20;
     mainProgram = "sunpaper";
-    maintainers = with lib.maintainers; [ jevy ];
+    maintainers = with lib.maintainers; [jevy];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mssql-jdbc";
   version = "12.10.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     platforms = lib.platforms.unix;
   };
 }

@@ -8,7 +8,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-duplicates";
   version = "0.8.4";

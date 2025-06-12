@@ -2,14 +2,12 @@
   lib,
   stdenv,
   fetchurl,
-
   # build-time deps
   libtool,
   makeWrapper,
   meson,
   ninja,
   pkg-config,
-
   # runtime deps
   adns,
   bashNonInteractive,
@@ -32,11 +30,9 @@
   ncurses,
   sqlite,
   zlib,
-
   postgresqlSupport ? true,
   libpq,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnunet";
   version = "0.24.1";
@@ -56,29 +52,31 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    adns
-    bashNonInteractive
-    curl
-    gmp
-    gnutls
-    jansson
-    libextractor
-    libgcrypt
-    libgnurl
-    libidn
-    libmicrohttpd
-    libogg
-    libopus
-    libpulseaudio
-    libsodium
-    libtool
-    libunistring
-    libxml2
-    ncurses
-    sqlite
-    zlib
-  ] ++ lib.optional postgresqlSupport libpq;
+  buildInputs =
+    [
+      adns
+      bashNonInteractive
+      curl
+      gmp
+      gnutls
+      jansson
+      libextractor
+      libgcrypt
+      libgnurl
+      libidn
+      libmicrohttpd
+      libogg
+      libopus
+      libpulseaudio
+      libsodium
+      libtool
+      libunistring
+      libxml2
+      ncurses
+      sqlite
+      zlib
+    ]
+    ++ lib.optional postgresqlSupport libpq;
 
   strictDeps = true;
 
@@ -123,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://gnunet.org/";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ pstn ];
+    maintainers = with lib.maintainers; [pstn];
     platforms = lib.platforms.unix;
     changelog = "https://git.gnunet.org/gnunet.git/tree/ChangeLog?h=v${finalAttrs.version}";
     # meson: "Can not run test applications in this cross environment." (for dane_verify_crt_raw)

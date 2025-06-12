@@ -5,7 +5,6 @@
   nix,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nil";
   version = "2024-08-06";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-7TR/xTc66WpPszJDrpisVvHXl2+FGrUOskZAkGyY04Q=";
 
-  nativeBuildInputs = [ nix ];
+  nativeBuildInputs = [nix];
 
   env.CFG_RELEASE = version;
 
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     export NIX_STATE_DIR=$(mktemp -d)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Yet another language server for Nix";

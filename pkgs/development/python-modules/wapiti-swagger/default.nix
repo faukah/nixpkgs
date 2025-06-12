@@ -6,7 +6,6 @@
   pyyaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wapiti-swagger";
   version = "0.1.9";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "wapiti_swagger" ];
+  pythonImportsCheck = ["wapiti_swagger"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Library for parsing and generating request bodies from Swagger/OpenAPI specifications";
     homepage = "https://github.com/wapiti-scanner/wapiti_swagger";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

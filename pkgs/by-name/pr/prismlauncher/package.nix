@@ -28,9 +28,8 @@
   udev,
   vulkan-loader,
   xrandr,
-
-  additionalLibs ? [ ],
-  additionalPrograms ? [ ],
+  additionalLibs ? [],
+  additionalPrograms ? [],
   controllerSupport ? stdenv.hostPlatform.isLinux,
   gamemodeSupport ? stdenv.hostPlatform.isLinux,
   jdks ? [
@@ -41,41 +40,36 @@
   msaClientID ? null,
   textToSpeechSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 assert lib.assertMsg (
   controllerSupport -> stdenv.hostPlatform.isLinux
 ) "controllerSupport only has an effect on Linux.";
-
 assert lib.assertMsg (
   textToSpeechSupport -> stdenv.hostPlatform.isLinux
-) "textToSpeechSupport only has an effect on Linux.";
-
-let
-  prismlauncher' = prismlauncher-unwrapped.override { inherit msaClientID gamemodeSupport; };
+) "textToSpeechSupport only has an effect on Linux."; let
+  prismlauncher' = prismlauncher-unwrapped.override {inherit msaClientID gamemodeSupport;};
 in
+  symlinkJoin {
+    name = "prismlauncher-${prismlauncher'.version}";
 
-symlinkJoin {
-  name = "prismlauncher-${prismlauncher'.version}";
+    paths = [prismlauncher'];
 
-  paths = [ prismlauncher' ];
+    nativeBuildInputs = [kdePackages.wrapQtAppsHook];
 
-  nativeBuildInputs = [ kdePackages.wrapQtAppsHook ];
+    buildInputs =
+      [
+        kdePackages.qtbase
+        kdePackages.qtsvg
+      ]
+      ++ lib.optional (
+        lib.versionAtLeast kdePackages.qtbase.version "6" && stdenv.hostPlatform.isLinux
+      )
+      kdePackages.qtwayland;
 
-  buildInputs =
-    [
-      kdePackages.qtbase
-      kdePackages.qtsvg
-    ]
-    ++ lib.optional (
-      lib.versionAtLeast kdePackages.qtbase.version "6" && stdenv.hostPlatform.isLinux
-    ) kdePackages.qtwayland;
+    postBuild = ''
+      wrapQtAppsHook
+    '';
 
-  postBuild = ''
-    wrapQtAppsHook
-  '';
-
-  qtWrapperArgs =
-    let
+    qtWrapperArgs = let
       runtimeLibs =
         [
           (lib.getLib stdenv.cc.cc)
@@ -106,29 +100,31 @@ symlinkJoin {
         ++ lib.optional controllerSupport libusb1
         ++ additionalLibs;
 
-      runtimePrograms = [
-        mesa-demos
-        pciutils # need lspci
-        xrandr # needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
-      ] ++ additionalPrograms;
-
+      runtimePrograms =
+        [
+          mesa-demos
+          pciutils # need lspci
+          xrandr # needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
+        ]
+        ++ additionalPrograms;
     in
-    [ "--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}" ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      "--set LD_LIBRARY_PATH ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
-      "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
-    ];
+      ["--prefix PRISMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        "--set LD_LIBRARY_PATH ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
+        "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
+      ];
 
-  meta = {
-    inherit (prismlauncher'.meta)
-      description
-      longDescription
-      homepage
-      changelog
-      license
-      maintainers
-      mainProgram
-      platforms
-      ;
-  };
-}
+    meta = {
+      inherit
+        (prismlauncher'.meta)
+        description
+        longDescription
+        homepage
+        changelog
+        license
+        maintainers
+        mainProgram
+        platforms
+        ;
+    };
+  }

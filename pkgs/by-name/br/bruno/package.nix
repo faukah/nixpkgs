@@ -16,7 +16,6 @@
   jq,
   moreutils,
 }:
-
 buildNpmPackage rec {
   pname = "bruno";
   version = "2.5.0";
@@ -33,7 +32,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-AA+f6xVd1hmZUum7AlhHivqNez7xP1kEd/GXd798QCI=";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   nativeBuildInputs =
     [
@@ -57,7 +56,7 @@ buildNpmPackage rec {
       exec = "bruno %U";
       icon = "bruno";
       comment = "Opensource API Client for Exploring and Testing APIs";
-      categories = [ "Development" ];
+      categories = ["Development"];
       startupWMClass = "Bruno";
     })
   ];
@@ -83,7 +82,7 @@ buildNpmPackage rec {
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
 
   # remove giflib dependency
-  npmRebuildFlags = [ "--ignore-scripts" ];
+  npmRebuildFlags = ["--ignore-scripts"];
   preBuild = ''
     # upstream keeps removing and adding back canvas, only patch it when it is present
     if [[ -e node_modules/canvas/binding.gyp ]]; then
@@ -110,30 +109,29 @@ buildNpmPackage rec {
     pushd packages/bruno-electron
 
     ${
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          cp -r ${electron.dist}/Electron.app ./
-          find ./Electron.app -name 'Info.plist' | xargs -d '\n' chmod +rw
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        cp -r ${electron.dist}/Electron.app ./
+        find ./Electron.app -name 'Info.plist' | xargs -d '\n' chmod +rw
 
-          substituteInPlace electron-builder-config.js \
-            --replace-fail "identity: 'Anoop MD (W7LPPWA48L)'" 'identity: null' \
-            --replace-fail "afterSign: 'notarize.js'," ""
+        substituteInPlace electron-builder-config.js \
+          --replace-fail "identity: 'Anoop MD (W7LPPWA48L)'" 'identity: null' \
+          --replace-fail "afterSign: 'notarize.js'," ""
 
-          npm exec electron-builder -- \
-            --dir \
-            --config electron-builder-config.js \
-            -c.electronDist=./ \
-            -c.electronVersion=${electron.version} \
-            -c.npmRebuild=false
-        ''
-      else
-        ''
-          npm exec electron-builder -- \
-            --dir \
-            -c.electronDist=${electron.dist} \
-            -c.electronVersion=${electron.version} \
-            -c.npmRebuild=false
-        ''
+        npm exec electron-builder -- \
+          --dir \
+          --config electron-builder-config.js \
+          -c.electronDist=./ \
+          -c.electronVersion=${electron.version} \
+          -c.npmRebuild=false
+      ''
+      else ''
+        npm exec electron-builder -- \
+          --dir \
+          -c.electronDist=${electron.dist} \
+          -c.electronVersion=${electron.version} \
+          -c.npmRebuild=false
+      ''
     }
 
     popd
@@ -141,41 +139,40 @@ buildNpmPackage rec {
     runHook postBuild
   '';
 
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
 
   installPhase = ''
     runHook preInstall
 
     ${
-      if stdenv.hostPlatform.isDarwin then
-        ''
-          mkdir -p $out/Applications
+      if stdenv.hostPlatform.isDarwin
+      then ''
+        mkdir -p $out/Applications
 
-          cp -R packages/bruno-electron/out/**/Bruno.app $out/Applications/
-        ''
-      else
-        ''
-          mkdir -p $out/opt/bruno $out/bin
+        cp -R packages/bruno-electron/out/**/Bruno.app $out/Applications/
+      ''
+      else ''
+        mkdir -p $out/opt/bruno $out/bin
 
-          cp -r packages/bruno-electron/dist/linux*-unpacked/{locales,resources{,.pak}} $out/opt/bruno
+        cp -r packages/bruno-electron/dist/linux*-unpacked/{locales,resources{,.pak}} $out/opt/bruno
 
-          makeWrapper ${lib.getExe electron} $out/bin/bruno \
-            --add-flags $out/opt/bruno/resources/app.asar \
-            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
-            --set-default ELECTRON_IS_DEV 0 \
-            --inherit-argv0
+        makeWrapper ${lib.getExe electron} $out/bin/bruno \
+          --add-flags $out/opt/bruno/resources/app.asar \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
+          --set-default ELECTRON_IS_DEV 0 \
+          --inherit-argv0
 
-          for s in 16 32 48 64 128 256 512 1024; do
-            size=${"$"}{s}x$s
-            install -Dm644 $src/packages/bruno-electron/resources/icons/png/$size.png $out/share/icons/hicolor/$size/apps/bruno.png
-          done
-        ''
+        for s in 16 32 48 64 128 256 512 1024; do
+          size=${"$"}{s}x$s
+          install -Dm644 $src/packages/bruno-electron/resources/icons/png/$size.png $out/share/icons/hicolor/$size/apps/bruno.png
+        done
+      ''
     }
 
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Open-source IDE For exploring and testing APIs";

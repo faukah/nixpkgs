@@ -14,7 +14,6 @@
   bc,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.0.76";
   pname = "munin";
@@ -139,30 +138,30 @@ stdenv.mkDerivation rec {
         esac
         wrapProgram "$file" \
           --set PERL5LIB "$out/${perlPackages.perl.libPrefix}:${
-            with perlPackages;
-            makePerlPath [
-              LogLog4perl
-              IOSocketINET6
-              Socket6
-              URI
-              DBFile
-              TimeDate
-              HTMLTemplate
-              FileCopyRecursive
-              FCGI
-              NetCIDR
-              NetSNMP
-              NetServer
-              ListMoreUtils
-              DBDPg
-              LWP
-              rrdtool
-            ]
-          }"
+      with perlPackages;
+        makePerlPath [
+          LogLog4perl
+          IOSocketINET6
+          Socket6
+          URI
+          DBFile
+          TimeDate
+          HTMLTemplate
+          FileCopyRecursive
+          FCGI
+          NetCIDR
+          NetSNMP
+          NetServer
+          ListMoreUtils
+          DBDPg
+          LWP
+          rrdtool
+        ]
+    }"
     done
   '';
 
-  passthru.tests = { inherit (nixosTests) munin; };
+  passthru.tests = {inherit (nixosTests) munin;};
 
   meta = with lib; {
     description = "Networked resource monitoring tool";
@@ -174,7 +173,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://munin-monitoring.org/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

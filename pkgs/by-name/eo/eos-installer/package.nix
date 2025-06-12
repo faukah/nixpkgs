@@ -15,7 +15,6 @@
   systemdMinimal,
   udisks,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eos-installer";
   version = "5.1.0";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/endlessm/eos-installer";
     description = "Installer UI which writes images to disk";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     mainProgram = "gnome-image-installer";
     platforms = platforms.linux;
   };

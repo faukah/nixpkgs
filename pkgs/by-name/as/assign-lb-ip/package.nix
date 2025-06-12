@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "assign-lb-ip";
   version = "2.3.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "assign-lb-ip";
     homepage = "https://github.com/Nordix/assign-lb-ip";
     license = licenses.asl20;
-    maintainers = [ maintainers.starcraft66 ];
+    maintainers = [maintainers.starcraft66];
   };
 }

@@ -6,7 +6,6 @@
   emacsSupport ? true,
   emacs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cscope";
   version = "15.9";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0ngiv4aj3rr35k3q3wjx0y19gh7i1ydqa0cqip6sjwd8fph5ll65";
   };
 
-  configureFlags = [ "--with-ncurses=${ncurses.dev}" ];
+  configureFlags = ["--with-ncurses=${ncurses.dev}"];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   nativeBuildInputs = lib.optional emacsSupport emacs;
 
   postInstall = lib.optionalString emacsSupport ''
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://cscope.sourceforge.net/";
 
-    maintainers = [ ];
+    maintainers = [];
 
     platforms = lib.platforms.unix;
   };

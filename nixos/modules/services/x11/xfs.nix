@@ -4,31 +4,19 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   configFile = ./xfs.conf;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.xfs = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
         description = "Whether to enable the X Font Server.";
       };
-
     };
-
   };
 
   ###### implementation
@@ -41,9 +29,9 @@ in
 
     systemd.services.xfs = {
       description = "X Font Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.xorg.xfs ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.xorg.xfs];
       script = "xfs -config ${configFile}";
     };
   };

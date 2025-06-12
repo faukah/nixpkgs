@@ -5,7 +5,6 @@
   pytestCheckHook,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "python-crfsuite";
   version = "0.9.11";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     cython
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pycrfsuite" ];
+  pythonImportsCheck = ["pycrfsuite"];
 
   meta = with lib; {
     description = "Python binding for CRFsuite";
     homepage = "https://github.com/scrapinghub/python-crfsuite";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

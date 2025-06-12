@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "m-cli";
   version = "0.3.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
 
     platforms = platforms.darwin;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "m";
   };
 }

@@ -9,7 +9,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mpDris2";
   version = "0.9.1";
@@ -49,7 +48,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "MPRIS 2 support for mpd";
     homepage = "https://github.com/eonpatapon/mpDris2/";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "mpDris2";
   };

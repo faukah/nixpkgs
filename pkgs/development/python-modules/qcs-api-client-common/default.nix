@@ -14,7 +14,6 @@
   rustPlatform,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "qcs-api-client-common";
   version = "0.11.8";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     description = "Contains core QCS client functionality and middleware implementations";
     homepage = "https://github.com/rigetti/qcs-api-client-rust/tree/main/qcs-api-client-common";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

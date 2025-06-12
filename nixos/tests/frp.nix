@@ -1,7 +1,10 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "frp";
-  meta.maintainers = with lib.maintainers; [ zaldnoay ];
+  meta.maintainers = with lib.maintainers; [zaldnoay];
   nodes = {
     frps = {
       networking = {
@@ -39,16 +42,14 @@
       services.httpd = {
         enable = true;
         adminAddr = "admin@example.com";
-        virtualHosts."test-appication" =
-          let
-            testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
-          in
-          {
-            documentRoot = "${testdir}/web";
-            locations."/" = {
-              index = "index.php index.html";
-            };
+        virtualHosts."test-appication" = let
+          testdir = pkgs.writeTextDir "web/index.php" "<?php phpinfo();";
+        in {
+          documentRoot = "${testdir}/web";
+          locations."/" = {
+            index = "index.php index.html";
           };
+        };
         phpPackage = pkgs.php81;
         enablePHP = true;
       };
@@ -64,7 +65,7 @@
               name = "web";
               type = "http";
               localPort = 80;
-              customDomains = [ "10.0.0.1" ];
+              customDomains = ["10.0.0.1"];
             }
           ];
         };

@@ -5,13 +5,10 @@
   pythonOlder,
   stdenv,
   replaceVars,
-
   # build-system
   hatchling,
-
   # native dependencies
   xorg,
-
   # tests
   lsof,
   pillow,
@@ -20,7 +17,6 @@
   pyvirtualdisplay,
   xvfb-run,
 }:
-
 buildPythonPackage rec {
   pname = "mss";
   version = "10.0.0";
@@ -41,7 +37,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   doCheck = stdenv.hostPlatform.isLinux;
 
@@ -60,7 +56,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "mss" ];
+  pythonImportsCheck = ["mss"];
 
   meta = with lib; {
     description = "Cross-platform multiple screenshots module";
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/BoboTiG/python-mss";
     changelog = "https://github.com/BoboTiG/python-mss/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
   };
 }

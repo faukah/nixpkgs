@@ -5,7 +5,6 @@
   testers,
   nixel,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nixel";
   version = "4.1.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   #
   # Let's test it runs
   passthru.tests = {
-    version = testers.testVersion { package = nixel; };
+    version = testers.testVersion {package = nixel;};
   };
 
   meta = with lib; {
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "nixel";
     homepage = "https://github.com/kamadorueda/nixel";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -9,7 +9,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "certipy";
   version = "0.2.2";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-/vHz2IGe4pxMZ3GRccmIMCgj3+C2z7tH0knzdICboF4=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   nativeCheckInputs = [
     flask
@@ -32,13 +31,13 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "certipy" ];
+  pythonImportsCheck = ["certipy"];
 
   meta = with lib; {
     description = "Utility to create and sign CAs and certificates";
     homepage = "https://github.com/LLNL/certipy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ isgy ];
+    maintainers = with maintainers; [isgy];
     mainProgram = "certipy";
   };
 }

@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   ipython-genutils,
   jinja2,
@@ -16,7 +14,6 @@
   sqlalchemy,
   sqlglot,
   sqlparse,
-
   # optional-dependencies
   duckdb,
   duckdb-engine,
@@ -29,13 +26,11 @@
   polars,
   pyarrow,
   pyspark,
-
   # tests
   pytestCheckHook,
   psutil,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupysql";
   version = "0.11.1";
@@ -49,9 +44,9 @@ buildPythonPackage rec {
     hash = "sha256-7wfKvKqDf8LlUiLoevNRxmq8x5wLheOgIeWz72oFcuw=";
   };
 
-  pythonRelaxDeps = [ "sqlalchemy" ];
+  pythonRelaxDeps = ["sqlalchemy"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ipython-genutils
@@ -78,11 +73,13 @@ buildPythonPackage rec {
     pyspark
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    psutil
-    writableTmpDirAsHomeHook
-  ] ++ optional-dependencies.dev;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      psutil
+      writableTmpDirAsHomeHook
+    ]
+    ++ optional-dependencies.dev;
 
   disabledTests =
     [
@@ -126,13 +123,13 @@ buildPythonPackage rec {
     "src/tests/test_widget.py"
   ];
 
-  pythonImportsCheck = [ "sql" ];
+  pythonImportsCheck = ["sql"];
 
   meta = {
     description = "Better SQL in Jupyter";
     homepage = "https://github.com/ploomber/jupysql";
     changelog = "https://github.com/ploomber/jupysql/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ euxane ];
+    maintainers = with lib.maintainers; [euxane];
   };
 }

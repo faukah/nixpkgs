@@ -7,7 +7,6 @@
   libpcap,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "darkstat";
   version = "3.0.721";

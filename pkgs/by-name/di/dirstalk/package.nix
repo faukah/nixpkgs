@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "dirstalk";
   version = "1.3.3";
@@ -42,6 +41,6 @@ buildGoModule rec {
     mainProgram = "dirstalk";
     homepage = "https://github.com/stefanoj3/dirstalk";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

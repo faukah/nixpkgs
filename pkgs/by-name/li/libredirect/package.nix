@@ -5,8 +5,8 @@
   llvmPackages,
   coreutils,
 }:
-
-if stdenv.hostPlatform.isStatic then
+if stdenv.hostPlatform.isStatic
+then
   throw ''
     libredirect is not available on static builds.
 
@@ -43,34 +43,33 @@ else
       runHook preBuild
 
       ${
-        if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64 then
-          ''
-            # We need the unwrapped binutils and clang:
-            # We also want to build a fat library with x86_64, arm64, arm64e in there.
-            # Because we use the unwrapped tools, we need to provide -isystem for headers
-            # and the library search directory for libdl.
-            # We can't build this on x86_64, because the libSystem we point to doesn't
-            # like arm64(e).
-            PATH=${bintools-unwrapped}/bin:${llvmPackages.clang-unwrapped}/bin:$PATH \
-              clang -arch x86_64 -arch arm64 -arch arm64e \
-              -isystem "$SDKROOT/usr/include" \
-              -isystem ${lib.getLib llvmPackages.libclang}/lib/clang/*/include \
-              "-L$SDKROOT/usr/lib" \
-              -Wl,-install_name,$out/lib/$libName \
-              -Wall -std=c99 -O3 -fPIC libredirect.c \
-              -shared -o "$libName"
-          ''
-        else if stdenv.hostPlatform.isDarwin then
-          ''
-            $CC -Wall -std=c99 -O3 -fPIC libredirect.c \
-              -Wl,-install_name,$out/lib/$libName \
-              -shared -o "$libName"
-          ''
-        else
-          ''
-            $CC -Wall -std=c99 -O3 -fPIC libredirect.c \
-              -shared -o "$libName"
-          ''
+        if stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64
+        then ''
+          # We need the unwrapped binutils and clang:
+          # We also want to build a fat library with x86_64, arm64, arm64e in there.
+          # Because we use the unwrapped tools, we need to provide -isystem for headers
+          # and the library search directory for libdl.
+          # We can't build this on x86_64, because the libSystem we point to doesn't
+          # like arm64(e).
+          PATH=${bintools-unwrapped}/bin:${llvmPackages.clang-unwrapped}/bin:$PATH \
+            clang -arch x86_64 -arch arm64 -arch arm64e \
+            -isystem "$SDKROOT/usr/include" \
+            -isystem ${lib.getLib llvmPackages.libclang}/lib/clang/*/include \
+            "-L$SDKROOT/usr/lib" \
+            -Wl,-install_name,$out/lib/$libName \
+            -Wall -std=c99 -O3 -fPIC libredirect.c \
+            -shared -o "$libName"
+        ''
+        else if stdenv.hostPlatform.isDarwin
+        then ''
+          $CC -Wall -std=c99 -O3 -fPIC libredirect.c \
+            -Wl,-install_name,$out/lib/$libName \
+            -shared -o "$libName"
+        ''
+        else ''
+          $CC -Wall -std=c99 -O3 -fPIC libredirect.c \
+            -shared -o "$libName"
+        ''
       }
 
       if [ -n "$doInstallCheck" ]; then
@@ -106,14 +105,13 @@ else
         cat <<SETUP_HOOK > "$hook/nix-support/setup-hook"
         echo "Setting up libredirect"
         ${
-          if stdenv.hostPlatform.isDarwin then
-            ''
-              export DYLD_INSERT_LIBRARIES="$out/lib/$libName"
-            ''
-          else
-            ''
-              export LD_PRELOAD="$out/lib/$libName"
-            ''
+          if stdenv.hostPlatform.isDarwin
+          then ''
+            export DYLD_INSERT_LIBRARIES="$out/lib/$libName"
+          ''
+          else ''
+            export LD_PRELOAD="$out/lib/$libName"
+          ''
         }
         SETUP_HOOK
 

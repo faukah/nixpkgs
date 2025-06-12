@@ -8,7 +8,6 @@
   gtk4,
   libadwaita,
 }:
-
 buildGoModule {
   pname = "catnip-gtk4";
   version = "unstable-2023-06-17";
@@ -44,7 +43,7 @@ buildGoModule {
     description = "GTK4 frontend for catnip";
     homepage = "https://github.com/diamondburned/catnip-gtk4";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "catnip-gtk4";
   };
 }

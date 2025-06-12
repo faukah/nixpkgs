@@ -6,7 +6,6 @@
   php,
   writeText,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "FreshRSS";
   version = "1.26.3";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
       }
   '';
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   # There's nothing to build.
   dontBuild = true;

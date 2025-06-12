@@ -18,7 +18,6 @@
   wimlib,
   wget,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.2.4";
   pname = "woeusb";
@@ -52,22 +51,22 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/woeusb" \
       --set PATH '${
-        lib.makeBinPath [
-          coreutils
-          dosfstools
-          findutils
-          gawk
-          gnugrep
-          grub2_light
-          ncurses
-          ntfs3g
-          parted
-          p7zip
-          util-linux
-          wget
-          wimlib
-        ]
-      }'
+      lib.makeBinPath [
+        coreutils
+        dosfstools
+        findutils
+        gawk
+        gnugrep
+        grub2_light
+        ncurses
+        ntfs3g
+        parted
+        p7zip
+        util-linux
+        wget
+        wimlib
+      ]
+    }'
 
     runHook postInstall
   '';
@@ -84,7 +83,7 @@ stdenv.mkDerivation rec {
     description = "Create bootable USB disks from Windows ISO images";
     homepage = "https://github.com/WoeUSB/WoeUSB";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.linux;
     mainProgram = "woeusb";
   };

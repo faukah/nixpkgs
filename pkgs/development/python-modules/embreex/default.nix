@@ -9,7 +9,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "embreex";
   version = "2.17.7.post6";
@@ -59,14 +58,14 @@ buildPythonPackage rec {
     rm -rf embreex/
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Maintained PyEmbree fork, wrapper for Embree v2";
     homepage = "https://github.com/trimesh/embreex";
     changelog = "https://github.com/trimesh/embreex/releases/tag/${src.tag}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     inherit (embree2.meta) platforms;
   };
 }

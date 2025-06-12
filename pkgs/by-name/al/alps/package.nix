@@ -5,7 +5,6 @@
   fetchpatch,
   nixosTests,
 }:
-
 buildGoModule {
   pname = "alps";
   version = "2022-10-18";
@@ -45,7 +44,7 @@ buildGoModule {
 
   proxyVendor = true;
 
-  passthru.tests = { inherit (nixosTests) alps; };
+  passthru.tests = {inherit (nixosTests) alps;};
 
   meta = with lib; {
     description = "Simple and extensible webmail";

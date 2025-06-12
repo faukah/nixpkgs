@@ -11,7 +11,6 @@
   scikit-learn,
   toml-adapt,
 }:
-
 buildPythonPackage rec {
   pname = "niaclass";
   version = "0.2.3";
@@ -48,15 +47,15 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep scikit-learn -ver X
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "niaclass" ];
+  pythonImportsCheck = ["niaclass"];
 
   meta = with lib; {
     description = "Framework for solving classification tasks using Nature-inspired algorithms";
     homepage = "https://github.com/firefly-cpp/NiaClass";
     changelog = "https://github.com/firefly-cpp/NiaClass/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

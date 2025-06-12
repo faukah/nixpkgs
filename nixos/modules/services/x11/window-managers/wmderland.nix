@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.wmderland;
-in
-
-{
+in {
   options.services.xserver.windowManager.wmderland = {
     enable = mkEnableOption "wmderland";
 
@@ -59,9 +54,11 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [
-      pkgs.wmderland
-      pkgs.wmderlandc
-    ] ++ cfg.extraPackages;
+    environment.systemPackages =
+      [
+        pkgs.wmderland
+        pkgs.wmderlandc
+      ]
+      ++ cfg.extraPackages;
   };
 }

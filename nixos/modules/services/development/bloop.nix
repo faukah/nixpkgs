@@ -3,18 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.bloop;
-
-in
-{
-
+in {
   options.services.bloop = {
     extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "-J-Xmx2G"
         "-J-XX:MaxInlineLevel=20"
@@ -43,7 +38,7 @@ in
       description = "Bloop Scala build server";
 
       environment = {
-        PATH = lib.mkForce "${lib.makeBinPath [ config.programs.java.package ]}";
+        PATH = lib.mkForce "${lib.makeBinPath [config.programs.java.package]}";
       };
       serviceConfig = {
         Type = "forking";
@@ -53,6 +48,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.bloop ];
+    environment.systemPackages = [pkgs.bloop];
   };
 }

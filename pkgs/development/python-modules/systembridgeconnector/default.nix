@@ -13,7 +13,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "systembridgeconnector";
   version = "4.1.5";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "incremental" ];
+  pythonRelaxDeps = ["incremental"];
 
   dependencies = [
     aiohttp
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     systembridgemodels
   ];
 
-  pythonImportsCheck = [ "systembridgeconnector" ];
+  pythonImportsCheck = ["systembridgeconnector"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -64,13 +63,13 @@ buildPythonPackage rec {
     "test_wait_for_response_timeout"
   ];
 
-  pytestFlagsArray = [ "--snapshot-warn-unused" ];
+  pytestFlagsArray = ["--snapshot-warn-unused"];
 
   meta = {
     changelog = "https://github.com/timmo001/system-bridge-connector/releases/tag/${version}";
     description = "This is the connector package for the System Bridge project";
     homepage = "https://github.com/timmo001/system-bridge-connector";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

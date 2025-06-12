@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bracex";
   version = "2.5.post1";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-EsUJUkFb+nc9LZzLjnllG4zbHzGkL2CRuAT2uitKZrY=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bracex" ];
+  pythonImportsCheck = ["bracex"];
 
   meta = with lib; {
     description = "Bash style brace expansion for Python";
     homepage = "https://github.com/facelessuser/bracex";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

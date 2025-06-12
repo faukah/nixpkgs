@@ -10,11 +10,11 @@
   lwt-dllist,
   logs,
 }:
-
 buildDunePackage {
   pname = "mirage-net-xen";
 
-  inherit (netchannel)
+  inherit
+    (netchannel)
     src
     version
     meta

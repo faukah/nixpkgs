@@ -8,7 +8,6 @@
   libyaml,
   xz,
 }:
-
 stdenv.mkDerivation {
   version = "111.15329";
 
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-56/hqqFiKHw0/ah0D20U1ueIU2iq8I4Wn5DiEWxB9qA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libuuid
     libyaml
@@ -70,6 +69,6 @@ stdenv.mkDerivation {
     description = "Chrome OS partitioning and kernel signing tools";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

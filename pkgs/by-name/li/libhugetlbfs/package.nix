@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhugetlbfs";
   version = "2.24";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postConfigure = ''
     patchShebangs ld.hugetlbfs
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libhugetlbfs/libhugetlbfs";
     changelog = "https://github.com/libhugetlbfs/libhugetlbfs/blob/${version}/NEWS";
     description = "library and utilities for Linux hugepages";
-    maintainers = with lib.maintainers; [ qyliss ];
+    maintainers = with lib.maintainers; [qyliss];
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
     badPlatforms = lib.flatten [

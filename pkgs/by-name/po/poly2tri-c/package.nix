@@ -6,7 +6,6 @@
   pkg-config,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poly2tri-c";
   version = "0.1.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     mainProgram = "p2tc";
     homepage = "https://code.google.com/archive/p/poly2tri-c/";
     license = licenses.bsd3;
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

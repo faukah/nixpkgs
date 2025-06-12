@@ -1,32 +1,31 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "endlessh";
-  meta.maintainers = with lib.maintainers; [ azahi ];
+  meta.maintainers = with lib.maintainers; [azahi];
 
   nodes = {
-    server =
-      { ... }:
-      {
-        services.endlessh = {
-          enable = true;
-          openFirewall = true;
-        };
-
-        specialisation = {
-          unprivileged.configuration.services.endlessh.port = 2222;
-
-          privileged.configuration.services.endlessh.port = 22;
-        };
+    server = {...}: {
+      services.endlessh = {
+        enable = true;
+        openFirewall = true;
       };
 
-    client =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          curl
-          netcat
-        ];
+      specialisation = {
+        unprivileged.configuration.services.endlessh.port = 2222;
+
+        privileged.configuration.services.endlessh.port = 22;
       };
+    };
+
+    client = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        curl
+        netcat
+      ];
+    };
   };
 
   testScript = ''

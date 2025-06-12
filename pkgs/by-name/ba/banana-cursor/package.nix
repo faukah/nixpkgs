@@ -2,12 +2,10 @@
   fetchFromGitHub,
   lib,
   stdenvNoCC,
-
   # build deps
   clickgen,
   python3Packages,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "banana-cursor";
   version = "1.0.0";

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nomore403";
   version = "1.0.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/devploit/nomore403";
     changelog = "https://github.com/devploit/nomore403/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "nomore403";
   };
 }

@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "adal";
   version = "1.2.7";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     sed -i '/cryptography/d' setup.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyjwt
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     "test_failed_request"
   ];
 
-  pythonImportsCheck = [ "adal" ];
+  pythonImportsCheck = ["adal"];
 
   meta = with lib; {
     description = "Python module to authenticate to Azure Active Directory (AAD) in order to access AAD protected web resources";
     homepage = "https://github.com/AzureAD/azure-activedirectory-library-for-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

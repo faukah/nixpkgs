@@ -8,7 +8,6 @@
   qtx11extras,
   libXxf86vm,
 }:
-
 mkDerivation {
   pname = "kgamma5";
   nativeBuildInputs = [

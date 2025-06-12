@@ -38,10 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/opencloudcmd";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/opencloud-eu/desktop/releases/tag/v${finalAttrs.version}";
@@ -49,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/opencloud-eu/desktop";
     homepage = "https://opencloud.eu/en";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.FKouhai ];
+    maintainers = [lib.maintainers.FKouhai];
   };
 })

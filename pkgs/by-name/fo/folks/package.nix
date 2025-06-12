@@ -23,9 +23,7 @@
   telepathy-glib,
   telepathySupport ? false,
 }:
-
 # TODO: enable more folks backends
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "folks";
   version = "0.15.9";
@@ -76,13 +74,14 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     dbus
     (python3.withPackages (
-      pp: with pp; [
-        python-dbusmock
-        # The following possibly need to be propagated by dbusmock
-        # if they are not optional
-        dbus-python
-        pygobject3
-      ]
+      pp:
+        with pp; [
+          python-dbusmock
+          # The following possibly need to be propagated by dbusmock
+          # if they are not optional
+          dbus-python
+          pygobject3
+        ]
     ))
   ];
 
@@ -116,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library that aggregates people from multiple sources to create metacontacts";
     homepage = "https://gitlab.gnome.org/GNOME/folks";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 })

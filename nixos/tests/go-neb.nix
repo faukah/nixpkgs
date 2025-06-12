@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   name = "go-neb";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -33,7 +29,7 @@
               ID = "wikipedia_service";
               Type = "wikipedia";
               UserID = "@test:localhost";
-              Config = { };
+              Config = {};
             }
           ];
         };
@@ -50,5 +46,4 @@
         "grep -q changeme /var/run/go-neb/config.yaml",
     )
   '';
-
 }

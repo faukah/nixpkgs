@@ -5,7 +5,6 @@
   isPyPy,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "random2";
   version = "1.0.1";

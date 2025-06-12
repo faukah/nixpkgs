@@ -4,7 +4,6 @@
   fetchFromGitHub,
   linuxHeaders,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linuxptp";
   version = "4.4";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Implementation of the Precision Time Protocol (PTP) according to IEEE standard 1588 for Linux";
     homepage = "https://linuxptp.nwtime.org";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-bitbake";
   version = "0.3.16";
@@ -17,8 +16,8 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-+ovC4nZwHzf9hjfv2LcnTztM2m++tpC3mUSS/I0l6Ck=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-drupV59sBuR6AZ7jVO2EJn62I6XX5vv3QR+Mu8cLklk=";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ rvarago ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [rvarago];
+    platforms = ["x86_64-linux"];
   };
 }

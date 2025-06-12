@@ -8,7 +8,6 @@
   SDL2,
   jack2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "audiality2";
   version = "1.9.4";
@@ -36,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://audiality.org";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 })

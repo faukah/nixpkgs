@@ -6,7 +6,6 @@
   fetchpatch,
   meson,
   ninja,
-
   pkg-config,
   python,
   pygobject3,
@@ -15,7 +14,6 @@
   isPy3k,
   directoryListingUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "gst-python";
   version = "1.26.0";
@@ -45,7 +43,7 @@ buildPythonPackage rec {
   # Python 2.x is not supported.
   disabled = !isPy3k;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -84,13 +82,13 @@ buildPythonPackage rec {
   '';
 
   passthru = {
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
     homepage = "https://gstreamer.freedesktop.org";
     description = "Python bindings for GStreamer";
     license = licenses.lgpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

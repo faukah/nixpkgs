@@ -11,7 +11,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "alpha-vantage";
   version = "3.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     cp alpha_vantage/{cryptocurrencies.py,foreignexchange.py,techindicators.py,timeseries.py} alpha_vantage/async_support/
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -45,22 +44,24 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    aioresponses
-    requests-mock
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aioresponses
+      requests-mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   # Starting with 3.0.0 most tests require an API key
   doCheck = false;
 
-  pythonImportsCheck = [ "alpha_vantage" ];
+  pythonImportsCheck = ["alpha_vantage"];
 
   meta = with lib; {
     description = "Python module for the Alpha Vantage API";
     homepage = "https://github.com/RomelTorres/alpha_vantage";
     changelog = "https://github.com/RomelTorres/alpha_vantage/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

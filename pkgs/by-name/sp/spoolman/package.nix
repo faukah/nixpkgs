@@ -4,63 +4,57 @@
   callPackage,
   writeShellScript,
   makeWrapper,
-}:
-
-let
-  common = callPackage ./common.nix { };
-  frontend = callPackage ./frontend.nix { };
+}: let
+  common = callPackage ./common.nix {};
+  frontend = callPackage ./frontend.nix {};
   python = python312;
 in
+  python.pkgs.buildPythonPackage rec {
+    pname = "spoolman";
+    inherit (common) version src;
 
-python.pkgs.buildPythonPackage rec {
+    pyproject = true;
 
-  pname = "spoolman";
-  inherit (common) version src;
+    nativeBuildInputs = [
+      makeWrapper
+      python.pkgs.pdm-backend
+      python.pkgs.pythonRelaxDepsHook
+    ];
 
-  pyproject = true;
+    pythonRelaxDeps = ["setuptools"];
 
-  nativeBuildInputs = [
-    makeWrapper
-    python.pkgs.pdm-backend
-    python.pkgs.pythonRelaxDepsHook
-  ];
+    postPatch = ''
+      substituteInPlace pyproject.toml --replace-fail psycopg2-binary psycopg2
+    '';
 
-  pythonRelaxDeps = [ "setuptools" ];
+    propagatedBuildInputs = with python.pkgs; [
+      uvloop
+      alembic
+      asyncpg
+      fastapi
+      hishel
+      httptools
+      httpx
+      aiosqlite
+      platformdirs
+      prometheus-client
+      psycopg2
+      pydantic
+      scheduler
+      setuptools
+      sqlalchemy
+      sqlalchemy-cockroachdb
+      uvicorn
+      websockets
+    ];
 
-  postPatch = ''
-    substituteInPlace pyproject.toml --replace-fail psycopg2-binary psycopg2
-  '';
+    pythonImportsCheck = ["spoolman"];
 
-  propagatedBuildInputs = with python.pkgs; [
-    uvloop
-    alembic
-    asyncpg
-    fastapi
-    hishel
-    httptools
-    httpx
-    aiosqlite
-    platformdirs
-    prometheus-client
-    psycopg2
-    pydantic
-    scheduler
-    setuptools
-    sqlalchemy
-    sqlalchemy-cockroachdb
-    uvicorn
-    websockets
-  ];
-
-  pythonImportsCheck = [ "spoolman" ];
-
-  postInstall =
-    let
+    postInstall = let
       start_script = writeShellScript "start-spoolman" ''
         ${lib.getExe python.pkgs.uvicorn} "$@" spoolman.main:app;
       '';
-    in
-    ''
+    in ''
       mkdir -p $out/runpath/client/dist $out/bin
       cp -r $src/* $out/runpath
       cp -r ${frontend}/* $out/runpath/client/dist
@@ -72,8 +66,10 @@ python.pkgs.buildPythonPackage rec {
       --prefix PATH : "${python.pkgs.alembic}/bin"
     '';
 
-  meta = common.meta // {
-    description = "Spoolman server";
-    mainProgram = "spoolman";
-  };
-}
+    meta =
+      common.meta
+      // {
+        description = "Spoolman server";
+        mainProgram = "spoolman";
+      };
+  }

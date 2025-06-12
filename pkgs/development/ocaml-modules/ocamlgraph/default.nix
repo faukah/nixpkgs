@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "ocamlgraph";
   version = "2.2.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     homepage = "https://github.com/backtracking/ocamlgraph";
     description = "Graph library for OCaml";
     license = licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -17,7 +17,6 @@
   USRPSupport ? false,
   uhd,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "urh";
   version = "2.9.8";
@@ -92,6 +91,6 @@ python3Packages.buildPythonApplication rec {
     description = "Universal Radio Hacker: investigate wireless protocols like a boss";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

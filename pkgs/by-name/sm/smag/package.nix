@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "smag";
   version = "0.8.0";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.mit;
     changelog = "https://github.com/aantn/smag/releases/tag/v${version}";
     mainProgram = "smag";
-    maintainers = with lib.maintainers; [ zebreus ];
+    maintainers = with lib.maintainers; [zebreus];
   };
 }

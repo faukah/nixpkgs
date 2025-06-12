@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dbmate";
   version = "2.27.0";
@@ -25,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/amacneil/dbmate";
     changelog = "https://github.com/amacneil/dbmate/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ manveru ];
+    maintainers = with lib.maintainers; [manveru];
   };
 }

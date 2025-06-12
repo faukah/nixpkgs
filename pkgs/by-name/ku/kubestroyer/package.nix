@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubestroyer";
   version = "0.3.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/Rolix44/Kubestroyer";
     changelog = "https://github.com/Rolix44/Kubestroyer/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "kubestroyer";
   };
 }

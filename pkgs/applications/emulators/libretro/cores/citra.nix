@@ -27,7 +27,7 @@ mkLibretroCore {
     libX11
   ];
 
-  extraNativeBuildInputs = [ cmake ];
+  extraNativeBuildInputs = [cmake];
 
   # This changes `ir/opt` to `ir/var/empty` in `externals/dynarmic/src/dynarmic/CMakeLists.txt`
   # making the build fail, as that path does not exist

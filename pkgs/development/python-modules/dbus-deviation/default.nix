@@ -6,7 +6,6 @@
   setuptools,
   setuptools-git,
 }:
-
 buildPythonPackage rec {
   pname = "dbus-deviation";
   version = "0.6.1";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     setuptools-git
   ];
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
-  pythonImportsCheck = [ "dbusdeviation" ];
+  pythonImportsCheck = ["dbusdeviation"];
 
   meta = with lib; {
     homepage = "https://tecnocode.co.uk/dbus-deviation/";
     description = "Project for parsing D-Bus introspection XML and processing it in various ways";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

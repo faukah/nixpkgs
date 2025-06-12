@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "starlark-rust";
   version = "0.13.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/facebook/starlark-rust";
     changelog = "https://github.com/facebook/starlark-rust/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "starlark";
   };
 }

@@ -5,12 +5,11 @@
   withBaseWrapper ? true,
   extraSessionCommands ? "",
   withGtkWrapper ? false,
-  extraOptions ? [ ], # E.g.: [ "--verbose" ]
+  extraOptions ? [], # E.g.: [ "--verbose" ]
   isNixOS ? false,
   enableXWayland ? true,
   dbusSupport ? true,
 }:
-
 sway.override {
   inherit
     withBaseWrapper

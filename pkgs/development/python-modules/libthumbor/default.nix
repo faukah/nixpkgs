@@ -7,7 +7,6 @@
   pycrypto,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "libthumbor";
   version = "2.0.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-1PsiFZrTDVQqy8A3nkaM5LdPiBoriRgHkklTOiczN+g=";
   };
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   propagatedBuildInputs = [
     six
@@ -29,12 +28,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "libthumbor" ];
+  pythonImportsCheck = ["libthumbor"];
 
   meta = with lib; {
     description = "Python extension to thumbor";
     homepage = "https://github.com/heynemann/libthumbor";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

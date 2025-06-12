@@ -22,7 +22,6 @@
   onboard,
   switchboard,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-keyboard";
   version = "8.0.2";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/settings-keyboard";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

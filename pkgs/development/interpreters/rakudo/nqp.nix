@@ -5,7 +5,6 @@
   lib,
   moarvm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nqp";
   version = "2025.05";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   configureScript = "${perl}/bin/perl ./Configure.pl";
 

@@ -8,8 +8,7 @@
   klein,
   jinja2,
   buildbot-pkg,
-}:
-{
+}: {
   # this is exposed for potential plugins to use and for nix-update
   inherit buildbot-pkg;
   www = buildPythonPackage rec {
@@ -37,7 +36,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot UI";
-      teams = [ teams.buildbot ];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
@@ -51,7 +50,7 @@
       hash = "sha256-VtrgDVB+U4uM1SQ1h5IMFwU+nRcleYolDjQYJZ7iHbA=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -59,7 +58,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Console View Plugin";
-      teams = [ teams.buildbot ];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
@@ -73,7 +72,7 @@
       hash = "sha256-q4RDjn9i4wHtCctqcNIfilS9SNfS+LHohE0dSMHMOt8=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -81,7 +80,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Waterfall View Plugin";
-      teams = [ teams.buildbot ];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
@@ -95,7 +94,7 @@
       hash = "sha256-HrVoSXXo8P05JbJebKQ/bSPTIxQc9gTDT2RJLhJVhO8=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -103,7 +102,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Grid View Plugin";
-      teams = [ teams.buildbot ];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
@@ -117,7 +116,7 @@
       hash = "sha256-x/a3iAb8vNkplAoS57IX+4BxIcH9roCixrBArUQN+04=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
 
     # No tests
     doCheck = false;
@@ -125,7 +124,7 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot WSGI dashboards Plugin";
-      teams = [ teams.buildbot ];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
@@ -139,7 +138,7 @@
       hash = "sha256-kGH+Wuqn3vkATL8+aKjXbtuBEQro1tekut+7te8abQs=";
     };
 
-    buildInputs = [ buildbot-pkg ];
+    buildInputs = [buildbot-pkg];
     propagatedBuildInputs = [
       cairosvg
       klein
@@ -152,10 +151,9 @@
     meta = with lib; {
       homepage = "https://buildbot.net/";
       description = "Buildbot Badges Plugin";
-      maintainers = [ maintainers.julienmalka ];
-      teams = [ teams.buildbot ];
+      maintainers = [maintainers.julienmalka];
+      teams = [teams.buildbot];
       license = licenses.gpl2;
     };
   };
-
 }

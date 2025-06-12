@@ -5,7 +5,6 @@
   libcap,
   libseccomp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ruri";
   version = "3.8";
@@ -37,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ruri";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.dabao1955 ];
+    maintainers = [lib.maintainers.dabao1955];
   };
 })

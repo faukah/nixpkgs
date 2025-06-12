@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "logdy";
   version = "0.17.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # After the build this derivation will generate two binaries.
   # The first one is getting renamed based on the documentation
@@ -38,17 +37,15 @@ buildGoModule rec {
       --zsh <($out/bin/logdy completion zsh)
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestClientLoad" # index out of range
-        "TestLogdyE2E_(No|Stdin)Command" # hang forever
-      ];
-    in
-    [
-      "-timeout=60s" # assume the test is hanging
-      "-skip=^${lib.concatStringsSep "|" skippedTests}$"
+  checkFlags = let
+    skippedTests = [
+      "TestClientLoad" # index out of range
+      "TestLogdyE2E_(No|Stdin)Command" # hang forever
     ];
+  in [
+    "-timeout=60s" # assume the test is hanging
+    "-skip=^${lib.concatStringsSep "|" skippedTests}$"
+  ];
 
   __darwinAllowLocalNetworking = true;
 

@@ -3,21 +3,17 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   numpy,
   setuptools,
-
   persim,
   scikit-learn,
   scipy,
-
   # tests
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "ripser";
   version = "0.6.12";
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     persim
   ];
 
-  pythonImportsCheck = [ "ripser" ];
+  pythonImportsCheck = ["ripser"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -81,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://ripser.scikit-tda.org";
     changelog = "https://github.com/scikit-tda/ripser.py/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

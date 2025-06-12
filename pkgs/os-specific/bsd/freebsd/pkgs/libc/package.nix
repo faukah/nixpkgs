@@ -46,9 +46,8 @@
     i18n
     rtld-elf
   ],
-  extraModules ? [ ],
+  extraModules ? [],
 }:
-
 symlinkJoin {
   pname = "libc";
   inherit (libcMinimal) version;

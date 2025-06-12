@@ -11,7 +11,6 @@
   pythonOlder,
   termcolor,
 }:
-
 buildPythonPackage rec {
   pname = "terminaltables3";
   version = "4.0.0-unstable-2024-07-21";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-UcEovh1Eb4QNPwLGDjCphPlJSSkOdhCJ2fK3tuSWOTc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     colorama
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "terminaltables3" ];
+  pythonImportsCheck = ["terminaltables3"];
 
   disabledTests = [
     # Tests are comparing CLI output
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/matthewdeanmartin/terminaltables3";
     changelog = "https://github.com/matthewdeanmartin/terminaltables3/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

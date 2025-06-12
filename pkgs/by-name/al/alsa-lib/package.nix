@@ -6,7 +6,6 @@
   alsa-ucm-conf,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alsa-lib";
   version = "1.2.13";
@@ -25,15 +24,15 @@ stdenv.mkDerivation (finalAttrs: {
       ./alsa-plugin-conf-multilib.patch
     ]
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false)
-      # Fixes version script under LLVM, should be fixed in the next update.
-      # Check if "pkgsLLVM.alsa-lib" builds on next version bump and remove this
-      # if it succeeds.
-      (
-        fetchurl {
-          url = "https://github.com/alsa-project/alsa-lib/commit/76edab4e595bd5f3f4c636cccc8d7976d3c519d6.patch";
-          hash = "sha256-WCOXfe0/PPZRMXdNa29Jn28S2r0PQ7iTsabsxZVSwnk=";
-        }
-      );
+    # Fixes version script under LLVM, should be fixed in the next update.
+    # Check if "pkgsLLVM.alsa-lib" builds on next version bump and remove this
+    # if it succeeds.
+    (
+      fetchurl {
+        url = "https://github.com/alsa-project/alsa-lib/commit/76edab4e595bd5f3f4c636cccc8d7976d3c519d6.patch";
+        hash = "sha256-WCOXfe0/PPZRMXdNa29Jn28S2r0PQ7iTsabsxZVSwnk=";
+      }
+    );
 
   enableParallelBuilding = true;
 
@@ -65,6 +64,6 @@ stdenv.mkDerivation (finalAttrs: {
       "alsa-topology"
     ];
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ l-as ];
+    maintainers = with maintainers; [l-as];
   };
 })

@@ -1,65 +1,62 @@
 # Extension with Python 2 packages that is overlaid on top
 # of the Python 3 packages set. This way, Python 2+3 compatible
 # packages can still be used.
-
 self: super:
-
 with self;
-with super;
-{
-  attrs = callPackage ../development/python2-modules/attrs { };
+with super; {
+  attrs = callPackage ../development/python2-modules/attrs {};
 
   backports-functools-lru-cache =
     callPackage ../development/python2-modules/backports-functools-lru-cache
-      { };
+    {};
 
-  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip { });
+  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip {});
 
-  cffi = callPackage ../development/python2-modules/cffi { inherit cffi; };
+  cffi = callPackage ../development/python2-modules/cffi {inherit cffi;};
 
-  configparser = callPackage ../development/python2-modules/configparser { };
+  configparser = callPackage ../development/python2-modules/configparser {};
 
-  contextlib2 = callPackage ../development/python2-modules/contextlib2 { };
+  contextlib2 = callPackage ../development/python2-modules/contextlib2 {};
 
-  coverage = callPackage ../development/python2-modules/coverage { };
+  coverage = callPackage ../development/python2-modules/coverage {};
 
-  enum = callPackage ../development/python2-modules/enum { };
+  enum = callPackage ../development/python2-modules/enum {};
 
-  filelock = callPackage ../development/python2-modules/filelock { };
+  filelock = callPackage ../development/python2-modules/filelock {};
 
-  futures = callPackage ../development/python2-modules/futures { };
+  futures = callPackage ../development/python2-modules/futures {};
 
-  hypothesis = callPackage ../development/python2-modules/hypothesis { };
+  hypothesis = callPackage ../development/python2-modules/hypothesis {};
 
-  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata { };
+  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata {};
 
-  jinja2 = callPackage ../development/python2-modules/jinja2 { };
+  jinja2 = callPackage ../development/python2-modules/jinja2 {};
 
-  markupsafe = callPackage ../development/python2-modules/markupsafe { };
+  markupsafe = callPackage ../development/python2-modules/markupsafe {};
 
-  mock = callPackage ../development/python2-modules/mock { };
+  mock = callPackage ../development/python2-modules/mock {};
 
-  more-itertools = callPackage ../development/python2-modules/more-itertools { };
+  more-itertools = callPackage ../development/python2-modules/more-itertools {};
 
   # ninja python stub was created to help simplify python builds using PyPA's
   # build tool in Python 3, but it does not yet support Python 2
   ninja = pkgs.buildPackages.ninja;
 
-  packaging = callPackage ../development/python2-modules/packaging { };
+  packaging = callPackage ../development/python2-modules/packaging {};
 
-  pip = callPackage ../development/python2-modules/pip { };
+  pip = callPackage ../development/python2-modules/pip {};
 
-  pluggy = callPackage ../development/python2-modules/pluggy { };
+  pluggy = callPackage ../development/python2-modules/pluggy {};
 
   pycairo = callPackage ../development/python2-modules/pycairo {
     inherit (pkgs.buildPackages) meson;
   };
 
-  pygobject2 = callPackage ../development/python2-modules/pygobject { };
+  pygobject2 = callPackage ../development/python2-modules/pygobject {};
 
-  pygtk = callPackage ../development/python2-modules/pygtk { };
+  pygtk = callPackage ../development/python2-modules/pygtk {};
 
-  pyparsing = callPackage ../development/python2-modules/pyparsing { };
+  pyparsing = callPackage ../development/python2-modules/pyparsing {};
 
   pytest = pytest_4;
 
@@ -70,7 +67,7 @@ with super;
     };
   };
 
-  pytest-xdist = callPackage ../development/python2-modules/pytest-xdist { };
+  pytest-xdist = callPackage ../development/python2-modules/pytest-xdist {};
 
   recoll = disabled super.recoll;
 
@@ -78,13 +75,13 @@ with super;
 
   rpm = disabled super.rpm;
 
-  scandir = callPackage ../development/python2-modules/scandir { };
+  scandir = callPackage ../development/python2-modules/scandir {};
 
-  setuptools = callPackage ../development/python2-modules/setuptools { };
+  setuptools = callPackage ../development/python2-modules/setuptools {};
 
-  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm { };
+  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm {};
 
-  typing = callPackage ../development/python2-modules/typing { };
+  typing = callPackage ../development/python2-modules/typing {};
 
   six = super.six.overridePythonAttrs (_: {
     doCheck = false; # circular dependency with pytest
@@ -94,10 +91,9 @@ with super;
     inherit wcwidth;
   };
 
-  wheel = callPackage ../development/python2-modules/wheel { };
+  wheel = callPackage ../development/python2-modules/wheel {};
 
   zeek = disabled super.zeek;
 
-  zipp = callPackage ../development/python2-modules/zipp { };
-
+  zipp = callPackage ../development/python2-modules/zipp {};
 }

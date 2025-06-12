@@ -3,7 +3,6 @@
   stdenv,
   skalibs,
 }:
-
 skawarePackages.buildPackage {
   pname = "tipidee";
   version = "0.0.6.0";

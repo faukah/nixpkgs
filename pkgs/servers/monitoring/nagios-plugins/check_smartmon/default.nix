@@ -5,7 +5,6 @@
   smartmontools,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "check-smartmon";
   version = "1.0.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs = [
-    (python3.withPackages (pp: [ pp.psutil ]))
+    (python3.withPackages (pp: [pp.psutil]))
     smartmontools
   ];
 
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     mainProgram = "check_smartmon";
     homepage = "https://github.com/driehuis/Nagios_check_smartmon";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ mariaa144 ];
+    maintainers = with lib.maintainers; [mariaa144];
   };
 }

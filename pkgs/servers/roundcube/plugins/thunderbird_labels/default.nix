@@ -1,5 +1,7 @@
-{ roundcubePlugin, fetchzip }:
-
+{
+  roundcubePlugin,
+  fetchzip,
+}:
 roundcubePlugin rec {
   pname = "thunderbird_labels";
   version = "1.6.0";

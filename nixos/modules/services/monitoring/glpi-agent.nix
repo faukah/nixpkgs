@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.glpiAgent;
 
-  settingsType =
-    with lib.types;
+  settingsType = with lib.types;
     attrsOf (oneOf [
       bool
       int
@@ -17,32 +14,31 @@ let
       (listOf str)
     ]);
 
-  formatValue =
-    v:
-    if lib.isBool v then
-      if v then "1" else "0"
-    else if lib.isList v then
-      lib.concatStringsSep "," v
-    else
-      toString v;
+  formatValue = v:
+    if lib.isBool v
+    then
+      if v
+      then "1"
+      else "0"
+    else if lib.isList v
+    then lib.concatStringsSep "," v
+    else toString v;
 
   configContent = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (k: v: "${k} = ${formatValue v}") cfg.settings
   );
 
   configFile = pkgs.writeText "agent.cfg" configContent;
-
-in
-{
+in {
   options = {
     services.glpiAgent = {
       enable = lib.mkEnableOption "GLPI Agent";
 
-      package = lib.mkPackageOption pkgs "glpi-agent" { };
+      package = lib.mkPackageOption pkgs "glpi-agent" {};
 
       settings = lib.mkOption {
         type = settingsType;
-        default = { };
+        default = {};
         description = ''
           GLPI Agent configuration options.
           See https://glpi-agent.readthedocs.io/en/latest/configuration.html for all available options.
@@ -79,8 +75,8 @@ in
 
     systemd.services.glpi-agent = {
       description = "GLPI Agent";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = lib.escapeShellArgs [
@@ -95,8 +91,8 @@ in
 
         DynamicUser = true;
         StateDirectory = "glpi-agent";
-        CapabilityBoundingSet = [ "CAP_SYS_ADMIN" ];
-        AmbientCapabilities = [ "CAP_SYS_ADMIN" ];
+        CapabilityBoundingSet = ["CAP_SYS_ADMIN"];
+        AmbientCapabilities = ["CAP_SYS_ADMIN"];
 
         LimitCORE = 0;
         LimitNOFILE = 65535;

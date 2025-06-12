@@ -32,7 +32,6 @@
   localsearch,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-photos";
   version = "44.0";
@@ -62,11 +61,12 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     (python3.withPackages (
-      pkgs: with pkgs; [
-        dogtail
-        pygobject3
-        pyatspi
-      ]
+      pkgs:
+        with pkgs; [
+          dogtail
+          pygobject3
+          pyatspi
+        ]
     ))
     wrapGAppsHook3
   ];
@@ -122,7 +122,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gnome-photos";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-photos";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

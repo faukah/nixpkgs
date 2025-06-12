@@ -16,7 +16,6 @@
   testers,
   skopeo,
 }:
-
 buildGoModule rec {
   pname = "skopeo";
   version = "1.19.0";
@@ -45,7 +44,7 @@ buildGoModule rec {
   ];
 
   buildInputs =
-    [ gpgme ]
+    [gpgme]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       lvm2
       btrfs-progs
@@ -66,14 +65,14 @@ buildGoModule rec {
     ''
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram $out/bin/skopeo \
-        --prefix PATH : ${lib.makeBinPath [ fuse-overlayfs ]}
+        --prefix PATH : ${lib.makeBinPath [fuse-overlayfs]}
     ''
     + ''
       runHook postInstall
     '';
 
   passthru = {
-    policy = runCommand "policy" { } ''
+    policy = runCommand "policy" {} ''
       install ${src}/default-policy.json -Dt $out
     '';
     tests = {
@@ -93,7 +92,7 @@ buildGoModule rec {
       lewo
       developer-guy
     ];
-    teams = [ teams.podman ];
+    teams = [teams.podman];
     license = licenses.asl20;
   };
 }

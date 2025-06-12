@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.pgbackrest;
 
   settingsFormat = pkgs.formats.ini {
@@ -13,8 +11,7 @@ let
   };
 
   # pgBackRest "options"
-  settingsType =
-    with lib.types;
+  settingsType = with lib.types;
     attrsOf (oneOf [
       bool
       ints.unsigned
@@ -24,31 +21,31 @@ let
     ]);
 
   # Applied to both repoNNN-* and pgNNN-* options in global and stanza sections.
-  flattenWithIndex =
-    attrs: prefix:
+  flattenWithIndex = attrs: prefix:
     lib.concatMapAttrs (
-      name:
-      let
+      name: let
         index = lib.lists.findFirstIndex (n: n == name) null (lib.attrNames attrs);
         index1 = index + 1;
       in
-      lib.mapAttrs' (option: lib.nameValuePair "${prefix}${toString index1}-${option}")
-    ) attrs;
+        lib.mapAttrs' (option: lib.nameValuePair "${prefix}${toString index1}-${option}")
+    )
+    attrs;
 
   # Remove nulls, turn attrsets into lists and bools into y/n
-  normalize =
-    x:
+  normalize = x:
     lib.pipe x [
       (lib.filterAttrs (_: v: v != null))
-      (lib.mapAttrs (_: v: if lib.isAttrs v then lib.mapAttrsToList (n': v': "${n'}=${v'}") v else v))
+      (lib.mapAttrs (_: v:
+        if lib.isAttrs v
+        then lib.mapAttrsToList (n': v': "${n'}=${v'}") v
+        else v))
       (lib.mapAttrs (
         _: v:
-        if v == true then
-          "y"
-        else if v == false then
-          "n"
-        else
-          v
+          if v == true
+          then "y"
+          else if v == false
+          then "n"
+          else v
       ))
     ];
 
@@ -58,17 +55,19 @@ let
     }
     // lib.mapAttrs (
       _: cfg': normalize (cfg'.settings // flattenWithIndex cfg'.instances "pg")
-    ) cfg.stanzas;
+    )
+    cfg.stanzas;
 
   namedJobs = lib.listToAttrs (
     lib.flatten (
       lib.mapAttrsToList (
-        stanza:
-        { jobs, ... }:
-        lib.mapAttrsToList (
-          job: attrs: lib.nameValuePair "pgbackrest-${stanza}-${job}" (attrs // { inherit stanza job; })
-        ) jobs
-      ) cfg.stanzas
+        stanza: {jobs, ...}:
+          lib.mapAttrsToList (
+            job: attrs: lib.nameValuePair "pgbackrest-${stanza}-${job}" (attrs // {inherit stanza job;})
+          )
+          jobs
+      )
+      cfg.stanzas
     )
   );
 
@@ -78,8 +77,7 @@ let
     internal = true;
   };
 
-  secretPathOption =
-    with lib.types;
+  secretPathOption = with lib.types;
     lib.mkOption {
       type = nullOr (pathWith {
         inStore = false;
@@ -88,11 +86,9 @@ let
       default = null;
       internal = true;
     };
-in
-
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ wolfgangwalther ];
+    maintainers = with lib.maintainers; [wolfgangwalther];
   };
 
   # TODO: Add enableServer option and corresponding pgBackRest TLS server service.
@@ -106,24 +102,23 @@ in
     enable = lib.mkEnableOption "pgBackRest";
 
     repos = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           submodule (
-            { config, name, ... }:
-            let
-              setHostForType =
-                type:
-                if name == "localhost" then
-                  null
+            {
+              config,
+              name,
+              ...
+            }: let
+              setHostForType = type:
+                if name == "localhost"
+                then null
                 # "posix" is the default repo type, which uses the -host option.
                 # Other types use prefixed options, for example -sftp-host.
-                else if config.type or "posix" != type then
-                  null
-                else
-                  name;
-            in
-            {
+                else if config.type or "posix" != type
+                then null
+                else name;
+            in {
               freeformType = settingsType;
 
               options.host = lib.mkOption {
@@ -171,7 +166,7 @@ in
             }
           )
         );
-      default = { };
+      default = {};
       description = ''
         An attribute set of repositories as described in:
         <https://pgbackrest.org/configuration.html#section-repository>
@@ -193,8 +188,7 @@ in
     };
 
     stanzas = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (submodule {
           options = {
             jobs = lib.mkOption {
@@ -217,7 +211,7 @@ in
                   };
                 }
               );
-              default = { };
+              default = {};
               description = ''
                 Backups jobs to schedule for this stanza as described in:
                 <https://pgbackrest.org/user-guide.html#quickstart/schedule-backup>
@@ -231,16 +225,17 @@ in
             };
 
             instances = lib.mkOption {
-              type =
-                with lib.types;
+              type = with lib.types;
                 attrsOf (
                   submodule (
-                    { name, ... }:
-                    {
+                    {name, ...}: {
                       freeformType = settingsType;
                       options.host = lib.mkOption {
                         type = nullOr str;
-                        default = if name == "localhost" then null else name;
+                        default =
+                          if name == "localhost"
+                          then null
+                          else name;
                         defaultText = lib.literalExpression ''if name == "localhost" then null else name'';
                         description = "PostgreSQL host for operating remotely.";
                       };
@@ -252,7 +247,7 @@ in
                     }
                   )
                 );
-              default = { };
+              default = {};
               description = ''
                 An attribute set of database instances as described in:
                 <https://pgbackrest.org/configuration.html#section-stanza>
@@ -282,7 +277,7 @@ in
                 options.tls-server-cert-file = secretPathOption;
                 options.tls-server-key-file = secretPathOption;
               };
-              default = { };
+              default = {};
               description = ''
                 An attribute set of options as described in:
                 <https://pgbackrest.org/configuration.html>
@@ -299,7 +294,7 @@ in
             };
           };
         });
-      default = { };
+      default = {};
       description = ''
         An attribute set of stanzas as described in:
         <https://pgbackrest.org/user-guide.html#quickstart/configure-stanza>
@@ -315,7 +310,7 @@ in
         options.tls-server-cert-file = secretPathOption;
         options.tls-server-key-file = secretPathOption;
       };
-      default = { };
+      default = {};
       description = ''
         An attribute set of options as described in:
         <https://pgbackrest.org/configuration.html>
@@ -340,7 +335,7 @@ in
           cmd-ssh = lib.getExe pkgs.openssh;
         };
 
-        environment.systemPackages = [ pkgs.pgbackrest ];
+        environment.systemPackages = [pkgs.pgbackrest];
         environment.etc."pgbackrest/pgbackrest.conf".source =
           settingsFormat.generate "pgbackrest.conf" fullConfig;
 
@@ -353,50 +348,50 @@ in
           createHome = true;
           home = cfg.repos.localhost.path or "/var/lib/pgbackrest";
         };
-        users.groups.pgbackrest = { };
+        users.groups.pgbackrest = {};
 
-        systemd.services = lib.mapAttrs (
-          _:
-          {
-            stanza,
-            job,
-            type,
-            ...
-          }:
-          {
-            description = "pgBackRest job ${job} for stanza ${stanza}";
+        systemd.services =
+          lib.mapAttrs (
+            _: {
+              stanza,
+              job,
+              type,
+              ...
+            }: {
+              description = "pgBackRest job ${job} for stanza ${stanza}";
 
-            serviceConfig = {
-              User = "pgbackrest";
-              Group = "pgbackrest";
-              Type = "oneshot";
-              # stanza-create is idempotent, so safe to always run
-              ExecStartPre = "${lib.getExe pkgs.pgbackrest} --stanza='${stanza}' stanza-create";
-              ExecStart = "${lib.getExe pkgs.pgbackrest} --stanza='${stanza}' backup --type='${type}'";
-            };
-          }
-        ) namedJobs;
+              serviceConfig = {
+                User = "pgbackrest";
+                Group = "pgbackrest";
+                Type = "oneshot";
+                # stanza-create is idempotent, so safe to always run
+                ExecStartPre = "${lib.getExe pkgs.pgbackrest} --stanza='${stanza}' stanza-create";
+                ExecStart = "${lib.getExe pkgs.pgbackrest} --stanza='${stanza}' backup --type='${type}'";
+              };
+            }
+          )
+          namedJobs;
 
-        systemd.timers = lib.mapAttrs (
-          name:
-          {
-            stanza,
-            job,
-            schedule,
-            ...
-          }:
-          {
-            description = "pgBackRest job ${job} for stanza ${stanza}";
-            wantedBy = [ "timers.target" ];
-            after = [ "network-online.target" ];
-            wants = [ "network-online.target" ];
-            timerConfig = {
-              OnCalendar = schedule;
-              Persistent = true;
-              Unit = "${name}.service";
-            };
-          }
-        ) namedJobs;
+        systemd.timers =
+          lib.mapAttrs (
+            name: {
+              stanza,
+              job,
+              schedule,
+              ...
+            }: {
+              description = "pgBackRest job ${job} for stanza ${stanza}";
+              wantedBy = ["timers.target"];
+              after = ["network-online.target"];
+              wants = ["network-online.target"];
+              timerConfig = {
+                OnCalendar = schedule;
+                Persistent = true;
+                Unit = "${name}.service";
+              };
+            }
+          )
+          namedJobs;
       }
 
       # The default stanza is set up for the local postgresql instance.
@@ -412,14 +407,14 @@ in
         services.postgresql.identMap = ''
           postgres pgbackrest postgres
         '';
-        services.postgresql.initdbArgs = [ "--allow-group-access" ];
-        users.users.pgbackrest.extraGroups = [ "postgres" ];
+        services.postgresql.initdbArgs = ["--allow-group-access"];
+        users.users.pgbackrest.extraGroups = ["postgres"];
 
         services.postgresql.settings = {
           archive_command = ''${lib.getExe pkgs.pgbackrest} --stanza=default archive-push "%p"'';
           archive_mode = lib.mkDefault "on";
         };
-        users.groups.pgbackrest.members = [ "postgres" ];
+        users.groups.pgbackrest.members = ["postgres"];
       })
     ]
   );

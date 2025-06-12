@@ -10,7 +10,6 @@
   shortenPerlShebang,
   gitUpdater,
 }:
-
 buildPerlPackage rec {
   pname = "strip-nondeterminism";
   version = "1.14.1";
@@ -29,7 +28,7 @@ buildPerlPackage rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [shortenPerlShebang];
   buildInputs = [
     ArchiveZip
     ArchiveCpio
@@ -66,7 +65,7 @@ buildPerlPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {

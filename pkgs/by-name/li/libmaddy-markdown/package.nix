@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "libmaddy-markdown";
   version = "1.5.0";
@@ -28,13 +27,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "C++ Markdown to HTML header-only parser library";
     homepage = "https://github.com/progsource/maddy";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.normalcea ];
+    maintainers = [lib.maintainers.normalcea];
     platforms = lib.platforms.unix;
   };
 })

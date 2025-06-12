@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "go-outline";
   version = "unstable-2021-06-08";
@@ -21,7 +20,7 @@ buildGoModule {
     description = "Utility to extract JSON representation of declarations from a Go source file";
     mainProgram = "go-outline";
     homepage = "https://github.com/ramya-rao-a/go-outline";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     license = licenses.mit;
   };
 }

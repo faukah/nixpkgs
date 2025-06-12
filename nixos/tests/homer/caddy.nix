@@ -1,24 +1,20 @@
 import ../make-test-python.nix (
-  { lib, ... }:
-
-  {
+  {lib, ...}: {
     name = "homer-caddy";
-    meta.maintainers = with lib.maintainers; [ stunkymonkey ];
+    meta.maintainers = with lib.maintainers; [stunkymonkey];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.homer = {
-          enable = true;
-          virtualHost = {
-            caddy.enable = true;
-            domain = "localhost:80";
-          };
-          settings = {
-            title = "testing";
-          };
+    nodes.machine = {pkgs, ...}: {
+      services.homer = {
+        enable = true;
+        virtualHost = {
+          caddy.enable = true;
+          domain = "localhost:80";
+        };
+        settings = {
+          title = "testing";
         };
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("caddy.service")

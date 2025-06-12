@@ -1,6 +1,6 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "bin/chmod";
 
-  patches = [ ./no-sbin.patch ];
+  patches = [./no-sbin.patch];
 }

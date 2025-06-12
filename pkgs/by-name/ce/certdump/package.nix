@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildDotnetModule {
   pname = "certdump";
   version = "0-unstable-2023-12-25";
@@ -16,11 +15,11 @@ buildDotnetModule {
     hash = "sha256-86s6KLP0DliKOr0fVId7SGN333b7HkiL5p/q0vazwMc=";
   };
 
-  projectFile = [ "CertDump.sln" ];
+  projectFile = ["CertDump.sln"];
   nugetDeps = ./deps.json;
 
   selfContainedBuild = true;
-  executables = [ "CertDump" ];
+  executables = ["CertDump"];
 
   dotnetFlags = [
     "-property:ImportByWildcardBeforeSolution=false"
@@ -34,7 +33,7 @@ buildDotnetModule {
       Cross-Platform tool to dump the signing certificate from a Portable Executable (PE) file.
     '';
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.baloo ];
+    maintainers = [lib.maintainers.baloo];
     broken = stdenv.hostPlatform.isAarch64 && stdenv.hostPlatform.isDarwin;
   };
 }

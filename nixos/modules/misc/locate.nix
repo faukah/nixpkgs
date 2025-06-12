@@ -3,19 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.locate;
   isMLocate = lib.hasPrefix "mlocate" cfg.package.name;
   isPLocate = lib.hasPrefix "plocate" cfg.package.name;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "locate" "period" ] [ "services" "locate" "interval" ])
-    (lib.mkRenamedOptionModule [ "services" "locate" "locate" ] [ "services" "locate" "package" ])
-    (lib.mkRemovedOptionModule [ "services" "locate" "includeStore" ] "Use services.locate.prunePaths")
-    (lib.mkRemovedOptionModule [ "services" "locate" "localuser" ]
+    (lib.mkRenamedOptionModule ["services" "locate" "period"] ["services" "locate" "interval"])
+    (lib.mkRenamedOptionModule ["services" "locate" "locate"] ["services" "locate" "package"])
+    (lib.mkRemovedOptionModule ["services" "locate" "includeStore"] "Use services.locate.prunePaths")
+    (
+      lib.mkRemovedOptionModule ["services" "locate" "localuser"]
       "The services.locate.localuser option has been removed because support for findutils locate has been removed."
     )
   ];
@@ -30,7 +28,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs [ "plocate" ] {
+    package = lib.mkPackageOption pkgs ["plocate"] {
       example = "mlocate";
     };
 
@@ -52,7 +50,7 @@ in
 
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra flags to pass to {command}`updatedb`.
       '';
@@ -195,45 +193,42 @@ in
         Whether not to index bind mounts
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     users.groups = lib.mkMerge [
-      (lib.mkIf isMLocate { mlocate = { }; })
-      (lib.mkIf isPLocate { plocate = { }; })
+      (lib.mkIf isMLocate {mlocate = {};})
+      (lib.mkIf isPLocate {plocate = {};})
     ];
 
-    security.wrappers =
-      let
-        common = {
-          owner = "root";
-          permissions = "u+rx,g+x,o+x";
-          setgid = true;
-          setuid = false;
-        };
-        mlocate = lib.mkIf isMLocate {
-          group = "mlocate";
-          source = "${cfg.package}/bin/locate";
-        };
-        plocate = lib.mkIf isPLocate {
-          group = "plocate";
-          source = "${cfg.package}/bin/plocate";
-        };
-      in
-      {
-        locate = lib.mkMerge [
-          common
-          mlocate
-          plocate
-        ];
-        plocate = lib.mkIf isPLocate (
-          lib.mkMerge [
-            common
-            plocate
-          ]
-        );
+    security.wrappers = let
+      common = {
+        owner = "root";
+        permissions = "u+rx,g+x,o+x";
+        setgid = true;
+        setuid = false;
       };
+      mlocate = lib.mkIf isMLocate {
+        group = "mlocate";
+        source = "${cfg.package}/bin/locate";
+      };
+      plocate = lib.mkIf isPLocate {
+        group = "plocate";
+        source = "${cfg.package}/bin/plocate";
+      };
+    in {
+      locate = lib.mkMerge [
+        common
+        mlocate
+        plocate
+      ];
+      plocate = lib.mkIf isPLocate (
+        lib.mkMerge [
+          common
+          plocate
+        ]
+      );
+    };
 
     environment = {
       # write /etc/updatedb.conf for manual calls to `updatedb`
@@ -241,10 +236,14 @@ in
         PRUNEFS="${lib.concatStringsSep " " cfg.pruneFS}"
         PRUNENAMES="${lib.concatStringsSep " " cfg.pruneNames}"
         PRUNEPATHS="${lib.concatStringsSep " " cfg.prunePaths}"
-        PRUNE_BIND_MOUNTS="${if cfg.pruneBindMounts then "yes" else "no"}"
+        PRUNE_BIND_MOUNTS="${
+          if cfg.pruneBindMounts
+          then "yes"
+          else "no"
+        }"
       '';
 
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
     };
 
     systemd.services.update-locatedb = {
@@ -252,24 +251,25 @@ in
 
       # mlocate's updatedb takes flags via a configuration file or
       # on the command line, but not by environment variable.
-      script =
-        let
-          toFlags =
-            x: lib.optional (cfg.${x} != [ ]) "--${lib.toLower x} '${lib.concatStringsSep " " cfg.${x}}'";
-          args = lib.concatLists (
-            map toFlags [
-              "pruneFS"
-              "pruneNames"
-              "prunePaths"
-            ]
-          );
-        in
-        ''
-          exec ${cfg.package}/bin/updatedb \
-            --output ${toString cfg.output} ${lib.concatStringsSep " " args} \
-            --prune-bind-mounts ${if cfg.pruneBindMounts then "yes" else "no"} \
-            ${lib.concatStringsSep " " cfg.extraFlags}
-        '';
+      script = let
+        toFlags = x: lib.optional (cfg.${x} != []) "--${lib.toLower x} '${lib.concatStringsSep " " cfg.${x}}'";
+        args = lib.concatLists (
+          map toFlags [
+            "pruneFS"
+            "pruneNames"
+            "prunePaths"
+          ]
+        );
+      in ''
+        exec ${cfg.package}/bin/updatedb \
+          --output ${toString cfg.output} ${lib.concatStringsSep " " args} \
+          --prune-bind-mounts ${
+          if cfg.pruneBindMounts
+          then "yes"
+          else "no"
+        } \
+          ${lib.concatStringsSep " " cfg.extraFlags}
+      '';
       serviceConfig = {
         CapabilityBoundingSet = "CAP_DAC_READ_SEARCH CAP_CHOWN";
         Nice = 19;
@@ -302,8 +302,8 @@ in
 
     systemd.timers.update-locatedb = lib.mkIf (cfg.interval != "never") {
       description = "Update timer for locate database";
-      partOf = [ "update-locatedb.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["update-locatedb.service"];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.interval;
         Persistent = true;
@@ -311,5 +311,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 }

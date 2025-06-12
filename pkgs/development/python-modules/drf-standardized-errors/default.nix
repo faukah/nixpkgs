@@ -12,7 +12,6 @@
   pytest-django,
   django-filter,
 }:
-
 buildPythonPackage rec {
   pname = "drf-standardized-errors";
   version = "0.14.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     django
@@ -49,7 +48,7 @@ buildPythonPackage rec {
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  pythonImportsCheck = [ "drf_standardized_errors" ];
+  pythonImportsCheck = ["drf_standardized_errors"];
 
   optional-dependencies.openapi = [
     drf-spectacular
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ghazi-git/drf-standardized-errors";
     changelog = "https://github.com/ghazi-git/drf-standardized-errors/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

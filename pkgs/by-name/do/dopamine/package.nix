@@ -13,18 +13,16 @@ appimageTools.wrapType2 rec {
     hash = "sha256-PWYymznUsJUaeC0wD5wK2bqU7y7lkY64/svB8Tw4JJQ=";
   };
 
-  extraInstallCommands =
-    let
-      contents = appimageTools.extract { inherit pname version src; };
-    in
-    ''
-      install -Dm644 ${contents}/dopamine.desktop $out/share/applications/dopamine.desktop
-      substituteInPlace $out/share/applications/dopamine.desktop \
-        --replace-fail 'Exec=AppRun' 'Exec=dopamine'
-      cp -r ${contents}/usr/share/icons $out/share
-    '';
+  extraInstallCommands = let
+    contents = appimageTools.extract {inherit pname version src;};
+  in ''
+    install -Dm644 ${contents}/dopamine.desktop $out/share/applications/dopamine.desktop
+    substituteInPlace $out/share/applications/dopamine.desktop \
+      --replace-fail 'Exec=AppRun' 'Exec=dopamine'
+    cp -r ${contents}/usr/share/icons $out/share
+  '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=unstable"];};
 
   meta = {
     changelog = "https://github.com/digimezzo/dopamine/blob/${version}/CHANGELOG.md";
@@ -32,8 +30,8 @@ appimageTools.wrapType2 rec {
     homepage = "https://github.com/digimezzo/dopamine";
     license = lib.licenses.gpl3Only;
     mainProgram = "dopamine";
-    maintainers = with lib.maintainers; [ Guanran928 ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [Guanran928];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

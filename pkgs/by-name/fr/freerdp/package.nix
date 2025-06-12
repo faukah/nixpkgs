@@ -54,14 +54,11 @@
   buildServer ? true,
   nocaps ? false,
   withUnfree ? false,
-
   # tries to compile and run generate_argument_docbook.c
   withManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
-
   gnome-remote-desktop,
   remmina,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freerdp";
   version = "3.15.0-unstable-2025-05-16";
@@ -216,7 +213,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.freerdp.com/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
     platforms = lib.platforms.unix;
   };
 })

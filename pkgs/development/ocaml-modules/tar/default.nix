@@ -6,7 +6,6 @@
   cstruct,
   decompress,
 }:
-
 buildDunePackage rec {
   pname = "tar";
   version = "2.6.0";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "Decode and encode tar format files in pure OCaml";
     homepage = "https://github.com/mirage/ocaml-tar";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

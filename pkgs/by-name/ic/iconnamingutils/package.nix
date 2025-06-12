@@ -5,7 +5,6 @@
   perl,
   librsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icon-naming-utils";
   version = "0.8.90";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     librsvg
-    (perl.withPackages (p: [ p.XMLSimple ]))
+    (perl.withPackages (p: [p.XMLSimple]))
   ];
 
   meta = with lib; {

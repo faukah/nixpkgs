@@ -6,7 +6,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnet";
   version = "1.3";

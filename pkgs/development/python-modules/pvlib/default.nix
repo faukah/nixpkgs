@@ -18,7 +18,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pvlib";
   version = "0.12.0";
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pvlib" ];
+  pythonImportsCheck = ["pvlib"];
 
   meta = with lib; {
     description = "Simulate the performance of photovoltaic energy systems";
     homepage = "https://pvlib-python.readthedocs.io";
     changelog = "https://pvlib-python.readthedocs.io/en/v${version}/whatsnew.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

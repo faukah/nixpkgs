@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "safe";
   version = "1.8.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-w8gHCqOfmZg4JZgg1nZBtTJ553Rbp0a0JsoQVDFjehM=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X main.Version=${version}"
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "safe";
     homepage = "https://github.com/starkandwayne/safe";
     license = licenses.mit;
-    maintainers = with maintainers; [ eonpatapon ];
+    maintainers = with maintainers; [eonpatapon];
   };
 }

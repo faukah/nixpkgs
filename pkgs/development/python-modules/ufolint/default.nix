@@ -7,7 +7,6 @@
   fs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ufolint";
   version = "1.2.0";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
     fonttools
   ];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Linter for Unified Font Object (UFO) source code";
     mainProgram = "ufolint";
     homepage = "https://github.com/source-foundry/ufolint";
     license = licenses.mit;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

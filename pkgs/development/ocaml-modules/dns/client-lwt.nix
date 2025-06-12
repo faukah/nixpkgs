@@ -12,7 +12,6 @@
   happy-eyeballs-lwt,
   tls-lwt,
 }:
-
 buildDunePackage {
   pname = "dns-client-lwt";
   inherit (dns) src version;
@@ -29,7 +28,7 @@ buildDunePackage {
     mtime
     mirage-crypto-rng
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = dns-client.meta;

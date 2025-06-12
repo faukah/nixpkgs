@@ -17,7 +17,6 @@
   kwindowsystem,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "yakuake";
 
@@ -49,7 +48,7 @@ mkDerivation {
     kwindowsystem
   ];
 
-  propagatedUserEnvPkgs = [ konsole ];
+  propagatedUserEnvPkgs = [konsole];
 
   nativeBuildInputs = [
     extra-cmake-modules

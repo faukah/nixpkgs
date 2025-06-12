@@ -8,7 +8,6 @@
   docutils,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "alectryon";
   version = "1.4.0";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Collection of tools for writing technical documents that mix Coq code and prose";
     mainProgram = "alectryon";
     license = licenses.mit;
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
   };
 }

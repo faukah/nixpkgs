@@ -3,9 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   buildNpmPackage,
-}:
-
-let
+}: let
   version = "0.4.10-unstable-2024-10-25";
   src = fetchFromGitHub {
     owner = "zinclabs";
@@ -32,29 +30,28 @@ let
     '';
   };
 in
+  buildGoModule rec {
+    pname = "zincsearch";
+    inherit src version;
 
-buildGoModule rec {
-  pname = "zincsearch";
-  inherit src version;
+    preBuild = ''
+      cp -r ${webui}/share/zinc-ui web/dist
+    '';
 
-  preBuild = ''
-    cp -r ${webui}/share/zinc-ui web/dist
-  '';
+    vendorHash = "sha256-JB6+sfMB7PgpPg1lmN9/0JFRLi1c7VBUMD/d4XmLIPw=";
+    subPackages = ["cmd/zincsearch"];
 
-  vendorHash = "sha256-JB6+sfMB7PgpPg1lmN9/0JFRLi1c7VBUMD/d4XmLIPw=";
-  subPackages = [ "cmd/zincsearch" ];
+    ldflags = [
+      "-s"
+      "-w"
+      "-X github.com/zinclabs/zincsearch/pkg/meta.Version=${version}"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X github.com/zinclabs/zincsearch/pkg/meta.Version=${version}"
-  ];
-
-  meta = with lib; {
-    description = "Lightweight alternative to elasticsearch that requires minimal resources, written in Go";
-    mainProgram = "zincsearch";
-    homepage = "https://zincsearch-docs.zinc.dev/";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
-  };
-}
+    meta = with lib; {
+      description = "Lightweight alternative to elasticsearch that requires minimal resources, written in Go";
+      mainProgram = "zincsearch";
+      homepage = "https://zincsearch-docs.zinc.dev/";
+      license = licenses.asl20;
+      maintainers = with maintainers; [dit7ya];
+    };
+  }

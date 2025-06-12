@@ -14,7 +14,6 @@
   rustPlatform,
   zlib,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "turbo-unwrapped";
   version = "2.5.3";

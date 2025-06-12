@@ -1,25 +1,21 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "polaris";
-  meta.maintainers = with lib.maintainers; [ pbsds ];
+  meta.maintainers = with lib.maintainers; [pbsds];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.jq ];
-      services.polaris = {
-        enable = true;
-        port = 5050;
-        settings.users = [
-          {
-            name = "test_user";
-            password = "very_secret_password";
-            admin = true;
-          }
-        ];
-      };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.jq];
+    services.polaris = {
+      enable = true;
+      port = 5050;
+      settings.users = [
+        {
+          name = "test_user";
+          password = "very_secret_password";
+          admin = true;
+        }
+      ];
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("polaris.service")

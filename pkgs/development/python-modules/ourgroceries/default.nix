@@ -6,7 +6,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ourgroceries";
   version = "1.5.4";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-tlgctQvbR2YzM6Q1A/P1i40LSt4/2hsetlDeO07RBPE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [ "ourgroceries" ];
+  pythonImportsCheck = ["ourgroceries"];
 
   # tests require credentials
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Unofficial Python Wrapper for Our Groceries";
     homepage = "https://github.com/ljmerza/py-our-groceries";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

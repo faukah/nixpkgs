@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "circup";
   version = "2.1.2";
@@ -16,9 +15,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-lmuxqkZVByJwnfHj4yljWQwTvdLnguq3hZm6a7LN6Xo=";
   };
 
-  pythonRelaxDeps = [ "semver" ];
+  pythonRelaxDeps = ["semver"];
 
-  build-system = with python3.pkgs; [ setuptools-scm ];
+  build-system = with python3.pkgs; [setuptools-scm];
 
   dependencies = with python3.pkgs; [
     appdirs
@@ -31,13 +30,13 @@ python3.pkgs.buildPythonApplication rec {
     update-checker
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   postBuild = ''
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "circup" ];
+  pythonImportsCheck = ["circup"];
 
   disabledTests = [
     # Test requires network access
@@ -48,8 +47,8 @@ python3.pkgs.buildPythonApplication rec {
     description = "CircuitPython library updater";
     homepage = "https://github.com/adafruit/circup";
     changelog = "https://github.com/adafruit/circup/releases/tag/${src.tag}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "circup";
   };
 }

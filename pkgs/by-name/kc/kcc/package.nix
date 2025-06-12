@@ -20,9 +20,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-6zHUV4s1bOdARsTwNRxFM+s0p+6FLJhqJ9qG5BaBgas=";
   };
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+  nativeBuildInputs = [qt6.wrapQtAppsHook];
 
-  buildInputs = [ qt6.qtbase ] ++ lib.optionals stdenv.hostPlatform.isLinux [ qt6.qtwayland ];
+  buildInputs = [qt6.qtbase] ++ lib.optionals stdenv.hostPlatform.isLinux [qt6.qtwayland];
   propagatedBuildInputs = with python3.pkgs; [
     packaging
     pillow
@@ -37,13 +37,13 @@ python3.pkgs.buildPythonApplication rec {
     numpy
   ];
 
-  qtWrapperArgs = lib.optionals archiveSupport [ ''--prefix PATH : ${lib.makeBinPath [ p7zip ]}'' ];
+  qtWrapperArgs = lib.optionals archiveSupport [''--prefix PATH : ${lib.makeBinPath [p7zip]}''];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/kcc-c2e";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

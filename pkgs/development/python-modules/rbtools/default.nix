@@ -22,7 +22,6 @@
   gitFull,
   subversion,
 }:
-
 buildPythonPackage rec {
   pname = "rbtools";
   version = "5.2.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-Ci9lHlP2X95y7ldHBbqb5qWozPj3TJ0AxeVhqzVsdFA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     texttable
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  pythonRelaxDeps = [ "pydiffx" ];
+  pythonRelaxDeps = ["pydiffx"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -82,6 +81,6 @@ buildPythonPackage rec {
     description = "RBTools is a set of command line tools for working with Review Board and RBCommons";
     mainProgram = "rbt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

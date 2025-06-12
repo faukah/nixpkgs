@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "NoiseTorch";
   version = "0.12.2";
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X main.distribution=nixpkgs"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preBuild = ''
     make -C c/ladspa/

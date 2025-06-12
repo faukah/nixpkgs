@@ -3,25 +3,22 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.uptime-kuma;
-in
-{
-
-  meta.maintainers = [ lib.maintainers.julienmalka ];
+in {
+  meta.maintainers = [lib.maintainers.julienmalka];
 
   options = {
     services.uptime-kuma = {
       enable = lib.mkEnableOption "Uptime Kuma, this assumes a reverse proxy to be set";
 
-      package = lib.mkPackageOption pkgs "uptime-kuma" { };
+      package = lib.mkPackageOption pkgs "uptime-kuma" {};
 
       appriseSupport = lib.mkEnableOption "apprise support for notifications";
 
       settings = lib.mkOption {
-        type = lib.types.submodule { freeformType = with lib.types; attrsOf str; };
-        default = { };
+        type = lib.types.submodule {freeformType = with lib.types; attrsOf str;};
+        default = {};
         example = {
           PORT = "4000";
           NODE_EXTRA_CA_CERTS = lib.literalExpression "config.security.pki.caBundle";
@@ -36,7 +33,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     services.uptime-kuma.settings = {
       DATA_DIR = "/var/lib/uptime-kuma/";
       NODE_ENV = lib.mkDefault "production";
@@ -46,10 +42,10 @@ in
 
     systemd.services.uptime-kuma = {
       description = "Uptime Kuma";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = cfg.settings;
-      path = with pkgs; [ unixtools.ping ] ++ lib.optional cfg.appriseSupport apprise;
+      path = with pkgs; [unixtools.ping] ++ lib.optional cfg.appriseSupport apprise;
       serviceConfig = {
         Type = "simple";
         StateDirectory = "uptime-kuma";

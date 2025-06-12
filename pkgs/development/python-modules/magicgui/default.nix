@@ -13,7 +13,6 @@
   superqt,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "magicgui";
   version = "0.10.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     docstring-parser
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = false; # Reports "Fatal Python error"
 
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/napari/magicgui";
     changelog = "https://github.com/pyapp-kit/magicgui/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

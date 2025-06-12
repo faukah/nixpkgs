@@ -5,10 +5,8 @@
   mathcomp-fingroup,
   lib,
   version ? null,
-}@args:
-
+} @ args:
 mkCoqDerivation {
-
   namePrefix = [
     "coq"
     "mathcomp"
@@ -17,41 +15,40 @@ mkCoqDerivation {
   owner = "math-comp";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.version mathcomp-ssreflect.version ]
-      [
-        {
-          cases = [
-            (range "8.16" "9.0")
-            (range "2.0.0" "2.4.0")
-          ];
-          out = "1.0.3";
-        }
-        {
-          cases = [
-            (range "8.16" "9.0")
-            (range "2.0.0" "2.3.0")
-          ];
-          out = "1.0.2";
-        }
-        {
-          cases = [
-            (range "8.12" "8.18")
-            (range "1.12.0" "1.17.0")
-          ];
-          out = "1.0.1";
-        }
-        {
-          cases = [
-            (range "8.10" "8.16")
-            (range "1.12.0" "1.17.0")
-          ];
-          out = "1.0.0";
-        }
-      ]
-      null;
+    [coq.version mathcomp-ssreflect.version]
+    [
+      {
+        cases = [
+          (range "8.16" "9.0")
+          (range "2.0.0" "2.4.0")
+        ];
+        out = "1.0.3";
+      }
+      {
+        cases = [
+          (range "8.16" "9.0")
+          (range "2.0.0" "2.3.0")
+        ];
+        out = "1.0.2";
+      }
+      {
+        cases = [
+          (range "8.12" "8.18")
+          (range "1.12.0" "1.17.0")
+        ];
+        out = "1.0.1";
+      }
+      {
+        cases = [
+          (range "8.10" "8.16")
+          (range "1.12.0" "1.17.0")
+        ];
+        out = "1.0.0";
+      }
+    ]
+    null;
   release."1.0.3".sha256 = "sha256-5lpOCDyH6NFzGLvnXHHAnR7Qv5oXsUyC8TLBFrIiBag=";
   release."1.0.2".sha256 = "sha256-U20xgA+e9KTRdvILD1cxN6ia+dlA8uBTIbc4QlKz9ss=";
   release."1.0.1".sha256 = "sha256-utNjFCAqC5xOuhdyKhfMZkRYJD0xv9Gt6U3ZdQ56mek=";

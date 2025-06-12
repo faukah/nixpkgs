@@ -17,14 +17,12 @@
   xorg,
   zlib,
   # extra params
-  extraCLibs ? [ ],
+  extraCLibs ? [],
   gtkSupport ? stdenv.hostPlatform.isLinux,
   useMusl ? false,
   ...
-}@args:
-
-assert useMusl -> stdenv.hostPlatform.isLinux;
-let
+} @ args:
+assert useMusl -> stdenv.hostPlatform.isLinux; let
   extraArgs = builtins.removeAttrs args [
     "lib"
     "stdenv"
@@ -57,22 +55,22 @@ let
       glibc
       zlib.static
     ]
-    ++ lib.optionals (!useMusl) [ glibc.static ]
-    ++ lib.optionals useMusl [ musl ]
+    ++ lib.optionals (!useMusl) [glibc.static]
+    ++ lib.optionals useMusl [musl]
     ++ extraCLibs
   );
 
   # GraalVM 21.3.0+ expects musl-gcc as <system>-musl-gcc
   musl-gcc = (
-    runCommandCC "musl-gcc" { } ''
+    runCommandCC "musl-gcc" {} ''
       mkdir -p $out/bin
       ln -s ${lib.getDev musl}/bin/musl-gcc $out/bin/${stdenv.hostPlatform.system}-musl-gcc
     ''
   );
-  binPath = lib.makeBinPath (lib.optionals useMusl [ musl-gcc ] ++ [ stdenv.cc ]);
+  binPath = lib.makeBinPath (lib.optionals useMusl [musl-gcc] ++ [stdenv.cc]);
 
   runtimeLibraryPath = lib.makeLibraryPath (
-    [ cups ]
+    [cups]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -98,7 +96,11 @@ let
         #   graalvm-ce-java11-20.3.0/Contents/Home/*
         #
         # We therefor use --strip-components=1 vs 3 depending on the platform.
-        tar xf "$src" -C "$out" --strip-components=${if stdenv.hostPlatform.isLinux then "1" else "3"}
+        tar xf "$src" -C "$out" --strip-components=${
+          if stdenv.hostPlatform.isLinux
+          then "1"
+          else "3"
+        }
 
         # Sanity check
         if [ ! -d "$out/bin" ]; then
@@ -114,10 +116,12 @@ let
 
       dontStrip = true;
 
-      nativeBuildInputs = [
-        unzip
-        makeWrapper
-      ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
+      nativeBuildInputs =
+        [
+          unzip
+          makeWrapper
+        ]
+        ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
 
       propagatedBuildInputs = [
         setJavaClassPath
@@ -135,56 +139,54 @@ let
         xorg.libXtst
       ];
 
-      postInstall =
-        let
-          cLibsAsFlags = (map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs);
-          preservedNixVariables =
-            [
-              "-ENIX_BINTOOLS"
-              "-ENIX_BINTOOLS_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}"
-              "-ENIX_BUILD_CORES"
-              "-ENIX_BUILD_TOP"
-              "-ENIX_CC"
-              "-ENIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}"
-              "-ENIX_CFLAGS_COMPILE"
-              "-ENIX_HARDENING_ENABLE"
-              "-ENIX_LDFLAGS"
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isLinux [
-              "-ELOCALE_ARCHIVE"
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isDarwin [
-              "-EDEVELOPER_DIR"
-              "-EDEVELOPER_DIR_FOR_BUILD"
-              "-EDEVELOPER_DIR_FOR_TARGET"
-              "-EMACOSX_DEPLOYMENT_TARGET"
-              "-EMACOSX_DEPLOYMENT_TARGET_FOR_BUILD"
-              "-EMACOSX_DEPLOYMENT_TARGET_FOR_TARGET"
-              "-ENIX_APPLE_SDK_VERSION"
-            ];
-          preservedNixVariablesAsFlags = (map (f: "--add-flags '${f}'") preservedNixVariables);
-        in
-        ''
-          # jni.h expects jni_md.h to be in the header search path.
-          ln -sf $out/include/linux/*_md.h $out/include/
+      postInstall = let
+        cLibsAsFlags = map (l: "--add-flags '-H:CLibraryPath=${l}/lib'") cLibs;
+        preservedNixVariables =
+          [
+            "-ENIX_BINTOOLS"
+            "-ENIX_BINTOOLS_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}"
+            "-ENIX_BUILD_CORES"
+            "-ENIX_BUILD_TOP"
+            "-ENIX_CC"
+            "-ENIX_CC_WRAPPER_TARGET_HOST_${stdenv.cc.suffixSalt}"
+            "-ENIX_CFLAGS_COMPILE"
+            "-ENIX_HARDENING_ENABLE"
+            "-ENIX_LDFLAGS"
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
+            "-ELOCALE_ARCHIVE"
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
+            "-EDEVELOPER_DIR"
+            "-EDEVELOPER_DIR_FOR_BUILD"
+            "-EDEVELOPER_DIR_FOR_TARGET"
+            "-EMACOSX_DEPLOYMENT_TARGET"
+            "-EMACOSX_DEPLOYMENT_TARGET_FOR_BUILD"
+            "-EMACOSX_DEPLOYMENT_TARGET_FOR_TARGET"
+            "-ENIX_APPLE_SDK_VERSION"
+          ];
+        preservedNixVariablesAsFlags = map (f: "--add-flags '${f}'") preservedNixVariables;
+      in ''
+        # jni.h expects jni_md.h to be in the header search path.
+        ln -sf $out/include/linux/*_md.h $out/include/
 
-          mkdir -p $out/share
-          # move files in $out like LICENSE.txt
-          find $out/ -maxdepth 1 -type f -exec mv {} $out/share \;
-          # symbolic link to $out/lib/svm/LICENSE_NATIVEIMAGE.txt
-          rm -f $out/LICENSE_NATIVEIMAGE.txt
+        mkdir -p $out/share
+        # move files in $out like LICENSE.txt
+        find $out/ -maxdepth 1 -type f -exec mv {} $out/share \;
+        # symbolic link to $out/lib/svm/LICENSE_NATIVEIMAGE.txt
+        rm -f $out/LICENSE_NATIVEIMAGE.txt
 
-          # copy-paste openjdk's preFixup
-          # Set JAVA_HOME automatically.
-          mkdir -p $out/nix-support
-          cat > $out/nix-support/setup-hook << EOF
-          if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
-          EOF
+        # copy-paste openjdk's preFixup
+        # Set JAVA_HOME automatically.
+        mkdir -p $out/nix-support
+        cat > $out/nix-support/setup-hook << EOF
+        if [ -z "\''${JAVA_HOME-}" ]; then export JAVA_HOME=$out; fi
+        EOF
 
-          wrapProgram $out/bin/native-image \
-            --prefix PATH : ${binPath} \
-            ${toString (cLibsAsFlags ++ preservedNixVariablesAsFlags)}
-        '';
+        wrapProgram $out/bin/native-image \
+          --prefix PATH : ${binPath} \
+          ${toString (cLibsAsFlags ++ preservedNixVariablesAsFlags)}
+      '';
 
       preFixup = lib.optionalString (stdenv.hostPlatform.isLinux) ''
         for bin in $(find "$out/bin" -executable -type f); do
@@ -242,33 +244,33 @@ let
         runHook postInstallCheck
       '';
 
-      passthru = {
-        home = graalvm-ce;
-        updateScript = [
-          ./update.sh
-          "graalvm-ce"
-        ];
-      } // (args.passhtru or { });
+      passthru =
+        {
+          home = graalvm-ce;
+          updateScript = [
+            ./update.sh
+            "graalvm-ce"
+          ];
+        }
+        // (args.passhtru or {});
 
-      meta =
-        with lib;
-        (
-          {
-            homepage = "https://www.graalvm.org/";
-            description = "High-Performance Polyglot VM";
-            license = with licenses; [
-              upl
-              gpl2Classpath
-              bsd3
-            ];
-            sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-            mainProgram = "java";
-            teams = [ teams.graalvm-ce ];
-          }
-          // (args.meta or { })
-        );
+      meta = with lib; (
+        {
+          homepage = "https://www.graalvm.org/";
+          description = "High-Performance Polyglot VM";
+          license = with licenses; [
+            upl
+            gpl2Classpath
+            bsd3
+          ];
+          sourceProvenance = with sourceTypes; [binaryNativeCode];
+          mainProgram = "java";
+          teams = [teams.graalvm-ce];
+        }
+        // (args.meta or {})
+      );
     }
     // extraArgs
   );
 in
-graalvm-ce
+  graalvm-ce

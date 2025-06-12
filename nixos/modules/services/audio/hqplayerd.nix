@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hqplayerd;
   pkg = pkgs.hqplayerd;
   # XXX: This is hard-coded in the distributed binary, don't try to change it.
   stateDir = "/var/lib/hqplayer";
   configDir = "/etc/hqplayer";
-in
-{
+in {
   options = {
     services.hqplayerd = {
       enable = lib.mkEnableOption "HQPlayer Embedded";
@@ -86,9 +84,9 @@ in
         "hqplayer/hqplayerd.xml" = lib.mkIf (cfg.config != null) {
           source = pkgs.writeText "hqplayerd.xml" cfg.config;
         };
-        "hqplayer/hqplayerd4-key.xml" = lib.mkIf (cfg.licenseFile != null) { source = cfg.licenseFile; };
+        "hqplayer/hqplayerd4-key.xml" = lib.mkIf (cfg.licenseFile != null) {source = cfg.licenseFile;};
       };
-      systemPackages = [ pkg ];
+      systemPackages = [pkg];
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
@@ -105,11 +103,11 @@ in
         "d ${stateDir}/home  0755 hqplayer hqplayer - -"
       ];
 
-      packages = [ pkg ];
+      packages = [pkg];
 
       services.hqplayerd = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "systemd-tmpfiles-setup.service" ];
+        wantedBy = ["multi-user.target"];
+        after = ["systemd-tmpfiles-setup.service"];
 
         environment.HOME = "${stateDir}/home";
 

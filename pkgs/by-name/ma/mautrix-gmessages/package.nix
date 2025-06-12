@@ -7,7 +7,6 @@
   testers,
   mautrix-gmessages,
 }:
-
 buildGoModule rec {
   pname = "mautrix-gmessages";
   version = "0.6.2";
@@ -28,13 +27,13 @@ buildGoModule rec {
     "main.Tag=${version}"
   ];
 
-  buildInputs = [ olm ];
+  buildInputs = [olm];
 
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = mautrix-gmessages; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = mautrix-gmessages;};
   };
 
   meta = with lib; {
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/mautrix/gmessages";
     changelog = "https://github.com/mautrix/gmessages/blob/${src.rev}/CHANGELOG.md";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
     mainProgram = "mautrix-gmessages";
   };
 }

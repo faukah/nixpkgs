@@ -5,7 +5,6 @@
   testers,
   cmake-lint,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cmake-lint";
   version = "1.4.3";
@@ -18,9 +17,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-/OuWwerBlJynEibaYo+jkLpHt4x9GZrqMRJNxgrDBlM=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  pythonImportsCheck = [ "cmakelint" ];
+  pythonImportsCheck = ["cmakelint"];
 
   nativeCheckInputs = [
     python3Packages.pytestCheckHook
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = cmake-lint; };
+    version = testers.testVersion {package = cmake-lint;};
   };
 
   meta = {
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/cmake-lint/cmake-lint";
     changelog = "https://github.com/cmake-lint/cmake-lint/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.luftmensch-luftmensch ];
+    maintainers = [lib.maintainers.luftmensch-luftmensch];
     mainProgram = "cmakelint";
   };
 }

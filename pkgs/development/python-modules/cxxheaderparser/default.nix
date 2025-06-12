@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cxxheaderparser";
   version = "1.5.0";
@@ -24,17 +23,17 @@ buildPythonPackage rec {
     echo "__version__ = '${version}'" > cxxheaderparser/version.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  checkInputs = [ pcpp ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "cxxheaderparser" ];
+  checkInputs = [pcpp];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["cxxheaderparser"];
 
   meta = {
     description = "Modern pure python C++ header parser";
     homepage = "https://github.com/robotpy/cxxheaderparser";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 }

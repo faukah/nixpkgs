@@ -10,7 +10,6 @@
   nix-update-script,
   dataDir ? "/var/lib/firefly-iii",
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "firefly-iii";
   version = "6.2.16";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-SFl2uGHunF/IjhO5XoDCh1bJ5eIWRosv7HFDMXyknvI=";
   };
 
-  buildInputs = [ php84 ];
+  buildInputs = [php84];
 
   nativeBuildInputs = [
     nodejs
@@ -55,7 +54,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru = {
     phpPackage = php84;
     tests = nixosTests.firefly-iii;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   postInstall = ''

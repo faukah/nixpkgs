@@ -4,7 +4,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shadowenv";
   version = "3.0.3";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-KNCucBmYVmIQ/XY+UNV667iWLyiEJDnP/8gAmUHGY+0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage man/man1/shadowenv.1
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://shopify.github.io/shadowenv/";
     description = "reversible directory-local environment variable manipulations";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "shadowenv";
   };
 }

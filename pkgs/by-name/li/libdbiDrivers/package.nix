@@ -8,7 +8,6 @@
   sqlite ? null,
   libpq ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdbi-drivers";
   version = "0.9.0";
@@ -18,10 +17,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Q9LqzVc6T6/ylvqSXdl/vyrtvxrjXGJjR4IQxhAEyFQ=";
   };
 
-  buildInputs = [
-    libdbi
-    sqlite
-  ] ++ lib.optional (libmysqlclient != null) libmysqlclient;
+  buildInputs =
+    [
+      libdbi
+      sqlite
+    ]
+    ++ lib.optional (libmysqlclient != null) libmysqlclient;
 
   patches = [
     # https://sourceforge.net/p/libdbi-drivers/libdbi-drivers/ci/24f48b86c8988ee3aaebc5f303d71e9d789f77b6
@@ -70,7 +71,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-  installFlags = [ "DESTDIR=\${out}" ];
+  installFlags = ["DESTDIR=\${out}"];
 
   postInstall = ''
     mv $out/$out/* $out
@@ -88,6 +89,6 @@ stdenv.mkDerivation rec {
     description = "Database drivers for libdbi";
     platforms = platforms.all;
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

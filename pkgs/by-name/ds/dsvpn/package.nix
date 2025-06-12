@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dsvpn";
   version = "0.1.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Dead Simple VPN";
     homepage = "https://github.com/jedisct1/dsvpn";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "dsvpn";
   };

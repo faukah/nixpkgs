@@ -92,7 +92,7 @@ mkDerivation {
     utf8-string
     vector
   ];
-  testToolDepends = [ hspec-discover ];
+  testToolDepends = [hspec-discover];
   jailbreak = true;
   homepage = "https://gren-lang.org";
   description = "`gren` command line interface";

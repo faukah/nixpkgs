@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nut-exporter";
   version = "3.2.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "nut_exporter";
     homepage = "https://github.com/DRuggeri/nut_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jhh ];
+    maintainers = with maintainers; [jhh];
   };
 }

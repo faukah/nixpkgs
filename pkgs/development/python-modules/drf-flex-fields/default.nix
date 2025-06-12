@@ -21,12 +21,10 @@
   sqlparse,
   toml,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "drf-flex-fields";
   version = "1.0.2";
@@ -39,9 +37,9 @@ buildPythonPackage rec {
     hash = "sha256-+9ToxCEIDpsA+BK8Uk0VueVjoId41/S93+a716EGvCU=";
   };
 
-  patches = [ ./django4-compat.patch ];
+  patches = [./django4-compat.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     django
@@ -59,6 +57,6 @@ buildPythonPackage rec {
     description = "Dynamically set fields and expand nested resources in Django REST Framework serializers";
     homepage = "https://github.com/rsinger86/drf-flex-fields";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

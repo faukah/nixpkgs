@@ -22,7 +22,6 @@
   xxHash,
   noSplash ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "root";
   version = "5.34.38";
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://github.com/root-project/root/issues/13216
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   preConfigure =
     ''
@@ -185,7 +184,7 @@ stdenv.mkDerivation rec {
     description = "Data analysis framework";
     platforms = platforms.unix;
     broken = !stdenv.hostPlatform.isx86_64 || stdenv.cc.isClang or false;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     license = licenses.lgpl21;
   };
 }

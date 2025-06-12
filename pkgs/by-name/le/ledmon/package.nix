@@ -6,7 +6,6 @@
   udev,
   sg3_utils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ledmon";
   version = "0.92";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/intel/ledmon";
     description = "Enclosure LED Utilities";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2Only ];
-    maintainers = with lib.maintainers; [ sorki ];
+    license = with licenses; [gpl2Only];
+    maintainers = with lib.maintainers; [sorki];
   };
 }

@@ -5,7 +5,6 @@
   stdenv,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pietrasanta-traceroute";
   version = "0.0.5-unstable-2024-09-06";
@@ -16,10 +15,10 @@ stdenv.mkDerivation rec {
     rev = "e4a5cf94dccd646e03b9b75a762e9b014e3a3128";
     hash = "sha256-5FbuITewgSh6UFUU1vttkokk8uZ2IrzkDwsCuWJPKlM=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
-  buildInputs = [ openssl ];
-  makeFlags = [ "prefix=$(out)" ];
+  buildInputs = [openssl];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "ECN-aware version of traceroute";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
       lgpl21Only
     ];
     mainProgram = "traceroute";
-    maintainers = with maintainers; [ nicoo ];
+    maintainers = with maintainers; [nicoo];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

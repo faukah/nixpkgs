@@ -9,7 +9,6 @@
   makeBinaryWrapper,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bashunit";
   version = "0.19.1";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     forceFetchGit = true; # needed to include the tests directory for the check phase
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postConfigure = ''
     patchShebangs tests build.sh bashunit
@@ -43,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   doCheck = true;
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
   checkPhase = ''
     runHook preCheck
     make test
@@ -53,25 +52,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram $out/bin/bashunit \
       --prefix PATH : "${
-        lib.makeBinPath [
-          coreutils
-          which
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils
+        which
+      ]
+    }"
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple testing framework for bash scripts";
     homepage = "https://bashunit.typeddevs.com";
     changelog = "https://github.com/TypedDevs/bashunit/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tricktron ];
+    maintainers = with lib.maintainers; [tricktron];
     mainProgram = "bashunit";
   };
 })

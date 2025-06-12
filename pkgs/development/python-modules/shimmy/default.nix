@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   gymnasium,
   numpy,
-
   # tests
   ale-py,
   bsuite,
@@ -20,7 +17,6 @@
   pettingzoo,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "shimmy";
   version = "2.0.0";
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "shimmy" ];
+  pythonImportsCheck = ["shimmy"];
 
   nativeCheckInputs = [
     ale-py
@@ -107,6 +103,6 @@ buildPythonPackage rec {
     description = "API conversion tool for popular external reinforcement learning environments";
     homepage = "https://github.com/Farama-Foundation/Shimmy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

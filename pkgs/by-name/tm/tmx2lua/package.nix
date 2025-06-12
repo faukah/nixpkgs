@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tmx2lua";
   version = "1.0.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/hawkthorne/tmx2lua";
     changelog = "https://github.com/hawkthorne/tmx2lua/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "tmx2lua";
   };
 }

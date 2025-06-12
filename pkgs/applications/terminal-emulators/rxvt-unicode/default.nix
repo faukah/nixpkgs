@@ -21,9 +21,7 @@
   unicode3Support ? true,
   emojiSupport ? false,
   nixosTests,
-}:
-
-let
+}: let
   pname = "rxvt-unicode";
   version = "9.31";
   description = "A clone of the well-known terminal emulator rxvt";
@@ -41,56 +39,54 @@ let
     ];
   };
 
-  fetchPatchFromAUR =
-    {
-      package,
-      name,
-      rev,
-      sha256,
-    }:
+  fetchPatchFromAUR = {
+    package,
+    name,
+    rev,
+    sha256,
+  }:
     fetchpatch rec {
       url = "https://aur.archlinux.org/cgit/aur.git/plain/${name}?h=${package}&id=${rev}";
       extraPrefix = "";
       inherit name sha256;
     };
 in
+  stdenv.mkDerivation {
+    name = "${pname}-unwrapped-${version}";
+    inherit pname version;
 
-stdenv.mkDerivation {
-  name = "${pname}-unwrapped-${version}";
-  inherit pname version;
+    src = fetchurl {
+      url = "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
+      sha256 = "qqE/y8FJ/g8/OR+TMnlYD3Spb9MS1u0GuP8DwtRmcug=";
+    };
 
-  src = fetchurl {
-    url = "http://dist.schmorp.de/rxvt-unicode/Attic/rxvt-unicode-${version}.tar.bz2";
-    sha256 = "qqE/y8FJ/g8/OR+TMnlYD3Spb9MS1u0GuP8DwtRmcug=";
-  };
+    nativeBuildInputs = [pkg-config];
+    buildInputs =
+      [
+        libX11
+        libXt
+        libXft
+        ncurses # required to build the terminfo file
+        fontconfig
+        freetype
+        libXrender
+        libptytty
+      ]
+      ++ lib.optionals perlSupport [
+        perl
+        libXext
+      ]
+      ++ lib.optional gdkPixbufSupport gdk-pixbuf;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs =
-    [
-      libX11
-      libXt
-      libXft
-      ncurses # required to build the terminfo file
-      fontconfig
-      freetype
-      libXrender
-      libptytty
-    ]
-    ++ lib.optionals perlSupport [
-      perl
-      libXext
-    ]
-    ++ lib.optional gdkPixbufSupport gdk-pixbuf;
+    outputs = [
+      "out"
+      "terminfo"
+    ];
 
-  outputs = [
-    "out"
-    "terminfo"
-  ];
-
-  patches =
-    (
-      if emojiSupport then
-        [
+    patches =
+      (
+        if emojiSupport
+        then [
           # the required patches to libXft are in nixpkgs by default, see
           # ../../../servers/x11/xorg/overrides.nix
           (fetchPatchFromAUR {
@@ -106,64 +102,65 @@ stdenv.mkDerivation {
             sha256 = "1jj5ai2182nq912279adihi4zph1w4dvbdqa1pwacy4na6y0fz9y";
           })
         ]
-      else
-        [
+        else [
           ./patches/9.06-font-width.patch
         ]
-    )
-    ++ [
-      ./patches/256-color-resources.patch
-    ]
-    ++ lib.optional (perlSupport && lib.versionAtLeast perl.version "5.38") (fetchpatch {
-      name = "perl538-locale-c.patch";
-      url = "https://github.com/exg/rxvt-unicode/commit/16634bc8dd5fc4af62faf899687dfa8f27768d15.patch";
-      excludes = [ "Changes" ];
-      sha256 = "sha256-JVqzYi3tcWIN2j5JByZSztImKqbbbB3lnfAwUXrumHM=";
-    })
-    ++ lib.optional stdenv.hostPlatform.isDarwin ./patches/makefile-phony.patch;
+      )
+      ++ [
+        ./patches/256-color-resources.patch
+      ]
+      ++ lib.optional (perlSupport && lib.versionAtLeast perl.version "5.38") (fetchpatch {
+        name = "perl538-locale-c.patch";
+        url = "https://github.com/exg/rxvt-unicode/commit/16634bc8dd5fc4af62faf899687dfa8f27768d15.patch";
+        excludes = ["Changes"];
+        sha256 = "sha256-JVqzYi3tcWIN2j5JByZSztImKqbbbB3lnfAwUXrumHM=";
+      })
+      ++ lib.optional stdenv.hostPlatform.isDarwin ./patches/makefile-phony.patch;
 
-  configureFlags = [
-    "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
-    "--enable-256-color"
-    (lib.enableFeature perlSupport "perl")
-    (lib.enableFeature unicode3Support "unicode3")
-  ] ++ lib.optional emojiSupport "--enable-wide-glyphs";
+    configureFlags =
+      [
+        "--with-terminfo=${placeholder "terminfo"}/share/terminfo"
+        "--enable-256-color"
+        (lib.enableFeature perlSupport "perl")
+        (lib.enableFeature unicode3Support "unicode3")
+      ]
+      ++ lib.optional emojiSupport "--enable-wide-glyphs";
 
-  LDFLAGS = [
-    "-lfontconfig"
-    "-lXrender"
-    "-lpthread"
-  ];
-  CFLAGS = [ "-I${freetype.dev}/include/freetype2" ];
+    LDFLAGS = [
+      "-lfontconfig"
+      "-lXrender"
+      "-lpthread"
+    ];
+    CFLAGS = ["-I${freetype.dev}/include/freetype2"];
 
-  preConfigure =
-    ''
-      # without this the terminfo won't be compiled by tic, see man tic
-      mkdir -p $terminfo/share/terminfo
-      export TERMINFO=$terminfo/share/terminfo
-    ''
-    + lib.optionalString perlSupport ''
-      # make urxvt find its perl file lib/perl5/site_perl
-      # is added to PERL5LIB automatically
-      mkdir -p $out/$(dirname ${perl.libPrefix})
-      ln -s $out/lib/urxvt $out/${perl.libPrefix}
+    preConfigure =
+      ''
+        # without this the terminfo won't be compiled by tic, see man tic
+        mkdir -p $terminfo/share/terminfo
+        export TERMINFO=$terminfo/share/terminfo
+      ''
+      + lib.optionalString perlSupport ''
+        # make urxvt find its perl file lib/perl5/site_perl
+        # is added to PERL5LIB automatically
+        mkdir -p $out/$(dirname ${perl.libPrefix})
+        ln -s $out/lib/urxvt $out/${perl.libPrefix}
+      '';
+
+    postInstall = ''
+      mkdir -p $out/nix-support
+      echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
+      cp -r ${desktopItem}/share/applications/ $out/share/
     '';
 
-  postInstall = ''
-    mkdir -p $out/nix-support
-    echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
-    cp -r ${desktopItem}/share/applications/ $out/share/
-  '';
+    passthru.tests.test = nixosTests.terminal-emulators.urxvt;
 
-  passthru.tests.test = nixosTests.terminal-emulators.urxvt;
-
-  meta = with lib; {
-    inherit description;
-    homepage = "http://software.schmorp.de/pkg/rxvt-unicode.html";
-    downloadPage = "http://dist.schmorp.de/rxvt-unicode/Attic/";
-    maintainers = with maintainers; [ rnhmjoj ];
-    platforms = platforms.unix;
-    license = licenses.gpl3;
-    mainProgram = "urxvt";
-  };
-}
+    meta = with lib; {
+      inherit description;
+      homepage = "http://software.schmorp.de/pkg/rxvt-unicode.html";
+      downloadPage = "http://dist.schmorp.de/rxvt-unicode/Attic/";
+      maintainers = with maintainers; [rnhmjoj];
+      platforms = platforms.unix;
+      license = licenses.gpl3;
+      mainProgram = "urxvt";
+    };
+  }

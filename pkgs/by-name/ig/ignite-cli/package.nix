@@ -6,7 +6,6 @@
   go,
   buf,
 }:
-
 buildGoModule rec {
   pname = "ignite-cli";
   version = "28.10.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-EaOs3m5AN0EYMO8j3mkKPOQwapi0WRaTIUJKTjDpmCo=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # Many tests require access to either executables, state or networking
   doCheck = false;
@@ -43,7 +42,7 @@ buildGoModule rec {
     changelog = "https://github.com/ignite/cli/releases/tag/v${version}";
     description = "All-in-one platform to build, launch, and maintain any crypto application on a sovereign and secured blockchain";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kashw2 ];
+    maintainers = with lib.maintainers; [kashw2];
     mainProgram = "ignite";
   };
 }

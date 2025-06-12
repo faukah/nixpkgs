@@ -7,7 +7,6 @@
   openssl,
   rust-jemalloc-sys,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oha";
   version = "1.8.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/hatoo/oha";
     changelog = "https://github.com/hatoo/oha/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "oha";
   };
 }

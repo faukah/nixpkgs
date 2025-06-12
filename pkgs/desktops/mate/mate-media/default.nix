@@ -16,7 +16,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-media";
   version = "1.28.1";
@@ -44,18 +43,18 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  configureFlags = [ "--enable-in-process" ];
+  configureFlags = ["--enable-in-process"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Media tools for MATE";
     homepage = "https://mate-desktop.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ chpatrick ];
-    teams = [ teams.mate ];
+    maintainers = with maintainers; [chpatrick];
+    teams = [teams.mate];
   };
 }

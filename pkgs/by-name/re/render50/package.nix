@@ -5,7 +5,6 @@
   fetchpatch2,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "render50";
   version = "9.2.8";
@@ -35,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     weasyprint
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   # no pytest checks
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/cs50/render50/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "render50";
   };
 }

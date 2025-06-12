@@ -15,7 +15,6 @@
   zlib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libspatialite";
   version = "5.1.0";
@@ -92,9 +91,9 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Plus
       mpl11
     ];
-    pkgConfigModules = [ "spatialite" ];
+    pkgConfigModules = ["spatialite"];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ dotlambda ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [dotlambda];
+    teams = [lib.teams.geospatial];
   };
 })

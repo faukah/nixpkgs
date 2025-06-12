@@ -9,7 +9,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-fragments-symbex";
   version = "0.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-LECMHv4tGMCY60JU68y2Sfxp97Px7T/RJVhYVDSFCy4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_fragments_symbex" ];
+  pythonImportsCheck = ["llm_fragments_symbex"];
 
   passthru.tests = llm.mkPluginTest llm-fragments-symbex;
 
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-fragments-symbex";
     changelog = "https://github.com/simonw/llm-fragments-symbex/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.waydroid;
   kCfg = config.lib.kernelConfig;
   kernelPackages = config.boot.kernelPackages;
@@ -20,10 +18,7 @@ let
     /dev/vndbinder = aidl2
     /dev/hwbinder = hidl
   '';
-
-in
-{
-
+in {
   options.virtualisation.waydroid = {
     enable = lib.mkEnableOption "Waydroid";
   };
@@ -41,24 +36,24 @@ in
     ];
 
     /*
-      NOTE: we always enable this flag even if CONFIG_PSI_DEFAULT_DISABLED is not on
-      as reading the kernel config is not always possible and on kernels where it's
-      already on it will be no-op
+    NOTE: we always enable this flag even if CONFIG_PSI_DEFAULT_DISABLED is not on
+    as reading the kernel config is not always possible and on kernels where it's
+    already on it will be no-op
     */
-    boot.kernelParams = [ "psi=1" ];
+    boot.kernelParams = ["psi=1"];
 
     environment.etc."gbinder.d/waydroid.conf".source = waydroidGbinderConf;
 
-    environment.systemPackages = with pkgs; [ waydroid ];
+    environment.systemPackages = with pkgs; [waydroid];
 
-    networking.firewall.trustedInterfaces = [ "waydroid0" ];
+    networking.firewall.trustedInterfaces = ["waydroid0"];
 
     virtualisation.lxc.enable = true;
 
     systemd.services.waydroid-container = {
       description = "Waydroid Container";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "dbus";
@@ -72,7 +67,6 @@ in
       "d /var/lib/misc 0755 root root -" # for dnsmasq.leases
     ];
 
-    services.dbus.packages = with pkgs; [ waydroid ];
+    services.dbus.packages = with pkgs; [waydroid];
   };
-
 }

@@ -5,19 +5,17 @@
   envision,
   testers,
 }:
-
 buildFHSEnv {
   pname = "envision";
   inherit (envision-unwrapped) version;
 
-  extraOutputsToInstall = [ "dev" ];
+  extraOutputsToInstall = ["dev"];
 
   strictDeps = true;
 
   # TODO: I'm pretty suspicious of this list of additional required dependencies. Are they all really needed?
-  targetPkgs =
-    pkgs:
-    [ pkgs.envision-unwrapped ]
+  targetPkgs = pkgs:
+    [pkgs.envision-unwrapped]
     ++ (with pkgs; [
       stdenv.cc.libc
       gcc
@@ -73,7 +71,8 @@ buildFHSEnv {
     )
     ++ (
       # SteamVR driver dependencies
-      [ pkgs.zlib ])
+      [pkgs.zlib]
+    )
     ++ (
       # WiVRn dependencies
       pkgs.wivrn.buildInputs
@@ -126,32 +125,29 @@ buildFHSEnv {
   runScript = "envision";
 
   # TODO: When buildFHSEnv gets finalAttrs support, profiles should be moved into the derivation so it can be overrideAttrs'd
-  passthru.tests =
-    let
-      kebabToPascal =
-        kebab:
-        lib.foldl' (
-          acc: part: acc + lib.substring 0 1 (lib.toUpper part) + lib.substring 1 (lib.stringLength part) part
-        ) "" (lib.splitString "-" kebab);
-      pascalToCamel =
-        pascal: lib.substring 0 1 (lib.toLower pascal) + lib.substring 1 (lib.stringLength pascal) pascal;
-      kebabToCamel = x: pascalToCamel (kebabToPascal x);
-      profiles = [
-        "lighthouse-default"
-        "openhmd-default"
-        "simulated-default"
-        "survive-default"
-        "wmr-default"
-        "wivrn-default"
-      ];
-    in
+  passthru.tests = let
+    kebabToPascal = kebab:
+      lib.foldl' (
+        acc: part: acc + lib.substring 0 1 (lib.toUpper part) + lib.substring 1 (lib.stringLength part) part
+      ) "" (lib.splitString "-" kebab);
+    pascalToCamel = pascal: lib.substring 0 1 (lib.toLower pascal) + lib.substring 1 (lib.stringLength pascal) pascal;
+    kebabToCamel = x: pascalToCamel (kebabToPascal x);
+    profiles = [
+      "lighthouse-default"
+      "openhmd-default"
+      "simulated-default"
+      "survive-default"
+      "wmr-default"
+      "wivrn-default"
+    ];
+  in
     {
       allProfilesPresent = testers.runCommand {
         name = "envision-all-profiles-present-test";
         # TODO: Is there a better way to escape ${}?
         script =
           ''
-            export ALL_PROFILES=(${lib.concatStringsSep " " (profiles ++ [ "UUID" ])})
+            export ALL_PROFILES=(${lib.concatStringsSep " " (profiles ++ ["UUID"])})
             export ENVISION_PROFILES=($(envision -l | grep -oP '^\w+(?=:)'))
 
             # This is dark magic
@@ -171,7 +167,7 @@ buildFHSEnv {
 
                       touch $out
           '';
-        nativeBuildInputs = [ envision ];
+        nativeBuildInputs = [envision];
       };
     }
     // lib.listToAttrs (
@@ -183,12 +179,15 @@ buildFHSEnv {
             envision -c ${profile}
             touch $out
           '';
-          nativeBuildInputs = [ envision ];
+          nativeBuildInputs = [envision];
         };
-      }) profiles
+      })
+      profiles
     );
 
-  meta = envision-unwrapped.meta // {
-    description = "${envision-unwrapped.meta.description} (with build environment)";
-  };
+  meta =
+    envision-unwrapped.meta
+    // {
+      description = "${envision-unwrapped.meta.description} (with build environment)";
+    };
 }

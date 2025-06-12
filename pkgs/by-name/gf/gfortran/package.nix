@@ -1,4 +1,7 @@
-{ wrapCC, gcc }:
+{
+  wrapCC,
+  gcc,
+}:
 # Use the same GCC version as the one from stdenv by default
 wrapCC (
   gcc.cc.override {

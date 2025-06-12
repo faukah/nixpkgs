@@ -7,7 +7,6 @@
   checkpoint-schedules,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyadjoint-ad";
   version = "2025.04.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     "pyadjoint.optimization"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     "tests/pyadjoint"
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dolfin-adjoint/pyadjoint";
     description = "High-level automatic differentiation library";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

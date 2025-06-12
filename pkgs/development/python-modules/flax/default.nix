@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   jax,
   msgpack,
@@ -17,10 +15,8 @@
   rich,
   tensorstore,
   typing-extensions,
-
   # optional-dependencies
   matplotlib,
-
   # tests
   cloudpickle,
   keras,
@@ -31,11 +27,9 @@
   sphinx,
   tensorflow,
   treescope,
-
   writeScript,
   tomlq,
 }:
-
 buildPythonPackage rec {
   pname = "flax";
   version = "0.10.6";
@@ -68,10 +62,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    all = [ matplotlib ];
+    all = [matplotlib];
   };
 
-  pythonImportsCheck = [ "flax" ];
+  pythonImportsCheck = ["flax"];
 
   nativeCheckInputs = [
     cloudpickle
@@ -121,6 +115,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/flax";
     changelog = "https://github.com/google/flax/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

@@ -9,7 +9,6 @@
   aprutil,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "rapidsvn";
   version = "unstable-2021-08-02";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     description = "Multi-platform GUI front-end for the Subversion revision system";
     homepage = "http://rapidsvn.tigris.org/";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     mainProgram = "rapidsvn";
   };

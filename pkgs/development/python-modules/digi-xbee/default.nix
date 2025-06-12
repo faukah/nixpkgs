@@ -6,7 +6,6 @@
   srp,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "digi-xbee";
   version = "1.5.0";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Python library to interact with Digi International's XBee radio frequency modules";
     homepage = "https://github.com/digidotcom/xbee-python";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ jefflabonte ];
+    maintainers = with maintainers; [jefflabonte];
   };
 }

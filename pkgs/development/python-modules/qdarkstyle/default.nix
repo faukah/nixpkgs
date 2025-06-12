@@ -5,7 +5,6 @@
   helpdev,
   qtpy,
 }:
-
 buildPythonPackage rec {
   pname = "qdarkstyle";
   version = "3.2.3";
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Dark stylesheet for Python and Qt applications";
     homepage = "https://github.com/ColinDuquesnoy/QDarkStyleSheet";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

@@ -7,7 +7,6 @@
   betterproto,
   pydantic,
 }:
-
 buildPythonPackage rec {
   pname = "sigstore-protobuf-specs";
   version = "0.3.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-yuBBtAUCYAuKYz9DwldpXQIiqU76HlEQp+x62njDnZk=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     betterproto
@@ -31,7 +30,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sigstore_protobuf_specs" ];
+  pythonImportsCheck = ["sigstore_protobuf_specs"];
 
   passthru.skipBulkUpdate = true;
 
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Library for serializing and deserializing Sigstore messages";
     homepage = "https://pypi.org/project/sigstore-protobuf-specs/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

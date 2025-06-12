@@ -13,7 +13,6 @@
   nix,
   s2n-tls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-c-s3";
   # nixpkgs-update: no auto update
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "C99 library implementation for communicating with the S3 service";
     homepage = "https://github.com/awslabs/aws-c-s3";
     license = licenses.asl20;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     mainProgram = "s3";
     platforms = platforms.unix;
   };

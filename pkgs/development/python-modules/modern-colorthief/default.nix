@@ -8,7 +8,6 @@
   pytestCheckHook,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "modern-colorthief";
   version = "0.1.7";
@@ -38,23 +37,23 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.attrValues optional-dependencies;
+  nativeCheckInputs = [pytestCheckHook] ++ lib.attrValues optional-dependencies;
 
   disabledTestPaths = [
     # Requires `fast_colorthief`, which isn't packaged
     "examples/test_time.py"
   ];
 
-  pythonImportsCheck = [ "modern_colorthief" ];
+  pythonImportsCheck = ["modern_colorthief"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://modern-colorthief.readthedocs.io/";
     changelog = "https://github.com/baseplate-admin/modern_colorthief/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

@@ -5,7 +5,6 @@
   python3Packages,
   enableUsageTracking ? false,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tftui";
   version = "0.13.5";
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapper
   ];
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   dependencies = with python3Packages; [
     posthog
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/idoavrah/terraform-tui";
     changelog = "https://github.com/idoavrah/terraform-tui/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.bitnomial ];
+    teams = [lib.teams.bitnomial];
     mainProgram = "tftui";
   };
 }

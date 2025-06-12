@@ -11,7 +11,6 @@
   mpiCheckPhaseHook,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsupermesh";
   version = "2025.3.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ mpiCheckPhaseHook ];
+  nativeCheckInputs = [mpiCheckPhaseHook];
 
   # On aarch64-darwin platform, the test program segfault at the line
   # https://github.com/firedrakeproject/libsupermesh/blob/09af7c9a3beefc715fbdc23e46fdc96da8169ff6/src/tests/test_parallel_p1_inner_product_2d.F90#L164
@@ -71,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/firedrakeproject/libsupermesh/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
-    pkgConfigModules = [ "libsupermesh" ];
+    maintainers = with lib.maintainers; [qbisi];
+    pkgConfigModules = ["libsupermesh"];
   };
 })

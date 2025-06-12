@@ -18,8 +18,7 @@
   installShellFiles,
   writeShellScriptBin,
   versionCheckHook,
-}:
-let
+}: let
   # NOTE(cole-h): This is necessary because wireguard-go-rs executes go in its build.rs (whose goal
   # is to  produce $OUT_DIR/libwg.a), and a mixed Rust-Go build is non-trivial (read: I didn't want
   # to attempt it). So, we just fake the "go" binary and do what it would have done: put libwg.a
@@ -28,76 +27,76 @@ let
     [ ! -e "$OUT_DIR"/libwg.a ] && cp ${libwg}/lib/libwg.a "$OUT_DIR"/libwg.a
   '';
 in
-rustPlatform.buildRustPackage rec {
-  pname = "mullvad";
-  version = "2025.6";
+  rustPlatform.buildRustPackage rec {
+    pname = "mullvad";
+    version = "2025.6";
 
-  src = fetchFromGitHub {
-    owner = "mullvad";
-    repo = "mullvadvpn-app";
-    tag = version;
-    fetchSubmodules = true;
-    hash = "sha256-WWJcfnp1v1LhEElJQdLx6Gz+bj7MdgbefD6BQ4nihMs=";
-  };
+    src = fetchFromGitHub {
+      owner = "mullvad";
+      repo = "mullvadvpn-app";
+      tag = version;
+      fetchSubmodules = true;
+      hash = "sha256-WWJcfnp1v1LhEElJQdLx6Gz+bj7MdgbefD6BQ4nihMs=";
+    };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-r6WogC25hpzw2pHa8RQOhr9SWks9RKKatpVHblfs+Nc=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-r6WogC25hpzw2pHa8RQOhr9SWks9RKKatpVHblfs+Nc=";
 
-  cargoBuildFlags = [
-    "-p mullvad-daemon --bin mullvad-daemon"
-    "-p mullvad-cli --bin mullvad"
-    "-p mullvad-setup --bin mullvad-setup"
-    "-p mullvad-problem-report --bin mullvad-problem-report"
-    "-p mullvad-exclude --bin mullvad-exclude"
-    "-p tunnel-obfuscation --bin tunnel-obfuscation"
-    "-p talpid-openvpn-plugin --lib"
-  ];
-
-  checkFlags = [
-    "--skip=version_check"
-    "--skip=config_resolver::test"
-  ];
-
-  nativeBuildInputs = [
-    pkg-config
-    protobuf
-    makeWrapper
-    git
-    installShellFiles
-    fakeGoCopyLibwg
-  ];
-
-  buildInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [
-      dbus.dev
-      libnftnl
-      libmnl
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      darwin.libpcap
+    cargoBuildFlags = [
+      "-p mullvad-daemon --bin mullvad-daemon"
+      "-p mullvad-cli --bin mullvad"
+      "-p mullvad-setup --bin mullvad-setup"
+      "-p mullvad-problem-report --bin mullvad-problem-report"
+      "-p mullvad-exclude --bin mullvad-exclude"
+      "-p tunnel-obfuscation --bin tunnel-obfuscation"
+      "-p talpid-openvpn-plugin --lib"
     ];
 
-  postInstall = ''
-    compdir=$(mktemp -d)
-    for shell in bash zsh fish; do
-      $out/bin/mullvad shell-completions $shell $compdir
-    done
-    installShellCompletion --cmd mullvad \
-      --bash $compdir/mullvad.bash \
-      --zsh $compdir/_mullvad \
-      --fish $compdir/mullvad.fish
-  '';
+    checkFlags = [
+      "--skip=version_check"
+      "--skip=config_resolver::test"
+    ];
 
-  postFixup =
-    # Files necessary for OpenVPN tunnels to work.
-    lib.optionalString enableOpenvpn ''
-      mkdir -p $out/share/mullvad
-      cp dist-assets/ca.crt $out/share/mullvad
-      ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
-      ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
-      ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
-    ''
-    +
+    nativeBuildInputs = [
+      pkg-config
+      protobuf
+      makeWrapper
+      git
+      installShellFiles
+      fakeGoCopyLibwg
+    ];
+
+    buildInputs =
+      lib.optionals stdenv.hostPlatform.isLinux [
+        dbus.dev
+        libnftnl
+        libmnl
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        darwin.libpcap
+      ];
+
+    postInstall = ''
+      compdir=$(mktemp -d)
+      for shell in bash zsh fish; do
+        $out/bin/mullvad shell-completions $shell $compdir
+      done
+      installShellCompletion --cmd mullvad \
+        --bash $compdir/mullvad.bash \
+        --zsh $compdir/_mullvad \
+        --fish $compdir/mullvad.fish
+    '';
+
+    postFixup =
+      # Files necessary for OpenVPN tunnels to work.
+      lib.optionalString enableOpenvpn ''
+        mkdir -p $out/share/mullvad
+        cp dist-assets/ca.crt $out/share/mullvad
+        ln -s ${openvpn-mullvad}/bin/openvpn $out/share/mullvad
+        ln -s ${shadowsocks-rust}/bin/sslocal $out/share/mullvad
+        ln -s $out/lib/libtalpid_openvpn_plugin.so $out/share/mullvad
+      ''
+      +
       # Set the directory where Mullvad will look for its resources by default to
       # `$out/share`, so that we can avoid putting the files in `$out/bin` --
       # Mullvad defaults to looking inside the directory its binary is located in
@@ -107,25 +106,25 @@ rustPlatform.buildRustPackage rec {
           --set-default MULLVAD_RESOURCE_DIR "$out/share/mullvad"
       '';
 
-  __darwinAllowLocalNetworking = true;
+    __darwinAllowLocalNetworking = true;
 
-  nativeInstallCheckInputs = [
-    versionCheckHook
-  ];
-  versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+    nativeInstallCheckInputs = [
+      versionCheckHook
+    ];
+    versionCheckProgramArg = "--version";
+    doInstallCheck = true;
 
-  passthru = {
-    inherit libwg;
-    inherit openvpn-mullvad;
-  };
+    passthru = {
+      inherit libwg;
+      inherit openvpn-mullvad;
+    };
 
-  meta = {
-    description = "Mullvad VPN command-line client tools";
-    homepage = "https://github.com/mullvad/mullvadvpn-app";
-    changelog = "https://github.com/mullvad/mullvadvpn-app/blob/2025.6/CHANGELOG.md";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ cole-h ];
-    mainProgram = "mullvad";
-  };
-}
+    meta = {
+      description = "Mullvad VPN command-line client tools";
+      homepage = "https://github.com/mullvad/mullvadvpn-app";
+      changelog = "https://github.com/mullvad/mullvadvpn-app/blob/2025.6/CHANGELOG.md";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [cole-h];
+      mainProgram = "mullvad";
+    };
+  }

@@ -5,7 +5,6 @@
   hmmer,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.1";
   pname = "itsx";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ITSx";
     homepage = "https://microbiology.se/software/itsx/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.unix;
   };
 }

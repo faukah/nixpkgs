@@ -6,7 +6,6 @@
   bzip2,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rzip";
   version = "2.1";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "4bb96f4d58ccf16749ed3f836957ce97dbcff3e3ee5fd50266229a48f89815b7";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ bzip2 ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [bzip2];
 
   patches = [
     (fetchpatch {
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://rzip.samba.org/";
     description = "Compression program";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     mainProgram = "rzip";

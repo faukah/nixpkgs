@@ -5,9 +5,7 @@
   bundlerApp,
   bundlerUpdateScript,
   installShellFiles,
-}:
-
-let
+}: let
   ttBundlerApp = bundlerApp {
     pname = "timetrap";
     gemdir = ./.;
@@ -23,44 +21,42 @@ let
     pname = "timetrap";
     gemdir = ./.;
   };
-
 in
+  stdenv.mkDerivation {
+    name = "timetrap";
 
-stdenv.mkDerivation {
-  name = "timetrap";
+    dontUnpack = true;
 
-  dontUnpack = true;
+    nativeBuildInputs = [installShellFiles];
 
-  nativeBuildInputs = [ installShellFiles ];
+    installPhase = ''
+      mkdir $out
+      cd $out
 
-  installPhase = ''
-    mkdir $out
-    cd $out
+      mkdir bin; pushd bin
+      ln -vs ${ttBundlerApp}/bin/t
+      ln -vs ${ttBundlerApp}/bin/timetrap
+      popd
 
-    mkdir bin; pushd bin
-    ln -vs ${ttBundlerApp}/bin/t
-    ln -vs ${ttBundlerApp}/bin/timetrap
-    popd
+      for c in t timetrap; do
+        installShellCompletion --cmd $c --bash ${ttGem}/lib/ruby/gems/*/gems/timetrap*/completions/bash/*
+        installShellCompletion --cmd $c --zsh ${ttGem}/lib/ruby/gems/*/gems/timetrap*/completions/zsh/*
+      done
+    '';
 
-    for c in t timetrap; do
-      installShellCompletion --cmd $c --bash ${ttGem}/lib/ruby/gems/*/gems/timetrap*/completions/bash/*
-      installShellCompletion --cmd $c --zsh ${ttGem}/lib/ruby/gems/*/gems/timetrap*/completions/zsh/*
-    done
-  '';
+    meta = with lib; {
+      description = "Simple command line time tracker written in ruby";
+      homepage = "https://github.com/samg/timetrap";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        jerith666
+        manveru
+        nicknovitski
+      ];
+      platforms = platforms.unix;
+    };
 
-  meta = with lib; {
-    description = "Simple command line time tracker written in ruby";
-    homepage = "https://github.com/samg/timetrap";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      jerith666
-      manveru
-      nicknovitski
-    ];
-    platforms = platforms.unix;
-  };
-
-  passthru = {
-    updateScript = ttBundlerApp.passthru.updateScript;
-  };
-}
+    passthru = {
+      updateScript = ttBundlerApp.passthru.updateScript;
+    };
+  }

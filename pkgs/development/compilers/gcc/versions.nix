@@ -12,8 +12,7 @@ let
   fromMajorMinor = majorMinorVersion: majorMinorToVersionMap."${majorMinorVersion}";
 
   # TODO(amjoseph): convert older hashes to SRI form
-  srcHashForVersion =
-    version:
+  srcHashForVersion = version:
     {
       # 3 digits: releases (14.2.0)
       # 4 digits: snapshots (14.2.1.20250322)
@@ -26,9 +25,7 @@ let
       "9.5.0" = "13ygjmd938m0wmy946pxdhz9i1wq7z4w10l6pvidak0xxxj9yxi7";
     }
     ."${version}";
-
-in
-{
+in {
   inherit fromMajorMinor;
   inherit srcHashForVersion;
   allMajorVersions = builtins.attrNames majorMinorToVersionMap;

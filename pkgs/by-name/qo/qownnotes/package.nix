@@ -13,7 +13,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qownnotes";
   appname = "QOwnNotes";
@@ -32,16 +31,18 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       installShellFiles
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ xvfb-run ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [xvfb-run]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [makeWrapper];
 
-  buildInputs = [
-    qt6Packages.qtbase
-    qt6Packages.qtdeclarative
-    qt6Packages.qtsvg
-    qt6Packages.qtwebsockets
-    botan3
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ qt6Packages.qtwayland ];
+  buildInputs =
+    [
+      qt6Packages.qtbase
+      qt6Packages.qtdeclarative
+      qt6Packages.qtsvg
+      qt6Packages.qtwebsockets
+      botan3
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qt6Packages.qtwayland];
 
   cmakeFlags = [
     "-DQON_QT6_BUILD=ON"
@@ -85,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

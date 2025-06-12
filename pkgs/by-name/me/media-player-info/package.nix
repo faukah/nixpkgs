@@ -8,7 +8,6 @@
   udev,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "media-player-info";
   version = "26";
@@ -35,13 +34,13 @@ stdenv.mkDerivation rec {
     patchShebangs ./tools
   '';
 
-  configureFlags = [ "--with-udevdir=${placeholder "out"}/lib/udev" ];
+  configureFlags = ["--with-udevdir=${placeholder "out"}/lib/udev"];
 
   meta = with lib; {
     description = "Repository of data files describing media player capabilities";
     homepage = "https://www.freedesktop.org/wiki/Software/media-player-info/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     platforms = with platforms; linux;
   };
 }

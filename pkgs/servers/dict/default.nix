@@ -9,7 +9,6 @@
   zlib,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dictd";
   version = "1.13.3";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Dict protocol server and client";
     homepage = "http://www.dict.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

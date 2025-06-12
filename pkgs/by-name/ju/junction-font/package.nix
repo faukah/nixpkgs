@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "junction";
   version = "2014-05-29";
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation {
     '';
     homepage = "https://www.theleagueofmoveabletype.com/junction";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

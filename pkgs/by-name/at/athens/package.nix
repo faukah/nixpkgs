@@ -5,7 +5,6 @@
   testers,
   athens,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "athens";
   version = "0.16.0";
@@ -25,14 +24,14 @@ buildGoModule (finalAttrs: {
     "-X github.com/gomods/athens/pkg/build.version=${finalAttrs.version}"
   ];
 
-  subPackages = [ "cmd/proxy" ];
+  subPackages = ["cmd/proxy"];
 
   postInstall = ''
     mv $out/bin/proxy $out/bin/athens
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = athens; };
+    tests.version = testers.testVersion {package = athens;};
   };
 
   meta = {

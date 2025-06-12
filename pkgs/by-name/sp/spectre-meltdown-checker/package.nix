@@ -7,7 +7,6 @@
   stdenv,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spectre-meltdown-checker";
   version = "0.46-unstable-2024-08-04";
@@ -19,21 +18,21 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-m0f0+AFPrB2fPNd1SkSj6y9PElTdefOdI51Jgfi816w=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   prePatch = ''
     substituteInPlace spectre-meltdown-checker.sh \
       --replace-fail /bin/echo ${coreutils}/bin/echo
   '';
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
 
     install -Dm755 spectre-meltdown-checker.sh $out/bin/spectre-meltdown-checker
     wrapProgram $out/bin/spectre-meltdown-checker \
-      --prefix PATH : ${lib.makeBinPath [ binutils-unwrapped ]}
+      --prefix PATH : ${lib.makeBinPath [binutils-unwrapped]}
 
     runHook postInstall
   '';
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "spectre-meltdown-checker";
     homepage = "https://github.com/speed47/spectre-meltdown-checker";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.dotlambda ];
+    maintainers = [lib.maintainers.dotlambda];
     platforms = lib.platforms.linux;
   };
 })

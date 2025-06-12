@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "roboto-flex";
   version = "3.200";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Google Roboto Flex family of fonts";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

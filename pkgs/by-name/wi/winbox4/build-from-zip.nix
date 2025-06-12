@@ -17,9 +17,8 @@
   writeShellApplication,
   xorg,
   zlib,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit pname version;
 
@@ -70,7 +69,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       comment = "GUI administration for Mikrotik RouterOS";
       exec = "WinBox";
       icon = "winbox";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -113,7 +112,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   };
 
-  meta = metaCommon // {
-    platforms = [ "x86_64-linux" ];
-  };
+  meta =
+    metaCommon
+    // {
+      platforms = ["x86_64-linux"];
+    };
 })

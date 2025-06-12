@@ -7,7 +7,6 @@
   texinfo,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tarlz";
   version = "0.27.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     texinfo
     versionCheckHook
   ];
-  buildInputs = [ lzlib ];
+  buildInputs = [lzlib];
 
   src = fetchurl {
     url = "mirror://savannah/lzip/tarlz/tarlz-${finalAttrs.version}.tar.lz";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   enableParallelBuilding = true;
-  makeFlags = [ "CXX:=$(CXX)" ];
+  makeFlags = ["CXX:=$(CXX)"];
 
   doCheck = false; # system clock issues
   doInstallCheck = true;
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Massively parallel combined implementation of the tar archiver and the lzip compressor";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     mainProgram = "tarlz";
   };
 })

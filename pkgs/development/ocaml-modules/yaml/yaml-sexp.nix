@@ -5,7 +5,6 @@
   sexplib,
   junit_alcotest,
 }:
-
 buildDunePackage {
   pname = "yaml-sexp";
 
@@ -18,9 +17,11 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ junit_alcotest ];
+  checkInputs = [junit_alcotest];
 
-  meta = yaml.meta // {
-    description = "ocaml-yaml with sexp support";
-  };
+  meta =
+    yaml.meta
+    // {
+      description = "ocaml-yaml with sexp support";
+    };
 }

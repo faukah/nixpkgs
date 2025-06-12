@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "upiano";
   version = "0.1.2";
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Piano in your terminal";
     homepage = "https://github.com/eliasdorneles/upiano";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "upiano";
   };
 }

@@ -7,7 +7,6 @@
   xz,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-binstall";
   version = "1.12.7";
@@ -64,6 +63,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cargo-bins/cargo-binstall";
     changelog = "https://github.com/cargo-bins/cargo-binstall/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

@@ -4,30 +4,27 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.radicale;
 
   format = pkgs.formats.ini {
-    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {});
   };
 
-  pkg = if cfg.package == null then pkgs.radicale else cfg.package;
+  pkg =
+    if cfg.package == null
+    then pkgs.radicale
+    else cfg.package;
 
   confFile =
-    if cfg.settings == { } then
-      pkgs.writeText "radicale.conf" cfg.config
-    else
-      format.generate "radicale.conf" cfg.settings;
+    if cfg.settings == {}
+    then pkgs.writeText "radicale.conf" cfg.config
+    else format.generate "radicale.conf" cfg.settings;
 
   rightsFile = format.generate "radicale.rights" cfg.rights;
 
-  bindLocalhost = cfg.settings != { } && !hasAttrByPath [ "server" "hosts" ] cfg.settings;
-
-in
-{
+  bindLocalhost = cfg.settings != {} && !hasAttrByPath ["server" "hosts"] cfg.settings;
+in {
   options.services.radicale = {
     enable = mkEnableOption "Radicale CalDAV and CardDAV server";
 
@@ -35,7 +32,7 @@ in
       description = "Radicale package to use.";
       # Default cannot be pkgs.radicale because non-null values suppress
       # warnings about incompatible configuration and storage formats.
-      type = with types; nullOr package // { inherit (package) description; };
+      type = with types; nullOr package // {inherit (package) description;};
       default = null;
       defaultText = literalExpression "pkgs.radicale";
     };
@@ -53,7 +50,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Configuration for Radicale. See
         <https://radicale.org/v3.html#configuration>.
@@ -83,7 +80,7 @@ in
         Setting this will also set {option}`settings.rights.type` and
         {option}`settings.rights.file` to appropriate values.
       '';
-      default = { };
+      default = {};
       example = literalExpression ''
         root = {
           user = ".+";
@@ -105,7 +102,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Extra arguments passed to the Radicale daemon.";
     };
   };
@@ -113,7 +110,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings == { } || cfg.config == "";
+        assertion = cfg.settings == {} || cfg.config == "";
         message = ''
           The options services.radicale.config and services.radicale.settings
           are mutually exclusive.
@@ -148,25 +145,25 @@ in
         Use services.radicale.settings instead.
       '';
 
-    services.radicale.settings.rights = mkIf (cfg.rights != { }) {
+    services.radicale.settings.rights = mkIf (cfg.rights != {}) {
       type = "from_file";
       file = toString rightsFile;
     };
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users.radicale = {
       isSystemUser = true;
       group = "radicale";
     };
 
-    users.groups.radicale = { };
+    users.groups.radicale = {};
 
     systemd.services.radicale = {
       description = "A Simple Calendar and Contact Server";
-      after = [ "network.target" ];
-      requires = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      requires = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = concatStringsSep " " (
           [
@@ -181,7 +178,7 @@ in
         StateDirectory = "radicale/collections";
         StateDirectoryMode = "0750";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = [
           "/dev/stdin"
           "/dev/urandom"
@@ -206,9 +203,11 @@ in
         ProtectProc = "invisible";
         ProtectSystem = "strict";
         ReadWritePaths = lib.optional (hasAttrByPath [
-          "storage"
-          "filesystem_folder"
-        ] cfg.settings) cfg.settings.storage.filesystem_folder;
+            "storage"
+            "filesystem_folder"
+          ]
+          cfg.settings)
+        cfg.settings.storage.filesystem_folder;
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"
@@ -230,5 +229,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ dotlambda ];
+  meta.maintainers = with lib.maintainers; [dotlambda];
 }

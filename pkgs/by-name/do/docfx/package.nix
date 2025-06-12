@@ -3,7 +3,6 @@
   buildDotnetGlobalTool,
   dotnetCorePackages,
 }:
-
 buildDotnetGlobalTool {
   pname = "docfx";
   version = "2.78.3";
@@ -18,6 +17,6 @@ buildDotnetGlobalTool {
     homepage = "https://github.com/dotnet/docfx";
     license = lib.licenses.mit;
     mainProgram = "docfx";
-    maintainers = with lib.maintainers; [ semtexerror ];
+    maintainers = with lib.maintainers; [semtexerror];
   };
 }

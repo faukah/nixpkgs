@@ -4,7 +4,6 @@
   fetchFromGitHub,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cbmbasic";
   version = "unstable-2022-12-18";
@@ -30,24 +29,24 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.run =
       runCommand "cbmbasic-test-run"
-        {
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          echo '#!${lib.getExe finalAttrs.finalPackage}' > helloI.bas;
-          echo 'PRINT"Hello, World!"' >> helloI.bas;
-          chmod +x helloI.bas
+      {
+        nativeBuildInputs = [finalAttrs.finalPackage];
+      }
+      ''
+        echo '#!${lib.getExe finalAttrs.finalPackage}' > helloI.bas;
+        echo 'PRINT"Hello, World!"' >> helloI.bas;
+        chmod +x helloI.bas
 
-          diff -U3 --color=auto <(./helloI.bas) <(echo -e "Hello, World!\r");
+        diff -U3 --color=auto <(./helloI.bas) <(echo -e "Hello, World!\r");
 
-          echo '#!/usr/bin/env cbmbasic' > hello.bas;
-          echo 'PRINT"Hello, World!"' >> hello.bas;
-          chmod +x hello.bas
+        echo '#!/usr/bin/env cbmbasic' > hello.bas;
+        echo 'PRINT"Hello, World!"' >> hello.bas;
+        chmod +x hello.bas
 
-          diff -U3 --color=auto <(cbmbasic ./hello.bas) <(echo -e "Hello, World!\r");
+        diff -U3 --color=auto <(cbmbasic ./hello.bas) <(echo -e "Hello, World!\r");
 
-          touch $out;
-        '';
+        touch $out;
+      '';
   };
 
   meta = with lib; {
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/mist64/cbmbasic";
     license = licenses.bsd2;
-    maintainers = [ maintainers.cafkafk ];
+    maintainers = [maintainers.cafkafk];
     mainProgram = "cbmbasic";
     platforms = platforms.all;
   };

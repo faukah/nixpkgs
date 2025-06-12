@@ -6,7 +6,6 @@
   rpm,
   xz,
 }:
-
 buildGoModule rec {
   pname = "clair";
   version = "4.8.0";
@@ -38,11 +37,11 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/clair \
       --prefix PATH : "${
-        lib.makeBinPath [
-          rpm
-          xz
-        ]
-      }"
+      lib.makeBinPath [
+        rpm
+        xz
+      ]
+    }"
   '';
 
   meta = {
@@ -50,6 +49,6 @@ buildGoModule rec {
     homepage = "https://github.com/quay/clair";
     changelog = "https://github.com/quay/clair/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -5,14 +5,12 @@
   rustPlatform,
   versionCheckHook,
   nix-update-script,
-
   # tests
   nodejs,
   python3,
   php,
   ruby,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mask";
   version = "0.11.6";
@@ -38,11 +36,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ruby
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=^mask/(.*)$" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=^mask/(.*)$"];};
 
   meta = {
     description = "CLI task runner defined by a simple markdown file";

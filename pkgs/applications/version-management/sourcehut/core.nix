@@ -26,7 +26,6 @@
   minify,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "srht";
   version = "0.76.1";
@@ -90,7 +89,7 @@ buildPythonPackage rec {
     make install
   '';
 
-  pythonImportsCheck = [ "srht" ];
+  pythonImportsCheck = ["srht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/core.sr.ht";

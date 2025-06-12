@@ -8,7 +8,6 @@
   pcre2,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "holo-daemon";
   version = "0.7.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-wASY+binAflxaXjKdSfUXS8jgdEHjdIF3AOzjN/a1Fo=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   cargoHash = "sha256-5X6a86V3Y9+KK0kGbS/ovelqXyLv15gQRFI7GhiYBjY=";
 
@@ -52,8 +51,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "`holo` daemon that provides the routing protocols, tools and policies";
     homepage = "https://github.com/holo-routing/holo";
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ themadbit ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [themadbit];
     license = lib.licenses.mit;
     mainProgram = "holod";
     platforms = lib.platforms.linux;

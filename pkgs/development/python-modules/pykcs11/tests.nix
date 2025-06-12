@@ -5,7 +5,6 @@
   pytestCheckHook,
   softhsm,
 }:
-
 buildPythonPackage {
   pname = "pykcs11-tests";
   inherit (pykcs11) version;

@@ -5,7 +5,6 @@
   libretro,
   genesis-plus-gx,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "kodi-libretro-genplus";
   namespace = "game.libretro.genplus";
@@ -22,7 +21,7 @@ buildKodiBinaryAddon rec {
     "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so"
   ];
 
-  extraBuildInputs = [ genesis-plus-gx ];
+  extraBuildInputs = [genesis-plus-gx];
   propagatedBuildInputs = [
     libretro
   ];
@@ -32,6 +31,6 @@ buildKodiBinaryAddon rec {
     description = "Genesis Plus GX GameClient for Kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

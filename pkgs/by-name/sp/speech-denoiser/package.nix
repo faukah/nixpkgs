@@ -7,9 +7,7 @@
   lv2,
   meson,
   ninja,
-}:
-
-let
+}: let
   speech-denoiser-src = fetchFromGitHub {
     owner = "lucianodato";
     repo = "speech-denoiser";
@@ -22,45 +20,45 @@ let
     version = "unstable-07-10-2019";
     src = speech-denoiser-src;
     sourceRoot = "${speech-denoiser-src.name}/rnnoise";
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
     configureFlags = [
       "--disable-examples"
       "--disable-doc"
       "--disable-shared"
       "--enable-static"
     ];
-    installTargets = [ "install-rnnoise-nu" ];
+    installTargets = ["install-rnnoise-nu"];
   };
 in
-stdenv.mkDerivation {
-  pname = "speech-denoiser";
-  version = "unstable-07-10-2019";
+  stdenv.mkDerivation {
+    pname = "speech-denoiser";
+    version = "unstable-07-10-2019";
 
-  src = speech-denoiser-src;
+    src = speech-denoiser-src;
 
-  nativeBuildInputs = [
-    pkg-config
-    meson
-    ninja
-  ];
-  buildInputs = [
-    lv2
-    rnnoise-nu
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      meson
+      ninja
+    ];
+    buildInputs = [
+      lv2
+      rnnoise-nu
+    ];
 
-  mesonFlags = [ "--prefix=${placeholder "out"}/lib/lv2" ];
+    mesonFlags = ["--prefix=${placeholder "out"}/lib/lv2"];
 
-  postPatch = ''
-    substituteInPlace meson.build \
-      --replace "cc.find_library('rnnoise-nu',dirs: meson.current_source_dir() + '/rnnoise/.libs/',required : true)" "cc.find_library('rnnoise-nu', required : true)"
-  '';
+    postPatch = ''
+      substituteInPlace meson.build \
+        --replace "cc.find_library('rnnoise-nu',dirs: meson.current_source_dir() + '/rnnoise/.libs/',required : true)" "cc.find_library('rnnoise-nu', required : true)"
+    '';
 
-  meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
-    description = "Speech denoise lv2 plugin based on RNNoise library";
-    homepage = "https://github.com/lucianodato/speech-denoiser";
-    license = licenses.lgpl3;
-    maintainers = [ maintainers.magnetophon ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
+      description = "Speech denoise lv2 plugin based on RNNoise library";
+      homepage = "https://github.com/lucianodato/speech-denoiser";
+      license = licenses.lgpl3;
+      maintainers = [maintainers.magnetophon];
+      platforms = platforms.linux;
+    };
+  }

@@ -37,7 +37,7 @@ buildPythonPackage {
 
   # No tests
   doCheck = false;
-  pythonImportsCheck = [ "btrfsutil" ];
+  pythonImportsCheck = ["btrfsutil"];
 
   meta = with lib; {
     description = "Library for managing Btrfs filesystems";

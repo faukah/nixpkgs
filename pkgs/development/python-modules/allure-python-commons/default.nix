@@ -10,7 +10,6 @@
   setuptools-scm,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "allure-python-commons";
   version = "2.13.5";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ojLnlVgR+Yjkmkwd1sFszn6bgdDqBCKx5WVNMlTiyvM=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Common engine for all modules. It is useful for make integration with your homemade frameworks";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ evanjs ];
+    maintainers = with maintainers; [evanjs];
   };
 }

@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "miou";
   version = "0.3.1";
@@ -20,6 +19,6 @@ buildDunePackage rec {
     homepage = "https://git.robur.coop/robur/miou";
     changelog = "https://git.robur.coop/robur/miou/src/tag/v${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

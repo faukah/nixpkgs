@@ -7,7 +7,6 @@
   replaceVars,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "python-vlc";
   version = "3.0.21203";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "vlc" ];
+  pythonImportsCheck = ["vlc"];
 
   meta = with lib; {
     description = "Python bindings for VLC, the cross-platform multimedia player and framework";
     homepage = "https://wiki.videolan.org/PythonBinding";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

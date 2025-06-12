@@ -10,7 +10,6 @@
   libxkbfile,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xkb-switch-i3";
   version = "2.0.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Switch your X keyboard layouts from the command line(i3 edition)";
     homepage = "https://github.com/Zebradil/xkb-switch-i3";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ewok ];
+    maintainers = with maintainers; [ewok];
     platforms = platforms.linux;
     mainProgram = "xkb-switch";
   };

@@ -18,7 +18,6 @@
   qttools ? null,
   wrapQtAppsHook ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vertcoin";
   version = "0.18.0";
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Digital currency with mining decentralisation and ASIC resistance as a key focus";
     homepage = "https://vertcoin.org/";
     license = licenses.mit;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.linux;
   };
 }

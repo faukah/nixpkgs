@@ -16,7 +16,6 @@
   openssl,
   fmt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emilua-this-thread";
   version = "1.0.3";
@@ -47,14 +46,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     description = "Access C++'s this_thread from Lua";
     homepage = "https://emilua.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ manipuladordedados ];
+    maintainers = with maintainers; [manipuladordedados];
     platforms = platforms.linux;
   };
 }

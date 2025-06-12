@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # dependencies
   blessed,
   prefixed,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "enlighten";
   version = "1.14.1";
@@ -33,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "enlighten" ];
+  pythonImportsCheck = ["enlighten"];
 
   meta = {
     description = "Enlighten Progress Bar for Python Console Apps";
     homepage = "https://github.com/Rockhopper-Technologies/enlighten";
     changelog = "https://github.com/Rockhopper-Technologies/enlighten/releases/tag/${version}";
-    license = with lib.licenses; [ mpl20 ];
+    license = with lib.licenses; [mpl20];
     maintainers = with lib.maintainers; [
       veprbl
       doronbehar

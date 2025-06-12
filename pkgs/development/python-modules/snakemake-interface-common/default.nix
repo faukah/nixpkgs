@@ -8,7 +8,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "snakemake-interface-common";
   version = "1.17.4";
@@ -23,24 +22,24 @@ buildPythonPackage rec {
     hash = "sha256-PMEs7yeVfSnZKbabLrbXfIKCIPteNV1wzbt9RIDG3qU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     argparse-dataclass
     configargparse
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "snakemake_interface_common" ];
+  pythonImportsCheck = ["snakemake_interface_common"];
 
-  pytestFlagsArray = [ "tests/tests.py" ];
+  pytestFlagsArray = ["tests/tests.py"];
 
   meta = with lib; {
     description = "Common functions and classes for Snakemake and its plugins";
     homepage = "https://github.com/snakemake/snakemake-interface-common";
     changelog = "https://github.com/snakemake/snakemake-interface-common/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

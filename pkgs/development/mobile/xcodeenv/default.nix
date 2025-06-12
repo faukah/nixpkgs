@@ -1,9 +1,7 @@
-{ callPackage }:
+{callPackage}: rec {
+  composeXcodeWrapper = callPackage ./compose-xcodewrapper.nix {};
 
-rec {
-  composeXcodeWrapper = callPackage ./compose-xcodewrapper.nix { };
+  buildApp = callPackage ./build-app.nix {inherit composeXcodeWrapper;};
 
-  buildApp = callPackage ./build-app.nix { inherit composeXcodeWrapper; };
-
-  simulateApp = callPackage ./simulate-app.nix { inherit composeXcodeWrapper; };
+  simulateApp = callPackage ./simulate-app.nix {inherit composeXcodeWrapper;};
 }

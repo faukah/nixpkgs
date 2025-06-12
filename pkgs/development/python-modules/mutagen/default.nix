@@ -4,20 +4,16 @@
   pythonOlder,
   fetchPypi,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # docs
   python,
   sphinx,
   sphinx-rtd-theme,
-
   # tests
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mutagen";
   version = "1.47.0";
@@ -67,7 +63,7 @@ buildPythonPackage rec {
     "test_mock_fileobj"
   ];
 
-  pythonImportsCheck = [ "mutagen" ];
+  pythonImportsCheck = ["mutagen"];
 
   meta = with lib; {
     description = "Python module for handling audio metadata";
@@ -83,9 +79,9 @@ buildPythonPackage rec {
     '';
     homepage = "https://mutagen.readthedocs.io";
     changelog = "https://mutagen.readthedocs.io/en/latest/changelog.html#release-${
-      lib.replaceStrings [ "." ] [ "-" ] version
+      lib.replaceStrings ["."] ["-"] version
     }";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -24,7 +24,6 @@
   yad,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dosbox-x";
   version = "2025.05.03";
@@ -88,11 +87,11 @@ stdenv.mkDerivation (finalAttrs: {
   # Tests for SDL_net.h for modem & IPX support, not automatically picked up due to being in SDL2 subdirectory
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_net}/include/SDL2";
 
-  configureFlags = [ "--enable-sdl2" ];
+  configureFlags = ["--enable-sdl2"];
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ]; # https://github.com/joncampbell123/dosbox-x/issues/4436
+  hardeningDisable = ["format"]; # https://github.com/joncampbell123/dosbox-x/issues/4436
 
   # Build optional App Bundle target, which needs at least one arch-suffixed binary
   postBuild = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -103,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall =
     lib.optionalString stdenv.hostPlatform.isLinux ''
       wrapProgram $out/bin/dosbox-x \
-        --prefix PATH : ${lib.makeBinPath [ yad ]}
+        --prefix PATH : ${lib.makeBinPath [yad]}
     ''
     # Install App Bundle, wrap regular binary into bundle's binary to get the icon working
     + lib.optionalString stdenv.hostPlatform.isDarwin ''

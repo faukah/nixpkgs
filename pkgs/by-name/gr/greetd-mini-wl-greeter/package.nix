@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     scdoc
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Extremely minimal raw Wayland greeter for greetd";
@@ -62,6 +62,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/philj56/greetd-mini-wl-greeter";
     mainProgram = "greetd-mini-wl-greeter";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ _0x5a4 ];
+    maintainers = with lib.maintainers; [_0x5a4];
   };
 }

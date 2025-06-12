@@ -4,7 +4,6 @@
   fetchFromGitHub,
   puredata,
 }:
-
 stdenv.mkDerivation {
   pname = "cyclone";
   version = "unstable-2023-09-12";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-ixfnmeoRzV0qEOOIxCV1361t3d59fwxjHWhz9uXQ2ps=";
   };
 
-  buildInputs = [ puredata ];
+  buildInputs = [puredata];
 
   makeFlags = [
     "pdincludepath=${puredata}/include/pd"

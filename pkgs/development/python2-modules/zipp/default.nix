@@ -7,7 +7,6 @@
   pytest-flake8,
   more-itertools,
 }:
-
 buildPythonPackage rec {
   pname = "zipp";
   version = "1.0.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     sha256 = "0v3qayhqv7vyzydpydwcp51bqciw8p2ajddw68x5k8zppc0vx3yk";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ more-itertools ];
+  propagatedBuildInputs = [more-itertools];
 
   nativeCheckInputs = [
     pytest

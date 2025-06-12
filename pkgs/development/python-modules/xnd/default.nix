@@ -9,17 +9,16 @@
   pythonAtLeast,
   python,
 }:
-
 buildPythonPackage {
   pname = "xnd";
   inherit (libxnd) version src meta;
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ndtypes ];
+  dependencies = [ndtypes];
 
-  buildInputs = [ libndtypes ];
+  buildInputs = [libndtypes];
 
   postPatch =
     ''

@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gollum;
-in
-
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule
+    (
+      lib.mkRemovedOptionModule
       [
         "services"
         "gollum"
@@ -106,7 +104,7 @@ in
       description = "Specifies the path of the repository directory. If it does not exist, Gollum will create it on startup.";
     };
 
-    package = lib.mkPackageOption pkgs "gollum" { };
+    package = lib.mkPackageOption pkgs "gollum" {};
 
     user = lib.mkOption {
       type = lib.types.str;
@@ -122,7 +120,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.gollum = lib.mkIf (cfg.user == "gollum") {
       group = cfg.group;
       description = "Gollum user";
@@ -130,15 +127,15 @@ in
       isSystemUser = true;
     };
 
-    users.groups."${cfg.group}" = { };
+    users.groups."${cfg.group}" = {};
 
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.stateDir}' - ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.gollum = {
       description = "Gollum wiki";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.git ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.git];
 
       preStart = ''
         # This is safe to be run on an existing repo

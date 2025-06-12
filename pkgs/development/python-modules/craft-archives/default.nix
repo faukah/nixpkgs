@@ -15,7 +15,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "craft-archives";
   version = "2.1.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "python-debian"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     distro
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     python-debian
   ];
 
-  pythonImportsCheck = [ "craft_archives" ];
+  pythonImportsCheck = ["craft_archives"];
 
   nativeCheckInputs = [
     pytest-check
@@ -61,16 +60,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Library for handling archives/repositories in Canonical craft applications";
     homepage = "https://github.com/canonical/craft-archives";
     changelog = "https://github.com/canonical/craft-archives/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

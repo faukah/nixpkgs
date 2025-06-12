@@ -24,7 +24,6 @@
   vobject,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "etesync";
   version = "0.12.1";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     vobject
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest tests/test_collections.py
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://www.etesync.com/";
     description = "Python API to interact with an EteSync server";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ valodim ];
+    maintainers = with maintainers; [valodim];
   };
 }

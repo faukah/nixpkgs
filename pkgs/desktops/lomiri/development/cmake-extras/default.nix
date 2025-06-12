@@ -5,7 +5,6 @@
   cmake,
   qtbase,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cmake-extras";
   version = "1.8";
@@ -45,7 +44,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/cmake-extras";
     changelog = "https://gitlab.com/ubports/development/core/cmake-extras/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.all;
   };
 })

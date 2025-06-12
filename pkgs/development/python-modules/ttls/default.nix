@@ -6,7 +6,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ttls";
   version = "1.9.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-itGXZbQZ+HYpiwySLeGN3mPy3fgsxx0A9byOxIVpRBc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -30,7 +29,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ttls" ];
+  pythonImportsCheck = ["ttls"];
 
   meta = with lib; {
     description = "Module to interact with Twinkly LEDs";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jschlyter/ttls";
     changelog = "https://github.com/jschlyter/ttls/blob/v${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

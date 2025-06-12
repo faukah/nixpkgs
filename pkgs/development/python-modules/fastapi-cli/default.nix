@@ -6,13 +6,10 @@
   rich-toolkit,
   typer,
   uvicorn,
-
   # checks
   pytestCheckHook,
   rich,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "fastapi-cli";
     version = "0.0.7";
@@ -25,33 +22,39 @@ let
       hash = "sha256-LLk9DMYRqSgiisDfJVP961Blp2u8XLeGDVuDY7IBv/k=";
     };
 
-    build-system = [ pdm-backend ];
+    build-system = [pdm-backend];
 
-    dependencies = [
-      rich-toolkit
-      typer
-      uvicorn
-    ] ++ uvicorn.optional-dependencies.standard;
+    dependencies =
+      [
+        rich-toolkit
+        typer
+        uvicorn
+      ]
+      ++ uvicorn.optional-dependencies.standard;
 
     optional-dependencies = {
-      standard = [
-        uvicorn
-      ] ++ uvicorn.optional-dependencies.standard;
+      standard =
+        [
+          uvicorn
+        ]
+        ++ uvicorn.optional-dependencies.standard;
     };
 
     doCheck = false;
 
-    passthru.tests.pytest = self.overridePythonAttrs { doCheck = true; };
+    passthru.tests.pytest = self.overridePythonAttrs {doCheck = true;};
 
-    nativeCheckInputs = [
-      pytestCheckHook
-      rich
-    ] ++ optional-dependencies.standard;
+    nativeCheckInputs =
+      [
+        pytestCheckHook
+        rich
+      ]
+      ++ optional-dependencies.standard;
 
     # coverage
-    disabledTests = [ "test_script" ];
+    disabledTests = ["test_script"];
 
-    pythonImportsCheck = [ "fastapi_cli" ];
+    pythonImportsCheck = ["fastapi_cli"];
 
     meta = with lib; {
       description = "Run and manage FastAPI apps from the command line with FastAPI CLI";
@@ -59,7 +62,7 @@ let
       changelog = "https://github.com/tiangolo/fastapi-cli/releases/tag/${src.tag}";
       mainProgram = "fastapi";
       license = licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
       # This package provides a `fastapi`-executable that is in conflict with the one from
       # python3Packages.fastapi. Because this package is primarily used for the purpose of
       # implementing the CLI for python3Packages.fastapi, we reduce the executable's priority
@@ -67,4 +70,4 @@ let
     };
   };
 in
-self
+  self

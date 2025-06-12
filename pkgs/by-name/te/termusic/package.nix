@@ -13,7 +13,6 @@
   sqlite,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "termusic";
   version = "0.10.0";
@@ -52,8 +51,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Terminal Music Player TUI written in Rust";
     homepage = "https://github.com/tramhao/termusic";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ devhell ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [devhell];
     mainProgram = "termusic";
   };
 }

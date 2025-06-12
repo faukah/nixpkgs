@@ -7,7 +7,6 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-parler";
   version = "2.3";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-tRGifFPCXF3aa3PQWKw3tl1H1TY+lgcChUP1VdwG1cE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   # Disable failing test: article.tests.AdminArticleTestCase.test_admin_add
   # AssertionError: '<h1>Ajout de Article (Hollandais)</h1>' not found in ...
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/django-parler/django-parler";
     changelog = "https://github.com/django-parler/django-parler/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

@@ -4,16 +4,13 @@
   fetchFromGitHub,
   python,
   pythonOlder,
-
   setuptools,
   wheel,
   cython,
-
   numpy,
   scipy,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "quantile-forest";
   version = "1.4.0";
@@ -50,13 +47,13 @@ buildPythonPackage rec {
   # need network connection
   doCheck = false;
 
-  pythonImportsCheck = [ "quantile_forest" ];
+  pythonImportsCheck = ["quantile_forest"];
 
   meta = with lib; {
     description = "Quantile Regression Forests compatible with scikit-learn";
     homepage = "https://github.com/zillow/quantile-forest";
     changelog = "https://github.com/zillow/quantile-forest/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

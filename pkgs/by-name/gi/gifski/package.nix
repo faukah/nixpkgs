@@ -5,7 +5,6 @@
   pkg-config,
   ffmpeg_6,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gifski";
   version = "1.33.0";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     ffmpeg_6
   ];
 
-  buildFeatures = [ "video" ];
+  buildFeatures = ["video"];
 
   # When the default checkType of release is used, we get the following error:
   #
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gif.ski/";
     changelog = "https://github.com/ImageOptim/gifski/releases/tag/${src.rev}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "gifski";
   };
 }

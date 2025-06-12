@@ -6,7 +6,6 @@
   libcap_ng,
   libseccomp,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "virtiofsd";
   version = "1.13.1";
@@ -24,7 +23,10 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-Gbnve7YjFvGCvDjlZ7HuvvIIAgJjHulN/Qwyf48lr0Y=";
 
   LIBCAPNG_LIB_PATH = "${lib.getLib libcap_ng}/lib";
-  LIBCAPNG_LINK_TYPE = if stdenv.hostPlatform.isStatic then "static" else "dylib";
+  LIBCAPNG_LINK_TYPE =
+    if stdenv.hostPlatform.isStatic
+    then "static"
+    else "dylib";
 
   buildInputs = [
     libcap_ng

@@ -8,7 +8,6 @@
   gettext,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-video-effects";
   version = "0.6.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Collection of GStreamer effects to be used in different GNOME Modules";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-video-effects";
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
   };
 }

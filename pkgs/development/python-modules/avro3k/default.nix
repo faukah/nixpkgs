@@ -5,7 +5,6 @@
   setuptools,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "avro3k";
   version = "1.7.7-SNAPSHOT";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
       --replace-fail "1.7.7-SNAPSHOT" "1.7.7"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false; # No such file or directory: './run_tests.py
 

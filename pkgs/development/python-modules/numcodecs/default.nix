@@ -4,26 +4,21 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
   cython,
   py-cpuinfo,
-
   # dependencies
   deprecated,
   numpy,
-
   # optional-dependencies
   crc32c,
-
   # tests
   msgpack,
   pytestCheckHook,
   importlib-metadata,
 }:
-
 buildPythonPackage rec {
   pname = "numcodecs";
   version = "0.15.1";
@@ -49,8 +44,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    crc32c = [ crc32c ];
-    msgpack = [ msgpack ];
+    crc32c = [crc32c];
+    msgpack = [msgpack];
     # zfpy = [ zfpy ];
   };
 
@@ -58,10 +53,12 @@ buildPythonPackage rec {
     export DISABLE_NUMCODECS_AVX2=1
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    importlib-metadata
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      importlib-metadata
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # https://github.com/NixOS/nixpkgs/issues/255262
   preCheck = "pushd $out";
@@ -71,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zarr-developers/numcodecs";
     license = lib.licenses.mit;
     description = "Buffer compression and transformation codecs for use in data storage and communication applications";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

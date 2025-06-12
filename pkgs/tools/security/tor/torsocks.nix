@@ -6,7 +6,6 @@
   autoreconfHook,
   libcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "torsocks";
   version = "2.4.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
         src/bin/torsocks.in
     '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doInstallCheck = true;
   installCheckTarget = "check-recursive";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.torproject.org/tpo/core/torsocks";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
   };
 }

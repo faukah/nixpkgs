@@ -6,7 +6,6 @@
   pam,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_mktemp";
   version = "1.1.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     e2fsprogs
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.openwall.com/pam/";
     description = "PAM for login service to provide per-user private directories";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ wladmis ];
+    maintainers = with maintainers; [wladmis];
     platforms = platforms.linux;
   };
 }

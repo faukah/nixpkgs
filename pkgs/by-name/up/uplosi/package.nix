@@ -5,7 +5,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "uplosi";
   version = "0.4.0";
@@ -25,7 +24,7 @@ buildGoModule (finalAttrs: {
     "-X main.version=${finalAttrs.version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd uplosi \
@@ -34,7 +33,7 @@ buildGoModule (finalAttrs: {
       --zsh <($out/bin/uplosi completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Upload OS images to cloud provider";

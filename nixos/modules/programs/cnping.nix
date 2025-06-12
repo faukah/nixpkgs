@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.cnping;
-in
-{
+in {
   options = {
     programs.cnping = {
       enable = lib.mkEnableOption "a setcap wrapper for cnping";

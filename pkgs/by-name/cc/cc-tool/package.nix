@@ -7,7 +7,6 @@
   libusb1,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "cc-tool";
   version = "unstable-2020-05-19";
@@ -46,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/dashesy/cc-tool";
     license = licenses.gpl2;
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.CRTified ];
+    maintainers = [maintainers.CRTified];
   };
 }

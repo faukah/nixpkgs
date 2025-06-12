@@ -70,14 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "C++ library for building Wayland compositors";
     homepage = "https://github.com/CuarzoSoftware/Louvre";
     mainProgram = "louvre-views";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

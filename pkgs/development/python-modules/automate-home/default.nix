@@ -13,7 +13,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "automate-home";
   version = "0.9.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail "aioredis==1.3.1" "aioredis"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     apscheduler
@@ -45,15 +44,15 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "home" ];
+  pythonImportsCheck = ["home"];
 
   meta = with lib; {
     description = "Python module to automate (home) devices";
     homepage = "https://github.com/majamassarini/automate-home";
     changelog = "https://github.com/majamassarini/automate-home/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

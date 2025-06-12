@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "replace";
   version = "2.24";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   preInstall = "mkdir -p \$out/share/man";
   postInstall = "mv \$out/bin/replace \$out/bin/replace-literal";
 
-  patches = [ ./malloc.patch ];
+  patches = [./malloc.patch];
 
   meta = {
     description = "Tool to replace verbatim strings";

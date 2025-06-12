@@ -47,7 +47,7 @@ flutter.buildFlutterApplication rec {
     description = "ExpidusOS Calculator";
     homepage = "https://expidusos.com";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ RossComputerGuy ];
+    maintainers = with maintainers; [RossComputerGuy];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

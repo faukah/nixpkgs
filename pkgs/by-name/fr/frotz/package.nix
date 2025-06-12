@@ -12,7 +12,6 @@
   which,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "frotz";
   version = "2.54";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://davidgriffith.gitlab.io/frotz/";

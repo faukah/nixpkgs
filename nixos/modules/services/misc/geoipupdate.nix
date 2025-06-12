@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.geoipupdate;
-  inherit (builtins)
+  inherit
+    (builtins)
     isAttrs
     isString
     isInt
@@ -15,8 +14,7 @@ let
     typeOf
     hashString
     ;
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -66,19 +64,16 @@ in
           {file}`/run/keys/proxy_pass` file.
         '';
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
-            let
-              type = oneOf [
-                str
-                int
-                bool
-              ];
-            in
+          freeformType = with lib.types; let
+            type = oneOf [
+              str
+              int
+              bool
+            ];
+          in
             attrsOf (either type (listOf type));
 
           options = {
-
             AccountID = lib.mkOption {
               type = lib.types.int;
               description = ''
@@ -110,7 +105,10 @@ in
                 attrset or not (refer to [](#opt-services.geoipupdate.settings) for
                 details).
               '';
-              apply = x: if isAttrs x then x else { _secret = x; };
+              apply = x:
+                if isAttrs x
+                then x
+                else {_secret = x;};
             };
 
             DatabaseDirectory = lib.mkOption {
@@ -126,16 +124,13 @@ in
                 sensitive contents.
               '';
             };
-
           };
         };
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     services.geoipupdate.settings = {
       LockFile = "/run/geoipupdate/.lock";
     };
@@ -153,64 +148,60 @@ in
 
     systemd.services.geoipupdate = {
       description = "GeoIP Updater";
-      requires = [ "geoipupdate-create-db-dir.service" ];
+      requires = ["geoipupdate-create-db-dir.service"];
       after = [
         "geoipupdate-create-db-dir.service"
         "network-online.target"
         "nss-lookup.target"
       ];
-      path = [ pkgs.replace-secret ];
-      wants = [ "network-online.target" ];
+      path = [pkgs.replace-secret];
+      wants = ["network-online.target"];
       startAt = cfg.interval;
       serviceConfig = {
-        ExecStartPre =
-          let
-            isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-            geoipupdateKeyValue = lib.generators.toKeyValue {
-              mkKeyValue = lib.flip lib.generators.mkKeyValueDefault " " rec {
-                mkValueString =
-                  v:
-                  if isInt v then
-                    toString v
-                  else if isString v then
-                    v
-                  else if true == v then
-                    "1"
-                  else if false == v then
-                    "0"
-                  else if isList v then
-                    lib.concatMapStringsSep " " mkValueString v
-                  else if isSecret v then
-                    hashString "sha256" v._secret
-                  else
-                    throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
-              };
+        ExecStartPre = let
+          isSecret = v: isAttrs v && v ? _secret && isString v._secret;
+          geoipupdateKeyValue = lib.generators.toKeyValue {
+            mkKeyValue = lib.flip lib.generators.mkKeyValueDefault " " rec {
+              mkValueString = v:
+                if isInt v
+                then toString v
+                else if isString v
+                then v
+                else if true == v
+                then "1"
+                else if false == v
+                then "0"
+                else if isList v
+                then lib.concatMapStringsSep " " mkValueString v
+                else if isSecret v
+                then hashString "sha256" v._secret
+                else throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
             };
-            secretPaths = lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
-            mkSecretReplacement = file: ''
-              replace-secret ${
-                lib.escapeShellArgs [
-                  (hashString "sha256" file)
-                  file
-                  "/run/geoipupdate/GeoIP.conf"
-                ]
-              }
-            '';
-            secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
+          };
+          secretPaths = lib.catAttrs "_secret" (lib.collect isSecret cfg.settings);
+          mkSecretReplacement = file: ''
+            replace-secret ${
+              lib.escapeShellArgs [
+                (hashString "sha256" file)
+                file
+                "/run/geoipupdate/GeoIP.conf"
+              ]
+            }
+          '';
+          secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
 
-            geoipupdateConf = pkgs.writeText "geoipupdate.conf" (geoipupdateKeyValue cfg.settings);
+          geoipupdateConf = pkgs.writeText "geoipupdate.conf" (geoipupdateKeyValue cfg.settings);
 
-            script = ''
-              set -o errexit -o pipefail -o nounset -o errtrace
-              shopt -s inherit_errexit
+          script = ''
+            set -o errexit -o pipefail -o nounset -o errtrace
+            shopt -s inherit_errexit
 
-              chown geoip "${cfg.settings.DatabaseDirectory}"
+            chown geoip "${cfg.settings.DatabaseDirectory}"
 
-              cp ${geoipupdateConf} /run/geoipupdate/GeoIP.conf
-              ${secretReplacements}
-            '';
-          in
-          "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
+            cp ${geoipupdateConf} /run/geoipupdate/GeoIP.conf
+            ${secretReplacements}
+          '';
+        in "+${pkgs.writeShellScript "start-pre-full-privileges" script}";
         ExecStart = "${pkgs.geoipupdate}/bin/geoipupdate -f /run/geoipupdate/GeoIP.conf";
         User = "geoip";
         DynamicUser = true;
@@ -247,7 +238,7 @@ in
     };
 
     systemd.timers.geoipupdate-initial-run = {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       unitConfig.ConditionPathExists = "!${cfg.settings.DatabaseDirectory}";
       timerConfig = {
         Unit = "geoipupdate.service";
@@ -256,5 +247,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.talyz ];
+  meta.maintainers = [lib.maintainers.talyz];
 }

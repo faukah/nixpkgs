@@ -8,7 +8,6 @@
   sofia_sip,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo-sip-connector";
   version = "1.7.1";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     mainProgram = "osmo-sip-connector";
     homepage = "https://osmocom.org/projects/osmo-sip-conector";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.markuskowa ];
+    maintainers = [lib.maintainers.markuskowa];
     platforms = lib.platforms.linux;
   };
 }

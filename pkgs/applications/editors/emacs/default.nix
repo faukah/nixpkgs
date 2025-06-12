@@ -1,17 +1,18 @@
-{ lib, pkgs }:
-
+{
+  lib,
+  pkgs,
+}:
 lib.makeScope pkgs.newScope (
-  self:
-  let
+  self: let
     inherit (self) callPackage;
     inheritedArgs = {
       inherit (pkgs.darwin) sigtool;
     };
-  in
-  {
+  in {
     sources = import ./sources.nix {
       inherit lib;
-      inherit (pkgs)
+      inherit
+        (pkgs)
         fetchFromBitbucket
         fetchFromSavannah
         ;

@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "django-axes";
   version = "8.0.0";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-RV2/s372+yjSqYAqikH0VOJKt7fRAej32sgdOoKR/Do=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     django-ipware
@@ -35,12 +34,12 @@ buildPythonPackage rec {
 
   env.DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  pythonImportsCheck = [ "axes" ];
+  pythonImportsCheck = ["axes"];
 
   meta = {
     description = "Keep track of failed login attempts in Django-powered sites";
     homepage = "https://github.com/jazzband/django-axes";
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     license = lib.licenses.mit;
   };
 }

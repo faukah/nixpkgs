@@ -6,7 +6,6 @@
   fetchpatch,
   argp-standalone,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iucode-tool";
   version = "2.3.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = lib.optional stdenv.hostPlatform.isMusl argp-standalone;
 
   enableParallelBuilding = true;
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     mainProgram = "iucode_tool";
     homepage = "https://gitlab.com/iucode-tool/iucode-tool";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = [
       "x86_64-linux"
       "i686-linux"

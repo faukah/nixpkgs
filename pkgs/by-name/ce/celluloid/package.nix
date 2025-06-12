@@ -19,7 +19,6 @@
   yt-dlp,
   youtubeSupport ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "celluloid";
   version = "0.29";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   preFixup = lib.optionalString youtubeSupport ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ yt-dlp ]}"
+      --prefix PATH : "${lib.makeBinPath [yt-dlp]}"
     )
   '';
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/celluloid-player/celluloid";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/celluloid-player/celluloid/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "celluloid";
-    maintainers = with lib.maintainers; [ samlukeyes123 ];
+    maintainers = with lib.maintainers; [samlukeyes123];
     platforms = lib.platforms.linux;
   };
 })

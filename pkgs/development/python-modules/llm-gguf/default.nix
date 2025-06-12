@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   httpx,
   llama-cpp-python,
   llm,
   llm-gguf,
 }:
-
 buildPythonPackage rec {
   pname = "llm-gguf";
   version = "0.2";
@@ -25,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ihMOiQnTfgZKICVDoQHLOMahrd+GiB+HwWFBMyIcs0A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     httpx
@@ -33,7 +30,7 @@ buildPythonPackage rec {
     llama-cpp-python
   ];
 
-  pythonImportsCheck = [ "llm_gguf" ];
+  pythonImportsCheck = ["llm_gguf"];
 
   # Tests require internet access (downloading models)
   doCheck = false;
@@ -45,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-gguf";
     changelog = "https://github.com/simonw/llm-gguf/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

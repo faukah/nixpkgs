@@ -8,7 +8,6 @@
   autoreconfHook,
   nettle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wslay";
   version = "1.1.1";
@@ -33,11 +32,11 @@ stdenv.mkDerivation rec {
     sphinx
   ];
 
-  buildInputs = [ nettle ];
+  buildInputs = [nettle];
 
   doCheck = true;
 
-  checkInputs = [ cunit ];
+  checkInputs = [cunit];
 
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
     export DYLD_LIBRARY_PATH=$(pwd)/lib/.libs
@@ -46,8 +45,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://tatsuhiro-t.github.io/wslay/";
     description = "WebSocket library in C";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ pingiun ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [pingiun];
     platforms = platforms.unix;
   };
 }

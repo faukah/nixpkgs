@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "esbuild";
   version = "0.25.4";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
 
-  subPackages = [ "cmd/esbuild" ];
+  subPackages = ["cmd/esbuild"];
 
   ldflags = [
     "-s"

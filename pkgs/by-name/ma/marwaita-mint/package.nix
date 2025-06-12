@@ -8,7 +8,6 @@
   gtk_engines,
   librsvg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "marwaita-mint";
   version = "24";
@@ -37,13 +36,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Variation for marwaita GTK theme based on linux mint color scheme";
     homepage = "https://www.pling.com/p/1674243";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 })

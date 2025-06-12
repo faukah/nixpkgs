@@ -15,7 +15,6 @@
   openjpeg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "leptonica";
   version = "1.85.0";
@@ -50,9 +49,9 @@ stdenv.mkDerivation rec {
   # Fails on pngio_reg for unknown reason
   doCheck = false; # !stdenv.hostPlatform.isDarwin;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
-    maintainers = with lib.maintainers; [ patrickdag ];
+    maintainers = with lib.maintainers; [patrickdag];
     description = "Image processing and analysis library";
     homepage = "http://www.leptonica.org/";
     license = lib.licenses.bsd2; # http://www.leptonica.org/about-the-license.html

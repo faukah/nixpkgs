@@ -6,7 +6,6 @@
   pyobjc-core,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyobjc-framework-Cocoa";
   version = "11.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/pyobjc-framework-Cocoa";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     darwin.libffi
@@ -40,20 +39,20 @@ buildPythonPackage rec {
       --replace-fail "-productversion" "-productVersion"
   '';
 
-  dependencies = [ pyobjc-core ];
+  dependencies = [pyobjc-core];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${darwin.libffi.dev}/include"
     "-Wno-error=unused-command-line-argument"
   ];
 
-  pythonImportsCheck = [ "Cocoa" ];
+  pythonImportsCheck = ["Cocoa"];
 
   meta = with lib; {
     description = "PyObjC wrappers for the Cocoa frameworks on macOS";
     homepage = "https://github.com/ronaldoussoren/pyobjc";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

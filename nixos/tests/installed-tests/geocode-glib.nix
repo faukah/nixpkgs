@@ -1,5 +1,8 @@
-{ pkgs, makeInstalledTest, ... }:
-
+{
+  pkgs,
+  makeInstalledTest,
+  ...
+}:
 makeInstalledTest {
   testConfig = {
     i18n.supportedLocales = [

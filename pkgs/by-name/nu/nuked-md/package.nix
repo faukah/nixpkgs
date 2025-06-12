@@ -7,7 +7,6 @@
   cmake,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nuked-md";
   version = "1.2";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nukeykt/Nuked-MD";
     license = licenses.gpl2Plus;
     mainProgram = "Nuked-MD";
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 })

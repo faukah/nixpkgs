@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "uchecker";
   version = "0.1.2";
@@ -44,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/cloudlinux/kcare-uchecker";
     changelog = "https://github.com/cloudlinux/kcare-uchecker/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "uchecker";
   };
 }

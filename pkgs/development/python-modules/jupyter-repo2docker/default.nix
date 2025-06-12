@@ -18,7 +18,6 @@
   toml,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-repo2docker";
   version = "2024.07.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-ZzZBuJBPDG4to1fSYn2xysupXbPS9Q6wqWr3Iq/Vds8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     chardet
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://repo2docker.readthedocs.io/";
     changelog = "https://github.com/jupyterhub/repo2docker/blob/${src.rev}/docs/source/changelog.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

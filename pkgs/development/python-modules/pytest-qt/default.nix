@@ -7,7 +7,6 @@
   pyqt5,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-qt";
   version = "4.4.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-dolhQqlApChTOQCNaSijbUvnSv7H5jRXfoQsnMXFaEQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  nativeCheckInputs = [ pyqt5 ];
+  nativeCheckInputs = [pyqt5];
 
-  pythonImportsCheck = [ "pytestqt" ];
+  pythonImportsCheck = ["pytestqt"];
 
   # Tests require X server
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "pytest support for PyQt and PySide applications";
     homepage = "https://github.com/pytest-dev/pytest-qt";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

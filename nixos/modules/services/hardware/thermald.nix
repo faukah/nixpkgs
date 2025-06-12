@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.thermald;
-in
-{
+in {
   ###### interface
   options = {
     services.thermald = {
@@ -39,18 +37,18 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "thermald" { };
+      package = lib.mkPackageOption pkgs "thermald" {};
     };
   };
 
   ###### implementation
   config = lib.mkIf cfg.enable {
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
     systemd.services.thermald = {
       description = "Thermal Daemon Service";
-      documentation = [ "man:thermald(8)" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["man:thermald(8)"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         PrivateNetwork = true;
         ExecStart = ''
@@ -58,7 +56,11 @@ in
             --no-daemon \
             ${lib.optionalString cfg.debug "--loglevel=debug"} \
             ${lib.optionalString cfg.ignoreCpuidCheck "--ignore-cpuid-check"} \
-            ${if cfg.configFile != null then "--config-file ${cfg.configFile}" else "--adaptive"} \
+            ${
+            if cfg.configFile != null
+            then "--config-file ${cfg.configFile}"
+            else "--adaptive"
+          } \
             --dbus-enable
         '';
       };

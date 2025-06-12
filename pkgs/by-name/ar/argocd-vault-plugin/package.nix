@@ -5,7 +5,6 @@
   testers,
   argocd-vault-plugin,
 }:
-
 buildGoModule rec {
   pname = "argocd-vault-plugin";
   version = "1.18.1";
@@ -42,6 +41,6 @@ buildGoModule rec {
     description = "Argo CD plugin to retrieve secrets from Secret Management tools and inject them into Kubernetes secrets";
     mainProgram = "argocd-vault-plugin";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

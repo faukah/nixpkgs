@@ -5,7 +5,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "kqtquickcharts";
   meta = {
@@ -14,9 +13,9 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     qtbase
     qtdeclarative

@@ -13,7 +13,6 @@
   unzip,
   typescript,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "angular-language-server";
   version = "20.0.0";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     makeBinaryWrapper
   ];
 
-  buildInputs = [ nodejs ];
+  buildInputs = [nodejs];
 
   installPhase = ''
     runHook preInstall
@@ -44,13 +43,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postFixup = ''
     patchShebangs $out/lib/bin/ngserver $out/lib/index.js $out/lib/node_modules
     makeWrapper $out/lib/bin/ngserver $out/bin/ngserver \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]} \
+      --prefix PATH : ${lib.makeBinPath [nodejs]} \
       --add-flags "--tsProbeLocations ${typescript}/lib/node_modules/typescript --ngProbeLocations $out/lib/node_modules"
   '';
 
   passthru = {
     tests = {
-      start-ok = runCommand "${finalAttrs.pname}-test" { } ''
+      start-ok = runCommand "${finalAttrs.pname}-test" {} ''
         ${lib.getExe angular-language-server} --stdio --help &> $out
         cat $out | grep "Angular Language Service that implements the Language Server Protocol (LSP)"
       '';
@@ -80,11 +79,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "LSP for angular completions, AOT diagnostic, quick info and go to definitions";
     homepage = "https://github.com/angular/vscode-ng-language-service";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     changelog = "https://github.com/angular/vscode-ng-language-service/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     mainProgram = "ngserver";
-    maintainers = with lib.maintainers; [ tricktron ];
+    maintainers = with lib.maintainers; [tricktron];
   };
 })

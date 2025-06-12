@@ -5,24 +5,27 @@
   system,
   ...
 }:
+with import ../../lib/testing-python.nix {inherit system pkgs;};
+  runTest (
+    {
+      config,
+      lib,
+      ...
+    }: let
+      inherit (config) adminuser;
+    in {
+      inherit name;
+      meta.maintainers = lib.teams.nextcloud.members;
 
-with import ../../lib/testing-python.nix { inherit system pkgs; };
-runTest (
-  { config, lib, ... }:
-  let
-    inherit (config) adminuser;
-  in
-  {
-    inherit name;
-    meta.maintainers = lib.teams.nextcloud.members;
+      imports = [testBase];
 
-    imports = [ testBase ];
-
-    nodes = {
-      nextcloud =
-        { config, pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
+      nodes = {
+        nextcloud = {
+          config,
+          pkgs,
+          ...
+        }: {
+          environment.systemPackages = [pkgs.jq];
           services.nextcloud = {
             caching = {
               apcu = false;
@@ -65,8 +68,8 @@ runTest (
           };
 
           systemd.services.nextcloud-setup = {
-            requires = [ "postgresql.service" ];
-            after = [ "postgresql.service" ];
+            requires = ["postgresql.service"];
+            after = ["postgresql.service"];
           };
 
           services.postgresql = {
@@ -91,18 +94,18 @@ runTest (
             };
           };
         };
-    };
+      };
 
-    test-helpers.extraTests = ''
-      with subtest("non-empty redis cache"):
-          # redis cache should not be empty
-          assert nextcloud.succeed('redis-cli --pass secret --json KEYS "*" | jq length').strip() != "0", """
-            redis-cli for keys * returned 0 entries
-          """
+      test-helpers.extraTests = ''
+        with subtest("non-empty redis cache"):
+            # redis cache should not be empty
+            assert nextcloud.succeed('redis-cli --pass secret --json KEYS "*" | jq length').strip() != "0", """
+              redis-cli for keys * returned 0 entries
+            """
 
-      with subtest("notify-push"):
-          client.execute("${lib.getExe pkgs.nextcloud-notify_push.passthru.test_client} http://nextcloud ${config.adminuser} ${config.adminpass} >&2 &")
-          nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${config.adminuser}\"")
-    '';
-  }
-)
+        with subtest("notify-push"):
+            client.execute("${lib.getExe pkgs.nextcloud-notify_push.passthru.test_client} http://nextcloud ${config.adminuser} ${config.adminpass} >&2 &")
+            nextcloud.wait_until_succeeds("journalctl -u nextcloud-notify_push | grep -q \"Sending ping to ${config.adminuser}\"")
+      '';
+    }
+  )

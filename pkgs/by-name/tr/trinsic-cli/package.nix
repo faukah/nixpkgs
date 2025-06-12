@@ -3,7 +3,6 @@
   rustPlatform,
   fetchurl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "trinsic-cli";
   version = "1.14.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://trinsic.id/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tmarkovski ];
+    maintainers = with maintainers; [tmarkovski];
     mainProgram = "trinsic";
   };
 }

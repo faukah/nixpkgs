@@ -5,8 +5,7 @@
   lib,
   nodejs,
 }:
-
-(buildNpmPackage.override { inherit nodejs; }) rec {
+(buildNpmPackage.override {inherit nodejs;}) rec {
   pname = "node-gyp";
   version = "11.2.0";
 
@@ -29,7 +28,7 @@
 
   # Teach node-gyp to use nodejs headers locally rather that download them form https://nodejs.org.
   # This is important when build nodejs packages in sandbox.
-  makeWrapperArgs = [ "--set npm_config_nodedir ${nodejs}" ];
+  makeWrapperArgs = ["--set npm_config_nodedir ${nodejs}"];
 
   passthru.updateScript = ./update.sh;
 
@@ -39,6 +38,6 @@
     homepage = "https://github.com/nodejs/node-gyp";
     license = lib.licenses.mit;
     mainProgram = "node-gyp";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

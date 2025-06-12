@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   jsonref,
   jsonschema,
@@ -19,13 +17,11 @@
   transformers,
   typer,
   typing-extensions,
-
   # tests
   jsondiff,
   pytestCheckHook,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "docling-core";
   version = "2.31.2";
@@ -82,6 +78,6 @@ buildPythonPackage rec {
     description = "Python library to define and validate data types in Docling";
     homepage = "https://github.com/DS4SD/docling-core";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

@@ -10,7 +10,6 @@
   pytestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "livekit-api";
   version = "1.0.2";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-QFUCMqRshEid08IbNjyvJvJSVhYfVJRjvXjSTlNlzlU=";
   };
 
-  pypaBuildFlags = [ "livekit-api" ];
+  pypaBuildFlags = ["livekit-api"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyjwt
@@ -34,23 +33,23 @@ buildPythonPackage rec {
     livekit-protocol
   ];
 
-  pythonRemoveDeps = [ "types-protobuf" ];
+  pythonRemoveDeps = ["types-protobuf"];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "livekit-api/tests" ];
+  pytestFlagsArray = ["livekit-api/tests"];
 
-  pythonImportsCheck = [ "livekit" ];
+  pythonImportsCheck = ["livekit"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "api-v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "api-v";};
 
   meta = {
     description = "LiveKit real-time and server SDKs for Python";
     homepage = "https://github.com/livekit/python-sdks/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     platforms = lib.platforms.all;
   };
 }

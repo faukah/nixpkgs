@@ -46,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
     gtk3
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pygobject3 ];
+  propagatedBuildInputs = with python3.pkgs; [pygobject3];
 
   configureScript = "./autogen.sh";
 
@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail "http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl" "${docbook_xsl}/xml/xsl/docbook/manpages/docbook.xsl"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://gitlab.gnome.org/GNOME/alacarte";
@@ -66,6 +66,6 @@ python3.pkgs.buildPythonApplication rec {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     mainProgram = "alacarte";
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
   };
 }

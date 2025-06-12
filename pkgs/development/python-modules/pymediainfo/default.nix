@@ -8,7 +8,6 @@
   pytest,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pymediainfo";
   version = "7.0.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
                 "${libmediainfo}/lib/libmediainfo${stdenv.hostPlatform.extensions.sharedLibrary}.0"
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   nativeCheckInputs = [
     pytest
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     py.test -k 'not test_parse_url' tests
   '';
 
-  pythonImportsCheck = [ "pymediainfo" ];
+  pythonImportsCheck = ["pymediainfo"];
 
   meta = {
     description = "Python wrapper for the mediainfo library";
     homepage = "https://github.com/sbraz/pymediainfo";
     changelog = "https://github.com/sbraz/pymediainfo/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ philipdb ];
+    maintainers = with lib.maintainers; [philipdb];
   };
 }

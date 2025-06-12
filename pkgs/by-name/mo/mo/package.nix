@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mo";
   version = "3.0.5";
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Moustache templates for Bash";
     homepage = "https://github.com/tests-always-included/mo";
     license = licenses.mit;
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
   };
 }

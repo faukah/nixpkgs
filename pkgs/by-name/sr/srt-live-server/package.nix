@@ -5,7 +5,6 @@
   srt,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "srt-live-server";
   version = "1.4.8";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "srt live server for low latency";
     license = licenses.mit;
     homepage = "https://github.com/Edward-Wu/srt-live-server";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

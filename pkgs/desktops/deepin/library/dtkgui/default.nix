@@ -10,7 +10,6 @@
   lxqt,
   librsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtkgui";
   version = "5.6.32";
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtkgui";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

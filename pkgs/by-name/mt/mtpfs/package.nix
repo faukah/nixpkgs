@@ -9,12 +9,11 @@
   libmad,
   libid3tag,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mtpfs";
   version = "1.1";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fuse
     libmtp
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "FUSE Filesystem providing access to MTP devices";
     platforms = platforms.all;
     license = licenses.gpl3;
-    maintainers = [ maintainers.qknight ];
+    maintainers = [maintainers.qknight];
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/mtpfs.x86_64-darwin
     mainProgram = "mtpfs";
   };

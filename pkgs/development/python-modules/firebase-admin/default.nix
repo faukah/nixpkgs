@@ -16,7 +16,6 @@
   pytest-localserver,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "firebase-admin";
   version = "6.8.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-N8DidHocdIV5qFEPZIqWZPfxvIfJzd/+jXGk/OZBT1s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cachecontrol

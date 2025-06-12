@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "material-icons";
   version = "4.0.0";
@@ -31,13 +30,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "System status icons by Google, featuring material design";
     homepage = "https://material.io/icons";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mpcsh ];
+    maintainers = with maintainers; [mpcsh];
   };
 })

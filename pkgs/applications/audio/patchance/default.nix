@@ -8,7 +8,6 @@
   which,
   bash,
 }:
-
 buildPythonApplication rec {
   pname = "patchance";
   version = "1.1.0";
@@ -30,17 +29,17 @@ buildPythonApplication rec {
     libjack2
     bash
   ];
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   dontWrapQtApps = true; # The program is a python script.
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   makeWrapperArgs = [
     "--suffix"
     "LD_LIBRARY_PATH"
     ":"
-    (lib.makeLibraryPath [ libjack2 ])
+    (lib.makeLibraryPath [libjack2])
   ];
 
   preFixup = ''
@@ -59,7 +58,7 @@ buildPythonApplication rec {
     description = "JACK Patchbay GUI";
     mainProgram = "patchance";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   bubblewrap,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pipr";
   version = "0.0.16";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-SRIv/dZcyKm2E7c5/LtMCDnh+SDqPhJ01GZtkj0RgA0=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postFixup = ''
-    wrapProgram "$out/bin/pipr" --prefix PATH : ${lib.makeBinPath [ bubblewrap ]}
+    wrapProgram "$out/bin/pipr" --prefix PATH : ${lib.makeBinPath [bubblewrap]}
   '';
 
   meta = with lib; {
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "pipr";
     homepage = "https://github.com/ElKowar/pipr";
     license = licenses.mit;
-    maintainers = with maintainers; [ elkowar ];
+    maintainers = with maintainers; [elkowar];
     platforms = platforms.all;
   };
 }

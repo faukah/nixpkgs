@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "fsql";
   version = "0.5.2";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Search through your filesystem with SQL-esque queries";
     homepage = "https://github.com/kshvmdn/fsql";
     license = licenses.mit;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "fsql";
   };
 }

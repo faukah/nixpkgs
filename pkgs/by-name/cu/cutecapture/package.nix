@@ -6,7 +6,6 @@
   libusb1,
   sfml_2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cutecapture";
   version = "1.4.0";
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Gotos/CuteCapture";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ raphaelr ];
+    maintainers = with lib.maintainers; [raphaelr];
   };
 })

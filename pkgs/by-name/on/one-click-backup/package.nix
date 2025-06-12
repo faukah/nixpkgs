@@ -7,7 +7,6 @@
   qt6,
   extra-cmake-modules,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "one-click-backup";
   version = "1.2.2.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/dev-nis/nis-one-click-backup-qt";
     changelog = "https://gitlab.com/dev-nis/nis-one-click-backup-qt/-/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ NIS ];
+    maintainers = with maintainers; [NIS];
     mainProgram = "NIS_One-Click-Backup_Qt";
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;

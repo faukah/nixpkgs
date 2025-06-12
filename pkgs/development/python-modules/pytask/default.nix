@@ -41,18 +41,20 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [
-    attrs
-    click
-    click-default-group
-    networkx
-    optree
-    packaging
-    pluggy
-    rich
-    sqlalchemy
-    universal-pathlib
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      attrs
+      click
+      click-default-group
+      networkx
+      optree
+      packaging
+      pluggy
+      rich
+      sqlalchemy
+      universal-pathlib
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -80,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pytask-dev/pytask";
     changelog = "https://github.com/pytask-dev/pytask/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ erooke ];
+    maintainers = with maintainers; [erooke];
   };
 }

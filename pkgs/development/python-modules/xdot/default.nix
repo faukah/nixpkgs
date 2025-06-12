@@ -13,7 +13,6 @@
   packaging,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xdot";
   version = "1.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-fkO1bINRkCCzVRrQg9+vIODbN+bpXq2OHBKkzzZUZNA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     numpy
     packaging
   ];
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   dontWrapGApps = true;
   # Arguments to be passed to `makeWrapper`, only used by buildPython*
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
-    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ graphviz ]})
+    makeWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [graphviz]})
   '';
 
   checkPhase = ''

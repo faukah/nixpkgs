@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "moarvm";
   version = "2025.05";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
         --replace '`sw_vers -productVersion`' '"11.0"'
     '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   doCheck = false; # MoarVM does not come with its own test suite
 
   configureScript = "${perl}/bin/perl ./Configure.pl";

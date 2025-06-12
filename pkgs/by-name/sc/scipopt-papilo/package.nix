@@ -9,7 +9,6 @@
   tbb_2021_11,
   gfortran,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scipopt-papilo";
   version = "2.4.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/1AsAesUh/5YXeCU2OYopoG3SXAwAecPD88QvGkb2bY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     blas
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
   doCheck = true;
   meta = {
-    maintainers = with lib.maintainers; [ fettgoenner ];
+    maintainers = with lib.maintainers; [fettgoenner];
     changelog = "https://scipopt.org/doc-${scipVersion}/html/RN${lib.versions.major scipVersion}.php";
     description = "Parallel Presolve for Integer and Linear Optimization";
     license = lib.licenses.lgpl3Plus;

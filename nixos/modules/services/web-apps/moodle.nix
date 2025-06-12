@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkPackageOption
@@ -16,7 +15,8 @@ let
     mkOption
     types
     ;
-  inherit (lib)
+  inherit
+    (lib)
     concatStringsSep
     literalExpression
     mapAttrsToList
@@ -43,7 +43,9 @@ let
         mysql = "mariadb";
         pgsql = "pgsql";
       }
-      .${cfg.database.type}
+      .${
+        cfg.database.type
+      }
     }';
     $CFG->dblibrary = 'native';
     $CFG->dbhost    = '${cfg.database.host}';
@@ -61,10 +63,9 @@ let
     );
 
     $CFG->wwwroot   = '${
-      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL then
-        "https"
-      else
-        "http"
+      if cfg.virtualHost.addSSL || cfg.virtualHost.forceSSL || cfg.virtualHost.onlySSL
+      then "https"
+      else "http"
     }://${cfg.virtualHost.hostName}';
     $CFG->dataroot  = '${stateDir}';
     $CFG->admin     = 'admin';
@@ -90,10 +91,8 @@ let
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "pgsql";
 
   phpExt = pkgs.php83.buildEnv {
-    extensions =
-      { all, ... }:
-      with all;
-      [
+    extensions = {all, ...}:
+      with all; [
         iconv
         mbstring
         curl
@@ -125,13 +124,12 @@ let
       ];
     extraConfig = "max_input_vars = 5000";
   };
-in
-{
+in {
   # interface
   options.services.moodle = {
     enable = mkEnableOption "Moodle web application";
 
-    package = mkPackageOption pkgs "moodle" { };
+    package = mkPackageOption pkgs "moodle" {};
 
     initialPassword = mkOption {
       type = types.str;
@@ -166,7 +164,9 @@ in
             mysql = 3306;
             pgsql = 5432;
           }
-          .${cfg.database.type};
+          .${
+            cfg.database.type
+          };
         defaultText = literalExpression "3306";
       };
 
@@ -195,12 +195,11 @@ in
       socket = mkOption {
         type = types.nullOr types.path;
         default =
-          if mysqlLocal then
-            "/run/mysqld/mysqld.sock"
-          else if pgsqlLocal then
-            "/run/postgresql"
-          else
-            null;
+          if mysqlLocal
+          then "/run/mysqld/mysqld.sock"
+          else if pgsqlLocal
+          then "/run/postgresql"
+          else null;
         defaultText = literalExpression "/run/mysqld/mysqld.sock";
         description = "Path to the unix socket file to use for authentication.";
       };
@@ -229,8 +228,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -266,7 +264,6 @@ in
 
   # implementation
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion =
@@ -282,13 +279,12 @@ in
     services.mysql = mkIf mysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
           ensurePermissions = {
-            "${cfg.database.name}.*" =
-              "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
+            "${cfg.database.name}.*" = "SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER";
           };
         }
       ];
@@ -296,7 +292,7 @@ in
 
     services.postgresql = mkIf pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -314,16 +310,18 @@ in
         opcache.enable = 1
         max_input_vars = 5000
       '';
-      settings = {
-        "listen.owner" = config.services.httpd.user;
-        "listen.group" = config.services.httpd.group;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.owner" = config.services.httpd.user;
+          "listen.group" = config.services.httpd.group;
+        }
+        // cfg.poolConfig;
     };
 
     services.httpd = {
       enable = true;
       adminAddr = mkDefault cfg.virtualHost.adminAddr;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.virtualHost.hostName} = mkMerge [
         cfg.virtualHost
         {
@@ -349,8 +347,8 @@ in
     };
 
     systemd.services.moodle-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-moodle.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-moodle.service"];
       after = optional mysqlLocal "mysql.service" ++ optional pgsqlLocal "postgresql.service";
       environment.MOODLE_CONFIG = moodleConfig;
       script = ''
@@ -375,7 +373,7 @@ in
 
     systemd.services.moodle-cron = {
       description = "Moodle cron service";
-      after = [ "moodle-init.service" ];
+      after = ["moodle-init.service"];
       environment.MOODLE_CONFIG = moodleConfig;
       serviceConfig = {
         User = user;
@@ -386,7 +384,7 @@ in
 
     systemd.timers.moodle-cron = {
       description = "Moodle cron timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "minutely";
       };

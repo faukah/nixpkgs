@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "bazelisk";
   version = "1.25.0";
@@ -32,6 +31,6 @@ buildGoModule rec {
     homepage = "https://github.com/bazelbuild/bazelisk";
     changelog = "https://github.com/bazelbuild/bazelisk/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ elasticdog ];
+    maintainers = with lib.maintainers; [elasticdog];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "n2";
   version = "unstable-2025-03-14";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     description = "Ninja compatible build system";
     mainProgram = "n2";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
   };
 }

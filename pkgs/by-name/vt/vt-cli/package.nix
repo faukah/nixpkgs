@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "vt-cli";
   version = "1.1.1";
@@ -17,9 +16,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-s90a35fFHO8Tt7Zjf9bk1VVD2xhG1g4rKmtIuMl0bMQ=";
 
-  ldflags = [ "-X github.com/VirusTotal/vt-cli/cmd.Version=${finalAttrs.version}" ];
+  ldflags = ["-X github.com/VirusTotal/vt-cli/cmd.Version=${finalAttrs.version}"];
 
-  subPackages = [ "vt" ];
+  subPackages = ["vt"];
 
   meta = {
     description = "VirusTotal Command Line Interface";
@@ -27,6 +26,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/VirusTotal/vt-cli/releases/tag/${finalAttrs.version}";
     license = lib.licenses.asl20;
     mainProgram = "vt";
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 })

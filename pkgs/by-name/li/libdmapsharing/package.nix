@@ -18,7 +18,6 @@
   libsoup_3,
   withGtkDoc ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdmapsharing";
   version = "3.9.13";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     domain = "gitlab.gnome.org";
     owner = "GNOME";
     repo = "libdmapsharing";
-    rev = "${lib.toUpper pname}_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "${lib.toUpper pname}_${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "oR9lpOFxgGfrtzncFT6dbmhKQfcuH/NvhOR/USHAHQc=";
   };
 
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.flyn.org/projects/libdmapsharing/";
     description = "Library that implements the DMAP family of protocols";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
   };

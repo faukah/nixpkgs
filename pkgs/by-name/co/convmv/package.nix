@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "convmv";
   version = "2.06";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Only
       gpl3Only
     ];
-    maintainers = with maintainers; [ al3xtjames ];
+    maintainers = with maintainers; [al3xtjames];
     mainProgram = "convmv";
     platforms = platforms.unix;
   };

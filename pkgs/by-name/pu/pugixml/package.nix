@@ -7,7 +7,6 @@
   validatePkgConfig,
   shared ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pugixml";
   version = "1.15";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-t/57lg32KgKPc7qRGQtO/GOwHRqoj78lllSaE/A8Z9Q=";
   };
 
-  outputs = [ "out" ] ++ lib.optionals shared [ "dev" ];
+  outputs = ["out"] ++ lib.optionals shared ["dev"];
 
   nativeBuildInputs = [
     cmake
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     (lib.cmakeBool "BUILD_SHARED_LIBS" shared)
   ];
 
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   preConfigure = ''
     # Enable long long support (required for filezilla)
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Light-weight, simple and fast XML parser for C++ with XPath support";
     homepage = "https://pugixml.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = lib.platforms.unix;
   };
 }

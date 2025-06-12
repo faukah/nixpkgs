@@ -8,7 +8,6 @@
   pkg-config,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "goocanvas";
   version = "1.0.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HAcu+IVnytJB+0rd7ibpvZZ0GxUD/3NtHBUvpthlcR4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     cairo

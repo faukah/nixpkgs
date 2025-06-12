@@ -10,7 +10,6 @@
   yarn,
   yarn2nix,
 }:
-
 stdenvNoCC.mkDerivation rec {
   name = "zammad-update-script";
   installPhase = ''
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
   '';
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     bundix
     common-updater-scripts
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
   ];
 
   meta = {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     description = "Utility to generate Nix expressions for Zammad's dependencies";
     platforms = lib.platforms.unix;
   };

@@ -5,25 +5,21 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.proxy;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "kubernetes" "proxy" "address" ]
-      [ "services" "kubernetes" "proxy" "bindAddress" ]
+    (
+      mkRenamedOptionModule
+      ["services" "kubernetes" "proxy" "address"]
+      ["services" "kubernetes" "proxy" "bindAddress"]
     )
   ];
 
   ###### interface
   options.services.kubernetes.proxy = with lib.types; {
-
     bindAddress = mkOption {
       description = "Kubernetes proxy listening address.";
       default = "0.0.0.0";
@@ -62,15 +58,14 @@ in
       default = null;
       type = nullOr int;
     };
-
   };
 
   ###### implementation
   config = mkIf cfg.enable {
     systemd.services.kube-proxy = {
       description = "Kubernetes Proxy Service";
-      wantedBy = [ "kubernetes.target" ];
-      after = [ "kube-apiserver.service" ];
+      wantedBy = ["kubernetes.target"];
+      after = ["kube-apiserver.service"];
       path = with pkgs; [
         iptables
         conntrack-tools
@@ -82,12 +77,12 @@ in
           --bind-address=${cfg.bindAddress} \
           ${optionalString (top.clusterCidr != null) "--cluster-cidr=${top.clusterCidr}"} \
           ${
-            optionalString (cfg.featureGates != { })
-              "--feature-gates=${
-                concatStringsSep "," (
-                  builtins.attrValues (mapAttrs (n: v: "${n}=${trivial.boolToString v}") cfg.featureGates)
-                )
-              }"
+            optionalString (cfg.featureGates != {})
+            "--feature-gates=${
+              concatStringsSep "," (
+                builtins.attrValues (mapAttrs (n: v: "${n}=${trivial.boolToString v}") cfg.featureGates)
+              )
+            }"
           } \
           --hostname-override=${cfg.hostname} \
           --kubeconfig=${top.lib.mkKubeConfig "kube-proxy" cfg.kubeconfig} \

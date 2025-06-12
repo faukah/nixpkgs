@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnu-cim";
   version = "5.1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/cim/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    badPlatforms = [ "aarch64-darwin" ];
-    maintainers = with maintainers; [ pbsds ];
+    badPlatforms = ["aarch64-darwin"];
+    maintainers = with maintainers; [pbsds];
   };
 }

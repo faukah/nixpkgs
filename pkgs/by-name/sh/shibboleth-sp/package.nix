@@ -14,7 +14,6 @@
   xml-security-c,
   xml-tooling-c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "shibboleth-sp";
   version = "3.0.4.1";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     description = "Enables SSO and Federation web applications written with any programming language or framework";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

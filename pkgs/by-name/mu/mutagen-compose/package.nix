@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "mutagen-compose";
   version = "0.18.1";
@@ -19,15 +18,15 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mutagen-compose" ];
+  subPackages = ["cmd/mutagen-compose"];
 
-  tags = [ "mutagencompose" ];
+  tags = ["mutagencompose"];
 
   meta = {
     description = "Compose with Mutagen integration";
     homepage = "https://mutagen.io/";
     changelog = "https://github.com/mutagen-io/mutagen-compose/releases/tag/v${version}";
-    maintainers = [ lib.maintainers.matthewpi ];
+    maintainers = [lib.maintainers.matthewpi];
     license = lib.licenses.mit;
     mainProgram = "mutagen-compose";
   };

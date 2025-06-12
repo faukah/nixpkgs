@@ -8,7 +8,6 @@
   setuptools,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "csaf-tool";
   version = "0.3.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-LR6r03z0nvvAQgFHaTWfukoJmLZ6SLPXfbp/G8N/HtM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packageurl-python
@@ -33,15 +32,15 @@ buildPythonPackage rec {
   # has not tests
   doCheck = false;
 
-  pythonImportsCheck = [ "csaf" ];
+  pythonImportsCheck = ["csaf"];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
 
   meta = with lib; {
     description = "CSAF generator and validator";
     homepage = "https://github.com/anthonyharrison/csaf";
     changelog = "https://github.com/anthonyharrison/csaf/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teatwig ];
+    maintainers = with maintainers; [teatwig];
   };
 }

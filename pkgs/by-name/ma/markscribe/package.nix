@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "markscribe";
   version = "0.6.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/markscribe";
     changelog = "https://github.com/muesli/markscribe/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -5,7 +5,6 @@
 #
 # Of course, use of the driver in /usr/lib is highly impure.  But it
 # might actually work ;-)
-
 {
   lib,
   stdenv,
@@ -13,7 +12,6 @@
   expat,
   libdrm,
 }:
-
 stdenv.mkDerivation {
   pname = "xorg-sys-opengl";
   version = "3";

@@ -13,11 +13,9 @@
   versionCheckHook,
   nix-update-script,
   installShellFiles,
-
   withNotifications ? true,
   withOgg ? true,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mum";
   version = "0.5.1";
@@ -37,13 +35,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [
-    alsa-lib
-    gdk-pixbuf
-    glib
-    libopus
-    openssl
-  ] ++ lib.optional withNotifications libnotify;
+  buildInputs =
+    [
+      alsa-lib
+      gdk-pixbuf
+      glib
+      libopus
+      openssl
+    ]
+    ++ lib.optional withNotifications libnotify;
 
   buildNoDefaultFeatures = true;
   buildFeatures = lib.optional withNotifications "notifications" ++ lib.optional withOgg "ogg";
@@ -53,16 +53,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/mumctl";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Daemon/cli mumble client";
     homepage = "https://github.com/mum-rs/mum";
     changelog = "https://github.com/mum-rs/mum/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     license = lib.licenses.mit;
   };
 })

@@ -12,7 +12,6 @@
   libxkbcommon,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xdotool";
   version = "3.20211022.1";
@@ -42,13 +41,13 @@ stdenv.mkDerivation rec {
     mkdir -p $out/lib
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     homepage = "https://www.semicomplete.com/projects/xdotool/";
     description = "Fake keyboard/mouse input, window management, and more";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
     mainProgram = "xdotool";
   };

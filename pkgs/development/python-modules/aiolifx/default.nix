@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiolifx";
   version = "1.1.5";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-KRUe8qn/3jYKxgKvqPeA6oXZF3IYfRBBftWxjLhe/ow=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     async-timeout
@@ -36,14 +35,14 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiolifx" ];
+  pythonImportsCheck = ["aiolifx"];
 
   meta = with lib; {
     description = "Module for local communication with LIFX devices over a LAN";
     homepage = "https://github.com/aiolifx/aiolifx";
     changelog = "https://github.com/aiolifx/aiolifx/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ netixx ];
+    maintainers = with maintainers; [netixx];
     mainProgram = "aiolifx";
   };
 }

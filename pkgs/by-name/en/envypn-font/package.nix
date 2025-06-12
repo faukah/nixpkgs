@@ -5,7 +5,6 @@
   libfaketime,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "envypn-font";
   version = "1.7.1";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ywstd.fr/p/pj/#envypn";
     license = licenses.miros;
     platforms = platforms.all;
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
   };
 }

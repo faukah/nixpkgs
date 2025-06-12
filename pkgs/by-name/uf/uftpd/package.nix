@@ -7,7 +7,6 @@
   libuev,
   libite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uftpd";
   version = "2.15";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://troglobit.com/projects/uftpd/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vifino ];
+    maintainers = with maintainers; [vifino];
   };
 }

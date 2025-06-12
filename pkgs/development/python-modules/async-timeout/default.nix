@@ -8,7 +8,6 @@
   pytest-asyncio,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "async-timeout";
   version = "5.0.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-lsSoIv2SnAJbv7V1eRognjv0cCQONwJMlb6fum9wQ/s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook

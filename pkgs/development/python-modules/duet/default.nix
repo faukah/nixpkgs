@@ -7,7 +7,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "duet";
   version = "0.2.9";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-P7JxUigD7ZyhtocV+YuAVxuUYVa4F7PpXuA1CCmcMvg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ typing-extensions ];
+  dependencies = [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "duet" ];
+  pythonImportsCheck = ["duet"];
 
   disabledTests = [
     # test fails because builder is too busy and cannot finish quickly enough
@@ -38,6 +37,6 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Simple future-based async library for python";
     homepage = "https://github.com/google/duet";
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

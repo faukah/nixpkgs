@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "calmjs";
   version = "3.4.4";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     calmjs-types
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   disabledTests = [
     # spacing changes in argparse output
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     "src/calmjs/tests/test_command.py"
   ];
 
-  pythonImportsCheck = [ "calmjs" ];
+  pythonImportsCheck = ["calmjs"];
 
   meta = with lib; {
     description = "Framework for building toolchains and utilities for working with the Node.js ecosystem";
     mainProgram = "calmjs";
     homepage = "https://github.com/calmjs/calmjs";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

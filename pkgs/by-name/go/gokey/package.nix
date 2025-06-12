@@ -7,7 +7,7 @@ buildGoModule rec {
   pname = "gokey";
   version = "0.1.3";
 
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
   src = fetchFromGitHub {
     owner = "cloudflare";
@@ -22,7 +22,7 @@ buildGoModule rec {
     homepage = "https://github.com/cloudflare/gokey";
     description = "Vault-less password store";
     license = licenses.bsd3;
-    maintainers = [ maintainers.confus ];
+    maintainers = [maintainers.confus];
     mainProgram = "gokey";
   };
 }

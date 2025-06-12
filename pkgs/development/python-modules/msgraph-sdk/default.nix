@@ -14,7 +14,6 @@
   msgraph-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "msgraph-sdk";
   version = "1.32.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-TOLa87LbUce4Ekh8ikTVFTSvW7xifks1bK/mHoWxKQ4=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     azure-identity
@@ -46,13 +45,13 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "msgraph" ];
+  pythonImportsCheck = ["msgraph"];
 
   meta = with lib; {
     description = "Microsoft Graph SDK for Python";
     homepage = "https://github.com/microsoftgraph/msgraph-sdk-python";
     changelog = "https://github.com/microsoftgraph/msgraph-sdk-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

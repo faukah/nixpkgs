@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "massren";
   version = "1.5.6";
@@ -31,21 +30,19 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Possible error about github.com/mattn/go-sqlite3
-        "Test_guessEditorCommand"
-        "Test_processFileActions"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # Possible error about github.com/mattn/go-sqlite3
+      "Test_guessEditorCommand"
+      "Test_processFileActions"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   meta = with lib; {
     description = "Easily rename multiple files using your text editor";
     license = licenses.mit;
     homepage = "https://github.com/laurent22/massren";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "massren";
   };
 }

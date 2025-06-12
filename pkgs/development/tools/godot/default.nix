@@ -6,33 +6,33 @@
   lib,
   nix-update-script,
   fetchzip,
-}:
-let
-  mkGodotPackages =
-    versionPrefix:
-    let
-      attrs = import (./. + "/${versionPrefix}/default.nix");
-      updateScript = [
-        ./update.sh
-        versionPrefix
-        (builtins.unsafeGetAttrPos "version" attrs).file
-      ];
-    in
+}: let
+  mkGodotPackages = versionPrefix: let
+    attrs = import (./. + "/${versionPrefix}/default.nix");
+    updateScript = [
+      ./update.sh
+      versionPrefix
+      (builtins.unsafeGetAttrPos "version" attrs).file
+    ];
+  in
     lib.recurseIntoAttrs rec {
       godot = callPackage ./common.nix {
         inherit updateScript;
-        inherit (attrs)
+        inherit
+          (attrs)
           version
           hash
           ;
-        inherit (attrs.default)
+        inherit
+          (attrs.default)
           exportTemplatesHash
           ;
       };
 
       godot-mono = godot.override {
         withMono = true;
-        inherit (attrs.mono)
+        inherit
+          (attrs.mono)
           exportTemplatesHash
           nugetDeps
           ;
@@ -44,18 +44,17 @@ let
       export-templates-bin = godot.export-templates-bin;
       export-templates-mono-bin = godot-mono.export-templates-bin;
     };
-in
-rec {
-  godot3 = callPackage ./3 { };
-  godot3-export-templates = callPackage ./3/export-templates.nix { };
-  godot3-headless = callPackage ./3/headless.nix { };
-  godot3-debug-server = callPackage ./3/debug-server.nix { };
-  godot3-server = callPackage ./3/server.nix { };
-  godot3-mono = callPackage ./3/mono { };
-  godot3-mono-export-templates = callPackage ./3/mono/export-templates.nix { };
-  godot3-mono-headless = callPackage ./3/mono/headless.nix { };
-  godot3-mono-debug-server = callPackage ./3/mono/debug-server.nix { };
-  godot3-mono-server = callPackage ./3/mono/server.nix { };
+in rec {
+  godot3 = callPackage ./3 {};
+  godot3-export-templates = callPackage ./3/export-templates.nix {};
+  godot3-headless = callPackage ./3/headless.nix {};
+  godot3-debug-server = callPackage ./3/debug-server.nix {};
+  godot3-server = callPackage ./3/server.nix {};
+  godot3-mono = callPackage ./3/mono {};
+  godot3-mono-export-templates = callPackage ./3/mono/export-templates.nix {};
+  godot3-mono-headless = callPackage ./3/mono/headless.nix {};
+  godot3-mono-debug-server = callPackage ./3/mono/debug-server.nix {};
+  godot3-mono-server = callPackage ./3/mono/server.nix {};
 
   godotPackages_4_3 = mkGodotPackages "4.3";
   godotPackages_4_4 = mkGodotPackages "4.4";

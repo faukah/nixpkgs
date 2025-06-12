@@ -6,7 +6,6 @@
   cvs,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cvsps";
   version = "2.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = {
     description = "Tool to generate CVS patch set information";

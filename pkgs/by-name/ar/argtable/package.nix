@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "argtable";
   version = "3.2.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-X89xFLDs6NEgjzzwy8kplvTgukQd/CV3Xa9A3JXecf4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" true)
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
       are essential but tedious to implement for a robust CLI program.
     '';
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ artuuge ];
+    maintainers = with lib.maintainers; [artuuge];
     platforms = lib.platforms.all;
   };
 })
@@ -47,3 +46,4 @@ stdenv.mkDerivation (finalAttrs: {
 # TODO: multiple outputs
 # TODO: documentation
 # TODO: build both shared and static libs
+

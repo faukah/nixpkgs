@@ -12,7 +12,6 @@
   utf8proc,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "schismtracker";
   version = "20250415";
@@ -73,14 +72,14 @@ stdenv.mkDerivation rec {
       --replace '-lSDL2main' '-lSDL2'
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Music tracker application, free reimplementation of Impulse Tracker";
     homepage = "https://schismtracker.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ftrvxmtrx ];
+    maintainers = with lib.maintainers; [ftrvxmtrx];
     mainProgram = "schismtracker";
   };
 }

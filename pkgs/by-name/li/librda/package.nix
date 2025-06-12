@@ -10,7 +10,6 @@
   intltool,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "librda";
   version = "0.0.5-unstable-2023-09-15";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ArcticaProject/librda";
     license = licenses.gpl2Plus;
     mainProgram = "rdacheck";
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.linux;
     pkgConfigModules = [
       "rda"

@@ -14,7 +14,6 @@
   billiard,
   gnureadline,
 }:
-
 buildPythonApplication rec {
   pname = "MAVProxy";
   version = "1.8.71";
@@ -49,6 +48,6 @@ buildPythonApplication rec {
     description = "MAVLink proxy and command line ground station";
     homepage = "https://github.com/ArduPilot/MAVProxy";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

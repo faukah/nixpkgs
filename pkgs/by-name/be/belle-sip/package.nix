@@ -9,7 +9,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "belle-sip";
   version = "5.2.98";
@@ -23,12 +22,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-PZnAB+LOlwkiJO0ICqYqn0TgqQY2KdUbgGJRFSzGxdE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Do not build static libraries
-  cmakeFlags = [ "-DENABLE_STATIC=NO" ];
+  cmakeFlags = ["-DENABLE_STATIC=NO"];
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     mainProgram = "belle_sip_tester";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

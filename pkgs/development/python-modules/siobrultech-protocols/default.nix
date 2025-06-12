@@ -7,7 +7,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "siobrultech-protocols";
   version = "0.14.0";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sdwilsh/siobrultech-protocols";
     changelog = "https://github.com/sdwilsh/siobrultech-protocols/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

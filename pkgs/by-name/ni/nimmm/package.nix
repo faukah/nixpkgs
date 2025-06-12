@@ -5,7 +5,6 @@
   termbox,
   pcre,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "nimmm";
   version = "0.4.0";
@@ -30,6 +29,6 @@ buildNimPackage (finalAttrs: {
     homepage = "https://github.com/joachimschmidt557/nimmm";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.joachimschmidt557 ];
+    maintainers = [lib.maintainers.joachimschmidt557];
   };
 })

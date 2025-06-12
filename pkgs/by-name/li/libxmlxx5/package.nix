@@ -8,7 +8,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxmlxx5";
   version = "5.4";
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ glibmm ];
+  buildInputs = [glibmm];
 
-  propagatedBuildInputs = [ libxml2 ];
+  propagatedBuildInputs = [libxml2];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "C++ wrapper for the libxml2 XML parser library";
     homepage = "https://libxmlplusplus.sourceforge.net/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ lib.maintainers.normalcea ];
+    maintainers = [lib.maintainers.normalcea];
     platforms = lib.platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "protoc-gen-entgrpc";
   version = "0.6.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-jdjcnDfEAP33oQSn5nqgFqE+uwKBXp3gJWTNiiH/6iw=";
 
-  subPackages = [ "entproto/cmd/protoc-gen-entgrpc" ];
+  subPackages = ["entproto/cmd/protoc-gen-entgrpc"];
 
   ldflags = [
     "-s"
@@ -30,6 +29,6 @@ buildGoModule rec {
     downloadPage = "https://github.com/ent/contrib/";
     license = licenses.asl20;
     homepage = "https://entgo.io/";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

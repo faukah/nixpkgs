@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Kvantum-themes based on Rose Pine";
     homepage = "https://github.com/rose-pine/kvantum";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ amadaluzia ];
+    maintainers = with lib.maintainers; [amadaluzia];
     license = lib.licenses.unfree; # rose-pine/kvantum#1
   };
 })

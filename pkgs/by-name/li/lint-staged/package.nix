@@ -5,7 +5,6 @@
   testers,
   lint-staged,
 }:
-
 buildNpmPackage rec {
   pname = "lint-staged";
   version = "16.1.0";
@@ -28,7 +27,7 @@ buildNpmPackage rec {
       '"version": "${version}"'
   '';
 
-  passthru.tests.version = testers.testVersion { package = lint-staged; };
+  passthru.tests.version = testers.testVersion {package = lint-staged;};
 
   meta = with lib; {
     description = "Run linters on git staged files";
@@ -37,7 +36,7 @@ buildNpmPackage rec {
     '';
     homepage = src.meta.homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     mainProgram = "lint-staged";
   };
 }

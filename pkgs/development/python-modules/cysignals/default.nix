@@ -5,11 +5,9 @@
   cython,
   meson-python,
   ninja,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "cysignals";
   version = "1.12.3";
@@ -33,7 +31,7 @@ buildPythonPackage rec {
 
   # explicit check:
   # build/src/cysignals/implementation.c:27:2: error: #error "cysignals must be compiled without _FORTIFY_SOURCE"
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   # known failure: https://github.com/sagemath/cysignals/blob/582dbf6a7b0f9ade0abe7a7b8720b7fb32435c3c/testgdb.py#L5
   doCheck = false;
@@ -52,7 +50,7 @@ buildPythonPackage rec {
     description = "Interrupt and signal handling for Cython";
     mainProgram = "cysignals-CSI";
     homepage = "https://github.com/sagemath/cysignals/";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     license = licenses.lgpl3Plus;
   };
 }

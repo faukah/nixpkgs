@@ -3,16 +3,13 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # tests
   argcomplete,
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "traitlets";
   version = "5.14.3";
@@ -25,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ntBXnTUCyUtLNzKsEgN1zalvkjEUUihH3ks7uYuWtrc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   nativeCheckInputs = [
     argcomplete

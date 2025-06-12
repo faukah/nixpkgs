@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     data = ./deps.json;
   };
 
-  gradleFlags = [ "-Dorg.gradle.java.home=${jdk23}" ];
+  gradleFlags = ["-Dorg.gradle.java.home=${jdk23}"];
 
   gradleBuildTask = "application:jpackage";
 
@@ -79,13 +79,13 @@ stdenv.mkDerivation rec {
     makeShellWrapper $out/share/ed-odyssey-materials-helper/bin/Elite\ Dangerous\ Odyssey\ Materials\ Helper $out/bin/ed-odyssey-materials-helper \
       --run 'mkdir -p ~/.config/odyssey-materials-helper/ && cd ~/.config/odyssey-materials-helper/' \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libXxf86vm
-          glib
-          libXtst
-          libglvnd
-        ]
-      } "''${gappsWrapperArgs[@]}"
+      lib.makeLibraryPath [
+        libXxf86vm
+        glib
+        libXtst
+        libglvnd
+      ]
+    } "''${gappsWrapperArgs[@]}"
   '';
 
   desktopItems = [
@@ -96,8 +96,8 @@ stdenv.mkDerivation rec {
       comment = "Helper for managing materials in Elite Dangerous Odyssey";
       icon = "ed-odyssey-materials-helper";
       exec = "ed-odyssey-materials-helper %u";
-      categories = [ "Game" ];
-      mimeTypes = [ "x-scheme-handler/edomh" ];
+      categories = ["Game"];
+      mimeTypes = ["x-scheme-handler/edomh"];
     })
   ];
 

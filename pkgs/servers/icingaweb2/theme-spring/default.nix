@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icingaweb2-theme-spring";
   version = "1.0.0";
@@ -25,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Mikesch-mp/icingaweb2-theme-spring";
     license = licenses.publicDomain;
     platforms = platforms.all;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

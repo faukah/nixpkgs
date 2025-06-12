@@ -38,19 +38,19 @@ stdenv.mkDerivation {
         --replace-fail 'char *strdup(char *);' ' '
     '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   preInstall = ''
     mkdir -p $out/bin/
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Visual hexadecimal difference editor";
     homepage = "http://tboudet.free.fr/hexdiff/";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
     mainProgram = "hexdiff";
     platforms = platforms.unix;
   };

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "go-bindata-assetfs";
   version = "unstable-2022-04-12";
@@ -26,6 +25,6 @@ buildGoModule {
     description = "Serve embedded files from jteeuwen/go-bindata";
     mainProgram = "go-bindata-assetfs";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ avnik ];
+    maintainers = with maintainers; [avnik];
   };
 }

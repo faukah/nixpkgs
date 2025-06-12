@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.librenms;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configJson = settingsFormat.generate "librenms-config.json" cfg.settings;
 
   package = cfg.package.override {
@@ -24,15 +22,15 @@ let
   '';
   phpIni =
     pkgs.runCommand "php.ini"
-      {
-        inherit (package) phpPackage;
-        inherit phpOptions;
-        preferLocalBuild = true;
-        passAsFile = [ "phpOptions" ];
-      }
-      ''
-        cat $phpPackage/etc/php.ini $phpOptionsPath > $out
-      '';
+    {
+      inherit (package) phpPackage;
+      inherit phpOptions;
+      preferLocalBuild = true;
+      passAsFile = ["phpOptions"];
+    }
+    ''
+      cat $phpPackage/etc/php.ini $phpOptionsPath > $out
+    '';
 
   artisanWrapper = pkgs.writeShellScriptBin "librenms-artisan" ''
     cd ${package}
@@ -59,13 +57,11 @@ let
 
     ${lib.optionalString (cfg.extraConfig != null) cfg.extraConfig}
   '';
-
-in
-{
+in {
   options.services.librenms = with lib; {
     enable = mkEnableOption "LibreNMS network monitoring system";
 
-    package = lib.mkPackageOption pkgs "librenms" { };
+    package = lib.mkPackageOption pkgs "librenms" {};
 
     finalPackage = lib.mkOption {
       type = lib.types.package;
@@ -213,8 +209,7 @@ in
     };
 
     poolConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           int
@@ -236,9 +231,9 @@ in
 
     nginx = mkOption {
       type = types.submodule (
-        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) { }
+        recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {}
       );
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           serverAliases = [
@@ -349,7 +344,7 @@ in
     settings = mkOption {
       type = types.submodule {
         freeformType = settingsFormat.type;
-        options = { };
+        options = {};
       };
       description = ''
         Attrset of the LibreNMS configuration.
@@ -357,7 +352,7 @@ in
         All possible options are listed [here](https://github.com/librenms/librenms/blob/master/misc/config_definitions.json).
         See <https://docs.librenms.org/Extensions/Authentication/> for setting other authentication methods.
       '';
-      default = { };
+      default = {};
       example = {
         base_url = "/librenms/";
         top_devices = true;
@@ -397,7 +392,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     services.librenms.settings =
       {
@@ -417,20 +412,27 @@ in
         "php_memory_limit" = lib.mkDefault 1024;
 
         # one minute polling
-        "rrd.step" = if cfg.enableOneMinutePolling then 60 else 300;
-        "rrd.heartbeat" = if cfg.enableOneMinutePolling then 120 else 600;
+        "rrd.step" =
+          if cfg.enableOneMinutePolling
+          then 60
+          else 300;
+        "rrd.heartbeat" =
+          if cfg.enableOneMinutePolling
+          then 120
+          else 600;
       }
       // (lib.optionalAttrs cfg.distributedPoller.enable {
         "distributed_poller" = true;
-        "distributed_poller_name" = lib.mkIf (
-          cfg.distributedPoller.name != null
-        ) cfg.distributedPoller.name;
+        "distributed_poller_name" =
+          lib.mkIf (
+            cfg.distributedPoller.name != null
+          )
+          cfg.distributedPoller.name;
         "distributed_poller_group" = cfg.distributedPoller.group;
         "distributed_billing" = cfg.distributedPoller.distributedBilling;
         "distributed_poller_memcached_host" = cfg.distributedPoller.memcachedHost;
         "distributed_poller_memcached_port" = cfg.distributedPoller.memcachedPort;
-        "rrdcached" =
-          "${cfg.distributedPoller.rrdcachedHost}:${toString cfg.distributedPoller.rrdcachedPort}";
+        "rrdcached" = "${cfg.distributedPoller.rrdcachedHost}:${toString cfg.distributedPoller.rrdcachedPort}";
       })
       // (lib.optionalAttrs cfg.useDistributedPollers {
         "distributed_poller" = true;
@@ -449,8 +451,8 @@ in
 
     systemd.services.rrdcached = lib.mkIf cfg.useDistributedPollers {
       description = "rrdcached";
-      after = [ "librenms-setup.service" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["librenms-setup.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         User = cfg.user;
@@ -474,7 +476,7 @@ in
         // (lib.optionalAttrs cfg.useDistributedPollers {
           bind-address = "0.0.0.0";
         });
-      ensureDatabases = [ cfg.database.database ];
+      ensureDatabases = [cfg.database.database];
       ensureUsers = [
         {
           name = cfg.database.username;
@@ -514,16 +516,18 @@ in
       group = cfg.group;
       inherit (package) phpPackage;
       inherit phpOptions;
-      settings = {
-        "listen.mode" = "0660";
-        "listen.owner" = config.services.nginx.user;
-        "listen.group" = config.services.nginx.group;
-      } // cfg.poolConfig;
+      settings =
+        {
+          "listen.mode" = "0660";
+          "listen.owner" = config.services.nginx.user;
+          "listen.group" = config.services.nginx.group;
+        }
+        // cfg.poolConfig;
     };
 
     systemd.services.librenms-scheduler = {
       description = "LibreNMS Scheduler";
-      path = [ pkgs.unixtools.whereis ];
+      path = [pkgs.unixtools.whereis];
       serviceConfig = {
         Type = "oneshot";
         WorkingDirectory = package;
@@ -535,7 +539,7 @@ in
 
     systemd.timers.librenms-scheduler = {
       description = "LibreNMS Scheduler";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "minutely";
         AccuracySec = "1second";
@@ -544,12 +548,14 @@ in
 
     systemd.services.librenms-setup = {
       description = "Preparation tasks for LibreNMS";
-      before = [ "phpfpm-librenms.service" ];
-      after = [
-        "systemd-tmpfiles-setup.service"
-        "network.target"
-      ] ++ (lib.optional (cfg.database.host == "localhost") "mysql.service");
-      wantedBy = [ "multi-user.target" ];
+      before = ["phpfpm-librenms.service"];
+      after =
+        [
+          "systemd-tmpfiles-setup.service"
+          "network.target"
+        ]
+        ++ (lib.optional (cfg.database.host == "localhost") "mysql.service");
+      wantedBy = ["multi-user.target"];
       restartTriggers = [
         package
         configFile
@@ -562,27 +568,26 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
         User = cfg.user;
         Group = cfg.group;
         ExecStartPre = lib.mkIf cfg.database.createLocally [
           "!${
             pkgs.writeShellScript "librenms-db-init" (
-              if !isNull cfg.database.socket then
-                ''
-                  echo "ALTER USER '${cfg.database.username}'@'localhost' IDENTIFIED VIA unix_socket;" | ${pkgs.mariadb}/bin/mysql --socket='${cfg.database.socket}'
-                  ${lib.optionalString cfg.useDistributedPollers ''
-                    echo "ALTER USER '${cfg.database.username}'@'%' IDENTIFIED VIA unix_socket;" | ${pkgs.mariadb}/bin/mysql --socket='${cfg.database.socket}'
-                  ''}
-                ''
-              else
-                ''
-                  DB_PASSWORD=$(cat ${cfg.database.passwordFile} | tr -d '\n')
-                  echo "ALTER USER '${cfg.database.username}'@'localhost' IDENTIFIED BY '$DB_PASSWORD';" | ${pkgs.mariadb}/bin/mysql
-                  ${lib.optionalString cfg.useDistributedPollers ''
-                    echo "ALTER USER '${cfg.database.username}'@'%' IDENTIFIED BY '$DB_PASSWORD';" | ${pkgs.mariadb}/bin/mysql
-                  ''}
-                ''
+              if !isNull cfg.database.socket
+              then ''
+                echo "ALTER USER '${cfg.database.username}'@'localhost' IDENTIFIED VIA unix_socket;" | ${pkgs.mariadb}/bin/mysql --socket='${cfg.database.socket}'
+                ${lib.optionalString cfg.useDistributedPollers ''
+                  echo "ALTER USER '${cfg.database.username}'@'%' IDENTIFIED VIA unix_socket;" | ${pkgs.mariadb}/bin/mysql --socket='${cfg.database.socket}'
+                ''}
+              ''
+              else ''
+                DB_PASSWORD=$(cat ${cfg.database.passwordFile} | tr -d '\n')
+                echo "ALTER USER '${cfg.database.username}'@'localhost' IDENTIFIED BY '$DB_PASSWORD';" | ${pkgs.mariadb}/bin/mysql
+                ${lib.optionalString cfg.useDistributedPollers ''
+                  echo "ALTER USER '${cfg.database.username}'@'%' IDENTIFIED BY '$DB_PASSWORD';" | ${pkgs.mariadb}/bin/mysql
+                ''}
+              ''
             )
           }"
         ];
@@ -618,21 +623,20 @@ in
           echo "DB_DATABASE=${cfg.database.database}" >> ${cfg.dataDir}/.env
         ''
         + (
-          if !isNull cfg.database.socket then
-            ''
-              # use socket connection
-              echo "DB_SOCKET=${cfg.database.socket}" >> ${cfg.dataDir}/.env
-              echo "DB_PASSWORD=null" >> ${cfg.dataDir}/.env
-            ''
-          else
-            ''
-              # use TCP connection
-              echo "DB_HOST=${cfg.database.host}" >> ${cfg.dataDir}/.env
-              echo "DB_PORT=${toString cfg.database.port}" >> ${cfg.dataDir}/.env
-              echo "DB_USERNAME=${cfg.database.username}" >> ${cfg.dataDir}/.env
-              echo -n "DB_PASSWORD=" >> ${cfg.dataDir}/.env
-              cat ${cfg.database.passwordFile} >> ${cfg.dataDir}/.env
-            ''
+          if !isNull cfg.database.socket
+          then ''
+            # use socket connection
+            echo "DB_SOCKET=${cfg.database.socket}" >> ${cfg.dataDir}/.env
+            echo "DB_PASSWORD=null" >> ${cfg.dataDir}/.env
+          ''
+          else ''
+            # use TCP connection
+            echo "DB_HOST=${cfg.database.host}" >> ${cfg.dataDir}/.env
+            echo "DB_PORT=${toString cfg.database.port}" >> ${cfg.dataDir}/.env
+            echo "DB_USERNAME=${cfg.database.username}" >> ${cfg.dataDir}/.env
+            echo -n "DB_PASSWORD=" >> ${cfg.dataDir}/.env
+            cat ${cfg.database.passwordFile} >> ${cfg.dataDir}/.env
+          ''
         )
         + ''
           # clear cache if package has changed (cache may contain cached paths
@@ -690,17 +694,18 @@ in
 
     services.cron = {
       enable = true;
-      systemCronJobs =
-        let
-          env = "PHPRC=${phpIni}";
-        in
+      systemCronJobs = let
+        env = "PHPRC=${phpIni}";
+      in
         [
           # based on crontab provided by LibreNMS
           "33 */6 * * * ${cfg.user} ${env} ${package}/cronic ${package}/discovery-wrapper.py 1"
           "*/5 * * * * ${cfg.user} ${env} ${package}/discovery.php -h new >> /dev/null 2>&1"
 
           "${
-            if cfg.enableOneMinutePolling then "*" else "*/5"
+            if cfg.enableOneMinutePolling
+            then "*"
+            else "*/5"
           } * * * * ${cfg.user} ${env} ${package}/cronic ${package}/poller-wrapper.py ${toString cfg.pollerThreads}"
           "* * * * * ${cfg.user} ${env} ${package}/alerts.php >> /dev/null 2>&1"
 
@@ -759,8 +764,7 @@ in
       ++ lib.optionals cfg.useDistributedPollers [
         "d ${cfg.dataDir}/rrdcached-journal            0700 ${cfg.user} ${cfg.group} - -"
       ];
-
   };
 
-  meta.maintainers = with lib.maintainers; [ netali ] ++ lib.teams.wdz.members;
+  meta.maintainers = with lib.maintainers; [netali] ++ lib.teams.wdz.members;
 }

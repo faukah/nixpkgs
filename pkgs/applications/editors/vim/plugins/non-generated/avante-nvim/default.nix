@@ -10,8 +10,7 @@
   vimUtils,
   makeWrapper,
   pkgs,
-}:
-let
+}: let
   version = "0.0.24-unstable-2025-06-05";
   src = fetchFromGitHub {
     owner = "yetone";
@@ -36,7 +35,7 @@ let
       openssl
     ];
 
-    buildFeatures = [ "luajit" ];
+    buildFeatures = ["luajit"];
 
     checkFlags = [
       # Disabled because they access the network.
@@ -47,23 +46,21 @@ let
     ];
   };
 in
-vimUtils.buildVimPlugin {
-  pname = "avante.nvim";
-  inherit version src;
+  vimUtils.buildVimPlugin {
+    pname = "avante.nvim";
+    inherit version src;
 
-  dependencies = with vimPlugins; [
-    dressing-nvim
-    img-clip-nvim
-    nui-nvim
-    nvim-treesitter
-    plenary-nvim
-  ];
+    dependencies = with vimPlugins; [
+      dressing-nvim
+      img-clip-nvim
+      nui-nvim
+      nvim-treesitter
+      plenary-nvim
+    ];
 
-  postInstall =
-    let
+    postInstall = let
       ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
+    in ''
       mkdir -p $out/build
       ln -s ${avante-nvim-lib}/lib/libavante_repo_map${ext} $out/build/avante_repo_map${ext}
       ln -s ${avante-nvim-lib}/lib/libavante_templates${ext} $out/build/avante_templates${ext}
@@ -71,34 +68,34 @@ vimUtils.buildVimPlugin {
       ln -s ${avante-nvim-lib}/lib/libavante_html2md${ext} $out/build/avante_html2md${ext}
     '';
 
-  passthru = {
-    updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
-      attrPath = "vimPlugins.avante-nvim.avante-nvim-lib";
+    passthru = {
+      updateScript = nix-update-script {
+        extraArgs = ["--version=branch"];
+        attrPath = "vimPlugins.avante-nvim.avante-nvim-lib";
+      };
+
+      # needed for the update script
+      inherit avante-nvim-lib;
     };
 
-    # needed for the update script
-    inherit avante-nvim-lib;
-  };
-
-  nvimSkipModules = [
-    # Requires setup with corresponding provider
-    "avante.providers.azure"
-    "avante.providers.copilot"
-    "avante.providers.gemini"
-    "avante.providers.ollama"
-    "avante.providers.vertex"
-    "avante.providers.vertex_claude"
-  ];
-
-  meta = {
-    description = "Neovim plugin designed to emulate the behaviour of the Cursor AI IDE";
-    homepage = "https://github.com/yetone/avante.nvim";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      ttrei
-      aarnphm
-      jackcres
+    nvimSkipModules = [
+      # Requires setup with corresponding provider
+      "avante.providers.azure"
+      "avante.providers.copilot"
+      "avante.providers.gemini"
+      "avante.providers.ollama"
+      "avante.providers.vertex"
+      "avante.providers.vertex_claude"
     ];
-  };
-}
+
+    meta = {
+      description = "Neovim plugin designed to emulate the behaviour of the Cursor AI IDE";
+      homepage = "https://github.com/yetone/avante.nvim";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        ttrei
+        aarnphm
+        jackcres
+      ];
+    };
+  }

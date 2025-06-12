@@ -5,7 +5,6 @@
   fzf,
   xclip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unipicker";
   version = "2.0.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CLI utility for searching unicode characters by description and optionally copying them to clipboard";
     homepage = "https://github.com/jeremija/unipicker";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.unix;
     mainProgram = "unipicker";
   };

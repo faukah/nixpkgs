@@ -15,7 +15,6 @@
   libxcb,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tetraproc";
   version = "0.9.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kRak33RuYusG6U5FOf9b9vOJUjNK3zqoLL0V/bWBJqs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     expat
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Converts the A-format signals from a tetrahedral Ambisonic microphone into B-format signals ready for recording";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 }

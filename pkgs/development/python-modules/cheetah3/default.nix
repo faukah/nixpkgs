@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cheetah3";
   version = "3.4.0";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
 
   doCheck = false; # Circular dependency
 
-  pythonImportsCheck = [ "Cheetah" ];
+  pythonImportsCheck = ["Cheetah"];
 
   meta = with lib; {
     description = "Template engine and code generation tool";
     homepage = "http://www.cheetahtemplate.org/";
     changelog = "https://github.com/CheetahTemplate3/cheetah3/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ pjjw ];
+    maintainers = with maintainers; [pjjw];
   };
 }

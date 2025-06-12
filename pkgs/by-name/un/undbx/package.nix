@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "undbx";
   version = "0.22-unstable-2019-02-11";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-leregcv3dv/D3WvFkYyjQePdKi4BgE0aj5PY6JiSKl8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postPatch = ''
     substituteInPlace Makefile.am \
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Extract e-mail messages from Outlook Express DBX files";
     homepage = "https://github.com/ZungBang/undbx";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
     mainProgram = "undbx";

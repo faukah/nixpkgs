@@ -6,7 +6,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linvstmanager";
   version = "1.1.1";
@@ -31,8 +30,8 @@ stdenv.mkDerivation rec {
     description = "Graphical companion application for various bridges like LinVst, etc";
     mainProgram = "linvstmanager";
     homepage = "https://github.com/Goli4thus/linvstmanager";
-    license = with licenses; [ gpl3 ];
+    license = with licenses; [gpl3];
     platforms = platforms.linux;
-    maintainers = [ maintainers.GabrielDougherty ];
+    maintainers = [maintainers.GabrielDougherty];
   };
 }

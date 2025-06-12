@@ -6,7 +6,6 @@
   jdk8,
   libmatthew_java,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-java";
   version = "2.7";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     license = licenses.afl21;
   };
 }

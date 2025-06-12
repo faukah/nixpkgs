@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   tensorflow,
   pythonAtLeast,
   distutils,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tf-keras";
   version = "2.19.0";
@@ -31,19 +27,21 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    numpy
-    tensorflow
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ distutils ];
+  dependencies =
+    [
+      numpy
+      tensorflow
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [distutils];
 
-  pythonImportsCheck = [ "tf_keras" ];
+  pythonImportsCheck = ["tf_keras"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Deep learning for humans";
     homepage = "https://pypi.org/project/tf-keras/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

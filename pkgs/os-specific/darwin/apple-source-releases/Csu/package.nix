@@ -4,7 +4,6 @@
   mkAppleDerivation,
   stdenv,
 }:
-
 mkAppleDerivation {
   releaseName = "Csu";
 
@@ -16,7 +15,7 @@ mkAppleDerivation {
     "LOCLIBDIR=/lib"
   ];
 
-  installFlags = [ "DSTROOT=$(out)" ];
+  installFlags = ["DSTROOT=$(out)"];
 
   setupHooks = [
     ../../../../build-support/setup-hooks/role.bash
@@ -26,6 +25,6 @@ mkAppleDerivation {
 
   meta = {
     description = "Common startup stubs for Darwin";
-    badPlatforms = [ lib.systems.inspect.patterns.isAarch ];
+    badPlatforms = [lib.systems.inspect.patterns.isAarch];
   };
 }

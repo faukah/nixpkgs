@@ -15,8 +15,7 @@
   findutils,
   gnutar,
   gzip,
-}:
-let
+}: let
   pname = "gcc";
   version = "4.6.4";
 
@@ -53,7 +52,7 @@ let
     ./no-system-headers.patch
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -71,9 +70,8 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/gcc --version
         mkdir $out
       '';
@@ -82,7 +80,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU Compiler Collection, version ${version}";
       homepage = "https://gcc.gnu.org";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

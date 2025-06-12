@@ -5,7 +5,6 @@
   makeWrapper,
   go,
 }:
-
 buildGoModule rec {
   pname = "gotools";
   version = "0.30.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+jhCNi7bGkRdI1Ywfe3q4i+zcm3UJ0kbQalsDD3WkS4=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     # The gopls folder contains a Go submodule which causes a build failure
@@ -40,7 +39,7 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/goimports \
-      --suffix PATH : ${lib.makeBinPath [ go ]}
+      --suffix PATH : ${lib.makeBinPath [go]}
   '';
 
   meta = with lib; {

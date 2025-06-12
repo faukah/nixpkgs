@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
   hatch-fancy-pypi-readme,
-
   # dependencies
   smbus2,
-
   # checks
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bme680";
   version = "2.0.0";
@@ -32,20 +28,20 @@ buildPythonPackage rec {
     hatch-fancy-pypi-readme
   ];
 
-  dependencies = [ smbus2 ];
+  dependencies = [smbus2];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bme680" ];
+  pythonImportsCheck = ["bme680"];
 
   meta = with lib; {
     description = "Python library for driving the Pimoroni BME680 Breakout";
     homepage = "https://github.com/pimoroni/bme680-python";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

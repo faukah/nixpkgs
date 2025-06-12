@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
   inherit (config.environment) etc;
   cfg = config.security.apparmor;
@@ -15,9 +14,7 @@ let
   # We can emulate the behavior of `<option>.isDefined` by attempting to evaluate it instead
   # This is required because getting isDefined on a submodule is not possible in global module asserts.
   submoduleOptionIsDefined = value: (builtins.tryEval value).success;
-in
-
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "security"
@@ -84,11 +81,11 @@ in
             };
           }
         );
-        default = { };
+        default = {};
       };
       includes = lib.mkOption {
         type = types.attrsOf types.lines;
-        default = { };
+        default = {};
         description = ''
           List of paths to be added to AppArmor's searched paths
           when resolving `include` directives.
@@ -97,7 +94,7 @@ in
       };
       packages = lib.mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = "List of packages to be added to AppArmor's include path";
       };
       enableCache = lib.mkEnableOption ''
@@ -133,7 +130,8 @@ in
           assertion = lib.xor (policyCfg.path != null) (submoduleOptionIsDefined policyCfg.profile);
           message = "`security.apparmor.policies.\"${policyName}\"` must define exactly one of either path or profile.";
         }
-      ]) cfg.policies
+      ])
+      cfg.policies
     );
 
     environment.systemPackages = [
@@ -146,12 +144,17 @@ in
       lib.mapAttrsToList (name: p: {
         inherit name;
         path = buildPolicyPath name p;
-      }) enabledPolicies
-      ++ lib.mapAttrsToList (name: path: { inherit name path; }) cfg.includes
+      })
+      enabledPolicies
+      ++ lib.mapAttrsToList (name: path: {inherit name path;}) cfg.includes
     );
     environment.etc."apparmor/parser.conf".text =
       ''
-        ${if cfg.enableCache then "write-cache" else "skip-cache"}
+        ${
+          if cfg.enableCache
+          then "write-cache"
+          else "skip-cache"
+        }
         cache-loc /var/cache/apparmor
         Include /etc/apparmor.d
       ''
@@ -162,46 +165,46 @@ in
     environment.etc."apparmor/severity.db".source = pkgs.apparmor-utils + "/etc/apparmor/severity.db";
     environment.etc."apparmor/logprof.conf".source =
       pkgs.runCommand "logprof.conf"
-        {
-          header = ''
-            [settings]
-              # /etc/apparmor.d/ is read-only on NixOS
-              profiledir = /var/cache/apparmor/logprof
-              inactive_profiledir = /etc/apparmor.d/disable
-              # Use: journalctl -b --since today --grep audit: | aa-logprof
-              logfiles = /dev/stdin
+      {
+        header = ''
+          [settings]
+            # /etc/apparmor.d/ is read-only on NixOS
+            profiledir = /var/cache/apparmor/logprof
+            inactive_profiledir = /etc/apparmor.d/disable
+            # Use: journalctl -b --since today --grep audit: | aa-logprof
+            logfiles = /dev/stdin
 
-              parser = ${pkgs.apparmor-parser}/bin/apparmor_parser
-              ldd = ${lib.getExe' pkgs.stdenv.cc.libc "ldd"}
-              logger = ${pkgs.util-linux}/bin/logger
+            parser = ${pkgs.apparmor-parser}/bin/apparmor_parser
+            ldd = ${lib.getExe' pkgs.stdenv.cc.libc "ldd"}
+            logger = ${pkgs.util-linux}/bin/logger
 
-              # customize how file ownership permissions are presented
-              # 0 - off
-              # 1 - default of what ever mode the log reported
-              # 2 - force the new permissions to be user
-              # 3 - force all perms on the rule to be user
-              default_owner_prompt = 1
+            # customize how file ownership permissions are presented
+            # 0 - off
+            # 1 - default of what ever mode the log reported
+            # 2 - force the new permissions to be user
+            # 3 - force all perms on the rule to be user
+            default_owner_prompt = 1
 
-              custom_includes = /etc/apparmor.d ${
-                lib.concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages
-              }
+            custom_includes = /etc/apparmor.d ${
+            lib.concatMapStringsSep " " (p: "${p}/etc/apparmor.d") cfg.packages
+          }
 
-            [qualifiers]
-              ${pkgs.runtimeShell} = icnu
-              ${pkgs.bashInteractive}/bin/sh = icnu
-              ${pkgs.bashInteractive}/bin/bash = icnu
-              ${config.users.defaultUserShell} = icnu
-          '';
-          footer = "${pkgs.apparmor-utils}/etc/apparmor/logprof.conf";
-          passAsFile = [ "header" ];
-        }
-        ''
-          cp $headerPath $out
-          sed '1,/\[qualifiers\]/d' $footer >> $out
+          [qualifiers]
+            ${pkgs.runtimeShell} = icnu
+            ${pkgs.bashInteractive}/bin/sh = icnu
+            ${pkgs.bashInteractive}/bin/bash = icnu
+            ${config.users.defaultUserShell} = icnu
         '';
+        footer = "${pkgs.apparmor-utils}/etc/apparmor/logprof.conf";
+        passAsFile = ["header"];
+      }
+      ''
+        cp $headerPath $out
+        sed '1,/\[qualifiers\]/d' $footer >> $out
+      '';
 
-    boot.kernelParams = [ "apparmor=1" ];
-    security.lsm = [ "apparmor" ];
+    boot.kernelParams = ["apparmor=1"];
+    security.lsm = ["apparmor"];
 
     systemd.services.apparmor = {
       after = [
@@ -212,8 +215,8 @@ in
         "sysinit.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
-      wantedBy = [ "multi-user.target" ];
+      conflicts = ["shutdown.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         Description = "Load AppArmor policies";
         DefaultDependencies = "no";
@@ -226,52 +229,51 @@ in
         etc."apparmor/parser.conf".source
         etc."apparmor.d".source
       ];
-      serviceConfig =
-        let
-          killUnconfinedConfinables = pkgs.writeShellScript "apparmor-kill" ''
-            set -eu
-            ${pkgs.apparmor-bin-utils}/bin/aa-status --json |
-            ${pkgs.jq}/bin/jq --raw-output '.processes | .[] | .[] | select (.status == "unconfined") | .pid' |
-            xargs --verbose --no-run-if-empty --delimiter='\n' \
-            kill
-          '';
-          commonOpts =
-            n: p:
-            "--verbose --show-cache ${
-              lib.optionalString (p.state == "complain") "--complain "
-            }${buildPolicyPath n p}";
-        in
-        {
-          Type = "oneshot";
-          RemainAfterExit = "yes";
-          ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          ExecStart = lib.mapAttrsToList (
+      serviceConfig = let
+        killUnconfinedConfinables = pkgs.writeShellScript "apparmor-kill" ''
+          set -eu
+          ${pkgs.apparmor-bin-utils}/bin/aa-status --json |
+          ${pkgs.jq}/bin/jq --raw-output '.processes | .[] | .[] | select (.status == "unconfined") | .pid' |
+          xargs --verbose --no-run-if-empty --delimiter='\n' \
+          kill
+        '';
+        commonOpts = n: p: "--verbose --show-cache ${
+          lib.optionalString (p.state == "complain") "--complain "
+        }${buildPolicyPath n p}";
+      in {
+        Type = "oneshot";
+        RemainAfterExit = "yes";
+        ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
+        ExecStart =
+          lib.mapAttrsToList (
             n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts n p}"
-          ) enabledPolicies;
-          ExecStartPost = lib.optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
-          ExecReload =
-            # Add or replace into the kernel profiles in enabledPolicies
-            # (because AppArmor can do that without stopping the processes already confined).
-            lib.mapAttrsToList (
-              n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts n p}"
-            ) enabledPolicies
-            ++
-              # Remove from the kernel any profile whose name is not
-              # one of the names within the content of the profiles in enabledPolicies
-              # (indirectly read from /etc/apparmor.d/*, without recursing into sub-directory).
-              # Note that this does not remove profiles dynamically generated by libvirt.
-              [ "${pkgs.apparmor-utils}/bin/aa-remove-unknown" ]
-            ++
-              # Optionally kill the processes which are unconfined but now have a profile loaded
-              # (because AppArmor can only start to confine new processes).
-              lib.optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
-          ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          CacheDirectory = [
-            "apparmor"
-            "apparmor/logprof"
-          ];
-          CacheDirectoryMode = "0700";
-        };
+          )
+          enabledPolicies;
+        ExecStartPost = lib.optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
+        ExecReload =
+          # Add or replace into the kernel profiles in enabledPolicies
+          # (because AppArmor can do that without stopping the processes already confined).
+          lib.mapAttrsToList (
+            n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts n p}"
+          )
+          enabledPolicies
+          ++
+          # Remove from the kernel any profile whose name is not
+          # one of the names within the content of the profiles in enabledPolicies
+          # (indirectly read from /etc/apparmor.d/*, without recursing into sub-directory).
+          # Note that this does not remove profiles dynamically generated by libvirt.
+          ["${pkgs.apparmor-utils}/bin/aa-remove-unknown"]
+          ++
+          # Optionally kill the processes which are unconfined but now have a profile loaded
+          # (because AppArmor can only start to confine new processes).
+          lib.optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
+        ExecStop = "${pkgs.apparmor-utils}/bin/aa-teardown";
+        CacheDirectory = [
+          "apparmor"
+          "apparmor/logprof"
+        ];
+        CacheDirectoryMode = "0700";
+      };
     };
   };
 

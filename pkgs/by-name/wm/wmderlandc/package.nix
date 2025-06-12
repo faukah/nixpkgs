@@ -6,7 +6,6 @@
   libX11,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wmderlandc";
   version = "unstable-2020-07-17";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/aesophor/wmderland/tree/master/ipc-client";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ takagiy ];
+    maintainers = with maintainers; [takagiy];
     mainProgram = "wmderlandc";
   };
 })

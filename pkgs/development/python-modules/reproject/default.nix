@@ -17,7 +17,6 @@
   setuptools-scm,
   zarr,
 }:
-
 buildPythonPackage rec {
   pname = "reproject";
   version = "0.14.1";
@@ -42,16 +41,18 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    astropy
-    astropy-healpix
-    cloudpickle
-    dask
-    fsspec
-    numpy
-    scipy
-    zarr
-  ] ++ dask.optional-dependencies.array;
+  propagatedBuildInputs =
+    [
+      astropy
+      astropy-healpix
+      cloudpickle
+      dask
+      fsspec
+      numpy
+      scipy
+      zarr
+    ]
+    ++ dask.optional-dependencies.array;
 
   nativeCheckInputs = [
     pytest-astropy
@@ -68,7 +69,7 @@ buildPythonPackage rec {
     "-o 'markers=filterwarnings'"
   ];
 
-  pythonImportsCheck = [ "reproject" ];
+  pythonImportsCheck = ["reproject"];
 
   meta = with lib; {
     description = "Reproject astronomical images";
@@ -76,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://reproject.readthedocs.io";
     changelog = "https://github.com/astropy/reproject/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smaret ];
+    maintainers = with maintainers; [smaret];
   };
 }

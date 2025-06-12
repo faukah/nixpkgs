@@ -1,16 +1,16 @@
-{ lib, ... }:
-let
-  inherit (builtins)
+{lib, ...}: let
+  inherit
+    (builtins)
     storeDir
     ;
-  inherit (lib)
+  inherit
+    (lib)
     types
     mkOption
     ;
-in
-{
+in {
   options = {
-    pathInStore = mkOption { type = types.lazyAttrsOf types.pathInStore; };
+    pathInStore = mkOption {type = types.lazyAttrsOf types.pathInStore;};
   };
   config = {
     pathInStore.ok1 = "${storeDir}/0lz9p8xhf89kb1c1kk6jxrzskaiygnlh-bash-5.2-p15.drv";

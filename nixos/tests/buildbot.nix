@@ -1,97 +1,90 @@
 # Test ensures buildbot master comes up correctly and workers can connect
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "buildbot";
 
   nodes = {
-    bbmaster =
-      { pkgs, ... }:
-      {
-        services.buildbot-master = {
-          enable = true;
+    bbmaster = {pkgs, ...}: {
+      services.buildbot-master = {
+        enable = true;
 
-          # NOTE: use fake repo due to no internet in hydra ci
-          factorySteps = [
-            "steps.Git(repourl='git://gitrepo/fakerepo.git', mode='incremental')"
-            "steps.ShellCommand(command=['bash', 'fakerepo.sh'])"
-          ];
-          changeSource = [
-            "changes.GitPoller('git://gitrepo/fakerepo.git', workdir='gitpoller-workdir', branch='master', pollInterval=300)"
-          ];
-        };
-        networking.firewall.allowedTCPPorts = [
-          8010
-          8011
-          9989
+        # NOTE: use fake repo due to no internet in hydra ci
+        factorySteps = [
+          "steps.Git(repourl='git://gitrepo/fakerepo.git', mode='incremental')"
+          "steps.ShellCommand(command=['bash', 'fakerepo.sh'])"
         ];
-        environment.systemPackages = with pkgs; [
+        changeSource = [
+          "changes.GitPoller('git://gitrepo/fakerepo.git', workdir='gitpoller-workdir', branch='master', pollInterval=300)"
+        ];
+      };
+      networking.firewall.allowedTCPPorts = [
+        8010
+        8011
+        9989
+      ];
+      environment.systemPackages = with pkgs; [
+        git
+        buildbot-full
+      ];
+    };
+
+    bbworker = {pkgs, ...}: {
+      services.buildbot-worker = {
+        enable = true;
+        masterUrl = "bbmaster:9989";
+      };
+      environment.systemPackages = with pkgs; [
+        git
+        buildbot-worker
+      ];
+    };
+
+    gitrepo = {pkgs, ...}: {
+      services.openssh.enable = true;
+      networking.firewall.allowedTCPPorts = [
+        22
+        9418
+      ];
+      environment.systemPackages = with pkgs; [git];
+      systemd.services.git-daemon = {
+        description = "Git daemon for the test";
+        wantedBy = ["multi-user.target"];
+        after = [
+          "network.target"
+          "sshd.service"
+        ];
+
+        serviceConfig.Restart = "always";
+        path = with pkgs; [
+          coreutils
           git
-          buildbot-full
+          openssh
         ];
-      };
-
-    bbworker =
-      { pkgs, ... }:
-      {
-        services.buildbot-worker = {
-          enable = true;
-          masterUrl = "bbmaster:9989";
+        environment = {
+          HOME = "/root";
         };
-        environment.systemPackages = with pkgs; [
-          git
-          buildbot-worker
-        ];
+        preStart = ''
+          git config --global user.name 'Nobody Fakeuser'
+          git config --global user.email 'nobody\@fakerepo.com'
+          rm -rvf /srv/repos/fakerepo.git /tmp/fakerepo
+          mkdir -pv /srv/repos/fakerepo ~/.ssh
+          ssh-keyscan -H gitrepo > ~/.ssh/known_hosts
+          cat ~/.ssh/known_hosts
+
+          mkdir -p /src/repos/fakerepo
+          cd /srv/repos/fakerepo
+          rm -rf *
+          git init
+          echo -e '#!/bin/sh\necho fakerepo' > fakerepo.sh
+          cat fakerepo.sh
+          touch .git/git-daemon-export-ok
+          git add fakerepo.sh .git/git-daemon-export-ok
+          git commit -m fakerepo
+        '';
+        script = ''
+          git daemon --verbose --export-all --base-path=/srv/repos --reuseaddr
+        '';
       };
-
-    gitrepo =
-      { pkgs, ... }:
-      {
-        services.openssh.enable = true;
-        networking.firewall.allowedTCPPorts = [
-          22
-          9418
-        ];
-        environment.systemPackages = with pkgs; [ git ];
-        systemd.services.git-daemon = {
-          description = "Git daemon for the test";
-          wantedBy = [ "multi-user.target" ];
-          after = [
-            "network.target"
-            "sshd.service"
-          ];
-
-          serviceConfig.Restart = "always";
-          path = with pkgs; [
-            coreutils
-            git
-            openssh
-          ];
-          environment = {
-            HOME = "/root";
-          };
-          preStart = ''
-            git config --global user.name 'Nobody Fakeuser'
-            git config --global user.email 'nobody\@fakerepo.com'
-            rm -rvf /srv/repos/fakerepo.git /tmp/fakerepo
-            mkdir -pv /srv/repos/fakerepo ~/.ssh
-            ssh-keyscan -H gitrepo > ~/.ssh/known_hosts
-            cat ~/.ssh/known_hosts
-
-            mkdir -p /src/repos/fakerepo
-            cd /srv/repos/fakerepo
-            rm -rf *
-            git init
-            echo -e '#!/bin/sh\necho fakerepo' > fakerepo.sh
-            cat fakerepo.sh
-            touch .git/git-daemon-export-ok
-            git add fakerepo.sh .git/git-daemon-export-ok
-            git commit -m fakerepo
-          '';
-          script = ''
-            git daemon --verbose --export-all --base-path=/srv/repos --reuseaddr
-          '';
-        };
-      };
+    };
   };
 
   testScript = ''

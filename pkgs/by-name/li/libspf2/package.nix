@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libspf2";
   version = "2.2.13";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tkCHP3B1sBb0+scHBjX5lCvaeSrZryfaGKye02LFlYs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   strictDeps = true;
 
   postPatch = ''
@@ -40,8 +39,8 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       bsd2
     ];
-    maintainers = with maintainers; [ euxane ];
-    teams = [ teams.helsinki-systems ];
+    maintainers = with maintainers; [euxane];
+    teams = [teams.helsinki-systems];
     platforms = platforms.all;
   };
 }

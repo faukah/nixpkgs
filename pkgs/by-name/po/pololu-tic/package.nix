@@ -7,7 +7,6 @@
   pkg-config,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pololu-tic";
   version = "1.8.1";
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Pololu Tic stepper motor controller software";
     platforms = platforms.all;
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 })

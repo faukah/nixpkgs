@@ -6,7 +6,6 @@
   php,
   pkg-config,
 }:
-
 buildPecl rec {
   pname = "phalcon";
   version = "5.9.3";
@@ -27,8 +26,8 @@ buildPecl rec {
   # from incompatible pointer type [-Wincompatible-pointer-types]
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pcre2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [pcre2];
 
   sourceRoot = "${src.name}/build/phalcon";
 
@@ -36,7 +35,7 @@ buildPecl rec {
     description = "Phalcon is a full stack PHP framework offering low resource consumption and high performance";
     license = licenses.bsd3;
     homepage = "https://phalcon.io";
-    maintainers = [ maintainers.krzaczek ];
-    teams = [ teams.php ];
+    maintainers = [maintainers.krzaczek];
+    teams = [teams.php];
   };
 }

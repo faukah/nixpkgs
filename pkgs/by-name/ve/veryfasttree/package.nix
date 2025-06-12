@@ -5,7 +5,6 @@
   cmake,
   llvmPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "veryfasttree";
   version = "4.0.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xoz2mK72gvNRpA4kGInAb3WHa/D8HvXprUQiJClLwh8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   installPhase = ''
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "VeryFastTree";
     homepage = "https://github.com/citiususc/veryfasttree";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ thyol ];
+    maintainers = with lib.maintainers; [thyol];
     platforms = lib.platforms.all;
   };
 })

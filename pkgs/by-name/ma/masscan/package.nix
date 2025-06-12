@@ -7,7 +7,6 @@
   makeWrapper,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "masscan";
   version = "1.3.2";
@@ -70,6 +69,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/robertdavidgraham/masscan/releases/tag/${version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
   };
 }

@@ -8,9 +8,7 @@
   makeWrapper,
   nixosTests,
   undmg,
-}:
-
-let
+}: let
   inherit (stdenv.hostPlatform) system;
 
   sources = import ./sources.nix;
@@ -58,7 +56,7 @@ let
       x86_64-darwin = {
         src = fetchurl sources.x86_64-darwin;
 
-        nativeBuildInputs = [ undmg ];
+        nativeBuildInputs = [undmg];
 
         installPhase = ''
           runHook preInstall
@@ -70,30 +68,32 @@ let
 
       aarch64-darwin = x86_64-darwin;
     }
-    .${system} or {
+    .${
+      system
+    } or {
       src = throw "Unsupported system: ${system}";
     };
 in
-stdenv.mkDerivation (
-  {
-    pname = "breitbandmessung";
-    inherit (sources) version;
+  stdenv.mkDerivation (
+    {
+      pname = "breitbandmessung";
+      inherit (sources) version;
 
-    passthru.tests = { inherit (nixosTests) breitbandmessung; };
-    passthru.updateScript = ./update.sh;
+      passthru.tests = {inherit (nixosTests) breitbandmessung;};
+      passthru.updateScript = ./update.sh;
 
-    meta = with lib; {
-      description = "Broadband internet speed test app from the german Bundesnetzagentur";
-      homepage = "https://www.breitbandmessung.de";
-      license = licenses.unfree;
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      maintainers = with maintainers; [ b4dm4n ];
-      platforms = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-      ];
-    };
-  }
-  // systemArgs
-)
+      meta = with lib; {
+        description = "Broadband internet speed test app from the german Bundesnetzagentur";
+        homepage = "https://www.breitbandmessung.de";
+        license = licenses.unfree;
+        sourceProvenance = with sourceTypes; [binaryNativeCode];
+        maintainers = with maintainers; [b4dm4n];
+        platforms = [
+          "x86_64-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+      };
+    }
+    // systemArgs
+  )

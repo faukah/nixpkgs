@@ -5,9 +5,7 @@
   fetchFromGitHub,
   gitUpdater,
   resvg,
-}:
-
-let
+}: let
   version = "3.1.9";
   src = fetchFromGitHub {
     owner = "jaseg";
@@ -39,65 +37,65 @@ let
     meta = with lib; {
       description = "svg-flatten SVG downconverter";
       homepage = "https://github.com/jaseg/gerbolyze";
-      license = with licenses; [ agpl3Plus ];
-      maintainers = with maintainers; [ wulfsta ];
+      license = with licenses; [agpl3Plus];
+      maintainers = with maintainers; [wulfsta];
       mainProgram = "svg-flatten";
       platforms = platforms.linux;
     };
   };
 in
-python3Packages.buildPythonApplication rec {
-  inherit version src;
-  pname = "gerbolyze";
+  python3Packages.buildPythonApplication rec {
+    inherit version src;
+    pname = "gerbolyze";
 
-  format = "setuptools";
+    format = "setuptools";
 
-  nativeBuildInputs = [
-    python3Packages.setuptools
-  ];
+    nativeBuildInputs = [
+      python3Packages.setuptools
+    ];
 
-  propagatedBuildInputs = [
-    python3Packages.beautifulsoup4
-    python3Packages.click
-    python3Packages.numpy
-    python3Packages.scipy
-    python3Packages.python-slugify
-    python3Packages.lxml
-    python3Packages.gerbonara
-    resvg
-    svg-flatten
-  ];
+    propagatedBuildInputs = [
+      python3Packages.beautifulsoup4
+      python3Packages.click
+      python3Packages.numpy
+      python3Packages.scipy
+      python3Packages.python-slugify
+      python3Packages.lxml
+      python3Packages.gerbonara
+      resvg
+      svg-flatten
+    ];
 
-  preConfigure = ''
-    # setup.py tries to execute a call to git in a subprocess, this avoids it.
-    substituteInPlace setup.py \
-      --replace "version = get_version()," \
-                "version = '${version}'," \
+    preConfigure = ''
+      # setup.py tries to execute a call to git in a subprocess, this avoids it.
+      substituteInPlace setup.py \
+        --replace "version = get_version()," \
+                  "version = '${version}'," \
 
-    # setup.py tries to execute a call to git in a subprocess, this avoids it.
-    substituteInPlace setup.py \
-      --replace "long_description=format_readme_for_pypi()," \
-                "long_description='\n'.join(Path('README.rst').read_text().splitlines()),"
-  '';
+      # setup.py tries to execute a call to git in a subprocess, this avoids it.
+      substituteInPlace setup.py \
+        --replace "long_description=format_readme_for_pypi()," \
+                  "long_description='\n'.join(Path('README.rst').read_text().splitlines()),"
+    '';
 
-  pythonImportsCheck = [ "gerbolyze" ];
+    pythonImportsCheck = ["gerbolyze"];
 
-  nativeCheckInputs = [
-    python3Packages.pytestCheckHook
-    resvg
-    svg-flatten
-  ];
+    nativeCheckInputs = [
+      python3Packages.pytestCheckHook
+      resvg
+      svg-flatten
+    ];
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
-  };
+    passthru.updateScript = gitUpdater {
+      rev-prefix = "v";
+    };
 
-  meta = with lib; {
-    description = "Directly render SVG overlays into Gerber and Excellon files";
-    homepage = "https://github.com/jaseg/gerbolyze";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ wulfsta ];
-    mainProgram = "gerbolyze";
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Directly render SVG overlays into Gerber and Excellon files";
+      homepage = "https://github.com/jaseg/gerbolyze";
+      license = with licenses; [agpl3Plus];
+      maintainers = with maintainers; [wulfsta];
+      mainProgram = "gerbolyze";
+      platforms = platforms.linux;
+    };
+  }

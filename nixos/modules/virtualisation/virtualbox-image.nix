@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.virtualbox;
-in
-{
+in {
   imports = [
     ./disk-size-option.nix
     ../image/file-options.nix
@@ -68,8 +65,7 @@ in
         '';
       };
       params = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
@@ -88,8 +84,7 @@ in
         '';
       };
       exportParams = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           listOf (oneOf [
             str
             int
@@ -102,7 +97,7 @@ in
           "--vendor"
           "ACME Inc."
         ];
-        default = [ ];
+        default = [];
         description = ''
           Parameters passed to the Virtualbox export command.
 
@@ -158,8 +153,7 @@ in
         '';
       };
       storageController = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
@@ -210,10 +204,10 @@ in
         usbehci = "on";
         mouse = "usbtablet";
       })
-      (lib.mkIf (pkgs.stdenv.hostPlatform.system == "i686-linux") { pae = "on"; })
+      (lib.mkIf (pkgs.stdenv.hostPlatform.system == "i686-linux") {pae = "on";})
     ];
 
-    system.nixos.tags = [ "virtualbox" ];
+    system.nixos.tags = ["virtualbox"];
     image.extension = "ova";
     system.build.image = lib.mkDefault config.system.build.virtualBoxOVA;
     system.build.virtualBoxOVA = import ../../lib/make-disk-image.nix {
@@ -249,11 +243,15 @@ in
         echo "creating VirtualBox VM..."
         vmName="${cfg.vmName}";
         VBoxManage createvm --name "$vmName" --register \
-          --ostype ${if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "Linux26_64" else "Linux26"}
+          --ostype ${
+          if pkgs.stdenv.hostPlatform.system == "x86_64-linux"
+          then "Linux26_64"
+          else "Linux26"
+        }
         VBoxManage modifyvm "$vmName" \
           --memory ${toString cfg.memorySize} \
-          ${lib.cli.toGNUCommandLineShell { } cfg.params}
-        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell { } cfg.storageController}
+          ${lib.cli.toGNUCommandLineShell {} cfg.params}
+        VBoxManage storagectl "$vmName" ${lib.cli.toGNUCommandLineShell {} cfg.storageController}
         VBoxManage storageattach "$vmName" --storagectl ${cfg.storageController.name} --port 0 --device 0 --type hdd \
           --medium disk.vdi
         ${lib.optionalString (cfg.extraDisk != null) ''
@@ -301,6 +299,5 @@ in
     ];
 
     virtualisation.virtualbox.guest.enable = true;
-
   };
 }

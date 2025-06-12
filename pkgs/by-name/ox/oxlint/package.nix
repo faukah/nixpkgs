@@ -4,7 +4,6 @@
   fetchFromGitHub,
   rust-jemalloc-sys,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oxlint";
   version = "0.16.9";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/web-infra-dev/oxc";
     changelog = "https://github.com/web-infra-dev/oxc/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "oxlint";
   };
 }

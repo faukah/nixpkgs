@@ -3,23 +3,19 @@
   fetchPypi,
   buildPythonPackage,
   pythonOlder,
-
   # propagates
   async-timeout,
   deprecated,
   importlib-metadata,
   packaging,
   typing-extensions,
-
   # extras: hiredis
   hiredis,
-
   # extras: ocsp
   cryptography,
   pyopenssl,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "redis";
   version = "5.2.1";
@@ -32,15 +28,17 @@ buildPythonPackage rec {
     hash = "sha256-FvLiLf8h1RJehIFRXjhnEaNMvsUPDkRBPdfZwGClTg8=";
   };
 
-  propagatedBuildInputs = [
-    async-timeout
-    deprecated
-    packaging
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      async-timeout
+      deprecated
+      packaging
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   optional-dependencies = {
-    hiredis = [ hiredis ];
+    hiredis = [hiredis];
     ocsp = [
       cryptography
       pyopenssl
@@ -65,6 +63,6 @@ buildPythonPackage rec {
     description = "Python client for Redis key-value store";
     homepage = "https://github.com/redis/redis-py";
     changelog = "https://github.com/redis/redis-py/releases/tag/v${version}";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

@@ -9,7 +9,6 @@
   setuptools,
   wavedrom,
 }:
-
 buildPythonPackage rec {
   pname = "markdown2";
   version = "2.5.2";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-SL93JEBBpiYqgCazRkPN5nFBidMpfnGLrHIe7EUwlAY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "markdown2" ];
+  pythonImportsCheck = ["markdown2"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   optional-dependencies = {
-    code_syntax_highlighting = [ pygments ];
-    wavedrom = [ wavedrom ];
-    latex = [ latex2mathml ];
+    code_syntax_highlighting = [pygments];
+    wavedrom = [wavedrom];
+    latex = [latex2mathml];
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
   };
 
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     mainProgram = "markdown2";
     homepage = "https://github.com/trentm/python-markdown2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hbunke ];
+    maintainers = with lib.maintainers; [hbunke];
   };
 }

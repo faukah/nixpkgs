@@ -3,15 +3,12 @@
   stdenv,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   flit-core,
-
   # dependencies
   flask,
   cachelib,
   msgspec,
-
   # tests
   boto3,
   flask-sqlalchemy,
@@ -23,7 +20,6 @@
   pymemcache,
   python-memcached,
 }:
-
 buildPythonPackage rec {
   pname = "flask-session";
   version = "0.8.0";
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-QLtsM0MFgZbuLJPLc5/mUwyYc3bYxildNKNxOF8Z/3Y=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     cachelib
@@ -61,9 +57,9 @@ buildPythonPackage rec {
     "test_mongo_default"
   ];
 
-  disabledTestPaths = [ "tests/test_dynamodb.py" ];
+  disabledTestPaths = ["tests/test_dynamodb.py"];
 
-  pythonImportsCheck = [ "flask_session" ];
+  pythonImportsCheck = ["flask_session"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -75,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pallets-eco/flask-session";
     changelog = "https://github.com/pallets-eco/flask-session/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ zhaofengli ];
+    maintainers = with lib.maintainers; [zhaofengli];
   };
 }

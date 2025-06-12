@@ -7,7 +7,6 @@
   ptime,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "webmachine";
   version = "0.7.0";
@@ -28,7 +27,7 @@ buildDunePackage rec {
     ptime
   ];
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   doCheck = true;
 
@@ -36,7 +35,6 @@ buildDunePackage rec {
     homepage = "https://github.com/inhabitedtype/ocaml-webmachine";
     license = lib.licenses.bsd3;
     description = "REST toolkit for OCaml";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

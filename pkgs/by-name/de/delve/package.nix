@@ -5,7 +5,6 @@
   makeWrapper,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "delve";
   version = "1.24.2";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/dlv" ];
+  subPackages = ["cmd/dlv"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   preCheck = ''
     XDG_CONFIG_HOME=$(mktemp -d)
@@ -50,7 +49,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "debugger for the Go programming language";
     homepage = "https://github.com/go-delve/delve";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     license = licenses.mit;
     mainProgram = "dlv";
   };

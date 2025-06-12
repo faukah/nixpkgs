@@ -21,14 +21,14 @@ buildGoModule (finalAttrs: {
     mv ./cmd/main.go ./cmd/gorched/main.go
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = ''Terminal based game written in Go inspired by "The Mother of all games" Scorched Earth'';
     homepage = "https://github.com/zladovan/gorched";
     changelog = "https://github.com/zladovan/gorched/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "gorched";
   };
 })

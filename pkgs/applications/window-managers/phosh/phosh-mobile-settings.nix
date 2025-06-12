@@ -21,7 +21,6 @@
   gsound,
   gmobile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "phosh-mobile-settings";
   version = "0.41.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests.phosh = nixosTests.phosh;
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = {
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings";
     changelog = "https://gitlab.gnome.org/World/Phosh/phosh-mobile-settings/-/blob/v${version}/debian/changelog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ rvl ];
+    maintainers = with lib.maintainers; [rvl];
     platforms = lib.platforms.linux;
   };
 }

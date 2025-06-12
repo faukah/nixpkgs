@@ -14,7 +14,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "valuta";
   version = "1.3.2";
@@ -58,15 +57,15 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Simple application for converting currencies, with support for various APIs";
     homepage = "https://github.com/ideveCore/Valuta";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ arthsmn ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [arthsmn];
+    teams = [teams.gnome-circle];
     mainProgram = "currencyconverter";
     platforms = platforms.linux;
   };

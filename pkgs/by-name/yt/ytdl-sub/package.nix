@@ -5,7 +5,6 @@
   lib,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ytdl-sub";
   version = "2025.06.01.post1";
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     echo '__pypi_version__ = "${version}"; __local_version__ = "${version}"' > src/ytdl_sub/__init__.py
   '';
 
-  pythonRelaxDeps = [ "yt-dlp" ];
+  pythonRelaxDeps = ["yt-dlp"];
 
   build-system = with python3Packages; [
     setuptools
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     "--set YTDL_SUB_FFPROBE_PATH ${lib.getExe' ffmpeg "ffprobe"}"
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru.updateScript = ./update.sh;

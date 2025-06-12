@@ -8,7 +8,6 @@
   openal,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cen64";
   version = "0-unstable-2023-05-29";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     ./fix-thread-arg-type-for-pthread_setname_np.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGL
     libiconv
@@ -46,8 +45,8 @@ stdenv.mkDerivation rec {
     description = "Cycle-Accurate Nintendo 64 Emulator";
     license = licenses.bsd3;
     homepage = "https://github.com/n64dev/cen64";
-    maintainers = [ maintainers._414owen ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers._414owen];
+    platforms = ["x86_64-linux"];
     mainProgram = "cen64";
   };
 }

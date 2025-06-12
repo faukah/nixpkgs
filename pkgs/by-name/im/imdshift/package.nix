@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "imdshift";
   version = "1.0.0";
@@ -36,6 +35,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ayushpriya10/IMDShift";
     changelog = "https://github.com/ayushpriya10/IMDShift/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

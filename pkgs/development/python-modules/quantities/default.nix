@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "quantities";
   version = "0.16.1";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "quantities" ];
+  pythonImportsCheck = ["quantities"];
 
   meta = with lib; {
     description = "Quantities is designed to handle arithmetic and conversions of physical quantities";
     homepage = "https://python-quantities.readthedocs.io/";
     changelog = "https://github.com/python-quantities/python-quantities/blob/v${version}/CHANGES.txt";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   bitarray,
   datasets,
@@ -20,7 +18,6 @@
   torch,
   faiss,
 }:
-
 buildPythonPackage rec {
   pname = "colbert-ai";
   version = "0.2.21";
@@ -41,7 +38,7 @@ buildPythonPackage rec {
       "from transformers import get_linear_schedule_with_warmup; from torch.optim import AdamW"
   '';
 
-  pythonRemoveDeps = [ "git-python" ];
+  pythonRemoveDeps = ["git-python"];
 
   build-system = [
     setuptools
@@ -62,7 +59,7 @@ buildPythonPackage rec {
     ujson
   ];
 
-  pythonImportsCheck = [ "colbert" ];
+  pythonImportsCheck = ["colbert"];
 
   # There is no tests
   doCheck = false;

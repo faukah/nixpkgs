@@ -6,17 +6,15 @@
 # type. The session type defines two things: the *desktop manager*
 # (e.g., KDE, Gnome or a plain xterm), and optionally the *window
 # manager* (e.g. kwin or twm).
-
 {
   config,
   lib,
   options,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     types
     literalExpression
@@ -28,11 +26,23 @@ let
 
   fontconfig = config.fonts.fontconfig;
   xresourcesXft = pkgs.writeText "Xresources-Xft" ''
-    Xft.antialias: ${if fontconfig.antialias then "1" else "0"}
+    Xft.antialias: ${
+      if fontconfig.antialias
+      then "1"
+      else "0"
+    }
     Xft.rgba: ${fontconfig.subpixel.rgba}
     Xft.lcdfilter: lcd${fontconfig.subpixel.lcdfilter}
-    Xft.hinting: ${if fontconfig.hinting.enable then "1" else "0"}
-    Xft.autohint: ${if fontconfig.hinting.autohint then "1" else "0"}
+    Xft.hinting: ${
+      if fontconfig.hinting.enable
+      then "1"
+      else "0"
+    }
+    Xft.autohint: ${
+      if fontconfig.hinting.autohint
+      then "1"
+      else "0"
+    }
     Xft.hintstyle: ${fontconfig.hinting.style}
   '';
 
@@ -98,7 +108,7 @@ let
     fi
 
     # Import environment variables into the systemd user environment.
-    ${optionalString (cfg.displayManager.importedVariables != [ ]) (
+    ${optionalString (cfg.displayManager.importedVariables != []) (
       "/run/current-system/systemd/bin/systemctl --user import-environment "
       + toString (lib.unique cfg.displayManager.importedVariables)
     )}
@@ -138,13 +148,9 @@ let
         exit 1
     fi
   '';
-in
-
-{
+in {
   options = {
-
     services.xserver.displayManager = {
-
       xauthBin = mkOption {
         internal = true;
         default = "${xorg.xauth}/bin/xauth";
@@ -159,7 +165,7 @@ in
 
       xserverArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-ac"
           "-logverbose"
@@ -193,7 +199,7 @@ in
       };
 
       session = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.attrs;
         example = literalExpression ''
           [ { manage = "desktop";
@@ -228,9 +234,7 @@ in
           Environment variables to import into the systemd user environment.
         '';
       };
-
     };
-
   };
 
   config = {
@@ -257,55 +261,57 @@ in
 
     # Create desktop files and scripts for starting sessions for WMs/DMs
     # that do not have upstream session files (those defined using services.{display,desktop,window}Manager.session options).
-    services.displayManager.sessionPackages =
-      let
-        dms = lib.filter (s: s.manage == "desktop") cfg.displayManager.session;
-        wms = lib.filter (s: s.manage == "window") cfg.displayManager.session;
+    services.displayManager.sessionPackages = let
+      dms = lib.filter (s: s.manage == "desktop") cfg.displayManager.session;
+      wms = lib.filter (s: s.manage == "window") cfg.displayManager.session;
 
-        # Script responsible for starting the window manager and the desktop manager.
-        xsession =
-          dm: wm:
-          pkgs.writeScript "xsession" ''
-            #! ${pkgs.bash}/bin/bash
+      # Script responsible for starting the window manager and the desktop manager.
+      xsession = dm: wm:
+        pkgs.writeScript "xsession" ''
+          #! ${pkgs.bash}/bin/bash
 
-            # Legacy session script used to construct .desktop files from
-            # `services.xserver.displayManager.session` entries. Called from
-            # `sessionWrapper`.
+          # Legacy session script used to construct .desktop files from
+          # `services.xserver.displayManager.session` entries. Called from
+          # `sessionWrapper`.
 
-            # Start the window manager.
-            ${wm.start}
+          # Start the window manager.
+          ${wm.start}
 
-            # Start the desktop manager.
-            ${dm.start}
+          # Start the desktop manager.
+          ${dm.start}
 
-            ${optionalString cfg.updateDbusEnvironment ''
-              ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-            ''}
+          ${optionalString cfg.updateDbusEnvironment ''
+            ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+          ''}
 
-            test -n "$waitPID" && wait "$waitPID"
+          test -n "$waitPID" && wait "$waitPID"
 
-            ${fakeSession "stop"}
+          ${fakeSession "stop"}
 
-            exit 0
-          '';
-      in
+          exit 0
+        '';
+    in
       # We will generate every possible pair of WM and DM.
       lib.concatLists (
         lib.mapCartesianProduct
-          (
-            { dm, wm }:
-            let
-              sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
-              prettyName =
-                if dm.name != "none" then
-                  "${dm.prettyName or dm.name}${
-                    optionalString (wm.name != "none") (" (" + (wm.prettyName or wm.name) + ")")
-                  }"
-                else
-                  (wm.prettyName or wm.name);
-              script = xsession dm wm;
-              desktopNames = if dm ? desktopNames then lib.concatStringsSep ";" dm.desktopNames else sessionName;
-            in
+        (
+          {
+            dm,
+            wm,
+          }: let
+            sessionName = "${dm.name}${optionalString (wm.name != "none") ("+" + wm.name)}";
+            prettyName =
+              if dm.name != "none"
+              then "${dm.prettyName or dm.name}${
+                optionalString (wm.name != "none") (" (" + (wm.prettyName or wm.name) + ")")
+              }"
+              else (wm.prettyName or wm.name);
+            script = xsession dm wm;
+            desktopNames =
+              if dm ? desktopNames
+              then lib.concatStringsSep ";" dm.desktopNames
+              else sessionName;
+          in
             lib.optional (dm.name != "none" || wm.name != "none") (
               pkgs.writeTextFile {
                 name = "${sessionName}-xsession";
@@ -324,34 +330,37 @@ in
                 '';
               }
               // {
-                providedSessions = [ sessionName ];
+                providedSessions = [sessionName];
               }
             )
-          )
-          {
-            dm = dms;
-            wm = wms;
-          }
+        )
+        {
+          dm = dms;
+          wm = wms;
+        }
       );
   };
 
   imports = [
-    (lib.mkRemovedOptionModule
-      [ "services" "xserver" "displayManager" "desktopManagerHandlesLidAndPower" ]
+    (
+      lib.mkRemovedOptionModule
+      ["services" "xserver" "displayManager" "desktopManagerHandlesLidAndPower"]
       "The option is no longer necessary because all display managers have already delegated lid management to systemd."
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "job" "logsXsession" ]
-      [ "services" "displayManager" "logToFile" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "job" "logsXsession"]
+      ["services" "displayManager" "logToFile"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "logToJournal" ]
-      [ "services" "displayManager" "logToJournal" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "logToJournal"]
+      ["services" "displayManager" "logToJournal"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "extraSessionFilesPackages" ]
-      [ "services" "displayManager" "sessionPackages" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "extraSessionFilesPackages"]
+      ["services" "displayManager" "sessionPackages"]
     )
   ];
-
 }

@@ -8,7 +8,6 @@
   python3Packages,
   vimPluginsUpdater,
   writeShellScript,
-
   # optional
   neovim-unwrapped,
 }:

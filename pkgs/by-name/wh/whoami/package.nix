@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "whoami";
   version = "1.11.0";
@@ -19,7 +18,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-0Qxw+MUYVgzgWB8vi3HBYtVXSq/btfh4ZfV/m1chNrA=";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   env.CGO_ENABLED = 0;
 
@@ -33,8 +32,8 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) whoami; };
-    updateScript = nix-update-script { };
+    tests = {inherit (nixosTests) whoami;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

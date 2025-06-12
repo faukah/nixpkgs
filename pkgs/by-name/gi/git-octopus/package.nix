@@ -6,24 +6,23 @@
   perl,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-octopus";
   version = "1.4";
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # perl provides shasum
   postInstall = ''
     for f in $out/bin/*; do
       wrapProgram $f --prefix PATH : ${
-        lib.makeBinPath [
-          git
-          perl
-        ]
-      }
+      lib.makeBinPath [
+        git
+        perl
+      ]
+    }
     done
   '';
 
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "Continuous merge workflow";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

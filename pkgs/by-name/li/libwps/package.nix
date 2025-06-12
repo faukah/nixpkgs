@@ -7,7 +7,6 @@
   librevenge,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwps";
   version = "0.4.14";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xVEdlAngO446F50EZcHMKW7aBvyDcTVu9Egs2oaIadE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     librevenge

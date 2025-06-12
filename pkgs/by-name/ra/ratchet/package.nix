@@ -4,7 +4,6 @@
   fetchFromGitHub,
   callPackage,
 }:
-
 buildGoModule rec {
   pname = "ratchet";
   version = "0.10.2";
@@ -28,19 +27,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-KKHlegmvpmmUZGoiEawgSUwOPQEfTjfzTYvere1YAv4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  ldflags =
-    let
-      package_url = "github.com/sethvargo/ratchet";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${package_url}/internal/version.name=ratchet"
-      "-X ${package_url}/internal/version.version=${version}"
-      "-X ${package_url}/internal/version.commit=${src.rev}"
-    ];
+  ldflags = let
+    package_url = "github.com/sethvargo/ratchet";
+  in [
+    "-s"
+    "-w"
+    "-X ${package_url}/internal/version.name=ratchet"
+    "-X ${package_url}/internal/version.version=${version}"
+    "-X ${package_url}/internal/version.commit=${src.rev}"
+  ];
 
   doInstallCheck = true;
 
@@ -56,7 +53,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests.execution = callPackage ./tests.nix { };
+  passthru.tests.execution = callPackage ./tests.nix {};
 
   meta = {
     description = "Tool for securing CI/CD workflows with version pinning";

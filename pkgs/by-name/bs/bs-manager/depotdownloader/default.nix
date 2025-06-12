@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dotnetCorePackages,
 }:
-
 buildDotnetModule {
   pname = "depotdownloader";
   version = "2.7.4-unstable-2024-12-01";

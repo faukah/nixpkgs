@@ -14,7 +14,6 @@
   wrapQtAppsHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "vivisect";
   version = "1.2.1";
@@ -34,19 +33,21 @@ buildPythonPackage rec {
     "pyasn1-modules"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     wrapQtAppsHook
   ];
 
-  dependencies = [
-    pyasn1
-    pyasn1-modules
-    cxxfilt
-    msgpack
-    pycparser
-  ] ++ lib.optionals (withGui) optional-dependencies.gui;
+  dependencies =
+    [
+      pyasn1
+      pyasn1-modules
+      cxxfilt
+      msgpack
+      pycparser
+    ]
+    ++ lib.optionals withGui optional-dependencies.gui;
 
   optional-dependencies.gui = [
     pyqt5
@@ -60,13 +61,13 @@ buildPythonPackage rec {
   # Tests requires another repo for test files
   doCheck = false;
 
-  pythonImportsCheck = [ "vivisect" ];
+  pythonImportsCheck = ["vivisect"];
 
   meta = with lib; {
     description = "Python disassembler, debugger, emulator, and static analysis framework";
     homepage = "https://github.com/vivisect/vivisect";
     changelog = "https://github.com/vivisect/vivisect/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

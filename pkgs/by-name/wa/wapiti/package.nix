@@ -8,7 +8,6 @@
   writableTmpDirAsHomeHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "wapiti";
   version = "3.2.4";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     aiocache
@@ -65,8 +64,7 @@ python3Packages.buildPythonApplication rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       respx
       pytest-asyncio
@@ -159,10 +157,10 @@ python3Packages.buildPythonApplication rec {
       "tests/web/test_persister.py"
     ];
 
-  pythonImportsCheck = [ "wapitiCore" ];
+  pythonImportsCheck = ["wapitiCore"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -178,7 +176,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://wapiti-scanner.github.io/";
     changelog = "https://github.com/wapiti-scanner/wapiti/blob/${version}/doc/ChangeLog_Wapiti";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "wapiti";
   };
 }

@@ -23,7 +23,6 @@
   gettext,
   include-what-you-use,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lincity-ng";
   version = "2.13.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ACJVhMq2IEJNrbAdmkgHxQV0uKSXpwR8a/5jcrQS+oI=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     cmake
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "City building game";
     mainProgram = "lincity-ng";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 })

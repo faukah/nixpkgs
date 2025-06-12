@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mozcdic-ut-personal-names";
   version = "0-unstable-2024-10-14";
@@ -35,10 +34,10 @@ stdenvNoCC.mkDerivation {
     description = "Mozc UT Personal Name Dictionary is a dictionary for Mozc.";
     homepage = "https://github.com/utuhiro78/mozcdic-ut-personal-names";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides some zip files
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

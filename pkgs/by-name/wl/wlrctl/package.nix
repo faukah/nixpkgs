@@ -10,7 +10,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wlrctl";
   version = "0.2.2";

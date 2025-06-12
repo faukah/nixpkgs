@@ -35,7 +35,6 @@
   tinyxml-2,
   withUnfree ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "casadi";
   version = "3.7.0";
@@ -145,7 +144,7 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.numpy
       python3Packages.python
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
   cmakeFlags = [
     (lib.cmakeBool "WITH_PYTHON" pythonSupport)
@@ -205,7 +204,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CasADi is a symbolic framework for numeric optimization implementing automatic differentiation in forward and reverse modes on sparse matrix-valued computational graphs. It supports self-contained C-code generation and interfaces state-of-the-art codes such as SUNDIALS, IPOPT etc. It can be used from C++, Python or Matlab/Octave";
     homepage = "https://github.com/casadi/casadi";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.all;
   };
 })

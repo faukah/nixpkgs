@@ -5,7 +5,6 @@
   readline,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "devtodo";
   version = "0.1.20";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://swapoff.org/devtodo1.html";
     description = "Hierarchical command-line task manager";
     license = licenses.gpl2;
-    maintainers = [ maintainers.woffs ];
+    maintainers = [maintainers.woffs];
     platforms = platforms.linux;
   };
 }

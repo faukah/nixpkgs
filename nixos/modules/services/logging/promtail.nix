@@ -4,18 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.promtail;
 
-  format = pkgs.formats.json { };
-  prettyJSON =
-    conf:
+  format = pkgs.formats.json {};
+  prettyJSON = conf:
     with lib;
-    pipe conf [
-      (flip removeAttrs [ "_module" ])
-      (format.generate "promtail-config.json")
-    ];
+      pipe conf [
+        (flip removeAttrs ["_module"])
+        (format.generate "promtail-config.json")
+      ];
 
   allowSystemdJournal =
     cfg.configuration ? scrape_configs && lib.any (v: v ? journal) cfg.configuration.scrape_configs;
@@ -23,10 +21,11 @@ let
   allowPositionsFile = !lib.hasPrefix "/var/cache/promtail" positionsFile;
   positionsFile = cfg.configuration.positions.filename;
 
-  configFile = if cfg.configFile != null then cfg.configFile else prettyJSON cfg.configuration;
-
-in
-{
+  configFile =
+    if cfg.configFile != null
+    then cfg.configFile
+    else prettyJSON cfg.configuration;
+in {
   options.services.promtail = with types; {
     enable = mkEnableOption "the Promtail ingresser";
 
@@ -49,8 +48,8 @@ in
 
     extraFlags = mkOption {
       type = listOf str;
-      default = [ ];
-      example = [ "--server.http-listen-port=3101" ];
+      default = [];
+      example = ["--server.http-listen-port=3101"];
       description = ''
         Specify a list of additional command line flags,
         which get escaped and are then passed to Loki.
@@ -63,7 +62,7 @@ in
 
     systemd.services.promtail = {
       description = "Promtail log ingress";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       stopIfChanged = false;
 
       preStart = ''
@@ -105,7 +104,7 @@ in
           MemoryDenyWriteExecute = true;
           PrivateUsers = true;
 
-          SupplementaryGroups = lib.optional (allowSystemdJournal) "systemd-journal";
+          SupplementaryGroups = lib.optional allowSystemdJournal "systemd-journal";
         }
         // (optionalAttrs (!pkgs.stdenv.hostPlatform.isAarch64) {
           # FIXME: figure out why this breaks on aarch64
@@ -113,7 +112,7 @@ in
         });
     };
 
-    users.groups.promtail = { };
+    users.groups.promtail = {};
     users.users.promtail = {
       description = "Promtail service user";
       isSystemUser = true;

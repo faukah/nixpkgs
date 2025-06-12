@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "kjournald";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtdeclarative
     systemd

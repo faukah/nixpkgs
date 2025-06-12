@@ -8,8 +8,7 @@
   buildNpmPackage,
   nodejs_20,
   nix-update-script,
-}:
-let
+}: let
   pname = "rqbit";
 
   version = "8.0.0";
@@ -42,47 +41,47 @@ let
     '';
   };
 in
-rustPlatform.buildRustPackage {
-  inherit pname version src;
+  rustPlatform.buildRustPackage {
+    inherit pname version src;
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-FGcws80cX0I74bVaSV6OLntPFPNanGAFm6CVHDAGbOU=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-FGcws80cX0I74bVaSV6OLntPFPNanGAFm6CVHDAGbOU=";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ pkg-config ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [pkg-config];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [openssl];
 
-  preConfigure = ''
-    mkdir -p crates/librqbit/webui/dist
-    cp -R ${rqbit-webui}/dist/** crates/librqbit/webui/dist
-  '';
+    preConfigure = ''
+      mkdir -p crates/librqbit/webui/dist
+      cp -R ${rqbit-webui}/dist/** crates/librqbit/webui/dist
+    '';
 
-  postPatch = ''
-    # This script fascilitates the build of the webui,
-    #  we've already built that
-    rm crates/librqbit/build.rs
-  '';
+    postPatch = ''
+      # This script fascilitates the build of the webui,
+      #  we've already built that
+      rm crates/librqbit/build.rs
+    '';
 
-  doCheck = false;
+    doCheck = false;
 
-  passthru.webui = rqbit-webui;
+    passthru.webui = rqbit-webui;
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--subpackage"
-      "webui"
-    ];
-  };
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--subpackage"
+        "webui"
+      ];
+    };
 
-  meta = {
-    description = "Bittorrent client in Rust";
-    homepage = "https://github.com/ikatson/rqbit";
-    changelog = "https://github.com/ikatson/rqbit/releases/tag/v${version}";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      cafkafk
-      toasteruwu
-    ];
-    mainProgram = "rqbit";
-  };
-}
+    meta = {
+      description = "Bittorrent client in Rust";
+      homepage = "https://github.com/ikatson/rqbit";
+      changelog = "https://github.com/ikatson/rqbit/releases/tag/v${version}";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        cafkafk
+        toasteruwu
+      ];
+      mainProgram = "rqbit";
+    };
+  }

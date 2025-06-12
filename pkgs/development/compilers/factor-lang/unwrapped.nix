@@ -8,12 +8,10 @@
   ncurses,
   tzdata,
   unzip,
-
   # Version-specific attributes
   version,
   src,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "factor-lang";
 
@@ -105,6 +103,6 @@ stdenv.mkDerivation (finalAttrs: {
       vrthra
       spacefrogg
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

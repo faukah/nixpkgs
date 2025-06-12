@@ -9,7 +9,6 @@
   flex,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spicy";
   version = "1.13.1";
@@ -48,11 +47,11 @@ stdenv.mkDerivation rec {
   preFixup = ''
     for b in $out/bin/*
       do wrapProgram "$b" --prefix PATH : "${
-        lib.makeBinPath [
-          bison
-          flex
-        ]
-      }"
+      lib.makeBinPath [
+        bison
+        flex
+      ]
+    }"
     done
   '';
 
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
       for all your parsing needs.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
     platforms = platforms.unix;
   };
 }

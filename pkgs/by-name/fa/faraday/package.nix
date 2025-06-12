@@ -5,7 +5,6 @@
   testers,
   faraday,
 }:
-
 buildGoModule rec {
   pname = "faraday";
   version = "0.2.11-alpha";

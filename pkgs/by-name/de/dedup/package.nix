@@ -9,7 +9,6 @@
   coreutils,
   gawk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dedup";
   version = "2.0";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
       bsd0
       isc
     ];
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

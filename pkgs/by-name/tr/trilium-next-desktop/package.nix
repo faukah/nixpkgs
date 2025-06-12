@@ -11,9 +11,7 @@
   copyDesktopItems,
   wrapGAppsHook3,
   asar,
-}:
-
-let
+}: let
   pname = "trilium-next-desktop";
   version = "0.93.0";
 
@@ -44,7 +42,7 @@ let
     description = "Hierarchical note taking application with focus on building large personal knowledge bases";
     homepage = "https://github.com/TriliumNext/Notes";
     license = lib.licenses.agpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with lib.maintainers; [
       eliandoran
       fliegendewurst
@@ -86,7 +84,7 @@ let
         icon = "trilium";
         comment = meta.description;
         desktopName = "TriliumNext Notes";
-        categories = [ "Office" ];
+        categories = ["Office"];
         startupWMClass = "Trilium Notes Next";
       })
     ];
@@ -147,6 +145,7 @@ let
       runHook postInstall
     '';
   };
-
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

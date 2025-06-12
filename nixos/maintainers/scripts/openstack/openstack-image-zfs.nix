@@ -1,51 +1,52 @@
 # nix-build '<nixpkgs/nixos>' -A config.system.build.openstackImage --arg configuration "{ imports = [ ./nixos/maintainers/scripts/openstack/openstack-image.nix ]; }"
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
   copyChannel = true;
   cfg = config.openstackImage;
-  imageBootMode = if config.openstack.efi then "uefi" else "legacy-bios";
-in
-{
-  imports = [
-    ../../../modules/virtualisation/openstack-config.nix
-    ../../../modules/virtualisation/disk-size-option.nix
-    ../../../modules/image/file-options.nix
-    (lib.mkRenamedOptionModuleWith {
-      sinceRelease = 2411;
-      from = [
-        "openstackImage"
-        "sizeMB"
-      ];
-      to = [
-        "virtualisation"
-        "diskSize"
-      ];
-    })
-    (lib.mkRenamedOptionModuleWith {
-      sinceRelease = 2505;
-      from = [
-        "openstackImage"
-        "name"
-      ];
-      to = [
-        "image"
-        "baseName"
-      ];
-    })
-
-  ] ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
+  imageBootMode =
+    if config.openstack.efi
+    then "uefi"
+    else "legacy-bios";
+in {
+  imports =
+    [
+      ../../../modules/virtualisation/openstack-config.nix
+      ../../../modules/virtualisation/disk-size-option.nix
+      ../../../modules/image/file-options.nix
+      (lib.mkRenamedOptionModuleWith {
+        sinceRelease = 2411;
+        from = [
+          "openstackImage"
+          "sizeMB"
+        ];
+        to = [
+          "virtualisation"
+          "diskSize"
+        ];
+      })
+      (lib.mkRenamedOptionModuleWith {
+        sinceRelease = 2505;
+        from = [
+          "openstackImage"
+          "name"
+        ];
+        to = [
+          "image"
+          "baseName"
+        ];
+      })
+    ]
+    ++ (lib.optional copyChannel ../../../modules/installer/cd-dvd/channel.nix);
 
   options.openstackImage = {
     ramMB = mkOption {
       type = types.int;
-      default = (3 * 1024);
+      default = 3 * 1024;
       description = "RAM allocation for build VM";
     };
 
@@ -89,7 +90,7 @@ in
       inherit lib config;
       inherit (cfg) contents format;
       name = config.image.baseName;
-      pkgs = import ../../../.. { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+      pkgs = import ../../../.. {inherit (pkgs) system;}; # ensure we use the regular qemu-kvm package
 
       configFile = pkgs.writeText "configuration.nix" ''
         { modulesPath, ... }: {

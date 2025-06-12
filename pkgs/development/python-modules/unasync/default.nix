@@ -6,7 +6,6 @@
   tokenize-rt,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "unasync";
   version = "0.6.0";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     sha256 = "sha256-ZRvmX1fSfSJ1HNEymzhIuUi3tdjFmUoidfr0rN8c7tk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
     tokenize-rt
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # mess with $PYTHONPATH
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     "test_project_structure_after_customized_build_py_packages"
   ];
 
-  pythonImportsCheck = [ "unasync" ];
+  pythonImportsCheck = ["unasync"];
 
   meta = with lib; {
     changelog = "https://github.com/python-trio/unasync/releases/tag/v${version}";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

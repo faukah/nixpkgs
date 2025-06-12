@@ -5,7 +5,6 @@
   blinker,
   flask,
 }:
-
 buildPythonPackage rec {
   pname = "raven";
   version = "6.10.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   # requires outdated dependencies which have no official support for python 3.4
   doCheck = false;
 
-  pythonImportsCheck = [ "raven" ];
+  pythonImportsCheck = ["raven"];
 
   optional-dependencies = {
     flask = [
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     description = "Legacy Python client for Sentry (getsentry.com) — replaced by sentry-python";
     mainProgram = "raven";
     homepage = "https://github.com/getsentry/raven-python";
-    license = [ lib.licenses.bsd3 ];
-    maintainers = with lib.maintainers; [ primeos ];
+    license = [lib.licenses.bsd3];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

@@ -16,7 +16,6 @@
   gdk-pixbuf,
   libnotify,
 }:
-
 stdenv.mkDerivation rec {
   pname = "toxic";
   version = "0.16.0";
@@ -28,8 +27,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-qwMkqPTONtG+LnH6a/Debp+n39dJpbUMoy1nIukYjKo=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
+  installFlags = ["PREFIX=$(out)"];
 
   buildInputs =
     [
@@ -52,12 +51,14 @@ stdenv.mkDerivation rec {
     libconfig
   ];
 
-  meta = src.meta // {
-    description = "Reference CLI for Tox";
-    mainProgram = "toxic";
-    homepage = "https://github.com/TokTok/toxic";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ehmry ];
-    platforms = lib.platforms.linux;
-  };
+  meta =
+    src.meta
+    // {
+      description = "Reference CLI for Tox";
+      mainProgram = "toxic";
+      homepage = "https://github.com/TokTok/toxic";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [ehmry];
+      platforms = lib.platforms.linux;
+    };
 }

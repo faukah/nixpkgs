@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "confetty";
   version = "unstable-2022-11-05";
@@ -26,7 +25,7 @@ buildGoModule {
     description = "Confetti in your TTY";
     homepage = "https://github.com/maaslalani/confetty";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "confetty";
   };
 }

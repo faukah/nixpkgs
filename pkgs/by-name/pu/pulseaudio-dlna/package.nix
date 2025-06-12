@@ -16,7 +16,6 @@
   vorbis-tools,
   pulseaudio,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "pulseaudio-dlna";
   version = "unstable-2021-11-09";
@@ -32,8 +31,7 @@ python3Packages.buildPythonApplication {
     ./0001-setup.py-remove-dbus-python-from-list.patch
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       dbus-python
       docopt
@@ -61,7 +59,7 @@ python3Packages.buildPythonApplication {
   # pulseaudio-dlna shells out to pactl to configure sinks and sources.
   # As pactl might not be in $PATH, add --suffix it (so pactl configured by the
   # user get priority)
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ pulseaudio ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [pulseaudio]}"];
 
   # upstream has no tests
   checkPhase = ''
@@ -73,7 +71,7 @@ python3Packages.buildPythonApplication {
     mainProgram = "pulseaudio-dlna";
     homepage = "https://github.com/Cygn/pulseaudio-dlna";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.linux;
   };
 }

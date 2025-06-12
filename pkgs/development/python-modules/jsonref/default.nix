@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jsonref";
   version = "1.1.0";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
     pdm-pep517
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "jsonref" ];
+  pythonImportsCheck = ["jsonref"];
 
   meta = with lib; {
     description = "Implementation of JSON Reference for Python";
     homepage = "https://github.com/gazpachoking/jsonref";
     changelog = "https://github.com/gazpachoking/jsonref/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

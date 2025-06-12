@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "butane";
   version = "0.24.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "internal" ];
+  subPackages = ["internal"];
 
   ldflags = [
     "-X github.com/coreos/butane/internal/version.Raw=v${version}"

@@ -7,7 +7,6 @@
   setuptools,
   distutils,
 }:
-
 buildPythonPackage rec {
   pname = "python-debianbts";
   version = "4.1.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pysimplesoap
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   # Most tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "debianbts" ];
+  pythonImportsCheck = ["debianbts"];
 
   meta = {
     description = "Python interface to Debian's Bug Tracking System";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     downloadPage = "https://pypi.org/project/python-debianbts/";
     changelog = "https://github.com/venthur/python-debianbts/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

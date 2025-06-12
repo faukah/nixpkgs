@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dynamic-colors";
   version = "0.2.5";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Change terminal colors on the fly";
     homepage = "https://github.com/peterhoeg/dynamic-colors";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
     mainProgram = "dynamic-colors";
   };

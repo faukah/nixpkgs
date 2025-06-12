@@ -3,18 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build dependencies
   flit-core,
-
   # dependencies
   mdformat,
   wcwidth,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-tables";
   version = "1.0.0";
@@ -29,16 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-7MbpGBGprhGrQ9P31HUU2h0bjyHWap6DETVN/dCDA1w=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     mdformat
     wcwidth
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdformat_tables" ];
+  pythonImportsCheck = ["mdformat_tables"];
 
   meta = with lib; {
     description = "Mdformat plugin for rendering tables";

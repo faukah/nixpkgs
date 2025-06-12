@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.weechat;
-in
-{
+in {
   options.services.weechat = {
     enable = lib.mkEnableOption "weechat";
 
-    package = lib.mkPackageOption pkgs "weechat" { };
+    package = lib.mkPackageOption pkgs "weechat" {};
 
     root = lib.mkOption {
       description = "Weechat state directory.";
@@ -30,7 +27,9 @@ in
       type = lib.types.path;
       description = "Binary to execute.";
       default =
-        if (!cfg.headless) then "${cfg.package}/bin/weechat" else "${cfg.package}/bin/weechat-headless";
+        if (!cfg.headless)
+        then "${cfg.package}/bin/weechat"
+        else "${cfg.package}/bin/weechat-headless";
       defaultText = lib.literalExpression ''"''${cfg.package}/bin/weechat"'';
       example = lib.literalExpression ''"''${cfg.package}/bin/weechat-headless"'';
     };
@@ -46,7 +45,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users = {
-      groups.weechat = { };
+      groups.weechat = {};
       users.weechat = {
         group = "weechat";
         isSystemUser = true;
@@ -75,9 +74,9 @@ in
       };
       script =
         lib.mkIf (!cfg.headless)
-          "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary} --dir ${cfg.root}";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
+        "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary} --dir ${cfg.root}";
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
     };
 
     security.wrappers.screen = lib.mkIf (!cfg.headless) {

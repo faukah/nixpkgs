@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyais";
   version = "2.9.4";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-cuV3M8lI2Lw9iu4jLfMu/p3kfQO2TEnjjobMRj/Em78=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     attrs
     bitarray
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyais" ];
+  pythonImportsCheck = ["pyais"];
 
   disabledTestPaths = [
     # Tests the examples which have additional requirements
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/M0r13n/pyais";
     changelog = "https://github.com/M0r13n/pyais/blob/${src.tag}/CHANGELOG.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

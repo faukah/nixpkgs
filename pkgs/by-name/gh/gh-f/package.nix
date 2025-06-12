@@ -10,8 +10,7 @@
   gnused,
   withBat ? false,
   bat,
-}:
-let
+}: let
   binPath = lib.makeBinPath (
     [
       gh
@@ -23,35 +22,35 @@ let
     ++ lib.optional withBat bat
   );
 in
-stdenvNoCC.mkDerivation rec {
-  pname = "gh-f";
-  version = "1.2.1";
+  stdenvNoCC.mkDerivation rec {
+    pname = "gh-f";
+    version = "1.2.1";
 
-  src = fetchFromGitHub {
-    owner = "gennaro-tedesco";
-    repo = "gh-f";
-    rev = "v${version}";
-    hash = "sha256-62FVFW2KLdH0uonIf3OVBFMGLcCteMjydaLAjWtxwUo=";
-  };
+    src = fetchFromGitHub {
+      owner = "gennaro-tedesco";
+      repo = "gh-f";
+      rev = "v${version}";
+      hash = "sha256-62FVFW2KLdH0uonIf3OVBFMGLcCteMjydaLAjWtxwUo=";
+    };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  installPhase = ''
-    install -D -m755 "gh-f" "$out/bin/gh-f"
-  '';
+    installPhase = ''
+      install -D -m755 "gh-f" "$out/bin/gh-f"
+    '';
 
-  postFixup = ''
-    wrapProgram "$out/bin/gh-f" --prefix PATH : "${binPath}"
-  '';
+    postFixup = ''
+      wrapProgram "$out/bin/gh-f" --prefix PATH : "${binPath}"
+    '';
 
-  meta = with lib; {
-    homepage = "https://github.com/gennaro-tedesco/gh-f";
-    description = "GitHub CLI ultimate FZF extension";
-    maintainers = with maintainers; [ loicreynier ];
-    license = licenses.unlicense;
-    mainProgram = "gh-f";
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/gennaro-tedesco/gh-f";
+      description = "GitHub CLI ultimate FZF extension";
+      maintainers = with maintainers; [loicreynier];
+      license = licenses.unlicense;
+      mainProgram = "gh-f";
+      platforms = platforms.all;
+    };
+  }

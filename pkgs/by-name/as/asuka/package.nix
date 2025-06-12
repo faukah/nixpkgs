@@ -6,7 +6,6 @@
   ncurses,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asuka";
   version = "0.8.5";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-aNHkhcvOdK6sf6nWxCNPxcktYhrnmLdMrLqWb/1QBQ4=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ncurses
@@ -34,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~julienxx/asuka";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

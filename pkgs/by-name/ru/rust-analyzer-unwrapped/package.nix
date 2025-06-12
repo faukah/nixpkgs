@@ -9,7 +9,6 @@
   doCheck ? true,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-analyzer-unwrapped";
   version = "2025-06-02";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
 
   # Code format check requires more dependencies but don't really matter for packaging.
   # So just ignore it.
-  checkFlags = [ "--skip=tidy::check_code_formatting" ];
+  checkFlags = ["--skip=tidy::check_code_formatting"];
 
   nativeBuildInputs = lib.optional useMimalloc cmake;
 
@@ -65,7 +64,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     # FIXME: Pass overrided `rust-analyzer` once `buildRustPackage` also implements #119942
     # FIXME: test script can't find rust std lib so hover doesn't return expected result
     # https://github.com/NixOS/nixpkgs/pull/354304
@@ -79,7 +78,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
     mainProgram = "rust-analyzer";
   };
 }

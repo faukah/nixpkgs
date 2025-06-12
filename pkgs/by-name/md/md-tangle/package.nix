@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "md-tangle";
   version = "1.4.4";
@@ -25,6 +24,6 @@ python3.pkgs.buildPythonPackage rec {
     description = "Generates (\"tangles\") source code from Markdown documents";
     mainProgram = "md-tangle";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

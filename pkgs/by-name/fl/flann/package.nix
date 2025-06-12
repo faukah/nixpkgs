@@ -10,7 +10,6 @@
   unzip,
   enablePython ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flann";
   version = "1.9.1";
@@ -59,7 +58,11 @@ stdenv.mkDerivation rec {
     "-DBUILD_EXAMPLES:BOOL=OFF"
     "-DBUILD_TESTS:BOOL=OFF"
     "-DBUILD_MATLAB_BINDINGS:BOOL=OFF"
-    "-DBUILD_PYTHON_BINDINGS:BOOL=${if enablePython then "ON" else "OFF"}"
+    "-DBUILD_PYTHON_BINDINGS:BOOL=${
+      if enablePython
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   nativeBuildInputs = [
@@ -71,13 +74,13 @@ stdenv.mkDerivation rec {
   # lz4 unbundling broken for llvm, use internal version
   propagatedBuildInputs = lib.optional (!stdenv.cc.isClang) lz4;
 
-  buildInputs = lib.optionals enablePython [ python3 ];
+  buildInputs = lib.optionals enablePython [python3];
 
   meta = {
     homepage = "https://github.com/flann-lib/flann";
     license = lib.licenses.bsd3;
     description = "Fast approximate nearest neighbor searches in high dimensional spaces";
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

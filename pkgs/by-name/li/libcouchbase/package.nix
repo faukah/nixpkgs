@@ -7,7 +7,6 @@
   libevent,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcouchbase";
   version = "3.3.9";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dvXRbAdgb1WmKLijYkx6+js60ZxK1Tl2aTFSF7EpN74=";
   };
 
-  cmakeFlags = [ "-DLCB_NO_MOCK=ON" ];
+  cmakeFlags = ["-DLCB_NO_MOCK=ON"];
 
   nativeBuildInputs = [
     cmake

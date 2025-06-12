@@ -6,7 +6,6 @@
   SDL2,
   SDL2_net,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "maelstrom";
   version = "3.0.7";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       desktopName = "Maelstrom";
       genericName = "Maelstrom";
       comment = "An arcade-style game resembling Asteroids";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -51,6 +50,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "maelstrom";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ tmountain ];
+    maintainers = with lib.maintainers; [tmountain];
   };
 })

@@ -5,7 +5,6 @@
   lua52Packages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "z-lua";
   version = "1.8.24";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ lua52Packages.lua ];
+  buildInputs = [lua52Packages.lua];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/skywind3000/z.lua";
     description = "New cd command that helps you navigate faster by learning your habits";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "z.lua";
   };
 }

@@ -5,7 +5,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hanko";
   version = "0.5.4";
@@ -20,10 +19,10 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-wHvhlWi99igZ2gKAIcBYg207JrbQNCOjlcVttIy3MV0=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage assets/manpages/*.1
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/SRv6d/hanko";
     changelog = "https://github.com/SRv6d/hanko/blob/main/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ srv6d ];
+    maintainers = with lib.maintainers; [srv6d];
     mainProgram = "hanko";
   };
 }

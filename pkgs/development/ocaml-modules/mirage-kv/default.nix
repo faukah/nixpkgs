@@ -8,7 +8,6 @@
   ptime,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "mirage-kv";
   version = "6.1.1";
@@ -28,12 +27,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "MirageOS signatures for key/value devices";
     homepage = "https://github.com/mirage/mirage-kv";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

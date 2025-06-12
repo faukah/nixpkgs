@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gut";
   version = "0.3.2";
@@ -27,13 +26,13 @@ buildGoModule rec {
   # Depends on `/home` existing
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Alternative git CLI";
     homepage = "https://gut-cli.dev";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "gut";
   };
 }

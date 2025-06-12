@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 # To use upower-notify, the maintainer suggests adding something like this to your configuration.nix:
 #
 # service.xserver.displayManager.sessionCommands = ''
@@ -28,6 +27,6 @@ buildGoModule {
     description = "simple tool to give you Desktop Notifications about your battery";
     mainProgram = "upower-notify";
     homepage = "https://github.com/omeid/upower-notify";
-    maintainers = with maintainers; [ kamilchm ];
+    maintainers = with maintainers; [kamilchm];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "crimson-pro";
   version = "unstable-2022-08-30";
@@ -35,6 +34,6 @@ stdenv.mkDerivation {
     description = "Professionally produced redesign of Crimson by Jacques Le Bailly";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ncfavier ];
+    maintainers = with maintainers; [ncfavier];
   };
 }

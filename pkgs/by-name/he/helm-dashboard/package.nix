@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "helm-dashboard";
   version = "1.3.3";
@@ -35,6 +34,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/komodorio/helm-dashboard/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ qjoly ];
+    maintainers = with lib.maintainers; [qjoly];
   };
 }

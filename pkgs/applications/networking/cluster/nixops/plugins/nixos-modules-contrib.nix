@@ -6,7 +6,6 @@
   poetry-core,
   nixops,
 }:
-
 buildPythonPackage {
   pname = "nixos-modules-contrib";
   version = "0-unstable-2021-01-20";
@@ -33,14 +32,14 @@ buildPythonPackage {
     nixops
   ];
 
-  pythonImportsCheck = [ "nixos_modules_contrib" ];
+  pythonImportsCheck = ["nixos_modules_contrib"];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Useful NixOS modules which may not belong in the Nixpkgs repository itself";
     homepage = "https://github.com/nix-community/nixos-modules-contrib";
     license = licenses.lgpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

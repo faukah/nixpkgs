@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyroute2";
   version = "0.8.1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-eItzD9ub8COaOkNLEKLtf8uJil4W4rqjzVa95LJahHw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Requires root privileges, https://github.com/svinota/pyroute2/issues/778
   doCheck = false;

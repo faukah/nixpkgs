@@ -3,59 +3,58 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.mediagoblin;
 
-  mkSubSectionKeyValue =
-    depth: k: v:
-    if lib.isAttrs v then
-      let
-        inherit (lib.strings) replicate;
-      in
+  mkSubSectionKeyValue = depth: k: v:
+    if lib.isAttrs v
+    then let
+      inherit (lib.strings) replicate;
+    in
       "${replicate depth "["}${k}${replicate depth "]"}\n"
       + lib.generators.toINIWithGlobalSection {
         mkKeyValue = mkSubSectionKeyValue (depth + 1);
-      } { globalSection = v; }
+      } {globalSection = v;}
     else
       lib.generators.mkKeyValueDefault {
-        mkValueString = v: if lib.isString v then ''"${v}"'' else lib.generators.mkValueStringDefault { } v;
-      } " = " k v;
+        mkValueString = v:
+          if lib.isString v
+          then ''"${v}"''
+          else lib.generators.mkValueStringDefault {} v;
+      } " = "
+      k
+      v;
 
-  iniFormat = pkgs.formats.ini { };
+  iniFormat = pkgs.formats.ini {};
 
   # we need to build our own GI_TYPELIB_PATH and GST_PLUGIN_PATH because celery, paster and gmg need this information and it cannot easily be re-wrapped
-  gst =
-    let
-      needsGst =
-        (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.audio")
-        || (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.video");
-    in
+  gst = let
+    needsGst =
+      (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.audio")
+      || (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.video");
+  in
     with pkgs.gst_all_1;
-    [
-      pkgs.glib
-      gst-plugins-base
-      gstreamer
-    ]
-    # audio and video share most dependencies, so we can just take audio
-    ++ lib.optionals needsGst cfg.package.optional-dependencies.audio;
+      [
+        pkgs.glib
+        gst-plugins-base
+        gstreamer
+      ]
+      # audio and video share most dependencies, so we can just take audio
+      ++ lib.optionals needsGst cfg.package.optional-dependencies.audio;
   GI_TYPELIB_PATH = lib.makeSearchPathOutput "out" "lib/girepository-1.0" gst;
   GST_PLUGIN_PATH = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" gst;
 
   path =
-    lib.optionals (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.stl") [ pkgs.blender ]
+    lib.optionals (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.stl") [pkgs.blender]
     ++ lib.optionals (cfg.settings.mediagoblin.plugins ? "mediagoblin.media_types.pdf") (
-      with pkgs;
-      [
+      with pkgs; [
         poppler-utils
         unoconv
       ]
     );
 
   finalPackage = cfg.package.python.buildEnv.override {
-    extraLibs =
-      with cfg.package.python.pkgs;
+    extraLibs = with cfg.package.python.pkgs;
       [
         (toPythonModule cfg.package)
       ]
@@ -66,16 +65,15 @@ let
         let
           inherit (cfg.settings.mediagoblin) plugins;
         in
-        with cfg.package.optional-dependencies;
-        lib.optionals (plugins ? "mediagoblin.media_types.audio") audio
-        ++ lib.optionals (plugins ? "mediagoblin.media_types.video") video
-        ++ lib.optionals (plugins ? "mediagoblin.media_types.raw_image") raw_image
-        ++ lib.optionals (plugins ? "mediagoblin.media_types.ascii") ascii
-        ++ lib.optionals (plugins ? "mediagoblin.plugins.ldap") ldap
+          with cfg.package.optional-dependencies;
+            lib.optionals (plugins ? "mediagoblin.media_types.audio") audio
+            ++ lib.optionals (plugins ? "mediagoblin.media_types.video") video
+            ++ lib.optionals (plugins ? "mediagoblin.media_types.raw_image") raw_image
+            ++ lib.optionals (plugins ? "mediagoblin.media_types.ascii") ascii
+            ++ lib.optionals (plugins ? "mediagoblin.plugins.ldap") ldap
       );
   };
-in
-{
+in {
   options = {
     services.mediagoblin = {
       enable = lib.mkOption {
@@ -105,17 +103,17 @@ in
         description = "Whether to configure a local postgres database and connect to it.";
       };
 
-      package = lib.mkPackageOption pkgs "mediagoblin" { };
+      package = lib.mkPackageOption pkgs "mediagoblin" {};
 
       pluginPackages = lib.mkOption {
         type = with lib.types; listOf package;
-        default = [ ];
+        default = [];
         description = "Plugins to add to the environment of MediaGoblin. They still need to be enabled in the config.";
       };
 
       settings = lib.mkOption {
         description = "Settings which are written into `mediagoblin.ini`.";
-        default = { };
+        default = {};
         type = lib.types.submodule {
           freeformType = lib.types.anything;
 
@@ -183,7 +181,7 @@ in
 
         settings = lib.mkOption {
           description = "Settings which are written into `paste.ini`.";
-          default = { };
+          default = {};
           type = lib.types.submodule {
             freeformType = iniFormat.type;
           };
@@ -206,10 +204,10 @@ in
     services = {
       mediagoblin.settings.mediagoblin = {
         plugins = {
-          "mediagoblin.media_types.image" = { };
-          "mediagoblin.plugins.basic_auth" = { };
-          "mediagoblin.plugins.geolocation" = { };
-          "mediagoblin.plugins.processing_info" = { };
+          "mediagoblin.media_types.image" = {};
+          "mediagoblin.plugins.basic_auth" = {};
+          "mediagoblin.plugins.geolocation" = {};
+          "mediagoblin.plugins.processing_info" = {};
         };
         sql_engine = lib.mkIf cfg.createDatabaseLocally "postgresql:///mediagoblin";
       };
@@ -230,8 +228,7 @@ in
             '';
             locations = {
               "/".proxyPass = "http://127.0.0.1:${toString cfg.paste.port}";
-              "/mgoblin_static/".alias =
-                "${finalPackage}/${finalPackage.python.sitePackages}/mediagoblin/static/";
+              "/mgoblin_static/".alias = "${finalPackage}/${finalPackage.python.sitePackages}/mediagoblin/static/";
               "/mgoblin_media/".alias = "/var/lib/mediagoblin/user_dev/media/public/";
               "/theme_static/".alias = "/var/lib/mediagoblin/user_dev/theme_static/";
               "/plugin_static/".alias = "/var/lib/mediagoblin/user_dev/plugin_static/";
@@ -242,7 +239,7 @@ in
 
       postgresql = lib.mkIf cfg.createDatabaseLocally {
         enable = true;
-        ensureDatabases = [ "mediagoblin" ];
+        ensureDatabases = ["mediagoblin"];
         ensureUsers = [
           {
             name = "mediagoblin";
@@ -254,112 +251,110 @@ in
       rabbitmq.enable = true;
     };
 
-    systemd.services =
-      let
-        serviceDefaults = {
-          wantedBy = [ "multi-user.target" ];
-          inherit path;
-          serviceConfig = {
-            AmbientCapabilities = "";
-            CapabilityBoundingSet = [ "" ];
-            DevicePolicy = "closed";
-            Group = "mediagoblin";
-            LockPersonality = true;
-            MemoryDenyWriteExecute = true;
-            NoNewPrivileges = true;
-            PrivateDevices = true;
-            PrivateTmp = true;
-            ProcSubset = "pid";
-            ProtectControlGroups = true;
-            ProtectHome = true;
-            ProtectHostname = true;
-            ProtectKernelLogs = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ProtectProc = "invisible";
-            ProtectSystem = "strict";
-            RestrictAddressFamilies = [
-              "AF_INET"
-              "AF_INET6"
-              "AF_UNIX"
-            ];
-            RemoveIPC = true;
-            StateDirectory = "mediagoblin";
-            StateDirectoryMode = "0750";
-            User = "mediagoblin";
-            WorkingDirectory = "/var/lib/mediagoblin/";
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            SystemCallArchitectures = "native";
-            SystemCallFilter = [
-              "@system-service"
-              "~@privileged"
-              "@chown"
-            ];
-            UMask = "0027";
-          };
-        };
-
-        generatedPasteConfig = iniFormat.generate "paste.ini" cfg.paste.settings;
-        pasteConfig = pkgs.runCommand "paste-combined.ini" { nativeBuildInputs = [ pkgs.crudini ]; } ''
-          cp ${cfg.package.src}/paste.ini $out
-          chmod +w $out
-          crudini --merge $out < ${generatedPasteConfig}
-        '';
-      in
-      {
-        mediagoblin-celeryd = lib.recursiveUpdate serviceDefaults {
-          # we cannot change DEFAULT.data_dir inside mediagoblin.ini because of an annoying bug
-          # https://todo.sr.ht/~mediagoblin/mediagoblin/57
-          preStart = ''
-            cp --remove-destination ${
-              pkgs.writeText "mediagoblin.ini" (
-                lib.generators.toINI { } (lib.filterAttrsRecursive (n: v: n != "plugins") cfg.settings)
-                + "\n"
-                + lib.generators.toINI { mkKeyValue = mkSubSectionKeyValue 2; } {
-                  inherit (cfg.settings.mediagoblin) plugins;
-                }
-              )
-            } /var/lib/mediagoblin/mediagoblin.ini
-          '';
-          serviceConfig = {
-            Environment = [
-              "CELERY_CONFIG_MODULE=mediagoblin.init.celery.from_celery"
-              "GI_TYPELIB_PATH=${GI_TYPELIB_PATH}"
-              "GST_PLUGIN_PATH=${GST_PLUGIN_PATH}"
-              "MEDIAGOBLIN_CONFIG=/var/lib/mediagoblin/mediagoblin.ini"
-              "PASTE_CONFIG=${pasteConfig}"
-            ];
-            ExecStart = "${lib.getExe' finalPackage "celery"} worker --loglevel=INFO";
-          };
-          unitConfig.Description = "MediaGoblin Celery";
-        };
-
-        mediagoblin-paster = lib.recursiveUpdate serviceDefaults {
-          after = [
-            "mediagoblin-celeryd.service"
-            "postgresql.service"
+    systemd.services = let
+      serviceDefaults = {
+        wantedBy = ["multi-user.target"];
+        inherit path;
+        serviceConfig = {
+          AmbientCapabilities = "";
+          CapabilityBoundingSet = [""];
+          DevicePolicy = "closed";
+          Group = "mediagoblin";
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateTmp = true;
+          ProcSubset = "pid";
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = "strict";
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+            "AF_UNIX"
           ];
-          requires = [
-            "mediagoblin-celeryd.service"
-            "postgresql.service"
+          RemoveIPC = true;
+          StateDirectory = "mediagoblin";
+          StateDirectoryMode = "0750";
+          User = "mediagoblin";
+          WorkingDirectory = "/var/lib/mediagoblin/";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+            "@chown"
           ];
-          preStart = ''
-            cp --remove-destination ${pasteConfig} /var/lib/mediagoblin/paste.ini
-            ${lib.getExe' finalPackage "gmg"} dbupdate
-          '';
-          serviceConfig = {
-            Environment = [
-              "CELERY_ALWAYS_EAGER=false"
-              "GI_TYPELIB_PATH=${GI_TYPELIB_PATH}"
-              "GST_PLUGIN_PATH=${GST_PLUGIN_PATH}"
-            ];
-            ExecStart = "${lib.getExe' finalPackage "paster"} serve /var/lib/mediagoblin/paste.ini";
-          };
-          unitConfig.Description = "Mediagoblin";
+          UMask = "0027";
         };
       };
+
+      generatedPasteConfig = iniFormat.generate "paste.ini" cfg.paste.settings;
+      pasteConfig = pkgs.runCommand "paste-combined.ini" {nativeBuildInputs = [pkgs.crudini];} ''
+        cp ${cfg.package.src}/paste.ini $out
+        chmod +w $out
+        crudini --merge $out < ${generatedPasteConfig}
+      '';
+    in {
+      mediagoblin-celeryd = lib.recursiveUpdate serviceDefaults {
+        # we cannot change DEFAULT.data_dir inside mediagoblin.ini because of an annoying bug
+        # https://todo.sr.ht/~mediagoblin/mediagoblin/57
+        preStart = ''
+          cp --remove-destination ${
+            pkgs.writeText "mediagoblin.ini" (
+              lib.generators.toINI {} (lib.filterAttrsRecursive (n: v: n != "plugins") cfg.settings)
+              + "\n"
+              + lib.generators.toINI {mkKeyValue = mkSubSectionKeyValue 2;} {
+                inherit (cfg.settings.mediagoblin) plugins;
+              }
+            )
+          } /var/lib/mediagoblin/mediagoblin.ini
+        '';
+        serviceConfig = {
+          Environment = [
+            "CELERY_CONFIG_MODULE=mediagoblin.init.celery.from_celery"
+            "GI_TYPELIB_PATH=${GI_TYPELIB_PATH}"
+            "GST_PLUGIN_PATH=${GST_PLUGIN_PATH}"
+            "MEDIAGOBLIN_CONFIG=/var/lib/mediagoblin/mediagoblin.ini"
+            "PASTE_CONFIG=${pasteConfig}"
+          ];
+          ExecStart = "${lib.getExe' finalPackage "celery"} worker --loglevel=INFO";
+        };
+        unitConfig.Description = "MediaGoblin Celery";
+      };
+
+      mediagoblin-paster = lib.recursiveUpdate serviceDefaults {
+        after = [
+          "mediagoblin-celeryd.service"
+          "postgresql.service"
+        ];
+        requires = [
+          "mediagoblin-celeryd.service"
+          "postgresql.service"
+        ];
+        preStart = ''
+          cp --remove-destination ${pasteConfig} /var/lib/mediagoblin/paste.ini
+          ${lib.getExe' finalPackage "gmg"} dbupdate
+        '';
+        serviceConfig = {
+          Environment = [
+            "CELERY_ALWAYS_EAGER=false"
+            "GI_TYPELIB_PATH=${GI_TYPELIB_PATH}"
+            "GST_PLUGIN_PATH=${GST_PLUGIN_PATH}"
+          ];
+          ExecStart = "${lib.getExe' finalPackage "paster"} serve /var/lib/mediagoblin/paste.ini";
+        };
+        unitConfig.Description = "Mediagoblin";
+      };
+    };
 
     systemd.tmpfiles.settings."mediagoblin"."/var/lib/mediagoblin/user_dev".d = {
       group = "mediagoblin";
@@ -368,14 +363,14 @@ in
     };
 
     users = {
-      groups.mediagoblin = { };
+      groups.mediagoblin = {};
       users = {
         mediagoblin = {
           group = "mediagoblin";
           home = "/var/lib/mediagoblin";
           isSystemUser = true;
         };
-        nginx.extraGroups = [ "mediagoblin" ];
+        nginx.extraGroups = ["mediagoblin"];
       };
     };
   };

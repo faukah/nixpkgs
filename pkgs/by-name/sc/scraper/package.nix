@@ -4,7 +4,6 @@
   fetchCrate,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "scraper";
   version = "0.23.1";
@@ -17,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-cijkLybvjwdz3k2CG0hYwSTisbJUpyI7QUG0l8xLfKQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage scraper.1
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/causal-agent/scraper";
     changelog = "https://github.com/causal-agent/scraper/releases/tag/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "algia";
   version = "0.0.86";
@@ -22,7 +21,7 @@ buildGoModule rec {
     description = "CLI application for nostr";
     homepage = "https://github.com/mattn/algia";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ haruki7049 ];
+    maintainers = with lib.maintainers; [haruki7049];
     mainProgram = "algia";
   };
 }

@@ -4,16 +4,15 @@
   makeWrapper,
   symlinkJoin,
   # configurable options
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
-
 symlinkJoin {
   name = "czkawka-wrapped-${czkawka.version}";
   inherit (czkawka) pname version outputs;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  paths = [ czkawka ];
+  paths = [czkawka];
 
   postBuild = ''
     ${lib.concatMapStringsSep "\n" (

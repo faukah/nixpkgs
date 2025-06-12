@@ -6,7 +6,6 @@
   installShellFiles,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "citron";
   version = "0.15.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-HEDkNzNCXKmBsI5fL8+UK4SHrU9eLde6Vfh4XhSrK+A=";
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   nativeBuildInputs = [
     installShellFiles
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://git.sr.ht/~grtcdr/citron";
     description = "System data via on-demand notifications";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vuimuich ];
+    maintainers = with lib.maintainers; [vuimuich];
     platforms = lib.platforms.linux;
     mainProgram = "citron";
   };

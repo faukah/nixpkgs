@@ -27,7 +27,6 @@
   subunit,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "python-octaviaclient";
   version = "3.11.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   };
 
   # somehow python-neutronclient cannot be found despite it being supplied
-  pythonRemoveDeps = [ "python-neutronclient" ];
+  pythonRemoveDeps = ["python-neutronclient"];
 
   build-system = [
     setuptools
@@ -66,7 +65,7 @@ buildPythonPackage rec {
 
   preInstall = ''
     # TODO: I have really no idea why installer is missing...
-    export PYTHONPATH=$PYTHONPATH:${makePythonPath [ installer ]}
+    export PYTHONPATH=$PYTHONPATH:${makePythonPath [installer]}
   '';
 
   nativeCheckInputs = [
@@ -92,12 +91,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "octaviaclient" ];
+  pythonImportsCheck = ["octaviaclient"];
 
   meta = with lib; {
     description = "OpenStack Octavia Command-line Client";
     homepage = "https://github.com/openstack/python-octaviaclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

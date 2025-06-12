@@ -5,7 +5,6 @@
   pkg-config,
   libunwind,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bugstalker";
   version = "0.3.1";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-/FSV/avsg7kbgtinmKBb0+gemLFZdSE+A+tfLvtfNas=";
 
-  buildInputs = [ libunwind ];
+  buildInputs = [libunwind];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # Tests require rustup.
   doCheck = false;
@@ -31,8 +30,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Rust debugger for Linux x86-64";
     homepage = "https://github.com/godzie44/BugStalker";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jacg ];
+    maintainers = with lib.maintainers; [jacg];
     mainProgram = "bs";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

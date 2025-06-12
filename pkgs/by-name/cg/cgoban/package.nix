@@ -35,9 +35,9 @@ stdenv.mkDerivation {
     description = "Client for the KGS Go Server";
     mainProgram = "cgoban";
     homepage = "https://www.gokgs.com/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.free;
-    maintainers = with maintainers; [ savannidgerinel ];
+    maintainers = with maintainers; [savannidgerinel];
     platforms = temurin-jre-bin-17.meta.platforms;
   };
 }

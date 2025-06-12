@@ -7,7 +7,6 @@
   gtest,
   prometheus-cpp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gbenchmark";
   version = "1.9.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   cmakeFlags = [
     (lib.cmakeBool "BENCHMARK_USE_BUNDLED_GTEST" false)
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/benchmark";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin ++ platforms.freebsd;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

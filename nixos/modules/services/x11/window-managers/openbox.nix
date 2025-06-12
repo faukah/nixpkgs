@@ -4,13 +4,9 @@
   config,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.xserver.windowManager.openbox;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.openbox.enable = mkEnableOption "openbox";
   };
@@ -26,6 +22,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.openbox ];
+    environment.systemPackages = [pkgs.openbox];
   };
 }

@@ -4,12 +4,11 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.wyoming.openwakeword;
 
-  inherit (lib)
+  inherit
+    (lib)
     concatMap
     mkOption
     mkEnableOption
@@ -18,20 +17,20 @@ let
     types
     ;
 
-  inherit (builtins)
+  inherit
+    (builtins)
     toString
     ;
 
-  inherit (utils)
+  inherit
+    (utils)
     escapeSystemdExecArgs
     ;
-in
-
-{
+in {
   options.services.wyoming.openwakeword = with types; {
     enable = mkEnableOption "Wyoming openWakeWord server";
 
-    package = mkPackageOption pkgs "wyoming-openwakeword" { };
+    package = mkPackageOption pkgs "wyoming-openwakeword" {};
 
     uri = mkOption {
       type = strMatching "^(tcp|unix)://.*$";
@@ -44,7 +43,7 @@ in
 
     customModelsDirectories = mkOption {
       type = listOf types.path;
-      default = [ ];
+      default = [];
       description = ''
         Paths to directories with custom wake word models (*.tflite model files).
       '';
@@ -93,7 +92,7 @@ in
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Extra arguments to pass to the server commandline.
       '';
@@ -127,13 +126,15 @@ in
             cfg.triggerLevel
           ]
           ++ (concatMap (model: [
-            "--preload-model"
-            model
-          ]) cfg.preloadModels)
+              "--preload-model"
+              model
+            ])
+            cfg.preloadModels)
           ++ (concatMap (dir: [
-            "--custom-model-dir"
-            (toString dir)
-          ]) cfg.customModelsDirectories)
+              "--custom-model-dir"
+              (toString dir)
+            ])
+            cfg.customModelsDirectories)
           ++ cfg.extraArgs
         );
         CapabilityBoundingSet = "";

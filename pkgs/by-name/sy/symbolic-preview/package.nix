@@ -14,7 +14,6 @@
   libadwaita,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "symbolic-preview";
   version = "0.0.9";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/design/symbolic-preview";
     description = "Symbolics made easy";
     mainProgram = "symbolic-preview";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs

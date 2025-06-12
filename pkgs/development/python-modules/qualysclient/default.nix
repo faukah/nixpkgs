@@ -14,7 +14,6 @@
   responses,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "qualysclient";
   version = "0.0.4.8.3";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail "version=__version__," 'version="${version}",'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "qualysclient" ];
+  pythonImportsCheck = ["qualysclient"];
 
   meta = with lib; {
     description = "Python SDK for interacting with the Qualys API";
     homepage = "https://qualysclient.readthedocs.io/";
     changelog = "https://github.com/woodtechie1428/qualysclient/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

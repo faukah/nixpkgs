@@ -8,7 +8,6 @@
   libGLU,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coin";
   version = "4.0.3";
@@ -20,22 +19,24 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dUFmcUOdNc3ZFtr+Hnh3Q3OY/JA/WxmiRJiU2RFSSus=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [
-    boost
-    libGL
-    libGLU
-  ] ++ lib.optional stdenv.hostPlatform.isLinux libX11;
+  buildInputs =
+    [
+      boost
+      libGL
+      libGLU
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libX11;
 
-  cmakeFlags = [ "-DCOIN_USE_CPACK=OFF" ];
+  cmakeFlags = ["-DCOIN_USE_CPACK=OFF"];
 
   meta = with lib; {
     homepage = "https://github.com/coin3d/coin";
     description = "High-level, retained-mode toolkit for effective 3D graphics development";
     mainProgram = "coin-config";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux ++ platforms.darwin;
   };
 })

@@ -4,14 +4,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # buildInputs
   openssl,
-
   # nativeBuildInputs
   pkg-config,
   protobuf,
-
   # dependencies
   deprecation,
   overrides,
@@ -19,7 +16,6 @@
   pyarrow,
   pydantic,
   tqdm,
-
   # tests
   aiohttp,
   pandas,
@@ -30,7 +26,6 @@
   duckdb,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "lancedb";
   version = "0.21.2";
@@ -50,7 +45,7 @@ buildPythonPackage rec {
     hash = "sha256-Q3ejJsddHLGGbw3peLRtjPqBrS6fNi0C3K2UWpcM/4k=";
   };
 
-  build-system = [ rustPlatform.maturinBuildHook ];
+  build-system = [rustPlatform.maturinBuildHook];
 
   nativeBuildInputs = [
     pkg-config
@@ -76,7 +71,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "lancedb" ];
+  pythonImportsCheck = ["lancedb"];
 
   nativeCheckInputs = [
     aiohttp
@@ -92,7 +87,7 @@ buildPythonPackage rec {
     cd python/python/tests
   '';
 
-  pytestFlagsArray = [ "-m 'not slow'" ];
+  pytestFlagsArray = ["-m 'not slow'"];
 
   disabledTests = [
     # require tantivy which is not packaged in nixpkgs
@@ -126,6 +121,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lancedb/lancedb";
     changelog = "https://github.com/lancedb/lancedb/releases/tag/python-v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

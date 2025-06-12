@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
   };
 
   # bat needs to be in the PATH during building so EXECUTABLE_BAT picks it up
-  nativeBuildInputs = [ bat ];
+  nativeBuildInputs = [bat];
 
   dontConfigure = true;
 
-  patches = [ ../patches/disable-theme-tests.patch ];
+  patches = [../patches/disable-theme-tests.patch];
 
   postPatch = ''
     patchShebangs --build test.sh test/shimexec .test-framework/bin/best.sh
@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
 
   # Run the library tests as they don't have external dependencies
   doCheck = true;
-  nativeCheckInputs = [
-    bash
-    fish
-    zsh
-  ] ++ (lib.optionals stdenv.hostPlatform.isDarwin [ getconf ]);
+  nativeCheckInputs =
+    [
+      bash
+      fish
+      zsh
+    ]
+    ++ (lib.optionals stdenv.hostPlatform.isDarwin [getconf]);
   checkPhase = ''
     runHook preCheck
     # test list repeats suites. Unique them
@@ -71,12 +73,12 @@ stdenv.mkDerivation rec {
   # The per-script derivations will go ahead and patch the files they actually install.
   dontPatchShebangs = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Bash scripts that integrate bat with various command line tools";
     homepage = "https://github.com/eth-p/bat-extras";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       bbigras
       perchun

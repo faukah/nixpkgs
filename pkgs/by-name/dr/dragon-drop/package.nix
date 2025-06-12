@@ -5,7 +5,6 @@
   pkg-config,
   gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dragon-drop";
   version = "1.2.0";
@@ -17,11 +16,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-wqG6idlVvdN+sPwYgWu3UL0la5ssvymZibiak3KeV7M=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk3];
 
-  makeFlags = [ "NAME=dragon-drop" ];
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["NAME=dragon-drop"];
+  installFlags = ["PREFIX=${placeholder "out"}"];
   postInstall = ''
     ln -s $out/bin/dragon-drop $out/bin/xdragon
   '';

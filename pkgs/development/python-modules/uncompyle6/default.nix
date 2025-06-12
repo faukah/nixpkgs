@@ -9,7 +9,6 @@
   hypothesis,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "uncompyle6";
   version = "3.9.2";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-b3CYD/4IpksRS2hxgy/QLYbJkDX4l2qPH4Eh2tb8pCU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     spark-parser
     xdis
   ];
 
-  pythonRelaxDeps = [ "spark-parser" ];
+  pythonRelaxDeps = ["spark-parser"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "A bytecode decompiler for Python versions 3.8 and below";
     homepage = "https://github.com/rocky/python-uncompyle6";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ melvyn2 ];
+    maintainers = with lib.maintainers; [melvyn2];
   };
 }

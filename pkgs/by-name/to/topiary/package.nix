@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "topiary";
   version = "0.6.0";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-nRVxjdEtYvgF8Vpw0w64hUd1scZh7f+NjFtbTg8L5Qc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeBuildInputs = [installShellFiles];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-EqalIF1wx3F/5CiD21IaYsPdks6Mv1VfwL8OTRWsWaU=";
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Uniform formatter for simple languages, as part of the Tree-sitter ecosystem";

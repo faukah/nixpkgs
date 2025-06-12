@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   colorcet,
   numpy,
@@ -14,13 +12,11 @@
   panel,
   param,
   pyviz-comms,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
   flaky,
 }:
-
 buildPythonPackage rec {
   pname = "holoviews";
   version = "1.20.2";
@@ -74,7 +70,7 @@ buildPythonPackage rec {
     "test_no_blocklist_imports"
   ];
 
-  pythonImportsCheck = [ "holoviews" ];
+  pythonImportsCheck = ["holoviews"];
 
   meta = {
     description = "Python data analysis and visualization seamless and simple";
@@ -82,6 +78,6 @@ buildPythonPackage rec {
     mainProgram = "holoviews";
     homepage = "https://www.holoviews.org/";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -53,7 +53,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Like diff but for PostgreSQL schemas";
     homepage = "https://github.com/djrobstep/migra";
-    license = with licenses; [ unlicense ];
-    maintainers = with maintainers; [ bpeetz ];
+    license = with licenses; [unlicense];
+    maintainers = with maintainers; [bpeetz];
   };
 }

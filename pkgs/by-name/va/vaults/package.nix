@@ -19,7 +19,6 @@
   gocryptfs,
   cryfs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vaults";
   version = "0.9.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-j0A6HlApV0l7LuB7ISHp+k/bSH5Icdv+aNQ9juCCO9I=";
   };
 
-  patches = [ ./not-found-flatpak-info.patch ];
+  patches = [./not-found-flatpak-info.patch];
 
   postPatch = ''
     patchShebangs build-aux
@@ -49,11 +48,11 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          gocryptfs
-          cryfs
-        ]
-      }"
+      lib.makeBinPath [
+        gocryptfs
+        cryfs
+      ]
+    }"
     )
   '';
 

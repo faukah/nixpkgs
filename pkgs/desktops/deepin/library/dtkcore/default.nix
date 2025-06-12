@@ -12,7 +12,6 @@
   dtkcommon,
   dtklog,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dtkcore";
   version = "5.6.32";
@@ -90,6 +89,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dtkcore";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

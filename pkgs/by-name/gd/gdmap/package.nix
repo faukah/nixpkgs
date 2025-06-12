@@ -10,7 +10,6 @@
   libxml2,
   gettext,
 }:
-
 stdenv.mkDerivation {
   pname = "gdmap";
   version = "1.3.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     description = "Tool to visualize disk space (GTK 3 port of Original)";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "gdmap";
   };
 }

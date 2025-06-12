@@ -1,24 +1,17 @@
-{
-  fetchgit,
-}:
-
-let
-  nv-codec-headers-template =
-    {
-      version,
-      hash,
-    }:
-    {
-      pname = "nv-codec-headers";
-      inherit version;
-      src = fetchgit {
-        url = "https://git.videolan.org/git/ffmpeg/nv-codec-headers.git";
-        rev = "n${version}";
-        inherit hash;
-      };
+{fetchgit}: let
+  nv-codec-headers-template = {
+    version,
+    hash,
+  }: {
+    pname = "nv-codec-headers";
+    inherit version;
+    src = fetchgit {
+      url = "https://git.videolan.org/git/ffmpeg/nv-codec-headers.git";
+      rev = "n${version}";
+      inherit hash;
     };
-in
-{
+  };
+in {
   nv-codec-headers-8 = nv-codec-headers-template {
     version = "8.2.15.2";
     hash = "sha256-TKYT8vXqnUpq+M0grDeOR37n/ffqSWDYTrXIbl++BG4=";

@@ -1,14 +1,9 @@
 # This test does a basic functionality check for alice-lg
-{
-  pkgs,
-  ...
-}:
-
-{
+{pkgs, ...}: {
   name = "alice-lg";
   nodes = {
     host1 = {
-      environment.systemPackages = with pkgs; [ jq ];
+      environment.systemPackages = with pkgs; [jq];
       services.alice-lg = {
         enable = true;
         settings = {

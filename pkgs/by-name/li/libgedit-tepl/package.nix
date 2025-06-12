@@ -17,7 +17,6 @@
   docbook-xsl-nons,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgedit-tepl";
   version = "6.13.0";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     libgedit-gtksourceview
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gedit/libgedit-tepl";

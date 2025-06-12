@@ -7,7 +7,6 @@
   blas,
   autoreconfHook,
 }:
-
 buildOctavePackage rec {
   pname = "control";
   version = "3.6.1";
@@ -44,7 +43,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/control/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Computer-Aided Control System Design (CACSD) Tools for GNU Octave, based on the proven SLICOT Library";
   };
 }

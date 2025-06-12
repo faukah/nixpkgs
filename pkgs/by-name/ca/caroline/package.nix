@@ -10,7 +10,6 @@
   libgee,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "caroline";
   version = "0.3.1";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = " A simple Cairo Chart Library for GTK and Vala";
     homepage = "https://github.com/dcharles525/Caroline";
-    maintainers = with maintainers; [ grindhold ];
+    maintainers = with maintainers; [grindhold];
     license = licenses.mit;
     platforms = platforms.unix;
   };

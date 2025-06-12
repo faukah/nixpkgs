@@ -5,66 +5,65 @@
   runCommand,
   writeText,
   python3,
-}:
-{
+}: {
   combinedDir,
   touchedFilesJson,
   githubAuthorId,
   byName ? false,
-}:
-let
+}: let
   /*
-    Derivation that computes which packages are affected (added, changed or removed) between two revisions of nixpkgs.
-    Note: "platforms" are "x86_64-linux", "aarch64-darwin", ...
+  Derivation that computes which packages are affected (added, changed or removed) between two revisions of nixpkgs.
+  Note: "platforms" are "x86_64-linux", "aarch64-darwin", ...
 
-    ---
-    Inputs:
-    - beforeDir, afterDir: The evaluation result from before and after the change.
-      They can be obtained by running `nix-build -A ci.eval.full` on both revisions.
+  ---
+  Inputs:
+  - beforeDir, afterDir: The evaluation result from before and after the change.
+    They can be obtained by running `nix-build -A ci.eval.full` on both revisions.
 
-    ---
-    Outputs:
-      - changed-paths.json: Various information about the changes:
-        {
-          attrdiff: {
-            added: ["package1"],
-            changed: ["package2", "package3"],
-            removed: ["package4"],
-          },
-          labels: [
-            "10.rebuild-darwin: 1-10",
-            "10.rebuild-linux: 1-10"
-          ],
-          rebuildsByKernel: {
-            darwin: ["package1", "package2"],
-            linux: ["package1", "package2", "package3"]
-          },
-          rebuildCountByKernel: {
-            darwin: 2,
-            linux: 3,
-          },
-          rebuildsByPlatform: {
-            aarch64-darwin: ["package1", "package2"],
-            aarch64-linux: ["package1", "package2"],
-            x86_64-linux: ["package1", "package2", "package3"],
-            x86_64-darwin: ["package1"],
-          },
-        }
-      - step-summary.md: A markdown render of the changes
+  ---
+  Outputs:
+    - changed-paths.json: Various information about the changes:
+      {
+        attrdiff: {
+          added: ["package1"],
+          changed: ["package2", "package3"],
+          removed: ["package4"],
+        },
+        labels: [
+          "10.rebuild-darwin: 1-10",
+          "10.rebuild-linux: 1-10"
+        ],
+        rebuildsByKernel: {
+          darwin: ["package1", "package2"],
+          linux: ["package1", "package2", "package3"]
+        },
+        rebuildCountByKernel: {
+          darwin: 2,
+          linux: 3,
+        },
+        rebuildsByPlatform: {
+          aarch64-darwin: ["package1", "package2"],
+          aarch64-linux: ["package1", "package2"],
+          x86_64-linux: ["package1", "package2", "package3"],
+          x86_64-darwin: ["package1"],
+        },
+      }
+    - step-summary.md: A markdown render of the changes
 
-    ---
-    Implementation details:
+  ---
+  Implementation details:
 
-    Helper functions can be found in ./utils.nix.
-    Two main "types" are important:
+  Helper functions can be found in ./utils.nix.
+  Two main "types" are important:
 
-    - `packagePlatformPath`: A string of the form "<PACKAGE_PATH>.<PLATFORM>"
-      Example: "python312Packages.numpy.x86_64-linux"
+  - `packagePlatformPath`: A string of the form "<PACKAGE_PATH>.<PLATFORM>"
+    Example: "python312Packages.numpy.x86_64-linux"
 
-    - `packagePlatformAttr`: An attrs representation of a packagePlatformPath:
-      Example: { name = "python312Packages.numpy"; platform = "x86_64-linux"; }
+  - `packagePlatformAttr`: An attrs representation of a packagePlatformPath:
+    Example: { name = "python312Packages.numpy"; platform = "x86_64-linux"; }
   */
-  inherit (import ./utils.nix { inherit lib; })
+  inherit
+    (import ./utils.nix {inherit lib;})
     groupByKernel
     convertToPackagePlatformAttrs
     groupByPlatform
@@ -80,14 +79,15 @@ let
   rebuilds = diffAttrs.added ++ diffAttrs.changed;
   rebuildsPackagePlatformAttrs = convertToPackagePlatformAttrs rebuilds;
 
-  changed-paths =
-    let
-      rebuildsByPlatform = groupByPlatform rebuildsPackagePlatformAttrs;
-      rebuildsByKernel = groupByKernel rebuildsPackagePlatformAttrs;
-      rebuildCountByKernel = lib.mapAttrs (
+  changed-paths = let
+    rebuildsByPlatform = groupByPlatform rebuildsPackagePlatformAttrs;
+    rebuildsByKernel = groupByKernel rebuildsPackagePlatformAttrs;
+    rebuildCountByKernel =
+      lib.mapAttrs (
         kernel: kernelRebuilds: lib.length kernelRebuilds
-      ) rebuildsByKernel;
-    in
+      )
+      rebuildsByKernel;
+  in
     writeText "changed-paths.json" (
       builtins.toJSON {
         attrdiff = lib.mapAttrs (_: extractPackageNames) diffAttrs;
@@ -113,27 +113,27 @@ let
       }
     );
 
-  maintainers = callPackage ./maintainers.nix { } {
+  maintainers = callPackage ./maintainers.nix {} {
     changedattrs = lib.attrNames (lib.groupBy (a: a.name) rebuildsPackagePlatformAttrs);
     changedpathsjson = touchedFilesJson;
     inherit byName;
   };
 in
-runCommand "compare"
+  runCommand "compare"
   {
     nativeBuildInputs = [
       jq
       (python3.withPackages (
-        ps: with ps; [
-          numpy
-          pandas
-          scipy
-        ]
+        ps:
+          with ps; [
+            numpy
+            pandas
+            scipy
+          ]
       ))
-
     ];
     maintainers = builtins.toJSON maintainers;
-    passAsFile = [ "maintainers" ];
+    passAsFile = ["maintainers"];
     env = {
       BEFORE_DIR = "${combinedDir}/before";
       AFTER_DIR = "${combinedDir}/after";

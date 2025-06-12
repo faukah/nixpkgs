@@ -1,15 +1,13 @@
-{ config, lib, ... }:
-
-let
-  kernel = config.boot.kernelPackages;
-in
-
 {
-
+  config,
+  lib,
+  ...
+}: let
+  kernel = config.boot.kernelPackages;
+in {
   ###### interface
 
   options = {
-
     hardware.nvidiaOptimus.disable = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -18,7 +16,6 @@ in
         integrated graphics processor instead.
       '';
     };
-
   };
 
   ###### implementation
@@ -31,20 +28,19 @@ in
       "nvidia-drm"
       "nvidia-modeset"
     ];
-    boot.kernelModules = [ "bbswitch" ];
-    boot.extraModulePackages = [ kernel.bbswitch ];
+    boot.kernelModules = ["bbswitch"];
+    boot.extraModulePackages = [kernel.bbswitch];
 
     systemd.services.bbswitch = {
       description = "Disable NVIDIA Card";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "${kernel.bbswitch}/bin/discrete_vga_poweroff";
         ExecStop = "${kernel.bbswitch}/bin/discrete_vga_poweron";
       };
-      path = [ kernel.bbswitch ];
+      path = [kernel.bbswitch];
     };
   };
-
 }

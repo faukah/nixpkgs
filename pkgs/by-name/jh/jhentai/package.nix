@@ -11,7 +11,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter324.buildFlutterApplication rec {
   pname = "jhentai";
   version = "8.0.7";
@@ -42,7 +41,7 @@ flutter324.buildFlutterApplication rec {
     receive_sharing_intent = "sha256-8D5ZENARPZ7FGrdIErxOoV3Ao35/XoQ2tleegI42ZUY=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     webkitgtk_4_1
@@ -65,15 +64,15 @@ flutter324.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          buildInputs = [ yq ];
-          inherit (jhentai) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        buildInputs = [yq];
+        inherit (jhentai) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "jhentai.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -82,8 +81,8 @@ flutter324.buildFlutterApplication rec {
     description = "Cross-platform manga app made for e-hentai & exhentai by Flutter";
     homepage = "https://github.com/jiangtian616/JHenTai";
     mainProgram = "jhentai";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

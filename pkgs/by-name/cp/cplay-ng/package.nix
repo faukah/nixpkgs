@@ -6,7 +6,6 @@
   mpv,
   pulseaudio,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cplay-ng";
   version = "5.4.0";
@@ -19,18 +18,18 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-ob5wX+Q5XKB/fTYG5phLU61imonpk2A/fk5cg/dfr1Y=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   postInstall = ''
     wrapProgram $out/bin/cplay-ng \
       --prefix PATH : ${
-        lib.makeBinPath [
-          mpv
-          pulseaudio
-        ]
-      }
+      lib.makeBinPath [
+        mpv
+        pulseaudio
+      ]
+    }
   '';
 
   meta = {
@@ -51,6 +50,6 @@ python3Packages.buildPythonApplication rec {
       design while evolving with a shifting environment.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

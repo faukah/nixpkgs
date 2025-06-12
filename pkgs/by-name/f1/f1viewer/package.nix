@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "f1viewer";
   version = "2.7.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "TUI to view Formula 1 footage using VLC or another media player";
     homepage = "https://github.com/SoMuchForSubtlety/f1viewer";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ michzappa ];
+    maintainers = with maintainers; [michzappa];
     mainProgram = "f1viewer";
   };
 }

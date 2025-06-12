@@ -21,7 +21,6 @@
   types-requests,
   typeshed-client,
 }:
-
 buildPythonPackage rec {
   pname = "jsonargparse";
   version = "4.40.0";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     hash = "sha256-2FEFAFEi+IRvFbFwto0YKJ/1JdSjb4kbTm1n9t/Ix4Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyyaml ];
+  dependencies = [pyyaml];
 
   optional-dependencies = {
     all = [
@@ -52,22 +51,22 @@ buildPythonPackage rec {
       typeshed-client
       requests
     ];
-    argcomplete = [ argcomplete ];
-    fsspec = [ fsspec ];
+    argcomplete = [argcomplete];
+    fsspec = [fsspec];
     jsonnet = [
       jsonnet
       # jsonnet-binary
     ];
-    jsonschema = [ jsonschema ];
-    omegaconf = [ omegaconf ];
-    reconplogger = [ reconplogger ];
-    ruyaml = [ ruyaml ];
+    jsonschema = [jsonschema];
+    omegaconf = [omegaconf];
+    reconplogger = [reconplogger];
+    ruyaml = [ruyaml];
     signatures = [
       docstring-parser
       typeshed-client
     ];
-    toml = [ toml ];
-    urls = [ requests ];
+    toml = [toml];
+    urls = [requests];
   };
 
   nativeCheckInputs = [
@@ -77,13 +76,13 @@ buildPythonPackage rec {
     types-requests
   ];
 
-  pythonImportsCheck = [ "jsonargparse" ];
+  pythonImportsCheck = ["jsonargparse"];
 
   meta = with lib; {
     description = "Module to implement minimal boilerplate CLIs derived from various sources";
     homepage = "https://github.com/omni-us/jsonargparse";
     changelog = "https://github.com/omni-us/jsonargparse/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

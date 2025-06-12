@@ -20,7 +20,6 @@
   spacy,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "textacy";
   version = "0.13.0";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = [
     # Almost all tests have to deal with downloading a dataset, only test pure tests
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     "tests/preprocessing/test_replace.py"
   ];
 
-  pythonImportsCheck = [ "textacy" ];
+  pythonImportsCheck = ["textacy"];
 
   meta = with lib; {
     description = "Higher-level text processing, built on spaCy";

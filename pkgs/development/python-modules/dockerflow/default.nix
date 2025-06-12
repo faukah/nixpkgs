@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # optional dependencies
   asgiref,
   blinker,
@@ -14,7 +12,6 @@
   fastapi,
   flask,
   sanic,
-
   # tests
   django-redis,
   pytest-django,
@@ -27,7 +24,6 @@
   redis,
   redisTestHook,
 }:
-
 buildPythonPackage rec {
   pname = "dockerflow";
   version = "2024.04.2";
@@ -46,34 +42,36 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    django = [ django ];
+    django = [django];
     flask = [
       blinker
       flask
     ];
-    sanic = [ sanic ];
+    sanic = [sanic];
     fastapi = [
       asgiref
       fastapi
     ];
   };
 
-  nativeCheckInputs = [
-    fakeredis
-    jsonschema
-    pytestCheckHook
-    pytest-cov-stub
-    pytest-mock
-    redis
-    redisTestHook
+  nativeCheckInputs =
+    [
+      fakeredis
+      jsonschema
+      pytestCheckHook
+      pytest-cov-stub
+      pytest-mock
+      redis
+      redisTestHook
 
-    # django
-    django-redis
-    pytest-django
+      # django
+      django-redis
+      pytest-django
 
-    # fastapi
-    httpx
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+      # fastapi
+      httpx
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # AssertionError: assert 'c7a05e2b-8a21-4255-a3ed-92cea1e74a62' is None

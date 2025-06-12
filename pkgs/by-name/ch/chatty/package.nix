@@ -25,9 +25,8 @@
   pidgin,
   protobuf,
   sqlite,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chatty";
   version = "0.8.8";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/World/Chatty";
     changelog = "https://gitlab.gnome.org/World/Chatty/-/blob/${finalAttrs.src.tag}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.linux;
   };
 })

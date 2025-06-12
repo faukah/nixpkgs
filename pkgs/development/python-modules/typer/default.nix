@@ -3,18 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   click,
   typing-extensions,
-
   # optional-dependencies
   rich,
   shellingham,
-
   # tests
   coverage,
   pytest-xdist,
@@ -22,7 +18,6 @@
   writableTmpDirAsHomeHook,
   procps,
 }:
-
 buildPythonPackage rec {
   pname = "typer";
   version = "0.15.2";
@@ -35,14 +30,16 @@ buildPythonPackage rec {
     hash = "sha256-9YukmX16fn5u7N9K9fUqZsAzKjio4bl70gHNmsYuQxo";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  dependencies = [
-    click
-    typing-extensions
-    # Build includes the standard optional by default
-    # https://github.com/tiangolo/typer/blob/0.12.3/pyproject.toml#L71-L72
-  ] ++ optional-dependencies.standard;
+  dependencies =
+    [
+      click
+      typing-extensions
+      # Build includes the standard optional by default
+      # https://github.com/tiangolo/typer/blob/0.12.3/pyproject.toml#L71-L72
+    ]
+    ++ optional-dependencies.standard;
 
   optional-dependencies = {
     standard = [
@@ -74,13 +71,13 @@ buildPythonPackage rec {
       "test_install_completion"
     ];
 
-  pythonImportsCheck = [ "typer" ];
+  pythonImportsCheck = ["typer"];
 
   meta = {
     description = "Library for building CLI applications";
     homepage = "https://typer.tiangolo.com/";
     changelog = "https://github.com/tiangolo/typer/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ winpat ];
+    maintainers = with lib.maintainers; [winpat];
   };
 }

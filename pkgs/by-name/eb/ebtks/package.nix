@@ -5,7 +5,6 @@
   cmake,
   libminc,
 }:
-
 stdenv.mkDerivation {
   pname = "ebtks";
   version = "unstable-2017-09-23";
@@ -28,15 +27,15 @@ stdenv.mkDerivation {
       find . -type f -exec sed -i -e 's/register //g' {} +
     '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libminc ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libminc];
 
-  cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
+  cmakeFlags = ["-DLIBMINC_DIR=${libminc}/lib/cmake"];
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/EBTKS";
     description = "Library for working with MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

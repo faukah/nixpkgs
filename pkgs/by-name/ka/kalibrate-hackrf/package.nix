@@ -8,7 +8,6 @@
   hackrf,
   libusb1,
 }:
-
 stdenv.mkDerivation {
   pname = "kalibrate-hackrf";
   version = "unstable-2016-08-27";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/scateu/kalibrate-hackrf";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mog ];
+    maintainers = [maintainers.mog];
     mainProgram = "kal-hackrf";
   };
 }

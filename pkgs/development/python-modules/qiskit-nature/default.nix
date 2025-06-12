@@ -3,10 +3,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # Python Inputs
   h5py,
   numpy,
@@ -23,7 +21,6 @@
   pylatexenc,
   qiskit-aer,
 }:
-
 buildPythonPackage rec {
   pname = "qiskit-nature";
   version = "0.7.2";
@@ -38,17 +35,19 @@ buildPythonPackage rec {
     hash = "sha256-SVzg3McB885RMyAp90Kr6/iVKw3Su9ucTob2jBckBo0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    h5py
-    numpy
-    psutil
-    qiskit-terra
-    rustworkx
-    scikit-learn
-    scipy
-  ] ++ lib.optional withPyscf pyscf;
+  propagatedBuildInputs =
+    [
+      h5py
+      numpy
+      psutil
+      qiskit-terra
+      rustworkx
+      scikit-learn
+      scipy
+    ]
+    ++ lib.optional withPyscf pyscf;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,9 +56,9 @@ buildPythonPackage rec {
     qiskit-aer
   ];
 
-  pythonImportsCheck = [ "qiskit_nature" ];
+  pythonImportsCheck = ["qiskit_nature"];
 
-  pytestFlagsArray = [ "--durations=10" ];
+  pytestFlagsArray = ["--durations=10"];
 
   disabledTests = [
     "test_two_qubit_reduction" # failure cause unclear
@@ -75,6 +74,6 @@ buildPythonPackage rec {
       binaryNativeCode # drivers/gaussiand/gauopen/*.so
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -21,7 +21,6 @@
   libgee,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "akira";
   version = "0.0.16";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  mesonFlags = [ "-Dprofile=default" ];
+  mesonFlags = ["-Dprofile=default"];
 
   postPatch = ''
     chmod +x build-aux/meson/post_install.py
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
       Br1ght0ne
       neonfuz
     ];
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.akiraux.akira";
   };

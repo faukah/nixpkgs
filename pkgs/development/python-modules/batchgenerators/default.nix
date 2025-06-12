@@ -13,7 +13,6 @@
   scikit-image,
   threadpoolctl,
 }:
-
 buildPythonPackage rec {
   pname = "batchgenerators";
   version = "0.25";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-L2mWH2t8PN9o1M67KDdl1Tj2ZZ02MY4icsJY2VNrj3A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     future
@@ -41,12 +40,12 @@ buildPythonPackage rec {
   ];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
-  pythonRemoveDeps = [ "unittest2" ];
+  pythonRemoveDeps = ["unittest2"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
-  disabledTestPaths = [ "tests/test_axis_mirroring.py" ];
+  disabledTestPaths = ["tests/test_axis_mirroring.py"];
 
   pythonImportsCheck = [
     "batchgenerators"
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "2D and 3D image data augmentation for deep learning";
     homepage = "https://github.com/MIC-DKFZ/batchgenerators";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

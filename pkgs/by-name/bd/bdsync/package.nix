@@ -6,7 +6,6 @@
   pandoc,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bdsync";
   version = "0.11.4";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     pandoc
     which
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     patchShebangs ./tests.sh
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rolffokkens/bdsync";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
     mainProgram = "bdsync";
   };
 }

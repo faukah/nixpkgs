@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcs50";
   version = "11.0.3";
@@ -24,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/cs50/libcs50";
     description = "CS50 Library for C";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.ethancedwards8 ];
+    maintainers = [lib.maintainers.ethancedwards8];
   };
 })

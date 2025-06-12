@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pqrs";
   version = "0.3.2";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = [ maintainers.manojkarthick ];
+    maintainers = [maintainers.manojkarthick];
   };
 }

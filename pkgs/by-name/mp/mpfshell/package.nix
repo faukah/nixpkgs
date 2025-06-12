@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonPackage {
   pname = "mpfshell-unstable";
   version = "2020-04-11";
@@ -22,7 +21,7 @@ python3Packages.buildPythonPackage {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "mp.mpfshell" ];
+  pythonImportsCheck = ["mp.mpfshell"];
 
   meta = with lib; {
     homepage = "https://github.com/wendlers/mpfshell";

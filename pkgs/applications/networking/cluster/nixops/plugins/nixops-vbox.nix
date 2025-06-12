@@ -6,7 +6,6 @@
   poetry-core,
   nixops,
 }:
-
 buildPythonPackage {
   pname = "nixops-vbox";
   version = "1.0.0-unstable-2023-08-10";
@@ -33,7 +32,7 @@ buildPythonPackage {
     nixops
   ];
 
-  pythonImportsCheck = [ "nixopsvbox" ];
+  pythonImportsCheck = ["nixopsvbox"];
 
   passthru.updateScript = unstableGitUpdater {
     tagPrefix = "v";
@@ -43,6 +42,6 @@ buildPythonPackage {
     description = "NixOps plugin for VirtualBox VMs";
     homepage = "https://github.com/nix-community/nixops-vbox";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ aminechikhaoui ];
+    maintainers = with maintainers; [aminechikhaoui];
   };
 }

@@ -8,7 +8,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fixtures";
   version = "4.2.4.post1";
@@ -25,13 +24,15 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    streams = [ testtools ];
+    streams = [testtools];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ optional-dependencies.streams;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.streams;
 
   meta = {
     description = "Reusable state for writing clean tests and more";

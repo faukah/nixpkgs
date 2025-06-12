@@ -6,7 +6,6 @@
   libusb1,
   ncurses5,
 }:
-
 stdenv.mkDerivation {
   pname = "lguf-brightness";
 
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "0cf7cn2kpmlvz00qxqj1m5zxmh7i2x75djbj4wqk7if7a0nlrd5m";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libusb1
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     description = "Adjust brightness for LG UltraFine 4K display (cross platform)";
     homepage = "https://github.com/periklis/lguf-brightness";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ periklis ];
+    maintainers = with maintainers; [periklis];
     mainProgram = "lguf_brightness";
     platforms = with platforms; linux ++ darwin;
   };

@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   secretsConfigFile = pkgs.writeText "secrets.json" (
     builtins.toJSON {
       securityKeys = {
@@ -8,17 +10,16 @@ let
       };
     }
   );
-in
-{
+in {
   name = "zwave-js";
-  meta.maintainers = with lib.maintainers; [ graham33 ];
+  meta.maintainers = with lib.maintainers; [graham33];
 
   nodes = {
     machine = {
       services.zwave-js = {
         enable = true;
         serialPort = "/dev/null";
-        extraFlags = [ "--mock-driver" ];
+        extraFlags = ["--mock-driver"];
         inherit secretsConfigFile;
       };
     };

@@ -10,7 +10,6 @@
   libsoup_3,
   gtklock,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtklock-playerctl-module";
   version = "4.0.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Gtklock module adding media player controls to the lockscreen";
     homepage = "https://github.com/jovanlanik/gtklock-playerctl-module";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

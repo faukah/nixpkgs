@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-abbr-within-parentheses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-abbr-within-parentheses";
   version = "1.0.2";
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/azu/textlint-rule-abbr-within-parentheses";
     changelog = "https://github.com/azu/textlint-rule-abbr-within-parentheses/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

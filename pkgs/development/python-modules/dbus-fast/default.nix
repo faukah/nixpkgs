@@ -14,7 +14,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dbus-fast";
   version = "2.44.1";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ async-timeout ];
+  dependencies = [async-timeout];
 
   nativeCheckInputs = [
     dbus
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bluetooth-devices/dbus-fast";
     changelog = "https://github.com/Bluetooth-Devices/dbus-fast/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

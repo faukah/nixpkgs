@@ -13,7 +13,6 @@
   libuuid,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lib3mf";
   version = "2.3.2";
@@ -44,12 +43,14 @@ stdenv.mkDerivation rec {
     "-DUSE_INCLUDED_SSL=OFF"
   ];
 
-  buildInputs = [
-    libzip
-    gtest
-    openssl
-    zlib
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) libuuid;
+  buildInputs =
+    [
+      libzip
+      gtest
+      openssl
+      zlib
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) libuuid;
 
   postPatch = ''
     # fix libdir=''${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
@@ -83,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Reference implementation of the 3D Manufacturing Format file standard";
     homepage = "https://3mf.io/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   requests,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "tuya-iot-py-sdk";
   version = "0.6.6";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "tuya_iot" ];
+  pythonImportsCheck = ["tuya_iot"];
 
   meta = with lib; {
     description = "Tuya IoT Python SDK for Tuya Open API";
     homepage = "https://github.com/tuya/tuya-iot-python-sdk";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

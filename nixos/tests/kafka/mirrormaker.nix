@@ -1,7 +1,9 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
-  let
+  {
+    lib,
+    pkgs,
+    ...
+  }: let
     inherit (lib) mkMerge;
 
     # Generate with `kafka-storage.sh random-uuid`
@@ -18,7 +20,7 @@ import ../make-test-python.nix (
       virtualisation.diskSize = 1024;
       virtualisation.memorySize = 1024 * 2;
 
-      environment.systemPackages = [ pkgs.apacheKafka ];
+      environment.systemPackages = [pkgs.apacheKafka];
 
       services.apache-kafka = {
         enable = true;
@@ -34,14 +36,14 @@ import ../make-test-python.nix (
             "PLAINTEXT:PLAINTEXT"
             "CONTROLLER:PLAINTEXT"
           ];
-          "controller.listener.names" = [ "CONTROLLER" ];
+          "controller.listener.names" = ["CONTROLLER"];
 
           "process.roles" = [
             "broker"
             "controller"
           ];
 
-          "log.dirs" = [ "/var/lib/apache-kafka" ];
+          "log.dirs" = ["/var/lib/apache-kafka"];
           "num.partitions" = 1;
           "offsets.topic.replication.factor" = 1;
           "transaction.state.log.replication.factor" = 1;
@@ -50,8 +52,8 @@ import ../make-test-python.nix (
       };
 
       systemd.services.apache-kafka = {
-        after = [ "network-online.target" ];
-        requires = [ "network-online.target" ];
+        after = ["network-online.target"];
+        requires = ["network-online.target"];
         serviceConfig.StateDirectory = "apache-kafka";
       };
     };
@@ -63,7 +65,7 @@ import ../make-test-python.nix (
 
           settings = {
             "node.id" = 1;
-            "controller.quorum.voters" = [ "1@kafkaa1:9093" ];
+            "controller.quorum.voters" = ["1@kafkaa1:9093"];
           };
         };
       };
@@ -74,19 +76,21 @@ import ../make-test-python.nix (
 
           settings = {
             "node.id" = 1;
-            "controller.quorum.voters" = [ "1@kafkab1:9093" ];
+            "controller.quorum.voters" = ["1@kafkab1:9093"];
           };
         };
       };
     };
 
-    kafkaNodes = builtins.mapAttrs (
-      _: val:
-      mkMerge [
-        val
-        kafkaConfig
-      ]
-    ) extraKafkaConfig;
+    kafkaNodes =
+      builtins.mapAttrs (
+        _: val:
+          mkMerge [
+            val
+            kafkaConfig
+          ]
+      )
+      extraKafkaConfig;
 
     mirrorMakerProperties = pkgs.writeText "mm2.properties" ''
       name = A->B
@@ -121,37 +125,34 @@ import ../make-test-python.nix (
       emit.checkpoints.enabled = true
       emit.checkpoints.interval.seconds = 5
     '';
-  in
-  {
+  in {
     name = "kafka-mirrormaker";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ jpds ];
+      maintainers = [jpds];
     };
 
     nodes = {
       inherit (kafkaNodes) kafkaa1 kafkab1;
 
-      mirrormaker =
-        { config, ... }:
-        {
-          virtualisation.diskSize = 1024;
-          virtualisation.memorySize = 1024 * 2;
+      mirrormaker = {config, ...}: {
+        virtualisation.diskSize = 1024;
+        virtualisation.memorySize = 1024 * 2;
 
-          # Define a mirrormaker systemd service
-          systemd.services.kafka-connect-mirror-maker = {
-            after = [ "network-online.target" ];
-            requires = [ "network-online.target" ];
-            wantedBy = [ "multi-user.target" ];
+        # Define a mirrormaker systemd service
+        systemd.services.kafka-connect-mirror-maker = {
+          after = ["network-online.target"];
+          requires = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
 
-            serviceConfig = {
-              ExecStart = ''
-                ${pkgs.apacheKafka}/bin/connect-mirror-maker.sh ${mirrorMakerProperties}
-              '';
-              Restart = "on-failure";
-              RestartSec = "5s";
-            };
+          serviceConfig = {
+            ExecStart = ''
+              ${pkgs.apacheKafka}/bin/connect-mirror-maker.sh ${mirrorMakerProperties}
+            '';
+            Restart = "on-failure";
+            RestartSec = "5s";
           };
         };
+      };
     };
 
     testScript = ''

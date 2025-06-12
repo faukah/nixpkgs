@@ -9,7 +9,6 @@
   libjack2,
   fltk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "new-session-manager";
   version = "1.6.1";
@@ -33,13 +32,13 @@ stdenv.mkDerivation rec {
     fltk
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://new-session-manager.jackaudio.org/";
     description = "Session manager designed for audio applications";
-    maintainers = [ maintainers._6AA4FD ];
+    maintainers = [maintainers._6AA4FD];
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

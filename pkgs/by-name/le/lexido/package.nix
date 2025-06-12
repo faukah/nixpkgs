@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "lexido";
   version = "1.4.3";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Terminal assistant, powered by Generative AI";
     homepage = "https://github.com/micr0-dev/lexido";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ daru-san ];
+    maintainers = with maintainers; [daru-san];
     mainProgram = "lexido";
   };
 }

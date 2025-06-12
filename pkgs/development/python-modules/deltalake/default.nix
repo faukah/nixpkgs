@@ -16,7 +16,6 @@
   pandas,
   azure-storage-blob,
 }:
-
 buildPythonPackage rec {
   pname = "deltalake";
   version = "0.20.1";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
       maturinBuildHook
     ]);
 
-  pythonImportsCheck = [ "deltalake" ];
+  pythonImportsCheck = ["deltalake"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -76,7 +75,7 @@ buildPythonPackage rec {
     rm -rf deltalake
   '';
 
-  pytestFlagsArray = [ "-m 'not integration'" ];
+  pytestFlagsArray = ["-m 'not integration'"];
 
   meta = with lib; {
     description = "Native Rust library for Delta Lake, with bindings into Python";

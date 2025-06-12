@@ -9,7 +9,6 @@
   pytestCheckHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "tess";
   version = "0.3.1";
@@ -30,11 +29,11 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "tess" ];
+  pythonImportsCheck = ["tess"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tess/tests.py" ];
+  pytestFlagsArray = ["tess/tests.py"];
 
   preCheck = ''
     cd $out/${python.sitePackages}
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Module for calculating and analyzing Voronoi tessellations";
     homepage = "https://tess.readthedocs.org";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

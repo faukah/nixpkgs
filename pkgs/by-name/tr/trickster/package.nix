@@ -5,7 +5,6 @@
   go,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "trickster";
   version = "1.1.5";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/trickster" ];
+  subPackages = ["cmd/trickster"];
 
   ldflags =
     [
@@ -38,7 +37,7 @@ buildGoModule rec {
   # Tests are broken.
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests) trickster; };
+  passthru.tests = {inherit (nixosTests) trickster;};
 
   meta = with lib; {
     description = "Reverse proxy cache and time series dashboard accelerator";
@@ -49,7 +48,7 @@ buildGoModule rec {
     '';
     homepage = "https://trickstercache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.linux;
   };
 }

@@ -8,7 +8,6 @@
   python-slugify,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "marko";
   version = "2.1.3";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Markdown parser with high extensibility";
     homepage = "https://github.com/frostming/marko";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

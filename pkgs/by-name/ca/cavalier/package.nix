@@ -14,7 +14,6 @@
   cava,
   libGL,
 }:
-
 buildDotnetModule rec {
   pname = "cavalier";
   version = "2024.1.0";
@@ -62,7 +61,7 @@ buildDotnetModule rec {
     install -Dm444 NickvisionCavalier.Shared/Resources/org.nickvision.cavalier-symbolic.svg -t $out/share/icons/hicolor/symbolic/apps/
   '';
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ cava ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [cava]}"];
 
   passthru.updateScript = ./update.sh;
 
@@ -72,6 +71,6 @@ buildDotnetModule rec {
     mainProgram = "NickvisionCavalier.GNOME";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 }

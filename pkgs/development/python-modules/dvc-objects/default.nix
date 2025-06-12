@@ -12,7 +12,6 @@
   setuptools-scm,
   shortuuid,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-objects";
   version = "5.1.0";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
       --replace " --benchmark-skip" ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ fsspec ] ++ lib.optionals (pythonOlder "3.12") [ funcy ];
+  propagatedBuildInputs = [fsspec] ++ lib.optionals (pythonOlder "3.12") [funcy];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     shortuuid
   ];
 
-  pythonImportsCheck = [ "dvc_objects" ];
+  pythonImportsCheck = ["dvc_objects"];
 
   disabledTestPaths = [
     # Disable benchmarking
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/iterative/dvc-objects";
     changelog = "https://github.com/iterative/dvc-objects/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

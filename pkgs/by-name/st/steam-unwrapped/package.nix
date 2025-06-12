@@ -4,7 +4,6 @@
   fetchurl,
   bash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "steam-unwrapped";
   version = "1.0.0.83";
@@ -52,8 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://store.steampowered.com/";
     license = lib.licenses.unfreeRedistributable;
-    maintainers = with lib.maintainers; [ jagajaga ];
-    teams = with lib.teams; [ steam ];
+    maintainers = with lib.maintainers; [jagajaga];
+    teams = with lib.teams; [steam];
     mainProgram = "steam";
   };
 })

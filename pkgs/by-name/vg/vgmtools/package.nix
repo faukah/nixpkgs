@@ -6,7 +6,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "vgmtools";
   version = "0.1-unstable-2025-04-05";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/vgmrips/vgmtools";
     description = "Collection of tools for the VGM file format";
     license = licenses.gpl2Only; # Not clarified whether Only or Plus
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

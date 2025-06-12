@@ -27,7 +27,6 @@
   python,
   nix-update-script,
 }:
-
 buildPythonApplication rec {
   pname = "gaphor";
   version = "3.0.0";
@@ -55,7 +54,7 @@ buildPythonApplication rec {
     libadwaita
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     babel
@@ -98,7 +97,7 @@ buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -106,7 +105,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/gaphor/gaphor";
     changelog = "https://github.com/gaphor/gaphor/releases/tag/${version}";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 }

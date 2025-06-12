@@ -11,7 +11,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyemd";
   version = "1.0.0";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Broken with Numpy 2.x, https://github.com/wmayner/pyemd/issues/68
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wmayner/pyemd";
     changelog = "https://github.com/wmayner/pyemd/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

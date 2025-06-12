@@ -7,7 +7,6 @@
   qtmultimedia,
   qttools,
 }:
-
 mkDerivation {
   pname = "qgo";
   version = "unstable-2017-12-18";
@@ -29,7 +28,7 @@ mkDerivation {
     '';
     homepage = "https://github.com/pzorin/qgo";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ zalakain ];
+    maintainers = with maintainers; [zalakain];
   };
 
   src = fetchFromGitHub {
@@ -39,7 +38,7 @@ mkDerivation {
     sha256 = "1xzkayclmhsi07p9mnbf8185jw8n5ikxp2mik3x8qz1i6rmrfl5b";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
   postPatch = ''
     sed -i 's|@out@|'"''${out}"'|g' src/src.pro src/defines.h
   '';

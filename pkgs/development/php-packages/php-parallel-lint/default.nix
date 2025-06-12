@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "php-parallel-lint";
   version = "1.4.0";
@@ -19,7 +18,7 @@ php.buildComposerProject2 (finalAttrs: {
   composerLock = ./composer.lock;
   vendorHash = "sha256-ySdLlqlGKZ6LgmAOBMkBNoCAqWrgMwE/Cj6ZEPEsCko=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
 
@@ -28,6 +27,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/php-parallel-lint/PHP-Parallel-Lint";
     license = lib.licenses.bsd2;
     mainProgram = "parallel-lint";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

@@ -12,7 +12,6 @@
   qtx11extras,
   debug ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "phonon-backend-vlc";
   version = "0.11.3";
@@ -38,7 +37,10 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  cmakeBuildType = if debug then "Debug" else "Release";
+  cmakeBuildType =
+    if debug
+    then "Debug"
+    else "Release";
 
   meta = with lib; {
     homepage = "https://community.kde.org/Phonon";

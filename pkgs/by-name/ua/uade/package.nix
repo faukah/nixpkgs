@@ -15,7 +15,6 @@
   vorbis-tools,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uade";
   version = "3.05";
@@ -63,24 +62,24 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     wrapProgram $out/bin/mod2ogg2.sh \
       --prefix PATH : $out/bin:${
-        lib.makeBinPath [
-          flac
-          lame
-          sox
-          vorbis-tools
-        ]
-      }
+      lib.makeBinPath [
+        flac
+        lame
+        sox
+        vorbis-tools
+      ]
+    }
 
     # This is an old script, don't break expectations by renaming it
     ln -s $out/bin/mod2ogg2{.sh,}
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "uade-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "uade-";};
 
   meta = {
     description = "Plays old Amiga tunes through UAE emulation and cloned m68k-assembler Eagleplayer API";
@@ -90,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
     # - infogrames player is disassembled from Andi Silvas player, unknown license
     # Let's make it easy and flag the whole package as unfree.
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     mainProgram = "uade123";
     platforms = lib.platforms.unix;
   };

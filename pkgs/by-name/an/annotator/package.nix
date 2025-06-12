@@ -15,7 +15,6 @@
   libhandy,
   libportal-gtk4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "annotator";
   version = "2.0.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/phase1geo/Annotator";
     license = lib.licenses.gpl3Plus;
     mainProgram = "com.github.phase1geo.annotator";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

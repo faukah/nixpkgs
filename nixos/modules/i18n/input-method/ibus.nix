@@ -3,15 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   imcfg = config.i18n.inputMethod;
   cfg = imcfg.ibus;
-  ibusPackage = pkgs.ibus-with-plugins.override { plugins = cfg.engines; };
+  ibusPackage = pkgs.ibus-with-plugins.override {plugins = cfg.engines;};
   ibusEngine = lib.types.mkOptionType {
     name = "ibus-engine";
     inherit (lib.types.package) descriptionClass merge;
-    check = x: (lib.types.package.check x) && (lib.attrByPath [ "meta" "isIbusEngine" ] false x);
+    check = x: (lib.types.package.check x) && (lib.attrByPath ["meta" "isIbusEngine"] false x);
   };
 
   impanel = lib.optionalString (cfg.panel != null) "--panel=${cfg.panel}";
@@ -28,12 +27,12 @@ let
       NotShowIn=GNOME;
     '';
   };
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "ibus" "plugins" ]
-      [ "i18n" "inputMethod" "ibus" "engines" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "ibus" "plugins"]
+      ["i18n" "inputMethod" "ibus" "engines"]
     )
   ];
 
@@ -41,14 +40,12 @@ in
     i18n.inputMethod.ibus = {
       engines = lib.mkOption {
         type = with lib.types; listOf ibusEngine;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "with pkgs.ibus-engines; [ mozc hangul ]";
-        description =
-          let
-            enginesDrv = lib.filterAttrs (lib.const lib.isDerivation) pkgs.ibus-engines;
-            engines = lib.concatStringsSep ", " (map (name: "`${name}`") (lib.attrNames enginesDrv));
-          in
-          "Enabled IBus engines. Available engines are: ${engines}.";
+        description = let
+          enginesDrv = lib.filterAttrs (lib.const lib.isDerivation) pkgs.ibus-engines;
+          engines = lib.concatStringsSep ", " (map (name: "`${name}`") (lib.attrNames enginesDrv));
+        in "Enabled IBus engines. Available engines are: ${engines}.";
       };
       panel = lib.mkOption {
         type = with lib.types; nullOr path;
@@ -69,7 +66,7 @@ in
     # Without dconf enabled it is impossible to use IBus
     programs.dconf.enable = true;
 
-    programs.dconf.packages = [ ibusPackage ];
+    programs.dconf.packages = [ibusPackage];
 
     services.dbus.packages = [
       ibusPackage

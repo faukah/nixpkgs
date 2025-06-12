@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.nostr-rs-relay;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "config.toml" (
     cfg.settings
     // {
@@ -18,12 +17,11 @@ let
       };
     }
   );
-in
-{
+in {
   options.services.nostr-rs-relay = {
     enable = lib.mkEnableOption "nostr-rs-relay";
 
-    package = lib.mkPackageOption pkgs "nostr-rs-relay" { };
+    package = lib.mkPackageOption pkgs "nostr-rs-relay" {};
 
     port = lib.mkOption {
       default = 12849;
@@ -39,7 +37,7 @@ in
 
     settings = lib.mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = "See https://git.sr.ht/~gheartsfield/nostr-rs-relay/#configuration for documentation.";
     };
   };
@@ -47,8 +45,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.nostr-rs-relay = {
       description = "nostr-rs-relay";
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/nostr-rs-relay --config ${configFile}";
@@ -56,7 +54,7 @@ in
         Restart = "on-failure";
         Type = "simple";
 
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [cfg.dataDir];
 
         RuntimeDirectory = "nostr-rs-relay";
         StateDirectory = "nostr-rs-relay";

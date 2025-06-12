@@ -10,7 +10,6 @@
   pythonOlder,
   striprtf,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-readers-file";
   version = "0.4.8";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "striprtf"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     beautifulsoup4
@@ -43,12 +42,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.readers.file" ];
+  pythonImportsCheck = ["llama_index.readers.file"];
 
   meta = with lib; {
     description = "LlamaIndex Readers Integration for files";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/readers/llama-index-readers-file";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

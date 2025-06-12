@@ -11,7 +11,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nfdump";
   version = "1.7.6";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/phaag/nfdump";
     changelog = "https://github.com/phaag/nfdump/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ takikawa ];
+    maintainers = with lib.maintainers; [takikawa];
     platforms = lib.platforms.unix;
   };
 }

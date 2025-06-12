@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rita";
   version = "4.8.1";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/activecm/rita";
     changelog = "https://github.com/activecm/rita/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "rita";
   };
 }

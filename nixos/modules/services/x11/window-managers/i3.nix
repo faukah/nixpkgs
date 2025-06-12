@@ -4,18 +4,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.i3;
   updateSessionEnvironmentScript = ''
     systemctl --user import-environment PATH DISPLAY XAUTHORITY DESKTOP_SESSION XDG_CONFIG_DIRS XDG_DATA_DIRS XDG_RUNTIME_DIR XDG_SESSION_ID DBUS_SESSION_BUS_ADDRESS || true
     dbus-update-activation-environment --systemd --all || true
   '';
-in
-
-{
+in {
   options.services.xserver.windowManager.i3 = {
     enable = mkEnableOption "i3 window manager";
 
@@ -45,7 +40,7 @@ in
       '';
     };
 
-    package = mkPackageOption pkgs "i3" { };
+    package = mkPackageOption pkgs "i3" {};
 
     extraPackages = mkOption {
       type = with types; listOf package;
@@ -81,7 +76,7 @@ in
         '';
       }
     ];
-    environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
+    environment.systemPackages = [cfg.package] ++ cfg.extraPackages;
     environment.etc."i3/config" = mkIf (cfg.configFile != null) {
       source = cfg.configFile;
     };

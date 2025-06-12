@@ -23,7 +23,6 @@
   libselinux,
   libsepol,
 }:
-
 stdenv.mkDerivation {
   pname = "crossfire-client";
   version = "2025-01";
@@ -59,7 +58,7 @@ stdenv.mkDerivation {
     libselinux
     libsepol
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "GTKv2 client for the Crossfire free MMORPG";
@@ -67,6 +66,6 @@ stdenv.mkDerivation {
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

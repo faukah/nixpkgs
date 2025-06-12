@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tty-share";
   version = "2.4.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://tty-share.com";
     description = "Share terminal via browser for remote work or shared sessions";
     license = licenses.mit;
-    maintainers = with maintainers; [ andys8 ];
+    maintainers = with maintainers; [andys8];
     mainProgram = "tty-share";
   };
 }

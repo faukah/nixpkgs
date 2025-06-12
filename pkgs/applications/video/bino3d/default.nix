@@ -11,7 +11,6 @@
   qtmultimedia,
   qttools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bino";
   version = "2.5";
@@ -40,9 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Video player with a focus on 3D and Virtual Reality";
     homepage = "https://bino3d.org/";
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.orivej ];
+    maintainers = [lib.maintainers.orivej];
     platforms = lib.platforms.unix;
     mainProgram = "bino";
   };

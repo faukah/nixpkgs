@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "csvlens";
   version = "0.12.0";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/YS-L/csvlens";
     changelog = "https://github.com/YS-L/csvlens/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "csvlens";
   };
 }

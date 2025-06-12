@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "victor-mono";
   version = "1.5.6";
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Free programming font with cursive italics and ligatures";
     homepage = "https://rubjo.github.io/victor-mono";
     license = licenses.ofl;
-    maintainers = with maintainers; [ jpotier ];
+    maintainers = with maintainers; [jpotier];
     platforms = platforms.all;
   };
 }

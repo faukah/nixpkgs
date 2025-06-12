@@ -28,7 +28,6 @@
   wrapGAppsHook3,
   xsct,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ayatana-indicator-display";
   version = "24.5.2";
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     cppcheck
     dbus
-    (python3.withPackages (ps: with ps; [ python-dbusmock ]))
+    (python3.withPackages (ps: with ps; [python-dbusmock]))
   ];
 
   checkInputs = [
@@ -118,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
       startup = nixosTests.ayatana-indicators;
       lomiri = nixosTests.lomiri.desktop-ayatana-indicator-display;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -130,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AyatanaIndicators/ayatana-indicator-display";
     changelog = "https://github.com/AyatanaIndicators/ayatana-indicator-display/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

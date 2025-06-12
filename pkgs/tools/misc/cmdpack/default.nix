@@ -2,14 +2,12 @@
   stdenv,
   lib,
   fetchurl,
-}:
-let
-  mkCmdPackDerivation =
-    {
-      pname,
-      postInstall ? "",
-      description,
-    }:
+}: let
+  mkCmdPackDerivation = {
+    pname,
+    postInstall ? "",
+    description,
+  }:
     stdenv.mkDerivation {
       inherit pname postInstall;
 
@@ -42,11 +40,10 @@ let
         homepage = "https://web.archive.org/web/20140330233023/http://www.neillcorlett.com/cmdpack/";
         platforms = platforms.all;
         license = licenses.gpl3Plus;
-        maintainers = with maintainers; [ zane ];
+        maintainers = with maintainers; [zane];
       };
     };
-in
-{
+in {
   bin2iso = mkCmdPackDerivation {
     pname = "bin2iso";
     description = "Convert CD .BIN to .ISO";

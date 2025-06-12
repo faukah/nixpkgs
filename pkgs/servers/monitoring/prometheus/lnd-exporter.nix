@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "lndmon";
   version = "0.2.8";
@@ -19,15 +18,15 @@ buildGoModule rec {
   vendorHash = "sha256-6wBA9OZcjGsbIgWzMXlcT2571sFvtYqIsHRfLAz/o60=";
 
   # Irrelevant tools dependencies.
-  excludedPackages = [ "./tools" ];
+  excludedPackages = ["./tools"];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) lnd; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) lnd;};
 
   meta = with lib; {
     homepage = "https://github.com/lightninglabs/lndmon";
     description = "Prometheus exporter for lnd (Lightning Network Daemon)";
     mainProgram = "lndmon";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
   };
 }

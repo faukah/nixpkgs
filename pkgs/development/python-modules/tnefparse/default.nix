@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
-
   compressed-rtf,
-
   pytestCheckHook,
   pytest-console-scripts,
 }:
-
 buildPythonPackage rec {
   pname = "tnefparse";
   version = "1.4.0";
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchFromGitHub {
     owner = "koodaamo";
@@ -26,7 +22,7 @@ buildPythonPackage rec {
   };
 
   optional-dependencies = {
-    compressed-rtf = [ compressed-rtf ];
+    compressed-rtf = [compressed-rtf];
   };
 
   nativeCheckInputs = [
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     "test_help_is_printed"
   ];
 
-  pythonImportsCheck = [ "tnefparse" ];
+  pythonImportsCheck = ["tnefparse"];
 
   meta = {
     description = "TNEF decoding library written in python, without external dependencies";

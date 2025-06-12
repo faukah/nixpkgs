@@ -9,7 +9,6 @@
   stdenv,
   darwin,
 }:
-
 buildPythonPackage rec {
   pname = "aubio";
   version = "0.4.9";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aubio" ];
+  pythonImportsCheck = ["aubio"];
 
   disabledTests = [
     # https://github.com/aubio/aubio/issues/413
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://aubio.org";
     changelog = "https://github.com/aubio/aubio/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

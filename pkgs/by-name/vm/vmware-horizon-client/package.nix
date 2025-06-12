@@ -10,15 +10,13 @@
   opensc,
   writeTextDir,
   configText ? "",
-}:
-let
+}: let
   version = "2406";
 
   sysArch =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
-      "x64"
-    else
-      throw "Unsupported system: ${stdenv.hostPlatform.system}";
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then "x64"
+    else throw "Unsupported system: ${stdenv.hostPlatform.system}";
   # The downloaded archive also contains ARM binaries, but these have not been tested.
 
   # For USB support, ensure that /var/run/vmware/<YOUR-UID>
@@ -42,7 +40,7 @@ let
       url = "https://download3.omnissa.com/software/CART25FQ2_LIN_2406_TARBALL/VMware-Horizon-Client-Linux-2406-8.13.0-9995429239.tar.gz";
       sha256 = "d6bae5cea83c418bf3a9cb884a7d8351d8499f1858a1ac282fd79dc0c64e83f6";
     };
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     installPhase = ''
       mkdir ext
       find ${sysArch} -type f -print0 | xargs -0n1 tar -Cext --strip-components=1 -xf
@@ -71,15 +69,14 @@ let
     '';
   };
 
-  vmwareFHSUserEnv =
-    pname:
+  vmwareFHSUserEnv = pname:
     buildFHSEnv {
       inherit pname version;
 
       runScript = "${vmwareHorizonClientFiles}/bin/${pname}_wrapper";
 
-      targetPkgs =
-        pkgs: with pkgs; [
+      targetPkgs = pkgs:
+        with pkgs; [
           at-spi2-atk
           atk
           cairo
@@ -128,38 +125,37 @@ let
     desktopName = "VMware Horizon Client";
     icon = "${vmwareHorizonClientFiles}/share/icons/vmware-view.png";
     exec = "${vmwareFHSUserEnv mainProgram}/bin/${mainProgram} %u";
-    mimeTypes = [ "x-scheme-handler/vmware-view" ];
+    mimeTypes = ["x-scheme-handler/vmware-view"];
   };
-
 in
-stdenv.mkDerivation {
-  pname = "vmware-horizon-client";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "vmware-horizon-client";
+    inherit version;
 
-  dontUnpack = true;
+    dontUnpack = true;
 
-  nativeBuildInputs = [ copyDesktopItems ];
+    nativeBuildInputs = [copyDesktopItems];
 
-  desktopItems = [ desktopItem ];
+    desktopItems = [desktopItem];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    ln -s ${vmwareFHSUserEnv "vmware-view"}/bin/vmware-view $out/bin/
-    ln -s ${vmwareFHSUserEnv "vmware-usbarbitrator"}/bin/vmware-usbarbitrator $out/bin/
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      ln -s ${vmwareFHSUserEnv "vmware-view"}/bin/vmware-view $out/bin/
+      ln -s ${vmwareFHSUserEnv "vmware-usbarbitrator"}/bin/vmware-usbarbitrator $out/bin/
+      runHook postInstall
+    '';
 
-  unwrapped = vmwareHorizonClientFiles;
+    unwrapped = vmwareHorizonClientFiles;
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    inherit mainProgram;
-    description = "Allows you to connect to your VMware Horizon virtual desktop";
-    homepage = "https://www.vmware.com/go/viewclients";
-    license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      inherit mainProgram;
+      description = "Allows you to connect to your VMware Horizon virtual desktop";
+      homepage = "https://www.vmware.com/go/viewclients";
+      license = licenses.unfree;
+      platforms = ["x86_64-linux"];
+      maintainers = [];
+    };
+  }

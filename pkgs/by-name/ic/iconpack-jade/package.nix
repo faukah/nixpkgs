@@ -6,7 +6,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "iconpack-jade";
   version = "1.25";
@@ -18,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0pwz3l5i93s84iwkn1jq8a150ma96788a0n41xq2cgy00j8h8xh0";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     gnome-icon-theme
@@ -41,6 +40,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/madmaxms/iconpack-jade";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

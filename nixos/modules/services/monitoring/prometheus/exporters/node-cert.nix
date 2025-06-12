@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.node-cert;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9141;
 
   extraOpts = {
@@ -25,7 +22,7 @@ in
       description = ''
         List of paths to exclute from searching for SSL certificates.
       '';
-      default = [ ];
+      default = [];
     };
 
     includeGlobs = mkOption {
@@ -33,7 +30,7 @@ in
       description = ''
         List files matching a pattern to include. Uses Go blob pattern.
       '';
-      default = [ ];
+      default = [];
     };
 
     excludeGlobs = mkOption {
@@ -41,7 +38,7 @@ in
       description = ''
         List files matching a pattern to include. Uses Go blob pattern.
       '';
-      default = [ ];
+      default = [];
     };
 
     user = mkOption {

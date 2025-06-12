@@ -15,7 +15,6 @@
   six,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "siuba";
   version = "0.4.4";
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://siuba.org";
     changelog = "https://github.com/machow/siuba/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

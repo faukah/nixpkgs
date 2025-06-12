@@ -16,7 +16,6 @@
   pkg-config,
   fuse3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "charliecloud";
   version = "0.38";
@@ -43,17 +42,15 @@ stdenv.mkDerivation (finalAttrs: {
     ]))
   ];
 
-  configureFlags =
-    let
-      pythonEnv = python3.withPackages (ps: [
-        ps.lark
-        ps.requests
-      ]);
-    in
-    [
-      "--with-python=${pythonEnv}/bin/python3"
-      "-disable-bundled-lark"
-    ];
+  configureFlags = let
+    pythonEnv = python3.withPackages (ps: [
+      ps.lark
+      ps.requests
+    ]);
+  in [
+    "--with-python=${pythonEnv}/bin/python3"
+    "-disable-bundled-lark"
+  ];
 
   preConfigure = ''
     patchShebangs test/
@@ -70,16 +67,16 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     for file in $out/bin/* ; do \
       wrapProgram $file --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          docker
-          gnused
-          gnutar
-          gzip
-          findutils
-          sudo
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        docker
+        gnused
+        gnutar
+        gzip
+        findutils
+        sudo
+      ]
+    }
     done
   '';
 
@@ -96,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://hpc.github.io/charliecloud";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 })

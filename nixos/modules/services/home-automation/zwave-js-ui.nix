@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkIf
     mkEnableOption
@@ -14,12 +14,11 @@ let
     types
     ;
   cfg = config.services.zwave-js-ui;
-in
-{
+in {
   options.services.zwave-js-ui = {
     enable = mkEnableOption "zwave-js-ui";
 
-    package = mkPackageOption pkgs "zwave-js-ui" { };
+    package = mkPackageOption pkgs "zwave-js-ui" {};
 
     serialPort = mkOption {
       type = types.path;
@@ -33,8 +32,7 @@ in
 
     settings = mkOption {
       type = types.submodule {
-        freeformType =
-          with types;
+        freeformType = with types;
           attrsOf (
             nullOr (oneOf [
               str
@@ -74,7 +72,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.zwave-js-ui = {
       environment = cfg.settings;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = getExe cfg.package;
         RuntimeDirectory = "zwave-js-ui";
@@ -83,10 +81,10 @@ in
         BindReadOnlyPaths = [
           "/nix/store"
         ];
-        DeviceAllow = [ cfg.serialPort ];
+        DeviceAllow = [cfg.serialPort];
         DynamicUser = true;
-        SupplementaryGroups = [ "dialout" ];
-        CapabilityBoundingSet = [ "" ];
+        SupplementaryGroups = ["dialout"];
+        CapabilityBoundingSet = [""];
         RestrictAddressFamilies = "AF_INET AF_INET6";
         DevicePolicy = "closed";
         LockPersonality = true;
@@ -117,5 +115,5 @@ in
       };
     };
   };
-  meta.maintainers = with lib.maintainers; [ cdombroski ];
+  meta.maintainers = with lib.maintainers; [cdombroski];
 }

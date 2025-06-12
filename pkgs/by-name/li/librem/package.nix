@@ -7,7 +7,6 @@
   libre,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.12.0";
   pname = "librem";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-MsXSUxFH89EqxMe4285xFV1Tsqmv2l5RnEeli48O3XQ=";
   };
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     openssl
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Library for real-time audio and video processing";
     homepage = "https://github.com/baresip/rem";
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     license = lib.licenses.bsd3;
   };
 }

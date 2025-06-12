@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "whoosh";
   version = "2.7.4";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-fKVjPb+p4OD6QA0xUaigxL7FO9Ls7cCmdwWxdWXDGoM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Wrong encoding
   postPatch = ''
@@ -31,14 +30,14 @@ buildPythonPackage rec {
       --replace-fail "[pytest]" "[tool:pytest]"
   '';
 
-  pythonImportsCheck = [ "whoosh" ];
+  pythonImportsCheck = ["whoosh"];
 
-  disabledTests = [ "test_minimize_dfa" ];
+  disabledTests = ["test_minimize_dfa"];
 
   meta = with lib; {
     description = "Fast, pure-Python full text indexing, search, and spell checking library";
     homepage = "https://github.com/mchaput/whoosh";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

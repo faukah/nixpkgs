@@ -7,7 +7,6 @@
   libunwind,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gperftools";
   version = "2.15";
@@ -28,14 +27,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs =
-    [ perl ]
+    [perl]
     ++ lib.optional (
       stdenv.hostPlatform.isLinux && !(stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isStatic)
-    ) libunwind;
+    )
+    libunwind;
 
   # Disable general dynamic TLS on AArch to support dlopen()'ing the library:
   # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     description = "Fast, multi-threaded malloc() and nifty performance analysis tools";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vcunat ];
+    maintainers = with maintainers; [vcunat];
   };
 }

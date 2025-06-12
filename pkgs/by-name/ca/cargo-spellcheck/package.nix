@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-spellcheck";
   version = "0.15.5";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-MGjyoHejsUd6HCoZVlw1NDG6TE9Anh05IeObHmcnwg0=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   preCheck = "HOME=$(mktemp -d)";
 

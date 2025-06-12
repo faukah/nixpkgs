@@ -12,7 +12,6 @@
   libiconv,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "serf";
   version = "1.3.10";
@@ -26,13 +25,15 @@ stdenv.mkDerivation rec {
     pkg-config
     scons
   ];
-  buildInputs = [
-    apr
-    openssl
-    aprutil
-    zlib
-    libiconv
-  ] ++ lib.optional (!stdenv.hostPlatform.isCygwin) libkrb5;
+  buildInputs =
+    [
+      apr
+      openssl
+      aprutil
+      zlib
+      libiconv
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isCygwin) libkrb5;
 
   patches = [
     ./scons.patch

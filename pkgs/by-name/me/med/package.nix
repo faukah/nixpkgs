@@ -8,7 +8,6 @@
   jsoncpp,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "med";
   version = "3.10.1";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "GUI game memory scanner and editor";
     homepage = "https://github.com/allencch/med";
     changelog = "https://github.com/allencch/med/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ zebreus ];
+    maintainers = with lib.maintainers; [zebreus];
     platforms = lib.platforms.linux;
     license = lib.licenses.bsd3;
     mainProgram = "med";

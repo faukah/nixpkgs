@@ -5,7 +5,6 @@
   python3,
   pass,
 }:
-
 stdenv.mkDerivation rec {
   pname = "passff-host";
   version = "1.2.4";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P5h0B5ilwp3OVyDHIOQ23Zv4eLjN4jFkdZF293FQnNE=";
   };
 
-  buildInputs = [ python3 ];
-  makeFlags = [ "VERSION=${version}" ];
+  buildInputs = [python3];
+  makeFlags = ["VERSION=${version}"];
 
   patchPhase = ''
     sed -i 's#COMMAND = "pass"#COMMAND = "${pass}/bin/pass"#' src/passff.py
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Host app for the WebExtension PassFF";
     homepage = "https://github.com/passff/passff-host";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

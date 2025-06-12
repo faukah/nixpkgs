@@ -7,7 +7,6 @@
   pidgin,
   json-glib,
 }:
-
 stdenv.mkDerivation {
   pname = "purple-discord";
   version = "unstable-2021-10-17";
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     description = "Discord plugin for Pidgin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sna ];
+    maintainers = with maintainers; [sna];
   };
 }

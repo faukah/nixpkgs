@@ -4,7 +4,6 @@
   python3Packages,
   fetchpatch,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "iotop";
   version = "0.6";
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://guichaz.free.fr/iotop";
     license = licenses.gpl2Plus;
     mainProgram = "iotop";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   testers,
   fsrx,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fsrx";
   version = "1.0.2";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Flow state reader in the terminal";
     homepage = "https://github.com/thatvegandev/fsrx";
     license = licenses.mit;
-    maintainers = with maintainers; [ MoritzBoehme ];
+    maintainers = with maintainers; [MoritzBoehme];
     mainProgram = "fsrx";
   };
 }

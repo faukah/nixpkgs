@@ -7,7 +7,6 @@
   imagemagick,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usbview";
   version = "3.1";

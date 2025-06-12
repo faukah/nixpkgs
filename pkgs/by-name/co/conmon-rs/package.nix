@@ -5,7 +5,6 @@
   protobuf,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "conmon-rs";
   version = "0.6.6";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "OCI container runtime monitor written in Rust";
     homepage = "https://github.com/containers/conmon-rs";
     license = licenses.asl20;
-    teams = [ teams.podman ];
+    teams = [teams.podman];
     platforms = platforms.linux;
   };
 }

@@ -7,7 +7,6 @@
   pydantic,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "peco";
   version = "0.1.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-xW65tEL86ecOfGIbnGiSnKtq7SmKQxW2eMTVrs/nxNc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -30,13 +29,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "peco" ];
+  pythonImportsCheck = ["peco"];
 
   meta = with lib; {
     description = "Library for interacting with the PECO outage map";
     homepage = "https://github.com/IceBotYT/peco-outage-api";
     changelog = "https://github.com/IceBotYT/peco-outage-api/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

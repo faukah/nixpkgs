@@ -4,7 +4,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shticker-book-unwritten";
   version = "1.2.0";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-0eumZoAL8/nkeFS+sReCAYKHiXiqZHfdC/9Ao5U6/SQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 }

@@ -5,7 +5,6 @@
   luajit,
   nixosTests,
 }:
-
 callPackage (import ./common.nix rec {
   pname = "cgit";
   version = "1.2.3";
@@ -23,11 +22,11 @@ callPackage (import ./common.nix rec {
     sha256 = "09lzwa183nblr6l8ib35g2xrjf9wm9yhk3szfvyzkwivdv69c9r2";
   };
 
-  buildInputs = [ luajit ];
+  buildInputs = [luajit];
 
-  passthru.tests = { inherit (nixosTests) cgit; };
+  passthru.tests = {inherit (nixosTests) cgit;};
 
   homepage = "https://git.zx2c4.com/cgit/about/";
   description = "Web frontend for git repositories";
-  maintainers = with lib.maintainers; [ bjornfor ];
-}) { }
+  maintainers = with lib.maintainers; [bjornfor];
+}) {}

@@ -28,8 +28,7 @@
   OVMFFull,
   testers,
   installShellFiles,
-}:
-let
+}: let
   runtimePaths =
     [
       cdrtools
@@ -41,7 +40,7 @@ let
       pciutils
       procps
       python3
-      (qemu.override { smbdSupport = true; })
+      (qemu.override {smbdSupport = true;})
       socat
       swtpm
       util-linux
@@ -55,64 +54,63 @@ let
       xdg-user-dirs
     ];
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "quickemu";
+    version = "4.9.7";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "quickemu";
-  version = "4.9.7";
+    src = fetchFromGitHub {
+      owner = "quickemu-project";
+      repo = "quickemu";
+      rev = finalAttrs.version;
+      hash = "sha256-sCoCcN6950pH33bRZsLoLc1oSs5Qfpj9Bbywn/uA6Bc=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "quickemu-project";
-    repo = "quickemu";
-    rev = finalAttrs.version;
-    hash = "sha256-sCoCcN6950pH33bRZsLoLc1oSs5Qfpj9Bbywn/uA6Bc=";
-  };
+    postPatch = ''
+      sed -i \
+        -e '/OVMF_CODE_4M.secboot.fd/s|ovmfs=(|ovmfs=("${OVMFFull.firmware}","${OVMFFull.variables}" |' \
+        -e '/OVMF_CODE_4M.fd/s|ovmfs=(|ovmfs=("${OVMF.firmware}","${OVMF.variables}" |' \
+        -e '/cp "''${VARS_IN}" "''${VARS_OUT}"/a chmod +w "''${VARS_OUT}"' \
+        -e 's/Icon=.*qemu.svg/Icon=qemu/' \
+        -e 's,\[ -x "\$(command -v smbd)" \],true,' \
+        quickemu
+    '';
 
-  postPatch = ''
-    sed -i \
-      -e '/OVMF_CODE_4M.secboot.fd/s|ovmfs=(|ovmfs=("${OVMFFull.firmware}","${OVMFFull.variables}" |' \
-      -e '/OVMF_CODE_4M.fd/s|ovmfs=(|ovmfs=("${OVMF.firmware}","${OVMF.variables}" |' \
-      -e '/cp "''${VARS_IN}" "''${VARS_OUT}"/a chmod +w "''${VARS_OUT}"' \
-      -e 's/Icon=.*qemu.svg/Icon=qemu/' \
-      -e 's,\[ -x "\$(command -v smbd)" \],true,' \
-      quickemu
-  '';
-
-  nativeBuildInputs = [
-    makeWrapper
-    installShellFiles
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    installManPage docs/quickget.1 docs/quickemu.1 docs/quickemu_conf.5
-    install -Dm755 -t "$out/bin" chunkcheck quickemu quickget quickreport
-
-    # spice-gtk needs to be put in suffix so that when virtualisation.spiceUSBRedirection
-    # is enabled, the wrapped spice-client-glib-usb-acl-helper is used
-    for f in chunkcheck quickget quickemu quickreport; do
-      wrapProgram $out/bin/$f \
-        --prefix PATH : "${lib.makeBinPath runtimePaths}" \
-        --suffix PATH : "${lib.makeBinPath [ spice-gtk ]}"
-    done
-
-    runHook postInstall
-  '';
-
-  passthru = {
-    tests = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = gitUpdater { };
-  };
-
-  meta = {
-    description = "Quickly create and run optimised Windows, macOS and Linux virtual machines";
-    homepage = "https://github.com/quickemu-project/quickemu";
-    changelog = "https://github.com/quickemu-project/quickemu/releases/tag/${finalAttrs.version}";
-    mainProgram = "quickemu";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [
-      fedx-sudo
-      flexiondotorg
+    nativeBuildInputs = [
+      makeWrapper
+      installShellFiles
     ];
-  };
-})
+
+    installPhase = ''
+      runHook preInstall
+
+      installManPage docs/quickget.1 docs/quickemu.1 docs/quickemu_conf.5
+      install -Dm755 -t "$out/bin" chunkcheck quickemu quickget quickreport
+
+      # spice-gtk needs to be put in suffix so that when virtualisation.spiceUSBRedirection
+      # is enabled, the wrapped spice-client-glib-usb-acl-helper is used
+      for f in chunkcheck quickget quickemu quickreport; do
+        wrapProgram $out/bin/$f \
+          --prefix PATH : "${lib.makeBinPath runtimePaths}" \
+          --suffix PATH : "${lib.makeBinPath [spice-gtk]}"
+      done
+
+      runHook postInstall
+    '';
+
+    passthru = {
+      tests = testers.testVersion {package = finalAttrs.finalPackage;};
+      updateScript = gitUpdater {};
+    };
+
+    meta = {
+      description = "Quickly create and run optimised Windows, macOS and Linux virtual machines";
+      homepage = "https://github.com/quickemu-project/quickemu";
+      changelog = "https://github.com/quickemu-project/quickemu/releases/tag/${finalAttrs.version}";
+      mainProgram = "quickemu";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [
+        fedx-sudo
+        flexiondotorg
+      ];
+    };
+  })

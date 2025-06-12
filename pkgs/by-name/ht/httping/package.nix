@@ -11,7 +11,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "httping";
   version = "4.4.0";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
       version = "v${finalAttrs.version}";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
       latency of the webserver + network. It supports IPv6.
     '';
     mainProgram = "httping";
-    maintainers = [ lib.maintainers.anthonyroussel ];
+    maintainers = [lib.maintainers.anthonyroussel];
     platforms = lib.platforms.linux;
   };
 })

@@ -18,7 +18,6 @@
   libxml2,
   elementary-calendar,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-datetime";
   version = "2.4.2";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-datetime";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

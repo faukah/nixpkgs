@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "evebox";
   version = "0.18.2";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://evebox.org/";
     changelog = "https://github.com/jasonish/evebox/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

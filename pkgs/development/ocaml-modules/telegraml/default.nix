@@ -7,7 +7,6 @@
   logs,
   yojson,
 }:
-
 buildDunePackage {
   pname = "telegraml";
   version = "unstable-2021-06-17";
@@ -34,6 +33,6 @@ buildDunePackage {
     description = "OCaml library implementing the Telegram bot API";
     homepage = "https://github.com/nv-vn/TelegraML/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

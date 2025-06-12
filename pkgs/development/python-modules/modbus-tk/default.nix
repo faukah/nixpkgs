@@ -6,7 +6,6 @@
   pythonOlder,
   pyserial,
 }:
-
 buildPythonPackage rec {
   pname = "modbus-tk";
   version = "1.1.5";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-d6cqOtnV0yodIRC8BCFmgMpX11IpEuDycem/XxtwGzY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyserial ];
+  dependencies = [pyserial];
 
   # Source no tagged anymore and PyPI doesn't ship tests
   doCheck = false;
 
-  pythonImportsCheck = [ "modbus_tk" ];
+  pythonImportsCheck = ["modbus_tk"];
 
   meta = {
     description = "Module for simple Modbus interactions";
     homepage = "https://github.com/ljean/modbus-tk";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

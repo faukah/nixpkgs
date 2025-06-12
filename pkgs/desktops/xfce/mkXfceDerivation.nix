@@ -8,9 +8,7 @@
   xfce,
   wrapGAppsHook3,
   gitUpdater,
-}:
-
-{
+}: {
   category,
   pname,
   version,
@@ -20,19 +18,19 @@
   sha256,
   odd-unstable ? true,
   patchlevel-unstable ? true,
-  passthru ? { },
-  meta ? { },
+  passthru ? {},
+  meta ? {},
   ...
-}@args:
-
-let
-  inherit (builtins)
+} @ args: let
+  inherit
+    (builtins)
     filter
     getAttr
     head
     isList
     ;
-  inherit (lib)
+  inherit
+    (lib)
     attrNames
     concatLists
     recursiveUpdate
@@ -41,8 +39,7 @@ let
 
   filterAttrNames = f: attrs: filter (n: f (getAttr n attrs)) (attrNames attrs);
 
-  concatAttrLists =
-    attrsets: zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists) attrsets;
+  concatAttrLists = attrsets: zipAttrsWithNames (filterAttrNames isList (head attrsets)) (_: concatLists) attrsets;
 
   template = {
     nativeBuildInputs = [
@@ -50,8 +47,8 @@ let
       xfce4-dev-tools
       wrapGAppsHook3
     ];
-    buildInputs = [ hicolor-icon-theme ];
-    configureFlags = [ "--enable-maintainer-mode" ];
+    buildInputs = [hicolor-icon-theme];
+    configureFlags = ["--enable-maintainer-mode"];
 
     src = fetchFromGitLab {
       domain = "gitlab.xfce.org";
@@ -68,14 +65,15 @@ let
 
     pos = builtins.unsafeGetAttrPos "pname" args;
 
-    passthru = {
-      updateScript = gitUpdater {
-        inherit rev-prefix odd-unstable patchlevel-unstable;
-      };
-    } // passthru;
+    passthru =
+      {
+        updateScript = gitUpdater {
+          inherit rev-prefix odd-unstable patchlevel-unstable;
+        };
+      }
+      // passthru;
 
-    meta =
-      with lib;
+    meta = with lib;
       {
         homepage = "https://gitlab.xfce.org/${category}/${pname}";
         license = licenses.gpl2Plus; # some libraries are under LGPLv2+
@@ -89,12 +87,11 @@ let
     "sha256"
   ];
 in
-
-stdenv.mkDerivation (
-  publicArgs
-  // template
-  // concatAttrLists [
-    template
-    args
-  ]
-)
+  stdenv.mkDerivation (
+    publicArgs
+    // template
+    // concatAttrLists [
+      template
+      args
+    ]
+  )

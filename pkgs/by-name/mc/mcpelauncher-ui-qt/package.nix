@@ -12,7 +12,6 @@
   qt6,
   glfw,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mcpelauncher-ui-qt";
   inherit (mcpelauncher-client) version;
@@ -50,13 +49,15 @@ stdenv.mkDerivation (finalAttrs: {
   # https://github.com/minecraft-linux/mcpelauncher-ui-qt/issues/25
   preFixup = ''
     qtWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ mcpelauncher-client ]}
+      --prefix PATH : ${lib.makeBinPath [mcpelauncher-client]}
       --unset QT_STYLE_OVERRIDE
     )
   '';
 
-  meta = mcpelauncher-client.meta // {
-    description = "Unofficial Minecraft Bedrock Edition launcher with GUI";
-    mainProgram = "mcpelauncher-ui-qt";
-  };
+  meta =
+    mcpelauncher-client.meta
+    // {
+      description = "Unofficial Minecraft Bedrock Edition launcher with GUI";
+      mainProgram = "mcpelauncher-ui-qt";
+    };
 })

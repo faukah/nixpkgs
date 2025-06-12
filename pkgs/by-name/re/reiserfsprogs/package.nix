@@ -7,7 +7,6 @@
   e2fsprogs,
   acl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "reiserfsprogs";
   version = "3.6.27";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-DpW2f6d0ajwtWRRem5wv60pr5ShT6DtJexgurlCOYuM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libuuid
     e2fsprogs

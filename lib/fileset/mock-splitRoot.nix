@@ -7,10 +7,10 @@
 #      subpath = "./baz";
 #    }
 self: super: {
-  path = super.path // {
-    splitRoot =
-      path:
-      let
+  path =
+    super.path
+    // {
+      splitRoot = path: let
         parts = super.path.splitRoot path;
         components = self.path.subpath.components parts.subpath;
         count = self.length components;
@@ -21,9 +21,8 @@ self: super: {
           );
         root = self.path.append parts.root (self.path.subpath.join (self.take rootIndex components));
         subpath = self.path.subpath.join (self.drop rootIndex components);
-      in
-      {
+      in {
         inherit root subpath;
       };
-  };
+    };
 }

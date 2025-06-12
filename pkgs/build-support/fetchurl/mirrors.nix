@@ -1,5 +1,4 @@
 {
-
   # Content-addressable Nix mirrors
   hashedMirrors = [
     "https://tarballs.nixos.org"

@@ -15,7 +15,6 @@
   unittestCheckHook,
   volatile,
 }:
-
 buildPythonPackage rec {
   pname = "usort";
   version = "1.0.8";
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     volatile
   ];
 
-  pythonImportsCheck = [ "usort" ];
+  pythonImportsCheck = ["usort"];
 
   meta = with lib; {
     description = "Safe, minimal import sorting for Python projects";
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/facebook/usort";
     changelog = "https://github.com/facebook/usort/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   clientNodeName = "client";
-in
-{
+in {
   name = "tzupdate";
 
   # TODO: Test properly:
@@ -18,5 +16,5 @@ in
     ${clientNodeName}.wait_for_unit("multi-user.target")
   '';
 
-  meta.maintainers = [ lib.maintainers.l0b0 ];
+  meta.maintainers = [lib.maintainers.l0b0];
 }

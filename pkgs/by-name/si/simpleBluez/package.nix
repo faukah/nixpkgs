@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/simplebluez";
 
-  cmakeFlags = [ "-DLIBFMT_LOCAL_PATH=${fmt_9.src}" ];
+  cmakeFlags = ["-DLIBFMT_LOCAL_PATH=${fmt_9.src}"];
 
   nativeBuildInputs = [
     cmake
@@ -42,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/OpenBluetoothToolbox/SimpleBLE";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
   };
 })

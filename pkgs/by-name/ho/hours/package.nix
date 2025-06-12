@@ -5,7 +5,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "hours";
   version = "0.5.0";
@@ -21,13 +20,13 @@ buildGoModule (finalAttrs: {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "No-frills time tracking toolkit for command line nerds";
     homepage = "https://github.com/dhth/hours";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ilarvne ];
+    maintainers = [lib.maintainers.ilarvne];
     platforms = lib.platforms.unix;
     mainProgram = "hours";
   };

@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   # All passwords are "test"
   rootHashedPasswordFile = "$y$j9T$6ueoTO5y7vvFsGvpQJEEa.$vubxgBiMnkTCtRtPD3hNiZHa7Nm1WsJeE9QomYqSRXB";
   updatedRootHashedPassword = "$y$j9T$pBCO9N1FRF1rSl6V15n9n/$1JmRLEYPO7TRCx43cvLO19u59WA/oqTEhmSR4wrhzr.";
@@ -12,13 +10,10 @@ let
   updatedSysuserInitialHashedPassword = "$y$j9T$kUBVhgOdSjymSfwfRVja70$eqCwWzVsz0fI0Uc6JsdD2CYMCpfJcErqnIqva2JCi1D";
 
   newNormaloHashedPassword = "$y$j9T$UFBMWbGjjVola0YE9YCcV/$jRSi5S6lzkcifbuqjMcyXLTwgOGm9BTQk/G/jYaxroC";
-in
-
-{
-
+in {
   name = "userborn";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
   nodes.machine = {
     services.userborn.enable = true;
@@ -43,7 +38,7 @@ in
         };
       };
       groups = {
-        sysusers = { };
+        sysusers = {};
       };
     };
 
@@ -72,7 +67,7 @@ in
           };
         };
         groups = {
-          new-group = { };
+          new-group = {};
         };
       };
     };

@@ -6,7 +6,6 @@
   libgcc,
   csu,
 }:
-
 mkDerivation {
   path = "lib/libexecinfo";
   extraPaths = [

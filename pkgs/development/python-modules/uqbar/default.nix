@@ -11,7 +11,6 @@
   typing-extensions,
   unidecode,
 }:
-
 buildPythonPackage rec {
   pname = "uqbar";
   version = "0.7.4";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     -e "/--cov/d"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     unidecode
     sphinx
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     defusedxml
@@ -65,13 +64,13 @@ buildPythonPackage rec {
       "objects.get_vars"
     ];
 
-  pythonImportsCheck = [ "uqbar" ];
+  pythonImportsCheck = ["uqbar"];
 
   meta = with lib; {
     description = "Tools for creating Sphinx and Graphviz documentation";
     homepage = "https://github.com/josiah-wolf-oberholtzer/uqbar";
     changelog = "https://github.com/josiah-wolf-oberholtzer/uqbar/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ davisrichard437 ];
+    maintainers = with maintainers; [davisrichard437];
   };
 }

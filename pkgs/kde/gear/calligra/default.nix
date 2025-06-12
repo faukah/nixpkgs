@@ -22,7 +22,6 @@
   qtwebengine,
   shared-mime-info,
 }:
-
 mkKdeDerivation {
   pname = "calligra";
 

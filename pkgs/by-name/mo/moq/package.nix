@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "moq";
   version = "0.5.3";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Mwx2Z2oVFepNr911zERuoM79NlpXu13pVpXPJox86BA=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -34,6 +33,6 @@ buildGoModule rec {
       be used in test code as a mock of the interface.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ anpryl ];
+    maintainers = with maintainers; [anpryl];
   };
 }

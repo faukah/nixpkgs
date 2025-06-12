@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   docbook_xml_dtd_45,
   docbook_xsl,
@@ -11,14 +10,11 @@
   pkg-config,
   python3,
   which,
-
   # buildInputs
   pcre,
-
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppcheck";
   version = "2.17.1";
@@ -47,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     pcre
-    (python3.withPackages (ps: [ ps.pygments ]))
+    (python3.withPackages (ps: [ps.pygments]))
   ];
 
   makeFlags = [
@@ -106,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {

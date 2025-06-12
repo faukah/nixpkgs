@@ -4,7 +4,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "garmindb";
   version = "3.6.4";
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     "idbutils"
   ];
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     sqlalchemy
@@ -63,7 +62,7 @@ python3Packages.buildPythonApplication rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "garmindb" ];
+  pythonImportsCheck = ["garmindb"];
 
   meta = {
     description = "Download and parse data from Garmin Connect or a Garmin watch";
@@ -71,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/tcgoetz/GarminDB/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "garmindb";
   };
 }

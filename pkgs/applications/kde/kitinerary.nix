@@ -12,12 +12,11 @@
   shared-mime-info,
   zxing-cpp,
 }:
-
 mkDerivation {
   pname = "kitinerary";
   meta = {
-    license = with lib.licenses; [ lgpl21 ];
-    maintainers = [ lib.maintainers.bkchr ];
+    license = with lib.licenses; [lgpl21];
+    maintainers = [lib.maintainers.bkchr];
     broken = true; # doesn't build with latest Poppler
   };
   nativeBuildInputs = [

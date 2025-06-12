@@ -9,7 +9,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fmtoy";
   version = "0-unstable-2024-12-15";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/vampirefrog/fmtoy";
     license = lib.licenses.gpl3Only;
     mainProgram = "fmtoy_jack";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

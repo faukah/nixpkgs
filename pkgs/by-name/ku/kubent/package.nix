@@ -5,7 +5,6 @@
   lib,
   testers,
 }:
-
 buildGoModule rec {
   pname = "kubent";
   version = "0.7.3";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X main.version=v${version}"
   ];
 
-  subPackages = [ "cmd/kubent" ];
+  subPackages = ["cmd/kubent"];
 
   passthru.tests.version = testers.testVersion {
     package = kubent;
@@ -39,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/doitintl/kube-no-trouble";
     license = lib.licenses.mit;
     mainProgram = "kubent";
-    maintainers = with lib.maintainers; [ peterromfeldhk ];
+    maintainers = with lib.maintainers; [peterromfeldhk];
   };
 }

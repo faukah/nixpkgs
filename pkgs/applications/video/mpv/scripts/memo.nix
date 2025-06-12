@@ -4,7 +4,6 @@
   lib,
   unstableGitUpdater,
 }:
-
 buildLua {
   pname = "memo";
   version = "0-unstable-2024-09-03";
@@ -16,12 +15,12 @@ buildLua {
     hash = "sha256-6+fI3TdBDfKcozxLcsykavgi17ywqRRhyiMK7PgAzGs=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Recent files menu for mpv";
     homepage = "https://github.com/po5/memo";
     license = licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ purrpurrn ];
+    maintainers = with lib.maintainers; [purrpurrn];
   };
 }

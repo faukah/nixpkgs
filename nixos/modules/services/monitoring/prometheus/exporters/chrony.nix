@@ -3,23 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.exporters.chrony;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
     concatMapStringsSep
     ;
-in
-{
+in {
   port = 9123;
   extraOpts = {
     chronyServerAddress = mkOption {
       type = types.str;
       default = "unix:///run/chrony/chronyd.sock";
-      example = [ "192.82.0.1:323" ];
+      example = ["192.82.0.1:323"];
       description = ''
         ChronyServerAddress of the chrony server side command port. (Not enabled by default.)
         Defaults to the local unix socket.
@@ -52,7 +51,7 @@ in
         "serverstats"
         "dns-lookups"
       ];
-      example = [ "dns-lookups" ];
+      example = ["dns-lookups"];
       description = ''
         Collectors to enable.
         Currently all collectors are enabled by default.
@@ -60,8 +59,8 @@ in
     };
     disabledCollectors = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "sources.with-ntpdata" ];
+      default = [];
+      example = ["sources.with-ntpdata"];
       description = ''
         Collectors to disable which are enabled by default.
         Disable sources.with-ntpdata for network scraper. Option requires unix socket.
@@ -70,8 +69,8 @@ in
   };
   serviceOpts = {
     serviceConfig = {
-      AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-      CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+      AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+      CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
       MemoryDenyWriteExecute = true;
       NoNewPrivileges = true;
       ProtectClock = true;

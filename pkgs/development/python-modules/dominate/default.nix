@@ -7,7 +7,6 @@
   pythonAtLeast,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dominate";
   version = "2.9.1";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-VYKEaH2biq4ZBOPWBRrRMt1KjAz1UbN+pOfkKjHRncQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dominate" ];
+  pythonImportsCheck = ["dominate"];
 
   disabledTestPaths = lib.optionals (pythonAtLeast "3.13") [
     # Tests are failing, https://github.com/Knio/dominate/issues/213
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Knio/dominate/";
     changelog = "https://github.com/Knio/dominate/releases/tag/${version}";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

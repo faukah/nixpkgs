@@ -21,9 +21,7 @@
   installShellFiles,
   makeWrapper,
 }:
-
 buildPythonPackage rec {
-
   pname = "youtube-dl";
   # The websites youtube-dl deals with are a very moving target. That means that
   # downloads break constantly. Because of that, updates should always be backported
@@ -68,19 +66,17 @@ buildPythonPackage rec {
     installShellFiles
     makeWrapper
   ];
-  buildInputs = [ zip ] ++ lib.optional generateManPage pandoc;
+  buildInputs = [zip] ++ lib.optional generateManPage pandoc;
   propagatedBuildInputs = lib.optional hlsEncryptedSupport pycryptodome;
 
   # Ensure these utilities are available in $PATH:
   # - ffmpeg: post-processing & transcoding support
   # - rtmpdump: download files over RTMP
   # - atomicparsley: embedding thumbnails
-  makeWrapperArgs =
-    let
-      packagesToBinPath =
-        [ atomicparsley ] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional rtmpSupport rtmpdump;
-    in
-    [ ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ];
+  makeWrapperArgs = let
+    packagesToBinPath =
+      [atomicparsley] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional rtmpSupport rtmpdump;
+  in [''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"''];
 
   setupPyBuildFlags = [
     "build_lazy_extractors"

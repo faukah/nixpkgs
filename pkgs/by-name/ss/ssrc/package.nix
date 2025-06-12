@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ssrc";
   version = "1.33";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     version = version;
     homepage = "https://shibatch.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

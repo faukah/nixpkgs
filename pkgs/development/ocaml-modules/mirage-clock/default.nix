@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "mirage-clock";
   version = "4.2.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "Libraries and module types for portable clocks";
     homepage = "https://github.com/mirage/mirage-clock";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

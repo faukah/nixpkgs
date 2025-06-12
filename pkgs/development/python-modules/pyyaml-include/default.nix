@@ -8,7 +8,6 @@
   setuptools-scm,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyyaml-include";
   version = "1.3.1";
@@ -27,16 +26,16 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yamlinclude" ];
+  pythonImportsCheck = ["yamlinclude"];
 
   meta = with lib; {
     description = "Extending PyYAML with a custom constructor for including YAML files within YAML files";
     homepage = "https://github.com/tanbro/pyyaml-include";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

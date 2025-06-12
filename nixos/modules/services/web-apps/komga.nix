@@ -3,23 +3,22 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.komga;
   inherit (lib) mkOption mkEnableOption maintainers;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     port
     str
     bool
     submodule
     ;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   imports = [
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "services"
         "komga"
@@ -81,10 +80,9 @@ in
     };
   };
 
-  config =
-    let
-      inherit (lib) mkIf getExe;
-    in
+  config = let
+    inherit (lib) mkIf getExe;
+  in
     mkIf cfg.enable {
       assertions = [
         {
@@ -93,9 +91,9 @@ in
         }
       ];
 
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.server.port ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.server.port];
 
-      users.groups = mkIf (cfg.group == "komga") { komga = { }; };
+      users.groups = mkIf (cfg.group == "komga") {komga = {};};
 
       users.users = mkIf (cfg.user == "komga") {
         komga = {
@@ -122,9 +120,9 @@ in
 
         description = "Komga is a free and open source comics/mangas media server";
 
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
 
         serviceConfig = {
           User = cfg.user;
@@ -139,7 +137,7 @@ in
           RemoveIPC = true;
           NoNewPrivileges = true;
           CapabilityBoundingSet = "";
-          SystemCallFilter = [ "@system-service" ];
+          SystemCallFilter = ["@system-service"];
           ProtectSystem = "full";
           PrivateTmp = true;
           ProtectProc = "invisible";
@@ -166,5 +164,5 @@ in
       };
     };
 
-  meta.maintainers = with maintainers; [ govanify ];
+  meta.maintainers = with maintainers; [govanify];
 }

@@ -4,13 +4,11 @@
   runCommand,
   replaceVarsWith,
   coreutils,
-}:
-
-let
+}: let
   name = "service-wrapper-${version}";
   version = "19.04"; # Akin to Ubuntu Release
 in
-runCommand name
+  runCommand name
   {
     script = replaceVarsWith {
       src = ./service-wrapper.sh;
@@ -26,7 +24,7 @@ runCommand name
       mainProgram = "service";
       license = licenses.gpl2Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ DerTim1 ];
+      maintainers = with maintainers; [DerTim1];
       # Shellscript has been modified but upstream source is: https://git.launchpad.net/ubuntu/+source/init-system-helpers
     };
   }

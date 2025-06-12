@@ -14,7 +14,6 @@
   vulkan-loader,
   libGL,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "onagre";
   version = "1.1.1";
@@ -43,24 +42,22 @@ rustPlatform.buildRustPackage {
     xorg.libXrandr
   ];
 
-  postFixup =
-    let
-      rpath = lib.makeLibraryPath [
-        libGL
-        vulkan-loader
-        wayland
-        libxkbcommon
-      ];
-    in
-    ''
-      patchelf --set-rpath ${rpath} $out/bin/onagre
-      wrapProgram $out/bin/onagre \
-        --prefix PATH ':' ${
-          lib.makeBinPath [
-            pop-launcher
-          ]
-        }
-    '';
+  postFixup = let
+    rpath = lib.makeLibraryPath [
+      libGL
+      vulkan-loader
+      wayland
+      libxkbcommon
+    ];
+  in ''
+    patchelf --set-rpath ${rpath} $out/bin/onagre
+    wrapProgram $out/bin/onagre \
+      --prefix PATH ':' ${
+      lib.makeBinPath [
+        pop-launcher
+      ]
+    }
+  '';
 
   meta = with lib; {
     description = "General purpose application launcher for X and wayland inspired by rofi/wofi and alfred";

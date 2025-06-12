@@ -3,13 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.dependency-track;
 
-  settingsFormat = pkgs.formats.javaProperties { };
+  settingsFormat = pkgs.formats.javaProperties {};
 
-  frontendConfigFormat = pkgs.formats.json { };
+  frontendConfigFormat = pkgs.formats.json {};
   frontendConfigFile = frontendConfigFormat.generate "config.json" {
     API_BASE_URL = cfg.frontend.baseUrl;
     OIDC_ISSUER = cfg.oidc.issuer;
@@ -25,34 +24,33 @@ let
     || config.services.nginx.virtualHosts.${cfg.nginx.domain}.onlySSL
     || config.services.nginx.virtualHosts.${cfg.nginx.domain}.enableACME;
 
-  assertStringPath =
-    optionName: value:
-    if lib.isPath value then
+  assertStringPath = optionName: value:
+    if lib.isPath value
+    then
       throw ''
         services.dependency-track.${optionName}:
           ${toString value}
           is a Nix path, but should be a string, since Nix
           paths are copied into the world-readable Nix store.
       ''
-    else
-      value;
+    else value;
 
   filterNull = lib.filterAttrs (_: v: v != null);
 
-  renderSettings =
-    settings:
+  renderSettings = settings:
     lib.mapAttrs' (
       n: v:
-      lib.nameValuePair (lib.toUpper (lib.replaceStrings [ "." ] [ "_" ] n)) (
-        if lib.isBool v then lib.boolToString v else v
-      )
+        lib.nameValuePair (lib.toUpper (lib.replaceStrings ["."] ["_"] n)) (
+          if lib.isBool v
+          then lib.boolToString v
+          else v
+        )
     ) (filterNull settings);
-in
-{
+in {
   options.services.dependency-track = {
     enable = lib.mkEnableOption "dependency-track";
 
-    package = lib.mkPackageOption pkgs "dependency-track" { };
+    package = lib.mkPackageOption pkgs "dependency-track" {};
 
     logLevel = lib.mkOption {
       type = lib.types.enum [
@@ -76,7 +74,7 @@ in
 
     javaArgs = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "-Xmx4G" ];
+      default = ["-Xmx4G"];
       description = "Java options passed to JVM";
     };
 
@@ -154,7 +152,9 @@ in
       baseUrl = lib.mkOption {
         type = lib.types.str;
         default = lib.optionalString cfg.nginx.enable "${
-          if sslEnabled then "https" else "http"
+          if sslEnabled
+          then "https"
+          else "http"
         }://${cfg.nginx.domain}";
         defaultText = lib.literalExpression ''
           lib.optionalString config.services.dependency-track.nginx.enable "''${
@@ -324,12 +324,11 @@ in
               "external"
             ];
             default =
-              if cfg.database.type == "h2" then
-                "embedded"
-              else if cfg.database.type == "postgresql" then
-                "external"
-              else
-                null;
+              if cfg.database.type == "h2"
+              then "embedded"
+              else if cfg.database.type == "postgresql"
+              then "external"
+              else null;
             defaultText = lib.literalExpression ''
               if config.services.dependency-track.database.type == "h2" then "embedded"
               else if config.services.dependency-track.database.type == "postgresql" then "external"
@@ -347,12 +346,11 @@ in
           "alpine.database.url" = lib.mkOption {
             type = lib.types.str;
             default =
-              if cfg.database.type == "h2" then
-                "jdbc:h2:/var/lib/dependency-track/db"
-              else if cfg.database.type == "postgresql" then
-                "jdbc:postgresql:${cfg.database.databaseName}?socketFactory=org.newsclub.net.unix.AFUNIXSocketFactory$FactoryArg&socketFactoryArg=/run/postgresql/.s.PGSQL.5432"
-              else
-                null;
+              if cfg.database.type == "h2"
+              then "jdbc:h2:/var/lib/dependency-track/db"
+              else if cfg.database.type == "postgresql"
+              then "jdbc:postgresql:${cfg.database.databaseName}?socketFactory=org.newsclub.net.unix.AFUNIXSocketFactory$FactoryArg&socketFactoryArg=/run/postgresql/.s.PGSQL.5432"
+              else null;
 
             defaultText = lib.literalExpression ''
               if config.services.dependency-track.database.type == "h2" then "jdbc:h2:/var/lib/dependency-track/db"
@@ -369,12 +367,11 @@ in
               "com.mysql.cj.jdbc.Driver"
             ];
             default =
-              if cfg.database.type == "h2" then
-                "org.h2.Driver"
-              else if cfg.database.type == "postgresql" then
-                "org.postgresql.Driver"
-              else
-                null;
+              if cfg.database.type == "h2"
+              then "org.h2.Driver"
+              else if cfg.database.type == "postgresql"
+              then "org.postgresql.Driver"
+              else null;
             defaultText = lib.literalExpression ''
               if config.services.dependency-track.database.type == "h2" then "org.h2.Driver"
               else if config.services.dependency-track.database.type == "postgresql" then "org.postgresql.Driver"
@@ -384,7 +381,10 @@ in
           };
           "alpine.database.username" = lib.mkOption {
             type = lib.types.str;
-            default = if cfg.database.createLocally then "dependency-track" else cfg.database.username;
+            default =
+              if cfg.database.createLocally
+              then "dependency-track"
+              else cfg.database.username;
             defaultText = lib.literalExpression ''
               if config.services.dependency-track.database.createLocally then "dependency-track"
               else config.services.dependency-track.database.username
@@ -494,7 +494,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = "See <https://docs.dependencytrack.org/getting-started/configuration/#default-configuration> for possible options";
     };
   };
@@ -506,7 +506,7 @@ in
       recommendedOptimisation = lib.mkDefault true;
       recommendedProxySettings = lib.mkDefault true;
       recommendedTlsSettings = lib.mkDefault true;
-      upstreams.dependency-track.servers."localhost:${toString cfg.port}" = { };
+      upstreams.dependency-track.servers."localhost:${toString cfg.port}" = {};
       virtualHosts.${cfg.nginx.domain} = {
         locations = {
           "/" = {
@@ -535,16 +535,16 @@ in
     };
 
     systemd.services.dependency-track-postgresql-init = lib.mkIf cfg.database.createLocally {
-      after = [ "postgresql.service" ];
-      before = [ "dependency-track.service" ];
-      bindsTo = [ "postgresql.service" ];
-      path = [ config.services.postgresql.package ];
+      after = ["postgresql.service"];
+      before = ["dependency-track.service"];
+      bindsTo = ["postgresql.service"];
+      path = [config.services.postgresql.package];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         User = "postgres";
         Group = "postgres";
-        LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
+        LoadCredential = ["db_password:${cfg.database.passwordFile}"];
         PrivateTmp = true;
       };
       script = ''
@@ -566,59 +566,58 @@ in
 
     services.postgresql.enable = lib.mkIf cfg.database.createLocally (lib.mkDefault true);
 
-    systemd.services."dependency-track" =
-      let
-        databaseServices =
-          if cfg.database.createLocally then
-            [
-              "dependency-track-postgresql-init.service"
-              "postgresql.service"
-            ]
-          else
-            [ ];
-      in
-      {
-        description = "Dependency Track";
-        wantedBy = [ "multi-user.target" ];
-        requires = databaseServices;
-        after = databaseServices;
-        # provide settings via env vars to allow overriding default settings.
-        environment = {
+    systemd.services."dependency-track" = let
+      databaseServices =
+        if cfg.database.createLocally
+        then [
+          "dependency-track-postgresql-init.service"
+          "postgresql.service"
+        ]
+        else [];
+    in {
+      description = "Dependency Track";
+      wantedBy = ["multi-user.target"];
+      requires = databaseServices;
+      after = databaseServices;
+      # provide settings via env vars to allow overriding default settings.
+      environment =
+        {
           HOME = "%S/dependency-track";
-        } // renderSettings cfg.settings;
-        serviceConfig = {
-          User = "dependency-track";
-          Group = "dependency-track";
-          DynamicUser = true;
-          StateDirectory = "dependency-track";
-          LoadCredential =
-            [ "db_password:${cfg.database.passwordFile}" ]
-            ++ lib.optional cfg.settings."alpine.ldap.enabled"
-              "ldap_bind_password:${cfg.ldap.bindPasswordFile}";
-        };
-        script = ''
-          set -eou pipefail
-          shopt -s inherit_errexit
-
-          export ALPINE_DATABASE_PASSWORD_FILE="$CREDENTIALS_DIRECTORY/db_password"
-          ${lib.optionalString cfg.settings."alpine.ldap.enabled" ''
-            export ALPINE_LDAP_BIND_PASSWORD="$(<"$CREDENTIALS_DIRECTORY/ldap_bind_password")"
-          ''}
-
-          exec ${lib.getExe pkgs.jre_headless} ${
-            lib.escapeShellArgs (
-              cfg.javaArgs
-              ++ [
-                "-DdependencyTrack.logging.level=${cfg.logLevel}"
-                "-jar"
-                "${cfg.package}/share/dependency-track/dependency-track.jar"
-                "-port"
-                "${toString cfg.port}"
-              ]
-            )
-          }
-        '';
+        }
+        // renderSettings cfg.settings;
+      serviceConfig = {
+        User = "dependency-track";
+        Group = "dependency-track";
+        DynamicUser = true;
+        StateDirectory = "dependency-track";
+        LoadCredential =
+          ["db_password:${cfg.database.passwordFile}"]
+          ++ lib.optional cfg.settings."alpine.ldap.enabled"
+          "ldap_bind_password:${cfg.ldap.bindPasswordFile}";
       };
+      script = ''
+        set -eou pipefail
+        shopt -s inherit_errexit
+
+        export ALPINE_DATABASE_PASSWORD_FILE="$CREDENTIALS_DIRECTORY/db_password"
+        ${lib.optionalString cfg.settings."alpine.ldap.enabled" ''
+          export ALPINE_LDAP_BIND_PASSWORD="$(<"$CREDENTIALS_DIRECTORY/ldap_bind_password")"
+        ''}
+
+        exec ${lib.getExe pkgs.jre_headless} ${
+          lib.escapeShellArgs (
+            cfg.javaArgs
+            ++ [
+              "-DdependencyTrack.logging.level=${cfg.logLevel}"
+              "-jar"
+              "${cfg.package}/share/dependency-track/dependency-track.jar"
+              "-port"
+              "${toString cfg.port}"
+            ]
+          )
+        }
+      '';
+    };
   };
 
   meta = {

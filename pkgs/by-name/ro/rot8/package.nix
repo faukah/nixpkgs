@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rot8";
   version = "1.0.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "screen rotation daemon for X11 and wlroots";
     homepage = "https://github.com/efernau/rot8";
     license = licenses.mit;
-    maintainers = [ maintainers.smona ];
+    maintainers = [maintainers.smona];
     mainProgram = "rot8";
     platforms = platforms.linux;
   };

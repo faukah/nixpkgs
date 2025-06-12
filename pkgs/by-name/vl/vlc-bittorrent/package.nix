@@ -10,11 +10,9 @@
   pkg-config,
   stdenv,
 }:
-
 # VLC does not know where the vlc-bittorrent package is installed.
 # make sure to have something like:
 #   environment.variables.VLC_PLUGIN_PATH = "${pkgs.vlc-bittorrent}";
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vlc-bittorrent";
   version = "2.15";
@@ -51,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/johang/vlc-bittorrent";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.kintrix ];
+    maintainers = [maintainers.kintrix];
   };
 })

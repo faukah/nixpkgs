@@ -8,7 +8,6 @@
   kdoctools,
   wrapQtAppsHook,
   autoPatchelfHook,
-
   akonadi,
   alkimia,
   aqbanking,
@@ -26,15 +25,11 @@
   libical,
   libofx,
   qgpgme,
-
   sqlcipher,
-
   # Needed for running tests:
   xvfb-run,
-
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kmymoney";
   version = "5.1.3";
@@ -100,7 +95,7 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
-  nativeInstallCheckInputs = [ xvfb-run ];
+  nativeInstallCheckInputs = [xvfb-run];
   installCheckPhase = lib.optionalString doInstallCheck ''
     xvfb-run -s '-screen 0 1024x768x24' make test \
       ARGS="-E '(reports-chart-test)'" # Test fails, so exclude it for now.

@@ -7,7 +7,6 @@
   makeWrapper,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "VASSAL";
   version = "3.7.16";
@@ -51,9 +50,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free, open-source boardgame engine";
     homepage = "https://vassalengine.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ tvestelind ];
+    maintainers = with maintainers; [tvestelind];
     platforms = platforms.unix;
     mainProgram = "vassal";
   };

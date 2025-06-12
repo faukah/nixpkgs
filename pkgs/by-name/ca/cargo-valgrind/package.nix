@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-iNsGrbncZwCHXn/xuiI4Mw4F3FFWswEhwpIMI0xcFgU=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postInstall = ''
-    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${lib.makeBinPath [ valgrind ]}
+    wrapProgram $out/bin/cargo-valgrind --prefix PATH : ${lib.makeBinPath [valgrind]}
   '';
 
   checkFlags = [

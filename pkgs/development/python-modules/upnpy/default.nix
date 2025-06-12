@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "upnpy";
   version = "1.1.8";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
 
   # Project has not published tests yet
   doCheck = false;
-  pythonImportsCheck = [ "upnpy" ];
+  pythonImportsCheck = ["upnpy"];
 
   meta = with lib; {
     description = "UPnP client library for Python";
     homepage = "https://github.com/5kyc0d3r/upnpy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

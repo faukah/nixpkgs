@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tinyfecvpn";
   version = "20230206.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   patchPhase = ''
     runHook prePatch
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "VPN Designed for Lossy Links, with Build-in Forward Error Correction(FEC) Support";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "tinyvpn";
   };
 }

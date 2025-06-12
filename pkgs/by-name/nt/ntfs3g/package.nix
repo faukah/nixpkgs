@@ -13,7 +13,6 @@
   libgcrypt,
   gnutls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ntfs3g";
   version = "2022.10.3";
@@ -66,7 +65,11 @@ stdenv.mkDerivation rec {
       "--enable-mount-helper"
       "--enable-posix-acls"
       "--enable-xattr-mappings"
-      "--${if crypto then "enable" else "disable"}-crypto"
+      "--${
+        if crypto
+        then "enable"
+        else "disable"
+      }-crypto"
       "--enable-extras"
       "--with-mount-helper=${mount}/bin/mount"
       "--with-umount-helper=${mount}/bin/umount"
@@ -85,7 +88,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/tuxera/ntfs-3g";
     description = "FUSE-based NTFS driver with full write support";
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = with platforms; darwin ++ linux;
     license = with licenses; [
       gpl2Plus # ntfs-3g itself

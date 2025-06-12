@@ -3,21 +3,18 @@
   config,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     types
     mkDefault
     mkOption
     ;
 
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
   cfg = config.services.zenohd;
-
-in
-{
+in {
   options = {
     services.zenohd = {
       enable = lib.mkEnableOption "Zenoh daemon.";
@@ -36,7 +33,7 @@ in
           See <https://github.com/eclipse-zenoh/zenoh/blob/main/DEFAULT_CONFIG.json5>
           for more information.
         '';
-        default = { };
+        default = {};
         type = types.submodule {
           freeformType = json.type;
         };
@@ -45,7 +42,7 @@ in
       plugins = mkOption {
         description = "Plugin packages to add to zenohd search paths.";
         type = with types; listOf package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [ pkgs.zenoh-plugin-mqtt ]
         '';
@@ -54,7 +51,7 @@ in
       backends = mkOption {
         description = "Storage backend packages to add to zenohd search paths.";
         type = with types; listOf package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [ pkgs.zenoh-backend-rocksdb ]
         '';
@@ -71,38 +68,35 @@ in
           Set environment variables consumed by zenohd and its plugins.
         '';
         type = with types; attrsOf str;
-        default = { };
+        default = {};
       };
 
       extraOptions = mkOption {
         description = "Extra command line options for zenohd.";
         type = with types; listOf str;
-        default = [ ];
+        default = [];
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.zenohd =
-      let
-        cfgFile = json.generate "zenohd.json" cfg.settings;
+    systemd.services.zenohd = let
+      cfgFile = json.generate "zenohd.json" cfg.settings;
+    in {
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
-      in
-      {
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+      environment = cfg.env;
 
-        environment = cfg.env;
-
-        serviceConfig = {
-          Type = "simple";
-          User = "zenohd";
-          Group = "zenohd";
-          ExecStart =
-            "${lib.getExe cfg.package} -c ${cfgFile} " + (lib.concatStringsSep " " cfg.extraOptions);
-        };
+      serviceConfig = {
+        Type = "simple";
+        User = "zenohd";
+        Group = "zenohd";
+        ExecStart =
+          "${lib.getExe cfg.package} -c ${cfgFile} " + (lib.concatStringsSep " " cfg.extraOptions);
       };
+    };
 
     users = {
       users.zenohd = {
@@ -111,7 +105,7 @@ in
         isSystemUser = true;
       };
 
-      groups.zenohd = { };
+      groups.zenohd = {};
     };
 
     services.zenohd = {
@@ -121,7 +115,7 @@ in
         plugins_loading = {
           enabled = mkDefault true;
           search_dirs = mkDefault (
-            (map (x: "${lib.getLib x}/lib") cfg.plugins) ++ [ "${lib.getLib cfg.package}/lib" ]
+            (map (x: "${lib.getLib x}/lib") cfg.plugins) ++ ["${lib.getLib cfg.package}/lib"]
           ); # needed for internal plugins
         };
 
@@ -131,6 +125,6 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [ "d ${cfg.home} 750 zenohd zenohd -" ];
+    systemd.tmpfiles.rules = ["d ${cfg.home} 750 zenohd zenohd -"];
   };
 }

@@ -4,7 +4,6 @@
   version,
   cargoDeps,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "lix-doc";
   sourceRoot = "${src.name or src}/lix-doc";

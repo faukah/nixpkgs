@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pygatt";
   version = "5.0.0";
@@ -29,20 +28,22 @@ buildPythonPackage rec {
       --replace-fail "setup_requires" "test_requires"
   '';
 
-  pythonRemoveDeps = [ "enum-compat" ];
+  pythonRemoveDeps = ["enum-compat"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyserial ];
+  dependencies = [pyserial];
 
-  optional-dependencies.GATTTOOL = [ pexpect ];
+  optional-dependencies.GATTTOOL = [pexpect];
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ optional-dependencies.GATTTOOL;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.GATTTOOL;
 
-  pythonImportsCheck = [ "pygatt" ];
+  pythonImportsCheck = ["pygatt"];
 
   meta = with lib; {
     description = "Python wrapper the BGAPI for accessing Bluetooth LE Devices";
@@ -52,6 +53,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

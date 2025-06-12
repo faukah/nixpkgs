@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   # create and build Cargo workspaces.
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Cargo command to work with Nintendo 3DS project binaries";
@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ l1npengtul ];
+    maintainers = with lib.maintainers; [l1npengtul];
   };
 }

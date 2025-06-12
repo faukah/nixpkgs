@@ -6,7 +6,6 @@
   ncurses,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "progress";
   version = "0.17";
@@ -22,16 +21,16 @@ stdenv.mkDerivation rec {
     pkg-config
     which
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://github.com/Xfennec/progress";
     description = "Tool that shows the progress of coreutils programs";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "progress";
   };
 }

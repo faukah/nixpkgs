@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "reedsolo";
   version = "1.7.0";
@@ -29,7 +26,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     "tests/test_creedsolo.py" # TODO: package creedsolo
@@ -39,6 +36,6 @@ buildPythonPackage rec {
     description = "Pure-python universal errors-and-erasures Reed-Solomon Codec";
     homepage = "https://github.com/tomerfiliba/reedsolomon";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ yorickvp ];
+    maintainers = with maintainers; [yorickvp];
   };
 }

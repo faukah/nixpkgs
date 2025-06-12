@@ -3,20 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
   cfg = config.services.workout-tracker;
   stateDir = "workout-tracker";
-in
-
-{
+in {
   options = {
     services.workout-tracker = {
       enable = lib.mkEnableOption "workout tracking web application for personal use (or family, friends), geared towards running and other GPX-based activities";
 
-      package = lib.mkPackageOption pkgs "workout-tracker" { };
+      package = lib.mkPackageOption pkgs "workout-tracker" {};
 
       address = lib.mkOption {
         type = types.str;
@@ -45,7 +41,7 @@ in
       settings = lib.mkOption {
         type = types.attrsOf types.str;
 
-        default = { };
+        default = {};
         description = ''
           Extra config options.
         '';
@@ -62,12 +58,14 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.workout-tracker = {
       description = "A workout tracking web application for personal use (or family, friends), geared towards running and other GPX-based activities";
-      wantedBy = [ "multi-user.target" ];
-      environment = {
-        WT_BIND = "${cfg.address}:${toString cfg.port}";
-        WT_DATABASE_DRIVER = "sqlite";
-        WT_DSN = "./database.db";
-      } // cfg.settings;
+      wantedBy = ["multi-user.target"];
+      environment =
+        {
+          WT_BIND = "${cfg.address}:${toString cfg.port}";
+          WT_DATABASE_DRIVER = "sqlite";
+          WT_DSN = "./database.db";
+        }
+        // cfg.settings;
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;
         DynamicUser = true;
@@ -79,5 +77,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ bhankas ];
+  meta.maintainers = with lib.maintainers; [bhankas];
 }

@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lil-pwny";
   version = "2.0.0";
@@ -29,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/PaperMtn/lil-pwny";
     changelog = "https://github.com/PaperMtn/lil-pwny/blob/${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

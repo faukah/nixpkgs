@@ -4,7 +4,6 @@
   fetchurl,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "hypershell";
   version = "0.0.15";
@@ -38,7 +37,7 @@ buildNpmPackage rec {
     description = "Spawn shells anywhere. Fully peer-to-peer, authenticated, and end to end encrypted";
     homepage = "https://github.com/holepunchto/hypershell";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ davhau ];
+    maintainers = with lib.maintainers; [davhau];
     mainProgram = "hypershell";
     platforms = lib.platforms.all;
   };

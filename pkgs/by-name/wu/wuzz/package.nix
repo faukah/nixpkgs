@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "wuzz";
   version = "0.5.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/asciimoo/wuzz";
     description = "Interactive cli tool for HTTP inspection";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
     mainProgram = "wuzz";
   };
 }

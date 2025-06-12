@@ -4,7 +4,6 @@
   buildPythonPackage,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "about-time";
   version = "4.2.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "about_time" ];
+  pythonImportsCheck = ["about_time"];
 
   postInstall = ''
     mkdir -p $out/share/doc/python${python.pythonVersion}-$pname-$version/
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Cool helper for tracking time and throughput of code blocks, with beautiful human friendly renditions";
     homepage = "https://github.com/rsalmei/about-time";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

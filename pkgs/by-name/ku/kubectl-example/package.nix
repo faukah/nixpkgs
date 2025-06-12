@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-example";
   version = "1.2.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/seredot/kubectl-example";
     changelog = "https://github.com/seredot/kubectl-example/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bryanasdev000 ];
+    maintainers = [lib.maintainers.bryanasdev000];
   };
 }

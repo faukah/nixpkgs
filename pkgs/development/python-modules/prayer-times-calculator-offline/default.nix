@@ -4,7 +4,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "prayer-times-calculator-offline";
   version = "1.0.3";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-sVEdjtwxwGa354YimeaNqjqZ9yEecNXg8kk6Pafvvd4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "prayer_times_calculator_offline" ];
+  pythonImportsCheck = ["prayer_times_calculator_offline"];
 
   # upstream has no tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Prayer Times Calculator - Offline";
     homepage = "https://github.com/cpfair/prayer-times-calculator-offline";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

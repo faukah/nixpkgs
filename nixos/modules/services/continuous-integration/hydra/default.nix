@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.hydra;
 
   baseDir = "/var/lib/hydra";
@@ -39,22 +37,21 @@ let
       COLUMNS = "80";
       PGPASSFILE = "${baseDir}/pgpass-www"; # grrr
     }
-    // (lib.optionalAttrs cfg.debugServer { DBIC_TRACE = "1"; });
+    // (lib.optionalAttrs cfg.debugServer {DBIC_TRACE = "1";});
 
   localDB = "dbi:Pg:dbname=hydra;user=hydra;";
 
   haveLocalDB = cfg.dbi == localDB;
 
-  hydra-package =
-    let
-      makeWrapperArgs = lib.concatStringsSep " " (
-        lib.mapAttrsToList (key: value: "--set-default \"${key}\" \"${value}\"") hydraEnv
-      );
-    in
+  hydra-package = let
+    makeWrapperArgs = lib.concatStringsSep " " (
+      lib.mapAttrsToList (key: value: "--set-default \"${key}\" \"${value}\"") hydraEnv
+    );
+  in
     pkgs.buildEnv rec {
       name = "hydra-env";
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-      paths = [ cfg.package ];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      paths = [cfg.package];
 
       postBuild = ''
         if [ -L "$out/bin" ]; then
@@ -77,15 +74,10 @@ let
         done
       '';
     };
-
-in
-
-{
+in {
   ###### interface
   options = {
-
     services.hydra = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -108,7 +100,7 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "hydra" { };
+      package = lib.mkPackageOption pkgs "hydra" {};
 
       hydraURL = lib.mkOption {
         type = lib.types.str;
@@ -214,7 +206,7 @@ in
 
       extraEnv = lib.mkOption {
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         description = "Extra environment variables for Hydra.";
       };
 
@@ -226,7 +218,7 @@ in
 
       buildMachinesFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = lib.optional (config.nix.buildMachines != [ ]) "/etc/nix/machines";
+        default = lib.optional (config.nix.buildMachines != []) "/etc/nix/machines";
         defaultText = lib.literalExpression ''lib.optional (config.nix.buildMachines != []) "/etc/nix/machines"'';
         example = [
           "/etc/nix/machines"
@@ -249,7 +241,6 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
@@ -303,10 +294,14 @@ in
         hydra_logo = ${cfg.logo}
       ''}
       gc_roots_dir = ${cfg.gcRootsDir}
-      use-substitutes = ${if cfg.useSubstitutes then "1" else "0"}
+      use-substitutes = ${
+        if cfg.useSubstitutes
+        then "1"
+        else "0"
+      }
     '';
 
-    environment.systemPackages = [ hydra-package ];
+    environment.systemPackages = [hydra-package];
 
     environment.variables = hydraEnv;
 
@@ -314,7 +309,7 @@ in
       {
         keep-outputs = true;
         keep-derivations = true;
-        trusted-users = [ "hydra-queue-runner" ];
+        trusted-users = ["hydra-queue-runner"];
       }
 
       (lib.mkIf (lib.versionOlder (lib.getVersion config.nix.package.out) "2.4pre") {
@@ -333,13 +328,15 @@ in
     };
 
     systemd.services.hydra-init = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requires = lib.optional haveLocalDB "postgresql.service";
       after = lib.optional haveLocalDB "postgresql.service";
-      environment = env // {
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init";
-      };
-      path = [ pkgs.util-linux ];
+      environment =
+        env
+        // {
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-init";
+        };
+      path = [pkgs.util-linux];
       preStart = ''
         mkdir -p ${baseDir}
         chown hydra:hydra ${baseDir}
@@ -396,13 +393,15 @@ in
     };
 
     systemd.services.hydra-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
-      environment = serverEnv // {
-        HYDRA_DBI = "${serverEnv.HYDRA_DBI};application_name=hydra-server";
-      };
-      restartTriggers = [ hydraConf ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
+      environment =
+        serverEnv
+        // {
+          HYDRA_DBI = "${serverEnv.HYDRA_DBI};application_name=hydra-server";
+        };
+      restartTriggers = [hydraConf];
       serviceConfig = {
         ExecStart =
           "@${hydra-package}/bin/hydra-server hydra-server -f -h '${cfg.listenHost}' "
@@ -416,8 +415,8 @@ in
     };
 
     systemd.services.hydra-queue-runner = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
       after = [
         "hydra-init.service"
         "network.target"
@@ -429,12 +428,14 @@ in
         pkgs.bzip2
         config.nix.package
       ];
-      restartTriggers = [ hydraConf ];
-      environment = env // {
-        PGPASSFILE = "${baseDir}/pgpass-queue-runner"; # grrr
-        IN_SYSTEMD = "1"; # to get log severity levels
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-queue-runner";
-      };
+      restartTriggers = [hydraConf];
+      environment =
+        env
+        // {
+          PGPASSFILE = "${baseDir}/pgpass-queue-runner"; # grrr
+          IN_SYSTEMD = "1"; # to get log severity levels
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-queue-runner";
+        };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-queue-runner hydra-queue-runner -v";
         ExecStopPost = "${hydra-package}/bin/hydra-queue-runner --unlock";
@@ -449,9 +450,9 @@ in
     };
 
     systemd.services.hydra-evaluator = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
+      wants = ["network-online.target"];
       after = [
         "hydra-init.service"
         "network.target"
@@ -462,10 +463,12 @@ in
         nettools
         jq
       ];
-      restartTriggers = [ hydraConf ];
-      environment = env // {
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-evaluator";
-      };
+      restartTriggers = [hydraConf];
+      environment =
+        env
+        // {
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-evaluator";
+        };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-evaluator hydra-evaluator";
         User = "hydra";
@@ -476,11 +479,13 @@ in
     };
 
     systemd.services.hydra-update-gc-roots = {
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
-      environment = env // {
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-update-gc-roots";
-      };
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
+      environment =
+        env
+        // {
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-update-gc-roots";
+        };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-update-gc-roots hydra-update-gc-roots";
         User = "hydra";
@@ -490,11 +495,13 @@ in
     };
 
     systemd.services.hydra-send-stats = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "hydra-init.service" ];
-      environment = env // {
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-send-stats";
-      };
+      wantedBy = ["multi-user.target"];
+      after = ["hydra-init.service"];
+      environment =
+        env
+        // {
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-send-stats";
+        };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-send-stats hydra-send-stats";
         User = "hydra";
@@ -503,15 +510,17 @@ in
     };
 
     systemd.services.hydra-notify = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hydra-init.service" ];
-      after = [ "hydra-init.service" ];
-      restartTriggers = [ hydraConf ];
-      path = [ pkgs.zstd ];
-      environment = env // {
-        PGPASSFILE = "${baseDir}/pgpass-queue-runner";
-        HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-notify";
-      };
+      wantedBy = ["multi-user.target"];
+      requires = ["hydra-init.service"];
+      after = ["hydra-init.service"];
+      restartTriggers = [hydraConf];
+      path = [pkgs.zstd];
+      environment =
+        env
+        // {
+          PGPASSFILE = "${baseDir}/pgpass-queue-runner";
+          HYDRA_DBI = "${env.HYDRA_DBI};application_name=hydra-notify";
+        };
       serviceConfig = {
         ExecStart = "@${hydra-package}/bin/hydra-notify hydra-notify";
         # FIXME: run this under a less privileged user?
@@ -573,7 +582,5 @@ in
     services.postgresql.authentication = lib.optionalString haveLocalDB ''
       local all hydra peer map=hydra
     '';
-
   };
-
 }

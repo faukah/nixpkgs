@@ -11,7 +11,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "goldboot";
   version = "0.0.10";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildAndTestSubdir = "goldboot";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     zstd
     OVMF
@@ -41,9 +40,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "goldboot";
@@ -52,6 +51,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/fossable/goldboot/releases/tag/goldboot-v${finalAttrs.version}";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ cilki ];
+    maintainers = with lib.maintainers; [cilki];
   };
 })

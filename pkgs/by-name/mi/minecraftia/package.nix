@@ -3,7 +3,6 @@
   fetchzip,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "minecraftia";
   version = "1.0";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation {
     description = "Cool Minecraft font";
     license = licenses.cc-by-sa-30;
     platforms = platforms.all;
-    maintainers = with lib.maintainers; [ gepbird ];
+    maintainers = with lib.maintainers; [gepbird];
   };
 }

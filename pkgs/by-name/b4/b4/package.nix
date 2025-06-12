@@ -4,7 +4,6 @@
   fetchPypi,
   patatt,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "b4";
   version = "0.14.2";

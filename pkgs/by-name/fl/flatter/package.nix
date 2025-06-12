@@ -11,7 +11,6 @@
   eigen,
   llvmPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "flatter";
   version = "0-unstable-2025-03-28";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
       llvmPackages.openmp
     ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "(F)ast (lat)tice (r)eduction of integer lattice bases";
@@ -49,6 +48,6 @@ stdenv.mkDerivation {
     license = licenses.lgpl3Only;
     mainProgram = "flatter";
     platforms = platforms.all;
-    maintainers = with maintainers; [ josephsurin ];
+    maintainers = with maintainers; [josephsurin];
   };
 }

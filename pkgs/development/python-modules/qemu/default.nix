@@ -11,7 +11,6 @@
   urwid-readline,
   pygments,
 }:
-
 buildPythonPackage {
   pname = "qemu";
   version = "0.6.1.0a1";
@@ -34,11 +33,11 @@ buildPythonPackage {
     fi
   '';
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   propagatedBuildInputs =
-    [ ]
-    ++ lib.optionals fuseSupport [ fusepy ]
+    []
+    ++ lib.optionals fuseSupport [fusepy]
     ++ lib.optionals tuiSupport [
       urwid
       urwid-readline
@@ -52,7 +51,7 @@ buildPythonPackage {
     done
   '';
 
-  pythonImportsCheck = [ "qemu" ];
+  pythonImportsCheck = ["qemu"];
 
   preFixup =
     (lib.optionalString (!tuiSupport) ''

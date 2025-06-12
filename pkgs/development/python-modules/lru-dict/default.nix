@@ -5,34 +5,32 @@
   pytestCheckHook,
   pythonOlder,
   setuptools,
-}:
-
-let
+}: let
   pname = "lru-dict";
   version = "1.3.0";
 in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
-
-  disabled = pythonOlder "3.8";
-
-  src = fetchPypi {
+  buildPythonPackage {
     inherit pname version;
-    hash = "sha256-VP0ZZta9H83ngVlsuGBoIU7e6/8dsTos6hEHnj/Qe2s=";
-  };
+    pyproject = true;
 
-  nativeBuildInputs = [ setuptools ];
+    disabled = pythonOlder "3.8";
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-VP0ZZta9H83ngVlsuGBoIU7e6/8dsTos6hEHnj/Qe2s=";
+    };
 
-  pythonImportsCheck = [ "lru" ];
+    nativeBuildInputs = [setuptools];
 
-  meta = with lib; {
-    description = "Fast and memory efficient LRU cache for Python";
-    homepage = "https://github.com/amitdev/lru-dict";
-    changelog = "https://github.com/amitdev/lru-dict/releases/tag/v${version}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
-  };
-}
+    nativeCheckInputs = [pytestCheckHook];
+
+    pythonImportsCheck = ["lru"];
+
+    meta = with lib; {
+      description = "Fast and memory efficient LRU cache for Python";
+      homepage = "https://github.com/amitdev/lru-dict";
+      changelog = "https://github.com/amitdev/lru-dict/releases/tag/v${version}";
+      license = licenses.mit;
+      maintainers = with maintainers; [hexa];
+    };
+  }

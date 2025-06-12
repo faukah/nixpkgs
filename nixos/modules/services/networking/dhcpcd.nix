@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   dhcpcd =
-    if !config.boot.isContainer then
-      pkgs.dhcpcd
+    if !config.boot.isContainer
+    then pkgs.dhcpcd
     else
       pkgs.dhcpcd.override {
         withUdev = false;
@@ -28,7 +26,11 @@ let
   # interfaces that are part of a bridge, bond or sit device.
   ignoredInterfaces =
     map (i: i.name) (
-      lib.filter (i: if i.useDHCP != null then !i.useDHCP else i.ipv4.addresses != [ ]) interfaces
+      lib.filter (i:
+        if i.useDHCP != null
+        then !i.useDHCP
+        else i.ipv4.addresses != [])
+      interfaces
     )
     ++ lib.mapAttrsToList (i: _: i) config.networking.sits
     ++ lib.concatLists (lib.attrValues (lib.mapAttrs (n: v: v.interfaces) config.networking.bridges))
@@ -40,33 +42,31 @@ let
     ++ lib.concatLists (lib.attrValues (lib.mapAttrs (n: v: v.interfaces) config.networking.bonds))
     ++ config.networking.dhcpcd.denyInterfaces;
 
-  arrayAppendOrNull =
-    a1: a2:
-    if a1 == null && a2 == null then
-      null
-    else if a1 == null then
-      a2
-    else if a2 == null then
-      a1
-    else
-      a1 ++ a2;
+  arrayAppendOrNull = a1: a2:
+    if a1 == null && a2 == null
+    then null
+    else if a1 == null
+    then a2
+    else if a2 == null
+    then a1
+    else a1 ++ a2;
 
   # If dhcp is disabled but explicit interfaces are enabled,
   # we need to provide dhcp just for those interfaces.
   allowInterfaces = arrayAppendOrNull cfg.allowInterfaces (
-    if !config.networking.useDHCP && enableDHCP then
-      map (i: i.name) (lib.filter (i: i.useDHCP == true) interfaces)
-    else
-      null
+    if !config.networking.useDHCP && enableDHCP
+    then map (i: i.name) (lib.filter (i: i.useDHCP == true) interfaces)
+    else null
   );
 
-  staticIPv6Addresses = map (i: i.name) (lib.filter (i: i.ipv6.addresses != [ ]) interfaces);
+  staticIPv6Addresses = map (i: i.name) (lib.filter (i: i.ipv6.addresses != []) interfaces);
 
   noIPv6rs = lib.concatStringsSep "\n" (
     map (name: ''
       interface ${name}
       noipv6rs
-    '') staticIPv6Addresses
+    '')
+    staticIPv6Addresses
   );
 
   # Config file adapted from the one that ships with dhcpcd.
@@ -104,7 +104,9 @@ let
         both = "waitip 4\nwaitip 6";
         if-carrier-up = "";
       }
-      .${cfg.wait}
+      .${
+        cfg.wait
+      }
     }
 
     ${lib.optionalString (config.networking.enableIPv6 == false) ''
@@ -113,8 +115,9 @@ let
     ''}
 
     ${lib.optionalString (
-      config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ]
-    ) noIPv6rs}
+        config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != []
+      )
+      noIPv6rs}
     ${lib.optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
     ''}
@@ -122,15 +125,10 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     networking.dhcpcd.enable = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -170,7 +168,7 @@ in
 
     networking.dhcpcd.denyInterfaces = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Disable the DHCP client for any interface whose name matches
         any of the shell glob patterns in this list. The purpose of
@@ -261,136 +259,132 @@ in
         is plugged or WiFi is powered, and to "background" otherwise.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf enableDHCP {
+    systemd.services.dhcpcd = let
+      cfgN = config.networking;
+      hasDefaultGatewaySet =
+        (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
+        && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""));
+    in {
+      description = "DHCP Client";
 
-    systemd.services.dhcpcd =
-      let
-        cfgN = config.networking;
-        hasDefaultGatewaySet =
-          (cfgN.defaultGateway != null && cfgN.defaultGateway.address != "")
-          && (!cfgN.enableIPv6 || (cfgN.defaultGateway6 != null && cfgN.defaultGateway6.address != ""));
-      in
-      {
-        description = "DHCP Client";
+      documentation = ["man:dhcpcd(8)"];
 
-        documentation = [ "man:dhcpcd(8)" ];
+      wantedBy = ["multi-user.target"] ++ lib.optional (!hasDefaultGatewaySet) "network-online.target";
+      wants = [
+        "network.target"
+        "resolvconf.service"
+      ];
+      after = ["resolvconf.service"];
+      before = ["network-online.target"];
 
-        wantedBy = [ "multi-user.target" ] ++ lib.optional (!hasDefaultGatewaySet) "network-online.target";
-        wants = [
-          "network.target"
-          "resolvconf.service"
+      restartTriggers = [cfg.runHook];
+
+      # Stopping dhcpcd during a reconfiguration is undesirable
+      # because it brings down the network interfaces configured by
+      # dhcpcd.  So do a "systemctl restart" instead.
+      stopIfChanged = false;
+
+      path =
+        [
+          dhcpcd
+          config.networking.resolvconf.package
+        ]
+        ++ lib.optional cfg.setHostname (
+          pkgs.writeShellScriptBin "hostname" ''
+            ${lib.getExe' pkgs.systemd "hostnamectl"} set-hostname --transient $1
+          ''
+        );
+
+      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
+
+      serviceConfig = {
+        Type = "forking";
+        PIDFile = "/run/dhcpcd/pid";
+        SupplementaryGroups = lib.optional useResolvConf "resolvconf";
+        User = "dhcpcd";
+        Group = "dhcpcd";
+        StateDirectory = "dhcpcd";
+        RuntimeDirectory = "dhcpcd";
+
+        ExecStartPre = "+${pkgs.writeShellScript "migrate-dhcpcd" ''
+          # migrate from old database directory
+          if test -f /var/db/dhcpcd/duid; then
+            echo 'migrating DHCP leases from /var/db/dhcpcd to /var/lib/dhcpcd ...'
+            mv /var/db/dhcpcd/* -t /var/lib/dhcpcd
+            chown dhcpcd:dhcpcd /var/lib/dhcpcd/*
+            rmdir /var/db/dhcpcd || true
+            echo done
+          fi
+        ''}";
+
+        ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${lib.optionalString cfg.persistent "--persistent"} --config ${dhcpcdConf}";
+        ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
+        Restart = "always";
+        AmbientCapabilities = [
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+          "CAP_NET_BIND_SERVICE"
         ];
-        after = [ "resolvconf.service" ];
-        before = [ "network-online.target" ];
-
-        restartTriggers = [ cfg.runHook ];
-
-        # Stopping dhcpcd during a reconfiguration is undesirable
-        # because it brings down the network interfaces configured by
-        # dhcpcd.  So do a "systemctl restart" instead.
-        stopIfChanged = false;
-
-        path =
-          [
-            dhcpcd
-            config.networking.resolvconf.package
-          ]
-          ++ lib.optional cfg.setHostname (
-            pkgs.writeShellScriptBin "hostname" ''
-              ${lib.getExe' pkgs.systemd "hostnamectl"} set-hostname --transient $1
-            ''
+        CapabilityBoundingSet = lib.optionals (!cfg.allowSetuid) [
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+          "CAP_NET_BIND_SERVICE"
+        ];
+        ReadWritePaths =
+          ["/proc/sys/net/ipv4"]
+          ++ lib.optional cfgN.enableIPv6 "/proc/sys/net/ipv6"
+          ++ lib.optionals useResolvConf (
+            ["/run/resolvconf"] ++ config.networking.resolvconf.subscriberFiles
           );
-
-        unitConfig.ConditionCapability = "CAP_NET_ADMIN";
-
-        serviceConfig = {
-          Type = "forking";
-          PIDFile = "/run/dhcpcd/pid";
-          SupplementaryGroups = lib.optional useResolvConf "resolvconf";
-          User = "dhcpcd";
-          Group = "dhcpcd";
-          StateDirectory = "dhcpcd";
-          RuntimeDirectory = "dhcpcd";
-
-          ExecStartPre = "+${pkgs.writeShellScript "migrate-dhcpcd" ''
-            # migrate from old database directory
-            if test -f /var/db/dhcpcd/duid; then
-              echo 'migrating DHCP leases from /var/db/dhcpcd to /var/lib/dhcpcd ...'
-              mv /var/db/dhcpcd/* -t /var/lib/dhcpcd
-              chown dhcpcd:dhcpcd /var/lib/dhcpcd/*
-              rmdir /var/db/dhcpcd || true
-              echo done
-            fi
-          ''}";
-
-          ExecStart = "@${dhcpcd}/sbin/dhcpcd dhcpcd --quiet ${lib.optionalString cfg.persistent "--persistent"} --config ${dhcpcdConf}";
-          ExecReload = "${dhcpcd}/sbin/dhcpcd --rebind";
-          Restart = "always";
-          AmbientCapabilities = [
-            "CAP_NET_ADMIN"
-            "CAP_NET_RAW"
-            "CAP_NET_BIND_SERVICE"
+        DeviceAllow = "";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = lib.mkDefault (!cfg.allowSetuid); # may be disabled for sudo in runHook
+        PrivateDevices = true;
+        PrivateMounts = true;
+        PrivateTmp = true;
+        PrivateUsers = false;
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = "tmpfs"; # allow exceptions to be added to ReadOnlyPaths, etc.
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "strict";
+        RemoveIPC = true;
+        RestrictAddressFamilies = [
+          "AF_UNIX"
+          "AF_INET"
+          "AF_INET6"
+          "AF_NETLINK"
+          "AF_PACKET"
+        ];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallFilter =
+          [
+            "@system-service"
+            "~@aio"
+            "~@keyring"
+            "~@memlock"
+            "~@mount"
+          ]
+          ++ lib.optionals (!cfg.allowSetuid) [
+            "~@privileged"
+            "~@resources"
           ];
-          CapabilityBoundingSet = lib.optionals (!cfg.allowSetuid) [
-            "CAP_NET_ADMIN"
-            "CAP_NET_RAW"
-            "CAP_NET_BIND_SERVICE"
-          ];
-          ReadWritePaths =
-            [ "/proc/sys/net/ipv4" ]
-            ++ lib.optional cfgN.enableIPv6 "/proc/sys/net/ipv6"
-            ++ lib.optionals useResolvConf (
-              [ "/run/resolvconf" ] ++ config.networking.resolvconf.subscriberFiles
-            );
-          DeviceAllow = "";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = lib.mkDefault (!cfg.allowSetuid); # may be disabled for sudo in runHook
-          PrivateDevices = true;
-          PrivateMounts = true;
-          PrivateTmp = true;
-          PrivateUsers = false;
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = "tmpfs"; # allow exceptions to be added to ReadOnlyPaths, etc.
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
-          ProtectSystem = "strict";
-          RemoveIPC = true;
-          RestrictAddressFamilies = [
-            "AF_UNIX"
-            "AF_INET"
-            "AF_INET6"
-            "AF_NETLINK"
-            "AF_PACKET"
-          ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallFilter =
-            [
-              "@system-service"
-              "~@aio"
-              "~@keyring"
-              "~@memlock"
-              "~@mount"
-            ]
-            ++ lib.optionals (!cfg.allowSetuid) [
-              "~@privileged"
-              "~@resources"
-            ];
-          SystemCallArchitectures = "native";
-          UMask = "0027";
-        };
+        SystemCallArchitectures = "native";
+        UMask = "0027";
       };
+    };
 
     # Note: the service could run with `DynamicUser`, however that makes
     # impossible (for no good reason, see systemd issue #20495) to disable
@@ -400,9 +394,9 @@ in
       isSystemUser = true;
       group = "dhcpcd";
     };
-    users.groups.dhcpcd = { };
+    users.groups.dhcpcd = {};
 
-    environment.systemPackages = [ dhcpcd ];
+    environment.systemPackages = [dhcpcd];
 
     environment.etc."dhcpcd.exit-hook".text = cfg.runHook;
 
@@ -432,7 +426,5 @@ in
         });
       '')
     ];
-
   };
-
 }

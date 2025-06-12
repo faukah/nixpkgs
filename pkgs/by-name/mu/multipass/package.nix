@@ -5,9 +5,7 @@
   nixosTests,
   stdenv,
   symlinkJoin,
-}:
-
-let
+}: let
   name = "multipass";
   version = "1.15.1";
 
@@ -22,8 +20,8 @@ let
   commonMeta = {
     homepage = "https://multipass.run";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ jnsgruk ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [jnsgruk];
+    platforms = ["x86_64-linux"];
   };
 
   multipassd = callPackage ./multipassd.nix {
@@ -39,23 +37,25 @@ let
       ;
   };
 in
-symlinkJoin {
-  inherit version;
-  pname = name;
+  symlinkJoin {
+    inherit version;
+    pname = name;
 
-  paths = [
-    multipassd
-    multipass-gui
-  ];
+    paths = [
+      multipassd
+      multipass-gui
+    ];
 
-  passthru = {
-    tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
-      inherit (nixosTests) multipass;
+    passthru = {
+      tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
+        inherit (nixosTests) multipass;
+      };
+      updateScript = ./update.sh;
     };
-    updateScript = ./update.sh;
-  };
 
-  meta = commonMeta // {
-    description = "Ubuntu VMs on demand for any workstation";
-  };
-}
+    meta =
+      commonMeta
+      // {
+        description = "Ubuntu VMs on demand for any workstation";
+      };
+  }

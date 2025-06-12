@@ -13,7 +13,6 @@
   nix-update-script,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nagios";
   version = "4.5.9";
@@ -25,8 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-aOHdMZJCrGeJ3XA3+ed3JUb7X1FdfdGiT2ytzBDAT4c=";
   };
 
-  patches = [ ./nagios.patch ];
-  nativeBuildInputs = [ unzip ];
+  patches = [./nagios.patch];
+  nativeBuildInputs = [unzip];
 
   buildInputs = [
     php
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--with-ssl-lib=${lib.getLib openssl}/lib"
   ];
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   # Do not create /var directories
   preInstall = ''

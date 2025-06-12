@@ -7,18 +7,19 @@
   libutil,
   libelf,
   csu,
-  extraSrc ? [ ],
+  extraSrc ? [],
 }:
-
 mkDerivation {
   path = "lib/libprocstat";
-  extraPaths = [
-    "lib/libc/Versions.def"
-    "sys/contrib/openzfs"
-    "sys/contrib/pcg-c"
-    "sys/opencrypto"
-    "sys/crypto"
-  ] ++ extraSrc;
+  extraPaths =
+    [
+      "lib/libc/Versions.def"
+      "sys/contrib/openzfs"
+      "sys/contrib/pcg-c"
+      "sys/opencrypto"
+      "sys/crypto"
+    ]
+    ++ extraSrc;
 
   outputs = [
     "out"

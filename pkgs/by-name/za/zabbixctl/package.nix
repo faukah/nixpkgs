@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "zabbixctl";
   version = "unstable-2021-05-25";
@@ -26,7 +25,7 @@ buildGoModule {
     description = "Most effective way for operating in Zabbix Server";
     homepage = "https://github.com/kovetskiy/zabbixctl";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
     mainProgram = "zabbixctl";
   };
 }

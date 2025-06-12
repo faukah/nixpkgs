@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "isolyzer";
   version = "1.4.0";
@@ -24,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/KBNLresearch/isolyzer";
     description = "Verify size of ISO 9660 image against Volume Descriptor fields";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "isolyzer";
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "versitygw";
   version = "1.0.14";
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/versity/versitygw";
     changelog = "https://github.com/versity/versitygw/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "versitygw";
   };
 }

@@ -15,7 +15,6 @@
   pytestCheckHook,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "botorch";
   version = "0.14.0";
@@ -73,16 +72,16 @@ buildPythonPackage rec {
       "test_model_list_gpytorch_model"
     ];
 
-  pythonImportsCheck = [ "botorch" ];
+  pythonImportsCheck = ["botorch"];
 
   # needs lots of undisturbed CPU time or prone to getting stuck
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = {
     changelog = "https://github.com/pytorch/botorch/blob/${src.tag}/CHANGELOG.md";
     description = "Bayesian Optimization in PyTorch";
     homepage = "https://botorch.org";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

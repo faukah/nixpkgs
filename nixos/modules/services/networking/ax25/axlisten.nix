@@ -3,30 +3,28 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     types
     ;
 
-  inherit (lib.modules)
+  inherit
+    (lib.modules)
     mkIf
     ;
 
-  inherit (lib.options)
+  inherit
+    (lib.options)
     mkEnableOption
     mkOption
     literalExpression
     ;
 
   cfg = config.services.ax25.axlisten;
-in
-{
+in {
   options = {
-
     services.ax25.axlisten = {
-
       enable = mkEnableOption "AX.25 axlisten daemon";
 
       package = mkOption {
@@ -47,12 +45,11 @@ in
   };
 
   config = mkIf cfg.enable {
-
     systemd.services.axlisten = {
       description = "AX.25 traffic monitor";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "ax25-axports.target" ];
-      requires = [ "ax25-axports.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["ax25-axports.target"];
+      requires = ["ax25-axports.target"];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${cfg.package}/bin/axlisten ${cfg.config}";

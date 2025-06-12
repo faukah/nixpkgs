@@ -8,7 +8,6 @@
   xorg,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "pybullet";
   version = "3.2.7";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-BCh5240QGsdZDe5HX8at7VCLhf4Sc/27/eHYi9IA4U8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   buildInputs = [
     libGLU
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     xorg.libX11
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # Fix GCC 14 build.
   # from incompatible pointer type [-Wincompatible-pointer-types
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/bulletphysics/bullet3";
     homepage = "https://pybullet.org/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
     platforms = platforms.linux;
   };
 }

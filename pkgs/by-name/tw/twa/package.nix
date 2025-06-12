@@ -11,7 +11,6 @@
   ncurses,
   netcat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "twa";
   version = "1.11.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     bash
@@ -46,15 +45,15 @@ stdenv.mkDerivation rec {
 
     wrapProgram "$out/bin/twa" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          curl
-          dnsutils
-          gawk
-          jq
-          ncurses
-          netcat
-        ]
-      }
+      lib.makeBinPath [
+        curl
+        dnsutils
+        gawk
+        jq
+        ncurses
+        netcat
+      ]
+    }
 
     runHook postInstall
   '';
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Tiny web auditor with strong opinions";
     homepage = "https://github.com/trailofbits/twa";
     license = licenses.mit;
-    maintainers = with maintainers; [ avaq ];
+    maintainers = with maintainers; [avaq];
     platforms = platforms.unix;
   };
 }

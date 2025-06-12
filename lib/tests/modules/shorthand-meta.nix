@@ -1,17 +1,14 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) types mkOption;
-in
-{
+in {
   imports = [
     (
-      { config, ... }:
-      {
+      {config, ...}: {
         options = {
           meta.foo = mkOption {
             type = types.listOf types.str;
           };
-          result = mkOption { default = lib.concatStringsSep " " config.meta.foo; };
+          result = mkOption {default = lib.concatStringsSep " " config.meta.foo;};
         };
       }
     )

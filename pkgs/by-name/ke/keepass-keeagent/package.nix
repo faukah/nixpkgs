@@ -4,9 +4,7 @@
   buildEnv,
   fetchzip,
   mono,
-}:
-
-let
+}: let
   version = "0.12.0";
   drv = stdenv.mkDerivation {
     pname = "keeagent";
@@ -23,7 +21,7 @@ let
       homepage = "http://lechnology.com/software/keeagent";
       platforms = with lib.platforms; linux;
       license = lib.licenses.gpl2;
-      maintainers = [ ];
+      maintainers = [];
     };
 
     pluginFilename = "KeeAgent.plgx";
@@ -34,11 +32,11 @@ let
     '';
   };
 in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+  # Mono is required to compile plugin at runtime, after loading.
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

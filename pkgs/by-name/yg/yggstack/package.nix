@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "yggstack";
   version = "1.0.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Yggdrasil as SOCKS proxy / port forwarder";

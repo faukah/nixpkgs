@@ -5,7 +5,6 @@
   cmake,
   libansilove,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ansilove";
   version = "4.2.1";
@@ -21,14 +20,14 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ libansilove ];
+  buildInputs = [libansilove];
 
   meta = {
     description = "ANSI and ASCII art to PNG converter in C";
     homepage = "https://github.com/ansilove/ansilove";
     changelog = "https://github.com/ansilove/ansilove/blob/${src.rev}/ChangeLog";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ jethair ];
+    maintainers = with lib.maintainers; [jethair];
     mainProgram = "ansilove";
     platforms = lib.platforms.unix;
   };

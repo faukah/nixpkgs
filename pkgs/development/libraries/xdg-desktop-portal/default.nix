@@ -31,7 +31,6 @@
   enableGeoLocation ? true,
   enableSystemd ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal";
   version = "1.20.3";
@@ -124,7 +123,7 @@ stdenv.mkDerivation (finalAttrs: {
     umockdev
   ];
 
-  checkInputs = [ umockdev ];
+  checkInputs = [umockdev];
 
   mesonFlags =
     [
@@ -179,7 +178,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       installedTests = nixosTests.installed-tests.xdg-desktop-portal;
 
-      validate-icon = runCommand "test-icon-validation" { } ''
+      validate-icon = runCommand "test-icon-validation" {} ''
         ${finalAttrs.finalPackage}/libexec/xdg-desktop-portal-validate-icon --ruleset=desktop --sandbox --path=${../../../applications/audio/zynaddsubfx/ZynLogo.svg} > "$out"
         grep format=svg "$out"
       '';
@@ -190,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Desktop integration portals for sandboxed apps";
     homepage = "https://flatpak.github.io/xdg-desktop-portal";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     platforms = lib.platforms.linux;
   };
 })

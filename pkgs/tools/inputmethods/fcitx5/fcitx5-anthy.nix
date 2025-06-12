@@ -10,7 +10,6 @@
   gettext,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcitx5-anthy";
   version = "5.1.6";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Anthy Wrapper for Fcitx5";
     homepage = "https://github.com/fcitx/fcitx5-anthy";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ elnudev ];
+    maintainers = with maintainers; [elnudev];
     platforms = platforms.linux;
   };
 }

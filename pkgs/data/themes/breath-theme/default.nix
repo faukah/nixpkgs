@@ -8,7 +8,6 @@
   plasma-workspace,
   qtbase,
 }:
-
 stdenv.mkDerivation {
   pname = "breath-theme";
   version = "unstable-2022-12-22";
@@ -42,7 +41,7 @@ stdenv.mkDerivation {
     description = "Manjaro KDE default theme";
     homepage = "https://gitlab.manjaro.org/artwork/themes/breath";
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
     platforms = platforms.linux;
   };
 }

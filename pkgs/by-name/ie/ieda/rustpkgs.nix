@@ -1,8 +1,9 @@
-{ rustPlatform, rootSrc }:
-let
+{
+  rustPlatform,
+  rootSrc,
+}: let
   mkRustpkgs = _: p: rustPlatform.buildRustPackage p;
-in
-(builtins.mapAttrs mkRustpkgs {
+in (builtins.mapAttrs mkRustpkgs {
   iir-rust = rec {
     pname = "iir-rust";
     version = "0.1.3";
@@ -13,7 +14,7 @@ in
 
     doCheck = false;
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
   liberty-parser = rec {
     pname = "liberty-parser";
@@ -25,7 +26,7 @@ in
 
     doCheck = false;
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
   sdf_parse = rec {
     pname = "sdf_parse";
@@ -35,7 +36,7 @@ in
     useFetchCargoVendor = true;
     cargoHash = "sha256-PORA/9DDIax4lOn/pzmi7Y8mCCBUphMTzbBsb64sDl0=";
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
   spef-parser = rec {
     pname = "spef-parser";
@@ -45,7 +46,7 @@ in
     useFetchCargoVendor = true;
     cargoHash = "sha256-Qr/oXTqn2gaxyAyLsRjaXNniNzIYVzPGefXTdkULmYk=";
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
   vcd_parser = rec {
     pname = "vcd_parser";
@@ -57,7 +58,7 @@ in
 
     doCheck = false;
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
   verilog-parser = rec {
     pname = "verilog-parser";
@@ -69,6 +70,6 @@ in
 
     doCheck = false;
 
-    nativeBuildInputs = [ rustPlatform.bindgenHook ];
+    nativeBuildInputs = [rustPlatform.bindgenHook];
   };
 })

@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.xfconf;
-
-in
-{
+in {
   meta = {
     maintainers = lib.teams.xfce.members;
   };

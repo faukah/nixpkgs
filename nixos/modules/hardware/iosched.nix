@@ -3,37 +3,36 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatLines
     concatStringsSep
     mapAttrsToList
     optional
     optionals
-
     mkIf
     mkOption
     types
     ;
 
   cfg = config.hardware.block;
-  escape = lib.strings.escape [ ''"'' ];
+  escape = lib.strings.escape [''"''];
 
-  udevValue = types.addCheck types.nonEmptyStr (x: builtins.match "[^\n\r]*" x != null) // {
-    name = "udevValue";
-    description = "udev rule value";
-    descriptionClass = "noun";
-  };
+  udevValue =
+    types.addCheck types.nonEmptyStr (x: builtins.match "[^\n\r]*" x != null)
+    // {
+      name = "udevValue";
+      description = "udev rule value";
+      descriptionClass = "noun";
+    };
 
-  udevRule =
-    {
-      rotational ? null,
-      include ? null,
-      exclude ? null,
-      scheduler,
-    }:
+  udevRule = {
+    rotational ? null,
+    include ? null,
+    exclude ? null,
+    scheduler,
+  }:
     concatStringsSep ", " (
       [
         ''SUBSYSTEM=="block"''
@@ -41,7 +40,11 @@ let
         ''TEST=="queue/scheduler"''
       ]
       ++ optionals (rotational != null) [
-        ''ATTR{queue/rotational}=="${if rotational then "1" else "0"}"''
+        ''ATTR{queue/rotational}=="${
+            if rotational
+            then "1"
+            else "0"
+          }"''
       ]
       ++ optionals (include != null) [
         ''KERNEL=="${escape include}"''
@@ -53,8 +56,7 @@ let
         ''ATTR{queue/scheduler}="${escape scheduler}"''
       ]
     );
-in
-{
+in {
   options.hardware.block = {
     defaultScheduler = mkOption {
       type = types.nullOr udevValue;
@@ -101,7 +103,7 @@ in
 
     scheduler = mkOption {
       type = types.attrsOf udevValue;
-      default = { };
+      default = {};
       description = ''
         Assign block I/O scheduler by device name pattern.
 
@@ -160,30 +162,31 @@ in
 
   config =
     mkIf
-      (cfg.defaultScheduler != null || cfg.defaultSchedulerRotational != null || cfg.scheduler != { })
-      {
-        services.udev.packages = [
-          (pkgs.writeTextDir "etc/udev/rules.d/98-block-io-scheduler.rules" (
-            concatLines (
-              optional (cfg.defaultScheduler != null) (udevRule {
-                exclude = cfg.defaultSchedulerExclude;
-                scheduler = cfg.defaultScheduler;
-              })
-              ++ optional (cfg.defaultSchedulerRotational != null) (udevRule {
-                rotational = true;
-                exclude = cfg.defaultSchedulerExclude;
-                scheduler = cfg.defaultSchedulerRotational;
-              })
-              ++ mapAttrsToList (
-                include: scheduler:
+    (cfg.defaultScheduler != null || cfg.defaultSchedulerRotational != null || cfg.scheduler != {})
+    {
+      services.udev.packages = [
+        (pkgs.writeTextDir "etc/udev/rules.d/98-block-io-scheduler.rules" (
+          concatLines (
+            optional (cfg.defaultScheduler != null) (udevRule {
+              exclude = cfg.defaultSchedulerExclude;
+              scheduler = cfg.defaultScheduler;
+            })
+            ++ optional (cfg.defaultSchedulerRotational != null) (udevRule {
+              rotational = true;
+              exclude = cfg.defaultSchedulerExclude;
+              scheduler = cfg.defaultSchedulerRotational;
+            })
+            ++ mapAttrsToList (
+              include: scheduler:
                 udevRule {
                   inherit include scheduler;
                 }
-              ) cfg.scheduler
             )
-          ))
-        ];
-      };
+            cfg.scheduler
+          )
+        ))
+      ];
+    };
 
-  meta.maintainers = with lib.maintainers; [ mvs ];
+  meta.maintainers = with lib.maintainers; [mvs];
 }

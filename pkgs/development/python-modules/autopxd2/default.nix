@@ -8,7 +8,6 @@
   pytestCheckHook,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "python-autopxd2";
   version = "2.5.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   meta = {
     homepage = "https://github.com/elijahr/python-autopxd2";
     mainProgram = "autopxd";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.mit;
     description = "Generates .pxd files automatically from .h files";
   };

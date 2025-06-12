@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   gdown,
   keras,
@@ -14,11 +12,9 @@
   pillow,
   tensorflow,
   tf-keras,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "retinaface";
   version = "0.0.17";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     "tests/test_expand_face_area.py"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gdown
@@ -50,15 +46,15 @@ buildPythonPackage rec {
     tf-keras
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "retinaface" ];
+  pythonImportsCheck = ["retinaface"];
 
   meta = {
     description = "Deep Face Detection Library for Python";
     homepage = "https://github.com/serengil/retinaface";
     changelog = "https://github.com/serengil/retinaface/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

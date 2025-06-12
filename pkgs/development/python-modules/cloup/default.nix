@@ -8,7 +8,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "cloup";
   version = "3.0.7";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-yFLgoFQapDPGqzGpuLUD9j2Ygekd2vA4TWknll8rQhw=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ click ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  propagatedBuildInputs = [click] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cloup" ];
+  pythonImportsCheck = ["cloup"];
 
   meta = with lib; {
     homepage = "https://github.com/janLuke/cloup";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
       Enriches Click with option groups, constraints, command aliases, help sections for subcommands, themes for --help and other stuff.
     '';
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

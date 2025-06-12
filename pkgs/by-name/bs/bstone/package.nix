@@ -5,7 +5,6 @@
   cmake,
   sdl2-compat,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bstone";
   version = "1.2.16";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus # Original game source code
       mit # BStone
     ];
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
     mainProgram = "bstone";
     platforms = lib.platforms.linux; # TODO: macOS / Darwin support
   };

@@ -6,7 +6,6 @@
   fetchpatch,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bwm-ng";
   version = "0.6.3";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.gropp.org/?id=projects&sub=bwm-ng";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     longDescription = ''
       bwm-ng supports:
        - /proc/net/dev, netstat, getifaddr, sysctl, kstat, /proc/diskstats /proc/partitions, IOKit,

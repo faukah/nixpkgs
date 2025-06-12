@@ -6,7 +6,6 @@
   testers,
   crossplane-cli,
 }:
-
 buildGoModule rec {
   pname = "crossplane-cli";
   version = "1.20.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X github.com/crossplane/crossplane/internal/version.version=v${version}"
   ];
 
-  subPackages = [ "cmd/crank" ];
+  subPackages = ["cmd/crank"];
 
   postInstall = ''
     mv $out/bin/crank $out/bin/crossplane
@@ -38,7 +37,7 @@ buildGoModule rec {
     version = "v${version}";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://www.crossplane.io/";
@@ -46,6 +45,6 @@ buildGoModule rec {
     description = "Utility to make using Crossplane easier";
     mainProgram = "crossplane";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ selfuryon ];
+    maintainers = with lib.maintainers; [selfuryon];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rdap";
   version = "0.9.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://www.openrdap.org/";
     description = "Command line client for the Registration Data Access Protocol (RDAP)";
     license = licenses.mit;
-    maintainers = with maintainers; [ sebastianblunt ];
+    maintainers = with maintainers; [sebastianblunt];
     mainProgram = "rdap";
   };
 }

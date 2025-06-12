@@ -11,7 +11,6 @@
   libsamplerate,
   libsndfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klick";
   version = "0.14.2";

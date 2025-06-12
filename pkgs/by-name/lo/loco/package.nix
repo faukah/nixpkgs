@@ -17,10 +17,10 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-EsNFdk7bLRzyfncDRxqS0CQGdtPFdRRSlpTTxbQ8csI=";
 
   #Skip trycmd integration tests
-  checkFlags = [ "--skip=cli_tests" ];
+  checkFlags = ["--skip=cli_tests"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://loco.rs";
     changelog = "https://github.com/loco-rs/loco/blob/master/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sebrut ];
+    maintainers = with lib.maintainers; [sebrut];
     mainProgram = "loco";
   };
 }

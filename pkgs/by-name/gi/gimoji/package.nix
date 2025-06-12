@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gimoji";
   version = "1.1.1";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/zeenix/gimoji";
     license = licenses.mit;
     mainProgram = "gimoji";
-    maintainers = with maintainers; [ a-kenji ];
+    maintainers = with maintainers; [a-kenji];
   };
 }

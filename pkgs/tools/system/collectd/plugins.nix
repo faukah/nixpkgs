@@ -46,16 +46,16 @@
   # insecure), otherwise a list of plugin names for a custom build
   enabledPlugins ? null,
   ...
-}:
-
-let
+}: let
   # Plugins that have dependencies.
   # Please help to extend these!
   plugins = {
-    amqp.buildInputs = [
-      yajl
-    ] ++ lib.optionals stdenv.hostPlatform.isLinux [ rabbitmq-c ];
-    apache.buildInputs = [ curl ];
+    amqp.buildInputs =
+      [
+        yajl
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [rabbitmq-c];
+    apache.buildInputs = [curl];
     ascent.buildInputs = [
       curl
       libxml2
@@ -64,8 +64,8 @@ let
       curl
       libxml2
     ];
-    ceph.buildInputs = [ yajl ];
-    curl.buildInputs = [ curl ];
+    ceph.buildInputs = [yajl];
+    curl.buildInputs = [curl];
     curl_json.buildInputs = [
       curl
       yajl
@@ -74,12 +74,12 @@ let
       curl
       libxml2
     ];
-    dbi.buildInputs = [ libdbi ];
+    dbi.buildInputs = [libdbi];
     disk.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
       udev
     ];
-    dns.buildInputs = [ libpcap ];
-    ipmi.buildInputs = [ openipmi ];
+    dns.buildInputs = [libpcap];
+    ipmi.buildInputs = [openipmi];
     iptables.buildInputs =
       [
         libpcap
@@ -93,14 +93,14 @@ let
       libgcrypt
       libxml2
     ];
-    log_logstash.buildInputs = [ yajl ];
-    lua.buildInputs = [ lua ];
+    log_logstash.buildInputs = [yajl];
+    lua.buildInputs = [lua];
     memcachec.buildInputs = [
       libmemcached
       cyrus_sasl
     ];
-    modbus.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libmodbus ];
-    mqtt.buildInputs = [ mosquitto ];
+    modbus.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libmodbus];
+    mqtt.buildInputs = [mosquitto];
     mysql.buildInputs = lib.optionals (libmysqlclient != null) [
       libmysqlclient
     ];
@@ -111,22 +111,22 @@ let
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         libmnl
       ];
-    network.buildInputs = [ libgcrypt ];
-    nginx.buildInputs = [ curl ];
+    network.buildInputs = [libgcrypt];
+    nginx.buildInputs = [curl];
     notify_desktop.buildInputs = [
       libnotify
       gdk-pixbuf
     ];
-    notify_email.buildInputs = [ libesmtp ];
-    openldap.buildInputs = [ openldap ];
-    ovs_events.buildInputs = [ yajl ];
-    ovs_stats.buildInputs = [ yajl ];
-    perl.buildInputs = [ perl ];
-    pinba.buildInputs = [ protobufc ];
-    ping.buildInputs = [ liboping ];
-    postgresql.buildInputs = [ libpq ];
-    python.buildInputs = [ python3 ];
-    redis.buildInputs = [ hiredis ];
+    notify_email.buildInputs = [libesmtp];
+    openldap.buildInputs = [openldap];
+    ovs_events.buildInputs = [yajl];
+    ovs_stats.buildInputs = [yajl];
+    perl.buildInputs = [perl];
+    pinba.buildInputs = [protobufc];
+    ping.buildInputs = [liboping];
+    postgresql.buildInputs = [libpq];
+    python.buildInputs = [python3];
+    redis.buildInputs = [hiredis];
     rrdcached.buildInputs = [
       rrdtool
       libxml2
@@ -135,7 +135,7 @@ let
       rrdtool
       libxml2
     ];
-    sensors.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ lm_sensors ];
+    sensors.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [lm_sensors];
     sigrok.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
       libsigrok
       udev
@@ -144,8 +144,8 @@ let
       libatasmart
       udev
     ];
-    snmp.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ net-snmp ];
-    snmp_agent.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ net-snmp ];
+    snmp.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [net-snmp];
+    snmp_agent.buildInputs = lib.optionals stdenv.hostPlatform.isLinux [net-snmp];
     varnish.buildInputs = [
       curl
       varnish
@@ -168,38 +168,37 @@ let
       yajl
       rdkafka
     ];
-    write_log.buildInputs = [ yajl ];
-    write_mongodb.buildInputs = [ mongoc ];
+    write_log.buildInputs = [yajl];
+    write_mongodb.buildInputs = [mongoc];
     write_prometheus.buildInputs = [
       protobufc
       libmicrohttpd
     ];
-    write_redis.buildInputs = [ hiredis ];
+    write_redis.buildInputs = [hiredis];
     write_riemann.buildInputs = [
       protobufc
       riemann_c_client
     ];
-    xencpu.buildInputs = [ xen ];
+    xencpu.buildInputs = [xen];
   };
 
   configureFlags = lib.optionals (enabledPlugins != null) (
-    [ "--disable-all-plugins" ] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
+    ["--disable-all-plugins"] ++ (map (plugin: "--enable-${plugin}") enabledPlugins)
   );
 
-  pluginBuildInputs =
-    plugin:
+  pluginBuildInputs = plugin:
     lib.optionals (
       plugins ? ${plugin} && plugins.${plugin} ? buildInputs
-    ) plugins.${plugin}.buildInputs;
+    )
+    plugins.${plugin}.buildInputs;
 
   buildInputs =
-    if enabledPlugins == null then
+    if enabledPlugins == null
+    then
       builtins.concatMap pluginBuildInputs (
-        builtins.attrNames (builtins.removeAttrs plugins [ "xencpu" ])
+        builtins.attrNames (builtins.removeAttrs plugins ["xencpu"])
       )
-    else
-      builtins.concatMap pluginBuildInputs enabledPlugins;
-in
-{
+    else builtins.concatMap pluginBuildInputs enabledPlugins;
+in {
   inherit configureFlags buildInputs;
 }

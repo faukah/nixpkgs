@@ -9,7 +9,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-icdiff";
   version = "0.5-unstable-2024-09-04";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-kSeGz5IExldgi955XOEkQnc8uqxkbyvuDOdz9y3AFIY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pytest
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "pytest_icdiff" ];
+  pythonImportsCheck = ["pytest_icdiff"];
 
   meta = {
     description = "Better error messages in pytest assertions using icdiff";
     homepage = "https://github.com/hjwp/pytest-icdiff";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

@@ -7,18 +7,16 @@
   ppx_sexp_conv,
   sexplib0,
 }:
-
-if lib.versionOlder ocaml.version "4.04" then
-  throw "uri-sexp is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.04"
+then throw "uri-sexp is not available for OCaml ${ocaml.version}"
 else
-
   buildDunePackage {
     pname = "uri-sexp";
     inherit (uri) version src meta;
 
     duneVersion = "3";
 
-    checkInputs = [ ounit ];
+    checkInputs = [ounit];
     propagatedBuildInputs = [
       ppx_sexp_conv
       sexplib0

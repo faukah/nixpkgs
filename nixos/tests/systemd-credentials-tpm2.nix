@@ -1,17 +1,18 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-credentials-tpm2";
 
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ tmarkus ];
+    maintainers = with pkgs.lib.maintainers; [tmarkus];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.tpm.enable = true;
-      environment.systemPackages = with pkgs; [ diffutils ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    virtualisation.tpm.enable = true;
+    environment.systemPackages = with pkgs; [diffutils];
+  };
 
   testScript = ''
     CRED_NAME = "testkey"

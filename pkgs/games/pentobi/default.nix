@@ -15,7 +15,6 @@
   qtwebview,
   docbook_xsl,
 }:
-
 mkDerivation rec {
   version = "20.0";
   pname = "pentobi";
@@ -58,7 +57,7 @@ mkDerivation rec {
     description = "Computer opponent for the board game Blokus";
     homepage = "https://pentobi.sourceforge.io";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

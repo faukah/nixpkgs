@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sec";
   version = "2.9.3";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iK2v/qCWw4jdSEpx6cwSB98n5iFmbCyJH0lIpUG8pAU=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   dontBuild = false;
   doCheck = false;
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://simple-evcorr.github.io";
     license = lib.licenses.gpl2Plus;
     description = "Simple Event Correlator";
-    maintainers = [ lib.maintainers.tv ];
+    maintainers = [lib.maintainers.tv];
     platforms = lib.platforms.all;
     mainProgram = "sec";
   };

@@ -4,7 +4,6 @@
   fetchurl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trezor-udev-rules";
   version = "unstable-2019-07-17";
@@ -28,12 +27,12 @@ stdenv.mkDerivation rec {
     cp 51-trezor.rules $out/lib/udev/rules.d/51-trezor.rules
   '';
 
-  passthru.tests = { inherit (nixosTests) trezord; };
+  passthru.tests = {inherit (nixosTests) trezord;};
 
   meta = with lib; {
     description = "Udev rules for Trezor";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.linux;
     homepage = "https://github.com/trezor/trezor-firmware/tree/master/common/udev";
   };

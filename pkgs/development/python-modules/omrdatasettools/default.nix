@@ -18,7 +18,6 @@
   tqdm,
   twine,
 }:
-
 buildPythonPackage rec {
   pname = "omrdatasettools";
   version = "1.4.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     ipython
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # The download tests require internet access
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/apacha/OMR-Datasets";
     changelog = "https://github.com/apacha/OMR-Datasets/blob/${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ piegames ];
+    maintainers = with maintainers; [piegames];
   };
 }

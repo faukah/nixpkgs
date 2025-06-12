@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.tcpdump;
-in
-{
+in {
   options = {
     programs.tcpdump = {
       enable = lib.mkOption {
@@ -31,6 +28,6 @@ in
       source = lib.getExe pkgs.tcpdump;
     };
 
-    users.groups.pcap = { };
+    users.groups.pcap = {};
   };
 }

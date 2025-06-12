@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "http-ece";
   version = "1.2.1";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/python";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Encipher HTTP Messages";
     homepage = "https://github.com/web-push-libs/encrypted-content-encoding";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

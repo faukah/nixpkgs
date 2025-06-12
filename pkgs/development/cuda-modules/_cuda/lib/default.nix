@@ -1,17 +1,18 @@
 {
   _cuda,
   lib,
-}:
-{
+}: {
   # See ./assertions.nix for documentation.
-  inherit (import ./assertions.nix { inherit _cuda lib; })
+  inherit
+    (import ./assertions.nix {inherit _cuda lib;})
     _evaluateAssertions
     _mkFailedAssertionsString
     _mkMissingPackagesAssertions
     ;
 
   # See ./cuda.nix for documentation.
-  inherit (import ./cuda.nix { inherit lib; })
+  inherit
+    (import ./cuda.nix {inherit lib;})
     _cudaCapabilityIsDefault
     _cudaCapabilityIsSupported
     _mkCudaVariant
@@ -19,13 +20,15 @@
     ;
 
   # See ./meta.nix for documentation.
-  inherit (import ./meta.nix { inherit _cuda lib; })
+  inherit
+    (import ./meta.nix {inherit _cuda lib;})
     _mkMetaBadPlatforms
     _mkMetaBroken
     ;
 
   # See ./redist.nix for documentation.
-  inherit (import ./redist.nix { inherit _cuda lib; })
+  inherit
+    (import ./redist.nix {inherit _cuda lib;})
     _redistSystemIsSupported
     getNixSystems
     getRedistSystem
@@ -33,7 +36,8 @@
     ;
 
   # See ./strings.nix for documentation.
-  inherit (import ./strings.nix { inherit _cuda lib; })
+  inherit
+    (import ./strings.nix {inherit _cuda lib;})
     dotsToUnderscores
     dropDots
     formatCapabilities
@@ -45,7 +49,8 @@
     ;
 
   # See ./versions.nix for documentation.
-  inherit (import ./versions.nix { inherit _cuda lib; })
+  inherit
+    (import ./versions.nix {inherit _cuda lib;})
     majorMinorPatch
     trimComponents
     ;

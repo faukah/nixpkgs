@@ -7,7 +7,6 @@
   blockdiag,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-actdiag";
   version = "3.0.0";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinxcontrib.actdiag" ];
+  pythonImportsCheck = ["sphinxcontrib.actdiag"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx actdiag extension";
     homepage = "https://github.com/blockdiag/sphinxcontrib-actdiag";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

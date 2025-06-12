@@ -3,21 +3,17 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # propagates
   importlib-resources,
   jsonschema,
   jsonschema-path,
   lazy-object-proxy,
   openapi-schema-validator,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "openapi-spec-validator";
   version = "0.7.1";
@@ -37,16 +33,18 @@ buildPythonPackage rec {
     sed -i '/--cov/d' pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [
-    jsonschema
-    jsonschema-path
-    lazy-object-proxy
-    openapi-schema-validator
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      jsonschema
+      jsonschema-path
+      lazy-object-proxy
+      openapi-schema-validator
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # network access

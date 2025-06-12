@@ -4,15 +4,13 @@ import ../make-test-python.nix (
     lib,
     kernelPackages ? null,
     ...
-  }:
-  let
+  }: let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
-    peer = (import ./make-peer.nix) { inherit lib; };
-  in
-  {
+    peer = (import ./make-peer.nix) {inherit lib;};
+  in {
     name = "wireguard-networkd";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ majiir ];
+      maintainers = [majiir];
     };
 
     nodes = {
@@ -20,8 +18,8 @@ import ../make-test-python.nix (
         ip4 = "192.168.0.1";
         ip6 = "fd00::1";
         extraConfig = {
-          boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-          networking.firewall.allowedUDPPorts = [ 23542 ];
+          boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
+          networking.firewall.allowedUDPPorts = [23542];
           networking.wireguard.useNetworkd = true;
           networking.wireguard.interfaces.wg0 = {
             ips = [
@@ -52,7 +50,7 @@ import ../make-test-python.nix (
         ip4 = "192.168.0.2";
         ip6 = "fd00::2";
         extraConfig = {
-          boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+          boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
           networking.wireguard.useNetworkd = true;
           networking.wireguard.interfaces.wg0 = {
             ips = [

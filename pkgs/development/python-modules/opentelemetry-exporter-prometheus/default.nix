@@ -9,7 +9,6 @@
   prometheus-client,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) src;
   pname = "opentelemetry-exporter-prometheus";
@@ -22,7 +21,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/exporter/opentelemetry-exporter-prometheus";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     opentelemetry-api
@@ -35,10 +34,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.exporter.prometheus" ];
+  pythonImportsCheck = ["opentelemetry.exporter.prometheus"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-prometheus";
-    description = "Prometheus Metric Exporter for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-prometheus";
+      description = "Prometheus Metric Exporter for OpenTelemetry";
+    };
 }

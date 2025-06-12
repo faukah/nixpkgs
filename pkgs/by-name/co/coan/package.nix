@@ -5,7 +5,6 @@
   autoreconfHook,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.0.1";
   pname = "coan";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  configureFlags = [ "CXXFLAGS=-std=c++11" ];
+  configureFlags = ["CXXFLAGS=-std=c++11"];
 
   enableParallelBuilding = true;
 

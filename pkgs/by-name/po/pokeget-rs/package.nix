@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pokeget-rs";
   version = "1.6.3";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/talwat/pokeget-rs";
     license = licenses.mit;
     mainProgram = "pokeget";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

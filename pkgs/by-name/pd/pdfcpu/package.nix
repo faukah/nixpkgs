@@ -5,7 +5,6 @@
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "pdfcpu";
   version = "0.11.0";
@@ -62,7 +61,9 @@ buildGoModule rec {
   installCheckPhase = ''
     echo checking the version print of pdfcpu
     mkdir -p $HOME/"${
-      if stdenv.hostPlatform.isDarwin then "Library/Application Support" else ".config"
+      if stdenv.hostPlatform.isDarwin
+      then "Library/Application Support"
+      else ".config"
     }"/pdfcpu
     versionOutput="$($out/bin/pdfcpu version)"
     for part in ${version} $(cat COMMIT | cut -c1-8) $(cat SOURCE_DATE); do
@@ -74,13 +75,13 @@ buildGoModule rec {
     done
   '';
 
-  subPackages = [ "cmd/pdfcpu" ];
+  subPackages = ["cmd/pdfcpu"];
 
   meta = with lib; {
     description = "PDF processor written in Go";
     homepage = "https://pdfcpu.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "pdfcpu";
   };
 }

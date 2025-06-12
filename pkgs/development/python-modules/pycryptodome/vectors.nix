@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycryptodome-test-vectors";
   version = "1.0.14";
@@ -16,12 +15,12 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pycryptodome_test_vectors" ];
+  pythonImportsCheck = ["pycryptodome_test_vectors"];
 
   meta = with lib; {
     description = "Test vectors for PyCryptodome cryptographic library";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
       bsd2 # and
       asl20
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

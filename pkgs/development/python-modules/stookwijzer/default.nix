@@ -6,7 +6,6 @@
   aiohttp,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "stookwijzer";
   version = "1.6.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-T4u3KuKWAXRkHbjPt4qkiisnLjx9JMD0DW6enOlu69g=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     pytz
   ];
 
-  pythonImportsCheck = [ "stookwijzer" ];
+  pythonImportsCheck = ["stookwijzer"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python package for the Stookwijzer API";
     homepage = "https://github.com/fwestenberg/stookwijzer";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

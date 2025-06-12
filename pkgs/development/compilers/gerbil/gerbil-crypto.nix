@@ -4,9 +4,7 @@
   fetchFromGitHub,
   gerbilPackages,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-crypto";
   version = "unstable-2023-11-29";
   git-version = "0.1-1-g4197bfa";
@@ -15,8 +13,8 @@
     gerbil-utils
     gerbil-poo
   ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ pkgs.secp256k1 ];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [pkgs.secp256k1];
   version-path = "version";
   softwareName = "Gerbil-crypto";
 
@@ -33,6 +31,6 @@
     homepage = "https://github.com/fare/gerbil-crypto";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

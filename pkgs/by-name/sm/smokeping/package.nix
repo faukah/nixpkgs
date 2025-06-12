@@ -9,7 +9,6 @@
   autoreconfHook,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smokeping";
   version = "2.9.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs =
-    [ rrdtool ]
+    [rrdtool]
     ++ (with perlPackages; [
       perl
       FCGI
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       perlldap
     ]);
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postInstall = ''
     mv $out/htdocs/smokeping.fcgi.dist $out/htdocs/smokeping.fcgi
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://oss.oetiker.ch/smokeping";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

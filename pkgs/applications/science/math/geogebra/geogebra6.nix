@@ -6,8 +6,7 @@
   electron,
   makeWrapper,
   geogebra,
-}:
-let
+}: let
   pname = "geogebra";
   version = "6-0-794-0";
 
@@ -32,7 +31,7 @@ let
       binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -85,16 +84,20 @@ let
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       install -dm755 $out/Applications
       unzip $src -d $out/Applications
     '';
 
-    meta = meta // {
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    };
+    meta =
+      meta
+      // {
+        sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      };
   };
 in
-if stdenv.hostPlatform.isDarwin then darwinPkg else linuxPkg
+  if stdenv.hostPlatform.isDarwin
+  then darwinPkg
+  else linuxPkg

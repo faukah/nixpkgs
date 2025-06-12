@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "curie";
   version = "1.0";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/NerdyPepper/curie";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

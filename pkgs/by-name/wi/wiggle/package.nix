@@ -5,7 +5,6 @@
   ncurses,
   groff,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wiggle";
   version = "1.3";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

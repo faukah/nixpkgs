@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     guile-sdl2
   ];
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   postInstall = ''
     wrapProgram $out/bin/chickadee \
@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Game development toolkit for Guile Scheme with SDL2 and OpenGL";
     homepage = "https://dthompson.us/projects/chickadee.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ chito ];
+    maintainers = with maintainers; [chito];
     mainProgram = "chickadee";
     platforms = guile.meta.platforms;
     broken = stdenv.hostPlatform.isDarwin;

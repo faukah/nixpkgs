@@ -4,10 +4,8 @@
   absl-py,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit-core,
-
   # dependencies
   etils,
   humanize,
@@ -21,7 +19,6 @@
   simplejson,
   tensorstore,
   typing-extensions,
-
   # tests
   aiofiles,
   chex,
@@ -32,7 +29,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "orbax-checkpoint";
   version = "0.11.14";
@@ -47,7 +43,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/checkpoint";
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   pythonRelaxDeps = [
     "jax"
@@ -123,6 +119,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/orbax/tree/main/checkpoint";
     changelog = "https://github.com/google/orbax/blob/v${version}/checkpoint/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

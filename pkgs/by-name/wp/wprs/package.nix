@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [
     libxkbcommon
-    (python3.withPackages (pp: with pp; [ psutil ]))
+    (python3.withPackages (pp: with pp; [psutil]))
   ];
 
   useFetchCargoVendor = true;
@@ -35,15 +35,15 @@ rustPlatform.buildRustPackage {
     cp  wprs "$out/bin/wprs"
   '';
 
-  passthru.tests.sanity = runCommand "wprs-sanity" { nativeBuildInputs = [ wprs ]; } ''
+  passthru.tests.sanity = runCommand "wprs-sanity" {nativeBuildInputs = [wprs];} ''
     ${wprs}/bin/wprs -h > /dev/null && touch $out
   '';
 
   meta = with lib; {
     description = "rootless remote desktop access for remote Wayland";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mksafavi ];
-    platforms = [ "x86_64-linux" ]; # The aarch64-linux support is not implemented in upstream yet. Also, the darwin platform is not supported as it requires wayland.
+    maintainers = with maintainers; [mksafavi];
+    platforms = ["x86_64-linux"]; # The aarch64-linux support is not implemented in upstream yet. Also, the darwin platform is not supported as it requires wayland.
     homepage = "https://github.com/wayland-transpositor/wprs";
     mainProgram = "wprs";
   };

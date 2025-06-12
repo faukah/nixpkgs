@@ -2,17 +2,12 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-
   # optional-dependencies
   ruff,
-
   # tests
   versionCheckHook,
-
   nix-update-script,
-}:
-
-let
+}: let
   nbqa = python3Packages.buildPythonApplication rec {
     pname = "nbqa";
     version = "1.9.1";
@@ -72,7 +67,7 @@ let
         yapf
       ])
       ++ lib.flatten (lib.attrValues optional-dependencies)
-      ++ [ versionCheckHook ];
+      ++ [versionCheckHook];
     versionCheckProgramArg = "--version";
 
     disabledTests = [
@@ -96,17 +91,15 @@ let
     passthru = {
       # selector is a function mapping pythonPackages to a list of code quality
       # tools, e.g. nbqa.withTools (ps: [ ps.black ])
-      withTools =
-        selector:
+      withTools = selector:
         nbqa.overridePythonAttrs (
-          { dependencies, ... }:
-          {
+          {dependencies, ...}: {
             dependencies = dependencies ++ selector python3Packages;
             doCheck = false;
           }
         );
 
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
 
     meta = {
@@ -114,9 +107,9 @@ let
       changelog = "https://nbqa.readthedocs.io/en/latest/history.html";
       description = "Run ruff, isort, pyupgrade, mypy, pylint, flake8, black, blacken-docs, and more on Jupyter Notebooks";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ l0b0 ];
+      maintainers = with lib.maintainers; [l0b0];
       mainProgram = "nbqa";
     };
   };
 in
-nbqa
+  nbqa

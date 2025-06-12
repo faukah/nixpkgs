@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.10";
   pname = "xtermcontrol";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "http://thrysoee.dk/xtermcontrol";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.derchris ];
+    maintainers = [lib.maintainers.derchris];
     mainProgram = "xtermcontrol";
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "filter-audio";
   version = "0.0.1";
@@ -17,12 +16,12 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Lightweight audio filtering library made from webrtc code";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

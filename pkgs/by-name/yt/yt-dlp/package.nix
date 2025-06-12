@@ -11,7 +11,6 @@
   withAlias ? false, # Provides bin/youtube-dl for backcompat
   update-python-libraries,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "yt-dlp";
   # The websites yt-dlp deals with are a very moving target. That means that
@@ -43,28 +42,27 @@ python3Packages.buildPythonApplication rec {
       urllib3
       websockets
     ];
-    curl-cffi = [ python3Packages.curl-cffi ];
+    curl-cffi = [python3Packages.curl-cffi];
     secretstorage = with python3Packages; [
       cffi
       secretstorage
     ];
   };
 
-  pythonRelaxDeps = [ "websockets" ];
+  pythonRelaxDeps = ["websockets"];
 
   # Ensure these utilities are available in $PATH:
   # - ffmpeg: post-processing & transcoding support
   # - rtmpdump: download files over RTMP
   # - atomicparsley: embedding thumbnails
-  makeWrapperArgs =
-    let
-      packagesToBinPath =
-        [ ]
-        ++ lib.optional atomicparsleySupport atomicparsley
-        ++ lib.optional ffmpegSupport ffmpeg-headless
-        ++ lib.optional rtmpSupport rtmpdump;
-    in
-    lib.optionals (packagesToBinPath != [ ]) [
+  makeWrapperArgs = let
+    packagesToBinPath =
+      []
+      ++ lib.optional atomicparsleySupport atomicparsley
+      ++ lib.optional ffmpegSupport ffmpeg-headless
+      ++ lib.optional rtmpSupport rtmpdump;
+  in
+    lib.optionals (packagesToBinPath != []) [
       ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"''
     ];
 

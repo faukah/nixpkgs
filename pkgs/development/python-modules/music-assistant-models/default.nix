@@ -2,22 +2,17 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   mashumaro,
   orjson,
-
   # tests
   pytestCheckHook,
   pytest-cov-stub,
-
   # reverse dependencies
   music-assistant-client,
 }:
-
 buildPythonPackage rec {
   pname = "music-assistant-models";
   version = "1.1.43"; # Must be compatible with music-assistant-client package
@@ -35,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "0.0.0" "${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     mashumaro
@@ -60,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/music-assistant/models";
     changelog = "https://github.com/music-assistant/models/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

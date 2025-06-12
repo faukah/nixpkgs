@@ -17,7 +17,6 @@
   types-pyyaml,
   types-requests,
 }:
-
 buildPythonPackage rec {
   pname = "swh-web-client";
   version = "0.9.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     swh-model
   ];
 
-  pythonImportsCheck = [ "swh.web.client" ];
+  pythonImportsCheck = ["swh.web.client"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "Client for Software Heritage Web applications, via their APIs";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-web-client";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

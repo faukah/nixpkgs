@@ -4,16 +4,13 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.ping;
   inherit (lib) mkOption types concatStringsSep;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "config.yml" cfg.settings;
-in
-{
+in {
   port = 9427;
   extraOpts = {
     telemetryPath = mkOption {
@@ -26,7 +23,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
 
       description = ''
         Configuration for ping_exporter, see
@@ -39,8 +36,8 @@ in
   serviceOpts = {
     serviceConfig = {
       # ping-exporter needs `CAP_NET_RAW` to run as non root https://github.com/czerwonk/ping_exporter#running-as-non-root-user
-      CapabilityBoundingSet = [ "CAP_NET_RAW" ];
-      AmbientCapabilities = [ "CAP_NET_RAW" ];
+      CapabilityBoundingSet = ["CAP_NET_RAW"];
+      AmbientCapabilities = ["CAP_NET_RAW"];
       ExecStart = ''
         ${pkgs.prometheus-ping-exporter}/bin/ping_exporter \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

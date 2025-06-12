@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sendme";
   version = "0.26.0";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
     mainProgram = "sendme";
   };
 }

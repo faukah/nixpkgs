@@ -7,7 +7,6 @@
   wrapQtAppsHook,
   trousers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tpmmanager";
   version = "0.9.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "Tool for managing the TPM";
     mainProgram = "tpmmanager";
     license = lib.licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

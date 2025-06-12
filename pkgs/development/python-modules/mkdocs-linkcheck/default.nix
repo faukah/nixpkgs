@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage {
   pname = "mkdocs-linkcheck";
   version = "unstable-2021-08-24";
@@ -26,7 +25,7 @@ buildPythonPackage {
     requests
   ];
 
-  pythonImportsCheck = [ "mkdocs_linkcheck" ];
+  pythonImportsCheck = ["mkdocs_linkcheck"];
 
   meta = with lib; {
     description = "Validate links in Markdown files for static site generators like MkDocs, Hugo or Jekyll";
@@ -37,6 +36,6 @@ buildPythonPackage {
     '';
     homepage = "https://github.com/byrnereese/mkdocs-linkcheck";
     license = licenses.mit;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
   };
 }

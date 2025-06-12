@@ -10,7 +10,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "google-api-python-client";
   version = "2.166.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-uM+EO9nXNsE0rvds8dx6R8koOi7yQme5cge53UOzDvc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     google-auth
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   # No tests included in archive
   doCheck = false;
 
-  pythonImportsCheck = [ "googleapiclient" ];
+  pythonImportsCheck = ["googleapiclient"];
 
   meta = with lib; {
     description = "Official Python client library for Google's discovery based APIs";
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/google-api-python-client";
     changelog = "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

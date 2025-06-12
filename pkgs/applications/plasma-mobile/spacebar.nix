@@ -1,11 +1,9 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
   wrapQtAppsHook,
-
   c-ares,
   curl,
   kcontacts,
@@ -21,7 +19,6 @@
   qcoro,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "spacebar";
 
@@ -53,6 +50,6 @@ mkDerivation {
     mainProgram = "spacebar";
     homepage = "https://invent.kde.org/plasma-mobile/spacebar";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

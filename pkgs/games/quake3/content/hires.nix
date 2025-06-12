@@ -3,7 +3,6 @@
   lib,
   fetchzip,
 }:
-
 stdenv.mkDerivation {
   pname = "quake3hires";
   version = "2020-01-20"; # Unknown version, used the date of web.archive.org capture.
@@ -25,6 +24,6 @@ stdenv.mkDerivation {
     description = "Quake 3 high-resolution textures";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

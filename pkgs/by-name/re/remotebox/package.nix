@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "remotebox";
   version = "3.6";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     Pango
     SOAPLite
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -pv $out/bin

@@ -10,8 +10,7 @@
   buildArgs ? "",
   # what path to open a browser at
   open ? "/index.html",
-}:
-let
+}: let
   inherit (nodejs_latest.pkgs) live-server;
 
   error-page = writeShellScriptBin "error-page" ''
@@ -96,28 +95,28 @@ let
       $serve
   '';
 in
-writeShellScriptBin "devmode" ''
-  set -euxo pipefail
+  writeShellScriptBin "devmode" ''
+    set -euxo pipefail
 
-  function handle_exit {
-    rm -rf "$tmpdir"
-  }
+    function handle_exit {
+      rm -rf "$tmpdir"
+    }
 
-  tmpdir=$(mktemp -d)
-  trap handle_exit EXIT
+    tmpdir=$(mktemp -d)
+    trap handle_exit EXIT
 
-  export out_link="$tmpdir/result"
-  export serve="$tmpdir/serve"
-  mkdir $serve
-  export error_page_relative=error.html
-  export error_page_absolute=$serve/$error_page_relative
-  ${lib.getExe error-page} "building …" > $error_page_absolute
+    export out_link="$tmpdir/result"
+    export serve="$tmpdir/serve"
+    mkdir $serve
+    export error_page_relative=error.html
+    export error_page_absolute=$serve/$error_page_relative
+    ${lib.getExe error-page} "building …" > $error_page_absolute
 
-  ${lib.getExe parallel} \
-    --will-cite \
-    --line-buffer \
-    --tagstr '{/}' \
-    ::: \
-    "${lib.getExe watcher}" \
-    "${lib.getExe server}"
-''
+    ${lib.getExe parallel} \
+      --will-cite \
+      --line-buffer \
+      --tagstr '{/}' \
+      ::: \
+      "${lib.getExe watcher}" \
+      "${lib.getExe server}"
+  ''

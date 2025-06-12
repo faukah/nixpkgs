@@ -8,7 +8,6 @@
   boost,
   nlohmann_json,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpisp";
   version = "1.2.1";

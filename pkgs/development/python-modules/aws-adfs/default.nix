@@ -16,7 +16,6 @@
   requests-kerberos,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "aws-adfs";
   version = "2.11.2";
@@ -61,14 +60,14 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pythonImportsCheck = [ "aws_adfs" ];
+  pythonImportsCheck = ["aws_adfs"];
 
   meta = with lib; {
     description = "Command line tool to ease AWS CLI authentication against ADFS";
     homepage = "https://github.com/venth/aws-adfs";
     changelog = "https://github.com/venth/aws-adfs/releases/tag/v${version}";
     license = licenses.psfl;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
     mainProgram = "aws-adfs";
   };
 }

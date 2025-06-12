@@ -7,7 +7,6 @@
   pytest-cov-stub,
   sortedcontainers,
 }:
-
 buildPythonPackage rec {
   pname = "strct";
   version = "0.0.34";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
   # don't append .dev0 to version
   env.RELEASING_PROCESS = "1";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Small pure-python package for data structure related utility functions";
     homepage = "https://github.com/shaypal5/strct";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

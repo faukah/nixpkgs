@@ -3,9 +3,7 @@
   lib,
   fetchzip,
   php,
-}:
-
-let
+}: let
   phpVersion = lib.versions.majorMinor php.version;
 
   variant = {
@@ -31,35 +29,35 @@ let
     };
   };
 in
-stdenv.mkDerivation {
-  version = "13.0.2";
-  pname = "ioncube-loader";
-  extensionName = "ioncube-loader";
+  stdenv.mkDerivation {
+    version = "13.0.2";
+    pname = "ioncube-loader";
+    extensionName = "ioncube-loader";
 
-  src = fetchzip {
-    url = variant.${stdenv.hostPlatform.system}.url;
-    sha256 = variant.${stdenv.hostPlatform.system}.sha256;
-  };
+    src = fetchzip {
+      url = variant.${stdenv.hostPlatform.system}.url;
+      sha256 = variant.${stdenv.hostPlatform.system}.sha256;
+    };
 
-  installPhase = ''
-    mkdir -p $out/lib/php/extensions
-    cp $src/ioncube_loader_${
-      variant.${stdenv.hostPlatform.system}.prefix
-    }_${phpVersion}.so $out/lib/php/extensions/ioncube-loader.so
-  '';
+    installPhase = ''
+      mkdir -p $out/lib/php/extensions
+      cp $src/ioncube_loader_${
+        variant.${stdenv.hostPlatform.system}.prefix
+      }_${phpVersion}.so $out/lib/php/extensions/ioncube-loader.so
+    '';
 
-  meta = with lib; {
-    description = "Use ionCube-encoded files on a web server";
-    changelog = "https://www.ioncube.com/loaders.php";
-    homepage = "https://www.ioncube.com";
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ neverbehave ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Use ionCube-encoded files on a web server";
+      changelog = "https://www.ioncube.com/loaders.php";
+      homepage = "https://www.ioncube.com";
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = with maintainers; [neverbehave];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  }

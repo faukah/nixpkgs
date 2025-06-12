@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "karate";
   version = "1.5.1";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
   };
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/karatelabs/karate";
     changelog = "https://github.com/karatelabs/karate/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.kephasp ];
+    maintainers = [lib.maintainers.kephasp];
     platforms = jre.meta.platforms;
   };
 }

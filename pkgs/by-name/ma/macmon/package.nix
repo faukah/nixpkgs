@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "macmon";
   version = "0.5.1";
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     homepage = "https://github.com/vladkens/macmon";
     description = "Sudoless performance monitoring for Apple Silicon processors";
-    platforms = [ "aarch64-darwin" ];
+    platforms = ["aarch64-darwin"];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ schrobingus ];
+    maintainers = with lib.maintainers; [schrobingus];
   };
 }

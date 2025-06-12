@@ -8,7 +8,6 @@
   ninja,
   c-stdaux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "c-siphash";
   version = "1.1.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  propagatedBuildInputs = [ c-stdaux ];
+  propagatedBuildInputs = [c-stdaux];
 
   doCheck = true;
 
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

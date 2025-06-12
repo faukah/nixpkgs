@@ -1,59 +1,57 @@
-{ pkgs, runTest }:
-
 {
-
+  pkgs,
+  runTest,
+}: {
   declarative = runTest {
     name = "startx";
-    meta.maintainers = with pkgs.lib.maintainers; [ rnhmjoj ];
+    meta.maintainers = with pkgs.lib.maintainers; [rnhmjoj];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.getty.autologinUser = "root";
+    nodes.machine = {pkgs, ...}: {
+      services.getty.autologinUser = "root";
 
-        environment.systemPackages = with pkgs; [
-          xdotool
-          catclock
-        ];
+      environment.systemPackages = with pkgs; [
+        xdotool
+        catclock
+      ];
 
-        programs.bash.promptInit = "PS1='# '";
+      programs.bash.promptInit = "PS1='# '";
 
-        # startx+bspwm setup
-        services.xserver = {
+      # startx+bspwm setup
+      services.xserver = {
+        enable = true;
+        windowManager.bspwm = {
           enable = true;
-          windowManager.bspwm = {
-            enable = true;
-            configFile = pkgs.writeShellScript "bspwrc" ''
-              bspc config border_width 2
-              bspc config window_gap 12
-              bspc rule -a xclock state=floating sticky=on
-            '';
-            sxhkd.configFile = pkgs.writeText "sxhkdrc" ''
-              # open a terminal
-              super + Return
-                urxvtc
-              # quit bspwm
-              super + alt + Escape
-                bspc quit
-            '';
-          };
-          displayManager.startx = {
-            enable = true;
-            generateScript = true;
-            extraCommands = ''
-              xrdb -load ~/.Xresources
-              xsetroot -solid '#343d46'
-              xsetroot -cursor_name trek
-              xclock &
-            '';
-          };
+          configFile = pkgs.writeShellScript "bspwrc" ''
+            bspc config border_width 2
+            bspc config window_gap 12
+            bspc rule -a xclock state=floating sticky=on
+          '';
+          sxhkd.configFile = pkgs.writeText "sxhkdrc" ''
+            # open a terminal
+            super + Return
+              urxvtc
+            # quit bspwm
+            super + alt + Escape
+              bspc quit
+          '';
         };
-
-        # enable some user services
-        security.polkit.enable = true;
-        services.urxvtd.enable = true;
-        programs.xss-lock.enable = true;
+        displayManager.startx = {
+          enable = true;
+          generateScript = true;
+          extraCommands = ''
+            xrdb -load ~/.Xresources
+            xsetroot -solid '#343d46'
+            xsetroot -cursor_name trek
+            xclock &
+          '';
+        };
       };
+
+      # enable some user services
+      security.polkit.enable = true;
+      services.urxvtd.enable = true;
+      programs.xss-lock.enable = true;
+    };
 
     testScript = ''
       import textwrap
@@ -111,27 +109,25 @@
 
   imperative = runTest {
     name = "startx-imperative";
-    meta.maintainers = with pkgs.lib.maintainers; [ rnhmjoj ];
+    meta.maintainers = with pkgs.lib.maintainers; [rnhmjoj];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.getty.autologinUser = "root";
-        programs.bash.promptInit = "PS1='# '";
+    nodes.machine = {pkgs, ...}: {
+      services.getty.autologinUser = "root";
+      programs.bash.promptInit = "PS1='# '";
 
-        # startx+twm setup
-        services.xserver = {
-          enable = true;
-          windowManager.twm.enable = true;
-          displayManager.startx.enable = true;
-          displayManager.startx.generateScript = false;
-        };
-
-        # enable some user services
-        security.polkit.enable = true;
-        services.urxvtd.enable = true;
-        programs.xss-lock.enable = true;
+      # startx+twm setup
+      services.xserver = {
+        enable = true;
+        windowManager.twm.enable = true;
+        displayManager.startx.enable = true;
+        displayManager.startx.generateScript = false;
       };
+
+      # enable some user services
+      security.polkit.enable = true;
+      services.urxvtd.enable = true;
+      programs.xss-lock.enable = true;
+    };
 
     testScript = ''
       import textwrap
@@ -196,5 +192,4 @@
           machine.fail(f"{sysu} is-active xss-lock")
     '';
   };
-
 }

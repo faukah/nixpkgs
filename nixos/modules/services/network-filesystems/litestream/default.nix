@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.litestream;
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options.services.litestream = {
     enable = lib.mkEnableOption "litestream";
 
-    package = lib.mkPackageOption pkgs "litestream" { };
+    package = lib.mkPackageOption pkgs "litestream" {};
 
     settings = lib.mkOption {
       description = ''
@@ -64,7 +62,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.etc = {
       "litestream.yml" = {
         source = settingsFormat.generate "litestream-config.yaml" cfg.settings;
@@ -73,8 +71,8 @@ in
 
     systemd.services.litestream = {
       description = "Litestream";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       serviceConfig = {
         EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/litestream replicate";
@@ -89,7 +87,7 @@ in
       group = "litestream";
       isSystemUser = true;
     };
-    users.groups.litestream = { };
+    users.groups.litestream = {};
   };
 
   meta.doc = ./default.md;

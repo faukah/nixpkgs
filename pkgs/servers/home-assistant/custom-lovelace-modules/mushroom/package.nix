@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "mushroom";
   version = "4.4.0";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     description = "Mushroom Cards - Build a beautiful dashboard easily";
     homepage = "https://github.com/piitaya/lovelace-mushroom";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

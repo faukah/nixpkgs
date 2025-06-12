@@ -5,7 +5,6 @@
   result,
   trie,
 }:
-
 buildDunePackage rec {
   pname = "mew";
   version = "0.1.0";
@@ -28,7 +27,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
     description = "Modal Editing Witch";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

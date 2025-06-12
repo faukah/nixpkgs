@@ -2,13 +2,10 @@
   lib,
   buildPythonPackage,
   flet-client-flutter,
-
   # build-system
   poetry-core,
-
   flet,
 }:
-
 buildPythonPackage rec {
   pname = "flet-desktop";
   inherit (flet-client-flutter) version src;
@@ -16,9 +13,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python/packages/flet-desktop";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ flet ];
+  dependencies = [flet];
 
   _flet_setup_view = ''
     if 'FLET_VIEW_PATH' not in os.environ:
@@ -28,7 +25,7 @@ buildPythonPackage rec {
     echo "$_flet_setup_view" >> src/flet_desktop/__init__.py
   '';
 
-  pythonImportsCheck = [ "flet_desktop" ];
+  pythonImportsCheck = ["flet_desktop"];
 
   meta = {
     description = "Compiled Flutter Flet desktop client.";

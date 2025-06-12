@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cobs";
   version = "1.2.1";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/cmcqueen/cobs-python/";
     license = licenses.mit;
-    teams = [ teams.ororatech ];
+    teams = [teams.ororatech];
   };
 }

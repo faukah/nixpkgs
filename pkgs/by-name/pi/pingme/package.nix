@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pingme";
   version = "0.2.6";
@@ -37,6 +36,6 @@ buildGoModule rec {
     homepage = "https://pingme.lmno.pk";
     license = lib.licenses.mit;
     mainProgram = "pingme";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
   };
 }

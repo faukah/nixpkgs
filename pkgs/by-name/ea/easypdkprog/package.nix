@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easypdkprog";
   version = "1.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     mainProgram = "easypdkprog";
     homepage = "https://github.com/free-pdk/easy-pdk-programmer-software";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ david-sawatzke ];
+    maintainers = with maintainers; [david-sawatzke];
     platforms = platforms.unix;
   };
 }

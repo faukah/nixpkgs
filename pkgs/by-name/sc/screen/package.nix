@@ -7,7 +7,6 @@
   libxcrypt,
   pam ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "screen";
   version = "5.0.1";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

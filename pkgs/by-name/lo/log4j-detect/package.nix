@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "log4j-detect";
   version = "unstable-2021-12-14";
@@ -34,6 +33,6 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to detect the log4j vulnerability";
     homepage = "https://github.com/takito1812/log4j-detect";
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   pycryptodome,
 }:
-
 buildPythonPackage {
   pname = "sjcl";
   version = "0.2.1";
@@ -20,16 +19,16 @@ buildPythonPackage {
     hash = "sha256-S4GhNdnL+WvYsnyzP0zkBYCqyJBbsW4PZWgjsUthGe0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pycryptodome ];
+  dependencies = [pycryptodome];
 
-  pythonImportsCheck = [ "sjcl" ];
+  pythonImportsCheck = ["sjcl"];
 
   meta = {
     description = "Decrypt and encrypt messages compatible to the \"Stanford Javascript Crypto Library (SJCL)\" message format";
     homepage = "https://github.com/berlincode/sjcl";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ binsky ];
+    maintainers = with lib.maintainers; [binsky];
   };
 }

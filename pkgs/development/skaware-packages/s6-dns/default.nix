@@ -1,5 +1,7 @@
-{ skawarePackages, skalibs }:
-
+{
+  skawarePackages,
+  skalibs,
+}:
 skawarePackages.buildPackage {
   pname = "s6-dns";
   version = "2.4.1.0";
@@ -35,5 +37,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/s6-dns/html
   '';
-
 }

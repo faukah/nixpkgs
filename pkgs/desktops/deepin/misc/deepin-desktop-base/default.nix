@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-JOC8nQ/YgUpY93FcniO2uypAfsL/SNU+KfTrthoZfQo=";
   };
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   # distribution_logo_transparent.svg come form nixos-artwork(https://github.com/NixOS/nixos-artwork)/logo/nixos-white.svg under CC-BY license, used for dde-lock
   postInstall = ''
@@ -45,6 +45,6 @@ stdenvNoCC.mkDerivation rec {
       cc-by-40
     ];
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

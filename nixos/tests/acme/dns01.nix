@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   domain = "example.test";
 
   dnsServerIP = nodes: nodes.dnsserver.networking.primaryIPAddress;
@@ -22,8 +21,7 @@ let
     EOF
     fi
   '';
-in
-{
+in {
   name = "dns01";
   meta = {
     maintainers = lib.teams.acme.members;
@@ -33,64 +31,58 @@ in
 
   nodes = {
     # The fake ACME server which will respond to client requests
-    acme =
-      { nodes, ... }:
-      {
-        imports = [ ../common/acme/server ];
-        networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
-      };
+    acme = {nodes, ...}: {
+      imports = [../common/acme/server];
+      networking.nameservers = lib.mkForce [(dnsServerIP nodes)];
+    };
 
     # A fake DNS server which can be configured with records as desired
     # Used to test DNS-01 challenge
-    dnsserver =
-      { nodes, ... }:
-      {
-        networking = {
-          firewall.allowedTCPPorts = [
-            8055
-            53
-          ];
-          firewall.allowedUDPPorts = [ 53 ];
+    dnsserver = {nodes, ...}: {
+      networking = {
+        firewall.allowedTCPPorts = [
+          8055
+          53
+        ];
+        firewall.allowedUDPPorts = [53];
 
-          # nixos/lib/testing/network.nix will provide name resolution via /etc/hosts
-          # for all nodes based on their host names and domain
-          hostName = "dnsserver";
-          domain = "test";
-        };
-        systemd.services.pebble-challtestsrv = {
-          enable = true;
-          description = "Pebble ACME challenge test server";
-          wantedBy = [ "network.target" ];
-          serviceConfig = {
-            ExecStart = "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.client.networking.primaryIPAddress}'";
-            # Required to bind on privileged ports.
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          };
+        # nixos/lib/testing/network.nix will provide name resolution via /etc/hosts
+        # for all nodes based on their host names and domain
+        hostName = "dnsserver";
+        domain = "test";
+      };
+      systemd.services.pebble-challtestsrv = {
+        enable = true;
+        description = "Pebble ACME challenge test server";
+        wantedBy = ["network.target"];
+        serviceConfig = {
+          ExecStart = "${pkgs.pebble}/bin/pebble-challtestsrv -dns01 ':53' -defaultIPv6 '' -defaultIPv4 '${nodes.client.networking.primaryIPAddress}'";
+          # Required to bind on privileged ports.
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
         };
       };
+    };
 
-    client =
-      { nodes, ... }:
-      {
-        imports = [ ../common/acme/client ];
-        networking.domain = domain;
-        networking.nameservers = lib.mkForce [ (dnsServerIP nodes) ];
+    client = {nodes, ...}: {
+      imports = [../common/acme/client];
+      networking.domain = domain;
+      networking.nameservers = lib.mkForce [(dnsServerIP nodes)];
 
-        # OpenSSL will be used for more thorough certificate validation
-        environment.systemPackages = [ pkgs.openssl ];
+      # OpenSSL will be used for more thorough certificate validation
+      environment.systemPackages = [pkgs.openssl];
 
-        security.acme.certs."${domain}" = {
-          domain = "*.${domain}";
-          dnsProvider = "exec";
-          dnsPropagationCheck = false;
-          environmentFile = pkgs.writeText "wildcard.env" ''
-            EXEC_PATH=${dnsScript}
-            EXEC_POLLING_INTERVAL=1
-            EXEC_PROPAGATION_TIMEOUT=1
-            EXEC_SEQUENCE_INTERVAL=1
-          '';
-        };
+      security.acme.certs."${domain}" = {
+        domain = "*.${domain}";
+        dnsProvider = "exec";
+        dnsPropagationCheck = false;
+        environmentFile = pkgs.writeText "wildcard.env" ''
+          EXEC_PATH=${dnsScript}
+          EXEC_POLLING_INTERVAL=1
+          EXEC_PROPAGATION_TIMEOUT=1
+          EXEC_SEQUENCE_INTERVAL=1
+        '';
       };
+    };
   };
 
   testScript = ''

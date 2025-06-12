@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mock";
   version = "3.14.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     "test_failure_message_with_no_name"
   ];
 
-  pythonImportsCheck = [ "pytest_mock" ];
+  pythonImportsCheck = ["pytest_mock"];
 
   meta = with lib; {
     description = "Thin wrapper around the mock package for easier use with pytest";
     homepage = "https://github.com/pytest-dev/pytest-mock";
     changelog = "https://github.com/pytest-dev/pytest-mock/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

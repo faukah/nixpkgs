@@ -11,7 +11,6 @@
   pythonOlder,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "inform";
   version = "1.34";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-s4aaCCRwAUL/rISLNEEYfbXnNTS7MeQ1DfjRK1EPk6U=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     arrow
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   disabledTests =
-    [ "test_prostrate" ]
+    ["test_prostrate"]
     ++ lib.optionals (pythonAtLeast "3.13") [
       # doctest runs one more test than expected
       "test_inform"
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://inform.readthedocs.io";
     changelog = "https://github.com/KenKundert/inform/blob/${src.tag}/doc/releases.rst";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ jeremyschlatter ];
+    maintainers = with maintainers; [jeremyschlatter];
   };
 }

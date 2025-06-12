@@ -5,7 +5,6 @@
   indilib,
   indi-with-drivers,
 }:
-
 indi-with-drivers.override {
   pname = "indi-full-nonfree";
   inherit (indilib) version;

@@ -5,7 +5,6 @@
   fetchpatch,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cronutils";
   version = "1.10";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (toString [
     "-D_DARWIN_C_SOURCE"
@@ -48,14 +47,14 @@ stdenv.mkDerivation (finalAttrs: {
     "-Wno-format-nonliteral"
   ]);
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/google/cronutils/releases/tag/version%2F${finalAttrs.version}";
     description = "Utilities to assist running periodic batch processing jobs";
     homepage = "https://github.com/google/cronutils";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     platforms = lib.platforms.all;
   };
 })

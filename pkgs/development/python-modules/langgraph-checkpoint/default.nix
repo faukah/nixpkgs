@@ -2,25 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   poetry-core,
-
   # dependencies
   langchain-core,
   msgpack,
   ormsgpack,
-
   # testing
   dataclasses-json,
   pytest-asyncio,
   pytest-mock,
   pytestCheckHook,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langgraph-checkpoint";
   version = "2.0.26";
@@ -35,16 +30,16 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/checkpoint";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     langchain-core
     ormsgpack
   ];
 
-  propagatedBuildInputs = [ msgpack ];
+  propagatedBuildInputs = [msgpack];
 
-  pythonImportsCheck = [ "langgraph.checkpoint" ];
+  pythonImportsCheck = ["langgraph.checkpoint"];
 
   nativeCheckInputs = [
     dataclasses-json

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jsoncons";
   version = "1.3.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Q7qtLLTvJcIFPSx6MkS7SI89MBcM88g3KmX/b3BAKwI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = "-std=c++20 -Wno-error";
 
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://danielaparker.github.io/jsoncons/";
     changelog = "https://github.com/danielaparker/jsoncons/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.all;
   };
 })

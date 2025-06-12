@@ -6,7 +6,6 @@
   testers,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "llhttp";
   version = "9.2.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "libllhttp" ];
+      moduleNames = ["libllhttp"];
     };
   };
 
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://llhttp.org/";
     changelog = "https://github.com/nodejs/llhttp/releases/tag/release/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 })

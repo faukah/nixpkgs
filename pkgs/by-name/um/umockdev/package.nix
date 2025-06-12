@@ -19,7 +19,6 @@
   vala,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "umockdev";
   version = "0.19.1";
@@ -108,9 +107,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     tests = {
       withGudev = finalAttrs.finalPackage.overrideAttrs (attrs: {
-        passthru = attrs.passthru // {
-          withGudev = true;
-        };
+        passthru =
+          attrs.passthru
+          // {
+            withGudev = true;
+          };
       });
     };
   };
@@ -120,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/martinpitt/umockdev/releases/tag/${finalAttrs.version}";
     description = "Mock hardware devices for creating unit tests";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
     platforms = with platforms; linux;
   };
 })

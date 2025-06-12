@@ -8,7 +8,6 @@
   postgresql,
   postgresqlTestHook,
 }:
-
 buildGoModule rec {
   pname = "matrix-dendrite";
   version = "0.14.1";
@@ -70,7 +69,7 @@ buildGoModule rec {
     description = "Second-generation Matrix homeserver written in Go";
     changelog = "https://github.com/element-hq/dendrite/releases/tag/v${version}";
     license = lib.licenses.agpl3Plus;
-    teams = [ lib.teams.matrix ];
+    teams = [lib.teams.matrix];
     platforms = lib.platforms.unix;
   };
 }

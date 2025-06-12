@@ -7,7 +7,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-embeddings-google";
   version = "0.3.1";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-gMFfA/USIYkOIaNPZfpLoRzkDGnN2e+gNlylAOrTxKs=";
   };
 
-  pythonRelaxDeps = [ "google-generativeai" ];
+  pythonRelaxDeps = ["google-generativeai"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     google-generativeai
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.embeddings.google" ];
+  pythonImportsCheck = ["llama_index.embeddings.google"];
 
   meta = with lib; {
     description = "LlamaIndex Embeddings Integration for Google";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-google";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

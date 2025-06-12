@@ -5,9 +5,7 @@
   openblas,
   isILP64 ? false,
   blasProvider ? openblas,
-}:
-
-let
+}: let
   blasFortranSymbols = [
     "caxpy"
     "ccopy"
@@ -164,149 +162,149 @@ let
 
   version = "3";
   canonicalExtension =
-    if stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isStatic then
-      "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
-    else
-      stdenv.hostPlatform.extensions.sharedLibrary or ".a";
+    if stdenv.hostPlatform.isLinux && !stdenv.hostPlatform.isStatic
+    then "${stdenv.hostPlatform.extensions.sharedLibrary}.${version}"
+    else stdenv.hostPlatform.extensions.sharedLibrary or ".a";
 
   blasImplementation = lib.getName blasProvider;
   blasProvider' =
-    if blasImplementation == "mkl" then blasProvider else blasProvider.override { blas64 = isILP64; };
-
+    if blasImplementation == "mkl"
+    then blasProvider
+    else blasProvider.override {blas64 = isILP64;};
 in
+  assert isILP64 -> blasImplementation == "mkl" || blasProvider'.blas64;
+    stdenv.mkDerivation {
+      pname = "blas";
+      inherit version;
 
-assert isILP64 -> blasImplementation == "mkl" || blasProvider'.blas64;
+      outputs = [
+        "out"
+        "dev"
+      ];
 
-stdenv.mkDerivation {
-  pname = "blas";
-  inherit version;
+      meta =
+        (blasProvider'.meta or {})
+        // {
+          description = "${lib.getName blasProvider} with just the BLAS C and FORTRAN ABI";
+        };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
+      passthru = {
+        inherit isILP64;
+        provider = blasProvider';
+        implementation = blasImplementation;
+      };
 
-  meta = (blasProvider'.meta or { }) // {
-    description = "${lib.getName blasProvider} with just the BLAS C and FORTRAN ABI";
-  };
+      dontBuild = true;
+      dontConfigure = true;
+      unpackPhase = "src=$PWD";
 
-  passthru = {
-    inherit isILP64;
-    provider = blasProvider';
-    implementation = blasImplementation;
-  };
+      dontPatchELF = true;
 
-  dontBuild = true;
-  dontConfigure = true;
-  unpackPhase = "src=$PWD";
-
-  dontPatchELF = true;
-
-  installPhase = (
-    ''
-      mkdir -p $out/lib $dev/include $dev/lib/pkgconfig
-
-      libblas="${lib.getLib blasProvider'}/lib/libblas${canonicalExtension}"
-
-      if ! [ -e "$libblas" ]; then
-        echo "$libblas does not exist, ${blasProvider'.name} does not provide libblas."
-        exit 1
-      fi
-    ''
-    + lib.optionalString (!stdenv.hostPlatform.isStatic) ''
-      $NM -an "$libblas" | cut -f3 -d' ' > symbols
-      for symbol in ${toString blasFortranSymbols}; do
-        grep -q "^$symbol_$" symbols || { echo "$symbol" was not found in "$libblas"; exit 1; }
-      done
-    ''
-    + ''
-      cp -L "$libblas" $out/lib/libblas${canonicalExtension}
-      chmod +w $out/lib/libblas${canonicalExtension}
-
-    ''
-    + (
-      if (stdenv.hostPlatform.isElf && !stdenv.hostPlatform.isStatic) then
+      installPhase = (
         ''
-          patchelf --set-soname libblas${canonicalExtension} $out/lib/libblas${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libblas${canonicalExtension}
-        ''
-      else
-        lib.optionalString (stdenv.hostPlatform.isDarwin) ''
-          install_name_tool \
-            -id $out/lib/libblas${canonicalExtension} \
-            -add_rpath ${lib.getLib blasProvider'}/lib \
-            $out/lib/libblas${canonicalExtension}
-        ''
-    )
-    + ''
+          mkdir -p $out/lib $dev/include $dev/lib/pkgconfig
 
-        if [ "$out/lib/libblas${canonicalExtension}" != "$out/lib/libblas${
-          stdenv.hostPlatform.extensions.sharedLibrary or ".a"
-        }" ]; then
-          ln -s $out/lib/libblas${canonicalExtension} "$out/lib/libblas${
+          libblas="${lib.getLib blasProvider'}/lib/libblas${canonicalExtension}"
+
+          if ! [ -e "$libblas" ]; then
+            echo "$libblas does not exist, ${blasProvider'.name} does not provide libblas."
+            exit 1
+          fi
+        ''
+        + lib.optionalString (!stdenv.hostPlatform.isStatic) ''
+          $NM -an "$libblas" | cut -f3 -d' ' > symbols
+          for symbol in ${toString blasFortranSymbols}; do
+            grep -q "^$symbol_$" symbols || { echo "$symbol" was not found in "$libblas"; exit 1; }
+          done
+        ''
+        + ''
+          cp -L "$libblas" $out/lib/libblas${canonicalExtension}
+          chmod +w $out/lib/libblas${canonicalExtension}
+
+        ''
+        + (
+          if (stdenv.hostPlatform.isElf && !stdenv.hostPlatform.isStatic)
+          then ''
+            patchelf --set-soname libblas${canonicalExtension} $out/lib/libblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libblas${canonicalExtension}
+          ''
+          else
+            lib.optionalString (stdenv.hostPlatform.isDarwin) ''
+              install_name_tool \
+                -id $out/lib/libblas${canonicalExtension} \
+                -add_rpath ${lib.getLib blasProvider'}/lib \
+                $out/lib/libblas${canonicalExtension}
+            ''
+        )
+        + ''
+
+            if [ "$out/lib/libblas${canonicalExtension}" != "$out/lib/libblas${
+            stdenv.hostPlatform.extensions.sharedLibrary or ".a"
+          }" ]; then
+              ln -s $out/lib/libblas${canonicalExtension} "$out/lib/libblas${
             stdenv.hostPlatform.extensions.sharedLibrary or ".a"
           }"
-        fi
+            fi
 
-        cat <<EOF > $dev/lib/pkgconfig/blas.pc
-      Name: blas
-      Version: ${version}
-      Description: BLAS FORTRAN implementation
-      Libs: -L$out/lib -lblas
-      Cflags: -I$dev/include
-      EOF
+            cat <<EOF > $dev/lib/pkgconfig/blas.pc
+          Name: blas
+          Version: ${version}
+          Description: BLAS FORTRAN implementation
+          Libs: -L$out/lib -lblas
+          Cflags: -I$dev/include
+          EOF
 
-        libcblas="${lib.getLib blasProvider'}/lib/libcblas${canonicalExtension}"
+            libcblas="${lib.getLib blasProvider'}/lib/libcblas${canonicalExtension}"
 
-        if ! [ -e "$libcblas" ]; then
-          echo "$libcblas does not exist, ${blasProvider'.name} does not provide libcblas."
-          exit 1
-        fi
+            if ! [ -e "$libcblas" ]; then
+              echo "$libcblas does not exist, ${blasProvider'.name} does not provide libcblas."
+              exit 1
+            fi
 
-        cp -L "$libcblas" $out/lib/libcblas${canonicalExtension}
-        chmod +w $out/lib/libcblas${canonicalExtension}
+            cp -L "$libcblas" $out/lib/libcblas${canonicalExtension}
+            chmod +w $out/lib/libcblas${canonicalExtension}
 
-    ''
-    + (
-      if (stdenv.hostPlatform.isElf && !stdenv.hostPlatform.isStatic) then
         ''
-          patchelf --set-soname libcblas${canonicalExtension} $out/lib/libcblas${canonicalExtension}
-          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libcblas${canonicalExtension}
-        ''
-      else
-        lib.optionalString stdenv.hostPlatform.isDarwin ''
-          install_name_tool \
-            -id $out/lib/libcblas${canonicalExtension} \
-            -add_rpath ${lib.getLib blasProvider'}/lib \
-            $out/lib/libcblas${canonicalExtension}
-        ''
-    )
-    + ''
-        if [ "$out/lib/libcblas${canonicalExtension}" != "$out/lib/libcblas${
-          stdenv.hostPlatform.extensions.sharedLibrary or ".a"
-        }" ]; then
-          ln -s $out/lib/libcblas${canonicalExtension} "$out/lib/libcblas${
+        + (
+          if (stdenv.hostPlatform.isElf && !stdenv.hostPlatform.isStatic)
+          then ''
+            patchelf --set-soname libcblas${canonicalExtension} $out/lib/libcblas${canonicalExtension}
+            patchelf --set-rpath "$(patchelf --print-rpath $out/lib/libcblas${canonicalExtension}):${lib.getLib blasProvider'}/lib" $out/lib/libcblas${canonicalExtension}
+          ''
+          else
+            lib.optionalString stdenv.hostPlatform.isDarwin ''
+              install_name_tool \
+                -id $out/lib/libcblas${canonicalExtension} \
+                -add_rpath ${lib.getLib blasProvider'}/lib \
+                $out/lib/libcblas${canonicalExtension}
+            ''
+        )
+        + ''
+            if [ "$out/lib/libcblas${canonicalExtension}" != "$out/lib/libcblas${
+            stdenv.hostPlatform.extensions.sharedLibrary or ".a"
+          }" ]; then
+              ln -s $out/lib/libcblas${canonicalExtension} "$out/lib/libcblas${
             stdenv.hostPlatform.extensions.sharedLibrary or ".a"
           }"
-        fi
+            fi
 
-        cp ${lib.getDev lapack-reference}/include/cblas{,_mangling}.h $dev/include
+            cp ${lib.getDev lapack-reference}/include/cblas{,_mangling}.h $dev/include
 
-        cat <<EOF > $dev/lib/pkgconfig/cblas.pc
-      Name: cblas
-      Version: ${version}
-      Description: BLAS C implementation
-      Cflags: -I$dev/include
-      Libs: -L$out/lib -lcblas
-      EOF
-    ''
-    + lib.optionalString (blasImplementation == "mkl") ''
-      mkdir -p $out/nix-support
-      echo 'export MKL_INTERFACE_LAYER=${lib.optionalString isILP64 "I"}LP64,GNU' > $out/nix-support/setup-hook
-      ln -s $out/lib/libblas${canonicalExtension} $out/lib/libmkl_rt${
-        stdenv.hostPlatform.extensions.sharedLibrary or ".a"
-      }
-      ln -sf ${blasProvider'}/include/* $dev/include
-    ''
-  );
-}
+            cat <<EOF > $dev/lib/pkgconfig/cblas.pc
+          Name: cblas
+          Version: ${version}
+          Description: BLAS C implementation
+          Cflags: -I$dev/include
+          Libs: -L$out/lib -lcblas
+          EOF
+        ''
+        + lib.optionalString (blasImplementation == "mkl") ''
+          mkdir -p $out/nix-support
+          echo 'export MKL_INTERFACE_LAYER=${lib.optionalString isILP64 "I"}LP64,GNU' > $out/nix-support/setup-hook
+          ln -s $out/lib/libblas${canonicalExtension} $out/lib/libmkl_rt${
+            stdenv.hostPlatform.extensions.sharedLibrary or ".a"
+          }
+          ln -sf ${blasProvider'}/include/* $dev/include
+        ''
+      );
+    }

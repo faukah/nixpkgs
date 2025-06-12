@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.elasticsearch-curator;
   curatorConfig = pkgs.writeTextFile {
     name = "config.yaml";
@@ -38,11 +35,8 @@ let
     name = "action.yaml";
     text = cfg.actionYAML;
   };
-in
-{
-
+in {
   options.services.elasticsearch-curator = {
-
     enable = mkEnableOption "elasticsearch curator";
     interval = mkOption {
       description = "The frequency to run curator, a systemd.time such as 'hourly'";
@@ -52,7 +46,7 @@ in
     hosts = mkOption {
       description = "a list of elasticsearch hosts to connect to";
       type = types.listOf types.str;
-      default = [ "localhost" ];
+      default = ["localhost"];
     };
     port = mkOption {
       description = "the port that elasticsearch is listening on";

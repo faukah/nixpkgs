@@ -6,7 +6,6 @@
   glib,
   gtk4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gnvim-unwrapped";
   version = "0.3.1";
@@ -51,6 +50,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "gnvim";
     homepage = "https://github.com/vhakulinen/gnvim";
     license = licenses.mit;
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
   };
 }

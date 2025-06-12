@@ -6,7 +6,6 @@
   libkrb5,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gsasl";
   version = "2.2.2";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     libkrb5
   ];
 
-  configureFlags = [ "--with-gssapi-impl=mit" ];
+  configureFlags = ["--with-gssapi-impl=mit"];
 
   preCheck = ''
     export LOCALDOMAIN="dummydomain"
@@ -44,8 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.gnu.org/software/gsasl/";
     license = lib.licenses.gpl3Plus;
 
-    maintainers = with lib.maintainers; [ shlevy ];
-    pkgConfigModules = [ "libgsasl" ];
+    maintainers = with lib.maintainers; [shlevy];
+    pkgConfigModules = ["libgsasl"];
     platforms = lib.platforms.all;
   };
 })

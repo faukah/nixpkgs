@@ -6,7 +6,6 @@
   hatchling,
   terminaltexteffects,
 }:
-
 buildPythonPackage rec {
   pname = "textualeffects";
   version = "0.1.4";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-hnCTIdSc16v0ftUTeCEwF05vXYXqFplqfDhwnDZGxGM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ terminaltexteffects ];
+  dependencies = [terminaltexteffects];
 
-  pythonImportsCheck = [ "textualeffects" ];
+  pythonImportsCheck = ["textualeffects"];
 
   # no tests implemented
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ggozad/textualeffects";
     changelog = "https://github.com/ggozad/textualeffects/blob/v${version}/CHANGES.txt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelj ];
+    maintainers = with lib.maintainers; [gaelj];
   };
 }

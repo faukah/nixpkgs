@@ -2,7 +2,6 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   jq,
   moreutils,
   fetchNpmDeps,
@@ -11,13 +10,11 @@
   cargo-tauri,
   pkg-config,
   wrapGAppsHook3,
-
   glib-networking,
   libsoup_3,
   openssl,
   webkitgtk_4_1,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gale";
   version = "1.7.1";
@@ -66,7 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Kesomannen/gale";
     license = lib.licenses.gpl3Only;
     mainProgram = "gale";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 })

@@ -14,7 +14,6 @@
   testresources,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "python-keystoneclient";
   version = "5.6.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-ch3irsdxAHY4nGdO4ntnEul9hsfg/0h7C0QJyPzuEOc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     keystoneauth1
@@ -51,12 +50,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "keystoneclient" ];
+  pythonImportsCheck = ["keystoneclient"];
 
   meta = with lib; {
     description = "Client Library for OpenStack Identity";
     homepage = "https://github.com/openstack/python-keystoneclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

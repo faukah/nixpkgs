@@ -20,7 +20,6 @@
   pytest-xdist,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "datashader";
   version = "0.18.1";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "datashader" ];
+  pythonImportsCheck = ["datashader"];
 
   meta = {
     description = "Data visualization toolchain based on aggregating into a grid";
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://datashader.org";
     changelog = "https://github.com/holoviz/datashader/blob/${src.tag}/CHANGELOG.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

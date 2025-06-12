@@ -5,7 +5,6 @@
   fetchFromGitHub,
   autoconf,
 }:
-
 buildDunePackage rec {
   pname = "cpu";
   version = "2.0.0";
@@ -24,14 +23,14 @@ buildDunePackage rec {
     autoheader
   '';
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
 
   hardeningDisable = lib.optional stdenv.hostPlatform.isDarwin "strictoverflow";
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Core pinning library";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl2;
   };
 }

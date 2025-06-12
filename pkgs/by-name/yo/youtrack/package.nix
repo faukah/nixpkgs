@@ -7,7 +7,6 @@
   gawk,
   statePath ? "/var/lib/youtrack",
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "youtrack";
   version = "2025.1.76253";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-DW3LZAlkfB7Uqy+xj4Oe3LkYD5fQyi4lDcgv/6brSEs=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out
     cp -r * $out
     makeWrapper $out/bin/youtrack.sh $out/bin/youtrack \
-      --prefix PATH : "${lib.makeBinPath [ gawk ]}" \
+      --prefix PATH : "${lib.makeBinPath [gawk]}" \
       --set JRE_HOME ${jdk21_headless}
     rm -rf $out/internal/java
     mv $out/conf $out/conf.orig
@@ -43,9 +42,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Issue tracking and project management tool for developers";
-    maintainers = [ lib.maintainers.leona ];
-    teams = [ lib.teams.serokell ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [lib.maintainers.leona];
+    teams = [lib.teams.serokell];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     # https://www.jetbrains.com/youtrack/buy/license.html
     license = lib.licenses.unfree;
   };

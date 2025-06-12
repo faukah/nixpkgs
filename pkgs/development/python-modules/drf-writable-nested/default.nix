@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "drf-writable-nested";
   version = "0.7.2";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "Writable nested model serializer for Django REST Framework";
     homepage = "https://github.com/beda-software/drf-writable-nested";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

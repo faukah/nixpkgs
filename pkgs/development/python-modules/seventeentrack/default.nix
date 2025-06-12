@@ -12,7 +12,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "seventeentrack";
   version = "2022.04.6";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -62,12 +61,12 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "seventeentrack" ];
+  pythonImportsCheck = ["seventeentrack"];
 
   meta = with lib; {
     description = "Python library to track package info from 17track.com";
     homepage = "https://github.com/McSwindler/seventeentrack";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

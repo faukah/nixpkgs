@@ -15,7 +15,6 @@
   xorg,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "halloy";
   version = "2025.2";
@@ -82,8 +81,7 @@ rustPlatform.buildRustPackage rec {
         vulkan-loader
         libxkbcommon
       ];
-    in
-    ''
+    in ''
       rpath=$(patchelf --print-rpath $out/bin/halloy)
       patchelf --set-rpath "$rpath:${rpathWayland}" $out/bin/halloy
     ''
@@ -107,7 +105,7 @@ rustPlatform.buildRustPackage rec {
       makeWrapper "$out/bin/halloy" "$APP_DIR/MacOS/halloy"
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "IRC application";

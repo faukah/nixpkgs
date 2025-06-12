@@ -1,22 +1,18 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "plotinus";
   meta = {
     maintainers = pkgs.plotinus.meta.maintainers;
     timeout = 600;
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-
-    {
-      imports = [ ./common/x11.nix ];
-      programs.plotinus.enable = true;
-      environment.systemPackages = [
-        pkgs.gnome-pomodoro
-        pkgs.xdotool
-      ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    programs.plotinus.enable = true;
+    environment.systemPackages = [
+      pkgs.gnome-pomodoro
+      pkgs.xdotool
+    ];
+  };
 
   testScript = ''
     machine.wait_for_x()

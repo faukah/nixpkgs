@@ -4,7 +4,6 @@
   logs,
   lwt,
 }:
-
 buildDunePackage {
   pname = "caqti-lwt";
   inherit (caqti) version src;
@@ -15,7 +14,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = caqti.meta // {
-    description = "Lwt support for Caqti";
-  };
+  meta =
+    caqti.meta
+    // {
+      description = "Lwt support for Caqti";
+    };
 }

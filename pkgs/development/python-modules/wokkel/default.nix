@@ -7,7 +7,6 @@
   python-dateutil,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "wokkel";
   version = "18.0.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail "twisted.python.constants" "constantly"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     incremental
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     twisted
   ];
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   checkPhase = ''
     runHook preCheck
@@ -66,7 +65,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/ralphm/wokkel"; # wokkel.ik.nu is dead
     changelog = "https://github.com/ralphm/wokkel/blob/${version}/NEWS.rst";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ethancedwards8 ];
-    teams = [ lib.teams.ngi ];
+    maintainers = [lib.maintainers.ethancedwards8];
+    teams = [lib.teams.ngi];
   };
 }

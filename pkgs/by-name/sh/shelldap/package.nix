@@ -5,7 +5,6 @@
   perlPackages,
   shortenPerlShebang,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "shelldap";
   version = "1.5.1";
@@ -48,13 +47,13 @@ perlPackages.buildPerlPackage rec {
   # no make target 'test', not tests provided by source
   doCheck = false;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   meta = {
     homepage = "https://github.com/mahlonsmith/shelldap/";
     description = "Handy shell-like interface for browsing LDAP servers and editing their content";
     changelog = "https://github.com/mahlonsmith/shelldap/blob/v${version}/CHANGELOG";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     maintainers = with lib.maintainers; [
       clerie
       tobiasBora

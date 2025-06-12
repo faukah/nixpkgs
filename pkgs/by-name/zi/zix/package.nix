@@ -7,7 +7,6 @@
   ninja,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zix";
   version = "0.4.2";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.com/drobilla/zix/-/blob/${src.rev}/NEWS";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

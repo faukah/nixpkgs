@@ -11,7 +11,6 @@
   xz,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "octopus";
   version = "0.7.4";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     mainProgram = "octopus";
     license = licenses.mit;
     homepage = "https://github.com/luntergroup/octopus";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

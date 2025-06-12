@@ -4,10 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.getty;
 
   baseArgs =
@@ -38,24 +35,19 @@ let
     ''}
     exec ${gettyCmd "$otherArgs"}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   imports = [
-    (mkRenamedOptionModule [ "services" "mingetty" ] [ "services" "getty" ])
-    (mkRemovedOptionModule [ "services" "getty" "serialSpeed" ]
+    (mkRenamedOptionModule ["services" "mingetty"] ["services" "getty"])
+    (
+      mkRemovedOptionModule ["services" "getty" "serialSpeed"]
       ''set non-standard baudrates with `boot.kernelParams` i.e. boot.kernelParams = ["console=ttyS2,1500000"];''
     )
   ];
 
   options = {
-
     services.getty = {
-
       autologinUser = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -101,11 +93,11 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Additional arguments passed to agetty.
         '';
-        example = [ "--nohostname" ];
+        example = ["--nohostname"];
       };
 
       greetingLine = mkOption {
@@ -125,9 +117,7 @@ in
           how to proceed.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -202,8 +192,7 @@ in
 
       '';
     };
-
   };
 
-  meta.maintainers = with maintainers; [ RossComputerGuy ];
+  meta.maintainers = with maintainers; [RossComputerGuy];
 }

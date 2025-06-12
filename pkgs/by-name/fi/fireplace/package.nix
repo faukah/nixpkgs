@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   pname = "fireplace";
   version = "0-unstable-2020-02-02";
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     runHook preInstall
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     hash = "sha256-2NUE/zaFoGwkZxgvVCYXxToiL23aVUFwFNlQzEq9GEc=";
   };
 
-  makeFlags = lib.optional stdenv.hostPlatform.isDarwin [ "CC=cc" ];
+  makeFlags = lib.optional stdenv.hostPlatform.isDarwin ["CC=cc"];
 
   meta = {
     description = "Cozy fireplace in your terminal";

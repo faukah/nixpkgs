@@ -7,7 +7,6 @@
   pcsclite,
   libnfc-nci,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ifdnfc-nci";
   version = "0.2.1";
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/StarGate01/ifdnfc-nci";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ stargate01 ];
+    maintainers = with lib.maintainers; [stargate01];
   };
 })

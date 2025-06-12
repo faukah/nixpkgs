@@ -10,7 +10,6 @@
   glib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gigolo";
   version = "0.6.0";
@@ -38,14 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     glib
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "gigolo-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "gigolo-";};
 
   meta = {
     description = "Frontend to easily manage connections to remote filesystems";
     homepage = "https://gitlab.xfce.org/apps/gigolo";
     license = lib.licenses.gpl2Plus;
     mainProgram = "gigolo";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,14 +3,11 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   langchain-core,
   langgraph-checkpoint,
-
   # tests
   langgraph-checkpoint-postgres,
   langgraph-checkpoint-sqlite,
@@ -22,7 +19,6 @@
   pytest-mock,
   pytestCheckHook,
   xxhash,
-
   # passthru
   nix-update-script,
 }:
@@ -42,7 +38,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/prebuilt";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     langchain-core
@@ -98,6 +94,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/langchain-ai/langgraph/tree/main/libs/prebuilt";
     changelog = "https://github.com/langchain-ai/langgraph/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "trippy";
   version = "0.13.0";
@@ -17,12 +16,12 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-+WLWtHguDm23VLjZ4aQnyLAnE/uynONj8lsfVMTTuwY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-kVqj+rYPxfv/9h+HDdSL5jU6DoU5KoJVVQot4O4WVNc=";
 
-  cargoBuildFlags = [ "--package trippy" ];
+  cargoBuildFlags = ["--package trippy"];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     local INSTALL="$out/bin/trip"
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://trippy.cli.rs";
     changelog = "https://github.com/fujiapple852/trippy/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "trip";
   };
 }

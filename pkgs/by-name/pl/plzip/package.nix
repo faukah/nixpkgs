@@ -6,7 +6,6 @@
   lzlib,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "plzip";
   version = "1.12";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     lzip
     texinfo
   ];
-  buildInputs = [ lzlib ];
+  buildInputs = [lzlib];
 
   enableParallelBuilding = true;
 

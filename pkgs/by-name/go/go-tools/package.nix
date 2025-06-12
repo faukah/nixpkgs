@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-tools";
   version = "2025.1.1";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-HssfBnSKdVZVgf4f0mwsGTwhiszBlE2HmDy7cvyvJ60=";
 
-  excludedPackages = [ "website" ];
+  excludedPackages = ["website"];
 
   doCheck = false;
 

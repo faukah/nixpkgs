@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "ujson";
   version = "5.10.0";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-s82PPF2MdzglfxAYiARE97fZtmIyxkZJ9WLXuoatS8E=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ujson" ];
+  pythonImportsCheck = ["ujson"];
 
   meta = with lib; {
     description = "Ultra fast JSON encoder and decoder";
     homepage = "https://github.com/ultrajson/ultrajson";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

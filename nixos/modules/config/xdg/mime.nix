@@ -3,17 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.xdg.mime;
-  associationOptions =
-    with lib.types;
+  associationOptions = with lib.types;
     attrsOf (coercedTo (either (listOf str) str) (x: lib.concatStringsSep ";" (lib.toList x)) str);
-in
-
-{
+in {
   meta = {
-    maintainers = lib.teams.freedesktop.members ++ (with lib.maintainers; [ figsoda ]);
+    maintainers = lib.teams.freedesktop.members ++ (with lib.maintainers; [figsoda]);
   };
 
   options = {
@@ -29,7 +25,7 @@ in
 
     xdg.mime.addedAssociations = lib.mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "application/pdf" = "firefox.desktop";
         "text/xml" = [
@@ -46,7 +42,7 @@ in
 
     xdg.mime.defaultApplications = lib.mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "application/pdf" = "firefox.desktop";
         "image/png" = [
@@ -63,7 +59,7 @@ in
 
     xdg.mime.removedAssociations = lib.mkOption {
       type = associationOptions;
-      default = { };
+      default = {};
       example = {
         "audio/mp3" = [
           "mpv.desktop"
@@ -82,16 +78,16 @@ in
   config = lib.mkIf cfg.enable {
     environment.etc."xdg/mimeapps.list" =
       lib.mkIf
-        (cfg.addedAssociations != { } || cfg.defaultApplications != { } || cfg.removedAssociations != { })
-        {
-          text = lib.generators.toINI { } {
-            "Added Associations" = cfg.addedAssociations;
-            "Default Applications" = cfg.defaultApplications;
-            "Removed Associations" = cfg.removedAssociations;
-          };
+      (cfg.addedAssociations != {} || cfg.defaultApplications != {} || cfg.removedAssociations != {})
+      {
+        text = lib.generators.toINI {} {
+          "Added Associations" = cfg.addedAssociations;
+          "Default Applications" = cfg.defaultApplications;
+          "Removed Associations" = cfg.removedAssociations;
         };
+      };
 
-    environment.pathsToLink = [ "/share/mime" ];
+    environment.pathsToLink = ["/share/mime"];
 
     environment.systemPackages = [
       # this package also installs some useful data, as well as its utilities
@@ -108,5 +104,4 @@ in
       fi
     '';
   };
-
 }

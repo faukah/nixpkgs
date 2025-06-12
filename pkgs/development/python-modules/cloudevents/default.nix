@@ -12,7 +12,6 @@
   sanic,
   sanic-testing,
 }:
-
 buildPythonPackage rec {
   pname = "cloudevents";
   version = "1.10.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "cloudevents" ];
+  pythonImportsCheck = ["cloudevents"];
 
   nativeCheckInputs = [
     deprecation
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     sanic-testing
   ];
 
-  disabledTestPaths = [ "samples/http-image-cloudevents/image_sample_test.py" ];
+  disabledTestPaths = ["samples/http-image-cloudevents/image_sample_test.py"];
 
   meta = with lib; {
     description = "Python SDK for CloudEvents";
     homepage = "https://github.com/cloudevents/sdk-python";
     changelog = "https://github.com/cloudevents/sdk-python/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

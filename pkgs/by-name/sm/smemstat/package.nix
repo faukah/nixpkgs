@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smemstat";
   version = "0.02.13";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wxgw5tPdZAhhISbay8BwoL5zxZJV4WstDpOtv9umf54=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/smemstat";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

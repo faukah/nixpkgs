@@ -7,7 +7,6 @@
   nsplist,
   pugixml,
 }:
-
 stdenv.mkDerivation {
   pname = "plistcpp";
   version = "0-unstable-2017-04-11";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
   ];
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     description = "CPP bindings for Plist";
     license = licenses.mit;
     platforms = platforms.unix;

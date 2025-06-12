@@ -3,11 +3,12 @@
   test,
   stubs,
   should,
-}:
-let
-  bundlerEnv = callPackage ./default.nix stubs // {
-    basicEnv = callPackage ../bundled-common stubs;
-  };
+}: let
+  bundlerEnv =
+    callPackage ./default.nix stubs
+    // {
+      basicEnv = callPackage ../bundled-common stubs;
+    };
 
   justName = bundlerEnv {
     name = "test-0.1.2";
@@ -22,20 +23,20 @@ let
     lockfile = ./test/Gemfile.lock;
   };
 in
-builtins.concatLists [
-  (test.run "bundlerEnv { name }" justName {
-    name = should.equal "test-0.1.2";
-  })
-  (test.run "bundlerEnv { pname }" pnamed [
-    (should.haveKeys [
-      "name"
-      "env"
-      "postBuild"
-    ])
-    {
+  builtins.concatLists [
+    (test.run "bundlerEnv { name }" justName {
       name = should.equal "test-0.1.2";
-      env = should.beASet;
-      postBuild = should.havePrefix "/nix/store";
-    }
-  ])
-]
+    })
+    (test.run "bundlerEnv { pname }" pnamed [
+      (should.haveKeys [
+        "name"
+        "env"
+        "postBuild"
+      ])
+      {
+        name = should.equal "test-0.1.2";
+        env = should.beASet;
+        postBuild = should.havePrefix "/nix/store";
+      }
+    ])
+  ]

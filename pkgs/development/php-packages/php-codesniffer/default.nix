@@ -3,7 +3,6 @@
   lib,
   php,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "php-codesniffer";
   version = "3.13.0";
@@ -22,7 +21,7 @@ php.buildComposerProject2 (finalAttrs: {
     description = "PHP coding standard tool";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/PHPCSStandards/PHP_CodeSniffer/";
-    maintainers = with lib.maintainers; [ javaguirre ];
-    teams = [ lib.teams.php ];
+    maintainers = with lib.maintainers; [javaguirre];
+    teams = [lib.teams.php];
   };
 })

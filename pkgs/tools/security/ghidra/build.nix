@@ -15,9 +15,7 @@
   ghidra-extensions,
   python3,
   python3Packages,
-}:
-
-let
+}: let
   pkg_path = "$out/lib/ghidra";
   pname = "ghidra";
   version = "11.3.2";
@@ -77,144 +75,144 @@ let
 
   # "Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0."
   gradle = gradle_8;
-
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit
-    pname
-    version
-    src
-    patches
-    postPatch
-    ;
-
-  # Don't create .orig files if the patch isn't an exact match.
-  patchFlags = [
-    "--no-backup-if-mismatch"
-    "-p1"
-  ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "ghidra";
-      exec = "ghidra";
-      icon = "ghidra";
-      desktopName = "Ghidra";
-      genericName = "Ghidra Software Reverse Engineering Suite";
-      categories = [ "Development" ];
-      terminal = false;
-      startupWMClass = "ghidra-Ghidra";
-    })
-  ];
-
-  nativeBuildInputs =
-    [
-      gradle
-      unzip
-      makeBinaryWrapper
-      copyDesktopItems
-      protobuf
-      python3
-      python3Packages.pip
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      xcbuild
-      desktopToDarwinBundle
-    ];
-
-  dontStrip = true;
-
-  __darwinAllowLocalNetworking = true;
-
-  mitmCache = gradle.fetchDeps {
-    inherit pname;
-    data = ./deps.json;
-  };
-
-  gradleFlags =
-    [ "-Dorg.gradle.java.home=${openjdk21}" ]
-    ++ lib.optionals isMacArm64 [
-      # For some reason I haven't been able to figure out yet, ghidra builds for
-      # arm64 seems to build the x64 binaries of the decompiler. These fail to
-      # build due to trying to link the x64 object files with arm64 stdc++
-      # library, which obviously fails.
-      #
-      # Those binaries are entirely unnecessary anyways, since we're targeting
-      # arm64 build here, so let's exclude them from the build.
-      "-x"
-      "Decompiler:linkSleighMac_x86_64Executable"
-      "-x"
-      "Decompiler:linkDecompileMac_x86_64Executable"
-    ];
-
-  preBuild = ''
-    export JAVA_TOOL_OPTIONS="-Duser.home=$NIX_BUILD_TOP/home"
-    gradle -I gradle/support/fetchDependencies.gradle
-  '';
-
-  gradleBuildTask = "buildGhidra";
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p "${pkg_path}" "$out/share/applications"
-
-    ZIP=build/dist/$(ls build/dist)
-    echo $ZIP
-    unzip $ZIP -d ${pkg_path}
-    f=("${pkg_path}"/*)
-    mv "${pkg_path}"/*/* "${pkg_path}"
-    rmdir "''${f[@]}"
-
-    for f in Ghidra/Framework/Gui/src/main/resources/images/GhidraIcon*.png; do
-      res=$(basename "$f" ".png" | cut -d"_" -f3 | cut -c11-)
-      install -Dm444 "$f" "$out/share/icons/hicolor/''${res}x''${res}/apps/ghidra.png"
-    done;
-    # improved macOS icon support
-    install -Dm444 Ghidra/Framework/Gui/src/main/resources/images/GhidraIcon64.png $out/share/icons/hicolor/32x32@2/apps/ghidra.png
-
-    runHook postInstall
-  '';
-
-  postFixup = ''
-    mkdir -p "$out/bin"
-    ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
-    ln -s "${pkg_path}/support/analyzeHeadless" "$out/bin/ghidra-analyzeHeadless"
-    wrapProgram "${pkg_path}/support/launch.sh" \
-      --set-default NIX_GHIDRAHOME "${pkg_path}/Ghidra" \
-      --prefix PATH : ${lib.makeBinPath [ openjdk21 ]}
-  '';
-
-  passthru = {
-    inherit releaseName distroPrefix;
-    inherit (ghidra-extensions.override { ghidra = finalAttrs.finalPackage; })
-      buildGhidraExtension
-      buildGhidraScripts
+  stdenv.mkDerivation (finalAttrs: {
+    inherit
+      pname
+      version
+      src
+      patches
+      postPatch
       ;
 
-    withExtensions = callPackage ./with-extensions.nix { ghidra = finalAttrs.finalPackage; };
-  };
+    # Don't create .orig files if the patch isn't an exact match.
+    patchFlags = [
+      "--no-backup-if-mismatch"
+      "-p1"
+    ];
 
-  meta = with lib; {
-    changelog = "https://htmlpreview.github.io/?https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_${finalAttrs.version}_build/Ghidra/Configurations/Public_Release/src/global/docs/ChangeHistory.html";
-    description = "Software reverse engineering (SRE) suite of tools";
-    mainProgram = "ghidra";
-    homepage = "https://ghidra-sre.org/";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
+    desktopItems = [
+      (makeDesktopItem {
+        name = "ghidra";
+        exec = "ghidra";
+        icon = "ghidra";
+        desktopName = "Ghidra";
+        genericName = "Ghidra Software Reverse Engineering Suite";
+        categories = ["Development"];
+        terminal = false;
+        startupWMClass = "ghidra-Ghidra";
+      })
     ];
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode # deps
-    ];
-    license = licenses.asl20;
-    maintainers = with maintainers; [
-      roblabla
-      vringar
-    ];
-    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
-  };
-})
+
+    nativeBuildInputs =
+      [
+        gradle
+        unzip
+        makeBinaryWrapper
+        copyDesktopItems
+        protobuf
+        python3
+        python3Packages.pip
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        xcbuild
+        desktopToDarwinBundle
+      ];
+
+    dontStrip = true;
+
+    __darwinAllowLocalNetworking = true;
+
+    mitmCache = gradle.fetchDeps {
+      inherit pname;
+      data = ./deps.json;
+    };
+
+    gradleFlags =
+      ["-Dorg.gradle.java.home=${openjdk21}"]
+      ++ lib.optionals isMacArm64 [
+        # For some reason I haven't been able to figure out yet, ghidra builds for
+        # arm64 seems to build the x64 binaries of the decompiler. These fail to
+        # build due to trying to link the x64 object files with arm64 stdc++
+        # library, which obviously fails.
+        #
+        # Those binaries are entirely unnecessary anyways, since we're targeting
+        # arm64 build here, so let's exclude them from the build.
+        "-x"
+        "Decompiler:linkSleighMac_x86_64Executable"
+        "-x"
+        "Decompiler:linkDecompileMac_x86_64Executable"
+      ];
+
+    preBuild = ''
+      export JAVA_TOOL_OPTIONS="-Duser.home=$NIX_BUILD_TOP/home"
+      gradle -I gradle/support/fetchDependencies.gradle
+    '';
+
+    gradleBuildTask = "buildGhidra";
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p "${pkg_path}" "$out/share/applications"
+
+      ZIP=build/dist/$(ls build/dist)
+      echo $ZIP
+      unzip $ZIP -d ${pkg_path}
+      f=("${pkg_path}"/*)
+      mv "${pkg_path}"/*/* "${pkg_path}"
+      rmdir "''${f[@]}"
+
+      for f in Ghidra/Framework/Gui/src/main/resources/images/GhidraIcon*.png; do
+        res=$(basename "$f" ".png" | cut -d"_" -f3 | cut -c11-)
+        install -Dm444 "$f" "$out/share/icons/hicolor/''${res}x''${res}/apps/ghidra.png"
+      done;
+      # improved macOS icon support
+      install -Dm444 Ghidra/Framework/Gui/src/main/resources/images/GhidraIcon64.png $out/share/icons/hicolor/32x32@2/apps/ghidra.png
+
+      runHook postInstall
+    '';
+
+    postFixup = ''
+      mkdir -p "$out/bin"
+      ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
+      ln -s "${pkg_path}/support/analyzeHeadless" "$out/bin/ghidra-analyzeHeadless"
+      wrapProgram "${pkg_path}/support/launch.sh" \
+        --set-default NIX_GHIDRAHOME "${pkg_path}/Ghidra" \
+        --prefix PATH : ${lib.makeBinPath [openjdk21]}
+    '';
+
+    passthru = {
+      inherit releaseName distroPrefix;
+      inherit
+        (ghidra-extensions.override {ghidra = finalAttrs.finalPackage;})
+        buildGhidraExtension
+        buildGhidraScripts
+        ;
+
+      withExtensions = callPackage ./with-extensions.nix {ghidra = finalAttrs.finalPackage;};
+    };
+
+    meta = with lib; {
+      changelog = "https://htmlpreview.github.io/?https://github.com/NationalSecurityAgency/ghidra/blob/Ghidra_${finalAttrs.version}_build/Ghidra/Configurations/Public_Release/src/global/docs/ChangeHistory.html";
+      description = "Software reverse engineering (SRE) suite of tools";
+      mainProgram = "ghidra";
+      homepage = "https://ghidra-sre.org/";
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+      sourceProvenance = with sourceTypes; [
+        fromSource
+        binaryBytecode # deps
+      ];
+      license = licenses.asl20;
+      maintainers = with maintainers; [
+        roblabla
+        vringar
+      ];
+      broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
+    };
+  })

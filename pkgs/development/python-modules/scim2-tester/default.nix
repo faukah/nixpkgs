@@ -11,7 +11,6 @@
   pytest-httpserver,
   cacert,
 }:
-
 buildPythonPackage rec {
   pname = "scim2-tester";
   version = "0.1.14";
@@ -26,19 +25,21 @@ buildPythonPackage rec {
     hash = "sha256-QoqD0dgEuL0VJ6vc6K76G7ipl7rKjlzJuTwFCnfS/64=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ scim2-client ];
+  dependencies = [scim2-client];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    werkzeug
-    scim2-server
-    pytest-httpserver
-    cacert
-  ] ++ optional-dependencies.httpx;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      werkzeug
+      scim2-server
+      pytest-httpserver
+      cacert
+    ]
+    ++ optional-dependencies.httpx;
 
-  pythonImportsCheck = [ "scim2_tester" ];
+  pythonImportsCheck = ["scim2_tester"];
 
   optional-dependencies.httpx = scim2-client.optional-dependencies.httpx;
 
@@ -47,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://scim2-tester.readthedocs.io/";
     changelog = "https://github.com/python-scim/scim2-tester/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

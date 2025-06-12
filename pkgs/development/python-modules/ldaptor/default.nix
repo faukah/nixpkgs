@@ -9,7 +9,6 @@
   zope-interface,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ldaptor";
   version = "21.2.0";
@@ -21,15 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-jEnrGTddSqs+W4NYYGFODLF+VrtaIOGHSAj6W+xno1g=";
   };
 
-  propagatedBuildInputs = [
-    passlib
-    pyparsing
-    six
-    twisted
-    zope-interface
-  ] ++ twisted.optional-dependencies.tls;
+  propagatedBuildInputs =
+    [
+      passlib
+      pyparsing
+      six
+      twisted
+      zope-interface
+    ]
+    ++ twisted.optional-dependencies.tls;
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   # Test creates an excessive amount of temporary files (order of millions).
   # Cleaning up those files already took over 15 hours already on my zfs
@@ -44,6 +45,6 @@ buildPythonPackage rec {
     description = "Pure-Python Twisted library for LDAP";
     homepage = "https://github.com/twisted/ldaptor";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

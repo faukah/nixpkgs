@@ -7,7 +7,6 @@
   python3,
   enableModTool ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "volk";
   version = "3.1.2";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "ENABLE_MODTOOL" enableModTool) ];
+  cmakeFlags = [(lib.cmakeBool "ENABLE_MODTOOL" enableModTool)];
 
   nativeBuildInputs = [
     cmake
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://libvolk.org/";
     description = "Vector Optimized Library of Kernels";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.all;
   };
 })

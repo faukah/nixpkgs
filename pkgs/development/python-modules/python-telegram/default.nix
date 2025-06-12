@@ -10,7 +10,6 @@
   tdlib,
   telegram-text,
 }:
-
 buildPythonPackage rec {
   pname = "python-telegram";
   version = "0.19.0";
@@ -34,24 +33,24 @@ buildPythonPackage rec {
                 "\"${tdlib}/lib/libtdjson${stdenv.hostPlatform.extensions.sharedLibrary}\""
   '';
 
-  build-inputs = [ setuptools ];
+  build-inputs = [setuptools];
 
   dependencies = [
     setuptools-scm
     telegram-text
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [ "TestGetTdjsonTdlibPath" ];
+  disabledTests = ["TestGetTdjsonTdlibPath"];
 
-  pythonImportsCheck = [ "telegram.client" ];
+  pythonImportsCheck = ["telegram.client"];
 
   meta = with lib; {
     description = "Python client for the Telegram's tdlib";
     homepage = "https://github.com/alexander-akhmetov/python-telegram";
     changelog = "https://github.com/alexander-akhmetov/python-telegram/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

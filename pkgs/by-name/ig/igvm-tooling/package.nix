@@ -7,7 +7,6 @@
   acpica-tools,
   unstableGitUpdater,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "igvm-tooling";
   version = "1.5.0-unstable-2024-06-06";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [ acpica-tools ];
+  nativeBuildInputs = [acpica-tools];
 
   propagatedBuildInputs =
     (with python3.pkgs; [

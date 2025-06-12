@@ -5,7 +5,6 @@
   glib,
   nixos-artwork,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mint-artwork";
   version = "1.8.9";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
       cc-by-40
     ]; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

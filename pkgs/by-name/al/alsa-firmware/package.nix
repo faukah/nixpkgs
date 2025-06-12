@@ -6,7 +6,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alsa-firmware";
   version = "1.2.4";
@@ -24,16 +23,19 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  configureFlags = [ "--with-hotplug-dir=$(out)/lib/firmware" ];
+  configureFlags = ["--with-hotplug-dir=$(out)/lib/firmware"];
 
-  depsBuildBuild = lib.optional (
-    stdenv.buildPlatform != stdenv.hostPlatform
-    || stdenv.hostPlatform.isAarch64
-    || stdenv.hostPlatform.isLoongArch64
-    || stdenv.hostPlatform.isRiscV64
-  ) buildPackages.stdenv.cc;
+  depsBuildBuild =
+    lib.optional (
+      stdenv.buildPlatform
+      != stdenv.hostPlatform
+      || stdenv.hostPlatform.isAarch64
+      || stdenv.hostPlatform.isLoongArch64
+      || stdenv.hostPlatform.isRiscV64
+    )
+    buildPackages.stdenv.cc;
 
   dontStrip = true;
 
@@ -52,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "Soundcard firmwares from the alsa project";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ l-as ];
+    maintainers = with maintainers; [l-as];
   };
 }

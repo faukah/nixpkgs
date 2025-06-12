@@ -8,7 +8,6 @@
   stdlib,
   version ? null,
 }:
-
 mkCoqDerivation {
   namePrefix = [
     "coq"
@@ -19,34 +18,33 @@ mkCoqDerivation {
   owner = "math-comp";
   inherit version;
 
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.coq-version mathcomp-algebra.version ]
-      [
-        {
-          cases = [
-            (range "8.16" "9.0")
-            (isGe "2.0.0")
-          ];
-          out = "1.5.0+2.0+8.16";
-        }
-        {
-          cases = [
-            (range "8.13" "8.20")
-            (range "1.12" "1.19.0")
-          ];
-          out = "1.3.0+1.12+8.13";
-        }
-        {
-          cases = [
-            (range "8.13" "8.16")
-            (range "1.12" "1.17.0")
-          ];
-          out = "1.1.0+1.12+8.13";
-        }
-      ]
-      null;
+    [coq.coq-version mathcomp-algebra.version]
+    [
+      {
+        cases = [
+          (range "8.16" "9.0")
+          (isGe "2.0.0")
+        ];
+        out = "1.5.0+2.0+8.16";
+      }
+      {
+        cases = [
+          (range "8.13" "8.20")
+          (range "1.12" "1.19.0")
+        ];
+        out = "1.3.0+1.12+8.13";
+      }
+      {
+        cases = [
+          (range "8.13" "8.16")
+          (range "1.12" "1.17.0")
+        ];
+        out = "1.1.0+1.12+8.13";
+      }
+    ]
+    null;
 
   release."1.0.0+1.12+8.13".sha256 = "1j533vx6lacr89bj1bf15l1a0s7rvrx4l00wyjv99aczkfbz6h6k";
   release."1.1.0+1.12+8.13".sha256 = "1plf4v6q5j7wvmd5gsqlpiy0vwlw6hy5daq2x42gqny23w9mi2pr";
@@ -62,6 +60,6 @@ mkCoqDerivation {
 
   meta = {
     description = "Micromega tactics for Mathematical Components";
-    maintainers = with lib.maintainers; [ cohencyril ];
+    maintainers = with lib.maintainers; [cohencyril];
   };
 }

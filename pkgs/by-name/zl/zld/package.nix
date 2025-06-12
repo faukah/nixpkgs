@@ -3,7 +3,6 @@
   lib,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zld";
   version = "1.3.4";
@@ -21,8 +20,8 @@ stdenv.mkDerivation rec {
     description = "Faster version of Apple's linker";
     homepage = "https://github.com/michaeleisel/zld";
     license = licenses.mit;
-    maintainers = [ maintainers.rgnns ];
+    maintainers = [maintainers.rgnns];
     platforms = platforms.darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

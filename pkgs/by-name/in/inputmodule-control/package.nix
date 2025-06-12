@@ -8,7 +8,6 @@
   pkg-config,
   libudev-zero,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "inputmodule-control";
   version = "0.2.0";
@@ -25,8 +24,8 @@ rustPlatform.buildRustPackage rec {
 
   buildAndTestSubdir = "inputmodule-control";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libudev-zero ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libudev-zero];
 
   postInstall = ''
     install -Dm644 release/50-framework-inputmodule.rules $out/etc/udev/rules.d/50-framework-inputmodule.rules
@@ -44,6 +43,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/FrameworkComputer/inputmodule-rs";
     downloadPage = "https://github.com/FrameworkComputer/inputmodule-rs/releases/tag/${src.rev}";
     changelog = "https://github.com/FrameworkComputer/inputmodule-rs/releases/tag/${src.rev}";
-    maintainers = with lib.maintainers; [ Kitt3120 ];
+    maintainers = with lib.maintainers; [Kitt3120];
   };
 }

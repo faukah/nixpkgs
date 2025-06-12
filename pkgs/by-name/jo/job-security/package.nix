@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "job-security";
   version = "0-unstable-2024-04-07";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage {
       mit
       mpl20
     ];
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "jobs";
     broken = stdenv.hostPlatform.isDarwin;
   };

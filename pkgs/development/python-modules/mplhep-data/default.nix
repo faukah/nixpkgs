@@ -5,7 +5,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "mplhep-data";
   version = "0.0.4";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "mplhep_data" ];
+  pythonImportsCheck = ["mplhep_data"];
 
   meta = with lib; {
     description = "Sub-package to hold data (fonts) for mplhep";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
       gfl
       ofl
     ];
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

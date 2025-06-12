@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sqlcheck";
   version = "1.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     mainProgram = "sqlcheck";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

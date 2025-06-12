@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "sankey-chart";
   version = "3.8.1";
@@ -31,7 +30,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/MindFreeze/ha-sankey-chart";
     changelog = "https://github.com/MindFreeze/ha-sankey-chart/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     platforms = lib.platforms.all;
   };
 }

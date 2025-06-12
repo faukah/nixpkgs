@@ -10,7 +10,6 @@
   coreutils,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usb-modeswitch";
   version = "2.6.0";
@@ -45,12 +44,12 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/usb_modeswitch_dispatcher \
       --set PATH ${
-        lib.makeBinPath [
-          util-linux
-          coreutils
-          bash
-        ]
-      }
+      lib.makeBinPath [
+        util-linux
+        coreutils
+        bash
+      ]
+    }
   '';
 
   buildInputs = [

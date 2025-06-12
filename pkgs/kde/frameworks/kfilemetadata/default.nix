@@ -14,9 +14,9 @@ mkKdeDerivation {
 
   # Fix installing cmake files into wrong directory
   # FIXME(later): upstream
-  patches = [ ./cmake-install-paths.patch ];
+  patches = [./cmake-install-paths.patch];
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     attr
     ebook_tools

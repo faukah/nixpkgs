@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "scimark";
   version = "4c";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://math.nist.gov/scimark2/download_c.html";
     license = lib.licenses.publicDomain;
     mainProgram = "scimark4";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

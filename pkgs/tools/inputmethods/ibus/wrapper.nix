@@ -6,13 +6,12 @@
   hicolor-icon-theme,
   ibus,
   librsvg,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 buildEnv {
   name = "ibus-with-plugins-" + lib.getVersion ibus;
 
-  paths = [ ibus ] ++ plugins;
+  paths = [ibus] ++ plugins;
 
   pathsToLink = [
     "/bin"
@@ -31,7 +30,7 @@ buildEnv {
     makeWrapper
   ];
 
-  buildInputs = [ ibus ] ++ plugins;
+  buildInputs = [ibus] ++ plugins;
 
   postBuild = ''
     for prog in ibus; do

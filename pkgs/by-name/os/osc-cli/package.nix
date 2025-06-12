@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "osc-cli";
   version = "1.11.0";
@@ -39,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Official Outscale CLI providing connectors to Outscale API";
     homepage = "https://github.com/outscale/osc-cli";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nicolas-goudry ];
+    maintainers = with maintainers; [nicolas-goudry];
     mainProgram = "osc-cli";
   };
 }

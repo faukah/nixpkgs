@@ -6,7 +6,6 @@
   dotnetCorePackages,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "Boogie";
   version = "3.5.1";
@@ -19,13 +18,13 @@ buildDotnetModule rec {
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  projectFile = [ "Source/Boogie.sln" ];
+  projectFile = ["Source/Boogie.sln"];
   nugetDeps = ./deps.json;
 
   # [...]Microsoft.NET.Publish.targets(248,5): error MSB3021: Unable to copy file "[...]/NUnit3.TestAdapter.pdb" to "[...]/NUnit3.TestAdapter.pdb". Access to the path '[...]/NUnit3.TestAdapter.pdb' is denied. [[...]/ExecutionEngineTests.csproj]
   enableParallelBuilding = false;
 
-  executables = [ "BoogieDriver" ];
+  executables = ["BoogieDriver"];
 
   makeWrapperArgs = [
     "--prefix PATH : ${z3}/bin"
@@ -50,7 +49,7 @@ buildDotnetModule rec {
     $out/bin/boogie ${./install-check-file.bpl}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Intermediate verification language";
@@ -64,7 +63,7 @@ buildDotnetModule rec {
     '';
     license = lib.licenses.mspl;
     mainProgram = "boogie";
-    maintainers = with lib.maintainers; [ taktoa ];
+    maintainers = with lib.maintainers; [taktoa];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

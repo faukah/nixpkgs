@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "bitv";
   version = "2.0";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     license = lib.licenses.lgpl21;
     homepage = "https://github.com/backtracking/bitv";
     changelog = "https://github.com/backtracking/bitv/releases/tag/${version}";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

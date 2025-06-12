@@ -1,4 +1,7 @@
-{ stdenvNoCC, fetchurl }:
+{
+  stdenvNoCC,
+  fetchurl,
+}:
 stdenvNoCC.mkDerivation {
   name = "qtile-config";
   version = "0.0.1";
@@ -12,7 +15,7 @@ stdenvNoCC.mkDerivation {
     cp $src config.py
   '';
 
-  patches = [ ./add-widget.patch ];
+  patches = [./add-widget.patch];
 
   dontUnpack = true;
   dontBuild = true;

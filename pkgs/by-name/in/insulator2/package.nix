@@ -22,7 +22,6 @@
   jq,
   moreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "insulator2";
   version = "2.13.2";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     description = "Client UI to inspect Kafka topics, consume, produce and much more";
     homepage = "https://github.com/andrewinci/insulator2";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tc-kaluza ];
+    maintainers = with maintainers; [tc-kaluza];
     mainProgram = "insulator-2";
   };
 }

@@ -11,17 +11,18 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/addon/doxmlparser";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
     six
   ];
 
-  pythonImportsCheck = [ "doxmlparser" ];
+  pythonImportsCheck = ["doxmlparser"];
 
   meta = {
-    inherit (doxygen.meta)
+    inherit
+      (doxygen.meta)
       license
       homepage
       changelog

@@ -11,7 +11,6 @@
   glib,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glib-testing";
   version = "0.1.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Test library providing test harnesses and mock classes complementing the classes provided by GLib";
     homepage = "https://gitlab.gnome.org/pwithnall/libglib-testing";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

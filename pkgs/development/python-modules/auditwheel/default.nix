@@ -14,7 +14,6 @@
   patchelf,
   unzip,
 }:
-
 buildPythonPackage rec {
   pname = "auditwheel";
   version = "6.4.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-IJkMyyQW/bgZg+9lTRDfcvnyWziOMBBbw9l7Btauyvs=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     packaging
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   # Integration tests require docker and networking
-  disabledTestPaths = [ "tests/integration" ];
+  disabledTestPaths = ["tests/integration"];
 
   # Ensure that there are no undeclared deps
   postCheck = ''
@@ -69,7 +68,7 @@ buildPythonPackage rec {
       bsd3 # from https://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-projects/pax-utils/lddtree.py
     ];
     mainProgram = "auditwheel";
-    maintainers = with maintainers; [ davhau ];
+    maintainers = with maintainers; [davhau];
     platforms = platforms.linux;
   };
 }

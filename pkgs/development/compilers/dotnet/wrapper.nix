@@ -18,8 +18,7 @@
   replaceVars,
   nugetPackageHook,
   xmlstarlet,
-}:
-type: unwrapped:
+}: type: unwrapped:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "${unwrapped.pname}-wrapped";
   inherit (unwrapped) version;
@@ -27,7 +26,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "${unwrapped.meta.description or "dotnet"} (wrapper)";
     mainProgram = "dotnet";
-    inherit (unwrapped.meta)
+    inherit
+      (unwrapped.meta)
       homepage
       license
       maintainers
@@ -52,9 +52,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   propagatedBuildInputs = lib.optional (type == "sdk") nugetPackageHook;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  outputs = [ "out" ] ++ lib.optional (unwrapped ? man) "man";
+  outputs = ["out"] ++ lib.optional (unwrapped ? man) "man";
 
   installPhase = ''
     runHook preInstall
@@ -84,100 +84,94 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ln -s ${unwrapped.man} "$man"
   '';
 
-  passthru = unwrapped.passthru // {
-    inherit unwrapped;
-    tests =
-      let
-        mkDotnetTest =
-          {
-            name,
-            stdenv ? stdenvNoCC,
-            template,
-            lang ? null,
-            usePackageSource ? false,
-            build,
-            buildInputs ? [ ],
-            runtime ? finalAttrs.finalPackage.runtime,
-            runInputs ? [ ],
-            run ? null,
-            runAllowNetworking ? false,
-          }:
-          let
-            sdk = finalAttrs.finalPackage;
-            built = stdenv.mkDerivation {
-              name = "${sdk.name}-test-${name}";
-              buildInputs = [ sdk ] ++ buildInputs ++ lib.optional (usePackageSource) sdk.packages;
-              # make sure ICU works in a sandbox
-              propagatedSandboxProfile = toString sdk.__propagatedSandboxProfile;
-              unpackPhase =
-                let
-                  unpackArgs =
-                    [ template ]
-                    ++ lib.optionals (lang != null) [
-                      "-lang"
-                      lang
-                    ];
-                in
-                ''
-                  mkdir test
-                  cd test
-                  dotnet new ${lib.escapeShellArgs unpackArgs} -o . --no-restore
-                '';
-              buildPhase = build;
-              dontPatchELF = true;
-            };
-          in
+  passthru =
+    unwrapped.passthru
+    // {
+      inherit unwrapped;
+      tests = let
+        mkDotnetTest = {
+          name,
+          stdenv ? stdenvNoCC,
+          template,
+          lang ? null,
+          usePackageSource ? false,
+          build,
+          buildInputs ? [],
+          runtime ? finalAttrs.finalPackage.runtime,
+          runInputs ? [],
+          run ? null,
+          runAllowNetworking ? false,
+        }: let
+          sdk = finalAttrs.finalPackage;
+          built = stdenv.mkDerivation {
+            name = "${sdk.name}-test-${name}";
+            buildInputs = [sdk] ++ buildInputs ++ lib.optional usePackageSource sdk.packages;
+            # make sure ICU works in a sandbox
+            propagatedSandboxProfile = toString sdk.__propagatedSandboxProfile;
+            unpackPhase = let
+              unpackArgs =
+                [template]
+                ++ lib.optionals (lang != null) [
+                  "-lang"
+                  lang
+                ];
+            in ''
+              mkdir test
+              cd test
+              dotnet new ${lib.escapeShellArgs unpackArgs} -o . --no-restore
+            '';
+            buildPhase = build;
+            dontPatchELF = true;
+          };
+        in
           # older SDKs don't include an embedded FSharp.Core package
-          if lang == "F#" && lib.versionOlder sdk.version "6.0.400" then
-            null
-          else if run == null then
-            built
+          if lang == "F#" && lib.versionOlder sdk.version "6.0.400"
+          then null
+          else if run == null
+          then built
           else
             runCommand "${built.name}-run"
-              (
-                {
-                  src = built;
-                  nativeBuildInputs = [ built ] ++ runInputs;
-                  passthru = {
-                    inherit built;
-                  };
-                }
-                // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && runAllowNetworking) {
-                  sandboxProfile = ''
-                    (allow network-inbound (local ip))
-                    (allow mach-lookup (global-name "com.apple.FSEvents"))
-                  '';
-                  __darwinAllowLocalNetworking = true;
-                }
-              )
-              (
-                lib.optionalString (runtime != null) ''
-                  export DOTNET_ROOT=${runtime}/share/dotnet
-                ''
-                + run
-              );
+            (
+              {
+                src = built;
+                nativeBuildInputs = [built] ++ runInputs;
+                passthru = {
+                  inherit built;
+                };
+              }
+              // lib.optionalAttrs (stdenv.hostPlatform.isDarwin && runAllowNetworking) {
+                sandboxProfile = ''
+                  (allow network-inbound (local ip))
+                  (allow mach-lookup (global-name "com.apple.FSEvents"))
+                '';
+                __darwinAllowLocalNetworking = true;
+              }
+            )
+            (
+              lib.optionalString (runtime != null) ''
+                export DOTNET_ROOT=${runtime}/share/dotnet
+              ''
+              + run
+            );
 
-        mkConsoleTests =
-          lang: suffix: output:
-          let
-            # Setting LANG to something other than 'C' forces the runtime to search
-            # for ICU, which will be required in most user environments.
-            checkConsoleOutput = command: ''
-              output="$(LANG=C.UTF-8 ${command})"
-              [[ "$output" =~ ${output} ]] && touch "$out"
-            '';
+        mkConsoleTests = lang: suffix: output: let
+          # Setting LANG to something other than 'C' forces the runtime to search
+          # for ICU, which will be required in most user environments.
+          checkConsoleOutput = command: ''
+            output="$(LANG=C.UTF-8 ${command})"
+            [[ "$output" =~ ${output} ]] && touch "$out"
+          '';
 
-            mkConsoleTest =
-              { name, ... }@args:
-              mkDotnetTest (
-                args
-                // {
-                  name = "console-${name}-${suffix}";
-                  template = "console";
-                  inherit lang;
-                }
-              );
-          in
+          mkConsoleTest = {name, ...} @ args:
+            mkDotnetTest (
+              args
+              // {
+                name = "console-${name}-${suffix}";
+                template = "console";
+                inherit lang;
+              }
+            );
+        in
           lib.recurseIntoAttrs {
             run = mkConsoleTest {
               name = "run";
@@ -216,7 +210,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           // lib.optionalAttrs finalAttrs.finalPackage.hasILCompiler {
             aot = mkConsoleTest {
               name = "aot";
-              stdenv = if stdenv.hostPlatform.isDarwin then swiftPackages.stdenv else stdenv;
+              stdenv =
+                if stdenv.hostPlatform.isDarwin
+                then swiftPackages.stdenv
+                else stdenv;
               usePackageSource = true;
               buildInputs =
                 [
@@ -235,8 +232,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
             };
           };
 
-        mkWebTest =
-          lang: suffix:
+        mkWebTest = lang: suffix:
           mkDotnetTest {
             name = "web-${suffix}";
             template = "web";
@@ -273,25 +269,31 @@ stdenvNoCC.mkDerivation (finalAttrs: {
             runAllowNetworking = true;
           };
       in
-      unwrapped.passthru.tests or { }
-      // {
-        version = testers.testVersion {
-          package = finalAttrs.finalPackage;
-          command = "HOME=$(mktemp -d) dotnet " + (if type == "sdk" then "--version" else "--info");
-        };
-      }
-      // lib.optionalAttrs (type == "sdk") ({
-        console = lib.recurseIntoAttrs {
-          # yes, older SDKs omit the comma
-          cs = mkConsoleTests "C#" "cs" "Hello,?\\ World!";
-          fs = mkConsoleTests "F#" "fs" "Hello\\ from\\ F#";
-          vb = mkConsoleTests "VB" "vb" "Hello,?\\ World!";
-        };
+        unwrapped.passthru.tests or {}
+        // {
+          version = testers.testVersion {
+            package = finalAttrs.finalPackage;
+            command =
+              "HOME=$(mktemp -d) dotnet "
+              + (
+                if type == "sdk"
+                then "--version"
+                else "--info"
+              );
+          };
+        }
+        // lib.optionalAttrs (type == "sdk") {
+          console = lib.recurseIntoAttrs {
+            # yes, older SDKs omit the comma
+            cs = mkConsoleTests "C#" "cs" "Hello,?\\ World!";
+            fs = mkConsoleTests "F#" "fs" "Hello\\ from\\ F#";
+            vb = mkConsoleTests "VB" "vb" "Hello,?\\ World!";
+          };
 
-        web = lib.recurseIntoAttrs {
-          cs = mkWebTest "C#" "cs";
-          fs = mkWebTest "F#" "fs";
+          web = lib.recurseIntoAttrs {
+            cs = mkWebTest "C#" "cs";
+            fs = mkWebTest "F#" "fs";
+          };
         };
-      });
-  };
+    };
 })

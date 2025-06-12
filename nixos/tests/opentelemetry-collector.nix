@@ -1,39 +1,35 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   port = 4318;
-in
-{
+in {
   name = "opentelemetry-collector";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ tylerjl ];
+    maintainers = [tylerjl];
   };
 
-  nodes.machine =
-    { ... }:
-    {
-      networking.firewall.allowedTCPPorts = [ port ];
-      services.opentelemetry-collector = {
-        enable = true;
-        settings = {
-          exporters.debug.verbosity = "detailed";
-          receivers.otlp.protocols = {
-            http.endpoint = "0.0.0.0:${toString port}";
-          };
-          service = {
-            pipelines.logs = {
-              receivers = [ "otlp" ];
-              exporters = [ "debug" ];
-            };
+  nodes.machine = {...}: {
+    networking.firewall.allowedTCPPorts = [port];
+    services.opentelemetry-collector = {
+      enable = true;
+      settings = {
+        exporters.debug.verbosity = "detailed";
+        receivers.otlp.protocols = {
+          http.endpoint = "0.0.0.0:${toString port}";
+        };
+        service = {
+          pipelines.logs = {
+            receivers = ["otlp"];
+            exporters = ["debug"];
           };
         };
       };
-      virtualisation.forwardPorts = [
-        {
-          host.port = port;
-          guest.port = port;
-        }
-      ];
     };
+    virtualisation.forwardPorts = [
+      {
+        host.port = port;
+        guest.port = port;
+      }
+    ];
+  };
 
   extraPythonPackages = p: [
     p.requests
@@ -42,7 +38,8 @@ in
 
   # Send a log event through the OTLP pipeline and check for its
   # presence in the collector logs.
-  testScript = # python
+  testScript =
+    # python
     ''
       import requests
       import time

@@ -6,7 +6,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zashboard";
   version = "1.93.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Dashboard Using Clash API";
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/Zephyruso/zashboard/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

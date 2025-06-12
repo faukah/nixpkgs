@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "polygon-cli";
   version = "1.1.11";
@@ -30,6 +29,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/kunyavskiy/polygon-cli";
     changelog = "https://github.com/kunyavskiy/polygon-cli/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaser ];
+    maintainers = with lib.maintainers; [khaser];
   };
 }

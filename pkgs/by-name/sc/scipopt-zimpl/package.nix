@@ -8,7 +8,6 @@
   gmp,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scipopt-zimpl";
   version = "362";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
   meta = {
-    maintainers = with lib.maintainers; [ fettgoenner ];
+    maintainers = with lib.maintainers; [fettgoenner];
     changelog = "https://scipopt.org/doc-${scipVersion}/html/RN${lib.versions.major scipVersion}.php";
     description = "Zuse Institut Mathematical Programming Language";
     longDescription = ''

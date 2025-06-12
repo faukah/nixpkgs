@@ -16,7 +16,6 @@
   # run the compiled `generate-book` utility to prepare the files for mdbook
   withDocumentation ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "just";
   version = "1.40.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     ++ lib.optionals installManPages [
       "man"
     ]
-    ++ lib.optionals withDocumentation [ "doc" ];
+    ++ lib.optionals withDocumentation ["doc"];
 
   src = fetchFromGitHub {
     owner = "casey";
@@ -40,9 +39,9 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-mQQGxtSgNuRbz/83eWru+dmtWiLSKdVH+3z88BNugQE=";
 
   nativeBuildInputs =
-    lib.optionals (installShellCompletions || installManPages) [ installShellFiles ]
-    ++ lib.optionals withDocumentation [ mdbook ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    lib.optionals (installShellCompletions || installManPages) [installShellFiles]
+    ++ lib.optionals withDocumentation [mdbook];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   preCheck = ''
     # USER must not be empty
@@ -70,9 +69,11 @@ rustPlatform.buildRustPackage rec {
     ./fix-just-path-in-tests.patch
   ];
 
-  cargoBuildFlags = [
-    "--package=just"
-  ] ++ (lib.optionals withDocumentation [ "--package=generate-book" ]);
+  cargoBuildFlags =
+    [
+      "--package=just"
+    ]
+    ++ (lib.optionals withDocumentation ["--package=generate-book"]);
 
   checkFlags = [
     "--skip=backticks::trailing_newlines_are_stripped" # Wants to use python3 as alternate shell
@@ -106,7 +107,7 @@ rustPlatform.buildRustPackage rec {
 
   setupHook = ./setup-hook.sh;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/casey/just";

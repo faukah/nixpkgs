@@ -40,8 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://docs.docker.com/desktop/release-notes";
     mainProgram = "docker-init";
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ BastianAsmussen ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [BastianAsmussen];
   };
 })

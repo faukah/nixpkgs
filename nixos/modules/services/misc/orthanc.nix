@@ -4,20 +4,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types;
 
   cfg = config.services.orthanc;
   opt = options.services.orthanc;
 
-  settingsFormat = pkgs.formats.json { };
-in
-{
+  settingsFormat = pkgs.formats.json {};
+in {
   options = {
     services.orthanc = {
       enable = lib.mkEnableOption "Orthanc server";
-      package = lib.mkPackageOption pkgs "orthanc" { };
+      package = lib.mkPackageOption pkgs "orthanc" {};
 
       stateDir = lib.mkOption {
         type = types.path;
@@ -87,48 +85,46 @@ in
 
     systemd.services.orthanc = {
       description = "Orthanc is a lightweight, RESTful DICOM server for healthcare and medical research";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       environment = cfg.environment;
 
-      serviceConfig =
-        let
-          config-json = settingsFormat.generate "orthanc-config.json" (cfg.settings);
-        in
-        {
-          ExecStart = "${lib.getExe cfg.package} ${config-json}";
-          EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
-          WorkingDirectory = cfg.stateDir;
-          BindReadOnlyPaths = [
-            "-/etc/localtime"
-          ];
-          StateDirectory = "orthanc";
-          RuntimeDirectory = "orthanc";
-          RuntimeDirectoryMode = "0755";
-          PrivateTmp = true;
-          DynamicUser = true;
-          DevicePolicy = "closed";
-          LockPersonality = true;
-          PrivateUsers = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectControlGroups = true;
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          SystemCallArchitectures = "native";
-          UMask = "0077";
-        };
+      serviceConfig = let
+        config-json = settingsFormat.generate "orthanc-config.json" (cfg.settings);
+      in {
+        ExecStart = "${lib.getExe cfg.package} ${config-json}";
+        EnvironmentFile = lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        WorkingDirectory = cfg.stateDir;
+        BindReadOnlyPaths = [
+          "-/etc/localtime"
+        ];
+        StateDirectory = "orthanc";
+        RuntimeDirectory = "orthanc";
+        RuntimeDirectoryMode = "0755";
+        PrivateTmp = true;
+        DynamicUser = true;
+        DevicePolicy = "closed";
+        LockPersonality = true;
+        PrivateUsers = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        SystemCallArchitectures = "native";
+        UMask = "0077";
+      };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.settings.HttpPort ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.settings.HttpPort];};
 
     # Orthanc requires /etc/localtime to be present
     time.timeZone = lib.mkDefault "UTC";
   };
 
-  meta.maintainers = with lib.maintainers; [ drupol ];
+  meta.maintainers = with lib.maintainers; [drupol];
 }

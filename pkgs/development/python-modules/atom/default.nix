@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "atom";
   version = "0.11.0";
@@ -22,23 +21,23 @@ buildPythonPackage rec {
     hash = "sha256-3Xk4CM8Cnkc0lIdjJUYs/6UTqqpPALrUa3DpKD40og8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ cppy ];
+  buildInputs = [cppy];
 
   preCheck = ''
     rm -rf atom
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "atom.api" ];
+  pythonImportsCheck = ["atom.api"];
 
   meta = with lib; {
     description = "Memory efficient Python objects";
     homepage = "https://github.com/nucleic/atom";
     changelog = "https://github.com/nucleic/atom/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

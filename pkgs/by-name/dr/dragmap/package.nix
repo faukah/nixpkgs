@@ -6,7 +6,6 @@
   gtest,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dragmap";
   version = "1.3.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-f1jsOErriS1I/iUS4CzJ3+Dz8SMUve/ccb3KaE+L7U8=";
   };
 
-  nativebuildInputs = [ boost ];
+  nativebuildInputs = [boost];
   buildInputs = [
     gtest
     zlib
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Illumina/DRAGMAP";
     changelog = "https://github.com/Illumina/DRAGMAP/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ apraga ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [apraga];
   };
 })

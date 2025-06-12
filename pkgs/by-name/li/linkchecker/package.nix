@@ -4,7 +4,6 @@
   python3,
   gettext,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "linkchecker";
   version = "10.2.1";
@@ -17,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-z7Qp74cai8GfsxB4n9dSCWQepp0/4PimFiRJQBaVSoo=";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   build-system = with python3.pkgs; [
     hatchling

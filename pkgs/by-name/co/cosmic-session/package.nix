@@ -9,7 +9,6 @@
   xdg-desktop-portal-cosmic,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-session";
   version = "1.0.0-alpha.7";
@@ -33,8 +32,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '/usr/bin/start-cosmic' "${placeholder "out"}/bin/start-cosmic"
   '';
 
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ just ];
+  buildInputs = [bash];
+  nativeBuildInputs = [just];
 
   dontUseJustBuild = true;
 
@@ -53,9 +52,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   env.XDP_COSMIC = "${xdg-desktop-portal-cosmic}/libexec/xdg-desktop-portal-cosmic";
 
   passthru = {
-    providedSessions = [ "cosmic" ];
+    providedSessions = ["cosmic"];
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -69,7 +69,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Session manager for the COSMIC desktop environment";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-session";
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

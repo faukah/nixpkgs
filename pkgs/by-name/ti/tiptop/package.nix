@@ -8,7 +8,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tiptop";
   version = "2.3.1";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "http://tiptop.gforge.inria.fr";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

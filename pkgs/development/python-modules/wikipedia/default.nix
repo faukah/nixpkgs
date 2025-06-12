@@ -6,7 +6,6 @@
   requests,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wikipedia";
   version = "1.4.0";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "tests/ '*test.py'" ];
+  unittestFlagsArray = ["tests/ '*test.py'"];
 
   meta = with lib; {
     description = "Pythonic wrapper for the Wikipedia API";
     homepage = "https://github.com/goldsmith/Wikipedia";
     changelog = "https://github.com/goldsmith/Wikipedia/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

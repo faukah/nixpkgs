@@ -17,7 +17,6 @@
   mock,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "greynoise";
   version = "2.3.0";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "greynoise" ];
+  pythonImportsCheck = ["greynoise"];
 
   meta = with lib; {
     description = "Python3 library and command line for GreyNoise";
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GreyNoise-Intelligence/pygreynoise";
     changelog = "https://github.com/GreyNoise-Intelligence/pygreynoise/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

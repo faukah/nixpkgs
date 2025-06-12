@@ -6,7 +6,6 @@
   zlib,
   zopfli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apngasm";
   version = "2.91";
@@ -40,8 +39,7 @@ stdenv.mkDerivation rec {
     mainProgram = "apngasm";
     homepage = "https://apngasm.sourceforge.net/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
-
 }

@@ -23,16 +23,15 @@
   wrapGAppsHook4,
   xorg,
 }:
-
 symlinkJoin {
   pname = "modrinth-app";
   inherit (modrinth-app-unwrapped) version;
 
-  paths = [ modrinth-app-unwrapped ];
+  paths = [modrinth-app-unwrapped];
 
-  nativeBuildInputs = [ wrapGAppsHook4 ];
+  nativeBuildInputs = [wrapGAppsHook4];
 
-  buildInputs = [ glib-networking ];
+  buildInputs = [glib-networking];
 
   runtimeDependencies = lib.optionalString stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
@@ -67,16 +66,17 @@ symlinkJoin {
     gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeSearchPath "bin/java" jdks}
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
-        --prefix PATH : ${lib.makeBinPath [ xorg.xrandr ]}
-        --set LD_LIBRARY_PATH $runtimeDependencies
-      ''}
+      --prefix PATH : ${lib.makeBinPath [xorg.xrandr]}
+      --set LD_LIBRARY_PATH $runtimeDependencies
+    ''}
     )
 
     wrapGAppsHook
   '';
 
   meta = {
-    inherit (modrinth-app-unwrapped.meta)
+    inherit
+      (modrinth-app-unwrapped.meta)
       description
       longDescription
       homepage

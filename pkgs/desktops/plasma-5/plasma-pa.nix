@@ -17,7 +17,6 @@
   libpulseaudio,
   sound-theme-freedesktop,
 }:
-
 mkDerivation {
   pname = "plasma-pa";
   nativeBuildInputs = [

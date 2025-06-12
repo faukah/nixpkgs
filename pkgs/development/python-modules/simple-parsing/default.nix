@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
   poetry-dynamic-versioning,
-
   # dependencies
   docstring-parser,
   typing-extensions,
-
   # optional-dependencies
   tomli,
   tomli-w,
   pyyaml,
-
   # tests
   matplotlib,
   numpy,
@@ -24,7 +20,6 @@
   pytest-regressions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "simple-parsing";
   version = "0.1.7";
@@ -52,10 +47,10 @@ buildPythonPackage rec {
       tomli
       tomli-w
     ];
-    yaml = [ pyyaml ];
+    yaml = [pyyaml];
   };
 
-  pythonImportsCheck = [ "simple_parsing" ];
+  pythonImportsCheck = ["simple_parsing"];
 
   nativeCheckInputs = [
     matplotlib
@@ -86,6 +81,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/lebrice/SimpleParsing/releases/tag/v${version}";
     homepage = "https://github.com/lebrice/SimpleParsing";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

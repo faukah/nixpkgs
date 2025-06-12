@@ -19,7 +19,6 @@
   protobuf,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "nidaqmx";
   version = "1.1.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   prePatch = ''
     substituteInPlace pyproject.toml \
@@ -73,13 +72,13 @@ buildPythonPackage rec {
   # Tests require hardware
   doCheck = false;
 
-  pythonImportsCheck = [ "nidaqmx" ];
+  pythonImportsCheck = ["nidaqmx"];
 
   meta = {
     changelog = "https://github.com/ni/nidaqmx-python/releases/tag/${src.tag}";
     description = "API for interacting with the NI-DAQmx driver";
     homepage = "https://github.com/ni/nidaqmx-python";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fsagbuya ];
+    maintainers = with lib.maintainers; [fsagbuya];
   };
 }

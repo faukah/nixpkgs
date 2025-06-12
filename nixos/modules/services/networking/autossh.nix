@@ -3,21 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.autossh;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.autossh = {
-
       sessions = lib.mkOption {
         type = lib.types.listOf (
           lib.types.submodule {
@@ -57,7 +49,7 @@ in
           }
         );
 
-        default = [ ];
+        default = [];
         description = ''
           List of AutoSSH sessions to start as systemd services. Each service is
           named 'autossh-{session.name}'.
@@ -71,31 +63,28 @@ in
             extraArguments = "-N -D4343 billremote@socks.host.net";
           }
         ];
-
       };
     };
-
   };
 
   ###### implementation
 
-  config = lib.mkIf (cfg.sessions != [ ]) {
-
+  config = lib.mkIf (cfg.sessions != []) {
     systemd.services =
-
       lib.foldr (
         s: acc:
-        acc
-        // {
-          "autossh-${s.name}" =
-            let
-              mport = if s ? monitoringPort then s.monitoringPort else 0;
-            in
-            {
+          acc
+          // {
+            "autossh-${s.name}" = let
+              mport =
+                if s ? monitoringPort
+                then s.monitoringPort
+                else 0;
+            in {
               description = "AutoSSH session (" + s.name + ")";
 
-              after = [ "network.target" ];
-              wantedBy = [ "multi-user.target" ];
+              after = ["network.target"];
+              wantedBy = ["multi-user.target"];
 
               # To be able to start the service with no network connection
               environment.AUTOSSH_GATETIME = "0";
@@ -111,10 +100,10 @@ in
                 ExecStart = "${pkgs.autossh}/bin/autossh -M ${toString mport} ${s.extraArguments}";
               };
             };
-        }
-      ) { } cfg.sessions;
+          }
+      ) {}
+      cfg.sessions;
 
-    environment.systemPackages = [ pkgs.autossh ];
-
+    environment.systemPackages = [pkgs.autossh];
   };
 }

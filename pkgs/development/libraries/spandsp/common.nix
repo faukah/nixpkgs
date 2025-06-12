@@ -7,7 +7,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spandsp";
 
@@ -24,8 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  nativeBuildInputs = [autoreconfHook];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   propagatedBuildInputs = [
     audiofile
     libtiff
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Portable and modular SIP User-Agent with audio and video support";
     homepage = "https://github.com/freeswitch/spandsp";
     platforms = with lib.platforms; unix;
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     license = lib.licenses.gpl2;
     downloadPage = "http://www.soft-switch.org/downloads/spandsp/";
   };

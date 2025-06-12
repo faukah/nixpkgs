@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gopsuinfo";
   version = "0.1.5";
@@ -36,7 +35,7 @@ buildGoModule rec {
     description = "Gopsutil-based command to display system usage info";
     homepage = "https://github.com/nwg-piotr/gopsuinfo";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ otini ];
+    maintainers = with maintainers; [otini];
     platforms = platforms.linux;
     mainProgram = "gopsuinfo";
   };

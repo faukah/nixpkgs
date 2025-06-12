@@ -10,7 +10,6 @@
   smartSupport ? false,
   libatasmart,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thinkfan";
   version = "1.3.1";
@@ -35,19 +34,21 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  cmakeFlags = [
-    "-DCMAKE_INSTALL_DOCDIR=share/doc/${pname}"
-    "-DUSE_NVML=OFF"
-    # force install unit files
-    "-DSYSTEMD_FOUND=ON"
-  ] ++ lib.optional smartSupport "-DUSE_ATASMART=ON";
+  cmakeFlags =
+    [
+      "-DCMAKE_INSTALL_DOCDIR=share/doc/${pname}"
+      "-DUSE_NVML=OFF"
+      # force install unit files
+      "-DSYSTEMD_FOUND=ON"
+    ]
+    ++ lib.optional smartSupport "-DUSE_ATASMART=ON";
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
 
-  buildInputs = [ yaml-cpp ] ++ lib.optional smartSupport libatasmart;
+  buildInputs = [yaml-cpp] ++ lib.optional smartSupport libatasmart;
 
   meta = {
     description = "Simple, lightweight fan control program";

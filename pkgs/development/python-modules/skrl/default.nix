@@ -13,7 +13,6 @@
   packaging,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "skrl";
   version = "1.4.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-5lkoYAmMIWqK3+E3WxXMWS9zal2DhZkfl30EkrHKpdI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     gym
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   doCheck = torch.cudaSupport;
 
   pythonImportsCheck = [
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/Toni-SM/skrl/releases/tag/${version}";
     homepage = "https://skrl.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -9,7 +9,6 @@
   libnotify,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cbatticon";
   version = "1.6.13";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     sed -i -e 's/ -Wno-format//g' Makefile
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Lightweight and fast battery icon that sits in the system tray";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/valr/cbatticon";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

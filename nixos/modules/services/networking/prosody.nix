@@ -4,36 +4,29 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.prosody;
 
-  sslOpts =
-    { ... }:
-    {
+  sslOpts = {...}: {
+    options = {
+      key = mkOption {
+        type = types.path;
+        description = "Path to the key file.";
+      };
 
-      options = {
+      # TODO: rename to certificate to match the prosody config
+      cert = mkOption {
+        type = types.path;
+        description = "Path to the certificate file.";
+      };
 
-        key = mkOption {
-          type = types.path;
-          description = "Path to the key file.";
-        };
-
-        # TODO: rename to certificate to match the prosody config
-        cert = mkOption {
-          type = types.path;
-          description = "Path to the certificate file.";
-        };
-
-        extraOptions = mkOption {
-          type = types.attrs;
-          default = { };
-          description = "Extra SSL configuration options.";
-        };
-
+      extraOptions = mkOption {
+        type = types.attrs;
+        default = {};
+        description = "Extra SSL configuration options.";
       };
     };
+  };
 
   discoOpts = {
     options = {
@@ -266,25 +259,21 @@ let
     };
   };
 
-  toLua =
-    x:
-    if builtins.isString x then
-      ''"${x}"''
-    else if builtins.isBool x then
-      boolToString x
-    else if builtins.isInt x then
-      toString x
-    else if builtins.isList x then
-      "{ ${lib.concatMapStringsSep ", " toLua x} }"
-    else
-      throw "Invalid Lua value";
+  toLua = x:
+    if builtins.isString x
+    then ''"${x}"''
+    else if builtins.isBool x
+    then boolToString x
+    else if builtins.isInt x
+    then toString x
+    else if builtins.isList x
+    then "{ ${lib.concatMapStringsSep ", " toLua x} }"
+    else throw "Invalid Lua value";
 
-  settingsToLua =
-    prefix: settings:
+  settingsToLua = prefix: settings:
     generators.toKeyValue {
       listsAsDuplicateKeys = false;
-      mkKeyValue =
-        k:
+      mkKeyValue = k:
         generators.mkKeyValueDefault {
           mkValueString = toLua;
         } " = " (prefix + k);
@@ -296,245 +285,225 @@ let
       key = "${o.key}";
       certificate = "${o.cert}";
       ${concatStringsSep "\n" (
-        mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
-      )}
+      mapAttrsToList (name: value: "${name} = ${toLua value};") o.extraOptions
+    )}
     };
   '';
 
-  mucOpts =
-    { ... }:
-    {
-      options = {
-        domain = mkOption {
-          type = types.str;
-          description = "Domain name of the MUC";
-        };
-        name = mkOption {
-          type = types.str;
-          description = "The name to return in service discovery responses for the MUC service itself";
-          default = "Prosody Chatrooms";
-        };
-        restrictRoomCreation = mkOption {
-          type = types.enum [
-            true
-            false
-            "admin"
-            "local"
-          ];
-          default = false;
-          description = "Restrict room creation to server admins";
-        };
-        maxHistoryMessages = mkOption {
-          type = types.int;
-          default = 20;
-          description = "Specifies a limit on what each room can be configured to keep";
-        };
-        roomLocking = mkOption {
-          type = types.bool;
-          default = true;
-          description = ''
-            Enables room locking, which means that a room must be
-            configured before it can be used. Locked rooms are invisible
-            and cannot be entered by anyone but the creator
-          '';
-        };
-        roomLockTimeout = mkOption {
-          type = types.int;
-          default = 300;
-          description = ''
-            Timeout after which the room is destroyed or unlocked if not
-            configured, in seconds
-          '';
-        };
-        tombstones = mkOption {
-          type = types.bool;
-          default = true;
-          description = ''
-            When a room is destroyed, it leaves behind a tombstone which
-            prevents the room being entered or recreated. It also allows
-            anyone who was not in the room at the time it was destroyed
-            to learn about it, and to update their bookmarks. Tombstones
-            prevents the case where someone could recreate a previously
-            semi-anonymous room in order to learn the real JIDs of those
-            who often join there.
-          '';
-        };
-        tombstoneExpiry = mkOption {
-          type = types.int;
-          default = 2678400;
-          description = ''
-            This settings controls how long a tombstone is considered
-            valid. It defaults to 31 days. After this time, the room in
-            question can be created again.
-          '';
-        };
-        allowners_muc = mkOption {
-          type = types.bool;
-          default = false;
-          description = ''
-            Add module allowners, any user in chat is able to
-            kick other. Usefull in jitsi-meet to kick ghosts.
-          '';
-        };
-        vcard_muc = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Adds the ability to set vCard for Multi User Chat rooms";
-        };
-
-        # Extra parameters. Defaulting to prosody default values.
-        # Adding them explicitly to make them visible from the options
-        # documentation.
-        #
-        # See https://prosody.im/doc/modules/mod_muc for more details.
-        roomDefaultPublic = mkOption {
-          type = types.bool;
-          default = true;
-          description = "If set, the MUC rooms will be public by default.";
-        };
-        roomDefaultMembersOnly = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If set, the MUC rooms will only be accessible to the members by default.";
-        };
-        roomDefaultModerated = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If set, the MUC rooms will be moderated by default.";
-        };
-        roomDefaultPublicJids = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If set, the MUC rooms will display the public JIDs by default.";
-        };
-        roomDefaultChangeSubject = mkOption {
-          type = types.bool;
-          default = false;
-          description = "If set, the rooms will display the public JIDs by default.";
-        };
-        roomDefaultHistoryLength = mkOption {
-          type = types.int;
-          default = 20;
-          description = "Number of history message sent to participants by default.";
-        };
-        roomDefaultLanguage = mkOption {
-          type = types.str;
-          default = "en";
-          description = "Default room language.";
-        };
-        extraConfig = mkOption {
-          type = types.lines;
-          default = "";
-          description = "Additional MUC specific configuration";
-        };
+  mucOpts = {...}: {
+    options = {
+      domain = mkOption {
+        type = types.str;
+        description = "Domain name of the MUC";
       };
-    };
-
-  uploadHttpOpts =
-    { ... }:
-    {
-      options = {
-        domain = mkOption {
-          type = types.nullOr types.str;
-          description = "Domain name for the http-upload service";
-        };
-        uploadFileSizeLimit = mkOption {
-          type = types.str;
-          default = "50 * 1024 * 1024";
-          description = "Maximum file size, in bytes. Defaults to 50MB.";
-        };
-        uploadExpireAfter = mkOption {
-          type = types.str;
-          default = "60 * 60 * 24 * 7";
-          description = "Max age of a file before it gets deleted, in seconds.";
-        };
-        userQuota = mkOption {
-          type = types.nullOr types.int;
-          default = null;
-          example = 1234;
-          description = ''
-            Maximum size of all uploaded files per user, in bytes. There
-            will be no quota if this option is set to null.
-          '';
-        };
-        httpUploadPath = mkOption {
-          type = types.str;
-          description = ''
-            Directory where the uploaded files will be stored when the http_upload module is used.
-            By default, uploaded files are put in a sub-directory of the default Prosody storage path (usually /var/lib/prosody).
-          '';
-          default = "/var/lib/prosody";
-        };
+      name = mkOption {
+        type = types.str;
+        description = "The name to return in service discovery responses for the MUC service itself";
+        default = "Prosody Chatrooms";
       };
-    };
-
-  httpFileShareOpts =
-    { ... }:
-    {
-      freeformType =
-        with types;
-        let
-          atom = oneOf [
-            int
-            bool
-            str
-            (listOf atom)
-          ];
-        in
-        attrsOf (nullOr atom)
-        // {
-          description = "int, bool, string or list of them";
-        };
-      options.domain = mkOption {
-        type = with types; nullOr str;
-        description = "Domain name for a http_file_share service.";
+      restrictRoomCreation = mkOption {
+        type = types.enum [
+          true
+          false
+          "admin"
+          "local"
+        ];
+        default = false;
+        description = "Restrict room creation to server admins";
       };
-    };
-
-  vHostOpts =
-    { ... }:
-    {
-
-      options = {
-
-        # TODO: require attribute
-        domain = mkOption {
-          type = types.str;
-          description = "Domain name";
-        };
-
-        enabled = mkOption {
-          type = types.bool;
-          default = false;
-          description = "Whether to enable the virtual host";
-        };
-
-        ssl = mkOption {
-          type = types.nullOr (types.submodule sslOpts);
-          default = null;
-          description = "Paths to SSL files";
-        };
-
-        extraConfig = mkOption {
-          type = types.lines;
-          default = "";
-          description = "Additional virtual host specific configuration";
-        };
-
+      maxHistoryMessages = mkOption {
+        type = types.int;
+        default = 20;
+        description = "Specifies a limit on what each room can be configured to keep";
+      };
+      roomLocking = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          Enables room locking, which means that a room must be
+          configured before it can be used. Locked rooms are invisible
+          and cannot be entered by anyone but the creator
+        '';
+      };
+      roomLockTimeout = mkOption {
+        type = types.int;
+        default = 300;
+        description = ''
+          Timeout after which the room is destroyed or unlocked if not
+          configured, in seconds
+        '';
+      };
+      tombstones = mkOption {
+        type = types.bool;
+        default = true;
+        description = ''
+          When a room is destroyed, it leaves behind a tombstone which
+          prevents the room being entered or recreated. It also allows
+          anyone who was not in the room at the time it was destroyed
+          to learn about it, and to update their bookmarks. Tombstones
+          prevents the case where someone could recreate a previously
+          semi-anonymous room in order to learn the real JIDs of those
+          who often join there.
+        '';
+      };
+      tombstoneExpiry = mkOption {
+        type = types.int;
+        default = 2678400;
+        description = ''
+          This settings controls how long a tombstone is considered
+          valid. It defaults to 31 days. After this time, the room in
+          question can be created again.
+        '';
+      };
+      allowners_muc = mkOption {
+        type = types.bool;
+        default = false;
+        description = ''
+          Add module allowners, any user in chat is able to
+          kick other. Usefull in jitsi-meet to kick ghosts.
+        '';
+      };
+      vcard_muc = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Adds the ability to set vCard for Multi User Chat rooms";
       };
 
+      # Extra parameters. Defaulting to prosody default values.
+      # Adding them explicitly to make them visible from the options
+      # documentation.
+      #
+      # See https://prosody.im/doc/modules/mod_muc for more details.
+      roomDefaultPublic = mkOption {
+        type = types.bool;
+        default = true;
+        description = "If set, the MUC rooms will be public by default.";
+      };
+      roomDefaultMembersOnly = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If set, the MUC rooms will only be accessible to the members by default.";
+      };
+      roomDefaultModerated = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If set, the MUC rooms will be moderated by default.";
+      };
+      roomDefaultPublicJids = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If set, the MUC rooms will display the public JIDs by default.";
+      };
+      roomDefaultChangeSubject = mkOption {
+        type = types.bool;
+        default = false;
+        description = "If set, the rooms will display the public JIDs by default.";
+      };
+      roomDefaultHistoryLength = mkOption {
+        type = types.int;
+        default = 20;
+        description = "Number of history message sent to participants by default.";
+      };
+      roomDefaultLanguage = mkOption {
+        type = types.str;
+        default = "en";
+        description = "Default room language.";
+      };
+      extraConfig = mkOption {
+        type = types.lines;
+        default = "";
+        description = "Additional MUC specific configuration";
+      };
     };
+  };
 
-in
+  uploadHttpOpts = {...}: {
+    options = {
+      domain = mkOption {
+        type = types.nullOr types.str;
+        description = "Domain name for the http-upload service";
+      };
+      uploadFileSizeLimit = mkOption {
+        type = types.str;
+        default = "50 * 1024 * 1024";
+        description = "Maximum file size, in bytes. Defaults to 50MB.";
+      };
+      uploadExpireAfter = mkOption {
+        type = types.str;
+        default = "60 * 60 * 24 * 7";
+        description = "Max age of a file before it gets deleted, in seconds.";
+      };
+      userQuota = mkOption {
+        type = types.nullOr types.int;
+        default = null;
+        example = 1234;
+        description = ''
+          Maximum size of all uploaded files per user, in bytes. There
+          will be no quota if this option is set to null.
+        '';
+      };
+      httpUploadPath = mkOption {
+        type = types.str;
+        description = ''
+          Directory where the uploaded files will be stored when the http_upload module is used.
+          By default, uploaded files are put in a sub-directory of the default Prosody storage path (usually /var/lib/prosody).
+        '';
+        default = "/var/lib/prosody";
+      };
+    };
+  };
 
-{
+  httpFileShareOpts = {...}: {
+    freeformType = with types; let
+      atom = oneOf [
+        int
+        bool
+        str
+        (listOf atom)
+      ];
+    in
+      attrsOf (nullOr atom)
+      // {
+        description = "int, bool, string or list of them";
+      };
+    options.domain = mkOption {
+      type = with types; nullOr str;
+      description = "Domain name for a http_file_share service.";
+    };
+  };
 
+  vHostOpts = {...}: {
+    options = {
+      # TODO: require attribute
+      domain = mkOption {
+        type = types.str;
+        description = "Domain name";
+      };
+
+      enabled = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Whether to enable the virtual host";
+      };
+
+      ssl = mkOption {
+        type = types.nullOr (types.submodule sslOpts);
+        default = null;
+        description = "Paths to SSL files";
+      };
+
+      extraConfig = mkOption {
+        type = types.lines;
+        default = "";
+        description = "Additional virtual host specific configuration";
+      };
+    };
+  };
+in {
   ###### interface
 
   options = {
-
     services.prosody = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -584,7 +553,7 @@ in
 
       disco_items = mkOption {
         type = types.listOf (types.submodule discoOpts);
-        default = [ ];
+        default = [];
         description = "List of discoverable items you want to advertise.";
       };
 
@@ -626,7 +595,7 @@ in
       httpPorts = mkOption {
         type = types.listOf types.int;
         description = "Listening HTTP ports list for this service.";
-        default = [ 5280 ];
+        default = [5280];
       };
 
       httpInterfaces = mkOption {
@@ -641,7 +610,7 @@ in
       httpsPorts = mkOption {
         type = types.listOf types.int;
         description = "Listening HTTPS ports list for this service.";
-        default = [ 5281 ];
+        default = [5281];
       };
 
       httpsInterfaces = mkOption {
@@ -685,8 +654,8 @@ in
 
       s2sInsecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "insecure.example.com" ];
+        default = [];
+        example = ["insecure.example.com"];
         description = ''
           Some servers have invalid or self-signed certificates. You can list
           remote domains here that will not be required to authenticate using
@@ -697,8 +666,8 @@ in
 
       s2sSecureDomains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "jabber.org" ];
+        default = [];
+        example = ["jabber.org"];
         description = ''
           Even if you leave s2s_secure_auth disabled, you can still require valid
           certificates for some domains by specifying a list here.
@@ -709,13 +678,13 @@ in
 
       extraModules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Enable custom modules";
       };
 
       extraPluginPaths = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = "Additional path in which to look find plugins/modules";
       };
 
@@ -743,7 +712,7 @@ in
 
       muc = mkOption {
         type = types.listOf (types.submodule mucOpts);
-        default = [ ];
+        default = [];
         example = [
           {
             domain = "conference.my-xmpp-example-host.org";
@@ -753,7 +722,6 @@ in
       };
 
       virtualHosts = mkOption {
-
         description = "Define the virtual hosts";
 
         type = with types; attrsOf (submodule vHostOpts);
@@ -771,7 +739,6 @@ in
             enabled = true;
           };
         };
-
       };
 
       ssl = mkOption {
@@ -782,7 +749,7 @@ in
 
       admins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "admin1@example.com"
           "admin2@example.com"
@@ -818,126 +785,123 @@ in
           }
         '';
       };
-
     };
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
+    assertions = let
+      genericErrMsg = ''
 
-    assertions =
-      let
-        genericErrMsg = ''
+        Having a server not XEP-0423-compliant might make your XMPP
+        experience terrible. See the NixOS manual for further
+        information.
 
-          Having a server not XEP-0423-compliant might make your XMPP
-          experience terrible. See the NixOS manual for further
-          information.
-
-          If you know what you're doing, you can disable this warning by
-          setting config.services.prosody.xmppComplianceSuite to false.
-        '';
-        errors = [
-          {
-            assertion = (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
-            message =
-              ''
-                You need to setup at least a MUC domain to comply with
-                XEP-0423.
-              ''
-              + genericErrMsg;
-          }
-          {
-            assertion = cfg.uploadHttp != null || cfg.httpFileShare != null || !cfg.xmppComplianceSuite;
-            message =
-              ''
-                You need to setup the http_upload or http_file_share modules through config.services.prosody.uploadHttp
-                or config.services.prosody.httpFileShare to comply with XEP-0423.
-              ''
-              + genericErrMsg;
-          }
-        ];
-      in
+        If you know what you're doing, you can disable this warning by
+        setting config.services.prosody.xmppComplianceSuite to false.
+      '';
+      errors = [
+        {
+          assertion = (builtins.length cfg.muc > 0) || !cfg.xmppComplianceSuite;
+          message =
+            ''
+              You need to setup at least a MUC domain to comply with
+              XEP-0423.
+            ''
+            + genericErrMsg;
+        }
+        {
+          assertion = cfg.uploadHttp != null || cfg.httpFileShare != null || !cfg.xmppComplianceSuite;
+          message =
+            ''
+              You need to setup the http_upload or http_file_share modules through config.services.prosody.uploadHttp
+              or config.services.prosody.httpFileShare to comply with XEP-0423.
+            ''
+            + genericErrMsg;
+        }
+      ];
+    in
       errors;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    environment.etc."prosody/prosody.cfg.lua".text =
-      let
-        httpDiscoItems =
-          optional (cfg.uploadHttp != null) {
-            url = cfg.uploadHttp.domain;
-            description = "HTTP upload endpoint";
-          }
-          ++ optional (cfg.httpFileShare != null) {
-            url = cfg.httpFileShare.domain;
-            description = "HTTP file share endpoint";
-          };
-        mucDiscoItems = builtins.foldl' (
-          acc: muc:
-          [
-            {
-              url = muc.domain;
-              description = "${muc.domain} MUC endpoint";
-            }
-          ]
-          ++ acc
-        ) [ ] cfg.muc;
-        discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
-      in
-      ''
-
-        pidfile = "/run/prosody/prosody.pid"
-
-        log = ${cfg.log}
-
-        data_path = "${cfg.dataDir}"
-        plugin_paths = {
-          ${lib.concatStringsSep ", " (map (n: "\"${n}\"") cfg.extraPluginPaths)}
+    environment.etc."prosody/prosody.cfg.lua".text = let
+      httpDiscoItems =
+        optional (cfg.uploadHttp != null) {
+          url = cfg.uploadHttp.domain;
+          description = "HTTP upload endpoint";
         }
-
-        ${optionalString (cfg.ssl != null) (createSSLOptsStr cfg.ssl)}
-
-        admins = ${toLua cfg.admins}
-
-        modules_enabled = {
-
-          ${lib.concatStringsSep "\n  " (
-            lib.mapAttrsToList (name: val: optionalString val "${toLua name};") cfg.modules
-          )}
-          ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)}
-          ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
+        ++ optional (cfg.httpFileShare != null) {
+          url = cfg.httpFileShare.domain;
+          description = "HTTP file share endpoint";
         };
+      mucDiscoItems =
+        builtins.foldl' (
+          acc: muc:
+            [
+              {
+                url = muc.domain;
+                description = "${muc.domain} MUC endpoint";
+              }
+            ]
+            ++ acc
+        ) []
+        cfg.muc;
+      discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
+    in ''
 
-        disco_items = {
-        ${lib.concatStringsSep "\n" (builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems)}
-        };
+      pidfile = "/run/prosody/prosody.pid"
 
-        allow_registration = ${toLua cfg.allowRegistration}
+      log = ${cfg.log}
 
-        c2s_require_encryption = ${toLua cfg.c2sRequireEncryption}
+      data_path = "${cfg.dataDir}"
+      plugin_paths = {
+        ${lib.concatStringsSep ", " (map (n: "\"${n}\"") cfg.extraPluginPaths)}
+      }
 
-        s2s_require_encryption = ${toLua cfg.s2sRequireEncryption}
+      ${optionalString (cfg.ssl != null) (createSSLOptsStr cfg.ssl)}
 
-        s2s_secure_auth = ${toLua cfg.s2sSecureAuth}
+      admins = ${toLua cfg.admins}
 
-        s2s_insecure_domains = ${toLua cfg.s2sInsecureDomains}
+      modules_enabled = {
 
-        s2s_secure_domains = ${toLua cfg.s2sSecureDomains}
+        ${lib.concatStringsSep "\n  " (
+        lib.mapAttrsToList (name: val: optionalString val "${toLua name};") cfg.modules
+      )}
+        ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.package.communityModules)}
+        ${lib.concatStringsSep "\n" (map (x: "${toLua x};") cfg.extraModules)}
+      };
 
-        authentication = ${toLua cfg.authentication}
+      disco_items = {
+      ${lib.concatStringsSep "\n" (builtins.map (x: ''{ "${x.url}", "${x.description}"};'') discoItems)}
+      };
 
-        http_interfaces = ${toLua cfg.httpInterfaces}
+      allow_registration = ${toLua cfg.allowRegistration}
 
-        https_interfaces = ${toLua cfg.httpsInterfaces}
+      c2s_require_encryption = ${toLua cfg.c2sRequireEncryption}
 
-        http_ports = ${toLua cfg.httpPorts}
+      s2s_require_encryption = ${toLua cfg.s2sRequireEncryption}
 
-        https_ports = ${toLua cfg.httpsPorts}
+      s2s_secure_auth = ${toLua cfg.s2sSecureAuth}
 
-        ${cfg.extraConfig}
+      s2s_insecure_domains = ${toLua cfg.s2sInsecureDomains}
 
-        ${lib.concatMapStrings (muc: ''
+      s2s_secure_domains = ${toLua cfg.s2sSecureDomains}
+
+      authentication = ${toLua cfg.authentication}
+
+      http_interfaces = ${toLua cfg.httpInterfaces}
+
+      https_interfaces = ${toLua cfg.httpsInterfaces}
+
+      http_ports = ${toLua cfg.httpPorts}
+
+      https_ports = ${toLua cfg.httpsPorts}
+
+      ${cfg.extraConfig}
+
+      ${lib.concatMapStrings (muc: ''
           Component ${toLua muc.domain} "muc"
               modules_enabled = { "muc_mam"; ${optionalString muc.vcard_muc ''"vcard_muc";''} ${optionalString muc.allowners_muc ''"muc_allowners";''}  }
               name = ${toLua muc.name}
@@ -955,32 +919,34 @@ in
               muc_room_default_history_length = ${toLua muc.roomDefaultHistoryLength}
               muc_room_default_language = ${toLua muc.roomDefaultLanguage}
               ${muc.extraConfig}
-        '') cfg.muc}
+        '')
+        cfg.muc}
 
-        ${lib.optionalString (cfg.uploadHttp != null) ''
-          Component ${toLua cfg.uploadHttp.domain} "http_upload"
-              http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
-              http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
-              ${lib.optionalString (
-                cfg.uploadHttp.userQuota != null
-              ) "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"}
-              http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
-        ''}
+      ${lib.optionalString (cfg.uploadHttp != null) ''
+        Component ${toLua cfg.uploadHttp.domain} "http_upload"
+            http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
+            http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
+            ${lib.optionalString (
+          cfg.uploadHttp.userQuota != null
+        ) "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"}
+            http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
+      ''}
 
-        ${lib.optionalString (cfg.httpFileShare != null) ''
-          Component ${toLua cfg.httpFileShare.domain} "http_file_share"
-          ${settingsToLua "  http_file_share_" (cfg.httpFileShare // { domain = null; })}
-        ''}
+      ${lib.optionalString (cfg.httpFileShare != null) ''
+        Component ${toLua cfg.httpFileShare.domain} "http_file_share"
+        ${settingsToLua "  http_file_share_" (cfg.httpFileShare // {domain = null;})}
+      ''}
 
-        ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList (n: v: ''
-            VirtualHost "${v.domain}"
-              enabled = ${boolToString v.enabled};
-              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-              ${v.extraConfig}
-          '') cfg.virtualHosts
-        )}
-      '';
+      ${lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (n: v: ''
+          VirtualHost "${v.domain}"
+            enabled = ${boolToString v.enabled};
+            ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+            ${v.extraConfig}
+        '')
+        cfg.virtualHosts
+      )}
+    '';
 
     users.users.prosody = mkIf (cfg.user == "prosody") {
       uid = config.ids.uids.prosody;
@@ -995,16 +961,16 @@ in
 
     systemd.services.prosody = {
       description = "Prosody XMPP server";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."prosody/prosody.cfg.lua".source ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."prosody/prosody.cfg.lua".source];
       serviceConfig = mkMerge [
         {
           User = cfg.user;
           Group = cfg.group;
           Type = "forking";
-          RuntimeDirectory = [ "prosody" ];
+          RuntimeDirectory = ["prosody"];
           PIDFile = "/run/prosody/prosody.pid";
           ExecStart = "${cfg.package}/bin/prosodyctl start";
           ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
@@ -1027,7 +993,6 @@ in
         })
       ];
     };
-
   };
 
   meta.doc = ./prosody.md;

@@ -3,11 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.stunnel;
-  yesNo = val: if val then "yes" else "no";
+  yesNo = val:
+    if val
+    then "yes"
+    else "no";
 
   verifyRequiredField = type: field: n: c: {
     assertion = lib.hasAttr field c;
@@ -22,31 +23,22 @@ let
   };
 
   removeNulls = lib.mapAttrs (_: lib.filterAttrs (_: v: v != null));
-  mkValueString =
-    v:
-    if v == true then
-      "yes"
-    else if v == false then
-      "no"
-    else
-      lib.generators.mkValueStringDefault { } v;
-  generateConfig =
-    c:
+  mkValueString = v:
+    if v == true
+    then "yes"
+    else if v == false
+    then "no"
+    else lib.generators.mkValueStringDefault {} v;
+  generateConfig = c:
     lib.generators.toINI {
       mkSectionName = lib.id;
       mkKeyValue = k: v: "${k} = ${mkValueString v}";
     } (removeNulls c);
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.stunnel = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -98,8 +90,7 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (
             attrsOf (
               nullOr (oneOf [
@@ -116,7 +107,7 @@ in
             cert = "/path/to/pem/file";
           };
         };
-        default = { };
+        default = {};
       };
 
       clients = lib.mkOption {
@@ -127,8 +118,7 @@ in
 
           See "SERVICE-LEVEL OPTIONS" in {manpage}`stunnel(8)`.
         '';
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (
             attrsOf (
               nullOr (oneOf [
@@ -139,27 +129,24 @@ in
             )
           );
 
-        apply =
-          let
-            applyDefaults =
-              c:
-              {
-                CAFile = config.security.pki.caBundle;
-                OCSPaia = true;
-                verifyChain = true;
-              }
-              // c;
-            setCheckHostFromVerifyHostname =
-              c:
-              # To preserve backward-compatibility with the old NixOS stunnel module
-              # definition, allow "verifyHostname" as an alias for "checkHost".
-              c
-              // {
-                checkHost = c.checkHost or c.verifyHostname or null;
-                verifyHostname = null; # Not a real stunnel configuration setting
-              };
-            forceClient = c: c // { client = true; };
-          in
+        apply = let
+          applyDefaults = c:
+            {
+              CAFile = config.security.pki.caBundle;
+              OCSPaia = true;
+              verifyChain = true;
+            }
+            // c;
+          setCheckHostFromVerifyHostname = c:
+          # To preserve backward-compatibility with the old NixOS stunnel module
+          # definition, allow "verifyHostname" as an alias for "checkHost".
+            c
+            // {
+              checkHost = c.checkHost or c.verifyHostname or null;
+              verifyHostname = null; # Not a real stunnel configuration setting
+            };
+          forceClient = c: c // {client = true;};
+        in
           lib.mapAttrs (_: c: forceClient (setCheckHostFromVerifyHostname (applyDefaults c)));
 
         example = {
@@ -169,7 +156,7 @@ in
             verifyChain = false;
           };
         };
-        default = { };
+        default = {};
       };
     };
   };
@@ -177,7 +164,6 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = lib.concatLists [
       (lib.singleton {
         assertion =
@@ -193,7 +179,7 @@ in
       (lib.mapAttrsToList (verifyRequiredField "server" "connect") cfg.servers)
     ];
 
-    environment.systemPackages = [ pkgs.stunnel ];
+    environment.systemPackages = [pkgs.stunnel];
 
     environment.etc."stunnel.cfg".text = ''
       ${lib.optionalString (cfg.user != null) "setuid = ${cfg.user}"}
@@ -213,10 +199,10 @@ in
 
     systemd.services.stunnel = {
       description = "stunnel TLS tunneling service";
-      after = [ "network.target" ];
-      wants = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."stunnel.cfg".source ];
+      after = ["network.target"];
+      wants = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."stunnel.cfg".source];
       serviceConfig = {
         ExecStart = "${pkgs.stunnel}/bin/stunnel ${config.environment.etc."stunnel.cfg".source}";
         Type = "forking";
@@ -230,5 +216,4 @@ in
     # Client side
     das_j
   ];
-
 }

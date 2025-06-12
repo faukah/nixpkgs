@@ -4,7 +4,6 @@
   fetchFromGitHub,
   scribus,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "sla2pdf";
   version = "0.0.1-unstable-2023-05-17";
@@ -17,10 +16,10 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-mvZ6Es8TLJmNwdacRJ3Gw5z0nI6xW1igz50yjIFBUds=";
   };
 
-  build-system = [ python3.pkgs.setuptools ];
+  build-system = [python3.pkgs.setuptools];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ scribus ]}"
+    "--prefix PATH : ${lib.makeBinPath [scribus]}"
   ];
 
   meta = {
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication {
       cc-by-40
       mpl20
     ];
-    maintainers = with lib.maintainers; [ ob7 ];
+    maintainers = with lib.maintainers; [ob7];
     mainProgram = "sla2pdf";
   };
 }

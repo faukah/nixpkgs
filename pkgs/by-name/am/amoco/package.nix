@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "amoco";
   version = "2.9.8";
@@ -68,6 +67,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "amoco";
     homepage = "https://github.com/bdcht/amoco";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

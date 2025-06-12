@@ -2,15 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   cmake,
   pkg-config,
-
   dbus,
   openssl,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "signalbackup-tools";
   version = "20250606";
@@ -51,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "signalbackup-tools";
     homepage = "https://github.com/bepaald/signalbackup-tools";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
     platforms = platforms.all;
   };
 }

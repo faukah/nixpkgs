@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.factorio;
   name = "Factorio";
   stateDir = "/var/lib/${cfg.stateDirName}";
@@ -15,40 +14,40 @@ let
     read-data=${cfg.package}/share/factorio/data
     write-data=${stateDir}
   '';
-  serverSettings = {
-    name = cfg.game-name;
-    description = cfg.description;
-    visibility = {
-      public = cfg.public;
-      lan = cfg.lan;
-    };
-    username = cfg.username;
-    password = cfg.password;
-    token = cfg.token;
-    game_password = cfg.game-password;
-    require_user_verification = cfg.requireUserVerification;
-    max_upload_in_kilobytes_per_second = 0;
-    minimum_latency_in_ticks = 0;
-    ignore_player_limit_for_returning_players = false;
-    allow_commands = "admins-only";
-    autosave_interval = cfg.autosave-interval;
-    autosave_slots = 5;
-    afk_autokick_interval = 0;
-    auto_pause = true;
-    only_admins_can_pause_the_game = true;
-    autosave_only_on_server = true;
-    non_blocking_saving = cfg.nonBlockingSaving;
-  } // cfg.extraSettings;
+  serverSettings =
+    {
+      name = cfg.game-name;
+      description = cfg.description;
+      visibility = {
+        public = cfg.public;
+        lan = cfg.lan;
+      };
+      username = cfg.username;
+      password = cfg.password;
+      token = cfg.token;
+      game_password = cfg.game-password;
+      require_user_verification = cfg.requireUserVerification;
+      max_upload_in_kilobytes_per_second = 0;
+      minimum_latency_in_ticks = 0;
+      ignore_player_limit_for_returning_players = false;
+      allow_commands = "admins-only";
+      autosave_interval = cfg.autosave-interval;
+      autosave_slots = 5;
+      afk_autokick_interval = 0;
+      auto_pause = true;
+      only_admins_can_pause_the_game = true;
+      autosave_only_on_server = true;
+      non_blocking_saving = cfg.nonBlockingSaving;
+    }
+    // cfg.extraSettings;
   serverSettingsString = builtins.toJSON (lib.filterAttrsRecursive (n: v: v != null) serverSettings);
   serverSettingsFile = pkgs.writeText "server-settings.json" serverSettingsString;
-  playerListOption =
-    name: list:
+  playerListOption = name: list:
     lib.optionalString (
-      list != [ ]
+      list != []
     ) "--${name}=${pkgs.writeText "${name}.json" (builtins.toJSON list)}";
   modDir = pkgs.factorio-utils.mkModDirDrv cfg.mods cfg.mods-dat;
-in
-{
+in {
   options = {
     services.factorio = {
       enable = lib.mkEnableOption name;
@@ -74,7 +73,7 @@ in
         # --use-server-whitelist) so we can't implement that behaviour, so we
         # might as well match theirs.
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "Rseding91"
           "Oxyd"
@@ -97,8 +96,8 @@ in
 
       admins = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
-        example = [ "username" ];
+        default = [];
+        example = ["username"];
         description = ''
           List of player names which will be admin.
         '';
@@ -177,7 +176,7 @@ in
       };
       mods = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         description = ''
           Mods the server should install and activate.
 
@@ -212,7 +211,7 @@ in
       };
       extraSettings = lib.mkOption {
         type = lib.types.attrs;
-        default = { };
+        default = {};
         example = {
           max_players = 64;
         };
@@ -301,8 +300,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.factorio = {
       description = "Factorio headless server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart =
         (toString [
@@ -311,7 +310,7 @@ in
           "${cfg.package}/bin/factorio"
           "--config=${cfg.configFile}"
           "--create=${mkSavePath cfg.saveName}"
-          (lib.optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
+          (lib.optionalString (cfg.mods != []) "--mod-directory=${modDir}")
         ])
         + (lib.optionalString (cfg.extraSettingsFile != null) (
           "\necho ${lib.strings.escapeShellArg serverSettingsString}"
@@ -332,13 +331,15 @@ in
           "--bind=${cfg.bind}"
           (lib.optionalString (!cfg.loadLatestSave) "--start-server=${mkSavePath cfg.saveName}")
           "--server-settings=${
-            if (cfg.extraSettingsFile != null) then "${stateDir}/server-settings.json" else serverSettingsFile
+            if (cfg.extraSettingsFile != null)
+            then "${stateDir}/server-settings.json"
+            else serverSettingsFile
           }"
           (lib.optionalString cfg.loadLatestSave "--start-server-load-latest")
-          (lib.optionalString (cfg.mods != [ ]) "--mod-directory=${modDir}")
+          (lib.optionalString (cfg.mods != []) "--mod-directory=${modDir}")
           (playerListOption "server-adminlist" cfg.admins)
           (playerListOption "server-whitelist" cfg.allowedPlayers)
-          (lib.optionalString (cfg.allowedPlayers != [ ]) "--use-server-whitelist")
+          (lib.optionalString (cfg.allowedPlayers != []) "--use-server-whitelist")
         ];
 
         # Sandboxing

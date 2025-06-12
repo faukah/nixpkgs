@@ -4,7 +4,6 @@
   buildNpmPackage,
   nodejs,
 }:
-
 buildNpmPackage rec {
   pname = "twig-language-server";
   version = "0.7.0";
@@ -33,7 +32,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/kaermorchen/twig-language-server";
     changelog = "https://github.com/kaermorchen/twig-language-server/releases/tag/v${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "twig-language-server";
   };
 }

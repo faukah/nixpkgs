@@ -14,7 +14,6 @@
   xmlsec,
   xxd,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.1.0";
   pname = "libdigidocpp";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.id.ee/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.jagajaga ];
+    maintainers = [maintainers.jagajaga];
   };
 }

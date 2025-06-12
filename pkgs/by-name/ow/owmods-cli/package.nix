@@ -13,7 +13,6 @@
   wrapWithMono ? true,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "owmods-cli";
   version = "0.15.1";
@@ -28,10 +27,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-kLuiNfrxc3Z8UeDQ2Mb6N78TST6c2f4N7mt4X0zv1Zk=";
 
-  nativeBuildInputs = [
-    pkg-config
-    installShellFiles
-  ] ++ lib.optional wrapWithMono makeWrapper;
+  nativeBuildInputs =
+    [
+      pkg-config
+      installShellFiles
+    ]
+    ++ lib.optional wrapWithMono makeWrapper;
 
   buildInputs =
     [
@@ -59,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       wrapProgram $out/bin/${meta.mainProgram} --prefix PATH : '${mono}/bin'
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI version of the mod manager for Outer Wilds Mod Loader";

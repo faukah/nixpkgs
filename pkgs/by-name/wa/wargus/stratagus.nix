@@ -15,7 +15,6 @@
   SDL2_image,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stratagus";
   version = "3.3.1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "strategy game engine";
     homepage = "https://wargus.github.io/stratagus.html";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
     platforms = platforms.linux;
   };
 }

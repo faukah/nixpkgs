@@ -5,7 +5,6 @@
   rustPlatform,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-docset";
   version = "0.3.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-MHSvrZXh9RLuiLEc4IHPvtIKjdRjFhtmumPs4EuJtz0=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";

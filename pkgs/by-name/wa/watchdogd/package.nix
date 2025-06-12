@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     libconfuse
   ];
 
-  passthru.tests = { inherit (nixosTests) watchdogd; };
+  passthru.tests = {inherit (nixosTests) watchdogd;};
 
   meta = {
     description = "Advanced system & process supervisor for Linux";
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/troglobit/watchdogd/releases/tag/${version}";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ vifino ];
+    maintainers = with lib.maintainers; [vifino];
   };
 }

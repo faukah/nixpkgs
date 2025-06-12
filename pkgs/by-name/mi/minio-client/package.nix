@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "minio-client";
   version = "2025-05-21T01-59-54Z";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-MpLQZFrf2sBAweXtYeFi5j6p6GaXuN99x+r4UK8D9xM=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   patchPhase = ''
     sed -i "s/Version.*/Version = \"${version}\"/g" cmd/build-constants.go
@@ -36,7 +35,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/minio/mc";
     description = "Replacement for ls, cp, mkdir, diff and rsync commands for filesystems and object storage";
-    maintainers = with maintainers; [ bachp ];
+    maintainers = with maintainers; [bachp];
     mainProgram = "mc";
     license = licenses.asl20;
   };

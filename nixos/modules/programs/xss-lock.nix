@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.xss-lock;
-in
-{
+in {
   options.programs.xss-lock = {
     enable = lib.mkEnableOption "xss-lock";
 
@@ -21,8 +18,8 @@ in
     };
 
     extraOptions = lib.mkOption {
-      default = [ ];
-      example = [ "--ignore-sleep" ];
+      default = [];
+      example = ["--ignore-sleep"];
       type = lib.types.listOf lib.types.str;
       description = ''
         Additional command-line arguments to pass to
@@ -34,8 +31,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.xss-lock = {
       description = "XSS Lock Daemon";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart = builtins.concatStringsSep " " (
         [
           "${pkgs.xss-lock}/bin/xss-lock"

@@ -32,15 +32,12 @@
 # this. Please see the module itself for more information.
 #
 # [1]: https://github.com/DataDog/integrations-core
-
 {
   lib,
   fetchFromGitHub,
   python3Packages,
-  extraIntegrations ? { },
-}:
-
-let
+  extraIntegrations ? {},
+}: let
   inherit (lib) attrValues mapAttrs;
 
   src = fetchFromGitHub {
@@ -52,8 +49,7 @@ let
   version = "7.56.2";
 
   # Build helper to build a single datadog integration package.
-  buildIntegration =
-    { pname, ... }@args:
+  buildIntegration = {pname, ...} @ args:
     python3Packages.buildPythonPackage (
       args
       // {
@@ -110,33 +106,35 @@ let
 
   # Default integrations that should be built:
   defaultIntegrations = {
-    disk = (ps: [ ps.psutil ]);
-    mongo = (ps: [ ps.pymongo ]);
-    network = (ps: [ ps.psutil ]);
-    nginx = (ps: [ ]);
+    disk = ps: [ps.psutil];
+    mongo = ps: [ps.pymongo];
+    network = ps: [ps.psutil];
+    nginx = ps: [];
     postgres = (
-      ps: with ps; [
-        pg8000
-        psycopg2
-        semver
-      ]
+      ps:
+        with ps; [
+          pg8000
+          psycopg2
+          semver
+        ]
     );
-    process = (ps: [ ps.psutil ]);
+    process = ps: [ps.psutil];
   };
 
   # All integrations (default + extra):
   integrations = defaultIntegrations // extraIntegrations;
-  builtIntegrations = mapAttrs (
-    pname: fdeps:
-    buildIntegration {
-      inherit pname;
-      propagatedBuildInputs = (fdeps python3Packages) ++ [ datadog_checks_base ];
-    }
-  ) integrations;
-
+  builtIntegrations =
+    mapAttrs (
+      pname: fdeps:
+        buildIntegration {
+          inherit pname;
+          propagatedBuildInputs = (fdeps python3Packages) ++ [datadog_checks_base];
+        }
+    )
+    integrations;
 in
-builtIntegrations
-// {
-  inherit datadog_checks_base;
-  python = python3Packages.python.withPackages (_: (attrValues builtIntegrations));
-}
+  builtIntegrations
+  // {
+    inherit datadog_checks_base;
+    python = python3Packages.python.withPackages (_: (attrValues builtIntegrations));
+  }

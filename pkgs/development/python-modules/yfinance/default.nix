@@ -22,7 +22,6 @@
   setuptools,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "yfinance";
   version = "0.2.61";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-uOTsfXYXlbOXoP55AJ7QRBebOR7B441p5jkSiRyqQtI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -68,13 +67,13 @@ buildPythonPackage rec {
   # Tests require internet access
   doCheck = false;
 
-  pythonImportsCheck = [ "yfinance" ];
+  pythonImportsCheck = ["yfinance"];
 
   meta = with lib; {
     description = "Module to doiwnload Yahoo! Finance market data";
     homepage = "https://github.com/ranaroussi/yfinance";
     changelog = "https://github.com/ranaroussi/yfinance/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

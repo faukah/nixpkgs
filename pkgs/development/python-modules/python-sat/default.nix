@@ -6,7 +6,6 @@
   pypblib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-sat";
   version = "0.1.7.dev1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     pypblib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # https://github.com/pysathq/pysat/pull/102
   postPatch = ''
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Toolkit to provide interface for various SAT (without optional dependancy py-aiger-cnf)";
     homepage = "https://github.com/pysathq/pysat";
     license = licenses.mit;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
   };
 }

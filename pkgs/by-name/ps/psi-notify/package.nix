@@ -6,7 +6,6 @@
   libnotify,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "psi-notify";
   version = "1.3.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     systemd
     libnotify
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/cdown/psi-notify";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ eduarrrd ];
+    maintainers = with maintainers; [eduarrrd];
     mainProgram = "psi-notify";
   };
 }

@@ -17,11 +17,11 @@ buildPythonPackage {
     hash = "sha256-Fel0YOe2D76h+QAon/wxI6EsZhfLca+0ncNi9i888+E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pymupdf ];
+  dependencies = [pymupdf];
 
-  pythonImportsCheck = [ "cardimpose" ];
+  pythonImportsCheck = ["cardimpose"];
 
   meta = {
     mainProgram = "cardimpose";
@@ -35,7 +35,7 @@ buildPythonPackage {
     homepage = "https://github.com/frsche/cardimpose";
     license = lib.licenses.agpl3Only;
     platforms = pymupdf.meta.platforms;
-    badPlatforms = pymupdf.meta.badPlatforms or [ ];
-    maintainers = [ lib.maintainers.me-and ];
+    badPlatforms = pymupdf.meta.badPlatforms or [];
+    maintainers = [lib.maintainers.me-and];
   };
 }

@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-k3wzGEs3rRI9DG5LW7GrAGCmT0GjkUGoL73rUa9nj50=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   OPENSSL_NO_VENDOR = 1;
 

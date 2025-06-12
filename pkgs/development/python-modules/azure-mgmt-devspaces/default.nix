@@ -6,7 +6,6 @@
   azure-common,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-devspaces";
   version = "0.2.0";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Dev Spaces Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

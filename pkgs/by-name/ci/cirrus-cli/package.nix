@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "cirrus-cli";
   version = "0.144.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-X github.com/cirruslabs/cirrus-cli/internal/version.Commit=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd cirrus \
       --bash <($out/bin/cirrus completion bash) \
@@ -38,7 +37,7 @@ buildGoModule rec {
     description = "CLI for executing Cirrus tasks locally and in any CI";
     homepage = "https://github.com/cirruslabs/cirrus-cli";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
     mainProgram = "cirrus";
   };
 }

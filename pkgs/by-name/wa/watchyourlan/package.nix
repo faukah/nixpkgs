@@ -5,7 +5,6 @@
   lib,
   arp-scan,
 }:
-
 buildGoModule rec {
   pname = "watchyourlan";
   version = "2.1.2";
@@ -24,11 +23,11 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/WatchYourLAN \
-      --prefix PATH : '${lib.makeBinPath [ arp-scan ]}'
+      --prefix PATH : '${lib.makeBinPath [arp-scan]}'
   '';
 
   meta = {
@@ -37,6 +36,6 @@ buildGoModule rec {
     changelog = "https://github.com/aceberg/WatchYourLAN/releases/tag/${src.tag}";
     license = lib.licenses.mit;
     mainProgram = "WatchYourLAN";
-    maintainers = [ lib.maintainers.iv-nn ];
+    maintainers = [lib.maintainers.iv-nn];
   };
 }

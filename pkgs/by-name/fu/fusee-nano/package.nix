@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unixtools,
 }:
-
 stdenv.mkDerivation {
   pname = "fusee-nano";
   version = "unstable-2023-05-17";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
     hash = "sha256-RUG10wvhB0qEuiLwn8wk6Uxok+gv4bFLD6tbx0P0yDc=";
   };
 
-  nativeBuildInputs = [ unixtools.xxd ];
+  nativeBuildInputs = [unixtools.xxd];
 
-  makeFlags = [ "PREFIX=$(out)/bin" ];
+  makeFlags = ["PREFIX=$(out)/bin"];
 
   meta = {
     description = "Minimalist re-implementation of the Fusée Gelée exploit";
@@ -26,6 +25,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/DavidBuchanan314/fusee-nano";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.leo60228 ];
+    maintainers = [lib.maintainers.leo60228];
   };
 }

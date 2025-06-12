@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aeskeyfind";
   version = "1.0";
@@ -25,7 +24,6 @@ stdenv.mkDerivation rec {
     mainProgram = "aeskeyfind";
     homepage = "https://citp.princeton.edu/our-work/memory/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fedx-sudo ];
+    maintainers = with maintainers; [fedx-sudo];
   };
-
 }

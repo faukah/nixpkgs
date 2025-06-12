@@ -7,10 +7,8 @@
   python,
   pythonOlder,
 }:
-
 # Note: this package is used to build LLVM’s documentation, which is part of the Darwin stdenv.
 # It cannot use `fetchgit` because that would pull curl into the bootstrap, which is disallowed.
-
 let
   self = buildPythonPackage rec {
     pname = "docutils";
@@ -25,13 +23,13 @@ let
       hash = "sha256-Q+9yW+BYUEvPYV504368JsAoKKoaTZTeKh4tVeiNv5Y=";
     };
 
-    build-system = [ flit-core ];
+    build-system = [flit-core];
 
     # infinite recursion via sphinx and pillow
     doCheck = false;
-    passthru.tests.pytest = self.overridePythonAttrs { doCheck = true; };
+    passthru.tests.pytest = self.overridePythonAttrs {doCheck = true;};
 
-    nativeCheckInputs = [ pillow ];
+    nativeCheckInputs = [pillow];
 
     checkPhase = ''
       ${python.interpreter} test/alltests.py
@@ -53,8 +51,8 @@ let
         psfl
         gpl3Plus
       ];
-      maintainers = with maintainers; [ ];
+      maintainers = with maintainers; [];
     };
   };
 in
-self
+  self

@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-retry";
   version = "2.9.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-8S4gjeN8ktdDNd8GUsejaZdCaG/VXYPo0RJpwrrttGQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   __darwinAllowLocalNetworking = true;
 
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiohttp_retry" ];
+  pythonImportsCheck = ["aiohttp_retry"];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   meta = with lib; {
     description = "Retry client for aiohttp";
     homepage = "https://github.com/inyutin/aiohttp_retry";
     changelog = "https://github.com/inyutin/aiohttp_retry/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

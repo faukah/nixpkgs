@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-madvr2";
   version = "1.6.33";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-z+PVLz9eApGJ94I/Jp0MyqNpKQwIemk8j+OyqFmIbgI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "madvr" ];
+  pythonImportsCheck = ["madvr"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Control MadVR Envy over IP";
     homepage = "https://github.com/iloveicedgreentea/py-madvr";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

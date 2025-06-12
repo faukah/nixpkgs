@@ -7,7 +7,6 @@
   unixtools,
   multimarkdown,
 }:
-
 stdenv.mkDerivation rec {
   pname = "decker";
   version = "1.54";
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     mainProgram = "decker";
     platforms = platforms.all;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

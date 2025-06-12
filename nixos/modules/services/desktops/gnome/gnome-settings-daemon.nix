@@ -1,20 +1,12 @@
 # GNOME Settings Daemon
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.gnome.gnome-settings-daemon;
-
-in
-
-{
-
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
@@ -22,19 +14,14 @@ in
   ###### interface
 
   options = {
-
     services.gnome.gnome-settings-daemon = {
-
       enable = lib.mkEnableOption "GNOME Settings Daemon";
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = [
       pkgs.gnome-settings-daemon
     ];
@@ -54,7 +41,5 @@ in
     systemd.user.targets."gnome-session-x11-services-ready".wants = [
       "org.gnome.SettingsDaemon.XSettings.service"
     ];
-
   };
-
 }

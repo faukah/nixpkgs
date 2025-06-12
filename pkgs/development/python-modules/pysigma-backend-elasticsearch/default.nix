@@ -9,7 +9,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pysigma-backend-elasticsearch";
   version = "1.1.6";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-v+OTMcSvFXfjm4R3wCgLRCG0yKNqvY1mgRcmq2Jws0s=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ pysigma ];
+  dependencies = [pysigma];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "sigma.backends.elasticsearch" ];
+  pythonImportsCheck = ["sigma.backends.elasticsearch"];
 
   disabledTests = [
     # Tests requires network access
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch";
     changelog = "https://github.com/SigmaHQ/pySigma-backend-elasticsearch/releases/tag/v${version}";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

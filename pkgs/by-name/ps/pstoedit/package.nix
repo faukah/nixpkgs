@@ -13,7 +13,6 @@
   libiconv,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pstoedit";
   version = "4.02";
@@ -52,14 +51,14 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/pstoedit \
-      --prefix PATH : ${lib.makeBinPath [ ghostscript ]}
+      --prefix PATH : ${lib.makeBinPath [ghostscript]}
   '';
 
   meta = with lib; {
     description = "Translates PostScript and PDF graphics into other vector formats";
     homepage = "https://sourceforge.net/projects/pstoedit/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
     mainProgram = "pstoedit";
   };

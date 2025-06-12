@@ -7,30 +7,27 @@
   pkg-config,
   python3,
   which,
-}:
+}: let
+  zncDerivation = a @ {
+    pname,
+    src,
+    module_name,
+    buildPhase ? ''
+      runHook preBuild
 
-let
-  zncDerivation =
-    a@{
-      pname,
-      src,
-      module_name,
-      buildPhase ? ''
-        runHook preBuild
+      ${znc}/bin/znc-buildmod ${module_name}.cpp
 
-        ${znc}/bin/znc-buildmod ${module_name}.cpp
+      runHook postBuild
+    '',
+    installPhase ? ''
+      runHook preInstall
 
-        runHook postBuild
-      '',
-      installPhase ? ''
-        runHook preInstall
+      install -D ${module_name}.so $out/lib/znc/${module_name}.so
 
-        install -D ${module_name}.so $out/lib/znc/${module_name}.so
-
-        runHook postInstall
-      '',
-      ...
-    }:
+      runHook postInstall
+    '',
+    ...
+  }:
     stdenv.mkDerivation (
       a
       // {
@@ -49,15 +46,14 @@ let
 
         passthru.module_name = module_name;
 
-        meta = a.meta // {
-          platforms = lib.platforms.unix;
-        };
+        meta =
+          a.meta
+          // {
+            platforms = lib.platforms.unix;
+          };
       }
     );
-
-in
-{
-
+in {
   backlog = zncDerivation {
     pname = "znc-backlog";
     version = "0-unstable-2018-08-24";
@@ -74,7 +70,7 @@ in
       description = "Request backlog for IRC channels";
       homepage = "https://github.com/fruitiex/znc-backlog/";
       license = lib.licenses.asl20;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 
@@ -118,7 +114,7 @@ in
       description = "ZNC clientaway module";
       homepage = "https://github.com/kylef-archive/znc-contrib";
       license = lib.licenses.gpl2;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 
@@ -138,7 +134,7 @@ in
     meta = {
       description = "ZNC FiSH module";
       homepage = "https://github.com/oilslump/znc-fish";
-      maintainers = [ lib.maintainers.offline ];
+      maintainers = [lib.maintainers.offline];
     };
   };
 
@@ -158,7 +154,7 @@ in
       description = "ZNC ignore module";
       homepage = "https://github.com/kylef/znc-contrib";
       license = lib.licenses.gpl2;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 
@@ -178,7 +174,7 @@ in
       description = "Palaver ZNC module";
       homepage = "https://github.com/cocodelabs/znc-palaver";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ szlend ];
+      maintainers = with lib.maintainers; [szlend];
     };
   };
 
@@ -198,7 +194,7 @@ in
       description = "Advanced playback module for ZNC";
       homepage = "https://github.com/jpnurmi/znc-playback";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ hrdinka ];
+      maintainers = with lib.maintainers; [hrdinka];
     };
   };
 

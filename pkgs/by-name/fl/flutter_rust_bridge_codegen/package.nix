@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   cargoTestFlags = "--package flutter_rust_bridge_codegen";
 
   # needed to get tests running
-  nativeBuildInputs = [ cargo-expand ];
+  nativeBuildInputs = [cargo-expand];
 
   # needed to run text (see https://github.com/fzyzcjy/flutter_rust_bridge/blob/ae970bfafdf80b9eb283a2167b972fb2e6504511/frb_codegen/src/library/utils/logs.rs#L43)
   logLevel = "debug";
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     description = "Flutter/Dart <-> Rust binding generator, feature-rich, but seamless and simple";
     homepage = "https://fzyzcjy.github.io/flutter_rust_bridge";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.eymeric ];
+    maintainers = [lib.maintainers.eymeric];
   };
 }

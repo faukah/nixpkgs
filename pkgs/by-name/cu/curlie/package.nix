@@ -5,7 +5,6 @@
   curlie,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "curlie";
   version = "1.8.2";
@@ -33,7 +32,7 @@ buildGoModule (finalAttrs: {
   meta = {
     description = "Frontend to curl that adds the ease of use of httpie, without compromising on features and performance";
     homepage = "https://curlie.io/";
-    maintainers = with lib.maintainers; [ ma27 ];
+    maintainers = with lib.maintainers; [ma27];
     license = lib.licenses.mit;
     mainProgram = "curlie";
   };

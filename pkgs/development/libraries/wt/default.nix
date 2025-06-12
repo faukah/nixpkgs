@@ -19,11 +19,11 @@
   pcre,
   harfbuzz,
   icu,
-}:
-
-let
-  generic =
-    { version, sha256 }:
+}: let
+  generic = {
+    version,
+    sha256,
+  }:
     stdenv.mkDerivation {
       pname = "wt";
       inherit version;
@@ -74,11 +74,10 @@ let
         description = "C++ library for developing web applications";
         platforms = platforms.linux;
         license = licenses.gpl2;
-        maintainers = with maintainers; [ juliendehos ];
+        maintainers = with maintainers; [juliendehos];
       };
     };
-in
-{
+in {
   wt4 = generic {
     version = "4.11.4";
     sha256 = "sha256-ynmOUONHo8VTq8nmD+/SpDPR7bHILw8mArvY2DZJ5Hk=";

@@ -15,7 +15,6 @@
   typing-extensions,
   watchfiles,
 }:
-
 buildPythonPackage rec {
   pname = "anywidget";
   version = "0.9.18";
@@ -41,11 +40,13 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [
-    ipywidgets
-    psygnal
-    typing-extensions
-  ] ++ lib.optional (pythonOlder "3.8") importlib-metadata;
+  dependencies =
+    [
+      ipywidgets
+      psygnal
+      typing-extensions
+    ]
+    ++ lib.optional (pythonOlder "3.8") importlib-metadata;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -60,13 +61,13 @@ buildPythonPackage rec {
     "test_version"
   ];
 
-  pythonImportsCheck = [ "anywidget" ];
+  pythonImportsCheck = ["anywidget"];
 
   meta = with lib; {
     description = "Custom jupyter widgets made easy";
     homepage = "https://github.com/manzt/anywidget";
     changelog = "https://github.com/manzt/anywidget/releases/tag/anywidget%40${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

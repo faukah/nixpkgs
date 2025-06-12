@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_ivm";
   version = "1.11";
@@ -20,7 +19,7 @@ postgresqlBuildExtension (finalAttrs: {
     description = "Materialized views with IVM (Incremental View Maintenance) for PostgreSQL";
     homepage = "https://github.com/sraoss/pg_ivm";
     changelog = "https://github.com/sraoss/pg_ivm/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ ivan ];
+    maintainers = with lib.maintainers; [ivan];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.postgresql;
     broken = lib.versionOlder postgresql.version "13";

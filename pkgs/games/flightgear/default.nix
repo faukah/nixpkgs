@@ -33,9 +33,7 @@
   qtdeclarative,
   glew,
   curl,
-}:
-
-let
+}: let
   version = "2024.1.1";
   data = stdenv.mkDerivation rec {
     pname = "flightgear-data";
@@ -56,64 +54,64 @@ let
     '';
   };
 in
-stdenv.mkDerivation rec {
-  pname = "flightgear";
-  # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
-  inherit version data;
+  stdenv.mkDerivation rec {
+    pname = "flightgear";
+    # inheriting data for `nix-prefetch-url -A pkgs.flightgear.data.src`
+    inherit version data;
 
-  src = fetchFromGitLab {
-    owner = "flightgear";
-    repo = "flightgear";
-    tag = "v${version}";
-    hash = "sha256-h4N18VAbJGQSBKA+eEQxej5e5MEwAcZpvH+dpTypM+k=";
-  };
+    src = fetchFromGitLab {
+      owner = "flightgear";
+      repo = "flightgear";
+      tag = "v${version}";
+      hash = "sha256-h4N18VAbJGQSBKA+eEQxej5e5MEwAcZpvH+dpTypM+k=";
+    };
 
-  nativeBuildInputs = [
-    cmake
-    wrapQtAppsHook
-  ];
-  buildInputs = [
-    libglut
-    freealut
-    libGLU
-    libGL
-    libICE
-    libjpeg
-    openal
-    openscenegraph
-    plib
-    libSM
-    libunwind
-    libX11
-    xorgproto
-    libXext
-    libXi
-    libXmu
-    libXt
-    simgear
-    zlib
-    boost
-    libpng
-    udev
-    fltk13
-    apr
-    qtbase
-    qtquickcontrols2
-    glew
-    qtdeclarative
-    curl
-  ];
+    nativeBuildInputs = [
+      cmake
+      wrapQtAppsHook
+    ];
+    buildInputs = [
+      libglut
+      freealut
+      libGLU
+      libGL
+      libICE
+      libjpeg
+      openal
+      openscenegraph
+      plib
+      libSM
+      libunwind
+      libX11
+      xorgproto
+      libXext
+      libXi
+      libXmu
+      libXt
+      simgear
+      zlib
+      boost
+      libpng
+      udev
+      fltk13
+      apr
+      qtbase
+      qtquickcontrols2
+      glew
+      qtdeclarative
+      curl
+    ];
 
-  qtWrapperArgs = [
-    "--set FG_ROOT ${data}/share/FlightGear"
-  ];
+    qtWrapperArgs = [
+      "--set FG_ROOT ${data}/share/FlightGear"
+    ];
 
-  meta = with lib; {
-    description = "Flight simulator";
-    maintainers = with maintainers; [ raskin ];
-    platforms = platforms.linux;
-    hydraPlatforms = [ ]; # disabled from hydra because it's so big
-    license = licenses.gpl2Plus;
-    mainProgram = "fgfs";
-  };
-}
+    meta = with lib; {
+      description = "Flight simulator";
+      maintainers = with maintainers; [raskin];
+      platforms = platforms.linux;
+      hydraPlatforms = []; # disabled from hydra because it's so big
+      license = licenses.gpl2Plus;
+      mainProgram = "fgfs";
+    };
+  }

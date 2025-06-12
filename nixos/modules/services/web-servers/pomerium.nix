@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-  format = pkgs.formats.yaml { };
-in
-{
+with lib; let
+  format = pkgs.formats.yaml {};
+in {
   options.services.pomerium = {
     enable = mkEnableOption "the Pomerium authenticating reverse proxy";
 
@@ -46,7 +42,7 @@ in
         configuration reference](https://pomerium.io/reference/) for more information about what to put
         here.
       '';
-      default = { };
+      default = {};
       type = format.type;
     };
 
@@ -60,22 +56,27 @@ in
     };
   };
 
-  config =
-    let
-      cfg = config.services.pomerium;
-      cfgFile =
-        if cfg.configFile != null then cfg.configFile else (format.generate "pomerium.yaml" cfg.settings);
-    in
-    mkIf cfg.enable ({
+  config = let
+    cfg = config.services.pomerium;
+    cfgFile =
+      if cfg.configFile != null
+      then cfg.configFile
+      else (format.generate "pomerium.yaml" cfg.settings);
+  in
+    mkIf cfg.enable {
       systemd.services.pomerium = {
         description = "Pomerium authenticating reverse proxy";
-        wants = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
-        after = [
-          "network.target"
-        ] ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
-        wantedBy = [ "multi-user.target" ];
+        wants =
+          [
+            "network.target"
+          ]
+          ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
+        after =
+          [
+            "network.target"
+          ]
+          ++ (optional (cfg.useACMEHost != null) "acme-finished-${cfg.useACMEHost}.target");
+        wantedBy = ["multi-user.target"];
         environment = optionalAttrs (cfg.useACMEHost != null) {
           CERTIFICATE_FILE = "fullchain.pem";
           CERTIFICATE_KEY_FILE = "key.pem";
@@ -90,7 +91,7 @@ in
 
         serviceConfig = {
           DynamicUser = true;
-          StateDirectory = [ "pomerium" ];
+          StateDirectory = ["pomerium"];
 
           PrivateUsers = false; # breaks CAP_NET_BIND_SERVICE
           MemoryDenyWriteExecute = false; # breaks LuaJIT
@@ -113,8 +114,8 @@ in
           SystemCallArchitectures = "native";
 
           EnvironmentFile = cfg.secretsFile;
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
 
           LoadCredential = optionals (cfg.useACMEHost != null) [
             "fullchain.pem:/var/lib/acme/${cfg.useACMEHost}/fullchain.pem"
@@ -135,8 +136,8 @@ in
           "multi-user.target"
         ];
         # Before the finished targets, after the renew services.
-        before = [ "acme-finished-${cfg.useACMEHost}.target" ];
-        after = [ "acme-${cfg.useACMEHost}.service" ];
+        before = ["acme-finished-${cfg.useACMEHost}.target"];
+        after = ["acme-${cfg.useACMEHost}.service"];
         # Block reloading if not all certs exist yet.
         unitConfig.ConditionPathExists = [
           "${config.security.acme.certs.${cfg.useACMEHost}.directory}/fullchain.pem"
@@ -148,5 +149,5 @@ in
           ExecStart = "/run/current-system/systemd/bin/systemctl --no-block restart pomerium.service";
         };
       };
-    });
+    };
 }

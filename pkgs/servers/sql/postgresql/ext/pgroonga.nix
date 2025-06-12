@@ -8,7 +8,6 @@
   postgresqlBuildExtension,
   xxHash,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pgroonga";
   version = "4.0.1";
@@ -20,7 +19,7 @@ postgresqlBuildExtension (finalAttrs: {
     hash = "sha256-a5nNtlUiFBuuqWAjIN0gU/FaoV3VpJh+/fab8R/77dw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     msgpack-c
     groonga
@@ -45,6 +44,6 @@ postgresqlBuildExtension (finalAttrs: {
     changelog = "https://github.com/pgroonga/pgroonga/releases/tag/${finalAttrs.version}";
     license = lib.licenses.postgresql;
     platforms = postgresql.meta.platforms;
-    maintainers = with lib.maintainers; [ DerTim1 ];
+    maintainers = with lib.maintainers; [DerTim1];
   };
 })

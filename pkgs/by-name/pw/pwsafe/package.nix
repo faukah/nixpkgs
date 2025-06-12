@@ -22,7 +22,6 @@
   file,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pwsafe";
   version = "1.21.0fp"; # do NOT update to 3.x Windows releases
@@ -96,7 +95,7 @@ stdenv.mkDerivation rec {
       substituteInPlace src/ui/cli/CMakeLists.txt --replace "uuid" ""
     '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru.updateScript = gitUpdater {
     allowedVersions = "^1\\.";

@@ -4,7 +4,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "phase-cli";
   version = "1.19.2";
@@ -52,7 +51,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/phasehq/cli";
     changelog = "https://github.com/phasehq/cli/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "phase";
   };
 }

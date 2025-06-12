@@ -9,8 +9,7 @@
   coreutils,
   mescc-tools-extra,
   bash_2_05,
-}:
-let
+}: let
   pname = "bash";
   version = "2.05b";
 
@@ -67,7 +66,7 @@ let
     })
   ];
 in
-kaem.runCommand "${pname}-${version}"
+  kaem.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -78,8 +77,7 @@ kaem.runCommand "${pname}-${version}"
       coreutils
     ];
 
-    passthru.runCommand =
-      name: env: buildCommand:
+    passthru.runCommand = name: env: buildCommand:
       derivationWithMeta (
         {
           inherit name buildCommand;
@@ -102,11 +100,11 @@ kaem.runCommand "${pname}-${version}"
               bash -eux $buildCommandPath
             '')
           ];
-          passAsFile = [ "buildCommand" ];
+          passAsFile = ["buildCommand"];
 
           SHELL = "${bash_2_05}/bin/bash";
           PATH = lib.makeBinPath (
-            (env.nativeBuildInputs or [ ])
+            (env.nativeBuildInputs or [])
             ++ [
               bash_2_05
               coreutils
@@ -115,12 +113,11 @@ kaem.runCommand "${pname}-${version}"
             ]
           );
         }
-        // (builtins.removeAttrs env [ "nativeBuildInputs" ])
+        // (builtins.removeAttrs env ["nativeBuildInputs"])
       );
 
-    passthru.tests.get-version =
-      result:
-      kaem.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      kaem.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/bash --version
         mkdir ''${out}
       '';
@@ -129,7 +126,7 @@ kaem.runCommand "${pname}-${version}"
       description = "GNU Bourne-Again Shell, the de facto standard shell on Linux";
       homepage = "https://www.gnu.org/software/bash";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

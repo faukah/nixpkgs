@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "fava";
   version = "1.30.1";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail '"fava"' '"${placeholder "out"}/bin/fava"'
   '';
 
-  build-system = [ python3Packages.setuptools-scm ];
+  build-system = [python3Packages.setuptools-scm];
 
   dependencies = with python3Packages; [
     babel
@@ -38,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     watchfiles
   ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   env = {
     # Disable some tests when building with beancount2

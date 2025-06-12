@@ -16,7 +16,6 @@
   sniffio,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "groq";
   version = "0.19.0";
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonImportsCheck = [ "groq" ];
+  pythonImportsCheck = ["groq"];
 
   disabledTests = [
     # Tests require network access
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/groq/groq-python";
     changelog = "https://github.com/groq/groq-python/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

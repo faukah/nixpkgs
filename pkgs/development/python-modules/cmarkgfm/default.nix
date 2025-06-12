@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "cmarkgfm";
   version = "2024.11.20";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-XdAc9hl1qKVyE83vXthw6TYDLxP+k9YN32Wf+5z3PGo=";
   };
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cmarkgfm" ];
+  pythonImportsCheck = ["cmarkgfm"];
 
   meta = with lib; {
     description = "Minimal bindings to GitHub's fork of cmark";
     homepage = "https://github.com/jonparrott/cmarkgfm";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

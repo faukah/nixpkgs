@@ -1,6 +1,4 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "pgadmin4";
   meta.maintainers = with lib.maintainers; [
     mkg20001
@@ -8,49 +6,43 @@
   ];
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
+    machine = {pkgs, ...}: {
+      imports = [./common/user-account.nix];
 
-        imports = [ ./common/user-account.nix ];
+      environment.systemPackages = with pkgs; [
+        wget
+        curl
+        pgadmin4-desktopmode
+      ];
 
-        environment.systemPackages = with pkgs; [
-          wget
-          curl
-          pgadmin4-desktopmode
-        ];
-
-        services.postgresql = {
-          enable = true;
-          authentication = ''
-            host    all             all             localhost               trust
-          '';
-        };
-
-        services.pgadmin = {
-          port = 5051;
-          enable = true;
-          initialEmail = "bruh@localhost.de";
-          initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
-        };
+      services.postgresql = {
+        enable = true;
+        authentication = ''
+          host    all             all             localhost               trust
+        '';
       };
-    machine2 =
-      { pkgs, ... }:
-      {
 
-        imports = [ ./common/user-account.nix ];
-
-        services.postgresql = {
-          enable = true;
-        };
-
-        services.pgadmin = {
-          enable = true;
-          initialEmail = "bruh@localhost.de";
-          initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
-          minimumPasswordLength = 12;
-        };
+      services.pgadmin = {
+        port = 5051;
+        enable = true;
+        initialEmail = "bruh@localhost.de";
+        initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
       };
+    };
+    machine2 = {pkgs, ...}: {
+      imports = [./common/user-account.nix];
+
+      services.postgresql = {
+        enable = true;
+      };
+
+      services.pgadmin = {
+        enable = true;
+        initialEmail = "bruh@localhost.de";
+        initialPasswordFile = pkgs.writeText "pw" "bruh2012!";
+        minimumPasswordLength = 12;
+      };
+    };
   };
 
   testScript = ''

@@ -13,7 +13,6 @@
   ki18n,
   qtquickcontrols2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pipecontrol";
   version = "0.2.12";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     mainProgram = "pipecontrol";
     homepage = "https://github.com/portaloffreedom/pipecontrol";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tilcreator ];
+    maintainers = with maintainers; [tilcreator];
   };
 }

@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "cargo-guppy";
   version = "unstable-2023-10-04";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-nNbCQ/++gm2S+xFbE5t9U9gQR8E2fVWE4kh73wgbAwQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cargoBuildFlags = [
     "-p"
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -6,7 +6,6 @@
   popon,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "acm-terminal";
   version = "0-unstable-2023-12-06";
@@ -23,12 +22,12 @@ melpaBuild {
     popon
   ];
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/twlz0ne/acm-terminal";
     description = "Patch for LSP bridge acm on Terminal";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ kira-bruneau ];
+    maintainers = with lib.maintainers; [kira-bruneau];
   };
 }

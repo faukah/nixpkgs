@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "newrelic-sysmond";
   version = "2.3.0.132";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "System-wide monitoring for newrelic";
     homepage = "https://newrelic.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lnl7 ];
+    maintainers = with maintainers; [lnl7];
   };
 }

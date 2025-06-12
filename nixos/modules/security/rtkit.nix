@@ -1,6 +1,5 @@
 # A module for ‘rtkit’, a DBus system service that hands out realtime
 # scheduling priority to processes that ask for it.
-
 {
   config,
   lib,
@@ -8,18 +7,11 @@
   utils,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.security.rtkit;
   package = pkgs.rtkit;
-
-in
-{
-
+in {
   options = {
-
     security.rtkit.enable = mkOption {
       type = types.bool;
       default = false;
@@ -33,7 +25,7 @@ in
 
     security.rtkit.args = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         Command-line options for `rtkit-daemon`.
       '';
@@ -42,19 +34,17 @@ in
         "--max-realtime-priority=28"
       ];
     };
-
   };
 
   config = mkIf cfg.enable {
-
     security.polkit.enable = true;
 
     # To make polkit pickup rtkit policies
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
-    services.dbus.packages = [ package ];
+    services.dbus.packages = [package];
 
-    systemd.packages = [ package ];
+    systemd.packages = [package];
 
     systemd.services.rtkit-daemon = {
       serviceConfig.ExecStart = [
@@ -68,8 +58,6 @@ in
       group = "rtkit";
       description = "RealtimeKit daemon";
     };
-    users.groups.rtkit = { };
-
+    users.groups.rtkit = {};
   };
-
 }

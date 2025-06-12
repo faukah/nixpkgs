@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "keep-sorted";
   version = "0.6.1";
@@ -27,18 +26,18 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = "0";
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   preCheck = ''
     # Test tries to find files using git in init func.
     rm goldens/*_test.go
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/google/keep-sorted/releases/tag/v${finalAttrs.version}";
@@ -46,6 +45,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/google/keep-sorted";
     license = lib.licenses.asl20;
     mainProgram = "keep-sorted";
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 })

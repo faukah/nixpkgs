@@ -65,11 +65,11 @@ stdenv.mkDerivation rec {
       gst-libav
     ]);
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple third-party Emby client, featured with GTK4-RS, MPV and GStreamer";

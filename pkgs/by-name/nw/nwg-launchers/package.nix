@@ -12,7 +12,6 @@
   makeWrapper,
   gtk-layer-shell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nwg-launchers";
   version = "0.7.1.1";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nwg-piotr/nwg-launchers";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation {
   pname = "with";
   version = "unstable-2018-03-20";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     hash = "sha256-mKHsLHs9/I+NUdb1t9wZWkPxXcsBlVWSj8fgZckXFXk=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall
@@ -71,7 +70,7 @@ stdenv.mkDerivation {
       To exit use either :q or :exit.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     mainProgram = "with";
   };

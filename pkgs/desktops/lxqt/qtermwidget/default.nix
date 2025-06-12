@@ -10,7 +10,6 @@
   gitUpdater,
   version ? "2.2.0",
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtermwidget";
   inherit version;
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "Terminal emulator widget for Qt, used by QTerminal";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

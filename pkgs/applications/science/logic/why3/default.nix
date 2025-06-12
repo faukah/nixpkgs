@@ -12,7 +12,6 @@
   ideSupport ? true,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "why3";
   inherit version;
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
       coqPackages.coq
     ];
 
-  buildInputs =
-    with ocamlPackages;
+  buildInputs = with ocamlPackages;
     [
       ocamlgraph
       zarith
@@ -53,10 +51,9 @@ stdenv.mkDerivation rec {
       rubber
       hevea
     ]
-    ++
-      lib.optional ideSupport
-        # GUI
-        lablgtk3-sourceview3
+    ++ lib.optional ideSupport
+    # GUI
+    lablgtk3-sourceview3
     ++ [
       # WebIDE
       js_of_ocaml
@@ -66,16 +63,20 @@ stdenv.mkDerivation rec {
       ppx_sexp_conv
     ]
     ++
-      # Coq Support
-      (with coqPackages; [
-        coq
-        flocq
-      ]);
+    # Coq Support
+    (with coqPackages; [
+      coq
+      flocq
+    ]);
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip
     menhirLib
-    (if lib.versionAtLeast version "1.8.0" then zarith else num)
+    (
+      if lib.versionAtLeast version "1.8.0"
+      then zarith
+      else num
+    )
     re
     sexplib
   ];
@@ -102,7 +103,7 @@ stdenv.mkDerivation rec {
     mv $out/lib/ocaml $dev/lib/
   '';
 
-  passthru.withProvers = callPackage ./with-provers.nix { };
+  passthru.withProvers = callPackage ./with-provers.nix {};
 
   meta = with lib; {
     description = "Platform for deductive program verification";

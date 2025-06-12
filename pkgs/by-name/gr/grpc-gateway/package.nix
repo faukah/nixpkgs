@@ -5,7 +5,6 @@
   testers,
   grpc-gateway,
 }:
-
 buildGoModule rec {
   pname = "grpc-gateway";
   version = "2.26.3";
@@ -48,6 +47,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/grpc-ecosystem/grpc-gateway";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ happyalu ];
+    maintainers = with maintainers; [happyalu];
   };
 }

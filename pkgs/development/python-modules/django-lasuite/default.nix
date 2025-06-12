@@ -17,7 +17,6 @@
   celery,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-lasuite";
   version = "0.0.9";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-vUtWBR9uRc99jTe0Gg7k4EZZAkqHct5+GCOHp1mTIkA=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     django
@@ -58,14 +57,14 @@ buildPythonPackage rec {
     export DJANGO_SETTINGS_MODULE=test_project.settings
   '';
 
-  pythonImportsCheck = [ "lasuite" ];
+  pythonImportsCheck = ["lasuite"];
 
   meta = {
     description = "The common library for La Suite Django projects and Proconnected Django projects";
     homepage = "https://github.com/suitenumerique/django-lasuite";
     changelog = "https://github.com/suitenumerique/django-lasuite/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     broken = lib.versionOlder django.version "5.2";
   };
 }

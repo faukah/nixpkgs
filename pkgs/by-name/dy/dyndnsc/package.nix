@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dyndnsc";
   version = "0.6.1-unstable-2024-02-25";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail '"pytest-runner"' ""
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     daemonocle
@@ -63,7 +62,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/infothrill/python-dyndnsc";
     changelog = "https://github.com/infothrill/python-dyndnsc/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "dyndnsc";
     platforms = lib.platforms.unix;
   };

@@ -4,9 +4,7 @@
   fetchFromGitHub,
   fetchpatch2,
   cmake,
-
   withLibei ? true,
-
   avahi,
   curl,
   libICE,
@@ -26,7 +24,6 @@
   wrapGAppsHook3,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "input-leap";
   version = "3.0.2";
@@ -73,15 +70,17 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  cmakeFlags = [
-    "-DINPUTLEAP_REVISION=${builtins.substring 0 8 src.rev}"
-  ] ++ lib.optional withLibei "-DINPUTLEAP_BUILD_LIBEI=ON";
+  cmakeFlags =
+    [
+      "-DINPUTLEAP_REVISION=${builtins.substring 0 8 src.rev}"
+    ]
+    ++ lib.optional withLibei "-DINPUTLEAP_BUILD_LIBEI=ON";
 
   dontWrapGApps = true;
   preFixup = ''
     qtWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-        --prefix PATH : "${lib.makeBinPath [ openssl ]}"
+        --prefix PATH : "${lib.makeBinPath [openssl]}"
     )
   '';
 

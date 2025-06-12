@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ec2stepshell";
   version = "unstable-2023-04-07";
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/saw-your-packet/EC2StepShell";
     changelog = "https://github.com/saw-your-packet/EC2StepShell/blob/${version}/CHANGELOG.txt";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -2,9 +2,7 @@
   pkgs,
   runTest,
   ...
-}:
-
-let
+}: let
   assertions = rec {
     path = program: path: ''
       with subtest("The path of ${program} should be ${path}"):
@@ -26,33 +24,30 @@ let
           ver = re.sub(r'(?s)^Version: (\d+\.\d+\.\d+).*', r'\1', machine.succeed("atop -V"))
           assert ver == pkgver, f"Version is `{ver}`, expected `{pkgver}`"
     '';
-    atoprc =
-      contents:
-      if builtins.stringLength contents > 0 then
-        ''
-          with subtest("/etc/atoprc should have the correct contents"):
-              f = machine.succeed("cat /etc/atoprc")
-              assert f == "${contents}", f"/etc/atoprc contents: '{f}', expected '${contents}'"
-        ''
-      else
-        ''
-          with subtest("/etc/atoprc should not be present"):
-              machine.succeed("test ! -e /etc/atoprc")
-        '';
-    wrapper =
-      present:
-      if present then
+    atoprc = contents:
+      if builtins.stringLength contents > 0
+      then ''
+        with subtest("/etc/atoprc should have the correct contents"):
+            f = machine.succeed("cat /etc/atoprc")
+            assert f == "${contents}", f"/etc/atoprc contents: '{f}', expected '${contents}'"
+      ''
+      else ''
+        with subtest("/etc/atoprc should not be present"):
+            machine.succeed("test ! -e /etc/atoprc")
+      '';
+    wrapper = present:
+      if present
+      then
         path "atop" "/run/wrappers/bin/atop"
         + ''
           with subtest("Wrapper should be setuid root"):
               stat = machine.succeed("stat --printf '%a %u' /run/wrappers/bin/atop")
               assert stat == "4511 0", f"Wrapper stat is {stat}, expected '4511 0'"
         ''
-      else
-        path "atop" "/run/current-system/sw/bin/atop";
-    atopService =
-      present:
-      if present then
+      else path "atop" "/run/current-system/sw/bin/atop";
+    atopService = present:
+      if present
+      then
         unit "atop.service" "active"
         + ''
           with subtest("atop.service should write some data to /var/log/atop"):
@@ -69,12 +64,16 @@ let
               with machine.nested("Waiting for data files"):
                   retry(has_data_files)
         ''
-      else
-        unit "atop.service" "inactive";
-    atopRotateTimer = present: unit "atop-rotate.timer" (if present then "active" else "inactive");
-    atopacctService =
-      present:
-      if present then
+      else unit "atop.service" "inactive";
+    atopRotateTimer = present:
+      unit "atop-rotate.timer" (
+        if present
+        then "active"
+        else "inactive"
+      );
+    atopacctService = present:
+      if present
+      then
         unit "atopacct.service" "active"
         + ''
           with subtest("atopacct.service should enable process accounting"):
@@ -94,26 +93,23 @@ let
               with machine.nested("Waiting for data files"):
                   retry(has_data_files)
         ''
-      else
-        unit "atopacct.service" "inactive";
-    netatop =
-      present:
-      if present then
+      else unit "atopacct.service" "inactive";
+    netatop = present:
+      if present
+      then
         unit "netatop.service" "active"
         + ''
           with subtest("The netatop kernel module should be loaded"):
               out = machine.succeed("modprobe -n -v netatop")
               assert out == "", f"Module should be loaded already, but modprobe would have done {out}."
         ''
-      else
-        ''
-          with subtest("The netatop kernel module should be absent"):
-              machine.fail("modprobe -n -v netatop")
-        '';
-    atopgpu =
-      present:
-      if present then
-        (unit "atopgpu.service" "active") + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
+      else ''
+        with subtest("The netatop kernel module should be absent"):
+            machine.fail("modprobe -n -v netatop")
+      '';
+    atopgpu = present:
+      if present
+      then (unit "atopgpu.service" "active") + (path "atopgpud" "/run/current-system/sw/bin/atopgpud")
       else
         (unit "atopgpu.service" "inactive")
         + ''
@@ -124,15 +120,13 @@ let
   meta = {
     timeout = 600;
   };
-in
-{
+in {
   justThePackage = runTest {
     name = "atop-justThePackage";
     nodes.machine = {
-      environment.systemPackages = [ pkgs.atop ];
+      environment.systemPackages = [pkgs.atop];
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -152,8 +146,7 @@ in
         enable = true;
       };
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -176,8 +169,7 @@ in
         atopacctService.enable = false;
       };
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -198,8 +190,7 @@ in
         netatop.enable = true;
       };
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -220,8 +211,7 @@ in
         atopgpu.enable = true;
       };
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "")
@@ -248,8 +238,7 @@ in
         atopgpu.enable = true;
       };
     };
-    testScript =
-      with assertions;
+    testScript = with assertions;
       builtins.concatStringsSep "\n" [
         version
         (atoprc "flags faf1\\ninterval 2\\n")

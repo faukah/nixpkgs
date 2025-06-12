@@ -4,7 +4,6 @@
   fetchpatch,
   lib,
 }:
-
 buildGoModule {
   pname = "devd";
   version = "unstable-2020-04-27";
@@ -26,7 +25,7 @@ buildGoModule {
     })
   ];
 
-  subPackages = [ "cmd/devd" ];
+  subPackages = ["cmd/devd"];
 
   ldflags = [
     "-s"
@@ -38,6 +37,6 @@ buildGoModule {
     mainProgram = "devd";
     homepage = "https://github.com/cortesi/devd";
     license = licenses.mit;
-    maintainers = with maintainers; [ brianhicks ];
+    maintainers = with maintainers; [brianhicks];
   };
 }

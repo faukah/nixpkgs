@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "btcd";
   version = "0.24.2";
@@ -34,6 +33,6 @@ buildGoModule rec {
     homepage = "https://github.com/btcsuite/btcd";
     changelog = "https://github.com/btcsuite/btcd/releases/tag/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ _0xB10C ];
+    maintainers = with lib.maintainers; [_0xB10C];
   };
 }

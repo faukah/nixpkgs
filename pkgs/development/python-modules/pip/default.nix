@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   installShellFiles,
   wheel,
   setuptools,
-
   # docs
   sphinx,
   sphinx-issues,
-
   # checks
   freezegun,
   git,
@@ -23,12 +20,9 @@
   pytestCheckHook,
   tomli-w,
   werkzeug,
-
   # coupled downstream dependencies
   pip-tools,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "pip";
     version = "25.0.1";
@@ -110,15 +104,15 @@ let
 
     passthru.tests = {
       inherit pip-tools;
-      pytest = self.overridePythonAttrs { doCheck = true; };
+      pytest = self.overridePythonAttrs {doCheck = true;};
     };
 
     meta = {
       description = "PyPA recommended tool for installing Python packages";
-      license = with lib.licenses; [ mit ];
+      license = with lib.licenses; [mit];
       homepage = "https://pip.pypa.io/";
-      changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings [ "." ] [ "-" ] version}";
+      changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings ["."] ["-"] version}";
     };
   };
 in
-self
+  self

@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tllist";
   version = "1.1.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
       structs, enums and unions.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ fionera ];
+    maintainers = with maintainers; [fionera];
     platforms = platforms.all;
   };
 })

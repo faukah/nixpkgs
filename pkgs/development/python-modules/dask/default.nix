@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   click,
   cloudpickle,
@@ -15,7 +13,6 @@
   partd,
   pyyaml,
   toolz,
-
   # optional-dependencies
   numpy,
   pyarrow,
@@ -24,7 +21,6 @@
   distributed,
   bokeh,
   jinja2,
-
   # tests
   hypothesis,
   pytest-asyncio,
@@ -35,7 +31,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dask";
   version = "2025.3.0";
@@ -61,7 +56,7 @@ buildPythonPackage rec {
       --replace-fail ', "versioneer[toml]==0.29"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -75,7 +70,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = lib.fix (self: {
-    array = [ numpy ];
+    array = [numpy];
     complete =
       [
         pyarrow
@@ -85,11 +80,13 @@ buildPythonPackage rec {
       ++ self.dataframe
       ++ self.distributed
       ++ self.diagnostics;
-    dataframe = [
-      pandas
-      pyarrow
-    ] ++ self.array;
-    distributed = [ distributed ];
+    dataframe =
+      [
+        pandas
+        pyarrow
+      ]
+      ++ self.array;
+    distributed = [distributed];
     diagnostics = [
       bokeh
       jinja2
@@ -146,6 +143,6 @@ buildPythonPackage rec {
     homepage = "https://dask.org/";
     changelog = "https://docs.dask.org/en/latest/changelog.html";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

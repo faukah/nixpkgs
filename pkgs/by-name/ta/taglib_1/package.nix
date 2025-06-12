@@ -6,7 +6,6 @@
   zlib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taglib";
   version = "1.13.1";
@@ -20,9 +19,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Only
       mpl11
     ];
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
     pkgConfigModules = [
       "taglib"
       "taglib_c"

@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ihcsdk";
   version = "2.8.9";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-WI9RjVR2KdLaqklGtIUJErV4pBfffXx3odu3hdoyLWc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
     requests
   ];
 
-  pythonImportsCheck = [ "ihcsdk" ];
+  pythonImportsCheck = ["ihcsdk"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "SDK for connection to the LK IHC Controller";
     homepage = "https://github.com/dingusdk/PythonIhcSdk";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

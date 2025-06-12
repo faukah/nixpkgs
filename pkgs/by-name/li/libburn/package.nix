@@ -6,7 +6,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libburn";
   version = "1.5.6";

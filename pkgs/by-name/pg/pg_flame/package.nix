@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pg_flame";
   version = "1.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Flamegraph generator for Postgres EXPLAIN ANALYZE output";
     homepage = "https://github.com/mgartner/pg_flame";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "pg_flame";
   };
 }

@@ -3,15 +3,12 @@
   pkgs,
   nodes,
   ...
-}:
-
-let
-  cfgNodes = pkgs.callPackage ./nodes.nix { inherit lib; };
+}: let
+  cfgNodes = pkgs.callPackage ./nodes.nix {inherit lib;};
   bankConfig = nodes.bank.environment.etc."libeufin/libeufin.conf".source;
 
   inherit (cfgNodes) CURRENCY FIAT_CURRENCY;
-in
-{
+in {
   commonScripts =
     # python
     ''

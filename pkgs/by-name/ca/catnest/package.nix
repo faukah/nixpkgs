@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "catnest";
   version = "0.2.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/t1clnxBNU5lfTjtUbt5eOl5KPeAfG8Hq6jBVMqkkWY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildPhase = ''
     runHook preBuild
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/eweOS/catnest";
     license = lib.licenses.mit;
     mainProgram = "catnest";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 })

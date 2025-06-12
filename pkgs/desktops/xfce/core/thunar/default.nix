@@ -18,13 +18,11 @@
   xfconf,
   makeWrapper,
   symlinkJoin,
-  thunarPlugins ? [ ],
+  thunarPlugins ? [],
   withIntrospection ? false,
   buildPackages,
   gobject-introspection,
-}:
-
-let
+}: let
   unwrapped = mkXfceDerivation {
     category = "xfce";
     pname = "thunar";
@@ -56,7 +54,7 @@ let
       xfconf
     ];
 
-    configureFlags = [ "--with-custom-thunarx-dirs-enabled" ];
+    configureFlags = ["--with-custom-thunarx-dirs-enabled"];
 
     # the desktop file … is in an insecure location»
     # which pops up when invoking desktop files that are
@@ -71,27 +69,26 @@ let
     preFixup = ''
       gappsWrapperArgs+=(
         # https://github.com/NixOS/nixpkgs/issues/329688
-        --prefix PATH : ${lib.makeBinPath [ exo ]}
+        --prefix PATH : ${lib.makeBinPath [exo]}
       )
     '';
 
     meta = with lib; {
       description = "Xfce file manager";
       mainProgram = "thunar";
-      teams = [ teams.xfce ];
+      teams = [teams.xfce];
     };
   };
-
 in
-if thunarPlugins == [ ] then
-  unwrapped
-else
-  import ./wrapper.nix {
-    inherit
-      makeWrapper
-      symlinkJoin
-      thunarPlugins
-      lib
-      ;
-    thunar = unwrapped;
-  }
+  if thunarPlugins == []
+  then unwrapped
+  else
+    import ./wrapper.nix {
+      inherit
+        makeWrapper
+        symlinkJoin
+        thunarPlugins
+        lib
+        ;
+      thunar = unwrapped;
+    }

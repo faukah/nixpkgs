@@ -10,7 +10,6 @@
   qxmpp,
   gst_all_1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kaidan";
   version = "0.11.0";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { qt6Support = true; })
+    (gst_all_1.gst-plugins-good.override {qt6Support = true;})
   ];
   postInstall = ''
     qtWrapperArgs+=(--prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0")
@@ -73,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ astro ];
+    maintainers = with lib.maintainers; [astro];
     platforms = with lib.platforms; linux;
   };
 })

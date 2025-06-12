@@ -4,10 +4,10 @@
   rustPlatform,
   wezterm,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "wezterm-headless";
-  inherit (wezterm)
+  inherit
+    (wezterm)
     version
     src
     postPatch
@@ -16,9 +16,9 @@ rustPlatform.buildRustPackage {
     meta
     ;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   cargoBuildFlags = [
     "--package"

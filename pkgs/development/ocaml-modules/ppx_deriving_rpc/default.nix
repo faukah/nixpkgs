@@ -7,7 +7,6 @@
   ppx_deriving,
   yojson,
 }:
-
 buildDunePackage {
   pname = "ppx_deriving_rpc";
 
@@ -32,6 +31,6 @@ buildDunePackage {
     homepage = "https://github.com/mirage/ocaml-rpc";
     description = "Ppx deriver for ocaml-rpc";
     license = licenses.isc;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

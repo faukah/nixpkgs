@@ -9,7 +9,6 @@
   nodejs,
   python3,
 }:
-
 buildNpmPackage rec {
   pname = "epgstation";
   version = "2.6.20";
@@ -39,7 +38,7 @@ buildNpmPackage rec {
   npmBuildScript = "build-server";
   npmRootPath = "/lib/node_modules/epgstation";
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
   nativeBuildInputs = [
     installShellFiles
     makeWrapper
@@ -83,54 +82,52 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  postInstall =
-    let
-      runtimeDeps = [
-        nodejs
-        bash
-      ];
-    in
-    ''
-      mkdir -p $out/{bin,libexec,share/doc/epgstation}
+  postInstall = let
+    runtimeDeps = [
+      nodejs
+      bash
+    ];
+  in ''
+    mkdir -p $out/{bin,libexec,share/doc/epgstation}
 
-      pushd $out$npmRootPath
+    pushd $out$npmRootPath
 
-      mv config/enc.js.template $out/libexec/enc.js
-      mv LICENSE Readme.md $out/share/doc/epgstation
-      mv doc/* $out/share/doc/epgstation
-      sed 's/@DESCRIPTION@/${meta.description}/g' ${./epgstation.1} > doc/epgstation.1
-      installManPage doc/epgstation.1
-      rm -rf doc
+    mv config/enc.js.template $out/libexec/enc.js
+    mv LICENSE Readme.md $out/share/doc/epgstation
+    mv doc/* $out/share/doc/epgstation
+    sed 's/@DESCRIPTION@/${meta.description}/g' ${./epgstation.1} > doc/epgstation.1
+    installManPage doc/epgstation.1
+    rm -rf doc
 
-      # just log to stdout and let journald do its job
-      rm -rf logs
+    # just log to stdout and let journald do its job
+    rm -rf logs
 
-      # Replace the existing configuration and runtime state directories with
-      # symlinks. Without this, they would all be non-writable because they
-      # reside in the Nix store. Note that the source path won't be accessible
-      # at build time.
-      rm -r config data drop recorded thumbnail src/db/subscribers src/db/migrations
-      ln -sfT /etc/epgstation config
-      ln -sfT /var/lib/epgstation data
-      ln -sfT /var/lib/epgstation/drop drop
-      ln -sfT /var/lib/epgstation/recorded recorded
-      ln -sfT /var/lib/epgstation/thumbnail thumbnail
-      ln -sfT /var/lib/epgstation/db/subscribers src/db/subscribers
-      ln -sfT /var/lib/epgstation/db/migrations src/db/migrations
+    # Replace the existing configuration and runtime state directories with
+    # symlinks. Without this, they would all be non-writable because they
+    # reside in the Nix store. Note that the source path won't be accessible
+    # at build time.
+    rm -r config data drop recorded thumbnail src/db/subscribers src/db/migrations
+    ln -sfT /etc/epgstation config
+    ln -sfT /var/lib/epgstation data
+    ln -sfT /var/lib/epgstation/drop drop
+    ln -sfT /var/lib/epgstation/recorded recorded
+    ln -sfT /var/lib/epgstation/thumbnail thumbnail
+    ln -sfT /var/lib/epgstation/db/subscribers src/db/subscribers
+    ln -sfT /var/lib/epgstation/db/migrations src/db/migrations
 
-      makeWrapper ${nodejs}/bin/npm $out/bin/epgstation \
-       --chdir $out$npmRootPath \
-       --prefix PATH : ${lib.makeBinPath runtimeDeps} \
-       --set APP_ROOT_PATH $out$npmRootPath
+    makeWrapper ${nodejs}/bin/npm $out/bin/epgstation \
+     --chdir $out$npmRootPath \
+     --prefix PATH : ${lib.makeBinPath runtimeDeps} \
+     --set APP_ROOT_PATH $out$npmRootPath
 
-      popd
-    '';
+    popd
+  '';
 
   meta = with lib; {
     description = "DVR software compatible with Mirakurun.";
     homepage = "https://github.com/l3tnun/EPGStation";
     license = licenses.mit;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
     mainProgram = "epgstation";
   };
 }

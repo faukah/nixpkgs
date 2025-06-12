@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "apache-users";
   version = "2.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # Allow optional arguments where defaults are provided
-  patches = [ ./optional-args.patch ];
+  patches = [./optional-args.patch];
 
   postPatch = ''
     substituteAllInPlace apache${finalAttrs.version}.pl
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Username Enumeration through Apache UserDir";
     homepage = "https://labs.portcullis.co.uk/downloads/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     mainProgram = "apache-users";
   };
 })

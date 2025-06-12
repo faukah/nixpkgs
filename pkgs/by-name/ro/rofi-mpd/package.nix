@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rofi-mpd";
   version = "2.2.1";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "rofi-mpd";
     homepage = "https://github.com/JakeStanger/Rofi_MPD";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakestanger ];
+    maintainers = with maintainers; [jakestanger];
     platforms = platforms.all;
   };
 }

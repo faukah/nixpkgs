@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin {
   pname = "clownfish";
   version = "0-unstable-2021-01-17";
@@ -19,6 +18,6 @@ buildFishPlugin {
     description = "Fish function to mock the behaviour of commands";
     homepage = "https://github.com/IlanCosman/clownfish";
     license = licenses.mit;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
   };
 }

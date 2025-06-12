@@ -6,7 +6,6 @@
   poppler-utils,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pdf2image";
   version = "1.17.0";
@@ -26,16 +25,16 @@ buildPythonPackage rec {
                      'poppler_path: Union[str, PurePath] = "${poppler-utils}/bin"'
   '';
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
-  pythonImportsCheck = [ "pdf2image" ];
+  pythonImportsCheck = ["pdf2image"];
 
   meta = with lib; {
     description = "Module that wraps the pdftoppm utility to convert PDF to PIL Image object";
     homepage = "https://github.com/Belval/pdf2image";
     changelog = "https://github.com/Belval/pdf2image/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
     platforms = platforms.all;
   };
 }

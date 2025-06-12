@@ -4,7 +4,6 @@
   python3Packages,
   softhsm,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "esptool";
   version = "4.8.1";
@@ -40,11 +39,10 @@ python3Packages.buildPythonApplication rec {
   ];
 
   optional-dependencies = with python3Packages; {
-    hsm = [ python-pkcs11 ];
+    hsm = [python-pkcs11];
   };
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       pyelftools
       pytestCheckHook
@@ -79,7 +77,7 @@ python3Packages.buildPythonApplication rec {
       dezgeg
       dotlambda
     ];
-    teams = [ lib.teams.lumiguide ];
+    teams = [lib.teams.lumiguide];
     platforms = with platforms; linux ++ darwin;
     mainProgram = "esptool.py";
   };

@@ -5,7 +5,6 @@
   autoPatchelfHook,
   zlib,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "sourcery";
@@ -14,7 +13,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     hash = "sha256-ovCxcr1m3GmRu45hr5DG781xkQdANbQYLvV2gFhG4eQ=";
   };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs = [
     (lib.getLib stdenv.cc.cc)
@@ -27,7 +26,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=sourcery.sourcery";
     homepage = "https://github.com/sourcery-ai/sourcery-vscode";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

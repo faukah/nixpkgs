@@ -5,7 +5,6 @@
   lxml,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "ebooklib";
   version = "0.18";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "ebooklib" ];
+  pythonImportsCheck = ["ebooklib"];
 
   meta = with lib; {
     description = "Python E-book library for handling books in EPUB2/EPUB3  format";
     homepage = "https://github.com/aerkalov/ebooklib";
     changelog = "https://github.com/aerkalov/ebooklib/blob/${src.rev}/CHANGES.txt";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dool";
   version = "1.3.4";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/scottchiefbaker/dool";
     changelog = "https://github.com/scottchiefbaker/dool/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.linux;
     mainProgram = "dool";
   };

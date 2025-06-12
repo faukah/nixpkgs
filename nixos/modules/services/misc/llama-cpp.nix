@@ -4,19 +4,14 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.llama-cpp;
-in
-{
-
+in {
   options = {
-
     services.llama-cpp = {
       enable = lib.mkEnableOption "LLaMA C++ server";
 
-      package = lib.mkPackageOption pkgs "llama-cpp" { };
+      package = lib.mkPackageOption pkgs "llama-cpp" {};
 
       model = lib.mkOption {
         type = lib.types.path;
@@ -35,7 +30,7 @@ in
           "--numa"
           "numactl"
         ];
-        default = [ ];
+        default = [];
       };
 
       host = lib.mkOption {
@@ -57,15 +52,13 @@ in
         description = "Open ports in the firewall for LLaMA C++ server.";
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.llama-cpp = {
       description = "LLaMA C++ server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "idle";
@@ -115,10 +108,9 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ newam ];
+  meta.maintainers = with lib.maintainers; [newam];
 }

@@ -6,7 +6,6 @@
   llvmPackages,
   z3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "simbaplusplus";
   version = "0-unstable-2024-11-05";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pgarba/SiMBA-";
     license = lib.licenses.gpl3Only;
     mainProgram = "SiMBA++";
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.unix;
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "nextdns";
   version = "1.45.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "NextDNS DNS/53 to DoH Proxy";
     homepage = "https://nextdns.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ pnelson ];
+    maintainers = with maintainers; [pnelson];
     mainProgram = "nextdns";
   };
 }

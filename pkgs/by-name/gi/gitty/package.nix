@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "gitty";
   version = "0.7.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/muesli/gitty/";
     description = "Contextual information about your git projects, right on the command-line";
     license = licenses.mit;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "gitty";
   };
 }

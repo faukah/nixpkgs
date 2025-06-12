@@ -11,14 +11,15 @@
   gencat,
   include,
 }:
-
 mkDerivation {
   noLibc = true;
   path = "lib/csu";
-  extraPaths = [
-    "lib/Makefile.inc"
-    "lib/libc/include/libc_private.h"
-  ] ++ lib.optionals (versionData.major >= 14) [ "sys/sys/param.h" ];
+  extraPaths =
+    [
+      "lib/Makefile.inc"
+      "lib/libc/include/libc_private.h"
+    ]
+    ++ lib.optionals (versionData.major >= 14) ["sys/sys/param.h"];
   nativeBuildInputs = [
     bsdSetupHook
     freebsdSetupHook
@@ -29,7 +30,7 @@ mkDerivation {
     byacc
     gencat
   ];
-  buildInputs = [ include ];
+  buildInputs = [include];
   MK_TESTS = "no";
   meta.platforms = lib.platforms.freebsd;
 }

@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mingwrt";
   version = "5.0.2";

@@ -3,11 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   setuptools,
-
   pytestCheckHook,
-
   docopt,
   fire,
   numpy,
@@ -17,7 +14,6 @@
   ssg,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "attacut";
   version = "1.1.0-dev";
@@ -39,12 +35,12 @@ buildPythonPackage rec {
     (fetchpatch {
       name = "fix-nptyping-deprecated-array.patch";
       url = "https://github.com/PyThaiNLP/attacut/commit/a707297b3f08a015d32d8ac241aa8cb11128cbd4.patch";
-      includes = [ "attacut/evaluation.py" ];
+      includes = ["attacut/evaluation.py"];
       hash = "sha256-k2DJPwiH1Fyf5u6+zavx0bankCXsJVZrw1MGcf8ZL+M=";
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docopt
@@ -57,17 +53,17 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/*" ];
+  pytestFlagsArray = ["tests/*"];
 
-  pythonImportsCheck = [ "attacut" ];
+  pythonImportsCheck = ["attacut"];
 
   meta = with lib; {
     description = "Fast and Accurate Neural Thai Word Segmenter";
     homepage = "https://github.com/PyThaiNLP/attacut";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
     mainProgram = "attacut-cli";
   };
 }

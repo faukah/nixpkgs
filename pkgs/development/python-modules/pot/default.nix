@@ -18,7 +18,6 @@
   tensorflow,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "pot";
   version = "0.9.5";
@@ -45,15 +44,15 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    backend-numpy = [ ];
+    backend-numpy = [];
     backend-jax = [
       jax
       jaxlib
     ];
-    backend-cupy = [ ];
-    backend-tf = [ tensorflow ];
-    backend-torch = [ torch ];
-    cvxopt = [ cvxopt ];
+    backend-cupy = [];
+    backend-tf = [tensorflow];
+    backend-torch = [torch];
+    cvxopt = [cvxopt];
     dr = [
       scikit-learn
       pymanopt
@@ -63,23 +62,21 @@ buildPythonPackage rec {
       torch
       # torch-geometric
     ];
-    plot = [ matplotlib ];
-    all =
-      with optional-dependencies;
-      (
-        backend-numpy
-        ++ backend-jax
-        ++ backend-cupy
-        ++ backend-tf
-        ++ backend-torch
-        ++ optional-dependencies.cvxopt
-        ++ dr
-        ++ gnn
-        ++ plot
-      );
+    plot = [matplotlib];
+    all = with optional-dependencies; (
+      backend-numpy
+      ++ backend-jax
+      ++ backend-cupy
+      ++ backend-tf
+      ++ backend-torch
+      ++ optional-dependencies.cvxopt
+      ++ dr
+      ++ gnn
+      ++ plot
+    );
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -138,6 +135,6 @@ buildPythonPackage rec {
     description = "Python Optimal Transport Library";
     homepage = "https://pythonot.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ yl3dy ];
+    maintainers = with maintainers; [yl3dy];
   };
 }

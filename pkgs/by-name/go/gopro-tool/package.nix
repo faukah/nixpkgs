@@ -7,7 +7,6 @@
   vlc,
   jq,
 }:
-
 stdenv.mkDerivation {
   pname = "gopro-tool";
   version = "0-unstable-2024-04-18";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "0sh3s38m17pci24x4kdlmlhn0gwgm28aaa6p7qs16wysk0q0h6wz";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,18 +27,18 @@ stdenv.mkDerivation {
 
     wrapProgram $out/bin/gopro-tool \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          vlc
-          jq
-        ]
-      }
+      lib.makeBinPath [
+        ffmpeg
+        vlc
+        jq
+      ]
+    }
   '';
 
   meta = {
     description = "Tool to control GoPro webcam mode in Linux (requires v4l2loopback kernel module and a firewall rule)";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ZMon3y ];
+    maintainers = with lib.maintainers; [ZMon3y];
     platforms = lib.platforms.linux;
   };
 }

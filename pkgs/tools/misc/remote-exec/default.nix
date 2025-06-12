@@ -12,7 +12,6 @@
   pytest-cov-stub,
   rsync,
 }:
-
 buildPythonApplication rec {
   pname = "remote-exec";
   version = "1.13.3";
@@ -68,6 +67,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/remote-cli/remote";
     changelog = "https://github.com/remote-cli/remote/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

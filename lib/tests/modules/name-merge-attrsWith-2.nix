@@ -1,15 +1,12 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) types mkOption;
-in
-{
+in {
   imports = [
     # Module A
     (
-      { ... }:
-      {
+      {...}: {
         options.mergedName = mkOption {
-          default = { };
+          default = {};
           type = types.attrsWith {
             placeholder = "id"; # <- this is beeing tested
             elemType = types.submodule {
@@ -24,12 +21,11 @@ in
     )
     # Module B
     (
-      { ... }:
-      {
+      {...}: {
         options.mergedName = mkOption {
           type = types.attrsWith {
             placeholder = "other"; # <- define placeholder = "other" (conflict)
-            elemType = types.submodule { };
+            elemType = types.submodule {};
           };
         };
       }

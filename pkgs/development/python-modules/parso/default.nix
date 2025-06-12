@@ -6,7 +6,6 @@
   pythonOlder,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "parso";
   version = "0.8.4";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-6zp7WCQPuZCZo0VXHe7MD5VA6l9N0v4UwqmdaygauS0=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
     # python changed exception message format in 3.10, 3.10 not yet supported

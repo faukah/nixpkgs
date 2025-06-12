@@ -10,7 +10,6 @@
   qtbase,
   enableGUI ? true,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.8.3";
   pname = "ttfautohint";
@@ -29,13 +28,19 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  buildInputs = [
-    freetype
-    harfbuzz
-    libiconv
-  ] ++ lib.optional enableGUI qtbase;
+  buildInputs =
+    [
+      freetype
+      harfbuzz
+      libiconv
+    ]
+    ++ lib.optional enableGUI qtbase;
 
-  configureFlags = [ ''--with-qt=${if enableGUI then "${qtbase}/lib" else "no"}'' ];
+  configureFlags = [''--with-qt=${
+      if enableGUI
+      then "${qtbase}/lib"
+      else "no"
+    }''];
 
   # workaround https://github.com/NixOS/nixpkgs/issues/155458
   preBuild = lib.optionalString stdenv.cc.isClang ''
@@ -57,8 +62,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.freetype.org/ttfautohint";
     license = licenses.gpl2Plus; # or the FreeType License (BSD + advertising clause)
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
-
 }

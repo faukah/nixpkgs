@@ -19,7 +19,6 @@
   withSubversion ? false,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "thunar-vcs-plugin";
   version = "0.4.0";
@@ -61,14 +60,14 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonEnable "svn" withSubversion)
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "thunar-vcs-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "thunar-vcs-plugin-";};
 
   meta = {
     description = "Thunar plugin providing support for Subversion and Git";
     homepage = "https://gitlab.xfce.org/thunar-plugins/thunar-vcs-plugin";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ lordmzte ];
-    teams = [ lib.teams.xfce ];
+    maintainers = with lib.maintainers; [lordmzte];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

@@ -7,7 +7,6 @@
   ruamel-yaml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gawd";
   version = "1.1.1";
@@ -25,11 +24,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ ruamel-yaml ];
+  propagatedBuildInputs = [ruamel-yaml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gawd" ];
+  pythonImportsCheck = ["gawd"];
 
   meta = {
     changelog = "https://github.com/pooya-rostami/gawd/releases/tag/${version}";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     mainProgram = "gawd";
     homepage = "https://github.com/pooya-rostami/gawd";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

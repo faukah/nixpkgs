@@ -15,7 +15,6 @@
   base64,
   ohex,
 }:
-
 buildDunePackage rec {
   pname = "dns";
   version = "10.1.0";
@@ -42,13 +41,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Domain Name System (DNS) library";
     homepage = "https://github.com/mirage/ocaml-dns";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

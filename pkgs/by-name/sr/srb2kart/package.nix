@@ -15,7 +15,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "srb2kart";
   version = "1.6";
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
       desktopName = name;
       genericName = name;
       startupWMClass = ".srb2kart-wrapped";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -101,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mb.srb2.org/threads/srb2kart.25868/";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     mainProgram = "srb2kart";
   };
 })

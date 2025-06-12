@@ -10,11 +10,9 @@
   udev,
   pkg-config,
 }:
-
 # system76-keyboard-configurator tries to spawn a daemon as root via pkexec, so
 # your system needs a PolicyKit authentication agent running for the
 # configurator to work.
-
 rustPlatform.buildRustPackage rec {
   pname = "system76-keyboard-configurator";
   version = "1.3.12";
@@ -51,8 +49,8 @@ rustPlatform.buildRustPackage rec {
     description = "Keyboard configuration application for System76 keyboards and laptops";
     mainProgram = "system76-keyboard-configurator";
     homepage = "https://github.com/pop-os/keyboard-configurator";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ mirrexagon ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [mirrexagon];
     platforms = platforms.linux;
   };
 }

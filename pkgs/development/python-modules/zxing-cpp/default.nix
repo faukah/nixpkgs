@@ -9,7 +9,6 @@
   pytestCheckHook,
   zint,
 }:
-
 buildPythonPackage rec {
   pname = "zxing-cpp";
   inherit (libzxing-cpp) src version meta;
@@ -35,20 +34,20 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeBuildInputs = [
     cmake
   ];
 
-  buildInputs = [ zint ];
+  buildInputs = [zint];
 
   nativeCheckInputs = [
     pillow
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
-  pythonImportsCheck = [ "zxingcpp" ];
+  pythonImportsCheck = ["zxingcpp"];
 }

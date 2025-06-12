@@ -14,7 +14,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-iam";
   version = "2.19.0";
@@ -29,16 +28,18 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/google-cloud-iam";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-auth
-    grpc-google-iam-v1
-    libcst
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-auth
+      grpc-google-iam-v1
+      libcst
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock

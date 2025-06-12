@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "vcard";
   version = "1.0.0";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-c6lj4sCXlQd5Bh5RLuZUIaTirVHtkRfYUAUtZI+1MeI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "vcard" ];
+  pythonImportsCheck = ["vcard"];
 
   meta = {
     description = "vCard validator, class and utility functions";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/engmark/vcard";
     license = lib.licenses.agpl3Plus;
     mainProgram = "vcard";
-    maintainers = with lib.maintainers; [ l0b0 ];
+    maintainers = with lib.maintainers; [l0b0];
   };
 }

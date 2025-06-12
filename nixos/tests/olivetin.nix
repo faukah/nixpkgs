@@ -1,8 +1,6 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "olivetin";
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  meta.maintainers = with lib.maintainers; [defelo];
 
   nodes.machine = {
     services.olivetin = {
@@ -29,7 +27,7 @@
 
   interactive.nodes.machine = {
     services.olivetin.settings.ListenAddressSingleHTTPFrontend = "0.0.0.0:8000";
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    networking.firewall.allowedTCPPorts = [8000];
     virtualisation.forwardPorts = [
       {
         from = "host";

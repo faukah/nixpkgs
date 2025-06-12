@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.azure;
   mlxDrivers = [
     "mlx4_en"
     "mlx4_core"
     "mlx5_core"
   ];
-in
-{
+in {
   options.virtualisation.azure = {
     acceleratedNetworking = lib.mkOption {
       default = false;

@@ -25,7 +25,6 @@
   libglvnd,
   headless ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cardinal";
   version = "24.12";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     libglvnd
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   makeFlags =
     [
       "SYSDEPS=true"
@@ -80,10 +79,10 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram $out/bin/Cardinal \
-    --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libjack2 ]}
+    --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libjack2]}
 
     wrapProgram $out/bin/CardinalMini \
-    --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libjack2 ]}
+    --suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libjack2]}
 
     # this doesn't work and is mainly just a test tool for the developers anyway.
     rm -f $out/bin/CardinalNative

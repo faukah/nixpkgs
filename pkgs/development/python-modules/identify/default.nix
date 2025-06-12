@@ -8,7 +8,6 @@
   setuptools,
   ukkonen,
 }:
-
 buildPythonPackage rec {
   pname = "identify";
   version = "2.6.12";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-zV9NRHFh/bfbg+pO0xX5aXunc1y4aGfKDugyCFLj/xA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     editdistance-s
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     ukkonen
   ];
 
-  pythonImportsCheck = [ "identify" ];
+  pythonImportsCheck = ["identify"];
 
   meta = with lib; {
     description = "File identification library for Python";
     homepage = "https://github.com/chriskuehl/identify";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "identify-cli";
   };
 }

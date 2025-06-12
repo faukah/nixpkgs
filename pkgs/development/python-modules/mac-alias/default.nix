@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mac-alias";
   version = "2.2.2";
@@ -16,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-yZxyjrUS6VXBHxpiA6D/qIg7JlSeiv5ogEAxql2oVrc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # pypi package does not include tests;
   # tests anyway require admin privileges to succeed
   doCheck = false;
-  pythonImportsCheck = [ "mac_alias" ];
+  pythonImportsCheck = ["mac_alias"];
 
   meta = with lib; {
     homepage = "https://github.com/al45tair/mac_alias";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
       so this module currently is not portable to other platforms.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

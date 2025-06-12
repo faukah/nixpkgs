@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "grmon";
   version = "0.1";
@@ -21,7 +20,7 @@ buildGoModule (finalAttrs: {
   env.CGO_ENABLED = "0";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -33,6 +32,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/bcicen/grmon";
     license = licenses.mit;
     mainProgram = "grmon";
-    maintainers = with maintainers; [ katexochen ];
+    maintainers = with maintainers; [katexochen];
   };
 })

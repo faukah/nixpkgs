@@ -10,7 +10,6 @@
   gnupg,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rt";
   version = "5.0.5";
@@ -36,99 +35,97 @@ stdenv.mkDerivation rec {
     perl
     (buildEnv {
       name = "rt-perl-deps";
-      paths =
-        with perlPackages;
-        (requiredPerlModules [
-          ApacheSession
-          BusinessHours
-          CGIEmulatePSGI
-          CGIPSGI
-          CSSMinifierXS
-          CSSSquish
-          ConvertColor
-          CryptEksblowfish
-          CryptSSLeay
-          CryptX509
-          DBDPg
-          DBIxSearchBuilder
-          DataGUID
-          DataICal
-          DataPage
-          DataPagePageset
-          DateExtract
-          DateManip
-          DateTimeFormatNatural
-          DevelGlobalDestruction
-          EmailAddress
-          EmailAddressList
-          EncodeDetect
-          EncodeHanExtra
-          FCGI
-          FCGIProcManager
-          FileShareDir
-          FileWhich
-          GD
-          GDGraph
-          GnuPGInterface
-          GraphViz2
-          HTMLFormatExternal
-          HTMLFormatTextWithLinks
-          HTMLFormatTextWithLinksAndTables
-          HTMLGumbo
-          HTMLMason
-          HTMLMasonPSGIHandler
-          HTMLQuoted
-          HTMLRewriteAttributes
-          HTMLScrubber
-          IPCRun
-          IPCRun3
-          JSON
-          JavaScriptMinifierXS
-          LWP
-          LWPProtocolHttps
-          LocaleMaketextFuzzy
-          LocaleMaketextLexicon
-          LogDispatch
-          MIMETools
-          MIMETypes
-          MailTools
-          ModulePath
-          ModuleRefresh
-          ModuleVersionsReport
-          Moose
-          MooseXNonMoose
-          MooseXRoleParameterized
-          MozillaCA
-          NetCIDR
-          NetIP
-          ParallelForkManager
-          PathDispatcher
-          PerlIOeol
-          Plack
-          PodParser
-          RegexpCommon
-          RegexpCommonnetCIDR
-          RegexpIPv6
-          RoleBasic
-          ScopeUpper
-          Starlet
-          Starman
-          StringShellQuote
-          SymbolGlobalName
-          TermReadKey
-          TextPasswordPronounceable
-          TextQuoted
-          TextTemplate
-          TextWikiFormat
-          TextWordDiff
-          TextWrapper
-          TimeParseDate
-          TreeSimple
-          UNIVERSALrequire
-          WebMachine
-          XMLRSS
-          perlldap
-        ]);
+      paths = with perlPackages; (requiredPerlModules [
+        ApacheSession
+        BusinessHours
+        CGIEmulatePSGI
+        CGIPSGI
+        CSSMinifierXS
+        CSSSquish
+        ConvertColor
+        CryptEksblowfish
+        CryptSSLeay
+        CryptX509
+        DBDPg
+        DBIxSearchBuilder
+        DataGUID
+        DataICal
+        DataPage
+        DataPagePageset
+        DateExtract
+        DateManip
+        DateTimeFormatNatural
+        DevelGlobalDestruction
+        EmailAddress
+        EmailAddressList
+        EncodeDetect
+        EncodeHanExtra
+        FCGI
+        FCGIProcManager
+        FileShareDir
+        FileWhich
+        GD
+        GDGraph
+        GnuPGInterface
+        GraphViz2
+        HTMLFormatExternal
+        HTMLFormatTextWithLinks
+        HTMLFormatTextWithLinksAndTables
+        HTMLGumbo
+        HTMLMason
+        HTMLMasonPSGIHandler
+        HTMLQuoted
+        HTMLRewriteAttributes
+        HTMLScrubber
+        IPCRun
+        IPCRun3
+        JSON
+        JavaScriptMinifierXS
+        LWP
+        LWPProtocolHttps
+        LocaleMaketextFuzzy
+        LocaleMaketextLexicon
+        LogDispatch
+        MIMETools
+        MIMETypes
+        MailTools
+        ModulePath
+        ModuleRefresh
+        ModuleVersionsReport
+        Moose
+        MooseXNonMoose
+        MooseXRoleParameterized
+        MozillaCA
+        NetCIDR
+        NetIP
+        ParallelForkManager
+        PathDispatcher
+        PerlIOeol
+        Plack
+        PodParser
+        RegexpCommon
+        RegexpCommonnetCIDR
+        RegexpIPv6
+        RoleBasic
+        ScopeUpper
+        Starlet
+        Starman
+        StringShellQuote
+        SymbolGlobalName
+        TermReadKey
+        TextPasswordPronounceable
+        TextQuoted
+        TextTemplate
+        TextWikiFormat
+        TextWordDiff
+        TextWrapper
+        TimeParseDate
+        TreeSimple
+        UNIVERSALrequire
+        WebMachine
+        XMLRSS
+        perlldap
+      ]);
     })
   ];
 
@@ -159,11 +156,11 @@ stdenv.mkDerivation rec {
     for i in $(find $out/bin -type f); do
       wrapProgram $i --prefix PERL5LIB ':' $PERL5LIB \
         --prefix PATH ":" "${
-          lib.makeBinPath [
-            openssl
-            gnupg
-          ]
-        }"
+      lib.makeBinPath [
+        openssl
+        gnupg
+      ]
+    }"
     done
 
     rm -r $out/var

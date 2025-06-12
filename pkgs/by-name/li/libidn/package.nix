@@ -5,7 +5,6 @@
   libiconv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libidn";
   version = "1.42";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     "devdoc"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
@@ -51,8 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     mainProgram = "idn";
     license = lib.licenses.lgpl2Plus;
-    pkgConfigModules = [ "libidn" ];
+    pkgConfigModules = ["libidn"];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lsix ];
+    maintainers = with lib.maintainers; [lsix];
   };
 })

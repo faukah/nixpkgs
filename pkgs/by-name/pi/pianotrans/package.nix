@@ -4,7 +4,6 @@
   python3,
   ffmpeg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pianotrans";
   version = "1.0.1";
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
   doCheck = false;
 
   makeWrapperArgs = [
-    ''--prefix PATH : "${lib.makeBinPath [ ffmpeg ]}"''
+    ''--prefix PATH : "${lib.makeBinPath [ffmpeg]}"''
   ];
 
   meta = with lib; {
@@ -36,6 +35,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "pianotrans";
     homepage = "https://github.com/azuwis/pianotrans";
     license = licenses.mit;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

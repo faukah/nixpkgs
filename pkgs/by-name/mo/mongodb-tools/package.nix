@@ -6,7 +6,6 @@
   pkg-config,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "mongo-tools";
   version = "100.10.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     libpcap
@@ -28,34 +27,33 @@ buildGoModule rec {
 
   # Mongodb incorrectly names all of their binaries main
   # Let's work around this with our own installer
-  buildPhase =
-    let
-      tools = [
-        "bsondump"
-        "mongodump"
-        "mongoexport"
-        "mongofiles"
-        "mongoimport"
-        "mongorestore"
-        "mongostat"
-        "mongotop"
-      ];
-    in
-    ''
-      # move vendored codes so nixpkgs go builder could find it
-      runHook preBuild
+  buildPhase = let
+    tools = [
+      "bsondump"
+      "mongodump"
+      "mongoexport"
+      "mongofiles"
+      "mongoimport"
+      "mongorestore"
+      "mongostat"
+      "mongotop"
+    ];
+  in ''
+    # move vendored codes so nixpkgs go builder could find it
+    runHook preBuild
 
-      ${lib.concatMapStrings (t: ''
+    ${lib.concatMapStrings (t: ''
         go build -o "$out/bin/${t}" -tags ssl -ldflags "-s -w" ./${t}/main
-      '') tools}
+      '')
+      tools}
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
   meta = {
     homepage = "https://github.com/mongodb/mongo-tools";
     description = "Tools for the MongoDB";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bryanasdev000 ];
+    maintainers = with lib.maintainers; [bryanasdev000];
   };
 }

@@ -5,7 +5,6 @@
   colors,
   tty,
 }:
-
 buildDunePackage rec {
   pname = "spices";
   version = "0.0.2";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     homepage = "https://github.com/leostera/minttea";
     changelog = "https://github.com/leostera/minttea/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

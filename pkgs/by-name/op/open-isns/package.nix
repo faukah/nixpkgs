@@ -7,7 +7,6 @@
   openssl,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "open-isns";
   version = "0.103";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  propagatedBuildInputs = [ openssl ];
+  propagatedBuildInputs = [openssl];
   outputs = [
     "out"
     "lib"
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   mesonFlags = [
     "-Dslp=disabled" # openslp is not maintained and labeled unsafe
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Only;
     homepage = "https://github.com/open-iscsi/open-isns";
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

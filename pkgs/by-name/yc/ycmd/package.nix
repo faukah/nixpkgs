@@ -18,7 +18,6 @@
   llvmPackages,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation {
   pname = "ycmd";
   version = "unstable-2023-11-06";
@@ -33,13 +32,14 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
-  buildInputs =
-    with python3.pkgs;
-    with llvmPackages;
+  nativeBuildInputs =
+    [
+      cmake
+      ninja
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
+  buildInputs = with python3.pkgs;
+  with llvmPackages;
     [
       abseil-cpp
       boost

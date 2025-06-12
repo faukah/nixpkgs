@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "action-validator";
   version = "0.6.0-unstable-2025-02-16";
@@ -30,6 +29,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/mpalmer/action-validator";
     license = licenses.gpl3Plus;
     mainProgram = "action-validator";
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

@@ -5,7 +5,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation {
   pname = "tftp-hpa";
   version = "5.2-untagged-2024-06-10";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "TFTP tools - a lot of fixes on top of BSD TFTP";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.bsd3;
     homepage = "https://www.kernel.org/pub/software/network/tftp/";

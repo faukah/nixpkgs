@@ -7,7 +7,6 @@
   python,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "gruut-ipa";
   version = "0.13.0";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
       --replace "do espeak" "do ${espeak}/bin/espeak"
   '';
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "gruut_ipa" ];
+  pythonImportsCheck = ["gruut_ipa"];
 
   meta = with lib; {
     description = "Library for manipulating pronunciations using the International Phonetic Alphabet (IPA)";
     mainProgram = "gruut-ipa";
     homepage = "https://github.com/rhasspy/gruut-ipa";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

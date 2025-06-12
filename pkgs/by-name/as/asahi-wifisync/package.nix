@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asahi-wifisync";
   version = "0.2.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to sync Wifi passwords with macos on ARM Macs";
     homepage = "https://crates.io/crates/asahi-wifisync";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukaslihotzki ];
+    maintainers = with maintainers; [lukaslihotzki];
     mainProgram = "asahi-wifisync";
     platforms = platforms.linux;
   };

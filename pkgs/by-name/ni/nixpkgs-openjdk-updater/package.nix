@@ -6,7 +6,6 @@
   fetchFromGitHub,
   nixpkgs-openjdk-updater,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "nixpkgs-openjdk-updater";
   version = "0.1.0";
@@ -14,7 +13,7 @@ python3Packages.buildPythonApplication {
 
   src = ./nixpkgs-openjdk-updater;
 
-  build-system = [ python3Packages.hatchling ];
+  build-system = [python3Packages.hatchling];
 
   dependencies = [
     python3Packages.pydantic
@@ -37,50 +36,48 @@ python3Packages.buildPythonApplication {
     $out/bin/nixpkgs-openjdk-updater --help >/dev/null
   '';
 
-  passthru.openjdkSource =
-    {
-      sourceFile,
-      featureVersionPrefix,
-    }:
-    let
-      sourceInfo = lib.importJSON sourceFile;
-    in
-    {
-      src = fetchFromGitHub {
-        inherit (sourceInfo)
-          owner
-          repo
-          rev
-          hash
-          ;
-      };
-
-      updateScript = {
-        command = [
-          (lib.getExe nixpkgs-openjdk-updater)
-
-          "--source-file"
-          sourceFile
-
-          "--owner"
-          sourceInfo.owner
-
-          "--repo"
-          sourceInfo.repo
-
-          "--feature-version-prefix"
-          featureVersionPrefix
-        ];
-
-        supportedFeatures = [ "silent" ];
-      };
+  passthru.openjdkSource = {
+    sourceFile,
+    featureVersionPrefix,
+  }: let
+    sourceInfo = lib.importJSON sourceFile;
+  in {
+    src = fetchFromGitHub {
+      inherit
+        (sourceInfo)
+        owner
+        repo
+        rev
+        hash
+        ;
     };
+
+    updateScript = {
+      command = [
+        (lib.getExe nixpkgs-openjdk-updater)
+
+        "--source-file"
+        sourceFile
+
+        "--owner"
+        sourceInfo.owner
+
+        "--repo"
+        sourceInfo.repo
+
+        "--feature-version-prefix"
+        featureVersionPrefix
+      ];
+
+      supportedFeatures = ["silent"];
+    };
+  };
 
   meta = {
     description = "Updater for Nixpkgs OpenJDK packages";
     license = lib.licenses.mit;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
-    maintainers = [ lib.maintainers.emily ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
+    maintainers = [lib.maintainers.emily];
     mainProgram = "nixpkgs-openjdk-updater";
   };
 }

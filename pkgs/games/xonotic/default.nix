@@ -29,27 +29,23 @@
   SDL2,
   # blind
   gmp,
-
   withSDL ? true,
   withGLX ? false,
   withDedicated ? true,
-}:
-
-let
+}: let
   pname = "xonotic";
   version = "0.8.6";
   name = "${pname}-${version}";
   variant =
-    if withSDL && withGLX then
-      ""
-    else if withSDL then
-      "-sdl"
-    else if withGLX then
-      "-glx"
-    else if withDedicated then
-      "-dedicated"
-    else
-      "-what-even-am-i";
+    if withSDL && withGLX
+    then ""
+    else if withSDL
+    then "-sdl"
+    else if withGLX
+    then "-glx"
+    else if withDedicated
+    then "-dedicated"
+    else "-what-even-am-i";
 
   meta = {
     description = "A free fast-paced first-person shooter";
@@ -92,7 +88,7 @@ let
       hash = "sha256-i5KseBz/SuicEhoj6s197AWiqr7azMI6GdGglYtAEqg=";
     };
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
     buildInputs =
       [
         libjpeg
@@ -110,7 +106,7 @@ let
         libXxf86vm
         alsa-lib
       ]
-      ++ lib.optionals withSDL [ SDL2 ];
+      ++ lib.optionals withSDL [SDL2];
 
     sourceRoot = "Xonotic/source/darkplaces";
 
@@ -206,9 +202,7 @@ let
             $out/bin/xonotic-sdl
       '';
   };
-
-in
-rec {
+in rec {
   xonotic-data = fetchzip {
     name = "xonotic-data";
     url = "https://dl.xonotic.org/xonotic-${version}.zip";
@@ -217,48 +211,50 @@ rec {
       cd $out
       rm -rf $(ls | grep -v "^data$" | grep -v "^key_0.d0pk$")
     '';
-    meta.hydraPlatforms = [ ];
+    meta.hydraPlatforms = [];
     inherit version pname;
   };
 
   xonotic =
     runCommand "xonotic${variant}-${version}"
-      {
-        inherit xonotic-unwrapped version;
-        pname = "${pname}${variant}";
-        nativeBuildInputs = [
-          makeWrapper
-          copyDesktopItems
-        ];
-        desktopItems = [ desktopItem ];
-        meta = meta // {
-          hydraPlatforms = [ ];
+    {
+      inherit xonotic-unwrapped version;
+      pname = "${pname}${variant}";
+      nativeBuildInputs = [
+        makeWrapper
+        copyDesktopItems
+      ];
+      desktopItems = [desktopItem];
+      meta =
+        meta
+        // {
+          hydraPlatforms = [];
         };
-      }
-      (
-        ''
-          mkdir -p $out/bin
-        ''
-        + lib.optionalString withDedicated ''
-          ln -s ${xonotic-unwrapped}/bin/xonotic-dedicated $out/bin/
-        ''
-        + lib.optionalString withGLX ''
-          ln -s ${xonotic-unwrapped}/bin/xonotic-glx $out/bin/xonotic-glx
-          ln -s $out/bin/xonotic-glx $out/bin/xonotic
-        ''
-        + lib.optionalString withSDL ''
-          ln -s ${xonotic-unwrapped}/bin/xonotic-sdl $out/bin/xonotic-sdl
-          ln -sf $out/bin/xonotic-sdl $out/bin/xonotic
-        ''
-        + lib.optionalString (withSDL || withGLX) ''
-          mkdir -p $out/share
-          ln -s ${xonotic-unwrapped}/share/icons $out/share/icons
-          copyDesktopItems
-        ''
-        + ''
-          for binary in $out/bin/xonotic-*; do
-            wrapProgram $binary --add-flags "-basedir ${xonotic-data}" --prefix LD_LIBRARY_PATH : "${xonotic-unwrapped}/lib"
-          done
-        ''
-      );
+    }
+    (
+      ''
+        mkdir -p $out/bin
+      ''
+      + lib.optionalString withDedicated ''
+        ln -s ${xonotic-unwrapped}/bin/xonotic-dedicated $out/bin/
+      ''
+      + lib.optionalString withGLX ''
+        ln -s ${xonotic-unwrapped}/bin/xonotic-glx $out/bin/xonotic-glx
+        ln -s $out/bin/xonotic-glx $out/bin/xonotic
+      ''
+      + lib.optionalString withSDL ''
+        ln -s ${xonotic-unwrapped}/bin/xonotic-sdl $out/bin/xonotic-sdl
+        ln -sf $out/bin/xonotic-sdl $out/bin/xonotic
+      ''
+      + lib.optionalString (withSDL || withGLX) ''
+        mkdir -p $out/share
+        ln -s ${xonotic-unwrapped}/share/icons $out/share/icons
+        copyDesktopItems
+      ''
+      + ''
+        for binary in $out/bin/xonotic-*; do
+          wrapProgram $binary --add-flags "-basedir ${xonotic-data}" --prefix LD_LIBRARY_PATH : "${xonotic-unwrapped}/lib"
+        done
+      ''
+    );
 }

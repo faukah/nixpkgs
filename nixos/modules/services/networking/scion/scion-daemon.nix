@@ -4,14 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   globalCfg = config.services.scion;
   cfg = config.services.scion.scion-daemon;
-  toml = pkgs.formats.toml { };
-  connectionDir = if globalCfg.stateless then "/run" else "/var/lib";
+  toml = pkgs.formats.toml {};
+  connectionDir =
+    if globalCfg.stateless
+    then "/run"
+    else "/var/lib";
   defaultConfig = {
     general = {
       id = "sd";
@@ -29,12 +29,11 @@ let
     };
   };
   configFile = toml.generate "scion-daemon.toml" (recursiveUpdate defaultConfig cfg.settings);
-in
-{
+in {
   options.services.scion.scion-daemon = {
     enable = mkEnableOption "the scion-daemon service";
     settings = mkOption {
-      default = { };
+      default = {};
       type = toml.type;
       example = literalExpression ''
         {
@@ -64,13 +63,17 @@ in
         "network-online.target"
         "scion-dispatcher.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${globalCfg.package}/bin/scion-daemon --config ${configFile}";
         Restart = "on-failure";
         DynamicUser = true;
-        ${if globalCfg.stateless then "RuntimeDirectory" else "StateDirectory"} = "scion-daemon";
+        ${
+          if globalCfg.stateless
+          then "RuntimeDirectory"
+          else "StateDirectory"
+        } = "scion-daemon";
       };
     };
   };

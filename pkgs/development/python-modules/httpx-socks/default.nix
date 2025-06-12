@@ -19,7 +19,6 @@
   trustme,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-socks";
   version = "0.10.1";
@@ -34,17 +33,19 @@ buildPythonPackage rec {
     hash = "sha256-1NDsIKJ8lWpjaTnlv5DrwTsEJU4gYwEUuqKpn+2QVhg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    httpx
-    httpcore
-    python-socks
-  ] ++ python-socks.optional-dependencies.asyncio;
+  dependencies =
+    [
+      httpx
+      httpcore
+      python-socks
+    ]
+    ++ python-socks.optional-dependencies.asyncio;
 
   optional-dependencies = {
-    asyncio = [ async-timeout ];
-    trio = [ trio ];
+    asyncio = [async-timeout];
+    trio = [trio];
   };
 
   __darwinAllowLocalNetworking = true;
@@ -61,7 +62,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "httpx_socks" ];
+  pythonImportsCheck = ["httpx_socks"];
 
   disabledTests = [
     # Tests don't work in the sandbox
@@ -74,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/romis2012/httpx-socks";
     changelog = "https://github.com/romis2012/httpx-socks/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,6 @@
   libva,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation {
   pname = "icamerasrc-${ipu6-camera-hal.ipuVersion}";
   version = "unstable-2024-09-29";
@@ -63,7 +62,7 @@ stdenv.mkDerivation {
     description = "GStreamer Plugin for MIPI camera support through the IPU6/IPU6EP/IPU6SE on Intel Tigerlake/Alderlake/Jasperlake platforms";
     homepage = "https://github.com/intel/icamerasrc/tree/icamerasrc_slim_api";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

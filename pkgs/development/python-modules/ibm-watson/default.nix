@@ -13,7 +13,6 @@
   responses,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "ibm-watson";
   version = "9.0.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-JZriBvdeDAZ+NOnWCsjI2m5JlLe/oLlbtFkdFeuL8TI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     ibm-cloud-sdk-core
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "ibm_watson" ];
+  pythonImportsCheck = ["ibm_watson"];
 
   meta = with lib; {
     description = "Client library to use the IBM Watson Services";
     homepage = "https://github.com/watson-developer-cloud/python-sdk";
     changelog = "https://github.com/watson-developer-cloud/python-sdk/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

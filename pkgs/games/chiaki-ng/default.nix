@@ -34,7 +34,6 @@
   libdovi,
   xxHash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chiaki-ng";
   version = "1.9.8";
@@ -122,7 +121,7 @@ stdenv.mkDerivation rec {
     #
     # See also: <https://github.com/spdx/license-list-XML/issues/939>
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
     platforms = platforms.linux;
     mainProgram = "chiaki";
   };

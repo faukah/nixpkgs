@@ -6,7 +6,6 @@
   inflect,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "decora-wifi";
   version = "1.5";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-oWETtzZueNJC0lTWdLfk3SOuvnqrJ9wp5rOSPJxH3M4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
     inflect
   ];
 
-  pythonImportsCheck = [ "decora_wifi" ];
+  pythonImportsCheck = ["decora_wifi"];
 
   # No tests in Pypi source
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tlyakhov/python-decora_wifi";
     changelog = "https://github.com/tlyakhov/python-decora_wifi/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Continous ];
+    maintainers = with lib.maintainers; [Continous];
   };
 }

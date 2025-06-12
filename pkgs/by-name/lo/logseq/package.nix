@@ -1,12 +1,10 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
   fetchYarnDeps,
   replaceVars,
   writeShellScriptBin,
-
   copyDesktopItems,
   cctools,
   clojure,
@@ -19,11 +17,9 @@
   yarnConfigHook,
   xcbuild,
   zip,
-
   electron,
   git,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "logseq";
   version = "0.10.12";
@@ -59,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     name = "logseq-${finalAttrs.version}-maven-deps";
     inherit (finalAttrs) src patches;
 
-    nativeBuildInputs = [ clojure ];
+    nativeBuildInputs = [clojure];
 
     buildPhase = ''
       runHook preBuild
@@ -126,24 +122,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs =
-    let
-      clojureWithCache = writeShellScriptBin "clojure" ''
-        exec ${lib.getExe' clojure "clojure"} -Sdeps '{:mvn/local-repo "${finalAttrs.mavenRepo}"}' "$@"
-      '';
+  nativeBuildInputs = let
+    clojureWithCache = writeShellScriptBin "clojure" ''
+      exec ${lib.getExe' clojure "clojure"} -Sdeps '{:mvn/local-repo "${finalAttrs.mavenRepo}"}' "$@"
+    '';
 
-      # the build process runs `git describe --long --always --dirty`
-      fakeGit = writeShellScriptBin "git" ''
-        echo "${finalAttrs.src.rev or finalAttrs.version}@nixpkgs"
-      '';
-    in
+    # the build process runs `git describe --long --always --dirty`
+    fakeGit = writeShellScriptBin "git" ''
+      echo "${finalAttrs.src.rev or finalAttrs.version}@nixpkgs"
+    '';
+  in
     [
       clojureWithCache
       copyDesktopItems
       fakeGit
       makeWrapper
       nodejs
-      (nodejs.python.withPackages (ps: [ ps.setuptools ]))
+      (nodejs.python.withPackages (ps: [ps.setuptools]))
       removeReferencesTo
       yarnBuildHook
       yarnConfigHook
@@ -274,8 +269,8 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "logseq";
       startupWMClass = "Logseq";
       comment = "A privacy-first, open-source platform for knowledge management and collaboration.";
-      mimeTypes = [ "x-scheme-handler/logseq" ];
-      categories = [ "Utility" ];
+      mimeTypes = ["x-scheme-handler/logseq"];
+      categories = ["Utility"];
     })
   ];
 
@@ -283,7 +278,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Privacy-first, open-source platform for knowledge management and collaboration";
     homepage = "https://github.com/logseq/logseq";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     mainProgram = "logseq";
     platforms = electron.meta.platforms;
   };

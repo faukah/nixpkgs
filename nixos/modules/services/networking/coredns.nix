@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.coredns;
   configFile = pkgs.writeText "Corefile" cfg.config;
-in
-{
+in {
   options.services.coredns = {
     enable = lib.mkEnableOption "Coredns dns server";
 
@@ -26,11 +24,11 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "coredns" { };
+    package = lib.mkPackageOption pkgs "coredns" {};
 
     extraArgs = lib.mkOption {
-      default = [ ];
-      example = [ "-dns.port=53" ];
+      default = [];
+      example = ["-dns.port=53"];
       type = lib.types.listOf lib.types.str;
       description = "Extra arguments to pass to coredns.";
     };
@@ -39,8 +37,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.coredns = {
       description = "Coredns dns server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         PermissionsStartOnly = true;
         LimitNPROC = 512;

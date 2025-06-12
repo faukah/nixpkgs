@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-plantuml";
   version = "0.8.0";
@@ -30,9 +29,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JI5UdLb2ZcPcAIvprVdpQRGMzc0Qu0awIUpMjNyaAPQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "mdBook preprocessor to render PlantUML diagrams to png images in the book output directory";

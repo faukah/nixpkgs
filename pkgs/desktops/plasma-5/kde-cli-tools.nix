@@ -16,7 +16,6 @@
   kactivities,
   plasma-workspace,
 }:
-
 mkDerivation {
   pname = "kde-cli-tools";
   nativeBuildInputs = [

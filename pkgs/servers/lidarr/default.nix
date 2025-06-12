@@ -13,10 +13,11 @@
   openssl,
   nixosTests,
   zlib,
-}:
-
-let
-  os = if stdenv.hostPlatform.isDarwin then "osx" else "linux";
+}: let
+  os =
+    if stdenv.hostPlatform.isDarwin
+    then "osx"
+    else "linux";
   arch =
     {
       x86_64-linux = "x64";
@@ -34,25 +35,25 @@ let
     }
     ."${arch}-${os}_hash";
 in
-stdenv.mkDerivation rec {
-  pname = "lidarr";
-  version = "2.11.2.4629";
+  stdenv.mkDerivation rec {
+    pname = "lidarr";
+    version = "2.11.2.4629";
 
-  src = fetchurl {
-    url = "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz";
-    sha256 = hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/lidarr/Lidarr/releases/download/v${version}/Lidarr.master.${version}.${os}-core-${arch}.tar.gz";
+      sha256 = hash;
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/{bin,share/${pname}-${version}}
-    cp -r * $out/share/${pname}-${version}/.
-    makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Lidarr \
-      --add-flags "$out/share/${pname}-${version}/Lidarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${
+      mkdir -p $out/{bin,share/${pname}-${version}}
+      cp -r * $out/share/${pname}-${version}/.
+      makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Lidarr \
+        --add-flags "$out/share/${pname}-${version}/Lidarr.dll" \
+        --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           curl
           sqlite
@@ -63,25 +64,25 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    updateScript = ./update.sh;
-    tests.smoke-test = nixosTests.lidarr;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+      tests.smoke-test = nixosTests.lidarr;
+    };
 
-  meta = with lib; {
-    description = "Usenet/BitTorrent music downloader";
-    homepage = "https://lidarr.audio/";
-    license = licenses.gpl3;
-    maintainers = [ maintainers.etu ];
-    mainProgram = "Lidarr";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-}
+    meta = with lib; {
+      description = "Usenet/BitTorrent music downloader";
+      homepage = "https://lidarr.audio/";
+      license = licenses.gpl3;
+      maintainers = [maintainers.etu];
+      mainProgram = "Lidarr";
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  }

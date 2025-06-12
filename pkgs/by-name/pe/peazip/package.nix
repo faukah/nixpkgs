@@ -13,7 +13,6 @@
   zpaq,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "peazip";
   version = "10.4.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   '';
 
   # peazip looks for the "7z", not "7zz"
-  _7z = runCommand "7z" { } ''
+  _7z = runCommand "7z" {} ''
     mkdir -p $out/bin
     ln -s ${_7zz}/bin/7zz $out/bin/7z
   '';
@@ -114,7 +113,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     homepage = "https://peazip.github.io";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
     mainProgram = "peazip";
   };
 }

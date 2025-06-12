@@ -2,9 +2,7 @@
   lib,
   fetchFromGitHub,
   stdenvNoCC,
-}:
-
-let
+}: let
   CoreSymbolication = stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "CoreSymbolication";
     version = "0-unstable-2018-06-17";
@@ -34,18 +32,18 @@ let
       description = "Reverse engineered headers for Apple's CoreSymbolication framework";
       homepage = "https://github.com/matthewbauer/CoreSymbolication";
       license = lib.licenses.mit;
-      teams = [ lib.teams.darwin ];
+      teams = [lib.teams.darwin];
       platforms = lib.platforms.darwin;
     };
   });
 in
-self: super: {
-  buildPhase =
-    super.buildPhase or ""
-    + ''
-      mkdir -p System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/Headers
-      ln -s A System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/Current
-      ln -s Versions/Current/Headers System/Library/PrivateFrameworks/CoreSymbolication.framework/Headers
-      cp '${CoreSymbolication}/include/'*.h System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/Headers
-    '';
-}
+  self: super: {
+    buildPhase =
+      super.buildPhase or ""
+      + ''
+        mkdir -p System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/Headers
+        ln -s A System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/Current
+        ln -s Versions/Current/Headers System/Library/PrivateFrameworks/CoreSymbolication.framework/Headers
+        cp '${CoreSymbolication}/include/'*.h System/Library/PrivateFrameworks/CoreSymbolication.framework/Versions/A/Headers
+      '';
+  }

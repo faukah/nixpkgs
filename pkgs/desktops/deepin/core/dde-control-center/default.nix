@@ -16,7 +16,6 @@
   gtest,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-control-center";
   version = "6.0.65";
@@ -84,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-control-center";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

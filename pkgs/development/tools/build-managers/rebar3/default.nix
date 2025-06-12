@@ -14,12 +14,10 @@
   nix,
   nixfmt-rfc-style,
   rebar3-nix,
-}:
-
-let
+}: let
   version = "3.25.0";
   owner = "erlang";
-  deps = import ./rebar-deps.nix { inherit fetchFromGitHub fetchgit fetchHex; };
+  deps = import ./rebar-deps.nix {inherit fetchFromGitHub fetchgit fetchHex;};
   rebar3 = stdenv.mkDerivation rec {
     pname = "rebar3";
     inherit version erlang;
@@ -33,7 +31,7 @@ let
       sha256 = "uiKgB+YuqKnfs9TZbnudp6TZd6ZGXfpF9c8jJffCs/U=";
     };
 
-    buildInputs = [ erlang ];
+    buildInputs = [erlang];
 
     postPatch = ''
       mkdir -p _checkouts _build/default/lib/
@@ -41,7 +39,8 @@ let
       ${toString (
         lib.mapAttrsToList (k: v: ''
           cp -R --no-preserve=mode ${v} _checkouts/${k}
-        '') deps
+        '')
+        deps
       )}
 
       # Bootstrap script expects the dependencies in _build/default/lib
@@ -81,7 +80,7 @@ let
       '';
 
       platforms = lib.platforms.unix;
-      teams = [ lib.teams.beam ];
+      teams = [lib.teams.beam];
       license = lib.licenses.asl20;
     };
 
@@ -96,7 +95,7 @@ let
           gnused
           nix
           nixfmt-rfc-style
-          (rebar3WithPlugins { globalPlugins = [ rebar3-nix ]; })
+          (rebar3WithPlugins {globalPlugins = [rebar3-nix];})
         ]
       }
       latest=$(list-git-tags | sed -n '/[\d\.]\+/p' | sort -V | tail -1)
@@ -117,34 +116,31 @@ let
   # Alias rebar3 so we can use it as default parameter below
   _rebar3 = rebar3;
 
-  rebar3WithPlugins =
-    {
-      plugins ? [ ],
-      globalPlugins ? [ ],
-      rebar3 ? _rebar3,
-    }:
-    let
-      pluginLibDirs = map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
-      globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
-      rebar3Patched = (
-        rebar3.overrideAttrs (old: {
+  rebar3WithPlugins = {
+    plugins ? [],
+    globalPlugins ? [],
+    rebar3 ? _rebar3,
+  }: let
+    pluginLibDirs = map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
+    globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
+    rebar3Patched = (
+      rebar3.overrideAttrs (old: {
+        # skip-plugins.patch is necessary because otherwise rebar3 will always
+        # try to fetch plugins if they are not already present in _build.
+        #
+        # global-deps.patch makes it possible to use REBAR_GLOBAL_PLUGINS to
+        # instruct rebar3 to always load a certain plugin. It is necessary since
+        # REBAR_GLOBAL_CONFIG_DIR doesn't seem to work for this.
+        patches = [
+          ./skip-plugins.patch
+          ./global-plugins.patch
+        ];
 
-          # skip-plugins.patch is necessary because otherwise rebar3 will always
-          # try to fetch plugins if they are not already present in _build.
-          #
-          # global-deps.patch makes it possible to use REBAR_GLOBAL_PLUGINS to
-          # instruct rebar3 to always load a certain plugin. It is necessary since
-          # REBAR_GLOBAL_CONFIG_DIR doesn't seem to work for this.
-          patches = [
-            ./skip-plugins.patch
-            ./global-plugins.patch
-          ];
-
-          # our patches cause the tests to fail
-          doCheck = false;
-        })
-      );
-    in
+        # our patches cause the tests to fail
+        doCheck = false;
+      })
+    );
+  in
     stdenv.mkDerivation {
       pname = "rebar3-with-plugins";
       inherit (rebar3) version;
@@ -173,7 +169,6 @@ let
           --add-flags "+sbtu +A1 -noshell -boot start_clean -s rebar3 main -extra"
       '';
     };
-in
-{
+in {
   inherit rebar3 rebar3WithPlugins;
 }

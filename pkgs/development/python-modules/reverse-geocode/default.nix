@@ -7,7 +7,6 @@
   numpy,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "reverse-geocode";
   version = "1.6.5";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-AyqkLnbHa8ZylVfrJHpsxLeBfLTl6u9IQ3EV8grXrkE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   #
   doCheck = false;
 
-  pythonImportsCheck = [ "reverse_geocode" ];
+  pythonImportsCheck = ["reverse_geocode"];
 
   meta = {
     description = "Reverse geocode the given latitude/longitude";
     homepage = "https://pypi.org/project/reverse-geocode/";
     license = lib.licenses.lgpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

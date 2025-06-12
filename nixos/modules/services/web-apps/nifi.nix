@@ -4,9 +4,7 @@
   config,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.nifi;
   opt = options.services.nifi;
 
@@ -18,11 +16,9 @@ let
   };
 
   envFile = pkgs.writeText "nifi.env" (
-    lib.concatMapStrings (s: s + "\n") (
-      (lib.concatLists (
-        lib.mapAttrsToList (name: value: lib.optional (value != null) ''${name}="${toString value}"'') env
-      ))
-    )
+    lib.concatMapStrings (s: s + "\n") (lib.concatLists (
+      lib.mapAttrsToList (name: value: lib.optional (value != null) ''${name}="${toString value}"'') env
+    ))
   );
 
   nifiEnv = pkgs.writeShellScriptBin "nifi-env" ''
@@ -30,9 +26,7 @@ let
     source "${envFile}"
     eval -- "\$@"
   '';
-
-in
-{
+in {
   options = {
     services.nifi = {
       enable = lib.mkEnableOption "Apache NiFi";
@@ -64,7 +58,10 @@ in
 
       listenHost = lib.mkOption {
         type = lib.types.str;
-        default = if cfg.enableHTTPS then "0.0.0.0" else "127.0.0.1";
+        default =
+          if cfg.enableHTTPS
+          then "0.0.0.0"
+          else "127.0.0.1";
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -75,7 +72,10 @@ in
 
       listenPort = lib.mkOption {
         type = lib.types.int;
-        default = if cfg.enableHTTPS then 8443 else 8080;
+        default =
+          if cfg.enableHTTPS
+          then 8443
+          else 8080;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"
@@ -86,7 +86,10 @@ in
 
       proxyHost = lib.mkOption {
         type = lib.types.nullOr lib.types.str;
-        default = if cfg.enableHTTPS then "0.0.0.0" else null;
+        default =
+          if cfg.enableHTTPS
+          then "0.0.0.0"
+          else null;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "0.0.0.0"
@@ -97,7 +100,10 @@ in
 
       proxyPort = lib.mkOption {
         type = lib.types.nullOr lib.types.int;
-        default = if cfg.enableHTTPS then 8443 else null;
+        default =
+          if cfg.enableHTTPS
+          then 8443
+          else null;
         defaultText = lib.literalExpression ''
           if config.${opt.enableHTTPS}
           then "8443"
@@ -191,11 +197,11 @@ in
 
     systemd.services.nifi = {
       description = "Apache NiFi";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = env;
-      path = [ pkgs.gawk ];
+      path = [pkgs.gawk];
 
       serviceConfig = {
         Type = "forking";
@@ -248,14 +254,16 @@ in
               -e '/nifi.security.keyPasswd/s|^#\+||' \
               -e '/nifi.security.truststorePasswd/s|^#\+||'
           ''}
-          ${lib.optionalString
+          ${
+            lib.optionalString
             ((cfg.enableHTTPS == true) && (cfg.proxyHost != null) && (cfg.proxyPort != null))
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
             ''
           }
-          ${lib.optionalString
+          ${
+            lib.optionalString
             ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null))
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
@@ -291,7 +299,7 @@ in
         ProcSubset = "pid";
         ProtectProc = "invisible";
         # Access write directories
-        ReadWritePaths = [ cfg.initPasswordFile ];
+        ReadWritePaths = [cfg.initPasswordFile];
         UMask = "0027";
         # Capabilities
         CapabilityBoundingSet = "";
@@ -310,7 +318,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;
-        RestrictAddressFamilies = [ "AF_INET AF_INET6" ];
+        RestrictAddressFamilies = ["AF_INET AF_INET6"];
         RestrictNamespaces = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = false;
@@ -335,11 +343,11 @@ in
           home = cfg.package;
         };
       })
-      (lib.attrsets.setAttrByPath [ cfg.user "packages" ] [ cfg.package nifiEnv ])
+      (lib.attrsets.setAttrByPath [cfg.user "packages"] [cfg.package nifiEnv])
     ];
 
     users.groups = lib.optionalAttrs (cfg.group == "nifi") {
-      nifi = { };
+      nifi = {};
     };
   };
 }

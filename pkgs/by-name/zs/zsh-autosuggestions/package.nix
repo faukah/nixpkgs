@@ -3,9 +3,7 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 # To make use of this derivation, use the `programs.zsh.autosuggestions.enable` option
-
 stdenv.mkDerivation rec {
   pname = "zsh-autosuggestions";
   version = "0.7.1";
@@ -29,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zsh-users/zsh-autosuggestions";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.loskutov ];
+    maintainers = [maintainers.loskutov];
   };
 }

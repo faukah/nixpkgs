@@ -1,5 +1,7 @@
-{ lib, fetchFromGitHub }:
-rec {
+{
+  lib,
+  fetchFromGitHub,
+}: rec {
   version = "4.5.0";
 
   src = fetchFromGitHub {
@@ -12,6 +14,6 @@ rec {
   meta = with lib; {
     homepage = "https://evan-buss.github.io/openbooks/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-synapse-accesscontrol";
   version = "0.7.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # zero tests run
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.synapse.accesscontrol" ];
+  pythonImportsCheck = ["azure.synapse.accesscontrol"];
 
   meta = with lib; {
     description = "Microsoft Azure Synapse AccessControl Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/synapse/azure-synapse-accesscontrol";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-synapse-accesscontrol_${version}/sdk/synapse/azure-synapse-accesscontrol/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

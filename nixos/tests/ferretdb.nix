@@ -1,9 +1,8 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../.. { inherit system; },
+  pkgs ? import ../.. {inherit system;},
   ...
-}:
-let
+}: let
   lib = pkgs.lib;
   testScript = ''
     machine.start()
@@ -12,17 +11,13 @@ let
     machine.succeed("mongosh --eval 'use myNewDatabase;' --eval 'db.myCollection.insertOne( { x: 1 } );'")
   '';
 in
-with import ../lib/testing-python.nix { inherit system; };
-{
+  with import ../lib/testing-python.nix {inherit system;}; {
+    postgresql = makeTest {
+      inherit testScript;
+      name = "ferretdb-postgresql";
+      meta.maintainers = with lib.maintainers; [julienmalka];
 
-  postgresql = makeTest {
-    inherit testScript;
-    name = "ferretdb-postgresql";
-    meta.maintainers = with lib.maintainers; [ julienmalka ];
-
-    nodes.machine =
-      { pkgs, ... }:
-      {
+      nodes.machine = {pkgs, ...}: {
         services.ferretdb = {
           enable = true;
           settings.FERRETDB_HANDLER = "pg";
@@ -35,7 +30,7 @@ with import ../lib/testing-python.nix { inherit system; };
 
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "ferretdb" ];
+          ensureDatabases = ["ferretdb"];
           ensureUsers = [
             {
               name = "ferretdb";
@@ -44,21 +39,19 @@ with import ../lib/testing-python.nix { inherit system; };
           ];
         };
 
-        environment.systemPackages = with pkgs; [ mongosh ];
+        environment.systemPackages = with pkgs; [mongosh];
       };
-  };
+    };
 
-  sqlite = makeTest {
-    inherit testScript;
-    name = "ferretdb-sqlite";
-    meta.maintainers = with lib.maintainers; [ julienmalka ];
+    sqlite = makeTest {
+      inherit testScript;
+      name = "ferretdb-sqlite";
+      meta.maintainers = with lib.maintainers; [julienmalka];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
+      nodes.machine = {pkgs, ...}: {
         services.ferretdb.enable = true;
 
-        environment.systemPackages = with pkgs; [ mongosh ];
+        environment.systemPackages = with pkgs; [mongosh];
       };
-  };
-}
+    };
+  }

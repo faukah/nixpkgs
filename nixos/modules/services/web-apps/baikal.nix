@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   common-name = "baikal";
   cfg = config.services.baikal;
-in
-{
-  meta.maintainers = [ lib.maintainers.wrvsrx ];
+in {
+  meta.maintainers = [lib.maintainers.wrvsrx];
   options = {
     services.baikal = {
       enable = lib.mkEnableOption "baikal";
@@ -60,7 +57,6 @@ in
           Baikal package to use.
         '';
       };
-
     };
   };
   config = lib.mkIf cfg.enable {
@@ -120,22 +116,22 @@ in
       inherit (cfg) group;
     };
 
-    users.groups.${cfg.group} = lib.mkIf (cfg.group == common-name) { };
+    users.groups.${cfg.group} = lib.mkIf (cfg.group == common-name) {};
 
     systemd.tmpfiles.settings."baikal" = builtins.listToAttrs (
       map
-        (x: {
-          name = "/var/lib/baikal/${x}";
-          value.d = {
-            mode = "0700";
-            inherit (cfg) user group;
-          };
-        })
-        [
-          "config"
-          "specific"
-          "specific/db"
-        ]
+      (x: {
+        name = "/var/lib/baikal/${x}";
+        value.d = {
+          mode = "0700";
+          inherit (cfg) user group;
+        };
+      })
+      [
+        "config"
+        "specific"
+        "specific/db"
+      ]
     );
   };
 }

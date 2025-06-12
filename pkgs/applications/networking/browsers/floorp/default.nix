@@ -5,7 +5,6 @@
   buildMozillaMach,
   nixosTests,
 }:
-
 (
   (buildMozillaMach rec {
     pname = "floorp";
@@ -47,7 +46,7 @@
     meta = {
       description = "Fork of Firefox that seeks balance between versatility, privacy and web openness";
       homepage = "https://floorp.app/";
-      maintainers = with lib.maintainers; [ christoph-heiss ];
+      maintainers = with lib.maintainers; [christoph-heiss];
       platforms = lib.platforms.unix;
       broken = stdenv.buildPlatform.is32bit;
       # since Firefox 60, build on 32-bit platforms fails with "out of memory".
@@ -69,7 +68,7 @@
     geolocationSupport = true;
   }
 ).overrideAttrs
-  (prev: {
-    MOZ_DATA_REPORTING = "";
-    MOZ_TELEMETRY_REPORTING = "";
-  })
+(prev: {
+  MOZ_DATA_REPORTING = "";
+  MOZ_TELEMETRY_REPORTING = "";
+})

@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "digitemp";
   version = "3.7.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.digitemp.com";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

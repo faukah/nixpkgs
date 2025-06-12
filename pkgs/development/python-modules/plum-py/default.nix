@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "plum-py";
   version = "0.8.6";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "plum" ];
+  pythonImportsCheck = ["plum"];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTestPaths = [
     # tests enum.IntFlag behaviour which has been disallowed in python 3.11.6
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://plum-py.readthedocs.io/";
     changelog = "https://gitlab.com/dangass/plum/-/blob/${version}/docs/release_notes.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

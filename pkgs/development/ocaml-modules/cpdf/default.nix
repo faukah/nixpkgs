@@ -6,11 +6,9 @@
   findlib,
   camlpdf,
 }:
-
-if lib.versionOlder ocaml.version "4.10" then
-  throw "cpdf is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.10"
+then throw "cpdf is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml${ocaml.version}-cpdf";
     version = "2.8";
@@ -26,7 +24,7 @@ else
       ocaml
       findlib
     ];
-    propagatedBuildInputs = [ camlpdf ];
+    propagatedBuildInputs = [camlpdf];
 
     strictDeps = true;
 
@@ -43,7 +41,7 @@ else
       description = "PDF Command Line Tools";
       homepage = "https://www.coherentpdf.com/";
       license = licenses.agpl3Only;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       mainProgram = "cpdf";
       inherit (ocaml.meta) platforms;
     };

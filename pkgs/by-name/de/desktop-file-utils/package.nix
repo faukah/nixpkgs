@@ -8,7 +8,6 @@
   glib,
   libintl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "desktop-file-utils";
   version = "0.28";

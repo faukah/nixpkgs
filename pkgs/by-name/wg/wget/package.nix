@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   gettext,
   pkg-config,
   perlPackages,
@@ -15,14 +14,11 @@
   nukeReferences,
   python3,
   lzip,
-
   withLibpsl ? false,
   libpsl,
-
   withOpenssl ? true,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wget";
   version = "1.25.0";
@@ -124,7 +120,7 @@ stdenv.mkDerivation rec {
       scripts, cron jobs, terminals without X-Windows support, etc.
     '';
     mainProgram = "wget";
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     platforms = lib.platforms.all;
   };
 }

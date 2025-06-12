@@ -5,7 +5,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation {
   pname = "glabels-qt";
   version = "unstable-2021-02-06";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "GLabels Label Designer (Qt/C++)";
     homepage = "https://github.com/jimevins/glabels-qt";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.matthewcroughan ];
+    maintainers = [maintainers.matthewcroughan];
     platforms = lib.platforms.linux;
   };
 }

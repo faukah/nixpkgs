@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "netproxrc";
   version = "1.1.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "netproxrc";
     homepage = "https://github.com/timbertson/netproxrc";
     license = licenses.mit;
-    maintainers = with maintainers; [ timbertson ];
+    maintainers = with maintainers; [timbertson];
   };
 }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitea,
 }:
-
 stdenv.mkDerivation {
   pname = "dut";
   version = "0-unstable-2024-07-31";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "Disk usage calculator for Linux";
     homepage = "https://codeberg.org/201984/dut";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ errnoh ];
+    maintainers = with lib.maintainers; [errnoh];
     mainProgram = "dut";
   };
 }

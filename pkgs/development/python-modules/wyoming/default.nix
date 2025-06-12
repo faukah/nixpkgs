@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # optional-dependencies
   zeroconf,
-
   # tests
   wyoming-faster-whisper,
   wyoming-openwakeword,
   wyoming-piper,
 }:
-
 buildPythonPackage rec {
   pname = "wyoming";
   version = "1.6.1";
@@ -27,13 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-Q7e4YSvVHpjyJQwsXTfyzMA1DKi71xiVDKWGWTh1l6w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    zeroconf = [ zeroconf ];
+    zeroconf = [zeroconf];
   };
 
-  pythonImportsCheck = [ "wyoming" ];
+  pythonImportsCheck = ["wyoming"];
 
   # no tests
   doCheck = false;
@@ -47,6 +43,6 @@ buildPythonPackage rec {
     description = "Protocol for Rhasspy Voice Assistant";
     homepage = "https://github.com/rhasspy/wyoming";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

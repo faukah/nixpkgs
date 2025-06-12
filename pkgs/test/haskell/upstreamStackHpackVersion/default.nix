@@ -9,21 +9,18 @@
 #
 # This test is written as a fixed-output derivation, because we need to access
 # accesses the internet to download the upstream stack release.
-
 {
   cacert,
   curl,
   lib,
   stack,
   stdenv,
-}:
-
-let
+}: let
   # Find the hpack derivation that is a dependency of stack.  Throw exception
   # if hpack cannot be found.
   hpack =
     lib.findFirst (v: v.pname or "" == "hpack") (throw "could not find stack's hpack dependency")
-      stack.passthru.getCabalDeps.executableHaskellDepends;
+    stack.passthru.getCabalDeps.executableHaskellDepends;
 
   # This is a statically linked version of stack, so it should be usable within
   # the Nixpkgs builder (at least on x86_64-linux).
@@ -105,55 +102,53 @@ let
 
   testScriptHash = builtins.hashString "sha256" testScript;
 in
+  stdenv.mkDerivation {
+    # This name is very important.
+    #
+    # The idea here is that want this derivation to be re-run everytime the
+    # version of stack (or the version of its hpack dependency) changes in
+    # Nixpkgs.  We also want to re-run this derivation whenever the test script
+    # is changed.
+    #
+    # Nix/Hydra will re-run derivations if their name changes (even if they are a
+    # FOD and they have the same hash).
+    #
+    # The name of this derivation contains the stack version string, the hpack
+    # version string, and a hash of the test script.  So Nix will know to
+    # re-run this version when (and only when) one of those values change.
+    name = "upstream-stack-hpack-version-test-${stack.name}-${hpack.name}-${testScriptHash}";
 
-stdenv.mkDerivation {
+    # This is the sha256 hash for the string "success", which is output upon this
+    # test succeeding.
+    outputHash = "sha256-gbK9TqmMjbZlVPvI12N6GmmhMPMx/rcyt1yqtMSGj9U=";
+    outputHashMode = "flat";
+    outputHashAlgo = "sha256";
 
-  # This name is very important.
-  #
-  # The idea here is that want this derivation to be re-run everytime the
-  # version of stack (or the version of its hpack dependency) changes in
-  # Nixpkgs.  We also want to re-run this derivation whenever the test script
-  # is changed.
-  #
-  # Nix/Hydra will re-run derivations if their name changes (even if they are a
-  # FOD and they have the same hash).
-  #
-  # The name of this derivation contains the stack version string, the hpack
-  # version string, and a hash of the test script.  So Nix will know to
-  # re-run this version when (and only when) one of those values change.
-  name = "upstream-stack-hpack-version-test-${stack.name}-${hpack.name}-${testScriptHash}";
+    nativeBuildInputs = [
+      curl
+      stack
+    ];
 
-  # This is the sha256 hash for the string "success", which is output upon this
-  # test succeeding.
-  outputHash = "sha256-gbK9TqmMjbZlVPvI12N6GmmhMPMx/rcyt1yqtMSGj9U=";
-  outputHashMode = "flat";
-  outputHashAlgo = "sha256";
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
-  nativeBuildInputs = [
-    curl
-    stack
-  ];
+    buildCommand =
+      ''
+        # Make sure curl can access HTTPS sites, like GitHub.
+        #
+        # Note that we absolutely don't want the Nix store path of the cacert
+        # derivation in the testScript, because we don't want to rebuild this
+        # derivation when only the cacert derivation changes.
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+      ''
+      + testScript;
 
-  impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+    meta = with lib; {
+      description = "Test that the stack in Nixpkgs uses the same version of Hpack as the upstream stack release";
+      maintainers = with maintainers; [cdepillabout];
 
-  buildCommand =
-    ''
-      # Make sure curl can access HTTPS sites, like GitHub.
-      #
-      # Note that we absolutely don't want the Nix store path of the cacert
-      # derivation in the testScript, because we don't want to rebuild this
-      # derivation when only the cacert derivation changes.
-      export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
-    ''
-    + testScript;
-
-  meta = with lib; {
-    description = "Test that the stack in Nixpkgs uses the same version of Hpack as the upstream stack release";
-    maintainers = with maintainers; [ cdepillabout ];
-
-    # This derivation internally runs a statically-linked version of stack from
-    # upstream.  This statically-linked version of stack is only available for
-    # x86_64-linux, so this test can only be run on x86_64-linux.
-    platforms = [ "x86_64-linux" ];
-  };
-}
+      # This derivation internally runs a statically-linked version of stack from
+      # upstream.  This statically-linked version of stack is only available for
+      # x86_64-linux, so this test can only be run on x86_64-linux.
+      platforms = ["x86_64-linux"];
+    };
+  }

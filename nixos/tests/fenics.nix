@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   fenicsScript = pkgs.writeScript "poisson.py" ''
     #!/usr/bin/env python
     from dolfin import *
@@ -25,27 +23,22 @@ let
     solve(a == L, u, bc)
     print(u)
   '';
-in
-{
+in {
   name = "fenics";
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ ];
+    maintainers = with pkgs.lib.maintainers; [];
   };
 
   nodes = {
-    fenicsnode =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          gcc
-          (python3.withPackages (ps: with ps; [ fenics ]))
-        ];
-      };
+    fenicsnode = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        gcc
+        (python3.withPackages (ps: with ps; [fenics]))
+      ];
+    };
   };
-  testScript =
-    { nodes, ... }:
-    ''
-      start_all()
-      fenicsnode.succeed("${fenicsScript}")
-    '';
+  testScript = {nodes, ...}: ''
+    start_all()
+    fenicsnode.succeed("${fenicsScript}")
+  '';
 }

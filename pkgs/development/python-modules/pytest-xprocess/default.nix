@@ -7,7 +7,6 @@
   pytest,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-xprocess";
   version = "1.0.2";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
       --replace "'pytest-cache', " ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     psutil
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Pytest external process plugin";
     homepage = "https://github.com/pytest-dev";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

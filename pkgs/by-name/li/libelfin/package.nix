@@ -5,7 +5,6 @@
   python3,
   replaceVars,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libelfin";
   version = "0.3-unstable-2024-03-11";
@@ -23,15 +22,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = {
     homepage = "https://github.com/aclements/libelfin/";
     license = lib.licenses.mit;
     description = "C++11 ELF/DWARF parser";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

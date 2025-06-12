@@ -7,7 +7,6 @@
   libXt,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xosd";
   version = "2.2.14";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/libxosd";
     license = licenses.gpl2Only;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

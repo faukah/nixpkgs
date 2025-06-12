@@ -10,7 +10,6 @@
   sqlite,
   adaptor ? "sql",
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "crabfit-api";
   version = "0-unstable-2023-08-02";
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     sqlite
   ];
 
-  buildFeatures = [ "${adaptor}-adaptor" ];
+  buildFeatures = ["${adaptor}-adaptor"];
 
   PROTOC = "${protobuf}/bin/protoc";
 
@@ -68,7 +67,7 @@ rustPlatform.buildRustPackage rec {
     description = "Enter your availability to find a time that works for everyone";
     homepage = "https://github.com/GRA0007/crab.fit";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "crabfit-api";
   };
 }

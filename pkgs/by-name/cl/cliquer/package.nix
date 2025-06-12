@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.22";
   pname = "cliquer";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://users.aalto.fi/~pat/cliquer.html";
     downloadPage = src.meta.homepage; # autocliquer
     license = licenses.gpl2Plus;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     mainProgram = "cl";
     platforms = platforms.unix;
   };

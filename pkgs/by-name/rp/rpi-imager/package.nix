@@ -14,7 +14,6 @@
   gnutls,
   enableTelemetry ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rpi-imager";
   version = "1.9.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   # By default, the builder checks for JSON support in lsblk by running "lsblk --json",
   # but that throws an error, as /sys/dev doesn't exist in the sandbox.
   # This patch removes the check.
-  patches = [ ./lsblkCheckFix.patch ];
+  patches = [./lsblkCheckFix.patch];
 
   # avoid duplicate path prefixes
   postPatch = ''
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
       package = finalAttrs.finalPackage;
       command = "QT_QPA_PLATFORM=offscreen rpi-imager --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

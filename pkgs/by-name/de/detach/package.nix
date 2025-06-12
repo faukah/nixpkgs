@@ -4,7 +4,6 @@
   fetchzip,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "detach";
   version = "0.2.3";
@@ -14,11 +13,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-nnhJGtmPlTeqM20FAKRyhhSMViTXFpQT0A1ol4lhsoc=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontConfigure = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     installShellCompletion --cmd detach \
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://inglorion.net/software/detach/";
     license = lib.licenses.mit;
     mainProgram = "detach";
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     platforms = lib.platforms.unix;
   };
 }

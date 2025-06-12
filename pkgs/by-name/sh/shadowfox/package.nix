@@ -4,7 +4,6 @@
   buildGoModule,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "shadowfox";
   version = "2.2.0";
@@ -39,7 +38,7 @@ buildGoModule rec {
     description = "Universal dark theme for Firefox while adhering to the modern design principles set by Mozilla";
     homepage = "https://overdodactyl.github.io/ShadowFox/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "shadowfox-updater";
   };
 }

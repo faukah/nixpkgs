@@ -6,7 +6,6 @@
   webencodings,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tinyhtml5";
   version = "2.0.0";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "A tiny HTML5 parser";
     homepage = "https://github.com/CourtBouillon/tinyhtml5";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

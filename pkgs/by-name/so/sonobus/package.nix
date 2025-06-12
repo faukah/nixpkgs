@@ -19,7 +19,6 @@
   gtk3,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sonobus";
   version = "1.7.2";
@@ -78,8 +77,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "High-quality network audio streaming";
     homepage = "https://sonobus.net/";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ PowerUser64 ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [PowerUser64];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "sonobus";

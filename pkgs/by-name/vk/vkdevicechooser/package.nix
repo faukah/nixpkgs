@@ -9,7 +9,6 @@
   ninja,
   jq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vkdevicechooser";
   version = "1.1";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aejsmith/vkdevicechooser";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sigmike ];
+    maintainers = [lib.maintainers.sigmike];
   };
 }

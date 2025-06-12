@@ -11,7 +11,6 @@
   croniter,
   pynacl,
 }:
-
 buildPythonPackage rec {
   pname = "hikari-crescent";
   version = "1.2.0";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     hash = "sha256-aQjT5sAaqConUtRGcqddzwcbBJkbwYOCxvnNJpKu3yI=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     hikari
     sigparse
   ];
 
-  pythonImportsCheck = [ "crescent" ];
+  pythonImportsCheck = ["crescent"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     pynacl
   ];
 
-  disabledTests = [ "test_handle_resp" ];
+  disabledTests = ["test_handle_resp"];
 
   meta = {
     description = "A command handler for Hikari that keeps your project neat and tidy";
     license = lib.licenses.mit;
     homepage = "https://github.com/hikari-crescent/hikari-crescent";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "hikari-crescent";
   };
 }

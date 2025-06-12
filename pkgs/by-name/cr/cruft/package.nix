@@ -28,8 +28,7 @@ python3Packages.buildPythonApplication rec {
     pytest7CheckHook
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       click
       cookiecutter
@@ -65,6 +64,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/cruft/cruft";
     license = lib.licenses.mit;
     mainProgram = "cruft";
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

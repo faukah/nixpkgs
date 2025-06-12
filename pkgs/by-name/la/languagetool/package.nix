@@ -6,7 +6,6 @@
   makeWrapper,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "LanguageTool";
   version = "6.6";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     url = "https://www.languagetool.org/download/${pname}-${version}.zip";
     sha256 = "sha256-BNiUIk5h38oEM4IliHdy8rNmZY0frQ1RaFeJ7HI5nOI=";
   };
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -39,9 +38,9 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://languagetool.org";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = jre.meta.platforms;
     description = "Proofreading program for English, French German, Polish, and more";
   };

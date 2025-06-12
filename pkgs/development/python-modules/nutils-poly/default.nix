@@ -9,7 +9,6 @@
   unittestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "nutils-poly";
   version = "1.0.1";
@@ -29,22 +28,22 @@ buildPythonPackage rec {
     hash = "sha256-3UBQJfMPVo37V7mJnN9loF1+vKh3JxFJWgynwsOnAg4=";
   };
 
-  nativeBuildInputs = [ rustPlatform.cargoSetupHook ];
+  nativeBuildInputs = [rustPlatform.cargoSetupHook];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  build-system = [ rustPlatform.maturinBuildHook ];
+  build-system = [rustPlatform.maturinBuildHook];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "nutils_poly" ];
+  pythonImportsCheck = ["nutils_poly"];
 
   meta = {
     description = "Low-level functions for evaluating and manipulating polynomials";
     homepage = "https://github.com/nutils/poly-py";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "gyre-fonts";
   version = "2.005";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.gust.org.pl/projects/e-foundry/tex-gyre/index_html#Readings";
     license = lib.licenses.lppl13c;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bergey ];
+    maintainers = with lib.maintainers; [bergey];
   };
 }

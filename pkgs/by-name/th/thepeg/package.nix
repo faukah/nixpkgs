@@ -12,7 +12,6 @@
   rivet,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thepeg";
   version = "2.3.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     boost
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Toolkit for High Energy Physics Event Generation";
     homepage = "https://herwig.hepforge.org/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     platforms = lib.platforms.unix;
     badPlatforms = [
       # ../include/ThePEG/Config/std.h:101:12: error: no member named 'mem_fun' in namespace 'std'; did you mean 'mem_fn'?

@@ -5,13 +5,12 @@
   thunar,
   thunarPlugins,
 }:
-
 symlinkJoin {
   name = "thunar-with-plugins-${thunar.version}";
 
-  paths = [ thunar ] ++ thunarPlugins;
+  paths = [thunar] ++ thunarPlugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram "$out/bin/thunar" \
@@ -38,7 +37,8 @@ symlinkJoin {
   '';
 
   meta = with lib; {
-    inherit (thunar.meta)
+    inherit
+      (thunar.meta)
       homepage
       license
       platforms
@@ -47,8 +47,7 @@ symlinkJoin {
 
     description =
       thunar.meta.description
-      +
-        optionalString (0 != length thunarPlugins)
-          " (with plugins: ${concatStringsSep ", " (map (x: x.name) thunarPlugins)})";
+      + optionalString (0 != length thunarPlugins)
+      " (with plugins: ${concatStringsSep ", " (map (x: x.name) thunarPlugins)})";
   };
 }

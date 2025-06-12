@@ -5,7 +5,6 @@
   bash,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "steam-devices-udev-rules";
   version = "1.0.0.61-unstable-2024-05-22";
@@ -27,13 +26,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = with lib; {
     description = "Udev rules list for gaming devices";
     homepage = "https://github.com/ValveSoftware/steam-devices";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

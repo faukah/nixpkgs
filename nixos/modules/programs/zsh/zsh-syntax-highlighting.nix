@@ -3,28 +3,29 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.zsh.syntaxHighlighting;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "zsh" "enableSyntaxHighlighting" ]
-      [ "programs" "zsh" "syntaxHighlighting" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "zsh" "enableSyntaxHighlighting"]
+      ["programs" "zsh" "syntaxHighlighting" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "programs" "zsh" "syntax-highlighting" "enable" ]
-      [ "programs" "zsh" "syntaxHighlighting" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "zsh" "syntax-highlighting" "enable"]
+      ["programs" "zsh" "syntaxHighlighting" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "programs" "zsh" "syntax-highlighting" "highlighters" ]
-      [ "programs" "zsh" "syntaxHighlighting" "highlighters" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "zsh" "syntax-highlighting" "highlighters"]
+      ["programs" "zsh" "syntaxHighlighting" "highlighters"]
     )
-    (lib.mkRenamedOptionModule
-      [ "programs" "zsh" "syntax-highlighting" "patterns" ]
-      [ "programs" "zsh" "syntaxHighlighting" "patterns" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "zsh" "syntax-highlighting" "patterns"]
+      ["programs" "zsh" "syntaxHighlighting" "patterns"]
     )
   ];
 
@@ -33,11 +34,11 @@ in
       enable = lib.mkEnableOption "zsh-syntax-highlighting";
 
       highlighters = lib.mkOption {
-        default = [ "main" ];
+        default = ["main"];
 
         # https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
         type = lib.types.listOf (
-          lib.types.enum ([
+          lib.types.enum [
             "main"
             "brackets"
             "pattern"
@@ -45,7 +46,7 @@ in
             "regexp"
             "root"
             "line"
-          ])
+          ]
         );
 
         description = ''
@@ -57,7 +58,7 @@ in
       };
 
       patterns = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
 
         example = lib.literalExpression ''
@@ -74,7 +75,7 @@ in
         '';
       };
       styles = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
 
         example = lib.literalExpression ''
@@ -94,7 +95,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.zsh-syntax-highlighting ];
+    environment.systemPackages = [pkgs.zsh-syntax-highlighting];
 
     assertions = [
       {
@@ -117,7 +118,8 @@ in
         ++ lib.optionals (builtins.length (builtins.attrNames cfg.patterns) > 0) (
           lib.mapAttrsToList (
             pattern: design: "ZSH_HIGHLIGHT_PATTERNS+=('${pattern}' '${design}')"
-          ) cfg.patterns
+          )
+          cfg.patterns
         )
         ++ lib.optionals (builtins.length (builtins.attrNames cfg.styles) > 0) (
           lib.mapAttrsToList (styles: design: "ZSH_HIGHLIGHT_STYLES[${styles}]='${design}'") cfg.styles

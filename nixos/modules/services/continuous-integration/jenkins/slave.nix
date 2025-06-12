@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkOption types;
   cfg = config.services.jenkinsSlave;
   masterCfg = config.services.jenkins;
-in
-{
+in {
   options = {
     services.jenkinsSlave = {
       # todo:
@@ -54,7 +51,7 @@ in
         '';
       };
 
-      javaPackage = lib.mkPackageOption pkgs "jdk" { };
+      javaPackage = lib.mkPackageOption pkgs "jdk" {};
     };
   };
 

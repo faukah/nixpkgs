@@ -9,7 +9,6 @@
   lz4,
   lxd-lts,
 }:
-
 stdenv.mkDerivation rec {
   pname = "raft-canonical";
   version = "0.18.1";
@@ -70,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/canonical/raft";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

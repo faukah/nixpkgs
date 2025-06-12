@@ -9,7 +9,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "oca-port";
   version = "0.18";
@@ -34,14 +33,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  pythonImportsCheck = [ "oca_port" ];
+  pythonImportsCheck = ["oca_port"];
 
   meta = {
     description = "Tool helping to port an addon or missing commits of an addon from one branch to another";
     homepage = "https://github.com/OCA/oca-port";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ yajo ];
+    maintainers = with lib.maintainers; [yajo];
   };
 }

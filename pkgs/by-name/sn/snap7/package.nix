@@ -4,7 +4,6 @@
   fetchzip,
   p7zip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snap7";
   version = "1.4.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   makefile = "x86_64_linux.mk";
-  makeFlags = [ "LibInstall=$(out)/lib" ];
+  makeFlags = ["LibInstall=$(out)/lib"];
 
   preBuild = "cd build/unix";
   preInstall = ''
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://snap7.sourceforge.net/";
     description = "Step7 Open Source Ethernet Communication Suite";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     platforms = platforms.linux;
   };
 }

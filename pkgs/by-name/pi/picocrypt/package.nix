@@ -5,14 +5,12 @@
   stdenv,
   copyDesktopItems,
   makeDesktopItem,
-
   xorg,
   glfw,
   gtk3,
   pkg-config,
   wrapGAppsHook3,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "picocrypt";
   version = "1.48";
@@ -35,8 +33,8 @@ buildGoModule (finalAttrs: {
 
   buildInputs =
     # Depends on a vendored, patched GLFW.
-    glfw.buildInputs or [ ]
-    ++ glfw.propagatedBuildInputs or [ ]
+    glfw.buildInputs or []
+    ++ glfw.propagatedBuildInputs or []
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       gtk3
       xorg.libXxf86vm
@@ -62,7 +60,7 @@ buildGoModule (finalAttrs: {
       icon = "picocrypt";
       comment = finalAttrs.meta.description;
       desktopName = "Picocrypt";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -71,7 +69,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/Picocrypt/Picocrypt";
     changelog = "https://github.com/Picocrypt/Picocrypt/blob/${finalAttrs.version}/Changelog.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ryand56 ];
+    maintainers = with lib.maintainers; [ryand56];
     mainProgram = "picocrypt-gui";
   };
 })

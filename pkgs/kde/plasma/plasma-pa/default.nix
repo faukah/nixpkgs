@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "plasma-pa";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     libcanberra
     pulseaudio

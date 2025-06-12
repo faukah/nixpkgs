@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.19.0";
   pname = "commons-io";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-io";
     description = "Library of utilities to assist with developing IO functionality";
-    maintainers = [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = [];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

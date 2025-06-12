@@ -18,7 +18,6 @@
   yajl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmodsecurity";
   version = "3.0.14";
@@ -109,7 +108,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "modsec-rules-check";
   };
 }

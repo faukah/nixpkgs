@@ -1,55 +1,53 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "initrd-network-ssh";
     meta.maintainers = with lib.maintainers; [
       emily
     ];
 
     nodes = {
-      server =
-        { config, ... }:
-        {
-          boot.kernelParams = [
-            "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
-          ];
-          boot.initrd.network = {
+      server = {config, ...}: {
+        boot.kernelParams = [
+          "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"
+        ];
+        boot.initrd.network = {
+          enable = true;
+          ssh = {
             enable = true;
-            ssh = {
-              enable = true;
-              authorizedKeys = [ (lib.readFile ./id_ed25519.pub) ];
-              port = 22;
-              hostKeys = [ ./ssh_host_ed25519_key ];
-            };
+            authorizedKeys = [(lib.readFile ./id_ed25519.pub)];
+            port = 22;
+            hostKeys = [./ssh_host_ed25519_key];
           };
-          boot.initrd.preLVMCommands = ''
-            while true; do
-              if [ -f fnord ]; then
-                poweroff
-              fi
-              sleep 1
-            done
-          '';
         };
+        boot.initrd.preLVMCommands = ''
+          while true; do
+            if [ -f fnord ]; then
+              poweroff
+            fi
+            sleep 1
+          done
+        '';
+      };
 
-      client =
-        { config, ... }:
-        {
-          environment.etc = {
-            knownHosts = {
-              text = lib.concatStrings [
-                "server,"
-                "${toString (lib.head (lib.splitString " " (toString (lib.elemAt (lib.splitString "\n" config.networking.extraHosts) 2))))} "
-                "${lib.readFile ./ssh_host_ed25519_key.pub}"
-              ];
-            };
-            sshKey = {
-              source = ./id_ed25519;
-              mode = "0600";
-            };
+      client = {config, ...}: {
+        environment.etc = {
+          knownHosts = {
+            text = lib.concatStrings [
+              "server,"
+              "${toString (lib.head (lib.splitString " " (toString (lib.elemAt (lib.splitString "\n" config.networking.extraHosts) 2))))} "
+              "${lib.readFile ./ssh_host_ed25519_key.pub}"
+            ];
+          };
+          sshKey = {
+            source = ./id_ed25519;
+            mode = "0600";
           };
         };
+      };
     };
 
     testScript = ''

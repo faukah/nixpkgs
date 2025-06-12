@@ -34,14 +34,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = writeShellScript "version-check" ''
     marketing_version=$(${xcbuild}/bin/PlistBuddy -c "Print :CFBundleShortVersionString" "$1" | ${coreutils}/bin/tr -d '"')
     build_version=$(${xcbuild}/bin/PlistBuddy -c "Print :CFBundleVersion" "$1")
 
     echo $marketing_version.$build_version
   '';
-  versionCheckProgramArg = [ "${placeholder "out"}/Applications/Cyberduck.app/Contents/Info.plist" ];
+  versionCheckProgramArg = ["${placeholder "out"}/Applications/Cyberduck.app/Contents/Info.plist"];
   doInstallCheck = true;
 
   meta = {
@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://cyberduck.io";
     changelog = "https://cyberduck.io/changelog/";
     license = lib.licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     maintainers = with lib.maintainers; [
       emilytrau
       DimitarNestorov

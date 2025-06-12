@@ -36,8 +36,7 @@
   util-linux,
   virtiofsd,
   xz,
-}:
-let
+}: let
   binPath = lib.makeBinPath [
     acl
     attr
@@ -71,7 +70,7 @@ let
     '')
   ];
 
-  clientBinPath = [ spice-gtk ];
+  clientBinPath = [spice-gtk];
 
   ovmf-2mb = OVMF.override {
     secureBoot = true;
@@ -83,7 +82,10 @@ let
     fdSize4MB = true;
   };
 
-  ovmf-prefix = if stdenv.hostPlatform.isAarch64 then "AAVMF" else "OVMF";
+  ovmf-prefix =
+    if stdenv.hostPlatform.isAarch64
+    then "AAVMF"
+    else "OVMF";
 
   # mimic ovmf from https://github.com/canonical/lxd-pkg-snap/blob/3abebe1dfeb20f9b7729556960c7e9fe6ad5e17c/snapcraft.yaml#L378
   # also found in /snap/lxd/current/share/qemu/ on a snap install
@@ -127,22 +129,22 @@ let
     }
   ];
 in
-symlinkJoin {
-  name = "lxd-${lxd-unwrapped-lts.version}";
+  symlinkJoin {
+    name = "lxd-${lxd-unwrapped-lts.version}";
 
-  paths = [ lxd-unwrapped-lts ];
+    paths = [lxd-unwrapped-lts];
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  postBuild = ''
-    wrapProgram $out/bin/lxd --prefix PATH : ${lib.escapeShellArg binPath}:${qemu_kvm}/libexec:$out/bin --set LXD_OVMF_PATH ${ovmf}
+    postBuild = ''
+      wrapProgram $out/bin/lxd --prefix PATH : ${lib.escapeShellArg binPath}:${qemu_kvm}/libexec:$out/bin --set LXD_OVMF_PATH ${ovmf}
 
-    wrapProgram $out/bin/lxc --prefix PATH : ${lib.makeBinPath clientBinPath}
-  '';
+      wrapProgram $out/bin/lxc --prefix PATH : ${lib.makeBinPath clientBinPath}
+    '';
 
-  passthru = {
-    inherit (lxd-unwrapped-lts) tests;
-  };
+    passthru = {
+      inherit (lxd-unwrapped-lts) tests;
+    };
 
-  inherit (lxd-unwrapped-lts) meta pname version;
-}
+    inherit (lxd-unwrapped-lts) meta pname version;
+  }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openlibm";
   version = "0.8.7";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "High quality system independent, portable, open source libm implementation";
     homepage = "https://openlibm.org/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
     platforms = lib.platforms.all;
   };
 }

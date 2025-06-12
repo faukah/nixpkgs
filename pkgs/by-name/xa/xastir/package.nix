@@ -19,7 +19,6 @@
   shapelib,
   libax25,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xastir";
   version = "2.2.2";
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Graphical APRS client";
     homepage = "https://github.com/xastir/xastir";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.ehmry ];
+    maintainers = [lib.maintainers.ehmry];
     platforms = lib.platforms.linux;
   };
 }

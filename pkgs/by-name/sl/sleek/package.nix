@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sleek";
   version = "0.5.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI tool for formatting SQL";
     homepage = "https://github.com/nrempel/sleek";
     license = licenses.mit;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "sleek";
   };
 }

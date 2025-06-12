@@ -11,7 +11,6 @@
   webob,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "pyquery";
   version = "2.0.1";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "pyquery" ];
+  pythonImportsCheck = ["pyquery"];
 
   checkInputs = [
     pytestCheckHook

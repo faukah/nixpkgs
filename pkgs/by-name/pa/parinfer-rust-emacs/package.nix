@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "parinfer-rust";
     homepage = "https://github.com/justinbarclay/parinfer-rust-emacs";
     license = licenses.isc;
-    maintainers = with maintainers; [ brsvh ];
+    maintainers = with maintainers; [brsvh];
   };
 }

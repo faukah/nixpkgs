@@ -16,7 +16,6 @@
   responses,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "censys";
   version = "2.2.17";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-1V7IeaV7Ro1q5UyD2DDetunaRO2L4UbF1VODg5ktqKs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     argcomplete
@@ -62,14 +61,14 @@ buildPythonPackage rec {
     mkdir -p $HOME
   '';
 
-  pythonImportsCheck = [ "censys" ];
+  pythonImportsCheck = ["censys"];
 
   meta = with lib; {
     description = "Python API wrapper for the Censys Search Engine (censys.io)";
     homepage = "https://github.com/censys/censys-python";
     changelog = "https://github.com/censys/censys-python/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
     mainProgram = "censys";
   };
 }

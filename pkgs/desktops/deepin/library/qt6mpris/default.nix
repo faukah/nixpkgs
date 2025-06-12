@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt6Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qt6mpris";
   version = "1.0.0.1-1deepin1";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/deepin-community/qt6mpris";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 })

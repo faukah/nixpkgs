@@ -14,7 +14,6 @@
   # Use CXX as default compiler [default=no]
   enable_cxx ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdo";
   version = "2.5.1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://code.mpimet.mpg.de/projects/cdo/";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.ltavard ];
+    maintainers = [lib.maintainers.ltavard];
     platforms = with lib.platforms; linux ++ darwin;
   };
 })

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unicode-idna";
   version = "16.0.0";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "unicode IDNA compatible processing data";
     homepage = "http://www.unicode.org/reports/tr46/";
     license = lib.licenses.unicode-dfs-2016;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
     platforms = lib.platforms.all;
   };
 })

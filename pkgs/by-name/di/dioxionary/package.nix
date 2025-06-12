@@ -28,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     installShellFiles
   ];
-  buildInputs = [ openssl.dev ];
+  buildInputs = [openssl.dev];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd dioxionary \
@@ -43,17 +43,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=dict::online::test::look_up_online_by_english"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rusty stardict. Enables terminal-based word lookup and vocabulary memorization using offline or online dictionaries";
     homepage = "https://github.com/vaaandark/dioxionary";
     changelog = "https://github.com/vaaandark/dioxionary/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ ulic-youthlic ];
+    maintainers = with lib.maintainers; [ulic-youthlic];
     mainProgram = "dioxionary";
   };
 })

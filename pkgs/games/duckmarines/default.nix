@@ -7,7 +7,6 @@
   makeWrapper,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "duckmarines";
   version = "1.0c";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     comment = "Duck-themed action puzzle video game";
     desktopName = "Duck Marines";
     genericName = "duckmarines";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   src = fetchurl {
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "1rvgpkvi4h9zhc4fwb4knhsa789yjcx4a14fi4vqfdyybhvg5sh9";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     lua
     love
@@ -55,11 +54,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Duck-themed action puzzle video game";
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
     license = licenses.free;
     downloadPage = "http://tangramgames.dk/games/duckmarines";
   };
-
 }

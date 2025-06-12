@@ -20,7 +20,6 @@
   vte,
   exiv2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-color-manager";
   version = "3.32.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fDwXj6rPy/EdVt4izSZZRqfViqEOPNlowpOOL79Q/e4=";
   };
 
-  patches = [ ./0001-Fix-build-with-Exiv2-0.28.patch ];
+  patches = [./0001-Fix-build-with-Exiv2-0.28.patch];
 
   nativeBuildInputs = [
     meson
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Set of graphical utilities for color management to be used in the GNOME desktop";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

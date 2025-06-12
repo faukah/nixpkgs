@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kbst";
   version = "0.2.1";
@@ -17,19 +16,17 @@ buildGoModule rec {
 
   vendorHash = "sha256-+FY6KGX606CfTVKM1HeHxCm9PkaqfnT5XeOEXUX3Q5I=";
 
-  ldflags =
-    let
-      package_url = "github.com/kbst/kbst";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${package_url}.version=${version}"
-      "-X ${package_url}.buildDate=unknown"
-      "-X ${package_url}.gitCommit=${src.rev}"
-      "-X ${package_url}.gitTag=v${version}"
-      "-X ${package_url}.gitTreeState=clean"
-    ];
+  ldflags = let
+    package_url = "github.com/kbst/kbst";
+  in [
+    "-s"
+    "-w"
+    "-X ${package_url}.version=${version}"
+    "-X ${package_url}.buildDate=unknown"
+    "-X ${package_url}.gitCommit=${src.rev}"
+    "-X ${package_url}.gitTag=v${version}"
+    "-X ${package_url}.gitTreeState=clean"
+  ];
 
   doCheck = false;
 
@@ -43,6 +40,6 @@ buildGoModule rec {
     mainProgram = "kbst";
     homepage = "https://www.kubestack.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mtrsk ];
+    maintainers = with maintainers; [mtrsk];
   };
 }

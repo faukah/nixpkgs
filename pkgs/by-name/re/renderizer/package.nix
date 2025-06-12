@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "renderizer";
   version = "2.0.13";
@@ -30,6 +29,6 @@ buildGoModule rec {
     mainProgram = "renderizer";
     inherit (src.meta) homepage;
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

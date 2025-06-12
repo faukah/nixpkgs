@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gen-license";
   version = "0.1.4";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "gen-license";
     homepage = "https://github.com/nexxeln/license-generator";
     license = licenses.mit;
-    maintainers = [ maintainers.ryanccn ];
+    maintainers = [maintainers.ryanccn];
   };
 }

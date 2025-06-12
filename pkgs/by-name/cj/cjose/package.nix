@@ -10,7 +10,6 @@
   jansson,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cjose";
   version = "0.6.2.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     jansson
     openssl
   ];
-  nativeCheckInputs = [ check ];
+  nativeCheckInputs = [check];
 
   configureFlags = [
     "--with-jansson=${jansson}"
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/zmartzone/cjose/blob/${version}/CHANGELOG.md";
     description = "C library for Javascript Object Signing and Encryption. This is a maintained fork of the original project";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ midchildan ];
+    maintainers = with lib.maintainers; [midchildan];
     platforms = lib.platforms.all;
   };
 }

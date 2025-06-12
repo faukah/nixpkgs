@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "accelergy";
   version = "unstable-2022-05-03";
@@ -26,6 +25,6 @@ python3Packages.buildPythonApplication {
     description = "Architecture-level energy/area estimator for accelerator designs";
     license = licenses.mit;
     homepage = "https://accelergy.mit.edu/";
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
   };
 }

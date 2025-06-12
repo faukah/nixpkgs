@@ -12,7 +12,6 @@
   setuptools,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "glom";
   version = "24.11.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-QyX5Z1mpEgRK97bGvQ26RK2MHrYDiqsFcylmHSAhuyc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boltons
@@ -34,13 +33,15 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    toml = lib.optionals (pythonOlder "3.11") [ tomli ];
-    yaml = [ pyyaml ];
+    toml = lib.optionals (pythonOlder "3.11") [tomli];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     # test_cli.py checks the output of running "glom"
@@ -60,7 +61,7 @@ buildPythonPackage rec {
     "test_3_11_byte_code_caret"
   ];
 
-  pythonImportsCheck = [ "glom" ];
+  pythonImportsCheck = ["glom"];
 
   meta = with lib; {
     description = "Module for restructuring data";
@@ -71,7 +72,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mahmoud/glom";
     changelog = "https://github.com/mahmoud/glom/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
     mainProgram = "glom";
   };
 }

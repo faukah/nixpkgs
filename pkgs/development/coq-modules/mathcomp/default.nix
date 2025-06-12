@@ -9,7 +9,6 @@
 # This is the replacement for the former `mathcomp_ config` function.      #
 # See the documentation at doc/languages-frameworks/coq.section.md.        #
 ############################################################################
-
 {
   lib,
   ncurses,
@@ -23,16 +22,13 @@
   hierarchy-builder,
   stdlib,
   version ? null,
-}@args:
-
-let
+} @ args: let
   repo = "math-comp";
   owner = "math-comp";
   withDoc = single && (args.withDoc or false);
-  defaultVersion =
-    let
-      inherit (lib.versions) range;
-    in
+  defaultVersion = let
+    inherit (lib.versions) range;
+  in
     lib.switch coq.coq-version [
       {
         case = range "8.20" "9.0";
@@ -110,7 +106,8 @@ let
         case = range "8.5" "8.7";
         out = "1.6.4";
       }
-    ] null;
+    ]
+    null;
   release = {
     "2.4.0".sha256 = "sha256-A1XgLLwZRvKS8QyceCkSQa7ue6TYyf5fMft5gSx9NOs=";
     "2.3.0".sha256 = "sha256-wa6OBig8rhAT4iwupSylyCAMhO69rADa0MQIX5zzL+Q=";
@@ -137,9 +134,9 @@ let
 
   # list of core mathcomp packages sorted by dependency order
   packages = {
-    "boot" = [ ];
-    "order" = [ "boot" ];
-    "fingroup" = [ "boot" ];
+    "boot" = [];
+    "order" = ["boot"];
+    "fingroup" = ["boot"];
     "ssreflect" = [
       "boot"
       "order"
@@ -148,155 +145,163 @@ let
       "order"
       "fingroup"
     ];
-    "solvable" = [ "algebra" ];
-    "field" = [ "solvable" ];
-    "character" = [ "field" ];
-    "all" = [ "character" ];
+    "solvable" = ["algebra"];
+    "field" = ["solvable"];
+    "character" = ["field"];
+    "all" = ["character"];
   };
 
-  mathcomp_ =
-    package:
-    let
-      mathcomp-deps = lib.optionals (package != "single") (map mathcomp_ packages.${package});
-      pkgpath = if package == "single" then "." else package;
-      pname = if package == "single" then "mathcomp" else "mathcomp-${package}";
-      pkgallMake = ''
-        echo "all.v"  > Make
-        echo "-I ." >>   Make
-        echo "-R . mathcomp.all" >> Make
-      '';
-      derivation = mkCoqDerivation (
-        {
-          inherit
-            version
-            pname
-            defaultVersion
-            release
-            releaseRev
-            repo
-            owner
-            ;
+  mathcomp_ = package: let
+    mathcomp-deps = lib.optionals (package != "single") (map mathcomp_ packages.${package});
+    pkgpath =
+      if package == "single"
+      then "."
+      else package;
+    pname =
+      if package == "single"
+      then "mathcomp"
+      else "mathcomp-${package}";
+    pkgallMake = ''
+      echo "all.v"  > Make
+      echo "-I ." >>   Make
+      echo "-R . mathcomp.all" >> Make
+    '';
+    derivation = mkCoqDerivation (
+      {
+        inherit
+          version
+          pname
+          defaultVersion
+          release
+          releaseRev
+          repo
+          owner
+          ;
 
-          mlPlugin = lib.versions.isLe "8.6" coq.coq-version;
-          nativeBuildInputs = lib.optionals withDoc [
-            graphviz
-            lua
+        mlPlugin = lib.versions.isLe "8.6" coq.coq-version;
+        nativeBuildInputs = lib.optionals withDoc [
+          graphviz
+          lua
+        ];
+        buildInputs = [ncurses];
+        propagatedBuildInputs = mathcomp-deps;
+
+        buildFlags = lib.optional withDoc "doc";
+
+        preBuild =
+          ''
+            if [[ -f etc/utils/ssrcoqdep ]]
+            then patchShebangs etc/utils/ssrcoqdep
+            fi
+            if [[ -f etc/buildlibgraph ]]
+            then patchShebangs etc/buildlibgraph
+            fi
+          ''
+          + ''
+            # handle mathcomp < 2.4.0 which had an extra base mathcomp directory
+            test -d mathcomp && cd mathcomp
+            cd ${pkgpath} || cd ssreflect  # before 2.5, boot didn't exist, make it behave as ssreflect
+          ''
+          + lib.optionalString (package == "all") pkgallMake;
+
+        meta = {
+          homepage = "https://math-comp.github.io/";
+          license = lib.licenses.cecill-b;
+          maintainers = with lib.maintainers; [
+            vbgl
+            jwiegley
+            cohencyril
           ];
-          buildInputs = [ ncurses ];
-          propagatedBuildInputs = mathcomp-deps;
-
-          buildFlags = lib.optional withDoc "doc";
-
-          preBuild =
-            ''
-              if [[ -f etc/utils/ssrcoqdep ]]
-              then patchShebangs etc/utils/ssrcoqdep
-              fi
-              if [[ -f etc/buildlibgraph ]]
-              then patchShebangs etc/buildlibgraph
-              fi
-            ''
-            + ''
-              # handle mathcomp < 2.4.0 which had an extra base mathcomp directory
-              test -d mathcomp && cd mathcomp
-              cd ${pkgpath} || cd ssreflect  # before 2.5, boot didn't exist, make it behave as ssreflect
-            ''
-            + lib.optionalString (package == "all") pkgallMake;
-
-          meta = {
-            homepage = "https://math-comp.github.io/";
-            license = lib.licenses.cecill-b;
-            maintainers = with lib.maintainers; [
-              vbgl
-              jwiegley
-              cohencyril
-            ];
-          };
-        }
-        // lib.optionalAttrs (package != "single") { passthru = lib.mapAttrs (p: _: mathcomp_ p) packages; }
-        // lib.optionalAttrs withDoc {
-          htmldoc_template = fetchzip {
-            url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
-            sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
-          };
-          postBuild = ''
-            cp -rf _build_doc/* .
-            rm -r _build_doc
+        };
+      }
+      // lib.optionalAttrs (package != "single") {passthru = lib.mapAttrs (p: _: mathcomp_ p) packages;}
+      // lib.optionalAttrs withDoc {
+        htmldoc_template = fetchzip {
+          url = "https://github.com/math-comp/math-comp.github.io/archive/doc-1.12.0.zip";
+          sha256 = "0y1352ha2yy6k2dl375sb1r68r1qi9dyyy7dyzj5lp9hxhhq69x8";
+        };
+        postBuild = ''
+          cp -rf _build_doc/* .
+          rm -r _build_doc
+        '';
+        postInstall = let
+          tgt = "$out/share/coq/${coq.coq-version}/";
+        in
+          lib.optionalString withDoc ''
+            mkdir -p ${tgt}
+            cp -r htmldoc ${tgt}
+            cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
           '';
-          postInstall =
-            let
-              tgt = "$out/share/coq/${coq.coq-version}/";
-            in
-            lib.optionalString withDoc ''
-              mkdir -p ${tgt}
-              cp -r htmldoc ${tgt}
-              cp -r $htmldoc_template/htmldoc_template/* ${tgt}/htmldoc/
-            '';
-          buildTargets = "doc";
-          extraInstallFlags = [ "-f Makefile.coq" ];
+        buildTargets = "doc";
+        extraInstallFlags = ["-f Makefile.coq"];
+      }
+    );
+    patched-derivation1 = derivation.overrideAttrs (
+      o:
+        lib.optionalAttrs
+        (
+          o.pname
+          != null
+          && o.pname == "mathcomp-all"
+          && o.version != null
+          && o.version != "dev"
+          && lib.versions.isLt "1.7" o.version
+        )
+        {
+          preBuild = "";
+          buildPhase = "";
+          installPhase = "echo doing nothing";
         }
-      );
-      patched-derivation1 = derivation.overrideAttrs (
-        o:
+    );
+    patched-derivation2 = patched-derivation1.overrideAttrs (
+      o:
         lib.optionalAttrs
-          (
-            o.pname != null
-            && o.pname == "mathcomp-all"
-            && o.version != null
-            && o.version != "dev"
-            && lib.versions.isLt "1.7" o.version
-          )
-          {
-            preBuild = "";
-            buildPhase = "";
-            installPhase = "echo doing nothing";
-          }
-      );
-      patched-derivation2 = patched-derivation1.overrideAttrs (
-        o:
-        lib.optionalAttrs
-          (
-            lib.versions.isLe "8.7" coq.coq-version || (o.version != "dev" && lib.versions.isLe "1.7" o.version)
-          )
-          {
-            installFlags = o.installFlags ++ [ "-f Makefile.coq" ];
-          }
-      );
-      patched-derivation3 = patched-derivation2.overrideAttrs (
-        o:
+        (
+          lib.versions.isLe "8.7" coq.coq-version || (o.version != "dev" && lib.versions.isLe "1.7" o.version)
+        )
+        {
+          installFlags = o.installFlags ++ ["-f Makefile.coq"];
+        }
+    );
+    patched-derivation3 = patched-derivation2.overrideAttrs (
+      o:
         lib.optionalAttrs (o.version != null && (o.version == "dev" || lib.versions.isGe "2.0.0" o.version))
-          {
-            propagatedBuildInputs = o.propagatedBuildInputs ++ [ hierarchy-builder ];
-          }
-      );
-      patched-derivation4 = patched-derivation3.overrideAttrs (
-        o:
-        lib.optionalAttrs (o.version != null && o.version == "2.3.0") {
-          propagatedBuildInputs = o.propagatedBuildInputs ++ [ stdlib ];
+        {
+          propagatedBuildInputs = o.propagatedBuildInputs ++ [hierarchy-builder];
         }
-      );
-      # boot and order packages didn't exist before 2.5,
-      # so make boot behave as ssreflect then (c.f., above)
-      # and building nothing in order and ssreflect
-      patched-derivation5 = patched-derivation4.overrideAttrs (
-        o:
+    );
+    patched-derivation4 = patched-derivation3.overrideAttrs (
+      o:
+        lib.optionalAttrs (o.version != null && o.version == "2.3.0") {
+          propagatedBuildInputs = o.propagatedBuildInputs ++ [stdlib];
+        }
+    );
+    # boot and order packages didn't exist before 2.5,
+    # so make boot behave as ssreflect then (c.f., above)
+    # and building nothing in order and ssreflect
+    patched-derivation5 = patched-derivation4.overrideAttrs (
+      o:
         lib.optionalAttrs
-          (
-            lib.elem package [
-              "order"
-              "ssreflect"
-            ]
-            && o.version != null
-            && o.version != "dev"
-            && lib.versions.isLt "2.5" o.version
-          )
-          {
-            preBuild = "";
-            buildPhase = "echo doing nothing";
-            installPhase = "echo doing nothing";
-          }
-      );
-    in
+        (
+          lib.elem package [
+            "order"
+            "ssreflect"
+          ]
+          && o.version != null
+          && o.version != "dev"
+          && lib.versions.isLt "2.5" o.version
+        )
+        {
+          preBuild = "";
+          buildPhase = "echo doing nothing";
+          installPhase = "echo doing nothing";
+        }
+    );
+  in
     patched-derivation5;
 in
-mathcomp_ (if single then "single" else "all")
+  mathcomp_ (
+    if single
+    then "single"
+    else "all"
+  )

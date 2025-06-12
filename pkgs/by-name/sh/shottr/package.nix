@@ -9,7 +9,6 @@
   pup,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "shottr";
   version = "1.8.1";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-I3LNLuhIRdjKDn79HWRK2B/tVsV+1aGt/aY442y3r2I=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 
@@ -58,8 +57,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://shottr.cc/";
     license = lib.licenses.unfree;
     mainProgram = "shottr";
-    maintainers = with lib.maintainers; [ donteatoreo ];
+    maintainers = with lib.maintainers; [donteatoreo];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

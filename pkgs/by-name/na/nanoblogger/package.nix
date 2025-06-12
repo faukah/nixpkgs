@@ -4,7 +4,6 @@
   stdenv,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.5-rc1";
   pname = "nanoblogger";

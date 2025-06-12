@@ -11,7 +11,6 @@
   openssl,
   sqlite,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sherlock-launcher";
   version = "0.1.12";
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Skxxtz/sherlock";
     license = lib.licenses.cc-by-nc-40;
     mainProgram = "sherlock";
-    maintainers = with lib.maintainers; [ agvantibo ];
+    maintainers = with lib.maintainers; [agvantibo];
   };
 })

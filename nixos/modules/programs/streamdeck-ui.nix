@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.streamdeck-ui;
-in
-{
+in {
   options.programs.streamdeck-ui = {
     enable = lib.mkEnableOption "streamdeck-ui";
 
@@ -19,9 +16,8 @@ in
     };
 
     package = lib.mkPackageOption pkgs "streamdeck-ui" {
-      default = [ "streamdeck-ui" ];
+      default = ["streamdeck-ui"];
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -35,8 +31,8 @@ in
       ))
     ];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ majiir ];
+  meta.maintainers = with lib.maintainers; [majiir];
 }

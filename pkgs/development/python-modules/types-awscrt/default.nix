@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-awscrt";
   version = "0.27.2";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-rNBPVxGesVYmqwupFX/CRnJCHeVue9e59haB/t7kTpE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "awscrt-stubs" ];
+  pythonImportsCheck = ["awscrt-stubs"];
 
   meta = with lib; {
     description = "Type annotations and code completion for awscrt";
     homepage = "https://github.com/youtype/types-awscrt";
     changelog = "https://github.com/youtype/types-awscrt/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -6,7 +6,6 @@
   python3,
   sphinxHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "todoman";
   version = "4.5.0";
@@ -89,7 +88,7 @@ python3.pkgs.buildPythonApplication rec {
       Unsupported fields may not be shown but are never deleted or altered.
     '';
     changelog = "https://todoman.readthedocs.io/en/stable/changelog.html#v${
-      builtins.replaceStrings [ "." ] [ "-" ] version
+      builtins.replaceStrings ["."] ["-"] version
     }";
     license = lib.licenses.isc;
     maintainers = with lib.maintainers; [

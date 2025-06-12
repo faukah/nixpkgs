@@ -31,6 +31,6 @@ buildGoModule rec {
     mainProgram = "tgswitch";
     homepage = "https://github.com/warrensbox/tgswitch";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
   };
 }

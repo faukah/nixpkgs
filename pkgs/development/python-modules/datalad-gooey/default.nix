@@ -13,7 +13,6 @@
   pytestCheckHook,
   pytest-qt,
 }:
-
 buildPythonPackage {
   pname = "datalad-gooey";
   # many bug fixes on `master` but no new release
@@ -27,7 +26,7 @@ buildPythonPackage {
     hash = "sha256-8779SLcV4wwJ3124lteGzvimDxgijyxa818ZrumPMs4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyside6
@@ -37,7 +36,7 @@ buildPythonPackage {
     datalad
   ];
 
-  pythonRemoveDeps = [ "applescript" ];
+  pythonRemoveDeps = ["applescript"];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -50,13 +49,13 @@ buildPythonPackage {
     git-annex
   ];
 
-  pythonImportsCheck = [ "datalad_gooey" ];
+  pythonImportsCheck = ["datalad_gooey"];
 
   meta = {
     description = "Graphical user interface (GUI) for DataLad";
     homepage = "https://github.com/datalad/datalad-gooey";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gador ];
+    maintainers = with lib.maintainers; [gador];
     mainProgram = "datalad-gooey";
   };
 }

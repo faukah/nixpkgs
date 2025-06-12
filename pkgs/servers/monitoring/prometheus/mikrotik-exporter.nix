@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "mikrotik-exporter-unstable";
   version = "2021-08-10";
@@ -20,13 +19,13 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) mikrotik; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) mikrotik;};
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Prometheus MikroTik device(s) exporter";
     mainProgram = "mikrotik-exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
   };
 }

@@ -8,7 +8,6 @@
   nix-update-script,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemdMinimal,
 }:
-
 buildNpmPackage rec {
   pname = "zigbee2mqtt";
   version = "1.42.0";
@@ -26,10 +25,10 @@ buildNpmPackage rec {
     systemdMinimal
   ];
 
-  npmFlags = lib.optionals (!withSystemd) [ "--omit=optional" ];
+  npmFlags = lib.optionals (!withSystemd) ["--omit=optional"];
 
   passthru.tests.zigbee2mqtt = nixosTests.zigbee2mqtt_1;
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/Koenkk/zigbee2mqtt/releases/tag/${version}";

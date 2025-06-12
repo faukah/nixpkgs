@@ -5,7 +5,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jellyfin-rpc";
   version = "1.3.3";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   # doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Radiicall/jellyfin-rpc";
     changelog = "https://github.com/Radiicall/jellyfin-rpc/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "jellyfin-rpc";
   };
 }

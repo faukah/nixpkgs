@@ -2,24 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
   ollama,
-
   # testing
   langchain-tests,
   pytestCheckHook,
   pytest-asyncio,
   syrupy,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-ollama";
   version = "0.3.3";
@@ -56,9 +51,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_ollama" ];
+  pythonImportsCheck = ["langchain_ollama"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -72,6 +67,6 @@ buildPythonPackage rec {
     description = "Integration package connecting Ollama and LangChain";
     homepage = "https://github.com/langchain-ai/langchain/tree/master/libs/partners/ollama";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

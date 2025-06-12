@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ck";
   version = "0.7.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
           "COMPILER=gcc"
   '';
 
-  configureFlags = [ "--platform=${stdenv.hostPlatform.parsed.cpu.name}}" ];
+  configureFlags = ["--platform=${stdenv.hostPlatform.parsed.cpu.name}}"];
 
   dontDisableStatic = true;
 

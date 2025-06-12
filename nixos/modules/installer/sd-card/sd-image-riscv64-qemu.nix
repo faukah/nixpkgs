@@ -5,9 +5,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ../../profiles/base.nix
     ./sd-image.nix

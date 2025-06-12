@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "grafana-dash-n-grab";
   version = "0.7.2";
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "Grafana Dash-n-Grab (gdg) -- backup and restore Grafana dashboards, datasources, and other entities";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/esnet/gdg";
-    teams = [ lib.teams.bitnomial ];
+    teams = [lib.teams.bitnomial];
     mainProgram = "gdg";
     changelog = "https://github.com/esnet/gdg/releases/tag/v${version}";
   };

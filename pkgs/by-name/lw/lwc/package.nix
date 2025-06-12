@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "lwc";
   version = "unstable-2022-07-26";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Live-updating version of the UNIX wc command";
     homepage = "https://github.com/timdp/lwc";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "lwc";
   };
 }

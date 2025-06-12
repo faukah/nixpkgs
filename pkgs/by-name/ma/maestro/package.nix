@@ -7,7 +7,6 @@
   jre_headless,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "maestro";
   version = "1.40.3";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/maestro --prefix PATH : "${lib.makeBinPath [ jre_headless ]}"
+    wrapProgram $out/bin/maestro --prefix PATH : "${lib.makeBinPath [jre_headless]}"
   '';
 
   passthru.updateScript = writeScript "update-maestro" ''
@@ -49,9 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://maestro.mobile.dev/";
     license = licenses.asl20;
     platforms = lib.platforms.all;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     changelog = "https://github.com/mobile-dev-inc/maestro/blob/main/CHANGELOG.md";
-    maintainers = with maintainers; [ SubhrajyotiSen ];
+    maintainers = with maintainers; [SubhrajyotiSen];
     mainProgram = "maestro";
   };
 })

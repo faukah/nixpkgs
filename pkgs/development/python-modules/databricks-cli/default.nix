@@ -15,7 +15,6 @@
   six,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "databricks-cli";
   version = "0.18.0";
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "integration/workspace/test_integration.py"
   ];
 
-  pythonImportsCheck = [ "databricks_cli" ];
+  pythonImportsCheck = ["databricks_cli"];
 
   meta = with lib; {
     description = "Command line interface for Databricks";
     homepage = "https://github.com/databricks/databricks-cli";
     changelog = "https://github.com/databricks/databricks-cli/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

@@ -8,7 +8,6 @@
   cairo,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wired";
   version = "0.10.6";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dbus
     pango
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     description = "Lightweight notification daemon written in Rust";
     homepage = "https://github.com/Toqozz/wired-notify";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fccapria ];
+    maintainers = with lib.maintainers; [fccapria];
     badPlatforms = lib.platforms.darwin;
     mainProgram = "wired";
   };

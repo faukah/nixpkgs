@@ -5,7 +5,6 @@
   fetchpatch,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cosmic-wallpapers";
   version = "1.0.0-alpha.7";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     })
   ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -53,7 +52,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       # round_moons_nasa.jpg: https://www.planetary.org/space-images/the-solar-systems-round-moons
       publicDomain
     ];
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.unix;
   };
 })

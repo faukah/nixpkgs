@@ -1,12 +1,9 @@
-{ callPackage }:
-let
-  src = callPackage ./src.nix { };
-in
-rec {
-
+{callPackage}: let
+  src = callPackage ./src.nix {};
+in rec {
   inherit (src) packageVersion firefox source;
 
-  extraPatches = [ "${source}/patches/pref-pane/pref-pane-small.patch" ];
+  extraPatches = ["${source}/patches/pref-pane/pref-pane-small.patch"];
 
   extraConfigureFlags = [
     "--with-unsigned-addon-scopes=app,system"
@@ -42,9 +39,9 @@ rec {
     done
   '';
 
-  extraPrefsFiles = [ "${source}/settings/librewolf.cfg" ];
+  extraPrefsFiles = ["${source}/settings/librewolf.cfg"];
 
-  extraPoliciesFiles = [ "${source}/settings/distribution/policies.json" ];
+  extraPoliciesFiles = ["${source}/settings/distribution/policies.json"];
 
   extraPassthru = {
     librewolf = {

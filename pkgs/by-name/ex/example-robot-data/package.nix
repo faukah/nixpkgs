@@ -9,7 +9,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "example-robot-data";
   version = "4.3.0";
@@ -39,18 +38,20 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.pythonImportsCheckHook
     ];
 
-  propagatedBuildInputs = [
-    jrl-cmakemodules
-  ] ++ lib.optionals pythonSupport [ python3Packages.pinocchio ];
+  propagatedBuildInputs =
+    [
+      jrl-cmakemodules
+    ]
+    ++ lib.optionals pythonSupport [python3Packages.pinocchio];
 
-  cmakeFlags = [ (lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport) ];
+  cmakeFlags = [(lib.cmakeBool "BUILD_PYTHON_INTERFACE" pythonSupport)];
 
   doCheck = true;
   # The package expect to find an `example-robot-data/robots` folder somewhere
   # either in install prefix or in the sources
   # where it can find the meshes for unit tests
   preCheck = "ln -s source ../../example-robot-data";
-  pythonImportsCheck = [ "example_robot_data" ];
+  pythonImportsCheck = ["example_robot_data"];
 
   meta = with lib; {
     description = "Set of robot URDFs for benchmarking and developed examples";

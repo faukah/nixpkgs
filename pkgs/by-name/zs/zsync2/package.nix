@@ -9,7 +9,6 @@
   libcpr,
   libargs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsync2";
   version = "2.0.0-alpha-1-20230304";
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/AppImageCommunity/zsync2";
     license = lib.licenses.artistic2;
     mainProgram = "zsync2";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     # macro only supports linux as of now
     # src/zsclient.cpp#L460
     platforms = lib.platforms.linux;

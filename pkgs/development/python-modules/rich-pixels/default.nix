@@ -9,7 +9,6 @@
   pythonOlder,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "rich-pixels";
   version = "3.0.1";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-Sqs0DOyxJBfZmm/SVSTMSmaaeRlusiSp6VBnJjKYjgQ=";
   };
 
-  pythonRelaxDeps = [ "pillow" ];
+  pythonRelaxDeps = ["pillow"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     pillow
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "rich_pixels" ];
+  pythonImportsCheck = ["rich_pixels"];
 
   meta = with lib; {
     description = "Rich-compatible library for writing pixel images and ASCII art to the terminal";
     homepage = "https://github.com/darrenburns/rich-pixels";
     changelog = "https://github.com/darrenburns/rich-pixels/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

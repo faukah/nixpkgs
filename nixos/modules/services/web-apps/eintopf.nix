@@ -4,22 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.eintopf;
-
-in
-{
+in {
   options.services.eintopf = {
-
     enable = mkEnableOption "Lauti (Eintopf) community event calendar web app";
 
     settings = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       description = ''
         Settings to configure web service. See
         <https://codeberg.org/Klasse-Methode/lauti/src/branch/main/DEPLOYMENT.md>
@@ -40,24 +33,22 @@ in
         A list of files containing the various secrets. Should be in the
         format expected by systemd's `EnvironmentFile` directory.
       '';
-      default = [ ];
+      default = [];
     };
-
   };
 
   config = mkIf cfg.enable {
-
     systemd.services.eintopf = {
       description = "Community event calendar web app";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
       environment = cfg.settings;
       serviceConfig = {
         ExecStart = lib.getExe pkgs.lauti;
         WorkingDirectory = "/var/lib/eintopf";
         StateDirectory = "eintopf";
-        EnvironmentFile = [ cfg.secrets ];
+        EnvironmentFile = [cfg.secrets];
 
         # hardening
         AmbientCapabilities = "";
@@ -96,9 +87,7 @@ in
         UMask = "0077";
       };
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ onny ];
-
+  meta.maintainers = with lib.maintainers; [onny];
 }

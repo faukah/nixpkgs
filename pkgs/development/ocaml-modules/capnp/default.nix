@@ -11,7 +11,6 @@
   stdint,
   stdio,
 }:
-
 buildDunePackage rec {
   pname = "capnp";
   version = "3.6.0";
@@ -52,6 +51,6 @@ buildDunePackage rec {
     homepage = "https://github.com/capnproto/capnp-ocaml";
     changelog = "https://github.com/capnproto/capnp-ocaml/blob/${version}/CHANGES.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

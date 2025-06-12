@@ -3,7 +3,6 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "doing";
   exes = lib.singleton "doing";

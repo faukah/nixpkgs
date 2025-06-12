@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "vndr";
   version = "0.1.2-unstable-2022-12-29";

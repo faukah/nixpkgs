@@ -11,7 +11,6 @@
   ncbi-vdb,
   mbedtls,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sratoolkit";
 

@@ -4,7 +4,6 @@
   fetchFromSourcehut,
   scdoc,
 }:
-
 buildGoModule rec {
   pname = "hut";
   version = "0.6.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     scdoc
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postBuild = ''
     make $makeFlags completions doc/hut.1
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://sr.ht/~xenrox/hut/";
     description = "CLI tool for Sourcehut / sr.ht";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "hut";
   };
 }

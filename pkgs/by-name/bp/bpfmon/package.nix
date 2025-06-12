@@ -5,7 +5,6 @@
   libpcap,
   yascreen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpfmon";
   version = "2.53";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bpfmon";
     homepage = "https://github.com/bbonev/bpfmon";
     changelog = "https://github.com/bbonev/bpfmon/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ arezvov ];
+    maintainers = with lib.maintainers; [arezvov];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

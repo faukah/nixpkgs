@@ -27,9 +27,7 @@
   generated,
   versionSuffix ? "",
   applicationName ? "Thunderbird",
-}:
-
-let
+}: let
   inherit (generated) version sources;
 
   mozillaPlatforms = {
@@ -43,100 +41,100 @@ let
 
   sourceMatches = locale: source: (isPrefixOf source.locale locale) && source.arch == arch;
 
-  policies = {
-    DisableAppUpdate = true;
-  } // config.thunderbird.policies or { };
-  policiesJson = writeText "thunderbird-policies.json" (builtins.toJSON { inherit policies; });
+  policies =
+    {
+      DisableAppUpdate = true;
+    }
+    // config.thunderbird.policies or {};
+  policiesJson = writeText "thunderbird-policies.json" (builtins.toJSON {inherit policies;});
 
-  defaultSource = lib.findFirst (sourceMatches "en-US") { } sources;
+  defaultSource = lib.findFirst (sourceMatches "en-US") {} sources;
 
   mozLocale =
-    if systemLocale == "ca_ES@valencia" then
-      "ca-valencia"
-    else
-      lib.replaceStrings [ "_" ] [ "-" ] systemLocale;
+    if systemLocale == "ca_ES@valencia"
+    then "ca-valencia"
+    else lib.replaceStrings ["_"] ["-"] systemLocale;
 
   source = lib.findFirst (sourceMatches mozLocale) defaultSource sources;
 
   pname = "thunderbird-bin";
 in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-stdenv.mkDerivation {
-  inherit pname version;
+    src = fetchurl {
+      inherit (source) url sha256;
+    };
 
-  src = fetchurl {
-    inherit (source) url sha256;
-  };
+    nativeBuildInputs = [
+      wrapGAppsHook3
+      autoPatchelfHook
+      patchelfUnstable
+    ];
+    buildInputs = [
+      alsa-lib
+    ];
+    # Thunderbird uses "relrhack" to manually process relocations from a fixed offset
+    patchelfFlags = ["--no-clobber-old-sections"];
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    autoPatchelfHook
-    patchelfUnstable
-  ];
-  buildInputs = [
-    alsa-lib
-  ];
-  # Thunderbird uses "relrhack" to manually process relocations from a fixed offset
-  patchelfFlags = [ "--no-clobber-old-sections" ];
+    patchPhase = ''
+      # Don't download updates from Mozilla directly
+      echo 'pref("app.update.auto", "false");' >> defaults/pref/channel-prefs.js
+    '';
 
-  patchPhase = ''
-    # Don't download updates from Mozilla directly
-    echo 'pref("app.update.auto", "false");' >> defaults/pref/channel-prefs.js
-  '';
+    installPhase = ''
+      mkdir -p "$prefix/usr/lib/thunderbird-bin-${version}"
+      cp -r * "$prefix/usr/lib/thunderbird-bin-${version}"
 
-  installPhase = ''
-    mkdir -p "$prefix/usr/lib/thunderbird-bin-${version}"
-    cp -r * "$prefix/usr/lib/thunderbird-bin-${version}"
+      mkdir -p "$out/bin"
+      ln -s "$prefix/usr/lib/thunderbird-bin-${version}/thunderbird" "$out/bin/"
 
-    mkdir -p "$out/bin"
-    ln -s "$prefix/usr/lib/thunderbird-bin-${version}/thunderbird" "$out/bin/"
+      # wrapThunderbird expects "$out/lib" instead of "$out/usr/lib"
+      ln -s "$out/usr/lib" "$out/lib"
 
-    # wrapThunderbird expects "$out/lib" instead of "$out/usr/lib"
-    ln -s "$out/usr/lib" "$out/lib"
+      gappsWrapperArgs+=(--argv0 "$out/bin/.thunderbird-wrapped")
 
-    gappsWrapperArgs+=(--argv0 "$out/bin/.thunderbird-wrapped")
+      # See: https://github.com/mozilla/policy-templates/blob/master/README.md
+      mkdir -p "$out/lib/thunderbird-bin-${version}/distribution";
+      ln -s ${policiesJson} "$out/lib/thunderbird-bin-${version}/distribution/policies.json";
+    '';
 
-    # See: https://github.com/mozilla/policy-templates/blob/master/README.md
-    mkdir -p "$out/lib/thunderbird-bin-${version}/distribution";
-    ln -s ${policiesJson} "$out/lib/thunderbird-bin-${version}/distribution/policies.json";
-  '';
+    passthru.updateScript = import ./../../browsers/firefox-bin/update.nix {
+      inherit
+        pname
+        lib
+        writeScript
+        xidel
+        coreutils
+        gnused
+        gnugrep
+        curl
+        gnupg
+        runtimeShell
+        versionSuffix
+        ;
+      baseName = "thunderbird";
+      channel = "release";
+      basePath = "pkgs/applications/networking/mailreaders/thunderbird-bin";
+      baseUrl = "http://archive.mozilla.org/pub/thunderbird/releases/";
+    };
 
-  passthru.updateScript = import ./../../browsers/firefox-bin/update.nix {
-    inherit
-      pname
-      lib
-      writeScript
-      xidel
-      coreutils
-      gnused
-      gnugrep
-      curl
-      gnupg
-      runtimeShell
-      versionSuffix
-      ;
-    baseName = "thunderbird";
-    channel = "release";
-    basePath = "pkgs/applications/networking/mailreaders/thunderbird-bin";
-    baseUrl = "http://archive.mozilla.org/pub/thunderbird/releases/";
-  };
+    passthru = {
+      inherit applicationName;
+      binaryName = "thunderbird";
+      gssSupport = true;
+      gtk3 = gtk3;
+    };
 
-  passthru = {
-    inherit applicationName;
-    binaryName = "thunderbird";
-    gssSupport = true;
-    gtk3 = gtk3;
-  };
-
-  meta = {
-    changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
-    description = "Mozilla Thunderbird, a full-featured email client (binary package)";
-    homepage = "http://www.mozilla.org/thunderbird/";
-    mainProgram = "thunderbird";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ lovesegfault ];
-    platforms = builtins.attrNames mozillaPlatforms;
-    hydraPlatforms = [ ];
-  };
-}
+    meta = {
+      changelog = "https://www.thunderbird.net/en-US/thunderbird/${version}/releasenotes/";
+      description = "Mozilla Thunderbird, a full-featured email client (binary package)";
+      homepage = "http://www.mozilla.org/thunderbird/";
+      mainProgram = "thunderbird";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.mpl20;
+      maintainers = with lib.maintainers; [lovesegfault];
+      platforms = builtins.attrNames mozillaPlatforms;
+      hydraPlatforms = [];
+    };
+  }

@@ -19,10 +19,7 @@
   opencolorio_1,
   freetype,
   openexr,
-}:
-
-let
-
+}: let
   # The way third-party dependencies are packaged has changed
   # significantly from the 2.0.8 release. This means any packaging
   # effort for the 2.0.8 release would have to be redone for the next
@@ -60,7 +57,7 @@ let
 
     sourceRoot = "${src.name}/etc/SuperBuild";
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       libGL
     ];
@@ -103,85 +100,84 @@ let
     dontInstall = true;
     doCheck = true;
   };
-
 in
-stdenv.mkDerivation {
-  pname = "djv";
-  version = djvVersion;
+  stdenv.mkDerivation {
+    pname = "djv";
+    version = djvVersion;
 
-  src = djvSrc;
-  patches = [
-    # Pull fix ending upstream inclusion for gcc-12+ support:
-    #   https://github.com/darbyjohnston/DJV/pull/477
-    (fetchpatch {
-      name = "gcc-13-cstdint-include.patch";
-      url = "https://github.com/darbyjohnston/DJV/commit/be0dd90c256f30c0305ff7b180fd932a311e66e5.patch";
-      hash = "sha256-x8GAfakhgjBiCKHbfgCukT5iFNad+zqURDJkQr092uk=";
-    })
-    (fetchpatch {
-      name = "gcc-11-limits.patch";
-      url = "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
-      hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
-    })
-    (fetchpatch {
-      name = "gcc-11-IO.patch";
-      url = "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
-      hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
-    })
-    (fetchpatch {
-      name = "gcc-11-sleep_for.patch";
-      url = "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
-      hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
-    })
-  ];
+    src = djvSrc;
+    patches = [
+      # Pull fix ending upstream inclusion for gcc-12+ support:
+      #   https://github.com/darbyjohnston/DJV/pull/477
+      (fetchpatch {
+        name = "gcc-13-cstdint-include.patch";
+        url = "https://github.com/darbyjohnston/DJV/commit/be0dd90c256f30c0305ff7b180fd932a311e66e5.patch";
+        hash = "sha256-x8GAfakhgjBiCKHbfgCukT5iFNad+zqURDJkQr092uk=";
+      })
+      (fetchpatch {
+        name = "gcc-11-limits.patch";
+        url = "https://github.com/darbyjohnston/DJV/commit/0544ffa1a263a6b8e8518b47277de7601b21b4f4.patch";
+        hash = "sha256-x6ye0xMwTlKyNW4cVFb64RvAayvo71kuOooPj3ROn0g=";
+      })
+      (fetchpatch {
+        name = "gcc-11-IO.patch";
+        url = "https://github.com/darbyjohnston/DJV/commit/ce79f2d2cb35d03322648323858834bff942c792.patch";
+        hash = "sha256-oPbXOnN5Y5QL+bs/bL5eJALu45YHnyTBLQcC8XcJi0c=";
+      })
+      (fetchpatch {
+        name = "gcc-11-sleep_for.patch";
+        url = "https://github.com/darbyjohnston/DJV/commit/6989f43db27f66a7691f6048a2eb3299ef43a92e.patch";
+        hash = "sha256-1kiF3VrZiO+FSoR7NHCbduQ8tMq/Uuu6Z+sQII4xBAw=";
+      })
+    ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    alsa-lib
-    libGL
-    libX11
-    libXinerama
-    libXi
-    rapidjson
-    rtaudio
-    ilmbase
-    glm
-    glfw3
-    zlib
-    libpng
-    freetype
-    opencolorio_1
-    djv-deps
-    openexr
-  ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [
+      alsa-lib
+      libGL
+      libX11
+      libXinerama
+      libXi
+      rapidjson
+      rtaudio
+      ilmbase
+      glm
+      glfw3
+      zlib
+      libpng
+      freetype
+      opencolorio_1
+      djv-deps
+      openexr
+    ];
 
-  postPatch = ''
-    chmod -R +w .
+    postPatch = ''
+      chmod -R +w .
 
-    # When linking opencolorio statically this results in failing to
-    # pull in opencolorio's dependencies (tixml and yaml libraries). Avoid
-    # this by linking it statically instead.
+      # When linking opencolorio statically this results in failing to
+      # pull in opencolorio's dependencies (tixml and yaml libraries). Avoid
+      # this by linking it statically instead.
 
-    sed -i cmake/Modules/FindOCIO.cmake \
-        -e 's/PATH_SUFFIXES static//' \
-        -e '/OpenColorIO_STATIC/d'
+      sed -i cmake/Modules/FindOCIO.cmake \
+          -e 's/PATH_SUFFIXES static//' \
+          -e '/OpenColorIO_STATIC/d'
 
-    # When searching for OpenEXR this looks for Iex.h, which exists in ilmbase,
-    # since it's a secondary inport, to find the correct OpenEXR lib, we search
-    # for something specifically in OpenEXR.
+      # When searching for OpenEXR this looks for Iex.h, which exists in ilmbase,
+      # since it's a secondary inport, to find the correct OpenEXR lib, we search
+      # for something specifically in OpenEXR.
 
-    sed -i cmake/Modules/FindOpenEXR.cmake \
-        -e 's/find_path(OpenEXR_INCLUDE_DIR NAMES Iex.h PATH_SUFFIXES OpenEXR)/find_path(OpenEXR_INCLUDE_DIR NAMES ImfImage.h PATH_SUFFIXES OpenEXR)/'
-  '';
+      sed -i cmake/Modules/FindOpenEXR.cmake \
+          -e 's/find_path(OpenEXR_INCLUDE_DIR NAMES Iex.h PATH_SUFFIXES OpenEXR)/find_path(OpenEXR_INCLUDE_DIR NAMES ImfImage.h PATH_SUFFIXES OpenEXR)/'
+    '';
 
-  # GLFW requires a working X11 session.
-  doCheck = false;
+    # GLFW requires a working X11 session.
+    doCheck = false;
 
-  meta = with lib; {
-    description = "Professional review software for VFX, animation, and film production";
-    homepage = "https://darbyjohnston.github.io/DJV/";
-    platforms = platforms.linux;
-    maintainers = [ maintainers.blitz ];
-    license = licenses.bsd3;
-  };
-}
+    meta = with lib; {
+      description = "Professional review software for VFX, animation, and film production";
+      homepage = "https://darbyjohnston.github.io/DJV/";
+      platforms = platforms.linux;
+      maintainers = [maintainers.blitz];
+      license = licenses.bsd3;
+    };
+  }

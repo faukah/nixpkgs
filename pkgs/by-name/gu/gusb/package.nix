@@ -19,88 +19,89 @@
   vala,
   hwdata,
   umockdev,
-}:
-
-let
+}: let
   pythonEnv = python3.pythonOnBuildForHost.withPackages (
-    ps: with ps; [
-      setuptools
-    ]
+    ps:
+      with ps; [
+        setuptools
+      ]
   );
 in
-stdenv.mkDerivation rec {
-  pname = "gusb";
-  version = "0.4.9";
+  stdenv.mkDerivation rec {
+    pname = "gusb";
+    version = "0.4.9";
 
-  outputs = [
-    "bin"
-    "out"
-    "dev"
-  ] ++ lib.optionals withIntrospection [ "devdoc" ];
+    outputs =
+      [
+        "bin"
+        "out"
+        "dev"
+      ]
+      ++ lib.optionals withIntrospection ["devdoc"];
 
-  src = fetchFromGitHub {
-    owner = "hughsie";
-    repo = "libgusb";
-    tag = version;
-    hash = "sha256-piIPNLc3deToyQaajXFvM+CKh9ni8mb0P3kb+2RoJOs=";
-  };
+    src = fetchFromGitHub {
+      owner = "hughsie";
+      repo = "libgusb";
+      tag = version;
+      hash = "sha256-piIPNLc3deToyQaajXFvM+CKh9ni8mb0P3kb+2RoJOs=";
+    };
 
-  patches = [
-    (replaceVars ./fix-python-path.patch {
-      python = "${pythonEnv}/bin/python3";
-    })
-  ];
-
-  strictDeps = true;
-
-  depsBuildBuild = [
-    pkg-config
-  ];
-
-  nativeBuildInputs =
-    [
-      meson
-      ninja
-      pkg-config
-    ]
-    ++ lib.optionals withIntrospection [
-      gobject-introspection
-      gi-docgen
-      vala
+    patches = [
+      (replaceVars ./fix-python-path.patch {
+        python = "${pythonEnv}/bin/python3";
+      })
     ];
 
-  # all required in gusb.pc
-  propagatedBuildInputs = [
-    glib
-    libusb1
-    json-glib
-  ];
+    strictDeps = true;
 
-  mesonFlags = [
-    (lib.mesonBool "docs" withIntrospection)
-    (lib.mesonBool "introspection" withIntrospection)
-    (lib.mesonBool "tests" doCheck)
-    (lib.mesonBool "vapi" withIntrospection)
-    (lib.mesonOption "usb_ids" "${hwdata}/share/hwdata/usb.ids")
-  ];
+    depsBuildBuild = [
+      pkg-config
+    ];
 
-  checkInputs = [
-    umockdev
-  ];
+    nativeBuildInputs =
+      [
+        meson
+        ninja
+        pkg-config
+      ]
+      ++ lib.optionals withIntrospection [
+        gobject-introspection
+        gi-docgen
+        vala
+      ];
 
-  doCheck = false; # tests try to access USB
+    # all required in gusb.pc
+    propagatedBuildInputs = [
+      glib
+      libusb1
+      json-glib
+    ];
 
-  postFixup = ''
-    # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
-    moveToOutput "share/doc" "$devdoc"
-  '';
+    mesonFlags = [
+      (lib.mesonBool "docs" withIntrospection)
+      (lib.mesonBool "introspection" withIntrospection)
+      (lib.mesonBool "tests" doCheck)
+      (lib.mesonBool "vapi" withIntrospection)
+      (lib.mesonOption "usb_ids" "${hwdata}/share/hwdata/usb.ids")
+    ];
 
-  meta = with lib; {
-    description = "GLib libusb wrapper";
-    mainProgram = "gusbcmd";
-    homepage = "https://github.com/hughsie/libgusb";
-    license = licenses.lgpl21;
-    maintainers = [ maintainers.marcweber ];
-    platforms = platforms.unix;
-  };
-}
+    checkInputs = [
+      umockdev
+    ];
+
+    doCheck = false; # tests try to access USB
+
+    postFixup = ''
+      # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.
+      moveToOutput "share/doc" "$devdoc"
+    '';
+
+    meta = with lib; {
+      description = "GLib libusb wrapper";
+      mainProgram = "gusbcmd";
+      homepage = "https://github.com/hughsie/libgusb";
+      license = licenses.lgpl21;
+      maintainers = [maintainers.marcweber];
+      platforms = platforms.unix;
+    };
+  }

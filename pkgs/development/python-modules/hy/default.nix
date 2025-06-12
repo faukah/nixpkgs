@@ -11,7 +11,6 @@
   setuptools,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "hy";
   version = "1.1.0";
@@ -27,18 +26,18 @@ buildPythonPackage rec {
   # https://github.com/hylang/hy/blob/1.0a4/get_version.py#L9-L10
   HY_VERSION = version;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ funcparserlib ];
+  dependencies = [funcparserlib];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # For test_bin_hy
     export PATH="$out/bin:$PATH"
   '';
 
-  pythonImportsCheck = [ "hy" ];
+  pythonImportsCheck = ["hy"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -48,11 +47,10 @@ buildPythonPackage rec {
     # For backwards compatibility with removed pkgs/development/interpreters/hy
     # Example usage:
     #   hy.withPackages (ps: with ps; [ hyrule requests ])
-    withPackages =
-      python-packages:
-      (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (old: {
+    withPackages = python-packages:
+      (python.withPackages (ps: (python-packages ps) ++ [ps.hy])).overrideAttrs (old: {
         name = "${hy.name}-env";
-        meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) { mainProgram = "hy"; };
+        meta = lib.mergeAttrs (builtins.removeAttrs hy.meta ["license"]) {mainProgram = "hy";};
       });
   };
 

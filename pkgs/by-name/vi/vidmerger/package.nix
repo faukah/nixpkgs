@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vidmerger";
   version = "0.3.2";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       mit
       commons-clause
     ];
-    maintainers = with maintainers; [ ByteSudoer ];
+    maintainers = with maintainers; [ByteSudoer];
     mainProgram = "vidmerger";
   };
 }

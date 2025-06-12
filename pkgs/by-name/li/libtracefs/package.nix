@@ -18,7 +18,6 @@
   gitUpdater,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtracefs";
   version = "1.8.1";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     flex
     bison
   ];
-  buildInputs = [ libtraceevent ];
+  buildInputs = [libtraceevent];
 
   ninjaFlags = [
     "all"
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  checkInputs = [ cunit ];
+  checkInputs = [cunit];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to find latest release.
@@ -82,6 +81,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
   };
 }

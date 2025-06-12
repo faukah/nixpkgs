@@ -11,7 +11,6 @@
   setuptools,
   stdiomask,
 }:
-
 buildPythonPackage rec {
   pname = "subarulink";
   version = "0.7.13";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-R6d9BaQDFSobiIsbI1I/eUaJt0VUU2ELdWU9xDyhuFc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -46,14 +45,14 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "subarulink" ];
+  pythonImportsCheck = ["subarulink"];
 
   meta = with lib; {
     description = "Python module for interacting with STARLINK-enabled vehicle";
     homepage = "https://github.com/G-Two/subarulink";
     changelog = "https://github.com/G-Two/subarulink/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "subarulink";
   };
 }

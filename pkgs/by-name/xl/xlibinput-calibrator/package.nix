@@ -7,7 +7,6 @@
   libXrandr,
   txt2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xlibinput-calibrator";
   version = "0.11";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     libXrandr
   ];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xlibinput_calibrator";
     homepage = "https://github.com/kreijack/xlibinput_calibrator";
     changelog = "https://github.com/kreijack/xlibinput_calibrator/blob/${src.rev}/Changelog";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ atemu ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [atemu];
   };
 }

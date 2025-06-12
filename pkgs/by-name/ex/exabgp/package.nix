@@ -5,7 +5,6 @@
   exabgp,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "exabgp";
   version = "4.2.25";

@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiohttp,
   requests,
   pytz,
-
   # tests
   mock,
   pytest-aiohttp,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyindego";
   version = "3.2.2";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     sed -i "/addopts/d" pytest.ini
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -56,13 +52,13 @@ buildPythonPackage rec {
     "test_update_battery"
   ];
 
-  pythonImportsCheck = [ "pyIndego" ];
+  pythonImportsCheck = ["pyIndego"];
 
   meta = with lib; {
     description = "Python interface for Bosch API for lawnmowers";
     homepage = "https://github.com/sander1988/pyIndego";
     changelog = "https://github.com/sander1988/pyIndego/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

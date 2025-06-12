@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   version = "7.1";
   pname = "clearlooks-phenix";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jpfleury/clearlooks-phenix";
     downloadPage = "https://github.com/jpfleury/clearlooks-phenix/releases";
     license = licenses.gpl3;
-    maintainers = [ maintainers.prikhi ];
+    maintainers = [maintainers.prikhi];
     platforms = platforms.linux;
   };
 }

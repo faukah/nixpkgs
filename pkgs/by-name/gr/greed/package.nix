@@ -6,7 +6,6 @@
   asciidoctor,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "greed";
   version = "4.3";
@@ -40,14 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     homepage = "http://www.catb.org/~esr/";
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     description = "Game of Consumption";
     changelog = "https://gitlab.com/esr/greed/-/blob/${finalAttrs.version}/NEWS.adoc?ref_type=tags";
     mainProgram = "greed";

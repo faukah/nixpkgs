@@ -25,7 +25,6 @@
   redis,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "aiogram";
   version = "3.20.0.post0";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     hash = "sha256-OQH5wes2RGSbT9GPKcZVVxpsFbtOnXd6aAeYfQST1Xs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
   dependencies = [
     aiofiles
@@ -61,22 +60,24 @@ buildPythonPackage rec {
       motor
       pymongo
     ];
-    redis = [ redis ];
-    proxy = [ aiohttp-socks ];
-    i18n = [ babel ];
+    redis = [redis];
+    proxy = [aiohttp-socks];
+    i18n = [babel];
   };
 
-  nativeCheckInputs = [
-    aresponses
-    pycryptodomex
-    pytest-aiohttp
-    pytest-asyncio
-    pytest-lazy-fixture
-    pytestCheckHook
-    pytz
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aresponses
+      pycryptodomex
+      pytest-aiohttp
+      pytest-asyncio
+      pytest-lazy-fixture
+      pytestCheckHook
+      pytz
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aiogram" ];
+  pythonImportsCheck = ["aiogram"];
 
   passthru.updateScript = gitUpdater {
     rev-prefix = "v";
@@ -90,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aiogram/aiogram";
     changelog = "https://github.com/aiogram/aiogram/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
   };
 }

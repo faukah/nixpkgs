@@ -22,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-Fv11Blx44vZZ8NuhQQIFpDr+dH2gDJtQP7b0kAk3U/s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ librouteros ];
+  dependencies = [librouteros];
 
   nativeCheckInputs = [
     napalm
@@ -36,7 +36,7 @@ buildPythonPackage rec {
     "test_method_signatures"
   ];
 
-  pythonImportsCheck = [ "napalm_ros" ];
+  pythonImportsCheck = ["napalm_ros"];
 
   meta = {
     description = "MikroTik RouterOS NAPALM driver";
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/napalm-automation-community/napalm-ros/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

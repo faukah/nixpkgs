@@ -11,9 +11,7 @@
   pydicom,
   pylibjpeg-data,
   pylibjpeg,
-}:
-
-let
+}: let
   self = buildPythonPackage {
     pname = "pylibjpeg-libjpeg";
     version = "2.3.0";
@@ -40,7 +38,7 @@ let
       setuptools
     ];
 
-    dependencies = [ numpy ];
+    dependencies = [numpy];
 
     nativeCheckInputs = [
       pydicom
@@ -55,15 +53,15 @@ let
       doCheck = true;
     });
 
-    pythonImportsCheck = [ "libjpeg" ];
+    pythonImportsCheck = ["libjpeg"];
 
     meta = {
       description = "JPEG, JPEG-LS and JPEG XT plugin for pylibjpeg";
       homepage = "https://github.com/pydicom/pylibjpeg-libjpeg";
       changelog = "https://github.com/pydicom/pylibjpeg-libjpeg/releases/tag/v${self.version}";
       license = lib.licenses.gpl3Only;
-      maintainers = with lib.maintainers; [ bcdarwin ];
+      maintainers = with lib.maintainers; [bcdarwin];
     };
   };
 in
-self
+  self

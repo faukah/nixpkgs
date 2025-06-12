@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mnamer";
   version = "2.5.5";
@@ -37,7 +36,7 @@ python3Packages.buildPythonApplication rec {
     ./cached_session_error.patch
   ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   # disable test that fail (networking, etc)
   disabledTests = [
@@ -51,6 +50,6 @@ python3Packages.buildPythonApplication rec {
     description = "Intelligent and highly configurable media organization utility";
     mainProgram = "mnamer";
     license = licenses.mit;
-    maintainers = with maintainers; [ urlordjames ];
+    maintainers = with maintainers; [urlordjames];
   };
 }

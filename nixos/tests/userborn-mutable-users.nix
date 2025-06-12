@@ -1,51 +1,44 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   normaloHashedPassword = "$y$j9T$IEWqhKtWg.r.8fVkSEF56.$iKNxdMC6hOAQRp6eBtYvBk4c7BGpONXeZMqc8I/LM46";
 
   common = {
     services.userborn.enable = true;
     users.mutableUsers = true;
   };
-in
-
-{
-
+in {
   name = "userborn-mutable-users";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
-  nodes.machine =
-    { config, ... }:
-    {
-      imports = [ common ];
+  nodes.machine = {config, ...}: {
+    imports = [common];
 
+    users = {
+      mutableUsers = true;
       users = {
-        mutableUsers = true;
-        users = {
-          normalo = {
-            isNormalUser = true;
-            hashedPassword = normaloHashedPassword;
-          };
+        normalo = {
+          isNormalUser = true;
+          hashedPassword = normaloHashedPassword;
         };
       };
+    };
 
-      specialisation.new-generation = {
-        inheritParentConfig = false;
-        configuration = {
-          nixpkgs = {
-            inherit (config.nixpkgs) hostPlatform;
-          };
-          imports = [ common ];
+    specialisation.new-generation = {
+      inheritParentConfig = false;
+      configuration = {
+        nixpkgs = {
+          inherit (config.nixpkgs) hostPlatform;
+        };
+        imports = [common];
 
-          users.users = {
-            new-normalo = {
-              isNormalUser = true;
-            };
+        users.users = {
+          new-normalo = {
+            isNormalUser = true;
           };
         };
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("userborn.service")

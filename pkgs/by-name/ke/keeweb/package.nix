@@ -26,8 +26,7 @@
   libXScrnSaver,
   libXtst,
   libxshmfence,
-}:
-let
+}: let
   pname = "keeweb";
   version = "1.18.7";
 
@@ -76,61 +75,62 @@ let
     mainProgram = "keeweb";
     homepage = "https://keeweb.info/";
     changelog = "https://github.com/keeweb/keeweb/blob/v${version}/release-notes.md";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = builtins.attrNames srcs;
   };
 in
-if stdenv.hostPlatform.isDarwin then
-  stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
+  if stdenv.hostPlatform.isDarwin
+  then
+    stdenv.mkDerivation {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
 
-    nativeBuildInputs = [ undmg ];
+      nativeBuildInputs = [undmg];
 
-    sourceRoot = ".";
+      sourceRoot = ".";
 
-    installPhase = ''
-      mkdir -p $out/Applications
-      cp -r *.app $out/Applications
-    '';
-  }
-else
-  stdenv.mkDerivation {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
+      installPhase = ''
+        mkdir -p $out/Applications
+        cp -r *.app $out/Applications
+      '';
+    }
+  else
+    stdenv.mkDerivation {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
 
-    nativeBuildInputs = [
-      autoPatchelfHook
-      wrapGAppsHook3
-      dpkg
-    ];
+      nativeBuildInputs = [
+        autoPatchelfHook
+        wrapGAppsHook3
+        dpkg
+      ];
 
-    buildInputs = libraries;
+      buildInputs = libraries;
 
-    installPhase = ''
-      runHook preInstall
+      installPhase = ''
+        runHook preInstall
 
-      mkdir -p $out/bin
-      cp -r usr/share $out/share
+        mkdir -p $out/bin
+        cp -r usr/share $out/share
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-    postFixup = ''
-      makeWrapper $out/share/keeweb-desktop/keeweb $out/bin/keeweb \
-        --argv0 "keeweb" \
-        --add-flags "$out/share/keeweb-desktop/resources/app.asar" \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
-        ''${gappsWrapperArgs[@]}
-    '';
-  }
+      postFixup = ''
+        makeWrapper $out/share/keeweb-desktop/keeweb $out/bin/keeweb \
+          --argv0 "keeweb" \
+          --add-flags "$out/share/keeweb-desktop/resources/app.asar" \
+          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath libraries}" \
+          ''${gappsWrapperArgs[@]}
+      '';
+    }

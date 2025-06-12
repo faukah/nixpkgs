@@ -1,5 +1,7 @@
-{ alephone, fetchurl }:
-
+{
+  alephone,
+  fetchurl,
+}:
 alephone.makeWrapper {
   pname = "pathways-into-darkness";
   desktopName = "Pathways-Into-Darkness";
@@ -14,5 +16,4 @@ alephone.makeWrapper {
     description = ''Port of the 1993 mac game "Pathways Into Darkness" by Bungie to the Aleph One engine'';
     homepage = "http://simplici7y.com/items/aleph-one-pathways-into-darkness";
   };
-
 }

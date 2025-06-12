@@ -11,7 +11,6 @@
   scdoc,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "drm_info";
   version = "2.7.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "drm_info";
     homepage = "https://gitlab.freedesktop.org/emersion/drm_info";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kiskae ];
+    maintainers = with lib.maintainers; [kiskae];
     platforms = platforms.linux;
   };
 })

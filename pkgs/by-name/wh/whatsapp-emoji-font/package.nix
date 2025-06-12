@@ -9,7 +9,6 @@
   which,
   zopfli,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "whatsapp-emoji-linux";
   version = "2.25.9.78-1";
@@ -35,13 +34,13 @@ stdenvNoCC.mkDerivation rec {
     zopfli
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "WhatsApp Emoji for GNU/Linux";
     homepage = "https://github.com/dmlls/whatsapp-emoji-linux";
-    maintainers = [ lib.maintainers.lucasew ];
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    maintainers = [lib.maintainers.lucasew];
+    sourceProvenance = [lib.sourceTypes.fromSource];
     license = lib.licenses.unfree;
   };
 }

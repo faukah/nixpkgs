@@ -11,7 +11,6 @@
   pkg-config,
   wget,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dillo-plus";
   version = "3.3.0-unstable-2025-01-18";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/crossbowerbt/dillo-plus";
     changelog = "https://github.com/crossbowerbt/dillo-plus/blob/main/ChangeLog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "dillo";
     platforms = lib.platforms.all;
   };

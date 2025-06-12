@@ -3,7 +3,6 @@
   gnu-efi,
   refind,
 }:
-
 gnu-efi.overrideAttrs (
   finalAttrs: prevAttrs: {
     version = "3.0.19";

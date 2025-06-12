@@ -8,7 +8,6 @@
   scikits-odes-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   inherit (scikits-odes-core) version src;
   pname = "scikits-odes-sundials";
@@ -23,19 +22,21 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ sundials ];
+  buildInputs = [sundials];
 
   dependencies = [
     numpy
     scikits-odes-core
   ];
 
-  pythonImportsCheck = [ "scikits_odes_sundials" ];
+  pythonImportsCheck = ["scikits_odes_sundials"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  meta = scikits-odes-core.meta // {
-    description = "Sundials wrapper module for scikits-odes";
-    homepage = "https://github.com/bmcage/odes/blob/master/packages/scikits-odes-sundials";
-  };
+  meta =
+    scikits-odes-core.meta
+    // {
+      description = "Sundials wrapper module for scikits-odes";
+      homepage = "https://github.com/bmcage/odes/blob/master/packages/scikits-odes-sundials";
+    };
 }

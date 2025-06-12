@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "consonance";
   version = "0.1.5";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dissononce
@@ -50,16 +49,16 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/test_handshakes_offline.py" ];
+  pytestFlagsArray = ["tests/test_handshakes_offline.py"];
 
-  pythonImportsCheck = [ "consonance" ];
+  pythonImportsCheck = ["consonance"];
 
   meta = {
     description = "WhatsApp's handshake implementation using Noise Protocol";
     homepage = "https://github.com/tgalal/consonance";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

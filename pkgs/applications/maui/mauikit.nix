@@ -11,7 +11,6 @@
   qtquickcontrols2,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "mauikit";
 
@@ -34,6 +33,6 @@ mkDerivation {
     homepage = "https://mauikit.org/";
     description = "Free and modular front-end framework for developing fast and compelling user experiences";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

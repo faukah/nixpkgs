@@ -4,7 +4,6 @@
   fetchurl,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "x2vnc";
   version = "1.7.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     libXrandr
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "http://fredrik.hubbe.net/x2vnc.html";

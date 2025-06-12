@@ -16,7 +16,6 @@
   pyfakefs,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "keyring";
   version = "25.6.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-qu9HAlZMLlIVs8c9ClzWUljezhrt88gu1kouklMNxMY=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeBuildInputs = [
     installShellFiles
@@ -47,7 +46,7 @@ buildPythonPackage rec {
       jeepney
       secretstorage
     ]
-    ++ lib.optionals (pythonOlder "3.12") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.12") [importlib-metadata];
 
   postInstall = ''
     installShellCompletion --cmd keyring \
@@ -66,7 +65,7 @@ buildPythonPackage rec {
   ];
 
   disabledTestPaths =
-    [ "tests/backends/test_macOS.py" ]
+    ["tests/backends/test_macOS.py"]
     # These tests fail when sandboxing is enabled because they are unable to get a password from keychain.
     ++ lib.optional stdenv.hostPlatform.isDarwin "tests/test_multiprocess.py";
 

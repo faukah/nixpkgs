@@ -3,18 +3,15 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   oldest-supported-numpy,
   setuptools,
-
   # nativeBuildInputs
   copyDesktopItems,
   cython,
   qt5,
   recommonmark,
   sphinx,
-
   # dependencies
   baycomp,
   bottleneck,
@@ -45,17 +42,13 @@
   xgboost,
   xlrd,
   xlsxwriter,
-
   makeDesktopItem,
-
   # passthru
   gitUpdater,
   python,
   pytest-qt,
   pytestCheckHook,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "orange3";
     version = "3.38.1";
@@ -91,7 +84,7 @@ let
 
     enableParallelBuilding = true;
 
-    pythonRelaxDeps = [ "scikit-learn" ];
+    pythonRelaxDeps = ["scikit-learn"];
 
     dependencies = [
       baycomp
@@ -145,7 +138,7 @@ let
         genericName = "Data Mining Suite";
         comment = "Explore, analyze, and visualize your data";
         icon = "orange-canvas";
-        mimeTypes = [ "application/x-extension-ows" ];
+        mimeTypes = ["application/x-extension-ows"];
         categories = [
           "Science"
           "Education"
@@ -171,7 +164,7 @@ let
     '';
 
     passthru = {
-      updateScript = gitUpdater { };
+      updateScript = gitUpdater {};
       tests.unittests = stdenv.mkDerivation {
         name = "${self.name}-tests";
         inherit (self) src;
@@ -213,7 +206,7 @@ let
         doBuild = false;
         doInstall = false;
 
-        buildInputs = [ self ];
+        buildInputs = [self];
       };
     };
 
@@ -221,10 +214,10 @@ let
       description = "Data mining and visualization toolbox for novice and expert alike";
       homepage = "https://orangedatamining.com/";
       changelog = "https://github.com/biolab/orange3/blob/${src.tag}/CHANGELOG.md";
-      license = [ lib.licenses.gpl3Plus ];
-      maintainers = [ lib.maintainers.lucasew ];
+      license = [lib.licenses.gpl3Plus];
+      maintainers = [lib.maintainers.lucasew];
       mainProgram = "orange-canvas";
     };
   };
 in
-self
+  self

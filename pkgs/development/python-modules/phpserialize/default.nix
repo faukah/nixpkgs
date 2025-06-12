@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "phpserialize";
   version = "1.3";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "Port of the serialize and unserialize functions of PHP to Python";
     homepage = "https://github.com/mitsuhiko/phpserialize";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "submitit";
   version = "1.5.2";
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Python 3.8+ toolbox for submitting jobs to Slurm";
     homepage = "https://github.com/facebookincubator/submitit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

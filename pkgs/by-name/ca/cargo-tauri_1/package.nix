@@ -10,7 +10,6 @@
   openssl,
   webkitgtk_4_0,
 }:
-
 cargo-tauri.overrideAttrs (
   newAttrs: oldAttrs: {
     version = "1.8.1";
@@ -27,7 +26,8 @@ cargo-tauri.overrideAttrs (
     sourceRoot = "${newAttrs.src.name}/tooling/cli";
 
     cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit (newAttrs)
+      inherit
+        (newAttrs)
         pname
         version
         src
@@ -37,7 +37,7 @@ cargo-tauri.overrideAttrs (
     };
 
     buildInputs =
-      [ openssl ]
+      [openssl]
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         gtk3
         libsoup_2_4
@@ -45,11 +45,12 @@ cargo-tauri.overrideAttrs (
       ];
 
     passthru = {
-      hook = cargo-tauri.hook.override { cargo-tauri = cargo-tauri_1; };
+      hook = cargo-tauri.hook.override {cargo-tauri = cargo-tauri_1;};
     };
 
     meta = {
-      inherit (oldAttrs.meta)
+      inherit
+        (oldAttrs.meta)
         description
         homepage
         changelog

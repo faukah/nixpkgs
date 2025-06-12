@@ -9,15 +9,12 @@
   static ? stdenv.hostPlatform.isStatic,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.3.14";
   pname = "graphite2";
 
   src = fetchurl {
-    url =
-      with finalAttrs;
-      "https://github.com/silnrsi/graphite/releases/download/${version}/${pname}-${version}.tgz";
+    url = with finalAttrs; "https://github.com/silnrsi/graphite/releases/download/${version}/${pname}-${version}.tgz";
     sha256 = "1790ajyhk0ax8xxamnrk176gc9gvhadzy78qia4rd8jzm89ir7gr";
   };
 
@@ -31,14 +28,14 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
   buildInputs =
-    [ freetype ]
+    [freetype]
     ++ lib.optional (stdenv.targetPlatform.useLLVM or false) (
       llvmPackages.compiler-rt.override {
         doFakeLibgcc = true;
       }
     );
 
-  patches = lib.optionals stdenv.hostPlatform.isDarwin [ ./macosx.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isDarwin [./macosx.patch];
   postPatch = ''
     # disable broken 'nametabletest' test, fails on gcc-13:
     #   https://github.com/silnrsi/graphite/pull/74
@@ -76,8 +73,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Advanced font engine";
     homepage = "https://graphite.sil.org/";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.raskin ];
-    pkgConfigModules = [ "graphite2" ];
+    maintainers = [maintainers.raskin];
+    pkgConfigModules = ["graphite2"];
     mainProgram = "gr2fonttest";
     platforms = platforms.unix ++ platforms.windows;
   };

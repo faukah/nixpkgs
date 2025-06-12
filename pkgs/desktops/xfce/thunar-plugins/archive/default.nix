@@ -12,7 +12,6 @@
   gettext,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "thunar-archive-plugin";
   version = "0.6.0";
@@ -41,13 +40,13 @@ stdenv.mkDerivation (finalAttrs: {
     libxfce4util
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "thunar-archive-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "thunar-archive-plugin-";};
 
   meta = {
     description = "Thunar plugin providing file context menus for archives";
     homepage = "https://gitlab.xfce.org/thunar-plugins/thunar-archive-plugin";
     license = lib.licenses.lgpl2Only;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

@@ -2,7 +2,6 @@
   unrar,
   fetchzip,
 }:
-
 unrar.overrideAttrs (
   finalAttrs: _: {
     version = "6.2.12";

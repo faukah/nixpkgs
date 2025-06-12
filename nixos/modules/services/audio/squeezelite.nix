@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -16,12 +15,12 @@ let
 
   dataDir = "/var/lib/squeezelite";
   cfg = config.services.squeezelite;
-  pkg = if cfg.pulseAudio then pkgs.squeezelite-pulse else pkgs.squeezelite;
+  pkg =
+    if cfg.pulseAudio
+    then pkgs.squeezelite-pulse
+    else pkgs.squeezelite;
   bin = "${pkg}/bin/${pkg.pname}";
-
-in
-{
-
+in {
   ###### interface
 
   options.services.squeezelite = {
@@ -42,7 +41,7 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.squeezelite = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "sound.target"

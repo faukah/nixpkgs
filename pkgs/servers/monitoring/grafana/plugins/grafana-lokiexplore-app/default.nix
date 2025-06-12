@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-lokiexplore-app";
   version = "1.0.13";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The Grafana Logs Drilldown app offers a queryless experience for browsing Loki logs without the need for writing complex queries.";
     license = licenses.agpl3Only;
-    teams = [ lib.teams.fslabs ];
+    teams = [lib.teams.fslabs];
     platforms = platforms.unix;
   };
 }

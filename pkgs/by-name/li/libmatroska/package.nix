@@ -10,7 +10,6 @@
   validatePkgConfig,
   libmatroska,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmatroska";
   version = "1.7.1";
@@ -33,12 +32,12 @@ stdenv.mkDerivation rec {
     validatePkgConfig
   ];
 
-  buildInputs = [ libebml ];
+  buildInputs = [libebml];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=YES" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=YES"];
 
   passthru = {
-    tests.pkg-config = testers.hasPkgConfigModules { package = libmatroska; };
+    tests.pkg-config = testers.hasPkgConfigModules {package = libmatroska;};
     updateScript = nix-update-script {
       extraArgs = [
         "--version-regex"
@@ -52,8 +51,8 @@ stdenv.mkDerivation rec {
     homepage = "https://matroska.org/";
     changelog = "https://github.com/Matroska-Org/libmatroska/blob/${src.rev}/NEWS.md";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     platforms = lib.platforms.unix;
-    pkgConfigModules = [ "libmatroska" ];
+    pkgConfigModules = ["libmatroska"];
   };
 }

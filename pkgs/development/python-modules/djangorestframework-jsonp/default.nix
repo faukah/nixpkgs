@@ -9,7 +9,6 @@
   djangorestframework,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "djangorestframework-jsonp";
   version = "1.0.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-4mIO69GhtvbQBtztHVQYIDDDSZpKg0g7BFNHEupiYTs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -45,12 +44,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "rest_framework_jsonp" ];
+  pythonImportsCheck = ["rest_framework_jsonp"];
 
   meta = {
     description = "JSONP support for Django REST Framework";
     homepage = "https://jpadilla.github.io/django-rest-framework-jsonp/";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

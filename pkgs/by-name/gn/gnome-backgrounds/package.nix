@@ -6,7 +6,6 @@
   ninja,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-backgrounds";
   version = "48.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-backgrounds"; };
+    updateScript = gnome.updateScript {packageName = "gnome-backgrounds";};
   };
 
   meta = {
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/GNOME/gnome-backgrounds/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.cc-by-sa-30;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
   };
 }

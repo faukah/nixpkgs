@@ -5,7 +5,6 @@
   wandb,
   wasabi,
 }:
-
 buildPythonPackage rec {
   pname = "spacy-loggers";
   version = "1.0.5";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     wasabi
   ];
 
-  pythonImportsCheck = [ "spacy_loggers" ];
+  pythonImportsCheck = ["spacy_loggers"];
 
   # skipping the checks, because it requires a cycle dependency to spacy as well.
   doCheck = false;
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Logging utilities for spaCy";
     homepage = "https://github.com/explosion/spacy-loggers";
     license = licenses.mit;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
   };
 }

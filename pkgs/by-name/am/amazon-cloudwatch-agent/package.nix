@@ -8,7 +8,6 @@
   stdenv,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "amazon-cloudwatch-agent";
   version = "1.300056.0";
@@ -41,7 +40,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgram = "${builtins.placeholder "out"}/bin/amazon-cloudwatch-agent";
 
@@ -52,7 +51,7 @@ buildGoModule rec {
       inherit (nixosTests) amazon-cloudwatch-agent;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -60,6 +59,6 @@ buildGoModule rec {
     homepage = "https://github.com/aws/amazon-cloudwatch-agent";
     license = lib.licenses.mit;
     mainProgram = "amazon-cloudwatch-agent";
-    maintainers = with lib.maintainers; [ pmw ];
+    maintainers = with lib.maintainers; [pmw];
   };
 }

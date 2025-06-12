@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "pycketcasts";
   version = "1.0.1";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pycketcasts" ];
+  pythonImportsCheck = ["pycketcasts"];
 
   meta = with lib; {
     description = "Module to interact with PocketCast's unofficial API";
     homepage = "https://github.com/nwithan8/pycketcasts";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

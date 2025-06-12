@@ -7,7 +7,6 @@
   pycryptodomex,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyzipper";
   version = "0.3.6";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pycryptodomex ];
+  propagatedBuildInputs = [pycryptodomex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyzipper" ];
+  pythonImportsCheck = ["pyzipper"];
 
   doCheck = pythonOlder "3.13"; # depends on removed nntplib battery
 
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/danifus/pyzipper";
     changelog = "https://github.com/danifus/pyzipper/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

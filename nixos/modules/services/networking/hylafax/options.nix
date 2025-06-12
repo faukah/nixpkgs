@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe'
     literalExpression
     mkDefault
@@ -17,7 +15,8 @@ let
     mkOption
     mkPackageOption
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     attrsOf
     bool
     enum
@@ -48,103 +47,101 @@ let
     # This type definition resolves all
     # those types into a list of strings.
     let
-      inherit (lib.types)
+      inherit
+        (lib.types)
         attrsOf
         coercedTo
         int
         listOf
         ;
-      innerType = coercedTo bool (x: if x then "Yes" else "No") (coercedTo int (toString) str);
+      innerType = coercedTo bool (x:
+        if x
+        then "Yes"
+        else "No") (coercedTo int toString str);
     in
-    attrsOf (coercedTo innerType lib.singleton (listOf innerType));
+      attrsOf (coercedTo innerType lib.singleton (listOf innerType));
 
   cfg = config.services.hylafax;
 
-  modemConfigOptions =
-    { name, config, ... }:
-    {
-      options = {
-        name = mkOption {
-          type = nonEmptyStr;
-          example = "ttyS1";
-          description = ''
-            Name of modem device,
-            will be searched for in {file}`/dev`.
-          '';
-        };
-        type = mkOption {
-          type = nonEmptyStr;
-          example = "cirrus";
-          description = ''
-            Name of modem configuration file,
-            will be searched for in {file}`config`
-            in the spooling area directory.
-          '';
-        };
-        config = mkOption {
-          type = configAttrType;
-          example = {
-            AreaCode = "49";
-            LocalCode = "30";
-            FAXNumber = "123456";
-            LocalIdentifier = "LostInBerlin";
-          };
-          description = ''
-            Attribute set of values for the given modem.
-            ${commonDescr}
-            Options defined here override options in
-            {option}`commonModemConfig` for this modem.
-          '';
-        };
+  modemConfigOptions = {
+    name,
+    config,
+    ...
+  }: {
+    options = {
+      name = mkOption {
+        type = nonEmptyStr;
+        example = "ttyS1";
+        description = ''
+          Name of modem device,
+          will be searched for in {file}`/dev`.
+        '';
       };
-      config.name = mkDefault name;
-      config.config.Include = [ "config/${config.type}" ];
+      type = mkOption {
+        type = nonEmptyStr;
+        example = "cirrus";
+        description = ''
+          Name of modem configuration file,
+          will be searched for in {file}`config`
+          in the spooling area directory.
+        '';
+      };
+      config = mkOption {
+        type = configAttrType;
+        example = {
+          AreaCode = "49";
+          LocalCode = "30";
+          FAXNumber = "123456";
+          LocalIdentifier = "LostInBerlin";
+        };
+        description = ''
+          Attribute set of values for the given modem.
+          ${commonDescr}
+          Options defined here override options in
+          {option}`commonModemConfig` for this modem.
+        '';
+      };
     };
+    config.name = mkDefault name;
+    config.config.Include = ["config/${config.type}"];
+  };
 
-  defaultConfig =
-    let
-      inherit (config.security) wrapperDir;
-      inherit (config.services.mail.sendmailSetuidWrapper) program;
-      mkIfDefault = cond: value: mkIf cond (mkDefault value);
-      noWrapper = config.services.mail.sendmailSetuidWrapper == null;
-      # If a sendmail setuid wrapper exists,
-      # we add the path to the default configuration file.
-      # Otherwise, we use `false` to provoke
-      # an error if hylafax tries to use it.
-      c.sendmailPath = mkMerge [
-        (mkIfDefault noWrapper (getExe' pkgs.coreutils "false"))
-        (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
-      ];
-      importDefaultConfig =
-        file: lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file { inherit lib pkgs; });
-      c.commonModemConfig = importDefaultConfig ./modem-default.nix;
-      c.faxqConfig = importDefaultConfig ./faxq-default.nix;
-      c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
-    in
+  defaultConfig = let
+    inherit (config.security) wrapperDir;
+    inherit (config.services.mail.sendmailSetuidWrapper) program;
+    mkIfDefault = cond: value: mkIf cond (mkDefault value);
+    noWrapper = config.services.mail.sendmailSetuidWrapper == null;
+    # If a sendmail setuid wrapper exists,
+    # we add the path to the default configuration file.
+    # Otherwise, we use `false` to provoke
+    # an error if hylafax tries to use it.
+    c.sendmailPath = mkMerge [
+      (mkIfDefault noWrapper (getExe' pkgs.coreutils "false"))
+      (mkIfDefault (!noWrapper) "${wrapperDir}/${program}")
+    ];
+    importDefaultConfig = file: lib.attrsets.mapAttrs (lib.trivial.const mkDefault) (import file {inherit lib pkgs;});
+    c.commonModemConfig = importDefaultConfig ./modem-default.nix;
+    c.faxqConfig = importDefaultConfig ./faxq-default.nix;
+    c.hfaxdConfig = importDefaultConfig ./hfaxd-default.nix;
+  in
     c;
 
-  localConfig =
-    let
-      c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
-      c.faxqConfig = lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v)) {
-        AreaCode = cfg.areaCode;
-        CountryCode = cfg.countryCode;
-        LongDistancePrefix = cfg.longDistancePrefix;
-        InternationalPrefix = cfg.internationalPrefix;
-      };
-      c.commonModemConfig = c.faxqConfig;
-    in
+  localConfig = let
+    c.hfaxdConfig.UserAccessFile = cfg.userAccessFile;
+    c.faxqConfig = lib.attrsets.mapAttrs (lib.trivial.const (v: mkIf (v != null) v)) {
+      AreaCode = cfg.areaCode;
+      CountryCode = cfg.countryCode;
+      LongDistancePrefix = cfg.longDistancePrefix;
+      InternationalPrefix = cfg.internationalPrefix;
+    };
+    c.commonModemConfig = c.faxqConfig;
+  in
     c;
-
-in
-
-{
-
+in {
   options.services.hylafax = {
-
     enable = mkEnableOption "HylaFAX server";
 
-    package = mkPackageOption pkgs "HylaFAX" { default = "hylafaxplus"; };
+    package = mkPackageOption pkgs "HylaFAX" {default = "hylafaxplus";};
 
     autostart = mkOption {
       type = bool;
@@ -271,8 +268,8 @@ in
     };
 
     modems = mkOption {
-      type = attrsOf (submodule [ modemConfigOptions ]);
-      default = { };
+      type = attrsOf (submodule [modemConfigOptions]);
+      default = {};
       example.ttyS1 = {
         type = "cirrus";
         config = {
@@ -389,12 +386,10 @@ in
         unreferenced files may reside in the docq directory.
       '';
     };
-
   };
 
   config.services.hylafax = mkIf (config.services.hylafax.enable) (mkMerge [
     defaultConfig
     localConfig
   ]);
-
 }

@@ -1,9 +1,7 @@
 {
   json-schema-catalog-rs,
   runCommand,
-}:
-let
-
+}: let
   sample = builtins.toFile "example-schema.json" (
     builtins.toJSON {
       "$schema" = "http://json-schema.org/draft-07/schema#";
@@ -11,9 +9,8 @@ let
       "title" = "Example Schema";
     }
   );
-
 in
-runCommand "json-schema-catalog-rs-test-run"
+  runCommand "json-schema-catalog-rs-test-run"
   {
     nativeBuildInputs = [
       json-schema-catalog-rs

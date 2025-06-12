@@ -4,7 +4,6 @@
   fetchFromGitHub,
   docker,
 }:
-
 buildGoModule rec {
   pname = "fn";
   version = "0.6.42";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   buildInputs = [
     docker
@@ -37,6 +36,6 @@ buildGoModule rec {
     mainProgram = "fn";
     homepage = "https://fnproject.io";
     license = licenses.asl20;
-    maintainers = [ maintainers.c4605 ];
+    maintainers = [maintainers.c4605];
   };
 }

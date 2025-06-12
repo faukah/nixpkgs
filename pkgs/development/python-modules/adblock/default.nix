@@ -13,7 +13,6 @@
   pytestCheckHook,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "adblock";
   version = "0.6.0";
@@ -49,14 +48,14 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ]);
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -87,7 +86,7 @@ buildPythonPackage rec {
     description = "Python wrapper for Brave's adblocking library";
     homepage = "https://github.com/ArniDagur/python-adblock/";
     changelog = "https://github.com/ArniDagur/python-adblock/blob/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     license = with licenses; [
       asl20 # or
       mit

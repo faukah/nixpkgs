@@ -20,7 +20,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "asdf";
   version = "4.1.0";
@@ -65,12 +64,12 @@ buildPythonPackage rec {
     "test_update_add_array_at_end"
   ];
 
-  pythonImportsCheck = [ "asdf" ];
+  pythonImportsCheck = ["asdf"];
 
   meta = with lib; {
     description = "Python tools to handle ASDF files";
     homepage = "https://github.com/asdf-format/asdf";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

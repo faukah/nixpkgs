@@ -3,14 +3,12 @@
   stdenv,
   fetchFromGitHub,
   nix-update-script,
-
   cmake,
   mimalloc,
   ninja,
   tbb_2022_0,
   zlib,
   zstd,
-
   buildPackages,
   clangStdenv,
   gccStdenv,
@@ -20,10 +18,8 @@
   runCommandCC,
   testers,
   useMoldLinker,
-
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mold";
   version = "2.40.0";
@@ -56,45 +52,42 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests =
-      let
-        helloTest =
-          name: helloMold:
-          let
-            command = "$READELF -p .comment ${lib.getExe helloMold}";
-            emulator = stdenv.hostPlatform.emulator buildPackages;
-          in
-          runCommandCC "mold-${name}-test" { passthru = { inherit helloMold; }; } ''
-            echo "Testing running the 'hello' binary which should be linked with 'mold'" >&2
-            ${emulator} ${lib.getExe helloMold}
+    updateScript = nix-update-script {};
+    tests = let
+      helloTest = name: helloMold: let
+        command = "$READELF -p .comment ${lib.getExe helloMold}";
+        emulator = stdenv.hostPlatform.emulator buildPackages;
+      in
+        runCommandCC "mold-${name}-test" {passthru = {inherit helloMold;};} ''
+          echo "Testing running the 'hello' binary which should be linked with 'mold'" >&2
+          ${emulator} ${lib.getExe helloMold}
 
-            echo "Checking for mold in the '.comment' section" >&2
-            if output=$(${command} 2>&1); then
-              if grep -Fw -- "mold" - <<< "$output"; then
-                touch $out
-              else
-                echo "No mention of 'mold' detected in the '.comment' section" >&2
-                echo "The command was:" >&2
-                echo "${command}" >&2
-                echo "The output was:" >&2
-                echo "$output" >&2
-                exit 1
-              fi
+          echo "Checking for mold in the '.comment' section" >&2
+          if output=$(${command} 2>&1); then
+            if grep -Fw -- "mold" - <<< "$output"; then
+              touch $out
             else
-              echo -n "${command}" >&2
-              echo " returned a non-zero exit code." >&2
+              echo "No mention of 'mold' detected in the '.comment' section" >&2
+              echo "The command was:" >&2
+              echo "${command}" >&2
+              echo "The output was:" >&2
               echo "$output" >&2
               exit 1
             fi
-          '';
-      in
+          else
+            echo -n "${command}" >&2
+            echo " returned a non-zero exit code." >&2
+            echo "$output" >&2
+            exit 1
+          fi
+        '';
+    in
       {
-        version = testers.testVersion { package = mold; };
+        version = testers.testVersion {package = mold;};
       }
       // lib.optionalAttrs stdenv.hostPlatform.isLinux {
         adapter-gcc = helloTest "adapter-gcc" (
@@ -109,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
         );
         wrapped = helloTest "wrapped" (
           hello.overrideAttrs (previousAttrs: {
-            nativeBuildInputs = (previousAttrs.nativeBuildInputs or [ ]) ++ [ mold-wrapped ];
+            nativeBuildInputs = (previousAttrs.nativeBuildInputs or []) ++ [mold-wrapped];
             NIX_CFLAGS_LINK = toString (previousAttrs.NIX_CFLAGS_LINK or "") + " -fuse-ld=mold";
           })
         );

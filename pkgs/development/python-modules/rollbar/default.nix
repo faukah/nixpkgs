@@ -13,7 +13,6 @@
   pythonOlder,
   webob,
 }:
-
 buildPythonPackage rec {
   pname = "rollbar";
   version = "1.3.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-UZQC6sObzE+khIIYcva7GEl/t7bIEWcEeGfRdxTTs3k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -47,13 +46,13 @@ buildPythonPackage rec {
   # https://github.com/rollbar/pyrollbar/pull/340
   doCheck = false;
 
-  pythonImportsCheck = [ "rollbar" ];
+  pythonImportsCheck = ["rollbar"];
 
   meta = with lib; {
     description = "Error tracking and logging from Python to Rollbar";
     mainProgram = "rollbar";
     homepage = "https://github.com/rollbar/pyrollbar";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

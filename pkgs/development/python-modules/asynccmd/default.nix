@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asynccmd";
   version = "0.2.4";
@@ -30,18 +29,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Tests are outdated
   doCheck = false;
 
-  pythonImportsCheck = [ "asynccmd" ];
+  pythonImportsCheck = ["asynccmd"];
 
   meta = with lib; {
     description = "Asyncio implementation of Cmd Python library";
     homepage = "https://github.com/valentinmk/asynccmd";
     changelog = "https://github.com/valentinmk/asynccmd/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

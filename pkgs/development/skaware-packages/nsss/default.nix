@@ -1,5 +1,7 @@
-{ skawarePackages, skalibs }:
-
+{
+  skawarePackages,
+  skalibs,
+}:
 skawarePackages.buildPackage {
   pname = "nsss";
   version = "0.2.1.0";
@@ -27,5 +29,4 @@ skawarePackages.buildPackage {
     mv doc $doc/share/doc/nsss/html
     mv examples $doc/share/doc/nsss/examples
   '';
-
 }

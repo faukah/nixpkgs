@@ -31,7 +31,7 @@ buildDotnetModule rec {
   nugetDeps = ./deps.json;
 
   projectFile = "src/OpenTracker/OpenTracker.csproj";
-  executables = [ "OpenTracker" ];
+  executables = ["OpenTracker"];
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -76,8 +76,8 @@ buildDotnetModule rec {
       binaryNativeCode
     ];
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "OpenTracker";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

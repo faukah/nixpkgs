@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   google-api-core,
   google-cloud-bigquery-storage,
@@ -16,14 +14,12 @@
   protobuf,
   python-dateutil,
   requests,
-
   # optional-dependencies
   pyarrow,
   db-dtypes,
   pandas,
   tqdm,
   ipython,
-
   #  tests
   freezegun,
   google-cloud-datacatalog,
@@ -34,7 +30,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-bigquery";
   version = "3.31.0";
@@ -46,19 +41,21 @@ buildPythonPackage rec {
     hash = "sha256-uJ3HFtvkq9t6T4c/cFAQAoe8mFFOBhTF1UzWqOn7CZE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-cloud-bigquery-storage
-    google-cloud-core
-    google-resumable-media
-    grpcio
-    proto-plus
-    protobuf
-    python-dateutil
-    requests
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-cloud-bigquery-storage
+      google-cloud-core
+      google-resumable-media
+      grpcio
+      proto-plus
+      protobuf
+      python-dateutil
+      requests
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   optional-dependencies = {
     bqstorage = [
@@ -71,8 +68,8 @@ buildPythonPackage rec {
       pandas
       pyarrow
     ];
-    tqdm = [ tqdm ];
-    ipython = [ ipython ];
+    tqdm = [tqdm];
+    ipython = [ipython];
   };
 
   nativeCheckInputs =
@@ -147,6 +144,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-bigquery";
     changelog = "https://github.com/googleapis/python-bigquery/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

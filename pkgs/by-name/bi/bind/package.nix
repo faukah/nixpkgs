@@ -24,7 +24,6 @@
   tzdata,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bind";
   version = "9.20.9";
@@ -65,9 +64,9 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optional stdenv.hostPlatform.isLinux libcap
     ++ lib.optional enableGSSAPI libkrb5
-    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ ply ]));
+    ++ lib.optional enablePython (python3.withPackages (ps: with ps; [ply]));
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   configureFlags =
     [
@@ -109,9 +108,9 @@ stdenv.mkDerivation (finalAttrs: {
   # TODO: investigate failures; see this and linked discussions:
   # https://github.com/NixOS/nixpkgs/pull/192962
   /*
-    doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux)
-      # https://gitlab.isc.org/isc-projects/bind9/-/issues/4269
-      && !is32bit;
+  doCheck = with stdenv.hostPlatform; !isStatic && !(isAarch64 && isLinux)
+    # https://gitlab.isc.org/isc-projects/bind9/-/issues/4269
+    && !is32bit;
   */
   checkTarget = "unit";
   checkInputs =
@@ -138,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests =
       {
-        withCheck = finalAttrs.finalPackage.overrideAttrs { doCheck = true; };
+        withCheck = finalAttrs.finalPackage.overrideAttrs {doCheck = true;};
         inherit (nixosTests) bind;
         prometheus-exporter = nixosTests.prometheus-exporters.bind;
       }
@@ -161,9 +160,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Domain name server";
     license = licenses.mpl20;
     changelog = "https://downloads.isc.org/isc/bind9/cur/${lib.versions.majorMinor finalAttrs.version}/doc/arm/html/notes.html#notes-for-bind-${
-      lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      lib.replaceStrings ["."] ["-"] finalAttrs.version
     }";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
 
     outputsToInstall = [

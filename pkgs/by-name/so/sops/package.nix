@@ -9,7 +9,6 @@
   runCommand,
   age,
 }:
-
 buildGoModule (final: {
   pname = "sops";
   version = "3.10.2";
@@ -23,7 +22,7 @@ buildGoModule (final: {
 
   vendorHash = "sha256-7aHUIERVSxv3YGAMteGbqkAZQXXDVziV0rhUhjwch3U=";
 
-  subPackages = [ "cmd/sops" ];
+  subPackages = ["cmd/sops"];
 
   ldflags = [
     "-s"
@@ -41,23 +40,22 @@ buildGoModule (final: {
     installShellCompletion --cmd sops --zsh ${./zsh_autocomplete}
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   # wrap sops with age plugins
-  passthru.withAgePlugins =
-    filter:
+  passthru.withAgePlugins = filter:
     runCommand "sops-${final.version}-with-age-plugins"
-      {
-        nativeBuildInputs = [ makeWrapper ];
-      }
-      ''
-        makeWrapper ${lib.getBin final.finalPackage}/bin/sops $out/bin/sops \
-          --prefix PATH : "${lib.makeBinPath (filter age.passthru.plugins)}"
-      '';
+    {
+      nativeBuildInputs = [makeWrapper];
+    }
+    ''
+      makeWrapper ${lib.getBin final.finalPackage}/bin/sops $out/bin/sops \
+        --prefix PATH : "${lib.makeBinPath (filter age.passthru.plugins)}"
+    '';
 
   meta = {
     homepage = "https://getsops.io/";

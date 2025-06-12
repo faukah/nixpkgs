@@ -10,7 +10,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-gitlab";
   version = "5.6.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-vFMei6PlZBtgQJRF1JGazmiiwYyw7G1I+87WYWuVQWY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -32,22 +31,22 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    autocompletion = [ argcomplete ];
-    graphql = [ gql ] ++ gql.optional-dependencies.httpx;
-    yaml = [ pyyaml ];
+    autocompletion = [argcomplete];
+    graphql = [gql] ++ gql.optional-dependencies.httpx;
+    yaml = [pyyaml];
   };
 
   # Tests rely on a gitlab instance on a local docker setup
   doCheck = false;
 
-  pythonImportsCheck = [ "gitlab" ];
+  pythonImportsCheck = ["gitlab"];
 
   meta = with lib; {
     description = "Interact with GitLab API";
     homepage = "https://github.com/python-gitlab/python-gitlab";
     changelog = "https://github.com/python-gitlab/python-gitlab/blob/v${version}/CHANGELOG.md";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
     mainProgram = "gitlab";
   };
 }

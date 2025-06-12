@@ -4,7 +4,6 @@
   fetchurl,
   weechat,
 }:
-
 stdenv.mkDerivation {
   pname = "weechat-autosort";
   version = "3.10";
@@ -22,13 +21,13 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    scripts = [ "autosort.py" ];
+    scripts = ["autosort.py"];
   };
 
   meta = with lib; {
     inherit (weechat.meta) platforms;
     description = "autosort automatically keeps your buffers sorted and grouped by server";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

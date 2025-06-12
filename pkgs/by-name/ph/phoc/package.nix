@@ -26,7 +26,6 @@
   testers,
   gmobile,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "phoc";
   version = "0.44.1";
@@ -66,20 +65,22 @@ stdenv.mkDerivation (finalAttrs: {
     gmobile
   ];
 
-  mesonFlags = [ "-Dembed-wlroots=disabled" ];
+  mesonFlags = ["-Dembed-wlroots=disabled"];
 
   # Patch wlroots to remove a check which crashes Phosh.
   # This patch can be found within the phoc source tree.
   wlroots = wlroots_0_17.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (stdenvNoCC.mkDerivation {
-        name = "0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch";
-        inherit (finalAttrs) src;
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        installPhase = "cp subprojects/packagefiles/wlroots/$name $out";
-      })
-    ];
+    patches =
+      (old.patches or [])
+      ++ [
+        (stdenvNoCC.mkDerivation {
+          name = "0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch";
+          inherit (finalAttrs) src;
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+          installPhase = "cp subprojects/packagefiles/wlroots/$name $out";
+        })
+      ];
   });
 
   passthru = {
@@ -87,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;
     };
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {

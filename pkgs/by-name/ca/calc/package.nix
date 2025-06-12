@@ -8,7 +8,6 @@
   unixtools,
   enableReadline ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calc";
   version = "2.15.0.2";
@@ -62,8 +61,11 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/lcn2/calc/blob/v${finalAttrs.version}/CHANGES";
     # The licensing situation depends on readline (see section 3 of the LGPL)
     # If linked against readline then GPLv2 otherwise LGPLv2.1
-    license = if enableReadline then lib.licenses.gpl2Only else lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    license =
+      if enableReadline
+      then lib.licenses.gpl2Only
+      else lib.licenses.lgpl21Only;
+    maintainers = with lib.maintainers; [matthewbauer];
     platforms = lib.platforms.all;
   };
 })

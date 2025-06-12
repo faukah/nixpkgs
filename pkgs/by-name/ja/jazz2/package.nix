@@ -14,7 +14,6 @@
   versionCheckHook,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jazz2";
   version = "3.3.0";
@@ -26,10 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dj+BEAx626vSPy26+Ip3uaj3SBE1SWkfbh5P8U0iXsg=";
   };
 
-  patches = [ ./nocontent.patch ];
+  patches = [./nocontent.patch];
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     curl
     libGL
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/deathkiller/jazz2-native";
     license = lib.licenses.gpl3Only;
     mainProgram = "jazz2";
-    maintainers = with lib.maintainers; [ surfaceflinger ];
+    maintainers = with lib.maintainers; [surfaceflinger];
     platforms = lib.platforms.linux;
   };
 })

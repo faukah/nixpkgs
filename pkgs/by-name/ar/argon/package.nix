@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-j9aSnyc65CeBdgoFevdn1xpJHs4xWMhFDoRiPizceTI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/argon-rbx/argon";
     changelog = "https://github.com/argon-rbx/argon/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ StayBlue ];
+    maintainers = with lib.maintainers; [StayBlue];
     mainProgram = "argon";
   };
 }

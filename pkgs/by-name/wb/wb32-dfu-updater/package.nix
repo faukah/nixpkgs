@@ -5,7 +5,6 @@
   cmake,
   libusb1,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wb32-dfu-updater";
   version = "1.0.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-DKsDVO00JFhR9hIZksFVJLRwC6PF9LCRpf++QywFO2w=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libusb1];
 
   meta = with lib; {
     description = "USB programmer for downloading and uploading firmware to/from USB devices";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/WestberryTech/wb32-dfu-updater";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "wb32-dfu-updater_cli";
     platforms = platforms.all;
   };

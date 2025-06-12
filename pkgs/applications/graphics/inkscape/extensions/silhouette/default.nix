@@ -6,9 +6,7 @@
   python3,
   umockdev,
   writeScript,
-}:
-
-let
+}: let
   # We need these simple wrapper shell scripts because Inkscape extensions with
   # interpreter="shell" always get invoked with the `sh` command [0], regardless of
   # the shebang at the top of the script.
@@ -22,71 +20,71 @@ let
     ./silhouette_multi.py "$@"
   '';
 in
-python3.pkgs.buildPythonApplication rec {
-  pname = "inkscape-silhouette";
-  version = "1.29";
-  format = "setuptools";
+  python3.pkgs.buildPythonApplication rec {
+    pname = "inkscape-silhouette";
+    version = "1.29";
+    format = "setuptools";
 
-  src = fetchFromGitHub {
-    owner = "fablabnbg";
-    repo = pname;
-    tag = "v${version}";
-    sha256 = "sha256-MfR88BuaAx6n5XRIjslpIk4PnDf6TLU9AsmHxKkcFS0=";
-  };
+    src = fetchFromGitHub {
+      owner = "fablabnbg";
+      repo = pname;
+      tag = "v${version}";
+      sha256 = "sha256-MfR88BuaAx6n5XRIjslpIk4PnDf6TLU9AsmHxKkcFS0=";
+    };
 
-  patches = [
-    ./interpreter.patch
-    ./use-prefix-for-udev.patch
-  ];
+    patches = [
+      ./interpreter.patch
+      ./use-prefix-for-udev.patch
+    ];
 
-  propagatedBuildInputs = [
-    python3.pkgs.pyusb
-    python3.pkgs.lxml
-    python3.pkgs.inkex
-    python3.pkgs.matplotlib
-    python3.pkgs.wxpython
-    python3.pkgs.xmltodict
-  ];
+    propagatedBuildInputs = [
+      python3.pkgs.pyusb
+      python3.pkgs.lxml
+      python3.pkgs.inkex
+      python3.pkgs.matplotlib
+      python3.pkgs.wxpython
+      python3.pkgs.xmltodict
+    ];
 
-  nativeBuildInputs = [
-    gettext # msgfmt
-  ];
+    nativeBuildInputs = [
+      gettext # msgfmt
+    ];
 
-  nativeCheckInputs = [
-    python3.pkgs.pytestCheckHook
-    umockdev
-  ];
+    nativeCheckInputs = [
+      python3.pkgs.pytestCheckHook
+      umockdev
+    ];
 
-  pytestFlagsArray = [
-    "test"
-  ];
+    pytestFlagsArray = [
+      "test"
+    ];
 
-  doCheck = true;
+    doCheck = true;
 
-  installPhase = ''
-    runHook preInstall
-    make install PREFIX=$out
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      make install PREFIX=$out
+      runHook postInstall
+    '';
 
-  postInstall = ''
-    # Unmark read_dump.py as executable so wrapPythonProgramsIn won't turn it
-    # into a shell script (thereby making it impossible to import as a Python
-    # module).
-    chmod -x $out/share/inkscape/extensions/silhouette/read_dump.py
-    cp ${launch-sendto_silhouette} $out/share/inkscape/extensions/sendto_silhouette.sh
-    cp ${launch-silhouette_multi} $out/share/inkscape/extensions/silhouette_multi.sh
-  '';
+    postInstall = ''
+      # Unmark read_dump.py as executable so wrapPythonProgramsIn won't turn it
+      # into a shell script (thereby making it impossible to import as a Python
+      # module).
+      chmod -x $out/share/inkscape/extensions/silhouette/read_dump.py
+      cp ${launch-sendto_silhouette} $out/share/inkscape/extensions/sendto_silhouette.sh
+      cp ${launch-silhouette_multi} $out/share/inkscape/extensions/silhouette_multi.sh
+    '';
 
-  postFixup = ''
-    wrapPythonProgramsIn "$out/share/inkscape/extensions/" "$out $pythonPath"
-  '';
+    postFixup = ''
+      wrapPythonProgramsIn "$out/share/inkscape/extensions/" "$out $pythonPath"
+    '';
 
-  meta = with lib; {
-    description = "Extension to drive Silhouette vinyl cutters (e.g. Cameo, Portrait, Curio series) from within Inkscape";
-    homepage = "https://github.com/fablabnbg/inkscape-silhouette";
-    license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jfly ];
-    platforms = platforms.all;
-  };
-}
+    meta = with lib; {
+      description = "Extension to drive Silhouette vinyl cutters (e.g. Cameo, Portrait, Curio series) from within Inkscape";
+      homepage = "https://github.com/fablabnbg/inkscape-silhouette";
+      license = licenses.gpl2Only;
+      maintainers = with maintainers; [jfly];
+      platforms = platforms.all;
+    };
+  }

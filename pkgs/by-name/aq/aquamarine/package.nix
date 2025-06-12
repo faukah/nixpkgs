@@ -64,14 +64,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeBuildType = "RelWithDebInfo";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/hyprwm/aquamarine/releases/tag/v${finalAttrs.version}";
     description = "Very light linux rendering backend library";
     homepage = "https://github.com/hyprwm/aquamarine";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     platforms = lib.platforms.linux ++ lib.platforms.freebsd;
   };
 })

@@ -4,24 +4,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # dependencies
   packaging,
   requests,
   urllib3,
-
   # optional-dependencies
   paramiko,
   websocket-client,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "docker";
   version = "7.1.0";
@@ -48,18 +43,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ssh = [ paramiko ];
-    tls = [ ];
-    websockets = [ websocket-client ];
+    ssh = [paramiko];
+    tls = [];
+    websockets = [websocket-client];
   };
 
-  pythonImportsCheck = [ "docker" ];
+  pythonImportsCheck = ["docker"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   # Deselect socket tests on Darwin because it hits the path length limit for a Unix domain socket
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
@@ -73,6 +70,6 @@ buildPythonPackage rec {
     description = "API client for docker written in Python";
     homepage = "https://github.com/docker/docker-py";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

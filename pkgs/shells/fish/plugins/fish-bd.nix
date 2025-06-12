@@ -15,12 +15,12 @@ buildFishPlugin rec {
     hash = "sha256-GeWjoakXa0t2TsMC/wpLEmsSVGhHFhBVK3v9eyQdzv0=";
   };
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Fish plugin to quickly go back to a parent directory up in your current working directory tree";
     homepage = "https://github.com/0rax/fish-bd";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ anomalocaris ];
+    maintainers = with lib.maintainers; [anomalocaris];
   };
 }

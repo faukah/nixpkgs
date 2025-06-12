@@ -17,9 +17,7 @@
   stdenv,
   fetchpatch,
   versionCheckHook,
-}:
-
-let
+}: let
   pname = "proxmox-backup-client";
   version = "3.4.2";
 
@@ -67,119 +65,118 @@ let
     hash = "sha256-PasHCbU466ByHIbDQpMMgzjg2dMRveOButHeVSknSEQ=";
   };
 in
+  rustPlatform.buildRustPackage {
+    inherit pname version;
 
-rustPlatform.buildRustPackage {
-  inherit pname version;
-
-  srcs = [
-    proxmox-backup_src
-    proxmox_src
-    proxmox-fuse_src
-    proxmox-pxar_src
-    proxmox-pathpatterns_src
-    h2_src
-  ];
-
-  sourceRoot = proxmox-backup_src.name;
-
-  # These patches are essentially un-upstreamable, due to being "workarounds" related to the
-  # project structure and upstream/Debian-specific packaging.
-  cargoPatches = [
-    # A lot of Rust crates `proxmox-backup-client` depends on are only available through git (or
-    # Debian packages). This patch redirects all these dependencies to a local, relative path, which
-    # works in combination with the other three repos being checked out.
-    ./0001-cargo-re-route-dependencies-not-available-on-crates..patch
-    # `make docs` assumes that the binaries are located under `target/{debug,release}`, but due
-    # to how `buildRustPackage` works, they get put under `target/$RUSTC_TARGET/{debug,release}`.
-    # This patch simply fixes that up.
-    ./0002-docs-add-target-path-fixup-variable.patch
-    # Need to use a patched version of the `h2` crate (with a downgraded dependency, see also postPatch).
-    # This overrides it in the Cargo.toml as needed.
-    ./0003-cargo-use-local-patched-h2-dependency.patch
-    # This patch prevents the generation of the man-pages for other components inside the repo,
-    # which would require them too be built too. Thus avoid wasting resources and just skip them.
-    ./0004-docs-drop-all-but-client-man-pages.patch
-    # Upstream uses a patched version of the h2 crate (see [0]), which does not apply here.
-    # [0] https://git.proxmox.com/?p=debcargo-conf.git;a=blob;f=src/h2/debian/patches/add-legacy.patch;h=0913da317
-    ./0005-Revert-h2-switch-to-legacy-feature.patch
-  ];
-
-  postPatch = ''
-    # need to downgrade the `http` crate for `h2`
-    # see https://aur.archlinux.org/cgit/aur.git/tree/0003-cargo-downgrade-http-to-0.2.12.patch?h=proxmox-backup-client
-    cp -r ../h2 .
-    chmod u+w ./h2
-    (cd h2 && sed -i 's/^http = "1"$/http = "0.2.12"/' Cargo.toml)
-
-    cp ${./Cargo.lock} Cargo.lock
-    rm .cargo/config.toml
-  '';
-
-  postBuild = ''
-    make -C docs \
-      DEB_VERSION=${version} DEB_VERSION_UPSTREAM=${version} \
-      RUSTC_TARGET=${stdenv.hostPlatform.config} \
-      BUILD_MODE=release \
-      proxmox-backup-client.1 pxar.1
-  '';
-
-  postInstall = ''
-    installManPage docs/output/man/proxmox-backup-client.1
-    installShellCompletion --cmd proxmox-backup-client \
-      --bash debian/proxmox-backup-client.bc \
-      --zsh zsh-completions/_proxmox-backup-client
-
-    installManPage docs/output/man/pxar.1
-    installShellCompletion --cmd pxar \
-      --bash debian/pxar.bc \
-      --zsh zsh-completions/_pxar
-  '';
-
-  cargoLock = {
-    lockFileContents = builtins.readFile ./Cargo.lock;
-  };
-
-  cargoBuildFlags = [
-    "--package=proxmox-backup-client"
-    "--bin=proxmox-backup-client"
-    "--bin=dump-catalog-shell-cli"
-    "--package=pxar-bin"
-    "--bin=pxar"
-  ];
-
-  doCheck = false;
-
-  nativeBuildInputs = [
-    git
-    pkg-config
-    pkgconf
-    rustPlatform.bindgenHook
-    installShellFiles
-    sphinx
-  ];
-  buildInputs = [
-    openssl
-    fuse3
-    libuuid
-    acl
-    libxcrypt
-    systemd.dev
-  ];
-
-  doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "version";
-
-  meta = with lib; {
-    description = "Command line client for Proxmox Backup Server";
-    homepage = "https://pbs.proxmox.com/docs/backup-client.html";
-    changelog = "https://git.proxmox.com/?p=proxmox-backup.git;a=blob;f=debian/changelog;hb=${proxmox-backup_src.rev}";
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [
-      cofob
-      christoph-heiss
+    srcs = [
+      proxmox-backup_src
+      proxmox_src
+      proxmox-fuse_src
+      proxmox-pxar_src
+      proxmox-pathpatterns_src
+      h2_src
     ];
-    platforms = platforms.linux;
-    mainProgram = "proxmox-backup-client";
-  };
-}
+
+    sourceRoot = proxmox-backup_src.name;
+
+    # These patches are essentially un-upstreamable, due to being "workarounds" related to the
+    # project structure and upstream/Debian-specific packaging.
+    cargoPatches = [
+      # A lot of Rust crates `proxmox-backup-client` depends on are only available through git (or
+      # Debian packages). This patch redirects all these dependencies to a local, relative path, which
+      # works in combination with the other three repos being checked out.
+      ./0001-cargo-re-route-dependencies-not-available-on-crates..patch
+      # `make docs` assumes that the binaries are located under `target/{debug,release}`, but due
+      # to how `buildRustPackage` works, they get put under `target/$RUSTC_TARGET/{debug,release}`.
+      # This patch simply fixes that up.
+      ./0002-docs-add-target-path-fixup-variable.patch
+      # Need to use a patched version of the `h2` crate (with a downgraded dependency, see also postPatch).
+      # This overrides it in the Cargo.toml as needed.
+      ./0003-cargo-use-local-patched-h2-dependency.patch
+      # This patch prevents the generation of the man-pages for other components inside the repo,
+      # which would require them too be built too. Thus avoid wasting resources and just skip them.
+      ./0004-docs-drop-all-but-client-man-pages.patch
+      # Upstream uses a patched version of the h2 crate (see [0]), which does not apply here.
+      # [0] https://git.proxmox.com/?p=debcargo-conf.git;a=blob;f=src/h2/debian/patches/add-legacy.patch;h=0913da317
+      ./0005-Revert-h2-switch-to-legacy-feature.patch
+    ];
+
+    postPatch = ''
+      # need to downgrade the `http` crate for `h2`
+      # see https://aur.archlinux.org/cgit/aur.git/tree/0003-cargo-downgrade-http-to-0.2.12.patch?h=proxmox-backup-client
+      cp -r ../h2 .
+      chmod u+w ./h2
+      (cd h2 && sed -i 's/^http = "1"$/http = "0.2.12"/' Cargo.toml)
+
+      cp ${./Cargo.lock} Cargo.lock
+      rm .cargo/config.toml
+    '';
+
+    postBuild = ''
+      make -C docs \
+        DEB_VERSION=${version} DEB_VERSION_UPSTREAM=${version} \
+        RUSTC_TARGET=${stdenv.hostPlatform.config} \
+        BUILD_MODE=release \
+        proxmox-backup-client.1 pxar.1
+    '';
+
+    postInstall = ''
+      installManPage docs/output/man/proxmox-backup-client.1
+      installShellCompletion --cmd proxmox-backup-client \
+        --bash debian/proxmox-backup-client.bc \
+        --zsh zsh-completions/_proxmox-backup-client
+
+      installManPage docs/output/man/pxar.1
+      installShellCompletion --cmd pxar \
+        --bash debian/pxar.bc \
+        --zsh zsh-completions/_pxar
+    '';
+
+    cargoLock = {
+      lockFileContents = builtins.readFile ./Cargo.lock;
+    };
+
+    cargoBuildFlags = [
+      "--package=proxmox-backup-client"
+      "--bin=proxmox-backup-client"
+      "--bin=dump-catalog-shell-cli"
+      "--package=pxar-bin"
+      "--bin=pxar"
+    ];
+
+    doCheck = false;
+
+    nativeBuildInputs = [
+      git
+      pkg-config
+      pkgconf
+      rustPlatform.bindgenHook
+      installShellFiles
+      sphinx
+    ];
+    buildInputs = [
+      openssl
+      fuse3
+      libuuid
+      acl
+      libxcrypt
+      systemd.dev
+    ];
+
+    doInstallCheck = true;
+    nativeInstallCheckInputs = [versionCheckHook];
+    versionCheckProgramArg = "version";
+
+    meta = with lib; {
+      description = "Command line client for Proxmox Backup Server";
+      homepage = "https://pbs.proxmox.com/docs/backup-client.html";
+      changelog = "https://git.proxmox.com/?p=proxmox-backup.git;a=blob;f=debian/changelog;hb=${proxmox-backup_src.rev}";
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [
+        cofob
+        christoph-heiss
+      ];
+      platforms = platforms.linux;
+      mainProgram = "proxmox-backup-client";
+    };
+  }

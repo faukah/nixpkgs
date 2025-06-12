@@ -5,7 +5,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ceph-csi";
   version = "3.14.0";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ go ];
+  nativeBuildInputs = [go];
 
-  buildInputs = [ ceph ];
+  buildInputs = [ceph];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ceph.com/";
     license = lib.licenses.asl20;
     mainProgram = "cephcsi";
-    maintainers = with lib.maintainers; [ johanot ];
+    maintainers = with lib.maintainers; [johanot];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

@@ -7,7 +7,6 @@
   ncurses,
   unibilium,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libtermkey";
   version = "0.22";

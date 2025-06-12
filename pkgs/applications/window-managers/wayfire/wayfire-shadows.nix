@@ -12,7 +12,6 @@
   libinput,
   xcbutilwm,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayfire-shadows";
   version = "0-unstable-2025-03-04";
@@ -42,13 +41,13 @@ stdenv.mkDerivation (finalAttrs: {
     PKG_CONFIG_WAYFIRE_METADATADIR = "${placeholder "out"}/share/wayfire/metadata";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/timgott/wayfire-shadows";
     description = "Wayfire plugin that adds window shadows";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
     inherit (wayfire.meta) platforms;
   };
 })

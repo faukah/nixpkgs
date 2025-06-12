@@ -1,7 +1,9 @@
-{ qtModule, qtdeclarative }:
-
+{
+  qtModule,
+  qtdeclarative,
+}:
 qtModule {
   pname = "qtdoc";
-  propagatedBuildInputs = [ qtdeclarative ];
-  outputs = [ "out" ];
+  propagatedBuildInputs = [qtdeclarative];
+  outputs = ["out"];
 }

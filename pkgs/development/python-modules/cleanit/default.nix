@@ -4,10 +4,8 @@
   fetchFromGitHub,
   pythonOlder,
   nix-update-script,
-
   # build dependencies
   poetry-core,
-
   # dependencies
   appdirs,
   babelfish,
@@ -16,11 +14,9 @@
   jsonschema,
   pysrt,
   pyyaml,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cleanit";
   version = "0.4.8";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-z1QAWWm+yg/pRCQfPqGbL0EFFT9UwqIkwhmjUuRHyuk=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     appdirs
@@ -47,18 +43,18 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cleanit" ];
+  pythonImportsCheck = ["cleanit"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line tool that helps you to keep your subtitles clean";
     homepage = "https://github.com/ratoaq2/cleanit";
     changelog = "https://github.com/ratoaq2/cleanit/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
     mainProgram = "cleanit";
   };
 }

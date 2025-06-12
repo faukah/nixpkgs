@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "crysp";
   version = "1.2";
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace "'pytest-runner'," ""
   '';
 
-  pythonImportsCheck = [ "crysp" ];
+  pythonImportsCheck = ["crysp"];
 
   meta = with lib; {
     description = "Module that provides crypto-related facilities";
     homepage = "https://github.com/bdcht/crysp";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [fab];
   };
 }

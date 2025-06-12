@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mcstatus";
   version = "11.1.1";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mcstatus" ];
+  pythonImportsCheck = ["mcstatus"];
 
   disabledTests = [
     # DNS features are limited in the sandbox
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     mainProgram = "mcstatus";
     homepage = "https://github.com/py-mine/mcstatus";
     changelog = "https://github.com/py-mine/mcstatus/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

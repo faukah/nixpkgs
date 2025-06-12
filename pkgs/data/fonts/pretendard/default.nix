@@ -2,17 +2,14 @@
   lib,
   stdenvNoCC,
   fetchzip,
-}:
-
-let
+}: let
   version = "1.3.9";
 
-  mkPretendard =
-    {
-      pname,
-      typeface,
-      hash,
-    }:
+  mkPretendard = {
+    pname,
+    typeface,
+    hash,
+  }:
     stdenvNoCC.mkDerivation {
       inherit pname version;
 
@@ -35,12 +32,10 @@ let
         description = "Alternative font to system-ui for all platforms";
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ sudosubin ];
+        maintainers = with maintainers; [sudosubin];
       };
     };
-
-in
-{
+in {
   pretendard = mkPretendard {
     pname = "pretendard";
     typeface = "Pretendard";

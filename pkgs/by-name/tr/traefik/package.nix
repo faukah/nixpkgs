@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGo124Module (finalAttrs: {
   pname = "traefik";
   version = "3.4.1";
@@ -19,7 +18,7 @@ buildGo124Module (finalAttrs: {
 
   vendorHash = "sha256-eaeuTYjwv4Pa48YZ2yDOIRDRrSSw6fNhJIN8imV5dNM=";
 
-  subPackages = [ "cmd/traefik" ];
+  subPackages = ["cmd/traefik"];
 
   env.CGO_ENABLED = 0;
 
@@ -40,7 +39,7 @@ buildGo124Module (finalAttrs: {
     inherit (nixosTests) traefik;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://traefik.io";

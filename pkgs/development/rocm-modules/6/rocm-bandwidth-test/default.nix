@@ -5,7 +5,6 @@
   rocmPackages,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-bandwidth-test";
   version = "6.3.3";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
-  buildInputs = [ rocmPackages.rocm-runtime ];
+  buildInputs = [rocmPackages.rocm-runtime];
 
   cmakeFlags = [
     "-DROCT_INC_DIR=${rocmPackages.rocm-runtime}/include/libhsakmt"
@@ -30,9 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Bandwidth test for AMD GPUs supported by ROCm";
     homepage = "https://github.com/ROCm/rocm_bandwidth_test";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fangpen ];
-    teams = [ teams.rocm ];
-    platforms = [ "x86_64-linux" ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fangpen];
+    teams = [teams.rocm];
+    platforms = ["x86_64-linux"];
   };
 })

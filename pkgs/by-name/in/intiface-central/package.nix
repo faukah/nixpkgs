@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "intiface-central";
   version = "2.6.7";
@@ -49,7 +48,7 @@ flutter329.buildFlutterApplication rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   # without this, only the splash screen will be shown and the logs will contain the
   # line `Failed to load dynamic library 'lib/libintiface_engine_flutter_bridge.so'`
@@ -76,7 +75,7 @@ flutter329.buildFlutterApplication rec {
     description = "Intiface Central (Buttplug Frontend) Application for Desktop";
     homepage = "https://intiface.com/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ _999eagle ];
+    maintainers = with lib.maintainers; [_999eagle];
     platforms = lib.platforms.linux;
   };
 }

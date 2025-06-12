@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   options.security.auditd.enable = lib.mkEnableOption "the Linux Audit daemon";
 
   config = lib.mkIf config.security.auditd.enable {
-    boot.kernelParams = [ "audit=1" ];
+    boot.kernelParams = ["audit=1"];
 
-    environment.systemPackages = [ pkgs.audit ];
+    environment.systemPackages = [pkgs.audit];
 
     systemd.services.auditd = {
       description = "Linux Audit daemon";
-      documentation = [ "man:auditd(8)" ];
-      wantedBy = [ "sysinit.target" ];
+      documentation = ["man:auditd(8)"];
+      wantedBy = ["sysinit.target"];
       after = [
         "local-fs.target"
         "systemd-tmpfiles-setup.service"
@@ -25,15 +23,15 @@
         "sysinit.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
 
       unitConfig = {
         ConditionVirtualization = "!container";
-        ConditionSecurity = [ "audit" ];
+        ConditionSecurity = ["audit"];
         DefaultDependencies = false;
       };
 
-      path = [ pkgs.audit ];
+      path = [pkgs.audit];
 
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /var/log/audit";

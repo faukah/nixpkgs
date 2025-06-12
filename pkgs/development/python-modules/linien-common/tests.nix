@@ -9,7 +9,6 @@
   pytest-plt,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "linien-tests";
   inherit (linien-common) version src;

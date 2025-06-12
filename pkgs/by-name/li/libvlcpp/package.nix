@@ -6,7 +6,6 @@
   pkg-config,
   libvlc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvlcpp";
   version = "0.1.0-unstable-2024-02-04";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Header-only C++ bindings for the libvlc crossplatform multimedia API";
     homepage = "https://code.videolan.org/videolan/libvlcpp";
-    maintainers = with lib.maintainers; [ l33tname ];
+    maintainers = with lib.maintainers; [l33tname];
     platforms = lib.platforms.all;
     license = lib.licenses.lgpl21Only;
   };

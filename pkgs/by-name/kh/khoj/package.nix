@@ -5,7 +5,6 @@
   postgresql,
   postgresqlTestHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "khoj";
   version = "1.0.1";
@@ -68,8 +67,7 @@ python3.pkgs.buildPythonApplication rec {
     uvicorn
   ];
 
-  nativeCheckInputs =
-    with python3.pkgs;
+  nativeCheckInputs = with python3.pkgs;
     [
       freezegun
       factory-boy
@@ -80,7 +78,7 @@ python3.pkgs.buildPythonApplication rec {
       pytestCheckHook
     ]
     ++ [
-      (postgresql.withPackages (p: with p; [ pgvector ]))
+      (postgresql.withPackages (p: with p; [pgvector]))
       postgresqlTestHook
     ];
 
@@ -139,7 +137,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/debanjum/khoj";
     changelog = "https://github.com/debanjum/khoj/releases/tag/${version}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     broken = true; # last successful build 2024-01-10
   };
 }

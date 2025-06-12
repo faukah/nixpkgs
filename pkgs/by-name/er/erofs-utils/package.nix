@@ -16,7 +16,6 @@
   fuseSupport ? stdenv.hostPlatform.isLinux,
   selinuxSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "erofs-utils";
   version = "1.8.6";
@@ -47,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
       zstd
       libdeflate
     ]
-    ++ lib.optionals fuseSupport [ fuse ]
-    ++ lib.optionals selinuxSupport [ libselinux ];
+    ++ lib.optionals fuseSupport [fuse]
+    ++ lib.optionals selinuxSupport [libselinux];
 
   configureFlags =
     [
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/about/";
     description = "Userspace utilities for linux-erofs file system";
     changelog = "https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/tree/ChangeLog?h=v${finalAttrs.version}";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     maintainers = with lib.maintainers; [
       ehmry
       nikstur

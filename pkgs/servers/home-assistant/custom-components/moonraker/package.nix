@@ -4,7 +4,6 @@
   buildHomeAssistantComponent,
   moonraker-api,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "marcolivierarsenault";
   domain = "moonraker";
@@ -29,7 +28,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/marcolivierarsenault/moonraker-home-assistant/releases/tag/${version}";
     description = "Custom integration for Moonraker and Klipper in Home Assistant";
     homepage = "https://github.com/marcolivierarsenault/moonraker-home-assistant";
-    maintainers = with maintainers; [ _9R ];
+    maintainers = with maintainers; [_9R];
     license = licenses.mit;
   };
 }

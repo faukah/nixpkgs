@@ -12,7 +12,6 @@
   setuptools,
   setuptools-rust,
 }:
-
 buildPythonPackage rec {
   pname = "nlpo3";
   version = "1.4.0-unstable-2024-11-11";
@@ -47,14 +46,14 @@ buildPythonPackage rec {
     cargo
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   build-system = [
     setuptools
     setuptools-rust
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -62,13 +61,13 @@ buildPythonPackage rec {
     "-v"
   ];
 
-  pythonImportsCheck = [ "nlpo3" ];
+  pythonImportsCheck = ["nlpo3"];
 
   meta = {
     description = "Thai Natural Language Processing library in Rust, with Python and Node bindings";
     homepage = "https://github.com/PyThaiNLP/nlpo3";
     changelog = "https://github.com/PyThaiNLP/nlpo3/releases/tag/nlpo3-python-v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ vizid ];
+    maintainers = with lib.maintainers; [vizid];
   };
 }

@@ -7,7 +7,6 @@
   glib,
   poppler,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "tdf";
   version = "0.2.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-krIPfi4SM4uCw7NLauudwh1tgAaB8enDWnMC5X16n48=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     glib

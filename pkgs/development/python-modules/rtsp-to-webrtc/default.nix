@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rtsp-to-webrtc";
   version = "0.6.1";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-D022d2CDKtHTuvEGo8GkOGWHi5sV4g6UwNB9xS2xxIs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rtsp_to_webrtc" ];
+  pythonImportsCheck = ["rtsp_to_webrtc"];
 
   meta = with lib; {
     description = "Module for RTSPtoWeb and RTSPtoWebRTC";
     homepage = "https://github.com/allenporter/rtsp-to-webrtc-client";
     changelog = "https://github.com/allenporter/rtsp-to-webrtc-client/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

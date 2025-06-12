@@ -6,7 +6,6 @@
   icu,
   openssl,
 }:
-
 qtModule {
   pname = "qt5compat";
   propagatedBuildInputs = [

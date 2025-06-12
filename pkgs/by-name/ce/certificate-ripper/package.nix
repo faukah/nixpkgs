@@ -4,7 +4,6 @@
   fetchFromGitHub,
   buildGraalvmNativeImage,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "certificate-ripper";
   version = "2.4.1";
@@ -27,16 +26,15 @@ buildGraalvmNativeImage (finalAttrs: {
 
     mvnHash = "sha256-G2+Z1JyxTzCZzWjB8MQH1T9kwHjtRPag+bmzGXpQXw4=";
 
-    mvnParameters =
-      let
-        disabledTests = [
-          "PemExportCommandShould#resolveRootCaOnlyWhenEnabled" # uses network
-          "DerExportCommandShould#processSystemTrustedCertificates"
-          "JksExportCommandShould#processSystemTrustedCertificates"
-          "PemExportCommandShould#processSystemTrustedCertificates"
-          "Pkcs12ExportCommandShould#processSystemTrustedCertificates"
-        ];
-      in
+    mvnParameters = let
+      disabledTests = [
+        "PemExportCommandShould#resolveRootCaOnlyWhenEnabled" # uses network
+        "DerExportCommandShould#processSystemTrustedCertificates"
+        "JksExportCommandShould#processSystemTrustedCertificates"
+        "PemExportCommandShould#processSystemTrustedCertificates"
+        "Pkcs12ExportCommandShould#processSystemTrustedCertificates"
+      ];
+    in
       lib.escapeShellArgs [
         "-Dproject.build.outputTimestamp=1980-01-01T00:00:02Z" # make timestamp deterministic
         "-Dtest=${lib.concatMapStringsSep "," (t: "!" + t) disabledTests}"
@@ -59,7 +57,7 @@ buildGraalvmNativeImage (finalAttrs: {
     description = "CLI tool to extract server certificates";
     homepage = "https://github.com/Hakky54/certificate-ripper";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     mainProgram = "crip";
   };
 })

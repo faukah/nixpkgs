@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/geoarrow-pyarrow";
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   disabledTests = [
     # these tests are incompatible with arrow 17
@@ -64,7 +64,7 @@ buildPythonPackage rec {
     pyproj
   ];
 
-  pythonImportsCheck = [ "geoarrow.pyarrow" ];
+  pythonImportsCheck = ["geoarrow.pyarrow"];
 
   meta = with lib; {
     description = "PyArrow implementation of geospatial data types";

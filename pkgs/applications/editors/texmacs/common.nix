@@ -6,8 +6,7 @@
   chineseFonts,
   japaneseFonts,
   koreanFonts,
-}:
-rec {
+}: rec {
   extraFontsSrc = fetchurl {
     url = "ftp://ftp.texmacs.org/pub/TeXmacs/fonts/TeXmacs-extra-fonts-1.0-noarch.tar.gz";
     sha256 = "0hylgjmd95y9yahbblmawkkw0i71vb145xxv2xqrmff81301n6k7";
@@ -35,10 +34,10 @@ rec {
 
   postPatch =
     (
-      if tex == null then
-        ''
-          gunzip < ${fullFontsSrc} | (cd TeXmacs && tar xvf -)
-        ''
+      if tex == null
+      then ''
+        gunzip < ${fullFontsSrc} | (cd TeXmacs && tar xvf -)
+      ''
       else
         lib.optionalString extraFonts ''
           gunzip < ${extraFontsSrc} | (cd TeXmacs && tar xvf -)

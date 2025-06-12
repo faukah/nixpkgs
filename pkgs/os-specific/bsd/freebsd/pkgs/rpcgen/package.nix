@@ -3,7 +3,6 @@
   mkDerivation,
   stdenv,
 }:
-
 mkDerivation {
   path = "usr.bin/rpcgen";
   patches = lib.optionals (stdenv.hostPlatform.libc == "glibc") [

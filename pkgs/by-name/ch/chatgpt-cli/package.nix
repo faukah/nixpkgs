@@ -16,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-/bL9RRqNlKLqZSaym9y5A+RUDrHpv7GBR6ubZkZMPS4=";
 
-  subPackages = [ "cmd/chatgpt" ];
+  subPackages = ["cmd/chatgpt"];
 
   meta = with lib; {
     description = "Interactive CLI for ChatGPT";
     homepage = "https://github.com/j178/chatgpt";
     license = licenses.mit;
     mainProgram = "chatgpt";
-    maintainers = with maintainers; [ Ruixi-rebirth ];
+    maintainers = with maintainers; [Ruixi-rebirth];
   };
 }

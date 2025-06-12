@@ -13,7 +13,6 @@
   tcsh,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "orangefs";
   version = "2.9.8";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
     sed -i 's:openssl:${openssl}/bin/openssl:' $out/bin/pvfs2-gen-keys.sh
   '';
 
-  passthru.tests = { inherit (nixosTests) orangefs; };
+  passthru.tests = {inherit (nixosTests) orangefs;};
 
   meta = with lib; {
     description = "Scale-out network file system for use on high-end computing systems";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       openldap
     ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ markuskowa ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [markuskowa];
   };
 }

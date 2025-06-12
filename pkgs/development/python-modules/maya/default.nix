@@ -14,7 +14,6 @@
   snaptime,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "maya";
   version = "0.6.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "humanize.time.abs_timedelta" "humanize.time._abs_timedelta"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     dateparser
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "maya" ];
+  pythonImportsCheck = ["maya"];
 
   disabledTests = [
     # https://github.com/timofurrer/maya/issues/202
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/timofurrer/maya";
     changelog = "https://github.com/timofurrer/maya/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

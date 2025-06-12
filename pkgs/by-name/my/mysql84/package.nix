@@ -24,7 +24,6 @@
   rpcsvc-proto,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mysql";
   version = "8.4.5";
@@ -34,11 +33,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-U2OVkqcgpxn9+t8skhuUfqyGwG4zMgLkdmeFKleBvRo=";
   };
 
-  nativeBuildInputs = [
-    bison
-    cmake
-    pkg-config
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ rpcsvc-proto ];
+  nativeBuildInputs =
+    [
+      bison
+      cmake
+      pkg-config
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [rpcsvc-proto];
 
   patches = [
     ./no-force-outline-atomics.patch # Do not force compilers to turn on -moutline-atomics switch
@@ -52,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs =
     [
-      (curl.override { inherit openssl; })
+      (curl.override {inherit openssl;})
       icu
       libedit
       libevent

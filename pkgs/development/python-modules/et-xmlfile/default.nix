@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "et-xmlfile";
   version = "2.0.0";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-JZ1fJ9o4/Z+9uSlaoq+pNpLSwl5Yv6BJCI1G7GOaQ1I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     lxml
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "et_xmlfile" ];
+  pythonImportsCheck = ["et_xmlfile"];
 
   meta = with lib; {
     description = "Implementation of lxml.xmlfile for the standard library";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://foss.heptapod.net/openpyxl/et_xmlfile";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

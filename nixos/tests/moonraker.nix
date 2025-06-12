@@ -1,40 +1,41 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "moonraker";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ zhaofengli ];
+    maintainers = [zhaofengli];
   };
 
   nodes = {
-    printer =
-      { config, pkgs, ... }:
-      {
-        security.polkit.enable = true;
+    printer = {
+      config,
+      pkgs,
+      ...
+    }: {
+      security.polkit.enable = true;
 
-        services.moonraker = {
-          enable = true;
-          allowSystemControl = true;
+      services.moonraker = {
+        enable = true;
+        allowSystemControl = true;
 
-          settings = {
-            authorization = {
-              trusted_clients = [
-                "127.0.0.0/8"
-                "::1/128"
-              ];
-            };
+        settings = {
+          authorization = {
+            trusted_clients = [
+              "127.0.0.0/8"
+              "::1/128"
+            ];
           };
         };
-
-        services.klipper = {
-          enable = true;
-
-          user = "moonraker";
-          group = "moonraker";
-
-          # No mcu configured so won't even enter `ready` state
-          settings = { };
-        };
       };
+
+      services.klipper = {
+        enable = true;
+
+        user = "moonraker";
+        group = "moonraker";
+
+        # No mcu configured so won't even enter `ready` state
+        settings = {};
+      };
+    };
   };
 
   testScript = ''

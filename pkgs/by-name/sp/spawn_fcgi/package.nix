@@ -5,7 +5,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spawn-fcgi";
   version = "1.6.4";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Provides an interface to external programs that support the FastCGI interface";
     mainProgram = "spawn-fcgi";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; unix;
   };
 }

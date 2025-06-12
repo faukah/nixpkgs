@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildNimPackage {
   pname = "nitch";
   version = "0.1.6";
@@ -31,7 +30,7 @@ buildNimPackage {
     homepage = "https://github.com/unxsh/nitch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ michaelBelsanti ];
+    maintainers = with maintainers; [michaelBelsanti];
     mainProgram = "nitch";
   };
 }

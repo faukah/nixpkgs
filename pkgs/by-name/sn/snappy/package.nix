@@ -6,7 +6,6 @@
   fetchpatch,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snappy";
   version = "1.2.1";
@@ -34,10 +33,14 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if static
+      then "OFF"
+      else "ON"
+    }"
     "-DSNAPPY_BUILD_TESTS=OFF"
     "-DSNAPPY_BUILD_BENCHMARKS=OFF"
   ];

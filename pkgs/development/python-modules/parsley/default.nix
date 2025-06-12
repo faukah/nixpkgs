@@ -3,7 +3,6 @@
   fetchPypi,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "parsley";
   version = "1.3";
@@ -19,6 +18,6 @@ buildPythonPackage rec {
     license = licenses.mit;
     homepage = "https://launchpad.net/parsley";
     description = "Parser generator library based on OMeta, and other useful parsing tools";
-    maintainers = with maintainers; [ seppeljordan ];
+    maintainers = with maintainers; [seppeljordan];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   libxml2,
 }:
-
 stdenv.mkDerivation {
   version = "0.3.0";
   pname = "uvcdynctrl";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   prePatch = ''
     local fixup_list=(
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     description = "Simple interface for devices supported by the linux UVC driver";
     homepage = "https://guvcview.sourceforge.net";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.puffnfresh ];
+    maintainers = [maintainers.puffnfresh];
     platforms = platforms.linux;
   };
 }

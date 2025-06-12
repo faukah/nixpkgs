@@ -6,14 +6,11 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  colorVariants ? [ ], # default: all
-}:
-
-let
+  colorVariants ? [], # default: all
+}: let
   pname = "vimix-icon-theme";
-
 in
-lib.checkListOfEnum "${pname}: color variants"
+  lib.checkListOfEnum "${pname}: color variants"
   [
     "standard"
     "Amethyst"
@@ -25,7 +22,6 @@ lib.checkListOfEnum "${pname}: color variants"
     "White"
   ]
   colorVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -61,7 +57,11 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook preInstall
 
       ./install.sh \
-        ${if colorVariants != [ ] then builtins.toString colorVariants else "-a"} \
+        ${
+        if colorVariants != []
+        then builtins.toString colorVariants
+        else "-a"
+      } \
         -d $out/share/icons
 
       # replace duplicate files with symlinks
@@ -70,13 +70,13 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Material Design icon theme based on Paper icon theme";
       homepage = "https://github.com/vinceliuice/vimix-icon-theme";
-      license = with licenses; [ cc-by-sa-40 ];
+      license = with licenses; [cc-by-sa-40];
       platforms = platforms.linux;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

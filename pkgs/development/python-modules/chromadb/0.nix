@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
   setuptools,
-
   # build inputs
   cargo,
   pkg-config,
@@ -15,7 +13,6 @@
   rustc,
   rustPlatform,
   openssl,
-
   # dependencies
   bcrypt,
   build,
@@ -46,21 +43,17 @@
   typing-extensions,
   uvicorn,
   zstd,
-
   # optional dependencies
   chroma-hnswlib,
-
   # tests
   hypothesis,
   psutil,
   pytest-asyncio,
   pytestCheckHook,
-
   # passthru
   nixosTests,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "chromadb_0";
   version = "0.6.3";
@@ -144,7 +137,7 @@ buildPythonPackage rec {
 
   # Disable on aarch64-linux due to broken onnxruntime
   # https://github.com/microsoft/onnxruntime/issues/10038
-  pythonImportsCheck = lib.optionals (stdenv.hostPlatform.system != "aarch64-linux") [ "chromadb" ];
+  pythonImportsCheck = lib.optionals (stdenv.hostPlatform.system != "aarch64-linux") ["chromadb"];
 
   # Test collection breaks on aarch64-linux
   doCheck = stdenv.hostPlatform.system != "aarch64-linux";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "cliam";
   version = "2.2.0";
@@ -45,6 +44,6 @@ buildGoModule rec {
     mainProgram = "cliam";
     homepage = "https://github.com/securisec/cliam";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

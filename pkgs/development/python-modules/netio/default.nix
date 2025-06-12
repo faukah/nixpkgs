@@ -7,7 +7,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "netio";
   version = "1.0.13";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "pyopenssl" ];
+  pythonRelaxDeps = ["pyopenssl"];
 
   propagatedBuildInputs = [
     requests
     pyopenssl
   ];
 
-  pythonImportsCheck = [ "Netio" ];
+  pythonImportsCheck = ["Netio"];
 
   # Module has no tests
   doCheck = false;
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/netioproducts/PyNetio";
     changelog = "https://github.com/netioproducts/PyNetio/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

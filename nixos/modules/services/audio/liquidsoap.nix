@@ -3,48 +3,40 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   streams = builtins.attrNames config.services.liquidsoap.streams;
 
-  streamService =
-    name:
-    let
-      stream = builtins.getAttr name config.services.liquidsoap.streams;
-    in
-    {
-      inherit name;
-      value = {
-        after = [
-          "network-online.target"
-          "sound.target"
-        ];
-        description = "${name} liquidsoap stream";
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.wget ];
-        serviceConfig = {
-          ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap ${stream}";
-          User = "liquidsoap";
-          LogsDirectory = "liquidsoap";
-          Restart = "always";
-        };
+  streamService = name: let
+    stream = builtins.getAttr name config.services.liquidsoap.streams;
+  in {
+    inherit name;
+    value = {
+      after = [
+        "network-online.target"
+        "sound.target"
+      ];
+      description = "${name} liquidsoap stream";
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.wget];
+      serviceConfig = {
+        ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap ${stream}";
+        User = "liquidsoap";
+        LogsDirectory = "liquidsoap";
+        Restart = "always";
       };
     };
-in
-{
-
+  };
+in {
   ##### interface
 
   options = {
-
     services.liquidsoap.streams = lib.mkOption {
-
       description = ''
         Set of Liquidsoap streams to start,
         one systemd service per stream.
       '';
 
-      default = { };
+      default = {};
 
       example = lib.literalExpression ''
         {
@@ -56,16 +48,14 @@ in
 
       type = lib.types.attrsOf (lib.types.either lib.types.path lib.types.str);
     };
-
   };
   ##### implementation
 
   config = lib.mkIf (builtins.length streams != 0) {
-
     users.users.liquidsoap = {
       uid = config.ids.uids.liquidsoap;
       group = "liquidsoap";
-      extraGroups = [ "audio" ];
+      extraGroups = ["audio"];
       description = "Liquidsoap streaming user";
       home = "/var/lib/liquidsoap";
       createHome = true;
@@ -75,5 +65,4 @@ in
 
     systemd.services = builtins.listToAttrs (map streamService streams);
   };
-
 }

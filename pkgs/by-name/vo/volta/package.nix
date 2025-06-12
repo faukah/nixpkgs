@@ -23,18 +23,16 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xlqsubkaX2A6d5MIcGf9E0b11Gzneksgku0jvW+UdbE=";
 
-  buildInputs = [ installShellFiles ];
+  buildInputs = [installShellFiles];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      installShellCompletion --cmd volta \
-        --bash <(${emulator} $out/bin/volta completions bash) \
-        --fish <(${emulator} $out/bin/volta completions fish) \
-        --zsh <(${emulator} $out/bin/volta completions zsh)
-    '';
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    installShellCompletion --cmd volta \
+      --bash <(${emulator} $out/bin/volta completions bash) \
+      --fish <(${emulator} $out/bin/volta completions fish) \
+      --zsh <(${emulator} $out/bin/volta completions zsh)
+  '';
 
   nativeCheckInputs = [
     writableTmpDirAsHomeHook
@@ -48,7 +46,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -65,8 +63,8 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://volta.sh/";
     changelog = "https://github.com/volta-cli/volta/blob/main/RELEASES.md";
-    license = with lib.licenses; [ bsd2 ];
-    maintainers = with lib.maintainers; [ fbrs ];
+    license = with lib.licenses; [bsd2];
+    maintainers = with lib.maintainers; [fbrs];
     mainProgram = "volta";
   };
 }

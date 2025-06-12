@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "wasmserve";
   version = "1.2.1";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "wasmserve";
     homepage = "https://github.com/hajimehoshi/wasmserve";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kirillrdy ];
+    maintainers = with maintainers; [kirillrdy];
   };
 }

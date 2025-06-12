@@ -16,7 +16,6 @@
   libgee,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gnome-graphs";
   version = "1.8.4";
@@ -67,7 +66,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -75,7 +74,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://apps.gnome.org/Graphs";
     license = licenses.gpl3Plus;
     mainProgram = "graphs";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = platforms.linux; # locale.bindtextdomain only available on linux
   };
 }

@@ -21,9 +21,9 @@ stdenv.mkDerivation (finalAttrs: {
     libXext
   ];
 
-  configureFlags = [ "--disable-debug" ];
+  configureFlags = ["--disable-debug"];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   postInstall = ''
     install -Dm644 $src/contrib/systemd/spacenavd.service -t $out/lib/systemd/system
@@ -37,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     longDescription = "A free, compatible alternative, to the proprietary 3Dconnexion device driver and SDK, for their 3D input devices (called 'space navigator', 'space pilot', 'space traveller', etc)";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 })

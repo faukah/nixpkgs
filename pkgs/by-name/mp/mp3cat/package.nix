@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mp3cat";
   version = "0.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/tomclegg/mp3cat";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.omnipotententity ];
+    maintainers = [maintainers.omnipotententity];
     platforms = platforms.all;
     mainProgram = "mp3cat";
   };

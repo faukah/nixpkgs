@@ -13,7 +13,6 @@
   scipy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyscf";
   version = "2.9.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
   };
 
   # setup.py calls Cmake and passes the arguments in CMAKE_CONFIGURE_ARGS to cmake.
-  build-system = [ cmake ];
+  build-system = [cmake];
   dontUseCmakeConfigure = true;
   preConfigure = ''
     export CMAKE_CONFIGURE_ARGS="-DBUILD_LIBCINT=0 -DBUILD_LIBXC=0 -DBUILD_XCFUN=0"
@@ -48,8 +47,8 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "pyscf" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["pyscf"];
   preCheck = ''
     # Set config used by tests to ensure reproducibility
     echo 'pbc_tools_pbc_fft_engine = "NUMPY"' > pyscf/pyscf_config.py
@@ -107,6 +106,6 @@ buildPythonPackage rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

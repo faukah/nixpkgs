@@ -4,7 +4,6 @@
   fetchFromGitHub,
   npm-lockfile-fix,
 }:
-
 buildNpmPackage rec {
   pname = "pm2";
   version = "6.0.8";
@@ -31,6 +30,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/Unitech/pm2";
     license = lib.licenses.agpl3Only;
     mainProgram = "pm2";
-    maintainers = with lib.maintainers; [ jeremyschlatter ];
+    maintainers = with lib.maintainers; [jeremyschlatter];
   };
 }

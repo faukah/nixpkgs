@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "inql";
   version = "4.0.6";
@@ -37,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "inql";
     homepage = "https://github.com/doyensec/inql";
     changelog = "https://github.com/doyensec/inql/releases/tag/v${version}";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [fab];
   };
 }

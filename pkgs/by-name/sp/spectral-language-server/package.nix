@@ -8,8 +8,7 @@
   typescript,
   jq,
   fetchpatch,
-}:
-let
+}: let
   # Instead of the build script that spectral-language-server provides (ref: https://github.com/luizcorreia/spectral-language-server/blob/master/script/vscode-spectral-build.sh), we build vscode-spectral manually.
   # This is because the script must go through the network and will not work under the Nix sandbox environment.
   vscodeSpectral = stdenv.mkDerivation (finalAttrs: {
@@ -62,48 +61,48 @@ let
     };
   });
 in
-buildNpmPackage {
-  pname = "spectral-language-server";
-  version = "1.0.8-unstable-2023-06-06";
+  buildNpmPackage {
+    pname = "spectral-language-server";
+    version = "1.0.8-unstable-2023-06-06";
 
-  src = fetchFromGitHub {
-    owner = "luizcorreia";
-    repo = "spectral-language-server";
-    rev = "c9a7752b08e6bba937ef4f5435902afd41b6957f";
-    hash = "sha256-VD2aAzlCnJ6mxPUSbNRfMOlslM8kLPqrAI2ah6sX9cU=";
-  };
+    src = fetchFromGitHub {
+      owner = "luizcorreia";
+      repo = "spectral-language-server";
+      rev = "c9a7752b08e6bba937ef4f5435902afd41b6957f";
+      hash = "sha256-VD2aAzlCnJ6mxPUSbNRfMOlslM8kLPqrAI2ah6sX9cU=";
+    };
 
-  npmDepsHash = "sha256-ixAXy/rRkyWL3jdAkrXJh1qhWcKIkr5nH/Bhu2JV6k8=";
+    npmDepsHash = "sha256-ixAXy/rRkyWL3jdAkrXJh1qhWcKIkr5nH/Bhu2JV6k8=";
 
-  patches = [
-    # https://github.com/luizcorreia/spectral-language-server/pull/15
-    (fetchpatch {
-      name = "fix-package-lock.patch";
-      url = "https://github.com/luizcorreia/spectral-language-server/commit/909704850dd10e7b328fc7d15f8b07cdef88899d.patch";
-      hash = "sha256-+mN93xP4HCll4dTcnh2W/m9k3XovvgnB6AOmuJpZUZ0=";
-    })
-  ];
+    patches = [
+      # https://github.com/luizcorreia/spectral-language-server/pull/15
+      (fetchpatch {
+        name = "fix-package-lock.patch";
+        url = "https://github.com/luizcorreia/spectral-language-server/commit/909704850dd10e7b328fc7d15f8b07cdef88899d.patch";
+        hash = "sha256-+mN93xP4HCll4dTcnh2W/m9k3XovvgnB6AOmuJpZUZ0=";
+      })
+    ];
 
-  dontNpmBuild = true;
+    dontNpmBuild = true;
 
-  npmFlags = [ "--ignore-scripts" ];
+    npmFlags = ["--ignore-scripts"];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    mkdir -p $out/node_modules
-    mkdir -p $out/dist/spectral-language-server
-    cp -R ${vscodeSpectral}/dist/* $out/dist/spectral-language-server/
-    cp ./bin/* $out/bin
-    cp -R ./node_modules/* $out/node_modules
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      mkdir -p $out/node_modules
+      mkdir -p $out/dist/spectral-language-server
+      cp -R ${vscodeSpectral}/dist/* $out/dist/spectral-language-server/
+      cp ./bin/* $out/bin
+      cp -R ./node_modules/* $out/node_modules
+      runHook postInstall
+    '';
 
-  meta = with lib; {
-    homepage = "https://github.com/luizcorreia/spectral-language-server";
-    description = "Awesome Spectral JSON/YAML linter with OpenAPI/AsyncAPI support";
-    maintainers = with maintainers; [ momeemt ];
-    license = licenses.mit;
-    mainProgram = "spectral-language-server";
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/luizcorreia/spectral-language-server";
+      description = "Awesome Spectral JSON/YAML linter with OpenAPI/AsyncAPI support";
+      maintainers = with maintainers; [momeemt];
+      license = licenses.mit;
+      mainProgram = "spectral-language-server";
+    };
+  }

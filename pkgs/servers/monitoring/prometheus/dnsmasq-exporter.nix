@@ -5,7 +5,6 @@
   nixosTests,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "dnsmasq_exporter";
   version = "0.3.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) dnsmasq; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) dnsmasq;};
 
   meta = with lib; {
     inherit (src.meta) homepage;

@@ -8,9 +8,7 @@
   lib,
   _experimental-update-script-combinators,
   nix-update-script,
-}:
-
-let
+}: let
   pname = "daed";
   version = "1.0.0";
 
@@ -52,64 +50,63 @@ let
     '';
   };
 in
+  buildGoModule rec {
+    inherit
+      pname
+      version
+      src
+      web
+      ;
 
-buildGoModule rec {
-  inherit
-    pname
-    version
-    src
-    web
-    ;
+    sourceRoot = "${src.name}/wing";
 
-  sourceRoot = "${src.name}/wing";
+    vendorHash = "sha256-+uf8PJQvsJMUyQ6W+nDfdwrxBO2YRUL328ajTJpVDZk=";
 
-  vendorHash = "sha256-+uf8PJQvsJMUyQ6W+nDfdwrxBO2YRUL328ajTJpVDZk=";
+    proxyVendor = true;
 
-  proxyVendor = true;
+    nativeBuildInputs = [clang];
 
-  nativeBuildInputs = [ clang ];
+    hardeningDisable = ["zerocallusedregs"];
 
-  hardeningDisable = [ "zerocallusedregs" ];
+    prePatch = ''
+      substituteInPlace Makefile \
+        --replace-fail /bin/bash /bin/sh
 
-  prePatch = ''
-    substituteInPlace Makefile \
-      --replace-fail /bin/bash /bin/sh
+      # ${web} does not have write permission
+      mkdir dist
+      cp -r ${web}/* dist
+      chmod -R 755 dist
+    '';
 
-    # ${web} does not have write permission
-    mkdir dist
-    cp -r ${web}/* dist
-    chmod -R 755 dist
-  '';
+    buildPhase = ''
+      runHook preBuild
 
-  buildPhase = ''
-    runHook preBuild
+      make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector -Wno-unused-command-line-argument" \
+        NOSTRIP=y \
+        WEB_DIST=dist \
+        AppName=${pname} \
+        VERSION=${version} \
+        OUTPUT=$out/bin/daed \
+        bundle
 
-    make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector -Wno-unused-command-line-argument" \
-      NOSTRIP=y \
-      WEB_DIST=dist \
-      AppName=${pname} \
-      VERSION=${version} \
-      OUTPUT=$out/bin/daed \
-      bundle
+      runHook postBuild
+    '';
 
-    runHook postBuild
-  '';
+    passthru.updateScript = _experimental-update-script-combinators.sequence [
+      (nix-update-script {
+        attrPath = "daed.web";
+      })
+      (nix-update-script {
+        extraArgs = ["--version=skip"];
+      })
+    ];
 
-  passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (nix-update-script {
-      attrPath = "daed.web";
-    })
-    (nix-update-script {
-      extraArgs = [ "--version=skip" ];
-    })
-  ];
-
-  meta = {
-    description = "Modern dashboard with dae";
-    homepage = "https://github.com/daeuniverse/daed";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oluceps ];
-    platforms = lib.platforms.linux;
-    mainProgram = "daed";
-  };
-}
+    meta = {
+      description = "Modern dashboard with dae";
+      homepage = "https://github.com/daeuniverse/daed";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [oluceps];
+      platforms = lib.platforms.linux;
+      mainProgram = "daed";
+    };
+  }

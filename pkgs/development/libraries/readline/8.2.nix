@@ -6,9 +6,11 @@
   updateAutotoolsGnuConfigScriptsHook,
   ncurses,
   termcap,
-  curses-library ? if stdenv.hostPlatform.isWindows then termcap else ncurses,
+  curses-library ?
+    if stdenv.hostPlatform.isWindows
+    then termcap
+    else ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "readline";
   version = "8.2p${toString (builtins.length finalAttrs.upstreamPatches)}";
@@ -27,21 +29,20 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   strictDeps = true;
-  propagatedBuildInputs = [ curses-library ];
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  propagatedBuildInputs = [curses-library];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   upstreamPatches = (
     let
-      patch =
-        nr: sha256:
+      patch = nr: sha256:
         fetchurl {
           url = "mirror://gnu/readline/readline-${finalAttrs.meta.branch}-patches/readline82-${nr}";
           inherit sha256;
         };
     in
-    import ./readline-8.2-patches.nix patch
+      import ./readline-8.2-patches.nix patch
   );
 
   patches =
@@ -114,7 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     license = licenses.gpl3Plus;
 
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
 
     platforms = platforms.unix ++ platforms.windows;
     branch = "8.2";

@@ -1,9 +1,10 @@
-{ buildPackages, freebsd-lib }:
-
+{
+  buildPackages,
+  freebsd-lib,
+}:
 # Wrap GNU coreutils' install
 # The -l flag causes a symlink instead of a copy to be installed, so
 # it is safe to discard during bootstrap since coreutils does not support it.
-
 buildPackages.writeShellScriptBin "boot-install" (
   freebsd-lib.install-wrapper
   + ''

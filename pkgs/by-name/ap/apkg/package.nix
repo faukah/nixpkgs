@@ -7,7 +7,6 @@
   dpkg,
   fakeroot,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "apkg";
   version = "0.5.0";
@@ -35,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     toml # config files
   ];
 
-  nativeBuildInputs = with python3Packages; [ hatchling ];
+  nativeBuildInputs = with python3Packages; [hatchling];
 
   makeWrapperArgs = [
     # deps for `srcpkg` operation for other distros; could be optional

@@ -5,11 +5,10 @@
   puppet-lint,
   testers,
 }:
-
 bundlerApp {
   pname = "puppet-lint";
   gemdir = ./.;
-  exes = [ "puppet-lint" ];
+  exes = ["puppet-lint"];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -25,6 +24,6 @@ bundlerApp {
     changelog = "https://github.com/puppetlabs/puppet-lint/blob/main/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "puppet-lint";
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
   };
 }

@@ -9,7 +9,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-nvfbc";
   version = "0.0.7";
@@ -36,8 +35,8 @@ stdenv.mkDerivation rec {
     description = "OBS Studio source plugin for NVIDIA FBC API";
     homepage = "https://gitlab.com/fzwoch/obs-nvfbc";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ babbaj ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [babbaj];
+    platforms = ["x86_64-linux"];
     broken = true;
   };
 }

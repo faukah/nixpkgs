@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "m2libc";
   version = "unstable-2023-05-22";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "More standards compliant C library written in M2-Planet's C subset";
     homepage = "https://github.com/oriansj/m2libc";
     license = licenses.gpl3Only;
-    teams = [ teams.minimal-bootstrap ];
+    teams = [teams.minimal-bootstrap];
     platforms = [
       "i686-linux"
       "x86_64-linux"

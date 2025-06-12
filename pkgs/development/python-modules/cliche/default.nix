@@ -5,7 +5,6 @@
   ipdb,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "cliche";
   version = "0.10.108";
@@ -23,17 +22,17 @@ buildPythonPackage {
       --replace "ipdb == 0.13.9" "ipdb"
   '';
 
-  propagatedBuildInputs = [ ipdb ];
+  propagatedBuildInputs = [ipdb];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cliche" ];
+  pythonImportsCheck = ["cliche"];
 
   meta = with lib; {
     description = "Build a simple command-line interface from your functions :computer:";
     mainProgram = "cliche";
     homepage = "https://github.com/kootenpv/cliche";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

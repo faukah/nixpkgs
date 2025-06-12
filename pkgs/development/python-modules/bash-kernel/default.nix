@@ -11,7 +11,6 @@
   writableTmpDirAsHomeHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "bash-kernel";
   version = "0.10.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     filetype
@@ -56,7 +55,7 @@ buildPythonPackage rec {
 
     # Evaluate a test notebook with papermill
     cd $(mktemp -d)
-    ${python.withPackages (ps: [ ps.papermill ])}/bin/papermill --kernel bash ${./test.ipynb} out.ipynb
+    ${python.withPackages (ps: [ps.papermill])}/bin/papermill --kernel bash ${./test.ipynb} out.ipynb
 
     runHook postCheck
   '';
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/takluyver/bash_kernel";
     changelog = "https://github.com/takluyver/bash_kernel/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

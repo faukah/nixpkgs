@@ -28,7 +28,7 @@ buildGoModule rec {
     changelog = "https://github.com/dhojayev/traderepublic-portfolio-downloader/releases/tag/v${version}";
     license = lib.licenses.gpl3;
     mainProgram = "traderepublic-portfolio-downloader";
-    maintainers = with lib.maintainers; [ seineeloquenz ];
+    maintainers = with lib.maintainers; [seineeloquenz];
     platforms = lib.platforms.linux;
   };
 }

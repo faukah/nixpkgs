@@ -7,7 +7,6 @@
   freezegun,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "itsdangerous";
   version = "2.2.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-4AUMC32h7qU/+vFJwM+7XG4uK2nEvvIsgfputz5fYXM=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   nativeCheckInputs = [
     freezegun

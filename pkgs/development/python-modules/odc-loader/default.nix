@@ -2,27 +2,22 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   flit,
   setuptools,
-
   # dependencies
   dask,
   numpy,
   odc-geo,
   rasterio,
   xarray,
-
   # optional-dependencies
   botocore,
   zarr,
-
   # tests
   geopandas,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "odc-loader";
   version = "0.5.1";
@@ -48,15 +43,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    botocore = [ botocore ];
-    zarr = [ zarr ];
+    botocore = [botocore];
+    zarr = [zarr];
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
   };
 
-  nativeCheckInputs = [
-    geopandas
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      geopandas
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
   disabledTests = [
     # Require internet access
@@ -73,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/opendatacube/odc-loader/";
     changelog = "https://github.com/opendatacube/odc-loader/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
   };
 }

@@ -3,7 +3,6 @@
   fetchgit,
   ghostscript,
 }:
-
 stdenv.mkDerivation {
   pname = "ghostscript-test-corpus-render";
   version = "unstable-2023-05-19";

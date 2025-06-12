@@ -17,7 +17,6 @@
   wrapt,
   zstandard,
 }:
-
 buildPythonPackage rec {
   pname = "smart-open";
   version = "7.2.0";
@@ -32,33 +31,35 @@ buildPythonPackage rec {
     hash = "sha256-/16Is90235scTAYUW/65QxcTddD0+aiG5TLzYsBUE1A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ wrapt ];
+  dependencies = [wrapt];
 
   optional-dependencies = {
-    s3 = [ boto3 ];
-    gcs = [ google-cloud-storage ];
+    s3 = [boto3];
+    gcs = [google-cloud-storage];
     azure = [
       azure-storage-blob
       azure-common
       azure-core
     ];
-    http = [ requests ];
-    webhdfs = [ requests ];
-    ssh = [ paramiko ];
-    zst = [ zstandard ];
+    http = [requests];
+    webhdfs = [requests];
+    ssh = [paramiko];
+    zst = [zstandard];
   };
 
-  pythonImportsCheck = [ "smart_open" ];
+  pythonImportsCheck = ["smart_open"];
 
-  nativeCheckInputs = [
-    moto
-    pytestCheckHook
-    responses
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      moto
+      pytestCheckHook
+      responses
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pytestFlagsArray = [ "smart_open" ];
+  pytestFlagsArray = ["smart_open"];
 
   disabledTests = [
     # https://github.com/RaRe-Technologies/smart_open/issues/784
@@ -73,6 +74,6 @@ buildPythonPackage rec {
     description = "Library for efficient streaming of very large file";
     homepage = "https://github.com/RaRe-Technologies/smart_open";
     license = licenses.mit;
-    maintainers = with maintainers; [ jyp ];
+    maintainers = with maintainers; [jyp];
   };
 }

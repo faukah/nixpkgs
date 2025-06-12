@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.transfer-sh;
-  inherit (lib)
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkPackageOption
@@ -20,24 +19,22 @@ let
     boolToString
     optionalAttrs
     ;
-in
-{
+in {
   options.services.transfer-sh = {
     enable = mkEnableOption "Easy and fast file sharing from the command-line";
 
-    package = mkPackageOption pkgs "transfer-sh" { };
+    package = mkPackageOption pkgs "transfer-sh" {};
 
     settings = mkOption {
       type = types.submodule {
-        freeformType =
-          with types;
+        freeformType = with types;
           attrsOf (oneOf [
             bool
             int
             str
           ]);
       };
-      default = { };
+      default = {};
       example = {
         LISTENER = ":8080";
         BASEDIR = "/var/lib/transfer.sh";
@@ -79,11 +76,10 @@ in
     };
   };
 
-  config =
-    let
-      localProvider = (cfg.provider == "local");
-      stateDirectory = "/var/lib/transfer.sh";
-    in
+  config = let
+    localProvider = cfg.provider == "local";
+    stateDirectory = "/var/lib/transfer.sh";
+  in
     mkIf cfg.enable {
       services.transfer-sh.settings =
         {
@@ -94,9 +90,13 @@ in
         };
 
       systemd.services.transfer-sh = {
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
-        environment = mapAttrs (_: v: if isBool v then boolToString v else toString v) cfg.settings;
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
+        environment = mapAttrs (_: v:
+          if isBool v
+          then boolToString v
+          else toString v)
+        cfg.settings;
         serviceConfig =
           {
             DevicePolicy = "closed";
@@ -119,8 +119,8 @@ in
             ];
             RestrictNamespaces = true;
             RestrictRealtime = true;
-            SystemCallArchitectures = [ "native" ];
-            SystemCallFilter = [ "@system-service" ];
+            SystemCallArchitectures = ["native"];
+            SystemCallFilter = ["@system-service"];
             StateDirectory = baseNameOf stateDirectory;
           }
           // optionalAttrs (cfg.secretFile != null) {
@@ -132,5 +132,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ ocfox ];
+  meta.maintainers = with lib.maintainers; [ocfox];
 }

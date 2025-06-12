@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyweatherflowudp";
   version = "1.4.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-aTwGFYTtd07BsWFaFc7ns+8oh2AxTUfRFSu81Zv5OoA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pint
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyweatherflowudp" ];
+  pythonImportsCheck = ["pyweatherflowudp"];
 
   disabledTests = [
     # Tests require network access
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/briis/pyweatherflowudp";
     changelog = "https://github.com/briis/pyweatherflowudp/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -10,7 +10,6 @@
   pytest-cov-stub,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "async-lru";
   version = "2.0.5";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-FJ1q6W9IYs0OSMZc+bI4v22hOAAWAv2OW3BAqixm8Hs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  dependencies = lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     pytest-timeout
   ];
 
-  pythonImportsCheck = [ "async_lru" ];
+  pythonImportsCheck = ["async_lru"];
 
   meta = with lib; {
     changelog = "https://github.com/aio-libs/async-lru/releases/tag/${src.tag}";
     description = "Simple lru cache for asyncio";
     homepage = "https://github.com/wikibusiness/async_lru";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

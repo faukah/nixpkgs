@@ -11,7 +11,6 @@
   SDL2,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "projectm-sdl-cpp";
   version = "0-unstable-2025-05-20";
@@ -51,17 +50,17 @@ stdenv.mkDerivation {
   ];
 
   # poco 1.14 requires c++17
-  NIX_CFLAGS_COMPILE = [ "-std=gnu++17" ];
+  NIX_CFLAGS_COMPILE = ["-std=gnu++17"];
 
   strictDeps = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Standalone application based on libprojectM and libSDL that turns your desktop audio into awesome visuals";
     homepage = "https://github.com/projectM-visualizer/frontend-sdl-cpp";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "projectMSDL";
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # TODO build probably needs some fixing

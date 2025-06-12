@@ -1,5 +1,4 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
 
   moduleWithKey = {
@@ -8,8 +7,7 @@ let
       enable = true;
     };
   };
-in
-{
+in {
   options = {
     positive = mkOption {
       type = types.submodule {
@@ -18,7 +16,7 @@ in
           moduleWithKey
         ];
       };
-      default = { };
+      default = {};
     };
     negative = mkOption {
       type = types.submodule {
@@ -26,9 +24,9 @@ in
           ./declare-enable.nix
           moduleWithKey
         ];
-        disabledModules = [ 123 ];
+        disabledModules = [123];
       };
-      default = { };
+      default = {};
     };
   };
 }

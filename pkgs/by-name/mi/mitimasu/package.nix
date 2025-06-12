@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/kemomimi-no-sato/mitimasu-webfont";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ istudyatuni ];
+    maintainers = with lib.maintainers; [istudyatuni];
   };
 }

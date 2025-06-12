@@ -5,7 +5,6 @@
   clang,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "highs";
   version = "1.10.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   doInstallCheck = true;
 
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     platforms = platforms.all;
     mainProgram = "highs";
-    maintainers = with maintainers; [ silky ];
+    maintainers = with maintainers; [silky];
   };
 })

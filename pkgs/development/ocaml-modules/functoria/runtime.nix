@@ -4,7 +4,6 @@
   fetchurl,
   cmdliner,
 }:
-
 buildDunePackage rec {
   pname = "functoria-runtime";
   version = "4.4.2";
@@ -16,12 +15,12 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ cmdliner ];
+  propagatedBuildInputs = [cmdliner];
 
   meta = with lib; {
     homepage = "https://github.com/mirage/functoria";
     license = licenses.isc;
     description = "Runtime support library for functoria-generated code";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

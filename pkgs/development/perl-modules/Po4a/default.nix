@@ -24,7 +24,6 @@
   SyntaxKeywordTry,
   writeShellScriptBin,
 }:
-
 buildPerlPackage rec {
   pname = "po4a";
   version = "0.73";
@@ -43,8 +42,7 @@ buildPerlPackage rec {
     # article.cls to an existing file, but doesn't find article-wrong.cls.
     let
       kpsewhich-stub = writeShellScriptBin "kpsewhich" ''[[ $1 = "article.cls" ]] && echo /dev/null'';
-    in
-    [
+    in [
       gettext
       libxslt
       docbook_xsl
@@ -78,7 +76,7 @@ buildPerlPackage rec {
       SyntaxKeywordTry
     ];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   LC_ALL = "en_US.UTF-8";
   SGML_CATALOG_FILES = "${docbook_xml_dtd_45}/xml/dtd/docbook/catalog.xml";
@@ -118,6 +116,6 @@ buildPerlPackage rec {
   meta = {
     description = "Tools for helping translation of documentation";
     homepage = "https://po4a.org";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
   };
 }

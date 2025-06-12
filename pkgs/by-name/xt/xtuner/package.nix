@@ -12,7 +12,6 @@
   zita-resampler,
   fftwFloat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xtuner";
   version = "1.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     libX11
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     fftwFloat
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/brummer10/XTuner";
     description = "Tuner for Jack Audio Connection Kit";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
     mainProgram = "xtuner";
   };

@@ -1,11 +1,11 @@
 {
   cmake,
-  devExtraCmakeFlags ? [ ],
+  devExtraCmakeFlags ? [],
   lib,
   llvm_meta,
   monorepoSrc ? null,
   ninja,
-  patches ? [ ],
+  patches ? [],
   python3,
   release_version,
   runCommand,
@@ -13,9 +13,7 @@
   stdenv,
   version,
   clangPatches,
-}:
-
-let
+}: let
   # This is a synthetic package which is not an official part of the llvm-project.
   # See https://github.com/NixOS/nixpkgs/pull/362384 for discussion.
   #
@@ -36,8 +34,9 @@ let
   pname = "llvm-tblgen";
 
   src' =
-    if monorepoSrc != null then
-      runCommand "${pname}-src-${version}" { } (
+    if monorepoSrc != null
+    then
+      runCommand "${pname}-src-${version}" {} (
         ''
           mkdir -p "$out"
         ''
@@ -52,8 +51,7 @@ let
           cp -r ${monorepoSrc}/mlir "$out"
         ''
       )
-    else
-      src;
+    else src;
 
   self = stdenv.mkDerivation (finalAttrs: {
     inherit pname version patches;
@@ -78,21 +76,23 @@ let
       python3
     ];
 
-    cmakeFlags = [
-      # Projects with tablegen-like tools.
-      "-DLLVM_ENABLE_PROJECTS=${
-        lib.concatStringsSep ";" (
-          [
-            "llvm"
-            "clang"
-            "clang-tools-extra"
-          ]
-          ++ lib.optionals (lib.versionAtLeast release_version "16") [
-            "mlir"
-          ]
-        )
-      }"
-    ] ++ devExtraCmakeFlags;
+    cmakeFlags =
+      [
+        # Projects with tablegen-like tools.
+        "-DLLVM_ENABLE_PROJECTS=${
+          lib.concatStringsSep ";" (
+            [
+              "llvm"
+              "clang"
+              "clang-tools-extra"
+            ]
+            ++ lib.optionals (lib.versionAtLeast release_version "16") [
+              "mlir"
+            ]
+          )
+        }"
+      ]
+      ++ devExtraCmakeFlags;
 
     # List of tablegen targets.
     ninjaFlags =
@@ -106,11 +106,10 @@ let
       ++ lib.optionals (lib.versionAtLeast release_version "16") [
         "mlir-tblgen"
       ]
-      ++
-        lib.optionals ((lib.versionAtLeast release_version "15") && (lib.versionOlder release_version "20"))
-          [
-            "clang-pseudo-gen" # Removed in LLVM 20 @ ed8f78827895050442f544edef2933a60d4a7935.
-          ];
+      ++ lib.optionals ((lib.versionAtLeast release_version "15") && (lib.versionOlder release_version "20"))
+      [
+        "clang-pseudo-gen" # Removed in LLVM 20 @ ed8f78827895050442f544edef2933a60d4a7935.
+      ];
 
     installPhase = ''
       mkdir -p $out
@@ -118,4 +117,4 @@ let
     '';
   });
 in
-self
+  self

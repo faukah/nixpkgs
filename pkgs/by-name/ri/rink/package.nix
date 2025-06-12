@@ -11,7 +11,6 @@
   asciidoctor,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "0.8.0";
   pname = "rink";
@@ -32,15 +31,14 @@ rustPlatform.buildRustPackage rec {
     asciidoctor
   ];
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ (
-      if stdenv.hostPlatform.isDarwin then
-        [
-          curl
-          libiconv
-        ]
-      else
-        [ openssl ]
+      if stdenv.hostPlatform.isDarwin
+      then [
+        curl
+        libiconv
+      ]
+      else [openssl]
     );
 
   # Some tests fail and/or attempt to use internet servers.

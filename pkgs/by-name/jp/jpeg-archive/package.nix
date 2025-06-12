@@ -8,7 +8,6 @@
   parallel,
   findutils,
 }:
-
 stdenv.mkDerivation {
   pname = "jpeg-archive";
   version = "2.2.0"; # can be found here https://github.com/danielgtaylor/jpeg-archive/blob/master/src/util.c#L15
@@ -22,8 +21,8 @@ stdenv.mkDerivation {
     sha256 = "1639y9qp2ls80fzimwmwds792q8rq5p6c14c0r4jswx4yp6dcs33";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ mozjpeg ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [mozjpeg];
 
   prePatch = ''
     # allow override LIBJPEG
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     description = "Utilities for archiving photos for saving to long term storage or serving over the web";
     homepage = "https://github.com/danielgtaylor/jpeg-archive";
     license = licenses.mit;
-    maintainers = [ maintainers.srghma ];
+    maintainers = [maintainers.srghma];
     platforms = platforms.all;
   };
 }

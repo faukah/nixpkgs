@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aesfix";
   version = "1.0.1";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Correct bit errors in an AES key schedules";
     mainProgram = "aesfix";
     homepage = "https://citp.princeton.edu/our-work/memory/";
-    maintainers = with maintainers; [ fedx-sudo ];
+    maintainers = with maintainers; [fedx-sudo];
   };
 }

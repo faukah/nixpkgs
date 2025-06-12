@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-pytz";
   version = "2025.2.0.20250516";
@@ -16,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-4SFjBvjA1dptr9ZJLnLrCAyaFmFx+oDdehmQ/Yvnp7M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Modules doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pytz-stubs" ];
+  pythonImportsCheck = ["pytz-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for pytz";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

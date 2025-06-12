@@ -6,7 +6,6 @@
   acl,
   libcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cdrtools";
   version = "3.02a09";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "10ayj48jax2pvsv6j5gybwfsx7b74zdjj84znwag7wwf8n7l6a5a";
   };
 
-  nativeBuildInputs = [ m4 ];
+  nativeBuildInputs = [m4];
   buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     acl
     libcap
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     # Licensing issues: This package contains code licensed under CDDL, GPL2
     # and LGPL2. There is a debate regarding the legality of distributing this
     # package in binary form.
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

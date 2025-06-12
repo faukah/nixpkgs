@@ -8,7 +8,6 @@
   sshfs,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-ssh";
   version = "4.2.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     "dvc"
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     bcrypt
@@ -36,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    gssapi = [ sshfs ];
+    gssapi = [sshfs];
   };
 
   # bcrypt is enabled for sshfs in nixpkgs
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/dvc-ssh/${version}";
     changelog = "https://github.com/iterative/dvc-ssh/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

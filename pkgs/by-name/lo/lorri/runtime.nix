@@ -6,8 +6,7 @@
   # Actual dependencies to propagate:
   bash,
   coreutils,
-}:
-let
+}: let
   tools = buildEnv {
     name = "lorri-runtime-tools";
     paths = [
@@ -17,10 +16,10 @@ let
   };
 
   runtimeClosureInfo = closureInfo {
-    rootPaths = [ tools ];
+    rootPaths = [tools];
   };
 
-  closureToNix = runCommand "closure.nix" { } ''
+  closureToNix = runCommand "closure.nix" {} ''
     (
       echo '{ dep, ... }: ['
       sed -E 's/^(.*)$/    (dep \1)/' ${runtimeClosureInfo}/store-paths
@@ -30,12 +29,12 @@ let
 
   runtimeClosureInfoAsNix =
     runCommand "runtime-closure.nix"
-      {
-        runtime_closure_list = closureToNix;
-        tools_build_host = tools;
-      }
-      ''
-        substituteAll ${./runtime-closure.nix.template} $out
-      '';
+    {
+      runtime_closure_list = closureToNix;
+      tools_build_host = tools;
+    }
+    ''
+      substituteAll ${./runtime-closure.nix.template} $out
+    '';
 in
-runtimeClosureInfoAsNix
+  runtimeClosureInfoAsNix

@@ -11,7 +11,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-notifications";
   version = "1.3.1";
@@ -74,14 +73,14 @@ stdenv.mkDerivation (finalAttrs: {
     export QT_PLUGIN_PATH=${lib.getBin qtbase}/${qtbase.qtPluginPrefix}
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Free Desktop Notification server QML implementation for Lomiri";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-notifications";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-notifications/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

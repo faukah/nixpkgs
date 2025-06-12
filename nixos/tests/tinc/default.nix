@@ -1,26 +1,21 @@
 import ../make-test-python.nix (
-  { lib, ... }:
-  let
+  {lib, ...}: let
     snakeoil-keys = import ./snakeoil-keys.nix;
 
     hosts = lib.attrNames snakeoil-keys;
 
-    subnetOf =
-      name: config:
-      let
-        subnets = config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
-      in
+    subnetOf = name: config: let
+      subnets = config.services.tinc.networks.myNetwork.hostSettings.${name}.subnets;
+    in
       (builtins.head subnets).address;
 
-    makeTincHost =
-      name:
-      {
-        subnet,
-        extraConfig ? { },
-      }:
+    makeTincHost = name: {
+      subnet,
+      extraConfig ? {},
+    }:
       lib.mkMerge [
         {
-          subnets = [ { address = subnet; } ];
+          subnets = [{address = subnet;}];
           settings = {
             Ed25519PublicKey = snakeoil-keys.${name}.ed25519Public;
           };
@@ -29,9 +24,7 @@ import ../make-test-python.nix (
         extraConfig
       ];
 
-    makeTincNode =
-      { config, ... }:
-      name: extraConfig:
+    makeTincNode = {config, ...}: name: extraConfig:
       lib.mkMerge [
         {
           services.tinc.networks.myNetwork = {
@@ -44,10 +37,12 @@ import ../make-test-python.nix (
                 subnet = "10.0.0.11";
                 # Only specify the addresses in the node's vlans, Tinc does not
                 # seem to try each one, unlike the documentation suggests...
-                extraConfig.addresses = map (vlan: {
-                  address = "192.168.${toString vlan}.11";
-                  port = 655;
-                }) config.virtualisation.vlans;
+                extraConfig.addresses =
+                  map (vlan: {
+                    address = "192.168.${toString vlan}.11";
+                    port = 655;
+                  })
+                  config.virtualisation.vlans;
               };
               dynamic1 = {
                 subnet = "10.0.0.21";
@@ -75,25 +70,21 @@ import ../make-test-python.nix (
           # interface.
           # See: https://github.com/NixOS/nixpkgs/issues/27070
           systemd.services."tinc.myNetwork" = {
-            after = [ "network-addresses-tinc.myNetwork.service" ];
-            requires = [ "network-addresses-tinc.myNetwork.service" ];
+            after = ["network-addresses-tinc.myNetwork.service"];
+            requires = ["network-addresses-tinc.myNetwork.service"];
           };
 
-          networking.firewall.allowedTCPPorts = [ 655 ];
-          networking.firewall.allowedUDPPorts = [ 655 ];
+          networking.firewall.allowedTCPPorts = [655];
+          networking.firewall.allowedUDPPorts = [655];
         }
         extraConfig
       ];
-
-  in
-  {
+  in {
     name = "tinc";
-    meta.maintainers = with lib.maintainers; [ minijackson ];
+    meta.maintainers = with lib.maintainers; [minijackson];
 
     nodes = {
-
-      static =
-        { ... }@args:
+      static = {...} @ args:
         makeTincNode args "static" {
           virtualisation.vlans = [
             1
@@ -115,18 +106,15 @@ import ../make-test-python.nix (
           ];
         };
 
-      dynamic1 =
-        { ... }@args:
+      dynamic1 = {...} @ args:
         makeTincNode args "dynamic1" {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
         };
 
-      dynamic2 =
-        { ... }@args:
+      dynamic2 = {...} @ args:
         makeTincNode args "dynamic2" {
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
         };
-
     };
 
     testScript = ''

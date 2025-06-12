@@ -20,7 +20,6 @@
   pytest-cov-stub,
   pdf2image,
 }:
-
 buildPythonPackage rec {
   pname = "unstructured-inference";
   version = "1.0.2";
@@ -85,14 +84,14 @@ buildPythonPackage rec {
     "test_unstructured_inference/models/test_tables.py"
   ];
 
-  pythonImportsCheck = [ "unstructured_inference" ];
+  pythonImportsCheck = ["unstructured_inference"];
 
   meta = with lib; {
     description = "hosted model inference code for layout parsing models";
     homepage = "https://github.com/Unstructured-IO/unstructured-inference";
     changelog = "https://github.com/Unstructured-IO/unstructured-inference/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

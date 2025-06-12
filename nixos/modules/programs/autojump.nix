@@ -3,16 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.autojump;
   prg = config.programs;
-in
-{
+in {
   options = {
     programs.autojump = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -26,8 +22,8 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.pathsToLink = [ "/share/autojump" ];
-    environment.systemPackages = [ pkgs.autojump ];
+    environment.pathsToLink = ["/share/autojump"];
+    environment.systemPackages = [pkgs.autojump];
 
     programs.bash.interactiveShellInit = "source ${pkgs.autojump}/share/autojump/autojump.bash";
     programs.zsh.interactiveShellInit = lib.mkIf prg.zsh.enable "source ${pkgs.autojump}/share/autojump/autojump.zsh";

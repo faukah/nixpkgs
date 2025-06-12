@@ -11,7 +11,6 @@
   pythonOlder,
   std-uritemplate,
 }:
-
 buildPythonPackage rec {
   pname = "microsoft-kiota-abstractions";
   version = "1.9.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/abstractions/";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     opentelemetry-api
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     "test_sets_datetime_values_in_path_parameters"
   ];
 
-  pythonImportsCheck = [ "kiota_abstractions" ];
+  pythonImportsCheck = ["kiota_abstractions"];
 
   # detects the wrong tag on the repo
   passthru.skipBulkUpdate = true;
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/microsoft/kiota-python/tree/main/packages/abstractions/";
     changelog = "https://github.com/microsoft/kiota-python/releases/tag/microsoft-kiota-abstractions-${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

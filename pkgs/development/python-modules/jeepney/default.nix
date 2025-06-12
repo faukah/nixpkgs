@@ -13,7 +13,6 @@
   testpath,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "jeepney";
   version = "0.9";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-d8w/4PtDviTYDHO4EwaVbxlYk7CXtlv7vuR+o4LhfRs=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   nativeCheckInputs =
     [
@@ -64,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/takluyver/jeepney";
     description = "Pure Python DBus interface";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

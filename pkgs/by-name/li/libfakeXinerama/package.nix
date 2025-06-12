@@ -5,7 +5,6 @@
   libX11,
   libXinerama,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libfakeXinerama";
   version = "0.1.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://xpra.org/";
     description = "fakeXinerama for Xpra";
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.nickcao ];
+    maintainers = [lib.maintainers.nickcao];
     license = lib.licenses.mit;
   };
 })

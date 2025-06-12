@@ -9,7 +9,7 @@
   # The primary --enable-XXX variant. 'all' enables most features, but causes build-errors for some software,
   # requiring to build a special variant for that software. Example: 'haproxy'
   variant ? "all",
-  extraConfigureFlags ? [ ],
+  extraConfigureFlags ? [],
   enableARMCryptoExtensions ?
     stdenv.hostPlatform.isAarch64
     && ((builtins.match "^.*\\+crypto.*$" stdenv.hostPlatform.gcc.arch) != null),
@@ -64,7 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optionals (stdenv.hostPlatform.isAarch64) [
       # No runtime detection under ARM and no platform function checks like for X86.
-      (if enableARMCryptoExtensions then "--enable-armasm=inline" else "--disable-armasm")
+      (
+        if enableARMCryptoExtensions
+        then "--enable-armasm=inline"
+        else "--disable-armasm"
+      )
     ]
     ++ extraConfigureFlags;
 

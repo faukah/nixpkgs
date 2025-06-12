@@ -5,9 +5,7 @@
   pretend,
   pytestCheckHook,
   setuptools,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "calver";
     version = "2025.04.01";
@@ -25,7 +23,7 @@ let
         --replace "version=calver_version(True)" 'version="${version}"'
     '';
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     doCheck = false; # avoid infinite recursion with hatchling
 
@@ -38,17 +36,17 @@ let
       unset SOURCE_DATE_EPOCH
     '';
 
-    pythonImportsCheck = [ "calver" ];
+    pythonImportsCheck = ["calver"];
 
-    passthru.tests.calver = self.overridePythonAttrs { doCheck = true; };
+    passthru.tests.calver = self.overridePythonAttrs {doCheck = true;};
 
     meta = {
       changelog = "https://github.com/di/calver/releases/tag/${src.rev}";
       description = "Setuptools extension for CalVer package versions";
       homepage = "https://github.com/di/calver";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ dotlambda ];
+      maintainers = with lib.maintainers; [dotlambda];
     };
   };
 in
-self
+  self

@@ -29,7 +29,6 @@
   zziplib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   outputs = [
     "out"
@@ -39,11 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
   version = "1.10.1";
 
   src = fetchurl {
-    url =
-      let
-        date = "20250302";
-      in
-      "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2";
+    url = let
+      date = "20250302";
+    in "https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${date}/AlephOne-${date}.tar.bz2";
     hash = "sha256-Jn8357JYR6cWISDxzYutLTWBDMTv0h923cSFf+RU8V8=";
   };
 
@@ -75,8 +72,8 @@ stdenv.mkDerivation (finalAttrs: {
     zziplib
   ];
 
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
-  makeFlags = [ "AR:=$(AR)" ];
+  configureFlags = ["--with-boost-libdir=${boost.out}/lib"];
+  makeFlags = ["AR:=$(AR)"];
 
   enableParallelBuilding = true;
 
@@ -92,27 +89,26 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests.version =
     # test that the version is correct
-    testers.testVersion { package = finalAttrs.finalPackage; };
+    testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     description = "Aleph One is the open source continuation of Bungie’s Marathon 2 game engine";
     mainProgram = "alephone";
     homepage = "https://alephone.lhowon.org/";
-    license = [ lib.licenses.gpl3 ];
-    maintainers = with lib.maintainers; [ ehmry ];
+    license = [lib.licenses.gpl3];
+    maintainers = with lib.maintainers; [ehmry];
     platforms = lib.platforms.linux;
   };
 
-  passthru.makeWrapper =
-    {
-      pname,
-      desktopName,
-      version,
-      zip,
-      meta,
-      icon ? finalAttrs.finalPackage.icons + "/alephone.png",
-      ...
-    }@extraArgs:
+  passthru.makeWrapper = {
+    pname,
+    desktopName,
+    version,
+    zip,
+    meta,
+    icon ? finalAttrs.finalPackage.icons + "/alephone.png",
+    ...
+  } @ extraArgs:
     stdenv.mkDerivation (
       {
         inherit pname version;
@@ -121,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
           name = desktopName;
           exec = pname;
           genericName = pname;
-          categories = [ "Game" ];
+          categories = ["Game"];
           comment = meta.description;
           inherit desktopName icon;
         };
@@ -151,7 +147,7 @@ stdenv.mkDerivation (finalAttrs: {
           // {
             license = lib.licenses.free;
             mainProgram = pname;
-            hydraPlatforms = [ ];
+            hydraPlatforms = [];
           }
           // meta;
       }

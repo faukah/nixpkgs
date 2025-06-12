@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tektoncd-cli";
   version = "0.41.0";
@@ -24,9 +23,9 @@ buildGoModule rec {
     "-X github.com/tektoncd/cli/pkg/cmd/version.clientVersion=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/tkn" ];
+  subPackages = ["cmd/tkn"];
 
   preCheck = ''
     # some tests try to write to the home dir

@@ -4,7 +4,6 @@
   fetchurl,
   gcc-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.5.0";
   pname = "libthreadar";
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ gcc-unwrapped ];
+  buildInputs = [gcc-unwrapped];
 
-  CXXFLAGS = [ "-std=c++14" ];
+  CXXFLAGS = ["-std=c++14"];
 
   configureFlags = [
     "--disable-build-html"
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       Libthreadar is a C++ library providing a small set of C++ classes to manipulate
       threads in a very simple and efficient way from your C++ code.
     '';
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     license = licenses.lgpl3;
     platforms = platforms.unix;
   };

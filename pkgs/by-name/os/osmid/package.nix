@@ -6,7 +6,6 @@
   alsa-lib,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmid";
   version = "0.8.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1s1wsrp6g6wb0y61xzxvaj59mwycrgy52r4h456086zkz10ls6hw";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     alsa-lib
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/llloret/osmid";
     description = "Lightweight, portable, easy to use tool to convert MIDI to OSC and OSC to MIDI";
     license = licenses.mit;
-    maintainers = with maintainers; [ c0deaddict ];
+    maintainers = with maintainers; [c0deaddict];
     platforms = platforms.linux;
   };
 }

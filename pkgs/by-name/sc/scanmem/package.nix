@@ -10,7 +10,6 @@
   python3,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scanmem";
   version = "0.17";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     readline
     python3
   ];
-  configureFlags = [ "--enable-gui" ];
+  configureFlags = ["--enable-gui"];
 
   # we don't need to wrap the main executable, just the GUI
   dontWrapGApps = true;
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     # also add procps because it shells out to `ps` and expects it to be procps
     makeWrapper ${python3}/bin/python3 $out/bin/gameconqueror \
       "''${gappsWrapperArgs[@]}" \
-      --set PYTHONPATH "${python3.pkgs.makePythonPath [ python3.pkgs.pygobject3 ]}" \
+      --set PYTHONPATH "${python3.pkgs.makePythonPath [python3.pkgs.pygobject3]}" \
       --prefix PATH : "${procps}/bin" \
       --add-flags "$out/share/gameconqueror/GameConqueror.py"
 
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/scanmem/scanmem";
     description = "Memory scanner for finding and poking addresses in executing processes";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

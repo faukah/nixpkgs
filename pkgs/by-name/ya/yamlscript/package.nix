@@ -3,7 +3,6 @@
   buildGraalvmNativeImage,
   fetchurl,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "yamlscript";
   version = "0.1.96";
@@ -38,9 +37,9 @@ buildGraalvmNativeImage (finalAttrs: {
   meta = {
     description = "Programming in YAML";
     homepage = "https://github.com/yaml/yamlscript";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     mainProgram = "ys";
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
   };
 })

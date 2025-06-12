@@ -6,7 +6,6 @@
   makeWrapper,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gatk";
   version = "4.6.2.0";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I2p7BLh4q0i8qn1fTbzsaKVnCkMrPIxEpBUjOxNxgxI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3];
 
   dontUnpack = true;
 
@@ -27,15 +26,15 @@ stdenv.mkDerivation rec {
     install -m755 -D $src/gatk $out/bin/
   '';
   postFixup = ''
-    wrapProgram $out/bin/gatk --prefix PATH : ${lib.makeBinPath [ jre ]}
+    wrapProgram $out/bin/gatk --prefix PATH : ${lib.makeBinPath [jre]}
   '';
 
   meta = with lib; {
     homepage = "https://gatk.broadinstitute.org/hc/en-us";
     description = "Wide variety of tools with a primary focus on variant discovery and genotyping.";
     license = licenses.asl20;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ apraga ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [apraga];
     longDescription = ''
       The GATK is the industry standard for identifying SNPs and indels in germline
       DNA and RNAseq data. Its scope is now expanding to include somatic short variant

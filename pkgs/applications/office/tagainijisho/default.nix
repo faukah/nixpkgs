@@ -8,7 +8,6 @@
   sqlite,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tagainijisho";
   version = "1.2.2";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-30
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

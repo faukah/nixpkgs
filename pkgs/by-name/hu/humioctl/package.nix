@@ -4,7 +4,6 @@
   installShellFiles,
   lib,
 }:
-
 buildGoModule rec {
   pname = "humioctl";
   version = "0.36.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd humioctl \
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/humio/cli";
     description = "CLI for managing and sending data to Humio";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
     mainProgram = "humioctl";
   };
 }

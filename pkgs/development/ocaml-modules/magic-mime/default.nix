@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "magic-mime";
   version = "1.3.1";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "Convert file extensions to MIME types";
     homepage = "https://github.com/mirage/ocaml-magic-mime";
     license = licenses.isc;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

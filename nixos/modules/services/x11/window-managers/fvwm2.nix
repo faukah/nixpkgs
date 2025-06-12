@@ -4,20 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.fvwm2;
-  fvwm2 = pkgs.fvwm2.override { enableGestures = cfg.gestures; };
-in
-
-{
-
+  fvwm2 = pkgs.fvwm2.override {enableGestures = cfg.gestures;};
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "xserver" "windowManager" "fvwm" ]
-      [ "services" "xserver" "windowManager" "fvwm2" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "windowManager" "fvwm"]
+      ["services" "xserver" "windowManager" "fvwm2"]
     )
   ];
 
@@ -46,6 +41,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ fvwm2 ];
+    environment.systemPackages = [fvwm2];
   };
 }

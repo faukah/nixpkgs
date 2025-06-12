@@ -5,7 +5,6 @@
   cmake,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "curlpp";
   version = "0.8.1";
@@ -21,14 +20,14 @@ stdenv.mkDerivation rec {
     ./curl_8_10_build_failure.patch
   ];
 
-  buildInputs = [ curl ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [curl];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://www.curlpp.org/";
     description = "C++ wrapper around libcURL";
     mainProgram = "curlpp-config";
     license = licenses.mit;
-    maintainers = with maintainers; [ CrazedProgrammer ];
+    maintainers = with maintainers; [CrazedProgrammer];
   };
 }

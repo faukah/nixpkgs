@@ -24,7 +24,7 @@ buildGoModule (finalAttrs: {
     "-X gotest.tools/gotestsum/cmd.version=${finalAttrs.version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = {
     homepage = "https://github.com/gotestyourself/gotestsum";
@@ -33,6 +33,6 @@ buildGoModule (finalAttrs: {
     mainProgram = "gotestsum";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ isabelroses ];
+    maintainers = with lib.maintainers; [isabelroses];
   };
 })

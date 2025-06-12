@@ -35,7 +35,6 @@
   common-updater-scripts,
   jq,
   nix,
-
   # for passthru.tests
   enlightenment,
   ffmpeg,
@@ -46,7 +45,6 @@
   vips,
   xfce,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "librsvg";
   version = "2.60.0";
@@ -154,10 +152,9 @@ stdenv.mkDerivation (finalAttrs: {
     export XDG_DATA_DIRS=${shared-mime-info}/share:$XDG_DATA_DIRS
   '';
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in
     lib.optionalString withPixbufLoader ''
       # Merge gdkpixbuf and librsvg loaders
       GDK_PIXBUF=$out/${gdk-pixbuf.binaryDir}
@@ -177,31 +174,30 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "librsvg";
-        };
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "librsvg";
+      };
 
-        updateLockfile = {
-          command = [
-            "sh"
-            "-c"
-            ''
-              PATH=${
-                lib.makeBinPath [
-                  common-updater-scripts
-                  jq
-                  nix
-                ]
-              }
-              update-source-version librsvg --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
-            ''
-          ];
-          # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
-        };
-      in
+      updateLockfile = {
+        command = [
+          "sh"
+          "-c"
+          ''
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+                jq
+                nix
+              ]
+            }
+            update-source-version librsvg --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
+          ''
+        ];
+        # Experimental feature: do not copy!
+        supportedFeatures = ["silent"];
+      };
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
@@ -216,7 +212,7 @@ stdenv.mkDerivation (finalAttrs: {
         ;
       inherit (enlightenment) efl;
       inherit (xfce) xfwm4;
-      ffmpeg = ffmpeg.override { withSvg = true; };
+      ffmpeg = ffmpeg.override {withSvg = true;};
     };
   };
 
@@ -224,7 +220,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Small library to render SVG images to Cairo surfaces";
     homepage = "https://gitlab.gnome.org/GNOME/librsvg";
     license = licenses.lgpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     mainProgram = "rsvg-convert";
     platforms = platforms.unix;
   };

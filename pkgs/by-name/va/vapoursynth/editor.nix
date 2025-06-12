@@ -10,9 +10,7 @@
   qmake,
   qtbase,
   qtwebsockets,
-}:
-
-let
+}: let
   unwrapped = mkDerivation rec {
     pname = "vapoursynth-editor";
     version = "R19-mod-4";
@@ -29,7 +27,7 @@ let
         --replace-fail "TARGET = vsedit-32bit" "TARGET = vsedit"
     '';
 
-    nativeBuildInputs = [ qmake ];
+    nativeBuildInputs = [qmake];
     buildInputs = [
       qtbase
       vapoursynth
@@ -68,30 +66,28 @@ let
       description = "Cross-platform editor for VapourSynth scripts";
       homepage = "https://github.com/YomikoR/VapourSynth-Editor";
       license = licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
       platforms = platforms.all;
     };
   };
 
-  withPlugins =
-    plugins:
-    let
-      vapoursynthWithPlugins = vapoursynth.withPlugins plugins;
-    in
+  withPlugins = plugins: let
+    vapoursynthWithPlugins = vapoursynth.withPlugins plugins;
+  in
     runCommand "${unwrapped.name}-with-plugins"
-      {
-        nativeBuildInputs = [ makeWrapper ];
-        passthru = {
-          withPlugins = plugins': withPlugins (plugins ++ plugins');
-        };
-      }
-      ''
-        mkdir -p $out/bin
-        for bin in vsedit{,-job-server{,-watcher}}; do
-            makeWrapper ${unwrapped}/bin/$bin $out/bin/$bin \
-                --prefix PYTHONPATH : ${vapoursynthWithPlugins}/${python3.sitePackages} \
-                --prefix LD_LIBRARY_PATH : ${vapoursynthWithPlugins}/lib
-        done
-      '';
+    {
+      nativeBuildInputs = [makeWrapper];
+      passthru = {
+        withPlugins = plugins': withPlugins (plugins ++ plugins');
+      };
+    }
+    ''
+      mkdir -p $out/bin
+      for bin in vsedit{,-job-server{,-watcher}}; do
+          makeWrapper ${unwrapped}/bin/$bin $out/bin/$bin \
+              --prefix PYTHONPATH : ${vapoursynthWithPlugins}/${python3.sitePackages} \
+              --prefix LD_LIBRARY_PATH : ${vapoursynthWithPlugins}/lib
+      done
+    '';
 in
-withPlugins [ ]
+  withPlugins []

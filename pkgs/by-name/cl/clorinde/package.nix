@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "clorinde";
   version = "0.16.0";
@@ -20,11 +19,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-dp5m/PLVG8xUM6LCq48NKK0P8di44keB/YZ9ocfL0Bg=";
 
-  cargoBuildFlags = [ "--package=clorinde" ];
+  cargoBuildFlags = ["--package=clorinde"];
 
   cargoTestFlags = finalAttrs.cargoBuildFlags;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "clorinde";
   };
 })

@@ -5,7 +5,6 @@
   rustPlatform,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fastmod";
   version = "0.4.4";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "fastmod";
     homepage = "https://github.com/facebookincubator/fastmod";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jduan ];
+    maintainers = with maintainers; [jduan];
   };
 }

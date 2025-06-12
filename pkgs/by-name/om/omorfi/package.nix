@@ -14,7 +14,6 @@
   python3,
   zip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "omorfi";
   version = "0.9.9";
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Analysis for Finnish text";
     homepage = "https://github.com/flammie/omorfi";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
     # Darwin build fails due to hfst not being found
     broken = stdenv.hostPlatform.isDarwin;
   };

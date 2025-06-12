@@ -1,5 +1,7 @@
-{ lib, python3 }:
-
+{
+  lib,
+  python3,
+}:
 python3.pkgs.buildPythonApplication {
   pname = "nixos-render-docs-redirects";
   version = "0.0";
@@ -7,7 +9,7 @@ python3.pkgs.buildPythonApplication {
 
   src = ./src;
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   nativeCheckInputs = with python3.pkgs; [
     pytestCheckHook
@@ -16,7 +18,7 @@ python3.pkgs.buildPythonApplication {
   meta = {
     description = "Redirects manipulation for nixos manuals";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getpsyched ];
+    maintainers = with lib.maintainers; [getpsyched];
     mainProgram = "redirects";
   };
 }

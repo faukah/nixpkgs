@@ -4,17 +4,14 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   cfg = config.services.synapse-auto-compressor;
   synapseConfig = config.services.matrix-synapse;
   postgresEnabled = config.services.postgresql.enable;
   synapseUsesPostgresql = synapseConfig.settings.database.name == "psycopg2";
-  synapseUsesLocalPostgresql =
-    let
-      args = synapseConfig.settings.database.args;
-    in
+  synapseUsesLocalPostgresql = let
+    args = synapseConfig.settings.database.args;
+  in
     synapseUsesPostgresql
     && postgresEnabled
     && (
@@ -25,23 +22,24 @@ let
         "::1"
       ])
     );
-in
-{
+in {
   options = {
     services.synapse-auto-compressor = {
       enable = lib.mkEnableOption "synapse-auto-compressor";
-      package = lib.mkPackageOption pkgs "rust-synapse-state-compress" { };
+      package = lib.mkPackageOption pkgs "rust-synapse-state-compress" {};
       postgresUrl = lib.mkOption {
-        default =
-          let
-            args = synapseConfig.settings.database.args;
-          in
-          if synapseConfig.enable then
-            ''postgresql://${args.user}${lib.optionalString (args ? password) (":" + args.password)}@${
-              lib.escapeURL (if (args ? host) then args.host else "/run/postgresql")
+        default = let
+          args = synapseConfig.settings.database.args;
+        in
+          if synapseConfig.enable
+          then ''postgresql://${args.user}${lib.optionalString (args ? password) (":" + args.password)}@${
+              lib.escapeURL (
+                if (args ? host)
+                then args.host
+                else "/run/postgresql"
+              )
             }${lib.optionalString (args ? port) (":" + args.port)}/${args.database}''
-          else
-            null;
+          else null;
         defaultText = lib.literalExpression ''
           let
             synapseConfig = config.services.matrix-synapse;

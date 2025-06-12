@@ -10,7 +10,6 @@
   trousers,
   libcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencryptoki";
   version = "3.23.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "PKCS#11 implementation for Linux";
     homepage = "https://github.com/opencryptoki/opencryptoki";
     license = licenses.cpl10;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

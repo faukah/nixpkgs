@@ -1,10 +1,10 @@
 /*
-  This is a minimal/manual luarocks derivation used by `buildLuarocksPackage` to install lua packages.
+This is a minimal/manual luarocks derivation used by `buildLuarocksPackage` to install lua packages.
 
-  As a nix user, you should use the generated lua.pkgs.luarocks that contains a luarocks manifest
-  which makes it recognizable to luarocks.
-  Generating the manifest for luarocks_bootstrap seemed too hackish, which is why we end up
-  with two "luarocks" derivations.
+As a nix user, you should use the generated lua.pkgs.luarocks that contains a luarocks manifest
+which makes it recognizable to luarocks.
+Generating the manifest for luarocks_bootstrap seemed too hackish, which is why we end up
+with two "luarocks" derivations.
 */
 {
   lib,
@@ -22,7 +22,6 @@
   cmake,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luarocks_bootstrap";
   version = "3.11.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Manually written ./configure does not support --build= or --host=:
   #   Error: Unknown flag: --build=x86_64-unknown-linux-gnu
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   preConfigure = ''
     lua -e "" || {
@@ -123,7 +122,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

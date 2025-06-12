@@ -7,7 +7,6 @@
   pytest-mock,
   poetry,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-plugin-up";
   version = "0.9.0";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MousaZeidBaker/poetry-plugin-up";
     changelog = "https://github.com/MousaZeidBaker/poetry-plugin-up/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.k900 ];
+    maintainers = [lib.maintainers.k900];
   };
 }

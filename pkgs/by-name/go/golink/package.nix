@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "golink";
   version = "1.0.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Private shortlink service for tailnets";
     homepage = "https://github.com/tailscale/golink";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "golink";
   };
 }

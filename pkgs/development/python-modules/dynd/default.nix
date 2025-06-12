@@ -9,7 +9,6 @@
   fetchFromGitHub,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   version = "0.7.2";
   format = "setuptools";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     cython
@@ -58,12 +57,12 @@ buildPythonPackage rec {
   #  ModuleNotFoundError: No module named 'dynd.config'
   doCheck = false;
 
-  pythonImportsCheck = [ "dynd" ];
+  pythonImportsCheck = ["dynd"];
 
   meta = with lib; {
     homepage = "http://libdynd.org";
     license = licenses.bsd2;
     description = "Python exposure of dynd";
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

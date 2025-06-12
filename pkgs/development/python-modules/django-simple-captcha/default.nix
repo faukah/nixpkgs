@@ -2,22 +2,18 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   django,
   django-ranged-response,
   pillow,
-
   # tests
   flite,
   pytest-django,
   pytestCheckHook,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "django-simple-captcha";
   version = "0.6.2";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-hOvZQCAAlMYaNpAN+junhfgWej92shto7ejhKUPqbX0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django

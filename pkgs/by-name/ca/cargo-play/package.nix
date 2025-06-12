@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-play";
   version = "0.5.1";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo-play";
     homepage = "https://github.com/fanzeyi/cargo-play";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

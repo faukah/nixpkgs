@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubemqctl";
   version = "3.7.2";
@@ -35,6 +34,6 @@ buildGoModule rec {
     description = "Kubemqctl is a command line interface (CLI) for Kubemq Kubernetes Message Broker";
     mainProgram = "kubemqctl";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ brianmcgee ];
+    maintainers = with lib.maintainers; [brianmcgee];
   };
 }

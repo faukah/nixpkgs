@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "hyperpotamus";
   version = "0.39.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/pmarkert/hyperpotamus";
     license = lib.licenses.mit;
     mainProgram = "hyperpotamus";
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

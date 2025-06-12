@@ -27,7 +27,6 @@
   directoryListingUpdater,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gstreamer-vaapi";
   version = "1.26.0";
@@ -95,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
@@ -103,6 +102,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

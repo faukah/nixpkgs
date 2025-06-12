@@ -6,7 +6,6 @@
   console,
   src,
 }:
-
 buildDunePackage {
   inherit src;
 
@@ -18,7 +17,7 @@ buildDunePackage {
   ];
 
   passthru.tests = {
-    console = callPackage ./tests/console { };
+    console = callPackage ./tests/console {};
   };
 
   meta = {
@@ -26,6 +25,6 @@ buildDunePackage {
     downloadPage = "https://github.com/reasonml/reason-native/tree/master/src/console";
     homepage = "https://reason-native.com/docs/console/";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

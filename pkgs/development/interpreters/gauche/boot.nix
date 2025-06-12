@@ -11,14 +11,13 @@
   mbedtls,
   cacert,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gauche-bootstrap";
   version = "0.9.15";
 
   src = fetchurl {
     url = "https://github.com/shirok/Gauche/releases/download/release${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }/Gauche-${version}.tgz";
     hash = "sha256-NkPie8fIgiz9b7KJLbGF9ljo42STi8LM/O2yOeNa94M=";
   };
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "R7RS Scheme scripting engine (released version)";
     homepage = "https://practical-scheme.net/gauche/";
     mainProgram = "gosh";
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

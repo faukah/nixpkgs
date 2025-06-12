@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "json5";
   version = "0.10.0";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-J5xZN6o9UwvCdrzEY6o3NxYaxbtiUhmTtCQJia4JmI4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "json5" ];
+  pythonImportsCheck = ["json5"];
 
   meta = with lib; {
     description = "Python implementation of the JSON5 data format";
     homepage = "https://github.com/dpranke/pyjson5";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
     mainProgram = "pyjson5";
   };
 }

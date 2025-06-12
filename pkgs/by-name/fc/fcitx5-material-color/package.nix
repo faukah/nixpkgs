@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fcitx5-material-color";
   version = "0.2.1";

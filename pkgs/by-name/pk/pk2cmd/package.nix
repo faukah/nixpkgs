@@ -5,7 +5,6 @@
   libusb-compat-0_1,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pk2cmd";
   version = "1.20";
@@ -26,8 +25,8 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/pk2cmd --prefix PATH : $out/share/pk2
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ libusb-compat-0_1 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [libusb-compat-0_1];
 
   meta = {
     homepage = "https://www.microchip.com/pickit2";

@@ -6,7 +6,6 @@
   grpcio,
   setuptools,
 }:
-
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "protobuf"
@@ -44,12 +43,12 @@ buildPythonPackage rec {
   # no tests in the package
   doCheck = false;
 
-  pythonImportsCheck = [ "grpc_tools" ];
+  pythonImportsCheck = ["grpc_tools"];
 
   meta = with lib; {
     description = "Protobuf code generator for gRPC";
     license = licenses.asl20;
     homepage = "https://grpc.io/grpc/python/";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

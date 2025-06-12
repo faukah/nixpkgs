@@ -6,7 +6,6 @@
   pkg-config,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qcomicbook";
   version = "0.9.1";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.linux;
-    maintainers = with maintainers; [ greydot ];
+    maintainers = with maintainers; [greydot];
   };
 }

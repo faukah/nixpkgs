@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nomad-driver-podman";
   version = "0.6.2";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-9uXpcF/b2iR3xwVQ6XwJ9USuVqzYND4nuGMjMmEIbVs=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # some tests require a running podman service
   doCheck = false;
@@ -28,6 +27,6 @@ buildGoModule rec {
     mainProgram = "nomad-driver-podman";
     platforms = platforms.linux;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

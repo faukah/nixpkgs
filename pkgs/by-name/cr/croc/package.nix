@@ -5,7 +5,6 @@
   callPackage,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "croc";
   version = "10.2.2";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-oyLjCORfx3Pf8T1EQqM9XBrmQyMSDHy2X2axh1L79PQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   passthru = {
     tests = {
-      local-relay = callPackage ./test-local-relay.nix { };
+      local-relay = callPackage ./test-local-relay.nix {};
       inherit (nixosTests) croc;
     };
   };

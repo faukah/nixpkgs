@@ -2,10 +2,8 @@
   buildPythonPackage,
   lib,
   callPackage,
-
   isPy3k,
   isPyPy,
-
   openpaperwork-core,
   openpaperwork-gtk,
   paperwork-backend,
@@ -15,13 +13,11 @@
   psutil,
   shared-mime-info,
   setuptools-scm,
-
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "paperwork-shell";
-  inherit (callPackage ./src.nix { }) version src;
+  inherit (callPackage ./src.nix {}) version src;
   format = "pyproject";
 
   sourceRoot = "${src.name}/paperwork-shell";

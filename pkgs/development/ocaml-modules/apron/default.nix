@@ -13,7 +13,6 @@
   flint3,
   pplite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-apron";
   version = "0.9.15";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     flint3
     pplite
   ];
-  propagatedBuildInputs = [ mlgmpidl ];
+  propagatedBuildInputs = [mlgmpidl];
 
   outputs = [
     "out"
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = {
     license = lib.licenses.lgpl21;
     homepage = "http://apron.cri.ensmp.fr/library/";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     description = "Numerical abstract domain library";
     inherit (ocaml.meta) platforms;
   };

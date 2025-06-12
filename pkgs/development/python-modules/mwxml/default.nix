@@ -3,19 +3,15 @@
   stdenv,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   jsonschema,
   mwcli,
   mwtypes,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mwxml";
   version = "0.3.6";
@@ -26,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-WlMYHTAhUq0D7FE/8Yaongx+H8xQx4MwRSoIcsqmOTU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jsonschema
@@ -34,9 +30,9 @@ buildPythonPackage rec {
     mwtypes
   ];
 
-  pythonImportsCheck = [ "mwxml" ];
+  pythonImportsCheck = ["mwxml"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # AttributeError: Can't get local object 'map.<locals>.process_path'
@@ -48,6 +44,6 @@ buildPythonPackage rec {
     mainProgram = "mwxml";
     homepage = "https://github.com/mediawiki-utilities/python-mwxml";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

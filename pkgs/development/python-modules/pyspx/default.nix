@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyspx";
   version = "0.5.2";
@@ -28,15 +27,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyspx" ];
+  pythonImportsCheck = ["pyspx"];
 
   meta = with lib; {
     description = "Python bindings for SPHINCS";
     homepage = "https://github.com/sphincs/pyspx";
     changelog = "https://github.com/sphincs/pyspx/releases/tag/v${version}";
     license = licenses.cc0;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

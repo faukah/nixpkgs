@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "wtfutil";
   version = "0.43.0";
@@ -30,9 +29,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace flags/flags.go --replace-fail 'version := "dev"' 'version := "v${version}"'
@@ -45,10 +44,10 @@ buildGoModule rec {
 
   doInstallCheck = true;
   # Darwin Error: mkdir /var/empty: file exists
-  nativeInstallCheckInputs = lib.optional (!stdenv.hostPlatform.isDarwin) [ versionCheckHook ];
+  nativeInstallCheckInputs = lib.optional (!stdenv.hostPlatform.isDarwin) [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Personal information dashboard for your terminal";

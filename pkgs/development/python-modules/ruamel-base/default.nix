@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "ruamel-base";
   version = "1.0.0";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ruamel.base" ];
+  pythonImportsCheck = ["ruamel.base"];
 
-  pythonNamespaces = [ "ruamel" ];
+  pythonNamespaces = ["ruamel"];
 
   meta = with lib; {
     description = "Common routines for ruamel packages";
     homepage = "https://sourceforge.net/projects/ruamel-base/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

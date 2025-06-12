@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.karakeep;
 
   karakeepEnv = lib.mkMerge [
-    { DATA_DIR = "/var/lib/karakeep"; }
+    {DATA_DIR = "/var/lib/karakeep";}
     (lib.mkIf cfg.meilisearch.enable {
       MEILI_ADDR = "http://127.0.0.1:${toString config.services.meilisearch.listenPort}";
     })
@@ -18,15 +17,16 @@ let
     cfg.extraEnvironment
   ];
 
-  environmentFiles = [
-    "/var/lib/karakeep/settings.env"
-  ] ++ (lib.optional (cfg.environmentFile != null) cfg.environmentFile);
-in
-{
+  environmentFiles =
+    [
+      "/var/lib/karakeep/settings.env"
+    ]
+    ++ (lib.optional (cfg.environmentFile != null) cfg.environmentFile);
+in {
   options = {
     services.karakeep = {
       enable = lib.mkEnableOption "Enable the Karakeep service";
-      package = lib.mkPackageOption pkgs "karakeep" { };
+      package = lib.mkPackageOption pkgs "karakeep" {};
 
       extraEnvironment = lib.mkOption {
         description = ''
@@ -36,7 +36,7 @@ in
           See https://docs.karakeep.app/configuration/
         '';
         type = lib.types.attrsOf lib.types.str;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             PORT = "1234";
@@ -94,9 +94,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    users.groups.karakeep = { };
+    users.groups.karakeep = {};
     users.users.karakeep = {
       isSystemUser = true;
       group = "karakeep";
@@ -108,10 +108,10 @@ in
 
     systemd.services.karakeep-init = {
       description = "Initialize Karakeep Data";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      partOf = [ "karakeep.service" ];
-      path = [ pkgs.openssl ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      partOf = ["karakeep.service"];
+      path = [pkgs.openssl];
       script = ''
         umask 0077
 
@@ -138,12 +138,12 @@ in
 
     systemd.services.karakeep-workers = {
       description = "Karakeep Workers";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "karakeep-init.service"
       ];
-      partOf = [ "karakeep.service" ];
+      partOf = ["karakeep.service"];
       path = [
         pkgs.monolith
         pkgs.yt-dlp
@@ -161,13 +161,13 @@ in
 
     systemd.services.karakeep-web = {
       description = "Karakeep Web";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "karakeep-init.service"
         "karakeep-workers.service"
       ];
-      partOf = [ "karakeep.service" ];
+      partOf = ["karakeep.service"];
       environment = karakeepEnv;
       serviceConfig = {
         ExecStart = "${cfg.package}/lib/karakeep/start-web";
@@ -180,9 +180,9 @@ in
     };
 
     systemd.services.karakeep-browser = lib.mkIf cfg.browser.enable {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      partOf = [ "karakeep.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      partOf = ["karakeep.service"];
       script = ''
         export HOME="$CACHE_DIRECTORY"
         exec ${cfg.browser.exe} \
@@ -220,6 +220,6 @@ in
   };
 
   meta = {
-    maintainers = [ lib.maintainers.three ];
+    maintainers = [lib.maintainers.three];
   };
 }

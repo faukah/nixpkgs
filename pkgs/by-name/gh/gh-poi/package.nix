@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "gh-poi";
   version = "0.13.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     description = "GitHub CLI extension to safely clean up your local branches";
     homepage = "https://github.com/seachicken/gh-poi";
     license = licenses.mit;
-    maintainers = with maintainers; [ aspulse ];
+    maintainers = with maintainers; [aspulse];
     mainProgram = "gh-poi";
   };
 }

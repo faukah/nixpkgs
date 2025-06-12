@@ -8,7 +8,6 @@
   pkg-config,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sopwith";
   version = "2.8.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Classic biplane shoot ‘em-up game";
     license = licenses.gpl2Plus;
     mainProgram = "sopwith";
-    maintainers = with maintainers; [ evilbulgarian ];
+    maintainers = with maintainers; [evilbulgarian];
     platforms = platforms.unix;
   };
 }

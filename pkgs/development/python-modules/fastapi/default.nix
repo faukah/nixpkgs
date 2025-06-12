@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   pdm-backend,
-
   # dependencies
   starlette,
   pydantic,
   typing-extensions,
-
   # tests
   anyio,
   dirty-equals,
@@ -23,7 +20,6 @@
   pytestCheckHook,
   sqlalchemy,
   trio,
-
   # optional-dependencies
   fastapi-cli,
   httpx,
@@ -38,7 +34,6 @@
   pydantic-settings,
   pydantic-extra-types,
 }:
-
 buildPythonPackage rec {
   pname = "fastapi";
   version = "0.115.12";
@@ -53,7 +48,7 @@ buildPythonPackage rec {
     hash = "sha256-qUJFBOwXIizgIrTYbueflimni+/BhbuTEf45dsjShKE=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     "anyio"
@@ -136,13 +131,13 @@ buildPythonPackage rec {
     "tests/test_tutorial/test_sql_databases"
   ];
 
-  pythonImportsCheck = [ "fastapi" ];
+  pythonImportsCheck = ["fastapi"];
 
   meta = with lib; {
     changelog = "https://github.com/fastapi/fastapi/releases/tag/${version}";
     description = "Web framework for building APIs";
     homepage = "https://github.com/fastapi/fastapi";
     license = licenses.mit;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

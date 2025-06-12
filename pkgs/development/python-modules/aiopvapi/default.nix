@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiopvapi";
   version = "3.1.1";
@@ -22,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-WtTqtVr1oL86dpsAIK55pbXWU4X/cajVLlggd6hfM4c=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aiopvapi" ];
+  pythonImportsCheck = ["aiopvapi"];
 
   disabledTests = [
     # AssertionError
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     description = "Python API for the PowerView API";
     homepage = "https://github.com/sander76/aio-powerview-api";
     changelog = "https://github.com/sander76/aio-powerview-api/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

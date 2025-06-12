@@ -5,7 +5,6 @@
   cmake,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uri";
   version = "1.1.0";

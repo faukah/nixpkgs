@@ -7,7 +7,6 @@
   kdePackages,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seer";
   version = "2.5";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/epasveer/seer";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ foolnotion ];
+    maintainers = with maintainers; [foolnotion];
   };
 }

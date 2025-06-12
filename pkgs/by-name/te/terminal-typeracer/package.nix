@@ -9,7 +9,6 @@
   sqlite,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "terminal-typeracer";
   version = "2.1.3";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WYqbG0iSVvnRLCy5Qs4wr72LjQ6uPgskVWP62Af0RQ8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     description = "Open source terminal based version of Typeracer written in rust";
     homepage = "https://gitlab.com/ttyperacer/terminal-typeracer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ yoctocell ];
+    maintainers = with maintainers; [yoctocell];
     mainProgram = "typeracer";
     platforms = platforms.unix;
   };

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "helvetica-neue-lt-std";
   version = "2014.08.16"; # date of most recent file in distribution
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation {
     '';
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

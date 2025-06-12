@@ -6,7 +6,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-readers-database";
   version = "0.4.0";
@@ -20,20 +19,20 @@ buildPythonPackage rec {
     hash = "sha256-BdZzn2T3EkR0N3C0uEF3kj1QV5Qnzut7yapAVxdc7C8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ llama-index-core ];
+  dependencies = [llama-index-core];
 
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.readers.database" ];
+  pythonImportsCheck = ["llama_index.readers.database"];
 
   meta = with lib; {
     description = "LlamaIndex Readers Integration for Databases";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/readers/llama-index-readers-database";
     changelog = "https://github.com/run-llama/llama_index/blob/main/llama-index-integrations/readers/llama-index-readers-database/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,35 +7,34 @@
   tblib,
   pytest,
   py,
-}:
-let
+}: let
   pname = "pytest-parallel";
   version = "0.1.1";
 in
-buildPythonPackage {
-  inherit pname version;
-  format = "setuptools";
+  buildPythonPackage {
+    inherit pname version;
+    format = "setuptools";
 
-  disabled = pythonOlder "3.10";
+    disabled = pythonOlder "3.10";
 
-  src = fetchFromGitHub {
-    owner = "kevlened";
-    repo = "pytest-parallel";
-    tag = version;
-    hash = "sha256-ddpoWBTf7Zor569p6uOMjHSTx3Qa551f4mSwyTLDdBU=";
-  };
+    src = fetchFromGitHub {
+      owner = "kevlened";
+      repo = "pytest-parallel";
+      tag = version;
+      hash = "sha256-ddpoWBTf7Zor569p6uOMjHSTx3Qa551f4mSwyTLDdBU=";
+    };
 
-  propagatedBuildInputs = [
-    tblib
-    pytest
-    py
-  ];
+    propagatedBuildInputs = [
+      tblib
+      pytest
+      py
+    ];
 
-  meta = with lib; {
-    description = "Pytest plugin for parallel and concurrent testing";
-    homepage = "https://github.com/kevlened/pytest-parallelt";
-    changelog = "https://github.com/kevlened/pytest-parallel/releases/tag/${version}";
-    license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
-  };
-}
+    meta = with lib; {
+      description = "Pytest plugin for parallel and concurrent testing";
+      homepage = "https://github.com/kevlened/pytest-parallelt";
+      changelog = "https://github.com/kevlened/pytest-parallel/releases/tag/${version}";
+      license = licenses.mit;
+      maintainers = with maintainers; [happysalada];
+    };
+  }

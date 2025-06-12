@@ -7,7 +7,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "whisper";
   version = "1.1.10";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-CnCbRmI2jc67mTtfupoE1uHtobrAiWoUXbfX8YeEV6A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   nativeCheckInputs = [
     mock
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     "test_resize_with_aggregate"
   ];
 
-  pythonImportsCheck = [ "whisper" ];
+  pythonImportsCheck = ["whisper"];
 
   meta = {
     homepage = "https://github.com/graphite-project/whisper";
     description = "Fixed size round-robin style database";
     changelog = "https://graphite.readthedocs.io/en/latest/releases/${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }.html";
     maintainers = with lib.maintainers; [
       offline

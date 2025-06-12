@@ -6,7 +6,6 @@
   pkg-config,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wasm-pack";
   version = "0.13.1";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ zstd ];
+  buildInputs = [zstd];
 
   # Most tests rely on external resources and build artifacts.
   # Disabling check here to work with build sandboxing.
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = [ maintainers.dhkl ];
+    maintainers = [maintainers.dhkl];
   };
 }

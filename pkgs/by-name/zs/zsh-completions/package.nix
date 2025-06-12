@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zsh-completions";
   version = "0.35.0";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
       mit-modern
     ];
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.olejorgenb ];
+    maintainers = [lib.maintainers.olejorgenb];
   };
 }

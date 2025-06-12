@@ -22,7 +22,6 @@
   nix-update-script,
   useCadical ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stp";
   version = "2.3.4";
@@ -63,13 +62,15 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail 'include_directories(''${CADICAL_DIR}/)' 'include_directories(''${CADICAL_DIR}/include)'
     '';
 
-  buildInputs = [
-    boost
-    zlib
-    python3
-    gmp
-    minisat
-  ] ++ lib.optional (!useCadical) cryptominisat;
+  buildInputs =
+    [
+      boost
+      zlib
+      python3
+      gmp
+      minisat
+    ]
+    ++ lib.optional (!useCadical) cryptominisat;
 
   nativeBuildInputs = [
     cmake
@@ -79,17 +80,16 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  cmakeFlags =
-    let
-      # STP expects Cadical dependencies to all be in the same place.
-      cadicalDependency = symlinkJoin {
-        name = "stp-${finalAttrs.version}-cadical";
-        paths = [
-          cadical.lib
-          cadical.dev
-        ];
-      };
-    in
+  cmakeFlags = let
+    # STP expects Cadical dependencies to all be in the same place.
+    cadicalDependency = symlinkJoin {
+      name = "stp-${finalAttrs.version}-cadical";
+      paths = [
+        cadical.lib
+        cadical.dev
+      ];
+    };
+  in
     [
       (lib.cmakeBool "BUILD_SHARED_LIBS" true)
       (lib.cmakeBool "USE_CADICAL" useCadical)
@@ -109,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
   #
   # TODO: Remove these CFLAGS when they update to the version that pulls `abc` in with a submodule.
   # https://github.com/stp/stp/issues/498#issuecomment-2611251631
-  CFLAGS = [ "-fsigned-char" ];
+  CFLAGS = ["-fsigned-char"];
 
   outputs = [
     "dev"

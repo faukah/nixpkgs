@@ -22,12 +22,12 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Like `typing._eval_type`, but lets older Python versions use newer typing features";
     homepage = "https://github.com/alexmojaki/eval_type_backport";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

@@ -5,7 +5,6 @@
   testers,
   kitex,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kitex";
   version = "0.13.1";
@@ -19,7 +18,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-31OgNcAL2NJq5b96UmQnVecdusY4AtUP/O2MVCmPk+8=";
 
-  subPackages = [ "tool/cmd/kitex" ];
+  subPackages = ["tool/cmd/kitex"];
 
   ldflags = [
     "-s"
@@ -40,7 +39,7 @@ buildGoModule (finalAttrs: {
     description = "High-performance and strong-extensibility Golang RPC framework";
     homepage = "https://github.com/cloudwego/kitex";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "kitex";
   };
 })

@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     mkPackageOption
     mkIf
@@ -21,7 +20,10 @@ let
   defaultShortcut = "b";
   defaultTerminal = "screen";
 
-  boolToStr = value: if value then "on" else "off";
+  boolToStr = value:
+    if value
+    then "on"
+    else "off";
 
   tmuxConf = ''
     set  -g default-terminal "${cfg.terminal}"
@@ -60,12 +62,16 @@ let
     ''}
 
     setw -g aggressive-resize ${boolToStr cfg.aggressiveResize}
-    setw -g clock-mode-style  ${if cfg.clock24 then "24" else "12"}
+    setw -g clock-mode-style  ${
+      if cfg.clock24
+      then "24"
+      else "12"
+    }
     set  -s escape-time       ${toString cfg.escapeTime}
 
     ${cfg.extraConfigBeforePlugins}
 
-    ${lib.optionalString (cfg.plugins != [ ]) ''
+    ${lib.optionalString (cfg.plugins != []) ''
       # Run plugins
       ${lib.concatMapStringsSep "\n" (x: "run-shell ${x.rtp}") cfg.plugins}
 
@@ -73,22 +79,19 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   ###### interface
 
   options = {
     programs.tmux = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
         description = "Whenever to configure {command}`tmux` system-wide.";
-        relatedPackages = [ "tmux" ];
+        relatedPackages = ["tmux"];
       };
 
-      package = mkPackageOption pkgs "tmux" { };
+      package = mkPackageOption pkgs "tmux" {};
 
       aggressiveResize = mkOption {
         default = false;
@@ -203,7 +206,7 @@ in
       };
 
       plugins = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         description = "List of plugins to install.";
         example = lib.literalExpression "[ pkgs.tmuxPlugins.nord ]";
@@ -227,7 +230,7 @@ in
     environment = {
       etc."tmux.conf".text = tmuxConf;
 
-      systemPackages = [ cfg.package ] ++ cfg.plugins;
+      systemPackages = [cfg.package] ++ cfg.plugins;
 
       variables = {
         TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';
@@ -245,11 +248,12 @@ in
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "tmux" "extraTmuxConf" ]
-      [ "programs" "tmux" "extraConfig" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "tmux" "extraTmuxConf"]
+      ["programs" "tmux" "extraConfig"]
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ hxtmdev ];
+  meta.maintainers = with lib.maintainers; [hxtmdev];
 }

@@ -1,9 +1,7 @@
 {
   lib,
   writeScript,
-}:
-
-{
+}: {
   name ? "",
   owner ? "",
   repo ? "",
@@ -11,11 +9,11 @@
   # input: array of [ { tag_name: "rocm-6.x.x", }, ... ]. some entries may have bad names like rocm-test-date we want to skip
   # output: first tag_name/name that's a proper version if any
   filter ? "map(.tag_name // .name) | map(select(test(\"^rocm-[0-9]+\\\\.[0-9]+(\\\\.[0-9]+)?$\"))) | first | ltrimstr(\"rocm-\")",
-}:
-
-let
+}: let
   pname =
-    if lib.hasPrefix "rocm-llvm-" name then "llvm.${lib.removePrefix "rocm-llvm-" name}" else name;
+    if lib.hasPrefix "rocm-llvm-" name
+    then "llvm.${lib.removePrefix "rocm-llvm-" name}"
+    else name;
 
   updateScript = writeScript "update.sh" ''
     #!/usr/bin/env nix-shell
@@ -58,5 +56,4 @@ let
 
     update-source-version rocmPackages_6.${pname} "$version" --ignore-same-hash
   '';
-in
-[ updateScript ]
+in [updateScript]

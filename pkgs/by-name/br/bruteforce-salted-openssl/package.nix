@@ -5,7 +5,6 @@
   autoreconfHook,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bruteforce-salted-openssl";
   version = "1.5.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/glv2/bruteforce-salted-openssl";
     changelog = "https://github.com/glv2/bruteforce-salted-openssl/blob/${src.rev}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ octodi ];
+    maintainers = with maintainers; [octodi];
     mainProgram = "bruteforce-salted-openssl";
     platforms = platforms.linux;
   };

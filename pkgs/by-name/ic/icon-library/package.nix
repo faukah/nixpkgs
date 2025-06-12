@@ -17,7 +17,6 @@
   gtksourceview5,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icon-library";
   version = "0.0.19";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/design/icon-library";
     description = "Symbolic icons for your apps";
     mainProgram = "icon-library";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

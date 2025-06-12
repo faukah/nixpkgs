@@ -6,7 +6,6 @@
   espeak-ng,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "espeak-phonemizer";
   version = "1.3.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     changelog = "https://github.com/rhasspy/espeak-phonemizer/releases/tag/v${version}";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     mainProgram = "espeak-phonemizer";
     homepage = "https://github.com/rhasspy/espeak-phonemizer";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.linux;
   };
 }

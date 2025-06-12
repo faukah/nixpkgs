@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   top = config.services.kubernetes;
   otop = options.services.kubernetes;
   cfg = top.apiserver;
@@ -15,42 +14,45 @@ let
   apiserverServiceIP = (
     lib.concatStringsSep "." (lib.take 3 (lib.splitString "." cfg.serviceClusterIpRange)) + ".1"
   );
-in
-{
-
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "apiserver" "admissionControl" ]
-      [ "services" "kubernetes" "apiserver" "enableAdmissionPlugins" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "apiserver" "admissionControl"]
+      ["services" "kubernetes" "apiserver" "enableAdmissionPlugins"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "apiserver" "address" ]
-      [ "services" "kubernetes" "apiserver" "bindAddress" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "apiserver" "address"]
+      ["services" "kubernetes" "apiserver" "bindAddress"]
     )
-    (lib.mkRemovedOptionModule [ "services" "kubernetes" "apiserver" "insecureBindAddress" ] "")
-    (lib.mkRemovedOptionModule [ "services" "kubernetes" "apiserver" "insecurePort" ] "")
-    (lib.mkRemovedOptionModule [ "services" "kubernetes" "apiserver" "publicAddress" ] "")
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "etcd" "servers" ]
-      [ "services" "kubernetes" "apiserver" "etcd" "servers" ]
+    (lib.mkRemovedOptionModule ["services" "kubernetes" "apiserver" "insecureBindAddress"] "")
+    (lib.mkRemovedOptionModule ["services" "kubernetes" "apiserver" "insecurePort"] "")
+    (lib.mkRemovedOptionModule ["services" "kubernetes" "apiserver" "publicAddress"] "")
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "etcd" "servers"]
+      ["services" "kubernetes" "apiserver" "etcd" "servers"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "etcd" "keyFile" ]
-      [ "services" "kubernetes" "apiserver" "etcd" "keyFile" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "etcd" "keyFile"]
+      ["services" "kubernetes" "apiserver" "etcd" "keyFile"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "etcd" "certFile" ]
-      [ "services" "kubernetes" "apiserver" "etcd" "certFile" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "etcd" "certFile"]
+      ["services" "kubernetes" "apiserver" "etcd" "certFile"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "kubernetes" "etcd" "caFile" ]
-      [ "services" "kubernetes" "apiserver" "etcd" "caFile" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "kubernetes" "etcd" "caFile"]
+      ["services" "kubernetes" "apiserver" "etcd" "caFile"]
     )
   ];
 
   ###### interface
   options.services.kubernetes.apiserver = with lib.types; {
-
     advertiseAddress = lib.mkOption {
       description = ''
         Kubernetes apiserver IP address on which to advertise the apiserver
@@ -91,7 +93,7 @@ in
         Kubernetes apiserver authorization policy file. See
         <https://kubernetes.io/docs/reference/access-authn-authz/authorization/>
       '';
-      default = [ ];
+      default = [];
       type = listOf attrs;
     };
 
@@ -126,7 +128,7 @@ in
         Kubernetes admission control plugins to disable. See
         <https://kubernetes.io/docs/admin/admission-controllers/>
       '';
-      default = [ ];
+      default = [];
       type = listOf str;
     };
 
@@ -163,7 +165,7 @@ in
     etcd = {
       servers = lib.mkOption {
         description = "List of etcd servers.";
-        default = [ "http://127.0.0.1:2379" ];
+        default = ["http://127.0.0.1:2379"];
         type = types.listOf types.str;
       };
 
@@ -195,7 +197,7 @@ in
 
     extraSANs = lib.mkOption {
       description = "Extra x509 Subject Alternative Names to be added to the kubernetes apiserver tls cert.";
-      default = [ ];
+      default = [];
       type = listOf str;
     };
 
@@ -353,17 +355,15 @@ in
       default = null;
       type = nullOr path;
     };
-
   };
 
   ###### implementation
   config = lib.mkMerge [
-
     (lib.mkIf cfg.enable {
       systemd.services.kube-apiserver = {
         description = "Kubernetes APIServer Service";
-        wantedBy = [ "kubernetes.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["kubernetes.target"];
+        after = ["network.target"];
         serviceConfig = {
           Slice = "kubernetes.slice";
           ExecStart = ''
@@ -382,12 +382,12 @@ in
             ${lib.optionalString (cfg.etcd.certFile != null) "--etcd-certfile=${cfg.etcd.certFile}"} \
             ${lib.optionalString (cfg.etcd.keyFile != null) "--etcd-keyfile=${cfg.etcd.keyFile}"} \
             ${
-              lib.optionalString (cfg.featureGates != { })
-                "--feature-gates=${
-                  (lib.concatStringsSep "," (
-                    builtins.attrValues (lib.mapAttrs (n: v: "${n}=${lib.trivial.boolToString v}") cfg.featureGates)
-                  ))
-                }"
+              lib.optionalString (cfg.featureGates != {})
+              "--feature-gates=${
+                (lib.concatStringsSep "," (
+                  builtins.attrValues (lib.mapAttrs (n: v: "${n}=${lib.trivial.boolToString v}") cfg.featureGates)
+                ))
+              }"
             } \
             ${lib.optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"} \
             ${
@@ -450,16 +450,15 @@ in
       services.etcd = {
         clientCertAuth = lib.mkDefault true;
         peerClientCertAuth = lib.mkDefault true;
-        listenClientUrls = lib.mkDefault [ "https://0.0.0.0:2379" ];
-        listenPeerUrls = lib.mkDefault [ "https://0.0.0.0:2380" ];
-        advertiseClientUrls = lib.mkDefault [ "https://${top.masterAddress}:2379" ];
-        initialCluster = lib.mkDefault [ "${top.masterAddress}=https://${top.masterAddress}:2380" ];
+        listenClientUrls = lib.mkDefault ["https://0.0.0.0:2379"];
+        listenPeerUrls = lib.mkDefault ["https://0.0.0.0:2380"];
+        advertiseClientUrls = lib.mkDefault ["https://${top.masterAddress}:2379"];
+        initialCluster = lib.mkDefault ["${top.masterAddress}=https://${top.masterAddress}:2380"];
         name = lib.mkDefault top.masterAddress;
-        initialAdvertisePeerUrls = lib.mkDefault [ "https://${top.masterAddress}:2380" ];
+        initialAdvertisePeerUrls = lib.mkDefault ["https://${top.masterAddress}:2380"];
       };
 
       services.kubernetes.addonManager.bootstrapAddons = lib.mkIf isRBACEnabled {
-
         apiserver-kubelet-api-admin-crb = {
           apiVersion = "rbac.authorization.k8s.io/v1";
           kind = "ClusterRoleBinding";
@@ -478,21 +477,22 @@ in
             }
           ];
         };
-
       };
 
       services.kubernetes.pki.certs = with top.lib; {
         apiServer = mkCert {
           name = "kube-apiserver";
           CN = "kubernetes";
-          hosts = [
-            "kubernetes.default.svc"
-            "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
-            cfg.advertiseAddress
-            top.masterAddress
-            apiserverServiceIP
-            "127.0.0.1"
-          ] ++ cfg.extraSANs;
+          hosts =
+            [
+              "kubernetes.default.svc"
+              "kubernetes.default.svc.${top.addons.dns.clusterDomain}"
+              cfg.advertiseAddress
+              top.masterAddress
+              apiserverServiceIP
+              "127.0.0.1"
+            ]
+            ++ cfg.extraSANs;
           action = "systemctl restart kube-apiserver.service";
         };
         apiserverProxyClient = mkCert {
@@ -531,9 +531,7 @@ in
           action = "systemctl restart etcd.service";
         };
       };
-
     })
-
   ];
 
   meta.buildDocsInSandbox = false;

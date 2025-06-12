@@ -17,9 +17,7 @@
   pkg-config,
   testers,
   python3,
-}:
-
-let
+}: let
   nix = nixVersions.nix_2_28;
   common = rec {
     version = "2.6.4";
@@ -57,8 +55,7 @@ let
       platforms = lib.platforms.unix;
     };
   };
-in
-{
+in {
   nixf = stdenv.mkDerivation (
     common
     // {
@@ -79,13 +76,15 @@ in
 
       passthru.tests.pkg-config = testers.hasPkgConfigModules {
         package = nixf;
-        moduleNames = [ "nixf" ];
+        moduleNames = ["nixf"];
       };
 
-      meta = common.meta // {
-        description = "Nix language frontend, parser & semantic analysis";
-        mainProgram = "nixf-tidy";
-      };
+      meta =
+        common.meta
+        // {
+          description = "Nix language frontend, parser & semantic analysis";
+          mainProgram = "nixf-tidy";
+        };
     }
   );
 
@@ -109,12 +108,14 @@ in
 
       passthru.tests.pkg-config = testers.hasPkgConfigModules {
         package = nixt;
-        moduleNames = [ "nixt" ];
+        moduleNames = ["nixt"];
       };
 
-      meta = common.meta // {
-        description = "Supporting library that wraps C++ nix";
-      };
+      meta =
+        common.meta
+        // {
+          description = "Supporting library that wraps C++ nix";
+        };
     }
   );
 
@@ -134,20 +135,22 @@ in
         boost
       ];
 
-      nativeBuildInputs = common.nativeBuildInputs ++ [ cmake ];
+      nativeBuildInputs = common.nativeBuildInputs ++ [cmake];
 
       # See https://github.com/nix-community/nixd/issues/519
       doCheck = false;
 
       passthru = {
-        updateScript = nix-update-script { };
-        tests.version = testers.testVersion { package = nixd; };
+        updateScript = nix-update-script {};
+        tests.version = testers.testVersion {package = nixd;};
       };
 
-      meta = common.meta // {
-        description = "Feature-rich Nix language server interoperating with C++ nix";
-        mainProgram = "nixd";
-      };
+      meta =
+        common.meta
+        // {
+          description = "Feature-rich Nix language server interoperating with C++ nix";
+          mainProgram = "nixd";
+        };
     }
   );
 }

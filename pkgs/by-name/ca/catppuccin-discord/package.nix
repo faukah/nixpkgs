@@ -6,10 +6,9 @@
   npmHooks,
   nodejs-slim,
   fetchYarnDeps,
-  flavour ? [ "mocha" ],
-  accents ? [ "blue" ],
-}:
-let
+  flavour ? ["mocha"],
+  accents ? ["blue"],
+}: let
   validFlavours = [
     "mocha"
     "macchiato"
@@ -33,7 +32,7 @@ let
     "lavender"
   ];
 in
-lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
+  lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}" validAccents
   accents
   lib.checkListOfEnum
   "Invalid flavour, valid flavours are ${toString validFlavours}"
@@ -93,8 +92,8 @@ lib.checkListOfEnum "Invalid accent, valid accents are ${toString validAccents}"
       description = "Soothing pastel theme for Discord";
       homepage = "https://github.com/catppuccin/discord";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ NotAShelf ];
+      maintainers = with lib.maintainers; [NotAShelf];
       platforms = lib.platforms.all;
-      sourceProvenance = with lib.sourceTypes; [ fromSource ];
+      sourceProvenance = with lib.sourceTypes; [fromSource];
     };
   })

@@ -6,7 +6,6 @@
   flask,
   mutagen,
 }:
-
 buildPythonPackage rec {
   pname = "podcats";
   version = "0.5.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
       --replace-fail 'debug=True' 'debug=True, use_reloader=False'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     flask

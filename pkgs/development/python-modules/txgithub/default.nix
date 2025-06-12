@@ -6,7 +6,6 @@
   twisted,
   service-identity,
 }:
-
 buildPythonPackage rec {
   pname = "txgithub";
   version = "15.0.0";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "GitHub API client implemented using Twisted";
     homepage = "https://github.com/tomprince/txgithub";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

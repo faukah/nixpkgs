@@ -4,7 +4,6 @@
   cmake,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stderred";
   version = "unstable-2021-04-28";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "stderr in red";
     homepage = "https://github.com/sickill/stderred";
     license = licenses.mit;
-    maintainers = with maintainers; [ vojta001 ];
+    maintainers = with maintainers; [vojta001];
     platforms = platforms.unix;
   };
 }

@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5c6boVdq0XXbtVHqmIGoxJGQRh8lvn2jbmALPuOSMs4=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Self-hosted and fully-automated ActivityPub bridge for static sites";
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/importantimport/hatsu/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
     mainProgram = "hatsu";
-    maintainers = with lib.maintainers; [ kwaa ];
+    maintainers = with lib.maintainers; [kwaa];
     platforms = lib.platforms.linux;
   };
 }

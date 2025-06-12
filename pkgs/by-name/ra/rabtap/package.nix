@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "rabtap";
   version = "1.44.1";
@@ -25,6 +24,6 @@ buildGoModule rec {
     description = "RabbitMQ wire tap and swiss army knife";
     license = licenses.gpl3Only;
     homepage = "https://github.com/jandelgado/rabtap";
-    maintainers = with maintainers; [ eigengrau ];
+    maintainers = with maintainers; [eigengrau];
   };
 }

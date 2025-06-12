@@ -32,7 +32,6 @@
   sqlite,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chow-phaser";
   version = "1.1.1";
@@ -101,9 +100,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://github.com/jatinchowdhury18/ChowPhaser";
     description = "Phaser effect based loosely on the Schulte Compact Phasing 'A'";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     mainProgram = "ChowPhaserStereo";
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 })

@@ -5,7 +5,6 @@
   ua-parser,
   versioningit,
 }:
-
 buildPythonPackage rec {
   pname = "ua-parser-builtins";
   inherit (ua-parser) version src;

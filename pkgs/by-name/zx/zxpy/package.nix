@@ -5,7 +5,6 @@
   deterministic-uname,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "zxpy";
   version = "1.6.4";
@@ -22,8 +21,7 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       deterministic-uname
       pytestCheckHook
@@ -32,14 +30,14 @@ python3Packages.buildPythonApplication rec {
       addBinToPathHook
     ];
 
-  pythonImportsCheck = [ "zx" ];
+  pythonImportsCheck = ["zx"];
 
   meta = {
     description = "Shell scripts made simple";
     homepage = "https://github.com/tusharsadhwani/zxpy";
     changelog = "https://github.com/tusharsadhwani/zxpy/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "zxpy";
   };
 }

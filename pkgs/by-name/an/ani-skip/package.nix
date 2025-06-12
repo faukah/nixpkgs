@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-VEEG3d6rwTAS7/+gBKHFKIg9zFfBu5eBOu6Z23621gM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   runtimeInputs = [
     gnugrep
     gnused
@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Automated solution to bypassing anime opening and ending sequences";
     mainProgram = "ani-skip";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.diniamo ];
+    maintainers = [lib.maintainers.diniamo];
     platforms = lib.platforms.unix;
   };
 })

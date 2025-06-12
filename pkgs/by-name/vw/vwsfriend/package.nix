@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "vwsfriend";
   version = "0.24.7";
@@ -26,12 +25,11 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail psycopg2-binary psycopg2
   '';
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   pythonRelaxDeps = true;
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       weconnect
       hap-python
@@ -58,6 +56,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/tillsteinbach/VWsFriend";
     license = lib.licenses.mit;
     mainProgram = "vwsfriend";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

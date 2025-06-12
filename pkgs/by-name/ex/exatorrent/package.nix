@@ -8,7 +8,6 @@
   nodejs,
   withUI ? true,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "exatorrent";
   version = "1.3.0";
@@ -28,15 +27,15 @@ buildGoModule (finalAttrs: {
   npmRoot = "internal/web";
 
   npmDeps =
-    if withUI then
+    if withUI
+    then
       fetchNpmDeps {
         name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
         inherit (finalAttrs) src;
         sourceRoot = "${finalAttrs.src.name}/${finalAttrs.npmRoot}";
         hash = "sha256-eNrBKTW4KlLNf/Y9NTvGt5r28MG7SLGzUi+p9mOyrmI=";
       }
-    else
-      null;
+    else null;
 
   preBuild = lib.optionalString withUI ''
     pushd "$npmRoot"
@@ -52,7 +51,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-fE+GVQ2HAfElO1UDmDMeu2ca7t5yNs83CXhqgT0t1Js=";
 
-  tags = lib.optionals (!withUI) [ "noui" ];
+  tags = lib.optionals (!withUI) ["noui"];
 
   ldflags =
     [
@@ -74,6 +73,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/varbhat/exatorrent/";
     license = lib.licenses.gpl3Only;
     mainProgram = "exatorrent";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 })

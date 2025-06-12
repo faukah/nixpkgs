@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kor";
   version = "0.6.1";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/yonahd/kor";
     changelog = "https://github.com/yonahd/kor/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
     mainProgram = "kor";
   };
 }

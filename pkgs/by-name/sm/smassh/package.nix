@@ -5,7 +5,6 @@
   python3,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "smassh";
   version = "3.1.6";
@@ -18,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-P0fZHSsaKIwJspEBxM5MEK3Z4kemXJWlIOQI9cmvlF4=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   pythonRelaxDeps = [
     "platformdirs"

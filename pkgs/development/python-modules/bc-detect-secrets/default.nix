@@ -14,7 +14,6 @@
   setuptools,
   unidiff,
 }:
-
 buildPythonPackage rec {
   pname = "bc-detect-secrets";
   version = "1.5.43";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-A9qDkAi414wJ7cuAwr1r6FgIa1tOJb+EkAGsvFrw/Fo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyyaml
@@ -38,16 +37,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    word_list = [ pyahocorasick ];
-    gibberish = [ gibberish-detector ];
+    word_list = [pyahocorasick];
+    gibberish = [gibberish-detector];
   };
 
-  nativeCheckInputs = [
-    mock
-    pkgs.gitMinimal
-    pytestCheckHook
-    responses
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      mock
+      pkgs.gitMinimal
+      pytestCheckHook
+      responses
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -66,12 +67,12 @@ buildPythonPackage rec {
     "TestModifiesBaselineFromVersionChange"
   ];
 
-  pythonImportsCheck = [ "detect_secrets" ];
+  pythonImportsCheck = ["detect_secrets"];
 
   meta = with lib; {
     description = "Tool to detect secrets in the code";
     homepage = "https://github.com/bridgecrewio/detect-secrets";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

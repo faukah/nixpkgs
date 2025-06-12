@@ -18,7 +18,6 @@
   version ? "2.2.0",
   qtx11extras ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libfm-qt";
   inherit version;
@@ -43,23 +42,25 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    libXdmcp
-    libexif
-    libfm
-    libpthreadstubs
-    libxcb
-    lxqt-menu-data
-    menu-cache
-  ] ++ (lib.optionals (lib.versionAtLeast "2.0.0" version) [ qtx11extras ]);
+  buildInputs =
+    [
+      libXdmcp
+      libexif
+      libfm
+      libpthreadstubs
+      libxcb
+      lxqt-menu-data
+      menu-cache
+    ]
+    ++ (lib.optionals (lib.versionAtLeast "2.0.0" version) [qtx11extras]);
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/libfm-qt";
     description = "Core library of PCManFM-Qt (Qt binding for libfm)";
     license = licenses.lgpl21Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

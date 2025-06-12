@@ -5,7 +5,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fontmatrix";
   version = "0.9.100";

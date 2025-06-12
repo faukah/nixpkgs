@@ -3,7 +3,6 @@
   flutter329,
   fetchFromGitHub,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "convertall";
   version = "1.0.1";
@@ -22,7 +21,7 @@ flutter329.buildFlutterApplication rec {
     description = "Graphical unit converter";
     mainProgram = "convertall";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ orivej ];
+    maintainers = with lib.maintainers; [orivej];
     platforms = lib.platforms.linux;
   };
 }

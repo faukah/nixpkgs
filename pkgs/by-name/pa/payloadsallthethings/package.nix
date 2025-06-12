@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "payloadsallthethings";
   version = "3.0-unstable-2024-01-21";
@@ -26,9 +25,9 @@ stdenvNoCC.mkDerivation {
   meta = {
     homepage = "https://github.com/swisskyrepo/PayloadsAllTheThings";
     description = "List of useful payloads and bypass for Web Application Security and Pentest/CTF";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ shard7 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [shard7];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
   };
 }

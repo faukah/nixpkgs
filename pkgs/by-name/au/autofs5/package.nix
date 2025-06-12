@@ -22,7 +22,6 @@
   fetchpatch,
   libnsl,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.1.9";
   pname = "autofs";
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
     mainProgram = "automount";
     homepage = "https://www.kernel.org/pub/linux/daemons/autofs/";
     license = lib.licenses.gpl2Plus;
-    executables = [ "automount" ];
+    executables = ["automount"];
     platforms = lib.platforms.linux;
   };
 }

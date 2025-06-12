@@ -61,7 +61,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -74,6 +74,6 @@ python3Packages.buildPythonApplication rec {
       luftmensch-luftmensch
       sund3RRR
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

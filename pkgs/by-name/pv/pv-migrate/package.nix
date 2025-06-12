@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "pv-migrate";
   version = "2.2.1";
@@ -16,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-ZCNOg2HZjcEEM+hsAOtRR6hYmoKLyThpIw3warnravc=";
   };
 
-  subPackages = [ "cmd/pv-migrate" ];
+  subPackages = ["cmd/pv-migrate"];
 
   vendorHash = "sha256-V1IR9teiJeCqekKgTShOEZhtlBbtsnp6eZe6A7q6EAQ=";
 

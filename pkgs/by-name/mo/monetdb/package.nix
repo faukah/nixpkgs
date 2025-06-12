@@ -10,7 +10,6 @@
   bzip2,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "monetdb";
   version = "11.53.3";
@@ -48,13 +47,13 @@ stdenv.mkDerivation (finalAttrs: {
       $out/bin/malsample.pl
   '';
 
-  passthru.tests = { inherit (nixosTests) monetdb; };
+  passthru.tests = {inherit (nixosTests) monetdb;};
 
   meta = with lib; {
     description = "Open source database system";
     homepage = "https://www.monetdb.org/";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.StillerHarpo ];
+    maintainers = [maintainers.StillerHarpo];
   };
 })

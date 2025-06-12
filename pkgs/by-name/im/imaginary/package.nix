@@ -6,7 +6,6 @@
   pkg-config,
   vips,
 }:
-
 buildGoModule rec {
   pname = "imaginary";
   version = "1.2.4";
@@ -30,9 +29,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-BluY6Fz4yAKJ/A9aFuPPsgQN9N/5yd8g8rDfIZeYz5U=";
 
-  buildInputs = [ vips ];
+  buildInputs = [vips];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   ldflags = [
     "-s"

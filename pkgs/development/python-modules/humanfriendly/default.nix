@@ -5,7 +5,6 @@
   fetchpatch2,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "humanfriendly";
   version = "10.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # humanfriendly tests depends on coloredlogs which itself depends on
   # humanfriendly. This lead to infinite recursion when trying to
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     mainProgram = "humanfriendly";
     homepage = "https://humanfriendly.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
   };
 }

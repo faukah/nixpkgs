@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "roave-backward-compatibility-check";
   version = "8.14.0";
@@ -30,6 +29,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/Roave/BackwardCompatibilityCheck";
     license = lib.licenses.mit;
     mainProgram = "roave-backward-compatibility-check";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

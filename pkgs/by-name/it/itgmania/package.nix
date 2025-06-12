@@ -20,7 +20,6 @@
   makeWrapper,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "itgmania";
   version = "1.0.2";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     udev
   ];
 
-  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isx86) [ "-DWITH_MINIMAID=off" ];
+  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isx86) ["-DWITH_MINIMAID=off"];
 
   postInstall = ''
     makeWrapper $out/itgmania/itgmania $out/bin/itgmania \

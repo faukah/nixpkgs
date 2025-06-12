@@ -11,7 +11,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-doctestplus";
   version = "1.4.0";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     packaging
   ];
 
-  pythonImportsCheck = [ "pytest_doctestplus" ];
+  pythonImportsCheck = ["pytest_doctestplus"];
 
   nativeCheckInputs = [
     numpy
@@ -65,6 +64,6 @@ buildPythonPackage rec {
     description = "Pytest plugin with advanced doctest features";
     homepage = "https://astropy.org";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -12,7 +12,6 @@
   rresult,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "unstrctrd";
   version = "0.4";
@@ -42,6 +41,6 @@ buildDunePackage rec {
     description = "Library for parsing email headers";
     homepage = "https://github.com/dinosaure/unstrctrd";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

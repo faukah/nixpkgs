@@ -23,5 +23,4 @@ buildGoModule rec {
     ];
     mainProgram = "goplantuml";
   };
-
 }

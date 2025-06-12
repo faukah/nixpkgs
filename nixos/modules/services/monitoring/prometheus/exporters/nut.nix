@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.nut;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     optionalString
     concatStringsSep
     ;
-in
-{
+in {
   port = 9199;
   extraOpts = {
     nutServer = mkOption {
@@ -40,7 +38,10 @@ in
     passwordPath = mkOption {
       type = types.nullOr types.path;
       default = null;
-      apply = final: if final == null then null else toString final;
+      apply = final:
+        if final == null
+        then null
+        else toString final;
       description = ''
         A run-time path to the nutUser password file, which should be
         provisioned outside of Nix store.
@@ -48,7 +49,7 @@ in
     };
     nutVariables = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         List of NUT variable names to monitor.
 
@@ -68,10 +69,10 @@ in
         --web.listen-address="${cfg.listenAddress}:${toString cfg.port}" \
         ${optionalString (cfg.nutUser != "") "--nut.username=${cfg.nutUser}"} \
         ${
-          optionalString (
-            cfg.nutVariables != [ ]
-          ) "--nut.vars_enable=${concatStringsSep "," cfg.nutVariables}"
-        } \
+        optionalString (
+          cfg.nutVariables != []
+        ) "--nut.vars_enable=${concatStringsSep "," cfg.nutVariables}"
+      } \
         ${concatStringsSep " " cfg.extraFlags}
     '';
   };

@@ -18,7 +18,6 @@
   gtk-doc,
   gnumeric,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "goffice";
   version = "0.10.59";

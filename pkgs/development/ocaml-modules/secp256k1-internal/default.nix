@@ -9,7 +9,6 @@
   alcotest,
   hex,
 }:
-
 buildDunePackage rec {
   pname = "secp256k1-internal";
   version = "0.4";
@@ -43,6 +42,6 @@ buildDunePackage rec {
   meta = {
     description = "Bindings to secp256k1 internal functions (generic operations on the curve)";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

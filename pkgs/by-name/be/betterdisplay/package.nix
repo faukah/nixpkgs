@@ -8,7 +8,6 @@
   writeShellScript,
   xcbuild,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "betterdisplay";
   version = "3.4.1";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontFixup = true;
 
-  buildInputs = [ undmg ];
+  buildInputs = [undmg];
 
   sourceRoot = ".";
   installPhase = ''
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = writeShellScript "version-check" ''
     ${xcbuild}/bin/PlistBuddy -c "Print :CFBundleShortVersionString" "$1"
   '';
@@ -44,15 +43,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unlock your displays on your Mac! Flexible HiDPI scaling, XDR/HDR extra brightness, virtual screens, DDC control, extra dimming, PIP/streaming, EDID override and lots more";
     homepage = "https://betterdisplay.pro/";
     changelog = "https://github.com/waydabber/BetterDisplay/releases/tag/v${finalAttrs.version}";
-    license = [ lib.licenses.unfree ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    license = [lib.licenses.unfree];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = lib.platforms.darwin;
   };
 })

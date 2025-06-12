@@ -9,7 +9,6 @@
   enableJemalloc ? !stdenv.hostPlatform.isMusl,
   jemalloc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lwan";
   version = "0.5";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ zlib ] ++ lib.optional enableJemalloc jemalloc;
+  buildInputs = [zlib] ++ lib.optional enableJemalloc jemalloc;
 
   # Note: tcmalloc and mimalloc are also supported (and normal malloc)
   cmakeFlags = lib.optional enableJemalloc "-DUSE_ALTERNATIVE_MALLOC=jemalloc";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lwan.ws/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

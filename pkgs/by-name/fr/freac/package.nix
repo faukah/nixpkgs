@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   boca,
   smooth,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freac";
   version = "1.1.7";
@@ -33,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Audio converter and CD ripper with support for various popular formats and encoders";
     license = licenses.gpl2Plus;
     homepage = "https://www.freac.org/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

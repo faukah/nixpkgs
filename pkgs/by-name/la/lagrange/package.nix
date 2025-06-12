@@ -19,7 +19,6 @@
   ncurses,
   sealcurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lagrange";
   version = "1.18.5";
@@ -72,14 +71,14 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Beautiful Gemini Client";
     homepage = "https://gmi.skyjake.fi/lagrange/";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

@@ -6,7 +6,6 @@
   wheel,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "pytorch-msssim";
   version = "1.0.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
-  pythonImportsCheck = [ "pytorch_msssim" ];
+  pythonImportsCheck = ["pytorch_msssim"];
 
   # This test doesn't have (automatic) tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Fast and differentiable MS-SSIM and SSIM for pytorch";
     homepage = "https://github.com/VainF/pytorch-msssim";
     license = licenses.mit;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

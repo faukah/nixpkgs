@@ -9,7 +9,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "grpc-interceptor";
   version = "0.15.4";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-GJkVCslPXShJNDrqhFtCsAK5+VaG8qFJo0RQTsiMIFY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     grpcio
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "grpc_interceptor" ];
+  pythonImportsCheck = ["grpc_interceptor"];
 
   meta = with lib; {
     description = "Simplified gRPC interceptors";
@@ -54,6 +53,6 @@ buildPythonPackage rec {
       request or response, or set status codes on the context.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ tomaskala ];
+    maintainers = with maintainers; [tomaskala];
   };
 }

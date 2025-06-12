@@ -6,7 +6,6 @@
   sqlite,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sqlitecpp";
   version = "3.3.3";

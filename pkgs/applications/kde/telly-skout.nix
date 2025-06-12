@@ -8,11 +8,10 @@
   ki18n,
   kirigami2,
 }:
-
 mkDerivation {
   pname = "telly-skout";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qtquickcontrols2
@@ -27,6 +26,6 @@ mkDerivation {
     mainProgram = "telly-skout";
     homepage = "https://apps.kde.org/telly-skout/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -8,7 +8,6 @@
   electron,
   rsync,
 }:
-
 buildNpmPackage rec {
   pname = "fcast-receiver";
   version = "2.0.0";
@@ -61,7 +60,7 @@ buildNpmPackage rec {
     '';
     homepage = "https://fcast.org/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ymstnt ];
+    maintainers = with lib.maintainers; [ymstnt];
     mainProgram = "fcast-receiver";
     platforms = lib.platforms.linux;
   };

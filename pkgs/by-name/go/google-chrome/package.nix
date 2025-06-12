@@ -5,7 +5,6 @@
   patchelf,
   stdenvNoCC,
   bintools,
-
   # Linked dynamic libraries.
   alsa-lib,
   at-spi2-atk,
@@ -46,20 +45,15 @@
   pipewire,
   vulkan-loader,
   wayland, # ozone/wayland
-
   # Command line programs
   coreutils,
-
   # command line arguments which are always set e.g "--disable-gpu"
   commandLineArgs ? "",
-
   # Will crash without.
   systemd,
-
   # Loaded at runtime.
   libexif,
   pciutils,
-
   # Additional dependencies according to other distros.
   ## Ubuntu
   curl,
@@ -78,30 +72,23 @@
   ## Gentoo
   bzip2,
   libcap,
-
   # Necessary for USB audio devices.
   libpulseaudio,
   pulseSupport ? true,
-
   adwaita-icon-theme,
   gsettings-desktop-schemas,
-
   # For video acceleration via VA-API (--enable-features=VaapiVideoDecoder)
   libva,
   libvaSupport ? true,
-
   # For Vulkan support (--enable-features=Vulkan)
   addDriverRunpath,
   undmg,
-
   # For QT support
   qt6,
-}:
-
-let
+}: let
   pname = "google-chrome";
 
-  opusWithCustomModes = libopus.override { withCustomModes = true; };
+  opusWithCustomModes = libopus.override {withCustomModes = true;};
 
   deps =
     [
@@ -255,7 +242,7 @@ let
         --prefix NIXPKGS_QT6_QML_IMPORT_PATH : "${qt6.qtwayland}/lib/qt-6/qml" \
         --prefix LD_LIBRARY_PATH : "$rpath" \
         --prefix PATH            : "$binpath" \
-        --suffix PATH            : "${lib.makeBinPath [ xdg-utils ]}" \
+        --suffix PATH            : "${lib.makeBinPath [xdg-utils]}" \
         --prefix XDG_DATA_DIRS   : "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH:${addDriverRunpath.driverLink}/share" \
         --set CHROME_WRAPPER  "google-chrome-$dist" \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
@@ -322,14 +309,13 @@ let
       jnsgruk
       johnrtitor
     ];
-    platforms = lib.platforms.darwin ++ [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "google-chrome-stable";
   };
 in
-if stdenvNoCC.hostPlatform.isDarwin then
-  darwin
-else if stdenvNoCC.hostPlatform.isLinux then
-  linux
-else
-  throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}"
+  if stdenvNoCC.hostPlatform.isDarwin
+  then darwin
+  else if stdenvNoCC.hostPlatform.isLinux
+  then linux
+  else throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}"

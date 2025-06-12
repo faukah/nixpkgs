@@ -5,7 +5,6 @@
   pkg-config,
   hidapi,
 }:
-
 stdenv.mkDerivation {
   pname = "footswitch";
   version = "unstable-2023-10-10";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     hash = "sha256-vwjeWjIXQiFJ0o/wgEBrKP3hQi8Xa/azVS1IE/Q/MyY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ hidapi ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [hidapi];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/rgerganov/footswitch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

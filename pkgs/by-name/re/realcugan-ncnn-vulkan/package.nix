@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     (lib.cmakeFeature "GLSLANG_TARGET_DIR" "${glslang}/lib/cmake")
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     vulkan-loader
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "Real-cugan converter ncnn version, runs fast on intel / amd / nvidia / apple-silicon GPU with vulkan";
     homepage = "https://github.com/nihui/realcugan-ncnn-vulkan";
     license = licenses.mit;
-    maintainers = with maintainers; [ iynaix ];
+    maintainers = with maintainers; [iynaix];
     mainProgram = "realcugan-ncnn-vulkan";
     platforms = platforms.all;
   };

@@ -13,8 +13,7 @@
   gtk3,
   pango,
   libxcb,
-}:
-let
+}: let
   pname = "synology-drive-client";
   baseUrl = "https://global.synologydownload.com/download/Utility/SynologyDriveClient";
   version = "3.5.1-16101";
@@ -22,7 +21,7 @@ let
   meta = with lib; {
     description = "Desktop application to synchronize files and folders between the computer and the Synology Drive server";
     homepage = "https://www.synology.com/en-global/dsm/feature/drive";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       jcouyang
@@ -124,4 +123,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

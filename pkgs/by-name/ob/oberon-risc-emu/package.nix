@@ -4,7 +4,6 @@
   fetchFromGitHub,
   SDL2,
 }:
-
 stdenv.mkDerivation {
   pname = "oberon-risc-emu";
   version = "unstable-2020-08-18";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "1iriix3cfcpbkjb5xjb4ysh592xppgprwzp3b6qhwcx44g7kdvxq";
   };
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/pdewacht/oberon-risc-emu/";
     description = "Emulator for the Oberon RISC machine";
     license = licenses.isc;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     mainProgram = "risc";
   };
 }

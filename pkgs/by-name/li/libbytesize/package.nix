@@ -14,7 +14,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libbytesize";
   version = "2.11";
@@ -65,14 +64,14 @@ stdenv.mkDerivation (finalAttrs: {
     ${python3Packages.python.pythonOnBuildForHost.interpreter} -m compileall $out/${python3Packages.python.sitePackages}/bytesize
   '';
 
-  pythonImportsCheck = [ "bytesize" ];
+  pythonImportsCheck = ["bytesize"];
 
   meta = {
     homepage = "https://github.com/storaged-project/libbytesize";
     description = "Tiny library providing a C 'class' for working with arbitrary big sizes in bytes";
     license = lib.licenses.lgpl2Plus;
     mainProgram = "bscalc";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

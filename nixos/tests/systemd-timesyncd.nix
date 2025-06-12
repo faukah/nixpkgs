@@ -1,34 +1,29 @@
 # Regression test for systemd-timesync having moved the state directory without
 # upstream providing a migration path. https://github.com/systemd/systemd/issues/12131
-
 let
-  common =
-    { lib, ... }:
-    {
-      # override the `false` value from the qemu-vm base profile
-      services.timesyncd.enable = lib.mkForce true;
-    };
+  common = {lib, ...}: {
+    # override the `false` value from the qemu-vm base profile
+    services.timesyncd.enable = lib.mkForce true;
+  };
   mkVM = conf: {
     imports = [
       conf
       common
     ];
   };
-in
-{
+in {
   name = "systemd-timesyncd";
   nodes = {
-    current = mkVM { };
+    current = mkVM {};
     pre1909 = mkVM (
-      { lib, ... }:
-      {
+      {lib, ...}: {
         # create the path that should be migrated by our activation script when
         # upgrading to a newer nixos version
         system.stateVersion = "19.03";
         systemd.services.old-timesync-state-dir = {
-          requiredBy = [ "sysinit.target" ];
-          before = [ "systemd-timesyncd.service" ];
-          after = [ "local-fs.target" ];
+          requiredBy = ["sysinit.target"];
+          before = ["systemd-timesyncd.service"];
+          after = ["local-fs.target"];
           unitConfig.DefaultDependencies = false;
           serviceConfig.Type = "oneshot";
           script = ''

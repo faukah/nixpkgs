@@ -2,9 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-}:
-
-let
+}: let
   firefoxPaths = [
     "lib/mozilla/native-messaging-hosts"
 
@@ -21,43 +19,42 @@ let
     "etc/opt/edge/native-messaging-hosts"
   ];
 in
+  rustPlatform.buildRustPackage rec {
+    pname = "ff2mpv-rust";
+    version = "1.1.7";
 
-rustPlatform.buildRustPackage rec {
-  pname = "ff2mpv-rust";
-  version = "1.1.7";
+    src = fetchFromGitHub {
+      owner = "ryze312";
+      repo = "ff2mpv-rust";
+      rev = version;
+      hash = "sha256-kJpKcwwwGjFYE7R4ZhkEGK44QqxsUEB/Scj0RoySta4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "ryze312";
-    repo = "ff2mpv-rust";
-    rev = version;
-    hash = "sha256-kJpKcwwwGjFYE7R4ZhkEGK44QqxsUEB/Scj0RoySta4=";
-  };
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-O8OAynSdZdtqNS+wAQ1oAs2HjueC41O8RFqESRHr+6o=";
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-O8OAynSdZdtqNS+wAQ1oAs2HjueC41O8RFqESRHr+6o=";
+    postInstall = ''
+      $out/bin/ff2mpv-rust manifest > manifest.json
+      $out/bin/ff2mpv-rust manifest_chromium > manifest_chromium.json
 
-  postInstall = ''
-    $out/bin/ff2mpv-rust manifest > manifest.json
-    $out/bin/ff2mpv-rust manifest_chromium > manifest_chromium.json
+      for path in ${toString firefoxPaths}
+      do
+          mkdir -p "$out/$path"
+          cp manifest.json "$out/$path/ff2mpv.json"
+      done
 
-    for path in ${toString firefoxPaths}
-    do
-        mkdir -p "$out/$path"
-        cp manifest.json "$out/$path/ff2mpv.json"
-    done
+      for path in ${toString chromiumPaths}
+      do
+          mkdir -p "$out/$path"
+          cp manifest_chromium.json "$out/$path/ff2mpv.json"
+      done
+    '';
 
-    for path in ${toString chromiumPaths}
-    do
-        mkdir -p "$out/$path"
-        cp manifest_chromium.json "$out/$path/ff2mpv.json"
-    done
-  '';
-
-  meta = with lib; {
-    description = "Native messaging host for ff2mpv written in Rust";
-    homepage = "https://github.com/ryze312/ff2mpv-rust";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ryze ];
-    mainProgram = "ff2mpv-rust";
-  };
-}
+    meta = with lib; {
+      description = "Native messaging host for ff2mpv written in Rust";
+      homepage = "https://github.com/ryze312/ff2mpv-rust";
+      license = licenses.gpl3Only;
+      maintainers = with maintainers; [ryze];
+      mainProgram = "ff2mpv-rust";
+    };
+  }

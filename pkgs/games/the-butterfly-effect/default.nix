@@ -8,7 +8,6 @@
   qtbase,
   qtsvg,
 }:
-
 mkDerivation rec {
   pname = "tbe";
   version = "0.9.3.1";
@@ -49,7 +48,7 @@ mkDerivation rec {
     description = "Physics-based game vaguely similar to Incredible Machine";
     mainProgram = "tbe";
     homepage = "http://the-butterfly-effect.org/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

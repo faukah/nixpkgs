@@ -15,7 +15,6 @@
   pkg-config,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freeimage";
   version = "3.18.0-unstable-2024-04-18";
@@ -163,7 +162,7 @@ stdenv.mkDerivation (finalAttrs: {
       "CVE-2019-12214"
       "CVE-2019-12212"
     ];
-    maintainers = with lib.maintainers; [ l-as ];
+    maintainers = with lib.maintainers; [l-as];
     platforms = with lib.platforms; unix;
   };
 })

@@ -13,7 +13,6 @@
   setuptools-scm,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "rchitect";
   version = "0.4.7";
@@ -38,11 +37,13 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    cffi
-    six
-    packaging
-  ] ++ (with rPackages; [ reticulate ]);
+  propagatedBuildInputs =
+    [
+      cffi
+      six
+      packaging
+    ]
+    ++ (with rPackages; [reticulate]);
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -55,13 +56,13 @@ buildPythonPackage rec {
     cd $TMPDIR
   '';
 
-  pythonImportsCheck = [ "rchitect" ];
+  pythonImportsCheck = ["rchitect"];
 
   meta = with lib; {
     description = "Interoperate R with Python";
     homepage = "https://github.com/randy3k/rchitect";
     changelog = "https://github.com/randy3k/rchitect/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ savyajha ];
+    maintainers = with maintainers; [savyajha];
   };
 }

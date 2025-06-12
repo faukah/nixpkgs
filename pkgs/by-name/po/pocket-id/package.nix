@@ -6,7 +6,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "pocket-id";
   version = "1.2.0";
@@ -43,7 +42,7 @@ buildGoModule (finalAttrs: {
     sourceRoot = "${finalAttrs.src.name}/frontend";
 
     npmDepsHash = "sha256-+KmNWKe5k/WuQL9B6XYZWDCLICyGWIg/vHLZr9T7SOc=";
-    npmFlags = [ "--legacy-peer-deps" ];
+    npmFlags = ["--legacy-peer-deps"];
 
     env.BUILD_OUTPUT_PATH = "dist";
 

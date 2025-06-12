@@ -6,7 +6,6 @@
   openpyxl,
   robotframework,
 }:
-
 buildPythonPackage rec {
   pname = "robotframework-excellib";
   version = "2.0.1";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-ZzAwlYM8DgWD1hfWRnY8u2RnZc3V368kgigBApeDZYg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     openpyxl
     robotframework
   ];
 
-  pythonImportsCheck = [ "ExcelLibrary" ];
+  pythonImportsCheck = ["ExcelLibrary"];
 
   # upstream has no tests
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Robot Framework library for working with Excel documents";
     homepage = "https://github.com/peterservice-rnd/robotframework-excellib";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

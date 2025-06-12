@@ -5,7 +5,6 @@
   testers,
   terraform-inventory,
 }:
-
 buildGoModule rec {
   pname = "terraform-inventory";
   version = "0.10";
@@ -36,6 +35,6 @@ buildGoModule rec {
     description = "Terraform state to ansible inventory adapter";
     mainProgram = "terraform-inventory";
     license = licenses.mit;
-    maintainers = with maintainers; [ htr ];
+    maintainers = with maintainers; [htr];
   };
 }

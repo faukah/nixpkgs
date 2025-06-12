@@ -5,7 +5,6 @@
   libxcb,
   python3,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "swaywsr";
   version = "1.3.0";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-u+aMwj+IxFY+fSAECkKr8dSPVw2q+FXZpgwwexu7BFU=";
 
-  nativeBuildInputs = [ python3 ];
-  buildInputs = [ libxcb ];
+  nativeBuildInputs = [python3];
+  buildInputs = [libxcb];
 
   # has not tests
   doCheck = false;
@@ -36,6 +35,6 @@ rustPlatform.buildRustPackage {
     '';
     homepage = "https://github.com/pedroscaff/swaywsr";
     license = licenses.mit;
-    maintainers = [ maintainers.sebbadk ];
+    maintainers = [maintainers.sebbadk];
   };
 }

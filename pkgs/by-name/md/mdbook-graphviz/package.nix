@@ -4,7 +4,6 @@
   rustPlatform,
   graphviz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-graphviz";
   version = "0.2.1";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-A1pFifxshWynwA88iLTMOm21NKCH8fHl5nFiV4wEG8A=";
 
-  nativeCheckInputs = [ graphviz ];
+  nativeCheckInputs = [graphviz];
 
   meta = {
     description = "Preprocessor for mdbook, rendering Graphviz graphs to HTML at build time";

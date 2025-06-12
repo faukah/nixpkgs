@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dockfmt";
   version = "unstable-2020-09-18";
@@ -29,6 +28,6 @@ buildGoModule rec {
     mainProgram = "dockfmt";
     homepage = "https://github.com/jessfraz/dockfmt";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

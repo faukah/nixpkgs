@@ -1,13 +1,11 @@
 {
   lib,
   buildPythonPackage,
-
   lang,
   version,
   src,
   build-system,
 }:
-
 buildPythonPackage rec {
   pname = "gruut-lang-${lang}";
   pyproject = true;
@@ -17,7 +15,7 @@ buildPythonPackage rec {
     cd "${pname}"
   '';
 
-  pythonImportsCheck = [ "gruut_lang_${lang}" ];
+  pythonImportsCheck = ["gruut_lang_${lang}"];
 
   doCheck = false;
 
@@ -25,6 +23,6 @@ buildPythonPackage rec {
     description = "Language files for gruut tokenizer/phonemizer";
     homepage = "https://github.com/rhasspy/gruut";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

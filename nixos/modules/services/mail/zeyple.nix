@@ -3,12 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.zeyple;
-  ini = pkgs.formats.ini { };
+  ini = pkgs.formats.ini {};
 
-  gpgHome = pkgs.runCommand "zeyple-gpg-home" { } ''
+  gpgHome = pkgs.runCommand "zeyple-gpg-home" {} ''
     mkdir -p $out
     for file in ${lib.concatStringsSep " " cfg.keys}; do
       ${config.programs.gnupg.package}/bin/gpg --homedir="$out" --import "$file"
@@ -17,8 +16,7 @@ let
     # Remove socket files
     rm -f $out/S.*
   '';
-in
-{
+in {
   options.services.zeyple = {
     enable = lib.mkEnableOption "Zeyple, an utility program to automatically encrypt outgoing emails with GPG";
 
@@ -52,7 +50,7 @@ in
 
     settings = lib.mkOption {
       type = ini.type;
-      default = { };
+      default = {};
       description = ''
         Zeyple configuration. refer to
         <https://github.com/infertux/zeyple/blob/master/zeyple/zeyple.conf.example>
@@ -73,7 +71,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups = lib.optionalAttrs (cfg.group == "zeyple") { "${cfg.group}" = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "zeyple") {"${cfg.group}" = {};};
     users.users = lib.optionalAttrs (cfg.user == "zeyple") {
       "${cfg.user}" = {
         isSystemUser = true;
@@ -87,7 +85,7 @@ in
         force_encrypt = true;
       };
 
-      gpg = lib.mapAttrs (name: lib.mkDefault) { home = "${gpgHome}"; };
+      gpg = lib.mapAttrs (name: lib.mkDefault) {home = "${gpgHome}";};
 
       relay = lib.mapAttrs (name: lib.mkDefault) {
         host = "localhost";

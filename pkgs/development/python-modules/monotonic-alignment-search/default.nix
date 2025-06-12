@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   cython,
   numpy_2,
-
   # dependencies
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "monotonic-alignment-search";
   version = "0.1.1";
@@ -34,15 +31,15 @@ buildPythonPackage rec {
     torch
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "monotonic_alignment_search" ];
+  pythonImportsCheck = ["monotonic_alignment_search"];
 
   meta = {
     homepage = "https://github.com/eginhard/monotonic_alignment_search";
     description = "Monotonically align text and speech";
     changelog = "https://github.com/eginhard/monotonic_alignment_search/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jbgi ];
+    maintainers = with lib.maintainers; [jbgi];
   };
 }

@@ -7,7 +7,6 @@
   soupsieve,
   webob,
 }:
-
 buildPythonPackage rec {
   pname = "routes";
   version = "2.5.1";
@@ -29,12 +28,12 @@ buildPythonPackage rec {
   # incompatible with latest soupsieve
   doCheck = false;
 
-  pythonImportsCheck = [ "routes" ];
+  pythonImportsCheck = ["routes"];
 
   meta = with lib; {
     description = "Re-implementation of the Rails routes system for mapping URLs to application actions";
     homepage = "https://github.com/bbangert/routes";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

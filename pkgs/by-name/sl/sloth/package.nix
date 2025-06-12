@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "sloth";
   version = "0.12.0";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-hXDwHKxmrpGR6cbHns9rARu87DqODqr8q25Iv1qFqrA=";
 
-  subPackages = [ "cmd/sloth" ];
+  subPackages = ["cmd/sloth"];
 
   meta = {
     description = "Easy and simple Prometheus SLO (service level objectives) generator";
     homepage = "https://sloth.dev/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nrhtr ];
+    maintainers = with lib.maintainers; [nrhtr];
     platforms = lib.platforms.unix;
     mainProgram = "sloth";
   };

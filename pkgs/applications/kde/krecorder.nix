@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   kcoreaddons,
   ki18n,
@@ -14,7 +12,6 @@
   qtmultimedia,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "krecorder";
 
@@ -39,6 +36,6 @@ mkDerivation {
     mainProgram = "krecorder";
     homepage = "https://invent.kde.org/plasma-mobile/krecorder";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,7 +7,6 @@
   nixosTests,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "google-guest-oslogin";
   version = "20230831.00";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     json_c
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${json_c.dev}/include/json-c" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${json_c.dev}/include/json-c"];
 
   makeFlags = [
     "VERSION=${version}"
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "OS Login Guest Environment for Google Compute Engine";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

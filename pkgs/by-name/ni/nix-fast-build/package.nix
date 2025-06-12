@@ -7,7 +7,6 @@
   nix-output-monitor,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nix-fast-build";
   version = "1.2.0";
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-lOouOgusUU3x97wClX8+WdbzpneMiRTdCqDSxGc/RlU=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   makeWrapperArgs = [
     "--prefix PATH : ${
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

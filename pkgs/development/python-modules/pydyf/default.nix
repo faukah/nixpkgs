@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pydyf";
   version = "0.11.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace "--isort --flake8" ""
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   nativeCheckInputs = [
     pkgs.ghostscript
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "pydyf" ];
+  pythonImportsCheck = ["pydyf"];
 
   meta = with lib; {
     description = "Low-level PDF generator written in Python and based on PDF specification 1.7";
     homepage = "https://doc.courtbouillon.org/pydyf/stable/";
     changelog = "https://github.com/CourtBouillon/pydyf/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ rprecenth ];
+    maintainers = with maintainers; [rprecenth];
   };
 }

@@ -16,7 +16,6 @@
   testers,
   binlore,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "6.5";
   pname = "ncurses" + lib.optionalString (abiVersion == "5") "-abi5-compat";
@@ -35,13 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   # see other isOpenBSD clause below
   configurePlatforms =
-    if stdenv.hostPlatform.isOpenBSD then
-      [ "build" ]
-    else
-      [
-        "build"
-        "host"
-      ];
+    if stdenv.hostPlatform.isOpenBSD
+    then ["build"]
+    else [
+      "build"
+      "host"
+    ];
 
   configureFlags =
     [
@@ -78,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "--with-build-cc=${buildPackages.stdenv.cc}/bin/${buildPackages.stdenv.cc.targetPrefix}cc"
     ]
-    ++ (lib.optionals (stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17")
+    ++ (
+      lib.optionals (stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17")
       [
         # lld17+ passes `--no-undefined-version` by default and makes this a hard
         # error; ncurses' `resulting.map` version script references symbols that
@@ -137,11 +136,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = false;
 
-  postFixup =
-    let
-      abiVersion-extension =
-        if stdenv.hostPlatform.isDarwin then "${abiVersion}.$dylibtype" else "$dylibtype.${abiVersion}";
-    in
+  postFixup = let
+    abiVersion-extension =
+      if stdenv.hostPlatform.isDarwin
+      then "${abiVersion}.$dylibtype"
+      else "$dylibtype.${abiVersion}";
+  in
     ''
       # Determine what suffixes our libraries have
       suffix="$(awk -F': ' 'f{print $3; f=0} /default library suffix/{f=1}' config.log)"
@@ -246,15 +246,16 @@ stdenv.mkDerivation (finalAttrs: {
       ANSI/POSIX-conforming UNIX. It has even been ported to OS/2 Warp!
     '';
     license = licenses.mit;
-    pkgConfigModules =
-      let
-        base = [
+    pkgConfigModules = let
+      base =
+        [
           "form"
           "menu"
           "ncurses"
           "panel"
-        ] ++ lib.optional withCxx "ncurses++";
-      in
+        ]
+        ++ lib.optional withCxx "ncurses++";
+    in
       base ++ lib.optionals unicodeSupport (map (p: p + "w") base);
     platforms = platforms.all;
   };

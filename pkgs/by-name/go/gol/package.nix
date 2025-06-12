@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 maven.buildMavenPackage rec {
   pname = "gol";
   version = "1.0.2";
@@ -20,7 +19,7 @@ maven.buildMavenPackage rec {
   mvnHash = "sha256-lKmoftSkyyb/pIthrsJaZ3p9l5V5K3FdK6sOBoZyhe8";
   mvnParameters = "compile assembly:single -Dmaven.test.skip=true";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +43,7 @@ maven.buildMavenPackage rec {
     '';
     homepage = "https://docs.geodesk.com/gol";
     license = licenses.agpl3Only;
-    maintainers = [ maintainers.starsep ];
+    maintainers = [maintainers.starsep];
     platforms = platforms.all;
   };
 }

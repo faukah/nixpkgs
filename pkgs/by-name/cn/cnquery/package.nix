@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cnquery";
   version = "11.56.0";
@@ -15,7 +14,7 @@ buildGoModule rec {
     hash = "sha256-PkwGfQQiKGUfiUhqzowCaPSBMBaN2S3n7kA3W2UiTQw=";
   };
 
-  subPackages = [ "apps/cnquery" ];
+  subPackages = ["apps/cnquery"];
 
   vendorHash = "sha256-JoFj3bHDb0jWwlrioYQv/V6e69ae7HFGkLYBNgntB00=";
 
@@ -34,6 +33,6 @@ buildGoModule rec {
     homepage = "https://mondoo.com/cnquery";
     changelog = "https://github.com/mondoohq/cnquery/releases/tag/v${version}";
     license = lib.licenses.bsl11;
-    maintainers = with lib.maintainers; [ mariuskimmina ];
+    maintainers = with lib.maintainers; [mariuskimmina];
   };
 }

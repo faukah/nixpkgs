@@ -9,7 +9,6 @@
   setuptools,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-serialization";
   version = "5.7.0";
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "oslo_serialization" ];
+  pythonImportsCheck = ["oslo_serialization"];
 
   meta = with lib; {
     description = "Oslo Serialization library";
     homepage = "https://github.com/openstack/oslo.serialization";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

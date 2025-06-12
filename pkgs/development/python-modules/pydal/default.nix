@@ -9,7 +9,6 @@
   setuptools,
   legacy-cgi,
 }:
-
 buildPythonPackage rec {
   pname = "pydal";
   version = "20250607.2";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-Zr1d6kCwAyhjeV2tQ+n9y9x80yD/Atb6TJq7AnRz+PQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+  checkInputs = lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
   pytestFlagsArray = [
     "tests/*.py"
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     "test_scheduler"
   ];
 
-  pythonImportsCheck = [ "pydal" ];
+  pythonImportsCheck = ["pydal"];
 
   meta = with lib; {
     description = "Python Database Abstraction Layer";
     homepage = "https://github.com/web2py/pydal";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ wamserma ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [wamserma];
   };
 }

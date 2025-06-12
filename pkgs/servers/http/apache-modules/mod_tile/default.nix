@@ -18,7 +18,6 @@
   mapnik,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_tile";
   version = "0.7.2";
@@ -62,19 +61,19 @@ stdenv.mkDerivation rec {
   ];
 
   # And use DESTDIR to define the install destination
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   doCheck = true;
   # Do not run tests in parallel
   enableParallelChecking = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/openstreetmap/mod_tile";
     description = "Efficiently render and serve OpenStreetMap tiles using Apache and Mapnik";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jglukasik ];
+    maintainers = with maintainers; [jglukasik];
     platforms = platforms.linux;
   };
 }

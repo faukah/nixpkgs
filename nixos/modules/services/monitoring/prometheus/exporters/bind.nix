@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.bind;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9119;
   extraOpts = {
     bindURI = mkOption {

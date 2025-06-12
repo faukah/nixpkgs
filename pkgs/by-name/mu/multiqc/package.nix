@@ -7,7 +7,6 @@
   versionCheckHook,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "multiqc";
   version = "1.29";
@@ -93,8 +92,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   # Some tests run subprocess.run() with "ps"
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       procps
       pytest-cov
@@ -125,10 +123,9 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://multiqc.info";
     changelog = "https://github.com/MultiQC/MultiQC/releases/tag/v${version}/";
-    license = [ lib.licenses.gpl3Plus ];
-    maintainers = [ lib.maintainers.apraga ];
+    license = [lib.licenses.gpl3Plus];
+    maintainers = [lib.maintainers.apraga];
     mainProgram = "multiqc";
     platforms = lib.platforms.unix;
   };
-
 }

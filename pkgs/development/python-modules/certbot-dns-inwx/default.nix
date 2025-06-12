@@ -7,7 +7,6 @@
   certbot,
   inwx-domrobot,
 }:
-
 buildPythonPackage rec {
   pname = "certbot-dns-inwx";
   version = "3.0.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-x4wDg36J9MvXXHBxUMCoHO3p6c3FKBBB879CpxG/1NA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     acme
@@ -31,7 +30,7 @@ buildPythonPackage rec {
   # Doesn't have any tests
   doCheck = false;
 
-  pythonImportsCheck = [ "certbot_dns_inwx" ];
+  pythonImportsCheck = ["certbot_dns_inwx"];
 
   meta = {
     description = "INWX DNS Authenticator plugin for Certbot";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

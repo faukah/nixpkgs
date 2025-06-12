@@ -5,7 +5,6 @@
   chez,
   chez-srfi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chez-mit";
   version = "0.2";
@@ -33,8 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "This is a MIT/GNU Scheme compatibility library for Chez Scheme";
     homepage = "https://github.com/fedeinthemix/chez-mit/";
-    maintainers = [ maintainers.jitwit ];
+    maintainers = [maintainers.jitwit];
     license = licenses.gpl3Plus;
   };
-
 }

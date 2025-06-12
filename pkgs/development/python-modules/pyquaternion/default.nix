@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyquaternion";
   version = "0.9.9";
@@ -29,20 +28,20 @@ buildPythonPackage rec {
     echo "${version}" > VERSION.txt
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "pyquaternion/test/" ];
+  pytestFlagsArray = ["pyquaternion/test/"];
 
-  pythonImportsCheck = [ "pyquaternion" ];
+  pythonImportsCheck = ["pyquaternion"];
 
   meta = with lib; {
     description = "Library for representing and using quaternions";
     homepage = "http://kieranwynn.github.io/pyquaternion/";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

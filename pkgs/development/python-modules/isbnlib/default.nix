@@ -6,7 +6,6 @@
   pytest-cov-stub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "isbnlib";
   version = "3.10.14";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-d6p0wv7kj+NOZJRE2rzQgb7PXv+E3tASIibYCjzCdx8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools # needed for 'pkg_resources'
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pytestFlagsArray = [ "isbnlib/test/" ];
+  pytestFlagsArray = ["isbnlib/test/"];
 
   # All disabled tests require a network connection
   disabledTests = [
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xlcnd/isbnlib";
     changelog = "https://github.com/xlcnd/isbnlib/blob/v${version}/CHANGES.txt";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

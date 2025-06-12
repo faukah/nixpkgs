@@ -8,7 +8,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 maven.buildMavenPackage rec {
   pname = "bytecode-viewer";
   version = "2.12";
@@ -27,7 +26,7 @@ maven.buildMavenPackage rec {
       exec = meta.mainProgram;
       icon = "bytecode-viewer";
       comment = "A lightweight user-friendly Java/Android Bytecode Viewer, Decompiler & More.";
-      categories = [ "Security" ];
+      categories = ["Security"];
       startupNotify = false;
     })
   ];
@@ -80,6 +79,6 @@ maven.buildMavenPackage rec {
       fromSource
       binaryBytecode # deps
     ];
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
   };
 }

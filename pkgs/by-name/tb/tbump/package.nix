@@ -16,9 +16,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-OF5xDu3wqKb/lZzx6fPP0XyHNhcTL8DsX2Ka8MNVyHA=";
   };
 
-  pythonRelaxDeps = [ "tomlkit" ];
+  pythonRelaxDeps = ["tomlkit"];
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [poetry-core];
 
   dependencies = with python3Packages; [
     docopt
@@ -34,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/your-tools/tbump";
     license = lib.licenses.bsd3;
     mainProgram = "tbump";
-    maintainers = with lib.maintainers; [ slashformotion ];
+    maintainers = with lib.maintainers; [slashformotion];
   };
 }

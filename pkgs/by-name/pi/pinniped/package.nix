@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "pinniped";
   version = "0.39.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd pinniped \
@@ -39,6 +38,6 @@ buildGoModule rec {
     mainProgram = "pinniped";
     homepage = "https://pinniped.dev/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bpaulin ];
+    maintainers = with maintainers; [bpaulin];
   };
 }

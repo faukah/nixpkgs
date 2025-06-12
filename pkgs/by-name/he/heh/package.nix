@@ -4,7 +4,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "heh";
   version = "0.6.1";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
     description = "Cross-platform terminal UI used for modifying file data in hex or ASCII";
     homepage = "https://github.com/ndd7xv/heh";
     changelog = "https://github.com/ndd7xv/heh/releases/tag/${src.rev}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ piturnah ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [piturnah];
     mainProgram = "heh";
   };
 }

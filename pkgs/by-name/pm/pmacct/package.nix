@@ -24,7 +24,6 @@
   gnutls,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.7.9";
   pname = "pmacct";
@@ -86,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.pmacct.net/";
     changelog = "https://github.com/pmacct/pmacct/blob/v${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     platforms = lib.platforms.unix;
   };
 })

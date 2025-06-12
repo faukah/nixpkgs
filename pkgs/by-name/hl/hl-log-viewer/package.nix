@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-1iBpzoTyNB6ECDuGW26JMdu2YolrPmIT040V35Pi+C4=";
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd hl \
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgram = "${placeholder "out"}/bin/hl";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "JSON and logfmt log converter to human readable representation";
@@ -46,6 +46,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/pamburus/hl/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "hl";
-    maintainers = with lib.maintainers; [ petrzjunior ];
+    maintainers = with lib.maintainers; [petrzjunior];
   };
 })

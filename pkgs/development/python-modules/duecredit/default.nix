@@ -10,7 +10,6 @@
   looseversion,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "duecredit";
   version = "0.10.2";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "--cov-config=tox.ini" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
   propagatedBuildInputs = [
     citeproc-py
     looseversion
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
     vcrpy
   ];
-  disabledTests = [ "test_import_doi" ]; # tries to access network
+  disabledTests = ["test_import_doi"]; # tries to access network
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "duecredit" ];
+  pythonImportsCheck = ["duecredit"];
 
   meta = {
     homepage = "https://github.com/duecredit/duecredit";
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     mainProgram = "duecredit";
     changelog = "https://github.com/duecredit/duecredit/releases/tag/${version}";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

@@ -7,7 +7,6 @@
   perl,
   webkitgtk_4_1,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gpauth";
   version = "2.4.1";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
       the same features as the GUI version.
     '';
     homepage = "https://github.com/${src.owner}/${src.repo}";
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
     maintainers = with maintainers; [
       binary-eater
       m1dugh

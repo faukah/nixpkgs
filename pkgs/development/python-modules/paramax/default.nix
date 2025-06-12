@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   equinox,
   jax,
   jaxtyping,
-
   # tests
   beartype,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "paramax";
   version = "0.0.3";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     jaxtyping
   ];
 
-  pythonImportsCheck = [ "paramax" ];
+  pythonImportsCheck = ["paramax"];
 
   nativeCheckInputs = [
     beartype
@@ -50,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/danielward27/paramax";
     changelog = "https://github.com/danielward27/paramax/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

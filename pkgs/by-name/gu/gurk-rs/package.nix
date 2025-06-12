@@ -12,7 +12,6 @@
   nix-update-script,
   gurk-rs,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gurk-rs";
   version = "0.6.4";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   NIX_LDFLAGS = lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) [
     "-framework"
@@ -50,7 +49,7 @@ rustPlatform.buildRustPackage rec {
 
   useNextest = true;
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -59,13 +58,13 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Signal Messenger client for terminal";
     mainProgram = "gurk";
     homepage = "https://github.com/boxdot/gurk-rs";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

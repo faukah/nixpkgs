@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "codebraid";
   version = "0.11.0";
@@ -16,8 +15,8 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-E9vzGK9ZEVwF+UBpSkdM+hm6vINen/A+LgnnPpc77QQ=";
   };
 
-  nativeBuildInputs = with python3Packages; [ setuptools ];
-  propagatedBuildInputs = with python3Packages; [ bespon ];
+  nativeBuildInputs = with python3Packages; [setuptools];
+  propagatedBuildInputs = with python3Packages; [bespon];
   # unfortunately upstream doesn't contain tests
   checkPhase = ''
     $out/bin/codebraid --help > /dev/null
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
       with support for rich output like plots.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
     mainProgram = "codebraid";
   };
 }

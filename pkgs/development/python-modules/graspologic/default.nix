@@ -24,7 +24,6 @@
   typing-extensions,
   umap-learn,
 }:
-
 buildPythonPackage rec {
   pname = "graspologic";
   version = "3.4.1";
@@ -78,7 +77,7 @@ buildPythonPackage rec {
     "--ignore=docs"
     "--ignore=tests/test_sklearn.py"
   ];
-  disabledTests = [ "gridplot_outputs" ];
+  disabledTests = ["gridplot_outputs"];
 
   disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     # SIGABRT
@@ -91,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://graspologic-org.github.io/graspologic";
     changelog = "https://github.com/graspologic-org/graspologic/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -5,7 +5,6 @@
   testers,
   vimcats,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vimcats";
   version = "1.1.1";
@@ -17,12 +16,12 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-BW1pU7NnW8yWePV0IQOUmcNa13NvV9lOZhfnEdQFBQQ=";
   };
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-OGU7jwXOUf+tVECsyKwJQ9vRqTDoV8m/WOlAqTFdfUM=";
 
-  passthru.tests.version = testers.testVersion { package = vimcats; };
+  passthru.tests.version = testers.testVersion {package = vimcats;};
 
   meta = with lib; {
     description = "CLI to generate vim/nvim help doc from LuaCATS. Forked from lemmy-help";
@@ -32,8 +31,8 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/mrcjkb/vimcats";
     changelog = "https://github.com/mrcjkb/vimcats/CHANGELOG.md";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ mrcjkb ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [mrcjkb];
     mainProgram = "vimcats";
   };
 }

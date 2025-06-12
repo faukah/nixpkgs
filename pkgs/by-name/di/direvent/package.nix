@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "direvent";
   version = "5.4";
@@ -19,6 +18,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org.ua/software/direvent/";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ puffnfresh ];
+    maintainers = with maintainers; [puffnfresh];
   };
 }

@@ -11,7 +11,6 @@
   testers,
   types-protobuf,
 }:
-
 buildPythonPackage rec {
   pname = "mypy-protobuf";
   version = "3.6.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-AvJC6zQJ9miJ8rGjqlg1bsTZCc3Q+TEVYi6ecDZuyjw=";
   };
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     grpcio-tools
@@ -36,9 +35,9 @@ buildPythonPackage rec {
 
   doCheck = false; # ModuleNotFoundError: No module named 'testproto'
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mypy_protobuf" ];
+  pythonImportsCheck = ["mypy_protobuf"];
 
   passthru.tests.version = testers.testVersion {
     package = mypy-protobuf;
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nipunn1313/mypy-protobuf";
     license = lib.licenses.asl20;
     mainProgram = "protoc-gen-mypy";
-    maintainers = with lib.maintainers; [ lnl7 ];
+    maintainers = with lib.maintainers; [lnl7];
   };
 }

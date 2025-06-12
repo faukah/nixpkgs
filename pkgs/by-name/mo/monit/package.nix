@@ -11,7 +11,6 @@
   useSSL ? true,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "monit";
   version = "5.35.2";
@@ -31,23 +30,22 @@ stdenv.mkDerivation rec {
       zlib.dev
       libxcrypt
     ]
-    ++ lib.optionals useSSL [ openssl ]
-    ++ lib.optionals usePAM [ pam ];
+    ++ lib.optionals useSSL [openssl]
+    ++ lib.optionals usePAM [pam];
 
   configureFlags =
     [
       (lib.withFeature usePAM "pam")
     ]
     ++ (
-      if useSSL then
-        [
-          "--with-ssl-incl-dir=${openssl.dev}/include"
-          "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
-        ]
-      else
-        [
-          "--without-ssl"
-        ]
+      if useSSL
+      then [
+        "--with-ssl-incl-dir=${openssl.dev}/include"
+        "--with-ssl-lib-dir=${lib.getLib openssl}/lib"
+      ]
+      else [
+        "--without-ssl"
+      ]
     )
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # will need to check both these are true for musl

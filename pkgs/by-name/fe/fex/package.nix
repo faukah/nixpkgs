@@ -12,7 +12,6 @@
   fmt,
   nasm,
 }:
-
 llvmPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "fex";
   version = "2506";
@@ -57,14 +56,15 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     llvmPackages.bintools
 
     (python3.withPackages (
-      pythonPackages: with pythonPackages; [
-        setuptools
-        libclang
-      ]
+      pythonPackages:
+        with pythonPackages; [
+          setuptools
+          libclang
+        ]
     ))
   ];
 
-  nativeCheckInputs = [ nasm ];
+  nativeCheckInputs = [nasm];
 
   buildInputs =
     [
@@ -109,16 +109,16 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Fast usermode x86 and x86-64 emulator for Arm64 Linux";
     homepage = "https://fex-emu.com/";
     changelog = "https://github.com/FEX-Emu/FEX/releases/tag/FEX-${finalAttrs.version}";
-    platforms = [ "aarch64-linux" ];
+    platforms = ["aarch64-linux"];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ andre4ik3 ];
+    maintainers = with lib.maintainers; [andre4ik3];
     mainProgram = "FEXBash";
   };
 })

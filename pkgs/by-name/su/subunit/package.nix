@@ -8,9 +8,7 @@
   perl,
   python3Packages,
 }:
-
 # NOTE: for subunit python library see pkgs/top-level/python-packages.nix
-
 stdenv.mkDerivation rec {
   pname = "subunit";
   version = "1.4.2";
@@ -20,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-hlOOv6kIC97w7ICVsuXeWrsUbVu3tCSzEVKUHXYG2dI=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     check
     cppunit

@@ -11,7 +11,6 @@
   psutil,
   xlib,
 }:
-
 buildPythonPackage rec {
   pname = "ueberzug";
   version = "18.1.9";
@@ -39,13 +38,13 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ueberzug" ];
+  pythonImportsCheck = ["ueberzug"];
 
   meta = with lib; {
     homepage = "https://github.com/seebye/ueberzug";
     description = "Alternative for w3mimgdisplay";
     mainProgram = "ueberzug";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
   };
 }

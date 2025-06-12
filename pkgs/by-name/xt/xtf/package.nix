@@ -7,7 +7,6 @@
   graphviz,
   python3Packages,
 }:
-
 stdenv.mkDerivation {
   pname = "xtf";
   version = "0-unstable-2025-05-19";
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
       graphviz
     ];
 
-  buildFlags = [ "doxygen" ];
+  buildFlags = ["doxygen"];
 
   installFlags = [
     "xtfdir=$(out)/share/xtf"
@@ -65,13 +64,13 @@ stdenv.mkDerivation {
       ln -s ''${!outputBin}/share/xtf/xtf-runner ''${!outputBin}/bin/xtf-runner
     '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Xen Test Framework and Suite for creating microkernel-based tests";
     homepage = "https://xenbits.xenproject.org/docs/xtf/index.html";
     license = lib.licenses.bsd2;
-    teams = [ lib.teams.xen ];
+    teams = [lib.teams.xen];
     mainProgram = "xtf-runner";
     platforms = lib.lists.intersectLists lib.platforms.linux lib.platforms.x86_64;
   };

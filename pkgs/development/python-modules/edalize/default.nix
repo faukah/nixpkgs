@@ -13,7 +13,6 @@
   which,
   yosys,
 }:
-
 buildPythonPackage rec {
   pname = "edalize";
   version = "0.6.1";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
   optional-dependencies = {
     reporting = [
@@ -48,13 +47,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    which
-    yosys
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      which
+      yosys
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "edalize" ];
+  pythonImportsCheck = ["edalize"];
 
   disabledTests = [
     # disable failures related to pandas 2.1.0 apply(...,errors="ignore")
@@ -104,6 +105,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/olofk/edalize";
     changelog = "https://github.com/olofk/edalize/releases/tag/${src.tag}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

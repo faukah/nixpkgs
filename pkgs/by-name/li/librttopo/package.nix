@@ -6,7 +6,6 @@
   validatePkgConfig,
   geos,
 }:
-
 stdenv.mkDerivation rec {
   pname = "librttopo";
   version = "1.1.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     geos # for geos-config
   ];
 
-  buildInputs = [ geos ];
+  buildInputs = [geos];
 
   enableParallelBuilding = true;
 
@@ -38,8 +37,8 @@ stdenv.mkDerivation rec {
     description = "RT Topology Library";
     homepage = "https://git.osgeo.org/gitea/rttopo/librttopo";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [dotlambda];
+    teams = [teams.geospatial];
     platforms = platforms.unix;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitLab,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timelimit";
   version = "1.9.2";
@@ -16,10 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-5IEAF8zCKaCVH6BAxjoa/2rrue9pRGBBkFzN57d+g+g=";
   };
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   doCheck = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
   INSTALL_PROGRAM = "install -m755";
   INSTALL_DATA = "install -m644";
 
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://devel.ringlet.net/sysutils/timelimit/";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "timelimit";
   };
 }

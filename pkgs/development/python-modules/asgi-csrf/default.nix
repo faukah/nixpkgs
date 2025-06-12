@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   itsdangerous,
   python-multipart,
-
   # tests
   asgi-lifespan,
   pytestCheckHook,
@@ -17,7 +14,6 @@
   httpx,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "asgi-csrf";
   version = "0.11";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-STitMWabAPz61AU+5gFJSHBBqf67Q8UtS6ks8Q/ZybY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     itsdangerous
@@ -46,12 +42,12 @@ buildPythonPackage rec {
     starlette
   ];
 
-  pythonImportsCheck = [ "asgi_csrf" ];
+  pythonImportsCheck = ["asgi_csrf"];
 
   meta = with lib; {
     description = "ASGI middleware for protecting against CSRF attacks";
     license = licenses.asl20;
     homepage = "https://github.com/simonw/asgi-csrf";
-    maintainers = [ maintainers.ris ];
+    maintainers = [maintainers.ris];
   };
 }

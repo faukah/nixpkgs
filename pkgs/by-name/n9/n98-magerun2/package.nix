@@ -4,7 +4,6 @@
   php83,
   versionCheckHook,
 }:
-
 php83.buildComposerProject2 (finalAttrs: {
   pname = "n98-magerun2";
   version = "8.1.1";
@@ -18,7 +17,7 @@ php83.buildComposerProject2 (finalAttrs: {
 
   vendorHash = "sha256-kF8VXE0K/Gzho5K40H94hXtgSS2rogCtMow2ET8PinU=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -28,6 +27,6 @@ php83.buildComposerProject2 (finalAttrs: {
     homepage = "https://magerun.net/";
     license = lib.licenses.mit;
     mainProgram = "n98-magerun2";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

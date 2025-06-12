@@ -6,16 +6,13 @@
   netcdf,
   pkgs,
   stdenv,
-}:
-
-let
-  mkGeoserverExtension =
-    {
-      name,
-      version,
-      hash,
-      buildInputs ? [ ],
-    }:
+}: let
+  mkGeoserverExtension = {
+    name,
+    version,
+    hash,
+    buildInputs ? [],
+  }:
     stdenv.mkDerivation {
       pname = "geoserver-${name}-extension";
       inherit buildInputs version;
@@ -37,9 +34,7 @@ let
         runHook postInstall
       '';
     };
-in
-
-{
+in {
   app-schema = mkGeoserverExtension {
     name = "app-schema";
     version = "2.27.1"; # app-schema
@@ -117,7 +112,7 @@ in
   gdal = mkGeoserverExtension {
     name = "gdal";
     version = "2.27.1"; # gdal
-    buildInputs = [ pkgs.gdal ];
+    buildInputs = [pkgs.gdal];
     hash = "sha256-xw6DoOxImOLnmPxYMkaH4bKes0vVobzvT1IiDywq828="; # gdal
   };
 
@@ -150,7 +145,7 @@ in
     name = "grib";
     version = "2.27.1"; # grib
     hash = "sha256-gu8sDIA46u0Uj9+lJJ65mn3FD6D+DjsTN8KbNUeoOP0="; # grib
-    buildInputs = [ netcdf ];
+    buildInputs = [netcdf];
   };
 
   gwc-s3 = mkGeoserverExtension {
@@ -195,7 +190,7 @@ in
     name = "libjpeg-turbo";
     version = "2.27.1"; # libjpeg-turbo
     hash = "sha256-ZAIQJzzDNSgCX4BUchyRktobJkyLHgWYwfPz8B9vNTQ="; # libjpeg-turbo
-    buildInputs = [ libjpeg.out ];
+    buildInputs = [libjpeg.out];
   };
 
   mapml = mkGeoserverExtension {
@@ -238,20 +233,20 @@ in
     name = "netcdf";
     version = "2.27.1"; # netcdf
     hash = "sha256-W/ICO05gBf5o6ZAc8vbxv9ZWd02m6AMQKqyimpVvRX8="; # netcdf
-    buildInputs = [ netcdf ];
+    buildInputs = [netcdf];
   };
 
   netcdf-out = mkGeoserverExtension {
     name = "netcdf-out";
     version = "2.27.1"; # netcdf-out
     hash = "sha256-0l74QlXo3CwTja2DDx8fmD9DTJV3S6fdCi2r6oq6UwE="; # netcdf-out
-    buildInputs = [ netcdf ];
+    buildInputs = [netcdf];
   };
 
   ogr-wfs = mkGeoserverExtension {
     name = "ogr-wfs";
     version = "2.27.1"; # ogr-wfs
-    buildInputs = [ pkgs.gdal ];
+    buildInputs = [pkgs.gdal];
     hash = "sha256-UXTpC4vd/2lq2mRMaTEwiIb58NtnsM+PEX2F6hsCv3s="; # ogr-wfs
   };
 
@@ -362,5 +357,4 @@ in
     version = "2.27.1"; # ysld
     hash = "sha256-DvQ8b6ODmU09Qixwe14wze92ktWyt54+zaEMfXjiEko="; # ysld
   };
-
 }

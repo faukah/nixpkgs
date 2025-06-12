@@ -1,8 +1,10 @@
-{ config, lib, ... }:
-let
-  inherit (lib) mkOption types;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkOption types;
+in {
   options.bare-submodule = mkOption {
     type = types.submoduleWith {
       shorthandOnlyDefinesConfig = config.shorthandOnlyDefinesConfig;

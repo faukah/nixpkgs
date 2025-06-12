@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hcledit";
   version = "0.2.17";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "hcledit";
     homepage = "https://github.com/minamijoyo/hcledit";
     license = licenses.mit;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

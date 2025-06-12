@@ -15,12 +15,12 @@ buildFishPlugin {
     hash = "sha256-pD4rNuqg6TG22L9m8425CO2iqcYm8JaAEXIVa0H/v/U=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Fish plugin to quickly put 'sudo' in your command";
     homepage = "https://github.com/oh-my-fish/plugin-sudope";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ anomalocaris ];
+    maintainers = with lib.maintainers; [anomalocaris];
   };
 }

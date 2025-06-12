@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gemget";
   version = "1.9.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Command line downloader for the Gemini protocol";
     homepage = "https://github.com/makeworld-the-better-one/gemget";
     license = licenses.mit;
-    maintainers = with maintainers; [ amfl ];
+    maintainers = with maintainers; [amfl];
     mainProgram = "gemget";
   };
 }

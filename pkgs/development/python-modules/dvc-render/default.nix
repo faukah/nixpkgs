@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-render";
   version = "1.0.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-V4QVZu4PSOW9poT6YUWbgTjJpIJ8YUtGDAE4Ijgm5Ac=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   optional-dependencies = {
     table = [
@@ -51,15 +50,15 @@ buildPythonPackage rec {
     ++ optional-dependencies.table
     ++ optional-dependencies.markdown;
 
-  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [ "tests/test_vega.py" ];
+  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin ["tests/test_vega.py"];
 
-  pythonImportsCheck = [ "dvc_render" ];
+  pythonImportsCheck = ["dvc_render"];
 
   meta = with lib; {
     description = "Library for rendering DVC plots";
     homepage = "https://github.com/iterative/dvc-render";
     changelog = "https://github.com/iterative/dvc-render/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

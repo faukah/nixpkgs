@@ -9,7 +9,6 @@
   legacy-cgi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "finitude";
   version = "0.1.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-yCI5UCRDhw+dJoTKyjmHbAGBm3by2AyxHKlqCywnLcs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyserial
@@ -36,13 +35,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "finitude" ];
+  pythonImportsCheck = ["finitude"];
 
   meta = {
     description = "Python module to get data from ABCD bus (RS-485) used by Carrier Infinity and Bryant Evolution HVAC systems";
     homepage = "https://github.com/dulitz/finitude";
     changelog = "https://github.com/dulitz/finitude/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     zenity
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags = [
     (lib.cmakeBool "ENABLE_EDITOR" withEditor)
@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "theforceengine";
     homepage = "https://theforceengine.github.io";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ devusb ];
+    maintainers = with lib.maintainers; [devusb];
     platforms = lib.platforms.linux;
   };
 })

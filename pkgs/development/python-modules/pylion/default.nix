@@ -9,7 +9,6 @@
   sphinxHook,
   sphinx-rtd-theme,
 }:
-
 buildPythonPackage {
   pname = "pylion";
   version = "0.5.3";
@@ -37,7 +36,7 @@ buildPythonPackage {
     jinja2
   ];
 
-  pythonImportsCheck = [ "pylion" ];
+  pythonImportsCheck = ["pylion"];
 
   # Tests fail from some reason - some files seem to be missing from the repo.
   doCheck = false;
@@ -51,6 +50,6 @@ buildPythonPackage {
     description = "LAMMPS wrapper for molecular dynamics simulations of trapped ions";
     homepage = "https://bitbucket.org/dtrypogeorgos/pylion";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

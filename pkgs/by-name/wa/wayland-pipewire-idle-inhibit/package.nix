@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/rafaelrc7/wayland-pipewire-idle-inhibit/";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rafameou ];
+    maintainers = with maintainers; [rafameou];
     mainProgram = "wayland-pipewire-idle-inhibit";
   };
 }

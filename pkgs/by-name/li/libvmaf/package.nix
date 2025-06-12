@@ -10,7 +10,6 @@
   testers,
   xxd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libvmaf";
   version = "3.0.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE = "-D__BSD_VISIBLE=1";
   };
 
-  mesonFlags = [ "-Denable_avx512=true" ];
+  mesonFlags = ["-Denable_avx512=true"];
 
   outputs = [
     "out"
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     };
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "libvmaf" ];
+      moduleNames = ["libvmaf"];
     };
   };
 
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Netflix/vmaf";
     changelog = "https://github.com/Netflix/vmaf/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = licenses.bsd2Patent;
-    maintainers = [ maintainers.cfsmp3 ];
+    maintainers = [maintainers.cfsmp3];
     mainProgram = "vmaf";
     platforms = platforms.unix;
   };

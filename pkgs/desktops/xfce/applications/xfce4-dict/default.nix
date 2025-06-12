@@ -13,7 +13,6 @@
   xfce4-panel,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-dict";
   version = "0.8.9";
@@ -44,14 +43,14 @@ stdenv.mkDerivation (finalAttrs: {
     xfce4-panel
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-dict-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-dict-";};
 
   meta = {
     description = "Dictionary Client for the Xfce desktop environment";
     homepage = "https://gitlab.xfce.org/apps/xfce4-dict";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xfce4-dict";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

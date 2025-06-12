@@ -23,9 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     libgcrypt
     lvm2
   ];
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   outputs = [
     "out"
@@ -41,8 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Plausible deniability (hidden storage) layer for Linux";
     homepage = "https://shufflecake.net";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ oluceps ];
-    outputsToInstall = [ "bin" ];
+    maintainers = with maintainers; [oluceps];
+    outputsToInstall = ["bin"];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "6.1" || kernel.meta.name == "linux-lqx-6.12.1";
   };

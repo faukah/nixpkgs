@@ -6,7 +6,6 @@
   testers,
   kube-linter,
 }:
-
 buildGoModule rec {
   pname = "kube-linter";
   version = "0.6.8";
@@ -26,9 +25,9 @@ buildGoModule rec {
     "-X golang.stackrox.io/kube-linter/internal/version.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  checkFlags = [ "-skip=TestCreateContextsWithIgnorePaths" ];
+  checkFlags = ["-skip=TestCreateContextsWithIgnorePaths"];
 
   postInstall = ''
     installShellCompletion --cmd kube-linter \

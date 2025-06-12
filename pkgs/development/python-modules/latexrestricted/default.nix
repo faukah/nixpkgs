@@ -4,7 +4,6 @@
   buildPythonPackage,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "latexrestricted";
   version = "0.6.2";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-1R0hpBGXpYH/KcD4GFUfFvoOaJDe+Sl5msC952KnqmA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "latexrestricted" ];
+  pythonImportsCheck = ["latexrestricted"];
 
   # upstream has no tests
   doCheck = false;
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Python library for creating executables compatible with LaTeX restricted shell escape";
     changelog = "https://github.com/gpoore/latexrestricted/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.lppl13c;
-    maintainers = with lib.maintainers; [ romildo ];
+    maintainers = with lib.maintainers; [romildo];
   };
 }

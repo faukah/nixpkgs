@@ -4,7 +4,6 @@
   fetchFromGitHub,
   steam-run,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "game-rs";
   version = "0.2.0";
@@ -19,16 +18,16 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-klgcHNZ0vwy2iOYpwbdR37++WLAPx1ARNadfYTTqePw=";
 
-  buildFeatures = [ "nixos" ];
+  buildFeatures = ["nixos"];
 
-  propagatedBuildInputs = [ steam-run ];
+  propagatedBuildInputs = [steam-run];
 
   meta = {
     description = "Minimal CLI game launcher for linux";
     homepage = "https://github.com/amanse/game-rs";
     changelog = "https://github.com/Amanse/game-rs/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ amanse ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [amanse];
     platforms = lib.platforms.linux;
   };
 }

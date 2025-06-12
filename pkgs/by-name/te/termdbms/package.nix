@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "termdbms";
   version = "unstable-2021-09-04";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-RtgHus8k+6lvecG7+zABTo0go3kgoQj0S+3HaJHhKkE=";
 
-  patches = [ ./viewer.patch ];
+  patches = [./viewer.patch];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/mathaou/termdbms/";
     description = "TUI for viewing and editing database files";
     license = licenses.mit;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "sqlite3-viewer";
   };
 }

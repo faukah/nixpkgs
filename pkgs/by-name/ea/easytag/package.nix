@@ -21,7 +21,6 @@
   wrapGAppsHook3,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "easytag";
   version = "2.4.3";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     mainProgram = "easytag";
     homepage = "https://gitlab.gnome.org/GNOME/easytag";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ matteopacini ];
+    maintainers = with maintainers; [matteopacini];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

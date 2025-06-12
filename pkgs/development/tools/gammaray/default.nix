@@ -21,7 +21,6 @@
   elfutils,
   libbfd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gammaray";
   version = "3.1.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KDAB/GammaRay";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
     mainProgram = "gammaray";
   };
 }

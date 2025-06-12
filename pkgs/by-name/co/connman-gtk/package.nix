@@ -12,7 +12,6 @@
   openconnect,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "connman-gtk";
   version = "1.1.1";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jgke/connman-gtk";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

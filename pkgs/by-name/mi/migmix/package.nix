@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "migmix";
   version = "20150712";
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "High-quality Japanese font based on M+ fonts and IPA fonts";
     homepage = "http://mix-mplus-ipa.osdn.jp/migmix";
     license = licenses.ipa;
-    maintainers = [ maintainers.mikoim ];
+    maintainers = [maintainers.mikoim];
   };
 }

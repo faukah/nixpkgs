@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "alpnpass";
   version = "0.1";
@@ -30,7 +29,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/VerSprite/alpnpass";
     license = licenses.unlicense;
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
     mainProgram = "alpnpass";
   };
 }

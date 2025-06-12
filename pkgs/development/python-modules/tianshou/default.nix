@@ -4,10 +4,8 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   deepdiff,
   gymnasium,
@@ -23,7 +21,6 @@
   tensorboard,
   torch,
   tqdm,
-
   # optional-dependencies
   docstring-parser,
   jsonargparse,
@@ -39,12 +36,10 @@
   pybullet,
   joblib,
   scipy,
-
   # tests
   pymunk,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tianshou";
   version = "1.1.0";
@@ -65,14 +60,14 @@ buildPythonPackage rec {
     "numpy"
   ];
 
-  pythonRemoveDeps = [ "virtualenv" ];
+  pythonRemoveDeps = ["virtualenv"];
 
   postPatch = ''
     # silence matplotlib warning
     export MPLCONFIGDIR=$(mktemp -d)
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     deepdiff
@@ -148,7 +143,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "tianshou" ];
+  pythonImportsCheck = ["tianshou"];
 
   nativeCheckInputs = [
     pygame
@@ -185,6 +180,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/thu-ml/tianshou";
     changelog = "https://github.com/thu-ml/tianshou/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

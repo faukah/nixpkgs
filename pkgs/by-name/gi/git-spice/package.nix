@@ -7,7 +7,6 @@
   nix-update-script,
   installShellFiles,
 }:
-
 buildGo124Module rec {
   pname = "git-spice";
   version = "0.14.1";
@@ -21,13 +20,13 @@ buildGo124Module rec {
 
   vendorHash = "sha256-ccFt9T/p//ABMK/SuHKKnQJZH8yM0yRzYm/cON4I6CQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
-  buildInputs = [ git ];
+  buildInputs = [git];
 
   ldflags = [
     "-s"
@@ -50,14 +49,14 @@ buildGo124Module rec {
       --fish <($out/bin/gs shell completion fish)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Manage stacked Git branches";
     homepage = "https://abhinav.github.io/git-spice/";
     changelog = "https://github.com/abhinav/git-spice/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.vinnymeller ];
+    maintainers = [lib.maintainers.vinnymeller];
     mainProgram = "gs";
   };
 }

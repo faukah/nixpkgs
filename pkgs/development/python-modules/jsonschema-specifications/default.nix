@@ -9,7 +9,6 @@
   pythonOlder,
   referencing,
 }:
-
 buildPythonPackage rec {
   pname = "jsonschema-specifications";
   version = "2024.10.1";
@@ -28,18 +27,20 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [
-    referencing
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs =
+    [
+      referencing
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonschema_specifications" ];
+  pythonImportsCheck = ["jsonschema_specifications"];
 
   meta = with lib; {
     description = "Support files exposing JSON from the JSON Schema specifications";
     homepage = "https://github.com/python-jsonschema/jsonschema-specifications";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

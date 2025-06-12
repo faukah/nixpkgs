@@ -3,11 +3,10 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.go-camo;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     mkIf
@@ -15,8 +14,7 @@ let
     types
     optionalString
     ;
-in
-{
+in {
   options.services.go-camo = {
     enable = mkEnableOption "go-camo service";
     listen = mkOption {
@@ -53,7 +51,7 @@ in
     };
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = "Extra options passed to the go-camo command.";
     };
   };
@@ -61,8 +59,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.go-camo = {
       description = "go-camo service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         GOCAMO_HMAC_FILE = "%d/hmac";
       };

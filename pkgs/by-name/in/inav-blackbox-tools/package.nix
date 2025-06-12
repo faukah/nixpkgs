@@ -5,7 +5,6 @@
   pkg-config,
   cairo,
 }:
-
 stdenv.mkDerivation {
   pname = "inav-blackbox-tools";
   version = "unstable-2021-04-22";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     sha256 = "1rdlw74dqq0hahnka2w2pgvs172vway2x6v8byxl2s773l22k4ln";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ cairo ];
+  buildInputs = [cairo];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
     description = "Tools for working with blackbox flight logs";
     homepage = "https://github.com/inavflight/blackbox-tools";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/inav-blackbox-tools.x86_64-darwin
   };

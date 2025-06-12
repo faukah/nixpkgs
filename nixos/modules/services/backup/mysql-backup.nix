@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mysqlBackup;
   defaultUser = "mysqlbackup";
 
@@ -12,13 +11,12 @@ let
   dumpBinary =
     if
       (
-        lib.getName config.services.mysql.package == lib.getName pkgs.mariadb
+        lib.getName config.services.mysql.package
+        == lib.getName pkgs.mariadb
         && lib.versionAtLeast config.services.mysql.package.version "11.0.0"
       )
-    then
-      "${config.services.mysql.package}/bin/mariadb-dump"
-    else
-      "${config.services.mysql.package}/bin/mysqldump";
+    then "${config.services.mysql.package}/bin/mariadb-dump"
+    else "${config.services.mysql.package}/bin/mysqldump";
 
   compressionAlgs = {
     gzip = rec {
@@ -51,12 +49,10 @@ let
   selectedAlg = compressionAlgs.${cfg.compressionAlg};
   compressionCmd = selectedAlg.cmd compressionLevelFlag;
 
-  shouldUseSingleTransaction =
-    db:
-    if lib.isBool cfg.singleTransaction then
-      cfg.singleTransaction
-    else
-      lib.elem db cfg.singleTransaction;
+  shouldUseSingleTransaction = db:
+    if lib.isBool cfg.singleTransaction
+    then cfg.singleTransaction
+    else lib.elem db cfg.singleTransaction;
 
   backupScript = ''
     set -o pipefail
@@ -79,9 +75,7 @@ let
       failed="$failed ${db}"
     fi
   '';
-
-in
-{
+in {
   options = {
     services.mysqlBackup = {
       enable = lib.mkEnableOption "MySQL backups";
@@ -110,7 +104,8 @@ in
           ${lib.concatStringsSep "\n" (
             lib.mapAttrsToList (
               name: algo: "- For ${name}: ${toString algo.minLevel}-${toString algo.maxLevel}"
-            ) compressionAlgs
+            )
+            compressionAlgs
           )}
 
           :::{.note}
@@ -128,7 +123,7 @@ in
       };
 
       databases = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         description = ''
           List of database names to dump.
@@ -172,7 +167,8 @@ in
     assertions = [
       {
         assertion =
-          cfg.compressionLevel == null
+          cfg.compressionLevel
+          == null
           || selectedAlg.minLevel <= cfg.compressionLevel && cfg.compressionLevel <= selectedAlg.maxLevel;
         message = "${cfg.compressionAlg} compression level must be between ${toString selectedAlg.minLevel} and ${toString selectedAlg.maxLevel}";
       }
@@ -195,17 +191,16 @@ in
     };
 
     # add the compression tool to the system environment.
-    environment.systemPackages = [ selectedAlg.pkg ];
+    environment.systemPackages = [selectedAlg.pkg];
 
     # ensure database user to be used to perform backup exist.
     services.mysql.ensureUsers = [
       {
         name = cfg.user;
-        ensurePermissions =
-          let
-            privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
-            grant = db: lib.nameValuePair "\\`${db}\\`.*" privs;
-          in
+        ensurePermissions = let
+          privs = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES";
+          grant = db: lib.nameValuePair "\\`${db}\\`.*" privs;
+        in
           lib.listToAttrs (map grant cfg.databases);
       }
     ];
@@ -213,7 +208,7 @@ in
     systemd = {
       timers.mysql-backup = {
         description = "Mysql backup timer";
-        wantedBy = [ "timers.target" ];
+        wantedBy = ["timers.target"];
         timerConfig = {
           OnCalendar = cfg.calendar;
           AccuracySec = "5m";
@@ -235,5 +230,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers._6543 ];
+  meta.maintainers = [lib.maintainers._6543];
 }

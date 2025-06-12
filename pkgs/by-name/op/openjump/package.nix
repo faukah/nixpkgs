@@ -11,7 +11,6 @@
   findutils,
   jre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openjump";
   version = "2.3.0";
@@ -43,14 +42,14 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "$dir/bin/oj_linux.sh" $out/bin/OpenJump \
       --set JAVA_HOME ${jre} \
       --set PATH ${
-        lib.makeBinPath [
-          coreutils
-          gawk
-          which
-          gnugrep
-          findutils
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gawk
+        which
+        gnugrep
+        findutils
+      ]
+    }
     runHook postInstall
   '';
 
@@ -59,9 +58,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.openjump.org/";
     license = lib.licenses.gpl2;
     mainProgram = "OpenJump";
-    maintainers = [ lib.maintainers.marcweber ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = [lib.maintainers.marcweber];
+    teams = [lib.teams.geospatial];
     platforms = jre.meta.platforms;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
   };
 })

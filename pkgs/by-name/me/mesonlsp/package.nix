@@ -3,14 +3,12 @@
   stdenv,
   llvmPackages_19,
   fetchFromGitHub,
-
   gtest,
   makeWrapper,
   meson,
   ninja,
   pkg-config,
   python3,
-
   curl,
   libarchive,
   libossp_uuid,
@@ -18,58 +16,57 @@
   libuuid,
   nlohmann_json,
   pkgsStatic,
-
   mesonlsp,
   nix-update-script,
   testers,
-}:
-
-let
-  stdenv' = if stdenv.hostPlatform.isDarwin then llvmPackages_19.stdenv else stdenv;
+}: let
+  stdenv' =
+    if stdenv.hostPlatform.isDarwin
+    then llvmPackages_19.stdenv
+    else stdenv;
 in
-stdenv'.mkDerivation (finalAttrs: {
-  pname = "mesonlsp";
-  version = "4.3.7";
+  stdenv'.mkDerivation (finalAttrs: {
+    pname = "mesonlsp";
+    version = "4.3.7";
 
-  src = fetchFromGitHub {
-    owner = "JCWasmx86";
-    repo = "mesonlsp";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-QhZv4PTcf1jzSOcp1+bPZWf5COugCIMq1zkhc0PJjUQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "JCWasmx86";
+      repo = "mesonlsp";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-QhZv4PTcf1jzSOcp1+bPZWf5COugCIMq1zkhc0PJjUQ=";
+    };
 
-  patches = [ ./disable-tests-that-require-network-access.patch ];
+    patches = [./disable-tests-that-require-network-access.patch];
 
-  nativeBuildInputs = [
-    gtest
-    makeWrapper
-    meson
-    ninja
-    pkg-config
-    python3
-  ];
+    nativeBuildInputs = [
+      gtest
+      makeWrapper
+      meson
+      ninja
+      pkg-config
+      python3
+    ];
 
-  buildInputs =
-    [
-      curl
-      libarchive
-      libpkgconf
-      nlohmann_json
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      libossp_uuid
-      pkgsStatic.fmt
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libuuid ];
+    buildInputs =
+      [
+        curl
+        libarchive
+        libpkgconf
+        nlohmann_json
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        libossp_uuid
+        pkgsStatic.fmt
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [libuuid];
 
-  mesonFlags = [ "-Dbenchmarks=false" ];
+    mesonFlags = ["-Dbenchmarks=false"];
 
-  mesonCheckFlags = [ "--print-errorlogs" ];
+    mesonCheckFlags = ["--print-errorlogs"];
 
-  doCheck = true;
+    doCheck = true;
 
-  postUnpack =
-    let
+    postUnpack = let
       ada = fetchFromGitHub {
         owner = "ada-url";
         repo = "ada";
@@ -118,8 +115,7 @@ stdenv'.mkDerivation (finalAttrs: {
         rev = "09665faff74548820c10d77dd8738cd76d488572";
         hash = "sha256-ice2NdK1/U3NylIQDnNCN41rK/G6uqFOX+OeNf3zm18=";
       };
-    in
-    ''
+    in ''
       (
         cd "$sourceRoot/subprojects"
 
@@ -144,30 +140,30 @@ stdenv'.mkDerivation (finalAttrs: {
       )
     '';
 
-  postPatch = ''
-    substituteInPlace subprojects/muon/include/compilers.h \
-      --replace-fail 'compiler_language new' 'compiler_language new_'
+    postPatch = ''
+      substituteInPlace subprojects/muon/include/compilers.h \
+        --replace-fail 'compiler_language new' 'compiler_language new_'
 
-    patchShebangs src/libtypenamespace
-  '';
+      patchShebangs src/libtypenamespace
+    '';
 
-  passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion {
-      package = mesonlsp;
-      version = "v${finalAttrs.version}";
+    passthru = {
+      updateScript = nix-update-script {};
+      tests.version = testers.testVersion {
+        package = mesonlsp;
+        version = "v${finalAttrs.version}";
+      };
     };
-  };
 
-  meta = with lib; {
-    description = "Unofficial, unendorsed language server for Meson written in C++";
-    homepage = "https://github.com/JCWasmx86/mesonlsp";
-    changelog = "https://github.com/JCWasmx86/mesonlsp/releases/tag/v${finalAttrs.version}";
-    license = licenses.gpl3Plus;
-    mainProgram = "mesonlsp";
-    maintainers = with maintainers; [ paveloom ];
-    platforms = platforms.unix;
-    # ../src/liblog/log.cpp:41:7: error: call to 'format' is ambiguous
-    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
-  };
-})
+    meta = with lib; {
+      description = "Unofficial, unendorsed language server for Meson written in C++";
+      homepage = "https://github.com/JCWasmx86/mesonlsp";
+      changelog = "https://github.com/JCWasmx86/mesonlsp/releases/tag/v${finalAttrs.version}";
+      license = licenses.gpl3Plus;
+      mainProgram = "mesonlsp";
+      maintainers = with maintainers; [paveloom];
+      platforms = platforms.unix;
+      # ../src/liblog/log.cpp:41:7: error: call to 'format' is ambiguous
+      broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64;
+    };
+  })

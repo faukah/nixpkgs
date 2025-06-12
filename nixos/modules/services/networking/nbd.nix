@@ -3,16 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     mkOption
     types
     optionalAttrs
     ;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     nullOr
     listOf
     str
@@ -20,8 +20,7 @@ let
     submodule
     ;
   cfg = config.services.nbd;
-  iniFields =
-    with types;
+  iniFields = with types;
     attrsOf (oneOf [
       bool
       int
@@ -45,32 +44,32 @@ let
       })
     );
   };
-  exportSections = lib.mapAttrs (
-    _:
-    {
-      path,
-      allowAddresses,
-      extraOptions,
-    }:
-    extraOptions
-    // {
-      exportname = path;
-    }
-    // (optionalAttrs (allowAddresses != null) {
-      authfile = pkgs.writeText "authfile" (lib.concatStringsSep "\n" allowAddresses);
-    })
-  ) cfg.server.exports;
+  exportSections =
+    lib.mapAttrs (
+      _: {
+        path,
+        allowAddresses,
+        extraOptions,
+      }:
+        extraOptions
+        // {
+          exportname = path;
+        }
+        // (optionalAttrs (allowAddresses != null) {
+          authfile = pkgs.writeText "authfile" (lib.concatStringsSep "\n" allowAddresses);
+        })
+    )
+    cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''
-    ${lib.generators.toINI { } genericSection}
-    ${lib.generators.toINI { } exportSections}
+    ${lib.generators.toINI {} genericSection}
+    ${lib.generators.toINI {} exportSections}
   '';
   splitLists = lib.partition (path: lib.hasPrefix "/dev/" path) (
-    lib.mapAttrsToList (_: { path, ... }: path) cfg.server.exports
+    lib.mapAttrsToList (_: {path, ...}: path) cfg.server.exports
   );
   allowedDevices = splitLists.right;
   boundPaths = splitLists.wrong;
-in
-{
+in {
   options = {
     services.nbd = {
       server = {
@@ -95,7 +94,7 @@ in
 
         exports = mkOption {
           description = "Files or block devices to make available over the network.";
-          default = { };
+          default = {};
           type = attrsOf (submodule {
             options = {
               path = mkOption {
@@ -147,13 +146,13 @@ in
       }
     ];
 
-    boot.kernelModules = [ "nbd" ];
+    boot.kernelModules = ["nbd"];
 
     systemd.services.nbd-server = {
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      before = [ "multi-user.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      before = ["multi-user.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.nbd}/bin/nbd-server -C ${serverConfig}";
         Type = "forking";

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "serverless";
   version = "3.38.0";
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://serverless.com";
     license = lib.licenses.mit;
     mainProgram = "serverless";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

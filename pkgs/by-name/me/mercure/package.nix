@@ -6,7 +6,6 @@
   testers,
   mercure,
 }:
-
 buildGoModule rec {
   pname = "mercure";
   version = "0.19.2";
@@ -22,8 +21,8 @@ buildGoModule rec {
 
   vendorHash = "sha256-WqlwQGA0zptt3WZKpDrWNAkAy1UIXmapdAFkZAntqLM=";
 
-  subPackages = [ "mercure" ];
-  excludedPackages = [ "../cmd/mercure" ];
+  subPackages = ["mercure"];
+  excludedPackages = ["../cmd/mercure"];
 
   ldflags = [
     "-s"
@@ -34,7 +33,7 @@ buildGoModule rec {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       version = "v${version}";
       package = mercure;
@@ -47,7 +46,7 @@ buildGoModule rec {
     homepage = "https://github.com/dunglas/mercure";
     changelog = "https://github.com/dunglas/mercure/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     platforms = lib.platforms.unix;
     mainProgram = "mercure";
   };

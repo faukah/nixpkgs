@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "crlfuzz";
   version = "1.4.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     description = "Tool to scan for CRLF vulnerability";
     mainProgram = "crlfuzz";
     homepage = "https://github.com/dwisiswant0/crlfuzz";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

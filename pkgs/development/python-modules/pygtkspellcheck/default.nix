@@ -8,7 +8,6 @@
   pyenchant,
   pygobject3,
 }:
-
 buildPythonPackage rec {
   pname = "pygtkspellcheck";
   version = "5.0.3";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "gtkspellcheck" ];
+  pythonImportsCheck = ["gtkspellcheck"];
 
   meta = with lib; {
     homepage = "https://github.com/koehlma/pygtkspellcheck";
     description = "Python spell-checking library for GtkTextViews based on Enchant";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

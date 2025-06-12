@@ -12,7 +12,6 @@
   cairo,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geonkick";
   version = "3.5.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Free software percussion synthesizer";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     mainProgram = "geonkick";
   };
 }

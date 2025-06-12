@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mod_ocsp";
   version = "0.2.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-G+m/KdJCCTlSMeJzUnCRJkBEQ8cOQ+rJhA3NPrwh1Us=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     apr
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     changelog = "https://source.redwax.eu/projects/RS/repos/mod_csr/browse/ChangeLog";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

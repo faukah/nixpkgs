@@ -17,7 +17,6 @@
   setuptools-scm,
   xorgserver,
 }:
-
 buildPythonPackage rec {
   pname = "qtile-extras";
   version = "0.31.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-87xdSw4JKQyb/jpfTUkFDjHvKgPKzu+rKLGeaAzP8NI=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ gtk3 ];
+  dependencies = [gtk3];
 
   nativeCheckInputs = [
     gobject-introspection
@@ -82,13 +81,13 @@ buildPythonPackage rec {
     sed -i 's#/usr/bin/sleep#sleep#' test/widget/test_snapcast.py
   '';
 
-  pythonImportsCheck = [ "qtile_extras" ];
+  pythonImportsCheck = ["qtile_extras"];
 
   meta = with lib; {
     description = "Extra modules and widgets for the Qtile tiling window manager";
     homepage = "https://github.com/elParaguayo/qtile-extras";
     changelog = "https://github.com/elParaguayo/qtile-extras/blob/${src.rev}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ arjan-s ];
+    maintainers = with maintainers; [arjan-s];
   };
 }

@@ -8,7 +8,6 @@
   qtbase,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "chewing-editor";
   version = "0.1.1";
@@ -40,7 +39,7 @@ mkDerivation rec {
     '';
     homepage = "https://github.com/chewing/chewing-editor";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.ShamrockLee ];
+    maintainers = [maintainers.ShamrockLee];
     platforms = platforms.all;
   };
 }

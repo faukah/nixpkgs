@@ -13,7 +13,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-ansible";
   version = "25.5.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     ansible-core
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
   '';
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTests =
     [
@@ -84,13 +83,13 @@ buildPythonPackage rec {
       "tests/test_adhoc.py"
     ];
 
-  pythonImportsCheck = [ "pytest_ansible" ];
+  pythonImportsCheck = ["pytest_ansible"];
 
   meta = with lib; {
     description = "Plugin for pytest to simplify calling ansible modules from tests or fixtures";
     homepage = "https://github.com/jlaska/pytest-ansible";
     changelog = "https://github.com/ansible-community/pytest-ansible/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

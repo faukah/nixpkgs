@@ -9,7 +9,6 @@
   pythonOlder,
   versioningit,
 }:
-
 buildPythonPackage rec {
   pname = "scramp";
   version = "1.4.5";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     versioningit
   ];
 
-  dependencies = [ asn1crypto ];
+  dependencies = [asn1crypto];
 
   nativeCheckInputs = [
     pytest-mock
@@ -43,14 +42,14 @@ buildPythonPackage rec {
     sed -i "/dynamic =/d" pyproject.toml
   '';
 
-  pythonImportsCheck = [ "scramp" ];
+  pythonImportsCheck = ["scramp"];
 
-  disabledTests = [ "test_readme" ];
+  disabledTests = ["test_readme"];
 
   meta = with lib; {
     description = "Implementation of the SCRAM authentication protocol";
     homepage = "https://github.com/tlocke/scramp";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

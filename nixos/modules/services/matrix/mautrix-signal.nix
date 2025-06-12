@@ -3,14 +3,13 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.mautrix-signal;
   dataDir = "/var/lib/mautrix-signal";
   registrationFile = "${dataDir}/signal-registration.yaml";
   settingsFile = "${dataDir}/config.yaml";
   settingsFileUnsubstituted = settingsFormat.generate "mautrix-signal-config-unsubstituted.json" cfg.settings;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   appservicePort = 29328;
 
   # to be used with a list of lib.mkIf values
@@ -43,8 +42,8 @@ let
       username_template = "signal_{{.}}";
     };
     double_puppet = {
-      servers = { };
-      secrets = { };
+      servers = {};
+      secrets = {};
     };
     # By default, the following keys/secrets are set to `generate`. This would break when the service
     # is restarted, since the previously generated configuration will be overwritten everytime.
@@ -62,13 +61,11 @@ let
       };
     };
   };
-
-in
-{
+in {
   options.services.mautrix-signal = {
     enable = lib.mkEnableOption "mautrix-signal, a Matrix-Signal puppeting bridge";
 
-    package = lib.mkPackageOption pkgs "mautrix-signal" { };
+    package = lib.mkPackageOption pkgs "mautrix-signal" {};
 
     settings = lib.mkOption {
       apply = lib.recursiveUpdate defaultConfig;
@@ -155,7 +152,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.mautrix-signal = {
       isSystemUser = true;
       group = "mautrix-signal";
@@ -163,19 +159,18 @@ in
       description = "Mautrix-Signal bridge user";
     };
 
-    users.groups.mautrix-signal = { };
+    users.groups.mautrix-signal = {};
 
     services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      settings.app_service_config_files = [ registrationFile ];
+      settings.app_service_config_files = [registrationFile];
     };
     systemd.services.matrix-synapse = lib.mkIf cfg.registerToSynapse {
-      serviceConfig.SupplementaryGroups = [ "mautrix-signal" ];
+      serviceConfig.SupplementaryGroups = ["mautrix-signal"];
     };
 
     # Note: this is defined here to avoid the docs depending on `config`
     services.mautrix-signal.settings.homeserver = optOneOf (
-      with config.services;
-      [
+      with config.services; [
         (lib.mkIf matrix-synapse.enable (mkDefaults {
           domain = matrix-synapse.settings.server_name;
         }))
@@ -189,11 +184,11 @@ in
     systemd.services.mautrix-signal = {
       description = "mautrix-signal, a Matrix-Signal puppeting bridge.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
       # ffmpeg is required for conversion of voice messages
-      path = [ pkgs.ffmpeg-headless ];
+      path = [pkgs.ffmpeg-headless];
 
       preStart = ''
         # substitute the settings file by environment variables
@@ -259,11 +254,11 @@ in
         RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
         SystemCallErrorNumber = "EPERM";
-        SystemCallFilter = [ "@system-service" ];
+        SystemCallFilter = ["@system-service"];
         Type = "simple";
         UMask = 27;
       };
-      restartTriggers = [ settingsFileUnsubstituted ];
+      restartTriggers = [settingsFileUnsubstituted];
     };
   };
   meta = {

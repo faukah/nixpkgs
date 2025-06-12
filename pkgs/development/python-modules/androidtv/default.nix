@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "androidtv";
   version = "0.0.75";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2WFfGGEZkM3fWyTo5P6H3ha04Qyx2OiYetlGWv0jXac=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     adb-shell
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async = [ aiofiles ];
+    async = [aiofiles];
     inherit (adb-shell.optional-dependencies) usb;
   };
 
@@ -52,12 +51,12 @@ buildPythonPackage rec {
     "test_no_underscores"
   ];
 
-  pythonImportsCheck = [ "androidtv" ];
+  pythonImportsCheck = ["androidtv"];
 
   meta = with lib; {
     description = "Communicate with an Android TV or Fire TV device via ADB over a network";
     homepage = "https://github.com/JeffLIrion/python-androidtv/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

@@ -3,54 +3,57 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.vaultwarden;
   user = config.users.users.vaultwarden.name;
   group = config.users.groups.vaultwarden.name;
 
   StateDirectory =
-    if lib.versionOlder config.system.stateVersion "24.11" then "bitwarden_rs" else "vaultwarden";
+    if lib.versionOlder config.system.stateVersion "24.11"
+    then "bitwarden_rs"
+    else "vaultwarden";
 
   dataDir = "/var/lib/${StateDirectory}";
 
   # Convert name from camel case (e.g. disable2FARemember) to upper case snake case (e.g. DISABLE_2FA_REMEMBER).
-  nameToEnvVar =
-    name:
-    let
-      parts = builtins.split "([A-Z0-9]+)" name;
-      partsToEnvVar =
-        parts:
-        lib.foldl' (
-          key: x:
-          let
-            last = lib.stringLength key - 1;
-          in
-          if lib.isList x then
-            key + lib.optionalString (key != "" && lib.substring last 1 key != "_") "_" + lib.head x
-          else if key != "" && lib.elem (lib.substring 0 1 x) lib.lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
+  nameToEnvVar = name: let
+    parts = builtins.split "([A-Z0-9]+)" name;
+    partsToEnvVar = parts:
+      lib.foldl' (
+        key: x: let
+          last = lib.stringLength key - 1;
+        in
+          if lib.isList x
+          then key + lib.optionalString (key != "" && lib.substring last 1 key != "_") "_" + lib.head x
+          else if key != "" && lib.elem (lib.substring 0 1 x) lib.lowerChars
+          then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
             lib.substring 0 last key
             + lib.optionalString (lib.substring (last - 1) 1 key != "_") "_"
             + lib.substring last 1 key
             + lib.toUpper x
-          else
-            key + lib.toUpper x
-        ) "" parts;
-    in
-    if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts;
+          else key + lib.toUpper x
+      ) ""
+      parts;
+  in
+    if builtins.match "[A-Z0-9_]+" name != null
+    then name
+    else partsToEnvVar parts;
 
   # Due to the different naming schemes allowed for config keys,
   # we can only check for values consistently after converting them to their corresponding environment variable name.
-  configEnv =
-    let
-      configEnv = lib.concatMapAttrs (
+  configEnv = let
+    configEnv =
+      lib.concatMapAttrs (
         name: value:
-        lib.optionalAttrs (value != null) {
-          ${nameToEnvVar name} = if lib.isBool value then lib.boolToString value else toString value;
-        }
-      ) cfg.config;
-    in
+          lib.optionalAttrs (value != null) {
+            ${nameToEnvVar name} =
+              if lib.isBool value
+              then lib.boolToString value
+              else toString value;
+          }
+      )
+      cfg.config;
+  in
     {
       DATA_FOLDER = dataDir;
     }
@@ -63,13 +66,12 @@ let
     lib.concatStrings (lib.mapAttrsToList (name: value: "${name}=${value}\n") configEnv)
   );
 
-  vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };
+  vaultwarden = cfg.package.override {inherit (cfg) dbBackend;};
 
   useSendmail = configEnv.USE_SENDMAIL or null == "true";
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "bitwarden_rs" ] [ "services" "vaultwarden" ])
+    (lib.mkRenamedOptionModule ["services" "bitwarden_rs"] ["services" "vaultwarden"])
   ];
 
   options.services.vaultwarden = {
@@ -97,8 +99,7 @@ in
     };
 
     config = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           nullOr (oneOf [
             bool
@@ -195,7 +196,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "vaultwarden" { };
+    package = lib.mkPackageOption pkgs "vaultwarden" {};
 
     webVaultPackage = lib.mkOption {
       type = lib.types.package;
@@ -221,19 +222,19 @@ in
       inherit group;
       isSystemUser = true;
     };
-    users.groups.vaultwarden = { };
+    users.groups.vaultwarden = {};
 
     systemd.services.vaultwarden = {
-      after = [ "network.target" ];
-      path = with pkgs; [ openssl ];
+      after = ["network.target"];
+      path = with pkgs; [openssl];
       serviceConfig = {
         User = user;
         Group = group;
-        EnvironmentFile = [ configFile ] ++ lib.optional (cfg.environmentFile != null) cfg.environmentFile;
+        EnvironmentFile = [configFile] ++ lib.optional (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = lib.getExe vaultwarden;
         LimitNOFILE = "1048576";
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -273,7 +274,7 @@ in
         Restart = "always";
         UMask = "0077";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services.backup-vaultwarden = lib.mkIf (cfg.backupDir != null) {
@@ -282,9 +283,9 @@ in
         DATA_FOLDER = dataDir;
         BACKUP_FOLDER = cfg.backupDir;
       };
-      path = with pkgs; [ sqlite ];
+      path = with pkgs; [sqlite];
       # if both services are started at the same time, vaultwarden fails with "database is locked"
-      before = [ "vaultwarden.service" ];
+      before = ["vaultwarden.service"];
       serviceConfig = {
         SyslogIdentifier = "backup-vaultwarden";
         Type = "oneshot";
@@ -292,7 +293,7 @@ in
         Group = lib.mkDefault group;
         ExecStart = "${pkgs.bash}/bin/bash ${./backup.sh}";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.timers.backup-vaultwarden = lib.mkIf (cfg.backupDir != null) {
@@ -302,7 +303,7 @@ in
         Persistent = "true";
         Unit = "backup-vaultwarden.service";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.tmpfiles.settings = lib.mkIf (cfg.backupDir != null) {

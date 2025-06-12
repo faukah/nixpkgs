@@ -33,7 +33,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "pyquerylist" ];
+  pythonImportsCheck = ["pyquerylist"];
 
   nativeCheckInputs = [
     coverage
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "Extension of base Python list that you can query";
     homepage = "https://github.com/markmuetz/pyquerylist";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philipwilk ];
+    maintainers = with lib.maintainers; [philipwilk];
   };
 }

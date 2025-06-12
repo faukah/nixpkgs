@@ -8,7 +8,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rmscene";
   version = "0.7.0";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "packaging" ];
+  pythonRelaxDeps = ["packaging"];
 
-  dependencies = [ packaging ];
+  dependencies = [packaging];
 
-  pythonImportsCheck = [ "rmscene" ];
+  pythonImportsCheck = ["rmscene"];
 
   nativeCheckInputs = [
     hypothesis
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Read v6 .rm files from the reMarkable tablet";
     homepage = "https://github.com/ricklupton/rmscene";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

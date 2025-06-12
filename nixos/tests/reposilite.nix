@@ -1,41 +1,38 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "reposilite";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services = {
-          mysql = {
-            enable = true;
-            package = pkgs.mariadb;
-            ensureDatabases = [ "reposilite" ];
-            initialScript = pkgs.writeText "reposilite-test-db-init" ''
-              CREATE USER 'reposilite'@'localhost' IDENTIFIED BY 'ReposiliteDBPass';
-              GRANT ALL PRIVILEGES ON reposilite.* TO 'reposilite'@'localhost';
-              FLUSH PRIVILEGES;
-            '';
-          };
+    machine = {pkgs, ...}: {
+      services = {
+        mysql = {
+          enable = true;
+          package = pkgs.mariadb;
+          ensureDatabases = ["reposilite"];
+          initialScript = pkgs.writeText "reposilite-test-db-init" ''
+            CREATE USER 'reposilite'@'localhost' IDENTIFIED BY 'ReposiliteDBPass';
+            GRANT ALL PRIVILEGES ON reposilite.* TO 'reposilite'@'localhost';
+            FLUSH PRIVILEGES;
+          '';
+        };
 
-          reposilite = {
-            enable = true;
-            plugins = with pkgs.reposilitePlugins; [
-              checksum
-              groovy
-            ];
-            extraArgs = [
-              "--token"
-              "test:SuperSecretTestToken"
-            ];
-            database = {
-              type = "mariadb";
-              passwordFile = "/run/reposiliteDbPass";
-            };
-            settings.port = 8080;
+        reposilite = {
+          enable = true;
+          plugins = with pkgs.reposilitePlugins; [
+            checksum
+            groovy
+          ];
+          extraArgs = [
+            "--token"
+            "test:SuperSecretTestToken"
+          ];
+          database = {
+            type = "mariadb";
+            passwordFile = "/run/reposiliteDbPass";
           };
+          settings.port = 8080;
         };
       };
+    };
   };
 
   testScript = ''
@@ -49,5 +46,5 @@
     machine.succeed("curl -Sfu test:SuperSecretTestToken localhost:8080/api/auth/me")
   '';
 
-  meta.maintainers = [ lib.maintainers.uku3lig ];
+  meta.maintainers = [lib.maintainers.uku3lig];
 }

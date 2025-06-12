@@ -6,7 +6,6 @@
   wrapGAppsHook3,
   killall,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "waypaper";
   version = "2.6";
@@ -24,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook3
   ];
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     imageio
@@ -35,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     screeninfo
   ];
 
-  propagatedBuildInputs = [ killall ];
+  propagatedBuildInputs = [killall];
 
   # has no tests
   doCheck = false;

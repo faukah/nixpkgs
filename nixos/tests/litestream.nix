@@ -1,84 +1,81 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "litestream";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ jwygoda ];
+    maintainers = [jwygoda];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.litestream = {
-        enable = true;
-        settings = {
-          dbs = [
-            {
-              path = "/var/lib/grafana/data/grafana.db";
-              replicas = [
-                {
-                  url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana";
-                }
-              ];
-            }
-          ];
-        };
-      };
-      systemd.services.grafana.serviceConfig.ExecStartPost =
-        "+"
-        + pkgs.writeShellScript "grant-grafana-permissions" ''
-          timeout=10
-
-          while [ ! -f /var/lib/grafana/data/grafana.db ];
-          do
-            if [ "$timeout" == 0 ]; then
-              echo "ERROR: Timeout while waiting for /var/lib/grafana/data/grafana.db."
-              exit 1
-            fi
-
-            sleep 1
-
-            ((timeout--))
-          done
-
-          find /var/lib/grafana -type d -exec chmod -v 775 {} \;
-          find /var/lib/grafana -type f -exec chmod -v 660 {} \;
-        '';
-      services.openssh = {
-        enable = true;
-        allowSFTP = true;
-        listenAddresses = [
+  nodes.machine = {pkgs, ...}: {
+    services.litestream = {
+      enable = true;
+      settings = {
+        dbs = [
           {
-            addr = "127.0.0.1";
-            port = 22;
+            path = "/var/lib/grafana/data/grafana.db";
+            replicas = [
+              {
+                url = "sftp://foo:bar@127.0.0.1:22/home/foo/grafana";
+              }
+            ];
           }
         ];
       };
-      services.grafana = {
-        enable = true;
-        settings = {
-          security = {
-            admin_user = "admin";
-            admin_password = "admin";
-          };
+    };
+    systemd.services.grafana.serviceConfig.ExecStartPost =
+      "+"
+      + pkgs.writeShellScript "grant-grafana-permissions" ''
+        timeout=10
 
-          server = {
-            http_addr = "localhost";
-            http_port = 3000;
-          };
+        while [ ! -f /var/lib/grafana/data/grafana.db ];
+        do
+          if [ "$timeout" == 0 ]; then
+            echo "ERROR: Timeout while waiting for /var/lib/grafana/data/grafana.db."
+            exit 1
+          fi
 
-          database = {
-            type = "sqlite3";
-            path = "/var/lib/grafana/data/grafana.db";
-            wal = true;
-          };
+          sleep 1
+
+          ((timeout--))
+        done
+
+        find /var/lib/grafana -type d -exec chmod -v 775 {} \;
+        find /var/lib/grafana -type f -exec chmod -v 660 {} \;
+      '';
+    services.openssh = {
+      enable = true;
+      allowSFTP = true;
+      listenAddresses = [
+        {
+          addr = "127.0.0.1";
+          port = 22;
+        }
+      ];
+    };
+    services.grafana = {
+      enable = true;
+      settings = {
+        security = {
+          admin_user = "admin";
+          admin_password = "admin";
+        };
+
+        server = {
+          http_addr = "localhost";
+          http_port = 3000;
+        };
+
+        database = {
+          type = "sqlite3";
+          path = "/var/lib/grafana/data/grafana.db";
+          wal = true;
         };
       };
-      users.users.foo = {
-        isNormalUser = true;
-        password = "bar";
-      };
-      users.users.litestream.extraGroups = [ "grafana" ];
     };
+    users.users.foo = {
+      isNormalUser = true;
+      password = "bar";
+    };
+    users.users.litestream.extraGroups = ["grafana"];
+  };
 
   testScript = ''
     start_all()

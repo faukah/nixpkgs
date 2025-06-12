@@ -11,7 +11,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pywebcopy";
   version = "7.1";
@@ -24,24 +23,26 @@ buildPythonPackage rec {
     hash = "sha256-ee8uGg4PU1uch8cyiU7QfvdYFUVDz7obq9oC8fKkf1s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    cachecontrol
-    lxml-html-clean
-    requests
-    six
-  ] ++ lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+  dependencies =
+    [
+      cachecontrol
+      lxml-html-clean
+      requests
+      six
+    ]
+    ++ lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pywebcopy" ];
+  pythonImportsCheck = ["pywebcopy"];
 
   meta = {
     changelog = "https://github.com/rajatomar788/pywebcopy/blob/master/docs/changelog.md";
     description = "Python package for cloning complete webpages and websites to local storage";
     homepage = "https://github.com/rajatomar788/pywebcopy/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    maintainers = with lib.maintainers; [d3vil0p3r];
   };
 }

@@ -5,7 +5,6 @@
   git,
   openssh,
 }:
-
 buildGoModule rec {
   pname = "gittuf";
   version = "0.10.2";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-v45pMH05f6HmAcfujk25w5TN65nllLUMVlkNYm6Q/gM=";
 
-  ldflags = [ "-X github.com/gittuf/gittuf/internal/version.gitVersion=${version}" ];
+  ldflags = ["-X github.com/gittuf/gittuf/internal/version.gitVersion=${version}"];
 
   nativeCheckInputs = [
     git
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://gittuf.dev";
     license = lib.licenses.asl20;
     mainProgram = "gittuf";
-    maintainers = with lib.maintainers; [ flandweber ];
+    maintainers = with lib.maintainers; [flandweber];
   };
 }

@@ -8,8 +8,7 @@
   gobject-introspection,
   sox,
   pulseaudio,
-}:
-let
+}: let
   desktopItem = makeDesktopItem {
     name = "lyrebird";
     exec = "lyrebird";
@@ -22,61 +21,61 @@ let
     ];
   };
 in
-python3Packages.buildPythonApplication rec {
-  pname = "lyrebird";
-  version = "1.2.0";
+  python3Packages.buildPythonApplication rec {
+    pname = "lyrebird";
+    version = "1.2.0";
 
-  format = "other";
-  doCheck = false;
+    format = "other";
+    doCheck = false;
 
-  src = fetchFromGitHub {
-    owner = "lyrebird-voice-changer";
-    repo = "lyrebird";
-    tag = "v${version}";
-    sha256 = "sha256-VIYcOxvSpzRvJMzEv2i5b7t0WMF7aQxB4Y1jfvuZN/Y=";
-  };
+    src = fetchFromGitHub {
+      owner = "lyrebird-voice-changer";
+      repo = "lyrebird";
+      tag = "v${version}";
+      sha256 = "sha256-VIYcOxvSpzRvJMzEv2i5b7t0WMF7aQxB4Y1jfvuZN/Y=";
+    };
 
-  propagatedBuildInputs = with python3Packages; [
-    toml
-    pygobject3
-  ];
+    propagatedBuildInputs = with python3Packages; [
+      toml
+      pygobject3
+    ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    gobject-introspection
-  ];
+    nativeBuildInputs = [
+      wrapGAppsHook3
+      gobject-introspection
+    ];
 
-  buildInputs = [
-    gtk3
-    sox
-  ];
+    buildInputs = [
+      gtk3
+      sox
+    ];
 
-  dontWrapGApps = true;
-  makeWrapperArgs = [
-    "--prefix 'PATH' ':' '${
-      lib.makeBinPath [
-        sox
-        pulseaudio
-      ]
-    }'"
-    "--prefix 'PYTHONPATH' ':' '${placeholder "out"}/share/lyrebird'"
-    "--chdir '${placeholder "out"}/share/lyrebird'"
-    ''"''${gappsWrapperArgs[@]}"''
-  ];
+    dontWrapGApps = true;
+    makeWrapperArgs = [
+      "--prefix 'PATH' ':' '${
+        lib.makeBinPath [
+          sox
+          pulseaudio
+        ]
+      }'"
+      "--prefix 'PYTHONPATH' ':' '${placeholder "out"}/share/lyrebird'"
+      "--chdir '${placeholder "out"}/share/lyrebird'"
+      ''"''${gappsWrapperArgs[@]}"''
+    ];
 
-  installPhase = ''
-    mkdir -p $out/{bin,share/{applications,lyrebird}}
-    cp -at $out/share/lyrebird/ app icon.png
-    cp -at $out/share/applications/ ${desktopItem}
-    install -Dm755 app.py $out/bin/lyrebird
-  '';
+    installPhase = ''
+      mkdir -p $out/{bin,share/{applications,lyrebird}}
+      cp -at $out/share/lyrebird/ app icon.png
+      cp -at $out/share/applications/ ${desktopItem}
+      install -Dm755 app.py $out/bin/lyrebird
+    '';
 
-  meta = with lib; {
-    description = "Simple and powerful voice changer for Linux, written in GTK 3";
-    mainProgram = "lyrebird";
-    homepage = "https://github.com/lyrebird-voice-changer/lyrebird";
-    license = licenses.mit;
-    maintainers = with maintainers; [ OPNA2608 ];
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "Simple and powerful voice changer for Linux, written in GTK 3";
+      mainProgram = "lyrebird";
+      homepage = "https://github.com/lyrebird-voice-changer/lyrebird";
+      license = licenses.mit;
+      maintainers = with maintainers; [OPNA2608];
+      platforms = platforms.linux;
+    };
+  }

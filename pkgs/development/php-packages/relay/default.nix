@@ -12,9 +12,7 @@
   writeShellScript,
   curl,
   common-updater-scripts,
-}:
-
-let
+}: let
   version = "0.10.1";
   hashes = {
     "aarch64-darwin" = {
@@ -49,8 +47,10 @@ let
     };
   };
 
-  makeSource =
-    { system, phpMajor }:
+  makeSource = {
+    system,
+    phpMajor,
+  }:
     fetchurl {
       url =
         "https://builds.r2.relay.so/v${version}/relay-v${version}-php"
@@ -63,98 +63,96 @@ let
           or (throw "Unsupported PHP version for relay ${phpMajor} on ${system}");
     };
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit version;
-  pname = "relay";
-  extensionName = "relay";
+  stdenv.mkDerivation (finalAttrs: {
+    inherit version;
+    pname = "relay";
+    extensionName = "relay";
 
-  src = makeSource {
-    system = stdenv.hostPlatform.system;
-    phpMajor = lib.versions.majorMinor php.version;
-  };
-  nativeBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ autoPatchelfHook ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
-    hiredis
-    libck
-    openssl
-    zstd
-    lz4
-  ];
-  internalDeps = [ php.extensions.session ];
-  installPhase =
-    ''
-      runHook preInstall
-      install -Dm755 relay.so -t $out/lib/php/extensions
-    ''
-    + (
-      if stdenv.hostPlatform.isDarwin then
-        let
+    src = makeSource {
+      system = stdenv.hostPlatform.system;
+      phpMajor = lib.versions.majorMinor php.version;
+    };
+    nativeBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [autoPatchelfHook];
+    buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
+      hiredis
+      libck
+      openssl
+      zstd
+      lz4
+    ];
+    internalDeps = [php.extensions.session];
+    installPhase =
+      ''
+        runHook preInstall
+        install -Dm755 relay.so -t $out/lib/php/extensions
+      ''
+      + (
+        if stdenv.hostPlatform.isDarwin
+        then let
           args =
             lib.strings.concatMapStrings
-              (
-                v:
-                " -change ${v.name}" + " ${lib.strings.makeLibraryPath [ v.value ]}/${builtins.baseNameOf v.name}"
-              )
-              (
-                with lib.attrsets;
-                [
-                  (nameValuePair "/opt/homebrew/opt/hiredis/lib/libhiredis.1.1.0.dylib" hiredis)
-                  (nameValuePair "/opt/homebrew/opt/hiredis/lib/libhiredis_ssl.dylib.1.1.0" hiredis)
-                  (nameValuePair "/opt/homebrew/opt/concurrencykit/lib/libck.0.dylib" libck)
-                  (nameValuePair "/opt/homebrew/opt/openssl@3/lib/libssl.3.dylib" openssl)
-                  (nameValuePair "/opt/homebrew/opt/openssl@3/lib/libcrypto.3.dylib" openssl)
-                  (nameValuePair "/opt/homebrew/opt/zstd/lib/libzstd.1.dylib" zstd)
-                  (nameValuePair "/opt/homebrew/opt/lz4/lib/liblz4.1.dylib" lz4)
-                ]
-              );
+            (
+              v:
+                " -change ${v.name}" + " ${lib.strings.makeLibraryPath [v.value]}/${builtins.baseNameOf v.name}"
+            )
+            (
+              with lib.attrsets; [
+                (nameValuePair "/opt/homebrew/opt/hiredis/lib/libhiredis.1.1.0.dylib" hiredis)
+                (nameValuePair "/opt/homebrew/opt/hiredis/lib/libhiredis_ssl.dylib.1.1.0" hiredis)
+                (nameValuePair "/opt/homebrew/opt/concurrencykit/lib/libck.0.dylib" libck)
+                (nameValuePair "/opt/homebrew/opt/openssl@3/lib/libssl.3.dylib" openssl)
+                (nameValuePair "/opt/homebrew/opt/openssl@3/lib/libcrypto.3.dylib" openssl)
+                (nameValuePair "/opt/homebrew/opt/zstd/lib/libzstd.1.dylib" zstd)
+                (nameValuePair "/opt/homebrew/opt/lz4/lib/liblz4.1.dylib" lz4)
+              ]
+            );
         in
-        # fixDarwinDylibNames can't be used here because we need to completely remap .dylibs, not just add absolute paths
-        ''
-          install_name_tool${args} $out/lib/php/extensions/relay.so
-        ''
-      else
-        ""
-    )
-    + ''
-      # Random UUID that's required by the extension. Can be anything, but must be different from default.
-      sed -i "s/00000000-0000-0000-0000-000000000000/aced680f-30e9-40cc-a868-390ead14ba0c/" $out/lib/php/extensions/relay.so
-      chmod -w $out/lib/php/extensions/relay.so
+          # fixDarwinDylibNames can't be used here because we need to completely remap .dylibs, not just add absolute paths
+          ''
+            install_name_tool${args} $out/lib/php/extensions/relay.so
+          ''
+        else ""
+      )
+      + ''
+        # Random UUID that's required by the extension. Can be anything, but must be different from default.
+        sed -i "s/00000000-0000-0000-0000-000000000000/aced680f-30e9-40cc-a868-390ead14ba0c/" $out/lib/php/extensions/relay.so
+        chmod -w $out/lib/php/extensions/relay.so
 
-      runHook postInstall
-    '';
+        runHook postInstall
+      '';
 
-  passthru = {
-    updateScript = writeShellScript "update-${finalAttrs.pname}" ''
-      set -o errexit
-      export PATH="$PATH:${
-        lib.makeBinPath [
-          curl
-          common-updater-scripts
-        ]
-      }"
-      NEW_VERSION=$(curl --silent https://builds.r2.relay.so/meta/builds | sort -V | tail -n1 | cut -c2-)
+    passthru = {
+      updateScript = writeShellScript "update-${finalAttrs.pname}" ''
+        set -o errexit
+        export PATH="$PATH:${
+          lib.makeBinPath [
+            curl
+            common-updater-scripts
+          ]
+        }"
+        NEW_VERSION=$(curl --silent https://builds.r2.relay.so/meta/builds | sort -V | tail -n1 | cut -c2-)
 
-      if [[ "${version}" = "$NEW_VERSION" ]]; then
-          echo "The new version same as the old version."
-          exit 0
-      fi
+        if [[ "${version}" = "$NEW_VERSION" ]]; then
+            echo "The new version same as the old version."
+            exit 0
+        fi
 
-      for source in ${lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)}; do
-        update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION" --ignore-same-version --ignore-same-hash --print-changes
-      done
-    '';
+        for source in ${lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)}; do
+          update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION" --ignore-same-version --ignore-same-hash --print-changes
+        done
+      '';
 
-    # All sources for updating by the update script.
-    updateables =
-      builtins.listToAttrs
+      # All sources for updating by the update script.
+      updateables =
+        builtins.listToAttrs
         # Collect all leaf attributes (containing hashes).
         (
           lib.collect (attrs: attrs ? name)
-            # create an attr containing
-            (
-              lib.mapAttrsRecursive (
-                path: _value:
-                lib.nameValuePair (builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path)) (
+          # create an attr containing
+          (
+            lib.mapAttrsRecursive (
+              path: _value:
+                lib.nameValuePair (builtins.replaceStrings ["."] ["_"] (lib.concatStringsSep "_" path)) (
                   finalAttrs.finalPackage.overrideAttrs (attrs: {
                     src = makeSource {
                       system = builtins.head path;
@@ -162,26 +160,26 @@ stdenv.mkDerivation (finalAttrs: {
                     };
                   })
                 )
-              ) (lib.filterAttrsRecursive (name: _value: name != "platform") hashes)
-            )
+            ) (lib.filterAttrsRecursive (name: _value: name != "platform") hashes)
+          )
         );
-  };
+    };
 
-  meta = with lib; {
-    description = "Next-generation Redis extension for PHP";
-    changelog = "https://github.com/cachewerk/relay/releases/tag/v${version}";
-    homepage = "https://relay.so/";
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [
-      tillkruss
-      ostrolucky
-    ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-})
+    meta = with lib; {
+      description = "Next-generation Redis extension for PHP";
+      changelog = "https://github.com/cachewerk/relay/releases/tag/v${version}";
+      homepage = "https://relay.so/";
+      sourceProvenance = [sourceTypes.binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = with maintainers; [
+        tillkruss
+        ostrolucky
+      ];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  })

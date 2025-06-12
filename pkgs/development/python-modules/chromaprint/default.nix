@@ -5,7 +5,6 @@
   isPy27,
   m2r,
 }:
-
 buildPythonPackage rec {
   pname = "chromaprint";
   version = "0.5";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-d4M+ieNQpIXcnEH1WyIWnTYZe3P+Y58W0uz1uYPwLQE=";
   };
 
-  buildInputs = [ m2r ];
+  buildInputs = [m2r];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "chromaprint" ];
+  pythonImportsCheck = ["chromaprint"];
 
   meta = with lib; {
     description = "Facilitate effortless color terminal output";

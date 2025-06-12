@@ -10,7 +10,6 @@
   yarn,
   nodejs-slim,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fernglas";
   version = "0.2.1";
@@ -78,7 +77,7 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/wobcom/fernglas/releases/tag/fernglas-${version}";
     license = lib.licenses.eupl12;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.wdz ];
+    teams = [lib.teams.wdz];
     mainProgram = "fernglas";
   };
 }

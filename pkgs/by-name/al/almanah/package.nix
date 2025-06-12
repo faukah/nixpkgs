@@ -24,7 +24,6 @@
   sqlite,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "almanah";
   version = "0.12.4";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/almanah";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

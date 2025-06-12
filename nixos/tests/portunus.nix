@@ -1,8 +1,6 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "portunus";
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 
   nodes.machine = _: {
     services.portunus = {

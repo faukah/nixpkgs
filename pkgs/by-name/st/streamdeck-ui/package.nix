@@ -9,7 +9,6 @@
   writeText,
   xvfb-run,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "streamdeck-ui";
   version = "4.1.3";
@@ -37,8 +36,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook3
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       setuptools
       filetype
@@ -51,10 +49,10 @@ python3Packages.buildPythonApplication rec {
       importlib-metadata
       evdev
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qt6.qtwayland ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qt6.qtwayland];
 
   nativeCheckInputs =
-    [ xvfb-run ]
+    [xvfb-run]
     ++ (with python3Packages; [
       pytest
       pytest-qt
@@ -71,35 +69,32 @@ python3Packages.buildPythonApplication rec {
     runHook preCheck
   '';
 
-  postInstall =
-    let
-      udevRules = ''
-        SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
-      '';
-    in
-    ''
-      mkdir -p $out/lib/systemd/user
-      substitute scripts/streamdeck.service $out/lib/systemd/user/streamdeck.service \
-        --replace '<path to streamdeck>' $out/bin/streamdeck
-
-      mkdir -p "$out/etc/udev/rules.d"
-      cp ${writeText "70-streamdeck.rules" udevRules} $out/etc/udev/rules.d/70-streamdeck.rules
-
-      mkdir -p "$out/share/pixmaps"
-      cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
+  postInstall = let
+    udevRules = ''
+      SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"
     '';
+  in ''
+    mkdir -p $out/lib/systemd/user
+    substitute scripts/streamdeck.service $out/lib/systemd/user/streamdeck.service \
+      --replace '<path to streamdeck>' $out/bin/streamdeck
 
-  desktopItems =
-    let
-      common = {
-        name = "streamdeck-ui";
-        desktopName = "Stream Deck UI";
-        icon = "streamdeck-ui";
-        exec = "streamdeck";
-        comment = "UI for the Elgato Stream Deck";
-        categories = [ "Utility" ];
-      };
-    in
+    mkdir -p "$out/etc/udev/rules.d"
+    cp ${writeText "70-streamdeck.rules" udevRules} $out/etc/udev/rules.d/70-streamdeck.rules
+
+    mkdir -p "$out/share/pixmaps"
+    cp streamdeck_ui/logo.png $out/share/pixmaps/streamdeck-ui.png
+  '';
+
+  desktopItems = let
+    common = {
+      name = "streamdeck-ui";
+      desktopName = "Stream Deck UI";
+      icon = "streamdeck-ui";
+      exec = "streamdeck";
+      comment = "UI for the Elgato Stream Deck";
+      categories = ["Utility"];
+    };
+  in
     builtins.map makeDesktopItem [
       common
       (
@@ -126,6 +121,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://streamdeck-linux-gui.github.io/streamdeck-linux-gui/";
     license = lib.licenses.mit;
     mainProgram = "streamdeck";
-    maintainers = with lib.maintainers; [ majiir ];
+    maintainers = with lib.maintainers; [majiir];
   };
 }

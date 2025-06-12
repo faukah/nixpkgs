@@ -8,7 +8,6 @@
   libsigcxx,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "jstest-gtk";
   version = "2018-07-10";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://jstest-gtk.gitlab.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     platforms = platforms.linux;
     mainProgram = "jstest-gtk";
   };

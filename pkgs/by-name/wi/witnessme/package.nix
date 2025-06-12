@@ -4,7 +4,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "witnessme";
   version = "0-unstable-2023-12-06";
@@ -74,7 +73,7 @@ python3.pkgs.buildPythonApplication {
     description = "Web Inventory tool";
     homepage = "https://github.com/byt3bl33d3r/WitnessMe";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "witnessme";
   };
 }

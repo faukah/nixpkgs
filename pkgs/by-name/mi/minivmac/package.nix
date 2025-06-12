@@ -6,7 +6,6 @@
   alsa-lib,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minivmac-erichelgeson";
   version = "2024.06.08";
@@ -18,9 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-iiEE0ioXh3keKUPfAB+YcE1iggGLpxT9N8LSVFDhttE=";
   };
 
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   configurePhase = ''
     ${lib.getExe' buildPackages.stdenv.cc "cc"} setup/tool.c -o setup_t
@@ -46,8 +45,8 @@ stdenv.mkDerivation rec {
     description = "miniature early Macintosh emulator (fork from erichelgeson)";
     homepage = "https://github.com/erichelgeson/minivmac";
     license = licenses.gpl2;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
     platforms = platforms.linux;
-    sourceProvenance = [ sourceTypes.fromSource ];
+    sourceProvenance = [sourceTypes.fromSource];
   };
 }

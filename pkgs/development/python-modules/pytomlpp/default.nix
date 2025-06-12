@@ -11,7 +11,6 @@
   pelican,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   pname = "pytomlpp";
   version = "1.0.13";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-QJeXvj1M3Vq5ctmx7RhczONsPRXAecv3WhJgKWtNK+M=";
   };
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -52,12 +51,12 @@ buildPythonPackage rec {
     cd tests
   '';
 
-  pythonImportsCheck = [ "pytomlpp" ];
+  pythonImportsCheck = ["pytomlpp"];
 
   meta = with lib; {
     description = "Python wrapper for tomlplusplus";
     homepage = "https://github.com/bobfang1992/pytomlpp";
     license = licenses.mit;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

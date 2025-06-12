@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "msrestazure";
   version = "0.6.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-ZZVZi0v1ucD2g5FpLaNhfNBf6Ab10fUEcEdkY4ELaEY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     adal
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "msrest" ];
+  pythonImportsCheck = ["msrest"];
 
   meta = with lib; {
     description = "Runtime library 'msrestazure' for AutoRest generated Python clients";

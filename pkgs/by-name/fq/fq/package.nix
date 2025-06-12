@@ -5,7 +5,6 @@
   fq,
   testers,
 }:
-
 buildGoModule rec {
   pname = "fq";
   version = "0.15.0";
@@ -25,15 +24,15 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  passthru.tests = testers.testVersion { package = fq; };
+  passthru.tests = testers.testVersion {package = fq;};
 
   meta = with lib; {
     description = "jq for binary formats";
     mainProgram = "fq";
     homepage = "https://github.com/wader/fq";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

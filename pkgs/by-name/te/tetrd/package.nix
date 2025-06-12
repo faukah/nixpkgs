@@ -20,7 +20,6 @@
   udev,
   libgbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tetrd";
   version = "1.0.4";
@@ -79,9 +78,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Share your internet connection from your device to your PC and vice versa through a USB cable";
     homepage = "https://tetrd.app";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ Madouura ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [Madouura];
   };
 }

@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       desktopName = "Katawa Shoujo: Re-Engineered";
       type = "Application";
       icon = finalAttrs.meta.mainProgram;
-      categories = [ "Game" ];
+      categories = ["Game"];
       exec = finalAttrs.meta.mainProgram;
     })
   ];
@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fan-made modernization of the classic visual novel Katawa Shoujo";

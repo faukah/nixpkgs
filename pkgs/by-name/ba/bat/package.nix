@@ -8,7 +8,6 @@
   makeWrapper,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bat";
   version = "0.25.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
   # expected with certain flag combinations.
   postFixup = ''
     wrapProgram "$out/bin/bat" \
-      --prefix PATH : "${lib.makeBinPath [ less ]}"
+      --prefix PATH : "${lib.makeBinPath [less]}"
   '';
 
   # Skip test cases which depends on `more`

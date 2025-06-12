@@ -3,7 +3,6 @@
   ocaml_pcre,
   mparser,
 }:
-
 buildDunePackage {
   pname = "mparser-pcre";
   useDune2 = true;
@@ -15,7 +14,9 @@ buildDunePackage {
     mparser
   ];
 
-  meta = mparser.meta // {
-    description = "PCRE-based regular expressions";
-  };
+  meta =
+    mparser.meta
+    // {
+      description = "PCRE-based regular expressions";
+    };
 }

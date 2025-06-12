@@ -5,7 +5,6 @@
   runCommand,
   mafft,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mafft";
   version = "7.526";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
+    simple = runCommand "${finalAttrs.pname}-test" {} ''
       mkdir $out
       cd ${finalAttrs.src}/test
       ${lib.getExe mafft} sample > $out/test.fftns2
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multiple alignment program for amino acid or nucleotide sequences";
     homepage = "https://mafft.cbrc.jp/alignment/software/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 })

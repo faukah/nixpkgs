@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "opentimestamps-client";
   version = "0.7.2";
@@ -37,6 +36,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/opentimestamps/opentimestamps-client";
     changelog = "https://github.com/opentimestamps/opentimestamps-client/releases/tag/opentimestamps-client-v${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ erikarvstedt ];
+    maintainers = with lib.maintainers; [erikarvstedt];
   };
 }

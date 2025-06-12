@@ -12,7 +12,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-table";
   version = "1.17.12";
@@ -47,11 +46,12 @@ stdenv.mkDerivation rec {
     gtk3
     ibus
     (python3.withPackages (
-      pypkgs: with pypkgs; [
-        dbus-python
-        pygobject3
-        (toPythonModule ibus)
-      ]
+      pypkgs:
+        with pypkgs; [
+          dbus-python
+          pygobject3
+          (toPythonModule ibus)
+        ]
     ))
   ];
 
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kaio/ibus-table/wiki";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
   };
 }

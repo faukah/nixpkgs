@@ -6,7 +6,6 @@
   argostranslate,
   beautifulsoup4,
 }:
-
 buildPythonPackage rec {
   pname = "translatehtml";
   version = "1.5.2";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   # required for import check to work (argostranslate)
   env.HOME = "/tmp";
 
-  pythonImportsCheck = [ "translatehtml" ];
+  pythonImportsCheck = ["translatehtml"];
 
   doCheck = false; # no tests
 
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Translate HTML using Beautiful Soup and Argos Translate";
     homepage = "https://www.argosopentech.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

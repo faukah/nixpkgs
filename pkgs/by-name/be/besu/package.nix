@@ -8,7 +8,6 @@
   runCommand,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "besu";
   version = "24.1.2";
@@ -18,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-CC24z0+2dSeqDddX5dJUs7SX9QJ8Iyh/nAp0pqdDvwg=";
   };
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ jemalloc ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [jemalloc];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,8 +28,10 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/besu \
       --set JAVA_HOME "${jre}" \
       --suffix ${
-        if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH"
-      } : ${lib.makeLibraryPath finalAttrs.buildInputs}
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH"
+    } : ${lib.makeLibraryPath finalAttrs.buildInputs}
   '';
 
   passthru.tests = {
@@ -40,15 +41,15 @@ stdenv.mkDerivation (finalAttrs: {
     };
     jemalloc =
       runCommand "besu-test-jemalloc"
-        {
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-          meta.platforms = with lib.platforms; linux;
-        }
-        ''
-          # Expect to find this string in the output, ignore other failures.
-          (besu 2>&1 || true) | grep -q "# jemalloc: ${jemalloc.version}"
-          mkdir $out
-        '';
+      {
+        nativeBuildInputs = [finalAttrs.finalPackage];
+        meta.platforms = with lib.platforms; linux;
+      }
+      ''
+        # Expect to find this string in the output, ignore other failures.
+        (besu 2>&1 || true) | grep -q "# jemalloc: ${jemalloc.version}"
+        mkdir $out
+      '';
   };
 
   meta = with lib; {
@@ -56,8 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.hyperledger.org/projects/besu";
     changelog = "https://github.com/hyperledger/besu/blob/${finalAttrs.version}/CHANGELOG.md";
     license = licenses.asl20;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     platforms = platforms.all;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 })

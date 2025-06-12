@@ -8,7 +8,6 @@
   pkg-config,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-shortcut-viewer";
   version = "5.0.9";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/deepin-shortcut-viewer";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

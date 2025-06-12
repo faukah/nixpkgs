@@ -7,7 +7,6 @@
   gobject-introspection,
   glib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "targetcli-fb";
   version = "3.0.1";
@@ -29,7 +28,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsNoGuiHook
     gobject-introspection
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   dependencies = with python3Packages; [
     configshell-fb
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/open-iscsi/targetcli-fb";
     changelog = "https://github.com/open-iscsi/targetcli-fb/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "targetcli";
   };

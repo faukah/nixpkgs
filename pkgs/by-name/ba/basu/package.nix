@@ -11,7 +11,6 @@
   python3,
   getent,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "basu";
   version = "0.2.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Sd-bus library, extracted from systemd";
     mainProgram = "basuctl";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

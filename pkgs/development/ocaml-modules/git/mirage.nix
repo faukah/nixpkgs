@@ -31,7 +31,6 @@
   logs,
   ke,
 }:
-
 buildDunePackage {
   pname = "git-mirage";
 
@@ -78,7 +77,9 @@ buildDunePackage {
     ke
   ];
 
-  meta = git.meta // {
-    description = "Package to use ocaml-git with MirageOS backend";
-  };
+  meta =
+    git.meta
+    // {
+      description = "Package to use ocaml-git with MirageOS backend";
+    };
 }

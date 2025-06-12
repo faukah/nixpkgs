@@ -9,7 +9,6 @@
   libvirt,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libvirt";
   version = "11.0.0";
@@ -27,22 +26,22 @@ buildPythonPackage rec {
       --replace-fail 'pkg-config' "${stdenv.cc.targetPrefix}pkg-config"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libvirt
     lxml
   ];
 
-  pythonImportsCheck = [ "libvirt" ];
+  pythonImportsCheck = ["libvirt"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://libvirt.org/python.html";
     description = "libvirt Python bindings";
     license = licenses.lgpl2;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

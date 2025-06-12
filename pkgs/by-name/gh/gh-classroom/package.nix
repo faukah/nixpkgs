@@ -26,13 +26,12 @@ buildGoModule (finalAttrs: {
     "-X main.Version=${finalAttrs.version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd gh-classroom \
         --bash <(${emulator} $out/bin/gh-classroom --bash-completion) \
         --fish <(${emulator} $out/bin/gh-classroom --fish-completion) \
@@ -40,13 +39,13 @@ buildGoModule (finalAttrs: {
     ''
   );
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/github/gh-classroom";
     description = "Extension for the GitHub CLI, that enhances it for educators using GitHub classroom";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ _0x5a4 ];
+    maintainers = with lib.maintainers; [_0x5a4];
     mainProgram = "gh-classroom";
   };
 })

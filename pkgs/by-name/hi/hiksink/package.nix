@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hiksink";
   version = "1.2.1";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tool to convert Hikvision camera events to MQTT";
     homepage = "https://github.com/CornerBit/HikSink";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "hik_sink";
   };
 }

@@ -6,7 +6,6 @@
   fixDarwinDylibNames,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sndio";
   version = "1.10.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isLinux alsa-lib;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   postInstall = ''
     install -Dm644 contrib/sndiod.service $out/lib/systemd/system/sndiod.service
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.sndio.org";
     description = "Small audio and MIDI framework part of the OpenBSD project";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ Madouura ];
+    maintainers = with lib.maintainers; [Madouura];
     platforms = lib.platforms.all;
   };
 })

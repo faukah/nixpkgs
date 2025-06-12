@@ -6,7 +6,6 @@
   jre_headless,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ktlint";
   version = "1.6.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W6GskXoGsPAtqqYNEKu+3SIg1gIWr2cMZ6RbkcdM+Ls=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       tadfisher
       SubhrajyotiSen
     ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     mainProgram = "ktlint";
   };
 }

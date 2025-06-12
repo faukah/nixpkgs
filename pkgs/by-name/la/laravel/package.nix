@@ -16,7 +16,7 @@ php.buildComposerProject2 (finalAttrs: {
     hash = "sha256-hnbcJ2RF/fTUBm2KhV1tECc3iMSmFia0zI95QmcRkNM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   composerLock = ./composer.lock;
   vendorHash = "sha256-l+mzm4sIURKkXu6WPVQrGbj9YhunPfmYmDDmtUuKuXY=";
@@ -25,11 +25,11 @@ php.buildComposerProject2 (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/laravel \
       --suffix PATH : ${
-        lib.makeBinPath [
-          php.packages.composer
-          nodejs
-        ]
-      }
+      lib.makeBinPath [
+        php.packages.composer
+        nodejs
+      ]
+    }
   '';
 
   passthru.updateScript = ./update.sh;
@@ -40,6 +40,6 @@ php.buildComposerProject2 (finalAttrs: {
     changelog = "https://github.com/laravel/installer/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "laravel";
-    maintainers = with lib.maintainers; [ heisfer ];
+    maintainers = with lib.maintainers; [heisfer];
   };
 })

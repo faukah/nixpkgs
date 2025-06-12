@@ -30,173 +30,177 @@
   pipewire,
   supercollider-with-sc3-plugins,
   parallel,
-
   withTauWidget ? false,
   qtwebengine,
-
   withImGui ? false,
   gl3w,
   SDL2,
   fmt,
 }:
-
 # Sonic Pi fails to build with Ruby 3.3.
 let
   ruby = ruby_3_2;
 in
+  stdenv.mkDerivation rec {
+    pname = "sonic-pi";
+    version = "4.5.1";
 
-stdenv.mkDerivation rec {
-  pname = "sonic-pi";
-  version = "4.5.1";
+    src = fetchFromGitHub {
+      owner = "sonic-pi-net";
+      repo = pname;
+      rev = "v${version}";
+      hash = "sha256-JMextQY0jLShWmqRQoVAbqIzDhA1mOzI7vfsG7+jjX0=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "sonic-pi-net";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-JMextQY0jLShWmqRQoVAbqIzDhA1mOzI7vfsG7+jjX0=";
-  };
+    mixFodDeps = beamPackages.fetchMixDeps {
+      inherit version;
+      pname = "mix-deps-${pname}";
+      mixEnv = "test";
+      src = "${src}/app/server/beam/tau";
+      hash = "sha256-7wqFI3f0CRVrXK2IUguqHNANwKMmTak/Xh9nr624TXc=";
+    };
 
-  mixFodDeps = beamPackages.fetchMixDeps {
-    inherit version;
-    pname = "mix-deps-${pname}";
-    mixEnv = "test";
-    src = "${src}/app/server/beam/tau";
-    hash = "sha256-7wqFI3f0CRVrXK2IUguqHNANwKMmTak/Xh9nr624TXc=";
-  };
+    strictDeps = true;
 
-  strictDeps = true;
-
-  nativeBuildInputs = [
-    wrapQtAppsHook
-    copyDesktopItems
-    cmake
-    pkg-config
-    ruby
-    erlang
-    elixir
-    beamPackages.hex
-  ];
-
-  buildInputs =
-    [
-      qtbase
-      qtsvg
-      qttools
-      qwt
-      qscintilla
-      kissfftFloat
-      catch2_3
-      crossguid
-      reproc
-      platform-folders
+    nativeBuildInputs = [
+      wrapQtAppsHook
+      copyDesktopItems
+      cmake
+      pkg-config
       ruby
-      alsa-lib
-      rtmidi
-      boost
-      aubio
-    ]
-    ++ lib.optionals withTauWidget [
-      qtwebengine
-    ]
-    ++ lib.optionals withImGui [
-      gl3w
-      SDL2
-      fmt
+      erlang
+      elixir
+      beamPackages.hex
     ];
 
-  nativeCheckInputs = [
-    parallel
-    supercollider-with-sc3-plugins
-    jack2
-  ];
+    buildInputs =
+      [
+        qtbase
+        qtsvg
+        qttools
+        qwt
+        qscintilla
+        kissfftFloat
+        catch2_3
+        crossguid
+        reproc
+        platform-folders
+        ruby
+        alsa-lib
+        rtmidi
+        boost
+        aubio
+      ]
+      ++ lib.optionals withTauWidget [
+        qtwebengine
+      ]
+      ++ lib.optionals withImGui [
+        gl3w
+        SDL2
+        fmt
+      ];
 
-  cmakeFlags = [
-    "-DUSE_SYSTEM_LIBS=ON"
-    "-DBUILD_IMGUI_INTERFACE=${if withImGui then "ON" else "OFF"}"
-    "-DWITH_QT_GUI_WEBENGINE=${if withTauWidget then "ON" else "OFF"}"
-    "-DAPP_INSTALL_ROOT=${placeholder "out"}/app"
-  ];
+    nativeCheckInputs = [
+      parallel
+      supercollider-with-sc3-plugins
+      jack2
+    ];
 
-  doCheck = true;
+    cmakeFlags = [
+      "-DUSE_SYSTEM_LIBS=ON"
+      "-DBUILD_IMGUI_INTERFACE=${
+        if withImGui
+        then "ON"
+        else "OFF"
+      }"
+      "-DWITH_QT_GUI_WEBENGINE=${
+        if withTauWidget
+        then "ON"
+        else "OFF"
+      }"
+      "-DAPP_INSTALL_ROOT=${placeholder "out"}/app"
+    ];
 
-  postPatch = ''
-    # Fix shebangs on files in app and bin scripts
-    patchShebangs app bin
-  '';
+    doCheck = true;
 
-  preConfigure = ''
-    # Set build environment
-    export SONIC_PI_HOME="$TMPDIR/spi"
+    postPatch = ''
+      # Fix shebangs on files in app and bin scripts
+      patchShebangs app bin
+    '';
 
-    export HEX_HOME="$TEMPDIR/hex"
-    export HEX_OFFLINE=1
-    export MIX_REBAR3='${beamPackages.rebar3}/bin/rebar3'
-    export REBAR_GLOBAL_CONFIG_DIR="$TEMPDIR/rebar3"
-    export REBAR_CACHE_DIR="$TEMPDIR/rebar3.cache"
-    export MIX_HOME="$TEMPDIR/mix"
-    export MIX_DEPS_PATH="$TEMPDIR/deps"
-    export MIX_ENV=prod
+    preConfigure = ''
+      # Set build environment
+      export SONIC_PI_HOME="$TMPDIR/spi"
 
-    # Copy Mix dependency sources
-    echo 'Copying ${mixFodDeps} to Mix deps'
-    cp --no-preserve=mode -R '${mixFodDeps}' "$MIX_DEPS_PATH"
+      export HEX_HOME="$TEMPDIR/hex"
+      export HEX_OFFLINE=1
+      export MIX_REBAR3='${beamPackages.rebar3}/bin/rebar3'
+      export REBAR_GLOBAL_CONFIG_DIR="$TEMPDIR/rebar3"
+      export REBAR_CACHE_DIR="$TEMPDIR/rebar3.cache"
+      export MIX_HOME="$TEMPDIR/mix"
+      export MIX_DEPS_PATH="$TEMPDIR/deps"
+      export MIX_ENV=prod
 
-    # Change to project base directory
-    cd app
+      # Copy Mix dependency sources
+      echo 'Copying ${mixFodDeps} to Mix deps'
+      cp --no-preserve=mode -R '${mixFodDeps}' "$MIX_DEPS_PATH"
 
-    # Prebuild Ruby vendored dependencies and Qt docs
-    ./linux-prebuild.sh -o
-  '';
+      # Change to project base directory
+      cd app
 
-  postBuild = ''
-    # Build BEAM server
-    ../linux-post-tau-prod-release.sh -o
-  '';
+      # Prebuild Ruby vendored dependencies and Qt docs
+      ./linux-prebuild.sh -o
+    '';
 
-  checkPhase = ''
-    runHook preCheck
+    postBuild = ''
+      # Build BEAM server
+      ../linux-post-tau-prod-release.sh -o
+    '';
 
-    # BEAM tests
-    pushd ../server/beam/tau
-      MIX_ENV=test TAU_ENV=test mix test
-    popd
+    checkPhase = ''
+      runHook preCheck
 
-    # Ruby tests
-    pushd ../server/ruby
-      rake test
-    popd
+      # BEAM tests
+      pushd ../server/beam/tau
+        MIX_ENV=test TAU_ENV=test mix test
+      popd
 
-    # API tests
-    pushd api-tests
-      # run JACK parallel to tests and quit both when one exits
-      SONIC_PI_ENV=test parallel --no-notice -j2 --halt now,done=1 ::: 'jackd -rd dummy' 'ctest --verbose'
-    popd
+      # Ruby tests
+      pushd ../server/ruby
+        rake test
+      popd
 
-    runHook postCheck
-  '';
+      # API tests
+      pushd api-tests
+        # run JACK parallel to tests and quit both when one exits
+        SONIC_PI_ENV=test parallel --no-notice -j2 --halt now,done=1 ::: 'jackd -rd dummy' 'ctest --verbose'
+      popd
 
-  installPhase = ''
-    runHook preInstall
+      runHook postCheck
+    '';
 
-    # Run Linux release script
-    ../linux-release.sh
+    installPhase = ''
+      runHook preInstall
 
-    # Copy dist directory to output
-    mkdir $out
-    cp -r linux_dist/* $out/
+      # Run Linux release script
+      ../linux-release.sh
 
-    # Copy icon
-    install -Dm644 ../gui/qt/images/icon-smaller.png $out/share/icons/hicolor/256x256/apps/sonic-pi.png
+      # Copy dist directory to output
+      mkdir $out
+      cp -r linux_dist/* $out/
 
-    runHook postInstall
-  '';
+      # Copy icon
+      install -Dm644 ../gui/qt/images/icon-smaller.png $out/share/icons/hicolor/256x256/apps/sonic-pi.png
 
-  # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
-  dontWrapQtApps = true;
-  preFixup = ''
-    # Wrap Qt GUI (distributed binary)
-    wrapQtApp $out/bin/sonic-pi \
-      --prefix PATH : ${
+      runHook postInstall
+    '';
+
+    # $out/bin/sonic-pi is a shell script, and wrapQtAppsHook doesn't wrap them.
+    dontWrapQtApps = true;
+    preFixup = ''
+      # Wrap Qt GUI (distributed binary)
+      wrapQtApp $out/bin/sonic-pi \
+        --prefix PATH : ${
         lib.makeBinPath [
           ruby
           supercollider-with-sc3-plugins
@@ -206,60 +210,60 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    # If ImGui was built
-    if [ -e $out/app/build/gui/imgui/sonic-pi-imgui ]; then
-      # Wrap ImGui into bin
-      makeWrapper $out/app/build/gui/imgui/sonic-pi-imgui $out/bin/sonic-pi-imgui \
-        --inherit-argv0 \
-        --prefix PATH : ${
-          lib.makeBinPath [
-            ruby
-            supercollider-with-sc3-plugins
-            jack2
-            jack-example-tools
-            pipewire.jack
-          ]
-        }
-    fi
+      # If ImGui was built
+      if [ -e $out/app/build/gui/imgui/sonic-pi-imgui ]; then
+        # Wrap ImGui into bin
+        makeWrapper $out/app/build/gui/imgui/sonic-pi-imgui $out/bin/sonic-pi-imgui \
+          --inherit-argv0 \
+          --prefix PATH : ${
+        lib.makeBinPath [
+          ruby
+          supercollider-with-sc3-plugins
+          jack2
+          jack-example-tools
+          pipewire.jack
+        ]
+      }
+      fi
 
-    # Remove runtime Erlang references
-    for file in $(grep -FrIl '${erlang}/lib/erlang' $out/app/server/beam/tau); do
-      substituteInPlace "$file" --replace '${erlang}/lib/erlang' $out/app/server/beam/tau/_build/prod/rel/tau
-    done
-  '';
+      # Remove runtime Erlang references
+      for file in $(grep -FrIl '${erlang}/lib/erlang' $out/app/server/beam/tau); do
+        substituteInPlace "$file" --replace '${erlang}/lib/erlang' $out/app/server/beam/tau/_build/prod/rel/tau
+      done
+    '';
 
-  stripDebugList = [
-    "app"
-    "bin"
-  ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "sonic-pi";
-      exec = "sonic-pi";
-      icon = "sonic-pi";
-      desktopName = "Sonic Pi";
-      comment = meta.description;
-      categories = [
-        "Audio"
-        "AudioVideo"
-        "Education"
-      ];
-    })
-  ];
-
-  passthru.updateScript = ./update.sh;
-
-  meta = with lib; {
-    homepage = "https://sonic-pi.net/";
-    description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      Phlogistique
-      kamilchm
-      c0deaddict
-      sohalt
+    stripDebugList = [
+      "app"
+      "bin"
     ];
-    platforms = platforms.linux;
-  };
-}
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "sonic-pi";
+        exec = "sonic-pi";
+        icon = "sonic-pi";
+        desktopName = "Sonic Pi";
+        comment = meta.description;
+        categories = [
+          "Audio"
+          "AudioVideo"
+          "Education"
+        ];
+      })
+    ];
+
+    passthru.updateScript = ./update.sh;
+
+    meta = with lib; {
+      homepage = "https://sonic-pi.net/";
+      description = "Free live coding synth for everyone originally designed to support computing and music lessons within schools";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        Phlogistique
+        kamilchm
+        c0deaddict
+        sohalt
+      ];
+      platforms = platforms.linux;
+    };
+  }

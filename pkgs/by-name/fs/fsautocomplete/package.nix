@@ -6,7 +6,6 @@
   testers,
   nix-update-script,
 }:
-
 buildDotnetModule (finalAttrs: {
   pname = "fsautocomplete";
   version = "0.78.3";
@@ -31,13 +30,13 @@ buildDotnetModule (finalAttrs: {
   dotnet-runtime = dotnetCorePackages.sdk_8_0;
 
   projectFile = "src/FsAutoComplete/FsAutoComplete.fsproj";
-  executables = [ "fsautocomplete" ];
+  executables = ["fsautocomplete"];
 
   useDotnetFromEnv = true;
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = {

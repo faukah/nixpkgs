@@ -12,14 +12,12 @@
   postInstall,
   meta,
 }:
-
 deployAndroidPackage {
   inherit package os arch;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs =
     lib.optionals (os == "linux") (
-      with pkgs;
-      [
+      with pkgs; [
         glibc
         libcxx
         libGL
@@ -78,11 +76,11 @@ deployAndroidPackage {
     # Wrap emulator so that it can load required libraries at runtime
     wrapProgram $out/libexec/android-sdk/emulator/emulator \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          pkgs.dbus
-          pkgs.systemd
-        ]
-      } \
+      lib.makeLibraryPath [
+        pkgs.dbus
+        pkgs.systemd
+      ]
+    } \
       --set QT_XKB_CONFIG_ROOT ${pkgs.xkeyboard_config}/share/X11/xkb \
       --set QTCOMPOSE ${pkgs.xorg.libX11.out}/share/X11/locale
 

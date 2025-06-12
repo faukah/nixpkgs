@@ -10,7 +10,6 @@
   meson,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mmdoc";
   version = "0.20.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     mainProgram = "mmdoc";
     homepage = "https://github.com/ryantm/mmdoc";
     license = licenses.cc0;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.unix;
   };
 }

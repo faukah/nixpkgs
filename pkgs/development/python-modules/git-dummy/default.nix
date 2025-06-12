@@ -9,7 +9,6 @@
   typer,
   pydantic-settings,
 }:
-
 buildPythonPackage rec {
   pname = "git-dummy";
   version = "0.1.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-viybxn2J7SO7NgSvjwlP+tgtm+H6QrACafIy82d9XEk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gitpython
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     pydantic-settings
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     # https://github.com/NixOS/nixpkgs/issues/308283
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/initialcommit-com/git-dummy";
     description = "Generate dummy Git repositories populated with the desired number of commits, branches, and structure";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ mathiassven ];
+    maintainers = with lib.maintainers; [mathiassven];
   };
 }

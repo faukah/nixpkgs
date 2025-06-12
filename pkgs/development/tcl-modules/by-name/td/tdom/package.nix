@@ -6,7 +6,6 @@
   gumbo,
   pkg-config,
 }:
-
 mkTclDerivation rec {
   pname = "tdom";
   version = "0.9.5";
@@ -21,7 +20,7 @@ mkTclDerivation rec {
     gumbo
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   configureFlags = [
     "--enable-html5"
@@ -35,6 +34,6 @@ mkTclDerivation rec {
     description = "XML / DOM / XPath / XSLT / HTML / JSON implementation for Tcl";
     homepage = "http://www.tdom.org";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

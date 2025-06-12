@@ -3,7 +3,6 @@
   buildHomeAssistantComponent,
   fetchFromGitHub,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "lichtteil";
   domain = "local_luftdaten";
@@ -21,6 +20,6 @@ buildHomeAssistantComponent rec {
     description = "Custom component for Home Assistant that integrates your (own) local Luftdaten sensor (air quality/particle sensor) without using the cloud";
     homepage = "https://github.com/lichtteil/local_luftdaten";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

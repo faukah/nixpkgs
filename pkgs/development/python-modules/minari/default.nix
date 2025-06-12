@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   gymnasium,
   numpy,
   packaging,
   typer,
   typing-extensions,
-
   # optional-dependencies
   pyarrow,
   jax,
@@ -23,12 +20,10 @@
   mktestdocs,
   pytest,
   scikit-image,
-
   # tests
   jaxlib,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "minari";
   version = "0.5.3";
@@ -54,14 +49,14 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    arrow = [ pyarrow ];
-    create = [ jax ];
+    arrow = [pyarrow];
+    create = [jax];
     gcs = [
       google-cloud-storage
       tqdm
     ];
-    hdf5 = [ h5py ];
-    hf = [ huggingface-hub ];
+    hdf5 = [h5py];
+    hf = [huggingface-hub];
     integrations = [
       # agilerl
       # d3rlpy
@@ -74,12 +69,14 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "minari" ];
+  pythonImportsCheck = ["minari"];
 
-  nativeCheckInputs = [
-    jaxlib
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      jaxlib
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # Require internet access
@@ -105,7 +102,7 @@ buildPythonPackage rec {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "minari";
   };
 }

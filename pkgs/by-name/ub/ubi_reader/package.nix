@@ -4,7 +4,6 @@
   lib,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ubi_reader";
   version = "0.8.10";
@@ -18,9 +17,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-fXJiQZ1QWUmkRM+WI8DSIsay9s1w3hKloRuCcUNwZjM=";
   };
 
-  build-system = [ python3.pkgs.poetry-core ];
+  build-system = [python3.pkgs.poetry-core];
 
-  dependencies = [ python3.pkgs.lzallright ];
+  dependencies = [python3.pkgs.lzallright];
 
   # There are no tests in the source
   doCheck = false;
@@ -36,6 +35,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Python scripts capable of extracting and analyzing the contents of UBI and UBIFS images";
     homepage = "https://github.com/onekey-sec/ubi_reader";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ vlaci ];
+    maintainers = with lib.maintainers; [vlaci];
   };
 }

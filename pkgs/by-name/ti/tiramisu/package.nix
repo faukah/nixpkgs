@@ -6,7 +6,6 @@
   glib,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tiramisu";
   version = "2.0.20240610";
@@ -18,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-owYk/YFwJbqO6/dbGKPE8SnmmH4KvH+o6uWptqQtpfI=";
   };
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   nativeBuildInputs = [
     pkg-config
     vala
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Desktop notifications, the UNIX way";

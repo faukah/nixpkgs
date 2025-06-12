@@ -13,7 +13,6 @@
   unstrctrd,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "multipart_form";
   version = "0.6.0";
@@ -40,6 +39,6 @@ buildDunePackage rec {
     description = "Implementation of RFC7578 in OCaml";
     homepage = "https://github.com/dinosaure/multipart_form";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

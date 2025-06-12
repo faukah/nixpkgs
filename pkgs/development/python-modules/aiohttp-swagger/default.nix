@@ -9,7 +9,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-swagger";
   version = "1.0.15";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     "jinja2"
   ];
 
-  pythonImportsCheck = [ "aiohttp_swagger" ];
+  pythonImportsCheck = ["aiohttp_swagger"];
 
   meta = {
     description = "Swagger API Documentation builder for aiohttp";

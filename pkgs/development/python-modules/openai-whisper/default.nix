@@ -4,13 +4,10 @@
   fetchFromGitHub,
   buildPythonPackage,
   replaceVars,
-
   # build-system
   setuptools,
-
   # runtime
   ffmpeg-headless,
-
   # dependencies
   more-itertools,
   numba,
@@ -19,13 +16,11 @@
   tiktoken,
   torch,
   tqdm,
-
   # tests
   pytestCheckHook,
   scipy,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "whisper";
   version = "20240930-unstable-2025-01-04";
@@ -44,16 +39,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    more-itertools
-    numba
-    numpy
-    tiktoken
-    torch
-    tqdm
-  ] ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform triton) [ triton ];
+  dependencies =
+    [
+      more-itertools
+      numba
+      numpy
+      tiktoken
+      torch
+      tqdm
+    ]
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform triton) [triton];
 
   nativeCheckInputs = [
     pytestCheckHook

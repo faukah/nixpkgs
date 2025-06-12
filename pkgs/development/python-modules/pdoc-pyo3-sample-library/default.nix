@@ -8,7 +8,6 @@
   rustc,
   libiconv,
 }:
-
 buildPythonPackage rec {
   pname = "pdoc-pyo3-sample-library";
   version = "1.0.11";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  pythonImportsCheck = [ "pdoc_pyo3_sample_library" ];
+  pythonImportsCheck = ["pdoc_pyo3_sample_library"];
 
   # no tests
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     description = "Sample PyO3 library used in pdoc tests";
     homepage = "https://github.com/mitmproxy/pdoc-pyo3-sample-library";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.pbsds ];
+    maintainers = [lib.maintainers.pbsds];
   };
 }

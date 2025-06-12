@@ -3,114 +3,113 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.k3s;
-  removeOption =
-    config: instruction:
+  removeOption = config: instruction:
     lib.mkRemovedOptionModule (
       [
         "services"
         "k3s"
       ]
       ++ config
-    ) instruction;
+    )
+    instruction;
 
   manifestDir = "/var/lib/rancher/k3s/server/manifests";
   chartDir = "/var/lib/rancher/k3s/server/static/charts";
   imageDir = "/var/lib/rancher/k3s/agent/images";
   containerdConfigTemplateFile = "/var/lib/rancher/k3s/agent/etc/containerd/config.toml.tmpl";
-  yamlFormat = pkgs.formats.yaml { };
+  yamlFormat = pkgs.formats.yaml {};
   yamlDocSeparator = builtins.toFile "yaml-doc-separator" "\n---\n";
   # Manifests need a valid YAML suffix to be respected by k3s
-  mkManifestTarget =
-    name: if (lib.hasSuffix ".yaml" name || lib.hasSuffix ".yml" name) then name else name + ".yaml";
+  mkManifestTarget = name:
+    if (lib.hasSuffix ".yaml" name || lib.hasSuffix ".yml" name)
+    then name
+    else name + ".yaml";
   # Produces a list containing all duplicate manifest names
-  duplicateManifests =
-    with builtins;
+  duplicateManifests = with builtins;
     lib.intersectLists (attrNames cfg.autoDeployCharts) (attrNames cfg.manifests);
   # Produces a list containing all duplicate chart names
-  duplicateCharts =
-    with builtins;
+  duplicateCharts = with builtins;
     lib.intersectLists (attrNames cfg.autoDeployCharts) (attrNames cfg.charts);
 
   # Converts YAML -> JSON -> Nix
-  fromYaml =
-    path:
+  fromYaml = path:
     with builtins;
-    fromJSON (
-      readFile (
-        pkgs.runCommand "${path}-converted.json" { nativeBuildInputs = [ yq-go ]; } ''
-          yq --no-colors --output-format json ${path} > $out
-        ''
-      )
-    );
+      fromJSON (
+        readFile (
+          pkgs.runCommand "${path}-converted.json" {nativeBuildInputs = [yq-go];} ''
+            yq --no-colors --output-format json ${path} > $out
+          ''
+        )
+      );
 
   # Replace prefixes and characters that are problematic in file names
-  cleanHelmChartName =
-    name:
-    let
-      woPrefix = lib.removePrefix "https://" (lib.removePrefix "oci://" name);
-    in
+  cleanHelmChartName = name: let
+    woPrefix = lib.removePrefix "https://" (lib.removePrefix "oci://" name);
+  in
     lib.replaceStrings
-      [
-        "/"
-        ":"
-      ]
-      [
-        "-"
-        "-"
-      ]
-      woPrefix;
+    [
+      "/"
+      ":"
+    ]
+    [
+      "-"
+      "-"
+    ]
+    woPrefix;
 
   # Fetch a Helm chart from a public registry. This only supports a basic Helm pull.
-  fetchHelm =
-    {
-      name,
-      repo,
-      version,
-      hash ? lib.fakeHash,
-    }:
-    let
-      isOci = lib.hasPrefix "oci://" repo;
-      pullCmd = if isOci then repo else "--repo ${repo} ${name}";
-      name' = if isOci then "${repo}-${version}" else "${repo}-${name}-${version}";
-    in
+  fetchHelm = {
+    name,
+    repo,
+    version,
+    hash ? lib.fakeHash,
+  }: let
+    isOci = lib.hasPrefix "oci://" repo;
+    pullCmd =
+      if isOci
+      then repo
+      else "--repo ${repo} ${name}";
+    name' =
+      if isOci
+      then "${repo}-${version}"
+      else "${repo}-${name}-${version}";
+  in
     pkgs.runCommand (cleanHelmChartName "${name'}.tgz")
-      {
-        inherit (lib.fetchers.normalizeHash { } { inherit hash; }) outputHash outputHashAlgo;
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars;
-        nativeBuildInputs = with pkgs; [
-          kubernetes-helm
-          cacert
-        ];
-      }
-      ''
-        helm pull ${pullCmd} --version ${version}
-        mv ./*.tgz $out
-      '';
+    {
+      inherit (lib.fetchers.normalizeHash {} {inherit hash;}) outputHash outputHashAlgo;
+      impureEnvVars = lib.fetchers.proxyImpureEnvVars;
+      nativeBuildInputs = with pkgs; [
+        kubernetes-helm
+        cacert
+      ];
+    }
+    ''
+      helm pull ${pullCmd} --version ${version}
+      mv ./*.tgz $out
+    '';
 
   # Returns the path to a YAML manifest file
-  mkExtraDeployManifest =
-    x:
-    # x is a derivation that provides a YAML file
-    if lib.isDerivation x then
-      x.outPath
+  mkExtraDeployManifest = x:
+  # x is a derivation that provides a YAML file
+    if lib.isDerivation x
+    then x.outPath
     # x is an attribute set that needs to be converted to a YAML file
-    else if builtins.isAttrs x then
-      (yamlFormat.generate "extra-deploy-chart-manifest" x)
+    else if builtins.isAttrs x
+    then (yamlFormat.generate "extra-deploy-chart-manifest" x)
     # assume x is a path to a YAML file
-    else
-      x;
+    else x;
 
   # Generate a HelmChart custom resource.
-  mkHelmChartCR =
-    name: value:
-    let
-      chartValues = if (lib.isPath value.values) then fromYaml value.values else value.values;
-      # use JSON for values as it's a subset of YAML and understood by the k3s Helm controller
-      valuesContent = builtins.toJSON chartValues;
-    in
+  mkHelmChartCR = name: value: let
+    chartValues =
+      if (lib.isPath value.values)
+      then fromYaml value.values
+      else value.values;
+    # use JSON for values as it's a subset of YAML and understood by the k3s Helm controller
+    valuesContent = builtins.toJSON chartValues;
+  in
     # merge with extraFieldDefinitions to allow setting advanced values and overwrite generated
     # values
     lib.recursiveUpdate {
@@ -125,7 +124,8 @@ let
         inherit (value) targetNamespace createNamespace;
         chart = "https://%{KUBERNETES_API}%/static/charts/${name}.tgz";
       };
-    } value.extraFieldDefinitions;
+    }
+    value.extraFieldDefinitions;
 
   # Generate a HelmChart custom resource together with extraDeploy manifests. This
   # generates possibly a multi document YAML file that the auto deploy mechanism of k3s
@@ -142,15 +142,15 @@ let
       # alternate the YAML doc separator (---) and extraDeploy manifests to create
       # multi document YAMLs
       ++ (lib.concatMap (x: [
-        yamlDocSeparator
-        (mkExtraDeployManifest x)
-      ]) value.extraDeploy)
+          yamlDocSeparator
+          (mkExtraDeployManifest x)
+        ])
+        value.extraDeploy)
     );
   };
 
   autoDeployChartsModule = lib.types.submodule (
-    { config, ... }:
-    {
+    {config, ...}: {
       options = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -231,7 +231,7 @@ let
 
         values = lib.mkOption {
           type = with lib.types; either path attrs;
-          default = { };
+          default = {};
           example = {
             replicaCount = 3;
             hostName = "my-host";
@@ -251,7 +251,7 @@ let
 
         extraDeploy = lib.mkOption {
           type = with lib.types; listOf (either path attrs);
-          default = [ ];
+          default = [];
           example = lib.literalExpression ''
             [
               ../manifests/my-extra-deployment.yaml
@@ -282,7 +282,7 @@ let
 
         extraFieldDefinitions = lib.mkOption {
           inherit (yamlFormat) type;
-          default = { };
+          default = {};
           example = {
             spec = {
               bootstrap = true;
@@ -301,7 +301,8 @@ let
       };
 
       config.package = lib.mkDefault (fetchHelm {
-        inherit (config)
+        inherit
+          (config)
           repo
           name
           version
@@ -317,8 +318,7 @@ let
       config,
       options,
       ...
-    }:
-    {
+    }: {
       options = {
         enable = lib.mkOption {
           type = lib.types.bool;
@@ -361,32 +361,31 @@ let
           let
             name' = "k3s-manifest-" + builtins.baseNameOf name;
             docName = "k3s-manifest-doc-" + builtins.baseNameOf name;
-            mkSource =
-              value:
-              if builtins.isList value then
+            mkSource = value:
+              if builtins.isList value
+              then
                 pkgs.concatText name' (
                   lib.concatMap (x: [
                     yamlDocSeparator
                     (yamlFormat.generate docName x)
-                  ]) value
+                  ])
+                  value
                 )
-              else
-                yamlFormat.generate name' value;
+              else yamlFormat.generate name' value;
           in
-          lib.mkDerivedConfig options.content mkSource
+            lib.mkDerivedConfig options.content mkSource
         );
       };
     }
   );
-in
-{
-  imports = [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
+in {
+  imports = [(removeOption ["docker"] "k3s docker option is no longer supported.")];
 
   # interface
   options.services.k3s = {
     enable = lib.mkEnableOption "k3s";
 
-    package = lib.mkPackageOption pkgs "k3s" { };
+    package = lib.mkPackageOption pkgs "k3s" {};
 
     role = lib.mkOption {
       description = ''
@@ -465,7 +464,7 @@ in
     extraFlags = lib.mkOption {
       description = "Extra flags to pass to the k3s command.";
       type = with lib.types; either str (listOf str);
-      default = [ ];
+      default = [];
       example = [
         "--disable traefik"
         "--cluster-cidr 10.24.0.0/16"
@@ -494,7 +493,7 @@ in
 
     manifests = lib.mkOption {
       type = lib.types.attrsOf manifestModule;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           deployment.source = ../manifests/deployment.yaml;
@@ -584,7 +583,7 @@ in
 
     charts = lib.mkOption {
       type = with lib.types; attrsOf (either path package);
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         nginx = ../charts/my-nginx-chart.tgz;
         redis = ../charts/my-redis-chart.tgz;
@@ -621,7 +620,7 @@ in
 
     images = lib.mkOption {
       type = with lib.types; listOf package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           (pkgs.dockerTools.pullImage {
@@ -674,7 +673,7 @@ in
 
     extraKubeletConfig = lib.mkOption {
       type = with lib.types; attrsOf anything;
-      default = { };
+      default = {};
       example = {
         podsPerCore = 3;
         memoryThrottlingFactor = 0.69;
@@ -692,7 +691,7 @@ in
 
     extraKubeProxyConfig = lib.mkOption {
       type = with lib.types; attrsOf anything;
-      default = { };
+      default = {};
       example = {
         mode = "nftables";
         clientConnection.kubeconfig = "/var/lib/rancher/k3s/agent/kubeproxy.kubeconfig";
@@ -709,7 +708,7 @@ in
     autoDeployCharts = lib.mkOption {
       type = lib.types.attrsOf autoDeployChartsModule;
       apply = lib.mapAttrs mkAutoDeployChartManifest;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           harbor = {
@@ -762,28 +761,34 @@ in
 
   config = lib.mkIf cfg.enable {
     warnings =
-      (lib.optional (cfg.role != "server" && cfg.manifests != { })
+      (
+        lib.optional (cfg.role != "server" && cfg.manifests != {})
         "k3s: Auto deploying manifests are only installed on server nodes (role == server), they will be ignored by this node."
       )
-      ++ (lib.optional (cfg.role != "server" && cfg.charts != { })
+      ++ (
+        lib.optional (cfg.role != "server" && cfg.charts != {})
         "k3s: Helm charts are only made available to the cluster on server nodes (role == server), they will be ignored by this node."
       )
-      ++ (lib.optional (cfg.role != "server" && cfg.autoDeployCharts != { })
+      ++ (
+        lib.optional (cfg.role != "server" && cfg.autoDeployCharts != {})
         "k3s: Auto deploying Helm charts are only installed on server nodes (role == server), they will be ignored by this node."
       )
-      ++ (lib.optional (duplicateManifests != [ ])
+      ++ (
+        lib.optional (duplicateManifests != [])
         "k3s: The following auto deploying charts are overriden by manifests of the same name: ${toString duplicateManifests}."
       )
-      ++ (lib.optional (duplicateCharts != [ ])
+      ++ (
+        lib.optional (duplicateCharts != [])
         "k3s: The following auto deploying charts are overriden by charts of the same name: ${toString duplicateCharts}."
       )
       ++ (lib.optional (
-        cfg.disableAgent && cfg.images != [ ]
+        cfg.disableAgent && cfg.images != []
       ) "k3s: Images are only imported on nodes with an enabled agent, they will be ignored by this node")
       ++ (lib.optional (
         cfg.role == "agent" && cfg.configPath == null && cfg.serverAddr == ""
       ) "k3s: ServerAddr or configPath (with 'server' key) should be set if role is 'agent'")
-      ++ (lib.optional
+      ++ (
+        lib.optional
         (cfg.role == "agent" && cfg.configPath == null && cfg.tokenFile == null && cfg.token == "")
         "k3s: Token or tokenFile or configPath (with 'token' or 'token-file' keys) should be set if role is 'agent'"
       );
@@ -799,43 +804,45 @@ in
       }
     ];
 
-    environment.systemPackages = [ config.services.k3s.package ];
+    environment.systemPackages = [config.services.k3s.package];
 
     # Use systemd-tmpfiles to activate k3s content
-    systemd.tmpfiles.settings."10-k3s" =
-      let
-        # Merge manifest with manifests generated from auto deploying charts, keep only enabled manifests
-        enabledManifests = lib.filterAttrs (_: v: v.enable) (cfg.autoDeployCharts // cfg.manifests);
-        # Merge charts with charts contained in enabled auto deploying charts
-        helmCharts =
-          (lib.concatMapAttrs (n: v: { ${n} = v.package; }) (
-            lib.filterAttrs (_: v: v.enable) cfg.autoDeployCharts
-          ))
-          // cfg.charts;
-        # Make a systemd-tmpfiles rule for a manifest
-        mkManifestRule = manifest: {
-          name = "${manifestDir}/${manifest.target}";
-          value = {
-            "L+".argument = "${manifest.source}";
-          };
+    systemd.tmpfiles.settings."10-k3s" = let
+      # Merge manifest with manifests generated from auto deploying charts, keep only enabled manifests
+      enabledManifests = lib.filterAttrs (_: v: v.enable) (cfg.autoDeployCharts // cfg.manifests);
+      # Merge charts with charts contained in enabled auto deploying charts
+      helmCharts =
+        (lib.concatMapAttrs (n: v: {${n} = v.package;}) (
+          lib.filterAttrs (_: v: v.enable) cfg.autoDeployCharts
+        ))
+        // cfg.charts;
+      # Make a systemd-tmpfiles rule for a manifest
+      mkManifestRule = manifest: {
+        name = "${manifestDir}/${manifest.target}";
+        value = {
+          "L+".argument = "${manifest.source}";
         };
-        # Ensure that all chart targets have a .tgz suffix
-        mkChartTarget = name: if (lib.hasSuffix ".tgz" name) then name else name + ".tgz";
-        # Make a systemd-tmpfiles rule for a chart
-        mkChartRule = target: source: {
-          name = "${chartDir}/${mkChartTarget target}";
-          value = {
-            "L+".argument = "${source}";
-          };
+      };
+      # Ensure that all chart targets have a .tgz suffix
+      mkChartTarget = name:
+        if (lib.hasSuffix ".tgz" name)
+        then name
+        else name + ".tgz";
+      # Make a systemd-tmpfiles rule for a chart
+      mkChartRule = target: source: {
+        name = "${chartDir}/${mkChartTarget target}";
+        value = {
+          "L+".argument = "${source}";
         };
-        # Make a systemd-tmpfiles rule for a container image
-        mkImageRule = image: {
-          name = "${imageDir}/${image.name}";
-          value = {
-            "L+".argument = "${image}";
-          };
+      };
+      # Make a systemd-tmpfiles rule for a container image
+      mkImageRule = image: {
+        name = "${imageDir}/${image.name}";
+        value = {
+          "L+".argument = "${image}";
         };
-      in
+      };
+    in
       (lib.mapAttrs' (_: v: mkManifestRule v) enabledManifests)
       // (lib.mapAttrs' (n: v: mkChartRule n v) helmCharts)
       // (builtins.listToAttrs (map mkImageRule cfg.images))
@@ -845,67 +852,68 @@ in
         };
       });
 
-    systemd.services.k3s =
-      let
-        kubeletParams =
-          (lib.optionalAttrs (cfg.gracefulNodeShutdown.enable) {
-            inherit (cfg.gracefulNodeShutdown) shutdownGracePeriod shutdownGracePeriodCriticalPods;
-          })
-          // cfg.extraKubeletConfig;
-        kubeletConfig = (pkgs.formats.yaml { }).generate "k3s-kubelet-config" (
-          {
-            apiVersion = "kubelet.config.k8s.io/v1beta1";
-            kind = "KubeletConfiguration";
-          }
-          // kubeletParams
-        );
+    systemd.services.k3s = let
+      kubeletParams =
+        (lib.optionalAttrs (cfg.gracefulNodeShutdown.enable) {
+          inherit (cfg.gracefulNodeShutdown) shutdownGracePeriod shutdownGracePeriodCriticalPods;
+        })
+        // cfg.extraKubeletConfig;
+      kubeletConfig = (pkgs.formats.yaml {}).generate "k3s-kubelet-config" (
+        {
+          apiVersion = "kubelet.config.k8s.io/v1beta1";
+          kind = "KubeletConfiguration";
+        }
+        // kubeletParams
+      );
 
-        kubeProxyConfig = (pkgs.formats.yaml { }).generate "k3s-kubeProxy-config" (
-          {
-            apiVersion = "kubeproxy.config.k8s.io/v1alpha1";
-            kind = "KubeProxyConfiguration";
-          }
-          // cfg.extraKubeProxyConfig
+      kubeProxyConfig = (pkgs.formats.yaml {}).generate "k3s-kubeProxy-config" (
+        {
+          apiVersion = "kubeproxy.config.k8s.io/v1alpha1";
+          kind = "KubeProxyConfiguration";
+        }
+        // cfg.extraKubeProxyConfig
+      );
+    in {
+      description = "k3s service";
+      after = [
+        "firewall.service"
+        "network-online.target"
+      ];
+      wants = [
+        "firewall.service"
+        "network-online.target"
+      ];
+      wantedBy = ["multi-user.target"];
+      path = lib.optional config.boot.zfs.enabled config.boot.zfs.package;
+      serviceConfig = {
+        # See: https://github.com/rancher/k3s/blob/dddbd16305284ae4bd14c0aade892412310d7edc/install.sh#L197
+        Type =
+          if cfg.role == "agent"
+          then "exec"
+          else "notify";
+        KillMode = "process";
+        Delegate = "yes";
+        Restart = "always";
+        RestartSec = "5s";
+        LimitNOFILE = 1048576;
+        LimitNPROC = "infinity";
+        LimitCORE = "infinity";
+        TasksMax = "infinity";
+        EnvironmentFile = cfg.environmentFile;
+        ExecStart = lib.concatStringsSep " \\\n " (
+          ["${cfg.package}/bin/k3s ${cfg.role}"]
+          ++ (lib.optional cfg.clusterInit "--cluster-init")
+          ++ (lib.optional cfg.disableAgent "--disable-agent")
+          ++ (lib.optional (cfg.serverAddr != "") "--server ${cfg.serverAddr}")
+          ++ (lib.optional (cfg.token != "") "--token ${cfg.token}")
+          ++ (lib.optional (cfg.tokenFile != null) "--token-file ${cfg.tokenFile}")
+          ++ (lib.optional (cfg.configPath != null) "--config ${cfg.configPath}")
+          ++ (lib.optional (kubeletParams != {}) "--kubelet-arg=config=${kubeletConfig}")
+          ++ (lib.optional (cfg.extraKubeProxyConfig != {}) "--kube-proxy-arg=config=${kubeProxyConfig}")
+          ++ (lib.flatten cfg.extraFlags)
         );
-      in
-      {
-        description = "k3s service";
-        after = [
-          "firewall.service"
-          "network-online.target"
-        ];
-        wants = [
-          "firewall.service"
-          "network-online.target"
-        ];
-        wantedBy = [ "multi-user.target" ];
-        path = lib.optional config.boot.zfs.enabled config.boot.zfs.package;
-        serviceConfig = {
-          # See: https://github.com/rancher/k3s/blob/dddbd16305284ae4bd14c0aade892412310d7edc/install.sh#L197
-          Type = if cfg.role == "agent" then "exec" else "notify";
-          KillMode = "process";
-          Delegate = "yes";
-          Restart = "always";
-          RestartSec = "5s";
-          LimitNOFILE = 1048576;
-          LimitNPROC = "infinity";
-          LimitCORE = "infinity";
-          TasksMax = "infinity";
-          EnvironmentFile = cfg.environmentFile;
-          ExecStart = lib.concatStringsSep " \\\n " (
-            [ "${cfg.package}/bin/k3s ${cfg.role}" ]
-            ++ (lib.optional cfg.clusterInit "--cluster-init")
-            ++ (lib.optional cfg.disableAgent "--disable-agent")
-            ++ (lib.optional (cfg.serverAddr != "") "--server ${cfg.serverAddr}")
-            ++ (lib.optional (cfg.token != "") "--token ${cfg.token}")
-            ++ (lib.optional (cfg.tokenFile != null) "--token-file ${cfg.tokenFile}")
-            ++ (lib.optional (cfg.configPath != null) "--config ${cfg.configPath}")
-            ++ (lib.optional (kubeletParams != { }) "--kubelet-arg=config=${kubeletConfig}")
-            ++ (lib.optional (cfg.extraKubeProxyConfig != { }) "--kube-proxy-arg=config=${kubeProxyConfig}")
-            ++ (lib.flatten cfg.extraFlags)
-          );
-        };
       };
+    };
   };
 
   meta.maintainers = lib.teams.k3s.members;

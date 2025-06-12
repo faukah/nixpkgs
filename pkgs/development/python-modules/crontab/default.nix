@@ -8,7 +8,6 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "crontab";
   version = "3.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-OZalqh/A4pBM1Hat4t76Odk2cTmKLwaHGY7pndgIgss=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "crontab" ];
+  pythonImportsCheck = ["crontab"];
 
   meta = with lib; {
     description = "Parse and use crontab schedules in Python";
     homepage = "https://gitlab.com/doctormo/python-crontab/";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

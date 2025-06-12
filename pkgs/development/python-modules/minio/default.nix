@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   argon2-cffi,
   certifi,
   urllib3,
   pycryptodome,
   typing-extensions,
-
   # test
   faker,
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "minio";
   version = "7.2.15";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "assertEquals" "assertEqual"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     argon2-cffi
@@ -60,13 +56,13 @@ buildPythonPackage rec {
     "tests/unit/credentials_test.py"
   ];
 
-  pythonImportsCheck = [ "minio" ];
+  pythonImportsCheck = ["minio"];
 
   meta = with lib; {
     description = "Simple APIs to access any Amazon S3 compatible object storage server";
     homepage = "https://github.com/minio/minio-py";
     changelog = "https://github.com/minio/minio-py/releases/tag/${src.tag}";
-    maintainers = with maintainers; [ peterromfeldhk ];
+    maintainers = with maintainers; [peterromfeldhk];
     license = licenses.asl20;
   };
 }

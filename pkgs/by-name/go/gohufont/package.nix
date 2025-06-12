@@ -7,7 +7,6 @@
   bdftopcf,
   libfaketime,
 }:
-
 stdenv.mkDerivation {
   pname = "gohufont";
   version = "2.1";
@@ -72,6 +71,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://font.gohu.org/";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

@@ -5,7 +5,6 @@
   pcre,
   libxcrypt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "leafnode";
   version = "2.0.0.alpha20140727b";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-NOuiy7uHG3JMjV3UAtHDWK6yG6QmvrVljhVe0NdGEHU=";
   };
 
-  configureFlags = [ "--enable-runas-user=nobody" ];
+  configureFlags = ["--enable-runas-user=nobody"];
 
   prePatch = ''
     substituteInPlace Makefile.in --replace 02770 0770
@@ -43,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Implementation of a store & forward NNTP proxy, under development";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.ne9z ];
+    maintainers = [lib.maintainers.ne9z];
   };
 })

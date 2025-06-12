@@ -8,7 +8,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hydra-check";
   version = "2.0.4";

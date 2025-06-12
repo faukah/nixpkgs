@@ -10,7 +10,6 @@
   xarray,
   traitlets,
 }:
-
 buildPythonPackage {
   pname = "traittypes";
   version = "0.2.1-unstable-2020-07-17";
@@ -30,9 +29,9 @@ buildPythonPackage {
       --replace-fail "np.int" "int"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ traitlets ];
+  dependencies = [traitlets];
 
   nativeCheckInputs = [
     numpy
@@ -41,12 +40,12 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "traittypes" ];
+  pythonImportsCheck = ["traittypes"];
 
   meta = {
     description = "Trait types for NumPy, SciPy, XArray, and Pandas";
     homepage = "https://github.com/jupyter-widgets/traittypes";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

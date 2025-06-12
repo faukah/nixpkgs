@@ -6,7 +6,6 @@
   pytestCheckHook,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "aiounittest";
   version = "1.5.0";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-zX3KpDw7AaEwOLkiHX/ZD+rSMeN7qi9hOVAmVH6Jxgg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ wrapt ];
+  dependencies = [wrapt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aiounittest" ];
+  pythonImportsCheck = ["aiounittest"];
 
   meta = with lib; {
     changelog = "https://github.com/kwarunek/aiounittest/releases/tag/${src.tag}";
     description = "Test asyncio code more easily";
     homepage = "https://github.com/kwarunek/aiounittest";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

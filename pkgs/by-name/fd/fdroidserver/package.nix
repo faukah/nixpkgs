@@ -7,7 +7,6 @@
   apksigner,
   installShellFiles,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "fdroidserver";
   version = "2.4.0";
@@ -47,7 +46,7 @@ python3Packages.buildPythonApplication rec {
       --bash completion/bash-completion
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   build-system = with python3Packages; [
     setuptools
@@ -90,13 +89,13 @@ python3Packages.buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ apksigner ]}"
+    "${lib.makeBinPath [apksigner]}"
   ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fdroidserver" ];
+  pythonImportsCheck = ["fdroidserver"];
 
   meta = {
     homepage = "https://gitlab.com/fdroid/fdroidserver";

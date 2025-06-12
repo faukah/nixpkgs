@@ -17,7 +17,6 @@
   pytestCheckHook,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pybids";
   version = "0.19.0";
@@ -40,10 +39,12 @@ buildPythonPackage rec {
     "sqlalchemy"
   ];
 
-  build-system = [
-    setuptools
-    versioneer
-  ] ++ versioneer.optional-dependencies.toml;
+  build-system =
+    [
+      setuptools
+      versioneer
+    ]
+    ++ versioneer.optional-dependencies.toml;
 
   dependencies = [
     bids-validator
@@ -59,9 +60,9 @@ buildPythonPackage rec {
     universal-pathlib
   ];
 
-  pythonImportsCheck = [ "bids" ];
+  pythonImportsCheck = ["bids"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Could not connect to the endpoint URL
@@ -79,7 +80,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/bids-standard/pybids";
     changelog = "https://github.com/bids-standard/pybids/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     mainProgram = "pybids";
   };
 }

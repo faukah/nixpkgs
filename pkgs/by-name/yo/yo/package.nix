@@ -4,7 +4,6 @@
   fetchNpmDeps,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "yo";
   version = "5.1.0";
@@ -38,6 +37,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/yeoman/yo";
     license = lib.licenses.bsd2;
     mainProgram = "yo";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

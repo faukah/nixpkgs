@@ -10,7 +10,6 @@
   libzip,
   libusbmuxd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "idevicerestore";
   version = "1.0.0+date=2023-05-23";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
     mainProgram = "idevicerestore";
   };
 }

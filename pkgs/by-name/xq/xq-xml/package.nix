@@ -5,7 +5,6 @@
   testers,
   xq-xml,
 }:
-
 buildGoModule rec {
   pname = "xq";
   version = "1.3.0";
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/sibprogrammer/xq";
     changelog = "https://github.com/sibprogrammer/xq/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

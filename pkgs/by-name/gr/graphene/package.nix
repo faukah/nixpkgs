@@ -29,7 +29,6 @@
   makeWrapper,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "graphene";
   version = "1.10.8";
@@ -39,8 +38,8 @@ stdenv.mkDerivation (finalAttrs: {
       "out"
       "dev"
     ]
-    ++ lib.optionals withDocumentation [ "devdoc" ]
-    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "installedTests" ];
+    ++ lib.optionals withDocumentation ["devdoc"]
+    ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["installedTests"];
 
   src = fetchFromGitHub {
     owner = "ebassi";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     (fetchpatch {
       url = "https://github.com/ebassi/graphene/commit/4fbdd07ea3bcd0964cca3966010bf71cb6fa8209.patch";
       sha256 = "uFkkH0u4HuQ/ua1mfO7sJZ7MPrQdV/JON7mTYB4DW80=";
-      includes = [ "tests/simd.c" ];
+      includes = ["tests/simd.c"];
       revert = true;
     })
   ];
@@ -123,19 +122,18 @@ stdenv.mkDerivation (finalAttrs: {
       }/bin:$PATH patchShebangs tests/introspection.py
     '';
 
-  postFixup =
-    let
-      introspectionPy = "${placeholder "installedTests"}/libexec/installed-tests/graphene-1.0/introspection.py";
-    in
+  postFixup = let
+    introspectionPy = "${placeholder "installedTests"}/libexec/installed-tests/graphene-1.0/introspection.py";
+  in
     lib.optionalString withIntrospection ''
       if [ -x '${introspectionPy}' ] ; then
         wrapProgram '${introspectionPy}' \
           --prefix GI_TYPELIB_PATH : "${
-            lib.makeSearchPath "lib/girepository-1.0" [
-              glib.out
-              (placeholder "out")
-            ]
-          }"
+        lib.makeSearchPath "lib/girepository-1.0" [
+          glib.out
+          (placeholder "out")
+        ]
+      }"
       fi
     '';
 
@@ -147,14 +145,14 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Thin layer of graphic data types";
     homepage = "https://github.com/ebassi/graphene";
     license = licenses.mit;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
     pkgConfigModules = [
       "graphene-1.0"

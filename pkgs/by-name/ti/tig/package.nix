@@ -15,7 +15,6 @@
   findXMLCatalogs,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tig";
   version = "2.5.12";
@@ -44,11 +43,13 @@ stdenv.mkDerivation rec {
     "-v"
   ];
 
-  buildInputs = [
-    ncurses
-    readline
-    git
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      ncurses
+      readline
+      git
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   # those files are inherently impure, we'll handle the corresponding dependencies.
   postPatch = ''

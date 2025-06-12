@@ -4,16 +4,14 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.fluent-bit;
 
-  yamlFormat = pkgs.formats.yaml { };
-in
-{
+  yamlFormat = pkgs.formats.yaml {};
+in {
   options.services.fluent-bit = {
     enable = lib.mkEnableOption "Fluent Bit";
-    package = lib.mkPackageOption pkgs "fluent-bit" { };
+    package = lib.mkPackageOption pkgs "fluent-bit" {};
     configurationFile = lib.mkOption {
       type = lib.types.path;
       default = yamlFormat.generate "fluent-bit.yaml" cfg.settings;
@@ -34,7 +32,7 @@ in
     };
     settings = lib.mkOption {
       type = yamlFormat.type;
-      default = { };
+      default = {};
       description = ''
         See {option}`configurationFile`.
 
@@ -83,9 +81,9 @@ in
     # See https://github.com/fluent/fluent-bit/blob/v3.2.6/init/systemd.in.
     systemd.services.fluent-bit = {
       description = "Fluent Bit";
-      after = [ "network.target" ];
-      requires = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      requires = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         # See https://nixos.org/manual/nixos/stable#sec-logging.

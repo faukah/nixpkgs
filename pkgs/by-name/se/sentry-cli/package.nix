@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   # Needed to get openssl-sys to use pkgconfig.
   OPENSSL_NO_VENDOR = 1;
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
   nativeBuildInputs = [
     installShellFiles
     pkg-config
@@ -44,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     description = "Command line utility to work with Sentry";
     mainProgram = "sentry-cli";
     changelog = "https://github.com/getsentry/sentry-cli/raw/${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ rizary ];
+    maintainers = with lib.maintainers; [rizary];
   };
 }

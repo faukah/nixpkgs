@@ -6,28 +6,27 @@
   runCommand,
   stdenvNoCC,
   testers,
-}:
-let
+}: let
   inherit (lib.attrsets) recurseIntoAttrs;
   final = {
     # NOTE: This example is used in the docs.
     # See https://nixos.org/manual/nixpkgs/unstable/#tester-testBuildFailurePrime
     # or doc/build-helpers/testers.chapter.md
     doc-example = testers.testBuildFailure' {
-      drv = runCommand "doc-example" { } ''
+      drv = runCommand "doc-example" {} ''
         echo ok-ish >"$out"
         echo failing though
         exit 3
       '';
       expectedBuilderExitCode = 3;
-      expectedBuilderLogEntries = [ "failing though" ];
+      expectedBuilderLogEntries = ["failing though"];
       script = ''
         grep --silent -F 'ok-ish' "$failed/result"
       '';
     };
 
     happy = testers.testBuildFailure' {
-      drv = runCommand "happy" { } ''
+      drv = runCommand "happy" {} ''
         echo ok-ish >$out
 
         echo failing though
@@ -61,18 +60,18 @@ let
     multiOutput = testers.testBuildFailure' {
       drv =
         runCommand "multiOutput"
-          {
-            # dev will be the default output
-            outputs = [
-              "dev"
-              "doc"
-              "out"
-            ];
-          }
-          ''
-            echo i am failing
-            exit 1
-          '';
+        {
+          # dev will be the default output
+          outputs = [
+            "dev"
+            "doc"
+            "out"
+          ];
+        }
+        ''
+          echo i am failing
+          exit 1
+        '';
       expectedBuilderLogEntries = [
         "i am failing"
       ];
@@ -119,7 +118,7 @@ let
 
     exitCodeNegativeTest = testers.testBuildFailure' {
       drv = testers.testBuildFailure' {
-        drv = runCommand "exit-code" { } "exit 3";
+        drv = runCommand "exit-code" {} "exit 3";
         # Default expected exit code is 1
       };
       expectedBuilderLogEntries = [
@@ -131,12 +130,12 @@ let
 
     logNegativeTest = testers.testBuildFailure' {
       drv = testers.testBuildFailure' {
-        drv = runCommand "exit-code" { } ''
+        drv = runCommand "exit-code" {} ''
           nixLog "apples"
           exit 3
         '';
         expectedBuilderExitCode = 3;
-        expectedBuilderLogEntries = [ "bees" ];
+        expectedBuilderLogEntries = ["bees"];
       };
       expectedBuilderLogEntries = [
         "ERROR: testBuilderLogEntries: original builder log does not contain 'bees'"
@@ -146,4 +145,4 @@ let
     logNegativeTestStructuredAttrs = overrideStructuredAttrs true final.logNegativeTest;
   };
 in
-recurseIntoAttrs final
+  recurseIntoAttrs final

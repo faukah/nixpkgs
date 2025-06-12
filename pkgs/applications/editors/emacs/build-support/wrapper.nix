@@ -1,67 +1,68 @@
 /*
-  # Usage
+# Usage
 
-  `emacs.pkgs.withPackages` takes a single argument: a function from a package
-  set to a list of packages (the packages that will be available in
-  Emacs). For example,
-  ```
-  emacs.pkgs.withPackages (epkgs: [ epkgs.evil epkgs.magit ])
-  ```
-  All the packages in the list should come from the provided package
-  set. It is possible to add any package to the list, but the provided
-  set is guaranteed to have consistent dependencies and be built with
-  the correct version of Emacs.
+`emacs.pkgs.withPackages` takes a single argument: a function from a package
+set to a list of packages (the packages that will be available in
+Emacs). For example,
+```
+emacs.pkgs.withPackages (epkgs: [ epkgs.evil epkgs.magit ])
+```
+All the packages in the list should come from the provided package
+set. It is possible to add any package to the list, but the provided
+set is guaranteed to have consistent dependencies and be built with
+the correct version of Emacs.
 
-  # Overriding
+# Overriding
 
-  `emacs.pkgs.withPackages` inherits the package set which contains it, so the
-  correct way to override the provided package set is to override the
-  set which contains `emacs.pkgs.withPackages`. For example, to override
-  `emacs.pkgs.emacs.pkgs.withPackages`,
-  ```
-  let customEmacsPackages =
-        emacs.pkgs.overrideScope (self: super: {
-          # use a custom version of emacs
-          emacs = ...;
-          # use the unstable MELPA version of magit
-          magit = self.melpaPackages.magit;
-        });
-  in customEmacsPackages.withPackages (epkgs: [ epkgs.evil epkgs.magit ])
-  ```
+`emacs.pkgs.withPackages` inherits the package set which contains it, so the
+correct way to override the provided package set is to override the
+set which contains `emacs.pkgs.withPackages`. For example, to override
+`emacs.pkgs.emacs.pkgs.withPackages`,
+```
+let customEmacsPackages =
+      emacs.pkgs.overrideScope (self: super: {
+        # use a custom version of emacs
+        emacs = ...;
+        # use the unstable MELPA version of magit
+        magit = self.melpaPackages.magit;
+      });
+in customEmacsPackages.withPackages (epkgs: [ epkgs.evil epkgs.magit ])
+```
 */
-
 {
   lib,
   lndir,
   makeBinaryWrapper,
   runCommand,
-}:
-self:
-let
+}: self: let
   inherit (self) emacs;
   withNativeCompilation = emacs.withNativeCompilation or false;
   withTreeSitter = emacs.withTreeSitter or false;
 in
-packagesFun: # packages explicitly requested by the user
-let
-  explicitRequires = if lib.isFunction packagesFun then packagesFun self else packagesFun;
-in
-runCommand (lib.appendToName "with-packages" emacs).name
-  {
-    inherit emacs explicitRequires;
-    nativeBuildInputs = [
-      emacs
-      lndir
-      makeBinaryWrapper
-    ];
+  packagesFun:
+  # packages explicitly requested by the user
+  let
+    explicitRequires =
+      if lib.isFunction packagesFun
+      then packagesFun self
+      else packagesFun;
+  in
+    runCommand (lib.appendToName "with-packages" emacs).name
+    {
+      inherit emacs explicitRequires;
+      nativeBuildInputs = [
+        emacs
+        lndir
+        makeBinaryWrapper
+      ];
 
-    preferLocalBuild = true;
-    allowSubstitutes = false;
+      preferLocalBuild = true;
+      allowSubstitutes = false;
 
-    # Store all paths we want to add to emacs here, so that we only need to add
-    # one path to the load lists
-    deps =
-      runCommand "emacs-packages-deps"
+      # Store all paths we want to add to emacs here, so that we only need to add
+      # one path to the load lists
+      deps =
+        runCommand "emacs-packages-deps"
         (
           {
             inherit explicitRequires lndir emacs;
@@ -135,11 +136,11 @@ runCommand (lib.appendToName "with-packages" emacs).name
             linkPath "$1" "bin" "bin"
             linkPath "$1" "share/emacs/site-lisp" "share/emacs/site-lisp"
             ${lib.optionalString withNativeCompilation ''
-              linkPath "$1" "share/emacs/native-lisp" "share/emacs/native-lisp"
-            ''}
+            linkPath "$1" "share/emacs/native-lisp" "share/emacs/native-lisp"
+          ''}
             ${lib.optionalString withTreeSitter ''
-              linkPath "$1" "lib" "lib"
-            ''}
+            linkPath "$1" "lib" "lib"
+          ''}
           }
 
           # Iterate over the array of inputs (avoiding nix's own interpolation)
@@ -195,56 +196,56 @@ runCommand (lib.appendToName "with-packages" emacs).name
           ''}
         '';
 
-    inherit (emacs) meta;
-  }
-  ''
-    mkdir -p "$out/bin"
+      inherit (emacs) meta;
+    }
+    ''
+      mkdir -p "$out/bin"
 
-    # Wrap emacs and friends so they find our site-start.el before the original.
-    for prog in $emacs/bin/*; do # */
-      local progname=$(basename "$prog")
-      rm -f "$out/bin/$progname"
+      # Wrap emacs and friends so they find our site-start.el before the original.
+      for prog in $emacs/bin/*; do # */
+        local progname=$(basename "$prog")
+        rm -f "$out/bin/$progname"
 
-      substitute ${./wrapper.sh} $out/bin/$progname \
-        --subst-var-by bash ${emacs.stdenv.shell} \
-        --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
-        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
-        --subst-var-by wrapperInvocationDirectory "$out/bin/" \
-        --subst-var-by wrapperInvocationName "$progname" \
-        --subst-var prog
-      chmod +x $out/bin/$progname
-      # Create a “NOP” binary wrapper for the pure sake of it becoming a
-      # non-shebang, actual binary. See the makeBinaryWrapper docs for rationale
-      # (summary: it allows you to use emacs as a shebang itself on Darwin,
-      # e.g. #!$ {emacs}/bin/emacs --script)
-      wrapProgramBinary $out/bin/$progname
-    done
+        substitute ${./wrapper.sh} $out/bin/$progname \
+          --subst-var-by bash ${emacs.stdenv.shell} \
+          --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
+          --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
+          --subst-var-by wrapperInvocationDirectory "$out/bin/" \
+          --subst-var-by wrapperInvocationName "$progname" \
+          --subst-var prog
+        chmod +x $out/bin/$progname
+        # Create a “NOP” binary wrapper for the pure sake of it becoming a
+        # non-shebang, actual binary. See the makeBinaryWrapper docs for rationale
+        # (summary: it allows you to use emacs as a shebang itself on Darwin,
+        # e.g. #!$ {emacs}/bin/emacs --script)
+        wrapProgramBinary $out/bin/$progname
+      done
 
-    # Wrap MacOS app
-    # this has to pick up resources and metadata
-    # to recognize it as an "app"
-    if [ -d "$emacs/Applications/Emacs.app" ]; then
-      mkdir -p $out/Applications/Emacs.app/Contents/MacOS
-      cp -r $emacs/Applications/Emacs.app/Contents/Info.plist \
-            $emacs/Applications/Emacs.app/Contents/PkgInfo \
-            $emacs/Applications/Emacs.app/Contents/Resources \
-            $out/Applications/Emacs.app/Contents
+      # Wrap MacOS app
+      # this has to pick up resources and metadata
+      # to recognize it as an "app"
+      if [ -d "$emacs/Applications/Emacs.app" ]; then
+        mkdir -p $out/Applications/Emacs.app/Contents/MacOS
+        cp -r $emacs/Applications/Emacs.app/Contents/Info.plist \
+              $emacs/Applications/Emacs.app/Contents/PkgInfo \
+              $emacs/Applications/Emacs.app/Contents/Resources \
+              $out/Applications/Emacs.app/Contents
 
 
-      substitute ${./wrapper.sh} $out/Applications/Emacs.app/Contents/MacOS/Emacs \
-        --subst-var-by bash ${emacs.stdenv.shell} \
-        --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
-        --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
-        --subst-var-by wrapperInvocationDirectory "$out/Applications/Emacs.app/Contents/MacOS/" \
-        --subst-var-by wrapperInvocationName "Emacs" \
-        --subst-var-by prog "$emacs/Applications/Emacs.app/Contents/MacOS/Emacs"
-      chmod +x $out/Applications/Emacs.app/Contents/MacOS/Emacs
-      wrapProgramBinary $out/Applications/Emacs.app/Contents/MacOS/Emacs
-    fi
+        substitute ${./wrapper.sh} $out/Applications/Emacs.app/Contents/MacOS/Emacs \
+          --subst-var-by bash ${emacs.stdenv.shell} \
+          --subst-var-by wrapperSiteLisp "$deps/share/emacs/site-lisp" \
+          --subst-var-by wrapperSiteLispNative "$deps/share/emacs/native-lisp" \
+          --subst-var-by wrapperInvocationDirectory "$out/Applications/Emacs.app/Contents/MacOS/" \
+          --subst-var-by wrapperInvocationName "Emacs" \
+          --subst-var-by prog "$emacs/Applications/Emacs.app/Contents/MacOS/Emacs"
+        chmod +x $out/Applications/Emacs.app/Contents/MacOS/Emacs
+        wrapProgramBinary $out/Applications/Emacs.app/Contents/MacOS/Emacs
+      fi
 
-    mkdir -p $out/share
-    # Link icons and desktop files into place
-    for dir in applications icons info man; do
-      ln -s $emacs/share/$dir $out/share/$dir
-    done
-  ''
+      mkdir -p $out/share
+      # Link icons and desktop files into place
+      for dir in applications icons info man; do
+        ln -s $emacs/share/$dir $out/share/$dir
+      done
+    ''

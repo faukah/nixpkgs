@@ -15,7 +15,6 @@
   tox,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffoldext-django";
   version = "0.2";
@@ -50,12 +49,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffoldext.django" ];
+  pythonImportsCheck = ["pyscaffoldext.django"];
 
   meta = with lib; {
     description = "Integration of django builtin scaffold cli (django-admin) into PyScaffold";
     homepage = "https://pypi.org/project/pyscaffoldext-django/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -16,7 +16,6 @@
   buildDocs ? false, # Nothing seems to be generated, so not making the output
   buildTests ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "roctracer";
   version = "6.3.3";
@@ -113,8 +112,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Tracer callback/activity library";
     homepage = "https://github.com/ROCm/roctracer";
-    license = with licenses; [ mit ]; # mitx11
-    teams = [ teams.rocm ];
+    license = with licenses; [mit]; # mitx11
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

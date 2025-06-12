@@ -8,7 +8,6 @@
   zstd,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "odyssey";
   version = "1.3";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     ./fix-missing-c-header.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openssl
     libpq
@@ -54,8 +53,8 @@ stdenv.mkDerivation rec {
     description = "Scalable PostgreSQL connection pooler";
     homepage = "https://github.com/yandex/odyssey";
     license = licenses.bsd3;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     mainProgram = "odyssey";
   };
 }

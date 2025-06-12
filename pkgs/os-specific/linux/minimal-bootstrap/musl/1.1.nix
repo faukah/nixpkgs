@@ -11,10 +11,8 @@
   gnugrep,
   gnutar,
   gzip,
-}:
-
-let
-  inherit (import ./common.nix { inherit lib; }) pname meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) pname meta;
   version = "1.1.24";
 
   src = fetchurl {
@@ -67,7 +65,7 @@ let
     })
   ];
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 

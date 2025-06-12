@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "quattrocento-sans";
   version = "2.0";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Classic, elegant and sober sans-serif typeface";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

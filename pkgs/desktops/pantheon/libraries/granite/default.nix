@@ -15,7 +15,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "granite";
   version = "6.2.0"; # nixpkgs-update: no auto update
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/granite";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "granite-demo";
   };
 }

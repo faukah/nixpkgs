@@ -5,7 +5,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     publisher = "ms-azuretools";
@@ -25,10 +24,9 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-bicep";
     homepage = "https://github.com/Azure/bicep/tree/main/src/vscode-bicep";
     license = lib.licenses.mit;
-    teams = [ lib.teams.stridtech ];
+    teams = [lib.teams.stridtech];
   };
 }
-
 # Instructions on Usage
 #
 # programs.vscode = {
@@ -57,3 +55,4 @@ vscode-utils.buildVscodeMarketplaceExtension {
 #    ms-dotnettools.vscode-dotnet-runtime
 #  ];
 # };
+

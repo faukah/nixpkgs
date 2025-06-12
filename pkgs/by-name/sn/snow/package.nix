@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snow";
   version = "20130616";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     mainProgram = "snow";
     homepage = "http://www.darkside.com.au/snow/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

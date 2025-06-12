@@ -21,7 +21,6 @@
   wrapQtAppsHook,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation {
   pname = "pulseview";
   version = "0.4.2-unstable-2024-03-14";
@@ -32,27 +31,31 @@ stdenv.mkDerivation {
     hash = "sha256-MwfMUqV3ejxesg+3cFeXVB5hwg4r0cOCgHJuH3ZLmNE=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    qttools
-    wrapQtAppsHook
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      qttools
+      wrapQtAppsHook
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
-  buildInputs = [
-    glib
-    boost
-    libsigrok
-    libsigrokdecode
-    libserialport
-    libzip
-    libftdi1
-    hidapi
-    glibmm
-    pcre
-    python3
-    qtsvg
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ bluez ];
+  buildInputs =
+    [
+      glib
+      boost
+      libsigrok
+      libsigrokdecode
+      libserialport
+      libzip
+      libftdi1
+      hidapi
+      glibmm
+      pcre
+      python3
+      qtsvg
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [bluez];
 
   meta = with lib; {
     description = "Qt-based LA/scope/MSO GUI for sigrok (a signal analysis software suite)";

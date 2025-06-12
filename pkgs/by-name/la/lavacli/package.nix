@@ -3,7 +3,6 @@
   fetchFromGitLab,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lavacli";
   version = "2.2.0";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://lava.gitlab.io/lavacli/";
     changelog = "https://gitlab.com/lava/lavacli/-/commits/v${version}?ref_type=tags";
     license = lib.licenses.agpl3Only;
-    teams = [ lib.teams.cyberus ];
+    teams = [lib.teams.cyberus];
     mainProgram = "lavacli";
   };
 }

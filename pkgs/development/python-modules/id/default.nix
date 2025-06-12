@@ -8,7 +8,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "id";
   version = "1.5.0";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-6Vkbs/i1roAtPGwLxdM+XKDrMTo0+NfVpAUpw6GPg9U=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pretend
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "id" ];
+  pythonImportsCheck = ["id"];
 
   meta = with lib; {
     description = "Tool for generating OIDC identities";
     homepage = "https://github.com/di/id";
     changelog = "https://github.com/di/id/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

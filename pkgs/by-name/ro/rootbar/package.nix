@@ -11,7 +11,6 @@
   wayland,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "rootbar";
   version = "unstable-2020-11-13";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
       was designed to address the lack of good bars for wayland.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

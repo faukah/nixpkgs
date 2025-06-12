@@ -7,7 +7,6 @@
   runCommand,
   yq-go,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "yq-go";
   version = "4.45.4";
@@ -21,7 +20,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-cA5Y0/2lvYfVXr4zgtp/U8aBUkHnh9xb9jDHVk/2OME=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd yq \
@@ -31,7 +30,7 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru.tests = {
-    simple = runCommand "${finalAttrs.pname}-test" { } ''
+    simple = runCommand "${finalAttrs.pname}-test" {} ''
       echo "test: 1" | ${yq-go}/bin/yq eval -j > $out
       [ "$(cat $out | tr -d $'\n ')" = '{"test":1}' ]
     '';
@@ -42,7 +41,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://mikefarah.gitbook.io/yq/";
     changelog = "https://github.com/mikefarah/yq/raw/v${finalAttrs.version}/release_notes.txt";
     mainProgram = "yq";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
     maintainers = with lib.maintainers; [
       lewo
       prince213

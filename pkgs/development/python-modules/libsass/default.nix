@@ -7,7 +7,6 @@
   pytestCheckHook,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "libsass";
   version = "0.23.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-CiSr9/3EDwpDEzu6VcMBAlm3CtKTmGYbZMnMEjyZVxI=";
   };
 
-  buildInputs = [ libsass ];
+  buildInputs = [libsass];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   preBuild = ''
     export SYSTEM_SASS=true;
@@ -33,15 +32,15 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pytestFlagsArray = [ "sasstests.py" ];
+  pytestFlagsArray = ["sasstests.py"];
 
-  pythonImportsCheck = [ "sass" ];
+  pythonImportsCheck = ["sass"];
 
   meta = {
     description = "Python binding for libsass to compile Sass/SCSS";
     mainProgram = "pysassc";
     homepage = "https://sass.github.io/libsass-python/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

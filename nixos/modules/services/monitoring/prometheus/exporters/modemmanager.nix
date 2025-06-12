@@ -4,13 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.modemmanager;
   inherit (lib) mkOption types concatStringsSep;
-in
-{
+in {
   port = 9539;
   extraOpts = {
     refreshRate = mkOption {

@@ -1,9 +1,11 @@
-{ lib, config, ... }:
-let
+{
+  lib,
+  config,
+  ...
+}: let
   inherit (config.boot) kernelPackages;
   inherit (config.services.xserver) videoDrivers;
-in
-{
+in {
   boot.extraModulePackages = lib.mkIf (lib.elem "virtualbox" videoDrivers) [
     kernelPackages.virtualboxGuestAdditions
   ];

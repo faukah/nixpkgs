@@ -8,7 +8,6 @@
   ipaddr,
   logs,
 }:
-
 buildDunePackage rec {
   pname = "happy-eyeballs";
   version = "2.0.1";

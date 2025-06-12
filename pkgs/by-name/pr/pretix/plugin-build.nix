@@ -6,7 +6,6 @@
   django,
   gettext,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-plugin-build";
   version = "1.0.1";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "";
     homepage = "https://github.com/pretix/pretix-plugin-build";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

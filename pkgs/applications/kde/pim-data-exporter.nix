@@ -29,7 +29,6 @@
   mailcommon,
   messagelib,
 }:
-
 mkDerivation {
   pname = "pim-data-exporter";
   meta = {

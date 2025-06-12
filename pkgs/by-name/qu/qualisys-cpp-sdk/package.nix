@@ -5,7 +5,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "qualisys-cpp-sdk";
   version = "2024.2";
@@ -30,13 +29,13 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "C++ sdk for talking to Qualisys Track Manager software";
     homepage = "https://github.com/qualisys/qualisys_cpp_sdk";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 }

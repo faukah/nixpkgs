@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gettext,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-i18n";
   version = "0.2.13";
@@ -27,13 +26,13 @@ rustPlatform.buildRustPackage rec {
     GETTEXT_INCLUDE_DIR = "${lib.getInclude gettext}/include";
   };
 
-  cargoTestFlags = [ "--lib" ];
+  cargoTestFlags = ["--lib"];
 
   meta = with lib; {
     description = "Rust Cargo sub-command and libraries to extract and build localization resources to embed in your application/library";
     homepage = "https://github.com/kellpossible/cargo-i18n";
     license = licenses.mit;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "cargo-i18n";
   };
 }

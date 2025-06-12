@@ -12,7 +12,7 @@ wsjtx.overrideAttrs (old: {
     rev = "2a0e2bea8c66c9ca94d2ea8034cf83a68cfa40eb";
     hash = "sha256-5KlFBlzG3hKFFGO37c+VN+FvZKSnTQXvSorB+Grns8w=";
   };
-  buildInputs = old.buildInputs ++ [ qt5.qtwebsockets ];
+  buildInputs = old.buildInputs ++ [qt5.qtwebsockets];
   meta = {
     description = "wsjtx fork with some extra features";
     maintainers = with lib.maintainers; [

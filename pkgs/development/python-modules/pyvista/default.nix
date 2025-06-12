@@ -12,7 +12,6 @@
   typing-extensions,
   vtk,
 }:
-
 buildPythonPackage rec {
   pname = "pyvista";
   version = "0.45.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-szI9kzJQOVCKcGTWj9Twq9i2DzbrHt/LmYBBfq6MBy8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     matplotlib
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   # Fatal Python error: Aborted
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvista" ];
+  pythonImportsCheck = ["pyvista"];
 
   meta = with lib; {
     broken = pythonAtLeast "3.13"; # segfault
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://pyvista.org";
     changelog = "https://github.com/pyvista/pyvista/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

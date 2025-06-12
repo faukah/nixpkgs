@@ -3,7 +3,6 @@
   stdenvNoCC,
   uiua,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "uiua386";
 
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation {
     description = "Uiua font";
     homepage = "https://uiua.org/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ skykanin ];
+    maintainers = with lib.maintainers; [skykanin];
     platforms = lib.platforms.all;
   };
 }

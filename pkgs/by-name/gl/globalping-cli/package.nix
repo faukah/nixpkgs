@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "globalping-cli";
   version = "1.5.0";
@@ -20,10 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-dJAuN5srL5EvMaRg8rHaTsurjYrdH45p965DeubpB0E=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = 0;
-  subPackages = [ "." ];
+  subPackages = ["."];
   ldflags = [
     "-s"
     "-w"
@@ -34,20 +33,18 @@ buildGoModule rec {
     export HOME="$TMPDIR"
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        # Skip tests that require network access
-        "Test_Authorize"
-        "Test_TokenIntrospection"
-        "Test_Logout"
-        "Test_RevokeToken"
-        "Test_Limits"
-        "Test_CreateMeasurement"
-        "Test_GetMeasurement"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "|^" skippedTests}" ];
+  checkFlags = let
+    skippedTests = [
+      # Skip tests that require network access
+      "Test_Authorize"
+      "Test_TokenIntrospection"
+      "Test_Logout"
+      "Test_RevokeToken"
+      "Test_Limits"
+      "Test_CreateMeasurement"
+      "Test_GetMeasurement"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "|^" skippedTests}"];
 
   postInstall =
     ''
@@ -60,13 +57,13 @@ buildGoModule rec {
         --zsh <($out/bin/globalping completion zsh)
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Simple CLI tool to run networking commands remotely from hundreds of globally distributed servers";
     homepage = "https://www.jsdelivr.com/globalping/cli";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ xyenon ];
+    maintainers = with maintainers; [xyenon];
     mainProgram = "globalping";
   };
 }

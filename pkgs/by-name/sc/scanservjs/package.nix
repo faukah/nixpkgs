@@ -5,9 +5,7 @@
   fetchNpmDeps,
   nodejs_20,
   replaceVars,
-}:
-
-let
+}: let
   # Build fails on node 22, presumably because of esm.
   # https://github.com/NixOS/nixpkgs/issues/371649
   nodejs = nodejs_20;
@@ -55,41 +53,40 @@ let
       mv /build/source/dist/client $out
     '';
   };
-
 in
-buildNpmPackage {
-  pname = "scanservjs";
-  inherit version src nodejs;
+  buildNpmPackage {
+    pname = "scanservjs";
+    inherit version src nodejs;
 
-  sourceRoot = "${src.name}/packages/server";
-  npmDepsHash = depsHashes.server or lib.fakeHash;
+    sourceRoot = "${src.name}/packages/server";
+    npmDepsHash = depsHashes.server or lib.fakeHash;
 
-  # can't use "patches" since they change the server deps' hash for building the client
-  # (I don't want to maintain one more hash)
-  preBuild = ''
-    chmod +w /build/source
-    patch -p3 <${
-      replaceVars ./decouple-from-source-tree.patch {
-        inherit client;
+    # can't use "patches" since they change the server deps' hash for building the client
+    # (I don't want to maintain one more hash)
+    preBuild = ''
+      chmod +w /build/source
+      patch -p3 <${
+        replaceVars ./decouple-from-source-tree.patch {
+          inherit client;
+        }
       }
-    }
-    substituteInPlace src/api.js --replace 'NIX_OUT_PLACEHOLDER' "$out"
-  '';
+      substituteInPlace src/api.js --replace 'NIX_OUT_PLACEHOLDER' "$out"
+    '';
 
-  postInstall = ''
-    mkdir -p $out/bin
-    makeWrapper ${lib.getExe nodejs} $out/bin/scanservjs \
-      --set NODE_ENV production \
-      --add-flags "'$out/lib/node_modules/scanservjs-api/src/server.js'"
-  '';
+    postInstall = ''
+      mkdir -p $out/bin
+      makeWrapper ${lib.getExe nodejs} $out/bin/scanservjs \
+        --set NODE_ENV production \
+        --add-flags "'$out/lib/node_modules/scanservjs-api/src/server.js'"
+    '';
 
-  meta = {
-    description = "SANE scanner nodejs web ui";
-    longDescription = "scanservjs is a simple web-based UI for SANE which allows you to share a scanner on a network without the need for drivers or complicated installation.";
-    homepage = "https://github.com/sbs20/scanservjs";
-    license = lib.licenses.gpl2Only;
-    mainProgram = "scanservjs";
-    maintainers = with lib.maintainers; [ chayleaf ];
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "SANE scanner nodejs web ui";
+      longDescription = "scanservjs is a simple web-based UI for SANE which allows you to share a scanner on a network without the need for drivers or complicated installation.";
+      homepage = "https://github.com/sbs20/scanservjs";
+      license = lib.licenses.gpl2Only;
+      mainProgram = "scanservjs";
+      maintainers = with lib.maintainers; [chayleaf];
+      platforms = lib.platforms.linux;
+    };
+  }

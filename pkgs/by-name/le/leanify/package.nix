@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libiconv,
 }:
-
 stdenv.mkDerivation {
   pname = "leanify";
   version = "unstable-2025-05-15";
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
       --replace-quiet "-Werror" ""
   '';
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   doCheck = true;
 
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/JayXon/Leanify";
     changelog = "https://github.com/JayXon/Leanify/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.mynacol ];
+    maintainers = [maintainers.mynacol];
     platforms = platforms.all;
     mainProgram = "leanify";
   };

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   jurialmunkey,
 }:
-
 buildKodiAddon rec {
   pname = "texturemaker";
   namespace = "script.texturemaker";
@@ -25,6 +24,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/jurialmunkey/script.texturemaker/tree/main";
     description = "Texture Maker helps skinners build gradient based textures";
     license = licenses.gpl3Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -30,7 +30,6 @@
   testtools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "tempest";
   version = "43.0.0";
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     hash = "sha256-Py8SwyBYO35t+xv8oaxLv58owEUX/T9uhp3XM5wjsAI=";
   };
 
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cliff
@@ -91,13 +90,13 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "tempest" ];
+  pythonImportsCheck = ["tempest"];
 
   meta = with lib; {
     description = "OpenStack integration test suite that runs against live OpenStack cluster and validates an OpenStack deployment";
     homepage = "https://github.com/openstack/tempest";
     license = licenses.asl20;
     mainProgram = "tempest";
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

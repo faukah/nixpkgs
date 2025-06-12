@@ -45,7 +45,6 @@
   # optional features
   enableWCCP ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trafficserver";
   version = "9.2.10";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
       perl
       ExtUtilsMakeMaker
     ])
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ linuxHeaders ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [linuxHeaders];
 
   buildInputs =
     [
@@ -143,8 +142,8 @@ stdenv.mkDerivation rec {
     install -Dm644 rc/trafficserver.service $out/lib/systemd/system/trafficserver.service
 
     wrapProgram $out/bin/tspush \
-      --set PERL5LIB '${with perlPackages; makePerlPath [ URI ]}' \
-      --prefix PATH : "${lib.makeBinPath [ file ]}"
+      --set PERL5LIB '${with perlPackages; makePerlPath [URI]}' \
+      --prefix PATH : "${lib.makeBinPath [file]}"
 
     find "$out" -name '*.la' -delete
 
@@ -152,37 +151,35 @@ stdenv.mkDerivation rec {
     rmdir $out/.install-trafficserver
   '';
 
-  installCheckPhase =
-    let
-      expected = ''
-        Via header is [uScMsEf p eC:t cCMp sF], Length is 22
-        Via Header Details:
-        Request headers received from client                   :simple request (not conditional)
-        Result of Traffic Server cache lookup for URL          :miss (a cache "MISS")
-        Response information received from origin server       :error in response
-        Result of document write-to-cache:                     :no cache write performed
-        Proxy operation result                                 :unknown
-        Error codes (if any)                                   :connection to server failed
-        Tunnel info                                            :no tunneling
-        Cache Type                                             :cache
-        Cache Lookup Result                                    :cache miss (url not in cache)
-        Parent proxy connection status                         :no parent proxy or unknown
-        Origin server connection status                        :connection open failed
-      '';
-    in
-    ''
-      runHook preInstallCheck
-      diff -Naur <($out/bin/traffic_via '[uScMsEf p eC:t cCMp sF]') - <<EOF
-      ${lib.removeSuffix "\n" expected}
-      EOF
-      runHook postInstallCheck
+  installCheckPhase = let
+    expected = ''
+      Via header is [uScMsEf p eC:t cCMp sF], Length is 22
+      Via Header Details:
+      Request headers received from client                   :simple request (not conditional)
+      Result of Traffic Server cache lookup for URL          :miss (a cache "MISS")
+      Response information received from origin server       :error in response
+      Result of document write-to-cache:                     :no cache write performed
+      Proxy operation result                                 :unknown
+      Error codes (if any)                                   :connection to server failed
+      Tunnel info                                            :no tunneling
+      Cache Type                                             :cache
+      Cache Lookup Result                                    :cache miss (url not in cache)
+      Parent proxy connection status                         :no parent proxy or unknown
+      Origin server connection status                        :connection open failed
     '';
+  in ''
+    runHook preInstallCheck
+    diff -Naur <($out/bin/traffic_via '[uScMsEf p eC:t cCMp sF]') - <<EOF
+    ${lib.removeSuffix "\n" expected}
+    EOF
+    runHook postInstallCheck
+  '';
 
   doCheck = true;
   doInstallCheck = true;
   enableParallelBuilding = true;
 
-  passthru.tests = { inherit (nixosTests) trafficserver; };
+  passthru.tests = {inherit (nixosTests) trafficserver;};
 
   meta = {
     homepage = "https://trafficserver.apache.org";
@@ -198,7 +195,7 @@ stdenv.mkDerivation rec {
       large intranets by maximizing existing and available bandwidth.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ midchildan ];
+    maintainers = with lib.maintainers; [midchildan];
     platforms = lib.platforms.unix;
   };
 }

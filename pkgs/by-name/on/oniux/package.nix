@@ -19,12 +19,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-79KNytAXxuYi9VBmkkOJg2ugjjoKJ/BPBqWa7Z72HGI=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://gitlab.torproject.org/tpo/core/oniux";
     description = "Isolate Applications over Tor using Linux Namespaces";
-    maintainers = with lib.maintainers; [ tnias ];
+    maintainers = with lib.maintainers; [tnias];
     platforms = lib.platforms.linux;
     license = with lib.licenses; [
       asl20

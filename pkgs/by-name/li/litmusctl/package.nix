@@ -5,7 +5,6 @@
   kubectl,
   lib,
 }:
-
 buildGoModule rec {
   pname = "litmusctl";
   version = "1.16.0";

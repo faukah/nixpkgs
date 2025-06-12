@@ -8,7 +8,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cyan";
   version = "1.2.4";
@@ -26,9 +25,9 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [ imagemagick ];
+  buildInputs = [imagemagick];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Image viewer and converter, designed for prepress (print) work";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     mainProgram = "Cyan";
     license = licenses.cecill21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

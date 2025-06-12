@@ -15,7 +15,6 @@
   libxml2,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emblem";
   version = "1.5.0";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   );
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
       figsoda
       foo-dogsquared
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

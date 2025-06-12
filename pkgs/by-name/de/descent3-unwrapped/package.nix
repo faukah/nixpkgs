@@ -13,7 +13,6 @@
   writeShellScript,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "descent3-unwrapped";
   # I’m using an unstable version here because we need to use -additionaldir in
@@ -53,8 +52,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-1cXiTWKwVgyVM78+0PpuvyJn8v/8BHp7mkw0DgVPolg=";
   };
 
-  hardeningDisable = [ "format" ];
-  nativeBuildInputs = [ cmake ];
+  hardeningDisable = ["format"];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     glm
     httplib
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     sdl3
     zlib
   ];
-  cmakeFlags = [ "-DFORCE_PORTABLE_INSTALL=OFF" ];
+  cmakeFlags = ["-DFORCE_PORTABLE_INSTALL=OFF"];
   # This is a workaround for a problem that will eventually get fixed upstream.
   postInstall = ''
     cd "$out"
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
   passthru = {
     # The idea here is to make sure that we don’t forget to update meta.license
     # when reviewing a pull request from @r-ryantm.
-    tests.licenseInfoIsUpToDate = runCommand "${pname}-license-info-is-up-to-date" { } ''
+    tests.licenseInfoIsUpToDate = runCommand "${pname}-license-info-is-up-to-date" {} ''
       function on_success {
         echo Test succeeded. > "$out"
       }
@@ -140,18 +139,20 @@ stdenv.mkDerivation rec {
       mit
     ];
     mainProgram = "Descent3";
-    maintainers = [ lib.maintainers.jayman2000 ];
+    maintainers = [lib.maintainers.jayman2000];
     platforms = lib.platforms.all;
-    badPlatforms = [
-      # Descent 3 stores modules in HOG2 archives. It extracts those modules
-      # and then tries to dlopen() them at runtime.
-      lib.systems.inspect.platformPatterns.isStatic
-      # When you build Descent 3 on Darwin, it produces a different directory
-      # structure (no bin/ directory) [1]. I’m sure that this derivation could be
-      # updated to account for that different directory structure, but I don’t
-      # have any Darwin systems to test things on at the moment.
-      #
-      # [1]: <https://logs.ofborg.org/?key=nixos/nixpkgs.355710&attempt_id=747dd630-5068-4ba9-9c50-6f150634ef1a>
-    ] ++ lib.platforms.darwin;
+    badPlatforms =
+      [
+        # Descent 3 stores modules in HOG2 archives. It extracts those modules
+        # and then tries to dlopen() them at runtime.
+        lib.systems.inspect.platformPatterns.isStatic
+        # When you build Descent 3 on Darwin, it produces a different directory
+        # structure (no bin/ directory) [1]. I’m sure that this derivation could be
+        # updated to account for that different directory structure, but I don’t
+        # have any Darwin systems to test things on at the moment.
+        #
+        # [1]: <https://logs.ofborg.org/?key=nixos/nixpkgs.355710&attempt_id=747dd630-5068-4ba9-9c50-6f150634ef1a>
+      ]
+      ++ lib.platforms.darwin;
   };
 }

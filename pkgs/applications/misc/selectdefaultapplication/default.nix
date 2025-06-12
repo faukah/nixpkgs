@@ -6,7 +6,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation {
   pname = "selectdefaultapplication";
   version = "unstable-2021-08-12";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     qmake
     wrapQtAppsHook
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   installPhase = ''
     runHook preInstall
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     description = "Very simple application that lets you define default applications on Linux in a sane way";
     mainProgram = "selectdefaultapplication";
     homepage = "https://github.com/sandsmark/selectdefaultapplication";
-    maintainers = with maintainers; [ nsnelson ];
+    maintainers = with maintainers; [nsnelson];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

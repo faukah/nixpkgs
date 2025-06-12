@@ -8,7 +8,6 @@
   python3,
   withDriver ? false,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "chipsec";
   version = "1.10.6";
@@ -88,7 +87,7 @@ python3.pkgs.buildPythonApplication rec {
       johnazoidberg
       erdnaxe
     ];
-    platforms = [ "x86_64-linux" ] ++ lib.optional (!withDriver) "x86_64-darwin";
+    platforms = ["x86_64-linux"] ++ lib.optional (!withDriver) "x86_64-darwin";
     # https://github.com/chipsec/chipsec/issues/1793
     broken = withDriver && kernel.kernelOlder "5.4" && kernel.isHardened;
   };

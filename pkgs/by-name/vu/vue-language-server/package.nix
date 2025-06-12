@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchurl,
 }:
-
 buildNpmPackage rec {
   pname = "vue-language-server";
   version = "2.2.8";
@@ -28,7 +27,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/vuejs/language-tools#readme";
     changelog = "https://github.com/vuejs/language-tools/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ friedow ];
+    maintainers = with lib.maintainers; [friedow];
     mainProgram = "vue-language-server";
   };
 }

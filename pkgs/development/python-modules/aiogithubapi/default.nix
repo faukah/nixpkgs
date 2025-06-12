@@ -12,7 +12,6 @@
   pythonOlder,
   sigstore,
 }:
-
 buildPythonPackage rec {
   pname = "aiogithubapi";
   version = "25.5.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonRelaxDeps = [ "async-timeout" ];
+  pythonRelaxDeps = ["async-timeout"];
 
   postPatch = ''
     # Upstream is releasing with the help of a CI to PyPI, GitHub releases
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -55,7 +54,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -64,13 +63,13 @@ buildPythonPackage rec {
     rm -rf tests/test_helper.py
   '';
 
-  pythonImportsCheck = [ "aiogithubapi" ];
+  pythonImportsCheck = ["aiogithubapi"];
 
   meta = {
     description = "Python client for the GitHub API";
     homepage = "https://github.com/ludeeus/aiogithubapi";
     changelog = "https://github.com/ludeeus/aiogithubapi/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

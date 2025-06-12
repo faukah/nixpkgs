@@ -45,23 +45,25 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [
-    zlib
-    libjpeg
-    wxGTK32
-    libxml2
-    libsigcxx
-    libpng
-    openal
-    libvorbis
-    eigen
-    ftgl
-    freetype
-    glew
-    glib
-    libgit2
-    python3
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ libX11 ];
+  buildInputs =
+    [
+      zlib
+      libjpeg
+      wxGTK32
+      libxml2
+      libsigcxx
+      libpng
+      openal
+      libvorbis
+      eigen
+      ftgl
+      freetype
+      glew
+      glib
+      libgit2
+      python3
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libX11];
 
   doCheck = true;
 
@@ -85,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/codereader/DarkRadiant";
     changelog = "https://github.com/codereader/DarkRadiant/releases";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     platforms = lib.platforms.unix;
     mainProgram = "darkradiant";
     broken = stdenv.hostPlatform.isDarwin;

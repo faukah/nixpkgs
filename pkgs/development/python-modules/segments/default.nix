@@ -10,7 +10,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "segments";
   version = "2.2.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "--cov" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     regex
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     mainProgram = "segments";
     homepage = "https://github.com/cldf/segments";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

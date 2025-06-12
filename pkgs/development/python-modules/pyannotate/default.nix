@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pyannotate";
   version = "1.2.0";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-BO1YBLqzgVPVmB/JLYPc9qIog0U3aFYfBX53flwFdZk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     six
     mypy-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "pyannotate_runtime"
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     description = "Auto-generate PEP-484 annotations";
     homepage = "https://github.com/dropbox/pyannotate";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pyannotate";
   };
 }

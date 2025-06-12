@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "tensorboard-data-server";
   version = "0.7.2";
@@ -19,12 +18,12 @@ buildPythonPackage rec {
     hash = "sha256-fgYQ0gWIlYiYODbsBdwJjoD5e357v/fplOu3j1eNDds=";
   };
 
-  pythonImportsCheck = [ "tensorboard_data_server" ];
+  pythonImportsCheck = ["tensorboard_data_server"];
 
   meta = with lib; {
     description = "Fast data loading for TensorBoard";
     homepage = "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

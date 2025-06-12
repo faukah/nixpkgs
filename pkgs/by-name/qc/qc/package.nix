@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "qc";
   version = "0.6.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
   # There are no automated tests
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles

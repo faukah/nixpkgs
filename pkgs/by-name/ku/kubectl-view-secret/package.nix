@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-view-secret";
   version = "0.14.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-XtQkAgmnXNKHHjFtZN8Ht/C/aH2mPOeHk7azihehzsc=";
 
-  subPackages = [ "./cmd/" ];
+  subPackages = ["./cmd/"];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/kubectl-view-secret
@@ -29,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/elsesiy/kubectl-view-secret";
     changelog = "https://github.com/elsesiy/kubectl-view-secret/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sagikazarmark ];
+    maintainers = [lib.maintainers.sagikazarmark];
   };
 }

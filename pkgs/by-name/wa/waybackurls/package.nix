@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "waybackurls";
   version = "0.1.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/tomnomnom/waybackurls";
     changelog = "https://github.com/tomnomnom/waybackurls/releases/tag/${src.tag}";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "waybackurls";
   };
 }

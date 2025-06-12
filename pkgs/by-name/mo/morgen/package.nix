@@ -13,7 +13,6 @@
   libgbm,
   nss,
 }:
-
 stdenv.mkDerivation rec {
   pname = "morgen";
   version = "3.6.14";
@@ -68,9 +67,9 @@ stdenv.mkDerivation rec {
     description = "All-in-one Calendars, Tasks and Scheduler";
     homepage = "https://morgen.so/";
     mainProgram = "morgen";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ justanotherariel ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [justanotherariel];
+    platforms = ["x86_64-linux"];
   };
 }

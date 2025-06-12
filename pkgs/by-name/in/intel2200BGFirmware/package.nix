@@ -3,7 +3,6 @@
   lib,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "intel2200BGFirmware";
   version = "3.1";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Firmware for Intel 2200BG cards";
     homepage = "https://ipw2200.sourceforge.net/firmware.php";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
     platforms = platforms.linux;
   };
 }

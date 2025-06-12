@@ -3,7 +3,6 @@
   stdenv,
   fetchgit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mdf2iso";
   version = "0.3.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     homepage = src.url;
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.oxij ];
+    maintainers = [maintainers.oxij];
     mainProgram = "mdf2iso";
   };
 }

@@ -10,7 +10,6 @@
   zlib,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eternal-terminal";
   version = "6.2.9";

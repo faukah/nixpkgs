@@ -1,4 +1,4 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "usr.sbin/services_mkdb";
   postInstall = ''

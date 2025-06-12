@@ -7,7 +7,6 @@
   kactivities,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "KSmoothDock";
   version = "6.3";
@@ -42,7 +41,7 @@ mkDerivation rec {
     mainProgram = "ksmoothdock";
     license = licenses.mit;
     homepage = "https://dangvd.github.io/ksmoothdock/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

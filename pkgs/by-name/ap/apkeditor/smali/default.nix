@@ -3,9 +3,7 @@
   gradle,
   lib,
   REAndroidLibrary,
-}:
-
-let
+}: let
   self = REAndroidLibrary {
     pname = "smali";
     version = "0-unstable-2024-10-15";
@@ -54,4 +52,4 @@ let
     ];
   };
 in
-self
+  self

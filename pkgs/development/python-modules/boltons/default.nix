@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "boltons";
   version = "25.0.0";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-kBOU17/jRRAGb4MGawY0PY31OJf5arVz+J7xGBoMBkg=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests bind to localhost
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "boltons" ];
+  pythonImportsCheck = ["boltons"];
 
   meta = with lib; {
     description = "Constructs, recipes, and snippets extending the Python standard library";
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mahmoud/boltons";
     changelog = "https://github.com/mahmoud/boltons/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

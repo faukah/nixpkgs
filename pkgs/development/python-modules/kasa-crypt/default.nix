@@ -8,7 +8,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "kasa-crypt";
   version = "0.6.3";
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "kasa_crypt" ];
+  pythonImportsCheck = ["kasa_crypt"];
 
   meta = with lib; {
     description = "Fast kasa crypt";
     homepage = "https://github.com/bdraco/kasa-crypt";
     changelog = "https://github.com/bdraco/kasa-crypt/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   pythonOlder,
   pyserial,
 }:
-
 buildPythonPackage rec {
   pname = "pyserial-asyncio";
   version = "0.6";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-tgMpI+BenXXsF6WvmphCnEbSg5rfr4BgTVLg+qzXoy8=";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "serial_asyncio" ];
+  pythonImportsCheck = ["serial_asyncio"];
 
   meta = with lib; {
     description = "Asyncio extension package for pyserial";
     homepage = "https://github.com/pyserial/pyserial-asyncio";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

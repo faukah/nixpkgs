@@ -31,14 +31,14 @@ rustPlatform.buildRustPackage rec {
       --fish <($out/bin/tray-tui --completions fish)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "System tray in your terminal";
     homepage = "https://github.com/Levizor/tray-tui";
     license = lib.licenses.mit;
     mainProgram = "tray-tui";
-    maintainers = with lib.maintainers; [ Levizor ];
+    maintainers = with lib.maintainers; [Levizor];
     platforms = lib.platforms.linux;
   };
 }

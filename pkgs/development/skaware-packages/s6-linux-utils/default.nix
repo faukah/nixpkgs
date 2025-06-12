@@ -3,7 +3,6 @@
   skawarePackages,
   skalibs,
 }:
-
 skawarePackages.buildPackage {
   pname = "s6-linux-utils";
   version = "2.6.3.0";
@@ -36,5 +35,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/s6-linux-utils/html
   '';
-
 }

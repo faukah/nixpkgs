@@ -9,7 +9,6 @@
   protobuf,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "clarifai-grpc";
   version = "11.5.3";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-XShgm9/i1YuQRdC2ToImjmeBYfFJL+sJOyPuZGSbC8E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     googleapis-common-protos
@@ -40,13 +39,13 @@ buildPythonPackage rec {
   # almost all tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "clarifai_grpc" ];
+  pythonImportsCheck = ["clarifai_grpc"];
 
   meta = {
     description = "Clarifai gRPC API Client";
     homepage = "https://github.com/Clarifai/clarifai-python-grpc";
     changelog = "https://github.com/Clarifai/clarifai-python-grpc/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

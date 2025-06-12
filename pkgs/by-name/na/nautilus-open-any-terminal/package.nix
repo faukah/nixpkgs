@@ -13,7 +13,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "nautilus-open-any-terminal";
   version = "0.6.1";
@@ -26,7 +25,7 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-oiyXDeunAgs3uCrqHKdTcOvXD4vmx8Z3uFutNYpGxtc=";
   };
 
-  patches = [ ./hardcode-gsettings.patch ];
+  patches = [./hardcode-gsettings.patch];
 
   nativeBuildInputs = [
     glib
@@ -58,7 +57,7 @@ python3.pkgs.buildPythonPackage rec {
   meta = with lib; {
     description = "Extension for nautilus, which adds an context-entry for opening other terminal-emulators then `gnome-terminal`";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     homepage = "https://github.com/Stunkymonkey/nautilus-open-any-terminal";
     platforms = platforms.linux;
   };

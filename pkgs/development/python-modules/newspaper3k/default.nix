@@ -11,7 +11,6 @@
   beautifulsoup4,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "newspaper3k";
   version = "0.2.8";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  pythonImportsCheck = [ "newspaper" ];
+  pythonImportsCheck = ["newspaper"];
 
   meta = {
     description = "Simplified python article discovery & extraction";
     homepage = "https://pypi.org/project/newspaper3k";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

@@ -3,9 +3,8 @@
   stdenv,
   fetchFromGitHub,
   kernel ? false,
-  kernelModuleMakeFlags ? [ ],
+  kernelModuleMakeFlags ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cryptodev-linux";
   version = "1.14";
@@ -18,18 +17,20 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "INSTALL_MOD_PATH=$(out)"
-    "prefix=$(out)"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KERNEL_DIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "INSTALL_MOD_PATH=$(out)"
+      "prefix=$(out)"
+    ];
 
   meta = {
     description = "Device that allows access to Linux kernel cryptographic drivers";
     homepage = "http://cryptodev-linux.org/";
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

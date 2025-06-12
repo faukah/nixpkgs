@@ -4,7 +4,6 @@
   fetchFromGitea,
   bash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "game-devices-udev-rules";
   version = "0.24";
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
       Additionally, you may need to enable 'hardware.uinput'.
     '';
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
   };
 })

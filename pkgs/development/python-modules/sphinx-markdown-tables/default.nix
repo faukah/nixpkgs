@@ -5,7 +5,6 @@
   sphinx,
   markdown,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-markdown-tables";
   version = "0.0.17";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
     markdown
   ];
 
-  pythonImportsCheck = [ "sphinx_markdown_tables" ];
+  pythonImportsCheck = ["sphinx_markdown_tables"];
 
   meta = with lib; {
     description = "Sphinx extension for rendering tables written in markdown";
     homepage = "https://github.com/ryanfox/sphinx-markdown-tables";
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     license = licenses.gpl3;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation {
   pname = "prover9";
   version = "2009-11A";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     hash = "sha256-wyvtWAcADAtxYcJ25Q2coK8MskjfLBr/svb8AkcbUdA=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postPatch = ''
     RM=$(type -tp rm)
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     done
   '';
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   # Fails the build on clang-16 and gcc-14.
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-int";
@@ -69,6 +68,6 @@ stdenv.mkDerivation {
     '';
     mainProgram = "prover9";
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,17 +3,13 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   libcosmicAppHook,
   just,
-
   # buildInputs
   openssl,
-
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "forecast";
   version = "0-unstable-2025-05-25";
@@ -36,7 +32,7 @@ rustPlatform.buildRustPackage {
   dontUseJustBuild = true;
   dontUseJustCheck = true;
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   justFlags = [
     "--set"

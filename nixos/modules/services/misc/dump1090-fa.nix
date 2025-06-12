@@ -3,20 +3,18 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.dump1090-fa;
   inherit (lib) mkOption types;
-in
-{
+in {
   options.services.dump1090-fa = {
     enable = lib.mkEnableOption "dump1090-fa";
 
-    package = lib.mkPackageOption pkgs "dump1090-fa" { };
+    package = lib.mkPackageOption pkgs "dump1090-fa" {};
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = "Additional passed arguments";
     };
   };
@@ -24,8 +22,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.dump1090-fa = {
       description = "dump1090 ADS-B receiver (FlightAware customization)";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = lib.escapeShellArgs (
@@ -120,7 +118,7 @@ in
           "~@cpu-emulation"
           "~@obsolete"
         ];
-        RestrictAddressFamilies = [ "~AF_PACKET" ];
+        RestrictAddressFamilies = ["~AF_PACKET"];
         ProtectControlGroups = true;
         UMask = "0022";
         SystemCallArchitectures = "native";
@@ -129,7 +127,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ aciceri ];
+    maintainers = with lib.maintainers; [aciceri];
     doc = ./dump1090-fa.md;
   };
 }

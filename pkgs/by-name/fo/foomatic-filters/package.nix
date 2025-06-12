@@ -9,7 +9,6 @@
   dbus,
   enscript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "foomatic-filters";
   version = "4.0.17";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qrkgbm5jay2r7sh9qbyf0aiyrsl1mdc844hxf7fhw95a0zfbqm2";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     perl
     cups
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   #     `cupsfilter'; foomatic_rip-foomaticrip.o:/build/foomatic-filters-4.0.17/foomaticrip.c:158: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  installTargets = [ "install-cups" ];
+  installTargets = ["install-cups"];
 
   installFlags = [
     "CUPS_FILTERS=$(out)/lib/cups/filter"
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Foomatic printing filters";
     mainProgram = "foomatic-rip";
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Plus;
   };

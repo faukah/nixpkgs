@@ -5,8 +5,7 @@
   testers,
   runCommand,
   removeReferencesTo,
-}:
-let
+}: let
   inherit (buildPackages) buildDotnetModule dotnet-runtime;
 
   app = buildDotnetModule {
@@ -18,9 +17,11 @@ let
   };
 
   appWithoutFallback = app.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [
-      removeReferencesTo
-    ];
+    nativeBuildInputs =
+      (oldAttrs.nativeBuildInputs or [])
+      ++ [
+        removeReferencesTo
+      ];
     postFixup =
       (oldAttrs.postFixup or "")
       + ''
@@ -30,19 +31,18 @@ let
 
   runtimeVersion = lib.getVersion dotnet-runtime;
   runtimeVersionFile = builtins.toFile "dotnet-version.txt" runtimeVersion;
-in
-{
+in {
   fallback = testers.testEqualContents {
     assertion = "buildDotnetModule sets fallback DOTNET_ROOT in wrapper";
     expected = runtimeVersionFile;
-    actual = runCommand "use-dotnet-from-env-fallback-test" { } ''
+    actual = runCommand "use-dotnet-from-env-fallback-test" {} ''
       ${app}/bin/Application >"$out"
     '';
   };
 
   # Check that appWithoutFallback does not use fallback .NET runtime.
   without-fallback = testers.testBuildFailure (
-    runCommand "use-dotnet-from-env-without-fallback-test" { } ''
+    runCommand "use-dotnet-from-env-without-fallback-test" {} ''
       ${appWithoutFallback}/bin/Application >"$out"
     ''
   );
@@ -52,15 +52,15 @@ in
     assertion = "buildDotnetModule uses DOTNET_ROOT from environment in wrapper";
     expected = runtimeVersionFile;
     actual =
-      runCommand "use-dotnet-from-env-root-test" { env.DOTNET_ROOT = "${dotnet-runtime}/share/dotnet"; }
-        ''
-          ${appWithoutFallback}/bin/Application >"$out"
-        '';
+      runCommand "use-dotnet-from-env-root-test" {env.DOTNET_ROOT = "${dotnet-runtime}/share/dotnet";}
+      ''
+        ${appWithoutFallback}/bin/Application >"$out"
+      '';
   };
   use-dotnet-path-env = testers.testEqualContents {
     assertion = "buildDotnetModule uses DOTNET_ROOT from dotnet in PATH in wrapper";
     expected = runtimeVersionFile;
-    actual = runCommand "use-dotnet-from-env-path-test" { dotnetRuntime = dotnet-runtime; } ''
+    actual = runCommand "use-dotnet-from-env-path-test" {dotnetRuntime = dotnet-runtime;} ''
       PATH=$dotnetRuntime/bin''${PATH+:}$PATH ${appWithoutFallback}/bin/Application >"$out"
     '';
   };

@@ -17,7 +17,6 @@
   ffmpeg,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "newelle";
   version = "0.9.8";
@@ -91,7 +90,7 @@ python3Packages.buildPythonApplication rec {
     }"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/qwersyk/Newelle";
@@ -99,6 +98,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "newelle";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

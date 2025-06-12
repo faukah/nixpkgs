@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # documentation build dependencies
   sphinxHook,
   # runtime dependencies
@@ -16,7 +14,6 @@
   pytest,
   beautifulsoup4,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-tabs";
   version = "3.4.7";
@@ -50,12 +47,12 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  pythonImportsCheck = [ "sphinx_tabs" ];
+  pythonImportsCheck = ["sphinx_tabs"];
 
   meta = with lib; {
     description = "Sphinx extension for creating tabbed content when building HTML";
     homepage = "https://github.com/executablebooks/sphinx-tabs";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

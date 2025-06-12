@@ -18,7 +18,6 @@
   versioneer,
   webdavclient3,
 }:
-
 buildPythonPackage rec {
   pname = "datalad-next";
   version = "1.5.0";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     rm versioneer.py
   '';
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
   build-system = [
     setuptools
@@ -110,13 +109,13 @@ buildPythonPackage rec {
     "datalad_next/archive_operations/tests/test_tarfile.py"
   ];
 
-  pythonImportsCheck = [ "datalad_next" ];
+  pythonImportsCheck = ["datalad_next"];
 
   meta = {
     description = "DataLad extension with a staging area for additional functionality, or for improved performance and user experience";
     changelog = "https://github.com/datalad/datalad-next/blob/main/CHANGELOG.md";
     homepage = "https://github.com/datalad/datalad-next";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gador ];
+    maintainers = with lib.maintainers; [gador];
   };
 }

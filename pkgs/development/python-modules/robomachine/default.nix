@@ -7,7 +7,6 @@
   robotframework,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "robomachine";
   version = "0.10.0";
@@ -29,16 +28,16 @@ buildPythonPackage rec {
     allpairspy
   ];
 
-  pythonRemoveDeps = [ "argparse" ];
+  pythonRemoveDeps = ["argparse"];
 
-  pythonRelaxDeps = [ "pyparsing" ];
+  pythonRelaxDeps = ["pyparsing"];
 
-  pythonImportsCheck = [ "robomachine" ];
+  pythonImportsCheck = ["robomachine"];
 
   meta = with lib; {
     description = "Test data generator for Robot Framework";
     homepage = "https://github.com/mkorpela/RoboMachine";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

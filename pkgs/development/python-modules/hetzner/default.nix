@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "hetzner";
   version = "0.8.3";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "High-level Python API for accessing the Hetzner robot";
     mainProgram = "hetznerctl";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aszlig ];
+    maintainers = with maintainers; [aszlig];
   };
 }

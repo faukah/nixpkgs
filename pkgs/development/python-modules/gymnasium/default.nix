@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   cloudpickle,
   farama-notifications,
@@ -14,7 +12,6 @@
   typing-extensions,
   pythonOlder,
   importlib-metadata,
-
   # tests
   dill,
   flax,
@@ -29,7 +26,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "gymnasium";
   version = "1.1.1";
@@ -43,16 +39,18 @@ buildPythonPackage rec {
     hash = "sha256-5uE6ANOxVCeV5GMDGG+0j5JY2t++jw+mZFFHGl+sTfw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    cloudpickle
-    farama-notifications
-    numpy
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      cloudpickle
+      farama-notifications
+      numpy
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  pythonImportsCheck = [ "gymnasium" ];
+  pythonImportsCheck = ["gymnasium"];
 
   nativeCheckInputs = [
     dill
@@ -113,6 +111,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Farama-Foundation/Gymnasium";
     changelog = "https://github.com/Farama-Foundation/Gymnasium/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

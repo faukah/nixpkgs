@@ -11,7 +11,6 @@
   six,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "psycopg2cffi";
   version = "2.9.0";
@@ -30,8 +29,8 @@ buildPythonPackage rec {
       --replace-fail "sysconfig.get_python_inc()" "sysconfig.get_path('include')"
   '';
 
-  buildInputs = [ libpq ];
-  nativeBuildInputs = [ libpq.pg_config ];
+  buildInputs = [libpq];
+  nativeBuildInputs = [libpq.pg_config];
 
   build-system = [
     setuptools
@@ -60,12 +59,12 @@ buildPythonPackage rec {
     PGDATABASE = "psycopg2_test";
   };
 
-  pythonImportsCheck = [ "psycopg2cffi" ];
+  pythonImportsCheck = ["psycopg2cffi"];
 
   meta = with lib; {
     description = "Implementation of the psycopg2 module using cffi";
     homepage = "https://pypi.org/project/psycopg2cffi/";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ lovesegfault ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

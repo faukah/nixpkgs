@@ -12,9 +12,7 @@
   python3,
   nixosTests,
   withStap ? true, # avoid cyclic dependency with glib, reduce closure size substantially
-}:
-
-let
+}: let
   ## fetchgit info
   url = "git://sourceware.org/git/systemtap.git";
   rev = "release-${version}";
@@ -27,7 +25,7 @@ let
   stapBuild = stdenv.mkDerivation {
     pname = "systemtap";
     inherit version;
-    src = fetchgit { inherit url rev hash; };
+    src = fetchgit {inherit url rev hash;};
     nativeBuildInputs = [
       pkg-config
       cpio
@@ -43,21 +41,20 @@ let
   };
 
   ## symlink farm for --sysroot flag
-  sysroot = runCommand "systemtap-sysroot-${kernel.version}" { } ''
+  sysroot = runCommand "systemtap-sysroot-${kernel.version}" {} ''
     mkdir -p $out/boot $out/usr/lib/debug
     ln -s ${kernel.dev}/vmlinux ${kernel.dev}/lib $out
     ln -s ${kernel.dev}/vmlinux $out/usr/lib/debug
     ln -s ${kernel}/System.map $out/boot/System.map-${kernel.version}
   '';
 
-  pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];
-
+  pypkgs = with python3.pkgs; makePythonPath [pyparsing];
 in
-runCommand "systemtap-${version}"
+  runCommand "systemtap-${version}"
   {
     inherit stapBuild;
-    nativeBuildInputs = [ makeWrapper ];
-    passthru.tests = { inherit (nixosTests.systemtap) linux_default linux_latest; };
+    nativeBuildInputs = [makeWrapper];
+    passthru.tests = {inherit (nixosTests.systemtap) linux_default linux_latest;};
     meta = {
       homepage = "https://sourceware.org/systemtap/";
       description = "Provides a scripting language for instrumentation on a live kernel plus user-space";
@@ -79,12 +76,12 @@ runCommand "systemtap-${version}"
       makeWrapper $stapBuild/bin/stap $out/bin/stap \
         --add-flags "--sysroot ${sysroot}" \
         --prefix PATH : ${
-          lib.makeBinPath [
-            stdenv.cc.cc
-            stdenv.cc.bintools
-            elfutils
-            gnumake
-          ]
-        }
+        lib.makeBinPath [
+          stdenv.cc.cc
+          stdenv.cc.bintools
+          elfutils
+          gnumake
+        ]
+      }
     ''
   )

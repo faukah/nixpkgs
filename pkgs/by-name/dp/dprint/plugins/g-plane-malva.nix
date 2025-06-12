@@ -1,9 +1,9 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "CSS, SCSS, Sass and Less formatter.";
   hash = "sha256-mFlhfqtglKtKNls96PO/2AWLL1fNC5msQCd9EgdKauE=";
   initConfig = {
-    configExcludes = [ "**/node_modules" ];
+    configExcludes = ["**/node_modules"];
     configKey = "malva";
     fileExtensions = [
       "css"

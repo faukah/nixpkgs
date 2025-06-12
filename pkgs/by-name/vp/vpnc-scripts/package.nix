@@ -11,7 +11,6 @@
   openresolv,
   systemd,
 }:
-
 stdenv.mkDerivation {
   pname = "vpnc-scripts";
   version = "unstable-2023-01-03";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     hash = "sha256-EWrDyXg47Ur9mFutaG8+oYOCAW9AZowzwwJp3YbogIY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -42,19 +41,19 @@ stdenv.mkDerivation {
     + ''
       wrapProgram $out/bin/vpnc-script \
         --prefix PATH : "${
-          lib.makeBinPath (
-            [
-              nettools
-              gawk
-              coreutils
-              gnugrep
-            ]
-            ++ lib.optionals stdenv.hostPlatform.isLinux [
-              openresolv
-              iproute2
-            ]
-          )
-        }"
+        lib.makeBinPath (
+          [
+            nettools
+            gawk
+            coreutils
+            gnugrep
+          ]
+          ++ lib.optionals stdenv.hostPlatform.isLinux [
+            openresolv
+            iproute2
+          ]
+        )
+      }"
     '';
 
   meta = with lib; {
@@ -62,7 +61,7 @@ stdenv.mkDerivation {
     description = "Script for vpnc to configure the network routing and name service";
     mainProgram = "vpnc-script";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jerith666 ];
+    maintainers = with maintainers; [jerith666];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -1,22 +1,21 @@
-{ pkgs, lib, ... }:
-
-let
-  port = 1234;
-in
 {
+  pkgs,
+  lib,
+  ...
+}: let
+  port = 1234;
+in {
   name = "mollysocket";
-  meta.maintainers = with lib.maintainers; [ dotlambda ];
+  meta.maintainers = with lib.maintainers; [dotlambda];
 
-  nodes.mollysocket =
-    { ... }:
-    {
-      services.mollysocket = {
-        enable = true;
-        settings = {
-          inherit port;
-        };
+  nodes.mollysocket = {...}: {
+    services.mollysocket = {
+      enable = true;
+      settings = {
+        inherit port;
       };
     };
+  };
 
   testScript = ''
     mollysocket.wait_for_unit("mollysocket.service")

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildHomeAssistantComponent,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "thomasddn";
   domain = "volvo_cars";
@@ -20,7 +19,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/thomasddn/ha-volvo-cars/releases/tag/${src.tag}";
     homepage = "https://github.com/thomasddn/ha-volvo-cars";
     description = "Volvo Cars Home Assistant integration";
-    maintainers = with maintainers; [ seberm ];
+    maintainers = with maintainers; [seberm];
     license = licenses.gpl3Only;
   };
 }

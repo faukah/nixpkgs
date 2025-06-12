@@ -4,7 +4,6 @@
   fetchFromGitHub,
   util-linux,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mcelog";
   version = "206";

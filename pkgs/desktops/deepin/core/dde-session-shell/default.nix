@@ -20,7 +20,6 @@
   dbus,
   dde-session-shell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-session-shell";
   version = "6.0.21";
@@ -106,6 +105,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-session-shell";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

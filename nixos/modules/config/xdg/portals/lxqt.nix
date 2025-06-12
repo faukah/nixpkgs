@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.xdg.portal.lxqt;
-
-in
-{
+in {
   meta = {
     maintainers = lib.teams.lxqt.members;
   };
@@ -24,7 +21,7 @@ in
 
     styles = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           pkgs.libsForQt5.qtstyleplugin-kvantum
@@ -43,7 +40,7 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = [
-        (pkgs.lxqt.xdg-desktop-portal-lxqt.override { extraQtStyles = cfg.styles; })
+        (pkgs.lxqt.xdg-desktop-portal-lxqt.override {extraQtStyles = cfg.styles;})
       ];
     };
 

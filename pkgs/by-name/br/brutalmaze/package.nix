@@ -3,7 +3,6 @@
   fetchFromSourcehut,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "brutalmaze";
   version = "1.1.1";
@@ -34,6 +33,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "brutalmaze";
     homepage = "https://brutalmaze.rtfd.io";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
   };
 }

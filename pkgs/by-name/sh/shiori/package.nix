@@ -6,7 +6,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "shiori";
   version = "1.7.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X main.commit=nixpkgs-${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     installShellCompletion --cmd shiori \
       --bash <($out/bin/shiori completion bash) \

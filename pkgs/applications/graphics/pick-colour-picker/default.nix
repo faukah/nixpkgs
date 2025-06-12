@@ -7,7 +7,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonPackage {
   pname = "pick-colour-picker";
   version = "unstable-2022-05-08";
@@ -46,7 +45,7 @@ python3Packages.buildPythonPackage {
     platforms = platforms.linux;
     description = "Colour picker that remembers where you picked colours from";
     mainProgram = "pick-colour-picker";
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
 
     longDescription = ''
       Pick lets you pick colours from anywhere on your screen. Choose the colour you want and Pick remembers it, names it, and shows you a screenshot so you can remember where you got it from.

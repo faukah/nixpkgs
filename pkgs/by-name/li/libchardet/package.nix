@@ -5,7 +5,6 @@
   autoreconfHook,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libchardet";
   version = "1.0.6";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     mainProgram = "chardet-config";
     homepage = "ftp://ftp.oops.org/pub/oops/libchardet/index.html";
     license = licenses.mpl11;
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
     platforms = platforms.unix;
   };
 }

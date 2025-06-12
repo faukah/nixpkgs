@@ -10,7 +10,6 @@
   gtk3,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-mac-integration";
   version = "3.0.1";
@@ -29,8 +28,8 @@ stdenv.mkDerivation rec {
     gtk-doc
     gobject-introspection
   ];
-  buildInputs = [ glib ];
-  propagatedBuildInputs = [ gtk ];
+  buildInputs = [glib];
+  propagatedBuildInputs = [gtk];
 
   preAutoreconf = ''
     gtkdocize
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Provides integration for GTK applications into the Mac desktop";
     license = licenses.lgpl21;
     homepage = "https://gitlab.gnome.org/GNOME/gtk-mac-integration";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.darwin;
   };
 }

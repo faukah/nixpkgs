@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "poutine";
   version = "0.15.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd ${meta.mainProgram} \
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/boostsecurityio/poutine";
     changelog = "https://github.com/boostsecurityio/poutine/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "poutine";
     broken = stdenv.hostPlatform.isDarwin;
   };

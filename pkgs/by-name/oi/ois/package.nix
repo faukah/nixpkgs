@@ -5,7 +5,6 @@
   cmake,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ois";
   version = "1.5.1";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ir6p+Tzf8L5VOW/rsG4yelsth7INbhABO2T7pfMHcFo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libX11 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libX11];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Object-oriented C++ input system";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.unix;
     license = licenses.zlib;
   };

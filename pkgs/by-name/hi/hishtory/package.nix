@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "hishtory";
   version = "0.335";
@@ -17,11 +16,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-tJjhHZT91vomGLM4IjMYBD4WfKo7eBcGu/osL6NTMwc=";
 
-  ldflags = [ "-X github.com/ddworken/hishtory/client/lib.Version=${version}" ];
+  ldflags = ["-X github.com/ddworken/hishtory/client/lib.Version=${version}"];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  excludedPackages = [ "backend/server" ];
+  excludedPackages = ["backend/server"];
 
   postInstall = ''
     mkdir -p $out/share/hishtory
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Your shell history: synced, queryable, and in context";
     homepage = "https://github.com/ddworken/hishtory";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "hishtory";
   };
 }

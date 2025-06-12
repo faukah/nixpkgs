@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "reretry";
   version = "0.11.8";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     description = "Easy to use retry decorator";
     homepage = "https://github.com/leshchenko1979/reretry";
     license = licenses.asl20;
-    maintainers = with maintainers; [ renatoGarcia ];
+    maintainers = with maintainers; [renatoGarcia];
   };
 }

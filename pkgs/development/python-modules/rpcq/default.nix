@@ -12,7 +12,6 @@
   ruamel-yaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "rpcq";
   version = "3.10.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace "msgpack>=0.6,<1.0" "msgpack"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     msgpack
@@ -53,12 +52,12 @@ buildPythonPackage rec {
     "rpcq/test/test_spec.py"
   ];
 
-  pythonImportsCheck = [ "rpcq" ];
+  pythonImportsCheck = ["rpcq"];
 
   meta = with lib; {
     description = "RPC framework and message specification for rigetti Quantum Cloud services";
     homepage = "https://github.com/rigetti/rpcq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

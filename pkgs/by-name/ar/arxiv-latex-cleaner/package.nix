@@ -33,6 +33,6 @@ python3Packages.buildPythonApplication rec {
     description = "Easily clean the LaTeX code of your paper to submit to arXiv";
     mainProgram = "arxiv_latex_cleaner";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
   };
 }

@@ -12,7 +12,6 @@
   typeguard,
   gotify-server,
 }:
-
 buildPythonPackage rec {
   pname = "gotify";
   version = "0.6.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-epm8m2W+ChOvWHZi2ruAD+HJGj+V7NfhmFLKeeqcpoI=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     httpx
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     "gotify"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/d-k-bo/python-gotify/releases/tag/v${version}";

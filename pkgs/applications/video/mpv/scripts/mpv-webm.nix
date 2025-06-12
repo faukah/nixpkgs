@@ -5,7 +5,6 @@
   luaPackages,
   unstableGitUpdater,
 }:
-
 buildLua {
   pname = "mpv-webm";
   version = "0-unstable-2025-01-28";
@@ -22,7 +21,7 @@ buildLua {
   };
 
   dontBuild = false;
-  nativeBuildInputs = [ luaPackages.moonscript ];
+  nativeBuildInputs = [luaPackages.moonscript];
   scriptPath = "build/webm.lua";
 
   meta = with lib; {
@@ -30,6 +29,6 @@ buildLua {
     homepage = "https://github.com/ekisu/mpv-webm";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

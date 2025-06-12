@@ -29,7 +29,6 @@
   enableX11 ? stdenv.hostPlatform.isLinux,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ueberzugpp";
   version = "2.9.6";

@@ -6,7 +6,6 @@
   dune-configurator,
   liblo,
 }:
-
 buildDunePackage rec {
   pname = "lo";
   version = "0.2.0";
@@ -27,13 +26,13 @@ buildDunePackage rec {
     })
   ];
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ liblo ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [liblo];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-lo";
     description = "Bindings for LO library";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

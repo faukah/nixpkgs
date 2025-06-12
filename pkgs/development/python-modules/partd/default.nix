@@ -4,24 +4,19 @@
   fetchFromGitHub,
   fetchpatch2,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # dependencies
   locket,
   toolz,
-
   # optional-dependencies
   blosc2,
   numpy,
   pandas,
   pyzmq,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "partd";
   version = "1.4.1";
@@ -44,7 +39,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     locket
@@ -60,11 +55,11 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Appendable key-value storage";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     homepage = "https://github.com/dask/partd/";
   };
 }

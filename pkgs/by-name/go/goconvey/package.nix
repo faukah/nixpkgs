@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "goconvey";
   version = "1.8.1-unstable-2024-03-06";
@@ -33,6 +32,6 @@ buildGoModule {
     mainProgram = "goconvey";
     homepage = "https://github.com/smartystreets/goconvey";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vdemeester ];
+    maintainers = with lib.maintainers; [vdemeester];
   };
 }

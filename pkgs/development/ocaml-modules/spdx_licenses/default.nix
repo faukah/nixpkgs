@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "spdx_licenses";
   version = "1.3.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     homepage = "https://github.com/kit-ty-kate/spdx_licenses";
     description = "A library providing a strict SPDX License Expression parser";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

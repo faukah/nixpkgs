@@ -6,7 +6,6 @@
   mock,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "flaky";
   version = "3.8.1";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-RyBKgeyQXz1az71h2uq8raj51AMWFtm8sGGEYXKWmfU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     mock

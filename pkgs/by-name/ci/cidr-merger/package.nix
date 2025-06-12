@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cidr-merger";
   version = "1.1.3";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "cidr-merger";
     homepage = "https://github.com/zhanhb/cidr-merger";
     license = licenses.mit;
-    maintainers = with maintainers; [ cyounkins ];
+    maintainers = with maintainers; [cyounkins];
   };
 }

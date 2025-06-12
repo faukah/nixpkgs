@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "aliae";
   version = "0.26.5";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -51,6 +50,6 @@ buildGoModule rec {
     homepage = "https://aliae.dev";
     changelog = "https://github.com/JanDeDobbeleer/aliae/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vedantmgoyal9 ];
+    maintainers = with lib.maintainers; [vedantmgoyal9];
   };
 }

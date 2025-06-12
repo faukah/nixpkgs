@@ -8,7 +8,6 @@
   stdenv,
   testers,
 }:
-
 buildGoModule rec {
   pname = "kyverno-chainsaw";
   version = "0.2.12";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-zB2HkY8ryPWln0HcKZPMCSKUnbCh/2UivteN6danNJU=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,7 +29,7 @@ buildGoModule rec {
     "-X github.com/kyverno/chainsaw/pkg/version.BuildVersion=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false; # requires running kubernetes
 
@@ -47,7 +46,7 @@ buildGoModule rec {
     version = "v${version}";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/kyverno/chainsaw/releases/tag/v${version}";
@@ -60,6 +59,6 @@ buildGoModule rec {
       * Asserting operators react (or not) the way they should
     '';
     mainProgram = "chainsaw";
-    maintainers = with lib.maintainers; [ Sanskarzz ];
+    maintainers = with lib.maintainers; [Sanskarzz];
   };
 }

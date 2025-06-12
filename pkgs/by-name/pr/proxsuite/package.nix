@@ -6,21 +6,17 @@
   nix-update-script,
   pythonSupport ? false,
   python3Packages,
-
   # nativeBuildInputs
   cmake,
   doxygen,
   graphviz,
-
   # propagatedBuildInputs
   cereal_1_3_2,
   eigen,
   jrl-cmakemodules,
   simde,
-
   # checkInputs
   matio,
-
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "proxsuite";
@@ -61,15 +57,17 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.pythonImportsCheckHook
     ];
 
-  propagatedBuildInputs = [
-    cereal_1_3_2
-    eigen
-    jrl-cmakemodules
-    simde
-  ] ++ lib.optionals pythonSupport [ python3Packages.nanobind ];
+  propagatedBuildInputs =
+    [
+      cereal_1_3_2
+      eigen
+      jrl-cmakemodules
+      simde
+    ]
+    ++ lib.optionals pythonSupport [python3Packages.nanobind];
 
   checkInputs =
-    [ matio ]
+    [matio]
     ++ lib.optionals pythonSupport [
       python3Packages.numpy
       python3Packages.scipy
@@ -88,15 +86,15 @@ stdenv.mkDerivation (finalAttrs: {
   preBuild = "export XDG_CACHE_HOME=$(mktemp -d)";
 
   doCheck = true;
-  pythonImportsCheck = [ "proxsuite" ];
+  pythonImportsCheck = ["proxsuite"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Advanced Proximal Optimization Toolbox";
     homepage = "https://github.com/Simple-Robotics/proxsuite";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
 })

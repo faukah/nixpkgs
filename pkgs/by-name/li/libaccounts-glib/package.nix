@@ -20,7 +20,6 @@
   docbook_xml_dtd_43,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libaccounts-glib";
   version = "1.27";

@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # propagates
   python-dateutil,
-
   # tests
   django-extensions,
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-hierarkey";
   version = "1.2.1";
@@ -27,11 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-GkCNVovo2bDCp6m2GBvusXsaBhcmJkPNu97OdtsYROY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
-  pythonImportsCheck = [ "hierarkey" ];
+  pythonImportsCheck = ["hierarkey"];
 
   nativeCheckInputs = [
     django-extensions
@@ -41,12 +37,12 @@ buildPythonPackage rec {
 
   DJANGO_SETTINGS_MODULE = "tests.settings";
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   meta = with lib; {
     description = "Flexible and powerful hierarchical key-value store for your Django models";
     homepage = "https://github.com/raphaelm/django-hierarkey";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

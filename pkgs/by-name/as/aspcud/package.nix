@@ -8,7 +8,6 @@
   clingo,
   re2c,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.9.6";
   pname = "aspcud";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     cp ${catch2}/include/catch2/catch.hpp libcudf/tests/catch.hpp
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     clingo
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Solver for package problems in CUDF format using ASP";
     homepage = "https://potassco.org/aspcud/";
     platforms = platforms.all;
-    maintainers = [ maintainers.hakuch ];
+    maintainers = [maintainers.hakuch];
     license = licenses.gpl3Plus;
   };
 }

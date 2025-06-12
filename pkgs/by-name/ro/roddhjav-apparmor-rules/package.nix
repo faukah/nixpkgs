@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "roddhjav-apparmor-rules";
   version = "0-unstable-2025-05-27";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://github.com/roddhjav/apparmor.d";

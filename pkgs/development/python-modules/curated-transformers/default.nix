@@ -9,7 +9,6 @@
   tokenizers,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "curated-transformers";
   version = "2.0.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-2sedBVpwCppviWix+d3tJFTrLBe+2IBlWnCKgV6MucA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     catalogue
@@ -34,13 +33,13 @@ buildPythonPackage rec {
 
   # Unit tests are hard to use, since most tests rely on downloading
   # models from Hugging Face Hub.
-  pythonImportsCheck = [ "curated_transformers" ];
+  pythonImportsCheck = ["curated_transformers"];
 
   meta = {
     description = "PyTorch library of curated Transformer models and their composable components";
     homepage = "https://github.com/explosion/curated-transformers";
     changelog = "https://github.com/explosion/curated-transformers/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ danieldk ];
+    maintainers = with lib.maintainers; [danieldk];
   };
 }

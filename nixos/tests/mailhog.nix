@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "mailhog";
   meta.maintainers = with lib.maintainers; [
     jojosch

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     jq
   ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   postPatch = ''
     cp --no-preserve=mode -r "${spirv-tools.src}" External/spirv-tools
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     description = "Khronos reference front-end for GLSL and ESSL";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

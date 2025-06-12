@@ -35,7 +35,6 @@
   withPantheon ? false,
   pantheon,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "epiphany";
   version = "48.3";

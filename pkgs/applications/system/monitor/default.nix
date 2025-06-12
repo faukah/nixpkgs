@@ -26,7 +26,6 @@
   libXext,
   libXNVCtrl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "monitor";
   version = "0.17.2";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
   # https://github.com/stsdc/monitor/issues/292
   NIX_LDFLAGS = "-lXext";
 
-  mesonFlags = [ "-Dindicator-wingpanel=enabled" ];
+  mesonFlags = ["-Dindicator-wingpanel=enabled"];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -107,8 +106,8 @@ stdenv.mkDerivation rec {
       section in the NixOS manual.
     '';
     homepage = "https://github.com/stsdc/monitor";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "com.github.stsdc.monitor";

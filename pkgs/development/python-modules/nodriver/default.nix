@@ -8,7 +8,6 @@
   websockets,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nodriver";
   version = "0.46.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     websockets
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "nodriver" ];
+  pythonImportsCheck = ["nodriver"];
   # no tests in upstream
   doCheck = false;
 

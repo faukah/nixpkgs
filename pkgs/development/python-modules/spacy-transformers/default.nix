@@ -14,7 +14,6 @@
   spacy-alignments,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "spacy-transformers";
   version = "1.3.8";
@@ -43,22 +42,22 @@ buildPythonPackage rec {
     spacy-alignments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonRelaxDeps = [ "transformers" ];
+  pythonRelaxDeps = ["transformers"];
 
   # Test fails due to missing arguments for trfs2arrays().
   doCheck = false;
 
-  pythonImportsCheck = [ "spacy_transformers" ];
+  pythonImportsCheck = ["spacy_transformers"];
 
-  passthru.tests.annotation = callPackage ./annotation-test { };
+  passthru.tests.annotation = callPackage ./annotation-test {};
 
   meta = {
     description = "spaCy pipelines for pretrained BERT, XLNet and GPT-2";
     homepage = "https://github.com/explosion/spacy-transformers";
     changelog = "https://github.com/explosion/spacy-transformers/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

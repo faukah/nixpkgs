@@ -8,7 +8,6 @@
   testers,
   rsop,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rsop";
   version = "0.7.0";
@@ -24,12 +23,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-G1N76ZG43eiTjxhOfRCSwjz7XOAolj88tex8qoZuC2Y=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ pcsclite ];
+  buildInputs = [pcsclite];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       command = "rsop version";
       package = rsop;
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
       apsl20
       cc0
     ];
-    maintainers = with lib.maintainers; [ nikstur ];
+    maintainers = with lib.maintainers; [nikstur];
     mainProgram = "rsop";
   };
 }

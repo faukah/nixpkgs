@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "epr";
   version = "2.4.13";
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "epr";
     homepage = "https://github.com/wustho/epr";
     license = licenses.mit;
-    maintainers = [ maintainers.Br1ght0ne ];
+    maintainers = [maintainers.Br1ght0ne];
     platforms = platforms.all;
   };
 }

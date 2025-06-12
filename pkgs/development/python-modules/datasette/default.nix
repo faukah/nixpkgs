@@ -29,7 +29,6 @@
   trustme,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "datasette";
   version = "0.65.1";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
       --replace '"pytest-runner"' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRemoveDeps = [
     "pip"
@@ -118,6 +117,6 @@ buildPythonPackage rec {
     homepage = "https://datasette.io/";
     changelog = "https://github.com/simonw/datasette/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

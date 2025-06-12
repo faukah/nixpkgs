@@ -16,7 +16,6 @@
   vobject,
   xandikos,
 }:
-
 buildPythonPackage rec {
   pname = "caldav";
   version = "1.6.0";
@@ -45,10 +44,10 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytestCheckHook
     tzlocal
-    (toPythonModule (xandikos.override { python3Packages = python.pkgs; }))
+    (toPythonModule (xandikos.override {python3Packages = python.pkgs;}))
   ];
 
-  pythonImportsCheck = [ "caldav" ];
+  pythonImportsCheck = ["caldav"];
 
   meta = with lib; {
     description = "CalDAV (RFC4791) client library";

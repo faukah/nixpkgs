@@ -8,7 +8,6 @@
   qtsvg,
   qwt6_1,
 }:
-
 mkDerivation rec {
   pname = "caneda";
   version = "0.4.0";
@@ -20,7 +19,7 @@ mkDerivation rec {
     sha256 = "sha256-oE0cdOwufc7CHEFr3YU8stjg1hBGs4bemhXpNTCTpDQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     qtbase
     qttools
@@ -33,7 +32,7 @@ mkDerivation rec {
     mainProgram = "caneda";
     homepage = "http://caneda.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

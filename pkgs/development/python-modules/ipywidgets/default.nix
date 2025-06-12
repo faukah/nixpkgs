@@ -13,7 +13,6 @@
   traitlets,
   widgetsnbextension,
 }:
-
 buildPythonPackage rec {
   pname = "ipywidgets";
   version = "8.1.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-hw5DsaNWVqgMGMlQO78tFoAtsctIfuxvqyfWgzgd3hc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     comm

@@ -7,7 +7,6 @@
   libpng,
   libjpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "farbfeld";
   version = "4";
@@ -21,11 +20,11 @@ stdenv.mkDerivation rec {
     libpng
     libjpeg
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
   postInstall = ''
     wrapProgram "$out/bin/2ff" --prefix PATH : "${file}/bin"
   '';
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tools.suckless.org/farbfeld/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

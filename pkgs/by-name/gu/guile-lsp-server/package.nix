@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     guile-json-rpc
   ];
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   preConfigure = ''
     cd guile
@@ -45,11 +45,11 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/guile-lsp-server \
       --prefix PATH : ${
-        lib.makeBinPath [
-          guile
-          bash
-        ]
-      } \
+      lib.makeBinPath [
+        guile
+        bash
+      ]
+    } \
       --set GUILE_AUTO_COMPILE 0 \
       --prefix GUILE_LOAD_PATH : "$out/${guile.siteDir}:$GUILE_LOAD_PATH" \
       --prefix GUILE_LOAD_COMPILED_PATH : "$out/${guile.siteCcacheDir}:$GUILE_LOAD_COMPILED_PATH" \
@@ -61,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "LSP server for Guile";
     mainProgram = "guile-lsp-server";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ knightpp ];
+    maintainers = with lib.maintainers; [knightpp];
     platforms = guile.meta.platforms;
   };
 })

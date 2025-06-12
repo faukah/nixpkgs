@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "ssl-proxy";
   version = "0.2.7-unstable-2024-02-05";
@@ -29,7 +28,7 @@ buildGoModule {
     '';
     license = licenses.mit;
     mainProgram = "ssl-proxy";
-    maintainers = [ maintainers.konst-aa ];
+    maintainers = [maintainers.konst-aa];
     platforms = platforms.linux ++ platforms.darwin ++ platforms.windows;
   };
 }

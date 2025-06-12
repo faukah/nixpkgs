@@ -1,11 +1,11 @@
-{ pkgs, runTest }:
-
-let
-
+{
+  pkgs,
+  runTest,
+}: let
   inherit (pkgs) lib;
 
   baseConfig = {
-    networking.nameservers = [ "::1" ];
+    networking.nameservers = ["::1"];
     services.bind = {
       enable = true;
       extraOptions = "empty-zones-enable no;";
@@ -32,14 +32,10 @@ let
       '';
     };
   };
-
-in
-
-{
-
+in {
   base = runTest {
     name = "dnsdist-base";
-    meta.maintainers = with lib.maintainers; [ jojosch ];
+    meta.maintainers = with lib.maintainers; [jojosch];
 
     nodes.machine = baseConfig;
 
@@ -56,15 +52,15 @@ in
 
   dnscrypt = runTest {
     name = "dnsdist-dnscrypt";
-    meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+    meta.maintainers = with lib.maintainers; [rnhmjoj];
 
     nodes.server = lib.mkMerge [
       baseConfig
       {
-        networking.firewall.allowedTCPPorts = [ 443 ];
-        networking.firewall.allowedUDPPorts = [ 443 ];
+        networking.firewall.allowedTCPPorts = [443];
+        networking.firewall.allowedUDPPorts = [443];
         services.dnsdist.dnscrypt.enable = true;
-        services.dnsdist.dnscrypt.providerKey = pkgs.runCommand "dnscrypt-secret.key" { } ''
+        services.dnsdist.dnscrypt.providerKey = pkgs.runCommand "dnscrypt-secret.key" {} ''
           echo 'R70+xqm7AaDsPtDgpSjSG7KHvEqVf6u6PZ+E3cGPbOwUQdg6/
                 RIIpK6pHkINhrv7nxwIG5c7b/m5NJVT3A1AXQ==' | base64 -id > "$out"
         '';
@@ -75,13 +71,13 @@ in
       services.dnscrypt-proxy2.enable = true;
       services.dnscrypt-proxy2.upstreamDefaults = false;
       services.dnscrypt-proxy2.settings = {
-        server_names = [ "server" ];
-        listen_addresses = [ "[::1]:53" ];
+        server_names = ["server"];
+        listen_addresses = ["[::1]:53"];
         cache = false;
         # Computed using https://dnscrypt.info/stamps/
         static.server.stamp = "sdns://AQAAAAAAAAAADzE5Mi4xNjguMS4yOjQ0MyAUQdg6_RIIpK6pHkINhrv7nxwIG5c7b_m5NJVT3A1AXRYyLmRuc2NyeXB0LWNlcnQuc2VydmVy";
       };
-      networking.nameservers = [ "::1" ];
+      networking.nameservers = ["::1"];
     };
 
     testScript = ''

@@ -20,18 +20,18 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-3KXvRbPHM78IGe7Hl8AEHCmK0onroQycyTfOm942e9Y=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libevdev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libevdev];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     description = "Keyboard input remapper for Linux/Wayland systems";
     homepage = "https://github.com/wez/evremap";
-    maintainers = with lib.maintainers; [ pluiedev ];
-    license = with lib.licenses; [ mit ];
+    maintainers = with lib.maintainers; [pluiedev];
+    license = with lib.licenses; [mit];
     mainProgram = "evremap";
   };
 }

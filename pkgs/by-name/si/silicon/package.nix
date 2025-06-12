@@ -14,7 +14,6 @@
   fontconfig,
   harfbuzz,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "silicon";
   version = "0.5.3";
@@ -37,16 +36,18 @@ rustPlatform.buildRustPackage rec {
       fontconfig
       harfbuzz
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ libxcb ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [libxcb]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    rustPlatform.bindgenHook
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ python3 ];
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      rustPlatform.bindgenHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [python3];
 
   preCheck = ''
     export HOME=$TMPDIR

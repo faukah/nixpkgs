@@ -21,7 +21,6 @@
   standard-aifc,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "speechrecognition";
   version = "3.14.3";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
       --replace-fail 'shutil_which("flac")' '"${lib.getExe flac}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     standard-aifc
@@ -53,10 +52,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    assemblyai = [ requests ];
-    audio = [ pyaudio ];
-    faster-whisper = [ faster-whisper ];
-    google-cloud = [ google-cloud-speech ];
+    assemblyai = [requests];
+    audio = [pyaudio];
+    faster-whisper = [faster-whisper];
+    google-cloud = [google-cloud-speech];
     groq = [
       groq
       httpx
@@ -65,21 +64,23 @@ buildPythonPackage rec {
       httpx
       openai
     ];
-    pocketsphinx = [ pocketsphinx ];
+    pocketsphinx = [pocketsphinx];
     whisper-local = [
       openai-whisper
       soundfile
     ];
   };
 
-  nativeCheckInputs = [
-    groq
-    pytestCheckHook
-    pocketsphinx
-    respx
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      groq
+      pytestCheckHook
+      pocketsphinx
+      respx
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "speech_recognition" ];
+  pythonImportsCheck = ["speech_recognition"];
 
   disabledTests = [
     # Parsed string does not match expected
@@ -94,6 +95,6 @@ buildPythonPackage rec {
       gpl2Only
       bsd3
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

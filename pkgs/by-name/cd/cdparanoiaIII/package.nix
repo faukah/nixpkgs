@@ -7,7 +7,6 @@
   autoreconfHook,
   freebsd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cdparanoia-III";
   version = "10.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
         # Our configure patch will subsume it, but we want our configure
         # patch to be used on all platforms so we cannot just start where
         # this leaves off.
-        excludes = [ "configure.in" ];
+        excludes = ["configure.in"];
       })
       (fetchurl {
         url = "https://trac.macports.org/export/70964/trunk/dports/audio/cdparanoia/files/patch-paranoia_paranoia.c.10.4.diff";

@@ -5,7 +5,6 @@
   fetchpatch,
   containerd,
 }:
-
 buildGoModule rec {
   pname = "nomad-driver-containerd";
   version = "0.9.4";
@@ -37,9 +36,9 @@ buildGoModule rec {
   env.CGO_ENABLED = "1";
 
   vendorHash = "sha256-OO+a5AqhB0tf6lyodhYl9HUSaWvtXWwevRHYy1Q6VoU=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  buildInputs = [ containerd ];
+  buildInputs = [containerd];
 
   ldflags = [
     "-s"
@@ -52,6 +51,6 @@ buildGoModule rec {
     mainProgram = "nomad-driver-containerd";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

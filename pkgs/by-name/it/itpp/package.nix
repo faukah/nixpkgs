@@ -9,7 +9,6 @@
   liblapack,
   gfortran,
 }:
-
 stdenv.mkDerivation rec {
   pname = "it++";
   version = "4.3.1";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://itpp.sourceforge.net/";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/itpp.x86_64-darwin
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "microserver";
   version = "0.2.1";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/robertohuertasm/microserver";
     description = "Simple ad-hoc server with SPA support";
-    maintainers = with maintainers; [ flosse ];
+    maintainers = with maintainers; [flosse];
     license = licenses.mit;
     mainProgram = "microserver";
   };

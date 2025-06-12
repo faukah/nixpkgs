@@ -3,25 +3,26 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkPackageOption
     ;
 
   cfg = config.programs.corectrl;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "corectrl" "gpuOverclock" "enable" ]
-      [ "hardware" "amdgpu" "overdrive" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "corectrl" "gpuOverclock" "enable"]
+      ["hardware" "amdgpu" "overdrive" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "programs" "corectrl" "gpuOverclock" "ppfeaturemask" ]
-      [ "hardware" "amdgpu" "overdrive" "ppfeaturemask" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "corectrl" "gpuOverclock" "ppfeaturemask"]
+      ["hardware" "amdgpu" "overdrive" "ppfeaturemask"]
     )
   ];
 
@@ -37,11 +38,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    users.groups.corectrl = { };
+    users.groups.corectrl = {};
 
     security.polkit.extraConfig = ''
       polkit.addRule(function(action, subject) {

@@ -7,7 +7,6 @@
   nix-update-script,
   ghq,
 }:
-
 buildGoModule rec {
   pname = "ghq";
   version = "1.8.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion \
@@ -40,13 +39,13 @@ buildGoModule rec {
     tests.version = testers.testVersion {
       package = ghq;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Remote repository management made easy";
     homepage = "https://github.com/x-motemen/ghq";
-    maintainers = with lib.maintainers; [ sigma ];
+    maintainers = with lib.maintainers; [sigma];
     license = lib.licenses.mit;
     mainProgram = "ghq";
   };

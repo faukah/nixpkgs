@@ -5,7 +5,6 @@
   beangulp,
   beancount,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "beancount-ing-diba";
   version = "1.1.0";
@@ -32,6 +31,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/siddhantgoel/beancount-ing-diba";
     description = "Beancount Importers for ING-DiBa (Germany) CSV Exports";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

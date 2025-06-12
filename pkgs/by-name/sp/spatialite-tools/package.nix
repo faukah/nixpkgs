@@ -17,7 +17,6 @@
   testers,
   spatialite-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spatialite-tools";
   version = "5.1.0a";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EZ40dY6AiM27Q+2BtKbq6ojHZLC32hkAGlUUslRVAc4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     expat
@@ -67,8 +66,8 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ dotlambda ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [dotlambda];
+    teams = [lib.teams.geospatial];
     mainProgram = "spatialite_tool";
   };
 }

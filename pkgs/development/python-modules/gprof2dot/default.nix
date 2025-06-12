@@ -6,7 +6,6 @@
   graphviz,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "gprof2dot";
   version = "2025.04.14";
@@ -21,10 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-kX/DCXO/qwm1iF44gG7aBSUpG4Vf2Aer0zwrtq4YNHo=";
   };
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ graphviz ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [graphviz]}"];
 
   # Needed so dot is on path of the test script
-  nativeCheckInputs = [ graphviz ];
+  nativeCheckInputs = [graphviz];
 
   checkPhase = ''
     runHook preCheck
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jrfonseca/gprof2dot";
     changelog = "https://github.com/jrfonseca/gprof2dot/releases/tag/${src.tag}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

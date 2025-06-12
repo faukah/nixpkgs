@@ -7,7 +7,6 @@
   perl,
   buildGoModule,
 }:
-
 # reference: https://boringssl.googlesource.com/boringssl/+/2661/BUILDING.md
 buildGoModule {
   pname = "boringssl";
@@ -50,9 +49,11 @@ buildGoModule {
   '';
 
   # CMAKE_OSX_ARCHITECTURES is set to x86_64 by Nix, but it confuses boringssl on aarch64-linux.
-  cmakeFlags = [
-    "-GNinja"
-  ] ++ lib.optionals (stdenv.hostPlatform.isLinux) [ "-DCMAKE_OSX_ARCHITECTURES=" ];
+  cmakeFlags =
+    [
+      "-GNinja"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isLinux) ["-DCMAKE_OSX_ARCHITECTURES="];
 
   installPhase = ''
     runHook preInstall
@@ -80,7 +81,7 @@ buildGoModule {
     description = "Free TLS/SSL implementation";
     mainProgram = "bssl";
     homepage = "https://boringssl.googlesource.com";
-    maintainers = [ maintainers.thoughtpolice ];
+    maintainers = [maintainers.thoughtpolice];
     license = with licenses; [
       openssl
       isc

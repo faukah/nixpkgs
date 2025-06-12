@@ -5,7 +5,6 @@
   kmod,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lsiutil";
   version = "1.72";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Configuration utility for MPT adapters (FC, SCSI, and SAS/SATA)";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

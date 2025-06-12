@@ -9,7 +9,6 @@
   autoreconfHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hheretic";
   version = "0.2.4";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   enableParallelBuilding = true;
 
-  configureFlags = [ "--with-audio=sdlmixer" ];
+  configureFlags = ["--with-audio=sdlmixer"];
 
   installPhase = ''
     runHook preInstall
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://hhexen.sourceforge.net/hhexen.html";
     license = lib.licenses.gpl2Plus;
     mainProgram = "hheretic-gl";
-    maintainers = with lib.maintainers; [ moody ];
+    maintainers = with lib.maintainers; [moody];
     inherit (SDL.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin;
   };

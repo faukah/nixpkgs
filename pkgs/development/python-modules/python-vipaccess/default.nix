@@ -7,7 +7,6 @@
   requests,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "python-vipaccess";
   version = "0.14.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   # test_check_token_detects_valid_hotp_token,
   # test_check_token_detects_valid_totp_token and
   # test_check_token_detects_invlaid_token require network
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     mainProgram = "vipaccess";
     homepage = "https://github.com/dlenski/python-vipaccess";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aw ];
+    maintainers = with maintainers; [aw];
   };
 }

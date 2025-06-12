@@ -6,7 +6,6 @@
   swift,
   yara,
 }:
-
 buildGhidraScripts {
   pname = "ghidraninja-ghidra-scripts";
   version = "unstable-2020-10-07";

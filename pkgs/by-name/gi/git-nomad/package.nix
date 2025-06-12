@@ -4,7 +4,6 @@
   fetchFromGitHub,
   git,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-nomad";
   version = "0.8.0";
@@ -19,14 +18,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WfmHQ9HXEGfAKQXPMJFNeuOYA0NbmwWdntZjP/YHWCw=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = {
     description = "Synchronize work-in-progress git branches in a light weight fashion";
     homepage = "https://github.com/rraval/git-nomad";
     changelog = "https://github.com/rraval/git-nomad/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ rraval ];
+    maintainers = with lib.maintainers; [rraval];
     mainProgram = "git-nomad";
   };
 }

@@ -2,9 +2,7 @@
   fetchFromGitHub,
   fetchPypi,
   python3,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = pySelf: pySuper: {
@@ -56,9 +54,11 @@ let
           inherit version;
           hash = "sha256-7e6bCn/yZiG9WowQ/0hK4oc3okENmbC7mmhQx/uXeqA=";
         };
-        nativeBuildInputs = (o.nativeBuildInputs or [ ]) ++ [
-          pySelf.setuptools
-        ];
+        nativeBuildInputs =
+          (o.nativeBuildInputs or [])
+          ++ [
+            pySelf.setuptools
+          ];
       });
       # flask-appbuilder doesn't work with sqlalchemy 2.x, flask-appbuilder 3.x
       # https://github.com/dpgaspar/Flask-AppBuilder/issues/2038
@@ -96,21 +96,23 @@ let
       # https://github.com/apache/airflow/issues/28723
       sqlalchemy = pySuper.sqlalchemy_1_4;
 
-      apache-airflow = pySelf.callPackage ./python-package.nix { };
+      apache-airflow = pySelf.callPackage ./python-package.nix {};
     };
   };
 in
-# See note in ./python-package.nix for
-# instructions on manually testing the web UI
-with python.pkgs;
-(toPythonApplication apache-airflow).overrideAttrs (previousAttrs: {
-  # Provide access to airflow's modified python package set
-  # for the cases where external scripts need to import
-  # airflow modules, though *caveat emptor* because many of
-  # these packages will not be built by hydra and many will
-  # not work at all due to the unexpected version overrides
-  # here.
-  passthru = (previousAttrs.passthru or { }) // {
-    pythonPackages = python.pkgs;
-  };
-})
+  # See note in ./python-package.nix for
+  # instructions on manually testing the web UI
+  with python.pkgs;
+    (toPythonApplication apache-airflow).overrideAttrs (previousAttrs: {
+      # Provide access to airflow's modified python package set
+      # for the cases where external scripts need to import
+      # airflow modules, though *caveat emptor* because many of
+      # these packages will not be built by hydra and many will
+      # not work at all due to the unexpected version overrides
+      # here.
+      passthru =
+        (previousAttrs.passthru or {})
+        // {
+          pythonPackages = python.pkgs;
+        };
+    })

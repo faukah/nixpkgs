@@ -10,7 +10,6 @@
   exiftool,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pict-rs";
   version = "0.5.19";
@@ -30,27 +29,27 @@ rustPlatform.buildRustPackage rec {
   PROTOC = "${protobuf}/bin/protoc";
   PROTOC_INCLUDE = "${protobuf}/include";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/pict-rs" \
         --prefix PATH : "${
-          lib.makeBinPath [
-            imagemagick
-            ffmpeg
-            exiftool
-          ]
-        }"
+      lib.makeBinPath [
+        imagemagick
+        ffmpeg
+        exiftool
+      ]
+    }"
   '';
 
-  passthru.tests = { inherit (nixosTests) pict-rs; };
+  passthru.tests = {inherit (nixosTests) pict-rs;};
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Simple image hosting service";
     mainProgram = "pict-rs";
     homepage = "https://git.asonix.dog/asonix/pict-rs";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [happysalada];
   };
 }

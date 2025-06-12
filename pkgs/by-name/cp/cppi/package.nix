@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cppi";
   version = "1.18";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.all;
   };
 }

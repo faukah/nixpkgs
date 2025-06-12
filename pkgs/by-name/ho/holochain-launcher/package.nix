@@ -11,7 +11,6 @@
   shared-mime-info,
   glib-networking,
 }:
-
 stdenv.mkDerivation rec {
   pname = "holochain-launcher";
   version = "0.11.5";
@@ -54,9 +53,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cross-platform executable that launches a local Holochain conductor, and installs and opens apps";
     homepage = "https://github.com/holochain/launcher";
-    maintainers = [ maintainers.steveej ];
+    maintainers = [maintainers.steveej];
     license = licenses.cal10;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
   };
 }

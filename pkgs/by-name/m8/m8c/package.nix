@@ -6,7 +6,6 @@
   SDL2,
   libserialport,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "m8c";
   version = "1.7.10";
@@ -18,11 +17,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-8QkvvTtFxQmDIqpyhZi/ORcB7YwENu+YafYtCZw0faE=";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL2
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/laamaa/m8c";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mrtnvgr ];
+    maintainers = with lib.maintainers; [mrtnvgr];
     mainProgram = "m8c";
   };
 })

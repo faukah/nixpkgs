@@ -10,7 +10,6 @@
   sybil,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "testfixtures";
   version = "8.3.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     mock
@@ -51,15 +50,15 @@ buildPythonPackage rec {
     "testfixtures/tests/test_django"
   ];
 
-  pytestFlagsArray = [ "testfixtures/tests" ];
+  pytestFlagsArray = ["testfixtures/tests"];
 
-  pythonImportsCheck = [ "testfixtures" ];
+  pythonImportsCheck = ["testfixtures"];
 
   meta = with lib; {
     description = "Collection of helpers and mock objects for unit tests and doc tests";
     homepage = "https://github.com/Simplistix/testfixtures";
     changelog = "https://github.com/simplistix/testfixtures/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

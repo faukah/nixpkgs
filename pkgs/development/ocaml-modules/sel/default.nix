@@ -5,7 +5,6 @@
   ppx_deriving,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "sel";
   version = "0.6.0";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     description = "Simple event library";
     homepage = "https://github.com/gares/sel/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

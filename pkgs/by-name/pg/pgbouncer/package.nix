@@ -9,7 +9,6 @@
   systemd,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pgbouncer";
   version = "1.24.1";
@@ -19,12 +18,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-2nKjq6EwcodtBVo+WN1Kukpd5O1hSOcwMxhSRVmP0+A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    libevent
-    openssl
-    c-ares
-  ] ++ lib.optional stdenv.hostPlatform.isLinux systemd;
+  nativeBuildInputs = [pkg-config];
+  buildInputs =
+    [
+      libevent
+      openssl
+      c-ares
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux systemd;
   enableParallelBuilding = true;
   configureFlags = lib.optional stdenv.hostPlatform.isLinux "--with-systemd";
 
@@ -37,10 +38,10 @@ stdenv.mkDerivation rec {
     mainProgram = "pgbouncer";
     description = "Lightweight connection pooler for PostgreSQL";
     changelog = "https://github.com/pgbouncer/pgbouncer/releases/tag/pgbouncer_${
-      replaceStrings [ "." ] [ "_" ] version
+      replaceStrings ["."] ["_"] version
     }";
     license = licenses.isc;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.all;
   };
 }

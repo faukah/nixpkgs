@@ -1,33 +1,34 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "containers-tmpfs";
   meta = {
-    maintainers = with lib.maintainers; [ patryk27 ];
+    maintainers = with lib.maintainers; [patryk27];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ../modules/installer/cd-dvd/channel.nix ];
-      virtualisation.writableStore = true;
+  nodes.machine = {pkgs, ...}: {
+    imports = [../modules/installer/cd-dvd/channel.nix];
+    virtualisation.writableStore = true;
 
-      containers.tmpfs = {
-        autoStart = true;
-        tmpfs = [
-          # Mount var as a tmpfs
-          "/var"
+    containers.tmpfs = {
+      autoStart = true;
+      tmpfs = [
+        # Mount var as a tmpfs
+        "/var"
 
-          # Add a nested mount inside a tmpfs
-          "/var/log"
+        # Add a nested mount inside a tmpfs
+        "/var/log"
 
-          # Add a tmpfs on a path that does not exist
-          "/some/random/path"
-        ];
-        config = { };
-      };
-
-      virtualisation.additionalPaths = [ pkgs.stdenv ];
+        # Add a tmpfs on a path that does not exist
+        "/some/random/path"
+      ];
+      config = {};
     };
+
+    virtualisation.additionalPaths = [pkgs.stdenv];
+  };
 
   testScript = ''
     machine.wait_for_unit("default.target")

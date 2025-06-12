@@ -9,7 +9,6 @@
   pkg-config,
   abseil-cpp_202103,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libilbc";
   version = "3.0.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ abseil-cpp_202103 ];
+  buildInputs = [abseil-cpp_202103];
 
   outputs = [
     "out"
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -45,8 +44,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Packaged version of iLBC codec from the WebRTC project";
     homepage = "https://github.com/TimothyGu/libilbc";
     changelog = "https://github.com/TimothyGu/libilbc/blob/v${finalAttrs.version}/NEWS.md";
-    maintainers = with maintainers; [ jopejoe1 ];
-    pkgConfigModules = [ "lilbc" ];
+    maintainers = with maintainers; [jopejoe1];
+    pkgConfigModules = ["lilbc"];
     platforms = platforms.all;
     license = licenses.bsd3;
   };

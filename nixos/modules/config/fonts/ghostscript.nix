@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
     fonts.enableGhostscriptFonts = lib.mkOption {
       type = lib.types.bool;
@@ -16,10 +15,9 @@
         applications.
       '';
     };
-
   };
 
   config = lib.mkIf config.fonts.enableGhostscriptFonts {
-    fonts.packages = [ pkgs.ghostscript.fonts ];
+    fonts.packages = [pkgs.ghostscript.fonts];
   };
 }

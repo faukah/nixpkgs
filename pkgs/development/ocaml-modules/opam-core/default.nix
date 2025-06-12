@@ -9,7 +9,6 @@
   swhid_core,
   uutf,
 }:
-
 buildDunePackage {
   pname = "opam-core";
 
@@ -26,10 +25,12 @@ buildDunePackage {
 
   # get rid of check for curl at configure time
   # opam-core does not call curl at run time
-  configureFlags = [ "--disable-checks" ];
+  configureFlags = ["--disable-checks"];
 
-  meta = opam.meta // {
-    description = "Small standard library extensions, and generic system interaction modules used by opam";
-    maintainers = with lib.maintainers; [ sternenseemann ];
-  };
+  meta =
+    opam.meta
+    // {
+      description = "Small standard library extensions, and generic system interaction modules used by opam";
+      maintainers = with lib.maintainers; [sternenseemann];
+    };
 }

@@ -6,7 +6,6 @@
   e2fsprogs,
   fuse,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fuse-ext2";
   version = "0.0.11";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "FUSE module to mount ext2, ext3 and ext4 with read write support";
     homepage = "https://github.com/alperakcan/fuse-ext2";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
     mainProgram = "fuse-ext2";
   };

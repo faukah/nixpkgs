@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zig_0_13,
 }:
-
 stdenv.mkDerivation rec {
   pname = "poop";
   version = "0.5.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/andrewrk/poop";
     changelog = "https://github.com/andrewrk/poop/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.linux;
     mainProgram = "poop";
   };

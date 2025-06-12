@@ -5,7 +5,6 @@
   libpcap,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ucarp";
   version = "1.5.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qidz5sr55nxlmnl8kcbjsrff2j97b44h9l1dmhvvjl46iji7q7j";
   };
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   #     `__packed'; ucarp.o:/build/ucarp-1.5.2/src/ip_carp.h:73: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  passthru.tests = { inherit (nixosTests) ucarp; };
+  passthru.tests = {inherit (nixosTests) ucarp;};
 
   meta = with lib; {
     description = "Userspace implementation of CARP";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
       bsd2
       gpl2Plus
     ];
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     mainProgram = "ucarp";
   };
 }

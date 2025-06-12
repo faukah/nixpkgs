@@ -8,7 +8,6 @@
   testers,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stardust-xr-kiara";
   version = "0-unstable-2024-07-13";
@@ -23,17 +22,17 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-C1eD974cEGbo0vHJqdnCPUopDPDDa6hAFJdzSm8t618=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
     tests.helpTest = testers.runCommand {
       name = "stardust-xr-kiara";
       script = ''
         kiara --help
         touch $out
       '';
-      nativeBuildInputs = [ stardust-xr-kiara ];
+      nativeBuildInputs = [stardust-xr-kiara];
     };
   };
 

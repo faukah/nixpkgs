@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "music-assistant-frontend";
   version = "2.14.9";
@@ -20,17 +19,17 @@ buildPythonPackage rec {
       --replace-fail "~=" ">="
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "music_assistant_frontend" ];
+  pythonImportsCheck = ["music_assistant_frontend"];
 
   meta = {
     changelog = "https://github.com/music-assistant/frontend/releases/tag/${version}";
     description = "Music Assistant frontend";
     homepage = "https://github.com/music-assistant/frontend";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

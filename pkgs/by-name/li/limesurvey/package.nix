@@ -5,7 +5,6 @@
   writeText,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "limesurvey";
   version = "6.10.2+250127";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Open source survey application";
     license = licenses.gpl2Plus;
     homepage = "https://www.limesurvey.org";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = with platforms; unix;
   };
 }

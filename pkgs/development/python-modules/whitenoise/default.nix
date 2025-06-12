@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "whitenoise";
   version = "6.9.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-UmM8Az22ql3uUpyY6jj7ky3LelmttFBqGMYlzlNRAHg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ brotli ];
+  dependencies = [brotli];
 
   nativeCheckInputs = [
     django
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     "test_modified"
   ];
 
-  pythonImportsCheck = [ "whitenoise" ];
+  pythonImportsCheck = ["whitenoise"];
 
   meta = with lib; {
     description = "Library to serve static file for WSGI applications";
     homepage = "https://whitenoise.readthedocs.io/";
     changelog = "https://github.com/evansd/whitenoise/blob/${version}/docs/changelog.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

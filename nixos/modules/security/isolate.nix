@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -23,15 +22,19 @@ let
     first_uid=${toString cfg.firstUid}
     first_gid=${toString cfg.firstGid}
     num_boxes=${toString cfg.numBoxes}
-    restricted_init=${if cfg.restrictedInit then "1" else "0"}
+    restricted_init=${
+      if cfg.restrictedInit
+      then "1"
+      else "0"
+    }
     ${cfg.extraConfig}
   '';
   isolate = pkgs.symlinkJoin {
     name = "isolate-wrapped-${pkgs.isolate.version}";
 
-    paths = [ pkgs.isolate ];
+    paths = [pkgs.isolate];
 
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
 
     postBuild = ''
       wrapProgram $out/bin/isolate \
@@ -41,14 +44,13 @@ let
         --set ISOLATE_CONFIG_FILE ${configFile}
     '';
   };
-in
-{
+in {
   options.security.isolate = {
     enable = mkEnableOption ''
       Sandbox for securely executing untrusted programs
     '';
 
-    package = mkPackageOption pkgs "isolate-unwrapped" { };
+    package = mkPackageOption pkgs "isolate-unwrapped" {};
 
     boxRoot = mkOption {
       type = types.path;
@@ -127,8 +129,8 @@ in
 
     systemd.services.isolate = {
       description = "Isolate control group hierarchy daemon";
-      wantedBy = [ "multi-user.target" ];
-      documentation = [ "man:isolate(1)" ];
+      wantedBy = ["multi-user.target"];
+      documentation = ["man:isolate(1)"];
       serviceConfig = {
         Type = "notify";
         ExecStart = "${isolate}/bin/isolate-cg-keeper";
@@ -142,5 +144,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ virchau13 ];
+  meta.maintainers = with maintainers; [virchau13];
 }

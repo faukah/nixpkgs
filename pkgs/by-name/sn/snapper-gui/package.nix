@@ -10,7 +10,6 @@
   snapper,
   gobject-introspection,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "snapper-gui";
   version = "2020-10-20";
@@ -55,6 +54,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/ricardomv/snapper-gui";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ahuzik ];
+    maintainers = with maintainers; [ahuzik];
   };
 }

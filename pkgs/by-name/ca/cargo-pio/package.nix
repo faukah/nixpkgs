@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ dannixon ];
+    maintainers = with maintainers; [dannixon];
     mainProgram = "cargo-pio";
   };
 }

@@ -8,7 +8,6 @@
   nix,
   s2n-tls,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-c-io";
   # nixpkgs-update: no auto update
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-/pG/+MHAu/TYTtY/RQrr1U1ev2FZ1p/O8kIRUDDOcvQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-cal
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-io";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

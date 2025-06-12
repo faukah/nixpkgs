@@ -14,7 +14,6 @@
   libgringotts,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osmo";
   version = "0.4.4";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://clayo.org/osmo/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

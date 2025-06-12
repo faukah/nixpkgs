@@ -12,7 +12,7 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     owner = "yomidevs";
     repo = "local-audio-yomichan";
     rev = "34750f1d8ca1cb473128fea7976a4d981e5e78a4";
-    sparseCheckout = [ "plugin" ];
+    sparseCheckout = ["plugin"];
     hash = "sha256-2gyggcvxParay+1B7Sg2COKyocoxaRO1WTz+ymdRp4w=";
   };
   sourceRoot = "${finalAttrs.src.name}/plugin";
@@ -31,7 +31,7 @@ anki-utils.buildAnkiAddon (finalAttrs: {
        db_utils.init_db()"
   '';
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
   meta = {
     description = "Run a local audio server for Yomitan";
@@ -68,6 +68,6 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     '';
     homepage = "https://github.com/yomidevs/local-audio-yomichan";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ junestepp ];
+    maintainers = with lib.maintainers; [junestepp];
   };
 })

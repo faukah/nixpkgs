@@ -6,7 +6,6 @@
   autoreconfHook,
   file,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exfatprogs";
   version = "1.2.9";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "exFAT filesystem userspace utilities";
     homepage = "https://github.com/exfatprogs/exfatprogs";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

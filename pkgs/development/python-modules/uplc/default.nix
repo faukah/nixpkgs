@@ -14,7 +14,6 @@
   pycardano,
   uplc,
 }:
-
 buildPythonPackage rec {
   pname = "uplc";
   version = "1.0.10";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     substituteInPlace uplc/ast.py --replace-fail 'from _cbor2' 'from cbor2'
   '';
 
-  pythonImportsCheck = [ "uplc" ];
+  pythonImportsCheck = ["uplc"];
 
   passthru.tests.withoutCExtensions = uplc.override {
     cbor2 = cbor2WithoutCExtensions;
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     description = "Python implementation of untyped plutus language core";
     homepage = "https://github.com/OpShin/uplc";
     license = licenses.mit;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
     mainProgram = "opshin";
   };
 }

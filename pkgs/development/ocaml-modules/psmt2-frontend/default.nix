@@ -4,7 +4,6 @@
   buildDunePackage,
   menhir,
 }:
-
 buildDunePackage rec {
   version = "0.4.0";
   pname = "psmt2-frontend";
@@ -18,13 +17,12 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03";
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   meta = {
     description = "Simple parser and type-checker for polomorphic extension of the SMT-LIB 2 language";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
-
 }

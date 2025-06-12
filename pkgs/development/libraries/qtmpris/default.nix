@@ -5,7 +5,6 @@
   qmake,
   qtbase,
 }:
-
 mkDerivation rec {
   pname = "qtmpris";
   version = "1.0.6";
@@ -36,6 +35,6 @@ mkDerivation rec {
     description = "Qt and QML MPRIS interface and adaptor";
     homepage = "https://github.com/sailfishos/qtmpris";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

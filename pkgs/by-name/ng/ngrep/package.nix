@@ -7,7 +7,6 @@
   libpcap,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ngrep";
   version = "1.47";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jpr5";
     repo = "ngrep";
-    rev = "V${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "V${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "1x2fyd7wdqlj1r76ilal06cl2wmbz0ws6i3ys204sbjh1cj6dcl7";
   };
 
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libpcap
     pcre
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
       redistributable = true;
     };
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "ngrep";
   };
 }

@@ -16,7 +16,6 @@
   sniffio,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "granian";
   version = "2.3.2";
@@ -52,10 +51,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pname = [ setproctitle ];
-    reload = [ watchfiles ];
+    pname = [setproctitle];
+    reload = [watchfiles];
     # rloop = [ rloop ]; # not packaged
-    uvloop = [ uvloop ];
+    uvloop = [uvloop];
   };
 
   nativeCheckInputs = [
@@ -77,13 +76,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
-  pythonImportsCheck = [ "granian" ];
+  pythonImportsCheck = ["granian"];
 
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rust HTTP server for Python ASGI/WSGI/RSGI applications";

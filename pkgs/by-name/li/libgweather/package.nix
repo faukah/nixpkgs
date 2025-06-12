@@ -23,15 +23,16 @@
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgweather";
   version = "4.4.4";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -57,7 +58,7 @@ stdenv.mkDerivation rec {
       pkg-config
       gettext
       glib
-      (python3.pythonOnBuildForHost.withPackages (ps: [ ps.pygobject3 ]))
+      (python3.pythonOnBuildForHost.withPackages (ps: [ps.pygobject3]))
     ]
     ++ lib.optionals withIntrospection [
       gi-docgen
@@ -124,7 +125,7 @@ stdenv.mkDerivation rec {
     description = "Library to access weather information from online services for numerous locations";
     homepage = "https://gitlab.gnome.org/GNOME/libgweather";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

@@ -22,7 +22,6 @@
   tqdm,
   wandb,
 }:
-
 buildPythonPackage rec {
   pname = "k-diffusion";
   version = "0.1.1.post1";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     wandb
   ];
 
-  pythonImportsCheck = [ "k_diffusion" ];
+  pythonImportsCheck = ["k_diffusion"];
 
   # no tests
   doCheck = false;
@@ -67,6 +66,6 @@ buildPythonPackage rec {
     description = "Karras et al. (2022) diffusion models for PyTorch";
     homepage = "https://github.com/crowsonkb/k-diffusion";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

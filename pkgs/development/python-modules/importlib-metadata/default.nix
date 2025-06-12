@@ -8,11 +8,9 @@
   typing-extensions,
   toml,
   zipp,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "importlib-metadata";
   version = "8.6.1";
@@ -31,15 +29,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    toml
-    zipp
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  dependencies =
+    [
+      toml
+      zipp
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   # Cyclic dependencies due to pyflakefs
   doCheck = false;
 
-  pythonImportsCheck = [ "importlib_metadata" ];
+  pythonImportsCheck = ["importlib_metadata"];
 
   passthru.tests = {
     inherit sage;

@@ -13,7 +13,6 @@
   extraFlags ? "",
   pluginsFile ? null,
 }:
-
 stdenv.mkDerivation {
   pname = "gf";
   version = "0-unstable-2025-04-11";
@@ -29,10 +28,12 @@ stdenv.mkDerivation {
     makeWrapper
     pkg-config
   ];
-  buildInputs = [
-    libX11
-    gdb
-  ] ++ lib.optional freetypeSupport freetype;
+  buildInputs =
+    [
+      libX11
+      gdb
+    ]
+    ++ lib.optional freetypeSupport freetype;
 
   patches = [
     ./build-use-optional-freetype-with-pkg-config.patch
@@ -65,10 +66,10 @@ stdenv.mkDerivation {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/gf2 --prefix PATH : ${lib.makeBinPath [ gdb ]}
+    wrapProgram $out/bin/gf2 --prefix PATH : ${lib.makeBinPath [gdb]}
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = lib.singleton "--version=branch"; };
+  passthru.updateScript = nix-update-script {extraArgs = lib.singleton "--version=branch";};
 
   meta = with lib; {
     description = "GDB Frontend";
@@ -76,6 +77,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "gf2";
-    maintainers = with maintainers; [ _0xd61 ];
+    maintainers = with maintainers; [_0xd61];
   };
 }

@@ -23,16 +23,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-B6XRai5UOAtY/7JXNbI3YuBgazi1Xd2ZOs6vvLq9LIs=";
   };
 
-  hardeningDisable = [ "trivialautovarinit" ];
+  hardeningDisable = ["trivialautovarinit"];
 
-  nativeBuildInputs = [
-    cmake
-    doxygen
-    graphviz
-    pkg-config
-  ] ++ lib.optional enableManpages buildPackages.pandoc;
+  nativeBuildInputs =
+    [
+      cmake
+      doxygen
+      graphviz
+      pkg-config
+    ]
+    ++ lib.optional enableManpages buildPackages.pandoc;
 
-  buildInputs = [ libogg ];
+  buildInputs = [libogg];
 
   cmakeFlags =
     lib.optionals (!stdenv.hostPlatform.isStatic) [
@@ -46,9 +48,9 @@ stdenv.mkDerivation (finalAttrs: {
     "-O3"
     "-funroll-loops"
   ];
-  CXXFLAGS = [ "-O3" ];
+  CXXFLAGS = ["-O3"];
 
-  patches = [ ./package.patch ];
+  patches = [./package.patch];
   doCheck = true;
 
   outputs =
@@ -62,11 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
       "man"
     ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://xiph.org/flac/";
@@ -80,6 +82,6 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with lib.maintainers; [ ruuda ];
+    maintainers = with lib.maintainers; [ruuda];
   };
 })

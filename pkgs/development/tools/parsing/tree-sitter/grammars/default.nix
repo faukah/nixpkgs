@@ -1,5 +1,4 @@
-{ lib }:
-{
+{lib}: {
   tree-sitter-bash = lib.importJSON ./tree-sitter-bash.json;
   tree-sitter-beancount = lib.importJSON ./tree-sitter-beancount.json;
   tree-sitter-bibtex = lib.importJSON ./tree-sitter-bibtex.json;

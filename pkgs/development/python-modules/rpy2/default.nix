@@ -23,9 +23,8 @@
   tzlocal,
   simplegeneric,
   pytestCheckHook,
-  extraRPackages ? [ ],
+  extraRPackages ? [],
 }:
-
 buildPythonPackage rec {
   version = "3.5.17";
   format = "setuptools";
@@ -98,13 +97,13 @@ buildPythonPackage rec {
     "test_parse_error_when_evaluting"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://rpy2.github.io/";
     description = "Python interface to R";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ joelmo ];
+    maintainers = with lib.maintainers; [joelmo];
   };
 }

@@ -11,7 +11,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "mechanicalsoup";
   version = "1.4.0";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "mechanicalsoup" ];
+  pythonImportsCheck = ["mechanicalsoup"];
 
   meta = with lib; {
     description = "Python library for automating interaction with websites";

@@ -8,7 +8,6 @@
   gtk-layer-shell,
   wrapGAppsHook3,
 }:
-
 buildGoModule rec {
   pname = "nwg-bar";
   version = "0.1.6";
@@ -20,7 +19,7 @@ buildGoModule rec {
     sha256 = "sha256-5N+WKZ+fuHQ0lVLd95/KkNAwzg/C4ImZ4DnSuKNGunk=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
   postPatch = ''
     substituteInPlace config/bar.json --subst-var out
     substituteInPlace tools.go --subst-var out
@@ -50,6 +49,6 @@ buildGoModule rec {
     homepage = "https://github.com/nwg-piotr/nwg-bar";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

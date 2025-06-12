@@ -9,7 +9,6 @@
   tinyxml,
   boost,
 }:
-
 stdenv.mkDerivation (finalAtts: {
   pname = "opencolorio";
   version = "1.1.1";
@@ -34,10 +33,12 @@ stdenv.mkDerivation (finalAtts: {
     pkg-config
   ];
 
-  buildInputs = [
-    lcms2
-    tinyxml
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin boost;
+  buildInputs =
+    [
+      lcms2
+      tinyxml
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin boost;
 
   postPatch = ''
     substituteInPlace src/core/CMakeLists.txt --replace "-Werror" ""
@@ -77,7 +78,7 @@ stdenv.mkDerivation (finalAtts: {
     homepage = "https://opencolorio.org";
     description = "Color management framework for visual effects and animation";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
     platforms = lib.platforms.unix;
   };
 })

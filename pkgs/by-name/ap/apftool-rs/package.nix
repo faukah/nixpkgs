@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "apftool-rs";
   version = "0-unstable-2024-01-05";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     mainProgram = "apftool-rs";
     homepage = "https://github.com/suyulin/apftool-rs";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ colemickens ];
+    maintainers = with lib.maintainers; [colemickens];
     platforms = lib.platforms.linux;
   };
 }

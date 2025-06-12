@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipmicfg";
   version = "1.34.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
 
     patchelf \
        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-       --set-rpath "${lib.makeLibraryPath [ stdenv.cc.cc ]}" \
+       --set-rpath "${lib.makeLibraryPath [stdenv.cc.cc]}" \
        "$out/opt/ipmicfg/IPMICFG-Linux.x86_64"
 
     ln -s "$out/opt/ipmicfg/IPMICFG-Linux.x86_64" "$out/bin/ipmicfg"
@@ -31,9 +30,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Supermicro IPMI configuration tool";
     homepage = "http://www.supermicro.com/products/nfo/ipmi.cfm";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ sorki ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [sorki];
   };
 }

@@ -8,8 +8,7 @@
   stdenv,
   yarnBuildHook,
   yarnConfigHook,
-}:
-let
+}: let
   version = "0.92.0";
 
   src = fetchFromGitHub {
@@ -49,56 +48,56 @@ let
     '';
   };
 in
-buildGoModule rec {
-  pname = "statping-ng";
-  inherit version src;
+  buildGoModule rec {
+    pname = "statping-ng";
+    inherit version src;
 
-  proxyVendor = true;
-  vendorHash = "sha256-ZcNOI5/Fs7/U8/re89YpJ3qlMaQStLrrNHXiHuBQwQk=";
+    proxyVendor = true;
+    vendorHash = "sha256-ZcNOI5/Fs7/U8/re89YpJ3qlMaQStLrrNHXiHuBQwQk=";
 
-  postPatch = ''
-    ln -s "${frontend}" source/dist
-  '';
+    postPatch = ''
+      ln -s "${frontend}" source/dist
+    '';
 
-  nativeBuildInputs = [
-    go-rice
-  ];
-
-  preBuild = ''
-    (cd source && rice embed-go)
-  '';
-
-  subPackages = [
-    "cmd/"
-  ];
-
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.VERSION=${version}"
-  ];
-
-  tags = [
-    "netgo"
-    "ousergo"
-  ];
-
-  doCheck = false;
-
-  postInstall = ''
-    mv $out/bin/cmd $out/bin/statping-ng
-    $out/bin/statping-ng version | grep ${version} > /dev/null
-  '';
-
-  meta = {
-    description = "Status Page for monitoring your websites and applications with beautiful graphs, analytics, and plugins";
-    homepage = "https://github.com/statping-ng/statping-ng";
-    changelog = "https://github.com/statping-ng/statping-ng/releases/tag/v${src.tag}";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [
-      FKouhai
+    nativeBuildInputs = [
+      go-rice
     ];
-    platforms = lib.platforms.linux;
-    mainProgram = "statping-ng";
-  };
-}
+
+    preBuild = ''
+      (cd source && rice embed-go)
+    '';
+
+    subPackages = [
+      "cmd/"
+    ];
+
+    ldflags = [
+      "-s"
+      "-w"
+      "-X main.VERSION=${version}"
+    ];
+
+    tags = [
+      "netgo"
+      "ousergo"
+    ];
+
+    doCheck = false;
+
+    postInstall = ''
+      mv $out/bin/cmd $out/bin/statping-ng
+      $out/bin/statping-ng version | grep ${version} > /dev/null
+    '';
+
+    meta = {
+      description = "Status Page for monitoring your websites and applications with beautiful graphs, analytics, and plugins";
+      homepage = "https://github.com/statping-ng/statping-ng";
+      changelog = "https://github.com/statping-ng/statping-ng/releases/tag/v${src.tag}";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [
+        FKouhai
+      ];
+      platforms = lib.platforms.linux;
+      mainProgram = "statping-ng";
+    };
+  }

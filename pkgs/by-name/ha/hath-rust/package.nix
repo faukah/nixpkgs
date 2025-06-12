@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hath-rust";
   version = "1.11.0";
@@ -19,18 +18,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-al5JAiRzXFKuUdIRgnwkKEN9rHqU82/StiIjPkQjumU=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unofficial Hentai@Home client written in Rust";
     homepage = "https://github.com/james58899/hath-rust";
     changelog = "https://github.com/james58899/hath-rust/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "hath-rust";
   };
 })

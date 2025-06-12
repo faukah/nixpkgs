@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "hieroglyph";
   version = "2.1.0";
@@ -24,7 +21,7 @@ buildPythonPackage rec {
 
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   patches = [
     # https://github.com/nyergler/hieroglyph/pull/177hieroglyph-quickstart
@@ -52,7 +49,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "hieroglyph" ];
+  pythonImportsCheck = ["hieroglyph"];
 
   # all tests fail; don't know why:
   # test_absolute_paths_made_relative (hieroglyph.tests.test_path_fixing.PostProcessImageTests) ... ERROR
@@ -62,6 +59,6 @@ buildPythonPackage rec {
     description = "Generate HTML presentations from plain text sources";
     homepage = "https://github.com/nyergler/hieroglyph/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ juliendehos ];
+    maintainers = with maintainers; [juliendehos];
   };
 }

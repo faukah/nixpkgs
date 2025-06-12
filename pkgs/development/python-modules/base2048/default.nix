@@ -11,7 +11,6 @@
   rustc,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "base2048";
   version = "0.1.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-OXlfycJB1IrW2Zq0xPDGjjwCdRTWtX/ixPGWcd+YjAg=";
   };
 
-  cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
+  cargoDeps = rustPlatform.importCargoLock {lockFile = ./Cargo.lock;};
 
   postPatch = ''
     ln -s ${./Cargo.lock} Cargo.lock
@@ -39,21 +38,21 @@ buildPythonPackage rec {
     rustc
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   optional-dependencies = {
-    fuzz = [ frelatage ];
+    fuzz = [frelatage];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "base2048" ];
+  pythonImportsCheck = ["base2048"];
 
   meta = with lib; {
     description = "Binary encoding with base-2048 in Python with Rust";
     homepage = "https://github.com/ionite34/base2048";
     changelog = "https://github.com/ionite34/base2048/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

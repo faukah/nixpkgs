@@ -1,10 +1,7 @@
-pkgs: lib: buildPackages:
-
-self: super:
-
-let
+pkgs: lib: buildPackages: self: super: let
   libExt = pkgs.stdenv.hostPlatform.extensions.sharedLibrary;
-  inherit (import ./lib-override-helper.nix pkgs lib)
+  inherit
+    (import ./lib-override-helper.nix pkgs lib)
     addPackageRequires
     addPackageRequiresIfOlder
     ignoreCompilationError
@@ -12,8 +9,7 @@ let
     mkHome
     mkHomeIfOlder
     ;
-in
-{
+in {
   cl-lib = null; # builtin
   cl-print = null; # builtin
   tle = null; # builtin
@@ -34,14 +30,16 @@ in
 
       sourceRoot = "ada-mode-${finalAttrs.version}";
 
-      nativeBuildInputs = previousAttrs.nativeBuildInputs or [ ] ++ [
-        buildPackages.gnat
-        buildPackages.gprbuild
-        buildPackages.dos2unix
-        buildPackages.re2c
-      ];
+      nativeBuildInputs =
+        previousAttrs.nativeBuildInputs or []
+        ++ [
+          buildPackages.gnat
+          buildPackages.gprbuild
+          buildPackages.dos2unix
+          buildPackages.re2c
+        ];
 
-      buildInputs = previousAttrs.buildInputs or [ ] ++ [ pkgs.gnatPackages.gnatcoll-xref ];
+      buildInputs = previousAttrs.buildInputs or [] ++ [pkgs.gnatPackages.gnatcoll-xref];
 
       buildPhase = ''
         runHook preBuild
@@ -56,9 +54,11 @@ in
           ./install.sh "$out"
         '';
 
-      meta = previousAttrs.meta // {
-        maintainers = [ lib.maintainers.sternenseemann ];
-      };
+      meta =
+        previousAttrs.meta
+        // {
+          maintainers = [lib.maintainers.sternenseemann];
+        };
     }
   );
 
@@ -75,10 +75,10 @@ in
   auctex-label-numbers = mkHome super.auctex-label-numbers;
 
   # missing optional dependencies https://codeberg.org/rahguzar/consult-hoogle/issues/4
-  consult-hoogle = addPackageRequiresIfOlder super.consult-hoogle [ self.consult ] "0.2.2";
+  consult-hoogle = addPackageRequiresIfOlder super.consult-hoogle [self.consult] "0.2.2";
 
   # missing optional dependencies https://github.com/jacksonrayhamilton/context-coloring/issues/10
-  context-coloring = addPackageRequires super.context-coloring [ self.js2-mode ];
+  context-coloring = addPackageRequires super.context-coloring [self.js2-mode];
 
   cpio-mode = ignoreCompilationError super.cpio-mode; # elisp error
 
@@ -97,15 +97,14 @@ in
   });
 
   ebdb = super.ebdb.overrideAttrs (
-    finalAttrs: previousAttrs:
-    let
+    finalAttrs: previousAttrs: let
       applyOrgRoamMissingPatch = lib.versionOlder finalAttrs.version "0.8.22.0.20240205.070828";
-    in
-    {
+    in {
       dontUnpack = !applyOrgRoamMissingPatch;
       patches =
-        if applyOrgRoamMissingPatch then
-          previousAttrs.patches or [ ]
+        if applyOrgRoamMissingPatch
+        then
+          previousAttrs.patches or []
           ++ [
             (pkgs.fetchpatch {
               name = "fix-comilation-error-about-missing-org-roam.patch";
@@ -113,10 +112,10 @@ in
               hash = "sha256-UI72N3lCgro6bG75sWnbw9truREToQHEzZ1TeQAIMjo=";
             })
           ]
-        else
-          previousAttrs.patches or null;
+        else previousAttrs.patches or null;
       preBuild =
-        if applyOrgRoamMissingPatch then
+        if applyOrgRoamMissingPatch
+        then
           previousAttrs.preBuild or ""
           + "\n"
           + ''
@@ -126,8 +125,7 @@ in
             tar --create --verbose --file=$src $content_directory
             popd
           ''
-        else
-          previousAttrs.preBuild or null;
+        else previousAttrs.preBuild or null;
     }
   );
 
@@ -150,9 +148,9 @@ in
   jinx = super.jinx.overrideAttrs (old: {
     dontUnpack = false;
 
-    nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkgs.pkg-config ];
+    nativeBuildInputs = old.nativeBuildInputs or [] ++ [pkgs.pkg-config];
 
-    buildInputs = old.buildInputs or [ ] ++ [ pkgs.enchant2 ];
+    buildInputs = old.buildInputs or [] ++ [pkgs.enchant2];
 
     postBuild =
       old.postBuild or ""
@@ -171,15 +169,17 @@ in
         rm $outd/jinx-mod.c $outd/emacs-module.h
       '';
 
-    meta = old.meta // {
-      maintainers = [ lib.maintainers.DamienCassou ];
-    };
+    meta =
+      old.meta
+      // {
+        maintainers = [lib.maintainers.DamienCassou];
+      };
   });
 
   notes-mode = (mkHome super.notes-mode).overrideAttrs (old: {
     dontUnpack = false;
-    buildInputs = old.buildInputs or [ ] ++ [ pkgs.perl ];
-    nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [ pkgs.perl ];
+    buildInputs = old.buildInputs or [] ++ [pkgs.perl];
+    nativeBuildInputs = old.nativeBuildInputs or [] ++ [pkgs.perl];
     preInstall =
       old.preInstall or ""
       + "\n"
@@ -218,10 +218,10 @@ in
   });
 
   # https://sourceware.org/bugzilla/show_bug.cgi?id=32185
-  poke = addPackageRequires super.poke [ self.poke-mode ];
+  poke = addPackageRequires super.poke [self.poke-mode];
 
   pq = super.pq.overrideAttrs (old: {
-    buildInputs = old.buildInputs or [ ] ++ [ pkgs.libpq ];
+    buildInputs = old.buildInputs or [] ++ [pkgs.libpq];
   });
 
   preview-auto = mkHome super.preview-auto;
@@ -271,13 +271,13 @@ in
 
   # kv is required in triples-test.el
   # Alternatively, we can delete that file.  But adding a dependency is easier.
-  triples = addPackageRequires super.triples [ self.kv ];
+  triples = addPackageRequires super.triples [self.kv];
 
   wisitoken-grammar-mode = ignoreCompilationError super.wisitoken-grammar-mode; # elisp error
 
   xeft = super.xeft.overrideAttrs (old: {
     dontUnpack = false;
-    buildInputs = old.buildInputs or [ ] ++ [ pkgs.xapian ];
+    buildInputs = old.buildInputs or [] ++ [pkgs.xapian];
     buildPhase =
       old.buildPhase or ""
       + ''

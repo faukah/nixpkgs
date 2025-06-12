@@ -12,7 +12,6 @@
   tomli,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "devpi-common";
   version = "4.0.4";
@@ -38,11 +37,11 @@ buildPythonPackage rec {
     tomli
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "devpi_common" ];
+  pythonImportsCheck = ["devpi_common"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/devpi/devpi";

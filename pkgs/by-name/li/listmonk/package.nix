@@ -6,7 +6,6 @@
   stuffbin,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "listmonk";
   version = "3.0.0";
@@ -35,26 +34,24 @@ buildGoModule rec {
   '';
 
   # Run stuffbin to stuff the frontend and the static in the binary.
-  postFixup =
-    let
-      vfsMappings = [
-        "config.toml.sample"
-        "schema.sql"
-        "queries.sql"
-        "static/public:/public"
-        "static/email-templates"
-        "${passthru.frontend}:/admin"
-        "i18n:/i18n"
-      ];
-    in
-    ''
-      stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
-        ${lib.concatStringsSep " " vfsMappings}
-    '';
+  postFixup = let
+    vfsMappings = [
+      "config.toml.sample"
+      "schema.sql"
+      "queries.sql"
+      "static/public:/public"
+      "static/email-templates"
+      "${passthru.frontend}:/admin"
+      "i18n:/i18n"
+    ];
+  in ''
+    stuffbin -a stuff -in $out/bin/listmonk -out $out/bin/listmonk \
+      ${lib.concatStringsSep " " vfsMappings}
+  '';
 
   passthru = {
-    frontend = callPackage ./frontend.nix { inherit meta version src; };
-    tests = { inherit (nixosTests) listmonk; };
+    frontend = callPackage ./frontend.nix {inherit meta version src;};
+    tests = {inherit (nixosTests) listmonk;};
   };
 
   meta = {
@@ -62,7 +59,7 @@ buildGoModule rec {
     mainProgram = "listmonk";
     homepage = "https://github.com/knadh/listmonk";
     changelog = "https://github.com/knadh/listmonk/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ raitobezarius ];
+    maintainers = with lib.maintainers; [raitobezarius];
     license = lib.licenses.agpl3Only;
   };
 }

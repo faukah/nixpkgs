@@ -4,7 +4,6 @@
   fetchurl,
   replaceVars,
   nixosTests,
-
   docbook_xml_dtd_45,
   docbook_xsl,
   gettext,
@@ -14,7 +13,6 @@
   xmlto,
   meson,
   ninja,
-
   acl,
   appstream,
   breezy,
@@ -41,7 +39,6 @@
   unzip,
   attr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak-builder";
   version = "1.4.4";
@@ -124,15 +121,13 @@ stdenv.mkDerivation (finalAttrs: {
   enableParallelBuilding = true;
 
   # Installed tests
-  postFixup =
-    let
-      installed_testdir = "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
-    in
-    ''
-      for file in ${installed_testdir}/{test-builder.sh,test-builder-python.sh,test-builder-deprecated.sh}; do
-        patchShebangs $file
-      done
-    '';
+  postFixup = let
+    installed_testdir = "${placeholder "installedTests"}/libexec/installed-tests/flatpak-builder";
+  in ''
+    for file in ${installed_testdir}/{test-builder.sh,test-builder-python.sh,test-builder-deprecated.sh}; do
+      patchShebangs $file
+    done
+  '';
 
   passthru = {
     installedTestsDependencies = [
@@ -154,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "flatpak-builder";
     homepage = "https://github.com/flatpak/flatpak-builder";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ arthsmn ];
+    maintainers = with maintainers; [arthsmn];
     platforms = platforms.linux;
   };
 })

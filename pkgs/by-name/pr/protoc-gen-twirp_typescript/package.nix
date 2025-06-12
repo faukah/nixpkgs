@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "protoc-gen-twirp_typescript";
   version = "unstable-2022-08-14";
@@ -18,7 +17,7 @@ buildGoModule {
   proxyVendor = true;
   vendorHash = "sha256-UyxHa28SY60U8VeL7TbSTyscqN5T7tKGfuN2GIL6QIg";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Protobuf Plugin for Generating a Twirp Typescript Client";

@@ -20,7 +20,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "solanum";
   version = "6.0.0";
@@ -67,14 +66,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://gitlab.gnome.org/World/Solanum";
     description = "Pomodoro timer for the GNOME desktop";
-    maintainers = with lib.maintainers; [ linsui ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [linsui];
+    teams = [lib.teams.gnome-circle];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "solanum";

@@ -7,7 +7,6 @@
   mypy-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "monkeytype";
   version = "23.3.0";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Instagram/MonkeyType/";
     changelog = "https://github.com/Instagram/MonkeyType/blob/${src.rev}/CHANGES.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

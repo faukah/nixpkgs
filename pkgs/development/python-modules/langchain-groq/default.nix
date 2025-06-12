@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
   groq,
-
   # tests
   langchain-tests,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-groq";
   version = "0.3.2";
@@ -30,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/groq";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -48,9 +44,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_groq" ];
+  pythonImportsCheck = ["langchain_groq"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

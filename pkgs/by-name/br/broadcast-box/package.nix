@@ -4,8 +4,7 @@
   fetchFromGitHub,
   buildNpmPackage,
   buildGoModule,
-}:
-let
+}: let
   name = "broadcast-box";
   version = "0-unstable-2025-06-04";
 
@@ -31,39 +30,39 @@ let
     '';
   };
 in
-buildGoModule {
-  inherit version src frontend;
-  pname = name;
-  vendorHash = "sha256-Jpee7UmG9AB9SOoTv2fPP2l5BmkDPPdciGFu9Naq9h8=";
-  proxyVendor = true; # fixes darwin/linux hash mismatch
+  buildGoModule {
+    inherit version src frontend;
+    pname = name;
+    vendorHash = "sha256-Jpee7UmG9AB9SOoTv2fPP2l5BmkDPPdciGFu9Naq9h8=";
+    proxyVendor = true; # fixes darwin/linux hash mismatch
 
-  patches = [ ./allow-no-env.patch ];
-  postPatch = ''
-    substituteInPlace main.go \
-      --replace-fail './web/build' '${placeholder "out"}/share'
-  '';
+    patches = [./allow-no-env.patch];
+    postPatch = ''
+      substituteInPlace main.go \
+        --replace-fail './web/build' '${placeholder "out"}/share'
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share
-    cp -r $frontend/build/* $out/share
+      mkdir -p $out/share
+      cp -r $frontend/build/* $out/share
 
-    install -Dm755 $GOPATH/bin/broadcast-box -t $out/bin
+      install -Dm755 $GOPATH/bin/broadcast-box -t $out/bin
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests = {
-    inherit (nixosTests) broadcast-box;
-  };
+    passthru.tests = {
+      inherit (nixosTests) broadcast-box;
+    };
 
-  meta = {
-    description = "WebRTC broadcast server";
-    homepage = "https://github.com/Glimesh/broadcast-box";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ JManch ];
-    platforms = lib.platforms.unix;
-    mainProgram = "broadcast-box";
-  };
-}
+    meta = {
+      description = "WebRTC broadcast server";
+      homepage = "https://github.com/Glimesh/broadcast-box";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [JManch];
+      platforms = lib.platforms.unix;
+      mainProgram = "broadcast-box";
+    };
+  }

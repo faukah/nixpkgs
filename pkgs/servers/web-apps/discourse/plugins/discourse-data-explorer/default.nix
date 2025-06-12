@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-data-explorer";
   src = fetchFromGitHub {
@@ -14,7 +13,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-data-explorer";
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     license = licenses.mit;
     description = "SQL Queries for admins in Discourse";
   };

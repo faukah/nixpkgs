@@ -1,9 +1,8 @@
 {
   system ? builtins.currentSystem,
-  pkgs ? import ../../.. { inherit system; },
+  pkgs ? import ../../.. {inherit system;},
 }:
-with import ./base.nix { inherit system; };
-let
+with import ./base.nix {inherit system;}; let
   domain = "my.zyx";
 
   redisPod = pkgs.writeText "redis-pod.json" (
@@ -56,13 +55,13 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         pkgs.redis
         pkgs.bind.host
       ];
     };
-    config.Entrypoint = [ "/bin/redis-server" ];
+    config.Entrypoint = ["/bin/redis-server"];
   };
 
   probePod = pkgs.writeText "probe-pod.json" (
@@ -75,7 +74,7 @@ let
         {
           name = "probe";
           image = "probe";
-          args = [ "-f" ];
+          args = ["-f"];
           tty = true;
           imagePullPolicy = "Never";
         }
@@ -88,29 +87,27 @@ let
     tag = "latest";
     copyToRoot = pkgs.buildEnv {
       name = "image-root";
-      pathsToLink = [ "/bin" ];
+      pathsToLink = ["/bin"];
       paths = [
         pkgs.bind.host
         pkgs.busybox
       ];
     };
-    config.Entrypoint = [ "/bin/tail" ];
+    config.Entrypoint = ["/bin/tail"];
   };
 
-  extraConfiguration =
-    {
-      config,
-      pkgs,
-      lib,
-      ...
-    }:
-    {
-      environment.systemPackages = [ pkgs.bind.host ];
-      services.dnsmasq.enable = true;
-      services.dnsmasq.settings.server = [
-        "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
-      ];
-    };
+  extraConfiguration = {
+    config,
+    pkgs,
+    lib,
+    ...
+  }: {
+    environment.systemPackages = [pkgs.bind.host];
+    services.dnsmasq.enable = true;
+    services.dnsmasq.settings.server = [
+      "/cluster.local/${config.services.kubernetes.addons.dns.clusterIp}#53"
+    ];
+  };
 
   base = {
     name = "dns";
@@ -191,8 +188,7 @@ let
       machine1.succeed("kubectl exec probe -- /bin/host redis.default.svc.cluster.local")
     '';
   };
-in
-{
+in {
   singlenode = mkKubernetesSingleNodeTest (base // singleNodeTest);
   multinode = mkKubernetesMultiNodeTest (base // multiNodeTest);
 }

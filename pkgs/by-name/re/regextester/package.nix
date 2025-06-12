@@ -17,7 +17,6 @@
   pantheon,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "regextester";
   version = "1.1.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Desktop application to test regular expressions interactively";
     mainProgram = "com.github.artemanufrij.regextester";
     homepage = "https://github.com/artemanufrij/regextester";
-    maintainers = with maintainers; [ samdroid-apps ];
+    maintainers = with maintainers; [samdroid-apps];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

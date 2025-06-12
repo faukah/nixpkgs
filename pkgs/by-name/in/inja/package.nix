@@ -7,7 +7,6 @@
   doctest,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "inja";
   version = "3.4.0";
@@ -19,8 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-B1EaR+qN32nLm3rdnlZvXQ/dlSd5XSc+5+gzBTPzUZU=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  propagatedBuildInputs = [ nlohmann_json ];
+  nativeBuildInputs = [cmake];
+  propagatedBuildInputs = [nlohmann_json];
 
   cmakeFlags = [
     (lib.cmakeBool "INJA_BUILD_TESTS" finalAttrs.finalPackage.doCheck)
@@ -28,11 +27,11 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_BENCHMARK" false)
   ];
 
-  checkInputs = [ doctest ];
+  checkInputs = [doctest];
   doCheck = true;
 
   passthru.tests = {
-    simple-cmake = callPackage ./simple-cmake-test { };
+    simple-cmake = callPackage ./simple-cmake-test {};
   };
 
   meta = {
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Template engine for modern C++, loosely inspired by jinja for python";
     homepage = "https://github.com/pantor/inja";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xokdvium ];
+    maintainers = with lib.maintainers; [xokdvium];
     platforms = lib.platforms.all;
   };
 })

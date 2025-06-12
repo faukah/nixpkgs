@@ -10,7 +10,6 @@
   taglib,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nulloy";
   version = "0.9.9";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/nulloy/nulloy/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Only;
     mainProgram = "nulloy";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -13,7 +13,6 @@
   libkdegames,
   qtquickcontrols,
 }:
-
 mkDerivation {
   pname = "konquest";
   nativeBuildInputs = [
@@ -35,7 +34,7 @@ mkDerivation {
     homepage = "https://apps.kde.org/konquest/";
     description = "Galactic strategy game";
     mainProgram = "konquest";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
 }

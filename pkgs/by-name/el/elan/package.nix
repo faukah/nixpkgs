@@ -13,7 +13,6 @@
   rustPlatform,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elan";
   version = "4.1.2";
@@ -34,18 +33,21 @@ rustPlatform.buildRustPackage rec {
   ];
 
   OPENSSL_NO_VENDOR = 1;
-  buildInputs = [
-    curl
-    zlib
-    openssl
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs =
+    [
+      curl
+      zlib
+      openssl
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  buildFeatures = [ "no-self-update" ];
+  buildFeatures = ["no-self-update"];
 
   patches = lib.optionals stdenv.hostPlatform.isLinux [
     # Run patchelf on the downloaded binaries.
     # This is necessary because Lean 4 is now dynamically linked.
-    (runCommand "0001-dynamically-patchelf-binaries.patch"
+    (
+      runCommand "0001-dynamically-patchelf-binaries.patch"
       {
         CC = stdenv.cc;
         cc = "${stdenv.cc}/bin/cc";
@@ -89,7 +91,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "elan";
   };
 }

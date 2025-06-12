@@ -5,8 +5,7 @@
   glibcLocales,
   file,
   xdg-utils,
-}:
-let
+}: let
   # any AppImage usable on cli, really
   sample-appImage = fetchurl {
     url = "https://github.com/AppImage/AppImageKit/releases/download/12/appimagetool-x86_64.AppImage";
@@ -17,7 +16,7 @@ let
     sha256 = "sha256-EEp9dxz/+l5XkNaVBFgv5v64sizQILnljRAzwXv/yV8=";
   };
 in
-runCommand "appimage-run-tests"
+  runCommand "appimage-run-tests"
   {
     buildInputs = [
       appimage-run
@@ -25,7 +24,7 @@ runCommand "appimage-run-tests"
       file
       xdg-utils
     ];
-    meta.platforms = [ "x86_64-linux" ];
+    meta.platforms = ["x86_64-linux"];
   }
   ''
     export HOME=$(mktemp -d)

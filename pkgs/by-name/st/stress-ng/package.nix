@@ -15,7 +15,6 @@
   libglvnd,
   libgbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stress-ng";
   version = "0.19.00";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
   # install phase without checking the dependencies. This will prevent
   # triggering the rebuild. Why this only happens on i686 remains a
   # mystery, though. :-(
-  enableParallelBuilding = (!stdenv.hostPlatform.isi686);
+  enableParallelBuilding = !stdenv.hostPlatform.isi686;
 
   meta = {
     description = "Stress test a computer system";
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/ColinIanKing/stress-ng/tags";
     changelog = "https://github.com/ColinIanKing/stress-ng/raw/V${version}/debian/changelog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ c0bw3b ];
+    maintainers = with lib.maintainers; [c0bw3b];
     platforms = lib.platforms.unix;
     mainProgram = "stress-ng";
   };

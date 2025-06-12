@@ -7,7 +7,6 @@
   mistune,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "m2r";
   version = "0.3.1";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     docutils
   ];
 
-  nativeCheckInputs = [ pygments ];
+  nativeCheckInputs = [pygments];
 
   meta = with lib; {
     homepage = "https://github.com/miyakogi/m2r";
     description = "Markdown to reStructuredText converter";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     # https://github.com/miyakogi/m2r/issues/66
     broken = versionAtLeast mistune.version "2";
   };

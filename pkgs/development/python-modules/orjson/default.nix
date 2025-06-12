@@ -4,14 +4,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   rustPlatform,
   cffi,
-
   # native dependencies
   libiconv,
-
   # tests
   numpy,
   psutil,
@@ -19,7 +16,6 @@
   python-dateutil,
   pytz,
   xxhash,
-
   # for passthru.tests
   falcon,
   fastapi,
@@ -27,7 +23,6 @@
   mashumaro,
   ufolib2,
 }:
-
 buildPythonPackage rec {
   pname = "orjson";
   version = "3.10.16";
@@ -48,13 +43,13 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ cffi ]
+    [cffi]
     ++ (with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
     ]);
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   nativeCheckInputs = [
     numpy
@@ -65,7 +60,7 @@ buildPythonPackage rec {
     xxhash
   ];
 
-  pythonImportsCheck = [ "orjson" ];
+  pythonImportsCheck = ["orjson"];
 
   passthru.tests = {
     inherit
@@ -86,6 +81,6 @@ buildPythonPackage rec {
       mit
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

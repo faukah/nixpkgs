@@ -1,4 +1,7 @@
-{ wrapCC, gcc9 }:
+{
+  wrapCC,
+  gcc9,
+}:
 wrapCC (
   gcc9.cc.override {
     name = "gfortran";

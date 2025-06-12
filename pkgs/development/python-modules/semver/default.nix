@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "semver";
   version = "3.0.4";
@@ -38,14 +37,14 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "semver" ];
+  pythonImportsCheck = ["semver"];
 
   meta = with lib; {
     description = "Python package to work with Semantic Versioning (http://semver.org/)";
     homepage = "https://python-semver.readthedocs.io/";
     changelog = "https://github.com/python-semver/python-semver/releases/tag/3.0.0";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
     mainProgram = "pysemver";
   };
 }

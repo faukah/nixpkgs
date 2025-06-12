@@ -5,7 +5,6 @@
   python3Packages,
   ssm-session-manager-plugin,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "aws-gate";
   version = "0.11.3";
@@ -59,7 +58,7 @@ python3Packages.buildPythonApplication rec {
     description = "Better AWS SSM Session manager CLI client";
     homepage = "https://github.com/xen0l/aws-gate";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tirimia ];
+    maintainers = with maintainers; [tirimia];
     platforms = with platforms; linux ++ darwin;
     mainProgram = "aws-gate";
   };

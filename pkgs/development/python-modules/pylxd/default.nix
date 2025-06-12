@@ -15,7 +15,6 @@
   setuptools,
   ws4py,
 }:
-
 buildPythonPackage rec {
   pname = "pylxd";
   version = "2.3.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-Q4GMz7HFpJNPYlYgLhE0a7mVCwNpdbw4XVcUGQ2gUJ0=";
   };
 
-  pythonRelaxDeps = [ "urllib3" ];
+  pythonRelaxDeps = ["urllib3"];
 
   nativeBuildInputs = [
     setuptools
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     "migration"
   ];
 
-  pythonImportsCheck = [ "pylxd" ];
+  pythonImportsCheck = ["pylxd"];
 
   meta = with lib; {
     description = "Library for interacting with the LXD REST API";
     homepage = "https://pylxd.readthedocs.io/";
     changelog = "https://github.com/canonical/pylxd/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

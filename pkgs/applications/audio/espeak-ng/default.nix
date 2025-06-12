@@ -20,7 +20,6 @@
   alsa-plugins,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "espeak-ng";
   version = "1.51.1";
@@ -73,7 +72,11 @@ stdenv.mkDerivation rec {
     '';
 
   configureFlags = [
-    "--with-mbrola=${if mbrolaSupport then "yes" else "no"}"
+    "--with-mbrola=${
+      if mbrolaSupport
+      then "yes"
+      else "no"
+    }"
   ];
 
   # ref https://github.com/void-linux/void-packages/blob/3cf863f894b67b3c93e23ac7830ca46b697d308a/srcpkgs/espeak-ng/template#L29-L31
@@ -99,7 +102,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/espeak-ng/espeak-ng";
     changelog = "https://github.com/espeak-ng/espeak-ng/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aske ];
+    maintainers = with maintainers; [aske];
     platforms = platforms.all;
     mainProgram = "espeak-ng";
   };

@@ -14,7 +14,6 @@
   xdg-desktop-portal,
   xapp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-xapp";
   version = "1.1.1";
@@ -48,13 +47,13 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     # For xfce4-set-wallpaper
-    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [ xapp ]}")
+    gappsWrapperArgs+=(--prefix PATH : "${lib.makeBinPath [xapp]}")
   '';
 
   meta = with lib; {
     description = "Backend implementation for xdg-desktop-portal for Cinnamon, MATE, Xfce";
     homepage = "https://github.com/linuxmint/xdg-desktop-portal-xapp";
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
     platforms = platforms.linux;
     license = licenses.lgpl21Plus;
   };

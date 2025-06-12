@@ -10,7 +10,6 @@
   libinotify-kqueue,
   conf ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nsxiv";
   version = "33";
@@ -29,13 +28,15 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  buildInputs = [
-    giflib
-    imlib2
-    libXft
-    libexif
-    libwebp
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libinotify-kqueue;
+  buildInputs =
+    [
+      giflib
+      imlib2
+      libXft
+      libexif
+      libwebp
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libinotify-kqueue;
 
   postPatch = lib.optionalString (conf != null) ''
     cp ${(builtins.toFile "config.def.h" conf)} config.def.h
@@ -43,11 +44,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-linotify";
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  installTargets = [ "install-all" ];
+  installTargets = ["install-all"];
 
   meta = {
     homepage = "https://nsxiv.codeberg.page/";
@@ -69,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://codeberg.org/nsxiv/nsxiv/src/tag/${finalAttrs.src.rev}/etc/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

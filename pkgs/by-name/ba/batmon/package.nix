@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "batmon";
     platforms = with lib.platforms; unix ++ windows;
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
-    maintainers = with lib.maintainers; [ _6543 ];
+    maintainers = with lib.maintainers; [_6543];
   };
 }

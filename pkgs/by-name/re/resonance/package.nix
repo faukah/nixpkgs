@@ -72,8 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   preFixup = ''
     gappsWrapperArgs+=(--prefix PYTHONPATH : ${
       python3.pkgs.makePythonPath (
-        with python3Packages;
-        [
+        with python3Packages; [
           tqdm
           mutagen
           loguru
@@ -82,14 +81,14 @@ stdenv.mkDerivation (finalAttrs: {
     })
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Intuitive GTK4/LibAdwaita music player";
     homepage = "https://github.com/nate-xyz/resonance";
     license = licenses.gpl3Plus;
     mainProgram = "resonance";
-    maintainers = with maintainers; [ Guanran928 ];
+    maintainers = with maintainers; [Guanran928];
     platforms = platforms.linux;
   };
 })

@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "termius";
   version = "9.20.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   };
 
   desktopItem = makeDesktopItem {
-    categories = [ "Network" ];
+    categories = ["Network"];
     comment = "The SSH client that works on Desktop and Mobile";
     desktopName = "Termius";
     exec = "termius-app";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  runtimeDependencies = [ (lib.getLib udev) ];
+  runtimeDependencies = [(lib.getLib udev)];
 
   postFixup = ''
     makeWrapper $out/opt/termius/termius-app $out/bin/termius-app \
@@ -111,14 +110,14 @@ stdenv.mkDerivation rec {
     description = "Cross-platform SSH client with cloud data sync and more";
     homepage = "https://termius.com/";
     downloadPage = "https://termius.com/linux/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       Br1ght0ne
       th0rgal
       Rishik-Y
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "termius-app";
   };
 }

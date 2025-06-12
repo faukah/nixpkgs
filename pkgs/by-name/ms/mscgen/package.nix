@@ -12,7 +12,6 @@
   runtimeShell,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mscgen";
   version = "0.20";

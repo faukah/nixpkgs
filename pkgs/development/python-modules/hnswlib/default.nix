@@ -6,7 +6,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "hnswlib";
   inherit (hnswlib) version src meta;
@@ -18,12 +17,12 @@ buildPythonPackage {
     pybind11
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "tests/python"
     "--pattern 'bindings_test*.py'"
   ];
 
-  pythonImportsCheck = [ "hnswlib" ];
+  pythonImportsCheck = ["hnswlib"];
 }

@@ -18,7 +18,6 @@
   sqlite,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "done";
   version = "0.2.2";
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/done-devs/done/blob/${src.rev}/CHANGES.md";
     license = licenses.mpl20;
     mainProgram = "done";
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

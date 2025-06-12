@@ -1,7 +1,9 @@
 # Minimal configuration that vagrant depends on
-
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   # Vagrant uses an insecure shared private key by default, but we
   # don't use the authorizedKeys attribute under users because it should be
   # removed on first boot and replaced with a random one. This script sets
@@ -14,8 +16,7 @@ let
       install -m 0600 <(echo "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA6NF8iallvQVp22WDkTkyrtvp9eWW6A8YVr+kz4TjGYe7gHzIw+niNltGEFHzD8+v1I2YJ6oXevct1YeS0o9HZyN1Q9qgCgzUFtdOKLv6IedplqoPkcmF0aYet2PkEDo3MlTBckFXPITAMzF8dJSIFo9D8HfdOV0IAdx4O7PtixWKn5y2hMNG0zQPyUecp4pzC6kivAIhyfHilFR61RGL+GPXQ2MWZWFYbAGjyiYJnAmCP3NOTd0jMZEnDkbUvxhMmBYSdETk1rRgm+R4LOzFUGaHqHDLKLX+FIPKcF96hrucXzcWyLbIbEgE98OHlnVYCzRdK8jlqm8tehUc9c9WhQ== vagrant insecure public key") ~/.ssh/authorized_keys
     fi
   '';
-in
-{
+in {
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -45,9 +46,9 @@ in
 
   systemd.services.install-vagrant-ssh-key = {
     description = "Vagrant SSH key install (if needed)";
-    after = [ "fs.target" ];
-    wants = [ "fs.target" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["fs.target"];
+    wants = ["fs.target"];
+    wantedBy = ["multi-user.target"];
     serviceConfig = {
       ExecStart = "${install-vagrant-ssh-key}/bin/install-vagrant-ssh-key";
       User = "vagrant";

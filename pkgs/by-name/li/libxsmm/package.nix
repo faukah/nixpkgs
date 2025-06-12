@@ -6,10 +6,8 @@
   python3,
   util-linux,
   which,
-
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxsmm";
   version = "1.17";
@@ -22,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   # Fixes /build references in the rpath
-  patches = [ ./rpath.patch ];
+  patches = [./rpath.patch];
 
   outputs = [
     "out"
@@ -41,15 +39,16 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags =
-    let
-      static = if enableStatic then "1" else "0";
-    in
-    [
-      "OMP=1"
-      "PREFIX=$(out)"
-      "STATIC=${static}"
-    ];
+  makeFlags = let
+    static =
+      if enableStatic
+      then "1"
+      else "0";
+  in [
+    "OMP=1"
+    "PREFIX=$(out)"
+    "STATIC=${static}"
+  ];
 
   postInstall = ''
     mkdir -p $dev/lib/pkgconfig
@@ -63,12 +62,12 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Library targeting Intel Architecture for specialized dense and sparse matrix operations, and deep learning primitives";
     mainProgram = "libxsmm_gemm_generator";
     license = licenses.bsd3;
     homepage = "https://github.com/hfp/libxsmm";
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ chessai ];
+    maintainers = with lib.maintainers; [chessai];
   };
 }

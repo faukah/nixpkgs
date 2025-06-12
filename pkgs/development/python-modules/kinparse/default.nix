@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "kinparse";
   version = "1.2.3";
@@ -25,26 +24,26 @@ buildPythonPackage rec {
       --replace-fail "universal = 1" "universal = 0"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pyparsing ];
+  dependencies = [pyparsing];
 
-  pythonRemoveDeps = [ "future" ];
+  pythonRemoveDeps = ["future"];
 
   preCheck = ''
     substituteInPlace tests/test_kinparse.py \
       --replace-fail "data/" "$src/tests/data/"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "kinparse" ];
+  pythonImportsCheck = ["kinparse"];
 
   meta = {
     description = "Parser for KiCad EESCHEMA netlists";
     mainProgram = "kinparse";
     homepage = "https://github.com/xesscorp/kinparse";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthuszagh ];
+    maintainers = with lib.maintainers; [matthuszagh];
   };
 }

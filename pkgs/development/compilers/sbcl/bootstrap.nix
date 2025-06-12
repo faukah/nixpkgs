@@ -5,7 +5,6 @@
   makeWrapper,
   cfg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sbcl-bootstrap";
   inherit (cfg) version;
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     inherit (cfg) sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,5 +32,5 @@ stdenv.mkDerivation rec {
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) $out/share/sbcl/sbcl
   '';
 
-  meta.sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+  meta.sourceProvenance = [lib.sourceTypes.binaryNativeCode];
 }

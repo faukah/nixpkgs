@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tzdata";
   version = "2025.2";
@@ -19,19 +18,21 @@ buildPythonPackage rec {
     hash = "sha256-tgpjj8wNr/rfgv4PV+U9Br3sLzbE32YoCuebzmvW8rk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-subtests
-  ] ++ lib.optionals (pythonOlder "3.7") [ importlib-resources ];
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-subtests
+    ]
+    ++ lib.optionals (pythonOlder "3.7") [importlib-resources];
 
-  pythonImportsCheck = [ "tzdata" ];
+  pythonImportsCheck = ["tzdata"];
 
   meta = with lib; {
     description = "Provider of IANA time zone data";
     homepage = "https://github.com/python/tzdata";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

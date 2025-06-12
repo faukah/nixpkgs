@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "helm-unittest";
   version = "0.7.2";
@@ -33,6 +32,6 @@ buildGoModule rec {
     description = "BDD styled unit test framework for Kubernetes Helm charts as a Helm plugin";
     homepage = "https://github.com/helm-unittest/helm-unittest";
     license = licenses.mit;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

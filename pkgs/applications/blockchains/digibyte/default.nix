@@ -16,7 +16,6 @@
   qttools ? null,
   wrapQtAppsHook ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "digibyte";
   version = "7.17.3";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "DigiByte (DGB) is a rapidly growing decentralized, global blockchain";
     homepage = "https://digibyte.io/";
     license = licenses.mit;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.linux;
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   zope-testbrowser,
 }:
-
 buildPythonPackage rec {
   pname = "splinter";
   version = "0.21.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-PGGql8yI1YosoUBAyDoI/8k7s4sVYnXEV7eow3GHH88=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ urllib3 ];
+  propagatedBuildInputs = [urllib3];
 
   optional-dependencies = {
     "zope.testbrowser" = [
@@ -49,12 +48,14 @@ buildPythonPackage rec {
       lxml
       cssselect
     ];
-    selenium = [ selenium ];
+    selenium = [selenium];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # driver is present and fails with a different error during loading
@@ -81,13 +82,13 @@ buildPythonPackage rec {
     "tests/test_webdriver_remote.py"
   ];
 
-  pythonImportsCheck = [ "splinter" ];
+  pythonImportsCheck = ["splinter"];
 
   meta = with lib; {
     changelog = "https://splinter.readthedocs.io/en/latest/news.html";
     description = "Browser abstraction for web acceptance testing";
     homepage = "https://github.com/cobrateam/splinter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

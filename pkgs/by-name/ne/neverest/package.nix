@@ -9,9 +9,8 @@
   installManPages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   notmuch,
   buildNoDefaultFeatures ? false,
-  buildFeatures ? [ ],
+  buildFeatures ? [],
 }:
-
 rustPlatform.buildRustPackage rec {
   # Learn more about available cargo features at:
   #  - <https://pimalaya.org/neverest/cli/latest/installation.html#cargo>
@@ -31,9 +30,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-K+LKRokfE8i4Huti0aQm4UrpConTcxVwJ2DyeOLjNKA=";
 
-  nativeBuildInputs = [
-    pkg-config
-  ] ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
+  nativeBuildInputs =
+    [
+      pkg-config
+    ]
+    ++ lib.optional (installManPages || installShellCompletions) installShellFiles;
 
   buildInputs = lib.optional (builtins.elem "notmuch" buildFeatures) notmuch;
 
@@ -60,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://pimalaya.org/neverest/cli/v${version}/";
     changelog = "https://git.sr.ht/~soywod/neverest-cli/tree/v${version}/item/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soywod ];
+    maintainers = with lib.maintainers; [soywod];
   };
 }

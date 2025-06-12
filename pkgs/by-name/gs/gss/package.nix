@@ -7,7 +7,6 @@
   withShishi ? !stdenv.hostPlatform.isDarwin,
   shishi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gss";
   version = "1.0.4";
@@ -36,7 +35,11 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    "--${if withShishi then "enable" else "disable"}-kerberos5"
+    "--${
+      if withShishi
+      then "enable"
+      else "disable"
+    }-kerberos5"
   ];
 
   # Fixup .la files
@@ -49,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Generic Security Service";
     mainProgram = "gss";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

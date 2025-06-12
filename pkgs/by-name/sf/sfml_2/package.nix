@@ -2,10 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
-
   # buildInputs
   flac,
   freetype,
@@ -31,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-m8FVXM56qjuRKRmkcEcRI8v6IpaJxskoUQ+sNsR1EhM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       flac
@@ -67,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       It is written in C++, and has bindings for various languages such as C, .Net, Ruby, Python.
     '';
     license = lib.licenses.zlib;
-    maintainers = [ lib.maintainers.astsmtl ];
+    maintainers = [lib.maintainers.astsmtl];
     platforms = lib.platforms.unix;
     badPlatforms = [
       # error: implicit instantiation of undefined template 'std::char_traits<unsigned int>'

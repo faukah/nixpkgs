@@ -6,7 +6,6 @@
   freetype,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ttf2pt1";
   version = "3.4.4";
@@ -26,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     makeFlags="INSTDIR=$out OWNER=`id -u`"
   '';
 
-  buildInputs = [ freetype ];
-  nativeBuildInputs = [ perl ];
+  buildInputs = [freetype];
+  nativeBuildInputs = [perl];
 
   patches = [
     ./gentoo-makefile.patch # also contains the freetype patch

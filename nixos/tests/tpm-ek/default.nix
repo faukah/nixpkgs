@@ -1,7 +1,9 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
-  let
+  {
+    lib,
+    pkgs,
+    ...
+  }: let
     inherit (pkgs) writeText tpm2-tools openssl;
     ek_config = writeText "ek-sign.cnf" ''
       [ tpm_policy ]
@@ -37,64 +39,61 @@ import ../make-test-python.nix (
       oid = OID:2.23.133.2.3
       str = UTF8:"id:00010101"
     '';
-  in
-  {
+  in {
     name = "tpm-ek";
 
     meta = {
-      maintainers = with lib.maintainers; [ baloo ];
+      maintainers = with lib.maintainers; [baloo];
     };
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = [
-          openssl
-          tpm2-tools
-        ];
+    nodes.machine = {pkgs, ...}: {
+      environment.systemPackages = [
+        openssl
+        tpm2-tools
+      ];
 
-        security.tpm2 = {
-          enable = true;
-          tctiEnvironment.enable = true;
-        };
-
-        virtualisation.tpm = {
-          enable = true;
-          provisioning = ''
-            export PATH=${
-              lib.makeBinPath [
-                openssl
-              ]
-            }:$PATH
-
-            tpm2_createek -G rsa -u ek.pub -c ek.ctx -f pem
-
-            # Sign a certificate
-            # Pretend we're an STM TPM
-            openssl x509 \
-              -extfile ${ek_config} \
-              -new -days 365 \
-              \
-              -subj "/CN=this.is.required.but.it.should.not/" \
-              -extensions tpm_policy \
-              \
-              -CA ${./ca.crt} -CAkey ${./ca.priv} \
-              \
-              -out device.der -outform der \
-              -force_pubkey ek.pub
-
-            # Create a nvram slot for the certificate, and we need the size
-            # to precisely match the length of the certificate we're going to
-            # put in.
-            tpm2_nvdefine 0x01c00002 \
-              -C o \
-              -a "ownerread|policyread|policywrite|ownerwrite|authread|authwrite" \
-              -s "$(wc -c device.der| cut -f 1 -d ' ')"
-
-            tpm2_nvwrite 0x01c00002 -C o -i device.der
-          '';
-        };
+      security.tpm2 = {
+        enable = true;
+        tctiEnvironment.enable = true;
       };
+
+      virtualisation.tpm = {
+        enable = true;
+        provisioning = ''
+          export PATH=${
+            lib.makeBinPath [
+              openssl
+            ]
+          }:$PATH
+
+          tpm2_createek -G rsa -u ek.pub -c ek.ctx -f pem
+
+          # Sign a certificate
+          # Pretend we're an STM TPM
+          openssl x509 \
+            -extfile ${ek_config} \
+            -new -days 365 \
+            \
+            -subj "/CN=this.is.required.but.it.should.not/" \
+            -extensions tpm_policy \
+            \
+            -CA ${./ca.crt} -CAkey ${./ca.priv} \
+            \
+            -out device.der -outform der \
+            -force_pubkey ek.pub
+
+          # Create a nvram slot for the certificate, and we need the size
+          # to precisely match the length of the certificate we're going to
+          # put in.
+          tpm2_nvdefine 0x01c00002 \
+            -C o \
+            -a "ownerread|policyread|policywrite|ownerwrite|authread|authwrite" \
+            -s "$(wc -c device.der| cut -f 1 -d ' ')"
+
+          tpm2_nvwrite 0x01c00002 -C o -i device.der
+        '';
+      };
+    };
 
     testScript = ''
       start_all()

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   udev,
 }:
-
 stdenv.mkDerivation {
   pname = "moltengamepad";
   version = "unstable-2016-05-04";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
     sha256 = "05cpxfzxgm86kxx0a9f76bshjwpz9w1g8bn30ib1i5a3fv7bmirl";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   buildPhase = ''
     make
@@ -38,8 +37,7 @@ stdenv.mkDerivation {
     description = "Flexible Linux input device translator, geared for gamepads";
     mainProgram = "moltengamepad";
     license = licenses.mit;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.linux;
   };
-
 }

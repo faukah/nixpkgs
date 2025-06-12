@@ -9,7 +9,6 @@
   setuptools,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "webtest-aiohttp";
   version = "2.0.0";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
       --replace-fail 'WebTestApp(app, loop=loop)' 'WebTestApp(app, loop=event_loop)'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ webtest ];
+  dependencies = [webtest];
 
   nativeCheckInputs = [
     aiohttp
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "webtest_aiohttp" ];
+  pythonImportsCheck = ["webtest_aiohttp"];
 
   meta = with lib; {
     changelog = "https://github.com/sloria/webtest-aiohttp/blob/${src.rev}/CHANGELOG.rst";
     description = "Provides integration of WebTest with aiohttp.web applications";
     homepage = "https://github.com/sloria/webtest-aiohttp";
     license = licenses.mit;
-    maintainers = with maintainers; [ cript0nauta ];
+    maintainers = with maintainers; [cript0nauta];
   };
 }

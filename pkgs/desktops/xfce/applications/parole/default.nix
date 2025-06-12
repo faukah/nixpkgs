@@ -19,7 +19,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "parole";
   version = "4.20.0";
@@ -60,14 +59,14 @@ stdenv.mkDerivation (finalAttrs: {
     xfconf
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "parole-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "parole-";};
 
   meta = {
     description = "Modern simple media player";
     homepage = "https://gitlab.xfce.org/apps/parole";
     license = lib.licenses.gpl2Plus;
     mainProgram = "parole";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

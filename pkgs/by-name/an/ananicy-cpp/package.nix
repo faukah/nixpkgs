@@ -15,7 +15,6 @@
   zlib,
   withBpf ? true,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "ananicy-cpp";
   version = "1.1.1";

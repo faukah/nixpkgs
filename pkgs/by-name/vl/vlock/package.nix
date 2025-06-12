@@ -4,7 +4,6 @@
   fetchurl,
   pam,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vlock";
   version = "2.2.2";
@@ -20,19 +19,19 @@ stdenv.mkDerivation rec {
     }' Makefile modules/Makefile
   '';
 
-  patches = [ ./eintr.patch ];
+  patches = [./eintr.patch];
 
   configureFlags = [
     "VLOCK_GROUP=root"
     "ROOT_GROUP=root"
   ];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   meta = with lib; {
     description = "Virtual console locking program";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "vlock";
   };

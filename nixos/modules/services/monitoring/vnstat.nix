@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.vnstat;
-in
-{
+in {
   options.services.vnstat = {
     enable = lib.mkEnableOption "update of network usage statistics via vnstatd";
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.vnstat ];
+    environment.systemPackages = [pkgs.vnstat];
 
     users = {
-      groups.vnstatd = { };
+      groups.vnstatd = {};
 
       users.vnstatd = {
         isSystemUser = true;
@@ -28,9 +25,9 @@ in
 
     systemd.services.vnstat = {
       description = "vnStat network traffic monitor";
-      path = [ pkgs.coreutils ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      path = [pkgs.coreutils];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       documentation = [
         "man:vnstatd(1)"
         "man:vnstat(1)"
@@ -59,5 +56,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.evils ];
+  meta.maintainers = [lib.maintainers.evils];
 }

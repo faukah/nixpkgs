@@ -6,35 +6,34 @@
   linuxHeaders ? null,
   profilingLibraries ? false,
   withGd ? false,
-  enableCET ? if stdenv.hostPlatform.isx86_64 then "permissive" else false,
+  enableCET ?
+    if stdenv.hostPlatform.isx86_64
+    then "permissive"
+    else false,
   enableCETRuntimeDefault ? false,
   pkgsBuildBuild,
   libgcc,
-}:
-
-let
+}: let
   gdCflags = [
     "-Wno-error=stringop-truncation"
     "-Wno-error=missing-attributes"
     "-Wno-error=array-bounds"
   ];
 in
-
-(callPackage ./common.nix { inherit stdenv linuxHeaders; } {
-  inherit
-    withLinuxHeaders
-    withGd
-    profilingLibraries
-    enableCET
-    enableCETRuntimeDefault
-    ;
-  pname =
-    "glibc"
-    + lib.optionalString withGd "-gd"
-    + lib.optionalString (stdenv.cc.isGNU && libgcc == null) "-nolibgcc";
-}).overrideAttrs
+  (callPackage ./common.nix {inherit stdenv linuxHeaders;} {
+    inherit
+      withLinuxHeaders
+      withGd
+      profilingLibraries
+      enableCET
+      enableCETRuntimeDefault
+      ;
+    pname =
+      "glibc"
+      + lib.optionalString withGd "-gd"
+      + lib.optionalString (stdenv.cc.isGNU && libgcc == null) "-nolibgcc";
+  }).overrideAttrs
   (previousAttrs: {
-
     # Note:
     # Things you write here override, and do not add to,
     # the values in `common.nix`.
@@ -67,31 +66,33 @@ in
       "stackprotector"
     ];
 
-    env = (previousAttrs.env or { }) // {
-      NIX_CFLAGS_COMPILE =
-        (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
-        + lib.concatStringsSep " " (
-          builtins.concatLists [
-            (lib.optionals withGd gdCflags)
-            # Fix -Werror build failure when building glibc with musl with GCC >= 8, see:
-            # https://github.com/NixOS/nixpkgs/pull/68244#issuecomment-544307798
-            (lib.optional stdenv.hostPlatform.isMusl "-Wno-error=attribute-alias")
-            (lib.optionals ((stdenv.hostPlatform != stdenv.buildPlatform) || stdenv.hostPlatform.isMusl) [
-              # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
-              # New warning as of GCC 9
-              # Same for musl: https://github.com/NixOS/nixpkgs/issues/78805
-              "-Wno-error=missing-attributes"
-            ])
-            (lib.optionals (stdenv.hostPlatform.isPower64) [
-              # Do not complain about the Processor Specific ABI (i.e. the
-              # choice to use IEEE-standard `long double`).  We pass this
-              # flag in order to mute a `-Werror=psabi` passed by glibc;
-              # hopefully future glibc releases will not pass that flag.
-              "-Wno-error=psabi"
-            ])
-          ]
-        );
-    };
+    env =
+      (previousAttrs.env or {})
+      // {
+        NIX_CFLAGS_COMPILE =
+          (previousAttrs.env.NIX_CFLAGS_COMPILE or "")
+          + lib.concatStringsSep " " (
+            builtins.concatLists [
+              (lib.optionals withGd gdCflags)
+              # Fix -Werror build failure when building glibc with musl with GCC >= 8, see:
+              # https://github.com/NixOS/nixpkgs/pull/68244#issuecomment-544307798
+              (lib.optional stdenv.hostPlatform.isMusl "-Wno-error=attribute-alias")
+              (lib.optionals ((stdenv.hostPlatform != stdenv.buildPlatform) || stdenv.hostPlatform.isMusl) [
+                # Ignore "error: '__EI___errno_location' specifies less restrictive attributes than its target '__errno_location'"
+                # New warning as of GCC 9
+                # Same for musl: https://github.com/NixOS/nixpkgs/issues/78805
+                "-Wno-error=missing-attributes"
+              ])
+              (lib.optionals (stdenv.hostPlatform.isPower64) [
+                # Do not complain about the Processor Specific ABI (i.e. the
+                # choice to use IEEE-standard `long double`).  We pass this
+                # flag in order to mute a `-Werror=psabi` passed by glibc;
+                # hopefully future glibc releases will not pass that flag.
+                "-Wno-error=psabi"
+              ])
+            ]
+          );
+      };
 
     # glibc needs to `dlopen()` `libgcc_s.so` but does not link
     # against it.  Furthermore, glibc doesn't use the ordinary
@@ -109,7 +110,7 @@ in
     # gcc.libgcc, since the path will be embedded in the resulting binary.
     #
     makeFlags =
-      (previousAttrs.makeFlags or [ ])
+      (previousAttrs.makeFlags or [])
       ++ lib.optionals (libgcc != null) [
         "user-defined-trusted-dirs=${libgcc}/lib"
       ];
@@ -117,46 +118,45 @@ in
     postInstall =
       previousAttrs.postInstall
       + (
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          ''
-            echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
-            # Don't install C.utf-8 into the archive, but into $out/lib/locale: on non-NixOS
-            # systems with an empty /usr/lib/locale/locale-archive, glibc would fall back to
-            # $libdir/locale/C.utf-8 instead of the locale archive of pkgs.glibc. See also #347965.
-            make -j''${NIX_BUILD_CORES:-1} localedata/install-locale-files
-          ''
+        if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+        then ''
+          echo SUPPORTED-LOCALES=C.UTF-8/UTF-8 > ../glibc-2*/localedata/SUPPORTED
+          # Don't install C.utf-8 into the archive, but into $out/lib/locale: on non-NixOS
+          # systems with an empty /usr/lib/locale/locale-archive, glibc would fall back to
+          # $libdir/locale/C.utf-8 instead of the locale archive of pkgs.glibc. See also #347965.
+          make -j''${NIX_BUILD_CORES:-1} localedata/install-locale-files
+        ''
         else
           lib.optionalString stdenv.buildPlatform.isLinux
-            # This is based on http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
-            # Instead of using their patch to build a build-native localedef,
-            # we simply use the one from pkgsBuildBuild.
-            #
-            # Note that we can't use pkgsBuildHost (aka buildPackages) here, because
-            # that will cause an eval-time infinite recursion: "buildPackages.glibc
-            # depended on buildPackages.libgcc, which, since it's GCC, depends on the
-            # target's bintools, which depend on the target's glibc, which, again,
-            # depends on buildPackages.glibc, causing an infinute recursion when
-            # evaluating buildPackages.glibc when glibc hasn't come from stdenv
-            # (e.g. on musl)." https://github.com/NixOS/nixpkgs/pull/259964
-            ''
-              pushd ../glibc-2*/localedata
-              export I18NPATH=$PWD GCONV_PATH=$PWD/../iconvdata
-              mkdir -p $NIX_BUILD_TOP/${pkgsBuildBuild.glibc}/lib/locale
-              ${lib.getBin pkgsBuildBuild.glibc}/bin/localedef \
-                --alias-file=../intl/locale.alias \
-                -i locales/C \
-                -f charmaps/UTF-8 \
-                --prefix $NIX_BUILD_TOP \
-                ${
-                  if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian" then
-                    "--little-endian"
-                  else
-                    "--big-endian"
-                } \
-                C.UTF-8
-              cp -r $NIX_BUILD_TOP/${pkgsBuildBuild.glibc}/lib/locale $out/lib
-              popd
-            ''
+          # This is based on http://www.linuxfromscratch.org/lfs/view/development/chapter06/glibc.html
+          # Instead of using their patch to build a build-native localedef,
+          # we simply use the one from pkgsBuildBuild.
+          #
+          # Note that we can't use pkgsBuildHost (aka buildPackages) here, because
+          # that will cause an eval-time infinite recursion: "buildPackages.glibc
+          # depended on buildPackages.libgcc, which, since it's GCC, depends on the
+          # target's bintools, which depend on the target's glibc, which, again,
+          # depends on buildPackages.glibc, causing an infinute recursion when
+          # evaluating buildPackages.glibc when glibc hasn't come from stdenv
+          # (e.g. on musl)." https://github.com/NixOS/nixpkgs/pull/259964
+          ''
+            pushd ../glibc-2*/localedata
+            export I18NPATH=$PWD GCONV_PATH=$PWD/../iconvdata
+            mkdir -p $NIX_BUILD_TOP/${pkgsBuildBuild.glibc}/lib/locale
+            ${lib.getBin pkgsBuildBuild.glibc}/bin/localedef \
+              --alias-file=../intl/locale.alias \
+              -i locales/C \
+              -f charmaps/UTF-8 \
+              --prefix $NIX_BUILD_TOP \
+              ${
+              if stdenv.hostPlatform.parsed.cpu.significantByte.name == "littleEndian"
+              then "--little-endian"
+              else "--big-endian"
+            } \
+              C.UTF-8
+            cp -r $NIX_BUILD_TOP/${pkgsBuildBuild.glibc}/lib/locale $out/lib
+            popd
+          ''
       )
       + ''
 
@@ -209,12 +209,14 @@ in
     separateDebugInfo = true;
 
     passthru =
-      (previousAttrs.passthru or { })
+      (previousAttrs.passthru or {})
       // lib.optionalAttrs (libgcc != null) {
         inherit libgcc;
       };
 
-    meta = (previousAttrs.meta or { }) // {
-      description = "GNU C Library";
-    };
+    meta =
+      (previousAttrs.meta or {})
+      // {
+        description = "GNU C Library";
+      };
   })

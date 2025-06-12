@@ -24,7 +24,6 @@
   psycopg2,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "trytond";
   version = "7.4.10";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     hash = "sha256-kzoZDcHNPjmsNxrQ11MAksK+24nI1YNmONQd21s3weA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -64,7 +63,7 @@ buildPythonPackage rec {
     ++ passlib.optional-dependencies.argon2
     ++ lib.optional withPostgresql psycopg2;
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)

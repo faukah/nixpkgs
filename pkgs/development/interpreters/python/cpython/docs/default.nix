@@ -2,9 +2,7 @@
   stdenv,
   fetchurl,
   lib,
-}:
-
-let
+}: let
   pythonDocs = {
     html = {
       recurseForDerivations = true;
@@ -50,4 +48,4 @@ let
     };
   };
 in
-pythonDocs
+  pythonDocs

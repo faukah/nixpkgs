@@ -12,7 +12,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hdrmerge";
   version = "0.5.0-unstable-2024-08-02";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       icon = "hdrmerge";
       exec = "hdrmerge %F";
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       mimeTypes = [
         "image/x-dcraw"
         "image/x-adobe-dng"
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     mainProgram = "hdrmerge";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.paperdigits ];
+    maintainers = [maintainers.paperdigits];
   };
 }

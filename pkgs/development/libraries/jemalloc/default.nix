@@ -14,7 +14,6 @@
   stripPrefix ? stdenv.hostPlatform.isDarwin,
   disableInitExecTls ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jemalloc";
   version = "5.3.0";
@@ -57,7 +56,12 @@ stdenv.mkDerivation rec {
   configureFlags =
     [
       "--with-version=${version}-0-g0000000000000000000000000000000000000000"
-      "--with-lg-vaddr=${with stdenv.hostPlatform; toString (if isILP32 then 32 else parsed.cpu.bits)}"
+      "--with-lg-vaddr=${with stdenv.hostPlatform;
+        toString (
+          if isILP32
+          then 32
+          else parsed.cpu.bits
+        )}"
     ]
     # see the comment on stripPrefix
     ++ lib.optional stripPrefix "--with-jemalloc-prefix="
@@ -74,10 +78,9 @@ stdenv.mkDerivation rec {
     # https://sources.debian.org/src/jemalloc/5.3.0-3/debian/rules/
     ++ [
       (
-        if (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isLoongArch64) then
-          "--with-lg-page=16"
-        else
-          "--with-lg-page=12"
+        if (stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isLoongArch64)
+        then "--with-lg-page=16"
+        else "--with-lg-page=12"
       )
     ]
     # See https://github.com/jemalloc/jemalloc/issues/1997

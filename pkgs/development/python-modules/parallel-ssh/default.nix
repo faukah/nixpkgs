@@ -8,7 +8,6 @@
   ssh2-python,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "parallel-ssh";
   version = "2.14.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     ssh2-python
   ];
 
-  pythonImportsCheck = [ "pssh" ];
+  pythonImportsCheck = ["pssh"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ParallelSSH/parallel-ssh";
     changelog = "https://github.com/ParallelSSH/parallel-ssh/blob/${src.tag}/Changelog.rst";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

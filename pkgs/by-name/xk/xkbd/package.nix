@@ -14,7 +14,6 @@
   libX11,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xkbd";
   version = "0.8.18";
@@ -39,13 +38,13 @@ stdenv.mkDerivation rec {
     xinput
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://github.com/mahatma-kaganovich/xkbd";
     description = "onscreen soft keyboard for X11";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "xkbd";
   };

@@ -9,8 +9,7 @@
   makeWrapper,
   unzip,
   language ? "en_US",
-}:
-let
+}: let
   pname = "geogebra";
   version = "5-0-785-0";
 
@@ -59,7 +58,7 @@ let
       binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -81,7 +80,7 @@ let
       hash = "sha256-cL4ERKZpE9Y6IdOjvYiX3nIIW3E2qoqkpMyTszvFseM=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       install -D geogebra/* -t "$out/libexec/geogebra/"
@@ -90,11 +89,11 @@ let
       # OpenGL versions newer than 3.0 cause "javax.media.opengl.GLException: Not a GL2 implementation"
       makeWrapper "$out/libexec/geogebra/geogebra" "$out/bin/geogebra" \
         --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            libGL
-            xorg.libXxf86vm
-          ]
-        }" \
+        lib.makeLibraryPath [
+          libGL
+          xorg.libXxf86vm
+        ]
+      }" \
         --set MESA_GL_VERSION_OVERRIDE 3.0 \
         --set JAVACMD "${jre}/bin/java" \
         --set GG_PATH "$out/libexec/geogebra" \
@@ -123,7 +122,7 @@ let
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       install -dm755 $out/Applications
@@ -131,4 +130,6 @@ let
     '';
   };
 in
-if stdenv.hostPlatform.isDarwin then darwinPkg else linuxPkg
+  if stdenv.hostPlatform.isDarwin
+  then darwinPkg
+  else linuxPkg

@@ -11,10 +11,8 @@
   makeWrapper,
   scrot,
   stdenv,
-
   screenshotCommand ? "",
 }:
-
 stdenv.mkDerivation {
   pname = "i3lock-fancy";
   version = "unstable-2023-04-28";
@@ -58,22 +56,22 @@ stdenv.mkDerivation {
   postInstall = ''
     wrapProgram $out/bin/i3lock-fancy \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          fontconfig
-          gawk
-          getopt
-          i3lock-color
-          imagemagick
-          scrot
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        fontconfig
+        gawk
+        getopt
+        i3lock-color
+        imagemagick
+        scrot
+      ]
+    }
   '';
 
   meta = with lib; {
     description = "i3lock is a bash script that takes a screenshot of the desktop, blurs the background and adds a lock icon and text";
     homepage = "https://github.com/meskarune/i3lock-fancy";
-    maintainers = [ maintainers.reedrw ];
+    maintainers = [maintainers.reedrw];
     mainProgram = "i3lock-fancy";
     license = licenses.mit;
     platforms = platforms.linux;

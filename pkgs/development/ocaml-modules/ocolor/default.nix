@@ -4,7 +4,6 @@
   buildDunePackage,
   cppo,
 }:
-
 buildDunePackage rec {
   pname = "ocolor";
   version = "1.3.1";
@@ -25,7 +24,7 @@ buildDunePackage rec {
   meta = {
     description = "Print with style in your terminal using Format’s semantic tags";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
     homepage = "https://github.com/marc-chevalier/ocolor";
   };
 }

@@ -4,33 +4,28 @@
   stdenv,
   fetchzip,
   nixosTests,
-}:
-
-let
-
-  buildGnomeExtension =
-    {
-      # Every gnome extension has a UUID. It's the name of the extension folder once unpacked
-      # and can always be found in the metadata.json of every extension.
-      uuid,
-      name,
-      pname,
-      description,
-      # extensions.gnome.org extension URL
-      link,
-      # Extension version numbers are integers
-      version,
-      sha256,
-      # Hex-encoded string of JSON bytes
-      metadata,
-    }:
-
+}: let
+  buildGnomeExtension = {
+    # Every gnome extension has a UUID. It's the name of the extension folder once unpacked
+    # and can always be found in the metadata.json of every extension.
+    uuid,
+    name,
+    pname,
+    description,
+    # extensions.gnome.org extension URL
+    link,
+    # Extension version numbers are integers
+    version,
+    sha256,
+    # Hex-encoded string of JSON bytes
+    metadata,
+  }:
     stdenv.mkDerivation {
       pname = "gnome-shell-extension-${pname}";
       version = builtins.toString version;
       src = fetchzip {
         url = "https://extensions.gnome.org/extension-data/${
-          builtins.replaceStrings [ "@" ] [ "" ] uuid
+          builtins.replaceStrings ["@"] [""] uuid
         }.v${builtins.toString version}.shell-extension.zip";
         inherit sha256;
         stripRoot = false;
@@ -43,7 +38,7 @@ let
           echo "${metadata}" | base64 --decode > $out/metadata.json
         '';
       };
-      nativeBuildInputs = with pkgs; [ buildPackages.glib ];
+      nativeBuildInputs = with pkgs; [buildPackages.glib];
       buildPhase = ''
         runHook preBuild
         if [ -d schemas ]; then
@@ -63,7 +58,7 @@ let
         homepage = link;
         license = lib.licenses.gpl2Plus; # https://gjs.guide/extensions/review-guidelines/review-guidelines.html#licensing
         platforms = lib.platforms.linux;
-        maintainers = [ lib.maintainers.honnip ];
+        maintainers = [lib.maintainers.honnip];
       };
       passthru = {
         extensionPortalSlug = pname;
@@ -76,4 +71,4 @@ let
       };
     };
 in
-lib.makeOverridable buildGnomeExtension
+  lib.makeOverridable buildGnomeExtension

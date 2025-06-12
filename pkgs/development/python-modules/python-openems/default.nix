@@ -9,7 +9,6 @@
   numpy,
   h5py,
 }:
-
 buildPythonPackage rec {
   pname = "python-openems";
   version = openems.version;
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     "-L${openems}/lib"
     "-R${openems}/lib"
   ];
-  pythonImportsCheck = [ "openEMS" ];
+  pythonImportsCheck = ["openEMS"];
 
   meta = with lib; {
     description = "Python interface to OpenEMS";
     homepage = "http://openems.de/index.php/Main_Page.html";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

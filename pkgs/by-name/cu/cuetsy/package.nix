@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "cuetsy";
   version = "0.1.11";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Experimental CUE->TypeScript exporter";
     homepage = "https://github.com/grafana/cuetsy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bryanhonof ];
+    maintainers = with lib.maintainers; [bryanhonof];
     mainProgram = "cuetsy";
   };
 }

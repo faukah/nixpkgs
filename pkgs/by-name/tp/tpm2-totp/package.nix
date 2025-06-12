@@ -8,7 +8,6 @@
   pkg-config,
   qrencode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tpm2-totp";
   version = "0.3.0";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     mainProgram = "tpm2-totp";
     platforms = platforms.all;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

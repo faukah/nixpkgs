@@ -7,7 +7,6 @@
   allure-python-commons,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "allure-behave";
   version = "2.13.5";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-M4yizHOV0e491y9dfZLYkg8a3g4H3evGN7OOYeBtyNw=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "allure_behave" ];
+  pythonImportsCheck = ["allure_behave"];
 
   propagatedBuildInputs = [
     allure-python-commons
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Allure behave integration";
     homepage = "https://github.com/allure-framework/allure-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

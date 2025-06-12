@@ -3,7 +3,6 @@
   stdenv,
   fetchMavenArtifact,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liquibase-redshift-extension";
   version = "4.8.0";
@@ -26,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Amazon Redshift extension for Liquibase";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sir4ur0n ];
+    maintainers = with maintainers; [sir4ur0n];
   };
 }

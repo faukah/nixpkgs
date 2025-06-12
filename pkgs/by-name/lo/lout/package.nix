@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ghostscript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lout";
   version = "3.43.2";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8WMRnlb1EGtUo8g9yoIBinKb1ICZMqUZka/5950Lc1M=";
   };
 
-  buildInputs = [ ghostscript ];
+  buildInputs = [ghostscript];
 
   makeFlags = [
     "PREFIX=$(out)/"
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

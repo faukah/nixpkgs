@@ -5,7 +5,6 @@
   stdenv,
   llvmPackages,
 }:
-
 # This was originally called mkl-dnn, then it was renamed to dnnl, and it has
 # just recently been renamed again to oneDNN. See here for details:
 # https://github.com/oneapi-src/oneDNN#oneapi-deep-neural-network-library-onednn
@@ -26,9 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ llvmPackages.openmp ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [llvmPackages.openmp];
 
   # Tests fail on some Hydra builders, because they do not support SSE4.2.
   doCheck = false;
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "oneAPI Deep Neural Network Library (oneDNN)";
     homepage = "https://01.org/oneDNN";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bhipple ];
+    maintainers = with lib.maintainers; [bhipple];
     platforms = lib.platforms.all;
   };
 })

@@ -11,7 +11,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "sensirion-ble";
   version = "0.1.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-VeUfrQ/1Hqs9yueUKcv/ZpCDEEy84VDcZpuTT4fXSGw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     bluetooth-data-tools
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sensirion_ble" ];
+  pythonImportsCheck = ["sensirion_ble"];
 
   meta = with lib; {
     description = "Parser for Sensirion BLE devices";
     homepage = "https://github.com/akx/sensirion-ble";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

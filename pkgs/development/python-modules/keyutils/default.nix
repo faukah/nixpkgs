@@ -6,7 +6,6 @@
   keyutils,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "keyutils";
   version = "0.6";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     rm -rf keyutils
   '';
 
-  buildInputs = [ keyutils ];
-  nativeBuildInputs = [ cython ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  buildInputs = [keyutils];
+  nativeBuildInputs = [cython];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Set of python bindings for keyutils";
     homepage = "https://github.com/sassoftware/python-keyutils";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ primeos ];
+    maintainers = with lib.maintainers; [primeos];
   };
 }

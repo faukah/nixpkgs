@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "stfl";
   version = "0.24-unstable-2021-11-29";
@@ -16,9 +15,9 @@ stdenv.mkDerivation {
     hash = "sha256-os1yQ6o4m7yBiEZQIPP64diRleIr7FtuQucUbWs4A6k=";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   # Silence warnings related to use of implicitly declared library functions and implicit ints.
   # TODO: Remove and/or fix with patches the next time this package is updated.
@@ -63,7 +62,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://web.archive.org/web/20211113222004/http://www.clifford.at/stfl/";
     description = "Library which implements a curses-based widget set for text terminals";
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.unix;
   };

@@ -2,9 +2,7 @@
   lib,
   clr,
   composable_kernel_base,
-}:
-
-let
+}: let
   parts = {
     _mha = {
       # mha takes ~3hrs on 64 cores on an EPYC milan system at ~2.5GHz
@@ -17,15 +15,15 @@ let
       targets = [
         "device_mha_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
-      extraCmakeFlags = [ "-DHIP_CLANG_NUM_PARALLEL_JOBS=2" ];
+      requiredSystemFeatures = ["big-parallel"];
+      extraCmakeFlags = ["-DHIP_CLANG_NUM_PARALLEL_JOBS=2"];
     };
     gemm_multiply_multiply = {
       targets = [
         "device_gemm_multiply_multiply_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
-      extraCmakeFlags = [ "-DHIP_CLANG_NUM_PARALLEL_JOBS=2" ];
+      requiredSystemFeatures = ["big-parallel"];
+      extraCmakeFlags = ["-DHIP_CLANG_NUM_PARALLEL_JOBS=2"];
     };
     grouped_conv = {
       targets = [
@@ -36,7 +34,7 @@ let
         "device_grouped_conv2d_fwd_instance"
         "device_grouped_conv2d_fwd_dynamic_op_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     grouped_conv_bwd_3d = {
       targets = [
@@ -47,7 +45,7 @@ let
         "device_grouped_conv3d_bwd_weight_bilinear_instance"
         "device_grouped_conv3d_bwd_weight_scale_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     grouped_conv_fwd_3d = {
       targets = [
@@ -62,7 +60,7 @@ let
         "device_grouped_conv3d_fwd_scaleadd_ab_instance"
         "device_grouped_conv3d_fwd_scaleadd_scaleadd_relu_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     batched_gemm = {
       targets = [
@@ -80,7 +78,7 @@ let
         "device_grouped_gemm_fixed_nk_multi_abd_instance"
         "device_grouped_gemm_tile_loop_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     gemm_universal = {
       targets = [
@@ -89,8 +87,8 @@ let
         "device_gemm_universal_reduce_instance"
         "device_gemm_universal_streamk_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
-      extraCmakeFlags = [ "-DHIP_CLANG_NUM_PARALLEL_JOBS=2" ];
+      requiredSystemFeatures = ["big-parallel"];
+      extraCmakeFlags = ["-DHIP_CLANG_NUM_PARALLEL_JOBS=2"];
     };
     gemm_other = {
       targets = [
@@ -112,7 +110,7 @@ let
         "device_gemm_splitk_instance"
         "device_gemm_streamk_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     conv = {
       targets = [
@@ -123,7 +121,7 @@ let
         "device_conv2d_fwd_bias_relu_add_instance"
         "device_conv3d_bwd_data_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     pool = {
       targets = [
@@ -145,7 +143,7 @@ let
         "device_normalization_bwd_gamma_beta_instance"
         "device_normalization_fwd_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
     other2 = {
       targets = [
@@ -157,16 +155,15 @@ let
         "device_softmax_instance"
         "device_transpose_instance"
       ];
-      requiredSystemFeatures = [ "big-parallel" ];
+      requiredSystemFeatures = ["big-parallel"];
     };
   };
-  tensorOpBuilder =
-    {
-      part,
-      targets,
-      extraCmakeFlags ? [ ],
-      requiredSystemFeatures ? [ ],
-    }:
+  tensorOpBuilder = {
+    part,
+    targets,
+    extraCmakeFlags ? [],
+    requiredSystemFeatures ? [],
+  }:
     composable_kernel_base.overrideAttrs (old: {
       inherit requiredSystemFeatures;
       pname = "composable_kernel${clr.gpuArchSuffix}-${part}";
@@ -208,42 +205,49 @@ let
         done
         exit 0
       '';
-      meta = old.meta // {
-        broken = false;
-      };
+      meta =
+        old.meta
+        // {
+          broken = false;
+        };
     });
-  composable_kernel_parts = builtins.mapAttrs (
-    part: targets: tensorOpBuilder (targets // { inherit part; })
-  ) parts;
+  composable_kernel_parts =
+    builtins.mapAttrs (
+      part: targets: tensorOpBuilder (targets // {inherit part;})
+    )
+    parts;
 in
+  composable_kernel_base.overrideAttrs (
+    finalAttrs: old: {
+      pname = "composable_kernel${clr.gpuArchSuffix}";
+      parts_dirs = builtins.attrValues composable_kernel_parts;
+      disallowedReferences = builtins.attrValues composable_kernel_parts;
+      preBuild = ''
+        for dir in $parts_dirs; do
+          find "$dir" -type f -name "*.o" | while read -r file; do
+            # Extract the relative path by removing the output directory prefix
+            rel_path="''${file#"$dir/"}"
 
-composable_kernel_base.overrideAttrs (
-  finalAttrs: old: {
-    pname = "composable_kernel${clr.gpuArchSuffix}";
-    parts_dirs = builtins.attrValues composable_kernel_parts;
-    disallowedReferences = builtins.attrValues composable_kernel_parts;
-    preBuild = ''
-      for dir in $parts_dirs; do
-        find "$dir" -type f -name "*.o" | while read -r file; do
-          # Extract the relative path by removing the output directory prefix
-          rel_path="''${file#"$dir/"}"
+            # Create parent directory if it doesn't exist
+            mkdir -p "$(dirname "$rel_path")"
 
-          # Create parent directory if it doesn't exist
-          mkdir -p "$(dirname "$rel_path")"
-
-          # Copy the file back to its original location, give it a future timestamp
-          # so make treats it as up to date
-          cp --reflink=auto --no-preserve=all "$file" "$rel_path"
-          touch -d "now +10 hours" "$rel_path"
+            # Copy the file back to its original location, give it a future timestamp
+            # so make treats it as up to date
+            cp --reflink=auto --no-preserve=all "$file" "$rel_path"
+            touch -d "now +10 hours" "$rel_path"
+          done
         done
-      done
-    '';
-    passthru = old.passthru // {
-      parts = composable_kernel_parts;
-    };
-    meta = old.meta // {
-      # Builds which don't don't target any gfx9 cause cmake errors in dependent projects
-      broken = !finalAttrs.passthru.anyGfx9Target;
-    };
-  }
-)
+      '';
+      passthru =
+        old.passthru
+        // {
+          parts = composable_kernel_parts;
+        };
+      meta =
+        old.meta
+        // {
+          # Builds which don't don't target any gfx9 cause cmake errors in dependent projects
+          broken = !finalAttrs.passthru.anyGfx9Target;
+        };
+    }
+  )

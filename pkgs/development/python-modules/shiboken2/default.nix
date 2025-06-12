@@ -8,7 +8,6 @@
   libxcrypt,
   llvmPackages_15,
 }:
-
 stdenv.mkDerivation {
   pname = "shiboken2";
 
@@ -23,10 +22,11 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     (python.withPackages (
-      ps: with ps; [
-        distutils
-        setuptools
-      ]
+      ps:
+        with ps; [
+          distutils
+          setuptools
+        ]
     ))
     qt5.qmake
   ];
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       libxcrypt
     ]);
 
-  cmakeFlags = [ "-DBUILD_TESTS=OFF" ];
+  cmakeFlags = ["-DBUILD_TESTS=OFF"];
 
   dontWrapQtApps = true;
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation {
       lgpl21
     ];
     homepage = "https://wiki.qt.io/Qt_for_Python";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     broken = python.pythonAtLeast "3.13";
   };
 }

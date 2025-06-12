@@ -4,7 +4,6 @@
   lib,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "testlib";
   version = "0.9.41";
@@ -22,14 +21,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "C++ library to develop competitive programming problems";
     homepage = "https://github.com/MikeMirzayanov/testlib";
     changelog = "https://github.com/MikeMirzayanov/testlib/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.all;
   };
 })

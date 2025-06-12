@@ -8,7 +8,6 @@
   onigurumaSupport ? true,
   oniguruma,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jq";
   version = "1.7.1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     rm -r ./modules/oniguruma
   '';
 
-  buildInputs = lib.optionals onigurumaSupport [ oniguruma ];
+  buildInputs = lib.optionals onigurumaSupport [oniguruma];
   nativeBuildInputs = [
     removeReferencesTo
     autoreconfHook
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
     $bin/bin/jq -r '.values[1]' <<< '{"values":["hello","world"]}' | grep '^world$' > /dev/null
   '';
 
-  passthru = { inherit onigurumaSupport; };
+  passthru = {inherit onigurumaSupport;};
 
   meta = with lib; {
     description = "Lightweight and flexible command-line JSON processor";

@@ -4,7 +4,6 @@
   fetchurl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipmiutil";
   version = "3.2.1";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BIEbLmV/+YzTHkS5GnAMnzPEyd2To2yPyYfeH0fCQCQ=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   preBuild = ''
     sed -e "s@/usr@$out@g" -i Makefile */Makefile */*/Makefile
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Easy-to-use IPMI server management utility";
     homepage = "https://ipmiutil.sourceforge.net/";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.bsd3;
     downloadPage = "https://sourceforge.net/projects/ipmiutil/files/ipmiutil/";

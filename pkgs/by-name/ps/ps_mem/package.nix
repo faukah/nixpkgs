@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ps_mem";
   version = "3.14";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     description = "Utility to accurately report the in core memory usage for a program";
     homepage = "https://github.com/pixelb/ps_mem";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
     mainProgram = "ps_mem";
   };

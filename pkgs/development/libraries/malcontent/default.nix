@@ -18,7 +18,6 @@
   nixosTests,
   malcontent-ui,
 }:
-
 stdenv.mkDerivation rec {
   pname = "malcontent";
   version = "0.13.0";
@@ -64,9 +63,10 @@ stdenv.mkDerivation rec {
     polkit
     glib-testing
     (python3.withPackages (
-      pp: with pp; [
-        pygobject3
-      ]
+      pp:
+        with pp; [
+          pygobject3
+        ]
     ))
   ];
 
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     mainProgram = "malcontent-client";
     homepage = "https://gitlab.freedesktop.org/pwithnall/malcontent";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     inherit (polkit.meta) platforms badPlatforms;
   };
 }

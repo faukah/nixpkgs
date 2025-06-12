@@ -10,7 +10,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "libpcap";
   version = "1.11.0b8";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-6XhEVOO2Z2rFZiMz4d32tTR+xUu1KdMdDjChmt2wsQo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # tox is listed in build requirements but not actually used to build
   # keeping it as a requirement breaks the build unnecessarily
@@ -48,9 +47,9 @@ buildPythonPackage rec {
   postCheck = ''
     popd
   '';
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "libpcap" ];
+  pythonImportsCheck = ["libpcap"];
 
   meta = with lib; {
     description = "Python binding for the libpcap C library";
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/karpierz/libpcap/";
     changelog = "https://github.com/karpierz/libpcap/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    teams = [ teams.ororatech ];
+    teams = [teams.ororatech];
   };
 }

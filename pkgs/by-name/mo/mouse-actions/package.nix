@@ -8,7 +8,6 @@
   libXtst,
   libevdev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mouse-actions";
   version = "0.4.5";
@@ -44,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     description = "Execute commands from mouse events such as clicks/wheel on the side/corners of the screen, or drawing shapes";
     homepage = "https://github.com/jersou/mouse-actions";
     license = licenses.mit;
-    maintainers = with maintainers; [ rgri ];
+    maintainers = with maintainers; [rgri];
     mainProgram = "mouse-actions";
     platforms = platforms.linux;
   };

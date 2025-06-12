@@ -8,7 +8,6 @@
   azure-mgmt-core,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-iothubprovisioningservices";
   version = "1.1.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     azure-mgmt-nspkg
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;

@@ -5,7 +5,6 @@
   libX11,
   xorgproto,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmagnify";
   version = "0.1.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Tiny screen magnifier for X11";
     homepage = "https://gitlab.com/amiloradovsky/magnify";
     license = licenses.mit; # or GPL2+, optionally
-    maintainers = with maintainers; [ amiloradovsky ];
+    maintainers = with maintainers; [amiloradovsky];
     mainProgram = "magnify";
     platforms = platforms.all;
   };

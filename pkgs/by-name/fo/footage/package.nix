@@ -26,7 +26,6 @@
   svt-av1,
   libmpeg2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "footage";
   version = "1.3.2";
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ gst_all_1.gstreamer ]}"
+      --prefix PATH : "${lib.makeBinPath [gst_all_1.gstreamer]}"
     )
   '';
 
@@ -94,6 +93,6 @@ stdenv.mkDerivation rec {
     description = "Video editing tool that allows you to trim, flip, rotate, and crop clips";
     homepage = "https://gitlab.com/adhami3310/Footage";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

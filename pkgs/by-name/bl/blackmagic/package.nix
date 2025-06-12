@@ -9,7 +9,6 @@
   libftdi1,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blackmagic";
   version = "1.8.2";

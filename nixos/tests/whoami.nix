@@ -1,15 +1,13 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "echoip";
-  meta.maintainers = with lib.maintainers; [ defelo ];
+  meta.maintainers = with lib.maintainers; [defelo];
 
   nodes.machine = {
     services.whoami.enable = true;
   };
 
   interactive.nodes.machine = {
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    networking.firewall.allowedTCPPorts = [8000];
     virtualisation.forwardPorts = [
       {
         from = "host";

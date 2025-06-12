@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "babelstone-han";
   version = "13.0.3";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
 
     license = licenses.arphicpl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
   };
 }

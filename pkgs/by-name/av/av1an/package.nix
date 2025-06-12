@@ -25,7 +25,6 @@
   withVmaf ? false, # Perceptual video quality assessment algorithm
   withMkvtoolnix ? true, # mkv editor, recommended concatenation method
 }:
-
 # av1an requires at least one encoder
 assert lib.assertMsg (lib.elem true [
   withAom
@@ -35,21 +34,19 @@ assert lib.assertMsg (lib.elem true [
   withX264
   withX265
 ]) "At least one encoder is required!";
+  symlinkJoin {
+    pname = "av1an";
+    inherit (av1an-unwrapped) version;
 
-symlinkJoin {
-  pname = "av1an";
-  inherit (av1an-unwrapped) version;
+    paths = [av1an-unwrapped];
 
-  paths = [ av1an-unwrapped ];
+    nativeBuildInputs = [makeBinaryWrapper];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
-
-  postBuild =
-    let
+    postBuild = let
       runtimePrograms =
         [
           vapoursynth
-          (ffmpeg.override { inherit withVmaf; })
+          (ffmpeg.override {inherit withVmaf;})
         ]
         ++ lib.optional withAom libaom
         ++ lib.optional withMkvtoolnix mkvtoolnix-cli
@@ -59,31 +56,31 @@ symlinkJoin {
         ++ lib.optional withVpx libvpx
         ++ lib.optional withX264 x264
         ++ lib.optional withX265 x265;
-    in
-    ''
+    in ''
       wrapProgram $out/bin/av1an \
         --prefix LD_LIBRARY_PATH : ${vapoursynth}/lib \
         --prefix PATH : ${lib.makeBinPath runtimePrograms} \
         --prefix PYTHONPATH : ${vapoursynth}/${python3.sitePackages}
     '';
 
-  passthru = {
-    tests.version = testers.testVersion {
-      package = av1an;
-      inherit (av1an-unwrapped) version;
+    passthru = {
+      tests.version = testers.testVersion {
+        package = av1an;
+        inherit (av1an-unwrapped) version;
+      };
     };
-  };
 
-  meta = {
-    inherit (av1an-unwrapped.meta)
-      description
-      longDescription
-      homepage
-      changelog
-      license
-      maintainers
-      mainProgram
-      broken
-      ;
-  };
-}
+    meta = {
+      inherit
+        (av1an-unwrapped.meta)
+        description
+        longDescription
+        homepage
+        changelog
+        license
+        maintainers
+        mainProgram
+        broken
+        ;
+    };
+  }

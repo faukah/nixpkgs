@@ -6,7 +6,6 @@
   rustPlatform,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fim-rs";
   version = "0.5.0";
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Achiefs/fim";
     changelog = "https://github.com/Achiefs/fim/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "fim";
   };
 }

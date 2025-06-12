@@ -1,20 +1,21 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "haste-server";
-  meta.maintainers = with lib.maintainers; [ mkg20001 ];
+  meta.maintainers = with lib.maintainers; [mkg20001];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        curl
-        jq
-      ];
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      curl
+      jq
+    ];
 
-      services.haste-server = {
-        enable = true;
-      };
+    services.haste-server = {
+      enable = true;
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("haste-server")

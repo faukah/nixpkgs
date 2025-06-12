@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "xmltodict";
   version = "0.14.2";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-IB58KLshDjdJmdHd5jgpI6sO0ail+u7OSKtSW3gQpVM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xmltodict" ];
+  pythonImportsCheck = ["xmltodict"];
 
   meta = with lib; {
     description = "Makes working with XML feel like you are working with JSON";
     homepage = "https://github.com/martinblech/xmltodict";
     changelog = "https://github.com/martinblech/xmltodict/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

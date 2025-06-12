@@ -3,24 +3,19 @@
   buildPythonPackage,
   fetchPypi,
   isPyPy,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # optional-dependencies
   brotli,
   brotlicffi,
   pysocks,
-
   # tests
   pytestCheckHook,
   pytest-timeout,
   tornado,
   trustme,
-}:
-
-let
+}: let
   self = buildPythonPackage rec {
     pname = "urllib3";
     version = "2.3.0";
@@ -37,16 +32,21 @@ let
     ];
 
     optional-dependencies = {
-      brotli = if isPyPy then [ brotlicffi ] else [ brotli ];
-      socks = [ pysocks ];
+      brotli =
+        if isPyPy
+        then [brotlicffi]
+        else [brotli];
+      socks = [pysocks];
     };
 
-    nativeCheckInputs = [
-      pytest-timeout
-      pytestCheckHook
-      tornado
-      trustme
-    ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+    nativeCheckInputs =
+      [
+        pytest-timeout
+        pytestCheckHook
+        tornado
+        trustme
+      ]
+      ++ lib.flatten (builtins.attrValues optional-dependencies);
 
     # Tests in urllib3 are mostly timeout-based instead of event-based and
     # are therefore inherently flaky. On your own machine, the tests will
@@ -69,15 +69,15 @@ let
       export CI # Increases LONG_TIMEOUT
     '';
 
-    pythonImportsCheck = [ "urllib3" ];
+    pythonImportsCheck = ["urllib3"];
 
     meta = with lib; {
       description = "Powerful, user-friendly HTTP client for Python";
       homepage = "https://github.com/urllib3/urllib3";
       changelog = "https://github.com/urllib3/urllib3/blob/${version}/CHANGES.rst";
       license = licenses.mit;
-      maintainers = with maintainers; [ fab ];
+      maintainers = with maintainers; [fab];
     };
   };
 in
-self
+  self

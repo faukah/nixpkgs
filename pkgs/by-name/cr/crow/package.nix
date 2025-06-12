@@ -6,7 +6,6 @@
   asio,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "crow";
   version = "1.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-fokj+KiS6frPVOoOvETxW3ue95kCcYhdhOlN3efzBd4=";
   };
 
-  propagatedBuildInputs = [ asio ];
+  propagatedBuildInputs = [asio];
   nativeBuildInputs = [
     asio
     cmake
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Fast and Easy to use microframework for the web";
     homepage = "https://crowcpp.org/";
-    maintainers = with lib.maintainers; [ l33tname ];
+    maintainers = with lib.maintainers; [l33tname];
     platforms = lib.platforms.all;
     license = lib.licenses.bsd3;
   };

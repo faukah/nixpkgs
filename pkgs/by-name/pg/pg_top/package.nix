@@ -7,7 +7,6 @@
   libpq,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pg_top";
   version = "4.1.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "'top' like tool for PostgreSQL";

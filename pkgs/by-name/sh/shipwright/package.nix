@@ -30,12 +30,8 @@
   fixDarwinDylibNames,
   applyPatches,
   shipwright,
-}:
-
-let
-
+}: let
   # The following would normally get fetched at build time, or a specific version is required
-
   gamecontrollerdb = fetchFromGitHub {
     owner = "mdqinc";
     repo = "SDL_GameControllerDB";
@@ -109,185 +105,185 @@ let
     hash = "sha256-CSYIpmq478bla2xoPL/cGYKIWAeiORxyFFZr0+ixd7I";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "shipwright";
-  version = "9.0.2";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "shipwright";
+    version = "9.0.2";
 
-  src = fetchFromGitHub {
-    owner = "harbourmasters";
-    repo = "shipwright";
-    tag = finalAttrs.version;
-    hash = "sha256-xmRUUMjQt3CFJ0GxlUsUqmp//XTRWik3jSD4auql7Nk=";
-    fetchSubmodules = true;
-    deepClone = true;
-    postFetch = ''
-      cd $out
-      git branch --show-current > GIT_BRANCH
-      git rev-parse --short=7 HEAD > GIT_COMMIT_HASH
-      (git describe --tags --abbrev=0 --exact-match HEAD 2>/dev/null || echo "") > GIT_COMMIT_TAG
-      rm -rf .git
-    '';
-  };
+    src = fetchFromGitHub {
+      owner = "harbourmasters";
+      repo = "shipwright";
+      tag = finalAttrs.version;
+      hash = "sha256-xmRUUMjQt3CFJ0GxlUsUqmp//XTRWik3jSD4auql7Nk=";
+      fetchSubmodules = true;
+      deepClone = true;
+      postFetch = ''
+        cd $out
+        git branch --show-current > GIT_BRANCH
+        git rev-parse --short=7 HEAD > GIT_COMMIT_HASH
+        (git describe --tags --abbrev=0 --exact-match HEAD 2>/dev/null || echo "") > GIT_COMMIT_TAG
+        rm -rf .git
+      '';
+    };
 
-  patches = [
-    ./darwin-fixes.patch
-    ./disable-downloading-stb_image.patch
-  ];
-
-  nativeBuildInputs =
-    [
-      cmake
-      ninja
-      pkg-config
-      python3
-      imagemagick
-      makeWrapper
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      lsb-release
-      copyDesktopItems
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      libicns
-      darwin.sigtool
-      fixDarwinDylibNames
+    patches = [
+      ./darwin-fixes.patch
+      ./disable-downloading-stb_image.patch
     ];
 
-  buildInputs =
-    [
-      boost
-      glew
-      SDL2
-      SDL2_net
-      libpng
-      libzip
-      nlohmann_json
-      tinyxml-2
-      spdlog
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      libpulseaudio
-      zenity
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      # Metal.hpp requires macOS 13.x min.
-      apple-sdk_13
-    ];
+    nativeBuildInputs =
+      [
+        cmake
+        ninja
+        pkg-config
+        python3
+        imagemagick
+        makeWrapper
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        lsb-release
+        copyDesktopItems
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        libicns
+        darwin.sigtool
+        fixDarwinDylibNames
+      ];
 
-  cmakeFlags =
-    [
-      (lib.cmakeBool "BUILD_REMOTE_CONTROL" true)
-      (lib.cmakeBool "NON_PORTABLE" true)
-      (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "${placeholder "out"}/lib")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_IMGUI" "${imgui'}")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_LIBGFXD" "${libgfxd}")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_PRISM" "${prism}")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_STORMLIB" "${stormlib'}")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_THREADPOOL" "${thread_pool}")
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_METALCPP" "${metalcpp}")
-      (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_SPDLOG" "${spdlog}")
-    ];
+    buildInputs =
+      [
+        boost
+        glew
+        SDL2
+        SDL2_net
+        libpng
+        libzip
+        nlohmann_json
+        tinyxml-2
+        spdlog
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        libpulseaudio
+        zenity
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        # Metal.hpp requires macOS 13.x min.
+        apple-sdk_13
+      ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-Wno-int-conversion -Wno-implicit-int -Wno-elaborated-enum-base";
+    cmakeFlags =
+      [
+        (lib.cmakeBool "BUILD_REMOTE_CONTROL" true)
+        (lib.cmakeBool "NON_PORTABLE" true)
+        (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "${placeholder "out"}/lib")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_IMGUI" "${imgui'}")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_LIBGFXD" "${libgfxd}")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_PRISM" "${prism}")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_STORMLIB" "${stormlib'}")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_THREADPOOL" "${thread_pool}")
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_METALCPP" "${metalcpp}")
+        (lib.cmakeFeature "FETCHCONTENT_SOURCE_DIR_SPDLOG" "${spdlog}")
+      ];
 
-  dontAddPrefix = true;
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin "-Wno-int-conversion -Wno-implicit-int -Wno-elaborated-enum-base";
 
-  # Linking fails without this
-  hardeningDisable = [ "format" ];
+    dontAddPrefix = true;
 
-  preConfigure = ''
-    mkdir stb
-    cp ${stb'} ./stb/${stb'.name}
-    cp ${stb_impl} ./stb/${stb_impl.name}
-    substituteInPlace libultraship/cmake/dependencies/common.cmake \
-      --replace-fail "\''${STB_DIR}" "$(readlink -f ./stb)"
-  '';
+    # Linking fails without this
+    hardeningDisable = ["format"];
 
-  postPatch = ''
-    substituteInPlace soh/src/boot/build.c.in \
-    --replace-fail "@CMAKE_PROJECT_GIT_BRANCH@" "$(cat GIT_BRANCH)" \
-    --replace-fail "@CMAKE_PROJECT_GIT_COMMIT_HASH@" "$(cat GIT_COMMIT_HASH)" \
-    --replace-fail "@CMAKE_PROJECT_GIT_COMMIT_TAG@" "$(cat GIT_COMMIT_TAG)"
-  '';
-
-  postBuild = ''
-    port_ver=$(grep CMAKE_PROJECT_VERSION: "$PWD/CMakeCache.txt" | cut -d= -f2)
-    cp ${gamecontrollerdb}/gamecontrollerdb.txt gamecontrollerdb.txt
-    mv ../libultraship/src/graphic/Fast3D/shaders ../soh/assets/custom
-    pushd ../OTRExporter
-    python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out --norom --xml-root ../soh/assets/xml --custom-assets-path ../soh/assets/custom --custom-otr-file soh.otr --port-ver $port_ver
-    popd
-  '';
-
-  preInstall = ''
-    # Cmake likes it here for its install paths
-    cp ../OTRExporter/soh.otr soh/soh.otr
-  '';
-
-  postInstall =
-    lib.optionalString stdenv.hostPlatform.isLinux ''
-      mkdir -p $out/bin
-      ln -s $out/lib/soh.elf $out/bin/soh
-      install -Dm644 ../soh/macosx/sohIcon.png $out/share/pixmaps/soh.png
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      # Recreate the macOS bundle (without using cpack)
-      # We mirror the structure of the bundle distributed by the project
-
-      mkdir -p $out/Applications/soh.app/Contents
-      cp $src/soh/macosx/Info.plist.in $out/Applications/soh.app/Contents/Info.plist
-      substituteInPlace $out/Applications/soh.app/Contents/Info.plist \
-        --replace-fail "@CMAKE_PROJECT_VERSION@" "${finalAttrs.version}"
-
-      mv $out/MacOS $out/Applications/soh.app/Contents/MacOS
-
-      # "lib" contains all resources that are in "Resources" in the official bundle.
-      # We move them to the right place and symlink them back to $out/lib,
-      # as that's where the game expects them.
-      mv $out/Resources $out/Applications/soh.app/Contents/Resources
-      mv $out/lib/** $out/Applications/soh.app/Contents/Resources
-      rm -rf $out/lib
-      ln -s $out/Applications/soh.app/Contents/Resources $out/lib
-
-      # Copy icons
-      cp -r ../build/macosx/soh.icns $out/Applications/soh.app/Contents/Resources/soh.icns
-
-      # Codesign (ad-hoc)
-      codesign -f -s - $out/Applications/soh.app/Contents/MacOS/soh
+    preConfigure = ''
+      mkdir stb
+      cp ${stb'} ./stb/${stb'.name}
+      cp ${stb_impl} ./stb/${stb_impl.name}
+      substituteInPlace libultraship/cmake/dependencies/common.cmake \
+        --replace-fail "\''${STB_DIR}" "$(readlink -f ./stb)"
     '';
 
-  fixupPhase = lib.optionalString stdenv.hostPlatform.isLinux ''
-    wrapProgram $out/lib/soh.elf --prefix PATH ":" ${lib.makeBinPath [ zenity ]}
-  '';
+    postPatch = ''
+      substituteInPlace soh/src/boot/build.c.in \
+      --replace-fail "@CMAKE_PROJECT_GIT_BRANCH@" "$(cat GIT_BRANCH)" \
+      --replace-fail "@CMAKE_PROJECT_GIT_COMMIT_HASH@" "$(cat GIT_COMMIT_HASH)" \
+      --replace-fail "@CMAKE_PROJECT_GIT_COMMIT_TAG@" "$(cat GIT_COMMIT_TAG)"
+    '';
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "soh";
-      icon = "soh";
-      exec = "soh";
-      comment = finalAttrs.meta.description;
-      genericName = "Ship of Harkinian";
-      desktopName = "soh";
-      categories = [ "Game" ];
-    })
-  ];
+    postBuild = ''
+      port_ver=$(grep CMAKE_PROJECT_VERSION: "$PWD/CMakeCache.txt" | cut -d= -f2)
+      cp ${gamecontrollerdb}/gamecontrollerdb.txt gamecontrollerdb.txt
+      mv ../libultraship/src/graphic/Fast3D/shaders ../soh/assets/custom
+      pushd ../OTRExporter
+      python3 ./extract_assets.py -z ../build/ZAPD/ZAPD.out --norom --xml-root ../soh/assets/xml --custom-assets-path ../soh/assets/custom --custom-otr-file soh.otr --port-ver $port_ver
+      popd
+    '';
 
-  meta = {
-    homepage = "https://github.com/HarbourMasters/Shipwright";
-    description = "PC port of Ocarina of Time with modern controls, widescreen, high-resolution, and more";
-    mainProgram = "soh";
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [
-      j0lol
-      matteopacini
+    preInstall = ''
+      # Cmake likes it here for its install paths
+      cp ../OTRExporter/soh.otr soh/soh.otr
+    '';
+
+    postInstall =
+      lib.optionalString stdenv.hostPlatform.isLinux ''
+        mkdir -p $out/bin
+        ln -s $out/lib/soh.elf $out/bin/soh
+        install -Dm644 ../soh/macosx/sohIcon.png $out/share/pixmaps/soh.png
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # Recreate the macOS bundle (without using cpack)
+        # We mirror the structure of the bundle distributed by the project
+
+        mkdir -p $out/Applications/soh.app/Contents
+        cp $src/soh/macosx/Info.plist.in $out/Applications/soh.app/Contents/Info.plist
+        substituteInPlace $out/Applications/soh.app/Contents/Info.plist \
+          --replace-fail "@CMAKE_PROJECT_VERSION@" "${finalAttrs.version}"
+
+        mv $out/MacOS $out/Applications/soh.app/Contents/MacOS
+
+        # "lib" contains all resources that are in "Resources" in the official bundle.
+        # We move them to the right place and symlink them back to $out/lib,
+        # as that's where the game expects them.
+        mv $out/Resources $out/Applications/soh.app/Contents/Resources
+        mv $out/lib/** $out/Applications/soh.app/Contents/Resources
+        rm -rf $out/lib
+        ln -s $out/Applications/soh.app/Contents/Resources $out/lib
+
+        # Copy icons
+        cp -r ../build/macosx/soh.icns $out/Applications/soh.app/Contents/Resources/soh.icns
+
+        # Codesign (ad-hoc)
+        codesign -f -s - $out/Applications/soh.app/Contents/MacOS/soh
+      '';
+
+    fixupPhase = lib.optionalString stdenv.hostPlatform.isLinux ''
+      wrapProgram $out/lib/soh.elf --prefix PATH ":" ${lib.makeBinPath [zenity]}
+    '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "soh";
+        icon = "soh";
+        exec = "soh";
+        comment = finalAttrs.meta.description;
+        genericName = "Ship of Harkinian";
+        desktopName = "soh";
+        categories = ["Game"];
+      })
     ];
-    license = with lib.licenses; [
-      # OTRExporter, OTRGui, ZAPDTR, libultraship
-      mit
-      # Ship of Harkinian itself
-      unfree
-    ];
-  };
-})
+
+    meta = {
+      homepage = "https://github.com/HarbourMasters/Shipwright";
+      description = "PC port of Ocarina of Time with modern controls, widescreen, high-resolution, and more";
+      mainProgram = "soh";
+      platforms = lib.platforms.linux ++ lib.platforms.darwin;
+      maintainers = with lib.maintainers; [
+        j0lol
+        matteopacini
+      ];
+      license = with lib.licenses; [
+        # OTRExporter, OTRGui, ZAPDTR, libultraship
+        mit
+        # Ship of Harkinian itself
+        unfree
+      ];
+    };
+  })

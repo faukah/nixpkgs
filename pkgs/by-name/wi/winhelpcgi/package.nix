@@ -13,10 +13,9 @@ stdenv.mkDerivation {
   src = fetchurl {
     url = "http://www.herdsoft.com/ftp/winhelpcgi_1.0-1.tar.gz";
     sha256 = "sha256-9HIs50ZGoTfGixD9c/DQs0KJMQtmfsDVB8qRMnQtXNw=";
-
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libwmf
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     mainProgram = "winhelpcgi.cgi";
     homepage = "http://www.herdsoft.com/linux/produkte/winhelpcgi.html";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
     platforms = lib.platforms.linux;
     broken = stdenv.hostPlatform.isAarch64;
   };

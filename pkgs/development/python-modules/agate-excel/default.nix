@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "agate-excel";
   version = "0.4.1";
@@ -29,15 +28,15 @@ buildPythonPackage rec {
     olefile
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "agate" ];
+  pythonImportsCheck = ["agate"];
 
   meta = with lib; {
     description = "Adds read support for excel files to agate";
     homepage = "https://github.com/wireservice/agate-excel";
     changelog = "https://github.com/wireservice/agate-excel/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

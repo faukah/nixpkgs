@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   ip4,
   ip6,
   extraConfig,

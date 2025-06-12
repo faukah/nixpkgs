@@ -13,7 +13,6 @@
   wrapGAppsHook4,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "d-spy";
   version = "48.0";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "d-spy";
     homepage = "https://gitlab.gnome.org/GNOME/d-spy";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

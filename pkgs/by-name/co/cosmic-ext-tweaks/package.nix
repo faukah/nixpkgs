@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     just
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   dontUseJustBuild = true;
   dontUseJustCheck = true;
@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     "target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/cosmic-ext-tweaks"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/cosmic-utils/tweaks/releases/tag/${version}";
@@ -53,8 +53,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/cosmic-utils/tweaks";
     license = lib.licenses.gpl3Only;
     mainProgram = "cosmic-ext-tweaks";
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 }

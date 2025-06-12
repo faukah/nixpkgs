@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "0x";
   version = "unstable-2022-07-11";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage {
     description = "Colorful, configurable xxd";
     mainProgram = "0x";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

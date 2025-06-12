@@ -14,7 +14,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "limnoria";
   version = "2025.5.3";
@@ -27,19 +26,21 @@ buildPythonPackage rec {
     hash = "sha256-EZ42Ufnw3sUM1fM3+hTreKr58QOgeRANilXP9uxU/Cs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    chardet
-    cryptography
-    feedparser
-    mock
-    pysocks
-    python-dateutil
-    python-gnupg
-  ] ++ lib.optionals (pythonOlder "3.9") [ pytz ];
+  dependencies =
+    [
+      chardet
+      cryptography
+      feedparser
+      mock
+      pysocks
+      python-dateutil
+      python-gnupg
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [pytz];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -62,6 +63,6 @@ buildPythonPackage rec {
     description = "Modified version of Supybot, an IRC bot";
     homepage = "https://github.com/ProgVal/Limnoria";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

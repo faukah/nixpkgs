@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pysentation";
   version = "1.0.0";
@@ -31,14 +30,14 @@ python3.pkgs.buildPythonApplication rec {
     rich
   ];
 
-  pythonImportsCheck = [ "pysentation" ];
+  pythonImportsCheck = ["pysentation"];
 
   meta = with lib; {
     description = "CLI for displaying Python presentations";
     homepage = "https://github.com/mimseyedi/pysentation";
     changelog = "https://github.com/mimseyedi/pysentation/releases/tag/${src.rev}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "pysentation";
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fabric-installer";
   version = "1.0.3";
@@ -34,9 +33,9 @@ stdenv.mkDerivation rec {
     homepage = "https://fabricmc.net/";
     description = "Lightweight, experimental modding toolchain for Minecraft";
     mainProgram = "fabric-installer";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

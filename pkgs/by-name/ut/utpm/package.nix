@@ -40,6 +40,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/Thumuss/utpm";
     license = lib.licenses.mit;
     mainProgram = "utpm";
-    maintainers = with lib.maintainers; [ louis-thevenet ];
+    maintainers = with lib.maintainers; [louis-thevenet];
   };
 }

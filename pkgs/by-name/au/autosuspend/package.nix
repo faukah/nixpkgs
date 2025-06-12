@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "autosuspend";
   version = "7.2.0";

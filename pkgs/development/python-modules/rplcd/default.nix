@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "rplcd";
   version = "1.4.0";
@@ -24,6 +23,6 @@ buildPythonPackage rec {
     '';
     mainProgram = "rplcd-tests";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

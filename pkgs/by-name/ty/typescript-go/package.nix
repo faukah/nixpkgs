@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildGoModule {
   pname = "typescript-go";
   version = "0-unstable-2025-06-09";
@@ -41,7 +40,7 @@ buildGoModule {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {

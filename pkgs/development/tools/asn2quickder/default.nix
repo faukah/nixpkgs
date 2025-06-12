@@ -9,7 +9,6 @@
   asn1ate,
   colored,
 }:
-
 buildPythonApplication rec {
   pname = "asn2quickder";
   version = "1.7.1";
@@ -49,6 +48,6 @@ buildPythonApplication rec {
     homepage = "https://gitlab.com/arpa2/quick-der";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

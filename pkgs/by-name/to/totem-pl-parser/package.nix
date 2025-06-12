@@ -12,7 +12,6 @@
   gnome,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "totem-pl-parser";
   version = "3.26.6";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/totem-pl-parser";
     description = "Simple GObject-based library to parse and save a host of playlist formats";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl2;
     platforms = platforms.unix;
   };

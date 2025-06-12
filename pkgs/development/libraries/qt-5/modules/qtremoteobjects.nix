@@ -3,7 +3,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 qtModule {
   pname = "qtremoteobjects";
   propagatedBuildInputs = [
@@ -11,5 +10,5 @@ qtModule {
     qtdeclarative
   ];
   # cycle is detected in build when adding "dev" "bin" too
-  outputs = [ "out" ];
+  outputs = ["out"];
 }

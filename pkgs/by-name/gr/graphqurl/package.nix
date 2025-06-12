@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "graphqurl";
   version = "2.0.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/hasura/graphqurl";
     license = lib.licenses.asl20;
     mainProgram = "gq";
-    maintainers = with lib.maintainers; [ bbigras ];
+    maintainers = with lib.maintainers; [bbigras];
   };
 }

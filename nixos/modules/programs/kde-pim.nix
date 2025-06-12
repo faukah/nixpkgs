@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.kde-pim;
-in
-{
+in {
   options.programs.kde-pim = {
     enable = lib.mkEnableOption "KDE PIM base packages";
     kmail = lib.mkEnableOption "KMail";
@@ -17,8 +14,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages =
-      with pkgs.kdePackages;
+    environment.systemPackages = with pkgs.kdePackages;
       [
         # core packages
         akonadi

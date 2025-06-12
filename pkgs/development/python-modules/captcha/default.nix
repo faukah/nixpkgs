@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "captcha";
   version = "0.7.1";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-wMnfPkHexiRprtDL6Kkmh9dms4NtW3u37DKtDMPb2ZI=";
   };
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "captcha" ];
+  pythonImportsCheck = ["captcha"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Captcha library that generates audio and image CAPTCHAs";
     homepage = "https://github.com/lepture/captcha";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

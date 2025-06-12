@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gomi";
   version = "1.6.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-8aw81DKBmgNsQzgtHCsUkok5e5+LeAC8BUijwKVT/0s=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # Add version information fetched from the repository to ldflags.
   # https://github.com/babarot/gomi/blob/v1.6.0/.goreleaser.yaml#L20-L22

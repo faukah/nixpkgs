@@ -7,7 +7,6 @@
   libXext,
   libdockapp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wmsm.app";
 
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "System monitor for Windowmaker";
     homepage = "https://www.dockapps.net/wmsmapp";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

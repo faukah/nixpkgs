@@ -16,7 +16,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "geoip2";
   version = "5.0.1";
@@ -49,20 +48,20 @@ buildPythonPackage rec {
     pytest-httpserver
   ];
 
-  pythonImportsCheck = [ "geoip2" ];
+  pythonImportsCheck = ["geoip2"];
 
   disabledTests =
     lib.optionals (pythonAtLeast "3.10") [
       # https://github.com/maxmind/GeoIP2-python/pull/136
       "TestAsyncClient"
     ]
-    ++ lib.optionals (pythonAtLeast "3.10") [ "test_request" ];
+    ++ lib.optionals (pythonAtLeast "3.10") ["test_request"];
 
   meta = with lib; {
     description = "GeoIP2 webservice client and database reader";
     homepage = "https://github.com/maxmind/GeoIP2-python";
     changelog = "https://github.com/maxmind/GeoIP2-python/blob/v${version}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

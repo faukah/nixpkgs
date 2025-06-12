@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lyto";
   version = "0.2.2";
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/eeriemyxi/lyto";
     changelog = "https://github.com/eeriemyxi/lyto/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ atemu ];
+    maintainers = with lib.maintainers; [atemu];
     mainProgram = "lyto";
   };
 }

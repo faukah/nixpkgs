@@ -9,12 +9,10 @@
   libbass,
   libbass_fx,
 }:
-
 # TODO: get rid of (unfree) libbass
 # issue:https://github.com/UltraStar-Deluxe/UltraStar-Creator/issues/3
 # there’s a WIP branch here:
 # https://github.com/UltraStar-Deluxe/UltraStar-Creator/commits/BASS_removed
-
 mkDerivation {
   pname = "ultrastar-creator";
   version = "2019-04-23";
@@ -58,6 +56,6 @@ mkDerivation {
     description = "Ultrastar karaoke song creation tool";
     homepage = "https://github.com/UltraStar-Deluxe/UltraStar-Creator";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
   };
 }

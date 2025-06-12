@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-evict-pod";
   version = "0.0.14";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "kubectl-evict-pod";
     homepage = "https://github.com/rajatjindal/kubectl-evict-pod";
     license = licenses.asl20;
-    maintainers = [ maintainers.j4m3s ];
+    maintainers = [maintainers.j4m3s];
   };
 }

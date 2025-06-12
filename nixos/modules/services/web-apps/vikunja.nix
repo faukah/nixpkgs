@@ -4,29 +4,26 @@
   config,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.vikunja;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "config.yaml" cfg.settings;
   useMysql = cfg.database.type == "mysql";
   usePostgresql = cfg.database.type == "postgres";
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "vikunja" "setupNginx" ]
+    (
+      mkRemovedOptionModule ["services" "vikunja" "setupNginx"]
       "services.vikunja no longer supports the automatic set up of a nginx virtual host. Set up your own webserver config with a proxy pass to the vikunja service."
     )
   ];
 
   options.services.vikunja = with lib; {
     enable = mkEnableOption "vikunja service";
-    package = mkPackageOption pkgs "vikunja" { };
+    package = mkPackageOption pkgs "vikunja" {};
     environmentFiles = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = ''
         List of environment files set in the vikunja systemd service.
         For example passwords should be set in one of these files.
@@ -53,7 +50,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = ''
         Vikunja configuration. Refer to
         <https://vikunja.io/docs/config-options/>
@@ -96,7 +93,8 @@ in
   config = lib.mkIf cfg.enable {
     services.vikunja.settings = {
       database = {
-        inherit (cfg.database)
+        inherit
+          (cfg.database)
           type
           host
           user
@@ -116,12 +114,12 @@ in
     systemd.services.vikunja = {
       description = "vikunja";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional usePostgresql "postgresql.service"
         ++ lib.optional useMysql "mysql.service";
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ];
-      restartTriggers = [ configFile ];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package];
+      restartTriggers = [configFile];
 
       serviceConfig = {
         Type = "simple";

@@ -13,7 +13,6 @@
   stdenv,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl8690cdwlpr";
   version = "1.3.0-0";
@@ -43,15 +42,15 @@ stdenv.mkDerivation rec {
 
     wrapProgram $filter \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          file
-          ghostscript
-          gnugrep
-          gnused
-          which
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        file
+        ghostscript
+        gnugrep
+        gnused
+        which
+      ]
+    }
 
     # need to use i686 glibc here, these are 32bit proprietary binaries
     interpreter=${pkgs.pkgsi686Linux.glibc}/lib/ld-linux.so.2
@@ -61,9 +60,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Brother MFC-L8690CDW LPR printer driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "x86_64-linux"
       "i686-linux"

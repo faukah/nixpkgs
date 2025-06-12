@@ -5,7 +5,6 @@
   cabextract,
   bt-fw-converter,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "broadcom-bt-firmware";
   version = "12.0.1.1012";
@@ -47,6 +46,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.catalog.update.microsoft.com/Search.aspx?q=Broadcom+bluetooth";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

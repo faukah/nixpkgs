@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "kryptor";
   version = "4.1.1";
@@ -23,13 +22,13 @@ buildDotnetModule rec {
   projectFile = "src/Kryptor/Kryptor.csproj";
   nugetDeps = ./deps.json;
 
-  executables = [ "kryptor" ];
+  executables = ["kryptor"];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

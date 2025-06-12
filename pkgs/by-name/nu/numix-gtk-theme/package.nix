@@ -9,7 +9,6 @@
   gtk-engine-murrine,
   gitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "numix-gtk-theme";
   version = "unstable-2021-06-08";
@@ -28,20 +27,20 @@ stdenv.mkDerivation {
     gdk-pixbuf
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   postPatch = ''
     substituteInPlace Makefile --replace '$(DESTDIR)'/usr $out
     patchShebangs .
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Modern flat theme with a combination of light and dark elements (GNOME, Unity, Xfce and Openbox)";
     homepage = "https://numixproject.github.io";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

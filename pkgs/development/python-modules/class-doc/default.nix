@@ -7,7 +7,6 @@
   more-itertools,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "class-doc";
   version = "0.2.6";
@@ -29,18 +28,18 @@ buildPythonPackage {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ more-itertools ];
+  propagatedBuildInputs = [more-itertools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "class_doc" ];
+  pythonImportsCheck = ["class_doc"];
 
   meta = with lib; {
     description = "Extract attributes docstrings defined in various ways";
     homepage = "https://github.com/danields761/class-doc";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.klipper;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     mkMerge
     mkIf
@@ -17,11 +16,10 @@ let
     optionalString
     ;
   moonraker = config.services.moonraker;
-in
-{
+in {
   port = 9101;
   extraOpts = {
-    package = lib.mkPackageOption pkgs "prometheus-klipper-exporter" { };
+    package = lib.mkPackageOption pkgs "prometheus-klipper-exporter" {};
 
     moonrakerApiKey = mkOption {
       type = types.str;
@@ -47,8 +45,8 @@ in
     ]
     ++ [
       (mkIf config.services.moonraker.enable {
-        after = [ "moonraker.service" ];
-        requires = [ "moonraker.service" ];
+        after = ["moonraker.service"];
+        requires = ["moonraker.service"];
       })
     ]
   );

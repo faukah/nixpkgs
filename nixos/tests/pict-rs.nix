@@ -1,17 +1,18 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "pict-rs";
-  meta.maintainers = with lib.maintainers; [ happysalada ];
+  meta.maintainers = with lib.maintainers; [happysalada];
 
-  nodes.machine =
-    { ... }:
-    {
-      environment.systemPackages = with pkgs; [
-        curl
-        jq
-      ];
-      services.pict-rs.enable = true;
-    };
+  nodes.machine = {...}: {
+    environment.systemPackages = with pkgs; [
+      curl
+      jq
+    ];
+    services.pict-rs.enable = true;
+  };
 
   testScript = ''
     start_all()

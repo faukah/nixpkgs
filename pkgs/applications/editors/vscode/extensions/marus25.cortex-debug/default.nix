@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "cortex-debug";
@@ -13,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug";
     homepage = "https://github.com/Marus/cortex-debug";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bcooley ];
+    maintainers = [lib.maintainers.bcooley];
   };
 }

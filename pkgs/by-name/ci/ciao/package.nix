@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ciao";
   version = "1.24.0-m1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ciao-lang.org/";
     description = "General purpose, multi-paradigm programming language in the Prolog family";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/ciao.x86_64-darwin
   };

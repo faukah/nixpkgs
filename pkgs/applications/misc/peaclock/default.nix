@@ -6,7 +6,6 @@
   libpthreadstubs,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "peaclock";
   version = "0.4.3";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1582vgslhpgbvcd7ipgf1d1razrvgpq1f93q069yr2bbk6xn8i16";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libpthreadstubs
     icu
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://octobanana.com/software/peaclock";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
     mainProgram = "peaclock";
   };
 }

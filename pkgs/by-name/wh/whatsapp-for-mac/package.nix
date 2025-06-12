@@ -7,7 +7,6 @@
   xmlstarlet,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "whatsapp-for-mac";
   version = "2.25.16.81";
@@ -51,8 +50,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Native desktop client for WhatsApp";
     homepage = "https://www.whatsapp.com/";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ iivusly ];
+    maintainers = with lib.maintainers; [iivusly];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

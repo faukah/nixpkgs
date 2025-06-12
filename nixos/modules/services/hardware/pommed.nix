@@ -3,17 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hardware.pommed;
   defaultConf = "${pkgs.pommed_light}/etc/pommed.conf.mactel";
-in
-{
-
+in {
   options = {
-
     services.hardware.pommed = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -36,7 +31,6 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
@@ -46,11 +40,13 @@ in
     ];
 
     environment.etc."pommed.conf".source =
-      if cfg.configFile == null then defaultConf else cfg.configFile;
+      if cfg.configFile == null
+      then defaultConf
+      else cfg.configFile;
 
     systemd.services.pommed = {
       description = "Pommed Apple Hotkeys Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       script = "${pkgs.pommed_light}/bin/pommed -f";
     };
   };

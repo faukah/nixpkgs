@@ -12,10 +12,8 @@
   wl-clipboard,
   wtype,
   wofi,
-  extensions ? exts: [ ],
-}:
-
-let
+  extensions ? exts: [],
+}: let
   wrapperPath = lib.makeBinPath [
     coreutils
     findutils
@@ -28,39 +26,39 @@ let
     (pass-wayland.withExtensions extensions)
   ];
 in
-stdenv.mkDerivation rec {
-  pname = "wofi-pass";
-  version = "24.1.0";
+  stdenv.mkDerivation rec {
+    pname = "wofi-pass";
+    version = "24.1.0";
 
-  src = fetchFromGitHub {
-    owner = "schmidtandreas";
-    repo = "wofi-pass";
-    rev = "v${version}";
-    sha256 = "sha256-oRGDhr28UQjr+g//fWcLKWXqKSsRUWtdh39UMFSaPfw=";
-  };
+    src = fetchFromGitHub {
+      owner = "schmidtandreas";
+      repo = "wofi-pass";
+      rev = "v${version}";
+      sha256 = "sha256-oRGDhr28UQjr+g//fWcLKWXqKSsRUWtdh39UMFSaPfw=";
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  dontBuild = true;
+    dontBuild = true;
 
-  installPhase = ''
-    install -Dm755 wofi-pass -t $out/bin
-    install -Dm755 wofi-pass.conf -t $out/share/doc/wofi-pass/wofi-pass.conf
-  '';
+    installPhase = ''
+      install -Dm755 wofi-pass -t $out/bin
+      install -Dm755 wofi-pass.conf -t $out/share/doc/wofi-pass/wofi-pass.conf
+    '';
 
-  fixupPhase = ''
-    patchShebangs $out/bin
+    fixupPhase = ''
+      patchShebangs $out/bin
 
-    wrapProgram $out/bin/wofi-pass \
-      --prefix PATH : "${wrapperPath}"
-  '';
+      wrapProgram $out/bin/wofi-pass \
+        --prefix PATH : "${wrapperPath}"
+    '';
 
-  meta = {
-    description = "Script to make wofi work with password-store";
-    homepage = "https://github.com/schmidtandreas/wofi-pass";
-    maintainers = with lib.maintainers; [ akechishiro ];
-    license = lib.licenses.gpl2Plus;
-    platforms = with lib.platforms; linux;
-    mainProgram = "wofi-pass";
-  };
-}
+    meta = {
+      description = "Script to make wofi work with password-store";
+      homepage = "https://github.com/schmidtandreas/wofi-pass";
+      maintainers = with lib.maintainers; [akechishiro];
+      license = lib.licenses.gpl2Plus;
+      platforms = with lib.platforms; linux;
+      mainProgram = "wofi-pass";
+    };
+  }

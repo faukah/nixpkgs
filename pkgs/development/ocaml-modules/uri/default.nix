@@ -6,7 +6,6 @@
   angstrom,
   stringext,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.03";
   pname = "uri";
@@ -19,7 +18,7 @@ buildDunePackage rec {
     sha256 = "cdabaf6ef5cd2161e59cc7b74c6e4a68ecb80a9f4e96002e338e1b6bf17adec4";
   };
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
   propagatedBuildInputs = [
     angstrom
     stringext
@@ -30,6 +29,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-uri";
     description = "RFC3986 URI parsing library for OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

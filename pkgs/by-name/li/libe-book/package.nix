@@ -12,7 +12,6 @@
   zlib,
   liblangtag,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libe-book";
   version = "0.1.3";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
       "TRUE, TRUE, &status)" \
       "true, true, &status)"
   '';
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gperf
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library for import of reflowable e-book formats";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

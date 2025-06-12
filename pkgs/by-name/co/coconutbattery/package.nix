@@ -3,14 +3,13 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "coconutbattery";
   version = "4.0.2,152";
 
   src = fetchzip {
     url = "https://coconut-flavour.com/downloads/coconutBattery_${
-      lib.replaceStrings [ "." "," ] [ "" "_" ] finalAttrs.version
+      lib.replaceStrings ["." ","] ["" "_"] finalAttrs.version
     }.zip";
     hash = "sha256-PNSDUp07lUx5ebcfM3WSJAfRQjeuIIy7KfY0KJ0i1AE=";
   };
@@ -31,9 +30,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       It shows you live information about the battery quality in your Mac, iPhone and iPad.
     '';
     homepage = "https://www.coconut-flavour.com/coconutbattery";
-    license = with lib.licenses; [ unfree ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ stepbrobd ];
+    license = with lib.licenses; [unfree];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [stepbrobd];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

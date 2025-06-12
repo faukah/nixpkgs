@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-+qf/MlifpVXzDpADJoTqxU40wDntcPu+bW7eq6/iubk=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line utility to render templates from json|toml|yaml and ENV, using the tera templating engine";
     homepage = "https://github.com/chevdor/tera-cli";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers._365tuwe ];
+    maintainers = [lib.maintainers._365tuwe];
     mainProgram = "tera";
     platforms = lib.platforms.unix;
   };

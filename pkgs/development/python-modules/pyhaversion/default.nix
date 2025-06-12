@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyhaversion";
   version = "24.6.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyhaversion" ];
+  pythonImportsCheck = ["pyhaversion"];
 
   disabledTests = [
     # Error fetching version information from HaVersionSource.SUPERVISOR Server disconnected
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     description = "Python module to the newest version number of Home Assistant";
     homepage = "https://github.com/ludeeus/pyhaversion";
     changelog = "https://github.com/ludeeus/pyhaversion/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ makefu ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [makefu];
   };
 }

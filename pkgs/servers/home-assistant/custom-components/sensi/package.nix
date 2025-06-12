@@ -24,7 +24,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/iprak/sensi/releases/tag/v${version}";
     description = "HomeAssistant integration for Sensi thermostat";
     homepage = "https://github.com/iprak/sensi";
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     license = licenses.mit;
   };
 }

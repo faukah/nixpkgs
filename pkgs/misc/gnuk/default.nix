@@ -6,12 +6,10 @@
   binutils-arm-embedded,
   makeWrapper,
   python3Packages,
-
   # Default FSIJ IDs
   vid ? "234b",
   pid ? "0000",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnuk";
   version = "2.2";
@@ -39,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
-  configureFlags = [ "--vidpid=${vid}:${pid}" ];
+  configureFlags = ["--vidpid=${vid}:${pid}"];
 
   # TODO: Check how many of these patches are actually needed.
   installPhase = ''
@@ -67,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Implementation of USB cryptographic token for gpg";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     broken = true; # Needs Picolib, which is not packaged in Nixpkgs.
   };
 })

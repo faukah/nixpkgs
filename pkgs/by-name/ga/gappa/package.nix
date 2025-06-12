@@ -7,7 +7,6 @@
   boost,
   version ? "1.6.0",
 }:
-
 stdenv.mkDerivation {
   pname = "gappa";
   inherit version;
@@ -34,7 +33,7 @@ stdenv.mkDerivation {
       cecill21
       gpl3
     ];
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
     platforms = lib.platforms.all;
   };
 }

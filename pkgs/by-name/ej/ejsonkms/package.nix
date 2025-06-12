@@ -5,7 +5,6 @@
   testers,
   ejsonkms,
 }:
-
 buildGoModule rec {
   pname = "ejsonkms";
   version = "0.2.5";
@@ -38,6 +37,6 @@ buildGoModule rec {
     description = "Integrates EJSON with AWS KMS";
     homepage = "https://github.com/envato/ejsonkms";
     license = licenses.mit;
-    maintainers = with maintainers; [ viraptor ];
+    maintainers = with maintainers; [viraptor];
   };
 }

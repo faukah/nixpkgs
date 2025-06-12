@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "iotools";
   version = "unstable-2017-12-11";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/adurbin/iotools";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
     platforms = [
       "x86_64-linux"
       "i686-linux"

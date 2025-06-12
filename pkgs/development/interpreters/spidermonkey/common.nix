@@ -1,12 +1,12 @@
-{ version, hash }:
-
 {
+  version,
+  hash,
+}: {
   callPackage,
   lib,
   stdenv,
   fetchurl,
   fetchpatch,
-
   # build time
   buildPackages,
   cargo,
@@ -21,7 +21,6 @@
   which,
   zip,
   xcbuild,
-
   # runtime
   icu75,
   nspr,
@@ -29,7 +28,6 @@
   zlib,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spidermonkey";
   inherit version;
@@ -75,7 +73,11 @@ stdenv.mkDerivation (finalAttrs: {
       pkg-config
       # 91 does not build with python 3.12: ModuleNotFoundError: No module named 'six.moves'
       # 102 does not build with python 3.12: ModuleNotFoundError: No module named 'distutils'
-      (if lib.versionOlder version "115" then python311 else python3)
+      (
+        if lib.versionOlder version "115"
+        then python311
+        else python3
+      )
       rustc
       rustc.llvmPackages.llvm # for llvm-objdump
       which
@@ -135,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # mkDerivation by default appends --build/--host to configureFlags when cross compiling
   # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   enableParallelBuilding = true;
 

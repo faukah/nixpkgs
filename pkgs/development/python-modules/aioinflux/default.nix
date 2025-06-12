@@ -6,7 +6,6 @@
   ciso8601,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "aioinflux";
   version = "0.9.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
   # Tests require InfluxDB server
   doCheck = false;
 
-  pythonImportsCheck = [ "aioinflux" ];
+  pythonImportsCheck = ["aioinflux"];
 
   meta = with lib; {
     description = "Asynchronous Python client for InfluxDB";

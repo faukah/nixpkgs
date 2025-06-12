@@ -10,7 +10,6 @@
   setuptools,
   sip,
 }:
-
 buildPythonPackage rec {
   pname = "pyqtdatavisualization";
   version = "5.15.6";
@@ -54,21 +53,21 @@ buildPythonPackage rec {
     pyqt-builder
   ];
 
-  buildInputs = [ qtdatavis3d ];
+  buildInputs = [qtdatavis3d];
 
-  propagatedBuildInputs = [ pyqt5 ];
+  propagatedBuildInputs = [pyqt5];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt5.QtDataVisualization" ];
+  pythonImportsCheck = ["PyQt5.QtDataVisualization"];
 
   meta = with lib; {
     description = "Python bindings for the Qt Data Visualization library";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
   };
 }

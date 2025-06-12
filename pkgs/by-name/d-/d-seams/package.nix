@@ -16,7 +16,6 @@
   boost,
   gsl,
 }:
-
 clangStdenv.mkDerivation rec {
   version = "1.0.1";
   pname = "d-SEAMS";
@@ -64,7 +63,7 @@ clangStdenv.mkDerivation rec {
     '';
     homepage = "https://dseams.info";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.HaoZeke ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.HaoZeke];
   };
 }

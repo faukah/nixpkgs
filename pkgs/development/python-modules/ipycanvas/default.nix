@@ -8,7 +8,6 @@
   numpy,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "ipycanvas";
   version = "0.13.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail '"jupyterlab>=3,<5",' "" \
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   env.HATCH_BUILD_NO_HOOKS = true;
 
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # tests are in Typescript and require `npx` and `chromium`
-  pythonImportsCheck = [ "ipycanvas" ];
+  pythonImportsCheck = ["ipycanvas"];
 
   meta = with lib; {
     description = "Expose the browser's Canvas API to IPython";
     homepage = "https://ipycanvas.readthedocs.io";
     changelog = "https://github.com/jupyter-widgets-contrib/ipycanvas/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

@@ -20,7 +20,6 @@
   wrapGAppsHook4,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swell-foop";
   version = "48.1";
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/swell-foop/-/tree/${finalAttrs.version}?ref_type=tags";
     description = "Puzzle game, previously known as Same GNOME";
     mainProgram = "swell-foop";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

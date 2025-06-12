@@ -1,12 +1,9 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
-}@args:
-
-with pkgs.lib;
-
-let
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
+} @ args:
+with pkgs.lib; let
   stapScript = pkgs.writeText "test.stp" ''
     probe kernel.function("do_sys_poll") {
       println("kernel function probe & println work")
@@ -15,22 +12,17 @@ let
   '';
 
   ## TODO shared infra with ../kernel-generic.nix
-  testsForLinuxPackages =
-    linuxPackages:
-    (import ./make-test-python.nix (
-      { pkgs, ... }:
-      {
+  testsForLinuxPackages = linuxPackages: (import ./make-test-python.nix (
+      {pkgs, ...}: {
         name = "kernel-${linuxPackages.kernel.version}";
         meta = with pkgs.lib.maintainers; {
-          maintainers = [ bendlas ];
+          maintainers = [bendlas];
         };
 
-        nodes.machine =
-          { ... }:
-          {
-            boot.kernelPackages = linuxPackages;
-            programs.systemtap.enable = true;
-          };
+        nodes.machine = {...}: {
+          boot.kernelPackages = linuxPackages;
+          programs.systemtap.enable = true;
+        };
 
         testScript = ''
           with subtest("Capture stap ouput"):
@@ -40,19 +32,19 @@ let
               assert "kernel function probe & println work\n" == output, "kernel function probe & println work\n != " + output
         '';
       }
-    ) args);
+    )
+    args);
 
   ## TODO shared infra with ../kernel-generic.nix
   kernels = {
     inherit (pkgs.linuxKernel.packageAliases) linux_default linux_latest;
   };
-
 in
-mapAttrs (_: lP: testsForLinuxPackages lP) kernels
-// {
-  passthru = {
-    inherit testsForLinuxPackages;
+  mapAttrs (_: lP: testsForLinuxPackages lP) kernels
+  // {
+    passthru = {
+      inherit testsForLinuxPackages;
 
-    testsForKernel = kernel: testsForLinuxPackages (pkgs.linuxPackagesFor kernel);
-  };
-}
+      testsForKernel = kernel: testsForLinuxPackages (pkgs.linuxPackagesFor kernel);
+    };
+  }

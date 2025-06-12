@@ -12,7 +12,6 @@
   gtksourceview5,
   wrapGAppsHook4,
 }:
-
 buildGoModule rec {
   pname = "dissent";
   version = "0.0.34";

@@ -5,7 +5,6 @@
   six,
   random2,
 }:
-
 buildPythonPackage rec {
   pname = "pysol-cards";
   version = "0.22.0";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     mainProgram = "pysol_cards";
     homepage = "https://github.com/shlomif/pysol_cards";
     license = licenses.mit;
-    maintainers = with maintainers; [ mwolfe ];
+    maintainers = with maintainers; [mwolfe];
   };
 }

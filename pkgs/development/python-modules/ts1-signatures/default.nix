@@ -22,14 +22,14 @@ buildPythonPackage {
     hash = "sha256-fz5EFPO5UPPbFnqe4wE1y2lIROPByse9awyBa49o8ZE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dpkt
     pyyaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_nghttpd_log_parsing" # Attempts to load things from logs/ which it cannot find for some reason.
@@ -39,6 +39,6 @@ buildPythonPackage {
     description = "TLS and HTTP signature and fingerprint library";
     homepage = "https://github.com/yifeikong/th1";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ggg ];
+    maintainers = with lib.maintainers; [ggg];
   };
 }

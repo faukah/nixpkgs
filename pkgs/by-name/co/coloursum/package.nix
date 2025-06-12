@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "coloursum";
   version = "0.3.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "coloursum";
     homepage = "https://github.com/ticky/coloursum";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

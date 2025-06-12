@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "zwave-js-ui";
   version = "10.6.1";
@@ -26,6 +25,6 @@ buildNpmPackage rec {
     downloadPage = "https://github.com/zwave-js/zwave-js-ui/releases";
     changelog = "https://github.com/zwave-js/zwave-js-ui/blob/v${version}/CHANGELOG.md";
     mainProgram = "zwave-js-ui";
-    maintainers = with lib.maintainers; [ cdombroski ];
+    maintainers = with lib.maintainers; [cdombroski];
   };
 }

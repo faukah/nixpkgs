@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation {
   pname = "funnelweb";
   version = "3.20";
@@ -30,8 +29,9 @@ stdenv.mkDerivation {
     homepage = "http://www.ross.net/funnelweb/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }
 #TODO: implement it for other platforms
 #TODO: Documentation files
+

@@ -7,7 +7,6 @@
   pythonOlder,
   sly,
 }:
-
 buildPythonPackage rec {
   pname = "quantiphy-eval";
   version = "0.5";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-7VHcuINhe17lRNkHUnZkVOEtD6mVWk5gu0NbrLZwprg=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     inform
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/KenKundert/quantiphy_eval/";
     changelog = "https://github.com/KenKundert/quantiphy_eval/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

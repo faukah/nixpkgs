@@ -13,7 +13,6 @@
   groff,
   tcl,
 }:
-
 perl.pkgs.toPerlModule (
   stdenv.mkDerivation rec {
     pname = "rrdtool";
@@ -61,7 +60,7 @@ perl.pkgs.toPerlModule (
       description = "High performance logging in Round Robin Databases";
       license = licenses.gpl2Only;
       platforms = platforms.linux ++ platforms.darwin;
-      maintainers = with maintainers; [ pSub ];
+      maintainers = with maintainers; [pSub];
     };
   }
 )

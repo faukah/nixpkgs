@@ -5,7 +5,6 @@
   autoreconfHook,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libspiro";
   version = "20240903";
@@ -26,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Library that simplifies the drawing of beautiful curves";
     homepage = "https://github.com/fontforge/libspiro";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.erictapen ];
+    maintainers = [maintainers.erictapen];
   };
 }

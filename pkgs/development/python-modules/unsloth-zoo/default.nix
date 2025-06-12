@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   accelerate,
   cut-cross-entropy,
@@ -24,7 +22,6 @@
   trl,
   tyro,
 }:
-
 buildPythonPackage rec {
   pname = "unsloth-zoo";
   version = "2025.5.11";
@@ -84,6 +81,6 @@ buildPythonPackage rec {
     description = "Utils for Unsloth";
     homepage = "https://github.com/unslothai/unsloth_zoo";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hoh ];
+    maintainers = with lib.maintainers; [hoh];
   };
 }

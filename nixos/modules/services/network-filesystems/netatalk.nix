@@ -3,16 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.netatalk;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   afpConfFile = settingsFormat.generate "afp.conf" cfg.settings;
-in
-{
+in {
   options = {
     services.netatalk = {
-
       enable = lib.mkEnableOption "the Netatalk AFP fileserver";
 
       port = lib.mkOption {
@@ -23,7 +20,7 @@ in
 
       settings = lib.mkOption {
         inherit (settingsFormat) type;
-        default = { };
+        default = {};
         example = {
           Global = {
             "uam list" = "uams_guest.so";
@@ -51,29 +48,27 @@ in
           See {manpage}`extmap.conf(5)`. for more information.
         '';
       };
-
     };
   };
 
   imports = (
     map
-      (
-        option:
+    (
+      option:
         lib.mkRemovedOptionModule [
           "services"
           "netatalk"
           option
         ] "This option was removed in favor of `services.netatalk.settings`."
-      )
-      [
-        "extraConfig"
-        "homes"
-        "volumes"
-      ]
+    )
+    [
+      "extraConfig"
+      "homes"
+      "volumes"
+    ]
   );
 
   config = lib.mkIf cfg.enable {
-
     services.netatalk.settings.Global = {
       "afp port" = toString cfg.port;
       "extmap file" = "${pkgs.writeText "extmap.conf" cfg.extmap}";
@@ -86,9 +81,9 @@ in
         "network.target"
         "avahi-daemon.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.netatalk ];
+      path = [pkgs.netatalk];
 
       serviceConfig = {
         Type = "forking";
@@ -99,13 +94,10 @@ in
         ExecStop = "${pkgs.coreutils}/bin/kill -TERM $MAINPID";
         Restart = "always";
         RestartSec = 1;
-        StateDirectory = [ "netatalk/CNID" ];
+        StateDirectory = ["netatalk/CNID"];
       };
-
     };
 
     security.pam.services.netatalk.unixAuth = true;
-
   };
-
 }

@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   withGtk3 ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxappearance";
   version = "0.6.3";
@@ -28,7 +27,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     libX11
-    (if withGtk3 then gtk3 else gtk2)
+    (
+      if withGtk3
+      then gtk3
+      else gtk2
+    )
   ];
 
   patches = [
@@ -43,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://lxde.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

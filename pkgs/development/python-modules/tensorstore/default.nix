@@ -7,10 +7,8 @@
   numpy,
   python,
   stdenv,
-}:
-
-let
-  pythonVersionNoDot = builtins.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+}: let
+  pythonVersionNoDot = builtins.replaceStrings ["."] [""] python.pythonVersion;
   systemToPlatform = {
     "aarch64-linux" = "manylinux_2_17_aarch64.manylinux2014_aarch64";
     "x86_64-linux" = "manylinux_2_17_x86_64.manylinux2014_x86_64";
@@ -31,39 +29,39 @@ let
     "313-aarch64-darwin" = "sha256-3ohD+zRiiZ3nvN7qzLkjA6nWEAa8NjZN60qI30YyC6Q=";
   };
 in
-buildPythonPackage rec {
-  pname = "tensorstore";
-  version = "0.1.71";
-  format = "wheel";
-
-  # The source build involves some wonky Bazel stuff.
-  src = fetchPypi {
-    inherit pname version;
+  buildPythonPackage rec {
+    pname = "tensorstore";
+    version = "0.1.71";
     format = "wheel";
-    python = "cp${pythonVersionNoDot}";
-    abi = "cp${pythonVersionNoDot}";
-    dist = "cp${pythonVersionNoDot}";
-    platform = systemToPlatform.${stdenv.system} or (throw "unsupported system");
-    hash =
-      hashes."${pythonVersionNoDot}-${stdenv.system}"
+
+    # The source build involves some wonky Bazel stuff.
+    src = fetchPypi {
+      inherit pname version;
+      format = "wheel";
+      python = "cp${pythonVersionNoDot}";
+      abi = "cp${pythonVersionNoDot}";
+      dist = "cp${pythonVersionNoDot}";
+      platform = systemToPlatform.${stdenv.system} or (throw "unsupported system");
+      hash =
+        hashes."${pythonVersionNoDot}-${stdenv.system}"
         or (throw "unsupported system/python version combination");
-  };
+    };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
-  dependencies = [
-    ml-dtypes
-    numpy
-  ];
+    dependencies = [
+      ml-dtypes
+      numpy
+    ];
 
-  pythonImportsCheck = [ "tensorstore" ];
+    pythonImportsCheck = ["tensorstore"];
 
-  meta = {
-    description = "Library for reading and writing large multi-dimensional arrays";
-    homepage = "https://google.github.io/tensorstore";
-    changelog = "https://github.com/google/tensorstore/releases/tag/v${version}";
-    license = lib.licenses.asl20;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ samuela ];
-  };
-}
+    meta = {
+      description = "Library for reading and writing large multi-dimensional arrays";
+      homepage = "https://google.github.io/tensorstore";
+      changelog = "https://github.com/google/tensorstore/releases/tag/v${version}";
+      license = lib.licenses.asl20;
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+      maintainers = with lib.maintainers; [samuela];
+    };
+  }

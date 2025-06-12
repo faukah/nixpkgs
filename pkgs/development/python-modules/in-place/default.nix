@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "in-place";
   version = "1.0.1";
@@ -22,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-PyOSuHHtftEPwL3mTwWYStZNXYX3EhptKfTu0PJjOZ8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     pytest-cov-stub
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "in_place" ];
+  pythonImportsCheck = ["in_place"];
 
   meta = with lib; {
     description = "In-place file processing";
     homepage = "https://github.com/jwodder/inplace";
     changelog = "https://github.com/jwodder/inplace/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

@@ -14,7 +14,6 @@
   setuptools,
   toml,
 }:
-
 buildPythonApplication rec {
   pname = "online-judge-template-generator";
   version = "4.8.1";
@@ -47,6 +46,6 @@ buildPythonApplication rec {
     description = "Analyze problems of competitive programming and automatically generate boilerplate";
     homepage = "https://github.com/online-judge-tools/template-generator";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

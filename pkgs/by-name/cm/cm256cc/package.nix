@@ -6,7 +6,6 @@
   cmake,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cm256cc";
   version = "1.1.0";
@@ -28,8 +27,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
 
   # https://github.com/f4exb/cm256cc/issues/16
   postPatch = ''
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Fast GF(256) Cauchy MDS Block Erasure Codec in C++";
     homepage = "https://github.com/f4exb/cm256cc";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ alkeryn ];
+    maintainers = with maintainers; [alkeryn];
     license = licenses.gpl3;
   };
 }

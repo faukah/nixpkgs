@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "write-good";
   version = "1.0.8";
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/btford/write-good";
     license = lib.licenses.mit;
     mainProgram = "write-good";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

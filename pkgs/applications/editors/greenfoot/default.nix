@@ -7,7 +7,6 @@
   dpkg,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "greenfoot";
   version = "3.9.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     # download, but that is actually a graphical installer that is much harder
     # to unpack than the deb.
     url = "https://www.greenfoot.org/download/files/Greenfoot-linux-arm64-${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.deb";
     hash = "sha256-d5bkK+teTA4fxFb46ovbZE28l8WILGStv3Vg3nJZfv0=";
   };
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     dpkg
     wrapGAppsHook3
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   dontWrapGApps = true;
 
@@ -54,10 +53,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simple integrated development environment for Java";
     homepage = "https://www.greenfoot.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2ClasspathPlus;
     mainProgram = "greenfoot";
-    maintainers = [ maintainers.chvp ];
+    maintainers = [maintainers.chvp];
     platforms = platforms.linux;
   };
 }

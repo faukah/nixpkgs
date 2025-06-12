@@ -2,9 +2,7 @@
   lib,
   stdenv,
   grub2_xen,
-}:
-
-let
+}: let
   efiSystemsBuild = {
     i686-linux.target = "i386";
     x86_64-linux.target = "x86_64";
@@ -13,16 +11,13 @@ let
     riscv32-linux.target = "riscv32";
     riscv64-linux.target = "riscv64";
   };
-
-in
-(
-
+in (
   stdenv.mkDerivation rec {
     name = "pvgrub-image";
 
     configs = ./configs;
 
-    buildInputs = [ grub2_xen ];
+    buildInputs = [grub2_xen];
 
     buildCommand = ''
       cp "${configs}"/* .
@@ -34,8 +29,8 @@ in
       }-xen" -c grub-bootstrap.cfg \
         -m memdisk.tar -o "grub-${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen.bin" \
         $(ls "${grub2_xen}/lib/grub/${
-          efiSystemsBuild.${stdenv.hostPlatform.system}.target
-        }-xen/" |grep 'mod''$'|grep -v '^all_video\.mod''$')
+        efiSystemsBuild.${stdenv.hostPlatform.system}.target
+      }-xen/" |grep 'mod''$'|grep -v '^all_video\.mod''$')
       mkdir -p "$out/lib/grub-xen"
       cp "grub-${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen.bin" $out/lib/grub-xen/
     '';

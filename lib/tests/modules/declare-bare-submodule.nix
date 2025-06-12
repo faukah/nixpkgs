@@ -1,14 +1,16 @@
-{ config, lib, ... }:
-let
-  inherit (lib) mkOption types;
-in
 {
+  config,
+  lib,
+  ...
+}: let
+  inherit (lib) mkOption types;
+in {
   options.bare-submodule = mkOption {
     type = types.submoduleWith {
-      modules = [ ];
+      modules = [];
       shorthandOnlyDefinesConfig = config.shorthandOnlyDefinesConfig;
     };
-    default = { };
+    default = {};
   };
 
   # config-dependent options: won't recommend, but useful for making this test parameterized

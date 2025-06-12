@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "dosis";
   version = "1.007";
@@ -39,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "http://www.impallari.com/dosis";
     license = licenses.ofl;
-    maintainers = with maintainers; [ cmfwyp ];
+    maintainers = with maintainers; [cmfwyp];
     platforms = platforms.all;
   };
 }

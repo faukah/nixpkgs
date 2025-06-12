@@ -4,7 +4,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage {
   pname = "dopy";
   version = "2016-01-04";
@@ -24,12 +23,12 @@ buildPythonPackage {
 
   # contains no tests
   doCheck = false;
-  pythonImportsCheck = [ "dopy" ];
+  pythonImportsCheck = ["dopy"];
 
   meta = with pkgs.lib; {
     description = "Digital Ocean API python wrapper";
     homepage = "https://github.com/Wiredcraft/dopy";
     license = licenses.mit;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

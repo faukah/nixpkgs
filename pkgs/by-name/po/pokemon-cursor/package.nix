@@ -2,12 +2,10 @@
   fetchFromGitHub,
   lib,
   stdenvNoCC,
-
   # build deps
   clickgen,
   python3Packages,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pokemon-cursor";
   version = "2.0.0";
@@ -45,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Unofficial open-source Pokemon cursor theme";
     homepage = "https://github.com/ful1e5/pokemon-cursor";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.getpsyched ];
+    maintainers = [maintainers.getpsyched];
     platforms = platforms.linux;
   };
 })

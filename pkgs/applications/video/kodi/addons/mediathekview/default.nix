@@ -4,7 +4,6 @@
   fetchFromGitHub,
   myconnpy,
 }:
-
 buildKodiAddon rec {
   pname = "mediathekview";
   namespace = "plugin.video.mediathekview";
@@ -25,6 +24,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/mediathekview/plugin.video.mediathekview";
     description = "Access media libraries of German speaking broadcasting stations";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   pcre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pplatex";
   version = "unstable-2023-04-18";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "pplatex";
     homepage = "https://github.com/stefanhepp/pplatex";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
     platforms = platforms.unix;
   };
 })

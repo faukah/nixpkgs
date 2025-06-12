@@ -9,7 +9,6 @@
   perl,
   gitUpdater,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lsp-ai";
   version = "0.7.1";
@@ -71,6 +70,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "lsp-ai";
     changelog = "https://github.com/SilasMarvin/lsp-ai/releases/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ projectinitiative ];
+    maintainers = with lib.maintainers; [projectinitiative];
   };
 }

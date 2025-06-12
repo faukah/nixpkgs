@@ -19,14 +19,14 @@ mkLibretroCore {
     fetchSubmodules = true;
   };
 
-  extraNativeBuildInputs = [ python3 ];
+  extraNativeBuildInputs = [python3];
   extraBuildInputs = [
     alsa-lib
     libGLU
     libGL
   ];
   # Setting this is breaking compilation of src/3rdparty/genie for some reason
-  makeFlags = [ "ARCH=" ];
+  makeFlags = ["ARCH="];
 
   meta = {
     description = "Port of MAME to libretro";

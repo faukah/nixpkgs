@@ -5,7 +5,6 @@
   scdoc,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "gmnitohtml";
   version = "0.1.3";

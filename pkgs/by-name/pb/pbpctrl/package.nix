@@ -6,7 +6,6 @@
   dbus,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pbpctrl";
   version = "0.1.8";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     protobuf
   ];
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   meta = with lib; {
     description = "Control Google Pixel Buds Pro from the Linux command line";

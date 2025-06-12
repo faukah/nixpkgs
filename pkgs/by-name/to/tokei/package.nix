@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tokei";
   version = "13.0.0-alpha.8";
@@ -32,18 +31,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-LzlyrKaRjUo6JnVLQnHidtI4OWa+GrhAc4D8RkL+nmQ=";
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-  checkInputs = lib.optionals stdenv.hostPlatform.isDarwin [ zlib ];
+  checkInputs = lib.optionals stdenv.hostPlatform.isDarwin [zlib];
 
   # enable all output formats
-  buildFeatures = [ "all" ];
+  buildFeatures = ["all"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=unstable" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=unstable"];};
 
   meta = {
     description = "Count your code, quickly";
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20 # or
       mit
     ];
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "tokei";
   };
 })

@@ -8,7 +8,6 @@
   rtl-sdr,
   libusb1,
 }:
-
 stdenv.mkDerivation {
   pname = "kalibrate-rtl";
   version = "unstable-2022-02-02";

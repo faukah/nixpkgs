@@ -3,25 +3,22 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.glitchtip;
   pkg = cfg.package;
   inherit (pkg.passthru) python;
 
-  environment = lib.mapAttrs (
-    _: value:
-    if value == true then
-      "True"
-    else if value == false then
-      "False"
-    else
-      toString value
-  ) cfg.settings;
-in
-
-{
+  environment =
+    lib.mapAttrs (
+      _: value:
+        if value == true
+        then "True"
+        else if value == false
+        then "False"
+        else toString value
+    )
+    cfg.settings;
+in {
   meta.maintainers = with lib.maintainers; [
     defelo
     felbinger
@@ -31,7 +28,7 @@ in
     services.glitchtip = {
       enable = lib.mkEnableOption "GlitchTip";
 
-      package = lib.mkPackageOption pkgs "glitchtip" { };
+      package = lib.mkPackageOption pkgs "glitchtip" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -62,7 +59,7 @@ in
         description = ''
           Configuration of GlitchTip. See <https://glitchtip.com/documentation/install#configuration> for more information.
         '';
-        default = { };
+        default = {};
         defaultText = lib.literalExpression ''
           {
             DEBUG = 0;
@@ -78,8 +75,7 @@ in
         };
 
         type = lib.types.submodule {
-          freeformType =
-            with lib.types;
+          freeformType = with lib.types;
             attrsOf (oneOf [
               str
               int
@@ -114,8 +110,8 @@ in
 
       environmentFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
-        example = [ "/run/secrets/glitchtip.env" ];
+        default = [];
+        example = ["/run/secrets/glitchtip.env"];
         description = ''
           Files to load environment variables from in addition to [](#opt-services.glitchtip.settings).
           This is useful to avoid putting secrets into the nix store.
@@ -141,13 +137,13 @@ in
 
       gunicorn.extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Extra arguments for gunicorn.";
       };
 
       celery.extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Extra arguments for celery.";
       };
     };
@@ -164,100 +160,106 @@ in
       GLITCHTIP_VERSION = pkg.version;
     };
 
-    systemd.services =
-      let
-        commonService = {
-          wantedBy = [ "multi-user.target" ];
+    systemd.services = let
+      commonService = {
+        wantedBy = ["multi-user.target"];
 
-          wants = [ "network-online.target" ];
-          requires =
-            lib.optional cfg.database.createLocally "postgresql.service"
-            ++ lib.optional cfg.redis.createLocally "redis-glitchtip.service";
-          after =
-            [ "network-online.target" ]
-            ++ lib.optional cfg.database.createLocally "postgresql.service"
-            ++ lib.optional cfg.redis.createLocally "redis-glitchtip.service";
+        wants = ["network-online.target"];
+        requires =
+          lib.optional cfg.database.createLocally "postgresql.service"
+          ++ lib.optional cfg.redis.createLocally "redis-glitchtip.service";
+        after =
+          ["network-online.target"]
+          ++ lib.optional cfg.database.createLocally "postgresql.service"
+          ++ lib.optional cfg.redis.createLocally "redis-glitchtip.service";
 
-          inherit environment;
-        };
+        inherit environment;
+      };
 
-        commonServiceConfig = {
-          User = cfg.user;
-          Group = cfg.group;
-          RuntimeDirectory = "glitchtip";
-          StateDirectory = "glitchtip";
-          EnvironmentFile = cfg.environmentFiles;
-          WorkingDirectory = "${pkg}/lib/glitchtip";
+      commonServiceConfig = {
+        User = cfg.user;
+        Group = cfg.group;
+        RuntimeDirectory = "glitchtip";
+        StateDirectory = "glitchtip";
+        EnvironmentFile = cfg.environmentFiles;
+        WorkingDirectory = "${pkg}/lib/glitchtip";
 
-          # hardening
-          AmbientCapabilities = "";
-          CapabilityBoundingSet = [ "" ];
-          DevicePolicy = "closed";
-          LockPersonality = true;
-          MemoryDenyWriteExecute = true;
-          NoNewPrivileges = true;
-          PrivateDevices = true;
-          PrivateTmp = true;
-          PrivateUsers = true;
-          ProcSubset = "pid";
-          ProtectClock = true;
-          ProtectControlGroups = true;
-          ProtectHome = true;
-          ProtectHostname = true;
-          ProtectKernelLogs = true;
-          ProtectKernelModules = true;
-          ProtectKernelTunables = true;
-          ProtectProc = "invisible";
-          ProtectSystem = "strict";
-          RemoveIPC = true;
-          RestrictAddressFamilies = [ "AF_INET AF_INET6 AF_UNIX" ];
-          RestrictNamespaces = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
-          SystemCallArchitectures = "native";
-          SystemCallFilter = [
-            "@system-service"
-            "~@privileged"
-            "~@resources"
-          ];
-          UMask = "0077";
-        };
-      in
-      {
-        glitchtip = commonService // {
+        # hardening
+        AmbientCapabilities = "";
+        CapabilityBoundingSet = [""];
+        DevicePolicy = "closed";
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        ProcSubset = "pid";
+        ProtectClock = true;
+        ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "strict";
+        RemoveIPC = true;
+        RestrictAddressFamilies = ["AF_INET AF_INET6 AF_UNIX"];
+        RestrictNamespaces = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged"
+          "~@resources"
+        ];
+        UMask = "0077";
+      };
+    in {
+      glitchtip =
+        commonService
+        // {
           description = "GlitchTip";
 
           preStart = ''
             ${lib.getExe pkg} migrate
           '';
 
-          serviceConfig = commonServiceConfig // {
-            ExecStart = ''
-              ${lib.getExe python.pkgs.gunicorn} \
-                --bind=${cfg.listenAddress}:${toString cfg.port} \
-                ${lib.concatStringsSep " " cfg.gunicorn.extraArgs} \
-                glitchtip.wsgi
-            '';
-          };
+          serviceConfig =
+            commonServiceConfig
+            // {
+              ExecStart = ''
+                ${lib.getExe python.pkgs.gunicorn} \
+                  --bind=${cfg.listenAddress}:${toString cfg.port} \
+                  ${lib.concatStringsSep " " cfg.gunicorn.extraArgs} \
+                  glitchtip.wsgi
+              '';
+            };
         };
 
-        glitchtip-worker = commonService // {
+      glitchtip-worker =
+        commonService
+        // {
           description = "GlitchTip Job Runner";
 
-          serviceConfig = commonServiceConfig // {
-            ExecStart = ''
-              ${lib.getExe python.pkgs.celery} \
-                -A glitchtip worker \
-                -B -s /run/glitchtip/celerybeat-schedule \
-                ${lib.concatStringsSep " " cfg.celery.extraArgs}
-            '';
-          };
+          serviceConfig =
+            commonServiceConfig
+            // {
+              ExecStart = ''
+                ${lib.getExe python.pkgs.celery} \
+                  -A glitchtip worker \
+                  -B -s /run/glitchtip/celerybeat-schedule \
+                  ${lib.concatStringsSep " " cfg.celery.extraArgs}
+              '';
+            };
         };
-      };
+    };
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ "glitchtip" ];
+      ensureDatabases = ["glitchtip"];
       ensureUsers = [
         {
           name = "glitchtip";
@@ -272,22 +274,20 @@ in
       glitchtip = {
         home = "/var/lib/glitchtip";
         group = cfg.group;
-        extraGroups = lib.optionals cfg.redis.createLocally [ "redis-glitchtip" ];
+        extraGroups = lib.optionals cfg.redis.createLocally ["redis-glitchtip"];
         isSystemUser = true;
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "glitchtip") { glitchtip = { }; };
+    users.groups = lib.mkIf (cfg.group == "glitchtip") {glitchtip = {};};
 
-    environment.systemPackages =
-      let
-        glitchtip-manage = pkgs.writeShellScriptBin "glitchtip-manage" ''
-          set -o allexport
-          ${lib.toShellVars environment}
-          ${lib.concatMapStringsSep "\n" (f: "source ${f}") cfg.environmentFiles}
-          ${config.security.wrapperDir}/sudo -E -u ${cfg.user} ${lib.getExe pkg} "$@"
-        '';
-      in
-      [ glitchtip-manage ];
+    environment.systemPackages = let
+      glitchtip-manage = pkgs.writeShellScriptBin "glitchtip-manage" ''
+        set -o allexport
+        ${lib.toShellVars environment}
+        ${lib.concatMapStringsSep "\n" (f: "source ${f}") cfg.environmentFiles}
+        ${config.security.wrapperDir}/sudo -E -u ${cfg.user} ${lib.getExe pkg} "$@"
+      '';
+    in [glitchtip-manage];
   };
 }

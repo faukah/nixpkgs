@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "iplookup-gtk";
   version = "0.4.1";
@@ -52,7 +51,7 @@ python3Packages.buildPythonPackage rec {
     changelog = "https://github.com/Bytezz/IPLookup-gtk/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "iplookup";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

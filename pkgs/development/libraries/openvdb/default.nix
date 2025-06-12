@@ -9,7 +9,6 @@
   tbb,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openvdb";
   version = "12.0.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ofVhwULBDzjA+bfhkW12tgTMnFB/Mku2P2jDm74rutY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Open framework for voxel";
     mainProgram = "vdb_print";
     homepage = "https://www.openvdb.org";
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
     platforms = platforms.unix;
     license = licenses.asl20;
   };

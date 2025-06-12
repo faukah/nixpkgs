@@ -13,7 +13,6 @@
   pythonPackages ? null,
   swig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "babeltrace";
   version = "1.5.11";

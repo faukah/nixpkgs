@@ -4,8 +4,7 @@
   bash,
   tinycc,
   gnumake,
-}:
-let
+}: let
   pname = "gnugrep";
   version = "2.4";
 
@@ -21,7 +20,7 @@ let
     sha256 = "08an9ljlqry3p15w28hahm6swnd3jxizsd2188przvvsj093j91k";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -30,9 +29,8 @@ bash.runCommand "${pname}-${version}"
       gnumake
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/grep --version
         mkdir ''${out}
       '';
@@ -41,7 +39,7 @@ bash.runCommand "${pname}-${version}"
       description = "GNU implementation of the Unix grep command";
       homepage = "https://www.gnu.org/software/grep";
       license = licenses.gpl3Plus;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       mainProgram = "grep";
       platforms = platforms.unix;
     };

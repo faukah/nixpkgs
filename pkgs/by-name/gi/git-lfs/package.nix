@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "git-lfs";
   version = "3.6.1";
@@ -34,7 +33,7 @@ buildGoModule rec {
     "-X github.com/git-lfs/git-lfs/v${lib.versions.major version}/config.Vendor=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preBuild = ''
     GOARCH= go generate ./commands
@@ -44,7 +43,7 @@ buildGoModule rec {
     make man
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     unset subPackages
@@ -77,8 +76,7 @@ buildGoModule rec {
         "TestWithNonFatal500WithBody"
         "TestWithNonFatal500WithoutBody"
       ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ]
+    in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"]
   );
 
   postInstall =
@@ -99,7 +97,7 @@ buildGoModule rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   __darwinAllowLocalNetworking = true;
@@ -109,7 +107,7 @@ buildGoModule rec {
     homepage = "https://git-lfs.github.com/";
     changelog = "https://github.com/git-lfs/git-lfs/raw/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ twey ];
+    maintainers = with lib.maintainers; [twey];
     mainProgram = "git-lfs";
   };
 }

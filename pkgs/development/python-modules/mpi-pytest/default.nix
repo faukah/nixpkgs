@@ -8,7 +8,6 @@
   pytestCheckHook,
   mpiCheckPhaseHook,
 }:
-
 buildPythonPackage rec {
   pname = "mpi-pytest";
   version = "2025.5.0";
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Pytest plugin that lets you run tests in parallel with MPI";
     changelog = "https://github.com/firedrakeproject/mpi-pytest/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 }

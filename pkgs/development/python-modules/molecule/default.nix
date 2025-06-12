@@ -20,7 +20,6 @@
   molecule-plugins,
   yamllint,
 }:
-
 buildPythonPackage rec {
   pname = "molecule";
   version = "25.5.0";
@@ -38,20 +37,22 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [
-    ansible-compat
-    ansible-core
-    click-help-colors
-    enrich
-    jsonschema
-    packaging
-    pluggy
-    rich
-    yamllint
-    wcmatch
-  ] ++ lib.optional withPlugins molecule-plugins;
+  propagatedBuildInputs =
+    [
+      ansible-compat
+      ansible-core
+      click-help-colors
+      enrich
+      jsonschema
+      packaging
+      pluggy
+      rich
+      yamllint
+      wcmatch
+    ]
+    ++ lib.optional withPlugins molecule-plugins;
 
-  pythonImportsCheck = [ "molecule" ];
+  pythonImportsCheck = ["molecule"];
 
   # tests can't be easily run without installing things from ansible-galaxy
   doCheck = false;
@@ -61,17 +62,17 @@ buildPythonPackage rec {
       package = molecule;
       command = "PY_COLORS=0 ${pname} --version";
     }).overrideAttrs
-      (old: {
-        # workaround the error: Permission denied: '/homeless-shelter'
-        HOME = "$(mktemp -d)";
-      });
+    (old: {
+      # workaround the error: Permission denied: '/homeless-shelter'
+      HOME = "$(mktemp -d)";
+    });
 
   meta = with lib; {
     description = "Molecule aids in the development and testing of Ansible roles";
     homepage = "https://github.com/ansible-community/molecule";
     changelog = "https://github.com/ansible/molecule/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dawidd6 ];
+    maintainers = with maintainers; [dawidd6];
     mainProgram = "molecule";
   };
 }

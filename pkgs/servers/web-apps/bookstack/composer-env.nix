@@ -1,5 +1,4 @@
 # This file originates from composer2nix
-
 {
   stdenv,
   lib,
@@ -8,24 +7,25 @@
   php,
   unzip,
   phpPackages,
-}:
-
-let
+}: let
   inherit (phpPackages) composer;
 
-  filterSrc =
-    src:
+  filterSrc = src:
     builtins.filterSource (
       path: type:
-      type != "directory"
-      || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
-    ) src;
+        type
+        != "directory"
+        || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
+    )
+    src;
 
-  buildZipPackage =
-    { name, src }:
+  buildZipPackage = {
+    name,
+    src,
+  }:
     stdenv.mkDerivation {
       inherit name src;
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       buildCommand = ''
         shopt -s dotglob
         unzip $src
@@ -36,164 +36,156 @@ let
       '';
     };
 
-  buildPackage =
-    {
-      name,
-      src,
-      packages ? { },
-      devPackages ? { },
-      buildInputs ? [ ],
-      symlinkDependencies ? false,
-      executable ? false,
-      removeComposerArtifacts ? false,
-      postInstall ? "",
-      noDev ? false,
-      composerExtraArgs ? "",
-      unpackPhase ? "true",
-      buildPhase ? "true",
-      ...
-    }@args:
+  buildPackage = {
+    name,
+    src,
+    packages ? {},
+    devPackages ? {},
+    buildInputs ? [],
+    symlinkDependencies ? false,
+    executable ? false,
+    removeComposerArtifacts ? false,
+    postInstall ? "",
+    noDev ? false,
+    composerExtraArgs ? "",
+    unpackPhase ? "true",
+    buildPhase ? "true",
+    ...
+  } @ args: let
+    reconstructInstalled = writeTextFile {
+      name = "reconstructinstalled.php";
+      executable = true;
+      text = ''
+        #! ${php}/bin/php
+        <?php
+        if(file_exists($argv[1]))
+        {
+            $composerLockStr = file_get_contents($argv[1]);
 
-    let
-      reconstructInstalled = writeTextFile {
-        name = "reconstructinstalled.php";
-        executable = true;
-        text = ''
-          #! ${php}/bin/php
-          <?php
-          if(file_exists($argv[1]))
-          {
-              $composerLockStr = file_get_contents($argv[1]);
-
-              if($composerLockStr === false)
-              {
-                  fwrite(STDERR, "Cannot open composer.lock contents\n");
-                  exit(1);
-              }
-              else
-              {
-                  $config = json_decode($composerLockStr, true);
-
-                  if(array_key_exists("packages", $config))
-                      $allPackages = $config["packages"];
-                  else
-                      $allPackages = array();
-
-                  ${lib.optionalString (!noDev) ''
-                    if(array_key_exists("packages-dev", $config))
-                        $allPackages = array_merge($allPackages, $config["packages-dev"]);
-                  ''}
-
-                  $packagesStr = json_encode($allPackages, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-                  print($packagesStr);
-              }
-          }
-          else
-              print("[]");
-          ?>
-        '';
-      };
-
-      constructBin = writeTextFile {
-        name = "constructbin.php";
-        executable = true;
-        text = ''
-          #! ${php}/bin/php
-          <?php
-          $composerJSONStr = file_get_contents($argv[1]);
-
-          if($composerJSONStr === false)
-          {
-              fwrite(STDERR, "Cannot open composer.json contents\n");
-              exit(1);
-          }
-          else
-          {
-              $config = json_decode($composerJSONStr, true);
-
-              if(array_key_exists("bin-dir", $config))
-                  $binDir = $config["bin-dir"];
-              else
-                  $binDir = "bin";
-
-              if(array_key_exists("bin", $config))
-              {
-                  if(!file_exists("vendor/".$binDir))
-                      mkdir("vendor/".$binDir);
-
-                  foreach($config["bin"] as $bin)
-                      symlink("../../".$bin, "vendor/".$binDir."/".basename($bin));
-              }
-          }
-          ?>
-        '';
-      };
-
-      bundleDependencies =
-        dependencies:
-        lib.concatMapStrings (
-          dependencyName:
-          let
-            dependency = dependencies.${dependencyName};
-          in
-          ''
-            ${
-              if dependency.targetDir == "" then
-                ''
-                  vendorDir="$(dirname ${dependencyName})"
-                  mkdir -p "$vendorDir"
-                  ${
-                    if symlinkDependencies then
-                      ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                    else
-                      ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                  }
-                ''
-              else
-                ''
-                  namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
-                  mkdir -p "$namespaceDir"
-                  ${
-                    if symlinkDependencies then
-                      ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-                    else
-                      ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-                  }
-                ''
+            if($composerLockStr === false)
+            {
+                fwrite(STDERR, "Cannot open composer.lock contents\n");
+                exit(1);
             }
-          ''
-        ) (builtins.attrNames dependencies);
+            else
+            {
+                $config = json_decode($composerLockStr, true);
 
-      extraArgs = removeAttrs args [
-        "packages"
-        "devPackages"
-        "buildInputs"
-      ];
-    in
+                if(array_key_exists("packages", $config))
+                    $allPackages = $config["packages"];
+                else
+                    $allPackages = array();
+
+                ${lib.optionalString (!noDev) ''
+          if(array_key_exists("packages-dev", $config))
+              $allPackages = array_merge($allPackages, $config["packages-dev"]);
+        ''}
+
+                $packagesStr = json_encode($allPackages, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+                print($packagesStr);
+            }
+        }
+        else
+            print("[]");
+        ?>
+      '';
+    };
+
+    constructBin = writeTextFile {
+      name = "constructbin.php";
+      executable = true;
+      text = ''
+        #! ${php}/bin/php
+        <?php
+        $composerJSONStr = file_get_contents($argv[1]);
+
+        if($composerJSONStr === false)
+        {
+            fwrite(STDERR, "Cannot open composer.json contents\n");
+            exit(1);
+        }
+        else
+        {
+            $config = json_decode($composerJSONStr, true);
+
+            if(array_key_exists("bin-dir", $config))
+                $binDir = $config["bin-dir"];
+            else
+                $binDir = "bin";
+
+            if(array_key_exists("bin", $config))
+            {
+                if(!file_exists("vendor/".$binDir))
+                    mkdir("vendor/".$binDir);
+
+                foreach($config["bin"] as $bin)
+                    symlink("../../".$bin, "vendor/".$binDir."/".basename($bin));
+            }
+        }
+        ?>
+      '';
+    };
+
+    bundleDependencies = dependencies:
+      lib.concatMapStrings (
+        dependencyName: let
+          dependency = dependencies.${dependencyName};
+        in ''
+          ${
+            if dependency.targetDir == ""
+            then ''
+              vendorDir="$(dirname ${dependencyName})"
+              mkdir -p "$vendorDir"
+              ${
+                if symlinkDependencies
+                then ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                else ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+              }
+            ''
+            else ''
+              namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
+              mkdir -p "$namespaceDir"
+              ${
+                if symlinkDependencies
+                then ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                else ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+              }
+            ''
+          }
+        ''
+      ) (builtins.attrNames dependencies);
+
+    extraArgs = removeAttrs args [
+      "packages"
+      "devPackages"
+      "buildInputs"
+    ];
+  in
     stdenv.mkDerivation (
       {
-        buildInputs = [
-          php
-          composer
-        ] ++ buildInputs;
+        buildInputs =
+          [
+            php
+            composer
+          ]
+          ++ buildInputs;
 
         inherit unpackPhase buildPhase;
 
         installPhase = ''
           ${
-            if executable then
-              ''
-                mkdir -p $out/share/php
-                cp -av $src $out/share/php/$name
-                chmod -R u+w $out/share/php/$name
-                cd $out/share/php/$name
-              ''
-            else
-              ''
-                cp -av $src $out
-                chmod -R u+w $out
-                cd $out
-              ''
+            if executable
+            then ''
+              mkdir -p $out/share/php
+              cp -av $src $out/share/php/$name
+              chmod -R u+w $out/share/php/$name
+              cd $out/share/php/$name
+            ''
+            else ''
+              cp -av $src $out
+              chmod -R u+w $out
+              cd $out
+            ''
           }
 
           # Remove unwanted files
@@ -276,8 +268,7 @@ let
       }
       // extraArgs
     );
-in
-{
+in {
   inherit filterSrc;
   composer = lib.makeOverridable composer;
   buildZipPackage = lib.makeOverridable buildZipPackage;

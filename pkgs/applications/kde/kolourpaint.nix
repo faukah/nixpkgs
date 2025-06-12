@@ -10,7 +10,6 @@
   kxmlgui,
   libkexiv2,
 }:
-
 mkDerivation {
   pname = "kolourpaint";
   nativeBuildInputs = [
@@ -29,6 +28,6 @@ mkDerivation {
     homepage = "https://apps.kde.org/kolourpaint/";
     description = "Paint program";
     mainProgram = "kolourpaint";
-    license = with lib.licenses; [ gpl2 ];
+    license = with lib.licenses; [gpl2];
   };
 }

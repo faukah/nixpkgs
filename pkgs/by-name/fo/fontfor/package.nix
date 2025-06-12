@@ -9,7 +9,6 @@
   freetype,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fontfor";
   version = "0.4.3";
@@ -34,13 +33,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-TOoNfGYQTr5UZeyasslJU9GRIAnH3p2a9UIFz8IJv7A=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Find fonts which can show a specified character and preview them in browser";
     homepage = "https://github.com/7sDream/fontfor";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ shamilton ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
     mainProgram = "fontfor";
   };

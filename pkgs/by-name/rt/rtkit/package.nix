@@ -11,7 +11,6 @@
   polkit,
   systemd,
 }:
-
 stdenv.mkDerivation {
   pname = "rtkit";
   version = "0.13";

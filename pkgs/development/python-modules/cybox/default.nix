@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cybox";
   version = "2.1.0.21";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
@@ -42,15 +41,15 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cybox" ];
+  pythonImportsCheck = ["cybox"];
 
   meta = {
     description = "Library for parsing, manipulating, and generating CybOX content";
     homepage = "https://github.com/CybOXProject/python-cybox/";
     changelog = "https://github.com/CybOXProject/python-cybox/blob/${src.rev}/CHANGES.txt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

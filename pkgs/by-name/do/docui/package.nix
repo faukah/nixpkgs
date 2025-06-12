@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "docui";
   version = "2.0.4";
@@ -22,7 +21,7 @@ buildGoModule rec {
     description = "TUI Client for Docker";
     homepage = "https://github.com/skanehira/docui";
     license = licenses.mit;
-    maintainers = with maintainers; [ aethelz ];
+    maintainers = with maintainers; [aethelz];
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "docui";
   };

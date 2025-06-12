@@ -2,12 +2,10 @@
   lib,
   rustPlatform,
   anki,
-
   openssl,
   pkg-config,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "anki-sync-server";
   inherit (anki) version src cargoDeps;
@@ -37,8 +35,8 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "Standalone official anki sync server";
     homepage = "https://apps.ankiweb.net";
-    license = with lib.licenses; [ agpl3Plus ];
-    maintainers = with lib.maintainers; [ martinetd ];
+    license = with lib.licenses; [agpl3Plus];
+    maintainers = with lib.maintainers; [martinetd];
     mainProgram = "anki-sync-server";
   };
 }

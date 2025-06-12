@@ -6,7 +6,6 @@
   gnumake,
   truetype ? false,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "chilanka";
   version = "1.7";
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     python3Packages.fontmake
   ];
 
-  buildFlags = [ "otf" ] ++ lib.optional truetype "ttf";
+  buildFlags = ["otf"] ++ lib.optional truetype "ttf";
 
   installPhase = ''
     runHook preInstall
@@ -44,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Chilanka Malayalam Typeface";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ adtya ];
+    maintainers = with maintainers; [adtya];
   };
 }

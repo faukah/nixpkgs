@@ -26,7 +26,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 mkDerivation {
   pname = "gwenview";
   meta = {
@@ -36,12 +35,12 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
     mainProgram = "gwenview";
   };
 
   # Fix build with versioned kImageAnnotator
-  patches = [ ./kimageannotator.patch ];
+  patches = [./kimageannotator.patch];
 
   nativeBuildInputs = [
     extra-cmake-modules

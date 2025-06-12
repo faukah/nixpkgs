@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "spr";
   version = "1.3.4";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "spr";
     homepage = "https://github.com/spacedentist/spr";
     license = licenses.mit;
-    maintainers = with maintainers; [ spacedentist ];
+    maintainers = with maintainers; [spacedentist];
   };
 }

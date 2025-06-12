@@ -5,7 +5,6 @@
   writeShellScript,
   texliveBasic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sagetex";
   version = "3.6.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OfhbXHbGI+DaDHqZCOGiSHJPHjGuT7ZqSEjKweloW38=";
   };
 
-  outputs = [ "tex" ];
+  outputs = ["tex"];
 
   nativeBuildInputs = [
     texliveBasic
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Embed code, results of computations, and plots from Sage into LaTeX documents";
     homepage = "https://github.com/sagemath/sagetex";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
     platforms = platforms.all;
   };
 }

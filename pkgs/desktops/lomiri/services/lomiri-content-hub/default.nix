@@ -30,7 +30,6 @@
   wrapGAppsHook3,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-content-hub";
   version = "2.1.0";
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     xvfb-run
   ];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   dontWrapQtApps = true;
 
@@ -118,23 +117,21 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_UBUNTU_COMPAT" true) # in case something still depends on it
   ];
 
-  preBuild =
-    let
-      listToQtVar =
-        list: suffix: lib.strings.concatMapStringsSep ":" (drv: "${lib.getBin drv}/${suffix}") list;
-    in
-    ''
-      # Executes qmlplugindump
-      export QT_PLUGIN_PATH=${listToQtVar [ qtbase ] qtbase.qtPluginPrefix}
-      export QML2_IMPORT_PATH=${
-        listToQtVar [
-          qtdeclarative
-          lomiri-ui-toolkit
-          qtfeedback
-          qtgraphicaleffects
-        ] qtbase.qtQmlPrefix
-      }
-    '';
+  preBuild = let
+    listToQtVar = list: suffix: lib.strings.concatMapStringsSep ":" (drv: "${lib.getBin drv}/${suffix}") list;
+  in ''
+    # Executes qmlplugindump
+    export QT_PLUGIN_PATH=${listToQtVar [qtbase] qtbase.qtPluginPrefix}
+    export QML2_IMPORT_PATH=${
+      listToQtVar [
+        qtdeclarative
+        lomiri-ui-toolkit
+        qtfeedback
+        qtgraphicaleffects
+      ]
+      qtbase.qtQmlPrefix
+    }
+  '';
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -163,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
       # from another and changes into a mode to pick the content to send
       vm = nixosTests.lomiri.desktop-appinteractions;
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -179,7 +176,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Only
     ];
     mainProgram = "lomiri-content-hub-service";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "liblomiri-content-hub"

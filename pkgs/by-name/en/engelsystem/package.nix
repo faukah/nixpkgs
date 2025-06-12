@@ -6,7 +6,6 @@
   stdenv,
   writeText,
 }:
-
 stdenv.mkDerivation rec {
   pname = "engelsystem";
   version = "3.6.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-AZVW04bcSlESSRmtfvP2oz15xvZLlGEz/X9rX7PuRGg=";
   };
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   installPhase = ''
     runHook preInstall
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://engelsystem.de";
     license = lib.licenses.gpl2Only;
     mainProgram = "migrate";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

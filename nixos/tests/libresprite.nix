@@ -1,23 +1,24 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "libresprite";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
-      environment.systemPackages = [
-        pkgs.imagemagick
-        pkgs.libresprite
-      ];
-    };
+    services.xserver.enable = true;
+    environment.systemPackages = [
+      pkgs.imagemagick
+      pkgs.libresprite
+    ];
+  };
 
   enableOCR = true;
 

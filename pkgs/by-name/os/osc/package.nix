@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "osc";
   version = "0.4.8";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/theimpostor/osc";
     changelog = "https://github.com/theimpostor/osc/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ harryposner ];
+    maintainers = with lib.maintainers; [harryposner];
     mainProgram = "osc";
   };
 }

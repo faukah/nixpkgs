@@ -6,7 +6,6 @@
   cmake,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yaml-cpp";
   version = "0.8.0";
@@ -32,13 +31,13 @@ stdenv.mkDerivation rec {
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "YAML parser and emitter for C++";
     homepage = "https://github.com/jbeder/yaml-cpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

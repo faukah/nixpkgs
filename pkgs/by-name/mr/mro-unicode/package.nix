@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mro-unicode";
   version = "unstable-2013-05-25";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://github.com/phjamr/MroUnicode";
     description = "Unicode-compliant Mro font";
-    maintainers = with maintainers; [ mathnerd314 ];
+    maintainers = with maintainers; [mathnerd314];
     license = licenses.ofl;
     platforms = platforms.all;
   };

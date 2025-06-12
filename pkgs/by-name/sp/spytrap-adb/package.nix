@@ -4,7 +4,6 @@
   rustPlatform,
   android-tools,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "spytrap-adb";
   version = "0.3.4";
@@ -26,8 +25,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/spytrap-org/spytrap-adb";
     changelog = "https://github.com/spytrap-org/spytrap-adb/releases/tag/v${version}";
     mainProgram = "spytrap-adb";
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ kpcyrd ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [kpcyrd];
     platforms = lib.platforms.all;
   };
 }

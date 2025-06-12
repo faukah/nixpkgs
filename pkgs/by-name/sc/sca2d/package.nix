@@ -3,8 +3,7 @@
   python3,
   fetchFromGitLab,
   fetchFromGitHub,
-}:
-let
+}: let
   python = python3.override {
     packageOverrides = self: super: {
       lark010 = super.lark.overridePythonAttrs (old: rec {
@@ -17,39 +16,39 @@ let
           sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
         };
 
-        patches = [ ];
+        patches = [];
 
-        disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
+        disabledTestPaths = ["tests/test_nearley/test_nearley.py"];
       });
     };
     self = python;
   };
 in
-python.pkgs.buildPythonApplication rec {
-  pname = "sca2d";
-  version = "0.2.2";
-  format = "setuptools";
+  python.pkgs.buildPythonApplication rec {
+    pname = "sca2d";
+    version = "0.2.2";
+    format = "setuptools";
 
-  src = fetchFromGitLab {
-    owner = "bath_open_instrumentation_group";
-    repo = "sca2d";
-    tag = "v${version}";
-    hash = "sha256-p0Bv8jcnjcOLBAXN5A4GspSIEG4G4NPA4o0aEtwe/LU=";
-  };
+    src = fetchFromGitLab {
+      owner = "bath_open_instrumentation_group";
+      repo = "sca2d";
+      tag = "v${version}";
+      hash = "sha256-p0Bv8jcnjcOLBAXN5A4GspSIEG4G4NPA4o0aEtwe/LU=";
+    };
 
-  propagatedBuildInputs = with python.pkgs; [
-    lark010
-    colorama
-  ];
+    propagatedBuildInputs = with python.pkgs; [
+      lark010
+      colorama
+    ];
 
-  pythonImportsCheck = [ "sca2d" ];
+    pythonImportsCheck = ["sca2d"];
 
-  meta = {
-    description = "Experimental static code analyser for OpenSCAD";
-    mainProgram = "sca2d";
-    homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
-    changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/v${version}/CHANGELOG.md";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ traxys ];
-  };
-}
+    meta = {
+      description = "Experimental static code analyser for OpenSCAD";
+      mainProgram = "sca2d";
+      homepage = "https://gitlab.com/bath_open_instrumentation_group/sca2d";
+      changelog = "https://gitlab.com/bath_open_instrumentation_group/sca2d/-/blob/v${version}/CHANGELOG.md";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [traxys];
+    };
+  }

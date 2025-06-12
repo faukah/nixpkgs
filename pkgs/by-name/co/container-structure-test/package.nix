@@ -18,13 +18,13 @@ buildGoModule rec {
   };
   vendorHash = "sha256-pBq76HJ+nluOMOs9nqBKp1mr1LuX2NERXo48g8ezE9k=";
 
-  subPackages = [ "cmd/container-structure-test" ];
+  subPackages = ["cmd/container-structure-test"];
   ldflags = [
     "-X github.com/${src.owner}/${src.repo}/pkg/version.version=${version}"
     "-X github.com/${src.owner}/${src.repo}/pkg/version.buildDate=1970-01-01T00:00:00Z"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     for shell in bash fish zsh; do
       $out/bin/container-structure-test completion $shell > executor.$shell
@@ -42,9 +42,9 @@ buildGoModule rec {
     homepage = "https://github.com/GoogleContainerTools/container-structure-test";
     description = "Framework to validate the structure of a container image";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rubenhoenle ];
+    maintainers = with lib.maintainers; [rubenhoenle];
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
     mainProgram = "container-structure-test";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

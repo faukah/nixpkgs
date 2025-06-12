@@ -27,6 +27,6 @@ buildGoModule {
     '';
     homepage = "https://github.com/ferdinandyb/caeml";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

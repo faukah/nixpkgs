@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dde-api,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepin-wallpapers";
   version = "1.7.16";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-o5rg1l8N6Ch+BdBLp+HMbVBBvrTdRtn8NSgH/9AnB2Q=";
   };
 
-  nativeBuildInputs = [ dde-api ];
+  nativeBuildInputs = [dde-api];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
       cc-by-sa-30
     ];
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

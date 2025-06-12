@@ -5,7 +5,6 @@
   gitUpdater,
   rename,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ubuntu-sans-mono";
   version = "1.006";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Ubuntu Font Family (Mono)";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/canonical/Ubuntu-Sans-Mono-fonts/blob/${finalAttrs.src.rev}/FONTLOG.txt";
     license = licenses.ufl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jopejoe1 ];
+    maintainers = with maintainers; [jopejoe1];
   };
 })

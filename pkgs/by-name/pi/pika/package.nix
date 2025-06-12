@@ -4,7 +4,6 @@
   stdenv,
   undmg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pika";
   version = "0.0.12";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hcP2bETEx9RQW43I9nvdRPi9lbWwKW6mhRx5H6RxhjM=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "Pika.app";
 
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "Open-source colour picker app for macOS";
     platforms = platforms.darwin;
     license = licenses.mit;
-    maintainers = with maintainers; [ arkivm ];
+    maintainers = with maintainers; [arkivm];
   };
 }

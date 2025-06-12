@@ -6,14 +6,12 @@
   gnome-themes-extra,
   gtk-engine-murrine,
   unstableGitUpdater,
-  colorVariants ? [ ],
-  sizeVariants ? [ ],
-  themeVariants ? [ ],
-  tweakVariants ? [ ],
-  iconVariants ? [ ],
-}:
-
-let
+  colorVariants ? [],
+  sizeVariants ? [],
+  themeVariants ? [],
+  tweakVariants ? [],
+  iconVariants ? [],
+}: let
   pname = "gruvbox-gtk-theme";
   colorVariantList = [
     "dark"
@@ -48,7 +46,7 @@ let
     "Light"
   ];
 in
-lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib.checkListOfEnum
+  lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib.checkListOfEnum
   "${pname}: sizeVariants"
   sizeVariantList
   sizeVariants
@@ -64,7 +62,6 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
   "${pname}: iconVariants"
   iconVariantList
   iconVariants
-
   stdenvNoCC.mkDerivation
   {
     inherit pname;
@@ -77,14 +74,14 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
       hash = "sha256-zhY3uwvtHNKNrdWiD5Le/AMz1lgV39K/RNhFGnIMpzg=";
     };
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-    nativeBuildInputs = [ sassc ];
-    buildInputs = [ gnome-themes-extra ];
+    nativeBuildInputs = [sassc];
+    buildInputs = [gnome-themes-extra];
 
     dontBuild = true;
 
-    passthru.updateScript = unstableGitUpdater { };
+    passthru.updateScript = unstableGitUpdater {};
 
     postPatch = ''
       patchShebangs themes/install.sh
@@ -95,13 +92,13 @@ lib.checkListOfEnum "${pname}: colorVariants" colorVariantList colorVariants lib
       mkdir -p $out/share/themes
       cd themes
       ./install.sh -n Gruvbox \
-      ${lib.optionalString (colorVariants != [ ]) "-c " + toString colorVariants} \
-      ${lib.optionalString (sizeVariants != [ ]) "-s " + toString sizeVariants} \
-      ${lib.optionalString (themeVariants != [ ]) "-t " + toString themeVariants} \
-      ${lib.optionalString (tweakVariants != [ ]) "--tweaks " + toString tweakVariants} \
+      ${lib.optionalString (colorVariants != []) "-c " + toString colorVariants} \
+      ${lib.optionalString (sizeVariants != []) "-s " + toString sizeVariants} \
+      ${lib.optionalString (themeVariants != []) "-t " + toString themeVariants} \
+      ${lib.optionalString (tweakVariants != []) "--tweaks " + toString tweakVariants} \
       -d "$out/share/themes"
       cd ../icons
-      ${lib.optionalString (iconVariants != [ ]) ''
+      ${lib.optionalString (iconVariants != []) ''
         mkdir -p $out/share/icons
         cp -a ${toString (map (v: "Gruvbox-${v}") iconVariants)} $out/share/icons/
       ''}

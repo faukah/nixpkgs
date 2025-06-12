@@ -12,7 +12,6 @@
   gdk-pixbuf,
   blueprint-compiler,
 }:
-
 buildDotnetModule rec {
   pname = "denaro";
   version = "2024.2.0";

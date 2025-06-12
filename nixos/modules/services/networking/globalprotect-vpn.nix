@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.globalprotect;
 
   execStart =
-    if cfg.csdWrapper == null then
-      "${pkgs.globalprotect-openconnect}/bin/gpservice"
-    else
-      "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}";
-in
-
-{
+    if cfg.csdWrapper == null
+    then "${pkgs.globalprotect-openconnect}/bin/gpservice"
+    else "${pkgs.globalprotect-openconnect}/bin/gpservice --csd-wrapper=${cfg.csdWrapper}";
+in {
   options.services.globalprotect = {
     enable = lib.mkEnableOption "globalprotect";
 
@@ -23,7 +19,7 @@ in
         GlobalProtect-openconnect configuration. For more information, visit
         <https://github.com/yuezk/GlobalProtect-openconnect/wiki/Configuration>.
       '';
-      default = { };
+      default = {};
       example = {
         "vpn1.company.com" = {
           openconnect-args = "--script=/path/to/vpnc-script";
@@ -44,9 +40,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.dbus.packages = [ pkgs.globalprotect-openconnect ];
+    services.dbus.packages = [pkgs.globalprotect-openconnect];
 
-    environment.etc."gpservice/gp.conf".text = lib.generators.toINI { } cfg.settings;
+    environment.etc."gpservice/gp.conf".text = lib.generators.toINI {} cfg.settings;
 
     systemd.services.gpservice = {
       description = "GlobalProtect openconnect DBus service";
@@ -55,8 +51,8 @@ in
         BusName = "com.yuezk.qt.GPService";
         ExecStart = execStart;
       };
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
     };
   };
 }

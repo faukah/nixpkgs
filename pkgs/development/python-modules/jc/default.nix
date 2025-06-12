@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jc";
   version = "1.25.5";
@@ -31,21 +30,19 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      installShellCompletion --cmd jc \
-        --bash <(${emulator} $out/bin/jc --bash-comp) \
-        --zsh  <(${emulator} $out/bin/jc --zsh-comp)
-    '';
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    installShellCompletion --cmd jc \
+      --bash <(${emulator} $out/bin/jc --bash-comp) \
+      --zsh  <(${emulator} $out/bin/jc --zsh-comp)
+  '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jc" ];
+  pythonImportsCheck = ["jc"];
 
   # tests require timezone to set America/Los_Angeles
   doCheck = false;
@@ -54,7 +51,7 @@ buildPythonPackage rec {
     description = "This tool serializes the output of popular command line tools and filetypes to structured JSON output";
     homepage = "https://github.com/kellyjonbrazil/jc";
     license = licenses.mit;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
     changelog = "https://github.com/kellyjonbrazil/jc/blob/${src.tag}/CHANGELOG";
     mainProgram = "jc";
   };

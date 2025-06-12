@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "solicurses";
   version = "unstable-2020-02-13";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     description = "Version of Solitaire written in C++ using the ncurses library";
     mainProgram = "solicurses";
     homepage = "https://github.com/KaylaPP/SoliCurses";
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
     license = licenses.gpl3Only;
     inherit (ncurses.meta) platforms;
   };

@@ -9,7 +9,6 @@
   ed,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bc";
   version = "1.08.1";
@@ -18,11 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-UVQwEVszNMY2MXUDRgoJUN/3mUCqMlnOLBqmfCiB0CM=";
   };
 
-  configureFlags = [ "--with-readline" ];
+  configureFlags = ["--with-readline"];
 
   # As of 1.07 cross-compilation is quite complicated as the build system wants
   # to build a code generator, bc/fbc, on the build machine.
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     # Tools
     autoreconfHook

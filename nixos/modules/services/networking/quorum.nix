@@ -4,10 +4,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -21,11 +20,8 @@ let
   dataDir = "/var/lib/quorum";
   genesisFile = pkgs.writeText "genesis.json" (builtins.toJSON cfg.genesis);
   staticNodesFile = pkgs.writeText "static-nodes.json" (builtins.toJSON cfg.staticNodes);
-
-in
-{
+in {
   options = {
-
     services.quorum = {
       enable = mkEnableOption "Quorum blockchain daemon";
 
@@ -56,7 +52,7 @@ in
 
       staticNodes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "enode://dd333ec28f0a8910c92eb4d336461eea1c20803eed9cf2c056557f986e720f8e693605bba2f4e8f289b1162e5ac7c80c914c7178130711e393ca76abc1d92f57@0.0.0.0:30303?discport=0"
         ];
@@ -187,14 +183,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.quorum ];
+    environment.systemPackages = [pkgs.quorum];
     systemd.tmpfiles.rules = [
       "d '${dataDir}' 0770 '${cfg.user}' '${cfg.group}' - -"
     ];
     systemd.services.quorum = {
       description = "Quorum daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = {
         PRIVATE_CONFIG = "${cfg.privateconfig}";
       };
@@ -245,6 +241,6 @@ in
       home = dataDir;
       isSystemUser = true;
     };
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
   };
 }

@@ -1,22 +1,19 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "gotosocial";
-  meta.maintainers = with lib.maintainers; [ blakesmith ];
+  meta.maintainers = with lib.maintainers; [blakesmith];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.jq ];
-      services.gotosocial = {
-        enable = true;
-        setupPostgresqlDB = true;
-        settings = {
-          host = "localhost:8081";
-          port = 8081;
-          instance-stats-mode = "serve";
-        };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.jq];
+    services.gotosocial = {
+      enable = true;
+      setupPostgresqlDB = true;
+      settings = {
+        host = "localhost:8081";
+        port = 8081;
+        instance-stats-mode = "serve";
       };
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("gotosocial.service")

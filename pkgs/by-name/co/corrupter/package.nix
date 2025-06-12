@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 buildGoModule {
   pname = "corrupter";
   version = "1.0-unstable-2023-01-11";
@@ -30,7 +29,7 @@ buildGoModule {
     description = "Simple image glitcher suitable for producing lockscreens";
     homepage = "https://github.com/r00tman/corrupter";
     license = licenses.bsd2;
-    maintainers = [ maintainers.ivan770 ];
+    maintainers = [maintainers.ivan770];
     mainProgram = "corrupter";
   };
 }

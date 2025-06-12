@@ -10,7 +10,6 @@
   taglib_1,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "loudgain";
   version = "0.6.8";
@@ -52,8 +51,10 @@ stdenv.mkDerivation rec {
     sed -e "1aPATH=$out/bin:\$PATH" -i "$out/bin/rgbpm"
   '';
 
-  meta = src.meta // {
-    license = lib.licenses.free;
-    maintainers = with lib.maintainers; [ ehmry ];
-  };
+  meta =
+    src.meta
+    // {
+      license = lib.licenses.free;
+      maintainers = with lib.maintainers; [ehmry];
+    };
 }

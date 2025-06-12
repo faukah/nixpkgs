@@ -4,7 +4,6 @@
   fetchurl,
   jdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emem";
   version = "0.2.50";
@@ -36,9 +35,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ebzzry/emem";
     description = "Trivial Markdown to HTML converter";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.unix;
     mainProgram = "emem";
   };

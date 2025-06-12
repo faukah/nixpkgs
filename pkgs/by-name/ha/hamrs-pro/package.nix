@@ -4,9 +4,7 @@
   appimageTools,
   fetchurl,
   _7zz,
-}:
-
-let
+}: let
   pname = "hamrs-pro";
   version = "2.38.0";
 
@@ -41,7 +39,7 @@ let
   meta = {
     homepage = "https://hamrs.app/";
     description = "Simple, portable logger tailored for activities like Parks on the Air, Field Day, and more";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     maintainers = with lib.maintainers; [
       ethancedwards8
@@ -64,16 +62,14 @@ let
       meta
       ;
 
-    extraInstallCommands =
-      let
-        contents = appimageTools.extract { inherit pname version src; };
-      in
-      ''
-        install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
-        substituteInPlace $out/share/applications/${pname}.desktop \
-          --replace-fail 'Exec=AppRun' 'Exec=${pname}'
-        cp -r ${contents}/usr/share/icons $out/share
-      '';
+    extraInstallCommands = let
+      contents = appimageTools.extract {inherit pname version src;};
+    in ''
+      install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+      cp -r ${contents}/usr/share/icons $out/share
+    '';
   };
 
   darwin = stdenvNoCC.mkDerivation {
@@ -85,7 +81,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ _7zz ];
+    nativeBuildInputs = [_7zz];
 
     sourceRoot = ".";
 
@@ -99,4 +95,6 @@ let
     '';
   };
 in
-if stdenvNoCC.hostPlatform.isDarwin then darwin else linux
+  if stdenvNoCC.hostPlatform.isDarwin
+  then darwin
+  else linux

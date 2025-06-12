@@ -4,7 +4,6 @@
   fetchPypi,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eliot-tree";
   version = "21.0.0";
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication rec {
       --replace-fail readfp read_file
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     colored
@@ -38,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     testtools
   ];
 
-  pythonImportsCheck = [ "eliottree" ];
+  pythonImportsCheck = ["eliottree"];
 
   meta = {
     homepage = "https://github.com/jonathanj/eliottree";
@@ -46,6 +45,6 @@ python3Packages.buildPythonApplication rec {
     description = "Render Eliot logs as an ASCII tree";
     mainProgram = "eliot-tree";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.dpausp ];
+    maintainers = [lib.maintainers.dpausp];
   };
 }

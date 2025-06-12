@@ -12,7 +12,6 @@
   python3,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpeditor";
   version = "7.0.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://cpeditor.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
     mainProgram = "cpeditor";
   };
 }

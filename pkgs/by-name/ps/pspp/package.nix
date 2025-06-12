@@ -22,7 +22,6 @@
   python3,
   iconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pspp";
   version = "2.0.1";

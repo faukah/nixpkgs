@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dufs";
   version = "0.43.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OQyMai0METXLSFl09eIk1xnL9QV5cEEiRNVEz1dHg+c=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # FIXME: checkPhase on darwin will leave some zombie spawn processes
   # see https://github.com/NixOS/nixpkgs/issues/205620

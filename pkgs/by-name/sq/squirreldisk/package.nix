@@ -2,17 +2,14 @@
   lib,
   stdenv,
   rustPlatform,
-
   fetchFromGitHub,
   fetchNpmDeps,
-
   cargo-tauri_1,
   makeBinaryWrapper,
   nodejs,
   npmHooks,
   pkg-config,
   wrapGAppsHook3,
-
   dbus,
   freetype,
   gtk3,
@@ -21,7 +18,6 @@
   parallel-disk-usage,
   webkitgtk_4_0,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "squirreldisk";
   version = "0.3.4";
@@ -100,7 +96,7 @@ rustPlatform.buildRustPackage rec {
     description = "Cross-platform disk usage analysis tool";
     homepage = "https://www.squirreldisk.com/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ peret ];
+    maintainers = with maintainers; [peret];
     mainProgram = "squirrel-disk";
   };
 }

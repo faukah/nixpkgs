@@ -6,7 +6,6 @@
   pytestCheckHook,
   args,
 }:
-
 buildPythonPackage rec {
   pname = "clint";
   version = "0.5.1";
@@ -17,18 +16,18 @@ buildPythonPackage rec {
     hash = "sha256-BSJMMrEHVWPQsW0AFfqvnaQ6ohTkohQOUfCHieekxao=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ args ];
+  dependencies = [args];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "clint" ];
+  pythonImportsCheck = ["clint"];
 
   meta = with lib; {
     homepage = "https://github.com/kennethreitz/clint";
     description = "Python Command Line Interface Tools";
     license = licenses.isc;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -6,7 +6,6 @@
   ncurses,
   buildPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "mg";
   version = "7.3-unstable-2024-06-04";
@@ -32,9 +31,9 @@ stdenv.mkDerivation {
     install -m 555 -Dt $out/bin mg
     install -m 444 -Dt $out/share/man/man1 mg.1
   '';
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = "Micro GNU/emacs, a portable version of the mg maintained by the OpenBSD team";

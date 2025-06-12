@@ -18,7 +18,6 @@
   util-linux,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpftrace";
   version = "0.23.4";

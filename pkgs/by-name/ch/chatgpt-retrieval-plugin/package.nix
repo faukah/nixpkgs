@@ -6,7 +6,6 @@
   nix-update-script,
   dasel,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "chatgpt-retrieval-plugin";
   version = "unstable-2023-03-28";
@@ -60,7 +59,7 @@ python3Packages.buildPythonApplication {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -68,6 +67,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/openai/chatgpt-retrieval-plugin";
     description = "Tool to search and find personal or work documents by asking questions in everyday language";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

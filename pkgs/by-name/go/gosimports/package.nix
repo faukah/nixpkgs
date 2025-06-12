@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gosimports";
   version = "0.3.8";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-xR1YTwUcJcpe4NXH8sp9bNAWggvcvVJLztD49gQIdMU=";
 
-  subPackages = [ "cmd/gosimports" ];
+  subPackages = ["cmd/gosimports"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/rinchsan/gosimports";
     description = "Simpler goimports";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ maolonglong ];
+    maintainers = with maintainers; [maolonglong];
     mainProgram = "gosimports";
   };
 }

@@ -35,34 +35,22 @@
   wrapGAppsHook3,
   fetchpatch2,
   nixosTests,
-
   x11Support ? false,
-
   useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-
   # Whether to support the JACK sound system as a backend.
   jackaudioSupport ? false,
-
   # Whether to build the OSS wrapper ("padsp").
   ossWrapper ? true,
-
   airtunesSupport ? false,
-
   bluetoothSupport ? stdenv.hostPlatform.isLinux,
   advancedBluetoothCodecs ? false,
-
   remoteControlSupport ? false,
-
   zeroconfSupport ? false,
-
   alsaSupport ? stdenv.hostPlatform.isLinux,
   udevSupport ? stdenv.hostPlatform.isLinux,
-
   # Whether to build only the library.
   libOnly ? false,
-
 }:
-
 stdenv.mkDerivation rec {
   pname = "${lib.optionalString libOnly "lib"}pulseaudio";
   version = "17.0";
@@ -111,11 +99,11 @@ stdenv.mkDerivation rec {
       perlPackages.XMLParser
       m4
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ glib ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [glib]
     # gstreamer plugin discovery requires wrapping
     ++ lib.optional (bluetoothSupport && advancedBluetoothCodecs) wrapGAppsHook3;
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libcap ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [libcap];
 
   buildInputs =
     [
@@ -159,7 +147,8 @@ stdenv.mkDerivation rec {
       # aptX and LDAC codecs are in gst-plugins-bad so far, rtpldacpay is in -good
       ++ lib.optionals (bluetoothSupport && advancedBluetoothCodecs) (
         builtins.attrValues {
-          inherit (gst_all_1)
+          inherit
+            (gst_all_1)
             gst-plugins-bad
             gst-plugins-good
             gst-plugins-base
@@ -173,10 +162,10 @@ stdenv.mkDerivation rec {
 
   env =
     lib.optionalAttrs (stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17")
-      {
-        # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/3848
-        NIX_LDFLAGS = "--undefined-version";
-      };
+    {
+      # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/3848
+      NIX_LDFLAGS = "--undefined-version";
+    };
 
   mesonFlags =
     [
@@ -281,11 +270,11 @@ stdenv.mkDerivation rec {
     description = "Sound server for POSIX and Win32 systems";
     homepage = "http://www.pulseaudio.org/";
     license = lib.licenses.lgpl2Plus;
-    maintainers = with lib.maintainers; [ lovek323 ];
+    maintainers = with lib.maintainers; [lovek323];
     platforms = lib.platforms.unix;
 
     # https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/issues/1089
-    badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+    badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
 
     longDescription = ''
       PulseAudio is a sound server for POSIX and Win32 systems.  A

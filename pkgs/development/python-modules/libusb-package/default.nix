@@ -8,7 +8,6 @@
   importlib-resources,
   libusb1,
 }:
-
 buildPythonPackage rec {
   pname = "libusb-package";
   version = "1.0.26.3";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyocd/libusb-package";
     changelog = "https://github.com/pyocd/libusb-package/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.brianmcgillion ];
+    maintainers = [lib.maintainers.brianmcgillion];
     platforms = lib.platforms.linux;
   };
 }

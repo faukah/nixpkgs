@@ -4,7 +4,6 @@
   fetchsvn,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "srm";
   version = "1.2.15-unstable-2017-12-18";
@@ -15,8 +14,8 @@ stdenv.mkDerivation {
     sha256 = "sha256-bY8p6IS5zeByoe/uTmvBAaBN4Wu7J19dVSpbtqx4OeQ=";
   };
 
-  patches = [ ./fix-output-in-verbose-mode.patch ];
-  nativeBuildInputs = [ autoreconfHook ];
+  patches = [./fix-output-in-verbose-mode.patch];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Delete files securely";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://srm.sourceforge.net";
     license = licenses.mit;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.unix;
   };
 }

@@ -11,7 +11,6 @@
   sqlite,
   cg3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cg3";
   version = "1.5.1";
@@ -43,19 +42,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests.minimal =
     runCommand "cg3-test"
-      {
-        buildInputs = [
-          cg3
-          dieHook
-        ];
-      }
-      ''
-        echo 'DELIMITERS = "."; ADD (tag) (*);' >grammar.cg3
-        printf '"<a>"\n\t"a" tag\n\n' >want.txt
-        printf '"<a>"\n\t"a"\n\n' | vislcg3 -g grammar.cg3 >got.txt
-        diff -s want.txt got.txt || die "Grammar application did not produce expected parse"
-        touch $out
-      '';
+    {
+      buildInputs = [
+        cg3
+        dieHook
+      ];
+    }
+    ''
+      echo 'DELIMITERS = "."; ADD (tag) (*);' >grammar.cg3
+      printf '"<a>"\n\t"a" tag\n\n' >want.txt
+      printf '"<a>"\n\t"a"\n\n' | vislcg3 -g grammar.cg3 >got.txt
+      diff -s want.txt got.txt || die "Grammar application did not produce expected parse"
+      touch $out
+    '';
 
   # TODO, consider optionals:
   # - Enable tcmalloc unless darwin?
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/GrammarSoft/cg3";
     description = "Constraint Grammar interpreter, compiler and applicator vislcg3";
-    maintainers = with lib.maintainers; [ unhammer ];
+    maintainers = with lib.maintainers; [unhammer];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
   };

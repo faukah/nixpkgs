@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddrutility";
   version = "2.8";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
   #   ld: /build/ccltHly5.o:(.bss+0x119f8): multiple definition of `start_time'; /build/cc9evx3L.o:(.bss+0x10978): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = with lib; {
     description = "Set of utilities for hard drive data rescue";
     homepage = "https://sourceforge.net/projects/ddrutility/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

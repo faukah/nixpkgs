@@ -1,10 +1,8 @@
 {
   lib,
   python3,
-
   fetchFromGitLab,
   fetchpatch,
-
   appstream,
   gobject-introspection,
   meson,
@@ -12,12 +10,10 @@
   pkg-config,
   blueprint-compiler,
   wrapGAppsHook4,
-
   glib-networking,
   libadwaita,
   webkitgtk_6_0,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gnome-feeds";
   version = "2.2.0";

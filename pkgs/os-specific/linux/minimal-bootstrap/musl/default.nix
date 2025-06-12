@@ -11,9 +11,8 @@
   gnused,
   gnutar,
   gzip,
-}:
-let
-  inherit (import ./common.nix { inherit lib; }) pname meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) pname meta;
   version = "1.2.4";
 
   src = fetchurl {
@@ -21,7 +20,7 @@ let
     hash = "sha256-ejXq4z1TcqfA2hGI3nmHJvaIJVE7euPr6XqqpSEU8Dk=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 
@@ -35,28 +34,27 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.hello-world =
-      result:
+    passthru.tests.hello-world = result:
       bash.runCommand "${pname}-simple-program-${version}"
-        {
-          nativeBuildInputs = [
-            gcc
-            binutils
-            result
-          ];
+      {
+        nativeBuildInputs = [
+          gcc
+          binutils
+          result
+        ];
+      }
+      ''
+        cat <<EOF >> test.c
+        #include <stdio.h>
+        int main() {
+          printf("Hello World!\n");
+          return 0;
         }
-        ''
-          cat <<EOF >> test.c
-          #include <stdio.h>
-          int main() {
-            printf("Hello World!\n");
-            return 0;
-          }
-          EOF
-          musl-gcc -o test test.c
-          ./test
-          mkdir $out
-        '';
+        EOF
+        musl-gcc -o test test.c
+        ./test
+        mkdir $out
+      '';
   }
   ''
     # Unpack

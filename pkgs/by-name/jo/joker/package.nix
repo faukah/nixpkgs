@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "joker";
   version = "1.4.1";
@@ -23,13 +22,13 @@ buildGoModule rec {
     go generate ./...
   '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     homepage = "https://github.com/candid82/joker";
     description = "Small Clojure interpreter and linter written in Go";
     mainProgram = "joker";
     license = licenses.epl10;
-    maintainers = with maintainers; [ andrestylianos ];
+    maintainers = with maintainers; [andrestylianos];
   };
 }

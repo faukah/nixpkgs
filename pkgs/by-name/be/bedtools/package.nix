@@ -7,7 +7,6 @@
   bzip2,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bedtools";
   version = "2.31.1";
@@ -31,8 +30,14 @@ stdenv.mkDerivation rec {
     xz
   ];
 
-  cxx = if stdenv.cc.isClang then "clang++" else "g++";
-  cc = if stdenv.cc.isClang then "clang" else "gcc";
+  cxx =
+    if stdenv.cc.isClang
+    then "clang++"
+    else "g++";
+  cc =
+    if stdenv.cc.isClang
+    then "clang"
+    else "gcc";
   buildPhase = "make prefix=$out SHELL=${stdenv.shell} CXX=${cxx} CC=${cc} -j $NIX_BUILD_CORES";
   installPhase = "make prefix=$out SHELL=${stdenv.shell} CXX=${cxx} CC=${cc} install";
 
@@ -40,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Powerful toolset for genome arithmetic";
     license = licenses.gpl2;
     homepage = "https://bedtools.readthedocs.io/en/latest/";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.unix;
   };
 }

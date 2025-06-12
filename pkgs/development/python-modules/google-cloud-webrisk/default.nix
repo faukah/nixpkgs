@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-webrisk";
   version = "1.18.0";
@@ -26,14 +25,16 @@ buildPythonPackage rec {
     hash = "sha256-a+hb4chZzPaPduJihVmQHBd8arZ6MEKYBDFkNOvsprI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-auth
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-auth
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     mock
@@ -52,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/google-cloud-python/tree/main/packages/google-cloud-webrisk";
     changelog = "https://github.com/googleapis/google-cloud-python/blob/google-cloud-webrisk-v${version}/packages/google-cloud-webrisk/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

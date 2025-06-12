@@ -38,7 +38,6 @@
   unzip,
   pkgs, # Only for pkgs.zstd
 }:
-
 buildPythonPackage rec {
   pname = "swh-core";
   version = "4.0.0";
@@ -69,7 +68,7 @@ buildPythonPackage rec {
     tenacity
   ];
 
-  pythonImportsCheck = [ "swh.core" ];
+  pythonImportsCheck = ["swh.core"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -115,6 +114,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-core";
     license = lib.licenses.gpl3Only;
     mainProgram = "swh";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

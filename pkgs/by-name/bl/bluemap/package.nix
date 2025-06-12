@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "bluemap";
   version = "5.7";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "3D minecraft map renderer";
     homepage = "https://bluemap.bluecolored.de/";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       dandellion

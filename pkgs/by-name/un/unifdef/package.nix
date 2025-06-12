@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unifdef";
   version = "2.12";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Selectively remove C preprocessor conditionals";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

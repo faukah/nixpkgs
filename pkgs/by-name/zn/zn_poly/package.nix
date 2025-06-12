@@ -6,7 +6,6 @@
   python3,
   tune ? false, # tune to hardware, impure
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.2";
   pname = "zn_poly";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   libbasename = "libzn_poly";
   libext = stdenv.hostPlatform.extensions.sharedLibrary;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   # Tuning (either autotuning or with hand-written parameters) is possible
   # but not implemented here.
@@ -60,8 +59,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://web.maths.unsw.edu.au/~davidharvey/code/zn_poly/";
     description = "Polynomial arithmetic over Z/nZ";
-    license = with licenses; [ gpl3 ];
-    teams = [ teams.sage ];
+    license = with licenses; [gpl3];
+    teams = [teams.sage];
     platforms = platforms.unix;
   };
 }

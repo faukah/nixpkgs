@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "workshop-runner";
   version = "0.2.3";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ RaghavSood ];
+    maintainers = with lib.maintainers; [RaghavSood];
     mainProgram = "wr";
   };
 }

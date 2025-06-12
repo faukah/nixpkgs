@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hashrat";
   version = "1.25";
@@ -17,15 +16,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-nGaOVvy8caySohCGyGdnxXsv2DuqFPRi4JJLlZy+q8o=";
   };
 
-  configureFlags = [ "--enable-xattr" ];
+  configureFlags = ["--enable-xattr"];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command-line hash-generation utility";
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/ColumPaget/Hashrat/blob/v${finalAttrs.version}/CHANGELOG";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 })

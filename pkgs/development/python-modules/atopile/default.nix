@@ -44,7 +44,6 @@
   pytest-xdist,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "atopile";
   version = "0.2.69";
@@ -98,9 +97,9 @@ buildPythonPackage rec {
     pyyaml # required for ato
   ];
 
-  pythonRelaxDeps = [ "antlr4-python3-runtime" ];
+  pythonRelaxDeps = ["antlr4-python3-runtime"];
 
-  pythonImportsCheck = [ "atopile" ];
+  pythonImportsCheck = ["atopile"];
 
   preCheck = ''
     substituteInPlace pyproject.toml \
@@ -119,8 +118,8 @@ buildPythonPackage rec {
     homepage = "https://aiopg.readthedocs.io/";
     downloadPage = "https://github.com/atopile/atopile";
     changelog = "https://github.com/atopile/atopile/releases/tag/${src.rev}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "ato";
   };
 }

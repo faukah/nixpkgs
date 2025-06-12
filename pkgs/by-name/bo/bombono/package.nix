@@ -20,7 +20,6 @@
   mjpegtools,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "bombono";
   version = "1.2.4-unstable-2022-02-06";
@@ -93,7 +92,7 @@ stdenv.mkDerivation {
     description = "DVD authoring program for personal computers";
     homepage = "https://www.bombono.org/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.linux;
   };
 }

@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
   # NIX_SYSTEM suggested at
   # https://github.com/NixOS/nixpkgs/issues/386184#issuecomment-2692433531
   NIX_SYSTEM = nixVersions.nix_2_24.stdenv.hostPlatform.system;
-  NIX_CFLAGS_COMPILE = [ "-I${lib.getDev nixVersions.nix_2_24}/include/nix" ];
+  NIX_CFLAGS_COMPILE = ["-I${lib.getDev nixVersions.nix_2_24}/include/nix"];
 
   buildInputs = [
     boost
@@ -32,7 +32,7 @@ python3Packages.buildPythonPackage rec {
     python3Packages.humanfriendly
     python3Packages.rustworkx
   ];
-  checkInputs = [ python3Packages.pytestCheckHook ];
+  checkInputs = [python3Packages.pytestCheckHook];
 
   preCheck = "mv nix_heuristic_gc .nix_heuristic_gc";
 

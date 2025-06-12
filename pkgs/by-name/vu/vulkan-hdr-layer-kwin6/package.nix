@@ -13,12 +13,11 @@
   wayland-scanner,
   wayland,
 }:
-
 stdenv.mkDerivation {
   pname = "vulkan-hdr-layer-kwin6";
   version = "0-unstable-2025-05-22";
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -45,13 +44,13 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Vulkan Wayland HDR WSI Layer (Xaver Hugl's fork for KWin 6)";
     homepage = "https://github.com/Zamundaaa/VK_hdr_layer";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ d4rk ];
+    maintainers = with lib.maintainers; [d4rk];
   };
 }

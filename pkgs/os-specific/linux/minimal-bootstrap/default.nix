@@ -6,13 +6,12 @@
   fetchurl,
   checkMeta,
 }:
-
 lib.makeScope
-  # Prevent using top-level attrs to protect against introducing dependency on
-  # non-bootstrap packages by mistake. Any top-level inputs must be explicitly
-  # declared here.
-  (
-    extra:
+# Prevent using top-level attrs to protect against introducing dependency on
+# non-bootstrap packages by mistake. Any top-level inputs must be explicitly
+# declared here.
+(
+  extra:
     lib.callPackageWith (
       {
         inherit
@@ -26,11 +25,11 @@ lib.makeScope
       }
       // extra
     )
-  )
-  (
-    self: with self; {
-
-      bash_2_05 = callPackage ./bash/2.nix { tinycc = tinycc-mes; };
+)
+(
+  self:
+    with self; {
+      bash_2_05 = callPackage ./bash/2.nix {tinycc = tinycc-mes;};
 
       bash = callPackage ./bash {
         bootBash = bash_2_05;
@@ -52,7 +51,7 @@ lib.makeScope
         gnutar = gnutar-musl;
       };
 
-      coreutils = callPackage ./coreutils { tinycc = tinycc-mes; };
+      coreutils = callPackage ./coreutils {tinycc = tinycc-mes;};
       coreutils-musl = callPackage ./coreutils/musl.nix {
         bash = bash_2_05;
         tinycc = tinycc-musl;
@@ -123,7 +122,7 @@ lib.makeScope
         tinycc = tinycc-mes;
       };
 
-      gnumake = callPackage ./gnumake { tinycc = tinycc-mes; };
+      gnumake = callPackage ./gnumake {tinycc = tinycc-mes;};
 
       gnumake-musl = callPackage ./gnumake/musl.nix {
         bash = bash_2_05;
@@ -132,7 +131,7 @@ lib.makeScope
         gnumakeBoot = gnumake;
       };
 
-      gnupatch = callPackage ./gnupatch { tinycc = tinycc-mes; };
+      gnupatch = callPackage ./gnupatch {tinycc = tinycc-mes;};
 
       gnused = callPackage ./gnused {
         bash = bash_2_05;
@@ -174,14 +173,14 @@ lib.makeScope
         tinycc = tinycc-mes;
       };
 
-      heirloom-devtools = callPackage ./heirloom-devtools { tinycc = tinycc-mes; };
+      heirloom-devtools = callPackage ./heirloom-devtools {tinycc = tinycc-mes;};
 
-      linux-headers = callPackage ./linux-headers { bash = bash_2_05; };
+      linux-headers = callPackage ./linux-headers {bash = bash_2_05;};
 
-      ln-boot = callPackage ./ln-boot { };
+      ln-boot = callPackage ./ln-boot {};
 
-      mes = callPackage ./mes { };
-      mes-libc = callPackage ./mes/libc.nix { };
+      mes = callPackage ./mes {};
+      mes-libc = callPackage ./mes/libc.nix {};
 
       musl11 = callPackage ./musl/1.1.nix {
         bash = bash_2_05;
@@ -194,17 +193,18 @@ lib.makeScope
         gnumake = gnumake-musl;
       };
 
-      stage0-posix = callPackage ./stage0-posix { };
+      stage0-posix = callPackage ./stage0-posix {};
 
-      inherit (self.stage0-posix)
+      inherit
+        (self.stage0-posix)
         kaem
         m2libc
         mescc-tools
         mescc-tools-extra
         ;
 
-      tinycc-bootstrappable = lib.recurseIntoAttrs (callPackage ./tinycc/bootstrappable.nix { });
-      tinycc-mes = lib.recurseIntoAttrs (callPackage ./tinycc/mes.nix { });
+      tinycc-bootstrappable = lib.recurseIntoAttrs (callPackage ./tinycc/bootstrappable.nix {});
+      tinycc-mes = lib.recurseIntoAttrs (callPackage ./tinycc/mes.nix {});
       tinycc-musl = lib.recurseIntoAttrs (
         callPackage ./tinycc/musl.nix {
           bash = bash_2_05;
@@ -219,9 +219,9 @@ lib.makeScope
         gnutar = gnutar-musl;
       };
 
-      inherit (callPackage ./utils.nix { }) derivationWithMeta writeTextFile writeText;
+      inherit (callPackage ./utils.nix {}) derivationWithMeta writeTextFile writeText;
 
-      test = kaem.runCommand "minimal-bootstrap-test" { } ''
+      test = kaem.runCommand "minimal-bootstrap-test" {} ''
         echo ${bash.tests.get-version}
         echo ${bash_2_05.tests.get-version}
         echo ${binutils.tests.get-version}
@@ -251,4 +251,4 @@ lib.makeScope
         mkdir ''${out}
       '';
     }
-  )
+)

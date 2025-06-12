@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ntpstat";
   version = "0.6";
@@ -19,14 +18,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     patchShebangs ntpstat
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = {
     description = "Print the ntpd or chronyd synchronisation status";
     homepage = "https://github.com/mlichvar/ntpstat";
     license = lib.licenses.mit;
     mainProgram = "nptstat";
-    maintainers = with lib.maintainers; [ hzeller ];
+    maintainers = with lib.maintainers; [hzeller];
     platforms = lib.platforms.all;
   };
 })

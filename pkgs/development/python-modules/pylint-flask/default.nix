@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pylint-flask";
   version = "0.6";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-9Nl94iFr97/OB8nAixZul4/p8nJd4qUKmEWpfefjFRc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = [ pylint ];
+  buildInputs = [pylint];
 
   propagatedBuildInputs = [
     astroid
@@ -34,12 +33,12 @@ buildPythonPackage rec {
   # also tests are only available at GitHub, with an old release tag
   doCheck = false;
 
-  pythonImportsCheck = [ "pylint_flask" ];
+  pythonImportsCheck = ["pylint_flask"];
 
   meta = with lib; {
     description = "Pylint plugin to analyze Flask applications";
     homepage = "https://github.com/jschaf/pylint-flask";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

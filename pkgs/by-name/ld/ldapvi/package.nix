@@ -14,7 +14,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation {
   pname = "ldapvi";
   version = "unstable-2012-04-28";
@@ -61,7 +60,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://www.lichteblau.com/ldapvi/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
     mainProgram = "ldapvi";
   };

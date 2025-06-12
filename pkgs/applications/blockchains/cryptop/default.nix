@@ -6,7 +6,6 @@
   requests-cache,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "cryptop";
   version = "0.2.0";
@@ -28,8 +27,8 @@ buildPythonApplication rec {
   meta = {
     homepage = "https://github.com/huwwp/cryptop";
     description = "Command line Cryptocurrency Portfolio";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ bhipple ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [bhipple];
     mainProgram = "cryptop";
   };
 }

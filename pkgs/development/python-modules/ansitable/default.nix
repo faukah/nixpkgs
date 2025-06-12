@@ -9,7 +9,6 @@
   numpy,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "ansitable";
   version = "0.11.4";
@@ -22,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-XUjXVs9/ETlbbtvYz8YJqCsP1BFajqQKQfSM+Rvm4O0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ colored ];
+  dependencies = [colored];
 
-  pythonImportsCheck = [ "ansitable" ];
+  pythonImportsCheck = ["ansitable"];
 
   nativeCheckInputs = [
     pytestCheckHook

@@ -5,7 +5,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bk";
   version = "0.6.0";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/aeosynth/bk";
     description = "Terminal epub reader written in rust";
     license = licenses.mit;
-    maintainers = with maintainers; [ vuimuich ];
+    maintainers = with maintainers; [vuimuich];
     mainProgram = "bk";
   };
 }

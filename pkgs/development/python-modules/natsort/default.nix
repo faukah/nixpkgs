@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "natsort";
   version = "8.4.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "test_string_component_transform_factory"
   ];
 
-  pythonImportsCheck = [ "natsort" ];
+  pythonImportsCheck = ["natsort"];
 
   meta = with lib; {
     description = "Natural sorting for Python";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SethMMorton/natsort";
     changelog = "https://github.com/SethMMorton/natsort/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

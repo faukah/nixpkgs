@@ -8,7 +8,6 @@
   curl,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osslsigncode";
   version = "2.9";

@@ -6,7 +6,6 @@
   containers,
   mdx,
 }:
-
 buildDunePackage rec {
   pname = "msat";
   version = "0.9.1";
@@ -27,13 +26,13 @@ buildDunePackage rec {
   '';
 
   doCheck = true;
-  checkInputs = [ containers ];
-  nativeCheckInputs = [ mdx.bin ];
+  checkInputs = [containers];
+  nativeCheckInputs = [mdx.bin];
 
   meta = {
     description = "Modular sat/smt solver with proof output";
     homepage = "https://gbury.github.io/mSAT/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.calibre-server;
 
   documentationLink = "https://manual.calibre-ebook.com";
@@ -21,36 +19,32 @@ let
           "--userdb" = cfg.auth.userDb;
         }
       )
-      ++ [ (lib.optionalString (cfg.auth.enable == true) "--enable-auth") ]
+      ++ [(lib.optionalString (cfg.auth.enable == true) "--enable-auth")]
       ++ cfg.extraFlags
     )
   );
-in
-
-{
+in {
   imports = [
-    (lib.mkChangedOptionModule
-      [ "services" "calibre-server" "libraryDir" ]
-      [ "services" "calibre-server" "libraries" ]
+    (
+      lib.mkChangedOptionModule
+      ["services" "calibre-server" "libraryDir"]
+      ["services" "calibre-server" "libraries"]
       (
-        config:
-        let
-          libraryDir = lib.getAttrFromPath [ "services" "calibre-server" "libraryDir" ] config;
-        in
-        [ libraryDir ]
+        config: let
+          libraryDir = lib.getAttrFromPath ["services" "calibre-server" "libraryDir"] config;
+        in [libraryDir]
       )
     )
   ];
 
   options = {
     services.calibre-server = {
-
       enable = lib.mkEnableOption "calibre-server (e-book software)";
-      package = lib.mkPackageOption pkgs "calibre" { };
+      package = lib.mkPackageOption pkgs "calibre" {};
 
       libraries = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ "/var/lib/calibre-server" ];
+        default = ["/var/lib/calibre-server"];
         description = ''
           Make sure each library path is initialized before service startup.
           The directories of the libraries to serve. They must be readable for the user under which the server runs.
@@ -60,7 +54,7 @@ in
 
       extraFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra flags to pass to the calibre-server command.
           See the [calibre-server documentation](${generatedDocumentationLink}) for details.
@@ -142,20 +136,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.calibre-server = {
       description = "Calibre Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Restart = "always";
         ExecStart = "${cfg.package}/bin/calibre-server ${lib.concatStringsSep " " cfg.libraries} ${execFlags}";
       };
-
     };
 
-    environment.systemPackages = [ pkgs.calibre ];
+    environment.systemPackages = [pkgs.calibre];
 
     users.users = lib.optionalAttrs (cfg.user == "calibre-server") {
       calibre-server = {
@@ -172,9 +164,8 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
-
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 
-  meta.maintainers = with lib.maintainers; [ gaelreyrol ];
+  meta.maintainers = with lib.maintainers; [gaelreyrol];
 }

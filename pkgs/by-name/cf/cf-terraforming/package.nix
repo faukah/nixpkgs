@@ -7,7 +7,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "cf-terraforming";
   version = "0.23.3";
@@ -33,7 +32,7 @@ buildGoModule rec {
     command = "cf-terraforming version";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd cf-terraforming \
@@ -46,7 +45,7 @@ buildGoModule rec {
     description = "Command line utility to facilitate terraforming your existing Cloudflare resources";
     homepage = "https://github.com/cloudflare/cf-terraforming/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
     mainProgram = "cf-terraforming";
   };
 }

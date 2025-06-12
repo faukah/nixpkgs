@@ -7,7 +7,6 @@
   libpng,
   libsndfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aptdec";
   version = "1.8.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "aptdec";
     homepage = "https://github.com/Xerbo/aptdec";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ alexwinter ];
+    maintainers = with maintainers; [alexwinter];
     platforms = platforms.unix;
   };
 }

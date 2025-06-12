@@ -6,12 +6,11 @@
   writeShellScript,
   tests,
   cc ? targetPackages.stdenv.cc,
-  sanitizers ? [ ],
+  sanitizers ? [],
 }:
-
 makeSetupHook {
   name = "make-binary-wrapper-hook";
-  propagatedBuildInputs = [ dieHook ];
+  propagatedBuildInputs = [dieHook];
 
   substitutions = {
     cc = "${cc}/bin/${cc.targetPrefix}cc ${
@@ -30,4 +29,5 @@ makeSetupHook {
 
     tests = tests.makeBinaryWrapper;
   };
-} ./make-binary-wrapper.sh
+}
+./make-binary-wrapper.sh

@@ -2,14 +2,11 @@
   lib,
   stdenv,
   writeShellScriptBin,
-}:
-{
-  versions ? [ ],
+}: {
+  versions ? [],
   xcodeBaseDir ? "/Applications/Xcode.app",
 }:
-
-assert stdenv.hostPlatform.isDarwin;
-let
+assert stdenv.hostPlatform.isDarwin; let
   xcodebuildPath = "${xcodeBaseDir}/Contents/Developer/usr/bin/xcodebuild";
 
   xcodebuildWrapper = writeShellScriptBin "xcodebuild" ''
@@ -29,34 +26,33 @@ let
     exit 1
   '';
 in
-stdenv.mkDerivation {
-  name = "xcode-wrapper-impure";
-  # Fails in sandbox. Use `--option sandbox relaxed` or `--option sandbox false`.
-  __noChroot = true;
-  buildCommand = ''
-    mkdir -p $out/bin
-    cd $out/bin
-    ${
-      if versions == [ ] then
-        ''
+  stdenv.mkDerivation {
+    name = "xcode-wrapper-impure";
+    # Fails in sandbox. Use `--option sandbox relaxed` or `--option sandbox false`.
+    __noChroot = true;
+    buildCommand = ''
+      mkdir -p $out/bin
+      cd $out/bin
+      ${
+        if versions == []
+        then ''
           ln -s "${xcodebuildPath}"
         ''
-      else
-        ''
+        else ''
           ln -s "${xcodebuildWrapper}/bin/xcode-select"
         ''
-    }
-    ln -s /usr/bin/security
-    ln -s /usr/bin/codesign
-    ln -s /usr/bin/xcrun
-    ln -s /usr/bin/plutil
-    ln -s /usr/bin/clang
-    ln -s /usr/bin/lipo
-    ln -s /usr/bin/file
-    ln -s /usr/bin/rev
-    ln -s "${xcodeBaseDir}/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator"
+      }
+      ln -s /usr/bin/security
+      ln -s /usr/bin/codesign
+      ln -s /usr/bin/xcrun
+      ln -s /usr/bin/plutil
+      ln -s /usr/bin/clang
+      ln -s /usr/bin/lipo
+      ln -s /usr/bin/file
+      ln -s /usr/bin/rev
+      ln -s "${xcodeBaseDir}/Contents/Developer/Applications/Simulator.app/Contents/MacOS/Simulator"
 
-    cd ..
-    ln -s "${xcodeBaseDir}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs"
-  '';
-}
+      cd ..
+      ln -s "${xcodeBaseDir}/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs"
+    '';
+  }

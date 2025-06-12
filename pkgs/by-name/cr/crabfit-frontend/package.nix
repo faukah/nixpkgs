@@ -12,7 +12,6 @@
   api_url ? "http://127.0.0.1:3000",
   frontend_url ? "crab.fit",
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "crabfit-frontend";
   version = "0-unstable-2023-08-02";
@@ -84,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p src/app/fonts
     cp "${
-      google-fonts.override { fonts = [ "Karla" ]; }
+      google-fonts.override {fonts = ["Karla"];}
     }/share/fonts/truetype/Karla[wght].ttf" src/app/fonts/karla.ttf
 
     runHook postConfigure
@@ -115,6 +114,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Enter your availability to find a time that works for everyone";
     homepage = "https://github.com/GRA0007/crab.fit";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

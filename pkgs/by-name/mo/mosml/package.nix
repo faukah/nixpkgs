@@ -5,7 +5,6 @@
   gmp,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mosml";
   version = "2.10.1";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mosml.org/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vaibhavsagar ];
+    maintainers = with maintainers; [vaibhavsagar];
   };
 }

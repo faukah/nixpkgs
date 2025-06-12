@@ -6,7 +6,6 @@
   installShellFiles,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kubie";
   version = "0.25.2";
@@ -32,17 +31,17 @@ rustPlatform.buildRustPackage rec {
 
     wrapProgram "$out/bin/kubie" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          kubectl
-        ]
-      }"
+      lib.makeBinPath [
+        kubectl
+      ]
+    }"
   '';
 
   meta = with lib; {
     description = "Shell independent context and namespace switcher for kubectl";
     mainProgram = "kubie";
     homepage = "https://github.com/sbstp/kubie";
-    license = with licenses; [ zlib ];
-    maintainers = with maintainers; [ illiusdope ];
+    license = with licenses; [zlib];
+    maintainers = with maintainers; [illiusdope];
   };
 }

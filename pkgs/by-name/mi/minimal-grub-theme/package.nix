@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "minimal-grub-theme";
   version = "0.3.0";
@@ -28,13 +27,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Minimalistic GRUB theme insipired by primitivistical and vimix";
     homepage = "https://github.com/tomdewildt/minimal-grub-theme";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     platforms = lib.platforms.linux;
   };
 })

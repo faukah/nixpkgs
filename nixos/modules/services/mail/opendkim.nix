@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.opendkim;
 
   defaultSock = "local:/run/opendkim/opendkim.sock";
@@ -31,10 +29,9 @@ let
   configFile = pkgs.writeText "opendkim.conf" (
     lib.concatStringsSep "\n" (lib.mapAttrsToList (name: value: "${name} ${value}") cfg.settings)
   );
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "services" "opendkim" "keyFile" ] [ "services" "opendkim" "keyPath" ])
+    (lib.mkRenamedOptionModule ["services" "opendkim" "keyFile"] ["services" "opendkim" "keyPath"])
   ];
 
   options = {
@@ -92,12 +89,11 @@ in
       };
 
       settings = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           submodule {
             freeformType = attrsOf str;
           };
-        default = { };
+        default = {};
         description = "Additional opendkim configuration";
       };
     };
@@ -116,13 +112,13 @@ in
     };
 
     environment = {
-      etc = lib.mkIf (cfg.settings != { }) {
+      etc = lib.mkIf (cfg.settings != {}) {
         "opendkim/opendkim.conf".source = configFile;
       };
-      systemPackages = [ pkgs.opendkim ];
+      systemPackages = [pkgs.opendkim];
     };
 
-    services.opendkim.configFile = lib.mkIf (cfg.settings != { }) configFile;
+    services.opendkim.configFile = lib.mkIf (cfg.settings != {}) configFile;
 
     systemd.tmpfiles.rules = [
       "d '${cfg.keyPath}' - ${cfg.user} ${cfg.group} - -"
@@ -130,8 +126,8 @@ in
 
     systemd.services.opendkim = {
       description = "OpenDKIM signing and verification daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         cd "${cfg.keyPath}"
@@ -151,9 +147,9 @@ in
         RuntimeDirectory = lib.optional (cfg.socket == defaultSock) "opendkim";
         StateDirectory = "opendkim";
         StateDirectoryMode = "0700";
-        ReadWritePaths = [ cfg.keyPath ];
+        ReadWritePaths = [cfg.keyPath];
 
-        AmbientCapabilities = [ ];
+        AmbientCapabilities = [];
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

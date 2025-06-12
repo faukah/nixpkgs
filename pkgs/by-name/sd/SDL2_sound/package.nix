@@ -10,7 +10,6 @@
   libvorbis,
   timidity,
 }:
-
 stdenv.mkDerivation rec {
   pname = "SDL2_sound";
   version = "2.0.1";
@@ -31,9 +30,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DSDLSOUND_DECODER_MIDI=1" ];
+  cmakeFlags = ["-DSDLSOUND_DECODER_MIDI=1"];
 
   buildInputs = [
     SDL2
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     mainProgram = "playsound";
     platforms = platforms.unix;
     license = licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     homepage = "https://www.icculus.org/SDL_sound/";
   };
 }

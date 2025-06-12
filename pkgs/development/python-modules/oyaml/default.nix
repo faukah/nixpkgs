@@ -2,13 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # pythonPackages
   pytestCheckHook,
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage {
   pname = "oyaml";
   version = "unstable-2021-12-03";
@@ -23,16 +21,16 @@ buildPythonPackage {
     hash = "sha256-1rSEhiULlAweLDqUFX+JBFxe3iW9kNlRA2zjcG8MYSg=";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "oyaml" ];
+  pythonImportsCheck = ["oyaml"];
 
   meta = with lib; {
     description = "Drop-in replacement for PyYAML which preserves dict ordering";
     homepage = "https://github.com/wimglenn/oyaml";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

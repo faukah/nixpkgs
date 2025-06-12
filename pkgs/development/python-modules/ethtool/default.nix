@@ -9,7 +9,6 @@
   nettools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ethtool";
   version = "0.15";
@@ -35,13 +34,13 @@ buildPythonPackage rec {
       --replace-fail "Popen('ifconfig'," "Popen('${lib.getExe' nettools "ifconfig"}',"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libnl ];
+  buildInputs = [libnl];
 
-  pythonImportsCheck = [ "ethtool" ];
+  pythonImportsCheck = ["ethtool"];
 
   nativeCheckInputs = [
     nettools

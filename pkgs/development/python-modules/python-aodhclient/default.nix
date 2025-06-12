@@ -18,7 +18,6 @@
   sphinxHook,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "python-aodhclient";
   version = "3.7.1";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     cliff
@@ -70,13 +69,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "aodhclient" ];
+  pythonImportsCheck = ["aodhclient"];
 
   meta = {
     homepage = "https://opendev.org/openstack/python-aodhclient";
     description = "Client library for OpenStack Aodh API";
     license = lib.licenses.asl20;
     mainProgram = "aodh";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

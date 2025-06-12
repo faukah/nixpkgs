@@ -5,7 +5,6 @@
   testers,
   zig_0_12,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dt";
   version = "1.3.1-unstable-2024-07-16";
@@ -17,9 +16,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-pfTlOMJpOPbXZaJJvOKDUyCZxFHNLRRUteJFWT9IKOU=";
   };
 
-  nativeBuildInputs = [ zig_0_12.hook ];
+  nativeBuildInputs = [zig_0_12.hook];
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://dt.plumbing";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     # TODO: uncomment when dt pushes a new release
     # changelog = "https://github.com/so-dang-cool/dt/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ booniepepper ];
+    maintainers = with lib.maintainers; [booniepepper];
     platforms = lib.platforms.unix;
     mainProgram = "dt";
   };

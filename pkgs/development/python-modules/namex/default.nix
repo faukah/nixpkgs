@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "namex";
   version = "0.1.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "namex" ];
+  pythonImportsCheck = ["namex"];
 
   # No tests
   doCheck = false;
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     description = "Simple utility to separate the implementation of your Python package and its public API surface";
     homepage = "https://github.com/fchollet/namex";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -3,18 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatMapStringsSep
     concatStringsSep
     isInt
     isList
     literalExpression
     ;
-  inherit (lib)
+  inherit
+    (lib)
     mapAttrs
     mapAttrsToList
     mkDefault
@@ -31,18 +30,16 @@ let
   user = "automysqlbackup";
   group = "automysqlbackup";
 
-  toStr =
-    val:
-    if isList val then
-      "( ${concatMapStringsSep " " (val: "'${val}'") val} )"
-    else if isInt val then
-      toString val
-    else if true == val then
-      "'yes'"
-    else if false == val then
-      "'no'"
-    else
-      "'${toString val}'";
+  toStr = val:
+    if isList val
+    then "( ${concatMapStringsSep " " (val: "'${val}'") val} )"
+    else if isInt val
+    then toString val
+    else if true == val
+    then "'yes'"
+    else if false == val
+    then "'no'"
+    else "'${toString val}'";
 
   configFile = pkgs.writeText "automysqlbackup.conf" ''
     #version=${pkg.version}
@@ -50,20 +47,18 @@ let
     #
     ${concatStringsSep "\n" (mapAttrsToList (name: value: "CONFIG_${name}=${toStr value}") cfg.config)}
   '';
-
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "automysqlbackup" "config" ]
-      [ "services" "automysqlbackup" "settings" ]
+    (
+      mkRenamedOptionModule
+      ["services" "automysqlbackup" "config"]
+      ["services" "automysqlbackup" "settings"]
     )
   ];
 
   # interface
   options = {
     services.automysqlbackup = {
-
       enable = mkEnableOption "AutoMySQLBackup";
 
       calendar = mkOption {
@@ -75,15 +70,14 @@ in
       };
 
       settings = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             str
             int
             bool
             (listOf str)
           ]);
-        default = { };
+        default = {};
         description = ''
           automysqlbackup configuration. Refer to
           {file}`''${pkgs.automysqlbackup}/etc/automysqlbackup.conf`
@@ -98,13 +92,11 @@ in
           }
         '';
       };
-
     };
   };
 
   # implementation
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = !config.services.mysqlBackup.enable;
@@ -127,7 +119,7 @@ in
 
     systemd.timers.automysqlbackup = {
       description = "automysqlbackup timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.calendar;
         AccuracySec = "5m";
@@ -143,13 +135,13 @@ in
       };
     };
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users.${user} = {
       group = group;
       isSystemUser = true;
     };
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
     systemd.tmpfiles.rules = [
       "d '${cfg.config.backup_dir}' 0750 ${user} ${group} - -"
@@ -157,12 +149,11 @@ in
 
     services.mysql.ensureUsers =
       optional (config.services.mysql.enable && cfg.config.mysql_dump_host == "localhost")
-        {
-          name = user;
-          ensurePermissions = {
-            "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
-          };
+      {
+        name = user;
+        ensurePermissions = {
+          "*.*" = "SELECT, SHOW VIEW, TRIGGER, LOCK TABLES, EVENT";
         };
-
+      };
   };
 }

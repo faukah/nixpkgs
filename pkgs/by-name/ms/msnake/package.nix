@@ -5,7 +5,6 @@
   cmake,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "msnake";
   # last release tag was 13 years ago
@@ -32,6 +31,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     mainProgram = "msnake";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 })

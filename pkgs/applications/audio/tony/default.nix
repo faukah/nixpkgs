@@ -29,7 +29,6 @@
   serd,
   sord,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tony";
   version = "2.1.1";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
       url = "https://github.com/sonic-visualiser/svgui/commit/5b6417891cff5cc614e8c96664d68674eb12b191.patch";
       stripLen = 1;
       extraPrefix = "svgui/";
-      excludes = [ "svgui/widgets/CSVExportDialog.cpp" ];
+      excludes = ["svgui/widgets/CSVExportDialog.cpp"];
       sha256 = "sha256-pBCtoMXgjreUm/D0pl6+R9x1Ovwwwj8Ohv994oMX8XA=";
     })
   ];
@@ -98,7 +97,7 @@ stdenv.mkDerivation rec {
     mainProgram = "tony";
     homepage = "https://www.sonicvisualiser.org/tony/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

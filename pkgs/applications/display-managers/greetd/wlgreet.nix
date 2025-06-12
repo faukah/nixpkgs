@@ -7,7 +7,6 @@
   wayland,
   libxkbcommon,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wlgreet";
   version = "0.5.0";
@@ -22,8 +21,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ITo9qvcT5aOybWLV7kn9BZbux6uxx1RwRGWCGQYdZ2I=";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-  buildInputs = [ gcc-unwrapped ];
+  nativeBuildInputs = [autoPatchelfHook];
+  buildInputs = [gcc-unwrapped];
 
   runtimeDependencies = map lib.getLib [
     gcc-unwrapped
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "wlgreet";
     homepage = "https://git.sr.ht/~kennylevinsen/wlgreet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

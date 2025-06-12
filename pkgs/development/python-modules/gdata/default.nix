@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchurl,
 }:
-
 buildPythonPackage rec {
   pname = "gdata";
   version = "2.0.18";

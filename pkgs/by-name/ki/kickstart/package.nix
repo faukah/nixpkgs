@@ -6,7 +6,6 @@
   testers,
   kickstart,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kickstart";
   version = "0.5.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-J9sGXJbGbO9UgZfgqxqzbiJz9j6WMpq3qC2ys7OJnII=";
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   checkFlags = [
     # remote access
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = kickstart;
     };
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/Keats/kickstart";
     changelog = "https://github.com/Keats/kickstart/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     mainProgram = "kickstart";
   };
 }

@@ -20,52 +20,48 @@
   # for some reason.
   xarSupport ? stdenv.hostPlatform.isUnix,
   libxml2,
-
   # for passthru.tests
   cmake,
   nix,
   samba,
-
   # for passthru.lore
   binlore,
 }:
-
 assert xarSupport -> libxml2 != null;
-stdenv.mkDerivation (finalAttrs: {
-  pname = "libarchive";
-  version = "3.7.8";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "libarchive";
+    version = "3.7.8";
 
-  src = fetchFromGitHub {
-    owner = "libarchive";
-    repo = "libarchive";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-fjE3b9rDHf1Xubpm9guvX6I8a2loYsGHj3epLceueUw=";
-  };
+    src = fetchFromGitHub {
+      owner = "libarchive";
+      repo = "libarchive";
+      rev = "v${finalAttrs.version}";
+      hash = "sha256-fjE3b9rDHf1Xubpm9guvX6I8a2loYsGHj3epLceueUw=";
+    };
 
-  patches = [
-    # The `.pc` file lists `iconv` in `Requires.private` when `-liconv`
-    # is required, even though common platforms in that situation like
-    # Darwin don’t ship a `.pc` file for their `libiconv`. This isn’t
-    # upstreamed as there are a handful of closed or regressed PRs
-    # trying to fix it already and it seems upstream added this to deal
-    # with some non‐portable MSYS2 thing or something.
-    #
-    # See:
-    #
-    # * <https://github.com/libarchive/libarchive/issues/1766>
-    # * <https://github.com/libarchive/libarchive/issues/1819>
-    # * <https://github.com/Homebrew/homebrew-core/blob/f8e9e8d4f30979dc99146b5877fce76be6d35124/Formula/lib/libarchive.rb#L48-L52>
-    ./fix-pkg-config-iconv.patch
-  ];
+    patches = [
+      # The `.pc` file lists `iconv` in `Requires.private` when `-liconv`
+      # is required, even though common platforms in that situation like
+      # Darwin don’t ship a `.pc` file for their `libiconv`. This isn’t
+      # upstreamed as there are a handful of closed or regressed PRs
+      # trying to fix it already and it seems upstream added this to deal
+      # with some non‐portable MSYS2 thing or something.
+      #
+      # See:
+      #
+      # * <https://github.com/libarchive/libarchive/issues/1766>
+      # * <https://github.com/libarchive/libarchive/issues/1819>
+      # * <https://github.com/Homebrew/homebrew-core/blob/f8e9e8d4f30979dc99146b5877fce76be6d35124/Formula/lib/libarchive.rb#L48-L52>
+      ./fix-pkg-config-iconv.patch
+    ];
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
+    outputs = [
+      "out"
+      "lib"
+      "dev"
+    ];
 
-  postPatch =
-    let
+    postPatch = let
       skipTestPaths =
         [
           # test won't work in nix sandbox
@@ -87,88 +83,87 @@ stdenv.mkDerivation (finalAttrs: {
         substituteInPlace Makefile.am --replace-fail "${testPath}" ""
         rm "${testPath}"
       '';
-    in
-    ''
+    in ''
       substituteInPlace Makefile.am --replace-fail '/bin/pwd' "$(type -P pwd)"
 
       ${lib.concatStringsSep "\n" (map removeTest skipTestPaths)}
     '';
 
-  nativeBuildInputs = [
-    autoreconfHook
-    glibcLocalesUtf8 # test_I test requires an UTF-8 locale
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      glibcLocalesUtf8 # test_I test requires an UTF-8 locale
+      pkg-config
+    ];
 
-  buildInputs =
-    [
-      bzip2
-      lzo
-      openssl
-      xz
-      zlib
-      zstd
-    ]
-    ++ lib.optional stdenv.hostPlatform.isUnix sharutils
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      acl
+    buildInputs =
+      [
+        bzip2
+        lzo
+        openssl
+        xz
+        zlib
+        zstd
+      ]
+      ++ lib.optional stdenv.hostPlatform.isUnix sharutils
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        acl
+        attr
+        e2fsprogs
+      ]
+      ++ lib.optional xarSupport libxml2;
+
+    # Without this, pkg-config-based dependencies are unhappy
+    propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
       attr
-      e2fsprogs
-    ]
-    ++ lib.optional xarSupport libxml2;
+      acl
+    ];
 
-  # Without this, pkg-config-based dependencies are unhappy
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    attr
-    acl
-  ];
+    configureFlags = lib.optional (!xarSupport) "--without-xml2";
 
-  configureFlags = lib.optional (!xarSupport) "--without-xml2";
-
-  preBuild = lib.optionalString stdenv.hostPlatform.isCygwin ''
-    echo "#include <windows.h>" >> config.h
-  '';
-
-  # https://github.com/libarchive/libarchive/issues/1475
-  doCheck = !stdenv.hostPlatform.isMusl;
-
-  preCheck = ''
-    # Need an UTF-8 locale for test_I test.
-    export LANG=en_US.UTF-8
-  '';
-
-  preFixup = ''
-    sed -i $lib/lib/libarchive.la \
-      -e 's|-lcrypto|-L${lib.getLib openssl}/lib -lcrypto|' \
-      -e 's|-llzo2|-L${lzo}/lib -llzo2|'
-  '';
-
-  enableParallelBuilding = true;
-
-  meta = with lib; {
-    homepage = "http://libarchive.org";
-    description = "Multi-format archive and compression library";
-    longDescription = ''
-      The libarchive project develops a portable, efficient C library that can
-      read and write streaming archives in a variety of formats. It also
-      includes implementations of the common tar, cpio, and zcat command-line
-      tools that use the libarchive library.
+    preBuild = lib.optionalString stdenv.hostPlatform.isCygwin ''
+      echo "#include <windows.h>" >> config.h
     '';
-    changelog = "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ jcumming ];
-    platforms = platforms.all;
-    inherit (acl.meta) badPlatforms;
-  };
 
-  passthru.tests = {
-    inherit cmake nix samba;
-  };
+    # https://github.com/libarchive/libarchive/issues/1475
+    doCheck = !stdenv.hostPlatform.isMusl;
 
-  # bsdtar is detected as "cannot" because its exec is internal to
-  # calls it makes into libarchive itself. If binlore gains support
-  # for detecting another layer down into libraries, this can be cut.
-  passthru.binlore.out = binlore.synthesize finalAttrs.finalPackage ''
-    execer can bin/bsdtar
-  '';
-})
+    preCheck = ''
+      # Need an UTF-8 locale for test_I test.
+      export LANG=en_US.UTF-8
+    '';
+
+    preFixup = ''
+      sed -i $lib/lib/libarchive.la \
+        -e 's|-lcrypto|-L${lib.getLib openssl}/lib -lcrypto|' \
+        -e 's|-llzo2|-L${lzo}/lib -llzo2|'
+    '';
+
+    enableParallelBuilding = true;
+
+    meta = with lib; {
+      homepage = "http://libarchive.org";
+      description = "Multi-format archive and compression library";
+      longDescription = ''
+        The libarchive project develops a portable, efficient C library that can
+        read and write streaming archives in a variety of formats. It also
+        includes implementations of the common tar, cpio, and zcat command-line
+        tools that use the libarchive library.
+      '';
+      changelog = "https://github.com/libarchive/libarchive/releases/tag/v${finalAttrs.version}";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [jcumming];
+      platforms = platforms.all;
+      inherit (acl.meta) badPlatforms;
+    };
+
+    passthru.tests = {
+      inherit cmake nix samba;
+    };
+
+    # bsdtar is detected as "cannot" because its exec is internal to
+    # calls it makes into libarchive itself. If binlore gains support
+    # for detecting another layer down into libraries, this can be cut.
+    passthru.binlore.out = binlore.synthesize finalAttrs.finalPackage ''
+      execer can bin/bsdtar
+    '';
+  })

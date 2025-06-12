@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "millet";
   version = "0.14.9";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
       lib.licenses.mit # or
       lib.licenses.asl20
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "millet-ls";
   };
 }

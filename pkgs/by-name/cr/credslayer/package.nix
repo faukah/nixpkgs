@@ -4,7 +4,6 @@
   python3,
   wireshark-cli,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "credslayer";
   version = "0.1.3";
@@ -47,15 +46,15 @@ python3.pkgs.buildPythonApplication rec {
 
   postInstall = ''
     wrapProgram $out/bin/credslayer \
-       --prefix PATH : "${lib.makeBinPath [ wireshark-cli ]}"
+       --prefix PATH : "${lib.makeBinPath [wireshark-cli]}"
   '';
 
   meta = with lib; {
     description = "Extract credentials and other useful info from network captures";
     mainProgram = "credslayer";
     homepage = "https://github.com/ShellCode33/CredSLayer";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
     # broken due to wireshark 4.4 bump
     # see: https://github.com/NixOS/nixpkgs/pull/344914
     broken = true;

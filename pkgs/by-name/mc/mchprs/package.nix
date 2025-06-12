@@ -7,7 +7,6 @@
   sqlite,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mchprs";
   version = "0.5.1";
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     description = "Multithreaded Minecraft server built for redstone";
     homepage = "https://github.com/MCHPR/MCHPRS";
     license = licenses.mit;
-    maintainers = with maintainers; [ gdd ];
+    maintainers = with maintainers; [gdd];
   };
 }

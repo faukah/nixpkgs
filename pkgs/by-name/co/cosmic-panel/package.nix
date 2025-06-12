@@ -8,7 +8,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-panel";
   version = "1.0.0-alpha.7";
@@ -43,7 +42,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Panel for the COSMIC Desktop Environment";
     mainProgram = "cosmic-panel";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

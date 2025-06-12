@@ -5,7 +5,6 @@
   pyserial,
   halo,
 }:
-
 buildPythonApplication rec {
   pname = "btlejack";
   version = "2.1.1";
@@ -31,6 +30,6 @@ buildPythonApplication rec {
     description = "Bluetooth Low Energy Swiss-army knife";
     mainProgram = "btlejack";
     license = licenses.mit;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

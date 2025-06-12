@@ -17,7 +17,6 @@
   pythonOlder,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "python-homewizard-energy";
   version = "8.3.2";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -59,13 +58,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "homewizard_energy" ];
+  pythonImportsCheck = ["homewizard_energy"];
 
   meta = with lib; {
     description = "Library to communicate with HomeWizard Energy devices";
     homepage = "https://github.com/homewizard/python-homewizard-energy";
     changelog = "https://github.com/homewizard/python-homewizard-energy/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

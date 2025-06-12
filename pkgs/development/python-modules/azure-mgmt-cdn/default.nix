@@ -7,7 +7,6 @@
   isodate,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-cdn";
   version = "13.1.1";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-cdn_${version}/sdk/cdn/azure-mgmt-cdn/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

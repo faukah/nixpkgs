@@ -4,7 +4,6 @@
   installShellFiles,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pop";
   version = "0.2.0";

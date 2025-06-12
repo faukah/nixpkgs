@@ -11,7 +11,6 @@
   qtsvg,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qelectrotech";
   version = "0.9.0";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     mainProgram = "qelectrotech";
     homepage = "https://qelectrotech.org/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ yvesf ];
+    maintainers = with lib.maintainers; [yvesf];
     platforms = qtbase.meta.platforms;
     broken = stdenv.hostPlatform.isDarwin;
   };

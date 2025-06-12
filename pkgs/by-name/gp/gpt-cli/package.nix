@@ -38,8 +38,7 @@ python3Packages.buildPythonApplication rec {
     typing-extensions
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       pytestCheckHook
     ]
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/kharvd/gpt-cli";
     changelog = "https://github.com/kharvd/gpt-cli/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ _404wolf ];
+    maintainers = with lib.maintainers; [_404wolf];
     mainProgram = "gpt";
   };
 }

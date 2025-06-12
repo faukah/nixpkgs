@@ -5,7 +5,6 @@
   writers,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "xee";
   version = "0.1.5";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     # "${cargoDeps}/build-data-0.2.1/src/lib.rs" is pretty terrible
-    (writers.writePython3Bin "git" { } ''
+    (writers.writePython3Bin "git" {} ''
       import sys
       import os
       sys.argv[0] = os.path.basename(sys.argv[0])
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Paligo/xee";
     changelog = "https://github.com/Paligo/xee/releases/tag/xee-v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "xee";
   };
 })

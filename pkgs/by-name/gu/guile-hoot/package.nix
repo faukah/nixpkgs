@@ -7,7 +7,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-hoot";
   version = "0.6.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
   strictDeps = true;
 
-  makeFlags = [ "GUILE_AUTO_COMPILE=0" ];
+  makeFlags = ["GUILE_AUTO_COMPILE=0"];
 
   configureFlags = [
     "--with-guile-site-dir=$(out)/${guile.siteDir}"
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Scheme to WebAssembly compiler backend for GNU Guile and a general purpose WASM toolchain";
     homepage = "https://gitlab.com/spritely/guile-hoot";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jinser ];
+    maintainers = with lib.maintainers; [jinser];
     platforms = lib.platforms.unix;
   };
 }

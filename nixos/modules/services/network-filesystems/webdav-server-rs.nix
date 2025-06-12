@@ -3,16 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.webdav-server-rs;
-  format = pkgs.formats.toml { };
-  settings = lib.recursiveUpdate {
-    server.uid = config.users.users."${cfg.user}".uid;
-    server.gid = config.users.groups."${cfg.group}".gid;
-  } cfg.settings;
-in
-{
+  format = pkgs.formats.toml {};
+  settings =
+    lib.recursiveUpdate {
+      server.uid = config.users.users."${cfg.user}".uid;
+      server.gid = config.users.groups."${cfg.group}".gid;
+    }
+    cfg.settings;
+in {
   options = {
     services.webdav-server-rs = {
       enable = lib.mkEnableOption "WebDAV server";
@@ -37,7 +37,7 @@ in
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           Attrset that is converted and passed as config file. Available
           options can be found at
@@ -116,8 +116,8 @@ in
 
     systemd.services.webdav-server-rs = {
       description = "WebDAV server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.webdav-server-rs}/bin/webdav-server ${lib.optionalString cfg.debug "--debug"} -c ${cfg.configFile}";
 
@@ -126,8 +126,8 @@ in
           "CAP_SETGID"
         ];
 
-        NoExecPaths = [ "/" ];
-        ExecPaths = [ "/nix/store" ];
+        NoExecPaths = ["/"];
+        ExecPaths = ["/nix/store"];
 
         # This program actively detects if it is running in root user account
         # when it starts and uses root privilege to switch process uid to
@@ -148,5 +148,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ pmy ];
+  meta.maintainers = with lib.maintainers; [pmy];
 }

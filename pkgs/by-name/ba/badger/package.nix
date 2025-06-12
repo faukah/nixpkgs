@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "badger";
   version = "4.7.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-x4+CHLmQhu7Y6n1qx2CBY6KzRIRLD7Gn+pzXQy3/5rA=";
 
-  subPackages = [ "badger" ];
+  subPackages = ["badger"];
 
   doCheck = false;
 
@@ -26,6 +25,6 @@ buildGoModule rec {
     homepage = "https://github.com/dgraph-io/badger";
     license = licenses.asl20;
     mainProgram = "badger";
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
   };
 }

@@ -27,13 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "KDE Plasma Applet for use as a desktop/workspace pager";
     homepage = "https://github.com/dhruv8sh/kara";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     inherit (kdePackages.kwindowsystem.meta) platforms;
   };
 })

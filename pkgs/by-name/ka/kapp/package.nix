@@ -6,7 +6,6 @@
   testers,
   kapp,
 }:
-
 buildGoModule rec {
   pname = "kapp";
   version = "0.64.2";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/kapp" ];
+  subPackages = ["cmd/kapp"];
 
   env.CGO_ENABLED = 0;
 
@@ -28,7 +27,7 @@ buildGoModule rec {
     "-X carvel.dev/kapp/pkg/kapp/version.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     for shell in bash fish zsh; do
@@ -45,7 +44,7 @@ buildGoModule rec {
     description = "CLI tool that encourages Kubernetes users to manage bulk resources with an application abstraction for grouping";
     homepage = "https://carvel.dev/kapp/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ brodes ];
+    maintainers = with maintainers; [brodes];
     mainProgram = "kapp";
   };
 }

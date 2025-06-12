@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sequin";
   version = "0.3.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/charmbracelet/sequin";
     changelog = "https://github.com/charmbracelet/sequin/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ caarlos0 ];
+    maintainers = with lib.maintainers; [caarlos0];
     mainProgram = "sequin";
   };
 }

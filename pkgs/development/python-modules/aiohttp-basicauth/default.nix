@@ -7,7 +7,6 @@
   pytest-asyncio,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiohttp-basicauth";
   version = "1.1.0";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-DjwrMlkVVceA5kDzm0c/on0VMOxyMMA3Hu4Y2Tiu0lI=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "aiohttp_basicauth" ];
+  pythonImportsCheck = ["aiohttp_basicauth"];
 
   meta = with lib; {
     description = "HTTP basic authentication middleware for aiohttp 3.0";
     homepage = "https://github.com/romis2012/aiohttp-basicauth";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

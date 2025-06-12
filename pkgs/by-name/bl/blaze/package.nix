@@ -6,7 +6,6 @@
   blas,
   lapack-reference,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blaze";
   version = "3.8.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     blas
@@ -29,8 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "high performance C++ math library";
     homepage = "https://bitbucket.org/blaze-lib/blaze";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ Madouura ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [Madouura];
     platforms = platforms.unix;
   };
 })

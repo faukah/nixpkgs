@@ -7,9 +7,7 @@
   installShellFiles,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "libdatrie";
   version = "2019-12-20";
 
@@ -33,16 +31,14 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
-  preAutoreconf =
-    let
-      reports = "https://github.com/tlwg/libdatrie/issues";
-    in
-    ''
-      sed -i -e "/AC_INIT/,+3d" configure.ac
-      sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
-    '';
+  preAutoreconf = let
+    reports = "https://github.com/tlwg/libdatrie/issues";
+  in ''
+    sed -i -e "/AC_INIT/,+3d" configure.ac
+    sed -i "5iAC_INIT(${pname},${version},[${reports}])" configure.ac
+  '';
 
   postInstall = ''
     installManPage man/trietool.1
@@ -53,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "This is an implementation of double-array structure for representing trie";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
-    pkgConfigModules = [ "datrie-0.2" ];
+    maintainers = [];
+    pkgConfigModules = ["datrie-0.2"];
   };
 }

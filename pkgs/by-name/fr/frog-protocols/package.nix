@@ -7,7 +7,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "frog-protocols";
   version = "0.01-unstable-2024-09-25";
@@ -25,8 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
-    tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+    updateScript = unstableGitUpdater {};
+    tests.pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
       Scrumplex
     ];
     platforms = lib.platforms.all;
-    pkgConfigModules = [ "frog-protocols" ];
+    pkgConfigModules = ["frog-protocols"];
   };
 })

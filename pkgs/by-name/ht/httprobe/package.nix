@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "httprobe";
   version = "0.2";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Take a list of domains and probe for working HTTP and HTTPS servers";
     homepage = "https://github.com/tomnomnom/httprobe";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "httprobe";
   };
 }

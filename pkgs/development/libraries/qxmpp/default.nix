@@ -12,7 +12,6 @@
   withOmemo ? true,
   libomemo-c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qxmpp";
   version = "1.10.2";
@@ -34,8 +33,7 @@ stdenv.mkDerivation rec {
     ];
   buildInputs =
     lib.optionals withGstreamer (
-      with gst_all_1;
-      [
+      with gst_all_1; [
         gstreamer
         gst-plugins-bad
         gst-plugins-base
@@ -63,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Cross-platform C++ XMPP client and server library";
     homepage = "https://github.com/qxmpp-project/qxmpp";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = with platforms; linux;
   };
 }

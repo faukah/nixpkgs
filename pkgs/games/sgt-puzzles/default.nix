@@ -15,7 +15,6 @@
   halibut,
   isMobile ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sgt-puzzles";
   version = "20250523.7fa0305";

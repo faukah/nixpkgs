@@ -8,12 +8,11 @@
   coreutils,
   gnugrep,
 }:
-
 stdenv.mkDerivation {
   pname = "bash-supergenpass";
   version = "0-unstable-2024-03-24";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "lanzz";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/lanzz/bash-supergenpass";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "supergenpass";
     platforms = platforms.all;
   };

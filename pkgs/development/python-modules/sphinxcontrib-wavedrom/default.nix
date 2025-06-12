@@ -8,7 +8,6 @@
   xcffib,
   cairosvg,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-wavedrom";
   version = "3.0.4";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-0zTHVBr9kXwMEo4VRTFsxdX2HI31DxdHfLUHCQmw1Ko=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     sphinx
@@ -31,14 +30,14 @@ buildPythonPackage rec {
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxcontrib.wavedrom" ];
+  pythonImportsCheck = ["sphinxcontrib.wavedrom"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx extension that allows including wavedrom diagrams by using its text-based representation";
     homepage = "https://github.com/bavovanachte/sphinx-wavedrom";
     license = licenses.mit;
-    maintainers = with maintainers; [ fsagbuya ];
+    maintainers = with maintainers; [fsagbuya];
   };
 }

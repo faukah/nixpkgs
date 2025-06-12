@@ -16,7 +16,6 @@
   twisted,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "apscheduler";
   version = "3.11.0";
@@ -64,12 +63,12 @@ buildPythonPackage rec {
       "test_max_instances"
     ];
 
-  pythonImportsCheck = [ "apscheduler" ];
+  pythonImportsCheck = ["apscheduler"];
 
   meta = with lib; {
     description = "Library that lets you schedule your Python code to be executed";
     homepage = "https://github.com/agronholm/apscheduler";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

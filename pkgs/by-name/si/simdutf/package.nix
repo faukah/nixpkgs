@@ -5,7 +5,6 @@
   cmake,
   libiconv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "simdutf";
   version = "7.3.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
     mainProgram = "simdutf";
     platforms = platforms.all;
   };

@@ -18,7 +18,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-api";
   version = "0.2.2";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  env.FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ ]; };
+  env.FONTCONFIG_FILE = makeFontsConf {fontDirectories = [];};
 
   preBuild = ''
     # Makes fontconfig produce less noise in logs
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -102,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3Only
       gpl3Only
     ];
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "liblomiri-api"

@@ -6,7 +6,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "multiset";
   version = "3.2.0";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multiset" ];
+  pythonImportsCheck = ["multiset"];
 
   meta = with lib; {
     description = "Implementation of a multiset";
     homepage = "https://github.com/wheerd/multiset";
     changelog = "https://github.com/wheerd/multiset/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

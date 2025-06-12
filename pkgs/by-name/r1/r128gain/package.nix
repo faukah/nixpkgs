@@ -7,7 +7,6 @@
   python3Packages,
   sox,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "r128gain";
   version = "1.0.7";
@@ -40,14 +39,14 @@ python3Packages.buildPythonApplication rec {
   # sandbox to be disabled.
   doCheck = false;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Fast audio loudness scanner & tagger (ReplayGain v2 / R128)";
     mainProgram = "r128gain";
     homepage = "https://github.com/desbma/r128gain";
     license = licenses.lgpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

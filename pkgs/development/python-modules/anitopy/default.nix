@@ -15,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-xXEf7AJKg7grDmkKfFuC4Fk6QYFJtezClyfA3vq8TfQ=";
   };
 
-  pythonImportsCheck = [ "anitopy" ];
+  pythonImportsCheck = ["anitopy"];
 
   meta = with lib; {
     description = "Python library for parsing anime video filenames";
     homepage = "https://github.com/igorcmoura/anitopy";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ passivelemon ];
+    maintainers = with maintainers; [passivelemon];
   };
 }

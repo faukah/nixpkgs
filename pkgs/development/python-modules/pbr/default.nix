@@ -7,7 +7,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pbr";
   version = "6.1.1";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-k+pyzmmJ6y7tmdD3VyFHT2mtiBKK/e9aw3freXxL92s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     distutils # for distutils.command in pbr/packaging.py
@@ -30,16 +29,16 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "pbr" ];
+  pythonImportsCheck = ["pbr"];
 
   meta = with lib; {
     description = "Python Build Reasonableness";
     mainProgram = "pbr";
     homepage = "https://github.com/openstack/pbr";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

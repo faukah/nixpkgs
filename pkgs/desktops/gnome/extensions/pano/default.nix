@@ -6,7 +6,6 @@
   libgda6,
   gsound,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-shell-extension-pano";
   version = "23-alpha5";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Next-gen Clipboard Manager for Gnome Shell";
     homepage = "https://github.com/oae/gnome-shell-pano";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ honnip ];
+    maintainers = with maintainers; [honnip];
     platforms = platforms.linux;
   };
 })

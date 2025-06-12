@@ -5,7 +5,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage {
   pname = "cliff";
   inherit (cliff) version src;

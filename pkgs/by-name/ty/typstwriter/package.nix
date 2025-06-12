@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "typstwriter";
   version = "0.3";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-0tCl/dMSWmUWZEVystb6BIYTwW7b6PH4LyERK4mi/LQ=";
   };
 
-  build-system = [ python3.pkgs.flit-core ];
+  build-system = [python3.pkgs.flit-core];
 
   dependencies = with python3.pkgs; [
     platformdirs
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     ];
   };
 
-  pythonImportsCheck = [ "typstwriter" ];
+  pythonImportsCheck = ["typstwriter"];
 
   meta = {
     changelog = "https://github.com/Bzero/typstwriter/releases/tag/V${version}";
@@ -41,6 +40,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Bzero/typstwriter";
     license = lib.licenses.mit;
     mainProgram = "typstwriter";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

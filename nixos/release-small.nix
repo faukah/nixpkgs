@@ -17,13 +17,10 @@
     "aarch64-linux"
     "x86_64-linux"
   ], # no i686-linux
-}:
-
-let
-
+}: let
   nixpkgsSrc = nixpkgs; # urgh
 
-  pkgs = import ./.. { system = "x86_64-linux"; };
+  pkgs = import ./.. {system = "x86_64-linux";};
 
   lib = pkgs.lib;
 
@@ -35,13 +32,11 @@ let
   nixpkgs' = builtins.removeAttrs (import ../pkgs/top-level/release.nix {
     inherit supportedSystems;
     nixpkgs = nixpkgsSrc;
-  }) [ "unstable" ];
-
-in
-rec {
-
+  }) ["unstable"];
+in rec {
   nixos = {
-    inherit (nixos')
+    inherit
+      (nixos')
       channel
       manual
       options
@@ -49,12 +44,14 @@ rec {
       ;
     tests = {
       acme = {
-        inherit (nixos'.tests.acme)
+        inherit
+          (nixos'.tests.acme)
           http01-builtin
           dns01
           ;
       };
-      inherit (nixos'.tests)
+      inherit
+        (nixos'.tests)
         containers-imperative
         containers-ip
         firewall
@@ -70,12 +67,14 @@ rec {
         simple
         ;
       latestKernel = {
-        inherit (nixos'.tests.latestKernel)
+        inherit
+          (nixos'.tests.latestKernel)
           login
           ;
       };
       installer = {
-        inherit (nixos'.tests.installer)
+        inherit
+          (nixos'.tests.installer)
           lvm
           separateBoot
           simple
@@ -86,7 +85,8 @@ rec {
   };
 
   nixpkgs = {
-    inherit (nixpkgs')
+    inherit
+      (nixpkgs')
       apacheHttpd
       cmake
       cryptsetup
@@ -114,17 +114,15 @@ rec {
       ;
   };
 
-  tested =
-    let
-      onSupported = x: map (system: "${x}.${system}") supportedSystems;
-      onSystems =
-        systems: x: map (system: "${x}.${system}") (pkgs.lib.intersectLists systems supportedSystems);
-    in
+  tested = let
+    onSupported = x: map (system: "${x}.${system}") supportedSystems;
+    onSystems = systems: x: map (system: "${x}.${system}") (pkgs.lib.intersectLists systems supportedSystems);
+  in
     pkgs.releaseTools.aggregate {
       name = "nixos-${nixos.channel.version}";
       meta = {
         description = "Release-critical builds for the NixOS channel";
-        maintainers = [ ];
+        maintainers = [];
       };
       constituents = lib.flatten [
         [
@@ -132,7 +130,7 @@ rec {
           "nixpkgs.tarball"
           "nixpkgs.release-checks"
         ]
-        (map (onSystems [ "x86_64-linux" ]) [
+        (map (onSystems ["x86_64-linux"]) [
           "nixos.tests.installer.lvm"
           "nixos.tests.installer.separateBoot"
           "nixos.tests.installer.simple"
@@ -168,5 +166,4 @@ rec {
         ])
       ];
     };
-
 }

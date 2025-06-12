@@ -8,7 +8,6 @@
   python3Packages,
   bashInteractive,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bash-completion";
   version = "2.16.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # tests are super flaky unfortunately, and regularly break.
   # let's disable them for now.
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     description = "Programmable completion for the bash shell";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ philiptaron ];
+    maintainers = with maintainers; [philiptaron];
   };
 }

@@ -8,7 +8,6 @@
   maven,
   nix-update-script,
 }:
-
 maven.buildMavenPackage rec {
   pname = "sonar-scanner-cli";
   version = "7.1.0.4889";
@@ -55,19 +54,19 @@ maven.buildMavenPackage rec {
 
     wrapProgram $out/bin/sonar-scanner \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          jre
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        jre
+      ]
+    } \
       --set JAVA_HOME ${jre}
 
     wrapProgram $out/bin/sonar-scanner-debug \
-      --prefix PATH : ${lib.makeBinPath [ coreutils ]}
+      --prefix PATH : ${lib.makeBinPath [coreutils]}
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -76,6 +75,6 @@ maven.buildMavenPackage rec {
     license = lib.licenses.lgpl3Only;
     mainProgram = "sonar-scanner";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ peterromfeldhk ];
+    maintainers = with lib.maintainers; [peterromfeldhk];
   };
 }

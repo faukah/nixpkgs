@@ -13,7 +13,6 @@
   rustc,
   sigtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "krunvm";
   version = "0.2.3";
@@ -30,21 +29,23 @@ stdenv.mkDerivation rec {
     hash = "sha256-Vmb5IgGyKGekuL018/Xiz9QroWIwTIUxVB57fb0X7Kw=";
   };
 
-  nativeBuildInputs = [
-    rustPlatform.cargoSetupHook
-    cargo
-    rustc
-    asciidoctor
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ sigtool ];
+  nativeBuildInputs =
+    [
+      rustPlatform.cargoSetupHook
+      cargo
+      rustc
+      asciidoctor
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [sigtool];
 
   buildInputs =
-    [ libkrun ]
+    [libkrun]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postPatch = ''
     # do not pollute etc
@@ -64,14 +65,14 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/krunvm \
-      --prefix PATH : ${lib.makeBinPath [ buildah ]} \
+      --prefix PATH : ${lib.makeBinPath [buildah]} \
   '';
 
   meta = with lib; {
     description = "CLI-based utility for creating microVMs from OCI images";
     homepage = "https://github.com/containers/krunvm";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = libkrun.meta.platforms;
     mainProgram = "krunvm";
   };

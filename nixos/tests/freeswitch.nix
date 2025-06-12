@@ -1,28 +1,29 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "freeswitch";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ misuzu ];
+    maintainers = [misuzu];
   };
   nodes = {
-    node0 =
-      { config, lib, ... }:
-      {
-        networking.useDHCP = false;
-        networking.interfaces.eth1 = {
-          ipv4.addresses = [
-            {
-              address = "192.168.0.1";
-              prefixLength = 24;
-            }
-          ];
-        };
-        services.freeswitch = {
-          enable = true;
-          enableReload = true;
-          configTemplate = "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
-        };
+    node0 = {
+      config,
+      lib,
+      ...
+    }: {
+      networking.useDHCP = false;
+      networking.interfaces.eth1 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.0.1";
+            prefixLength = 24;
+          }
+        ];
       };
+      services.freeswitch = {
+        enable = true;
+        enableReload = true;
+        configTemplate = "${config.services.freeswitch.package}/share/freeswitch/conf/minimal";
+      };
+    };
   };
   testScript = ''
     node0.wait_for_unit("freeswitch.service")

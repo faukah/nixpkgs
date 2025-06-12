@@ -9,7 +9,6 @@
   makeDesktopItem,
   electron,
 }:
-
 buildNpmPackage rec {
   pname = "ytDownloader";
   version = "3.19.1";
@@ -39,7 +38,7 @@ buildNpmPackage rec {
       icon = "ytdownloader";
       desktopName = "ytDownloader";
       comment = "A modern GUI video and audio downloader";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       startupWMClass = "ytDownloader";
     })
   ];
@@ -50,7 +49,7 @@ buildNpmPackage rec {
 
   # Patch config dir to ~/.config/ytdownloader
   # Otherwise it stores config in ~/.config/Electron
-  patches = [ ./config-dir.patch ];
+  patches = [./config-dir.patch];
 
   # Replace hardcoded ffmpeg and ytdlp paths
   # Also stop it from downloading ytdlp
@@ -67,7 +66,7 @@ buildNpmPackage rec {
   postInstall = ''
     makeWrapper ${electron}/bin/electron $out/bin/ytdownloader \
         --add-flags $out/lib/node_modules/ytdownloader/main.js \
-        --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+        --prefix PATH : ${lib.makeBinPath [ffmpeg-headless]}
 
     install -Dm444 assets/images/icon.png $out/share/pixmaps/ytdownloader.png
   '';
@@ -76,7 +75,7 @@ buildNpmPackage rec {
     description = "Modern GUI video and audio downloader";
     homepage = "https://github.com/aandrew-me/ytDownloader";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ chewblacka ];
+    maintainers = with lib.maintainers; [chewblacka];
     platforms = lib.platforms.all;
     mainProgram = "ytdownloader";
   };

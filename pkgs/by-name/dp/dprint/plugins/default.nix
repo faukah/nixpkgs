@@ -4,33 +4,31 @@
   stdenv,
   dprint,
   writableTmpDirAsHomeHook,
-}:
-let
-  mkDprintPlugin =
-    {
-      url,
-      hash,
-      pname,
-      version,
-      description,
-      initConfig,
-      updateUrl,
-      license ? lib.licenses.mit,
-      maintainers ? [ lib.maintainers.phanirithvij ],
-    }:
+}: let
+  mkDprintPlugin = {
+    url,
+    hash,
+    pname,
+    version,
+    description,
+    initConfig,
+    updateUrl,
+    license ? lib.licenses.mit,
+    maintainers ? [lib.maintainers.phanirithvij],
+  }:
     stdenv.mkDerivation (finalAttrs: {
       inherit pname version;
-      src = fetchurl { inherit url hash; };
+      src = fetchurl {inherit url hash;};
       dontUnpack = true;
       meta = {
         inherit description license maintainers;
       };
       /*
-        in the dprint configuration
-        dprint expects a plugin path to end with .wasm extension
+      in the dprint configuration
+      dprint expects a plugin path to end with .wasm extension
 
-        for auto update with nixpkgs-update to work
-        we cannot have .wasm extension at the end in the nix store path
+      for auto update with nixpkgs-update to work
+      we cannot have .wasm extension at the end in the nix store path
       */
       buildPhase = ''
         mkdir -p $out
@@ -56,7 +54,8 @@ let
         inherit initConfig updateUrl;
       };
     });
-  inherit (lib)
+  inherit
+    (lib)
     filterAttrs
     isDerivation
     mapAttrs'
@@ -66,10 +65,12 @@ let
   files = filterAttrs (
     name: type: type == "regular" && name != "default.nix" && lib.hasSuffix ".nix" name
   ) (builtins.readDir ./.);
-  plugins = mapAttrs' (
-    name: _:
-    nameValuePair (removeSuffix ".nix" name) (import (./. + "/${name}") { inherit mkDprintPlugin; })
-  ) files;
+  plugins =
+    mapAttrs' (
+      name: _:
+        nameValuePair (removeSuffix ".nix" name) (import (./. + "/${name}") {inherit mkDprintPlugin;})
+    )
+    files;
   # Expects a function that receives the dprint plugin set as an input
   # and returns a list of plugins
   # Example:
@@ -79,4 +80,4 @@ let
   # ]
   getPluginList = cb: map (p: "${p}/plugin.wasm") (cb plugins);
 in
-plugins // { inherit mkDprintPlugin getPluginList; }
+  plugins // {inherit mkDprintPlugin getPluginList;}

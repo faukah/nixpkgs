@@ -5,7 +5,6 @@
   ncurses,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nethogs";
   version = "0.8.8";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://github.com/raboof/nethogs#readme";
     platforms = platforms.linux;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     mainProgram = "nethogs";
   };
 }

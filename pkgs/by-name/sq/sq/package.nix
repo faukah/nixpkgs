@@ -6,7 +6,6 @@
   testers,
   sq,
 }:
-
 buildGoModule rec {
   pname = "sq";
   version = "0.48.5";
@@ -22,7 +21,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Some tests violates sandbox constraints.
   doCheck = false;
@@ -53,6 +52,6 @@ buildGoModule rec {
     homepage = "https://sq.io/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

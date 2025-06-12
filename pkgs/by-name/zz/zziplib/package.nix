@@ -10,7 +10,6 @@
   zip,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zziplib";
   version = "0.13.79";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       mpl11
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

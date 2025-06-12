@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "amazon-ssm-agent";
-  meta.maintainers = [ lib.maintainers.anthonyroussel ];
+  meta.maintainers = [lib.maintainers.anthonyroussel];
 
   nodes.machine = {
     services.amazon-ssm-agent.enable = true;

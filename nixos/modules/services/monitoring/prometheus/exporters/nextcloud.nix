@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.nextcloud;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     escapeShellArg
     concatStringsSep
     ;
-in
-{
+in {
   port = 9205;
   extraOpts = {
     url = mkOption {
@@ -71,16 +69,15 @@ in
           --timeout ${cfg.timeout} \
           --server ${cfg.url} \
           ${
-            if cfg.passwordFile != null then
-              ''
-                --username ${cfg.username} \
-                --password ${escapeShellArg "@${cfg.passwordFile}"} \
-              ''
-            else
-              ''
-                --auth-token ${escapeShellArg "@${cfg.tokenFile}"} \
-              ''
-          } \
+          if cfg.passwordFile != null
+          then ''
+            --username ${cfg.username} \
+            --password ${escapeShellArg "@${cfg.passwordFile}"} \
+          ''
+          else ''
+            --auth-token ${escapeShellArg "@${cfg.tokenFile}"} \
+          ''
+        } \
           ${concatStringsSep " \\\n  " cfg.extraFlags}'';
     };
   };

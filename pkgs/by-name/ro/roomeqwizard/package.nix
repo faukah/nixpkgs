@@ -12,14 +12,13 @@
   writeTextFile,
   recommendedUdevRules ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "roomeqwizard";
   version = "5.31.3";
 
   src = fetchurl {
     url = "https://www.roomeqwizard.com/installers/REW_linux_no_jre_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.sh";
     sha256 = "sha256-qaGkKVoiBJ2UWVKAMqbuqNFi6FGcblMxAbYwhf/71CY=";
   };
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     icon = pname;
     desktopName = "REW";
     genericName = "Software for audio measurements";
-    categories = [ "AudioVideo" ];
+    categories = ["AudioVideo"];
   };
 
   responseFile = writeTextFile {
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     SUBSYSTEM=="usb", ATTR{idVendor}=="2752", ATTR{idProduct}=="0007", TAG+="uaccess"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -79,12 +78,12 @@ stdenv.mkDerivation rec {
     makeWrapper $out/share/roomeqwizard/roomeqwizard $out/bin/roomeqwizard \
       --set INSTALL4J_JAVA_HOME_OVERRIDE ${jdk8} \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-          gawk
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+        gawk
+      ]
+    }
 
     cp -r "$desktopItem/share/applications" $out/share/
     cp $out/share/roomeqwizard/.install4j/roomeqwizard.png "$out/share/icons/hicolor/256x256/apps/${pname}.png"

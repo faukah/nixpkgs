@@ -3,9 +3,7 @@
   pkgs,
   lib,
   nodejs_20,
-}:
-
-let
+}: let
   nodejs = nodejs_20;
 
   nodePackages = import ./node-packages.nix {
@@ -27,9 +25,9 @@ let
         mpl20
       ];
       homepage = "https://github.com/audreyt/ethercalc";
-      maintainers = with maintainers; [ iblech ];
+      maintainers = with maintainers; [iblech];
       platforms = platforms.unix;
     };
   };
 in
-combined
+  combined

@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   dmcfg = config.services.xserver.displayManager;
   ldmcfg = dmcfg.lightdm;
   cfg = ldmcfg.greeters.mini;
@@ -49,13 +45,9 @@ let
 
     ${cfg.extraConfig}
   '';
-
-in
-{
+in {
   options = {
-
     services.xserver.displayManager.lightdm.greeters.mini = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -84,13 +76,10 @@ in
           configuration file.
         '';
       };
-
     };
-
   };
 
   config = mkIf (ldmcfg.enable && cfg.enable) {
-
     services.xserver.displayManager.lightdm.greeters.gtk.enable = false;
 
     services.xserver.displayManager.lightdm.greeter = mkDefault {
@@ -99,6 +88,5 @@ in
     };
 
     environment.etc."lightdm/lightdm-mini-greeter.conf".source = miniGreeterConf;
-
   };
 }

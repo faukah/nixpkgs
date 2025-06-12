@@ -5,7 +5,6 @@
   drawille,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   pname = "drawilleplot";
   version = "0.1.0";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  pythonImportsCheck = [ "drawilleplot" ];
+  pythonImportsCheck = ["drawilleplot"];
 
   meta = with lib; {
     description = "matplotlib backend for graph output in unicode terminals using drawille";
     homepage = "https://github.com/gooofy/drawilleplot";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nobbz ];
+    maintainers = with maintainers; [nobbz];
     platforms = platforms.all;
   };
 }

@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # propagates
   paypalhttp,
-
   # tersts
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "paypal-checkout-serversdk";
   version = "1.0.1";
@@ -28,7 +25,7 @@ buildPythonPackage rec {
     rm -rf sample
   '';
 
-  propagatedBuildInputs = [ paypalhttp ];
+  propagatedBuildInputs = [paypalhttp];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,6 +43,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/paypal/Checkout-Python-SDK/releases/tag/${version}";
     description = "Python SDK for Checkout RESTful APIs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

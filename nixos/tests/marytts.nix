@@ -1,40 +1,36 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   port = 59126;
-in
-{
+in {
   name = "marytts";
-  meta.maintainers = with lib.maintainers; [ pluiedev ];
+  meta.maintainers = with lib.maintainers; [pluiedev];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      networking.firewall.enable = false;
-      networking.useDHCP = false;
+  nodes.machine = {pkgs, ...}: {
+    networking.firewall.enable = false;
+    networking.useDHCP = false;
 
-      services.marytts = {
-        enable = true;
-        inherit port;
+    services.marytts = {
+      enable = true;
+      inherit port;
 
-        voices = [
-          (pkgs.fetchzip {
-            url = "https://github.com/marytts/voice-bits1-hsmm/releases/download/v5.2/voice-bits1-hsmm-5.2.zip";
-            hash = "sha256-1nK+qZxjumMev7z5lgKr660NCKH5FDwvZ9sw/YYYeaA=";
-          })
-        ];
+      voices = [
+        (pkgs.fetchzip {
+          url = "https://github.com/marytts/voice-bits1-hsmm/releases/download/v5.2/voice-bits1-hsmm-5.2.zip";
+          hash = "sha256-1nK+qZxjumMev7z5lgKr660NCKH5FDwvZ9sw/YYYeaA=";
+        })
+      ];
 
-        userDictionaries = [
-          (pkgs.writeTextFile {
-            name = "userdict-en_US.txt";
-            destination = "/userdict-en_US.txt";
-            text = ''
-              amogus | @ - ' m @U - g @ s
-              Nixpkgs | n I k s - ' p { - k @ - dZ @ s
-            '';
-          })
-        ];
-      };
+      userDictionaries = [
+        (pkgs.writeTextFile {
+          name = "userdict-en_US.txt";
+          destination = "/userdict-en_US.txt";
+          text = ''
+            amogus | @ - ' m @U - g @ s
+            Nixpkgs | n I k s - ' p { - k @ - dZ @ s
+          '';
+        })
+      ];
     };
+  };
 
   testScript = ''
     from xml.etree import ElementTree

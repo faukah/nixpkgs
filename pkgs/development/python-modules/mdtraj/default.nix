@@ -24,7 +24,6 @@
   tables,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "mdtraj";
   version = "1.10.3";
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  buildInputs = [zlib] ++ lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   dependencies = [
     netcdf4
@@ -105,13 +104,13 @@ buildPythonPackage rec {
     "test_netcdf.py"
   ];
 
-  pythonImportsCheck = [ "mdtraj" ];
+  pythonImportsCheck = ["mdtraj"];
 
   meta = with lib; {
     description = "Open library for the analysis of molecular dynamics trajectories";
     homepage = "https://github.com/mdtraj/mdtraj";
     changelog = "https://github.com/mdtraj/mdtraj/releases/tag/${src.tag}";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

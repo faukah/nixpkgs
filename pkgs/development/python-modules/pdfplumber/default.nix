@@ -17,7 +17,6 @@
   types-pillow,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "pdfplumber";
   version = "0.11.6";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-ljoM252w0oOqTUgYT6jtAW+jElPU9a49K6Atwdv5Dvo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pdfminer-six
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonRelaxDeps = [ "pdfminer.six" ];
+  pythonRelaxDeps = ["pdfminer.six"];
 
   disabledTestPaths = [
     # AssertionError
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     "tests/test_convert.py::Test::test_csv"
   ];
 
-  pythonImportsCheck = [ "pdfplumber" ];
+  pythonImportsCheck = ["pdfplumber"];
 
   meta = {
     description = "Plumb a PDF for detailed information about each char, rectangle, line, et cetera — and easily extract text and tables";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jsvine/pdfplumber";
     changelog = "https://github.com/jsvine/pdfplumber/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

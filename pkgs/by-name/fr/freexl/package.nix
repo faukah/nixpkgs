@@ -8,7 +8,6 @@
   zlib,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freexl";
   version = "2.0.0";
@@ -18,13 +17,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-F2cF8d5Yq3we679cbeRqt2/Ni4VlCNvSj1ZI98bhp/A=";
   };
 
-  nativeBuildInputs = [ validatePkgConfig ];
+  nativeBuildInputs = [validatePkgConfig];
 
-  buildInputs = [
-    expat
-    minizip
-    zlib
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs =
+    [
+      expat
+      minizip
+      zlib
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   enableParallelBuilding = true;
 
@@ -40,6 +41,6 @@ stdenv.mkDerivation rec {
       mpl11
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

@@ -11,7 +11,6 @@
   six,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-xdist";
   version = "1.34.0";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "py.test xdist plugin for distributed testing and loop-on-failing modes";
     homepage = "https://github.com/pytest-dev/pytest-xdist";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

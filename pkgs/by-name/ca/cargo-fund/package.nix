@@ -8,7 +8,6 @@
   openssl,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-fund";
   version = "0.2.3";
@@ -26,10 +25,10 @@ rustPlatform.buildRustPackage rec {
   # The tests need a GitHub API token.
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
       curl
@@ -43,6 +42,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ johntitor ];
+    maintainers = with maintainers; [johntitor];
   };
 }

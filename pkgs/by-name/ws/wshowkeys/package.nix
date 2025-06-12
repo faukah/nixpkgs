@@ -13,7 +13,6 @@
   wayland-protocols,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation {
   pname = "wshowkeys-unstable";
   version = "2021-08-01";

@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "github-copilot-cli.fish";
   version = "0.1.33.1";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "GitHub Copilot CLI aliases for Fish Shell";
     homepage = "https://github.com/z11i/github-copilot-cli.fish";
     license = licenses.asl20;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
   };
 }

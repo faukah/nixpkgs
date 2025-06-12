@@ -4,7 +4,6 @@
   fetchPypi,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "django-contrib-comments";
   version = "2.2.0";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-SN4A8VZ34BaiFq7/IF1uAOQ5HJpXAhNsZBGcRytzVto=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   meta = with lib; {
     homepage = "https://github.com/django/django-contrib-comments";

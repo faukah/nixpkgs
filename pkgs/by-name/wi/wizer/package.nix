@@ -5,7 +5,6 @@
   testers,
   wizer,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wizer";
   version = "9.0.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = wizer; };
+    version = testers.testVersion {package = wizer;};
   };
 
   meta = with lib; {

@@ -8,11 +8,9 @@
   topkg,
   faraday,
 }:
-
-if lib.versionOlder ocaml.version "4.3" then
-  throw "farfadet is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.3"
+then throw "farfadet is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml${ocaml.version}-farfadet";
     version = "0.3";
@@ -28,9 +26,9 @@ else
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
-    propagatedBuildInputs = [ faraday ];
+    propagatedBuildInputs = [faraday];
 
     strictDeps = true;
 
@@ -40,7 +38,7 @@ else
       description = "Printf-like for Faraday library";
       homepage = "https://github.com/oklm-wsh/Farfadet";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       inherit (ocaml.meta) platforms;
     };
   }

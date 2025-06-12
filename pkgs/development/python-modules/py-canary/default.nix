@@ -9,7 +9,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-canary";
   version = "0.5.4";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-zylWkssU85eSfR+Di7vQGTr6hOQkqXCObv/PCDHoKHA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     mock
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "canary" ];
+  pythonImportsCheck = ["canary"];
 
   disabledTests = [
     # Test requires network access
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Python package for Canary Security Camera";
     homepage = "https://github.com/snjoetw/py-canary";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

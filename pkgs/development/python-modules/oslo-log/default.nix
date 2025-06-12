@@ -4,10 +4,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   debtcollector,
   oslo-config,
@@ -17,13 +15,11 @@
   pbr,
   python-dateutil,
   pyinotify,
-
   # tests
   eventlet,
   oslotest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-log";
   version = "7.1.0";
@@ -48,17 +44,19 @@ buildPythonPackage rec {
   # installing from tarball instead)
   PBR_VERSION = version;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    debtcollector
-    oslo-config
-    oslo-context
-    oslo-serialization
-    oslo-utils
-    pbr
-    python-dateutil
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ pyinotify ];
+  dependencies =
+    [
+      debtcollector
+      oslo-config
+      oslo-context
+      oslo-serialization
+      oslo-utils
+      pbr
+      python-dateutil
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [pyinotify];
 
   nativeCheckInputs = [
     eventlet
@@ -73,7 +71,7 @@ buildPythonPackage rec {
     "test_log_config_append_invalid"
   ];
 
-  pythonImportsCheck = [ "oslo_log" ];
+  pythonImportsCheck = ["oslo_log"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -82,6 +80,6 @@ buildPythonPackage rec {
     mainProgram = "convert-json";
     homepage = "https://github.com/openstack/oslo.log";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

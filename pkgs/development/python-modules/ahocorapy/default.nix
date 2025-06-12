@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ahocorapy";
   version = "1.6.2";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-ynVkDnrZ12dpNPoKfUdw0/X06aORFkmXFMVH9u0Payo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     future
   ];
 
-  pythonImportsCheck = [ "ahocorapy" ];
+  pythonImportsCheck = ["ahocorapy"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Pure python Aho-Corasick library";
     homepage = "https://github.com/abusix/ahocorapy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -22,7 +22,6 @@
   protozero,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm2pgsql";
   version = "2.1.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     rm -r contrib
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -56,10 +55,11 @@ stdenv.mkDerivation (finalAttrs: {
       proj
       protozero
       (python3.withPackages (
-        p: with p; [
-          psycopg2
-          pyosmium
-        ]
+        p:
+          with p; [
+            psycopg2
+            pyosmium
+          ]
       ))
       zlib
     ]
@@ -86,6 +86,6 @@ stdenv.mkDerivation (finalAttrs: {
       jglukasik
       das-g
     ];
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 })

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "zfind";
   version = "0.4.6";
@@ -32,6 +31,6 @@ buildGoModule rec {
     changelog = "https://github.com/laktak/zfind/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "zfind";
-    maintainers = with lib.maintainers; [ eeedean ];
+    maintainers = with lib.maintainers; [eeedean];
   };
 }

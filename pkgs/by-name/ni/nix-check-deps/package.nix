@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "nix-check-deps";
   version = "0-unstable-2025-04-09";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-1fazKGz3PtyTvcIW+PY/LwYc6JlErSO9ZFisTUXJdhc=";
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Scan nix packages for unused buildInputs";
     homepage = "https://github.com/LordGrimmauld/nix-check-deps";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "nix-check-deps";
     platforms = lib.platforms.unix;
   };

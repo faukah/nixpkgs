@@ -12,7 +12,6 @@
   stripJavaArchivesHook,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gogui";
   version = "1.6.0";

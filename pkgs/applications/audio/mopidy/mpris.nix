@@ -4,7 +4,6 @@
   fetchPypi,
   mopidy,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mopidy-mpris";
   version = "3.0.3";
@@ -26,6 +25,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://www.mopidy.com/";
     description = "Mopidy extension for controlling Mopidy through D-Bus using the MPRIS specification";
     license = licenses.asl20;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

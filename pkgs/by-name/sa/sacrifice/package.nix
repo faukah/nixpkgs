@@ -8,7 +8,6 @@
   pythia,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "sacrifice";
   version = "1.0.0";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     lhapdf
     pythia
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     ./compat.patch
@@ -45,15 +44,14 @@ stdenv.mkDerivation {
   ];
 
   postInstall =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
-      ''
-    else
-      ''
-        wrapProgram $out/bin/run-pythia \
-          --prefix LD_LIBRARY_PATH : "${pythia}/lib"
-      '';
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      install_name_tool -add_rpath ${pythia}/lib "$out"/bin/run-pythia
+    ''
+    else ''
+      wrapProgram $out/bin/run-pythia \
+        --prefix LD_LIBRARY_PATH : "${pythia}/lib"
+    '';
 
   enableParallelBuilding = true;
 
@@ -63,7 +61,7 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl2;
     homepage = "https://agile.hepforge.org/trac/wiki/Sacrifice";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

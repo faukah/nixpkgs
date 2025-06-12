@@ -3,35 +3,33 @@
   lib,
   pcre2,
   fetchFromGitHub,
-}:
-
-let
+}: let
   version = "5.1.24";
 in
-buildPecl {
-  inherit version;
-  pname = "apcu";
+  buildPecl {
+    inherit version;
+    pname = "apcu";
 
-  src = fetchFromGitHub {
-    owner = "krakjoe";
-    repo = "apcu";
-    rev = "v${version}";
-    sha256 = "sha256-g+Oo6y+24VOWHaDZ23iItkGwOa5bTtKMAjZOmAi6EOo=";
-  };
+    src = fetchFromGitHub {
+      owner = "krakjoe";
+      repo = "apcu";
+      rev = "v${version}";
+      sha256 = "sha256-g+Oo6y+24VOWHaDZ23iItkGwOa5bTtKMAjZOmAi6EOo=";
+    };
 
-  buildInputs = [ pcre2 ];
-  doCheck = true;
-  makeFlags = [ "phpincludedir=$(dev)/include" ];
-  outputs = [
-    "out"
-    "dev"
-  ];
+    buildInputs = [pcre2];
+    doCheck = true;
+    makeFlags = ["phpincludedir=$(dev)/include"];
+    outputs = [
+      "out"
+      "dev"
+    ];
 
-  meta = with lib; {
-    changelog = "https://github.com/krakjoe/apcu/releases/tag/v${version}";
-    description = "Userland cache for PHP";
-    homepage = "https://pecl.php.net/package/APCu";
-    license = licenses.php301;
-    teams = [ teams.php ];
-  };
-}
+    meta = with lib; {
+      changelog = "https://github.com/krakjoe/apcu/releases/tag/v${version}";
+      description = "Userland cache for PHP";
+      homepage = "https://pecl.php.net/package/APCu";
+      license = licenses.php301;
+      teams = [teams.php];
+    };
+  }

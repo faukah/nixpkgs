@@ -37,23 +37,23 @@ buildPythonPackage rec {
       --replace-fail "	os.rename(__title__, directory)" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ python-dateutil ];
+  dependencies = [python-dateutil];
 
-  pythonImportsCheck = [ "filedate" ];
+  pythonImportsCheck = ["filedate"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/unit.py" ];
+  pytestFlagsArray = ["tests/unit.py"];
 
-  disabledTests = [ "test_created" ];
+  disabledTests = ["test_created"];
 
   meta = {
     description = "Simple, convenient and cross-platform file date changing library";
     homepage = "https://github.com/kubinka0505/filedate";
     changelog = "https://github.com/kubinka0505/filedate/blob/${src.rev}/Documents/ChangeLog.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ thornycrackers ];
+    maintainers = with lib.maintainers; [thornycrackers];
   };
 }

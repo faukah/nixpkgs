@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hexpatch";
   version = "1.11.3";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://etto48.github.io/HexPatch/";
     changelog = "https://github.com/Etto48/HexPatch/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ratcornu ];
+    maintainers = with lib.maintainers; [ratcornu];
     mainProgram = "hexpatch";
   };
 }

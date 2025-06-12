@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rgxg";
   version = "0.1.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     description = "C library and a command-line tool to generate (extended) regular expressions";
     mainProgram = "rgxg";
     license = licenses.zlib;
-    maintainers = with maintainers; [ hloeffler ];
+    maintainers = with maintainers; [hloeffler];
     homepage = "https://rgxg.github.io/";
   };
 }

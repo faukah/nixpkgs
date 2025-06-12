@@ -9,7 +9,6 @@
   pytz,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "ripe-atlas-sagan";
   version = "1.3.1";
@@ -31,24 +30,24 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    fast = [ ujson ];
+    fast = [ujson];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/*.py" ];
+  pytestFlagsArray = ["tests/*.py"];
 
   disabledTests = [
     # This test fail for unknown reason, I suspect it to be flaky.
     "test_invalid_country_code"
   ];
 
-  pythonImportsCheck = [ "ripe.atlas.sagan" ];
+  pythonImportsCheck = ["ripe.atlas.sagan"];
 
   meta = with lib; {
     description = "Parsing library for RIPE Atlas measurements results";
     homepage = "https://github.com/RIPE-NCC/ripe-atlas-sagan";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

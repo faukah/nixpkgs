@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "atlas-exporter";
   version = "1.0.4";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "atlas_exporter";
     homepage = "https://github.com/czerwonk/atlas_exporter";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ clerie ];
+    maintainers = with maintainers; [clerie];
   };
 }

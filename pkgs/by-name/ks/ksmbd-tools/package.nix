@@ -11,7 +11,6 @@
   pkg-config,
   withKerberos ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ksmbd-tools";
   version = "3.5.3";
@@ -23,10 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-f2B+24AboAWLIrtuHWn8YMEPzWahIafc3kfx0zKyz8g=";
   };
 
-  buildInputs = [
-    glib
-    libnl
-  ] ++ lib.optional withKerberos libkrb5;
+  buildInputs =
+    [
+      glib
+      libnl
+    ]
+    ++ lib.optional withKerberos libkrb5;
 
   nativeBuildInputs = [
     meson
@@ -34,7 +35,7 @@ stdenv.mkDerivation rec {
     libtool
     pkg-config
   ];
-  patches = [ ./0001-skip-installing-example-configuration.patch ];
+  patches = [./0001-skip-installing-example-configuration.patch];
   mesonFlags = [
     "-Drundir=/run"
     "-Dsystemdsystemunitdir=lib/systemd/system"

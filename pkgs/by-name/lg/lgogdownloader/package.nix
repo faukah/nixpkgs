@@ -15,10 +15,8 @@
   html-tidy,
   libsForQt5,
   testers,
-
   enableGui ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lgogdownloader";
   version = "3.17";
@@ -30,12 +28,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rERcwPVuioZT4lqw4SUaM0TQIks6ggA5x8fuI+1GAsk=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    help2man
-    html-tidy
-  ] ++ lib.optional enableGui libsForQt5.wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+      help2man
+      html-tidy
+    ]
+    ++ lib.optional enableGui libsForQt5.wrapQtAppsHook;
 
   buildInputs =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   cmakeFlags = lib.optional enableGui "-DUSE_QT_GUI=ON";
 
   passthru.tests = {
-    version = testers.testVersion { package = finalAttrs.finalPackage; };
+    version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "lgogdownloader";
     homepage = "https://github.com/Sude-/lgogdownloader";
     license = lib.licenses.wtfpl;
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     platforms = lib.platforms.linux;
   };
 })

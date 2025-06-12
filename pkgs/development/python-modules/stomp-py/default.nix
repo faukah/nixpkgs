@@ -3,18 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   docopt,
   websocket-client,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "stomp-py";
   version = "8.2.0";
@@ -42,13 +38,13 @@ buildPythonPackage rec {
 
   doCheck = false; # needs external services setup
 
-  pythonImportsCheck = [ "stomp" ];
+  pythonImportsCheck = ["stomp"];
 
   meta = {
     description = "Client library for accessing messaging servers (such as ActiveMQ or RabbitMQ) using the STOMP protocol";
     homepage = "https://github.com/jasonrbriggs/stomp.py";
     changelog = "https://github.com/jasonrbriggs/stomp.py/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

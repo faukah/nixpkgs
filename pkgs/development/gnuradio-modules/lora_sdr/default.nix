@@ -12,7 +12,6 @@
   python,
   gnuradioOlder,
 }:
-
 mkDerivation {
   pname = "gr-lora_sdr";
   version = "unstable-2025-01-09";
@@ -55,7 +54,7 @@ mkDerivation {
     description = "Fully-functional GNU Radio software-defined radio (SDR) implementation of a LoRa transceiver";
     homepage = "https://www.epfl.ch/labs/tcl/resources-and-sw/lora-phy/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.unix;
   };
 }

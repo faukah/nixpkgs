@@ -5,7 +5,6 @@
   cmake,
   buildExamples ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.7.1";
   pname = "nanoflann";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-A258WrJeHVrl5CMyzN2kq5fEOBaVU3VzrKWnEFNd35c=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_EXAMPLES" buildExamples)
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://github.com/jlblancoc/nanoflann/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

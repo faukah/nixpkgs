@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.intune;
-in
-{
+in {
   options.services.intune = {
     enable = lib.mkEnableOption "Microsoft Intune";
   };
@@ -18,7 +16,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.microsoft-identity-broker = { };
+    users.groups.microsoft-identity-broker = {};
     environment.systemPackages = [
       pkgs.microsoft-identity-broker
       pkgs.intune-portal
@@ -28,11 +26,11 @@ in
       pkgs.intune-portal
     ];
 
-    systemd.tmpfiles.packages = [ pkgs.intune-portal ];
-    services.dbus.packages = [ pkgs.microsoft-identity-broker ];
+    systemd.tmpfiles.packages = [pkgs.intune-portal];
+    services.dbus.packages = [pkgs.microsoft-identity-broker];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ rhysmdnz ];
+    maintainers = with lib.maintainers; [rhysmdnz];
   };
 }

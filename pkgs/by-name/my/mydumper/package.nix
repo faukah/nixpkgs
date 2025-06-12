@@ -21,7 +21,6 @@
   versionCheckHook,
   mydumper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mydumper";
   version = "0.18.1-1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   buildInputs =
@@ -73,13 +72,13 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = (
-    if stdenv.hostPlatform.isDarwin then
+    if stdenv.hostPlatform.isDarwin
+    then
       toString [
         "-Wno-error=deprecated-non-prototype"
         "-Wno-error=format"
       ]
-    else
-      "-Wno-error=maybe-uninitialized"
+    else "-Wno-error=maybe-uninitialized"
   );
 
   postPatch = ''

@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sqlitedict";
   version = "2.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-GfvvkQ6a75UBPn70IFOvjvL1MedSc4siiIjA3IsQnic=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     py
@@ -35,15 +34,15 @@ buildPythonPackage rec {
     mkdir tests/db
   '';
 
-  pythonImportsCheck = [ "sqlitedict" ];
+  pythonImportsCheck = ["sqlitedict"];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   meta = with lib; {
     description = "Persistent, thread-safe dict";
     homepage = "https://github.com/RaRe-Technologies/sqlitedict";
     changelog = "https://github.com/piskvorky/sqlitedict/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arnoldfarkas ];
+    maintainers = with maintainers; [arnoldfarkas];
   };
 }

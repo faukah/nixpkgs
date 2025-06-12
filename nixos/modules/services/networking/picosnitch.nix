@@ -4,21 +4,17 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.picosnitch;
-in
-{
+in {
   options.services.picosnitch = {
     enable = mkEnableOption "picosnitch daemon";
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.picosnitch ];
+    environment.systemPackages = [pkgs.picosnitch];
     systemd.services.picosnitch = {
       description = "picosnitch";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         Restart = "always";

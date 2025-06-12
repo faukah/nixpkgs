@@ -54,13 +54,13 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "pyoxigraph" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["pyoxigraph"];
 
   meta = {
     homepage = "https://github.com/oxigraph/oxigraph";
     description = "SPARQL graph database";
-    maintainers = with lib.maintainers; [ dadada ];
+    maintainers = with lib.maintainers; [dadada];
     license = with lib.licenses; [
       asl20
       mit

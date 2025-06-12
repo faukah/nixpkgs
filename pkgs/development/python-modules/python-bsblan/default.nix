@@ -17,7 +17,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-bsblan";
   version = "2.1.0";
@@ -38,9 +37,9 @@ buildPythonPackage rec {
 
   env.PACKAGE_VERSION = version;
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "async-timeout" ];
+  pythonRelaxDeps = ["async-timeout"];
 
   dependencies = [
     aiohttp
@@ -60,13 +59,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bsblan" ];
+  pythonImportsCheck = ["bsblan"];
 
   meta = with lib; {
     description = "Module to control and monitor an BSBLan device programmatically";
     homepage = "https://github.com/liudger/python-bsblan";
     changelog = "https://github.com/liudger/python-bsblan/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

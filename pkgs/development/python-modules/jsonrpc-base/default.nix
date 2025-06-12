@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jsonrpc-base";
   version = "2.2.0";
@@ -22,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-AbpuAW+wuGc+Vj4FDFlyB2YbiwDxPLuyAGiNcmGU+Ss=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "jsonrpc_base" ];
+  pythonImportsCheck = ["jsonrpc_base"];
 
   meta = with lib; {
     description = "JSON-RPC client library base interface";
     homepage = "https://github.com/emlove/jsonrpc-base";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

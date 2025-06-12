@@ -6,7 +6,6 @@
   nix-update-script,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ac-library";
   version = "1.6";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # We don't need -fno-strict-overflow because it will break UBSanitize's overflow check especially when the operation number is static definded.
-  hardeningDisable = [ "strictoverflow" ];
+  hardeningDisable = ["strictoverflow"];
 
   env = {
     NIX_CFLAGS_COMPILE = toString [
@@ -73,14 +72,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Official library of AtCoder";
     homepage = "https://github.com/atcoder/ac-library";
     license = lib.licenses.cc0;
     changelog = "https://github.com/atcoder/ac-library/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.all;
   };
 })

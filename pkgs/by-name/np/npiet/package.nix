@@ -9,7 +9,6 @@
   tk,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "npiet";
   version = "1.3f";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     libpng
   ];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   postPatch = ''
     # malloc.h is not needed because stdlib.h is already included.
@@ -39,18 +38,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.tests =
-    let
-      all-tests = callPackage ./tests { };
-    in
-    {
-      inherit (all-tests)
-        hello
-        prime
-        no-prime
-        brainfuck
-        ;
-    };
+  passthru.tests = let
+    all-tests = callPackage ./tests {};
+  in {
+    inherit
+      (all-tests)
+      hello
+      prime
+      no-prime
+      brainfuck
+      ;
+  };
 
   meta = {
     description = "Interpreter for piet programs. Also includes npietedit and npiet-foogol";
@@ -63,6 +61,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
     mainProgram = "npiet";
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 })

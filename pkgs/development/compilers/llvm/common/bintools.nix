@@ -6,14 +6,12 @@
   lld,
   version,
   release_version,
-}:
-
-let
+}: let
   targetPrefix = lib.optionalString (
     stdenv.hostPlatform != stdenv.targetPlatform
   ) "${stdenv.targetPlatform.config}-";
 in
-runCommand "llvm-binutils-${version}"
+  runCommand "llvm-binutils-${version}"
   {
     preferLocalBuild = true;
     passthru = {

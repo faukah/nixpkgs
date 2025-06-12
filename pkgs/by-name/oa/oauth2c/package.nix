@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "oauth2c";
   version = "1.17.2";
@@ -30,7 +29,7 @@ buildGoModule rec {
       almost all basic and advanced OAuth 2.0, OIDC, OIDF FAPI and JWT profiles.
     '';
     license = licenses.asl20;
-    maintainers = [ maintainers.flokli ];
+    maintainers = [maintainers.flokli];
     platforms = platforms.darwin ++ platforms.linux;
   };
 }

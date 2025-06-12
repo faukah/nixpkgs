@@ -14,7 +14,6 @@
   libpq,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "n8n";
   version = "1.95.2";

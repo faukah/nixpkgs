@@ -10,7 +10,6 @@
   django-cms,
   pytest-django,
 }:
-
 buildPythonPackage rec {
   pname = "djangocms-text-ckeditor";
   version = "5.1.7";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-xyl2TMXzyFaRGyBDku8fu++DE0G72cYv8AstPwcVnIM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django-cms
@@ -44,13 +43,13 @@ buildPythonPackage rec {
   # Tests require module "djangocms-helper" which is not yet packaged
   doCheck = false;
 
-  pythonImportsCheck = [ "djangocms_text_ckeditor" ];
+  pythonImportsCheck = ["djangocms_text_ckeditor"];
 
   meta = {
     description = "Text Plugin for django CMS using CKEditor 4";
     homepage = "https://github.com/django-cms/djangocms-text-ckeditor";
     changelog = "https://github.com/django-cms/djangocms-text-ckeditor/blob/${version}/CHANGELOG.rst";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

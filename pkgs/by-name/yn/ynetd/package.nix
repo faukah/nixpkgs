@@ -25,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   # ctf-ynetd releases are based on the last stable ynetd version
   # these should be kept in sync when possible
-  passthru.hardened = callPackage ./hardened.nix { };
+  passthru.hardened = callPackage ./hardened.nix {};
 
   meta = {
     description = "Small server for binding programs to TCP ports";
     homepage = "https://yx7.cc/code/";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.haylin ];
+    maintainers = [lib.maintainers.haylin];
     mainProgram = "ynetd";
   };
 })

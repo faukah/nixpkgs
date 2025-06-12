@@ -8,7 +8,6 @@
   unittestCheckHook,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "beziers";
   version = "0.6.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-NjmWsRz/NPPwXPbiSaOeKJMrYmSyNTt5ikONyAljgvM=";
   };
 
-  propagatedBuildInputs = [ pyclipper ];
+  propagatedBuildInputs = [pyclipper];
 
   nativeCheckInputs = [
     dotmap
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     "-v"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Python library for manipulating Bezier curves and paths in fonts";
     homepage = "https://github.com/simoncozens/beziers.py";
     license = licenses.mit;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

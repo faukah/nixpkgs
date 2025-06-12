@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "yor";
   version = "0.1.200";
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/bridgecrewio/yor";
     changelog = "https://github.com/bridgecrewio/yor/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
   };
 }

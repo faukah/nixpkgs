@@ -8,7 +8,6 @@
   enableXmlpipe2 ? false,
   enableMysql ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sphinxsearch";
   version = "2.2.11";

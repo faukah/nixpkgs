@@ -13,7 +13,6 @@
   mirage-clock,
   uri,
 }:
-
 buildDunePackage {
   pname = "irmin-mirage-git";
 

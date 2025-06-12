@@ -13,7 +13,6 @@
   kquickimageedit,
   tesseract,
 }:
-
 mkDerivation {
   pname = "mauikit-imagetools";
 
@@ -38,6 +37,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-imagetools";
     description = "MauiKit Image Tools Components";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

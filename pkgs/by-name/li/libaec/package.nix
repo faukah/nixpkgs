@@ -4,7 +4,6 @@
   fetchFromGitLab,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libaec";
   version = "1.1.3";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.dkrz.de/k202009/libaec";
     description = "Adaptive Entropy Coding library";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

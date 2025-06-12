@@ -8,7 +8,6 @@
   dash-bootstrap-components,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "dash-bootstrap-templates";
   version = "1.3.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "dash_bootstrap_templates" ];
+  pythonImportsCheck = ["dash_bootstrap_templates"];
 
   # There are no tests.
   doCheck = false;
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/AnnMarieW/dash-bootstrap-templates";
     changelog = "https://github.com/AnnMarieW/dash-bootstrap-templates/releases/tag/V${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

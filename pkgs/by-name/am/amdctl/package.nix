@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "amdctl";
   version = "0.11";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     mainProgram = "amdctl";
     homepage = "https://github.com/kevinlekiller/amdctl";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

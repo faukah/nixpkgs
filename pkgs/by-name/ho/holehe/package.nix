@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "holehe";
   version = "unstable-2023-05-18";
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "holehe";
     homepage = "https://github.com/megadose/holehe";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

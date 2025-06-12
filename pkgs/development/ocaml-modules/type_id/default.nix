@@ -5,7 +5,6 @@
   alcotest,
   type_eq,
 }:
-
 buildDunePackage rec {
   pname = "type_id";
   version = "0.0.1";
@@ -32,6 +31,6 @@ buildDunePackage rec {
     homepage = "https://github.com/skolemlabs/type_id";
     changelog = "https://github.com/skolemlabs/type_id/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

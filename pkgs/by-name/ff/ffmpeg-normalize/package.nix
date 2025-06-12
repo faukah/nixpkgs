@@ -4,7 +4,6 @@
   fetchPypi,
   ffmpeg,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ffmpeg-normalize";
   version = "1.31.3";
@@ -15,13 +14,12 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-sewDSBUX6gCZSIHeRtpx5fQGtOKN8OWZKrtCF2bgI9Y=";
   };
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       colorlog
       ffmpeg-progress-yield
     ]
-    ++ [ ffmpeg ];
+    ++ [ffmpeg];
 
   checkPhase = ''
     runHook preCheck

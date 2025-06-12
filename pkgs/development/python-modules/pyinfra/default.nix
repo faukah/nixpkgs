@@ -17,7 +17,6 @@
   typeguard,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pyinfra";
   version = "3.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-l0RD4lOLjzM9Ydf7vJr+PXpUGsVdAZN/dTUFJ3fo078=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
     [
@@ -47,12 +46,12 @@ buildPythonPackage rec {
       setuptools
       typeguard
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [typing-extensions]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyinfra" ];
+  pythonImportsCheck = ["pyinfra"];
 
   disabledTests = [
     # Test requires SSH binary
@@ -69,7 +68,7 @@ buildPythonPackage rec {
     downloadPage = "https://pyinfra.com/Fizzadar/pyinfra/releases";
     changelog = "https://github.com/Fizzadar/pyinfra/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
     mainProgram = "pyinfra";
   };
 }

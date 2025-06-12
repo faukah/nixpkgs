@@ -3,20 +3,17 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.pict-rs;
   inherit (lib) maintainers mkOption types;
-in
-{
-  meta.maintainers = with maintainers; [ happysalada ];
+in {
+  meta.maintainers = with maintainers; [happysalada];
   meta.doc = ./pict-rs.md;
 
   options.services.pict-rs = {
     enable = lib.mkEnableOption "pict-rs server";
 
-    package = lib.mkPackageOption pkgs "pict-rs" { };
+    package = lib.mkPackageOption pkgs "pict-rs" {};
 
     dataDir = mkOption {
       type = types.path;
@@ -63,8 +60,8 @@ in
 
   config = lib.mkIf cfg.enable {
     services.pict-rs.package = lib.mkDefault (
-      if lib.versionAtLeast config.system.stateVersion "23.11" then
-        pkgs.pict-rs
+      if lib.versionAtLeast config.system.stateVersion "23.11"
+      then pkgs.pict-rs
       else
         throw ''
           pict-rs made changes to the database schema between 0.3 and 0.4. It
@@ -111,11 +108,17 @@ in
 
     systemd.services.pict-rs = {
       environment = {
-        PICTRS__REPO__PATH = if cfg.repoPath != null then cfg.repoPath else "${cfg.dataDir}/sled-repo";
-        PICTRS__STORE__PATH = if cfg.storePath != null then cfg.storePath else "${cfg.dataDir}/files";
+        PICTRS__REPO__PATH =
+          if cfg.repoPath != null
+          then cfg.repoPath
+          else "${cfg.dataDir}/sled-repo";
+        PICTRS__STORE__PATH =
+          if cfg.storePath != null
+          then cfg.storePath
+          else "${cfg.dataDir}/files";
         PICTRS__SERVER__ADDRESS = "${cfg.address}:${toString cfg.port}";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "pict-rs";
@@ -123,5 +126,4 @@ in
       };
     };
   };
-
 }

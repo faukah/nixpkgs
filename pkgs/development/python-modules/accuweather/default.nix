@@ -12,7 +12,6 @@
   setuptools,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "accuweather";
   version = "4.2.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-Ria725YXHgVLH3jOK5lV9Ux9UfUJtgF+/QMC3lJ/Dcg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "accuweather" ];
+  pythonImportsCheck = ["accuweather"];
 
   meta = {
     description = "Python wrapper for getting weather data from AccuWeather servers";
     homepage = "https://github.com/bieniu/accuweather";
     changelog = "https://github.com/bieniu/accuweather/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jamiemagee ];
+    maintainers = with lib.maintainers; [jamiemagee];
   };
 }

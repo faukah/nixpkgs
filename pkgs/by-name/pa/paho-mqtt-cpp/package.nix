@@ -8,7 +8,6 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "paho.mqtt.cpp";
   version = "1.5.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vwfWcJqAWY4Em4MxZVcvOi6pzXAYYlOrKh6peMtjcXo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openssl
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Eclipse Paho MQTT C++ Client Library";
     homepage = "https://www.eclipse.org/paho/";
     license = lib.licenses.epl10;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

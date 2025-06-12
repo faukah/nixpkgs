@@ -9,7 +9,6 @@
   ipaddr,
   ipaddr-sexp,
 }:
-
 buildDunePackage rec {
   pname = "conduit";
   version = "8.0.0";

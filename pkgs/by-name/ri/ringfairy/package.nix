@@ -19,15 +19,15 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Sa8vGQkE31r8hr53q46FzfEievlLJvBTvvOzqHyZEFY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "Static webring generator in Rust";
     homepage = "https://github.com/k3rs3d/ringfairy";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ uncenter ];
+    maintainers = with lib.maintainers; [uncenter];
     mainProgram = "ringfairy";
   };
 }

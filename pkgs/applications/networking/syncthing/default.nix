@@ -8,15 +8,12 @@
   nixosTests,
   autoSignDarwinBinariesHook,
   nix-update-script,
-}:
-
-let
-  common =
-    {
-      stname,
-      target,
-      postInstall ? "",
-    }:
+}: let
+  common = {
+    stname,
+    target,
+    postInstall ? "",
+  }:
     buildGoModule rec {
       pname = stname;
       version = "1.29.5";
@@ -65,7 +62,8 @@ let
 
       passthru = {
         tests = {
-          inherit (nixosTests)
+          inherit
+            (nixosTests)
             syncthing
             syncthing-init
             syncthing-many-devices
@@ -73,7 +71,7 @@ let
             syncthing-relay
             ;
         };
-        updateScript = nix-update-script { };
+        updateScript = nix-update-script {};
       };
 
       meta = {
@@ -89,9 +87,7 @@ let
         platforms = lib.platforms.unix;
       };
     };
-
-in
-{
+in {
   syncthing = common {
     stname = "syncthing";
     target = "syncthing";

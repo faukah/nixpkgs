@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "vacuum-card";
   version = "2.11.0";
@@ -32,7 +31,7 @@ buildNpmPackage rec {
     description = "Vacuum cleaner card for Home Assistant Lovelace UI";
     homepage = "https://github.com/denysdovhan/vacuum-card";
     license = licenses.mit;
-    maintainers = with maintainers; [ baksa ];
+    maintainers = with maintainers; [baksa];
     platforms = platforms.all;
   };
 }

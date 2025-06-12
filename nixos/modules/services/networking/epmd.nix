@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.epmd;
-in
-{
+in {
   ###### interface
   options.services.epmd = {
     enable = lib.mkOption {
@@ -19,7 +17,7 @@ in
         Erlang computations.
       '';
     };
-    package = lib.mkPackageOption pkgs "erlang" { };
+    package = lib.mkPackageOption pkgs "erlang" {};
     listenStream = lib.mkOption {
       type = lib.types.str;
       default = "[::]:4369";
@@ -42,7 +40,7 @@ in
     ];
     systemd.sockets.epmd = rec {
       description = "Erlang Port Mapper Daemon Activation Socket";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       before = wantedBy;
       socketConfig = {
         ListenStream = cfg.listenStream;
@@ -52,8 +50,8 @@ in
 
     systemd.services.epmd = {
       description = "Erlang Port Mapper Daemon";
-      after = [ "network.target" ];
-      requires = [ "epmd.socket" ];
+      after = ["network.target"];
+      requires = ["epmd.socket"];
 
       serviceConfig = {
         DynamicUser = true;

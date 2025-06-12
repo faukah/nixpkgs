@@ -4,11 +4,11 @@
   lib,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.glances;
 
-  inherit (lib)
+  inherit
+    (lib)
     getExe
     maintainers
     mkEnableOption
@@ -17,23 +17,23 @@ let
     mkPackageOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     listOf
     port
     str
     ;
 
-  inherit (utils)
+  inherit
+    (utils)
     escapeSystemdExecArgs
     ;
-
-in
-{
+in {
   options.services.glances = {
     enable = mkEnableOption "Glances";
 
-    package = mkPackageOption pkgs "glances" { };
+    package = mkPackageOption pkgs "glances" {};
 
     port = mkOption {
       description = "Port the server will isten on.";
@@ -49,7 +49,7 @@ in
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [ "--webserver" ];
+      default = ["--webserver"];
       example = [
         "--webserver"
         "--disable-webui"
@@ -63,14 +63,13 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services."glances" = {
       description = "Glances";
-      documentation = [ "man:glances(1)" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["man:glances(1)"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -97,15 +96,15 @@ in
         LockPersonality = true;
         RestrictRealtime = true;
         ProtectClock = true;
-        ReadWritePaths = [ "/var/log" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        SystemCallFilter = [ "@system-service" ];
+        ReadWritePaths = ["/var/log"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        SystemCallFilter = ["@system-service"];
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
 
-  meta.maintainers = with maintainers; [ claha ];
+  meta.maintainers = with maintainers; [claha];
 }

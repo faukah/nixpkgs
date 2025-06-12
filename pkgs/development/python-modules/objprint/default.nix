@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "objprint";
   version = "0.3.0";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-+OS034bikrKy4F27b6ic97fHTW6rSMxQ0dx4caF6cUM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "objprint" ];
+  pythonImportsCheck = ["objprint"];
 
   meta = {
     description = "Library that can print Python objects in human readable format";
     homepage = "https://github.com/gaogaotiantian/objprint";
     changelog = "https://github.com/gaogaotiantian/objprint/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

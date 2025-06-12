@@ -12,7 +12,6 @@
   rtld,
   version,
 }:
-
 symlinkJoin rec {
   name = "${pname}-${version}";
   pname = "libc-openbsd";
@@ -26,23 +25,23 @@ symlinkJoin rec {
 
   paths =
     lib.concatMap
-      (p: [
-        (lib.getDev p)
-        (lib.getLib p)
-        (lib.getMan p)
-      ])
-      (
-        [
-          libcMinimal
-          libm
-          librthread
-          librpcsvc
-          libutil
-          libexecinfo
-          libkvm
-        ]
-        ++ (lib.optional (!stdenvNoLibc.hostPlatform.isStatic) rtld)
-      );
+    (p: [
+      (lib.getDev p)
+      (lib.getLib p)
+      (lib.getMan p)
+    ])
+    (
+      [
+        libcMinimal
+        libm
+        librthread
+        librpcsvc
+        libutil
+        libexecinfo
+        libkvm
+      ]
+      ++ (lib.optional (!stdenvNoLibc.hostPlatform.isStatic) rtld)
+    );
 
   postBuild = ''
     rm -r "$out/nix-support"

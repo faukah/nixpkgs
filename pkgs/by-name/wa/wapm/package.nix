@@ -6,7 +6,6 @@
   openssl,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wapm-cli";
   version = "0.5.9";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-GW5/1/RsS5jn6DoR+wGpwNzUW+nN45cxpE85XbnXqso=";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     libiconv
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "Package manager for WebAssembly modules";
     mainProgram = "wapm";
     homepage = "https://docs.wasmer.io/ecosystem/wapm";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.lucperkins ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.lucperkins];
   };
 }

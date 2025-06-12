@@ -17,7 +17,6 @@
   lv2,
   gcc-unwrapped,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chow-centaur";
   version = "1.4.0";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Digital emulation of the Klon Centaur guitar pedal using RNNs, Wave Digital Filters, and more";
     homepage = "https://github.com/jatinchowdhury18/KlonCentaur";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ magnetophon ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [magnetophon];
   };
 })

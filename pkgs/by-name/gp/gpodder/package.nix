@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   xdg-utils,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gpodder";
   version = "3.11.4";
@@ -77,9 +76,9 @@ python3Packages.buildPythonApplication rec {
     LC_ALL=C PYTHONPATH=src/:$PYTHONPATH pytest tests --ignore=src/gpodder/utilwin32ctypes.py --ignore=src/mygpoclient --cov=gpodder
   '';
 
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [xdg-utils]}"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Podcatcher written in python";
@@ -90,6 +89,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "http://gpodder.org/";
     license = licenses.gpl3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

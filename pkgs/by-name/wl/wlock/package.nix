@@ -49,7 +49,7 @@ stdenv.mkDerivation {
     license = lib.licenses.gpl3;
     homepage = "https://codeberg.org/sewn/wlock";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
     mainProgram = "wlock";
   };
 }

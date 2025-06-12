@@ -8,7 +8,6 @@
   libarchive,
   libpng,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "CEmu";
   version = "2.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "CEmu";
     homepage = "https://ce-programming.github.io/CEmu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

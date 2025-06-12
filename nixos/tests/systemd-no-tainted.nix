@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "systemd-no-tainted";
 
-  nodes.machine = { };
+  nodes.machine = {};
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

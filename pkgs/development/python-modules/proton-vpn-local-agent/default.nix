@@ -7,7 +7,6 @@
   cargo,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "proton-vpn-local-agent";
   version = "1.4.5";
@@ -55,13 +54,13 @@ buildPythonPackage rec {
     runHook postInstall
   '';
 
-  pythonImportsCheck = [ "proton.vpn.local_agent" ];
+  pythonImportsCheck = ["proton.vpn.local_agent"];
 
   meta = {
     description = "Proton VPN local agent written in Rust with Python bindings";
     homepage = "https://github.com/ProtonVPN/python-proton-vpn-local-agent";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ sebtm ];
+    maintainers = with lib.maintainers; [sebtm];
   };
 }

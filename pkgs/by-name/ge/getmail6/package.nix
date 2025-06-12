@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "getmail6";
   version = "6.19.08";
@@ -23,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
   # needs a Docker setup
   doCheck = false;
 
-  pythonImportsCheck = [ "getmailcore" ];
+  pythonImportsCheck = ["getmailcore"];
 
   postPatch = ''
     # getmail spends a lot of effort to build an absolute path for

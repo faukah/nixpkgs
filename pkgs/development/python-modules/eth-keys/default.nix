@@ -16,7 +16,6 @@
   eth-hash,
   isPyPy,
 }:
-
 buildPythonPackage rec {
   pname = "eth-keys";
   version = "0.6.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-HyOfuzwldtqjjowW7HGdZ8RNMXNK3y2NrXUoeMlWJjs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     eth-typing
@@ -48,10 +47,10 @@ buildPythonPackage rec {
     ++ lib.optional (!isPyPy) eth-hash.optional-dependencies.pysha3
     ++ lib.optional isPyPy eth-hash.optional-dependencies.pycryptodome;
 
-  pythonImportsCheck = [ "eth_keys" ];
+  pythonImportsCheck = ["eth_keys"];
 
   optional-dependencies = {
-    coincurve = [ coincurve ];
+    coincurve = [coincurve];
   };
 
   meta = {
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ethereum/eth-keys";
     changelog = "https://github.com/ethereum/eth-keys/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

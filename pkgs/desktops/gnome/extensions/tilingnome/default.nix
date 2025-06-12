@@ -5,7 +5,6 @@
   glib,
   gnome-shell,
 }:
-
 stdenv.mkDerivation {
   pname = "gnome-shell-extension-tilingnome";
   version = "unstable-2019-09-19";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "1hq9g9bxqpzqrdj9zm0irld8r6q4w1m4b00jya7wsny8rzb1s0y2";
   };
 
-  nativeBuildInputs = [ glib ];
+  nativeBuildInputs = [glib];
 
   buildPhase = ''
     runHook preBuild
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Tiling window management for GNOME Shell";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
     homepage = "https://github.com/rliang/gnome-shell-extension-tilingnome";
     platforms = gnome-shell.meta.platforms;
   };

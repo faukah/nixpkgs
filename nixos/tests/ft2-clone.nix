@@ -1,18 +1,15 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "ft2-clone";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
-      environment.systemPackages = [ pkgs.ft2-clone ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    imports = [
+      ./common/x11.nix
+    ];
+    environment.systemPackages = [pkgs.ft2-clone];
+  };
 
   enableOCR = true;
 

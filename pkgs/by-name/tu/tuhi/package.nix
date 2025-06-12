@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tuhi";
   version = "0.6";
@@ -71,6 +70,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/tuhiproject/tuhi";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lammermann ];
+    maintainers = with maintainers; [lammermann];
   };
 }

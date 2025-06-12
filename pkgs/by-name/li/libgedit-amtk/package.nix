@@ -15,7 +15,6 @@
   dbus,
   xvfb-run,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgedit-amtk";
   version = "5.9.1";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     runHook postCheck
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://gitlab.gnome.org/World/gedit/libgedit-amtk";

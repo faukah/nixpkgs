@@ -6,7 +6,6 @@
   unittestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pycparser";
   version = "2.22";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-SRyL6cBA9TkPW/RKWwd1K9B/Vu35kjgbBccBQ57sEPY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
   disabled = pythonOlder "3.8";
 
   unittestFlagsArray = [
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "C parser in Python";
     homepage = "https://github.com/eliben/pycparser";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

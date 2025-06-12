@@ -10,7 +10,6 @@
   json_c,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freesasa";
   version = "2.1.2";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       # https://github.com/mittinatten/freesasa/issues/85
       name = "fix-linker-error.patch";
       url = "https://github.com/mittinatten/freesasa/commit/d5898c13af0f272697726c567a22f1c48af53d62.patch";
-      includes = [ "src/Makefile.am" ];
+      includes = ["src/Makefile.am"];
       hash = "sha256-NA4jMue9ATxP+A0tYIptwz0qCXTmAqoMRBsi5d5uv3E=";
     })
   ];
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = finalAttrs.finalPackage; };
+    version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = {
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mittinatten/freesasa";
     changelog = "https://github.com/mittinatten/freesasa/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "freesasa";
     platforms = lib.platforms.unix;
   };

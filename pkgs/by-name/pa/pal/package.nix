@@ -7,7 +7,6 @@
   readline,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pal";
   version = "0.4.3";
@@ -21,22 +20,22 @@ stdenv.mkDerivation rec {
     sed -i -e 's,/etc/pal\.conf,'$out/etc/pal.conf, src/input.c
   '';
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gettext
     readline
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://palcal.sourceforge.net/";
     description = "Command-line calendar program that can keep track of events";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

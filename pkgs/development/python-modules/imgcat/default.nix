@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   matplotlib,
   numpy,
   pillow,
@@ -11,7 +10,6 @@
   tensorflow,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "imgcat";
   version = "0.6.0";
@@ -29,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner<5.0'" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     matplotlib
@@ -40,13 +38,13 @@ buildPythonPackage rec {
     torch
   ];
 
-  pythonImportsCheck = [ "imgcat" ];
+  pythonImportsCheck = ["imgcat"];
 
   meta = {
     description = "Imgcat in Python";
     homepage = "https://github.com/wookayin/python-imgcat";
     changelog = "https://github.com/wookayin/python-imgcat/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

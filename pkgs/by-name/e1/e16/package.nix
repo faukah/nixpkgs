@@ -20,7 +20,6 @@
   python3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "e16";
   version = "1.0.30";
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Enlightenment DR16 window manager";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

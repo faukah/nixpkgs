@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/hoytech/strfry";
     mainProgram = "strfry";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ felixzieger ];
+    maintainers = with lib.maintainers; [felixzieger];
     platforms = lib.platforms.linux;
   };
 }

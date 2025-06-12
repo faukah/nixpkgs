@@ -4,7 +4,6 @@
   fetchurl,
   makeWrapper,
 }:
-
 appimageTools.wrapAppImage rec {
   pname = "protonup-qt";
   version = "2.12.0";
@@ -17,7 +16,7 @@ appimageTools.wrapAppImage rec {
     };
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   extraInstallCommands = ''
     install -Dm644 ${src}/net.davidotek.pupgui2.desktop $out/share/applications/protonup-qt.desktop
@@ -30,16 +29,16 @@ appimageTools.wrapAppImage rec {
       --unset QML2_IMPORT_PATH
   '';
 
-  extraPkgs = pkgs: with pkgs; [ zstd ];
+  extraPkgs = pkgs: with pkgs; [zstd];
 
   meta = {
     homepage = "https://davidotek.github.io/protonup-qt/";
     description = "Install and manage Proton-GE and Luxtorpeda for Steam and Wine-GE for Lutris with this graphical user interface";
     license = lib.licenses.gpl3Plus;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "protonup-qt";
     changelog = "https://github.com/DavidoTek/ProtonUp-Qt/releases/tag/v${version}";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ michaelBelsanti ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [michaelBelsanti];
   };
 }

@@ -5,7 +5,6 @@
   libglvnd,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "cnping";
   version = "1.0.0-unstable-2024-02-29";
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
       mit
       bsd3
     ]; # dual licensed, MIT-x11 & BSD-3-Clause
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "cnping";
   };

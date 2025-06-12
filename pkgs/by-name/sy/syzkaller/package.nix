@@ -21,20 +21,18 @@ stdenv.mkDerivation (finalAttrs: {
     ncurses
   ];
 
-  postPatch =
-    let
-      commitDate = lib.concatStringsSep "" (
-        builtins.tail (lib.splitString "-" (lib.removePrefix "0-" finalAttrs.version))
-      );
-      dateString = "${commitDate}-133700"; # commit date + dummy time
-    in
-    ''
-      substituteInPlace Makefile \
-        --replace-fail '$(shell git rev-parse HEAD)' '${finalAttrs.src.rev}' \
-        --replace-fail '$(shell git diff --shortstat)' "" \
-        --replace-fail '$(shell git log -n 1 --format="%cd" --date=format:%Y%m%d-%H%M%S)' '${dateString}' \
-        --replace-fail './bin' "$out/bin"
-    '';
+  postPatch = let
+    commitDate = lib.concatStringsSep "" (
+      builtins.tail (lib.splitString "-" (lib.removePrefix "0-" finalAttrs.version))
+    );
+    dateString = "${commitDate}-133700"; # commit date + dummy time
+  in ''
+    substituteInPlace Makefile \
+      --replace-fail '$(shell git rev-parse HEAD)' '${finalAttrs.src.rev}' \
+      --replace-fail '$(shell git diff --shortstat)' "" \
+      --replace-fail '$(shell git log -n 1 --format="%cd" --date=format:%Y%m%d-%H%M%S)' '${dateString}' \
+      --replace-fail './bin' "$out/bin"
+  '';
 
   configurePhase = ''
     runHook preConfigure
@@ -53,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Unsupervised, coverage-guided kernel fuzzer";
     homepage = "https://github.com/google/syzkaller";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.msanft ];
+    maintainers = [lib.maintainers.msanft];
     platforms = lib.platforms.linux;
     mainProgram = "syz-manager";
   };

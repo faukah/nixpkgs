@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "morf";
   version = "1.0.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/amrudesh1/morf";
     changelog = "https://github.com/amrudesh1/morf/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "morf";
   };
 }

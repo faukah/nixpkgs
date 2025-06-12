@@ -9,7 +9,6 @@
   protobuf,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "keepkey";
   version = "7.2.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # tests requires hardware
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     mainProgram = "keepkeyctl";
     homepage = "https://github.com/keepkey/python-keepkey";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

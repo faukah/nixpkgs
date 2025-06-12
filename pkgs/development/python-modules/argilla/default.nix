@@ -59,13 +59,12 @@
   typer,
   uvicorn,
   wrapt,
-# , flair
-# , setfit
-# , spacy-huggingface-hub
-# , span_marker
-# , trl
+  # , flair
+  # , setfit
+  # , spacy-huggingface-hub
+  # , span_marker
+  # , trl
 }:
-
 buildPythonPackage rec {
   pname = "argilla";
   version = "2.8.0";
@@ -90,7 +89,7 @@ buildPythonPackage rec {
     "wrapt"
   ];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     httpx
@@ -144,28 +143,30 @@ buildPythonPackage rec {
       schedule
       prodict
     ];
-    integrations = [
-      cleanlab
-      evaluate
-      faiss
-      flyingsquid
-      openai
-      peft
-      pgmpy
-      plotly
-      pyyaml
-      sentence-transformers
-      seqeval
-      snorkel
-      spacy
-      spacy-transformers
-      transformers
-      # flair
-      # setfit
-      # span_marker
-      # trl
-      # spacy-huggingface-hub
-    ] ++ transformers.optional-dependencies.torch;
+    integrations =
+      [
+        cleanlab
+        evaluate
+        faiss
+        flyingsquid
+        openai
+        peft
+        pgmpy
+        plotly
+        pyyaml
+        sentence-transformers
+        seqeval
+        snorkel
+        spacy
+        spacy-transformers
+        transformers
+        # flair
+        # setfit
+        # span_marker
+        # trl
+        # spacy-huggingface-hub
+      ]
+      ++ transformers.optional-dependencies.torch;
   };
 
   # Still quite a bit of optional dependencies missing
@@ -175,21 +176,23 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-mock
-    pytest-asyncio
-    factory-boy
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-mock
+      pytest-asyncio
+      factory-boy
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  disabledTestPaths = [ "tests/server/datasets/test_dao.py" ];
+  disabledTestPaths = ["tests/server/datasets/test_dao.py"];
 
   meta = with lib; {
     description = "Open-source data curation platform for LLMs";
     homepage = "https://github.com/argilla-io/argilla";
     changelog = "https://github.com/argilla-io/argilla/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     mainProgram = "argilla";
   };
 }

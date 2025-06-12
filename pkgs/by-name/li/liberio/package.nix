@@ -6,7 +6,6 @@
   systemd,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liberio";
   version = "unstable-2019-12-11";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Ettus Research DMA I/O Library";
     homepage = "https://github.com/EttusResearch/liberio";
     license = licenses.gpl2;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
     platforms = platforms.all;
   };
 })

@@ -25,7 +25,6 @@
   ufonormalizer,
   ufoprocessor,
 }:
-
 buildPythonPackage rec {
   pname = "afdko";
   version = "4.0.2";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256:0955dvbydifhgx9gswbf5drsmmghry7iyf6jwz6qczhj86clswcm";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeBuildInputs = [
     scikit-build
@@ -101,7 +100,7 @@ buildPythonPackage rec {
   # Use system libxml2
   FORCE_SYSTEM_LIBXML2 = true;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export PATH=$PATH:$out/bin
@@ -146,7 +145,7 @@ buildPythonPackage rec {
     ];
 
   passthru.tests = {
-    fullTestsuite = afdko.override { runAllTests = true; };
+    fullTestsuite = afdko.override {runAllTests = true;};
   };
 
   meta = with lib; {
@@ -154,6 +153,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/adobe-type-tools/afdko/blob/${version}/NEWS.md";
     homepage = "https://adobe-type-tools.github.io/afdko";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "paralus-cli";
   version = "0.1.5";
@@ -33,7 +32,7 @@ buildGoModule rec {
     '';
     homepage = "https://www.paralus.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kashw2 ];
+    maintainers = with maintainers; [kashw2];
     mainProgram = "paralus";
   };
 }

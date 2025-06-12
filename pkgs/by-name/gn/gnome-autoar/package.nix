@@ -12,7 +12,6 @@
   libarchive,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-autoar";
   version = "0.4.5";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl21Plus;
     description = "Library to integrate compressed files management with GNOME";
   };

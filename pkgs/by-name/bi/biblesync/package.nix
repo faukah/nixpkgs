@@ -6,9 +6,7 @@
   cmake,
   libuuid,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "biblesync";
   version = "2.1.0";
 
@@ -23,7 +21,7 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [ libuuid ];
+  buildInputs = [libuuid];
 
   meta = with lib; {
     homepage = "https://wiki.crosswire.org/BibleSync";
@@ -38,7 +36,7 @@ stdenv.mkDerivation rec {
       navigation, and handling of incoming packets.
     '';
     license = licenses.publicDomain;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

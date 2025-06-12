@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cel-go";
   version = "0.21.0";
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/google/cel-go";
     changelog = "https://github.com/google/cel-go/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pypinyin";
   version = "0.54.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
       "--cov-report term-missing" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   meta = with lib; {
     description = "Chinese Characters to Pinyin - 汉字转拼音";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mozillazg/python-pinyin";
     changelog = "https://github.com/mozillazg/python-pinyin/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

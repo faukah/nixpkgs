@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "kubectl-ai";
   version = "0.0.11";
@@ -18,7 +17,7 @@ buildGoModule (finalAttrs: {
   vendorHash = "sha256-gufDSIDmC8jtLgY+mg13pc5njGWxAk0osZpOh7RBsHA=";
 
   # Build the main command
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   postInstall = ''
     mv $out/bin/{cmd,kubectl-ai}
@@ -37,7 +36,7 @@ buildGoModule (finalAttrs: {
     description = "AI powered Kubernetes Assistant";
     homepage = "https://github.com/GoogleCloudPlatform/kubectl-ai";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pilz ];
+    maintainers = with lib.maintainers; [pilz];
     mainProgram = "kubectl-ai";
   };
 })

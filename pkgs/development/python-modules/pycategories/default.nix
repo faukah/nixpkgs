@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pycategories";
   version = "1.2.0";
@@ -28,15 +27,15 @@ buildPythonPackage rec {
 
   # Is private because the author states it's unmaintained
   # and shouldn't be used in production code
-  propagatedBuildInputs = [ (callPackage ./infix.nix { }) ];
+  propagatedBuildInputs = [(callPackage ./infix.nix {})];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Implementation of some concepts from category theory";
     homepage = "https://gitlab.com/danielhones/pycategories";
     changelog = "https://gitlab.com/danielhones/pycategories/-/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dmvianna ];
+    maintainers = with maintainers; [dmvianna];
   };
 }

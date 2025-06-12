@@ -39,14 +39,14 @@ stdenv.mkDerivation (finalAttrs: {
     lksctp-tools
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Implementation of the Diameter Protocol";
     homepage = "https://github.com/freeDiameter/freeDiameter";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [];
   };
 })

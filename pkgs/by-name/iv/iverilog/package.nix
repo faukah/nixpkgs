@@ -15,7 +15,6 @@
   zlib,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iverilog";
   version = "12.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "steveicarus";
     repo = "iverilog";
-    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-J9hedSmC6mFVcoDnXBtaTXigxrSCFa2AhhFd77ueo7I=";
   };
 
@@ -72,9 +71,10 @@ stdenv.mkDerivation rec {
   nativeInstallCheckInputs = [
     perl
     (python3.withPackages (
-      pp: with pp; [
-        docopt
-      ]
+      pp:
+        with pp; [
+          docopt
+        ]
     ))
   ];
 
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = platforms.all;
   };
 }

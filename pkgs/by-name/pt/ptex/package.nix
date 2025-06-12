@@ -5,7 +5,6 @@
   zlib,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ptex";
   version = "2.4.2";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
     "lib"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ zlib ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "Per-Face Texture Mapping for Production Rendering";
@@ -33,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ptex.us/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
   };
 }

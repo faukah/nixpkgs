@@ -16,10 +16,9 @@
   qtx11extras,
   libXdmcp,
 }:
-
 mkDerivation {
   pname = "oxygen";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   propagatedBuildInputs = [
     frameworkintegration
     kcmutils

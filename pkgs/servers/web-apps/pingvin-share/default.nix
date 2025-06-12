@@ -2,9 +2,7 @@
   callPackage,
   fetchFromGitHub,
   recurseIntoAttrs,
-}:
-
-let
+}: let
   version = "1.13.0";
   src = fetchFromGitHub {
     owner = "stonith404";
@@ -13,9 +11,8 @@ let
     hash = "sha256-FWc0Yo2Phh8ee5izHj0ol1pwLSVJgIqyeaJo1o4drsM=";
   };
 in
+  recurseIntoAttrs {
+    backend = callPackage ./backend.nix {inherit src version;};
 
-recurseIntoAttrs {
-  backend = callPackage ./backend.nix { inherit src version; };
-
-  frontend = callPackage ./frontend.nix { inherit src version; };
-}
+    frontend = callPackage ./frontend.nix {inherit src version;};
+  }

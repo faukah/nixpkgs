@@ -7,7 +7,6 @@
   stdenv,
   swig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "plfit";
   version = "1.0.1";
@@ -53,6 +52,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ntamas/plfit";
     changelog = "https://github.com/ntamas/plfit/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 })

@@ -5,7 +5,6 @@
   ncurses,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ttyplot";
   version = "1.7.1";
@@ -25,14 +24,14 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Simple general purpose plotting utility for tty with data input from stdin";
     homepage = "https://github.com/tenox7/ttyplot";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
     mainProgram = "ttyplot";
   };
 }

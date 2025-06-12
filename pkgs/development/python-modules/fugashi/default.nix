@@ -11,7 +11,6 @@
   unidic,
   unidic-lite,
 }:
-
 buildPythonPackage rec {
   pname = "fugashi";
   version = "1.3.0";
@@ -31,27 +30,29 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [
-    ipadic
-    pytestCheckHook
-  ] ++ optional-dependencies.unidic-lite;
+  nativeCheckInputs =
+    [
+      ipadic
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.unidic-lite;
 
   optional-dependencies = {
-    unidic-lite = [ unidic-lite ];
-    unidic = [ unidic ];
+    unidic-lite = [unidic-lite];
+    unidic = [unidic];
   };
 
   preCheck = ''
     cd fugashi
   '';
 
-  pythonImportsCheck = [ "fugashi" ];
+  pythonImportsCheck = ["fugashi"];
 
   meta = with lib; {
     description = "Cython MeCab wrapper for fast, pythonic Japanese tokenization and morphological analysis";
     homepage = "https://github.com/polm/fugashi";
     changelog = "https://github.com/polm/fugashi/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ laurent-f1z1 ];
+    maintainers = with maintainers; [laurent-f1z1];
   };
 }

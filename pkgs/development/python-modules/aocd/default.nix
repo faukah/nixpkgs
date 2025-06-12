@@ -22,7 +22,6 @@
   termcolor,
   tzlocal,
 }:
-
 buildPythonPackage rec {
   pname = "aocd";
   version = "2.1.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     hash = "sha256-xR9CfyOUsKSSA/1zYi6kCK3oAaX6Kd625mKMWI+ZFMA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aocd-example-parser
@@ -66,14 +65,14 @@ buildPythonPackage rec {
     "tests/"
   ];
 
-  pythonImportsCheck = [ "aocd" ];
+  pythonImportsCheck = ["aocd"];
 
   meta = {
     description = "Get your Advent of Code data with a single import statement";
     homepage = "https://github.com/wimglenn/advent-of-code-data";
     changelog = "https://github.com/wimglenn/advent-of-code-data/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aadibajpai ];
+    maintainers = with lib.maintainers; [aadibajpai];
     platforms = lib.platforms.unix;
   };
 }

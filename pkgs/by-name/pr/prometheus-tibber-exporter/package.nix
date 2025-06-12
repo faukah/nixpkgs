@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "prometheus-tibber-exporter";
   version = "3.10.0";
@@ -39,7 +38,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-JTJTapsqBj0FO2Gcx8O1eWJf9hMbeWzjtO0HYcDdzQo=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -55,6 +54,6 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for tibber energy meter, pulse, watty and more";
     license = lib.licenses.mit;
     mainProgram = "tibber-exporter";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

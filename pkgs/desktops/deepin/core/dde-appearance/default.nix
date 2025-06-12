@@ -11,7 +11,6 @@
   xorg,
   iconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-appearance";
   version = "1.1.29";
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-appearance";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

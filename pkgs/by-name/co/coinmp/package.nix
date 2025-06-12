@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coinmp";
   version = "1.8.4";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     CXXFLAGS = "-std=c++14";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://projects.coin-or.org/CoinMP/";

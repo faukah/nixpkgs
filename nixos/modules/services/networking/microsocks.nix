@@ -3,16 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.microsocks;
 
   cmd =
-    if cfg.execWrapper != null then
-      "${cfg.execWrapper} ${cfg.package}/bin/microsocks"
-    else
-      "${cfg.package}/bin/microsocks";
+    if cfg.execWrapper != null
+    then "${cfg.execWrapper} ${cfg.package}/bin/microsocks"
+    else "${cfg.package}/bin/microsocks";
   args =
     [
       "-i"
@@ -20,8 +17,8 @@ let
       "-p"
       (toString cfg.port)
     ]
-    ++ lib.optionals (cfg.authOnce) [ "-1" ]
-    ++ lib.optionals (cfg.disableLogging) [ "-q" ]
+    ++ lib.optionals (cfg.authOnce) ["-1"]
+    ++ lib.optionals (cfg.disableLogging) ["-q"]
     ++ lib.optionals (cfg.outgoingBindIp != null) [
       "-b"
       cfg.outgoingBindIp
@@ -30,8 +27,7 @@ let
       "-u"
       cfg.authUsername
     ];
-in
-{
+in {
   options.services.microsocks = {
     enable = lib.mkEnableOption "Tiny, portable SOCKS5 server with very moderate resource usage";
     user = lib.mkOption {
@@ -44,7 +40,7 @@ in
       description = "Group microsocks runs as.";
       type = lib.types.str;
     };
-    package = lib.mkPackageOption pkgs "microsocks" { };
+    package = lib.mkPackageOption pkgs "microsocks" {};
     ip = lib.mkOption {
       type = lib.types.str;
       default = "127.0.0.1";
@@ -114,14 +110,14 @@ in
         };
       };
       groups = lib.mkIf (cfg.group == "microsocks") {
-        microsocks = { };
+        microsocks = {};
       };
     };
     systemd.services.microsocks = {
       enable = true;
       description = "a tiny socks server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -149,15 +145,14 @@ in
         ];
       };
       script =
-        if cfg.authPasswordFile != null then
-          ''
-            PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/MICROSOCKS_PASSWORD_FILE")
-            ${cmd} ${lib.escapeShellArgs args} -P "$PASSWORD"
-          ''
-        else
-          ''
-            ${cmd} ${lib.escapeShellArgs args}
-          '';
+        if cfg.authPasswordFile != null
+        then ''
+          PASSWORD=$(cat "$CREDENTIALS_DIRECTORY/MICROSOCKS_PASSWORD_FILE")
+          ${cmd} ${lib.escapeShellArgs args} -P "$PASSWORD"
+        ''
+        else ''
+          ${cmd} ${lib.escapeShellArgs args}
+        '';
     };
   };
 }

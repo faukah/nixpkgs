@@ -3,7 +3,6 @@
   buildNimPackage,
   fetchFromGitea,
 }:
-
 buildNimPackage (finalAttrs: {
   pname = "snekim";
   version = "1.2.0";
@@ -19,7 +18,7 @@ buildNimPackage (finalAttrs: {
   strictDeps = true;
   lockFile = ./lock.json;
 
-  nimFlags = [ "-d:nimraylib_now_shared" ];
+  nimFlags = ["-d:nimraylib_now_shared"];
 
   postInstall = ''
     install -D snekim.desktop -t $out/share/applications
@@ -31,6 +30,6 @@ buildNimPackage (finalAttrs: {
     description = "Simple implementation of the classic snake game";
     mainProgram = "snekim";
     license = lib.licenses.lgpl3Only;
-    maintainers = [ lib.maintainers.annaaurora ];
+    maintainers = [lib.maintainers.annaaurora];
   };
 })

@@ -3,7 +3,6 @@
   python3,
   fetchFromGitLab,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sphinxygen";
   version = "1.0.10";
@@ -16,16 +15,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Xii5pDa1eHrHUKERC2gDif/NIkpab/IZYBRvMq9YKtE=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  pythonImportsCheck = [ "sphinxygen" ];
+  pythonImportsCheck = ["sphinxygen"];
 
   meta = {
     description = "Generates Sphinx markup from an XML description extracted by Doxygen";
     homepage = "https://gitlab.com/drobilla/sphinxygen";
     changelog = "https://gitlab.com/drobilla/sphinxygen/-/releases/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ samueltardieu ];
+    maintainers = with lib.maintainers; [samueltardieu];
     mainProgram = "sphinxygen";
   };
 }

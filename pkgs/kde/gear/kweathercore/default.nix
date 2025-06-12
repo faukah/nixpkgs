@@ -5,5 +5,5 @@
 mkKdeDerivation {
   pname = "kweathercore";
 
-  extraBuildInputs = [ qtpositioning ];
+  extraBuildInputs = [qtpositioning];
 }

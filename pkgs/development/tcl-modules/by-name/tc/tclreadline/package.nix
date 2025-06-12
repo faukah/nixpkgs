@@ -9,7 +9,6 @@
   mkTclDerivation,
   tk,
 }:
-
 mkTclDerivation rec {
   pname = "tclreadline";
   version = "2.4.1";
@@ -62,7 +61,7 @@ mkTclDerivation rec {
     description = "GNU readline for interactive tcl shells";
     homepage = "https://github.com/flightaware/tclreadline";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

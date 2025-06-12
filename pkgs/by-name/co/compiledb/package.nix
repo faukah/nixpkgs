@@ -4,7 +4,6 @@
   coreutils,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "compiledb";
   version = "0.10.7";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
         --replace-fail "/bin/echo" "${coreutils}/bin/echo"
   '';
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   doCheck = true;
 
@@ -42,6 +41,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "compiledb";
     license = lib.licenses.gpl3Plus;
     homepage = "https://github.com/nickdiego/compiledb";
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

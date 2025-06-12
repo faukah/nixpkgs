@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "grafanalib";
   version = "0.7.1";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-vXnyAfC9avKz8U4+MJVnu2zoPD0nR2qarWYidhEPW5s=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ attrs ];
+  propagatedBuildInputs = [attrs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "grafanalib" ];
+  pythonImportsCheck = ["grafanalib"];
 
   meta = with lib; {
     description = "Library for building Grafana dashboards";
     homepage = "https://github.com/weaveworks/grafanalib/";
     changelog = "https://github.com/weaveworks/grafanalib/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ michaelgrahamevans ];
+    maintainers = with maintainers; [michaelgrahamevans];
   };
 }

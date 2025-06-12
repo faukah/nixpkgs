@@ -9,10 +9,7 @@
   jq,
   common-updater-scripts,
 }:
-
-assert lib.assertMsg (!php.ztsSupport) "blackfire only supports non zts versions of PHP";
-
-let
+assert lib.assertMsg (!php.ztsSupport) "blackfire only supports non zts versions of PHP"; let
   phpMajor = lib.versions.majorMinor php.version;
   inherit (stdenv.hostPlatform) system;
 
@@ -64,104 +61,104 @@ let
     };
   };
 
-  makeSource =
-    { system, phpMajor }:
-    let
-      isLinux = builtins.match ".+-linux" system != null;
-    in
+  makeSource = {
+    system,
+    phpMajor,
+  }: let
+    isLinux = builtins.match ".+-linux" system != null;
+  in
     fetchurl {
       url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
-        if isLinux then "linux" else "darwin"
-      }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
+        if isLinux
+        then "linux"
+        else "darwin"
+      }_${hashes.${system}.system}-php-${builtins.replaceStrings ["."] [""] phpMajor}.so";
       hash = hashes.${system}.hash.${phpMajor};
     };
 in
+  assert lib.assertMsg (
+    hashes ? ${system}.hash.${phpMajor}
+  ) "blackfire does not support PHP version ${phpMajor} on ${system}.";
+    stdenv.mkDerivation (finalAttrs: {
+      pname = "php-blackfire";
+      extensionName = "blackfire";
+      inherit version;
 
-assert lib.assertMsg (
-  hashes ? ${system}.hash.${phpMajor}
-) "blackfire does not support PHP version ${phpMajor} on ${system}.";
+      src = makeSource {
+        inherit system phpMajor;
+      };
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "php-blackfire";
-  extensionName = "blackfire";
-  inherit version;
+      nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+        autoPatchelfHook
+      ];
 
-  src = makeSource {
-    inherit system phpMajor;
-  };
+      sourceRoot = ".";
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    autoPatchelfHook
-  ];
+      dontUnpack = true;
 
-  sourceRoot = ".";
+      installPhase = ''
+        runHook preInstall
 
-  dontUnpack = true;
+        install -D ${finalAttrs.src} $out/lib/php/extensions/blackfire.so
 
-  installPhase = ''
-    runHook preInstall
+        runHook postInstall
+      '';
 
-    install -D ${finalAttrs.src} $out/lib/php/extensions/blackfire.so
+      passthru = {
+        updateScript = writeShellScript "update-${finalAttrs.pname}" ''
+          set -o errexit
+          export PATH="${
+            lib.makeBinPath [
+              curl
+              jq
+              common-updater-scripts
+            ]
+          }"
+          NEW_VERSION=$(curl --silent https://blackfire.io/api/v1/releases | jq .probe.php --raw-output)
 
-    runHook postInstall
-  '';
+          if [[ "${version}" = "$NEW_VERSION" ]]; then
+              echo "The new version same as the old version."
+              exit 0
+          fi
 
-  passthru = {
-    updateScript = writeShellScript "update-${finalAttrs.pname}" ''
-      set -o errexit
-      export PATH="${
-        lib.makeBinPath [
-          curl
-          jq
-          common-updater-scripts
-        ]
-      }"
-      NEW_VERSION=$(curl --silent https://blackfire.io/api/v1/releases | jq .probe.php --raw-output)
+          for source in ${lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)}; do
+            update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION" --ignore-same-version
+          done
+        '';
 
-      if [[ "${version}" = "$NEW_VERSION" ]]; then
-          echo "The new version same as the old version."
-          exit 0
-      fi
+        # All sources for updating by the update script.
+        updateables = let
+          createName = {
+            phpMajor,
+            system,
+          }: "php${builtins.replaceStrings ["."] [""] phpMajor}_${system}";
 
-      for source in ${lib.concatStringsSep " " (builtins.attrNames finalAttrs.passthru.updateables)}; do
-        update-source-version "$UPDATE_NIX_ATTR_PATH.updateables.$source" "$NEW_VERSION" --ignore-same-version
-      done
-    '';
+          createUpdateable = sourceParams:
+            lib.nameValuePair (createName sourceParams) (
+              finalAttrs.finalPackage.overrideAttrs (attrs: {
+                src = makeSource sourceParams;
+              })
+            );
+        in
+          lib.concatMapAttrs (
+            system: {hash, ...}:
+              lib.mapAttrs' (phpMajor: _hash: createUpdateable {inherit phpMajor system;}) hash
+          )
+          hashes;
+      };
 
-    # All sources for updating by the update script.
-    updateables =
-      let
-        createName =
-          { phpMajor, system }: "php${builtins.replaceStrings [ "." ] [ "" ] phpMajor}_${system}";
-
-        createUpdateable =
-          sourceParams:
-          lib.nameValuePair (createName sourceParams) (
-            finalAttrs.finalPackage.overrideAttrs (attrs: {
-              src = makeSource sourceParams;
-            })
-          );
-      in
-      lib.concatMapAttrs (
-        system:
-        { hash, ... }:
-
-        lib.mapAttrs' (phpMajor: _hash: createUpdateable { inherit phpMajor system; }) hash
-      ) hashes;
-  };
-
-  meta = {
-    description = "Blackfire Profiler PHP module";
-    homepage = "https://blackfire.io/";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ shyim ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "i686-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+      meta = {
+        description = "Blackfire Profiler PHP module";
+        homepage = "https://blackfire.io/";
+        license = lib.licenses.unfree;
+        maintainers = with lib.maintainers; [shyim];
+        platforms = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "i686-linux"
+          "x86_64-darwin"
+          "aarch64-darwin"
+        ];
+        sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      };
+    })

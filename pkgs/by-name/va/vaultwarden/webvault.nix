@@ -6,7 +6,6 @@
   python3,
   vaultwarden,
 }:
-
 buildNpmPackage rec {
   pname = "vaultwarden-webvault";
   version = "2025.5.0.0";
@@ -43,7 +42,7 @@ buildNpmPackage rec {
     "apps/web"
   ];
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   installPhase = ''
     runHook preInstall

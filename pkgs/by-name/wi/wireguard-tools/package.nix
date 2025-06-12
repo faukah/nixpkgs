@@ -11,7 +11,6 @@
   bash,
   wireguard-go,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wireguard-tools";
   version = "1.0.20250521";
@@ -28,9 +27,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   makeFlags = [
     "DESTDIR=$(out)"
@@ -51,23 +50,23 @@ stdenv.mkDerivation rec {
         # environment, we provide the "default" ones as fallback.
         wrapProgram $f \
           --prefix PATH : ${
-            lib.makeBinPath [
-              procps
-              iproute2
-            ]
-          } \
+        lib.makeBinPath [
+          procps
+          iproute2
+        ]
+      } \
           --suffix PATH : ${
-            lib.makeBinPath [
-              iptables
-              openresolv
-            ]
-          }
+        lib.makeBinPath [
+          iptables
+          openresolv
+        ]
+      }
       done
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       for f in $out/bin/*; do
         wrapProgram $f \
-          --prefix PATH : ${lib.makeBinPath [ wireguard-go ]}
+          --prefix PATH : ${lib.makeBinPath [wireguard-go]}
       done
     '';
 

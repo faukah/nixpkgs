@@ -1,15 +1,12 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
   bison,
   flex,
-
   gmp,
   mpfr,
-
   kconfig,
   kcoreaddons,
   ki18n,
@@ -18,7 +15,6 @@
   qtfeedback,
   qtquickcontrols2,
 }:
-
 mkDerivation {
   pname = "kalk";
 
@@ -47,6 +43,6 @@ mkDerivation {
     mainProgram = "kalk";
     homepage = "https://invent.kde.org/plasma-mobile/kalk";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

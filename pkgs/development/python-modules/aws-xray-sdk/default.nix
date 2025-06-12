@@ -20,7 +20,6 @@
   webtest,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "aws-xray-sdk";
   version = "2.14.0";
@@ -35,14 +34,16 @@ buildPythonPackage rec {
     hash = "sha256-rWP0yQ+Ril0UByOCWJKcL3mD7TvzK8Ddq9JlFIRBFU4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    botocore
-    jsonpickle
-    requests
-    wrapt
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs =
+    [
+      botocore
+      jsonpickle
+      requests
+      wrapt
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     aiohttp
@@ -65,13 +66,13 @@ buildPythonPackage rec {
     "tests/test_patcher.py"
   ];
 
-  pythonImportsCheck = [ "aws_xray_sdk" ];
+  pythonImportsCheck = ["aws_xray_sdk"];
 
   meta = with lib; {
     description = "AWS X-Ray SDK for the Python programming language";
     homepage = "https://github.com/aws/aws-xray-sdk-python";
     changelog = "https://github.com/aws/aws-xray-sdk-python/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

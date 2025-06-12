@@ -12,8 +12,7 @@
   osVersion ? null,
   topColor ? "black",
   bottomColor ? "black",
-}:
-let
+}: let
   validColors = [
     "black"
     "cardboard_grey"
@@ -25,45 +24,44 @@ let
     "neon_green"
   ];
   resolvedLogoName =
-    if (logoFile != null && logoName == null) then
-      lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile))
-    else
-      logoName;
+    if (logoFile != null && logoName == null)
+    then lib.strings.removeSuffix ".png" (baseNameOf (toString logoFile))
+    else logoName;
 in
-assert lib.asserts.assertOneOf "topColor" topColor validColors;
-assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;
-mkKdeDerivation {
-  pname = "breeze-plymouth";
+  assert lib.asserts.assertOneOf "topColor" topColor validColors;
+  assert lib.asserts.assertOneOf "bottomColor" bottomColor validColors;
+    mkKdeDerivation {
+      pname = "breeze-plymouth";
 
-  # FIXME(later): discuss with upstream
-  patches = [ ./install-paths.patch ];
+      # FIXME(later): discuss with upstream
+      patches = [./install-paths.patch];
 
-  extraNativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals (logoFile != null) [
-      imagemagick
-      netpbm
-      perl
-    ];
-  extraBuildInputs = [ plymouth ];
+      extraNativeBuildInputs =
+        [pkg-config]
+        ++ lib.optionals (logoFile != null) [
+          imagemagick
+          netpbm
+          perl
+        ];
+      extraBuildInputs = [plymouth];
 
-  extraCmakeFlags =
-    [ ]
-    ++ lib.optional (osName != null) "-DDISTRO_NAME=${osName}"
-    ++ lib.optional (osVersion != null) "-DDISTRO_VERSION=${osVersion}"
-    ++ lib.optional (logoName != null) "-DDISTRO_LOGO=${logoName}"
-    ++ lib.optional (topColor != null) "-DBACKGROUND_TOP_COLOR=${topColor}"
-    ++ lib.optional (bottomColor != null) "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}";
+      extraCmakeFlags =
+        []
+        ++ lib.optional (osName != null) "-DDISTRO_NAME=${osName}"
+        ++ lib.optional (osVersion != null) "-DDISTRO_VERSION=${osVersion}"
+        ++ lib.optional (logoName != null) "-DDISTRO_LOGO=${logoName}"
+        ++ lib.optional (topColor != null) "-DBACKGROUND_TOP_COLOR=${topColor}"
+        ++ lib.optional (bottomColor != null) "-DBACKGROUND_BOTTOM_COLOR=${bottomColor}";
 
-  postPatch =
-    ''
-      substituteInPlace cmake/FindPlymouth.cmake --subst-var out
-    ''
-    + lib.optionalString (logoFile != null) ''
-      cp ${logoFile} breeze/images/${resolvedLogoName}.logo.png
+      postPatch =
+        ''
+          substituteInPlace cmake/FindPlymouth.cmake --subst-var out
+        ''
+        + lib.optionalString (logoFile != null) ''
+          cp ${logoFile} breeze/images/${resolvedLogoName}.logo.png
 
-      # conversion for 16bit taken from the breeze-plymouth readme
-      convert ${logoFile} -alpha Background -background "#000000" -fill "#000000" -flatten tmp.png
-      pngtopnm tmp.png | pnmquant 16 | pnmtopng > breeze/images/16bit/${resolvedLogoName}.logo.png
-    '';
-}
+          # conversion for 16bit taken from the breeze-plymouth readme
+          convert ${logoFile} -alpha Background -background "#000000" -fill "#000000" -flatten tmp.png
+          pngtopnm tmp.png | pnmquant 16 | pnmtopng > breeze/images/16bit/${resolvedLogoName}.logo.png
+        '';
+    }

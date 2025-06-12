@@ -9,7 +9,6 @@
   requests,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "securityreporter";
   version = "1.2.0";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     docker
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "reporter" ];
+  pythonImportsCheck = ["reporter"];
 
   disabledTestPaths = [
     # Test require a running Docker instance
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dongit-org/python-reporter";
     changelog = "https://github.com/dongit-org/python-reporter/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

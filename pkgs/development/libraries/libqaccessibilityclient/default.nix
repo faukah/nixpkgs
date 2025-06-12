@@ -6,7 +6,6 @@
   qtbase,
   extra-cmake-modules,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libqaccessibilityclient";
   version = "0.6.0";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
     cmake
     extra-cmake-modules
   ];
-  buildInputs = [ qtbase ];
-  cmakeFlags = [ "-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}" ];
+  buildInputs = [qtbase];
+  cmakeFlags = ["-DQT_MAJOR_VERSION=${lib.versions.major qtbase.version}"];
 
   outputs = [
     "out"
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Accessibilty tools helper library, used e.g. by screen readers";
     homepage = "https://github.com/KDE/libqaccessibilityclient";
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     license = with licenses; [
       lgpl3Only # or
       lgpl21Only

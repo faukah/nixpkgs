@@ -9,7 +9,6 @@
   pythonOlder,
   xmldiff,
 }:
-
 buildPythonPackage rec {
   pname = "py-serializable";
   version = "1.1.2";
@@ -24,11 +23,11 @@ buildPythonPackage rec {
     hash = "sha256-2A+QjokZ7gtgstclZ7PFSPymYjQYKsLVXy9xbFOfxLo=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "defusedxml" ];
+  pythonRelaxDeps = ["defusedxml"];
 
-  dependencies = [ defusedxml ];
+  dependencies = [defusedxml];
 
   nativeCheckInputs = [
     lxml
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     xmldiff
   ];
 
-  pythonImportsCheck = [ "serializable" ];
+  pythonImportsCheck = ["serializable"];
 
   disabledTests = [
     # AssertionError: '<ns0[155 chars]itle>The Phoenix
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/madpah/serializable";
     changelog = "https://github.com/madpah/serializable/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

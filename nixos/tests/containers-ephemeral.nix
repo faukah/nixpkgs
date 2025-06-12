@@ -1,34 +1,35 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "containers-ephemeral";
   meta = {
-    maintainers = with lib.maintainers; [ patryk27 ];
+    maintainers = with lib.maintainers; [patryk27];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      virtualisation.writableStore = true;
+  nodes.machine = {pkgs, ...}: {
+    virtualisation.writableStore = true;
 
-      containers.webserver = {
-        ephemeral = true;
-        privateNetwork = true;
-        hostAddress = "10.231.136.1";
-        localAddress = "10.231.136.2";
-        config = {
-          services.nginx = {
-            enable = true;
-            virtualHosts.localhost = {
-              root = pkgs.runCommand "localhost" { } ''
-                mkdir "$out"
-                echo hello world > "$out/index.html"
-              '';
-            };
+    containers.webserver = {
+      ephemeral = true;
+      privateNetwork = true;
+      hostAddress = "10.231.136.1";
+      localAddress = "10.231.136.2";
+      config = {
+        services.nginx = {
+          enable = true;
+          virtualHosts.localhost = {
+            root = pkgs.runCommand "localhost" {} ''
+              mkdir "$out"
+              echo hello world > "$out/index.html"
+            '';
           };
-          networking.firewall.allowedTCPPorts = [ 80 ];
         };
+        networking.firewall.allowedTCPPorts = [80];
       };
     };
+  };
 
   testScript = ''
     assert "webserver" in machine.succeed("nixos-container list")

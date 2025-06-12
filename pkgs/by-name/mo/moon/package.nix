@@ -10,7 +10,6 @@
   installShellFiles,
   buildPackages,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "moon";
   version = "1.36.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     OPENSSL_NO_VENDOR = 1;
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
   nativeBuildInputs = [
     pkg-config
     installShellFiles
@@ -38,8 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd moon \
         --bash <(${emulator} $out/bin/moon completions --shell bash) \
         --fish <(${emulator} $out/bin/moon completions --shell fish) \
@@ -51,9 +49,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Task runner and repo management tool for the web ecosystem, written in Rust";
@@ -61,6 +59,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/moonrepo/moon";
     changelog = "https://github.com/moonrepo/moon/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flemzord ];
+    maintainers = with lib.maintainers; [flemzord];
   };
 })

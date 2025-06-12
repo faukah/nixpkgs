@@ -9,7 +9,6 @@
   setuptools,
   ujson,
 }:
-
 buildPythonPackage rec {
   pname = "ayla-iot-unofficial";
   version = "1.5.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-/Js2XMhGe4zPAjpeH2ON4377TAPaWPvA8+HEliYKxlw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     ujson
   ];
 
-  pythonImportsCheck = [ "ayla_iot_unofficial" ];
+  pythonImportsCheck = ["ayla_iot_unofficial"];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/ayla_iot_unofficial.py" ];
+  pytestFlagsArray = ["tests/ayla_iot_unofficial.py"];
 
   # tests interact with the actual API
   doCheck = false;
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Unofficial python library for interacting with the Ayla IoT API";
     homepage = "https://github.com/rewardone/ayla-iot-unofficial";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

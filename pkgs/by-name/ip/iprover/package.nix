@@ -7,7 +7,6 @@
   z3,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "iprover";
   version = "3.8.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
   strictDeps = true;
 
   nativeBuildInputs =
-    [ eprover ]
+    [eprover]
     ++ (with ocamlPackages; [
       ocaml
       findlib

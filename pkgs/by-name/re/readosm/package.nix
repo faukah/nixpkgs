@@ -6,7 +6,6 @@
   zlib,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "readosm";
   version = "1.1.0a";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-23wFHSVs7H7NTDd1q5vIINpaS/cv/U6fQLkR15dw8UU=";
   };
 
-  nativeBuildInputs = [ validatePkgConfig ];
+  nativeBuildInputs = [validatePkgConfig];
 
   buildInputs = [
     expat

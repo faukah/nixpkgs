@@ -7,7 +7,6 @@
   openssh,
   rsync,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autobuild";
   version = "5.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gv7g61ja9q9zg1m30k4snqwwy1kq7b4df6sb7d2qra7kbdq8af1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     perl
     openssh

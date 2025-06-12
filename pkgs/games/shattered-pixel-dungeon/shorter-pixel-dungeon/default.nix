@@ -2,7 +2,6 @@
   callPackage,
   fetchFromGitHub,
 }:
-
 callPackage ../generic.nix rec {
   pname = "shorter-pixel-dungeon";
   version = "1.5.0";

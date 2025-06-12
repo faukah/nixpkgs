@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gcp-scanner";
   version = "1.4.0";
@@ -51,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/google/gcp_scanner";
     changelog = "https://github.com/google/gcp_scanner/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "gcp-scanner";
   };
 }

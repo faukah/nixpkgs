@@ -9,7 +9,6 @@
   setuptools,
   siobrultech-protocols,
 }:
-
 buildPythonPackage rec {
   pname = "greeneye-monitor";
   version = "5.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-7EDuQ+wECcTzxkEufMpg3WSzosWeiwfxcVIVtQi+0BI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "greeneye.monitor" ];
+  pythonImportsCheck = ["greeneye.monitor"];
 
   meta = with lib; {
     description = "Receive data packets from GreenEye Monitor";
     homepage = "https://github.com/jkeljo/greeneye-monitor";
     changelog = "https://github.com/jkeljo/greeneye-monitor/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -8,7 +8,6 @@
   timedesc-tzdb,
   timedesc-tzlocal,
 }:
-
 buildDunePackage rec {
   pname = "timedesc";
   version = "3.1.0";
@@ -32,6 +31,6 @@ buildDunePackage rec {
     description = "OCaml date time handling library";
     homepage = "https://github.com/daypack-dev/timere";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

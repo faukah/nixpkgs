@@ -21,7 +21,6 @@
   wayland, # (not used by default, enable with SDL_VIDEODRIVER=wayland - doesn't support HiDPI)
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clonehero";
   version = "1.0.0.4080";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     # Load-time libraries (loaded from DT_NEEDED section in ELF binary)
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     comment = finalAttrs.meta.description;
     icon = "clonehero";
     exec = "clonehero";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   installPhase = ''
@@ -125,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
       kira-bruneau
       syboxez
     ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

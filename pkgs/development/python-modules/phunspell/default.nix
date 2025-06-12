@@ -3,12 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   fetchpatch,
-
   setuptools,
-
   spylls,
 }:
-
 buildPythonPackage rec {
   pname = "phunspell";
   version = "0.1.6";
@@ -34,20 +31,20 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ spylls ];
+  dependencies = [spylls];
 
   # for tests need lots of RAM, just skip...
   doCheck = false;
 
-  pythonImportsCheck = [ "phunspell" ];
+  pythonImportsCheck = ["phunspell"];
 
   meta = with lib; {
     description = "Pure Python spell checker, wrapping spylls a port of Hunspell";
     homepage = "https://github.com/dvwright/phunspell";
     changelog = "https://github.com/dvwright/phunspell/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

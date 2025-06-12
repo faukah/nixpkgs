@@ -9,7 +9,6 @@
   kdecoration,
   libplasma,
 }:
-
 stdenv.mkDerivation rec {
   pname = "applet-window-buttons6";
   version = "0.14.0";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "Plasma 6 applet in order to show window buttons in your panels";
     homepage = "https://github.com/moodyhunter/applet-window-buttons6";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ A1ca7raz ];
+    maintainers = with maintainers; [A1ca7raz];
   };
 }

@@ -5,7 +5,6 @@
   unittestCheckHook,
   poetry-core,
 }:
-
 buildPythonPackage {
   pname = "pyrad";
   version = "2.4-unstable-2024-07-24";
@@ -23,16 +22,16 @@ buildPythonPackage {
       --replace-fail 'repository =' 'Repository ='
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "pyrad" ];
+  pythonImportsCheck = ["pyrad"];
 
   meta = {
     description = "Python RADIUS Implementation";
     homepage = "https://github.com/pyradius/pyrad";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ drawbu ];
+    maintainers = with lib.maintainers; [drawbu];
   };
 }

@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "watergate-local-api";
   version = "2024.4.1";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-zEbujtXTXjRRzpNdowh7xjBvCxwp7Z1QYRm6ZM8rFR8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
   ];
 
-  pythonImportsCheck = [ "watergate_local_api" ];
+  pythonImportsCheck = ["watergate_local_api"];
 
   nativeCheckInputs = [
     aioresponses
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Python package to interact with the Watergate Local API";
     homepage = "https://github.com/watergate-ai/watergate-local-api-python";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

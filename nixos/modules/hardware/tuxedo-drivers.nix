@@ -1,11 +1,14 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   cfg = config.hardware.tuxedo-drivers;
   tuxedo-drivers = config.boot.kernelPackages.tuxedo-drivers;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "hardware"
         "tuxedo-keyboard"
@@ -29,7 +32,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    boot.kernelModules = [ "tuxedo_keyboard" ];
-    boot.extraModulePackages = [ tuxedo-drivers ];
+    boot.kernelModules = ["tuxedo_keyboard"];
+    boot.extraModulePackages = [tuxedo-drivers];
   };
 }

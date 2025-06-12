@@ -3,24 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.powerstation;
-in
-{
+in {
   options.services.powerstation = {
     enable = lib.mkEnableOption "PowerStation";
-    package = lib.mkPackageOption pkgs "powerstation" { };
+    package = lib.mkPackageOption pkgs "powerstation" {};
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.powerstation = {
       description = "PowerStation Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["graphical-session.target"];
       environment = {
         XDG_DATA_DIRS = "/run/current-system/sw/share";
       };
@@ -33,5 +30,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ shadowapex ];
+  meta.maintainers = with lib.maintainers; [shadowapex];
 }

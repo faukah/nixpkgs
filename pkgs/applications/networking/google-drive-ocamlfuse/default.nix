@@ -10,7 +10,6 @@
   tiny_httpd,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "google-drive-ocamlfuse";
   version = "0.7.32";
@@ -23,7 +22,7 @@ buildDunePackage rec {
   };
 
   doCheck = lib.versionAtLeast ocaml.version "5";
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   buildInputs = [
     extlib
@@ -38,7 +37,7 @@ buildDunePackage rec {
     description = "FUSE-based file system backed by Google Drive, written in OCaml";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ obadz ];
+    maintainers = with lib.maintainers; [obadz];
     mainProgram = "google-drive-ocamlfuse";
   };
 }

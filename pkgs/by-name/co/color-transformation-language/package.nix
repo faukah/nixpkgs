@@ -8,7 +8,6 @@
   libtiff,
   aces-container,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ctl";
   version = "1.5.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ampas/CTL";
     changelog = "https://github.com/ampas/CTL/blob/${finalAttrs.src.rev}/CHANGELOG";
     license = lib.licenses.ampas;
-    maintainers = with lib.maintainers; [ paperdigits ];
+    maintainers = with lib.maintainers; [paperdigits];
     mainProgram = "ctl";
     platforms = lib.platforms.all;
   };

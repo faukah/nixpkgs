@@ -10,7 +10,6 @@
   glib,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "tartan";
   version = "0.3.0-unstable-2025-01-07";
@@ -50,6 +49,6 @@ stdenv.mkDerivation {
     changelog = "https://gitlab.freedesktop.org/tartan/tartan/-/blob/main/NEWS";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
   };
 }

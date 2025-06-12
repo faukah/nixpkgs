@@ -13,7 +13,6 @@
   wayland,
   wayland-protocols,
 }:
-
 stdenv.mkDerivation rec {
   pname = "egl-wayland";
   version = "1.1.19";
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NVIDIA/egl-wayland/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hedning ];
+    maintainers = with maintainers; [hedning];
   };
 }

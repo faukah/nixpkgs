@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trunk-io";
   version = "1.3.4";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Developer experience toolkit used to check, test, merge, and monitor code";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "trunk";
   };
 })

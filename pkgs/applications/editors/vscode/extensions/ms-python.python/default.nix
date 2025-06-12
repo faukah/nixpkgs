@@ -10,7 +10,6 @@
   # For updateScript
   vscode-extension-update-script,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension rec {
   mktplcRef = {
     name = "python";
@@ -19,9 +18,9 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
     hash = "sha256-aCutbmWI68IRqAwztQ9USo996zWL29UO2eAC75b3/IY=";
   };
 
-  buildInputs = [ icu ];
+  buildInputs = [icu];
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython ];
+  nativeBuildInputs = [python3.pkgs.wrapPython];
 
   propagatedBuildInputs = with python3.pkgs; [
     debugpy
@@ -45,7 +44,7 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
         --replace-fail "\"default\":\"python\"" "\"default\":\"${python3.interpreter}\""
     '';
 
-  passthru.updateScript = vscode-extension-update-script { };
+  passthru.updateScript = vscode-extension-update-script {};
 
   meta = {
     description = "Visual Studio Code extension with rich support for the Python language";

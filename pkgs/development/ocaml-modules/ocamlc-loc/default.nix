@@ -4,7 +4,6 @@
   dune_3,
   dyn,
 }:
-
 buildDunePackage {
   pname = "ocamlc-loc";
   inherit (dune_3) src version;
@@ -19,11 +18,11 @@ buildDunePackage {
 
   minimalOCamlVersion = "4.08";
 
-  propagatedBuildInputs = [ dyn ];
+  propagatedBuildInputs = [dyn];
 
   meta = with lib; {
     description = "Parse ocaml compiler output into structured form";
-    maintainers = [ maintainers.ulrikstrid ];
+    maintainers = [maintainers.ulrikstrid];
     license = licenses.mit;
   };
 }

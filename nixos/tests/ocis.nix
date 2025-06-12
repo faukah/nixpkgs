@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # this is a demo user created by IDM_CREATE_DEMO_USERS=true
   demoUser = "einstein";
   demoPassword = "relativity";
@@ -9,33 +11,33 @@ let
   adminPassword = "hunter2";
   testRunner =
     pkgs.writers.writePython3Bin "test-runner"
-      {
-        libraries = [ pkgs.python3Packages.selenium ];
-        flakeIgnore = [ "E501" ];
-      }
-      ''
-        import sys
-        from selenium.webdriver.common.by import By
-        from selenium.webdriver import Firefox
-        from selenium.webdriver.firefox.options import Options
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
+    {
+      libraries = [pkgs.python3Packages.selenium];
+      flakeIgnore = ["E501"];
+    }
+    ''
+      import sys
+      from selenium.webdriver.common.by import By
+      from selenium.webdriver import Firefox
+      from selenium.webdriver.firefox.options import Options
+      from selenium.webdriver.support.ui import WebDriverWait
+      from selenium.webdriver.support import expected_conditions as EC
 
-        options = Options()
-        options.add_argument('--headless')
-        driver = Firefox(options=options)
+      options = Options()
+      options.add_argument('--headless')
+      driver = Firefox(options=options)
 
-        user = sys.argv[1]
-        password = sys.argv[2]
-        driver.implicitly_wait(20)
-        driver.get('https://localhost:9200/login')
-        wait = WebDriverWait(driver, 10)
-        wait.until(EC.title_contains("Sign in"))
-        driver.find_element(By.XPATH, '//*[@id="oc-login-username"]').send_keys(user)
-        driver.find_element(By.XPATH, '//*[@id="oc-login-password"]').send_keys(password)
-        driver.find_element(By.XPATH, '//*[@id="root"]//button').click()
-        wait.until(EC.title_contains("Personal"))
-      '';
+      user = sys.argv[1]
+      password = sys.argv[2]
+      driver.implicitly_wait(20)
+      driver.get('https://localhost:9200/login')
+      wait = WebDriverWait(driver, 10)
+      wait.until(EC.title_contains("Sign in"))
+      driver.find_element(By.XPATH, '//*[@id="oc-login-username"]').send_keys(user)
+      driver.find_element(By.XPATH, '//*[@id="oc-login-password"]').send_keys(password)
+      driver.find_element(By.XPATH, '//*[@id="root"]//button').click()
+      wait.until(EC.title_contains("Personal"))
+    '';
 
   # This was generated with `ocis init --config-path testconfig/ --admin-password "hunter2" --insecure true`.
   testConfig = ''
@@ -157,9 +159,7 @@ let
       service_account:
         service_account_id: df39a290-3f3e-4e39-b67b-8b810ca2abac
         service_account_secret: .demKypQ$=pGl+yRar!#YaFjLYCr4YwE'';
-in
-
-{
+in {
   name = "ocis";
 
   meta.maintainers = with lib.maintainers; [
@@ -167,34 +167,32 @@ in
     ramblurr
   ];
 
-  nodes.machine =
-    { config, ... }:
-    {
-      virtualisation.memorySize = 2048;
-      environment.systemPackages = [
-        pkgs.firefox-unwrapped
-        pkgs.geckodriver
-        testRunner
-      ];
+  nodes.machine = {config, ...}: {
+    virtualisation.memorySize = 2048;
+    environment.systemPackages = [
+      pkgs.firefox-unwrapped
+      pkgs.geckodriver
+      testRunner
+    ];
 
-      # if you do this in production, dont put secrets in this file because it will be written to the world readable nix store
-      environment.etc."ocis/ocis.env".text = ''
-        ADMIN_PASSWORD=${adminPassword}
-        IDM_CREATE_DEMO_USERS=true
-      '';
+    # if you do this in production, dont put secrets in this file because it will be written to the world readable nix store
+    environment.etc."ocis/ocis.env".text = ''
+      ADMIN_PASSWORD=${adminPassword}
+      IDM_CREATE_DEMO_USERS=true
+    '';
 
-      # if you do this in production, dont put secrets in this file because it will be written to the world readable nix store
-      environment.etc."ocis/config/ocis.yaml".text = testConfig;
+    # if you do this in production, dont put secrets in this file because it will be written to the world readable nix store
+    environment.etc."ocis/config/ocis.yaml".text = testConfig;
 
-      services.ocis = {
-        enable = true;
-        configDir = "/etc/ocis/config";
-        environment = {
-          OCIS_INSECURE = "true";
-        };
-        environmentFile = "/etc/ocis/ocis.env";
+    services.ocis = {
+      enable = true;
+      configDir = "/etc/ocis/config";
+      environment = {
+        OCIS_INSECURE = "true";
       };
+      environmentFile = "/etc/ocis/ocis.env";
     };
+  };
 
   testScript = ''
     start_all()

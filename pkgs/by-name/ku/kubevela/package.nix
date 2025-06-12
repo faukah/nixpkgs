@@ -8,7 +8,6 @@
   kubevela,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "kubevela";
   version = "1.10.3";
@@ -28,7 +27,7 @@ buildGoModule rec {
     "-X github.com/oam-dev/kubevela/version.VelaVersion=${version}"
   ];
 
-  subPackages = [ "references/cmd/cli" ];
+  subPackages = ["references/cmd/cli"];
 
   env.CGO_ENABLED = 0;
 
@@ -41,7 +40,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd vela \
       --bash <($out/bin/vela completion bash) \
@@ -53,14 +52,14 @@ buildGoModule rec {
     command = "HOME=$TMPDIR vela version";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Application delivery platform to deploy and operate applications in hybrid, multi-cloud environments";
     downloadPage = "https://github.com/kubevela/kubevela";
     homepage = "https://kubevela.io/";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "vela";
   };
 }

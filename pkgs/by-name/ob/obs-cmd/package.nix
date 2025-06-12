@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "obs-cmd";
   version = "0.18.4";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/grigio/obs-cmd";
     changelog = "https://github.com/grigio/obs-cmd/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "obs-cmd";
   };
 })

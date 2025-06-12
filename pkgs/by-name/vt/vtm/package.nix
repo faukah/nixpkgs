@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vtm";
   version = "0.9.99.61";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://vtm.netxs.online/";
     license = lib.licenses.mit;
     mainProgram = "vtm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

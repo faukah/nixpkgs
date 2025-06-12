@@ -24,7 +24,6 @@
   gst-plugins-ugly,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-plugins-ugly";
   version = "1.26.0";
@@ -76,19 +75,18 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.mesonEnable "doc" enableDocumentation)
     ]
     ++ (
-      if enableGplPlugins then
-        [
-          "-Dgpl=enabled"
-        ]
-      else
-        [
-          "-Da52dec=disabled"
-          "-Dcdio=disabled"
-          "-Ddvdread=disabled"
-          "-Dmpeg2dec=disabled"
-          "-Dsidplay=disabled"
-          "-Dx264=disabled"
-        ]
+      if enableGplPlugins
+      then [
+        "-Dgpl=enabled"
+      ]
+      else [
+        "-Da52dec=disabled"
+        "-Dcdio=disabled"
+        "-Ddvdread=disabled"
+        "-Dmpeg2dec=disabled"
+        "-Dsidplay=disabled"
+        "-Dx264=disabled"
+      ]
     );
 
   postPatch = ''
@@ -103,7 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
       };
     };
 
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
@@ -115,8 +113,11 @@ stdenv.mkDerivation (finalAttrs: {
       the plug-ins or the supporting libraries might not be how we'd
       like. The code might be widely known to present patent problems.
     '';
-    license = if enableGplPlugins then licenses.gpl2Plus else licenses.lgpl2Plus;
+    license =
+      if enableGplPlugins
+      then licenses.gpl2Plus
+      else licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 })

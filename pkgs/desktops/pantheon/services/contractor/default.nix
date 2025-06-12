@@ -14,7 +14,6 @@
   glib-networking,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "contractor";
   version = "0.3.5";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   PKG_CONFIG_DBUS_1_SESSION_BUS_SERVICES_DIR = "${placeholder "out"}/share/dbus-1/services";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/contractor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "contractor";
   };
 }

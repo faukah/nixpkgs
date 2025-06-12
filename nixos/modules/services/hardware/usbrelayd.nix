@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.usbrelayd;
-in
-{
+in {
   options.services.usbrelayd = with lib.types; {
     enable = lib.mkEnableOption "USB Relay MQTT daemon";
 
@@ -29,19 +27,18 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.etc."usbrelayd.conf".text = ''
       [MQTT]
       BROKER = ${cfg.broker}
       CLIENTNAME = ${cfg.clientName}
     '';
 
-    services.udev.packages = [ pkgs.usbrelayd ];
-    systemd.packages = [ pkgs.usbrelayd ];
-    users.groups.usbrelay = { };
+    services.udev.packages = [pkgs.usbrelayd];
+    systemd.packages = [pkgs.usbrelayd];
+    users.groups.usbrelay = {};
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ wentasah ];
+    maintainers = with lib.maintainers; [wentasah];
   };
 }

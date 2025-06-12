@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "sttr";
   version = "0.2.25";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-OQxp52v8TEgB09obp3UKOReRWB79Cwa6zbSE1V/s+JY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/abhimanyu003/sttr";
     changelog = "https://github.com/abhimanyu003/sttr/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Ligthiago ];
+    maintainers = with lib.maintainers; [Ligthiago];
     mainProgram = "sttr";
   };
 }

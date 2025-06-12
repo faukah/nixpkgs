@@ -6,7 +6,6 @@
   testers,
   pgcat,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pgcat";
   version = "1.2.0";
@@ -27,17 +26,17 @@ rustPlatform.buildRustPackage rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = pgcat; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = pgcat;};
   };
 
   meta = with lib; {
     homepage = "https://github.com/postgresml/pgcat";
     description = "PostgreSQL pooler with sharding, load balancing and failover support";
     changelog = "https://github.com/postgresml/pgcat/releases";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ cathalmullan ];
+    maintainers = with maintainers; [cathalmullan];
     mainProgram = "pgcat";
   };
 }

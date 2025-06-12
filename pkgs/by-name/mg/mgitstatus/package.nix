@@ -4,7 +4,6 @@
   stdenvNoCC,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mgitstatus";
   version = "2.3";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/fboender/multi-git-status";
     changelog = "https://github.com/fboender/multi-git-status/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getpsyched ];
+    maintainers = with lib.maintainers; [getpsyched];
     mainProgram = "mgitstatus";
     platforms = lib.platforms.all;
   };

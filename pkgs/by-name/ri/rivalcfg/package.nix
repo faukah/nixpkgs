@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "rivalcfg";
   version = "4.15.0";
@@ -20,7 +19,7 @@ python3Packages.buildPythonPackage rec {
     setuptools
   ];
 
-  checkInputs = [ python3Packages.pytest ];
+  checkInputs = [python3Packages.pytest];
   checkPhase = "pytest";
 
   # tests are broken
@@ -42,7 +41,7 @@ python3Packages.buildPythonPackage rec {
     description = "Utility program that allows you to configure SteelSeries Rival gaming mice";
     homepage = "https://github.com/flozz/rivalcfg";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ ornxka ];
+    maintainers = with maintainers; [ornxka];
     mainProgram = "rivalcfg";
   };
 }

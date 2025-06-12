@@ -5,15 +5,14 @@
   libmysqlclient,
   pkg-config,
 }:
-
 buildPythonPackage rec {
   pname = "mysqlclient";
   version = "2.2.7";
   format = "setuptools";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libmysqlclient ];
+  buildInputs = [libmysqlclient];
 
   # Tests need a MySQL database
   doCheck = false;
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Python interface to MySQL";
     homepage = "https://github.com/PyMySQL/mysqlclient-python";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ y0no ];
+    maintainers = with maintainers; [y0no];
   };
 }

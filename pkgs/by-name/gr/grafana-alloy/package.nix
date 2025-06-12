@@ -14,7 +14,6 @@
   installShellFiles,
   testers,
 }:
-
 buildGoModule rec {
   pname = "grafana-alloy";
   version = "1.8.3";
@@ -36,20 +35,18 @@ buildGoModule rec {
     installShellFiles
   ];
 
-  ldflags =
-    let
-      prefix = "github.com/grafana/alloy/internal/build";
-    in
-    [
-      "-s"
-      "-w"
-      # https://github.com/grafana/alloy/blob/3201389252d2c011bee15ace0c9f4cdbcb978f9f/Makefile#L110
-      "-X ${prefix}.Branch=v${version}"
-      "-X ${prefix}.Version=${version}"
-      "-X ${prefix}.Revision=v${version}"
-      "-X ${prefix}.BuildUser=nix"
-      "-X ${prefix}.BuildDate=1970-01-01T00:00:00Z"
-    ];
+  ldflags = let
+    prefix = "github.com/grafana/alloy/internal/build";
+  in [
+    "-s"
+    "-w"
+    # https://github.com/grafana/alloy/blob/3201389252d2c011bee15ace0c9f4cdbcb978f9f/Makefile#L110
+    "-X ${prefix}.Branch=v${version}"
+    "-X ${prefix}.Version=${version}"
+    "-X ${prefix}.Revision=v${version}"
+    "-X ${prefix}.BuildUser=nix"
+    "-X ${prefix}.BuildDate=1970-01-01T00:00:00Z"
+  ];
 
   tags = [
     "netgo"
@@ -107,8 +104,8 @@ buildGoModule rec {
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf \
       --set-rpath "${
-        lib.makeLibraryPath [ (lib.getLib systemd) ]
-      }:$(patchelf --print-rpath $out/bin/alloy)" \
+      lib.makeLibraryPath [(lib.getLib systemd)]
+    }:$(patchelf --print-rpath $out/bin/alloy)" \
       $out/bin/alloy
   '';
 

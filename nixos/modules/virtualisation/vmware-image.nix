@@ -3,9 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
-  boolToStr = value: if value then "on" else "off";
+}: let
+  boolToStr = value:
+    if value
+    then "on"
+    else "off";
   cfg = config.vmware;
 
   subformats = [
@@ -15,9 +17,7 @@ let
     "twoGbMaxExtentFlat"
     "streamOptimized"
   ];
-
-in
-{
+in {
   imports = [
     ../image/file-options.nix
     (lib.mkRenamedOptionModuleWith {
@@ -32,13 +32,12 @@ in
         "fileName"
       ];
     })
-
   ];
 
   options = {
     vmware = {
       baseImageSize = lib.mkOption {
-        type = with lib.types; either (enum [ "auto" ]) int;
+        type = with lib.types; either (enum ["auto"]) int;
         default = "auto";
         example = 2048;
         description = ''
@@ -67,7 +66,7 @@ in
   };
 
   config = {
-    system.nixos.tags = [ "vmware" ];
+    system.nixos.tags = ["vmware"];
     image.extension = "vmdk";
     system.build.image = config.system.build.vmwareImage;
     system.build.vmwareImage = import ../../lib/make-disk-image.nix {

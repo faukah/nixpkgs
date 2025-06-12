@@ -7,7 +7,6 @@
   readline,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eresi";
   version = "0.83-a3-phoenix";
@@ -62,7 +61,11 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    (if stdenv.hostPlatform.is64bit then "--enable-32-64" else "--enable-32")
+    (
+      if stdenv.hostPlatform.is64bit
+      then "--enable-32-64"
+      else "--enable-32"
+    )
     "--enable-readline"
   ];
 
@@ -72,7 +75,7 @@ stdenv.mkDerivation rec {
   prefixKey = "--prefix ";
   dontDisableStatic = true;
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
   buildInputs = [
     openssl
     readline

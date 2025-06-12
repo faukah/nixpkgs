@@ -25,7 +25,6 @@
   shared-mime-info,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gcr";
   version = "4.4.0.1";
@@ -110,7 +109,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     description = "GNOME crypto services (daemon and tools)";
     mainProgram = "gcr-viewer-gtk4";
     homepage = "https://gitlab.gnome.org/GNOME/gcr";

@@ -7,11 +7,10 @@
   withSqlite ? false,
   sqlite,
 }:
-
 bundlerApp {
   pname = "ledger_web";
   gemdir = ./.;
-  exes = [ "ledger_web" ];
+  exes = ["ledger_web"];
 
   buildInputs = lib.optional withPostgresql libpq ++ lib.optional withSqlite sqlite;
 

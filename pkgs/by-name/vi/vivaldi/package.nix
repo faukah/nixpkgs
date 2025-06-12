@@ -63,7 +63,6 @@
   kerberosSupport ? true,
   libkrb5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vivaldi";
   version = "7.4.3684.46";
@@ -73,7 +72,9 @@ stdenv.mkDerivation rec {
       aarch64-linux = "arm64";
       x86_64-linux = "amd64";
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
   src = fetchurl {
     url = "https://downloads.vivaldi.com/stable/vivaldi-stable_${version}-1_${suffix}.deb";
@@ -82,7 +83,9 @@ stdenv.mkDerivation rec {
         aarch64-linux = "sha256-vcTuqCZy0OlfO5Iz06QVGJRtT3L55wWdmE9R6Y3P1/k=";
         x86_64-linux = "sha256-uD2CZ4OEZbLIDgl3VGdHwr0edyJd4Gv/C22Z5wQMYk8=";
       }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+      .${
+        stdenv.hostPlatform.system
+      } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   };
 
   unpackPhase = ''
@@ -231,7 +234,7 @@ stdenv.mkDerivation rec {
     description = "Browser for our Friends, powerful and personal";
     homepage = "https://vivaldi.com";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "vivaldi";
     maintainers = with lib.maintainers; [
       marcusramberg

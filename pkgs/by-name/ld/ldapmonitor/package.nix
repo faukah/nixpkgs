@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ldapmonitor";
   version = "1.4";
@@ -37,7 +36,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "ldapmonitor";
     homepage = "https://github.com/p0dalirius/LDAPmonitor";
     changelog = "https://github.com/p0dalirius/LDAPmonitor/releases/tag/${version}";
-    license = with lib.licenses; [ gpl3Only ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [gpl3Only];
+    maintainers = with lib.maintainers; [fab];
   };
 }

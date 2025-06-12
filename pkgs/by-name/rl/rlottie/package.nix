@@ -7,7 +7,6 @@
   ninja,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rlottie";
   version = "0.2";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
       ftl
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ CRTified ];
+    maintainers = with maintainers; [CRTified];
   };
 }

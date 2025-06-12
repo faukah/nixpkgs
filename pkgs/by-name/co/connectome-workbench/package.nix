@@ -8,7 +8,6 @@
   libGLU,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "connectome-workbench";
   version = "2.0.1";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
     ];
     changelog = "https://github.com/Washington-University/workbench/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     mainProgram = "wb_command";
     platforms = lib.platforms.linux;
   };

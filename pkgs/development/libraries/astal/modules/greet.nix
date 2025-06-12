@@ -1,6 +1,9 @@
-{ buildAstalModule, json-glib }:
+{
+  buildAstalModule,
+  json-glib,
+}:
 buildAstalModule {
   name = "greet";
-  buildInputs = [ json-glib ];
+  buildInputs = [json-glib];
   meta.description = "Astal module for greetd using IPC";
 }

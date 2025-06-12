@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "apischema";
   version = "0.18.3";
@@ -29,24 +28,26 @@ buildPythonPackage rec {
       --replace-fail "wheel~=0.44.0" "wheel"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    graphql = [ graphql-core ];
+    graphql = [graphql-core];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "apischema" ];
+  pythonImportsCheck = ["apischema"];
 
   meta = with lib; {
     description = "JSON (de)serialization, GraphQL and JSON schema generation using typing";
     homepage = "https://github.com/wyfo/apischema";
     changelog = "https://github.com/wyfo/apischema/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

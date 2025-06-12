@@ -11,7 +11,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "tagoio-sdk";
   version = "4.3.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-37/fg2vbwYPhYPvSJ2YxWAPrfspqTE3thIL/VR1+AkI=";
   };
 
-  pythonRelaxDeps = [ "requests" ];
+  pythonRelaxDeps = ["requests"];
 
   nativeBuildInputs = [
     poetry-core
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "tagoio_sdk" ];
+  pythonImportsCheck = ["tagoio_sdk"];
 
   meta = with lib; {
     description = "Module for interacting with Tago.io";
     homepage = "https://github.com/tago-io/sdk-python";
     changelog = "https://github.com/tago-io/sdk-python/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

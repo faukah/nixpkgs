@@ -1,29 +1,22 @@
 {
   lib,
   stdenv,
-
   fetchFromGitHub,
-
   cmake,
   ninja,
   removeReferencesTo,
-
   openssl,
   glog,
   double-conversion,
   zstd,
   gflags,
   libevent,
-
   folly,
   libsodium,
   zlib,
-
   gtest,
-
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fizz";
   version = "2025.04.21.00";
@@ -90,16 +83,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  preCheck =
-    let
-      disabledTests = [
-        # timing-related & flaky
-        "SlidingBloomReplayCacheTest.TestTimeBucketing"
-      ];
-    in
-    ''
-      export GTEST_FILTER="-${lib.concatStringsSep ":" disabledTests}"
-    '';
+  preCheck = let
+    disabledTests = [
+      # timing-related & flaky
+      "SlidingBloomReplayCacheTest.TestTimeBucketing"
+    ];
+  in ''
+    export GTEST_FILTER="-${lib.concatStringsSep ":" disabledTests}"
+  '';
 
   postFixup = ''
     # Sanitize header paths to avoid runtime dependencies leaking in
@@ -113,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "C++14 implementation of the TLS-1.3 standard";

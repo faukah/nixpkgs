@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib.options) mkEnableOption mkPackageOption mkOption;
   inherit (lib.modules) mkIf;
   inherit (lib.meta) getExe;
@@ -14,29 +13,35 @@ let
   cfg = config.programs.zoxide;
 
   cfgFlags = concatStringsSep " " cfg.flags;
-
-in
-{
+in {
   options.programs.zoxide = {
     enable = mkEnableOption "zoxide, a smarter cd command that learns your habits";
-    package = mkPackageOption pkgs "zoxide" { };
+    package = mkPackageOption pkgs "zoxide" {};
 
-    enableBashIntegration = mkEnableOption "Bash integration" // {
-      default = true;
-    };
-    enableZshIntegration = mkEnableOption "Zsh integration" // {
-      default = true;
-    };
-    enableFishIntegration = mkEnableOption "Fish integration" // {
-      default = true;
-    };
-    enableXonshIntegration = mkEnableOption "Xonsh integration" // {
-      default = true;
-    };
+    enableBashIntegration =
+      mkEnableOption "Bash integration"
+      // {
+        default = true;
+      };
+    enableZshIntegration =
+      mkEnableOption "Zsh integration"
+      // {
+        default = true;
+      };
+    enableFishIntegration =
+      mkEnableOption "Fish integration"
+      // {
+        default = true;
+      };
+    enableXonshIntegration =
+      mkEnableOption "Xonsh integration"
+      // {
+        default = true;
+      };
 
     flags = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       example = [
         "--no-cmd"
         "--cmd j"
@@ -45,11 +50,10 @@ in
         List of flags for zoxide init
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     programs = {
       zsh.interactiveShellInit = mkIf cfg.enableZshIntegration ''
@@ -65,8 +69,7 @@ in
         execx($(${getExe cfg.package} init xonsh ${cfgFlags}), 'exec', __xonsh__.ctx, filename='zoxide')
       '';
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ heisfer ];
+  meta.maintainers = with lib.maintainers; [heisfer];
 }

@@ -4,23 +4,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.morty;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.morty = {
-
       enable = mkEnableOption "Morty proxy server. See https://github.com/asciimoo/morty";
 
       ipv6 = mkOption {
@@ -46,7 +36,7 @@ in
         description = "Request timeout in seconds.";
       };
 
-      package = mkPackageOption pkgs "morty" { };
+      package = mkPackageOption pkgs "morty" {};
 
       port = mkOption {
         type = types.port;
@@ -59,15 +49,12 @@ in
         default = "127.0.0.1";
         description = "The address on which the service listens";
       };
-
     };
-
   };
 
   ###### Service definition
 
   config = mkIf config.services.morty.enable {
-
     users.users.morty = {
       description = "Morty user";
       createHome = true;
@@ -75,12 +62,12 @@ in
       isSystemUser = true;
       group = "morty";
     };
-    users.groups.morty = { };
+    users.groups.morty = {};
 
     systemd.services.morty = {
       description = "Morty sanitizing proxy server.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "morty";
         ExecStart = ''
@@ -91,7 +78,6 @@ in
         '';
       };
     };
-    environment.systemPackages = [ cfg.package ];
-
+    environment.systemPackages = [cfg.package];
   };
 }

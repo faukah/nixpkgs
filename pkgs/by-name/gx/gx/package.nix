@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gx";
   version = "0.14.3";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Packaging tool built around IPFS";
     homepage = "https://github.com/whyrusleeping/gx";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     mainProgram = "gx";
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "alioth";
   version = "0.7.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     description = "Experimental Type-2 Hypervisor in Rust implemented from scratch";
     license = licenses.asl20;
     mainProgram = "alioth";
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

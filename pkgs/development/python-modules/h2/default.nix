@@ -8,7 +8,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "h2";
   version = "4.2.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-rfCwMn2msiRoIvhsdK6hyp3BjDy5AGziX4Or0cb9bKc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     hpack
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "HTTP/2 State-Machine based protocol implementation";
     homepage = "https://github.com/python-hyper/h2";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "asciinema-scenario";
   version = "0.3.0";
@@ -19,8 +18,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Create asciinema videos from a text file";
     homepage = "https://github.com/garbas/asciinema-scenario/";
-    maintainers = with maintainers; [ garbas ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [garbas];
+    license = with licenses; [mit];
     mainProgram = "asciinema-scenario";
   };
 }

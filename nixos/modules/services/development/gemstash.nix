@@ -3,19 +3,20 @@
   pkgs,
   config,
   ...
-}:
-let
-  settingsFormat = pkgs.formats.yaml { };
+}: let
+  settingsFormat = pkgs.formats.yaml {};
 
   # gemstash uses a yaml config where the keys are ruby symbols,
   # which means they start with ':'. This would be annoying to use
   # on the nix side, so we rewrite plain names instead.
-  prefixColon =
-    s:
+  prefixColon = s:
     lib.listToAttrs (
       map (attrName: {
         name = ":${attrName}";
-        value = if lib.isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
+        value =
+          if lib.isAttrs s.${attrName}
+          then prefixColon s."${attrName}"
+          else s."${attrName}";
       }) (lib.attrNames s)
     );
 
@@ -23,8 +24,7 @@ let
   parseBindPort = bind: lib.strings.toInt (lib.last (lib.strings.splitString ":" bind));
 
   cfg = config.services.gemstash;
-in
-{
+in {
   options.services.gemstash = {
     enable = lib.mkEnableOption "gemstash, a cache for rubygems.org and a private gem server";
 
@@ -37,7 +37,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
       description = ''
         Configuration for Gemstash. The details can be found at in
         [gemstash documentation](https://github.com/rubygems/gemstash/blob/master/man/gemstash-configuration.5.md).
@@ -84,7 +84,7 @@ in
         group = "gemstash";
         isSystemUser = true;
       };
-      groups.gemstash = { };
+      groups.gemstash = {};
     };
 
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [
@@ -92,8 +92,8 @@ in
     ];
 
     systemd.services.gemstash = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = lib.mkMerge [
         {
           ExecStart = "${pkgs.gemstash}/bin/gemstash start --no-daemonize --config-file ${settingsFormat.generate "gemstash.yaml" (prefixColon cfg.settings)}";

@@ -8,7 +8,6 @@
   ncurses,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rmw";
   version = "0.9.1";
@@ -27,9 +26,11 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [
-    ncurses
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin gettext;
+  buildInputs =
+    [
+      ncurses
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin gettext;
 
   # The subproject "canfigger" has asan and ubsan enabled by default, disable it here
   mesonFlags = [
@@ -41,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/theimpossibleastronaut/rmw";
     changelog = "https://github.com/theimpossibleastronaut/rmw/blob/${src.rev}/ChangeLog";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "rmw";
   };
 }

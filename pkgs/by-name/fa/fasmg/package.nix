@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchzip,
-
   # update script
   writeScript,
   coreutils,
@@ -11,7 +10,6 @@
   htmlq,
   nix-update,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fasmg";
   version = "kp60";
@@ -22,36 +20,35 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  buildPhase =
-    let
-      inherit (stdenv.hostPlatform) system;
+  buildPhase = let
+    inherit (stdenv.hostPlatform) system;
 
-      path =
-        {
-          x86_64-linux = {
-            bin = "fasmg.x64";
-            asm = "source/linux/x64/fasmg.asm";
-          };
-          x86_64-darwin = {
-            bin = "source/macos/x64/fasmg";
-            asm = "source/macos/x64/fasmg.asm";
-          };
-          x86-linux = {
-            bin = "fasmg";
-            asm = "source/linux/fasmg.asm";
-          };
-          x86-darwin = {
-            bin = "source/macos/fasmg";
-            asm = "source/macos/fasmg.asm";
-          };
-        }
-        .${system} or (throw "Unsupported system: ${system}");
-
-    in
-    ''
-      chmod +x ${path.bin}
-      ./${path.bin} ${path.asm} fasmg
-    '';
+    path =
+      {
+        x86_64-linux = {
+          bin = "fasmg.x64";
+          asm = "source/linux/x64/fasmg.asm";
+        };
+        x86_64-darwin = {
+          bin = "source/macos/x64/fasmg";
+          asm = "source/macos/x64/fasmg.asm";
+        };
+        x86-linux = {
+          bin = "fasmg";
+          asm = "source/linux/fasmg.asm";
+        };
+        x86-darwin = {
+          bin = "source/macos/fasmg";
+          asm = "source/macos/fasmg.asm";
+        };
+      }
+        .${
+        system
+      } or (throw "Unsupported system: ${system}");
+  in ''
+    chmod +x ${path.bin}
+    ./${path.bin} ${path.asm} fasmg
+  '';
 
   outputs = [
     "out"
@@ -90,7 +87,7 @@ stdenv.mkDerivation rec {
     mainProgram = "fasmg";
     homepage = "https://flatassembler.net";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = with platforms; intersectLists (linux ++ darwin) x86;
   };
 }

@@ -5,7 +5,6 @@
   versionCheckHook,
   lib,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "goshs";
   version = "1.0.6";
@@ -24,7 +23,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     # utils_test.go:62: route ip+net: no such network interface

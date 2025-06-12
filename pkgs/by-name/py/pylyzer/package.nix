@@ -11,7 +11,6 @@
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pylyzer";
   version = "0.0.82";
@@ -26,12 +25,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JrDj88JjQon2rtywa/PqnS1pTxTLigPHNnqQS/tO9RA=";
 
-  nativeBuildInputs = [
-    gitMinimal
-    python3
-    makeWrapper
-    writableTmpDirAsHomeHook
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ (writeScriptBin "diskutil" "") ];
+  nativeBuildInputs =
+    [
+      gitMinimal
+      python3
+      makeWrapper
+      writableTmpDirAsHomeHook
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [(writeScriptBin "diskutil" "")];
 
   buildInputs = [
     python3
@@ -53,7 +54,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -61,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mtshiba/pylyzer";
     changelog = "https://github.com/mtshiba/pylyzer/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     mainProgram = "pylyzer";
   };
 }

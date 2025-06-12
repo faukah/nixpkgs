@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cmd-wrapped";
   version = "0.4.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Find out what the past year looks like in commandline";
     homepage = "https://github.com/YiNNx/cmd-wrapped";
     license = licenses.mit;
-    maintainers = with maintainers; [ Cryolitia ];
+    maintainers = with maintainers; [Cryolitia];
     mainProgram = "cmd-wrapped";
   };
 }

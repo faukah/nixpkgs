@@ -6,7 +6,6 @@
   ppx_repr,
   logs,
 }:
-
 buildDunePackage rec {
   pname = "ppx_irmin";
   version = "3.10.0";

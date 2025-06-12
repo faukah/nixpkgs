@@ -1,35 +1,30 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "rstudio-server-test";
   meta.maintainers = with pkgs.lib.maintainers; [
     jbedo
     cfhammill
   ];
 
-  nodes.machine =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      services.rstudio-server.enable = true;
-    };
+  nodes.machine = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    services.rstudio-server.enable = true;
+  };
 
-  nodes.customPackageMachine =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      services.rstudio-server = {
-        enable = true;
-        package = pkgs.rstudioServerWrapper.override { packages = [ pkgs.rPackages.ggplot2 ]; };
-      };
+  nodes.customPackageMachine = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    services.rstudio-server = {
+      enable = true;
+      package = pkgs.rstudioServerWrapper.override {packages = [pkgs.rPackages.ggplot2];};
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("rstudio-server.service")

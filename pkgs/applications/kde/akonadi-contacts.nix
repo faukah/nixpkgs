@@ -20,7 +20,6 @@
   kmime,
   libkleo,
 }:
-
 mkDerivation {
   pname = "akonadi-contacts";
   meta = {
@@ -30,7 +29,7 @@ mkDerivation {
     ];
     maintainers = kdepimTeam;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtwebengine
     grantlee

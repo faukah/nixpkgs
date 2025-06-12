@@ -16,7 +16,6 @@
   libsysprof-capture,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libspelling";
   version = "0.4.8";
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/libspelling";
     license = lib.licenses.lgpl21Plus;
     changelog = "https://gitlab.gnome.org/GNOME/libspelling/-/raw/${finalAttrs.version}/NEWS";
-    maintainers = with lib.maintainers; [ chuangzhu ];
-    teams = [ lib.teams.gnome ];
+    maintainers = with lib.maintainers; [chuangzhu];
+    teams = [lib.teams.gnome];
   };
 })

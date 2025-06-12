@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-jffs";
   version = "1.5";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  pythonImportsCheck = [ "dissect.jffs" ];
+  pythonImportsCheck = ["dissect.jffs"];
 
   meta = with lib; {
     description = "Dissect module implementing a parser for the JFFS2 file system";
     homepage = "https://github.com/fox-it/dissect.jffs";
     changelog = "https://github.com/fox-it/dissect.jffs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

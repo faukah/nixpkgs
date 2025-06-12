@@ -4,7 +4,6 @@
   fetchFromGitHub,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cherry";
   version = "1.4";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "cherry font";
     homepage = "https://github.com/turquoise-hexagon/cherry";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

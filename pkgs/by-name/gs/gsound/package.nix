@@ -12,7 +12,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gsound";
   version = "1.0.3";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     meson
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gsound";
     description = "Small library for playing system sounds";
     mainProgram = "gsound-play";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

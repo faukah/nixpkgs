@@ -8,7 +8,6 @@
   pythonAtLeast,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "servefile";
   version = "0.5.4";
@@ -21,9 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-hIqXwhmvstCslsCO973oK5FF2c8gZJ0wNUI/z8W+OjU=";
   };
 
-  dependencies = [
-    pyopenssl
-  ] ++ lib.optionals (pythonAtLeast "3.13") [ legacy-cgi ];
+  dependencies =
+    [
+      pyopenssl
+    ]
+    ++ lib.optionals (pythonAtLeast "3.13") [legacy-cgi];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,13 +42,13 @@ buildPythonPackage rec {
     "test_upload_size_limit"
     "test_upload"
   ];
-  pythonImportsCheck = [ "servefile" ];
+  pythonImportsCheck = ["servefile"];
 
   meta = with lib; {
     description = "Serve files from shell via a small HTTP server";
     mainProgram = "servefile";
     homepage = "https://github.com/sebageek/servefile";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

@@ -11,7 +11,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "miniserve";
   version = "0.29.0";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   nativeCheckInputs = [
     curl
@@ -58,17 +57,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool to serve files and directories over HTTP";
     homepage = "https://github.com/svenstaro/miniserve";
     changelog = "https://github.com/svenstaro/miniserve/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       figsoda
       defelo

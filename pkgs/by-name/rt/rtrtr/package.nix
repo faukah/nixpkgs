@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rtrtr";
   version = "0.3.2";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-SeQ2zRBbETabAhOItu3C6PUjL7vUsVDzWGbYcUIslF4=";
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildNoDefaultFeatures = true;
 
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NLnetLabs/rtrtr";
     changelog = "https://github.com/NLnetLabs/rtrtr/blob/v${version}/Changelog.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ steamwalker ];
+    maintainers = with lib.maintainers; [steamwalker];
     mainProgram = "rtrtr";
   };
 }

@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   prettytable,
   sqlglot,
   typing-extensions,
-
   # tests
   databricks-sql-connector,
   duckdb,
@@ -21,7 +18,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sqlframe";
   version = "3.31.3";
@@ -44,7 +40,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "sqlframe" ];
+  pythonImportsCheck = ["sqlframe"];
 
   nativeCheckInputs = [
     databricks-sql-connector
@@ -74,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/eakmanrq/sqlframe";
     changelog = "https://github.com/eakmanrq/sqlframe/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

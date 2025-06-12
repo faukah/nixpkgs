@@ -1,7 +1,10 @@
-{ lib, pkgs, ... }:
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   gpgKeyring = (
-    pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
+    pkgs.runCommand "gpg-keyring" {buildInputs = [pkgs.gnupg];} ''
       mkdir -p $out
       export GNUPGHOME=$out
       cat > foo <<EOF
@@ -22,30 +25,27 @@ let
       rm $out/S.gpg-agent $out/S.gpg-agent.*
     ''
   );
-in
-{
+in {
   name = "hockeypuck";
-  meta.maintainers = with lib.maintainers; [ etu ];
+  meta.maintainers = with lib.maintainers; [etu];
 
-  nodes.machine =
-    { ... }:
-    {
-      # Used for test
-      environment.systemPackages = [ pkgs.gnupg ];
+  nodes.machine = {...}: {
+    # Used for test
+    environment.systemPackages = [pkgs.gnupg];
 
-      services.hockeypuck.enable = true;
+    services.hockeypuck.enable = true;
 
-      services.postgresql = {
-        enable = true;
-        ensureDatabases = [ "hockeypuck" ];
-        ensureUsers = [
-          {
-            name = "hockeypuck";
-            ensureDBOwnership = true;
-          }
-        ];
-      };
+    services.postgresql = {
+      enable = true;
+      ensureDatabases = ["hockeypuck"];
+      ensureUsers = [
+        {
+          name = "hockeypuck";
+          ensureDBOwnership = true;
+        }
+      ];
     };
+  };
 
   testScript = ''
     machine.wait_for_unit("hockeypuck.service")

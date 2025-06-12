@@ -2,9 +2,8 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  fonts ? [ ],
+  fonts ? [],
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "google-fonts";
   version = "unstable-2024-06-21";
@@ -48,7 +47,7 @@ stdenvNoCC.mkDerivation {
   # FamilyName-StyleName.ttf, FamilyName[param1,param2,...].ttf, and
   # FamilyName.ttf. This installs all fonts if fonts is empty and otherwise
   # only the specified fonts by FamilyName.
-  fonts = map (font: builtins.replaceStrings [ " " ] [ "" ] font) fonts;
+  fonts = map (font: builtins.replaceStrings [" "] [""] font) fonts;
   installPhase =
     ''
       adobeBlankDest=$adobeBlank/share/fonts/truetype
@@ -57,16 +56,15 @@ stdenvNoCC.mkDerivation {
       dest=$out/share/fonts/truetype
     ''
     + (
-      if fonts == [ ] then
-        ''
-          find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
-        ''
-      else
-        ''
-          for font in $fonts; do
-            find . \( -name "$font-*.ttf" -o -name "$font[*.ttf" -o -name "$font.ttf" \) -exec install -m 444 -Dt $dest '{}' +
-          done
-        ''
+      if fonts == []
+      then ''
+        find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
+      ''
+      else ''
+        for font in $fonts; do
+          find . \( -name "$font-*.ttf" -o -name "$font[*.ttf" -o -name "$font.ttf" \) -exec install -m 444 -Dt $dest '{}' +
+        done
+      ''
     );
 
   meta = with lib; {
@@ -78,8 +76,8 @@ stdenvNoCC.mkDerivation {
       ufl
     ];
     platforms = platforms.all;
-    hydraPlatforms = [ ];
-    maintainers = with maintainers; [ manveru ];
-    sourceProvenance = [ sourceTypes.binaryBytecode ];
+    hydraPlatforms = [];
+    maintainers = with maintainers; [manveru];
+    sourceProvenance = [sourceTypes.binaryBytecode];
   };
 }

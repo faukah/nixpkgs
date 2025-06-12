@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.corerad;
-  settingsFormat = pkgs.formats.toml { };
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ mdlayher ];
+  settingsFormat = pkgs.formats.toml {};
+in {
+  meta.maintainers = with lib.maintainers; [mdlayher];
 
   options.services.corerad = {
     enable = lib.mkEnableOption "CoreRAD IPv6 NDP RA daemon";
@@ -51,7 +48,7 @@ in
       description = "Path to CoreRAD TOML configuration file.";
     };
 
-    package = lib.mkPackageOption pkgs "corerad" { };
+    package = lib.mkPackageOption pkgs "corerad" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -60,8 +57,8 @@ in
 
     systemd.services.corerad = {
       description = "CoreRAD IPv6 NDP RA daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         LimitNPROC = 512;
         LimitNOFILE = 1048576;

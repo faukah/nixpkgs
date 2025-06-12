@@ -14,7 +14,6 @@
   glfw3,
   useGlfw3 ? false,
 }:
-
 stdenv.mkDerivation {
   pname = "pax-britannica";
   version = "1.0.0-5";
@@ -71,17 +70,20 @@ stdenv.mkDerivation {
     alsa-lib
     xorg.libX11
     xorg.libXrandr
-    (if useGlfw3 then glfw3 else glfw2)
+    (
+      if useGlfw3
+      then glfw3
+      else glfw2
+    )
   ];
   makeFlags =
-    if stdenv.hostPlatform.isLinux then
-      [ "linux" ]
-    else if stdenv.hostPlatform.isDarwin then
-      [ "macosx" ]
-    else if stdenv.hostPlatform.isMinGW then
-      [ "mingw" ]
-    else
-      throw "Unsupported hostPlatform";
+    if stdenv.hostPlatform.isLinux
+    then ["linux"]
+    else if stdenv.hostPlatform.isDarwin
+    then ["macosx"]
+    else if stdenv.hostPlatform.isMinGW
+    then ["mingw"]
+    else throw "Unsupported hostPlatform";
 
   preBuild = ''
     makeFlagsArray+=(
@@ -89,7 +91,7 @@ stdenv.mkDerivation {
     )
   '';
 
-  desktopItems = [ "pax-britannica.desktop" ];
+  desktopItems = ["pax-britannica.desktop"];
 
   installPhase = ''
     mkdir -p $out/{bin,share/pax-britannica,share/pixmaps}
@@ -102,7 +104,7 @@ stdenv.mkDerivation {
     description = "One-button multi-player real-time strategy game";
     homepage = "http://gangles.ca/games/pax-britannica/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ astro ];
+    maintainers = with lib.maintainers; [astro];
     platforms = with lib.platforms; linux ++ darwin ++ windows;
     mainProgram = "pax-britannica";
   };

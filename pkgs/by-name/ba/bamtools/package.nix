@@ -7,7 +7,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bamtools";
   version = "2.5.3";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/pezmaster31/bamtools";
     changelog = "https://github.com/pezmaster31/bamtools/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     platforms = platforms.unix;
   };
 })

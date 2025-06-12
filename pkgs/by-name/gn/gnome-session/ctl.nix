@@ -9,7 +9,6 @@
   systemd,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-session-ctl";
   version = "47.0.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "gnome-session-ctl extracted from gnome-session for nixpkgs";
     homepage = "https://github.com/nix-community/gnome-session-ctl";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

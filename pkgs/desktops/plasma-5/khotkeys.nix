@@ -13,7 +13,6 @@
   plasma-workspace,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "khotkeys";
   nativeBuildInputs = [

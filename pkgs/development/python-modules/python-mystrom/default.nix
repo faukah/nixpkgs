@@ -7,7 +7,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-mystrom";
   version = "2.2.0";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/home-assistant-ecosystem/python-mystrom";
     changelog = "https://github.com/home-assistant-ecosystem/python-mystrom/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

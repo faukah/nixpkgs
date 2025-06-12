@@ -6,9 +6,7 @@
   runtimeShell,
   unfreeFonts ? false,
   lib,
-}:
-
-let
+}: let
   xorgConfig = writeText "dummy-xorg.conf" ''
     Section "ServerLayout"
       Identifier     "dummy_layout"
@@ -81,13 +79,12 @@ let
       EndSubSection
     EndSection
   '';
-
 in
-writeScriptBin "xdummy" ''
-  #!${runtimeShell}
-  exec ${xorg.xorgserver.out}/bin/Xorg \
-    -noreset \
-    -logfile /dev/null \
-    "$@" \
-    -config "${xorgConfig}"
-''
+  writeScriptBin "xdummy" ''
+    #!${runtimeShell}
+    exec ${xorg.xorgserver.out}/bin/Xorg \
+      -noreset \
+      -logfile /dev/null \
+      "$@" \
+      -config "${xorgConfig}"
+  ''

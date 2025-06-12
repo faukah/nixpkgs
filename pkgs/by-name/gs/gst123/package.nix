@@ -9,7 +9,6 @@
   gtk3,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst123";
   version = "0.4.1";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://space.twc.de/~stefan/gst123.php";
     license = lib.licenses.lgpl2Plus;
     mainProgram = "gst123";
-    maintainers = with lib.maintainers; [ swesterfeld ];
+    maintainers = with lib.maintainers; [swesterfeld];
     inherit (ncurses.meta) platforms;
   };
 })

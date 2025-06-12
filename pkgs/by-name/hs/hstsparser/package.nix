@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "hstsparser";
   version = "1.2.0";
@@ -34,6 +33,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/thebeanogamer/hstsparser";
     changelog = "https://github.com/thebeanogamer/hstsparser/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
   pytestCheckHook,
-
   # for passthru.tests
   distributed,
   jupyter-server,
@@ -17,7 +16,6 @@
   sockjs-tornado,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "tornado";
   version = "6.4.2";
@@ -30,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-qgJh8pnC1ALF8KxhAYkZFAc0DE6jHVB8R/ERJFL4OFc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # additional tests that have extra dependencies, run slowly, or produce more output than a simple pass/fail
@@ -48,7 +46,7 @@ buildPythonPackage rec {
     "test_unix_socket_bad_request"
   ];
 
-  pythonImportsCheck = [ "tornado" ];
+  pythonImportsCheck = ["tornado"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -71,6 +69,6 @@ buildPythonPackage rec {
     description = "Web framework and asynchronous networking library";
     homepage = "https://www.tornadoweb.org/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

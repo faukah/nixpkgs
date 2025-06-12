@@ -12,7 +12,6 @@
   types-requests,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "staticmap3";
   version = "0.1.0";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    filecache = [ filelock ];
+    filecache = [filelock];
     dev = [
       mypy
       ruff
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "staticmap3" ];
+  pythonImportsCheck = ["staticmap3"];
 
   meta = {
     description = "Small, python-based library for creating map images with lines and markers";
     homepage = "https://github.com/SamR1/staticmap";
     changelog = "https://github.com/SamR1/staticmap/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tebriel ];
+    maintainers = with lib.maintainers; [tebriel];
   };
 }

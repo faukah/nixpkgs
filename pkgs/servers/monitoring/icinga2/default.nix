@@ -27,7 +27,6 @@
   withIcingadb ? true,
   nameSuffix ? "",
 }:
-
 stdenv.mkDerivation rec {
   pname = "icinga2${nameSuffix}";
   version = "2.14.6";
@@ -45,47 +44,51 @@ stdenv.mkDerivation rec {
     ./no-var-directories.patch # Prevent /var directories from being created
   ];
 
-  cmakeFlags =
-    let
-      mkFeatureFlag = label: value: "-DICINGA2_WITH_${label}=${if value then "ON" else "OFF"}";
-    in
-    [
-      # Paths
-      "-DCMAKE_INSTALL_SYSCONFDIR=etc"
-      "-DCMAKE_INSTALL_LOCALSTATEDIR=/var"
-      "-DCMAKE_INSTALL_FULL_SBINDIR=bin"
-      "-DICINGA2_RUNDIR=/run"
-      "-DMYSQL_INCLUDE_DIR=${mariadb-connector-c.dev}/include/mariadb"
-      "-DMYSQL_LIB=${mariadb-connector-c.out}/lib/mariadb/libmysqlclient.a"
-      "-DICINGA2_PLUGINDIR=bin"
-      "-DICINGA2_LTO_BUILD=yes"
-      # Features
-      (mkFeatureFlag "MYSQL" withMysql)
-      (mkFeatureFlag "PGSQL" withPostgresql)
-      (mkFeatureFlag "CHECKER" withChecker)
-      (mkFeatureFlag "COMPAT" withCompat)
-      (mkFeatureFlag "LIVESTATUS" withLivestatus)
-      (mkFeatureFlag "NOTIFICATION" withNotification)
-      (mkFeatureFlag "PERFDATA" withPerfdata)
-      (mkFeatureFlag "ICINGADB" withIcingadb)
-      # Misc.
-      "-DICINGA2_USER=icinga2"
-      "-DICINGA2_GROUP=icinga2"
-      "-DICINGA2_GIT_VERSION_INFO=OFF"
-      "-DUSE_SYSTEMD=ON"
-    ];
+  cmakeFlags = let
+    mkFeatureFlag = label: value: "-DICINGA2_WITH_${label}=${
+      if value
+      then "ON"
+      else "OFF"
+    }";
+  in [
+    # Paths
+    "-DCMAKE_INSTALL_SYSCONFDIR=etc"
+    "-DCMAKE_INSTALL_LOCALSTATEDIR=/var"
+    "-DCMAKE_INSTALL_FULL_SBINDIR=bin"
+    "-DICINGA2_RUNDIR=/run"
+    "-DMYSQL_INCLUDE_DIR=${mariadb-connector-c.dev}/include/mariadb"
+    "-DMYSQL_LIB=${mariadb-connector-c.out}/lib/mariadb/libmysqlclient.a"
+    "-DICINGA2_PLUGINDIR=bin"
+    "-DICINGA2_LTO_BUILD=yes"
+    # Features
+    (mkFeatureFlag "MYSQL" withMysql)
+    (mkFeatureFlag "PGSQL" withPostgresql)
+    (mkFeatureFlag "CHECKER" withChecker)
+    (mkFeatureFlag "COMPAT" withCompat)
+    (mkFeatureFlag "LIVESTATUS" withLivestatus)
+    (mkFeatureFlag "NOTIFICATION" withNotification)
+    (mkFeatureFlag "PERFDATA" withPerfdata)
+    (mkFeatureFlag "ICINGADB" withIcingadb)
+    # Misc.
+    "-DICINGA2_USER=icinga2"
+    "-DICINGA2_GROUP=icinga2"
+    "-DICINGA2_GIT_VERSION_INFO=OFF"
+    "-DUSE_SYSTEMD=ON"
+  ];
 
   outputs = [
     "out"
     "doc"
   ];
 
-  buildInputs = [
-    boost186
-    libedit
-    openssl
-    systemd
-  ] ++ lib.optional withPostgresql libpq;
+  buildInputs =
+    [
+      boost186
+      libedit
+      openssl
+      systemd
+    ]
+    ++ lib.optional withPostgresql libpq;
 
   nativeBuildInputs = [
     cmake
@@ -95,7 +98,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ tzdata ]; # legacytimeperiod/dst needs this
+  nativeCheckInputs = [tzdata]; # legacytimeperiod/dst needs this
 
   postFixup = ''
     rm -r $out/etc/logrotate.d $out/etc/sysconfig $out/lib/icinga2/prepare-dirs
@@ -117,7 +120,7 @@ stdenv.mkDerivation rec {
     ''}
   '';
 
-  vim = runCommand "vim-icinga2-${version}" { pname = "vim-icinga2"; } ''
+  vim = runCommand "vim-icinga2-${version}" {pname = "vim-icinga2";} ''
     mkdir -p $out/share/vim-plugins
     cp -r "${src}/tools/syntax/vim" $out/share/vim-plugins/icinga2
   '';
@@ -127,6 +130,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.icinga.com";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.helsinki-systems ];
+    teams = [lib.teams.helsinki-systems];
   };
 }

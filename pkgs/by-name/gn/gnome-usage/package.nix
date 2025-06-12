@@ -20,7 +20,6 @@
   gnome,
   tinysparql,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-usage";
   version = "48.rc";
@@ -69,6 +68,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-usage";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

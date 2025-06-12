@@ -26,7 +26,6 @@
   systemd,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gala";
   version = "8.2.2";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     ./plugins-dir.patch
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/gala";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "gala";
   };
 }

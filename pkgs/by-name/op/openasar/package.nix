@@ -7,7 +7,6 @@
   asar,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openasar";
   version = "0-unstable-2025-01-20";

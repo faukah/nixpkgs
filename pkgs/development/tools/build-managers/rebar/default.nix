@@ -4,7 +4,6 @@
   fetchFromGitHub,
   erlang,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rebar";
   version = "2.6.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-okvG7X2uHtZ1p+HUoFOmslrWvYjk0QWBAvAMAW2E40c=";
   };
 
-  buildInputs = [ erlang ];
+  buildInputs = [erlang];
 
   buildPhase = "escript bootstrap";
   installPhase = ''
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
 
     platforms = lib.platforms.unix;
     license = lib.licenses.asl20;
-    teams = [ lib.teams.beam ];
+    teams = [lib.teams.beam];
   };
 }

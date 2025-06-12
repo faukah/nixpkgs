@@ -9,7 +9,6 @@
   tomli,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydocstyle";
   version = "6.3.0";
@@ -33,18 +32,18 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace 'version = "0.0.0-dev"' 'version = "${version}"'
   '';
 
-  propagatedBuildInputs = [ snowballstemmer ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [snowballstemmer] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  optional-dependencies.toml = [ tomli ];
+  optional-dependencies.toml = [tomli];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.toml;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.toml;
 
   disabledTestPaths = [
     "src/tests/test_integration.py" # runs pip install
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyCQA/pydocstyle";
     changelog = "https://github.com/PyCQA/pydocstyle/blob/${version}/docs/release_notes.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dzabraev ];
+    maintainers = with maintainers; [dzabraev];
   };
 }

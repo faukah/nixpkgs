@@ -9,7 +9,6 @@
   hex,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "bls12-381";
   version = "6.1.0";
@@ -44,6 +43,6 @@ buildDunePackage rec {
     homepage = "	https://nomadic-labs.gitlab.io/cryptography/ocaml-bls12-381/bls12-381/";
     description = "Implementation of BLS12-381 and some cryptographic primitives built on top of it";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

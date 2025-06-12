@@ -9,7 +9,6 @@
   lua,
   libwnck,
 }:
-
 stdenv.mkDerivation rec {
   pname = "devilspie2";
   version = "0.44";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.nongnu.org/devilspie2/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ebzzry ];
+    maintainers = [maintainers.ebzzry];
     platforms = platforms.linux;
     mainProgram = "devilspie2";
   };

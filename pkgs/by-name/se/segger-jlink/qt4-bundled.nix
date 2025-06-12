@@ -7,7 +7,6 @@
   fontconfig,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "segger-jlink-qt4";
   inherit src version;
@@ -44,7 +43,7 @@ stdenv.mkDerivation {
     description = "Bundled QT4 libraries for the J-Link Software and Documentation pack";
     homepage = "https://www.segger.com/downloads/jlink/#J-LinkSoftwareAndDocumentationPack";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ stargate01 ];
+    maintainers = with maintainers; [stargate01];
     knownVulnerabilities = [
       "This bundled version of Qt 4 has reached its end of life after 2015. See https://github.com/NixOS/nixpkgs/pull/174634"
       "CVE-2023-43114"

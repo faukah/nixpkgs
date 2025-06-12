@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "archinfo";
   version = "9.2.154";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-Vks7Rjd8x2zeHnJPs0laH56S4b8pnR1cK82SpK+XOgE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "archinfo" ];
+  pythonImportsCheck = ["archinfo"];
 
   meta = with lib; {
     description = "Classes with architecture-specific information";
     homepage = "https://github.com/angr/archinfo";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

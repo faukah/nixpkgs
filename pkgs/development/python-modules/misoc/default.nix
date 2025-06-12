@@ -8,7 +8,6 @@
   migen,
   numpy,
 }:
-
 buildPythonPackage {
   pname = "misoc";
   version = "0-unstable-2024-05-14";
@@ -28,14 +27,14 @@ buildPythonPackage {
     migen
   ];
 
-  nativeCheckInputs = [ numpy ];
+  nativeCheckInputs = [numpy];
 
-  pythonImportsCheck = [ "misoc" ];
+  pythonImportsCheck = ["misoc"];
 
   meta = {
     description = "Original high performance and small footprint system-on-chip based on Migen";
     homepage = "https://github.com/m-labs/misoc";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

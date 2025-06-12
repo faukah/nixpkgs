@@ -6,7 +6,6 @@
   ffmpeg_4,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "karlyriceditor";
   version = "3.3";

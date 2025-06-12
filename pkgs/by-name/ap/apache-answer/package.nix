@@ -7,7 +7,6 @@
   fetchpatch,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "apache-answer";
   version = "1.4.1";
@@ -70,7 +69,7 @@ buildGoModule rec {
   meta = {
     homepage = "https://answer.apache.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
     mainProgram = "answer";
     changelog = "https://github.com/apache/incubator-answer/releases/tag/v${version}";

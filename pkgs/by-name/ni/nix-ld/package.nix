@@ -5,7 +5,6 @@
   rustPlatform,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-ld";
   version = "2.0.4";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-cDbszVjZcomag0HZvXM+17SjDiGS07iPj78zgsXstHc=";
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   NIX_SYSTEM = stdenv.system;
   RUSTC_BOOTSTRAP = "1";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     description = "Run unpatched dynamic binaries on NixOS";
     homepage = "https://github.com/nix-community/nix-ld";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     platforms = lib.platforms.linux;
   };
 }

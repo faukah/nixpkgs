@@ -9,7 +9,6 @@
   logs,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "get-activity";
   inherit (get-activity-lib) version src;
@@ -36,6 +35,6 @@ buildDunePackage rec {
     description = "Collect activity and format as markdown for a journal";
     license = lib.licenses.mit;
     changelog = "https://github.com/tarides/get-activity/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ zazedd ];
+    maintainers = with lib.maintainers; [zazedd];
   };
 }

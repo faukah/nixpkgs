@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "wsdiscovery";
   version = "2.1.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-6LGZogNRCnmCrRXvHq9jmHwqW13KQPpaGaao/52JPtk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -36,12 +35,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "wsdiscovery" ];
+  pythonImportsCheck = ["wsdiscovery"];
 
   meta = with lib; {
     description = "WS-Discovery implementation for Python";
     homepage = "https://github.com/andreikop/python-ws-discovery";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

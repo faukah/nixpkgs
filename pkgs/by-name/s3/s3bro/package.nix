@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "s3bro";
   version = "2.8";
@@ -38,6 +37,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "s3bro";
     homepage = "https://github.com/rsavordelli/s3bro";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

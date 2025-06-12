@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alegreya";
   version = "2.008";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.huertatipografica.com/en/fonts/alegreya-ht-pro";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
   };
 }

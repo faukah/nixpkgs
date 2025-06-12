@@ -2,21 +2,19 @@
   stdenv,
   fetchurl,
   appimageTools,
-
   version,
   pname,
   meta,
   passthru,
-}:
-let
+}: let
   src =
-    if stdenv.hostPlatform.system == "x86_64-linux" then
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then
       fetchurl {
         url = "https://github.com/4ian/GDevelop/releases/download/v${version}/GDevelop-5-${version}.AppImage";
         hash = "sha256-RjpiIy4NqZ9QCevwWR6cKLobbsFjneq+Vhr/t0JfvgU=";
       }
-    else
-      throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
+    else throw "${pname}-${version} is not supported on ${stdenv.hostPlatform.system}";
   appimageContents = appimageTools.extractType2 {
     inherit pname version src;
     postExtract = ''
@@ -24,20 +22,19 @@ let
     '';
   };
 in
-appimageTools.wrapType2 {
-  inherit
-    pname
-    version
-    src
-    meta
-    passthru
-    ;
+  appimageTools.wrapType2 {
+    inherit
+      pname
+      version
+      src
+      meta
+      passthru
+      ;
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications
-    cp ${appimageContents}/gdevelop.desktop $out/share/applications
-    mkdir -p $out/share/icons
-    cp -r ${appimageContents}/usr/share/icons/hicolor $out/share/icons
-  '';
-
-}
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications
+      cp ${appimageContents}/gdevelop.desktop $out/share/applications
+      mkdir -p $out/share/icons
+      cp -r ${appimageContents}/usr/share/icons/hicolor $out/share/icons
+    '';
+  }

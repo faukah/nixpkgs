@@ -37,7 +37,6 @@
   udev,
   python311,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snapmaker-luban";
   version = "4.15.0";
@@ -105,7 +104,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  autoPatchelfIgnoreMissingDeps = [ "libc.musl-x86_64.so.1" ];
+  autoPatchelfIgnoreMissingDeps = ["libc.musl-x86_64.so.1"];
 
   dontWrapGApps = true;
   dontConfigure = true;
@@ -148,10 +147,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Snapmaker Luban is an easy-to-use 3-in-1 software tailor-made for Snapmaker machines";
     homepage = "https://github.com/Snapmaker/Luban";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ simonkampe ];
-    platforms = [ "x86_64-linux" ];
-    knownVulnerabilities = [ "CVE-2023-5217" ];
+    maintainers = with lib.maintainers; [simonkampe];
+    platforms = ["x86_64-linux"];
+    knownVulnerabilities = ["CVE-2023-5217"];
   };
 }

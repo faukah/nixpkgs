@@ -15,7 +15,6 @@
   gtk4,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "paleta";
   version = "0.3.1";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nate-xyz/paleta";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pasco";
   version = "20040505_1";
@@ -37,8 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Examine the contents of Internet Explorer's cache files for forensic purposes";
     mainProgram = "pasco";
     homepage = "https://sourceforge.net/projects/fast/files/Pasco/";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
   };
 })

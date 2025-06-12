@@ -5,7 +5,6 @@
   zig_0_14,
   nix,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zon2nix";
   version = "0.1.3-unstable-2025-03-20";

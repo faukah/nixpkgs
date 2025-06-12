@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "beats";
   version = "1.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     description = "Swatch Internet Time implemented as a C program";
     platforms = platforms.all;
-    maintainers = [ maintainers.j0hax ];
+    maintainers = [maintainers.j0hax];
     mainProgram = "beats";
   };
 }

@@ -1,9 +1,6 @@
-{
-  pkgs ? import ../../.. { },
-}:
-
-let
-  inherit (pkgs)
+{pkgs ? import ../../.. {}}: let
+  inherit
+    (pkgs)
     lib
     stdenv
     config
@@ -11,17 +8,20 @@ let
     ;
 
   patchelf = pkgs.patchelf.overrideAttrs (previousAttrs: {
-    NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
-      "-static-libgcc"
-      "-static-libstdc++"
-    ];
-    NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ]) ++ [
-      "-static-libgcc"
-      "-static-libstdc++"
-    ];
+    NIX_CFLAGS_COMPILE =
+      (previousAttrs.NIX_CFLAGS_COMPILE or [])
+      ++ [
+        "-static-libgcc"
+        "-static-libstdc++"
+      ];
+    NIX_CFLAGS_LINK =
+      (previousAttrs.NIX_CFLAGS_LINK or [])
+      ++ [
+        "-static-libgcc"
+        "-static-libstdc++"
+      ];
   });
-in
-rec {
+in rec {
   coreutilsMinimal = pkgs.coreutils.override (args: {
     # We want coreutils without ACL/attr support.
     aclSupport = false;
@@ -30,7 +30,7 @@ rec {
     singleBinary = "symlinks";
   });
 
-  tarMinimal = pkgs.gnutar.override { acl = null; };
+  tarMinimal = pkgs.gnutar.override {acl = null;};
 
   busyboxMinimal = pkgs.busybox.override {
     useMusl = lib.meta.availableOn stdenv.hostPlatform pkgs.musl;

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "dipc";
   version = "1.0.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ ByteSudoer ];
+    maintainers = with maintainers; [ByteSudoer];
     mainProgram = "dipc";
   };
 }

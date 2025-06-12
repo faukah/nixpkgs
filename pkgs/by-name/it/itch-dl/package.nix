@@ -3,7 +3,6 @@
   lib,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "itch-dl";
   version = "0.6.1";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "itch-dl";
     homepage = "https://github.com/DragoonAethis/itch-dl";
     changelog = "https://github.com/DragoonAethis/itch-dl/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 }

@@ -5,7 +5,6 @@
   gfortran,
   mpi,
 }:
-
 stdenv.mkDerivation {
   version = "1.10";
   pname = "DL_POLY_Classic";
@@ -15,9 +14,9 @@ stdenv.mkDerivation {
     sha256 = "1r76zvln3bwycxlmqday0sqzv5j260y7mdh66as2aqny6jzd5ld7";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
   configurePhase = ''
     cd source
@@ -42,6 +41,6 @@ stdenv.mkDerivation {
     mainProgram = "DLPOLY.X";
     license = licenses.bsdOriginal;
     platforms = platforms.unix;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

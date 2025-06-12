@@ -15,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=almenon.arepl";
     homepage = "https://github.com/Almenon/AREPL-vscode";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

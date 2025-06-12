@@ -15,7 +15,6 @@
   icu74,
   libSM,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slop";
   version = "7.6";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Queries a selection from the user and prints to stdout";
     platforms = lib.platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "slop";
   };
 }

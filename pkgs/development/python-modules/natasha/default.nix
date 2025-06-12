@@ -10,7 +10,6 @@
   ipymarkup,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "natasha";
   version = "1.6.0";
@@ -30,14 +29,14 @@ buildPythonPackage rec {
     ipymarkup
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "tests/" ];
-  pythonImportsCheck = [ "natasha" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["tests/"];
+  pythonImportsCheck = ["natasha"];
 
   meta = with lib; {
     description = "NLP framework for Russian language";
     homepage = "https://github.com/natasha/natasha";
     license = licenses.mit;
-    maintainers = with maintainers; [ npatsakula ];
+    maintainers = with maintainers; [npatsakula];
   };
 }

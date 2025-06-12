@@ -18,7 +18,6 @@
   unstableGitUpdater,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "bsnes-hd";
   version = "10.6-unstable-2024-10-21";
@@ -46,8 +45,8 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook3 ]
+    [pkg-config]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [wrapGAppsHook3]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libicns
       makeWrapper
@@ -74,8 +73,8 @@ stdenv.mkDerivation {
       "-C bsnes"
       "prefix=$(out)"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ "hiro=gtk3" ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "hiro=cocoa" ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux ["hiro=gtk3"]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["hiro=cocoa"];
 
   enableParallelBuilding = true;
 
@@ -92,7 +91,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {

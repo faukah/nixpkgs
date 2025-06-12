@@ -7,7 +7,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xvidcore";
   version = "1.3.7";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     '';
 
   configureFlags =
-    [ ]
+    []
     # Undocumented darwin hack (assembly is probably disabled due to an
     # issue with nasm, however yasm is now used)
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
@@ -38,10 +37,10 @@ stdenv.mkDerivation rec {
       "--disable-assembly"
     ];
 
-  nativeBuildInputs = [ ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) yasm;
+  nativeBuildInputs = [] ++ lib.optional (!stdenv.hostPlatform.isDarwin) yasm;
 
   buildInputs =
-    [ ]
+    []
     # Undocumented darwin hack
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       autoconf

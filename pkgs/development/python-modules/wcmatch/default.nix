@@ -6,7 +6,6 @@
   pytestCheckHook,
   bracex,
 }:
-
 buildPythonPackage rec {
   pname = "wcmatch";
   version = "10.0";
@@ -17,24 +16,24 @@ buildPythonPackage rec {
     hash = "sha256-5y8N4Ju6agTg3nCTewzwblXzbzez3rQi36+FS4Z7hAo=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ bracex ];
+  propagatedBuildInputs = [bracex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  disabledTests = [ "TestTilde" ];
+  disabledTests = ["TestTilde"];
 
-  pythonImportsCheck = [ "wcmatch" ];
+  pythonImportsCheck = ["wcmatch"];
 
   meta = with lib; {
     description = "Wilcard File Name matching library";
     homepage = "https://github.com/facelessuser/wcmatch";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

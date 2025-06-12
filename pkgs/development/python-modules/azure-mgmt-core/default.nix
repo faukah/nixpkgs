@@ -5,7 +5,6 @@
   azure-core,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   version = "1.5.0";
   format = "setuptools";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Management Core Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

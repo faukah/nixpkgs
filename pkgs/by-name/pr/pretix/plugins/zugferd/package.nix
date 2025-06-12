@@ -8,7 +8,6 @@
   drafthorse,
   ghostscript_headless,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-zugferd";
   version = "2.4.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       --replace-fail 'fallback="gs"' 'fallback="${lib.getExe ghostscript_headless}"'
   '';
 
-  pythonRelaxDeps = [ "drafthorse" ];
+  pythonRelaxDeps = ["drafthorse"];
 
   build-system = [
     django
@@ -38,16 +37,16 @@ buildPythonPackage rec {
     make
   '';
 
-  dependencies = [ drafthorse ];
+  dependencies = [drafthorse];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "pretix_zugferd" ];
+  pythonImportsCheck = ["pretix_zugferd"];
 
   meta = with lib; {
     description = "Annotate pretix' invoices with ZUGFeRD data";
     homepage = "https://github.com/pretix/pretix-zugferd";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

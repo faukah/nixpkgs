@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     mainProgram = "dehydrated";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.pstn ];
+    maintainers = [maintainers.pstn];
   };
 }

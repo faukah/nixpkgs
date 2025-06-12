@@ -17,22 +17,20 @@
   system-config-printer,
   wget,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rcu";
   version = "4.0.24";
 
   format = "other";
 
-  src =
-    let
-      src-tarball = requireFile {
-        name = "rcu-${version}-source.tar.gz";
-        hash = "sha256-3rZiqg8Uuta3kI2m+2rBZ1XzN9bFds+emhivH5X7sJg=";
-        url = "https://www.davisr.me/projects/rcu/";
-      };
-    in
-    runCommand "${src-tarball.name}-unpacked" { } ''
+  src = let
+    src-tarball = requireFile {
+      name = "rcu-${version}-source.tar.gz";
+      hash = "sha256-3rZiqg8Uuta3kI2m+2rBZ1XzN9bFds+emhivH5X7sJg=";
+      url = "https://www.davisr.me/projects/rcu/";
+    };
+  in
+    runCommand "${src-tarball.name}-unpacked" {} ''
       gunzip -ck ${src-tarball} | tar -xvf-
       mv rcu $out
       ln -s ${src-tarball} $out/src
@@ -143,12 +141,12 @@ python3Packages.buildPythonApplication rec {
       makeWrapperArgs+=(
         "''${qtWrapperArgs[@]}"
         --prefix PATH : ${
-          lib.makeBinPath [
-            coreutils
-            gnutar
-            wget
-          ]
-        }
+        lib.makeBinPath [
+          coreutils
+          gnutar
+          wget
+        ]
+      }
     ''
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       --prefix PATH : ${
@@ -166,21 +164,19 @@ python3Packages.buildPythonApplication rec {
     makeWrapper ${lib.getExe python3Packages.python} $out/bin/rcu \
       ''${makeWrapperArgs[@]} \
       --prefix PYTHONPATH : ${
-        python3Packages.makePythonPath (propagatedBuildInputs ++ [ (placeholder "out") ])
-      } \
+      python3Packages.makePythonPath (propagatedBuildInputs ++ [(placeholder "out")])
+    } \
       --add-flags $out/share/rcu/main.py
   '';
 
   passthru = {
     tests.version = testers.testVersion {
       package = rcu;
-      version =
-        let
-          versionSuffixPos = (lib.strings.stringLength rcu.version) - 1;
-        in
-        "d${lib.strings.substring 0 versionSuffixPos rcu.version}(${
-          lib.strings.substring versionSuffixPos 1 rcu.version
-        })";
+      version = let
+        versionSuffixPos = (lib.strings.stringLength rcu.version) - 1;
+      in "d${lib.strings.substring 0 versionSuffixPos rcu.version}(${
+        lib.strings.substring versionSuffixPos 1 rcu.version
+      })";
     };
   };
 
@@ -189,7 +185,7 @@ python3Packages.buildPythonApplication rec {
     description = "All-in-one offline/local management software for reMarkable e-paper tablets";
     homepage = "http://www.davisr.me/projects/rcu/";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
-    hydraPlatforms = [ ]; # requireFile used as src
+    maintainers = with lib.maintainers; [OPNA2608];
+    hydraPlatforms = []; # requireFile used as src
   };
 }

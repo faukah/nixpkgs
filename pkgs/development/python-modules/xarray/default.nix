@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "xarray";
   version = "2025.01.2";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "xarray" ];
+  pythonImportsCheck = ["xarray"];
 
   meta = {
     changelog = "https://github.com/pydata/xarray/blob/${src.tag}/doc/whats-new.rst";

@@ -39,11 +39,11 @@ rustPlatform.buildRustPackage {
   postInstall = ''
     wrapProgram $out/bin/parrot \
       --prefix PATH : ${
-        lib.makeBinPath [
-          ffmpeg
-          yt-dlp
-        ]
-      }
+      lib.makeBinPath [
+        ffmpeg
+        yt-dlp
+      ]
+    }
   '';
 
   passthru.updateScript = unstableGitUpdater {
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage {
     description = "Hassle-free Discord music bot";
     homepage = "https://github.com/aquelemiguel/parrot";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gerg-l ];
+    maintainers = with lib.maintainers; [gerg-l];
     mainProgram = "parrot";
   };
 }

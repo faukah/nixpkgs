@@ -3,14 +3,13 @@
   mkTclDerivation,
   fetchfossil,
 }:
-
 mkTclDerivation rec {
   pname = "tcludp";
   version = "1.0.11";
 
   src = fetchfossil {
     url = "https://core.tcl-lang.org/tcludp";
-    rev = "ver_" + lib.replaceStrings [ "." ] [ "_" ] version;
+    rev = "ver_" + lib.replaceStrings ["."] ["_"] version;
     hash = "sha256-PckGwUqL2r5KJEet8sS4U504G63flX84EkQEkQdMifY=";
   };
 
@@ -34,6 +33,6 @@ mkTclDerivation rec {
     description = "UDP socket support for Tcl";
     homepage = "https://core.tcl-lang.org/tcludp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "iamb";
   version = "0.0.10";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-fAre0jrpJ63adcg4AKCYzdQtCsd0MMMcWA0RsoHo6ig=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preBuild = ''
     export HOME=$(mktemp -d)
@@ -53,7 +52,7 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Matrix client for Vim addicts";
@@ -61,6 +60,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ulyssa/iamb";
     changelog = "https://github.com/ulyssa/iamb/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ meain ];
+    maintainers = with lib.maintainers; [meain];
   };
 }

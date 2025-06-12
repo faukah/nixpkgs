@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage rec {
   pname = "steamodd";
   version = "5.0";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "High level Steam API implementation with low level reusable core";
     homepage = "https://github.com/Lagg/steamodd";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

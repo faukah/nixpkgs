@@ -6,7 +6,6 @@
   pytestCheckHook,
   linux-gpib,
 }:
-
 buildPythonPackage rec {
   pname = "gpib-ctypes";
   version = "0.3.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-c9l6TNmM4PtbvopnnFi5R1dQ9o3MI39BHHHPSGqfjCY=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace gpib_ctypes/gpib/gpib.py \
@@ -29,13 +28,13 @@ buildPythonPackage rec {
       --replace "'pytest-runner'," ""
   '';
 
-  pythonImportsCheck = [ "gpib_ctypes.gpib" ];
+  pythonImportsCheck = ["gpib_ctypes.gpib"];
 
   meta = with lib; {
     description = "Cross-platform Python bindings for the NI GPIB and linux-gpib C interfaces";
     homepage = "https://github.com/tivek/gpib_ctypes/";
     changelog = "https://github.com/tivek/gpib_ctypes/blob/${version}/HISTORY.rst";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fsagbuya ];
+    maintainers = with maintainers; [fsagbuya];
   };
 }

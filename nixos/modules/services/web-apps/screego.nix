@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types mkIf;
   cfg = config.services.screego;
   defaultSettings = {
@@ -17,12 +15,10 @@ let
     SCREEGO_AUTH_MODE = "turn";
     SCREEGO_LOG_LEVEL = "info";
   };
-in
-{
-  meta.maintainers = with lib.maintainers; [ pinpox ];
+in {
+  meta.maintainers = with lib.maintainers; [pinpox];
 
   options.services.screego = {
-
     enable = lib.mkEnableOption "screego screen-sharing server for developers";
 
     openFirewall = mkOption {
@@ -59,19 +55,17 @@ in
     };
   };
 
-  config =
-    let
-      # User-provided settings should be merged with default settings,
-      # overwriting where necessary
-      mergedConfig = defaultSettings // cfg.settings;
-      turnUDPPorts = lib.splitString ":" mergedConfig.SCREEGO_TURN_PORT_RANGE;
-      turnPort = lib.toInt (builtins.elemAt (lib.splitString ":" mergedConfig.SCREEGO_TURN_ADDRESS) 1);
-    in
+  config = let
+    # User-provided settings should be merged with default settings,
+    # overwriting where necessary
+    mergedConfig = defaultSettings // cfg.settings;
+    turnUDPPorts = lib.splitString ":" mergedConfig.SCREEGO_TURN_PORT_RANGE;
+    turnPort = lib.toInt (builtins.elemAt (lib.splitString ":" mergedConfig.SCREEGO_TURN_ADDRESS) 1);
+  in
     mkIf (cfg.enable) {
-
       networking.firewall = lib.mkIf cfg.openFirewall {
-        allowedTCPPorts = [ turnPort ];
-        allowedUDPPorts = [ turnPort ];
+        allowedTCPPorts = [turnPort];
+        allowedUDPPorts = [turnPort];
         allowedUDPPortRanges = [
           {
             from = lib.toInt (builtins.elemAt turnUDPPorts 0);
@@ -81,16 +75,18 @@ in
       };
 
       systemd.services.screego = {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         description = "screego screen-sharing for developers";
         environment = mergedConfig;
-        serviceConfig = {
-          DynamicUser = true;
-          ExecStart = "${lib.getExe pkgs.screego} serve";
-          Restart = "on-failure";
-          RestartSec = "5s";
-        } // lib.optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+        serviceConfig =
+          {
+            DynamicUser = true;
+            ExecStart = "${lib.getExe pkgs.screego} serve";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          }
+          // lib.optionalAttrs (cfg.environmentFile != null) {EnvironmentFile = cfg.environmentFile;};
       };
     };
 }

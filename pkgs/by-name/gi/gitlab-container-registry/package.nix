@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitLab,
 }:
-
 buildGoModule rec {
   pname = "gitlab-container-registry";
   version = "4.22.0";
@@ -19,18 +18,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-e7EIScdd0k5iFTDutFotNkKj1rKtBqfEexdkpjSHAoE=";
 
-  checkFlags =
-    let
-      skippedTests = [
-        # requires internet
-        "TestHTTPChecker"
-        # requires s3 credentials/urls
-        "TestS3DriverPathStyle"
-        # flaky
-        "TestPurgeAll"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # requires internet
+      "TestHTTPChecker"
+      # requires s3 credentials/urls
+      "TestS3DriverPathStyle"
+      # flaky
+      "TestPurgeAll"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   __darwinAllowLocalNetworking = true;
 

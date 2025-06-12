@@ -7,7 +7,6 @@
   pkg-config,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dragonfly-reverb";
   version = "3.2.10";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     patchShebangs dpf/utils/generate-ttl.sh
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     xorg.libX11
@@ -48,8 +47,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/michaelwillis/dragonfly-reverb";
     description = "Hall-style reverb based on freeverb3 algorithms";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

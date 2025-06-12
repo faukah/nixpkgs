@@ -6,7 +6,6 @@
   six,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "mediafire-dl";
   version = "unstable-2023-09-07";
@@ -24,13 +23,13 @@ buildPythonPackage {
     tqdm
   ];
 
-  pythonImportsCheck = [ "mediafire_dl" ];
+  pythonImportsCheck = ["mediafire_dl"];
 
   meta = with lib; {
     description = "Simple command-line script to download files from mediafire based on gdown";
     homepage = "https://github.com/Juvenal-Yescas/mediafire-dl";
     license = licenses.mit;
-    maintainers = with maintainers; [ euxane ];
+    maintainers = with maintainers; [euxane];
     mainProgram = "mediafire-dl";
   };
 }

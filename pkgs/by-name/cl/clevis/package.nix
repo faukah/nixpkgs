@@ -19,7 +19,6 @@
   stdenv,
   tpm2-tools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clevis";
   version = "21";
@@ -82,26 +81,25 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # We wrap the main clevis binary entrypoint but not the sub-binaries.
-  postInstall =
-    let
-      includeIntoPath = [
-        coreutils
-        cryptsetup
-        gnugrep
-        gnused
-        jose
-        libpwquality
-        luksmeta
-        tpm2-tools
-      ];
-    in
-    ''
-      wrapProgram $out/bin/clevis \
-        --prefix PATH ':' "${lib.makeBinPath includeIntoPath}:${placeholder "out"}/bin"
-    '';
+  postInstall = let
+    includeIntoPath = [
+      coreutils
+      cryptsetup
+      gnugrep
+      gnused
+      jose
+      libpwquality
+      luksmeta
+      tpm2-tools
+    ];
+  in ''
+    wrapProgram $out/bin/clevis \
+      --prefix PATH ':' "${lib.makeBinPath includeIntoPath}:${placeholder "out"}/bin"
+  '';
 
   passthru.tests = {
-    inherit (nixosTests.installer)
+    inherit
+      (nixosTests.installer)
       clevisBcachefs
       clevisBcachefsFallback
       clevisLuks
@@ -125,6 +123,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://github.com/latchset/clevis/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 })

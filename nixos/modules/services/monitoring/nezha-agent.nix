@@ -3,24 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.nezha-agent;
 
   # nezha-agent uses yaml as the configuration file format.
   # Since we need to use jq to update the content, so here we generate json
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "config.json" cfg.settings;
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
   options = {
     services.nezha-agent = {
       enable = lib.mkEnableOption "Agent of Nezha Monitoring";
 
-      package = lib.mkPackageOption pkgs "nezha-agent" { };
+      package = lib.mkPackageOption pkgs "nezha-agent" {};
 
       debug = lib.mkEnableOption "verbose log";
 
@@ -155,56 +153,67 @@ in
   };
 
   imports = with lib; [
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "disableCommandExecute" ]
-      [ "services" "nezha-agent" "settings" "disable_command_execute" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "disableCommandExecute"]
+      ["services" "nezha-agent" "settings" "disable_command_execute"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "disableNat" ]
-      [ "services" "nezha-agent" "settings" "disable_nat" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "disableNat"]
+      ["services" "nezha-agent" "settings" "disable_nat"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "disableSendQuery" ]
-      [ "services" "nezha-agent" "settings" "disable_send_query" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "disableSendQuery"]
+      ["services" "nezha-agent" "settings" "disable_send_query"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "gpu" ]
-      [ "services" "nezha-agent" "settings" "gpu" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "gpu"]
+      ["services" "nezha-agent" "settings" "gpu"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "tls" ]
-      [ "services" "nezha-agent" "settings" "tls" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "tls"]
+      ["services" "nezha-agent" "settings" "tls"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "temperature" ]
-      [ "services" "nezha-agent" "settings" "temperature" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "temperature"]
+      ["services" "nezha-agent" "settings" "temperature"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "useIPv6CountryCode" ]
-      [ "services" "nezha-agent" "settings" "use_ipv6_country_code" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "useIPv6CountryCode"]
+      ["services" "nezha-agent" "settings" "use_ipv6_country_code"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "skipConnection" ]
-      [ "services" "nezha-agent" "settings" "skip_connection_count" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "skipConnection"]
+      ["services" "nezha-agent" "settings" "skip_connection_count"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "skipProcess" ]
-      [ "services" "nezha-agent" "settings" "skip_procs_count" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "skipProcess"]
+      ["services" "nezha-agent" "settings" "skip_procs_count"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "reportDelay" ]
-      [ "services" "nezha-agent" "settings" "report_delay" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "reportDelay"]
+      ["services" "nezha-agent" "settings" "report_delay"]
     )
-    (mkRenamedOptionModule
-      [ "services" "nezha-agent" "server" ]
-      [ "services" "nezha-agent" "settings" "server" ]
+    (
+      mkRenamedOptionModule
+      ["services" "nezha-agent" "server"]
+      ["services" "nezha-agent" "settings" "server"]
     )
-    (lib.mkRemovedOptionModule [ "services" "nezha-agent" "extraFlags" ] ''
+    (lib.mkRemovedOptionModule ["services" "nezha-agent" "extraFlags"] ''
       Use `services.nezha-agent.settings` instead.
 
       Nezha-agent v1 is no longer configured via command line flags.
     '')
-    (lib.mkRemovedOptionModule [ "services" "nezha-agent" "passwordFile" ] ''
+    (lib.mkRemovedOptionModule ["services" "nezha-agent" "passwordFile"] ''
       Use `services.nezha-agent.clientSecretFile` instead.
 
       Nezha-agent v1 uses the client secret from the dashboard to connect.
@@ -252,7 +261,7 @@ in
         PrivateUsers = true;
         ProtectHostname = true;
         RestrictSUIDSGID = true;
-        AmbientCapabilities = [ ];
+        AmbientCapabilities = [];
         CapabilityBoundingSet = "";
         NoNewPrivileges = true;
         PrivateTmp = true;
@@ -295,7 +304,7 @@ in
         ''}
         ${lib.getExe cfg.package} --config "''${RUNTIME_DIRECTORY}"/config.json
       '';
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

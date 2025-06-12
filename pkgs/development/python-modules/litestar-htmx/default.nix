@@ -5,7 +5,6 @@
   hatchling,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "litestar-htmx";
   version = "0.4.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
 
   meta = {
     homepage = "https://docs.litestar.dev/latest/usage/htmx.html";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
     description = "HTMX Integration for Litesstar";

@@ -11,7 +11,6 @@
   responses,
   pytestCheckHook,
 }:
-
 buildPythonApplication rec {
   pname = "pricehist";
   version = "1.4.7";
@@ -46,6 +45,6 @@ buildPythonApplication rec {
     homepage = "https://gitlab.com/chrisberkhout/pricehist";
     license = licenses.mit;
     mainProgram = "pricehist";
-    maintainers = with maintainers; [ chrpinedo ];
+    maintainers = with maintainers; [chrpinedo];
   };
 }

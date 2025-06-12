@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "swego";
   version = "1.14";
@@ -36,7 +35,7 @@ buildGoModule rec {
     homepage = "https://github.com/nodauf/Swego";
     changelog = "https://github.com/nodauf/Swego/releases/tag/${src.tag}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     # darwin crashes with:
     # src/controllers/parsingArgs.go:130:4: undefined: PrintEmbeddedFiles
     broken = stdenv.hostPlatform.isDarwin;

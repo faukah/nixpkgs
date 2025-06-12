@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.guacamole-client;
-  settingsFormat = pkgs.formats.javaProperties { };
-in
-{
+  settingsFormat = pkgs.formats.javaProperties {};
+in {
   options = {
     services.guacamole-client = {
       enable = lib.mkEnableOption "Apache Guacamole Client (Tomcat)";
-      package = lib.mkPackageOption pkgs "guacamole-client" { };
+      package = lib.mkPackageOption pkgs "guacamole-client" {};
 
       settings = lib.mkOption {
         type = lib.types.submodule {
@@ -45,8 +43,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.etc."guacamole/guacamole.properties" = lib.mkIf (cfg.settings != { }) {
-      source = (settingsFormat.generate "guacamole.properties" cfg.settings);
+    environment.etc."guacamole/guacamole.properties" = lib.mkIf (cfg.settings != {}) {
+      source = settingsFormat.generate "guacamole.properties" cfg.settings;
     };
 
     services = lib.mkIf cfg.enableWebserver {

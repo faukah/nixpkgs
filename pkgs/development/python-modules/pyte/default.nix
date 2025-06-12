@@ -5,7 +5,6 @@
   pytestCheckHook,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "pyte";
   version = "0.8.2";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     sed -i '/pytest-runner/d' setup.py
   '';
 
-  propagatedBuildInputs = [ wcwidth ];
+  propagatedBuildInputs = [wcwidth];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyte" ];
+  pythonImportsCheck = ["pyte"];
 
   meta = with lib; {
     description = "Simple VTXXX-compatible linux terminal emulator";
     homepage = "https://github.com/selectel/pyte";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

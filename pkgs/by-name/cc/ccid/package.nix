@@ -12,7 +12,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ccid";
   version = "1.6.2";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
 
   # The resulting shared object ends up outside of the default paths which are
   # usually getting stripped.
-  stripDebugList = [ "pcsc" ];
+  stripDebugList = ["pcsc"];
 
   passthru.updateScript = gitUpdater {
     url = "https://salsa.debian.org/rousseau/CCID.git";
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     description = "PC/SC driver for USB CCID smart card readers";
     homepage = "https://ccid.apdu.fr/";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.anthonyroussel ];
+    maintainers = [maintainers.anthonyroussel];
     platforms = platforms.unix;
   };
 }

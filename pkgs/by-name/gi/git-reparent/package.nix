@@ -6,7 +6,6 @@
   git,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "git-reparent";
   version = "unstable-2017-09-03";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0v0yxydpw6r4awy0hb7sbnh520zsk86ibzh1xjf3983yhsvkfk5v";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Git command to recommit HEAD with a new set of parents";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2;
     platforms = platforms.unix;
     mainProgram = "git-reparent";

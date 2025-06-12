@@ -10,7 +10,6 @@
   versionCheckHook,
   zlib,
 }:
-
 buildGoModule rec {
   pname = "cbconvert";
   version = "1.1.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
   modRoot = "cmd/cbconvert";
 
   # The extlib tag forces the github.com/gen2brain/go-unarr module to use external libraries instead of bundled ones.
-  tags = [ "extlib" ];
+  tags = ["extlib"];
 
   ldflags = [
     "-s"
@@ -42,21 +41,21 @@ buildGoModule rec {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   passthru = {
-    gui = callPackage ./gui.nix { };
-    updateScript = nix-update-script { };
+    gui = callPackage ./gui.nix {};
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Comic Book converter";
     homepage = "https://github.com/gen2brain/cbconvert";
     changelog = "https://github.com/gen2brain/cbconvert/releases/tag/v${version}";
-    license = with lib.licenses; [ gpl3Only ];
+    license = with lib.licenses; [gpl3Only];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jwillikers ];
+    maintainers = with lib.maintainers; [jwillikers];
     mainProgram = "cbconvert";
   };
 }

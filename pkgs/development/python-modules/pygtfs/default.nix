@@ -10,7 +10,6 @@
   sqlalchemy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygtfs";
   version = "0.1.9";
@@ -33,16 +32,16 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "pygtfs/test/test.py" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["pygtfs/test/test.py"];
 
-  pythonImportsCheck = [ "pygtfs" ];
+  pythonImportsCheck = ["pygtfs"];
 
   meta = with lib; {
     description = "Python module for GTFS";
     mainProgram = "gtfs2db";
     homepage = "https://github.com/jarondl/pygtfs";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

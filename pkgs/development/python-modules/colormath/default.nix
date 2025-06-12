@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "colormath";
   # Switch to unstable which fixes an deprecation issue with newer numpy
@@ -26,22 +25,22 @@ buildPythonPackage rec {
     hash = "sha256-eACVPIQFgiGiVmQ/PjUxP/UH/hBOsCywz5PlgpA4dk4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     networkx
     numpy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "colormath" ];
+  pythonImportsCheck = ["colormath"];
 
   meta = with lib; {
     description = "Color math and conversion library";
     homepage = "https://github.com/gtaylor/python-colormath";
     changelog = "https://github.com/gtaylor/python-colormath/releases/tag/${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jonathanreeve ];
+    maintainers = with maintainers; [jonathanreeve];
   };
 }

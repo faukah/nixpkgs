@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ctlptl";
   version = "0.8.42";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-kxayiAymEHnZ+b/a7JgUx3/I5gnNEdg+Vg5ymMO9JG8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/ctlptl" ];
+  subPackages = ["cmd/ctlptl"];
 
   ldflags = [
     "-s"
@@ -39,6 +38,6 @@ buildGoModule rec {
     description = "CLI for declaratively setting up local Kubernetes clusters";
     homepage = "https://github.com/tilt-dev/ctlptl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
   };
 }

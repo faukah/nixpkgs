@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-buildsystem";
   version = "1.10";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.netsurf-browser.org/";
     description = "NetSurf browser shared build system";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

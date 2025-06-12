@@ -11,7 +11,6 @@
   pyyaml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-variables";
   version = "3.1.0";
@@ -31,23 +30,23 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  buildInput = [ pytest ];
+  buildInput = [pytest];
 
   optional-dependencies = {
-    hjson = [ hjson ];
-    toml = [ toml ];
-    yaml = [ pyyaml ];
+    hjson = [hjson];
+    toml = [toml];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pytest_variables" ];
+  pythonImportsCheck = ["pytest_variables"];
 
   meta = {
     description = "Plugin for providing variables to pytest tests/fixtures";
     homepage = "https://github.com/pytest-dev/pytest-variables";
     changelog = "https://github.com/pytest-dev/pytest-variables/blob/${src.rev}/CHANGES.rst";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   deprecated,
   matplotlib,
@@ -19,13 +17,11 @@
   torch,
   tqdm,
   typer,
-
   # tests
   humanize,
   parameterized,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "torchio";
   version = "0.20.6";
@@ -82,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://torchio.readthedocs.io";
     changelog = "https://github.com/TorchIO-project/torchio/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

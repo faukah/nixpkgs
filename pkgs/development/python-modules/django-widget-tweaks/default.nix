@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-widget-tweaks";
   version = "1.5.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-ymjBuNGfndUwQdBU2xnc9CA51oOaEPA+RaAspJMKQ04=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=tests.settings
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-widget-tweaks";
     changelog = "https://github.com/jazzband/django-widget-tweaks/blob/${src.tag}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxxk ];
+    maintainers = with maintainers; [maxxk];
   };
 }

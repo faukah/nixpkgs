@@ -3,25 +3,20 @@
   buildPythonPackage,
   fetchFromGitHub,
   isPy27,
-
   # propagates:
   requests,
   websocket-client,
-
   # extras: async
   aiohttp,
   websockets,
-
   # extras: encrypted
   cryptography,
   py3rijndael,
-
   # tests
   aioresponses,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "samsungtvws";
   version = "2.7.2";
@@ -60,13 +55,13 @@ buildPythonPackage rec {
     ++ optional-dependencies.async
     ++ optional-dependencies.encrypted;
 
-  pythonImportsCheck = [ "samsungtvws" ];
+  pythonImportsCheck = ["samsungtvws"];
 
   meta = with lib; {
     description = "Samsung Smart TV WS API wrapper";
     homepage = "https://github.com/xchwarze/samsung-tv-ws-api";
     changelog = "https://github.com/xchwarze/samsung-tv-ws-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

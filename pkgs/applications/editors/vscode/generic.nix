@@ -24,14 +24,11 @@
   libglvnd,
   libkrb5,
   openssl,
-
   # Populate passthru.tests
   tests,
-
   # needed to fix "Save as Root"
   asar,
   bash,
-
   # Attributes inherit from specific versions
   version,
   vscodeVersion ? version,
@@ -54,11 +51,8 @@
   ripgrep,
   hasVsceSign ? false,
 }:
-
 stdenv.mkDerivation (
-  finalAttrs:
-  let
-
+  finalAttrs: let
     # Vscode and variants allow for users to download and use extensions
     # which often include the usage of pre-built binaries.
     # This has been an on-going painpoint for many users, as
@@ -68,18 +62,14 @@ stdenv.mkDerivation (
     #
     # buildFHSEnv allows for users to use the existing vscode
     # extension tooling without significant pain.
-    fhs =
-      {
-        additionalPkgs ? pkgs: [ ],
-      }:
+    fhs = {additionalPkgs ? pkgs: []}:
       buildFHSEnv {
         # also determines the name of the wrapped command
         pname = executableName;
         inherit version;
 
         # additional libraries which are commonly needed for extensions
-        targetPkgs =
-          pkgs:
+        targetPkgs = pkgs:
           (with pkgs; [
             # ld-linux-x86-64-linux.so.2 and others
             glibc
@@ -118,16 +108,16 @@ stdenv.mkDerivation (
           inherit (finalAttrs.finalPackage) pname version; # for home-manager module
         };
 
-        meta = meta // {
-          description = ''
-            Wrapped variant of ${pname} which launches in a FHS compatible environment.
-            Should allow for easy usage of extensions without nix-specific modifications.
-          '';
-        };
+        meta =
+          meta
+          // {
+            description = ''
+              Wrapped variant of ${pname} which launches in a FHS compatible environment.
+              Should allow for easy usage of extensions without nix-specific modifications.
+            '';
+          };
       };
-  in
-  {
-
+  in {
     inherit
       pname
       version
@@ -144,8 +134,8 @@ stdenv.mkDerivation (
           tests
           updateScript
           ;
-        fhs = fhs { };
-        fhsWithPackages = f: fhs { additionalPkgs = f; };
+        fhs = fhs {};
+        fhsWithPackages = f: fhs {additionalPkgs = f;};
       }
       // lib.optionalAttrs (vscodeServer != null) {
         inherit rev vscodeServer;
@@ -167,7 +157,7 @@ stdenv.mkDerivation (
           "Development"
           "IDE"
         ];
-        keywords = [ "vscode" ];
+        keywords = ["vscode"];
         actions.new-empty-window = {
           name = "New Empty Window";
           exec = "${executableName} --new-window %F";
@@ -189,8 +179,8 @@ stdenv.mkDerivation (
           "Development"
           "IDE"
         ];
-        mimeTypes = [ "x-scheme-handler/${iconName}" ];
-        keywords = [ "vscode" ];
+        mimeTypes = ["x-scheme-handler/${iconName}"];
+        keywords = ["vscode"];
         noDisplay = true;
       })
     ];
@@ -221,14 +211,14 @@ stdenv.mkDerivation (
     ];
 
     nativeBuildInputs =
-      [ unzip ]
+      [unzip]
       ++ lib.optionals stdenv.hostPlatform.isLinux [
         autoPatchelfHook
         asar
         copyDesktopItems
         # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
         # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
-        (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
+        (buildPackages.wrapGAppsHook3.override {makeWrapper = buildPackages.makeShellWrapper;})
       ];
 
     dontBuild = true;
@@ -245,32 +235,31 @@ stdenv.mkDerivation (
         runHook preInstall
       ''
       + (
-        if stdenv.hostPlatform.isDarwin then
-          ''
-            mkdir -p "$out/Applications/${longName}.app" "$out/bin"
-            cp -r ./* "$out/Applications/${longName}.app"
-            ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
-          ''
-        else
-          ''
-            mkdir -p "$out/lib/${libraryName}" "$out/bin"
-            cp -r ./* "$out/lib/${libraryName}"
+        if stdenv.hostPlatform.isDarwin
+        then ''
+          mkdir -p "$out/Applications/${longName}.app" "$out/bin"
+          cp -r ./* "$out/Applications/${longName}.app"
+          ln -s "$out/Applications/${longName}.app/Contents/Resources/app/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+        ''
+        else ''
+          mkdir -p "$out/lib/${libraryName}" "$out/bin"
+          cp -r ./* "$out/lib/${libraryName}"
 
-            ln -s "$out/lib/${libraryName}/bin/${sourceExecutableName}" "$out/bin/${executableName}"
+          ln -s "$out/lib/${libraryName}/bin/${sourceExecutableName}" "$out/bin/${executableName}"
 
-            # These are named vscode.png, vscode-insiders.png, etc to match the name in upstream *.deb packages.
-            mkdir -p "$out/share/pixmaps"
-            cp "$out/lib/${libraryName}/resources/app/resources/linux/code.png" "$out/share/pixmaps/${iconName}.png"
+          # These are named vscode.png, vscode-insiders.png, etc to match the name in upstream *.deb packages.
+          mkdir -p "$out/share/pixmaps"
+          cp "$out/lib/${libraryName}/resources/app/resources/linux/code.png" "$out/share/pixmaps/${iconName}.png"
 
-            # Override the previously determined VSCODE_PATH with the one we know to be correct
-            sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/${libraryName}'" "$out/bin/${executableName}"
-            grep -q "VSCODE_PATH='$out/lib/${libraryName}'" "$out/bin/${executableName}" # check if sed succeeded
+          # Override the previously determined VSCODE_PATH with the one we know to be correct
+          sed -i "/ELECTRON=/iVSCODE_PATH='$out/lib/${libraryName}'" "$out/bin/${executableName}"
+          grep -q "VSCODE_PATH='$out/lib/${libraryName}'" "$out/bin/${executableName}" # check if sed succeeded
 
-            # Remove native encryption code, as it derives the key from the executable path which does not work for us.
-            # The credentials should be stored in a secure keychain already, so the benefit of this is questionable
-            # in the first place.
-            rm -rf $out/lib/${libraryName}/resources/app/node_modules/vscode-encrypt
-          ''
+          # Remove native encryption code, as it derives the key from the executable path which does not work for us.
+          # The credentials should be stored in a secure keychain already, so the benefit of this is questionable
+          # in the first place.
+          rm -rf $out/lib/${libraryName}/resources/app/node_modules/vscode-encrypt
+        ''
       )
       + ''
         runHook postInstall
@@ -279,10 +268,10 @@ stdenv.mkDerivation (
     preFixup = ''
       gappsWrapperArgs+=(
           ${
-            # we cannot use runtimeDependencies otherwise libdbusmenu do not work on kde
-            lib.optionalString stdenv.hostPlatform.isLinux
-              "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libdbusmenu ]}"
-          }
+        # we cannot use runtimeDependencies otherwise libdbusmenu do not work on kde
+        lib.optionalString stdenv.hostPlatform.isLinux
+        "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libdbusmenu]}"
+      }
         # Add gio to PATH so that moving files to the trash works when not using a desktop environment
         --prefix PATH : ${glib.bin}/bin
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
@@ -312,21 +301,19 @@ stdenv.mkDerivation (
       + (
         let
           vscodeRipgrep =
-            if stdenv.hostPlatform.isDarwin then
-              if lib.versionAtLeast vscodeVersion "1.94.0" then
-                "Contents/Resources/app/node_modules/@vscode/ripgrep/bin/rg"
-              else
-                "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
-            else
-              "resources/app/node_modules/@vscode/ripgrep/bin/rg";
+            if stdenv.hostPlatform.isDarwin
+            then
+              if lib.versionAtLeast vscodeVersion "1.94.0"
+              then "Contents/Resources/app/node_modules/@vscode/ripgrep/bin/rg"
+              else "Contents/Resources/app/node_modules.asar.unpacked/@vscode/ripgrep/bin/rg"
+            else "resources/app/node_modules/@vscode/ripgrep/bin/rg";
         in
-        if !useVSCodeRipgrep then
-          ''
+          if !useVSCodeRipgrep
+          then ''
             rm ${vscodeRipgrep}
             ln -s ${ripgrep}/bin/rg ${vscodeRipgrep}
           ''
-        else
-          ''
+          else ''
             chmod +x ${vscodeRipgrep}
           ''
       );

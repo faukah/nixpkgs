@@ -5,7 +5,6 @@
   testers,
   seaweedfs,
 }:
-
 buildGoModule rec {
   pname = "seaweedfs";
   version = "3.89";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Y1ST5wKIkVKOhNVV1V9eDZ5DupQNm9mcA90Kqt3dQYQ=";
 
-  subPackages = [ "weed" ];
+  subPackages = ["weed"];
 
   ldflags = [
     "-w"

@@ -20,7 +20,6 @@
   makeDesktopItem,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ironwail";
   version = "0.8.0";
@@ -82,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
       name = "ironwail";
       exec = "ironwail";
       desktopName = "Ironwail";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -101,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.necrophcodr ];
+    maintainers = [lib.maintainers.necrophcodr];
     mainProgram = "ironwail";
   };
 })

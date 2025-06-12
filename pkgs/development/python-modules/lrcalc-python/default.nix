@@ -6,7 +6,6 @@
   pkg-config,
   lrcalc,
 }:
-
 buildPythonPackage rec {
   pname = "lrcalc-python";
   version = "2.1";
@@ -23,14 +22,14 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ lrcalc ];
+  buildInputs = [lrcalc];
 
-  pythonImportsCheck = [ "lrcalc" ];
+  pythonImportsCheck = ["lrcalc"];
 
   meta = with lib; {
     description = "Littlewood-Richardson Calculator bindings";
     homepage = "https://sites.math.rutgers.edu/~asbuch/lrcalc/";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     license = licenses.gpl3;
   };
 }

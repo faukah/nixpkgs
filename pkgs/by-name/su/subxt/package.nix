@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "subxt";
   version = "0.42.1";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # Needed by wabt-sys
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Requires a running substrate node
   doCheck = false;
@@ -39,6 +38,6 @@ rustPlatform.buildRustPackage rec {
       gpl3Plus
       asl20
     ];
-    maintainers = [ maintainers.FlorianFranzen ];
+    maintainers = [maintainers.FlorianFranzen];
   };
 }

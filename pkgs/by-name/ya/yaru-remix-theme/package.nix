@@ -12,7 +12,6 @@
   gnome,
   gnome-themes-extra,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yaru-remix";
   version = "40";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
       lgpl3Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hoppla20 ];
+    maintainers = with maintainers; [hoppla20];
   };
 }

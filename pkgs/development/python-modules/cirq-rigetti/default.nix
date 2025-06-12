@@ -6,7 +6,6 @@
   qcs-sdk-python,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cirq-rigetti";
   pyproject = true;
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     rm cirq_rigetti/service_test.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cirq-core
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     qcs-sdk-python
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # No need to test the version number

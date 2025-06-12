@@ -3,29 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.babeld;
 
-  conditionalBoolToString =
-    value: if (lib.isBool value) then (lib.boolToString value) else (toString value);
+  conditionalBoolToString = value:
+    if (lib.isBool value)
+    then (lib.boolToString value)
+    else (toString value);
 
-  paramsString =
-    params:
+  paramsString = params:
     lib.concatMapStringsSep " " (name: "${name} ${conditionalBoolToString (lib.getAttr name params)}") (
       lib.attrNames params
     );
 
-  interfaceConfig =
-    name:
-    let
-      interface = lib.getAttr name cfg.interfaces;
-    in
-    "interface ${name} ${paramsString interface}\n";
+  interfaceConfig = name: let
+    interface = lib.getAttr name cfg.interfaces;
+  in "interface ${name} ${paramsString interface}\n";
 
-  configFile =
-    with cfg;
+  configFile = with cfg;
     pkgs.writeText "babeld.conf" (
       ''
         skip-kernel-setup true
@@ -36,19 +31,13 @@ let
       + (lib.concatMapStrings interfaceConfig (lib.attrNames cfg.interfaces))
       + extraConfig
     );
-
-in
-
-{
-
-  meta.maintainers = with lib.maintainers; [ hexa ];
+in {
+  meta.maintainers = with lib.maintainers; [hexa];
 
   ###### interface
 
   options = {
-
     services.babeld = {
-
       enable = lib.mkEnableOption "the babeld network routing daemon";
 
       interfaceDefaults = lib.mkOption {
@@ -65,7 +54,7 @@ in
       };
 
       interfaces = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           A set describing babeld interfaces.
           See {manpage}`babeld(8)` for options.
@@ -89,13 +78,11 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.babeld.enable {
-
     boot.kernel.sysctl =
       {
         "net.ipv6.conf.all.forwarding" = 1;
@@ -105,16 +92,17 @@ in
       }
       // lib.mapAttrs' (
         ifname: _: lib.nameValuePair "net.ipv4.conf.${ifname}.rp_filter" (lib.mkDefault 0)
-      ) config.services.babeld.interfaces;
+      )
+      config.services.babeld.interfaces;
 
     systemd.services.babeld = {
       description = "Babel routing daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.babeld}/bin/babeld -c ${configFile} -I /run/babeld/babeld.pid -S /var/lib/babeld/state";
-        AmbientCapabilities = [ "CAP_NET_ADMIN" ];
-        CapabilityBoundingSet = [ "CAP_NET_ADMIN" ];
+        AmbientCapabilities = ["CAP_NET_ADMIN"];
+        CapabilityBoundingSet = ["CAP_NET_ADMIN"];
         DevicePolicy = "closed";
         DynamicUser = true;
         IPAddressAllow = [

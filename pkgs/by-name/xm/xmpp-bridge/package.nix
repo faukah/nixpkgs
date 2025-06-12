@@ -6,7 +6,6 @@
   libstrophe,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmpp-bridge";
   version = "0.6.0";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/majewsky/xmpp-bridge";
     license = lib.licenses.gpl3Plus;
     mainProgram = "xmpp-bridge";
-    maintainers = with lib.maintainers; [ gigahawk ];
+    maintainers = with lib.maintainers; [gigahawk];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

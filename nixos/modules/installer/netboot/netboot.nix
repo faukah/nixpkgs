@@ -1,6 +1,5 @@
 # This module creates netboot media containing the given NixOS
 # configuration.
-
 {
   config,
   lib,
@@ -8,16 +7,12 @@
   modulesPath,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   imports = [
     ../../image/file-options.nix
   ];
 
   options = {
-
     netboot.squashfsCompression = mkOption {
       default = "zstd -Xcompression-level 19";
       description = ''
@@ -34,7 +29,6 @@ with lib;
         Nix store in the generated netboot image.
       '';
     };
-
   };
 
   config = {
@@ -44,7 +38,7 @@ with lib;
 
     fileSystems."/" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
     };
 
     # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
@@ -52,21 +46,23 @@ with lib;
     fileSystems."/nix/.ro-store" = mkImageMediaOverride {
       fsType = "squashfs";
       device = "../nix-store.squashfs";
-      options = [
-        "loop"
-      ] ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
+      options =
+        [
+          "loop"
+        ]
+        ++ lib.optional (config.boot.kernelPackages.kernel.kernelAtLeast "6.2") "threads=multi";
       neededForBoot = true;
     };
 
     fileSystems."/nix/.rw-store" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
       neededForBoot = true;
     };
 
     fileSystems."/nix/store" = mkImageMediaOverride {
       overlay = {
-        lowerdir = [ "/nix/.ro-store" ];
+        lowerdir = ["/nix/.ro-store"];
         upperdir = "/nix/.rw-store/store";
         workdir = "/nix/.rw-store/work";
       };
@@ -85,7 +81,7 @@ with lib;
 
     # Closures to be copied to the Nix store, namely the init
     # script and the top-level system configuration directory.
-    netboot.storeContents = [ config.system.build.toplevel ];
+    netboot.storeContents = [config.system.build.toplevel];
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
@@ -96,7 +92,7 @@ with lib;
     # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {
       inherit (config.boot.initrd) compressor;
-      prepend = [ "${config.system.build.initialRamdisk}/initrd" ];
+      prepend = ["${config.system.build.initialRamdisk}/initrd"];
 
       contents = [
         {
@@ -148,20 +144,20 @@ with lib;
 
     image.extension = "tar.xz";
     image.filePath = "tarball/${config.image.fileName}";
-    system.nixos.tags = [ "kexec" ];
+    system.nixos.tags = ["kexec"];
     system.build.image = config.system.build.kexecTarball;
     system.build.kexecTarball =
       pkgs.callPackage "${toString modulesPath}/../lib/make-system-tarball.nix"
-        {
-          fileName = config.image.baseName;
-          storeContents = [
-            {
-              object = config.system.build.kexecScript;
-              symlink = "/kexec_nixos";
-            }
-          ];
-          contents = [ ];
-        };
+      {
+        fileName = config.image.baseName;
+        storeContents = [
+          {
+            object = config.system.build.kexecScript;
+            symlink = "/kexec_nixos";
+          }
+        ];
+        contents = [];
+      };
 
     boot.loader.timeout = 10;
 

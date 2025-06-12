@@ -5,7 +5,6 @@
   validatePkgConfig,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation {
   pname = "linenoise";
   version = "1.0-34-g93b2db9";
@@ -17,9 +16,11 @@ stdenv.mkDerivation {
     hash = "sha256-GsrYg16gpjHkkmpCU3yGzqNS/buZl+JoWALLvwzmT4A=";
   };
 
-  nativeBuildInputs = [
-    validatePkgConfig
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      validatePkgConfig
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   buildPhase = ''
     runHook preBuild

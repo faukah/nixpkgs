@@ -80,114 +80,113 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  buildInputs =
-    let
-      commonDeps = [
-        yyjson
-      ];
+  buildInputs = let
+    commonDeps = [
+      yyjson
+    ];
 
-      # Cross-platform optional dependencies
-      imageDeps = lib.optionals imageSupport [
-        # Image output as ascii art.
-        chafa
-        # Images in terminal using sixel or kitty graphics protocol
-        imagemagick
-      ];
+    # Cross-platform optional dependencies
+    imageDeps = lib.optionals imageSupport [
+      # Image output as ascii art.
+      chafa
+      # Images in terminal using sixel or kitty graphics protocol
+      imagemagick
+    ];
 
-      sqliteDeps = lib.optionals sqliteSupport [
-        # linux - Needed for pkg & rpm package count.
-        # darwin - Used for fast wallpaper detection before macOS Sonoma
-        sqlite
-      ];
+    sqliteDeps = lib.optionals sqliteSupport [
+      # linux - Needed for pkg & rpm package count.
+      # darwin - Used for fast wallpaper detection before macOS Sonoma
+      sqlite
+    ];
 
-      linuxCoreDeps = lib.optionals stdenv.hostPlatform.isLinux (
-        [
-          hwdata
-        ]
-        # Fallback if both `wayland` and `x11` are not available. AMD GPU properties detection
-        ++ lib.optional (!x11Support && !waylandSupport) libdrm
-      );
+    linuxCoreDeps = lib.optionals stdenv.hostPlatform.isLinux (
+      [
+        hwdata
+      ]
+      # Fallback if both `wayland` and `x11` are not available. AMD GPU properties detection
+      ++ lib.optional (!x11Support && !waylandSupport) libdrm
+    );
 
-      linuxFeatureDeps = lib.optionals stdenv.hostPlatform.isLinux (
-        lib.optionals audioSupport [
-          # Sound device detection
-          libpulseaudio
-        ]
-        ++ lib.optionals brightnessSupport [
-          # Brightness detection of external displays
-          ddcutil
-        ]
-        ++ lib.optionals dbusSupport [
-          # Bluetooth, wifi, player & media detection
-          dbus
-        ]
-        ++ lib.optionals gnomeSupport [
-          # Needed for values that are only stored in DConf + Fallback for GSettings.
-          dconf
-          glib
-          # Required by glib messages
-          libsysprof-capture
-          pcre2
-          # Required by gio messages
-          libselinux
-          util-linux
-          # Required by selinux
-          libsepol
-        ]
-        ++ lib.optionals imageSupport [
-          # Faster image output when using kitty graphics protocol.
-          zlib
-        ]
-        ++ lib.optionals openclSupport [
-          # OpenCL module
-          ocl-icd
-          opencl-headers
-        ]
-        ++ lib.optionals openglSupport [
-          # OpenGL module
-          libglvnd
-        ]
-        ++ lib.optionals rpmSupport [
-          # Slower fallback for rpm package count. Needed on openSUSE.
-          rpm
-        ]
-        ++ lib.optionals terminalSupport [
-          # Needed for st terminal font detection.
-          libelf
-        ]
-        ++ lib.optionals vulkanSupport [
-          # Vulkan module & fallback for GPU output
-          vulkan-loader
-        ]
-        ++ lib.optionals waylandSupport [
-          # Better display performance and output in wayland sessions. Supports different refresh rates per monitor.
-          wayland
-        ]
-        ++ lib.optionals x11Support [
-          # At least one of them sould be present in X11 sessions for better display detection and faster WM detection.
-          # The *randr ones provide multi monitor support The libxcb* ones usually have better performance.
-          libXrandr
-          libxcb
-          # Required by libxcb messages
-          xorg.libXau
-          xorg.libXdmcp
-          xorg.libXext
-        ]
-        ++ lib.optionals xfceSupport [
-          #  Needed for XFWM theme and XFCE Terminal font.
-          xfce.xfconf
-        ]
-        ++ lib.optionals zfsSupport [
-          # Needed for zpool module
-          zfs
-        ]
-      );
+    linuxFeatureDeps = lib.optionals stdenv.hostPlatform.isLinux (
+      lib.optionals audioSupport [
+        # Sound device detection
+        libpulseaudio
+      ]
+      ++ lib.optionals brightnessSupport [
+        # Brightness detection of external displays
+        ddcutil
+      ]
+      ++ lib.optionals dbusSupport [
+        # Bluetooth, wifi, player & media detection
+        dbus
+      ]
+      ++ lib.optionals gnomeSupport [
+        # Needed for values that are only stored in DConf + Fallback for GSettings.
+        dconf
+        glib
+        # Required by glib messages
+        libsysprof-capture
+        pcre2
+        # Required by gio messages
+        libselinux
+        util-linux
+        # Required by selinux
+        libsepol
+      ]
+      ++ lib.optionals imageSupport [
+        # Faster image output when using kitty graphics protocol.
+        zlib
+      ]
+      ++ lib.optionals openclSupport [
+        # OpenCL module
+        ocl-icd
+        opencl-headers
+      ]
+      ++ lib.optionals openglSupport [
+        # OpenGL module
+        libglvnd
+      ]
+      ++ lib.optionals rpmSupport [
+        # Slower fallback for rpm package count. Needed on openSUSE.
+        rpm
+      ]
+      ++ lib.optionals terminalSupport [
+        # Needed for st terminal font detection.
+        libelf
+      ]
+      ++ lib.optionals vulkanSupport [
+        # Vulkan module & fallback for GPU output
+        vulkan-loader
+      ]
+      ++ lib.optionals waylandSupport [
+        # Better display performance and output in wayland sessions. Supports different refresh rates per monitor.
+        wayland
+      ]
+      ++ lib.optionals x11Support [
+        # At least one of them sould be present in X11 sessions for better display detection and faster WM detection.
+        # The *randr ones provide multi monitor support The libxcb* ones usually have better performance.
+        libXrandr
+        libxcb
+        # Required by libxcb messages
+        xorg.libXau
+        xorg.libXdmcp
+        xorg.libXext
+      ]
+      ++ lib.optionals xfceSupport [
+        #  Needed for XFWM theme and XFCE Terminal font.
+        xfce.xfconf
+      ]
+      ++ lib.optionals zfsSupport [
+        # Needed for zpool module
+        zfs
+      ]
+    );
 
-      macosDeps = lib.optionals stdenv.hostPlatform.isDarwin [
-        apple-sdk_15
-        moltenvk
-      ];
-    in
+    macosDeps = lib.optionals stdenv.hostPlatform.isDarwin [
+      apple-sdk_15
+      moltenvk
+    ];
+  in
     commonDeps ++ imageDeps ++ sqliteDeps ++ linuxCoreDeps ++ linuxFeatureDeps ++ macosDeps;
 
   cmakeFlags =
@@ -258,11 +257,11 @@ stdenv.mkDerivation (finalAttrs: {
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}"
     '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Actively maintained, feature-rich and performance oriented, neofetch like system information tool";

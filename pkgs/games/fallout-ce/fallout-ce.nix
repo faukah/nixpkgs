@@ -3,7 +3,6 @@
   fetchFromGitHub,
   fetchpatch2,
 }:
-
 callPackage ./build.nix rec {
   pname = "fallout-ce";
   version = "1.1.0";

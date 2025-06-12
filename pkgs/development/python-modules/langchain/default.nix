@@ -4,13 +4,10 @@
   fetchFromGitHub,
   pythonOlder,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # buildInputs
   bash,
-
   # dependencies
   aiohttp,
   async-timeout,
@@ -23,7 +20,6 @@
   requests,
   sqlalchemy,
   tenacity,
-
   # tests
   blockbuster,
   freezegun,
@@ -39,7 +35,6 @@
   syrupy,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "langchain";
   version = "0.3.25";
@@ -54,9 +49,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/langchain";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -66,21 +61,23 @@ buildPythonPackage rec {
     "tenacity"
   ];
 
-  dependencies = [
-    aiohttp
-    langchain-core
-    langchain-text-splitters
-    langsmith
-    numpy
-    pydantic
-    pyyaml
-    requests
-    sqlalchemy
-    tenacity
-  ] ++ lib.optional (pythonOlder "3.11") async-timeout;
+  dependencies =
+    [
+      aiohttp
+      langchain-core
+      langchain-text-splitters
+      langsmith
+      numpy
+      pydantic
+      pyyaml
+      requests
+      sqlalchemy
+      tenacity
+    ]
+    ++ lib.optional (pythonOlder "3.11") async-timeout;
 
   optional-dependencies = {
-    numpy = [ numpy ];
+    numpy = [numpy];
   };
 
   nativeCheckInputs = [
@@ -139,7 +136,7 @@ buildPythonPackage rec {
     "tests/unit_tests/chains/test_llm_summarization_checker.py"
   ];
 
-  pythonImportsCheck = [ "langchain" ];
+  pythonImportsCheck = ["langchain"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

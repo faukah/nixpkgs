@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-swagger-ui-tag";
   version = "0.6.11";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mkdocs_swagger_ui_tag" ];
+  pythonImportsCheck = ["mkdocs_swagger_ui_tag"];
 
   disabledTests = [
     # Don't actually build results
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Blueswen/mkdocs-swagger-ui-tag";
     changelog = "https://github.com/blueswen/mkdocs-swagger-ui-tag/blob/v${version}/CHANGELOG";
     license = licenses.mit;
-    maintainers = with maintainers; [ snpschaaf ];
+    maintainers = with maintainers; [snpschaaf];
   };
 }

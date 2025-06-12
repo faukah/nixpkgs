@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "secp256k1";
 
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pCSNUSrPyN/lLYZm7zK/b9LICkThXOr6JAyFvHZSPW0=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--enable-benchmark=no"
@@ -34,8 +33,8 @@ stdenv.mkDerivation rec {
       to research best practices. Use at your own risk.
     '';
     homepage = "https://github.com/bitcoin-core/secp256k1";
-    license = with licenses; [ mit ];
-    maintainers = [ ];
+    license = with licenses; [mit];
+    maintainers = [];
     platforms = with platforms; all;
   };
 }

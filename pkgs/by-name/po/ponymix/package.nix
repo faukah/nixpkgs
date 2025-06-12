@@ -6,7 +6,6 @@
   libnotify,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ponymix";
   version = "5";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     libpulseaudio
     libnotify
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   postPatch = ''substituteInPlace Makefile --replace "\$(DESTDIR)/usr" "$out"'';
 
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     mainProgram = "ponymix";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

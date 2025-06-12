@@ -1,4 +1,4 @@
-{ mkDerivation }:
+{mkDerivation}:
 mkDerivation {
   path = "sbin/fsck_ffs";
   extraPaths = [

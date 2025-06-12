@@ -3,7 +3,6 @@
   pnpm,
   pnpmDeps,
 }:
-
 writeShellApplication {
   name = "serve-pnpm-store";
 

@@ -6,7 +6,6 @@
   fuse,
   git,
 }:
-
 stdenv.mkDerivation {
   pname = "aefs";
   version = "unstable-2015-05-06";
@@ -33,12 +32,12 @@ stdenv.mkDerivation {
     git
   ];
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   meta = with lib; {
     homepage = "https://github.com/edolstra/aefs";
     description = "Cryptographic filesystem implemented in userspace using FUSE";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;

@@ -3,17 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.radarr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
-in
-{
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
+in {
   options = {
     services.radarr = {
       enable = lib.mkEnableOption "Radarr, a UsetNet/BitTorrent movie downloader";
 
-      package = lib.mkPackageOption pkgs "radarr" { };
+      package = lib.mkPackageOption pkgs "radarr" {};
 
       dataDir = lib.mkOption {
         type = lib.types.str;
@@ -53,8 +51,8 @@ in
 
     systemd.services.radarr = {
       description = "Radarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = servarr.mkServarrSettingsEnvVars "RADARR" cfg.settings;
 
       serviceConfig = {
@@ -68,7 +66,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
 
     users.users = lib.mkIf (cfg.user == "radarr") {

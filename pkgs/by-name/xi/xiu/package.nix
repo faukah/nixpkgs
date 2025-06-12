@@ -8,7 +8,6 @@
   rustPlatform,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "xiu";
   version = "0.13.0";
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/harlanc/xiu";
     changelog = "https://github.com/harlanc/xiu/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cafkafk ];
+    maintainers = with lib.maintainers; [cafkafk];
     mainProgram = "xiu";
   };
 }

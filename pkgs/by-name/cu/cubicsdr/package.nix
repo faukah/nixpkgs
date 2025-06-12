@@ -15,7 +15,6 @@
   wxGTK32,
   enableDigitalLab ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cubicsdr";
   version = "0.2.7";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
       libX11
     ];
 
-  cmakeFlags = [ "-DUSE_HAMLIB=ON" ] ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON";
+  cmakeFlags = ["-DUSE_HAMLIB=ON"] ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON";
 
   postFixup = lib.optionalString stdenv.hostPlatform.isDarwin ''
     install_name_tool -change libliquid.dylib ${lib.getLib liquid-dsp}/lib/libliquid.dylib ''${out}/bin/CubicSDR
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://cubicsdr.com";
     description = "Software Defined Radio application";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lasandell ];
+    maintainers = with maintainers; [lasandell];
     platforms = platforms.unix;
     mainProgram = "CubicSDR";
   };

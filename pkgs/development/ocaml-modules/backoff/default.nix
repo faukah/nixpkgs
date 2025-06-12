@@ -4,7 +4,6 @@
   fetchurl,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "backoff";
   version = "0.1.1";
@@ -16,13 +15,13 @@ buildDunePackage rec {
 
   doCheck = true;
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     description = "Exponential backoff mechanism for OCaml";
     homepage = "https://github.com/ocaml-multicore/backoff";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 
   minimalOCamlVersion = "4.12";

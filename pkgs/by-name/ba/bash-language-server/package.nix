@@ -8,7 +8,6 @@
   shellcheck,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bash-language-server";
   version = "5.4.0";
@@ -20,9 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-yJ81oGd9aNsWQMLvDSgMVVH1//Mw/SVFYFIPsJTQYzE=";
   };
 
-  pnpmWorkspaces = [ "bash-language-server" ];
+  pnpmWorkspaces = ["bash-language-server"];
   pnpmDeps = pnpm_8.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     # Create the executable, based upon what happens in npmHooks.npmInstallHook
     makeWrapper ${lib.getExe nodejs} $out/bin/bash-language-server \
-      --suffix PATH : ${lib.makeBinPath [ shellcheck ]} \
+      --suffix PATH : ${lib.makeBinPath [shellcheck]} \
       --inherit-argv0 \
       --add-flags $out/lib/bash-language-server/out/cli.js
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Language server for Bash";
     homepage = "https://github.com/bash-lsp/bash-language-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     mainProgram = "bash-language-server";
     platforms = platforms.all;
   };

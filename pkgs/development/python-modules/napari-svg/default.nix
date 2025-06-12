@@ -9,7 +9,6 @@
   numpy,
   vispy,
 }:
-
 buildPythonPackage rec {
   pname = "napari-svg";
   version = "0.2.1";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/napari/napari-svg";
     changelog = "https://github.com/napari/napari-svg/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
   };
 }

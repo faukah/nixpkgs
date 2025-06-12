@@ -6,7 +6,6 @@
   pkg-config,
   json_c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ucode";
   version = "0.0.20231102";
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jow-/ucode";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

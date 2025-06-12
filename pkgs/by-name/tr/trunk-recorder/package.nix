@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-UTowlW2xKJllYlEvfEVQEyjNmFX3oafKJThIYDx7dkc=";
   };
 
-  cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
 
   nativeBuildInputs = [
     cmake
@@ -52,8 +52,8 @@ stdenv.mkDerivation rec {
       uhd
       volk
     ]
-    ++ lib.optionals hackrfSupport [ hackrf ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ mpir ];
+    ++ lib.optionals hackrfSupport [hackrf]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [mpir];
 
   postPatch = ''
     # fix broken symlink
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://trunkrecorder.com/";
     changelog = "https://github.com/robotastic/trunk-recorder/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ PapayaJackal ];
+    maintainers = with lib.maintainers; [PapayaJackal];
     mainProgram = "trunk-recorder";
   };
 }

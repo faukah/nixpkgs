@@ -18,7 +18,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcmanfm-qt";
   version = "2.2.0";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     qtsvg
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   postPatch = ''
     substituteInPlace config/pcmanfm-qt/lxqt/settings.conf.in --replace-fail @LXQT_SHARE_DIR@ /run/current-system/sw/share/lxqt
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     mainProgram = "pcmanfm-qt";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

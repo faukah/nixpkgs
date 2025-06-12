@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   version = "1.0.2";
   format = "setuptools";
@@ -20,6 +19,6 @@ buildPythonPackage rec {
     description = "FIGlet in pure Python";
     mainProgram = "pyfiglet";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

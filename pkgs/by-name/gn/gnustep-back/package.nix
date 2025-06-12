@@ -11,7 +11,6 @@
   pkg-config,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "gnustep-back";
   version = "0.32.0";
@@ -34,7 +33,7 @@ clangStdenv.mkDerivation (finalAttrs: {
     libXmu
   ];
 
-  propagatedBuildInputs = [ gnustep-gui ];
+  propagatedBuildInputs = [gnustep-gui];
 
   meta = {
     description = "Generic backend for GNUstep";

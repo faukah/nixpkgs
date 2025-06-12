@@ -9,7 +9,6 @@
   yarnBuildHook,
   nodejs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "your_spotify_client";
   inherit version src offlineCache;

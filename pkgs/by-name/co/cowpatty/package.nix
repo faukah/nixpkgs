@@ -8,7 +8,6 @@
   openssl,
   libpcap,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cowpatty";
   version = "4.8";

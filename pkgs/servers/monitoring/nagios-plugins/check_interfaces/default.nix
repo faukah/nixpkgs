@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-sQ2lee2gxyrl455tumMJ4EbKc8mYEDXl18Wik6daf5Q=";
   };
 
-  buildInputs = [ net-snmp ];
+  buildInputs = [net-snmp];
 
-  configureFlags = [ "--libexecdir=${placeholder "out"}/bin" ];
+  configureFlags = ["--libexecdir=${placeholder "out"}/bin"];
 
   enableParallelBuilding = true;
 
@@ -27,19 +27,19 @@ stdenv.mkDerivation rec {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     changelog = "https://github.com/NETWAYS/check_interfaces/releases/tag/v${version}";
     description = "Icinga check plugin for network hardware interfaces";
     homepage = "https://github.com/NETWAYS/check_interfaces/";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ jwillikers ];
+    maintainers = with lib.maintainers; [jwillikers];
     mainProgram = "check_interfaces";
   };
 }

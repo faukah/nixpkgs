@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   withCExtensions ? true,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # tests
   hypothesis,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cbor2";
   version = "5.6.5";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "cbor2" ];
+  pythonImportsCheck = ["cbor2"];
 
   nativeCheckInputs = [
     hypothesis
@@ -55,6 +51,6 @@ buildPythonPackage rec {
     mainProgram = "cbor2";
     homepage = "https://github.com/agronholm/cbor2";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

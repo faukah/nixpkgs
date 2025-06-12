@@ -4,7 +4,6 @@
   fetchurl,
   readline,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dterm";
   version = "0.5";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lFM7558e7JZeWYhtXwCjXLZ1xdsdiUGfJTu3LxQKvds=";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
 
   preInstall = "mkdir -p $out/bin";
 
-  installFlags = [ "BIN=$(out)/bin/" ];
+  installFlags = ["BIN=$(out)/bin/"];
 
   meta = with lib; {
     homepage = "http://www.knossos.net.nz/resources/free-software/dterm/";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
       appears on the terminal.
     '';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ auchter ];
+    maintainers = with maintainers; [auchter];
     platforms = platforms.unix;
     mainProgram = "dterm";
   };

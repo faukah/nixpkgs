@@ -6,18 +6,14 @@
   rustPlatform,
   writers,
   nixosTests,
-}:
-
-let
+}: let
   # Run `eval $(nix-build -A lorri.updater)` after updating the revision!
   # It will copy some required files if necessary.
   # Also don’t forget to run `nix-build -A lorri.tests`
   version = "1.7.1";
   sha256 = "sha256-dEdKMgE4Jd8CCvtGQDZNDCYOomZAV8aR7Cmtyn8RfTo=";
   cargoHash = "sha256-pRtc0cDVIBqbCbC1weFOhZP29rKAE1XdmM6HE5nJKRU=";
-
-in
-(rustPlatform.buildRustPackage rec {
+in (rustPlatform.buildRustPackage rec {
   pname = "lorri";
   inherit version;
 
@@ -39,9 +35,9 @@ in
   doCheck = false;
 
   BUILD_REV_COUNT = src.revCount or 1;
-  RUN_TIME_CLOSURE = pkgs.callPackage ./runtime.nix { };
+  RUN_TIME_CLOSURE = pkgs.callPackage ./runtime.nix {};
 
-  nativeBuildInputs = [ rustPackages.rustfmt ];
+  nativeBuildInputs = [rustPackages.rustfmt];
 
   # copy the docs to the $man and $doc outputs
   postInstall = ''

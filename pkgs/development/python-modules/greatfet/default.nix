@@ -14,7 +14,6 @@
   tabulate,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "greatfet";
   version = "2024.0.4";
@@ -37,9 +36,9 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "ipython" ];
+  pythonRelaxDeps = ["ipython"];
 
   dependencies = [
     cmsis-svd

@@ -7,7 +7,6 @@
   setuptools,
   gitUpdater,
 }:
-
 buildPythonApplication rec {
   pname = "git-review";
   version = "2.5.0";
@@ -42,16 +41,16 @@ buildPythonApplication rec {
   # out how to work around this yet.
   doCheck = false;
 
-  pythonImportsCheck = [ "git_review" ];
+  pythonImportsCheck = ["git_review"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Tool to submit code to Gerrit";
     homepage = "https://opendev.org/opendev/git-review";
     changelog = "https://docs.opendev.org/opendev/git-review/latest/releasenotes.html#relnotes-${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     mainProgram = "git-review";
   };
 }

@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "thespian";
   version = "4.0.0";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Python Actor concurrency library";
     homepage = "http://thespianpy.com/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.kquick ];
+    maintainers = [lib.maintainers.kquick];
   };
 }

@@ -6,12 +6,11 @@
   makeWrapper,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ant";
   version = "1.10.15";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchurl {
     url = "mirror://apache/ant/binaries/apache-ant-${finalAttrs.version}-bin.tar.bz2";
@@ -118,9 +117,9 @@ stdenv.mkDerivation (finalAttrs: {
       by an object that implements a particular Task interface.
     '';
 
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.asl20;
-    teams = [ lib.teams.java ];
+    teams = [lib.teams.java];
     platforms = lib.platforms.all;
   };
 })

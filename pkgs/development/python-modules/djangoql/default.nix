@@ -6,7 +6,6 @@
   django,
   ply,
 }:
-
 buildPythonPackage rec {
   pname = "djangoql";
   version = "0.18.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-x8KJ08BLKLRD42uqIW/FSFf3V6TFNXLTyWaoCr5Zb78=";
   };
 
-  propagatedBuildInputs = [ ply ];
+  propagatedBuildInputs = [ply];
 
-  nativeCheckInputs = [ django ];
+  nativeCheckInputs = [django];
 
   checkPhase = ''
     export PYTHONPATH=test_project:$PYTHONPATH
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Advanced search language for Django";
     homepage = "https://github.com/ivelum/djangoql";
     license = licenses.mit;
-    maintainers = with maintainers; [ erikarvstedt ];
+    maintainers = with maintainers; [erikarvstedt];
   };
 }

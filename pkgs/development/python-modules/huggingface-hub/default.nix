@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   filelock,
   fsspec,
@@ -15,7 +13,6 @@
   requests,
   tqdm,
   typing-extensions,
-
   # optional-dependencies
   # cli
   inquirerpy,
@@ -37,7 +34,6 @@
   # tensorflow-testing
   keras,
 }:
-
 buildPythonPackage rec {
   pname = "huggingface-hub";
   version = "0.32.3";
@@ -50,7 +46,7 @@ buildPythonPackage rec {
     hash = "sha256-qCFwzhjQI1L7mgSSqDPw59woTSTDY0boWSHcm7dgx2A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     filelock
@@ -65,7 +61,6 @@ buildPythonPackage rec {
 
   optional-dependencies = {
     all = [
-
     ];
     cli = [
       inquirerpy
@@ -73,10 +68,12 @@ buildPythonPackage rec {
     inference = [
       aiohttp
     ];
-    torch = [
-      torch
-      safetensors
-    ] ++ safetensors.optional-dependencies.torch;
+    torch =
+      [
+        torch
+        safetensors
+      ]
+      ++ safetensors.optional-dependencies.torch;
     hf_transfer = [
       hf-transfer
     ];
@@ -102,7 +99,7 @@ buildPythonPackage rec {
   # Tests require network access.
   doCheck = false;
 
-  pythonImportsCheck = [ "huggingface_hub" ];
+  pythonImportsCheck = ["huggingface_hub"];
 
   meta = {
     description = "Download and publish models and other files on the huggingface.co hub";
@@ -110,6 +107,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/huggingface/huggingface_hub";
     changelog = "https://github.com/huggingface/huggingface_hub/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -31,7 +31,6 @@
     "map_view"
   ],
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rerun";
   version = "0.23.3";
@@ -52,8 +51,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   useFetchCargoVendor = true;
   cargoHash = "sha256-tj9+dvXF3iDbUoxk7Hdz+PTuyDpCgdRE6ZqHBLTZuMU=";
 
-  cargoBuildFlags = [ "--package rerun-cli" ];
-  cargoTestFlags = [ "--package rerun-cli" ];
+  cargoBuildFlags = ["--package rerun-cli"];
+  cargoTestFlags = ["--package rerun-cli"];
   buildNoDefaultFeatures = true;
   buildFeatures = [
     "native_viewer"
@@ -100,14 +99,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nasm
   ];
 
-  buildInputs = [
-    freetype
-    glib
-    gtk3
-    (lib.getDev openssl)
-    libxkbcommon
-    vulkan-loader
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ (lib.getLib wayland) ];
+  buildInputs =
+    [
+      freetype
+      glib
+      gtk3
+      (lib.getDev openssl)
+      libxkbcommon
+      vulkan-loader
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [(lib.getLib wayland)];
 
   addDlopenRunpaths = map (p: "${lib.getLib p}/lib") (
     lib.optionals stdenv.hostPlatform.isLinux [
@@ -134,7 +135,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     )
   '';
 
-  postPhases = lib.optionals stdenv.hostPlatform.isLinux [ "addDlopenRunpathsPhase" ];
+  postPhases = lib.optionals stdenv.hostPlatform.isLinux ["addDlopenRunpathsPhase"];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -143,7 +144,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit (python3Packages) rerun-sdk;
     };

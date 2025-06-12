@@ -20,7 +20,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "backend" ];
+  subPackages = ["backend"];
 
   ldflags = [
     "-s"
@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X github.com/deggja/netfetch/backend/cmd.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     mv $out/bin/backend $out/bin/$pname
@@ -43,6 +43,6 @@ buildGoModule rec {
     description = "Kubernetes tool for scanning clusters for network policies and identifying unprotected workloads";
     license = lib.licenses.mit;
     mainProgram = "netfetch";
-    maintainers = with lib.maintainers; [ banh-canh ];
+    maintainers = with lib.maintainers; [banh-canh];
   };
 }

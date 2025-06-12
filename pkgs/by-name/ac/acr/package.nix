@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "acr";
   version = "2.2.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
       m4. This means that ACR is faster, smaller and easy to use.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

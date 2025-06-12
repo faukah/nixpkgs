@@ -4,7 +4,6 @@
   mathcomp,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "odd-order";
   owner = "math-comp";
@@ -17,30 +16,30 @@ mkCoqDerivation {
   releaseRev = v: "mathcomp-odd-order.${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch mathcomp.character.version [
       {
-        case = (range "2.2.0" "2.4.0");
+        case = range "2.2.0" "2.4.0";
         out = "2.2.0";
       }
       {
-        case = (range "2.1.0" "2.3.0");
+        case = range "2.1.0" "2.3.0";
         out = "2.1.0";
       }
       {
-        case = (range "1.13.0" "1.15.0");
+        case = range "1.13.0" "1.15.0";
         out = "1.14.0";
       }
       {
-        case = (range "1.12.0" "1.14.0");
+        case = range "1.12.0" "1.14.0";
         out = "1.13.0";
       }
       {
-        case = (range "1.10.0" "1.12.0");
+        case = range "1.10.0" "1.12.0";
         out = "1.12.0";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp.character
@@ -54,7 +53,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Formal proof of the Odd Order Theorem";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

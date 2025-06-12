@@ -8,7 +8,6 @@
   python3,
   testers,
   wrapGAppsHook3,
-
   # Recommended Dependencies:
   p7zip,
   unrar,
@@ -16,7 +15,6 @@
   pdfSupport ? true,
   unrarSupport ? false, # unfree software
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "mcomix";
   version = "3.1.0";
@@ -38,15 +36,14 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook3
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       pillow
       pycairo
       pygobject3
     ]
-    ++ lib.optionals chardetSupport [ chardet ]
-    ++ lib.optionals pdfSupport [ pymupdf ];
+    ++ lib.optionals chardetSupport [chardet]
+    ++ lib.optionals pdfSupport [pymupdf];
 
   # No tests included in .tar.gz
   doCheck = false;
@@ -57,7 +54,7 @@ python3.pkgs.buildPythonApplication rec {
   preFixup = ''
     makeWrapperArgs+=(
       "''${gappsWrapperArgs[@]}"
-      "--prefix" "PATH" ":" "${lib.makeBinPath ([ p7zip ] ++ lib.optional unrarSupport unrar)}"
+      "--prefix" "PATH" ":" "${lib.makeBinPath ([p7zip] ++ lib.optional unrarSupport unrar)}"
     )
   '';
 
@@ -79,6 +76,6 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://sourceforge.net/projects/mcomix/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

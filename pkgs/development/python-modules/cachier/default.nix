@@ -15,7 +15,6 @@
   pandas,
   birch,
 }:
-
 buildPythonPackage rec {
   pname = "cachier";
   version = "3.1.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-siighT6hMicN+F/LIXfUAPQ2kkRiyk7CtjqmyC/qCFg=";
   };
 
-  pythonRemoveDeps = [ "setuptools" ];
+  pythonRemoveDeps = ["setuptools"];
 
   nativeBuildInputs = [
     setuptools
@@ -76,14 +75,14 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
   '';
 
-  pythonImportsCheck = [ "cachier" ];
+  pythonImportsCheck = ["cachier"];
 
   meta = {
     homepage = "https://github.com/python-cachier/cachier";
     changelog = "https://github.com/python-cachier/cachier/releases/tag/v${version}";
     description = "Persistent, stale-free, local and cross-machine caching for functions";
     mainProgram = "cachier";
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     license = lib.licenses.mit;
   };
 }

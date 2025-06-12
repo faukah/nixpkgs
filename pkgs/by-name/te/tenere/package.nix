@@ -15,13 +15,13 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vwnMfY8xYrH3pWl8YMb7Jedu1gEOcAKPChClboJJSsw=";
 
-  requiredSystemFeatures = [ "big-parallel" ]; # for fat LTO from upstream
+  requiredSystemFeatures = ["big-parallel"]; # for fat LTO from upstream
 
   meta = {
     description = "Terminal interface for large language models (LLMs)";
     homepage = "https://github.com/pythops/tenere";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ob7 ];
+    maintainers = with lib.maintainers; [ob7];
     mainProgram = "tenere";
   };
 }

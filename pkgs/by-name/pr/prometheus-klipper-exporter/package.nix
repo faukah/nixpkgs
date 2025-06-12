@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "prometheus-klipper-exporter";
   version = "0.13.0";
@@ -25,14 +24,14 @@ buildGoModule rec {
     tests = {
       inherit (nixosTests.prometheus-exporters) process;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = " Prometheus Exporter for Klipper ";
     homepage = "https://github.com/scross01/prometheus-klipper-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ wulfsta ];
+    maintainers = with maintainers; [wulfsta];
     platforms = platforms.linux;
   };
 }

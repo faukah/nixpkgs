@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "swaycons";
   version = "unstable-2023-11-29";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/allie-wake-up/swaycons";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with maintainers; [aacebedo];
   };
 }

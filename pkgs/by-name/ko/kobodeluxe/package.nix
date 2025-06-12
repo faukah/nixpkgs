@@ -7,7 +7,6 @@
   libGLU,
   libGL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kobodeluxe";
   version = "0.5.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     sed -e 's/char \*tok/const char \*tok/' -i graphics/window.cpp
   '';
 
-  patches = [ ./glibc29.patch ];
+  patches = [./glibc29.patch];
 
   meta = {
     homepage = "https://olofson.net/kobodl/";

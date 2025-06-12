@@ -8,7 +8,6 @@
   rapidjson,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencc";
   version = "1.1.9";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "ver."; };
+    updateScript = gitUpdater {rev-prefix = "ver.";};
   };
 
   meta = with lib; {
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       phrase-level conversion, variant conversion and regional idioms among Mainland China,
       Taiwan and Hong kong.
     '';
-    maintainers = with maintainers; [ sifmelcara ];
+    maintainers = with maintainers; [sifmelcara];
     platforms = with platforms; linux ++ darwin;
   };
 }

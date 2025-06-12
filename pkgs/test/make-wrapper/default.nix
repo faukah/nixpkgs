@@ -7,9 +7,7 @@
   runCommand,
   which,
   ...
-}:
-
-let
+}: let
   # Testfiles
   foofile = writeText "foofile" "foo";
   barfile = writeText "barfile" "bar";
@@ -31,20 +29,19 @@ let
     printf '%s\n' "$@"
   '';
 
-  mkWrapperBinary =
-    {
-      name,
-      args,
-      wrapped ? wrappedBinaryVar,
-    }:
+  mkWrapperBinary = {
+    name,
+    args,
+    wrapped ? wrappedBinaryVar,
+  }:
     runCommand name
-      {
-        nativeBuildInputs = [ makeWrapper ];
-      }
-      ''
-        mkdir -p $out/bin
-        makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
-      '';
+    {
+      nativeBuildInputs = [makeWrapper];
+    }
+    ''
+      mkdir -p $out/bin
+      makeWrapper "${wrapped}" "$out/bin/${name}" ${lib.escapeShellArgs args}
+    '';
 
   mkArgTest = cmd: toExpect: mkTest cmd (builtins.concatStringsSep "\n" toExpect);
   mkTest = cmd: toExpect: ''
@@ -61,7 +58,7 @@ let
     fi
   '';
 in
-runCommand "make-wrapper-test"
+  runCommand "make-wrapper-test"
   {
     nativeBuildInputs = [
       which
@@ -223,7 +220,6 @@ runCommand "make-wrapper-test"
   (
     # --argv0 works
     mkTest "test-argv0" "argv0=foo"
-
     # --set works
     + mkTest "test-set" "VAR=abc"
     # --set overwrites the variable
@@ -234,7 +230,6 @@ runCommand "make-wrapper-test"
     + mkTest "VAR=foo test-set-default" "VAR=foo"
     # --unset works
     + mkTest "VAR=foo test-unset" "VAR="
-
     # --add-flags and --append-flags work
     + mkArgTest "test-args" [
       "abc"
@@ -251,12 +246,10 @@ runCommand "make-wrapper-test"
       "foo"
       "xyz"
     ]
-
     # --run works
     + mkTest "test-run" "bar\nVAR="
     # --run & --set works
     + mkTest "test-run-and-set" "VAR=bar"
-
     # --prefix works
     + mkTest "VAR=foo test-prefix" "VAR=abc:foo"
     # sets variable if not set yet
@@ -273,7 +266,6 @@ runCommand "make-wrapper-test"
     + mkTest "test-prefix" "VAR=abc"
     # --prefix doesn't expand globs
     + mkTest "VAR=f?oo test-prefix-noglob" "VAR=./*:f?oo"
-
     # --suffix works
     + mkTest "VAR=foo test-suffix" "VAR=foo:abc"
     # sets variable if not set yet
@@ -283,7 +275,6 @@ runCommand "make-wrapper-test"
     + mkTest "VAR=abc:foo test-suffix" "VAR=abc:foo"
     # --prefix in combination with --suffix
     + mkTest "VAR=abc test-prefix-and-suffix" "VAR=foo:abc:bar"
-
     # --suffix-each works
     + mkTest "VAR=abc test-suffix-each" "VAR=abc:foo:bar:def"
     # --prefix-each works

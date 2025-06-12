@@ -12,7 +12,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-m17n";
   version = "1.4.36";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ibus/ibus-m17n";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

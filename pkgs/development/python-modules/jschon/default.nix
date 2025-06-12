@@ -11,7 +11,6 @@
   pytest-httpserver,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "jschon";
   version = "0.11.1";
@@ -76,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/marksparkza/jschon";
     changelog = "https://github.com/marksparkza/jschon/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

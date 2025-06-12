@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "apio-udev-rules";
   version = "0.9.5";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/FPGAwars/apio";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ zh4ngx ];
+    maintainers = with lib.maintainers; [zh4ngx];
   };
 })

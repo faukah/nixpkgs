@@ -8,7 +8,6 @@
   requests-oauthlib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "ovh";
   version = "1.2.0";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-0xHwjsF7YsxhIWs9rPA+6J+VodqQNqWV2sKfydeYuCc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
     requests-oauthlib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ovh" ];
+  pythonImportsCheck = ["ovh"];
 
   disabledTests = [
     # Tests require network access
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ovh/python-ovh";
     changelog = "https://github.com/ovh/python-ovh/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

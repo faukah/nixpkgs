@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "aws-sso-util";
   version = "4.33.0";
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     downloadPage = "https://pypi.org/project/aws-sso-util/#files";
     changelog = "https://github.com/benkehoe/aws-sso-util/releases";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ cterence ];
+    maintainers = with lib.maintainers; [cterence];
     mainProgram = "aws-sso-util";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

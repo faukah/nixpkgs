@@ -27,7 +27,6 @@
   wayland,
   yaml-cpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "miracle-wm";
   version = "0.5.2";
@@ -80,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     yaml-cpp
   ];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   cmakeFlags = [
     (lib.cmakeBool "SYSTEMD_INTEGRATION" true)
@@ -100,17 +99,17 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs $out/libexec/miracle-wm-session-setup
     wrapProgram $out/libexec/miracle-wm-session-setup \
       --prefix PATH : "$out/bin:${
-        lib.makeBinPath [
-          coreutils # cat
-          dbus # dbus-update-activation-environment
-          systemd # systemctl
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils # cat
+        dbus # dbus-update-activation-environment
+        systemd # systemctl
+      ]
+    }"
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
-    providedSessions = [ "miracle-wm" ];
+    updateScript = gitUpdater {rev-prefix = "v";};
+    providedSessions = ["miracle-wm"];
     tests.vm = nixosTests.miracle-wm;
   };
 
@@ -127,7 +126,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/miracle-wm-org/miracle-wm/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "miracle-wm";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.linux;
   };
 })

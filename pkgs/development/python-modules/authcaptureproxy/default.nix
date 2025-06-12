@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiohttp,
   beautifulsoup4,
@@ -13,12 +11,10 @@
   multidict,
   typer,
   yarl,
-
   # tests
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "authcaptureproxy";
   version = "1.3.3";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-H5Dl1incS5+lmZaLZXMCOqEIGTcTr4A5J3r3ngpDGtY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -53,7 +49,7 @@ buildPythonPackage rec {
     "test_return_timer_countdown_refresh_html"
   ];
 
-  pythonImportsCheck = [ "authcaptureproxy" ];
+  pythonImportsCheck = ["authcaptureproxy"];
 
   meta = with lib; {
     changelog = "https://github.com/alandtse/auth_capture_proxy/releases/tag/v${version}";

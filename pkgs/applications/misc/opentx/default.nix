@@ -13,7 +13,6 @@
   dfu-util,
   avrdude,
 }:
-
 mkDerivation rec {
   pname = "opentx";
   version = "2.3.15";
@@ -74,5 +73,4 @@ mkDerivation rec {
       lopsided98
     ];
   };
-
 }

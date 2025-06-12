@@ -5,7 +5,6 @@
   fetchpatch,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "facedetect";
   version = "0.1";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Simple face detector for batch processing";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     mainProgram = "facedetect";
   };
 }

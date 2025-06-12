@@ -3,29 +3,32 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     types
     ;
 
-  inherit (lib.strings)
+  inherit
+    (lib.strings)
     concatStringsSep
     optionalString
     ;
 
-  inherit (lib.attrsets)
+  inherit
+    (lib.attrsets)
     filterAttrs
     mapAttrsToList
     mapAttrs'
     ;
 
-  inherit (lib.modules)
+  inherit
+    (lib.modules)
     mkIf
     ;
 
-  inherit (lib.options)
+  inherit
+    (lib.options)
     mkEnableOption
     mkOption
     mkPackageOption
@@ -36,11 +39,10 @@ let
   enabledAxports = filterAttrs (ax25Name: cfg: cfg.enable) cfg;
 
   axportsOpts = {
-
     options = {
       enable = mkEnableOption "Enables the axport interface";
 
-      package = mkPackageOption pkgs "ax25-tools" { };
+      package = mkPackageOption pkgs "ax25-tools" {};
 
       tty = mkOption {
         type = types.str;
@@ -101,26 +103,22 @@ let
       };
     };
   };
-in
-{
-
+in {
   options = {
-
     services.ax25.axports = mkOption {
       type = types.attrsOf (types.submodule axportsOpts);
-      default = { };
+      default = {};
       description = "Specification of one or more AX.25 ports.";
     };
   };
 
-  config = mkIf (enabledAxports != { }) {
-
+  config = mkIf (enabledAxports != {}) {
     environment.etc."ax25/axports" = {
       text = concatStringsSep "\n" (
         mapAttrsToList (
-          portName: portCfg:
-          "${portName} ${portCfg.callsign} ${toString portCfg.baud} ${toString portCfg.paclen} ${toString portCfg.window} ${portCfg.description}"
-        ) enabledAxports
+          portName: portCfg: "${portName} ${portCfg.callsign} ${toString portCfg.baud} ${toString portCfg.paclen} ${toString portCfg.window} ${portCfg.description}"
+        )
+        enabledAxports
       );
       mode = "0644";
     };
@@ -129,21 +127,23 @@ in
       description = "AX.25 axports group target";
     };
 
-    systemd.services = mapAttrs' (portName: portCfg: {
-      name = "ax25-kissattach-${portName}";
-      value = {
-        description = "AX.25 KISS attached interface for ${portName}";
-        wantedBy = [ "multi-user.target" ];
-        before = [ "ax25-axports.target" ];
-        partOf = [ "ax25-axports.target" ];
-        serviceConfig = {
-          Type = "exec";
-          ExecStart = "${portCfg.package}/bin/kissattach ${portCfg.tty} ${portName}";
+    systemd.services =
+      mapAttrs' (portName: portCfg: {
+        name = "ax25-kissattach-${portName}";
+        value = {
+          description = "AX.25 KISS attached interface for ${portName}";
+          wantedBy = ["multi-user.target"];
+          before = ["ax25-axports.target"];
+          partOf = ["ax25-axports.target"];
+          serviceConfig = {
+            Type = "exec";
+            ExecStart = "${portCfg.package}/bin/kissattach ${portCfg.tty} ${portName}";
+          };
+          postStart = optionalString (portCfg.kissParams != null) ''
+            ${portCfg.package}/bin/kissparms -p ${portName} ${portCfg.kissParams}
+          '';
         };
-        postStart = optionalString (portCfg.kissParams != null) ''
-          ${portCfg.package}/bin/kissparms -p ${portName} ${portCfg.kissParams}
-        '';
-      };
-    }) enabledAxports;
+      })
+      enabledAxports;
   };
 }

@@ -11,9 +11,7 @@
   pcre,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "ivan";
   version = "059";
 
@@ -37,10 +35,10 @@ stdenv.mkDerivation rec {
     pcre
   ];
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   # Enable wizard mode
-  cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-DWIZARD" ];
+  cmakeFlags = ["-DCMAKE_CXX_FLAGS=-DWIZARD"];
 
   # Help CMake find SDL_mixer.h
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2_mixer}/include/SDL2";
@@ -88,7 +86,7 @@ stdenv.mkDerivation rec {
     homepage = "https://attnam.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ivan";
   };
 }

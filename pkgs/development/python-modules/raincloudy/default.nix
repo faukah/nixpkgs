@@ -17,7 +17,6 @@
   setuptools-scm,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "raincloudy";
   version = "1.2.0";
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/vanstinator/raincloudy";
     changelog = "https://github.com/vanstinator/raincloudy/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

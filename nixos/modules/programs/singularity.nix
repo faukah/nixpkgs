@@ -3,20 +3,18 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.singularity;
-in
-{
-
+in {
   options.programs.singularity = {
-    enable = lib.mkEnableOption "singularity" // {
-      description = ''
-        Whether to install Singularity/Apptainer with system-level overriding such as SUID support.
-      '';
-    };
-    package = lib.mkPackageOption pkgs "singularity" { example = "apptainer"; };
+    enable =
+      lib.mkEnableOption "singularity"
+      // {
+        description = ''
+          Whether to install Singularity/Apptainer with system-level overriding such as SUID support.
+        '';
+      };
+    package = lib.mkPackageOption pkgs "singularity" {example = "apptainer";};
     packageOverriden = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
       default = null;
@@ -79,7 +77,7 @@ in
     };
     systemBinPaths = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         (Extra) system-wide /**/bin paths
         for Apptainer/Singularity to find command-line utilities in.
@@ -97,15 +95,15 @@ in
         {
           systemBinPaths = cfg.systemBinPaths;
         }
-        // lib.optionalAttrs cfg.enableExternalLocalStateDir { externalLocalStateDir = "/var/lib"; }
+        // lib.optionalAttrs cfg.enableExternalLocalStateDir {externalLocalStateDir = "/var/lib";}
         // lib.optionalAttrs cfg.enableSuid {
           enableSuid = true;
           starterSuidPath = "/run/wrappers/bin/${cfg.package.projectName}-suid";
         }
       )
     );
-    programs.singularity.systemBinPaths = [ "/run/wrappers/bin" ];
-    environment.systemPackages = [ cfg.packageOverriden ];
+    programs.singularity.systemBinPaths = ["/run/wrappers/bin"];
+    environment.systemPackages = [cfg.packageOverriden];
     security.wrappers."${cfg.packageOverriden.projectName}-suid" = lib.mkIf cfg.enableSuid {
       setuid = true;
       owner = "root";

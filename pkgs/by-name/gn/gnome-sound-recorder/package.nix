@@ -18,7 +18,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-sound-recorder";
   version = "43.beta";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-sound-recorder"; };
+    updateScript = gnome.updateScript {packageName = "gnome-sound-recorder";};
   };
 
   meta = {
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/World/vocalis";
     changelog = "https://gitlab.gnome.org/World/vocalis/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

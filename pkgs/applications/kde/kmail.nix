@@ -51,7 +51,6 @@
   qtscript,
   qtwebengine,
 }:
-
 mkDerivation {
   pname = "kmail";
   meta = {
@@ -125,14 +124,14 @@ mkDerivation {
   postFixup = ''
     wrapProgram "$out/bin/kmail" \
       --prefix PATH : "${
-        lib.makeBinPath [
-          akonadi
-          akonadi-import-wizard
-          kaddressbook
-          kleopatra
-          kmail-account-wizard
-          pim-data-exporter
-        ]
-      }"
+      lib.makeBinPath [
+        akonadi
+        akonadi-import-wizard
+        kaddressbook
+        kleopatra
+        kmail-account-wizard
+        pim-data-exporter
+      ]
+    }"
   '';
 }

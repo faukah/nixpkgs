@@ -9,7 +9,6 @@
   boost,
   wxGTK32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wxformbuilder";
   version = "4.2.1";

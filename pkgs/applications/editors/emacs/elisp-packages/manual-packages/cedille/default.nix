@@ -3,13 +3,12 @@
   cedille,
   emacs,
 }:
-
 stdenv.mkDerivation {
   pname = "cedille-mode";
 
   inherit (cedille) version src;
 
-  buildInputs = [ emacs ];
+  buildInputs = [emacs];
 
   dontBuild = true;
 
@@ -27,7 +26,8 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    inherit (cedille.meta)
+    inherit
+      (cedille.meta)
       homepage
       license
       maintainers

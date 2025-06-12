@@ -12,7 +12,6 @@
   makeWrapper,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flowblade";
   version = "2.20";
@@ -31,14 +30,15 @@ stdenv.mkDerivation rec {
     gtk3
     ladspaPlugins
     (python3.withPackages (
-      ps: with ps; [
-        mlt
-        pygobject3
-        dbus-python
-        numpy
-        pillow
-        libusb1
-      ]
+      ps:
+        with ps; [
+          mlt
+          pygobject3
+          dbus-python
+          numpy
+          pillow
+          libusb1
+        ]
     ))
   ];
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     makeWrapper $out/flowblade/flowblade $out/bin/flowblade \
       --set FREI0R_PATH ${frei0r}/lib/frei0r-1 \
       --set LADSPA_PATH ${ladspaPlugins}/lib/ladspa \
-      --prefix PATH : "${lib.makeBinPath [ ffmpeg ]}" \
+      --prefix PATH : "${lib.makeBinPath [ffmpeg]}" \
       ''${gappsWrapperArgs[@]}
 
     runHook postInstall
@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Multitrack Non-Linear Video Editor";
     homepage = "https://jliljebl.github.io/flowblade/";
-    license = with licenses; [ gpl3Plus ];
+    license = with licenses; [gpl3Plus];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ polygon ];
+    maintainers = with maintainers; [polygon];
     mainProgram = "flowblade";
   };
 }

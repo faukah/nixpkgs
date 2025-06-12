@@ -8,7 +8,6 @@
   libxcb,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "didyoumean";
   version = "1.1.4";

@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-IgPnXHVtAaSOsaAYvo0ELRqvXpF2qAnJ/1QZ+FHzqn4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -30,8 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "macOS file archiver";
     homepage = "https://www.keka.io";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ emilytrau ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.darwin;
   };
 })

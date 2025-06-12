@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "plugin-cache";
   namespace = "script.common.plugin.cache";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/anxdpanic/script.common.plugin.cache";
     description = "Common plugin cache";
     license = licenses.gpl3Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

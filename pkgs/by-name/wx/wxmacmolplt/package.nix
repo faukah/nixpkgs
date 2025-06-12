@@ -10,7 +10,6 @@
   autoreconfHook,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wxmacmolplt";
   version = "7.7.3";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     xorg.libX11.dev
   ];
 
-  configureFlags = [ "LDFLAGS=-lGL" ];
+  configureFlags = ["LDFLAGS=-lGL"];
 
   enableParallelBuilding = true;
 

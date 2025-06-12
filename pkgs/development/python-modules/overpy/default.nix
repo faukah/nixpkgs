@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "overpy";
   version = "0.7";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-+bMpA4xDvnQl6Q0M2iGrsUHGLuR/gLimJgmZCMzsLvA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "overpy" ];
+  pythonImportsCheck = ["overpy"];
 
   meta = with lib; {
     description = "Python Wrapper to access the Overpass API";
     homepage = "https://github.com/DinoTools/python-overpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

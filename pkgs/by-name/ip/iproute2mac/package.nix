@@ -6,7 +6,6 @@
   makeWrapper,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iproute2mac";
   version = "1.5.4";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hmSqJ2gc0DOXUuFrp1ZG8usjFdo07zjV/1JLs5r/E04=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   postPatch = ''
     substituteInPlace src/iproute2mac.py \
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/brona/iproute2mac";
     description = "CLI wrapper for basic network utilites on Mac OS X inspired with iproute2 on Linux systems - ip command";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jiegec ];
+    maintainers = with lib.maintainers; [jiegec];
     platforms = lib.platforms.darwin;
   };
 })

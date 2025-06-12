@@ -1,6 +1,7 @@
-{ stdenv, undmg }:
-
 {
+  stdenv,
+  undmg,
+}: {
   pname,
   version,
   src,
@@ -14,7 +15,7 @@ stdenv.mkDerivation {
     meta
     ;
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = ".";
 

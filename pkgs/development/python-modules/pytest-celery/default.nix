@@ -15,7 +15,6 @@
   setuptools,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-celery";
   version = "1.1.3";
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     "setuptools"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  buildInput = [ pytest ];
+  buildInput = [pytest];
 
   dependencies = [
     debugpy
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/celery/pytest-celery";
     changelog = "https://github.com/celery/pytest-celery/blob/v${version}/Changelog.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

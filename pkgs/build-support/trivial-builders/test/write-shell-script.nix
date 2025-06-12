@@ -1,10 +1,12 @@
-{ lib, writeShellScript }:
-let
+{
+  lib,
+  writeShellScript,
+}: let
   output = "hello";
 in
-(writeShellScript "test-script" ''
-  echo ${lib.escapeShellArg output}
-'').overrideAttrs
+  (writeShellScript "test-script" ''
+    echo ${lib.escapeShellArg output}
+  '').overrideAttrs
   (old: {
     checkPhase =
       old.checkPhase or ""

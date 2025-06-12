@@ -10,7 +10,6 @@
 # - port forwarding functionality behaves correctly
 #
 # The client is behind the nat (read: protected by the nat) and the server is on the external network, attempting to access services behind the NAT.
-
 import ./make-test-python.nix (
   {
     pkgs,
@@ -18,9 +17,16 @@ import ./make-test-python.nix (
     withFirewall ? false,
     nftables ? false,
     ...
-  }:
-  let
-    unit = if nftables then "nftables" else (if withFirewall then "firewall" else "nat");
+  }: let
+    unit =
+      if nftables
+      then "nftables"
+      else
+        (
+          if withFirewall
+          then "firewall"
+          else "nat"
+        );
 
     routerAlternativeExternalIp = "192.168.2.234";
 
@@ -91,71 +97,74 @@ import ./make-test-python.nix (
         '')
       ];
     };
-
   in
-  # VLANS:
-  # 1 -- simulates the internal network
-  # 2 -- simulates the external network
-  {
-    name =
-      "nat"
-      + (lib.optionalString nftables "Nftables")
-      + (if withFirewall then "WithFirewall" else "Standalone");
-    meta = with pkgs.lib.maintainers; {
-      maintainers = [
-        tne
-        rob
-      ];
-    };
-
-    nodes = {
-      client =
-        { pkgs, nodes, ... }:
-        lib.mkMerge [
-          (makeCommonConfig "client")
-          {
-            virtualisation.vlans = [ 1 ];
-            networking.defaultGateway =
-              (pkgs.lib.head nodes.router.networking.interfaces.eth1.ipv4.addresses).address;
-            networking.nftables.enable = nftables;
-            networking.firewall.enable = false;
-          }
+    # VLANS:
+    # 1 -- simulates the internal network
+    # 2 -- simulates the external network
+    {
+      name =
+        "nat"
+        + (lib.optionalString nftables "Nftables")
+        + (
+          if withFirewall
+          then "WithFirewall"
+          else "Standalone"
+        );
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [
+          tne
+          rob
         ];
+      };
 
-      router =
-        { nodes, ... }:
-        lib.mkMerge [
-          (makeCommonConfig "router")
-          {
-            virtualisation.vlans = [
-              1
-              2
-            ];
-            networking.firewall = {
-              enable = withFirewall;
-              filterForward = nftables;
-              allowedTCPPorts = [
-                21
-                80
-                8080
+      nodes = {
+        client = {
+          pkgs,
+          nodes,
+          ...
+        }:
+          lib.mkMerge [
+            (makeCommonConfig "client")
+            {
+              virtualisation.vlans = [1];
+              networking.defaultGateway =
+                (pkgs.lib.head nodes.router.networking.interfaces.eth1.ipv4.addresses).address;
+              networking.nftables.enable = nftables;
+              networking.firewall.enable = false;
+            }
+          ];
+
+        router = {nodes, ...}:
+          lib.mkMerge [
+            (makeCommonConfig "router")
+            {
+              virtualisation.vlans = [
+                1
+                2
               ];
-              # For FTP passive mode
-              allowedTCPPortRanges = [
-                {
-                  from = 51000;
-                  to = 51999;
-                }
-              ];
-            };
-            networking.nftables.enable = nftables;
-            networking.nat =
-              let
+              networking.firewall = {
+                enable = withFirewall;
+                filterForward = nftables;
+                allowedTCPPorts = [
+                  21
+                  80
+                  8080
+                ];
+                # For FTP passive mode
+                allowedTCPPortRanges = [
+                  {
+                    from = 51000;
+                    to = 51999;
+                  }
+                ];
+              };
+              networking.nftables.enable = nftables;
+              networking.nat = let
                 clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
                 serverIp = (pkgs.lib.head nodes.router.networking.interfaces.eth2.ipv4.addresses).address;
-              in
-              {
+              in {
                 enable = true;
-                internalIPs = [ "${clientIp}/24" ];
+                internalIPs = ["${clientIp}/24"];
                 # internalInterfaces = [ "eth1" ];
                 externalInterface = "eth2";
                 externalIP = serverIp;
@@ -166,53 +175,49 @@ import ./make-test-python.nix (
                     proto = "tcp";
                     sourcePort = 8080;
 
-                    loopbackIPs = [ serverIp ];
+                    loopbackIPs = [serverIp];
                   }
                 ];
               };
 
-            networking.interfaces.eth2.ipv4.addresses = lib.mkOrder 10000 [
-              {
-                address = routerAlternativeExternalIp;
-                prefixLength = 24;
-              }
-            ];
+              networking.interfaces.eth2.ipv4.addresses = lib.mkOrder 10000 [
+                {
+                  address = routerAlternativeExternalIp;
+                  prefixLength = 24;
+                }
+              ];
 
-            services.nginx.virtualHosts.router.listen = lib.mkOrder (-1) [
-              {
-                addr = routerAlternativeExternalIp;
-                port = 8080;
-              }
-            ];
+              services.nginx.virtualHosts.router.listen = lib.mkOrder (-1) [
+                {
+                  addr = routerAlternativeExternalIp;
+                  port = 8080;
+                }
+              ];
 
-            specialisation.no-nat.configuration = {
-              networking.nat.enable = lib.mkForce false;
-            };
-          }
-        ];
+              specialisation.no-nat.configuration = {
+                networking.nat.enable = lib.mkForce false;
+              };
+            }
+          ];
 
-      server =
-        { nodes, ... }:
-        lib.mkMerge [
-          (makeCommonConfig "server")
-          {
-            virtualisation.vlans = [ 2 ];
-            networking.firewall.enable = false;
+        server = {nodes, ...}:
+          lib.mkMerge [
+            (makeCommonConfig "server")
+            {
+              virtualisation.vlans = [2];
+              networking.firewall.enable = false;
 
-            networking.defaultGateway =
-              (pkgs.lib.head nodes.router.networking.interfaces.eth2.ipv4.addresses).address;
-          }
-        ];
-    };
+              networking.defaultGateway =
+                (pkgs.lib.head nodes.router.networking.interfaces.eth2.ipv4.addresses).address;
+            }
+          ];
+      };
 
-    testScript =
-      { nodes, ... }:
-      let
+      testScript = {nodes, ...}: let
         clientIp = (pkgs.lib.head nodes.client.networking.interfaces.eth1.ipv4.addresses).address;
         serverIp = (pkgs.lib.head nodes.server.networking.interfaces.eth1.ipv4.addresses).address;
         routerIp = (pkgs.lib.head nodes.router.networking.interfaces.eth2.ipv4.addresses).address;
-      in
-      ''
+      in ''
         def wait_for_machine(m):
           m.wait_for_unit("network.target")
           m.wait_for_unit("nginx.service")
@@ -308,5 +313,5 @@ import ./make-test-python.nix (
         server.succeed('[[ `timeout 3 curl http://${routerIp}:8080` == "router" ]]')
         router.succeed('[[ `timeout 3 curl http://${routerIp}:8080` == "router" ]]')
       '';
-  }
+    }
 )

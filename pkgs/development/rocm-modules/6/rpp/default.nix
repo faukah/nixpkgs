@@ -14,19 +14,17 @@
   buildDocs ? false, # Needs internet
   useOpenCL ? false,
   useCPU ? false,
-  gpuTargets ? [ ],
+  gpuTargets ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname =
     "rpp-"
     + (
-      if (!useOpenCL && !useCPU) then
-        "hip"
-      else if (!useOpenCL && !useCPU) then
-        "opencl"
-      else
-        "cpu"
+      if (!useOpenCL && !useCPU)
+      then "hip"
+      else if (!useOpenCL && !useCPU)
+      then "opencl"
+      else "cpu"
     );
 
   version = "6.3.3";
@@ -64,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DOpenMP_omp_LIBRARY=${openmp}/lib"
       "-DROCM_PATH=${clr}"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals (!useOpenCL && !useCPU) [
@@ -96,8 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Comprehensive high-performance computer vision library for AMD processors";
     homepage = "https://github.com/ROCm/rpp";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
     broken = useOpenCL;
   };

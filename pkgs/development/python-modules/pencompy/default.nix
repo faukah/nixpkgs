@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pencompy";
   version = "0.0.4";
@@ -20,12 +19,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pencompy" ];
+  pythonImportsCheck = ["pencompy"];
 
   meta = with lib; {
     description = "Library for interacting with Pencom relay boards";
     homepage = "https://github.com/dubnom/pencompy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,14 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.avahi;
 
-  yesNo = yes: if yes then "yes" else "no";
+  yesNo = yes:
+    if yes
+    then "yes"
+    else "no";
 
-  avahiDaemonConf =
-    with cfg;
+  avahiDaemonConf = with cfg;
     pkgs.writeText "avahi-daemon.conf" ''
       [server]
       ${
@@ -48,14 +49,14 @@ let
       enable-reflector=${yesNo reflector}
       ${extraConfig}
     '';
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "avahi" "interfaces" ]
-      [ "services" "avahi" "allowInterfaces" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "avahi" "interfaces"]
+      ["services" "avahi" "allowInterfaces"]
     )
-    (lib.mkRenamedOptionModule [ "services" "avahi" "nssmdns" ] [ "services" "avahi" "nssmdns4" ])
+    (lib.mkRenamedOptionModule ["services" "avahi" "nssmdns"] ["services" "avahi" "nssmdns4"])
   ];
 
   options.services.avahi = {
@@ -70,7 +71,7 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "avahi" { };
+    package = lib.mkPackageOption pkgs "avahi" {};
 
     hostName = lib.mkOption {
       type = lib.types.str;
@@ -92,7 +93,7 @@ in
 
     browseDomains = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "0pointer.de"
         "zeroconf.org"
@@ -169,7 +170,7 @@ in
 
     extraServiceFiles = lib.mkOption {
       type = with lib.types; attrsOf (either str path);
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           ssh = "''${pkgs.avahi}/etc/avahi/services/ssh.service";
@@ -286,51 +287,55 @@ in
       isSystemUser = true;
     };
 
-    users.groups.avahi = { };
+    users.groups.avahi = {};
 
     system.nssModules = lib.optional (cfg.nssmdns4 || cfg.nssmdns6) pkgs.nssmdns;
-    system.nssDatabases.hosts =
-      let
-        mdns =
-          if (cfg.nssmdns4 && cfg.nssmdns6) then
-            "mdns"
-          else if (!cfg.nssmdns4 && cfg.nssmdns6) then
-            "mdns6"
-          else if (cfg.nssmdns4 && !cfg.nssmdns6) then
-            "mdns4"
-          else
-            "";
-      in
+    system.nssDatabases.hosts = let
+      mdns =
+        if (cfg.nssmdns4 && cfg.nssmdns6)
+        then "mdns"
+        else if (!cfg.nssmdns4 && cfg.nssmdns6)
+        then "mdns6"
+        else if (cfg.nssmdns4 && !cfg.nssmdns6)
+        then "mdns4"
+        else "";
+    in
       lib.optionals (cfg.nssmdns4 || cfg.nssmdns6) (
         lib.mkMerge [
-          (lib.mkBefore [ "${mdns}_minimal [NOTFOUND=return]" ]) # before resolve
-          (lib.mkAfter [ "${mdns}" ]) # after dns
+          (lib.mkBefore ["${mdns}_minimal [NOTFOUND=return]"]) # before resolve
+          (lib.mkAfter ["${mdns}"]) # after dns
         ]
       );
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc = (
       lib.mapAttrs' (
         n: v:
-        lib.nameValuePair "avahi/services/${n}.service" {
-          ${if lib.types.path.check v then "source" else "text"} = v;
-        }
-      ) cfg.extraServiceFiles
+          lib.nameValuePair "avahi/services/${n}.service" {
+            ${
+              if lib.types.path.check v
+              then "source"
+              else "text"
+            } =
+              v;
+          }
+      )
+      cfg.extraServiceFiles
     );
 
     systemd.sockets.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack Activation Socket";
-      listenStreams = [ "/run/avahi-daemon/socket" ];
-      wantedBy = [ "sockets.target" ];
+      listenStreams = ["/run/avahi-daemon/socket"];
+      wantedBy = ["sockets.target"];
     };
 
-    systemd.tmpfiles.rules = [ "d /run/avahi-daemon - avahi avahi -" ];
+    systemd.tmpfiles.rules = ["d /run/avahi-daemon - avahi avahi -"];
 
     systemd.services.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "avahi-daemon.socket" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["avahi-daemon.socket"];
       documentation = [
         "man:avahi-daemon(8)"
         "man:avahi-daemon.conf(5)"
@@ -398,8 +403,8 @@ in
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [ 5353 ];
+    networking.firewall.allowedUDPPorts = lib.mkIf cfg.openFirewall [5353];
   };
 }

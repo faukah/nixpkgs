@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "PDS";
 
   nodes.machine = {
@@ -23,5 +22,5 @@
     machine.succeed("curl --fail http://localhost:3000")
   '';
 
-  meta.maintainers = with lib.maintainers; [ t4ccer ];
+  meta.maintainers = with lib.maintainers; [t4ccer];
 }

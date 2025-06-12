@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "genson";
   version = "1.3.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-4C25rC4/0p5ltShvcTV2LizYqYZTfAdbBvxfFRcwjjc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     jsonschema
@@ -30,13 +29,13 @@ buildPythonPackage rec {
     "test_no_input"
   ];
 
-  pythonImportsCheck = [ "genson" ];
+  pythonImportsCheck = ["genson"];
 
   meta = {
     description = "GenSON a JSON Schema generator built in Python";
     homepage = "https://github.com/wolverdude/GenSON";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
     mainProgram = "genson";
   };
 }

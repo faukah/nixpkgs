@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     hasPrefix
     mkEnableOption
     mkIf
@@ -17,14 +16,12 @@ let
 
   cfg = config.services.postfix-tlspol;
 
-  format = pkgs.formats.yaml_1_2 { };
-in
-
-{
+  format = pkgs.formats.yaml_1_2 {};
+in {
   options.services.postfix-tlspol = {
     enable = mkEnableOption "postfix-tlspol";
 
-    package = mkPackageOption pkgs "postfix-tlspol" { };
+    package = mkPackageOption pkgs "postfix-tlspol" {};
 
     settings = mkOption {
       type = types.submodule {
@@ -103,7 +100,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
       description = ''
         The postfix-tlspol configuration file as a Nix attribute set.
 
@@ -125,21 +122,18 @@ in
     environment.etc."postfix-tlspol/config.yaml".source =
       format.generate "postfix-tlspol.yaml" cfg.settings;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # https://github.com/Zuplu/postfix-tlspol#postfix-configuration
     services.postfix.config = mkIf (config.services.postfix.enable && cfg.configurePostfix) {
       smtp_dns_support_level = "dnssec";
       smtp_tls_security_level = "dane";
-      smtp_tls_policy_maps =
-        let
-          address =
-            if (hasPrefix "unix:" cfg.settings.server.address) then
-              cfg.settings.server.address
-            else
-              "inet:${cfg.settings.server.address}";
-        in
-        [ "socketmap:${address}:QUERYwithTLSRPT" ];
+      smtp_tls_policy_maps = let
+        address =
+          if (hasPrefix "unix:" cfg.settings.server.address)
+          then cfg.settings.server.address
+          else "inet:${cfg.settings.server.address}";
+      in ["socketmap:${address}:QUERYwithTLSRPT"];
     };
 
     systemd.services.postfix-tlspol = {
@@ -151,10 +145,10 @@ in
         "nss-lookup.target"
         "network-online.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       description = "Postfix DANE/MTA-STS TLS policy socketmap service";
-      documentation = [ "https://github.com/Zuplu/postfix-tlspol" ];
+      documentation = ["https://github.com/Zuplu/postfix-tlspol"];
 
       # https://github.com/Zuplu/postfix-tlspol/blob/main/init/postfix-tlspol.service
       serviceConfig = {
@@ -170,7 +164,7 @@ in
         DynamicUser = true;
 
         CacheDirectory = "postfix-tlspol";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
@@ -187,7 +181,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadOnlyPaths = [ "/etc/postfix-tlspol/config.yaml" ];
+        ReadOnlyPaths = ["/etc/postfix-tlspol/config.yaml"];
         RemoveIPC = true;
         RestrictAddressFamilies =
           [

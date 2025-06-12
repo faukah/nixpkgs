@@ -7,9 +7,7 @@
   openjdk17_headless,
   systemd,
   nixosTests,
-}:
-
-{
+}: {
   version,
   hash,
   maintainers,
@@ -26,15 +24,19 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   makeWrapperArgs = [
     "--set-default"
     "JAVA_HOME"
-    "${if (lib.versionAtLeast version "5.0") then openjdk17_headless else openjdk11_headless}"
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ systemd ]}"
+    "${
+      if (lib.versionAtLeast version "5.0")
+      then openjdk17_headless
+      else openjdk11_headless
+    }"
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [systemd]}"
   ];
 
-  passthru.tests = { inherit (nixosTests) graylog; };
+  passthru.tests = {inherit (nixosTests) graylog;};
 
   installPhase =
     ''
@@ -51,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source log management solution";
     homepage = "https://www.graylog.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     inherit license;
     inherit maintainers;
     mainProgram = "graylogctl";

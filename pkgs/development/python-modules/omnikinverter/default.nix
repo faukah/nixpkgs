@@ -10,7 +10,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "omnikinverter";
   version = "1.0.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "omnikinverter" ];
+  pythonImportsCheck = ["omnikinverter"];
 
   meta = with lib; {
     description = "Python module for the Omnik Inverter";
     homepage = "https://github.com/klaasnicolaas/python-omnikinverter";
     changelog = "https://github.com/klaasnicolaas/python-omnikinverter/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -20,21 +20,21 @@ buildPythonPackage rec {
     hash = "sha256-cJrqSXRCBedZh/pIozz/bHyhQosTy8cFYyji3KJva9Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ netbox ];
+  nativeCheckInputs = [netbox];
 
   preFixup = ''
     export PYTHONPATH=${netbox}/opt/netbox/netbox:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "netbox_floorplan" ];
+  pythonImportsCheck = ["netbox_floorplan"];
 
   meta = with lib; {
     description = "Netbox plugin providing floorplan mapping capability for locations and sites";
     homepage = "https://github.com/netbox-community/netbox-floorplan-plugin";
     changelog = "https://github.com/netbox-community/netbox-floorplan-plugin/releases/tag/${src.tag}";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ cobalt ];
+    maintainers = with maintainers; [cobalt];
   };
 }

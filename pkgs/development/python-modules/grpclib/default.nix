@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "grpclib";
   version = "0.4.7";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-5221hVjD0TynCsTdruiUZkTsb7uOi49tZ8M/YqdWreE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     h2
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     certifi
   ];
 
-  pythonImportsCheck = [ "grpclib" ];
+  pythonImportsCheck = ["grpclib"];
 
   meta = with lib; {
     description = "Pure-Python gRPC implementation for asyncio";
     homepage = "https://github.com/vmagamedov/grpclib";
     changelog = "https://github.com/vmagamedov/grpclib/blob/v${version}/docs/changelog/index.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nikstur ];
+    maintainers = with maintainers; [nikstur];
   };
 }

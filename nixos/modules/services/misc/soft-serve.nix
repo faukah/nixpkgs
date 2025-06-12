@@ -3,24 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.soft-serve;
   configFile = format.generate "config.yaml" cfg.settings;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   docUrl = "https://charm.sh/blog/self-hosted-soft-serve/";
   stateDir = "/var/lib/soft-serve";
-in
-{
+in {
   options = {
     services.soft-serve = {
       enable = lib.mkEnableOption "soft-serve";
 
-      package = lib.mkPackageOption pkgs "soft-serve" { };
+      package = lib.mkPackageOption pkgs "soft-serve" {};
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           The contents of the configuration file for soft-serve.
 
@@ -44,7 +42,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.tmpfiles.rules = [
       # The config file has to be inside the state dir
       "L+ ${stateDir}/config.yaml - - - - ${configFile}"
@@ -52,14 +49,14 @@ in
 
     systemd.services.soft-serve = {
       description = "Soft Serve git server";
-      documentation = [ docUrl ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = [docUrl];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       environment.SOFT_SERVE_DATA_PATH = stateDir;
 
-      restartTriggers = [ configFile ];
+      restartTriggers = [configFile];
 
       serviceConfig = {
         Type = "simple";
@@ -103,5 +100,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.dadada ];
+  meta.maintainers = [lib.maintainers.dadada];
 }

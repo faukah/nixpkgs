@@ -3,8 +3,7 @@
   fetchFromGitHub,
   gerbilPackages,
   ...
-}:
-{
+}: {
   pname = "gerbil-persist";
   version = "unstable-2023-11-29";
   git-version = "0.2-6-g8a5e40d";
@@ -32,6 +31,6 @@
     homepage = "https://github.com/fare/gerbil-persist";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

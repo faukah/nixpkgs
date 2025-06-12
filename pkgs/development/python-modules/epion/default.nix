@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "epion";
   version = "0.0.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-9tE/SqR+GHZXeE+bOtXkLu+4jy1vO8WoiLjb6MJazxQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     docopt
@@ -34,13 +33,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "epion" ];
+  pythonImportsCheck = ["epion"];
 
   meta = with lib; {
     description = "Module to access Epion sensor data";
     homepage = "https://github.com/devenzo-com/epion_python";
     changelog = "https://github.com/devenzo-com/epion_python/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

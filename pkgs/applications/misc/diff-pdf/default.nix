@@ -9,7 +9,6 @@
   poppler,
   wxGTK,
 }:
-
 stdenv.mkDerivation rec {
   pname = "diff-pdf";
   version = "0.5.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Simple tool for visually comparing two PDF files";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     mainProgram = "diff-pdf";
   };
 }

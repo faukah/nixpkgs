@@ -10,7 +10,6 @@
   scipy,
   simpleitk,
 }:
-
 buildPythonPackage rec {
   pname = "medpy";
   version = "0.5.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-M46d8qiR3+ioiuRhzIaU5bV1dnfDm819pjn78RYlcG0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     boost
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     simpleitk
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   preCheck = ''
     rm -r medpy/  # prevent importing from build directory at test time
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://loli.github.io/medpy";
     changelog = "https://github.com/loli/medpy/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

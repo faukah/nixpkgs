@@ -8,7 +8,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ciftilib";
   version = "1.6.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;'big|datatype-md5'" ];
+  cmakeFlags = ["-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;'big|datatype-md5'"];
 
   # error: no member named 'file_string' in 'boost::filesystem::path';
   # error: 'class boost::filesystem::path' has no member named 'normalize', resp.
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/Washington-University/CiftiLib";
     description = "Library for reading and writing CIFTI files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.bsd2;
   };

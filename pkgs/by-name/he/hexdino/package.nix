@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hexdino";
   version = "0.1.3";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Hex editor with vim like keybindings written in Rust";
     homepage = "https://github.com/Luz/hexdino";
     license = licenses.mit;
-    maintainers = [ maintainers.luz ];
+    maintainers = [maintainers.luz];
     mainProgram = "hexdino";
   };
 }

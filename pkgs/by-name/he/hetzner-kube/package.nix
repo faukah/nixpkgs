@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "hetzner-kube";
   version = "0.5.1";
@@ -49,6 +48,6 @@ buildGoModule rec {
     mainProgram = "hetzner-kube";
     homepage = "https://github.com/xetys/hetzner-kube";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ eliasp ];
+    maintainers = with lib.maintainers; [eliasp];
   };
 }

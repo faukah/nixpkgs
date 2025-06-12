@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tecla";
   version = "1.6.3";
@@ -54,9 +53,9 @@ stdenv.mkDerivation (finalAttrs: {
       included man pages.
     '';
     changelog = "https://sites.astro.caltech.edu/~mcs/tecla/release.html";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "enhance";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

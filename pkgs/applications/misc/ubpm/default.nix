@@ -11,7 +11,6 @@
   wrapQtAppsHook,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ubpm";
   version = "1.10.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Universal Blood Pressure Manager";
     mainProgram = "ubpm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kurnevsky ];
+    maintainers = with maintainers; [kurnevsky];
     broken = stdenv.hostPlatform.isDarwin;
   };
 })

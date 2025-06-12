@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "binning";
   version = "0.0.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "Datastructure to accumulate values in bins";
     license = lib.licenses.cecill-b;
     homepage = "https://github.com/pveber/binning/";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

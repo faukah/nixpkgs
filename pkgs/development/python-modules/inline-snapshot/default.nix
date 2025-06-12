@@ -24,7 +24,6 @@
   types-toml,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "inline-snapshot";
   version = "0.21.3";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-ll2wSSTr2QEUXE5liYw+JhcYsTEcJCWWTFXRagd6fCw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies =
     [
@@ -69,7 +68,7 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [ "inline_snapshot" ];
+  pythonImportsCheck = ["inline_snapshot"];
 
   disabledTestPaths = [
     # Tests don't play nice with pytest-xdist
@@ -86,6 +85,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/15r10nk/inline-snapshot/";
     changelog = "https://github.com/15r10nk/inline-snapshot/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

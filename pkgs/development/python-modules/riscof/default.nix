@@ -7,7 +7,6 @@
   riscv-config,
   riscv-isac,
 }:
-
 buildPythonPackage rec {
   pname = "riscof";
   version = "1.25.3";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  pythonImportsCheck = [ "riscof" ];
+  pythonImportsCheck = ["riscof"];
 
   # No unitests available
   doCheck = false;
@@ -51,7 +50,7 @@ buildPythonPackage rec {
     mainProgram = "riscof";
     homepage = "https://github.com/riscv-software-src/riscof";
     changelog = "https://github.com/riscv-software-src/riscof/blob/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.bsd3;
   };
 }

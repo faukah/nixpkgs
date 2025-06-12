@@ -8,7 +8,6 @@
   sqlite,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lime";
   version = "5.2.98";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
 
     sqlite
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DENABLE_STATIC=NO" # Do not build static libraries
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.linphone.org/technical-corner/lime";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

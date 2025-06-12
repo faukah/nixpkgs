@@ -5,7 +5,6 @@
   libX11,
   libXpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xgalaga++";
   version = "0.9";

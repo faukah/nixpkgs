@@ -3,18 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
-
   # dependencies
   wcwidth,
-
   # tests
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ftfy";
   version = "6.3.1";
@@ -29,11 +25,11 @@ buildPythonPackage rec {
     hash = "sha256-TmwDJeUDcF+uOB2X5tMmnf9liCI9rP6dYJVmJoaqszo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ wcwidth ];
+  dependencies = [wcwidth];
 
-  pythonImportsCheck = [ "ftfy" ];
+  pythonImportsCheck = ["ftfy"];
 
   nativeCheckInputs = [
     versionCheckHook
@@ -50,6 +46,6 @@ buildPythonPackage rec {
     mainProgram = "ftfy";
     homepage = "https://github.com/LuminosoInsight/python-ftfy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aborsu ];
+    maintainers = with maintainers; [aborsu];
   };
 }

@@ -7,7 +7,6 @@
   glib,
   attr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ciopfs";
   version = "0.4";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0sr9i9b3qfwbfvzvk00yrrg3x2xqk1njadbldkvn7hwwa4z5bm9l";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fuse
     glib

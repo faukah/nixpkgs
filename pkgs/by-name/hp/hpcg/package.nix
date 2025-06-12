@@ -4,7 +4,6 @@
   fetchurl,
   mpi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hpcg";
   version = "3.1";
@@ -14,9 +13,9 @@ stdenv.mkDerivation rec {
     sha256 = "197lw2nwmzsmfsbvgvi8z7kj69n374kgfzzp8pkmk7mp2vkk991k";
   };
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
-  makeFlags = [ "arch=Linux_MPI" ];
+  makeFlags = ["arch=Linux_MPI"];
 
   enableParallelBuilding = true;
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.hpcg-benchmark.org";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     mainProgram = "xhpcg";
   };
 }

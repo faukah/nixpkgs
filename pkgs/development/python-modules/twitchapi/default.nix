@@ -8,7 +8,6 @@
   python-dateutil,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "twitchapi";
   version = "4.4.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     "enum-tools"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp

@@ -7,7 +7,6 @@
   lv2,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swh-lv2";
   version = "1.0.16";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     sed -e "s#PREFIX = /usr/local#PREFIX = $out#" -i Makefile
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fftwSinglePrec
     lv2
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
       generators, surround encoders and more.
     '';
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

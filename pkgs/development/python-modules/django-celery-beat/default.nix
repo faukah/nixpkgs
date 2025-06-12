@@ -14,7 +14,6 @@
   setuptools,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "django-celery-beat";
   version = "2.8.1";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-pakOpch5r2ug0UDSqEU34qr4Tz1/mkuFiHW+IOUuGcc=";
   };
 
-  pythonRelaxDeps = [ "django" ];
+  pythonRelaxDeps = ["django"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cron-descriptor
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "t/unit/test_schedulers.py"
   ];
 
-  pythonImportsCheck = [ "django_celery_beat" ];
+  pythonImportsCheck = ["django_celery_beat"];
 
   meta = with lib; {
     description = "Celery Periodic Tasks backed by the Django ORM";
     homepage = "https://github.com/celery/django-celery-beat";
     changelog = "https://github.com/celery/django-celery-beat/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

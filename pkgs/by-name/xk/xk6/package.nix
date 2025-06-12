@@ -6,7 +6,6 @@
   nix-update-script,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "xk6";
   version = "0.20.1";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/xk6" ];
+  subPackages = ["cmd/xk6"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Build k6 with extensions";
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://k6.io/";
     changelog = "https://github.com/grafana/xk6/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ szkiba ];
+    maintainers = with lib.maintainers; [szkiba];
   };
 }

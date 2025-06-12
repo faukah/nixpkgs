@@ -12,7 +12,6 @@
   SDL2_ttf,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pygame-sdl2";
   version = "8.3.7.25031702";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
   postUnpack = ''
     substituteInPlace source/setup.py --replace-fail "2.1.0" "${version}"
     substituteInPlace source/src/pygame_sdl2/version.py --replace-fail "2, 1, 0" "${
-      builtins.replaceStrings [ "." ] [ ", " ] version
+      builtins.replaceStrings ["."] [", "] version
     }"
 
     headers=$(mktemp -d)
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     install -Dm644 $headers/* -t $out/include/pygame_sdl2
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=renpy-(.*)" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version-regex=renpy-(.*)"];};
 
   meta = {
     description = "Reimplementation of the Pygame API using SDL2 and related libraries";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
       zlib
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
   };
 }

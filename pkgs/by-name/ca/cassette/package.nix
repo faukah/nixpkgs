@@ -21,7 +21,6 @@
   webkitgtk_6_0,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cassette";
   version = "0.2.1";
@@ -61,13 +60,13 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "GTK4/Adwaita application that allows you to use Yandex Music service on Linux operating systems";
     homepage = "https://github.com/Rirusha/Cassette";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ averyanalex ];
+    maintainers = with lib.maintainers; [averyanalex];
     platforms = lib.platforms.linux;
     mainProgram = "cassette";
   };

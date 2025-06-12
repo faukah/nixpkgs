@@ -5,7 +5,6 @@
   python3,
   sphinx,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dex";
   version = "0.10.1";
@@ -19,8 +18,8 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ sphinx ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [sphinx];
+  buildInputs = [python3];
   makeFlags = [
     "PREFIX=$(out)"
     "VERSION=$(version)"
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jceb/dex";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "dex";
   };
 }

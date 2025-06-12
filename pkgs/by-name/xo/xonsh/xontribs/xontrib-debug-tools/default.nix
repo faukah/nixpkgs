@@ -2,14 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   writableTmpDirAsHomeHook,
   pytestCheckHook,
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-debug-tools";
   version = "0.0.1";
@@ -37,12 +35,12 @@ buildPythonPackage rec {
     xonsh
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Debug tools for xonsh shell";
     homepage = "https://github.com/xonsh/xontrib-debug-tools";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

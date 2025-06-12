@@ -13,7 +13,6 @@
   zlib,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "chawan";
   version = "0-unstable-2025-05-25";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     hash = "sha256-OBXc4jnB5Y+KXO9J7P1Z2HXkNCS+xnG+IGWw8wb66J8=";
   };
 
-  patches = [ ./mancha-augment-path.diff ];
+  patches = [./mancha-augment-path.diff];
 
   # Include chawan's man pages in mancha's search path
   postPatch = ''
@@ -61,26 +60,24 @@ stdenv.mkDerivation {
     "PREFIX=/"
   ];
 
-  postInstall =
-    let
-      makeWrapperArgs = ''
-        --set MANCHA_CHA $out/bin/cha \
-        --set MANCHA_MAN ${mandoc}/bin/man
-      '';
-    in
-    ''
-      wrapProgram $out/bin/cha ${makeWrapperArgs}
-      wrapProgram $out/bin/mancha ${makeWrapperArgs}
+  postInstall = let
+    makeWrapperArgs = ''
+      --set MANCHA_CHA $out/bin/cha \
+      --set MANCHA_MAN ${mandoc}/bin/man
     '';
+  in ''
+    wrapProgram $out/bin/cha ${makeWrapperArgs}
+    wrapProgram $out/bin/mancha ${makeWrapperArgs}
+  '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Lightweight and featureful terminal web browser";
     homepage = "https://sr.ht/~bptato/chawan/";
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "cha";
   };
 }

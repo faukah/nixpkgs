@@ -5,7 +5,6 @@
   installShellFiles,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "stripe-cli";
   version = "1.27.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-T8vrEbR240ihkLDG4vu0s+MxKJ5nOLm0aseDgK9EPPE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -41,19 +40,18 @@ buildGoModule rec {
       rm pkg/git/editor_test.go
       rm pkg/rpcservice/sample_create_test.go
     ''
-    +
-      lib.optionalString
-        (
-          # delete plugin tests on all platforms but exact matches
-          # https://github.com/stripe/stripe-cli/issues/850
-          !lib.lists.any (platform: lib.meta.platformMatch stdenv.hostPlatform platform) [
-            "x86_64-linux"
-            "x86_64-darwin"
-          ]
-        )
-        ''
-          rm pkg/plugins/plugin_test.go
-        '';
+    + lib.optionalString
+    (
+      # delete plugin tests on all platforms but exact matches
+      # https://github.com/stripe/stripe-cli/issues/850
+      !lib.lists.any (platform: lib.meta.platformMatch stdenv.hostPlatform platform) [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ]
+    )
+    ''
+      rm pkg/plugins/plugin_test.go
+    '';
 
   postInstall = ''
     installShellCompletion --cmd stripe \
@@ -83,7 +81,7 @@ buildGoModule rec {
       Tail your API request logs in real-time
       Create, retrieve, update, or delete API objects.
     '';
-    license = with lib.licenses; [ asl20 ];
+    license = with lib.licenses; [asl20];
     maintainers = with lib.maintainers; [
       RaghavSood
       jk

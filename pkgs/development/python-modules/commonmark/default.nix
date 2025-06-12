@@ -6,7 +6,6 @@
   hypothesis,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "commonmark";
   version = "0.9.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-Ui/G/VLdjWcm7YmVjZ5Q8h0DEEFqdDByre29g3zHUq4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ hypothesis ];
+  nativeCheckInputs = [hypothesis];
 
   checkPhase = ''
     runHook preCheck

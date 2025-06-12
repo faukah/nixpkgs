@@ -2,34 +2,30 @@
   name = "zram-generator";
 
   nodes = {
-    single =
-      { ... }:
-      {
-        virtualisation = {
-          emptyDiskImages = [ 512 ];
-        };
-        zramSwap = {
-          enable = true;
-          priority = 10;
-          algorithm = "lz4";
-          swapDevices = 1;
-          memoryPercent = 30;
-          memoryMax = 10 * 1024 * 1024;
-          writebackDevice = "/dev/vdb";
-        };
+    single = {...}: {
+      virtualisation = {
+        emptyDiskImages = [512];
       };
-    machine =
-      { ... }:
-      {
-        zramSwap = {
-          enable = true;
-          priority = 10;
-          algorithm = "lz4";
-          swapDevices = 2;
-          memoryPercent = 30;
-          memoryMax = 10 * 1024 * 1024;
-        };
+      zramSwap = {
+        enable = true;
+        priority = 10;
+        algorithm = "lz4";
+        swapDevices = 1;
+        memoryPercent = 30;
+        memoryMax = 10 * 1024 * 1024;
+        writebackDevice = "/dev/vdb";
       };
+    };
+    machine = {...}: {
+      zramSwap = {
+        enable = true;
+        priority = 10;
+        algorithm = "lz4";
+        swapDevices = 2;
+        memoryPercent = 30;
+        memoryMax = 10 * 1024 * 1024;
+      };
+    };
   };
 
   testScript = ''

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "json-c";
   version = "0.18";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "JSON implementation in C";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/json-c/json-c/wiki";
     changelog = "https://github.com/json-c/json-c/blob/${finalAttrs.src.rev}/ChangeLog";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
     license = licenses.mit;
   };

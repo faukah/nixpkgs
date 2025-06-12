@@ -11,7 +11,6 @@
   libkate,
   libopus,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icecast";
   version = "2.4.4";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     libopus
   ];
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   meta = {
     description = "Server software for streaming multimedia";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.icecast.org";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
     platforms = with lib.platforms; unix;
   };
 }

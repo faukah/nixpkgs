@@ -11,7 +11,6 @@
   taglib,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.09.2";
   pname = "vimpc";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/boysetsfrog/vimpc";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "vimpc";
   };
 }

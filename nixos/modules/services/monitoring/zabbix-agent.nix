@@ -3,12 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.zabbixAgent;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkPackageOption
@@ -16,7 +15,8 @@ let
     mkMerge
     mkOption
     ;
-  inherit (lib)
+  inherit
+    (lib)
     attrValues
     concatMapStringsSep
     literalExpression
@@ -34,12 +34,9 @@ let
   };
 
   configFile = pkgs.writeText "zabbix_agent.conf" (
-    toKeyValue { listsAsDuplicateKeys = true; } cfg.settings
+    toKeyValue {listsAsDuplicateKeys = true;} cfg.settings
   );
-
-in
-
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -51,15 +48,14 @@ in
   # interface
 
   options = {
-
     services.zabbixAgent = {
       enable = mkEnableOption "the Zabbix Agent";
 
-      package = mkPackageOption pkgs [ "zabbix" "agent" ] { };
+      package = mkPackageOption pkgs ["zabbix" "agent"] {};
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = with pkgs; [ nettools ];
+        default = with pkgs; [nettools];
         defaultText = literalExpression "with pkgs; [ nettools ]";
         example = literalExpression "with pkgs; [ nettools mysql ]";
         description = ''
@@ -71,7 +67,7 @@ in
       modules = mkOption {
         type = types.attrsOf types.package;
         description = "A set of modules to load.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "dummy.so" = pkgs.stdenv.mkDerivation {
@@ -122,14 +118,13 @@ in
       };
 
       settings = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             int
             str
             (listOf str)
           ]);
-        default = { };
+        default = {};
         description = ''
           Zabbix Agent configuration. Refer to
           <https://www.zabbix.com/documentation/current/manual/appendix/config/zabbix_agentd>
@@ -140,33 +135,30 @@ in
           DebugLevel = 4;
         };
       };
-
     };
-
   };
 
   # implementation
 
   config = mkIf cfg.enable {
-
     services.zabbixAgent.settings = mkMerge [
       {
         LogType = "console";
         Server = cfg.server;
         ListenPort = cfg.listen.port;
       }
-      (mkIf (cfg.modules != { }) {
+      (mkIf (cfg.modules != {}) {
         LoadModule = builtins.attrNames cfg.modules;
         LoadModulePath = "${moduleEnv}/lib";
       })
 
       # the default value for "ListenIP" is 0.0.0.0 but zabbix agent 2 cannot accept configuration files which
       # explicitly set "ListenIP" to the default value...
-      (mkIf (cfg.listen.ip != "0.0.0.0") { ListenIP = cfg.listen.ip; })
+      (mkIf (cfg.listen.ip != "0.0.0.0") {ListenIP = cfg.listen.ip;})
     ];
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.listen.port ];
+      allowedTCPPorts = [cfg.listen.port];
     };
 
     users.users.${user} = {
@@ -175,18 +167,17 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
     systemd.services.zabbix-agent = {
       description = "Zabbix Agent";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # https://www.zabbix.com/documentation/current/manual/config/items/userparameters
       # > User parameters are commands executed by Zabbix agent.
       # > /bin/sh is used as a command line interpreter under UNIX operating systems.
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           bash
           "/run/wrappers"
@@ -203,7 +194,5 @@ in
         PrivateTmp = true;
       };
     };
-
   };
-
 }

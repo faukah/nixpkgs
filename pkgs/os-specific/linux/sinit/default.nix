@@ -6,7 +6,6 @@
   rcshutdown ? null,
   rcreboot ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sinit";
   version = "1.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     (lib.getOutput "static" stdenv.cc.libc)
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   preConfigure =
     ""
     + (lib.optionalString (
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Very minimal Linux init implementation from suckless.org";
     mainProgram = "sinit";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://tools.suckless.org/sinit";
     downloadPage = "https://git.suckless.org/sinit";

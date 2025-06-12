@@ -12,7 +12,6 @@
   flac,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vorbis-tools";
   version = "1.4.3";
@@ -26,14 +25,16 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    libogg
-    libvorbis
-    libao
-    curl
-    speex
-    flac
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs =
+    [
+      libogg
+      libvorbis
+      libao
+      curl
+      speex
+      flac
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   meta = with lib; {
     description = "Extra tools for Ogg-Vorbis audio codec";

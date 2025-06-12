@@ -14,7 +14,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "githubkit";
   version = "0.12.13";
@@ -29,9 +28,9 @@ buildPythonPackage rec {
     hash = "sha256-TMn81YY44bXUyU6GHSGtLtQ7aC2/vA9nZf/PaGhBi0s=";
   };
 
-  pythonRelaxDeps = [ "hishel" ];
+  pythonRelaxDeps = ["hishel"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     hishel
@@ -45,22 +44,24 @@ buildPythonPackage rec {
       anyio
       pyjwt
     ];
-    jwt = [ pyjwt ];
-    auth-app = [ pyjwt ];
-    auth-oauth-device = [ anyio ];
+    jwt = [pyjwt];
+    auth-app = [pyjwt];
+    auth-oauth-device = [anyio];
     auth = [
       anyio
       pyjwt
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-cov-stub
-    pytest-xdist
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-cov-stub
+      pytest-xdist
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "githubkit" ];
+  pythonImportsCheck = ["githubkit"];
 
   disabledTests = [
     # Tests require network access
@@ -77,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/yanyongyu/githubkit";
     changelog = "https://github.com/yanyongyu/githubkit/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
   };
 }

@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gh2md";
   version = "2.3.1";
@@ -22,13 +21,13 @@ python3Packages.buildPythonApplication rec {
   # uses network
   doCheck = false;
 
-  pythonImportsCheck = [ "gh2md" ];
+  pythonImportsCheck = ["gh2md"];
 
   meta = with lib; {
     description = "Export Github repository issues to markdown files";
     mainProgram = "gh2md";
     homepage = "https://github.com/mattduck/gh2md";
     license = licenses.mit;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

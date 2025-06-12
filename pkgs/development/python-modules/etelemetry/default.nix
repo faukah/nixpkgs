@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "etelemetry";
   version = "0.3.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-UaE5JQhv2AtzXKY7YD2/g6Kj1igKhmnY3zlf1P9B/iQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     ci-info
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "etelemetry"
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sensein/etelemetry-client";
     changelog = "https://github.com/sensein/etelemetry-client/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

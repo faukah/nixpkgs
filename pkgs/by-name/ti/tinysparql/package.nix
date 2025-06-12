@@ -32,7 +32,6 @@
   writeText,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tinysparql";
   version = "3.9.2";
@@ -44,9 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   src = fetchurl {
-    url =
-      with finalAttrs;
-      "mirror://gnome/sources/tinysparql/${lib.versions.majorMinor version}/tinysparql-${version}.tar.xz";
+    url = with finalAttrs; "mirror://gnome/sources/tinysparql/${lib.versions.majorMinor version}/tinysparql-${version}.tar.xz";
     hash = "sha256-FM4DkCQTXhgQIrzOSxqtLgA3fdnH2BK5g5HM/HVtrY4=";
   };
 
@@ -65,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       gettext
       glib
       wrapGAppsNoGuiHook
-      (python3.pythonOnBuildForHost.withPackages (p: [ p.pygobject3 ]))
+      (python3.pythonOnBuildForHost.withPackages (p: [p.pygobject3]))
     ]
     ++ lib.optionals withIntrospection [
       gobject-introspection
@@ -110,8 +107,7 @@ stdenv.mkDerivation (finalAttrs: {
           [properties]
           sqlite3_has_fts5 = '${lib.boolToString (lib.hasInfix "-DSQLITE_ENABLE_FTS3" sqlite.NIX_CFLAGS_COMPILE)}'
         '';
-      in
-      [
+      in [
         "--cross-file=${crossFile}"
       ]
     )
@@ -131,23 +127,21 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace tests/functional-tests/test_cli.py --replace-fail "TINYSPARQL-IMPORT(1)" "TINYSPARQL-IMPORT"
   '';
 
-  preCheck =
-    let
-      linuxDot0 = lib.optionalString stdenv.hostPlatform.isLinux ".0";
-      darwinDot0 = lib.optionalString stdenv.hostPlatform.isDarwin ".0";
-      extension = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      # (tracker-store:6194): Tracker-CRITICAL **: 09:34:07.722: Cannot initialize database: Could not open sqlite3 database:'/homeless-shelter/.cache/tracker/meta.db': unable to open database file
-      export HOME=$(mktemp -d)
+  preCheck = let
+    linuxDot0 = lib.optionalString stdenv.hostPlatform.isLinux ".0";
+    darwinDot0 = lib.optionalString stdenv.hostPlatform.isDarwin ".0";
+    extension = stdenv.hostPlatform.extensions.sharedLibrary;
+  in ''
+    # (tracker-store:6194): Tracker-CRITICAL **: 09:34:07.722: Cannot initialize database: Could not open sqlite3 database:'/homeless-shelter/.cache/tracker/meta.db': unable to open database file
+    export HOME=$(mktemp -d)
 
-      # Our gobject-introspection patches make the shared library paths absolute
-      # in the GIR files. When running functional tests, the library is not yet installed,
-      # though, so we need to replace the absolute path with a local one during build.
-      # We are using a symlink that will be overridden during installation.
-      mkdir -p $out/lib
-      ln -s $PWD/src/libtinysparql/libtinysparql-3.0${darwinDot0}${extension} $out/lib/libtinysparql-3.0${darwinDot0}${extension}${linuxDot0}
-    '';
+    # Our gobject-introspection patches make the shared library paths absolute
+    # in the GIR files. When running functional tests, the library is not yet installed,
+    # though, so we need to replace the absolute path with a local one during build.
+    # We are using a symlink that will be overridden during installation.
+    mkdir -p $out/lib
+    ln -s $PWD/src/libtinysparql/libtinysparql-3.0${darwinDot0}${extension} $out/lib/libtinysparql-3.0${darwinDot0}${extension}${linuxDot0}
+  '';
 
   checkPhase = ''
     runHook preCheck
@@ -173,7 +167,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = finalAttrs.pname; };
+    updateScript = gnome.updateScript {packageName = finalAttrs.pname;};
     tests.pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
     };
@@ -183,7 +177,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tracker.gnome.org/";
     description = "Desktop-neutral user information store, search tool and indexer";
     mainProgram = "tinysparql";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     pkgConfigModules = [

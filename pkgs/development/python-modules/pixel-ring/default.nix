@@ -7,7 +7,6 @@
   pyusb,
   spidev,
 }:
-
 buildPythonPackage rec {
   pname = "pixel-ring";
   version = "0.1.0";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     mainProgram = "pixel_ring_check";
     homepage = "https://github.com/respeaker/pixel_ring/tree/master";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

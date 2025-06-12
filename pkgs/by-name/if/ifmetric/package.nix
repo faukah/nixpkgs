@@ -4,7 +4,6 @@
   fetchurl,
   lynx,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ifmetric";
   version = "0.3";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1v0s5x81jzwnnl7hr254d4nkyc8qcv983pzr6vqmbr9l9q553a0g";
   };
 
-  buildInputs = [ lynx ];
+  buildInputs = [lynx];
 
   patches = [
     # Fixes an issue related to the netlink API.
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://0pointer.de/lennart/projects/ifmetric";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.anna328p ];
+    maintainers = [maintainers.anna328p];
     platforms = platforms.linux;
     mainProgram = "ifmetric";
   };

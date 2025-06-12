@@ -5,7 +5,6 @@
   stdenv,
   stormlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "smpq";
   version = "1.6";
@@ -19,9 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "WITH_KDE" false)
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ stormlib ];
+  buildInputs = [stormlib];
 
   strictDeps = true;
 

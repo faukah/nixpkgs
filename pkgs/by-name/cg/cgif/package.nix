@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cgif";
   version = "0.5.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dloebl/cgif";
     description = "CGIF, a GIF encoder written in C";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "markdownlint-cli";
   version = "0.45.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/igorshubovych/markdownlint-cli";
     license = lib.licenses.mit;
     mainProgram = "markdownlint";
-    maintainers = with lib.maintainers; [ ambroisie ];
+    maintainers = with lib.maintainers; [ambroisie];
   };
 }

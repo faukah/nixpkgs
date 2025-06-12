@@ -3,46 +3,40 @@
 # such as GitHub's or cgit's, where the non-significant content parts
 # often change with updating of git or cgit.
 # stripLen acts as the -p parameter when applying a patch.
-
 {
   lib,
   fetchurl,
   patchutils,
-}:
-
-{
+}: {
   relative ? null,
   stripLen ? 0,
   decode ? "cat", # custom command to decode patch e.g. base64 -d
   extraPrefix ? null,
-  excludes ? [ ],
-  includes ? [ ],
+  excludes ? [],
+  includes ? [],
   revert ? false,
   postFetch ? "",
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   ...
-}@args:
-let
+} @ args: let
   args' =
-    if relative != null then
-      {
-        stripLen = 1 + lib.length (lib.splitString "/" relative) + stripLen;
-        extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
-      }
-    else
-      {
-        inherit stripLen extraPrefix;
-      };
-in
-let
+    if relative != null
+    then {
+      stripLen = 1 + lib.length (lib.splitString "/" relative) + stripLen;
+      extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
+    }
+    else {
+      inherit stripLen extraPrefix;
+    };
+in let
   inherit (args') stripLen extraPrefix;
 in
-lib.throwIfNot (excludes == [ ] || includes == [ ])
+  lib.throwIfNot (excludes == [] || includes == [])
   "fetchpatch: cannot use excludes and includes simultaneously"
   fetchurl
   (
     {
-      nativeBuildInputs = [ patchutils ] ++ nativeBuildInputs;
+      nativeBuildInputs = [patchutils] ++ nativeBuildInputs;
       postFetch =
         ''
           tmpfile="$TMPDIR/patch"
@@ -72,11 +66,11 @@ lib.throwIfNot (excludes == [ ] || includes == [ ])
             --include={} \
             --strip=${toString stripLen} \
             ${
-              lib.optionalString (extraPrefix != null) ''
-                --addoldprefix=a/${lib.escapeShellArg extraPrefix} \
-                --addnewprefix=b/${lib.escapeShellArg extraPrefix} \
-              ''
-            } \
+            lib.optionalString (extraPrefix != null) ''
+              --addoldprefix=a/${lib.escapeShellArg extraPrefix} \
+              --addnewprefix=b/${lib.escapeShellArg extraPrefix} \
+            ''
+          } \
             --clean "$out" > "$tmpfile"
 
           if [ ! -s "$tmpfile" ]; then

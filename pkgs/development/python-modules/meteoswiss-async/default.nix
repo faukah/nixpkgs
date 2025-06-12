@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "meteoswiss-async";
   version = "0.1.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     "asyncstdlib"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "meteoswiss_async" ];
+  pythonImportsCheck = ["meteoswiss_async"];
 
   meta = {
     description = "Asynchronous client library for MeteoSwiss API";
     homepage = "https://github.com/albertomontesg/meteoswiss-async";
     changelog = "https://github.com/albertomontesg/meteoswiss-async/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

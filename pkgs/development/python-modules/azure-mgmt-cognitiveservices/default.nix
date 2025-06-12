@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-cognitiveservices";
   version = "13.6.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-YS5W956CT4HVkM/wwJJTNYraBl1aYWnBOQX8NQZNm0A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -35,13 +34,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.cognitiveservices" ];
+  pythonImportsCheck = ["azure.mgmt.cognitiveservices"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Cognitive Services Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/cognitiveservices/azure-mgmt-cognitiveservices";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-cognitiveservices_${version}/sdk/cognitiveservices/azure-mgmt-cognitiveservices/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

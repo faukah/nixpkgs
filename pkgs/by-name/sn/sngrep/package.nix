@@ -9,7 +9,6 @@
   openssl,
   pcre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sngrep";
   version = "1.8.2";
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/irontec/sngrep";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jorise ];
+    maintainers = with maintainers; [jorise];
   };
 }

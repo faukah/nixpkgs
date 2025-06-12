@@ -6,11 +6,10 @@
   jq,
   nurl,
 }:
-
 stdenv.mkDerivation {
   name = "swiftpm2nix";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -18,21 +17,21 @@ stdenv.mkDerivation {
     install -vD ${./swiftpm2nix.sh} $out/bin/swiftpm2nix
     wrapProgram $out/bin/$name \
       --prefix PATH : ${
-        lib.makeBinPath [
-          jq
-          nurl
-        ]
-      } \
+      lib.makeBinPath [
+        jq
+        nurl
+      ]
+    } \
   '';
 
   preferLocalBuild = true;
 
-  passthru = callPackage ./support.nix { };
+  passthru = callPackage ./support.nix {};
 
   meta = {
     description = "Generate a Nix expression to fetch swiftpm dependencies";
     mainProgram = "swiftpm2nix";
-    teams = [ lib.teams.swift ];
+    teams = [lib.teams.swift];
     platforms = lib.platforms.all;
   };
 }

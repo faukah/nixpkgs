@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "simple-http-server";
   version = "0.6.12";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5oZTT2qBtupuF2thhfko7mgWLu+e7+P92V+DPsPZ1Ak=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # Currently no tests are implemented, so we avoid building the package twice
   doCheck = false;

@@ -1,20 +1,21 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "urn-timer";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ fgaz ];
+    maintainers = [fgaz];
   };
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
-      environment.systemPackages = [ pkgs.urn-timer ];
-    };
+    services.xserver.enable = true;
+    environment.systemPackages = [pkgs.urn-timer];
+  };
 
   enableOCR = true;
 

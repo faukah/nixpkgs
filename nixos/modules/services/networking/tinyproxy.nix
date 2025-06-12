@@ -4,28 +4,21 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.tinyproxy;
-  mkValueStringTinyproxy =
-    with lib;
+  mkValueStringTinyproxy = with lib;
     v:
-    if true == v then
-      "yes"
-    else if false == v then
-      "no"
-    else if types.path.check v then
-      ''"${v}"''
-    else
-      generators.mkValueStringDefault { } v;
-  mkKeyValueTinyproxy =
-    {
-      mkValueString ? mkValueStringDefault { },
-    }:
-    sep: k: v:
-    if null == v then "" else "${lib.strings.escape [ sep ] k}${sep}${mkValueString v}";
+      if true == v
+      then "yes"
+      else if false == v
+      then "no"
+      else if types.path.check v
+      then ''"${v}"''
+      else generators.mkValueStringDefault {} v;
+  mkKeyValueTinyproxy = {mkValueString ? mkValueStringDefault {}}: sep: k: v:
+    if null == v
+    then ""
+    else "${lib.strings.escape [sep] k}${sep}${mkValueString v}";
 
   settingsFormat = (
     pkgs.formats.keyValue {
@@ -36,17 +29,14 @@ let
     }
   );
   configFile = settingsFormat.generate "tinyproxy.conf" cfg.settings;
-
-in
-{
-
+in {
   options = {
     services.tinyproxy = {
       enable = mkEnableOption "Tinyproxy daemon";
-      package = mkPackageOption pkgs "tinyproxy" { };
+      package = mkPackageOption pkgs "tinyproxy" {};
       settings = mkOption {
         description = "Configuration for [tinyproxy](https://tinyproxy.github.io/).";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             Port 8888;
@@ -58,8 +48,7 @@ in
           }
         '';
         type = types.submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             freeformType = settingsFormat.type;
             options = {
               Listen = mkOption {
@@ -78,7 +67,7 @@ in
               };
               Anonymous = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = ''
                   If an `Anonymous` keyword is present, then anonymous proxying is enabled. The headers listed with `Anonymous` are allowed through, while all others are denied. If no Anonymous keyword is present, then all headers are allowed through. You must include quotes around the headers.
                 '';
@@ -99,8 +88,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.tinyproxy = {
       description = "TinyProxy daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "tinyproxy";
         Group = "tinyproxy";
@@ -117,7 +106,7 @@ in
       group = "tinyproxy";
       isSystemUser = true;
     };
-    users.groups.tinyproxy = { };
+    users.groups.tinyproxy = {};
   };
-  meta.maintainers = with maintainers; [ tcheronneau ];
+  meta.maintainers = with maintainers; [tcheronneau];
 }

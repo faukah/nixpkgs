@@ -15,7 +15,6 @@
   stdenv,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "check_ssl_cert";
   version = "2.93.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-uD9NGMiGDE8in7K9jUmPV3NNuLL52n90S07bKVK927k=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   makeFlags = [
     "DESTDIR=$(out)/bin"
@@ -37,22 +36,22 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/check_ssl_cert \
       --prefix PATH : "${
-        lib.makeBinPath (
-          [
-            bc
-            bind # host and dig binary
-            coreutils # date and timeout binary
-            curl
-            file
-            netcat-gnu
-            nmap
-            openssl
-            python3
-            which
-          ]
-          ++ lib.optional stdenv.hostPlatform.isLinux iproute2
-        )
-      }"
+      lib.makeBinPath (
+        [
+          bc
+          bind # host and dig binary
+          coreutils # date and timeout binary
+          curl
+          file
+          netcat-gnu
+          nmap
+          openssl
+          python3
+          which
+        ]
+        ++ lib.optional stdenv.hostPlatform.isLinux iproute2
+      )
+    }"
   '';
 
   meta = {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/matteocorti/check_ssl_cert";
     license = lib.licenses.gpl3Plus;
     mainProgram = "check_ssl_cert";
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     platforms = lib.platforms.all;
   };
 }

@@ -7,7 +7,6 @@
   testers,
   catnip,
 }:
-
 buildGoModule rec {
   pname = "catnip";
   version = "1.8.5";
@@ -46,7 +45,7 @@ buildGoModule rec {
     homepage = "https://github.com/noriah/catnip";
     changelog = "https://github.com/noriah/catnip/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "catnip";
   };
 }

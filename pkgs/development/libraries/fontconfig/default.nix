@@ -12,7 +12,6 @@
   autoreconfHook,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fontconfig";
   version = "2.16.0";
@@ -25,9 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
   ]; # $out contains all the config
 
   src = fetchurl {
-    url =
-      with finalAttrs;
-      "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
+    url = with finalAttrs; "https://www.freedesktop.org/software/fontconfig/release/${pname}-${version}.tar.xz";
     hash = "sha256-ajPcVVzJuosQyvdpWHjvE07rNtCvNmBB9jmx2ptu0iA=";
   };
 
@@ -102,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://fontconfig.org/";
     license = licenses.bsd2; # custom but very bsd-like
     platforms = platforms.all;
-    teams = [ teams.freedesktop ];
-    pkgConfigModules = [ "fontconfig" ];
+    teams = [teams.freedesktop];
+    pkgConfigModules = ["fontconfig"];
   };
 })

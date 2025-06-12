@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "jfmt";
   version = "1.2.1";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/scruffystuffs/jfmt.rs";
     changelog = "https://github.com/scruffystuffs/jfmt.rs/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.psibi ];
+    maintainers = [lib.maintainers.psibi];
   };
 }

@@ -1,6 +1,8 @@
-{ pkgs, lib, ... }:
-
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   seatd-test = pkgs.writeShellApplication {
     name = "seatd-client-pid";
     text = ''
@@ -17,37 +19,34 @@ let
       done;
     '';
   };
-in
-{
+in {
   name = "seatd";
-  meta.maintainers = with lib.maintainers; [ sinanmohd ];
+  meta.maintainers = with lib.maintainers; [sinanmohd];
 
-  nodes.machine =
-    { ... }:
-    {
-      imports = [ ./common/user-account.nix ];
-      services.getty.autologinUser = "alice";
-      users.users.alice.extraGroups = [
-        "seat"
-        "wheel"
-      ];
+  nodes.machine = {...}: {
+    imports = [./common/user-account.nix];
+    services.getty.autologinUser = "alice";
+    users.users.alice.extraGroups = [
+      "seat"
+      "wheel"
+    ];
 
-      fonts.enableDefaultPackages = true;
-      environment.systemPackages = with pkgs; [
-        dwl
-        foot
-        seatd-test
-      ];
+    fonts.enableDefaultPackages = true;
+    environment.systemPackages = with pkgs; [
+      dwl
+      foot
+      seatd-test
+    ];
 
-      programs.bash.loginShellInit = ''
-        [ "$(tty)" = "/dev/tty1" ] &&
-            dwl -s 'foot touch /tmp/foot_started'
-      '';
+    programs.bash.loginShellInit = ''
+      [ "$(tty)" = "/dev/tty1" ] &&
+          dwl -s 'foot touch /tmp/foot_started'
+    '';
 
-      hardware.graphics.enable = true;
-      virtualisation.qemu.options = [ "-vga none -device virtio-gpu-pci" ];
-      services.seatd.enable = true;
-    };
+    hardware.graphics.enable = true;
+    virtualisation.qemu.options = ["-vga none -device virtio-gpu-pci"];
+    services.seatd.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_file("/tmp/foot_started")

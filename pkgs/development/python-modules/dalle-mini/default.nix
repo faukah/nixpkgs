@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch,
-
   # dependencies
   einops,
   emoji,
@@ -18,7 +17,6 @@
   unidecode,
   wandb,
 }:
-
 buildPythonPackage rec {
   pname = "dalle-mini";
   version = "0.1.5";
@@ -65,12 +63,12 @@ buildPythonPackage rec {
 
   doCheck = false; # no upstream tests
 
-  pythonImportsCheck = [ "dalle_mini" ];
+  pythonImportsCheck = ["dalle_mini"];
 
   meta = {
     description = "Generate images from a text prompt";
     homepage = "https://github.com/borisdayma/dalle-mini";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ r-burns ];
+    maintainers = with lib.maintainers; [r-burns];
   };
 }

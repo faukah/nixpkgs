@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mypy";
   version = "1.0.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     attrs
@@ -36,12 +35,12 @@ buildPythonPackage rec {
 
   # does not contain tests
   doCheck = false;
-  pythonImportsCheck = [ "pytest_mypy" ];
+  pythonImportsCheck = ["pytest_mypy"];
 
   meta = {
     description = "Mypy static type checker plugin for Pytest";
     homepage = "https://github.com/dbader/pytest-mypy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

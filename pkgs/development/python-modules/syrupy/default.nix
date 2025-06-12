@@ -7,7 +7,6 @@
   pytest-xdist,
   invoke,
 }:
-
 buildPythonPackage rec {
   pname = "syrupy";
   version = "4.9.1";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-AK4cB7MiL52oRUV6ArNj94srMsEpk/YQdjJ5tnjrAYM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     invoke
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "syrupy" ];
+  pythonImportsCheck = ["syrupy"];
 
   meta = {
     changelog = "https://github.com/syrupy-project/syrupy/blob/${src.tag}/CHANGELOG.md";
     description = "Pytest Snapshot Test Utility";
     homepage = "https://github.com/syrupy-project/syrupy";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

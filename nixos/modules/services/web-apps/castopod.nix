@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.castopod;
   fpm = config.services.phpfpm.pools.castopod;
 
@@ -12,22 +11,24 @@ let
 
   # https://docs.castopod.org/getting-started/install.html#requirements
   phpPackage = pkgs.php82.withExtensions (
-    { enabled, all }:
-    with all;
-    [
-      intl
-      curl
-      mbstring
-      gd
-      exif
-      mysqlnd
-    ]
-    ++ enabled
+    {
+      enabled,
+      all,
+    }:
+      with all;
+        [
+          intl
+          curl
+          mbstring
+          gd
+          exif
+          mysqlnd
+        ]
+        ++ enabled
   );
-in
-{
+in {
   meta.doc = ./castopod.md;
-  meta.maintainers = with lib.maintainers; [ alexoundos ];
+  meta.maintainers = with lib.maintainers; [alexoundos];
 
   options.services = {
     castopod = {
@@ -83,14 +84,13 @@ in
         };
       };
       settings = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
             bool
           ]);
-        default = { };
+        default = {};
         example = {
           "email.protocol" = "smtp";
           "email.SMTPHost" = "localhost";
@@ -126,8 +126,7 @@ in
         description = "The domain serving your CastoPod instance.";
       };
       poolSettings = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (oneOf [
             str
             int
@@ -162,13 +161,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.castopod.settings =
-      let
-        sslEnabled =
-          with config.services.nginx.virtualHosts.${cfg.localDomain};
-          addSSL || forceSSL || onlySSL || enableACME || useACMEHost != null;
-        baseURL = "http${lib.optionalString sslEnabled "s"}://${cfg.localDomain}";
-      in
+    services.castopod.settings = let
+      sslEnabled = with config.services.nginx.virtualHosts.${cfg.localDomain};
+        addSSL || forceSSL || onlySSL || enableACME || useACMEHost != null;
+      baseURL = "http${lib.optionalString sslEnabled "s"}://${cfg.localDomain}";
+    in
       lib.mapAttrs (_: lib.mkDefault) {
         "app.forceGlobalSecureRequests" = sslEnabled;
         "app.baseURL" = baseURL;
@@ -201,59 +198,58 @@ in
         max_execution_time = 300
         max_input_time = 300
       '';
-      settings = {
-        "listen.owner" = config.services.nginx.user;
-        "listen.group" = config.services.nginx.group;
-      } // cfg.poolSettings;
+      settings =
+        {
+          "listen.owner" = config.services.nginx.user;
+          "listen.group" = config.services.nginx.group;
+        }
+        // cfg.poolSettings;
     };
 
     systemd.services.castopod-setup = {
       after = lib.optional config.services.mysql.enable "mysql.service";
       requires = lib.optional config.services.mysql.enable "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = [
         pkgs.openssl
         phpPackage
       ];
-      script =
-        let
-          envFile = "${cfg.dataDir}/.env";
-          media = "${cfg.settings."media.storage"}/${cfg.settings."media.root"}";
-        in
-        ''
-          mkdir -p ${cfg.dataDir}/writable/{cache,logs,session,temp,uploads}
+      script = let
+        envFile = "${cfg.dataDir}/.env";
+        media = "${cfg.settings."media.storage"}/${cfg.settings."media.root"}";
+      in ''
+        mkdir -p ${cfg.dataDir}/writable/{cache,logs,session,temp,uploads}
 
-          if [ ! -d ${lib.escapeShellArg media} ]; then
-            cp --no-preserve=mode,ownership -r ${cfg.package}/share/castopod/public/media ${lib.escapeShellArg media}
-          fi
+        if [ ! -d ${lib.escapeShellArg media} ]; then
+          cp --no-preserve=mode,ownership -r ${cfg.package}/share/castopod/public/media ${lib.escapeShellArg media}
+        fi
 
-          if [ ! -f ${cfg.dataDir}/salt ]; then
-            openssl rand -base64 33 > ${cfg.dataDir}/salt
-          fi
+        if [ ! -f ${cfg.dataDir}/salt ]; then
+          openssl rand -base64 33 > ${cfg.dataDir}/salt
+        fi
 
-          cat <<'EOF' > ${envFile}
-          ${lib.generators.toKeyValue { } cfg.settings}
-          EOF
+        cat <<'EOF' > ${envFile}
+        ${lib.generators.toKeyValue {} cfg.settings}
+        EOF
 
-          echo "analytics.salt=$(cat ${cfg.dataDir}/salt)" >> ${envFile}
+        echo "analytics.salt=$(cat ${cfg.dataDir}/salt)" >> ${envFile}
 
-          ${
-            if (cfg.database.passwordFile != null) then
-              ''
-                echo "database.default.password=$(cat "$CREDENTIALS_DIRECTORY/dbpasswordfile)" >> ${envFile}
-              ''
-            else
-              ''
-                echo "database.default.password=" >> ${envFile}
-              ''
-          }
+        ${
+          if (cfg.database.passwordFile != null)
+          then ''
+            echo "database.default.password=$(cat "$CREDENTIALS_DIRECTORY/dbpasswordfile)" >> ${envFile}
+          ''
+          else ''
+            echo "database.default.password=" >> ${envFile}
+          ''
+        }
 
-          ${lib.optionalString (cfg.environmentFile != null) ''
-            cat "$CREDENTIALS_DIRECTORY/envfile" >> ${envFile}
-          ''}
+        ${lib.optionalString (cfg.environmentFile != null) ''
+          cat "$CREDENTIALS_DIRECTORY/envfile" >> ${envFile}
+        ''}
 
-          php ${cfg.package}/share/castopod/spark castopod:database-update
-        '';
+        php ${cfg.package}/share/castopod/spark castopod:database-update
+      '';
       serviceConfig = {
         StateDirectory = "castopod";
         LoadCredential =
@@ -269,9 +265,9 @@ in
     };
 
     systemd.services.castopod-scheduled = {
-      after = [ "castopod-setup.service" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ phpPackage ];
+      after = ["castopod-setup.service"];
+      wantedBy = ["multi-user.target"];
+      path = [phpPackage];
       script = ''
         php ${cfg.package}/share/castopod/spark tasks:run
       '';
@@ -287,7 +283,7 @@ in
     };
 
     systemd.timers.castopod-scheduled = {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = "*-*-* *:*:00";
         Unit = "castopod-scheduled.service";
@@ -297,7 +293,7 @@ in
     services.mysql = lib.mkIf cfg.database.createLocally {
       enable = true;
       package = lib.mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;

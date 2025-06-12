@@ -10,11 +10,8 @@
   bacon,
   buildPackages,
   nix-update-script,
-
   withSound ? false,
-}:
-
-let
+}: let
   soundDependencies =
     lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
@@ -24,66 +21,64 @@ let
       rustPlatform.bindgenHook
     ];
 in
+  rustPlatform.buildRustPackage (finalAttrs: {
+    pname = "bacon";
+    version = "3.15.0";
 
-rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "bacon";
-  version = "3.15.0";
+    src = fetchFromGitHub {
+      owner = "Canop";
+      repo = "bacon";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-8f+EphnooB/9KY9M+mi8xBUX/cH7EvoyHlD/4RjgeaA=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "Canop";
-    repo = "bacon";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-8f+EphnooB/9KY9M+mi8xBUX/cH7EvoyHlD/4RjgeaA=";
-  };
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-48QDMJrxm+9psSeCRG7rsNPwxv+FKLrkLMvIvwsV3GQ=";
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-48QDMJrxm+9psSeCRG7rsNPwxv+FKLrkLMvIvwsV3GQ=";
-
-  buildFeatures = lib.optionals withSound [
-    "sound"
-  ];
-
-  nativeBuildInputs =
-    [
-      installShellFiles
-    ]
-    ++ lib.optionals withSound [
-      pkg-config
+    buildFeatures = lib.optionals withSound [
+      "sound"
     ];
 
-  buildInputs = lib.optionals withSound soundDependencies;
+    nativeBuildInputs =
+      [
+        installShellFiles
+      ]
+      ++ lib.optionals withSound [
+        pkg-config
+      ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
-  doInstallCheck = true;
+    buildInputs = lib.optionals withSound soundDependencies;
 
-  postInstall =
-    let
+    nativeInstallCheckInputs = [versionCheckHook];
+    versionCheckProgramArg = "--version";
+    doInstallCheck = true;
+
+    postInstall = let
       bacon = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/bacon";
     in
-    lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
-      installShellCompletion --cmd bacon \
-        --bash <(COMPLETE=bash ${bacon}) \
-        --fish <(COMPLETE=fish ${bacon}) \
-        --zsh <(COMPLETE=zsh ${bacon})
-    '';
+      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
+        installShellCompletion --cmd bacon \
+          --bash <(COMPLETE=bash ${bacon}) \
+          --fish <(COMPLETE=fish ${bacon}) \
+          --zsh <(COMPLETE=zsh ${bacon})
+      '';
 
-  passthru = {
-    tests = {
-      withSound = bacon.override { withSound = true; };
+    passthru = {
+      tests = {
+        withSound = bacon.override {withSound = true;};
+      };
+      updateScript = nix-update-script {};
     };
-    updateScript = nix-update-script { };
-  };
 
-  meta = {
-    description = "Background rust code checker";
-    mainProgram = "bacon";
-    homepage = "https://github.com/Canop/bacon";
-    changelog = "https://github.com/Canop/bacon/blob/v${finalAttrs.version}/CHANGELOG.md";
-    license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [
-      FlorianFranzen
-      matthiasbeyer
-    ];
-  };
-})
+    meta = {
+      description = "Background rust code checker";
+      mainProgram = "bacon";
+      homepage = "https://github.com/Canop/bacon";
+      changelog = "https://github.com/Canop/bacon/blob/v${finalAttrs.version}/CHANGELOG.md";
+      license = lib.licenses.agpl3Only;
+      maintainers = with lib.maintainers; [
+        FlorianFranzen
+        matthiasbeyer
+      ];
+    };
+  })

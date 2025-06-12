@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   cmake,
   extra-cmake-modules,
-
   kconfig,
   ki18n,
   kirigami-addons,
@@ -14,7 +12,6 @@
   kwindowsystem,
   qmltermwidget,
 }:
-
 mkDerivation {
   pname = "qmlkonsole";
 
@@ -43,6 +40,6 @@ mkDerivation {
       gpl3Plus
       cc0
     ];
-    maintainers = with maintainers; [ balsoft ];
+    maintainers = with maintainers; [balsoft];
   };
 }

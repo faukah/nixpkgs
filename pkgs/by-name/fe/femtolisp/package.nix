@@ -4,7 +4,6 @@
   fetchFromSourcehut,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "femtolisp";
   version = "0-unstable-2024-06-18";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Compact interpreter for a minimal lisp/scheme dialect";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
       mit
       bsd3
     ];
-    maintainers = with lib.maintainers; [ moody ];
+    maintainers = with lib.maintainers; [moody];
     broken = stdenv.hostPlatform.isDarwin;
     platforms = lib.platforms.unix;
     mainProgram = "flisp";

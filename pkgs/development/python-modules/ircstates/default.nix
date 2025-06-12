@@ -8,7 +8,6 @@
   freezegun,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ircstates";
   version = "0.13.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-Mq9aOj6PXzPjaz3ofoPcAbur59oUWffmEg8aHt0v+0Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     irctokens
@@ -33,12 +32,12 @@ buildPythonPackage rec {
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "ircstates" ];
+  pythonImportsCheck = ["ircstates"];
 
   meta = with lib; {
     description = "sans-I/O IRC session state parsing library";
     license = licenses.mit;
     homepage = "https://github.com/jesopo/ircstates";
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

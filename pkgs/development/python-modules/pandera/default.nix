@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numpy,
   packaging,
@@ -15,7 +13,6 @@
   pydantic,
   typeguard,
   typing-inspect,
-
   # optional-dependencies
   black,
   dask,
@@ -27,7 +24,6 @@
   pyyaml,
   scipy,
   shapely,
-
   # tests
   joblib,
   pyarrow,
@@ -35,7 +31,6 @@
   pytest-asyncio,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "pandera";
   version = "0.23.1";
@@ -64,49 +59,50 @@ buildPythonPackage rec {
     typing-inspect
   ];
 
-  optional-dependencies =
-    let
-      dask-dataframe = [ dask ] ++ dask.optional-dependencies.dataframe;
-      extras = {
-        strategies = [ hypothesis ];
-        hypotheses = [ scipy ];
-        io = [
-          pyyaml
-          black
-          #frictionless # not in nixpkgs
-        ];
-        # pyspark expression does not define optional-dependencies.connect:
-        #pyspark = [ pyspark ] ++ pyspark.optional-dependencies.connect;
-        # modin not in nixpkgs:
-        #modin = [
-        #  modin
-        #  ray
-        #] ++ dask-dataframe;
-        #modin-ray = [
-        #  modin
-        #  ray
-        #];
-        #modin-dask = [
-        #  modin
-        #] ++ dask-dataframe;
-        dask = dask-dataframe;
-        mypy = [ pandas-stubs ];
-        fastapi = [ fastapi ];
-        geopandas = [
-          geopandas
-          shapely
-        ];
-        polars = [ polars ];
-      };
-    in
-    extras // { all = lib.concatLists (lib.attrValues extras); };
+  optional-dependencies = let
+    dask-dataframe = [dask] ++ dask.optional-dependencies.dataframe;
+    extras = {
+      strategies = [hypothesis];
+      hypotheses = [scipy];
+      io = [
+        pyyaml
+        black
+        #frictionless # not in nixpkgs
+      ];
+      # pyspark expression does not define optional-dependencies.connect:
+      #pyspark = [ pyspark ] ++ pyspark.optional-dependencies.connect;
+      # modin not in nixpkgs:
+      #modin = [
+      #  modin
+      #  ray
+      #] ++ dask-dataframe;
+      #modin-ray = [
+      #  modin
+      #  ray
+      #];
+      #modin-dask = [
+      #  modin
+      #] ++ dask-dataframe;
+      dask = dask-dataframe;
+      mypy = [pandas-stubs];
+      fastapi = [fastapi];
+      geopandas = [
+        geopandas
+        shapely
+      ];
+      polars = [polars];
+    };
+  in
+    extras // {all = lib.concatLists (lib.attrValues extras);};
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-asyncio
-    joblib
-    pyarrow
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-asyncio
+      joblib
+      pyarrow
+    ]
+    ++ optional-dependencies.all;
 
   pytestFlagsArray = [
     # KeyError: 'dask'
@@ -147,6 +143,6 @@ buildPythonPackage rec {
     homepage = "https://pandera.readthedocs.io";
     changelog = "https://github.com/unionai-oss/pandera/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

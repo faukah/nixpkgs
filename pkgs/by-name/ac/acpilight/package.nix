@@ -5,7 +5,6 @@
   python3,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "acpilight";
   version = "1.2";
@@ -17,9 +16,10 @@ stdenv.mkDerivation rec {
   };
 
   pyenv = python3.withPackages (
-    pythonPackages: with pythonPackages; [
-      configargparse
-    ]
+    pythonPackages:
+      with pythonPackages; [
+        configargparse
+      ]
   );
 
   postConfigure = ''
@@ -27,15 +27,15 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace udevadm true
   '';
 
-  buildInputs = [ pyenv ];
+  buildInputs = [pyenv];
 
-  makeFlags = [ "DESTDIR=$(out) prefix=" ];
+  makeFlags = ["DESTDIR=$(out) prefix="];
 
   meta = with lib; {
     homepage = "https://gitlab.com/wavexx/acpilight";
     description = "ACPI backlight control";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ smakarov ];
+    maintainers = with maintainers; [smakarov];
     platforms = platforms.linux;
     mainProgram = "xbacklight";
   };

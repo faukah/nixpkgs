@@ -3,7 +3,6 @@
   stdenv,
   linux,
 }:
-
 stdenv.mkDerivation {
   pname = "gpio-utils";
   version = linux.version;
@@ -23,7 +22,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Linux tools to inspect the gpiochip interface";
-    maintainers = with maintainers; [ kwohlfahrt ];
+    maintainers = with maintainers; [kwohlfahrt];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

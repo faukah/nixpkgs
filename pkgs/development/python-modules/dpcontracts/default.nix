@@ -4,7 +4,6 @@
   pythonOlder,
   fetchFromGitHub,
 }:
-
 buildPythonPackage {
   pname = "dpcontracts";
   version = "unstable-2018-11-20";
@@ -21,12 +20,12 @@ buildPythonPackage {
   # package does not have any tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dpcontracts" ];
+  pythonImportsCheck = ["dpcontracts"];
 
   meta = with lib; {
     description = "Provides a collection of decorators that makes it easy to write software using contracts";
     homepage = "https://github.com/deadpixi/contracts";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -14,7 +14,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioboto3";
   version = "13.4.0";
@@ -38,14 +37,16 @@ buildPythonPackage rec {
     poetry-dynamic-versioning
   ];
 
-  dependencies = [
-    aiobotocore
-    aiofiles
-  ] ++ aiobotocore.optional-dependencies.boto3;
+  dependencies =
+    [
+      aiobotocore
+      aiofiles
+    ]
+    ++ aiobotocore.optional-dependencies.boto3;
 
   optional-dependencies = {
-    chalice = [ chalice ];
-    s3cse = [ cryptography ];
+    chalice = [chalice];
+    s3cse = [cryptography];
   };
 
   nativeCheckInputs =
@@ -58,13 +59,13 @@ buildPythonPackage rec {
     ++ moto.optional-dependencies.server
     ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aioboto3" ];
+  pythonImportsCheck = ["aioboto3"];
 
   meta = {
     description = "Wrapper to use boto3 resources with the aiobotocore async backend";
     homepage = "https://github.com/terrycain/aioboto3";
     changelog = "https://github.com/terrycain/aioboto3/blob/${src.rev}/CHANGELOG.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ mbalatsko ];
+    maintainers = with lib.maintainers; [mbalatsko];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpustat";
   version = "0.03.00";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/cpustat";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "cpustat";
   };
 }

@@ -6,7 +6,6 @@
   nix-update,
   nix,
 }:
-
 buildGoModule rec {
   pname = "hyprspace";
   version = "0.10.2";

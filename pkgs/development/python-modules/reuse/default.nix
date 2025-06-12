@@ -8,7 +8,6 @@
   myst-parser,
   pbr,
   sphinxcontrib-apidoc,
-
   # dependencies
   attrs,
   binaryornot,
@@ -18,12 +17,10 @@
   jinja2,
   license-expression,
   tomlkit,
-
   # test dependencies
   freezegun,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "reuse";
   version = "5.0.2";
@@ -78,7 +75,7 @@ buildPythonPackage rec {
   ];
   sphinxRoot = "docs";
 
-  pythonImportsCheck = [ "reuse" ];
+  pythonImportsCheck = ["reuse"];
 
   meta = with lib; {
     description = "Tool for compliance with the REUSE Initiative recommendations";

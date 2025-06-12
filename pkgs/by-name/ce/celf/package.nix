@@ -4,7 +4,6 @@
   fetchFromGitHub,
   smlnj,
 }:
-
 stdenv.mkDerivation rec {
   pname = "celf";
   pversion = "2013-07-25";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0slrwcxglp0sdbp6wr65cdkl5wcap2i0fqxbwqfi1q3cpb6ph6hq";
   };
 
-  buildInputs = [ smlnj ];
+  buildInputs = [smlnj];
 
   # (can also build with MLton)
   buildPhase = ''
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     mainProgram = "celf";
     homepage = "https://github.com/clf/celf";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
   };
 }

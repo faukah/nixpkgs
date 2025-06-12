@@ -3,17 +3,14 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   makefun,
   multipledispatch,
   numpy,
   opt-einsum,
   typing-extensions,
-
   # checks
   pyro-ppl,
   torch,
@@ -25,10 +22,8 @@
   requests,
   scipy,
   torchvision,
-
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "funsor";
   version = "0.4.6";
@@ -43,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-Prj1saT0yoPAP8rDE0ipBEpR3QMk4PS12VSJlxc22p8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     makefun
@@ -72,7 +67,7 @@ buildPythonPackage rec {
     export FUNSOR_BACKEND=torch
   '';
 
-  pythonImportsCheck = [ "funsor" ];
+  pythonImportsCheck = ["funsor"];
 
   disabledTests =
     [
@@ -93,6 +88,6 @@ buildPythonPackage rec {
     homepage = "https://funsor.pyro.ai";
     changelog = "https://github.com/pyro-ppl/funsor/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

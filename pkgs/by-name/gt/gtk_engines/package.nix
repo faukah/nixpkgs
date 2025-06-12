@@ -6,7 +6,6 @@
   intltool,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-engines";
   version = "2.20.2";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     pkg-config
     intltool
   ];
-  buildInputs = [ gtk2 ];
+  buildInputs = [gtk2];
 
   meta = {
     description = "Theme engines for GTK 2";

@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "jwcrypto";
   version = "1.5.6";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-dxqHdioMCBrmFmlYqVT4CEiCCyqwZpN9yLg3nWWxsDk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cryptography
@@ -30,15 +29,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jwcrypto" ];
+  pythonImportsCheck = ["jwcrypto"];
 
   meta = with lib; {
     description = "Implementation of JOSE Web standards";
     homepage = "https://github.com/latchset/jwcrypto";
     changelog = "https://github.com/latchset/jwcrypto/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

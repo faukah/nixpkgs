@@ -5,7 +5,6 @@
   fetchpatch,
   librsync,
 }:
-
 stdenv.mkDerivation rec {
   pname = "btar";
   version = "1.1.1";
@@ -28,9 +27,9 @@ stdenv.mkDerivation rec {
   #     `ptr'; main.o:/build/btar-1.1.1/loadindex.h:12: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ librsync ];
+  buildInputs = [librsync];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Tar-compatible block-based archiver";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
     homepage = "https://briantracy.xyz/writing/btar.html";
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

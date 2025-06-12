@@ -52,7 +52,6 @@
   zlib,
   withSDRplay ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdrangel";
   version = "7.22.6";
@@ -114,9 +113,9 @@ stdenv.mkDerivation (finalAttrs: {
       uhd
       zlib
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ qtwayland ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ apple-sdk_12 ]
-    ++ lib.optionals withSDRplay [ sdrplay ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [qtwayland]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [apple-sdk_12]
+    ++ lib.optionals withSDRplay [sdrplay];
 
   patches = [
     # https://github.com/f4exb/sdrangel/pull/2439

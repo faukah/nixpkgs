@@ -4,7 +4,6 @@
   rustPlatform,
   libevdev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "evsieve";
   version = "1.4.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-rOqjB/ZakXhuKgN3auEOGzV+9bDX30TTZWD8nt3b+pE=";
 
-  buildInputs = [ libevdev ];
+  buildInputs = [libevdev];
 
   doCheck = false; # unit tests create uinput devices
 
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "evsieve";
     homepage = "https://github.com/KarsMulder/evsieve";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ tsowell ];
+    maintainers = with maintainers; [tsowell];
     platforms = platforms.linux;
   };
 }

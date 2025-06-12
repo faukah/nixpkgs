@@ -3,27 +3,22 @@
   buildPythonPackage,
   fetchFromGitHub,
   stdenvNoCC,
-
   # build system
   poetry-core,
-
   # dependencies
   langgraph-checkpoint,
   ormsgpack,
   psycopg,
   psycopg-pool,
-
   # testing
   pgvector,
   postgresql,
   postgresqlTestHook,
   pytestCheckHook,
   pytest-asyncio,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langgraph-checkpoint-postgres";
   version = "2.0.21";
@@ -44,7 +39,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/checkpoint-postgres";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     langgraph-checkpoint
@@ -63,7 +58,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
-    (postgresql.withPackages (p: with p; [ pgvector ]))
+    (postgresql.withPackages (p: with p; [pgvector]))
     postgresqlTestHook
   ];
 
@@ -88,7 +83,7 @@ buildPythonPackage rec {
     "test_store_ttl"
   ];
 
-  pythonImportsCheck = [ "langgraph.checkpoint.postgres" ];
+  pythonImportsCheck = ["langgraph.checkpoint.postgres"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

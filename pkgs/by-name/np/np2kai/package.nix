@@ -16,7 +16,6 @@
   SDL2,
   SDL2_ttf,
   SDL2_mixer,
-
   enable16Bit ? true,
   enableX11 ? stdenv.hostPlatform.isLinux,
   # HAXM build succeeds but the binary segfaults, seemingly due to the missing HAXM kernel module
@@ -25,7 +24,6 @@
   # https://github.com/intel/haxm/blob/master/docs/manual-linux.md
   enableHAXM ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "np2kai";
   version = "0.86rev22-unstable-2024-12-22";
@@ -122,8 +120,12 @@ stdenv.mkDerivation (finalAttrs: {
     description = "PC-9801 series emulator";
     homepage = "https://github.com/AZO234/NP2kai";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ OPNA2608 ];
-    mainProgram = "${if enableX11 then "x" else "sdl"}np21kai";
+    maintainers = with lib.maintainers; [OPNA2608];
+    mainProgram = "${
+      if enableX11
+      then "x"
+      else "sdl"
+    }np21kai";
     platforms = lib.platforms.x86;
   };
 })

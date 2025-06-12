@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dalfox";
   version = "2.11.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/hahwul/dalfox";
     changelog = "https://github.com/hahwul/dalfox/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "dalfox";
   };
 }

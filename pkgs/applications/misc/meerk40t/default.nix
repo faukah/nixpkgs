@@ -6,7 +6,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "MeerK40t";
   version = "0.9.7051";
@@ -31,8 +30,7 @@ python3Packages.buildPythonApplication rec {
   dontWrapGApps = true;
 
   # https://github.com/meerk40t/meerk40t/blob/main/setup.py
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       meerk40t-camera
       numpy
@@ -82,6 +80,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "meerk40t";
     homepage = "https://github.com/meerk40t/meerk40t";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

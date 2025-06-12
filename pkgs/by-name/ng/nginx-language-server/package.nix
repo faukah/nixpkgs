@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nginx-language-server";
   version = "0.9.0";
@@ -34,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "nginx_language_server" ];
+  pythonImportsCheck = ["nginx_language_server"];
 
   nativeCheckInputs = [
     versionCheckHook
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -50,7 +49,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/pappasam/nginx-language-server";
     changelog = "https://github.com/pappasam/nginx-language-server/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "nginx-language-server";
   };
 }

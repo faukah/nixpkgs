@@ -13,7 +13,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "hypothesmith";
   version = "0.3.3";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-lsFIAtbI6F2JdSZBdoeNtUso0u2SH9v+3C5rjOPIFxY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     hypothesis
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     "test_black_autoformatter_from_grammar"
   ];
 
-  pythonImportsCheck = [ "hypothesmith" ];
+  pythonImportsCheck = ["hypothesmith"];
 
   meta = with lib; {
     description = "Hypothesis strategies for generating Python programs, something like CSmith";
     homepage = "https://github.com/Zac-HD/hypothesmith";
     changelog = "https://github.com/Zac-HD/hypothesmith/blob/master/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

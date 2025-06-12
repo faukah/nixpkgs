@@ -7,7 +7,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-aitum-multistream";
   version = "1.0.7";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       --replace-fail 'find_qt(COMPONENTS Widgets Core)' 'find_package(Qt6 REQUIRED COMPONENTS Core Widgets)'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     curl
     obs-studio
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Plugin to stream everywhere from a single instance of OBS";
     homepage = "https://github.com/Aitum/obs-aitum-multistream";
-    maintainers = with lib.maintainers; [ flexiondotorg ];
+    maintainers = with lib.maintainers; [flexiondotorg];
     license = lib.licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

@@ -6,7 +6,6 @@
   wheel,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-cockroachdb";
   version = "2.0.2";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  pythonImportsCheck = [ "sqlalchemy_cockroachdb" ];
+  pythonImportsCheck = ["sqlalchemy_cockroachdb"];
 
   meta = with lib; {
     description = "CockroachDB dialect for SQLAlchemy";
     homepage = "https://pypi.org/project/sqlalchemy-cockroachdb";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pinpox ];
+    maintainers = with maintainers; [pinpox];
   };
 }

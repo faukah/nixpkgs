@@ -17,7 +17,6 @@
   fftwFloat,
   zita-convolver,
 }:
-
 stdenv.mkDerivation rec {
   pname = "x42-plugins";
   version = "20250512";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-HBENTb1BGxBDIOWtswCe6t0mEzVNZf65NhLjsfE4KYk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libGLU
     ftgl

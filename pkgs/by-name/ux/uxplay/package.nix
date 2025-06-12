@@ -12,7 +12,6 @@
   openssl,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uxplay";
   version = "1.72";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/FDH2/UxPlay/releases/tag/v${finalAttrs.version}";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/FDH2/UxPlay";
     license = lib.licenses.gpl3Plus;
     mainProgram = "uxplay";
-    maintainers = [ lib.maintainers.azuwis ];
+    maintainers = [lib.maintainers.azuwis];
     platforms = lib.platforms.unix;
   };
 })

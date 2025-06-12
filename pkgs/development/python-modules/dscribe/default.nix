@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pybind11,
   setuptools,
-
   # dependencies
   ase,
   joblib,
@@ -15,11 +13,9 @@
   scikit-learn,
   scipy,
   sparse,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dscribe";
   version = "2.1.1";
@@ -67,13 +63,12 @@ buildPythonPackage rec {
       # AttributeError: module 'numpy' has no attribute 'product'
       "test_extended_system"
     ]
-    ++
-      lib.optionals
-        ((stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) || stdenv.hostPlatform.isDarwin)
-        [
-          # AssertionError on a numerical test
-          "test_cell_list"
-        ]
+    ++ lib.optionals
+    ((stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) || stdenv.hostPlatform.isDarwin)
+    [
+      # AssertionError on a numerical test
+      "test_cell_list"
+    ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       # Fatal Python error: Aborted
       # matplotlib/backend_bases.py", line 2654 in create_with_canvas
@@ -84,6 +79,6 @@ buildPythonPackage rec {
     description = "Machine learning descriptors for atomistic systems";
     homepage = "https://github.com/SINGROUP/dscribe";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sheepforce ];
+    maintainers = [lib.maintainers.sheepforce];
   };
 }

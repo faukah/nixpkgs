@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pigeon";
   version = "1.1.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = false;
 
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/mna/pigeon";
     description = "PEG parser generator for Go";
     mainProgram = "pigeon";
-    maintainers = with lib.maintainers; [ zimbatm ];
-    license = with lib.licenses; [ bsd3 ];
+    maintainers = with lib.maintainers; [zimbatm];
+    license = with lib.licenses; [bsd3];
   };
 }

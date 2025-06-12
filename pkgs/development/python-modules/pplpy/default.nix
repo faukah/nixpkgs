@@ -10,11 +10,9 @@
   cysignals,
   gmpy2,
   sphinx,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "pplpy";
   version = "0.8.10";
@@ -68,7 +66,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python wrapper for ppl";
     homepage = "https://gitlab.com/videlec/pplpy";
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     license = licenses.gpl3;
   };
 }

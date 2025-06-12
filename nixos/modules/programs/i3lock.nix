@@ -3,15 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.i3lock;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
@@ -41,8 +35,7 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     security.wrappers.i3lock = lib.mkIf cfg.u2fSupport {
       setuid = true;
@@ -52,7 +45,5 @@ in
     };
 
     security.pam.services.i3lock.u2fAuth = cfg.u2fSupport;
-
   };
-
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcdada";
   version = "0.6.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/msune/libcdada";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.unix;
   };
 }

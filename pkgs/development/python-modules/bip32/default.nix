@@ -8,7 +8,6 @@
   base58,
   coincurve,
 }:
-
 buildPythonPackage rec {
   pname = "bip32";
   version = "3.4";
@@ -24,24 +23,24 @@ buildPythonPackage rec {
     hash = "sha256-o8UKR17XDWp1wTWYeDL0DJY+D11YI4mg0UuGEAPkHxE=";
   };
 
-  pythonRelaxDeps = [ "coincurve" ];
+  pythonRelaxDeps = ["coincurve"];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     base58
     coincurve
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bip32" ];
+  pythonImportsCheck = ["bip32"];
 
   meta = with lib; {
     description = "Minimalistic implementation of the BIP32 key derivation scheme";
     homepage = "https://github.com/darosior/python-bip32";
     changelog = "https://github.com/darosior/python-bip32/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ arcnmx ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [arcnmx];
   };
 }

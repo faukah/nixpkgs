@@ -6,30 +6,31 @@
 # order-sensitive config format.
 #
 # Issue: https://github.com/NixOS/nixpkgs/issues/195660
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "btrbk-section-order";
-  meta.maintainers = with lib.maintainers; [ oxalica ];
+  meta.maintainers = with lib.maintainers; [oxalica];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.btrbk.instances.local = {
-        onCalendar = null;
-        settings = {
-          timestamp_format = "long";
-          target."ssh://global-target/".ssh_user = "root";
-          volume."/btrfs" = {
-            snapshot_dir = "/volume-snapshots";
-            target."ssh://volume-target/".ssh_user = "root";
-            subvolume."@subvolume" = {
-              snapshot_dir = "/subvolume-snapshots";
-              target."ssh://subvolume-target/".ssh_user = "root";
-            };
+  nodes.machine = {...}: {
+    services.btrbk.instances.local = {
+      onCalendar = null;
+      settings = {
+        timestamp_format = "long";
+        target."ssh://global-target/".ssh_user = "root";
+        volume."/btrfs" = {
+          snapshot_dir = "/volume-snapshots";
+          target."ssh://volume-target/".ssh_user = "root";
+          subvolume."@subvolume" = {
+            snapshot_dir = "/subvolume-snapshots";
+            target."ssh://subvolume-target/".ssh_user = "root";
           };
         };
       };
     };
+  };
 
   testScript = ''
     import difflib

@@ -7,7 +7,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rlp";
   version = "4.0.0";
@@ -20,21 +19,21 @@ buildPythonPackage rec {
     hash = "sha256-cRp+ZOPYs9kcqMKGaiYMOFBY+aPCyFqu+1/5wloLwqU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ eth-utils ];
+  propagatedBuildInputs = [eth-utils];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "rlp" ];
+  pythonImportsCheck = ["rlp"];
 
   meta = with lib; {
     description = "RLP serialization library";
     homepage = "https://github.com/ethereum/pyrlp";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

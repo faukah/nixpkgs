@@ -13,7 +13,6 @@
   makeBinaryWrapper,
   versionCheckHook,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "composer";
   version = "2.8.5";
@@ -36,9 +35,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-/E/fXh+jefPwzsADpmGyrJ+xqW5CSPNok0DVLD1KZDY=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
-  buildInputs = [ php ];
+  buildInputs = [php];
 
   vendor = stdenvNoCC.mkDerivation {
     pname = "${finalAttrs.pname}-vendor";
@@ -99,20 +98,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     wrapProgram $out/bin/composer \
       --prefix PATH : ${
-        lib.makeBinPath [
-          _7zz
-          curl
-          gitMinimal
-          unzip
-          xz
-        ]
-      }
+      lib.makeBinPath [
+        _7zz
+        curl
+        gitMinimal
+        unzip
+        xz
+      ]
+    }
 
     runHook postInstall
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -121,6 +120,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://getcomposer.org/";
     license = lib.licenses.mit;
     mainProgram = "composer";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

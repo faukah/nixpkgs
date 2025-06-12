@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gperf";
   version = "3.0.4";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gnnm8iqcl52m8iha3sxrzrl9mcyhg7lfrhhqgdn4zj00ji14wbn";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   patches = [
     ./gperf-ar-fix.patch
     # Clang 16 defaults to C++17, which does not allow `register` as a storage class specifier.

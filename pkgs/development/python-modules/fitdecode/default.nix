@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "fitdecode";
   version = "0.10.0";
@@ -22,15 +21,15 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "fitdecode" ];
+  pythonImportsCheck = ["fitdecode"];
 
   meta = {
     changelog = "https://github.com/polyvertex/fitdecode/blob/${src.tag}/HISTORY.rst";
     description = "FIT file parsing and decoding library written in Python3";
     license = lib.licenses.mit;
     homepage = "https://github.com/polyvertex/fitdecode";
-    maintainers = with lib.maintainers; [ tebriel ];
+    maintainers = with lib.maintainers; [tebriel];
   };
 }

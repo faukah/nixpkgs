@@ -14,7 +14,6 @@
   hamlib_4,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpredict";
   version = "2.2.1";
@@ -41,7 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
       url = "https://github.com/csete/gpredict/commit/8f60f856921e8ee143cd6e2d34a9183778cb0fbf.patch";
       hash = "sha256-X/nKrqh5sjxDMLhA9LQek8AsJFqhvK/k8Ep3ug/0rMI=";
     })
-
   ];
 
   nativeBuildInputs = [

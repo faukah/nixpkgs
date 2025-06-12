@@ -8,7 +8,6 @@
   multidict,
   xmljson,
 }:
-
 buildPythonPackage rec {
   pname = "latex2mathml";
   version = "3.78.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-FB1VM2z9y17q+6/wv4oTrhe/rD2QzdAc0VMbFmcrIAw=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     sed -i '/--cov/d' pyproject.toml
   '';
 
-  pythonImportsCheck = [ "latex2mathml" ];
+  pythonImportsCheck = ["latex2mathml"];
 
   meta = {
     description = "Pure Python library for LaTeX to MathML conversion";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/roniemartinez/latex2mathml/releases/tag/${src.tag}";
     license = lib.licenses.mit;
     mainProgram = "latex2mathml";
-    maintainers = with lib.maintainers; [ sfrijters ];
+    maintainers = with lib.maintainers; [sfrijters];
   };
 }

@@ -27,7 +27,7 @@ buildDotnetModule (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  patches = [ ./patchTk.diff ];
+  patches = [./patchTk.diff];
 
   selfContainedBuild = true;
 
@@ -43,7 +43,7 @@ buildDotnetModule (finalAttrs: {
     "Tkmm.CLI"
   ];
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   runtimeDeps = [
     # Avalonia UI

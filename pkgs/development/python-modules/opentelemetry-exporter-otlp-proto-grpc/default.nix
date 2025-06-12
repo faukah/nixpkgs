@@ -11,7 +11,6 @@
   opentelemetry-test-utils,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) version src;
   pname = "opentelemetry-exporter-otlp-proto-grpc";
@@ -21,7 +20,7 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/exporter/opentelemetry-exporter-otlp-proto-grpc";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     deprecated
@@ -37,14 +36,16 @@ buildPythonPackage {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "opentelemetry.exporter.otlp.proto.grpc" ];
+  pythonImportsCheck = ["opentelemetry.exporter.otlp.proto.grpc"];
 
   __darwinAllowLocalNetworking = true;
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc";
-    description = "OpenTelemetry Collector Protobuf over gRPC Exporter";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-grpc";
+      description = "OpenTelemetry Collector Protobuf over gRPC Exporter";
+    };
 }

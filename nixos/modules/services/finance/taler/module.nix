@@ -3,20 +3,16 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.taler;
-  settingsFormat = pkgs.formats.ini { };
-in
-
-{
+  settingsFormat = pkgs.formats.ini {};
+in {
   # TODO turn this into a generic taler-like service thingy?
   options.services.taler = {
-    enable = lib.mkEnableOption "the GNU Taler system" // lib.mkOption { internal = true; };
+    enable = lib.mkEnableOption "the GNU Taler system" // lib.mkOption {internal = true;};
     includes = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         Files to include into the config file using Taler's `@inline@` directive.
 
@@ -54,7 +50,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
     runtimeDir = lib.mkOption {
       type = lib.types.str;
@@ -75,19 +71,17 @@ in
       TALER_RUNTIME_DIR = cfg.runtimeDir;
     };
 
-    environment.etc."taler/taler.conf".source =
-      let
-        includes = pkgs.writers.writeText "includes.conf" (
-          lib.concatStringsSep "\n" (map (include: "@inline@ ${include}") cfg.includes)
-        );
-        generatedConfig = settingsFormat.generate "generated-taler.conf" cfg.settings;
-      in
-      pkgs.runCommand "taler.conf" { } ''
+    environment.etc."taler/taler.conf".source = let
+      includes = pkgs.writers.writeText "includes.conf" (
+        lib.concatStringsSep "\n" (map (include: "@inline@ ${include}") cfg.includes)
+      );
+      generatedConfig = settingsFormat.generate "generated-taler.conf" cfg.settings;
+    in
+      pkgs.runCommand "taler.conf" {} ''
         cat ${includes} > $out
         echo >> $out
         echo >> $out
         cat ${generatedConfig} >> $out
       '';
-
   };
 }

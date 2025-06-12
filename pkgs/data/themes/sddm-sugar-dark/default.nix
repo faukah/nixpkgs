@@ -4,7 +4,6 @@
   stdenvNoCC,
   themeConfig ? null,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "sddm-sugar-dark";
   version = "1.2";
@@ -18,15 +17,14 @@ stdenvNoCC.mkDerivation rec {
 
   dontWrapQtApps = true;
 
-  buildInputs = with pkgs.libsForQt5.qt5; [ qtgraphicaleffects ];
+  buildInputs = with pkgs.libsForQt5.qt5; [qtgraphicaleffects];
 
-  installPhase =
-    let
-      iniFormat = pkgs.formats.ini { };
-      configFile = iniFormat.generate "" { General = themeConfig; };
+  installPhase = let
+    iniFormat = pkgs.formats.ini {};
+    configFile = iniFormat.generate "" {General = themeConfig;};
 
-      basePath = "$out/share/sddm/themes/sugar-dark";
-    in
+    basePath = "$out/share/sddm/themes/sugar-dark";
+  in
     ''
       mkdir -p ${basePath}
       cp -r $src/* ${basePath}
@@ -41,6 +39,6 @@ stdenvNoCC.mkDerivation rec {
     license = lib.licenses.gpl3;
 
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ danid3v ];
+    maintainers = with lib.maintainers; [danid3v];
   };
 }

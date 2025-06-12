@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  checkInputs = [ cunit ];
+  checkInputs = [cunit];
 
   outputs = [
     "bin"
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl2Only;
     platforms = platforms.all;
     mainProgram = "dccp";
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

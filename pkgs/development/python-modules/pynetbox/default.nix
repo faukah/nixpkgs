@@ -9,7 +9,6 @@
   pytestCheckHook,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "pynetbox";
   version = "7.5.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "pynetbox" ];
+  pythonImportsCheck = ["pynetbox"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "API client library for Netbox";
     homepage = "https://github.com/netbox-community/pynetbox";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

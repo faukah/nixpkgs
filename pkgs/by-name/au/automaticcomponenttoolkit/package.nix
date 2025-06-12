@@ -4,7 +4,6 @@
   fetchFromGitHub,
   go,
 }:
-
 stdenv.mkDerivation rec {
   pname = "AutomaticComponentToolkit";
   version = "1.6.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1r0sbw82cf9dbcj3vgnbd4sc1lklzvijic2z5wgkvs21azcm0yzh";
   };
 
-  nativeBuildInputs = [ go ];
+  nativeBuildInputs = [go];
 
   buildPhase = ''
     cd Source
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     mainProgram = "act";
     homepage = "https://github.com/Autodesk/AutomaticComponentToolkit";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

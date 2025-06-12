@@ -11,7 +11,6 @@
   versionCheckHook,
   zstd,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "spider";
   version = "2.37.91";
@@ -67,10 +66,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/spider-rs/spider/releases/tag/v${finalAttrs.version}";

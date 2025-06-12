@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inherit (pkgs) ntp;
 
   cfg = config.services.ntp;
@@ -28,23 +24,19 @@ let
     ${cfg.extraConfig}
   '';
 
-  ntpFlags = [
-    "-c"
-    "${configFile}"
-    "-u"
-    "ntp:ntp"
-  ] ++ cfg.extraFlags;
-
-in
-
-{
-
+  ntpFlags =
+    [
+      "-c"
+      "${configFile}"
+      "-u"
+      "ntp:ntp"
+    ]
+    ++ cfg.extraFlags;
+in {
   ###### interface
 
   options = {
-
     services.ntp = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -117,20 +109,18 @@ in
         type = types.listOf types.str;
         description = "Extra flags passed to the ntpd command.";
         example = literalExpression ''[ "--interface=eth0" ]'';
-        default = [ ];
+        default = [];
       };
-
     };
-
   };
 
   ###### implementation
 
-  meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+  meta.maintainers = with lib.maintainers; [thoughtpolice];
 
   config = mkIf config.services.ntp.enable {
     # Make tools such as ntpq available in the system path.
-    environment.systemPackages = [ pkgs.ntp ];
+    environment.systemPackages = [pkgs.ntp];
     services.timesyncd.enable = mkForce false;
 
     systemd.services.systemd-timedated.environment = {
@@ -144,14 +134,14 @@ in
       home = "/var/lib/ntp";
       createHome = true;
     };
-    users.groups.ntp = { };
+    users.groups.ntp = {};
 
     systemd.services.ntpd = {
       description = "NTP Daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "time-sync.target" ];
-      before = [ "time-sync.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["time-sync.target"];
+      before = ["time-sync.target"];
 
       serviceConfig = {
         ExecStart = "@${ntp}/bin/ntpd ntpd -g ${builtins.toString ntpFlags}";
@@ -184,7 +174,5 @@ in
         RestrictSUIDSGID = true;
       };
     };
-
   };
-
 }

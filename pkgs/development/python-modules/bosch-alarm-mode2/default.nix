@@ -5,7 +5,6 @@
   hatchling,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "bosch-alarm-mode2";
   version = "0.4.6";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  pythonImportsCheck = [ "bosch_alarm_mode2" ];
+  pythonImportsCheck = ["bosch_alarm_mode2"];
 
   # upstream has no tests
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Async Python library for interacting with Bosch Alarm Panels supporting the 'Mode 2' API";
     homepage = "https://github.com/mag1024/bosch-alarm-mode2";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

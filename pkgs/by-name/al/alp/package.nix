@@ -5,7 +5,6 @@
   runCommand,
   alp,
 }:
-
 buildGoModule rec {
   pname = "alp";
   version = "1.1.18";
@@ -40,7 +39,7 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    test-version = runCommand "${pname}-test" { } ''
+    test-version = runCommand "${pname}-test" {} ''
       ${alp}/bin/alp version > $out
       cat $out | grep '${version}'
     '';
@@ -51,6 +50,6 @@ buildGoModule rec {
     homepage = "https://github.com/gernotfeichter/alp";
     license = licenses.gpl2Only;
     mainProgram = "alp";
-    maintainers = with maintainers; [ gernotfeichter ];
+    maintainers = with maintainers; [gernotfeichter];
   };
 }

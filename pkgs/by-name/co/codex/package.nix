@@ -8,7 +8,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "codex";
   version = "0.1.2504301751"; # from codex-cli/package.json
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CSd5e6BsGEigENjPu6R6s+QhZRLQ2CTmI5XBI9mPkmA=";
   };
 
-  pnpmWorkspaces = [ "@openai/codex" ];
+  pnpmWorkspaces = ["@openai/codex"];
 
   nativeBuildInputs = [
     nodejs_22
@@ -30,7 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   pnpmDeps = pnpm_10.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -68,13 +68,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Lightweight coding agent that runs in your terminal";
     homepage = "https://github.com/openai/codex";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.malo ];
+    maintainers = [lib.maintainers.malo];
     mainProgram = "codex";
   };
 })

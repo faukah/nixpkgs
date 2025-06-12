@@ -9,7 +9,6 @@
   rich,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "catppuccin";
   version = "2.3.4";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    matplotlib = [ matplotlib ];
-    pygments = [ pygments ];
-    rich = [ rich ];
+    matplotlib = [matplotlib];
+    pygments = [pygments];
+    rich = [rich];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "catppuccin" ];
+  pythonImportsCheck = ["catppuccin"];
 
   meta = {
     description = "Soothing pastel theme for Python";

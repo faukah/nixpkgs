@@ -12,9 +12,7 @@
   redshiftSupport ? true,
   redshift_jdbc,
   liquibase_redshift_extension,
-}:
-
-let
+}: let
   extraJars =
     lib.optional mysqlSupport mysql_jdbc
     ++ lib.optional postgresqlSupport postgresql_jdbc
@@ -23,30 +21,27 @@ let
       liquibase_redshift_extension
     ];
 in
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "liquibase";
+    version = "4.32.0";
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "liquibase";
-  version = "4.32.0";
+    src = fetchurl {
+      url = "https://github.com/liquibase/liquibase/releases/download/v${finalAttrs.version}/liquibase-${finalAttrs.version}.tar.gz";
+      hash = "sha256-EJENQq6ZkMlaSsjwo2ZaJL1A0I+yZAVdeLkjpRJ3TVQ=";
+    };
 
-  src = fetchurl {
-    url = "https://github.com/liquibase/liquibase/releases/download/v${finalAttrs.version}/liquibase-${finalAttrs.version}.tar.gz";
-    hash = "sha256-EJENQq6ZkMlaSsjwo2ZaJL1A0I+yZAVdeLkjpRJ3TVQ=";
-  };
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [jre];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+    sourceRoot = ".";
 
-  sourceRoot = ".";
-
-  installPhase =
-    let
+    installPhase = let
       addJars = dir: ''
         for jar in ${dir}/*.jar; do
           CP="\$CP":"\$jar"
         done
       '';
-    in
-    ''
+    in ''
       mkdir -p $out
       mv ./{lib,licenses} $out/
 
@@ -76,23 +71,23 @@ stdenv.mkDerivation (finalAttrs: {
       chmod +x $out/bin/liquibase
     '';
 
-  passthru.updateScript = gitUpdater {
-    url = "https://github.com/liquibase/liquibase";
-    rev-prefix = "v";
-    # The latest versions are in the 4.xx series.  I am not sure where
-    # 10.10.10 and 5.0.0 came from, though it appears like they are
-    # for the commercial product.
-    ignoredVersions = "10.10.10|5.0.0|.*-beta.*";
-  };
+    passthru.updateScript = gitUpdater {
+      url = "https://github.com/liquibase/liquibase";
+      rev-prefix = "v";
+      # The latest versions are in the 4.xx series.  I am not sure where
+      # 10.10.10 and 5.0.0 came from, though it appears like they are
+      # for the commercial product.
+      ignoredVersions = "10.10.10|5.0.0|.*-beta.*";
+    };
 
-  meta = with lib; {
-    description = "Version Control for your database";
-    mainProgram = "liquibase";
-    homepage = "https://www.liquibase.org/";
-    changelog = "https://raw.githubusercontent.com/liquibase/liquibase/v${finalAttrs.version}/changelog.txt";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    license = licenses.asl20;
-    maintainers = with maintainers; [ jsoo1 ];
-    platforms = with platforms; unix;
-  };
-})
+    meta = with lib; {
+      description = "Version Control for your database";
+      mainProgram = "liquibase";
+      homepage = "https://www.liquibase.org/";
+      changelog = "https://raw.githubusercontent.com/liquibase/liquibase/v${finalAttrs.version}/changelog.txt";
+      sourceProvenance = with sourceTypes; [binaryBytecode];
+      license = licenses.asl20;
+      maintainers = with maintainers; [jsoo1];
+      platforms = with platforms; unix;
+    };
+  })

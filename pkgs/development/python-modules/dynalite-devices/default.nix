@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dynalite-devices";
   version = "0.1.48";
@@ -26,16 +25,16 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' setup.cfg
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
-  pythonImportsCheck = [ "dynalite_devices_lib" ];
+  pythonImportsCheck = ["dynalite_devices_lib"];
 
   # it would use the erroneous tag v0.47
   passthru.skipBulkUpdate = true;
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ziv1234/python-dynalite-devices";
     changelog = "https://github.com/ziv1234/python-dynalite-devices/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

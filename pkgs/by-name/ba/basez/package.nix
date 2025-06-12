@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "basez";
   version = "1.6.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.quarkline.net/basez/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.oaksoaj ];
+    maintainers = [maintainers.oaksoaj];
     platforms = platforms.all;
   };
 }

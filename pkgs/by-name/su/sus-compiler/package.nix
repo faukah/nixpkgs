@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sus-compiler";
   version = "0.2.1";
@@ -30,16 +29,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/sus_compiler";
 
-  updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  updateScript = nix-update-script {extraArgs = ["--generate-lockfile"];};
 
   meta = {
     description = "New Hardware Design Language that keeps you in the driver's seat";
     homepage = "https://github.com/pc2/sus-compiler";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "sus_compiler";
   };
 })

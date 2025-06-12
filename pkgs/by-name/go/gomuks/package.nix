@@ -10,7 +10,6 @@
   pulseaudio,
   sound-theme-freedesktop,
 }:
-
 buildGoModule rec {
   pname = "gomuks";
   version = "0.3.1";
@@ -26,8 +25,8 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ olm ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [olm];
 
   postInstall = ''
     cp -r ${
@@ -47,13 +46,13 @@ buildGoModule rec {
     substituteAllInPlace $out/share/applications/*
     wrapProgram $out/bin/gomuks \
       --prefix PATH : "${
-        lib.makeBinPath (
-          lib.optionals stdenv.hostPlatform.isLinux [
-            libnotify
-            pulseaudio
-          ]
-        )
-      }" \
+      lib.makeBinPath (
+        lib.optionals stdenv.hostPlatform.isLinux [
+          libnotify
+          pulseaudio
+        ]
+      )
+    }" \
       --set-default GOMUKS_SOUND_NORMAL "${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/message-new-instant.oga" \
       --set-default GOMUKS_SOUND_CRITICAL "${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga"
   '';
@@ -63,6 +62,6 @@ buildGoModule rec {
     description = "Terminal based Matrix client written in Go";
     mainProgram = "gomuks";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
   };
 }

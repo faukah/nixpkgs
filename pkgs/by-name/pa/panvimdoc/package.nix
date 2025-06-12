@@ -7,7 +7,6 @@
   neovim-unwrapped,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "panvimdoc";
   version = "4.0.1";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-HmEBPkNELHC7Xy0v730sQWZyPPwFdIBUcELzNtrWwzQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -44,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kdheepak/panvimdoc";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ mrcjkb ];
+    maintainers = with lib.maintainers; [mrcjkb];
     mainProgram = "panvimdoc";
   };
 })

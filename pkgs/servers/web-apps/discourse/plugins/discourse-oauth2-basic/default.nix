@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin rec {
   name = "discourse-oauth2-basic";
   bundlerEnvArgs.gemdir = ./.;
@@ -15,7 +14,7 @@ mkDiscoursePlugin rec {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/${name}";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     license = licenses.mit;
     description = "Basic OAuth2 plugin for use with Discourse";
   };

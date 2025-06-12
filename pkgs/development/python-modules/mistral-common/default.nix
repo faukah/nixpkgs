@@ -13,7 +13,6 @@
   pillow,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "mistral-common";
   version = "1.5.4";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "tiktoken"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     numpy
@@ -46,12 +45,12 @@ buildPythonPackage rec {
 
   doCheck = true;
 
-  pythonImportsCheck = [ "mistral_common" ];
+  pythonImportsCheck = ["mistral_common"];
 
   meta = with lib; {
     description = "mistral-common is a set of tools to help you work with Mistral models.";
     homepage = "https://github.com/mistralai/mistral-common";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
   };
 }

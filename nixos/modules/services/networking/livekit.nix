@@ -4,16 +4,14 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.livekit;
-  format = pkgs.formats.json { };
-in
-{
-  meta.maintainers = with lib.maintainers; [ quadradical ];
+  format = pkgs.formats.json {};
+in {
+  meta.maintainers = with lib.maintainers; [quadradical];
   options.services.livekit = {
     enable = lib.mkEnableOption "the livekit server";
-    package = lib.mkPackageOption pkgs "livekit" { };
+    package = lib.mkPackageOption pkgs "livekit" {};
 
     keyFile = lib.mkOption {
       type = lib.types.path;
@@ -68,7 +66,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = ''
         LiveKit configuration file expressed in nix.
 
@@ -93,13 +91,13 @@ in
 
     systemd.services.livekit = {
       description = "LiveKit SFU server";
-      documentation = [ "https://docs.livekit.io" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      documentation = ["https://docs.livekit.io"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
-        LoadCredential = [ "livekit-secrets:${cfg.keyFile}" ];
+        LoadCredential = ["livekit-secrets:${cfg.keyFile}"];
         ExecStart = utils.escapeSystemdExecArgs [
           (lib.getExe cfg.package)
           "--config=${format.generate "livekit.json" cfg.settings}"

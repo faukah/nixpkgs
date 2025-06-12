@@ -10,7 +10,6 @@
   python-i18n,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pygame-gui";
   version = "0614";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-wLvWaJuXMXk7zOaSZfIpsXhQt+eCjOtlh8IRuKbR75o=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     pygame-ce
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "xsel" "${lib.getExe pkgs.xsel}"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -62,7 +61,7 @@ buildPythonPackage rec {
       "test_process_event"
     ];
 
-  disabledTestPaths = [ "tests/test_performance/test_text_performance.py" ];
+  disabledTestPaths = ["tests/test_performance/test_text_performance.py"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -74,7 +73,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "GUI system for pygame";
     homepage = "https://github.com/MyreMylar/pygame_gui";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       emilytrau
       pbsds

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oui";
   version = "0.1.8";
@@ -20,8 +19,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "MAC Address CLI Toolkit";
     homepage = "https://github.com/thatmattlove/oui";
-    license = with licenses; [ bsd3 ];
-    teams = [ teams.wdz ];
+    license = with licenses; [bsd3];
+    teams = [teams.wdz];
     mainProgram = "oui";
   };
 }

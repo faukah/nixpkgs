@@ -10,7 +10,6 @@
   curl,
   docbook_xsl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libisds";
   version = "0.11.2";
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
     docbook_xsl
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error=deprecated-declarations"];
 
   meta = with lib; {
     description = "Client library for accessing SOAP services of Czech government-provided Databox infomation system";
     homepage = "http://xpisar.wz.cz/libisds/";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.linux;
   };
 }

@@ -6,7 +6,6 @@
   libmd,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libbsd";
   version = "0.12.2";
@@ -26,8 +25,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  propagatedBuildInputs = [ libmd ];
+  nativeBuildInputs = [autoreconfHook];
+  propagatedBuildInputs = [libmd];
 
   patches = [
     # `strtonum(3)` is not available on our default SDK version.
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   # Fix undefined reference errors with version script under LLVM.
   configureFlags = lib.optionals (
     stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17"
-  ) [ "LDFLAGS=-Wl,--undefined-version" ];
+  ) ["LDFLAGS=-Wl,--undefined-version"];
 
   meta = with lib; {
     description = "Common functions found on BSD systems";
@@ -59,6 +58,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.unix;
     # See architectures defined in src/local-elf.h.
     badPlatforms = lib.platforms.microblaze;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

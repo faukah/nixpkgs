@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     description = "Group of compressors mixed into a bus, sidechained from that mix bus. For jack and lv2";
     homepage = "https://github.com/magnetophon/CompBus";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

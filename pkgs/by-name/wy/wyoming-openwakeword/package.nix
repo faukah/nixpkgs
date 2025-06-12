@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "wyoming-openwakeword";
   version = "1.10.0";
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     description = "Open source voice assistant toolkit for many human languages";
     homepage = "https://github.com/rhasspy/wyoming-openwakeword";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     mainProgram = "wyoming-openwakeword";
   };
 }

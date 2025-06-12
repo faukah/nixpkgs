@@ -8,7 +8,6 @@
   ruamel-yaml,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-frontmatter";
   version = "2.0.8";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-2heQw8LL/ILY36oItBeQq33qjVBGT51qGG4CcCEDutA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     mdformat
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     ruamel-yaml
   ];
 
-  pythonImportsCheck = [ "mdformat_frontmatter" ];
+  pythonImportsCheck = ["mdformat_frontmatter"];
 
   meta = with lib; {
     description = "Mdformat plugin to ensure frontmatter is respected";

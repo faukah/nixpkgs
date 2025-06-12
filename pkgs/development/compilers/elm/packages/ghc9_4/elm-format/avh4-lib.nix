@@ -54,7 +54,7 @@ mkDerivation {
     tasty-hunit
     text
   ];
-  testToolDepends = [ tasty-discover ];
+  testToolDepends = [tasty-discover];
   description = "Common code for haskell projects";
   license = lib.licenses.bsd3;
 }

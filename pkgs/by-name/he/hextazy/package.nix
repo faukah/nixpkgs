@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hextazy";
   version = "0.8";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/0xfalafel/hextazy";
     changelog = "https://github.com/0xfalafel/hextazy/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ akechishiro ];
+    maintainers = with lib.maintainers; [akechishiro];
     mainProgram = "hextazy";
   };
 }

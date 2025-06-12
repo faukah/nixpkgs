@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "nexttrace";
   version = "1.4.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Open source visual route tracking CLI tool";
     homepage = "https://mtr.moe";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sharzy ];
+    maintainers = with maintainers; [sharzy];
     mainProgram = "nexttrace";
     # Broken on darwin for Go toolchain > 1.22, with error:
     # 'link: github.com/nxtrace/NTrace-core/trace/internal: invalid reference to net.internetSocket'

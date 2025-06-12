@@ -11,7 +11,6 @@
   pillow,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "aggdraw";
   version = "1.3.19";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     pkgconfig
   ];
 
-  buildInputs = [ freetype ];
+  buildInputs = [freetype];
 
   nativeCheckInputs = [
     numpy
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "aggdraw" ];
+  pythonImportsCheck = ["aggdraw"];
 
   meta = with lib; {
     description = "High quality drawing interface for PIL";
     homepage = "https://github.com/pytroll/aggdraw";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

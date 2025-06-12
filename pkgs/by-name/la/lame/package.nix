@@ -15,7 +15,6 @@
   mp3rtpSupport ? false, # Build mp3rtp
   debugSupport ? false, # Debugging (disables optimizations)
 }:
-
 stdenv.mkDerivation rec {
   pname = "lame";
   version = "3.100";
@@ -32,10 +31,10 @@ stdenv.mkDerivation rec {
   ]; # a small single header
   outputMan = "out";
 
-  nativeBuildInputs = [ ] ++ lib.optional nasmSupport nasm;
+  nativeBuildInputs = [] ++ lib.optional nasmSupport nasm;
 
   buildInputs =
-    [ ]
+    []
     #++ optional efenceSupport libefence
     #++ optional mp3xSupport gtk1
     ++ lib.optional sndfileFileIOSupport libsndfile;
@@ -44,7 +43,11 @@ stdenv.mkDerivation rec {
     (lib.enableFeature nasmSupport "nasm")
     (lib.enableFeature cpmlSupport "cpml")
     #(enableFeature efenceSupport "efence")
-    (if sndfileFileIOSupport then "--with-fileio=sndfile" else "--with-fileio=lame")
+    (
+      if sndfileFileIOSupport
+      then "--with-fileio=sndfile"
+      else "--with-fileio=lame"
+    )
     (lib.enableFeature analyzerHooksSupport "analyzer-hooks")
     (lib.enableFeature decoderSupport "decoder")
     (lib.enableFeature frontendSupport "frontend")
@@ -64,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "High quality MPEG Audio Layer III (MP3) encoder";
     homepage = "http://lame.sourceforge.net";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
     mainProgram = "lame";
   };

@@ -1,12 +1,9 @@
-{ lib, ... }:
-
-{
-
+{lib, ...}: {
   name = "activation-var";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
-  nodes.machine = { };
+  nodes.machine = {};
 
   testScript = ''
     assert machine.succeed("stat -c '%a' /var/tmp") == "1777\n"

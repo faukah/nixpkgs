@@ -11,5 +11,5 @@ mkKdeDerivation {
     qttools
     shared-mime-info
   ];
-  extraBuildInputs = [ qtdeclarative ];
+  extraBuildInputs = [qtdeclarative];
 }

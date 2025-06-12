@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "macse";
   version = "2.03";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0jnjyz4f255glg37rawzdv4m6nfs7wfwc5dny7afvx4dz2sv4ssh";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   dontBuild = true;
@@ -32,9 +31,9 @@ stdenv.mkDerivation rec {
     description = "Multiple alignment of coding sequences";
     mainProgram = "macse";
     homepage = "https://bioweb.supagro.inra.fr/macse/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.all;
   };
 }

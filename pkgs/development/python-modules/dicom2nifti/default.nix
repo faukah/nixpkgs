@@ -2,24 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   gdcm,
   nibabel,
   numpy,
   pydicom,
   scipy,
-
   # tests
   pillow,
   pylibjpeg,
   pylibjpeg-libjpeg,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dicom2nifti";
   version = "2.5.1";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     substituteInPlace tests/test_ge.py --replace-fail "import convert_generic" "import dicom2nifti.convert_generic as convert_generic"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gdcm
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "dicom2nifti" ];
+  pythonImportsCheck = ["dicom2nifti"];
 
   nativeCheckInputs = [
     pillow
@@ -79,6 +75,6 @@ buildPythonPackage rec {
     description = "Library for converting dicom files to nifti";
     mainProgram = "dicom2nifti";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

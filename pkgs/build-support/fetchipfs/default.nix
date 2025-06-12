@@ -4,29 +4,29 @@
   curl,
 }:
 lib.fetchers.withNormalizedHash
+{
+  hashTypes = [
+    "sha1"
+    "sha256"
+    "sha512"
+  ];
+}
+(
   {
-    hashTypes = [
-      "sha1"
-      "sha256"
-      "sha512"
-    ];
-  }
-  (
-    {
-      ipfs,
-      url ? "",
-      curlOpts ? "",
-      outputHash,
-      outputHashAlgo,
-      meta ? { },
-      port ? "8080",
-      postFetch ? "",
-      preferLocalBuild ? true,
-    }:
+    ipfs,
+    url ? "",
+    curlOpts ? "",
+    outputHash,
+    outputHashAlgo,
+    meta ? {},
+    port ? "8080",
+    postFetch ? "",
+    preferLocalBuild ? true,
+  }:
     stdenv.mkDerivation {
       name = ipfs;
       builder = ./builder.sh;
-      nativeBuildInputs = [ curl ];
+      nativeBuildInputs = [curl];
 
       # New-style output content requirements.
       inherit outputHash outputHashAlgo;
@@ -45,4 +45,4 @@ lib.fetchers.withNormalizedHash
       # traffic, so don't do that.
       inherit preferLocalBuild;
     }
-  )
+)

@@ -8,7 +8,6 @@
   wrapGAppsHook3,
   adwaita-icon-theme,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "wpgtk";
   version = "6.5.9";

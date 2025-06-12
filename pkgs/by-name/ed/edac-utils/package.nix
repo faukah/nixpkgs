@@ -7,7 +7,6 @@
   dmidecode,
   kmod,
 }:
-
 stdenv.mkDerivation {
   pname = "edac-utils";
   version = "unstable-2023-01-30";
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
   # a Perl script. Perl from buildInputs is used by patchShebangsAuto in
   # fixupPhase to update the hash bang line.
   strictDeps = true;
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
   buildInputs = [
     perl
     sysfsutils

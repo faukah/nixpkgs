@@ -10,7 +10,6 @@
   moreutils,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "prisma";
   version = "6.7.0";
@@ -92,14 +91,14 @@ stdenv.mkDerivation (finalAttrs: {
   dontStrip = true;
 
   passthru.tests = {
-    cli = callPackage ./test-cli.nix { };
+    cli = callPackage ./test-cli.nix {};
   };
 
   meta = with lib; {
     description = "Next-generation ORM for Node.js and TypeScript";
     homepage = "https://www.prisma.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aqrln ];
+    maintainers = with maintainers; [aqrln];
     platforms = platforms.unix;
   };
 })

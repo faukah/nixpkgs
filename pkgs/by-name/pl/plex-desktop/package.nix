@@ -3,7 +3,7 @@
   autoPatchelfHook,
   buildFHSEnv,
   elfutils,
-  extraEnv ? { },
+  extraEnv ? {},
   fetchurl,
   ffmpeg_6-headless,
   lib,
@@ -20,8 +20,7 @@
   writeShellScript,
   xkeyboard_config,
   xorg,
-}:
-let
+}: let
   pname = "plex-desktop";
   version = "1.109.0";
   rev = "85";
@@ -34,9 +33,9 @@ let
       but uses a more powerful playback engine as well as
       some other advance features.
     '';
-    maintainers = with lib.maintainers; [ detroyejr ];
+    maintainers = with lib.maintainers; [detroyejr];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "plex-desktop";
   };
   plex-desktop = stdenv.mkDerivation {
@@ -122,43 +121,43 @@ let
     '';
   };
 in
-buildFHSEnv {
-  inherit pname version meta;
-  targetPkgs = pkgs: [
-    alsa-lib
-    libdrm
-    xkeyboard_config
-  ];
+  buildFHSEnv {
+    inherit pname version meta;
+    targetPkgs = pkgs: [
+      alsa-lib
+      libdrm
+      xkeyboard_config
+    ];
 
-  extraInstallCommands = ''
-    mkdir -p $out/share/applications $out/share/icons/hicolor/scalable/apps
-    install -m 444 -D ${plex-desktop}/meta/gui/plex-desktop.desktop $out/share/applications/plex-desktop.desktop
-    substituteInPlace $out/share/applications/plex-desktop.desktop \
-      --replace-fail \
-      'Icon=''${SNAP}/meta/gui/icon.png' \
-      'Icon=${plex-desktop}/meta/gui/icon.png'
-  '';
+    extraInstallCommands = ''
+      mkdir -p $out/share/applications $out/share/icons/hicolor/scalable/apps
+      install -m 444 -D ${plex-desktop}/meta/gui/plex-desktop.desktop $out/share/applications/plex-desktop.desktop
+      substituteInPlace $out/share/applications/plex-desktop.desktop \
+        --replace-fail \
+        'Icon=''${SNAP}/meta/gui/icon.png' \
+        'Icon=${plex-desktop}/meta/gui/icon.png'
+    '';
 
-  runScript = writeShellScript "plex-desktop.sh" ''
-    # Widevine won't download unless this directory exists.
-    mkdir -p $HOME/.cache/plex/
+    runScript = writeShellScript "plex-desktop.sh" ''
+      # Widevine won't download unless this directory exists.
+      mkdir -p $HOME/.cache/plex/
 
-    # Copy the sqlite plugin database on first run.
-    PLEX_DB="$HOME/.local/share/plex/Plex Media Server/Plug-in Support/Databases"
-    if [[ ! -d "$PLEX_DB" ]]; then
-      mkdir -p "$PLEX_DB"
-      cp "${plex-desktop}/resources/com.plexapp.plugins.library.db" "$PLEX_DB"
-    fi
+      # Copy the sqlite plugin database on first run.
+      PLEX_DB="$HOME/.local/share/plex/Plex Media Server/Plug-in Support/Databases"
+      if [[ ! -d "$PLEX_DB" ]]; then
+        mkdir -p "$PLEX_DB"
+        cp "${plex-desktop}/resources/com.plexapp.plugins.library.db" "$PLEX_DB"
+      fi
 
-    # db files should have write access.
-    chmod --recursive 750 "$PLEX_DB"
+      # db files should have write access.
+      chmod --recursive 750 "$PLEX_DB"
 
-    # These environment variables sometimes silently cause plex to crash.
-    unset QT_QPA_PLATFORM QT_STYLE_OVERRIDE
+      # These environment variables sometimes silently cause plex to crash.
+      unset QT_QPA_PLATFORM QT_STYLE_OVERRIDE
 
-    set -o allexport
-    ${lib.toShellVars extraEnv}
-    exec ${plex-desktop}/Plex.sh
-  '';
-  passthru.updateScript = ./update.sh;
-}
+      set -o allexport
+      ${lib.toShellVars extraEnv}
+      exec ${plex-desktop}/Plex.sh
+    '';
+    passthru.updateScript = ./update.sh;
+  }

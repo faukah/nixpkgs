@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "slack-term";
   version = "0.5.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
     description = "Slack client for your terminal";
     homepage = "https://github.com/erroneousboat/slack-term";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "slack-term";
   };
 }

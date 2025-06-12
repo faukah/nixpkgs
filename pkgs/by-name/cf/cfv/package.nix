@@ -4,7 +4,6 @@
   python3,
   pkgs,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cfv";
   version = "3.1.0";
@@ -38,7 +37,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/cfv-project/cfv";
     changelog = "https://github.com/cfv-project/cfv/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ jjtt ];
+    maintainers = with lib.maintainers; [jjtt];
     mainProgram = "cfv";
   };
 }

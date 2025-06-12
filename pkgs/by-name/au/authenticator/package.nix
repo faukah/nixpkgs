@@ -24,7 +24,6 @@
   glycin-loaders,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "authenticator";
   version = "4.6.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     glib
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-bad.override { enableZbar = true; })
+    (gst_all_1.gst-plugins-bad.override {enableZbar = true;})
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-rs
     gtk4
@@ -84,7 +83,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -92,8 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "authenticator";
     homepage = "https://gitlab.gnome.org/World/Authenticator";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ austinbutler ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [austinbutler];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 })

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libudev-zero";
   version = "1.0.3";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       shamilton
     ];
     license = lib.licenses.isc;
-    pkgConfigModules = [ "libudev" ];
+    pkgConfigModules = ["libudev"];
     platforms = lib.platforms.linux;
   };
 })

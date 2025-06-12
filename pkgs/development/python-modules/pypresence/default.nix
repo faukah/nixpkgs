@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pypresence";
   version = "4.3.0";
@@ -15,12 +14,12 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # tests require internet connection
-  pythonImportsCheck = [ "pypresence" ];
+  pythonImportsCheck = ["pypresence"];
 
   meta = with lib; {
     homepage = "https://qwertyquerty.github.io/pypresence/html/index.html";
     description = "Discord RPC client written in Python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

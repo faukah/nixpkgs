@@ -4,18 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   xcfg = config.services.xserver;
   dmcfg = config.services.displayManager;
   xEnv = config.systemd.services.display-manager.environment;
   cfg = xcfg.displayManager.lightdm;
   sessionData = dmcfg.sessionData;
 
-  setSessionScript = pkgs.callPackage ./account-service-util.nix { };
+  setSessionScript = pkgs.callPackage ./account-service-util.nix {};
 
   inherit (pkgs) lightdm writeScript writeText;
 
@@ -68,11 +64,9 @@ let
     ''}
     ${cfg.extraSeatDefaults}
   '';
-
-in
-{
+in {
   meta = with lib; {
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [] ++ teams.pantheon.members;
   };
 
   # Note: the order in which lightdm greeter modules are imported
@@ -87,8 +81,9 @@ in
     ./lightdm-greeters/tiny.nix
     ./lightdm-greeters/slick.nix
     ./lightdm-greeters/mobile.nix
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "lightdm" "autoLogin" "enable" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "lightdm" "autoLogin" "enable"]
       [
         "services"
         "displayManager"
@@ -96,8 +91,9 @@ in
         "enable"
       ]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "displayManager" "lightdm" "autoLogin" "user" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "displayManager" "lightdm" "autoLogin" "user"]
       [
         "services"
         "displayManager"
@@ -108,9 +104,7 @@ in
   ];
 
   options = {
-
     services.xserver.displayManager.lightdm = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -134,7 +128,6 @@ in
             The LightDM greeter to login via. The package should be a directory
             containing a .desktop file matching the name in the 'name' option.
           '';
-
         };
         name = mkOption {
           type = types.str;
@@ -180,12 +173,10 @@ in
           Show the greeter for this many seconds before automatic login occurs.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = xcfg.enable;
@@ -216,9 +207,9 @@ in
     # Auto-login is already covered by a config value.
     services.displayManager.preStart =
       optionalString (!dmcfg.autoLogin.enable && dmcfg.defaultSession != null)
-        ''
-          ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
-        '';
+      ''
+        ${setSessionScript}/bin/set-session ${dmcfg.defaultSession}
+      '';
 
     # setSessionScript needs session-files in XDG_DATA_DIRS
     services.displayManager.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";
@@ -274,13 +265,13 @@ in
     environment.etc."lightdm/users.conf".source = usersConf;
 
     services.dbus.enable = true;
-    services.dbus.packages = [ lightdm ];
+    services.dbus.packages = [lightdm];
 
     # lightdm uses the accounts daemon to remember language/window-manager per user
     services.accounts-daemon.enable = true;
 
     # Enable the accounts daemon to find lightdm's dbus interface
-    environment.systemPackages = [ lightdm ];
+    environment.systemPackages = [lightdm];
 
     security.polkit.enable = true;
 

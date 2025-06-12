@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "typodermic-free-fonts";
   version = "2024-04";
@@ -30,10 +29,12 @@ stdenvNoCC.mkDerivation {
   meta = {
     homepage = "https://typodermicfonts.com/";
     description = "Typodermic fonts";
-    maintainers = with lib.maintainers; [ ehmry ];
-    license = lib.licenses.unfree // {
-      fullName = "Font Software for Desktop End User License Agreement";
-      url = "https://typodermicfonts.com/end-user-license-agreement/";
-    }; # Font is fine for use in printing and display but cannot be embbeded.
+    maintainers = with lib.maintainers; [ehmry];
+    license =
+      lib.licenses.unfree
+      // {
+        fullName = "Font Software for Desktop End User License Agreement";
+        url = "https://typodermicfonts.com/end-user-license-agreement/";
+      }; # Font is fine for use in printing and display but cannot be embbeded.
   };
 }

@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.journald.remote;
   format = pkgs.formats.systemd;
 
-  cliArgs = lib.cli.toGNUCommandLineShell { } {
+  cliArgs = lib.cli.toGNUCommandLineShell {} {
     inherit (cfg) output;
     # "-3" specifies the file descriptor from the .socket unit.
     "listen-${cfg.listen}" = "-3";
   };
-in
-{
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+in {
+  meta.maintainers = [lib.maintainers.raitobezarius];
   options.services.journald.remote = {
     enable = lib.mkEnableOption "receiving systemd journals from the network";
 
@@ -58,7 +55,7 @@ in
     };
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
 
       description = ''
         Configuration in the journal-remote configuration file. See
@@ -153,7 +150,7 @@ in
     ];
 
     systemd.sockets.systemd-journal-remote = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       listenStreams = [
         # Clear the default port
         ""
@@ -162,7 +159,7 @@ in
     };
 
     # User and group used by systemd-journal-remote.service
-    users.groups.systemd-journal-remote = { };
+    users.groups.systemd-journal-remote = {};
     users.users.systemd-journal-remote = {
       isSystemUser = true;
       group = "systemd-journal-remote";

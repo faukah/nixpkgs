@@ -5,7 +5,6 @@
   bundlerUpdateScript,
   nixosTests,
 }:
-
 bundlerEnv {
   inherit ruby;
 

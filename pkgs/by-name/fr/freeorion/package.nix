@@ -22,7 +22,6 @@
   glew,
   libxslt,
 }:
-
 stdenv.mkDerivation {
   pname = "freeorion";
   version = "0.5.0.1-unstable-2024-07-28";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
       enablePython = true;
       python = python3;
     })
-    (python3.withPackages (p: with p; [ pycodestyle ]))
+    (python3.withPackages (p: with p; [pycodestyle]))
     SDL2
     freetype
     glew
@@ -64,7 +63,7 @@ stdenv.mkDerivation {
   ];
 
   # as of 0.5.0.1 FreeOrion doesn't work with "-DOpenGL_GL_PREFERENCE=GLVND"
-  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=LEGACY" ];
+  cmakeFlags = ["-DOpenGL_GL_PREFERENCE=LEGACY"];
 
   postInstall = ''
     mkdir -p $out/libexec
@@ -91,6 +90,6 @@ stdenv.mkDerivation {
       cc-by-sa-30
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tex ];
+    maintainers = with maintainers; [tex];
   };
 }

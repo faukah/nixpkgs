@@ -3,10 +3,8 @@
   pythonOlder,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # Python Inputs
   decorator,
   docplex,
@@ -20,7 +18,6 @@
   pylatexenc,
   qiskit-aer,
 }:
-
 buildPythonPackage rec {
   pname = "qiskit-optimization";
   version = "0.6.1";
@@ -39,7 +36,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "networkx>=2.2,<2.6" "networkx"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     docplex
@@ -57,8 +54,8 @@ buildPythonPackage rec {
     qiskit-aer
   ];
 
-  pythonImportsCheck = [ "qiskit_optimization" ];
-  pytestFlagsArray = [ "--durations=10" ];
+  pythonImportsCheck = ["qiskit_optimization"];
+  pytestFlagsArray = ["--durations=10"];
 
   meta = with lib; {
     description = "Software for developing quantum computing programs";
@@ -66,6 +63,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit-optimization/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

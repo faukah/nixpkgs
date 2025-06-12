@@ -11,7 +11,6 @@
   fftwFloat,
   gsl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "EZminc";
   version = "2.2.00-unstable-2023-10-06";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/BIC-MNI/EZminc";
     description = "Collection of Perl and shell scripts for processing MINC files";
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     platforms = lib.platforms.linux; # can't detect opengl on Darwin
     license = lib.licenses.free;
   };

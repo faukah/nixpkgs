@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "redis-app";
   version = "2.2.1";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Redis Application plugin for Grafana";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

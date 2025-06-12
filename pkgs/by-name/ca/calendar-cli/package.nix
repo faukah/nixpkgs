@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "calendar-cli";
   version = "1.0.1";
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/tobixen/calendar-cli";
     license = licenses.gpl3Plus;
     mainProgram = "calendar-cli";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

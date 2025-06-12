@@ -28,7 +28,6 @@
     ]
   ),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   preBuild = ''
     echo "This derivation isn't intended to be built directly and only exists to be overridden and built in chunks";
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
       # and produces unusably slow kernels that are huge
       "-DCK_USE_FP8_ON_UNSUPPORTED_ARCH=OFF"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       # We intentionally set GPU_ARCHS and not AMD/GPU_TARGETS
       # per readme this is required if archs are dissimilar
       # In rocm-6.3.x not setting any arch flag worked
@@ -161,8 +160,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Performance portable programming model for machine learning tensor operators";
     homepage = "https://github.com/ROCm/composable_kernel";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
     broken = true;
   };

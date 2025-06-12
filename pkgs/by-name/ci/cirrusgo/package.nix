@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cirrusgo";
   version = "0.1.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Tool to scan SAAS and PAAS applications";
     mainProgram = "cirrusgo";
     homepage = "https://github.com/Ph33rr/cirrusgo";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

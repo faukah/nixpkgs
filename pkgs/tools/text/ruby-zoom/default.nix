@@ -4,7 +4,6 @@
   ruby,
   bundlerUpdateScript,
 }:
-
 bundlerEnv {
   pname = "ruby-zoom";
 

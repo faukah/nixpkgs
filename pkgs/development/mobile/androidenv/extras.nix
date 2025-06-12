@@ -9,13 +9,11 @@
   pkgs,
   meta,
 }:
-
 deployAndroidPackage {
   inherit package os arch;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals (os == "linux") [autoPatchelfHook];
   buildInputs = lib.optionals (os == "linux") (
-    with pkgs;
-    [
+    with pkgs; [
       llvmPackages.libcxx
       SDL2
     ]
@@ -28,14 +26,13 @@ deployAndroidPackage {
       echo "desktop-head-unit exists"
       wrapProgram $PWD/desktop-head-unit \
         --prefix LD_LIBRARY_PATH : ${
-          lib.makeLibraryPath (
-            with pkgs;
-            [
-              xorg.libX11
-              xorg.libXrandr
-            ]
-          )
-        }
+      lib.makeLibraryPath (
+        with pkgs; [
+          xorg.libX11
+          xorg.libXrandr
+        ]
+      )
+    }
     fi
   '';
 

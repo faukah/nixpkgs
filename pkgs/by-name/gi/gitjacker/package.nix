@@ -5,7 +5,6 @@
   git,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "gitjacker";
   version = "0.1.0";
@@ -19,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  propagatedBuildInputs = [ git ];
+  propagatedBuildInputs = [git];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -39,7 +38,7 @@ buildGoModule rec {
       even where directory listings are disabled.
     '';
     homepage = "https://github.com/liamg/gitjacker";
-    license = with licenses; [ unlicense ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [unlicense];
+    maintainers = with maintainers; [fab];
   };
 }

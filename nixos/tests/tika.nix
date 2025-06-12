@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "tika-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.tika = {
-          enable = true;
-        };
+    machine = {pkgs, ...}: {
+      services.tika = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''
@@ -19,5 +15,5 @@
     machine.wait_for_open_port(9998)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

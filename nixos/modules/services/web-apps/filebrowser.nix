@@ -4,18 +4,16 @@
   lib,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.filebrowser;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   inherit (lib) types;
-in
-{
+in {
   options = {
     services.filebrowser = {
       enable = lib.mkEnableOption "FileBrowser";
 
-      package = lib.mkPackageOption pkgs "filebrowser" { };
+      package = lib.mkPackageOption pkgs "filebrowser" {};
 
       user = lib.mkOption {
         type = types.str;
@@ -32,7 +30,7 @@ in
       openFirewall = lib.mkEnableOption "opening firewall ports for FileBrowser";
 
       settings = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           Settings for FileBrowser.
           Refer to <https://filebrowser.org/cli/filebrowser#options> for all supported values.
@@ -90,18 +88,17 @@ in
   config = lib.mkIf cfg.enable {
     systemd = {
       services.filebrowser = {
-        after = [ "network.target" ];
+        after = ["network.target"];
         description = "FileBrowser";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
-          ExecStart =
-            let
-              args = [
-                (lib.getExe cfg.package)
-                "--config"
-                (format.generate "config.json" cfg.settings)
-              ];
-            in
+          ExecStart = let
+            args = [
+              (lib.getExe cfg.package)
+              "--config"
+              (format.generate "config.json" cfg.settings)
+            ];
+          in
             utils.escapeSystemdExecArgs args;
 
           StateDirectory = "filebrowser";
@@ -155,10 +152,10 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == "filebrowser") {
-      filebrowser = { };
+      filebrowser = {};
     };
 
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.settings.port];
   };
 
   meta.maintainers = [

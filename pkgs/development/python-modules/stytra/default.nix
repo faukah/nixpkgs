@@ -30,7 +30,6 @@
   setuptools,
   tables,
 }:
-
 buildPythonPackage rec {
   pname = "stytra";
   version = "0.8.34";
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     ./0000-workaround-pyqtgraph.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     opencv4
@@ -89,6 +88,6 @@ buildPythonPackage rec {
     description = "Modular package to control stimulation and track behaviour";
     homepage = "https://github.com/portugueslab/stytra";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

@@ -6,7 +6,6 @@
   pythonOlder,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "hatch-nodejs-version";
   version = "0.3.2";
@@ -21,16 +20,16 @@ buildPythonPackage rec {
     hash = "sha256-hknlb11DCe+b55CfF3Pr62ccWPxVrjQ197ZagSiH/zU=";
   };
 
-  propagatedBuildInputs = [ hatchling ];
+  propagatedBuildInputs = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hatch_nodejs_version" ];
+  pythonImportsCheck = ["hatch_nodejs_version"];
 
   meta = with lib; {
     description = "Plugins for dealing with NodeJS versions";
     homepage = "https://github.com/agoose77/hatch-nodejs-version";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -8,7 +8,6 @@
   pcre2,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fdupes";
   version = "2.4.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/adrianlopezroche/fdupes";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.maggesi ];
+    maintainers = [maintainers.maggesi];
     mainProgram = "fdupes";
   };
 }

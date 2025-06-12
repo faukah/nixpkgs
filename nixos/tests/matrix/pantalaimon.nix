@@ -1,13 +1,12 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   pantalaimonInstanceName = "testing";
 
   # Set up SSL certs for Synapse to be happy.
-  runWithOpenSSL =
-    file: cmd:
+  runWithOpenSSL = file: cmd:
     pkgs.runCommand file {
-      buildInputs = [ pkgs.openssl ];
-    } cmd;
+      buildInputs = [pkgs.openssl];
+    }
+    cmd;
 
   ca_key = runWithOpenSSL "ca-key.pem" "openssl genrsa -out $out 2048";
   ca_pem = runWithOpenSSL "ca.pem" ''
@@ -28,59 +27,56 @@ let
       -CAcreateserial -out $out \
       -days 365
   '';
-in
-{
+in {
   name = "pantalaimon";
   meta = with pkgs.lib; {
     maintainers = teams.matrix.members;
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.pantalaimon-headless.instances.${pantalaimonInstanceName} = {
-        homeserver = "https://localhost:8448";
-        listenAddress = "0.0.0.0";
-        listenPort = 8888;
-        logLevel = "debug";
-        ssl = false;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.pantalaimon-headless.instances.${pantalaimonInstanceName} = {
+      homeserver = "https://localhost:8448";
+      listenAddress = "0.0.0.0";
+      listenPort = 8888;
+      logLevel = "debug";
+      ssl = false;
+    };
 
-      services.matrix-synapse = {
-        enable = true;
-        settings = {
-          listeners = [
-            {
-              port = 8448;
-              bind_addresses = [
-                "127.0.0.1"
-                "::1"
-              ];
-              type = "http";
-              tls = true;
-              x_forwarded = false;
-              resources = [
-                {
-                  names = [
-                    "client"
-                  ];
-                  compress = true;
-                }
-                {
-                  names = [
-                    "federation"
-                  ];
-                  compress = false;
-                }
-              ];
-            }
-          ];
-          database.name = "sqlite3";
-          tls_certificate_path = "${cert}";
-          tls_private_key_path = "${key}";
-        };
+    services.matrix-synapse = {
+      enable = true;
+      settings = {
+        listeners = [
+          {
+            port = 8448;
+            bind_addresses = [
+              "127.0.0.1"
+              "::1"
+            ];
+            type = "http";
+            tls = true;
+            x_forwarded = false;
+            resources = [
+              {
+                names = [
+                  "client"
+                ];
+                compress = true;
+              }
+              {
+                names = [
+                  "federation"
+                ];
+                compress = false;
+              }
+            ];
+          }
+        ];
+        database.name = "sqlite3";
+        tls_certificate_path = "${cert}";
+        tls_private_key_path = "${key}";
       };
     };
+  };
 
   testScript = ''
     start_all()

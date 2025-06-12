@@ -8,7 +8,6 @@
   qtscript,
   qmake,
 }:
-
 mkDerivation {
   pname = "iannix";
   version = "unstable-2020-12-09";
@@ -30,9 +29,9 @@ mkDerivation {
     qtscript
   ];
 
-  qmakeFlags = [ "PREFIX=/" ];
+  qmakeFlags = ["PREFIX=/"];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     description = "Graphical open-source sequencer";
@@ -40,6 +39,6 @@ mkDerivation {
     homepage = "https://www.iannix.org/";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

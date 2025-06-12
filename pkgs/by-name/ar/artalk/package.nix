@@ -8,9 +8,7 @@
   versionCheckHook,
   stdenv,
   nixosTests,
-}:
-
-let
+}: let
   pname = "artalk";
   version = "2.9.1";
 
@@ -62,43 +60,43 @@ let
     '';
   });
 in
-buildGoModule {
-  inherit src pname version;
+  buildGoModule {
+    inherit src pname version;
 
-  vendorHash = "sha256-oAqYQzOUjly97H5L5PQ9I2SO2KqiUVxdJA+eoPrHD6Q=";
+    vendorHash = "sha256-oAqYQzOUjly97H5L5PQ9I2SO2KqiUVxdJA+eoPrHD6Q=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+    ldflags = [
+      "-s"
+      "-w"
+    ];
 
-  preBuild = ''
-    cp -r ${frontend}/* ./public
-  '';
+    preBuild = ''
+      cp -r ${frontend}/* ./public
+    '';
 
-  nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd artalk \
-      --bash <($out/bin/artalk completion bash) \
-      --fish <($out/bin/artalk completion fish) \
-      --zsh <($out/bin/artalk completion zsh)
-  '';
+    postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd artalk \
+        --bash <($out/bin/artalk completion bash) \
+        --fish <($out/bin/artalk completion fish) \
+        --zsh <($out/bin/artalk completion zsh)
+    '';
 
-  doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "-v";
+    doInstallCheck = true;
+    nativeInstallCheckInputs = [versionCheckHook];
+    versionCheckProgramArg = "-v";
 
-  passthru.tests = {
-    inherit (nixosTests) artalk;
-  };
+    passthru.tests = {
+      inherit (nixosTests) artalk;
+    };
 
-  meta = {
-    description = "Self-hosted comment system";
-    homepage = "https://github.com/ArtalkJS/Artalk";
-    changelog = "https://github.com/ArtalkJS/Artalk/releases/tag/v${version}";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
-    mainProgram = "artalk";
-  };
-}
+    meta = {
+      description = "Self-hosted comment system";
+      homepage = "https://github.com/ArtalkJS/Artalk";
+      changelog = "https://github.com/ArtalkJS/Artalk/releases/tag/v${version}";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [moraxyc];
+      mainProgram = "artalk";
+    };
+  }

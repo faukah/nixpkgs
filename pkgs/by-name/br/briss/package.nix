@@ -1,5 +1,4 @@
 # The releases of this project are apparently precompiled to .jar files.
-
 {
   lib,
   stdenv,
@@ -7,7 +6,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "briss";
   version = "0.9";
@@ -16,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "45dd668a9ceb9cd59529a9fefe422a002ee1554a61be07e6fc8b3baf33d733d9";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p "$out/bin";
@@ -28,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://sourceforge.net/projects/briss/";
     description = "Java application for cropping PDF files";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
     mainProgram = "briss";

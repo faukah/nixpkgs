@@ -3,10 +3,7 @@
   callPackage,
   fetchurl,
   lib,
-}:
-
-let
-
+}: let
   pname = "lens-desktop";
   version = "2024.11.261604";
 
@@ -40,23 +37,23 @@ let
     ];
     platforms = builtins.attrNames sources;
   };
-
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-  }
-else
-  callPackage ./linux.nix {
-    inherit
-      pname
-      version
-      src
-      meta
-      ;
-  }
+  if stdenv.hostPlatform.isDarwin
+  then
+    callPackage ./darwin.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+    }
+  else
+    callPackage ./linux.nix {
+      inherit
+        pname
+        version
+        src
+        meta
+        ;
+    }

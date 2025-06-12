@@ -7,7 +7,6 @@
   obs-studio,
   qtbase,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-vertical-canvas";
   version = "1.4.10";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0XfJ8q8n2ANO0oDtLZhZjRunZ5S1EouQ6Ak/pxEQYOQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     curl
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Plugin for OBS Studio to add vertical canvas";
     homepage = "https://github.com/Aitum/obs-vertical-canvas";
-    maintainers = with lib.maintainers; [ flexiondotorg ];
+    maintainers = with lib.maintainers; [flexiondotorg];
     license = lib.licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

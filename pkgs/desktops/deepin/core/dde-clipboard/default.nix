@@ -13,7 +13,6 @@
   glibmm,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-clipboard";
   version = "6.0.11";
@@ -42,13 +41,13 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [ "-DSYSTEMD_USER_UNIT_DIR=${placeholder "out"}/lib/systemd/user" ];
+  cmakeFlags = ["-DSYSTEMD_USER_UNIT_DIR=${placeholder "out"}/lib/systemd/user"];
 
   meta = with lib; {
     description = "DDE optional clipboard manager componment";
     homepage = "https://github.com/linuxdeepin/dde-clipboard";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

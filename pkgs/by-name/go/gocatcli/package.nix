@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gocatcli";
   version = "1.1.2";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gi4/ekLGh5T5D3ifW/FF+ewHesWOyhY01ZZIG6+OENo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd gocatcli \
@@ -30,10 +29,10 @@ buildGoModule rec {
       --zsh <($out/bin/gocatcli completion zsh)
   '';
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/deadc0de6/gocatcli";

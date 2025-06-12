@@ -7,7 +7,6 @@
   testers,
   gptman,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gptman";
   version = "1.1.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   passthru.tests.version = testers.testVersion {
     package = gptman;
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ akshgpt7 ];
+    maintainers = with maintainers; [akshgpt7];
     mainProgram = "gptman";
   };
 }

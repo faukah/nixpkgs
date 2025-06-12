@@ -5,7 +5,6 @@
   net-snmp,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "snmp_exporter";
   version = "0.29.0";
@@ -19,11 +18,11 @@ buildGoModule rec {
 
   vendorHash = "sha256-C5iY3hBqepxLkGwPDVmnDf/ugF4h5y8scEomU9mkMEM=";
 
-  buildInputs = [ net-snmp ];
+  buildInputs = [net-snmp];
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) snmp; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) snmp;};
 
   meta = with lib; {
     description = "SNMP Exporter for Prometheus";

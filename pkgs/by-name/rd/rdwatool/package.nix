@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "rdwatool";
   version = "1.2-unstable-2023-11-27";
@@ -43,7 +42,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to extract information from a Microsoft Remote Desktop Web Access (RDWA) application";
     homepage = "https://github.com/p0dalirius/RDWAtool";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "rdwatool";
   };
 }

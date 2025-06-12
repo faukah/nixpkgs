@@ -25,9 +25,7 @@
   vulkan-loader,
   libasyncns,
   xorg,
-}:
-
-let
+}: let
   pname = "legends-of-equestria";
   version = "2024.06.02";
   description = "Free-to-play MMORPG";
@@ -79,10 +77,10 @@ let
       libXScrnSaver
     ]);
 in
-stdenv.mkDerivation {
-  inherit pname version;
-  src =
-    runCommand "mega-loe"
+  stdenv.mkDerivation {
+    inherit pname version;
+    src =
+      runCommand "mega-loe"
       (
         srcOptions.${stdenv.hostPlatform.system}
         // {
@@ -105,22 +103,22 @@ stdenv.mkDerivation {
         unzip -d $out $dest/*.zip
       '';
 
-  dontBuild = true;
-  buildInputs = [
-    libgcc
-  ];
-  nativeBuildInputs =
-    [
-      makeWrapper
-    ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [
-      copyDesktopItems
-      autoPatchelfHook
+    dontBuild = true;
+    buildInputs = [
+      libgcc
     ];
+    nativeBuildInputs =
+      [
+        makeWrapper
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        copyDesktopItems
+        autoPatchelfHook
+      ];
 
-  installPhase =
-    if stdenv.hostPlatform.isLinux then
-      ''
+    installPhase =
+      if stdenv.hostPlatform.isLinux
+      then ''
         runHook preInstall
 
         loeHome=$out/lib/${pname}
@@ -136,8 +134,7 @@ stdenv.mkDerivation {
 
         runHook postInstall
       ''
-    else
-      ''
+      else ''
         runHook preInstall
 
         mkdir -p $out/Applications
@@ -146,28 +143,27 @@ stdenv.mkDerivation {
         runHook postInstall
       '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "legends-of-equestria";
-      comment = description;
-      desktopName = "Legends of Equestria";
-      genericName = "Legends of Equestria";
-      exec = "LoE";
-      icon = "legends-of-equestria";
-      categories = [ "Game" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "legends-of-equestria";
+        comment = description;
+        desktopName = "Legends of Equestria";
+        genericName = "Legends of Equestria";
+        exec = "LoE";
+        icon = "legends-of-equestria";
+        categories = ["Game"];
+      })
+    ];
 
-  meta = {
-    inherit description;
-    license = lib.licenses.unfree;
-    platforms = lib.attrNames srcOptions;
-    maintainers = with lib.maintainers; [ ulysseszhan ];
-    mainProgram = "LoE";
-    homepage = "https://www.legendsofequestria.com";
-    downloadPage = "https://www.legendsofequestria.com/downloads";
-  };
-
-}
+    meta = {
+      inherit description;
+      license = lib.licenses.unfree;
+      platforms = lib.attrNames srcOptions;
+      maintainers = with lib.maintainers; [ulysseszhan];
+      mainProgram = "LoE";
+      homepage = "https://www.legendsofequestria.com";
+      downloadPage = "https://www.legendsofequestria.com/downloads";
+    };
+  }

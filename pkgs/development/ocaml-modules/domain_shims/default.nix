@@ -3,7 +3,6 @@
   fetchFromGitLab,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "domain_shims";
   version = "0.1.0";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/gasche/domain-shims/";
     description = "Non-parallel implementation of Domains compatible with OCaml 4";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -7,7 +7,6 @@
   testers,
   xorg,
 }:
-
 buildGoModule rec {
   pname = "restish";
   version = "0.20.0";
@@ -48,7 +47,7 @@ buildGoModule rec {
     homepage = "https://rest.sh/";
     changelog = "https://github.com/danielgtaylor/restish/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "restish";
   };
 }

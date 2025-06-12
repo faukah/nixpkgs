@@ -14,7 +14,6 @@
   zope-security,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-component";
   version = "6.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-mgoEcq0gG5S0/mdBzprCwwuLsixRYHe/A2kt7E37aQY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-event
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    persistentregistry = [ persistent ];
+    persistentregistry = [persistent];
     security = [
       zope-location
       zope-proxy
@@ -47,27 +46,27 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "zope.component" ];
+  pythonImportsCheck = ["zope.component"];
 
   nativeCheckInputs = [
     unittestCheckHook
     zope-configuration
   ];
 
-  unittestFlagsArray = [ "src/zope/component/tests" ];
+  unittestFlagsArray = ["src/zope/component/tests"];
 
   # AssertionError: 'test_interface.IFoo' != 'zope.component.tests.test_interface.IFoo'
   preCheck = ''
     rm src/zope/component/tests/test_interface.py
   '';
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.component";
     description = "Zope Component Architecture";
     changelog = "https://github.com/zopefoundation/zope.component/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

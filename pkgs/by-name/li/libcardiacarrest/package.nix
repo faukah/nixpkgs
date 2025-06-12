@@ -6,7 +6,6 @@
   glib,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcardiacarrest";
   version = "12.2.8"; # <PA API version>.<version>
@@ -23,11 +22,11 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     moveToOutput $out/include $dev
@@ -35,8 +34,7 @@ stdenv.mkDerivation rec {
     moveToOutput $out/lib/cmake $dev
   '';
 
-  meta =
-    with lib;
+  meta = with lib;
     src.meta
     // {
       description = "Trivial implementation of libpulse PulseAudio library API";
@@ -53,7 +51,6 @@ stdenv.mkDerivation rec {
         JACK).
       '';
       license = libpulseaudio.meta.license; # "same as PA headers"
-      maintainers = [ maintainers.oxij ]; # also the author
+      maintainers = [maintainers.oxij]; # also the author
     };
-
 }

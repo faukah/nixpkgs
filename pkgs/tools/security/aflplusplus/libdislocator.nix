@@ -3,7 +3,6 @@
   stdenv,
   aflplusplus,
 }:
-
 stdenv.mkDerivation {
   version = lib.getVersion aflplusplus;
   pname = "libdislocator";
@@ -12,7 +11,7 @@ stdenv.mkDerivation {
   postUnpack = "chmod -R +w ${aflplusplus.src.name}";
   sourceRoot = "${aflplusplus.src.name}/utils/libdislocator";
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   preInstall = ''
     mkdir -p $out/lib/afl

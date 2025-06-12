@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "measureme";
   version = "12.0.0";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     description = "Support crate for rustc's self-profiling feature";
     homepage = "https://github.com/rust-lang/measureme";
     license = licenses.asl20;
-    maintainers = [ maintainers.t4ccer ];
+    maintainers = [maintainers.t4ccer];
   };
 }

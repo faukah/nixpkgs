@@ -2,9 +2,7 @@
   stdenv,
   lib,
   fetchFromGitHub,
-}:
-
-let
+}: let
   games = {
     ctf = {
       id = "ctf";
@@ -28,10 +26,10 @@ let
     };
   };
 
-  toDrv =
-    title: data:
+  toDrv = title: data:
     stdenv.mkDerivation rec {
-      inherit (data)
+      inherit
+        (data)
         id
         version
         description
@@ -45,7 +43,7 @@ let
         inherit sha256;
         owner = "yquake2";
         repo = data.id;
-        rev = "${lib.toUpper id}_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+        rev = "${lib.toUpper id}_${builtins.replaceStrings ["."] ["_"] version}";
       };
 
       installPhase = ''
@@ -60,9 +58,8 @@ let
         homepage = "https://www.yamagi.org/quake2/";
         license = licenses.unfree;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ tadfisher ];
+        maintainers = with maintainers; [tadfisher];
       };
     };
-
 in
-lib.mapAttrs toDrv games
+  lib.mapAttrs toDrv games

@@ -4,24 +4,22 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.pihole;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mkRemovedOptionModule
     optionalString
     ;
-in
-{
+in {
   imports = [
-    (mkRemovedOptionModule [ "interval" ] "This option has been removed.")
-    ({
+    (mkRemovedOptionModule ["interval"] "This option has been removed.")
+    {
       options.warnings = options.warnings;
       options.assertions = options.assertions;
-    })
+    }
   ];
 
   port = 9617;

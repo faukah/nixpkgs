@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "grin";
   version = "1.3.0-unstable-2023-08-30";
@@ -17,14 +16,14 @@ python3Packages.buildPythonApplication {
     hash = "sha256-0lrCOXFb2v0hCxWd9O7ysbn8CjPd8NHOJhARYzJJcYg=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/matthew-brett/grin";
     description = "Grep program configured the way I like it";
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.sjagoe ];
+    maintainers = [lib.maintainers.sjagoe];
   };
 }

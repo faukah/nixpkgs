@@ -5,7 +5,6 @@
   pkg-config,
   buildsystem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libnsbmp";
   version = "0.1.7";
@@ -15,9 +14,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-VAenaCoSK6qqWhW1BSkOLTffVME8Xt70sJ0SyGLYIpM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

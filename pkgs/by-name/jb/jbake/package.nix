@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.6.7";
   pname = "jbake";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kikGnFsParq8g0dzzYtMr2vIJD2ie8PeF6TG2G5K7KE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   postPatch = "patchShebangs .";
 
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Java based, open source, static site/blog generator for developers & designers";
     homepage = "https://jbake.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

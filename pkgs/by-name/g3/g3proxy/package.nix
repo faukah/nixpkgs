@@ -9,7 +9,6 @@
   capnproto,
   cmake,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "g3";
   version = "v1.10.4";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   # aws-lc/crypto compilation will trigger `strictoverflow` errors.
-  hardeningDisable = [ "strictoverflow" ];
+  hardeningDisable = ["strictoverflow"];
 
   nativeBuildInputs = [
     pkg-config
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/bytedance/g3";
     changelog = "https://github.com/bytedance/g3/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ raitobezarius ];
+    maintainers = with lib.maintainers; [raitobezarius];
     mainProgram = "g3proxy";
   };
 }

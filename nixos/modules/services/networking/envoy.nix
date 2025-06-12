@@ -3,26 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.envoy;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   conf = format.generate "envoy.json" cfg.settings;
-  validateConfig =
-    required: file:
-    pkgs.runCommand "validate-envoy-conf" { } ''
+  validateConfig = required: file:
+    pkgs.runCommand "validate-envoy-conf" {} ''
       ${cfg.package}/bin/envoy --log-level error --mode validate -c "${file}" ${
         lib.optionalString (!required) "|| true"
       }
       cp "${file}" "$out"
     '';
-in
-
-{
+in {
   options.services.envoy = {
     enable = lib.mkEnableOption "Envoy reverse proxy";
 
-    package = lib.mkPackageOption pkgs "envoy" { };
+    package = lib.mkPackageOption pkgs "envoy" {};
 
     requireValidConfig = lib.mkOption {
       type = lib.types.bool;
@@ -36,7 +32,7 @@ in
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           admin = {
@@ -62,21 +58,21 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.services.envoy = {
       description = "Envoy reverse proxy";
-      after = [ "network-online.target" ];
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      requires = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/envoy -c ${validateConfig cfg.requireValidConfig conf}";
-        CacheDirectory = [ "envoy" ];
-        LogsDirectory = [ "envoy" ];
+        CacheDirectory = ["envoy"];
+        LogsDirectory = ["envoy"];
         Restart = "no";
         # Hardening
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
-        DeviceAllow = [ "" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
+        DeviceAllow = [""];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;

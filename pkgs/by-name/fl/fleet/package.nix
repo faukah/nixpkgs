@@ -4,7 +4,6 @@
   buildGoModule,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "fleet";
   version = "4.68.1";

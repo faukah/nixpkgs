@@ -6,7 +6,6 @@
   replaceVars,
   gitUpdater,
 }:
-
 melpaBuild {
   pname = "codeium";
   version = "1.6.13";
@@ -24,15 +23,14 @@ melpaBuild {
     })
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Free, ultrafast Copilot alternative for Emacs";
     homepage = "https://github.com/Exafunction/codeium.el";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     inherit (codeium.meta) platforms;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
-
 }

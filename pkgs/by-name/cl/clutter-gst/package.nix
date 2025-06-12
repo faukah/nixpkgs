@@ -13,7 +13,6 @@
   gobject-introspection,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clutter-gst";
   version = "3.0.27";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

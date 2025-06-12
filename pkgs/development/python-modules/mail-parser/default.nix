@@ -9,7 +9,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "mail-parser";
   version = "4.1.2";
@@ -24,17 +23,17 @@ buildPythonPackage rec {
 
   LC_ALL = "en_US.utf-8";
 
-  nativeBuildInputs = [ glibcLocales ];
+  nativeBuildInputs = [glibcLocales];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRemoveDeps = [ "ipaddress" ];
+  pythonRemoveDeps = ["ipaddress"];
 
   dependencies = [
     six
   ];
 
-  pythonImportsCheck = [ "mailparser" ];
+  pythonImportsCheck = ["mailparser"];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     mainProgram = "mailparser";
     homepage = "https://github.com/SpamScope/mail-parser";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "owncast";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ MayNiklas ];
+    maintainers = [MayNiklas];
   };
 
   nodes = {
-    client =
-      { pkgs, ... }:
-      with pkgs.lib;
-      {
+    client = {pkgs, ...}:
+      with pkgs.lib; {
         networking = {
           dhcpcd.enable = false;
           interfaces.eth1.ipv6.addresses = mkOverride 0 [
@@ -26,10 +23,8 @@
           ];
         };
       };
-    server =
-      { pkgs, ... }:
-      with pkgs.lib;
-      {
+    server = {pkgs, ...}:
+      with pkgs.lib; {
         networking = {
           dhcpcd.enable = false;
           useNetworkd = true;
@@ -47,7 +42,7 @@
             }
           ];
 
-          firewall.allowedTCPPorts = [ 8080 ];
+          firewall.allowedTCPPorts = [8080];
         };
 
         services.owncast = {

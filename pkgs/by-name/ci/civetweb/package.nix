@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "civetweb";
   version = "1.15";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "Embedded C/C++ web server";
     mainProgram = "civetweb";
     homepage = "https://github.com/civetweb/civetweb";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
 }

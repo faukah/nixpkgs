@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "seashells";
   version = "0.1.2";
@@ -15,7 +14,7 @@ python3Packages.buildPythonApplication rec {
   };
 
   doCheck = false; # there are no tests
-  pythonImportsCheck = [ "seashells" ];
+  pythonImportsCheck = ["seashells"];
 
   meta = with lib; {
     homepage = "https://seashells.io/";
@@ -26,6 +25,6 @@ python3Packages.buildPythonApplication rec {
       command-line output on the web, in real-time.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
   };
 }

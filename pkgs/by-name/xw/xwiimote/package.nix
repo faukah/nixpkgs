@@ -7,7 +7,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation {
   pname = "xwiimote";
   version = "2-unstable-2024-02-29";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     hash = "sha256-y68bi62H7ErVekcs0RZUXPpW+QJ97sTQP4lajB9PsgU=";
   };
 
-  configureFlags = [ "--with-doxygen=no" ];
+  configureFlags = ["--with-doxygen=no"];
 
   buildInputs = [
     udev
@@ -42,6 +41,6 @@ stdenv.mkDerivation {
     mainProgram = "xwiishow";
     platforms = lib.platforms.linux;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

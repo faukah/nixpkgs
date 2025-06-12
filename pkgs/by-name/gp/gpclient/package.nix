@@ -10,7 +10,6 @@
   vpnc-scripts,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gpclient";
   version = "2.4.1";

@@ -15,7 +15,6 @@
   zlib,
   pmix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "prrte";
   version = "3.0.11";
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
     description = "PMIx Reference Runtime Environment";
     homepage = "https://docs.prrte.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ markuskowa ];
+    maintainers = with lib.maintainers; [markuskowa];
     platforms = lib.platforms.unix;
   };
 }

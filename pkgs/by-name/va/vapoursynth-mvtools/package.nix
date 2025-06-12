@@ -8,7 +8,6 @@
   nasm,
   fftwFloat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vapoursynth-mvtools";
   version = "24";
@@ -30,12 +29,12 @@ stdenv.mkDerivation rec {
     fftwFloat
   ];
 
-  configureFlags = [ "--libdir=$(out)/lib/vapoursynth" ];
+  configureFlags = ["--libdir=$(out)/lib/vapoursynth"];
 
   meta = with lib; {
     description = "Set of filters for motion estimation and compensation";
     homepage = "https://github.com/dubhater/vapoursynth-mvtools";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

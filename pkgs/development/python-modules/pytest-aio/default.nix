@@ -13,7 +13,6 @@
   trio-asyncio,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-aio";
   version = "1.9.0";
@@ -28,30 +27,32 @@ buildPythonPackage rec {
     hash = "sha256-6RxYn8/HAvXv1AEgSIEOLiaBkGgTcqQhWK+xbtxgj/o=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   optional-dependencies = {
-    curio = [ curio-compat ];
-    trio = [ trio ];
-    uvloop = [ uvloop ];
+    curio = [curio-compat];
+    trio = [trio];
+    uvloop = [uvloop];
   };
 
-  nativeCheckInputs = [
-    anyio
-    hypothesis
-    pytestCheckHook
-    trio-asyncio
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      anyio
+      hypothesis
+      pytestCheckHook
+      trio-asyncio
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "pytest_aio" ];
+  pythonImportsCheck = ["pytest_aio"];
 
   meta = with lib; {
     description = "Pytest plugin for aiohttp support";
     homepage = "https://github.com/klen/pytest-aio";
     changelog = "https://github.com/klen/pytest-aio/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

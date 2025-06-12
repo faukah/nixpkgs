@@ -6,7 +6,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "switch-to-configuration";
   version = "0.1.0";
@@ -18,8 +17,8 @@ rustPlatform.buildRustPackage {
     outputHashes."rust-ini-0.21.1" = "sha256-0nSBhme/g+mVsYdiq0Ash0ek9WEdvbf/b9FRxA7sauk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dbus];
 
   env.SYSTEMD_DBUS_INTERFACE_DIR = "${buildPackages.systemd}/share/dbus-1/interfaces";
 
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage {
   meta = {
     description = "NixOS switch-to-configuration program";
     mainProgram = "switch-to-configuration";
-    maintainers = with lib.maintainers; [ jmbaur ];
+    maintainers = with lib.maintainers; [jmbaur];
     license = lib.licenses.mit;
   };
 }

@@ -7,7 +7,6 @@
   python3,
   git,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "directx-shader-compiler";
   version = "1.8.2505";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  cmakeFlags = [ "-C../cmake/caches/PredefinedParams.cmake" ];
+  cmakeFlags = ["-C../cmake/caches/PredefinedParams.cmake"];
 
   # The default install target installs heaps of LLVM stuff.
   #
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/microsoft/DirectXShaderCompiler";
     platforms = with lib.platforms; linux ++ darwin;
     license = lib.licenses.ncsa;
-    maintainers = with lib.maintainers; [ Flakebi ];
+    maintainers = with lib.maintainers; [Flakebi];
   };
 })

@@ -1,4 +1,7 @@
-{ lib, testers }:
+{
+  lib,
+  testers,
+}:
 lib.recurseIntoAttrs {
   # Positive tests
   indent2 = testers.shfmt {

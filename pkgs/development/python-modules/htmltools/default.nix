@@ -9,7 +9,6 @@
   pytestCheckHook,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "htmltools";
   version = "0.6.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "htmltools" ];
+  pythonImportsCheck = ["htmltools"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/posit-dev/py-htmltools";
     changelog = "https://github.com/posit-dev/py-htmltools/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

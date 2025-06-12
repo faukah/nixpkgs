@@ -3,13 +3,10 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   poetry-core,
-
   # dependencies
   django,
-
   # optionals
   bleach,
   docutils,
@@ -18,12 +15,10 @@
   python-creole,
   smartypants,
   textile,
-
   # tests
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-markup";
   version = "1.9.1";
@@ -42,9 +37,9 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   optional-dependencies = {
     all_filter_dependencies = [
@@ -58,12 +53,14 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "django_markup" ];
+  pythonImportsCheck = ["django_markup"];
 
-  nativeCheckInputs = [
-    pytest-django
-    pytestCheckHook
-  ] ++ optional-dependencies.all_filter_dependencies;
+  nativeCheckInputs =
+    [
+      pytest-django
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all_filter_dependencies;
 
   disabledTests = [
     # pygments compat issue
@@ -79,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bartTC/django-markup";
     changelog = "https://github.com/bartTC/django-markup/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

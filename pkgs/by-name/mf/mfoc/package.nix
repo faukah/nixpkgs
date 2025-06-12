@@ -7,7 +7,6 @@
   pkg-config,
   libnfc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfoc";
   version = "0.10.7";
@@ -34,14 +33,14 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libnfc ];
+  buildInputs = [libnfc];
 
   meta = with lib; {
     description = "Mifare Classic Offline Cracker";
     mainProgram = "mfoc";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/nfc-tools/mfoc";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

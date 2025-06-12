@@ -27,8 +27,7 @@ buildGoModule rec {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd mdtsql \
         --bash <(${emulator} $out/bin/mdtsql completion bash) \
         --fish <(${emulator} $out/bin/mdtsql completion fish) \
@@ -36,14 +35,14 @@ buildGoModule rec {
     ''
   );
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Execute SQL to markdown table and convert to other format";
     homepage = "https://github.com/noborus/mdtsql";
     changelog = "https://github.com/noborus/mdtsql/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "mdtsql";
   };
 }

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dpms-off";
   version = "0.2.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Turn off monitors to save power (for Wayland)";
     homepage = "https://github.com/lilydjwg/dpms-off";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.philiptaron ];
+    maintainers = [lib.maintainers.philiptaron];
     mainProgram = "dpms-off";
   };
 }

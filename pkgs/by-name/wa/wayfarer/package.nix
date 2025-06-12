@@ -14,7 +14,6 @@
   vala,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayfarer";
   version = "1.2.4-unstable-2025-04-12";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Screen recorder for GNOME / Wayland / pipewire";
     homepage = "https://github.com/stronnag/wayfarer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "wayfarer";
     platforms = subtractLists platforms.darwin platforms.unix;
   };

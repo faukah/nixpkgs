@@ -7,7 +7,6 @@
   jre,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pig";
   version = "0.17.0";
@@ -15,10 +14,9 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "mirror://apache/pig/${pname}-${version}/${pname}-${version}.tar.gz";
     sha256 = "1wwpg0w47f49rnivn2d26vrxgyfl9gpqx3vmzbl5lhx6x5l3fqbd";
-
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out
@@ -30,11 +28,11 @@ stdenv.mkDerivation rec {
     for n in $out/{bin,sbin}"/"*; do
       wrapProgram $n \
         --prefix PATH : "${
-          lib.makeBinPath [
-            jre
-            bash
-          ]
-        }" \
+      lib.makeBinPath [
+        jre
+        bash
+      ]
+    }" \
         --set JAVA_HOME "${jre}" --set HADOOP_PREFIX "${hadoop}"
     done
   '';
@@ -54,6 +52,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

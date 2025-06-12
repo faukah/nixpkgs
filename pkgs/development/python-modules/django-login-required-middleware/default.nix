@@ -7,7 +7,6 @@
   python,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-login-required-middleware";
   version = "0.9.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-WFQ/JvKh6gkUxPV27QBd2TzwFS8hfQGmcTInTnmh6iA=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
-  checkInputs = [ djangorestframework ];
+  checkInputs = [djangorestframework];
 
-  pythonImportsCheck = [ "login_required" ];
+  pythonImportsCheck = ["login_required"];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings tests.settings
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Requires login to all requests through middleware in Django";
     homepage = "https://github.com/CleitonDeLima/django-login-required-middleware";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

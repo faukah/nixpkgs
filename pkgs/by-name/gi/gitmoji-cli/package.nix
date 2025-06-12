@@ -10,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gitmoji-cli";
   version = "9.7.0";
@@ -35,11 +34,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     nodejs
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/gitmoji";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Gitmoji client for using emojis on commit messages";

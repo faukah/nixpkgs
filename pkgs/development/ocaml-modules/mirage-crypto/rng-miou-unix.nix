@@ -8,7 +8,6 @@
   digestif,
   ohex,
 }:
-
 buildDunePackage {
   pname = "mirage-crypto-rng-miou-unix";
 
@@ -16,7 +15,6 @@ buildDunePackage {
 
   doCheck = true;
   checkInputs = [
-
   ];
 
   propagatedBuildInputs = [
@@ -29,11 +27,13 @@ buildDunePackage {
     ohex
   ];
 
-  meta = mirage-crypto-rng.meta // {
-    description = "Feed the entropy source in an miou.unix-friendly way";
-    longDescription = ''
-      Mirage-crypto-rng-miou-unix feeds the entropy source for Mirage_crypto_rng-based
-      random number generator implementations, in an miou.unix-friendly way.
-    '';
-  };
+  meta =
+    mirage-crypto-rng.meta
+    // {
+      description = "Feed the entropy source in an miou.unix-friendly way";
+      longDescription = ''
+        Mirage-crypto-rng-miou-unix feeds the entropy source for Mirage_crypto_rng-based
+        random number generator implementations, in an miou.unix-friendly way.
+      '';
+    };
 }

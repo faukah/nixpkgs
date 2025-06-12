@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "3270font";
   version = "3.0.1";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation rec {
       lib.licenses.bsd3
       lib.licenses.ofl
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

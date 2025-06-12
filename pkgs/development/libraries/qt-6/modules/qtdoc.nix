@@ -4,7 +4,6 @@
   qtbase,
   qttools,
 }:
-
 qtModule {
   pname = "qtdoc";
   # avoid fix-qt-builtin-paths hook substitute QT_INSTALL_DOCS to qtdoc's path
@@ -14,14 +13,14 @@ qtModule {
           --replace '$QT_INSTALL_DOCS' "${qtbase}/share/doc"
     done
   '';
-  nativeBuildInputs = [ (qttools.override { withClang = true; }) ];
-  propagatedBuildInputs = [ qtdeclarative ];
+  nativeBuildInputs = [(qttools.override {withClang = true;})];
+  propagatedBuildInputs = [qtdeclarative];
   cmakeFlags = [
     "-DCMAKE_MESSAGE_LOG_LEVEL=STATUS"
   ];
   dontUseNinjaBuild = true;
-  buildFlags = [ "docs" ];
+  buildFlags = ["docs"];
   dontUseNinjaInstall = true;
-  installFlags = [ "install_docs" ];
-  outputs = [ "out" ];
+  installFlags = ["install_docs"];
+  outputs = ["out"];
 }

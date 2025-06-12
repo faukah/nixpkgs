@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   # nix defaults to building for aarch64 _without_ the armv8-a
   # crypto extensions, but liboqs depends on these
@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     platforms = [
       "aarch64-darwin"
       "aarch64-linux"

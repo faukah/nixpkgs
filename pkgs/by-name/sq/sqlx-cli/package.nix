@@ -11,7 +11,6 @@
   sqlx-cli,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sqlx-cli";
   version = "0.8.6";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   doCheck = false;
-  cargoBuildFlags = [ "--package sqlx-cli" ];
+  cargoBuildFlags = ["--package sqlx-cli"];
 
   nativeBuildInputs = [
     installShellFiles
@@ -63,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     command = "sqlx --version";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "SQLx's associated command-line utility for managing databases, migrations, and enabling offline mode with sqlx::query!() and friends.";

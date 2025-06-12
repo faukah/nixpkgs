@@ -10,7 +10,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pynecil";
   version = "4.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-zgiOdVdc74m+DNg6Phn5L0F/u1jF4OOvGAyvMZzzhAU=";
   };
 
-  pythonRelaxDeps = [ "aiohttp" ];
+  pythonRelaxDeps = ["aiohttp"];
 
   build-system = [
     hatch-regex-commit
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     bleak
   ];
 
-  pythonImportsCheck = [ "pynecil" ];
+  pythonImportsCheck = ["pynecil"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     description = "Python library to communicate with Pinecil V2 soldering irons via Bluetooth";
     homepage = "https://github.com/tr4nt0r/pynecil";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

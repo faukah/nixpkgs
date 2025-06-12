@@ -1,19 +1,15 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "zoneminder";
-  meta.maintainers = with lib.maintainers; [ danielfullmer ];
+  meta.maintainers = with lib.maintainers; [danielfullmer];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.zoneminder = {
-        enable = true;
-        database.createLocally = true;
-        database.username = "zoneminder";
-      };
-      time.timeZone = "America/New_York";
+  nodes.machine = {...}: {
+    services.zoneminder = {
+      enable = true;
+      database.createLocally = true;
+      database.username = "zoneminder";
     };
+    time.timeZone = "America/New_York";
+  };
 
   testScript = ''
     machine.wait_for_unit("zoneminder.service")

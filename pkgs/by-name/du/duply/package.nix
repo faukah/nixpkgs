@@ -13,7 +13,6 @@
   makeWrapper,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "duply";
   version = "2.5.5";
@@ -23,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ABryuV5jJNoxcJLsSjODLOHuLKrSEhY3buzy1cQh+AU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ txt2man ];
+  buildInputs = [txt2man];
 
   postPatch = "patchShebangs .";
 
@@ -37,16 +36,16 @@ stdenv.mkDerivation (finalAttrs: {
     install -vD duply "$out/bin"
     wrapProgram "$out/bin/duply" --prefix PATH : \
         ${lib.makeBinPath [
-          coreutils
-          python3
-          duplicity
-          gawk
-          gnupg
-          bash
-          gnugrep
-          txt2man
-          which
-        ]}
+      coreutils
+      python3
+      duplicity
+      gawk
+      gnupg
+      bash
+      gnugrep
+      txt2man
+      which
+    ]}
     "$out/bin/duply" txt2man > "$out/share/man/man1/duply.1"
 
     runHook postInstall
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://duply.net/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
     platforms = lib.platforms.unix;
   };
 })

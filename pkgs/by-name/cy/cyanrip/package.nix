@@ -43,6 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "cyanrip";
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.zane ];
+    maintainers = [maintainers.zane];
   };
 })

@@ -17,7 +17,6 @@
   rapidjson,
   swig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pythonocc-core";
   version = "7.8.1.1";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/tpaviot/pythonocc-core/releases/tag/${version}";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

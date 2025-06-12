@@ -16,8 +16,7 @@
   qgv,
   stdenv,
   runCommand,
-}:
-let
+}: let
   gepetto-viewer = stdenv.mkDerivation (finalAttrs: {
     pname = "gepetto-viewer";
     version = "6.0.0";
@@ -89,40 +88,40 @@ let
     # Fontconfig error: No writable cache directories
     preBuild = "export XDG_CACHE_HOME=$(mktemp -d)";
 
-    passthru.withPlugins =
-      plugins:
+    passthru.withPlugins = plugins:
       runCommand "gepetto-gui"
-        {
-          inherit (finalAttrs) version;
-          pname = "gepetto-gui";
-          meta = {
-            # can't just "inherit (gepetto-viewer) meta;" because:
-            # error: derivation '/nix/store/…-gepetto-gui.drv' does not have wanted outputs 'bin'
-            inherit (gepetto-viewer.meta)
-              description
-              homepage
-              license
-              maintainers
-              mainProgram
-              platforms
-              ;
-          };
-          nativeBuildInputs = [ makeWrapper ];
-          propagatedBuildInputs = plugins;
-        }
-        ''
-          makeWrapper ${lib.getExe gepetto-viewer} $out/bin/gepetto-gui \
-            --set GEPETTO_GUI_PLUGIN_DIRS ${lib.makeLibraryPath plugins}
-        '';
+      {
+        inherit (finalAttrs) version;
+        pname = "gepetto-gui";
+        meta = {
+          # can't just "inherit (gepetto-viewer) meta;" because:
+          # error: derivation '/nix/store/…-gepetto-gui.drv' does not have wanted outputs 'bin'
+          inherit
+            (gepetto-viewer.meta)
+            description
+            homepage
+            license
+            maintainers
+            mainProgram
+            platforms
+            ;
+        };
+        nativeBuildInputs = [makeWrapper];
+        propagatedBuildInputs = plugins;
+      }
+      ''
+        makeWrapper ${lib.getExe gepetto-viewer} $out/bin/gepetto-gui \
+          --set GEPETTO_GUI_PLUGIN_DIRS ${lib.makeLibraryPath plugins}
+      '';
 
     meta = {
       description = "Graphical Interface for Pinocchio and HPP.";
       homepage = "https://github.com/gepetto/gepetto-viewer";
       license = lib.licenses.lgpl3Only;
-      maintainers = [ lib.maintainers.nim65s ];
+      maintainers = [lib.maintainers.nim65s];
       mainProgram = "gepetto-gui";
       platforms = lib.platforms.unix;
     };
   });
 in
-gepetto-viewer
+  gepetto-viewer

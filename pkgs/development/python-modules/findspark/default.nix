@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "findspark";
   version = "2.0.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "findspark" ];
+  pythonImportsCheck = ["findspark"];
 
   # No tests
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/minrk/findspark";
     changelog = "https://github.com/minrk/findspark/blob/${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

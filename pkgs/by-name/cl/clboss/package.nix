@@ -10,7 +10,6 @@
   libunwind,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clboss";
   version = "0.14.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Automated C-Lightning Node Manager";
     homepage = "https://github.com/ZmnSCPxj/clboss";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "clboss";
   };

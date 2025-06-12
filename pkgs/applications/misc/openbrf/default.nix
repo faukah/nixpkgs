@@ -12,7 +12,6 @@
   eigen,
   libGL,
 }:
-
 mkDerivation {
   pname = "openbrf";
   version = "unstable-2016-01-09";
@@ -40,9 +39,9 @@ mkDerivation {
     eigen
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  qmakeFlags = [ "openBrf.pro" ];
+  qmakeFlags = ["openBrf.pro"];
 
   env.NIX_CFLAGS_COMPILE = "-isystem ${lib.getDev eigen}/include/eigen3";
 
@@ -57,14 +56,14 @@ mkDerivation {
 
     patchelf  \
       --set-rpath "${
-        lib.makeLibraryPath [
-          qtbase
-          glew
-          stdenv.cc.cc
-          libGLU
-          libGL
-        ]
-      }" \
+      lib.makeLibraryPath [
+        qtbase
+        glew
+        stdenv.cc.cc
+        libGLU
+        libGL
+      ]
+    }" \
       $out/share/openBrf/openBrf
 
     mkdir -p "$out/bin"
@@ -77,7 +76,7 @@ mkDerivation {
     description = "Tool to edit resource files (BRF)";
     mainProgram = "openBrf";
     homepage = "https://github.com/cfcohen/openbrf";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     license = licenses.free;
     platforms = platforms.linux;
   };

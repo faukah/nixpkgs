@@ -8,7 +8,6 @@
   pythonAtLeast,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pympler";
   version = "1.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-HqqGfLiZLCGEMPFwj9rM2lPfBkFE0cVlax5vHuYABCQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # There is a version of bottle bundled with Pympler, but it is broken on
   # Python 3.11. Fortunately, Pympler will preferentially import an external
   # bottle if it is available, so we make it an explicit dependency.
-  dependencies = [ bottle ];
+  dependencies = [bottle];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [

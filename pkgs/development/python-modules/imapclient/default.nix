@@ -5,7 +5,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "imapclient";
   version = "3.0.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-WY3OLPUwixrL2NSLfNBSSNMXJEoYBL+O6KoglU3Cz9g=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "imapclient"

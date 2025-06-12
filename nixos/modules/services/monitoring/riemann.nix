@@ -3,17 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.riemann;
 
   classpath = lib.concatStringsSep ":" (
-    cfg.extraClasspathEntries ++ [ "${pkgs.riemann}/share/java/riemann.jar" ]
+    cfg.extraClasspathEntries ++ ["${pkgs.riemann}/share/java/riemann.jar"]
   );
 
   riemannConfig = lib.concatStringsSep "\n" (
-    [ cfg.config ] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
+    [cfg.config] ++ (map (f: ''(load-file "${f}")'') cfg.configFiles)
   );
 
   launcher = pkgs.writeScriptBin "riemann" ''
@@ -22,12 +20,8 @@ let
       -cp ${classpath} \
       riemann.bin ${cfg.configFile}
   '';
-
-in
-{
-
+in {
   options = {
-
     services.riemann = {
       enable = lib.mkEnableOption "Riemann network monitoring daemon";
 
@@ -40,7 +34,7 @@ in
       };
       configFiles = lib.mkOption {
         type = with lib.types; listOf path;
-        default = [ ];
+        default = [];
         description = ''
           Extra files containing Riemann configuration. These files will be
           loaded at runtime by Riemann (with Clojure's
@@ -58,14 +52,14 @@ in
       };
       extraClasspathEntries = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         description = ''
           Extra entries added to the Java classpath when running Riemann.
         '';
       };
       extraJavaOpts = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         description = ''
           Extra Java options used when launching Riemann.
         '';
@@ -74,7 +68,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     users.groups.riemann.gid = config.ids.gids.riemann;
 
     users.users.riemann = {
@@ -86,15 +79,13 @@ in
     services.riemann.configFile = lib.mkDefault (pkgs.writeText "riemann-config.clj" riemannConfig);
 
     systemd.services.riemann = {
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.inetutils ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.inetutils];
       serviceConfig = {
         User = "riemann";
         ExecStart = "${launcher}/bin/riemann";
       };
       serviceConfig.LimitNOFILE = 65536;
     };
-
   };
-
 }

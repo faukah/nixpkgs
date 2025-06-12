@@ -3,9 +3,7 @@
   fetchFromGitHub,
   gerbilPackages,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-poo";
   version = "unstable-2023-11-29";
   git-version = "0.2-5-gacf654e";
@@ -13,7 +11,7 @@
   gerbil-package = "clan/poo";
   version-path = "version";
 
-  gerbilInputs = with gerbilPackages; [ gerbil-utils ];
+  gerbilInputs = with gerbilPackages; [gerbil-utils];
 
   pre-src = {
     fun = fetchFromGitHub;
@@ -28,6 +26,6 @@
     homepage = "https://github.com/fare/gerbil-poo";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

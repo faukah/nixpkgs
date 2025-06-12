@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "showoff";
   gemdir = ./.;
-  exes = [ "showoff" ];
+  exes = ["showoff"];
 
   passthru.updateScript = bundlerUpdateScript "showoff";
 

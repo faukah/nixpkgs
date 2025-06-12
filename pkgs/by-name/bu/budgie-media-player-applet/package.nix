@@ -9,7 +9,6 @@
   nix-update-script,
   python3Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-media-player-applet";
   version = "1.1.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/zalesyc/budgie-media-player-applet/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
   };
 })

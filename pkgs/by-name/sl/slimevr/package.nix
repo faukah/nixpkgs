@@ -18,7 +18,6 @@
   gst_all_1,
   libayatana-appindicator,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "slimevr";
   version = "0.15.0";

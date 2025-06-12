@@ -13,9 +13,9 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
-  inherit (duckdb)
+  inherit
+    (duckdb)
     patches
     pname
     rev
@@ -47,7 +47,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   propagatedBuildInputs = [
     numpy
@@ -62,7 +62,7 @@ buildPythonPackage rec {
   ];
 
   # test flags from .github/workflows/Python.yml
-  pytestFlagsArray = [ "--verbose" ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "tests/fast" ];
+  pytestFlagsArray = ["--verbose"] ++ lib.optionals stdenv.hostPlatform.isDarwin ["tests/fast"];
 
   disabledTestPaths = [
     # avoid dependency on mypy
@@ -89,12 +89,12 @@ buildPythonPackage rec {
     rm -rf duckdb
   '';
 
-  pythonImportsCheck = [ "duckdb" ];
+  pythonImportsCheck = ["duckdb"];
 
   meta = with lib; {
     description = "Python binding for DuckDB";
     homepage = "https://duckdb.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

@@ -15,7 +15,6 @@
   gpgme,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "volume_key";
   version = "0.3.11";
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
     mainProgram = "volume_key";
     homepage = "https://pagure.io/volume_key/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

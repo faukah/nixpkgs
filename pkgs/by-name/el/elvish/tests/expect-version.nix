@@ -3,12 +3,11 @@
   elvish,
   replaceVars,
 }:
-
 stdenv.mkDerivation {
   pname = "elvish-simple-test";
   inherit (elvish) version;
 
-  nativeBuildInputs = [ elvish ];
+  nativeBuildInputs = [elvish];
 
   dontInstall = true;
 

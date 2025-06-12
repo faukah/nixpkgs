@@ -4,7 +4,6 @@
   buildGoModule,
   fetchpatch,
 }:
-
 buildGoModule rec {
   pname = "kubeval";
   version = "0.16.1";

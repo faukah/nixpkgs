@@ -2,9 +2,7 @@
   lib,
   buildVimPlugin,
   nodePackages,
-}:
-final: prev:
-let
+}: final: prev: let
   nodePackageNames = [
     "coc-cmake"
     "coc-docker"
@@ -55,11 +53,11 @@ let
 
   getPackageName = name: packageNameOverrides.${name} or name;
 in
-lib.genAttrs nodePackageNames (
-  name:
-  buildVimPlugin {
-    pname = name;
-    inherit (nodePackages.${getPackageName name}) version meta;
-    src = "${nodePackages.${getPackageName name}}/lib/node_modules/${getPackageName name}";
-  }
-)
+  lib.genAttrs nodePackageNames (
+    name:
+      buildVimPlugin {
+        pname = name;
+        inherit (nodePackages.${getPackageName name}) version meta;
+        src = "${nodePackages.${getPackageName name}}/lib/node_modules/${getPackageName name}";
+      }
+  )

@@ -3,40 +3,34 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.foot;
 
   settingsFormat = pkgs.formats.ini {
     listsAsDuplicateKeys = true;
-    mkKeyValue =
-      with lib.generators;
+    mkKeyValue = with lib.generators;
       mkKeyValueDefault {
-        mkValueString =
-          v:
-          mkValueStringDefault { } (
-            if v == true then
-              "yes"
-            else if v == false then
-              "no"
-            else if v == null then
-              "none"
-            else
-              v
+        mkValueString = v:
+          mkValueStringDefault {} (
+            if v == true
+            then "yes"
+            else if v == false
+            then "no"
+            else if v == null
+            then "none"
+            else v
           );
       } "=";
   };
-in
-{
+in {
   options.programs.foot = {
     enable = lib.mkEnableOption "foot terminal emulator";
 
-    package = lib.mkPackageOption pkgs "foot" { };
+    package = lib.mkPackageOption pkgs "foot" {};
 
     settings = lib.mkOption {
       inherit (settingsFormat) type;
-      default = { };
+      default = {};
       description = ''
         Configuration for foot terminal emulator. Further information can be found in {command}`man 5 foot.ini`.
 
@@ -57,22 +51,28 @@ in
       example = "aeroroot";
     };
 
-    enableBashIntegration = lib.mkEnableOption "foot bash integration" // {
-      default = true;
-    };
+    enableBashIntegration =
+      lib.mkEnableOption "foot bash integration"
+      // {
+        default = true;
+      };
 
-    enableFishIntegration = lib.mkEnableOption "foot fish integration" // {
-      default = true;
-    };
+    enableFishIntegration =
+      lib.mkEnableOption "foot fish integration"
+      // {
+        default = true;
+      };
 
-    enableZshIntegration = lib.mkEnableOption "foot zsh integration" // {
-      default = true;
-    };
+    enableZshIntegration =
+      lib.mkEnableOption "foot zsh integration"
+      // {
+        default = true;
+      };
   };
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
       etc."xdg/foot/foot.ini".source = settingsFormat.generate "foot.ini" cfg.settings;
     };
     programs = {
@@ -87,6 +87,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ linsui ];
+    maintainers = with lib.maintainers; [linsui];
   };
 }

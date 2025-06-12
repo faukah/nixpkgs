@@ -19,7 +19,6 @@
   alsa-lib,
   fftw,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sooperlooper";
   version = "1.7.9";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sonosaurus.com/sooperlooper/";
     downloadPage = "https://github.com/essej/sooperlooper";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ magnetophon ];
+    maintainers = with lib.maintainers; [magnetophon];
     platforms = lib.platforms.linux;
   };
 })

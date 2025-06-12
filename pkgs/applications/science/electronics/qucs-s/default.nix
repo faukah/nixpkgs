@@ -21,7 +21,6 @@
     qucsator-rf
   ],
 }:
-
 stdenv.mkDerivation rec {
   pname = "qucs-s";
   version = "25.1.2";

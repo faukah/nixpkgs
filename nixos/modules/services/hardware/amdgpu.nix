@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.amdgpu;
-in
-{
+in {
   options.hardware.amdgpu = {
     legacySupport.enable = lib.mkEnableOption ''
       using `amdgpu` kernel driver instead of `radeon` for Southern Islands
@@ -55,7 +52,7 @@ in
         "amdgpu.ppfeaturemask=${cfg.overdrive.ppfeaturemask}"
       ];
 
-    boot.initrd.kernelModules = lib.optionals cfg.initrd.enable [ "amdgpu" ];
+    boot.initrd.kernelModules = lib.optionals cfg.initrd.enable ["amdgpu"];
 
     hardware.graphics = lib.mkIf cfg.opencl.enable {
       enable = lib.mkDefault true;
@@ -67,6 +64,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ johnrtitor ];
+    maintainers = with lib.maintainers; [johnrtitor];
   };
 }

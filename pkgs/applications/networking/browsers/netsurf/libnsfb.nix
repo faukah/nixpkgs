@@ -7,7 +7,6 @@
   buildsystem,
   uilib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libnsfb";
   version = "0.2.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vkRso+tU35A/LamDEdEH11dM0R9awHE+YZFW1NGeo5o=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL

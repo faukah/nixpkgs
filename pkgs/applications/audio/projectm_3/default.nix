@@ -11,7 +11,6 @@
   glm,
   which,
 }:
-
 mkDerivation rec {
   pname = "projectm";
   version = "3.1.12";
@@ -59,7 +58,7 @@ mkDerivation rec {
     description = "Cross-platform Milkdrop-compatible music visualizer";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
     longDescription = ''
       The open-source project that reimplements the esteemed Winamp Milkdrop by Geiss in a more modern, cross-platform reusable library.
       Read an audio input and produces mesmerizing visuals, detecting tempo, and rendering advanced equations into a limitless array of user-contributed visualizations.

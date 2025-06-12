@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nozwock/packet";
     changelog = "https://github.com/nozwock/packet/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ontake ];
+    maintainers = with lib.maintainers; [ontake];
     mainProgram = "packet";
     platforms = lib.platforms.linux;
   };

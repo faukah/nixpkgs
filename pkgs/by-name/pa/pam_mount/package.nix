@@ -14,7 +14,6 @@
   cryptsetup,
   util-linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_mount";
   version = "2.20";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
       lgpl21
       lgpl3
     ];
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
     platforms = platforms.linux;
   };
 }

@@ -9,7 +9,6 @@
   markdownify,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "rsskey";
   version = "0.2.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-QedLuwd0ES2LWhZ72Cjh3+ZZ7HbRyNsyLN9lNFbY5dQ=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     feedparser
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   ];
 
   doCheck = false; # upstream has no test
-  pythonImportsCheck = [ "rsskey" ];
+  pythonImportsCheck = ["rsskey"];
 
   meta = with lib; {
     description = "RSS feed mirror on Misskey";
     homepage = "https://sr.ht/~cnx/rsskey";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ McSinyx ];
+    maintainers = with maintainers; [McSinyx];
   };
 }

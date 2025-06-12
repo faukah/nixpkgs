@@ -6,7 +6,6 @@
   ran,
   curl,
 }:
-
 buildGoModule rec {
   pname = "ran";
   version = "0.1.6";
@@ -29,7 +28,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    simple = runCommand "ran-test" { } ''
+    simple = runCommand "ran-test" {} ''
       echo hello world > index.html
       ${ran}/bin/ran &
       # Allow ran to fully initialize
@@ -45,6 +44,6 @@ buildGoModule rec {
     description = "Ran is a simple web server for serving static files";
     mainProgram = "ran";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
   };
 }

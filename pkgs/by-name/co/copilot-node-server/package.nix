@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "copilot-node-server";
   version = "1.41.0";
@@ -36,7 +35,7 @@ buildNpmPackage rec {
     description = "Copilot Node.js server";
     homepage = src.meta.homepage;
     license = licenses.unfree; # I don't know: https://github.com/jfcherng/copilot-node-server/blob/main/LICENSE.md
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     mainProgram = "copilot-node-server";
   };
 }

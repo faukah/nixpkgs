@@ -4,10 +4,10 @@
   json-data-encoding,
   json-data-encoding-bson,
 }:
-
 buildDunePackage {
   pname = "resto-json";
-  inherit (resto)
+  inherit
+    (resto)
     src
     version
     meta

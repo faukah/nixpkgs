@@ -18,7 +18,7 @@ buildGoModule {
   vendorHash = null;
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
@@ -27,6 +27,6 @@ buildGoModule {
     downloadPage = "https://git.sr.ht/~jcc/addr-book-combine";
     license = lib.licenses.gpl3Only;
     mainProgram = "addr-book-combine";
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   libdatrie,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libthai";
   version = "0.1.29";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ libdatrie ];
+  buildInputs = [libdatrie];
 
   postInstall = ''
     installManPage man/man3/*.3
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Set of Thai language support routines";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ crertel ];
-    pkgConfigModules = [ "libthai" ];
+    maintainers = with maintainers; [crertel];
+    pkgConfigModules = ["libthai"];
   };
 }

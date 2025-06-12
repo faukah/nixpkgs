@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   flet-client-flutter,
-
   # build-system
   poetry-core,
-
   flet,
   fastapi,
   uvicorn,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "flet-web";
   inherit (flet-client-flutter) version src;
@@ -19,7 +16,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/sdk/python/packages/flet-web";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     flet
@@ -27,7 +24,7 @@ buildPythonPackage rec {
     uvicorn
   ];
 
-  pythonImportsCheck = [ "flet_web" ];
+  pythonImportsCheck = ["flet_web"];
 
   web = flet-client-flutter.override {
     fletTarget = "web";

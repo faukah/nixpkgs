@@ -8,7 +8,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clipster";
   version = "2.1.1";
@@ -20,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MLLkFsBBQtb7RFQN+uoEmuCn5bnbkYsqoyWGZtTCI2U=";
   };
 
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pygobject3]);
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
   buildInputs = [
     pythonEnv
     gtk3
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3Only;
     homepage = "https://github.com/mrichar1/clipster";
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     mainProgram = "clipster";
   };
 }

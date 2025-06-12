@@ -10,7 +10,6 @@
   hatch-vcs,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "humanize";
   version = "4.12.2";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "humanize" ];
+  pythonImportsCheck = ["humanize"];
 
   meta = with lib; {
     description = "Python humanize utilities";

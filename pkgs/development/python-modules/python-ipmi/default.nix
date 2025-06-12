@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-ipmi";
   version = "0.5.7";
@@ -28,22 +27,22 @@ buildPythonPackage rec {
       --replace-fail "version=version," "version='${version}',"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyipmi" ];
+  pythonImportsCheck = ["pyipmi"];
 
   meta = with lib; {
     description = "Python IPMI Library";
     mainProgram = "ipmitool.py";
     homepage = "https://github.com/kontron/python-ipmi";
-    license = with licenses; [ lgpl2Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl2Plus];
+    maintainers = with maintainers; [fab];
   };
 }

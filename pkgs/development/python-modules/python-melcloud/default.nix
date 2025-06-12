@@ -12,7 +12,6 @@
   pytestCheckHook,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-melcloud";
   version = "0.1.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-1WFE8k16aDIp1S/WDHXVdUtQmISEoE8yQAn9nndmQWs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRemoveDeps = [
     "aioresponses"
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     aiohttp
   ];
 
-  pythonImportsCheck = [ "pymelcloud" ];
+  pythonImportsCheck = ["pymelcloud"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for controlling Melcloud devices";
     homepage = "https://github.com/erwindouna/python-melcloud";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

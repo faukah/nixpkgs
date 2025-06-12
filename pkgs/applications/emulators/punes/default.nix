@@ -17,7 +17,6 @@
   qttools,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "punes";
   version = "0.111";
@@ -75,7 +74,11 @@ stdenv.mkDerivation (finalAttrs: {
     "-DENABLE_RELEASE=ON"
     "-DENABLE_FFMPEG=ON"
     "-DENABLE_OPENGL=ON"
-    "-DENABLE_QT6_LIBS=${if lib.versionAtLeast qtbase.version "6.0" then "ON" else "OFF"}"
+    "-DENABLE_QT6_LIBS=${
+      if lib.versionAtLeast qtbase.version "6.0"
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   passthru.updateScript = gitUpdater {
@@ -88,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/punesemu/puNES";
     changelog = "https://github.com/punesemu/puNES/blob/v${finalAttrs.version}/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = with platforms; linux ++ freebsd ++ openbsd ++ windows;
   };
 })

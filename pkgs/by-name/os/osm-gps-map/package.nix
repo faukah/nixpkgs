@@ -10,7 +10,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "osm-gps-map";
   version = "1.2.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "GTK widget for displaying OpenStreetMap tiles";
     homepage = "https://nzjrs.github.io/osm-gps-map";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ hrdinka ];
+    maintainers = with lib.maintainers; [hrdinka];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })

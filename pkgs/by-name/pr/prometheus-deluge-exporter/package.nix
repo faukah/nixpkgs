@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "deluge-exporter";
   version = "2.4.0-unstable-2024-06-02";
@@ -29,7 +28,7 @@ python3.pkgs.buildPythonApplication {
     description = "Prometheus exporter for Deluge";
     homepage = "https://github.com/ibizaman/deluge_exporter";
     license = licenses.isc;
-    maintainers = with maintainers; [ ibizaman ];
+    maintainers = with maintainers; [ibizaman];
     mainProgram = "deluge-exporter";
   };
 }

@@ -3,14 +3,13 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.4.2";
   pname = "clips";
 
   src = fetchurl {
     url = "mirror://sourceforge/clipsrules/CLIPS/${version}/clips_core_source_${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.tar.gz";
     hash = "sha256-YIoesvxunK/zDWPWhAlfC8pxCPIpTSHub1YXQnwQRVo=";
   };
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
       easier to implement and maintain than an algorithmic solution.
     '';
     license = licenses.publicDomain;
-    maintainers = [ maintainers.league ];
+    maintainers = [maintainers.league];
     platforms = platforms.unix;
   };
 }

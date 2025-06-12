@@ -27,7 +27,6 @@
   systemd,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "packagekit";
   version = "1.3.1";
@@ -75,7 +74,11 @@ stdenv.mkDerivation rec {
 
   mesonFlags =
     [
-      (if enableSystemd then "-Dsystemd=true" else "-Dsystem=false")
+      (
+        if enableSystemd
+        then "-Dsystemd=true"
+        else "-Dsystem=false"
+      )
       # often fails to build with nix updates
       # and remounts /nix/store as rw
       # https://github.com/NixOS/nixpkgs/issues/177946
@@ -120,6 +123,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/PackageKit/PackageKit";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

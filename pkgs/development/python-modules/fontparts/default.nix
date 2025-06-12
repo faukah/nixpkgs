@@ -3,21 +3,17 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   fonttools,
   defcon,
   fontmath,
   booleanoperations,
-
   # tests
   python,
 }:
-
 buildPythonPackage rec {
   pname = "fontparts";
   version = "0.12.7";
@@ -59,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/robotools/fontParts";
     changelog = "https://github.com/robotools/fontParts/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

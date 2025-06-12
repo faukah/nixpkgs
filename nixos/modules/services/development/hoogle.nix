@@ -3,19 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.hoogle;
 
   hoogleEnv = pkgs.buildEnv {
     name = "hoogle";
-    paths = [ (cfg.haskellPackages.ghcWithHoogle cfg.packages) ];
+    paths = [(cfg.haskellPackages.ghcWithHoogle cfg.packages)];
   };
-
-in
-{
-
+in {
   options.services.hoogle = {
     enable = lib.mkEnableOption "Haskell documentation server";
 
@@ -29,7 +24,7 @@ in
 
     packages = lib.mkOption {
       type = lib.types.functionTo (lib.types.listOf lib.types.package);
-      default = hp: [ ];
+      default = hp: [];
       defaultText = lib.literalExpression "hp: []";
       example = lib.literalExpression "hp: with hp; [ text lens ]";
       description = ''
@@ -62,8 +57,8 @@ in
 
     extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "--no-security-headers" ];
+      default = [];
+      example = ["--no-security-headers"];
       description = ''
         Additional command-line arguments to pass to
         {command}`hoogle server`
@@ -75,7 +70,7 @@ in
     systemd.services.hoogle = {
       description = "Haskell documentation server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "always";
@@ -93,5 +88,4 @@ in
       };
     };
   };
-
 }

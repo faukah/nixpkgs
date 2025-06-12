@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-context";
   version = "6.0.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pbr
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "oslo_context" ];
+  pythonImportsCheck = ["oslo_context"];
 
   meta = with lib; {
     description = "Oslo Context library";
     homepage = "https://github.com/openstack/oslo.context";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

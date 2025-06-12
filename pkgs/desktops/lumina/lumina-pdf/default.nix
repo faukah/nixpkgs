@@ -7,7 +7,6 @@
   qttools,
   poppler,
 }:
-
 mkDerivation rec {
   pname = "lumina-pdf";
   version = "1.6.0";
@@ -48,6 +47,6 @@ mkDerivation rec {
     homepage = "https://github.com/lumina-desktop/lumina-pdf";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    teams = [ teams.lumina ];
+    teams = [teams.lumina];
   };
 }

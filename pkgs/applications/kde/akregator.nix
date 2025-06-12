@@ -23,7 +23,6 @@
   messagelib,
   syndication,
 }:
-
 mkDerivation {
   pname = "akregator";
   meta = {

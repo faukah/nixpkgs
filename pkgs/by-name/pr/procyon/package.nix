@@ -5,7 +5,6 @@
   runtimeShell,
   jre_headless,
 }:
-
 stdenv.mkDerivation rec {
   pname = "procyon";
   version = "0.6.0";
@@ -30,10 +29,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Procyon is a suite of Java metaprogramming tools including a Java decompiler";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     homepage = "https://github.com/mstrobel/procyon/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "procyon";
   };
 }

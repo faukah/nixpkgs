@@ -7,7 +7,6 @@
   invidious,
   versions,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "videojs";
 

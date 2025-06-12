@@ -5,7 +5,6 @@
   vulkan-loader,
   addDriverRunpath,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "vulkan-helper";
   version = "unstable-2023-12-22";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage {
     description = "Simple CLI app used to interface with basic Vulkan APIs";
     homepage = "https://github.com/imLinguin/vulkan-helper-rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
     platforms = platforms.linux;
     mainProgram = "vulkan-helper";
   };

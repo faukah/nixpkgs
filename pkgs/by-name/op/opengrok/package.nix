@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opengrok";
   version = "1.14.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9tTUD5mG6xdkGcZkwXyo9YnvlehuHDT/FH6tvua0S7c=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://opengrok.github.io/OpenGrok/";
     changelog = "https://github.com/oracle/opengrok/releases/tag/${version}";
     license = lib.licenses.cddl;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

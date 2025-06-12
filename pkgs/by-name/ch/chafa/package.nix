@@ -17,7 +17,6 @@
   docbook_xsl,
   glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.16.1";
   pname = "chafa";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     librsvg
   ];
 
-  patches = [ ./xmlcatalog_patch.patch ];
+  patches = [./xmlcatalog_patch.patch];
 
   preConfigure = ''
     substituteInPlace ./autogen.sh --replace pkg-config '$PKG_CONFIG'

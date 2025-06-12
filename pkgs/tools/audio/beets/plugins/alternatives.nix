@@ -5,7 +5,6 @@
   python3Packages,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "beets-alternatives";
   version = "0.13.3";
@@ -26,8 +25,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.poetry-core
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       pytestCheckHook
       pytest-cov-stub

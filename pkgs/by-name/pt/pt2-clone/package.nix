@@ -7,7 +7,6 @@
   alsa-lib,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pt2-clone";
   version = "1.75";
@@ -19,8 +18,8 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-kHXryQTC2bbF4Fbl9++Mn/miSdCSPmoj7lgNfzjg9k8=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL2 ] ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
+  nativeBuildInputs = [cmake];
+  buildInputs = [SDL2] ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
 
   postInstall = ''
     install -Dm444 "$src/release/other/Freedesktop.org Resources/ProTracker 2 clone.desktop" \
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Highly accurate clone of the classic ProTracker 2.3D software for Amiga";
     homepage = "https://16-bits.org/pt2.php";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     # From HOW-TO-COMPILE.txt:
     # > This code is NOT big-endian compatible
     platforms = platforms.littleEndian;

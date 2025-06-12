@@ -6,7 +6,6 @@
   aws-c-common,
   nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-checksums";
   # nixpkgs-update: no auto update
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hiqV6FrOZ19YIxL3UKBuexLJwoC2mY7lqysnV7ze0gg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ aws-c-common ];
+  buildInputs = [aws-c-common];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-checksums";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

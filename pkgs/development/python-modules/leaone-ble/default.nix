@@ -11,7 +11,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "leaone-ble";
   version = "0.3.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-96TOjjz4EkHAnzL53BIR+PifkyrEig/0r+mIfnwc0hE=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "leaone_ble" ];
+  pythonImportsCheck = ["leaone_ble"];
 
   meta = {
     description = "Bluetooth parser for LeaOne devices";
     homepage = "https://github.com/bluetooth-devices/leaone-ble";
     changelog = "https://github.com/bluetooth-devices/leaone-ble/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

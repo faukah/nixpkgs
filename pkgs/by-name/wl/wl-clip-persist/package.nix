@@ -6,7 +6,6 @@
   pkg-config,
   wayland,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wl-clip-persist";
   version = "0.4.3";
@@ -21,9 +20,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-x2kNWFfHgzoSSD75Cp3noiq61zlBnmz9twwTAlBBL9w=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     inherit (wayland.meta) platforms;
     license = licenses.mit;
     mainProgram = "wl-clip-persist";
-    maintainers = with maintainers; [ name-snrl ];
+    maintainers = with maintainers; [name-snrl];
   };
 }

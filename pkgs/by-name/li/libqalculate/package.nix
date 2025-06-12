@@ -24,7 +24,6 @@
   gnuplot,
   gnuplotBinary ? lib.getExe gnuplot,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libqalculate";
   version = "5.5.2";

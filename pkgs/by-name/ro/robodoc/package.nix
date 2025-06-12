@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "robodoc";
   version = "4.99.44";
@@ -21,9 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
       --replace 'man1_MANS = robodoc.1 robohdrs.1' 'man1_MANS ='
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/gumpu/ROBODoc";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       Java -- basically any program in which you can use remarks/comments.
     '';
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 })

@@ -6,7 +6,6 @@
   gitstatus,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "powerlevel10k";
   version = "1.20.14";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   patches = [
     (replaceVars ./gitstatusd.patch {
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/romkatv/powerlevel10k";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

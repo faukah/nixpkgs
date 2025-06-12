@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dovi-tool";
   version = "2.2.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool combining multiple utilities for working with Dolby Vision";
@@ -50,6 +49,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     changelog = "https://github.com/quietvoid/dovi_tool/releases/tag/${finalAttrs.version}";
     mainProgram = "dovi_tool";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ plamper ];
+    maintainers = with lib.maintainers; [plamper];
   };
 })

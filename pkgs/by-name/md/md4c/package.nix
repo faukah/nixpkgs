@@ -5,7 +5,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "md4c";
   version = "0.5.2";
@@ -69,10 +68,11 @@ stdenv.mkDerivation (finalAttrs: {
       - Permissive license: MD4C is available under the MIT license.
     '';
     changelog = "https://github.com/mity/md4c/blob/${finalAttrs.src.rev}/CHANGELOG.md";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [];
     mainProgram = "md2html";
     platforms = lib.platforms.all;
   };
 })
 # TODO: enable tests (needs Python)
+

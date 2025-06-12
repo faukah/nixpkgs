@@ -9,7 +9,6 @@
   setuptools,
   shortuuid,
 }:
-
 buildPythonPackage rec {
   pname = "wolf-comm";
   version = "0.0.47";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-/34smUrsWKNEd5OPPIsDnW3zfq6nhKX3Yp+UBk+Nibw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     shortuuid
   ];
 
-  pythonImportsCheck = [ "wolf_comm" ];
+  pythonImportsCheck = ["wolf_comm"];
 
   # upstream has no tests
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Communicate with Wolf SmartSet Cloud";
     homepage = "https://github.com/janrothkegel/wolf-comm";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

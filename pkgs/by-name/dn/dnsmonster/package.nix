@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "dnsmonster";
   version = "1.0.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-QCG/rhs4Y3lLDVU15cBNUZqbKc4faNAqKMhMOFwK2SY=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   ldflags = [
     "-s"
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/mosajjal/dnsmonster";
     changelog = "https://github.com/mosajjal/dnsmonster/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "dnsmonster";
   };

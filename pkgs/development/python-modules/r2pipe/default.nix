@@ -8,7 +8,6 @@
   coreutils,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "r2pipe";
   version = "1.9.4";
@@ -16,20 +15,18 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.7";
 
-  postPatch =
-    let
-      r2lib = "${lib.getOutput "lib" radare2}/lib";
-      libr_core = "${r2lib}/libr_core${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in
-    ''
-      # Fix find_library, can be removed after
-      # https://github.com/NixOS/nixpkgs/issues/7307 is resolved.
-      substituteInPlace r2pipe/native.py --replace 'find_library("r_core")' "'${libr_core}'"
+  postPatch = let
+    r2lib = "${lib.getOutput "lib" radare2}/lib";
+    libr_core = "${r2lib}/libr_core${stdenv.hostPlatform.extensions.sharedLibrary}";
+  in ''
+    # Fix find_library, can be removed after
+    # https://github.com/NixOS/nixpkgs/issues/7307 is resolved.
+    substituteInPlace r2pipe/native.py --replace 'find_library("r_core")' "'${libr_core}'"
 
-      # Fix the default r2 executable
-      substituteInPlace r2pipe/open_sync.py --replace 'r2e = "radare2"' "r2e = '${radare2}/bin/radare2'"
-      substituteInPlace r2pipe/open_base.py --replace 'which("radare2")' "'${radare2}/bin/radare2'"
-    '';
+    # Fix the default r2 executable
+    substituteInPlace r2pipe/open_sync.py --replace 'r2e = "radare2"' "r2e = '${radare2}/bin/radare2'"
+    substituteInPlace r2pipe/open_base.py --replace 'which("radare2")' "'${radare2}/bin/radare2'"
+  '';
 
   src = fetchPypi {
     inherit pname version;
@@ -51,6 +48,6 @@ buildPythonPackage rec {
     description = "Interact with radare2";
     homepage = "https://github.com/radare/radare2-r2pipe";
     license = licenses.mit;
-    maintainers = with maintainers; [ timokau ];
+    maintainers = with maintainers; [timokau];
   };
 }

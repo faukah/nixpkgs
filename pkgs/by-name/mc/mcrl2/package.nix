@@ -8,7 +8,6 @@
   qt6,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   version = "202407";
   build_nr = "1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VhP9BFSujxYMcQVu6P6k6yiH2UUhCB3P+Pj+9Ir7x6s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGLU
     libGL
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.mcrl2.org/";
     license = licenses.boost;
-    maintainers = with maintainers; [ moretea ];
+    maintainers = with maintainers; [moretea];
     platforms = platforms.unix;
   };
 }

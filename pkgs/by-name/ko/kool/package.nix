@@ -5,7 +5,6 @@
   testers,
   kool,
 }:
-
 buildGoModule rec {
   pname = "kool";
   version = "3.5.2";
@@ -37,6 +36,6 @@ buildGoModule rec {
     homepage = "https://kool.dev";
     changelog = "https://github.com/kool-dev/kool/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

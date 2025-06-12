@@ -7,43 +7,41 @@
   zlib,
   openssl,
   libxcrypt,
-}:
-
-let
+}: let
   version = "0.16";
 in
-stdenv.mkDerivation rec {
-  pname = "gatling";
-  inherit version;
+  stdenv.mkDerivation rec {
+    pname = "gatling";
+    inherit version;
 
-  src = fetchurl {
-    url = "https://www.fefe.de/gatling/${pname}-${version}.tar.xz";
-    sha256 = "0nrnws5qrl4frqcsfa9z973vv5mifgr9z170qbvg3mq1wa7475jz";
-  };
+    src = fetchurl {
+      url = "https://www.fefe.de/gatling/${pname}-${version}.tar.xz";
+      sha256 = "0nrnws5qrl4frqcsfa9z973vv5mifgr9z170qbvg3mq1wa7475jz";
+    };
 
-  buildInputs = [
-    libowfat
-    libcap
-    zlib
-    openssl
-    libxcrypt
-  ];
+    buildInputs = [
+      libowfat
+      libcap
+      zlib
+      openssl
+      libxcrypt
+    ];
 
-  configurePhase = ''
-    substituteInPlace Makefile --replace-fail "/usr/local" "$out"
-    substituteInPlace GNUmakefile --replace-fail "/opt/diet" "$out"
-    substituteInPlace tryalloca.c --replace-fail "main() {" "int main() {"
-    substituteInPlace trysocket.c --replace-fail "main() {" "int main() {"
-  '';
+    configurePhase = ''
+      substituteInPlace Makefile --replace-fail "/usr/local" "$out"
+      substituteInPlace GNUmakefile --replace-fail "/opt/diet" "$out"
+      substituteInPlace tryalloca.c --replace-fail "main() {" "int main() {"
+      substituteInPlace trysocket.c --replace-fail "main() {" "int main() {"
+    '';
 
-  buildPhase = ''
-    make gatling
-  '';
+    buildPhase = ''
+      make gatling
+    '';
 
-  meta = with lib; {
-    description = "High performance web server";
-    homepage = "http://www.fefe.de/gatling/";
-    license = lib.licenses.gpl2Only;
-    platforms = platforms.linux;
-  };
-}
+    meta = with lib; {
+      description = "High performance web server";
+      homepage = "http://www.fefe.de/gatling/";
+      license = lib.licenses.gpl2Only;
+      platforms = platforms.linux;
+    };
+  }

@@ -6,7 +6,6 @@
   openssl,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "proxmox-auto-install-assistant";
   version = "8.4.6";
@@ -29,8 +28,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl.dev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl.dev];
 
   postFixup = ''
     # these libraries are not actually necessary, only linked in by cargo
@@ -42,10 +41,10 @@ rustPlatform.buildRustPackage rec {
     patchelf --shrink-rpath $out/bin/proxmox-auto-install-assistant
   '';
 
-  disallowedReferences = [ openssl.out ];
+  disallowedReferences = [openssl.out];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -58,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://pve.proxmox.com/wiki/Automated_Installation";
     changelog = "https://git.proxmox.com/?p=pve-installer.git;a=blob;f=debian/changelog";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ christoph-heiss ];
+    maintainers = with lib.maintainers; [christoph-heiss];
     platforms = lib.platforms.linux;
     mainProgram = "proxmox-auto-install-assistant";
   };

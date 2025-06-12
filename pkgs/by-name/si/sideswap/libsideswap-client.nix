@@ -6,7 +6,6 @@
   systemd,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "libsideswap-client";
   version = "0-unstable-2025-06-05";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     protobuf
   ];
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   cargoBuildFlags = [
     "--package"
@@ -51,6 +50,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Rust library for Sideswap";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ starius ];
+    maintainers = with lib.maintainers; [starius];
   };
 })

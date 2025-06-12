@@ -1,8 +1,7 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "user-activation-scripts";
   meta = with lib.maintainers; {
-    maintainers = [ chkno ];
+    maintainers = [chkno];
   };
 
   nodes.machine = {
@@ -12,7 +11,7 @@
       initialPassword = "pass1";
       isNormalUser = true;
     };
-    systemd.user.tmpfiles.users.alice.rules = [ "r %h/file-to-remove" ];
+    systemd.user.tmpfiles.users.alice.rules = ["r %h/file-to-remove"];
   };
 
   testScript = ''

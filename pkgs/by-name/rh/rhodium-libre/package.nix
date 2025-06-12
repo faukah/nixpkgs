@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "RhodiumLibre";
   version = "1.2.0";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/DunwichType/RhodiumLibre";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

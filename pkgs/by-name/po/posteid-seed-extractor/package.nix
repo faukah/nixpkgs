@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "posteid-seed-extractor";
   version = "unstable-2022-02-23";
@@ -44,6 +43,6 @@ python3Packages.buildPythonApplication {
     description = "Extract OTP seed instead of using PosteID app";
     mainProgram = "posteid-seed-extractor";
     license = licenses.mit;
-    maintainers = with maintainers; [ aciceri ];
+    maintainers = with maintainers; [aciceri];
   };
 }

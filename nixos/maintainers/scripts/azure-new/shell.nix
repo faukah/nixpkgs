@@ -1,7 +1,4 @@
-{
-  pkgs ? import ../../../../default.nix { },
-}:
-
+{pkgs ? import ../../../../default.nix {}}:
 pkgs.stdenv.mkDerivation {
   name = "nixcfg-azure-devenv";
 

@@ -1,14 +1,14 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "yarr";
-  meta.maintainers = with lib.maintainers; [ christoph-heiss ];
+  meta.maintainers = with lib.maintainers; [christoph-heiss];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.yarr.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.yarr.enable = true;
+  };
 
   testScript = ''
     machine.start()

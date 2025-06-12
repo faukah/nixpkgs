@@ -11,7 +11,6 @@
   aiohttp,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nexia";
   version = "2.10.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-5gx66PVyrpL/9EXEWsHxKZVHmpfOKluN3LLok2qW3oU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nexia" ];
+  pythonImportsCheck = ["nexia"];
 
   meta = with lib; {
     description = "Python module for Nexia thermostats";
     homepage = "https://github.com/bdraco/nexia";
     changelog = "https://github.com/bdraco/nexia/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

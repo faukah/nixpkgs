@@ -14,7 +14,6 @@
   pytest-mock,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "i-pi";
   version = "3.1.4";
@@ -42,13 +41,15 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-    pytest-mock
-  ] ++ lib.optional (pythonAtLeast "3.12") distutils;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      mock
+      pytest-mock
+    ]
+    ++ lib.optional (pythonAtLeast "3.12") distutils;
 
-  pytestFlagsArray = [ "ipi_tests/unit_tests" ];
+  pytestFlagsArray = ["ipi_tests/unit_tests"];
   disabledTests = [
     "test_driver_base"
     "test_driver_forcebuild"
@@ -67,6 +68,6 @@ buildPythonPackage rec {
     ];
     homepage = "https://ipi-code.org/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -9,7 +9,6 @@
   qttools,
   qtwebsockets,
 }:
-
 mkDerivation rec {
   pname = "moolticute";
   version = "1.03.0";
@@ -38,7 +37,7 @@ mkDerivation rec {
   ];
 
   preConfigure = "mkdir -p build && cd build";
-  qmakeFlags = [ "../Moolticute.pro" ];
+  qmakeFlags = ["../Moolticute.pro"];
 
   preInstall = ''
     mkdir -p $udev/lib/udev/rules.d

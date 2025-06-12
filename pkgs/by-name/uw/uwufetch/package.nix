@@ -5,7 +5,6 @@
   makeWrapper,
   viu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uwufetch";
   version = "2.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
         --replace "local/share" "share"
     '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   makeFlags = [
     "UWUFETCH_VERSION=${version}"
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram $out/bin/uwufetch \
-      --prefix PATH ":" ${lib.makeBinPath [ viu ]}
+      --prefix PATH ":" ${lib.makeBinPath [viu]}
   '';
 
   meta = with lib; {
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/TheDarkBug/uwufetch";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bbjubjub ];
+    maintainers = with maintainers; [bbjubjub];
     mainProgram = "uwufetch";
   };
 }

@@ -6,7 +6,6 @@
   bzip2,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stt";
   version = "1.4.0";
@@ -39,10 +38,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/coqui-ai/STT";
     description = "Deep learning toolkit for Speech-to-Text, battle-tested in research and production";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mpl20;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ rvolosatovs ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [rvolosatovs];
     mainProgram = "stt";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "oak";
   version = "0.3";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "oak";
     homepage = "https://oaklang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ tejasag ];
+    maintainers = with maintainers; [tejasag];
   };
 }

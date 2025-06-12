@@ -9,7 +9,6 @@
   lcms2,
   giflib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ssimulacra2";
   version = "2.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://github.com/cloudinary/ssimulacra2";
-    maintainers = [ maintainers.viraptor ];
+    maintainers = [maintainers.viraptor];
     license = licenses.bsd3;
     description = "Perceptual image comparison tool";
   };

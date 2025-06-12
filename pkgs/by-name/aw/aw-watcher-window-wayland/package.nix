@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-WWT8tOrHPf5x3bXsVPt32VKut4qK+K8gickBfEc0zmk=";
   useFetchCargoVendor = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   nativeBuildInputs = [
     pkg-config
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage {
     description = "WIP window and afk watcher for some Wayland compositors";
     homepage = "https://github.com/ActivityWatch/aw-watcher-window-wayland";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ esau79p ];
+    maintainers = with lib.maintainers; [esau79p];
     mainProgram = "aw-watcher-window-wayland";
     platforms = lib.platforms.linux;
   };

@@ -11,8 +11,7 @@
   coreutils,
   jq,
   patchelf,
-}:
-let
+}: let
   extInfo = (
     {
       x86_64-linux = {
@@ -32,67 +31,69 @@ let
         hash = "sha256-KtOZ4AzsS30nF0DtJJT/CaLRD6Pa9pz1hYBgvxPbzZw=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
   );
 in
-vscode-utils.buildVscodeMarketplaceExtension {
-  mktplcRef = {
-    name = "csharp";
-    publisher = "ms-dotnettools";
-    version = "2.80.16";
-    inherit (extInfo) hash arch;
-  };
+  vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "csharp";
+      publisher = "ms-dotnettools";
+      version = "2.80.16";
+      inherit (extInfo) hash arch;
+    };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    autoPatchelfHook
-    jq
-    patchelf
-  ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    (lib.getLib glibc) # libgcc_s.so.1
-    (lib.getLib icu) # libicui18n.so libicuuc.so
-    (lib.getLib libkrb5) # libgssapi_krb5.so
-    (lib.getLib libz) # libz.so.1
-    (lib.getLib openssl) # libopenssl.so.3
-    (lib.getLib stdenv.cc.cc) # libstdc++.so.6
-  ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+      autoPatchelfHook
+      jq
+      patchelf
+    ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+      (lib.getLib glibc) # libgcc_s.so.1
+      (lib.getLib icu) # libicui18n.so libicuuc.so
+      (lib.getLib libkrb5) # libgssapi_krb5.so
+      (lib.getLib libz) # libz.so.1
+      (lib.getLib openssl) # libopenssl.so.3
+      (lib.getLib stdenv.cc.cc) # libstdc++.so.6
+    ];
 
-  postPatch = ''
-    substituteInPlace dist/extension.js \
-      --replace-fail 'uname -m' '${lib.getExe' coreutils "uname"} -m'
-  '';
+    postPatch = ''
+      substituteInPlace dist/extension.js \
+        --replace-fail 'uname -m' '${lib.getExe' coreutils "uname"} -m'
+    '';
 
-  preFixup = ''
-    (
-      set -euo pipefail
-      shopt -s globstar
-      shopt -s dotglob
+    preFixup = ''
+      (
+        set -euo pipefail
+        shopt -s globstar
+        shopt -s dotglob
 
-      # Fix all binaries.
-      for file in "$out"/**/*; do
-        if [[ ! -f "$file" || "$file" == *.so || "$file" == *.a || "$file" == *.dylib ]] ||
-            (! isELF "$file" && ! isMachO "$file"); then
-            continue
+        # Fix all binaries.
+        for file in "$out"/**/*; do
+          if [[ ! -f "$file" || "$file" == *.so || "$file" == *.a || "$file" == *.dylib ]] ||
+              (! isELF "$file" && ! isMachO "$file"); then
+              continue
+          fi
+
+          echo Making "$file" executable...
+          chmod +x "$file"
+
+          ${lib.optionalString stdenv.hostPlatform.isLinux ''
+        # Add .NET deps if it is an apphost.
+        if grep 'You must install .NET to run this application.' "$file" > /dev/null; then
+          echo "Adding .NET needed libraries to: $file"
+          patchelf \
+            --add-needed libicui18n.so \
+            --add-needed libicuuc.so \
+            --add-needed libgssapi_krb5.so \
+            --add-needed libssl.so \
+            "$file"
         fi
-
-        echo Making "$file" executable...
-        chmod +x "$file"
+      ''}
+        done
 
         ${lib.optionalString stdenv.hostPlatform.isLinux ''
-          # Add .NET deps if it is an apphost.
-          if grep 'You must install .NET to run this application.' "$file" > /dev/null; then
-            echo "Adding .NET needed libraries to: $file"
-            patchelf \
-              --add-needed libicui18n.so \
-              --add-needed libicuuc.so \
-              --add-needed libgssapi_krb5.so \
-              --add-needed libssl.so \
-              "$file"
-          fi
-        ''}
-      done
-
-      ${lib.optionalString stdenv.hostPlatform.isLinux ''
         # Add the ICU libraries as needed to the globalization DLLs.
         for file in "$out"/**/{libcoreclr.so,*System.Globalization.Native.so}; do
           echo "Adding ICU libraries to: $file"
@@ -131,19 +132,19 @@ vscode-utils.buildVscodeMarketplaceExtension {
             "$out"/share/vscode/extensions/ms-dotnettools.csharp/"$file"
         done
       ''}
-    )
-  '';
+      )
+    '';
 
-  meta = {
-    description = "Official C# support for Visual Studio Code";
-    homepage = "https://github.com/dotnet/vscode-csharp";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ ggg ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "aarch64-darwin"
-    ];
-  };
-}
+    meta = {
+      description = "Official C# support for Visual Studio Code";
+      homepage = "https://github.com/dotnet/vscode-csharp";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [ggg];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+    };
+  }

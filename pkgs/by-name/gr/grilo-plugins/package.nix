@@ -30,7 +30,6 @@
   itstool,
   totem-pl-parser,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grilo-plugins";
   version = "0.3.16";
@@ -48,15 +47,14 @@ stdenv.mkDerivation rec {
     (replaceVars ./chromaprint-gst-plugins.patch {
       load_plugins =
         lib.concatMapStrings
-          (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
-          (
-            with gst_all_1;
-            [
-              gstreamer
-              gst-plugins-base
-              gst-plugins-bad
-            ]
-          );
+        (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
+        (
+          with gst_all_1; [
+            gstreamer
+            gst-plugins-base
+            gst-plugins-bad
+          ]
+        );
     })
   ];
 
@@ -108,7 +106,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/grilo-plugins";
     description = "Collection of plugins for the Grilo framework";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
   };

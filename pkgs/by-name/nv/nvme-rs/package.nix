@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nvme-rs";
   version = "0.1.1";
@@ -38,14 +37,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Lightweight tool for monitoring NVMe drive health with email alerts";
     homepage = "https://github.com/liberodark/nvme-rs";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     platforms = lib.platforms.linux;
     mainProgram = "nvme-rs";
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sig";
   version = "0.1.4";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Interactive grep (for streaming)";
     homepage = "https://github.com/ynqa/sig";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qaidvoid ];
+    maintainers = with lib.maintainers; [qaidvoid];
     mainProgram = "sig";
   };
 }

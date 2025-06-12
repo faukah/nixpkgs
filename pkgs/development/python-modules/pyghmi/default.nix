@@ -12,7 +12,6 @@
   oslotest,
   stestr,
 }:
-
 buildPythonPackage rec {
   pname = "pyghmi";
   version = "1.6.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pbr
   ];
 
-  pythonImportsCheck = [ "pyghmi" ];
+  pythonImportsCheck = ["pyghmi"];
 
   checkPhase = ''
     runHook preCheck
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Pure Python (mostly IPMI) server management library";
     homepage = "https://opendev.org/x/pyghmi/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ codgician ];
+    maintainers = with lib.maintainers; [codgician];
   };
 }

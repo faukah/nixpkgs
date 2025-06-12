@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydsdl";
   version = "1.22.0";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-Q6Zt7qiFZvTK2pF4nWfHbjwQHZffzKOad6X/HQ94EUo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # allow for writable directory for darwin
   preBuild = ''
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "pydsdl" ];
+  pythonImportsCheck = ["pydsdl"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "pydsdl/_test.py" ];
+  pytestFlagsArray = ["pydsdl/_test.py"];
 
   meta = with lib; {
     description = "Library to process Cyphal DSDL";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://pydsdl.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
   };
 }

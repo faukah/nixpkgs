@@ -1,20 +1,12 @@
 # GNOME Terminal.
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-let
-
+}: let
   cfg = config.programs.gnome-terminal;
-
-in
-
-{
-
+in {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
@@ -24,9 +16,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.gnome-terminal ];
-    services.dbus.packages = [ pkgs.gnome-terminal ];
-    systemd.packages = [ pkgs.gnome-terminal ];
+    environment.systemPackages = [pkgs.gnome-terminal];
+    services.dbus.packages = [pkgs.gnome-terminal];
+    systemd.packages = [pkgs.gnome-terminal];
 
     programs.bash.vteIntegration = true;
     programs.zsh.vteIntegration = true;

@@ -18,9 +18,9 @@
   dftd4,
   setuptools,
 }:
-
 buildPythonPackage {
-  inherit (tblite)
+  inherit
+    (tblite)
     pname
     version
     src
@@ -66,5 +66,5 @@ buildPythonPackage {
     "tblite"
     "tblite.interface"
   ];
-  mesonFlags = [ "-Dpython=true" ];
+  mesonFlags = ["-Dpython=true"];
 }

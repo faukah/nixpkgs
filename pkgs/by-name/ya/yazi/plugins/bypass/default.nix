@@ -18,6 +18,6 @@ mkYaziPlugin {
     description = "Yazi plugin for skipping directories with only a single sub-directory.";
     homepage = "https://github.com/Rolv-Apneseth/bypass.yazi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
   };
 }

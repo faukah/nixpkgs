@@ -7,9 +7,7 @@
   staticOnly ? stdenv.hostPlatform.isStatic,
   testers,
 }:
-
 # ?TODO: there's also python lib in there
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brotli";
   version = "1.1.0";
@@ -32,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optional staticOnly "-DBUILD_SHARED_LIBS=OFF";
 
@@ -72,7 +70,7 @@ stdenv.mkDerivation (finalAttrs: {
       http://www.ietf.org/id/draft-alakuijala-brotli
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     pkgConfigModules = [
       "libbrotlidec"
       "libbrotlienc"

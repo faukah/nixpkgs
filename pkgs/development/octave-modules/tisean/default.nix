@@ -7,7 +7,6 @@
   # Build dependencies
   gfortran,
 }:
-
 buildOctavePackage rec {
   pname = "tisean";
   version = "0.2.3";
@@ -28,7 +27,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/tisean/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Port of TISEAN 3.0.1";
     # Broken since octave 8.x update, and wasn't updated since 2021
     broken = true;

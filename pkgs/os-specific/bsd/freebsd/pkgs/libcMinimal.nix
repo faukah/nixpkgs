@@ -6,33 +6,34 @@
   byacc,
   gencat,
   csu,
-  extraSrc ? [ ],
+  extraSrc ? [],
 }:
-
 mkDerivation {
   pname = "libcMinimal";
   path = "lib/libc";
-  extraPaths = [
-    "lib/libc_nonshared"
-    "lib/msun"
-    "lib/libmd"
-    "lib/libutil"
-    "libexec/rtld-elf"
-    "include/rpcsvc"
-    "contrib/libc-pwcache"
-    "contrib/libc-vis"
-    "contrib/tzcode"
-    "contrib/gdtoa"
-    "contrib/jemalloc"
-    "sys/sys"
-    "sys/kern"
-    "sys/libkern"
-    "sys/crypto"
-    "sys/opencrypto"
-    "etc/group"
-    "etc/master.passwd"
-    "etc/shells"
-  ] ++ extraSrc;
+  extraPaths =
+    [
+      "lib/libc_nonshared"
+      "lib/msun"
+      "lib/libmd"
+      "lib/libutil"
+      "libexec/rtld-elf"
+      "include/rpcsvc"
+      "contrib/libc-pwcache"
+      "contrib/libc-vis"
+      "contrib/tzcode"
+      "contrib/gdtoa"
+      "contrib/jemalloc"
+      "sys/sys"
+      "sys/kern"
+      "sys/libkern"
+      "sys/crypto"
+      "sys/opencrypto"
+      "etc/group"
+      "etc/master.passwd"
+      "etc/shells"
+    ]
+    ++ extraSrc;
 
   outputs = [
     "out"
@@ -89,5 +90,5 @@ mkDerivation {
   };
 
   # definitely a bad idea to enable stack protection on the stack protection initializers
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 }

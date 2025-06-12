@@ -12,7 +12,6 @@
   volk,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "suscan";
   version = "0.3.0";

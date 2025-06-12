@@ -6,7 +6,6 @@
   libftdi,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "infnoise";
   version = "0.3.3";
@@ -30,10 +29,10 @@ stdenv.mkDerivation (finalAttrs: {
   GIT_VERSION = finalAttrs.version;
   GIT_DATE = "2023-02-14";
 
-  buildInputs = [ libftdi ];
+  buildInputs = [libftdi];
 
   makefile = "Makefile.linux";
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   postPatch = ''
     cd software
     substituteInPlace init_scripts/infnoise.service --replace "/usr/local" "$out"
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
 
   meta = with lib; {

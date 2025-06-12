@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchPypi,
   fetchpatch,
-
   # build-system
   setuptools,
-
   # dependencies
   flask,
-
   # tests
   pytestCheckHook,
   pytest-cov-stub,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "flask-gravatar";
   version = "0.5.0";
@@ -45,9 +41,9 @@ buildPythonPackage rec {
      --replace-fail "--pep8" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flask ];
+  dependencies = [flask];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -55,12 +51,12 @@ buildPythonPackage rec {
     pygments
   ];
 
-  pythonImportsCheck = [ "flask_gravatar" ];
+  pythonImportsCheck = ["flask_gravatar"];
 
   meta = with lib; {
     homepage = "https://github.com/zzzsochi/Flask-Gravatar";
     description = "Small and simple integration of gravatar into flask";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

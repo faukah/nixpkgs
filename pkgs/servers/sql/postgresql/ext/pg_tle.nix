@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension rec {
   pname = "pg_tle";
   version = "1.5.1";
@@ -22,7 +21,7 @@ postgresqlBuildExtension rec {
     description = "Framework for building trusted language extensions for PostgreSQL";
     homepage = "https://github.com/aws/pg_tle";
     changelog = "https://github.com/aws/pg_tle/releases/tag/v${version}";
-    maintainers = [ lib.maintainers.benchand ];
+    maintainers = [lib.maintainers.benchand];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.asl20;
   };

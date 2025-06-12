@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "layan-cursors";
   version = "2021-08-01";
@@ -25,14 +24,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Cursor theme inspired by layan gtk theme and based on capitaine-cursors";
     changelog = "https://github.com/vinceliuice/Layan-cursors/releases/tag/${finalAttrs.version}/CHANGELOG.md";
     homepage = "https://github.com/vinceliuice/Layan-cursors/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ idlip ];
+    maintainers = with lib.maintainers; [idlip];
   };
-
 })

@@ -13,7 +13,6 @@
   requests-toolbelt,
   testfixtures,
 }:
-
 buildPythonPackage rec {
   pname = "prawcore";
   version = "2.4.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-tECZRx6VgyiJDKHvj4Rf1sknFqUhz3sDFEsAMOeB7/g=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     testfixtures
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     "tests/integration"
   ];
 
-  pythonImportsCheck = [ "prawcore" ];
+  pythonImportsCheck = ["prawcore"];
 
   meta = with lib; {
     description = "Low-level communication layer for PRAW";
     homepage = "https://praw.readthedocs.org/";
     changelog = "https://github.com/praw-dev/prawcore/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

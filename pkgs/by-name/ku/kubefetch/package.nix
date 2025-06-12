@@ -20,7 +20,7 @@ buildGoModule rec {
     description = "Neofetch-like tool to show info about your Kubernetes Cluster";
     homepage = "https://github.com/jkulzer/kubefetch";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wrmilling ];
+    maintainers = with lib.maintainers; [wrmilling];
     mainProgram = "kubefetch";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-ecoflow-exporter";
   version = "1.4.0";
@@ -23,7 +22,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/tess1o/go-ecoflow-exporter/releases/tag/${finalAttrs.version}";
@@ -31,6 +30,6 @@ buildGoModule (finalAttrs: {
     description = "Ecoflow solar battery mqtt timescale, redis, prometheus metrics exporter";
     license = lib.licenses.mit;
     mainProgram = "go-ecoflow-exporter";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

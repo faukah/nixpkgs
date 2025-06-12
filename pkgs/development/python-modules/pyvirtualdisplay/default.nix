@@ -5,10 +5,8 @@
   fetchPypi,
   replaceVars,
   xorg,
-
   # build-system
   setuptools,
-
   # tests
   easyprocess,
   entrypoint2,
@@ -19,7 +17,6 @@
   pytestCheckHook,
   vncdo,
 }:
-
 buildPythonPackage rec {
   pname = "pyvirtualdisplay";
   version = "3.0";
@@ -38,7 +35,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   doCheck = stdenv.hostPlatform.isLinux;
 
@@ -49,18 +46,18 @@ buildPythonPackage rec {
     psutil
     pytest-timeout
     pytestCheckHook
-    (vncdo.overridePythonAttrs { doCheck = false; })
+    (vncdo.overridePythonAttrs {doCheck = false;})
     xorg.xorgserver
     xorg.xmessage
     xorg.xvfb
   ];
 
-  pytestFlagsArray = [ "-v" ];
+  pytestFlagsArray = ["-v"];
 
   meta = with lib; {
     description = "Python wrapper for Xvfb, Xephyr and Xvnc";
     homepage = "https://github.com/ponty/pyvirtualdisplay";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ layus ];
+    maintainers = with maintainers; [layus];
   };
 }

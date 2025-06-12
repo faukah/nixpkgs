@@ -5,7 +5,6 @@
   autoreconfHook,
   gettext,
 }:
-
 stdenv.mkDerivation {
   pname = "duff";
   version = "2024-02-16";

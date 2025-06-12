@@ -8,7 +8,6 @@
   curl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "htslib";
   version = "1.21";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   # perl is only used during the check phase.
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     zlib
@@ -29,13 +28,12 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    if !stdenv.hostPlatform.isStatic then
-      [ "--enable-libcurl" ] # optional but strongly recommended
-    else
-      [
-        "--disable-libcurl"
-        "--disable-plugins"
-      ];
+    if !stdenv.hostPlatform.isStatic
+    then ["--enable-libcurl"] # optional but strongly recommended
+    else [
+      "--disable-libcurl"
+      "--disable-plugins"
+    ];
 
   # In the case of static builds, we need to replace the build and install phases
   buildPhase = lib.optional stdenv.hostPlatform.isStatic ''
@@ -65,6 +63,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "http://www.htslib.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 }

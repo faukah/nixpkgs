@@ -6,7 +6,6 @@
   nix-update-script,
   makeBinaryWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "net-news-wire";
   version = "6.1.9";
@@ -53,6 +52,6 @@ stdenvNoCC.mkDerivation rec {
       jakuzure
       DimitarNestorov
     ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 }

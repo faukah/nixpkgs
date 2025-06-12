@@ -13,7 +13,6 @@
   enableSass ? true,
   enableX11 ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mixxc";
   version = "0.2.4";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Ng4Vbk00m66qdm0lMaQ5Ab56x3kZKq8NsCDMTPVnQ3c=";
 
-  cargoBuildFlags = [ "--locked" ];
+  cargoBuildFlags = ["--locked"];
 
   buildFeatures = [
     (lib.optionals enableWayland "Wayland")
@@ -60,8 +59,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Minimalistic and customizable volume mixer";
     homepage = "https://github.com/Elvyria/mixxc";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ daru-san ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [daru-san];
     mainProgram = "mixxc";
     platforms = lib.platforms.linux;
   };

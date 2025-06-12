@@ -6,7 +6,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "expecttest";
   version = "0.2.1";
@@ -19,17 +18,17 @@ buildPythonPackage {
     hash = "sha256-e9/KxPN/w0mrFYgesRGqaiDQ6gor7BpX/5/B0NPtXLY=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "expecttest" ];
+  pythonImportsCheck = ["expecttest"];
 
   meta = {
-    maintainers = [ lib.maintainers.SomeoneSerge ];
+    maintainers = [lib.maintainers.SomeoneSerge];
     license = lib.licenses.mit;
     description = ''EZ Yang "golden" tests (testing against a reference implementation)'';
     homepage = "https://github.com/pytorch/expecttest";

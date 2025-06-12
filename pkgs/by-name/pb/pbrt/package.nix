@@ -7,7 +7,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation {
   version = "2018-08-15";
   pname = "pbrt-v3";
@@ -30,14 +29,14 @@ stdenv.mkDerivation {
     bison
     cmake
   ];
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     homepage = "https://pbrt.org/";
     description = "Renderer described in the third edition of the book 'Physically Based Rendering: From Theory To Implementation'";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
     priority = 10;
   };
 }

@@ -5,15 +5,12 @@
   jdk,
   gradle,
   ghidra,
-}:
-
-let
-  metaCommon =
-    oldMeta:
+}: let
+  metaCommon = oldMeta:
     oldMeta
     // {
       maintainers =
-        (oldMeta.maintainers or [ ])
+        (oldMeta.maintainers or [])
         ++ (with lib.maintainers; [
           vringar
           ivyfanchiang
@@ -21,21 +18,22 @@ let
       platforms = oldMeta.platforms or ghidra.meta.platforms;
     };
 
-  buildGhidraExtension =
-    {
-      pname,
-      nativeBuildInputs ? [ ],
-      meta ? { },
-      ...
-    }@args:
+  buildGhidraExtension = {
+    pname,
+    nativeBuildInputs ? [],
+    meta ? {},
+    ...
+  } @ args:
     stdenv.mkDerivation (
       args
       // {
-        nativeBuildInputs = nativeBuildInputs ++ [
-          unzip
-          jdk
-          gradle
-        ];
+        nativeBuildInputs =
+          nativeBuildInputs
+          ++ [
+            unzip
+            jdk
+            gradle
+          ];
 
         preBuild = ''
           # Set project name, otherwise defaults to directory name
@@ -49,7 +47,7 @@ let
         __darwinAllowLocalNetworking = true;
 
         gradleBuildTask = args.gradleBuildTask or "buildExtension";
-        gradleFlags = args.gradleFlags or [ ] ++ [ "-PGHIDRA_INSTALL_DIR=${ghidra}/lib/ghidra" ];
+        gradleFlags = args.gradleFlags or [] ++ ["-PGHIDRA_INSTALL_DIR=${ghidra}/lib/ghidra"];
 
         installPhase =
           args.installPhase or ''
@@ -65,12 +63,11 @@ let
       }
     );
 
-  buildGhidraScripts =
-    {
-      pname,
-      meta ? { },
-      ...
-    }@args:
+  buildGhidraScripts = {
+    pname,
+    meta ? {},
+    ...
+  } @ args:
     stdenv.mkDerivation (
       args
       // {
@@ -97,7 +94,6 @@ let
         meta = metaCommon meta;
       }
     );
-in
-{
+in {
   inherit buildGhidraExtension buildGhidraScripts;
 }

@@ -28,7 +28,6 @@
   sharutils,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fvwm3";
   version = "1.1.0";
@@ -113,7 +112,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     changelog = "https://github.com/fvwmorg/fvwm3/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

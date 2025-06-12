@@ -18,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-yYt13FsKhkWcTwGh0yrH60M47EMXpEaVFf8eaH7NkJ4=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ pyflakes ] ++ lib.optional (pythonOlder "3.11") tomli;
+  propagatedBuildInputs = [pyflakes] ++ lib.optional (pythonOlder "3.11") tomli;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autoflake" ];
+  pythonImportsCheck = ["autoflake"];
 
   disabledTests = [
     # AssertionError: True is not false
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     mainProgram = "autoflake";
     homepage = "https://github.com/myint/autoflake";
     license = licenses.mit;
-    maintainers = with maintainers; [ yuriaisaka ];
+    maintainers = with maintainers; [yuriaisaka];
   };
 }

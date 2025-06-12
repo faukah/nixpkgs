@@ -2,11 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   ninja,
-
   # buildInputs
   SDL2,
   boost,
@@ -18,10 +16,8 @@
   libmad,
   libX11,
   openal,
-
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   version = "0-unstable-2025-01-09";
   pname = "openrw";
@@ -58,7 +54,7 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
@@ -69,7 +65,7 @@ stdenv.mkDerivation {
       OpenRW is an open source re-implementation of Rockstar Games' Grand Theft
       Auto III, a classic 3D action game first published in 2001.
     '';
-    maintainers = with lib.maintainers; [ kragniz ];
+    maintainers = with lib.maintainers; [kragniz];
     platforms = lib.platforms.all;
     mainProgram = "rwgame";
     badPlatforms = [

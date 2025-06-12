@@ -14,9 +14,7 @@
   pytest-mock,
   dirty-equals,
   pydantic,
-}:
-
-let
+}: let
   pydantic-core = buildPythonPackage rec {
     pname = "pydantic-core";
     version = "2.33.0";
@@ -45,15 +43,15 @@ let
       typing-extensions
     ];
 
-    buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
-    dependencies = [ typing-extensions ];
+    dependencies = [typing-extensions];
 
-    pythonImportsCheck = [ "pydantic_core" ];
+    pythonImportsCheck = ["pydantic_core"];
 
     # escape infinite recursion with pydantic via dirty-equals
     doCheck = false;
-    passthru.tests.pytest = pydantic-core.overrideAttrs { doCheck = true; };
+    passthru.tests.pytest = pydantic-core.overrideAttrs {doCheck = true;};
 
     nativeCheckInputs = [
       pytestCheckHook
@@ -82,4 +80,4 @@ let
     };
   };
 in
-pydantic-core
+  pydantic-core

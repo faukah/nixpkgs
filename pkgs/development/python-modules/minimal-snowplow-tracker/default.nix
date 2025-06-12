@@ -5,7 +5,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "minimal-snowplow-tracker";
   version = "0.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "snowplow_tracker" ];
+  pythonImportsCheck = ["snowplow_tracker"];
 
   meta = with lib; {
     description = "Minimal snowplow event tracker";

@@ -9,7 +9,6 @@
   typing-extensions,
   cached-property,
 }:
-
 buildPythonPackage rec {
   pname = "datauri";
   version = "3.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-WrOQPUZ9vaLSR0hxIvCK8kBnARiOLh6qqWBw/h6XpaY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     typing-extensions
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "datauri" ];
+  pythonImportsCheck = ["datauri"];
 
   meta = with lib; {
     description = "Module for Data URI manipulation";
     homepage = "https://github.com/fcurella/python-datauri";
     changelog = "https://github.com/fcurella/python-datauri/releases/tag/${src.tag}";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

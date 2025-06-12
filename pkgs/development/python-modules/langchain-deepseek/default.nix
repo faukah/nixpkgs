@@ -2,25 +2,20 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
   poetry-core,
-
   # dependencies
   langchain-core,
   langchain-openai,
-
   # testing
   langchain-tests,
   pytestCheckHook,
   pytest-asyncio,
   syrupy,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-deepseek";
   version = "0.1.3";
@@ -57,9 +52,9 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_deepseek" ];
+  pythonImportsCheck = ["langchain_deepseek"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -73,6 +68,6 @@ buildPythonPackage rec {
     description = "Integration package connecting DeepSeek and LangChain";
     homepage = "https://github.com/langchain-ai/langchain/tree/master/libs/partners/deepseek";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sarahec ];
+    maintainers = with lib.maintainers; [sarahec];
   };
 }

@@ -11,9 +11,7 @@
   writeText,
   withLibvirt ? stdenv.hostPlatform.isLinux,
   openssl,
-}:
-
-let
+}: let
   # NOTE: bumping the version and updating the hash is insufficient;
   # you must use bundix to generate a new gemset.nix in the Vagrant source.
   version = "2.4.3";
@@ -54,41 +52,39 @@ let
       done
     '';
   };
-
 in
-buildRubyGem rec {
-  name = "${gemName}-${version}";
-  gemName = "vagrant";
-  inherit version;
+  buildRubyGem rec {
+    name = "${gemName}-${version}";
+    gemName = "vagrant";
+    inherit version;
 
-  doInstallCheck = true;
-  dontBuild = false;
-  src = fetchurl { inherit url hash; };
+    doInstallCheck = true;
+    dontBuild = false;
+    src = fetchurl {inherit url hash;};
 
-  # Some reports indicate that some connection types, particularly
-  # WinRM, suffer from "Digest initialization failed" errors. Adding
-  # openssl as a build input resolves this runtime error.
-  buildInputs = [ openssl ];
+    # Some reports indicate that some connection types, particularly
+    # WinRM, suffer from "Digest initialization failed" errors. Adding
+    # openssl as a build input resolves this runtime error.
+    buildInputs = [openssl];
 
-  patches = [
-    ./unofficial-installation-nowarn.patch
-    ./use-system-bundler-version.patch
-    ./0004-Support-system-installed-plugins.patch
-    ./0001-Revert-Merge-pull-request-12225-from-chrisroberts-re.patch
-  ];
+    patches = [
+      ./unofficial-installation-nowarn.patch
+      ./use-system-bundler-version.patch
+      ./0004-Support-system-installed-plugins.patch
+      ./0001-Revert-Merge-pull-request-12225-from-chrisroberts-re.patch
+    ];
 
-  postPatch = ''
-    substituteInPlace lib/vagrant/plugin/manager.rb --subst-var-by \
-      system_plugin_dir "$out/vagrant-plugins"
-  '';
+    postPatch = ''
+      substituteInPlace lib/vagrant/plugin/manager.rb --subst-var-by \
+        system_plugin_dir "$out/vagrant-plugins"
+    '';
 
-  # PATH additions:
-  #   - libarchive: Make `bsdtar` available for extracting downloaded boxes
-  # withLibvirt only:
-  #   - libguestfs: Make 'virt-sysprep' available for 'vagrant package'
-  #   - qemu: Make 'qemu-img' available for 'vagrant package'
-  postInstall =
-    let
+    # PATH additions:
+    #   - libarchive: Make `bsdtar` available for extracting downloaded boxes
+    # withLibvirt only:
+    #   - libguestfs: Make 'virt-sysprep' available for 'vagrant package'
+    #   - qemu: Make 'qemu-img' available for 'vagrant package'
+    postInstall = let
       pathAdditions = lib.makeSearchPath "bin" (
         map (x: lib.getBin x) (
           [
@@ -101,41 +97,41 @@ buildRubyGem rec {
         )
       );
     in
-    ''
-      wrapProgram "$out/bin/vagrant" \
-        --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
-        --prefix PATH ':' ${pathAdditions} \
-        --set-default VAGRANT_CHECKPOINT_DISABLE 1
+      ''
+        wrapProgram "$out/bin/vagrant" \
+          --set GEM_PATH "${deps}/lib/ruby/gems/${ruby.version.libDir}" \
+          --prefix PATH ':' ${pathAdditions} \
+          --set-default VAGRANT_CHECKPOINT_DISABLE 1
 
-      mkdir -p "$out/vagrant-plugins/plugins.d"
-      echo '{}' > "$out/vagrant-plugins/plugins.json"
+        mkdir -p "$out/vagrant-plugins/plugins.d"
+        echo '{}' > "$out/vagrant-plugins/plugins.json"
 
-      # install bash completion
-      mkdir -p $out/share/bash-completion/completions/
-      cp -av contrib/bash/completion.sh $out/share/bash-completion/completions/vagrant
-      # install zsh completion
-      mkdir -p $out/share/zsh/site-functions/
-      cp -av contrib/zsh/_vagrant $out/share/zsh/site-functions/
-    ''
-    + lib.optionalString withLibvirt ''
-      substitute ${./vagrant-libvirt.json.in} $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
-        --subst-var-by ruby_version ${ruby.version} \
-        --subst-var-by vagrant_version ${version}
+        # install bash completion
+        mkdir -p $out/share/bash-completion/completions/
+        cp -av contrib/bash/completion.sh $out/share/bash-completion/completions/vagrant
+        # install zsh completion
+        mkdir -p $out/share/zsh/site-functions/
+        cp -av contrib/zsh/_vagrant $out/share/zsh/site-functions/
+      ''
+      + lib.optionalString withLibvirt ''
+        substitute ${./vagrant-libvirt.json.in} $out/vagrant-plugins/plugins.d/vagrant-libvirt.json \
+          --subst-var-by ruby_version ${ruby.version} \
+          --subst-var-by vagrant_version ${version}
+      '';
+
+    installCheckPhase = ''
+      HOME="$(mktemp -d)" $out/bin/vagrant init --output - > /dev/null
     '';
 
-  installCheckPhase = ''
-    HOME="$(mktemp -d)" $out/bin/vagrant init --output - > /dev/null
-  '';
+    passthru = {
+      inherit ruby deps;
+    };
 
-  passthru = {
-    inherit ruby deps;
-  };
-
-  meta = with lib; {
-    description = "Tool for building complete development environments";
-    homepage = "https://www.vagrantup.com/";
-    license = licenses.bsl11;
-    maintainers = with maintainers; [ tylerjl ];
-    platforms = with platforms; linux ++ darwin;
-  };
-}
+    meta = with lib; {
+      description = "Tool for building complete development environments";
+      homepage = "https://www.vagrantup.com/";
+      license = licenses.bsl11;
+      maintainers = with maintainers; [tylerjl];
+      platforms = with platforms; linux ++ darwin;
+    };
+  }

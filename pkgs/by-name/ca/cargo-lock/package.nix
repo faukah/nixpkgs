@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-lock";
   version = "10.0.1";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-WdIKTTP5Z+rSq97BSdsx9Hqc46jEF0XjgeZ23BDSeRk=";
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   meta = {
     description = "Self-contained Cargo.lock parser with graph analysis";

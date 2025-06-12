@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-}:
-
-let
+}: let
   stdenv = stdenvNoCC;
 
   pname = "ookla-speedtest";
@@ -34,30 +32,29 @@ let
     aarch64-darwin = x86_64-darwin;
   };
 in
+  stdenv.mkDerivation {
+    inherit pname version;
 
-stdenv.mkDerivation {
-  inherit pname version;
+    src =
+      srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  src =
-    srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    sourceRoot = ".";
 
-  sourceRoot = ".";
+    dontBuild = true;
+    dontConfigure = true;
 
-  dontBuild = true;
-  dontConfigure = true;
+    installPhase = ''
+      install -D speedtest $out/bin/speedtest
+      install -D speedtest.5 $out/share/man/man5/speedtest.5
+    '';
 
-  installPhase = ''
-    install -D speedtest $out/bin/speedtest
-    install -D speedtest.5 $out/share/man/man5/speedtest.5
-  '';
-
-  meta = with lib; {
-    description = "Command line internet speedtest tool by Ookla";
-    homepage = "https://www.speedtest.net/apps/cli";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = with maintainers; [ kranzes ];
-    platforms = lib.attrNames srcs;
-    mainProgram = "speedtest";
-  };
-}
+    meta = with lib; {
+      description = "Command line internet speedtest tool by Ookla";
+      homepage = "https://www.speedtest.net/apps/cli";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = with maintainers; [kranzes];
+      platforms = lib.attrNames srcs;
+      mainProgram = "speedtest";
+    };
+  }

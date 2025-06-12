@@ -5,7 +5,6 @@
   ocplib-endian,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "cbor";
   version = "0.5";
@@ -30,6 +29,6 @@ buildDunePackage rec {
     description = "CBOR encoder/decoder (RFC 7049) - native OCaml implementation";
     homepage = "https://github.com/ygrek/ocaml-cbor";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

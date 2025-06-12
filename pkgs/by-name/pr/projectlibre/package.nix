@@ -2,17 +2,14 @@
   lib,
   stdenv,
   fetchgit,
-
   ant,
   jdk,
   makeWrapper,
   stripJavaArchivesHook,
-
   coreutils,
   jre,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "projectlibre";
   version = "1.9.8";

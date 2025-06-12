@@ -17,7 +17,6 @@
   importlib-resources,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sumo";
   version = "2.3.12";
@@ -54,13 +53,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sumo" ];
+  pythonImportsCheck = ["sumo"];
 
   meta = {
     description = "Toolkit for plotting and analysis of ab initio solid-state calculation data";
     homepage = "https://github.com/SMTG-UCL/sumo";
     changelog = "https://github.com/SMTG-Bham/sumo/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

@@ -11,7 +11,6 @@
   setuptools-scm,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "seatconnect";
   version = "1.1.9";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-HITVrI0o94a61gy/TYSGFtLBYX4Rw/dK1o2/KsvHLTQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     aiohttp
@@ -40,13 +39,13 @@ buildPythonPackage rec {
   # Project only has a dummy test
   doCheck = false;
 
-  pythonImportsCheck = [ "seatconnect" ];
+  pythonImportsCheck = ["seatconnect"];
 
   meta = with lib; {
     description = "Python module to communicate with Seat Connect";
     homepage = "https://github.com/farfar/seatconnect";
     changelog = "https://github.com/Farfar/seatconnect/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

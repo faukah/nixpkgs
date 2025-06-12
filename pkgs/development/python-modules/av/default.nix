@@ -14,7 +14,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "av";
   version = "14.1.0";
@@ -34,22 +33,20 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ ffmpeg-headless ];
+  buildInputs = [ffmpeg-headless];
 
-  preCheck =
-    let
-      # Update with `./update-test-samples.bash` if necessary.
-      testSamples = linkFarm "pyav-test-samples" (
-        lib.mapAttrs (_: fetchurl) (lib.importTOML ./test-samples.toml)
-      );
-    in
-    ''
-      # ensure we import the built version
-      rm -r av
-      ln -s ${testSamples} tests/assets
-    '';
+  preCheck = let
+    # Update with `./update-test-samples.bash` if necessary.
+    testSamples = linkFarm "pyav-test-samples" (
+      lib.mapAttrs (_: fetchurl) (lib.importTOML ./test-samples.toml)
+    );
+  in ''
+    # ensure we import the built version
+    rm -r av
+    ln -s ${testSamples} tests/assets
+  '';
 
   nativeCheckInputs = [
     numpy
@@ -93,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PyAV-Org/PyAV";
     changelog = "https://github.com/PyAV-Org/PyAV/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

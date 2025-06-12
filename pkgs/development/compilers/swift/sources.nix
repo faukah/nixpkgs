@@ -1,7 +1,7 @@
-{ lib, fetchFromGitHub }:
-
-let
-
+{
+  lib,
+  fetchFromGitHub,
+}: let
   # These packages are all part of the Swift toolchain, and have a single
   # upstream version that should match. We also list the hashes here so a basic
   # version upgrade touches only this file.
@@ -24,16 +24,17 @@ let
   };
 
   # Create fetch derivations.
-  sources = lib.mapAttrs (
-    repo: hash:
-    fetchFromGitHub {
-      owner = "apple";
-      inherit repo;
-      rev = "swift-${version}-RELEASE";
-      name = "${repo}-${version}-src";
-      hash = hashes.${repo};
-    }
-  ) hashes;
-
+  sources =
+    lib.mapAttrs (
+      repo: hash:
+        fetchFromGitHub {
+          owner = "apple";
+          inherit repo;
+          rev = "swift-${version}-RELEASE";
+          name = "${repo}-${version}-src";
+          hash = hashes.${repo};
+        }
+    )
+    hashes;
 in
-sources // { inherit version; }
+  sources // {inherit version;}

@@ -16,12 +16,10 @@
   coreutils,
   gnugrep,
   # Configuration options for the wrapper
-  extraMakeWrapperArgs ? [ ],
+  extraMakeWrapperArgs ? [],
   dbusVerify ? stdenv.hostPlatform.isLinux,
   dbus,
-}:
-
-let
+}: let
   inherit (unwrapped) version;
   major = lib.versions.major version;
   minor = lib.versions.minor version;
@@ -121,10 +119,10 @@ let
     ++ extraMakeWrapperArgs
   );
 in
-runCommand "${unwrapped.name}-wrapped"
+  runCommand "${unwrapped.name}-wrapped"
   {
     inherit (unwrapped) meta;
-    paths = [ unwrapped ];
+    paths = [unwrapped];
     nativeBuildInputs = [
       makeWrapper
       xorg.lndir

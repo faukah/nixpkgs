@@ -22,7 +22,6 @@
   gst_all_1,
   harfbuzz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cogl";
   version = "1.22.8";
@@ -130,7 +129,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Small open source library for using 3D graphics hardware for rendering";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
 
     longDescription = ''
       Cogl is a small open source library for using 3D graphics hardware for

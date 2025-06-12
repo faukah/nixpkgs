@@ -3,22 +3,18 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   gpgme,
   installShellFiles,
   pkg-config,
   python3,
-
   # buildInputs
   libgpg-error,
   nettle,
   openssl,
   xorg,
-
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "0.7.0";
   pname = "ripasso-cursive";
@@ -37,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     ./fix-tests.patch
   ];
 
-  cargoBuildFlags = [ "-p ripasso-cursive" ];
+  cargoBuildFlags = ["-p ripasso-cursive"];
 
   nativeBuildInputs = [
     gpgme
@@ -71,7 +67,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -79,7 +75,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "ripasso-cursive";
     homepage = "https://github.com/cortex/ripasso";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ sgo ];
+    maintainers = with lib.maintainers; [sgo];
     platforms = lib.platforms.unix;
   };
 }

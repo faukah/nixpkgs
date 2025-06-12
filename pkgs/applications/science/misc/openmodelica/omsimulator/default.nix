@@ -8,11 +8,10 @@
   mkOpenModelicaDerivation,
   fetchpatch,
 }:
-
 mkOpenModelicaDerivation {
   pname = "omsimulator";
   omdir = "OMSimulator";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
 
   patches = [
     (fetchpatch {
@@ -23,7 +22,7 @@ mkOpenModelicaDerivation {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     readline

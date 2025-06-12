@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "retroarch-assets";
   version = "1.20.0-unstable-2025-05-23";
@@ -33,7 +32,7 @@ stdenvNoCC.mkDerivation {
     description = "Assets needed for RetroArch";
     homepage = "https://libretro.com";
     license = licenses.mit;
-    teams = [ teams.libretro ];
+    teams = [teams.libretro];
     platforms = platforms.all;
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ucg";
   version = "unstable-2022-09-03";
@@ -50,9 +49,10 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "ucg";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isDarwin;
   };
 })
 # TODO: report upstream
+

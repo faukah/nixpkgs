@@ -7,7 +7,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "starline";
   version = "0.1.5";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "starline" ];
+  pythonImportsCheck = ["starline"];
 
   # https://github.com/Anonym-tsk/starline/issues/4
   passthru.skipBulkUpdate = true;
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Unofficial python library for StarLine API";
     homepage = "https://github.com/Anonym-tsk/starline";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

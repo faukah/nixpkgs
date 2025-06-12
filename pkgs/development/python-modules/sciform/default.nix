@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sciform";
   version = "0.39.0";
@@ -42,6 +39,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/jagerber48/sciform";
     changelog = "https://github.com/jagerber48/sciform/blob/${src.tag}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

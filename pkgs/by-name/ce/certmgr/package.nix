@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "certmgr";
   version = "3.0.3";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.tests = { inherit (nixosTests) certmgr; };
+  passthru.tests = {inherit (nixosTests) certmgr;};
 
   meta = with lib; {
     homepage = "https://cfssl.org/";

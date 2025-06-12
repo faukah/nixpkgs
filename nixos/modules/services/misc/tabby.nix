@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) types mkRemovedOptionModule;
 
   cfg = config.services.tabby;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   tabbyPackage = cfg.package.override {
     inherit (cfg) acceleration;
   };
-in
-{
+in {
   imports = [
     (mkRemovedOptionModule [
       "services"
@@ -25,7 +23,7 @@ in
     services.tabby = {
       enable = lib.mkEnableOption "Self-hosted AI coding assistant using large language models";
 
-      package = lib.mkPackageOption pkgs "tabby" { };
+      package = lib.mkPackageOption pkgs "tabby" {};
 
       host = lib.mkOption {
         type = types.str;
@@ -124,44 +122,42 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ tabbyPackage ];
+      systemPackages = [tabbyPackage];
     };
 
-    systemd =
-      let
-        serviceUser = {
-          WorkingDirectory = "/var/lib/tabby";
-          StateDirectory = [ "tabby" ];
-          ConfigurationDirectory = [ "tabby" ];
-          DynamicUser = true;
-          User = "tabby";
-          Group = "tabby";
-        };
-
-        serviceEnv = lib.mkMerge [
-          {
-            TABBY_ROOT = "%S/tabby";
-          }
-          (lib.mkIf (!cfg.usageCollection) {
-            TABBY_DISABLE_USAGE_COLLECTION = "1";
-          })
-        ];
-      in
-      {
-        services.tabby = {
-          wantedBy = [ "multi-user.target" ];
-          description = "Self-hosted AI coding assistant using large language models";
-          after = [ "network.target" ];
-          environment = serviceEnv;
-          serviceConfig = lib.mkMerge [
-            serviceUser
-            {
-              ExecStart = "${lib.getExe tabbyPackage} serve --model ${cfg.model} --host ${cfg.host} --port ${toString cfg.port} --device ${tabbyPackage.featureDevice}";
-            }
-          ];
-        };
+    systemd = let
+      serviceUser = {
+        WorkingDirectory = "/var/lib/tabby";
+        StateDirectory = ["tabby"];
+        ConfigurationDirectory = ["tabby"];
+        DynamicUser = true;
+        User = "tabby";
+        Group = "tabby";
       };
+
+      serviceEnv = lib.mkMerge [
+        {
+          TABBY_ROOT = "%S/tabby";
+        }
+        (lib.mkIf (!cfg.usageCollection) {
+          TABBY_DISABLE_USAGE_COLLECTION = "1";
+        })
+      ];
+    in {
+      services.tabby = {
+        wantedBy = ["multi-user.target"];
+        description = "Self-hosted AI coding assistant using large language models";
+        after = ["network.target"];
+        environment = serviceEnv;
+        serviceConfig = lib.mkMerge [
+          serviceUser
+          {
+            ExecStart = "${lib.getExe tabbyPackage} serve --model ${cfg.model} --host ${cfg.host} --port ${toString cfg.port} --device ${tabbyPackage.featureDevice}";
+          }
+        ];
+      };
+    };
   };
 
-  meta.maintainers = with lib.maintainers; [ ghthor ];
+  meta.maintainers = with lib.maintainers; [ghthor];
 }

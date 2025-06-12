@@ -9,7 +9,6 @@
   six,
   icu,
 }:
-
 buildPythonPackage rec {
   pname = "pyicu";
   version = "2.15";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace-fail "'pkg-config'" "'${stdenv.cc.targetPrefix}pkg-config'"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ icu ];
+  buildInputs = [icu];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     "--deselect=test/test_UnicodeSet.py::TestUnicodeSet::testIterators"
   ];
 
-  pythonImportsCheck = [ "icu" ];
+  pythonImportsCheck = ["icu"];
 
   meta = with lib; {
     homepage = "https://gitlab.pyicu.org/main/pyicu";

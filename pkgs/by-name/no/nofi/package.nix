@@ -5,7 +5,6 @@
   dbus,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nofi";
   version = "0.2.4";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-dWqMwS0TgspZqlpi8hhwtA7sbqGunw0FIqjJXOTiFKA=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dbus];
 
   meta = {
     description = "Interruption-free notification system for Linux";
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
       lib.licenses.mit
     ];
     mainProgram = "nofi";
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

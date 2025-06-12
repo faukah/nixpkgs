@@ -8,7 +8,6 @@
   mpfr,
   gmp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sfcgal";
   version = "2.1.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     gmp
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "C++ wrapper library around CGAL with the aim of supporting ISO 191007:2013 and OGC Simple Features for 3D operations";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/sfcgal/SFCGAL/-/releases/v${finalAttrs.version}";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fqidz ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [fqidz];
+    teams = [lib.teams.geospatial];
   };
 })

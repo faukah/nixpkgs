@@ -8,7 +8,6 @@
   makeWrapper,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "taskserver";
   version = "1.1.0";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
 
       echo wrapping $i
       makeWrapper  $pkipath/$i $out/bin/taskd-pki-$i \
-        --prefix PATH : ${lib.makeBinPath [ gnutls ]}
+        --prefix PATH : ${lib.makeBinPath [gnutls]}
     done
   '';
 
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  passthru.tests = { inherit (nixosTests) taskserver; };
+  passthru.tests = {inherit (nixosTests) taskserver;};
 
   meta = {
     description = "Server for synchronising Taskwarrior 2 clients";

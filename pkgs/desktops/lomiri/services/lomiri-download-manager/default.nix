@@ -26,7 +26,6 @@
   wrapQtAppsHook,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-download-manager";
   version = "0.2.1";
@@ -38,10 +37,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dVyel4NL5LFORNTQzOyeTFkt9Wn23+4uwHsKcj+/0rk=";
   };
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals withDocumentation [ "doc" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals withDocumentation ["doc"];
 
   patches = [
     # Remove when version > 0.2.1
@@ -95,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
     xvfb-run
   ];
 
-  checkInputs = [ gtest ];
+  checkInputs = [gtest];
 
   cmakeFlags = [
     (lib.cmakeBool "ENABLE_QT6" (lib.strings.versionAtLeast qtbase.version "6"))
@@ -103,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "ENABLE_WERROR" true)
   ];
 
-  makeTargets = [ "all" ] ++ lib.optionals withDocumentation [ "doc" ];
+  makeTargets = ["all"] ++ lib.optionals withDocumentation ["doc"];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
@@ -117,17 +118,19 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Performs uploads and downloads from a centralized location";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-download-manager";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-download-manager/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.lgpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "ldm-common"

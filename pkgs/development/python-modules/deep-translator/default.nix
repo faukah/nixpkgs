@@ -8,7 +8,6 @@
   pythonOlder,
   poetry-core,
 }:
-
 buildPythonPackage rec {
   pname = "deep-translator";
   version = "1.11.4";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-gBJgxpIxE4cH6oiglV5ITbfUDiEMngrg93Ny/9pfS/U=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://deep-translator.readthedocs.io";
     changelog = "https://github.com/nidhaloff/deep-translator/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

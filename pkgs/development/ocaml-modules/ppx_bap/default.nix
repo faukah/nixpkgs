@@ -13,7 +13,6 @@
   ppx_sexp_conv,
   ppx_sexp_value,
 }:
-
 buildDunePackage rec {
   pname = "ppx_bap";
   version = "0.14";
@@ -48,7 +47,7 @@ buildDunePackage rec {
     description = "Set of ppx rewriters for BAP";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "ppx-bap";
   };
 }

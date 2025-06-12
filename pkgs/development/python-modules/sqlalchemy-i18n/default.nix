@@ -11,7 +11,6 @@
   psycopg2,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-i18n";
   version = "1.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-3jM3ZIOlgcoUIY2PV6EURmxfcrZ0qVg5tsRWSm5neW8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     sqlalchemy
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "sqlalchemy_i18n" ];
+  pythonImportsCheck = ["sqlalchemy_i18n"];
 
   nativeCheckInputs = [
     postgresql

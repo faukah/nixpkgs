@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-databoxedge";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-BAkAYrwejwDC9FMVo7zrD7OzR57BR01xuINC4TSZsIc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # no tests in pypi tarball
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.databoxedge" ];
+  pythonImportsCheck = ["azure.mgmt.databoxedge"];
 
   meta = with lib; {
     description = "Microsoft Azure Databoxedge Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/databox/azure-mgmt-databox";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-databoxedge_${version}/sdk/databox/azure-mgmt-databox/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

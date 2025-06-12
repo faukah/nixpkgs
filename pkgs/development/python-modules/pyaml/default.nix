@@ -6,7 +6,6 @@
   pyyaml,
   unidecode,
 }:
-
 buildPythonPackage rec {
   pname = "pyaml";
   version = "25.1.0";
@@ -17,19 +16,19 @@ buildPythonPackage rec {
     hash = "sha256-M6k6xJIY9X4CC4HigNJwbOpVSsWnZEWsea3XYNAZxwk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  nativeCheckInputs = [ unidecode ];
+  nativeCheckInputs = [unidecode];
 
-  pythonImportsCheck = [ "pyaml" ];
+  pythonImportsCheck = ["pyaml"];
 
   meta = with lib; {
     description = "PyYAML-based module to produce pretty and readable YAML-serialized data";
     mainProgram = "pyaml";
     homepage = "https://github.com/mk-fg/pretty-yaml";
     license = licenses.wtfpl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

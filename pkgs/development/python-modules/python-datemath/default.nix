@@ -9,7 +9,6 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-datemath";
   version = "3.0.3";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-VwdY6Gmbmoy7EKZjUlWj56uSiE0OdegPiQv+rmigkq8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ arrow ];
+  dependencies = [arrow];
 
   nativeCheckInputs = [
     freezegun
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "datemath" ];
+  pythonImportsCheck = ["datemath"];
 
   meta = {
     description = "Python module to emulate the date math used in SOLR and Elasticsearch";
     homepage = "https://github.com/nickmaccarthy/python-datemath";
     changelog = "https://github.com/nickmaccarthy/python-datemath/blob/v${version}/CHANGELOG.md";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ fab ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [fab];
   };
 }

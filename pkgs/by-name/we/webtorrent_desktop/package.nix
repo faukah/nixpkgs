@@ -6,7 +6,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildNpmPackage {
   pname = "webtorrent-desktop";
   version = "0.25-pre-ac7f16";
@@ -26,7 +25,7 @@ buildNpmPackage {
   ];
   npmDepsHash = "sha256-otAes6GkqoAVvfeWhWgyY4IVZIZxw3WtkrVdEWIk1Lk=";
   makeCacheWritable = true;
-  npmRebuildFlags = [ "--ignore-scripts" ];
+  npmRebuildFlags = ["--ignore-scripts"];
   installPhase = ''
     ## Rebuild node_modules for production
     ## after babel compile has finished
@@ -59,8 +58,7 @@ buildNpmPackage {
     description = "Streaming torrent app for Mac, Windows, and Linux";
     homepage = "https://webtorrent.io/desktop";
     license = licenses.mit;
-    maintainers = [ maintainers.bendlas ];
+    maintainers = [maintainers.bendlas];
     mainProgram = "WebTorrent";
   };
-
 }

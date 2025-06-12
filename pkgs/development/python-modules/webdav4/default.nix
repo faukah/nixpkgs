@@ -15,7 +15,6 @@
   pythonOlder,
   wsgidav,
 }:
-
 buildPythonPackage rec {
   pname = "webdav4";
   version = "0.10.0";
@@ -40,25 +39,27 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [
-    cheroot
-    colorama
-    pytest-xdist
-    pytestCheckHook
-    pytest-cov-stub
-    wsgidav
-  ] ++ optional-dependencies.fsspec;
+  nativeCheckInputs =
+    [
+      cheroot
+      colorama
+      pytest-xdist
+      pytestCheckHook
+      pytest-cov-stub
+      wsgidav
+    ]
+    ++ optional-dependencies.fsspec;
 
   optional-dependencies = {
-    fsspec = [ fsspec ];
-    http2 = [ httpx.optional-dependencies.http2 ];
+    fsspec = [fsspec];
+    http2 = [httpx.optional-dependencies.http2];
     all = [
       fsspec
       httpx.optional-dependencies.http2
     ];
   };
 
-  pythonImportsCheck = [ "webdav4" ];
+  pythonImportsCheck = ["webdav4"];
 
   disabledTests = [
     # ValueError: Invalid dir_browser htdocs_path
@@ -84,7 +85,7 @@ buildPythonPackage rec {
     mainProgram = "dav";
     homepage = "https://skshetry.github.io/webdav4/";
     changelog = "https://github.com/skshetry/webdav4/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

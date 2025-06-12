@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "urxvt-theme-switch";
   version = "unstable-2014-12-21";
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "urxvt plugin that allows to switch color themes during runtime";
     homepage = "https://github.com/felixr/urxvt-theme-switch";
     license = "CCBYNC";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "powerhub";
   version = "2.0.7";
@@ -59,7 +58,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/AdrianVollmer/PowerHub";
     changelog = "https://github.com/AdrianVollmer/PowerHub/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "powerhub";
   };
 }

@@ -7,7 +7,6 @@
   freesasa,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "freesasa";
   version = "2.2.1";
@@ -31,17 +30,17 @@ buildPythonPackage rec {
 
   env.USE_CYTHON = true;
 
-  pythonImportsCheck = [ "freesasa" ];
+  pythonImportsCheck = ["freesasa"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
   meta = {
     description = "FreeSASA Python Module";
     homepage = "https://github.com/freesasa/freesasa-python";
     changelog = "https://github.com/freesasa/freesasa-python/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

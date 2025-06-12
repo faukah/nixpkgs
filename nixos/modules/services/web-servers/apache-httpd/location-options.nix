@@ -3,13 +3,10 @@
   lib,
   name,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   options = {
-
     proxyPass = mkOption {
       type = with types; nullOr str;
       default = null;
@@ -54,6 +51,5 @@ in
         a greater priority.
       '';
     };
-
   };
 }

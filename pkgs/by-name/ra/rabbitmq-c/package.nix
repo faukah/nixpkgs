@@ -6,7 +6,6 @@
   openssl,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rabbitmq-c";
   version = "0.15.0";
@@ -23,15 +22,15 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uOI+YV9aV/LGlSxr75sSii5jQ005smCVe14QAGNpKY8=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "RabbitMQ C AMQP client library";
     homepage = "https://github.com/alanxz/rabbitmq-c";
     license = licenses.mit;
     platforms = platforms.unix;
-    pkgConfigModules = [ "librabbitmq" ];
+    pkgConfigModules = ["librabbitmq"];
   };
 
   passthru = {

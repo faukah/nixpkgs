@@ -24,19 +24,19 @@ buildGoModule rec {
     "-X main.Version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/alertmanager_gotify_bridge";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Bridge between Prometheus AlertManager and a Gotify server";
     homepage = "https://github.com/DRuggeri/alertmanager_gotify_bridge";
     changelog = "https://github.com/DRuggeri/alertmanager_gotify_bridge/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ juli0604 ];
+    maintainers = with lib.maintainers; [juli0604];
     mainProgram = "alertmanager_gotify_bridge";
   };
 }

@@ -12,7 +12,6 @@
   smartmontools,
   dmidecode,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nwipe";
   version = "0.38";
@@ -39,12 +38,12 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/nwipe \
       --prefix PATH : ${
-        lib.makeBinPath [
-          hdparm
-          smartmontools
-          dmidecode
-        ]
-      }
+      lib.makeBinPath [
+        hdparm
+        smartmontools
+        dmidecode
+      ]
+    }
   '';
 
   enableParallelBuilding = true;

@@ -1,40 +1,34 @@
 let
   tests = {
-    wayland =
-      { pkgs, ... }:
-      {
-        imports = [ ./common/wayland-cage.nix ];
+    wayland = {pkgs, ...}: {
+      imports = [./common/wayland-cage.nix];
 
-        # We scale vscodium to help OCR find the small "Untitled" text.
-        services.cage.program = "${pkgs.vscodium}/bin/codium --force-device-scale-factor=2";
+      # We scale vscodium to help OCR find the small "Untitled" text.
+      services.cage.program = "${pkgs.vscodium}/bin/codium --force-device-scale-factor=2";
 
-        environment.variables.NIXOS_OZONE_WL = "1";
-        environment.variables.DISPLAY = "do not use";
+      environment.variables.NIXOS_OZONE_WL = "1";
+      environment.variables.DISPLAY = "do not use";
 
-        fonts.packages = with pkgs; [ dejavu_fonts ];
-      };
-    xorg =
-      { pkgs, ... }:
-      {
-        imports = [
-          ./common/user-account.nix
-          ./common/x11.nix
-        ];
+      fonts.packages = with pkgs; [dejavu_fonts];
+    };
+    xorg = {pkgs, ...}: {
+      imports = [
+        ./common/user-account.nix
+        ./common/x11.nix
+      ];
 
-        virtualisation.memorySize = 2047;
-        services.xserver.enable = true;
-        services.xserver.displayManager.sessionCommands = ''
-          ${pkgs.vscodium}/bin/codium --force-device-scale-factor=2
-        '';
-        test-support.displayManager.auto.user = "alice";
-      };
+      virtualisation.memorySize = 2047;
+      services.xserver.enable = true;
+      services.xserver.displayManager.sessionCommands = ''
+        ${pkgs.vscodium}/bin/codium --force-device-scale-factor=2
+      '';
+      test-support.displayManager.auto.user = "alice";
+    };
   };
 
-  mkTest =
-    name: machine:
+  mkTest = name: machine:
     import ./make-test-python.nix (
-      { pkgs, ... }:
-      {
+      {pkgs, ...}: {
         inherit name;
 
         nodes = {
@@ -91,6 +85,5 @@ let
         '';
       }
     );
-
 in
-builtins.mapAttrs (k: v: mkTest k v) tests
+  builtins.mapAttrs (k: v: mkTest k v) tests

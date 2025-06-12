@@ -10,7 +10,6 @@
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "iodata";
   version = "1.0.0a4";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     attrs
   ];
 
-  pythonImportsCheck = [ "iodata" ];
+  pythonImportsCheck = ["iodata"];
 
   nativeCheckInputs = [
     pytest-xdist
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     mainProgram = "iodata-convert";
     homepage = "https://github.com/theochem/iodata";
     license = licenses.lgpl3Only;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

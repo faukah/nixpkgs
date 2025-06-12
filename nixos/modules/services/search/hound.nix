@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hound;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   houndConfigFile = pkgs.writeTextFile {
     name = "hound-config.json";
     text = builtins.toJSON cfg.settings;
@@ -14,26 +13,25 @@ let
       ${cfg.package}/bin/houndd -check-conf -conf $out
     '';
   };
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
       "hound"
       "extraGroups"
     ] "Use users.users.hound.extraGroups instead")
-    (lib.mkChangedOptionModule [ "services" "hound" "config" ] [ "services" "hound" "settings" ] (
+    (lib.mkChangedOptionModule ["services" "hound" "config"] ["services" "hound" "settings"] (
       config: builtins.fromJSON config.services.hound.config
     ))
   ];
 
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 
   options = {
     services.hound = {
       enable = lib.mkEnableOption "hound";
 
-      package = lib.mkPackageOption pkgs "hound" { };
+      package = lib.mkPackageOption pkgs "hound" {};
 
       user = lib.mkOption {
         default = "hound";
@@ -91,7 +89,7 @@ in
 
   config = lib.mkIf cfg.enable {
     users.groups = lib.mkIf (cfg.group == "hound") {
-      hound = { };
+      hound = {};
     };
 
     users.users = lib.mkIf (cfg.user == "hound") {
@@ -111,9 +109,9 @@ in
 
     systemd.services.hound = {
       description = "Hound Code Search";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      restartTriggers = [ houndConfigFile ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      restartTriggers = [houndConfigFile];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;

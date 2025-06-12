@@ -5,7 +5,6 @@
   future,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sparklines";
   version = "0.5.0";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     sha256 = "sha256-oit1bDqP96wwfTRCV8V0N9P/+pkdW2WYOWT6u3lb4Xs=";
   };
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sparklines" ];
+  pythonImportsCheck = ["sparklines"];
 
   meta = with lib; {
     description = "This Python package implements Edward Tufte's concept of sparklines, but limited to text only";
     mainProgram = "sparklines";
     homepage = "https://github.com/deeplook/sparklines";
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     license = licenses.gpl3Only;
   };
 }

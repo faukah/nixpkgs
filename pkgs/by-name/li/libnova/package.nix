@@ -4,7 +4,6 @@
   fetchgit,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnova";
   version = "0.16";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     mainProgram = "libnovaconfig";
     homepage = "http://libnova.sf.net";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
     platforms = platforms.unix;
   };
 }

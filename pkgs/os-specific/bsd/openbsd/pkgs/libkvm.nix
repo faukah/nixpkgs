@@ -1,6 +1,4 @@
-{
-  mkDerivation,
-}:
+{mkDerivation}:
 mkDerivation {
   path = "lib/libkvm";
 

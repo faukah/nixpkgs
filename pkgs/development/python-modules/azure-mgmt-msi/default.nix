@@ -7,7 +7,6 @@
   azure-common,
   azure-mgmt-core,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-msi";
   version = "7.0.0";
@@ -28,17 +27,17 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.msi" ];
+  pythonImportsCheck = ["azure.mgmt.msi"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure MSI Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/resources/azure-mgmt-msi";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

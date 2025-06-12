@@ -1,10 +1,8 @@
 {
   lib,
   mkDerivation,
-
   extra-cmake-modules,
   wrapGAppsHook3,
-
   futuresql,
   gst_all_1,
   kcoreaddons,
@@ -19,7 +17,6 @@
   qtquickcontrols2,
   python3Packages,
 }:
-
 mkDerivation rec {
   pname = "audiotube";
 
@@ -75,6 +72,6 @@ mkDerivation rec {
       gpl2Only
       gpl3Only
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

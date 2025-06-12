@@ -8,7 +8,6 @@
   libGL,
   projectm_3,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "visualization-projectm";
   namespace = "visualization.projectm";
@@ -27,12 +26,12 @@ buildKodiBinaryAddon rec {
     projectm_3
   ];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
   meta = with lib; {
     homepage = "https://github.com/xbmc/visualization.projectm";
     description = "Projectm visualization for kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

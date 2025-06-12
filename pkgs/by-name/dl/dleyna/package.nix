@@ -10,7 +10,6 @@
   gupnp-av,
   gupnp-dlna,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dleyna";
   version = "0.8.3";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Library of utility functions that are used by the higher level dLeyna";
     homepage = "https://gitlab.gnome.org/World/dLeyna";
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Only;
   };

@@ -45,7 +45,6 @@
   wrapQtAppsHook,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-system-settings-unwrapped";
   version = "1.3.2";
@@ -138,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     dbus
     mesa.llvmpipeHook # ShapeMaterial needs an OpenGL context: https://gitlab.com/ubports/development/core/lomiri-ui-toolkit/-/issues/35
-    (python3.withPackages (ps: with ps; [ python-dbusmock ]))
+    (python3.withPackages (ps: with ps; [python-dbusmock]))
     xvfb-run
   ];
 
@@ -191,19 +190,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
     description = "System Settings application for Lomiri";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-system-settings";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-system-settings/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = licenses.gpl3Only;
     mainProgram = "lomiri-system-settings";
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
-    pkgConfigModules = [ "LomiriSystemSettings" ];
+    pkgConfigModules = ["LomiriSystemSettings"];
   };
 })

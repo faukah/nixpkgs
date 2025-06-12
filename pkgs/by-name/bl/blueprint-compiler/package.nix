@@ -38,9 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     libadwaita
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pygobject3
+        ]
     ))
   ];
 
@@ -75,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     # context outside of nix builds, and doesn't rely on the setup hooks of
     # its propagated inputs for basic functionality.
     # see https://github.com/NixOS/nixpkgs/pull/400415
-    standalone = runCommand "blueprint-compiler-test-standalone" { } ''
+    standalone = runCommand "blueprint-compiler-test-standalone" {} ''
       ${lib.getExe finalAttrs.finalPackage} --help && touch $out
     '';
   };

@@ -4,7 +4,6 @@
   fetchzip,
   jre_headless,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmlbeans";
   version = "5.3.0-20241203";
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://xmlbeans.apache.org/";
     downloadPage = "https://dlcdn.apache.org/poi/xmlbeans/release/bin/";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

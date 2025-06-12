@@ -7,7 +7,6 @@
   cmake,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lerc";
   version = "4.0.0";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C++ library for Limited Error Raster Compression";
     homepage = "https://github.com/esri/lerc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
-    pkgConfigModules = [ "Lerc" ];
+    maintainers = with lib.maintainers; [dotlambda];
+    pkgConfigModules = ["Lerc"];
   };
 })

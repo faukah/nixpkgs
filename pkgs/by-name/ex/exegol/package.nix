@@ -14,14 +14,13 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-+LnZSFRW7EvG+cPwMStgO6qD4AjOGkLzCarXBrW3Aak=";
   };
 
-  build-system = with python3Packages; [ pdm-backend ];
+  build-system = with python3Packages; [pdm-backend];
 
   pythonRelaxDeps = [
     "rich"
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       pyyaml
       gitpython
@@ -31,11 +30,11 @@ python3Packages.buildPythonApplication rec {
       argcomplete
       tzlocal
     ]
-    ++ [ xorg.xhost ];
+    ++ [xorg.xhost];
 
   doCheck = true;
 
-  pythonImportsCheck = [ "exegol" ];
+  pythonImportsCheck = ["exegol"];
 
   meta = {
     description = "Fully featured and community-driven hacking environment";

@@ -7,7 +7,6 @@
   guile,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libctl";
   version = "4.5.1";
@@ -26,13 +25,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   meta = with lib; {
     description = "Guile-based library for supporting flexible control files in scientific simulations";
     mainProgram = "gen-ctl-io";
     homepage = "https://github.com/NanoComp/libctl";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ carpinchomug ];
+    maintainers = with maintainers; [carpinchomug];
   };
 }

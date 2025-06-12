@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "refurb";
   version = "2.1.0";
@@ -56,7 +55,7 @@ python3Packages.buildPythonApplication rec {
     description = "Tool for refurbishing and modernizing Python codebases";
     mainProgram = "refurb";
     homepage = "https://github.com/dosisod/refurb";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ knl ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [knl];
   };
 }

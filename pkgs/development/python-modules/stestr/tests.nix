@@ -1,5 +1,7 @@
-{ buildPythonPackage, stestr }:
-
+{
+  buildPythonPackage,
+  stestr,
+}:
 buildPythonPackage {
   pname = "stestr-tests";
   inherit (stestr) version src;
@@ -11,7 +13,7 @@ buildPythonPackage {
     pythonOutputDistPhase() { touch $dist; }
   '';
 
-  nativeCheckInputs = [ stestr ];
+  nativeCheckInputs = [stestr];
 
   checkPhase = ''
     export PATH=$out/bin:$PATH

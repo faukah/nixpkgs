@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch2,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "prometheus-rasdaemon-exporter";
   version = "unstable-2023-03-15";
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication {
     description = "Rasdaemon exporter for Prometheus";
     homepage = "https://github.com/sanecz/prometheus-rasdaemon-exporter";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
     mainProgram = "prometheus-rasdaemon-exporter";
   };
 }

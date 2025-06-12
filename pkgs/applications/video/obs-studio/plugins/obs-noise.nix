@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-noise";
   version = "1.0.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D9vGXCrmQ8IDRmL8qZ1ZBiOz9AjhKm45W37zC16kRCk=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postFixup = ''
     mv $out/data/obs-plugins/${pname}/shaders $out/share/obs/obs-plugins/${pname}/
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A plug-in for noise generation and noise effects for OBS.";
     homepage = "https://github.com/FiniteSingularity/obs-noise";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Only;
     platforms = [
       "x86_64-linux"

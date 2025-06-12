@@ -5,7 +5,6 @@
   autoreconfHook,
   krb5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgssglue";
   version = "0.9";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-p9dujLklv2ZC1YA1gKGCRJf9EvF3stv5v4Z/5m1nSeM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   postPatch = ''
     touch ChangeLog
@@ -37,6 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Exports a gssapi interface which calls other random gssapi libraries";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
   };
 })

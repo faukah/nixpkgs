@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     mkDefault
     types
@@ -14,45 +14,46 @@ let
 
   cfg = config.boot.binfmt;
 
-  makeBinfmtLine =
-    name:
-    {
-      recognitionType,
-      offset,
-      magicOrExtension,
-      mask,
-      preserveArgvZero,
-      openBinary,
-      matchCredentials,
-      fixBinary,
-      ...
-    }:
-    let
-      type = if recognitionType == "magic" then "M" else "E";
-      offset' = toString offset;
-      mask' = toString mask;
-      interpreter = "/run/binfmt/${name}";
-      flags =
-        if !(matchCredentials -> openBinary) then
-          throw "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
-        else
-          optionalString preserveArgvZero "P"
-          + optionalString (openBinary && !matchCredentials) "O"
-          + optionalString matchCredentials "C"
-          + optionalString fixBinary "F";
-    in
-    ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
+  makeBinfmtLine = name: {
+    recognitionType,
+    offset,
+    magicOrExtension,
+    mask,
+    preserveArgvZero,
+    openBinary,
+    matchCredentials,
+    fixBinary,
+    ...
+  }: let
+    type =
+      if recognitionType == "magic"
+      then "M"
+      else "E";
+    offset' = toString offset;
+    mask' = toString mask;
+    interpreter = "/run/binfmt/${name}";
+    flags =
+      if !(matchCredentials -> openBinary)
+      then throw "boot.binfmt.registrations.${name}: you can't specify openBinary = false when matchCredentials = true."
+      else
+        optionalString preserveArgvZero "P"
+        + optionalString (openBinary && !matchCredentials) "O"
+        + optionalString matchCredentials "C"
+        + optionalString fixBinary "F";
+  in ":${name}:${type}:${offset'}:${magicOrExtension}:${mask'}:${interpreter}:${flags}";
 
-  mkInterpreter =
-    name:
-    { interpreter, wrapInterpreterInShell, ... }:
-    if wrapInterpreterInShell then
+  mkInterpreter = name: {
+    interpreter,
+    wrapInterpreterInShell,
+    ...
+  }:
+    if wrapInterpreterInShell
+    then
       pkgs.writeShellScript "${name}-interpreter" ''
         #!${pkgs.bash}/bin/sh
         exec -- ${interpreter} "$@"
       ''
-    else
-      interpreter;
+    else interpreter;
 
   # Mapping of systems to “magicOrExtension” and “mask”. Mostly taken from:
   # - https://github.com/cleverca22/nixos-configs/blob/master/qemu.nix
@@ -171,17 +172,15 @@ let
     x86_64-windows.magicOrExtension = "MZ";
     i686-windows.magicOrExtension = "MZ";
   };
-
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "boot" "binfmtMiscRegistrations" ] [ "boot" "binfmt" "registrations" ])
+    (lib.mkRenamedOptionModule ["boot" "binfmtMiscRegistrations"] ["boot" "binfmt" "registrations"])
   ];
 
   options = {
     boot.binfmt = {
       registrations = mkOption {
-        default = { };
+        default = {};
 
         description = ''
           Extra binary formats to register with the kernel.
@@ -190,8 +189,7 @@ in
 
         type = types.attrsOf (
           types.submodule (
-            { config, ... }:
-            {
+            {config, ...}: {
               options = {
                 recognitionType = mkOption {
                   default = "magic";
@@ -303,7 +301,7 @@ in
       };
 
       emulatedSystems = mkOption {
-        default = [ ];
+        default = [];
         example = [
           "wasm32-wasi"
           "x86_64-windows"
@@ -343,35 +341,38 @@ in
   };
 
   config = {
-    assertions = lib.mapAttrsToList (name: reg: {
-      assertion = reg.fixBinary -> !reg.wrapInterpreterInShell;
-      message = "boot.binfmt.registrations.\"${name}\" cannot have fixBinary when the interpreter is invoked through a shell.";
-    }) cfg.registrations;
+    assertions =
+      lib.mapAttrsToList (name: reg: {
+        assertion = reg.fixBinary -> !reg.wrapInterpreterInShell;
+        message = "boot.binfmt.registrations.\"${name}\" cannot have fixBinary when the interpreter is invoked through a shell.";
+      })
+      cfg.registrations;
 
     boot.binfmt.registrations = builtins.listToAttrs (
       map (
         system:
-        assert system != pkgs.stdenv.hostPlatform.system;
-        {
-          name = system;
-          value =
-            { config, ... }:
-            let
-              elaborated = lib.systems.elaborate { inherit system; };
+          assert system != pkgs.stdenv.hostPlatform.system; {
+            name = system;
+            value = {config, ...}: let
+              elaborated = lib.systems.elaborate {inherit system;};
               useStaticEmulator = cfg.preferStaticEmulators && elaborated.staticEmulatorAvailable pkgs;
-              interpreter = elaborated.emulator (if useStaticEmulator then pkgs.pkgsStatic else pkgs);
+              interpreter = elaborated.emulator (
+                if useStaticEmulator
+                then pkgs.pkgsStatic
+                else pkgs
+              );
 
               inherit (elaborated) qemuArch;
               isQemu = "qemu-${qemuArch}" == baseNameOf interpreter;
 
-              interpreterReg =
-                let
-                  wrapperName = "qemu-${qemuArch}-binfmt-P";
-                  wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-                in
-                if isQemu && !useStaticEmulator then "${wrapper}/bin/${wrapperName}" else interpreter;
-            in
-            (
+              interpreterReg = let
+                wrapperName = "qemu-${qemuArch}-binfmt-P";
+                wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
+              in
+                if isQemu && !useStaticEmulator
+                then "${wrapper}/bin/${wrapperName}"
+                else interpreter;
+            in (
               {
                 preserveArgvZero = mkDefault isQemu;
 
@@ -382,19 +383,19 @@ in
               }
               // (magics.${system} or (throw "Cannot create binfmt registration for system ${system}"))
             );
-        }
-      ) cfg.emulatedSystems
+          }
+      )
+      cfg.emulatedSystems
     );
-    nix.settings = lib.mkIf (cfg.addEmulatedSystemsToNixSandbox && cfg.emulatedSystems != [ ]) {
+    nix.settings = lib.mkIf (cfg.addEmulatedSystemsToNixSandbox && cfg.emulatedSystems != []) {
       extra-platforms =
         cfg.emulatedSystems
         ++ lib.optional pkgs.stdenv.hostPlatform.isx86_64 "i686-linux";
-      extra-sandbox-paths =
-        let
-          ruleFor = system: cfg.registrations.${system};
-          hasWrappedRule = lib.any (system: (ruleFor system).wrapInterpreterInShell) cfg.emulatedSystems;
-        in
-        [ "/run/binfmt" ]
+      extra-sandbox-paths = let
+        ruleFor = system: cfg.registrations.${system};
+        hasWrappedRule = lib.any (system: (ruleFor system).wrapInterpreterInShell) cfg.emulatedSystems;
+      in
+        ["/run/binfmt"]
         ++ lib.optional hasWrappedRule "${pkgs.bash}"
         ++ (map (system: (ruleFor system).interpreterSandboxPath) cfg.emulatedSystems);
     };
@@ -404,7 +405,7 @@ in
     );
 
     systemd = lib.mkMerge [
-      ({
+      {
         tmpfiles.rules =
           [
             "d /run/binfmt 0755 -"
@@ -412,16 +413,16 @@ in
           ++ lib.mapAttrsToList (name: interpreter: "L+ /run/binfmt/${name} - - - - ${interpreter}") (
             lib.mapAttrs mkInterpreter config.boot.binfmt.registrations
           );
-      })
+      }
 
-      (lib.mkIf (config.boot.binfmt.registrations != { }) {
+      (lib.mkIf (config.boot.binfmt.registrations != {}) {
         additionalUpstreamSystemUnits = [
           "proc-sys-fs-binfmt_misc.automount"
           "proc-sys-fs-binfmt_misc.mount"
           "systemd-binfmt.service"
         ];
-        services.systemd-binfmt.after = [ "systemd-tmpfiles-setup.service" ];
-        services.systemd-binfmt.restartTriggers = [ (builtins.toJSON config.boot.binfmt.registrations) ];
+        services.systemd-binfmt.after = ["systemd-tmpfiles-setup.service"];
+        services.systemd-binfmt.restartTriggers = [(builtins.toJSON config.boot.binfmt.registrations)];
       })
     ];
   };

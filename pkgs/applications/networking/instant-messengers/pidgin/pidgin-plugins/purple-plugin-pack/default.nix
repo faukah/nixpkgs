@@ -6,7 +6,6 @@
   ninja,
   pidgin,
 }:
-
 stdenv.mkDerivation {
   pname = "purple-plugin-pack";
   version = "2.8.0";
@@ -38,6 +37,6 @@ stdenv.mkDerivation {
     description = "Collection of plugins for purple-based clients such as Pidgin";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bdimcheff ];
+    maintainers = with maintainers; [bdimcheff];
   };
 }

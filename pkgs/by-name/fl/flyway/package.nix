@@ -6,7 +6,6 @@
   makeWrapper,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flyway";
   version = "11.7.0";
@@ -14,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     url = "mirror://maven/org/flywaydb/flyway-commandline/${finalAttrs.version}/flyway-commandline-${finalAttrs.version}.tar.gz";
     sha256 = "sha256-Ajm4V+AAaC3NXvdTkxJ9uhk0QayZzoPYyU5RRrWxz/g=";
   };
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   dontBuild = true;
   dontStrip = true;
   installPhase = ''
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags "org.flywaydb.commandline.Main" \
   '';
   passthru.tests = {
-    version = testers.testVersion { package = finalAttrs.finalPackage; };
+    version = testers.testVersion {package = finalAttrs.finalPackage;};
   };
   meta = with lib; {
     description = "Evolve your Database Schema easily and reliably across all your instances";
@@ -42,9 +41,9 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/flyway/flyway";
     homepage = "https://flywaydb.org/";
     changelog = "https://documentation.red-gate.com/fd/release-notes-for-flyway-engine-179732572.html";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.cmcdragonkai ];
+    maintainers = [maintainers.cmcdragonkai];
   };
 })

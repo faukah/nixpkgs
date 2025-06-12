@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "yew-fmt";
   version = "0.6.1";
@@ -18,8 +17,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoHash = "sha256-oIliRYc6HU8KFmlTTIlV+nmeRUx1gJhy93QjPnGxiK8=";
-  nativeCheckInputs = [ rustfmt ];
-  passthru.updateScript = nix-update-script { };
+  nativeCheckInputs = [rustfmt];
+  passthru.updateScript = nix-update-script {};
   useFetchCargoVendor = true;
 
   meta = {
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/its-the-shrimp/yew-fmt";
     changelog = "https://github.com/its-the-shrimp/yew-fmt/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.dandedotdev ];
+    maintainers = [lib.maintainers.dandedotdev];
   };
 }

@@ -3,32 +3,29 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkEnableOption mkIf mkPackageOption;
   cfg = config.services.realmd;
-in
-{
+in {
   options.services.realmd = {
     enable = mkEnableOption "realmd service for managing system enrollment in Active Directory domains";
 
-    package = mkPackageOption pkgs "realmd" { };
+    package = mkPackageOption pkgs "realmd" {};
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.dbus = {
       enable = true;
-      packages = [ cfg.package ];
+      packages = [cfg.package];
     };
 
     systemd.services.realmd = {
       description = "Realm and Domain Configuration";
-      wantedBy = [ "multi-user.target" ];
-      partOf = [ "dbus.service" ];
-      requires = [ "dbus.service" ];
+      wantedBy = ["multi-user.target"];
+      partOf = ["dbus.service"];
+      requires = ["dbus.service"];
       after = [
         "network.target"
         "dbus.service"

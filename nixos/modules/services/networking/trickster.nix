@@ -4,15 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.trickster;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "trickster" "origin" ] [ "services" "trickster" "origin-url" ])
+    (mkRenamedOptionModule ["services" "trickster" "origin"] ["services" "trickster" "origin-url"])
   ];
 
   options = {
@@ -25,7 +21,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "trickster" { };
+      package = mkPackageOption pkgs "trickster" {};
 
       configFile = mkOption {
         type = types.nullOr types.path;
@@ -93,15 +89,14 @@ in
           Port that the Proxy server will listen on.
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.trickster = {
       description = "Reverse proxy cache and time series dashboard accelerator";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = ''
@@ -121,6 +116,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ _1000101 ];
-
+  meta.maintainers = with maintainers; [_1000101];
 }

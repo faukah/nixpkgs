@@ -10,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "xh";
   version = "0.24.1";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = lib.optionals (withNativeTls && !stdenv.hostPlatform.isDarwin) [ openssl ];
+  buildInputs = lib.optionals (withNativeTls && !stdenv.hostPlatform.isDarwin) [openssl];
 
   env = {
     # Get openssl-sys to use pkg-config
@@ -61,10 +60,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     $out/bin/xhs --help > /dev/null
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Friendly and fast tool for sending HTTP requests";

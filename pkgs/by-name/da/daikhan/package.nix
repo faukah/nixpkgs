@@ -15,7 +15,6 @@
   gst_all_1,
   xxHash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "daikhan";
   version = "0.1-alpha4";
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/daikhan/daikhan";
     changelog = "https://gitlab.com/daikhan/daikhan/-/blob/${finalAttrs.version}/NEWS";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     mainProgram = "daikhan";
     platforms = lib.platforms.linux;
   };

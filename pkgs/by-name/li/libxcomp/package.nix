@@ -9,7 +9,6 @@
   libX11,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxcomp";
   version = "3.5.99.16";

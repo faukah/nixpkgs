@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   types = lib.types;
   cfg = config.services.shorewall6;
-in
-{
+in {
   options = {
     services.shorewall6 = {
       enable = lib.mkOption {
@@ -32,7 +30,7 @@ in
       };
       configs = lib.mkOption {
         type = types.attrsOf types.lines;
-        default = { };
+        default = {};
         description = ''
           This option defines the Shorewall configs.
           The attribute name defines the name of the config,
@@ -47,10 +45,10 @@ in
     systemd.services.firewall.enable = false;
     systemd.services.shorewall6 = {
       description = "Shorewall IPv6 Firewall";
-      after = [ "ipset.target" ];
-      before = [ "network-pre.target" ];
-      wants = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["ipset.target"];
+      before = ["network-pre.target"];
+      wants = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
       restartTriggers = lib.attrValues cfg.configs;
       serviceConfig = {
@@ -68,10 +66,12 @@ in
       '';
     };
     environment = {
-      etc = lib.mapAttrs' (
-        name: conf: lib.nameValuePair "shorewall6/${name}" { source = conf; }
-      ) cfg.configs;
-      systemPackages = [ cfg.package ];
+      etc =
+        lib.mapAttrs' (
+          name: conf: lib.nameValuePair "shorewall6/${name}" {source = conf;}
+        )
+        cfg.configs;
+      systemPackages = [cfg.package];
     };
   };
 }

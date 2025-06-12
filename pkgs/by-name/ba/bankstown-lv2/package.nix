@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bankstown-lv2";
   version = "1.1.0";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/chadmed/bankstown";
     description = "Halfway-decent three-stage psychoacoustic bass approximation";
     license = licenses.mit;
-    maintainers = with maintainers; [ yuka ];
+    maintainers = with maintainers; [yuka];
     platforms = platforms.linux;
   };
 }

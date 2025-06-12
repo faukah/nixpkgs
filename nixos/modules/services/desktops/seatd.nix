@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.seatd;
   inherit (lib) mkEnableOption mkOption types;
-in
-{
-  meta.maintainers = with lib.maintainers; [ sinanmohd ];
+in {
+  meta.maintainers = with lib.maintainers; [sinanmohd];
 
   options.services.seatd = {
     enable = mkEnableOption "seatd";
@@ -42,13 +39,13 @@ in
       seatd
       sdnotify-wrapper
     ];
-    users.groups.seat = lib.mkIf (cfg.group == "seat") { };
+    users.groups.seat = lib.mkIf (cfg.group == "seat") {};
 
     systemd.services.seatd = {
       description = "Seat management daemon";
-      documentation = [ "man:seatd(1)" ];
+      documentation = ["man:seatd(1)"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       restartIfChanged = false;
 
       serviceConfig = {

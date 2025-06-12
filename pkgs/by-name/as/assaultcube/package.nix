@@ -18,7 +18,6 @@
   client ? true,
   server ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "assaultcube";
   version = "1.3.0.2";
@@ -109,6 +108,6 @@ stdenv.mkDerivation rec {
     homepage = "https://assault.cubers.net";
     platforms = platforms.linux; # should work on darwin with a little effort.
     license = licenses.unfree;
-    maintainers = with maintainers; [ darkonion0 ];
+    maintainers = with maintainers; [darkonion0];
   };
 }

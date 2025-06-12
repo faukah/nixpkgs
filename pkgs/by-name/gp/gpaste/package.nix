@@ -17,7 +17,6 @@
   desktop-file-utils,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpaste";
   version = "45.3";
@@ -85,6 +84,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gpaste-client";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

@@ -3,8 +3,7 @@
   config,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.hologram-server;
 
   cfgFile = pkgs.writeText "hologram-server.json" (
@@ -31,8 +30,7 @@ let
       cachetimeout = cfg.cacheTimeoutSeconds;
     }
   );
-in
-{
+in {
   options = {
     services.hologram-server = {
       enable = lib.mkOption {
@@ -124,8 +122,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.hologram-server = {
       description = "Provide EC2 instance credentials to machines outside of EC2";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.hologram}/bin/hologram-server --debug --conf ${cfgFile}";

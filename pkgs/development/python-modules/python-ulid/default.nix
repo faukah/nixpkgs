@@ -10,7 +10,6 @@
   freezegun,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-ulid";
   version = "3.0.0";
@@ -32,15 +31,17 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pydantic = [ pydantic ];
+    pydantic = [pydantic];
   };
 
-  nativeCheckInputs = [
-    freezegun
-    pytestCheckHook
-  ] ++ optional-dependencies.pydantic;
+  nativeCheckInputs =
+    [
+      freezegun
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.pydantic;
 
-  pythonImportsCheck = [ "ulid" ];
+  pythonImportsCheck = ["ulid"];
 
   meta = with lib; {
     description = "ULID implementation for Python";
@@ -48,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mdomke/python-ulid";
     changelog = "https://github.com/mdomke/python-ulid/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

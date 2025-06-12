@@ -10,7 +10,6 @@
   libuuid,
   numactl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libfabric";
   version = "2.1.0";
@@ -40,11 +39,19 @@ stdenv.mkDerivation rec {
       libuuid
       numactl
     ]
-    ++ lib.optionals enablePsm2 [ libpsm2 ];
+    ++ lib.optionals enablePsm2 [libpsm2];
 
   configureFlags = [
-    (if enablePsm2 then "--enable-psm2=${libpsm2}" else "--disable-psm2")
-    (if enableOpx then "--enable-opx" else "--disable-opx")
+    (
+      if enablePsm2
+      then "--enable-psm2=${libpsm2}"
+      else "--disable-psm2"
+    )
+    (
+      if enableOpx
+      then "--enable-opx"
+      else "--disable-opx"
+    )
   ];
 
   meta = with lib; {
@@ -55,6 +62,6 @@ stdenv.mkDerivation rec {
       bsd2
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
   };
 }

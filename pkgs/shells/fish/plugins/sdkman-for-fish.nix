@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "sdkman-for-fish";
   version = "2.1.0";
@@ -19,6 +18,6 @@ buildFishPlugin rec {
     description = "Adds support for SDKMAN! to fish";
     homepage = "https://github.com/reitzig/sdkman-for-fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ giorgiga ];
+    maintainers = with maintainers; [giorgiga];
   };
 }

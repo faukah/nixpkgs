@@ -18,16 +18,13 @@
   makeWrapper,
   perl,
   ...
-}:
-
-{
+}: {
   pname,
   src ? builtins.getAttr stdenv.hostPlatform.system sources,
   sources ? null,
   description,
   version,
 }:
-
 stdenv.mkDerivation rec {
   inherit pname version src;
 
@@ -38,26 +35,28 @@ stdenv.mkDerivation rec {
     comment = "Integrated Development Environment";
     desktopName = "Eclipse IDE";
     genericName = "Integrated Development Environment";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   nativeBuildInputs = [
     makeWrapper
     perl
   ];
-  buildInputs = [
-    fontconfig
-    freetype
-    glib
-    gsettings-desktop-schemas
-    gtk
-    jdk
-    libX11
-    libXrender
-    libXtst
-    libsecret
-    zlib
-  ] ++ lib.optional (webkitgtk_4_1 != null) webkitgtk_4_1;
+  buildInputs =
+    [
+      fontconfig
+      freetype
+      glib
+      gsettings-desktop-schemas
+      gtk
+      jdk
+      libX11
+      libXrender
+      libXtst
+      libsecret
+      zlib
+    ]
+    ++ lib.optional (webkitgtk_4_1 != null) webkitgtk_4_1;
 
   buildCommand = ''
     # Unpack tarball.
@@ -86,16 +85,16 @@ stdenv.mkDerivation rec {
     makeWrapper $out/eclipse/eclipse $out/bin/eclipse \
       --prefix PATH : ${jdk}/bin \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath (
-          [
-            glib
-            gtk
-            libXtst
-            libsecret
-          ]
-          ++ lib.optional (webkitgtk_4_1 != null) webkitgtk_4_1
-        )
-      } \
+      lib.makeLibraryPath (
+        [
+          glib
+          gtk
+          libXtst
+          libsecret
+        ]
+        ++ lib.optional (webkitgtk_4_1 != null) webkitgtk_4_1
+      )
+    } \
       --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules" \
       --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH" \
       --add-flags "-configuration \$HOME/.eclipse/''${productId}_${version}/configuration"
@@ -115,12 +114,11 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.eclipse.org/";
     inherit description;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = [ lib.maintainers.jerith666 ];
+    maintainers = [lib.maintainers.jerith666];
   };
-
 }

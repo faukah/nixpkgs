@@ -7,7 +7,6 @@
   makeWrapper,
   iptables,
 }:
-
 stdenv.mkDerivation rec {
   pname = "udp2raw";
   version = "20230206.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
-    wrapProgram "$out/bin/udp2raw" --prefix PATH : "${lib.makeBinPath [ iptables ]}"
+    wrapProgram "$out/bin/udp2raw" --prefix PATH : "${lib.makeBinPath [iptables]}"
   '';
 
   meta = {
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     mainProgram = "udp2raw";
     license = lib.licenses.mit;
     changelog = "https://github.com/wangyu-/udp2raw/releases/tag/${version}";
-    maintainers = with lib.maintainers; [ chvp ];
+    maintainers = with lib.maintainers; [chvp];
     platforms = lib.platforms.linux;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "goverview";
   version = "1.0.1";
@@ -41,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/j3ssie/goverview";
     changelog = "https://github.com/j3ssie/goverview/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

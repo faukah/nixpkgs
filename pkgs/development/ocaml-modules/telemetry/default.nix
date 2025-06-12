@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "telemetry";
   version = "0.0.1";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     description = "Lightweight library for dispatching and handling events, with a focus on metrics and instrumentation";
     homepage = "https://github.com/leostera/telemetry";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

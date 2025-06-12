@@ -14,7 +14,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libopenshot-audio";
   version = "0.4.0";
@@ -37,19 +36,18 @@ stdenv.mkDerivation (finalAttrs: {
       alsa-lib
     ]
     ++ (
-      if stdenv.hostPlatform.isDarwin then
-        [
-          zlib
-        ]
-      else
-        [
-          libX11
-          libXcursor
-          libXext
-          libXft
-          libXinerama
-          libXrandr
-        ]
+      if stdenv.hostPlatform.isDarwin
+      then [
+        zlib
+      ]
+      else [
+        libX11
+        libXcursor
+        libXext
+        libXft
+        libXinerama
+        libXrandr
+      ]
     );
 
   strictDeps = true;
@@ -65,8 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
       high-quality editing and playback of audio, and is based on the amazing
       JUCE library.
     '';
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

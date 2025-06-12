@@ -16,7 +16,6 @@
   taglib,
   ffmpeg,
 }:
-
 mkDerivation {
   pname = "clip";
 
@@ -45,6 +44,6 @@ mkDerivation {
     mainProgram = "clip";
     homepage = "https://invent.kde.org/maui/clip";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

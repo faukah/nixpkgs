@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "uncover";
   version = "1.0.10";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-Pm3CFHdp0VHZ5tRrjnpXXaIwQFu7EXyVgo/K9OOqHBI=";
 
-  subPackages = [ "cmd/uncover" ];
+  subPackages = ["cmd/uncover"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/uncover";
     changelog = "https://github.com/projectdiscovery/uncover/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "uncover";
   };
 }

@@ -6,7 +6,6 @@
   asciidoctor,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timewarrior";
   version = "1.8.0";

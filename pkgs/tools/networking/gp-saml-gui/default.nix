@@ -30,11 +30,13 @@ buildPythonPackage rec {
     glib-networking
   ];
 
-  propagatedBuildInputs = [
-    requests
-    pygobject3
-    openconnect
-  ] ++ lib.optional stdenv.hostPlatform.isLinux webkitgtk_4_1;
+  propagatedBuildInputs =
+    [
+      requests
+      pygobject3
+      openconnect
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux webkitgtk_4_1;
 
   preFixup = ''
     gappsWrapperArgs+=(
@@ -47,6 +49,6 @@ buildPythonPackage rec {
     mainProgram = "gp-saml-gui";
     homepage = "https://github.com/dlenski/gp-saml-gui";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.pallix ];
+    maintainers = [maintainers.pallix];
   };
 }

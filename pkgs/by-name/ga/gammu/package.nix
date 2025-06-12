@@ -19,7 +19,6 @@
   postgresSupport ? false,
   libpq ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gammu";
   version = "1.42.0";
@@ -60,13 +59,13 @@ stdenv.mkDerivation rec {
       libdbi
       libdbiDrivers
     ]
-    ++ lib.optionals postgresSupport [ libpq ];
+    ++ lib.optionals postgresSupport [libpq];
 
   meta = with lib; {
     homepage = "https://wammu.eu/gammu/";
     description = "Command line utility and library to control mobile phones";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.coroa ];
+    maintainers = [maintainers.coroa];
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   libsForQt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fstl";
   version = "0.11.0";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fstl-app/fstl";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ tweber ];
+    maintainers = with maintainers; [tweber];
   };
 }

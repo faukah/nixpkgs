@@ -15,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=huacnlee.autocorrect";
     homepage = "https://github.com/huacnlee/autocorrect";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.therobot2105 ];
+    maintainers = [lib.maintainers.therobot2105];
   };
 }

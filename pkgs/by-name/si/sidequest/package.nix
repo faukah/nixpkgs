@@ -26,8 +26,7 @@
   icu,
   openssl,
   zlib,
-}:
-let
+}: let
   pname = "sidequest";
   version = "0.10.33";
 
@@ -51,7 +50,7 @@ let
     };
     dontUnpack = true;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     installPhase = ''
       mkdir -p "$out/lib/SideQuest" "$out/bin"
@@ -60,81 +59,79 @@ let
       ln -s "$out/lib/SideQuest/sidequest" "$out/bin"
     '';
 
-    postFixup =
-      let
-        libPath = lib.makeLibraryPath [
-          alsa-lib
-          at-spi2-atk
-          cairo
-          cups
-          dbus
-          expat
-          gdk-pixbuf
-          glib
-          gtk3
-          libgbm
-          nss
-          nspr
-          libdrm
-          xorg.libX11
-          xorg.libxcb
-          xorg.libXcomposite
-          xorg.libXdamage
-          xorg.libXext
-          xorg.libXfixes
-          xorg.libXrandr
-          xorg.libxshmfence
-          libxkbcommon
-          xorg.libxkbfile
-          pango
-          (lib.getLib stdenv.cc.cc)
-          systemd
-        ];
-      in
-      ''
-        patchelf \
-          --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath "${libPath}:$out/lib/SideQuest" \
-          "$out/lib/SideQuest/sidequest"
-      '';
+    postFixup = let
+      libPath = lib.makeLibraryPath [
+        alsa-lib
+        at-spi2-atk
+        cairo
+        cups
+        dbus
+        expat
+        gdk-pixbuf
+        glib
+        gtk3
+        libgbm
+        nss
+        nspr
+        libdrm
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        xorg.libxshmfence
+        libxkbcommon
+        xorg.libxkbfile
+        pango
+        (lib.getLib stdenv.cc.cc)
+        systemd
+      ];
+    in ''
+      patchelf \
+        --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+        --set-rpath "${libPath}:$out/lib/SideQuest" \
+        "$out/lib/SideQuest/sidequest"
+    '';
   };
 in
-buildFHSEnv {
-  pname = "SideQuest";
-  inherit version;
+  buildFHSEnv {
+    pname = "SideQuest";
+    inherit version;
 
-  passthru = {
-    inherit pname version;
+    passthru = {
+      inherit pname version;
 
-    meta = with lib; {
-      description = "Open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
-      homepage = "https://github.com/SideQuestVR/SideQuest";
-      downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        joepie91
-        rvolosatovs
-      ];
-      platforms = [ "x86_64-linux" ];
-      mainProgram = "SideQuest";
+      meta = with lib; {
+        description = "Open app store and side-loading tool for Android-based VR devices such as the Oculus Go, Oculus Quest or Moverio BT 300";
+        homepage = "https://github.com/SideQuestVR/SideQuest";
+        downloadPage = "https://github.com/SideQuestVR/SideQuest/releases";
+        sourceProvenance = with sourceTypes; [binaryNativeCode];
+        license = licenses.mit;
+        maintainers = with maintainers; [
+          joepie91
+          rvolosatovs
+        ];
+        platforms = ["x86_64-linux"];
+        mainProgram = "SideQuest";
+      };
     };
-  };
 
-  targetPkgs = pkgs: [
-    sidequest
-    # Needed in the environment on runtime, to make QuestSaberPatch work
-    icu
-    openssl
-    zlib
-    libxkbcommon
-    libxshmfence
-  ];
+    targetPkgs = pkgs: [
+      sidequest
+      # Needed in the environment on runtime, to make QuestSaberPatch work
+      icu
+      openssl
+      zlib
+      libxkbcommon
+      libxshmfence
+    ];
 
-  extraInstallCommands = ''
-    mkdir -p "$out/share/applications"
-    ln -s ${desktopItem}/share/applications/* "$out/share/applications"
-  '';
+    extraInstallCommands = ''
+      mkdir -p "$out/share/applications"
+      ln -s ${desktopItem}/share/applications/* "$out/share/applications"
+    '';
 
-  runScript = "sidequest";
-}
+    runScript = "sidequest";
+  }

@@ -7,7 +7,6 @@
   undmg,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "karabiner-elements";
   version = "15.3.0";
@@ -56,14 +55,14 @@ stdenv.mkDerivation (finalAttrs: {
     cp "$out/Library/Application Support/org.pqrs/Karabiner-Elements/package-version" "$out/Library/Application Support/org.pqrs/Karabiner-Elements/version"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/pqrs-org/Karabiner-Elements/releases/tag/v${finalAttrs.version}";
     description = "Karabiner-Elements is a powerful utility for keyboard customization on macOS Ventura (13) or later";
     homepage = "https://karabiner-elements.pqrs.org/";
     license = lib.licenses.unlicense;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.darwin;
   };
 })

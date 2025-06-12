@@ -13,7 +13,6 @@
   open-policy-agent,
   cctools,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-authentication-service";
   version = "0.16.0";
@@ -35,15 +34,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   npmRoot = "frontend";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
-  nativeBuildInputs = [
-    pkg-config
-    open-policy-agent
-    npmHooks.npmConfigHook
-    nodejs
-    (python3.withPackages (ps: [ ps.setuptools ])) # Used by gyp
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin cctools; # libtool used by gyp;
+  nativeBuildInputs =
+    [
+      pkg-config
+      open-policy-agent
+      npmHooks.npmConfigHook
+      nodejs
+      (python3.withPackages (ps: [ps.setuptools])) # Used by gyp
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin cctools; # libtool used by gyp;
 
   buildInputs = [
     sqlite
@@ -57,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildNoDefaultFeatures = true;
 
-  buildFeatures = [ "dist" ];
+  buildFeatures = ["dist"];
 
   postPatch = ''
     substituteInPlace crates/config/src/sections/http.rs \
@@ -88,7 +89,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/element-hq/matrix-authentication-service";
     changelog = "https://github.com/element-hq/matrix-authentication-service/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ teutat3s ];
+    maintainers = with lib.maintainers; [teutat3s];
     mainProgram = "mas-cli";
   };
 })

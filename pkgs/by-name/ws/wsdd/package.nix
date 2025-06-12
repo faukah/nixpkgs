@@ -7,7 +7,6 @@
   nixosTests,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wsdd";
   version = "0.9";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     install -Dm0555 src/wsdd.py $out/bin/wsdd
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/christgau/wsdd";
     description = "Web Service Discovery (WSD) host daemon for SMB/Samba";
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     license = licenses.mit;
     platforms = platforms.all;
     mainProgram = "wsdd";

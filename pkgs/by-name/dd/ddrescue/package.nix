@@ -4,7 +4,6 @@
   fetchurl,
   lzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ddrescue";
   version = "1.29.1";
@@ -14,10 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3dfUXfAmgHg1ouxqucNl3y7xno3hpQ/+aIbNOR4E3XU=";
   };
 
-  nativeBuildInputs = [ lzip ];
+  nativeBuildInputs = [lzip];
 
   doCheck = true; # not cross;
-  configureFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
+  configureFlags = ["CXX=${stdenv.cc.targetPrefix}c++"];
 
   meta = with lib; {
     description = "GNU ddrescue, a data recovery tool";

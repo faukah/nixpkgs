@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   six,
   toolz,
   tornado,
   zict,
-
   # tests
   dask,
   distributed,
@@ -20,7 +17,6 @@
   pyarrow,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "streamz";
   version = "0.6.4";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-lSb3gl+TSIzz4BZzxH8zXu74HvzSntOAoVQUUJKIEvA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     six
@@ -51,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "streamz" ];
+  pythonImportsCheck = ["streamz"];
 
   disabledTests = [
     # Error with distutils version: fixture 'cleanup' not found
@@ -72,6 +68,6 @@ buildPythonPackage rec {
     description = "Pipelines to manage continuous streams of data";
     homepage = "https://github.com/python-streamz/streamz";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

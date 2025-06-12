@@ -19,7 +19,6 @@
   gsettings-desktop-schemas,
   hicolor-icon-theme,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "pitivi";
   version = "2023.03";
@@ -62,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
       gstreamer
       gst-editing-services
       gst-plugins-base
-      (gst-plugins-good.override { gtkSupport = true; })
+      (gst-plugins-good.override {gtkSupport = true;})
       gst-plugins-bad
       gst-plugins-ugly
       gst-libav
@@ -105,7 +104,7 @@ python3.pkgs.buildPythonApplication rec {
       that can appeal to newbies and professionals alike.
     '';
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
     mainProgram = "pitivi";
   };

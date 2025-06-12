@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ndspy";
   version = "4.2.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-PQONVEuh5Fg2LHr4gq0XTGcOpps/s9FSgoyDn4BCcik=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ndspy" ];
+  pythonImportsCheck = ["ndspy"];
 
   preCheck = ''
     cd tests
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Python library for many Nintendo DS file formats";
     homepage = "https://github.com/RoadrunnerWMC/ndspy";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

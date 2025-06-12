@@ -5,7 +5,6 @@
   rpmextract,
   testers,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "storcli";
   version = "7.3103.00";
@@ -16,20 +15,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-bOlIChZi2eWpc5QA+wXBQA4s+o/MVLVWsligjDpUXEU=";
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
-  unpackPhase =
-    let
-      inherit (stdenvNoCC.hostPlatform) system;
-      platforms = {
-        x86_64-linux = "Linux";
-        aarch64-linux = "ARM/Linux";
-      };
-      platform = platforms.${system} or (throw "unsupported system: ${system}");
-    in
-    ''
-      rpmextract $src/univ_viva_cli_rel/Unified_storcli_all_os/${platform}/storcli-00${finalAttrs.version}00.0000-1.*.rpm
-    '';
+  unpackPhase = let
+    inherit (stdenvNoCC.hostPlatform) system;
+    platforms = {
+      x86_64-linux = "Linux";
+      aarch64-linux = "ARM/Linux";
+    };
+    platform = platforms.${system} or (throw "unsupported system: ${system}");
+  in ''
+    rpmextract $src/univ_viva_cli_rel/Unified_storcli_all_os/${platform}/storcli-00${finalAttrs.version}00.0000-1.*.rpm
+  '';
 
   dontPatch = true;
   dontConfigure = true;
@@ -55,9 +52,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # Then search manually for the latest version.
     homepage = "https://www.broadcom.com/support/download-search?pg=&pf=Host+Bus+Adapters&pn=&pa=&po=&dk=storcli&pl=&l=false";
     description = "Storage Command Line Tool";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     mainProgram = "storcli";
     platforms = [
       "x86_64-linux"

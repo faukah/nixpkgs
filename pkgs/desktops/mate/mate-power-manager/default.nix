@@ -20,7 +20,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-power-manager";
   version = "1.28.1";
@@ -52,11 +51,11 @@ stdenv.mkDerivation rec {
     mate-panel
   ];
 
-  configureFlags = [ "--enable-applets" ];
+  configureFlags = ["--enable-applets"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE Power Manager";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ chpatrick ];
-    teams = [ teams.mate ];
+    maintainers = with maintainers; [chpatrick];
+    teams = [teams.mate];
   };
 }

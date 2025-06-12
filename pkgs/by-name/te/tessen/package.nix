@@ -10,7 +10,6 @@
   bemenu,
   scdoc,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "tessen";
   version = "2.2.3";
@@ -59,7 +58,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Interactive menu to autotype and copy Pass and GoPass data";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ monaaraj ];
+    maintainers = with maintainers; [monaaraj];
     mainProgram = "tessen";
   };
 }

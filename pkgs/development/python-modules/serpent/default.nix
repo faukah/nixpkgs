@@ -8,7 +8,6 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "serpent";
   version = "1.41";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-BAcDX+PGZEOH1Iz/FGfVqp/v+BTQc3K3hnftDuPtcJU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     attrs
@@ -29,13 +28,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "serpent" ];
+  pythonImportsCheck = ["serpent"];
 
   meta = with lib; {
     description = "Simple serialization library based on ast.literal_eval";
     homepage = "https://github.com/irmen/Serpent";
     changelog = "https://github.com/irmen/Serpent/releases/tag/serpent-${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

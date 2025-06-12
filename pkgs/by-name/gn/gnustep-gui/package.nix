@@ -5,7 +5,6 @@
   gnustep-base,
   wrapGNUstepAppsHook,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   version = "0.32.0";
   pname = "gnustep-gui";
@@ -15,9 +14,9 @@ clangStdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-HEH80P51mnLRt4+d+gzpGCv4u6oOdf+x68CcvkR6G/o=";
   };
 
-  nativeBuildInputs = [ wrapGNUstepAppsHook ];
+  nativeBuildInputs = [wrapGNUstepAppsHook];
 
-  propagatedBuildInputs = [ gnustep-base ];
+  propagatedBuildInputs = [gnustep-base];
 
   patches = [
     ./fixup-all.patch
@@ -25,7 +24,7 @@ clangStdenv.mkDerivation (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/gnustep/libs-gui/releases/tag/gui-${
-      builtins.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["_"] finalAttrs.version
     }";
     description = "GUI class library of GNUstep";
     homepage = "https://gnustep.github.io/";

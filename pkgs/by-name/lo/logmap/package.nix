@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "logmap";
   version = "unstable-2021-12-15";
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication {
     description = "Tools for fuzzing Log4j2 jndi injection";
     homepage = "https://github.com/zhzyker/logmap";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "logmap";
   };
 }

@@ -18,7 +18,6 @@
   coreutils,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xsecurelock";
   version = "1.9.0";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "X11 screen lock utility with security in mind";
     homepage = "https://github.com/google/xsecurelock";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.unix;
     mainProgram = "xsecurelock";
   };

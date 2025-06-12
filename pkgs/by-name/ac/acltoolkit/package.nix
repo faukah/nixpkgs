@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonPackage {
   pname = "acltoolkit";
   version = "unstable-2023-02-03";
@@ -42,6 +41,6 @@ python3.pkgs.buildPythonPackage {
     mainProgram = "acltoolkit";
     homepage = "https://github.com/zblurx/acltoolkit";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

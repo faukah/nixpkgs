@@ -10,7 +10,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cairomm";
   version = "1.14.5";

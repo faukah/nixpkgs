@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-uItIVoWbclF5Xkt7BxI/Q9sfKtrOJxYeJJmTd2NeGfo=";
   };
 
-  build-system = [ setuptools ];
-  dependencies = [ httpx ];
-  pythonImportsCheck = [ "biothings_client" ];
+  build-system = [setuptools];
+  dependencies = [httpx];
+  pythonImportsCheck = ["biothings_client"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "Wrapper to access Biothings.api-based backend services";
     homepage = "https://github.com/biothings/biothings_client.py";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ rayhem ];
+    maintainers = with lib.maintainers; [rayhem];
   };
 }

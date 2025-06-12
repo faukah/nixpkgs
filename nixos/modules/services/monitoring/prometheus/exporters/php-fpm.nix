@@ -4,16 +4,13 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   logPrefix = "services.prometheus.exporter.php-fpm";
   cfg = config.services.prometheus.exporters.php-fpm;
-in
-{
+in {
   port = 9253;
   extraOpts = {
-    package = lib.mkPackageOption pkgs "prometheus-php-fpm-exporter" { };
+    package = lib.mkPackageOption pkgs "prometheus-php-fpm-exporter" {};
 
     telemetryPath = lib.mkOption {
       type = lib.types.str;
@@ -56,7 +53,7 @@ in
 
   serviceOpts = {
     serviceConfig = {
-      EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       ExecStart = ''
         ${lib.getExe cfg.package} server \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

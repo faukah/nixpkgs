@@ -3,13 +3,13 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.gatus;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 
-  inherit (lib)
+  inherit
+    (lib)
     getExe
     literalExpression
     maintainers
@@ -19,19 +19,19 @@ let
     mkPackageOption
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     int
     nullOr
     path
     submodule
     ;
-in
-{
+in {
   options.services.gatus = {
     enable = mkEnableOption "Gatus";
 
-    package = mkPackageOption pkgs "gatus" { };
+    package = mkPackageOption pkgs "gatus" {};
 
     configFile = mkOption {
       type = path;
@@ -69,7 +69,7 @@ in
         };
       };
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         {
@@ -105,8 +105,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.gatus = {
       description = "Automated developer-oriented status page";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         DynamicUser = true;
@@ -125,8 +125,8 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [ cfg.settings.web.port ];
+    networking.firewall.allowedTCPPorts = lib.optionals cfg.openFirewall [cfg.settings.web.port];
   };
 
-  meta.maintainers = with maintainers; [ pizzapim ];
+  meta.maintainers = with maintainers; [pizzapim];
 }

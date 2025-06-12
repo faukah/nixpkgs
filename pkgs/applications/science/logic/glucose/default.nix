@@ -6,7 +6,6 @@
   zlib,
   enableUnfree ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glucose" + lib.optionalString enableUnfree "-syrup";
   version = "4.2.1";
@@ -16,18 +15,22 @@ stdenv.mkDerivation rec {
     hash = "sha256-J0J9EKC/4cCiZr/y4lz+Hm7OcmJmMIIWzQ+4c+KhqXg=";
   };
 
-  sourceRoot = "glucose-${version}/sources/${if enableUnfree then "parallel" else "simp"}";
+  sourceRoot = "glucose-${version}/sources/${
+    if enableUnfree
+    then "parallel"
+    else "simp"
+  }";
 
   postPatch = ''
     substituteInPlace Main.cc \
       --replace "defined(__linux__)" "defined(__linux__) && defined(__x86_64__)"
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
-  makeFlags = [ "r" ];
+  makeFlags = ["r"];
 
   installPhase = ''
     runHook preInstall
@@ -41,12 +44,17 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Modern, parallel SAT solver (${
-      if enableUnfree then "parallel" else "sequential"
+      if enableUnfree
+      then "parallel"
+      else "sequential"
     } version)";
     mainProgram = "glucose";
     homepage = "https://www.labri.fr/perso/lsimon/research/glucose/";
-    license = if enableUnfree then licenses.unfreeRedistributable else licenses.mit;
+    license =
+      if enableUnfree
+      then licenses.unfreeRedistributable
+      else licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

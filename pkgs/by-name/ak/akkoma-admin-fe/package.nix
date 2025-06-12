@@ -14,7 +14,6 @@
   nix-update-script,
   xcbuild,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "admin-fe";
   version = "2.3.0-2-unstable-2024-04-27";
@@ -32,16 +31,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-acF+YuWXlMZMipD5+XJS+K9vVFRz3wB2fZqc3Hd0Bjc=";
   };
 
-  nativeBuildInputs = [
-    fixup-yarn-lock
-    writableTmpDirAsHomeHook
-    yarn
-    nodejs
-    pkg-config
-    python3
-    git
-    libsass
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
+  nativeBuildInputs =
+    [
+      fixup-yarn-lock
+      writableTmpDirAsHomeHook
+      yarn
+      nodejs
+      pkg-config
+      python3
+      git
+      libsass
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin xcbuild;
 
   configurePhase = ''
     runHook preConfigure
@@ -82,13 +83,13 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch=stable" ];
+    extraArgs = ["--version=branch=stable"];
   };
 
   meta = {
     description = "Admin interface for Akkoma";
     homepage = "https://akkoma.dev/AkkomaGang/akkoma-fe/";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ mvs ];
+    maintainers = with lib.maintainers; [mvs];
   };
 })

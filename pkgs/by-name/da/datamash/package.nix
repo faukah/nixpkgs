@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "datamash";
   version = "1.9";
@@ -18,7 +17,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/datamash/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
-
 }

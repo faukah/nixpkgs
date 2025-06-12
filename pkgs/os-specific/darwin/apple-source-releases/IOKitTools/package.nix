@@ -5,9 +5,7 @@
   ncurses,
   pkg-config,
   stdenvNoCC,
-}:
-
-let
+}: let
   iokitUser = apple-sdk.sourceRelease "IOKitUser";
   xnu = apple-sdk.sourceRelease "xnu";
 
@@ -39,23 +37,23 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "IOKitTools";
+  mkAppleDerivation {
+    releaseName = "IOKitTools";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  xcodeHash = "sha256-qFG4sB8NXNPTSvYTEX2E1ReOX+NcMBHrS2NuNBLO7zw=";
+    xcodeHash = "sha256-qFG4sB8NXNPTSvYTEX2E1ReOX+NcMBHrS2NuNBLO7zw=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    apple-sdk.privateFrameworksHook
-    ncurses
-  ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [
+      apple-sdk.privateFrameworksHook
+      ncurses
+    ];
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  meta.description = "IOKit tools";
-}
+    meta.description = "IOKit tools";
+  }

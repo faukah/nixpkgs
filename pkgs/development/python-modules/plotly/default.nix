@@ -23,7 +23,6 @@
   orca,
   psutil,
 }:
-
 buildPythonPackage rec {
   pname = "plotly";
   version = "5.24.1";
@@ -54,7 +53,7 @@ buildPythonPackage rec {
 
   env.SKIP_NPM = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packaging
@@ -116,7 +115,7 @@ buildPythonPackage rec {
       "plotly/tests/test_optional/test_kaleido"
     ];
 
-  pythonImportsCheck = [ "plotly" ];
+  pythonImportsCheck = ["plotly"];
 
   meta = {
     description = "Python plotting library for collaborative, interactive, publication-quality graphs";
@@ -124,6 +123,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/plotly/plotly.py";
     changelog = "https://github.com/plotly/plotly.py/blob/master/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
   };
 }

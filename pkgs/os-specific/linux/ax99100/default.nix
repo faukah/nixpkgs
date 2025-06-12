@@ -6,15 +6,16 @@
   fetchzip,
   dos2unix,
 }:
-
 stdenv.mkDerivation {
   pname = "ax99100";
   version = "1.8.0";
 
-  nativeBuildInputs = [
-    dos2unix
-    kmod
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      dos2unix
+      kmod
+    ]
+    ++ kernel.moduleBuildDependencies;
 
   src = fetchzip {
     url = "https://www.asix.com.tw/en/support/download/file/1229";
@@ -43,9 +44,9 @@ stdenv.mkDerivation {
       ./kernel-6.4-fix-define-semaphore.patch
     ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
-  makeFlags = [ "KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'" ];
+  makeFlags = ["KDIR='${kernel.dev}/lib/modules/${kernel.modDirVersion}/build'"];
 
   installPhase = ''
     mkdir -p $out/lib/modules/${kernel.modDirVersion}/kernel/drivers/tty/serial

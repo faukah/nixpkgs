@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kbld";
   version = "0.46.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/kbld" ];
+  subPackages = ["cmd/kbld"];
 
   env.CGO_ENABLED = 0;
 
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Seamlessly incorporates image building and image pushing into your development and deployment workflows";
     homepage = "https://carvel.dev/kbld/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ benchand ];
+    maintainers = with lib.maintainers; [benchand];
     mainProgram = "kbld";
   };
 }

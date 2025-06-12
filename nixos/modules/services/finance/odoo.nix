@@ -3,21 +3,19 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.odoo;
-  format = pkgs.formats.ini { };
-in
-{
+  format = pkgs.formats.ini {};
+in {
   options = {
     services.odoo = {
       enable = lib.mkEnableOption "odoo, an open source ERP and CRM system";
 
-      package = lib.mkPackageOption pkgs "odoo" { };
+      package = lib.mkPackageOption pkgs "odoo" {};
 
       addons = lib.mkOption {
         type = with lib.types; listOf package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.odoo_enterprise ]";
         description = "Odoo addons.";
       };
@@ -26,18 +24,19 @@ in
 
       autoInitExtraFlags = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         example =
           lib.literalExpression # nix
-            ''
-              [ "--without-demo=all" ]
-            '';
+          
+          ''
+            [ "--without-demo=all" ]
+          '';
         description = "Extra flags passed to odoo when run for the first time by autoInit";
       };
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           Odoo configuration settings. For more details see <https://www.odoo.com/documentation/15.0/administration/install/deploy.html>
         '';
@@ -60,16 +59,15 @@ in
   config = lib.mkIf (cfg.enable) (
     let
       cfgFile = format.generate "odoo.cfg" cfg.settings;
-    in
-    {
+    in {
       services.nginx = lib.mkIf (cfg.domain != null) {
         upstreams = {
           odoo.servers = {
-            "127.0.0.1:8069" = { };
+            "127.0.0.1:8069" = {};
           };
 
           odoochat.servers = {
-            "127.0.0.1:8072" = { };
+            "127.0.0.1:8072" = {};
           };
         };
 
@@ -105,7 +103,7 @@ in
           data_dir = "/var/lib/private/odoo/data";
           proxy_mode = cfg.domain != null;
         }
-        // (lib.optionalAttrs (cfg.addons != [ ]) {
+        // (lib.optionalAttrs (cfg.addons != []) {
           addons_path = lib.concatMapStringsSep "," lib.escapeShellArg cfg.addons;
         });
 
@@ -113,19 +111,19 @@ in
         isSystemUser = true;
         group = "odoo";
       };
-      users.groups.odoo = { };
+      users.groups.odoo = {};
 
       systemd.services.odoo = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "postgresql.service"
         ];
 
         # pg_dump
-        path = [ config.services.postgresql.package ];
+        path = [config.services.postgresql.package];
 
-        requires = [ "postgresql.service" ];
+        requires = ["postgresql.service"];
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/odoo";
@@ -165,7 +163,7 @@ in
       services.postgresql = {
         enable = true;
 
-        ensureDatabases = [ "odoo" ];
+        ensureDatabases = ["odoo"];
         ensureUsers = [
           {
             name = "odoo";

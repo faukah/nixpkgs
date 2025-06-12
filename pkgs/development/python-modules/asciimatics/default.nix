@@ -9,7 +9,6 @@
   setuptools-scm,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "asciimatics";
   version = "1.15.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-z905gEJydRnYtz5iuO+CwL7P7U60IImcO5bJjQuWgho=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     pyfiglet
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     wcwidth
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "asciimatics.effects"
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/peterbrittain/asciimatics";
     changelog = "https://github.com/peterbrittain/asciimatics/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

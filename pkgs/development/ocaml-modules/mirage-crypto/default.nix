@@ -9,7 +9,6 @@
   withFreestanding ? false,
   ocaml-freestanding,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.13";
 
@@ -27,7 +26,7 @@ buildDunePackage rec {
     ounit2
   ];
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs =
     [
       eqaf

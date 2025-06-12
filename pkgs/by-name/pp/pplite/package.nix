@@ -6,7 +6,6 @@
   flint3,
   gmp,
 }:
-
 stdenv.mkDerivation {
   pname = "pplite";
   version = "0.12";

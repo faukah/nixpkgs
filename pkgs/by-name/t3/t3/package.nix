@@ -5,7 +5,6 @@
   nix-update-script,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "t3";
   version = "1.0.9";
@@ -21,17 +20,17 @@ stdenv.mkDerivation (finalAttrs: {
     "PREFIX=$(out)"
     "VERSION=${finalAttrs.version}"
   ];
-  nativeBuildInputs = [ help2man ];
+  nativeBuildInputs = [help2man];
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Next generation tee with colorized output streams and precise time stamping";
     homepage = "https://github.com/flox/t3";
     changelog = "https://github.com/flox/t3/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ limeytexan ];
+    maintainers = with lib.maintainers; [limeytexan];
     platforms = lib.platforms.unix;
     mainProgram = "t3";
   };

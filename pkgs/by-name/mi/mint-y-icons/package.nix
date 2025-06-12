@@ -7,7 +7,6 @@
   hicolor-icon-theme,
   gtk3,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mint-y-icons";
   version = "1.8.3";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Mint-Y icon theme";
     license = licenses.gpl3; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

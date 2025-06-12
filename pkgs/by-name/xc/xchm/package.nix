@@ -7,7 +7,6 @@
   chmlib,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xchm";
   version = "1.37";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     chmlib
   ];
 
-  configureFlags = [ "--with-wx-prefix=${wxGTK32}" ];
+  configureFlags = ["--with-wx-prefix=${wxGTK32}"];
 
   preConfigure = ''
     export LDFLAGS="$LDFLAGS $(${wxGTK32}/bin/wx-config --libs std,aui | sed -e s@-pthread@@)"
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Viewer for Microsoft HTML Help files";
     homepage = "https://github.com/rzvncj/xCHM";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
     mainProgram = "xchm";
   };

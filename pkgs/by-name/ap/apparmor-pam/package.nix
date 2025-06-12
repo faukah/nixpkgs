@@ -3,13 +3,13 @@
   pkg-config,
   which,
   pam,
-
   # apparmor deps
   libapparmor,
 }:
 stdenv.mkDerivation {
   pname = "apparmor-pam";
-  inherit (libapparmor)
+  inherit
+    (libapparmor)
     version
     src
     ;
@@ -31,10 +31,12 @@ stdenv.mkDerivation {
 
   sourceRoot = "${libapparmor.src.name}/changehat/pam_apparmor";
 
-  makeFlags = [ "USE_SYSTEM=1" ];
-  installFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["USE_SYSTEM=1"];
+  installFlags = ["DESTDIR=$(out)"];
 
-  meta = libapparmor.meta // {
-    description = "Mandatory access control system - PAM service";
-  };
+  meta =
+    libapparmor.meta
+    // {
+      description = "Mandatory access control system - PAM service";
+    };
 }

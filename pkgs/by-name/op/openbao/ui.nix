@@ -4,7 +4,6 @@
   yarn-berry_3,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = openbao.pname + "-ui";
   inherit (openbao) version src;

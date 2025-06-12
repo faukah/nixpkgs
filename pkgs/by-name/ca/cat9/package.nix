@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cat9";
   version = "0-unstable-2024-06-17";
@@ -31,8 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/letoram/cat9";
     description = "User shell for LASH";
-    license = with lib.licenses; [ unlicense ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [unlicense];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

@@ -1,57 +1,54 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   name = "glance";
 
   nodes = {
-    machine_default =
-      { ... }:
-      {
-        services.glance = {
-          enable = true;
-        };
+    machine_default = {...}: {
+      services.glance = {
+        enable = true;
       };
+    };
 
-    machine_configured =
-      { pkgs, ... }:
-      let
-        # Do not use this in production. This will make the secret world-readable
-        # in the Nix store
-        secrets.glance-location.path = builtins.toString (
-          pkgs.writeText "location-secret" "Nivelles, Belgium"
-        );
-      in
-      {
-        services.glance = {
-          enable = true;
-          settings = {
-            server.port = 5678;
-            pages = [
-              {
-                name = "Home";
-                columns = [
-                  {
-                    size = "full";
-                    widgets = [
-                      { type = "calendar"; }
-                      {
-                        type = "weather";
-                        location = {
-                          _secret = secrets.glance-location.path;
-                        };
-                      }
-                    ];
-                  }
-                ];
-              }
-            ];
-          };
+    machine_configured = {pkgs, ...}: let
+      # Do not use this in production. This will make the secret world-readable
+      # in the Nix store
+      secrets.glance-location.path = builtins.toString (
+        pkgs.writeText "location-secret" "Nivelles, Belgium"
+      );
+    in {
+      services.glance = {
+        enable = true;
+        settings = {
+          server.port = 5678;
+          pages = [
+            {
+              name = "Home";
+              columns = [
+                {
+                  size = "full";
+                  widgets = [
+                    {type = "calendar";}
+                    {
+                      type = "weather";
+                      location = {
+                        _secret = secrets.glance-location.path;
+                      };
+                    }
+                  ];
+                }
+              ];
+            }
+          ];
         };
       };
+    };
   };
 
-  extraPythonPackages =
-    p: with p; [
+  extraPythonPackages = p:
+    with p; [
       beautifulsoup4
       pyyaml
       types-pyyaml
@@ -80,5 +77,5 @@
     assert location == "Nivelles, Belgium"
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

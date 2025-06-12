@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitUpdater,
 }:
-
 # NOTE:
 #
 # In order to use the whitesur sddm themes, the packages
@@ -25,7 +24,6 @@
 #       kdePackages.qtsvg
 #     ];
 # };
-
 stdenvNoCC.mkDerivation rec {
   pname = "whitesur-kde";
   version = "2024-11-18";
@@ -66,13 +64,13 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "MacOS big sur like theme for KDE Plasma desktop";
     homepage = "https://github.com/vinceliuice/WhiteSur-kde";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 }

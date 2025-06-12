@@ -6,7 +6,6 @@
   qtbase,
   qttools,
 }:
-
 mkDerivation rec {
   pname = "lumina-calculator";
   version = "1.6.0";
@@ -25,7 +24,7 @@ mkDerivation rec {
     qttools
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   qmakeFlags = [
     "CONFIG+=WITH_I18N"
@@ -38,6 +37,6 @@ mkDerivation rec {
     homepage = "https://github.com/lumina-desktop/lumina-calculator";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    teams = [ teams.lumina ];
+    teams = [teams.lumina];
   };
 }

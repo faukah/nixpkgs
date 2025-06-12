@@ -13,7 +13,6 @@
   pytest-textual-snapshot,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "textual-fastdatatable";
   version = "0.12.0";
@@ -28,26 +27,30 @@ buildPythonPackage rec {
     hash = "sha256-aQduVFHsdAMwjJzFPqOGB5Ec16YZ9YOYnEK6Ilf96xM=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    pyarrow
-    pytz
-    textual
-    tzdata
-  ] ++ textual.optional-dependencies.syntax;
+  dependencies =
+    [
+      pyarrow
+      pytz
+      textual
+      tzdata
+    ]
+    ++ textual.optional-dependencies.syntax;
 
   optional-dependencies = {
-    polars = [ polars ];
+    polars = [polars];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytest-textual-snapshot
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytest-textual-snapshot
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "textual_fastdatatable" ];
+  pythonImportsCheck = ["textual_fastdatatable"];
 
   disabledTestPaths = [
     # Tests are comparing CLI output
@@ -59,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tconbeer/textual-fastdatatable";
     changelog = "https://github.com/tconbeer/textual-fastdatatable/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
   };
 }

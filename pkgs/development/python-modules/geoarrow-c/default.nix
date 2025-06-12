@@ -40,7 +40,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "geoarrow.c" ];
+  pythonImportsCheck = ["geoarrow.c"];
 
   meta = with lib; {
     description = "Experimental C and C++ implementation of the GeoArrow specification";

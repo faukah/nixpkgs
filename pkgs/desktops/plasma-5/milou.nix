@@ -11,10 +11,9 @@
   qtscript,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "milou";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kcoreaddons
     kdeclarative

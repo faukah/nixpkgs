@@ -9,7 +9,6 @@
   setuptools,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "dirigera";
   version = "1.2.3";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-PnjVWfbus76t3s0m6Evvjz3bqVzbUj34ZveH8ABVD7w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pydantic
@@ -32,16 +31,16 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dirigera" ];
+  pythonImportsCheck = ["dirigera"];
 
   meta = with lib; {
     description = "Module for controlling the IKEA Dirigera Smart Home Hub";
     homepage = "https://github.com/Leggin/dirigera";
     changelog = "https://github.com/Leggin/dirigera/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "generate-token";
     broken = versionOlder pydantic.version "2";
   };

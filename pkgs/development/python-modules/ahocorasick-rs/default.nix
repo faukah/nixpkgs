@@ -10,7 +10,6 @@
   typing-extensions,
   pytest-benchmark,
 }:
-
 buildPythonPackage rec {
   pname = "ahocorasick-rs";
   version = "0.22.2";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     cargoSetupHook
   ];
 
-  dependencies = lib.optionals (pythonOlder "3.12") [ typing-extensions ];
+  dependencies = lib.optionals (pythonOlder "3.12") [typing-extensions];
 
   nativeCheckInputs = [
     pytest-benchmark
@@ -42,14 +41,13 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "ahocorasick_rs" ];
+  pythonImportsCheck = ["ahocorasick_rs"];
 
   meta = with lib; {
     description = "Fast Aho-Corasick algorithm for Python";
     homepage = "https://github.com/G-Research/ahocorasick_rs/";
     changelog = "https://github.com/G-Research/ahocorasick_rs/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
-
 }

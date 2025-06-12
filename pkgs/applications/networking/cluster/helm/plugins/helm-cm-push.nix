@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "helm-cm-push";
   version = "0.10.4";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7bUDKqkvBV1Upcrj4DQnVCP74QtKlSwF0Kl2sPFZpjc=";
 
-  subPackage = [ "cmd/helm-cm-push" ];
+  subPackage = ["cmd/helm-cm-push"];
 
   # Remove hooks.
   postPatch = ''
@@ -43,6 +42,6 @@ buildGoModule rec {
     description = "Helm plugin to push chart package to ChartMuseum";
     homepage = "https://github.com/chartmuseum/helm-push";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

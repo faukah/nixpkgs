@@ -7,7 +7,6 @@
   plasma-workspace,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "layan-kde";
   version = "unstable-2023-09-30";
@@ -49,13 +48,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Flat Design theme for KDE Plasma desktop";
     homepage = "https://github.com/vinceliuice/Layan-kde";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -6,7 +6,6 @@
   ninja,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.4.2";
   pname = "Clipper";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://sourceforge.net/projects/polyclipping";
     license = licenses.boost;
-    maintainers = with maintainers; [ mpickering ];
+    maintainers = with maintainers; [mpickering];
     platforms = with platforms; unix;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "bingo";
   version = "0.9.0";
@@ -33,6 +32,6 @@ buildGoModule (finalAttrs: {
     mainProgram = "bingo";
     homepage = "https://github.com/bwplotka/bingo";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
   };
 })

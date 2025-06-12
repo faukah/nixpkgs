@@ -4,14 +4,13 @@
   buildGoModule,
   tailscale,
 }:
-
 buildGoModule {
   pname = "tailscale-nginx-auth";
   inherit (tailscale) version src vendorHash;
 
   env.CGO_ENABLED = 0;
 
-  subPackages = [ "cmd/nginx-auth" ];
+  subPackages = ["cmd/nginx-auth"];
 
   ldflags = [
     "-w"
@@ -32,6 +31,6 @@ buildGoModule {
     description = "Tool that allows users to use Tailscale Whois authentication with NGINX as a reverse proxy";
     license = lib.licenses.bsd3;
     mainProgram = "tailscale.nginx-auth";
-    maintainers = with lib.maintainers; [ phaer ];
+    maintainers = with lib.maintainers; [phaer];
   };
 }

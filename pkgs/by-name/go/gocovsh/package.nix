@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "gocovsh";
   version = "0.6.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X main.date=19700101T000000Z"
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
@@ -36,7 +35,7 @@ buildGoModule rec {
     # https://github.com/orlangure/gocovsh/blob/8880bc63283c13a1d630ce3817c7165a6c210d46/.goreleaser.yaml#L33
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ phanirithvij ];
+    maintainers = with lib.maintainers; [phanirithvij];
     mainProgram = "gocovsh";
   };
 }

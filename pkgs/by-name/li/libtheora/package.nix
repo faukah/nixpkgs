@@ -9,7 +9,6 @@
   testers,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtheora";
   version = "1.2.0";
@@ -19,9 +18,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-J5MnM5kDtUTCipKurafQ3P0Dl7WcLzaMxpisVvUVkG4=";
   };
 
-  patches = lib.optionals stdenv.hostPlatform.isMinGW [ ./mingw-remove-export.patch ];
+  patches = lib.optionals stdenv.hostPlatform.isMinGW [./mingw-remove-export.patch];
 
-  configureFlags = [ "--disable-examples" ];
+  configureFlags = ["--disable-examples"];
 
   outputs = [
     "out"
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library for Theora, a free and open video compression format";
     homepage = "https://www.theora.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
 })

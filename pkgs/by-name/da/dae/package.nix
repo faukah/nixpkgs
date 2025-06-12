@@ -22,7 +22,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ clang ];
+  nativeBuildInputs = [clang];
 
   hardeningDisable = [
     "zerocallusedregs"
@@ -52,7 +52,7 @@ buildGoModule rec {
     inherit (nixosTests) dae;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Linux high-performance transparent proxy solution based on eBPF";

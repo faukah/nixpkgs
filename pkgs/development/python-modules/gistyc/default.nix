@@ -6,7 +6,6 @@
   click,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "gistyc";
   version = "1.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "gistyc" ];
+  pythonImportsCheck = ["gistyc"];
 
   meta = with lib; {
     homepage = "https://github.com/ThomasAlbin/gistyc";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
       blocks.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

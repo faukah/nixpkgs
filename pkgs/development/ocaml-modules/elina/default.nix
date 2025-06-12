@@ -11,7 +11,6 @@
   camlidl,
   apron,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1";
   pname = "ocaml${ocaml.version}-elina";
@@ -38,12 +37,14 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   prefixKey = "--prefix ";
-  configureFlags = [
-    "--use-apron"
-    "--use-opam"
-    "--apron-prefix"
-    apron
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin "--absolute-dylibs";
+  configureFlags =
+    [
+      "--use-apron"
+      "--use-opam"
+      "--apron-prefix"
+      apron
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin "--absolute-dylibs";
 
   createFindlibDestdir = true;
 
@@ -51,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "ETH LIbrary for Numerical Analysis";
     homepage = "https://elina.ethz.ch/";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     platforms = lib.intersectLists ocaml.meta.platforms lib.platforms.x86;
   };
 }

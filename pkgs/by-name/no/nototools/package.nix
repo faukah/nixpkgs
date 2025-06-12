@@ -4,7 +4,6 @@
   bash,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nototools";
   version = "0.2.20";
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     sed -i 's/use_scm_version=.*,/version="${version}",/' setup.py
   '';
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   pythonRemoveDeps = [
     # https://github.com/notofonts/nototools/pull/901
@@ -75,6 +74,6 @@ python3Packages.buildPythonApplication rec {
     description = "Noto fonts support tools and scripts plus web site generation";
     homepage = "https://github.com/googlefonts/nototools";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

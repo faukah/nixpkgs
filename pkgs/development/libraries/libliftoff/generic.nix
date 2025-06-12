@@ -9,7 +9,6 @@
   src,
   patches,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libliftoff";
   inherit version src patches;
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  buildInputs = [ libdrm ];
+  buildInputs = [libdrm];
 
   meta = {
     description = "Lightweight KMS plane library";

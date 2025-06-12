@@ -9,7 +9,6 @@
   websocket-client,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "chat-downloader";
   version = "0.2.8";
@@ -31,9 +30,9 @@ buildPythonPackage rec {
   # Tests try to access the network.
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "chat_downloader" ];
+  pythonImportsCheck = ["chat_downloader"];
 
   meta = with lib; {
     description = "Simple tool used to retrieve chat messages from livestreams, videos, clips and past broadcasts";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xenova/chat-downloader";
     changelog = "https://github.com/xenova/chat-downloader/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

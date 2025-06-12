@@ -5,7 +5,6 @@
   lib,
   nixosTests,
 }:
-
 buildGoModule {
   pname = "pam_ussh";
   version = "unstable-20210615";
@@ -54,13 +53,13 @@ buildGoModule {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) pam-ussh; };
+  passthru.tests = {inherit (nixosTests) pam-ussh;};
 
   meta = with lib; {
     homepage = "https://github.com/uber/pam-ussh";
     description = "PAM module to authenticate using SSH certificates";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

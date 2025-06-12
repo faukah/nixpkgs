@@ -5,7 +5,6 @@
   installShellFiles,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "thc-secure-delete";
   version = "3.1.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/gordrs/thc-secure-delete";
     changelog = "https://github.com/gordrs/thc-secure-delete/blob/v${finalAttrs.version}/CHANGES";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     mainProgram = "srm";
     platforms = platforms.all;
   };

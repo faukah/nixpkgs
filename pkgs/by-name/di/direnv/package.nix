@@ -8,7 +8,6 @@
   zsh,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "direnv";
   version = "2.36.0";
@@ -63,7 +62,7 @@ buildGoModule rec {
     '';
     homepage = "https://direnv.net";
     license = licenses.mit;
-    maintainers = [ maintainers.zimbatm ];
+    maintainers = [maintainers.zimbatm];
     mainProgram = "direnv";
   };
 }

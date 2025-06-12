@@ -6,7 +6,6 @@
   kwin,
   zip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kzones";
   version = "0.9";
@@ -22,10 +21,10 @@ stdenv.mkDerivation (finalAttrs: {
     kpackage
     zip
   ];
-  buildInputs = [ kwin ];
+  buildInputs = [kwin];
   dontWrapQtApps = true;
 
-  buildFlags = [ "build" ];
+  buildFlags = ["build"];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "KDE KWin Script for snapping windows into zones";
     homepage = "https://github.com/gerritdevriese/kzones/";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
     platforms = lib.platforms.all;
   };
 })

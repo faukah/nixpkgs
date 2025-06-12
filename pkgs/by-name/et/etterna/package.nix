@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-ZCQt99Qcov/7jGfrSmX9WftaP2U2B1d1APK1mxrUDBs=";
   };
 
-  patches = [ ./fix-download-manager.patch ];
+  patches = [./fix-download-manager.patch];
 
   nativeBuildInputs = [
     cmake
@@ -96,14 +96,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  cmakeFlags = [ "-D WITH_CRASHPAD=OFF" ];
+  cmakeFlags = ["-D WITH_CRASHPAD=OFF"];
 
   meta = {
     description = "Advanced cross-platform rhythm game focused on keyboard play";
     homepage = "https://etternaonline.com";
     changelog = "https://github.com/etternagame/etterna/release/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ alikindsys ];
+    maintainers = with lib.maintainers; [alikindsys];
     mainProgram = "etterna";
   };
 })

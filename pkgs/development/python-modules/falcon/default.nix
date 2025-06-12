@@ -5,11 +5,9 @@
   pythonOlder,
   isPyPy,
   fetchFromGitHub,
-
   # build
   cython,
   setuptools,
-
   # tests
   aiofiles,
   cbor2,
@@ -26,7 +24,6 @@
   uvicorn,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "falcon";
   version = "4.0.2";
@@ -41,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-umNuHyZrdDGyrhQEG9+f08D4Wwrz6bVJ6ysw8pfbHv4=";
   };
 
-  build-system = [ setuptools ] ++ lib.optionals (!isPyPy) [ cython ];
+  build-system = [setuptools] ++ lib.optionals (!isPyPy) [cython];
 
   __darwinAllowLocalNetworking = true;
 
@@ -55,28 +52,30 @@ buildPythonPackage rec {
     popd
   '';
 
-  nativeCheckInputs = [
-    # https://github.com/falconry/falcon/blob/master/requirements/tests
-    pytest7CheckHook
-    pyyaml
-    requests
-    rapidjson
-    orjson
+  nativeCheckInputs =
+    [
+      # https://github.com/falconry/falcon/blob/master/requirements/tests
+      pytest7CheckHook
+      pyyaml
+      requests
+      rapidjson
+      orjson
 
-    # ASGI specific
-    aiofiles
-    httpx
-    uvicorn
-    websockets
+      # ASGI specific
+      aiofiles
+      httpx
+      uvicorn
+      websockets
 
-    # handler specific
-    cbor2
-    msgpack
-    mujson
-    ujson
-  ] ++ lib.optionals (pythonOlder "3.10") [ testtools ];
+      # handler specific
+      cbor2
+      msgpack
+      mujson
+      ujson
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [testtools];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTestPaths =
     [
@@ -93,6 +92,6 @@ buildPythonPackage rec {
     description = "Ultra-reliable, fast ASGI+WSGI framework for building data plane APIs at scale";
     homepage = "https://falconframework.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "codegrab";
   version = "1.0.7";
@@ -43,7 +42,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/epilande/codegrab";
     changelog = "https://github.com/epilande/codegrab/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ taha-yassine ];
+    maintainers = with lib.maintainers; [taha-yassine];
     mainProgram = "grab";
   };
 })

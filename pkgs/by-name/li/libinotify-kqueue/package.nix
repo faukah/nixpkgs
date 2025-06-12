@@ -5,7 +5,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libinotify-kqueue";
   version = "20240724";
@@ -26,25 +25,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags =
     lib.optionals (with stdenv; buildPlatform != hostPlatform && hostPlatform.isFreeBSD)
-      [
-        "ik_cv_have_note_extend_in=yes"
-        "ik_cv_have_note_extend_out=yes"
-        "ik_cv_have_o_path=yes"
-        "ik_cv_have_o_empty_path=yes"
-        "ik_cv_have_at_empty_path=yes"
-      ];
+    [
+      "ik_cv_have_note_extend_in=yes"
+      "ik_cv_have_note_extend_out=yes"
+      "ik_cv_have_o_path=yes"
+      "ik_cv_have_o_empty_path=yes"
+      "ik_cv_have_at_empty_path=yes"
+    ];
 
-  checkFlags = [ "test" ];
+  checkFlags = ["test"];
 
   meta = with lib; {
     description = "Inotify shim for macOS and BSD";
     homepage = "https://github.com/libinotify-kqueue/libinotify-kqueue";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; darwin ++ freebsd ++ netbsd ++ openbsd;
   };
 }

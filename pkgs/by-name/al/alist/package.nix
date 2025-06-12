@@ -38,9 +38,9 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-IMoLVAgOaVM1xIFDe8BGOpzyBnDMfD9Q6VogFfOWFzU=";
 
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
-  tags = [ "jsoniter" ];
+  tags = ["jsoniter"];
 
   ldflags = [
     "-s"
@@ -61,19 +61,17 @@ buildGoModule rec {
     ldflags+=" -X github.com/alist-org/alist/v3/internal/conf.GitCommit=$(cat COMMIT)"
   '';
 
-  checkFlags =
-    let
-      # Skip tests that require network access
-      skippedTests = [
-        "TestHTTPAll"
-        "TestWebsocketAll"
-        "TestWebsocketCaller"
-        "TestDownloadOrder"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Skip tests that require network access
+    skippedTests = [
+      "TestHTTPAll"
+      "TestWebsocketAll"
+      "TestWebsocketCaller"
+      "TestDownloadOrder"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd alist \
@@ -91,7 +89,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = lib.getExe (callPackage ./update.nix { });
+    updateScript = lib.getExe (callPackage ./update.nix {});
   };
 
   meta = {
@@ -103,7 +101,7 @@ buildGoModule rec {
       # alist-web
       mit
     ];
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       # alist-web

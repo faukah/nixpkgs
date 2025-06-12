@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "nix-env-picker";
@@ -12,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=io-github-oops418.nix-env-picker";
     homepage = "https://github.com/Oops418/nix-env-picker";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.Oops418 ];
+    maintainers = [lib.maintainers.Oops418];
   };
 }

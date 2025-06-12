@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aws-codeartifact-proxy";
   version = "0.6.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     description = "AWS CodeArtifact proxy to allow unauthenticated read access";
     homepage = "https://github.com/sktan/aws-codeartifact-proxy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lafrenierejm ];
+    maintainers = with lib.maintainers; [lafrenierejm];
     mainProgram = "aws-codeartifact-proxy";
   };
 }

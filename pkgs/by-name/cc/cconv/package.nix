@@ -5,7 +5,6 @@
   autoreconfHook,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cconv";
   version = "0.6.3";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "RAFl/+I+usUfeG/l17F3ltThK7G4+TekyQGwzQIgeH8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libiconv ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libiconv];
   configureFlags = lib.optional stdenv.hostPlatform.isDarwin "LDFLAGS=-liconv";
 
   meta = with lib; {
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/xiaoyjy/cconv";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.redfish64 ];
+    maintainers = [maintainers.redfish64];
   };
 }

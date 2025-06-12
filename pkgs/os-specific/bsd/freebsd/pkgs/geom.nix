@@ -4,8 +4,7 @@
   libgeom,
   libufs,
   openssl,
-}:
-let
+}: let
   libs = mkDerivation {
     name = "geom-class-libs";
     path = "lib/geom";
@@ -38,25 +37,25 @@ let
     '';
   };
 in
-mkDerivation {
-  path = "sbin/geom";
-  extraPaths = [
-    "lib/Makefile.inc"
-    "lib/geom"
-  ];
-  outputs = [
-    "out"
-    "man"
-    "debug"
-  ];
+  mkDerivation {
+    path = "sbin/geom";
+    extraPaths = [
+      "lib/Makefile.inc"
+      "lib/geom"
+    ];
+    outputs = [
+      "out"
+      "man"
+      "debug"
+    ];
 
-  GEOM_CLASS_DIR = "${libs}/lib";
+    GEOM_CLASS_DIR = "${libs}/lib";
 
-  # link in man pages from libs
-  postInstall = ''
-    mkdir -p $man/share/man/man8
-    ln -s ${lib.getMan libs}/share/man/man8/*.8* $man/share/man/man8/
-  '';
+    # link in man pages from libs
+    postInstall = ''
+      mkdir -p $man/share/man/man8
+      ln -s ${lib.getMan libs}/share/man/man8/*.8* $man/share/man/man8/
+    '';
 
-  buildInputs = [ libgeom ];
-}
+    buildInputs = [libgeom];
+  }

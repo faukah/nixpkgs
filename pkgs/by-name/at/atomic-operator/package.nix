@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "atomic-operator";
   version = "0.8.5";
@@ -56,6 +55,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "atomic-operator";
     homepage = "https://www.atomic-operator.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

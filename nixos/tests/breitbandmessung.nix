@@ -1,32 +1,29 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "breitbandmessung";
-  meta.maintainers = with lib.maintainers; [ b4dm4n ];
+  meta.maintainers = with lib.maintainers; [b4dm4n];
 
   node.pkgsReadOnly = false;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [
-        ./common/user-account.nix
-        ./common/x11.nix
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [
+      ./common/user-account.nix
+      ./common/x11.nix
+    ];
 
-      # increase screen size to make the whole program visible
-      virtualisation.resolution = {
-        x = 1280;
-        y = 1024;
-      };
-
-      test-support.displayManager.auto.user = "alice";
-
-      environment.systemPackages = with pkgs; [ breitbandmessung ];
-      environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
-
-      # breitbandmessung is unfree
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "breitbandmessung" ];
+    # increase screen size to make the whole program visible
+    virtualisation.resolution = {
+      x = 1280;
+      y = 1024;
     };
+
+    test-support.displayManager.auto.user = "alice";
+
+    environment.systemPackages = with pkgs; [breitbandmessung];
+    environment.variables.XAUTHORITY = "/home/alice/.Xauthority";
+
+    # breitbandmessung is unfree
+    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["breitbandmessung"];
+  };
 
   enableOCR = true;
 

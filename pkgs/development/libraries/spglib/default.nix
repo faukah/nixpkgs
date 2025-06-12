@@ -7,7 +7,6 @@
   gtest,
   openmp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spglib";
   version = "2.6.0"; # N.B: if you change this, please update: pythonPackages.spglib
@@ -25,9 +24,9 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ openmp ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [openmp];
 
-  cmakeFlags = [ "-DSPGLIB_WITH_Fortran=On" ];
+  cmakeFlags = ["-DSPGLIB_WITH_Fortran=On"];
 
   doCheck = true;
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://spglib.github.io/spglib/";
     changelog = "https://github.com/spglib/spglib/raw/v${version}/ChangeLog";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.all;
   };
 }

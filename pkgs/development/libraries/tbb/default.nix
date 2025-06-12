@@ -6,7 +6,6 @@
   cmake,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tbb";
   version = "2021.11.0";
@@ -72,12 +71,12 @@ stdenv.mkDerivation rec {
       "-Wno-error=stringop-overflow"
     ]
     ++
-      # error: variable 'val' set but not used
-      lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-but-set-variable" ]
+    # error: variable 'val' set but not used
+    lib.optionals stdenv.cc.isClang ["-Wno-error=unused-but-set-variable"]
     ++
-      # Workaround for gcc-12 ICE when using -O3
-      # https://gcc.gnu.org/PR108854
-      lib.optionals (stdenv.cc.isGNU && stdenv.hostPlatform.isx86_32) [ "-O2" ];
+    # Workaround for gcc-12 ICE when using -O3
+    # https://gcc.gnu.org/PR108854
+    lib.optionals (stdenv.cc.isGNU && stdenv.hostPlatform.isx86_32) ["-O2"];
 
   # Fix undefined reference errors with version script under LLVM.
   NIX_LDFLAGS = lib.optionalString (

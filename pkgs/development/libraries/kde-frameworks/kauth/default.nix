@@ -9,12 +9,11 @@
   enablePolkit ? stdenv.hostPlatform.isLinux,
   polkit-qt,
 }:
-
 mkDerivation {
   pname = "kauth";
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = lib.optional enablePolkit polkit-qt ++ [ qttools ];
-  propagatedBuildInputs = [ kcoreaddons ];
+  nativeBuildInputs = [extra-cmake-modules];
+  buildInputs = lib.optional enablePolkit polkit-qt ++ [qttools];
+  propagatedBuildInputs = [kcoreaddons];
   patches = [
     ./cmake-install-paths.patch
   ];

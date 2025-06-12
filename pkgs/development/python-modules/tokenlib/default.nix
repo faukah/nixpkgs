@@ -7,13 +7,12 @@
   fetchpatch,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tokenlib";
   version = "2.0.0";
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   src = fetchFromGitHub {
     owner = "mozilla-services";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     webob
   ];
 
-  pythonImportsCheck = [ "tokenlib" ];
+  pythonImportsCheck = ["tokenlib"];
 
   meta = with lib; {
     homepage = "https://github.com/mozilla-services/tokenlib";

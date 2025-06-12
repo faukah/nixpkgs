@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gotools,
 }:
-
 buildGoModule rec {
   pname = "jobber";
   version = "1.4.4";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ gotools ];
+  nativeBuildInputs = [gotools];
 
   postConfigure = "go generate ./...";
 
@@ -40,7 +39,7 @@ buildGoModule rec {
     changelog = "https://github.com/dshearer/jobber/releases/tag/v${version}";
     description = "Alternative to cron, with sophisticated status-reporting and error-handling";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
     mainProgram = "jobber";
   };
 }

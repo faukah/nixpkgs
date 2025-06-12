@@ -4,7 +4,6 @@
   fetchPypi,
   aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "sockjs";
   version = "0.13.0";
@@ -15,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-V+lZoj8gqNVRSdHl2ws7hwcm8rStgWbUG9z0EbNs33Y=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  pythonImportsCheck = [ "sockjs" ];
+  pythonImportsCheck = ["sockjs"];
 
   meta = with lib; {
     description = "Sockjs server";
     homepage = "https://github.com/aio-libs/sockjs";
     license = licenses.asl20;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

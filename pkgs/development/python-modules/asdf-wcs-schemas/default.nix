@@ -12,7 +12,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "asdf-wcs-schemas";
   version = "0.4.0";
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "asdf_wcs_schemas" ];
+  pythonImportsCheck = ["asdf_wcs_schemas"];
 
   meta = with lib; {
     description = "World Coordinate System (WCS) ASDF schemas";
     homepage = "https://github.com/asdf-format/asdf-wcs-schemas";
     changelog = "https://github.com/asdf-format/asdf-wcs-schemas/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

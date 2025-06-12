@@ -16,7 +16,6 @@
   python-magic,
   requests,
 }:
-
 buildPythonPackage rec {
   version = "2.3.6";
   format = "setuptools";

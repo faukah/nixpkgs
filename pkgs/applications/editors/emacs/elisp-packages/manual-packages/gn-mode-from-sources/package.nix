@@ -3,7 +3,6 @@
   gn,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "gn-mode-from-sources";
   ename = "gn-mode";
@@ -20,7 +19,7 @@ melpaBuild {
 
   meta = {
     inherit (gn.meta) homepage license;
-    maintainers = with lib.maintainers; [ rennsax ];
+    maintainers = with lib.maintainers; [rennsax];
     description = "Major mode for editing GN files; taken from GN sources";
   };
 }

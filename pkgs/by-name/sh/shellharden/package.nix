@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shellharden";
   version = "4.3.1";
@@ -29,6 +28,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/anordal/shellharden";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

@@ -7,7 +7,6 @@
   eigen,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcifpp";
   version = "8.0.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cfyou+R0VrAfYM8ez5myZkDKO5VfB9WAQF+amy3oRzU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # disable network access
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/PDB-REDO/libcifpp";
     changelog = "https://github.com/PDB-REDO/libcifpp/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = lib.platforms.unix;
   };
 })

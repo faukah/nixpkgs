@@ -5,7 +5,6 @@
   fetchpatch,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnatpmp";
   version = "20230423";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "NAT-PMP client";
     homepage = "http://miniupnp.free.fr/libnatpmp.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     mainProgram = "natpmpc";
     platforms = platforms.all;
   };

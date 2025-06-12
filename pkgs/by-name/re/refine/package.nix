@@ -18,7 +18,6 @@
   gtk4,
   glib,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "refine";
   version = "0.5.9";
@@ -61,11 +60,11 @@ python3Packages.buildPythonApplication rec {
 
   strictDeps = true;
 
-  mesonFlags = [ (lib.mesonBool "network_tests" false) ];
+  mesonFlags = [(lib.mesonBool "network_tests" false)];
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   # NOTE: `postCheck` is intentionally not used here, as the entire checkPhase
   # is skipped by `buildPythonApplication`
@@ -74,14 +73,14 @@ python3Packages.buildPythonApplication rec {
     mesonCheckPhase
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tweak various aspects of GNOME";
     homepage = "https://gitlab.gnome.org/TheEvilSkeleton/Refine";
     mainProgram = "refine";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ getchoo ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

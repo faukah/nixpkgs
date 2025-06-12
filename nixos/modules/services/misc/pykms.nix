@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.pykms;
   libDir = "/var/lib/pykms";
-
-in
-{
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+in {
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "pykms" "verbose" ] "Use services.pykms.logLevel instead")
+    (lib.mkRemovedOptionModule ["services" "pykms" "verbose"] "Use services.pykms.logLevel instead")
   ];
 
   options = {
@@ -24,7 +21,7 @@ in
         description = "Whether to enable the PyKMS service.";
       };
 
-      package = lib.mkPackageOption pkgs "pykms" { };
+      package = lib.mkPackageOption pkgs "pykms" {};
 
       listenAddress = lib.mkOption {
         type = lib.types.str;
@@ -66,19 +63,19 @@ in
 
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = "Additional arguments";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewallPort [cfg.port];
 
     systemd.services.pykms = {
       description = "Python KMS";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # python programs with DynamicUser = true require HOME to be set
       environment.HOME = libDir;
       serviceConfig = {

@@ -7,7 +7,6 @@
   pytestCheckHook,
   fetchpatch2,
 }:
-
 buildPythonPackage rec {
   pname = "pysrt";
   version = "1.1.2";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ chardet ];
+  propagatedBuildInputs = [chardet];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/byroot/pysrt";

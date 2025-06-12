@@ -6,7 +6,6 @@
   nix-update-script,
   biscuit-cli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "biscuit-cli";
   version = "0.5.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-3rDsgEH6tTEnAc/+8Try/z3mMBOguOTbxfXs5QIMBf4=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       inherit version;
       package = biscuit-cli;

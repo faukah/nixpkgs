@@ -5,7 +5,6 @@
   testers,
   ruby,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rsmangler";
   version = "1.5-unstable-2019-07-24";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-DN20XzrlkunLyk4nkgytUJEtCOlFjWUUUAQ416l3Aug=";
   };
 
-  buildInputs = [ ruby ];
+  buildInputs = [ruby];
 
   postPatch = ''
     substituteInPlace rsmangler.rb \
@@ -40,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/digininja/RSMangler";
     license = licenses.cc-by-sa-20;
     mainProgram = "rsmangler";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = ruby.meta.platforms;
   };
 })

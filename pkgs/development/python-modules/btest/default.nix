@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "btest";
   version = "1.1";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zeek/btest";
     changelog = "https://github.com/zeek/btest/blob/${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

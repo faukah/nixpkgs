@@ -9,7 +9,6 @@
   rustPlatform,
   unicodecsv,
 }:
-
 buildPythonPackage rec {
   pname = "jellyfish";
   version = "1.1.2";
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     unicodecsv
   ];
 
-  pythonImportsCheck = [ "jellyfish" ];
+  pythonImportsCheck = ["jellyfish"];
 
   meta = {
     description = "A python library for doing approximate and phonetic matching of strings";
     homepage = "https://github.com/jamesturk/jellyfish";
     changelog = "https://github.com/jamesturk/jellyfish/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ koral ];
+    maintainers = with lib.maintainers; [koral];
   };
 }

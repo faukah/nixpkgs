@@ -6,7 +6,6 @@
   installShellFiles,
   buildPackages,
 }:
-
 buildGoModule rec {
   pname = "gnmic";
   version = "0.41.0";
@@ -30,26 +29,24 @@ buildGoModule rec {
     "-X"
     "github.com/openconfig/gnmic/pkg/app.date=1970-01-01T00:00:00Z"
   ];
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      installShellCompletion --cmd gnmic \
-        --bash <(${emulator} $out/bin/gnmic completion bash) \
-        --fish <(${emulator} $out/bin/gnmic completion fish) \
-        --zsh  <(${emulator} $out/bin/gnmic completion zsh)
-    '';
+  nativeBuildInputs = [installShellFiles];
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    installShellCompletion --cmd gnmic \
+      --bash <(${emulator} $out/bin/gnmic completion bash) \
+      --fish <(${emulator} $out/bin/gnmic completion fish) \
+      --zsh  <(${emulator} $out/bin/gnmic completion zsh)
+  '';
 
   meta = with lib; {
     description = "gNMI CLI client and collector";
     homepage = "https://gnmic.openconfig.net/";
     changelog = "https://github.com/openconfig/gnmic/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vincentbernat ];
+    maintainers = with maintainers; [vincentbernat];
     mainProgram = "gnmic";
   };
 }

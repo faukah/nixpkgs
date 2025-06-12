@@ -13,7 +13,6 @@
   xcbuild,
   coreutils,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rapidapi";
   version = "4.2.8-4002008002";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontFixup = true;
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = "RapidAPI.app";
 
@@ -57,13 +56,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   });
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = writeShellScript "version-check" ''
     marketing_version=$(${xcbuild}/bin/PlistBuddy -c "Print :CFBundleShortVersionString" "$1" | ${coreutils}/bin/tr -d '"')
     build_version=$(${xcbuild}/bin/PlistBuddy -c "Print :CFBundleVersion" "$1")
     echo $marketing_version-$build_version
   '';
-  versionCheckProgramArg = [ "${placeholder "out"}/Applications/RapidAPI.app/Contents/Info.plist" ];
+  versionCheckProgramArg = ["${placeholder "out"}/Applications/RapidAPI.app/Contents/Info.plist"];
   doInstallCheck = true;
 
   meta = {
@@ -71,8 +70,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://paw.cloud";
     changelog = "https://paw.cloud/updates/${lib.head (lib.splitString "-" finalAttrs.version)}";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

@@ -1,14 +1,13 @@
 {
-  pkgs ? import <nixpkgs> { inherit system; },
+  pkgs ? import <nixpkgs> {inherit system;},
   system ? builtins.currentSystem,
   noDev ? false,
   php ? pkgs.php,
   phpPackages ? pkgs.phpPackages,
-}:
-
-let
+}: let
   composerEnv = import ./composer-env.nix {
-    inherit (pkgs)
+    inherit
+      (pkgs)
       stdenv
       lib
       writeTextFile
@@ -18,12 +17,13 @@ let
     inherit php phpPackages;
   };
 in
-import ./php-packages.nix {
-  inherit composerEnv noDev;
-  inherit (pkgs)
-    fetchurl
-    fetchgit
-    fetchhg
-    fetchsvn
-    ;
-}
+  import ./php-packages.nix {
+    inherit composerEnv noDev;
+    inherit
+      (pkgs)
+      fetchurl
+      fetchgit
+      fetchhg
+      fetchsvn
+      ;
+  }

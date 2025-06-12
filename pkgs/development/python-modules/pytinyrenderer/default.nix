@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pytinyrenderer";
   version = "0.0.14";
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Python bindings for Tiny Renderer";
     homepage = "https://pypi.org/project/pytinyrenderer/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

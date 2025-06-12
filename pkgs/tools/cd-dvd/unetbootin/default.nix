@@ -13,7 +13,6 @@
   util-linux,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unetbootin";
   version = "702";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     qmake
   ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   # Lots of nice hard-coded paths...
   postPatch = ''
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     description = "Tool to create bootable live USB drives from ISO images";
     homepage = "https://unetbootin.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ebzzry ];
+    maintainers = with maintainers; [ebzzry];
     platforms = platforms.linux;
     mainProgram = "unetbootin";
   };

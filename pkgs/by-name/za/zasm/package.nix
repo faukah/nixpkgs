@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zasm";
   version = "4.4.17";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "zasm";
     homepage = "https://k1.spdns.de/Develop/Projects/zasm/Distributions/";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.turbomack ];
+    maintainers = [lib.maintainers.turbomack];
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.aarch64;
   };

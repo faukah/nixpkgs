@@ -25,7 +25,6 @@
   perl,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guacamole-server";
   version = "1.6.0-unstable-2025-05-16";
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://guacamole.apache.org/";
     license = lib.licenses.asl20;
     mainProgram = "guacd";
-    maintainers = [ lib.maintainers.drupol ];
+    maintainers = [lib.maintainers.drupol];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "coze";
   version = "0.0.3";
@@ -25,7 +24,7 @@ buildGoModule rec {
     description = "CLI client for Coze, a cryptographic JSON messaging specification";
     mainProgram = "coze";
     homepage = "https://github.com/Cyphrme/coze_cli";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ qbit ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [qbit];
   };
 }

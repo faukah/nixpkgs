@@ -32,26 +32,21 @@ buildPythonPackage rec {
     hash = "sha256-/lADjg4NyDdV9yeYBW2gbPydY8TfV247B/dI/ViRVlI=";
   };
 
-  postPatch =
-    let
-      # E.g. 3.11.2 -> "311"
-      pythonVersionMajorMinor =
-        with lib.versions;
-        "${major python.pythonVersion}${minor python.pythonVersion}";
+  postPatch = let
+    # E.g. 3.11.2 -> "311"
+    pythonVersionMajorMinor = with lib.versions; "${major python.pythonVersion}${minor python.pythonVersion}";
 
-      # E.g. "linux-aarch64"
-      platform =
-        with stdenv.hostPlatform;
-        (lib.optionalString (!isDarwin) "${parsed.kernel.name}-${parsed.cpu.name}")
-        + (lib.optionalString isDarwin "macosx-${darwinMinVersion}-${darwinArch}");
-    in
-    ''
-      build="build/temp.${platform}-cpython-${pythonVersionMajorMinor}/${pname}.${pname}"
-      mkdir -p $build/_deps
-      ln -s ${cpu_features.src} $build/_deps/cpu_features-src
-    '';
+    # E.g. "linux-aarch64"
+    platform = with stdenv.hostPlatform;
+      (lib.optionalString (!isDarwin) "${parsed.kernel.name}-${parsed.cpu.name}")
+      + (lib.optionalString isDarwin "macosx-${darwinMinVersion}-${darwinArch}");
+  in ''
+    build="build/temp.${platform}-cpython-${pythonVersionMajorMinor}/${pname}.${pname}"
+    mkdir -p $build/_deps
+    ln -s ${cpu_features.src} $build/_deps/cpu_features-src
+  '';
 
-  patches = [ ./use-nix-packages.patch ];
+  patches = [./use-nix-packages.patch];
 
   build-system = [
     setuptools
@@ -69,7 +64,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "piqp" ];
+  pythonImportsCheck = ["piqp"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -81,6 +76,6 @@ buildPythonPackage rec {
     description = "A Proximal Interior Point Quadratic Programming solver";
     homepage = "https://github.com/PREDICT-EPFL/piqp";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
   };
 }

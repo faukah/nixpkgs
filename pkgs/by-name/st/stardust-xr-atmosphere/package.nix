@@ -6,7 +6,6 @@
   stardust-xr-atmosphere,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "stardust-xr-atmosphere";
   version = "0-unstable-2024-08-22";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage {
       version = "stardust-xr-atmosphere 0.4.0";
     };
     updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
+      extraArgs = ["--version=branch"];
     };
   };
 

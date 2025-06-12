@@ -6,12 +6,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   inherit (utils) systemdUtils escapeSystemdPath;
-  inherit (systemdUtils.lib)
+  inherit
+    (systemdUtils.lib)
     generateUnits
     pathToUnit
     serviceToUnit
@@ -25,60 +23,62 @@ let
 
   cfg = config.boot.initrd.systemd;
 
-  upstreamUnits = [
-    "basic.target"
-    "ctrl-alt-del.target"
-    "debug-shell.service"
-    "emergency.service"
-    "emergency.target"
-    "final.target"
-    "halt.target"
-    "initrd-cleanup.service"
-    "initrd-fs.target"
-    "initrd-parse-etc.service"
-    "initrd-root-device.target"
-    "initrd-root-fs.target"
-    "initrd-switch-root.service"
-    "initrd-switch-root.target"
-    "initrd.target"
-    "kexec.target"
-    "kmod-static-nodes.service"
-    "local-fs-pre.target"
-    "local-fs.target"
-    "modprobe@.service"
-    "multi-user.target"
-    "paths.target"
-    "poweroff.target"
-    "reboot.target"
-    "rescue.service"
-    "rescue.target"
-    "rpcbind.target"
-    "shutdown.target"
-    "sigpwr.target"
-    "slices.target"
-    "sockets.target"
-    "swap.target"
-    "sysinit.target"
-    "sys-kernel-config.mount"
-    "syslog.socket"
-    "systemd-ask-password-console.path"
-    "systemd-ask-password-console.service"
-    "systemd-fsck@.service"
-    "systemd-halt.service"
-    "systemd-hibernate-resume.service"
-    "systemd-journald-audit.socket"
-    "systemd-journald-dev-log.socket"
-    "systemd-journald.service"
-    "systemd-journald.socket"
-    "systemd-kexec.service"
-    "systemd-modules-load.service"
-    "systemd-poweroff.service"
-    "systemd-reboot.service"
-    "systemd-sysctl.service"
-    "timers.target"
-    "umount.target"
-    "systemd-bsod.service"
-  ] ++ cfg.additionalUpstreamUnits;
+  upstreamUnits =
+    [
+      "basic.target"
+      "ctrl-alt-del.target"
+      "debug-shell.service"
+      "emergency.service"
+      "emergency.target"
+      "final.target"
+      "halt.target"
+      "initrd-cleanup.service"
+      "initrd-fs.target"
+      "initrd-parse-etc.service"
+      "initrd-root-device.target"
+      "initrd-root-fs.target"
+      "initrd-switch-root.service"
+      "initrd-switch-root.target"
+      "initrd.target"
+      "kexec.target"
+      "kmod-static-nodes.service"
+      "local-fs-pre.target"
+      "local-fs.target"
+      "modprobe@.service"
+      "multi-user.target"
+      "paths.target"
+      "poweroff.target"
+      "reboot.target"
+      "rescue.service"
+      "rescue.target"
+      "rpcbind.target"
+      "shutdown.target"
+      "sigpwr.target"
+      "slices.target"
+      "sockets.target"
+      "swap.target"
+      "sysinit.target"
+      "sys-kernel-config.mount"
+      "syslog.socket"
+      "systemd-ask-password-console.path"
+      "systemd-ask-password-console.service"
+      "systemd-fsck@.service"
+      "systemd-halt.service"
+      "systemd-hibernate-resume.service"
+      "systemd-journald-audit.socket"
+      "systemd-journald-dev-log.socket"
+      "systemd-journald.service"
+      "systemd-journald.socket"
+      "systemd-kexec.service"
+      "systemd-modules-load.service"
+      "systemd-poweroff.service"
+      "systemd-reboot.service"
+      "systemd-sysctl.service"
+      "timers.target"
+      "umount.target"
+      "systemd-bsod.service"
+    ]
+    ++ cfg.additionalUpstreamUnits;
 
   upstreamWants = [
     "sysinit.target.wants"
@@ -87,7 +87,7 @@ let
   enabledUpstreamUnits = filter (n: !elem n cfg.suppressedUnits) upstreamUnits;
   enabledUnits = filterAttrs (n: v: !elem n cfg.suppressedUnits) cfg.units;
   jobScripts = concatLists (
-    mapAttrsToList (_: unit: unit.jobScripts or [ ]) (filterAttrs (_: v: v.enable) cfg.services)
+    mapAttrsToList (_: unit: unit.jobScripts or []) (filterAttrs (_: v: v.enable) cfg.services)
   );
 
   stage1Units = generateUnits {
@@ -124,7 +124,8 @@ let
         mapAttrsToList (n: v: ''
           ln -sf '${v}' $out/bin/'${n}'
           ln -sf '${v}' $out/sbin/'${n}'
-        '') cfg.extraBin
+        '')
+        cfg.extraBin
       )}
     '';
   };
@@ -133,15 +134,20 @@ let
     name = "initrd-${kernel-name}";
     inherit (config.boot.initrd) compressor compressorArgs prepend;
 
-    contents = lib.filter (
-      { source, enable, ... }: (!lib.elem source cfg.suppressedStorePaths) && enable
-    ) cfg.storePaths;
+    contents =
+      lib.filter (
+        {
+          source,
+          enable,
+          ...
+        }:
+          (!lib.elem source cfg.suppressedStorePaths) && enable
+      )
+      cfg.storePaths;
   };
-
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "boot" "initrd" "systemd" "strip" ] ''
+    (lib.mkRemovedOptionModule ["boot" "initrd" "systemd" "strip"] ''
       The option to strip ELF files in initrd has been removed.
       It only saved ~1MiB of initramfs size, but caused a few issues
       like unloadable kernel modules.
@@ -149,15 +155,17 @@ in
   ];
 
   options.boot.initrd.systemd = {
-    enable = mkEnableOption "systemd in initrd" // {
-      description = ''
-        Whether to enable systemd in initrd. The unit options such as
-        {option}`boot.initrd.systemd.services` are the same as their
-        stage 2 counterparts such as {option}`systemd.services`,
-        except that `restartTriggers` and `reloadTriggers` are not
-        supported.
-      '';
-    };
+    enable =
+      mkEnableOption "systemd in initrd"
+      // {
+        description = ''
+          Whether to enable systemd in initrd. The unit options such as
+          {option}`boot.initrd.systemd.services` are the same as their
+          stage 2 counterparts such as {option}`systemd.services`,
+          except that `restartTriggers` and `reloadTriggers` are not
+          supported.
+        '';
+      };
 
     package = lib.mkOption {
       type = lib.types.package;
@@ -179,8 +187,7 @@ in
     };
 
     managerEnvironment = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (
           nullOr (oneOf [
             str
@@ -188,7 +195,7 @@ in
             package
           ])
         );
-      default = { };
+      default = {};
       example = {
         SYSTEMD_LOG_LEVEL = "debug";
       };
@@ -205,7 +212,7 @@ in
           "/etc/machine-id".source = /etc/machine-id;
         }
       '';
-      default = { };
+      default = {};
       type = utils.systemdUtils.types.initrdContents;
     };
 
@@ -214,7 +221,7 @@ in
         Store paths to copy into the initrd as well.
       '';
       type = utils.systemdUtils.types.initrdStorePath;
-      default = [ ];
+      default = [];
     };
 
     extraBin = mkOption {
@@ -227,7 +234,7 @@ in
         }
       '';
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
     };
 
     suppressedStorePaths = mkOption {
@@ -236,7 +243,7 @@ in
         should not be copied.
       '';
       type = types.listOf types.singleLineStr;
-      default = [ ];
+      default = [];
     };
 
     root = lib.mkOption {
@@ -256,8 +263,7 @@ in
     };
 
     emergencyAccess = mkOption {
-      type =
-        with types;
+      type = with types;
         oneOf [
           bool
           (nullOr (passwdEntry str))
@@ -276,14 +282,14 @@ in
 
     initrdBin = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = ''
         Packages to include in /bin for the stage 1 emergency shell.
       '';
     };
 
     additionalUpstreamUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       example = [
         "debug-shell.service"
@@ -295,9 +301,9 @@ in
     };
 
     suppressedUnits = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "systemd-backlight@.service" ];
+      example = ["systemd-backlight@.service"];
       description = ''
         A list of units to skip when generating system systemd configuration directory. This has
         priority over upstream units, {option}`boot.initrd.systemd.units`, and
@@ -309,55 +315,55 @@ in
 
     units = mkOption {
       description = "Definition of systemd units.";
-      default = { };
+      default = {};
       visible = "shallow";
       type = systemdUtils.types.units;
     };
 
     packages = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.systemd-cryptsetup-generator ]";
       description = "Packages providing systemd units and hooks.";
     };
 
     targets = mkOption {
-      default = { };
+      default = {};
       visible = "shallow";
       type = systemdUtils.types.initrdTargets;
       description = "Definition of systemd target units.";
     };
 
     services = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdServices;
       visible = "shallow";
       description = "Definition of systemd service units.";
     };
 
     sockets = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdSockets;
       visible = "shallow";
       description = "Definition of systemd socket units.";
     };
 
     timers = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdTimers;
       visible = "shallow";
       description = "Definition of systemd timer units.";
     };
 
     paths = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.initrdPaths;
       visible = "shallow";
       description = "Definition of systemd path units.";
     };
 
     mounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.initrdMounts;
       visible = "shallow";
       description = ''
@@ -368,7 +374,7 @@ in
     };
 
     automounts = mkOption {
-      default = [ ];
+      default = [];
       type = systemdUtils.types.automounts;
       visible = "shallow";
       description = ''
@@ -379,7 +385,7 @@ in
     };
 
     slices = mkOption {
-      default = { };
+      default = {};
       type = systemdUtils.types.slices;
       visible = "shallow";
       description = "Definition of slice configurations.";
@@ -396,41 +402,44 @@ in
         }
       ]
       ++ map
-        (name: {
-          assertion = lib.attrByPath name (throw "impossible") config.boot.initrd == "";
-          message = ''
-            systemd stage 1 does not support 'boot.initrd.${lib.concatStringsSep "." name}'. Please
-              convert it to analogous systemd units in 'boot.initrd.systemd'.
+      (name: {
+        assertion = lib.attrByPath name (throw "impossible") config.boot.initrd == "";
+        message = ''
+          systemd stage 1 does not support 'boot.initrd.${lib.concatStringsSep "." name}'. Please
+            convert it to analogous systemd units in 'boot.initrd.systemd'.
 
-                Definitions:
-            ${lib.concatMapStringsSep "\n" ({ file, ... }: "    - ${file}")
-              (lib.attrByPath name (throw "impossible") options.boot.initrd).definitionsWithLocations
-            }
-          '';
-        })
+              Definitions:
+          ${
+            lib.concatMapStringsSep "\n" ({file, ...}: "    - ${file}")
+            (lib.attrByPath name (throw "impossible") options.boot.initrd).definitionsWithLocations
+          }
+        '';
+      })
+      [
+        ["preFailCommands"]
+        ["preDeviceCommands"]
+        ["preLVMCommands"]
+        ["postDeviceCommands"]
+        ["postResumeCommands"]
+        ["postMountCommands"]
+        ["extraUdevRulesCommands"]
+        ["extraUtilsCommands"]
+        ["extraUtilsCommandsTest"]
         [
-          [ "preFailCommands" ]
-          [ "preDeviceCommands" ]
-          [ "preLVMCommands" ]
-          [ "postDeviceCommands" ]
-          [ "postResumeCommands" ]
-          [ "postMountCommands" ]
-          [ "extraUdevRulesCommands" ]
-          [ "extraUtilsCommands" ]
-          [ "extraUtilsCommandsTest" ]
-          [
-            "network"
-            "postCommands"
-          ]
-        ];
+          "network"
+          "postCommands"
+        ]
+      ];
 
-    system.build = { inherit initialRamdisk; };
+    system.build = {inherit initialRamdisk;};
 
-    boot.initrd.availableKernelModules = [
-      # systemd needs this for some features
-      "autofs"
-      # systemd-cryptenroll
-    ] ++ lib.optional cfg.package.withEfi "efivarfs";
+    boot.initrd.availableKernelModules =
+      [
+        # systemd needs this for some features
+        "autofs"
+        # systemd-cryptenroll
+      ]
+      ++ lib.optional cfg.package.withEfi "efivarfs";
 
     boot.kernelParams =
       [
@@ -482,13 +491,18 @@ in
           # We can use either ! or * to lock the root account in the
           # console, but some software like OpenSSH won't even allow you
           # to log in with an SSH key if you use ! so we use * instead
-          "/etc/shadow".text =
-            let
-              ea = cfg.emergencyAccess;
-              access = ea != null && !(isBool ea && !ea);
-              passwd = if isString ea then ea else "";
-            in
-            "root:${if access then passwd else "*"}:::::::";
+          "/etc/shadow".text = let
+            ea = cfg.emergencyAccess;
+            access = ea != null && !(isBool ea && !ea);
+            passwd =
+              if isString ea
+              then ea
+              else "";
+          in "root:${
+            if access
+            then passwd
+            else "*"
+          }:::::::";
 
           "/bin".source = "${initrdBinEnv}/bin";
           "/sbin".source = "${initrdBinEnv}/sbin";
@@ -503,7 +517,6 @@ in
 
           # For systemd-journald's _HOSTNAME field; needs to be set early, cannot be backfilled.
           "/etc/hostname".text = config.networking.hostName;
-
         }
         // optionalAttrs (config.environment.etc ? "modprobe.d/nixos.conf") {
           "/etc/modprobe.d/nixos.conf".source = config.environment.etc."modprobe.d/nixos.conf".source;
@@ -549,9 +562,9 @@ in
           "${pkgs.chroot-realpath}/bin/chroot-realpath"
         ]
         ++ jobScripts
-        ++ map (c: builtins.removeAttrs c [ "text" ]) (builtins.attrValues cfg.contents);
+        ++ map (c: builtins.removeAttrs c ["text"]) (builtins.attrValues cfg.contents);
 
-      targets.initrd.aliases = [ "default.target" ];
+      targets.initrd.aliases = ["default.target"];
       units =
         mapAttrs' (n: v: nameValuePair "${n}.path" (pathToUnit v)) cfg.paths
         // mapAttrs' (n: v: nameValuePair "${n}.service" (serviceToUnit v)) cfg.services
@@ -561,21 +574,21 @@ in
         // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit v)) cfg.timers
         // listToAttrs (
           map (
-            v:
-            let
+            v: let
               n = escapeSystemdPath v.where;
             in
-            nameValuePair "${n}.mount" (mountToUnit v)
-          ) cfg.mounts
+              nameValuePair "${n}.mount" (mountToUnit v)
+          )
+          cfg.mounts
         )
         // listToAttrs (
           map (
-            v:
-            let
+            v: let
               n = escapeSystemdPath v.where;
             in
-            nameValuePair "${n}.automount" (automountToUnit v)
-          ) cfg.automounts
+              nameValuePair "${n}.automount" (automountToUnit v)
+          )
+          cfg.automounts
         );
 
       services.initrd-find-nixos-closure = {
@@ -589,14 +602,15 @@ in
           "initrd.target"
           "shutdown.target"
         ];
-        conflicts = [ "shutdown.target" ];
-        requiredBy = [ "initrd.target" ];
+        conflicts = ["shutdown.target"];
+        requiredBy = ["initrd.target"];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
         };
 
-        script = # bash
+        script =
+          # bash
           ''
             set -uo pipefail
             export PATH="/bin:${cfg.package.util-linux}/bin:${pkgs.chroot-realpath}/bin"
@@ -649,15 +663,15 @@ in
             # See the comment on the mount unit for /run/etc-metadata
             DefaultDependencies = false;
           };
-          requiredBy = [ "initrd-fs.target" ];
-          before = [ "initrd-fs.target" ];
+          requiredBy = ["initrd-fs.target"];
+          before = ["initrd-fs.target"];
         }
       ];
 
       services.initrd-nixos-activation = {
-        after = [ "initrd-switch-root.target" ];
-        requiredBy = [ "initrd-switch-root.service" ];
-        before = [ "initrd-switch-root.service" ];
+        after = ["initrd-switch-root.target"];
+        requiredBy = ["initrd-switch-root.service"];
+        before = ["initrd-switch-root.service"];
         unitConfig.DefaultDependencies = false;
         unitConfig = {
           AssertPathExists = "/etc/initrd-release";
@@ -668,7 +682,8 @@ in
         serviceConfig.Type = "oneshot";
         description = "NixOS Activation";
 
-        script = # bash
+        script =
+          # bash
           ''
             set -uo pipefail
             export PATH="/bin:${cfg.package.util-linux}/bin"
@@ -694,7 +709,7 @@ in
       };
 
       services.panic-on-fail = {
-        wantedBy = [ "emergency.target" ];
+        wantedBy = ["emergency.target"];
         unitConfig = {
           DefaultDependencies = false;
           ConditionKernelCommandLine = [

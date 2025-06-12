@@ -15,7 +15,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fastapi-sso";
   version = "0.18.0";
@@ -30,15 +29,17 @@ buildPythonPackage rec {
     hash = "sha256-591+7Jjg3Pb0qXZsj4tEk8lHqxAzWrs5GO92jFJ4Qmo=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    fastapi
-    httpx
-    oauthlib
-    pydantic
-    pyjwt
-  ] ++ pydantic.optional-dependencies.email;
+  dependencies =
+    [
+      fastapi
+      httpx
+      oauthlib
+      pydantic
+      pyjwt
+    ]
+    ++ pydantic.optional-dependencies.email;
 
   nativeCheckInputs = [
     email-validator
@@ -48,13 +49,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "fastapi_sso" ];
+  pythonImportsCheck = ["fastapi_sso"];
 
   meta = with lib; {
     description = "FastAPI plugin to enable SSO to most common providers (such as Facebook login, Google login and login via Microsoft Office 365 Account";
     homepage = "https://github.com/tomasvotava/fastapi-sso";
     changelog = "https://github.com/tomasvotava/fastapi-sso/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

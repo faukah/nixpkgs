@@ -12,7 +12,6 @@
   qtimageformats,
   aria2,
 }:
-
 mkDerivation rec {
   pname = "kiwix";
   version = "2.4.1";
@@ -38,10 +37,10 @@ mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ aria2 ]}"
+    "--prefix PATH : ${lib.makeBinPath [aria2]}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Offline reader for Web content";
@@ -49,6 +48,6 @@ mkDerivation rec {
     homepage = "https://kiwix.org";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ greg ];
+    maintainers = with maintainers; [greg];
   };
 }

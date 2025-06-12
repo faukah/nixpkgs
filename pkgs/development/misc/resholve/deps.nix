@@ -6,13 +6,11 @@
   fetchPypi,
   ...
 }:
-
 /*
-  Notes on specific dependencies:
-  - if/when python2.7 is removed from nixpkgs, this may need to figure
-  out how to build oil's vendored python2
+Notes on specific dependencies:
+- if/when python2.7 is removed from nixpkgs, this may need to figure
+out how to build oil's vendored python2
 */
-
 rec {
   oil = callPackage ./oildev.nix {
     inherit python27;
@@ -32,7 +30,7 @@ rec {
 
     doCheck = false;
 
-    pythonImportsCheck = [ "configargparse" ];
+    pythonImportsCheck = ["configargparse"];
 
     meta = with lib; {
       description = "Drop-in replacement for argparse";

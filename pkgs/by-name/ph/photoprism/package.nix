@@ -14,9 +14,7 @@
   callPackage,
   nixosTests,
   librsvg,
-}:
-
-let
+}: let
   version = "250321-57590c48b";
   pname = "photoprism";
 
@@ -27,12 +25,14 @@ let
     hash = "sha256-tJA1Q8kcX4UYDCV+rmHyd5gfEU8WkoaqNfx1/0Iy3l8=";
   };
 
-  libtensorflow = callPackage ./libtensorflow.nix { };
-  backend = callPackage ./backend.nix { inherit libtensorflow src version; };
-  frontend = callPackage ./frontend.nix { inherit src version; };
+  libtensorflow = callPackage ./libtensorflow.nix {};
+  backend = callPackage ./backend.nix {inherit libtensorflow src version;};
+  frontend = callPackage ./frontend.nix {inherit src version;};
 
-  fetchModel =
-    { name, hash }:
+  fetchModel = {
+    name,
+    hash,
+  }:
     fetchzip {
       inherit hash;
       url = "https://dl.photoprism.org/tensorflow/${name}.zip";
@@ -56,52 +56,52 @@ let
 
   assets_path = "$out/share/${pname}";
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit pname version;
+  stdenv.mkDerivation (finalAttrs: {
+    inherit pname version;
 
-  nativeBuildInputs = [
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      makeWrapper
+    ];
 
-  dontUnpack = true;
-  dontBuild = true;
+    dontUnpack = true;
+    dontBuild = true;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin ${assets_path}
+      mkdir -p $out/bin ${assets_path}
 
-    # install backend
-    ln -s ${backend}/bin/photoprism $out/bin/photoprism
-    wrapProgram $out/bin/photoprism \
-      --set PHOTOPRISM_ASSETS_PATH ${assets_path} \
-      --set PHOTOPRISM_DARKTABLE_BIN ${darktable}/bin/darktable-cli \
-      --set PHOTOPRISM_RAWTHERAPEE_BIN ${rawtherapee}/bin/rawtherapee-cli \
-      --set PHOTOPRISM_HEIFCONVERT_BIN ${libheif}/bin/heif-dec \
-      --set PHOTOPRISM_RSVGCONVERT_BIN ${librsvg}/bin/rsvg-convert \
-      --set PHOTOPRISM_FFMPEG_BIN ${ffmpeg}/bin/ffmpeg \
-      --set PHOTOPRISM_EXIFTOOL_BIN ${exiftool}/bin/exiftool \
-      --set PHOTOPRISM_IMAGEMAGICK_BIN ${imagemagick}/bin/convert
+      # install backend
+      ln -s ${backend}/bin/photoprism $out/bin/photoprism
+      wrapProgram $out/bin/photoprism \
+        --set PHOTOPRISM_ASSETS_PATH ${assets_path} \
+        --set PHOTOPRISM_DARKTABLE_BIN ${darktable}/bin/darktable-cli \
+        --set PHOTOPRISM_RAWTHERAPEE_BIN ${rawtherapee}/bin/rawtherapee-cli \
+        --set PHOTOPRISM_HEIFCONVERT_BIN ${libheif}/bin/heif-dec \
+        --set PHOTOPRISM_RSVGCONVERT_BIN ${librsvg}/bin/rsvg-convert \
+        --set PHOTOPRISM_FFMPEG_BIN ${ffmpeg}/bin/ffmpeg \
+        --set PHOTOPRISM_EXIFTOOL_BIN ${exiftool}/bin/exiftool \
+        --set PHOTOPRISM_IMAGEMAGICK_BIN ${imagemagick}/bin/convert
 
-    # install frontend
-    ln -s ${frontend}/assets/* ${assets_path}
-    # install tensorflow models
-    ln -s ${nasnet}/nasnet ${assets_path}
-    ln -s ${nsfw}/nsfw ${assets_path}
-    ln -s ${facenet}/facenet ${assets_path}
+      # install frontend
+      ln -s ${frontend}/assets/* ${assets_path}
+      # install tensorflow models
+      ln -s ${nasnet}/nasnet ${assets_path}
+      ln -s ${nsfw}/nsfw ${assets_path}
+      ln -s ${facenet}/facenet ${assets_path}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-  passthru.tests.photoprism = nixosTests.photoprism;
+    passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    passthru.tests.photoprism = nixosTests.photoprism;
 
-  meta = with lib; {
-    homepage = "https://photoprism.app";
-    description = "Personal Photo Management powered by Go and Google TensorFlow";
-    inherit (libtensorflow.meta) platforms;
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ benesim ];
-    mainProgram = "photoprism";
-  };
-})
+    meta = with lib; {
+      homepage = "https://photoprism.app";
+      description = "Personal Photo Management powered by Go and Google TensorFlow";
+      inherit (libtensorflow.meta) platforms;
+      license = licenses.agpl3Only;
+      maintainers = with maintainers; [benesim];
+      mainProgram = "photoprism";
+    };
+  })

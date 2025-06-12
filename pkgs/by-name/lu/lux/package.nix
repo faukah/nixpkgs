@@ -5,7 +5,6 @@
   makeWrapper,
   ffmpeg,
 }:
-
 buildGoModule rec {
   pname = "lux";
   version = "0.24.1";
@@ -17,7 +16,7 @@ buildGoModule rec {
     hash = "sha256-3d8EQ7GzufZvMfjHbVMdpuGE+vPdSir4diSnB29v0sw=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   vendorHash = "sha256-RCZzcycUKqJgwBZZQBD1UEZCZCitpiqNpD51oKm6IvI=";
 
@@ -29,7 +28,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/lux \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg]}
   '';
 
   doCheck = false; # require network
@@ -39,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/iawia002/lux";
     changelog = "https://github.com/iawia002/lux/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ galaxy ];
+    maintainers = with lib.maintainers; [galaxy];
     mainProgram = "lux";
   };
 }

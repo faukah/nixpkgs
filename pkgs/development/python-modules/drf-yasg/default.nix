@@ -16,7 +16,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "drf-yasg";
   version = "1.21.10";
@@ -63,12 +62,12 @@ buildPythonPackage rec {
   # a lot of libraries are missing
   doCheck = false;
 
-  pythonImportsCheck = [ "drf_yasg" ];
+  pythonImportsCheck = ["drf_yasg"];
 
   meta = with lib; {
     description = "Generation of Swagger/OpenAPI schemas for Django REST Framework";
     homepage = "https://github.com/axnsan12/drf-yasg";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.bsd3;
   };
 }

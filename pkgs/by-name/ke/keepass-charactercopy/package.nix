@@ -4,9 +4,7 @@
   buildEnv,
   fetchurl,
   mono,
-}:
-
-let
+}: let
   version = "1.0.0";
 
   drv = stdenv.mkDerivation {
@@ -39,15 +37,15 @@ let
       ];
       # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
       license = licenses.gpl2;
-      maintainers = with maintainers; [ nazarewk ];
+      maintainers = with maintainers; [nazarewk];
     };
   };
 in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+  # Mono is required to compile plugin at runtime, after loading.
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

@@ -5,7 +5,6 @@
   pkg-config,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-about";
   version = "0.7.1";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JTcRYdBZdXxM7r+XZSbFaAeWrJ5HULM1YE3p3smRW/Q=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ zstd ];
+  buildInputs = [zstd];
 
   env = {
     ZSTD_SYS_USE_PKG_CONFIG = true;

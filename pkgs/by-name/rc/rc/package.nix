@@ -11,9 +11,10 @@
   historySupport ? true,
   readlineSupport ? true,
   lineEditingLibrary ?
-    if (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isStatic) then "null" else "readline",
+    if (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isStatic)
+    then "null"
+    else "readline",
 }:
-
 assert lib.elem lineEditingLibrary [
   "null"
   "edit"
@@ -21,91 +22,91 @@ assert lib.elem lineEditingLibrary [
   "readline"
   "vrl"
 ];
-assert
-  !(lib.elem lineEditingLibrary [
-    "edit"
-    "editline"
-    "vrl"
-  ]); # broken
+assert !(lib.elem lineEditingLibrary [
+  "edit"
+  "editline"
+  "vrl"
+]); # broken
+
 assert (lineEditingLibrary == "readline") -> readlineSupport;
-stdenv.mkDerivation (finalAttrs: {
-  pname = "rc";
-  version = "unstable-2023-06-14";
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "rc";
+    version = "unstable-2023-06-14";
 
-  src = fetchFromGitHub {
-    owner = "rakitzis";
-    repo = "rc";
-    rev = "4aaba1a9cb9fdbb8660696a87850836ffdb09599";
-    hash = "sha256-Yql3mt7hTO2W7wTfPje+X2zBGTHiNXGGXYORJewJIM8=";
-  };
+    src = fetchFromGitHub {
+      owner = "rakitzis";
+      repo = "rc";
+      rev = "4aaba1a9cb9fdbb8660696a87850836ffdb09599";
+      hash = "sha256-Yql3mt7hTO2W7wTfPje+X2zBGTHiNXGGXYORJewJIM8=";
+    };
 
-  outputs = [
-    "out"
-    "man"
-  ];
-
-  # TODO: think on a less ugly fixup
-  postPatch = ''
-    ed -v -s Makefile << EOS
-    # - remove reference to now-inexistent git index file
-    /version.h:/ s| .git/index||
-    # - manually insert the git revision string
-    /v=/ c
-    ${"\t"}v=${builtins.substring 0 7 finalAttrs.src.rev}
-    .
-    /\.git\/index:/ d
-    w
-    q
-    EOS
-  '';
-
-  nativeBuildInputs = [
-    byacc
-    ed
-    installShellFiles
-  ];
-
-  buildInputs =
-    [
-      ncurses
-    ]
-    ++ lib.optionals readlineSupport [
-      readline
+    outputs = [
+      "out"
+      "man"
     ];
 
-  strictDeps = true;
+    # TODO: think on a less ugly fixup
+    postPatch = ''
+      ed -v -s Makefile << EOS
+      # - remove reference to now-inexistent git index file
+      /version.h:/ s| .git/index||
+      # - manually insert the git revision string
+      /v=/ c
+      ${"\t"}v=${builtins.substring 0 7 finalAttrs.src.rev}
+      .
+      /\.git\/index:/ d
+      w
+      q
+      EOS
+    '';
 
-  makeFlags = [
-    "CC=${stdenv.cc.targetPrefix}cc"
-    "PREFIX=${placeholder "out"}"
-    "MANPREFIX=${placeholder "man"}/share/man"
-    "CPPFLAGS=\"-DSIGCLD=SIGCHLD\""
-    "EDIT=${lineEditingLibrary}"
-  ];
-
-  buildFlags =
-    [
-      "all"
-    ]
-    ++ lib.optionals historySupport [
-      "history"
+    nativeBuildInputs = [
+      byacc
+      ed
+      installShellFiles
     ];
 
-  postInstall = lib.optionalString historySupport ''
-    installManPage history.1
-  '';
+    buildInputs =
+      [
+        ncurses
+      ]
+      ++ lib.optionals readlineSupport [
+        readline
+      ];
 
-  passthru = {
-    shellPath = "/bin/rc";
-    tests.static = pkgsStatic.rc;
-  };
+    strictDeps = true;
 
-  meta = {
-    homepage = "https://github.com/rakitzis/rc";
-    description = "Plan 9 shell";
-    license = [ lib.licenses.zlib ];
-    mainProgram = "rc";
-    maintainers = with lib.maintainers; [ ramkromberg ];
-    platforms = lib.platforms.unix;
-  };
-})
+    makeFlags = [
+      "CC=${stdenv.cc.targetPrefix}cc"
+      "PREFIX=${placeholder "out"}"
+      "MANPREFIX=${placeholder "man"}/share/man"
+      "CPPFLAGS=\"-DSIGCLD=SIGCHLD\""
+      "EDIT=${lineEditingLibrary}"
+    ];
+
+    buildFlags =
+      [
+        "all"
+      ]
+      ++ lib.optionals historySupport [
+        "history"
+      ];
+
+    postInstall = lib.optionalString historySupport ''
+      installManPage history.1
+    '';
+
+    passthru = {
+      shellPath = "/bin/rc";
+      tests.static = pkgsStatic.rc;
+    };
+
+    meta = {
+      homepage = "https://github.com/rakitzis/rc";
+      description = "Plan 9 shell";
+      license = [lib.licenses.zlib];
+      mainProgram = "rc";
+      maintainers = with lib.maintainers; [ramkromberg];
+      platforms = lib.platforms.unix;
+    };
+  })

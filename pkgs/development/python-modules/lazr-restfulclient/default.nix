@@ -13,7 +13,6 @@
   pytestCheckHook,
   wsgi-intercept,
 }:
-
 buildPythonPackage rec {
   pname = "lazr-restfulclient";
   version = "0.14.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-Q/EqHTlIRjsUYgOMR7Qp3LXkLgun8uFlEbArpdKt/9s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     distro
@@ -45,15 +44,15 @@ buildPythonPackage rec {
     wsgi-intercept
   ];
 
-  pythonImportsCheck = [ "lazr.restfulclient" ];
+  pythonImportsCheck = ["lazr.restfulclient"];
 
-  pythonNamespaces = [ "lazr" ];
+  pythonNamespaces = ["lazr"];
 
   meta = {
     description = "Programmable client library that takes advantage of the commonalities among";
     homepage = "https://launchpad.net/lazr.restfulclient";
     changelog = "https://git.launchpad.net/lazr.restfulclient/tree/NEWS.rst?h=${version}";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

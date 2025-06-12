@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   useHostResolvConf = config.networking.resolvconf.enable && config.networking.useHostResolvConf;
 
   bootStage2 = pkgs.replaceVarsWith {
@@ -34,14 +30,9 @@ let
       '';
     };
   };
-
-in
-
-{
+in {
   options = {
-
     boot = {
-
       postBootCommands = mkOption {
         default = "";
         example = "rm -f /var/log/messages";
@@ -71,7 +62,7 @@ in
       };
 
       extraSystemdUnitPaths = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = ''
           Additional paths that get appended to the SYSTEMD_UNIT_PATH environment variable
@@ -79,12 +70,9 @@ in
         '';
       };
     };
-
   };
 
   config = {
-
     system.build.bootStage2 = bootStage2;
-
   };
 }

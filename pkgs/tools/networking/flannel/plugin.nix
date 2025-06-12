@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cni-plugin-flannel";
   version = "1.6.2-flannel1";
@@ -44,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/flannel-io/cni-plugin/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
   };
 }

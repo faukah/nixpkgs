@@ -16,7 +16,6 @@
   time-machine,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "bimmer-connected";
   version = "0.17.2";
@@ -45,19 +44,21 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    china = [ pillow ];
+    china = [pillow];
   };
 
   postInstall = ''
     cp -R bimmer_connected/tests/responses $out/${python.sitePackages}/bimmer_connected/tests/
   '';
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    respx
-    time-machine
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+      respx
+      time-machine
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = [
     # presumably regressed in pytest-asyncio 0.23.0
@@ -69,7 +70,7 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  pythonImportsCheck = [ "bimmer_connected" ];
+  pythonImportsCheck = ["bimmer_connected"];
 
   meta = with lib; {
     changelog = "https://github.com/bimmerconnected/bimmer_connected/releases/tag/${version}";
@@ -77,6 +78,6 @@ buildPythonPackage rec {
     mainProgram = "bimmerconnected";
     homepage = "https://github.com/bimmerconnected/bimmer_connected";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

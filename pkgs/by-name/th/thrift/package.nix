@@ -14,7 +14,6 @@
   flex,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "thrift";
   version = "0.18.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
 
   # Workaround to make the Python wrapper not drop this package:
   # pythonFull.buildEnv.override { extraLibs = [ thrift ]; }
-  pythonPath = [ ];
+  pythonPath = [];
 
   nativeBuildInputs =
     [
@@ -100,7 +99,11 @@ stdenv.mkDerivation rec {
 
       # FIXME: Fails to link in static mode with undefined reference to
       # `boost::unit_test::unit_test_main(bool (*)(), int, char**)'
-      "-DBUILD_TESTING:BOOL=${if static then "OFF" else "ON"}"
+      "-DBUILD_TESTING:BOOL=${
+        if static
+        then "OFF"
+        else "ON"
+      }"
     ]
     ++ lib.optionals static [
       "-DWITH_STATIC_LIB:BOOL=ON"
@@ -151,6 +154,6 @@ stdenv.mkDerivation rec {
     homepage = "https://thrift.apache.org/";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

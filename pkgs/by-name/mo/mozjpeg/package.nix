@@ -8,7 +8,6 @@
   zlib,
   nasm,
 }:
-
 stdenv.mkDerivation rec {
   version = "4.1.5";
   pname = "mozjpeg";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mozilla/mozjpeg";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.aristid ];
+    maintainers = [lib.maintainers.aristid];
     platforms = lib.platforms.all;
   };
 }

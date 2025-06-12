@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   distutils,
   h5py,
@@ -14,12 +12,10 @@
   qtpy,
   requests,
   tomli,
-
   # tests
   pytestCheckHook,
   qt6,
   pyqt6,
-
   # passthru.tests
   guidata,
   pyside6,
@@ -27,7 +23,6 @@
   pyqt5,
   pyside2,
 }:
-
 buildPythonPackage rec {
   pname = "guidata";
   version = "3.9.0";
@@ -78,7 +73,7 @@ buildPythonPackage rec {
     "test_arrayeditor"
   ];
 
-  pythonImportsCheck = [ "guidata" ];
+  pythonImportsCheck = ["guidata"];
 
   passthru = {
     tests = {
@@ -111,6 +106,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PlotPyStack/guidata";
     changelog = "https://github.com/PlotPyStack/guidata/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

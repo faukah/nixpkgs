@@ -9,7 +9,6 @@
   python3,
   swig,
   pkgsCross,
-
   # Enabling python support while cross compiling would be possible, but the
   # configure script tries executing python to gather info instead of relying on
   # python3-config exclusively
@@ -65,7 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
     "--disable-zos-remote"
     "--with-arm"
     "--with-aarch64"
-    (if enablePython then "--with-python" else "--without-python")
+    (
+      if enablePython
+      then "--with-python"
+      else "--without-python"
+    )
   ];
 
   enableParallelBuilding = true;
@@ -79,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Audit Library";
     changelog = "https://github.com/linux-audit/audit-userspace/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

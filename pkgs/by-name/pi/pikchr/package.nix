@@ -3,10 +3,8 @@
   stdenv,
   fetchfossil,
   tcl,
-
   enableTcl ? true,
 }:
-
 stdenv.mkDerivation {
   pname = "pikchr";
   # To update, use the last check-in in https://pikchr.org/home/timeline?r=trunk
@@ -27,9 +25,9 @@ stdenv.mkDerivation {
 
   buildInputs = lib.optional enableTcl tcl;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  buildFlags = [ "pikchr" ] ++ lib.optional enableTcl "piktcl";
+  buildFlags = ["pikchr"] ++ lib.optional enableTcl "piktcl";
 
   installPhase =
     ''
@@ -53,7 +51,7 @@ stdenv.mkDerivation {
     description = "PIC-like markup language for diagrams in technical documentation";
     homepage = "https://pikchr.org";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     mainProgram = "pikchr";
   };

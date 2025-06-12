@@ -9,7 +9,6 @@
   gobject-introspection,
   replaceVars,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "xborders";
   version = "3.4"; # in version.txt
@@ -38,22 +37,20 @@ python3Packages.buildPythonPackage rec {
     pygobject3
   ];
 
-  postPatch =
-    let
-      setup = replaceVars ./setup.py {
-        desc = meta.description; # "description" is reserved
-        inherit pname version;
-      };
-    in
-    ''
-      ln -s ${setup} setup.py
-    '';
+  postPatch = let
+    setup = replaceVars ./setup.py {
+      desc = meta.description; # "description" is reserved
+      inherit pname version;
+    };
+  in ''
+    ln -s ${setup} setup.py
+  '';
 
   meta = with lib; {
     description = "Active window border replacement for window managers";
     homepage = "https://github.com/deter0/xborder";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ elnudev ];
+    maintainers = with maintainers; [elnudev];
     platforms = platforms.linux;
     mainProgram = "xborders";
   };

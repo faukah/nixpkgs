@@ -3,15 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.zigbee2mqtt;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
-
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [
     sweber
     hexa
@@ -28,7 +25,7 @@ in
   options.services.zigbee2mqtt = {
     enable = lib.mkEnableOption "zigbee2mqtt service";
 
-    package = lib.mkPackageOption pkgs "zigbee2mqtt" { };
+    package = lib.mkPackageOption pkgs "zigbee2mqtt" {};
 
     dataDir = lib.mkOption {
       description = "Zigbee2mqtt data directory";
@@ -38,7 +35,7 @@ in
 
     settings = lib.mkOption {
       type = format.type;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           homeassistant = config.services.home-assistant.enable;
@@ -57,7 +54,6 @@ in
   };
 
   config = lib.mkIf (cfg.enable) {
-
     # preset config values
     services.zigbee2mqtt.settings = {
       homeassistant = lib.mkDefault config.services.home-assistant.enable;
@@ -75,8 +71,8 @@ in
 
     systemd.services.zigbee2mqtt = {
       description = "Zigbee2mqtt Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment.ZIGBEE2MQTT_DATA = cfg.dataDir;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zigbee2mqtt";

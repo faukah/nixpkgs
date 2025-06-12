@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchFromGitHub,
 }:
-
 buildPythonPackage {
   pname = "python-editor";
   version = "1.0.4-unstable-2023-10-11";

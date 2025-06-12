@@ -4,7 +4,6 @@
   python3Packages,
   pkgs,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "dr14_tmeter";
   version = "1.0.16";
@@ -35,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "dr14_tmeter";
     license = licenses.gpl3Plus;
     homepage = "http://dr14tmeter.sourceforge.net/";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

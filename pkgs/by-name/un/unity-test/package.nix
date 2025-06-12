@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unity-test";
   version = "2.6.1";
@@ -16,13 +15,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-g0ubq7RxGQmL1R6vz9RIGJpVWYsgrZhsTWSrL1ySEug=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   doCheck = true;
 
   meta = {
     description = "Unity Unit Testing Framework";
     homepage = "https://www.throwtheswitch.org/unity";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.i01011001 ];
+    maintainers = [lib.maintainers.i01011001];
   };
 })

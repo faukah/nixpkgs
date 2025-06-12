@@ -7,7 +7,6 @@
   gettext,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "psmisc";
   version = "23.7";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     automake
     gettext
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   preConfigure =
     lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "Set of small useful utilities that use the proc filesystem (such as fuser, killall and pstree)";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
   };
 }

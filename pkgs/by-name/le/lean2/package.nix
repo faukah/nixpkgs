@@ -11,7 +11,6 @@
   ninja,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "lean2";
   version = "2018-10-01";
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     cd src
   '';
 
-  cmakeFlags = [ "-GNinja" ];
+  cmakeFlags = ["-GNinja"];
 
   postInstall = ''
     wrapProgram $out/bin/linja --prefix PATH : $out/bin:${ninja}/bin

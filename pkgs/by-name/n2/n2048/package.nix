@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "n2048";
   version = "0.1";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Console implementation of 2048 game";
     mainProgram = "n2048";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
     homepage = "http://www.dettus.net/n2048/";
   };

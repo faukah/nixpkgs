@@ -13,7 +13,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayprompt";
   version = "0.1.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-+9Zgq5/Zbb1I3CMH1pivPkddThaGDXM+vVCzWppXq+0=";
   };
 
-  deps = callPackage ./build.zig.zon.nix { };
+  deps = callPackage ./build.zig.zon.nix {};
 
   nativeBuildInputs = [
     zig_0_13.hook
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://git.sr.ht/~leon_plickat/wayprompt";
     description = "Multi-purpose (password-)prompt tool for Wayland";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ sg-qwt ];
+    maintainers = with lib.maintainers; [sg-qwt];
     mainProgram = "pinentry-wayprompt";
     platforms = lib.platforms.linux;
   };

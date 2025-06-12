@@ -17,7 +17,6 @@
   syrupy,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "env-canada";
   version = "0.10.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-OguS5oRo7wNQUvT33k6+Sg8GE4GipFo84F/13TADUpw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -66,13 +65,13 @@ buildPythonPackage rec {
     "test_historical_number_values"
   ];
 
-  pythonImportsCheck = [ "env_canada" ];
+  pythonImportsCheck = ["env_canada"];
 
   meta = with lib; {
     description = "Python library to get Environment Canada weather data";
     homepage = "https://github.com/michaeldavie/env_canada";
     changelog = "https://github.com/michaeldavie/env_canada/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

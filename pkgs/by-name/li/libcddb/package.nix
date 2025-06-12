@@ -4,7 +4,6 @@
   fetchurl,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcddb";
   version = "1.3.2";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fr21a7vprdyy1bq6s99m0x420c9jm5fipsd63pqv8qyfkhhxkim";
   };
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"

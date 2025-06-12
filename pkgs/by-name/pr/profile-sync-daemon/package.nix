@@ -5,7 +5,6 @@
   util-linux,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "profile-sync-daemon";
   version = "6.50";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/graysky2/profile-sync-daemon";
     downloadPage = "https://github.com/graysky2/profile-sync-daemon/releases";
     license = licenses.mit;
-    maintainers = [ maintainers.prikhi ];
+    maintainers = [maintainers.prikhi];
     platforms = platforms.linux;
   };
 }

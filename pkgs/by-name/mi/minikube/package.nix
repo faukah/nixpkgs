@@ -12,7 +12,6 @@
   makeWrapper,
   OVMF,
 }:
-
 buildGoModule rec {
   pname = "minikube";
   version = "1.34.0";
@@ -48,7 +47,7 @@ buildGoModule rec {
     makeWrapper
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ libvirt ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [libvirt];
 
   buildPhase = ''
     make COMMIT=${src.rev}

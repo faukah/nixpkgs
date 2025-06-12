@@ -1,12 +1,10 @@
 {
   buildGoModule,
-
   pname,
   version,
   src,
   vendorHash,
 }:
-
 buildGoModule {
   inherit version src vendorHash;
   pname = "${pname}-server";

@@ -10,65 +10,60 @@ let
   wallpaperText = "Lorem ipsum";
 
   # tmpfiles setup to make OCRing on terminal output more reliable
-  terminalOcrTmpfilesSetup =
-    {
-      pkgs,
-      lib,
-      config,
-    }:
-    let
-      white = "255, 255, 255";
-      black = "0, 0, 0";
-      colorSection = color: {
-        Color = color;
-        Bold = true;
-        Transparency = false;
-      };
-      terminalColors = pkgs.writeText "customized.colorscheme" (
-        lib.generators.toINI { } {
-          Background = colorSection white;
-          Foreground = colorSection black;
-          Color2 = colorSection black;
-          Color2Intense = colorSection black;
-        }
-      );
-      terminalConfig = pkgs.writeText "terminal.ubports.conf" (
-        lib.generators.toINI { } {
-          General = {
-            colorScheme = "customized";
-            fontSize = "16";
-            fontStyle = "Inconsolata";
-          };
-        }
-      );
-      confBase = "${config.users.users.${user}.home}/.config";
-      userDirArgs = {
-        mode = "0700";
-        user = user;
-        group = "users";
-      };
-    in
-    {
-      "${confBase}".d = userDirArgs;
-      "${confBase}/terminal.ubports".d = userDirArgs;
-      "${confBase}/terminal.ubports/customized.colorscheme".L.argument = "${terminalColors}";
-      "${confBase}/terminal.ubports/terminal.ubports.conf".L.argument = "${terminalConfig}";
+  terminalOcrTmpfilesSetup = {
+    pkgs,
+    lib,
+    config,
+  }: let
+    white = "255, 255, 255";
+    black = "0, 0, 0";
+    colorSection = color: {
+      Color = color;
+      Bold = true;
+      Transparency = false;
     };
-
-  wallpaperFile =
-    pkgs:
-    pkgs.runCommand wallpaperName
-      {
-        nativeBuildInputs = with pkgs; [
-          (imagemagick.override { ghostscriptSupport = true; }) # produce OCR-able image
-        ];
+    terminalColors = pkgs.writeText "customized.colorscheme" (
+      lib.generators.toINI {} {
+        Background = colorSection white;
+        Foreground = colorSection black;
+        Color2 = colorSection black;
+        Color2Intense = colorSection black;
       }
-      ''
-        magick -size 640x480 canvas:white -pointsize 30 -fill black -annotate +100+100 '${wallpaperText}' $out
-      '';
+    );
+    terminalConfig = pkgs.writeText "terminal.ubports.conf" (
+      lib.generators.toINI {} {
+        General = {
+          colorScheme = "customized";
+          fontSize = "16";
+          fontStyle = "Inconsolata";
+        };
+      }
+    );
+    confBase = "${config.users.users.${user}.home}/.config";
+    userDirArgs = {
+      mode = "0700";
+      user = user;
+      group = "users";
+    };
+  in {
+    "${confBase}".d = userDirArgs;
+    "${confBase}/terminal.ubports".d = userDirArgs;
+    "${confBase}/terminal.ubports/customized.colorscheme".L.argument = "${terminalColors}";
+    "${confBase}/terminal.ubports/terminal.ubports.conf".L.argument = "${terminalConfig}";
+  };
+
+  wallpaperFile = pkgs:
+    pkgs.runCommand wallpaperName
+    {
+      nativeBuildInputs = with pkgs; [
+        (imagemagick.override {ghostscriptSupport = true;}) # produce OCR-able image
+      ];
+    }
+    ''
+      magick -size 640x480 canvas:white -pointsize 30 -fill black -annotate +100+100 '${wallpaperText}' $out
+    '';
   # gsettings tool with access to wallpaper schema
-  lomiri-gsettings =
-    pkgs:
+  lomiri-gsettings = pkgs:
     pkgs.stdenv.mkDerivation {
       name = "lomiri-gsettings";
       dontUnpack = true;
@@ -88,28 +83,25 @@ let
         runHook postInstall
       '';
     };
-  setLomiriWallpaperService =
-    pkgs:
-    let
-      lomiriServices = [
-        "lomiri.service"
-        "lomiri-full-greeter.service"
-        "lomiri-full-shell.service"
-        "lomiri-greeter.service"
-        "lomiri-shell.service"
-      ];
-    in
-    rec {
-      description = "Set Lomiri wallpaper to something OCR-able";
-      wantedBy = lomiriServices;
-      before = lomiriServices;
-      serviceConfig = {
-        Type = "oneshot";
-        # Not using the Lomiri-namespaed settings yet
-        # ExecStart = "${lomiri-gsettings pkgs}/bin/lomiri-gsettings set com.lomiri.Shell background-picture-uri file://${wallpaperFile pkgs}";
-        ExecStart = "${lomiri-gsettings pkgs}/bin/lomiri-gsettings set org.gnome.desktop.background picture-uri file://${wallpaperFile pkgs}";
-      };
+  setLomiriWallpaperService = pkgs: let
+    lomiriServices = [
+      "lomiri.service"
+      "lomiri-full-greeter.service"
+      "lomiri-full-shell.service"
+      "lomiri-greeter.service"
+      "lomiri-shell.service"
+    ];
+  in rec {
+    description = "Set Lomiri wallpaper to something OCR-able";
+    wantedBy = lomiriServices;
+    before = lomiriServices;
+    serviceConfig = {
+      Type = "oneshot";
+      # Not using the Lomiri-namespaed settings yet
+      # ExecStart = "${lomiri-gsettings pkgs}/bin/lomiri-gsettings set com.lomiri.Shell background-picture-uri file://${wallpaperFile pkgs}";
+      ExecStart = "${lomiri-gsettings pkgs}/bin/lomiri-gsettings set org.gnome.desktop.background picture-uri file://${wallpaperFile pkgs}";
     };
+  };
 
   sharedTestFunctions = ''
     def wait_for_text(text):
@@ -161,57 +153,54 @@ let
 
   '';
 
-  makeIndicatorTest =
-    {
-      name,
-      left,
-      ocr,
-      extraCheck ? null,
-
-      titleOcr,
-    }:
-
+  makeIndicatorTest = {
+    name,
+    left,
+    ocr,
+    extraCheck ? null,
+    titleOcr,
+  }:
     makeTest (
-      { pkgs, lib, ... }:
       {
+        pkgs,
+        lib,
+        ...
+      }: {
         name = "lomiri-desktop-ayatana-indicator-${name}";
 
         meta = {
           maintainers = lib.teams.lomiri.members;
         };
 
-        nodes.machine =
-          { config, ... }:
-          {
-            imports = [
-              ./common/auto.nix
-              ./common/user-account.nix
-            ];
+        nodes.machine = {config, ...}: {
+          imports = [
+            ./common/auto.nix
+            ./common/user-account.nix
+          ];
 
-            virtualisation.memorySize = 2047;
+          virtualisation.memorySize = 2047;
 
-            users.users.${user} = {
-              inherit description password;
-            };
-
-            test-support.displayManager.auto = {
-              enable = true;
-              inherit user;
-            };
-
-            # To control mouse via scripting
-            programs.ydotool.enable = true;
-
-            services.desktopManager.lomiri.enable = lib.mkForce true;
-            services.displayManager.defaultSession = lib.mkForce "lomiri";
-
-            # Not setting wallpaper, as it breaks indicator OCR(?)
+          users.users.${user} = {
+            inherit description password;
           };
+
+          test-support.displayManager.auto = {
+            enable = true;
+            inherit user;
+          };
+
+          # To control mouse via scripting
+          programs.ydotool.enable = true;
+
+          services.desktopManager.lomiri.enable = lib.mkForce true;
+          services.displayManager.defaultSession = lib.mkForce "lomiri";
+
+          # Not setting wallpaper, as it breaks indicator OCR(?)
+        };
 
         enableOCR = true;
 
-        testScript =
-          { nodes, ... }:
+        testScript = {nodes, ...}:
           sharedTestFunctions
           + ''
             start_all()
@@ -245,14 +234,12 @@ let
       }
     );
 
-  makeIndicatorTests =
-    {
-      titles,
-      details,
-    }:
-    let
-      titleOcr = "r\"(${builtins.concatStringsSep "|" titles})\"";
-    in
+  makeIndicatorTests = {
+    titles,
+    details,
+  }: let
+    titleOcr = "r\"(${builtins.concatStringsSep "|" titles})\"";
+  in
     builtins.listToAttrs (
       builtins.map (
         {
@@ -260,8 +247,7 @@ let
           left,
           ocr,
           extraCheck ? null,
-        }:
-        {
+        }: {
           name = "desktop-ayatana-indicator-${name}";
           value = makeIndicatorTest {
             inherit
@@ -273,23 +259,25 @@ let
               ;
           };
         }
-      ) details
+      )
+      details
     );
 in
-{
-  greeter = makeTest (
-    { pkgs, lib, ... }:
-    {
-      name = "lomiri-greeter";
+  {
+    greeter = makeTest (
+      {
+        pkgs,
+        lib,
+        ...
+      }: {
+        name = "lomiri-greeter";
 
-      meta = {
-        maintainers = lib.teams.lomiri.members;
-      };
+        meta = {
+          maintainers = lib.teams.lomiri.members;
+        };
 
-      nodes.machine =
-        { config, ... }:
-        {
-          imports = [ ./common/user-account.nix ];
+        nodes.machine = {config, ...}: {
+          imports = [./common/user-account.nix];
 
           virtualisation.memorySize = 2047;
 
@@ -306,49 +294,49 @@ in
           services.displayManager.defaultSession = lib.mkForce "none+icewm";
         };
 
-      enableOCR = true;
+        enableOCR = true;
 
-      testScript =
-        { nodes, ... }:
-        sharedTestFunctions
-        + ''
-          start_all()
-          machine.wait_for_unit("multi-user.target")
+        testScript = {nodes, ...}:
+          sharedTestFunctions
+          + ''
+            start_all()
+            machine.wait_for_unit("multi-user.target")
 
-          # Lomiri in greeter mode should work & be able to start a session
-          with subtest("lomiri greeter works"):
-              machine.wait_for_unit("display-manager.service")
-              machine.wait_until_succeeds("pgrep -u lightdm -f 'lomiri --mode=greeter'")
+            # Lomiri in greeter mode should work & be able to start a session
+            with subtest("lomiri greeter works"):
+                machine.wait_for_unit("display-manager.service")
+                machine.wait_until_succeeds("pgrep -u lightdm -f 'lomiri --mode=greeter'")
 
-              # Start page shows current time
-              wait_for_text(r"(AM|PM)")
-              machine.screenshot("lomiri_greeter_launched")
+                # Start page shows current time
+                wait_for_text(r"(AM|PM)")
+                machine.screenshot("lomiri_greeter_launched")
 
-              # Advance to login part
-              machine.send_key("ret")
-              wait_for_text("${description}")
-              machine.screenshot("lomiri_greeter_login")
+                # Advance to login part
+                machine.send_key("ret")
+                wait_for_text("${description}")
+                machine.screenshot("lomiri_greeter_login")
 
-              # Login
-              machine.send_chars("${password}\n")
-              machine.wait_for_x()
-              machine.screenshot("session_launched")
-        '';
-    }
-  );
+                # Login
+                machine.send_chars("${password}\n")
+                machine.wait_for_x()
+                machine.screenshot("session_launched")
+          '';
+      }
+    );
 
-  desktop-basics = makeTest (
-    { pkgs, lib, ... }:
-    {
-      name = "lomiri-desktop-basics";
+    desktop-basics = makeTest (
+      {
+        pkgs,
+        lib,
+        ...
+      }: {
+        name = "lomiri-desktop-basics";
 
-      meta = {
-        maintainers = lib.teams.lomiri.members;
-      };
+        meta = {
+          maintainers = lib.teams.lomiri.members;
+        };
 
-      nodes.machine =
-        { config, ... }:
-        {
+        nodes.machine = {config, ...}: {
           imports = [
             ./common/auto.nix
             ./common/user-account.nix
@@ -372,11 +360,11 @@ in
           services.displayManager.defaultSession = lib.mkForce "lomiri";
 
           # Help with OCR
-          fonts.packages = [ pkgs.inconsolata ];
+          fonts.packages = [pkgs.inconsolata];
 
           environment = {
             # Help with OCR
-            etc."xdg/alacritty/alacritty.toml".source = (pkgs.formats.toml { }).generate "alacritty.toml" {
+            etc."xdg/alacritty/alacritty.toml".source = (pkgs.formats.toml {}).generate "alacritty.toml" {
               font = rec {
                 normal.family = "Inconsolata";
                 bold.family = normal.family;
@@ -402,9 +390,9 @@ in
               (symlinkJoin {
                 name = "x11-${alacritty.name}";
 
-                paths = [ alacritty ];
+                paths = [alacritty];
 
-                nativeBuildInputs = [ makeWrapper ];
+                nativeBuildInputs = [makeWrapper];
 
                 postBuild = ''
                   wrapProgram $out/bin/alacritty \
@@ -419,92 +407,92 @@ in
 
           # Help with OCR
           systemd.tmpfiles.settings = {
-            "10-lomiri-test-setup" = terminalOcrTmpfilesSetup { inherit pkgs lib config; };
+            "10-lomiri-test-setup" = terminalOcrTmpfilesSetup {inherit pkgs lib config;};
           };
 
           systemd.user.services.set-lomiri-wallpaper = setLomiriWallpaperService pkgs;
         };
 
-      enableOCR = true;
+        enableOCR = true;
 
-      testScript =
-        { nodes, ... }:
-        sharedTestFunctions
-        + ''
-          start_all()
-          machine.wait_for_unit("multi-user.target")
+        testScript = {nodes, ...}:
+          sharedTestFunctions
+          + ''
+            start_all()
+            machine.wait_for_unit("multi-user.target")
 
-          # The session should start, and not be stuck in i.e. a crash loop
-          with subtest("lomiri starts"):
-              machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
-              # Output rendering from Lomiri has started when it starts printing performance diagnostics
-              machine.wait_for_console_text("Last frame took")
-              # Look for datetime's clock, one of the last elements to load
-              wait_for_text(r"(AM|PM)")
-              machine.screenshot("lomiri_launched")
+            # The session should start, and not be stuck in i.e. a crash loop
+            with subtest("lomiri starts"):
+                machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
+                # Output rendering from Lomiri has started when it starts printing performance diagnostics
+                machine.wait_for_console_text("Last frame took")
+                # Look for datetime's clock, one of the last elements to load
+                wait_for_text(r"(AM|PM)")
+                machine.screenshot("lomiri_launched")
 
-          # Working terminal keybind is good
-          with subtest("terminal keybind works"):
-              machine.send_key("ctrl-alt-t")
-              wait_for_text(r"(${user}|machine)")
-              machine.screenshot("terminal_opens")
-              machine.send_key("alt-f4")
+            # Working terminal keybind is good
+            with subtest("terminal keybind works"):
+                machine.send_key("ctrl-alt-t")
+                wait_for_text(r"(${user}|machine)")
+                machine.screenshot("terminal_opens")
+                machine.send_key("alt-f4")
 
-          # We want the ability to launch applications
-          with subtest("starter menu works"):
-              open_starter()
-              machine.screenshot("starter_opens")
+            # We want the ability to launch applications
+            with subtest("starter menu works"):
+                open_starter()
+                machine.screenshot("starter_opens")
 
-              # Just try the terminal again, we know that it should work
-              machine.send_chars("Terminal\n")
-              wait_for_text(r"(${user}|machine)")
-              machine.send_key("alt-f4")
+                # Just try the terminal again, we know that it should work
+                machine.send_chars("Terminal\n")
+                wait_for_text(r"(${user}|machine)")
+                machine.send_key("alt-f4")
 
-          # We want support for X11 apps
-          with subtest("xwayland support works"):
-              open_starter()
-              machine.send_chars("Alacritty\n")
-              wait_for_text(r"(${user}|machine)")
-              machine.screenshot("alacritty_opens")
-              machine.send_key("alt-f4")
+            # We want support for X11 apps
+            with subtest("xwayland support works"):
+                open_starter()
+                machine.send_chars("Alacritty\n")
+                wait_for_text(r"(${user}|machine)")
+                machine.screenshot("alacritty_opens")
+                machine.send_key("alt-f4")
 
-          # Morph is how we go online
-          with subtest("morph browser works"):
-              open_starter()
-              machine.send_chars("Morph\n")
-              wait_for_text(r"(Bookmarks|address|site|visited any)")
-              machine.screenshot("morph_open")
+            # Morph is how we go online
+            with subtest("morph browser works"):
+                open_starter()
+                machine.send_chars("Morph\n")
+                wait_for_text(r"(Bookmarks|address|site|visited any)")
+                machine.screenshot("morph_open")
 
-              # morph-browser has a separate VM test to test its basic functionalities
+                # morph-browser has a separate VM test to test its basic functionalities
 
-              machine.send_key("alt-f4")
+                machine.send_key("alt-f4")
 
-          # LSS provides DE settings
-          with subtest("system settings open"):
-              open_starter()
-              machine.send_chars("System Settings\n")
-              wait_for_text("Rotation Lock")
-              machine.screenshot("settings_open")
+            # LSS provides DE settings
+            with subtest("system settings open"):
+                open_starter()
+                machine.send_chars("System Settings\n")
+                wait_for_text("Rotation Lock")
+                machine.screenshot("settings_open")
 
-              # lomiri-system-settings has a separate VM test to test its basic functionalities
+                # lomiri-system-settings has a separate VM test to test its basic functionalities
 
-              machine.send_key("alt-f4")
-        '';
-    }
-  );
+                machine.send_key("alt-f4")
+          '';
+      }
+    );
 
-  desktop-appinteractions = makeTest (
-    { pkgs, lib, ... }:
-    {
-      name = "lomiri-desktop-appinteractions";
+    desktop-appinteractions = makeTest (
+      {
+        pkgs,
+        lib,
+        ...
+      }: {
+        name = "lomiri-desktop-appinteractions";
 
-      meta = {
-        maintainers = lib.teams.lomiri.members;
-      };
+        meta = {
+          maintainers = lib.teams.lomiri.members;
+        };
 
-      nodes.machine =
-        { config, ... }:
-        {
+        nodes.machine = {config, ...}: {
           imports = [
             ./common/auto.nix
             ./common/user-account.nix
@@ -515,7 +503,7 @@ in
           users.users.${user} = {
             inherit description password;
             # polkit agent test
-            extraGroups = [ "wheel" ];
+            extraGroups = ["wheel"];
           };
 
           test-support.displayManager.auto = {
@@ -530,11 +518,11 @@ in
           services.displayManager.defaultSession = lib.mkForce "lomiri";
 
           # Help with OCR
-          fonts.packages = [ pkgs.inconsolata ];
+          fonts.packages = [pkgs.inconsolata];
 
           environment = {
             # Help with OCR
-            etc."xdg/alacritty/alacritty.yml".text = lib.generators.toYAML { } {
+            etc."xdg/alacritty/alacritty.yml".text = lib.generators.toYAML {} {
               font = rec {
                 normal.family = "Inconsolata";
                 bold.family = normal.family;
@@ -568,129 +556,128 @@ in
 
           # Help with OCR
           systemd.tmpfiles.settings = {
-            "10-lomiri-test-setup" = terminalOcrTmpfilesSetup { inherit pkgs lib config; };
+            "10-lomiri-test-setup" = terminalOcrTmpfilesSetup {inherit pkgs lib config;};
           };
 
           systemd.user.services.set-lomiri-wallpaper = setLomiriWallpaperService pkgs;
         };
 
-      enableOCR = true;
+        enableOCR = true;
 
-      testScript =
-        { nodes, ... }:
-        sharedTestFunctions
-        + ''
-          start_all()
-          machine.wait_for_unit("multi-user.target")
+        testScript = {nodes, ...}:
+          sharedTestFunctions
+          + ''
+            start_all()
+            machine.wait_for_unit("multi-user.target")
 
-          # The session should start, and not be stuck in i.e. a crash loop
-          with subtest("lomiri starts"):
-              machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
-              # Output rendering from Lomiri has started when it starts printing performance diagnostics
-              machine.wait_for_console_text("Last frame took")
-              # Look for datetime's clock, one of the last elements to load
-              wait_for_text(r"(AM|PM)")
-              machine.screenshot("lomiri_launched")
+            # The session should start, and not be stuck in i.e. a crash loop
+            with subtest("lomiri starts"):
+                machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
+                # Output rendering from Lomiri has started when it starts printing performance diagnostics
+                machine.wait_for_console_text("Last frame took")
+                # Look for datetime's clock, one of the last elements to load
+                wait_for_text(r"(AM|PM)")
+                machine.screenshot("lomiri_launched")
 
-          # Working terminal keybind is good
-          with subtest("terminal keybind works"):
-              machine.send_key("ctrl-alt-t")
-              wait_for_text(r"(${user}|machine)")
-              machine.screenshot("terminal_opens")
+            # Working terminal keybind is good
+            with subtest("terminal keybind works"):
+                machine.send_key("ctrl-alt-t")
+                wait_for_text(r"(${user}|machine)")
+                machine.screenshot("terminal_opens")
 
-              # for the LSS lomiri-content-hub test to work reliably, we need to kick off peer collecting
-              machine.send_chars("lomiri-content-hub-test-importer\n")
-              wait_for_text(r"(/build/source|hub.cpp|handler.cpp|void|virtual|const)") # awaiting log messages from lomiri-content-hub
-              machine.send_key("ctrl-c")
+                # for the LSS lomiri-content-hub test to work reliably, we need to kick off peer collecting
+                machine.send_chars("lomiri-content-hub-test-importer\n")
+                wait_for_text(r"(/build/source|hub.cpp|handler.cpp|void|virtual|const)") # awaiting log messages from lomiri-content-hub
+                machine.send_key("ctrl-c")
 
-              # Doing this here, since we need an in-session shell & separately starting a terminal again wastes time
-              with subtest("polkit agent works"):
-                  machine.send_chars("pkexec touch /tmp/polkit-test\n")
-                  # There's an authentication notification here that gains focus, but we struggle with OCRing it
-                  # Just hope that it's up after a short wait
-                  machine.sleep(10)
-                  machine.screenshot("polkit_agent")
-                  machine.send_chars("${password}")
-                  machine.sleep(2) # Hopefully enough delay to make sure all the password characters have been registered? Maybe just placebo
-                  machine.send_chars("\n")
-                  machine.wait_for_file("/tmp/polkit-test", 10)
+                # Doing this here, since we need an in-session shell & separately starting a terminal again wastes time
+                with subtest("polkit agent works"):
+                    machine.send_chars("pkexec touch /tmp/polkit-test\n")
+                    # There's an authentication notification here that gains focus, but we struggle with OCRing it
+                    # Just hope that it's up after a short wait
+                    machine.sleep(10)
+                    machine.screenshot("polkit_agent")
+                    machine.send_chars("${password}")
+                    machine.sleep(2) # Hopefully enough delay to make sure all the password characters have been registered? Maybe just placebo
+                    machine.send_chars("\n")
+                    machine.wait_for_file("/tmp/polkit-test", 10)
 
-              machine.send_key("alt-f4")
+                machine.send_key("alt-f4")
 
-          # LSS provides DE settings
-          with subtest("system settings open"):
-              open_starter()
-              machine.send_chars("System Settings\n")
-              wait_for_text("Rotation Lock")
-              machine.screenshot("settings_open")
+            # LSS provides DE settings
+            with subtest("system settings open"):
+                open_starter()
+                machine.send_chars("System Settings\n")
+                wait_for_text("Rotation Lock")
+                machine.screenshot("settings_open")
 
-              # lomiri-system-settings has a separate VM test, only test Lomiri-specific lomiri-content-hub functionalities here
+                # lomiri-system-settings has a separate VM test, only test Lomiri-specific lomiri-content-hub functionalities here
 
-              # Make fullscreen, can't navigate to Background plugin via keyboard unless window has non-phone-like aspect ratio
-              toggle_maximise()
+                # Make fullscreen, can't navigate to Background plugin via keyboard unless window has non-phone-like aspect ratio
+                toggle_maximise()
 
-              # Load Background plugin
-              machine.send_key("tab")
-              machine.send_key("tab")
-              machine.send_key("tab")
-              machine.send_key("tab")
-              machine.send_key("tab")
-              machine.send_key("tab")
-              machine.send_key("ret")
-              wait_for_text("Background image")
+                # Load Background plugin
+                machine.send_key("tab")
+                machine.send_key("tab")
+                machine.send_key("tab")
+                machine.send_key("tab")
+                machine.send_key("tab")
+                machine.send_key("tab")
+                machine.send_key("ret")
+                wait_for_text("Background image")
 
-              # Try to load custom background
-              machine.send_key("shift-tab")
-              machine.send_key("shift-tab")
-              machine.send_key("shift-tab")
-              machine.send_key("shift-tab")
-              machine.send_key("shift-tab")
-              machine.send_key("shift-tab")
-              machine.send_key("ret")
+                # Try to load custom background
+                machine.send_key("shift-tab")
+                machine.send_key("shift-tab")
+                machine.send_key("shift-tab")
+                machine.send_key("shift-tab")
+                machine.send_key("shift-tab")
+                machine.send_key("shift-tab")
+                machine.send_key("ret")
 
-              # Peers should be loaded
-              wait_for_text("Morph") # or Gallery, but Morph is already packaged
-              machine.screenshot("settings_lomiri-content-hub_peers")
+                # Peers should be loaded
+                wait_for_text("Morph") # or Gallery, but Morph is already packaged
+                machine.screenshot("settings_lomiri-content-hub_peers")
 
-              # Select Morph as content source
-              mouse_click(370, 100)
+                # Select Morph as content source
+                mouse_click(370, 100)
 
-              # Expect Morph to be brought into the foreground, with its Downloads page open
-              wait_for_text("No downloads")
+                # Expect Morph to be brought into the foreground, with its Downloads page open
+                wait_for_text("No downloads")
 
-              # If lomiri-content-hub encounters a problem, it may have crashed the original application issuing the request.
-              # Check that it's still alive
-              machine.succeed("pgrep -u ${user} -f lomiri-system-settings")
+                # If lomiri-content-hub encounters a problem, it may have crashed the original application issuing the request.
+                # Check that it's still alive
+                machine.succeed("pgrep -u ${user} -f lomiri-system-settings")
 
-              machine.screenshot("lomiri-content-hub_exchange")
+                machine.screenshot("lomiri-content-hub_exchange")
 
-              # Testing any more would require more applications & setup, the fact that it's already being attempted is a good sign
-              machine.send_key("esc")
+                # Testing any more would require more applications & setup, the fact that it's already being attempted is a good sign
+                machine.send_key("esc")
 
-              machine.sleep(2) # sleep a tiny bit so morph can close & the focus can return to LSS
-              machine.send_key("alt-f4")
-        '';
-    }
-  );
+                machine.sleep(2) # sleep a tiny bit so morph can close & the focus can return to LSS
+                machine.send_key("alt-f4")
+          '';
+      }
+    );
 
-  keymap =
-    let
+    keymap = let
       pwInput = "qwerty";
       pwOutput = "qwertz";
     in
-    makeTest (
-      { pkgs, lib, ... }:
-      {
-        name = "lomiri-keymap";
+      makeTest (
+        {
+          pkgs,
+          lib,
+          ...
+        }: {
+          name = "lomiri-keymap";
 
-        meta = {
-          maintainers = lib.teams.lomiri.members;
-        };
+          meta = {
+            maintainers = lib.teams.lomiri.members;
+          };
 
-        nodes.machine =
-          { config, ... }:
-          {
-            imports = [ ./common/user-account.nix ];
+          nodes.machine = {config, ...}: {
+            imports = [./common/user-account.nix];
 
             virtualisation.memorySize = 2047;
 
@@ -703,7 +690,7 @@ in
             services.displayManager.defaultSession = lib.mkForce "lomiri";
 
             # Help with OCR
-            fonts.packages = [ pkgs.inconsolata ];
+            fonts.packages = [pkgs.inconsolata];
 
             services.xserver.xkb.layout = lib.strings.concatStringsSep "," [
               # Start with a non-QWERTY keymap to test keymap patch
@@ -718,145 +705,144 @@ in
 
             # Help with OCR
             systemd.tmpfiles.settings = {
-              "10-lomiri-test-setup" = terminalOcrTmpfilesSetup { inherit pkgs lib config; };
+              "10-lomiri-test-setup" = terminalOcrTmpfilesSetup {inherit pkgs lib config;};
             };
           };
 
-        enableOCR = true;
+          enableOCR = true;
 
-        testScript =
-          { nodes, ... }:
-          sharedTestFunctions
-          + ''
-            start_all()
-            machine.wait_for_unit("multi-user.target")
+          testScript = {nodes, ...}:
+            sharedTestFunctions
+            + ''
+              start_all()
+              machine.wait_for_unit("multi-user.target")
 
-            # Lomiri in greeter mode should use the correct keymap
-            with subtest("lomiri greeter keymap works"):
-                machine.wait_for_unit("display-manager.service")
-                machine.wait_until_succeeds("pgrep -u lightdm -f 'lomiri --mode=greeter'")
+              # Lomiri in greeter mode should use the correct keymap
+              with subtest("lomiri greeter keymap works"):
+                  machine.wait_for_unit("display-manager.service")
+                  machine.wait_until_succeeds("pgrep -u lightdm -f 'lomiri --mode=greeter'")
 
-                # Start page shows current time
-                wait_for_text(r"(AM|PM)")
-                machine.screenshot("lomiri_greeter_launched")
+                  # Start page shows current time
+                  wait_for_text(r"(AM|PM)")
+                  machine.screenshot("lomiri_greeter_launched")
 
-                # Advance to login part
-                machine.send_key("ret")
-                wait_for_text("${description}")
-                machine.screenshot("lomiri_greeter_login")
+                  # Advance to login part
+                  machine.send_key("ret")
+                  wait_for_text("${description}")
+                  machine.screenshot("lomiri_greeter_login")
 
-                # Login
-                machine.send_chars("${pwInput}\n")
-                machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
+                  # Login
+                  machine.send_chars("${pwInput}\n")
+                  machine.wait_until_succeeds("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
 
-                # Output rendering from Lomiri has started when it starts printing performance diagnostics
-                machine.wait_for_console_text("Last frame took")
-                # Look for datetime's clock, one of the last elements to load
-                wait_for_text(r"(AM|PM)")
-                machine.screenshot("lomiri_launched")
+                  # Output rendering from Lomiri has started when it starts printing performance diagnostics
+                  machine.wait_for_console_text("Last frame took")
+                  # Look for datetime's clock, one of the last elements to load
+                  wait_for_text(r"(AM|PM)")
+                  machine.screenshot("lomiri_launched")
 
-            # Lomiri in desktop mode should use the correct keymap
-            with subtest("lomiri session keymap works"):
-                machine.send_key("ctrl-alt-t")
-                wait_for_text(r"(${user}|machine)")
-                machine.screenshot("terminal_opens")
+              # Lomiri in desktop mode should use the correct keymap
+              with subtest("lomiri session keymap works"):
+                  machine.send_key("ctrl-alt-t")
+                  wait_for_text(r"(${user}|machine)")
+                  machine.screenshot("terminal_opens")
 
-                machine.send_chars("touch ${pwInput}\n")
-                machine.wait_for_file("/home/alice/${pwOutput}", 90)
+                  machine.send_chars("touch ${pwInput}\n")
+                  machine.wait_for_file("/home/alice/${pwOutput}", 90)
 
-                # Issues with this keybind: input leaks to focused surface, may open launcher
-                # Don't have the keyboard indicator to handle this better
-                machine.send_key("meta_l-spc")
-                machine.wait_for_console_text('SET KEYMAP "us"')
+                  # Issues with this keybind: input leaks to focused surface, may open launcher
+                  # Don't have the keyboard indicator to handle this better
+                  machine.send_key("meta_l-spc")
+                  machine.wait_for_console_text('SET KEYMAP "us"')
 
-                # Handle keybind fallout
-                machine.sleep(10) # wait for everything to settle
-                machine.send_key("esc") # close launcher in case it was opened
-                machine.sleep(2) # wait for animation to finish
-                # Make sure input leaks are gone
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
-                machine.send_key("backspace")
+                  # Handle keybind fallout
+                  machine.sleep(10) # wait for everything to settle
+                  machine.send_key("esc") # close launcher in case it was opened
+                  machine.sleep(2) # wait for animation to finish
+                  # Make sure input leaks are gone
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
+                  machine.send_key("backspace")
 
-                machine.send_chars("touch ${pwInput}\n")
-                machine.wait_for_file("/home/alice/${pwInput}", 90)
+                  machine.send_chars("touch ${pwInput}\n")
+                  machine.wait_for_file("/home/alice/${pwInput}", 90)
 
-                machine.send_key("alt-f4")
-          '';
+                  machine.send_key("alt-f4")
+            '';
+        }
+      );
+  }
+  // makeIndicatorTests {
+    titles = [
+      "Notifications" # messages
+      "Rotation" # display
+      "Battery" # power
+      "Sound" # sound
+      "Time" # datetime
+      "Date" # datetime
+      "System" # session
+    ];
+    details = [
+      # messages normally has no contents
+      {
+        name = "display";
+        left = 6;
+        ocr = ["Lock"];
       }
-    );
-}
-// makeIndicatorTests {
-  titles = [
-    "Notifications" # messages
-    "Rotation" # display
-    "Battery" # power
-    "Sound" # sound
-    "Time" # datetime
-    "Date" # datetime
-    "System" # session
-  ];
-  details = [
-    # messages normally has no contents
-    ({
-      name = "display";
-      left = 6;
-      ocr = [ "Lock" ];
-    })
-    ({
-      name = "bluetooth";
-      left = 5;
-      ocr = [ "Bluetooth" ];
-    })
-    ({
-      name = "network";
-      left = 4;
-      ocr = [
-        "Flight"
-        "Wi-Fi"
-      ];
-    })
-    ({
-      name = "sound";
-      left = 3;
-      ocr = [
-        "Silent"
-        "Volume"
-      ];
-    })
-    ({
-      name = "power";
-      left = 2;
-      ocr = [
-        "Charge"
-        "Battery"
-      ];
-    })
-    ({
-      name = "datetime";
-      left = 1;
-      ocr = [
-        "Time"
-        "Date"
-      ];
-    })
-    ({
-      name = "session";
-      left = 0;
-      ocr = [ "Log Out" ];
-      extraCheck = ''
-        # We should be able to log out and return to the greeter
-        mouse_click(720, 280) # "Log Out"
-        mouse_click(400, 240) # confirm logout
-        machine.wait_until_fails("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
-      '';
-    })
-  ];
-}
+      {
+        name = "bluetooth";
+        left = 5;
+        ocr = ["Bluetooth"];
+      }
+      {
+        name = "network";
+        left = 4;
+        ocr = [
+          "Flight"
+          "Wi-Fi"
+        ];
+      }
+      {
+        name = "sound";
+        left = 3;
+        ocr = [
+          "Silent"
+          "Volume"
+        ];
+      }
+      {
+        name = "power";
+        left = 2;
+        ocr = [
+          "Charge"
+          "Battery"
+        ];
+      }
+      {
+        name = "datetime";
+        left = 1;
+        ocr = [
+          "Time"
+          "Date"
+        ];
+      }
+      {
+        name = "session";
+        left = 0;
+        ocr = ["Log Out"];
+        extraCheck = ''
+          # We should be able to log out and return to the greeter
+          mouse_click(720, 280) # "Log Out"
+          mouse_click(400, 240) # confirm logout
+          machine.wait_until_fails("pgrep -u ${user} -f 'lomiri --mode=full-shell'")
+        '';
+      }
+    ];
+  }

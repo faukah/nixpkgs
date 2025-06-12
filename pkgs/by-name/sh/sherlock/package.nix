@@ -4,7 +4,6 @@
   makeWrapper,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sherlock";
   version = "0.15.0";
@@ -27,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace @sherlockBin@ "$out/bin/sherlock"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = with python3.pkgs; [
     certifi
@@ -64,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
     stem
   ];
 
-  pythonRelaxDeps = [ "stem" ];
+  pythonRelaxDeps = ["stem"];
 
   pytestFlagsArray = [
     "-m"
@@ -76,6 +75,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Hunt down social media accounts by username across social networks";
     license = lib.licenses.mit;
     mainProgram = "sherlock";
-    maintainers = with lib.maintainers; [ applePrincess ];
+    maintainers = with lib.maintainers; [applePrincess];
   };
 }

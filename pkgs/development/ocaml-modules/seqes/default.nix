@@ -6,7 +6,6 @@
   qcheck-alcotest,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "seqes";
   version = "0.4";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     description = "Variations of the Seq module with monads folded into the type";
     homepage = "https://gitlab.com/nomadic-labs/seqes";
     license = licenses.lgpl2; # Same as OCaml
-    maintainers = [ maintainers.ulrikstrid ];
+    maintainers = [maintainers.ulrikstrid];
   };
 }

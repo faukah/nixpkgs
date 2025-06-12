@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-storage";
   version = "23.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-HFlU1Zvdy5edBbxJ5DFxam4rL3VpCblrp8QyYQcq/L8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-mgmt-common
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     isodate
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
-  pythonImportsCheck = [ "azure.mgmt.storage" ];
+  pythonImportsCheck = ["azure.mgmt.storage"];
 
   # Module has no tests
   doCheck = false;

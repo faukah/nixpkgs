@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "webmin-xmlrpc";
   version = "0.0.2";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-qCS5YV3o7ozO7fDaJucQvU0dEyTbxTivtTDKQVY4pkM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "webmin_xmlrpc" ];
+  pythonImportsCheck = ["webmin_xmlrpc"];
 
   # upstream has no tests
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Python interface to interact with the Webmin XML-RPC API";
     homepage = "https://github.com/autinerd/webmin-xmlrpc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

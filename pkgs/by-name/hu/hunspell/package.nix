@@ -11,7 +11,6 @@
   testers,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hunspell";
   version = "1.7.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-x2FXxnVIqsf5/UEQcvchAndXBv/3mW8Z55djQAFgNA8=";
   };
 
-  patches = [ ./0001-Make-hunspell-look-in-XDG_DATA_DIRS-for-dictionaries.patch ];
+  patches = [./0001-Make-hunspell-look-in-XDG_DATA_DIRS-for-dictionaries.patch];
 
   postPatch = ''
     patchShebangs tests
@@ -48,26 +47,26 @@ stdenv.mkDerivation (finalAttrs: {
     readline
   ];
 
-  autoreconfFlags = [ "-vfi" ];
+  autoreconfFlags = ["-vfi"];
 
   configureFlags = [
     "--with-ui"
     "--with-readline"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru = {
     tests = {
-      pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
-      version = testers.testVersion { package = finalAttrs.finalPackage; };
+      pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
+      version = testers.testVersion {package = finalAttrs.finalPackage;};
       wrapper = callPackage ./wrapper.nix {
         hunspell = finalAttrs.finalPackage;
-        dicts = [ hunspellDicts.en_US ];
+        dicts = [hunspellDicts.en_US];
       };
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -99,9 +98,9 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21
       mpl11
     ];
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "hunspell";
     platforms = lib.platforms.all;
-    pkgConfigModules = [ "hunspell" ];
+    pkgConfigModules = ["hunspell"];
   };
 })

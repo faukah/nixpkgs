@@ -9,7 +9,6 @@
   pylama,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "isort";
   version = "6.0.1";
@@ -81,7 +80,7 @@ buildPythonPackage rec {
     description = "Python utility / library to sort Python imports";
     homepage = "https://github.com/PyCQA/isort";
     license = licenses.mit;
-    maintainers = with maintainers; [ couchemar ];
+    maintainers = with maintainers; [couchemar];
     mainProgram = "isort";
   };
 }

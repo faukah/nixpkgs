@@ -3,7 +3,6 @@
   fetchFromGitHub,
   gambit-support,
 }:
-
 callPackage ./build.nix rec {
   version = "0.18.1";
   git-version = "0.18.1";

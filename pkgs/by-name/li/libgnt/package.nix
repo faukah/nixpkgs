@@ -17,10 +17,12 @@ stdenv.mkDerivation rec {
   pname = "libgnt";
   version = "2.14.4-dev";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional buildDocs "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional buildDocs "devdoc";
 
   src = fetchurl {
     url = "mirror://sourceforge/pidgin/${pname}-${version}.tar.xz";
@@ -63,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://keep.imfreedom.org/libgnt/libgnt/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ ony ];
+    maintainers = with lib.maintainers; [ony];
   };
 }

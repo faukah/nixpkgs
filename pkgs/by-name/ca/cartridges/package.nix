@@ -16,7 +16,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cartridges";
   version = "2.12.1";
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postFixup = ''
     wrapPythonProgramsIn $out/libexec $out $pythonPath
@@ -71,7 +70,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -85,7 +84,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://apps.gnome.org/Cartridges/";
     changelog = "https://github.com/kra-mo/cartridges/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "cartridges";
     platforms = lib.platforms.linux;
   };

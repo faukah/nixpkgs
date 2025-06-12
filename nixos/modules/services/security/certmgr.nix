@@ -3,14 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.certmgr;
 
-  specs = lib.mapAttrsToList (n: v: rec {
-    name = n + ".json";
-    path = if lib.isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
-  }) cfg.specs;
+  specs =
+    lib.mapAttrsToList (n: v: rec {
+      name = n + ".json";
+      path =
+        if lib.isAttrs v
+        then pkgs.writeText name (builtins.toJSON v)
+        else v;
+    })
+    cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
@@ -28,23 +32,21 @@ let
   specPaths = map dirOf (
     lib.concatMap (
       spec:
-      if lib.isAttrs spec then
-        lib.collect lib.isString (lib.filterAttrsRecursive (n: v: lib.isAttrs v || n == "path") spec)
-      else
-        [ spec ]
+        if lib.isAttrs spec
+        then lib.collect lib.isString (lib.filterAttrsRecursive (n: v: lib.isAttrs v || n == "path") spec)
+        else [spec]
     ) (lib.attrValues cfg.specs)
   );
 
   preStart = ''
-    ${lib.concatStringsSep " \\\n" ([ "mkdir -p" ] ++ map lib.escapeShellArg specPaths)}
+    ${lib.concatStringsSep " \\\n" (["mkdir -p"] ++ map lib.escapeShellArg specPaths)}
     ${cfg.package}/bin/certmgr -f ${certmgrYaml} check
   '';
-in
-{
+in {
   options.services.certmgr = {
     enable = lib.mkEnableOption "certmgr";
 
-    package = lib.mkPackageOption pkgs "certmgr" { };
+    package = lib.mkPackageOption pkgs "certmgr" {};
 
     defaultRemote = lib.mkOption {
       type = lib.types.str;
@@ -77,7 +79,7 @@ in
     };
 
     specs = lib.mkOption {
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           exampleCert =
@@ -115,8 +117,7 @@ in
           otherCert = "/var/certmgr/specs/other-cert.json";
         }
       '';
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           either path (submodule {
             options = {
@@ -129,12 +130,13 @@ in
               action = lib.mkOption {
                 type = addCheck str (
                   x:
-                  cfg.svcManager == "command"
-                  || lib.elem x [
-                    "restart"
-                    "reload"
-                    "nop"
-                  ]
+                    cfg.svcManager
+                    == "command"
+                    || lib.elem x [
+                      "restart"
+                      "reload"
+                      "nop"
+                    ]
                 );
                 default = "nop";
                 description = "The action to take after fetching.";
@@ -187,13 +189,12 @@ in
         see: <https://github.com/cloudflare/certmgr#command-svcmgr-and-how-to-use-it>.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.specs != { };
+        assertion = cfg.specs != {};
         message = "Certmgr specs cannot be empty.";
       }
       {
@@ -211,10 +212,10 @@ in
 
     systemd.services.certmgr = {
       description = "certmgr";
-      path = lib.mkIf (cfg.svcManager == "command") [ pkgs.bash ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      path = lib.mkIf (cfg.svcManager == "command") [pkgs.bash];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       inherit preStart;
 
       serviceConfig = {

@@ -9,7 +9,6 @@
   bash,
   diffutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "project-lemonlime";
   version = "0.3.5";

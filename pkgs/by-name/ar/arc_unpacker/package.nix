@@ -14,7 +14,6 @@
   libwebp,
   catch2,
 }:
-
 stdenv.mkDerivation {
   pname = "arc_unpacker";
   version = "unstable-2021-08-06";
@@ -90,7 +89,7 @@ stdenv.mkDerivation {
     description = "Tool to extract files from visual novel archives";
     homepage = "https://github.com/vn-tools/arc_unpacker";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
     platforms = platforms.all;
     mainProgram = "arc_unpacker";
 

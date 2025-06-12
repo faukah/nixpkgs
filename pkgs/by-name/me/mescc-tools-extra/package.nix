@@ -5,7 +5,6 @@
   m2libc,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mescc-tools-extra";
   version = "1.3.0";
@@ -27,15 +26,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   checkTarget = "test";
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Collection of tools written for use in bootstrapping";
     homepage = "https://github.com/oriansj/mescc-tools-extra";
     license = licenses.gpl3Only;
-    teams = [ teams.minimal-bootstrap ];
+    teams = [teams.minimal-bootstrap];
     inherit (m2libc.meta) platforms;
   };
 })

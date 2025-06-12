@@ -11,7 +11,6 @@
   pycryptodome,
   safe-pysha3,
 }:
-
 buildPythonPackage rec {
   pname = "eth-hash";
   version = "0.7.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-91jWZDqrd7ZZlM0D/3sDokJ26NiAQ3gdeBebTV1Lq8s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs =
     [
@@ -49,8 +48,8 @@ buildPythonPackage rec {
     '';
 
   optional-dependencies = {
-    pycryptodome = [ pycryptodome ];
-    pysha3 = [ safe-pysha3 ];
+    pycryptodome = [pycryptodome];
+    pysha3 = [safe-pysha3];
   };
 
   meta = {
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ethereum/eth-hash";
     changelog = "https://github.com/ethereum/eth-hash/blob/v${version}/docs/release_notes.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hellwolf ];
+    maintainers = with lib.maintainers; [hellwolf];
   };
 }

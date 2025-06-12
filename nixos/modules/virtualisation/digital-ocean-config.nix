@@ -5,8 +5,7 @@
   modulesPath,
   ...
 }:
-with lib;
-{
+with lib; {
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/virtualisation/digital-ocean-init.nix")
@@ -31,12 +30,11 @@ with lib;
       description = "Whether to run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
     };
   };
-  config =
-    let
-      cfg = config.virtualisation.digitalOcean;
-      hostName = config.networking.hostName;
-      doMetadataFile = "/run/do-metadata/v1.json";
-    in
+  config = let
+    cfg = config.virtualisation.digitalOcean;
+    hostName = config.networking.hostName;
+    doMetadataFile = "/run/do-metadata/v1.json";
+  in
     mkMerge [
       {
         fileSystems."/" = lib.mkDefault {
@@ -51,12 +49,12 @@ with lib;
             "panic=1"
             "boot.panic_on_fail"
           ];
-          initrd.kernelModules = [ "virtio_scsi" ];
+          initrd.kernelModules = ["virtio_scsi"];
           kernelModules = [
             "virtio_pci"
             "virtio_net"
           ];
-          loader.grub.devices = [ "/dev/vda" ];
+          loader.grub.devices = ["/dev/vda"];
         };
         services.openssh = {
           enable = mkDefault true;
@@ -68,11 +66,11 @@ with lib;
         };
 
         /*
-          Check for and wait for the metadata server to become reachable.
-          This serves as a dependency for all the other metadata services.
+        Check for and wait for the metadata server to become reachable.
+        This serves as a dependency for all the other metadata services.
         */
         systemd.services.digitalocean-metadata = {
-          path = [ pkgs.curl ];
+          path = [pkgs.curl];
           description = "Get host metadata provided by Digitalocean";
           script = ''
             set -eu
@@ -101,16 +99,16 @@ with lib;
           unitConfig = {
             ConditionPathExists = "!${doMetadataFile}";
             After =
-              [ "network-pre.target" ]
+              ["network-pre.target"]
               ++ optional config.networking.dhcpcd.enable "dhcpcd.service"
               ++ optional config.systemd.network.enable "systemd-networkd.service";
           };
         };
 
         /*
-          Fetch the root password from the digital ocean metadata.
-          There is no specific route for this, so we use jq to get
-          it from the One Big JSON metadata blob
+        Fetch the root password from the digital ocean metadata.
+        There is no specific route for this, so we use jq to get
+        it from the One Big JSON metadata blob
         */
         systemd.services.digitalocean-set-root-password = mkIf cfg.setRootPassword {
           path = [
@@ -118,7 +116,7 @@ with lib;
             pkgs.jq
           ];
           description = "Set root password provided by Digitalocean";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           script = ''
             set -eo pipefail
             ROOT_PASSWORD=$(jq -er '.auth_key' ${doMetadataFile})
@@ -128,8 +126,8 @@ with lib;
           unitConfig = {
             ConditionPathExists = "!/etc/do-metadata/set-root-password";
             Before = optional config.services.openssh.enable "sshd.service";
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";
@@ -137,9 +135,9 @@ with lib;
         };
 
         /*
-          Set the hostname from Digital Ocean, unless the user configured it in
-          the NixOS configuration. The cached metadata file isn't used here
-          because the hostname is a mutable part of the droplet.
+        Set the hostname from Digital Ocean, unless the user configured it in
+        the NixOS configuration. The cached metadata file isn't used here
+        because the hostname is a mutable part of the droplet.
         */
         systemd.services.digitalocean-set-hostname = mkIf (hostName == "") {
           path = [
@@ -147,7 +145,7 @@ with lib;
             pkgs.nettools
           ];
           description = "Set hostname provided by Digitalocean";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           script = ''
             set -e
             DIGITALOCEAN_HOSTNAME=$(curl -fsSL http://169.254.169.254/metadata/v1/hostname)
@@ -157,9 +155,9 @@ with lib;
             fi
           '';
           unitConfig = {
-            Before = [ "network.target" ];
-            After = [ "digitalocean-metadata.service" ];
-            Wants = [ "digitalocean-metadata.service" ];
+            Before = ["network.target"];
+            After = ["digitalocean-metadata.service"];
+            Wants = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";
@@ -169,8 +167,8 @@ with lib;
         # Fetch the ssh keys for root from Digital Ocean
         systemd.services.digitalocean-ssh-keys = mkIf cfg.setSshKeys {
           description = "Set root ssh keys provided by Digital Ocean";
-          wantedBy = [ "multi-user.target" ];
-          path = [ pkgs.jq ];
+          wantedBy = ["multi-user.target"];
+          path = [pkgs.jq];
           script = ''
             set -e
             mkdir -m 0700 -p /root/.ssh
@@ -184,18 +182,18 @@ with lib;
           unitConfig = {
             ConditionPathExists = "!/root/.ssh/authorized_keys";
             Before = optional config.services.openssh.enable "sshd.service";
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
         };
 
         /*
-          Initialize the RNG by running the entropy-seed script from the
-          Digital Ocean metadata
+        Initialize the RNG by running the entropy-seed script from the
+        Digital Ocean metadata
         */
         systemd.services.digitalocean-entropy-seed = mkIf cfg.seedEntropy {
           description = "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           path = [
             pkgs.jq
             pkgs.mpack
@@ -209,15 +207,14 @@ with lib;
             rm -rf $TEMPDIR
           '';
           unitConfig = {
-            Before = [ "network.target" ];
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            Before = ["network.target"];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";
           };
         };
-
       }
     ];
   meta.maintainers = with maintainers; [

@@ -13,13 +13,11 @@
   libX11,
   file,
 }:
-
 stdenv.mkDerivation {
   pname = "gem-unstable";
   version = "2023-07-28";
 
   src = fetchFromGitHub {
-
     owner = "umlaeute";
     repo = "Gem";
     rev = "4ec12eef8716822c68f7c02a5a94668d2427037d";

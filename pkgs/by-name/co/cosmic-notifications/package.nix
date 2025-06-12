@@ -9,7 +9,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-notifications";
   version = "1.0.0-alpha.7";
@@ -46,7 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -69,7 +69,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Notifications for the COSMIC Desktop Environment";
     mainProgram = "cosmic-notifications";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

@@ -7,7 +7,6 @@
   dbus,
   mpv-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpv-inhibit-gnome";
   version = "0.1.3";
@@ -18,9 +17,9 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-LSGg5gAQE2JpepBqhz6D6d3NlqYaU4bjvYf1F+oLphQ=";
   };
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     dbus
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Guldoman/mpv_inhibit_gnome";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ myaats ];
+    maintainers = with maintainers; [myaats];
   };
 }

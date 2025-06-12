@@ -8,7 +8,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "socid-extractor";
   version = "0.0.27";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-oiXIxNvedEk+EufYzxhvRr8m+kuQRs0J62Yel5JLenQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -34,14 +33,14 @@ buildPythonPackage rec {
   # Test require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "socid_extractor" ];
+  pythonImportsCheck = ["socid_extractor"];
 
   meta = with lib; {
     description = "Python module to extract details from personal pages";
     homepage = "https://github.com/soxoj/socid-extractor";
     changelog = "https://github.com/soxoj/socid-extractor/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "socid_extractor";
   };
 }

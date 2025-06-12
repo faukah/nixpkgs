@@ -16,7 +16,6 @@
   tkinter,
   wrapGAppsHook3,
 }:
-
 buildPythonApplication rec {
   pname = "jellyfin-mpv-shim";
   version = "2.9.0";
@@ -85,7 +84,7 @@ buildPythonApplication rec {
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "jellyfin_mpv_shim" ];
+  pythonImportsCheck = ["jellyfin_mpv_shim"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -125,7 +124,7 @@ buildPythonApplication rec {
       # Static Grain
       unlicense
     ];
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
     mainProgram = "jellyfin-mpv-shim";
   };
 }

@@ -6,7 +6,6 @@
   pkg-config,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kbt";
   version = "2.1.0";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "Keyboard tester in terminal";
     homepage = "https://github.com/bloznelis/kbt";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "kbt";
   };
 }

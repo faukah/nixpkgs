@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nuclei-templates";
   version = "10.2.2";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/projectdiscovery/nuclei-templates";
     changelog = "https://github.com/projectdiscovery/nuclei-templates/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     platforms = lib.platforms.all;
   };
 }

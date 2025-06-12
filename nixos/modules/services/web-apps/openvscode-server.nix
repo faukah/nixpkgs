@@ -3,22 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.openvscode-server;
   defaultUser = "openvscode-server";
   defaultGroup = defaultUser;
-in
-{
+in {
   options = {
     services.openvscode-server = {
       enable = lib.mkEnableOption "openvscode-server";
 
-      package = lib.mkPackageOption pkgs "openvscode-server" { };
+      package = lib.mkPackageOption pkgs "openvscode-server" {};
 
       extraPackages = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           Additional packages to add to the openvscode-server {env}`PATH`.
         '';
@@ -31,14 +28,14 @@ in
         description = ''
           Additional environment variables to pass to openvscode-server.
         '';
-        default = { };
+        default = {};
         example = {
           PKG_CONFIG_PATH = "/run/current-system/sw/lib/pkgconfig";
         };
       };
 
       extraArguments = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           Additional arguments to pass to openvscode-server.
         '';
@@ -83,11 +80,11 @@ in
       };
 
       extraGroups = lib.mkOption {
-        default = [ ];
+        default = [];
         description = ''
           An array of additional groups for the `${defaultUser}` user.
         '';
-        example = [ "docker" ];
+        example = ["docker"];
         type = lib.types.listOf lib.types.str;
       };
 
@@ -165,16 +162,15 @@ in
         '';
         type = lib.types.nullOr lib.types.str;
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.openvscode-server = {
       description = "OpenVSCode server";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       path = cfg.extraPackages;
       environment = cfg.extraEnvironment;
       serviceConfig = {
@@ -230,8 +226,8 @@ in
       }
     ];
 
-    users.groups."${defaultGroup}" = lib.mkIf (cfg.group == defaultGroup) { };
+    users.groups."${defaultGroup}" = lib.mkIf (cfg.group == defaultGroup) {};
   };
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

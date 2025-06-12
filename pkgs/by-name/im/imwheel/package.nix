@@ -9,7 +9,6 @@
   libXt,
   libXtst,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imwheel";
   version = "1.0.0pre12";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://imwheel.sourceforge.net/";
     description = "Mouse wheel configuration tool for XFree86/Xorg";
-    maintainers = with maintainers; [ jhillyerd ];
+    maintainers = with maintainers; [jhillyerd];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
     mainProgram = "imwheel";

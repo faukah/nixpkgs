@@ -8,7 +8,6 @@
   rtl-sdr,
   fftw,
 }:
-
 stdenv.mkDerivation {
   pname = "dabtools";
   version = "20180405";
@@ -35,6 +34,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Opendigitalradio/dabtools";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

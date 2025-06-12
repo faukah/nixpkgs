@@ -60,7 +60,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://marytts.github.io/";
     license = lib.licenses.lgpl3Only;
     inherit (jdk.meta) platforms;
-    maintainers = with lib.maintainers; [ pluiedev ];
+    maintainers = with lib.maintainers; [pluiedev];
     mainProgram = "marytts-server";
     sourceProvenance = with lib.sourceTypes; [
       fromSource

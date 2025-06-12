@@ -19,7 +19,6 @@
   debtcollector,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "python-manilaclient";
   version = "5.5.0";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     sphinxcontrib-programoutput
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     pbr
@@ -58,16 +57,16 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "manilaclient" ];
+  pythonImportsCheck = ["manilaclient"];
 
   meta = with lib; {
     description = "Client library for OpenStack Manila API";
     mainProgram = "manila";
     homepage = "https://github.com/openstack/python-manilaclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

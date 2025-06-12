@@ -5,7 +5,6 @@
   ncurses,
   glibc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "statserial";
   version = "1.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rps ];
+    maintainers = with maintainers; [rps];
     mainProgram = "statserial";
   };
 }

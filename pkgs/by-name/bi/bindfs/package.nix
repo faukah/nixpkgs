@@ -6,7 +6,6 @@
   fuse,
   fuse3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.17.7";
   pname = "bindfs";
@@ -20,7 +19,10 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = if stdenv.hostPlatform.isDarwin then [ fuse ] else [ fuse3 ];
+  buildInputs =
+    if stdenv.hostPlatform.isDarwin
+    then [fuse]
+    else [fuse3];
 
   configureFlags = lib.optional stdenv.hostPlatform.isDarwin "--disable-macos-fs-link";
 

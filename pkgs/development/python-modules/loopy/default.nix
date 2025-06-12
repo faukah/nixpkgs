@@ -5,10 +5,8 @@
   pythonOlder,
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
-
   # build-system
   hatchling,
-
   # dependencies
   pytools,
   pymbolic,
@@ -21,13 +19,11 @@
   mako,
   constantdict,
   typing-extensions,
-
   # optional-dependencies
   pyopencl,
   fparser,
   ply,
 }:
-
 buildPythonPackage rec {
   pname = "loopy";
   version = "2025.1";
@@ -43,9 +39,9 @@ buildPythonPackage rec {
     fetchSubmodules = true; # submodule at `loopy/target/c/compyte`
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+  nativeBuildInputs = [writableTmpDirAsHomeHook];
 
   dependencies = [
     pytools
@@ -71,7 +67,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "loopy" ];
+  pythonImportsCheck = ["loopy"];
 
   # pyopencl._cl.LogicError: clGetPlatformIDs failed: PLATFORM_NOT_FOUND_KHR
   doCheck = false;
@@ -81,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/inducer/loopy";
     changelog = "https://github.com/inducer/loopy/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

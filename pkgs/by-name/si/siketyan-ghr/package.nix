@@ -11,7 +11,6 @@
   zlib,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ghr";
   version = "0.4.4";
@@ -38,10 +37,9 @@ rustPlatform.buildRustPackage rec {
     zstd
   ];
 
-  postInstall =
-    let
-      ghr = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/ghr";
-    in
+  postInstall = let
+    ghr = "${stdenv.hostPlatform.emulator buildPackages} $out/bin/ghr";
+  in
     lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) ''
       installShellCompletion --cmd ghr \
         --bash <(${ghr} shell --completion bash) \
@@ -57,7 +55,7 @@ rustPlatform.buildRustPackage rec {
     description = "Yet another repository management with auto-attaching profiles";
     homepage = "https://github.com/siketyan/ghr";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
     mainProgram = "ghr";
   };
 }

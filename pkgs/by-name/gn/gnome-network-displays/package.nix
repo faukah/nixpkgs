@@ -26,7 +26,6 @@
   pipewire,
   protobufc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-network-displays";
   version = "0.97.0";
@@ -70,13 +69,13 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   /*
-    Without this flag, we get this include error:
+  Without this flag, we get this include error:
 
-    /nix/store/...-gst-rtsp-server-1.22.8-dev/include/gstreamer-1.0/gst/rtsp-server/rtsp-media-factory.h:21:10: fatal error: gst/rtsp/gstrtspurl.h: No such file or directory
-    21 | #include <gst/rtsp/gstrtspurl.h>
+  /nix/store/...-gst-rtsp-server-1.22.8-dev/include/gstreamer-1.0/gst/rtsp-server/rtsp-media-factory.h:21:10: fatal error: gst/rtsp/gstrtspurl.h: No such file or directory
+  21 | #include <gst/rtsp/gstrtspurl.h>
 
-    Hence, this is not necessarily an upstream issue, but could be something
-    wrong with how our gst_all_1 depend on each other.
+  Hence, this is not necessarily an upstream issue, but could be something
+  wrong with how our gst_all_1 depend on each other.
   */
   CFLAGS = "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0";
 
@@ -87,7 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-network-displays";
     description = "Miracast implementation for GNOME";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "gnome-network-displays";

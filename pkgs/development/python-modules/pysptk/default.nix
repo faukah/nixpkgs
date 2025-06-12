@@ -10,7 +10,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "pysptk";
   version = "1.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
 
   PYSPTK_BUILD_VERSION = 0;
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   propagatedBuildInputs = [
     decorator
@@ -38,12 +37,12 @@ buildPythonPackage rec {
   # Tests are not part of the PyPI releases
   doCheck = false;
 
-  pythonImportsCheck = [ "pysptk" ];
+  pythonImportsCheck = ["pysptk"];
 
   meta = with lib; {
     description = "Wrapper for Speech Signal Processing Toolkit (SPTK)";
     homepage = "https://pysptk.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hyphon81 ];
+    maintainers = with maintainers; [hyphon81];
   };
 }

@@ -21,7 +21,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "boatswain";
   version = "5.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -70,8 +69,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/World/boatswain";
     changelog = "https://gitlab.gnome.org/World/boatswain/-/releases/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ _0xMRTT ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [_0xMRTT];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "boatswain";
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;

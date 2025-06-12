@@ -16,7 +16,7 @@ mkLibretroCore {
   };
 
   makefile = "Makefile";
-  makeFlags = [ "PROFILE=${withProfile}" ];
+  makeFlags = ["PROFILE=${withProfile}"];
 
   meta = {
     description = "Fork of bsnes with HLE DSP emulation restored (${withProfile} profile)";

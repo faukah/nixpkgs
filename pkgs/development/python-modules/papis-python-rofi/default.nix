@@ -3,7 +3,6 @@
   lib,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "papis-python-rofi";
   version = "1.0.3";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "Python module to make simple GUIs with Rofi";
     homepage = "https://github.com/alejandrogallo/python-rofi";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

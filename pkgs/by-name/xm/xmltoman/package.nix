@@ -6,7 +6,6 @@
   perl,
   installShellFiles,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "xmltoman";
   version = "0.6";
@@ -48,7 +47,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Two very simple scripts for converting xml to groff or html";
     homepage = "https://github.com/atsb/xmltoman";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     mainProgram = "xmltoman";
     platforms = platforms.all;
   };

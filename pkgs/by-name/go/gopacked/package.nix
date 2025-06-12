@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gopacked";
   version = "0.4.1";
@@ -23,6 +22,6 @@ buildGoModule rec {
     description = "Simple text-based Minecraft modpack manager";
     license = licenses.agpl3Plus;
     homepage = src.meta.homepage;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

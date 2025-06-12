@@ -5,7 +5,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jmespath";
   version = "1.0.1";
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     description = "JMESPath allows you to declaratively specify how to extract elements from a JSON document";
     mainProgram = "jp.py";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

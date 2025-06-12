@@ -16,7 +16,6 @@
   directoryListingUpdater,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-rtsp-server";
   version = "1.26.0";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = directoryListingUpdater { };
+    updateScript = directoryListingUpdater {};
   };
 
   meta = with lib; {
@@ -76,6 +75,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bkchr ];
+    maintainers = with maintainers; [bkchr];
   };
 })

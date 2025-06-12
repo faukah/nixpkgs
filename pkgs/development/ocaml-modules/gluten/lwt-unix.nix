@@ -5,10 +5,10 @@
   gluten-lwt,
   lwt_ssl,
 }:
-
 buildDunePackage {
   pname = "gluten-lwt-unix";
-  inherit (gluten)
+  inherit
+    (gluten)
     doCheck
     meta
     src

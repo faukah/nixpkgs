@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "protoc-gen-go-grpc";
   version = "1.5.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Go language implementation of gRPC. HTTP/2 based RPC";
     homepage = "https://grpc.io/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "protoc-gen-go-grpc";
   };
 }

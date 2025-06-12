@@ -7,7 +7,6 @@
   testers,
   kaniko,
 }:
-
 buildGoModule rec {
   pname = "kaniko";
   version = "1.24.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     "-X github.com/GoogleContainerTools/kaniko/pkg/version.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false; # requires docker, container-diff (unpackaged yet)
 

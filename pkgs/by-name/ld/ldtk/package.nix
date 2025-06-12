@@ -9,7 +9,6 @@
   appimage-run,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ldtk";
   version = "1.5.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     appimage-run
   ];
 
-  buildInputs = [ appimage-run ];
+  buildInputs = [appimage-run];
 
   unpackPhase = ''
     runHook preUnpack
@@ -56,21 +55,21 @@ stdenv.mkDerivation (finalAttrs: {
       terminal = false;
       desktopName = "LDtk";
       comment = "2D level editor";
-      categories = [ "Utility" ];
-      mimeTypes = [ "application/json" ];
+      categories = ["Utility"];
+      mimeTypes = ["application/json"];
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Modern, lightweight and efficient 2D level editor";
     homepage = "https://ldtk.io/";
     changelog = "https://github.com/deepnight/ldtk/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ felschr ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [felschr];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     mainProgram = "ldtk";
   };
 })

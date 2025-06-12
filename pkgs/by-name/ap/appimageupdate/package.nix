@@ -16,7 +16,6 @@
   appimageupdate-qt,
   withQtUI ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "appimageupdate";
   version = "2.0.0-alpha-1-20230526";
@@ -87,8 +86,11 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Update AppImages using information embedded in the AppImage itself";
     homepage = "https://github.com/AppImageCommunity/AppImageUpdate";
     license = lib.licenses.mit;
-    mainProgram = if withQtUI then "AppImageUpdate" else "appimageupdatetool";
-    maintainers = with lib.maintainers; [ aleksana ];
+    mainProgram =
+      if withQtUI
+      then "AppImageUpdate"
+      else "appimageupdatetool";
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

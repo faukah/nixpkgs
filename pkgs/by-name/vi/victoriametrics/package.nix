@@ -11,7 +11,6 @@
   withVmctl ? true, # vmctl is used to migrate time series
   withVictoriaLogs ? true, # logs server
 }:
-
 buildGoModule (finalAttrs: {
   pname = "VictoriaMetrics";
   version = "1.119.0";
@@ -33,13 +32,13 @@ buildGoModule (finalAttrs: {
       "app/vmstorage"
       "app/vmui"
     ]
-    ++ lib.optionals withVmAgent [ "app/vmagent" ]
+    ++ lib.optionals withVmAgent ["app/vmagent"]
     ++ lib.optionals withVmAlert [
       "app/vmalert"
       "app/vmalert-tool"
     ]
-    ++ lib.optionals withVmAuth [ "app/vmauth" ]
-    ++ lib.optionals withVmctl [ "app/vmctl" ]
+    ++ lib.optionals withVmAuth ["app/vmauth"]
+    ++ lib.optionals withVmctl ["app/vmctl"]
     ++ lib.optionals withBackupTools [
       "app/vmbackup"
       "app/vmrestore"

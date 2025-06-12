@@ -21,7 +21,6 @@
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libproxy";
   version = "0.5.9";
@@ -122,11 +121,10 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) src;
     };
 
-    updateScript =
-      let
-        updateSource = gitUpdater { };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "libproxy.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-      in
+    updateScript = let
+      updateSource = gitUpdater {};
+      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "libproxy.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updatePatch

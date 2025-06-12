@@ -6,7 +6,6 @@
   pkg-config,
   udev,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "asdbctl";
   version = "1.0.0";

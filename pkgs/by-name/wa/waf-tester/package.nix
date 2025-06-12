@@ -5,7 +5,6 @@
   testers,
   waf-tester,
 }:
-
 buildGoModule rec {
   pname = "waf-tester";
   version = "0.6.13";
@@ -37,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/jreisinger/waf-tester";
     changelog = "https://github.com/jreisinger/waf-tester/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

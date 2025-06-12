@@ -12,7 +12,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "python-opensky";
   version = "1.0.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace ".joinpath(uri)" "/ uri"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "python_opensky" ];
+  pythonImportsCheck = ["python_opensky"];
 
   meta = with lib; {
     description = "Asynchronous Python client for the OpenSky API";
     homepage = "https://github.com/joostlek/python-opensky";
     changelog = "https://github.com/joostlek/python-opensky/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

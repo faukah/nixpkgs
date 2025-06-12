@@ -10,67 +10,62 @@
   uutf,
   uunf,
   uucd,
-}:
-
-let
+}: let
   pname = "uucp";
   version = "16.0.0";
   webpage = "https://erratique.ch/software/${pname}";
   minimalOCamlVersion = "4.03";
   doCheck = true;
 in
+  if lib.versionOlder ocaml.version minimalOCamlVersion
+  then builtins.throw "${pname} needs at least OCaml ${minimalOCamlVersion}"
+  else
+    stdenv.mkDerivation {
+      name = "ocaml${ocaml.version}-${pname}-${version}";
 
-if lib.versionOlder ocaml.version minimalOCamlVersion then
-  builtins.throw "${pname} needs at least OCaml ${minimalOCamlVersion}"
-else
+      src = fetchurl {
+        url = "${webpage}/releases/${pname}-${version}.tbz";
+        hash = "sha256-5//UGI4u3OROYdxtwz9K2vCTzYiN16mOyEFhUQWtgEQ=";
+      };
 
-  stdenv.mkDerivation {
+      nativeBuildInputs = [
+        ocaml
+        findlib
+        ocamlbuild
+        topkg
+      ];
+      buildInputs = [
+        topkg
+        uutf
+        uunf
+        uucd
+      ];
 
-    name = "ocaml${ocaml.version}-${pname}-${version}";
+      propagatedBuildInputs = [uchar];
 
-    src = fetchurl {
-      url = "${webpage}/releases/${pname}-${version}.tbz";
-      hash = "sha256-5//UGI4u3OROYdxtwz9K2vCTzYiN16mOyEFhUQWtgEQ=";
-    };
+      strictDeps = true;
 
-    nativeBuildInputs = [
-      ocaml
-      findlib
-      ocamlbuild
-      topkg
-    ];
-    buildInputs = [
-      topkg
-      uutf
-      uunf
-      uucd
-    ];
+      buildPhase = ''
+        runHook preBuild
+        ${topkg.buildPhase} --with-cmdliner false --tests ${lib.boolToString doCheck}
+        runHook postBuild
+      '';
 
-    propagatedBuildInputs = [ uchar ];
+      inherit (topkg) installPhase;
 
-    strictDeps = true;
+      inherit doCheck;
+      checkPhase = ''
+        runHook preCheck
+        ${topkg.run} test
+        runHook postCheck
+      '';
+      checkInputs = [uucd];
 
-    buildPhase = ''
-      runHook preBuild
-      ${topkg.buildPhase} --with-cmdliner false --tests ${lib.boolToString doCheck}
-      runHook postBuild
-    '';
-
-    inherit (topkg) installPhase;
-
-    inherit doCheck;
-    checkPhase = ''
-      runHook preCheck
-      ${topkg.run} test
-      runHook postCheck
-    '';
-    checkInputs = [ uucd ];
-
-    meta = with lib; {
-      description = "OCaml library providing efficient access to a selection of character properties of the Unicode character database";
-      homepage = webpage;
-      inherit (ocaml.meta) platforms;
-      license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
-    };
-  }
+      meta = with lib; {
+        description = "OCaml library providing efficient access to a selection of character properties of the Unicode character database";
+        homepage = webpage;
+        inherit (ocaml.meta) platforms;
+        license = licenses.bsd3;
+        maintainers = [maintainers.vbgl];
+      };
+    }

@@ -10,7 +10,6 @@
   runCommand,
   bowtie2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bowtie2";
   version = "2.5.4";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "-m64" ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     tbb
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = false;
 
   passthru.tests = {
-    ctest = runCommand "${finalAttrs.pname}-test" { } ''
+    ctest = runCommand "${finalAttrs.pname}-test" {} ''
       mkdir $out
       ${lib.getExe bowtie2} -x ${finalAttrs.src}/example/index/lambda_virus ${finalAttrs.src}/example/reads/longreads.fq -u 10
       ${bowtie2}/bin/bowtie2-build-s -c GGGCGGCGACCTCGCGGGTTTTCGCTA $out/small
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Plus;
     homepage = "http://bowtie-bio.sf.net/bowtie2";
     changelog = "https://github.com/BenLangmead/bowtie2/releases/tag/v${finalAttrs.version}";
-    maintainers = with maintainers; [ rybern ];
+    maintainers = with maintainers; [rybern];
     platforms = platforms.all;
     mainProgram = "bowtie2";
   };

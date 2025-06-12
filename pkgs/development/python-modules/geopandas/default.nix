@@ -6,14 +6,12 @@
   pytestCheckHook,
   pythonOlder,
   setuptools,
-
   packaging,
   pandas,
   pyogrio,
   pyproj,
   rtree,
   shapely,
-
   # optional-dependencies
   folium,
   geoalchemy2,
@@ -25,7 +23,6 @@
   sqlalchemy,
   xyzservices,
 }:
-
 buildPythonPackage rec {
   pname = "geopandas";
   version = "1.0.1";
@@ -40,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-SZizjwkx8dsnaobDYpeQm9jeXZ4PlzYyjIScnQrH63Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     packaging
@@ -70,10 +67,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    rtree
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      rtree
+    ]
+    ++ optional-dependencies.all;
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -86,15 +85,15 @@ buildPythonPackage rec {
     "test_read_file_url"
   ];
 
-  pytestFlagsArray = [ "geopandas" ];
+  pytestFlagsArray = ["geopandas"];
 
-  pythonImportsCheck = [ "geopandas" ];
+  pythonImportsCheck = ["geopandas"];
 
   meta = with lib; {
     description = "Python geospatial data analysis framework";
     homepage = "https://geopandas.org";
     changelog = "https://github.com/geopandas/geopandas/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    teams = [ teams.geospatial ];
+    teams = [teams.geospatial];
   };
 }

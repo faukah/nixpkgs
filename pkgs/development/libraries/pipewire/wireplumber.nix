@@ -22,15 +22,16 @@
   enableDocs ? true,
   enableGI ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wireplumber";
   version = "0.5.10";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional enableDocs "doc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional enableDocs "doc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -56,13 +57,13 @@ stdenv.mkDerivation rec {
       doxygen
       (python3.pythonOnBuildForHost.withPackages (
         ps:
-        with ps;
-        lib.optionals enableDocs [
-          sphinx
-          sphinx-rtd-theme
-          breathe
-        ]
-        ++ lib.optionals enableGI [ lxml ]
+          with ps;
+            lib.optionals enableDocs [
+              sphinx
+              sphinx-rtd-theme
+              breathe
+            ]
+            ++ lib.optionals enableGI [lxml]
       ))
     ];
 
@@ -83,13 +84,13 @@ stdenv.mkDerivation rec {
     (lib.mesonOption "sysconfdir" "/etc")
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Modular session / policy manager for PipeWire";
     homepage = "https://pipewire.org";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
   };
 }

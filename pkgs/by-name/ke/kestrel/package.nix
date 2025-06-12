@@ -4,7 +4,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kestrel";
   version = "1.0.2";
@@ -37,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     ";
     homepage = "https://getkestrel.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

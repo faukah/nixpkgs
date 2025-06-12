@@ -7,7 +7,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "scspell";
   version = "2.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-XiUdz+uHOJlqo+TWd1V/PvzkGJ2kPXzJJSe5Smfdgec=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyxdg
@@ -33,13 +32,13 @@ buildPythonPackage rec {
 
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "scspell" ];
+  pythonImportsCheck = ["scspell"];
 
   meta = {
     description = "A spell checker for source code";
     homepage = "https://github.com/myint/scspell";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ guelakais ];
+    maintainers = with lib.maintainers; [guelakais];
     mainProgram = "scspell";
   };
 }

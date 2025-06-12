@@ -10,7 +10,6 @@
   rich,
   uv-dynamic-versioning,
 }:
-
 buildPythonPackage rec {
   pname = "getjump";
   version = "2.7.3";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     rich
   ];
 
-  pythonImportsCheck = [ "getjump" ];
+  pythonImportsCheck = ["getjump"];
 
   # all the tests talk to the internet
   doCheck = false;
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/eggplants/getjump";
     changelog = "https://github.com/eggplants/getjump/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "jget";
   };
 }

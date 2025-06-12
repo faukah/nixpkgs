@@ -3,23 +3,24 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.boot.initrd.unl0kr;
-  settingsFormat = pkgs.formats.ini { };
-in
-{
+  settingsFormat = pkgs.formats.ini {};
+in {
   options.boot.initrd.unl0kr = {
-    enable = lib.mkEnableOption "unl0kr in initrd" // {
-      description = ''Whether to enable the unl0kr on-screen keyboard in initrd to unlock LUKS.'';
-    };
+    enable =
+      lib.mkEnableOption "unl0kr in initrd"
+      // {
+        description = ''Whether to enable the unl0kr on-screen keyboard in initrd to unlock LUKS.'';
+      };
 
-    package = lib.mkPackageOption pkgs "buffybox" { };
+    package = lib.mkPackageOption pkgs "buffybox" {};
 
-    allowVendorDrivers = lib.mkEnableOption "load optional drivers" // {
-      description = ''Whether to load additional drivers for certain vendors (I.E: Wacom, Intel, etc.)'';
-    };
+    allowVendorDrivers =
+      lib.mkEnableOption "load optional drivers"
+      // {
+        description = ''Whether to load additional drivers for certain vendors (I.E: Wacom, Intel, etc.)'';
+      };
 
     settings = lib.mkOption {
       description = ''
@@ -40,13 +41,13 @@ in
           };
         }
       '';
-      default = { };
-      type = lib.types.submodule { freeformType = settingsFormat.type; };
+      default = {};
+      type = lib.types.submodule {freeformType = settingsFormat.type;};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    meta.maintainers = with lib.maintainers; [ hustlerone ];
+    meta.maintainers = with lib.maintainers; [hustlerone];
     assertions = [
       {
         assertion = cfg.enable -> config.boot.initrd.systemd.enable;
@@ -96,7 +97,7 @@ in
         pkgs.buffybox
       ];
 
-      paths.unl0kr-agent.wantedBy = [ "local-fs-pre.target" ];
+      paths.unl0kr-agent.wantedBy = ["local-fs-pre.target"];
     };
   };
 }

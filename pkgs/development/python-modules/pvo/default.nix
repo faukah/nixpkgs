@@ -13,7 +13,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "pvo";
   version = "2.2.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace "0.0.0" "${version}"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "pvo" ];
+  pythonImportsCheck = ["pvo"];
 
   meta = with lib; {
     description = "Python module to interact with the PVOutput API";
     homepage = "https://github.com/frenck/python-pvoutput";
     changelog = "https://github.com/frenck/python-pvoutput/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

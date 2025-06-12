@@ -26,6 +26,6 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ dod-101 ];
+    maintainers = with lib.maintainers; [dod-101];
   };
 }

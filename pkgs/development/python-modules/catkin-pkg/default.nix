@@ -8,7 +8,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "catkin-pkg";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-lHUKhE9dQLO1MbkstUEiGrHc9Rm+bY/AmgLyh7AbvFQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docutils
@@ -31,17 +30,17 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "catkin_pkg" ];
+  pythonImportsCheck = ["catkin_pkg"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "test/test_flake8.py" ];
+  disabledTestPaths = ["test/test_flake8.py"];
 
   meta = {
     changelog = "https://github.com/ros-infrastructure/catkin_pkg/blob/${version}/CHANGELOG.rst";
     description = "Library for retrieving information about catkin packages";
     homepage = "http://wiki.ros.org/catkin_pkg";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
   };
 }

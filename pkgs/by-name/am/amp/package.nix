@@ -12,7 +12,6 @@
   curl,
   writableTmpDirAsHomeHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "amp";
   version = "0.7.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-xNadwz2agPbxvgUqrUf1+KsWTmeNh8hJIWcNwTzzM/M=";
   };
 
-  cargoPatches = [ ./update_time_crate.patch ];
+  cargoPatches = [./update_time_crate.patch];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-4lYywaPTfoOHEYHy+h7HfWn+OaDdk166tQ8ZFx9XZK0=";

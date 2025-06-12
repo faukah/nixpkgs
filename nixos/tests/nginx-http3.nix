@@ -1,88 +1,90 @@
-{ pkgs, runTest, ... }:
-let
+{
+  pkgs,
+  runTest,
+  ...
+}: let
   hosts = ''
     192.168.2.101 acme.test
   '';
-
 in
-builtins.listToAttrs (
-  builtins.map
+  builtins.listToAttrs (
+    builtins.map
     (nginxPackage: {
       name = pkgs.lib.getName nginxPackage;
       value = runTest {
         name = "nginx-http3-${pkgs.lib.getName nginxPackage}";
-        meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+        meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
         nodes = {
-          server =
-            { lib, pkgs, ... }:
-            {
-              networking = {
-                interfaces.eth1 = {
-                  ipv4.addresses = [
-                    {
-                      address = "192.168.2.101";
-                      prefixLength = 24;
-                    }
-                  ];
-                };
-                extraHosts = hosts;
-                firewall.allowedTCPPorts = [ 443 ];
-                firewall.allowedUDPPorts = [ 443 ];
+          server = {
+            lib,
+            pkgs,
+            ...
+          }: {
+            networking = {
+              interfaces.eth1 = {
+                ipv4.addresses = [
+                  {
+                    address = "192.168.2.101";
+                    prefixLength = 24;
+                  }
+                ];
               };
-
-              security.pki.certificates = [
-                (builtins.readFile ./common/acme/server/ca.cert.pem)
-              ];
-
-              services.nginx = {
-                enable = true;
-                package = nginxPackage;
-
-                virtualHosts."acme.test" = {
-                  onlySSL = true;
-                  sslCertificate = ./common/acme/server/acme.test.cert.pem;
-                  sslCertificateKey = ./common/acme/server/acme.test.key.pem;
-                  http2 = true;
-                  http3 = true;
-                  http3_hq = false;
-                  quic = true;
-                  reuseport = true;
-                  root = lib.mkForce (
-                    pkgs.runCommandLocal "testdir" { } ''
-                      mkdir "$out"
-                      cat > "$out/index.html" <<EOF
-                      <html><body>Hello World!</body></html>
-                      EOF
-                      cat > "$out/example.txt" <<EOF
-                      Check http3 protocol.
-                      EOF
-                    ''
-                  );
-                };
-              };
+              extraHosts = hosts;
+              firewall.allowedTCPPorts = [443];
+              firewall.allowedUDPPorts = [443];
             };
 
-          client =
-            { pkgs, ... }:
-            {
-              environment.systemPackages = [ pkgs.curlHTTP3 ];
-              networking = {
-                interfaces.eth1 = {
-                  ipv4.addresses = [
-                    {
-                      address = "192.168.2.201";
-                      prefixLength = 24;
-                    }
-                  ];
-                };
-                extraHosts = hosts;
-              };
+            security.pki.certificates = [
+              (builtins.readFile ./common/acme/server/ca.cert.pem)
+            ];
 
-              security.pki.certificates = [
-                (builtins.readFile ./common/acme/server/ca.cert.pem)
-              ];
+            services.nginx = {
+              enable = true;
+              package = nginxPackage;
+
+              virtualHosts."acme.test" = {
+                onlySSL = true;
+                sslCertificate = ./common/acme/server/acme.test.cert.pem;
+                sslCertificateKey = ./common/acme/server/acme.test.key.pem;
+                http2 = true;
+                http3 = true;
+                http3_hq = false;
+                quic = true;
+                reuseport = true;
+                root = lib.mkForce (
+                  pkgs.runCommandLocal "testdir" {} ''
+                    mkdir "$out"
+                    cat > "$out/index.html" <<EOF
+                    <html><body>Hello World!</body></html>
+                    EOF
+                    cat > "$out/example.txt" <<EOF
+                    Check http3 protocol.
+                    EOF
+                  ''
+                );
+              };
             };
+          };
+
+          client = {pkgs, ...}: {
+            environment.systemPackages = [pkgs.curlHTTP3];
+            networking = {
+              interfaces.eth1 = {
+                ipv4.addresses = [
+                  {
+                    address = "192.168.2.201";
+                    prefixLength = 24;
+                  }
+                ];
+              };
+              extraHosts = hosts;
+            };
+
+            security.pki.certificates = [
+              (builtins.readFile ./common/acme/server/ca.cert.pem)
+            ];
+          };
         };
 
         testScript = ''
@@ -117,4 +119,4 @@ builtins.listToAttrs (
       pkgs.angieQuic
       pkgs.nginxQuic
     ]
-)
+  )

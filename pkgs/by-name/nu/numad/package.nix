@@ -5,7 +5,6 @@
   unstableGitUpdater,
   writeShellScript,
 }:
-
 stdenv.mkDerivation {
   pname = "numad";
   version = "0.5-unstable-2023-09-06";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     substituteInPlace Makefile --replace "install -m" "install -Dm"
   '';
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   passthru.updateScript = unstableGitUpdater {
     tagConverter = writeShellScript "tagConverter" ''
@@ -36,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://fedoraproject.org/wiki/Features/numad";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

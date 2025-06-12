@@ -10,7 +10,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "elasticsearch";
   version = "8.17.2";
@@ -23,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-/38duK7v2HzrpO3OOqQHCZRYLmzwKdLme3TmbWNFCds=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ elastic-transport ];
+  dependencies = [elastic-transport];
 
   optional-dependencies = {
-    requests = [ requests ];
-    async = [ aiohttp ];
-    orjson = [ orjson ];
-    pyarrow = [ pyarrow ];
+    requests = [requests];
+    async = [aiohttp];
+    orjson = [orjson];
+    pyarrow = [pyarrow];
   };
 
-  pythonImportsCheck = [ "elasticsearch" ];
+  pythonImportsCheck = ["elasticsearch"];
 
   # Check is disabled because running them destroy the content of the local cluster!
   # https://github.com/elasticsearch/elasticsearch-py/tree/master/test_elasticsearch
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/elasticsearch/elasticsearch-py";
     changelog = "https://github.com/elastic/elasticsearch-py/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

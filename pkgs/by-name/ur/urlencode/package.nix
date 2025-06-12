@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "CLI utility for URL-encoding or -decoding strings";
     homepage = "https://github.com/dead10ck/urlencode";
     license = licenses.mit;
-    maintainers = with maintainers; [ l0b0 ];
+    maintainers = with maintainers; [l0b0];
     mainProgram = "urlencode";
   };
 }

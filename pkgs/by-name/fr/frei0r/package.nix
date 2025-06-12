@@ -10,7 +10,6 @@
   cudaSupport ? config.cudaSupport,
   cudaPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "frei0r-plugins";
   version = "2.3.3";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://frei0r.dyne.org";
     description = "Minimalist, cross-platform, shared video plugins";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

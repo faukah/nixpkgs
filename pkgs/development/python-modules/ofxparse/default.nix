@@ -6,7 +6,6 @@
   beautifulsoup4,
   lxml,
 }:
-
 buildPythonPackage rec {
   pname = "ofxparse";
   version = "0.21";

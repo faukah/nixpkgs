@@ -4,20 +4,20 @@
   fetchFromGitHub,
   autoreconfHook,
   pkg-config,
-
   enablePython ? false,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libplist";
   version = "2.6.0";
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ] ++ lib.optional enablePython "py";
+  outputs =
+    [
+      "bin"
+      "dev"
+      "out"
+    ]
+    ++ lib.optional enablePython "py";
 
   src = fetchFromGitHub {
     owner = "libimobiledevice";
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Library to handle Apple Property List format in binary or XML";
     homepage = "https://github.com/libimobiledevice/libplist";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "plistutil";
   };

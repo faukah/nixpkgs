@@ -5,7 +5,6 @@
   rustPlatform,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "topgrade";
   version = "16.0.3";

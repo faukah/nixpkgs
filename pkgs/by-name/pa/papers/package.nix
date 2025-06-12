@@ -34,7 +34,6 @@
   cargo,
   rustPlatform,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "papers";
   version = "48.2";
@@ -51,7 +50,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       src
       pname
       version
@@ -141,6 +141,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
     mainProgram = "papers";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

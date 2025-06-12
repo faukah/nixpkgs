@@ -4,7 +4,6 @@
   flit-core,
   ninja,
 }:
-
 buildPythonPackage {
   pname = "ninja";
   inherit (ninja) version;
@@ -23,7 +22,7 @@ buildPythonPackage {
 
   inherit (ninja) setupHook;
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   preBuild = ''
     cp "${ninja.src}/misc/ninja_syntax.py" ninja/ninja_syntax.py

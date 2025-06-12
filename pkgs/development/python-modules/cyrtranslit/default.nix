@@ -5,7 +5,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "cyrtranslit";
   version = "1.1.1";
@@ -19,17 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-t8UTOmjGqjmxU7+Po0/HmOPWAvcgZibaUC9dMlttA/0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "cyrtranslit" ];
+  pythonImportsCheck = ["cyrtranslit"];
 
   meta = with lib; {
     description = "Transliterate Cyrillic script to Latin script and vice versa";
     homepage = "https://github.com/opendatakosovo/cyrillic-transliteration";
     license = licenses.mit;
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
-
 }

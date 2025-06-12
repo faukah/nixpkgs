@@ -14,7 +14,6 @@
   setuptools,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "hahomematic";
   version = "2025.4.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools==78.1.0" "setuptools" \
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "hahomematic" ];
+  pythonImportsCheck = ["hahomematic"];
 
   meta = with lib; {
     description = "Python module to interact with HomeMatic devices";

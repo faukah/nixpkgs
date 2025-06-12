@@ -13,7 +13,6 @@
   flex,
   bison,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dvdauthor";
   version = "0.7.2";

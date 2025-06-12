@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   qtpy,
-
   # tests
   pyqt6,
   qt6,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pythonqwt";
   version = "0.14.5";
@@ -48,13 +44,13 @@ buildPythonPackage rec {
     export QT_QPA_PLATFORM=offscreen
   '';
 
-  pythonImportsCheck = [ "qwt" ];
+  pythonImportsCheck = ["qwt"];
 
   meta = {
     description = "Qt plotting widgets for Python (pure Python reimplementation of Qwt C++ library)";
     homepage = "https://github.com/PlotPyStack/PythonQwt";
     changelog = "https://github.com/PlotPyStack/PythonQwt/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

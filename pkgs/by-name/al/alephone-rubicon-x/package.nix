@@ -1,5 +1,7 @@
-{ alephone, fetchurl }:
-
+{
+  alephone,
+  fetchurl,
+}:
 alephone.makeWrapper {
   pname = "rubicon-x";
   version = "20150620";
@@ -19,5 +21,4 @@ alephone.makeWrapper {
     '';
     homepage = "http://www.marathonrubicon.com/";
   };
-
 }

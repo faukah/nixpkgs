@@ -10,14 +10,12 @@
   importlib-resources,
   importlib-metadata,
   git,
-
   # for tests
   pytestCheckHook,
   sby,
   yices,
   yosys,
 }:
-
 buildPythonPackage rec {
   pname = "amaranth";
   version = "0.5.6";
@@ -37,9 +35,9 @@ buildPythonPackage rec {
       --replace-fail "pdm-backend~=2.3.0" "pdm-backend>=2.3.0"
   '';
 
-  nativeBuildInputs = [ git ];
+  nativeBuildInputs = [git];
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies =
     [
@@ -57,7 +55,7 @@ buildPythonPackage rec {
     yosys
   ];
 
-  pythonImportsCheck = [ "amaranth" ];
+  pythonImportsCheck = ["amaranth"];
 
   disabledTests = [
     "verilog"

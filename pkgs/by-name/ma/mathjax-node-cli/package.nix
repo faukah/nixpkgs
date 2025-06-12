@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildNpmPackage rec {
   pname = "mathjax-node-cli";
   version = "1.0.1";
@@ -33,6 +32,6 @@ buildNpmPackage rec {
     description = "CLI tools for mathjax-node";
     homepage = "https://github.com/mathjax/mathjax-node-cli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
   };
 }

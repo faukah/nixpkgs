@@ -13,7 +13,6 @@
   expat,
   libGL,
   nanosvg,
-
   libX11,
   libxkbcommon,
   libXext,
@@ -24,15 +23,12 @@
   libXcursor,
   libXpresent,
   libXdmcp,
-
   wayland,
   wayland-protocols,
   wayland-scanner,
-
   pipewire,
   pulseaudio,
   libsamplerate,
-
   openGLSupport ? true,
   xorgSupport ? true,
   waylandSupport ? true,
@@ -100,12 +96,12 @@ stdenv.mkDerivation (finalAttrs: {
     ];
 
   cmakeFlags =
-    [ "-DOPTIMIZE_FOR_NATIVE=OFF" ]
-    ++ lib.optionals (!openGLSupport) [ "-DENABLE_OPENGL=no" ]
-    ++ lib.optionals (!xorgSupport) [ "-DENABLE_X11=no" ]
-    ++ lib.optionals (!waylandSupport) [ "-DENABLE_WAYLAND=no" ]
-    ++ lib.optionals (!pulseSupport) [ "-DENABLE_PULSEAUDIO=no" ]
-    ++ lib.optionals (!pipewireSupport) [ "-DENABLE_PIPEWIRE=no" ];
+    ["-DOPTIMIZE_FOR_NATIVE=OFF"]
+    ++ lib.optionals (!openGLSupport) ["-DENABLE_OPENGL=no"]
+    ++ lib.optionals (!xorgSupport) ["-DENABLE_X11=no"]
+    ++ lib.optionals (!waylandSupport) ["-DENABLE_WAYLAND=no"]
+    ++ lib.optionals (!pulseSupport) ["-DENABLE_PULSEAUDIO=no"]
+    ++ lib.optionals (!pipewireSupport) ["-DENABLE_PIPEWIRE=no"];
 
   postUnpack = ''
     echo ${finalAttrs.src.rev} > source/VERSION
@@ -134,6 +130,6 @@ stdenv.mkDerivation (finalAttrs: {
       babbaj
       j-brn
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

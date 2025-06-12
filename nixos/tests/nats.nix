@@ -1,56 +1,49 @@
 let
-
   port = 4222;
   username = "client";
   password = "password";
   topic = "foo.bar";
-
 in
-{ pkgs, lib, ... }:
-{
-  name = "nats";
-  meta = with pkgs.lib; {
-    maintainers = with maintainers; [ c0deaddict ];
-  };
+  {
+    pkgs,
+    lib,
+    ...
+  }: {
+    name = "nats";
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [c0deaddict];
+    };
 
-  nodes =
-    let
-      client =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = with pkgs; [ natscli ];
-        };
-    in
-    {
-      server =
-        { pkgs, ... }:
-        {
-          networking.firewall.allowedTCPPorts = [ port ];
-          services.nats = {
-            inherit port;
-            enable = true;
-            settings = {
-              authorization = {
-                users = [
-                  {
-                    user = username;
-                    inherit password;
-                  }
-                ];
-              };
+    nodes = let
+      client = {pkgs, ...}: {
+        environment.systemPackages = with pkgs; [natscli];
+      };
+    in {
+      server = {pkgs, ...}: {
+        networking.firewall.allowedTCPPorts = [port];
+        services.nats = {
+          inherit port;
+          enable = true;
+          settings = {
+            authorization = {
+              users = [
+                {
+                  user = username;
+                  inherit password;
+                }
+              ];
             };
           };
         };
+      };
 
       client1 = client;
       client2 = client;
     };
 
-  testScript =
-    let
+    testScript = let
       file = "/tmp/msg";
-    in
-    ''
+    in ''
       def nats_cmd(*args):
           return (
               "nats "
@@ -75,4 +68,4 @@ in
               lambda: client2.succeed("sleep 2 && {}".format(nats_cmd("pub", "${topic}", "hello"))),
           )
     '';
-}
+  }

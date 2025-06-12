@@ -8,7 +8,6 @@
   fetchurl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lpairs2";
   version = "2.3.2";
@@ -36,9 +35,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "http://lgames.sourceforge.net/LPairs/";
     description = "Matching the pairs - a typical Memory Game";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "lpairs2";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

@@ -19,7 +19,7 @@ buildHomeAssistantComponent rec {
     changelog = "https://github.com/bjrnptrsn/climate_group/blob/${src.rev}/README.md#changelog";
     description = "Group multiple climate devices to a single entity";
     homepage = "https://github.com/bjrnptrsn/climate_group";
-    maintainers = builtins.attrValues { inherit (lib.maintainers) jamiemagee; };
+    maintainers = builtins.attrValues {inherit (lib.maintainers) jamiemagee;};
     license = lib.licenses.mit;
   };
 }

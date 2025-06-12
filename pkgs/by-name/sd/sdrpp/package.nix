@@ -39,14 +39,12 @@
   usrp_source ? false,
   uhd,
   boost,
-
   # Sinks
   audio_sink ? true,
   rtaudio,
   network_sink ? true,
   portaudio_sink ? false,
   portaudio,
-
   # Decoders
   falcon9_decoder ? false,
   m17_decoder ? false,
@@ -54,7 +52,6 @@
   meteor_demodulator ? true,
   radio ? true,
   weather_sat_decoder ? false, # is missing some dsp/pll.h
-
   # Misc
   discord_presence ? true,
   frequency_manager ? true,
@@ -62,7 +59,6 @@
   rigctl_server ? true,
   scanner ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sdrpp";
 
@@ -80,7 +76,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-R4xWeqdHEAaje37VQaGlg+L2iYIOH4tXMHvZkZq4SDU=";
   };
 
-  patches = [ ./runtime-prefix.patch ];
+  patches = [./runtime-prefix.patch];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -177,7 +173,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlexandreRouma/SDRPlusPlus";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     mainProgram = "sdrpp";
   };
 }

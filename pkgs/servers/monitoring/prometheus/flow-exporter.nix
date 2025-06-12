@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "flow-exporter";
   version = "1.1.1";
@@ -22,7 +21,7 @@ buildGoModule rec {
     mainProgram = "flow-exporter";
     homepage = "https://github.com/neptune-networks/flow-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ kloenk ];
+    maintainers = with maintainers; [kloenk];
     platforms = platforms.linux;
   };
 }

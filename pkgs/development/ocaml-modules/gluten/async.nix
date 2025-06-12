@@ -5,7 +5,6 @@
   faraday-async,
   core,
 }:
-
 buildDunePackage {
   pname = "gluten-async";
   inherit (gluten) src version;
@@ -17,7 +16,9 @@ buildDunePackage {
     core
   ];
 
-  meta = gluten.meta // {
-    description = "Async support for gluten";
-  };
+  meta =
+    gluten.meta
+    // {
+      description = "Async support for gluten";
+    };
 }

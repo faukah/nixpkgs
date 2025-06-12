@@ -5,8 +5,7 @@
   xcursorgen,
   fetchFromGitHub,
   fetchpatch2,
-}:
-let
+}: let
   styles = [
     "LyraB"
     "LyraF"
@@ -28,55 +27,55 @@ let
     hash = "sha256-KCT4zNdep1TB7Oa4qrPw374ahT30o9/QrNTEgobp8zM=";
   };
 in
-stdenvNoCC.mkDerivation {
-  pname = "lyra-cursors";
-  version = "0-unstable-2021-12-04";
+  stdenvNoCC.mkDerivation {
+    pname = "lyra-cursors";
+    version = "0-unstable-2021-12-04";
 
-  src = fetchFromGitHub {
-    owner = "yeyushengfan258";
-    repo = "Lyra-Cursors";
-    rev = "c096c54034f95bd35699b3226250e5c5ec015d9a";
-    hash = "sha256-lfaX8ouE0JaQwVBpAGsrLIExQZ2rCSFKPs3cch17eYg=";
-  };
+    src = fetchFromGitHub {
+      owner = "yeyushengfan258";
+      repo = "Lyra-Cursors";
+      rev = "c096c54034f95bd35699b3226250e5c5ec015d9a";
+      hash = "sha256-lfaX8ouE0JaQwVBpAGsrLIExQZ2rCSFKPs3cch17eYg=";
+    };
 
-  nativeBuildInputs = [
-    inkscape
-    xcursorgen
-  ];
+    nativeBuildInputs = [
+      inkscape
+      xcursorgen
+    ];
 
-  patches = [ buildScriptPatch ];
+    patches = [buildScriptPatch];
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  postPatch = ''
-    patchShebangs build.sh
-  '';
+    postPatch = ''
+      patchShebangs build.sh
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    rm -r dist
-    for THEME in ${lib.escapeShellArgs styles}; do
-      ./build.sh "$THEME"
-    done
+      rm -r dist
+      for THEME in ${lib.escapeShellArgs styles}; do
+        ./build.sh "$THEME"
+      done
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/share/icons
-    mv dist/*-cursors $out/share/icons
+      mkdir -p $out/share/icons
+      mv dist/*-cursors $out/share/icons
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Cursor theme inspired by macOS and based on capitaine-cursors";
-    homepage = "https://github.com/yeyushengfan258/Lyra-Cursors";
-    license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lordmzte ];
-  };
-}
+    meta = {
+      description = "Cursor theme inspired by macOS and based on capitaine-cursors";
+      homepage = "https://github.com/yeyushengfan258/Lyra-Cursors";
+      license = lib.licenses.gpl3Only;
+      platforms = lib.platforms.all;
+      maintainers = with lib.maintainers; [lordmzte];
+    };
+  }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rakkess";
   version = "0.5.1";
@@ -36,6 +35,6 @@ buildGoModule rec {
       `kubectl auth can-i --list`.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

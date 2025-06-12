@@ -13,7 +13,6 @@
   wafHook,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "talloc";
   version = "2.4.3";
@@ -86,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tdb.samba.org/";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
   };
 }

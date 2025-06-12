@@ -5,7 +5,6 @@
   kics,
   testers,
 }:
-
 buildGoModule rec {
   pname = "kics";
   version = "2.1.10";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-H+k3CtzyxXOCw12Fo1EdAckj0fS+Py9QOdMxYiR56Fo=";
 
-  subPackages = [ "cmd/console" ];
+  subPackages = ["cmd/console"];
 
   postInstall = ''
     mv $out/bin/console $out/bin/kics
@@ -47,7 +46,7 @@ buildGoModule rec {
     homepage = "https://github.com/Checkmarx/kics";
     changelog = "https://github.com/Checkmarx/kics/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ patryk4815 ];
+    maintainers = with lib.maintainers; [patryk4815];
     mainProgram = "kics";
   };
 }

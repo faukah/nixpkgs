@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.ejabberd;
 
   ctlcfg = pkgs.writeText "ejabberdctl.cfg" ''
@@ -14,27 +12,22 @@ let
   '';
 
   ectl = ''${cfg.package}/bin/ejabberdctl ${
-    lib.optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
-  } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
+      lib.optionalString (cfg.configFile != null) "--config ${cfg.configFile}"
+    } --ctl-config "${ctlcfg}" --spool "${cfg.spoolDir}" --logs "${cfg.logsDir}"'';
 
   dumps = lib.escapeShellArgs cfg.loadDumps;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.ejabberd = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         description = "Whether to enable ejabberd server";
       };
 
-      package = lib.mkPackageOption pkgs "ejabberd" { };
+      package = lib.mkPackageOption pkgs "ejabberd" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -74,7 +67,7 @@ in
 
       loadDumps = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = "Configuration dumps that should be loaded on the first startup";
         example = lib.literalExpression "[ ./myejabberd.dump ]";
       };
@@ -85,13 +78,12 @@ in
         description = "Add ImageMagick to server's path; allows for image thumbnailing";
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = lib.optionalAttrs (cfg.user == "ejabberd") {
       ejabberd = {
@@ -108,12 +100,14 @@ in
 
     systemd.services.ejabberd = {
       description = "ejabberd server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [
-        pkgs.findutils
-        pkgs.coreutils
-      ] ++ lib.optional cfg.imagemagick pkgs.imagemagick;
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path =
+        [
+          pkgs.findutils
+          pkgs.coreutils
+        ]
+        ++ lib.optional cfg.imagemagick pkgs.imagemagick;
 
       serviceConfig = {
         User = cfg.user;
@@ -158,8 +152,6 @@ in
       "d '${cfg.spoolDir}' 0700 ${cfg.user} ${cfg.group} -"
     ];
 
-    security.pam.services.ejabberd = { };
-
+    security.pam.services.ejabberd = {};
   };
-
 }

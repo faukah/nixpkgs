@@ -13,7 +13,6 @@
   ncurses,
   static ? withEmscripten,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imtui";
   version = "1.0.5";
@@ -46,10 +45,26 @@ stdenv.mkDerivation rec {
     '';
 
   cmakeFlags = [
-    "-DEMSCRIPTEN:BOOL=${if withEmscripten then "ON" else "OFF"}"
-    "-DIMTUI_SUPPORT_CURL:BOOL=${if withCurl then "ON" else "OFF"}"
-    "-DIMTUI_SUPPORT_NCURSES:BOOL=${if withNcurses then "ON" else "OFF"}"
-    "-DBUILD_SHARED_LIBS:BOOL=${if (!static) then "ON" else "OFF"}"
+    "-DEMSCRIPTEN:BOOL=${
+      if withEmscripten
+      then "ON"
+      else "OFF"
+    }"
+    "-DIMTUI_SUPPORT_CURL:BOOL=${
+      if withCurl
+      then "ON"
+      else "OFF"
+    }"
+    "-DIMTUI_SUPPORT_NCURSES:BOOL=${
+      if withNcurses
+      then "ON"
+      else "OFF"
+    }"
+    "-DBUILD_SHARED_LIBS:BOOL=${
+      if (!static)
+      then "ON"
+      else "OFF"
+    }"
     "-DIMTUI_BUILD_EXAMPLES:BOOL=OFF"
     "-DIMTUI_INSTALL_IMGUI_HEADERS:BOOL=OFF"
   ];
@@ -63,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://imtui.ggerganov.com";
     changelog = "https://github.com/ggerganov/imtui/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

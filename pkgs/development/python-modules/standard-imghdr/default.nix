@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "standard-imghdr";
   version = "3.13.0";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/imghdr";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "imghdr" ];
+  pythonImportsCheck = ["imghdr"];
 
   meta = {
     description = "Python dead batteries. See PEP 594";
     homepage = "https://github.com/youknowone/python-deadlib";
     license = lib.licenses.psfl;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

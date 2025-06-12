@@ -5,7 +5,6 @@
   python3Packages,
   makeBinaryWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pdfid";
   version = "0.2.8";
@@ -33,9 +32,9 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Scan a file to look for certain PDF keywords";
     homepage = "https://blog.didierstevens.com/programs/pdf-tools/";
-    license = with licenses; [ free ];
+    license = with licenses; [free];
     mainProgram = "pdfid";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
   };
 }

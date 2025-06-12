@@ -10,7 +10,6 @@
   mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-core";
   version = "2.4.3";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-hYOtpHIHJVITrei6/0m1YteTog2WBWCUFCl/Zr6BLlc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     google-auth
@@ -37,23 +36,25 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    mock
-    pytestCheckHook
-  ] ++ optional-dependencies.grpc;
+  nativeCheckInputs =
+    [
+      mock
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.grpc;
 
   # prevent google directory from shadowing google imports
   preCheck = ''
     rm -r google
   '';
 
-  pythonImportsCheck = [ "google.cloud" ];
+  pythonImportsCheck = ["google.cloud"];
 
   meta = with lib; {
     description = "API Client library for Google Cloud: Core Helpers";
     homepage = "https://github.com/googleapis/python-cloud-core";
     changelog = "https://github.com/googleapis/python-cloud-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

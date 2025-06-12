@@ -12,7 +12,6 @@
   nuget-to-json,
   cacert,
 }:
-
 replaceVarsWith {
   name = "nuget-to-nix";
   dir = "bin";

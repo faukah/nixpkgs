@@ -13,7 +13,6 @@
   stdenv,
   systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mptcpd";
   version = "0.13";
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/multipath-tcp/mptcpd";
     changelog = "https://github.com/multipath-tcp/mptcpd/blob/${finalAttrs.src.rev}/NEWS";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     mainProgram = "mptcpize";
     platforms = lib.platforms.linux;
   };

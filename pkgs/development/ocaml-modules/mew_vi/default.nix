@@ -5,7 +5,6 @@
   mew,
   react,
 }:
-
 buildDunePackage rec {
   pname = "mew_vi";
   version = "0.5.0";
@@ -28,7 +27,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
     description = "Modal Editing Witch, VI interpreter";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

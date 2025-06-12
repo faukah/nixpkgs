@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "plistwatch";
   version = "unstable-2023-06-22";
@@ -18,14 +17,14 @@ buildGoModule {
   vendorHash = "sha256-Layg1axFN86OFgxEyNFtIlm6Jtx317jZb/KH6IjJ8e4=";
 
   #add missing dependencies and hashes
-  patches = [ ./go-modules.patch ];
+  patches = [./go-modules.patch];
 
   doCheck = false;
 
   meta = with lib; {
     description = "Monitors and prints changes to MacOS plists in real time";
     homepage = "https://github.com/catilac/plistwatch";
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
     license = licenses.mit;
     platforms = platforms.darwin;
   };

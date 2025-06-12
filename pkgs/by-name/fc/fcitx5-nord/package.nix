@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fcitx5-nord";
   version = "unstable-2021-07-27";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation {
     description = "Fcitx5 theme based on Nord color";
     homepage = "https://github.com/tonyfettes/fcitx5-nord";
     license = licenses.mit;
-    maintainers = with maintainers; [ Cryolitia ];
+    maintainers = with maintainers; [Cryolitia];
     platforms = platforms.all;
   };
 }

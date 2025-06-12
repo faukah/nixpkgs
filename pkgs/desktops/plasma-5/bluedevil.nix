@@ -17,7 +17,6 @@
   kwindowsystem,
   plasma-framework,
 }:
-
 mkDerivation {
   pname = "bluedevil";
   nativeBuildInputs = [

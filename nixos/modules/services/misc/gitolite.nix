@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.gitolite;
   # Use writeTextDir to not leak Nix store hash into file name
   pubkeyFile = (pkgs.writeTextDir "gitolite-admin.pub" cfg.adminPubkey) + "/gitolite-admin.pub";
   hooks = lib.concatMapStrings (hook: "${hook} ") cfg.commonHooks;
-in
-{
+in {
   options = {
     services.gitolite = {
       enable = lib.mkOption {
@@ -56,7 +54,7 @@ in
 
       commonHooks = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           A list of custom git hooks that get copied to `~/.gitolite/hooks/common`.
         '';
@@ -124,7 +122,7 @@ in
   config = lib.mkIf cfg.enable (
     let
       manageGitoliteRc = cfg.extraGitoliteRc != "";
-      rcDir = pkgs.runCommand "gitolite-rc" { preferLocalBuild = true; } rcDirScript;
+      rcDir = pkgs.runCommand "gitolite-rc" {preferLocalBuild = true;} rcDirScript;
       rcDirScript =
         ''
           mkdir "$out"
@@ -148,8 +146,7 @@ in
             1;
           ''} >>"$out/gitolite.rc"
         '';
-    in
-    {
+    in {
       services.gitolite.extraGitoliteRc = lib.optionalString cfg.enableGitAnnex ''
         # Enable git-annex support:
         push( @{$RC{ENABLE}}, 'git-annex-shell ua');
@@ -166,7 +163,7 @@ in
 
       systemd.services.gitolite-init = {
         description = "Gitolite initialization";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         unitConfig.RequiresMountsFor = cfg.dataDir;
 
         environment = {
@@ -196,38 +193,35 @@ in
           pkgs.diffutils
           config.programs.ssh.package
         ];
-        script =
-          let
-            rcSetupScriptIfCustomFile =
-              if manageGitoliteRc then
-                ''
-                  cat <<END
-                  <3>ERROR: NixOS can't apply declarative configuration
-                  <3>to your .gitolite.rc file, because it seems to be
-                  <3>already customized manually.
-                  <3>See the services.gitolite.extraGitoliteRc option
-                  <3>in "man configuration.nix" for more information.
-                  END
-                  # Not sure if the line below addresses the issue directly or just
-                  # adds a delay, but without it our error message often doesn't
-                  # show up in `systemctl status gitolite-init`.
-                  journalctl --flush
-                  exit 1
-                ''
-              else
-                ''
-                  :
-                '';
-            rcSetupScriptIfDefaultFileOrStoreSymlink =
-              if manageGitoliteRc then
-                ''
-                  ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
-                ''
-              else
-                ''
-                  [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
-                '';
-          in
+        script = let
+          rcSetupScriptIfCustomFile =
+            if manageGitoliteRc
+            then ''
+              cat <<END
+              <3>ERROR: NixOS can't apply declarative configuration
+              <3>to your .gitolite.rc file, because it seems to be
+              <3>already customized manually.
+              <3>See the services.gitolite.extraGitoliteRc option
+              <3>in "man configuration.nix" for more information.
+              END
+              # Not sure if the line below addresses the issue directly or just
+              # adds a delay, but without it our error message often doesn't
+              # show up in `systemctl status gitolite-init`.
+              journalctl --flush
+              exit 1
+            ''
+            else ''
+              :
+            '';
+          rcSetupScriptIfDefaultFileOrStoreSymlink =
+            if manageGitoliteRc
+            then ''
+              ln -sf "${rcDir}/gitolite.rc" "$GITOLITE_RC"
+            ''
+            else ''
+              [[ -L "$GITOLITE_RC" ]] && rm -f "$GITOLITE_RC"
+            '';
+        in
           ''
             if ( [[ ! -e "$GITOLITE_RC" ]] && [[ ! -L "$GITOLITE_RC" ]] ) ||
                ( [[ -f "$GITOLITE_RC" ]] && diff -q "$GITOLITE_RC" "$GITOLITE_RC_DEFAULT" >/dev/null ) ||
@@ -253,10 +247,12 @@ in
           '';
       };
 
-      environment.systemPackages = [
-        pkgs.gitolite
-        pkgs.git
-      ] ++ lib.optional cfg.enableGitAnnex pkgs.git-annex;
+      environment.systemPackages =
+        [
+          pkgs.gitolite
+          pkgs.git
+        ]
+        ++ lib.optional cfg.enableGitAnnex pkgs.git-annex;
     }
   );
 }

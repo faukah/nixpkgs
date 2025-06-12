@@ -24,7 +24,7 @@ buildDotnetModule rec {
   projectFile = "src/DotNetOutdated/DotNetOutdated.csproj";
   executables = "dotnet-outdated";
 
-  dotnetFlags = [ "-p:TargetFrameworks=net8.0" ];
+  dotnetFlags = ["-p:TargetFrameworks=net8.0"];
   dotnetInstallFlags = [
     "--framework"
     "net8.0"
@@ -40,7 +40,7 @@ buildDotnetModule rec {
       binaryNativeCode
     ];
     license = licenses.mit;
-    maintainers = with maintainers; [ emilioziniades ];
+    maintainers = with maintainers; [emilioziniades];
     mainProgram = "dotnet-outdated";
   };
 }

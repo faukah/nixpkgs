@@ -7,7 +7,6 @@
   setuptools-scm,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "emcee";
   version = "3.1.6";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-JVZK3kvDwWENho0OxZ9OxATcm3XpGmX+e7alPclRsHY=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "emcee" ];
+  pythonImportsCheck = ["emcee"];
 
   meta = with lib; {
     description = "Kick ass affine-invariant ensemble MCMC sampling";
     homepage = "https://emcee.readthedocs.io/";
     changelog = "https://github.com/dfm/emcee/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

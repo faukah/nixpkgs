@@ -11,7 +11,6 @@
   dj-database-url,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "django-tasks";
   version = "0.6.1";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "django_tasks" ];
+  pythonImportsCheck = ["django_tasks"];
 
   nativeCheckInputs = [
     dj-database-url
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/RealOrangeOne/django-tasks";
     changelog = "https://github.com/RealOrangeOne/django-tasks/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

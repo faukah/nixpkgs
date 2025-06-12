@@ -9,7 +9,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "locationsharinglib";
   version = "5.0.3";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     cp .VERSION locationsharinglib/.VERSION
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     coloredlogs
@@ -41,13 +40,13 @@ buildPythonPackage rec {
   # There are no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "locationsharinglib" ];
+  pythonImportsCheck = ["locationsharinglib"];
 
   meta = {
     description = "Python package to retrieve coordinates from a Google account";
     homepage = "https://locationsharinglib.readthedocs.io/";
     changelog = "https://github.com/costastf/locationsharinglib/blob/${version}/HISTORY.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

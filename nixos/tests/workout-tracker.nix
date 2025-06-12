@@ -1,17 +1,17 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "workout-tracker";
 
-  meta.maintainers = with lib.maintainers; [ bhankas ];
+  meta.maintainers = with lib.maintainers; [bhankas];
 
-  nodes.machine =
-    { config, ... }:
-    {
-      virtualisation.memorySize = 2048;
+  nodes.machine = {config, ...}: {
+    virtualisation.memorySize = 2048;
 
-      services.workout-tracker.enable = true;
-    };
+    services.workout-tracker.enable = true;
+  };
 
   testScript = ''
     start_all()

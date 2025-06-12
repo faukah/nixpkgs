@@ -5,7 +5,6 @@
   SDL2,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "anarch";
   version = "1.0-unstable-2023-09-08";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://drummyfish.gitlab.io/anarch/";
     description = "Suckless FPS game";
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     license = lib.licenses.cc0;
     platforms = lib.platforms.unix;
     mainProgram = "anarch";

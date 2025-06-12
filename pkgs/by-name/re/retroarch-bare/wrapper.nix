@@ -5,20 +5,18 @@
   retroarch-bare,
   runCommand,
   symlinkJoin,
-  cores ? [ ],
-  settings ? { },
-}:
-
-let
+  cores ? [],
+  settings ? {},
+}: let
   settingsPath =
     runCommand "declarative-retroarch.cfg"
-      {
-        value = lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: "${n} = \"${v}\"") settings);
-        passAsFile = [ "value" ];
-      }
-      ''
-        cp "$valuePath" "$out"
-      '';
+    {
+      value = lib.concatStringsSep "\n" (lib.mapAttrsToList (n: v: "${n} = \"${v}\"") settings);
+      passAsFile = ["value"];
+    }
+    ''
+      cp "$valuePath" "$out"
+    '';
 
   # All cores should be located in the same path after symlinkJoin,
   # but let's be safe here
@@ -28,7 +26,8 @@ let
       map (p: [
         "--add-flags"
         "-L ${placeholder "out" + p}"
-      ]) coresPath
+      ])
+      coresPath
     ))
     ++ [
       "--add-flags"
@@ -36,45 +35,46 @@ let
     ]
   );
 in
-symlinkJoin {
-  name = "retroarch-with-cores-${lib.getVersion retroarch-bare}";
+  symlinkJoin {
+    name = "retroarch-with-cores-${lib.getVersion retroarch-bare}";
 
-  paths = [ retroarch-bare ] ++ cores;
+    paths = [retroarch-bare] ++ cores;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
 
-  passthru = {
-    inherit cores;
-    unwrapped = retroarch-bare;
-    withCores = coreFun: retroarch-bare.wrapper { cores = (coreFun libretro); };
-  };
+    passthru = {
+      inherit cores;
+      unwrapped = retroarch-bare;
+      withCores = coreFun: retroarch-bare.wrapper {cores = coreFun libretro;};
+    };
 
-  postBuild = ''
-    # remove core specific binaries
-    find $out/bin -name 'retroarch-*' -type l -delete
+    postBuild = ''
+      # remove core specific binaries
+      find $out/bin -name 'retroarch-*' -type l -delete
 
-    # wrap binary to load cores from the proper location(s)
-    wrapProgram $out/bin/retroarch ${wrapperArgs}
-  '';
+      # wrap binary to load cores from the proper location(s)
+      wrapProgram $out/bin/retroarch ${wrapperArgs}
+    '';
 
-  meta = {
-    inherit (retroarch-bare.meta)
-      changelog
-      description
-      homepage
-      license
-      mainProgram
-      maintainers
-      teams
-      platforms
-      ;
+    meta = {
+      inherit
+        (retroarch-bare.meta)
+        changelog
+        description
+        homepage
+        license
+        mainProgram
+        maintainers
+        teams
+        platforms
+        ;
 
-    longDescription =
-      ''
-        RetroArch is the reference frontend for the libretro API.
-      ''
-      + lib.optionalString (cores != [ ]) ''
-        The following cores are included: ${lib.concatStringsSep ", " (map (c: c.core) cores)}.
-      '';
-  };
-}
+      longDescription =
+        ''
+          RetroArch is the reference frontend for the libretro API.
+        ''
+        + lib.optionalString (cores != []) ''
+          The following cores are included: ${lib.concatStringsSep ", " (map (c: c.core) cores)}.
+        '';
+    };
+  }

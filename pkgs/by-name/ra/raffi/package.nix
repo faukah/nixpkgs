@@ -4,9 +4,8 @@
   rustPlatform,
   makeBinaryWrapper,
   fuzzel,
-  additionalPrograms ? [ ],
+  additionalPrograms ? [],
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "raffi";
   version = "0.8.2";
@@ -27,15 +26,15 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/raffi \
-      --prefix PATH : ${lib.makeBinPath ([ fuzzel ] ++ additionalPrograms)}
+      --prefix PATH : ${lib.makeBinPath ([fuzzel] ++ additionalPrograms)}
   '';
 
   meta = {
     description = "Fuzzel launcher based on yaml configuration";
     homepage = "https://github.com/chmouel/raffi";
     changelog = "https://github.com/chmouel/raffi/releases/tag/v${version}";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ aos ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [aos];
     mainProgram = "raffi";
     platforms = lib.platforms.linux;
   };

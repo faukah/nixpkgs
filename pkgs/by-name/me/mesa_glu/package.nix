@@ -9,15 +9,13 @@
   testers,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glu";
   version = "9.0.3";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "https://mesa.freedesktop.org/archive/${pname}/${pname}-${version}.tar.xz";
       hash = "sha256-vUP+EvN0sRkusV/iDkX/RWubwmq1fw7ukZ+Wyg+KMw8=";
@@ -28,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     pkg-config
   ];
-  propagatedBuildInputs = [ libGLX ];
+  propagatedBuildInputs = [libGLX];
 
   outputs = [
     "out"
@@ -56,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenGL utility library";
     homepage = "https://cgit.freedesktop.org/mesa/glu/";
     license = lib.licenses.sgi-b-20;
-    pkgConfigModules = [ "glu" ];
+    pkgConfigModules = ["glu"];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isAndroid;
   };

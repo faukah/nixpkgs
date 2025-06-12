@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nodejs,
 }:
-
 buildNpmPackage rec {
   pname = "marp-cli";
   version = "4.1.2";
@@ -17,7 +16,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-TpVv+uMqLq1ynVWDOnrA2O+TksRDJva0K4hRltWb+SA=";
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
   makeCacheWritable = true;
 
   doCheck = false;
@@ -26,7 +25,7 @@ buildNpmPackage rec {
     description = "About A CLI interface for Marp and Marpit based converters";
     homepage = "https://github.com/marp-team/marp-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    maintainers = with maintainers; [GuillaumeDesforges];
     platforms = nodejs.meta.platforms;
     mainProgram = "marp";
   };

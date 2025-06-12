@@ -5,7 +5,6 @@
   swiftPackages,
   swiftpm,
 }:
-
 # Doesn't build without using the same stdenv (and Clang) to build swift
 swiftPackages.stdenv.mkDerivation {
   pname = "airdrop-cli";
@@ -31,7 +30,7 @@ swiftPackages.stdenv.mkDerivation {
     description = "Use Airdrop from the CLI on macOS written in Swift";
     homepage = "https://github.com/vldmrkl/airdrop-cli";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Enzime ];
+    maintainers = with lib.maintainers; [Enzime];
     mainProgram = "airdrop";
     platforms = lib.platforms.darwin;
   };

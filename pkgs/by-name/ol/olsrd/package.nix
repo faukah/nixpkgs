@@ -6,7 +6,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "olsrd";
   version = "0.9.8";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Adhoc wireless mesh routing daemon";
     license = lib.licenses.bsd3;
     homepage = "http://olsr.org/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

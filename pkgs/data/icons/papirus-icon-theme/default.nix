@@ -11,7 +11,6 @@
   withElementary ? false,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "papirus-icon-theme";
   version = "20250501";
@@ -47,15 +46,15 @@ stdenvNoCC.mkDerivation rec {
 
     for theme in $out/share/icons/*; do
       ${lib.optionalString (
-        color != null
-      ) "${papirus-folders}/bin/papirus-folders -t $theme -o -C ${color}"}
+      color != null
+    ) "${papirus-folders}/bin/papirus-folders -t $theme -o -C ${color}"}
       gtk-update-icon-cache --force $theme
     done
 
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Pixel perfect icon theme for Linux";

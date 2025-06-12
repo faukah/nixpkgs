@@ -6,7 +6,6 @@
   zig_0_14,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zig-zlint";
   version = "0.7.6";
@@ -26,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
   zigBuildFlags = [
     "-Dversion=v${finalAttrs.version}"
     "--system"
-    (callPackage ./build.zig.zon.nix { })
+    (callPackage ./build.zig.zon.nix {})
   ];
 
   doCheck = true;
   zigCheckFlags = finalAttrs.zigBuildFlags;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/zlint";
   versionCheckProgramArg = "--version";
 
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/DonIsaac/zlint";
     changelog = "https://github.com/DonIsaac/zlint/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ christoph-heiss ];
+    maintainers = with lib.maintainers; [christoph-heiss];
     mainProgram = "zlint";
     inherit (zig_0_14.meta) platforms;
   };

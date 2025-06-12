@@ -6,7 +6,6 @@
   flex,
   libsepol,
 }:
-
 stdenv.mkDerivation rec {
   pname = "checkpolicy";
   version = "3.8.1";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [ libsepol ];
+  buildInputs = [libsepol];
 
   makeFlags = [
     "PREFIX=$(out)"

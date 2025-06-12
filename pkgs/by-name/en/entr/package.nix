@@ -4,7 +4,6 @@
   fetchurl,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "entr";
   version = "5.7";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   dontAddPrefix = true;
   doCheck = true;
   checkTarget = "test";
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   TARGET_OS = stdenv.hostPlatform.uname.system;
 

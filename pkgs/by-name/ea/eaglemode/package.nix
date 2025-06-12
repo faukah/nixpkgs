@@ -29,9 +29,8 @@
   p7zip,
   xz,
   zip,
-  extraRuntimeDeps ? [ ],
+  extraRuntimeDeps ? [],
 }:
-
 stdenv.mkDerivation rec {
   pname = "eaglemode";
   version = "0.96.2";
@@ -85,34 +84,32 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  installPhase =
-    let
-      runtimeDeps = lib.makeBinPath (
-        [
-          ghostscript # renders the manual
-          htmldoc # renders HTML files in file browser
-          perl # various display scripts use Perl
+  installPhase = let
+    runtimeDeps = lib.makeBinPath (
+      [
+        ghostscript # renders the manual
+        htmldoc # renders HTML files in file browser
+        perl # various display scripts use Perl
 
-          # archive formats in the file browser:
-          binutils
-          gzip
-          p7zip
-          xz
-          zip
-        ]
-        ++ extraRuntimeDeps
-      );
-    in
-    ''
-      runHook preInstall
-      perl make.pl install dir=$out
-      wrapProgram $out/bin/eaglemode --set EM_DIR "$out" --prefix LD_LIBRARY_PATH : "$out/lib" --prefix PATH : "${runtimeDeps}"
-      for i in 32 48 96; do
-        mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
-        ln -s $out/res/icons/${pname}$i.png $out/share/icons/hicolor/''${i}x''${i}/apps/${pname}.png
-      done
-      runHook postInstall
-    '';
+        # archive formats in the file browser:
+        binutils
+        gzip
+        p7zip
+        xz
+        zip
+      ]
+      ++ extraRuntimeDeps
+    );
+  in ''
+    runHook preInstall
+    perl make.pl install dir=$out
+    wrapProgram $out/bin/eaglemode --set EM_DIR "$out" --prefix LD_LIBRARY_PATH : "$out/lib" --prefix PATH : "${runtimeDeps}"
+    for i in 32 48 96; do
+      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+      ln -s $out/res/icons/${pname}$i.png $out/share/icons/hicolor/''${i}x''${i}/apps/${pname}.png
+    done
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {

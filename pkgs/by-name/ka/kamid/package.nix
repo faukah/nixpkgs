@@ -8,7 +8,6 @@
   readline,
   libbsd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kamid";
   version = "0.2";
@@ -36,13 +35,13 @@ stdenv.mkDerivation (finalAttrs: {
     "-Wno-error=int-conversion"
   ];
 
-  makeFlags = [ "AR:=$(AR)" ];
+  makeFlags = ["AR:=$(AR)"];
 
   meta = {
     description = "FREE, easy-to-use and portable implementation of a 9p file server daemon for UNIX-like systems";
     homepage = "https://kamid.omarpolo.com";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ heph2 ];
+    maintainers = with lib.maintainers; [heph2];
     platforms = lib.platforms.linux;
   };
 })

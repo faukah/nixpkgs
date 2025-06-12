@@ -22,9 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fBvbt/1ukpvcu8Aa/uAmVzw0ms8Sp35WLJPvHs9E9Bc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  patches = [ ./gsed.patch ];
+  patches = [./gsed.patch];
 
   installPhase = ''
     runHook preInstall
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     description = "Bash command line scripts to dump & restore a couchdb database";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ DamienCassou ];
+    maintainers = with lib.maintainers; [DamienCassou];
     mainProgram = "couchdb-dump";
   };
 })

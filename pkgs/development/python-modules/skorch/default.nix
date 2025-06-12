@@ -20,7 +20,6 @@
   transformers,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "skorch";
   version = "1.1.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
   # https://github.com/skorch-dev/skorch/issues/1080
   disabled = pythonOlder "3.9" || pythonAtLeast "3.13";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -57,7 +56,7 @@ buildPythonPackage rec {
     transformers
   ];
 
-  checkInputs = lib.optionals stdenv.cc.isClang [ llvmPackages.openmp ];
+  checkInputs = lib.optionals stdenv.cc.isClang [llvmPackages.openmp];
 
   disabledTests = [
     # on CPU, these expect artifacts from previous GPU run
@@ -88,14 +87,14 @@ buildPythonPackage rec {
     "skorch/tests/test_history.py"
   ];
 
-  pythonImportsCheck = [ "skorch" ];
+  pythonImportsCheck = ["skorch"];
 
   meta = {
     description = "Scikit-learn compatible neural net library using Pytorch";
     homepage = "https://skorch.readthedocs.io";
     changelog = "https://github.com/skorch-dev/skorch/blob/master/CHANGES.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     badPlatforms = [
       # Most tests fail with:
       # Fatal Python error: Segmentation fault

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "luculent";
   version = "2.0.0";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "luculent font";
     homepage = "http://www.eastfarthing.com/luculent/";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

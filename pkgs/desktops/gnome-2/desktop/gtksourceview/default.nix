@@ -18,15 +18,13 @@
   gtk-mac-integration-gtk2,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "2.10.5";
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.bz2";
       sha256 = "c585773743b1df8a04b1be7f7d90eecdf22681490d6810be54c81a7ae152191e";
@@ -48,10 +46,12 @@ stdenv.mkDerivation (finalAttrs: {
   # Fix build with gcc 14
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
-  nativeBuildInputs = [
-    pkg-config
-    intltool
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ autoreconfHook ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      intltool
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [autoreconfHook];
   buildInputs =
     [
       atk
@@ -77,6 +77,6 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
   meta = {
-    pkgConfigModules = [ "gtksourceview-2.0" ];
+    pkgConfigModules = ["gtksourceview-2.0"];
   };
 })

@@ -5,7 +5,6 @@
   cmake,
   cmocka,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "croaring";
   version = "4.3.1";
@@ -20,11 +19,11 @@ stdenv.mkDerivation (finalAttrs: {
   # roaring.pc.in cannot handle absolute CMAKE_INSTALL_*DIRs, nor
   # overridden CMAKE_INSTALL_FULL_*DIRs. With Nix, they are guaranteed
   # to be absolute so the following patch suffices (see #144170).
-  patches = [ ./fix-pkg-config.patch ];
+  patches = [./fix-pkg-config.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ cmocka ];
+  buildInputs = [cmocka];
 
   doCheck = true;
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     } dependencies/.cache/cmocka
   '';
 
-  cmakeFlags = [ (lib.cmakeBool "ROARING_USE_CPM" false) ];
+  cmakeFlags = [(lib.cmakeBool "ROARING_USE_CPM" false)];
 
   meta = {
     description = "Compressed bitset library for C and C++";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = [ lib.maintainers.orivej ];
+    maintainers = [lib.maintainers.orivej];
     platforms = lib.platforms.all;
   };
 })

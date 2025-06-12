@@ -5,7 +5,6 @@
   radicale,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "radicale-infcloud";
   version = "unstable-2022-04-18";
@@ -18,14 +17,14 @@ buildPythonPackage {
     hash = "sha256-xzBWIx2OOkCtBjlff1Z0VqgMhxWtgiOKutXUadT3tIo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ radicale ];
+  dependencies = [radicale];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "radicale" ];
+  pythonImportsCheck = ["radicale"];
 
   meta = with lib; {
     homepage = "https://github.com/Unrud/RadicaleInfCloud/";
@@ -34,6 +33,6 @@ buildPythonPackage {
       agpl3Plus
       gpl3Plus
     ];
-    maintainers = with maintainers; [ erictapen ];
+    maintainers = with maintainers; [erictapen];
   };
 }

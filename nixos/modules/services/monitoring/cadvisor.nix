@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.cadvisor;
-
-in
-{
+in {
   options = {
     services.cadvisor = {
       enable = lib.mkEnableOption "Cadvisor service";
@@ -86,7 +83,7 @@ in
 
       extraOptions = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Additional cadvisor options.
 
@@ -112,14 +109,14 @@ in
 
     (lib.mkIf cfg.enable {
       systemd.services.cadvisor = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "docker.service"
           "influxdb.service"
         ];
 
-        path = lib.optionals config.boot.zfs.enabled [ pkgs.zfs ];
+        path = lib.optionals config.boot.zfs.enabled [pkgs.zfs];
 
         postStart = lib.mkBefore ''
           until ${pkgs.curl.bin}/bin/curl -s -o /dev/null 'http://${cfg.listenAddress}:${toString cfg.port}/containers/'; do
@@ -134,13 +131,13 @@ in
             -port="${toString cfg.port}" \
             ${lib.escapeShellArgs cfg.extraOptions} \
             ${lib.optionalString (cfg.storageDriver != null) ''
-              -storage_driver "${cfg.storageDriver}" \
-              -storage_driver_host "${cfg.storageDriverHost}" \
-              -storage_driver_db "${cfg.storageDriverDb}" \
-              -storage_driver_user "${cfg.storageDriverUser}" \
-              -storage_driver_password "$(cat "${cfg.storageDriverPasswordFile}")" \
-              ${lib.optionalString cfg.storageDriverSecure "-storage_driver_secure"}
-            ''}
+            -storage_driver "${cfg.storageDriver}" \
+            -storage_driver_host "${cfg.storageDriverHost}" \
+            -storage_driver_db "${cfg.storageDriverDb}" \
+            -storage_driver_user "${cfg.storageDriverUser}" \
+            -storage_driver_password "$(cat "${cfg.storageDriverPasswordFile}")" \
+            ${lib.optionalString cfg.storageDriverSecure "-storage_driver_secure"}
+          ''}
         '';
 
         serviceConfig.TimeoutStartSec = 300;

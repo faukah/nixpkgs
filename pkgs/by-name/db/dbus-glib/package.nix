@@ -10,7 +10,6 @@
   dbus,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dbus-glib";
   version = "0.114";
@@ -44,14 +43,14 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--exec-prefix=${placeholder "dev"}" ]
+    ["--exec-prefix=${placeholder "dev"}"]
     ++ lib.optional (
       stdenv.buildPlatform != stdenv.hostPlatform
     ) "--with-dbus-binding-tool=${buildPackages.dbus-glib.dev}/bin/dbus-binding-tool";
 
   doCheck = false;
 
-  passthru = { inherit dbus glib; };
+  passthru = {inherit dbus glib;};
 
   meta = {
     homepage = "https://dbus.freedesktop.org";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     ];
     description = "Obsolete glib bindings for D-Bus lightweight IPC mechanism";
     mainProgram = "dbus-binding-tool";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

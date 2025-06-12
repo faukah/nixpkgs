@@ -7,7 +7,6 @@
   libarchive,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "yay";
   version = "12.5.0";
@@ -21,7 +20,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-8auZMcfaC0nI0vj1VRz8g/4ijFd57oALYaszGUb0K9A=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     pacman
@@ -30,27 +29,25 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 1;
 
-  checkFlags =
-    let
-      skippedTests = [
-        # need fhs
-        "TestAlpmExecutor"
-        "TestBuildRuntime"
-        "TestPacmanConf"
-        # need su/sudo/doas
-        "TestNewConfig"
-        "TestNewConfigAURDEST"
-        "TestNewConfigAURDESTTildeExpansion"
-        "TestConfiguration_setPrivilegeElevator"
-        "TestConfiguration_setPrivilegeElevator_su"
-        "TestConfiguration_setPrivilegeElevator_no_path"
-        "TestConfiguration_setPrivilegeElevator_doas"
-        "TestConfiguration_setPrivilegeElevator_pacman_auth_doas"
-        "TestConfiguration_setPrivilegeElevator_custom_script"
-        "TestConfiguration_setPrivilegeElevator_pacman_auth_sudo"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      # need fhs
+      "TestAlpmExecutor"
+      "TestBuildRuntime"
+      "TestPacmanConf"
+      # need su/sudo/doas
+      "TestNewConfig"
+      "TestNewConfigAURDEST"
+      "TestNewConfigAURDESTTildeExpansion"
+      "TestConfiguration_setPrivilegeElevator"
+      "TestConfiguration_setPrivilegeElevator_su"
+      "TestConfiguration_setPrivilegeElevator_no_path"
+      "TestConfiguration_setPrivilegeElevator_doas"
+      "TestConfiguration_setPrivilegeElevator_pacman_auth_doas"
+      "TestConfiguration_setPrivilegeElevator_custom_script"
+      "TestConfiguration_setPrivilegeElevator_pacman_auth_sudo"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall =
     ''
@@ -67,7 +64,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/Jguer/yay";
     mainProgram = "yay";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [emaryn];
   };
 })

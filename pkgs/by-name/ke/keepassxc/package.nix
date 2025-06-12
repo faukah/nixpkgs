@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
   libsForQt5,
-
   apple-sdk_15,
   asciidoctor,
   botan3,
@@ -22,7 +21,6 @@
   readline,
   wrapGAppsHook3,
   zlib,
-
   withKeePassBrowser ? true,
   withKeePassBrowserPasskeys ? true,
   withKeePassFDOSecrets ? stdenv.hostPlatform.isLinux,
@@ -31,10 +29,8 @@
   withKeePassSSHAgent ? true,
   withKeePassX11 ? true,
   withKeePassYubiKey ? stdenv.hostPlatform.isLinux,
-
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "keepassxc";
   version = "2.7.10";
@@ -49,12 +45,16 @@ stdenv.mkDerivation (finalAttrs: {
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang (toString [
     "-Wno-old-style-cast"
     "-Wno-error"
-    "-D__BIG_ENDIAN__=${if stdenv.hostPlatform.isBigEndian then "1" else "0"}"
+    "-D__BIG_ENDIAN__=${
+      if stdenv.hostPlatform.isBigEndian
+      then "1"
+      else "0"
+    }"
   ]);
 
   NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isDarwin "-rpath ${libargon2}/lib";
 
-  patches = [ ./darwin.patch ];
+  patches = [./darwin.patch];
 
   cmakeFlags = [
     (lib.cmakeFeature "KEEPASSXC_BUILD_TYPE" "Release")
@@ -71,45 +71,45 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   doCheck = true;
-  checkPhase =
-    let
-      disabledTests = lib.concatStringsSep "|" (
-        [
-          # flaky
-          "testcli"
-          "testgui"
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isDarwin [
-          # QWidget: Cannot create a QWidget without QApplication
-          "testautotype"
+  checkPhase = let
+    disabledTests = lib.concatStringsSep "|" (
+      [
+        # flaky
+        "testcli"
+        "testgui"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        # QWidget: Cannot create a QWidget without QApplication
+        "testautotype"
 
-          # FAIL!  : TestDatabase::testExternallyModified() Compared values are not the same
-          #   Actual   (((spyFileChanged.count()))): 0
-          #   Expected (1)                         : 1
-          #   Loc: [/tmp/nix-build-keepassxc-2.7.10.drv-2/source/tests/TestDatabase.cpp(288)]
-          "testdatabase"
-        ]
-      );
-    in
-    ''
-      runHook preCheck
+        # FAIL!  : TestDatabase::testExternallyModified() Compared values are not the same
+        #   Actual   (((spyFileChanged.count()))): 0
+        #   Expected (1)                         : 1
+        #   Loc: [/tmp/nix-build-keepassxc-2.7.10.drv-2/source/tests/TestDatabase.cpp(288)]
+        "testdatabase"
+      ]
+    );
+  in ''
+    runHook preCheck
 
-      export LC_ALL="en_US.UTF-8"
-      export QT_QPA_PLATFORM=offscreen
-      export QT_PLUGIN_PATH="${libsForQt5.qtbase.bin}/${libsForQt5.qtbase.qtPluginPrefix}"
+    export LC_ALL="en_US.UTF-8"
+    export QT_QPA_PLATFORM=offscreen
+    export QT_PLUGIN_PATH="${libsForQt5.qtbase.bin}/${libsForQt5.qtbase.qtPluginPrefix}"
 
-      make test ARGS+="-E '${disabledTests}' --output-on-failure"
+    make test ARGS+="-E '${disabledTests}' --output-on-failure"
 
-      runHook postCheck
-    '';
+    runHook postCheck
+  '';
 
-  nativeBuildInputs = [
-    asciidoctor
-    cmake
-    libsForQt5.wrapQtAppsHook
-    libsForQt5.qttools
-    pkg-config
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) wrapGAppsHook3;
+  nativeBuildInputs =
+    [
+      asciidoctor
+      cmake
+      libsForQt5.wrapQtAppsHook
+      libsForQt5.qttools
+      pkg-config
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) wrapGAppsHook3;
 
   dontWrapGApps = true;
   preFixup =
@@ -170,7 +170,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit (nixosTests) keepassxc;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

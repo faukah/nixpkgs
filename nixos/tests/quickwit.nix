@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   # Define an example Quickwit index schema,
   # and some `exampleDocs` below, to test if ingesting
   # and querying works as expected.
@@ -48,17 +50,18 @@ let
     {"datetime":"2024-05-05T02:36:41.017674444Z","git":"e6e1f087ce12065e44ed3b87b50784e6f9bcc2f9","hostname":"machine-1","level":"Info","message":"Got exception processing request: HTTP 404","location":"path/to/server.c:6444:32","source":""}
     {"datetime":"2024-05-06T02:36:41.017674444Z","git":"e6e1f087ce12065e44ed3b87b50784e6f9bcc2f9","hostname":"machine-2","level":"Info","message":"Got exception processing request: HTTP 404","location":"path/to/server.c:6444:32","source":""}
   '';
-in
-{
+in {
   name = "quickwit";
-  meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
+  meta.maintainers = [pkgs.lib.maintainers.happysalada];
 
   nodes = {
-    quickwit =
-      { config, pkgs, ... }:
-      {
-        services.quickwit.enable = true;
-      };
+    quickwit = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.quickwit.enable = true;
+    };
   };
 
   testScript = ''

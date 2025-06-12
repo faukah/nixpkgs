@@ -1,9 +1,7 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "freenet";
   meta = {
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
   };
 
   nodes = {

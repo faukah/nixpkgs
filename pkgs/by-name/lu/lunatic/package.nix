@@ -6,7 +6,6 @@
   openssl,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "lunatic";
   version = "0.13.2-unstable-2025-03-29";
@@ -47,6 +46,6 @@ rustPlatform.buildRustPackage {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

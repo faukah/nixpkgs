@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clooj";
   version = "0.4.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0hbc29bg2a86rm3sx9kvj7h7db9j0kbnrb706wsfiyk3zi3bavnd";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight IDE for Clojure";
     mainProgram = "clooj";
     homepage = "https://github.com/arthuredelstein/clooj";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
   };

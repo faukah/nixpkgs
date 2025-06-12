@@ -6,7 +6,6 @@
   automake,
   allegro,
 }:
-
 stdenv.mkDerivation rec {
   pname = "garden-of-coloured-lights";
   version = "1.0.9";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ allegro ];
+  buildInputs = [allegro];
 
   prePatch = ''
     noInline='s/inline //'
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
     description = "Old-school vertical shoot-em-up / bullet hell";
     mainProgram = "garden";
     homepage = "https://sourceforge.net/projects/garden/";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl3;
   };
-
 }

@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "coldsnap";
   version = "0.7.0";
@@ -19,15 +18,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Z4UbMdu35m/myiqrFFpvlmVfCD0MlSTQRvs2uhnxBAI=";
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/coldsnap";
     description = "Command line interface for Amazon EBS snapshots";
     changelog = "https://github.com/awslabs/coldsnap/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    teams = [ teams.determinatesystems ];
+    teams = [teams.determinatesystems];
     mainProgram = "coldsnap";
   };
 }

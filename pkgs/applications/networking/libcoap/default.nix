@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ];
   preConfigure = "./autogen.sh";
   configureFlags =
-    [ "--disable-shared" ]
+    ["--disable-shared"]
     ++ lib.optional (!withDocs) "--disable-documentation"
     ++ lib.optional withTLS "--enable-dtls";
   meta = with lib; {
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     description = "CoAP (RFC 7252) implementation in C";
     platforms = platforms.unix;
     license = licenses.bsd2;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
   };
 }

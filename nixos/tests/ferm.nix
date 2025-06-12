@@ -1,15 +1,12 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "ferm";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ mic92 ];
+    maintainers = [mic92];
   };
 
   nodes = {
-    client =
-      { pkgs, ... }:
-      with pkgs.lib;
-      {
+    client = {pkgs, ...}:
+      with pkgs.lib; {
         networking = {
           dhcpcd.enable = false;
           interfaces.eth1.ipv6.addresses = mkOverride 0 [
@@ -26,10 +23,8 @@
           ];
         };
       };
-    server =
-      { pkgs, ... }:
-      with pkgs.lib;
-      {
+    server = {pkgs, ...}:
+      with pkgs.lib; {
         networking = {
           dhcpcd.enable = false;
           useNetworkd = true;

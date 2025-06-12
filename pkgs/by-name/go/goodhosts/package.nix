@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildGoModule rec {
   pname = "goodhosts";
   version = "1.1.2";
@@ -30,7 +29,7 @@ buildGoModule rec {
     description = "CLI tool for managing hostfiles";
     license = licenses.mit;
     homepage = "https://github.com/goodhosts/cli/tree/main";
-    maintainers = with maintainers; [ schinmai-akamai ];
+    maintainers = with maintainers; [schinmai-akamai];
     mainProgram = "goodhosts";
   };
 }

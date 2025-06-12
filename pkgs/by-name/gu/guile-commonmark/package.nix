@@ -7,7 +7,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation {
   pname = "guile-commonmark";
   version = "unstable-2020-04-30";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/OrangeShark/guile-commonmark";
     description = "Implementation of CommonMark for Guile";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = guile.meta.platforms;
   };
 }

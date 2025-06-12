@@ -7,7 +7,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "gpsoauth";
   version = "1.1.1";
@@ -29,17 +28,17 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonRelaxDeps = [ "urllib3" ];
+  pythonRelaxDeps = ["urllib3"];
 
   # upstream tests are not very comprehensive
   doCheck = false;
 
-  pythonImportsCheck = [ "gpsoauth" ];
+  pythonImportsCheck = ["gpsoauth"];
 
   meta = with lib; {
     description = "Library for Google Play Services OAuth";
     homepage = "https://github.com/simon-weber/gpsoauth";
     license = licenses.mit;
-    maintainers = with maintainers; [ jgillich ];
+    maintainers = with maintainers; [jgillich];
   };
 }

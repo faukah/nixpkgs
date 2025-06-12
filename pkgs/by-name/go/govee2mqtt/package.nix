@@ -6,7 +6,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "govee2mqtt";
   version = "2024.01.24-ea3cd430";
@@ -38,9 +37,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-RJqAhAhrMHLunJwTtvUIBNO45xUWY251KXyX0RLruwk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postInstall = ''
     mkdir -p $out/share/govee2mqtt/
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/wez/govee2mqtt";
     changelog = "https://github.com/wez/govee2mqtt/blob/${src.rev}/addon/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "govee";
   };
 }

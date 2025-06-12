@@ -7,7 +7,6 @@
   pytestCheckHook,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "robotsuite";
   version = "2.3.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python unittest test suite for Robot Framework";

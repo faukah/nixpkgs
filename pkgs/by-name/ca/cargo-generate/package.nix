@@ -9,7 +9,6 @@
   stdenv,
   gitMinimal,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-generate";
   version = "0.22.1";
@@ -33,14 +32,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-5cfROJQWIhQNMbDhaCs2bfv4I3KDWcXBsmbbbDQ331s=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
     openssl
   ];
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
 
   # disable vendored libgit2 and openssl
   buildNoDefaultFeatures = true;

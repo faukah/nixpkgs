@@ -1,9 +1,8 @@
 {
   lib,
-  pkgs ? import <nixpkgs> { },
-  licenseAccepted ? pkgs.callPackage ./license.nix { },
+  pkgs ? import <nixpkgs> {},
+  licenseAccepted ? pkgs.callPackage ./license.nix {},
 }:
-
 lib.recurseIntoAttrs rec {
   composeAndroidPackages = pkgs.callPackage ./compose-android-packages.nix {
     inherit licenseAccepted meta;
@@ -36,6 +35,6 @@ lib.recurseIntoAttrs rec {
     description = "Android SDK tools, packaged in Nixpkgs";
     license = lib.licenses.unfree;
     platforms = lib.platforms.all;
-    teams = [ lib.teams.android ];
+    teams = [lib.teams.android];
   };
 }

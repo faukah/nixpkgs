@@ -24,8 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  buildInputs =
-    with qt6;
+  buildInputs = with qt6;
     [
       qtbase
       qtdeclarative
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
-  extraOutputsToLink = [ "doc" ];
+  extraOutputsToLink = ["doc"];
 
   preBuild = ''
     export HOME=$TMPDIR

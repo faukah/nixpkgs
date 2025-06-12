@@ -5,7 +5,6 @@
   installShellFiles,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "skaffold";
   version = "2.16.0";
@@ -19,19 +18,17 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/skaffold" ];
+  subPackages = ["cmd/skaffold"];
 
-  ldflags =
-    let
-      t = "github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}/version.version=v${version}"
-      "-X ${t}/version.gitCommit=${src.rev}"
-      "-X ${t}/version.buildDate=unknown"
-    ];
+  ldflags = let
+    t = "github.com/GoogleContainerTools/skaffold/v2/pkg/skaffold";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}/version.version=v${version}"
+    "-X ${t}/version.gitCommit=${src.rev}"
+    "-X ${t}/version.buildDate=unknown"
+  ];
 
   nativeBuildInputs = [
     installShellFiles

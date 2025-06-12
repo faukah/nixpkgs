@@ -21,13 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Standalone tool for extracting and creating Godot .pck files";
     homepage = "https://github.com/hhyyrylainen/GodotPckTool";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ambossmann ];
+    maintainers = with lib.maintainers; [ambossmann];
     mainProgram = "godotpcktool";
     platforms = lib.platforms.linux;
   };

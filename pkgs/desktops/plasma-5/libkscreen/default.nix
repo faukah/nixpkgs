@@ -11,7 +11,6 @@
   qtx11extras,
   qttools,
 }:
-
 mkDerivation {
   pname = "libkscreen";
   nativeBuildInputs = [

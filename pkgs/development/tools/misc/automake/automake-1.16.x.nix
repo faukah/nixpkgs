@@ -6,7 +6,6 @@
   autoconf,
   updateAutotoolsGnuConfigScriptsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "automake";
   version = "1.16.5";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     autoconf
     perl
   ];
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   setupHook = ./setup-hook.sh;
 

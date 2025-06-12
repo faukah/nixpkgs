@@ -6,7 +6,6 @@
   openssl,
   protobuf,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "openvmm";
   version = "0-unstable-2025-03-13";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage {
     description = "modular, cross-platform Virtual Machine Monitor (VMM), written in Rust";
     license = licenses.mit;
     mainProgram = "openvmm";
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

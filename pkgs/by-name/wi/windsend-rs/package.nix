@@ -13,7 +13,6 @@
   copyDesktopItems,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "windsend-rs";
   version = "1.5.4";
@@ -58,17 +57,17 @@ rustPlatform.buildRustPackage rec {
   '';
 
   postFixup = ''
-    patchelf --add-rpath ${lib.makeLibraryPath [ libayatana-appindicator ]} $out/bin/wind_send
+    patchelf --add-rpath ${lib.makeLibraryPath [libayatana-appindicator]} $out/bin/wind_send
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Quickly and securely sync clipboard, transfer files and directories between devices";
     homepage = "https://github.com/doraemonkeys/WindSend";
     mainProgram = "wind_send";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

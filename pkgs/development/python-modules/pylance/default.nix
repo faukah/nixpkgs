@@ -4,21 +4,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # nativeBuildInputs
   pkg-config,
-
   # buildInputs
   openssl,
   protobuf,
-
   # dependencies
   numpy,
   pyarrow,
-
   # optional-dependencies
   torch,
-
   # tests
   datafusion,
   duckdb,
@@ -29,7 +24,6 @@
   pytestCheckHook,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "pylance";
   version = "0.29.0";
@@ -70,7 +64,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonRelaxDeps = [ "pyarrow" ];
+  pythonRelaxDeps = ["pyarrow"];
 
   dependencies = [
     numpy
@@ -78,21 +72,23 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    torch = [ torch ];
+    torch = [torch];
   };
 
-  pythonImportsCheck = [ "lance" ];
+  pythonImportsCheck = ["lance"];
 
-  nativeCheckInputs = [
-    datafusion
-    duckdb
-    ml-dtypes
-    pandas
-    pillow
-    polars
-    pytestCheckHook
-    tqdm
-  ] ++ optional-dependencies.torch;
+  nativeCheckInputs =
+    [
+      datafusion
+      duckdb
+      ml-dtypes
+      pandas
+      pillow
+      polars
+      pytestCheckHook
+      tqdm
+    ]
+    ++ optional-dependencies.torch;
 
   preCheck = ''
     cd python/tests
@@ -125,6 +121,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lancedb/lance";
     changelog = "https://github.com/lancedb/lance/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

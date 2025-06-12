@@ -6,7 +6,6 @@
   httpx,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "safehttpx";
   version = "0.1.6";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     httpx
   ];
 
-  pythonImportsCheck = [ "safehttpx" ];
+  pythonImportsCheck = ["safehttpx"];
 
   doCheck = false; # require network access
 
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "SSRF-safe wrapper around httpx";
     homepage = "https://github.com/gradio-app/safehttpx";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fliegendewurst ];
+    maintainers = with lib.maintainers; [fliegendewurst];
   };
 }

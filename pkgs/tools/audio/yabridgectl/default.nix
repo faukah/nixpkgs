@@ -5,7 +5,6 @@
   makeWrapper,
   wine,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "yabridgectl";
   version = yabridge.version;
@@ -24,17 +23,17 @@ rustPlatform.buildRustPackage {
     ./remove-dependency-verification.patch
   ];
 
-  patchFlags = [ "-p3" ];
+  patchFlags = ["-p3"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram "$out/bin/yabridgectl" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          wine # winedump
-        ]
-      }
+      lib.makeBinPath [
+        wine # winedump
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage {
     homepage = "${yabridge.src.meta.homepage}/tree/${yabridge.version}/tools/yabridgectl";
     changelog = yabridge.meta.changelog;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = yabridge.meta.platforms;
     mainProgram = "yabridgectl";
   };

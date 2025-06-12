@@ -14,7 +14,7 @@ mkLibretroCore {
     hash = "sha256-3vIw73T47gTS2A9PBJuZGBNlDiXPNabsj4YopXLMMIY=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   makefile = "Makefile";
 
   meta = {

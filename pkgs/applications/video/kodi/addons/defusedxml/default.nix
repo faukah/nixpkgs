@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "defusedxml";
   namespace = "script.module.defusedxml";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/tiran/defusedxml";
     description = "defusing XML bombs and other exploits";
     license = licenses.psfl;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

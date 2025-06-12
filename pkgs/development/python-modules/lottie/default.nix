@@ -15,16 +15,16 @@ buildPythonPackage rec {
     hash = "sha256-hTBKwVLNBCyf6YpSe10TajHG/iqs2FnOHFgYm7lG0Sc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ distutils ];
+  dependencies = [distutils];
 
-  pythonImportsCheck = [ "lottie" ];
+  pythonImportsCheck = ["lottie"];
 
   meta = with lib; {
     description = "Framework to work with lottie files and telegram animated stickers (tgs)";
     homepage = "https://gitlab.com/mattbas/python-lottie/";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

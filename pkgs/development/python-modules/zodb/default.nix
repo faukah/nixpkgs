@@ -15,7 +15,6 @@
   btrees,
   manuel,
 }:
-
 buildPythonPackage rec {
   pname = "zodb";
   version = "6.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     rm -vf src/ZODB/tests/testdocumentation.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     transaction
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://zodb-docs.readthedocs.io/";
     changelog = "https://github.com/zopefoundation/ZODB/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

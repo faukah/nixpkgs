@@ -6,7 +6,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-talisman";
   version = "1.1.0";
@@ -17,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-xfSG9fVEIHKfhLPDhQzWP5bosDOpYpvuZsUk6jY3l/8=";
   };
 
-  buildInputs = [ flask ];
+  buildInputs = [flask];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "HTTP security headers for Flask";
     homepage = "https://github.com/wntrblm/flask-talisman";
     license = licenses.asl20;
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
   };
 }

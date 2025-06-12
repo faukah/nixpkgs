@@ -8,7 +8,6 @@
   gtest,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lucene++";
   version = "3.0.9";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-VxEV45OXHRldFdIt2OC6O7ey5u98VQzlzeOb9ZiKfd8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     gtest
@@ -76,6 +75,6 @@ stdenv.mkDerivation rec {
       lgpl3Plus
     ];
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
   };
 }

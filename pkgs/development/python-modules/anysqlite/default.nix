@@ -9,7 +9,6 @@
   pythonOlder,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "anysqlite";
   version = "0.0.5";
@@ -29,20 +28,20 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  propagatedBuildInputs = [ anyio ];
+  propagatedBuildInputs = [anyio];
 
   nativeCheckInputs = [
     pytestCheckHook
     trio
   ];
 
-  pythonImportsCheck = [ "anysqlite" ];
+  pythonImportsCheck = ["anysqlite"];
 
   meta = with lib; {
     description = "Sqlite3 for asyncio and trio";
     homepage = "https://github.com/karpetrosyan/anysqlite";
     changelog = "https://github.com/karpetrosyan/anysqlite/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

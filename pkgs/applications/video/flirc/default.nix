@@ -9,7 +9,6 @@
   qtsvg,
   qtxmlpatterns,
 }:
-
 stdenv.mkDerivation {
   pname = "flirc";
   version = "3.27.15";
@@ -44,10 +43,10 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://flirc.tv/more/flirc-usb";
     description = "Use any Remote with your Media Center";
-    maintainers = with maintainers; [ aanderse ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [aanderse];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     mainProgram = "Flirc";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

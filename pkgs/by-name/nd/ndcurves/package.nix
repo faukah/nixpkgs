@@ -10,7 +10,6 @@
   pythonSupport ? false,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ndcurves";
   version = "2.0.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.pythonImportsCheckHook
     ];
   propagatedBuildInputs =
-    [ jrl-cmakemodules ]
+    [jrl-cmakemodules]
     ++ lib.optionals pythonSupport [
       python3Packages.eigenpy
       python3Packages.pinocchio
@@ -61,13 +60,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  pythonImportsCheck = [ "ndcurves" ];
+  pythonImportsCheck = ["ndcurves"];
 
   meta = {
     description = "Library for creating smooth cubic splines";
     homepage = "https://github.com/loco-3d/ndcurves";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.nim65s ];
+    maintainers = [lib.maintainers.nim65s];
     platforms = lib.platforms.unix;
   };
 })

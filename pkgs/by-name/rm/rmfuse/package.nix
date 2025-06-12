@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "rmfuse";
   version = "unstable-2021-06-06";
@@ -46,7 +45,7 @@ python3.pkgs.buildPythonApplication {
       in the reMarkable Cloud using the same tools you use on your local
       system.
     '';
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "rmfuse";
   };
 }

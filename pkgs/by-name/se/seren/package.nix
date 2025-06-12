@@ -8,7 +8,6 @@
   gmp,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "seren";
   version = "0.0.21";

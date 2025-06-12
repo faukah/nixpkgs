@@ -7,7 +7,6 @@
   pkg-config,
   zlib,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "git-agecrypt";
   version = "unstable-2024-03-11";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage {
     description = "Alternative to git-crypt using age instead of GPG";
     homepage = "https://github.com/vlaci/git-agecrypt";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kuznetsss ];
+    maintainers = with maintainers; [kuznetsss];
     mainProgram = "git-agecrypt";
   };
 }

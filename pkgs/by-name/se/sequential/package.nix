@@ -3,7 +3,6 @@
   fetchurl,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sequential";
   version = "2.6.0";
@@ -28,8 +27,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "macOS native comic reader and image viewer";
     homepage = "https://github.com/chuchusoft/Sequential";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ Enzime ];
+    maintainers = with lib.maintainers; [Enzime];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

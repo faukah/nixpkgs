@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "httplab";
   version = "0.4.2";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/qustavo/httplab";
     description = "Interactive WebServer";
     license = licenses.mit;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
     mainProgram = "httplab";
   };
 }

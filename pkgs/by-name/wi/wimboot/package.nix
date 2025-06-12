@@ -6,7 +6,6 @@
   zlib,
   libiberty,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wimboot";
   version = "2.8.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     zlib
     libiberty
   ];
-  makeFlags = [ "wimboot.x86_64.efi" ];
+  makeFlags = ["wimboot.x86_64.efi"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ipxe.org/wimboot";
     description = "Windows Imaging Format bootloader";
     license = licenses.gpl2Plus;
-    teams = [ teams.helsinki-systems ];
-    platforms = [ "x86_64-linux" ];
+    teams = [teams.helsinki-systems];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.connman;
   configFile = pkgs.writeText "connman.conf" ''
     [General]
@@ -14,12 +12,11 @@ let
     ${cfg.extraConfig}
   '';
   enableIwd = cfg.wifi.backend == "iwd";
-in
-{
-  meta.maintainers = with lib.maintainers; [ ];
+in {
+  meta.maintainers = with lib.maintainers; [];
 
   imports = [
-    (lib.mkRenamedOptionModule [ "networking" "connman" ] [ "services" "connman" ])
+    (lib.mkRenamedOptionModule ["networking" "connman"] ["services" "connman"])
   ];
 
   ###### interface
@@ -88,8 +85,8 @@ in
 
       extraFlags = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
-        example = [ "--nodnsproxy" ];
+        default = [];
+        example = ["--nodnsproxy"];
         description = ''
           Extra flags to pass to connmand
         '';
@@ -113,11 +110,11 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.connman = {
       description = "Connection service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = lib.optional enableIwd "iwd.service";
       requires = lib.optional enableIwd "iwd.service";
       serviceConfig = {
@@ -139,8 +136,8 @@ in
 
     systemd.services.connman-vpn = lib.mkIf cfg.enableVPN {
       description = "ConnMan VPN service";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "connman.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["connman.service"];
       serviceConfig = {
         Type = "dbus";
         BusName = "net.connman.vpn";
@@ -153,7 +150,7 @@ in
       description = "D-BUS Service";
       serviceConfig = {
         Name = "net.connman.vpn";
-        before = [ "connman.service" ];
+        before = ["connman.service"];
         ExecStart = "${cfg.package}/sbin/connman-vpnd -n";
         User = "root";
         SystemdService = "connman-vpn.service";

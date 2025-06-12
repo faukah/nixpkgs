@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "github_changelog_generator";
   gemdir = ./.;
-  exes = [ "github_changelog_generator" ];
+  exes = ["github_changelog_generator"];
 
   passthru.updateScript = bundlerUpdateScript "github-changelog-generator";
 

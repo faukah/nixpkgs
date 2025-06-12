@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types;
 
   xcfg = config.services.xserver;
@@ -14,10 +12,7 @@ let
   # If desktop manager `d' isn't capable of setting a background and
   # the xserver is enabled, `feh' or `xsetroot' are used as a fallback.
   needBGCond = d: !(d ? bgSupport && d.bgSupport) && xcfg.enable;
-
-in
-
-{
+in {
   # Note: the order in which desktop manager modules are imported here
   # determines the default: later modules (if enabled) are preferred.
   # E.g., if Plasma 5 is enabled, it supersedes xterm.
@@ -46,9 +41,7 @@ in
   ];
 
   options = {
-
     services.xserver.desktopManager = {
-
       wallpaper = {
         mode = mkOption {
           type = types.enum [
@@ -85,7 +78,7 @@ in
 
       session = mkOption {
         internal = true;
-        default = [ ];
+        default = [];
         example = lib.singleton {
           name = "kde";
           bgSupport = true;
@@ -98,24 +91,22 @@ in
         '';
         apply = map (
           d:
-          d
-          // {
-            manage = "desktop";
-            start =
-              d.start
-              # literal newline to ensure d.start's last line is not appended to
-              + lib.optionalString (needBGCond d) ''
+            d
+            // {
+              manage = "desktop";
+              start =
+                d.start
+                # literal newline to ensure d.start's last line is not appended to
+                + lib.optionalString (needBGCond d) ''
 
-                if [ -e $HOME/.background-image ]; then
-                  ${pkgs.feh}/bin/feh --bg-${cfg.wallpaper.mode} ${lib.optionalString cfg.wallpaper.combineScreens "--no-xinerama"} $HOME/.background-image
-                fi
-              '';
-          }
+                  if [ -e $HOME/.background-image ]; then
+                    ${pkgs.feh}/bin/feh --bg-${cfg.wallpaper.mode} ${lib.optionalString cfg.wallpaper.combineScreens "--no-xinerama"} $HOME/.background-image
+                  fi
+                '';
+            }
         );
       };
-
     };
-
   };
 
   config.services.xserver.displayManager.session = cfg.session;

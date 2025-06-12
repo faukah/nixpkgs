@@ -7,7 +7,6 @@
   testers,
   bustools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bustools";
   version = "0.45.1";
@@ -19,9 +18,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-G+ZMoUmhINp18XKmXpdb5GT7YMsiK/XX2zrjt56CbLg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   passthru.tests.version = testers.testVersion {
     package = bustools;
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.kallistobus.tools/";
     downloadPage = "https://bustools.github.io/download";
     changelog = "https://github.com/BUStools/bustools/releases/tag/v${version}";
-    maintainers = [ lib.maintainers.dflores ];
+    maintainers = [lib.maintainers.dflores];
     license = lib.licenses.bsd2;
     mainProgram = "bustools";
     platforms = lib.platforms.unix;

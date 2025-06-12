@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchFromGitHub,
 }:
-
 buildDunePackage rec {
   pname = "minisat";
   version = "0.6";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://c-cube.github.io/ocaml-minisat/";
     description = "Simple bindings to Minisat-C";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ mgttlinger ];
+    maintainers = with lib.maintainers; [mgttlinger];
   };
 }

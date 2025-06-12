@@ -9,7 +9,6 @@
   wrapGAppsHook3,
   gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jfsw";
   version = "20240303";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.jonof.id.au/jfsw/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "sw";
-    maintainers = with lib.maintainers; [ moody ];
+    maintainers = with lib.maintainers; [moody];
     broken = stdenv.hostPlatform.isDarwin;
     inherit (SDL2.meta) platforms;
   };

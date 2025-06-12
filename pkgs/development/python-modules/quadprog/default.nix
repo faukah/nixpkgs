@@ -9,7 +9,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "quadprog";
   version = "0.1.13";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/quadprog/quadprog/releases/tag/v${version}";
     description = "Quadratic Programming Solver";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

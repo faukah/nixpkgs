@@ -8,7 +8,6 @@
   gnutls,
   libmicrohttpd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhttpserver";
   version = "0.19.0";
@@ -41,13 +40,13 @@ stdenv.mkDerivation rec {
     ./bootstrap
   '';
 
-  configureFlags = [ "--enable-same-directory-build" ];
+  configureFlags = ["--enable-same-directory-build"];
 
   meta = with lib; {
     description = "C++ library for creating an embedded Rest HTTP server (and more)";
     homepage = "https://github.com/etr/libhttpserver";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ pongo1231 ];
+    maintainers = with maintainers; [pongo1231];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # configure: error: cannot find required auxiliary files: ltmain.sh
   };

@@ -1,11 +1,11 @@
-{ nixpkgs, pkgs }:
-
+{
+  nixpkgs,
+  pkgs,
+}:
 with pkgs;
-
-runCommand "nixpkgs-metrics"
+  runCommand "nixpkgs-metrics"
   {
-    nativeBuildInputs =
-      with pkgs.lib;
+    nativeBuildInputs = with pkgs.lib;
       map getBin [
         nix
         time

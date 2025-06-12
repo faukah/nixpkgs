@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "smtprelay";
   version = "1.12.0";
@@ -36,6 +35,6 @@ buildGoModule rec {
     mainProgram = "smtprelay";
     changelog = "https://github.com/decke/smtprelay/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ juliusrickert ];
+    maintainers = with lib.maintainers; [juliusrickert];
   };
 }

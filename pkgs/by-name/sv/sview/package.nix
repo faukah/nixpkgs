@@ -15,7 +15,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sview";
   version = "20_08";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
       gpl3Only
       asl20
     ];
-    maintainers = with maintainers; [ mx2uller ];
+    maintainers = with maintainers; [mx2uller];
     mainProgram = "sView";
     platforms = platforms.linux;
   };

@@ -9,7 +9,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "aws-secretsmanager-caching";
   version = "1.1.3";
@@ -33,14 +32,14 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner'," ""
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     botocore
     setuptools # Needs pkg_resources at runtime.
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Integration tests require networking.
@@ -62,7 +61,7 @@ buildPythonPackage rec {
     "test_valid_json"
   ];
 
-  pythonImportsCheck = [ "aws_secretsmanager_caching" ];
+  pythonImportsCheck = ["aws_secretsmanager_caching"];
 
   meta = with lib; {
     description = "Client-side AWS secrets manager caching library";
@@ -72,6 +71,6 @@ buildPythonPackage rec {
       The AWS Secrets Manager Python caching client enables in-process caching of secrets for Python applications.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ tomaskala ];
+    maintainers = with maintainers; [tomaskala];
   };
 }

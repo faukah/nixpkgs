@@ -19,7 +19,7 @@ buildGoModule rec {
   meta = {
     description = "Share files with an expiration date";
     license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.lukaswrz ];
+    maintainers = [lib.maintainers.lukaswrz];
     mainProgram = "hiraeth";
   };
 }

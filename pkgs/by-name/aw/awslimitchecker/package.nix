@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "awslimitchecker";
   version = "12.0.0";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     ./version.patch
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     boto3
@@ -36,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     onetimepass
     pyotp
     mock
-    (pytestCheckHook.override { pytest = pytest_7; })
+    (pytestCheckHook.override {pytest = pytest_7;})
     testfixtures
   ];
 
@@ -50,14 +49,14 @@ python3.pkgs.buildPythonApplication rec {
     "awslimitchecker/tests/test_version.py"
   ];
 
-  pythonImportsCheck = [ "awslimitchecker.checker" ];
+  pythonImportsCheck = ["awslimitchecker.checker"];
 
   meta = {
     description = "Script and python package to check your AWS service limits and usage via boto3";
     homepage = "http://awslimitchecker.readthedocs.org";
     changelog = "https://github.com/jantman/awslimitchecker/blob/${version}/CHANGES.rst";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ zakame ];
+    maintainers = with lib.maintainers; [zakame];
     mainProgram = "awslimitchecker";
   };
 }

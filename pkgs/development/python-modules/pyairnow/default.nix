@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pyairnow";
   version = "1.2.2";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-KjOu9V92n2rq8iOkgutlK7EMRvirFAEK8oxseI+dr2s=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   nativeCheckInputs = [
     aioresponses
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyairnow" ];
+  pythonImportsCheck = ["pyairnow"];
 
   meta = with lib; {
     description = "Python wrapper for EPA AirNow Air Quality API";
     homepage = "https://github.com/asymworks/pyairnow";
     changelog = "https://github.com/asymworks/pyairnow/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

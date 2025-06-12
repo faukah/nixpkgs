@@ -6,7 +6,6 @@
   blas,
   lapack,
 }:
-
 stdenv.mkDerivation rec {
   pname = "plink-ng";
   version = "1.90b3";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Comprehensive update to the PLINK association analysis toolset";
     mainProgram = "plink";
     homepage = "https://www.cog-genomics.org/plink2";

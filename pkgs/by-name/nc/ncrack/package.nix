@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ncrack";
   version = "0.7";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Our version is good; the check is bad.
-  configureFlags = [ "--without-zlib-version-check" ];
+  configureFlags = ["--without-zlib-version-check"];
 
   buildInputs = [
     openssl
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ncrack";
     homepage = "https://nmap.org/ncrack/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

@@ -7,7 +7,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gensio";
   version = "2.8.15";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   configureFlags = [
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ openssl ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [openssl];
 
   meta = with lib; {
     description = "General Stream I/O";

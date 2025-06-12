@@ -13,6 +13,6 @@ melpaBuild {
   meta = {
     inherit (texpresso.meta) homepage license;
     description = "Emacs mode for TeXpresso";
-    maintainers = [ lib.maintainers.alexarice ];
+    maintainers = [lib.maintainers.alexarice];
   };
 }

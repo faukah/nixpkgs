@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "scryer-prolog";
   version = "0.9.4";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-CuCVofzKd/VPBTZY+ubk5wP9akt9kQLyi221fg7yt3M=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   CARGO_FEATURE_USE_SYSTEM_LIBS = true;
 
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     description = "Modern Prolog implementation written mostly in Rust";
     mainProgram = "scryer-prolog";
     homepage = "https://github.com/mthom/scryer-prolog";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     maintainers = with maintainers; [
       malbarbo
       wkral

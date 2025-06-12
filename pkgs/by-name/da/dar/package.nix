@@ -19,7 +19,6 @@
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.7.18";
   pname = "dar";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs =
     [
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     "--enable-threadar"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   enableParallelBuilding = true;
 
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://dar.linux.free.fr";
     description = "Disk ARchiver, allows backing up files into indexed archives";
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     license = licenses.gpl2Only;
     platforms = platforms.unix;
   };

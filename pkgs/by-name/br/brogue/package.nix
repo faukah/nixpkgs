@@ -8,7 +8,6 @@
   libtcod,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brogue";
   version = "1.7.5";
@@ -80,6 +79,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with maintainers; [
       fgaz
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

@@ -7,7 +7,6 @@
   mono4,
   gtk-sharp-2_0,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mono-addins";
   version = "1.3.3";

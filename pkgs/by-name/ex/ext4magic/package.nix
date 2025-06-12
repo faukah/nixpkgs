@@ -9,7 +9,6 @@
   zlib,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.3.2";
   pname = "ext4magic";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     zlib
     bzip2
   ];
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Recover / undelete files from ext3 or ext4 partitions";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ext4magic.sourceforge.net/ext4magic_en.html";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rkoe ];
+    maintainers = [maintainers.rkoe];
     mainProgram = "ext4magic";
   };
 }

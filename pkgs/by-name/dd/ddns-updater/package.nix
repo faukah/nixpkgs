@@ -23,20 +23,20 @@ buildGoModule rec {
     "-w"
   ];
 
-  subPackages = [ "cmd/ddns-updater" ];
+  subPackages = ["cmd/ddns-updater"];
 
   passthru = {
     tests = {
       inherit (nixosTests) ddns-updater;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Container to update DNS records periodically with WebUI for many DNS providers";
     homepage = "https://github.com/qdm12/ddns-updater";
     license = licenses.mit;
-    maintainers = with maintainers; [ delliott ];
+    maintainers = with maintainers; [delliott];
     mainProgram = "ddns-updater";
   };
 }

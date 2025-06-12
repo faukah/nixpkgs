@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pymunk";
   version = "6.11.1";
@@ -21,28 +20,28 @@ buildPythonPackage rec {
     hash = "sha256-GReEn2Ph9pnfIdah9dHCUK3duuJenBJPC+12UVTJTvg=";
   };
 
-  nativeBuildInputs = [ cffi ];
+  nativeBuildInputs = [cffi];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   preBuild = ''
     ${python.pythonOnBuildForHost.interpreter} setup.py build_ext --inplace
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "pymunk/tests" ];
+  pytestFlagsArray = ["pymunk/tests"];
 
-  pythonImportsCheck = [ "pymunk" ];
+  pythonImportsCheck = ["pymunk"];
 
   meta = with lib; {
     description = "2d physics library";
     homepage = "https://www.pymunk.org";
     changelog = "https://github.com/viblo/pymunk/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ emilytrau ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

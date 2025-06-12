@@ -9,7 +9,6 @@
   pytestCheckHook,
   isPy3k,
 }:
-
 buildPythonPackage {
   pname = "filterpy";
   version = "1.4.5-unstable-2022-08-23";
@@ -24,7 +23,7 @@ buildPythonPackage {
     hash = "sha256-KuuVu0tqrmQuNKYmDmdy+TU6BnnhDxh4G8n9BGzjGag=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -32,7 +31,7 @@ buildPythonPackage {
     matplotlib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # ValueError: Unable to avoid copy while creating an array as requested."
@@ -43,6 +42,6 @@ buildPythonPackage {
     homepage = "https://github.com/rlabbe/filterpy";
     description = "Kalman filtering and optimal estimation library";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

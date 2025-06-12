@@ -4,7 +4,6 @@
   fetchFromGitea,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "knock";
   version = "0.0.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage man/man1/knock.1
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://codeberg.org/nat-418/knock";
     license = licenses.bsd0;
     changelog = "https://codeberg.org/nat-418/knock/raw/branch/trunk/CHANGELOG.md";
-    maintainers = with maintainers; [ nat-418 ];
+    maintainers = with maintainers; [nat-418];
   };
 }

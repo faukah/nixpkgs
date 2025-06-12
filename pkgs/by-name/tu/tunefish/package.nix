@@ -14,7 +14,6 @@
   libXinerama,
   webkitgtk_4_0,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tunefish";
   version = "0-unstable-2021-12-19";
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://tunefish-synth.com/";
     description = "Virtual analog synthesizer LV2 plugin";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ orivej ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [orivej];
+    platforms = ["x86_64-linux"];
   };
 })

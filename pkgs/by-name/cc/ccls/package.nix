@@ -7,7 +7,6 @@
   rapidjson,
   runtimeShell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ccls";
   version = "0.20241108";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     rapidjson
   ];
 
-  cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
+  cmakeFlags = ["-DCCLS_VERSION=${version}"];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")

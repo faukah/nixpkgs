@@ -11,7 +11,6 @@
   gnustep-make,
   gnustep-base,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "sope";
   version = "5.12.1";
@@ -75,6 +74,6 @@ clangStdenv.mkDerivation rec {
     license = lib.licenses.publicDomain;
     homepage = "https://github.com/inverse-inc/sope";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ jceb ];
+    maintainers = with lib.maintainers; [jceb];
   };
 }

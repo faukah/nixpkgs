@@ -6,7 +6,6 @@
   httpun-ws,
   gluten-lwt,
 }:
-
 buildDunePackage {
   pname = "httpun-ws-lwt";
 
@@ -21,7 +20,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = httpun-ws.meta // {
-    description = "Lwt support for httpun-ws";
-  };
+  meta =
+    httpun-ws.meta
+    // {
+      description = "Lwt support for httpun-ws";
+    };
 }

@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.extra-container;
-in
-{
+in {
   options = {
     programs.extra-container.enable = lib.mkEnableOption ''
       extra-container, a tool for running declarative NixOS containers
@@ -16,7 +13,7 @@ in
     '';
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.extra-container ];
-    boot.extraSystemdUnitPaths = [ "/etc/systemd-mutable/system" ];
+    environment.systemPackages = [pkgs.extra-container];
+    boot.extraSystemdUnitPaths = ["/etc/systemd-mutable/system"];
   };
 }

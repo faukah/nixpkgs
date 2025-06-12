@@ -8,7 +8,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libbutl";
   version = "0.17.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
 
   # Should be true for anything built with build2,
   # but especially important when bootstrapping
-  disallowedReferences = [ build2 ];
+  disallowedReferences = [build2];
 
   postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace libbutl/uuid-linux.cxx \
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/libbutl/log";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

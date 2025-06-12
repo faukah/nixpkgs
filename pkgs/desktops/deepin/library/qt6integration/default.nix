@@ -9,7 +9,6 @@
   qt6Packages,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qt6integration";
   version = "6.0.33";
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/qt6integration";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

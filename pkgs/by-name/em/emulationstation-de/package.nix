@@ -19,7 +19,6 @@
   SDL2,
   libGL,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "emulationstation-de";
   version = "3.2.0";
@@ -61,12 +60,12 @@ stdenv.mkDerivation (finalAttrs: {
     libGL
   ];
 
-  cmakeFlags = [ (lib.cmakeBool "APPLICATION_UPDATER" false) ];
+  cmakeFlags = [(lib.cmakeBool "APPLICATION_UPDATER" false)];
 
   meta = {
     description = "ES-DE (EmulationStation Desktop Edition) is a frontend for browsing and launching games from your multi-platform collection";
     homepage = "https://es-de.org";
-    maintainers = with lib.maintainers; [ ivarmedi ];
+    maintainers = with lib.maintainers; [ivarmedi];
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "es-de";

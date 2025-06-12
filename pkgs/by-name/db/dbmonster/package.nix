@@ -8,7 +8,6 @@
   tshark,
   wirelesstools,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "dbmonster";
   version = "unstable-2022-09-17";
@@ -54,6 +53,6 @@ python3.pkgs.buildPythonApplication {
     description = "Tool to track WiFi devices by signal strength";
     homepage = "https://github.com/90N45-d3v/dBmonster";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

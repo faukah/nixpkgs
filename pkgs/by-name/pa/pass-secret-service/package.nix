@@ -8,7 +8,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "pass-secret-service";
   # PyPI has old alpha version. Since then the project has switched from using a
@@ -52,23 +51,21 @@ python3.pkgs.buildPythonApplication {
     secretstorage
   ];
 
-  nativeCheckInputs =
-    let
-      ps = python3.pkgs;
-    in
-    [
-      dbus
-      gnupg
-      ps.pytest
-      ps.pytest-asyncio
-      ps.pypass
-    ];
+  nativeCheckInputs = let
+    ps = python3.pkgs;
+  in [
+    dbus
+    gnupg
+    ps.pytest
+    ps.pytest-asyncio
+    ps.pypass
+  ];
 
   checkTarget = "test";
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--version=branch" ];
+      extraArgs = ["--version=branch"];
     };
     tests.pass-secret-service = nixosTests.pass-secret-service;
   };
@@ -79,6 +76,6 @@ python3.pkgs.buildPythonApplication {
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
     mainProgram = "pass_secret_service";
-    maintainers = with lib.maintainers; [ jluttine ];
+    maintainers = with lib.maintainers; [jluttine];
   };
 }

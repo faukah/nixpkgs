@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,40 +34,41 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru =
-    let
-      makeOverridableMavenPackage =
-        mavenRecipe: mavenArgs:
-        let
-          drv = mavenRecipe mavenArgs;
-          overrideWith =
-            newArgs: mavenArgs // (if lib.isFunction newArgs then newArgs mavenArgs else newArgs);
-        in
-        drv
-        // {
-          overrideMavenAttrs = newArgs: makeOverridableMavenPackage mavenRecipe (overrideWith newArgs);
-        };
+  passthru = let
+    makeOverridableMavenPackage = mavenRecipe: mavenArgs: let
+      drv = mavenRecipe mavenArgs;
+      overrideWith = newArgs:
+        mavenArgs
+        // (
+          if lib.isFunction newArgs
+          then newArgs mavenArgs
+          else newArgs
+        );
     in
-    {
-      buildMaven = callPackage ./build-maven.nix {
-        maven = finalAttrs.finalPackage;
+      drv
+      // {
+        overrideMavenAttrs = newArgs: makeOverridableMavenPackage mavenRecipe (overrideWith newArgs);
       };
+  in {
+    buildMaven = callPackage ./build-maven.nix {
+      maven = finalAttrs.finalPackage;
+    };
 
-      buildMavenPackage = makeOverridableMavenPackage (
-        callPackage ./build-maven-package.nix {
-          maven = finalAttrs.finalPackage;
-        }
-      );
-      tests = {
-        version = testers.testVersion {
-          package = finalAttrs.finalPackage;
-          command = ''
-            env MAVEN_OPTS="-Dmaven.repo.local=$TMPDIR/m2" \
-              mvn --version
-          '';
-        };
+    buildMavenPackage = makeOverridableMavenPackage (
+      callPackage ./build-maven-package.nix {
+        maven = finalAttrs.finalPackage;
+      }
+    );
+    tests = {
+      version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        command = ''
+          env MAVEN_OPTS="-Dmaven.repo.local=$TMPDIR/m2" \
+            mvn --version
+        '';
       };
     };
+  };
 
   meta = {
     homepage = "https://maven.apache.org/";
@@ -84,8 +85,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
     license = lib.licenses.asl20;
     mainProgram = "mvn";
-    maintainers = with lib.maintainers; [ tricktron ];
-    teams = [ lib.teams.java ];
+    maintainers = with lib.maintainers; [tricktron];
+    teams = [lib.teams.java];
     inherit (jdk_headless.meta) platforms;
   };
 })

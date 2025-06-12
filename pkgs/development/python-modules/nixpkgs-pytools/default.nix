@@ -7,7 +7,6 @@
   rope,
   isPy27,
 }:
-
 buildPythonPackage rec {
   pname = "nixpkgs-pytools";
   version = "1.3.0";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Tools for removing the tedious nature of creating nixpkgs derivations";
     homepage = "https://github.com/nix-community/nixpkgs-pytools";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

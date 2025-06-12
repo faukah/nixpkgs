@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "matugen";
   version = "2.4.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/InioX/matugen";
     changelog = "https://github.com/InioX/matugen/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lampros ];
+    maintainers = with lib.maintainers; [lampros];
     mainProgram = "matugen";
   };
 }

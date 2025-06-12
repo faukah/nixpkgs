@@ -11,8 +11,7 @@
   gawk,
   gnutar,
   gzip,
-}:
-let
+}: let
   pname = "xz";
   version = "5.4.3";
 
@@ -21,7 +20,7 @@ let
     hash = "sha256-HDguC8Lk4K9YOYqQPdYv/35RAXHS3keh6+BtFSjpt+k=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -35,9 +34,8 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/xz --version
         mkdir $out
       '';
@@ -49,7 +47,7 @@ bash.runCommand "${pname}-${version}"
         gpl2Plus
         lgpl21Plus
       ];
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

@@ -12,17 +12,14 @@
   buildEnv,
   config,
   runtimeShell,
-}:
-
-let
+}: let
   # Choose your "paksets" of objects, images, text, music, etc.
   paksets = config.simutrans.paksets or "pak64 pak64.japan pak128 pak128.britain pak128.german";
 
   result = withPaks (
-    if paksets == "*" then
-      lib.attrValues pakSpec # taking all
-    else
-      map (name: pakSpec.${name}) (lib.splitString " " paksets)
+    if paksets == "*"
+    then lib.attrValues pakSpec # taking all
+    else map (name: pakSpec.${name}) (lib.splitString " " paksets)
   );
 
   ver1 = "121";
@@ -37,7 +34,7 @@ let
   };
 
   # As of 2021/07, many of these paksets have not been updated for years, so are on old versions.
-  pakSpec = lib.mapAttrs (pakName: attrs: mkPak (attrs // { inherit pakName; })) {
+  pakSpec = lib.mapAttrs (pakName: attrs: mkPak (attrs // {inherit pakName;})) {
     pak64 = {
       srcPath = "${ver_dash}/simupak64-${ver_dash}";
       sha256 = "1k335kh8dhm1hdn5iwn3sdgnrlpk0rqxmmgqgqcwsi09cmw45m5c";
@@ -69,53 +66,49 @@ let
     };
 
     /*
-      This release contains accented filenames that prevent unzipping.
-      "pak192.comic" = {
-        srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
-        sha256 = throw "";
-      };
+    This release contains accented filenames that prevent unzipping.
+    "pak192.comic" = {
+      srcPath = "pak192comic%20for%20${ver2_dash}/pak192comic-0.4-${ver2_dash}up";
+      sha256 = throw "";
+    };
     */
   };
 
-  mkPak =
-    {
-      sha256,
-      pakName,
-      srcPath ? null,
-      url ? "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip",
-    }:
+  mkPak = {
+    sha256,
+    pakName,
+    srcPath ? null,
+    url ? "mirror://sourceforge/simutrans/${pakName}/${srcPath}.zip",
+  }:
     stdenv.mkDerivation {
       name = "simutrans-${pakName}";
       dontUnpack = true;
       preferLocalBuild = true;
-      installPhase =
-        let
-          src = fetchurl { inherit url sha256; };
-        in
-        ''
-          mkdir -p "$out/share/simutrans/${pakName}"
-          cd "$out/share/simutrans/${pakName}"
-          "${unzip}/bin/unzip" "${src}"
-          chmod -R +w . # some zipfiles need that
+      installPhase = let
+        src = fetchurl {inherit url sha256;};
+      in ''
+        mkdir -p "$out/share/simutrans/${pakName}"
+        cd "$out/share/simutrans/${pakName}"
+        "${unzip}/bin/unzip" "${src}"
+        chmod -R +w . # some zipfiles need that
 
-          set +o pipefail # no idea why it's needed
-          toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
-          echo "Detected path '$toStrip' to strip"
-          mv ./"$toStrip"/* .
-          rm -f "$toStrip/.directory" #pak128.german had this
-          rmdir -p "$toStrip"
-        '';
+        set +o pipefail # no idea why it's needed
+        toStrip=`find . -iname '*.pak' | head -n 1 | sed 's|\./\(.*\)/[^/]*$|\1|'`
+        echo "Detected path '$toStrip' to strip"
+        mv ./"$toStrip"/* .
+        rm -f "$toStrip/.directory" #pak128.german had this
+        rmdir -p "$toStrip"
+      '';
     };
 
   /*
-    The binaries need all data in one directory; the default is directory
-     of the executable, and another option is the current directory :-/
+  The binaries need all data in one directory; the default is directory
+   of the executable, and another option is the current directory :-/
   */
-  withPaks =
-    paks:
+  withPaks = paks:
     buildEnv {
       inherit (binaries) name;
-      paths = [ binaries ] ++ paks;
+      paths = [binaries] ++ paks;
       postBuild = ''
         rm "$out/bin" && mkdir "$out/bin"
         cat > "$out/bin/simutrans" <<EOF
@@ -126,9 +119,11 @@ let
         chmod +x "$out/bin/simutrans"
       '';
 
-      passthru.meta = binaries.meta // {
-        hydraPlatforms = [ ];
-      };
+      passthru.meta =
+        binaries.meta
+        // {
+          hydraPlatforms = [];
+        };
       passthru.binaries = binaries;
     };
 
@@ -152,23 +147,21 @@ let
       SDL_mixer
     ];
 
-    configurePhase =
-      let
-        # Configuration as per the readme.txt and config.template
-        platform =
-          if stdenv.hostPlatform.isLinux then
-            "linux"
-          else if stdenv.hostPlatform.isDarwin then
-            "mac"
-          else
-            throw "add your platform";
-        config = ''
-          BACKEND = mixer_sdl
-          COLOUR_DEPTH = 16
-          OSTYPE = ${platform}
-          VERBOSE = 1
-        '';
-      in
+    configurePhase = let
+      # Configuration as per the readme.txt and config.template
+      platform =
+        if stdenv.hostPlatform.isLinux
+        then "linux"
+        else if stdenv.hostPlatform.isDarwin
+        then "mac"
+        else throw "add your platform";
+      config = ''
+        BACKEND = mixer_sdl
+        COLOUR_DEPTH = 16
+        OSTYPE = ${platform}
+        VERBOSE = 1
+      '';
+    in
       #TODO: MULTI_THREAD = 1 is "highly recommended",
       # but it's roughly doubling CPU usage for me
       ''
@@ -207,10 +200,9 @@ let
         artistic1
         gpl1Plus
       ];
-      maintainers = [ ];
+      maintainers = [];
       platforms = lib.platforms.linux; # TODO: ++ darwin;
     };
   };
-
 in
-result
+  result

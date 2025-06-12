@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   ipykernel,
   ipython,
   qtconsole,
   qtpy,
 }:
-
 buildPythonPackage rec {
   pname = "napari-console";
   version = "0.1.3";
@@ -45,6 +42,6 @@ buildPythonPackage rec {
     description = "Plugin that adds a console to napari";
     homepage = "https://github.com/napari/napari-console";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
+    maintainers = with lib.maintainers; [SomeoneSerge];
   };
 }

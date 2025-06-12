@@ -9,7 +9,6 @@
   harfbuzz,
   fribidi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libraqm";
   version = "0.10.2";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Library for complex text layout";
     homepage = "https://github.com/HOST-Oman/libraqm";
     license = licenses.mit;
-    maintainers = with maintainers; [ sifmelcara ];
+    maintainers = with maintainers; [sifmelcara];
     platforms = platforms.all;
   };
 }

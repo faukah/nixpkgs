@@ -8,7 +8,6 @@
   python3,
   rinutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "black-hole-solver";
   version = "1.14.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    (buildPackages.perl.withPackages (ps: [ ps.PathTiny ]))
+    (buildPackages.perl.withPackages (ps: [ps.PathTiny]))
     pkg-config
     python3
   ];
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     mainProgram = "black-hole-solve";
     homepage = "https://www.shlomifish.org/open-source/projects/black-hole-solitaire-solver/";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

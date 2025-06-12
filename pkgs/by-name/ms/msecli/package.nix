@@ -5,9 +5,7 @@
   lib,
   stdenv,
   zlib,
-}:
-
-let
+}: let
   pname = "msecli";
   version = "10.01.012024.00";
 
@@ -21,48 +19,48 @@ let
     inherit version;
   };
 in
-stdenv.mkDerivation {
-  inherit pname version src;
+  stdenv.mkDerivation {
+    inherit pname version src;
 
-  buildInputs = [ zlib ];
+    buildInputs = [zlib];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-  unpackPhase = ''
-    runHook preUnpack
+    unpackPhase = ''
+      runHook preUnpack
 
-    cp "$src" ${src.name}
-    chmod +x ${src.name}
+      cp "$src" ${src.name}
+      chmod +x ${src.name}
 
-    runHook postUnpack
-  '';
+      runHook postUnpack
+    '';
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    # ignore the exit code as the installer
-    # fails at optional steps due to read only FHS
-    ${buildEnv}/bin/${buildEnv.pname} -c "./${src.name} --mode unattended --prefix bin || true"
+      # ignore the exit code as the installer
+      # fails at optional steps due to read only FHS
+      ${buildEnv}/bin/${buildEnv.pname} -c "./${src.name} --mode unattended --prefix bin || true"
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    cp -v bin/msecli $out/bin
+      mkdir -p $out/bin
+      cp -v bin/msecli $out/bin
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Micron Storage Executive CLI";
-    homepage = "https://www.micron.com/sales-support/downloads/software-drivers/storage-executive-software";
-    license = lib.licenses.unfree;
-    mainProgram = "msecli";
-    maintainers = with lib.maintainers; [ diadatp ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-  };
-}
+    meta = {
+      description = "Micron Storage Executive CLI";
+      homepage = "https://www.micron.com/sales-support/downloads/software-drivers/storage-executive-software";
+      license = lib.licenses.unfree;
+      mainProgram = "msecli";
+      maintainers = with lib.maintainers; [diadatp];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    };
+  }

@@ -13,7 +13,6 @@
   packaging,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "ignite";
   version = "0.5.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-aWm+rj/9A7oNBW5jkMg/BRuEw2gQUJ88At1wB75FgNQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packaging
@@ -95,6 +94,6 @@ buildPythonPackage rec {
     homepage = "https://pytorch-ignite.ai";
     changelog = "https://github.com/pytorch/ignite/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

@@ -44,7 +44,7 @@ buildGoModule (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       command = "HOME=$TMPDIR az-pim-cli version";
       package = finalAttrs.finalPackage;
@@ -57,7 +57,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/netr0m/az-pim-cli";
     changelog = "https://github.com/netr0m/az-pim-cli/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.awwpotato ];
+    maintainers = [lib.maintainers.awwpotato];
     mainProgram = "az-pim-cli";
   };
 })

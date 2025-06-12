@@ -14,7 +14,6 @@
   libjack2,
   jackSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lingot";
   version = "1.1.1";
@@ -30,14 +29,16 @@ stdenv.mkDerivation rec {
     wrapGAppsHook3
   ];
 
-  buildInputs = [
-    gtk3
-    alsa-lib
-    libpulseaudio
-    fftw
-    fftwFloat
-    json_c
-  ] ++ lib.optional jackSupport libjack2;
+  buildInputs =
+    [
+      gtk3
+      alsa-lib
+      libpulseaudio
+      fftw
+      fftwFloat
+      json_c
+    ]
+    ++ lib.optional jackSupport libjack2;
 
   configureFlags = lib.optional (!jackSupport) "--disable-jack";
 
@@ -47,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/lingot/";
     license = lib.licenses.gpl2Plus;
     platforms = with lib.platforms; linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

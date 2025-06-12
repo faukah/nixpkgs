@@ -5,7 +5,6 @@
   isPyPy,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   version = "0.4.10";
   format = "setuptools";

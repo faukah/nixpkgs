@@ -4,7 +4,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "monotonic";
   version = "1.6";

@@ -7,7 +7,6 @@
   ffmpeg_6,
   wayland,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "wl-screenrec";
   version = "0.1.4-unstable-2024-07-28";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage {
     license = licenses.asl20;
     platforms = platforms.linux;
     mainProgram = "wl-screenrec";
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
   };
 }

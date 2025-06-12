@@ -4,14 +4,10 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.teleport;
-  settingsYaml = pkgs.formats.yaml { };
-in
-{
+  settingsYaml = pkgs.formats.yaml {};
+in {
   options = {
     services.teleport = with lib.types; {
       enable = mkEnableOption "the Teleport service";
@@ -22,7 +18,7 @@ in
 
       settings = mkOption {
         type = settingsYaml.type;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             teleport = {
@@ -83,11 +79,11 @@ in
   };
 
   config = mkIf config.services.teleport.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.teleport = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = with pkgs; [
         getent
         shadow
@@ -99,8 +95,8 @@ in
             ${optionalString cfg.insecure.enable "--insecure"} \
             ${optionalString cfg.diag.enable "--diag-addr=${cfg.diag.addr}:${toString cfg.diag.port}"} \
             ${optionalString (
-              cfg.settings != { }
-            ) "--config=${settingsYaml.generate "teleport.yaml" cfg.settings}"}
+            cfg.settings != {}
+          ) "--config=${settingsYaml.generate "teleport.yaml" cfg.settings}"}
         '';
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         LimitNOFILE = 65536;

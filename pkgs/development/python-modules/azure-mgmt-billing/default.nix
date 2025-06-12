@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-billing";
   version = "7.0.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-jgplxlEQtTpCk35b7WrgDvydYgaXLZa/1KdOgMhcLXs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # Module has no tests
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/billing/azure-mgmt-billing";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-billing_${version}/sdk/billing/azure-mgmt-billing/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

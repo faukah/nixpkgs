@@ -9,7 +9,6 @@
   libXinerama,
   libXmu,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "yeahwm";
   version = "0.3.5";
@@ -33,22 +32,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  preBuild =
-    let
-      includes = builtins.concatStringsSep " " (
-        builtins.map (l: "-I${lib.getDev l}/include") finalAttrs.buildInputs
-      );
-      ldpath = builtins.concatStringsSep " " (
-        builtins.map (l: "-L${lib.getLib l}/lib") finalAttrs.buildInputs
-      );
-    in
-    ''
-      makeFlagsArray+=( CC="${stdenv.cc}/bin/cc" \
-                        XROOT="${libX11}" \
-                        INCLUDES="${includes}" \
-                        LDPATH="${ldpath}" \
-                        prefix="${placeholder "out"}" )
-    '';
+  preBuild = let
+    includes = builtins.concatStringsSep " " (
+      builtins.map (l: "-I${lib.getDev l}/include") finalAttrs.buildInputs
+    );
+    ldpath = builtins.concatStringsSep " " (
+      builtins.map (l: "-L${lib.getLib l}/lib") finalAttrs.buildInputs
+    );
+  in ''
+    makeFlagsArray+=( CC="${stdenv.cc}/bin/cc" \
+                      XROOT="${libX11}" \
+                      INCLUDES="${includes}" \
+                      LDPATH="${ldpath}" \
+                      prefix="${placeholder "out"}" )
+  '';
 
   # Workaround build failure on -fno-common toolchains like upstream gcc-10.
   # Otherwise build fails as:
@@ -84,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "http://phrat.de/README";
     license = lib.licenses.isc;
     mainProgram = "yeahwm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

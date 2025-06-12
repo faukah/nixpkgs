@@ -7,7 +7,6 @@
   typing-extensions,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "asyncer";
   version = "0.0.8";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-SbByOiTYzp+G+SvsDqXOQBAG6nigtBXiQmfGgfKRqvM=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     anyio
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "asyncer" ];
+  pythonImportsCheck = ["asyncer"];
 
   meta = {
     description = "Asyncer, async and await, focused on developer experience";
     homepage = "https://github.com/fastapi/asyncer";
     changelog = "https://github.com/fastapi/asyncer/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

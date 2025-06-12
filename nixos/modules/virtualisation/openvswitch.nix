@@ -1,20 +1,13 @@
 # Systemd services for openvswitch
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.virtualisation.vswitch;
-
-in
-{
-
+in {
   options.virtualisation.vswitch = {
     enable = mkOption {
       type = types.bool;
@@ -34,12 +27,11 @@ in
       '';
     };
 
-    package = mkPackageOption pkgs "openvswitch" { };
+    package = mkPackageOption pkgs "openvswitch" {};
   };
 
   config = mkIf cfg.enable (
     let
-
       # Where the communication sockets live
       runDir = "/run/openvswitch";
 
@@ -53,22 +45,20 @@ in
         ];
         installPhase = "mkdir -p $out";
       };
-
-    in
-    {
-      environment.systemPackages = [ cfg.package ];
+    in {
+      environment.systemPackages = [cfg.package];
       boot.kernelModules = [
         "tun"
         "openvswitch"
       ];
 
-      boot.extraModulePackages = [ cfg.package ];
+      boot.extraModulePackages = [cfg.package];
 
       systemd.services.ovsdb = {
         description = "Open_vSwitch Database Server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "systemd-udev-settle.service" ];
-        path = [ cfg.package ];
+        wantedBy = ["multi-user.target"];
+        after = ["systemd-udev-settle.service"];
+        path = [cfg.package];
         restartTriggers = [
           db
           cfg.package
@@ -118,10 +108,10 @@ in
 
       systemd.services.ovs-vswitchd = {
         description = "Open_vSwitch Daemon";
-        wantedBy = [ "multi-user.target" ];
-        bindsTo = [ "ovsdb.service" ];
-        after = [ "ovsdb.service" ];
-        path = [ cfg.package ];
+        wantedBy = ["multi-user.target"];
+        bindsTo = ["ovsdb.service"];
+        after = ["ovsdb.service"];
+        path = [cfg.package];
         serviceConfig = {
           ExecStart = ''
             ${cfg.package}/bin/ovs-vswitchd \
@@ -135,17 +125,15 @@ in
           RestartSec = 3;
         };
       };
-
     }
   );
 
   imports = [
-    (mkRemovedOptionModule [ "virtualisation" "vswitch" "ipsec" ] ''
+    (mkRemovedOptionModule ["virtualisation" "vswitch" "ipsec"] ''
       OpenVSwitch IPSec functionality has been removed, because it depended on racoon,
       which was removed from nixpkgs, because it was abanoded upstream.
     '')
   ];
 
-  meta.maintainers = with maintainers; [ netixx ];
-
+  meta.maintainers = with maintainers; [netixx];
 }

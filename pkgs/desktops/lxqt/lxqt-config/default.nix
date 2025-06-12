@@ -25,7 +25,6 @@
   xkeyboard_config,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-config";
   version = "2.2.0";
@@ -74,14 +73,13 @@ stdenv.mkDerivation rec {
                 '${xkeyboard_config}/share/X11/xkb/rules/base.lst'
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-config";
     description = "Tools to configure LXQt and the underlying operating system";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
-
 }

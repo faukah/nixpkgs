@@ -9,7 +9,6 @@
   scipy,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "clarabel";
   version = "0.10.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "clarabel" ];
+  pythonImportsCheck = ["clarabel"];
 
   # no tests but run the same examples as .github/workflows/pypi.yaml
   checkPhase = ''
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/oxfordcontrol/Clarabel.rs/releases/tag/v${version}/CHANGELOG.md";
     description = "Conic Interior Point Solver";
     homepage = "https://github.com/oxfordcontrol/Clarabel.rs";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

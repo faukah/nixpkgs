@@ -16,7 +16,6 @@
   libkdepim,
   pimcommon,
 }:
-
 mkDerivation {
   pname = "mailimporter";
   meta = {

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.davis;
   db = cfg.database;
   mail = cfg.mail;
@@ -19,25 +17,23 @@ let
   isSecret = v: lib.isAttrs v && v ? _secret && (lib.isString v._secret || builtins.isPath v._secret);
   davisEnvVars = lib.generators.toKeyValue {
     mkKeyValue = lib.flip lib.generators.mkKeyValueDefault "=" {
-      mkValueString =
-        v:
-        if builtins.isInt v then
-          toString v
-        else if lib.isString v then
-          "\"${v}\""
-        else if true == v then
-          "true"
-        else if false == v then
-          "false"
-        else if null == v then
-          ""
-        else if isSecret v then
-          if (lib.isString v._secret) then
-            builtins.hashString "sha256" v._secret
-          else
-            builtins.hashString "sha256" (builtins.readFile v._secret)
-        else
-          throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+      mkValueString = v:
+        if builtins.isInt v
+        then toString v
+        else if lib.isString v
+        then "\"${v}\""
+        else if true == v
+        then "true"
+        else if false == v
+        then "false"
+        else if null == v
+        then ""
+        else if isSecret v
+        then
+          if (lib.isString v._secret)
+          then builtins.hashString "sha256" v._secret
+          else builtins.hashString "sha256" (builtins.readFile v._secret)
+        else throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty {}) v}";
     };
   };
   secretPaths = lib.mapAttrsToList (_: v: v._secret) (lib.filterAttrs (_: isSecret) cfg.config);
@@ -45,10 +41,9 @@ let
     replace-secret ${
       lib.escapeShellArgs [
         (
-          if (lib.isString file) then
-            builtins.hashString "sha256" file
-          else
-            builtins.hashString "sha256" (builtins.readFile file)
+          if (lib.isString file)
+          then builtins.hashString "sha256" file
+          else builtins.hashString "sha256" (builtins.readFile file)
         )
         file
         "${cfg.dataDir}/.env.local"
@@ -56,16 +51,17 @@ let
     }
   '';
   secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-  filteredConfig = lib.converge (lib.filterAttrsRecursive (
-    _: v:
-    !lib.elem v [
-      { }
-      null
-    ]
-  )) cfg.config;
+  filteredConfig =
+    lib.converge (lib.filterAttrsRecursive (
+      _: v:
+        !lib.elem v [
+          {}
+          null
+        ]
+    ))
+    cfg.config;
   davisEnv = pkgs.writeText "davis.env" (davisEnvVars filteredConfig);
-in
-{
+in {
   options.services.davis = {
     enable = lib.mkEnableOption "Davis is a caldav and carddav server";
 
@@ -81,7 +77,7 @@ in
       type = lib.types.str;
     };
 
-    package = lib.mkPackageOption pkgs "davis" { };
+    package = lib.mkPackageOption pkgs "davis" {};
 
     dataDir = lib.mkOption {
       type = lib.types.path;
@@ -104,35 +100,35 @@ in
       type = lib.types.attrsOf (
         lib.types.nullOr (
           lib.types.either
-            (lib.types.oneOf [
-              lib.types.bool
-              lib.types.int
-              lib.types.port
-              lib.types.path
-              lib.types.str
-            ])
-            (
-              lib.types.submodule {
-                options = {
-                  _secret = lib.mkOption {
-                    type = lib.types.nullOr (
-                      lib.types.oneOf [
-                        lib.types.str
-                        lib.types.path
-                      ]
-                    );
-                    description = ''
-                      The path to a file containing the value the
-                      option should be set to in the final
-                      configuration file.
-                    '';
-                  };
+          (lib.types.oneOf [
+            lib.types.bool
+            lib.types.int
+            lib.types.port
+            lib.types.path
+            lib.types.str
+          ])
+          (
+            lib.types.submodule {
+              options = {
+                _secret = lib.mkOption {
+                  type = lib.types.nullOr (
+                    lib.types.oneOf [
+                      lib.types.str
+                      lib.types.path
+                    ]
+                  );
+                  description = ''
+                    The path to a file containing the value the
+                    option should be set to in the final
+                    configuration file.
+                  '';
                 };
-              }
-            )
+              };
+            }
+          )
         )
       );
-      default = { };
+      default = {};
 
       example = '''';
       description = '''';
@@ -222,11 +218,11 @@ in
     nginx = lib.mkOption {
       type = lib.types.nullOr (
         lib.types.submodule (
-          lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }) {
+          lib.recursiveUpdate (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}) {
           }
         )
       );
-      default = { };
+      default = {};
       example = ''
         {
           serverAliases = [
@@ -265,41 +261,40 @@ in
     };
   };
 
-  config =
-    let
-      defaultServiceConfig = {
-        ReadWritePaths = "${cfg.dataDir}";
-        User = user;
-        UMask = 77;
-        DeviceAllow = "";
-        LockPersonality = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateTmp = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectSystem = "strict";
-        RemoveIPC = true;
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@resources"
-          "~@privileged"
-        ];
-        WorkingDirectory = "${cfg.package}/";
-      };
-    in
+  config = let
+    defaultServiceConfig = {
+      ReadWritePaths = "${cfg.dataDir}";
+      User = user;
+      UMask = 77;
+      DeviceAllow = "";
+      LockPersonality = true;
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      PrivateTmp = true;
+      PrivateUsers = true;
+      ProcSubset = "pid";
+      ProtectClock = true;
+      ProtectControlGroups = true;
+      ProtectHome = true;
+      ProtectHostname = true;
+      ProtectKernelLogs = true;
+      ProtectKernelModules = true;
+      ProtectKernelTunables = true;
+      ProtectProc = "invisible";
+      ProtectSystem = "strict";
+      RemoveIPC = true;
+      RestrictNamespaces = true;
+      RestrictRealtime = true;
+      RestrictSUIDSGID = true;
+      SystemCallArchitectures = "native";
+      SystemCallFilter = [
+        "@system-service"
+        "~@resources"
+        "~@privileged"
+      ];
+      WorkingDirectory = "${cfg.package}/";
+    };
+  in
     lib.mkIf cfg.enable {
       assertions = [
         {
@@ -332,32 +327,27 @@ in
           CARDDAV_ENABLED = true;
         }
         // (
-          if mail.dsn != null then
-            { MAILER_DSN = mail.dsn; }
-          else if mail.dsnFile != null then
-            { MAILER_DSN._secret = mail.dsnFile; }
-          else
-            { }
+          if mail.dsn != null
+          then {MAILER_DSN = mail.dsn;}
+          else if mail.dsnFile != null
+          then {MAILER_DSN._secret = mail.dsnFile;}
+          else {}
         )
         // (
-          if db.createLocally then
-            {
-              DATABASE_URL =
-                if db.driver == "sqlite" then
-                  "sqlite:///${cfg.dataDir}/davis.db" # note: sqlite needs 4 slashes for an absolute path
-                else if
-                  pgsqlLocal
-                # note: davis expects a non-standard postgres uri (due to the underlying doctrine library)
-                # specifically the dummy hostname which is overridden by the host query parameter
-                then
-                  "postgres://${user}@localhost/${db.name}?host=/run/postgresql"
-                else if mysqlLocal then
-                  "mysql://${user}@localhost/${db.name}?socket=/run/mysqld/mysqld.sock"
-                else
-                  null;
-            }
-          else
-            { DATABASE_URL._secret = db.urlFile; }
+          if db.createLocally
+          then {
+            DATABASE_URL =
+              if db.driver == "sqlite"
+              then "sqlite:///${cfg.dataDir}/davis.db" # note: sqlite needs 4 slashes for an absolute path
+              else if pgsqlLocal
+              # note: davis expects a non-standard postgres uri (due to the underlying doctrine library)
+              # specifically the dummy hostname which is overridden by the host query parameter
+              then "postgres://${user}@localhost/${db.name}?host=/run/postgresql"
+              else if mysqlLocal
+              then "mysql://${user}@localhost/${db.name}?socket=/run/mysqld/mysqld.sock"
+              else null;
+          }
+          else {DATABASE_URL._secret = db.urlFile;}
         );
 
       users = {
@@ -369,7 +359,7 @@ in
             home = cfg.dataDir;
           };
         };
-        groups = lib.mkIf (group == "davis") { davis = { }; };
+        groups = lib.mkIf (group == "davis") {davis = {};};
       };
 
       systemd.tmpfiles.rules = [
@@ -400,13 +390,12 @@ in
             "pm.max_spare_servers" = 20;
           }
           // (
-            if cfg.nginx != null then
-              {
-                "listen.owner" = config.services.nginx.user;
-                "listen.group" = config.services.nginx.group;
-              }
-            else
-              { }
+            if cfg.nginx != null
+            then {
+              "listen.owner" = config.services.nginx.user;
+              "listen.group" = config.services.nginx.group;
+            }
+            else {}
           )
           // cfg.poolConfig;
       };
@@ -418,12 +407,12 @@ in
           "phpfpm-davis.service"
           "davis-db-migrate.service"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
         };
-        path = [ pkgs.replace-secret ];
+        path = [pkgs.replace-secret];
         restartTriggers = [
           cfg.package
           davisEnv
@@ -441,26 +430,28 @@ in
 
       systemd.services.davis-db-migrate = {
         description = "Migrate davis database";
-        before = [ "phpfpm-davis.service" ];
+        before = ["phpfpm-davis.service"];
         after =
           lib.optional mysqlLocal "mysql.service"
           ++ lib.optional pgsqlLocal "postgresql.service"
-          ++ [ "davis-env-setup.service" ];
+          ++ ["davis-env-setup.service"];
         requires =
           lib.optional mysqlLocal "mysql.service"
           ++ lib.optional pgsqlLocal "postgresql.service"
-          ++ [ "davis-env-setup.service" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = defaultServiceConfig // {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          Environment = [
-            "ENV_DIR=${cfg.dataDir}"
-            "APP_CACHE_DIR=${cfg.dataDir}/var/cache"
-            "APP_LOG_DIR=${cfg.dataDir}/var/log"
-          ];
-          EnvironmentFile = "${cfg.dataDir}/.env.local";
-        };
+          ++ ["davis-env-setup.service"];
+        wantedBy = ["multi-user.target"];
+        serviceConfig =
+          defaultServiceConfig
+          // {
+            Type = "oneshot";
+            RemainAfterExit = true;
+            Environment = [
+              "ENV_DIR=${cfg.dataDir}"
+              "APP_CACHE_DIR=${cfg.dataDir}/var/cache"
+              "APP_LOG_DIR=${cfg.dataDir}/var/log"
+            ];
+            EnvironmentFile = "${cfg.dataDir}/.env.local";
+          };
         restartTriggers = [
           cfg.package
           davisEnv
@@ -484,7 +475,7 @@ in
         ]
         ++ lib.optional mysqlLocal "mysql.service"
         ++ lib.optional pgsqlLocal "postgresql.service";
-      systemd.services.phpfpm-davis.serviceConfig.ReadWritePaths = [ cfg.dataDir ];
+      systemd.services.phpfpm-davis.serviceConfig.ReadWritePaths = [cfg.dataDir];
 
       services.nginx = lib.mkIf (cfg.nginx != null) {
         enable = lib.mkDefault true;
@@ -536,7 +527,7 @@ in
       services.mysql = lib.mkIf mysqlLocal {
         enable = true;
         package = lib.mkDefault pkgs.mariadb;
-        ensureDatabases = [ db.name ];
+        ensureDatabases = [db.name];
         ensureUsers = [
           {
             name = user;
@@ -549,7 +540,7 @@ in
 
       services.postgresql = lib.mkIf pgsqlLocal {
         enable = true;
-        ensureDatabases = [ db.name ];
+        ensureDatabases = [db.name];
         ensureUsers = [
           {
             name = user;

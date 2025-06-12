@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hcxtools";
   version = "6.3.5";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8VfGiIXl/F2wgCMuS3+lt9sT/re9YgoRKwzgSHCir04=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     curl
     openssl
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ZerBea/hcxtools";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

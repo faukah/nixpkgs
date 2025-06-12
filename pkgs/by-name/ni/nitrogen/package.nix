@@ -6,7 +6,6 @@
   glib,
   gtkmm2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nitrogen";
   version = "1.6.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zc3fl1mbhq0iyndy4ysmy8vv5c7xwf54rbgamzfhfvsgdq160pl";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     glib
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/l3ib/nitrogen";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.auntie ];
+    maintainers = [lib.maintainers.auntie];
     mainProgram = "nitrogen";
   };
 }

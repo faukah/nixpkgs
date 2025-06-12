@@ -2,8 +2,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options.services.github-runners = lib.mkOption {
     description = ''
       Multiple GitHub Runners.
@@ -23,11 +22,10 @@
         tokenFile = "/secrets/token2";
       };
     };
-    default = { };
+    default = {};
     type = lib.types.attrsOf (
       lib.types.submodule (
-        { name, ... }:
-        {
+        {name, ...}: {
           options = {
             enable = lib.mkOption {
               default = false;
@@ -131,7 +129,7 @@
                 Changing this option triggers a new runner registration.
               '';
               example = lib.literalExpression ''[ "nixos" ]'';
-              default = [ ];
+              default = [];
             };
 
             noDefaultLabels = lib.mkOption {
@@ -159,7 +157,7 @@
               description = ''
                 Extra packages to add to `PATH` of the service to make them available to workflows.
               '';
-              default = [ ];
+              default = [];
             };
 
             extraEnvironment = lib.mkOption {
@@ -170,7 +168,7 @@
               example = {
                 GIT_CONFIG = "/path/to/git/config";
               };
-              default = { };
+              default = {};
             };
 
             serviceOverrides = lib.mkOption {
@@ -181,12 +179,12 @@
               '';
               example = {
                 ProtectHome = false;
-                RestrictAddressFamilies = [ "AF_PACKET" ];
+                RestrictAddressFamilies = ["AF_PACKET"];
               };
-              default = { };
+              default = {};
             };
 
-            package = lib.mkPackageOption pkgs "github-runner" { };
+            package = lib.mkPackageOption pkgs "github-runner" {};
 
             ephemeral = lib.mkOption {
               type = lib.types.bool;
@@ -256,8 +254,8 @@
             };
 
             nodeRuntimes = lib.mkOption {
-              type = with lib.types; nonEmptyListOf (enum [ "node20" ]);
-              default = [ "node20" ];
+              type = with lib.types; nonEmptyListOf (enum ["node20"]);
+              default = ["node20"];
               description = ''
                 List of Node.js runtimes the runner should support.
               '';

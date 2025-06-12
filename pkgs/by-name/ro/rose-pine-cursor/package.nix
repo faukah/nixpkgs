@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rose-pine-cursor";
   version = "1.1.0";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/rose-pine/cursor/releases";
     homepage = "https://rosepinetheme.com/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ aikooo7 ];
+    maintainers = with maintainers; [aikooo7];
   };
 })

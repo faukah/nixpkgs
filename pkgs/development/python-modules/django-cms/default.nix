@@ -18,7 +18,6 @@
   gettext,
   iptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-cms";
   version = "4.1.6";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     djangocms-admin-style
   ];
 
-  nativeCheckInputs = [ gettext ];
+  nativeCheckInputs = [gettext];
 
   checkInputs = [
     dj-database-url
@@ -89,13 +88,13 @@ buildPythonPackage rec {
     });
   };
 
-  pythonImportsCheck = [ "cms" ];
+  pythonImportsCheck = ["cms"];
 
   meta = {
     description = "Lean enterprise content management powered by Django";
     homepage = "https://django-cms.org";
     changelog = "https://github.com/django-cms/django-cms/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.onny ];
+    maintainers = [lib.maintainers.onny];
   };
 }

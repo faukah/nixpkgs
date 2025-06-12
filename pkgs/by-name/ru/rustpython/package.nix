@@ -6,7 +6,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rustpython";
   version = "0.4.0";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-LuxET01n5drYmPXXhCl0Cs9yoCQKwWah8FWfmKmLdsg=";
 
   # freeze the stdlib into the rustpython binary
-  cargoBuildFlags = [ "--features=freeze-stdlib" ];
+  cargoBuildFlags = ["--features=freeze-stdlib"];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -33,14 +32,14 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Python 3 interpreter in written Rust";
     homepage = "https://rustpython.github.io";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ prusnak ];
+    maintainers = with lib.maintainers; [prusnak];
     mainProgram = "rustpython";
   };
 }

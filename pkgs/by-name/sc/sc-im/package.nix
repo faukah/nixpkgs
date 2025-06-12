@@ -14,7 +14,6 @@
   ncurses,
   xlsSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sc-im";
   version = "0.8.5";
@@ -47,15 +46,15 @@ stdenv.mkDerivation rec {
       libxlsxwriter
     ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   # https://github.com/andmarti1424/sc-im/issues/884
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=implicit-function-declaration";
 
   postInstall = ''
-    wrapProgram "$out/bin/sc-im" --prefix PATH : "${lib.makeBinPath [ gnuplot ]}"
+    wrapProgram "$out/bin/sc-im" --prefix PATH : "${lib.makeBinPath [gnuplot]}"
   '';
 
   meta = with lib; {
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/andmarti1424/sc-im";
     description = "Ncurses spreadsheet program for terminal";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

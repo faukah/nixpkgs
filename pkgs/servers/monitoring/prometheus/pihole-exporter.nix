@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "pihole-exporter";
   version = "1.1.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "pihole-exporter";
     homepage = "https://github.com/eko/pihole-exporter";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

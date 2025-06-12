@@ -4,9 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkEnableOption
     mkIf
@@ -17,12 +17,11 @@ let
     ;
 
   cfg = config.services.ustreamer;
-in
-{
+in {
   options.services.ustreamer = {
     enable = mkEnableOption "µStreamer, a lightweight MJPEG-HTTP streamer";
 
-    package = mkPackageOption pkgs "ustreamer" { };
+    package = mkPackageOption pkgs "ustreamer" {};
 
     autoStart = mkOption {
       description = ''
@@ -59,8 +58,8 @@ in
         Extra arguments to pass to `ustreamer`. See {manpage}`ustreamer(1)`
       '';
       type = with types; listOf str;
-      default = [ ];
-      example = [ "--resolution=1920x1080" ];
+      default = [];
+      example = ["--resolution=1920x1080"];
     };
   };
 
@@ -75,9 +74,9 @@ in
 
     systemd.services."ustreamer" = {
       description = "µStreamer, a lightweight MJPEG-HTTP streamer";
-      after = [ "network.target" ];
-      requires = [ "ustreamer.socket" ];
-      wantedBy = mkIf cfg.autoStart [ "multi-user.target" ];
+      after = ["network.target"];
+      requires = ["ustreamer.socket"];
+      wantedBy = mkIf cfg.autoStart ["multi-user.target"];
       serviceConfig = {
         ExecStart = utils.escapeSystemdExecArgs (
           [
@@ -86,22 +85,25 @@ in
           ]
           ++ cfg.extraArgs
         );
-        Restart = if cfg.autoStart then "always" else "on-failure";
+        Restart =
+          if cfg.autoStart
+          then "always"
+          else "on-failure";
 
         DynamicUser = true;
-        SupplementaryGroups = [ "video" ];
+        SupplementaryGroups = ["video"];
 
         NoNewPrivileges = true;
         ProcSubset = "pid";
         ProtectProc = "noaccess";
         ProtectClock = "yes";
-        DeviceAllow = [ cfg.device ];
+        DeviceAllow = [cfg.device];
       };
     };
 
     systemd.sockets."ustreamer" = {
-      wantedBy = [ "sockets.target" ];
-      partOf = [ "ustreamer.service" ];
+      wantedBy = ["sockets.target"];
+      partOf = ["ustreamer.service"];
       socketConfig = {
         ListenStream = cfg.listenAddress;
       };

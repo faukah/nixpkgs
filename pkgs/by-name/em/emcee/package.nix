@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "emcee";
   version = "0.4.5";
@@ -29,10 +28,10 @@ buildGoModule (finalAttrs: {
     versionCheckHook
   ];
 
-  versionCheckProgramArg = [ "--version" ];
+  versionCheckProgramArg = ["--version"];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Connect agents to APIs";
@@ -45,7 +44,7 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/loopwork-ai/emcee";
     changelog = "https://github.com/loopwork-ai/emcee/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "emcee";
   };
 })

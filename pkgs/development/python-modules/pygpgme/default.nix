@@ -6,7 +6,6 @@
   isPyPy,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   version = "0.3";
   format = "setuptools";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
   # error: invalid command 'test'
   doCheck = false;
 
-  propagatedBuildInputs = [ gpgme ];
+  propagatedBuildInputs = [gpgme];
 
   meta = with lib; {
     homepage = "https://launchpad.net/pygpgme";
     description = "Python wrapper for the GPGME library";
     license = licenses.lgpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

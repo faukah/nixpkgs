@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "readexe";
   version = "0.1.3";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-CT1EZQ3t7+5onmcUz5yGxDI24dyelUwYZFcL8YWZgPw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Reads out structural information on Microsoft .exe formats";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
       isc
       bsd3
     ];
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
     mainProgram = "readexe";
   };
 })

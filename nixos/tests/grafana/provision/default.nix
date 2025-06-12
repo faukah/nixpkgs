@@ -1,7 +1,9 @@
 import ../../make-test-python.nix (
-  { lib, pkgs, ... }:
-
-  let
+  {
+    lib,
+    pkgs,
+    ...
+  }: let
     inherit (lib) mkMerge maintainers;
 
     baseGrafanaConf = {
@@ -23,14 +25,12 @@ import ../../make-test-python.nix (
         };
       };
 
-      systemd.tmpfiles.rules =
-        let
-          dashboard = pkgs.writeText "test.json" (builtins.readFile ./test_dashboard.json);
-        in
-        [
-          "d /var/lib/grafana/dashboards 0700 grafana grafana -"
-          "C+ /var/lib/grafana/dashboards/test.json - - - - ${dashboard}"
-        ];
+      systemd.tmpfiles.rules = let
+        dashboard = pkgs.writeText "test.json" (builtins.readFile ./test_dashboard.json);
+      in [
+        "d /var/lib/grafana/dashboards 0700 grafana grafana -"
+        "C+ /var/lib/grafana/dashboards/test.json - - - - ${dashboard}"
+      ];
     };
 
     extraNodeConfs = {
@@ -78,11 +78,11 @@ import ../../make-test-python.nix (
                             conditions = [
                               {
                                 evaluator = {
-                                  params = [ 3 ];
+                                  params = [3];
                                   type = "git";
                                 };
                                 operator.type = "and";
-                                query.params = [ "A" ];
+                                query.params = ["A"];
                                 reducer.type = "last";
                                 type = "query";
                               }
@@ -163,37 +163,36 @@ import ../../make-test-python.nix (
         };
       };
 
-      provisionYamlDirs =
-        let
-          mkdir = p: pkgs.writeTextDir (baseNameOf p) (builtins.readFile p);
-        in
-        {
-          services.grafana.provision = {
-            datasources.path = mkdir ./datasources.yaml;
-            dashboards.path = mkdir ./dashboards.yaml;
-            alerting = {
-              rules.path = mkdir ./rules.yaml;
-              contactPoints.path = mkdir ./contact-points.yaml;
-              policies.path = mkdir ./policies.yaml;
-              templates.path = mkdir ./templates.yaml;
-              muteTimings.path = mkdir ./mute-timings.yaml;
-            };
+      provisionYamlDirs = let
+        mkdir = p: pkgs.writeTextDir (baseNameOf p) (builtins.readFile p);
+      in {
+        services.grafana.provision = {
+          datasources.path = mkdir ./datasources.yaml;
+          dashboards.path = mkdir ./dashboards.yaml;
+          alerting = {
+            rules.path = mkdir ./rules.yaml;
+            contactPoints.path = mkdir ./contact-points.yaml;
+            policies.path = mkdir ./policies.yaml;
+            templates.path = mkdir ./templates.yaml;
+            muteTimings.path = mkdir ./mute-timings.yaml;
           };
         };
+      };
     };
 
-    nodes = builtins.mapAttrs (
-      _: val:
-      mkMerge [
-        val
-        baseGrafanaConf
-      ]
-    ) extraNodeConfs;
-  in
-  {
+    nodes =
+      builtins.mapAttrs (
+        _: val:
+          mkMerge [
+            val
+            baseGrafanaConf
+          ]
+      )
+      extraNodeConfs;
+  in {
     name = "grafana-provision";
 
-    meta.maintainers = [ ];
+    meta.maintainers = [];
 
     inherit nodes;
 

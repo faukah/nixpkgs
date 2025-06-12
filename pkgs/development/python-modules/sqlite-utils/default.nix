@@ -20,7 +20,7 @@ buildPythonPackage rec {
   version = "3.38";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.7";
 
@@ -44,9 +44,9 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "sqlite_utils" ];
+  pythonImportsCheck = ["sqlite_utils"];
 
-  passthru.tests.version = testers.testVersion { package = sqlite-utils; };
+  passthru.tests.version = testers.testVersion {package = sqlite-utils;};
 
   meta = with lib; {
     description = "Python CLI utility and library for manipulating SQLite databases";

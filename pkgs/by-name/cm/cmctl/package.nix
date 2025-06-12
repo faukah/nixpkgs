@@ -6,7 +6,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "cmctl";
   version = "2.2.0";
@@ -47,7 +46,7 @@ buildGoModule (finalAttrs: {
         --zsh <($out/bin/cmctl completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line utility to interact with a cert-manager instalation on Kubernetes";
@@ -68,6 +67,6 @@ buildGoModule (finalAttrs: {
     downloadPage = "https://github.com/cert-manager/cmctl";
     license = lib.licenses.asl20;
     homepage = "https://cert-manager.io/";
-    maintainers = with lib.maintainers; [ joshvanl ];
+    maintainers = with lib.maintainers; [joshvanl];
   };
 })

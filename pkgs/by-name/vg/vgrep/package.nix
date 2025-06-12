@@ -5,7 +5,6 @@
   go-md2man,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "vgrep";
   version = "2.8.0";
@@ -41,6 +40,6 @@ buildGoModule rec {
     mainProgram = "vgrep";
     homepage = "https://github.com/vrothberg/vgrep";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

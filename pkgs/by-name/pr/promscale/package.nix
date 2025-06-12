@@ -5,7 +5,6 @@
   promscale,
   testers,
 }:
-
 buildGoModule rec {
   pname = "promscale";
   version = "0.17.0";

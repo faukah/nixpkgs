@@ -6,7 +6,6 @@
   openssl,
   vulkan-loader,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "hayabusa";
   version = "unstable-2023-11-29";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage {
     description = "Swift rust fetch program";
     homepage = "https://github.com/notarin/hayabusa";
     license = lib.licenses.cc-by-nc-nd-40;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "hayabusa";
     platforms = lib.platforms.linux;
   };

@@ -26,7 +26,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   postInstall = ''
     make -C doc install
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Gesture control for X11";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/mikemb/wayV";
     mainProgram = "wayv";

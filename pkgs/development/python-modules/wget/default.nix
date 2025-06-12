@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "wget";
   version = "3.2";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
   meta = {
     description = "Pure python download utility";
     homepage = "https://bitbucket.org/techtonik/python-wget/";
-    license = with lib.licenses; [ unlicense ];
-    maintainers = with lib.maintainers; [ prusnak ];
+    license = with lib.licenses; [unlicense];
+    maintainers = with lib.maintainers; [prusnak];
   };
 }

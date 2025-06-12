@@ -10,14 +10,13 @@
   stdenv,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deepgit";
   version = "4.4";
 
   src = fetchurl {
     url = "https://www.syntevo.com/downloads/deepgit/deepgit-linux-${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.tar.gz";
     hash = "sha256-ILqwXDyW7/hZzoSxxaxv4bF5xsB/JFaOBYAJFb7xmdk=";
   };
@@ -36,11 +35,11 @@ stdenv.mkDerivation rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          glib
-          gtk3
-        ]
-      }
+      lib.makeLibraryPath [
+        glib
+        gtk3
+      ]
+    }
       --set DEEPGIT_JAVA_HOME ${jre}
     )
     patchShebangs bin/deepgit.sh
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     (makeDesktopItem rec {
       name = pname;
       desktopName = "DeepGit";
-      keywords = [ "git" ];
+      keywords = ["git"];
       comment = "Git-Client";
       categories = [
         "Development"
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.syntevo.com/deepgit";
     changelog = "https://www.syntevo.com/deepgit/changelog.txt";
     license = licenses.unfree;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     platforms = platforms.linux;
     mainProgram = "deepgit";
   };

@@ -7,7 +7,6 @@
   coreutils,
   steamRoot ? "~/.local/share/Steam",
 }:
-
 stdenv.mkDerivation {
   pname = "steamcmd";
   version = "20180104"; # According to steamcmd_linux.tar.gz mtime
@@ -51,6 +50,6 @@ stdenv.mkDerivation {
     mainProgram = "steamcmd";
     platforms = platforms.linux;
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
   };
 }

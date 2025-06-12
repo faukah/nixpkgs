@@ -27,9 +27,9 @@ stdenv.mkDerivation (finalAttrs: {
     liboqs
   ];
 
-  nativeCheckInputs = [ openssl.bin ];
+  nativeCheckInputs = [openssl.bin];
 
-  configureFlags = [ "--with-modulesdir=$$out/lib/ossl-modules" ];
+  configureFlags = ["--with-modulesdir=$$out/lib/ossl-modules"];
 
   postPatch = ''
     echo ${finalAttrs.version} > VERSION
@@ -48,13 +48,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/open-quantum-safe/oqs-provider";
     description = "Open Quantum Safe provider for OpenSSL (3.x)";
     license = licenses.mit;
-    maintainers = with maintainers; [ rixxc ];
+    maintainers = with maintainers; [rixxc];
     platforms = platforms.all;
   };
 })

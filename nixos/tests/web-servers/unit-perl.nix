@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   testdir = pkgs.writeTextDir "www/app.psgi" ''
     my $app = sub {
         return [
@@ -9,31 +8,27 @@ let
         ];
     };
   '';
-
-in
-{
+in {
   name = "unit-perl-test";
-  meta.maintainers = with pkgs.lib.maintainers; [ sgo ];
+  meta.maintainers = with pkgs.lib.maintainers; [sgo];
 
-  nodes.machine =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      services.unit = {
-        enable = true;
-        config = pkgs.lib.strings.toJSON {
-          listeners."*:8080".application = "perl";
-          applications.perl = {
-            type = "perl";
-            script = "${testdir}/www/app.psgi";
-          };
+  nodes.machine = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    services.unit = {
+      enable = true;
+      config = pkgs.lib.strings.toJSON {
+        listeners."*:8080".application = "perl";
+        applications.perl = {
+          type = "perl";
+          script = "${testdir}/www/app.psgi";
         };
       };
     };
+  };
   testScript = ''
     machine.wait_for_unit("unit.service")
     machine.wait_for_open_port(8080)

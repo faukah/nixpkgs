@@ -19,7 +19,6 @@
   python3,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "parlatype";
   version = "4.2";

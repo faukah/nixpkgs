@@ -5,7 +5,6 @@
   cmake,
   hdf5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "medfile";
   version = "5.0.0";
@@ -44,9 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-warn "med_Access_mode" "med_access_mode"
     '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ hdf5 ];
+  buildInputs = [hdf5];
 
   checkPhase = "make test";
 

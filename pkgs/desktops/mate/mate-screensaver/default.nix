@@ -17,7 +17,6 @@
   wrapGAppsHook3,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-screensaver";
   version = "1.28.0";
@@ -46,13 +45,13 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  configureFlags = [ "--without-console-kit" ];
+  configureFlags = ["--without-console-kit"];
 
-  makeFlags = [ "DBUS_SESSION_SERVICE_DIR=$(out)/etc" ];
+  makeFlags = ["DBUS_SESSION_SERVICE_DIR=$(out)/etc"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Screen saver and locker for the MATE desktop";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

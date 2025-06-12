@@ -9,7 +9,6 @@
   withLibraspberrypi ? false,
   libraspberrypi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcec";
   version = "7.0.0";
@@ -30,10 +29,12 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [
-    udev
-    libcec_platform
-  ] ++ lib.optional withLibraspberrypi libraspberrypi;
+  buildInputs =
+    [
+      udev
+      libcec_platform
+    ]
+    ++ lib.optional withLibraspberrypi libraspberrypi;
 
   cmakeFlags =
     [
@@ -48,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "http://libcec.pulse-eight.com";
     license = lib.licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

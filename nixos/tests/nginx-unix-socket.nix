@@ -1,31 +1,31 @@
-{ ... }:
-let
+{...}: let
   defaultNginxSocketPath = "/var/run/nginx/default-test.sock";
   nginxSocketPath = "/var/run/nginx/test.sock";
-in
-{
+in {
   name = "nginx-unix-socket";
 
   nodes = {
-    webserver =
-      { pkgs, lib, ... }:
-      {
-        services.nginx = {
-          enable = true;
+    webserver = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      services.nginx = {
+        enable = true;
 
-          defaultListen = [ { addr = "unix:${defaultNginxSocketPath}"; } ];
-          virtualHosts.defaultLocalhost = {
-            serverName = "defaultLocalhost";
-            locations."/default".return = "200 'bar'";
-          };
+        defaultListen = [{addr = "unix:${defaultNginxSocketPath}";}];
+        virtualHosts.defaultLocalhost = {
+          serverName = "defaultLocalhost";
+          locations."/default".return = "200 'bar'";
+        };
 
-          virtualHosts.localhost = {
-            serverName = "localhost";
-            listen = [ { addr = "unix:${nginxSocketPath}"; } ];
-            locations."/test".return = "200 'foo'";
-          };
+        virtualHosts.localhost = {
+          serverName = "localhost";
+          listen = [{addr = "unix:${nginxSocketPath}";}];
+          locations."/test".return = "200 'foo'";
         };
       };
+    };
   };
 
   testScript = ''

@@ -9,7 +9,6 @@
   doxygen,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "colobot-data";
   version = "0.2.2-alpha";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     doxygen
     python3
   ];
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   # Build procedure requires the data folder
   patchPhase = ''
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://colobot.info/";
     description = "Game data for colobot";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ freezeboy ];
+    maintainers = with lib.maintainers; [freezeboy];
     platforms = lib.platforms.linux;
   };
 })

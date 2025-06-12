@@ -7,7 +7,6 @@
   home-assistant,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "homeassistant-stubs";
   version = "2025.5.3";
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/KapJI/homeassistant-stubs";
     changelog = "https://github.com/KapJI/homeassistant-stubs/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    teams = [ lib.teams.home-assistant ];
+    teams = [lib.teams.home-assistant];
   };
 }

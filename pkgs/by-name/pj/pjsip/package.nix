@@ -40,16 +40,21 @@ stdenv.mkDerivation (finalAttrs: {
     python3.pkgs.wheel
   ];
 
-  buildInputs = [
-    openssl
-    libsamplerate
-  ] ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
+  buildInputs =
+    [
+      openssl
+      libsamplerate
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux alsa-lib;
 
   env =
     {
-      NIX_LDFLAGS = if stdenv.hostPlatform.isDarwin then "-lc++" else "-lstdc++";
+      NIX_LDFLAGS =
+        if stdenv.hostPlatform.isDarwin
+        then "-lc++"
+        else "-lstdc++";
     }
-    // lib.optionalAttrs stdenv.cc.isClang { CXXFLAGS = "-std=c++11"; }
+    // lib.optionalAttrs stdenv.cc.isClang {CXXFLAGS = "-std=c++11";}
     // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
       NIX_CFLAGS_LINK = "-headerpad_max_install_names";
     };
@@ -62,9 +67,9 @@ stdenv.mkDerivation (finalAttrs: {
     make -C pjsip-apps/src/swig/python
   '';
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
-  outputs = [ "out" ] ++ lib.optional pythonSupport "py";
+  outputs = ["out"] ++ lib.optional pythonSupport "py";
 
   postInstall =
     ''
@@ -122,19 +127,19 @@ stdenv.mkDerivation (finalAttrs: {
     command = "pjsua --version";
   };
 
-  passthru.tests.pkg-config = testers.hasPkgConfigModules { package = finalAttrs.finalPackage; };
+  passthru.tests.pkg-config = testers.hasPkgConfigModules {package = finalAttrs.finalPackage;};
 
-  passthru.tests.python-pjsua2 = runCommand "python-pjsua2" { } ''
-    ${(python3.withPackages (pkgs: [ pkgs.pjsua2 ])).interpreter} -c "import pjsua2" > $out
+  passthru.tests.python-pjsua2 = runCommand "python-pjsua2" {} ''
+    ${(python3.withPackages (pkgs: [pkgs.pjsua2])).interpreter} -c "import pjsua2" > $out
   '';
 
   meta = with lib; {
     description = "Multimedia communication library written in C, implementing standard based protocols such as SIP, SDP, RTP, STUN, TURN, and ICE";
     homepage = "https://pjsip.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ olynch ];
+    maintainers = with maintainers; [olynch];
     mainProgram = "pjsua";
     platforms = platforms.linux ++ platforms.darwin;
-    pkgConfigModules = [ "libpjproject" ];
+    pkgConfigModules = ["libpjproject"];
   };
 })

@@ -15,7 +15,6 @@
   cups,
   switchboard,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-printers";
   version = "8.0.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -53,7 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard-plug-printers";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
-
 }

@@ -6,7 +6,6 @@
   openssl,
   db,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bruteforce-wallet";
   version = "1.5.4";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/glv2/bruteforce-wallet";
     changelog = "https://github.com/glv2/bruteforce-wallet/blob/${src.rev}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ octodi ];
+    maintainers = with maintainers; [octodi];
     mainProgram = "bruteforce-wallet";
     platforms = platforms.linux;
   };

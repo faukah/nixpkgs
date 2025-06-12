@@ -14,7 +14,6 @@
   tenacity,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "nice-go";
   version = "1.0.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-8hm2kB1axv2oqMLSKmquFLe7jsTFO+HYnCz5vL4ve/A=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
   dependencies = [
     aiobotocore
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "nice_go" ];
+  pythonImportsCheck = ["nice_go"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     description = "Control various Nice access control products";
     homepage = "https://github.com/IceBotYT/nice-go";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

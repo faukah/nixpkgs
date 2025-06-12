@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "starship";
   meta.maintainers = pkgs.starship.meta.maintainers;
 
@@ -16,8 +15,8 @@
 
     environment.systemPackages =
       map
-        (
-          shell:
+      (
+        shell:
           pkgs.writeScriptBin "expect-${shell}" ''
             #!${pkgs.expect}/bin/expect -f
 
@@ -32,12 +31,12 @@
 
             expect eof
           ''
-        )
-        [
-          "bash"
-          "fish"
-          "zsh"
-        ];
+      )
+      [
+        "bash"
+        "fish"
+        "zsh"
+      ];
   };
 
   testScript = ''

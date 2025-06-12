@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "kubectl-df-pv";
   version = "0.3.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/yashbhutwala/kubectl-df-pv";
     changelog = "https://github.com/yashbhutwala/kubectl-df-pv/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jemand771 ];
+    maintainers = with lib.maintainers; [jemand771];
   };
 }

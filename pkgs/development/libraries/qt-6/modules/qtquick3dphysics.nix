@@ -5,7 +5,6 @@
   qtbase,
   qtquick3d,
 }:
-
 qtModule {
   pname = "qtquick3dphysics";
   propagatedBuildInputs = [

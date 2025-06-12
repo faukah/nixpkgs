@@ -13,7 +13,6 @@
   gobject-introspection,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "memorado";
   version = "0.5";
@@ -39,9 +38,10 @@ stdenv.mkDerivation rec {
     gtk4
     libadwaita
     (python3.withPackages (
-      ps: with ps; [
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          pygobject3
+        ]
     ))
   ];
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Simple and clean flashcard memorizing app";
     homepage = "https://github.com/wbernard/Memorado";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

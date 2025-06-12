@@ -5,7 +5,6 @@
   lib,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "revive";
   version = "1.10.0";
@@ -41,11 +40,11 @@ buildGoModule rec {
 
   allowGoReference = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/revive \
-      --prefix PATH : ${lib.makeBinPath [ go ]}
+      --prefix PATH : ${lib.makeBinPath [go]}
   '';
 
   meta = with lib; {
@@ -53,6 +52,6 @@ buildGoModule rec {
     mainProgram = "revive";
     homepage = "https://revive.run";
     license = licenses.mit;
-    maintainers = with maintainers; [ maaslalani ];
+    maintainers = with maintainers; [maaslalani];
   };
 }

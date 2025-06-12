@@ -1,6 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     # A filesystem image with a (presumably) bootable debian
     debianImage = pkgs.vmTools.diskImageFuns.debian11i386 {
       # os-prober cannot detect systems installed on disks without a partition table
@@ -46,7 +49,7 @@ import ./make-test-python.nix (
         forceInstall = true;
       };
       nix.settings = {
-        substituters = lib.mkForce [ ];
+        substituters = lib.mkForce [];
         hashed-mirrors = null;
         connect-timeout = 1;
       };
@@ -62,69 +65,70 @@ import ./make-test-python.nix (
             ];
       } // lib.importJSON ${pkgs.writeText "simpleConfig.json" (builtins.toJSON simpleConfig)})
     '';
-  in
-  {
+  in {
     name = "os-prober";
 
-    nodes.machine =
-      { config, pkgs, ... }:
-      (
-        simpleConfig
-        // {
-          imports = [
-            ../modules/profiles/installation-device.nix
-            ../modules/profiles/base.nix
-          ];
-          virtualisation.memorySize = 1300;
-          # To add the secondary disk:
-          virtualisation.qemu.options = [
-            "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
-          ];
+    nodes.machine = {
+      config,
+      pkgs,
+      ...
+    }: (
+      simpleConfig
+      // {
+        imports = [
+          ../modules/profiles/installation-device.nix
+          ../modules/profiles/base.nix
+        ];
+        virtualisation.memorySize = 1300;
+        # To add the secondary disk:
+        virtualisation.qemu.options = [
+          "-drive index=2,file=${debianImage}/disk-image.qcow2,read-only,if=virtio"
+        ];
 
-          # The test cannot access the network, so any packages
-          # nixos-rebuild needs must be included in the VM.
-          system.extraDependencies = with pkgs; [
-            bintools
-            brotli
-            brotli.dev
-            brotli.lib
-            desktop-file-utils
-            docbook5
-            docbook_xsl_ns
-            grub2
-            nixos-artwork.wallpapers.simple-dark-gray-bootloader
-            perlPackages.FileCopyRecursive
-            perlPackages.XMLSAX
-            perlPackages.XMLSAXBase
-            kbd
-            kbd.dev
-            kmod.dev
-            libarchive
-            libarchive.dev
-            libxml2.bin
-            libxslt.bin
-            nixos-artwork.wallpapers.simple-dark-gray-bottom
-            perlPackages.ConfigIniFiles
-            perlPackages.FileSlurp
-            perlPackages.JSON
-            perlPackages.ListCompare
-            perlPackages.XMLLibXML
-            # make-options-doc/default.nix
-            (python3.withPackages (p: [ p.mistune ]))
-            shared-mime-info
-            sudo
-            switch-to-configuration-ng
-            texinfo
-            unionfs-fuse
-            xorg.lndir
-            os-prober
+        # The test cannot access the network, so any packages
+        # nixos-rebuild needs must be included in the VM.
+        system.extraDependencies = with pkgs; [
+          bintools
+          brotli
+          brotli.dev
+          brotli.lib
+          desktop-file-utils
+          docbook5
+          docbook_xsl_ns
+          grub2
+          nixos-artwork.wallpapers.simple-dark-gray-bootloader
+          perlPackages.FileCopyRecursive
+          perlPackages.XMLSAX
+          perlPackages.XMLSAXBase
+          kbd
+          kbd.dev
+          kmod.dev
+          libarchive
+          libarchive.dev
+          libxml2.bin
+          libxslt.bin
+          nixos-artwork.wallpapers.simple-dark-gray-bottom
+          perlPackages.ConfigIniFiles
+          perlPackages.FileSlurp
+          perlPackages.JSON
+          perlPackages.ListCompare
+          perlPackages.XMLLibXML
+          # make-options-doc/default.nix
+          (python3.withPackages (p: [p.mistune]))
+          shared-mime-info
+          sudo
+          switch-to-configuration-ng
+          texinfo
+          unionfs-fuse
+          xorg.lndir
+          os-prober
 
-            # add curl so that rather than seeing the test attempt to download
-            # curl's tarball, we see what it's trying to download
-            curl
-          ];
-        }
-      );
+          # add curl so that rather than seeing the test attempt to download
+          # curl's tarball, we see what it's trying to download
+          curl
+        ];
+      }
+    );
 
     testScript = ''
       machine.start()

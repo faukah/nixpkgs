@@ -15,7 +15,6 @@
   tqdm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "graphtage";
   version = "0.3.1";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-Bz2T8tVdVOdXt23yPITkDNL46Y5LZPhY3SXZ5bF3CHw=";
   };
 
-  pythonRelaxDeps = [ "json5" ];
+  pythonRelaxDeps = ["json5"];
 
   build-system = [
     distutils
@@ -48,16 +47,16 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "graphtage" ];
+  pythonImportsCheck = ["graphtage"];
 
   meta = with lib; {
     description = "Utility to diff tree-like files such as JSON and XML";
     homepage = "https://github.com/trailofbits/graphtage";
     changelog = "https://github.com/trailofbits/graphtage/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
     mainProgram = "graphtage";
   };
 }

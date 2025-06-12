@@ -4,7 +4,6 @@
   fetchurl,
   allegro,
 }:
-
 stdenv.mkDerivation rec {
   pname = "atanks";
   version = "6.6";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vGse/J/H52JPrR2DUtcuknvg+6IWC7Jbtri9bGNwv0M=";
   };
 
-  buildInputs = [ allegro ];
+  buildInputs = [allegro];
 
   makeFlags = [
     "PREFIX=$(out)/"
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Atomic Tanks ballistics game";
     mainProgram = "atanks";
     homepage = "http://atanks.sourceforge.net/";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "koruri";
   version = "20210720";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Japanese TrueType font obtained by mixing M+ FONTS and Open Sans";
     homepage = "https://github.com/Koruri/Koruri";
     license = licenses.asl20;
-    maintainers = with maintainers; [ haruki7049 ];
+    maintainers = with maintainers; [haruki7049];
     platforms = platforms.all;
   };
 }

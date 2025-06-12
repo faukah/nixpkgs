@@ -17,7 +17,6 @@
   pcre2,
   hiredis,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oven-media-engine";
   version = "0.17.1";
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     mainProgram = "OvenMediaEngine";
     homepage = "https://ovenmediaengine.com";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.linux;
   };
 }

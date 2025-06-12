@@ -8,7 +8,6 @@
   openssl,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "oxide-rs";
   version = "0.9.0+20241204.0.0";

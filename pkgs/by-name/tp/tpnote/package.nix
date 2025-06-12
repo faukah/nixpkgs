@@ -9,7 +9,6 @@
   tpnote,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tpnote";
   version = "1.25.11";
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
 
   RUSTONIG_SYSTEM_LIBONIG = true;
 
-  passthru.tests.version = testers.testVersion { package = tpnote; };
+  passthru.tests.version = testers.testVersion {package = tpnote;};
 
   # The `tpnote` crate has no unit tests. All tests are in `tpnote-lib`.
   checkType = "debug";
@@ -53,6 +52,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://blog.getreu.net/projects/tp-note/";
     license = lib.licenses.mit;
     mainProgram = "tpnote";
-    maintainers = with lib.maintainers; [ getreu ];
+    maintainers = with lib.maintainers; [getreu];
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
-
 stdenv.mkDerivation rec {
   pname = "ts";
   version = "1.0.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "http://vicerveza.homeunix.net/~viric/soft/ts";
     description = "Task spooler - batch queue";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
     mainProgram = "ts";
   };

@@ -11,7 +11,6 @@
   discount,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpd-notification";
   version = "0.9.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Notifications for mpd";
     homepage = "https://github.com/eworm-de/mpd-notification";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ CaitlinDavitt ];
+    maintainers = with maintainers; [CaitlinDavitt];
     platforms = platforms.unix;
     mainProgram = "mpd-notification";
   };

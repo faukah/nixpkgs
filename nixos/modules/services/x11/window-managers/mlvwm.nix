@@ -4,15 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.mlvwm;
-
-in
-{
-
+in {
   options.services.xserver.windowManager.mlvwm = {
     enable = mkEnableOption "Macintosh-like Virtual Window Manager";
 
@@ -27,7 +21,6 @@ in
   };
 
   config = mkIf cfg.enable {
-
     services.xserver.windowManager.session = [
       {
         name = "mlvwm";
@@ -42,6 +35,6 @@ in
       source = cfg.configFile;
     };
 
-    environment.systemPackages = [ pkgs.mlvwm ];
+    environment.systemPackages = [pkgs.mlvwm];
   };
 }

@@ -6,8 +6,7 @@
   gnumake,
   gnutar,
   gzip,
-}:
-let
+}: let
   pname = "bzip2";
   version = "1.0.8";
 
@@ -16,7 +15,7 @@ let
     sha256 = "0s92986cv0p692icqlw1j42y9nld8zd83qwhzbqd61p1dqbh6nmb";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version;
 
@@ -27,9 +26,8 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/bzip2 --help
         mkdir $out
       '';
@@ -38,7 +36,7 @@ bash.runCommand "${pname}-${version}"
       description = "High-quality data compression program";
       homepage = "https://www.sourceware.org/bzip2";
       license = licenses.bsdOriginal;
-      teams = [ teams.minimal-bootstrap ];
+      teams = [teams.minimal-bootstrap];
       platforms = platforms.unix;
     };
   }

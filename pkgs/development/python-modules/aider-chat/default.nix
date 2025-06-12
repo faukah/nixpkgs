@@ -118,9 +118,7 @@
   nltk,
   boto3,
   nix-update-script,
-}:
-
-let
+}: let
   aider-nltk-data = nltk.dataDir (d: [
     d.punkt-tab
     d.stopwords
@@ -144,7 +142,7 @@ let
 
     pythonRelaxDeps = true;
 
-    build-system = [ setuptools-scm ];
+    build-system = [setuptools-scm];
 
     dependencies = [
       aiohappyeyeballs
@@ -248,7 +246,7 @@ let
       python-dateutil
     ];
 
-    buildInputs = [ portaudio ];
+    buildInputs = [portaudio];
 
     nativeCheckInputs = [
       pytestCheckHook
@@ -328,24 +326,21 @@ let
     };
 
     passthru = {
-      withOptional =
-        {
-          withPlaywright ? false,
-          withBrowser ? false,
-          withHelp ? false,
-          withBedrock ? false,
-          withAll ? false,
-          ...
-        }:
+      withOptional = {
+        withPlaywright ? false,
+        withBrowser ? false,
+        withHelp ? false,
+        withBedrock ? false,
+        withAll ? false,
+        ...
+      }:
         aider-chat.overridePythonAttrs (
           {
             dependencies,
             makeWrapperArgs,
-            propagatedBuildInputs ? [ ],
+            propagatedBuildInputs ? [],
             ...
-          }:
-
-          {
+          }: {
             dependencies =
               dependencies
               ++ lib.optionals (withAll || withPlaywright) aider-chat.optional-dependencies.playwright
@@ -355,7 +350,7 @@ let
 
             propagatedBuildInputs =
               propagatedBuildInputs
-              ++ lib.optionals (withAll || withPlaywright) [ playwright-driver.browsers ];
+              ++ lib.optionals (withAll || withPlaywright) [playwright-driver.browsers];
 
             makeWrapperArgs =
               makeWrapperArgs
@@ -396,4 +391,4 @@ let
     };
   };
 in
-aider-chat
+  aider-chat

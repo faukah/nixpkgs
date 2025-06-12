@@ -9,7 +9,6 @@
   setuptools,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "karton-core";
   version = "5.7.0";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-XmhOPtgrK5rgnYsm5cj1kjJw/yClskVCT6RpDIepbvc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "boto3" ];
+  pythonRelaxDeps = ["boto3"];
 
   dependencies = [
     boto3
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     redis
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "karton.core" ];
+  pythonImportsCheck = ["karton.core"];
 
   meta = with lib; {
     description = "Distributed malware processing framework";

@@ -6,7 +6,6 @@
   alcotest,
   ohex,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.13.0";
 
@@ -18,7 +17,7 @@ buildDunePackage rec {
     hash = "sha256-KyaYX24nIgc9zZ+ENVvWdX4SZDtaSOMLPAf/fPsNin8=";
   };
 
-  propagatedBuildInputs = [ ptime ];
+  propagatedBuildInputs = [ptime];
 
   doCheck = true;
   checkInputs = [
@@ -31,6 +30,6 @@ buildDunePackage rec {
     changelog = "https://github.com/mirleft/ocaml-asn1-combinators/blob/v${version}/CHANGES.md";
     description = "Combinators for expressing ASN.1 grammars in OCaml";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

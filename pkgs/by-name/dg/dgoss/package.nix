@@ -7,7 +7,6 @@
   resholve,
   which,
 }:
-
 resholve.mkDerivation rec {
   pname = "dgoss";
   version = goss.version;
@@ -23,7 +22,7 @@ resholve.mkDerivation rec {
 
   solutions = {
     default = {
-      scripts = [ "bin/dgoss" ];
+      scripts = ["bin/dgoss"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils

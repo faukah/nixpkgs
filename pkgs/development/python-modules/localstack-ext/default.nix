@@ -14,11 +14,9 @@
   requests,
   python-dateutil,
   tabulate,
-
   # use for testing promoted localstack
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "localstack-ext";
   version = "4.3.0";
@@ -41,20 +39,22 @@ buildPythonPackage rec {
     "build"
   ];
 
-  dependencies = [
-    dill
-    dnslib
-    dnspython
-    plux
-    pyaes
-    pyotp
-    python-jose
-    requests
-    tabulate
-    python-dateutil
-  ] ++ python-jose.optional-dependencies.cryptography;
+  dependencies =
+    [
+      dill
+      dnslib
+      dnspython
+      plux
+      pyaes
+      pyotp
+      python-jose
+      requests
+      tabulate
+      python-dateutil
+    ]
+    ++ python-jose.optional-dependencies.cryptography;
 
-  pythonImportsCheck = [ "localstack" ];
+  pythonImportsCheck = ["localstack"];
 
   # No tests in repo
   doCheck = false;
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     description = "Extensions for LocalStack";
     homepage = "https://github.com/localstack/localstack";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

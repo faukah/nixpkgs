@@ -21,13 +21,12 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ida-free";
   version = "9.1";
 
   src = requireFile {
-    name = "ida-free-pc_${lib.replaceStrings [ "." ] [ "" ] version}_x64linux.run";
+    name = "ida-free-pc_${lib.replaceStrings ["."] [""] version}_x64linux.run";
     url = "https://my.hex-rays.com/dashboard/download-center/${version}/ida-free";
     hash = "sha256-DIkxr9yD6yvziO8XHi0jt80189bXueRxmSFyq2LM0cg=";
   };
@@ -123,8 +122,8 @@ stdenv.mkDerivation rec {
     changelog = "https://hex-rays.com/products/ida/news/";
     license = licenses.unfree;
     mainProgram = "ida";
-    maintainers = with maintainers; [ msanft ];
-    platforms = [ "x86_64-linux" ]; # Right now, the installation script only supports Linux.
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [msanft];
+    platforms = ["x86_64-linux"]; # Right now, the installation script only supports Linux.
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

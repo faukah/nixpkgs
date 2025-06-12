@@ -15,7 +15,6 @@
   yyjson,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "woof-doom";
   version = "15.2.0";
@@ -44,14 +43,14 @@ stdenv.mkDerivation (finalAttrs: {
     yyjson
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Woof! is a continuation of the Boom/MBF bloodline of Doom source ports";
     homepage = "https://github.com/fabiangreffrath/woof";
     changelog = "https://github.com/fabiangreffrath/woof/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ keenanweaver ];
+    maintainers = with lib.maintainers; [keenanweaver];
     mainProgram = "woof";
     platforms = with lib.platforms; darwin ++ linux ++ windows;
   };

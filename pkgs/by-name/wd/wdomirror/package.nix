@@ -10,7 +10,6 @@
   fetchpatch,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation {
   pname = "wdomirror";
   version = "unstable-2021-01-08";
@@ -59,7 +58,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/progandy/wdomirror";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jpas ];
+    maintainers = with maintainers; [jpas];
     mainProgram = "wdomirror";
   };
 }

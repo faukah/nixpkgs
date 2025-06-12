@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "openspin";
   version = "unstable-2018-10-02";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     mainProgram = "openspin";
     homepage = "https://github.com/parallaxinc/OpenSpin";
     license = licenses.mit;
-    maintainers = [ maintainers.redvers ];
+    maintainers = [maintainers.redvers];
     platforms = platforms.all;
   };
 }

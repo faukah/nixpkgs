@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-powerbiembedded";
   version = "3.0.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-yz2D3WfQKEdkTm10ZKIhZMi4y6GF6yz+L1+nB/VFofo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/powerbiembedded/azure-mgmt-powerbiembedded";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-powerbiembedded_${version}/sdk/powerbiembedded/azure-mgmt-powerbiembedded/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

@@ -7,25 +7,20 @@
   python3Packages,
   pythonSupport ? false,
   stdenv,
-
   # nativeBuildInputs
   doxygen,
   cmake,
   graphviz,
   pkg-config,
-
   # buildInputs
   fmt,
-
   # propagatedBuildInputs
   suitesparse,
   crocoddyl,
   pinocchio,
-
   # checkInputs
   gbenchmark,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aligator";
   version = "0.14.0";
@@ -56,12 +51,12 @@ stdenv.mkDerivation (finalAttrs: {
       python3Packages.pythonImportsCheckHook
     ];
   buildInputs =
-    [ fmt ]
+    [fmt]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       llvmPackages.openmp
     ];
   propagatedBuildInputs =
-    [ suitesparse ]
+    [suitesparse]
     ++ lib.optionals pythonSupport [
       python3Packages.crocoddyl
       python3Packages.matplotlib
@@ -72,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       pinocchio
     ];
   checkInputs =
-    [ gbenchmark ]
+    [gbenchmark]
     ++ lib.optionals pythonSupport [
       python3Packages.matplotlib
       python3Packages.pytest
@@ -104,16 +99,16 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   doCheck = true;
-  pythonImportsCheck = [ "aligator" ];
+  pythonImportsCheck = ["aligator"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Versatile and efficient framework for constrained trajectory optimization";
     homepage = "https://github.com/Simple-Robotics/aligator";
     changelog = "https://github.com/Simple-Robotics/aligator/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix;
   };
 })

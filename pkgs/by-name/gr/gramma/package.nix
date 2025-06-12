@@ -8,7 +8,6 @@
   nodejs,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gramma";
   version = "1.6.0";
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     nodejs
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "command-line grammar checker";
@@ -45,6 +44,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     changelog = "https://github.com/caderek/gramma/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.isc;
     mainProgram = "gramma";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

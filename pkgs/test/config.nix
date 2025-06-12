@@ -4,7 +4,6 @@
   ...
 }:
 lib.recurseIntoAttrs {
-
   # https://github.com/NixOS/nixpkgs/issues/175196
   # This test has since been simplified to test the recursion without
   # the fluff to make it look like a real-world example.
@@ -13,16 +12,13 @@ lib.recurseIntoAttrs {
   #   use `pkgs` to retrieve at least *some* information.
   #
   # Instead of `builtins.seq`, the list may be constructed based on actual package info.
-  allowPkgsInPermittedInsecurePackages =
-    let
-      pkgs' = import ../.. {
-        system = pkgs.stdenv.hostPlatform.system;
-        config = {
-          permittedInsecurePackages = builtins.seq pkgs'.glibc.version [ ];
-        };
+  allowPkgsInPermittedInsecurePackages = let
+    pkgs' = import ../.. {
+      system = pkgs.stdenv.hostPlatform.system;
+      config = {
+        permittedInsecurePackages = builtins.seq pkgs'.glibc.version [];
       };
-
-    in
+    };
+  in
     pkgs'.hello;
-
 }

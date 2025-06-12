@@ -5,10 +5,8 @@
   fetchFromGitHub,
   pythonAtLeast,
   pythonOlder,
-
   # buildtime
   hatchling,
-
   # runtime deps
   click,
   ghp-import,
@@ -24,16 +22,13 @@
   pyyaml,
   pyyaml-env-tag,
   watchdog,
-
   # optional-dependencies
   babel,
   setuptools,
-
   # testing deps
   mock,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs";
   version = "1.6.1";
@@ -48,36 +43,42 @@ buildPythonPackage rec {
     hash = "sha256-JQSOgV12iYE6FubxdoJpWy9EHKFxyKoxrm/7arCn9Ak=";
   };
 
-  build-system = [
-    hatchling
-    # babel, setuptools required as "build hooks"
-    babel
-  ] ++ lib.optionals (pythonAtLeast "3.12") [ setuptools ];
+  build-system =
+    [
+      hatchling
+      # babel, setuptools required as "build hooks"
+      babel
+    ]
+    ++ lib.optionals (pythonAtLeast "3.12") [setuptools];
 
-  dependencies = [
-    click
-    ghp-import
-    jinja2
-    markdown
-    markupsafe
-    mergedeep
-    mkdocs-get-deps
-    packaging
-    pathspec
-    platformdirs
-    pyyaml
-    pyyaml-env-tag
-    watchdog
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      click
+      ghp-import
+      jinja2
+      markdown
+      markupsafe
+      mergedeep
+      mkdocs-get-deps
+      packaging
+      pathspec
+      platformdirs
+      pyyaml
+      pyyaml-env-tag
+      watchdog
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   optional-dependencies = {
-    i18n = [ babel ];
+    i18n = [babel];
   };
 
-  nativeCheckInputs = [
-    unittestCheckHook
-    mock
-  ] ++ optional-dependencies.i18n;
+  nativeCheckInputs =
+    [
+      unittestCheckHook
+      mock
+    ]
+    ++ optional-dependencies.i18n;
 
   unittestFlagsArray = [
     "-v"
@@ -86,7 +87,7 @@ buildPythonPackage rec {
     "mkdocs"
   ];
 
-  pythonImportsCheck = [ "mkdocs" ];
+  pythonImportsCheck = ["mkdocs"];
 
   meta = with lib; {
     changelog = "https://github.com/mkdocs/mkdocs/releases/tag/${version}";
@@ -103,6 +104,6 @@ buildPythonPackage rec {
     homepage = "http://mkdocs.org/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rkoe ];
+    maintainers = with maintainers; [rkoe];
   };
 }

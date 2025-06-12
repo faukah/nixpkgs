@@ -6,7 +6,6 @@
   pytestCheckHook,
   unstableGitUpdater,
 }:
-
 buildPythonPackage {
   pname = "senf";
   version = "1.5.0-unstable-2024-11-26";
@@ -33,13 +32,12 @@ buildPythonPackage {
     tagPrefix = "v";
   };
 
-  pythonImportsCheck = [ "senf" ];
+  pythonImportsCheck = ["senf"];
 
   meta = {
     description = "Consistent filename handling for all Python versions and platforms";
     homepage = "https://senf.readthedocs.io/en/latest/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cab404 ];
+    maintainers = with lib.maintainers; [cab404];
   };
-
 }

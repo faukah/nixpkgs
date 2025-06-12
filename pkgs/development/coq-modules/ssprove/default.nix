@@ -10,55 +10,52 @@
   extructures,
   deriving,
   mathcomp-word,
-}:
-
-(mkCoqDerivation {
+}: (mkCoqDerivation {
   pname = "ssprove";
   owner = "SSProve";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch
-      [ coq.coq-version mathcomp-boot.version ]
-      [
-        {
-          cases = [
-            (range "8.18" "9.0")
-            (range "2.3.0" "2.4.0")
-          ];
-          out = "0.2.4";
-        }
-        {
-          cases = [
-            (range "8.18" "8.20")
-            (range "2.3.0" "2.3.0")
-          ];
-          out = "0.2.3";
-        }
-        {
-          cases = [
-            (range "8.18" "8.20")
-            (range "2.1.0" "2.2.0")
-          ];
-          out = "0.2.2";
-        }
-        # This is the original dependency:
-        # { cases = ["8.17" "1.18.0"]; out = "0.1.0"; }
-        # But it is not loadable. The math-comp nixpkgs configuration
-        # will always only output version 1.18.0 for Coq 8.17.
-        # Hence, the Coq 8.17 and math-comp 1.17.0 must be explicitly set
-        # to load it.
-        # (This version is not on the math-comp CI and hence not checked.)
-        {
-          cases = [
-            "8.17"
-            "1.17.0"
-          ];
-          out = "0.1.0";
-        }
-      ]
-      null;
+    [coq.coq-version mathcomp-boot.version]
+    [
+      {
+        cases = [
+          (range "8.18" "9.0")
+          (range "2.3.0" "2.4.0")
+        ];
+        out = "0.2.4";
+      }
+      {
+        cases = [
+          (range "8.18" "8.20")
+          (range "2.3.0" "2.3.0")
+        ];
+        out = "0.2.3";
+      }
+      {
+        cases = [
+          (range "8.18" "8.20")
+          (range "2.1.0" "2.2.0")
+        ];
+        out = "0.2.2";
+      }
+      # This is the original dependency:
+      # { cases = ["8.17" "1.18.0"]; out = "0.1.0"; }
+      # But it is not loadable. The math-comp nixpkgs configuration
+      # will always only output version 1.18.0 for Coq 8.17.
+      # Hence, the Coq 8.17 and math-comp 1.17.0 must be explicitly set
+      # to load it.
+      # (This version is not on the math-comp CI and hence not checked.)
+      {
+        cases = [
+          "8.17"
+          "1.17.0"
+        ];
+        out = "0.1.0";
+      }
+    ]
+    null;
 
   releaseRev = v: "v${v}";
 
@@ -91,5 +88,4 @@
       }
     ];
   };
-
 })

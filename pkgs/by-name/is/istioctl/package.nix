@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "istioctl";
   version = "1.26.1";
@@ -17,25 +16,23 @@ buildGoModule rec {
   };
   vendorHash = "sha256-K3fUJexe/mTViRX5UEhJM5sPQ/J5fWjMIJUovpaUV+w=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Bundle release metadata
-  ldflags =
-    let
-      attrs = [
-        "istio.io/istio/pkg/version.buildVersion=${version}"
-        "istio.io/istio/pkg/version.buildStatus=Nix"
-        "istio.io/istio/pkg/version.buildTag=${version}"
-        "istio.io/istio/pkg/version.buildHub=docker.io/istio"
-      ];
-    in
-    [
-      "-s"
-      "-w"
-      "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
+  ldflags = let
+    attrs = [
+      "istio.io/istio/pkg/version.buildVersion=${version}"
+      "istio.io/istio/pkg/version.buildStatus=Nix"
+      "istio.io/istio/pkg/version.buildTag=${version}"
+      "istio.io/istio/pkg/version.buildHub=docker.io/istio"
     ];
+  in [
+    "-s"
+    "-w"
+    "${lib.concatMapStringsSep " " (attr: "-X ${attr}") attrs}"
+  ];
 
-  subPackages = [ "istioctl/cmd/istioctl" ];
+  subPackages = ["istioctl/cmd/istioctl"];
 
   doInstallCheck = true;
   installCheckPhase = ''

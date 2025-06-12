@@ -19,7 +19,6 @@
   pantheon-wayland,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-shortcut-overlay";
   version = "8.1.0";
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/shortcut-overlay";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.shortcut-overlay";
   };
 }

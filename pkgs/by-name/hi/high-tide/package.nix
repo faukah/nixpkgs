@@ -14,7 +14,6 @@
   libportal,
   nix-update-script,
 }:
-
 python313Packages.buildPythonApplication rec {
   pname = "high-tide";
   version = "0.1.5";
@@ -59,14 +58,14 @@ python313Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Libadwaita TIDAL client for Linux";
     homepage = "https://github.com/Nokse22/high-tide";
-    license = with lib.licenses; [ gpl3Plus ];
+    license = with lib.licenses; [gpl3Plus];
     mainProgram = "high-tide";
     maintainers = with lib.maintainers; [
       nilathedragon

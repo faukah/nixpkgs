@@ -8,29 +8,28 @@
   python3,
   stdenv,
 }:
-
 # Jupyter console:
 # nix run --impure --expr 'with import <nixpkgs> {}; jupyter-console.withSingleKernel cpp17-kernel'
-
 # Jupyter notebook:
 # nix run --impure --expr 'with import <nixpkgs> {}; jupyter.override { definitions = { cpp17 = cpp17-kernel; }; }'
-
 let
-  xeus-cling-unwrapped = callPackage ./xeus-cling.nix { };
+  xeus-cling-unwrapped = callPackage ./xeus-cling.nix {};
 
   xeus-cling = xeus-cling-unwrapped.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [makeWrapper];
 
     # xcpp needs a collection of flags to start up properly, so wrap it by default.
     # We'll provide the unwrapped version as a passthru
-    flags = cling.flags ++ [
-      "-resource-dir"
-      "${cling.unwrapped}"
-      "-L"
-      "${cling.unwrapped}/lib"
-      "-l"
-      "${cling.unwrapped}/lib/cling.so"
-    ];
+    flags =
+      cling.flags
+      ++ [
+        "-resource-dir"
+        "${cling.unwrapped}"
+        "-L"
+        "${cling.unwrapped}/lib"
+        "-l"
+        "${cling.unwrapped}/lib/cling.so"
+      ];
 
     fixupPhase = ''
       runHook preFixup
@@ -64,9 +63,11 @@ let
       runHook postCheck
     '';
 
-    passthru = (oldAttrs.passthru or { }) // {
-      unwrapped = xeus-cling-unwrapped;
-    };
+    passthru =
+      (oldAttrs.passthru or {})
+      // {
+        unwrapped = xeus-cling-unwrapped;
+      };
 
     meta.badPlatforms = [
       # fatal error: 'stdlib.h' file not found
@@ -75,7 +76,7 @@ let
   });
 
   mkKernelSpec = std: {
-    displayName = builtins.replaceStrings [ "c++" ] [ "C++ " ] std;
+    displayName = builtins.replaceStrings ["c++"] ["C++ "] std;
     argv = [
       "${xeus-cling}/bin/xcpp"
       "-std=${std}"
@@ -86,10 +87,7 @@ let
     logo32 = "${xeus-cling-unwrapped}/share/jupyter/kernels/xcpp17/logo-32x32.png";
     logo64 = "${xeus-cling-unwrapped}/share/jupyter/kernels/xcpp17/logo-64x64.png";
   };
-
-in
-
-{
+in {
   cpp11-kernel = mkKernelSpec "c++11";
   cpp14-kernel = mkKernelSpec "c++14";
   cpp17-kernel = mkKernelSpec "c++17";

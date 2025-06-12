@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "insert-dylib";
   version = "0-unstable-2016-08-28";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/tyilo/insert_dylib";
     license = lib.licenses.unfree; # no license specified
     mainProgram = "insert_dylib";
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.darwin;
   };
 }

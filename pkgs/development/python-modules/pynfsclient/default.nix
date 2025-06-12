@@ -5,7 +5,6 @@
   pythonAtLeast,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pynfsclient";
   version = "0.1.5";
@@ -25,17 +24,17 @@ buildPythonPackage rec {
       --replace-fail "HISTORY.md" "README.rst"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyNfsClient" ];
+  pythonImportsCheck = ["pyNfsClient"];
 
   meta = {
     description = "Pure python NFS client";
     homepage = "https://pypi.org/project/pyNfsClient/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

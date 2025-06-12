@@ -5,7 +5,6 @@
   cmake,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "double-conversion";
   version = "3.3.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-M80H+azCzQYa4/gBLWv5GNNhEuHsH7LbJ/ajwmACnrM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optional (!enableStatic) "-DBUILD_SHARED_LIBS=ON";
 
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/double-conversion";
     license = licenses.bsd3;
     platforms = platforms.unix ++ platforms.windows;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

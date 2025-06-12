@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     mkEnableOption
     mkIf
@@ -15,14 +14,12 @@ let
 
   cfg = config.services.lavalink;
 
-  format = pkgs.formats.yaml { };
-in
-
-{
+  format = pkgs.formats.yaml {};
+in {
   options.services.lavalink = {
     enable = mkEnableOption "Lavalink";
 
-    package = lib.mkPackageOption pkgs "lavalink" { };
+    package = lib.mkPackageOption pkgs "lavalink" {};
 
     password = mkOption {
       type = types.nullOr types.str;
@@ -149,8 +146,8 @@ in
             };
 
             extraConfig = mkOption {
-              type = types.submodule { freeformType = format.type; };
-              default = { };
+              type = types.submodule {freeformType = format.type;};
+              default = {};
               description = ''
                 The configuration for the plugin.
 
@@ -160,7 +157,7 @@ in
           };
         }
       );
-      default = [ ];
+      default = [];
 
       example = lib.literalExpression ''
         [
@@ -185,7 +182,7 @@ in
     };
 
     extraConfig = mkOption {
-      type = types.submodule { freeformType = format.type; };
+      type = types.submodule {freeformType = format.type;};
 
       description = ''
         Configuration to write to {file}`application.yml`.
@@ -195,7 +192,7 @@ in
         See <https://lavalink.dev/configuration/#example-environment-variables> for more information.
       '';
 
-      default = { };
+      default = {};
 
       example = lib.literalExpression ''
         {
@@ -211,76 +208,76 @@ in
     };
   };
 
-  config =
-    let
-      pluginSymlinks = lib.concatStringsSep "\n" (
-        map (
-          pluginCfg:
-          let
-            pluginParts = lib.match ''^(.*?:(.*?):)([0-9]+\.[0-9]+\.[0-9]+)$'' pluginCfg.dependency;
+  config = let
+    pluginSymlinks = lib.concatStringsSep "\n" (
+      map (
+        pluginCfg: let
+          pluginParts = lib.match ''^(.*?:(.*?):)([0-9]+\.[0-9]+\.[0-9]+)$'' pluginCfg.dependency;
 
-            pluginWebPath = lib.replaceStrings [ "." ":" ] [ "/" "/" ] (lib.elemAt pluginParts 0);
+          pluginWebPath = lib.replaceStrings ["." ":"] ["/" "/"] (lib.elemAt pluginParts 0);
 
-            pluginFileName = lib.elemAt pluginParts 1;
-            pluginVersion = lib.elemAt pluginParts 2;
+          pluginFileName = lib.elemAt pluginParts 1;
+          pluginVersion = lib.elemAt pluginParts 2;
 
-            pluginFile = "${pluginFileName}-${pluginVersion}.jar";
-            pluginUrl = "${pluginCfg.repository}/${pluginWebPath}${pluginVersion}/${pluginFile}";
+          pluginFile = "${pluginFileName}-${pluginVersion}.jar";
+          pluginUrl = "${pluginCfg.repository}/${pluginWebPath}${pluginVersion}/${pluginFile}";
 
-            plugin = pkgs.fetchurl {
-              url = pluginUrl;
-              inherit (pluginCfg) hash;
-            };
-          in
-          "ln -sf ${plugin} ${cfg.home}/plugins/${pluginFile}"
-        ) cfg.plugins
-      );
+          plugin = pkgs.fetchurl {
+            url = pluginUrl;
+            inherit (pluginCfg) hash;
+          };
+        in "ln -sf ${plugin} ${cfg.home}/plugins/${pluginFile}"
+      )
+      cfg.plugins
+    );
 
-      pluginExtraConfigs = builtins.listToAttrs (
+    pluginExtraConfigs = builtins.listToAttrs (
+      builtins.map (
+        pluginConfig: lib.attrsets.nameValuePair pluginConfig.configName pluginConfig.extraConfig
+      ) (lib.lists.filter (pluginCfg: pluginCfg.configName != null) cfg.plugins)
+    );
+
+    config = lib.attrsets.recursiveUpdate cfg.extraConfig {
+      server = {
+        inherit (cfg) port address;
+        http2.enabled = cfg.enableHttp2;
+      };
+
+      plugins = pluginExtraConfigs;
+      lavalink.plugins = (
         builtins.map (
-          pluginConfig: lib.attrsets.nameValuePair pluginConfig.configName pluginConfig.extraConfig
-        ) (lib.lists.filter (pluginCfg: pluginCfg.configName != null) cfg.plugins)
-      );
-
-      config = lib.attrsets.recursiveUpdate cfg.extraConfig {
-        server = {
-          inherit (cfg) port address;
-          http2.enabled = cfg.enableHttp2;
-        };
-
-        plugins = pluginExtraConfigs;
-        lavalink.plugins = (
-          builtins.map (
-            pluginConfig:
+          pluginConfig:
             builtins.removeAttrs pluginConfig [
               "name"
               "extraConfig"
               "hash"
             ]
-          ) cfg.plugins
-        );
-      };
-
-      configWithPassword = lib.attrsets.recursiveUpdate config (
-        lib.attrsets.optionalAttrs (cfg.password != null) { lavalink.server.password = cfg.password; }
+        )
+        cfg.plugins
       );
+    };
 
-      configFile = format.generate "application.yml" configWithPassword;
-    in
+    configWithPassword = lib.attrsets.recursiveUpdate config (
+      lib.attrsets.optionalAttrs (cfg.password != null) {lavalink.server.password = cfg.password;}
+    );
+
+    configFile = format.generate "application.yml" configWithPassword;
+  in
     mkIf cfg.enable {
       assertions = [
         {
           assertion =
             !(lib.lists.any (
-              pluginCfg: pluginCfg.extraConfig != { } && pluginCfg.configName == null
-            ) cfg.plugins);
+                pluginCfg: pluginCfg.extraConfig != {} && pluginCfg.configName == null
+              )
+              cfg.plugins);
           message = "Plugins with extra configuration need to have the `configName` attribute defined";
         }
       ];
 
-      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+      networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
-      users.groups = mkIf (cfg.group == "lavalink") { lavalink = { }; };
+      users.groups = mkIf (cfg.group == "lavalink") {lavalink = {};};
       users.users = mkIf (cfg.user == "lavalink") {
         lavalink = {
           inherit (cfg) home;
@@ -290,22 +287,20 @@ in
         };
       };
 
-      systemd.tmpfiles.settings."10-lavalink" =
-        let
-          dirConfig = {
-            inherit (cfg) user group;
-            mode = "0700";
-          };
-        in
-        {
-          "${cfg.home}/plugins".d = mkIf (cfg.plugins != [ ]) dirConfig;
-          ${cfg.home}.d = dirConfig;
+      systemd.tmpfiles.settings."10-lavalink" = let
+        dirConfig = {
+          inherit (cfg) user group;
+          mode = "0700";
         };
+      in {
+        "${cfg.home}/plugins".d = mkIf (cfg.plugins != []) dirConfig;
+        ${cfg.home}.d = dirConfig;
+      };
 
       systemd.services.lavalink = {
         description = "Lavalink Service";
 
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "syslog.target"
           "network.target"

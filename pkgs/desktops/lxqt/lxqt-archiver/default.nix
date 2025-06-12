@@ -15,7 +15,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-archiver";
   version = "1.2.0";
@@ -44,9 +43,9 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-archiver/";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     mainProgram = "lxqt-archiver";
     license = licenses.gpl2Plus;
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ jchw ];
-    teams = [ teams.lxqt ];
+    maintainers = with maintainers; [jchw];
+    teams = [teams.lxqt];
   };
 }

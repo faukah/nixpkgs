@@ -1,31 +1,32 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "roundcube";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ globin ];
+    maintainers = [globin];
   };
 
   nodes = {
-    roundcube =
-      { config, pkgs, ... }:
-      {
-        services.roundcube = {
-          enable = true;
-          hostName = "roundcube";
-          database.password = "not production";
-          package = pkgs.roundcube.withPlugins (plugins: [ plugins.persistent_login ]);
-          plugins = [ "persistent_login" ];
-          dicts = with pkgs.aspellDicts; [
-            en
-            fr
-            de
-          ];
-        };
-        services.nginx.virtualHosts.roundcube = {
-          forceSSL = false;
-          enableACME = false;
-        };
+    roundcube = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.roundcube = {
+        enable = true;
+        hostName = "roundcube";
+        database.password = "not production";
+        package = pkgs.roundcube.withPlugins (plugins: [plugins.persistent_login]);
+        plugins = ["persistent_login"];
+        dicts = with pkgs.aspellDicts; [
+          en
+          fr
+          de
+        ];
       };
+      services.nginx.virtualHosts.roundcube = {
+        forceSSL = false;
+        enableACME = false;
+      };
+    };
   };
 
   testScript = ''

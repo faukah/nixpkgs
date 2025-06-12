@@ -24,79 +24,81 @@
   hiredis,
   expat,
   tre,
-}:
-
-let
+}: let
   buildExtension = lib.makeOverridable (
     {
       name,
       gawkextlib,
-      extraBuildInputs ? [ ],
+      extraBuildInputs ? [],
       doCheck ? true,
-      patches ? [ ],
+      patches ? [],
       extraPostPatch ? "",
-      env ? { },
+      env ? {},
       broken ? null,
-    }:
-    let
+    }: let
       is_extension = gawkextlib != null;
     in
-    stdenv.mkDerivation rec {
-      pname = "gawkextlib-${name}";
-      version = "unstable-2022-10-20";
+      stdenv.mkDerivation rec {
+        pname = "gawkextlib-${name}";
+        version = "unstable-2022-10-20";
 
-      src = fetchgit {
-        url = "git://git.code.sf.net/p/gawkextlib/code";
-        rev = "f6c75b4ac1e0cd8d70c2f6c7a8d58b4d94cfde97";
-        sha256 = "sha256-0p3CrQ3TBl7UcveZytK/9rkAzn69RRM2GwY2eCeqlkg=";
-      };
+        src = fetchgit {
+          url = "git://git.code.sf.net/p/gawkextlib/code";
+          rev = "f6c75b4ac1e0cd8d70c2f6c7a8d58b4d94cfde97";
+          sha256 = "sha256-0p3CrQ3TBl7UcveZytK/9rkAzn69RRM2GwY2eCeqlkg=";
+        };
 
-      inherit patches;
+        inherit patches;
 
-      postPatch =
-        ''
-          cd ${name}
-        ''
-        + extraPostPatch;
+        postPatch =
+          ''
+            cd ${name}
+          ''
+          + extraPostPatch;
 
-      nativeBuildInputs = [
-        autoconf
-        automake
-        libtool
-        autoreconfHook
-        pkg-config
-        texinfo
-        gettext
-      ];
+        nativeBuildInputs = [
+          autoconf
+          automake
+          libtool
+          autoreconfHook
+          pkg-config
+          texinfo
+          gettext
+        ];
 
-      buildInputs = [ gawk ] ++ extraBuildInputs;
-      propagatedBuildInputs = lib.optional is_extension gawkextlib;
+        buildInputs = [gawk] ++ extraBuildInputs;
+        propagatedBuildInputs = lib.optional is_extension gawkextlib;
 
-      setupHook = if is_extension then ./setup-hook.sh else null;
-      inherit gawk;
+        setupHook =
+          if is_extension
+          then ./setup-hook.sh
+          else null;
+        inherit gawk;
 
-      inherit env;
+        inherit env;
 
-      inherit doCheck;
-      nativeCheckInputs = [ more ];
+        inherit doCheck;
+        nativeCheckInputs = [more];
 
-      meta = {
-        homepage = "https://sourceforge.net/projects/gawkextlib/";
-        description = "Dynamically loaded extension libraries for GNU AWK";
-        mainProgram = "xmlgawk";
-        longDescription = ''
-          The gawkextlib project provides several extension libraries for
-          gawk (GNU AWK), as well as libgawkextlib containing some APIs that
-          are useful for building gawk extension libraries. These libraries
-          enable gawk to process XML data, interact with a PostgreSQL
-          database, use the GD graphics library, and perform unlimited
-          precision MPFR calculations.
-        '';
-        license = lib.licenses.gpl3Plus;
-        platforms = lib.platforms.unix;
-        maintainers = with lib.maintainers; [ tomberek ];
-      } // lib.optionalAttrs (broken != null) { inherit broken; };
-    }
+        meta =
+          {
+            homepage = "https://sourceforge.net/projects/gawkextlib/";
+            description = "Dynamically loaded extension libraries for GNU AWK";
+            mainProgram = "xmlgawk";
+            longDescription = ''
+              The gawkextlib project provides several extension libraries for
+              gawk (GNU AWK), as well as libgawkextlib containing some APIs that
+              are useful for building gawk extension libraries. These libraries
+              enable gawk to process XML data, interact with a PostgreSQL
+              database, use the GD graphics library, and perform unlimited
+              precision MPFR calculations.
+            '';
+            license = lib.licenses.gpl3Plus;
+            platforms = lib.platforms.unix;
+            maintainers = with lib.maintainers; [tomberek];
+          }
+          // lib.optionalAttrs (broken != null) {inherit broken;};
+      }
   );
   gawkextlib = buildExtension {
     gawkextlib = null;
@@ -110,7 +112,7 @@ let
     aregex = buildExtension {
       inherit gawkextlib;
       name = "aregex";
-      extraBuildInputs = [ tre ];
+      extraBuildInputs = [tre];
     };
     csv = buildExtension {
       inherit gawkextlib;
@@ -126,14 +128,14 @@ let
     gd = buildExtension {
       inherit gawkextlib;
       name = "gd";
-      extraBuildInputs = [ gd ];
+      extraBuildInputs = [gd];
       # GCC 14 makes this an error by default, remove when fixed upstream
       env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
     };
     haru = buildExtension {
       inherit gawkextlib;
       name = "haru";
-      extraBuildInputs = [ libharu ];
+      extraBuildInputs = [libharu];
       patches = [
         # Renames references to two identifiers with typos that libharu fixed in 2.4.4
         # https://github.com/libharu/libharu/commit/88271b73c68c521a49a15e3555ef00395aa40810
@@ -145,7 +147,7 @@ let
     json = buildExtension {
       inherit gawkextlib;
       name = "json";
-      extraBuildInputs = [ rapidjson ];
+      extraBuildInputs = [rapidjson];
     };
     lmdb = buildExtension {
       inherit gawkextlib;
@@ -153,7 +155,7 @@ let
       extraPostPatch = ''
         substituteInPlace Makefile.am --replace-fail 'cpp -M' '${stdenv.cc.targetPrefix}cpp -M'
       '';
-      extraBuildInputs = [ lmdb ];
+      extraBuildInputs = [lmdb];
       #  mdb_env_open(env, /dev/null)
       #! No such device
       #  mdb_env_open(env, /dev/null)
@@ -163,7 +165,7 @@ let
     mbs = buildExtension {
       inherit gawkextlib;
       name = "mbs";
-      extraBuildInputs = [ glibcLocales ];
+      extraBuildInputs = [glibcLocales];
       #! "spät": length: 5, mbs_length: 6, wcswidth: 4
       doCheck = !stdenv.hostPlatform.isDarwin;
     };
@@ -182,12 +184,12 @@ let
     pgsql = buildExtension {
       inherit gawkextlib;
       name = "pgsql";
-      extraBuildInputs = [ libpq ];
+      extraBuildInputs = [libpq];
     };
     redis = buildExtension {
       inherit gawkextlib;
       name = "redis";
-      extraBuildInputs = [ hiredis ];
+      extraBuildInputs = [hiredis];
     };
     select = buildExtension {
       inherit gawkextlib;
@@ -212,10 +214,10 @@ let
     };
   };
 in
-recurseIntoAttrs (
-  libs
-  // {
-    inherit gawkextlib buildExtension;
-    full = builtins.attrValues libs;
-  }
-)
+  recurseIntoAttrs (
+    libs
+    // {
+      inherit gawkextlib buildExtension;
+      full = builtins.attrValues libs;
+    }
+  )

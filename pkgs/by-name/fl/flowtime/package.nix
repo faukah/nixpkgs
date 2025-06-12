@@ -15,7 +15,6 @@
   blueprint-compiler,
   appstream-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flowtime";
   version = "6.5";

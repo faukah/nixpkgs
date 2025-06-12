@@ -16,7 +16,6 @@
   icecream,
   pip,
 }:
-
 buildPythonPackage rec {
   pname = "invocations";
   version = "3.3.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-JnhdcxhBNsYgDMcljtGKjOT1agujlao/66QifGuh6I0=";
   };
 
-  patches = [ ./replace-blessings-with-blessed.patch ];
+  patches = [./replace-blessings-with-blessed.patch];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -56,7 +55,7 @@ buildPythonPackage rec {
     pip
   ];
 
-  pythonImportsCheck = [ "invocations" ];
+  pythonImportsCheck = ["invocations"];
 
   disabledTests = [
     # invoke.exceptions.UnexpectedExit
@@ -74,6 +73,6 @@ buildPythonPackage rec {
     homepage = "https://invocations.readthedocs.io/";
     changelog = "https://github.com/pyinvoke/invocations/blob/${version}/docs/changelog.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "validator-collection";
   version = "1.5.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-CDPfIkZZRpl1rAzNpLKJfaBEGWUl71coic2jOHIgi6o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # listed in setup.py, the requirements.txt is _full_ of dev junk
   dependencies = [
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pyfakefs
   ];
 
-  pythonImportsCheck = [ "validator_collection" ];
+  pythonImportsCheck = ["validator_collection"];
 
   disabledTests = [
     # Issues with fake filesystem /var/data
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/insightindustry/validator-collection/";
     changelog = "https://github.com/insightindustry/validator-collection/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

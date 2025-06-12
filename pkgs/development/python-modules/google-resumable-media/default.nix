@@ -14,7 +14,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-resumable-media";
   version = "2.7.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-UoCu1GKfK2C4R7DUL5hX/Uk1wRryZnRN8z2AdMrpL+A=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     google-auth
@@ -36,17 +35,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    requests = [ requests ];
-    aiohttp = [ aiohttp ];
+    requests = [requests];
+    aiohttp = [aiohttp];
   };
 
-  nativeCheckInputs = [
-    brotli
-    google-cloud-testutils
-    mock
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ optional-dependencies.requests;
+  nativeCheckInputs =
+    [
+      brotli
+      google-cloud-testutils
+      mock
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.requests;
 
   preCheck = ''
     # prevent shadowing imports
@@ -67,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GoogleCloudPlatform/google-resumable-media-python";
     changelog = "https://github.com/googleapis/google-resumable-media-python/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -9,7 +9,6 @@
   fltk13,
   freeimage,
 }:
-
 stdenv.mkDerivation rec {
   pname = "posterazor";
   version = "1.5.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-BbujA2ASyqQelb3iFAwgeJC0OhzXqufIa1UD+tFsF7c=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     cmake
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Cuts a raster image into pieces which can afterwards be printed out and assembled to a poster";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.madjar ];
+    maintainers = [maintainers.madjar];
     mainProgram = "PosteRazor";
   };
 }

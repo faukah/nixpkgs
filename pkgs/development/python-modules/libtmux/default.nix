@@ -10,7 +10,6 @@
   pytestCheckHook,
   tmux,
 }:
-
 buildPythonPackage rec {
   pname = "libtmux";
   version = "0.46.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail '"--doctest-docutils-modules",' ""
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     procps
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   disabledTests =
     [
@@ -57,15 +56,15 @@ buildPythonPackage rec {
       "test_retry_three_times_no_raise_assert"
     ];
 
-  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [ "tests/test/test_retry.py" ];
+  disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin ["tests/test/test_retry.py"];
 
-  pythonImportsCheck = [ "libtmux" ];
+  pythonImportsCheck = ["libtmux"];
 
   meta = {
     description = "Typed scripting library / ORM / API wrapper for tmux";
     homepage = "https://libtmux.git-pull.com/";
     changelog = "https://github.com/tmux-python/libtmux/raw/v${version}/CHANGES";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
   };
 }

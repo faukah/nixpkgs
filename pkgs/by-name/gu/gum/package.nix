@@ -5,7 +5,6 @@
   installShellFiles,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gum";
   version = "0.16.0";
@@ -49,7 +48,7 @@ buildGoModule rec {
     homepage = "https://github.com/charmbracelet/gum";
     changelog = "https://github.com/charmbracelet/gum/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ maaslalani ];
+    maintainers = with lib.maintainers; [maaslalani];
     mainProgram = "gum";
   };
 }

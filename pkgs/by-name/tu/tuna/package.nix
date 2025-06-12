@@ -7,7 +7,6 @@
   gtk3,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "tuna";
   version = "0.19";
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail 'tuna_glade_dirs = [".", "tuna", "/usr/share/tuna"]' "tuna_glade_dirs = [ \"$out/share/tuna\" ]"
   '';
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   nativeBuildInputs = [
     glib.dev
@@ -52,7 +51,7 @@ python3.pkgs.buildPythonApplication rec {
 
   # contains no tests
   doCheck = false;
-  pythonImportsCheck = [ "tuna" ];
+  pythonImportsCheck = ["tuna"];
 
   meta = with lib; {
     description = "Thread and IRQ affinity setting GUI and cmd line tool";

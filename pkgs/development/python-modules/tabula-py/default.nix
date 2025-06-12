@@ -12,7 +12,6 @@
   setuptools-scm,
   jpype1,
 }:
-
 buildPythonPackage rec {
   pname = "tabula-py";
   version = "2.10.0";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   dependencies = [
     distro
@@ -46,9 +45,9 @@ buildPythonPackage rec {
     jpype1
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tabula" ];
+  pythonImportsCheck = ["tabula"];
 
   disabledTests = [
     # Tests require network access
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/chezou/tabula-py";
     changelog = "https://github.com/chezou/tabula-py/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

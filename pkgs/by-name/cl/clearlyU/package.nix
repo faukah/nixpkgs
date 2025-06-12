@@ -5,7 +5,6 @@
   xorg,
   libfaketime,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clearlyU";
   version = "12-1.9";
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Unicode font";
     license = licenses.mit;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
   };
 }

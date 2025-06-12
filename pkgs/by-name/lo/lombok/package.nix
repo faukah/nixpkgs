@@ -5,7 +5,6 @@
   makeWrapper,
   jdk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lombok";
   version = "1.18.38";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hh5CfDb/Y8RP0w7yktnnc+oxVEYKtiZdP+1+b1vFD7k=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   outputs = [
     "out"
@@ -35,9 +34,9 @@ stdenv.mkDerivation rec {
     description = "Library that can write a lot of boilerplate for your Java project";
     mainProgram = "lombok";
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     homepage = "https://projectlombok.org/";
-    maintainers = [ lib.maintainers.CrystalGamma ];
+    maintainers = [lib.maintainers.CrystalGamma];
   };
 }

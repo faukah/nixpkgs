@@ -25,13 +25,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=defaults::tests::test_get_hardware_uuid"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool for managing macOS defaults declaratively via YAML files";
     homepage = "https://github.com/dsully/macos-defaults";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
     mainProgram = "macos-defaults";
     platforms = lib.platforms.darwin;
   };

@@ -1,4 +1,4 @@
-inputs@{
+inputs @ {
   autoconf,
   automake,
   config,
@@ -13,13 +13,13 @@ inputs@{
   enableCuda ? config.cudaSupport,
   enableSse41 ? stdenv.hostPlatform.sse4_1Support,
   enableSse42 ? stdenv.hostPlatform.sse4_2Support,
-}:
-let
+}: let
   inherit (lib.attrsets) getLib;
   inherit (lib.lists) optionals;
   inherit (lib.strings) concatStringsSep;
 
-  inherit (cudaPackages)
+  inherit
+    (cudaPackages)
     cuda_cccl
     cuda_cudart
     cuda_nvcc
@@ -29,93 +29,98 @@ let
     ;
 
   stdenv = throw "Use effectiveStdenv instead";
-  effectiveStdenv = if enableCuda then cudaPackages.backendStdenv else inputs.stdenv;
+  effectiveStdenv =
+    if enableCuda
+    then cudaPackages.backendStdenv
+    else inputs.stdenv;
 in
-effectiveStdenv.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-  # TODO(@connorbaker):
-  # When strictDeps is enabled, `cuda_nvcc` is required as the argument to `--with-cuda` in `configureFlags` or else
-  # configurePhase fails with `checking for cuda_runtime.h... no`.
-  # This is odd, especially given `cuda_runtime.h` is provided by `cuda_cudart.dev`, which is already in `buildInputs`.
-  strictDeps = true;
+  effectiveStdenv.mkDerivation (finalAttrs: {
+    __structuredAttrs = true;
+    # TODO(@connorbaker):
+    # When strictDeps is enabled, `cuda_nvcc` is required as the argument to `--with-cuda` in `configureFlags` or else
+    # configurePhase fails with `checking for cuda_runtime.h... no`.
+    # This is odd, especially given `cuda_runtime.h` is provided by `cuda_cudart.dev`, which is already in `buildInputs`.
+    strictDeps = true;
 
-  pname = "ucc";
-  version = "1.4.4";
+    pname = "ucc";
+    version = "1.4.4";
 
-  src = fetchFromGitHub {
-    owner = "openucx";
-    repo = "ucc";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-2OtMNI4teMnSBxsujf8LMrNOjqK/oJTrrmE2Awxgbd8=";
-  };
+    src = fetchFromGitHub {
+      owner = "openucx";
+      repo = "ucc";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-2OtMNI4teMnSBxsujf8LMrNOjqK/oJTrrmE2Awxgbd8=";
+    };
 
-  outputs = [
-    "out"
-    "dev"
-  ];
-
-  enableParallelBuilding = true;
-
-  # NOTE: We use --replace-quiet because not all Makefile.am files contain /bin/bash.
-  postPatch = ''
-    for comp in $(find src/components -name Makefile.am); do
-      substituteInPlace "$comp" \
-        --replace-quiet \
-          "/bin/bash" \
-          "${effectiveStdenv.shell}"
-    done
-  '';
-
-  nativeBuildInputs = [
-    autoconf
-    automake
-    libtool
-  ] ++ optionals enableCuda [ cuda_nvcc ];
-
-  buildInputs =
-    [ ucx ]
-    ++ optionals enableCuda [
-      cuda_cccl
-      cuda_cudart
-      cuda_nvml_dev
-      nccl
+    outputs = [
+      "out"
+      "dev"
     ];
 
-  # NOTE: With `__structuredAttrs` enabled, `LDFLAGS` must be set under `env` so it is assured to be a string;
-  # otherwise, we might have forgotten to convert it to a string and Nix would make LDFLAGS a shell variable
-  # referring to an array!
-  env.LDFLAGS = builtins.toString (
-    optionals enableCuda [
-      # Fake libnvidia-ml.so (the real one is deployed impurely)
-      "-L${getLib cuda_nvml_dev}/lib/stubs"
-    ]
-  );
+    enableParallelBuilding = true;
 
-  preConfigure = ''
-    ./autogen.sh
-  '';
+    # NOTE: We use --replace-quiet because not all Makefile.am files contain /bin/bash.
+    postPatch = ''
+      for comp in $(find src/components -name Makefile.am); do
+        substituteInPlace "$comp" \
+          --replace-quiet \
+            "/bin/bash" \
+            "${effectiveStdenv.shell}"
+      done
+    '';
 
-  configureFlags =
-    optionals enableSse41 [ "--with-sse41" ]
-    ++ optionals enableSse42 [ "--with-sse42" ]
-    ++ optionals enableAvx [ "--with-avx" ]
-    ++ optionals enableCuda [
-      "--with-cuda=${cuda_nvcc}"
-      "--with-nvcc-gencode=${concatStringsSep " " flags.gencode}"
-    ];
+    nativeBuildInputs =
+      [
+        autoconf
+        automake
+        libtool
+      ]
+      ++ optionals enableCuda [cuda_nvcc];
 
-  postInstall = ''
-    find "$out/lib/" -name "*.la" -exec rm -f \{} \;
+    buildInputs =
+      [ucx]
+      ++ optionals enableCuda [
+        cuda_cccl
+        cuda_cudart
+        cuda_nvml_dev
+        nccl
+      ];
 
-    moveToOutput bin/ucc_info "$dev"
-  '';
+    # NOTE: With `__structuredAttrs` enabled, `LDFLAGS` must be set under `env` so it is assured to be a string;
+    # otherwise, we might have forgotten to convert it to a string and Nix would make LDFLAGS a shell variable
+    # referring to an array!
+    env.LDFLAGS = builtins.toString (
+      optionals enableCuda [
+        # Fake libnvidia-ml.so (the real one is deployed impurely)
+        "-L${getLib cuda_nvml_dev}/lib/stubs"
+      ]
+    );
 
-  meta = with lib; {
-    description = "Collective communication operations API";
-    homepage = "https://openucx.github.io/ucc/";
-    mainProgram = "ucc_info";
-    license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
-    platforms = platforms.linux;
-  };
-})
+    preConfigure = ''
+      ./autogen.sh
+    '';
+
+    configureFlags =
+      optionals enableSse41 ["--with-sse41"]
+      ++ optionals enableSse42 ["--with-sse42"]
+      ++ optionals enableAvx ["--with-avx"]
+      ++ optionals enableCuda [
+        "--with-cuda=${cuda_nvcc}"
+        "--with-nvcc-gencode=${concatStringsSep " " flags.gencode}"
+      ];
+
+    postInstall = ''
+      find "$out/lib/" -name "*.la" -exec rm -f \{} \;
+
+      moveToOutput bin/ucc_info "$dev"
+    '';
+
+    meta = with lib; {
+      description = "Collective communication operations API";
+      homepage = "https://openucx.github.io/ucc/";
+      mainProgram = "ucc_info";
+      license = licenses.bsd3;
+      maintainers = [maintainers.markuskowa];
+      platforms = platforms.linux;
+    };
+  })

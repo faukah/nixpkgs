@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "validate-email";
   version = "1.3";
@@ -19,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-eEcZ3F94C+MZzdGF3IXdk6/r2267lDgRvEx8X5xyrq8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "validate_email" ];
+  pythonImportsCheck = ["validate_email"];
 
   meta = with lib; {
     description = "Verify if an email address is valid and really exists";
     homepage = "https://github.com/syrusakbary/validate_email";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

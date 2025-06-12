@@ -9,12 +9,11 @@
   fetchpatch,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpir";
   version = "3.0.0";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     m4
@@ -43,12 +42,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  configureFlags = [ "--enable-cxx" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "--enable-fat" ];
+  configureFlags = ["--enable-cxx"] ++ lib.optionals stdenv.hostPlatform.isLinux ["--enable-fat"];
 
   meta = {
     description = "Highly optimised library for bignum arithmetic forked from GMP";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     downloadPage = "https://mpir.org/downloads.html";
     homepage = "https://mpir.org/";

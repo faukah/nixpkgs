@@ -8,7 +8,6 @@
   rosa,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "rosa";
   version = "1.2.53";
@@ -29,19 +28,19 @@ buildGoModule rec {
   __darwinAllowLocalNetworking = true;
 
   # skip e2e tests package
-  excludedPackages = [ "tests/e2e" ];
+  excludedPackages = ["tests/e2e"];
 
   # skip tests that require network access
-  checkFlags =
-    let
-      skippedTests = [
+  checkFlags = let
+    skippedTests =
+      [
         "TestCluster"
         "TestRhRegionCommand"
-      ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "TestCache" ];
-    in
-    [ "-skip=^${lib.concatStringsSep "$|^" skippedTests}$" ];
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin ["TestCache"];
+  in ["-skip=^${lib.concatStringsSep "$|^" skippedTests}$"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd rosa \
       --bash <($out/bin/rosa completion bash) \
@@ -54,13 +53,13 @@ buildGoModule rec {
       package = rosa;
       command = "rosa version --client";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "CLI for the Red Hat OpenShift Service on AWS";
     license = licenses.asl20;
     homepage = "https://github.com/openshift/rosa";
-    maintainers = with maintainers; [ jfchevrette ];
+    maintainers = with maintainers; [jfchevrette];
   };
 }

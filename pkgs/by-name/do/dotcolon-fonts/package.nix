@@ -16,7 +16,6 @@
   melete,
   fa_1,
 }:
-
 symlinkJoin {
   name = "dotcolon-fonts";
 
@@ -48,6 +47,6 @@ symlinkJoin {
     ];
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ minijackson ];
+    maintainers = with lib.maintainers; [minijackson];
   };
 }

@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/pkissling/clock-weather-card";
     changelog = "https://github.com/pkissling/clock-weather-card/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ oddlama ];
+    maintainers = with lib.maintainers; [oddlama];
     platforms = lib.platforms.all;
   };
 }

@@ -11,7 +11,7 @@ mkKdeDerivation {
     ./optional-runtime-dependencies.patch
   ];
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtsvg
     libsodium

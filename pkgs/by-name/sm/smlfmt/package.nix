@@ -4,7 +4,6 @@
   fetchFromGitHub,
   mlton,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smlfmt";
   version = "1.2.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-QdpEsypkCzR/OwllKFLjz3/JvzV0OlGiqXUnS7iGD5A=";
   };
 
-  nativeBuildInputs = [ mlton ];
+  nativeBuildInputs = [mlton];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ munksgaard ];
+    maintainers = with lib.maintainers; [munksgaard];
     platforms = mlton.meta.platforms;
     homepage = "https://github.com/shwestrick/smlfmt";
   };

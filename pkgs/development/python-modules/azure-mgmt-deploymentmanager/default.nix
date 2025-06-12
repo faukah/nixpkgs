@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-deploymentmanager";
   version = "1.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/deploymentmanager/azure-mgmt-deploymentmanager";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-deploymentmanager_${version}/sdk/deploymentmanager/azure-mgmt-deploymentmanager/setup.py";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

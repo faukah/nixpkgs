@@ -7,7 +7,6 @@
   installShellFiles,
   scdoc,
 }:
-
 buildGoModule rec {
   pname = "dotool";
   version = "1.5";
@@ -23,13 +22,13 @@ buildGoModule rec {
 
   # uses nix store path for the dotool binary
   # also replaces /bin/echo with echo
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   postPatch = ''
     substituteInPlace ./dotoold --replace "@dotool@" "$out/bin/dotool"
   '';
 
-  buildInputs = [ libxkbcommon ];
+  buildInputs = [libxkbcommon];
   nativeBuildInputs = [
     installShellFiles
     pkg-config
@@ -54,6 +53,6 @@ buildGoModule rec {
     homepage = "https://git.sr.ht/~geb/dotool";
     changelog = "https://git.sr.ht/~geb/dotool/tree/${version}/item/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

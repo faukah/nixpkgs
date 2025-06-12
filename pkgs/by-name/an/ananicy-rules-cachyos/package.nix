@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "ananicy-rules-cachyos";
   version = "0-unstable-2025-03-19";

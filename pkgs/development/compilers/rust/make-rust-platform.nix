@@ -8,68 +8,62 @@
   runCommand,
   generateSplicesForMkScope,
   makeScopeWithSplicing',
-}@prev:
-
-{
+} @ prev: {
   rustc,
   cargo,
   cargo-auditable ? prev.cargo-auditable,
   stdenv ? prev.stdenv,
   ...
 }:
-
 (makeScopeWithSplicing' {
   otherSplices = generateSplicesForMkScope "rustPlatform";
-  f =
-    self:
-    let
-      inherit (self) callPackage;
-    in
-    {
-      fetchCargoVendor = buildPackages.callPackage ../../../build-support/rust/fetch-cargo-vendor.nix {
-        inherit cargo;
-      };
+  f = self: let
+    inherit (self) callPackage;
+  in {
+    fetchCargoVendor = buildPackages.callPackage ../../../build-support/rust/fetch-cargo-vendor.nix {
+      inherit cargo;
+    };
 
-      buildRustPackage = callPackage ../../../build-support/rust/build-rust-package {
-        inherit
-          stdenv
-          rustc
-          cargo
-          cargo-auditable
-          ;
-      };
-
-      importCargoLock = buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix {
-        inherit cargo;
-      };
-
-      rustcSrc = callPackage ./rust-src.nix {
-        inherit runCommand rustc;
-      };
-
-      rustLibSrc = callPackage ./rust-lib-src.nix {
-        inherit runCommand rustc;
-      };
-
-      # Hooks
+    buildRustPackage = callPackage ../../../build-support/rust/build-rust-package {
       inherit
-        (callPackages ../../../build-support/rust/hooks {
-          inherit
-            stdenv
-            cargo
-            rustc
-            callPackage
-            ;
-        })
-        cargoBuildHook
-        cargoCheckHook
-        cargoInstallHook
-        cargoNextestHook
-        cargoSetupHook
-        maturinBuildHook
-        bindgenHook
+        stdenv
+        rustc
+        cargo
+        cargo-auditable
         ;
     };
+
+    importCargoLock = buildPackages.callPackage ../../../build-support/rust/import-cargo-lock.nix {
+      inherit cargo;
+    };
+
+    rustcSrc = callPackage ./rust-src.nix {
+      inherit runCommand rustc;
+    };
+
+    rustLibSrc = callPackage ./rust-lib-src.nix {
+      inherit runCommand rustc;
+    };
+
+    # Hooks
+    inherit
+      (callPackages ../../../build-support/rust/hooks {
+        inherit
+          stdenv
+          cargo
+          rustc
+          callPackage
+          ;
+      })
+      cargoBuildHook
+      cargoCheckHook
+      cargoInstallHook
+      cargoNextestHook
+      cargoSetupHook
+      maturinBuildHook
+      bindgenHook
+      ;
+  };
 })
 // lib.optionalAttrs config.allowAliases {
   rust = {

@@ -8,7 +8,6 @@
   requests,
   trustme,
 }:
-
 buildPythonPackage rec {
   pname = "requests-toolbelt";
   version = "1.0.0";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-doGgo9BHAStb3A7jfX+PB+vnarCMrsz8OSHOI8iNW8Y=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     betamax
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     "test_request_with_base"
   ];
 
-  pythonImportsCheck = [ "requests_toolbelt" ];
+  pythonImportsCheck = ["requests_toolbelt"];
 
   meta = with lib; {
     description = "Toolbelt of useful classes and functions to be used with requests";
     homepage = "http://toolbelt.rtfd.org";
     changelog = "https://github.com/requests/toolbelt/blob/${version}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

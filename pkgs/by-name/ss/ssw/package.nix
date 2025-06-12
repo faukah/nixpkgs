@@ -5,7 +5,6 @@
   pkg-config,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ssw";
   version = "0.10";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gGkuw1AnGZXhR9x1mSnN1507ZF5rXvqmtX9NLQXoR+U=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk3];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/ssw/";

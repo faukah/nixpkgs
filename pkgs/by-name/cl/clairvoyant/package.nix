@@ -12,7 +12,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clairvoyant";
   version = "3.1.10";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/cassidyjames/clairvoyant";
     license = lib.licenses.gpl3Plus;
     mainProgram = "com.github.cassidyjames.clairvoyant";
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 })

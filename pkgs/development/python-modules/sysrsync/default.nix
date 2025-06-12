@@ -7,7 +7,6 @@
   rsync,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "sysrsync";
   version = "1.1.1";
@@ -34,12 +33,12 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "sysrsync" ];
+  pythonImportsCheck = ["sysrsync"];
 
   meta = with lib; {
     description = "Simple and safe system's rsync wrapper for Python";
     homepage = "https://github.com/gchamon/sysrsync";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

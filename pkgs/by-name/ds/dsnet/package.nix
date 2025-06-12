@@ -4,7 +4,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "dsnet";
   version = "0.8.1";
@@ -17,7 +16,7 @@ buildGoModule (finalAttrs: {
   };
   vendorHash = "sha256-Q2Ipj9yZ+/GUBEmDvgwFLLww7EXnbvdvj/shGQnh1G8=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/dsnet
@@ -40,8 +39,7 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/naggie/dsnet/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.naggie ];
+    maintainers = [lib.maintainers.naggie];
     mainProgram = "dsnet";
   };
-
 })

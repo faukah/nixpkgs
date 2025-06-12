@@ -1,5 +1,4 @@
 # Generic builder only used for EOL and deprecated Python 2.
-
 {
   lib,
   config,
@@ -24,63 +23,46 @@
   eggUnpackHook,
   eggBuildHook,
   eggInstallHook,
-}:
-
-{
+}: {
   name ? "${attrs.pname}-${attrs.version}",
-
   # Build-time dependencies for the package
-  nativeBuildInputs ? [ ],
-
+  nativeBuildInputs ? [],
   # Run-time dependencies for the package
-  buildInputs ? [ ],
-
+  buildInputs ? [],
   # Dependencies needed for running the checkPhase.
   # These are added to buildInputs when doCheck = true.
-  checkInputs ? [ ],
-  nativeCheckInputs ? [ ],
-
+  checkInputs ? [],
+  nativeCheckInputs ? [],
   # propagate build dependencies so in case we have A -> B -> C,
   # C can import package A propagated by B
-  propagatedBuildInputs ? [ ],
-
+  propagatedBuildInputs ? [],
   # DEPRECATED: use propagatedBuildInputs
-  pythonPath ? [ ],
-
+  pythonPath ? [],
   # Enabled to detect some (native)BuildInputs mistakes
   strictDeps ? true,
-
-  outputs ? [ "out" ],
-
+  outputs ? ["out"],
   # used to disable derivation, useful for specific python versions
   disabled ? false,
-
   # Raise an error if two packages are installed with the same name
   # TODO: For cross we probably need a different PYTHONPATH, or not
   # add the runtime deps until after buildPhase.
   catchConflicts ? (python.stdenv.hostPlatform == python.stdenv.buildPlatform),
-
   # Additional arguments to pass to the makeWrapper function, which wraps
   # generated binaries.
-  makeWrapperArgs ? [ ],
-
+  makeWrapperArgs ? [],
   # Skip wrapping of python programs altogether
   dontWrapPythonPrograms ? false,
-
   # Don't use Pip to install a wheel
   # Note this is actually a variable for the pipInstallPhase in pip's setupHook.
   # It's included here to prevent an infinite recursion.
   dontUsePipInstall ? false,
-
   # Skip setting the PYTHONNOUSERSITE environment variable in wrapped programs
   permitUserSite ? false,
-
   # Remove bytecode from bin folder.
   # When a Python script has the extension `.py`, bytecode is generated
   # Typically, executables in bin have no extension, so no bytecode is generated.
   # However, some packages do provide executables with extensions, and thus bytecode is generated.
   removeBinBytecode ? true,
-
   # Several package formats are supported.
   # "setuptools" : Install a common setuptools/distutils based package. This builds a wheel.
   # "wheel" : Install from a pre-compiled wheel.
@@ -88,19 +70,12 @@
   # "egg": Install a package from an egg.
   # "other" : Provide your own buildPhase and installPhase.
   format ? "setuptools",
-
-  meta ? { },
-
-  passthru ? { },
-
+  meta ? {},
+  passthru ? {},
   doCheck ? true,
-
-  disabledTestPaths ? [ ],
-
+  disabledTestPaths ? [],
   ...
-}@attrs:
-
-let
+} @ attrs: let
   inherit (python) stdenv;
 
   withDistOutput = lib.elem format [
@@ -111,67 +86,67 @@ let
 
   name_ = name;
 
-  validatePythonMatches =
-    attrName:
-    let
-      isPythonModule =
-        drv:
-        # all pythonModules have the pythonModule attribute
-        (drv ? "pythonModule")
-        # Some pythonModules are turned in to a pythonApplication by setting the field to false
-        && (!builtins.isBool drv.pythonModule);
-      isMismatchedPython = drv: drv.pythonModule != python;
+  validatePythonMatches = attrName: let
+    isPythonModule = drv:
+    # all pythonModules have the pythonModule attribute
+      (drv ? "pythonModule")
+      # Some pythonModules are turned in to a pythonApplication by setting the field to false
+      && (!builtins.isBool drv.pythonModule);
+    isMismatchedPython = drv: drv.pythonModule != python;
 
-      optionalLocation =
-        let
-          pos = builtins.unsafeGetAttrPos (if attrs ? "pname" then "pname" else "name") attrs;
-        in
-        lib.optionalString (pos != null) " at ${pos.file}:${toString pos.line}:${toString pos.column}";
-
-      leftPadName =
-        name: against:
-        let
-          len = lib.max (lib.stringLength name) (lib.stringLength against);
-        in
-        lib.strings.fixedWidthString len " " name;
-
-      throwMismatch =
-        drv:
-        let
-          myName = "'${namePrefix}${name}'";
-          theirName = "'${drv.name}'";
-        in
-        throw ''
-          Python version mismatch in ${myName}:
-
-          The Python derivation ${myName} depends on a Python derivation
-          named ${theirName}, but the two derivations use different versions
-          of Python:
-
-              ${leftPadName myName theirName} uses ${python}
-              ${leftPadName theirName myName} uses ${toString drv.pythonModule}
-
-          Possible solutions:
-
-            * If ${theirName} is a Python library, change the reference to ${theirName}
-              in the ${attrName} of ${myName} to use a ${theirName} built from the same
-              version of Python
-
-            * If ${theirName} is used as a tool during the build, move the reference to
-              ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
-
-            * If ${theirName} provides executables that are called at run time, pass its
-              bin path to makeWrapperArgs:
-
-                  makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${lib.getName drv} ] }" ];
-
-          ${optionalLocation}
-        '';
-
-      checkDrv = drv: if (isPythonModule drv) && (isMismatchedPython drv) then throwMismatch drv else drv;
-
+    optionalLocation = let
+      pos =
+        builtins.unsafeGetAttrPos (
+          if attrs ? "pname"
+          then "pname"
+          else "name"
+        )
+        attrs;
     in
-    inputs: builtins.map (checkDrv) inputs;
+      lib.optionalString (pos != null) " at ${pos.file}:${toString pos.line}:${toString pos.column}";
+
+    leftPadName = name: against: let
+      len = lib.max (lib.stringLength name) (lib.stringLength against);
+    in
+      lib.strings.fixedWidthString len " " name;
+
+    throwMismatch = drv: let
+      myName = "'${namePrefix}${name}'";
+      theirName = "'${drv.name}'";
+    in
+      throw ''
+        Python version mismatch in ${myName}:
+
+        The Python derivation ${myName} depends on a Python derivation
+        named ${theirName}, but the two derivations use different versions
+        of Python:
+
+            ${leftPadName myName theirName} uses ${python}
+            ${leftPadName theirName myName} uses ${toString drv.pythonModule}
+
+        Possible solutions:
+
+          * If ${theirName} is a Python library, change the reference to ${theirName}
+            in the ${attrName} of ${myName} to use a ${theirName} built from the same
+            version of Python
+
+          * If ${theirName} is used as a tool during the build, move the reference to
+            ${theirName} in ${myName} from ${attrName} to nativeBuildInputs
+
+          * If ${theirName} provides executables that are called at run time, pass its
+            bin path to makeWrapperArgs:
+
+                makeWrapperArgs = [ "--prefix PATH : ''${lib.makeBinPath [ ${lib.getName drv} ] }" ];
+
+        ${optionalLocation}
+      '';
+
+    checkDrv = drv:
+      if (isPythonModule drv) && (isMismatchedPython drv)
+      then throwMismatch drv
+      else drv;
+  in
+    inputs: builtins.map checkDrv inputs;
 
   # Keep extra attributes from `attrs`, e.g., `patchPhase', etc.
   self = toPythonModule (
@@ -190,7 +165,6 @@ let
         "outputs"
       ])
       // {
-
         name = namePrefix + name_;
 
         nativeBuildInputs =
@@ -213,7 +187,7 @@ let
             setuptoolsBuildHook
           ]
           ++ lib.optionals (format == "pyproject") [
-            (pipBuildHook)
+            pipBuildHook
           ]
           ++ lib.optionals (format == "wheel") [
             wheelUnpackHook
@@ -224,7 +198,7 @@ let
             eggInstallHook
           ]
           ++ lib.optionals (format != "other") [
-            (pipInstallHook)
+            pipInstallHook
           ]
           ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
             # This is a test, however, it should be ran independent of the checkPhase and checkInputs
@@ -249,7 +223,11 @@ let
 
         inherit strictDeps;
 
-        LANG = "${if python.stdenv.hostPlatform.isDarwin then "en_US" else "C"}.UTF-8";
+        LANG = "${
+          if python.stdenv.hostPlatform.isDarwin
+          then "en_US"
+          else "C"
+        }.UTF-8";
 
         # Python packages don't have a checkPhase, only an installCheckPhase
         doCheck = false;
@@ -270,32 +248,35 @@ let
 
         outputs = outputs ++ lib.optional withDistOutput "dist";
 
-        meta = {
-          # default to python's platforms
-          platforms = python.meta.platforms;
-          isBuildPythonPackage = python.meta.platforms;
-        } // meta;
+        meta =
+          {
+            # default to python's platforms
+            platforms = python.meta.platforms;
+            isBuildPythonPackage = python.meta.platforms;
+          }
+          // meta;
       }
       // lib.optionalAttrs (attrs ? checkPhase) {
         # If given use the specified checkPhase, otherwise use the setup hook.
         # Longer-term we should get rid of `checkPhase` and use `installCheckPhase`.
         installCheckPhase = attrs.checkPhase;
       }
-      // lib.optionalAttrs (disabledTestPaths != [ ]) {
+      // lib.optionalAttrs (disabledTestPaths != []) {
         disabledTestPaths = lib.escapeShellArgs disabledTestPaths;
       }
     )
   );
 
-  passthru.updateScript =
-    let
-      filename = builtins.head (lib.splitString ":" self.meta.position);
-    in
+  passthru.updateScript = let
+    filename = builtins.head (lib.splitString ":" self.meta.position);
+  in
     attrs.passthru.updateScript or [
       update-python-libraries
       filename
     ];
 in
-lib.extendDerivation (
-  disabled -> throw "${name} not supported for interpreter ${python.executable}"
-) passthru self
+  lib.extendDerivation (
+    disabled -> throw "${name} not supported for interpreter ${python.executable}"
+  )
+  passthru
+  self

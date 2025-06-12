@@ -1,16 +1,17 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "sonic-server";
 
   meta = {
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.sonic-server.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    services.sonic-server.enable = true;
+  };
 
   testScript = ''
     machine.start()

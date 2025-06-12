@@ -13,7 +13,6 @@
   llvmPackages_13,
   versionCheckHook,
   gitUpdater,
-
   # Required for compiling to SPIR-V or GLSL
   withGlslang ? true,
   # Can be used for compiling shaders to CPU targets, see:
@@ -24,7 +23,6 @@
   # Dynamically link against libllvm and libclang++ (upstream defaults to static)
   withSharedLLVM ? withLLVM,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "shader-slang";
   version = "2025.6.1";
@@ -123,7 +121,11 @@ stdenv.mkDerivation (finalAttrs: {
       "-DSLANG_ENABLE_SLANG_RHI=OFF"
       "-DSLANG_USE_SYSTEM_MINIZ=ON"
       "-DSLANG_USE_SYSTEM_LZ4=ON"
-      "-DSLANG_SLANG_LLVM_FLAVOR=${if withLLVM then "USE_SYSTEM_LLVM" else "DISABLE"}"
+      "-DSLANG_SLANG_LLVM_FLAVOR=${
+        if withLLVM
+        then "USE_SYSTEM_LLVM"
+        else "DISABLE"
+      }"
     ]
     ++ lib.optionals withGlslang [
       "-DSLANG_USE_SYSTEM_SPIRV_TOOLS=ON"
@@ -131,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ lib.optional (!withGlslang) "-DSLANG_ENABLE_SLANG_GLSLANG=OFF";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/slangc";
   versionCheckProgramArg = "-v";
   doInstallCheck = true;
@@ -148,7 +150,7 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       llvm-exception
     ];
-    maintainers = with lib.maintainers; [ niklaskorz ];
+    maintainers = with lib.maintainers; [niklaskorz];
     mainProgram = "slangc";
     platforms = lib.platforms.all;
   };

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
   unstableGitUpdater,
-
   withRoundedCorners ? false,
 }:
 stdenvNoCC.mkDerivation {
@@ -34,7 +33,7 @@ stdenvNoCC.mkDerivation {
       runHook postInstall
     '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Soothing pastel theme for Fcitx5";

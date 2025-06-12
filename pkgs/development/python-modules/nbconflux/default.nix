@@ -9,7 +9,6 @@
   setuptools,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "nbconflux";
   version = "0.7.0";
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     mainProgram = "nbconflux";
     homepage = "https://github.com/Valassis-Digital-Media/nbconflux";
     license = licenses.bsd3;
-    maintainers = [ maintainers.arnoldfarkas ];
+    maintainers = [maintainers.arnoldfarkas];
   };
 }

@@ -7,7 +7,6 @@
   testers,
   mautrix-discord,
 }:
-
 buildGoModule rec {
   pname = "mautrix-discord";
   version = "0.7.3";
@@ -26,12 +25,12 @@ buildGoModule rec {
     "-w"
   ];
 
-  buildInputs = [ olm ];
+  buildInputs = [olm];
 
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = mautrix-discord;
     };

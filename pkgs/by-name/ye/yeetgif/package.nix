@@ -4,7 +4,6 @@
   fetchpatch,
   lib,
 }:
-
 buildGoModule rec {
   pname = "yeetgif";
   version = "1.23.6";
@@ -40,7 +39,7 @@ buildGoModule rec {
       asl20
       cc-by-nc-sa-40
     ];
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
     mainProgram = "gif";
   };
 }

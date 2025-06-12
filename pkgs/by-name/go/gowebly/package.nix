@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGo124Module rec {
   pname = "gowebly";
   version = "3.0.3";
@@ -26,11 +25,11 @@ buildGo124Module rec {
     "-w"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "doctor";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool to create web applications with Go backend";
@@ -43,6 +42,6 @@ buildGo124Module rec {
     changelog = "https://github.com/gowebly/gowebly/releases/tag/v${version}";
     license = lib.licenses.asl20;
     mainProgram = "gowebly";
-    maintainers = with lib.maintainers; [ cterence ];
+    maintainers = with lib.maintainers; [cterence];
   };
 }

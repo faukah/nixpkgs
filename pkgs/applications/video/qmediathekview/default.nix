@@ -9,7 +9,6 @@
   qmake,
   pkg-config,
 }:
-
 mkDerivation rec {
   pname = "QMediathekView";
   version = "0.2.1";
@@ -37,14 +36,14 @@ mkDerivation rec {
     pkg-config
   ];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     description = "Alternative Qt-based front-end for the database maintained by the MediathekView project";
     inherit (src.meta) homepage;
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     broken = stdenv.hostPlatform.isAarch64;
     mainProgram = "QMediathekView";
   };

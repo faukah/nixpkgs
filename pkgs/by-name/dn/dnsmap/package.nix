@@ -5,7 +5,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dnsmap";
   tag = "0.36";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconf -i
   '';
 
-  configureFlags = [ "--prefix=$(out)" ];
+  configureFlags = ["--prefix=$(out)"];
 
   nativeBuildInputs = [
     autoconf
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/resurrecting-open-source-projects/dnsmap";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ heywoodlh ];
+    maintainers = with lib.maintainers; [heywoodlh];
     changelog = "https://github.com/resurrecting-open-source-projects/dnsmap/releases/tag/${finalAttrs.tag}";
     mainProgram = "dnsmap";
   };

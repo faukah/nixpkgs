@@ -5,7 +5,6 @@
   isPy27,
   pytest,
 }:
-
 buildPythonPackage {
   pname = "pypubsub";
   version = "4.0.3";
@@ -19,7 +18,7 @@ buildPythonPackage {
     sha256 = "02j74w28wzmdvxkk8i561ywjgizjifq3hgcl080yj0rvkd3wivlb";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     cd tests/suite
@@ -40,6 +39,6 @@ buildPythonPackage {
       applications.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
   };
 }

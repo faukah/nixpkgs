@@ -11,7 +11,6 @@
   vulkan-headers,
   vulkan-loader,
 }:
-
 # upscayl-ncnn is a fork of /pkgs/by-name/re/realesrgan-ncnn-vulkan, so the nix package is basically the same.
 stdenv.mkDerivation (finalAttrs: {
   pname = "upscayl-ncnn";
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   env.NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux "-rpath ${
-    lib.makeLibraryPath [ vulkan-loader ]
+    lib.makeLibraryPath [vulkan-loader]
   }";
 
   meta = {

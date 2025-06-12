@@ -6,7 +6,6 @@
   testers,
   little_boxes,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "little_boxes";
   version = "1.10.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoVendorDir = "vendor";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     extrasPath=$(ls -d $releaseDir/build/little_boxes-*/out/)
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/giodamelio/little_boxes";
     license = licenses.mit;
-    maintainers = with maintainers; [ giodamelio ];
+    maintainers = with maintainers; [giodamelio];
     mainProgram = "little_boxes";
   };
 }

@@ -1,10 +1,11 @@
 {
   stdenv,
   libayatana-appindicator,
+}: {
+  version,
+  src,
+  ...
 }:
-
-{ version, src, ... }:
-
 stdenv.mkDerivation rec {
   pname = "system-tray";
   inherit version src;

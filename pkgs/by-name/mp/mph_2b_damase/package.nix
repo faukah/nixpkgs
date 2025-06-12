@@ -1,5 +1,7 @@
-{ stdenvNoCC, fetchzip }:
-
+{
+  stdenvNoCC,
+  fetchzip,
+}:
 stdenvNoCC.mkDerivation {
   pname = "mph-2b-damase";
   version = "2";
@@ -17,5 +19,5 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  meta = { };
+  meta = {};
 }

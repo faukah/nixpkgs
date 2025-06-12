@@ -11,7 +11,6 @@
   libxcb,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kde-rounded-corners";
   version = "0.7.2";
@@ -40,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "Rounds the corners of your windows";
     homepage = "https://github.com/matinlotfali/KDE-Rounded-Corners";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
   };
 }

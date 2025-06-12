@@ -15,7 +15,6 @@
   python3,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libqtdbusmock";
   version = "0.9.1";
@@ -56,9 +55,10 @@ stdenv.mkDerivation (finalAttrs: {
     dbus-test-runner
     procps
     (python3.withPackages (
-      ps: with ps; [
-        python-dbusmock
-      ]
+      ps:
+        with ps; [
+          python-dbusmock
+        ]
     ))
   ];
 
@@ -87,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/libqtdbusmock";
     license = licenses.lgpl3Only;
     platforms = platforms.unix;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     pkgConfigModules = [
       "libqtdbusmock-1"
     ];

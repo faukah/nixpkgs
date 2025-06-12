@@ -3,20 +3,17 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   pnpm_9,
   nodejs,
   cargo-tauri_1,
   pkg-config,
   wrapGAppsHook3,
   makeBinaryWrapper,
-
   openssl,
   libsoup_2_4,
   webkitgtk_4_0,
   gst_all_1,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "en-croissant";
   version = "0.11.1";
@@ -47,8 +44,8 @@ rustPlatform.buildRustPackage rec {
       cargo-tauri_1.hook
       pkg-config
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook3 ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeBinaryWrapper ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [wrapGAppsHook3]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [makeBinaryWrapper];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     openssl
@@ -71,7 +68,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/franciscoBSalgueiro/en-croissant/";
     license = lib.licenses.gpl3Only;
     mainProgram = "en-croissant";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

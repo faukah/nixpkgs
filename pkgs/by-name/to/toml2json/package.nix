@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "toml2json";
   version = "1.3.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "Very small CLI for converting TOML to JSON";
     mainProgram = "toml2json";
     homepage = "https://github.com/woodruffw/toml2json";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ rvarago ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [rvarago];
   };
 }

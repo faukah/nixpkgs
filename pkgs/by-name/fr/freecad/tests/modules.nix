@@ -2,10 +2,8 @@
   freecad,
   runCommand,
   writeTextFile,
-}:
-let
-  mkModule =
-    n:
+}: let
+  mkModule = n:
     writeTextFile {
       name = "module-${n}";
       destination = "/Init.py";
@@ -28,9 +26,9 @@ let
     ];
   };
 in
-runCommand "freecad-test-modules"
+  runCommand "freecad-test-modules"
   {
-    nativeBuildInputs = [ freecad-customized ];
+    nativeBuildInputs = [freecad-customized];
   }
   ''
     mkdir $out

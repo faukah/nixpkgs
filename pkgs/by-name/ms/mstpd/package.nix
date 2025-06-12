@@ -5,7 +5,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mstpd";
   version = "0.0.8";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     "--prefix=$(out)"

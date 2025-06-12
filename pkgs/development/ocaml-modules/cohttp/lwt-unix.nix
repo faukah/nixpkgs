@@ -11,7 +11,6 @@
   ounit,
   cacert,
 }:
-
 buildDunePackage {
   pname = "cohttp-lwt-unix";
   inherit (cohttp-lwt) version src;
@@ -40,7 +39,9 @@ buildDunePackage {
     cacert
   ];
 
-  meta = cohttp-lwt.meta // {
-    description = "CoHTTP implementation for Unix and Windows using Lwt";
-  };
+  meta =
+    cohttp-lwt.meta
+    // {
+      description = "CoHTTP implementation for Unix and Windows using Lwt";
+    };
 }

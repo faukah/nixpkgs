@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.pki;
 
   cacertPackage = pkgs.cacert.override {
@@ -12,18 +11,19 @@ let
     extraCertificateFiles = cfg.certificateFiles;
     extraCertificateStrings = cfg.certificates;
   };
-  caBundleName = if cfg.useCompatibleBundle then "ca-no-trust-rules-bundle.crt" else "ca-bundle.crt";
+  caBundleName =
+    if cfg.useCompatibleBundle
+    then "ca-no-trust-rules-bundle.crt"
+    else "ca-bundle.crt";
   caBundle = "${cacertPackage}/etc/ssl/certs/${caBundleName}";
-
-in
-
-{
-
+in {
   options = {
-    security.pki.installCACerts = lib.mkEnableOption "installing CA certificates to the system" // {
-      default = true;
-      internal = true;
-    };
+    security.pki.installCACerts =
+      lib.mkEnableOption "installing CA certificates to the system"
+      // {
+        default = true;
+        internal = true;
+      };
 
     security.pki.useCompatibleBundle = lib.mkEnableOption ''
       usage of a compatibility bundle.
@@ -39,7 +39,7 @@ in
 
     security.pki.certificateFiles = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''[ "''${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ]'';
       description = ''
         A list of files containing trusted root certificates in PEM
@@ -52,7 +52,7 @@ in
 
     security.pki.certificates = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [ '''
             NixOS.org
@@ -72,7 +72,7 @@ in
 
     security.pki.caCertificateBlacklist = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "WoSign"
         "WoSign China"
@@ -98,7 +98,6 @@ in
 
   config = lib.mkMerge [
     (lib.mkIf cfg.installCACerts {
-
       # NixOS canonical location + Debian/Ubuntu/Arch/Gentoo compatibility.
       environment.etc."ssl/certs/ca-certificates.crt".source = caBundle;
 
@@ -111,7 +110,6 @@ in
       # P11-Kit trust source.
       environment.etc."ssl/trust-source".source = "${cacertPackage.p11kit}/etc/ssl/trust-source";
     })
-    { security.pki.caBundle = caBundle; }
+    {security.pki.caBundle = caBundle;}
   ];
-
 }

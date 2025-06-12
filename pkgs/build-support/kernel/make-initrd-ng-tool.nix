@@ -2,7 +2,6 @@
   rustPlatform,
   lib,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "make-initrd-ng";
   version = "0.1.0";

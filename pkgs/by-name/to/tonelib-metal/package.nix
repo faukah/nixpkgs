@@ -38,13 +38,15 @@ stdenv.mkDerivation rec {
     libjack2
   ];
 
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    alsa-lib
-    freetype
-    libglvnd
-    libgbm
-  ] ++ runtimeDependencies;
+  buildInputs =
+    [
+      (lib.getLib stdenv.cc.cc)
+      alsa-lib
+      freetype
+      libglvnd
+      libgbm
+    ]
+    ++ runtimeDependencies;
 
   installPhase = ''
     runHook preInstall
@@ -59,10 +61,10 @@ stdenv.mkDerivation rec {
   meta = {
     description = "ToneLib Metal – Guitar amp simulator targeted at metal players";
     homepage = "https://tonelib.net";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [dan4ik605743];
+    platforms = ["x86_64-linux"];
     mainProgram = "ToneLib-Metal";
   };
 }

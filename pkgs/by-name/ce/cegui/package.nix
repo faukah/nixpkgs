@@ -10,7 +10,6 @@
   libiconv,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "cegui";
   version = "0-unstable-2025-04-06";

@@ -14,7 +14,6 @@
   setuptools,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "azure-kusto-ingest";
   version = "4.6.3";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/${pname}";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-kusto-data
@@ -41,17 +40,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pandas = [ pandas ];
+    pandas = [pandas];
   };
 
-  nativeCheckInputs = [
-    aiohttp
-    pytest-asyncio
-    pytestCheckHook
-    responses
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      aiohttp
+      pytest-asyncio
+      pytestCheckHook
+      responses
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "azure.kusto.ingest" ];
+  pythonImportsCheck = ["azure.kusto.ingest"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -63,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-kusto-python/tree/master/azure-kusto-ingest";
     changelog = "https://github.com/Azure/azure-kusto-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

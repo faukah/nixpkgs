@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashi-ui";
   version = "1.3.8";
@@ -23,9 +22,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/jippi/hashi-ui";
     description = "Modern user interface for hashicorp Consul & Nomad";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ numkem ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [numkem];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     mainProgram = "hashi-ui";
   };

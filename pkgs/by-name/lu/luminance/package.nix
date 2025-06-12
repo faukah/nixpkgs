@@ -10,7 +10,6 @@
   nix-update-script,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "luminance";
   version = "1.1.0";
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
       hash = "sha256-ViKik3468AHjE7NxdfrKicDNA0ENG6DmIplYtKVqduw=";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -80,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sidevesh/Luminance";
     changelog = "https://github.com/sidevesh/Luminance/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     inherit (ddcutil.meta) platforms;
     mainProgram = "com.sidevesh.Luminance";
   };

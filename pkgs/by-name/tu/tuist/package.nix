@@ -5,7 +5,6 @@
   unzip,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tuist";
   version = "4.38.2";
@@ -21,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontFixup = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,8 +43,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://tuist.dev";
     changelog = "https://github.com/tuist/tuist/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = [ lib.maintainers.DimitarNestorov ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    maintainers = [lib.maintainers.DimitarNestorov];
     platforms = lib.platforms.darwin;
     mainProgram = "tuist";
   };

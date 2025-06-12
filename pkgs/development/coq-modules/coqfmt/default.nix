@@ -7,7 +7,6 @@
   version ? null,
   makeWrapper,
 }:
-
 mkCoqDerivation rec {
   pname = "coqfmt";
   owner = "toku-sa-n";
@@ -19,18 +18,18 @@ mkCoqDerivation rec {
     rev = "c26ce64d6ad1a1c3cafee38ab4889ad3b68a5c33";
     sha256 = "sha256-4Q0z/KUHrJZKeKJDqa9mkxfy9LrGh2xPt561muUFYAY=";
   };
-  namePrefix = [ ];
+  namePrefix = [];
 
   useDune = true;
 
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = isEq "8.20";
         out = "master";
       }
-    ] null;
+    ]
+    null;
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +38,7 @@ mkCoqDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with ocamlPackages; [
     dune-build-info
@@ -49,7 +48,6 @@ mkCoqDerivation rec {
   meta = {
     description = "A command line tool to format your Coq source code.";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ DieracDelta ];
+    maintainers = with lib.maintainers; [DieracDelta];
   };
-
 }

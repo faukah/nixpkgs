@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation {
   pname = "tsme-test";
   version = "${kernel.version}-unstable-2022-12-07";
@@ -19,9 +18,11 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    ];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +33,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Kernel driver to test the status of AMD TSME (Transparent Secure Memory Encryption)";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lyn ];
+    maintainers = with lib.maintainers; [lyn];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/AMDESE/mem-encryption-tests";
   };

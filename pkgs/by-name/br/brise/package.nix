@@ -4,7 +4,6 @@
   fetchFromGitHub,
   librime,
 }:
-
 stdenv.mkDerivation {
   pname = "brise";
   version = "unstable-2017-09-16";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "1l13j3cfwida0ycl874fizz2jwjvlxid589a1iciqa9y25k21ql7";
   };
 
-  buildInputs = [ librime ];
+  buildInputs = [librime];
 
   postPatch = ''
     patchShebangs scripts/*
@@ -45,6 +44,6 @@ stdenv.mkDerivation {
     # may be released under different licenses
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sifmelcara ];
+    maintainers = [maintainers.sifmelcara];
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "cppy";
   version = "1.3.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-RwwXwdjpq4ZjUyHkWoh3eaJDzIV3MargeoBJ+nTHsyg=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cppy" ];
+  pythonImportsCheck = ["cppy"];
 
   meta = {
     changelog = "https://github.com/nucleic/cppy/releases/tag/${src.tag}";

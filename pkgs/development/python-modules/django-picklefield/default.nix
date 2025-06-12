@@ -6,7 +6,6 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-picklefield";
   version = "3.3.0";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-/H6spsf2fmJdg5RphD8a4YADggr+5d+twuLoFMfyEac=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   checkPhase = ''
     runHook preCheck
@@ -29,13 +28,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "picklefield" ];
+  pythonImportsCheck = ["picklefield"];
 
   meta = with lib; {
     description = "Pickled object field for Django";
     homepage = "https://github.com/gintas/django-picklefield";
     changelog = "https://github.com/gintas/django-picklefield/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

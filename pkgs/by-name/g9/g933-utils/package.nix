@@ -5,7 +5,6 @@
   udev,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "g933-utils";
   version = "unstable-2021-11-19";
@@ -20,14 +19,14 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-xjn9EHYa8LJnj3GCZuug4IznxNCLzb9dtEnoQHRcdh8=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ udev ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [udev];
 
   meta = with lib; {
     description = "Application to configure Logitech wireless G933/G533 headsets";
     homepage = "https://github.com/ashkitten/g933-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
     platforms = platforms.linux;
     mainProgram = "g933-utils";
   };

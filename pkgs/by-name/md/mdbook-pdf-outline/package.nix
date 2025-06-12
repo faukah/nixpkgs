@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mdbook-pdf-outline";
   version = "0.1.6";
@@ -27,7 +26,6 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/HollowMan6/mdbook-pdf";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hollowman6 ];
-
+    maintainers = with maintainers; [hollowman6];
   };
 }

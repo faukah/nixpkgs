@@ -20,7 +20,6 @@
   rich,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "python-kasa";
   version = "0.10.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-OIkqNGTnIPoHYrE5NhAxSsRCTyMGvNADvIg28EuKsEw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -65,21 +64,21 @@ buildPythonPackage rec {
     ];
   };
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   disabledTestPaths = [
     # Skip the examples tests
     "tests/test_readme_examples.py"
   ];
 
-  pythonImportsCheck = [ "kasa" ];
+  pythonImportsCheck = ["kasa"];
 
   meta = with lib; {
     description = "Python API for TP-Link Kasa Smarthome products";
     homepage = "https://python-kasa.readthedocs.io/";
     changelog = "https://github.com/python-kasa/python-kasa/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "kasa";
   };
 }

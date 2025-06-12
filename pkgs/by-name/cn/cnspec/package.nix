@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cnspec";
   version = "11.57.2";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-uehEZCj/U+xmdLt7E/Tsbog5GT78CcgxO8ZOB9QFqis=";
 
-  subPackages = [ "apps/cnspec" ];
+  subPackages = ["apps/cnspec"];
 
   ldflags = [
     "-s"

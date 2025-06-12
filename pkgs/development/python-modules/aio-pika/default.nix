@@ -15,7 +15,6 @@
   wrapt,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "aio-pika";
   version = "9.5.5";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-Gs01y1VRVgk5i4JI+fqtRo6mOyzBzHM/2hJPVenc+3g=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiormq
@@ -68,13 +67,13 @@ buildPythonPackage rec {
     "tests/test_types.py"
   ];
 
-  pythonImportsCheck = [ "aio_pika" ];
+  pythonImportsCheck = ["aio_pika"];
 
   meta = with lib; {
     description = "AMQP 0.9 client designed for asyncio and humans";
     homepage = "https://github.com/mosquito/aio-pika";
     changelog = "https://github.com/mosquito/aio-pika/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

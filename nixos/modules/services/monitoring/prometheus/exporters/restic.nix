@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.restic;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
@@ -20,8 +19,7 @@ let
     optionalAttrs
     nameValuePair
     ;
-in
-{
+in {
   port = 9753;
   extraOpts = {
     repository = mkOption {
@@ -68,13 +66,12 @@ in
     };
 
     rcloneOptions = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           bool
         ]);
-      default = { };
+      default = {};
       description = ''
         Options to pass to rclone to control its behavior.
         See <https://rclone.org/docs/#options> for
@@ -86,13 +83,12 @@ in
     };
 
     rcloneConfig = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (oneOf [
           str
           bool
         ]);
-      default = { };
+      default = {};
       description = ''
         Configuration for the rclone remote being used for backup.
         See the remote's specific options under rclone's docs at
@@ -130,10 +126,9 @@ in
   serviceOpts = {
     script = ''
       export RESTIC_REPOSITORY=${
-        if cfg.repositoryFile != null then
-          "$(cat $CREDENTIALS_DIRECTORY/RESTIC_REPOSITORY)"
-        else
-          "${cfg.repository}"
+        if cfg.repositoryFile != null
+        then "$(cat $CREDENTIALS_DIRECTORY/RESTIC_REPOSITORY)"
+        else "${cfg.repository}"
       }
       export RESTIC_PASSWORD_FILE=$CREDENTIALS_DIRECTORY/RESTIC_PASSWORD_FILE
       ${pkgs.prometheus-restic-exporter}/bin/restic-exporter.py \
@@ -142,17 +137,21 @@ in
     serviceConfig = {
       CacheDirectory = "restic-exporter";
       EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
-      LoadCredential = [
-        "RESTIC_PASSWORD_FILE:${cfg.passwordFile}"
-      ] ++ optional (cfg.repositoryFile != null) [ "RESTIC_REPOSITORY:${cfg.repositoryFile}" ];
+      LoadCredential =
+        [
+          "RESTIC_PASSWORD_FILE:${cfg.passwordFile}"
+        ]
+        ++ optional (cfg.repositoryFile != null) ["RESTIC_REPOSITORY:${cfg.repositoryFile}"];
     };
-    environment =
-      let
-        rcloneRemoteName = builtins.elemAt (splitString ":" cfg.repository) 1;
-        rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings [ "-" ] [ "_" ] v);
-        rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
-        toRcloneVal = v: if lib.isBool v then lib.boolToString v else v;
-      in
+    environment = let
+      rcloneRemoteName = builtins.elemAt (splitString ":" cfg.repository) 1;
+      rcloneAttrToOpt = v: "RCLONE_" + toUpper (builtins.replaceStrings ["-"] ["_"] v);
+      rcloneAttrToConf = v: "RCLONE_CONFIG_" + toUpper (rcloneRemoteName + "_" + v);
+      toRcloneVal = v:
+        if lib.isBool v
+        then lib.boolToString v
+        else v;
+    in
       {
         LISTEN_ADDRESS = cfg.listenAddress;
         LISTEN_PORT = toString cfg.port;
@@ -160,13 +159,15 @@ in
         RESTIC_CACHE_DIR = "$CACHE_DIRECTORY";
       }
       // (mapAttrs' (
-        name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)
-      ) cfg.rcloneOptions)
+          name: value: nameValuePair (rcloneAttrToOpt name) (toRcloneVal value)
+        )
+        cfg.rcloneOptions)
       // optionalAttrs (cfg.rcloneConfigFile != null) {
         RCLONE_CONFIG = cfg.rcloneConfigFile;
       }
       // (mapAttrs' (
-        name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value)
-      ) cfg.rcloneConfig);
+          name: value: nameValuePair (rcloneAttrToConf name) (toRcloneVal value)
+        )
+        cfg.rcloneConfig);
   };
 }

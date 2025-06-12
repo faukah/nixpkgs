@@ -14,7 +14,6 @@
   # just for passthru
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gsettings-desktop-schemas";
   version = "48.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs =
     [
       glib
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas";
     description = "Collection of GSettings schemas for settings shared by various components of a desktop";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

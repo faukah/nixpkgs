@@ -4,7 +4,6 @@
   buildDunePackage,
   liquidsoap,
 }:
-
 buildDunePackage rec {
   pname = "csexp";
   version = "1.5.2";
@@ -25,6 +24,6 @@ buildDunePackage rec {
     homepage = "https://github.com/ocaml-dune/csexp";
     changelog = "https://github.com/ocaml-dune/csexp/raw/${version}/CHANGES.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

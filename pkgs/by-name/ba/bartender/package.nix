@@ -9,7 +9,6 @@
   writeShellApplication,
   common-updater-scripts,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bartender";
   version = "5.2.7";
@@ -17,7 +16,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchurl {
     name = "Bartender ${lib.versions.major finalAttrs.version}.dmg";
     url = "https://www.macbartender.com/B2/updates/${
-      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["-"] finalAttrs.version
     }/Bartender%20${lib.versions.major finalAttrs.version}.dmg";
     hash = "sha256-TY6ioG80W8q6LC0FCMRQMJh4DiEKiM6htVf+irvmpnI=";
   };
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontFixup = true;
 
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   sourceRoot = "Bartender ${lib.versions.major finalAttrs.version}.app";
 
@@ -64,10 +63,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.macbartender.com";
     changelog = "https://macbartender.com/B2/updates/${
-      builtins.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      builtins.replaceStrings ["."] ["-"] finalAttrs.version
     }/rnotes.html";
-    license = [ lib.licenses.unfree ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    license = [lib.licenses.unfree];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     maintainers = with lib.maintainers; [
       stepbrobd
       DimitarNestorov

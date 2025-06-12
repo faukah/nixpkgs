@@ -4,16 +4,15 @@
   pkg-config,
   which,
   buildPackages,
-
   # apparmor deps
   libapparmor,
-
   # testing
   perl,
 }:
 stdenv.mkDerivation {
   pname = "apparmor-bin-utils";
-  inherit (libapparmor)
+  inherit
+    (libapparmor)
     version
     src
     ;
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
   ];
 
   doCheck = true;
-  checkInputs = [ perl ];
+  checkInputs = [perl];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -47,7 +46,9 @@ stdenv.mkDerivation {
     "SBINDIR=$(out)/bin"
   ];
 
-  meta = libapparmor.meta // {
-    description = "Mandatory access control system - binary user-land utilities";
-  };
+  meta =
+    libapparmor.meta
+    // {
+      description = "Mandatory access control system - binary user-land utilities";
+    };
 }

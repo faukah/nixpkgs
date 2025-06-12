@@ -3,31 +3,30 @@
   fetchurl,
   runCommand,
   writeText,
-}:
-
-{
+}: {
   name ? "deps",
   data,
   dontFixup ? true,
   ...
-}@attrs:
+} @ attrs: let
+  data' =
+    builtins.removeAttrs (
+      if builtins.isPath data
+      then lib.importJSON data
+      else data
+    ) [
+      "!version"
+    ];
 
-let
-  data' = builtins.removeAttrs (if builtins.isPath data then lib.importJSON data else data) [
-    "!version"
-  ];
-
-  urlToPath =
-    url:
-    if lib.hasPrefix "https://" url then
+  urlToPath = url:
+    if lib.hasPrefix "https://" url
+    then
       (
         let
           url' = lib.drop 2 (lib.splitString "/" url);
-        in
-        "https/${builtins.concatStringsSep "/" url'}"
+        in "https/${builtins.concatStringsSep "/" url'}"
       )
-    else
-      builtins.replaceStrings [ "://" ] [ "/" ] url;
+    else builtins.replaceStrings ["://"] ["/"] url;
   code =
     ''
       mkdir -p "$out"
@@ -35,8 +34,7 @@ let
     ''
     + builtins.concatStringsSep "" (
       lib.mapAttrsToList (
-        url: info:
-        let
+        url: info: let
           key = builtins.head (builtins.attrNames info);
           val = info.${key};
           path = urlToPath url;
@@ -50,23 +48,28 @@ let
               };
               text = writeText name val;
             }
-            .${key} or (throw "Unknown key: ${url}");
-        in
-        ''
+            .${
+              key
+            } or (throw "Unknown key: ${url}");
+        in ''
           mkdir -p "${dirOf path}"
           ln -s "${source}" "${path}"
         ''
-      ) data'
+      )
+      data'
     );
 in
-runCommand name (
-  builtins.removeAttrs attrs [
-    "name"
-    "data"
-  ]
-  // {
-    passthru = (attrs.passthru or { }) // {
-      data = writeText "deps.json" (builtins.toJSON data);
-    };
-  }
-) code
+  runCommand name (
+    builtins.removeAttrs attrs [
+      "name"
+      "data"
+    ]
+    // {
+      passthru =
+        (attrs.passthru or {})
+        // {
+          data = writeText "deps.json" (builtins.toJSON data);
+        };
+    }
+  )
+  code

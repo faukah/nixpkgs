@@ -19,7 +19,6 @@
   python3,
   coreutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bear";
   version = "3.1.6";
@@ -121,6 +120,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/rizsotto/Bear";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ DieracDelta ];
+    maintainers = with lib.maintainers; [DieracDelta];
   };
 })

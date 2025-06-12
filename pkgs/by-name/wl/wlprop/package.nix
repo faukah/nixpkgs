@@ -9,7 +9,6 @@
   sway,
   bash,
 }:
-
 stdenv.mkDerivation {
   pname = "wlprop";
   version = "unstable-2022-08-18";
@@ -21,8 +20,8 @@ stdenv.mkDerivation {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
 
   dontBuild = true;
   installPhase = ''
@@ -31,13 +30,13 @@ stdenv.mkDerivation {
     install -Dm755 wlprop.sh $out/bin/wlprop
     wrapProgram "$out/bin/wlprop" \
       --prefix PATH : "$out/bin:${
-        lib.makeBinPath [
-          gawk
-          jq
-          slurp
-          sway
-        ]
-      }"
+      lib.makeBinPath [
+        gawk
+        jq
+        slurp
+        sway
+      ]
+    }"
 
     runHook postInstall
   '';
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
     description = "Xprop clone for wlroots based compositors";
     homepage = "https://gist.github.com/crispyricepc/f313386043395ff06570e02af2d9a8e0";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     mainProgram = "wlprop";
   };

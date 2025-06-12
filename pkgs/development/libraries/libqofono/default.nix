@@ -9,7 +9,6 @@
   qtbase,
   qtdeclarative,
 }:
-
 mkDerivation rec {
   pname = "libqofono";
   version = "0.124";
@@ -48,13 +47,13 @@ mkDerivation rec {
     qtdeclarative
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Library for accessing the ofono daemon, and declarative plugin for it";
     homepage = "https://git.sailfishos.org/mer-core/libqofono/";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

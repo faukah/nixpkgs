@@ -3,9 +3,7 @@
   fetchFromGitHub,
   lib,
   python3,
-}:
-
-let
+}: let
   # Most of the binaries are not really useful because they have hardcoded
   # paths that only make sense when you're running the stock BlueField OS on
   # your BlueField. These might be patched in the future with resholve
@@ -34,30 +32,30 @@ let
     "bfup"
   ];
 in
-stdenv.mkDerivation {
-  pname = "bfscripts";
-  version = "unstable-2023-05-15";
+  stdenv.mkDerivation {
+    pname = "bfscripts";
+    version = "unstable-2023-05-15";
 
-  src = fetchFromGitHub {
-    owner = "Mellanox";
-    repo = "bfscripts";
-    rev = "1da79f3ece7cdf99b2571c00e8b14d2e112504a4";
-    hash = "sha256-pTubrnZKEFmtAj/omycFYeYwrCog39zBDEszoCrsQNQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "Mellanox";
+      repo = "bfscripts";
+      rev = "1da79f3ece7cdf99b2571c00e8b14d2e112504a4";
+      hash = "sha256-pTubrnZKEFmtAj/omycFYeYwrCog39zBDEszoCrsQNQ=";
+    };
 
-  buildInputs = [
-    python3
-  ];
+    buildInputs = [
+      python3
+    ];
 
-  installPhase = ''
-    ${lib.concatStringsSep "\n" (map (b: "install -D ${b} $out/bin/${b}") binaries)}
-  '';
+    installPhase = ''
+      ${lib.concatStringsSep "\n" (map (b: "install -D ${b} $out/bin/${b}") binaries)}
+    '';
 
-  meta = with lib; {
-    description = "Collection of scripts used for BlueField SoC system management";
-    homepage = "https://github.com/Mellanox/bfscripts";
-    license = licenses.bsd2;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ nikstur ];
-  };
-}
+    meta = with lib; {
+      description = "Collection of scripts used for BlueField SoC system management";
+      homepage = "https://github.com/Mellanox/bfscripts";
+      license = licenses.bsd2;
+      platforms = platforms.linux;
+      maintainers = with maintainers; [nikstur];
+    };
+  }

@@ -13,7 +13,6 @@
   setuptools-scm,
   xmlsec,
 }:
-
 buildPythonPackage rec {
   pname = "xmlsec";
   version = "1.3.15";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-uqhWuD0AEuJ45vbL7JasgSjeZnyp+pou6wLHUugW9tg=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeBuildInputs = [
     pkg-config
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     libtool
   ];
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "tests/test_xmlsec.py"
   ];
 
-  pythonImportsCheck = [ "xmlsec" ];
+  pythonImportsCheck = ["xmlsec"];
 
   meta = with lib; {
     description = "Python bindings for the XML Security Library";
     homepage = "https://github.com/mehcode/python-xmlsec";
     changelog = "https://github.com/xmlsec/python-xmlsec/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

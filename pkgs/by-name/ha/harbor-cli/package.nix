@@ -7,7 +7,6 @@
   harbor-cli,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "harbor-cli";
   version = "0.0.6";
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -55,7 +54,7 @@ buildGoModule (finalAttrs: {
     description = "Command-line tool facilitates seamless interaction with the Harbor container registry";
     changelog = "https://github.com/goharbor/harbor-cli/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "harbor";
   };
 })

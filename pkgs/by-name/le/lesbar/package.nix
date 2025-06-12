@@ -8,7 +8,6 @@
   cairo,
   pango,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lesbar";
   version = "1.1.0";
@@ -31,13 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     pango
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Programming language agnostic view layer for creating desktop widgets and status bars";
     homepage = "https://git.sr.ht/~salmiak/lesbar";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpentland ];
+    maintainers = with maintainers; [jpentland];
     platforms = platforms.linux;
     mainProgram = "lesbar";
   };

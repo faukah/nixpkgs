@@ -23,7 +23,6 @@
   simplejson,
   zc-lockfile,
 }:
-
 buildPythonPackage rec {
   pname = "cherrypy";
   version = "18.10.0";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
       --replace-fail "--doctest-modules" "-vvv"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     cheroot
@@ -100,7 +99,7 @@ buildPythonPackage rec {
       "test_1_Ram_Concurrency"
       "test_2_File_Concurrency"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_block" ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_block"];
 
   disabledTestPaths = lib.optionals stdenv.hostPlatform.isDarwin [
     "cherrypy/test/test_config_server.py"
@@ -108,13 +107,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "cherrypy" ];
+  pythonImportsCheck = ["cherrypy"];
 
   optional-dependencies = {
-    json = [ simplejson ];
-    memcached_session = [ python-memcached ];
-    routes_dispatcher = [ routes ];
-    ssl = [ pyopenssl ];
+    json = [simplejson];
+    memcached_session = [python-memcached];
+    routes_dispatcher = [routes];
+    ssl = [pyopenssl];
     # not packaged yet
     xcgi = [
       # flup
@@ -127,6 +126,6 @@ buildPythonPackage rec {
     homepage = "https://cherrypy.dev/";
     changelog = "https://github.com/cherrypy/cherrypy/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

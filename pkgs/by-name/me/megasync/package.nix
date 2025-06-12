@@ -3,14 +3,12 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   # nativeBuildInputs
   cmake,
   libsForQt5,
   libtool,
   pkg-config,
   unzip,
-
   # buildInputs
   c-ares,
   cryptopp,
@@ -29,7 +27,6 @@
   wget,
   xorg,
   zlib,
-
   nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -127,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   preFixup = ''
-    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ xorg.xrdb ]})
+    qtWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [xorg.xrdb]})
   '';
 
   passthru = {
@@ -148,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "megasync";
   };
 })

@@ -5,7 +5,6 @@
   setuptools,
   aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "emulated-roku";
   version = "0.3.0";
@@ -18,19 +17,19 @@ buildPythonPackage rec {
     hash = "sha256-7DbJl1e1ESWPCNuQX7m/ggXNDyPYZ5eNGwSz+jnxZj0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "emulated_roku" ];
+  pythonImportsCheck = ["emulated_roku"];
 
   meta = with lib; {
     description = "Library to emulate a roku server to serve as a proxy for remotes such as Harmony";
     homepage = "https://github.com/mindigmarton/emulated_roku";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

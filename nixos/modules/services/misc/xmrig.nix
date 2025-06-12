@@ -3,13 +3,11 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.xmrig;
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
   configFile = json.generate "config.json" cfg.settings;
-in
-{
+in {
   options = {
     services.xmrig = {
       enable = lib.mkEnableOption "XMRig Mining Software";
@@ -19,7 +17,7 @@ in
       };
 
       settings = lib.mkOption {
-        default = { };
+        default = {};
         type = json.type;
         example = lib.literalExpression ''
           {
@@ -50,8 +48,8 @@ in
     hardware.cpu.x86.msr.enable = true;
 
     systemd.services.xmrig = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "XMRig Mining Software Service";
       serviceConfig = {
         ExecStartPre = "${lib.getExe cfg.package} --config=${configFile} --dry-run";
@@ -66,6 +64,6 @@ in
   };
 
   meta = with lib; {
-    maintainers = with maintainers; [ ratsclub ];
+    maintainers = with maintainers; [ratsclub];
   };
 }

@@ -12,7 +12,6 @@
   qttools,
   qtx11extras,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ksnip";
   version = "1.10.1";
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
       - Many configuration options.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ x3ro ];
+    maintainers = with maintainers; [x3ro];
     platforms = platforms.linux;
     mainProgram = "ksnip";
   };

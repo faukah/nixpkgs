@@ -1,13 +1,10 @@
 # Vagrant + VirtualBox
-
 {
   config,
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   imports = [
     ./vagrant-guest.nix
     ./virtualbox-image.nix
@@ -23,14 +20,14 @@
   documentation.man.enable = false;
   documentation.nixos.enable = false;
 
-  users.extraUsers.vagrant.extraGroups = [ "vboxsf" ];
+  users.extraUsers.vagrant.extraGroups = ["vboxsf"];
 
   # generate the box v1 format which is much easier to generate
   # https://www.vagrantup.com/docs/boxes/format.html
   image.extension = lib.mkOverride 999 "${config.image.baseName}.box";
-  system.nixos.tags = [ "vagrant" ];
+  system.nixos.tags = ["vagrant"];
   system.build.image = lib.mkOverride 999 config.system.build.vagrantVirtualbox;
-  system.build.vagrantVirtualbox = pkgs.runCommand config.image.fileName { } ''
+  system.build.vagrantVirtualbox = pkgs.runCommand config.image.fileName {} ''
       mkdir workdir
       cd workdir
 

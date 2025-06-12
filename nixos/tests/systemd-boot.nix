@@ -1,70 +1,64 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-with pkgs.lib;
-
-let
+with import ../lib/testing-python.nix {inherit system pkgs;};
+with pkgs.lib; let
   common = {
     virtualisation.useBootLoader = true;
     virtualisation.useEFIBoot = true;
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
-    environment.systemPackages = [ pkgs.efibootmgr ];
+    environment.systemPackages = [pkgs.efibootmgr];
     system.switch.enable = true;
   };
 
-  commonXbootldr =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    let
-      diskImage = import ../lib/make-disk-image.nix {
-        inherit config lib pkgs;
-        label = "nixos";
-        format = "qcow2";
-        partitionTableType = "efixbootldr";
-        touchEFIVars = true;
-        installBootLoader = true;
-      };
-    in
-    {
-      imports = [ common ];
-      virtualisation.useBootLoader = lib.mkForce false; # Only way to tell qemu-vm not to create the default system image
-      virtualisation.directBoot.enable = false; # But don't direct boot either because we're testing systemd-boot
-
-      system.build.diskImage = diskImage; # Use custom disk image with an XBOOTLDR partition
-      virtualisation.efi.variables = "${diskImage}/efi-vars.fd";
-
-      virtualisation.useDefaultFilesystems = false; # Needs custom setup for `diskImage`
-      virtualisation.bootPartition = null;
-      virtualisation.fileSystems = {
-        "/" = {
-          device = "/dev/vda3";
-          fsType = "ext4";
-        };
-        "/boot" = {
-          device = "/dev/vda2";
-          fsType = "vfat";
-          noCheck = true;
-        };
-        "/efi" = {
-          device = "/dev/vda1";
-          fsType = "vfat";
-          noCheck = true;
-        };
-      };
-
-      boot.loader.systemd-boot.enable = true;
-      boot.loader.efi.efiSysMountPoint = "/efi";
-      boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  commonXbootldr = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: let
+    diskImage = import ../lib/make-disk-image.nix {
+      inherit config lib pkgs;
+      label = "nixos";
+      format = "qcow2";
+      partitionTableType = "efixbootldr";
+      touchEFIVars = true;
+      installBootLoader = true;
     };
+  in {
+    imports = [common];
+    virtualisation.useBootLoader = lib.mkForce false; # Only way to tell qemu-vm not to create the default system image
+    virtualisation.directBoot.enable = false; # But don't direct boot either because we're testing systemd-boot
+
+    system.build.diskImage = diskImage; # Use custom disk image with an XBOOTLDR partition
+    virtualisation.efi.variables = "${diskImage}/efi-vars.fd";
+
+    virtualisation.useDefaultFilesystems = false; # Needs custom setup for `diskImage`
+    virtualisation.bootPartition = null;
+    virtualisation.fileSystems = {
+      "/" = {
+        device = "/dev/vda3";
+        fsType = "ext4";
+      };
+      "/boot" = {
+        device = "/dev/vda2";
+        fsType = "vfat";
+        noCheck = true;
+      };
+      "/efi" = {
+        device = "/dev/vda1";
+        fsType = "vfat";
+        noCheck = true;
+      };
+    };
+
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.efiSysMountPoint = "/efi";
+    boot.loader.systemd-boot.xbootldrMountPoint = "/boot";
+  };
 
   customDiskImage = nodes: ''
     import os
@@ -88,8 +82,7 @@ let
     # Set NIX_DISK_IMAGE so that the qemu script finds the right disk image.
     os.environ['NIX_DISK_IMAGE'] = tmp_disk_image.name
   '';
-in
-{
+in {
   basic = makeTest {
     name = "systemd-boot";
     meta.maintainers = with pkgs.lib.maintainers; [
@@ -122,17 +115,15 @@ in
     name = "systemd-boot-secure-boot";
 
     nodes.machine = {
-      imports = [ common ];
-      environment.systemPackages = [ pkgs.sbctl ];
+      imports = [common];
+      environment.systemPackages = [pkgs.sbctl];
       virtualisation.useSecureBoot = true;
     };
 
-    testScript =
-      let
-        efiArch = pkgs.stdenv.hostPlatform.efiArch;
-      in
-      { nodes, ... }:
-      ''
+    testScript = let
+      efiArch = pkgs.stdenv.hostPlatform.efiArch;
+    in
+      {nodes, ...}: ''
         machine.start(allow_reboot=True)
         machine.wait_for_unit("multi-user.target")
 
@@ -150,30 +141,28 @@ in
 
   basicXbootldr = makeTest {
     name = "systemd-boot-xbootldr";
-    meta.maintainers = with pkgs.lib.maintainers; [ sdht0 ];
+    meta.maintainers = with pkgs.lib.maintainers; [sdht0];
 
     nodes.machine = commonXbootldr;
 
-    testScript =
-      { nodes, ... }:
-      ''
-        ${customDiskImage nodes}
+    testScript = {nodes, ...}: ''
+      ${customDiskImage nodes}
 
-        machine.start()
-        machine.wait_for_unit("multi-user.target")
+      machine.start()
+      machine.wait_for_unit("multi-user.target")
 
-        machine.succeed("test -e /efi/EFI/systemd/systemd-bootx64.efi")
-        machine.succeed("test -e /boot/loader/entries/nixos-generation-1.conf")
+      machine.succeed("test -e /efi/EFI/systemd/systemd-bootx64.efi")
+      machine.succeed("test -e /boot/loader/entries/nixos-generation-1.conf")
 
-        # Ensure we actually booted using systemd-boot
-        # Magic number is the vendor UUID used by systemd-boot.
-        machine.succeed(
-            "test -e /sys/firmware/efi/efivars/LoaderEntrySelected-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f"
-        )
+      # Ensure we actually booted using systemd-boot
+      # Magic number is the vendor UUID used by systemd-boot.
+      machine.succeed(
+          "test -e /sys/firmware/efi/efivars/LoaderEntrySelected-4a67b082-0a4c-41cf-b6c7-440b29bb8c4f"
+      )
 
-        # "bootctl install" should have created an EFI entry
-        machine.succeed('efibootmgr | grep "Linux Boot Manager"')
-      '';
+      # "bootctl install" should have created an EFI entry
+      machine.succeed('efibootmgr | grep "Linux Boot Manager"')
+    '';
   };
 
   # Check that specialisations create corresponding boot entries.
@@ -184,32 +173,33 @@ in
       julienmalka
     ];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        specialisation.something.configuration = {
-          boot.loader.systemd-boot.sortKey = "something";
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      specialisation.something.configuration = {
+        boot.loader.systemd-boot.sortKey = "something";
 
-          # Since qemu will dynamically create a devicetree blob when starting
-          # up, it is not straight forward to create an export of that devicetree
-          # blob without knowing before-hand all the flags we would pass to qemu
-          # (we would then be able to use `dumpdtb`). Thus, the following config
-          # will not boot, but it does allow us to assert that the boot entry has
-          # the correct contents.
-          boot.loader.systemd-boot.installDeviceTree = pkgs.stdenv.hostPlatform.isAarch64;
-          hardware.deviceTree.name = "dummy.dtb";
-          hardware.deviceTree.package = lib.mkForce (
-            pkgs.runCommand "dummy-devicetree-package" { } ''
-              mkdir -p $out
-              cp ${pkgs.emptyFile} $out/dummy.dtb
-            ''
-          );
-        };
+        # Since qemu will dynamically create a devicetree blob when starting
+        # up, it is not straight forward to create an export of that devicetree
+        # blob without knowing before-hand all the flags we would pass to qemu
+        # (we would then be able to use `dumpdtb`). Thus, the following config
+        # will not boot, but it does allow us to assert that the boot entry has
+        # the correct contents.
+        boot.loader.systemd-boot.installDeviceTree = pkgs.stdenv.hostPlatform.isAarch64;
+        hardware.deviceTree.name = "dummy.dtb";
+        hardware.deviceTree.package = lib.mkForce (
+          pkgs.runCommand "dummy-devicetree-package" {} ''
+            mkdir -p $out
+            cp ${pkgs.emptyFile} $out/dummy.dtb
+          ''
+        );
       };
+    };
 
-    testScript =
-      { nodes, ... }:
+    testScript = {nodes, ...}:
       ''
         machine.start()
         machine.wait_for_unit("multi-user.target")
@@ -239,12 +229,14 @@ in
       julienmalka
     ];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        boot.loader.efi.canTouchEfiVariables = mkForce false;
-      };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      boot.loader.efi.canTouchEfiVariables = mkForce false;
+    };
 
     testScript = ''
       machine.start()
@@ -303,18 +295,19 @@ in
     '';
   };
 
-  memtest86 =
-    with pkgs.lib;
-    optionalAttrs (meta.availableOn { inherit system; } pkgs.memtest86plus) (makeTest {
+  memtest86 = with pkgs.lib;
+    optionalAttrs (meta.availableOn {inherit system;} pkgs.memtest86plus) (makeTest {
       name = "systemd-boot-memtest86";
-      meta.maintainers = with maintainers; [ julienmalka ];
+      meta.maintainers = with maintainers; [julienmalka];
 
-      nodes.machine =
-        { pkgs, lib, ... }:
-        {
-          imports = [ common ];
-          boot.loader.systemd-boot.memtest86.enable = true;
-        };
+      nodes.machine = {
+        pkgs,
+        lib,
+        ...
+      }: {
+        imports = [common];
+        boot.loader.systemd-boot.memtest86.enable = true;
+      };
 
       testScript = ''
         machine.succeed("test -e /boot/loader/entries/memtest86.conf")
@@ -324,14 +317,16 @@ in
 
   netbootxyz = makeTest {
     name = "systemd-boot-netbootxyz";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.netbootxyz.enable = true;
-      };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      boot.loader.systemd-boot.netbootxyz.enable = true;
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/netbootxyz.conf")
@@ -341,14 +336,12 @@ in
 
   edk2-uefi-shell = makeTest {
     name = "systemd-boot-edk2-uefi-shell";
-    meta.maintainers = with pkgs.lib.maintainers; [ iFreilicht ];
+    meta.maintainers = with pkgs.lib.maintainers; [iFreilicht];
 
-    nodes.machine =
-      { ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.edk2-uefi-shell.enable = true;
-      };
+    nodes.machine = {...}: {
+      imports = [common];
+      boot.loader.systemd-boot.edk2-uefi-shell.enable = true;
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/edk2-uefi-shell.conf")
@@ -358,25 +351,23 @@ in
 
   windows = makeTest {
     name = "systemd-boot-windows";
-    meta.maintainers = with pkgs.lib.maintainers; [ iFreilicht ];
+    meta.maintainers = with pkgs.lib.maintainers; [iFreilicht];
 
-    nodes.machine =
-      { ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.windows = {
-          "7" = {
-            efiDeviceHandle = "HD0c1";
-            sortKey = "before_all_others";
-          };
-          "Ten".efiDeviceHandle = "FS0";
-          "11" = {
-            title = "Title with-_-punctuation ...?!";
-            efiDeviceHandle = "HD0d4";
-            sortKey = "zzz";
-          };
+    nodes.machine = {...}: {
+      imports = [common];
+      boot.loader.systemd-boot.windows = {
+        "7" = {
+          efiDeviceHandle = "HD0c1";
+          sortKey = "before_all_others";
+        };
+        "Ten".efiDeviceHandle = "FS0";
+        "11" = {
+          title = "Title with-_-punctuation ...?!";
+          efiDeviceHandle = "HD0d4";
+          sortKey = "zzz";
         };
       };
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/efi/edk2-uefi-shell/shell.efi")
@@ -405,15 +396,17 @@ in
 
   memtestSortKey = makeTest {
     name = "systemd-boot-memtest-sortkey";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.memtest86.enable = true;
-        boot.loader.systemd-boot.memtest86.sortKey = "apple";
-      };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      boot.loader.systemd-boot.memtest86.enable = true;
+      boot.loader.systemd-boot.memtest86.sortKey = "apple";
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/memtest86.conf")
@@ -424,43 +417,45 @@ in
 
   entryFilenameXbootldr = makeTest {
     name = "systemd-boot-entry-filename-xbootldr";
-    meta.maintainers = with pkgs.lib.maintainers; [ sdht0 ];
+    meta.maintainers = with pkgs.lib.maintainers; [sdht0];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ commonXbootldr ];
-        boot.loader.systemd-boot.memtest86.enable = true;
-      };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [commonXbootldr];
+      boot.loader.systemd-boot.memtest86.enable = true;
+    };
 
-    testScript =
-      { nodes, ... }:
-      ''
-        ${customDiskImage nodes}
+    testScript = {nodes, ...}: ''
+      ${customDiskImage nodes}
 
-        machine.start()
-        machine.wait_for_unit("multi-user.target")
+      machine.start()
+      machine.wait_for_unit("multi-user.target")
 
-        machine.succeed("test -e /efi/EFI/systemd/systemd-bootx64.efi")
-        machine.succeed("test -e /boot/loader/entries/memtest86.conf")
-        machine.succeed("test -e /boot/EFI/memtest86/memtest.efi")
-      '';
+      machine.succeed("test -e /efi/EFI/systemd/systemd-bootx64.efi")
+      machine.succeed("test -e /boot/loader/entries/memtest86.conf")
+      machine.succeed("test -e /boot/EFI/memtest86/memtest.efi")
+    '';
   };
 
   extraEntries = makeTest {
     name = "systemd-boot-extra-entries";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.extraEntries = {
-          "banana.conf" = ''
-            title banana
-          '';
-        };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      boot.loader.systemd-boot.extraEntries = {
+        "banana.conf" = ''
+          title banana
+        '';
       };
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/loader/entries/banana.conf")
@@ -470,16 +465,18 @@ in
 
   extraFiles = makeTest {
     name = "systemd-boot-extra-files";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
-    nodes.machine =
-      { pkgs, lib, ... }:
-      {
-        imports = [ common ];
-        boot.loader.systemd-boot.extraFiles = {
-          "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
-        };
+    nodes.machine = {
+      pkgs,
+      lib,
+      ...
+    }: {
+      imports = [common];
+      boot.loader.systemd-boot.extraFiles = {
+        "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
       };
+    };
 
     testScript = ''
       machine.succeed("test -e /boot/efi/fruits/tomato.efi")
@@ -489,107 +486,103 @@ in
 
   switch-test = makeTest {
     name = "systemd-boot-switch-test";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
     nodes = {
       inherit common;
 
-      machine =
-        { pkgs, nodes, ... }:
-        {
-          imports = [ common ];
-          boot.loader.systemd-boot.extraFiles = {
-            "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
-          };
-
-          # These are configs for different nodes, but we'll use them here in `machine`
-          system.extraDependencies = [
-            nodes.common.system.build.toplevel
-            nodes.with_netbootxyz.system.build.toplevel
-          ];
+      machine = {
+        pkgs,
+        nodes,
+        ...
+      }: {
+        imports = [common];
+        boot.loader.systemd-boot.extraFiles = {
+          "efi/fruits/tomato.efi" = pkgs.netbootxyz-efi;
         };
 
-      with_netbootxyz =
-        { pkgs, ... }:
-        {
-          imports = [ common ];
-          boot.loader.systemd-boot.netbootxyz.enable = true;
-        };
+        # These are configs for different nodes, but we'll use them here in `machine`
+        system.extraDependencies = [
+          nodes.common.system.build.toplevel
+          nodes.with_netbootxyz.system.build.toplevel
+        ];
+      };
+
+      with_netbootxyz = {pkgs, ...}: {
+        imports = [common];
+        boot.loader.systemd-boot.netbootxyz.enable = true;
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      let
-        originalSystem = nodes.machine.system.build.toplevel;
-        baseSystem = nodes.common.system.build.toplevel;
-        finalSystem = nodes.with_netbootxyz.system.build.toplevel;
-      in
-      ''
-        machine.succeed("test -e /boot/efi/fruits/tomato.efi")
-        machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+    testScript = {nodes, ...}: let
+      originalSystem = nodes.machine.system.build.toplevel;
+      baseSystem = nodes.common.system.build.toplevel;
+      finalSystem = nodes.with_netbootxyz.system.build.toplevel;
+    in ''
+      machine.succeed("test -e /boot/efi/fruits/tomato.efi")
+      machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
 
-        with subtest("remove files when no longer needed"):
-            machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
-            machine.fail("test -e /boot/efi/fruits/tomato.efi")
-            machine.fail("test -d /boot/efi/fruits")
-            machine.succeed("test -d /boot/efi/nixos/.extra-files")
-            machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
-            machine.fail("test -d /boot/efi/nixos/.extra-files/efi/fruits")
+      with subtest("remove files when no longer needed"):
+          machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
+          machine.fail("test -e /boot/efi/fruits/tomato.efi")
+          machine.fail("test -d /boot/efi/fruits")
+          machine.succeed("test -d /boot/efi/nixos/.extra-files")
+          machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+          machine.fail("test -d /boot/efi/nixos/.extra-files/efi/fruits")
 
-        with subtest("files are added back when needed again"):
-            machine.succeed("${originalSystem}/bin/switch-to-configuration boot")
-            machine.succeed("test -e /boot/efi/fruits/tomato.efi")
-            machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+      with subtest("files are added back when needed again"):
+          machine.succeed("${originalSystem}/bin/switch-to-configuration boot")
+          machine.succeed("test -e /boot/efi/fruits/tomato.efi")
+          machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
 
-        with subtest("simultaneously removing and adding files works"):
-            machine.succeed("${finalSystem}/bin/switch-to-configuration boot")
-            machine.fail("test -e /boot/efi/fruits/tomato.efi")
-            machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
-            machine.succeed("test -e /boot/loader/entries/netbootxyz.conf")
-            machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
-            machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/netbootxyz.conf")
-            machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
-      '';
+      with subtest("simultaneously removing and adding files works"):
+          machine.succeed("${finalSystem}/bin/switch-to-configuration boot")
+          machine.fail("test -e /boot/efi/fruits/tomato.efi")
+          machine.fail("test -e /boot/efi/nixos/.extra-files/efi/fruits/tomato.efi")
+          machine.succeed("test -e /boot/loader/entries/netbootxyz.conf")
+          machine.succeed("test -e /boot/efi/netbootxyz/netboot.xyz.efi")
+          machine.succeed("test -e /boot/efi/nixos/.extra-files/loader/entries/netbootxyz.conf")
+          machine.succeed("test -e /boot/efi/nixos/.extra-files/efi/netbootxyz/netboot.xyz.efi")
+    '';
   };
 
   garbage-collect-entry = makeTest {
     name = "systemd-boot-garbage-collect-entry";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
     nodes = {
       inherit common;
-      machine =
-        { pkgs, nodes, ... }:
-        {
-          imports = [ common ];
+      machine = {
+        pkgs,
+        nodes,
+        ...
+      }: {
+        imports = [common];
 
-          # These are configs for different nodes, but we'll use them here in `machine`
-          system.extraDependencies = [
-            nodes.common.system.build.toplevel
-          ];
-        };
+        # These are configs for different nodes, but we'll use them here in `machine`
+        system.extraDependencies = [
+          nodes.common.system.build.toplevel
+        ];
+      };
     };
 
-    testScript =
-      { nodes, ... }:
-      let
-        baseSystem = nodes.common.system.build.toplevel;
-      in
-      ''
-        machine.succeed("nix-env -p /nix/var/nix/profiles/system --set ${baseSystem}")
-        machine.succeed("nix-env -p /nix/var/nix/profiles/system --delete-generations 1")
-        machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
-        machine.fail("test -e /boot/loader/entries/nixos-generation-1.conf")
-        machine.succeed("test -e /boot/loader/entries/nixos-generation-2.conf")
-      '';
+    testScript = {nodes, ...}: let
+      baseSystem = nodes.common.system.build.toplevel;
+    in ''
+      machine.succeed("nix-env -p /nix/var/nix/profiles/system --set ${baseSystem}")
+      machine.succeed("nix-env -p /nix/var/nix/profiles/system --delete-generations 1")
+      machine.succeed("${baseSystem}/bin/switch-to-configuration boot")
+      machine.fail("test -e /boot/loader/entries/nixos-generation-1.conf")
+      machine.succeed("test -e /boot/loader/entries/nixos-generation-2.conf")
+    '';
   };
 
   no-bootspec = makeTest {
     name = "systemd-boot-no-bootspec";
-    meta.maintainers = with pkgs.lib.maintainers; [ julienmalka ];
+    meta.maintainers = with pkgs.lib.maintainers; [julienmalka];
 
     nodes.machine = {
-      imports = [ common ];
+      imports = [common];
       boot.bootspec.enable = false;
     };
 

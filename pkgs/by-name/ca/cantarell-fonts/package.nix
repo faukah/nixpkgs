@@ -9,7 +9,6 @@
   appstream-glib,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cantarell-fonts";
   version = "0.303.1";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Default typeface used in the user interface of GNOME since version 3.0";
     platforms = lib.platforms.all;
     license = lib.licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

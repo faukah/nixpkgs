@@ -5,7 +5,6 @@
   libX11,
   SDL2,
 }:
-
 stdenv.mkDerivation {
   pname = "paperview";
   version = "unstable-2020-09-22";
@@ -30,8 +29,8 @@ stdenv.mkDerivation {
     description = "High performance X11 animated wallpaper setter";
     homepage = "https://github.com/glouw/paperview";
     platforms = platforms.linux;
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [_3JlOy-PYCCKUi];
     mainProgram = "paperview";
   };
 }

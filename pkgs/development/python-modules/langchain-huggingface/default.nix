@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   huggingface-hub,
   langchain-core,
   sentence-transformers,
   tokenizers,
   transformers,
-
   # tests
   freezegun,
   httpx,
@@ -26,11 +23,9 @@
   responses,
   syrupy,
   toml,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-huggingface";
   version = "0.2.0";
@@ -45,7 +40,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/huggingface";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -76,9 +71,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_huggingface" ];
+  pythonImportsCheck = ["langchain_huggingface"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

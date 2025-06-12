@@ -5,7 +5,6 @@
   capnproto,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "capnproto-java";
   version = "0.1.16";
@@ -17,11 +16,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-7uYtRHKsJvbE1b0HbNXGbRXpkUHHLjMDIWLlOUcQWDk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ capnproto ];
+  buildInputs = [capnproto];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Cap'n Proto codegen plugin for Java";

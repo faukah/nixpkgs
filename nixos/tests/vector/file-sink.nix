@@ -1,47 +1,51 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
-
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "vector-test1";
-    meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
+    meta.maintainers = [pkgs.lib.maintainers.happysalada];
 
-    nodes.machine =
-      { config, pkgs, ... }:
-      {
-        services.vector = {
-          enable = true;
-          journaldAccess = true;
-          settings = {
-            sources = {
-              journald.type = "journald";
+    nodes.machine = {
+      config,
+      pkgs,
+      ...
+    }: {
+      services.vector = {
+        enable = true;
+        journaldAccess = true;
+        settings = {
+          sources = {
+            journald.type = "journald";
 
-              vector_metrics.type = "internal_metrics";
+            vector_metrics.type = "internal_metrics";
 
-              vector_logs.type = "internal_logs";
+            vector_logs.type = "internal_logs";
+          };
+
+          sinks = {
+            file = {
+              type = "file";
+              inputs = [
+                "journald"
+                "vector_logs"
+              ];
+              path = "/var/lib/vector/logs.log";
+              encoding = {
+                codec = "json";
+              };
             };
 
-            sinks = {
-              file = {
-                type = "file";
-                inputs = [
-                  "journald"
-                  "vector_logs"
-                ];
-                path = "/var/lib/vector/logs.log";
-                encoding = {
-                  codec = "json";
-                };
-              };
-
-              prometheus_exporter = {
-                type = "prometheus_exporter";
-                inputs = [ "vector_metrics" ];
-                address = "[::]:9598";
-              };
+            prometheus_exporter = {
+              type = "prometheus_exporter";
+              inputs = ["vector_metrics"];
+              address = "[::]:9598";
             };
           };
         };
       };
+    };
 
     # ensure vector is forwarding the messages appropriately
     testScript = ''

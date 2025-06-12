@@ -9,7 +9,6 @@
   testers,
   stackit-cli,
 }:
-
 buildGoModule rec {
   pname = "stackit-cli";
   version = "0.33.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-OiXUvAksFcD6yU8CTzY8QeDkiYbIr5MTfoqwdyC/ITQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = 0;
 
@@ -52,14 +51,14 @@ buildGoModule rec {
   postFixup = ''
     wrapProgram $out/bin/stackit \
       --suffix PATH : ${
-        lib.makeBinPath [
-          less
-          xdg-utils
-        ]
-      }
+      lib.makeBinPath [
+        less
+        xdg-utils
+      ]
+    }
   '';
 
-  nativeCheckInputs = [ less ];
+  nativeCheckInputs = [less];
 
   passthru.tests = {
     version = testers.testVersion {
@@ -73,7 +72,7 @@ buildGoModule rec {
     homepage = "https://github.com/stackitcloud/stackit-cli";
     changelog = "https://github.com/stackitcloud/stackit-cli/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ DerRockWolf ];
+    maintainers = with lib.maintainers; [DerRockWolf];
     mainProgram = "stackit";
   };
 }

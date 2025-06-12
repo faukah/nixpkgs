@@ -12,7 +12,6 @@
   lwt,
   ohex,
 }:
-
 buildDunePackage {
   pname = "mirage-crypto-rng-mirage";
 
@@ -36,7 +35,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = mirage-crypto-rng.meta // {
-    description = "Entropy collection for a cryptographically secure PRNG";
-  };
+  meta =
+    mirage-crypto-rng.meta
+    // {
+      description = "Entropy collection for a cryptographically secure PRNG";
+    };
 }

@@ -3,9 +3,7 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "supervise";
   version = "1.4.0";
 
@@ -19,6 +17,6 @@ stdenv.mkDerivation rec {
     description = "Minimal unprivileged process supervisor making use of modern Linux features";
     platforms = platforms.linux;
     license = licenses.gpl3;
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

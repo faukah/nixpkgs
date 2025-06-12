@@ -74,23 +74,23 @@ stdenv.mkDerivation (finalAttrs: {
     ''${makeWrapperArgs[@]} \
     --prefix PERL5LIB : "${
       with perlPackages;
-      makeFullPerlPath [
-        ArchiveZip
-        DBDSQLite
-        Cairo
-        CairoGObject
-        DBI
-        Glib
-        GlibObjectIntrospection
-        Gtk3
-        LocaleGettext
-        OpenOfficeOODoc
-        PerlMagick
-        TextCSV
-        XMLParser
-        XMLSimple
-        XMLWriter
-      ]
+        makeFullPerlPath [
+          ArchiveZip
+          DBDSQLite
+          Cairo
+          CairoGObject
+          DBI
+          Glib
+          GlibObjectIntrospection
+          Gtk3
+          LocaleGettext
+          OpenOfficeOODoc
+          PerlMagick
+          TextCSV
+          XMLParser
+          XMLSimple
+          XMLWriter
+        ]
     }:"$out/share/perl5 \
     --prefix XDG_DATA_DIRS : "$out/share:$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
     --prefix PATH : "$out/bin" \
@@ -142,7 +142,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tlType = "run";
-    pkgs = [ finalAttrs.finalPackage ];
+    pkgs = [finalAttrs.finalPackage];
   };
 
   meta = with lib; {
@@ -175,7 +175,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.auto-multiple-choice.net/";
     changelog = "https://gitlab.com/jojo_boulix/auto-multiple-choice/-/blob/master/ChangeLog";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.thblt ];
+    maintainers = [maintainers.thblt];
     platforms = platforms.all;
   };
 })

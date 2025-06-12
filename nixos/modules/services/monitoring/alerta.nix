@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.alerta;
 
   alertaConf = pkgs.writeTextFile {
@@ -15,13 +14,20 @@ let
       LOG_FILE = '${cfg.logDir}/alertad.log'
       LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
       CORS_ORIGINS = [ ${lib.concatMapStringsSep ", " (s: "\"" + s + "\"") cfg.corsOrigins} ];
-      AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
-      SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
+      AUTH_REQUIRED = ${
+        if cfg.authenticationRequired
+        then "True"
+        else "False"
+      }
+      SIGNUP_ENABLED = ${
+        if cfg.signupEnabled
+        then "True"
+        else "False"
+      }
       ${cfg.extraConfig}
     '';
   };
-in
-{
+in {
   options.services.alerta = {
     enable = lib.mkEnableOption "alerta";
 
@@ -91,8 +97,8 @@ in
 
     systemd.services.alerta = {
       description = "Alerta Monitoring System";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       environment = {
         ALERTA_SVR_CONF_FILE = alertaConf;
       };
@@ -103,7 +109,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.alerta ];
+    environment.systemPackages = [pkgs.alerta];
 
     users.users.alerta = {
       uid = config.ids.uids.alerta;

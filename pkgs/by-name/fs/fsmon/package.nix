@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fsmon";
   version = "1.8.8";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nowsecure/fsmon";
     changelog = "https://github.com/nowsecure/fsmon/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dezgeg ];
+    maintainers = with lib.maintainers; [dezgeg];
     platforms = lib.platforms.linux;
     mainProgram = "fsmon";
   };

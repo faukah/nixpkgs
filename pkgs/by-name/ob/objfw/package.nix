@@ -8,7 +8,6 @@
   objfw,
   writeTextDir,
 }:
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "objfw";
   version = "1.3.1";
@@ -33,14 +32,14 @@ clangStdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru.tests = {
-    build-hello-world = (import ./test-build-and-run.nix) { inherit clangStdenv objfw writeTextDir; };
+    build-hello-world = (import ./test-build-and-run.nix) {inherit clangStdenv objfw writeTextDir;};
   };
 
   meta = {
     description = "Portable framework for the Objective-C language";
     homepage = "https://objfw.nil.im";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.steeleduncan ];
+    maintainers = [lib.maintainers.steeleduncan];
     platforms = lib.platforms.linux;
   };
 })

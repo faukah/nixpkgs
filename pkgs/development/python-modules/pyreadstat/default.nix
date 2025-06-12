@@ -12,7 +12,6 @@
   setuptools,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "pyreadstat";
   version = "1.2.9";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  buildInputs = [ zlib ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  buildInputs = [zlib] ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   dependencies = [
     readstat
     pandas
   ];
 
-  pythonImportsCheck = [ "pyreadstat" ];
+  pythonImportsCheck = ["pyreadstat"];
 
   preCheck = ''
     export HOME=$(mktemp -d);
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Roche/pyreadstat";
     changelog = "https://github.com/Roche/pyreadstat/blob/${src.tag}/change_log.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ swflint ];
+    maintainers = with maintainers; [swflint];
   };
 }

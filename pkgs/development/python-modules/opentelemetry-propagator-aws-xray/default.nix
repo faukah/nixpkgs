@@ -11,7 +11,6 @@
   requests,
   pytest-benchmark,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-instrumentation) version src;
   pname = "opentelemetry-propagator-aws-xray";
@@ -19,9 +18,9 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-instrumentation.src.name}/propagator/opentelemetry-propagator-aws-xray";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ opentelemetry-api ];
+  dependencies = [opentelemetry-api];
 
   nativeCheckInputs = [
     opentelemetry-test-utils
@@ -33,10 +32,12 @@ buildPythonPackage {
     requests
   ];
 
-  pythonImportsCheck = [ "opentelemetry.propagators.aws" ];
+  pythonImportsCheck = ["opentelemetry.propagators.aws"];
 
-  meta = opentelemetry-instrumentation.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/propagator/opentelemetry-propagator-aws-xray";
-    description = "AWS X-Ray Propagator for OpenTelemetry";
-  };
+  meta =
+    opentelemetry-instrumentation.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python-contrib/blob/main/propagator/opentelemetry-propagator-aws-xray";
+      description = "AWS X-Ray Propagator for OpenTelemetry";
+    };
 }

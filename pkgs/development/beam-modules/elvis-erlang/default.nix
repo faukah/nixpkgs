@@ -7,7 +7,6 @@
   rebar3Relx,
   writeScript,
 }:
-
 rebar3Relx rec {
   releaseType = "escript";
   pname = "elvis-erlang";
@@ -52,7 +51,7 @@ rebar3Relx rec {
     description = "Erlang Style Reviewer";
     platforms = lib.platforms.unix;
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dlesl ];
+    maintainers = with lib.maintainers; [dlesl];
     mainProgram = "elvis";
   };
 }

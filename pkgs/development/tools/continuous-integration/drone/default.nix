@@ -4,7 +4,6 @@
   buildGoModule,
   enableUnfree ? true,
 }:
-
 buildGoModule rec {
   pname = "drone.io${lib.optionalString (!enableUnfree) "-oss"}";
   version = "2.26.0";
@@ -33,6 +32,9 @@ buildGoModule rec {
       vdemeester
       techknowlogick
     ];
-    license = with licenses; if enableUnfree then unfreeRedistributable else asl20;
+    license = with licenses;
+      if enableUnfree
+      then unfreeRedistributable
+      else asl20;
   };
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   mlton,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlkit";
   version = "4.7.14";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/melsman/mlkit/blob/v${version}/NEWS.md";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ athas ];
+    maintainers = with lib.maintainers; [athas];
   };
 }

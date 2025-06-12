@@ -34,7 +34,7 @@ mkLibretroCore {
     libGLU
     xorg.libX11
   ];
-  extraNativeBuildInputs = [ cmake ];
+  extraNativeBuildInputs = [cmake];
   makefile = "Makefile";
   cmakeFlags = [
     "-DBUILD_PLAY=OFF"

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "toolz";
   version = "1.0.0";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-LIbj2aBHmKxVZ5O87YOIFilqLwhQF2ZOSZXLQKEEegI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/pytoolz/toolz/issues/577

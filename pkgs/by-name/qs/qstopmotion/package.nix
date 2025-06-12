@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   cmake,
   extra-cmake-modules,
@@ -14,22 +13,19 @@
   libxml2,
   ninja,
   pkg-config,
-
   # buildInputs
   guvcview,
   pcre,
   v4l-utils,
-
   ffmpeg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qstopmotion";
   version = "2.5.2";
 
   src = fetchurl {
     url = "mirror://sourceforge/project/qstopmotion/Version_${
-      lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version
+      lib.replaceStrings ["."] ["_"] finalAttrs.version
     }/qstopmotion-${finalAttrs.version}-Source.tar.gz";
     hash = "sha256-jyBUyadkSuQKXOrr5XZ1jy6of1Qw8S2HPxuOrPc7RnE=";
   };
@@ -75,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   meta = {
@@ -88,7 +84,7 @@ stdenv.mkDerivation (finalAttrs: {
       animation to different video formats such as mpeg or avi.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.leenaars ];
+    maintainers = [lib.maintainers.leenaars];
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
     mainProgram = "qstopmotion";
   };

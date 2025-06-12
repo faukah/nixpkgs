@@ -5,7 +5,6 @@
   lib,
   xercesc,
 }:
-
 gccStdenv.mkDerivation (finalAttrs: {
   pname = "libcutl";
   version = "1.11.0";
@@ -16,9 +15,9 @@ gccStdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LY2ZyxduI6xftVjVqjNkhYPFTL5bvHC289Qcei1Kiw4=";
   };
 
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
 
-  buildInputs = [ xercesc ];
+  buildInputs = [xercesc];
 
   enableParallelBuilding = true;
 
@@ -34,7 +33,7 @@ gccStdenv.mkDerivation (finalAttrs: {
     homepage = "https://codesynthesis.com/projects/libcutl/";
     changelog = "https://git.codesynthesis.com/cgit/libcutl/libcutl/log/";
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.xzfc ];
+    maintainers = [lib.maintainers.xzfc];
     license = lib.licenses.mit;
   };
 })

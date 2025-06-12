@@ -4,18 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.handheld-daemon;
-in
-{
+in {
   options.services.handheld-daemon = {
     enable = mkEnableOption "Handheld Daemon";
-    package = mkPackageOption pkgs "handheld-daemon" { };
+    package = mkPackageOption pkgs "handheld-daemon" {};
 
     ui = {
       enable = mkEnableOption "Handheld Daemon UI";
-      package = mkPackageOption pkgs "handheld-daemon-ui" { };
+      package = mkPackageOption pkgs "handheld-daemon-ui" {};
     };
 
     user = mkOption {
@@ -28,16 +26,18 @@ in
 
   config = mkIf cfg.enable {
     services.handheld-daemon.ui.enable = mkDefault true;
-    environment.systemPackages = [
-      cfg.package
-    ] ++ lib.optional cfg.ui.enable cfg.ui.package;
-    services.udev.packages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages =
+      [
+        cfg.package
+      ]
+      ++ lib.optional cfg.ui.enable cfg.ui.package;
+    services.udev.packages = [cfg.package];
+    systemd.packages = [cfg.package];
 
     systemd.services.handheld-daemon = {
       description = "Handheld Daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       restartIfChanged = true;
 
@@ -55,5 +55,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.appsforartists ];
+  meta.maintainers = [maintainers.appsforartists];
 }

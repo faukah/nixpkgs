@@ -27,6 +27,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/googlefonts/dm-mono";
     changelog = "https://github.com/googlefonts/dm-mono/blob/main/CHANGELOG.md";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ jennifgcrl ];
+    maintainers = with lib.maintainers; [jennifgcrl];
   };
 }

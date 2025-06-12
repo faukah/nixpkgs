@@ -3,14 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.keyboard.zsa;
   inherit (lib) mkEnableOption mkIf;
-
-in
-{
+in {
   options.hardware.keyboard.zsa = {
     enable = mkEnableOption ''
       udev rules for keyboards from ZSA like the ErgoDox EZ, Planck EZ and Moonlander Mark I.
@@ -21,6 +17,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.udev.packages = [ pkgs.zsa-udev-rules ];
+    services.udev.packages = [pkgs.zsa-udev-rules];
   };
 }

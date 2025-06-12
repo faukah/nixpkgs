@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-pdf";
   version = "0.1.11";
@@ -18,9 +17,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-t3dlmeJNaHySIhJdJmSaeS0mXM7TgAUa/0hcG06lHvo=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # Stop downloading from the Internet to
   # generate the Chrome Devtools Protocol

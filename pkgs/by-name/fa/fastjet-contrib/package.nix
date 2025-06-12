@@ -4,7 +4,6 @@
   fetchurl,
   fastjet,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastjet-contrib";
   version = "1.101";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-2+itIZn3LWTdKfYhj29T793I+z5d2cXRDy/R4j1uRPY=";
   };
 
-  buildInputs = [ fastjet ];
+  buildInputs = [fastjet];
 
   postPatch = ''
     for f in Makefile.in */Makefile scripts/internal/Template/Makefile; do
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   # Written in shell manually, does not support autoconf-style
   # --build=/--host= options:
   #   Error: --build=x86_64-unknown-linux-gnu: unrecognised argument
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags = [
     "--fastjet-config=${lib.getExe' (lib.getDev fastjet) "fastjet-config"}"
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "http://fastjet.fr/";
     changelog = "https://phab.hepforge.org/source/fastjetsvn/browse/contrib/tags/${version}/NEWS?as=source&blame=off";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
     platforms = lib.platforms.unix;
   };
 }

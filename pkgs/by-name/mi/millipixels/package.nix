@@ -22,7 +22,6 @@
   makeWrapper,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "millipixels";
   version = "0.22.0";
@@ -67,18 +66,18 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/millipixels \
       --prefix PATH : ${
-        lib.makeBinPath [
-          v4l-utils
-          ffmpeg-headless
-        ]
-      }
+      lib.makeBinPath [
+        v4l-utils
+        ffmpeg-headless
+      ]
+    }
   '';
 
   meta = with lib; {
     description = "Camera application for the Librem 5";
     homepage = "https://source.puri.sm/Librem5/millipixels";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
     platforms = platforms.linux;
   };
 }

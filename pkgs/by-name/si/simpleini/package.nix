@@ -7,7 +7,6 @@
   gtest,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "simpleini";
   version = "4.22";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  cmakeFlags = [ (lib.cmakeBool "SIMPLEINI_USE_SYSTEM_GTEST" true) ];
+  cmakeFlags = [(lib.cmakeBool "SIMPLEINI_USE_SYSTEM_GTEST" true)];
 
   patches = [
     # Fixes for cmake export from master, can be removed after the next release
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Cross-platform C++ library providing a simple API to read and write INI-style configuration files";

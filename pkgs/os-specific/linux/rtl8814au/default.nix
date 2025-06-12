@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl8814au";
   version = "${kernel.version}-unstable-2024-05-26";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = kernel.moduleBuildDependencies;
   makeFlags = kernelModuleMakeFlags;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=incompatible-pointer-types";
 
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     description = "Realtek 8814AU USB WiFi driver";
     homepage = "https://github.com/morrownr/8814au";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.lassulus ];
+    maintainers = [maintainers.lassulus];
   };
 }

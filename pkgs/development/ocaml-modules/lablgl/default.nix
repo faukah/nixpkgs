@@ -8,11 +8,9 @@
   libglut,
   camlp-streams,
 }:
-
-if lib.versionOlder ocaml.version "4.06" then
-  throw "lablgl is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.06"
+then throw "lablgl is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation rec {
     pname = "ocaml${ocaml.version}-lablgl";
     version = "1.07";
@@ -38,13 +36,17 @@ else
       libGLU
     ];
 
-    patches = [ ./META.patch ];
+    patches = [./META.patch];
 
     preConfigure = ''
       mkdir -p $out/bin
       mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs
       cp \
-        Makefile.config.${if stdenv.hostPlatform.isDarwin then "osx" else "ex"} \
+        Makefile.config.${
+        if stdenv.hostPlatform.isDarwin
+        then "osx"
+        else "ex"
+      } \
         Makefile.config
     '';
 

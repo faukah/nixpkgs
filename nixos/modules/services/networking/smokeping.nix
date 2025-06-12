@@ -4,55 +4,49 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
-
+with lib; let
   cfg = config.services.smokeping;
   smokepingHome = "/var/lib/smokeping";
   smokepingPidDir = "/run";
   configFile =
-    if cfg.config == null then
-      ''
-        *** General ***
-        cgiurl   = ${cfg.cgiUrl}
-        contact = ${cfg.ownerEmail}
-        datadir  = ${smokepingHome}/data
-        imgcache = ${smokepingHome}/cache
-        imgurl   = ${cfg.imgUrl}
-        linkstyle = ${cfg.linkStyle}
-        ${lib.optionalString (cfg.mailHost != "") "mailhost = ${cfg.mailHost}"}
-        owner = ${cfg.owner}
-        pagedir = ${smokepingHome}/cache
-        piddir  = ${smokepingPidDir}
-        ${lib.optionalString (cfg.sendmail != null) "sendmail = ${cfg.sendmail}"}
-        smokemail = ${cfg.smokeMailTemplate}
-        *** Presentation ***
-        template = ${cfg.presentationTemplate}
-        ${cfg.presentationConfig}
-        *** Alerts ***
-        ${cfg.alertConfig}
-        *** Database ***
-        ${cfg.databaseConfig}
-        *** Probes ***
-        ${cfg.probeConfig}
-        *** Targets ***
-        ${cfg.targetConfig}
-        ${cfg.extraConfig}
-      ''
-    else
-      cfg.config;
+    if cfg.config == null
+    then ''
+      *** General ***
+      cgiurl   = ${cfg.cgiUrl}
+      contact = ${cfg.ownerEmail}
+      datadir  = ${smokepingHome}/data
+      imgcache = ${smokepingHome}/cache
+      imgurl   = ${cfg.imgUrl}
+      linkstyle = ${cfg.linkStyle}
+      ${lib.optionalString (cfg.mailHost != "") "mailhost = ${cfg.mailHost}"}
+      owner = ${cfg.owner}
+      pagedir = ${smokepingHome}/cache
+      piddir  = ${smokepingPidDir}
+      ${lib.optionalString (cfg.sendmail != null) "sendmail = ${cfg.sendmail}"}
+      smokemail = ${cfg.smokeMailTemplate}
+      *** Presentation ***
+      template = ${cfg.presentationTemplate}
+      ${cfg.presentationConfig}
+      *** Alerts ***
+      ${cfg.alertConfig}
+      *** Database ***
+      ${cfg.databaseConfig}
+      *** Probes ***
+      ${cfg.probeConfig}
+      *** Targets ***
+      ${cfg.targetConfig}
+      ${cfg.extraConfig}
+    ''
+    else cfg.config;
 
   configPath = pkgs.writeText "smokeping.conf" configFile;
   cgiHome = pkgs.writeScript "smokeping.fcgi" ''
     #!${pkgs.bash}/bin/bash
     ${cfg.package}/bin/smokeping_cgi /etc/smokeping.conf
   '';
-in
-
-{
+in {
   imports = [
-    (mkRemovedOptionModule [ "services" "smokeping" "port" ] ''
+    (mkRemovedOptionModule ["services" "smokeping" "port"] ''
       The smokeping web service is now served by nginx.
       In order to change the port, you need to change the nginx configuration under `services.nginx.virtualHosts.smokeping.listen.*.port`.
     '')
@@ -181,7 +175,7 @@ in
         example = "no-reply@yourdomain.com";
         description = "Email contact for owner";
       };
-      package = mkPackageOption pkgs "smokeping" { };
+      package = mkPackageOption pkgs "smokeping" {};
       host = mkOption {
         type = types.nullOr types.str;
         default = "localhost";
@@ -295,7 +289,6 @@ in
         description = "Enable a smokeping web interface";
       };
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -314,7 +307,7 @@ in
       };
     };
     environment.etc."smokeping.conf".source = configPath;
-    environment.systemPackages = [ pkgs.fping ];
+    environment.systemPackages = [pkgs.fping];
     users.users.${cfg.user} = {
       isNormalUser = false;
       isSystemUser = true;
@@ -329,11 +322,11 @@ in
       ];
     };
 
-    users.groups.${cfg.user} = { };
+    users.groups.${cfg.user} = {};
 
     systemd.services.smokeping = {
-      reloadTriggers = [ configPath ];
-      requiredBy = [ "multi-user.target" ];
+      reloadTriggers = [configPath];
+      requiredBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Restart = "on-failure";
@@ -361,7 +354,7 @@ in
     services.fcgiwrap.instances.smokeping = mkIf cfg.webService {
       process.user = cfg.user;
       process.group = cfg.user;
-      socket = { inherit (config.services.nginx) user group; };
+      socket = {inherit (config.services.nginx) user group;};
     };
     services.nginx = mkIf cfg.webService {
       enable = true;
@@ -383,5 +376,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ nh2 ];
+  meta.maintainers = with lib.maintainers; [nh2];
 }

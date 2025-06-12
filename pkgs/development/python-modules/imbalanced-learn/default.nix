@@ -17,7 +17,6 @@
   sklearn-compat,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "imbalanced-learn";
   version = "0.13.0";
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "imblearn" ];
+  pythonImportsCheck = ["imblearn"];
 
   nativeCheckInputs = [
     pytestCheckHook

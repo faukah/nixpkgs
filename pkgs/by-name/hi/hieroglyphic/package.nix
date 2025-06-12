@@ -17,7 +17,6 @@
   appstream,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hieroglyphic";
   version = "1.1.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   env.GETTEXT_DIR = "${gettext}";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -65,8 +64,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/en/Hieroglyphic/";
     license = lib.licenses.gpl3Only;
     mainProgram = "hieroglyphic";
-    maintainers = with lib.maintainers; [ tomasajt ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [tomasajt];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })

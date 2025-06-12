@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.icewm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.icewm.enable = mkEnableOption "icewm";
@@ -26,6 +22,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.icewm ];
+    environment.systemPackages = [pkgs.icewm];
   };
 }

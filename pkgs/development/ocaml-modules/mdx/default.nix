@@ -18,7 +18,6 @@
   csexp,
   gitUpdater,
 }:
-
 buildDunePackage rec {
   pname = "mdx";
   version = "2.5.0";
@@ -30,7 +29,7 @@ buildDunePackage rec {
     hash = "sha256-wtpY19UYLxXARvsyC7AsFmAtLufLmfNJ4/SEHCY2UCk=";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
   propagatedBuildInputs = [
     astring
     fmt
@@ -61,14 +60,14 @@ buildDunePackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Executable OCaml code blocks inside markdown files";
     homepage = "https://github.com/realworldocaml/mdx";
     changelog = "https://github.com/realworldocaml/mdx/raw/${version}/CHANGES.md";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     mainProgram = "ocaml-mdx";
   };
 }

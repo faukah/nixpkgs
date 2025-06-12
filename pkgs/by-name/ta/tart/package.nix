@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -50,6 +50,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 })

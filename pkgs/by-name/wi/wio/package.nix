@@ -19,7 +19,6 @@
   wlroots,
   xwayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wio";
   version = "0.17.3-unstable-2024-04-30";
@@ -57,16 +56,16 @@ stdenv.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/wio \
       --prefix PATH ":" "${
-        lib.makeBinPath [
-          alacritty
-          cage
-        ]
-      }"
+      lib.makeBinPath [
+        alacritty
+        cage
+      ]
+    }"
   '';
 
   passthru = {
-    providedSessions = [ "wio" ];
-    updateScript = unstableGitUpdater { };
+    providedSessions = ["wio"];
+    updateScript = unstableGitUpdater {};
   };
 
   meta = {
@@ -76,9 +75,9 @@ stdenv.mkDerivation (finalAttrs: {
       Wio is a Wayland compositor for Linux and FreeBSD which has a similar look
       and feel to plan9's rio.
     '';
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     mainProgram = "wio";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
   };
 })

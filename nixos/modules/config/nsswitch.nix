@@ -4,16 +4,14 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   options = {
-
     # NSS modules.  Hacky!
     # Only works with nscd!
     system.nssModules = lib.mkOption {
       type = lib.types.listOf lib.types.path;
       internal = true;
-      default = [ ];
+      default = [];
       description = ''
         Search path for NSS (Name Service Switch) modules.  This allows
         several DNS resolution methods to be specified via
@@ -35,7 +33,7 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       group = lib.mkOption {
@@ -47,7 +45,7 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       shadow = lib.mkOption {
@@ -59,7 +57,7 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       sudoers = lib.mkOption {
@@ -71,7 +69,7 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       hosts = lib.mkOption {
@@ -83,7 +81,7 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
 
       services = lib.mkOption {
@@ -95,13 +93,13 @@
 
           This option only takes effect if nscd is enabled.
         '';
-        default = [ ];
+        default = [];
       };
     };
   };
 
   imports = [
-    (lib.mkRenamedOptionModule [ "system" "nssHosts" ] [ "system" "nssDatabases" "hosts" ])
+    (lib.mkRenamedOptionModule ["system" "nssHosts"] ["system" "nssDatabases" "hosts"])
   ];
 
   config = {
@@ -136,15 +134,15 @@
     '';
 
     system.nssDatabases = {
-      passwd = lib.mkBefore [ "files" ];
-      group = lib.mkBefore [ "files" ];
-      shadow = lib.mkBefore [ "files" ];
-      sudoers = lib.mkBefore [ "files" ];
+      passwd = lib.mkBefore ["files"];
+      group = lib.mkBefore ["files"];
+      shadow = lib.mkBefore ["files"];
+      sudoers = lib.mkBefore ["files"];
       hosts = lib.mkMerge [
-        (lib.mkOrder 998 [ "files" ])
-        (lib.mkOrder 1499 [ "dns" ])
+        (lib.mkOrder 998 ["files"])
+        (lib.mkOrder 1499 ["dns"])
       ];
-      services = lib.mkBefore [ "files" ];
+      services = lib.mkBefore ["files"];
     };
   };
 }

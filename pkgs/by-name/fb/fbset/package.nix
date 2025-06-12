@@ -6,7 +6,6 @@
   bison,
   flex,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fbset";
   version = "2.1";
@@ -23,10 +22,10 @@ stdenv.mkDerivation (finalAttrs: {
     flex
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://users.telenet.be/geertu/Linux/fbdev/";
     license = licenses.gpl2Only;
     mainProgram = "fbset";
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
     platforms = platforms.linux;
   };
 })

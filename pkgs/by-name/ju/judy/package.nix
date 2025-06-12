@@ -5,7 +5,6 @@
   pkgsBuildBuild,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "judy";
   version = "1.0.5";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "1sv3990vsx8hrza1mvq3bhvv9m6ff08y4yz7swn6znszz24l0w6j";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
+  nativeBuildInputs = [autoreconfHook];
+  depsBuildBuild = [pkgsBuildBuild.stdenv.cc];
   patches = [
     ./cross.patch
     # Fix reproducible timestamps.

@@ -8,13 +8,11 @@
   boldPanelIcons ? false,
   blackPanelIcons ? false,
   alternativeIcons ? false,
-  themeVariants ? [ ],
-}:
-
-let
+  themeVariants ? [],
+}: let
   pname = "Whitesur-icon-theme";
 in
-lib.checkListOfEnum "${pname}: theme variants"
+  lib.checkListOfEnum "${pname}: theme variants"
   [
     "default"
     "purple"
@@ -28,7 +26,6 @@ lib.checkListOfEnum "${pname}: theme variants"
     "all"
   ]
   themeVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -46,7 +43,7 @@ lib.checkListOfEnum "${pname}: theme variants"
       jdupes
     ];
 
-    buildInputs = [ hicolor-icon-theme ];
+    buildInputs = [hicolor-icon-theme];
 
     # These fixup steps are slow and unnecessary
     dontPatchELF = true;
@@ -77,7 +74,6 @@ lib.checkListOfEnum "${pname}: theme variants"
       homepage = "https://github.com/vinceliuice/WhiteSur-icon-theme";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ icy-thought ];
+      maintainers = with maintainers; [icy-thought];
     };
-
   }

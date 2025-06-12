@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rana";
   version = "0.5.5";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Nostr public key mining tool";
     homepage = "https://github.com/grunch/rana";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jigglycrumb ];
+    maintainers = with lib.maintainers; [jigglycrumb];
     mainProgram = "rana";
   };
 }

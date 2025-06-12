@@ -6,7 +6,6 @@
   conduit-mirage,
   mirage-flow,
 }:
-
 buildDunePackage {
   pname = "gluten-mirage";
   inherit (gluten) src version;
@@ -18,7 +17,9 @@ buildDunePackage {
     mirage-flow
   ];
 
-  meta = gluten.meta // {
-    description = "Mirage support for gluten";
-  };
+  meta =
+    gluten.meta
+    // {
+      description = "Mirage support for gluten";
+    };
 }

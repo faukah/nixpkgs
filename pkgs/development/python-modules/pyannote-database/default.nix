@@ -10,7 +10,6 @@
   typer,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyannote-database";
   version = "5.0.1";
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     typer
   ];
 
-  pythonImportsCheck = [ "pyannote.database" ];
+  pythonImportsCheck = ["pyannote.database"];
 
   meta = with lib; {
     description = "Reproducible experimental protocols for multimedia (audio, video, text) database";
     homepage = "https://github.com/pyannote/pyannote-database";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "pyannote-database";
   };
 }

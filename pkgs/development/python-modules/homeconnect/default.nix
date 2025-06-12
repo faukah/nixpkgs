@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "homeconnect";
   version = "0.8.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-W475a+TlGiKRR1EDYiFVmApmQfmft85iBQLRnbEmcuA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     requests
@@ -30,13 +29,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "homeconnect" ];
+  pythonImportsCheck = ["homeconnect"];
 
   meta = with lib; {
     description = "Python client for the BSH Home Connect REST API";
     homepage = "https://github.com/DavidMStraub/homeconnect";
     changelog = "https://github.com/DavidMStraub/homeconnect/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

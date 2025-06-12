@@ -12,7 +12,6 @@
   wayland-protocols,
   zig_0_14,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waylock";
   version = "1.4.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace build.zig --replace-fail "1.4.0-dev" "1.4.0"
   '';
 
-  deps = callPackage ./build.zig.zon.nix { };
+  deps = callPackage ./build.zig.zon.nix {};
 
   nativeBuildInputs = [
     pkg-config

@@ -26,7 +26,6 @@
   # Affects final license
   withAngrylionRdpPlus ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rmg";
   version = "0.7.9";
@@ -65,12 +64,12 @@ stdenv.mkDerivation (finalAttrs: {
     ]
     ++ (
       with qt6Packages;
-      [
-        qtbase
-        qtsvg
-        qtwebsockets
-      ]
-      ++ lib.optional withWayland qtwayland
+        [
+          qtbase
+          qtsvg
+          qtwebsockets
+        ]
+        ++ lib.optional withWayland qtwayland
     );
 
   cmakeFlags = [
@@ -83,11 +82,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   qtWrapperArgs =
     lib.optionals stdenv.hostPlatform.isLinux [
-      "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader ]}"
+      "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [vulkan-loader]}"
     ]
     ++ lib.optional withWayland "--set RMG_ALLOW_WAYLAND 1";
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     homepage = "https://github.com/Rosalie241/RMG";
@@ -97,9 +96,12 @@ stdenv.mkDerivation (finalAttrs: {
       Rosalie's Mupen GUI is a free and open-source mupen64plus front-end
       written in C++. It offers a simple-to-use user interface.
     '';
-    license = if withAngrylionRdpPlus then lib.licenses.unfree else lib.licenses.gpl3Only;
+    license =
+      if withAngrylionRdpPlus
+      then lib.licenses.unfree
+      else lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
     mainProgram = "RMG";
-    maintainers = with lib.maintainers; [ slam-bert ];
+    maintainers = with lib.maintainers; [slam-bert];
   };
 })

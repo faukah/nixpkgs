@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   decorator,
   imageio,
@@ -16,19 +14,16 @@
   python-dotenv,
   requests,
   tqdm,
-
   # optional-dependencies
   matplotlib,
   scikit-image,
   scikit-learn,
   scipy,
   yt-dlp,
-
   # tests
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "moviepy";
   version = "2.1.2";
@@ -41,9 +36,9 @@ buildPythonPackage rec {
     hash = "sha256-dha+rPBkcEyqQ7EfnFg81GDq0Lc2uoQ3meCTjdajaBM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "pillow" ];
+  pythonRelaxDeps = ["pillow"];
 
   dependencies = [
     decorator
@@ -66,15 +61,17 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-timeout
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-timeout
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # See https://github.com/NixOS/nixpkgs/issues/381908 and https://github.com/NixOS/nixpkgs/issues/385450.
-  pytestFlagsArray = [ "--timeout=600" ];
+  pytestFlagsArray = ["--timeout=600"];
 
-  pythonImportsCheck = [ "moviepy" ];
+  pythonImportsCheck = ["moviepy"];
 
   disabledTests =
     [
@@ -110,6 +107,6 @@ buildPythonPackage rec {
     homepage = "https://zulko.github.io/moviepy/";
     changelog = "https://github.com/Zulko/moviepy/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

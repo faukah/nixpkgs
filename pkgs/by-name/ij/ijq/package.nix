@@ -8,7 +8,6 @@
   scdoc,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "ijq";
   version = "1.1.2";
@@ -42,10 +41,10 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/ijq" \
-      --prefix PATH : "${lib.makeBinPath [ jq ]}"
+      --prefix PATH : "${lib.makeBinPath [jq]}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Interactive wrapper for jq";

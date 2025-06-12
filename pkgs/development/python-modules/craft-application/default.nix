@@ -28,7 +28,6 @@
   cacert,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "craft-application";
   version = "5.3.0";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
         --replace-fail "/snap/core22/current/etc/ssl/certs" "${cacert}/etc/ssl/certs"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   pythonRelaxDeps = [
     "pygit2"
@@ -100,9 +99,9 @@ buildPythonPackage rec {
       --replace "include_lsb=False, include_uname=False, include_oslevel=False" "include_lsb=False, include_uname=False, include_oslevel=False, os_release_file='$HOME/os-release'"
   '';
 
-  pythonImportsCheck = [ "craft_application" ];
+  pythonImportsCheck = ["craft_application"];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests =
     [
@@ -134,14 +133,14 @@ buildPythonPackage rec {
     "tests/unit/services/test_lifecycle.py"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Basis for Canonical craft applications";
     homepage = "https://github.com/canonical/craft-application";
     changelog = "https://github.com/canonical/craft-application/blob/${src.tag}/docs/reference/changelog.rst";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

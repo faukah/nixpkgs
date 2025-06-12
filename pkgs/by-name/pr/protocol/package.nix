@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "protocol";
   version = "unstable-2019-03-28";
@@ -25,7 +24,7 @@ python3.pkgs.buildPythonApplication {
     description = "ASCII Header Generator for Network Protocols";
     homepage = "https://github.com/luismartingarcia/protocol";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     mainProgram = "protocol";
   };
 }

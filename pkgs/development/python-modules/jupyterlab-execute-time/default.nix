@@ -5,7 +5,6 @@
   jupyterlab,
   jupyter-packaging,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab-execute-time";
   version = "3.2.0";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "jupyterlab_execute_time" ];
+  pythonImportsCheck = ["jupyterlab_execute_time"];
 
   meta = {
     description = "JupyterLab extension for displaying cell timings";
     homepage = "https://github.com/deshaw/jupyterlab-execute-time";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.vglfr ];
+    maintainers = [lib.maintainers.vglfr];
   };
 }

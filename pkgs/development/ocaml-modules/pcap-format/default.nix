@@ -6,7 +6,6 @@
   cstruct,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "pcap-format";
   version = "0.6.0";
@@ -36,6 +35,6 @@ buildDunePackage rec {
     description = "Decode and encode PCAP (packet capture) files";
     homepage = "https://mirage.github.io/ocaml-pcap";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -7,7 +7,6 @@
   pam,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "passwdqc";
   version = "2.0.3";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installFlags = [
     # Yet another software that does not use GNUInstallDirs Convention...
@@ -63,8 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://www.openwall.com/passwdqc/";
     description = "Passphrase strength checking and enforcement";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [];
     mainProgram = "passwdqc";
     platforms = lib.platforms.unix;
   };

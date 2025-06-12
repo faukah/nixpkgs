@@ -5,7 +5,6 @@
   cmake,
   pkg-config,
   wrapGAppsHook3,
-
   curl,
   freetype,
   glew,
@@ -19,7 +18,6 @@
   SDL2_mixer,
   SDL2_ttf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "principia";
   version = "2025.04.05";
@@ -59,14 +57,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     changelog = "https://principia-web.se/wiki/Changelog#${
-      lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version
+      lib.replaceStrings ["."] ["-"] finalAttrs.version
     }";
     description = "Physics-based sandbox game";
     mainProgram = "principia";
     homepage = "https://principia-web.se/";
     downloadPage = "https://principia-web.se/download";
     license = licenses.bsd3;
-    maintainers = [ maintainers.fgaz ];
+    maintainers = [maintainers.fgaz];
     platforms = platforms.linux;
   };
 })

@@ -4,7 +4,6 @@
   kernel,
   lib,
 }:
-
 stdenv.mkDerivation {
   pname = "vendor-reset";
   version = "unstable-2024-04-16-${kernel.version}";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   makeFlags = [
     "KVER=${kernel.modDirVersion}"
@@ -43,8 +42,8 @@ stdenv.mkDerivation {
     description = "Linux kernel vendor specific hardware reset module";
     homepage = "https://github.com/gnif/vendor-reset";
     license = licenses.gpl2Only;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
     broken = kernel.kernelOlder "4.19";
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cocom";
   version = "1.1.3";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     description = "NTP client";
     homepage = "https://github.com/LamdaLamdaLamda/cocom";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "cocom";
   };
 }

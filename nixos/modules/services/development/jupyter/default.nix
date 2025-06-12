@@ -4,22 +4,23 @@
   pkgs,
   options,
   ...
-}:
-let
-
+}: let
   cfg = config.services.jupyter;
 
   package = pkgs.python3.withPackages (
     ps:
-    [
-      cfg.package
-    ]
-    ++ cfg.extraPackages
+      [
+        cfg.package
+      ]
+      ++ cfg.extraPackages
   );
 
   kernels = (
     pkgs.jupyter-kernel.create {
-      definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
+      definitions =
+        if cfg.kernels != null
+        then cfg.kernels
+        else pkgs.jupyter-kernel.default;
     }
   );
 
@@ -27,9 +28,7 @@ let
     ${cfg.notebookConfig}
     c.ServerApp.password = "${cfg.password}"
   '';
-
-in
-{
+in {
   meta.maintainers = with lib.maintainers; [
     aborsu
     b-m-f
@@ -50,11 +49,11 @@ in
       "python3"
       "pkgs"
       "jupyter"
-    ] { };
+    ] {};
 
     extraPackages = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           pkgs.python3.pkgs.nbconvert
@@ -65,7 +64,7 @@ in
     };
     extraEnvironmentVariables = lib.mkOption {
       description = "Extra environment variables to be set in the runtime context of jupyter notebook";
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           PLAYWRIGHT_BROWSERS_PATH = "''${pkgs.playwright-driver.browsers}";
@@ -194,15 +193,17 @@ in
       systemd.services.jupyter = {
         description = "Jupyter development server";
 
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         # TODO: Patch notebook so we can explicitly pass in a shell
-        path = [ pkgs.bash ]; # needed for sh in cell magic to work
+        path = [pkgs.bash]; # needed for sh in cell magic to work
 
-        environment = {
-          JUPYTER_PATH = toString kernels;
-        } // cfg.extraEnvironmentVariables;
+        environment =
+          {
+            JUPYTER_PATH = toString kernels;
+          }
+          // cfg.extraEnvironmentVariables;
 
         serviceConfig = {
           Restart = "always";
@@ -222,7 +223,7 @@ in
       };
     })
     (lib.mkIf (cfg.enable && (cfg.group == "jupyter")) {
-      users.groups.jupyter = { };
+      users.groups.jupyter = {};
     })
     (lib.mkIf (cfg.enable && (cfg.user == "jupyter")) {
       users.extraUsers.jupyter = {

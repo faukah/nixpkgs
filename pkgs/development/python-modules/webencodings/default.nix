@@ -4,7 +4,6 @@
   fetchPypi,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "webencodings";
   version = "0.5.1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     py.test webencodings/tests.py

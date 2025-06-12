@@ -9,7 +9,6 @@
   pytest-cov-stub,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "janus";
   version = "2.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -31,12 +30,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   meta = with lib; {
     description = "Mixed sync-async queue";
     homepage = "https://github.com/aio-libs/janus";
     license = licenses.asl20;
-    maintainers = [ maintainers.simonchatts ];
+    maintainers = [maintainers.simonchatts];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "wire";
   version = "0.6.0";
@@ -23,7 +22,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7IW97ZvCGlKCiVh8mKQutTdAxih7oFkXrKo4h3Pl9YY=";
 
-  subPackages = [ "cmd/wire" ];
+  subPackages = ["cmd/wire"];
 
   ldflags = [
     "-s"
@@ -35,6 +34,6 @@ buildGoModule rec {
     description = "Code generation tool that automates connecting components using dependency injection";
     mainProgram = "wire";
     license = licenses.asl20;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
   };
 }

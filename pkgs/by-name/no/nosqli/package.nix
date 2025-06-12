@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "nosqli";
   version = "0.5.4";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "NoSql Injection tool for finding vulnerable websites using MongoDB";
     mainProgram = "nosqli";
     homepage = "https://github.com/Charlie-belmer/nosqli";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -14,7 +14,6 @@
   python3,
   qtbase,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libqtdbustest";
   version = "0.3.2";
@@ -66,9 +65,10 @@ stdenv.mkDerivation (finalAttrs: {
     dbus-test-runner
     procps
     (python3.withPackages (
-      ps: with ps; [
-        python-dbusmock
-      ]
+      ps:
+        with ps; [
+          python-dbusmock
+        ]
     ))
   ];
 
@@ -97,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://launchpad.net/libqtdbustest";
     license = licenses.lgpl3Only;
     platforms = platforms.unix;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     mainProgram = "qdbus-simple-test-runner";
     pkgConfigModules = [
       "libqtdbustest-1"

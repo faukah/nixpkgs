@@ -22,7 +22,6 @@
   libgbm,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "waffle";
   version = "1.8.1";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
       libgbm
     ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   dontUseCmakeConfigure = true;
 
@@ -78,11 +77,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/wflinfo \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libGL
-          libglvnd
-        ]
-      }
+      lib.makeLibraryPath [
+        libGL
+        libglvnd
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -91,6 +90,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.waffle-gl.org/";
     license = licenses.bsd2;
     inherit (libgbm.meta) platforms;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

@@ -9,7 +9,6 @@
   stdenv,
   testers,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "soupault";
   version = "5.0.0";
@@ -25,7 +24,7 @@ ocamlPackages.buildDunePackage rec {
   };
 
   nativeBuildInputs =
-    [ removeReferencesTo ]
+    [removeReferencesTo]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
       darwin.sigtool
     ];
@@ -67,7 +66,7 @@ ocamlPackages.buildDunePackage rec {
     homepage = "https://soupault.app/";
     changelog = "https://codeberg.org/PataphysicalSociety/soupault/src/branch/main/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
     mainProgram = "soupault";
   };
 }

@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.infnoise;
-in
-{
+in {
   options = {
     services.infnoise = {
       enable = lib.mkEnableOption "the Infinite Noise TRNG driver";
@@ -26,7 +24,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.infnoise ];
+    environment.systemPackages = [pkgs.infnoise];
 
     services.udev.extraRules = ''
       SUBSYSTEM=="usb", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6015", SYMLINK+="infnoise", TAG+="systemd", GROUP="dialout", MODE="0664", ENV{SYSTEMD_WANTS}="infnoise.service"
@@ -35,16 +33,16 @@ in
     systemd.services.infnoise = lib.mkIf cfg.fillDevRandom {
       description = "Infinite Noise TRNG driver";
 
-      bindsTo = [ "dev-infnoise.device" ];
-      after = [ "dev-infnoise.device" ];
+      bindsTo = ["dev-infnoise.device"];
+      after = ["dev-infnoise.device"];
 
       serviceConfig = {
         ExecStart = "${pkgs.infnoise}/bin/infnoise --dev-random --debug";
         Restart = "always";
         User = "infnoise";
         DynamicUser = true;
-        SupplementaryGroups = [ "dialout" ];
-        DeviceAllow = [ "/dev/infnoise" ];
+        SupplementaryGroups = ["dialout"];
+        DeviceAllow = ["/dev/infnoise"];
         DevicePolicy = "closed";
         PrivateNetwork = true;
         ProtectSystem = "strict";

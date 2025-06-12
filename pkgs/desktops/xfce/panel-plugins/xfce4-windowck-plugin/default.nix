@@ -16,7 +16,6 @@
   xfconf,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-windowck-plugin";
   version = "0.6.1";
@@ -57,6 +56,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.xfce.org/panel-plugins/xfce4-windowck-plugin";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

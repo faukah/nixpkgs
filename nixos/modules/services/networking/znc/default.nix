@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.znc;
 
   defaultUser = "znc";
@@ -18,50 +14,51 @@ let
     paths = cfg.modulePackages;
   };
 
-  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or { }));
+  listenerPorts = concatMap (l: optional (l ? Port) l.Port) (attrValues (cfg.config.Listener or {}));
 
   # Converts the config option to a string
-  semanticString =
-    let
+  semanticString = let
+    sortedAttrs = set:
+      sort (
+        l: r:
+          if l == "extraConfig"
+          then false # Always put extraConfig last
+          else if isAttrs set.${l} == isAttrs set.${r}
+          then l < r
+          else isAttrs set.${r} # Attrsets should be last, makes for a nice config
+        # This last case occurs when any side (but not both) is an attrset
+        # The order of these is correct when the attrset is on the right
+        # which we're just returning
+      ) (attrNames set);
 
-      sortedAttrs =
-        set:
-        sort (
-          l: r:
-          if l == "extraConfig" then
-            false # Always put extraConfig last
-          else if isAttrs set.${l} == isAttrs set.${r} then
-            l < r
-          else
-            isAttrs set.${r} # Attrsets should be last, makes for a nice config
-          # This last case occurs when any side (but not both) is an attrset
-          # The order of these is correct when the attrset is on the right
-          # which we're just returning
-        ) (attrNames set);
+    # Specifies an attrset that encodes the value according to its type
+    encode = name: value:
+      {
+        null = [];
+        bool = ["${name} = ${boolToString value}"];
+        int = ["${name} = ${toString value}"];
 
-      # Specifies an attrset that encodes the value according to its type
-      encode =
-        name: value:
-        {
-          null = [ ];
-          bool = [ "${name} = ${boolToString value}" ];
-          int = [ "${name} = ${toString value}" ];
+        # extraConfig should be inserted verbatim
+        string = [
+          (
+            if name == "extraConfig"
+            then value
+            else "${name} = ${value}"
+          )
+        ];
 
-          # extraConfig should be inserted verbatim
-          string = [ (if name == "extraConfig" then value else "${name} = ${value}") ];
+        # Values like `Foo = [ "bar" "baz" ];` should be transformed into
+        #   Foo=bar
+        #   Foo=baz
+        list = concatMap (encode name) value;
 
-          # Values like `Foo = [ "bar" "baz" ];` should be transformed into
-          #   Foo=bar
-          #   Foo=baz
-          list = concatMap (encode name) value;
-
-          # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
-          #   <Foo bar>
-          #     Baz=baz
-          #     Qux=qux
-          #   </Foo>
-          set = concatMap (
-            subname:
+        # Values like `Foo = { bar = { Baz = "baz"; Qux = "qux"; Florps = null; }; };` should be transmed into
+        #   <Foo bar>
+        #     Baz=baz
+        #     Qux=qux
+        #   </Foo>
+        set = concatMap (
+          subname:
             optionals (value.${subname} != null) (
               [
                 "<${name} ${subname}>"
@@ -71,15 +68,15 @@ let
                 "</${name}>"
               ]
             )
-          ) (filter (v: v != null) (attrNames value));
+        ) (filter (v: v != null) (attrNames value));
+      }
+        .${
+        builtins.typeOf value
+      };
 
-        }
-        .${builtins.typeOf value};
-
-      # One level "above" encode, acts upon a set and uses encode on each name,value pair
-      toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
-
-    in
+    # One level "above" encode, acts upon a set and uses encode on each name,value pair
+    toLines = set: concatMap (name: encode name set.${name}) (sortedAttrs set);
+  in
     concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
@@ -104,12 +101,8 @@ let
       }
     );
   };
-
-in
-
-{
-
-  imports = [ ./options.nix ];
+in {
+  imports = [./options.nix];
 
   options = {
     services.znc = {
@@ -156,7 +149,7 @@ in
 
       config = mkOption {
         type = semanticTypes.zncConf;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             LoadModule = [ "webadmin" "adminlog" ];
@@ -221,7 +214,7 @@ in
 
       modulePackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.zncModules.fish pkgs.zncModules.push ]";
         description = ''
           A list of global znc module packages to add to znc.
@@ -246,8 +239,8 @@ in
       };
 
       extraFlags = mkOption {
-        default = [ ];
-        example = [ "--debug" ];
+        default = [];
+        example = ["--debug"];
         type = types.listOf types.str;
         description = ''
           Extra arguments to use for executing znc.
@@ -259,7 +252,6 @@ in
   ###### Implementation
 
   config = mkIf cfg.enable {
-
     services.znc = {
       configFile = mkDefault (pkgs.writeText "znc-generated.conf" semanticString);
       config = {
@@ -273,9 +265,9 @@ in
 
     systemd.services.znc = {
       description = "ZNC Server";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -284,7 +276,7 @@ in
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
         ExecStop = "${pkgs.coreutils}/bin/kill -INT $MAINPID";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -302,7 +294,7 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths = [ cfg.dataDir ];
+        ReadWritePaths = [cfg.dataDir];
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"
@@ -359,9 +351,8 @@ in
     users.groups = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
         gid = config.ids.gids.znc;
-        members = [ defaultUser ];
+        members = [defaultUser];
       };
     };
-
   };
 }

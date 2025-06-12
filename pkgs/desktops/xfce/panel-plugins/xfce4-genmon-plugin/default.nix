@@ -14,7 +14,6 @@
   gtk3,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-genmon-plugin";
   version = "4.3.0";
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Generic monitor plugin for the Xfce panel";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

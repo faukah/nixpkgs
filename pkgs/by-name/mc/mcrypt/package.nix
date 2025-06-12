@@ -5,7 +5,6 @@
   libmcrypt,
   libmhash,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "2.6.8";
   pname = "mcrypt";
@@ -40,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://mcrypt.sourceforge.net";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.qknight ];
+    maintainers = [lib.maintainers.qknight];
   };
 })

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "easeprobe";
   version = "2.3.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-FPApT6snyzYbMn/Am7Zxpwp5w8VZ8F6/YhwCLwDaRAw=";
 
-  subPackages = [ "cmd/easeprobe" ];
+  subPackages = ["cmd/easeprobe"];
 
   env.CGO_ENABLED = 0;
 
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Simple, standalone, and lightweight tool that can do health/status checking, written in Go";
     homepage = "https://github.com/megaease/easeprobe";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "easeprobe";
   };
 }

@@ -5,7 +5,6 @@
   i3ipc,
   lib,
 }:
-
 buildPythonApplication rec {
   pname = "kitti3";
   version = "unstable-2021-09-11";
@@ -37,6 +36,6 @@ buildPythonApplication rec {
     description = "Kitty drop-down service for sway & i3wm";
     mainProgram = "kitti3";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

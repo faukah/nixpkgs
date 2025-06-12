@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlocate";
   version = "0.26";
@@ -22,6 +21,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pagure.io/mlocate";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

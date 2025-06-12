@@ -7,7 +7,6 @@
   s6,
   targetPackages,
 }:
-
 skawarePackages.buildPackage {
   pname = "s6-linux-init";
   version = "1.1.3.0";
@@ -54,5 +53,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/s6-linux-init/html
   '';
-
 }

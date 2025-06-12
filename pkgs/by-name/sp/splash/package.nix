@@ -9,7 +9,6 @@
   freetype,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "splash";
   version = "3.11.3";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Interactive visualisation and plotting tool using kernel interpolation, mainly used for Smoothed Particle Hydrodynamics simulations";
     inherit (finalAttrs.src.meta) homepage;
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     platforms = lib.platforms.all;
   };
 })

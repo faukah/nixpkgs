@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   pbr,
   setuptools,
-
   # dependencies
   testtools,
-
   # tests
   python,
 }:
-
 buildPythonPackage rec {
   pname = "testscenarios";
   version = "0.5.0";

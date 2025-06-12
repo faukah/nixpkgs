@@ -5,7 +5,6 @@
   curl,
   gnutls,
 }:
-
 factorPackages.buildFactorVocab {
   pname = "bresenham";
   version = "dev";
@@ -21,6 +20,6 @@ factorPackages.buildFactorVocab {
     description = "Bresenham's line interpolation algorithm";
     homepage = "https://github.com/Capital-EX/bresenham";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ spacefrogg ];
+    maintainers = with lib.maintainers; [spacefrogg];
   };
 }

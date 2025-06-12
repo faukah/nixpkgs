@@ -13,7 +13,6 @@
     v2ray-domain-list-community
   ],
 }:
-
 buildGoModule rec {
   pname = "v2ray-core";
   version = "5.32.0";
@@ -34,9 +33,9 @@ buildGoModule rec {
     "-w"
   ];
 
-  subPackages = [ "main" ];
+  subPackages = ["main"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -61,7 +60,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.simple-vmess-proxy-test = nixosTests.v2ray;
   };
 
@@ -69,7 +68,7 @@ buildGoModule rec {
     homepage = "https://www.v2fly.org/en_US/";
     description = "Platform for building proxies to bypass network restrictions";
     mainProgram = "v2ray";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ servalcatty ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [servalcatty];
   };
 }

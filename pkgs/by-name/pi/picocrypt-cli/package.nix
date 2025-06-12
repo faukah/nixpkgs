@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "picocrypt-cli";
   version = "2.10";
@@ -29,7 +28,7 @@ buildGoModule rec {
     description = "Command-line interface for Picocrypt";
     homepage = "https://github.com/Picocrypt/CLI";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     mainProgram = "picocrypt";
   };
 }

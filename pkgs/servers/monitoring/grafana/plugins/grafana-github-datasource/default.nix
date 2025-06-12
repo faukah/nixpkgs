@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-github-datasource";
   version = "1.9.0";
@@ -12,7 +14,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The GitHub datasource allows GitHub API data to be visually represented in Grafana dashboards.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

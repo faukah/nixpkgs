@@ -10,7 +10,6 @@
   pytest-xdist,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "plugincode";
   version = "32.0.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     click
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/nexB/plugincode";
     changelog = "https://github.com/nexB/plugincode/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

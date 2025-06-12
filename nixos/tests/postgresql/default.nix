@@ -1,23 +1,20 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
-
-with import ../../lib/testing-python.nix { inherit system pkgs; };
-
-let
-  inherit (pkgs.lib)
+with import ../../lib/testing-python.nix {inherit system pkgs;}; let
+  inherit
+    (pkgs.lib)
     recurseIntoAttrs
     filterAttrs
     mapAttrs
     const
     ;
-  genTests =
-    {
-      makeTestFor,
-      filter ? (_: _: true),
-    }:
+  genTests = {
+    makeTestFor,
+    filter ? (_: _: true),
+  }:
     recurseIntoAttrs (
       mapAttrs (const makeTestFor) (filterAttrs filter pkgs.postgresqlVersions)
       // {
@@ -25,9 +22,8 @@ let
       }
     );
 
-  importWithArgs = path: import path { inherit pkgs makeTest genTests; };
-in
-{
+  importWithArgs = path: import path {inherit pkgs makeTest genTests;};
+in {
   # postgresql
   postgresql = importWithArgs ./postgresql.nix;
   postgresql-jit = importWithArgs ./postgresql-jit.nix;

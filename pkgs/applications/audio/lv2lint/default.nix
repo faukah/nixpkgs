@@ -11,7 +11,6 @@
   elfutils,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lv2lint";
   version = "0.16.2";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Check whether a given LV2 plugin is up to the specification";
     homepage = "https://git.open-music-kontrollers.ch/~hp/lv2lint";
     license = licenses.artistic2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     mainProgram = "lv2lint";
   };

@@ -19,7 +19,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-session-settings";
   version = "8.0.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     providedSessions = [
       "pantheon"
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/session-settings";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

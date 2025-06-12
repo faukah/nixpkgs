@@ -64,8 +64,8 @@ stdenv.mkDerivation rec {
     comment = "Next generation information browser";
     icon = "follow";
     exec = "follow";
-    categories = [ "Utility" ];
-    mimeTypes = [ "x-scheme-handler/follow" ];
+    categories = ["Utility"];
+    mimeTypes = ["x-scheme-handler/follow"];
   };
 
   icon = src + "/resources/icon.png";
@@ -110,8 +110,8 @@ stdenv.mkDerivation rec {
     description = "Next generation information browser";
     homepage = "https://github.com/RSSNext/Follow";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ iosmanthus ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [iosmanthus];
+    platforms = ["x86_64-linux"];
     mainProgram = "follow";
   };
 }

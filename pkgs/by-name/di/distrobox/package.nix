@@ -5,7 +5,6 @@
   makeWrapper,
   wget,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "distrobox";
   version = "1.8.1.2";
@@ -20,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     # https://github.com/89luca89/distrobox/issues/408
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   # https://github.com/89luca89/distrobox/issues/407
   postFixup = ''
     wrapProgram "$out/bin/distrobox-generate-entry" \
-      --prefix PATH ":" ${lib.makeBinPath [ wget ]}
+      --prefix PATH ":" ${lib.makeBinPath [wget]}
 
     mkdir -p $out/share/distrobox
     echo 'container_additional_volumes="/nix:/nix"' > $out/share/distrobox/distrobox.conf
@@ -54,6 +53,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://distrobox.it/";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 })

@@ -5,7 +5,6 @@
   cmdliner,
   findlib,
 }:
-
 buildDunePackage rec {
   version = "1.8.2";
   pname = "ocp-indent";
@@ -21,14 +20,14 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03";
 
-  buildInputs = [ cmdliner ];
-  propagatedBuildInputs = [ findlib ];
+  buildInputs = [cmdliner];
+  propagatedBuildInputs = [findlib];
 
   meta = with lib; {
     homepage = "https://www.typerex.org/ocp-indent.html";
     description = "Customizable tool to indent OCaml code";
     mainProgram = "ocp-indent";
     license = licenses.gpl3;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

@@ -7,7 +7,7 @@ buildPythonPackage {
   inherit (libgpiod) pname version src;
   format = "setuptools";
 
-  buildInputs = [ libgpiod ];
+  buildInputs = [libgpiod];
 
   preConfigure = ''
     cd bindings/python
@@ -15,12 +15,12 @@ buildPythonPackage {
 
   # Requires libgpiod built with --enable-tests
   doCheck = false;
-  pythonImportsCheck = [ "gpiod" ];
+  pythonImportsCheck = ["gpiod"];
 
   meta = with lib; {
     description = "Python bindings for libgpiod";
     homepage = "https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/about/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

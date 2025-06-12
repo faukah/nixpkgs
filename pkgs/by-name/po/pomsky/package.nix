@@ -5,7 +5,6 @@
   pkg-config,
   oniguruma,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pomsky";
   version = "0.11";
@@ -45,6 +44,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

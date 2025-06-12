@@ -5,7 +5,6 @@
   fetchpatch,
   rpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "epm";
   version = "5.0.0";
@@ -30,13 +29,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ rpm ];
+  buildInputs = [rpm];
 
   meta = with lib; {
     description = "ESP Package Manager generates distribution archives for a variety of platforms";
     homepage = "https://jimjag.github.io/epm/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
 }

@@ -14,7 +14,6 @@
   wcwidth,
   winacl,
 }:
-
 buildPythonPackage rec {
   pname = "msldap-bad";
   version = "0.5.10";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-CnHXEE1tdIXv+Qb3pS+cNxVtcTOVaq6mrQxu3wr1Xxo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asyauth-bad
@@ -45,13 +44,13 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "msldap" ];
+  pythonImportsCheck = ["msldap"];
 
   meta = {
     description = "LDAP library for auditing MS AD";
     homepage = "https://github.com/CravateRouge/msldap-bAD";
     changelog = "https://github.com/CravateRouge/asyauth-bAD/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

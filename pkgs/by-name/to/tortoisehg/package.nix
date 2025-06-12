@@ -5,7 +5,6 @@
   mercurial,
   qt5,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tortoisehg";
   version = "6.9";

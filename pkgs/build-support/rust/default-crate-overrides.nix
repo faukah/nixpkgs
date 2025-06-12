@@ -45,26 +45,24 @@
   zlib,
   buildPackages,
   ...
-}:
-
-{
+}: {
   alsa-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ alsa-lib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [alsa-lib];
   };
 
   cairo-rs = attrs: {
-    buildInputs = [ cairo ];
+    buildInputs = [cairo];
   };
 
   cairo-sys-rs = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ cairo ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [cairo];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   capnp-rpc = attrs: {
-    nativeBuildInputs = [ capnproto ];
+    nativeBuildInputs = [capnproto];
   };
 
   cargo = attrs: {
@@ -76,13 +74,13 @@
   };
 
   libz-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ zlib ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [zlib];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   curl-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       zlib
       curl
@@ -91,12 +89,12 @@
       curl
       zlib
     ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   dbus = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus];
   };
 
   evdev-sys = attrs: {
@@ -110,7 +108,7 @@
         automake
         libtool
       ];
-    buildInputs = [ libevdev ];
+    buildInputs = [libevdev];
 
     # This prevents libevdev's build.rs from trying to `git fetch` when HOST!=TARGET
     prePatch = ''
@@ -119,11 +117,11 @@
   };
 
   expat-sys = attrs: {
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
   };
 
   foundationdb-sys = attrs: {
-    buildInputs = [ foundationdb ];
+    buildInputs = [foundationdb];
     # needed for 0.4+ release, when the FFI bindings are auto-generated
     #
     # patchPhase = ''
@@ -133,28 +131,28 @@
   };
 
   foundationdb = attrs: {
-    buildInputs = [ foundationdb ];
+    buildInputs = [foundationdb];
   };
 
   freetype-sys = attrs: {
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ freetype ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [freetype];
   };
 
   glib-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ glib ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [glib];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   gobject-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus-glib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus-glib];
   };
 
   gio-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus-glib ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus-glib];
   };
 
   gdk-pixbuf = attrs: {
@@ -165,43 +163,43 @@
   };
 
   gdk-pixbuf-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ gdk-pixbuf ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [gdk-pixbuf];
   };
 
   gdk-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ gtk3 ]; # libgdk-3
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [gtk3]; # libgdk-3
   };
 
   gdkx11-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ gtk3 ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [gtk3];
   };
 
   gtk-sys = attrs: {
-    buildInputs = [ gtk3 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk3];
+    nativeBuildInputs = [pkg-config];
   };
 
   gtk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   gdk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   gsk4-sys = attrs: {
-    buildInputs = [ gtk4 ];
-    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [gtk4];
+    nativeBuildInputs = [pkg-config];
   };
 
   libgit2-sys = attrs: {
     LIBGIT2_SYS_USE_PKG_CONFIG = true;
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       openssl
       zlib
@@ -210,17 +208,17 @@
   };
 
   libseat-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ seatd ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [seatd];
   };
 
   libsqlite3-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ sqlite ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [sqlite];
   };
 
   libssh2-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       openssl
       zlib
@@ -229,13 +227,13 @@
   };
 
   libdbus-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ dbus ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [dbus];
   };
 
   libudev-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ udev ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [udev];
   };
 
   graphene-sys = attrs: {
@@ -243,16 +241,16 @@
       pkg-config
       gobject-introspection
     ];
-    buildInputs = [ graphene ];
+    buildInputs = [graphene];
   };
 
   javascriptcore-rs-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ webkitgtk_4_1 ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [webkitgtk_4_1];
   };
 
   nettle-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       nettle
       clang
@@ -261,47 +259,47 @@
   };
 
   openssl = attrs: {
-    buildInputs = [ openssl ];
+    buildInputs = [openssl];
   };
 
   openssl-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ openssl ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [openssl];
   };
 
   opentelemetry-proto = attrs: {
-    nativeBuildInputs = [ protobuf ];
+    nativeBuildInputs = [protobuf];
   };
 
   pam-sys = attr: {
-    buildInputs = [ linux-pam ];
+    buildInputs = [linux-pam];
   };
 
   pango-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ pango ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [pango];
   };
 
   pq-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libpq ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libpq];
   };
 
   prost-build = attr: {
-    nativeBuildInputs = [ protobuf ];
+    nativeBuildInputs = [protobuf];
   };
 
   prost-wkt-types = attr: {
-    nativeBuildInputs = [ protobuf ];
+    nativeBuildInputs = [protobuf];
   };
 
   rdkafka-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ rdkafka ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [rdkafka];
   };
 
   rink = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
     crateBin = [
       {
         name = "rink";
@@ -311,28 +309,28 @@
   };
 
   sequoia-openpgp = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
   };
 
   sequoia-openpgp-ffi = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
   };
 
   sequoia-ipc = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
   };
 
   sequoia-guide = attrs: {
-    buildInputs = [ gmp ];
+    buildInputs = [gmp];
   };
 
   pangocairo-sys = attr: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ pango ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [pango];
   };
 
   sequoia-store = attrs: {
-    nativeBuildInputs = [ capnproto ];
+    nativeBuildInputs = [capnproto];
     buildInputs = [
       sqlite
       gmp
@@ -347,7 +345,7 @@
   };
 
   sequoia-tool = attrs: {
-    nativeBuildInputs = [ capnproto ];
+    nativeBuildInputs = [capnproto];
     buildInputs = [
       sqlite
       gmp
@@ -355,7 +353,7 @@
   };
 
   servo-fontconfig-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       freetype
       fontconfig
@@ -363,39 +361,38 @@
   };
 
   soup3-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libsoup_3 ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libsoup_3];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   thrussh-libsodium = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ libsodium ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [libsodium];
   };
 
   tonic-reflection = attrs: {
-    nativeBuildInputs = [ protobuf ];
+    nativeBuildInputs = [protobuf];
   };
 
   webkit2gtk-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ webkitgtk_4_1 ];
-    extraLinkFlags = [ "-L${zlib.out}/lib" ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [webkitgtk_4_1];
+    extraLinkFlags = ["-L${zlib.out}/lib"];
   };
 
   xcb = attrs: {
-    buildInputs = [ python3 ];
+    buildInputs = [python3];
   };
 
   atk-sys = attrs: {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ atk ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [atk];
   };
 
   # Assumes it can run Command::new(env::var("CARGO")).arg("locate-project")
   # https://github.com/bkchr/proc-macro-crate/blame/master/src/lib.rs#L242
-  proc-macro-crate =
-    attrs:
+  proc-macro-crate = attrs:
     lib.optionalAttrs (lib.versionAtLeast attrs.version "2.0") {
       postPatch =
         (attrs.postPatch or "")

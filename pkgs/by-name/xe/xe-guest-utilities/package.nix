@@ -4,7 +4,6 @@
   fetchFromGitHub,
   runtimeShell,
 }:
-
 buildGoModule rec {
   pname = "xe-guest-utilities";
   version = "8.4.0";
@@ -45,7 +44,7 @@ buildGoModule rec {
     description = "XenServer guest utilities";
     homepage = "https://github.com/xenserver/xe-guest-utilities";
     license = lib.licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

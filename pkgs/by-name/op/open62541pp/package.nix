@@ -5,7 +5,6 @@
   cmake,
   open62541,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "open62541pp";
   version = "0.19.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://open62541pp.github.io/open62541pp";
     changelog = "https://github.com/open62541pp/open62541pp/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

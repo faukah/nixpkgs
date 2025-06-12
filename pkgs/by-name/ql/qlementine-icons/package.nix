@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-b6krWtDCQjJRzzkFNYLt33iSSQHm1UZ3AedXrzRrDTs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     qt6.qtbase
@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Vector icon set for modern desktop Qt5/Qt6 applications";
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/oclero/qlementine-icons";
     changelog = "https://github.com/oclero/qlementine-icons/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ normalcea ];
+    maintainers = with lib.maintainers; [normalcea];
     platforms = lib.platforms.unix;
   };
 })

@@ -9,7 +9,6 @@
   mpiCheckPhaseHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pnetcdf";
   version = "1.14.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     gfortran
   ];
 
-  buildInputs = [ mpi ];
+  buildInputs = [mpi];
 
   postPatch = ''
     patchShebangs src/binding/f77/buildiface
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  nativeCheckInputs = [ mpiCheckPhaseHook ];
+  nativeCheckInputs = [mpiCheckPhaseHook];
 
   checkTarget = lib.concatStringsSep " " [
     # build all test programs (build only, no run)
@@ -72,6 +71,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     description = "Parallel I/O Library for NetCDF File Access";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ qbisi ];
+    maintainers = with lib.maintainers; [qbisi];
   };
 })

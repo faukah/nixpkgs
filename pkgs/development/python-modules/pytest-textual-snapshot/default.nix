@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   jinja2,
   pytest,
@@ -13,7 +11,6 @@
   syrupy,
   textual,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-textual-snapshot";
   version = "1.1.0";
@@ -38,7 +35,7 @@ buildPythonPackage rec {
         "Path('$out/share/pytest-textual-snapshot/')"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     jinja2
@@ -55,7 +52,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pytest_textual_snapshot" ];
+  pythonImportsCheck = ["pytest_textual_snapshot"];
 
   postInstall = ''
     mkdir -p $out/share/pytest-textual-snapshot/
@@ -67,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Textualize/pytest-textual-snapshot";
     changelog = "https://github.com/Textualize/pytest-textual-snapshot/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

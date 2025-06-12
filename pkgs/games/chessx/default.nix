@@ -12,7 +12,6 @@
   fetchurl,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "chessx";
   version = "1.6.0";
@@ -40,8 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     # needed to backport patches to successfully build, due to broken release
     let
       repo = "https://github.com/Isarhamster/chessx/";
-    in
-    [
+    in [
       (fetchpatch {
         url = "${repo}/commit/9797d46aa28804282bd58ce139b22492ab6881e6.diff";
         hash = "sha256-RnIf6bixvAvyp1CKuri5LhgYFqhDNiAVYWUmSUDMgVw=";
@@ -67,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://chessx.sourceforge.io/";
     description = "Browse and analyse chess games";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     platforms = platforms.linux;
     mainProgram = "chessx";
   };

@@ -3,24 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.botamusique;
 
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
   configFile = format.generate "botamusique.ini" cfg.settings;
-in
-{
-  meta.maintainers = with lib.maintainers; [ hexa ];
+in {
+  meta.maintainers = with lib.maintainers; [hexa];
 
   options.services.botamusique = {
     enable = lib.mkEnableOption "botamusique, a bot to play audio streams on mumble";
 
-    package = lib.mkPackageOption pkgs "botamusique" { };
+    package = lib.mkPackageOption pkgs "botamusique" {};
 
     settings = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         submodule {
           freeformType = format.type;
           options = {
@@ -50,7 +47,7 @@ in
             };
           };
         };
-      default = { };
+      default = {};
       description = ''
         Your {file}`configuration.ini` as a Nix attribute set. Look up
         possible options in the [configuration.example.ini](https://github.com/azlux/botamusique/blob/master/configuration.example.ini).
@@ -60,8 +57,8 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.botamusique = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       unitConfig.Documentation = "https://github.com/azlux/botamusique/wiki";
 
@@ -72,7 +69,7 @@ in
         Restart = "always"; # the bot exits when the server connection is lost
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DynamicUser = true;
         IPAddressDeny = [
           "link-local"

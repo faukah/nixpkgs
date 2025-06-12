@@ -7,7 +7,6 @@
   pythonOlder,
   pyyaml,
 }:
-
 buildPythonPackage rec {
   pname = "pysrim";
   version = "0.5.10";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner', " ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Srim Automation of Tasks via Python";
     homepage = "https://gitlab.com/costrouc/pysrim";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

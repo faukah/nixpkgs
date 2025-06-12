@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   huggingface-hub,
   hyperpyyaml,
@@ -15,7 +14,6 @@
   torchaudio,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "speechbrain";
   version = "1.0.3";
@@ -43,13 +41,13 @@ buildPythonPackage rec {
 
   doCheck = false; # requires sox backend
 
-  pythonImportsCheck = [ "speechbrain" ];
+  pythonImportsCheck = ["speechbrain"];
 
   meta = {
     description = "PyTorch-based Speech Toolkit";
     homepage = "https://speechbrain.github.io";
     changelog = "https://github.com/speechbrain/speechbrain/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

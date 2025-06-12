@@ -9,7 +9,6 @@
   testers,
   opencl-clhpp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencl-headers";
   version = "2024.10.24";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-KDlruE0IG8d+lAChxYyc6dg5XOvqCMrMyO69sdAzejA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru.tests = {
     inherit
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "OpenCL-Headers" ];
+      moduleNames = ["OpenCL-Headers"];
     };
   };
 
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.khronos.org/registry/cl/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix ++ lib.platforms.windows;
-    maintainers = [ lib.maintainers.xokdvium ];
+    maintainers = [lib.maintainers.xokdvium];
   };
 })

@@ -14,7 +14,6 @@
   testers,
   readabilipy,
 }:
-
 buildPythonPackage rec {
   pname = "readabilipy";
   version = "0.3.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     dontNpmBuild = true;
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -68,7 +67,7 @@ buildPythonPackage rec {
     nodejs
   ];
 
-  pythonImportsCheck = [ "readabilipy" ];
+  pythonImportsCheck = ["readabilipy"];
 
   disabledTestPaths = [
     # Exclude benchmarks
@@ -89,6 +88,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/alan-turing-institute/ReadabiliPy";
     changelog = "https://github.com/alan-turing-institute/ReadabiliPy/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -8,7 +8,6 @@
   removeReferencesTo,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "volk";
   # Version 2.5.1 seems to cause a build issue for aarch64-darwin[1], and for
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags =
-    [ (lib.cmakeBool "ENABLE_MODTOOL" enableModTool) ]
+    [(lib.cmakeBool "ENABLE_MODTOOL" enableModTool)]
     ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64) [
       # offset 14335 in1: -1.03372 in2: -1.03371 tolerance was: 1e-05
       # volk_32f_log2_32f: fail on arch neon
@@ -61,6 +60,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://libvolk.org/";
     description = "Vector Optimized Library of Kernels (version 2.5.0 - for GR 3.8)";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 })

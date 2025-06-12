@@ -9,10 +9,9 @@
   lib,
   stdenv,
 }:
-
 qtModule {
   pname = "qtsvg";
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
   buildInputs =
     [
       libwebp
@@ -24,5 +23,5 @@ qtModule {
       libmng
       zlib
     ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 }

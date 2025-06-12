@@ -24,7 +24,6 @@
   plasma-wayland-protocols,
   wayland,
 }:
-
 mkDerivation {
   pname = "krfb";
   meta = {
@@ -34,7 +33,7 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ jerith666 ];
+    maintainers = with lib.maintainers; [jerith666];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -61,5 +60,5 @@ mkDerivation {
     plasma-wayland-protocols
     wayland
   ];
-  propagatedBuildInputs = [ kdnssd ];
+  propagatedBuildInputs = [kdnssd];
 }

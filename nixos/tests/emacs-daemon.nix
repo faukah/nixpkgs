@@ -1,25 +1,21 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "emacs-daemon";
   meta.maintainers = lib.teams.emacs.members;
 
   enableOCR = true;
 
-  nodes.machine =
-    { ... }:
-
-    {
-      imports = [ ./common/x11.nix ];
-      services.emacs = {
-        enable = true;
-        defaultEditor = true;
-      };
-
-      # Important to get the systemd service running for root
-      environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
-
-      environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
+  nodes.machine = {...}: {
+    imports = [./common/x11.nix];
+    services.emacs = {
+      enable = true;
+      defaultEditor = true;
     };
+
+    # Important to get the systemd service running for root
+    environment.variables.XDG_RUNTIME_DIR = "/run/user/0";
+
+    environment.variables.TEST_SYSTEM_VARIABLE = "system variable";
+  };
 
   testScript = ''
     machine.wait_for_unit("multi-user.target")

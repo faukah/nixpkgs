@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "grimoire";
   version = "0.1.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-K1kVXSfIjBpuJ7TyTCtaWj6jWRXPQdBvUlf5LC60tj0=";
 
-  subPackages = [ "cmd/grimoire/" ];
+  subPackages = ["cmd/grimoire/"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/DataDog/grimoire";
     changelog = "https://github.com/DataDog/grimoire/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "grimoire";
   };
 }

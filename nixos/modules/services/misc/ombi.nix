@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.ombi;
-
-in
-{
+in {
   options = {
     services.ombi = {
       enable = lib.mkEnableOption ''
@@ -19,7 +16,7 @@ in
         on how to set up a reverse proxy
       '';
 
-      package = lib.mkPackageOption pkgs "ombi" { };
+      package = lib.mkPackageOption pkgs "ombi" {};
 
       dataDir = lib.mkOption {
         type = lib.types.str;
@@ -60,8 +57,8 @@ in
 
     systemd.services.ombi = {
       description = "Ombi";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -73,7 +70,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     users.users = lib.mkIf (cfg.user == "ombi") {
@@ -84,6 +81,6 @@ in
       };
     };
 
-    users.groups = lib.mkIf (cfg.group == "ombi") { ombi = { }; };
+    users.groups = lib.mkIf (cfg.group == "ombi") {ombi = {};};
   };
 }

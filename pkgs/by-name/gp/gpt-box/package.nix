@@ -11,7 +11,6 @@
   _experimental-update-script-combinators,
   gitUpdater,
 }:
-
 flutter329.buildFlutterApplication rec {
   pname = "gpt-box";
   version = "1.0.385";
@@ -46,7 +45,7 @@ flutter329.buildFlutterApplication rec {
       icon = "gpt-box";
       genericName = "GPT Box";
       desktopName = "GPT Box";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
       keywords = [
         "gpt"
         "chat"
@@ -63,15 +62,15 @@ flutter329.buildFlutterApplication rec {
   passthru = {
     pubspecSource =
       runCommand "pubspec.lock.json"
-        {
-          nativeBuildInputs = [ yq ];
-          inherit (gpt-box) src;
-        }
-        ''
-          cat $src/pubspec.lock | yq > $out
-        '';
+      {
+        nativeBuildInputs = [yq];
+        inherit (gpt-box) src;
+      }
+      ''
+        cat $src/pubspec.lock | yq > $out
+      '';
     updateScript = _experimental-update-script-combinators.sequence [
-      (gitUpdater { rev-prefix = "v"; })
+      (gitUpdater {rev-prefix = "v";})
       (_experimental-update-script-combinators.copyAttrOutputToFile "gpt-box.pubspecSource" ./pubspec.lock.json)
     ];
   };
@@ -82,6 +81,6 @@ flutter329.buildFlutterApplication rec {
     mainProgram = "GPTBox";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

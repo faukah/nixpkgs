@@ -20,7 +20,6 @@
   webp-pixbuf-loader,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "komikku";
   version = "1.77.0";
@@ -92,10 +91,10 @@ python3.pkgs.buildPythonApplication rec {
 
   # Prevent double wrapping.
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -108,6 +107,6 @@ python3.pkgs.buildPythonApplication rec {
       chuangzhu
       Gliczy
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
   };
 }

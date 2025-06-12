@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-rJPBEe/eAQ7OPPZHeFbomkb8ca3WTheDhs/ic6GohVM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyyaml
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/libyal/dtfabric/releases";
     homepage = "https://github.com/libyal/dtfabric";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.jayrovacsek ];
+    maintainers = [lib.maintainers.jayrovacsek];
   };
 }

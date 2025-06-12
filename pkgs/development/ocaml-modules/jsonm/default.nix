@@ -8,7 +8,6 @@
   topkg,
   uutf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-jsonm";
   version = "1.0.2";
@@ -24,8 +23,8 @@ stdenv.mkDerivation rec {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
-  propagatedBuildInputs = [ uutf ];
+  buildInputs = [topkg];
+  propagatedBuildInputs = [uutf];
 
   strictDeps = true;
 
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "OCaml non-blocking streaming codec to decode and encode the JSON data format";
     homepage = "https://erratique.ch/software/jsonm";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
     mainProgram = "jsontrip";
     inherit (ocaml.meta) platforms;
   };

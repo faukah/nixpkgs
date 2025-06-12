@@ -13,7 +13,6 @@
   writeShellScript,
   xcbuild,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mactracker";
   version = "7.13.5";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontFixup = true;
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = "Mactracker.app";
 
@@ -56,11 +55,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   });
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = writeShellScript "version-check" ''
     ${xcbuild}/bin/PlistBuddy -c "Print :CFBundleVersion" "$1"
   '';
-  versionCheckProgramArg = [ "${placeholder "out"}/Applications/Mactracker.app/Contents/Info.plist" ];
+  versionCheckProgramArg = ["${placeholder "out"}/Applications/Mactracker.app/Contents/Info.plist"];
   doInstallCheck = true;
 
   meta = {
@@ -68,8 +67,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://mactracker.ca";
     changelog = "https://mactracker.ca/releasenotes-mac.html";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ DimitarNestorov ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [DimitarNestorov];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

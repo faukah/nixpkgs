@@ -7,7 +7,6 @@
   braceexpand,
   inform,
 }:
-
 buildPythonPackage rec {
   pname = "shlib";
   version = "1.7";
@@ -24,22 +23,22 @@ buildPythonPackage rec {
     patchShebangs .
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     braceexpand
     inform
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "shlib" ];
+  pythonImportsCheck = ["shlib"];
 
   meta = with lib; {
     description = "shell library";
     homepage = "https://github.com/KenKundert/shlib";
     changelog = "https://github.com/KenKundert/shlib/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

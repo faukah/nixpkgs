@@ -9,7 +9,6 @@
   fribidi,
   libunibreak,
 }:
-
 mkDerivation rec {
   pname = "coolreader";
   version = "3.2.57";
@@ -38,7 +37,7 @@ mkDerivation rec {
     description = "Cross platform open source e-book reader";
     mainProgram = "cr3";
     license = licenses.gpl2Plus; # see https://github.com/buggins/coolreader/issues/80
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

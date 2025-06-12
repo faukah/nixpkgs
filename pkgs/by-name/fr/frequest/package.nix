@@ -5,7 +5,6 @@
   fetchpatch,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "frequest";
   version = "1.2a";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Fast, lightweight and opensource desktop application to make HTTP(s) requests";
     homepage = "https://fabiobento512.github.io/FRequest";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ eliandoran ];
+    maintainers = with lib.maintainers; [eliandoran];
     platforms = lib.platforms.linux;
     mainProgram = "frequest";
   };

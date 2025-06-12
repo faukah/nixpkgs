@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netcat-gnu";
   version = "0.7.1";
@@ -19,6 +18,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "netcat";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ RossComputerGuy ];
+    maintainers = with lib.maintainers; [RossComputerGuy];
   };
 })

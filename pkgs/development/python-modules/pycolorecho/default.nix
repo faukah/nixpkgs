@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pycolorecho";
   version = "0.1.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-h/7Wi0x8iLMZpPYekK6W9LTM+2nYJTaKClNtRTzbmdg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pycolorecho" ];
+  pythonImportsCheck = ["pycolorecho"];
 
   meta = {
     description = "Simple Python package for colorized terminal output";
     homepage = "https://github.com/coldsofttech/pycolorecho";
     changelog = "https://github.com/coldsofttech/pycolorecho/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ShamrockLee ];
+    maintainers = with lib.maintainers; [ShamrockLee];
   };
 }

@@ -38,13 +38,13 @@ python3Packages.buildPythonApplication rec {
   # Tests want to run in tmux
   doCheck = false;
 
-  pythonImportsCheck = [ "ansible_navigator" ];
+  pythonImportsCheck = ["ansible_navigator"];
 
   meta = {
     description = "Text-based user interface (TUI) for Ansible";
     homepage = "https://ansible.readthedocs.io/projects/navigator/";
     changelog = "https://github.com/ansible/ansible-navigator/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ melkor333 ];
+    maintainers = with lib.maintainers; [melkor333];
   };
 }

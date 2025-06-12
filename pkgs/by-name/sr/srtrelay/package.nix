@@ -5,7 +5,6 @@
   srt,
   ffmpeg,
 }:
-
 buildGoModule rec {
   pname = "srtrelay";
   version = "1.3.0";
@@ -19,14 +18,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-z9sBrSGEHPLdC79hsNKZiI9+w8t0JrVQ8pRdBykaI5Q=";
 
-  buildInputs = [ srt ];
-  nativeCheckInputs = [ ffmpeg ];
+  buildInputs = [srt];
+  nativeCheckInputs = [ffmpeg];
 
   meta = with lib; {
     description = "Streaming-Relay for the SRT-protocol";
     homepage = "https://github.com/voc/srtrelay";
     license = licenses.mit;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     mainProgram = "srtrelay";
   };
 }

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "marathi-cursive";
   version = "2.1";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/MihailJP/MarathiCursive";
     description = "Modi script font with Graphite and OpenType support";
-    maintainers = with maintainers; [ mathnerd314 ];
+    maintainers = with maintainers; [mathnerd314];
     license = licenses.mplus;
     platforms = platforms.all;
   };

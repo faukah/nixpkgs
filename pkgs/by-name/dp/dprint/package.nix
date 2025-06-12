@@ -8,7 +8,6 @@
   nix-update-script,
   dprint,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dprint";
   version = "0.50.0";
@@ -72,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       '';
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

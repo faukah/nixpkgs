@@ -16,7 +16,6 @@
   yelp-tools,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aisleriot";
   version = "3.22.35";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs src/lib/meson_compileschemas.py
   '';
 
-  mesonFlags = [ "-Dtheme_kde=false" ];
+  mesonFlags = ["-Dtheme_kde=false"];
 
   passthru = {
     updateScript = gnome.updateScript {
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/aisleriot";
     description = "Collection of patience games written in guile scheme";
     mainProgram = "sol";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

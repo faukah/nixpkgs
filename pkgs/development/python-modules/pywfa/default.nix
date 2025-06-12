@@ -9,7 +9,6 @@
   pysam,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pywfa";
   version = "0.5.1";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kcleal/pywfa";
     changelog = "https://github.com/kcleal/pywfa/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

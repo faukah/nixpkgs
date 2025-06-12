@@ -4,40 +4,39 @@
   pkgs,
   utils,
   ...
-}:
-
-let
+}: let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.plasma5;
 
   # Use only for **internal** options.
   # This is not exactly user-friendly.
-  kdeConfigurationType =
-    with types;
-    let
-      valueTypes =
-        (oneOf [
-          bool
-          float
-          int
-          str
-        ])
-        // {
-          description = "KDE Configuration value";
-          emptyValue.value = "";
-        };
-      set = (nullOr (lazyAttrsOf valueTypes)) // {
-        description = "KDE Configuration set";
-        emptyValue.value = { };
+  kdeConfigurationType = with types; let
+    valueTypes =
+      (oneOf [
+        bool
+        float
+        int
+        str
+      ])
+      // {
+        description = "KDE Configuration value";
+        emptyValue.value = "";
       };
-    in
+    set =
+      (nullOr (lazyAttrsOf valueTypes))
+      // {
+        description = "KDE Configuration set";
+        emptyValue.value = {};
+      };
+  in
     (lazyAttrsOf set)
     // {
       description = "KDE Configuration file";
-      emptyValue.value = { };
+      emptyValue.value = {};
     };
 
-  inherit (lib)
+  inherit
+    (lib)
     getBin
     optionalAttrs
     literalExpression
@@ -95,10 +94,7 @@ let
     # 2. Contaminate / if $HOME is unset; do not check if $HOME is set.
     XDG_CONFIG_HOME=''${XDG_CONFIG_HOME:-$HOME/.config}
   '';
-
-in
-
-{
+in {
   options = {
     services.xserver.desktopManager.plasma5 = {
       enable = mkOption {
@@ -130,21 +126,21 @@ in
       };
 
       notoPackage = mkPackageOption pkgs "Noto fonts" {
-        default = [ "noto-fonts" ];
+        default = ["noto-fonts"];
         example = "noto-fonts-lgc-plus";
       };
 
       # Internally allows configuring kdeglobals globally
       kdeglobals = mkOption {
         internal = true;
-        default = { };
+        default = {};
         type = kdeConfigurationType;
       };
 
       # Internally allows configuring kwin globally
       kwinrc = mkOption {
         internal = true;
-        default = { };
+        default = {};
         type = kdeConfigurationType;
       };
 
@@ -176,7 +172,7 @@ in
     environment.plasma5.excludePackages = mkOption {
       description = "List of default packages to exclude from the configuration";
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
     };
   };
@@ -196,13 +192,15 @@ in
       "plasma5"
       "supportDDC"
     ] "DDC/CI is no longer supported upstream.")
-    (mkRenamedOptionModule
-      [ "services" "xserver" "desktopManager" "kde5" ]
-      [ "services" "xserver" "desktopManager" "plasma5" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "desktopManager" "kde5"]
+      ["services" "xserver" "desktopManager" "plasma5"]
     )
-    (mkRenamedOptionModule
-      [ "services" "xserver" "desktopManager" "plasma5" "excludePackages" ]
-      [ "environment" "plasma5" "excludePackages" ]
+    (
+      mkRenamedOptionModule
+      ["services" "xserver" "desktopManager" "plasma5" "excludePackages"]
+      ["environment" "plasma5" "excludePackages"]
     )
   ];
 
@@ -233,108 +231,104 @@ in
 
       qt.enable = true;
 
-      environment.systemPackages =
-        with pkgs.plasma5Packages;
-        let
-          requiredPackages = [
-            frameworkintegration
-            kactivities
-            kauth
-            kcmutils
-            kconfig
-            kconfigwidgets
-            kcoreaddons
-            kdoctools
-            kdbusaddons
-            kdeclarative
-            kded
-            kdesu
-            kdnssd
-            kemoticons
-            kfilemetadata
-            kglobalaccel
-            kguiaddons
-            kiconthemes
-            kidletime
-            kimageformats
-            kinit
-            kirigami2 # In system profile for SDDM theme. TODO: wrapper.
-            kio
-            kjobwidgets
-            knewstuff
-            knotifications
-            knotifyconfig
-            kpackage
-            kparts
-            kpeople
-            krunner
-            kservice
-            ktextwidgets
-            kwallet
-            kwallet-pam
-            kwalletmanager
-            kwayland
-            kwayland-integration
-            kwidgetsaddons
-            kxmlgui
-            kxmlrpcclient
-            plasma-framework
-            solid
-            sonnet
-            threadweaver
+      environment.systemPackages = with pkgs.plasma5Packages; let
+        requiredPackages = [
+          frameworkintegration
+          kactivities
+          kauth
+          kcmutils
+          kconfig
+          kconfigwidgets
+          kcoreaddons
+          kdoctools
+          kdbusaddons
+          kdeclarative
+          kded
+          kdesu
+          kdnssd
+          kemoticons
+          kfilemetadata
+          kglobalaccel
+          kguiaddons
+          kiconthemes
+          kidletime
+          kimageformats
+          kinit
+          kirigami2 # In system profile for SDDM theme. TODO: wrapper.
+          kio
+          kjobwidgets
+          knewstuff
+          knotifications
+          knotifyconfig
+          kpackage
+          kparts
+          kpeople
+          krunner
+          kservice
+          ktextwidgets
+          kwallet
+          kwallet-pam
+          kwalletmanager
+          kwayland
+          kwayland-integration
+          kwidgetsaddons
+          kxmlgui
+          kxmlrpcclient
+          plasma-framework
+          solid
+          sonnet
+          threadweaver
 
-            breeze-qt5
-            kactivitymanagerd
-            kde-cli-tools
-            kdecoration
-            kdeplasma-addons
-            kgamma5
-            khotkeys
-            kscreen
-            kscreenlocker
-            kwayland
-            kwin
-            kwrited
-            libkscreen
-            libksysguard
-            milou
-            plasma-integration
-            polkit-kde-agent
+          breeze-qt5
+          kactivitymanagerd
+          kde-cli-tools
+          kdecoration
+          kdeplasma-addons
+          kgamma5
+          khotkeys
+          kscreen
+          kscreenlocker
+          kwayland
+          kwin
+          kwrited
+          libkscreen
+          libksysguard
+          milou
+          plasma-integration
+          polkit-kde-agent
 
-            qqc2-breeze-style
-            qqc2-desktop-style
+          qqc2-breeze-style
+          qqc2-desktop-style
 
-            plasma-desktop
-            plasma-workspace
-            plasma-workspace-wallpapers
+          plasma-desktop
+          plasma-workspace
+          plasma-workspace-wallpapers
 
-            oxygen-sounds
+          oxygen-sounds
 
-            breeze-icons
-            pkgs.hicolor-icon-theme
+          breeze-icons
+          pkgs.hicolor-icon-theme
 
-            kde-gtk-config
-            breeze-gtk
+          kde-gtk-config
+          breeze-gtk
 
-            qtvirtualkeyboard
+          qtvirtualkeyboard
 
-            pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
-          ];
-          optionalPackages = [
-            pkgs.aha # needed by kinfocenter for fwupd support
-            plasma-browser-integration
-            konsole
-            oxygen
-            (lib.getBin qttools) # Expose qdbus in PATH
-          ];
-        in
+          pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
+        ];
+        optionalPackages = [
+          pkgs.aha # needed by kinfocenter for fwupd support
+          plasma-browser-integration
+          konsole
+          oxygen
+          (lib.getBin qttools) # Expose qdbus in PATH
+        ];
+      in
         requiredPackages
         ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages
-
         # Phonon audio backend
         ++ lib.optional (cfg.phononBackend == "gstreamer") pkgs.plasma5Packages.phonon-backend-gstreamer
         ++ lib.optional (cfg.phononBackend == "vlc") pkgs.plasma5Packages.phonon-backend-vlc
-
         # Optional hardware support features
         ++ lib.optionals config.hardware.bluetooth.enable [
           bluedevil
@@ -378,7 +372,7 @@ in
       };
 
       # Enable GTK applications to load SVG icons
-      programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+      programs.gdk-pixbuf.modulePackages = [pkgs.librsvg];
 
       fonts.packages = with pkgs; [
         cfg.notoPackage
@@ -389,8 +383,8 @@ in
           "Hack"
           "Noto Sans Mono"
         ];
-        sansSerif = [ "Noto Sans" ];
-        serif = [ "Noto Serif" ];
+        sansSerif = ["Noto Sans"];
+        serif = ["Noto Serif"];
       };
 
       programs.gnupg.agent.pinentryPackage = mkDefault pkgs.pinentry-qt;
@@ -430,7 +424,7 @@ in
       systemd.user.services = {
         plasma-early-setup = mkIf cfg.runUsingSystemd {
           description = "Early Plasma setup";
-          wantedBy = [ "graphical-session-pre.target" ];
+          wantedBy = ["graphical-session-pre.target"];
           serviceConfig.Type = "oneshot";
           script = activationScript;
         };
@@ -439,8 +433,8 @@ in
       xdg.icons.enable = true;
 
       xdg.portal.enable = true;
-      xdg.portal.extraPortals = [ pkgs.plasma5Packages.xdg-desktop-portal-kde ];
-      xdg.portal.configPackages = mkDefault [ pkgs.plasma5Packages.xdg-desktop-portal-kde ];
+      xdg.portal.extraPortals = [pkgs.plasma5Packages.xdg-desktop-portal-kde];
+      xdg.portal.configPackages = mkDefault [pkgs.plasma5Packages.xdg-desktop-portal-kde];
       # xdg-desktop-portal-kde expects PipeWire to be running.
       services.pipewire.enable = mkDefault true;
 
@@ -453,17 +447,16 @@ in
       programs.chromium.enablePlasmaBrowserIntegration = true;
     })
 
-    (mkIf (cfg.kwinrc != { }) {
-      environment.etc."xdg/kwinrc".text = lib.generators.toINI { } cfg.kwinrc;
+    (mkIf (cfg.kwinrc != {}) {
+      environment.etc."xdg/kwinrc".text = lib.generators.toINI {} cfg.kwinrc;
     })
 
-    (mkIf (cfg.kdeglobals != { }) {
-      environment.etc."xdg/kdeglobals".text = lib.generators.toINI { } cfg.kdeglobals;
+    (mkIf (cfg.kdeglobals != {}) {
+      environment.etc."xdg/kdeglobals".text = lib.generators.toINI {} cfg.kdeglobals;
     })
 
     # Plasma Desktop
     (mkIf cfg.enable {
-
       # Seed our configuration into nixos-generate-config
       system.nixos-generate-config.desktopConfiguration = [
         ''
@@ -473,47 +466,45 @@ in
         ''
       ];
 
-      services.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-workspace ];
+      services.displayManager.sessionPackages = [pkgs.plasma5Packages.plasma-workspace];
       # Default to be `plasma` (X11) instead of `plasmawayland`, since plasma wayland currently has
       # many tiny bugs.
       # See: https://github.com/NixOS/nixpkgs/issues/143272
       services.displayManager.defaultSession = mkDefault "plasma";
 
-      environment.systemPackages =
-        with pkgs.plasma5Packages;
-        let
-          requiredPackages = [
-            ksystemstats
-            kinfocenter
-            kmenuedit
-            plasma-systemmonitor
-            spectacle
-            systemsettings
+      environment.systemPackages = with pkgs.plasma5Packages; let
+        requiredPackages = [
+          ksystemstats
+          kinfocenter
+          kmenuedit
+          plasma-systemmonitor
+          spectacle
+          systemsettings
 
-            dolphin
-            dolphin-plugins
-            ffmpegthumbs
-            kdegraphics-thumbnailers
-            kde-inotify-survey
-            kio-admin
-            kio-extras
-          ];
-          optionalPackages = [
-            ark
-            elisa
-            gwenview
-            okular
-            khelpcenter
-            print-manager
-          ];
-        in
+          dolphin
+          dolphin-plugins
+          ffmpegthumbs
+          kdegraphics-thumbnailers
+          kde-inotify-survey
+          kio-admin
+          kio-extras
+        ];
+        optionalPackages = [
+          ark
+          elisa
+          gwenview
+          okular
+          khelpcenter
+          print-manager
+        ];
+      in
         requiredPackages
         ++ utils.removePackagesByName optionalPackages config.environment.plasma5.excludePackages;
 
       systemd.user.services = {
         plasma-run-with-systemd = {
           description = "Run KDE Plasma via systemd";
-          wantedBy = [ "basic.target" ];
+          wantedBy = ["basic.target"];
           serviceConfig.Type = "oneshot";
           script = ''
             ${set_XDG_CONFIG_HOME}
@@ -547,8 +538,7 @@ in
         }
       ];
 
-      environment.systemPackages =
-        with pkgs.plasma5Packages;
+      environment.systemPackages = with pkgs.plasma5Packages;
         [
           # Basic packages without which Plasma Mobile fails to work properly.
           plasma-mobile
@@ -557,8 +547,7 @@ in
           pkgs.maliit-keyboard
         ]
         ++ lib.optionals (cfg.mobile.installRecommendedSoftware) (
-          with pkgs.plasma5Packages.plasmaMobileGear;
-          [
+          with pkgs.plasma5Packages.plasmaMobileGear; [
             # Additional software made for Plasma Mobile.
             alligator
             angelfish
@@ -608,7 +597,7 @@ in
         };
       };
 
-      services.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-mobile ];
+      services.displayManager.sessionPackages = [pkgs.plasma5Packages.plasma-mobile];
     })
 
     # Plasma Bigscreen
@@ -627,7 +616,7 @@ in
         kdeconnect-kde
       ];
 
-      services.displayManager.sessionPackages = [ pkgs.plasma5Packages.plasma-bigscreen ];
+      services.displayManager.sessionPackages = [pkgs.plasma5Packages.plasma-bigscreen];
 
       # required for plasma-remotecontrollers to work correctly
       hardware.uinput.enable = true;

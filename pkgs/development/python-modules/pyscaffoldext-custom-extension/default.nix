@@ -16,7 +16,6 @@
   tox,
   virtualenv,
 }:
-
 buildPythonPackage rec {
   pname = "pyscaffoldext-custom-extension";
   version = "0.6.3";
@@ -53,12 +52,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyscaffoldext.custom_extension" ];
+  pythonImportsCheck = ["pyscaffoldext.custom_extension"];
 
   meta = with lib; {
     description = "PyScaffold extension to create a custom PyScaffold extension";
     homepage = "https://pypi.org/project/pyscaffoldext-custom-extension/";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
   };
 }

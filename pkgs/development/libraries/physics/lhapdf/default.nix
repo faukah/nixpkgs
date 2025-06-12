@@ -6,7 +6,6 @@
   python3,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lhapdf";
   version = "6.5.5";
@@ -30,9 +29,9 @@ stdenv.mkDerivation rec {
     ++ lib.optionals (python3 != null && lib.versionAtLeast python3.version "3.10") [
       python3.pkgs.cython
     ];
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  configureFlags = lib.optionals (python3 == null) [ "--disable-python" ];
+  configureFlags = lib.optionals (python3 == null) ["--disable-python"];
 
   preBuild = lib.optionalString (python3 != null && lib.versionAtLeast python3.version "3.10") ''
     rm wrappers/python/lhapdf.cpp
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru = {
-    pdf_sets = import ./pdf_sets.nix { inherit lib stdenv fetchurl; };
+    pdf_sets = import ./pdf_sets.nix {inherit lib stdenv fetchurl;};
   };
 
   postInstall = ''
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     homepage = "https://www.lhapdf.org";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

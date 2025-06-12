@@ -18,9 +18,7 @@
   ounit2,
   qcheck,
   qcheck-core,
-}:
-
-let
+}: let
   bantorra = buildDunePackage {
     pname = "bantorra";
     version = "unstable-2022-05-08";
@@ -53,10 +51,10 @@ let
       hash = "sha256-fP6Ade3mJeyOMjuDIvrW88m6E3jfb2z3L8ufgloz4Tc=";
     };
 
-    propagatedBuildInputs = [ bwd ];
+    propagatedBuildInputs = [bwd];
 
     doCheck = true;
-    checkInputs = [ qcheck-core ];
+    checkInputs = [qcheck-core];
 
     meta = {
       description = "Cofibrations in Cartecian Cubical Type Theory";
@@ -65,51 +63,50 @@ let
     };
   };
 in
+  buildDunePackage {
+    pname = "cooltt";
+    version = "unstable-2023-10-03";
 
-buildDunePackage {
-  pname = "cooltt";
-  version = "unstable-2023-10-03";
+    minimalOCamlVersion = "5.0";
 
-  minimalOCamlVersion = "5.0";
+    src = fetchFromGitHub {
+      owner = "RedPRL";
+      repo = "cooltt";
+      rev = "a5eaf4db195b5166a7102d47d42724f59cf3de19";
+      hash = "sha256-48bEf59rtPRrCRjab7+GxppjfR2c87HjQ+uKY2Bag0I=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "RedPRL";
-    repo = "cooltt";
-    rev = "a5eaf4db195b5166a7102d47d42724f59cf3de19";
-    hash = "sha256-48bEf59rtPRrCRjab7+GxppjfR2c87HjQ+uKY2Bag0I=";
-  };
+    nativeBuildInputs = [
+      menhir
+    ];
 
-  nativeBuildInputs = [
-    menhir
-  ];
+    buildInputs = [
+      cmdliner
+      ppxlib
+    ];
 
-  buildInputs = [
-    cmdliner
-    ppxlib
-  ];
+    propagatedBuildInputs = [
+      bantorra
+      bwd
+      ezjsonm
+      kado
+      menhirLib
+      ppx_deriving
+      uuseg
+      uutf
+      yuujinchou
+      containers
+    ];
 
-  propagatedBuildInputs = [
-    bantorra
-    bwd
-    ezjsonm
-    kado
-    menhirLib
-    ppx_deriving
-    uuseg
-    uutf
-    yuujinchou
-    containers
-  ];
+    checkInputs = [
+      ounit2
+      qcheck
+    ];
 
-  checkInputs = [
-    ounit2
-    qcheck
-  ];
-
-  meta = with lib; {
-    homepage = "https://github.com/RedPRL/cooltt";
-    description = "Cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
-    license = licenses.asl20;
-    maintainers = with maintainers; [ moni ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/RedPRL/cooltt";
+      description = "Cool implementation of normalization by evaluation (nbe) & elaboration for Cartesian cubical type theory";
+      license = licenses.asl20;
+      maintainers = with maintainers; [moni];
+    };
+  }

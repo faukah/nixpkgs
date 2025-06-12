@@ -19,7 +19,6 @@
   pkg-config,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sfizz";
   version = "1.2.1";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Fix missing include
-  patches = [ ./gcc13.patch ];
+  patches = [./gcc13.patch];
 
   postPatch = ''
     cp ${catch2}/include/catch2/catch.hpp tests/catch2/catch.hpp
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
       --replace '/usr/bin/zenity' '${zenity}/bin/zenity'
   '';
 
-  cmakeFlags = [ "-DSFIZZ_TESTS=ON" ];
+  cmakeFlags = ["-DSFIZZ_TESTS=ON"];
 
   doCheck = true;
 
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sfztools/sfizz";
     description = "SFZ jack client and LV2 plugin";
     license = licenses.bsd2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.all;
     badPlatforms = platforms.darwin;
   };

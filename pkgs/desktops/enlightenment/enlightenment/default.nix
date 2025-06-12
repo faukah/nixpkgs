@@ -24,7 +24,6 @@
   libpulseaudio,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "enlightenment";
   version = "0.27.1";
@@ -73,13 +72,15 @@ stdenv.mkDerivation rec {
       --replace "ecore_exe_pipe_run(\"bc -l\"" "ecore_exe_pipe_run(\"${bc}/bin/bc -l\""
   '';
 
-  mesonFlags = [
-    "-D systemdunitdir=lib/systemd/user"
-  ] ++ lib.optional waylandSupport "-Dwl=true";
+  mesonFlags =
+    [
+      "-D systemdunitdir=lib/systemd/user"
+    ]
+    ++ lib.optional waylandSupport "-Dwl=true";
 
-  passthru.providedSessions = [ "enlightenment" ];
+  passthru.providedSessions = ["enlightenment"];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Compositing Window Manager and Desktop Shell";
@@ -90,6 +91,6 @@ stdenv.mkDerivation rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

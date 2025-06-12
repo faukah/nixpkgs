@@ -4,16 +4,13 @@
   fetchFromGitHub,
   replaceVars,
   ffmpeg,
-
   # build-system
   setuptools,
-
   # checks
   psutil,
   pytestCheckHook,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "imageio-ffmpeg";
   version = "0.6.0";
@@ -32,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     psutil
@@ -53,13 +50,13 @@ buildPythonPackage rec {
     EOF
   '';
 
-  pythonImportsCheck = [ "imageio_ffmpeg" ];
+  pythonImportsCheck = ["imageio_ffmpeg"];
 
   meta = with lib; {
     changelog = "https://github.com/imageio/imageio-ffmpeg/releases/tag/${src.tag}";
     description = "FFMPEG wrapper for Python";
     homepage = "https://github.com/imageio/imageio-ffmpeg";
     license = licenses.bsd2;
-    maintainers = [ maintainers.pmiddend ];
+    maintainers = [maintainers.pmiddend];
   };
 }

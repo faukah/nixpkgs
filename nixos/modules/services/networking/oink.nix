@@ -3,23 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.oink;
-  makeOinkConfig =
-    attrs:
-    (pkgs.formats.json { }).generate "oink.json" (
+  makeOinkConfig = attrs:
+    (pkgs.formats.json {}).generate "oink.json" (
       lib.mapAttrs' (k: v: lib.nameValuePair (lib.toLower k) v) attrs
     );
   oinkConfig = makeOinkConfig {
     global = cfg.settings;
     domains = cfg.domains;
   };
-in
-{
+in {
   options.services.oink = {
     enable = lib.mkEnableOption "Oink, a dynamic DNS client for Porkbun";
-    package = lib.mkPackageOption pkgs "oink" { };
+    package = lib.mkPackageOption pkgs "oink" {};
     settings = {
       apiKey = lib.mkOption {
         type = lib.types.str;
@@ -48,7 +45,7 @@ in
     };
     domains = lib.mkOption {
       type = with lib.types; listOf (attrsOf anything);
-      default = [ ];
+      default = [];
       example = [
         {
           domain = "nixos.org";
@@ -82,8 +79,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.oink = {
       description = "Dynamic DNS client for Porkbun";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script = "${cfg.package}/bin/oink -c ${oinkConfig}";
     };
   };

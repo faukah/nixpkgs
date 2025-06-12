@@ -6,7 +6,6 @@
   zlib,
   zopfli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gif2apng";
   version = "1.9";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     buildFlagsArray+=("LIBS=-lzopfli -lstdc++ -lz")
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}c++"];
 
   NIX_CFLAGS_COMPILE = "-DENABLE_LOCAL_ZOPFLI";
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gif2apng.sourceforge.net/";
     description = "Simple program that converts animations from GIF to APNG format";
     license = licenses.zlib;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

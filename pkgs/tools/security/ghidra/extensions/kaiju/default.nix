@@ -5,8 +5,7 @@
   buildGhidraExtension,
   z3,
   gradle,
-}:
-let
+}: let
   ghidraPlatformName =
     {
       x86_64-linux = "linux_x86_64";
@@ -14,7 +13,9 @@ let
       x86_64-darwin = "mac_x86_64";
       aarch64-darwin = "mac_arm_64";
     }
-    .${stdenv.hostPlatform.system}
+    .${
+      stdenv.hostPlatform.system
+    }
       or (throw "${stdenv.hostPlatform.system} is an unsupported platform");
 
   z3_lib = (
@@ -48,7 +49,7 @@ let
       cp ${lib.getOutput "lib" z3_lib}/lib/* os/${ghidraPlatformName}
     '';
 
-    gradleFlags = [ "-PKAIJU_SKIP_Z3_BUILD=true" ];
+    gradleFlags = ["-PKAIJU_SKIP_Z3_BUILD=true"];
 
     mitmCache = gradle.fetchDeps {
       pkg = self;
@@ -60,7 +61,7 @@ let
       homepage = "https://github.com/CERTCC/kaiju";
       downloadPage = "https://github.com/CERTCC/kaiju/releases/tag/${version}";
       license = lib.licenses.bsd3;
-      maintainers = [ lib.maintainers.ivyfanchiang ];
+      maintainers = [lib.maintainers.ivyfanchiang];
       platforms = [
         "x86_64-linux"
         "aarch64-linux"
@@ -70,4 +71,4 @@ let
     };
   };
 in
-self
+  self

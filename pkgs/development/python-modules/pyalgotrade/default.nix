@@ -14,7 +14,6 @@
   tweepy,
   ws4py,
 }:
-
 buildPythonPackage rec {
   pname = "pyalgotrade";
   version = "0.20";

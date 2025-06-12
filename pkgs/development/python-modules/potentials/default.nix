@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchPypi,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   bibtexparser,
   cdcs,
@@ -23,7 +21,6 @@
   xmltodict,
   yabadaba,
 }:
-
 buildPythonPackage rec {
   pname = "potentials";
   version = "0.4.0";
@@ -36,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-VDA3dQ34kvrs3XMfC0j3T63KrXlmOa/hPvOni/UkgP4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bibtexparser
@@ -58,13 +55,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "potentials" ];
+  pythonImportsCheck = ["potentials"];
 
   meta = {
     description = "Python API database tools for accessing the NIST Interatomic Potentials Repository";
     homepage = "https://github.com/usnistgov/potentials";
     changelog = "https://github.com/usnistgov/potentials/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

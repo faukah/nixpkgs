@@ -8,7 +8,6 @@
   zlib,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gex";
   version = "0.6.4";
@@ -20,13 +19,15 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-Xer7a3UtFIv3idchI7DfZ5u6qgDW/XFWi5ihtcREXqo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  buildInputs = [
-    libgit2
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ zlib ];
+  buildInputs =
+    [
+      libgit2
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [zlib];
 
   env = {
     LIBGIT2_NO_VENDOR = 1;

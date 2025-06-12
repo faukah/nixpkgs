@@ -7,7 +7,6 @@
   progressbar33,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "bitmath";
   version = "1.3.3.1";
@@ -19,7 +18,11 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [
-    (if isPy3k then progressbar33 else progressbar231)
+    (
+      if isPy3k
+      then progressbar33
+      else progressbar231
+    )
     mock
   ];
 
@@ -28,6 +31,6 @@ buildPythonPackage rec {
     mainProgram = "bitmath";
     homepage = "https://github.com/tbielawa/bitmath";
     license = licenses.mit;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

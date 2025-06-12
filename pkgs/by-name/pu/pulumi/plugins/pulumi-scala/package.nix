@@ -25,7 +25,7 @@ buildGoModule rec {
     description = "Besom - a Pulumi SDK for Scala. Also, incidentally, a broom made of twigs tied round a stick. Brooms and besoms are used for protection, to ward off evil spirits, and cleansing of ritual spaces";
     homepage = "https://github.com/VirtusLab/besom";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nikolaiser ];
+    maintainers = with lib.maintainers; [nikolaiser];
     mainProgram = "pulumi-language-scala";
     platforms = lib.platforms.all;
   };

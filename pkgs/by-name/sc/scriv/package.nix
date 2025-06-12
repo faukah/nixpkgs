@@ -7,7 +7,6 @@
   scriv,
   testers,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "scriv";
   version = "1.7.0";
@@ -18,10 +17,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-fBqL5jUdA2kuXnV4Te6g2PEbLJD5G+GLD7OjdVVbUl4=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       attrs
       click
@@ -54,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   passthru.tests = {
-    version = testers.testVersion { package = scriv; };
+    version = testers.testVersion {package = scriv;};
   };
 
   meta = {
@@ -62,7 +60,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/nedbat/scriv";
     changelog = "https://github.com/nedbat/scriv/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     mainProgram = "scriv";
   };
 }

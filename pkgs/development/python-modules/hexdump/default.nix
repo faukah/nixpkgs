@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "hexdump";
   version = "3.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "source";
 
-  pythonImportsCheck = [ "hexdump" ];
+  pythonImportsCheck = ["hexdump"];
 
   meta = with lib; {
     description = "Library to dump binary data to hex format and restore from there";

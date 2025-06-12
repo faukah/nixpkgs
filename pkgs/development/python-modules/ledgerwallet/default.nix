@@ -16,7 +16,6 @@
   tabulate,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "ledgerwallet";
   version = "0.5.0";
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     protoc --python_out=. --pyi_out=. ledgerwallet/proto/*.proto
   '';
 
-  pythonImportsCheck = [ "ledgerwallet" ];
+  pythonImportsCheck = ["ledgerwallet"];
 
   meta = with lib; {
     homepage = "https://github.com/LedgerHQ/ledgerctl";

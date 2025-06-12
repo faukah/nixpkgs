@@ -10,7 +10,6 @@
   unittestCheckHook,
   onnxruntime,
 }:
-
 buildPythonPackage rec {
   pname = "onnxconverter-common";
   version = "1.14.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   dependencies = [
     numpy
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     onnx
   ];
 
-  pythonImportsCheck = [ "onnxconverter_common" ];
+  pythonImportsCheck = ["onnxconverter_common"];
 
   nativeCheckInputs = [
     onnxruntime
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "ONNX Converter and Optimization Tools";
     homepage = "https://github.com/microsoft/onnxconverter-common";
     changelog = "https://github.com/microsoft/onnxconverter-common/releases/tag/v${version}";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
   };
 }

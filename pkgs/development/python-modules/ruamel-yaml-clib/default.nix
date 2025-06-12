@@ -5,7 +5,6 @@
   setuptools,
   cython,
 }:
-
 buildPythonPackage rec {
   pname = "ruamel-yaml-clib";
   version = "0.2.12";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-VKiNt2WJttVjMR0z4bvdSYKOZqycRONCSPQacAy5PYo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # no tests
   doCheck = false;
 
   # circular dependency with ruamel-yaml
   # pythonImportsCheck = [ "_ruamel_yaml" ];
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   preBuild = "cython _ruamel_yaml.pyx -3 --module-name _ruamel_yaml -I.";
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "YAML parser/emitter that supports roundtrip preservation of comments, seq/map flow style, and map key order";
     homepage = "https://sourceforge.net/projects/ruamel-yaml-clib/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

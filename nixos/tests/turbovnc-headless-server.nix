@@ -1,41 +1,41 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "turbovnc-headless-server";
   meta = {
-    maintainers = with lib.maintainers; [ nh2 ];
+    maintainers = with lib.maintainers; [nh2];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      mesa-demos
+      procps # for `pkill`, `pidof` in the test
+      scrot # for screenshotting Xorg
+      turbovnc
+    ];
 
-      environment.systemPackages = with pkgs; [
-        mesa-demos
-        procps # for `pkill`, `pidof` in the test
-        scrot # for screenshotting Xorg
-        turbovnc
+    programs.turbovnc.ensureHeadlessSoftwareOpenGL = true;
+
+    networking.firewall = {
+      # Reject instead of drop, for failures instead of hangs.
+      rejectPackets = true;
+      allowedTCPPorts = [
+        5900 # VNC :0, for seeing what's going on in the server
       ];
-
-      programs.turbovnc.ensureHeadlessSoftwareOpenGL = true;
-
-      networking.firewall = {
-        # Reject instead of drop, for failures instead of hangs.
-        rejectPackets = true;
-        allowedTCPPorts = [
-          5900 # VNC :0, for seeing what's going on in the server
-        ];
-      };
-
-      # So that we can ssh into the VM, see e.g.
-      # https://nixos.org/manual/nixos/stable/#sec-nixos-test-port-forwarding
-      services.openssh.enable = true;
-      users.mutableUsers = false;
-      # `test-instrumentation.nix` already sets an empty root password.
-      # The following have to all be set to allow an empty SSH login password.
-      services.openssh.settings.PermitRootLogin = "yes";
-      services.openssh.settings.PermitEmptyPasswords = "yes";
-      security.pam.services.sshd.allowNullPassword = true; # the default `UsePam yes` makes this necessary
     };
+
+    # So that we can ssh into the VM, see e.g.
+    # https://nixos.org/manual/nixos/stable/#sec-nixos-test-port-forwarding
+    services.openssh.enable = true;
+    users.mutableUsers = false;
+    # `test-instrumentation.nix` already sets an empty root password.
+    # The following have to all be set to allow an empty SSH login password.
+    services.openssh.settings.PermitRootLogin = "yes";
+    services.openssh.settings.PermitEmptyPasswords = "yes";
+    security.pam.services.sshd.allowNullPassword = true; # the default `UsePam yes` makes this necessary
+  };
 
   testScript = ''
     def wait_until_terminated_or_succeeds(
@@ -151,5 +151,4 @@
     machine.copy_from_vm("/tmp/Xvnc.stdout")
     machine.copy_from_vm("/tmp/Xvnc.stderr")
   '';
-
 }

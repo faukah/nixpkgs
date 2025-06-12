@@ -4,7 +4,6 @@
   autoreconfHook,
   ghostscript,
 }:
-
 stdenv.mkDerivation {
   pname = "ijs";
   inherit (ghostscript) version src;
@@ -13,9 +12,9 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   meta = with lib; {
     homepage = "https://www.openprinting.org/download/ijs/";
@@ -24,6 +23,6 @@ stdenv.mkDerivation {
     license = licenses.gpl3Plus;
 
     platforms = platforms.all;
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
   };
 }

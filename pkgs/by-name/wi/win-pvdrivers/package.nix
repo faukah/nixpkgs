@@ -2,9 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-}:
-
-let
+}: let
   # Upstream versioned download links are broken
   # NOTE: the archive.org timestamp must be updated if the version changes.
   # See https://xenproject.org/downloads/
@@ -42,39 +40,43 @@ let
       hash = "sha256-CaSxCKnT/KaZw8Ma60g2z+4lOOWIRisGRtzMveQqQmM=";
     }
   ];
-
 in
-stdenvNoCC.mkDerivation {
-  pname = "win-pvdrivers";
-  version = "unstable-2023-08-17";
+  stdenvNoCC.mkDerivation {
+    pname = "win-pvdrivers";
+    version = "unstable-2023-08-17";
 
-  srcs = map (
-    { hash, url }:
-    fetchurl {
-      inherit hash url;
-      # Wait & retry up to 3 times as archive.org can closes connection
-      # when an HTTP client makes too many requests
-      curlOpts = "--retry 3 --retry-delay 5";
-    }
-  ) files;
+    srcs =
+      map (
+        {
+          hash,
+          url,
+        }:
+          fetchurl {
+            inherit hash url;
+            # Wait & retry up to 3 times as archive.org can closes connection
+            # when an HTTP client makes too many requests
+            curlOpts = "--retry 3 --retry-delay 5";
+          }
+      )
+      files;
 
-  unpackPhase = ''
-    runHook preUnpack
+    unpackPhase = ''
+      runHook preUnpack
 
-    for _src in $srcs; do
-      mkdir -p $out
-      tar xfv $_src -C $out
-    done
+      for _src in $srcs; do
+        mkdir -p $out
+        tar xfv $_src -C $out
+      done
 
-    runHook postUnpack
-  '';
+      runHook postUnpack
+    '';
 
-  meta = with lib; {
-    description = "Xen Subproject: Windows PV Drivers";
-    homepage = "https://xenproject.org/developers/teams/windows-pv-drivers/";
-    license = licenses.bsd2;
-    maintainers = with maintainers; [ anthonyroussel ];
-    platforms = platforms.linux;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-  };
-}
+    meta = with lib; {
+      description = "Xen Subproject: Windows PV Drivers";
+      homepage = "https://xenproject.org/developers/teams/windows-pv-drivers/";
+      license = licenses.bsd2;
+      maintainers = with maintainers; [anthonyroussel];
+      platforms = platforms.linux;
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+    };
+  }

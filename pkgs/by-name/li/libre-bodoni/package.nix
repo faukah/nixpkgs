@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "libre-bodoni";
   version = "2.000";
@@ -39,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/impallari/Libre-Bodoni";
     license = licenses.ofl;
-    maintainers = with maintainers; [ cmfwyp ];
+    maintainers = with maintainers; [cmfwyp];
     platforms = platforms.all;
   };
 }

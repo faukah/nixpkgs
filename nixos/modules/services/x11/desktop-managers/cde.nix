@@ -4,14 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   xcfg = config.services.xserver;
   cfg = xcfg.desktopManager.cde;
-in
-{
+in {
   options.services.xserver.desktopManager.cde = {
     enable = mkEnableOption "Common Desktop Environment";
 
@@ -61,7 +57,7 @@ in
       }
     ];
 
-    users.groups.mail = { };
+    users.groups.mail = {};
     security.wrappers = {
       dtmail = {
         setgid = true;
@@ -86,5 +82,5 @@ in
     ];
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

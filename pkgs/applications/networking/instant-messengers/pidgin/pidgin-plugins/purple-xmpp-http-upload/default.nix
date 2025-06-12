@@ -6,7 +6,6 @@
   glib,
   libxml2,
 }:
-
 stdenv.mkDerivation {
   pname = "purple-xmpp-upload";
   version = "unstable-2021-11-04";
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     description = "HTTP File Upload plugin for libpurple (XMPP Protocol XEP-0363)";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ emmanuelrosa ];
+    maintainers = with maintainers; [emmanuelrosa];
   };
 }

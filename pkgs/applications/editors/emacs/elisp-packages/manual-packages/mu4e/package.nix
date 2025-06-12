@@ -3,14 +3,13 @@
   elpaBuild,
   mu,
 }:
-
 elpaBuild {
   pname = "mu4e";
   version = mu.mu4e.version;
 
   src = mu.mu4e;
 
-  propagatedUserEnvPkgs = [ mu ];
+  propagatedUserEnvPkgs = [mu];
 
   dontUnpack = false;
 
@@ -26,8 +25,10 @@ elpaBuild {
     tar --create --verbose --file=$src $content_directory
   '';
 
-  meta = removeAttrs mu.meta [ "mainProgram" ] // {
-    description = "Full-featured e-mail client";
-    maintainers = mu.meta.maintainers ++ (with lib.maintainers; [ linj ]);
-  };
+  meta =
+    removeAttrs mu.meta ["mainProgram"]
+    // {
+      description = "Full-featured e-mail client";
+      maintainers = mu.meta.maintainers ++ (with lib.maintainers; [linj]);
+    };
 }

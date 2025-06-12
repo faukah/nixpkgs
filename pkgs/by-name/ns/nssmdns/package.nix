@@ -5,7 +5,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nss-mdns";
   version = "0.15.1";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl2Plus;
     # Supports both the GNU and FreeBSD NSS.
     platforms = lib.platforms.gnu ++ lib.platforms.linux ++ lib.platforms.freebsd;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

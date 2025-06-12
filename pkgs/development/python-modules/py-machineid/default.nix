@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-machineid";
   version = "0.8.0";
@@ -15,9 +14,9 @@ buildPythonPackage rec {
     hash = "sha256-VRXV+XeQc9DKouiq8VoP3QrUJH/QuG2cRHQxyW0+NGc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "machineid" ];
+  pythonImportsCheck = ["machineid"];
 
   # Tests are not present in Pypi archive
   doCheck = false;
@@ -26,6 +25,6 @@ buildPythonPackage rec {
     description = "Get the unique machine ID of any host (without admin privileges)";
     homepage = "https://github.com/keygen-sh/py-machineid";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

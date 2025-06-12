@@ -16,9 +16,7 @@
   lib,
   libcusparse ? null,
   setupCudaHook,
-}:
-
-let
+}: let
   base = backendStdenv.mkDerivation (finalAttrs: {
     src = fetchFromGitHub {
       owner = "NVIDIA";
@@ -32,7 +30,7 @@ let
       cmake
       addDriverRunpath
     ];
-    buildInputs = [ cudatoolkit ];
+    buildInputs = [cudatoolkit];
     postFixup = ''
       for exe in $out/bin/*; do
         addDriverRunpath $exe
@@ -46,14 +44,12 @@ let
         cuSPARSE, cuSOLVER, cuFFT, cuRAND, NPP and nvJPEG.
       '';
       license = lib.licenses.bsd3;
-      platforms = [ "x86_64-linux" ];
-      maintainers = with lib.maintainers; [ obsidian-systems-maintenance ];
-      teams = [ lib.teams.cuda ];
+      platforms = ["x86_64-linux"];
+      maintainers = with lib.maintainers; [obsidian-systems-maintenance];
+      teams = [lib.teams.cuda];
     };
   });
-in
-
-{
+in {
   cublas = base.overrideAttrs (
     finalAttrs: _: {
       pname = "cuda-library-samples-cublas";
@@ -74,11 +70,13 @@ in
 
       sourceRoot = "${finalAttrs.src.name}/cuTENSOR";
 
-      buildInputs = prevAttrs.buildInputs or [ ] ++ [ cutensor ];
+      buildInputs = prevAttrs.buildInputs or [] ++ [cutensor];
 
-      cmakeFlags = prevAttrs.cmakeFlags or [ ] ++ [
-        "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${builtins.placeholder "out"}/bin"
-      ];
+      cmakeFlags =
+        prevAttrs.cmakeFlags or []
+        ++ [
+          "-DCUTENSOR_EXAMPLE_BINARY_INSTALL_DIR=${builtins.placeholder "out"}/bin"
+        ];
 
       # CUTENSOR_ROOT is double escaped
       postPatch =
@@ -90,9 +88,11 @@ in
 
       CUTENSOR_ROOT = cutensor;
 
-      meta = prevAttrs.meta or { } // {
-        broken = cutensor == null;
-      };
+      meta =
+        prevAttrs.meta or {}
+        // {
+          broken = cutensor == null;
+        };
     }
   );
 
@@ -102,17 +102,17 @@ in
 
       sourceRoot = "${finalAttrs.src.name}/cuSPARSELt/matmul";
 
-      buildInputs = prevAttrs.buildInputs or [ ] ++ lib.optionals (cudaOlder "11.4") [ cudatoolkit ];
+      buildInputs = prevAttrs.buildInputs or [] ++ lib.optionals (cudaOlder "11.4") [cudatoolkit];
 
       nativeBuildInputs =
-        prevAttrs.nativeBuildInputs or [ ]
+        prevAttrs.nativeBuildInputs or []
         ++ [
           cmake
           addDriverRunpath
           (lib.getDev cusparselt)
           (lib.getDev libcusparse)
         ]
-        ++ lib.optionals (cudaOlder "11.4") [ cudatoolkit ]
+        ++ lib.optionals (cudaOlder "11.4") [cudatoolkit]
         ++ lib.optionals (cudaAtLeast "11.4") [
           cuda_nvcc
           (lib.getDev cuda_cudart) # <cuda_runtime_api.h>
@@ -140,15 +140,17 @@ in
       CUDA_TOOLKIT_PATH = lib.getLib cudatoolkit;
       CUSPARSELT_PATH = lib.getLib cusparselt;
 
-      meta = prevAttrs.meta or { } // {
-        broken =
-          # Base dependencies
-          (cusparselt == null || libcusparse == null)
-          # CUDA 11.4+ dependencies
-          || (cudaAtLeast "11.4" && (cuda_nvcc == null || cuda_cudart == null))
-          # CUDA 12.0+ dependencies
-          || (cudaAtLeast "12.0" && cuda_cccl == null);
-      };
+      meta =
+        prevAttrs.meta or {}
+        // {
+          broken =
+            # Base dependencies
+            (cusparselt == null || libcusparse == null)
+            # CUDA 11.4+ dependencies
+            || (cudaAtLeast "11.4" && (cuda_nvcc == null || cuda_cudart == null))
+            # CUDA 12.0+ dependencies
+            || (cudaAtLeast "12.0" && cuda_cccl == null);
+        };
     }
   );
 }

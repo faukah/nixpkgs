@@ -20,7 +20,6 @@
   withFlac ? true,
   flac,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "welle-io";
   version = "2.7";
@@ -39,24 +38,28 @@ stdenv.mkDerivation (finalAttrs: {
     unixtools.xxd
   ];
 
-  buildInputs = [
-    faad2
-    fftwSinglePrec
-    lame
-    libusb-compat-0_1
-    mpg123
-    qtbase
-    qtcharts
-    qtmultimedia
-    qt5compat
-    rtl-sdr
-    soapysdr-with-plugins
-  ] ++ lib.optional withFlac flac;
+  buildInputs =
+    [
+      faad2
+      fftwSinglePrec
+      lame
+      libusb-compat-0_1
+      mpg123
+      qtbase
+      qtcharts
+      qtmultimedia
+      qt5compat
+      rtl-sdr
+      soapysdr-with-plugins
+    ]
+    ++ lib.optional withFlac flac;
 
-  cmakeFlags = [
-    "-DRTLSDR=true"
-    "-DSOAPYSDR=true"
-  ] ++ lib.optional withFlac "-DFLAC=true";
+  cmakeFlags =
+    [
+      "-DRTLSDR=true"
+      "-DSOAPYSDR=true"
+    ]
+    ++ lib.optional withFlac "-DFLAC=true";
 
   meta = {
     description = "DAB/DAB+ Software Radio";
@@ -66,9 +69,11 @@ stdenv.mkDerivation (finalAttrs: {
       markuskowa
     ];
     license = lib.licenses.gpl2Only;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
-    ] ++ lib.platforms.darwin;
+    platforms =
+      [
+        "x86_64-linux"
+        "i686-linux"
+      ]
+      ++ lib.platforms.darwin;
   };
 })

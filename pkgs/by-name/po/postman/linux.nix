@@ -49,9 +49,7 @@
   meta,
   copyDesktopItems,
   makeWrapper,
-}:
-
-let
+}: let
   dist =
     {
       aarch64-linux = {
@@ -64,104 +62,105 @@ let
         sha256 = "sha256-eEgUk3VnahmFua8UrNMUi2lG0UujiuDTs64XqaAkYe8=";
       };
     }
-    .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
+    .${
+      stdenv.hostPlatform.system
+    } or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 in
-stdenv.mkDerivation rec {
-  inherit pname version meta;
+  stdenv.mkDerivation rec {
+    inherit pname version meta;
 
-  src = fetchurl {
-    url = "https://dl.pstmn.io/download/version/${version}/linux${dist.arch}";
-    inherit (dist) sha256;
-    name = "${pname}-${version}.tar.gz";
-  };
+    src = fetchurl {
+      url = "https://dl.pstmn.io/download/version/${version}/linux${dist.arch}";
+      inherit (dist) sha256;
+      name = "${pname}-${version}.tar.gz";
+    };
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "postman";
-      exec = "postman %U";
-      icon = "postman";
-      comment = "API Development Environment";
-      desktopName = "Postman";
-      genericName = "Postman";
-      categories = [ "Development" ];
-    })
-  ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = "postman";
+        exec = "postman %U";
+        icon = "postman";
+        comment = "API Development Environment";
+        desktopName = "Postman";
+        genericName = "Postman";
+        categories = ["Development"];
+      })
+    ];
 
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    atk
-    at-spi2-atk
-    at-spi2-core
-    alsa-lib
-    cairo
-    cups
-    dbus
-    expat
-    gdk-pixbuf
-    glib
-    gtk3
-    freetype
-    fontconfig
-    libgbm
-    nss
-    nspr
-    pango
-    udev
-    libdrm
-    libsecret
-    libuuid
-    libX11
-    libxcb
-    libXi
-    libXcursor
-    libXdamage
-    libXrandr
-    libXcomposite
-    libXext
-    libXfixes
-    libXrender
-    libXtst
-    libXScrnSaver
-    libxkbcommon
-    xorg.libxshmfence
-  ];
+    buildInputs = [
+      (lib.getLib stdenv.cc.cc)
+      atk
+      at-spi2-atk
+      at-spi2-core
+      alsa-lib
+      cairo
+      cups
+      dbus
+      expat
+      gdk-pixbuf
+      glib
+      gtk3
+      freetype
+      fontconfig
+      libgbm
+      nss
+      nspr
+      pango
+      udev
+      libdrm
+      libsecret
+      libuuid
+      libX11
+      libxcb
+      libXi
+      libXcursor
+      libXdamage
+      libXrandr
+      libXcomposite
+      libXext
+      libXfixes
+      libXrender
+      libXtst
+      libXScrnSaver
+      libxkbcommon
+      xorg.libxshmfence
+    ];
 
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      wrapGAppsHook3
+      copyDesktopItems
+    ];
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/share/postman
-    cp -R app/* $out/share/postman
-    rm $out/share/postman/Postman
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/share/postman
+      cp -R app/* $out/share/postman
+      rm $out/share/postman/Postman
 
-    mkdir -p $out/bin
-    ln -s $out/share/postman/postman $out/bin/postman
+      mkdir -p $out/bin
+      ln -s $out/share/postman/postman $out/bin/postman
 
-    source "${makeWrapper}/nix-support/setup-hook"
-    wrapProgram $out/bin/${pname} \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"
+      source "${makeWrapper}/nix-support/setup-hook"
+      wrapProgram $out/bin/${pname} \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime=true}}"
 
-    mkdir -p $out/share/icons/hicolor/128x128/apps
-    ln -s $out/share/postman/resources/app/assets/icon.png $out/share/icons/postman.png
-    ln -s $out/share/postman/resources/app/assets/icon.png $out/share/icons/hicolor/128x128/apps/postman.png
-    runHook postInstall
-  '';
+      mkdir -p $out/share/icons/hicolor/128x128/apps
+      ln -s $out/share/postman/resources/app/assets/icon.png $out/share/icons/postman.png
+      ln -s $out/share/postman/resources/app/assets/icon.png $out/share/icons/hicolor/128x128/apps/postman.png
+      runHook postInstall
+    '';
 
-  postFixup = ''
-    pushd $out/share/postman
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" postman
-    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" chrome_crashpad_handler
-    for file in $(find . -type f \( -name \*.node -o -name postman -o -name \*.so\* \) ); do
-      ORIGIN=$(patchelf --print-rpath $file); \
-      patchelf --set-rpath "${lib.makeLibraryPath buildInputs}:$ORIGIN" $file
-    done
-    popd
-    wrapProgram $out/bin/postman --set PATH ${lib.makeBinPath [ openssl ]}
-  '';
-}
+    postFixup = ''
+      pushd $out/share/postman
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" postman
+      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" chrome_crashpad_handler
+      for file in $(find . -type f \( -name \*.node -o -name postman -o -name \*.so\* \) ); do
+        ORIGIN=$(patchelf --print-rpath $file); \
+        patchelf --set-rpath "${lib.makeLibraryPath buildInputs}:$ORIGIN" $file
+      done
+      popd
+      wrapProgram $out/bin/postman --set PATH ${lib.makeBinPath [openssl]}
+    '';
+  }

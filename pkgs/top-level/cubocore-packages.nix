@@ -2,16 +2,13 @@
   lib,
   newScope,
   lxqt,
-}:
-
-let
-  packages =
-    self: with self; {
-
+}: let
+  packages = self:
+    with self; {
       # Libs
-      libcprime = callPackage ../applications/misc/cubocore-packages/libcprime { };
+      libcprime = callPackage ../applications/misc/cubocore-packages/libcprime {};
 
-      libcsys = callPackage ../applications/misc/cubocore-packages/libcsys { };
+      libcsys = callPackage ../applications/misc/cubocore-packages/libcsys {};
 
       # Apps
       coreaction = callPackage ../applications/misc/cubocore-packages/coreaction {
@@ -96,4 +93,4 @@ let
       };
     };
 in
-lib.makeScope newScope packages
+  lib.makeScope newScope packages

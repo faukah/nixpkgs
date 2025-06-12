@@ -11,7 +11,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pixi";
   version = "0.48.0";
@@ -47,8 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd pixi \
         --bash <(${emulator} $out/bin/pixi completion --shell bash) \
         --fish <(${emulator} $out/bin/pixi completion --shell fish) \
@@ -62,7 +60,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Package management made easy";

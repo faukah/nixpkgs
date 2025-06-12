@@ -5,7 +5,6 @@
   cmake,
   qtbase,
 }:
-
 stdenv.mkDerivation {
   pname = "libirc";
   version = "unstable-2022-10-15";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "Qi/YKLlau0rdQ9XCMyreQdv4ctQWHFIoE3YlW6QnbSI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DQT5_BUILD=1"
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     description = "C++ IRC library written in Qt with support for data serialization";
     homepage = "https://github.com/grumpy-irc/libirc";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ fee1-dead ];
+    maintainers = with maintainers; [fee1-dead];
     platforms = platforms.linux;
   };
 }

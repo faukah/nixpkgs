@@ -7,7 +7,6 @@
   pkg-config,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-redis";
   version = "2.2.0";
@@ -27,16 +26,16 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Redis module for Guile";
     homepage = "https://github.com/aconchillo/guile-redis";
     changelog = "https://github.com/aconchillo/guile-redis/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = guile.meta.platforms;
   };
 })

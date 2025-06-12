@@ -10,7 +10,6 @@
   static ? stdenv.hostPlatform.isStatic,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pciutils";
   version = "3.13.0"; # with release-date database
@@ -22,11 +21,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-buhq7SN6eH+sckvT5mJ8eP4C1EP/4CUFt3gooJohJW0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [
-    which
-    zlib
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ kmod ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs =
+    [
+      which
+      zlib
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [kmod];
 
   preConfigure = lib.optionalString (!stdenv.cc.isGNU) ''
     substituteInPlace Makefile --replace 'CC=$(CROSS_COMPILE)gcc' ""
@@ -35,7 +36,11 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   makeFlags = [
-    "SHARED=${if static then "no" else "yes"}"
+    "SHARED=${
+      if static
+      then "no"
+      else "yes"
+    }"
     "PREFIX=\${out}"
     "STRIP="
     "HOST=${stdenv.hostPlatform.system}"
@@ -69,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "Collection of programs for inspecting and manipulating configuration of PCI devices";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.vcunat ]; # not really, but someone should watch it
+    maintainers = [maintainers.vcunat]; # not really, but someone should watch it
     mainProgram = "lspci";
   };
 }

@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.opentracker;
-in
-{
+in {
   options.services.opentracker = {
     enable = lib.mkEnableOption "opentracker";
 
-    package = lib.mkPackageOption pkgs "opentracker" { };
+    package = lib.mkPackageOption pkgs "opentracker" {};
 
     extraOptions = lib.mkOption {
       type = lib.types.separatedString " ";
@@ -24,11 +22,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     systemd.services.opentracker = {
       description = "opentracker server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       restartIfChanged = true;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/opentracker ${cfg.extraOptions}";

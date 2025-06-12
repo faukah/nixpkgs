@@ -10,7 +10,6 @@
   gtk3,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "prs";
   version = "0.5.2";
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       lgpl3Only # lib
       gpl3Only # everything else
     ];
-    maintainers = with lib.maintainers; [ colemickens ];
+    maintainers = with lib.maintainers; [colemickens];
     mainProgram = "prs";
   };
 }

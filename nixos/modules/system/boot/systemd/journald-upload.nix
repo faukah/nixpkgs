@@ -3,19 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.journald.upload;
   format = pkgs.formats.systemd;
-in
-{
-  meta.maintainers = [ lib.maintainers.raitobezarius ];
+in {
+  meta.maintainers = [lib.maintainers.raitobezarius];
   options.services.journald.upload = {
     enable = lib.mkEnableOption "uploading the systemd journal to a remote server";
 
     settings = lib.mkOption {
-      default = { };
+      default = {};
 
       description = ''
         Configuration for journal-upload. See {manpage}`journal-upload.conf(5)`
@@ -99,10 +96,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.additionalUpstreamSystemUnits = [ "systemd-journal-upload.service" ];
+    systemd.additionalUpstreamSystemUnits = ["systemd-journal-upload.service"];
 
     systemd.services."systemd-journal-upload" = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Restart = "always";
         # To prevent flooding the server in case the server is struggling

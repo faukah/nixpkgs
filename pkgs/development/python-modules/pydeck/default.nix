@@ -14,7 +14,6 @@
   traitlets,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pydeck";
   version = "0.9.1";
@@ -56,20 +55,22 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pydeck" ];
+  pythonImportsCheck = ["pydeck"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pandas
-  ] ++ optional-dependencies.jupyter;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pandas
+    ]
+    ++ optional-dependencies.jupyter;
 
   # tries to start a jupyter server
-  disabledTests = [ "test_nbconvert" ];
+  disabledTests = ["test_nbconvert"];
 
   meta = with lib; {
     homepage = "https://github.com/visgl/deck.gl/tree/master/bindings/pydeck";
     description = "Large-scale interactive data visualization in Python";
-    maintainers = with maintainers; [ creator54 ];
+    maintainers = with maintainers; [creator54];
     license = licenses.asl20;
   };
 }

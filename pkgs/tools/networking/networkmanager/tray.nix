@@ -9,7 +9,6 @@
   networkmanager-qt,
   modemmanager-qt,
 }:
-
 mkDerivation rec {
   pname = "nm-tray";
   version = "0.5.0";
@@ -31,7 +30,7 @@ mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags = [ "-DWITH_MODEMMANAGER_SUPPORT=ON" ];
+  cmakeFlags = ["-DWITH_MODEMMANAGER_SUPPORT=ON"];
 
   buildInputs = [
     qtbase
@@ -44,7 +43,7 @@ mkDerivation rec {
     mainProgram = "nm-tray";
     homepage = "https://github.com/palinek/nm-tray";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     platforms = platforms.linux;
   };
 }

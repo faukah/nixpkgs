@@ -8,7 +8,6 @@
   sha256,
   ...
 }:
-
 stdenv.mkDerivation {
   pname = "asio";
   inherit version;
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     inherit sha256;
   };
 
-  propagatedBuildInputs = [ boost ];
+  propagatedBuildInputs = [boost];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     homepage = "http://asio.sourceforge.net/";

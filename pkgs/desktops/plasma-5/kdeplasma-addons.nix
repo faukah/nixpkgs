@@ -21,7 +21,6 @@
   qtwebengine,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "kdeplasma-addons";
   nativeBuildInputs = [

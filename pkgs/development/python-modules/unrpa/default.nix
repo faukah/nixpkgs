@@ -5,7 +5,6 @@
   uncompyle6,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "unrpa";
   version = "2.3.0";
@@ -19,10 +18,10 @@ buildPythonPackage rec {
   };
 
   optional-dependencies = {
-    ZiX = [ uncompyle6 ];
+    ZiX = [uncompyle6];
   };
 
-  pythonImportsCheck = [ "unrpa" ];
+  pythonImportsCheck = ["unrpa"];
 
   # upstream has no unit tests
   doCheck = false;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Program to extract files from the RPA archive format";
     mainProgram = "unrpa";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

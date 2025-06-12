@@ -18,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-Mf/tbB9+UdmSRpulqv5Wagr8wjDcRrNs2741DNQZhO4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_jq" ];
+  pythonImportsCheck = ["llm_jq"];
 
   passthru.tests = llm.mkPluginTest llm-jq;
 
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-jq";
     changelog = "https://github.com/simonw/llm-jq/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ josh ];
+    maintainers = with lib.maintainers; [josh];
   };
 }

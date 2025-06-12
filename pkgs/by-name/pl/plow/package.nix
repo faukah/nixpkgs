@@ -5,7 +5,6 @@
   testers,
   plow,
 }:
-
 buildGoModule rec {
   pname = "plow";
   version = "1.3.2";
@@ -34,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/six-ddc/plow";
     changelog = "https://github.com/six-ddc/plow/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ecklf ];
+    maintainers = with lib.maintainers; [ecklf];
     mainProgram = "plow";
   };
 }

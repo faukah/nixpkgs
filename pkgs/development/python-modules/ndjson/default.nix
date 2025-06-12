@@ -7,7 +7,6 @@
   six,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "ndjson";
   version = "0.3.1";
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     watchdog
   ];
 
-  pythonImportsCheck = [ "ndjson" ];
+  pythonImportsCheck = ["ndjson"];
 
   meta = with lib; {
     description = "Module supports ndjson";
     homepage = "https://github.com/rhgrant10/ndjson";
     changelog = "https://github.com/rhgrant10/ndjson/blob/v${version}/HISTORY.rst";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

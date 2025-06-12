@@ -2,13 +2,12 @@
   useNixpkgsEngine ? false,
   version,
   engineVersion,
-  engineHashes ? { },
+  engineHashes ? {},
   engineUrl ?
-    if lib.versionAtLeast version "3.29" then
-      "https://github.com/flutter/flutter.git@${engineVersion}"
-    else
-      "https://github.com/flutter/engine.git@${engineVersion}",
-  enginePatches ? [ ],
+    if lib.versionAtLeast version "3.29"
+    then "https://github.com/flutter/flutter.git@${engineVersion}"
+    else "https://github.com/flutter/engine.git@${engineVersion}",
+  enginePatches ? [],
   engineRuntimeModes ? [
     "release"
     "debug"
@@ -30,11 +29,10 @@
   which,
   jq,
   flutterTools ? null,
-}@args:
-
-let
+} @ args: let
   engine =
-    if args.useNixpkgsEngine or false then
+    if args.useNixpkgsEngine or false
+    then
       callPackage ./engine/default.nix {
         inherit (args) dart;
         dartSdkVersion = args.dart.version;
@@ -47,10 +45,12 @@ let
         patches = enginePatches;
         runtimeModes = engineRuntimeModes;
       }
-    else
-      null;
+    else null;
 
-  dart = if args.useNixpkgsEngine or false then engine.dart else args.dart;
+  dart =
+    if args.useNixpkgsEngine or false
+    then engine.dart
+    else args.dart;
 
   flutterTools =
     args.flutterTools or (callPackage ./flutter-tools.nix {
@@ -65,11 +65,13 @@ let
     name = "flutter-${version}-unwrapped";
     inherit src patches version;
 
-    nativeBuildInputs = [
-      makeWrapper
-      jq
-      gitMinimal
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
+    nativeBuildInputs =
+      [
+        makeWrapper
+        jq
+        gitMinimal
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools];
     strictDeps = true;
 
     preConfigure = ''
@@ -151,9 +153,11 @@ let
     '';
 
     doInstallCheck = true;
-    nativeInstallCheckInputs = [
-      which
-    ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
+    nativeInstallCheckInputs =
+      [
+        which
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools];
     installCheckPhase = ''
       runHook preInstallCheck
 
@@ -201,8 +205,8 @@ let
       maintainers = with maintainers; [
         ericdallo
       ];
-      teams = [ teams.flutter ];
+      teams = [teams.flutter];
     };
   };
 in
-unwrapped
+  unwrapped

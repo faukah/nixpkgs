@@ -5,7 +5,6 @@
   pythonOlder,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-devhelp";
   version = "2.0.0";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-QR9dltRF0dc7tdUhMzd7QkjsedtceTzn2+WeB0tN0a0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # Check is disabled due to circular dependency of sphinx
   dontCheckRuntimeDeps = true;
   doCheck = false;
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "sphinxcontrib-devhelp is a sphinx extension which outputs Devhelp document";
     homepage = "https://github.com/sphinx-doc/sphinxcontrib-devhelp";
     license = licenses.bsd2;
-    teams = [ teams.sphinx ];
+    teams = [teams.sphinx];
   };
 }

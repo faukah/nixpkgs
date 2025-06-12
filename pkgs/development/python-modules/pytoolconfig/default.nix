@@ -16,7 +16,6 @@
   tabulate,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "pytoolconfig";
   version = "1.3.1";
@@ -38,32 +37,36 @@ buildPythonPackage rec {
 
   PDM_PEP517_SCM_VERSION = version;
 
-  nativeBuildInputs = [
-    pdm-backend
+  nativeBuildInputs =
+    [
+      pdm-backend
 
-    # docs
-    docutils
-    sphinx-autodoc-typehints
-    sphinx-rtd-theme
-    sphinxHook
-  ] ++ optional-dependencies.doc;
+      # docs
+      docutils
+      sphinx-autodoc-typehints
+      sphinx-rtd-theme
+      sphinxHook
+    ]
+    ++ optional-dependencies.doc;
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [packaging] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
-    validation = [ pydantic ];
-    global = [ platformdirs ];
+    validation = [pydantic];
+    global = [platformdirs];
     doc = [
       sphinx
       tabulate
     ];
   };
 
-  pythonImportsCheck = [ "pytoolconfig" ];
+  pythonImportsCheck = ["pytoolconfig"];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   meta = with lib; {
     description = "Python tool configuration";

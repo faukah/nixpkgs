@@ -3,17 +3,15 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.birdwatcher;
-in
-{
+in {
   options = {
     services.birdwatcher = {
-      package = lib.mkPackageOption pkgs "birdwatcher" { };
+      package = lib.mkPackageOption pkgs "birdwatcher" {};
       enable = lib.mkEnableOption "Birdwatcher";
       flags = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = [
           "-worker-pool-size 16"
@@ -26,7 +24,7 @@ in
 
       settings = lib.mkOption {
         type = lib.types.lines;
-        default = { };
+        default = {};
         description = ''
           birdwatcher configuration, for configuration options see the example on [github](https://github.com/alice-lg/birdwatcher/blob/master/etc/birdwatcher/birdwatcher.conf)
         '';
@@ -76,10 +74,9 @@ in
     };
   };
 
-  config =
-    let
-      flagsStr = lib.escapeShellArgs cfg.flags;
-    in
+  config = let
+    flagsStr = lib.escapeShellArgs cfg.flags;
+  in
     lib.mkIf cfg.enable {
       environment.etc."birdwatcher/birdwatcher.conf".source = pkgs.writeTextFile {
         name = "birdwatcher.conf";
@@ -87,9 +84,9 @@ in
       };
       systemd.services = {
         birdwatcher = {
-          wants = [ "network.target" ];
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          wants = ["network.target"];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           description = "Birdwatcher";
           serviceConfig = {
             Type = "simple";
@@ -108,7 +105,7 @@ in
             ProtectKernelModules = true;
             ProtectKernelLogs = true;
             ProtectControlGroups = true;
-            RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
+            RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6"];
             LockPersonality = true;
             MemoryDenyWriteExecute = true;
             RestrictRealtime = true;

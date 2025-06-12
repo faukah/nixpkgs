@@ -12,7 +12,6 @@
   xarray,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "wrf-python";
   version = "1.3.4.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-4iIs/M9fzGJsnKCDSl09OTUoh7j6REBXuutE5uXFe3k=";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   propagatedBuildInputs = [
     basemap
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [ netcdf4 ];
+  nativeCheckInputs = [netcdf4];
 
   checkPhase = ''
     runHook preCheck
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "wrf" ];
+  pythonImportsCheck = ["wrf"];
 
   meta = with lib; {
     # `ModuleNotFoundError: No module named 'distutils.msvccompiler'` on Python 3.11
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "WRF postprocessing library for Python";
     homepage = "http://wrf-python.rtfd.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mhaselsteiner ];
+    maintainers = with maintainers; [mhaselsteiner];
   };
 }

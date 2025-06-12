@@ -4,7 +4,6 @@
   fetchurl,
   libinklevel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ink";
   version = "0.5.3";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ink.sourceforge.net/";
     license = licenses.gpl2Only;
     platforms = platforms.linux ++ platforms.freebsd;
-    maintainers = with maintainers; [ samb96 ];
+    maintainers = with maintainers; [samb96];
     mainProgram = "ink";
   };
 }

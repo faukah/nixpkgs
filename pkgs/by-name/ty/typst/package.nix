@@ -9,7 +9,6 @@
   versionCheckHook,
   callPackage,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "typst";
   version = "0.13.1";
@@ -53,16 +52,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --zsh crates/typst-cli/artifacts/_typst
   '';
 
-  cargoTestFlags = [ "--workspace" ];
+  cargoTestFlags = ["--workspace"];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
-    packages = callPackage ./typst-packages.nix { };
-    withPackages = callPackage ./with-packages.nix { };
+    updateScript = nix-update-script {};
+    packages = callPackage ./typst-packages.nix {};
+    withPackages = callPackage ./with-packages.nix {};
   };
 
   meta = {

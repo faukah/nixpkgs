@@ -4,24 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.shairport-sync;
-  configFormat = pkgs.formats.libconfig { };
+  configFormat = pkgs.formats.libconfig {};
   configFile = configFormat.generate "shairport-sync.conf" cfg.settings;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.shairport-sync = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -33,7 +24,7 @@ in
         '';
       };
 
-      package = lib.options.mkPackageOption pkgs "shairport-sync" { };
+      package = lib.options.mkPackageOption pkgs "shairport-sync" {};
 
       settings = mkOption {
         type = configFormat.type;
@@ -104,15 +95,12 @@ in
           will be created.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.services.shairport-sync.enable {
-
     services.avahi.enable = true;
     services.avahi.publish.enable = true;
     services.avahi.publish.userServices = true;
@@ -129,15 +117,17 @@ in
         createHome = true;
         home = "/var/lib/shairport-sync";
         group = cfg.group;
-        extraGroups = [
-          "audio"
-        ] ++ optional (config.services.pulseaudio.enable || config.services.pipewire.pulse.enable) "pulse";
+        extraGroups =
+          [
+            "audio"
+          ]
+          ++ optional (config.services.pulseaudio.enable || config.services.pipewire.pulse.enable) "pulse";
       };
-      groups.${cfg.group} = { };
+      groups.${cfg.group} = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ 5000 ];
+      allowedTCPPorts = [5000];
       allowedUDPPortRanges = [
         {
           from = 6001;
@@ -152,7 +142,7 @@ in
         "network.target"
         "avahi-daemon.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -163,9 +153,8 @@ in
     };
 
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
       etc."shairport-sync.conf".source = configFile;
     };
   };
-
 }

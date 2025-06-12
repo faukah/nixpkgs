@@ -5,7 +5,6 @@
   fetchpatch,
   kissfft,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qm-dsp";
   version = "1.7.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "C++ library of functions for DSP and Music Informatics purposes";
     homepage = "https://code.soundsoftware.ac.uk/projects/qm-dsp";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

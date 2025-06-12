@@ -7,9 +7,7 @@
   readline,
   ronn,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "cpcfs";
   version = "0.85.4";
 
@@ -51,7 +49,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cpcfs";
     homepage = "https://github.com/derikz/cpcfs/";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

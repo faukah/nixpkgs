@@ -6,7 +6,6 @@
   addonUpdateScript,
   requests,
 }:
-
 buildKodiAddon rec {
   pname = "radioparadise";
   namespace = "script.radioparadise";
@@ -32,6 +31,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/alxndr42/script.radioparadise";
     description = "Radio Paradise addon for Kodi";
     license = licenses.gpl3Plus;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

@@ -13,7 +13,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "craft-cli";
   version = "3.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools==75.2.0" "setuptools"
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     jinja2
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  pythonImportsCheck = [ "craft_cli" ];
+  pythonImportsCheck = ["craft_cli"];
 
   nativeCheckInputs = [
     pytest-check
@@ -50,16 +49,16 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI builder for Canonical's CLI Guidelines";
     homepage = "https://github.com/canonical/craft-cli";
     changelog = "https://github.com/canonical/craft-cli/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

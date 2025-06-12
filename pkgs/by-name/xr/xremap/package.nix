@@ -3,8 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
-}:
-let
+}: let
   pname = "xremap";
   version = "0.10.12";
 
@@ -17,71 +16,69 @@ let
 
   cargoHash = "sha256-PqGY/fVW5jkTicKs0cONzdVrRFVOaHyVrFip4QADWck=";
 
-  buildXremap =
-    {
-      suffix ? "",
-      features ? [ ],
-      descriptionSuffix ? "",
-    }:
-    assert descriptionSuffix != "" && features != [ ];
-    rustPlatform.buildRustPackage {
-      pname = "${pname}${suffix}";
-      inherit version src cargoHash;
+  buildXremap = {
+    suffix ? "",
+    features ? [],
+    descriptionSuffix ? "",
+  }:
+    assert descriptionSuffix != "" && features != [];
+      rustPlatform.buildRustPackage {
+        pname = "${pname}${suffix}";
+        inherit version src cargoHash;
 
-      nativeBuildInputs = [ pkg-config ];
+        nativeBuildInputs = [pkg-config];
 
-      buildNoDefaultFeatures = true;
-      buildFeatures = features;
+        buildNoDefaultFeatures = true;
+        buildFeatures = features;
 
-      useFetchCargoVendor = true;
+        useFetchCargoVendor = true;
 
-      meta = {
-        description =
-          "Key remapper for X11 and Wayland"
-          + lib.optionalString (descriptionSuffix != "") " (${descriptionSuffix} support)";
-        homepage = "https://github.com/xremap/xremap";
-        changelog = "https://github.com/xremap/xremap/blob/${src.tag}/CHANGELOG.md";
-        license = lib.licenses.mit;
-        mainProgram = "xremap";
-        maintainers = [ lib.maintainers.hakan-demirli ];
-        platforms = lib.platforms.linux;
+        meta = {
+          description =
+            "Key remapper for X11 and Wayland"
+            + lib.optionalString (descriptionSuffix != "") " (${descriptionSuffix} support)";
+          homepage = "https://github.com/xremap/xremap";
+          changelog = "https://github.com/xremap/xremap/blob/${src.tag}/CHANGELOG.md";
+          license = lib.licenses.mit;
+          mainProgram = "xremap";
+          maintainers = [lib.maintainers.hakan-demirli];
+          platforms = lib.platforms.linux;
+        };
       };
-    };
 
   variants = {
     x11 = buildXremap {
-      features = [ "x11" ];
+      features = ["x11"];
       descriptionSuffix = "X11";
     };
     gnome = buildXremap {
       suffix = "-gnome";
-      features = [ "gnome" ];
+      features = ["gnome"];
       descriptionSuffix = "Gnome";
     };
     kde = buildXremap {
       suffix = "-kde";
-      features = [ "kde" ];
+      features = ["kde"];
       descriptionSuffix = "KDE";
     };
     wlroots = buildXremap {
       suffix = "-wlroots";
-      features = [ "wlroots" ];
+      features = ["wlroots"];
       descriptionSuffix = "wlroots";
     };
     hyprland = buildXremap {
       suffix = "-hyprland";
-      features = [ "hypr" ];
+      features = ["hypr"];
       descriptionSuffix = "Hyprland";
     };
   };
-
 in
-variants.wlroots.overrideAttrs (finalAttrs: {
-  passthru = {
-    gnome = variants.gnome;
-    kde = variants.kde;
-    wlroots = variants.wlroots;
-    hyprland = variants.hyprland;
-    x11 = variants.x11;
-  };
-})
+  variants.wlroots.overrideAttrs (finalAttrs: {
+    passthru = {
+      gnome = variants.gnome;
+      kde = variants.kde;
+      wlroots = variants.wlroots;
+      hyprland = variants.hyprland;
+      x11 = variants.x11;
+    };
+  })

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "asciigraph";
   version = "0.7.3";
@@ -27,6 +26,6 @@ buildGoModule rec {
     description = "Lightweight ASCII line graph ╭┈╯ command line app";
     mainProgram = "asciigraph";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

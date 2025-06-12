@@ -7,7 +7,6 @@
   systemd,
   autoPatchelfHook,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unifi-controller";
   version = "9.1.120";
@@ -36,12 +35,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) unifi; };
+  passthru.tests = {inherit (nixosTests) unifi;};
 
   meta = with lib; {
     homepage = "https://www.ui.com";
     description = "Controller for Ubiquiti UniFi access points";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"

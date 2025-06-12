@@ -14,7 +14,6 @@
   groff,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dico";
   version = "2.12";
@@ -24,9 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-couJxQ4JC/+Dno97MEO1xwI/hhqSEckwSLQqtFWGavc=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
   buildInputs = [
     libtool
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Flexible dictionary server and client implementing RFC 2229";
     homepage = "https://www.gnu.org/software/dico/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
 
     longDescription = ''

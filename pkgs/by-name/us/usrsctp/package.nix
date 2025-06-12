@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "usrsctp";
   version = "0.9.5.0";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/sctplab/usrsctp/issues/662
   postPatch = ''
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/sctplab/usrsctp";
     description = "Portable SCTP userland stack";
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
     license = licenses.bsd3;
     platforms = platforms.unix;
   };

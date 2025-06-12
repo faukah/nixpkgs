@@ -35,7 +35,6 @@
   tree-sitter,
   typing-inspect,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-core";
   version = "0.12.37";
@@ -66,9 +65,9 @@ buildPythonPackage rec {
     cp -r ${nltk-data.punkt}/tokenizers/punkt/* llama_index/core/_static/nltk_cache/tokenizers/punkt/
   '';
 
-  pythonRelaxDeps = [ "tenacity" ];
+  pythonRelaxDeps = ["tenacity"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -105,7 +104,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "llama_index" ];
+  pythonImportsCheck = ["llama_index"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -156,6 +155,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/run-llama/llama_index/";
     changelog = "https://github.com/run-llama/llama_index/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

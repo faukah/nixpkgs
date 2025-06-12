@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "steam-acf";
   version = "0.1.0";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ chisui ];
+    maintainers = with maintainers; [chisui];
     mainProgram = "acf";
   };
 }

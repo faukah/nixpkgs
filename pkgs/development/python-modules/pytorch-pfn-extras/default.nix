@@ -3,23 +3,19 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   numpy,
   packaging,
   torch,
   typing-extensions,
-
   # tests
   onnx,
   pytestCheckHook,
   torchvision,
   pythonAtLeast,
 }:
-
 buildPythonPackage rec {
   pname = "pytorch-pfn-extras";
   version = "0.8.2";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-FQwCdn9zUWHyUYAGHPNxQXN7O0bSLBHJrByxzCxUtio=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     numpy
@@ -53,7 +49,7 @@ buildPythonPackage rec {
     "-Wignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "pytorch_pfn_extras" ];
+  pythonImportsCheck = ["pytorch_pfn_extras"];
 
   disabledTests =
     [
@@ -115,7 +111,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pfnet/pytorch-pfn-extras";
     changelog = "https://github.com/pfnet/pytorch-pfn-extras/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
     badPlatforms = [
       # test_profile_report is broken on darwin
       lib.systems.inspect.patterns.isDarwin

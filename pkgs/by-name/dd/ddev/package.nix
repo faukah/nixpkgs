@@ -7,7 +7,6 @@
   testers,
   ddev,
 }:
-
 buildGoModule rec {
   pname = "ddev";
   version = "1.24.6";
@@ -61,6 +60,6 @@ buildGoModule rec {
     license = licenses.asl20;
     platforms = platforms.unix;
     mainProgram = "ddev";
-    maintainers = with maintainers; [ remyvv ];
+    maintainers = with maintainers; [remyvv];
   };
 }

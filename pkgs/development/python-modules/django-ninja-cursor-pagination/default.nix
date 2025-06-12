@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-django,
 }:
-
 buildPythonPackage {
   pname = "django-ninja-cursor-pagination";
   version = "0.1.0";
@@ -41,6 +40,6 @@ buildPythonPackage {
     description = "Django Ninja extension for cursor-based pagination";
     homepage = "https://github.com/kitware-resonant/django-ninja-cursor-pagination";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

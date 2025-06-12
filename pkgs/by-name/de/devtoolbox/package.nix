@@ -122,7 +122,7 @@ python3Packages.buildPythonApplication rec {
       unlicense
     ];
     mainProgram = "devtoolbox";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

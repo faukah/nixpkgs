@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "systemd_exporter";
   version = "0.7.0";
@@ -28,13 +27,13 @@ buildGoModule rec {
     "-X github.com/prometheus/common/version.BuildDate=unknown"
   ];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) systemd; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) systemd;};
 
   meta = with lib; {
     description = "Exporter for systemd unit metrics";
     mainProgram = "systemd_exporter";
     homepage = "https://github.com/prometheus-community/systemd_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ chkno ];
+    maintainers = with maintainers; [chkno];
   };
 }

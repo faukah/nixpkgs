@@ -3,7 +3,6 @@
   stdenv,
   fetchzip,
 }:
-
 stdenv.mkDerivation {
   pname = "pthreads-w32";
   version = "2.9.1";
@@ -30,7 +29,7 @@ stdenv.mkDerivation {
     description = "POSIX threads library for Windows";
     homepage = "https://sourceware.org/pthreads-win32";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.windows;
   };
 }

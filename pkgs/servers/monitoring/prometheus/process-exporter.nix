@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "process-exporter";
   version = "0.8.7";
@@ -24,13 +23,13 @@ buildGoModule rec {
 
   doCheck = true;
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) process; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) process;};
 
   meta = with lib; {
     description = "Prometheus exporter that mines /proc to report on selected processes";
     homepage = "https://github.com/ncabatoff/process-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
     platforms = platforms.linux;
   };
 }

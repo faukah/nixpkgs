@@ -14,7 +14,6 @@
   buildBluetoothLowEnergy ? true,
   buildONNX ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brainflow";
   version = "5.18.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-jaDFi4lbaX6aOWBR9pvTS5UHuUdHomQ/nssj4IE/aOE=";
   };
 
-  patches = [ ];
+  patches = [];
 
   cmakeFlags = [
     (lib.cmakeBool "USE_LIBFTDI" useLibFTDI)
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ dbus ]
+    [dbus]
     ++ lib.optional (buildBluetooth || buildBluetoothLowEnergy) bluez
     ++ lib.optional useLibFTDI libftdi1;
 
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i 's/DESTINATION inc/DESTINATION include/g' {} \;
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Library to obtain, parse and analyze data (EEG, EMG, ECG) from biosensors";

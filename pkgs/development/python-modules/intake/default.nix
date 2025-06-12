@@ -27,7 +27,6 @@
   setuptools-scm,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "intake";
   version = "2.0.7";
@@ -59,10 +58,12 @@ buildPythonPackage rec {
     networkx
   ];
 
-  nativeCheckInputs = [
-    intake-parquet
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      intake-parquet
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   optional-dependencies = {
     server = [
@@ -79,7 +80,7 @@ buildPythonPackage rec {
       bokeh
       panel
     ];
-    remote = [ requests ];
+    remote = [requests];
   };
 
   __darwinAllowLocalNetworking = true;
@@ -133,13 +134,13 @@ buildPythonPackage rec {
       "test_load"
     ];
 
-  pythonImportsCheck = [ "intake" ];
+  pythonImportsCheck = ["intake"];
 
   meta = with lib; {
     description = "Data load and catalog system";
     homepage = "https://github.com/ContinuumIO/intake";
     changelog = "https://github.com/intake/intake/blob/${version}/docs/source/changelog.rst";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

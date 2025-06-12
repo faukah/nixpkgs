@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ecos";
   version = "2.0.10";
@@ -50,6 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/embotech/ecos/releases";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bhipple ];
+    maintainers = with lib.maintainers; [bhipple];
   };
 })

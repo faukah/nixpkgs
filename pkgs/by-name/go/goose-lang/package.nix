@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "goose-lang";
   version = "0.9.2";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/goose-lang/goose";
     changelog = "https://github.com/goose-lang/goose/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stepbrobd ];
+    maintainers = with lib.maintainers; [stepbrobd];
     mainProgram = "goose";
   };
 }

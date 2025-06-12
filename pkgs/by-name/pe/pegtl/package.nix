@@ -6,7 +6,6 @@
   ninja,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pegtl";
   version = "3.2.8";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/taocpp/pegtl";
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
       for creating parsers according to a Parsing Expression Grammar (PEG).
     '';
     license = lib.licenses.boost;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 })

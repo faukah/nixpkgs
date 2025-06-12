@@ -18,7 +18,6 @@
   fribidi,
   vte,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cherrytree";
   version = "1.4.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.giuspen.com/cherrytree";
     changelog = "https://raw.githubusercontent.com/giuspen/cherrytree/${finalAttrs.version}/changelog.txt";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

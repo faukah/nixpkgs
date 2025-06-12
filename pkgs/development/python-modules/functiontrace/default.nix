@@ -6,7 +6,6 @@
   toml,
   functiontrace-server,
 }:
-
 buildPythonPackage rec {
   pname = "functiontrace";
   version = "0.3.10";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "functiontrace" ];
+  pythonImportsCheck = ["functiontrace"];
 
   # `functiontrace` needs `functiontrace-server` in its path.
   # Technically we also need this when running via a Python import, such as for
   # `python3 -m functiontrace`, but that's a less common use-case.
   postFixup = ''
     wrapProgram $out/bin/functiontrace \
-      --prefix PATH : ${lib.makeBinPath [ functiontrace-server ]}
+      --prefix PATH : ${lib.makeBinPath [functiontrace-server]}
   '';
 
   meta = with lib; {

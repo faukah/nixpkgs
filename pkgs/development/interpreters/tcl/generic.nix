@@ -7,16 +7,13 @@
   tzdata,
   zip,
   zlib,
-
   # Version specific stuff
   release,
   version,
   src,
   extraPatch ? "",
   ...
-}:
-
-let
+}: let
   baseInterp = stdenv.mkDerivation rec {
     pname = "tcl";
     inherit version src;
@@ -93,28 +90,26 @@ let
 
     enableParallelBuilding = true;
 
-    postInstall =
-      let
-        dllExtension = stdenv.hostPlatform.extensions.sharedLibrary;
-        staticExtension = stdenv.hostPlatform.extensions.staticLibrary;
-      in
-      ''
-        make install-private-headers
-        ln -s $out/bin/tclsh${release} $out/bin/tclsh
-        if [[ -e $out/lib/libtcl${release}${staticExtension} ]]; then
-          ln -s $out/lib/libtcl${release}${staticExtension} $out/lib/libtcl${staticExtension}
-        fi
-        ${lib.optionalString (!stdenv.hostPlatform.isStatic) ''
-          ln -s $out/lib/libtcl${release}${dllExtension} $out/lib/libtcl${dllExtension}
-        ''}
-      '';
+    postInstall = let
+      dllExtension = stdenv.hostPlatform.extensions.sharedLibrary;
+      staticExtension = stdenv.hostPlatform.extensions.staticLibrary;
+    in ''
+      make install-private-headers
+      ln -s $out/bin/tclsh${release} $out/bin/tclsh
+      if [[ -e $out/lib/libtcl${release}${staticExtension} ]]; then
+        ln -s $out/lib/libtcl${release}${staticExtension} $out/lib/libtcl${staticExtension}
+      fi
+      ${lib.optionalString (!stdenv.hostPlatform.isStatic) ''
+        ln -s $out/lib/libtcl${release}${dllExtension} $out/lib/libtcl${dllExtension}
+      ''}
+    '';
 
     meta = with lib; {
       description = "Tcl scripting language";
       homepage = "https://www.tcl.tk/";
       license = licenses.tcltk;
       platforms = platforms.all;
-      maintainers = with maintainers; [ agbrooks ];
+      maintainers = with maintainers; [agbrooks];
     };
 
     passthru = rec {
@@ -122,17 +117,18 @@ let
       libPrefix = "tcl${release}";
       libdir = "lib/${libPrefix}";
       tclPackageHook = callPackage (
-        { buildPackages }:
-        makeSetupHook {
-          name = "tcl-package-hook";
-          propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
-          meta = {
-            inherit (meta) maintainers platforms;
-          };
-        } ./tcl-package-hook.sh
-      ) { };
+        {buildPackages}:
+          makeSetupHook {
+            name = "tcl-package-hook";
+            propagatedBuildInputs = [buildPackages.makeBinaryWrapper];
+            meta = {
+              inherit (meta) maintainers platforms;
+            };
+          }
+          ./tcl-package-hook.sh
+      ) {};
       # verify that Tcl's clock library can access tzdata
-      tests.tzdata = runCommand "${pname}-test-tzdata" { } ''
+      tests.tzdata = runCommand "${pname}-test-tzdata" {} ''
         ${baseInterp}/bin/tclsh <(echo "set t [clock scan {2004-10-30 05:00:00} \
                                       -format {%Y-%m-%d %H:%M:%S} \
                                       -timezone :America/New_York]") > $out
@@ -140,11 +136,12 @@ let
     };
   };
 
-  mkTclDerivation = callPackage ./mk-tcl-derivation.nix { tcl = baseInterp; };
-
+  mkTclDerivation = callPackage ./mk-tcl-derivation.nix {tcl = baseInterp;};
 in
-baseInterp.overrideAttrs (self: {
-  passthru = self.passthru // {
-    inherit mkTclDerivation;
-  };
-})
+  baseInterp.overrideAttrs (self: {
+    passthru =
+      self.passthru
+      // {
+        inherit mkTclDerivation;
+      };
+  })

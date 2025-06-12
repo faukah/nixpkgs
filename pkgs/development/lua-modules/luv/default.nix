@@ -10,7 +10,6 @@
   nix-update-script,
   runCommand,
 }:
-
 buildLuarocksPackage rec {
   pname = "luv";
   version = "1.50.0-1";
@@ -41,13 +40,13 @@ buildLuarocksPackage rec {
       ./disable-failing-darwin-tests.patch
     ];
 
-  buildInputs = [ libuv ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [libuv];
+  nativeBuildInputs = [cmake];
 
   # Need to specify WITH_SHARED_LIBUV=ON cmake flag, but
   # Luarocks doesn't take cmake variables from luarocks config.
   # Need to specify it in rockspec. See https://github.com/luarocks/luarocks/issues/1160.
-  knownRockspec = runCommand "luv-${version}.rockspec" { } ''
+  knownRockspec = runCommand "luv-${version}.rockspec" {} ''
     patch ${src}/luv-scm-0.rockspec -o - > $out <<'EOF'
     --- a/luv-scm-0.rockspec
     +++ b/luv-scm-0.rockspec
@@ -83,18 +82,18 @@ buildLuarocksPackage rec {
   passthru = {
     tests.test =
       runCommand "luv-${version}-test"
-        {
-          nativeBuildInputs = [ (lua.withPackages (ps: [ ps.luv ])) ];
-        }
-        ''
-          lua <<EOF
-          local uv = require("luv")
-          assert(uv.fs_mkdir(assert(uv.os_getenv("out")), 493))
-          print(uv.version_string())
-          EOF
-        '';
+      {
+        nativeBuildInputs = [(lua.withPackages (ps: [ps.luv]))];
+      }
+      ''
+        lua <<EOF
+        local uv = require("luv")
+        assert(uv.fs_mkdir(assert(uv.os_getenv("out")), 493))
+        print(uv.version_string())
+        EOF
+      '';
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -105,7 +104,7 @@ buildLuarocksPackage rec {
       project but should usable from nearly any lua project.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ stasjok ];
+    maintainers = with lib.maintainers; [stasjok];
     platforms = lua.meta.platforms;
   };
 }

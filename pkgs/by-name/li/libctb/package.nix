@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
     homepage = "https://iftools.com";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.misuzu ];
+    maintainers = [maintainers.misuzu];
   };
 }

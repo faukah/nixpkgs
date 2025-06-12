@@ -5,7 +5,6 @@
   autoreconfHook,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xlslib";
   version = "2.5.0";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/xlslib/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

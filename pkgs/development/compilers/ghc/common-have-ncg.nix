@@ -5,7 +5,6 @@
   stdenv,
   lib,
 }:
-
 stdenv.targetPlatform.isx86
 || stdenv.targetPlatform.isPower
 || (lib.versionOlder version "9.4" && stdenv.targetPlatform.isSparc)

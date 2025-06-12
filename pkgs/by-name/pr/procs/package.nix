@@ -7,7 +7,6 @@
   installShellFiles,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "procs";
   version = "0.14.10";
@@ -22,9 +21,11 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-/y+9EA3PhyI5iqg2wM0ny41nBDJiKnsjvbmPfCe5RJk=";
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [rustPlatform.bindgenHook];
 
   postInstall = ''
     for shell in bash fish zsh; do

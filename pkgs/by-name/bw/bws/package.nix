@@ -10,7 +10,6 @@
   python3,
   perl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bws";
   version = "1.0.0";
@@ -70,6 +69,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://bitwarden.com/help/secrets-manager-cli/";
     license = lib.licenses.unfree; # BITWARDEN SOFTWARE DEVELOPMENT KIT LICENSE AGREEMENT
     mainProgram = "bws";
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 }

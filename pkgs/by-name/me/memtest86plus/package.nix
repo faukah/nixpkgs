@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "memtest86+";
   version = "7.20";
@@ -23,7 +22,11 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.efi = "${finalAttrs.finalPackage}/memtest.efi";
 
   preBuild = ''
-    cd ${if stdenv.hostPlatform.isi686 then "build32" else "build64"}
+    cd ${
+      if stdenv.hostPlatform.isi686
+      then "build32"
+      else "build64"
+    }
   '';
 
   installPhase = ''
@@ -38,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ lib.maintainers.LunNova ];
+    maintainers = [lib.maintainers.LunNova];
   };
 })

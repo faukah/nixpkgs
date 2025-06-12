@@ -23,6 +23,6 @@ buildGoModule rec {
     description = "AI driven development in your terminal. Designed for large, real-world tasks. The sli part";
     homepage = "https://plandex.ai/";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ viraptor ];
+    maintainers = with lib.maintainers; [viraptor];
   };
 }

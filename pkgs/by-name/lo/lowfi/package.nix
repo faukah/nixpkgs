@@ -7,7 +7,6 @@
   stdenv,
   alsa-lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lowfi";
   version = "1.6.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-waQcxdVXZZ09wuLWUNL4nRUHF1rIDI8lAfYc/1bxMl0=";
 
-  buildFeatures = lib.optionals stdenv.hostPlatform.isLinux [ "mpris" ];
+  buildFeatures = lib.optionals stdenv.hostPlatform.isLinux ["mpris"];
 
   nativeBuildInputs = [
     pkg-config
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Extremely simple lofi player";
     homepage = "https://github.com/talwat/lowfi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ zsenai ];
+    maintainers = with lib.maintainers; [zsenai];
     mainProgram = "lowfi";
   };
 }

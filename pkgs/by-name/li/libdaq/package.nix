@@ -7,7 +7,6 @@
   libpcap,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdaq";
   version = "3.0.19";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Data AcQuisition library (libDAQ), for snort packet I/O";

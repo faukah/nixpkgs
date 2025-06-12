@@ -17,7 +17,6 @@
   stdenv,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linthesia";
   version = "unstable-2023-05-23";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

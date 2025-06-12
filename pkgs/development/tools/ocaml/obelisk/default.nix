@@ -4,7 +4,6 @@
   ocamlPackages,
   menhir,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "obelisk";
   version = "0.8.1";
@@ -17,14 +16,14 @@ ocamlPackages.buildDunePackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ menhir ];
-  buildInputs = with ocamlPackages; [ re ];
+  nativeBuildInputs = [menhir];
+  buildInputs = with ocamlPackages; [re];
 
   meta = {
     description = "Simple tool which produces pretty-printed output from a Menhir parser file (.mly)";
     mainProgram = "obelisk";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/Lelio-Brun/Obelisk";
   };
 }

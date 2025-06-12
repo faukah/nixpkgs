@@ -7,7 +7,7 @@
   patchNupkgs,
   nugetPackageHook,
   callPackage,
-  overrides ? callPackage ./overrides.nix { },
+  overrides ? callPackage ./overrides.nix {},
 }:
 lib.makeOverridable (
   {
@@ -17,8 +17,7 @@ lib.makeOverridable (
     hash ? "",
     url ? "https://www.nuget.org/api/v2/package/${pname}/${version}",
     installable ? false,
-  }:
-  let
+  }: let
     package = stdenvNoCC.mkDerivation rec {
       inherit pname version;
 
@@ -84,5 +83,5 @@ lib.makeOverridable (
       };
     };
   in
-  overrides.${pname} or lib.id package
+    overrides.${pname} or lib.id package
 )

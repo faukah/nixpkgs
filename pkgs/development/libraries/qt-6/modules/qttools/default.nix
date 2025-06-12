@@ -10,17 +10,18 @@
   # clang-based c++ parser for qdoc and lupdate
   withClang ? false,
 }:
-
 qtModule {
   pname = "qttools";
   buildInputs = lib.optionals withClang [
     llvmPackages.libclang
     llvmPackages.llvm
   ];
-  propagatedBuildInputs = [
-    qtbase
-    qtdeclarative
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ cups ];
+  propagatedBuildInputs =
+    [
+      qtbase
+      qtdeclarative
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [cups];
   cmakeFlags = lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
     "-DQt6LinguistTools_DIR=${pkgsBuildBuild.qt6.qttools}/lib/cmake/Qt6LinguistTools"
     "-DQt6ToolsTools_DIR=${pkgsBuildBuild.qt6.qttools}/lib/cmake/Qt6ToolsTools"

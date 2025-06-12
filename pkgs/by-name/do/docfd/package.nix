@@ -11,7 +11,6 @@
   testers,
   docfd,
 }:
-
 ocamlPackages.buildDunePackage rec {
   pname = "docfd";
   version = "11.0.1";
@@ -63,7 +62,7 @@ ocamlPackages.buildDunePackage rec {
     }"
   '';
 
-  passthru.tests.version = testers.testVersion { package = docfd; };
+  passthru.tests.version = testers.testVersion {package = docfd;};
 
   meta = with lib; {
     description = "TUI multiline fuzzy document finder";
@@ -75,7 +74,7 @@ ocamlPackages.buildDunePackage rec {
     '';
     homepage = "https://github.com/darrenldl/docfd";
     license = licenses.mit;
-    maintainers = with maintainers; [ chewblacka ];
+    maintainers = with maintainers; [chewblacka];
     platforms = platforms.all;
     mainProgram = "docfd";
   };

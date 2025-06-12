@@ -7,7 +7,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-js-asset";
   version = "3.1.2";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-OG31i8r6rwR2aDzraAorHdYrJrWt/e7SY9+iV7SJGJ8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  pythonImportsCheck = [ "js_asset" ];
+  pythonImportsCheck = ["js_asset"];
 
   nativeCheckInputs = [
     pytest-django
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/matthiask/django-js-asset/blob/${version}/CHANGELOG.rst";
     description = "Script tag with additional attributes for django.forms.Media";
     homepage = "https://github.com/matthiask/django-js-asset";
-    maintainers = with maintainers; [ hexa ];
-    license = with licenses; [ bsd3 ];
+    maintainers = with maintainers; [hexa];
+    license = with licenses; [bsd3];
   };
 }

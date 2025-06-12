@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mcpp";
   version = "2.7.2.1";
@@ -23,14 +22,14 @@ stdenv.mkDerivation (finalAttrs: {
     ./readlink.patch
   ];
 
-  configureFlags = [ "--enable-mcpplib" ];
+  configureFlags = ["--enable-mcpplib"];
 
   meta = with lib; {
     homepage = "https://github.com/museoa/mcpp";
     description = "Matsui's C preprocessor";
     mainProgram = "mcpp";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 })

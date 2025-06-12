@@ -11,7 +11,6 @@
   glib,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-network-core";
   version = "2.0.34";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-network-core";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

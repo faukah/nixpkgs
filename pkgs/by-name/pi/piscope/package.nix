@@ -2,16 +2,13 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   pkg-config,
   wrapGAppsHook3,
   installShellFiles,
-
   # buildInputs
   gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "piscope";
   version = "0.8";
@@ -50,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://abyz.me.uk/rpi/pigpio/piscope.html";
     description = "Logic analyser (digital waveform viewer) for the Raspberry";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     platforms = lib.platforms.linux;
   };
 })

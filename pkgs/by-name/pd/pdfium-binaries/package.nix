@@ -5,28 +5,26 @@
   python3Packages,
   withV8 ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pdfium-binaries";
   # also update rev of headers in python3Packages.pypdfium2
   version = "7087";
 
-  src =
-    let
-      selectSystem =
-        attrs:
-        attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-      system = selectSystem {
-        x86_64-linux = "linux-x64";
-        aarch64-linux = "linux-arm64";
-        x86_64-darwin = "mac-x64";
-        aarch64-darwin = "mac-arm64";
-      };
-    in
+  src = let
+    selectSystem = attrs:
+      attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    system = selectSystem {
+      x86_64-linux = "linux-x64";
+      aarch64-linux = "linux-arm64";
+      x86_64-darwin = "mac-x64";
+      aarch64-darwin = "mac-arm64";
+    };
+  in
     fetchzip {
       url = "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F${finalAttrs.version}/pdfium${lib.optionalString withV8 "-v8"}-${system}.tgz";
       hash =
-        if withV8 then
+        if withV8
+        then
           selectSystem {
             x86_64-linux = "sha256-nKHXcBTEp165g18HLzaNGfKt8MtTYpKBGNgwIpSO0u4=";
             aarch64-linux = "sha256-wip/ry42aDbyGiwYSUX8koxDuf88BLGZAmMZE0s+fL0=";
@@ -65,8 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
       asl20
       mit
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = with lib.maintainers; [ ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = with lib.maintainers; [];
     platforms = [
       "aarch64-linux"
       "aarch64-darwin"

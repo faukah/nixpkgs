@@ -6,7 +6,6 @@
   pymodbus,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyiskra";
   version = "0.1.21";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-ZFva7pyilMjvgRfsDhnsLGKRjl9Jf4vdFfK4RFb3sSE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
     pymodbus
   ];
 
-  pythonImportsCheck = [ "pyiskra" ];
+  pythonImportsCheck = ["pyiskra"];
 
   # upstream has no tests
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python Iskra devices interface";
     homepage = "https://github.com/Iskramis/pyiskra";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

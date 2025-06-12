@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "linknlink";
   version = "0.2.4";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-ObPEcdDHi+SPFjuVKBtu7/5/IgHcam+IWblxxS3+mmI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ cryptography ];
+  dependencies = [cryptography];
 
-  pythonImportsCheck = [ "linknlink" ];
+  pythonImportsCheck = ["linknlink"];
 
   # Module has no test
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xuanxuan000/python-linknlink";
     changelog = "https://github.com/xuanxuan000/python-linknlink/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

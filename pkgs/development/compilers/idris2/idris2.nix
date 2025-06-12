@@ -14,61 +14,59 @@
   zsh,
   callPackage,
 }:
-
 # NOTICE: An `idris2WithPackages` is available at: https://github.com/claymager/idris2-pkgs
-
 let
   platformChez =
-    if (stdenv.system == "x86_64-linux") || (lib.versionAtLeast chez.version "10.0.0") then
-      chez
-    else
-      chez-racket;
+    if (stdenv.system == "x86_64-linux") || (lib.versionAtLeast chez.version "10.0.0")
+    then chez
+    else chez-racket;
 in
-stdenv.mkDerivation rec {
-  pname = "idris2";
-  version = "0.7.0";
+  stdenv.mkDerivation rec {
+    pname = "idris2";
+    version = "0.7.0";
 
-  src = fetchFromGitHub {
-    owner = "idris-lang";
-    repo = "Idris2";
-    rev = "v${version}";
-    sha256 = "sha256-VwveX3fZfrxEsytpbOc5Tm6rySpLFhTt5132J6rmrmM=";
-  };
+    src = fetchFromGitHub {
+      owner = "idris-lang";
+      repo = "Idris2";
+      rev = "v${version}";
+      sha256 = "sha256-VwveX3fZfrxEsytpbOc5Tm6rySpLFhTt5132J6rmrmM=";
+    };
 
-  strictDeps = true;
-  nativeBuildInputs = [
-    makeWrapper
-    clang
-    platformChez
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ zsh ];
-  buildInputs = [
-    platformChez
-    gmp
-  ];
+    strictDeps = true;
+    nativeBuildInputs =
+      [
+        makeWrapper
+        clang
+        platformChez
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [zsh];
+    buildInputs = [
+      platformChez
+      gmp
+    ];
 
-  prePatch = ''
-    patchShebangs --build tests
-  '';
+    prePatch = ''
+      patchShebangs --build tests
+    '';
 
-  makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional stdenv.hostPlatform.isDarwin "OS=";
+    makeFlags = ["PREFIX=$(out)"] ++ lib.optional stdenv.hostPlatform.isDarwin "OS=";
 
-  # The name of the main executable of pkgs.chez is `scheme`
-  buildFlags = [
-    "bootstrap"
-    "SCHEME=scheme"
-  ];
+    # The name of the main executable of pkgs.chez is `scheme`
+    buildFlags = [
+      "bootstrap"
+      "SCHEME=scheme"
+    ];
 
-  checkTarget = "test";
-  nativeCheckInputs = [
-    gambit
-    nodejs
-  ]; # racket ];
-  checkFlags = [ "INTERACTIVE=" ];
+    checkTarget = "test";
+    nativeCheckInputs = [
+      gambit
+      nodejs
+    ]; # racket ];
+    checkFlags = ["INTERACTIVE="];
 
-  # TODO: Move this into its own derivation, such that this can be changed
-  #       without having to recompile idris2 every time.
-  postInstall =
-    let
+    # TODO: Move this into its own derivation, such that this can be changed
+    #       without having to recompile idris2 every time.
+    postInstall = let
       name = "${pname}-${version}";
       globalLibraries = [
         "\\$HOME/.nix-profile/lib/${name}"
@@ -76,8 +74,7 @@ stdenv.mkDerivation rec {
         "$out/${name}"
       ];
       globalLibrariesPath = builtins.concatStringsSep ":" globalLibraries;
-    in
-    ''
+    in ''
       # Remove existing idris2 wrapper that sets incorrect LD_LIBRARY_PATH
       rm $out/bin/idris2
       # The only thing we need from idris2_app is the actual binary
@@ -100,19 +97,19 @@ stdenv.mkDerivation rec {
         --suffix LD_LIBRARY_PATH ':' "$out/${name}/lib"
     '';
 
-  # Run package tests
-  passthru.tests = callPackage ./tests.nix { inherit pname; };
+    # Run package tests
+    passthru.tests = callPackage ./tests.nix {inherit pname;};
 
-  meta = {
-    description = "Purely functional programming language with first class types";
-    mainProgram = "idris2";
-    homepage = "https://github.com/idris-lang/Idris2";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [
-      fabianhjr
-      wchresta
-      mattpolzin
-    ];
-    inherit (chez.meta) platforms;
-  };
-}
+    meta = {
+      description = "Purely functional programming language with first class types";
+      mainProgram = "idris2";
+      homepage = "https://github.com/idris-lang/Idris2";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [
+        fabianhjr
+        wchresta
+        mattpolzin
+      ];
+      inherit (chez.meta) platforms;
+    };
+  }

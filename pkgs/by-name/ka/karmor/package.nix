@@ -6,7 +6,6 @@
   testers,
   karmor,
 }:
-
 buildGoModule rec {
   pname = "karmor";
   version = "1.4.2";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-4F/q6vYOGtLef+rrJXKhLwjM71NMNI4es4dKe1pohZU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

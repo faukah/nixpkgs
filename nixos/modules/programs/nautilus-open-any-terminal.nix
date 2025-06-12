@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.nautilus-open-any-terminal;
-in
-{
+in {
   options.programs.nautilus-open-any-terminal = {
     enable = lib.mkEnableOption "nautilus-open-any-terminal";
 

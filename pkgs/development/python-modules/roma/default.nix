@@ -7,7 +7,6 @@
   numpy,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "roma";
   version = "1.5.1";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Lightweight library to deal with 3D rotations in PyTorch";
     homepage = "https://github.com/naver/roma";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

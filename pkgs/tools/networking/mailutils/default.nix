@@ -25,11 +25,9 @@
   system-sendmail,
   libxcrypt,
   mkpasswd,
-
   pythonSupport ? true,
   guileSupport ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mailutils";
   version = "3.18";
@@ -70,9 +68,9 @@ stdenv.mkDerivation rec {
       sasl
       libxcrypt
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ nettools ]
-    ++ lib.optionals pythonSupport [ python3 ]
-    ++ lib.optionals guileSupport [ guile_2_2 ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [nettools]
+    ++ lib.optionals pythonSupport [python3]
+    ++ lib.optionals guileSupport [guile_2_2];
 
   patches = [
     ./fix-build-mb-len-max.patch
@@ -89,7 +87,7 @@ stdenv.mkDerivation rec {
   ];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
     [
@@ -151,7 +149,7 @@ stdenv.mkDerivation rec {
       gpl3Plus # tools
     ];
 
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
 
     homepage = "https://www.gnu.org/software/mailutils/";
     changelog = "https://git.savannah.gnu.org/cgit/mailutils.git/tree/NEWS";

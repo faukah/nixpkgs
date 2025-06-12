@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "optimism";
   version = "1.9.4";
@@ -38,7 +37,7 @@ buildGoModule rec {
     description = "Optimism is Ethereum, scaled";
     homepage = "https://github.com/ethereum-optimism/optimism";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
     mainProgram = "cmd";
   };
 }

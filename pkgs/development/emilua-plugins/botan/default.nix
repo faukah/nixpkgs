@@ -17,7 +17,6 @@
   fmt,
   botan3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emilua-botan";
   version = "1.2.1";
@@ -49,14 +48,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     description = "Securely clears secrets from memory in Emilua";
     homepage = "https://emilua.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ manipuladordedados ];
+    maintainers = with maintainers; [manipuladordedados];
     platforms = platforms.linux;
   };
 }

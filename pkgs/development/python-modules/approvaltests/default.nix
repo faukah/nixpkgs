@@ -17,7 +17,6 @@
   testfixtures,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "approvaltests";
   version = "14.6.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-hoBT83p2PHZR5NtVChdWK5SMjLt8llj59K5ODaKtRhQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     allpairspy
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/approvals/ApprovalTests.Python";
     changelog = "https://github.com/approvals/ApprovalTests.Python/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rabbitmq_exporter";
   version = "1.0.0";
@@ -32,6 +31,6 @@ buildGoModule rec {
     mainProgram = "rabbitmq_exporter";
     homepage = "https://github.com/kbudde/rabbitmq_exporter";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

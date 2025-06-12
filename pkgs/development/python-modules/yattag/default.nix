@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "yattag";
   version = "1.16.1";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
     hash = "sha256-uqjyVOfqXT4GGCga0v9WEODlNgs2COaVwpv7OynQUfQ=";
   };
 
-  pythonImportsCheck = [ "yattag" ];
+  pythonImportsCheck = ["yattag"];
 
   meta = with lib; {
     description = "Library to generate HTML or XML";
     homepage = "https://www.yattag.org/";
     license = licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

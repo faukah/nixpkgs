@@ -5,7 +5,6 @@
   fetchPypi,
   spidev,
 }:
-
 buildPythonPackage rec {
   pname = "bme280spi";
   version = "0.2.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "51682acefda6f29eaaf9f37815edbfdd48ef0e9f1509419eceafe7b440eddc6e";
   };
 
-  propagatedBuildInputs = [ spidev ];
+  propagatedBuildInputs = [spidev];
 
   # no tests implemented
   doCheck = false;
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     mainProgram = "bme280spi";
     homepage = "https://github.com/Kuzj/bme280spi";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sachet";
   version = "0.3.2";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "sachet";
     homepage = "https://github.com/messagebird/sachet";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ govanify ];
+    maintainers = with maintainers; [govanify];
   };
 }

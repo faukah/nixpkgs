@@ -11,13 +11,12 @@
   qtsvg,
   qttools,
 }:
-
 mkDerivation {
   pname = "kiconthemes";
   patches = [
     ./default-theme-breeze.patch
   ];
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     breeze-icons
     karchive

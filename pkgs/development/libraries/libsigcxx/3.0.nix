@@ -7,7 +7,6 @@
   ninja,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsigc++";
   version = "3.6.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libsigcplusplus.github.io/libsigcplusplus/";
     description = "Typesafe callback system for standard C++";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.all;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openpam,
 }:
-
 buildGoModule {
   pname = "scion-apps";
   version = "unstable-2024-04-05";

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "kubo-fuse";
   meta = with lib.maintainers; {
     maintainers = [
@@ -8,21 +7,19 @@
     ];
   };
 
-  nodes.machine =
-    { config, ... }:
-    {
-      services.kubo = {
-        enable = true;
-        autoMount = true;
-      };
-      users.users.alice = {
-        isNormalUser = true;
-        extraGroups = [ config.services.kubo.group ];
-      };
-      users.users.bob = {
-        isNormalUser = true;
-      };
+  nodes.machine = {config, ...}: {
+    services.kubo = {
+      enable = true;
+      autoMount = true;
     };
+    users.users.alice = {
+      isNormalUser = true;
+      extraGroups = [config.services.kubo.group];
+    };
+    users.users.bob = {
+      isNormalUser = true;
+    };
+  };
 
   testScript = ''
     start_all()

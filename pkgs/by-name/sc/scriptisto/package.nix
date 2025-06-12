@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "scriptisto";
   version = "2.2.0";
@@ -33,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/igor-petruk/scriptisto";
     changelog = "https://github.com/igor-petruk/scriptisto/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

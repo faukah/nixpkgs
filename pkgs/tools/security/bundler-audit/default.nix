@@ -4,7 +4,6 @@
   lib,
   bundlerUpdateScript,
 }:
-
 bundlerEnv rec {
   name = "${pname}-${version}";
   pname = "bundler-audit";

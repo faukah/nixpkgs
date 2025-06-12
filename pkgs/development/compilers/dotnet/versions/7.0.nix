@@ -4,9 +4,7 @@
   buildNetSdk,
   fetchNupkg,
 }:
-
 # v7.0 (eol)
-
 let
   commonPackages = [
     (fetchNupkg {
@@ -610,9 +608,7 @@ let
       })
     ];
   };
-
-in
-rec {
+in rec {
   release_7_0 = "7.0.20";
 
   aspnetcore_7_0 = buildAspNetCore {

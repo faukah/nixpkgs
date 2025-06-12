@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nvitop";
   version = "1.5.1";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-FQbY9j6eJtupBiYTSCEJHAAlpDltb6U5hgWet42AKho=";
   };
 
-  pythonRelaxDeps = [ "nvidia-ml-py" ];
+  pythonRelaxDeps = ["nvidia-ml-py"];
 
   dependencies = with python3Packages; [
     psutil
@@ -34,7 +33,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/XuehaiPan/nvitop";
     changelog = "https://github.com/XuehaiPan/nvitop/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     platforms = with lib.platforms; linux;
   };
 }

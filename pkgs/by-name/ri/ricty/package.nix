@@ -7,7 +7,6 @@
   fontforge,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ricty";
   version = "4.1.1";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "High-quality Japanese font based on Inconsolata and Migu 1M";
     homepage = "https://rictyfonts.github.io";
     license = licenses.unfree;
-    maintainers = [ maintainers.mikoim ];
+    maintainers = [maintainers.mikoim];
   };
 }

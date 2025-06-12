@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.tang;
-in
-{
+in {
   options.services.tang = {
     enable = lib.mkEnableOption "tang";
 
@@ -20,7 +18,7 @@ in
 
     listenStream = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ "7654" ];
+      default = ["7654"];
       example = [
         "198.168.100.1:7654"
         "[2001:db8::1]:7654"
@@ -33,21 +31,20 @@ in
     };
 
     ipAddressAllow = lib.mkOption {
-      example = [ "192.168.1.0/24" ];
+      example = ["192.168.1.0/24"];
       type = lib.types.listOf lib.types.str;
       description = ''
         Whitelist a list of address prefixes.
         Preferably, internal addresses should be used.
       '';
     };
-
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services."tangd@" = {
       description = "Tang server";
-      path = [ cfg.package ];
+      path = [cfg.package];
       serviceConfig = {
         StandardInput = "socket";
         StandardOutput = "socket";
@@ -57,13 +54,13 @@ in
         RuntimeDirectory = "tang";
         StateDirectoryMode = "700";
         UMask = "0077";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         ExecStart = "${cfg.package}/libexec/tangd %S/tang";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
-        DeviceAllow = [ "/dev/stdin" ];
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        DeviceAllow = ["/dev/stdin"];
+        RestrictAddressFamilies = ["AF_UNIX"];
         DevicePolicy = "strict";
         PrivateDevices = true;
         PrivateTmp = true;
@@ -94,7 +91,7 @@ in
 
     systemd.sockets.tangd = {
       description = "Tang server";
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = cfg.listenStream;
         Accept = "yes";

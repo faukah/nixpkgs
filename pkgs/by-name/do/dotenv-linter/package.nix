@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "dotenv-linter";
   version = "3.3.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "dotenv-linter";
     homepage = "https://dotenv-linter.github.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ humancalico ];
+    maintainers = with maintainers; [humancalico];
   };
 }

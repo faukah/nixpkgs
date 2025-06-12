@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "python-libnmap";
   version = "0.7.3";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
   };
 
   optional-dependencies = {
-    defusedxml = [ defusedxml ];
+    defusedxml = [defusedxml];
   };
 
   # We don't want the nmap binary being present
   doCheck = false;
 
-  pythonImportsCheck = [ "libnmap" ];
+  pythonImportsCheck = ["libnmap"];
 
   meta = with lib; {
     description = "Library to run nmap scans, parse and diff scan results";
     homepage = "https://github.com/savon-noir/python-libnmap";
     changelog = "https://github.com/savon-noir/python-libnmap/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

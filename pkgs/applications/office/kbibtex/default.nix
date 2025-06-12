@@ -27,15 +27,13 @@
   poppler,
   bibutils,
 }:
-
 mkDerivation rec {
   pname = "kbibtex";
   version = "0.10.0";
 
-  src =
-    let
-      majorMinorPatch = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
-    in
+  src = let
+    majorMinorPatch = lib.concatStringsSep "." (lib.take 3 (lib.splitVersion version));
+  in
     fetchurl {
       url = "mirror://kde/stable/KBibTeX/${majorMinorPatch}/kbibtex-${version}.tar.xz";
       hash = "sha256-sSeyQKfNd8U4YZ3IgqOZs8bM13oEQopJevkG8U0JuMQ=";
@@ -76,7 +74,7 @@ mkDerivation rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ bibutils ]}"
+    "${lib.makeBinPath [bibutils]}"
   ];
 
   meta = {
@@ -85,7 +83,7 @@ mkDerivation rec {
     homepage = "https://userbase.kde.org/KBibTeX";
     changelog = "https://invent.kde.org/office/kbibtex/-/raw/v${version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "knowsmore";
   version = "0.1.45";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     "urllib3"
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     aioconsole
@@ -41,18 +40,18 @@ python3.pkgs.buildPythonApplication rec {
     xmltodict
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
-  pythonImportsCheck = [ "knowsmore" ];
+  pythonImportsCheck = ["knowsmore"];
 
-  pytestFlagsArray = [ "tests/tests*" ];
+  pytestFlagsArray = ["tests/tests*"];
 
   meta = with lib; {
     description = "Tool for pentesting Microsoft Active Directory";
     homepage = "https://github.com/helviojunior/knowsmore";
     changelog = "https://github.com/helviojunior/knowsmore/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "knowsmore";
   };
 }

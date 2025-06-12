@@ -4,7 +4,6 @@
   fetchurl,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "tty";
   version = "0.0.2";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     homepage = "https://github.com/leostera/tty";
     changelog = "https://github.com/leostera/tty/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

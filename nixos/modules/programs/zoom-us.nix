@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   options.programs.zoom-us = {
     enable = lib.mkEnableOption "zoom.us video conferencing application";
-    package = lib.mkPackageOption pkgs "zoom-us" { };
+    package = lib.mkPackageOption pkgs "zoom-us" {};
   };
 
   config.environment.systemPackages = lib.mkIf config.programs.zoom-us.enable (
@@ -53,9 +51,9 @@
         targetPkgs =
           prev.targetPkgs or (
             pkgs:
-            lib.optionals config.xdg.portal.enable (
-              [ pkgs.xdg-desktop-portal ] ++ config.xdg.portal.extraPortals
-            )
+              lib.optionals config.xdg.portal.enable (
+                [pkgs.xdg-desktop-portal] ++ config.xdg.portal.extraPortals
+              )
           );
       })
     )

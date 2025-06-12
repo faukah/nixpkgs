@@ -1,8 +1,4 @@
-{
-  lib,
-  ...
-}:
-{
+{lib, ...}: {
   imports = [
     ./disk-size-option.nix
     (lib.mkRenamedOptionModuleWith {

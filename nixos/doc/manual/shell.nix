@@ -1,7 +1,7 @@
 let
   pkgs = import ../../.. {
-    config = { };
-    overlays = [ ];
+    config = {};
+    overlays = [];
   };
 
   common = import ./common.nix;
@@ -12,9 +12,9 @@ let
   };
   nixos-render-docs-redirects = pkgs.writeShellScriptBin "redirects" "${pkgs.lib.getExe pkgs.nixos-render-docs-redirects} --file ${toString ./redirects.json} $@";
 in
-pkgs.mkShellNoCC {
-  packages = [
-    devmode
-    nixos-render-docs-redirects
-  ];
-}
+  pkgs.mkShellNoCC {
+    packages = [
+      devmode
+      nixos-render-docs-redirects
+    ];
+  }

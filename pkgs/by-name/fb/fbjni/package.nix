@@ -7,7 +7,6 @@
   jdk_headless,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fbjni";
   version = "0.5.1";
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     description = "Library designed to simplify the usage of the Java Native Interface";
     homepage = "https://github.com/facebookincubator/fbjni";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -27,37 +27,36 @@
   sqlite-utils,
   syrupy,
   llm-echo,
-}:
-let
+}: let
   /**
-    Make a derivation for `llm` that contains `llm` plus the relevant plugins.
-    The function signature of `withPlugins` is the list of all the plugins `llm` knows about.
-    Adding a parameter here requires that it be in `python3Packages` attrset.
+  Make a derivation for `llm` that contains `llm` plus the relevant plugins.
+  The function signature of `withPlugins` is the list of all the plugins `llm` knows about.
+  Adding a parameter here requires that it be in `python3Packages` attrset.
 
-    # Type
+  # Type
 
-    ```
-    withPlugins ::
-      {
-        llm-anthropic :: bool,
-        llm-gemini :: bool,
-        ...
-      }
-      -> derivation
-    ```
+  ```
+  withPlugins ::
+    {
+      llm-anthropic :: bool,
+      llm-gemini :: bool,
+      ...
+    }
+    -> derivation
+  ```
 
-    See `lib.attrNames (lib.functionArgs llm.withPlugins)` for the total list of plugins supported.
+  See `lib.attrNames (lib.functionArgs llm.withPlugins)` for the total list of plugins supported.
 
-    # Examples
-    :::{.example}
-    ## `llm.withPlugins` usage example
+  # Examples
+  :::{.example}
+  ## `llm.withPlugins` usage example
 
-    ```nix
-    llm.withPlugins { llm-gemini = true; llm-groq = true; }
-    => «derivation /nix/store/<hash>-python3-3.12.10-llm-with-llm-gemini-llm-groq.drv»
-    ```
+  ```nix
+  llm.withPlugins { llm-gemini = true; llm-groq = true; }
+  => «derivation /nix/store/<hash>-python3-3.12.10-llm-with-llm-gemini-llm-groq.drv»
+  ```
 
-    :::
+  :::
   */
   withPlugins =
     # Keep this list up to date with the plugins in python3Packages!
@@ -95,29 +94,26 @@ let
       llm-venice ? false,
       llm-video-frames ? false,
       ...
-    }@args:
-    let
+    } @ args: let
       # Filter to just the attributes which are set to a true value.
       setArgs = lib.filterAttrs (name: lib.id) args;
 
       # Make the derivation name reflect what's inside it, up to a certain limit.
       setArgNames = lib.attrNames setArgs;
-      drvName =
-        let
-          len = builtins.length setArgNames;
-        in
-        if len == 0 then
-          "llm-${llm.version}"
-        else if len > 20 then
-          "llm-${llm.version}-with-${toString len}-plugins"
+      drvName = let
+        len = builtins.length setArgNames;
+      in
+        if len == 0
+        then "llm-${llm.version}"
+        else if len > 20
+        then "llm-${llm.version}-with-${toString len}-plugins"
         else
           # Make a string with those names separated with a dash.
           "llm-${llm.version}-with-${lib.concatStringsSep "-" setArgNames}";
 
       # Make a python environment with just those plugins.
       python-environment = python.withPackages (
-        ps:
-        let
+        ps: let
           # Throw a diagnostic if this list gets out of sync with the names in python3Packages
           allPluginsPresent = pluginNames == withPluginsArgNames;
           pluginNames = lib.attrNames (lib.intersectAttrs ps withPluginsArgs);
@@ -127,19 +123,17 @@ let
           # The relevant plugins are the ones the user asked for.
           plugins = lib.intersectAttrs setArgs ps;
         in
-        assert lib.assertMsg allPluginsPresent "Missing these plugins: ${missingNames}";
-        ([ ps.llm ] ++ lib.attrValues plugins)
+          assert lib.assertMsg allPluginsPresent "Missing these plugins: ${missingNames}"; ([ps.llm] ++ lib.attrValues plugins)
       );
-
     in
-    # That Python environment produced above contains too many irrelevant binaries, due to how
-    # Python needs to use propagatedBuildInputs. Let's make one with just what's needed: `llm`.
-    # Since we include the `passthru` and `meta` information, it's as good as the original
-    # derivation.
-    runCommand "${python.name}-${drvName}" { inherit (llm) passthru meta; } ''
-      mkdir -p $out/bin
-      ln -s ${python-environment}/bin/llm $out/bin/llm
-    '';
+      # That Python environment produced above contains too many irrelevant binaries, due to how
+      # Python needs to use propagatedBuildInputs. Let's make one with just what's needed: `llm`.
+      # Since we include the `passthru` and `meta` information, it's as good as the original
+      # derivation.
+      runCommand "${python.name}-${drvName}" {inherit (llm) passthru meta;} ''
+        mkdir -p $out/bin
+        ln -s ${python-environment}/bin/llm $out/bin/llm
+      '';
 
   # Uses the `withPlugins` names to make a Python environment with everything.
   withAllPlugins = withPlugins (lib.genAttrs withPluginsArgNames (name: true));
@@ -157,7 +151,8 @@ let
       map (name: ''
         # ${python.pkgs.${name}.meta.description} <${python.pkgs.${name}.meta.homepage}>
           ${name} = true;
-      '') withPluginsArgNames
+      '')
+      withPluginsArgNames
     )
   );
 
@@ -166,7 +161,7 @@ let
     version = "0.26";
     pyproject = true;
 
-    build-system = [ setuptools ];
+    build-system = [setuptools];
 
     disabled = pythonOlder "3.8";
 
@@ -177,7 +172,7 @@ let
       hash = "sha256-KTlNajuZrR0kBX3LatepsNM3PfRVsQn+evEfXTu6juE=";
     };
 
-    patches = [ ./001-disable-install-uninstall-commands.patch ];
+    patches = [./001-disable-install-uninstall-commands.patch];
 
     postPatch = ''
       substituteInPlace llm/cli.py \
@@ -223,13 +218,13 @@ let
       "tests/"
     ];
 
-    pythonImportsCheck = [ "llm" ];
+    pythonImportsCheck = ["llm"];
 
     passthru = {
       inherit withPlugins withAllPlugins;
 
       mkPluginTest = plugin: {
-        ${plugin.pname} = callPackage ./mk-plugin-test.nix { inherit llm plugin; };
+        ${plugin.pname} = callPackage ./mk-plugin-test.nix {inherit llm plugin;};
       };
 
       # include tests for all the plugins
@@ -250,4 +245,4 @@ let
     };
   };
 in
-llm
+  llm

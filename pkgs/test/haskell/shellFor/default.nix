@@ -4,7 +4,6 @@
   haskellPackages,
   cabal-install,
 }:
-
 (haskellPackages.shellFor {
   packages = p: [
     p.constraints
@@ -14,8 +13,8 @@
   # `extraDependencies` are not actually transitive dependencies of libraries in
   # `packages` above.  We explicitly want to test that it is possible to specify
   # `extraDependencies` that are not in the closure of `packages`.
-  extraDependencies = p: { libraryHaskellDepends = [ p.conduit ]; };
-  nativeBuildInputs = [ cabal-install ];
+  extraDependencies = p: {libraryHaskellDepends = [p.conduit];};
+  nativeBuildInputs = [cabal-install];
   phases = [
     "unpackPhase"
     "buildPhase"
@@ -55,21 +54,20 @@
     touch $out
   '';
 }).overrideAttrs
-  (oldAttrs: {
-    meta =
-      let
-        oldMeta = oldAttrs.meta or { };
-        oldMaintainers = oldMeta.maintainers or [ ];
-        additionalMaintainers = with lib.maintainers; [ cdepillabout ];
-        allMaintainers = oldMaintainers ++ additionalMaintainers;
-      in
-      oldMeta
-      // {
-        maintainers = allMaintainers;
-        inherit (cabal-install.meta) platforms;
-      };
-    # `shellFor` adds a `buildCommand` (via `envFunc -> runCommandCC`), which
-    # overrides custom phases. To ensure this test's phases run, we remove
-    # that `buildCommand` from the derivation.
-    buildCommand = null;
-  })
+(oldAttrs: {
+  meta = let
+    oldMeta = oldAttrs.meta or {};
+    oldMaintainers = oldMeta.maintainers or [];
+    additionalMaintainers = with lib.maintainers; [cdepillabout];
+    allMaintainers = oldMaintainers ++ additionalMaintainers;
+  in
+    oldMeta
+    // {
+      maintainers = allMaintainers;
+      inherit (cabal-install.meta) platforms;
+    };
+  # `shellFor` adds a `buildCommand` (via `envFunc -> runCommandCC`), which
+  # overrides custom phases. To ensure this test's phases run, we remove
+  # that `buildCommand` from the derivation.
+  buildCommand = null;
+})

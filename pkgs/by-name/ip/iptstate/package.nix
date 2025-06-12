@@ -5,7 +5,6 @@
   libnetfilter_conntrack,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iptstate";
   version = "2.2.7";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     mainProgram = "iptstate";
     homepage = "https://github.com/jaymzh/iptstate";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ trevorj ];
+    maintainers = with maintainers; [trevorj];
     downloadPage = "https://github.com/jaymzh/iptstate/releases";
     license = licenses.zlib;
   };

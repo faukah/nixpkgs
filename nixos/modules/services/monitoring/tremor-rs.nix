@@ -3,23 +3,19 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.tremor-rs;
 
-  loggerSettingsFormat = pkgs.formats.yaml { };
+  loggerSettingsFormat = pkgs.formats.yaml {};
   loggerConfigFile = loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
-in
-{
-
+in {
   options = {
     services.tremor-rs = {
       enable = lib.mkEnableOption "Tremor event- or stream-processing system";
 
       troyFileList = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = "List of troy files to load.";
       };
 
@@ -43,7 +39,7 @@ in
 
       loggerSettings = lib.mkOption {
         description = "Tremor logger configuration";
-        default = { };
+        default = {};
         type = loggerSettingsFormat.type;
 
         example = {
@@ -51,17 +47,17 @@ in
           appenders.stdout.kind = "console";
           root = {
             level = "warn";
-            appenders = [ "stdout" ];
+            appenders = ["stdout"];
           };
           loggers = {
             tremor_runtime = {
               level = "debug";
-              appenders = [ "stdout" ];
+              appenders = ["stdout"];
               additive = false;
             };
             tremor = {
               level = "debug";
-              appenders = [ "stdout" ];
+              appenders = ["stdout"];
               additive = false;
             };
           };
@@ -89,20 +85,18 @@ in
             };
           }
         '';
-
       };
     };
   };
 
   config = lib.mkIf (cfg.enable) {
-
-    environment.systemPackages = [ pkgs.tremor-rs ];
+    environment.systemPackages = [pkgs.tremor-rs];
 
     systemd.services.tremor-rs = {
       description = "Tremor event- or stream-processing system";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
 
       environment.TREMOR_PATH = "${pkgs.tremor-rs}/lib:${cfg.tremorLibDir}";
 

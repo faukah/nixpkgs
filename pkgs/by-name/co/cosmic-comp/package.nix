@@ -14,10 +14,8 @@
   systemd,
   nix-update-script,
   nixosTests,
-
   useSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-comp";
   version = "1.0.0-alpha.7";
@@ -40,14 +38,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [
-    libdisplay-info
-    libgbm
-    libinput
-    pixman
-    seatd
-    udev
-  ] ++ lib.optional useSystemd systemd;
+  buildInputs =
+    [
+      libdisplay-info
+      libgbm
+      libinput
+      pixman
+      seatd
+      udev
+    ]
+    ++ lib.optional useSystemd systemd;
 
   # Only default feature is systemd
   buildNoDefaultFeatures = !useSystemd;
@@ -61,7 +61,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -83,7 +84,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Compositor for the COSMIC Desktop Environment";
     mainProgram = "cosmic-comp";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 })

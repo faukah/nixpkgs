@@ -5,7 +5,6 @@
   f5-icontrol-rest,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "f5-sdk";
   version = "3.0.21";
@@ -24,12 +23,12 @@ buildPythonPackage rec {
   # needs to be updated to newer pytest version and requires physical device
   doCheck = false;
 
-  pythonImportsCheck = [ "f5" ];
+  pythonImportsCheck = ["f5"];
 
   meta = with lib; {
     description = "F5 Networks Python SDK";
     homepage = "https://github.com/F5Networks/f5-common-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

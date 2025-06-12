@@ -8,7 +8,6 @@
   vulkan-loader,
   wayland,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mslicer";
   version = "0.2.1";
@@ -42,14 +41,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Experimental open source slicer for masked stereolithography (resin) printers";
     homepage = "https://connorcode.com/projects/mslicer";
     changelog = "https://github.com/connorslade/mslicer/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [colinsane];
     platforms = lib.platforms.linux;
   };
 })

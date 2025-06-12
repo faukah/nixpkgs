@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   cython,
   geos,
   numpy,
@@ -13,7 +12,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "shapely";
   version = "2.0.7";
@@ -35,11 +33,11 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ geos ];
+  buildInputs = [geos];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Fix a ModuleNotFoundError. Investigated at:
   # https://github.com/NixOS/nixpkgs/issues/255262
@@ -58,13 +56,13 @@ buildPythonPackage rec {
     "test_info_handler"
   ];
 
-  pythonImportsCheck = [ "shapely" ];
+  pythonImportsCheck = ["shapely"];
 
   meta = {
     changelog = "https://github.com/shapely/shapely/blob/${version}/CHANGES.txt";
     description = "Manipulation and analysis of geometric objects";
     homepage = "https://github.com/shapely/shapely";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

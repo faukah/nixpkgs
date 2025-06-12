@@ -12,7 +12,6 @@
   libxkbcommon,
   xcb-util-cursor,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xmoji";
   version = "0.8";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fontconfig
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
     xcbutilimage
   ];
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = {
     description = "Plain X11 emoji keyboard";
     homepage = "https://github.com/Zirias/xmoji";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     platforms = lib.platforms.linux;
   };
 })

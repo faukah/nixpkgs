@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hacpack";
   version = "1.36";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     mv config.mk.template config.mk
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/The-4n/hacPack";
     description = "Make and repack Nintendo Switch NCAs/NSPs";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "hacpack";
   };

@@ -10,7 +10,6 @@
   xwayland,
   withSystemd ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "xwayland-satellite";
   version = "0.6";
@@ -53,10 +52,10 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = ''
     wrapProgram $out/bin/xwayland-satellite \
-      --prefix PATH : "${lib.makeBinPath [ xwayland ]}"
+      --prefix PATH : "${lib.makeBinPath [xwayland]}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Xwayland outside your Wayland compositor";

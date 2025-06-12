@@ -9,7 +9,6 @@
   rustc,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "aiotarfile";
   version = "0.5.1";
@@ -36,19 +35,19 @@ buildPythonPackage rec {
     rustc
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "tests/" ]; # Not sure why it isn't autodiscovered
+  unittestFlagsArray = ["tests/"]; # Not sure why it isn't autodiscovered
 
-  pythonImportsCheck = [ "aiotarfile" ];
+  pythonImportsCheck = ["aiotarfile"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Stream-based, asynchronous tarball processing";
     homepage = "https://github.com/rhelmot/aiotarfile";
     changelog = "https://github.com/rhelmot/aiotarfile/commits/v{version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nicoo ];
+    maintainers = with lib.maintainers; [nicoo];
   };
 }

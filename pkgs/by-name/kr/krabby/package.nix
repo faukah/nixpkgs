@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/yannjor/krabby";
     changelog = "https://github.com/yannjor/krabby/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ruby0b ];
+    maintainers = with lib.maintainers; [ruby0b];
     mainProgram = "krabby";
   };
 }

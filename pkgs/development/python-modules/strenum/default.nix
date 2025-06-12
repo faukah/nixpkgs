@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "strenum";
   version = "0.4.15";
@@ -38,17 +37,17 @@ buildPythonPackage rec {
       --replace " --cov=strenum --cov-report term-missing --black --pylint" ""
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "strenum" ];
+  pythonImportsCheck = ["strenum"];
 
   meta = with lib; {
     description = "Module for enum that inherits from str";
     homepage = "https://github.com/irgeek/StrEnum";
     changelog = "https://github.com/irgeek/StrEnum/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

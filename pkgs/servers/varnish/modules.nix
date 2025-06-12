@@ -7,14 +7,12 @@
   varnish,
   docutils,
   removeReferencesTo,
-}:
-let
-  common =
-    {
-      version,
-      hash,
-      extraNativeBuildInputs ? [ ],
-    }:
+}: let
+  common = {
+    version,
+    hash,
+    extraNativeBuildInputs ? [],
+  }:
     stdenv.mkDerivation rec {
       pname = "${varnish.name}-modules";
       inherit version;
@@ -34,7 +32,7 @@ let
         varnish.python # use same python version as varnish server
       ];
 
-      buildInputs = [ varnish ];
+      buildInputs = [varnish];
 
       postPatch = ''
         substituteInPlace bootstrap   --replace "''${dataroot}/aclocal"                  "${varnish.dev}/share/aclocal"
@@ -49,8 +47,7 @@ let
         inherit (varnish.meta) license platforms teams;
       };
     };
-in
-{
+in {
   modules15 = common {
     version = "0.15.1";
     hash = "sha256-Et/iWOk2FWJBDOpKjNXm4Nh5i1SU4zVPaID7kh+Uj9M=";

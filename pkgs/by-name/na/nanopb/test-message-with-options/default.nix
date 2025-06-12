@@ -3,7 +3,6 @@
   stdenv,
   nanopb,
 }:
-
 stdenv.mkDerivation {
   name = "nanopb-test-message-with-options";
   meta.timeout = 60;
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     ];
   };
 
-  buildInputs = [ nanopb ];
+  buildInputs = [nanopb];
 
   # protoc requires any .proto file to be compiled to reside within it's
   # proto_path. By default the current directory is automatically added to the

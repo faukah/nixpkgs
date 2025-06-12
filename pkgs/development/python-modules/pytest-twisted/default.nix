@@ -9,7 +9,6 @@
   twisted,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-twisted";
   version = "1.14.3";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-1dAfCa6hON0Vh9StI1Xw69IAwBzUkR6DdjQ0HNyoyME=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     decorator
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "pytest_twisted" ];
+  pythonImportsCheck = ["pytest_twisted"];
 
   meta = with lib; {
     changelog = "https://github.com/pytest-dev/pytest-twisted/releases/tag/v${version}";
     description = "Twisted plugin for py.test";
     homepage = "https://github.com/pytest-dev/pytest-twisted";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

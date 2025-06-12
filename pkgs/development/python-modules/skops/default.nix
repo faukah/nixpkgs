@@ -14,7 +14,6 @@
   streamlit,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "skops";
   version = "0.11.0";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-23Wy/VSd/CvpqT/zDX4ApplfsUwbjOj9q+T8YCKs8X4=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     huggingface-hub
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytest-cov-stub
     streamlit
   ];
-  pytestFlagsArray = [ "skops" ];
+  pytestFlagsArray = ["skops"];
   disabledTests = [
     # flaky
     "test_base_case_works_as_expected"
@@ -62,7 +61,7 @@ buildPythonPackage rec {
       "skops/io/tests/test_persist.py"
     ];
 
-  pythonImportsCheck = [ "skops" ];
+  pythonImportsCheck = ["skops"];
 
   meta = {
     description = "Library for saving/loading, sharing, and deploying scikit-learn based models";
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://skops.readthedocs.io/en/stable";
     changelog = "https://github.com/skops-dev/skops/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.bcdarwin ];
+    maintainers = [lib.maintainers.bcdarwin];
   };
 }

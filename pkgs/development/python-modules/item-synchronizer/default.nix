@@ -6,7 +6,6 @@
   bidict,
   bubop,
 }:
-
 buildPythonPackage rec {
   pname = "item-synchronizer";
   version = "1.1.5";
@@ -23,20 +22,20 @@ buildPythonPackage rec {
     substituteInPlace pyproject.toml --replace-fail 'bidict = "^0.21.4"' 'bidict = "^0.23"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     bidict
     bubop
   ];
 
-  pythonImportsCheck = [ "item_synchronizer" ];
+  pythonImportsCheck = ["item_synchronizer"];
 
   meta = with lib; {
     description = "";
     homepage = "https://github.com/bergercookie/item_synchronizer";
     changelog = "https://github.com/bergercookie/item_synchronizer/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

@@ -4,9 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.virtualisation.googleComputeImage;
   defaultConfigFile = pkgs.writeText "configuration.nix" ''
     { ... }:
@@ -16,9 +14,7 @@ let
       ];
     }
   '';
-in
-{
-
+in {
   imports = [
     ./google-compute-config.nix
     ./disk-size-option.nix
@@ -59,7 +55,7 @@ in
 
     virtualisation.googleComputeImage.contents = mkOption {
       type = with types; listOf attrs;
-      default = [ ];
+      default = [];
       description = ''
         The files and directories to be placed in the image.
         This is a list of attribute sets {source, target, mode, user, group} where
@@ -88,7 +84,7 @@ in
 
   #### implementation
   config = {
-    boot.initrd.availableKernelModules = [ "nvme" ];
+    boot.initrd.availableKernelModules = ["nvme"];
     boot.loader.grub = mkIf cfg.efi {
       device = mkForce "nodev";
       efiSupport = true;
@@ -100,7 +96,7 @@ in
       fsType = "vfat";
     };
 
-    system.nixos.tags = [ "google-compute" ];
+    system.nixos.tags = ["google-compute"];
     image.extension = "raw.tar.gz";
     system.build.image = config.system.build.googleComputeImage;
     system.build.googleComputeImage = import ../../lib/make-disk-image.nix {
@@ -109,10 +105,10 @@ in
       postVM = ''
         PATH=$PATH:${
           with pkgs;
-          lib.makeBinPath [
-            gnutar
-            gzip
-          ]
+            lib.makeBinPath [
+              gnutar
+              gzip
+            ]
         }
         pushd $out
         # RTFM:
@@ -125,13 +121,17 @@ in
         popd
       '';
       format = "raw";
-      configFile = if cfg.configFile == null then defaultConfigFile else cfg.configFile;
+      configFile =
+        if cfg.configFile == null
+        then defaultConfigFile
+        else cfg.configFile;
       inherit (cfg) contents;
-      partitionTableType = if cfg.efi then "efi" else "legacy";
+      partitionTableType =
+        if cfg.efi
+        then "efi"
+        else "legacy";
       inherit (config.virtualisation) diskSize;
       inherit config lib pkgs;
     };
-
   };
-
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "arsenal";
   version = "1.1.0";
@@ -34,8 +33,8 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to generate commands for security and network tools";
     homepage = "https://github.com/Orange-Cyberdefense/arsenal";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
     mainProgram = "arsenal";
   };
 }

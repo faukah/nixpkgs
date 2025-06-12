@@ -21,7 +21,6 @@
   wrapGAppsHook3,
   libgee,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "elementary-mail";
   version = "8.0.0";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     )
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Mail app designed for elementary OS";
@@ -72,8 +71,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/elementary/mail/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
-    teams = [ lib.teams.pantheon ];
+    maintainers = with lib.maintainers; [ethancedwards8];
+    teams = [lib.teams.pantheon];
     mainProgram = "io.elementary.mail";
   };
 })

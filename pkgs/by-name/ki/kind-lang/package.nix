@@ -1,9 +1,7 @@
 {
   haskell,
   lib,
-}:
-
-let
+}: let
   inherit (haskell.lib.compose) overrideCabal justStaticExecutables;
 
   # See kind-lang.cabal. GHC2024 >= ghc910.
@@ -22,13 +20,13 @@ let
     # Test suite does nothing.
     doCheck = false;
 
-    maintainers = with lib.maintainers; [ joaomoreira ];
+    maintainers = with lib.maintainers; [joaomoreira];
   };
 
   # cabal2nix auto-generated derivation.nix.
-  raw-pkg = haskellPackages.callPackage ./derivation.nix { };
+  raw-pkg = haskellPackages.callPackage ./derivation.nix {};
 in
-lib.pipe raw-pkg [
-  (overrideCabal overrides)
-  justStaticExecutables
-]
+  lib.pipe raw-pkg [
+    (overrideCabal overrides)
+    justStaticExecutables
+  ]

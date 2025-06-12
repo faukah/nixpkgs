@@ -1,14 +1,12 @@
 {
   fetchFromGitHub,
   python3,
-}:
-
-let
+}: let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
     };
   };
 in
-with python.pkgs;
-toPythonApplication certbot
+  with python.pkgs;
+    toPythonApplication certbot

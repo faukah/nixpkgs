@@ -9,7 +9,6 @@
   jdk,
   mpv,
 }:
-
 flutter327.buildFlutterApplication rec {
   pname = "bluebubbles";
   version = "1.15.4";
@@ -33,7 +32,7 @@ flutter327.buildFlutterApplication rec {
     video_thumbnail = "sha256-7IbKg6bBA5D8ODwMNwJqIohTCbAox56TMgoI07CbrPw=";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     webkitgtk_4_1

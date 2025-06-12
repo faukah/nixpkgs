@@ -11,7 +11,6 @@
   flaky,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "picologging";
   version = "0.9.4";
@@ -50,12 +49,12 @@ buildPythonPackage rec {
     hypothesis
   ];
 
-  pythonImportsCheck = [ "picologging" ];
+  pythonImportsCheck = ["picologging"];
 
   meta = {
     homepage = "https://github.com/microsoft/picologging";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     changelog = "https://github.com/microsoft/picologging/releases/tag/${version}";
     description = "optimized logging library for Python";
     license = lib.licenses.mit;

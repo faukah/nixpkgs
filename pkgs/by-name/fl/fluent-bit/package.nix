@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   nixosTests,
-
   arrow-glib,
   bison,
   c-ares,
@@ -26,7 +25,6 @@
   versionCheckHook,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fluent-bit";
   version = "4.0.3";
@@ -113,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
 
@@ -122,7 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
       inherit (nixosTests) fluent-bit;
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -130,6 +128,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://fluentbit.io";
     license = lib.licenses.asl20;
     mainProgram = "fluent-bit";
-    maintainers = with lib.maintainers; [ arianvp ];
+    maintainers = with lib.maintainers; [arianvp];
   };
 })

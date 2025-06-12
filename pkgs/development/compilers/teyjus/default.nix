@@ -5,7 +5,6 @@
   flex,
   bison,
 }:
-
 buildDunePackage rec {
   pname = "teyjus";
   version = "2.1.1";
@@ -24,7 +23,7 @@ buildDunePackage rec {
     bison
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -33,7 +32,7 @@ buildDunePackage rec {
     homepage = "https://github.com/teyjus/teyjus";
     changelog = "https://github.com/teyjus/teyjus/releases/tag/v${version}";
     license = lib.licenses.gpl3;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     platforms = platforms.unix;
   };
 }

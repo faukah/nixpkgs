@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "volatility3";
   version = "2.26.0";
@@ -48,6 +47,6 @@ python3.pkgs.buildPythonApplication rec {
       free = false;
       url = "https://www.volatilityfoundation.org/license/vsl-v1.0";
     };
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

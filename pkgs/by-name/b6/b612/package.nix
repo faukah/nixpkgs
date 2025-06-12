@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "b612";
   version = "1.008";
@@ -46,7 +45,7 @@ stdenvNoCC.mkDerivation rec {
       epl10
       bsd3
     ];
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.all;
   };
 }

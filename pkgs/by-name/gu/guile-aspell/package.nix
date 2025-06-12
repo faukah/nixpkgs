@@ -8,7 +8,6 @@
   aspell,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-aspell";
   version = "0.5.0";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Guile bindings for the aspell library";
     homepage = "https://github.com/spk121/guile-aspell";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ snowflake ];
+    maintainers = with maintainers; [snowflake];
     platforms = guile.meta.platforms;
   };
 })

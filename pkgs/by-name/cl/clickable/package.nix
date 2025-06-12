@@ -5,7 +5,6 @@
   python3Packages,
   stdenv,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "clickable";
   version = "8.3.1";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     watchdog
   ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   disabledTests =
     [
@@ -72,17 +71,17 @@ python3Packages.buildPythonApplication rec {
       "test_restricted_arch"
     ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Build system for Ubuntu Touch apps";
     mainProgram = "clickable";
     homepage = "https://clickable-ut.dev";
     changelog = "https://clickable-ut.dev/en/latest/changelog.html#changes-in-v${
-      lib.strings.replaceStrings [ "." ] [ "-" ] version
+      lib.strings.replaceStrings ["."] ["-"] version
     }";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ ilyakooo0 ];
-    teams = [ lib.teams.lomiri ];
+    maintainers = with lib.maintainers; [ilyakooo0];
+    teams = [lib.teams.lomiri];
   };
 }

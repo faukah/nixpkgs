@@ -12,7 +12,6 @@
   setuptools-scm,
   time-machine,
 }:
-
 buildPythonPackage rec {
   pname = "httpx-auth";
   version = "0.23.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeCheckInputs = [
     pyjwt
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  pythonImportsCheck = [ "httpx_auth" ];
+  pythonImportsCheck = ["httpx_auth"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Colin-b/httpx_auth";
     changelog = "https://github.com/Colin-b/httpx_auth/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

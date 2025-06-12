@@ -9,7 +9,6 @@
   emacs,
   swig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trexio";
   version = "2.5.0";
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://trex-coe.github.io/trexio/";
     downloadPage = "https://github.com/TREX-CoE/trexio";
     license = licenses.bsd3;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

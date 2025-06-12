@@ -15,7 +15,6 @@
   systemdSupport ? true,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "conntrack-tools";
   version = "1.4.8";
@@ -53,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "Connection tracking userspace tools";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

@@ -14,7 +14,6 @@
   matplotlib,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "nbval";
   version = "0.11.0";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-d8lXl2B7CpaLq9JZfuNJQQLSXDrTdDXeu9rA5G43kJQ=";
   };
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     coverage
@@ -62,13 +61,13 @@ buildPythonPackage rec {
   # Some of the tests use localhost networking.
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "nbval" ];
+  pythonImportsCheck = ["nbval"];
 
   meta = with lib; {
     description = "Py.test plugin to validate Jupyter notebooks";
     homepage = "https://github.com/computationalmodelling/nbval";
     changelog = "https://github.com/computationalmodelling/nbval/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

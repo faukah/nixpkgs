@@ -11,7 +11,6 @@
   scikit-learn,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "pyLDAvis";
   version = "3.4.1";
@@ -43,9 +42,9 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/bmabey/pyLDAvis";
     description = "Python library for interactive topic model visualization";
-    maintainers = with lib.maintainers; [ gm6k ];
+    maintainers = with lib.maintainers; [gm6k];
     license = licenses.bsd3;
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     platforms = platforms.all;
   };
 }

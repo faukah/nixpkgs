@@ -5,7 +5,6 @@
   undmg,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "iina";
   version = "1.3.5";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-O4uRmfQaGMKqizDlgk0MnazMHVkXaDLqZQ9TP8vcajg=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "IINA.app";
 
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ln -s "$out/Applications/IINA.app/Contents/MacOS/iina-cli" "$out/bin/iina"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/iina/iina/releases/tag/v${finalAttrs.version}";
@@ -39,6 +38,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
     mainProgram = "iina";
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

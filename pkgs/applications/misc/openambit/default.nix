@@ -11,7 +11,6 @@
   udev,
   zlib,
 }:
-
 mkDerivation rec {
   pname = "openambit";
   version = "0.5";
@@ -45,7 +44,7 @@ mkDerivation rec {
     zlib
   ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_UDEVRULESDIR=${placeholder "out"}/lib/udev/rules.d"];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -63,7 +62,7 @@ mkDerivation rec {
     description = "Helps fetch data from Suunto Ambit GPS watches";
     homepage = "https://github.com/openambitproject/openambit/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rycee ];
+    maintainers = with maintainers; [rycee];
     platforms = platforms.linux;
   };
 }

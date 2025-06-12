@@ -7,7 +7,6 @@
   setuptools,
   websocket-client,
 }:
-
 buildPythonPackage {
   pname = "pyflipper";
   version = "0.18-unstable-2024-04-15";
@@ -23,7 +22,7 @@ buildPythonPackage {
     hash = "sha256-CQ6oVVkLxyoNoe7L0USfal1980VkfiuHc4cqXTsZ2Jc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pyserial
@@ -33,12 +32,12 @@ buildPythonPackage {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyflipper" ];
+  pythonImportsCheck = ["pyflipper"];
 
   meta = {
     description = "Flipper Zero Python CLI Wrapper";
     homepage = "https://github.com/wh00hw/pyFlipper";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ siraben ];
+    maintainers = with lib.maintainers; [siraben];
   };
 }

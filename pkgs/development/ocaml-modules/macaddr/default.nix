@@ -6,7 +6,6 @@
   ppx_sexp_conv,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "macaddr";
   version = "5.6.0";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-ipaddr";
     description = "Library for manipulation of MAC address representations";
     license = licenses.isc;
-    maintainers = [ maintainers.alexfmpe ];
+    maintainers = [maintainers.alexfmpe];
   };
 }

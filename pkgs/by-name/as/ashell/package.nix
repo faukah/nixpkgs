@@ -38,19 +38,21 @@ rustPlatform.buildRustPackage rec {
     vulkan-loader
   ];
 
-  buildInputs = [
-    libpulseaudio
-    libxkbcommon
-    pipewire
-    udev
-  ] ++ runtimeDependencies;
+  buildInputs =
+    [
+      libpulseaudio
+      libxkbcommon
+      pipewire
+      udev
+    ]
+    ++ runtimeDependencies;
 
   meta = {
     description = "Ready to go Wayland status bar for Hyprland";
     homepage = "https://github.com/MalpenZibo/ashell";
     license = lib.licenses.mit;
     mainProgram = "ashell";
-    maintainers = with lib.maintainers; [ justdeeevin ];
+    maintainers = with lib.maintainers; [justdeeevin];
     platforms = lib.platforms.linux;
   };
 }

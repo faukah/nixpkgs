@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "htmlunit-driver-standalone";
   version = "2.27";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       offline
     ];
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
   };
 }

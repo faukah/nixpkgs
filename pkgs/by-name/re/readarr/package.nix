@@ -11,10 +11,11 @@
   openssl,
   nixosTests,
   zlib,
-}:
-
-let
-  os = if stdenv.hostPlatform.isDarwin then "osx" else "linux";
+}: let
+  os =
+    if stdenv.hostPlatform.isDarwin
+    then "osx"
+    else "linux";
   arch =
     {
       x86_64-linux = "x64";
@@ -30,25 +31,25 @@ let
     }
     ."${arch}-${os}_hash";
 in
-stdenv.mkDerivation rec {
-  pname = "readarr";
-  version = "0.4.16.2793";
+  stdenv.mkDerivation rec {
+    pname = "readarr";
+    version = "0.4.16.2793";
 
-  src = fetchurl {
-    url = "https://github.com/Readarr/Readarr/releases/download/v${version}/Readarr.develop.${version}.${os}-core-${arch}.tar.gz";
-    sha256 = hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/Readarr/Readarr/releases/download/v${version}/Readarr.develop.${version}.${os}-core-${arch}.tar.gz";
+      sha256 = hash;
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/{bin,share/${pname}-${version}}
-    cp -r * $out/share/${pname}-${version}/.
-    makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Readarr \
-      --add-flags "$out/share/${pname}-${version}/Readarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${
+      mkdir -p $out/{bin,share/${pname}-${version}}
+      cp -r * $out/share/${pname}-${version}/.
+      makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Readarr \
+        --add-flags "$out/share/${pname}-${version}/Readarr.dll" \
+        --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           curl
           sqlite
@@ -59,28 +60,28 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    updateScript = ./update.sh;
-    tests.smoke-test = nixosTests.readarr;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+      tests.smoke-test = nixosTests.readarr;
+    };
 
-  meta = {
-    description = "Usenet/BitTorrent ebook downloader";
-    homepage = "https://readarr.com";
-    license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [
-      jocelynthode
-      devusb
-    ];
-    mainProgram = "Readarr";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-      "x86_64-darwin"
-    ];
-  };
-}
+    meta = {
+      description = "Usenet/BitTorrent ebook downloader";
+      homepage = "https://readarr.com";
+      license = lib.licenses.gpl3;
+      maintainers = with lib.maintainers; [
+        jocelynthode
+        devusb
+      ];
+      mainProgram = "Readarr";
+      sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+      ];
+    };
+  }

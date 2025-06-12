@@ -5,7 +5,6 @@
   ncurses,
   coreutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncftp";
   version = "3.3.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-eSD4hMKtr8gsjkHEbW89ImmHhcez9W9Wd6jVyGY5Y4Y=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   enableParallelBuilding = true;
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Command line FTP (File Transfer Protocol) client";
     homepage = "https://www.ncftp.com/ncftp/";
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
     platforms = lib.platforms.unix;
     license = lib.licenses.clArtistic;
     mainProgram = "ncftp";

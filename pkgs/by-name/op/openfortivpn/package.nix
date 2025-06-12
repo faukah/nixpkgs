@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openfortivpn";
   version = "1.23.1";
@@ -60,14 +59,14 @@ stdenv.mkDerivation rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Client for PPP+SSL VPN tunnel services";
     homepage = "https://github.com/adrienverge/openfortivpn";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ madjar ];
+    maintainers = with lib.maintainers; [madjar];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = "openfortivpn";
   };

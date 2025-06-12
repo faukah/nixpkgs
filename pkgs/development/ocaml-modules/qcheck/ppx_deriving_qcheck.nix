@@ -5,7 +5,6 @@
   ppxlib,
   ppx_deriving,
 }:
-
 buildDunePackage {
   pname = "ppx_deriving_qcheck";
   version = "0.6";
@@ -23,7 +22,9 @@ buildDunePackage {
     ppx_deriving
   ];
 
-  meta = qcheck.meta // {
-    description = "PPX Deriver for QCheck";
-  };
+  meta =
+    qcheck.meta
+    // {
+      description = "PPX Deriver for QCheck";
+    };
 }

@@ -12,7 +12,6 @@
   xdotool,
   libappindicator-gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "parcellite";
   version = "1.2.1";

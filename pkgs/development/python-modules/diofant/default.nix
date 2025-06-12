@@ -17,7 +17,6 @@
   scipy,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "diofant";
   version = "0.14.0";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [ mpmath ];
+  dependencies = [mpmath];
 
   optional-dependencies = {
     exports = [
@@ -50,7 +49,7 @@ buildPythonPackage rec {
       numpy
       scipy
     ];
-    gmpy = [ gmpy2 ];
+    gmpy = [gmpy2];
   };
 
   doCheck = false; # some tests get stuck easily
@@ -76,13 +75,13 @@ buildPythonPackage rec {
     "test_evalf_sum"
   ];
 
-  pythonImportsCheck = [ "diofant" ];
+  pythonImportsCheck = ["diofant"];
 
   meta = with lib; {
     changelog = "https://diofant.readthedocs.io/en/latest/release/notes-${version}.html";
     description = "Python CAS library";
     homepage = "https://github.com/diofant/diofant";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
   };
 }

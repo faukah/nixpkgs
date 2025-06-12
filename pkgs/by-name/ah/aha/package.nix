@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aha";
   version = "0.5.1";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     owner = "theZiz";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
       mpl11
     ];
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     platforms = lib.platforms.all;
   };
 }

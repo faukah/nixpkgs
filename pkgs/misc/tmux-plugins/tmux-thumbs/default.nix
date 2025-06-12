@@ -3,9 +3,7 @@
   thumbs,
   replaceVars,
 }:
-
 mkTmuxPlugin {
-
   inherit (thumbs) version src meta;
 
   pluginName = thumbs.src.repo;
@@ -16,5 +14,4 @@ mkTmuxPlugin {
       tmuxThumbsDir = "${thumbs}/bin";
     })
   ];
-
 }

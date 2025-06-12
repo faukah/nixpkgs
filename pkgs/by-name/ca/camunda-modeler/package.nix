@@ -7,7 +7,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "camunda-modeler";
   version = "5.36.0";
@@ -76,7 +75,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/camunda/camunda-modeler";
     description = "Integrated modeling solution for BPMN, DMN and Forms based on bpmn.io";
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
     license = licenses.mit;
     inherit (electron.meta) platforms;
     mainProgram = "camunda-modeler";

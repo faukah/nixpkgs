@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pritunl-ssh";
   version = "1.0.3231.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kccc8ZDh3S/Ko/MaBd5u0UxMNIbg5dhvRuecJuE3D6c=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Pritunl Zero SSH client";
     homepage = "https://github.com/pritunl/pritunl-zero-client";
     license = licenses.unfree;
-    maintainers = with maintainers; [ Thunderbottom ];
+    maintainers = with maintainers; [Thunderbottom];
     platforms = platforms.unix;
   };
 }

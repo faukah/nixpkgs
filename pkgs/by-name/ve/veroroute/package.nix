@@ -4,7 +4,6 @@
   fetchurl,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "veroroute";
   version = "2.39";

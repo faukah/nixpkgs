@@ -4,22 +4,17 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.hans;
 
   hansUser = "hans";
-
-in
-{
-
+in {
   ### configuration
 
   options = {
-
     services.hans = {
       clients = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           Each attribute of this option defines a systemd service that
           runs hans. Many or none may be defined.
@@ -37,7 +32,7 @@ in
           }
         '';
         type = lib.types.attrsOf (
-          lib.types.submodule ({
+          lib.types.submodule {
             options = {
               server = lib.mkOption {
                 type = lib.types.str;
@@ -58,9 +53,8 @@ in
                 default = "";
                 description = "File that contains password";
               };
-
             };
-          })
+          }
         );
       };
 
@@ -97,44 +91,43 @@ in
           description = "File that contains password";
         };
       };
-
     };
   };
 
   ### implementation
 
-  config = lib.mkIf (cfg.server.enable || cfg.clients != { }) {
+  config = lib.mkIf (cfg.server.enable || cfg.clients != {}) {
     boot.kernel.sysctl = lib.optionalAttrs cfg.server.respondToSystemPings {
       "net.ipv4.icmp_echo_ignore_all" = 1;
     };
 
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
-    systemd.services =
-      let
-        createHansClientService = name: cfg: {
-          description = "hans client - ${name}";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
-            lib.optionalString (cfg.passwordFile != "") "-p $(cat \"${cfg.passwordFile}\")"
-          }";
-          serviceConfig = {
-            RestartSec = "30s";
-            Restart = "always";
-          };
+    systemd.services = let
+      createHansClientService = name: cfg: {
+        description = "hans client - ${name}";
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
+        script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
+          lib.optionalString (cfg.passwordFile != "") "-p $(cat \"${cfg.passwordFile}\")"
+        }";
+        serviceConfig = {
+          RestartSec = "30s";
+          Restart = "always";
         };
-      in
+      };
+    in
       lib.listToAttrs (
         lib.mapAttrsToList (
           name: value: lib.nameValuePair "hans-${name}" (createHansClientService name value)
-        ) cfg.clients
+        )
+        cfg.clients
       )
       // {
         hans = lib.mkIf (cfg.server.enable) {
           description = "hans, ip over icmp server daemon";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${lib.optionalString cfg.server.respondToSystemPings "-r"} ${
             lib.optionalString (cfg.server.passwordFile != "") "-p $(cat \"${cfg.server.passwordFile}\")"
           }";
@@ -147,5 +140,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

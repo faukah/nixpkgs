@@ -29,9 +29,7 @@
   simpleitk,
   tifffile,
   wheel,
-}:
-
-let
+}: let
   installedPackageRoot = "${builtins.placeholder "out"}/${python.sitePackages}";
   self = buildPythonPackage rec {
     pname = "scikit-image";
@@ -75,17 +73,19 @@ let
     ];
 
     optional-dependencies = {
-      data = [ pooch ];
-      optional = [
-        astropy
-        cloudpickle
-        dask
-        matplotlib
-        pooch
-        pyamg
-        scikit-learn
-        simpleitk
-      ] ++ dask.optional-dependencies.array;
+      data = [pooch];
+      optional =
+        [
+          astropy
+          cloudpickle
+          dask
+          matplotlib
+          pooch
+          pyamg
+          scikit-learn
+          simpleitk
+        ]
+        ++ dask.optional-dependencies.array;
     };
 
     # test suite is very cpu intensive, move to passthru.tests
@@ -154,7 +154,7 @@ let
     ];
 
     passthru.tests = {
-      all-tests = self.overridePythonAttrs { doCheck = true; };
+      all-tests = self.overridePythonAttrs {doCheck = true;};
     };
 
     meta = {
@@ -162,8 +162,8 @@ let
       homepage = "https://scikit-image.org";
       changelog = "https://github.com/scikit-image/scikit-image/releases/tag/${src.tag}";
       license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ yl3dy ];
+      maintainers = with lib.maintainers; [yl3dy];
     };
   };
 in
-self
+  self

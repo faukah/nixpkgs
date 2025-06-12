@@ -7,7 +7,6 @@
   pkg-config,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcdio-paranoia";
   version = "2.0.2";
@@ -24,12 +23,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
   buildInputs =
-    [ libcdio ]
+    [libcdio]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
 
-  configureFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-ld-version-script" ];
+  configureFlags = lib.optionals stdenv.hostPlatform.isDarwin ["--disable-ld-version-script"];
 
   meta = with lib; {
     description = "CD paranoia on top of libcdio";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/rocky/libcdio-paranoia";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "cd-paranoia";
     platforms = platforms.unix;
   };

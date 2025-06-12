@@ -13,7 +13,6 @@
   junit_alcotest,
   ezjsonm,
 }:
-
 buildDunePackage rec {
   pname = "yaml";
   version = "3.2.0";
@@ -25,14 +24,14 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.13";
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     bos
     ctypes
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
   checkInputs = [
     fmt
     logs
@@ -46,7 +45,6 @@ buildDunePackage rec {
     description = "Parse and generate YAML 1.1 files";
     homepage = "https://github.com/avsm/ocaml-yaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

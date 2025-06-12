@@ -5,7 +5,6 @@
   stu,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stu";
   version = "0.7.2";
@@ -20,14 +19,14 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-qc2FvlMjPp0X6EQyxNwJdpB8D1i+QzxFv9qYf/F+gXg=";
 
-  passthru.tests.version = testers.testVersion { package = stu; };
+  passthru.tests.version = testers.testVersion {package = stu;};
 
   meta = {
     description = "Terminal file explorer for S3 buckets";
     changelog = "https://github.com/lusingander/stu/releases/tag/v${version}";
     homepage = "https://lusingander.github.io/stu/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.Nebucatnetzer ];
+    maintainers = [lib.maintainers.Nebucatnetzer];
     mainProgram = "stu";
   };
 }

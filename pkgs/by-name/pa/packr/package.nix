@@ -4,9 +4,7 @@
   fetchFromGitHub,
   lib,
   symlinkJoin,
-}:
-
-let
+}: let
   p2 = buildGoModule rec {
     pname = "packr2";
     version = "2.8.0";
@@ -20,7 +18,7 @@ let
       }
       + "/v2";
 
-    subPackages = [ "packr2" ];
+    subPackages = ["packr2"];
 
     vendorHash = "sha256-N3u+DmEe0r72zFPb8El/MwjyIcTehQRE+MgusIII2Is=";
 
@@ -30,7 +28,7 @@ let
       description = "Simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [mmahut];
 
       # golang.org/x/sys needs to be updated due to:
       #
@@ -52,7 +50,7 @@ let
       hash = "sha256-UfnL3Lnq3ocXrTqKtmyar6BoKUUHHKMOFCiD5wX26PQ=";
     };
 
-    subPackages = [ "packr" ];
+    subPackages = ["packr"];
 
     vendorHash = "sha256-6mlV3q7irI0aoeB91OYSD3RvmwYcNXRNkSYowjmSflQ=";
 
@@ -62,7 +60,7 @@ let
       description = "Simple and easy way to embed static files into Go binaries";
       homepage = "https://github.com/gobuffalo/packr";
       license = licenses.mit;
-      maintainers = with maintainers; [ mmahut ];
+      maintainers = with maintainers; [mmahut];
 
       # golang.org/x/sys needs to be updated due to:
       #
@@ -74,10 +72,10 @@ let
     };
   };
 in
-symlinkJoin {
-  name = "packr";
-  paths = [
-    p1
-    p2
-  ];
-}
+  symlinkJoin {
+    name = "packr";
+    paths = [
+      p1
+      p2
+    ];
+  }

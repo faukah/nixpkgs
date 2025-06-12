@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.libvirt;
-in
-{
+in {
   port = 9177;
   extraOpts = {
     libvirtUri = lib.mkOption {

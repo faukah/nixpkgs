@@ -36,7 +36,6 @@
   alcotest-lwt,
   cmdliner,
 }:
-
 buildDunePackage rec {
   pname = "git";
   version = "3.18.0";

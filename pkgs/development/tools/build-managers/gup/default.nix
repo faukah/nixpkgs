@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     which
     pylint
   ];
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
   strictDeps = true;
   buildPhase = "make python";
   installPhase = ''
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "Better make, inspired by djb's redo";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ lib.maintainers.timbertson ];
+    maintainers = [lib.maintainers.timbertson];
     platforms = lib.platforms.all;
   };
 }

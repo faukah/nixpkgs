@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "autocommand";
   version = "2.2.2";
@@ -26,19 +25,19 @@ buildPythonPackage rec {
     rm setup.py
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # fails with: SyntaxError: invalid syntax
   doCheck = false;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autocommand" ];
+  pythonImportsCheck = ["autocommand"];
 
   meta = with lib; {
     description = "Autocommand turns a python function into a CLI program";
     homepage = "https://github.com/Lucretiel/autocommand";
     license = licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -1,13 +1,12 @@
-testModuleArgs@{
+testModuleArgs @ {
   config,
   lib,
   hostPkgs,
   nodes,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     literalMD
     mapAttrs
@@ -24,59 +23,54 @@ let
   inherit (hostPkgs.stdenv) hostPlatform;
 
   guestSystem =
-    if hostPlatform.isLinux then
-      hostPlatform.system
-    else
-      let
-        hostToGuest = {
-          "x86_64-darwin" = "x86_64-linux";
-          "aarch64-darwin" = "aarch64-linux";
-        };
+    if hostPlatform.isLinux
+    then hostPlatform.system
+    else let
+      hostToGuest = {
+        "x86_64-darwin" = "x86_64-linux";
+        "aarch64-darwin" = "aarch64-linux";
+      };
 
-        supportedHosts = lib.concatStringsSep ", " (lib.attrNames hostToGuest);
+      supportedHosts = lib.concatStringsSep ", " (lib.attrNames hostToGuest);
 
-        message = "NixOS Test: don't know which VM guest system to pair with VM host system: ${hostPlatform.system}. Perhaps you intended to run the tests on a Linux host, or one of the following systems that may run NixOS tests: ${supportedHosts}";
-      in
+      message = "NixOS Test: don't know which VM guest system to pair with VM host system: ${hostPlatform.system}. Perhaps you intended to run the tests on a Linux host, or one of the following systems that may run NixOS tests: ${supportedHosts}";
+    in
       hostToGuest.${hostPlatform.system} or (throw message);
 
   baseOS = import ../eval-config.nix {
     inherit lib;
     system = null; # use modularly defined system
     inherit (config.node) specialArgs;
-    modules = [ config.defaults ];
-    baseModules = (import ../../modules/module-list.nix) ++ [
-      ./nixos-test-base.nix
-      {
-        key = "nodes";
-        _module.args.nodes = config.nodesCompat;
-      }
-      (
-        { config, ... }:
+    modules = [config.defaults];
+    baseModules =
+      (import ../../modules/module-list.nix)
+      ++ [
+        ./nixos-test-base.nix
         {
-          virtualisation.qemu.package = testModuleArgs.config.qemu.package;
-          virtualisation.host.pkgs = hostPkgs;
+          key = "nodes";
+          _module.args.nodes = config.nodesCompat;
         }
-      )
-      (
-        { options, ... }:
-        {
-          key = "nodes.nix-pkgs";
-          config = optionalAttrs (!config.node.pkgsReadOnly) (
-            mkIf (!options.nixpkgs.pkgs.isDefined) {
-              # TODO: switch to nixpkgs.hostPlatform and make sure containers-imperative test still evaluates.
-              nixpkgs.system = guestSystem;
-            }
-          );
-        }
-      )
-      testModuleArgs.config.extraBaseModules
-    ];
+        (
+          {config, ...}: {
+            virtualisation.qemu.package = testModuleArgs.config.qemu.package;
+            virtualisation.host.pkgs = hostPkgs;
+          }
+        )
+        (
+          {options, ...}: {
+            key = "nodes.nix-pkgs";
+            config = optionalAttrs (!config.node.pkgsReadOnly) (
+              mkIf (!options.nixpkgs.pkgs.isDefined) {
+                # TODO: switch to nixpkgs.hostPlatform and make sure containers-imperative test still evaluates.
+                nixpkgs.system = guestSystem;
+              }
+            );
+          }
+        )
+        testModuleArgs.config.extraBaseModules
+      ];
   };
-
-in
-
-{
-
+in {
   options = {
     sshBackdoor = {
       enable = mkOption {
@@ -127,7 +121,7 @@ in
         NixOS configuration that is applied to all [{option}`nodes`](#test-opt-nodes).
       '';
       type = types.deferredModule;
-      default = { };
+      default = {};
     };
 
     extraBaseModules = mkOption {
@@ -135,7 +129,7 @@ in
         NixOS configuration that, like [{option}`defaults`](#test-opt-defaults), is applied to all [{option}`nodes`](#test-opt-nodes) and can not be undone with [`specialisation.<name>.inheritParentConfig`](https://search.nixos.org/options?show=specialisation.%3Cname%3E.inheritParentConfig&from=0&size=50&sort=relevance&type=packages&query=specialisation).
       '';
       type = types.deferredModule;
-      default = { };
+      default = {};
     };
 
     node.pkgs = mkOption {
@@ -164,7 +158,7 @@ in
 
     node.specialArgs = mkOption {
       type = types.lazyAttrsOf types.raw;
-      default = { };
+      default = {};
       description = ''
         An attribute set of arbitrary values that will be made available as module arguments during the resolution of module `imports`.
 
@@ -184,16 +178,18 @@ in
 
   config = {
     _module.args.nodes = config.nodesCompat;
-    nodesCompat = mapAttrs (
-      name: config:
-      config
-      // {
-        config =
-          lib.warnIf (lib.oldestSupportedReleaseIsAtLeast 2211)
-            "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-            config;
-      }
-    ) config.nodes;
+    nodesCompat =
+      mapAttrs (
+        name: config:
+          config
+          // {
+            config =
+              lib.warnIf (lib.oldestSupportedReleaseIsAtLeast 2211)
+              "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
+              config;
+          }
+      )
+      config.nodes;
 
     passthru.nodes = config.nodesCompat;
 
@@ -204,34 +200,32 @@ in
     defaults = mkMerge [
       (mkIf config.node.pkgsReadOnly {
         nixpkgs.pkgs = config.node.pkgs;
-        imports = [ ../../modules/misc/nixpkgs/read-only.nix ];
+        imports = [../../modules/misc/nixpkgs/read-only.nix];
       })
       (mkIf config.sshBackdoor.enable (
         let
           inherit (config.sshBackdoor) vsockOffset;
         in
-        { config, ... }:
-        {
-          services.openssh = {
-            enable = true;
-            settings = {
-              PermitRootLogin = "yes";
-              PermitEmptyPasswords = "yes";
+          {config, ...}: {
+            services.openssh = {
+              enable = true;
+              settings = {
+                PermitRootLogin = "yes";
+                PermitEmptyPasswords = "yes";
+              };
             };
-          };
 
-          security.pam.services.sshd = {
-            allowNullPassword = true;
-          };
+            security.pam.services.sshd = {
+              allowNullPassword = true;
+            };
 
-          virtualisation.qemu.options = [
-            "-device vhost-vsock-pci,guest-cid=${
-              toString (config.virtualisation.test.nodeNumber + vsockOffset)
-            }"
-          ];
-        }
+            virtualisation.qemu.options = [
+              "-device vhost-vsock-pci,guest-cid=${
+                toString (config.virtualisation.test.nodeNumber + vsockOffset)
+              }"
+            ];
+          }
       ))
     ];
-
   };
 }

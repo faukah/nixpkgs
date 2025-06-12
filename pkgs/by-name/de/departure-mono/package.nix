@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "departure-mono";
   version = "1.422";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://departuremono.com/";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 })

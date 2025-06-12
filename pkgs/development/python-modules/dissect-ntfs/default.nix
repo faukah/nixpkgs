@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-ntfs";
   version = "3.14";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.ntfs" ];
+  pythonImportsCheck = ["dissect.ntfs"];
 
   disabledTestPaths = [
     # Test is very time consuming
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.ntfs";
     changelog = "https://github.com/fox-it/dissect.ntfs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

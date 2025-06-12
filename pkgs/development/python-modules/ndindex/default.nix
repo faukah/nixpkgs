@@ -3,21 +3,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   python,
-
   # build-system
   cython,
   setuptools,
-
   # optional
   numpy,
-
   # tests
   hypothesis,
   pytest-cov-stub,
   pytestCheckHook,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "ndindex";
   version = "1.9.2";
@@ -40,9 +36,9 @@ buildPythonPackage rec {
       --replace-fail "--flakes" ""
   '';
 
-  optional-dependencies.arrays = [ numpy ];
+  optional-dependencies.arrays = [numpy];
 
-  pythonImportsCheck = [ "ndindex" ];
+  pythonImportsCheck = ["ndindex"];
 
   # fix Hypothesis timeouts
   preCheck = ''
@@ -61,12 +57,14 @@ buildPythonPackage rec {
     EOF
   '';
 
-  nativeCheckInputs = [
-    hypothesis
-    pytest-cov-stub
-    pytestCheckHook
-    sympy
-  ] ++ optional-dependencies.arrays;
+  nativeCheckInputs =
+    [
+      hypothesis
+      pytest-cov-stub
+      pytestCheckHook
+      sympy
+    ]
+    ++ optional-dependencies.arrays;
 
   pytestFlagsArray = [
     "--hypothesis-profile"
@@ -78,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Quansight-Labs/ndindex";
     changelog = "https://github.com/Quansight-Labs/ndindex/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

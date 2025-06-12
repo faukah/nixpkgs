@@ -4,15 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.stubby;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   confFile = settingsFormat.generate "stubby.yml" cfg.settings;
-in
-{
+in {
   imports =
     [
       (mkRemovedOptionModule [
@@ -21,28 +17,26 @@ in
       ] "Use services.stubby.logLevel = \"debug\"; instead.")
     ]
     ++ map
-      (
-        x:
-        (mkRemovedOptionModule [
-          "services"
-          "stubby"
-          x
-        ] "Stubby configuration moved to services.stubby.settings.")
-      )
-      [
-        "authenticationMode"
-        "fallbackProtocols"
-        "idleTimeout"
-        "listenAddresses"
-        "queryPaddingBlocksize"
-        "roundRobinUpstreams"
-        "subnetPrivate"
-        "upstreamServers"
-      ];
+    (
+      x: (mkRemovedOptionModule [
+        "services"
+        "stubby"
+        x
+      ] "Stubby configuration moved to services.stubby.settings.")
+    )
+    [
+      "authenticationMode"
+      "fallbackProtocols"
+      "idleTimeout"
+      "listenAddresses"
+      "queryPaddingBlocksize"
+      "roundRobinUpstreams"
+      "subnetPrivate"
+      "upstreamServers"
+    ];
 
   options = {
     services.stubby = {
-
       enable = mkEnableOption "Stubby DNS resolver";
 
       settings = mkOption {
@@ -69,26 +63,27 @@ in
         '';
       };
 
-      logLevel =
-        let
-          logLevels = {
-            emerg = 0;
-            alert = 1;
-            crit = 2;
-            error = 3;
-            warning = 4;
-            notice = 5;
-            info = 6;
-            debug = 7;
-          };
-        in
+      logLevel = let
+        logLevels = {
+          emerg = 0;
+          alert = 1;
+          crit = 2;
+          error = 3;
+          warning = 4;
+          notice = 5;
+          info = 6;
+          debug = 7;
+        };
+      in
         mkOption {
           default = null;
           type = types.nullOr (types.enum (attrNames logLevels ++ attrValues logLevels));
-          apply = v: if isString v then logLevels.${v} else v;
+          apply = v:
+            if isString v
+            then logLevels.${v}
+            else v;
           description = "Log verbosity (syslog keyword or level).";
         };
-
     };
   };
 
@@ -107,9 +102,9 @@ in
 
     systemd.services.stubby = {
       description = "Stubby local DNS resolver";
-      after = [ "network.target" ];
-      before = [ "nss-lookup.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      before = ["nss-lookup.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "notify";

@@ -10,7 +10,6 @@
   imageio-ffmpeg,
   pwkit,
 }:
-
 buildPythonPackage rec {
   pname = "drawsvg";
   version = "2.4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-JC7u6bEB7RCJVLeYnNqACmddLI5F5PyaaBxaAZ+N/5s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     all = [
@@ -50,12 +49,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "drawsvg" ];
+  pythonImportsCheck = ["drawsvg"];
 
   meta = with lib; {
     description = "Programmatically generate SVG (vector) images, animations, and interactive Jupyter widgets";
     homepage = "https://github.com/cduck/drawsvg";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

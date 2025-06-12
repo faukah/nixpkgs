@@ -4,7 +4,6 @@
   git,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "vunnel";
   version = "0.33.0";
@@ -32,8 +31,7 @@ python3.pkgs.buildPythonApplication rec {
     uv-dynamic-versioning
   ];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       click
       colorlog
@@ -61,7 +59,7 @@ python3.pkgs.buildPythonApplication rec {
     ++ xsdata.optional-dependencies.soap;
 
   nativeCheckInputs =
-    [ git ]
+    [git]
     ++ (with python3.pkgs; [
       jsonschema
       pytest-mock
@@ -69,7 +67,7 @@ python3.pkgs.buildPythonApplication rec {
       pytestCheckHook
     ]);
 
-  pythonImportsCheck = [ "vunnel" ];
+  pythonImportsCheck = ["vunnel"];
 
   disabledTests = [
     # Compare output
@@ -83,7 +81,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/anchore/vunnel";
     changelog = "https://github.com/anchore/vunnel/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "vunnel";
   };
 }

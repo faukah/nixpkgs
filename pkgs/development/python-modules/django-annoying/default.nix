@@ -8,7 +8,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-annoying";
   version = "0.10.8";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-zBOHVar4iKb+BioIwmDosNZKi/0YcjYfBusn0Lv8pMw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://skorokithakis.github.io/django-annoying/";
     changelog = "https://github.com/skorokithakis/django-annoying/releases/tag/v$version";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "joycond-cemuhook";
   pyproject = true;
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/joaorb64/joycond-cemuhook";
     description = "Support for cemuhook's UDP protocol for joycond devices";
     license = licenses.mit;
-    maintainers = [ maintainers.noodlez1232 ];
+    maintainers = [maintainers.noodlez1232];
     mainProgram = "joycond-cemuhook";
     platforms = platforms.linux;
   };

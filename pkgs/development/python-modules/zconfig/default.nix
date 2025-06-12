@@ -10,7 +10,6 @@
   setuptools,
   zope-testrunner,
 }:
-
 buildPythonPackage rec {
   pname = "zconfig";
   version = "4.2";
@@ -27,29 +26,29 @@ buildPythonPackage rec {
     substituteInPlace pyproject.toml --replace-fail 'setuptools <= 75.6.0' 'setuptools'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     docutils
     manuel
   ];
 
-  dependencies = [ zope-testrunner ];
+  dependencies = [zope-testrunner];
 
   nativeCheckInputs = [
     pygments
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ZConfig" ];
+  pythonImportsCheck = ["ZConfig"];
 
-  pytestFlagsArray = [ "-s" ];
+  pytestFlagsArray = ["-s"];
 
   meta = {
     description = "Structured Configuration Library";
     homepage = "https://github.com/zopefoundation/ZConfig";
     changelog = "https://github.com/zopefoundation/ZConfig/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

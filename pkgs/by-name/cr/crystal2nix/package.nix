@@ -5,7 +5,6 @@
   makeWrapper,
   nix-prefetch-git,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "crystal2nix";
   version = "0.3.0";
@@ -21,11 +20,11 @@ crystal.buildCrystalPackage rec {
 
   shardsFile = ./shards.nix;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/crystal2nix \
-      --prefix PATH : ${lib.makeBinPath [ nix-prefetch-git ]}
+      --prefix PATH : ${lib.makeBinPath [nix-prefetch-git]}
   '';
 
   # temporarily off. We need the checks to execute the wrapped binary

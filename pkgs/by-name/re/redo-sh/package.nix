@@ -5,7 +5,6 @@
   makeWrapper,
   coreutils,
 }:
-
 stdenv.mkDerivation {
   pname = "redo-sh";
   version = "4.0.6";
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     hash = "sha256-pDhCnMelCXK/Pp3jPXZog7HLBTgrsCvX4LAVapYvxl8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   sourceRoot = ".";
 
@@ -37,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "http://news.dieweltistgarnichtso.net/bin/redo-sh.html";
     license = lib.licenses.agpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

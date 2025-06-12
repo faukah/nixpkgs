@@ -2,19 +2,16 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
   copyDesktopItems,
   makeWrapper,
-
   # buildInputs
   anttweakbar,
   eigen,
   glew,
   glm,
   sfml_2,
-
   makeDesktopItem,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -51,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     sfml_2
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     mkdir $out/bin
@@ -68,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "marble-marcher-ce";
       desktopName = "marble-marcher-ce";
       comment = finalAttrs.meta.description;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -81,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-30 # Assets
       ofl # Fonts
     ];
-    maintainers = with lib.maintainers; [ rampoina ];
+    maintainers = with lib.maintainers; [rampoina];
     platforms = lib.platforms.linux;
   };
 })

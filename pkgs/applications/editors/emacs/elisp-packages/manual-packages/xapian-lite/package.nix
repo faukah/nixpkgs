@@ -5,7 +5,6 @@
   fetchFromSourcehut,
   xapian,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xapian-lite";
   version = "2.0.0";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://git.sr.ht/~casouri/xapian-lite";
     description = "Minimal Emacs dynamic module for Xapian";
-    maintainers = [ lib.maintainers.kotatsuyaki ];
+    maintainers = [lib.maintainers.kotatsuyaki];
     license = lib.licenses.gpl3Plus;
     inherit (emacs.meta) platforms;
   };

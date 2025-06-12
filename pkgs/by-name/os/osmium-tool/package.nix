@@ -14,7 +14,6 @@
   protozero,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "osmium-tool";
   version = "1.18.0";
@@ -58,8 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       bsd3
     ];
-    maintainers = with lib.maintainers; [ das-g ];
-    teams = [ lib.teams.geospatial ];
+    maintainers = with lib.maintainers; [das-g];
+    teams = [lib.teams.geospatial];
     mainProgram = "osmium";
   };
 })

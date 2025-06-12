@@ -14,7 +14,6 @@
   tzlocal,
   zstd,
 }:
-
 buildPythonPackage rec {
   pname = "clickhouse-driver";
   version = "0.2.7";
@@ -60,18 +59,18 @@ buildPythonPackage rec {
   '';
 
   # some test in test_buffered_reader.py doesn't seem to return
-  disabledTestPaths = [ "tests/test_buffered_reader.py" ];
+  disabledTestPaths = ["tests/test_buffered_reader.py"];
 
   # most tests require `clickhouse`
   # TODO: enable tests after `clickhouse` unbroken
   doCheck = false;
 
-  pythonImportsCheck = [ "clickhouse_driver" ];
+  pythonImportsCheck = ["clickhouse_driver"];
 
   meta = with lib; {
     description = "Python driver with native interface for ClickHouse";
     homepage = "https://github.com/mymarilyn/clickhouse-driver";
     license = licenses.mit;
-    maintainers = with maintainers; [ breakds ];
+    maintainers = with maintainers; [breakds];
   };
 }

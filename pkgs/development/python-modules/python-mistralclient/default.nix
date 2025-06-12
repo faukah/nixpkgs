@@ -24,7 +24,6 @@
   stevedore,
   tempest,
 }:
-
 buildPythonPackage rec {
   pname = "python-mistralclient";
   version = "5.4.0";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   build-system = [
     setuptools
@@ -83,13 +82,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "mistralclient" ];
+  pythonImportsCheck = ["mistralclient"];
 
   meta = with lib; {
     description = "OpenStack Mistral Command-line Client";
     homepage = "https://opendev.org/openstack/python-mistralclient/";
     license = licenses.asl20;
     mainProgram = "mistral";
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

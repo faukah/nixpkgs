@@ -4,15 +4,13 @@ import ../make-test-python.nix (
     lib,
     kernelPackages ? null,
     ...
-  }:
-  let
+  }: let
     wg-snakeoil-keys = import ./snakeoil-keys.nix;
-    peer = (import ./make-peer.nix) { inherit lib; };
-  in
-  {
+    peer = (import ./make-peer.nix) {inherit lib;};
+  in {
     name = "wireguard";
     meta = with pkgs.lib.maintainers; {
-      maintainers = [ ma27 ];
+      maintainers = [ma27];
     };
 
     nodes = {
@@ -20,8 +18,8 @@ import ../make-test-python.nix (
         ip4 = "192.168.0.1";
         ip6 = "fd00::1";
         extraConfig = {
-          boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-          networking.firewall.allowedUDPPorts = [ 23542 ];
+          boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
+          networking.firewall.allowedUDPPorts = [23542];
           networking.wireguard.interfaces.wg0 = {
             ips = [
               "10.23.42.1/32"
@@ -47,7 +45,7 @@ import ../make-test-python.nix (
         ip4 = "192.168.0.2";
         ip6 = "fd00::2";
         extraConfig = {
-          boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+          boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
           networking.wireguard.interfaces.wg0 = {
             ips = [
               "10.23.42.2/32"
@@ -69,14 +67,12 @@ import ../make-test-python.nix (
               inherit (wg-snakeoil-keys.peer0) publicKey;
             };
 
-            postSetup =
-              let
-                inherit (pkgs) iproute2;
-              in
-              ''
-                ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
-                ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
-              '';
+            postSetup = let
+              inherit (pkgs) iproute2;
+            in ''
+              ${iproute2}/bin/ip route replace 10.23.42.1/32 dev wg0
+              ${iproute2}/bin/ip route replace fc00::1/128 dev wg0
+            '';
           };
         };
       };

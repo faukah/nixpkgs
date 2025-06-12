@@ -4,7 +4,6 @@
   fetchFromGitHub,
   go,
 }:
-
 buildGoModule rec {
   pname = "kubevpn";
   version = "2.7.12";
@@ -52,6 +51,6 @@ buildGoModule rec {
     mainProgram = "kubevpn";
     homepage = "https://github.com/KubeNetworks/kubevpn";
     license = licenses.mit;
-    maintainers = with maintainers; [ mig4ng ];
+    maintainers = with maintainers; [mig4ng];
   };
 }

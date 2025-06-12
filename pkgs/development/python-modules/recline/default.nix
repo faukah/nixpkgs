@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "recline";
   version = "2024.7.1";
@@ -29,21 +28,21 @@ buildPythonPackage rec {
     rm -r recline/vendor/argcomplete
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ argcomplete ];
+  dependencies = [argcomplete];
 
   nativeCheckInputs = [
     pudb
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "recline" ];
+  pythonImportsCheck = ["recline"];
 
   meta = with lib; {
     description = "This library helps you quickly implement an interactive command-based application";
     homepage = "https://github.com/NetApp/recline";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

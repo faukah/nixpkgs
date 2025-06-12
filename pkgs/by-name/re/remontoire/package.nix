@@ -14,7 +14,6 @@
   python3,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "remontoire";
   version = "unstable-2022-06-19";
@@ -54,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/regolith-linux/remontoire";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with maintainers; [aacebedo];
   };
 })

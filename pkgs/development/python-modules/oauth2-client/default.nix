@@ -6,7 +6,6 @@
   wheel,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "oauth2-client";
   version = "1.4.2";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "A client library for OAuth2";
     homepage = "https://pypi.org/project/oauth2-client/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
   };
 }

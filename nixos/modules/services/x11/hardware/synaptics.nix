@@ -5,13 +5,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.synaptics;
   opt = options.services.xserver.synaptics;
-  tapConfig = if cfg.tapButtons then enabledTapConfig else disabledTapConfig;
+  tapConfig =
+    if cfg.tapButtons
+    then enabledTapConfig
+    else disabledTapConfig;
   enabledTapConfig = ''
     Option "MaxTapTime" "180"
     Option "MaxTapMove" "220"
@@ -28,13 +28,9 @@ let
   '';
   pkg = pkgs.xorg.xf86inputsynaptics;
   etcFile = "X11/xorg.conf.d/70-synaptics.conf";
-in
-{
-
+in {
   options = {
-
     services.xserver.synaptics = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -185,18 +181,15 @@ in
           Additional options for synaptics touchpad driver.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-
-    services.xserver.modules = [ pkg.out ];
+    services.xserver.modules = [pkg.out];
 
     environment.etc.${etcFile}.source = "${pkg.out}/share/X11/xorg.conf.d/70-synaptics.conf";
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     services.xserver.config = ''
       # Automatically enable the synaptics driver for all touchpads.
@@ -212,26 +205,42 @@ in
         Option "ClickFinger1" "${builtins.elemAt cfg.buttonsMap 0}"
         Option "ClickFinger2" "${builtins.elemAt cfg.buttonsMap 1}"
         Option "ClickFinger3" "${builtins.elemAt cfg.buttonsMap 2}"
-        Option "VertTwoFingerScroll" "${if cfg.vertTwoFingerScroll then "1" else "0"}"
-        Option "HorizTwoFingerScroll" "${if cfg.horizTwoFingerScroll then "1" else "0"}"
-        Option "VertEdgeScroll" "${if cfg.vertEdgeScroll then "1" else "0"}"
-        Option "HorizEdgeScroll" "${if cfg.horizEdgeScroll then "1" else "0"}"
+        Option "VertTwoFingerScroll" "${
+        if cfg.vertTwoFingerScroll
+        then "1"
+        else "0"
+      }"
+        Option "HorizTwoFingerScroll" "${
+        if cfg.horizTwoFingerScroll
+        then "1"
+        else "0"
+      }"
+        Option "VertEdgeScroll" "${
+        if cfg.vertEdgeScroll
+        then "1"
+        else "0"
+      }"
+        Option "HorizEdgeScroll" "${
+        if cfg.horizEdgeScroll
+        then "1"
+        else "0"
+      }"
         ${optionalString cfg.palmDetect ''Option "PalmDetect" "1"''}
         ${optionalString (
-          cfg.palmMinWidth != null
-        ) ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''}
+        cfg.palmMinWidth != null
+      ) ''Option "PalmMinWidth" "${toString cfg.palmMinWidth}"''}
         ${optionalString (cfg.palmMinZ != null) ''Option "PalmMinZ" "${toString cfg.palmMinZ}"''}
         ${optionalString (
-          cfg.scrollDelta != null
-        ) ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''}
+        cfg.scrollDelta != null
+      ) ''Option "VertScrollDelta" "${toString cfg.scrollDelta}"''}
         ${
-          if !cfg.horizontalScroll then
-            ''Option "HorizScrollDelta" "0"''
-          else
-            (optionalString (
-              cfg.scrollDelta != null
-            ) ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
-        }
+        if !cfg.horizontalScroll
+        then ''Option "HorizScrollDelta" "0"''
+        else
+          (optionalString (
+            cfg.scrollDelta != null
+          ) ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
+      }
         ${cfg.additionalOptions}
       EndSection
     '';
@@ -242,7 +251,5 @@ in
         message = "Synaptics and libinput are incompatible, you cannot enable both.";
       }
     ];
-
   };
-
 }

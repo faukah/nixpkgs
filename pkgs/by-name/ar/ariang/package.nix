@@ -4,7 +4,6 @@
   buildNpmPackage,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "ariang";
   version = "1.3.10";
@@ -29,13 +28,13 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Modern web frontend making aria2 easier to use";
     homepage = "http://ariang.mayswind.net/";
     license = licenses.mit;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     platforms = platforms.unix;
   };
 }

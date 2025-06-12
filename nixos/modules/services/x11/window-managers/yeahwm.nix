@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.yeahwm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.yeahwm.enable = mkEnableOption "yeahwm";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.yeahwm ];
+    environment.systemPackages = [pkgs.yeahwm];
   };
 }

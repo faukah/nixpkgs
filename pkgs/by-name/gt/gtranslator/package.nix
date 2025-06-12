@@ -21,7 +21,6 @@
   gnome,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtranslator";
   version = "48.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gtranslator";
     homepage = "https://gitlab.gnome.org/GNOME/gtranslator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ bobby285271 ];
+    maintainers = with maintainers; [bobby285271];
     platforms = platforms.linux;
   };
 }

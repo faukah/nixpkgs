@@ -21,7 +21,6 @@
   setuptools-scm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "jira";
   version = "3.9.4";
@@ -62,7 +61,7 @@ buildPythonPackage rec {
       # requests-jwt
       # requests-keyberos
     ];
-    async = [ requests-futures ];
+    async = [requests-futures];
   };
 
   nativeCheckInputs = [
@@ -72,7 +71,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "jira" ];
+  pythonImportsCheck = ["jira"];
 
   # impure tests because of connectivity attempts to jira servers
   doCheck = false;
@@ -82,7 +81,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/pycontribs/jira";
     changelog = "https://github.com/pycontribs/jira/releases/tag/${src.tag}";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "jirashell";
   };
 }

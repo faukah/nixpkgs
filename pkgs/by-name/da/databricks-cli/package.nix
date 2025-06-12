@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "databricks-cli";
   version = "0.253.0";
@@ -64,10 +63,11 @@ buildGoModule (finalAttrs: {
   nativeCheckInputs = [
     gitMinimal
     (python3.withPackages (
-      ps: with ps; [
-        setuptools
-        wheel
-      ]
+      ps:
+        with ps; [
+          setuptools
+          wheel
+        ]
     ))
   ];
 
@@ -87,7 +87,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

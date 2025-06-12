@@ -12,7 +12,6 @@
   libjpeg,
   netpbm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xplanet";
   version = "1.3.1";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "1rzc1alph03j67lrr66499zl0wqndiipmj99nqgvh9xzm1qdb023";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     freetype
     pango

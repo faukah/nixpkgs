@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.woodpecker-server;
-in
-{
-  meta.maintainers = with lib.maintainers; [ ambroisie ];
+in {
+  meta.maintainers = with lib.maintainers; [ambroisie];
 
   options = {
     services.woodpecker-server = {
       enable = lib.mkEnableOption "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests";
-      package = lib.mkPackageOption pkgs "woodpecker-server" { };
+      package = lib.mkPackageOption pkgs "woodpecker-server" {};
       environment = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
         example = lib.literalExpression ''
           {
@@ -30,9 +27,9 @@ in
         description = "woodpecker-server config environment variables, for other options read the [documentation](https://woodpecker-ci.org/docs/administration/server-config)";
       };
       environmentFile = lib.mkOption {
-        type = with lib.types; coercedTo path (f: [ f ]) (listOf path);
-        default = [ ];
-        example = [ "/root/woodpecker-server.env" ];
+        type = with lib.types; coercedTo path (f: [f]) (listOf path);
+        default = [];
+        example = ["/root/woodpecker-server.env"];
         description = ''
           File to load environment variables
           from. This is helpful for specifying secrets.
@@ -50,9 +47,9 @@ in
     systemd.services = {
       woodpecker-server = {
         description = "Woodpecker-Server Service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
         serviceConfig = {
           DynamicUser = true;
           WorkingDirectory = "%S/woodpecker-server";
@@ -79,7 +76,7 @@ in
           ProtectKernelModules = true;
           ProtectKernelLogs = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
+          RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6"];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           RestrictRealtime = true;

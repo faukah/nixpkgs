@@ -3,17 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.flaresolverr;
-in
-{
+in {
   options = {
     services.flaresolverr = {
       enable = lib.mkEnableOption "FlareSolverr, a proxy server to bypass Cloudflare protection";
 
-      package = lib.mkPackageOption pkgs "flaresolverr" { };
+      package = lib.mkPackageOption pkgs "flaresolverr" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -32,8 +29,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.flaresolverr = {
       description = "FlareSolverr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         HOME = "/run/flaresolverr";
@@ -53,6 +50,6 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

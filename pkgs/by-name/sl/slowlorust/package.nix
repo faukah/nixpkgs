@@ -4,7 +4,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "slowlorust";
   version = "0.1.1";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
       --replace-fail 'version = "1.0"' 'version = "${version}"'
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/MJVL/slowlorust";
     changelog = "https://github.com/MJVL/slowlorust/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "slowlorust";
   };
 }

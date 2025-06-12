@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "roboto";
   version = "3.011";
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
   };
 })

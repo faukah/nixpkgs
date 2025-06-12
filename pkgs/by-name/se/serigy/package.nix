@@ -11,7 +11,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "serigy";
   version = "1.1";
@@ -38,9 +37,9 @@ python3Packages.buildPythonApplication rec {
     pkg-config
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
-  dependencies = with python3Packages; [ pygobject3 ];
+  dependencies = with python3Packages; [pygobject3];
 
   strictDeps = true;
 
@@ -50,9 +49,9 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/CleoMenezesJr/Serigy";
@@ -60,6 +59,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "serigy";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

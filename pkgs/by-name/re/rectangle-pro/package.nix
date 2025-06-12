@@ -4,7 +4,6 @@
   fetchurl,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rectangle-pro";
   version = "3.0.37";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -32,8 +31,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Move and resize windows in macOS using keyboard shortcuts or snap areas";
     homepage = "https://rectangleapp.com/pro";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ emilytrau ];
+    maintainers = with lib.maintainers; [emilytrau];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

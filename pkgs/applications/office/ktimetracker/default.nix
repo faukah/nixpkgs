@@ -19,7 +19,6 @@
   ktextwidgets,
   kcalendarcore,
 }:
-
 mkDerivation rec {
   pname = "ktimetracker";
   version = "5.0.1";
@@ -56,6 +55,6 @@ mkDerivation rec {
     mainProgram = "ktimetracker";
     license = licenses.gpl2;
     homepage = "https://userbase.kde.org/KTimeTracker";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

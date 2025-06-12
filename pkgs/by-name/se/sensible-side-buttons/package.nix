@@ -4,7 +4,6 @@
   undmg,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sensible-side-buttons-bin";
   version = "1.0.6";
@@ -15,7 +14,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "SensibleSideButtons.app";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Utilize mouse side navigation buttons";
     homepage = "https://sensible-side-buttons.archagon.net";
     license = licenses.unfree;
-    maintainers = with maintainers; [ yamashitax ];
+    maintainers = with maintainers; [yamashitax];
     platforms = platforms.darwin;
   };
 })

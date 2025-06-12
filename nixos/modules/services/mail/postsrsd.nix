@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.postsrsd;
   runtimeDirectoryName = "postsrsd";
   runtimeDirectory = "/run/${runtimeDirectoryName}";
@@ -28,28 +26,26 @@ let
     unprivileged-user = ""
     chroot-dir = ""
   '';
-
-in
-{
+in {
   imports =
     map
-      (
-        name:
-        lib.mkRemovedOptionModule [ "services" "postsrsd" name ] ''
+    (
+      name:
+        lib.mkRemovedOptionModule ["services" "postsrsd" name] ''
           `postsrsd` was upgraded to `>= 2.0.0`, with some different behaviors and configuration settings:
             - NixOS Release Notes: https://nixos.org/manual/nixos/unstable/release-notes#sec-nixpkgs-release-25.05-incompatibilities
             - NixOS Options Reference: https://nixos.org/manual/nixos/unstable/options#opt-services.postsrsd.enable
             - Migration instructions: https://github.com/roehling/postsrsd/blob/2.0.10/README.rst#migrating-from-version-1x
             - Postfix Setup: https://github.com/roehling/postsrsd/blob/2.0.10/README.rst#postfix-setup
         ''
-      )
-      [
-        "domain"
-        "forwardPort"
-        "reversePort"
-        "timeout"
-        "excludeDomains"
-      ];
+    )
+    [
+      "domain"
+      "forwardPort"
+      "reversePort"
+      "timeout"
+      "excludeDomains"
+    ];
 
   options = {
     services.postsrsd = {
@@ -68,7 +64,7 @@ in
       domains = lib.mkOption {
         type = lib.types.listOf lib.types.str;
         description = "Domain names for rewrite";
-        default = [ config.networking.hostName ];
+        default = [config.networking.hostName];
         defaultText = lib.literalExpression "[ config.networking.hostName ]";
       };
 
@@ -118,7 +114,7 @@ in
     };
 
     systemd.services.postsrsd-generate-secrets = {
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
       script = ''
         if [ -e "${cfg.secretsFile}" ]; then
           echo "Secrets file exists. Nothing to do!"
@@ -140,9 +136,9 @@ in
         "network.target"
         "postsrsd-generate-secrets.service"
       ];
-      before = [ "postfix.service" ];
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "postsrsd-generate-secrets.service" ];
+      before = ["postfix.service"];
+      wantedBy = ["multi-user.target"];
+      requires = ["postsrsd-generate-secrets.service"];
       confinement.enable = true;
 
       serviceConfig = {

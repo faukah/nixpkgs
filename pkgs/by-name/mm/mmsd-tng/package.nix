@@ -14,7 +14,6 @@
   pkg-config,
   protobuf,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmsd-tng";
   version = "2.6.3";
@@ -49,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Multimedia Messaging Service Daemon - The Next Generation";
     homepage = "https://gitlab.com/kop316/mmsd";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ julm ];
+    maintainers = with lib.maintainers; [julm];
     platforms = lib.platforms.linux;
     mainProgram = "mmsdtng";
   };

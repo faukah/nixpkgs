@@ -5,16 +5,15 @@
   installShellFiles,
   buildPackages,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "nixos-firewall-tool";
 
   src = builtins.filterSource (name: _: !(lib.hasSuffix ".nix" name)) ./.;
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  nativeBuildInputs = [ installShellFiles ];
-  nativeCheckInputs = [ buildPackages.shellcheck-minimal ];
+  buildInputs = [bash];
+  nativeBuildInputs = [installShellFiles];
+  nativeCheckInputs = [buildPackages.shellcheck-minimal];
 
   postPatch = ''
     patchShebangs --host nixos-firewall-tool

@@ -10,7 +10,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glibmm";
   version = "2.84.0";
@@ -52,8 +51,8 @@ stdenv.mkDerivation rec {
     description = "C++ interface to the GLib library";
     homepage = "https://gtkmm.org/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ raskin ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [raskin];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

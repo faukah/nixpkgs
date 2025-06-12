@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   versioneer,
-
   # dependencies
   multipledispatch,
   numpy,
   python-dateutil,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "datashape";
   version = "0.5.4";

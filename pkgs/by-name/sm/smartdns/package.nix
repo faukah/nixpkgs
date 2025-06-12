@@ -6,7 +6,6 @@
   testers,
   smartdns,
 }:
-
 stdenv.mkDerivation rec {
   pname = "smartdns";
   version = "46.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-IvaED1V1pP0/Qk2oND3fVr7PMXSnT9jFeuikEkndX0o=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     "VER=${version}"
   ];
 
-  installFlags = [ "SYSCONFDIR=${placeholder "out"}/etc" ];
+  installFlags = ["SYSCONFDIR=${placeholder "out"}/etc"];
 
   passthru.tests = {
     version = testers.testVersion {
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       Unlike dnsmasq's all-servers, smartdns returns the fastest access resolution.
     '';
     homepage = "https://github.com/pymumu/smartdns";
-    maintainers = [ maintainers.lexuge ];
+    maintainers = [maintainers.lexuge];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "smartdns";

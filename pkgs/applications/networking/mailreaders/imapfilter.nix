@@ -6,7 +6,6 @@
   lua,
   pcre2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "imapfilter";
   version = "2.8.3";
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "imapfilter";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 })

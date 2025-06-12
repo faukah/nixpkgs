@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-markdown";
   version = "3.8.0.20250415";
@@ -16,14 +15,14 @@ buildPythonPackage rec {
     hash = "sha256-mKsTWH0Rd3adk+VVhtPclwR991vG43zkB0Zm9d1CEro=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "markdown-stubs" ];
+  pythonImportsCheck = ["markdown-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for Markdown";
     homepage = "https://pypi.org/project/types-Markdown/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

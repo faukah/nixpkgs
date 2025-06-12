@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-gradient-source";
   version = "0.3.2";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5pll84UZYOTESrid2UuC1aWlaLrWf1LpXqlV09XKLug=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   cmakeFlags = [
     "-DBUILD_OUT_OF_TREE=On"
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Plugin for adding a gradient Source to OBS Studio";
     homepage = "https://github.com/exeldro/obs-gradient-source";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

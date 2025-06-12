@@ -6,7 +6,6 @@
   matplotlib,
   pytest,
 }:
-
 buildPythonPackage {
   pname = "showit";
   version = "1.1.4";
@@ -24,7 +23,7 @@ buildPythonPackage {
     matplotlib
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest test
@@ -34,6 +33,6 @@ buildPythonPackage {
     description = "simple and sensible display of images";
     homepage = "https://github.com/freeman-lab/showit";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

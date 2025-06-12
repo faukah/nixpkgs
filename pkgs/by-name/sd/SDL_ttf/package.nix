@@ -8,7 +8,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_ttf";
   version = "2.0.11-unstable-2024-04-23";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libsdl-org/SDL_ttf";
     description = "SDL TrueType library";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     inherit (SDL.meta) platforms;
     knownVulnerabilities = [
       # CVE applies to SDL2 https://github.com/NixOS/nixpkgs/pull/274836#issuecomment-2708627901

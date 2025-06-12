@@ -6,7 +6,6 @@
   perl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "meme-suite";
   version = "5.5.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HcqNDm0dNlcMGoirjb5+Sxd3M/u+rKoujEZ0/r9XqvQ=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
   nativeBuildInputs = [
     perl
     python3
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Motif-based sequence analysis tools";
     homepage = "https://meme-suite.org/meme/meme-software/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ gschwartz ];
+    maintainers = with maintainers; [gschwartz];
     platforms = platforms.linux;
   };
 }

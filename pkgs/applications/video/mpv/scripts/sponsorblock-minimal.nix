@@ -6,7 +6,6 @@
   curl,
   coreutils,
 }:
-
 buildLua {
   pname = "mpv_sponsorblock_minimal";
   version = "0-unstable-2023-08-20";
@@ -19,7 +18,7 @@ buildLua {
     rev = "ca2844b8cf7674bfccd282d389a50427742251d3";
     hash = "sha256-28HWZ6nOhKiE+5Ya1N3Vscd8aeH9OKS0t72e/xPfFQQ=";
   };
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   preInstall = ''
     substituteInPlace sponsorblock_minimal.lua \
@@ -32,6 +31,6 @@ buildLua {
     homepage = "https://codeberg.org/jouni/mpv_sponsorblock_minimal";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ arthsmn ];
+    maintainers = with maintainers; [arthsmn];
   };
 }

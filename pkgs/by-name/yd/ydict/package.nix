@@ -5,7 +5,6 @@
   makeWrapper,
   mpg123,
 }:
-
 buildGoModule rec {
   pname = "ydict";
   version = "2.2.2";
@@ -25,11 +24,11 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preFixup = ''
     wrapProgram $out/bin/${pname} \
-      --prefix PATH ":" "${lib.makeBinPath [ mpg123 ]}";
+      --prefix PATH ":" "${lib.makeBinPath [mpg123]}";
   '';
 
   # has no tests
@@ -40,6 +39,6 @@ buildGoModule rec {
     mainProgram = "ydict";
     homepage = "https://github.com/TimothyYe/ydict";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -1,76 +1,76 @@
-{ _cuda, lib }:
-let
-  cudaLib = _cuda.lib;
-in
 {
+  _cuda,
+  lib,
+}: let
+  cudaLib = _cuda.lib;
+in {
   /**
-    Extracts the major, minor, and patch version from a string.
+  Extracts the major, minor, and patch version from a string.
 
-    # Type
+  # Type
 
-    ```
-    majorMinorPatch :: (version :: String) -> String
-    ```
+  ```
+  majorMinorPatch :: (version :: String) -> String
+  ```
 
-    # Inputs
+  # Inputs
 
-    `version`
+  `version`
 
-    : The version string
+  : The version string
 
-    # Examples
+  # Examples
 
-    :::{.example}
-    ## `_cuda.lib.majorMinorPatch` usage examples
+  :::{.example}
+  ## `_cuda.lib.majorMinorPatch` usage examples
 
-    ```nix
-    majorMinorPatch "11.0.3.4"
-    => "11.0.3"
-    ```
-    :::
+  ```nix
+  majorMinorPatch "11.0.3.4"
+  => "11.0.3"
+  ```
+  :::
   */
   majorMinorPatch = cudaLib.trimComponents 3;
 
   /**
-    Get a version string with no more than than the specified number of components.
+  Get a version string with no more than than the specified number of components.
 
-    # Type
+  # Type
 
-    ```
-    trimComponents :: (numComponents :: Integer) -> (version :: String) -> String
-    ```
+  ```
+  trimComponents :: (numComponents :: Integer) -> (version :: String) -> String
+  ```
 
-    # Inputs
+  # Inputs
 
-    `numComponents`
-    : A positive integer corresponding to the maximum number of components to keep
+  `numComponents`
+  : A positive integer corresponding to the maximum number of components to keep
 
-    `version`
-    : A version string
+  `version`
+  : A version string
 
-    # Examples
+  # Examples
 
-    :::{.example}
-    ## `_cuda.lib.trimComponents` usage examples
+  :::{.example}
+  ## `_cuda.lib.trimComponents` usage examples
 
-    ```nix
-    trimComponents 1 "1.2.3.4"
-    => "1"
-    ```
+  ```nix
+  trimComponents 1 "1.2.3.4"
+  => "1"
+  ```
 
-    ```nix
-    trimComponents 3 "1.2.3.4"
-    => "1.2.3"
-    ```
+  ```nix
+  trimComponents 3 "1.2.3.4"
+  => "1.2.3"
+  ```
 
-    ```nix
-    trimComponents 9 "1.2.3.4"
-    => "1.2.3.4"
-    ```
-    :::
+  ```nix
+  trimComponents 9 "1.2.3.4"
+  => "1.2.3.4"
+  ```
+  :::
   */
-  trimComponents =
-    n: v:
+  trimComponents = n: v:
     lib.pipe v [
       lib.splitVersion
       (lib.take n)

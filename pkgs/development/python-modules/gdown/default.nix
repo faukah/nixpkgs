@@ -13,7 +13,6 @@
   six,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "gdown";
   version = "5.2.0";
@@ -32,20 +31,22 @@ buildPythonPackage rec {
     hatch-fancy-pypi-readme
   ];
 
-  propagatedBuildInputs = [
-    beautifulsoup4
-    filelock
-    requests
-    tqdm
-    setuptools
-    six
-  ] ++ requests.optional-dependencies.socks;
+  propagatedBuildInputs =
+    [
+      beautifulsoup4
+      filelock
+      requests
+      tqdm
+      setuptools
+      six
+    ]
+    ++ requests.optional-dependencies.socks;
 
   checkPhase = ''
     $out/bin/gdown --help > /dev/null
   '';
 
-  pythonImportsCheck = [ "gdown" ];
+  pythonImportsCheck = ["gdown"];
 
   meta = with lib; {
     description = "CLI tool for downloading large files from Google Drive";
@@ -53,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/wkentaro/gdown";
     changelog = "https://github.com/wkentaro/gdown/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ breakds ];
+    maintainers = with maintainers; [breakds];
   };
 }

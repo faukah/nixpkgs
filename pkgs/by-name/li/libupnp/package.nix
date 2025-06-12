@@ -4,7 +4,6 @@
   stdenv,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libupnp";
   version = "1.14.18";

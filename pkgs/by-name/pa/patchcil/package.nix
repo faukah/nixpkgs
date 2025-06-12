@@ -7,7 +7,6 @@
   nix-update-script,
   aot ? dotnetCorePackages.sdk_9_0.hasILCompiler && !stdenv.hostPlatform.isDarwin,
 }:
-
 buildDotnetModule rec {
   pname = "patchcil";
   version = "0.2.2";
@@ -25,7 +24,10 @@ buildDotnetModule rec {
   nugetDeps = ./deps.json;
 
   dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = if aot then null else dotnetCorePackages.runtime_9_0;
+  dotnet-runtime =
+    if aot
+    then null
+    else dotnetCorePackages.runtime_9_0;
 
   selfContainedBuild = aot;
   dotnetFlags = lib.optionals (!aot) [
@@ -52,17 +54,17 @@ buildDotnetModule rec {
     rm $out/lib/patchcil/patchcil.dbg
   '';
 
-  executables = [ "patchcil" ];
+  executables = ["patchcil"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Small utility to modify the library paths from PInvoke in .NET assemblies";
     homepage = "https://github.com/GGG-KILLER/patchcil";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ggg ];
+    maintainers = with lib.maintainers; [ggg];
     mainProgram = "patchcil";
     platforms = [
       "x86_64-linux"

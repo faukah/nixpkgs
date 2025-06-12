@@ -5,7 +5,6 @@
   fetchFromGitHub,
   glib,
 }:
-
 buildGoModule rec {
   pname = "deepin-desktop-schemas";
   version = "6.0.7";
@@ -34,7 +33,7 @@ buildGoModule rec {
     runHook postBuild
   '';
 
-  nativeCheckInputs = [ glib ];
+  nativeCheckInputs = [glib];
   checkPhase = ''
     runHook preCheck
     make test
@@ -52,6 +51,6 @@ buildGoModule rec {
     homepage = "https://github.com/linuxdeepin/deepin-desktop-schemas";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

@@ -7,13 +7,11 @@
   ssreflect,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "verdi";
   owner = "uwplse";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.9" "8.18";
@@ -35,7 +33,8 @@ mkCoqDerivation {
         case = "8.6";
         out = "20181102";
       }
-    ] null;
+    ]
+    null;
   release."20230503".rev = "76833a7b2188e99e358b8439ea6b4f38401c962a";
   release."20230503".sha256 = "sha256-g59adl/FLMlk9vZciz2I1ZX4PDCElNOgVPCwML8E4DU=";
   release."20211026".rev = "064cc4fb2347453bf695776ed820ffb5fbc1d804";

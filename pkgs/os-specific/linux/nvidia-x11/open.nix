@@ -6,10 +6,9 @@
   kernelModuleMakeFlags,
   nvidia_x11,
   hash,
-  patches ? [ ],
+  patches ? [],
   broken ? false,
 }:
-
 stdenv.mkDerivation (
   {
     pname = "nvidia-open";
@@ -26,19 +25,23 @@ stdenv.mkDerivation (
 
     nativeBuildInputs = kernel.moduleBuildDependencies;
 
-    makeFlags = kernelModuleMakeFlags ++ [
-      "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
-      "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      "MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
-      "DATE="
-      {
-        aarch64-linux = "TARGET_ARCH=aarch64";
-        x86_64-linux = "TARGET_ARCH=x86_64";
-      }
-      .${stdenv.hostPlatform.system}
-    ];
+    makeFlags =
+      kernelModuleMakeFlags
+      ++ [
+        "SYSSRC=${kernel.dev}/lib/modules/${kernel.modDirVersion}/source"
+        "SYSOUT=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+        "MODLIB=$(out)/lib/modules/${kernel.modDirVersion}"
+        "DATE="
+        {
+          aarch64-linux = "TARGET_ARCH=aarch64";
+          x86_64-linux = "TARGET_ARCH=x86_64";
+        }
+      .${
+          stdenv.hostPlatform.system
+        }
+      ];
 
-    installTargets = [ "modules_install" ];
+    installTargets = ["modules_install"];
     enableParallelBuilding = true;
 
     meta = with lib; {
@@ -52,7 +55,7 @@ stdenv.mkDerivation (
         "x86_64-linux"
         "aarch64-linux"
       ];
-      maintainers = with maintainers; [ nickcao ];
+      maintainers = with maintainers; [nickcao];
       inherit broken;
     };
   }

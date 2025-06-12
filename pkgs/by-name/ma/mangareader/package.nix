@@ -6,7 +6,6 @@
   kdePackages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mangareader";
   version = "2.2.2";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Qt manga reader for local files";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 }

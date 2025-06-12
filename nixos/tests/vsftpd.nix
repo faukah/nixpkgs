@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "vsftpd";
 
   nodes = {
@@ -8,7 +7,7 @@
         enable = true;
         userlistDeny = false;
         localUsers = true;
-        userlist = [ "ftp-test-user" ];
+        userlist = ["ftp-test-user"];
         writeEnable = true;
         localRoot = "/tmp";
       };
@@ -20,11 +19,11 @@
           password = "ftp-test-password";
           group = "ftp-test-group";
         };
-        groups.ftp-test-group = { };
+        groups.ftp-test-group = {};
       };
     };
 
-    client = { };
+    client = {};
   };
 
   testScript = ''

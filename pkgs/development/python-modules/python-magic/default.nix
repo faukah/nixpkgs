@@ -8,7 +8,6 @@
   file,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-magic";
   version = "0.4.27";
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     unset LC_ALL
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python interface to the libmagic file type identification library";
     homepage = "https://github.com/ahupp/python-magic";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

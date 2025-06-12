@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "myrica";
   version = "2.011.20160403";
@@ -28,7 +27,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     homepage = "https://myrica.estable.jp/";
     license = licenses.ofl;
-    maintainers = with maintainers; [ mikoim ];
+    maintainers = with maintainers; [mikoim];
     platforms = platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   testers,
   relic,
 }:
-
 buildGoModule rec {
   pname = "relic";
   version = "8.2.0";
@@ -41,6 +40,6 @@ buildGoModule rec {
     description = "Service and a tool for adding digital signatures to operating system packages for Linux and Windows";
     mainProgram = "relic";
     license = licenses.asl20;
-    maintainers = with maintainers; [ strager ];
+    maintainers = with maintainers; [strager];
   };
 }

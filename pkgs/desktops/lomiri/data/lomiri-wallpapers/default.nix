@@ -4,7 +4,6 @@
   fetchFromGitLab,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lomiri-wallpapers";
   version = "20.04.0";
@@ -35,15 +34,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Wallpapers for the Lomiri Operating Environment, gathered from people of the Ubuntu Touch / UBports community";
     homepage = "https://gitlab.com/ubports/development/core/lomiri-wallpapers";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-wallpapers/-/blob/${finalAttrs.version}/ChangeLog";
     # On update, recheck debian/copyright for which licenses apply to the installed images
-    license = with licenses; [ cc-by-sa-30 ];
-    teams = [ teams.lomiri ];
+    license = with licenses; [cc-by-sa-30];
+    teams = [teams.lomiri];
     platforms = platforms.all;
   };
 })

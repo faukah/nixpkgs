@@ -13,7 +13,6 @@
   libmirage,
 }:
 python3Packages.buildPythonApplication {
-
   inherit
     (callPackage ./common-drv-attrs.nix {
       version = "3.2.6";
@@ -50,5 +49,4 @@ python3Packages.buildPythonApplication {
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
-
 }

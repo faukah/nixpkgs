@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "filesystem";
   version = "1.5.14";
@@ -17,10 +16,10 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-XZ0IxyNIAs2tegktOGQevkLPbWHam/AOFT+M6wAWPFg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

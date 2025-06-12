@@ -4,7 +4,6 @@
   stdenvNoCC,
   nodejs,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "undollar";
   version = "1.0.0-unstable-2018-09-14";
@@ -31,7 +30,7 @@ stdenvNoCC.mkDerivation {
     mainProgram = "$";
     homepage = "https://github.com/xtyrrell/undollar";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     inherit (nodejs.meta) platforms;
   };
 }

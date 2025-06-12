@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.uptermd;
-in
-{
+in {
   options = {
     services.uptermd = {
       enable = mkEnableOption "uptermd";
@@ -51,8 +47,8 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--debug" ];
+        default = [];
+        example = ["--debug"];
         description = ''
           Extra flags passed to the uptermd command.
         '';
@@ -62,15 +58,15 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
 
     systemd.services.uptermd = {
       description = "Upterm Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
-      path = [ pkgs.openssh ];
+      path = [pkgs.openssh];
 
       preStart = mkIf (cfg.hostKey == null) ''
         if ! [ -f ssh_host_ed25519_key ]; then
@@ -85,12 +81,14 @@ in
         StateDirectory = "uptermd";
         WorkingDirectory = "/var/lib/uptermd";
         ExecStart = "${pkgs.upterm}/bin/uptermd --ssh-addr ${cfg.listenAddress}:${toString cfg.port} --private-key ${
-          if cfg.hostKey == null then "ssh_host_ed25519_key" else cfg.hostKey
+          if cfg.hostKey == null
+          then "ssh_host_ed25519_key"
+          else cfg.hostKey
         } ${concatStringsSep " " cfg.extraFlags}";
 
         # Hardening
-        AmbientCapabilities = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
         PrivateUsers = cfg.port >= 1024;
         DynamicUser = true;
         LockPersonality = true;

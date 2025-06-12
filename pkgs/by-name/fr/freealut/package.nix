@@ -5,7 +5,6 @@
   openal,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "freealut";
   version = "1.1.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Free implementation of OpenAL's ALUT standard";
     mainProgram = "freealut-config";
     license = lib.licenses.lgpl2;
-    pkgConfigModules = [ "freealut" ];
+    pkgConfigModules = ["freealut"];
     platforms = lib.platforms.unix;
   };
 })

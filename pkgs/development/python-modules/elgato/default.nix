@@ -13,7 +13,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "elgato";
   version = "5.1.2";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
       --replace "0.0.0" "${version}" \
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "elgato" ];
+  pythonImportsCheck = ["elgato"];
 
   meta = with lib; {
     description = "Python client for Elgato Key Lights";
     homepage = "https://github.com/frenck/python-elgato";
     changelog = "https://github.com/frenck/python-elgato/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

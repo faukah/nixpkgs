@@ -1,5 +1,3 @@
-{ ... }:
-
-{
-  disabledModules = [ (toString ./define-enable.nix) ];
+{...}: {
+  disabledModules = [(toString ./define-enable.nix)];
 }

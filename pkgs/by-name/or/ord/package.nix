@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ord";
   version = "0.23.2";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ordinals/ord";
     changelog = "https://github.com/ordinals/ord/blob/${src.rev}/CHANGELOG.md";
     license = licenses.cc0;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     mainProgram = "ord";
   };
 }

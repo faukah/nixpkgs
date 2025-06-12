@@ -4,9 +4,7 @@
   lib,
   stdenv,
   version,
-}:
-
-let
+}: let
   imageSuffix =
     {
       "x86_64-linux" = "amd64";
@@ -20,30 +18,29 @@ let
       "aarch64-linux" = "sha256-8nLHTPetEfIrdtrpiT9Czcpf0NhL97TZ2DXyeBL04LA=";
     }
     ."${stdenv.hostPlatform.system}" or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
 in
-fetchzip {
-  name = "kata-images-${version}";
-  url = "https://github.com/kata-containers/kata-containers/releases/download/${version}/kata-static-${version}-${imageSuffix}.tar.xz";
-  hash = imageHash;
+  fetchzip {
+    name = "kata-images-${version}";
+    url = "https://github.com/kata-containers/kata-containers/releases/download/${version}/kata-static-${version}-${imageSuffix}.tar.xz";
+    hash = imageHash;
 
-  postFetch = ''
-    mv $out/kata/share/kata-containers kata-containers
-    rm -r $out
-    mkdir -p $out/share
-    mv kata-containers $out/share/kata-containers
-  '';
+    postFetch = ''
+      mv $out/kata/share/kata-containers kata-containers
+      rm -r $out
+      mkdir -p $out/share
+      mv kata-containers $out/share/kata-containers
+    '';
 
-  meta = {
-    description = "Lightweight Virtual Machines like containers that provide the workload isolation and security of VMs";
-    homepage = "https://github.com/kata-containers/kata-containers";
-    changelog = "https://github.com/kata-containers/kata-containers/releases/tag/${version}";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ thomasjm ];
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-}
+    meta = {
+      description = "Lightweight Virtual Machines like containers that provide the workload isolation and security of VMs";
+      homepage = "https://github.com/kata-containers/kata-containers";
+      changelog = "https://github.com/kata-containers/kata-containers/releases/tag/${version}";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [thomasjm];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  }

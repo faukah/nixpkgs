@@ -8,7 +8,6 @@
   pango,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-text-pthread";
   version = "2.0.5";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Rich text source plugin for OBS Studio";
     homepage = "https://github.com/norihiro/obs-text-pthread";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

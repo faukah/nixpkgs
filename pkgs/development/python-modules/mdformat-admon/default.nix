@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-admon";
   version = "2.1.1";
@@ -23,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-y0TNyje2OXBY4oo9kBePlqSZAU36vbQQKZUPm/u6DAc=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     mdformat
     mdit-py-plugins
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Mdformat plugin for admonitions";
     homepage = "https://github.com/KyleKing/mdformat-admon";
     license = licenses.mit;
-    maintainers = with maintainers; [ aldoborrero ];
+    maintainers = with maintainers; [aldoborrero];
   };
 }

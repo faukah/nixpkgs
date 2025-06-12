@@ -14,7 +14,6 @@
   uvicorn,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioprometheus";
   version = "unstable-2023-03-14";
@@ -35,26 +34,28 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    starlette = [ starlette ];
-    quart = [ quart ];
+    aiohttp = [aiohttp];
+    starlette = [starlette];
+    quart = [quart];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    aiohttp-basicauth
-    httpx
-    fastapi
-    uvicorn
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      aiohttp-basicauth
+      httpx
+      fastapi
+      uvicorn
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "aioprometheus" ];
+  pythonImportsCheck = ["aioprometheus"];
 
   meta = with lib; {
     description = "Prometheus Python client library for asyncio-based applications";
     homepage = "https://github.com/claws/aioprometheus";
     changelog = "https://github.com/claws/aioprometheus/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

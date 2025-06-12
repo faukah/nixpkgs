@@ -6,7 +6,6 @@
   core,
   mirage-crypto-rng,
 }:
-
 buildDunePackage {
   pname = "tls-async";
 
@@ -24,7 +23,9 @@ buildDunePackage {
     tls
   ];
 
-  meta = tls.meta // {
-    description = "Transport Layer Security purely in OCaml, Async layer";
-  };
+  meta =
+    tls.meta
+    // {
+      description = "Transport Layer Security purely in OCaml, Async layer";
+    };
 }

@@ -11,7 +11,6 @@
   pillow,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-mpl";
   version = "0.17.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     jinja2
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pillow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Following are broken since at least a1548780dbc79d76360580691dc1bb4af4e837f6
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     description = "Pytest plugin to help with testing figures output from Matplotlib";
     homepage = "https://github.com/matplotlib/pytest-mpl";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "faicons";
   version = "0.2.2";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     hash = "sha256-okkZ8anirjcZcZeB3XjvNJpiYQEau+o6dmCGqFBD8XY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     htmltools
   ];
 
-  pythonImportsCheck = [ "faicons" ];
+  pythonImportsCheck = ["faicons"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Interface to Font-Awesome for use in Shiny";
     homepage = "https://github.com/posit-dev/py-faicons";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

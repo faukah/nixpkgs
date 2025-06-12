@@ -6,7 +6,6 @@
   pnpm_10,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencloud-web";
   version = "2.4.0";
@@ -41,7 +40,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Web UI for OpenCloud built with Vue.js and TypeScript";

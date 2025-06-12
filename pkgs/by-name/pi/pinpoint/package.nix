@@ -11,7 +11,6 @@
   cairo,
   clutter-gtk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pinpoint";
   version = "0.1.8";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Tool for making hackers do excellent presentations";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "pinpoint";
   };
 }

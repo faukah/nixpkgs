@@ -11,7 +11,6 @@
   toml,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "ansible-pylibssh";
   version = "1.2.2";
@@ -38,15 +37,15 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ libssh ];
+  dependencies = [libssh];
 
-  pythonImportsCheck = [ "pylibsshext" ];
+  pythonImportsCheck = ["pylibsshext"];
 
   meta = with lib; {
     description = "Python bindings to client functionality of libssh specific to Ansible use case";
     homepage = "https://github.com/ansible/pylibssh";
     changelog = "https://github.com/ansible/pylibssh/releases/tag/v${version}";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ geluk ];
+    maintainers = with maintainers; [geluk];
   };
 }

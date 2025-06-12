@@ -18,23 +18,19 @@
   jq,
   nix,
   moreutils,
-}:
-let
-  buildModelPackage =
-    {
-      pname,
-      version,
-      sha256,
-      license,
-    }:
-
-    let
-      lang = builtins.substring 0 2 pname;
-      requires-protobuf =
-        pname == "fr_dep_news_trf" || pname == "sl_core_news_trf" || pname == "uk_core_news_trf";
-      requires-sentencepiece = pname == "fr_dep_news_trf" || pname == "sl_core_news_trf";
-      requires-transformers = pname == "uk_core_news_trf";
-    in
+}: let
+  buildModelPackage = {
+    pname,
+    version,
+    sha256,
+    license,
+  }: let
+    lang = builtins.substring 0 2 pname;
+    requires-protobuf =
+      pname == "fr_dep_news_trf" || pname == "sl_core_news_trf" || pname == "uk_core_news_trf";
+    requires-sentencepiece = pname == "fr_dep_news_trf" || pname == "sl_core_news_trf";
+    requires-transformers = pname == "uk_core_news_trf";
+  in
     buildPythonPackage {
       inherit pname version;
       pyproject = true;
@@ -45,20 +41,20 @@ let
       };
 
       propagatedBuildInputs =
-        [ spacy ]
-        ++ lib.optionals (lib.hasSuffix "_trf" pname) [ spacy-curated-transformers ]
-        ++ lib.optionals requires-transformers [ transformers ]
+        [spacy]
+        ++ lib.optionals (lib.hasSuffix "_trf" pname) [spacy-curated-transformers]
+        ++ lib.optionals requires-transformers [transformers]
         ++ lib.optionals (lang == "ja") [
           sudachidict-core
           sudachipy
         ]
-        ++ lib.optionals (lang == "ru") [ pymorphy3 ]
+        ++ lib.optionals (lang == "ru") [pymorphy3]
         ++ lib.optionals (lang == "uk") [
           pymorphy3
           pymorphy3-dicts-uk
         ]
-        ++ lib.optionals (lang == "zh") [ spacy-pkuseg ]
-        ++ lib.optionals requires-sentencepiece [ sentencepiece ];
+        ++ lib.optionals (lang == "zh") [spacy-pkuseg]
+        ++ lib.optionals requires-sentencepiece [sentencepiece];
 
       postPatch =
         lib.optionalString requires-protobuf ''
@@ -73,9 +69,9 @@ let
             --replace-fail "spacy-pkuseg>=1.0.0,<2.0.0" "spacy-pkuseg"
         '';
 
-      nativeBuildInputs = [ setuptools ] ++ lib.optionals requires-protobuf [ protobuf ];
+      nativeBuildInputs = [setuptools] ++ lib.optionals requires-protobuf [protobuf];
 
-      pythonImportsCheck = [ pname ];
+      pythonImportsCheck = [pname];
 
       passthru.updateScript = writeScript "update-spacy-models" ''
         #!${stdenv.shell}
@@ -114,7 +110,6 @@ let
       };
     };
 
-  makeModelSet =
-    models: lib.listToAttrs (map (m: lib.nameValuePair m.pname (buildModelPackage m)) models);
+  makeModelSet = models: lib.listToAttrs (map (m: lib.nameValuePair m.pname (buildModelPackage m)) models);
 in
-makeModelSet (lib.importJSON ./models.json)
+  makeModelSet (lib.importJSON ./models.json)

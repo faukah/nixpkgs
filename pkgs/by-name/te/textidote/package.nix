@@ -7,9 +7,7 @@
   makeWrapper,
   stripJavaArchivesHook,
   testers,
-}:
-
-let
+}: let
   pname = "textidote";
   version = "0.8.3";
   # We can't compile with > Java 11 yet because that's the last version that supports targeting Java 6
@@ -57,68 +55,68 @@ let
     outputHash = "sha256-LrFClt8zN/ma42+Yoqwoy03TCuC3JfAeb02vehkljBo=";
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  inherit pname version;
+  stdenv.mkDerivation (finalAttrs: {
+    inherit pname version;
 
-  src = populated-src;
+    src = populated-src;
 
-  nativeBuildInputs = [
-    ant
-    makeWrapper
-    stripJavaArchivesHook
-  ];
+    nativeBuildInputs = [
+      ant
+      makeWrapper
+      stripJavaArchivesHook
+    ];
 
-  buildInputs = [
-    jdk
-  ];
+    buildInputs = [
+      jdk
+    ];
 
-  # `javac` encoding only defaults to UTF-8 after Java 18
-  env.ANT_OPTS = "-Dfile.encoding=utf8";
+    # `javac` encoding only defaults to UTF-8 after Java 18
+    env.ANT_OPTS = "-Dfile.encoding=utf8";
 
-  buildPhase = ''
-    runHook preBuild
+    buildPhase = ''
+      runHook preBuild
 
-    ant jar
+      ant jar
 
-    runHook postBuild
-  '';
+      runHook postBuild
+    '';
 
-  doCheck = true;
-  checkPhase = ''
-    runHook preCheck
+    doCheck = true;
+    checkPhase = ''
+      runHook preCheck
 
-    ant test
+      ant test
 
-    runHook postCheck
-  '';
+      runHook postCheck
+    '';
 
-  # Recreates the wrapper from the `.deb`
-  # The `.deb` seems to be manually created for every release; there's no script in the repo
-  installPhase = ''
-    runHook preInstall
+    # Recreates the wrapper from the `.deb`
+    # The `.deb` seems to be manually created for every release; there's no script in the repo
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm644 textidote.jar $out/share/textidote/textidote.jar
+      install -Dm644 textidote.jar $out/share/textidote/textidote.jar
 
-    makeWrapper ${lib.getExe jdk} $out/bin/textidote \
-      --add-flags "-jar $out/share/textidote/textidote.jar --name textidote"
+      makeWrapper ${lib.getExe jdk} $out/bin/textidote \
+        --add-flags "-jar $out/share/textidote/textidote.jar --name textidote"
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.tests = {
-    version = testers.testVersion {
-      package = finalAttrs.finalPackage;
-      version = "TeXtidote v${finalAttrs.version}";
+    passthru.tests = {
+      version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        version = "TeXtidote v${finalAttrs.version}";
+      };
     };
-  };
 
-  meta = {
-    homepage = "https://sylvainhalle.github.io/textidote/";
-    downloadPage = "https://github.com/sylvainhalle/textidote/releases";
-    description = "Correction tool for LaTeX documents";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ magneticflux- ];
-    mainProgram = "textidote";
-    inherit (jdk.meta) platforms;
-  };
-})
+    meta = {
+      homepage = "https://sylvainhalle.github.io/textidote/";
+      downloadPage = "https://github.com/sylvainhalle/textidote/releases";
+      description = "Correction tool for LaTeX documents";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [magneticflux-];
+      mainProgram = "textidote";
+      inherit (jdk.meta) platforms;
+    };
+  })

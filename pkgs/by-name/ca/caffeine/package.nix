@@ -4,7 +4,6 @@
   fetchurl,
   undmg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "caffeine";
   version = "1.1.3";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -31,8 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Don't let your Mac fall asleep";
     homepage = "https://intelliscapesolutions.com/apps/caffeine";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
-    platforms = [ "x86_64-darwin" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [emilytrau];
+    platforms = ["x86_64-darwin"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 })

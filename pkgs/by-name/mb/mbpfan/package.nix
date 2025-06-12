@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mbpfan";
   version = "2.4.0";
@@ -24,6 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dgraziotin/mbpfan";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "lib4package";
   version = "0.3.2";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Utility for handling package metadata to include in Software Bill of Materials (SBOMs";
     homepage = "https://github.com/anthonyharrison/lib4package";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

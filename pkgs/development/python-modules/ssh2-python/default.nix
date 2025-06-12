@@ -8,7 +8,6 @@
   zlib,
   libssh2,
 }:
-
 buildPythonPackage rec {
   pname = "ssh2-python";
   version = "1.1.2.post1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-LHIj0lSAMJ+tUvIyMl0xT/i0N4U+HbiiD62WIXzboMU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
   nativeBuildInputs = [
     cython
   ];
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     SYSTEM_LIBSSH2 = true;
   };
 
-  pythonImportsCheck = [ "ssh2" ];
+  pythonImportsCheck = ["ssh2"];
 
   meta = {
     description = "Python bindings for libssh2 C library";
     homepage = "https://github.com/ParallelSSH/ssh2-python";
     changelog = "https://github.com/ParallelSSH/ssh2-python/blob/${src.tag}/Changelog.rst";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

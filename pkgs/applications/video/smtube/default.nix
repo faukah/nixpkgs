@@ -6,7 +6,6 @@
   qtscript,
   qtwebkit,
 }:
-
 mkDerivation rec {
   version = "21.10.0";
   pname = "smtube";
@@ -22,7 +21,7 @@ mkDerivation rec {
 
   dontUseQmakeConfigure = true;
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtscript
     qtwebkit
@@ -32,7 +31,7 @@ mkDerivation rec {
     description = "Play and download Youtube videos";
     homepage = "http://smplayer.sourceforge.net/smtube.php";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
     platforms = platforms.linux;
   };
 }

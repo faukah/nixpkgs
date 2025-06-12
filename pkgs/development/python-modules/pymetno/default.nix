@@ -7,7 +7,6 @@
   xmltodict,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pymetno";
   version = "0.13.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonImportsCheck = [ "metno" ];
+  pythonImportsCheck = ["metno"];
 
   # Project has no tests
   doCheck = false;
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Danielhiversen/pyMetno/";
     changelog = "https://github.com/Danielhiversen/pyMetno/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

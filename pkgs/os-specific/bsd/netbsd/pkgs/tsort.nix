@@ -7,7 +7,6 @@
   mandoc,
   groff,
 }:
-
 mkDerivation {
   path = "usr.bin/tsort";
   nativeBuildInputs = [

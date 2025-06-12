@@ -1,101 +1,98 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "gnome-extensions";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
   node.pkgsReadOnly = false;
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/user-account.nix ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [./common/user-account.nix];
 
-      # Install all extensions
-      environment.systemPackages = lib.filter (e: e ? extensionUuid) (
-        lib.attrValues pkgs.gnomeExtensions
-      );
+    # Install all extensions
+    environment.systemPackages = lib.filter (e: e ? extensionUuid) (
+      lib.attrValues pkgs.gnomeExtensions
+    );
 
-      # Some extensions are broken, but that's kind of the point of a testing VM
-      nixpkgs.config.allowBroken = true;
-      # There are some aliases which throw exceptions; ignore them.
-      # Also prevent duplicate extensions under different names.
-      nixpkgs.config.allowAliases = false;
+    # Some extensions are broken, but that's kind of the point of a testing VM
+    nixpkgs.config.allowBroken = true;
+    # There are some aliases which throw exceptions; ignore them.
+    # Also prevent duplicate extensions under different names.
+    nixpkgs.config.allowAliases = false;
 
-      # Configure GDM
-      services.xserver.enable = true;
-      services.xserver.displayManager.gdm = {
-        enable = true;
-        debug = true;
-        wayland = true;
-      };
-      services.displayManager.autoLogin = {
-        enable = true;
-        user = "alice";
-      };
-
-      # Configure Gnome
-      services.desktopManager.gnome.enable = true;
-      services.desktopManager.gnome.debug = true;
-
-      systemd.user.services = {
-        "org.gnome.Shell@wayland" = {
-          serviceConfig = {
-            ExecStart = [
-              # Clear the list before overriding it.
-              ""
-              # Eval API is now internal so Shell needs to run in unsafe mode.
-              # TODO: improve test driver so that it supports openqa-like manipulation
-              # that would allow us to drop this mess.
-              "${pkgs.gnome-shell}/bin/gnome-shell --unsafe-mode"
-            ];
-          };
-        };
-      };
-
+    # Configure GDM
+    services.xserver.enable = true;
+    services.xserver.displayManager.gdm = {
+      enable = true;
+      debug = true;
+      wayland = true;
+    };
+    services.displayManager.autoLogin = {
+      enable = true;
+      user = "alice";
     };
 
-  testScript =
-    { nodes, ... }:
-    let
-      # Keep line widths somewhat manageable
-      user = nodes.machine.users.users.alice;
-      uid = toString user.uid;
-      bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
-      # Run a command in the appropriate user environment
-      run = command: "su - ${user.name} -c '${bus} ${command}'";
+    # Configure Gnome
+    services.desktopManager.gnome.enable = true;
+    services.desktopManager.gnome.debug = true;
 
-      # Call javascript in gnome shell, returns a tuple (success, output), where
-      # `success` is true if the dbus call was successful and output is what the
-      # javascript evaluates to.
-      eval =
-        command:
-        run "gdbus call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval ${command}";
+    systemd.user.services = {
+      "org.gnome.Shell@wayland" = {
+        serviceConfig = {
+          ExecStart = [
+            # Clear the list before overriding it.
+            ""
+            # Eval API is now internal so Shell needs to run in unsafe mode.
+            # TODO: improve test driver so that it supports openqa-like manipulation
+            # that would allow us to drop this mess.
+            "${pkgs.gnome-shell}/bin/gnome-shell --unsafe-mode"
+          ];
+        };
+      };
+    };
+  };
 
-      # False when startup is done
-      startingUp = eval "Main.layoutManager._startingUp";
+  testScript = {nodes, ...}: let
+    # Keep line widths somewhat manageable
+    user = nodes.machine.users.users.alice;
+    uid = toString user.uid;
+    bus = "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/${uid}/bus";
+    # Run a command in the appropriate user environment
+    run = command: "su - ${user.name} -c '${bus} ${command}'";
 
-      # Extensions to keep always enabled together
-      # Those are extensions that are usually always on for many users, and that we expect to work
-      # well together with most others without conflicts
-      alwaysOnExtensions = map (name: pkgs.gnomeExtensions.${name}.extensionUuid) [
-        "applications-menu"
-        "user-themes"
-      ];
+    # Call javascript in gnome shell, returns a tuple (success, output), where
+    # `success` is true if the dbus call was successful and output is what the
+    # javascript evaluates to.
+    eval = command:
+      run "gdbus call --session -d org.gnome.Shell -o /org/gnome/Shell -m org.gnome.Shell.Eval ${command}";
 
-      # Extensions to enable and disable individually
-      # Extensions like dash-to-dock and dash-to-panel cannot be enabled at the same time.
-      testExtensions = map (name: pkgs.gnomeExtensions.${name}.extensionUuid) [
-        "appindicator"
-        "dash-to-dock"
-        "dash-to-panel"
-        "ddterm"
-        "gsconnect"
-        "system-monitor-next"
-        "desktop-icons-ng-ding"
-        "workspace-indicator"
-        "vitals"
-      ];
-    in
+    # False when startup is done
+    startingUp = eval "Main.layoutManager._startingUp";
+
+    # Extensions to keep always enabled together
+    # Those are extensions that are usually always on for many users, and that we expect to work
+    # well together with most others without conflicts
+    alwaysOnExtensions = map (name: pkgs.gnomeExtensions.${name}.extensionUuid) [
+      "applications-menu"
+      "user-themes"
+    ];
+
+    # Extensions to enable and disable individually
+    # Extensions like dash-to-dock and dash-to-panel cannot be enabled at the same time.
+    testExtensions = map (name: pkgs.gnomeExtensions.${name}.extensionUuid) [
+      "appindicator"
+      "dash-to-dock"
+      "dash-to-panel"
+      "ddterm"
+      "gsconnect"
+      "system-monitor-next"
+      "desktop-icons-ng-ding"
+      "workspace-indicator"
+      "vitals"
+    ];
+  in
     ''
       with subtest("Login to GNOME with GDM"):
           # wait for gdm to start

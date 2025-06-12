@@ -1,14 +1,11 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "ollama-rocm";
-  meta.maintainers = with lib.maintainers; [ abysssol ];
+  meta.maintainers = with lib.maintainers; [abysssol];
 
-  nodes.rocm =
-    { ... }:
-    {
-      services.ollama.enable = true;
-      services.ollama.acceleration = "rocm";
-    };
+  nodes.rocm = {...}: {
+    services.ollama.enable = true;
+    services.ollama.acceleration = "rocm";
+  };
 
   testScript = ''
     rocm.wait_for_unit("multi-user.target")

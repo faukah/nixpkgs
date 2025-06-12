@@ -7,7 +7,6 @@
   opentelemetry-test-utils,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   inherit (opentelemetry-api) version src;
   pname = "opentelemetry-exporter-otlp-proto-common";
@@ -17,19 +16,21 @@ buildPythonPackage {
 
   sourceRoot = "${opentelemetry-api.src.name}/exporter/opentelemetry-exporter-otlp-proto-common";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ opentelemetry-proto ];
+  dependencies = [opentelemetry-proto];
 
   nativeCheckInputs = [
     opentelemetry-test-utils
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "opentelemetry.exporter.otlp.proto.common" ];
+  pythonImportsCheck = ["opentelemetry.exporter.otlp.proto.common"];
 
-  meta = opentelemetry-api.meta // {
-    homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-common";
-    description = "OpenTelemetry Protobuf encoding";
-  };
+  meta =
+    opentelemetry-api.meta
+    // {
+      homepage = "https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-common";
+      description = "OpenTelemetry Protobuf encoding";
+    };
 }

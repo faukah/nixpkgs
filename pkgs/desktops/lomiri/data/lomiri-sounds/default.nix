@@ -6,7 +6,6 @@
   testers,
   cmake,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lomiri-sounds";
   version = "25.01";
@@ -32,7 +31,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = with lib; {
@@ -44,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       cc-by-sa-30
       cc-by-40
     ];
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.all;
     pkgConfigModules = [
       "lomiri-sounds"

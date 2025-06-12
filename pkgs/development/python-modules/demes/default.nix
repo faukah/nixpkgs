@@ -10,7 +10,6 @@
   pytest-xdist,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "demes";
   version = "0.2.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-nmE7ZbR126J3vKdR3h83qJ/V602Fa6J3M6IJnIqCNhc=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     ruamel-yaml
@@ -40,15 +39,15 @@ buildPythonPackage rec {
     numpy
   ];
 
-  disabledTestPaths = [ "tests/test_spec.py" ];
+  disabledTestPaths = ["tests/test_spec.py"];
 
-  pythonImportsCheck = [ "demes" ];
+  pythonImportsCheck = ["demes"];
 
   meta = with lib; {
     description = "Tools for describing and manipulating demographic models";
     mainProgram = "demes";
     homepage = "https://github.com/popsim-consortium/demes-python";
     license = licenses.isc;
-    maintainers = with maintainers; [ alxsimon ];
+    maintainers = with maintainers; [alxsimon];
   };
 }

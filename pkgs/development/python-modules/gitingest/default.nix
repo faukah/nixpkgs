@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # Dependencies
   setuptools,
   click,
@@ -13,14 +12,12 @@
   tiktoken,
   tomli,
   uvicorn,
-
   # Tests
   httpx,
   jinja2,
   pytestCheckHook,
   python-multipart,
 }:
-
 buildPythonPackage rec {
   pname = "gitingest";
   version = "0.1.4";
@@ -75,7 +72,7 @@ buildPythonPackage rec {
     description = "Replace 'hub' with 'ingest' in any github url to get a prompt-friendly extract of a codebase";
     homepage = "https://github.com/cyclotruc/gitingest";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "gitingest";
   };
 }

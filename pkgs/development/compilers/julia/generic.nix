@@ -2,9 +2,7 @@
   version,
   hash,
   patches,
-}:
-
-{
+}: {
   lib,
   stdenv,
   fetchurl,
@@ -20,7 +18,6 @@
   zlib,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "julia";
 
@@ -85,7 +82,10 @@ stdenv.mkDerivation rec {
   '';
 
   # tests are flaky for aarch64-linux on hydra
-  doInstallCheck = if (lib.versionOlder version "1.10") then !stdenv.hostPlatform.isAarch64 else true;
+  doInstallCheck =
+    if (lib.versionOlder version "1.10")
+    then !stdenv.hostPlatform.isAarch64
+    else true;
 
   installCheckTarget = "testall";
 

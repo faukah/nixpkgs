@@ -1,19 +1,19 @@
 # Some tests to ensure sudo is working properly.
-
 let
   password = "helloworld";
 in
-{ lib, pkgs, ... }:
-{
-  name = "sudo";
-  meta.maintainers = pkgs.sudo.meta.maintainers;
+  {
+    lib,
+    pkgs,
+    ...
+  }: {
+    name = "sudo";
+    meta.maintainers = pkgs.sudo.meta.maintainers;
 
-  nodes.machine =
-    { lib, ... }:
-    {
+    nodes.machine = {lib, ...}: {
       users.groups = {
-        foobar = { };
-        barfoo = { };
+        foobar = {};
+        barfoo = {};
         baz = {
           gid = 1337;
         };
@@ -21,7 +21,7 @@ in
       users.users = {
         test0 = {
           isNormalUser = true;
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
         };
         test1 = {
           isNormalUser = true;
@@ -29,16 +29,16 @@ in
         };
         test2 = {
           isNormalUser = true;
-          extraGroups = [ "foobar" ];
+          extraGroups = ["foobar"];
           password = password;
         };
         test3 = {
           isNormalUser = true;
-          extraGroups = [ "barfoo" ];
+          extraGroups = ["barfoo"];
         };
         test4 = {
           isNormalUser = true;
-          extraGroups = [ "baz" ];
+          extraGroups = ["baz"];
         };
         test5 = {
           isNormalUser = true;
@@ -60,34 +60,34 @@ in
 
           # These should not create any entries
           {
-            users = [ "notest1" ];
-            commands = [ ];
+            users = ["notest1"];
+            commands = [];
           }
           {
             commands = [
               {
                 command = "ALL";
-                options = [ ];
+                options = [];
               }
             ];
           }
 
           # Test defining commands with the options syntax, though not setting any options
           {
-            users = [ "notest2" ];
+            users = ["notest2"];
             commands = [
               {
                 command = "ALL";
-                options = [ ];
+                options = [];
               }
             ];
           }
 
           # CONFIGURATION FOR TEST CASES
           {
-            users = [ "test1" ];
-            groups = [ "foobar" ];
-            commands = [ "ALL" ];
+            users = ["test1"];
+            groups = ["foobar"];
+            commands = ["ALL"];
           }
           {
             groups = [
@@ -105,7 +105,7 @@ in
             ];
           }
           {
-            users = [ "test5" ];
+            users = ["test5"];
             commands = [
               {
                 command = "ALL";
@@ -121,13 +121,11 @@ in
       };
     };
 
-  nodes.strict =
-    { ... }:
-    {
+    nodes.strict = {...}: {
       users.users = {
         admin = {
           isNormalUser = true;
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
         };
         noadmin = {
           isNormalUser = true;
@@ -141,41 +139,41 @@ in
       };
     };
 
-  testScript = ''
-    with subtest("users in wheel group should have passwordless sudo"):
-        machine.succeed('su - test0 -c "sudo -u root true"')
+    testScript = ''
+      with subtest("users in wheel group should have passwordless sudo"):
+          machine.succeed('su - test0 -c "sudo -u root true"')
 
-    with subtest("test1 user should have sudo with password"):
-        machine.succeed('su - test1 -c "echo ${password} | sudo -S -u root true"')
+      with subtest("test1 user should have sudo with password"):
+          machine.succeed('su - test1 -c "echo ${password} | sudo -S -u root true"')
 
-    with subtest("test1 user should not be able to use sudo without password"):
-        machine.fail('su - test1 -c "sudo -n -u root true"')
+      with subtest("test1 user should not be able to use sudo without password"):
+          machine.fail('su - test1 -c "sudo -n -u root true"')
 
-    with subtest("users in group 'foobar' should be able to use sudo with password"):
-        machine.succeed('su - test2 -c "echo ${password} | sudo -S -u root true"')
+      with subtest("users in group 'foobar' should be able to use sudo with password"):
+          machine.succeed('su - test2 -c "echo ${password} | sudo -S -u root true"')
 
-    with subtest("users in group 'barfoo' should be able to use sudo without password"):
-        machine.succeed("sudo -u test3 sudo -n -u root true")
+      with subtest("users in group 'barfoo' should be able to use sudo without password"):
+          machine.succeed("sudo -u test3 sudo -n -u root true")
 
-    with subtest("users in group 'baz' (GID 1337)"):
-        machine.succeed("sudo -u test4 sudo -n -u root echo true")
+      with subtest("users in group 'baz' (GID 1337)"):
+          machine.succeed("sudo -u test4 sudo -n -u root echo true")
 
-    with subtest("test5 user should be able to run commands under test1"):
-        machine.succeed("sudo -u test5 sudo -n -u test1 true")
+      with subtest("test5 user should be able to run commands under test1"):
+          machine.succeed("sudo -u test5 sudo -n -u test1 true")
 
-    with subtest("test5 user should not be able to run commands under root"):
-        machine.fail("sudo -u test5 sudo -n -u root true")
+      with subtest("test5 user should not be able to run commands under root"):
+          machine.fail("sudo -u test5 sudo -n -u root true")
 
-    with subtest("test5 user should be able to keep their environment"):
-        machine.succeed("sudo -u test5 sudo -n -E -u test1 true")
+      with subtest("test5 user should be able to keep their environment"):
+          machine.succeed("sudo -u test5 sudo -n -E -u test1 true")
 
-    with subtest("users in group 'barfoo' should not be able to keep their environment"):
-        machine.fail("sudo -u test3 sudo -n -E -u root true")
+      with subtest("users in group 'barfoo' should not be able to keep their environment"):
+          machine.fail("sudo -u test3 sudo -n -E -u root true")
 
-    with subtest("users in wheel should be able to run sudo despite execWheelOnly"):
-        strict.succeed('su - admin -c "sudo -u root true"')
+      with subtest("users in wheel should be able to run sudo despite execWheelOnly"):
+          strict.succeed('su - admin -c "sudo -u root true"')
 
-    with subtest("non-wheel users should be unable to run sudo thanks to execWheelOnly"):
-        strict.fail('su - noadmin -c "sudo --help"')
-  '';
-}
+      with subtest("non-wheel users should be unable to run sudo thanks to execWheelOnly"):
+          strict.fail('su - noadmin -c "sudo --help"')
+    '';
+  }

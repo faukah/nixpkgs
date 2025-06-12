@@ -1,18 +1,17 @@
 /*
-  This file is for options that NixOS and nix-darwin have in common.
+This file is for options that NixOS and nix-darwin have in common.
 
-  Platform-specific code is in the respective default.nix files.
+Platform-specific code is in the respective default.nix files.
 */
-
 {
   config,
   lib,
   options,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     filterAttrs
     literalExpression
     mkIf
@@ -25,24 +24,26 @@ let
 
   cfg = config.services.hercules-ci-agent;
 
-  inherit (import ./settings.nix { inherit pkgs lib; }) format settingsModule;
-
-in
-{
+  inherit (import ./settings.nix {inherit pkgs lib;}) format settingsModule;
+in {
   imports = [
-    (mkRenamedOptionModule
-      [ "services" "hercules-ci-agent" "extraOptions" ]
-      [ "services" "hercules-ci-agent" "settings" ]
+    (
+      mkRenamedOptionModule
+      ["services" "hercules-ci-agent" "extraOptions"]
+      ["services" "hercules-ci-agent" "settings"]
     )
-    (mkRenamedOptionModule
-      [ "services" "hercules-ci-agent" "baseDirectory" ]
-      [ "services" "hercules-ci-agent" "settings" "baseDirectory" ]
+    (
+      mkRenamedOptionModule
+      ["services" "hercules-ci-agent" "baseDirectory"]
+      ["services" "hercules-ci-agent" "settings" "baseDirectory"]
     )
-    (mkRenamedOptionModule
-      [ "services" "hercules-ci-agent" "concurrentTasks" ]
-      [ "services" "hercules-ci-agent" "settings" "concurrentTasks" ]
+    (
+      mkRenamedOptionModule
+      ["services" "hercules-ci-agent" "concurrentTasks"]
+      ["services" "hercules-ci-agent" "settings" "concurrentTasks"]
     )
-    (mkRemovedOptionModule [ "services" "hercules-ci-agent" "patchNix" ]
+    (
+      mkRemovedOptionModule ["services" "hercules-ci-agent" "patchNix"]
       "Nix versions packaged in this version of Nixpkgs don't need a patched nix-daemon to work correctly in Hercules CI Agent clusters."
     )
   ];
@@ -60,7 +61,7 @@ in
         Support is available at [help@hercules-ci.com](mailto:help@hercules-ci.com).
       '';
     };
-    package = mkPackageOption pkgs "hercules-ci-agent" { };
+    package = mkPackageOption pkgs "hercules-ci-agent" {};
     settings = mkOption {
       description = ''
         These settings are written to the `agent.toml` file.
@@ -69,14 +70,14 @@ in
 
         For the exhaustive list of settings, see <https://docs.hercules-ci.com/hercules-ci/reference/agent-config/>.
       '';
-      type = types.submoduleWith { modules = [ settingsModule ]; };
+      type = types.submoduleWith {modules = [settingsModule];};
     };
 
     /*
-      Internal and/or computed values.
+    Internal and/or computed values.
 
-      These are written as options instead of let binding to allow sharing with
-      default.nix on both NixOS and nix-darwin.
+    These are written as options instead of let binding to allow sharing with
+    default.nix on both NixOS and nix-darwin.
     */
     tomlFile = mkOption {
       type = types.path;

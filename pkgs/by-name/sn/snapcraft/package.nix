@@ -11,7 +11,6 @@
   stdenv,
   writableTmpDirAsHomeHook,
 }:
-
 python312Packages.buildPythonApplication rec {
   pname = "snapcraft";
   version = "8.9.2";
@@ -56,7 +55,7 @@ python312Packages.buildPythonApplication rec {
     substituteInPlace pyproject.toml --replace-fail 'gnupg' 'python-gnupg'
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dependencies = with python312Packages; [
     attrs
@@ -102,7 +101,7 @@ python312Packages.buildPythonApplication rec {
     validators
   ];
 
-  build-system = with python312Packages; [ setuptools-scm ];
+  build-system = with python312Packages; [setuptools-scm];
 
   pythonRelaxDeps = [
     "click"
@@ -124,8 +123,7 @@ python312Packages.buildPythonApplication rec {
     export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
   '';
 
-  nativeCheckInputs =
-    with python312Packages;
+  nativeCheckInputs = with python312Packages;
     [
       pytest-check
       pytest-cov-stub
@@ -141,34 +139,36 @@ python312Packages.buildPythonApplication rec {
       squashfsTools
     ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  disabledTests = [
-    "test_bin_echo"
-    "test_classic_linter_filter"
-    "test_classic_linter"
-    "test_complex_snap_yaml"
-    "test_core24_try_command"
-    "test_get_base_configuration_snap_channel"
-    "test_get_base_configuration_snap_instance_name_default"
-    "test_get_base_configuration_snap_instance_name_not_running_as_snap"
-    "test_get_build_commands"
-    "test_get_extensions_data_dir"
-    "test_get_os_platform_alternative_formats"
-    "test_get_os_platform_linux"
-    "test_get_os_platform_windows"
-    "test_lifecycle_pack_components_with_output"
-    "test_lifecycle_pack_components"
-    "test_lifecycle_write_component_metadata"
-    "test_parse_info_integrated"
-    "test_patch_elf"
-    "test_project_platform_unknown_name"
-    "test_remote_builder_init"
-    "test_setup_assets_remote_icon"
-    "test_snap_command_fallback"
-    "test_validate_architectures_supported"
-    "test_validate_architectures_unsupported"
-  ] ++ lib.optionals stdenv.hostPlatform.isAarch64 [ "test_load_project" ];
+  disabledTests =
+    [
+      "test_bin_echo"
+      "test_classic_linter_filter"
+      "test_classic_linter"
+      "test_complex_snap_yaml"
+      "test_core24_try_command"
+      "test_get_base_configuration_snap_channel"
+      "test_get_base_configuration_snap_instance_name_default"
+      "test_get_base_configuration_snap_instance_name_not_running_as_snap"
+      "test_get_build_commands"
+      "test_get_extensions_data_dir"
+      "test_get_os_platform_alternative_formats"
+      "test_get_os_platform_linux"
+      "test_get_os_platform_windows"
+      "test_lifecycle_pack_components_with_output"
+      "test_lifecycle_pack_components"
+      "test_lifecycle_write_component_metadata"
+      "test_parse_info_integrated"
+      "test_patch_elf"
+      "test_project_platform_unknown_name"
+      "test_remote_builder_init"
+      "test_setup_assets_remote_icon"
+      "test_snap_command_fallback"
+      "test_validate_architectures_supported"
+      "test_validate_architectures_unsupported"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isAarch64 ["test_load_project"];
 
   disabledTestPaths = [
     "tests/unit/commands/test_remote.py"
@@ -179,7 +179,7 @@ python312Packages.buildPythonApplication rec {
     "tests/unit/services"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "snapcraft";
@@ -187,7 +187,7 @@ python312Packages.buildPythonApplication rec {
     homepage = "https://github.com/canonical/snapcraft";
     changelog = "https://github.com/canonical/snapcraft/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

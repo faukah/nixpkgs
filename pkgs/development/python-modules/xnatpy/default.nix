@@ -10,7 +10,6 @@
   pydicom,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "xnatpy";
   version = "0.5.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-iOw9cVWP5Am4S9JQ0NTmtew38KZiKmau+19K2KG2aKQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     click
@@ -37,14 +36,14 @@ buildPythonPackage rec {
   # tests missing in PyPI dist and require network access and Docker container
   doCheck = false;
 
-  pythonImportsCheck = [ "xnat" ];
+  pythonImportsCheck = ["xnat"];
 
   meta = with lib; {
     homepage = "https://xnat.readthedocs.io";
     description = "New XNAT client (distinct from pyxnat) that exposes XNAT objects/functions as Python objects/functions";
     changelog = "https://gitlab.com/radiology/infrastructure/xnatpy/-/blob/${version}/CHANGELOG?ref_type=tags";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     mainProgram = "xnat";
   };
 }

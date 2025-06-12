@@ -4,7 +4,6 @@
   fetchurl,
   dpkg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlxbf-bootimages";
   version = "4.10.0-13520";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     # under bsd2, bsd2Patent, bsd3. However, it is probably safer to assume
     # they are unfree. See https://github.com/Mellanox/bootimages/issues/3
     license = licenses.unfree;
-    platforms = [ "aarch64-linux" ];
+    platforms = ["aarch64-linux"];
     maintainers = with maintainers; [
       nikstur
       thillux

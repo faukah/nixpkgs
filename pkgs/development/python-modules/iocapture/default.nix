@@ -7,7 +7,6 @@
   pytest-cov-stub,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "iocapture";
   version = "0.1.2";

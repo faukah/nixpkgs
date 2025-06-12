@@ -9,7 +9,6 @@
   gtk3,
   xorg,
 }:
-
 buildDotnetModule rec {
   pname = "libation";
   version = "12.3.1";
@@ -41,7 +40,7 @@ buildDotnetModule rec {
     "HangoverAvalonia/HangoverAvalonia.csproj"
   ];
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   runtimeDeps = [
     # For Avalonia UI
@@ -84,6 +83,6 @@ buildDotnetModule rec {
     homepage = "https://github.com/rmcrackan/Libation";
     license = lib.licenses.gpl3Plus;
     mainProgram = "libation";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

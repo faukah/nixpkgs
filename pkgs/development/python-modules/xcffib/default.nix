@@ -7,7 +7,6 @@
   pythonOlder,
   xorg,
 }:
-
 buildPythonPackage rec {
   pname = "xcffib";
   version = "1.9.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     sed -e 's,ffi\.dlopen(,&"${xorg.libxcb.out}/lib/" + ,' -i xcffib/__init__.py
   '';
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     rm -r xcffib
   '';
 
-  pythonImportsCheck = [ "xcffib" ];
+  pythonImportsCheck = ["xcffib"];
 
   # Tests use xvfb
   __darwinAllowLocalNetworking = true;
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/tych0/xcffib/releases/tag/v${version}";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin ++ platforms.windows;
-    maintainers = with maintainers; [ kamilchm ];
+    maintainers = with maintainers; [kamilchm];
   };
 }

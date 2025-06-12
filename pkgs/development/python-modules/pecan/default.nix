@@ -14,7 +14,6 @@
   webob,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "pecan";
   version = "1.6.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-X9RGlYPu0t7Te00QpHDhGl3j88lj3IeYTncuJcVv7T4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     mako
@@ -45,15 +44,15 @@ buildPythonPackage rec {
     webtest
   ];
 
-  pytestFlagsArray = [ "--pyargs pecan" ];
+  pytestFlagsArray = ["--pyargs pecan"];
 
-  pythonImportsCheck = [ "pecan" ];
+  pythonImportsCheck = ["pecan"];
 
   meta = with lib; {
     description = "WSGI object-dispatching web framework";
     homepage = "https://www.pecanpy.org/";
     changelog = "https://github.com/pecan/pecan/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ applePrincess ];
+    maintainers = with maintainers; [applePrincess];
   };
 }

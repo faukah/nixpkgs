@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "garnet";
   version = "1.0.69";
@@ -20,8 +19,7 @@ buildDotnetModule rec {
   projectFile = "main/GarnetServer/GarnetServer.csproj";
   nugetDeps = ./deps.json;
 
-  dotnet-sdk =
-    with dotnetCorePackages;
+  dotnet-sdk = with dotnetCorePackages;
     sdk_9_0
     // {
       inherit
@@ -41,7 +39,7 @@ buildDotnetModule rec {
   dotnetInstallFlags = dotnetBuildFlags;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,7 +52,7 @@ buildDotnetModule rec {
     homepage = "https://microsoft.github.io/garnet/";
     changelog = "https://github.com/microsoft/garnet/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "GarnetServer";
   };
 }

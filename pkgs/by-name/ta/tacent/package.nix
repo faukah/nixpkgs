@@ -5,7 +5,6 @@
   ninja,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tacent";
   version = "0.8.18";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bluescan/tacent";
     changelog = "https://github.com/bluescan/tacent/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ PopeRigby ];
+    maintainers = with lib.maintainers; [PopeRigby];
     platforms = lib.platforms.linux;
     badPlatforms = [
       # /build/source/UnitTests/Src/UnitTests.cpp:149:15: error: 'Rule' is not a member of 'tUnitTest'

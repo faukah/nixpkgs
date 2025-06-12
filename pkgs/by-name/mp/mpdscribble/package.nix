@@ -12,7 +12,6 @@
   libmpdclient,
   systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mpdscribble";
   version = "0.24";
@@ -40,18 +39,20 @@ stdenv.mkDerivation rec {
     meson
     ninja
   ];
-  buildInputs = [
-    libmpdclient
-    curl
-    boost
-    libgcrypt
-  ] ++ lib.optional stdenv.hostPlatform.isLinux systemd;
+  buildInputs =
+    [
+      libmpdclient
+      curl
+      boost
+      libgcrypt
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux systemd;
 
   meta = with lib; {
     description = "MPD client which submits info about tracks being played to a scrobbler";
     homepage = "https://www.musicpd.org/clients/mpdscribble/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sohalt ];
+    maintainers = [maintainers.sohalt];
     platforms = platforms.unix;
     mainProgram = "mpdscribble";
   };

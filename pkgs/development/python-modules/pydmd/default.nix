@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-git-versioning,
-
   # dependencies
   ezyrb,
   future,
@@ -15,12 +13,10 @@
   numpy,
   scipy,
   xarray,
-
   # tests
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pydmd";
   version = "2025.06.01";
@@ -53,7 +49,7 @@ buildPythonPackage rec {
     xarray
   ];
 
-  pythonImportsCheck = [ "pydmd" ];
+  pythonImportsCheck = ["pydmd"];
 
   nativeCheckInputs = [
     pytest-mock
@@ -65,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://pydmd.github.io/PyDMD/";
     changelog = "https://github.com/PyDMD/PyDMD/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

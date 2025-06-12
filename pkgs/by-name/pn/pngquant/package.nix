@@ -7,7 +7,6 @@
   zlib,
   lcms2,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pngquant";
   version = "3.0.3";
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     ./add-Cargo.lock.patch
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -56,6 +55,6 @@ rustPlatform.buildRustPackage rec {
       bsd2
     ];
     mainProgram = "pngquant";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

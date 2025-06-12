@@ -26,7 +26,6 @@
   libxkbcommon,
   mesa,
 }:
-
 stdenv.mkDerivation {
   pname = "piglit";
   version = "unstable-2025-04-15";
@@ -53,10 +52,11 @@ stdenv.mkDerivation {
     libxcb
     libxkbcommon
     (python3.withPackages (
-      ps: with ps; [
-        mako
-        numpy
-      ]
+      ps:
+        with ps; [
+          mako
+          numpy
+        ]
     ))
     vulkan-loader
     waffle
@@ -82,11 +82,11 @@ stdenv.mkDerivation {
   postInstall = ''
     wrapProgram $out/bin/piglit \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libGL
-          libglvnd
-        ]
-      } \
+      lib.makeLibraryPath [
+        libGL
+        libglvnd
+      ]
+    } \
       --prefix PATH : "${waffle}/bin"
   '';
 
@@ -95,7 +95,7 @@ stdenv.mkDerivation {
     homepage = "https://gitlab.freedesktop.org/mesa/piglit";
     license = licenses.free; # custom license. See COPYING in the source repo.
     inherit (mesa.meta) platforms;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
     mainProgram = "piglit";
   };
 }

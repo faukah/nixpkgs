@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-{
-
+with lib; {
   ###### interface
 
   options = {
@@ -26,7 +22,7 @@ with lib;
 
     boot.blacklistedKernelModules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "cirrusfb"
         "i2c_piix4"
@@ -50,18 +46,16 @@ with lib;
       '';
       type = types.lines;
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.boot.modprobeConfig.enable {
-
     environment.etc."modprobe.d/ubuntu.conf" =
       mkIf config.boot.modprobeConfig.useUbuntuModuleBlacklist
-        {
-          source = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
-        };
+      {
+        source = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
+      };
 
     environment.etc."modprobe.d/nixos.conf".text = ''
       ${flip concatMapStrings config.boot.blacklistedKernelModules (name: ''
@@ -71,19 +65,16 @@ with lib;
     '';
     environment.etc."modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;
 
-    environment.etc."modprobe.d/systemd.conf".source =
-      "${config.systemd.package}/lib/modprobe.d/systemd.conf";
+    environment.etc."modprobe.d/systemd.conf".source = "${config.systemd.package}/lib/modprobe.d/systemd.conf";
 
-    environment.systemPackages = [ pkgs.kmod ];
+    environment.systemPackages = [pkgs.kmod];
 
-    system.activationScripts.modprobe = stringAfter [ "specialfs" ] ''
+    system.activationScripts.modprobe = stringAfter ["specialfs"] ''
       # Allow the kernel to find our wrapped modprobe (which searches
       # in the right location in the Nix store for kernel modules).
       # We need this when the kernel (or some module) auto-loads a
       # module.
       echo ${pkgs.kmod}/bin/modprobe > /proc/sys/kernel/modprobe
     '';
-
   };
-
 }

@@ -1,36 +1,28 @@
-{ pkgs, ... }:
-
-let
-  client =
-    { pkgs, ... }:
-    {
-      imports = [ ./common/x11.nix ];
-      environment.systemPackages = [ pkgs.mumble ];
-    };
+{pkgs, ...}: let
+  client = {pkgs, ...}: {
+    imports = [./common/x11.nix];
+    environment.systemPackages = [pkgs.mumble];
+  };
 
   # outside of tests, this file should obviously not come from the nix store
   envFile = pkgs.writeText "nixos-test-mumble-murmurd.env" ''
     MURMURD_PASSWORD=testpassword
   '';
-
-in
-{
+in {
   name = "mumble";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ thoughtpolice ];
+    maintainers = [thoughtpolice];
   };
 
   nodes = {
-    server =
-      { config, ... }:
-      {
-        security.apparmor.enable = true;
-        services.murmur.enable = true;
-        services.murmur.registerName = "NixOS tests";
-        services.murmur.password = "$MURMURD_PASSWORD";
-        services.murmur.environmentFile = envFile;
-        networking.firewall.allowedTCPPorts = [ config.services.murmur.port ];
-      };
+    server = {config, ...}: {
+      security.apparmor.enable = true;
+      services.murmur.enable = true;
+      services.murmur.registerName = "NixOS tests";
+      services.murmur.password = "$MURMURD_PASSWORD";
+      services.murmur.environmentFile = envFile;
+      networking.firewall.allowedTCPPorts = [config.services.murmur.port];
+    };
 
     client1 = client;
     client2 = client;

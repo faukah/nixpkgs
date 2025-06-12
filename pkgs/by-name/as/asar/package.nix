@@ -7,7 +7,6 @@
   yarnInstallHook,
   nodejs,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "asar";
   version = "3.2.4";
@@ -35,6 +34,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/electron/asar";
     license = lib.licenses.mit;
     mainProgram = "asar";
-    maintainers = with lib.maintainers; [ xvapx ];
+    maintainers = with lib.maintainers; [xvapx];
   };
 })

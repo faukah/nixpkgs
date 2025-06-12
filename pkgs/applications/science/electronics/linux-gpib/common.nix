@@ -2,8 +2,7 @@
   pname,
   fetchurl,
   lib,
-}:
-rec {
+}: rec {
   version = "4.3.6";
   inherit pname;
 
@@ -23,7 +22,7 @@ rec {
     description = "Support package for GPIB (IEEE 488) hardware";
     homepage = "https://linux-gpib.sourceforge.io/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fsagbuya ];
+    maintainers = with maintainers; [fsagbuya];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tocpdf";
   version = "0.3.9";
@@ -37,14 +36,14 @@ python3Packages.buildPythonApplication rec {
     "test_read_toc"
   ];
 
-  pythonImportsCheck = [ "tocPDF" ];
+  pythonImportsCheck = ["tocPDF"];
 
   meta = {
     description = "Automatic CLI tool for generating outline of PDFs based on the table of contents";
     homepage = "https://github.com/kszenes/tocPDF";
     changelog = "https://github.com/kszenes/tocPDF/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dansbandit ];
+    maintainers = with lib.maintainers; [dansbandit];
     mainProgram = "tocPDF";
   };
 }

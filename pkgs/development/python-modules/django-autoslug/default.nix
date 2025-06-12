@@ -7,7 +7,6 @@
   django,
   django-modeltranslation,
 }:
-
 buildPythonPackage rec {
   pname = "django-autoslug";
   version = "1.9.9";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  nativeCheckInputs = [ django-modeltranslation ];
+  nativeCheckInputs = [django-modeltranslation];
 
   checkPhase = ''
     runHook preCheck
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/justinmayer/django-autoslug";
     changelog = "https://github.com/justinmayer/django-autoslug/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
   };
 }

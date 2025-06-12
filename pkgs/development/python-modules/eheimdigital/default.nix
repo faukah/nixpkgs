@@ -6,7 +6,6 @@
   lib,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "eheimdigital";
   version = "1.2.0";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-Jg5jVJAH6y2yrospcPJwHc/B0yd5ZRSXC6T7gYk7Sxs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
     yarl
   ];
 
-  pythonImportsCheck = [ "eheimdigital" ];
+  pythonImportsCheck = ["eheimdigital"];
 
   # upstream tests are dysfunctional
   doCheck = false;
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Offers a Python API for the EHEIM Digital smart aquarium devices";
     homepage = "https://github.com/autinerd/eheimdigital";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

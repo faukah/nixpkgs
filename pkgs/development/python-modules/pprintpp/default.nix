@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pprintpp";
   version = "0.4.0-unstable-2022-05-31";
@@ -31,18 +30,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pprintpp" ];
+  pythonImportsCheck = ["pprintpp"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Drop-in replacement for pprint that's actually pretty";
     homepage = "https://github.com/wolever/pprintpp";
     changelog = "https://github.com/wolever/pprintpp/blob/${version}/CHANGELOG.txt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
     mainProgram = "pypprint";
   };
 }

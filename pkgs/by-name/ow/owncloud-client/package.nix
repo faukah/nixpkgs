@@ -17,7 +17,6 @@
   libinotify-kqueue,
   sparkleshare,
 }:
-
 stdenv.mkDerivation rec {
   pname = "owncloud-client";
   version = "5.3.2";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       sparkleshare
     ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Synchronise your ownCloud with your computer using this desktop client";

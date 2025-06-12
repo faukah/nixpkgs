@@ -17,7 +17,6 @@
   pango,
   rclone,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "celeste";
   version = "0.8.3";
@@ -77,7 +76,7 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ rclone ]}"
+      --prefix PATH : "${lib.makeBinPath [rclone]}"
     )
   '';
 
@@ -91,6 +90,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "celeste";
     homepage = "https://github.com/hwittenborn/celeste";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

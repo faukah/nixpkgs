@@ -3,13 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkOption types;
   cfg = config.services.nar-serve;
-in
-{
+in {
   meta = {
     maintainers = with lib.maintainers; [
       rizary
@@ -20,7 +17,7 @@ in
     services.nar-serve = {
       enable = lib.mkEnableOption "serving NAR file contents via HTTP";
 
-      package = lib.mkPackageOption pkgs "nar-serve" { };
+      package = lib.mkPackageOption pkgs "nar-serve" {};
 
       port = mkOption {
         type = types.port;
@@ -59,8 +56,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.nar-serve = {
       description = "NAR server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment.PORT = toString cfg.port;
       environment.NAR_CACHE_URL = cfg.cacheURL;

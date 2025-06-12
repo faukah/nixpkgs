@@ -13,7 +13,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "grim";
   version = "1.4.1";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     wayland-protocols
   ];
 
-  mesonFlags = [ (lib.mesonBool "werror" false) ];
+  mesonFlags = [(lib.mesonBool "werror" false)];
 
   strictDeps = true;
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Grab images from a Wayland compositor";
     license = lib.licenses.mit;
     mainProgram = "grim";
-    maintainers = with lib.maintainers; [ khaneliman ];
+    maintainers = with lib.maintainers; [khaneliman];
     platforms = lib.platforms.linux;
   };
 })

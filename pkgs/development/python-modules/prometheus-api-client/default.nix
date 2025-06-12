@@ -11,7 +11,6 @@
   setuptools,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "prometheus-api-client";
   version = "0.6.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Xi3n1Ha6bpfp4KfCh/Zky7bBrXOojuR6BVzPNQ3a18Y=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dateparser
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ httmock ];
+  checkInputs = [httmock];
 
-  disabledTestPaths = [ "tests/test_prometheus_connect.py" ];
+  disabledTestPaths = ["tests/test_prometheus_connect.py"];
 
-  pythonImportsCheck = [ "prometheus_api_client" ];
+  pythonImportsCheck = ["prometheus_api_client"];
 
   meta = with lib; {
     description = "Python wrapper for the Prometheus HTTP API";
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/4n4nd/prometheus-api-client-python";
     changelog = "https://github.com/4n4nd/prometheus-api-client-python/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

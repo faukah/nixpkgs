@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   privateKey = ''
     -----BEGIN OPENSSH PRIVATE KEY-----
     b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZW
@@ -13,8 +11,7 @@ let
   publicKey = ''
     ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHxQHThDpD9/AMWNqQer3Tg9gXMb2lTZMn0pelo8xyv
   '';
-in
-{
+in {
   name = "btrbk-doas";
   meta = with pkgs.lib; {
     maintainers = with maintainers; [
@@ -24,76 +21,72 @@ in
   };
 
   nodes = {
-    archive =
-      { ... }:
-      {
-        security.sudo.enable = false;
-        security.doas.enable = true;
-        environment.systemPackages = with pkgs; [ btrfs-progs ];
-        # note: this makes the privateKey world readable.
-        # don't do it with real ssh keys.
-        environment.etc."btrbk_key".text = privateKey;
-        services.btrbk = {
-          extraPackages = [ pkgs.lz4 ];
-          instances = {
-            remote = {
-              onCalendar = "minutely";
-              settings = {
-                ssh_identity = "/etc/btrbk_key";
-                ssh_user = "btrbk";
-                stream_compress = "lz4";
-                volume = {
-                  "ssh://main/mnt" = {
-                    target = "/mnt";
-                    snapshot_dir = "btrbk/remote";
-                    subvolume = "to_backup";
-                  };
+    archive = {...}: {
+      security.sudo.enable = false;
+      security.doas.enable = true;
+      environment.systemPackages = with pkgs; [btrfs-progs];
+      # note: this makes the privateKey world readable.
+      # don't do it with real ssh keys.
+      environment.etc."btrbk_key".text = privateKey;
+      services.btrbk = {
+        extraPackages = [pkgs.lz4];
+        instances = {
+          remote = {
+            onCalendar = "minutely";
+            settings = {
+              ssh_identity = "/etc/btrbk_key";
+              ssh_user = "btrbk";
+              stream_compress = "lz4";
+              volume = {
+                "ssh://main/mnt" = {
+                  target = "/mnt";
+                  snapshot_dir = "btrbk/remote";
+                  subvolume = "to_backup";
                 };
               };
             };
           };
         };
       };
+    };
 
-    main =
-      { ... }:
-      {
-        security.sudo.enable = false;
-        security.doas.enable = true;
-        environment.systemPackages = with pkgs; [ btrfs-progs ];
-        services.openssh = {
-          enable = true;
-          passwordAuthentication = false;
-          kbdInteractiveAuthentication = false;
-        };
-        services.btrbk = {
-          extraPackages = [ pkgs.lz4 ];
-          sshAccess = [
-            {
-              key = publicKey;
-              roles = [
-                "source"
-                "send"
-                "info"
-                "delete"
-              ];
-            }
-          ];
-          instances = {
-            local = {
-              onCalendar = "minutely";
-              settings = {
-                volume = {
-                  "/mnt" = {
-                    snapshot_dir = "btrbk/local";
-                    subvolume = "to_backup";
-                  };
+    main = {...}: {
+      security.sudo.enable = false;
+      security.doas.enable = true;
+      environment.systemPackages = with pkgs; [btrfs-progs];
+      services.openssh = {
+        enable = true;
+        passwordAuthentication = false;
+        kbdInteractiveAuthentication = false;
+      };
+      services.btrbk = {
+        extraPackages = [pkgs.lz4];
+        sshAccess = [
+          {
+            key = publicKey;
+            roles = [
+              "source"
+              "send"
+              "info"
+              "delete"
+            ];
+          }
+        ];
+        instances = {
+          local = {
+            onCalendar = "minutely";
+            settings = {
+              volume = {
+                "/mnt" = {
+                  snapshot_dir = "btrbk/local";
+                  subvolume = "to_backup";
                 };
               };
             };
           };
         };
       };
+    };
   };
 
   testScript = ''

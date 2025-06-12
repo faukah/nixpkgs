@@ -14,7 +14,6 @@
   pytestCheckHook,
   trimesh,
 }:
-
 buildPythonPackage rec {
   pname = "manifold3d";
   version = "3.1.1";

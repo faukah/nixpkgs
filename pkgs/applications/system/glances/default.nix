@@ -24,7 +24,6 @@
   requests,
   prometheus-client,
 }:
-
 buildPythonApplication rec {
   pname = "glances";
   version = "4.3.1";
@@ -39,7 +38,7 @@ buildPythonApplication rec {
     hash = "sha256-KaH2dV9bOtBZkfbIGIgQS8vL39XwSyatSjclcXpeVGM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # On Darwin this package segfaults due to mismatch of pure and impure
   # CoreFoundation. This issues was solved for binaries but for interpreted
@@ -54,19 +53,21 @@ buildPythonApplication rec {
   # some tests fail in darwin sandbox
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  dependencies = [
-    defusedxml
-    netifaces2
-    packaging
-    psutil
-    pysnmp
-    fastapi
-    uvicorn
-    requests
-    jinja2
-    which
-    prometheus-client
-  ] ++ lib.optional stdenv.hostPlatform.isLinux hddtemp;
+  dependencies =
+    [
+      defusedxml
+      netifaces2
+      packaging
+      psutil
+      pysnmp
+      fastapi
+      uvicorn
+      requests
+      jinja2
+      which
+      prometheus-client
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux hddtemp;
 
   passthru.tests = {
     service = nixosTests.glances;

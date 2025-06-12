@@ -27,7 +27,6 @@
   librsvg,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pipeline";
   version = "2.1.1";
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     gst_all_1.gstreamer
     gst_all_1.gst-libav
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-plugins-bad
     gettext
     gtuber
@@ -88,14 +87,14 @@ stdenv.mkDerivation (finalAttrs: {
     }"
   '';
 
-  passthru.updateScript = nix-update-script { attrPath = finalAttrs.pname; };
+  passthru.updateScript = nix-update-script {attrPath = finalAttrs.pname;};
 
   meta = {
     description = "Watch YouTube and PeerTube videos in one place";
     homepage = "https://mobile.schmidhuberj.de/pipeline";
     mainProgram = "tubefeeder";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.linux;
   };
 })

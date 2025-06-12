@@ -1,14 +1,11 @@
 {
   lib,
   fetchFromGitHub,
-
   npmHooks,
   fetchNpmDeps,
   nodejs,
-
   rustPlatform,
   cargo-tauri_1,
-
   pkg-config,
   wrapGAppsHook3,
   libXtst,
@@ -17,7 +14,6 @@
   libsoup_2_4,
   webkitgtk_4_0,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mouse-actions-gui";
   version = "0.4.5";
@@ -71,7 +67,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/jersou/mouse-actions";
     license = lib.licenses.mit;
     mainProgram = "mouse-actions-gui";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 }

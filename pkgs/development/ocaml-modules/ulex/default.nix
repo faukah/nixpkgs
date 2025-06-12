@@ -6,26 +6,21 @@
   findlib,
   ocamlbuild,
   camlp4,
-}:
-
-let
+}: let
   pname = "ulex";
   param =
-    if lib.versionAtLeast ocaml.version "4.02" then
-      {
-        version = "1.2";
-        sha256 = "08yf2x9a52l2y4savjqfjd2xy4pjd1rpla2ylrr9qrz1drpfw4ic";
-      }
-    else
-      {
-        version = "1.1";
-        sha256 = "0cmscxcmcxhlshh4jd0lzw5ffzns12x3bj7h27smbc8waxkwffhl";
-      };
+    if lib.versionAtLeast ocaml.version "4.02"
+    then {
+      version = "1.2";
+      sha256 = "08yf2x9a52l2y4savjqfjd2xy4pjd1rpla2ylrr9qrz1drpfw4ic";
+    }
+    else {
+      version = "1.1";
+      sha256 = "0cmscxcmcxhlshh4jd0lzw5ffzns12x3bj7h27smbc8waxkwffhl";
+    };
 in
-
-lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
+  lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
   "ulex is not available for OCaml ${ocaml.version}"
-
   stdenv.mkDerivation
   rec {
     name = "ocaml${ocaml.version}-${pname}-${version}";
@@ -46,7 +41,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
       ocamlbuild
       camlp4
     ];
-    propagatedBuildInputs = [ camlp4 ];
+    propagatedBuildInputs = [camlp4];
 
     strictDeps = true;
 
@@ -60,6 +55,6 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0")
       description = "Lexer generator for Unicode and OCaml";
       license = lib.licenses.mit;
       inherit (ocaml.meta) platforms;
-      maintainers = [ lib.maintainers.roconnor ];
+      maintainers = [lib.maintainers.roconnor];
     };
   }

@@ -22,7 +22,6 @@
   withModelRepo ? true,
   withCadFeatures ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "febio-studio";
   version = "2.8.1";
@@ -44,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags =
-    [ (lib.cmakeFeature "Qt_Root" "${qt6Packages.qtbase}") ]
+    [(lib.cmakeFeature "Qt_Root" "${qt6Packages.qtbase}")]
     ++ lib.optional sshSupport "-DUSE_SSH=On"
     ++ lib.optional tetgenSupport "-DUSE_TETGEN=On"
     ++ lib.optional ffmpegSupport "-DUSE_FFMPEG=On"
@@ -77,9 +76,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "FEBio Suite Solver";
     mainProgram = "FEBioStudio";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     homepage = "https://febio.org/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 })

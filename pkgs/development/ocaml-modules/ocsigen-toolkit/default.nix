@@ -9,7 +9,6 @@
   eliom,
   js_of_ocaml-ppx_deriving_json,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocsigen-toolkit";
   name = "ocaml${ocaml.version}-${pname}-${version}";
@@ -49,8 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "http://ocsigen.org/ocsigen-toolkit/";
     description = " User interface widgets for Ocsigen applications";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
     inherit (ocaml.meta) platforms;
   };
-
 }

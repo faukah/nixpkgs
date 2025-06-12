@@ -6,7 +6,6 @@
   bc,
   nukeReferences,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl8812au";
   version = "${kernel.version}-unstable-2024-06-13";
@@ -18,10 +17,12 @@ stdenv.mkDerivation {
     hash = "sha256-ZS0iUb77XnXR5BUMeQ1EDuly7hStRt430ECueFW4v4w=";
   };
 
-  nativeBuildInputs = [
-    bc
-    nukeReferences
-  ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs =
+    [
+      bc
+      nukeReferences
+    ]
+    ++ kernel.moduleBuildDependencies;
   hardeningDisable = [
     "pic"
     "format"
@@ -37,8 +38,18 @@ stdenv.mkDerivation {
   makeFlags =
     [
       "ARCH=${stdenv.hostPlatform.linuxArch}"
-      ("CONFIG_PLATFORM_I386_PC=" + (if stdenv.hostPlatform.isx86 then "y" else "n"))
-      ("CONFIG_PLATFORM_ARM_RPI=" + (if stdenv.hostPlatform.isAarch then "y" else "n"))
+      ("CONFIG_PLATFORM_I386_PC="
+        + (
+          if stdenv.hostPlatform.isx86
+          then "y"
+          else "n"
+        ))
+      ("CONFIG_PLATFORM_ARM_RPI="
+        + (
+          if stdenv.hostPlatform.isAarch
+          then "y"
+          else "n"
+        ))
     ]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
@@ -59,6 +70,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/morrownr/8812au-20210820";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ moni ];
+    maintainers = with maintainers; [moni];
   };
 }

@@ -7,7 +7,6 @@
   rustc,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tree-sitter-make";
   version = "1.1.1";
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Makefile grammar for tree-sitter";
     homepage = "https://github.com/tree-sitter-grammars/tree-sitter-make";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

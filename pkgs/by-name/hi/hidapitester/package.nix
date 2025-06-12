@@ -8,7 +8,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hidapitester";
   version = "0.5";
@@ -42,16 +41,16 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   meta = {
     description = "Simple command-line program to test HIDAPI";
     homepage = "https://github.com/todbot/hidapitester";
     changelog = "https://github.com/todbot/hidapitester/releases/tag/v${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     license = lib.licenses.gpl3Only;
     mainProgram = "hidapitester";
   };

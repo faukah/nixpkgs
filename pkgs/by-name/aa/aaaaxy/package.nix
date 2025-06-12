@@ -19,7 +19,6 @@
   nixosTests,
   strip-nondeterminism,
 }:
-
 buildGoModule rec {
   pname = "aaaaxy";
   version = "1.6.241";
@@ -133,7 +132,7 @@ buildGoModule rec {
     mainProgram = "aaaaxy";
     homepage = "https://divverent.github.io/aaaaxy/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     platforms = platforms.linux;
   };
 }

@@ -7,7 +7,6 @@
   kio,
   qtxmlpatterns,
 }:
-
 mkDerivation {
   pname = "kdav";
   meta = {

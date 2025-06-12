@@ -7,7 +7,6 @@
   which,
   libjpeg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fltrator";
   version = "2.3";
@@ -57,8 +56,7 @@ stdenv.mkDerivation rec {
     ''; # from https://libregamewiki.org/FLTrator
     homepage = "https://fltrator.sourceforge.net/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     license = licenses.gpl3;
   };
-
 }

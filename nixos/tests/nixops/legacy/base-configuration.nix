@@ -3,27 +3,26 @@
   modulesPath,
   pkgs,
   ...
-}:
-let
+}: let
   ssh-keys =
-    if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
+    if builtins.pathExists ../../ssh-keys.nix
+    then # Outside sandbox
       ../../ssh-keys.nix
     # In sandbox
-    else
-      ./ssh-keys.nix;
+    else ./ssh-keys.nix;
 
-  inherit (import ssh-keys pkgs)
+  inherit
+    (import ssh-keys pkgs)
     snakeOilPrivateKey
     snakeOilPublicKey
     ;
-in
-{
+in {
   imports = [
     (modulesPath + "/virtualisation/qemu-vm.nix")
     (modulesPath + "/testing/test-instrumentation.nix")
   ];
   virtualisation.writableStore = true;
-  nix.settings.substituters = lib.mkForce [ ];
+  nix.settings.substituters = lib.mkForce [];
   virtualisation.graphics = false;
   documentation.enable = false;
   services.qemuGuest.enable = true;

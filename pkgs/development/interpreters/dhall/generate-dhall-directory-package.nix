@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 # This function calls `dhall-to-nixpkgs directory --fixed-output-derivations`
 # within a Nix derivation.
 #
@@ -20,13 +19,13 @@ lib.makePackageOverridable (
     # Set to `true` to generate documentation for the package
     document ? false,
   }:
-  stdenv.mkDerivation {
-    name = "dhall-directory-package.nix";
+    stdenv.mkDerivation {
+      name = "dhall-directory-package.nix";
 
-    buildCommand = ''
-      dhall-to-nixpkgs directory --fixed-output-derivations --file "${file}" "${src}" ${lib.optionalString document "--document"} > $out
-    '';
+      buildCommand = ''
+        dhall-to-nixpkgs directory --fixed-output-derivations --file "${file}" "${src}" ${lib.optionalString document "--document"} > $out
+      '';
 
-    nativeBuildInputs = [ dhall-nixpkgs ];
-  }
+      nativeBuildInputs = [dhall-nixpkgs];
+    }
 )

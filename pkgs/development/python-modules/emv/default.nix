@@ -10,7 +10,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "emv";
   version = "1.0.14";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "terminaltables==3.1.0" "terminaltables"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -44,16 +43,16 @@ buildPythonPackage rec {
     terminaltables
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "emv" ];
+  pythonImportsCheck = ["emv"];
 
   meta = with lib; {
     description = "Implementation of the EMV chip-and-pin smartcard protocol";
     homepage = "https://github.com/russss/python-emv";
     changelog = "https://github.com/russss/python-emv/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     mainProgram = "emvtool";
   };
 }

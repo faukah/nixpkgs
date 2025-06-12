@@ -3,22 +3,18 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   flit-core,
-
   # dependencies
   astroid,
   jinja2,
   pyyaml,
   sphinx,
   stdlib-list,
-
   # tests
   beautifulsoup4,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-autoapi";
   version = "3.6.0";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-pDfGNpDyrU4q48ZHKqfN8OrxKICfIhac2qMJDB1iE0I=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies =
     [
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     "test_integration"
   ];
 
-  pythonImportsCheck = [ "autoapi" ];
+  pythonImportsCheck = ["autoapi"];
 
   meta = with lib; {
     homepage = "https://github.com/readthedocs/sphinx-autoapi";
@@ -68,6 +64,6 @@ buildPythonPackage rec {
       import the project being documented.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

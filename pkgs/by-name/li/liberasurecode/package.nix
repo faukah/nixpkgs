@@ -8,7 +8,6 @@
   testers,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liberasurecode";
   version = "1.6.5";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   configureFlags = [
     "--disable-werror"
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Erasure Code API library written in C with pluggable Erasure Code backends";
     homepage = "https://github.com/openstack/liberasurecode";
     license = licenses.bsd2;
-    teams = [ teams.openstack ];
-    pkgConfigModules = [ "erasurecode-1" ];
+    teams = [teams.openstack];
+    pkgConfigModules = ["erasurecode-1"];
   };
 })

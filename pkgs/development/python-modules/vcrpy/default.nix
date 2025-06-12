@@ -10,7 +10,6 @@
   yarl,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "vcrpy";
   version = "7.0.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths = [ "tests/integration" ];
+  disabledTestPaths = ["tests/integration"];
 
   disabledTests = [
     "TestVCRConnection"
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "test_testcase_playback"
   ];
 
-  pythonImportsCheck = [ "vcr" ];
+  pythonImportsCheck = ["vcr"];
 
   meta = with lib; {
     description = "Automatically mock your HTTP interactions to simplify and speed up testing";
     homepage = "https://github.com/kevin1024/vcrpy";
     changelog = "https://github.com/kevin1024/vcrpy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

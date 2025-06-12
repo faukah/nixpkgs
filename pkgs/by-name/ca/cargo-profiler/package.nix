@@ -2,9 +2,7 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
-}:
-
-let
+}: let
   # Constants
   pname = "cargo-profiler";
   owner = "svenstaro";
@@ -17,22 +15,22 @@ let
 
   inherit (rustPlatform) buildRustPackage;
 in
-buildRustPackage {
-  inherit pname version;
+  buildRustPackage {
+    inherit pname version;
 
-  src = fetchFromGitHub {
-    inherit owner rev hash;
-    repo = "cargo-profiler";
-  };
+    src = fetchFromGitHub {
+      inherit owner rev hash;
+      repo = "cargo-profiler";
+    };
 
-  useFetchCargoVendor = true;
-  inherit cargoHash;
+    useFetchCargoVendor = true;
+    inherit cargoHash;
 
-  meta = with lib; {
-    description = "Cargo subcommand for profiling Rust binaries";
-    mainProgram = "cargo-profiler";
-    homepage = "https://github.com/svenstaro/cargo-profiler";
-    license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
-  };
-}
+    meta = with lib; {
+      description = "Cargo subcommand for profiling Rust binaries";
+      mainProgram = "cargo-profiler";
+      homepage = "https://github.com/svenstaro/cargo-profiler";
+      license = licenses.mit;
+      maintainers = with maintainers; [lucperkins];
+    };
+  }

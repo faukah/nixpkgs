@@ -6,7 +6,6 @@
   testers,
   tkey-ssh-agent,
 }:
-
 buildGoModule rec {
   pname = "tkey-ssh-agent";
   version = "1.0.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       tkey-ssh-agent-version = testers.testVersion {
         package = tkey-ssh-agent;
@@ -37,7 +36,7 @@ buildGoModule rec {
     description = "SSH Agent for TKey, the flexible open hardware/software USB security key";
     homepage = "https://tillitis.se/app/tkey-ssh-agent/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
     platforms = platforms.all;
   };
 }

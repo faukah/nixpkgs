@@ -10,7 +10,6 @@
   kmod,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zram-generator";
   version = "1.2.1";
@@ -72,6 +71,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/systemd/zram-generator";
     license = licenses.mit;
     description = "Systemd unit generator for zram devices";
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

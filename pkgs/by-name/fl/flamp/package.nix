@@ -7,7 +7,6 @@
   fltk13,
   gettext,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flamp";
   version = "2.2.14";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Digital modem program";
     homepage = "https://sourceforge.net/projects/fldigi/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ stteague ];
+    maintainers = with maintainers; [stteague];
     platforms = platforms.unix;
     broken = stdenv.system == "x86_64-darwin";
     mainProgram = "flamp";

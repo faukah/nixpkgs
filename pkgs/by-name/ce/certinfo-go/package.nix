@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "certinfo-go";
   version = "0.1.43";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/paepckehh/certinfo/releases/tag/v${version}";
@@ -31,6 +30,6 @@ buildGoModule rec {
     description = "Tool to analyze and troubleshoot x.509 & ssh certificates, encoded keys, ...";
     license = lib.licenses.bsd3;
     mainProgram = "certinfo";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 }

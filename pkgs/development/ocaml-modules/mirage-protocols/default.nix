@@ -7,7 +7,6 @@
   ipaddr,
   tcpip,
 }:
-
 buildDunePackage rec {
   pname = "mirage-protocols";
   version = "8.0.0";
@@ -30,6 +29,6 @@ buildDunePackage rec {
     description = "MirageOS signatures for network protocols";
     homepage = "https://github.com/mirage/mirage-protocols";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

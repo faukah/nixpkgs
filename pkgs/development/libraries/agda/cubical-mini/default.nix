@@ -5,7 +5,6 @@
   ghc,
   cabal-install,
 }:
-
 mkDerivation rec {
   pname = "cubical-mini";
   version = "nightly-20241214";
@@ -38,6 +37,6 @@ mkDerivation rec {
     description = "A nonstandard library for Cubical Agda";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ thelissimus ];
+    maintainers = with lib.maintainers; [thelissimus];
   };
 }

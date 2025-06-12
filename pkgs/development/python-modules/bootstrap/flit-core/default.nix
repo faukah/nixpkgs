@@ -3,10 +3,10 @@
   python,
   flit-core,
 }:
-
 stdenv.mkDerivation {
   pname = "${python.libPrefix}-bootstrap-${flit-core.pname}";
-  inherit (flit-core)
+  inherit
+    (flit-core)
     version
     src
     patches

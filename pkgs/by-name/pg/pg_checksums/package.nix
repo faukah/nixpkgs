@@ -6,7 +6,6 @@
   docbook_xsl,
   postgresql,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "pg_checksums";
   version = "1.2";
@@ -23,7 +22,7 @@ clangStdenv.mkDerivation rec {
     postgresql.pg_config
   ];
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   buildFlags = [
     "all"
@@ -43,7 +42,7 @@ clangStdenv.mkDerivation rec {
   meta = with lib; {
     description = "Activate/deactivate/verify checksums in offline PostgreSQL clusters";
     homepage = "https://github.com/credativ/pg_checksums";
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pg_checksums_ext";
     platforms = postgresql.meta.platforms;
     license = licenses.postgresql;

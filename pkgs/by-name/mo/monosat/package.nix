@@ -11,10 +11,11 @@
   # annoying and break the python library, so let's not bother for now
   includeJava ? !stdenv.hostPlatform.isDarwin,
   includeGplCode ? true,
-}:
-
-let
-  boolToCmake = x: if x then "ON" else "OFF";
+}: let
+  boolToCmake = x:
+    if x
+    then "ON"
+    else "OFF";
 
   rev = "1.8.0";
   sha256 = "0q3a8x3iih25xkp2bm842sm2hxlb8hxlls4qmvj7vzwrh4lvsl7b";
@@ -48,7 +49,7 @@ let
     name = "${pname}-${version}";
     inherit src patches;
     postPatch = commonPostPatch;
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       zlib
       gmp
@@ -69,24 +70,26 @@ let
       cp monosat.jar $out/share/java
     '';
 
-    passthru = { inherit python; };
+    passthru = {inherit python;};
 
     meta = with lib; {
       description = "SMT solver for Monotonic Theories";
       mainProgram = "monosat";
       platforms = platforms.unix;
-      license = if includeGplCode then licenses.gpl2 else licenses.mit;
+      license =
+        if includeGplCode
+        then licenses.gpl2
+        else licenses.mit;
       homepage = "https://github.com/sambayless/monosat";
-      maintainers = [ maintainers.acairncross ];
+      maintainers = [maintainers.acairncross];
     };
   };
 
-  python =
-    {
-      buildPythonPackage,
-      cython,
-      pytestCheckHook,
-    }:
+  python = {
+    buildPythonPackage,
+    cython,
+    pytestCheckHook,
+  }:
     buildPythonPackage {
       inherit
         pname
@@ -111,15 +114,15 @@ let
           cd src/monosat/api/python
         ''
         +
-          # The relative paths here don't make sense for our Nix build
-          # TODO: do we want to just reference the core monosat library rather than copying the
-          # shared lib? The current setup.py copies the .dylib/.so...
-          ''
-            substituteInPlace setup.py \
-              --replace 'library_dir = "../../../../"' 'library_dir = "${core}/lib/"'
-          '';
+        # The relative paths here don't make sense for our Nix build
+        # TODO: do we want to just reference the core monosat library rather than copying the
+        # shared lib? The current setup.py copies the .dylib/.so...
+        ''
+          substituteInPlace setup.py \
+            --replace 'library_dir = "../../../../"' 'library_dir = "${core}/lib/"'
+        '';
 
-      nativeCheckInputs = [ pytestCheckHook ];
+      nativeCheckInputs = [pytestCheckHook];
 
       disabledTests = [
         "test_assertAtMostOne"
@@ -127,4 +130,4 @@ let
       ];
     };
 in
-core
+  core

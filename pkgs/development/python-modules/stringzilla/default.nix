@@ -8,7 +8,6 @@
   setuptools,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "stringzilla";
   version = "3.12.5";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "stringzilla" ];
+  pythonImportsCheck = ["stringzilla"];
 
   nativeCheckInputs = [
     numpy
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "scripts/test.py" ];
+  pytestFlagsArray = ["scripts/test.py"];
 
   meta = {
     changelog = "https://github.com/ashvardanian/StringZilla/releases/tag/${src.tag}";
     description = "SIMD-accelerated string search, sort, hashes, fingerprints, & edit distances";
     homepage = "https://github.com/ashvardanian/stringzilla";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

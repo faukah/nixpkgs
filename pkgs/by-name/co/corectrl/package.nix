@@ -16,7 +16,6 @@
   util-linux,
   vulkan-tools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "corectrl";
   version = "1.5.1";
@@ -86,6 +85,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ Scrumplex ];
+    maintainers = with lib.maintainers; [Scrumplex];
   };
 })

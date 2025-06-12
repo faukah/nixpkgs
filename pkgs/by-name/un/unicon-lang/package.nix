@@ -8,7 +8,6 @@
   libnsl,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "unicon-lang";
   version = "11.7";
@@ -16,7 +15,7 @@ stdenv.mkDerivation {
     url = "http://unicon.org/dist/uni-2-4-2010.zip";
     sha256 = "1g9l2dfp99dqih2ir2limqfjgagh3v9aqly6x0l3qavx3qkkwf61";
   };
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     libnsl
     libX11
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     libxcrypt
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   sourceRoot = ".";
 
@@ -56,9 +55,9 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "Very high level, goal-directed, object-oriented, general purpose applications language";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     license = licenses.gpl2;
     homepage = "http://unicon.org";

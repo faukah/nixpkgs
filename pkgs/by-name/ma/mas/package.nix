@@ -7,7 +7,6 @@
   testers,
   mas,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mas";
   version = "2.2.2";

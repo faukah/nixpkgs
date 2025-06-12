@@ -4,8 +4,7 @@
   fetchurl,
   autoreconfHook,
   ...
-}@args:
-
+} @ args:
 import ./generic.nix (
   args
   // {
@@ -17,7 +16,7 @@ import ./generic.nix (
       ./darwin-mutexes-4.8.patch
     ];
 
-    drvArgs.hardeningDisable = [ "format" ];
+    drvArgs.hardeningDisable = ["format"];
     drvArgs.doCheck = false;
   }
 )

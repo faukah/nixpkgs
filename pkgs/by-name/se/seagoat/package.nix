@@ -2,16 +2,13 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-
   # tests
   gitMinimal,
   ripgrep,
   writableTmpDirAsHomeHook,
-
   versionCheckHook,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "seagoat";
   version = "1.0.6";
@@ -24,7 +21,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-7GUCWg82zBe5a4HV6t8NCuGR93KX2vMlvHA6fh9TPuE=";
   };
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   pythonRelaxDeps = [
     "chromadb"
@@ -51,8 +48,7 @@ python3Packages.buildPythonApplication rec {
     waitress
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       pytestCheckHook
       freezegun
@@ -87,7 +83,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -95,7 +91,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://kantord.github.io/SeaGOAT/";
     changelog = "https://github.com/kantord/SeaGOAT/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lavafroth ];
+    maintainers = with lib.maintainers; [lavafroth];
     mainProgram = "seagoat";
   };
 }

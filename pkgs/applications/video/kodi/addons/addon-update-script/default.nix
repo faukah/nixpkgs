@@ -5,11 +5,7 @@
   gzip,
   xmlstarlet,
   common-updater-scripts,
-}:
-
-{ attrPath }:
-
-let
+}: {attrPath}: let
   url = "http://mirrors.kodi.tv/addons/omega/addons.xml.gz";
   updateScript = writeShellScript "update.sh" ''
     set -ex
@@ -20,8 +16,7 @@ let
 
     ${common-updater-scripts}/bin/update-source-version "$attrPath" "$version"
   '';
-in
-[
+in [
   updateScript
   attrPath
 ]

@@ -12,7 +12,6 @@
   withLibsecretSupport ? true,
   withGpgSupport ? true,
 }:
-
 buildDotnetModule rec {
   pname = "git-credential-manager";
   version = "2.6.1";
@@ -32,13 +31,13 @@ buildDotnetModule rec {
     "--framework"
     "net8.0"
   ];
-  executables = [ "git-credential-manager" ];
+  executables = ["git-credential-manager"];
 
   runtimeDeps = lib.optional withLibsecretSupport libsecret;
   makeWrapperArgs = [
     "--prefix PATH : ${
       lib.makeBinPath (
-        [ git ]
+        [git]
         ++ lib.optionals withGpgSupport [
           gnupg
           pass
@@ -58,9 +57,9 @@ buildDotnetModule rec {
   meta = with lib; {
     description = "Secure, cross-platform Git credential storage with authentication to GitHub, Azure Repos, and other popular Git hosting services";
     homepage = "https://github.com/git-ecosystem/git-credential-manager";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
     longDescription = ''
       git-credential-manager is a secure, cross-platform Git credential storage with authentication to GitHub, Azure Repos, and other popular Git hosting services.
 

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "c-periphery";
   version = "2.4.3";
@@ -28,13 +27,13 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '=''${exec_prefix}/' '='
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "C library for peripheral I/O (GPIO, LED, PWM, SPI, I2C, MMIO, Serial) in Linux";
     homepage = "https://github.com/vsergeev/c-periphery";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.linux;
   };
 })

@@ -16,9 +16,10 @@ stdenv.mkDerivation {
 
   buildInputs = [
     (python3.withPackages (
-      ps: with ps; [
-        pyusb
-      ]
+      ps:
+        with ps; [
+          pyusb
+        ]
     ))
   ];
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation {
       Inspired by and based on g810-led.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     homepage = "https://github.com/smasty/g203-led";
     platforms = platforms.linux;
     mainProgram = "g203-led";

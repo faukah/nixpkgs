@@ -6,7 +6,6 @@
   numpy,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "scikit-fmm";
   version = "2025.1.29";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-7gTKuObCAahEjfmIL8Azbby3nxJPPh4rjb4x1O4xBQw=";
   };
 
-  build-system = [ meson-python ];
+  build-system = [meson-python];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   checkPhase = ''
     runHook preCheck
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python extension module which implements the fast marching method";
     homepage = "https://github.com/scikit-fmm/scikit-fmm";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   lib,
   testers,
 }:
-
 buildGoModule rec {
   pname = "clickhouse-backup";
   version = "2.6.22";
@@ -36,6 +35,6 @@ buildGoModule rec {
     mainProgram = "clickhouse-backup";
     homepage = "https://github.com/Altinity/clickhouse-backup";
     license = licenses.mit;
-    maintainers = with maintainers; [ devusb ];
+    maintainers = with maintainers; [devusb];
   };
 }

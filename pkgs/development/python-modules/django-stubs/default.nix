@@ -13,7 +13,6 @@
   types-pyyaml,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "django-stubs";
   version = "5.1.3";
@@ -27,31 +26,35 @@ buildPythonPackage rec {
     hash = "sha256-jCMLxb6+5tooK6iietFQPISgxM0vRuY9FJ520qY+Y5o=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    django
-    django-stubs-ext
-    types-pytz
-    types-pyyaml
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      django
+      django-stubs-ext
+      types-pytz
+      types-pyyaml
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
-    compatible-mypy = [ mypy ];
+    compatible-mypy = [mypy];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "django-stubs" ];
+  pythonImportsCheck = ["django-stubs"];
 
   meta = with lib; {
     description = "PEP-484 stubs for Django";
     homepage = "https://github.com/typeddjango/django-stubs";
     changelog = "https://github.com/typeddjango/django-stubs/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

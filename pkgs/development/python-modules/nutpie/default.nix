@@ -4,17 +4,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   rustPlatform,
-
   # build-system
   cargo,
   rustc,
-
   # dependencies
   arviz,
   pandas,
   pyarrow,
   xarray,
-
   # tests
   # bridgestan, (not packaged)
   equinox,
@@ -28,7 +25,6 @@
   setuptools,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "nutpie";
   version = "0.15.1";
@@ -65,7 +61,7 @@ buildPythonPackage rec {
     xarray
   ];
 
-  pythonImportsCheck = [ "nutpie" ];
+  pythonImportsCheck = ["nutpie"];
 
   nativeCheckInputs = [
     # bridgestan
@@ -100,6 +96,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pymc-devs/nutpie";
     changelog = "https://github.com/pymc-devs/nutpie/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

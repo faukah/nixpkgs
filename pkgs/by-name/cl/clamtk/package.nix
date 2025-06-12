@@ -7,7 +7,6 @@
   perl,
   clamav,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "clamtk";
   version = "6.18";
@@ -93,5 +92,4 @@ perlPackages.buildPerlPackage rec {
       ShamrockLee
     ];
   };
-
 }

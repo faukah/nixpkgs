@@ -9,7 +9,6 @@
   libsoup_3,
   libsecret,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gtimelog";
   version = "0.12.0";
@@ -48,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     ./runtests
   '';
 
-  pythonImportsCheck = [ "gtimelog" ];
+  pythonImportsCheck = ["gtimelog"];
 
   dontWrapGApps = true;
 
@@ -76,6 +75,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://gtimelog.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

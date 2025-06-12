@@ -3,8 +3,7 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   ldapDomain = "example.org";
   ldapSuffix = "dc=example,dc=org";
 
@@ -14,10 +13,9 @@ let
   testUser = "myuser";
   testPassword = "foobar23";
   teamName = "myteam";
-in
-{
+in {
   name = "oncall";
-  meta.maintainers = with lib.maintainers; [ onny ];
+  meta.maintainers = with lib.maintainers; [onny];
 
   nodes = {
     machine = {
@@ -28,7 +26,7 @@ in
           ldap_bind_password: "${ldapRootPassword}"
       '';
 
-      environment.systemPackages = [ pkgs.jq ];
+      environment.systemPackages = [pkgs.jq];
 
       services.oncall = {
         enable = true;

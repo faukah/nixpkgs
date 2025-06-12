@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "badrobot";
   version = "0.1.4";
@@ -17,7 +16,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-oYdkCEdrw1eE5tnKveeJM3upRy8hOVc24JNN1bLX+ec=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -45,7 +44,7 @@ buildGoModule rec {
       likelihood that a compromised Operator would be able to obtain full
       cluster permissions.
     '';
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ jk ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [jk];
   };
 }

@@ -4,7 +4,6 @@
   installShellFiles,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tmuxp";
   version = "1.55.0";
@@ -20,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     shtab
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dependencies = with python3Packages; [
     colorama
@@ -42,7 +41,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://tmuxp.git-pull.com/";
     changelog = "https://github.com/tmux-python/tmuxp/raw/v${version}/CHANGES";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
     mainProgram = "tmuxp";
   };
 }

@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-KDmEYeuiDTYvqg2XJK8pMDfsmROKtN+if5Qxz57H5xs=";
   };
 
-  nativeBuildInputs = [ just ];
+  nativeBuildInputs = [just];
 
   justFlags = [
     "--set"
@@ -49,6 +49,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = with lib.licenses; [
       cc-by-sa-40
     ];
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
   };
 })

@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd berg \
@@ -38,8 +38,8 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "CLI Tool for Codeberg similar to gh and glab";
     homepage = "https://codeberg.org/Aviac/codeberg-cli";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ robwalt ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [robwalt];
     mainProgram = "berg";
   };
 }

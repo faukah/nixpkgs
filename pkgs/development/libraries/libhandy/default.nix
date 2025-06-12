@@ -24,7 +24,6 @@
   libhandy,
   runCommand,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libhandy";
   version = "1.8.3";
@@ -81,7 +80,11 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [
     "-Dgtk_doc=true"
-    "-Dglade_catalog=${if enableGlade then "enabled" else "disabled"}"
+    "-Dglade_catalog=${
+      if enableGlade
+      then "enabled"
+      else "disabled"
+    }"
   ];
 
   # Uses define_variable in pkg-config, but we still need it to use the glade output
@@ -98,16 +101,16 @@ stdenv.mkDerivation rec {
       HDY_DISABLE_PORTAL=1
 
       "XDG_DATA_DIRS=${
-        lib.concatStringsSep ":" [
-          # HdySettings needs to be initialized from “org.gnome.desktop.interface” GSettings schema when portal is not used for color scheme.
-          # It will not actually be used since the “color-scheme” key will only have been introduced in GNOME 42, falling back to detecting theme name.
-          # See hdy_settings_constructed function in https://gitlab.gnome.org/GNOME/libhandy/-/commit/bb68249b005c445947bfb2bee66c91d0fe9c41a4
-          (glib.getSchemaDataDirPath gsettings-desktop-schemas)
+      lib.concatStringsSep ":" [
+        # HdySettings needs to be initialized from “org.gnome.desktop.interface” GSettings schema when portal is not used for color scheme.
+        # It will not actually be used since the “color-scheme” key will only have been introduced in GNOME 42, falling back to detecting theme name.
+        # See hdy_settings_constructed function in https://gitlab.gnome.org/GNOME/libhandy/-/commit/bb68249b005c445947bfb2bee66c91d0fe9c41a4
+        (glib.getSchemaDataDirPath gsettings-desktop-schemas)
 
-          # Some tests require icons
-          "${hicolor-icon-theme}/share"
-        ]
-      }"
+        # Some tests require icons
+        "${hicolor-icon-theme}/share"
+      ]
+    }"
     )
     env "''${testEnvironment[@]}" xvfb-run \
       meson test --print-errorlogs
@@ -128,13 +131,12 @@ stdenv.mkDerivation rec {
       };
     }
     // lib.optionalAttrs (!enableGlade) {
-      glade =
-        let
-          libhandyWithGlade = libhandy.override {
-            enableGlade = true;
-          };
-        in
-        runCommand "${libhandy.name}-glade" { } ''
+      glade = let
+        libhandyWithGlade = libhandy.override {
+          enableGlade = true;
+        };
+      in
+        runCommand "${libhandy.name}-glade" {} ''
           cp -r "${libhandyWithGlade.glade}" "$out"
           chmod -R +w "$out"
           sed -e "s#${libhandyWithGlade.out}#${libhandy.out}#g" -e "s#${libhandyWithGlade.glade}#$out#g" -i $(find "$out" -type f)
@@ -147,7 +149,7 @@ stdenv.mkDerivation rec {
     mainProgram = "handy-1-demo";
     homepage = "https://gitlab.gnome.org/GNOME/libhandy";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

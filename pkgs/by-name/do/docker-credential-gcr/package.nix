@@ -6,7 +6,6 @@
   nix-update-script,
   testers,
 }:
-
 buildGoModule rec {
   pname = "docker-credential-gcr";
   version = "2.1.29";
@@ -37,7 +36,7 @@ buildGoModule rec {
       package = docker-credential-gcr;
       command = "docker-credential-gcr version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   __darwinAllowLocalNetworking = true;

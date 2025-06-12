@@ -10,7 +10,6 @@
   stdenv,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sn0int";
   version = "0.26.1";
@@ -54,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     description = "Semi-automatic OSINT framework and package manager";
     homepage = "https://github.com/kpcyrd/sn0int";
     changelog = "https://github.com/kpcyrd/sn0int/releases/tag/v${version}";
-    license = with lib.licenses; [ gpl3Plus ];
+    license = with lib.licenses; [gpl3Plus];
     maintainers = with lib.maintainers; [
       fab
       xrelkd

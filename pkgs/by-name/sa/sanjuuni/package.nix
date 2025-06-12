@@ -10,7 +10,6 @@
   gitUpdater,
   callPackage,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sanjuuni";
   version = "0.5";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wJRPD4OWOTPiyDr9dYseRA7BI942HPfHONVJGTc/+wU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ffmpeg
@@ -47,16 +46,16 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      run-on-nixos-artwork = callPackage ./tests/run-on-nixos-artwork.nix { };
+      run-on-nixos-artwork = callPackage ./tests/run-on-nixos-artwork.nix {};
     };
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     homepage = "https://github.com/MCJack123/sanjuuni";
     description = "Command-line tool that converts images and videos into a format that can be displayed in ComputerCraft";
     changelog = "https://github.com/MCJack123/sanjuuni/releases/tag/${version}";
-    maintainers = [ lib.maintainers.tomodachi94 ];
+    maintainers = [lib.maintainers.tomodachi94];
     license = lib.licenses.gpl2Plus;
     broken = stdenv.hostPlatform.isDarwin;
     mainProgram = "sanjuuni";

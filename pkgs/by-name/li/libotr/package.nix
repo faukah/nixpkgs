@@ -6,7 +6,6 @@
   libgcrypt,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libotr";
   version = "4.1.1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1x8rliydhbibmzwdbyr7pd7n87m2jmxnqkpvaalnf4154hj1hfwb";
   };
 
-  patches = [ ./fix-regtest-client.patch ];
+  patches = [./fix-regtest-client.patch];
 
   outputs = [
     "bin"
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkgsHostTarget.libgcrypt.dev # for libgcrypt-config
   ];
-  propagatedBuildInputs = [ libgcrypt ];
+  propagatedBuildInputs = [libgcrypt];
 
   meta = with lib; {
     homepage = "http://www.cypherpunks.ca/otr/";

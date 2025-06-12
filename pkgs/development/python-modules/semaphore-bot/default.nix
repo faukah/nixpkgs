@@ -7,7 +7,6 @@
   attrs,
   anyio,
 }:
-
 buildPythonPackage rec {
   pname = "semaphore-bot";
   version = "0.17.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     "python-dateutil"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     anyio
@@ -35,12 +34,12 @@ buildPythonPackage rec {
   # Upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "semaphore" ];
+  pythonImportsCheck = ["semaphore"];
 
   meta = with lib; {
     description = "Simple rule-based bot library for Signal Private Messenger";
     homepage = "https://github.com/lwesterhof/semaphore";
-    license = with licenses; [ agpl3Plus ];
-    maintainers = with maintainers; [ onny ];
+    license = with licenses; [agpl3Plus];
+    maintainers = with maintainers; [onny];
   };
 }

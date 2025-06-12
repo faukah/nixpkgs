@@ -5,7 +5,6 @@
   makeWrapper,
   typst,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "typst-live";
   version = "0.8.0";
@@ -24,14 +23,14 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/typst-live \
-      --suffix PATH : ${lib.makeBinPath [ typst ]}
+      --suffix PATH : ${lib.makeBinPath [typst]}
   '';
 
   meta = with lib; {
     description = "Hot reloading for your typst files";
     homepage = "https://github.com/ItsEthra/typst-live";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "typst-live";
   };
 }

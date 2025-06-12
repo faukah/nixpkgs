@@ -18,7 +18,6 @@
   pynacl,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "nextcord";
   version = "3.1.0";
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     description = "Python wrapper for the Discord API forked from discord.py";
     homepage = "https://github.com/nextcord/nextcord";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

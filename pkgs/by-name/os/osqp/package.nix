@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osqp";
   version = "0.6.3";
@@ -25,13 +24,13 @@ stdenv.mkDerivation rec {
       "\''${CMAKE_INSTALL_FULL_INCLUDEDIR}"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Quadratic programming solver using operator splitting";
     homepage = "https://osqp.org";
     license = licenses.asl20;
-    maintainers = with maintainers; [ taktoa ];
+    maintainers = with maintainers; [taktoa];
     platforms = platforms.all;
   };
 }

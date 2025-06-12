@@ -9,7 +9,6 @@
   enableManpages ? true,
   docutils, # for manpages
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eiwd";
   version = "2.22-1";

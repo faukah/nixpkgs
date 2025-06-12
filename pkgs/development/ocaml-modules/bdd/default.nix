@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdlib-shims,
 }:
-
 buildDunePackage {
   pname = "bdd";
   version = "unstable-2022-07-14";
@@ -32,6 +31,6 @@ buildDunePackage {
     description = "Quick implementation of a Binary Decision Diagrams (BDD) library for OCaml";
     homepage = "https://github.com/backtracking/ocaml-bdd";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

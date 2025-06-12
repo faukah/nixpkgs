@@ -5,7 +5,6 @@
   pythonOlder,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-serializinghtml";
   version = "2.0.0";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-6dkSgn+HLAKQF6U/DvIYCzJ8P3/SPIcin3qOi3ADHU0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # Check is disabled due to circular dependency of sphinx
   dontCheckRuntimeDeps = true;
   doCheck = false;
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)";
     homepage = "https://github.com/sphinx-doc/sphinxcontrib-serializinghtml";
     license = licenses.bsd2;
-    teams = [ teams.sphinx ];
+    teams = [teams.sphinx];
   };
 }

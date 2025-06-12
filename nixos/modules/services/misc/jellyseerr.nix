@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.jellyseerr;
-in
-{
-  meta.maintainers = [ lib.maintainers.camillemndn ];
+in {
+  meta.maintainers = [lib.maintainers.camillemndn];
 
   options.services.jellyseerr = {
     enable = lib.mkEnableOption ''Jellyseerr, a requests manager for Jellyfin'';
-    package = lib.mkPackageOption pkgs "jellyseerr" { };
+    package = lib.mkPackageOption pkgs "jellyseerr" {};
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -36,8 +34,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.jellyseerr = {
       description = "Jellyseerr, a requests manager for Jellyfin";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = {
         PORT = toString cfg.port;
         CONFIG_DIRECTORY = cfg.configDir;
@@ -67,7 +65,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

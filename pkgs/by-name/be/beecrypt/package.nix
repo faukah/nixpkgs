@@ -4,7 +4,6 @@
   fetchurl,
   m4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "beecrypt";
   version = "4.2.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i '33i #include "beecrypt/endianness.h"' blockmode.c
   '';
 
-  buildInputs = [ m4 ];
+  buildInputs = [m4];
 
   configureFlags = [
     "--disable-optimized"
@@ -29,6 +28,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Strong and fast cryptography toolkit library";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

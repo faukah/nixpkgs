@@ -12,7 +12,6 @@
   attr,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mergerfs";
   version = "2.40.2";
@@ -63,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/trapexit/mergerfs";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ makefu ];
+    maintainers = with lib.maintainers; [makefu];
   };
 }

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   hello-world = pkgs.writeText "hello-world" ''
     {-# OPTIONS --guardedness #-}
     open import IO
@@ -8,8 +6,7 @@ let
 
     main = run {0ℓ} (putStrLn "Hello World!")
   '';
-in
-{
+in {
   name = "agda";
   meta = with pkgs.lib.maintainers; {
     maintainers = [
@@ -18,16 +15,14 @@ in
     ];
   };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [
-        (pkgs.agda.withPackages {
-          pkgs = p: [ p.standard-library ];
-        })
-      ];
-      virtualisation.memorySize = 2000; # Agda uses a lot of memory
-    };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [
+      (pkgs.agda.withPackages {
+        pkgs = p: [p.standard-library];
+      })
+    ];
+    virtualisation.memorySize = 2000; # Agda uses a lot of memory
+  };
 
   testScript = ''
     # Minimal script that typechecks

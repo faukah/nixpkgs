@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cutee";
   version = "0.4.2";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
     sha256 = "18bzvhzx8k24mpcim5669n3wg9hd0sfsxj8zjpbr24hywrlppgc2";
   };
 
-  buildFlags = [ "cutee" ];
+  buildFlags = ["cutee"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cutee";
     homepage = "https://www.codesink.org/cutee_unit_testing.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

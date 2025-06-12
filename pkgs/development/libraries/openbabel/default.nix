@@ -16,7 +16,6 @@
   maeparser,
   coordgenlibs,
 }:
-
 stdenv.mkDerivation rec {
   pname = "openbabel";
   version = "unstable-06-12-23";
@@ -79,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "http://openbabel.org";
     platforms = platforms.all;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ danielbarter ];
+    maintainers = with maintainers; [danielbarter];
   };
 }

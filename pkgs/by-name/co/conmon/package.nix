@@ -9,7 +9,6 @@
   systemd,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "conmon";
   version = "2.1.13";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XsVWcJsUc0Fkn7qGRJDG5xrQAsJr6KN7zMy3AtPuMTo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       glib
@@ -48,14 +47,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
   strictDeps = true;
 
-  passthru.tests = { inherit (nixosTests) cri-o podman; };
+  passthru.tests = {inherit (nixosTests) cri-o podman;};
 
   meta = with lib; {
     changelog = "https://github.com/containers/conmon/releases/tag/${src.rev}";
     homepage = "https://github.com/containers/conmon";
     description = "OCI container runtime monitor";
     license = licenses.asl20;
-    teams = [ teams.podman ];
+    teams = [teams.podman];
     platforms = platforms.linux;
     mainProgram = "conmon";
   };

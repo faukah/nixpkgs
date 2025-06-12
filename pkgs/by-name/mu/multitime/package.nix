@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "multitime";
   version = "1.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p6m4gyy6dw7nxnpsk32qiijagmiq9vwch0fbc25qvmybwqp8qc0";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = {
     description = "Time command execution over multiple executions";

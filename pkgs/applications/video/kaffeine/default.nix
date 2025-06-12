@@ -13,7 +13,6 @@
   wrapQtAppsHook,
   qtx11extras,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kaffeine";
   version = "2.0.19";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "KDE media player";
     homepage = "https://apps.kde.org/kaffeine/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = platforms.all;
     mainProgram = "kaffeine";
   };

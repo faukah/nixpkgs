@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "loki";
   version = "0.1.7";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://loki-lib.sourceforge.net";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

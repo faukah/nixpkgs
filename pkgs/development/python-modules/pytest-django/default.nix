@@ -9,7 +9,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-django";
   version = "4.10.0";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
   nativeCheckInputs = [
     django-configurations
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Pytest plugin for testing of Django applications";
     homepage = "https://pytest-django.readthedocs.org/en/latest/";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

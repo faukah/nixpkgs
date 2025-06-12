@@ -13,7 +13,6 @@
   sentry-native,
   protonmail-bridge,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "protonmail-bridge-gui";
 
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
       To work, use secret-service freedesktop.org API (e.g. Gnome keyring) or pass.
     '';
     mainProgram = "protonmail-bridge-gui";
-    maintainers = with lib.maintainers; [ daniel-fahey ];
+    maintainers = with lib.maintainers; [daniel-fahey];
     platforms = lib.platforms.linux;
   };
 })

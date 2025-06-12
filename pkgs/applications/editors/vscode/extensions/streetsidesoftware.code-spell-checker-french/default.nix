@@ -1,5 +1,7 @@
-{ lib, vscode-utils }:
-
+{
+  lib,
+  vscode-utils,
+}:
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "code-spell-checker-french";
@@ -13,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker-french";
     homepage = "https://github.com/streetsidesoftware/vscode-cspell-dict-extensions#readme";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ aduh95 ];
+    maintainers = with lib.maintainers; [aduh95];
   };
 }

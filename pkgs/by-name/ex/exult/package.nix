@@ -15,7 +15,6 @@
   zlib,
   enableTools ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exult";
   version = "1.12.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "NIX_DESTDIR=$(out)" ]; # see postPatch
+  makeFlags = ["NIX_DESTDIR=$(out)"]; # see postPatch
   configureFlags = lib.optional (!enableTools) "--disable-tools";
 
   meta = with lib; {
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://exult.info";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "exult";
   };
 }

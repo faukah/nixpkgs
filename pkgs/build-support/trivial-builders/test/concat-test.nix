@@ -4,8 +4,7 @@
   writeText,
   hello,
   emptyFile,
-}:
-let
+}: let
   stri = writeText "pathToTest";
   txt1 = stri "abc";
   txt2 = stri (builtins.toString hello);
@@ -14,8 +13,8 @@ let
     txt2
   ];
 in
-runCommand "test-concatPaths" { } ''
-  diff -U3 <(cat ${txt1} ${txt2}) ${res}
-  diff -U3 ${concatText "void" [ ]} ${emptyFile}
-  touch $out
-''
+  runCommand "test-concatPaths" {} ''
+    diff -U3 <(cat ${txt1} ${txt2}) ${res}
+    diff -U3 ${concatText "void" []} ${emptyFile}
+    touch $out
+  ''

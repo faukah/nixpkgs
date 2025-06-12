@@ -2,18 +2,14 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ],
-}:
-
-{
+  knownVulnerabilities ? [],
+}: {
   swingSupport ? true, # not used for now
   lib,
   stdenv,
   fetchurl,
   setJavaClassPath,
-}:
-
-let
+}: let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   validCpuTypes = builtins.attrNames lib.systems.parse.cpuTypes;
   providedCpuTypes = builtins.filter (arch: builtins.elem arch validCpuTypes) (
@@ -21,14 +17,14 @@ let
   );
   result = stdenv.mkDerivation (finalAttrs: {
     pname =
-      if sourcePerArch.packageType == "jdk" then
-        "${name-prefix}-bin"
-      else
-        "${name-prefix}-${sourcePerArch.packageType}-bin";
+      if sourcePerArch.packageType == "jdk"
+      then "${name-prefix}-bin"
+      else "${name-prefix}-${sourcePerArch.packageType}-bin";
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
     src = fetchurl {
-      inherit (sourcePerArch.${cpuName} or (throw "unsupported system ${stdenv.hostPlatform.system}"))
+      inherit
+        (sourcePerArch.${cpuName} or (throw "unsupported system ${stdenv.hostPlatform.system}"))
         url
         sha256
         ;
@@ -81,11 +77,11 @@ let
       ];
       description = "${brand-name}, prebuilt OpenJDK binary";
       platforms = builtins.map (arch: arch + "-darwin") providedCpuTypes; # some inherit jre.meta.platforms
-      maintainers = with maintainers; [ taku0 ];
-      teams = [ teams.java ];
+      maintainers = with maintainers; [taku0];
+      teams = [teams.java];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };
   });
 in
-result
+  result

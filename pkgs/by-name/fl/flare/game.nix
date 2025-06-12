@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flare-game";
   version = "1.14";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tINIwxyQn8eeJCHwRmAMo2TYRgrgJlGaUrnrgbmM3Jo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     description = "Fantasy action RPG using the FLARE engine";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       aanderse
       McSinyx
     ];
-    license = [ lib.licenses.cc-by-sa-30 ];
+    license = [lib.licenses.cc-by-sa-30];
     platforms = lib.platforms.unix;
   };
 }

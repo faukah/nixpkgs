@@ -12,7 +12,6 @@
   pytest-httpx,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-mistral";
   version = "0.14";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_mistral" ];
+  pythonImportsCheck = ["llm_mistral"];
 
   passthru.tests = llm.mkPluginTest llm-mistral;
 
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-mistral";
     changelog = "https://github.com/simonw/llm-mistral/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

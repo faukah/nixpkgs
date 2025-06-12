@@ -21,7 +21,6 @@
   sphinx-codeautolink,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "hypothesis";
   version = "6.130.12";
@@ -51,18 +50,22 @@ buildPythonPackage rec {
 
   postUnpack = "sourceRoot=$sourceRoot/hypothesis-python";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    attrs
-    sortedcontainers
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  dependencies =
+    [
+      attrs
+      sortedcontainers
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [exceptiongroup];
 
-  nativeCheckInputs = [
-    pexpect
-    pytest-xdist
-    pytestCheckHook
-  ] ++ lib.optionals isPyPy [ tzdata ];
+  nativeCheckInputs =
+    [
+      pexpect
+      pytest-xdist
+      pytestCheckHook
+    ]
+    ++ lib.optionals isPyPy [tzdata];
 
   inherit doCheck;
 
@@ -76,7 +79,7 @@ buildPythonPackage rec {
     export HYPOTHESIS_PROFILE=ci
   '';
 
-  pytestFlagsArray = [ "tests/cover" ];
+  pytestFlagsArray = ["tests/cover"];
 
   # Hypothesis by default activates several "Health Checks", including one that fires if the builder is "too slow".
   # This check is disabled [1] if Hypothesis detects a CI environment, i.e. either `CI` or `TF_BUILD` is defined [2].
@@ -116,7 +119,7 @@ buildPythonPackage rec {
       "test_clean_source"
     ];
 
-  pythonImportsCheck = [ "hypothesis" ];
+  pythonImportsCheck = ["hypothesis"];
 
   passthru = {
     doc = stdenv.mkDerivation {
@@ -147,7 +150,7 @@ buildPythonPackage rec {
     mainProgram = "hypothesis";
     homepage = "https://github.com/HypothesisWorks/hypothesis";
     changelog = "https://hypothesis.readthedocs.io/en/latest/changes.html#v${
-      lib.replaceStrings [ "." ] [ "-" ] version
+      lib.replaceStrings ["."] ["-"] version
     }";
     license = lib.licenses.mpl20;
     maintainers = [

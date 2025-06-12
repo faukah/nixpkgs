@@ -7,7 +7,6 @@
   libpaper,
   asciidoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "paperjam";
   version = "1.2.1";
@@ -17,11 +16,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-vTjtNTkBHwfoRDshmFu1zZfGVuEtk2NXH5JdA5Ekg5s=";
   };
 
-  buildInputs = [
-    qpdf
-    libpaper
-    asciidoc
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs =
+    [
+      qpdf
+      libpaper
+      asciidoc
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -44,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "paperjam";
-    maintainers = with lib.maintainers; [ cbley ];
+    maintainers = with lib.maintainers; [cbley];
     platforms = lib.platforms.all;
   };
 })

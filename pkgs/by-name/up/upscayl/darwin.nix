@@ -2,7 +2,6 @@
   stdenvNoCC,
   unzip,
   makeWrapper,
-
   pname,
   version,
   meta,

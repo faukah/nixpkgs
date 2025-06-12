@@ -3,17 +3,14 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
   hatch-fancy-pypi-readme,
-
   # dependencies
   annotated-types,
   pydantic-core,
   typing-extensions,
   typing-inspection,
-
   # tests
   cloudpickle,
   email-validator,
@@ -26,7 +23,6 @@
   eval-type-backport,
   rich,
 }:
-
 buildPythonPackage rec {
   pname = "pydantic";
   version = "2.11.1";
@@ -58,7 +54,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    email = [ email-validator ];
+    email = [email-validator];
   };
 
   nativeCheckInputs =
@@ -73,7 +69,7 @@ buildPythonPackage rec {
       rich
     ]
     ++ lib.flatten (lib.attrValues optional-dependencies)
-    ++ lib.optionals (pythonOlder "3.10") [ eval-type-backport ];
+    ++ lib.optionals (pythonOlder "3.10") [eval-type-backport];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -86,13 +82,13 @@ buildPythonPackage rec {
     "tests/test_docs.py"
   ];
 
-  pythonImportsCheck = [ "pydantic" ];
+  pythonImportsCheck = ["pydantic"];
 
   meta = with lib; {
     description = "Data validation and settings management using Python type hinting";
     homepage = "https://github.com/pydantic/pydantic";
     changelog = "https://github.com/pydantic/pydantic/blob/${src.tag}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

@@ -7,7 +7,6 @@
   poetry-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "letpot";
   version = "0.4.0";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-ScguCgShoZ+qSfw558kqodpcpyPGy9HU6c2qAVOQb+c=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
     aiomqtt
   ];
 
-  pythonImportsCheck = [ "letpot" ];
+  pythonImportsCheck = ["letpot"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for LetPot hydroponic gardens";
     homepage = "https://github.com/jpelgrom/python-letpot";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -8,7 +8,6 @@
   npmHooks,
   lz4,
 }:
-
 buildGoModule rec {
   pname = "coroot";
   version = "1.11.4";
@@ -31,7 +30,7 @@ buildGoModule rec {
     nodejs
     npmHooks.npmConfigHook
   ];
-  buildInputs = [ lz4 ];
+  buildInputs = [lz4];
 
   overrideModAttrs = oldAttrs: {
     nativeBuildInputs = lib.remove npmHooks.npmConfigHook oldAttrs.nativeBuildInputs;
@@ -47,7 +46,7 @@ buildGoModule rec {
     description = "Open-source APM & Observability tool";
     homepage = "https://coroot.com";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ errnoh ];
+    maintainers = with lib.maintainers; [errnoh];
     mainProgram = "coroot";
   };
 }

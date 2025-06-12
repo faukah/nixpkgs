@@ -6,7 +6,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "vsure";
   version = "2.6.8";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "verisure" ];
+  pythonImportsCheck = ["verisure"];
 
   meta = with lib; {
     description = "Python library for working with verisure devices";
     mainProgram = "vsure";
     homepage = "https://github.com/persandstrom/python-verisure";
     changelog = "https://github.com/persandstrom/python-verisure#version-history";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

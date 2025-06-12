@@ -9,7 +9,6 @@
   hatch-fancy-pypi-readme,
   argon2-cffi-bindings,
 }:
-
 buildPythonPackage rec {
   pname = "argon2-cffi";
   version = "23.1.0";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
     hatch-fancy-pypi-readme
   ];
 
-  propagatedBuildInputs = [ argon2-cffi-bindings ];
+  propagatedBuildInputs = [argon2-cffi-bindings];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "argon2" ];
+  pythonImportsCheck = ["argon2"];
 
   meta = with lib; {
     description = "Secure Password Hashes for Python";

@@ -15,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "hterm";
   version = "0.8.9";
 
-  src =
-    let
-      versionWithoutDots = builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version;
-    in
-    if stdenv.targetPlatform.is64bit then
+  src = let
+    versionWithoutDots = builtins.replaceStrings ["."] [""] finalAttrs.version;
+  in
+    if stdenv.targetPlatform.is64bit
+    then
       fetchurl {
         url = "https://www.der-hammer.info/terminal/hterm${versionWithoutDots}-linux-64.tgz";
         hash = "sha256-DY+X7FaU1UBbNf/Kgy4TzBZiocQ4/TpJW3KLW1iu0M0=";
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     cairo
@@ -61,12 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Terminal program for serial communication";
     # See https://www.der-hammer.info/terminal/LICENSE.txt
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = [
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with lib.maintainers; [ zebreus ];
+    maintainers = with lib.maintainers; [zebreus];
     mainProgram = "hterm";
   };
 })

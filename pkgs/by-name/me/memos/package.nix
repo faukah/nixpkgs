@@ -12,8 +12,7 @@
   protoc-gen-go,
   protoc-gen-go-grpc,
   protoc-gen-validate,
-}:
-let
+}: let
   version = "0.24.4";
   src = fetchFromGitHub {
     owner = "usememos";
@@ -83,40 +82,40 @@ let
     '';
   });
 in
-buildGoModule {
-  pname = "memos";
-  inherit
-    version
-    src
-    memos-web
-    memos-protobuf-gen
-    ;
+  buildGoModule {
+    pname = "memos";
+    inherit
+      version
+      src
+      memos-web
+      memos-protobuf-gen
+      ;
 
-  vendorHash = "sha256-EzVgQpWJJA7EUKdnnnCIvecaOXg856f/WQyfV/WuWFU=";
+    vendorHash = "sha256-EzVgQpWJJA7EUKdnnnCIvecaOXg856f/WQyfV/WuWFU=";
 
-  preBuild = ''
-    rm -rf server/router/frontend/dist
-    cp -r ${memos-web} server/router/frontend/dist
-    cp -r {${memos-protobuf-gen},.}/proto/gen
-  '';
+    preBuild = ''
+      rm -rf server/router/frontend/dist
+      cp -r ${memos-web} server/router/frontend/dist
+      cp -r {${memos-protobuf-gen},.}/proto/gen
+    '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--subpackage"
-      "memos-web"
-      "--subpackage"
-      "memos-protobuf-gen"
-    ];
-  };
+    passthru.updateScript = nix-update-script {
+      extraArgs = [
+        "--subpackage"
+        "memos-web"
+        "--subpackage"
+        "memos-protobuf-gen"
+      ];
+    };
 
-  meta = {
-    homepage = "https://usememos.com";
-    description = "Lightweight, self-hosted memo hub";
-    maintainers = with lib.maintainers; [
-      indexyz
-      kuflierl
-    ];
-    license = lib.licenses.mit;
-    mainProgram = "memos";
-  };
-}
+    meta = {
+      homepage = "https://usememos.com";
+      description = "Lightweight, self-hosted memo hub";
+      maintainers = with lib.maintainers; [
+        indexyz
+        kuflierl
+      ];
+      license = lib.licenses.mit;
+      mainProgram = "memos";
+    };
+  }

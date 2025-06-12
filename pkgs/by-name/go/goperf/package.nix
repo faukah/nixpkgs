@@ -6,7 +6,6 @@
   unstableGitUpdater,
   sd,
 }:
-
 buildGoModule rec {
   pname = "goperf";
   version = "0-unstable-2025-05-05";
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://cs.opensource.google/go/x/perf";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

@@ -4,18 +4,16 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.bird;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
     singleton
     ;
-in
-{
+in {
   port = 9324;
   extraOpts = {
     birdVersion = mkOption {
@@ -50,8 +48,16 @@ in
         ${pkgs.prometheus-bird-exporter}/bin/bird_exporter \
           -web.listen-address ${cfg.listenAddress}:${toString cfg.port} \
           -bird.socket ${cfg.birdSocket} \
-          -bird.v2=${if cfg.birdVersion == 2 then "true" else "false"} \
-          -format.new=${if cfg.newMetricFormat then "true" else "false"} \
+          -bird.v2=${
+          if cfg.birdVersion == 2
+          then "true"
+          else "false"
+        } \
+          -format.new=${
+          if cfg.newMetricFormat
+          then "true"
+          else "false"
+        } \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
       RestrictAddressFamilies = [

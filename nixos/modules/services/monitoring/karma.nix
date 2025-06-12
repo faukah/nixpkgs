@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.karma;
-  yaml = pkgs.formats.yaml { };
-in
-{
+  yaml = pkgs.formats.yaml {};
+in {
   options.services.karma = {
     enable = lib.mkEnableOption "the Karma dashboard service";
 
-    package = lib.mkPackageOption pkgs "karma" { };
+    package = lib.mkPackageOption pkgs "karma" {};
 
     configFile = lib.mkOption {
       type = lib.types.path;
@@ -26,7 +24,7 @@ in
 
     environment = lib.mkOption {
       type = with lib.types; attrsOf str;
-      default = { };
+      default = {};
       description = ''
         Additional environment variables to provide to karma.
       '';
@@ -46,7 +44,7 @@ in
 
     extraOptions = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Extra command line options.
       '';
@@ -111,7 +109,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.karma = {
       description = "Alert dashboard for Prometheus Alertmanager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = cfg.environment;
       serviceConfig = {
         Type = "simple";
@@ -120,6 +118,6 @@ in
         ExecStart = "${pkgs.karma}/bin/karma --config.file ${cfg.configFile} ${lib.concatStringsSep " " cfg.extraOptions}";
       };
     };
-    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [ cfg.settings.listen.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [cfg.settings.listen.port];
   };
 }

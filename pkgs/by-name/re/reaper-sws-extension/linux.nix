@@ -8,7 +8,6 @@
   git,
   pkg-config,
   gtk3,
-
   pname,
   version,
   meta,
@@ -34,6 +33,5 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  buildInputs = [ gtk3 ];
-
+  buildInputs = [gtk3];
 })

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.9";
   pname = "fpattern";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Loadmaster/fpattern";
     description = "Filename pattern matching library functions for DOS, Windows, and Unix";
     license = licenses.mit;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = with platforms; linux;
   };
 })

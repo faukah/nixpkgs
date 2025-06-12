@@ -4,7 +4,6 @@
   fetchurl,
   tk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gocr";
   version = "0.52";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     "all"
     "libs"
   ];
-  installFlags = [ "libdir=/lib/" ]; # Specify libdir so Makefile will also install library.
+  installFlags = ["libdir=/lib/"]; # Specify libdir so Makefile will also install library.
 
   preInstall = "mkdir -p $out/lib";
 

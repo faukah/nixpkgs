@@ -4,7 +4,6 @@
   rustPlatform,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage {
   name = "uefisettings";
   version = "0-unstable-2024-11-28";
@@ -16,7 +15,7 @@ rustPlatform.buildRustPackage {
     hash = "sha256-f6CTmnY/BzIP/nfHa3Q4HWd1Ee+b7C767FB/8A4DUUM=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-adCC5o17j6tuffymiLUn2SEPlrjMzYn6a74/4a9HI/w=";
@@ -33,9 +32,9 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "CLI tool to read/get/extract and write/change/modify BIOS/UEFI settings";
     homepage = "https://github.com/linuxboot/uefisettings";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     mainProgram = "uefisettings";
-    maintainers = with maintainers; [ surfaceflinger ];
+    maintainers = with maintainers; [surfaceflinger];
     platforms = platforms.linux;
   };
 }

@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchFromGitHub,
   stdenv,
-
   # build-system
   setuptools,
-
   # dependencies
   accelerate,
   huggingface-hub,
@@ -18,7 +16,6 @@
   torch,
   tqdm,
   transformers,
-
   # tests
   datasets,
   diffusers,
@@ -28,7 +25,6 @@
   pytestCheckHook,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "peft";
   version = "0.15.2";
@@ -41,7 +37,7 @@ buildPythonPackage rec {
     hash = "sha256-c9oHBQCdJpPAeI7xwePXx75Sp39I8QVjRZSxxSOm2PM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     accelerate
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     transformers
   ];
 
-  pythonImportsCheck = [ "peft" ];
+  pythonImportsCheck = ["peft"];
 
   nativeCheckInputs = [
     datasets
@@ -68,7 +64,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   # These tests fail when MPS devices are detected
   disabledTests = lib.optional stdenv.hostPlatform.isDarwin [
@@ -109,6 +105,6 @@ buildPythonPackage rec {
     description = "State-of-the art parameter-efficient fine tuning";
     changelog = "https://github.com/huggingface/peft/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

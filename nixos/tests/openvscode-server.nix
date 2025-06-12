@@ -1,16 +1,17 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "openvscode-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.openvscode-server = {
-          enable = true;
-          withoutConnectionToken = true;
-        };
+    machine = {pkgs, ...}: {
+      services.openvscode-server = {
+        enable = true;
+        withoutConnectionToken = true;
       };
+    };
   };
 
   testScript = ''
@@ -20,5 +21,5 @@
     machine.succeed("curl -k --fail http://localhost:3000", timeout=10)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

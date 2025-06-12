@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "marcusolsson-calendar-panel";
   version = "3.9.1";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Calendar Panel is a Grafana plugin that displays events from various data sources.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

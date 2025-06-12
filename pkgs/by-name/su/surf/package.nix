@@ -19,7 +19,6 @@
   gst_all_1,
   patches ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "surf";
   version = "2.1";
@@ -55,25 +54,23 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # Add run-time dependencies to PATH. Append them to PATH so the user can
   # override the dependencies with their own PATH.
-  preFixup =
-    let
-      depsPath = lib.makeBinPath [
-        xorg.xprop
-        dmenu
-        findutils
-        gnused
-        coreutils
-      ];
-    in
-    ''
-      gappsWrapperArgs+=(
-        --suffix PATH : ${depsPath}
-      )
-    '';
+  preFixup = let
+    depsPath = lib.makeBinPath [
+      xorg.xprop
+      dmenu
+      findutils
+      gnused
+      coreutils
+    ];
+  in ''
+    gappsWrapperArgs+=(
+      --suffix PATH : ${depsPath}
+    )
+  '';
 
   meta = with lib; {
     description = "Simple web browser based on WebKitGTK";
@@ -87,6 +84,6 @@ stdenv.mkDerivation rec {
     homepage = "https://surf.suckless.org";
     license = licenses.mit;
     platforms = webkitgtk_4_0.meta.platforms;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
   };
 }

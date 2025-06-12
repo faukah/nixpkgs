@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "do-agent";
   version = "3.17.1";
@@ -37,7 +36,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/digitalocean/do-agent";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yvt ];
+    maintainers = with maintainers; [yvt];
     platforms = platforms.linux;
   };
 }

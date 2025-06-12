@@ -30,7 +30,6 @@
   wayland-scanner,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-greeter";
   version = "8.0.1";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     desktop-file-utils
@@ -115,7 +114,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     xgreeters = linkFarm "pantheon-greeter-xgreeters" [
       {
@@ -130,7 +129,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/greeter";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.greeter";
   };
 }

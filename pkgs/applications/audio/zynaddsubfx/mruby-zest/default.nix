@@ -10,7 +10,6 @@
   libuv,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mruby-zest";
   version = "3.0.6";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     rm mruby/mrbgems/mruby-compiler/core/y.tab.c
   '';
 
-  installTargets = [ "pack" ];
+  installTargets = ["pack"];
 
   postInstall = ''
     ln -s "$out/zest" "$out/zyn-fusion"
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Zest Framework used in ZynAddSubFX's UI";
     homepage = "https://github.com/mruby-zest";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.all;
   };
 }

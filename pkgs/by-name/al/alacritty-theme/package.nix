@@ -5,7 +5,6 @@
   stdenvNoCC,
   ...
 }:
-
 stdenvNoCC.mkDerivation (self: {
   pname = "alacritty-theme";
   version = "0-unstable-2025-05-15";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation (self: {
     repo = "alacritty-theme";
     rev = "59a96ef4c734f97a1aadaa619b31cc1ca90a0fbc";
     hash = "sha256-7Qu00+odZblXqN9e3uVZWfIWySFT0IiwIyK5wEbtReE=";
-    sparseCheckout = [ "themes" ];
+    sparseCheckout = ["themes"];
   };
 
   dontConfigure = true;
@@ -37,7 +36,7 @@ stdenvNoCC.mkDerivation (self: {
     description = "Collection of Alacritty color schemes";
     homepage = "https://alacritty.org/";
     license = licenses.asl20;
-    maintainers = [ maintainers.nicoo ];
+    maintainers = [maintainers.nicoo];
     platforms = platforms.all;
   };
 })

@@ -11,7 +11,6 @@
   jemalloc,
   curlHTTP3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ngtcp2";
   version = "1.13.0";
@@ -31,13 +30,15 @@ stdenv.mkDerivation (finalAttrs: {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [
-    brotli
-    libev
-    nghttp3
-    quictls
-  ] ++ lib.optional withJemalloc jemalloc;
+  nativeBuildInputs = [cmake];
+  buildInputs =
+    [
+      brotli
+      libev
+      nghttp3
+      quictls
+    ]
+    ++ lib.optional withJemalloc jemalloc;
 
   cmakeFlags = [
     (lib.cmakeBool "ENABLE_STATIC_LIB" false)
@@ -55,6 +56,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Implementation of the QUIC protocol (RFC9000)";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ izorkin ];
+    maintainers = with lib.maintainers; [izorkin];
   };
 })

@@ -15,7 +15,6 @@
   stdenv,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "philipstv";
   version = "2.1.1";
@@ -58,9 +57,9 @@ buildPythonPackage rec {
       --fish <(_PHILIPSTV_COMPLETE=fish_source $out/bin/philipstv)
   '';
 
-  pythonImportsCheck = [ "philipstv" ];
+  pythonImportsCheck = ["philipstv"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI and library to control Philips Android-powered TVs";
@@ -68,6 +67,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/bcyran/philipstv/releases/tag/${version}";
     license = lib.licenses.mit;
     mainProgram = "philipstv";
-    maintainers = with lib.maintainers; [ bcyran ];
+    maintainers = with lib.maintainers; [bcyran];
   };
 }

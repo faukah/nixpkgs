@@ -9,7 +9,6 @@
   setuptools,
   validators,
 }:
-
 buildPythonPackage rec {
   pname = "faraday-agent-parameters-types";
   version = "1.8.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-warn '"pytest-runner",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     marshmallow
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     validators
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pythonImportsCheck = [
     "faraday_agent_parameters_types"
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/infobyte/faraday_agent_parameters_types";
     changelog = "https://github.com/infobyte/faraday_agent_parameters_types/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

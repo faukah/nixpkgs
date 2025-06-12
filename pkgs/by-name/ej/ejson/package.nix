@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ejson";
   version = "1.5.4";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "ejson";
     license = licenses.mit;
     homepage = "https://github.com/Shopify/ejson";
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
   };
 }

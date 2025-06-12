@@ -23,7 +23,7 @@ buildDotnetModule rec {
   };
 
   # Use .NET 9.0 since 7.0 is EOL
-  dotnetFlags = [ "-p:TargetFramework=net9.0" ];
+  dotnetFlags = ["-p:TargetFramework=net9.0"];
 
   projectFile = "Lumafly/Lumafly.csproj";
 
@@ -34,7 +34,7 @@ buildDotnetModule rec {
 
   selfContainedBuild = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   runtimeDeps = [
     zlib
@@ -47,7 +47,7 @@ buildDotnetModule rec {
     copyDesktopItems
   ];
 
-  executables = [ "Lumafly" ];
+  executables = ["Lumafly"];
 
   postFixup = ''
     # Icon for the desktop file
@@ -63,7 +63,7 @@ buildDotnetModule rec {
       icon = "lumafly";
       comment = "A cross platform mod manager for Hollow Knight written in Avalonia";
       type = "Application";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -72,7 +72,7 @@ buildDotnetModule rec {
     homepage = "https://themulhima.github.io/Lumafly/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "Lumafly";
-    maintainers = with lib.maintainers; [ rohanssrao ];
+    maintainers = with lib.maintainers; [rohanssrao];
     platforms = lib.platforms.linux;
   };
 }

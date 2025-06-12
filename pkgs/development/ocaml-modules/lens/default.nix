@@ -6,7 +6,6 @@
   buildDunePackage,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "lens";
   version = "1.2.5";
@@ -27,7 +26,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = with lib; {
     homepage = "https://github.com/pdonadeo/ocaml-lens";

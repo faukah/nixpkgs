@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "coffeegrindsize";
   # no tags in the repo
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication {
     mainProgram = "coffeegrindsize";
     homepage = "https://github.com/jgagneastro/coffeegrindsize";
     license = licenses.mit;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
   };
 }

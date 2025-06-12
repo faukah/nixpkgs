@@ -6,7 +6,6 @@
   pkg-config,
   ffmpeg,
 }:
-
 buildOctavePackage rec {
   pname = "video";
   version = "2.1.3";
@@ -32,7 +31,7 @@ buildOctavePackage rec {
       gpl3Plus
       bsd3
     ];
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Wrapper for OpenCV's CvCapture_FFMPEG and CvVideoWriter_FFMPEG";
   };
 }

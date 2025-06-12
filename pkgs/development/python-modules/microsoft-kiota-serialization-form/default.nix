@@ -10,7 +10,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "microsoft-kiota-serialization-form";
   version = "1.9.3";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/packages/serialization/form/";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     microsoft-kiota-abstractions
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "kiota_serialization_form" ];
+  pythonImportsCheck = ["kiota_serialization_form"];
 
   meta = with lib; {
     description = "Form serialization implementation for Kiota clients in Python";
     homepage = "https://github.com/microsoft/kiota-python/tree/main/packages/serialization/form";
     changelog = "https://github.com/microsoft/kiota-python/releases/tag/microsoft-kiota-serialization-form-${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

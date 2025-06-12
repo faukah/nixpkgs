@@ -10,10 +10,8 @@
   nixos-background-light ? nixos-artwork.wallpapers.nineish,
   nixos-background-dark ? nixos-artwork.wallpapers.nineish-dark-gray,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ],
-}:
-
-let
+  extraGSettingsOverridePackages ? [],
+}: let
   inherit (lib) concatMapStringsSep;
 
   gsettingsOverrides = ''
@@ -52,28 +50,29 @@ let
     ${extraGSettingsOverrides}
   '';
 
-  gsettingsOverridePackages = [
-    budgie-desktop
-    budgie-desktop-view
-    gsettings-desktop-schemas
-    mutter
-  ] ++ extraGSettingsOverridePackages;
-
+  gsettingsOverridePackages =
+    [
+      budgie-desktop
+      budgie-desktop-view
+      gsettings-desktop-schemas
+      mutter
+    ]
+    ++ extraGSettingsOverridePackages;
 in
-runCommand "budgie-gsettings-overrides" { preferLocalBuild = true; } ''
-  data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
-  schema_dir="$data_dir/glib-2.0/schemas"
-  mkdir -p "$schema_dir"
+  runCommand "budgie-gsettings-overrides" {preferLocalBuild = true;} ''
+    data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
+    schema_dir="$data_dir/glib-2.0/schemas"
+    mkdir -p "$schema_dir"
 
-  ${concatMapStringsSep "\n" (
-    pkg:
-    "cp -rf \"${glib.getSchemaPath pkg}\"/*.xml \"${glib.getSchemaPath pkg}\"/*.gschema.override \"$schema_dir\""
-  ) gsettingsOverridePackages}
+    ${concatMapStringsSep "\n" (
+        pkg: "cp -rf \"${glib.getSchemaPath pkg}\"/*.xml \"${glib.getSchemaPath pkg}\"/*.gschema.override \"$schema_dir\""
+      )
+      gsettingsOverridePackages}
 
-  chmod -R a+w "$data_dir"
-  cat - > "$schema_dir/zz-nixos-defaults.gschema.override" <<- EOF
-  ${gsettingsOverrides}
-  EOF
+    chmod -R a+w "$data_dir"
+    cat - > "$schema_dir/zz-nixos-defaults.gschema.override" <<- EOF
+    ${gsettingsOverrides}
+    EOF
 
-  ${glib.dev}/bin/glib-compile-schemas --strict "$schema_dir"
-''
+    ${glib.dev}/bin/glib-compile-schemas --strict "$schema_dir"
+  ''

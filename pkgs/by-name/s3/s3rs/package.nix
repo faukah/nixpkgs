@@ -7,7 +7,6 @@
   fetchFromGitHub,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "s3rs";
   version = "0.4.19";
@@ -27,13 +26,13 @@ rustPlatform.buildRustPackage rec {
     perl
     pkg-config
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "S3 cli client with multi configs with diffent provider";
     homepage = "https://github.com/yanganto/s3rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ yanganto ];
+    maintainers = with maintainers; [yanganto];
     mainProgram = "s3rs";
   };
 }

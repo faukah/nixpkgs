@@ -6,7 +6,6 @@
   python3,
   dtkcore,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-qt-dbus-factory";
   version = "6.0.1";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-qt-dbus-factory";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.deepin ];
+    teams = [lib.teams.deepin];
   };
 }

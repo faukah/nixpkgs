@@ -9,10 +9,7 @@
   bash,
   coreutils,
   unixtools,
-}:
-
-let
-
+}: let
   # We execute all OpenWatcom binaries in qemu-user, because otherwise
   # some binaries (most notably the installer itself and wlib) fail to
   # use the stat() systemcall. The failure mode is that it returns
@@ -58,52 +55,51 @@ let
 
     exec ${wrapLegacyBinary} "$TARGET-unwrapped" "$TARGET"
   '';
-
 in
-stdenvNoCC.mkDerivation rec {
-  pname = "${passthru.prettyName}-unwrapped";
-  version = "1.9";
+  stdenvNoCC.mkDerivation rec {
+    pname = "${passthru.prettyName}-unwrapped";
+    version = "1.9";
 
-  src = fetchurl {
-    url = "http://ftp.openwatcom.org/install/open-watcom-c-linux-${version}";
-    sha256 = "1wzkvc6ija0cjj5mcyjng5b7hnnc5axidz030c0jh05pgvi4nj7p";
-  };
+    src = fetchurl {
+      url = "http://ftp.openwatcom.org/install/open-watcom-c-linux-${version}";
+      sha256 = "1wzkvc6ija0cjj5mcyjng5b7hnnc5axidz030c0jh05pgvi4nj7p";
+    };
 
-  nativeBuildInputs = [
-    wrapInPlace
-    unixtools.script
-  ];
-
-  dontUnpack = true;
-  dontConfigure = true;
-
-  buildPhase = ''
-    cp ${src} install-bin-unwrapped
-    wrapInPlace install-bin-unwrapped
-  '';
-
-  installPhase = ''
-    # Command line options to do an unattended install are documented in
-    # https://github.com/open-watcom/open-watcom-v2/blob/master/bld/setupgui/setup.txt
-    script -c "./install-bin-unwrapped -dDstDir=$out -dFullInstall=1 -i"
-
-    for e in $(find $out/binl -type f -executable); do
-      echo "Wrapping $e"
-      wrapInPlace "$e"
-    done
-  '';
-
-  passthru.prettyName = "open-watcom-bin";
-
-  meta = with lib; {
-    description = "Project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    homepage = "http://www.openwatcom.org/";
-    license = licenses.watcom;
-    platforms = [
-      "x86_64-linux"
-      "i686-linux"
+    nativeBuildInputs = [
+      wrapInPlace
+      unixtools.script
     ];
-    maintainers = [ maintainers.blitz ];
-  };
-}
+
+    dontUnpack = true;
+    dontConfigure = true;
+
+    buildPhase = ''
+      cp ${src} install-bin-unwrapped
+      wrapInPlace install-bin-unwrapped
+    '';
+
+    installPhase = ''
+      # Command line options to do an unattended install are documented in
+      # https://github.com/open-watcom/open-watcom-v2/blob/master/bld/setupgui/setup.txt
+      script -c "./install-bin-unwrapped -dDstDir=$out -dFullInstall=1 -i"
+
+      for e in $(find $out/binl -type f -executable); do
+        echo "Wrapping $e"
+        wrapInPlace "$e"
+      done
+    '';
+
+    passthru.prettyName = "open-watcom-bin";
+
+    meta = with lib; {
+      description = "Project to maintain and enhance the Watcom C, C++, and Fortran cross compilers and tools";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      homepage = "http://www.openwatcom.org/";
+      license = licenses.watcom;
+      platforms = [
+        "x86_64-linux"
+        "i686-linux"
+      ];
+      maintainers = [maintainers.blitz];
+    };
+  }

@@ -5,7 +5,6 @@
   makeWrapper,
   plan9port,
 }:
-
 buildGoModule rec {
   pname = "edwood";
   version = "0.3.1";
@@ -33,7 +32,7 @@ buildGoModule rec {
     cp -r build/font $out/share
 
     wrapProgram $out/bin/edwood \
-      --prefix PATH : ${lib.makeBinPath [ "${plan9port}/plan9" ]} \
+      --prefix PATH : ${lib.makeBinPath ["${plan9port}/plan9"]} \
       --set PLAN9 $out/share # envvar is read by edwood to determine the font path prefix
   '';
 
@@ -46,7 +45,7 @@ buildGoModule rec {
       mit
       bsd3
     ];
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
     mainProgram = "edwood";
   };
 }

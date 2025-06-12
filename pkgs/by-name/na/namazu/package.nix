@@ -6,7 +6,6 @@
   perlPackages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "namazu";
   version = "2.0.21";
@@ -20,11 +19,11 @@ stdenv.mkDerivation rec {
     perl
     perlPackages.FileMMagic
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/mknmz --set PERL5LIB ${
-      perlPackages.makeFullPerlPath [ perlPackages.FileMMagic ]
+      perlPackages.makeFullPerlPath [perlPackages.FileMMagic]
     }
   '';
 
@@ -41,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "http://namazu.org/";
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
-    maintainers = [ ];
+    maintainers = [];
   };
 }

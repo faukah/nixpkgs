@@ -19,7 +19,7 @@ buildDotnetModule rec {
   };
 
   projectFile = "SkEditor/SkEditor.csproj";
-  executables = [ "SkEditor" ];
+  executables = ["SkEditor"];
   nugetDeps = ./nuget-deps.json;
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
@@ -63,6 +63,6 @@ buildDotnetModule rec {
     changelog = "https://github.com/SkEditorTeam/SkEditor/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "SkEditor";
-    maintainers = with lib.maintainers; [ eveeifyeve ];
+    maintainers = with lib.maintainers; [eveeifyeve];
   };
 }

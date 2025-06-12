@@ -9,7 +9,6 @@
   xmlm,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "rpclib";
   version = "9.0.0";
@@ -31,7 +30,7 @@ buildDunePackage rec {
     rresult
     xmlm
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -39,6 +38,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/ocaml-rpc";
     description = "Light library to deal with RPCs in OCaml";
     license = licenses.isc;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

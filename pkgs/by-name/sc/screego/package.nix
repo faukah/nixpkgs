@@ -7,9 +7,7 @@
   yarnBuildHook,
   nodejs,
   stdenv,
-}:
-let
-
+}: let
   version = "1.12.0";
 
   src = fetchFromGitHub {
@@ -43,42 +41,39 @@ let
     installPhase = ''
       cp -r build $out
     '';
-
   };
-
 in
+  buildGo123Module rec {
+    inherit src version;
 
-buildGo123Module rec {
-  inherit src version;
+    pname = "screego-server";
 
-  pname = "screego-server";
+    vendorHash = "sha256-vx7CpHUPQlLEQGxdswQJI1SrfSUwPlpNcb7Cq81ZOBQ=";
 
-  vendorHash = "sha256-vx7CpHUPQlLEQGxdswQJI1SrfSUwPlpNcb7Cq81ZOBQ=";
+    ldflags = [
+      "-s"
+      "-w"
+      "-X=main.version=${version}"
+      "-X=main.commitHash=${src.rev}"
+      "-X=main.mode=prod"
+    ];
 
-  ldflags = [
-    "-s"
-    "-w"
-    "-X=main.version=${version}"
-    "-X=main.commitHash=${src.rev}"
-    "-X=main.mode=prod"
-  ];
+    postPatch = ''
+      mkdir -p ./ui
+      cp -r "${ui}" ./ui/build
+    '';
 
-  postPatch = ''
-    mkdir -p ./ui
-    cp -r "${ui}" ./ui/build
-  '';
+    postInstall = ''
+      mv $out/bin/server $out/bin/screego
+    '';
 
-  postInstall = ''
-    mv $out/bin/server $out/bin/screego
-  '';
+    __darwinAllowLocalNetworking = true;
 
-  __darwinAllowLocalNetworking = true;
-
-  meta = with lib; {
-    description = "Screen sharing for developers";
-    homepage = "https://screego.net";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ pinpox ];
-    mainProgram = "screego";
-  };
-}
+    meta = with lib; {
+      description = "Screen sharing for developers";
+      homepage = "https://screego.net";
+      license = licenses.gpl3Only;
+      maintainers = with maintainers; [pinpox];
+      mainProgram = "screego";
+    };
+  }

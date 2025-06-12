@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "lintspec";
   version = "0.5.0";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ beeb ];
+    maintainers = with lib.maintainers; [beeb];
     mainProgram = "lintspec";
   };
 }

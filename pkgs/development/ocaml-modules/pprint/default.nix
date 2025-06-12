@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "pprint";
   version = "20230830";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "OCaml library for pretty-printing textual documents";
     license = licenses.lgpl2Only;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

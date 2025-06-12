@@ -3,7 +3,6 @@
   fetchurl,
   appimageTools,
 }:
-
 appimageTools.wrapType2 rec {
   pname = "responsively-app";
   version = "1.16.0";
@@ -31,8 +30,8 @@ appimageTools.wrapType2 rec {
     homepage = "https://responsively.app/";
     changelog = "https://github.com/responsively-org/responsively-app/releases/tag/v${version}";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ kashw2 ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [kashw2];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

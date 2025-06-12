@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "07wf9yn0f771xkm3x12946x5rp83hxjkd70xgfgy35zvj27wskzm";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,15 +29,15 @@ stdenv.mkDerivation {
     chmod +x $out/bin/docker-gc
     wrapProgram $out/bin/docker-gc \
         --prefix PATH : "${
-          lib.makeBinPath [
-            docker
-            coreutils
-            procps
-            gnused
-            findutils
-            gnugrep
-          ]
-        }"
+      lib.makeBinPath [
+        docker
+        coreutils
+        procps
+        gnused
+        findutils
+        gnugrep
+      ]
+    }"
   '';
 
   meta = with lib; {
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
     mainProgram = "docker-gc";
     license = licenses.asl20;
     homepage = "https://github.com/spotify/docker-gc";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = docker.meta.platforms;
   };
 }

@@ -5,7 +5,6 @@
   ncurses,
   gpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jupp";
   version = "41";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
       because these behave better overall.
     '';
     license = lib.licenses.gpl1Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; unix;
   };
 }

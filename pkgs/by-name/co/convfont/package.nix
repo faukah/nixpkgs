@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "convfont";
   version = "1.2";
@@ -15,7 +14,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-xDn29/HETeao0cwvt2LohA37sGQQ20gtBdYr20vA04A=";
   };
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     install -Dm755 convfont $out/bin/convfont
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     description = "Converts font for use with FontLibC";
     homepage = "https://github.com/drdnar/convfont";
     license = lib.licenses.unfree;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
     mainProgram = "convfont";
   };

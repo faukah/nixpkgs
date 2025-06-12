@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "osx-cpu-temp";
   version = "unstable-2020-12-04";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Outputs current CPU temperature for OSX";
     homepage = "https://github.com/lavoiesl/osx-cpu-temp";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ virusdave ];
+    maintainers = with maintainers; [virusdave];
     platforms = platforms.darwin;
   };
 }

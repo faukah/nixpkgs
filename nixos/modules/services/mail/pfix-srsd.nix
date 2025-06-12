@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-{
-
+}: {
   ###### interface
 
   options = {
-
     services.pfix-srsd = {
       enable = lib.mkOption {
         default = false;
@@ -39,15 +36,15 @@
 
   config = lib.mkIf config.services.pfix-srsd.enable {
     environment = {
-      systemPackages = [ pkgs.pfixtools ];
+      systemPackages = [pkgs.pfixtools];
     };
 
     systemd.services.pfix-srsd = {
       description = "Postfix sender rewriting scheme daemon";
-      before = [ "postfix.service" ];
+      before = ["postfix.service"];
       #note that we use requires rather than wants because postfix
       #is unable to process (almost) all mail without srsd
-      requiredBy = [ "postfix.service" ];
+      requiredBy = ["postfix.service"];
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/pfix-srsd.pid";

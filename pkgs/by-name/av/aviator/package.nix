@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "aviator";
   version = "1.8.1";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "aviator";
     homepage = "https://github.com/herrjulz/aviator";
     license = licenses.mit;
-    maintainers = with maintainers; [ risson ];
+    maintainers = with maintainers; [risson];
   };
 }

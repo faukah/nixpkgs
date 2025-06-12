@@ -6,7 +6,6 @@
   cmake,
   nix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "aws-c-sdkutils";
   # nixpkgs-update: no auto update
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-sdkutils";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

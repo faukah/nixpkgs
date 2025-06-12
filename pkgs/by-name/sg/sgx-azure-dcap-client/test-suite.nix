@@ -5,14 +5,18 @@
   makeWrapper,
 }:
 sgx-azure-dcap-client.overrideAttrs (old: {
-  nativeBuildInputs = old.nativeBuildInputs ++ [
-    makeWrapper
-    gtest
-  ];
+  nativeBuildInputs =
+    old.nativeBuildInputs
+    ++ [
+      makeWrapper
+      gtest
+    ];
 
-  patches = (old.patches or [ ]) ++ [
-    ./tests-missing-includes.patch
-  ];
+  patches =
+    (old.patches or [])
+    ++ [
+      ./tests-missing-includes.patch
+    ];
 
   buildFlags = [
     "tests"
@@ -28,6 +32,6 @@ sgx-azure-dcap-client.overrideAttrs (old: {
 
   postFixup = ''
     wrapProgram "$out/bin/tests" \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-azure-dcap-client ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [sgx-azure-dcap-client]}"
   '';
 })

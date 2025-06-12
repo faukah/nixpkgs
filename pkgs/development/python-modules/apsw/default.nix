@@ -5,7 +5,6 @@
   setuptools,
   sqlite,
 }:
-
 buildPythonPackage rec {
   pname = "apsw";
   version = "3.48.0.0";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-iwvUW6vOQu2EiUuYWVaz5D3ePSLrj81fmLxoGRaTzRk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   # apsw explicitly doesn't use pytest
   # see https://github.com/rogerbinns/apsw/issues/548#issuecomment-2891633403
@@ -29,13 +28,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "apsw" ];
+  pythonImportsCheck = ["apsw"];
 
   meta = {
     changelog = "https://github.com/rogerbinns/apsw/blob/${version}/doc/changes.rst";
     description = "Python wrapper for the SQLite embedded relational database engine";
     homepage = "https://github.com/rogerbinns/apsw";
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ gador ];
+    maintainers = with lib.maintainers; [gador];
   };
 }

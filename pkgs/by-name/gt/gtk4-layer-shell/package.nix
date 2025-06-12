@@ -16,7 +16,6 @@
   gobject-introspection,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtk4-layer-shell";
   version = "1.1.1";
@@ -41,17 +40,19 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    pkg-config
-    gobject-introspection
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-    vala
-    wayland-scanner
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+      vala
+      wayland-scanner
+    ]
+    ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     gtk4
@@ -68,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library to create panels and other desktop components for Wayland using the Layer Shell protocol and GTK4";
     mainProgram = "gtk4-layer-demo";
     license = licenses.mit;
-    maintainers = with maintainers; [ donovanglover ];
+    maintainers = with maintainers; [donovanglover];
     platforms = platforms.linux;
   };
 })

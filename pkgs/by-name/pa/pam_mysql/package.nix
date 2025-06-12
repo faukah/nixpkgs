@@ -11,7 +11,6 @@
   mariadb,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_mysql";
   version = "1.0.0-beta2";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NigelCunningham/pam-MySQL";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ netali ];
+    maintainers = with maintainers; [netali];
   };
 }

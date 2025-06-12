@@ -4,12 +4,10 @@
   fetchFromGitHub,
   fetchpatch,
   ocaml,
-
   alcotest,
   cstruct,
   mirage-crypto,
 }:
-
 buildDunePackage rec {
   pname = "chacha";
   version = "1.1.0";
@@ -36,7 +34,7 @@ buildDunePackage rec {
 
   # alcotest isn't available for OCaml < 4.05 due to fmt
   doCheck = lib.versionAtLeast ocaml.version "4.05";
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = {
     homepage = "https://github.com/abeaumont/ocaml-chacha";
@@ -47,7 +45,7 @@ buildDunePackage rec {
       reasons.
     '';
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ fufexan ];
+    maintainers = with lib.maintainers; [fufexan];
     broken = true; # Not compatible with mirage-crypto ≥ 1.0
   };
 }

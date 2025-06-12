@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-describe,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-spec";
   version = "5.0.0";
@@ -29,20 +28,20 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-describe
   ];
 
-  pythonImportsCheck = [ "pytest_spec" ];
+  pythonImportsCheck = ["pytest_spec"];
 
   meta = {
     changelog = "https://github.com/pchomik/pytest-spec/blob/${src.rev}/CHANGES.txt";
     description = "Pytest plugin to display test execution output like a SPECIFICATION";
     homepage = "https://github.com/pchomik/pytest-spec";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

@@ -6,7 +6,6 @@
   openssl,
   withLsp ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "taplo";
   version = "0.9.3";
@@ -34,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "TOML toolkit written in Rust";
     homepage = "https://taplo.tamasfe.dev";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "taplo";
   };
 }

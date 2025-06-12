@@ -6,7 +6,6 @@
   perl,
   procps,
   bash,
-
   # shell referenced dependencies
   resholve,
   binutils-unwrapped,
@@ -18,7 +17,6 @@
   iconv,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lesspipe";
   version = "2.18";
@@ -49,18 +47,18 @@ stdenv.mkDerivation rec {
     "--shell=${bash}/bin/bash"
     "--prefix=/"
   ];
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   dontBuild = true;
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     # resholve doesn't see strings in an array definition
     substituteInPlace $out/bin/lesspipe.sh --replace 'nodash strings' "nodash ${binutils-unwrapped}/bin/strings"
 
     ${resholve.phraseSolution "lesspipe.sh" {
-      scripts = [ "bin/lesspipe.sh" ];
+      scripts = ["bin/lesspipe.sh"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils
@@ -163,7 +161,7 @@ stdenv.mkDerivation rec {
           "snap"
           "locale" # call site is guarded by || so it's safe to leave dynamic
         ];
-        builtin = [ "setopt" ];
+        builtin = ["setopt"];
       };
       execer = [
         "cannot:${iconv}/bin/iconv"
@@ -171,7 +169,7 @@ stdenv.mkDerivation rec {
       ];
     }}
     ${resholve.phraseSolution "lesscomplete" {
-      scripts = [ "bin/lesscomplete" ];
+      scripts = ["bin/lesscomplete"];
       interpreter = "${bash}/bin/bash";
       inputs = [
         coreutils
@@ -215,7 +213,7 @@ stdenv.mkDerivation rec {
           "zstd"
           "lz4"
         ];
-        builtin = [ "setopt" ];
+        builtin = ["setopt"];
       };
       execer = [
         "cannot:${file}/bin/file"
@@ -240,6 +238,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wofr06/lesspipe";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.martijnvermaat ];
+    maintainers = [maintainers.martijnvermaat];
   };
 }

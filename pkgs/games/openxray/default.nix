@@ -15,7 +15,6 @@
   pcre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openxray";
   version = "2921-january-2025-rc1";
@@ -79,16 +78,18 @@ stdenv.mkDerivation (finalAttrs: {
   # dlopens its own libraries, relies on rpath not having its prefix stripped
   dontPatchELF = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     mainProgram = "xr_3da";
     description = "Improved version of the X-Ray Engine, the game engine used in the world-famous S.T.A.L.K.E.R. game series by GSC Game World";
     homepage = "https://github.com/OpenXRay/xray-16/";
-    license = licenses.unfree // {
-      url = "https://github.com/OpenXRay/xray-16/blob/${finalAttrs.version}/License.txt";
-    };
-    maintainers = with maintainers; [ OPNA2608 ];
+    license =
+      licenses.unfree
+      // {
+        url = "https://github.com/OpenXRay/xray-16/blob/${finalAttrs.version}/License.txt";
+      };
+    maintainers = with maintainers; [OPNA2608];
     platforms = [
       "x86_64-linux"
       "i686-linux"

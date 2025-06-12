@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromSourcehut,
 }:
-
 buildGoModule rec {
   pname = "mnc";
   version = "0.5";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://git.sr.ht/~anjan/mnc";
     license = licenses.unlicense;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentam ];
+    maintainers = with maintainers; [wentam];
     mainProgram = "mnc";
   };
 }

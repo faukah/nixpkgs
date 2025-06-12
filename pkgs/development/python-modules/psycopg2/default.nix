@@ -13,7 +13,6 @@
   sphinx-better-theme,
   buildPackages,
 }:
-
 buildPythonPackage rec {
   pname = "psycopg2";
   version = "2.9.10";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
     sphinx-better-theme
   ];
 
-  buildInputs = [ libpq ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ openssl ];
+  buildInputs = [libpq] ++ lib.optionals stdenv.hostPlatform.isDarwin [openssl];
 
   sphinxRoot = "doc/src";
 
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     PGDATABASE = "psycopg2_test";
   };
 
-  pythonImportsCheck = [ "psycopg2" ];
+  pythonImportsCheck = ["psycopg2"];
 
   disallowedReferences = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
     buildPackages.libpq
@@ -76,6 +75,6 @@ buildPythonPackage rec {
       lgpl3Plus
       zpl20
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

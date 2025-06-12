@@ -7,7 +7,6 @@
   kio,
   mauikit,
 }:
-
 mkDerivation {
   pname = "mauikit-accounts";
 
@@ -26,6 +25,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/maui/mauikit-accounts";
     description = "MauiKit utilities to handle User Accounts";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

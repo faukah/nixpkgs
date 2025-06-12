@@ -15,7 +15,7 @@ mkLibretroCore {
     hash = "sha256-BYeQ2WZgyvjDH5+akrVP5TlLq6Go3NKXB7zeR9oaaJ8=";
   };
 
-  extraNativeBuildInputs = [ cmake ];
+  extraNativeBuildInputs = [cmake];
   makefile = "Makefile";
   postBuild = "cd src";
 

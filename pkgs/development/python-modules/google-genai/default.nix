@@ -13,7 +13,6 @@
   typing-extensions,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "google-genai";
   version = "1.19.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     twine
   ];
 
-  pythonRelaxDeps = [ "websockets" ];
+  pythonRelaxDeps = ["websockets"];
 
   dependencies = [
     anyio
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     websockets
   ];
 
-  pythonImportsCheck = [ "google.genai" ];
+  pythonImportsCheck = ["google.genai"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Google Generative AI Python SDK";
     homepage = "https://github.com/googleapis/python-genai";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

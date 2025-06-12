@@ -5,7 +5,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnucap-modelgen-verilog";
   version = "20240220";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     installShellFiles
   ];
-  propagatedBuildInputs = [ gnucap ];
+  propagatedBuildInputs = [gnucap];
 
   doCheck = true;
 
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "gnucap-mg-vams";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.raboof ];
+    maintainers = [lib.maintainers.raboof];
   };
 })

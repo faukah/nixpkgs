@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cpe";
   version = "1.3.1";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-QI5XHy2TDSUqK6BZBoFWViBcOKfo+zg0ulzEzF4eg4w=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cpe" ];
+  pythonImportsCheck = ["cpe"];
 
   meta = {
     changelog = "https://github.com/nilp0inter/cpe/releases/tag/v${version}";
     description = "Common platform enumeration for python";
     homepage = "https://github.com/nilp0inter/cpe";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
   };
 }

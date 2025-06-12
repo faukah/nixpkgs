@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "orgformat";
   version = "0-unstable-2024-10-23";
@@ -29,6 +28,6 @@ buildPythonPackage {
     description = "Utility library for providing functions to generate and modify Org mode syntax elements like links, time-stamps, or date-stamps";
     homepage = "https://github.com/novoid/orgformat";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ confusedalex ];
+    maintainers = with lib.maintainers; [confusedalex];
   };
 }

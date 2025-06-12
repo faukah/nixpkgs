@@ -12,7 +12,6 @@
   pythonOlder,
   round,
 }:
-
 buildPythonPackage rec {
   pname = "diagrams";
   version = "0.24.4";
@@ -37,16 +36,16 @@ buildPythonPackage rec {
     ./remove-black-requirement.patch
   ];
 
-  pythonRemoveDeps = [ "pre-commit" ];
+  pythonRemoveDeps = ["pre-commit"];
 
-  pythonRelaxDeps = [ "graphviz" ];
+  pythonRelaxDeps = ["graphviz"];
 
   preConfigure = ''
     patchShebangs autogen.sh
     ./autogen.sh
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   # Despite living in 'tool.poetry.dependencies',
   # these are only used at build time to process the image resource files
@@ -57,17 +56,17 @@ buildPythonPackage rec {
     round
   ];
 
-  dependencies = [ graphviz ];
+  dependencies = [graphviz];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "diagrams" ];
+  pythonImportsCheck = ["diagrams"];
 
   meta = with lib; {
     description = "Diagram as Code";
     homepage = "https://diagrams.mingrammer.com/";
     changelog = "https://github.com/mingrammer/diagrams/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ addict3d ];
+    maintainers = with maintainers; [addict3d];
   };
 }

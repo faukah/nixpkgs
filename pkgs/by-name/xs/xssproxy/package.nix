@@ -7,7 +7,6 @@
   xorg,
   dbus,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xssproxy";
   version = "1.1.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OPzFI1ifbV/DJo0hC2xybHKaWTprictN0muKtuq1JaY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     xorg.libX11
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xssproxy";
     homepage = "https://github.com/vincentbernat/xssproxy";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ benley ];
+    maintainers = with lib.maintainers; [benley];
     platforms = lib.platforms.unix;
   };
 }

@@ -5,14 +5,13 @@
   jre_headless,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trino-cli";
   version = "475";
 
   jarfilename = "${pname}-${version}-executable.jar";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchurl {
     url = "mirror://maven/io/trino/${pname}/${version}/${jarfilename}";

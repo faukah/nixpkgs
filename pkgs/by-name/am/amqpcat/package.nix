@@ -6,7 +6,6 @@
   testers,
   amqpcat,
 }:
-
 crystal.buildCrystalPackage rec {
   pname = "amqpcat";
   version = "1.0.0";
@@ -21,7 +20,7 @@ crystal.buildCrystalPackage rec {
   format = "shards";
   shardsFile = ./shards.nix;
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # Tests require network access
   doCheck = false;
@@ -35,6 +34,6 @@ crystal.buildCrystalPackage rec {
     mainProgram = "amqpcat";
     homepage = "https://github.com/cloudamqp/amqpcat";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
   };
 }

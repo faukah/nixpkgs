@@ -12,9 +12,7 @@
   gitMinimal,
   pup,
   nixosTests,
-}:
-
-let
+}: let
   version = "8.0.4";
 
   srcs = version: {
@@ -36,46 +34,44 @@ let
     };
   };
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "mongodb-ce";
-  inherit version;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "mongodb-ce";
+    inherit version;
 
-  src = fetchurl (
-    (srcs version).${stdenv.hostPlatform.system}
+    src = fetchurl (
+      (srcs version).${stdenv.hostPlatform.system}
       or (throw "unsupported system: ${stdenv.hostPlatform.system}")
-  );
+    );
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
-  dontStrip = true;
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
+    dontStrip = true;
 
-  buildInputs = [
-    curl.dev
-    openssl.dev
-    (lib.getLib stdenv.cc.cc)
-  ];
+    buildInputs = [
+      curl.dev
+      openssl.dev
+      (lib.getLib stdenv.cc.cc)
+    ];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm 755 bin/mongod $out/bin/mongod
-    install -Dm 755 bin/mongos $out/bin/mongos
+      install -Dm 755 bin/mongod $out/bin/mongod
+      install -Dm 755 bin/mongos $out/bin/mongos
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgram = "${placeholder "out"}/bin/mongod";
-  versionCheckProgramArg = "--version";
-  # Only enable the version install check on darwin.
-  # On Linux, this would fail as mongod relies on tcmalloc, which
-  # requires access to `/sys/devices/system/cpu/possible`.
-  # See https://github.com/NixOS/nixpkgs/issues/377016
-  doInstallCheck = stdenv.hostPlatform.isDarwin;
+    nativeInstallCheckInputs = [versionCheckHook];
+    versionCheckProgram = "${placeholder "out"}/bin/mongod";
+    versionCheckProgramArg = "--version";
+    # Only enable the version install check on darwin.
+    # On Linux, this would fail as mongod relies on tcmalloc, which
+    # requires access to `/sys/devices/system/cpu/possible`.
+    # See https://github.com/NixOS/nixpkgs/issues/377016
+    doInstallCheck = stdenv.hostPlatform.isDarwin;
 
-  passthru = {
-
-    updateScript =
-      let
+    passthru = {
+      updateScript = let
         script = writeShellApplication {
           name = "${finalAttrs.pname}-updateScript";
 
@@ -103,32 +99,32 @@ stdenv.mkDerivation (finalAttrs: {
             + lib.concatStrings (
               map (system: ''
                 nix-update --system ${system} --version "$NEW_VERSION" ${finalAttrs.pname}
-              '') finalAttrs.meta.platforms
+              '')
+              finalAttrs.meta.platforms
             );
         };
-      in
-      {
+      in {
         command = lib.getExe script;
       };
 
-    tests = {
-      inherit (nixosTests) mongodb-ce;
+      tests = {
+        inherit (nixosTests) mongodb-ce;
+      };
     };
-  };
 
-  meta = {
-    changelog = "https://www.mongodb.com/docs/upcoming/release-notes/8.0/";
-    description = "MongoDB is a general purpose, document-based, distributed database.";
-    homepage = "https://www.mongodb.com/";
-    license = with lib.licenses; [ sspl ];
-    longDescription = ''
-      MongoDB CE (Community Edition) is a general purpose, document-based, distributed database.
-      It is designed to be flexible and easy to use, with the ability to store data of any structure.
-      This pre-compiled binary distribution package provides the MongoDB daemon (mongod) and the MongoDB Shard utility
-      (mongos).
-    '';
-    maintainers = with lib.maintainers; [ drupol ];
-    platforms = lib.attrNames (srcs version);
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-})
+    meta = {
+      changelog = "https://www.mongodb.com/docs/upcoming/release-notes/8.0/";
+      description = "MongoDB is a general purpose, document-based, distributed database.";
+      homepage = "https://www.mongodb.com/";
+      license = with lib.licenses; [sspl];
+      longDescription = ''
+        MongoDB CE (Community Edition) is a general purpose, document-based, distributed database.
+        It is designed to be flexible and easy to use, with the ability to store data of any structure.
+        This pre-compiled binary distribution package provides the MongoDB daemon (mongod) and the MongoDB Shard utility
+        (mongos).
+      '';
+      maintainers = with lib.maintainers; [drupol];
+      platforms = lib.attrNames (srcs version);
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  })

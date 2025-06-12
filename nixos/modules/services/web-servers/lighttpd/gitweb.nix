@@ -4,22 +4,15 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.gitweb;
   package = pkgs.gitweb.override (
     optionalAttrs cfg.gitwebTheme {
       gitwebTheme = true;
     }
   );
-
-in
-{
-
+in {
   options.services.lighttpd.gitweb = {
-
     enable = mkOption {
       default = false;
       type = types.bool;
@@ -27,11 +20,9 @@ in
         If true, enable gitweb in lighttpd. Access it at http://yourserver/gitweb
       '';
     };
-
   };
 
   config = mkIf config.services.lighttpd.gitweb.enable {
-
     # declare module dependencies
     services.lighttpd.enableModules = [
       "mod_cgi"
@@ -58,7 +49,5 @@ in
           )
       }
     '';
-
   };
-
 }

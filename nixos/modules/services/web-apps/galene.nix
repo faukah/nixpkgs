@@ -5,17 +5,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-let
+with lib; let
   cfg = config.services.galene;
   opt = options.services.galene;
   defaultstateDir = "/var/lib/galene";
   defaultrecordingsDir = "${cfg.stateDir}/recordings";
   defaultgroupsDir = "${cfg.stateDir}/groups";
   defaultdataDir = "${cfg.stateDir}/data";
-in
-{
+in {
   options = {
     services.galene = {
       enable = mkEnableOption "Galene Service";
@@ -123,7 +120,7 @@ in
         description = "Web server directory.";
       };
 
-      package = mkPackageOption pkgs "galene" { };
+      package = mkPackageOption pkgs "galene" {};
     };
   };
 
@@ -140,8 +137,8 @@ in
 
     systemd.services.galene = {
       description = "galene";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ${optionalString (cfg.insecure != true) ''
@@ -169,15 +166,15 @@ in
           # Upstream Requirements
           LimitNOFILE = 65536;
           StateDirectory =
-            [ ]
+            []
             ++ optional (cfg.stateDir == defaultstateDir) "galene"
             ++ optional (cfg.dataDir == defaultdataDir) "galene/data"
             ++ optional (cfg.groupsDir == defaultgroupsDir) "galene/groups"
             ++ optional (cfg.recordingsDir == defaultrecordingsDir) "galene/recordings";
 
           # Hardening
-          CapabilityBoundingSet = [ "" ];
-          DeviceAllow = [ "" ];
+          CapabilityBoundingSet = [""];
+          DeviceAllow = [""];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           NoNewPrivileges = true;
@@ -223,8 +220,8 @@ in
     };
 
     users.groups = mkIf (cfg.group == "galene") {
-      galene = { };
+      galene = {};
     };
   };
-  meta.maintainers = with lib.maintainers; [ rgrunbla ];
+  meta.maintainers = with lib.maintainers; [rgrunbla];
 }

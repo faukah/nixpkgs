@@ -5,7 +5,6 @@
   signal,
   hdf5,
 }:
-
 buildOctavePackage rec {
   pname = "communications";
   version = "1.2.7";
@@ -26,7 +25,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/communications/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = " Digital Communications, Error Correcting Codes (Channel Code), Source Code functions, Modulation and Galois Fields";
   };
 }

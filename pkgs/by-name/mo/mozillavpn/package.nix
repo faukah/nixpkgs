@@ -20,7 +20,6 @@
   stdenv,
   wireguard-tools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mozillavpn";
   version = "2.27.0";
@@ -56,7 +55,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   netfilter = buildGoModule {
     pname = "${finalAttrs.pname}-netfilter";
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       version
       src
       patches
@@ -125,14 +125,14 @@ stdenv.mkDerivation (finalAttrs: {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ wireguard-tools ])
+    (lib.makeBinPath [wireguard-tools])
   ];
 
   passthru.updateScript = _experimental-update-script-combinators.sequence [
-    (nix-update-script { })
+    (nix-update-script {})
     (nix-update-script {
       attrPath = "mozillavpn.netfilter";
-      extraArgs = [ "--version=skip" ];
+      extraArgs = ["--version=skip"];
     })
   ];
 
@@ -141,7 +141,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "mozillavpn";
     homepage = "https://vpn.mozilla.org/";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ andersk ];
+    maintainers = with lib.maintainers; [andersk];
     platforms = lib.platforms.linux;
   };
 })

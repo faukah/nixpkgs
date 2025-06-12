@@ -9,7 +9,6 @@
   boost,
   fcitx5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcitx5-table-extra";
   version = "5.1.7";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Extra table for Fcitx, including Boshiamy, Zhengma, Cangjie, and Quick";
     homepage = "https://github.com/fcitx/fcitx5-table-extra";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

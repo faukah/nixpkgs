@@ -5,9 +5,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ../../profiles/base.nix
     ../../profiles/installation-device.nix
@@ -26,7 +24,7 @@
   };
 
   boot.consoleLogLevel = lib.mkDefault 7;
-  boot.kernelParams = [ "console=hvc0" ];
+  boot.kernelParams = ["console=hvc0"];
 
   sdImage = {
     populateFirmwareCommands = "";

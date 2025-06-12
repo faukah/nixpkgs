@@ -8,7 +8,6 @@
   ipywidgets,
   jupyterlab,
 }:
-
 buildPythonPackage rec {
   pname = "ipylab";
   version = "1.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     ipywidgets
   ];
 
-  pythonImportsCheck = [ "ipylab" ];
+  pythonImportsCheck = ["ipylab"];
 
   # There are no tests
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jtpio/ipylab";
     changelog = "https://github.com/jtpio/ipylab/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

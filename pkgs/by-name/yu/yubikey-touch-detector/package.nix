@@ -8,7 +8,6 @@
   pkg-config,
   scdoc,
 }:
-
 buildGoModule rec {
   pname = "yubikey-touch-detector";
   version = "1.12.5";
@@ -51,7 +50,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to detect when your YubiKey is waiting for a touch";
     homepage = "https://github.com/maximbaz/yubikey-touch-detector";
-    maintainers = with maintainers; [ sumnerevans ];
+    maintainers = with maintainers; [sumnerevans];
     license = licenses.isc;
     platforms = platforms.linux;
     mainProgram = "yubikey-touch-detector";

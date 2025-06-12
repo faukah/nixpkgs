@@ -5,7 +5,6 @@
   ncurses,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tecoc";
   version = "0-unstable-2023-06-21";
@@ -17,19 +16,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KTOGsTtxJh2sneU2VoDNUHcL3m8zt+3rBZTDvK1n02A=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makefile =
-    if stdenv.hostPlatform.isDarwin then
-      "makefile.osx"
-    else if stdenv.hostPlatform.isFreeBSD then
-      "makefile.bsd"
-    else if stdenv.hostPlatform.isOpenBSD then
-      "makefile.bsd"
-    else if stdenv.hostPlatform.isWindows then
-      "makefile.win"
-    else
-      "makefile.linux"; # I think Linux is a safe default...
+    if stdenv.hostPlatform.isDarwin
+    then "makefile.osx"
+    else if stdenv.hostPlatform.isFreeBSD
+    then "makefile.bsd"
+    else if stdenv.hostPlatform.isOpenBSD
+    then "makefile.bsd"
+    else if stdenv.hostPlatform.isWindows
+    then "makefile.win"
+    else "makefile.linux"; # I think Linux is a safe default...
 
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -80,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = {
       url = "https://github.com/blakemcbride/TECOC/blob/${finalAttrs.src.rev}/doc/readme-1st.txt";
     };
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

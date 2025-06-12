@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "licenseclassifier";
   version = "2.0.0";
@@ -38,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/google/licenseclassifier";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ tnias ];
+    maintainers = with maintainers; [tnias];
   };
 }

@@ -9,7 +9,6 @@
   python,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "btrees";
   version = "6.1";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Scalable persistent components";
     homepage = "http://packages.python.org/BTrees";
     license = licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

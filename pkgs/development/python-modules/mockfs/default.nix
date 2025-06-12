@@ -7,7 +7,6 @@
   importlib-metadata,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mockfs";
   version = "1.1.4";
@@ -29,17 +28,17 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ importlib-metadata ];
+  propagatedBuildInputs = [importlib-metadata];
 
-  pythonImportsCheck = [ "mockfs" ];
+  pythonImportsCheck = ["mockfs"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Simple mock filesystem for use in unit tests";
     homepage = "https://github.com/mockfs/mockfs";
     changelog = "https://github.com/mockfs/mockfs/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -7,17 +7,14 @@
   stdenv,
   writeShellScript,
   wrapGAppsHook3,
-}:
-
-let
+}: let
   # parse the version from package.json
-  version =
-    let
-      packageJson = lib.importJSON ./package.json;
-      splits = builtins.split "^.*#v(.*)$" (builtins.getAttr "onlykey" (builtins.head packageJson));
-      matches = builtins.elemAt splits 1;
-      elem = builtins.head matches;
-    in
+  version = let
+    packageJson = lib.importJSON ./package.json;
+    splits = builtins.split "^.*#v(.*)$" (builtins.getAttr "onlykey" (builtins.head packageJson));
+    matches = builtins.elemAt splits 1;
+    elem = builtins.head matches;
+  in
     elem;
 
   # this must be updated anytime this package is updated.
@@ -31,48 +28,50 @@ let
     inherit (stdenv.hostPlatform) system;
   };
 
-  self = super // {
-    "${onlykeyPkg}" = super."${onlykeyPkg}".override (attrs: {
-      # when installing packages, nw tries to download nwjs in its postInstall
-      # script. There are currently no other postInstall scripts, so this
-      # should not break other things.
-      npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
+  self =
+    super
+    // {
+      "${onlykeyPkg}" = super."${onlykeyPkg}".override (attrs: {
+        # when installing packages, nw tries to download nwjs in its postInstall
+        # script. There are currently no other postInstall scripts, so this
+        # should not break other things.
+        npmFlags = attrs.npmFlags or "" + " --ignore-scripts";
 
-      # this package requires to be built in order to become runnable.
-      postInstall = ''
-        cd $out/lib/node_modules/${attrs.packageName}
-        npm run build
-      '';
-    });
-  };
+        # this package requires to be built in order to become runnable.
+        postInstall = ''
+          cd $out/lib/node_modules/${attrs.packageName}
+          npm run build
+        '';
+      });
+    };
 
   script = writeShellScript "${onlykey.packageName}-starter-${onlykey.version}" ''
     ${node_webkit}/bin/nw ${onlykey}/lib/node_modules/${onlykey.packageName}/build
   '';
 in
-stdenv.mkDerivation {
-  pname = "${onlykey.packageName}";
-  inherit (onlykey) version;
-  dontUnpack = true;
-  nativeBuildInputs = [
-    wrapGAppsHook3
-    copyDesktopItems
-  ];
-  desktopItems = [
-    (makeDesktopItem {
-      name = onlykey.packageName;
-      exec = script;
-      icon = "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
-      desktopName = onlykey.packageName;
-      genericName = onlykey.packageName;
-    })
-  ];
-  installPhase = ''
-    runHook preInstall
+  stdenv.mkDerivation {
+    pname = "${onlykey.packageName}";
+    inherit (onlykey) version;
+    dontUnpack = true;
+    nativeBuildInputs = [
+      wrapGAppsHook3
+      copyDesktopItems
+    ];
+    desktopItems = [
+      (makeDesktopItem {
+        name = onlykey.packageName;
+        exec = script;
+        icon = "${onlykey}/lib/node_modules/${onlykey.packageName}/resources/onlykey_logo_128.png";
+        desktopName = onlykey.packageName;
+        genericName = onlykey.packageName;
+      })
+    ];
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/bin
-    ln -s ${script} $out/bin/onlykey
+      mkdir -p $out/bin
+      ln -s ${script} $out/bin/onlykey
 
-    runHook postInstall
-  '';
-}
+      runHook postInstall
+    '';
+  }

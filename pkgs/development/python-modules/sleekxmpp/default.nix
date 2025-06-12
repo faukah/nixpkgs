@@ -7,7 +7,6 @@
   dnspython,
   pyasn1,
 }:
-
 buildPythonPackage rec {
   pname = "sleekxmpp";
   version = "1.3.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     pyasn1
   ];
 
-  patches = [ ./dnspython-ip6.patch ];
+  patches = [./dnspython-ip6.patch];
 
   src = fetchPypi {
     inherit pname version;

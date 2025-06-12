@@ -14,7 +14,6 @@
   libredirect,
   debugLvl ? "0",
 }:
-
 stdenv.mkDerivation rec {
   pname = "cups-brother-dcpt725dw";
   version = "3.5.0-1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     dpkg
     makeWrapper
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   dontUnpack = true;
 
@@ -54,24 +53,24 @@ stdenv.mkDerivation rec {
 
     wrapProgram $WRAPPER \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+      ]
+    }
 
     wrapProgram $LPDDIR/filter_dcpt725dw \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          ghostscript
-          gnugrep
-          gnused
-          which
-          file
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        ghostscript
+        gnugrep
+        gnused
+        which
+        file
+      ]
+    }
 
     patchelf --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
       $LPDDIR/brdcpt725dwfilter
@@ -101,8 +100,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother DCP-T725DW printer driver";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ u2x1 ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [u2x1];
     platforms = [
       "x86_64-linux"
       "i686-linux"

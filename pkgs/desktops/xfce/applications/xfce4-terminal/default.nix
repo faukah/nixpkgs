@@ -21,7 +21,6 @@
   nixosTests,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-terminal";
   version = "1.1.5";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.test = nixosTests.terminal-emulators.xfce4-terminal;
-    updateScript = gitUpdater { rev-prefix = "xfce4-terminal-"; };
+    updateScript = gitUpdater {rev-prefix = "xfce4-terminal-";};
   };
 
   meta = {
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.xfce.org/apps/xfce4-terminal";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xfce4-terminal";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

@@ -7,7 +7,6 @@
   testers,
   conceal,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "conceal";
   version = "0.6.2";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   env.CONCEAL_GEN_COMPLETIONS = "true";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion \

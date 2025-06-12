@@ -4,7 +4,6 @@
   fetchFromGitHub,
   standard-library,
 }:
-
 mkDerivation rec {
   pname = "generics";
   version = "1.0.1";
@@ -27,6 +26,6 @@ mkDerivation rec {
     homepage = src.meta.homepage;
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ turion ];
+    maintainers = with maintainers; [turion];
   };
 }

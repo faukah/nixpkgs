@@ -11,7 +11,6 @@
   wget,
   zenity,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "imsprog";
   version = "1.6.1";
@@ -53,11 +52,11 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram $out/bin/IMSProg_database_update \
       --prefix PATH : "${
-        lib.makeBinPath [
-          wget
-          zenity
-        ]
-      }"
+      lib.makeBinPath [
+        wget
+        zenity
+      ]
+    }"
   '';
 
   meta = {
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl21Only
     ];
     mainProgram = "IMSProg";
-    maintainers = with lib.maintainers; [ wucke13 ];
+    maintainers = with lib.maintainers; [wucke13];
     platforms = lib.platforms.unix;
   };
 })

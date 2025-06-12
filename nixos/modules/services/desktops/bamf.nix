@@ -4,10 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   meta = with lib; {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 
   ###### interface
@@ -21,8 +20,8 @@
   ###### implementation
 
   config = lib.mkIf config.services.bamf.enable {
-    services.dbus.packages = [ pkgs.bamf ];
+    services.dbus.packages = [pkgs.bamf];
 
-    systemd.packages = [ pkgs.bamf ];
+    systemd.packages = [pkgs.bamf];
   };
 }

@@ -8,7 +8,6 @@
   nix-update-script,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "twm";
   version = "0.12.3";
@@ -41,14 +40,14 @@ rustPlatform.buildRustPackage rec {
     installManPage twm.1
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Customizable workspace manager for tmux";
     homepage = "https://github.com/vinnymeller/twm";
     changelog = "https://github.com/vinnymeller/twm/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vinnymeller ];
+    maintainers = [lib.maintainers.vinnymeller];
     mainProgram = "twm";
   };
 }

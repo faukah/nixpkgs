@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-rdme";
   version = "1.4.8";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "cargo-rdme";
     homepage = "https://github.com/orium/cargo-rdme";
     changelog = "https://github.com/orium/cargo-rdme/blob/v${version}/release-notes.md";
-    license = with lib.licenses; [ mpl20 ];
-    maintainers = with lib.maintainers; [ GoldsteinE ];
+    license = with lib.licenses; [mpl20];
+    maintainers = with lib.maintainers; [GoldsteinE];
   };
 }

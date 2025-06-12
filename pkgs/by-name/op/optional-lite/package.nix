@@ -6,7 +6,6 @@
   ninja,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "optional-lite";
   version = "3.6.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -34,6 +33,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/martinmoene/optional-lite";
     changelog = "https://github.com/martinmoene/optional-lite/blob/v${finalAttrs.version}/CHANGES.txt";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ titaniumtown ];
+    maintainers = with lib.maintainers; [titaniumtown];
   };
 })

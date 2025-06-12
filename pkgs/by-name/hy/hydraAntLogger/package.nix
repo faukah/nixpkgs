@@ -6,7 +6,6 @@
   jdk,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation {
   pname = "hydra-ant-logger";
   version = "2010.2";

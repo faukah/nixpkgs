@@ -7,7 +7,6 @@
   dbus,
   dbus-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eggdbus";
   version = "0.6";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "118hj63ac65zlg71kydv4607qcg1qpdlql4kvhnwnnhar421jnq4";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     dbus

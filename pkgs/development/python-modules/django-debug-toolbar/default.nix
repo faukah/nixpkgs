@@ -3,14 +3,11 @@
   fetchFromGitHub,
   pythonOlder,
   buildPythonPackage,
-
   # build-system
   hatchling,
-
   # dependencies
   django,
   sqlparse,
-
   # tests
   django-csp,
   html5lib,
@@ -19,7 +16,6 @@
   pytest-django,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-debug-toolbar";
   version = "5.0.1";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-Q0joSIFXhoVmNQ+AfESdEWUGY1xmJzr4iR6Ak54YM7c=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     django
@@ -60,13 +56,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "debug_toolbar" ];
+  pythonImportsCheck = ["debug_toolbar"];
 
   meta = with lib; {
     description = "Configurable set of panels that display debug information about the current request/response";
     homepage = "https://github.com/jazzband/django-debug-toolbar";
     changelog = "https://django-debug-toolbar.readthedocs.io/en/latest/changes.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

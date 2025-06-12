@@ -4,16 +4,14 @@
   fetchFromGitHub,
   libxml2,
   ...
-}:
-
-{
+}: {
   pname = "gerbil-libxml";
   version = "unstable-2023-09-23";
   git-version = "b08e5d8";
   gerbil-package = "clan";
-  gerbilInputs = [ ];
-  nativeBuildInputs = [ pkgs.pkg-config ];
-  buildInputs = [ libxml2 ];
+  gerbilInputs = [];
+  nativeBuildInputs = [pkgs.pkg-config];
+  buildInputs = [libxml2];
   version-path = "";
   softwareName = "Gerbil-LibXML";
 
@@ -30,6 +28,6 @@
     homepage = "https://github.com/mighty-gerbils/gerbil-libxml";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

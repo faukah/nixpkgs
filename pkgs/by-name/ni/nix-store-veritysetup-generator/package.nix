@@ -4,7 +4,6 @@
   fetchFromGitHub,
   systemd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-store-veritysetup-generator";
   version = "0.1.0";
@@ -33,12 +32,12 @@ rustPlatform.buildRustPackage rec {
     export SYSTEMD_VERITYSETUP_PATH="systemd-veritysetup";
   '';
 
-  stripAllList = [ "bin" ];
+  stripAllList = ["bin"];
 
   meta = with lib; {
     description = "Systemd unit generator for a verity protected Nix Store";
     homepage = "https://github.com/nikstur/nix-store-veritysetup-generator";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ nikstur ];
+    maintainers = with lib.maintainers; [nikstur];
   };
 }

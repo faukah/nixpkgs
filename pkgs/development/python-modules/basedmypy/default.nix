@@ -6,29 +6,24 @@
   pythonAtLeast,
   pythonOlder,
   stdenv,
-
   # build-system
   setuptools,
   types-psutil,
   types-setuptools,
-
   # propagates
   basedtyping,
   mypy-extensions,
   tomli,
   typing-extensions,
-
   # optionals
   lxml,
   psutil,
-
   # tests
   attrs,
   filelock,
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "basedmypy";
   version = "2.10.0";
@@ -49,23 +44,27 @@ buildPythonPackage rec {
       --replace-warn 'types-setuptools==' 'types-setuptools>='
   '';
 
-  build-system = [
-    basedtyping
-    mypy-extensions
-    types-psutil
-    types-setuptools
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  build-system =
+    [
+      basedtyping
+      mypy-extensions
+      types-psutil
+      types-setuptools
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  dependencies = [
-    basedtyping
-    mypy-extensions
-    typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      basedtyping
+      mypy-extensions
+      typing-extensions
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   optional-dependencies = {
-    dmypy = [ psutil ];
-    reports = [ lxml ];
+    dmypy = [psutil];
+    reports = [lxml];
   };
 
   # Compile mypy with mypyc, which makes mypy about 4 times faster. The compiled
@@ -90,14 +89,16 @@ buildPythonPackage rec {
       "mypy.report"
     ];
 
-  nativeCheckInputs = [
-    attrs
-    filelock
-    pytest-xdist
-    pytestCheckHook
-    setuptools
-    tomli
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      attrs
+      filelock
+      pytest-xdist
+      pytestCheckHook
+      setuptools
+      tomli
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   disabledTests = lib.optionals (pythonAtLeast "3.12") [
     # cannot find distutils, and distutils cannot find types
@@ -120,7 +121,7 @@ buildPythonPackage rec {
       "mypyc/test/test_run.py"
     ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Based Python static type checker with baseline, sane default settings and based typing features";
@@ -128,6 +129,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/KotlinIsland/basedmypy/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "mypy";
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

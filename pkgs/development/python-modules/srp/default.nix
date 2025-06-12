@@ -5,7 +5,6 @@
   six,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "srp";
   version = "1.0.22";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-8zDQ7HOH4qyFd0h7FkljFV1KAxvKbiAk8bCTDrkrql0=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # Tests ends up with libssl.so cannot load shared
   doCheck = false;
 
-  pythonImportsCheck = [ "srp" ];
+  pythonImportsCheck = ["srp"];
 
   meta = with lib; {
     description = "Implementation of the Secure Remote Password protocol (SRP)";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/cocagne/pysrp";
     license = licenses.mit;
-    maintainers = with maintainers; [ jefflabonte ];
+    maintainers = with maintainers; [jefflabonte];
   };
 }

@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mozcdic-ut-jawiki";
   version = "0-unstable-2024-10-12";
@@ -38,10 +37,10 @@ stdenvNoCC.mkDerivation {
       asl20
       cc-by-sa-40
     ];
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides some zip files
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

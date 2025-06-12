@@ -10,9 +10,7 @@
   replaceVars,
   stdenv,
   stdenvNoCC,
-}:
-
-let
+}: let
   Libc = apple-sdk.sourceRelease "Libc";
 
   # Older versions of xnu are missing required headers. The one for the 11.3 SDK doesn’t define a needed function
@@ -32,53 +30,53 @@ let
   # bootstrap_cmds is used to build libkrb5, which is a transitive dependency of Meson due to OpenLDAP.
   # This causes an infinite recursion unless Meson’s tests are disabled.
   mkAppleDerivation' = mkAppleDerivation.override {
-    meson = meson.overrideAttrs { doInstallCheck = false; };
+    meson = meson.overrideAttrs {doInstallCheck = false;};
   };
 in
-mkAppleDerivation' {
-  releaseName = "bootstrap_cmds";
+  mkAppleDerivation' {
+    releaseName = "bootstrap_cmds";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  xcodeHash = "sha256-N28WLkFo8fXiQqqpmRmOBE3BzqXHIy94fhZIxEkmOw4=";
-  xcodeProject = "mig.xcodeproj";
+    xcodeHash = "sha256-N28WLkFo8fXiQqqpmRmOBE3BzqXHIy94fhZIxEkmOw4=";
+    xcodeProject = "mig.xcodeproj";
 
-  patches = [
-    # Make sure that `mig` in nixpkgs uses the correct clang
-    (replaceVars ./patches/0001-Specify-MIGCC-for-use-with-substitute.patch {
-      clang = "${lib.getBin buildPackages.targetPackages.clang}/bin/${buildPackages.targetPackages.clang.targetPrefix}clang";
-    })
-    # `mig` by default only removes the working directory at the end of the script.
-    # If an error happens, it is left behind. Always clean it up.
-    ./patches/0002-Always-remove-working-directory.patch
-  ];
+    patches = [
+      # Make sure that `mig` in nixpkgs uses the correct clang
+      (replaceVars ./patches/0001-Specify-MIGCC-for-use-with-substitute.patch {
+        clang = "${lib.getBin buildPackages.targetPackages.clang}/bin/${buildPackages.targetPackages.clang.targetPrefix}clang";
+      })
+      # `mig` by default only removes the working directory at the end of the script.
+      # If an error happens, it is left behind. Always clean it up.
+      ./patches/0002-Always-remove-working-directory.patch
+    ];
 
-  postPatch = ''
-    # Fix the name to something Meson will like.
-    substituteInPlace migcom.tproj/lexxer.l \
-      --replace-fail 'y.tab.h' 'parser.tab.h'
-  '';
+    postPatch = ''
+      # Fix the name to something Meson will like.
+      substituteInPlace migcom.tproj/lexxer.l \
+        --replace-fail 'y.tab.h' 'parser.tab.h'
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  nativeBuildInputs = [
-    bison
-    flex
-  ];
+    nativeBuildInputs = [
+      bison
+      flex
+    ];
 
-  postInstall = ''
-    mv "$out/bin/mig.sh" "$out/bin/mig"
-    chmod a+x "$out/bin/mig"
-    patchShebangs --build "$out/bin/mig"
+    postInstall = ''
+      mv "$out/bin/mig.sh" "$out/bin/mig"
+      chmod a+x "$out/bin/mig"
+      patchShebangs --build "$out/bin/mig"
 
-    substituteInPlace "$out/bin/mig" \
-      --replace-fail 'arch=`/usr/bin/arch`' 'arch=${stdenv.targetPlatform.darwinArch}' \
-      --replace-fail '/usr/bin/mktemp' '${lib.getBin buildPackages.coreutils}/bin/mktemp' \
-      --replace-fail '/usr/bin/xcrun' '${buildPackages.xcbuild.xcrun}/bin/xcrun'
-  '';
+      substituteInPlace "$out/bin/mig" \
+        --replace-fail 'arch=`/usr/bin/arch`' 'arch=${stdenv.targetPlatform.darwinArch}' \
+        --replace-fail '/usr/bin/mktemp' '${lib.getBin buildPackages.coreutils}/bin/mktemp' \
+        --replace-fail '/usr/bin/xcrun' '${buildPackages.xcbuild.xcrun}/bin/xcrun'
+    '';
 
-  meta.description = "Contains mig command for generating headers from definitions";
-}
+    meta.description = "Contains mig command for generating headers from definitions";
+  }

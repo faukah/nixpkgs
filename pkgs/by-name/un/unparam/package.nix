@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "unparam";
   version = "0-unstable-2025-03-01";
@@ -17,13 +16,13 @@ buildGoModule {
 
   vendorHash = "sha256-Q7q0NZgofxChaSpYL5dS4NDadwfrXlLtkG/F7tGJuhA=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Find unused parameters in Go";
     homepage = "https://github.com/mvdan/unparam";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     mainProgram = "unparam";
   };
 }

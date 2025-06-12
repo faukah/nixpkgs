@@ -16,7 +16,6 @@
   gsettings-desktop-schemas,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "glib-networking";
   version = "2.80.1";
@@ -94,7 +93,7 @@ stdenv.mkDerivation rec {
     description = "Network-related giomodules for glib";
     homepage = "https://gitlab.gnome.org/GNOME/glib-networking";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
     badPlatforms = [
       # GIO shared modules are mandatory.

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "xeol";
   version = "0.10.8";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  subPackages = [ "cmd/xeol/" ];
+  subPackages = ["cmd/xeol/"];
 
   ldflags = [
     "-s"
@@ -34,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/xeol-io/xeol";
     changelog = "https://github.com/xeol-io/xeol/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "xeol";
   };
 }

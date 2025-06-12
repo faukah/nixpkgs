@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.xonotic;
 
   serverCfg = pkgs.writeText "xonotic-server.cfg" (
@@ -13,33 +11,29 @@ let
     + "\n"
     + builtins.concatStringsSep "\n" (
       lib.mapAttrsToList (
-        key: option:
-        let
-          escape = s: lib.escape [ "\"" ] s;
+        key: option: let
+          escape = s: lib.escape ["\""] s;
           quote = s: "\"${s}\"";
 
           toValue = x: quote (escape (toString x));
 
           value = (
-            if lib.isList option then
-              builtins.concatStringsSep " " (builtins.map (x: toValue x) option)
-            else
-              toValue option
+            if lib.isList option
+            then builtins.concatStringsSep " " (builtins.map (x: toValue x) option)
+            else toValue option
           );
-        in
-        "${key} ${value}"
-      ) cfg.settings
+        in "${key} ${value}"
+      )
+      cfg.settings
     )
     + "\n"
     + toString cfg.appendConfig
   );
-in
-
-{
+in {
   options.services.xonotic = {
     enable = lib.mkEnableOption "Xonotic dedicated server";
 
-    package = lib.mkPackageOption pkgs "xonotic-dedicated" { };
+    package = lib.mkPackageOption pkgs "xonotic-dedicated" {};
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
@@ -65,17 +59,15 @@ in
 
         [0]: https://gitlab.com/xonotic/xonotic/-/blob/master/server/server.cfg
       '';
-      default = { };
+      default = {};
       type = lib.types.submodule {
-        freeformType =
-          with lib.types;
-          let
-            scalars = oneOf [
-              singleLineStr
-              int
-              float
-            ];
-          in
+        freeformType = with lib.types; let
+          scalars = oneOf [
+            singleLineStr
+            int
+            float
+          ];
+        in
           attrsOf (oneOf [
             scalars
             (nonEmptyListOf scalars)
@@ -167,7 +159,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.xonotic = {
       description = "Xonotic server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         # Required or else it tries to write the lock file into the nix store
@@ -207,5 +199,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ CobaltCause ];
+  meta.maintainers = with lib.maintainers; [CobaltCause];
 }

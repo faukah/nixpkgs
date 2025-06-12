@@ -8,7 +8,6 @@
   gtest,
   valgrind,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rapidjson";
   version = "unstable-2024-04-09";

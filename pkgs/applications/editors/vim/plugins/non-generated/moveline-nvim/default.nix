@@ -4,8 +4,7 @@
   rustPlatform,
   vimUtils,
   stdenv,
-}:
-let
+}: let
   version = "0.3.1-unstable-2023-07-06";
   src = fetchFromGitHub {
     owner = "willothy";
@@ -27,28 +26,27 @@ let
     '';
   };
 in
-vimUtils.buildVimPlugin {
-  inherit src version;
-  pname = "moveline-nvim";
+  vimUtils.buildVimPlugin {
+    inherit src version;
+    pname = "moveline-nvim";
 
-  preInstall =
-    # https://github.com/neovim/neovim/issues/21749
-    # Need to still copy generated library as `so` because neovim doesn't check for `dylib`
-    let
-      ext = stdenv.hostPlatform.extensions.sharedLibrary;
-    in
-    ''
-      mkdir -p lua
-      ln -s ${moveline-lib}/lib/libmoveline${ext} lua/moveline.so
-    '';
+    preInstall =
+      # https://github.com/neovim/neovim/issues/21749
+      # Need to still copy generated library as `so` because neovim doesn't check for `dylib`
+      let
+        ext = stdenv.hostPlatform.extensions.sharedLibrary;
+      in ''
+        mkdir -p lua
+        ln -s ${moveline-lib}/lib/libmoveline${ext} lua/moveline.so
+      '';
 
-  # Plugin generates a non lua file output that needs to be manually required
-  nvimRequireCheck = "moveline";
+    # Plugin generates a non lua file output that needs to be manually required
+    nvimRequireCheck = "moveline";
 
-  meta = {
-    description = "Neovim plugin for moving lines up and down";
-    homepage = "https://github.com/willothy/moveline.nvim";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ redxtech ];
-  };
-}
+    meta = {
+      description = "Neovim plugin for moving lines up and down";
+      homepage = "https://github.com/willothy/moveline.nvim";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [redxtech];
+    };
+  }

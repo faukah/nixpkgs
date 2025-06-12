@@ -12,7 +12,6 @@
   adwaita-icon-theme,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "grisbi";
   version = "3.0.4";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "grisbi";
     repo = "grisbi";
-    tag = "upstream_version_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+    tag = "upstream_version_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
     hash = "sha256-3E57M/XE4xyo3ppVceDA4OFDnVicosCY8ikE2gDJoUQ=";
   };
 
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     adwaita-icon-theme
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Personnal accounting application";
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://grisbi.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ layus ];
+    maintainers = with maintainers; [layus];
     platforms = platforms.linux;
   };
 })

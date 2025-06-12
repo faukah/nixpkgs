@@ -9,7 +9,6 @@
   expat,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "prevo-tools";
   version = "0.2";

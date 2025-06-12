@@ -6,7 +6,6 @@
   notebook,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-contrib-core";
   version = "0.4.2";
@@ -24,20 +23,20 @@ buildPythonPackage rec {
     notebook
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # This test fails upstream too
     "tests/test_application.py"
   ];
 
-  pythonImportsCheck = [ "jupyter_contrib_core" ];
+  pythonImportsCheck = ["jupyter_contrib_core"];
 
   meta = with lib; {
     description = "Common utilities for jupyter-contrib projects";
     mainProgram = "jupyter-contrib";
     homepage = "https://github.com/jupyter-contrib/jupyter_contrib_core";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

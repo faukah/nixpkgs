@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.redmine;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   bundle = "${cfg.package}/share/redmine/bin/bundle";
 
   databaseSettings = {
@@ -15,14 +13,15 @@ let
       {
         adapter = cfg.database.type;
         database =
-          if cfg.database.type == "sqlite3" then "${cfg.stateDir}/database.sqlite3" else cfg.database.name;
+          if cfg.database.type == "sqlite3"
+          then "${cfg.stateDir}/database.sqlite3"
+          else cfg.database.name;
       }
       // lib.optionalAttrs (cfg.database.type != "sqlite3") {
         host =
-          if (cfg.database.type == "postgresql" && cfg.database.socket != null) then
-            cfg.database.socket
-          else
-            cfg.database.host;
+          if (cfg.database.type == "postgresql" && cfg.database.socket != null)
+          then cfg.database.socket
+          else cfg.database.host;
         port = cfg.database.port;
         username = cfg.database.user;
       }
@@ -41,26 +40,22 @@ let
 
   unpackTheme = unpack "theme";
   unpackPlugin = unpack "plugin";
-  unpack =
-    id:
-    (
-      name: source:
+  unpack = id: (
+    name: source:
       pkgs.stdenv.mkDerivation {
         name = "redmine-${id}-${name}";
-        nativeBuildInputs = [ pkgs.unzip ];
+        nativeBuildInputs = [pkgs.unzip];
         buildCommand = ''
           mkdir -p $out
           cd $out
           unpackFile ${source}
         '';
       }
-    );
+  );
 
   mysqlLocal = cfg.database.createLocally && cfg.database.type == "mysql2";
   pgsqlLocal = cfg.database.createLocally && cfg.database.type == "postgresql";
-
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -116,7 +111,7 @@ in
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           Redmine configuration ({file}`configuration.yml`). Refer to
           <https://guides.rubyonrails.org/action_mailer_basics.html#action-mailer-configuration>
@@ -151,7 +146,7 @@ in
 
       themes = lib.mkOption {
         type = lib.types.attrsOf lib.types.path;
-        default = { };
+        default = {};
         description = "Set of themes.";
         example = lib.literalExpression ''
           {
@@ -165,7 +160,7 @@ in
 
       plugins = lib.mkOption {
         type = lib.types.attrsOf lib.types.path;
-        default = { };
+        default = {};
         description = "Set of plugins.";
         example = lib.literalExpression ''
           {
@@ -197,7 +192,10 @@ in
 
         port = lib.mkOption {
           type = lib.types.port;
-          default = if cfg.database.type == "postgresql" then 5432 else 3306;
+          default =
+            if cfg.database.type == "postgresql"
+            then 5432
+            else 3306;
           defaultText = lib.literalExpression "3306";
           description = "Database host port.";
         };
@@ -227,12 +225,11 @@ in
         socket = lib.mkOption {
           type = lib.types.nullOr lib.types.path;
           default =
-            if mysqlLocal then
-              "/run/mysqld/mysqld.sock"
-            else if pgsqlLocal then
-              "/run/postgresql"
-            else
-              null;
+            if mysqlLocal
+            then "/run/mysqld/mysqld.sock"
+            else if pgsqlLocal
+            then "/run/postgresql"
+            else null;
           defaultText = lib.literalExpression "/run/mysqld/mysqld.sock";
           example = "/run/mysqld/mysqld.sock";
           description = "Path to the unix socket file to use for authentication.";
@@ -322,7 +319,7 @@ in
     services.mysql = lib.mkIf mysqlLocal {
       enable = true;
       package = lib.mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -335,7 +332,7 @@ in
 
     services.postgresql = lib.mkIf pgsqlLocal {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -372,16 +369,15 @@ in
 
     systemd.services.redmine = {
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional mysqlLocal "mysql.service"
         ++ lib.optional pgsqlLocal "postgresql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.RAILS_ENV = "production";
       environment.RAILS_CACHE = "${cfg.stateDir}/cache";
       environment.REDMINE_LANG = "en";
       environment.SCHEMA = "${cfg.stateDir}/cache/schema.db";
-      path =
-        with pkgs;
+      path = with pkgs;
         [
         ]
         ++ lib.optional cfg.components.subversion subversion
@@ -500,5 +496,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ felixsinger ];
+  meta.maintainers = with lib.maintainers; [felixsinger];
 }

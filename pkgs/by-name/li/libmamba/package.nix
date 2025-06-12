@@ -18,7 +18,6 @@
   bzip2,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmamba";
   version = "2.1.1";
@@ -55,13 +54,13 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "BUILD_SHARED" true)
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Library for the fast Cross-Platform Package Manager";
     homepage = "https://github.com/mamba-org/mamba";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.ericthemagician ];
+    maintainers = [lib.maintainers.ericthemagician];
   };
 })

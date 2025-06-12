@@ -8,7 +8,6 @@
   pkg-config,
   rtmidi,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ptcollab";
   version = "0.6.4.9";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://yuxshao.github.io/ptcollab/";
     changelog = "https://github.com/yuxshao/ptcollab/releases/tag/v${finalAttrs.version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 })

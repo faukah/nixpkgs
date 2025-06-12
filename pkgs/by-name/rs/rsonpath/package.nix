@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rsonpath";
   version = "0.9.1-unstable-2024-11-15";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-9pSn0f0VWsBg1z1UYGRtMb1z23htRm7qLmO80zvSjN8=";
 
-  cargoBuildFlags = [ "-p=rsonpath" ];
+  cargoBuildFlags = ["-p=rsonpath"];
   cargoTestFlags = cargoBuildFlags;
 
   meta = {
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/v0ldek/rsonpath";
     changelog = "https://github.com/v0ldek/rsonpath/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "rq";
   };
 }

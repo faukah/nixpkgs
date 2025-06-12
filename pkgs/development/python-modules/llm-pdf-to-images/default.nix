@@ -10,7 +10,6 @@
   pytest-asyncio,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-pdf-to-images";
   version = "0.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-UWtCPdKrGE93NNjCroct5fPhq1pWIkngXXtRb+BHm8k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_pdf_to_images" ];
+  pythonImportsCheck = ["llm_pdf_to_images"];
 
   passthru.tests = llm.mkPluginTest llm-pdf-to-images;
 
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-pdf-to-images";
     changelog = "https://github.com/simonw/llm-pdf-to-images/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

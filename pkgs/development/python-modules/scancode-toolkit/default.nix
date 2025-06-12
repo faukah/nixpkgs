@@ -58,7 +58,6 @@
   xmltodict,
   zipp,
 }:
-
 buildPythonPackage rec {
   pname = "scancode-toolkit";
   version = "32.3.3";
@@ -73,63 +72,65 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    attrs
-    beautifulsoup4
-    bitarray
-    boolean-py
-    chardet
-    click
-    colorama
-    commoncode
-    container-inspector
-    debian-inspector
-    dparse2
-    extractcode
-    extractcode-7z
-    extractcode-libarchive
-    fasteners
-    fingerprints
-    ftfy
-    gemfileparser2
-    html5lib
-    importlib-metadata
-    intbitset
-    jaraco-functools
-    javaproperties
-    jinja2
-    jsonstreams
-    license-expression
-    lxml
-    markupsafe
-    packageurl-python
-    packaging
-    parameter-expansion-patched
-    pefile
-    pip-requirements-parser
-    pkginfo2
-    pluggy
-    plugincode
-    publicsuffix2
-    pyahocorasick
-    pycryptodome
-    pygmars
-    pygments
-    pymaven-patch
-    requests
-    saneyaml
-    spdx-tools
-    text-unidecode
-    toml
-    typecode
-    typecode-libmagic
-    urlpy
-    xmltodict
-  ] ++ lib.optionals (pythonOlder "3.9") [ zipp ];
+  dependencies =
+    [
+      attrs
+      beautifulsoup4
+      bitarray
+      boolean-py
+      chardet
+      click
+      colorama
+      commoncode
+      container-inspector
+      debian-inspector
+      dparse2
+      extractcode
+      extractcode-7z
+      extractcode-libarchive
+      fasteners
+      fingerprints
+      ftfy
+      gemfileparser2
+      html5lib
+      importlib-metadata
+      intbitset
+      jaraco-functools
+      javaproperties
+      jinja2
+      jsonstreams
+      license-expression
+      lxml
+      markupsafe
+      packageurl-python
+      packaging
+      parameter-expansion-patched
+      pefile
+      pip-requirements-parser
+      pkginfo2
+      pluggy
+      plugincode
+      publicsuffix2
+      pyahocorasick
+      pycryptodome
+      pygmars
+      pygments
+      pymaven-patch
+      requests
+      saneyaml
+      spdx-tools
+      text-unidecode
+      toml
+      typecode
+      typecode-libmagic
+      urlpy
+      xmltodict
+    ]
+    ++ lib.optionals (pythonOlder "3.9") [zipp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Importing scancode needs a writeable home, and preCheck happens in between
   # pythonImportsCheckPhase and pytestCheckPhase.
@@ -137,7 +138,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "scancode" ];
+  pythonImportsCheck = ["scancode"];
 
   disabledTestPaths = [
     # Tests are outdated
@@ -156,6 +157,6 @@ buildPythonPackage rec {
       asl20
       cc-by-40
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

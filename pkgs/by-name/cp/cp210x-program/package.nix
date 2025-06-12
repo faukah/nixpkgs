@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cp210x-program";
   version = "0.4.1";
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "EEPROM tool for Silabs CP210x USB-Serial adapter";
     homepage = "https://github.com/VCTLabs/cp210x-program";
     license = licenses.lgpl21Only; # plus/only status unclear
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "cp210x-program";
   };
 }

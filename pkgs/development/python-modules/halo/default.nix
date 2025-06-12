@@ -9,7 +9,6 @@
   spinners,
   termcolor,
 }:
-
 buildPythonPackage rec {
   pname = "halo";
   version = "0.0.31";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
 
   # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;
-  pythonImportsCheck = [ "halo" ];
+  pythonImportsCheck = ["halo"];
 
   meta = with lib; {
     description = "Beautiful Spinners for Terminal, IPython and Jupyter";
     homepage = "https://github.com/manrajgrover/halo";
     license = licenses.mit;
-    maintainers = with maintainers; [ urbas ];
+    maintainers = with maintainers; [urbas];
   };
 }

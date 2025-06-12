@@ -4,15 +4,14 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.powerdns;
   configDir = pkgs.writeTextDir "pdns.conf" "${cfg.extraConfig}";
-  finalConfigDir = if cfg.secretFile == null then configDir else "/run/pdns";
-in
-{
+  finalConfigDir =
+    if cfg.secretFile == null
+    then configDir
+    else "/run/pdns";
+in {
   options = {
     services.powerdns = {
       enable = mkEnableOption "PowerDNS domain name server";
@@ -43,13 +42,12 @@ in
   };
 
   config = mkIf cfg.enable {
-
     environment.etc.pdns.source = finalConfigDir;
 
-    systemd.packages = [ pkgs.pdns ];
+    systemd.packages = [pkgs.pdns];
 
     systemd.services.pdns = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "mysql.service"
@@ -78,7 +76,6 @@ in
       description = "PowerDNS";
     };
 
-    users.groups.pdns = { };
-
+    users.groups.pdns = {};
   };
 }

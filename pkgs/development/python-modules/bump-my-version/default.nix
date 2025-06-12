@@ -2,11 +2,9 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build system
   hatchling,
   hatch-vcs,
-
   # dependencies
   click,
   httpx,
@@ -17,7 +15,6 @@
   rich,
   tomlkit,
   wcmatch,
-
   # test
   mercurial,
   gitMinimal,
@@ -29,7 +26,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bump-my-version";
   version = "1.1.4";
@@ -82,7 +78,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "bumpversion" ];
+  pythonImportsCheck = ["bumpversion"];
 
   meta = {
     description = "Small command line tool to update version";
@@ -95,7 +91,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/callowayproject/bump-my-version";
     changelog = "https://github.com/callowayproject/bump-my-version/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
     mainProgram = "bump-my-version";
   };
 }

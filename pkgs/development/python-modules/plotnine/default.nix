@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   matplotlib,
   mizani,
@@ -13,13 +11,11 @@
   patsy,
   scipy,
   statsmodels,
-
   # tests
   geopandas,
   pytestCheckHook,
   scikit-misc,
 }:
-
 buildPythonPackage rec {
   pname = "plotnine";
   version = "0.14.5";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
       --replace-fail " --cov=plotnine --cov-report=xml" ""
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     matplotlib
@@ -58,7 +54,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "plotnine" ];
+  pythonImportsCheck = ["plotnine"];
 
   disabledTests = [
     # Tries to change locale. The issued warning causes this test to fail.
@@ -113,6 +109,6 @@ buildPythonPackage rec {
     homepage = "https://plotnine.readthedocs.io/";
     changelog = "https://github.com/has2k1/plotnine/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

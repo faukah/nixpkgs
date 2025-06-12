@@ -5,7 +5,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashdeep";
   version = "4.4";
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Set of cross-platform tools to compute hashes";
     homepage = "https://github.com/jessek/hashdeep";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.karantan ];
+    maintainers = [maintainers.karantan];
     platforms = platforms.all;
   };
 }

@@ -8,7 +8,6 @@
   libinput,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gebaar-libinput";
   version = "0.0.5";

@@ -7,7 +7,6 @@
   fonttools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "compreffor";
   version = "0.5.6";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ fonttools ];
+  dependencies = [fonttools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # import from $out
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     rm -r src tools
   '';
 
-  pythonImportsCheck = [ "compreffor" ];
+  pythonImportsCheck = ["compreffor"];
 
   meta = with lib; {
     changelog = "https://github.com/googlefonts/compreffor/releases/tag/${version}";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     mainProgram = "compreffor";
     homepage = "https://github.com/googlefonts/compreffor";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

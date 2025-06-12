@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  passthru.tests.version = callPackage ./version-test.nix { inherit version; };
+  passthru.tests.version = callPackage ./version-test.nix {inherit version;};
 
   meta = {
     description = "Frontend of pulseaudio's routing capabilities, mimicking voicemeeter's workflow";

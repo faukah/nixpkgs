@@ -5,7 +5,6 @@
   beancount,
   beancount-plugin-utils,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "beancount_share";
   version = "0.1.11";
@@ -32,6 +31,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/akuukis/beancount_share";
     description = "Beancount plugin to share expenses with external partners within one ledger";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

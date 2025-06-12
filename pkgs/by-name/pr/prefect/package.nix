@@ -5,7 +5,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "prefect";
   version = "3.4.5";
@@ -29,8 +28,7 @@ python3Packages.buildPythonApplication rec {
     versioningit
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       aiosqlite
       alembic
@@ -194,7 +192,7 @@ python3Packages.buildPythonApplication rec {
     description = "Prefect is a workflow orchestration framework for building resilient data pipelines in Python";
     homepage = "https://github.com/PrefectHQ/prefect";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
     mainProgram = "prefect";
   };
 }

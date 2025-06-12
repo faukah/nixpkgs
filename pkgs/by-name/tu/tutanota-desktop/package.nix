@@ -4,7 +4,6 @@
   fetchurl,
   gitUpdater,
 }:
-
 appimageTools.wrapType2 rec {
   pname = "tutanota-desktop";
   version = "287.250523.0";
@@ -14,19 +13,17 @@ appimageTools.wrapType2 rec {
     hash = "sha256-7tt0wy1b3sD/DKaUqvltSfm13YsITNv85SQwcvUKipg=";
   };
 
-  extraPkgs = pkgs: [ pkgs.libsecret ];
+  extraPkgs = pkgs: [pkgs.libsecret];
 
-  extraInstallCommands =
-    let
-      appimageContents = appimageTools.extract { inherit pname version src; };
-    in
-    ''
-      install -Dm 444 ${appimageContents}/tutanota-desktop.desktop -t $out/share/applications
-      install -Dm 444 ${appimageContents}/tutanota-desktop.png -t $out/share/pixmaps
+  extraInstallCommands = let
+    appimageContents = appimageTools.extract {inherit pname version src;};
+  in ''
+    install -Dm 444 ${appimageContents}/tutanota-desktop.desktop -t $out/share/applications
+    install -Dm 444 ${appimageContents}/tutanota-desktop.png -t $out/share/pixmaps
 
-      substituteInPlace $out/share/applications/tutanota-desktop.desktop \
-        --replace 'Exec=AppRun' 'Exec=${pname}'
-    '';
+    substituteInPlace $out/share/applications/tutanota-desktop.desktop \
+      --replace 'Exec=AppRun' 'Exec=${pname}'
+  '';
 
   passthru.updateScript = gitUpdater {
     url = "https://github.com/tutao/tutanota";
@@ -39,9 +36,9 @@ appimageTools.wrapType2 rec {
     homepage = "https://tuta.com/";
     changelog = "https://github.com/tutao/tutanota/releases/tag/tutanota-desktop-release-${version}";
     license = lib.licenses.gpl3Only;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [];
     mainProgram = "tutanota-desktop";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

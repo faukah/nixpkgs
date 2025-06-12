@@ -8,7 +8,6 @@
   libmtquery,
   help2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mt-utils";
   version = "0.0.1alpha3";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Multitran: simple command line utilities for dictionary maintenance";
     mainProgram = "mtquery";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

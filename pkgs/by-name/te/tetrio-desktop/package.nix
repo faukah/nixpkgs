@@ -9,7 +9,6 @@
   withTetrioPlus ? false,
   tetrio-plus,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tetrio-desktop";
   version = "9";
@@ -17,31 +16,32 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchzip {
     url = "https://tetr.io/about/desktop/builds/${finalAttrs.version}/TETR.IO%20Setup.deb";
     hash = "sha256-TgegFy+sHjv0ILaiLO1ghyUhKXoj8v43ACJOJhKyI0c=";
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
   };
 
   nativeBuildInputs = [
     makeWrapper
   ];
 
-  installPhase =
-    let
-      asarPath = if withTetrioPlus then tetrio-plus else "opt/TETR.IO/resources/app.asar";
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    asarPath =
+      if withTetrioPlus
+      then tetrio-plus
+      else "opt/TETR.IO/resources/app.asar";
+  in ''
+    runHook preInstall
 
-      mkdir -p $out
-      cp -r usr/share/ $out
+    mkdir -p $out
+    cp -r usr/share/ $out
 
-      mkdir -p $out/share/TETR.IO/
-      cp ${asarPath} $out/share/TETR.IO/app.asar
+    mkdir -p $out/share/TETR.IO/
+    cp ${asarPath} $out/share/TETR.IO/app.asar
 
-      substituteInPlace $out/share/applications/TETR.IO.desktop \
-        --replace-fail "Exec=/opt/TETR.IO/TETR.IO" "Exec=$out/bin/tetrio"
+    substituteInPlace $out/share/applications/TETR.IO.desktop \
+      --replace-fail "Exec=/opt/TETR.IO/TETR.IO" "Exec=$out/bin/tetrio"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   postFixup = ''
     makeShellWrapper '${lib.getExe electron}' $out/bin/tetrio \
@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       wackbyte
       huantian
     ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
   };
 })

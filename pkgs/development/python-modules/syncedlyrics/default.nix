@@ -8,7 +8,6 @@
   rapidfuzz,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "syncedlyrics";
   version = "1.0.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "rapidfuzz" ];
+  pythonRelaxDeps = ["rapidfuzz"];
 
   dependencies = [
     requests
@@ -38,14 +37,14 @@ buildPythonPackage rec {
   # Tests require network access
   doCheck = false;
 
-  pythonImportsCheck = [ "syncedlyrics" ];
+  pythonImportsCheck = ["syncedlyrics"];
 
   meta = with lib; {
     description = "Module to get LRC format (synchronized) lyrics";
     homepage = "https://github.com/rtcq/syncedlyrics";
     changelog = "https://github.com/rtcq/syncedlyrics/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "syncedlyrics";
   };
 }

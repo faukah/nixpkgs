@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.hardware.bumblebee;
 
   kernel = config.boot.kernelPackages;
@@ -21,14 +20,9 @@ let
   primus = pkgs.primus.override {
     inherit useNvidia;
   };
-
-in
-
-{
-
+in {
   options = {
     hardware.bumblebee = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -81,7 +75,6 @@ in
           Set preferred power management method for unused card.
         '';
       };
-
     };
   };
 
@@ -103,8 +96,8 @@ in
 
     systemd.services.bumblebeed = {
       description = "Bumblebee Hybrid Graphics Switcher";
-      wantedBy = [ "multi-user.target" ];
-      before = [ "display-manager.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["display-manager.service"];
       serviceConfig = {
         ExecStart = "${bumblebee}/bin/bumblebeed --use-syslog -g ${cfg.group} --driver ${cfg.driver} --pm-method ${cfg.pmMethod}";
       };

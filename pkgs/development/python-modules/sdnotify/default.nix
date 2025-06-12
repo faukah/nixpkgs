@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "sdnotify";
   version = "0.3.2";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     description = "Pure Python implementation of systemd's service notification protocol";
     homepage = "https://github.com/bb4242/sdnotify";
     license = licenses.mit;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

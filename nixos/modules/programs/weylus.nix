@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.weylus;
-in
-{
+in {
   options.programs.weylus = with lib.types; {
     enable = lib.mkEnableOption "weylus, which turns your smart phone into a graphic tablet/touch screen for your computer";
 
@@ -22,14 +19,14 @@ in
 
     users = lib.mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         To enable stylus and multi-touch support, the user you're going to use must be added to this list.
         These users can synthesize input events system-wide, even when another user is logged in - untrusted users should not be added.
       '';
     };
 
-    package = lib.mkPackageOption pkgs "weylus" { };
+    package = lib.mkPackageOption pkgs "weylus" {};
   };
   config = lib.mkIf cfg.enable {
     networking.firewall = lib.mkIf cfg.openFirewall {
@@ -43,6 +40,6 @@ in
 
     users.groups.uinput.members = cfg.users;
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

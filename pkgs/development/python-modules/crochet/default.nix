@@ -7,7 +7,6 @@
   wrapt,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "crochet";
   version = "2.1.1";
@@ -27,22 +26,22 @@ buildPythonPackage rec {
       --replace-fail "parser.readfp" "parser.read_file"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     twisted
     wrapt
   ];
 
-  pythonImportsCheck = [ "crochet" ];
+  pythonImportsCheck = ["crochet"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Library that makes it easier to use Twisted from regular blocking code";
     homepage = "https://github.com/itamarst/crochet";
     changelog = "https://github.com/itamarst/crochet/blob/${src.tag}/docs/news.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ erictapen ];
+    maintainers = with lib.maintainers; [erictapen];
   };
 }

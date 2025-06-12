@@ -12,7 +12,6 @@
   pywinrm,
   salt,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-testinfra";
   version = "10.2.2";
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     "test_backend_importables"
   ];
 
-  disabledTestPaths = [ "test/test_modules.py" ];
+  disabledTestPaths = ["test/test_modules.py"];
 
   meta = with lib; {
     description = "Pytest plugin for testing your infrastructure";
     homepage = "https://github.com/pytest-dev/pytest-testinfra";
     changelog = "https://github.com/pytest-dev/pytest-testinfra/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hulr ];
+    maintainers = with maintainers; [hulr];
   };
 }

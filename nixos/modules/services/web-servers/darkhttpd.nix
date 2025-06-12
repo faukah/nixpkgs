@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) mkIf mkOption optional;
-  inherit (lib.types)
+  inherit
+    (lib.types)
     path
     bool
     listOf
@@ -26,9 +25,7 @@ let
     ++ optional cfg.hideServerId "--no-server-id"
     ++ optional config.networking.enableIPv6 "--ipv6"
   );
-
-in
-{
+in {
   options.services.darkhttpd = {
     enable = lib.mkEnableOption "DarkHTTPd web server";
 
@@ -67,7 +64,7 @@ in
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Additional configuration passed to the executable.
       '';
@@ -77,13 +74,13 @@ in
   config = mkIf cfg.enable {
     systemd.services.darkhttpd = {
       description = "Dark HTTPd";
-      wants = [ "network.target" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network.target"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.darkhttpd}/bin/darkhttpd ${args}";
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
         Restart = "on-failure";
         RestartSec = "2s";
       };

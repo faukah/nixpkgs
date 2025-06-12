@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "nss-xhosts";
   version = "unstable-2023-12-30";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage {
     description = "NSS Module which supports wildcards";
     homepage = "https://github.com/dvob/nss-xhosts";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     mainProgram = "nss-xhosts";
   };
 }

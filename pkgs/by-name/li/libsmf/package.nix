@@ -6,7 +6,6 @@
   glib,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.3";
   pname = "libsmf";
@@ -22,13 +21,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   meta = with lib; {
     description = "C library for reading and writing Standard MIDI Files";
     homepage = "https://github.com/stump/libsmf";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "smfsh";
     platforms = platforms.unix;
   };

@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 maven.buildMavenPackage rec {
   pname = "tabula-java";
   version = "1.0.5";
@@ -20,7 +19,7 @@ maven.buildMavenPackage rec {
   mvnHash = "sha256-CXJm9YlYsYViChFcH9e2P9pxK0q/tLWODOzZPXZ8hK0=";
   mvnParameters = "compile assembly:single -Dmaven.test.skip=true";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +43,7 @@ maven.buildMavenPackage rec {
     '';
     homepage = "https://tabula.technology/";
     license = licenses.mit;
-    maintainers = [ maintainers.jakewaksbaum ];
+    maintainers = [maintainers.jakewaksbaum];
     platforms = platforms.all;
     mainProgram = "tabula-java";
   };

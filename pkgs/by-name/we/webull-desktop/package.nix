@@ -19,7 +19,6 @@
   p11-kit,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "webull-desktop";
   version = "8.9.0";
@@ -82,10 +81,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Webull desktop trading application";
     homepage = "https://www.webull.com/trading-platforms/desktop-app";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ fauxmight ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [fauxmight];
+    platforms = ["x86_64-linux"];
     mainProgram = "webull-desktop";
   };
 })

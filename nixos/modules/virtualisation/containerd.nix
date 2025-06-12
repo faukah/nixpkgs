@@ -3,30 +3,26 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.virtualisation.containerd;
 
   configFile =
-    if cfg.configFile == null then
-      settingsFormat.generate "containerd.toml" cfg.settings
-    else
-      cfg.configFile;
+    if cfg.configFile == null
+    then settingsFormat.generate "containerd.toml" cfg.settings
+    else cfg.configFile;
 
   containerdConfigChecked =
     pkgs.runCommand "containerd-config-checked.toml"
-      {
-        nativeBuildInputs = [ pkgs.containerd ];
-      }
-      ''
-        containerd -c ${configFile} config dump >/dev/null
-        ln -s ${configFile} $out
-      '';
+    {
+      nativeBuildInputs = [pkgs.containerd];
+    }
+    ''
+      containerd -c ${configFile} config dump >/dev/null
+      ln -s ${configFile} $out
+    '';
 
-  settingsFormat = pkgs.formats.toml { };
-in
-{
-
+  settingsFormat = pkgs.formats.toml {};
+in {
   options.virtualisation.containerd = with lib.types; {
     enable = lib.mkEnableOption "containerd container runtime";
 
@@ -41,14 +37,14 @@ in
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = ''
         Verbatim lines to add to containerd.toml
       '';
     };
 
     args = lib.mkOption {
-      default = { };
+      default = {};
       description = "extra args to append to the containerd cmdline";
       type = attrsOf str;
     };
@@ -70,18 +66,17 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.containerd ];
+    environment.systemPackages = [pkgs.containerd];
 
     systemd.services.containerd = {
       description = "containerd - container runtime";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "local-fs.target"
         "dbus.service"
       ];
-      path =
-        with pkgs;
+      path = with pkgs;
         [
           containerd
           runc
@@ -90,8 +85,8 @@ in
         ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         ExecStart = ''${pkgs.containerd}/bin/containerd ${
-          lib.concatStringsSep " " (lib.cli.toGNUCommandLine { } cfg.args)
-        }'';
+            lib.concatStringsSep " " (lib.cli.toGNUCommandLine {} cfg.args)
+          }'';
         Delegate = "yes";
         KillMode = "process";
         Type = "notify";

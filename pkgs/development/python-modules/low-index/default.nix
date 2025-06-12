@@ -5,7 +5,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "low-index";
   version = "1.2.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-T8hzC9ulikQ1pUdbXgjuKAX5oMJEycPvXWv74rCkQGY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "low_index" ];
+  pythonImportsCheck = ["low_index"];
 
   checkPhase = ''
     runHook preCheck
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/3-manifolds/low_index/releases/tag/${src.tag}";
     homepage = "https://github.com/3-manifolds/low_index";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ noiioiu ];
+    maintainers = with lib.maintainers; [noiioiu];
   };
 }

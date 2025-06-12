@@ -5,7 +5,6 @@
   linux-doc,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "systeroid";
   version = "0.4.5";

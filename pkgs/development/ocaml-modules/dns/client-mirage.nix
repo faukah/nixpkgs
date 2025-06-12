@@ -15,7 +15,6 @@
   tcpip,
   tls-mirage,
 }:
-
 buildDunePackage {
   pname = "dns-client-mirage";
   inherit (dns) src version;

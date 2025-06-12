@@ -97,10 +97,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/lvm-cache-stats --prefix PATH : \
-      ${lib.makeBinPath [ thin-provisioning-tools ]}
+      ${lib.makeBinPath [thin-provisioning-tools]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/storaged-project/libblockdev/raw/${finalAttrs.src.rev}/NEWS.rst";
@@ -110,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl2Plus
       gpl2Plus
     ]; # lgpl2Plus for the library, gpl2Plus for the utils
-    maintainers = with lib.maintainers; [ johnazoidberg ];
+    maintainers = with lib.maintainers; [johnazoidberg];
     platforms = lib.platforms.linux;
   };
 })

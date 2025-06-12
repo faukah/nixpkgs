@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.weblate;
 
   dataDir = "/var/lib/weblate";
@@ -16,10 +14,12 @@ let
     dependencies = old.dependencies ++ cfg.package.optional-dependencies.postgres;
     # Use a settings module in dataDir, to avoid having to rebuild the package
     # when user changes settings.
-    makeWrapperArgs = (old.makeWrapperArgs or [ ]) ++ [
-      "--set PYTHONPATH  \"${settingsDir}\""
-      "--set DJANGO_SETTINGS_MODULE \"settings\""
-    ];
+    makeWrapperArgs =
+      (old.makeWrapperArgs or [])
+      ++ [
+        "--set PYTHONPATH  \"${settingsDir}\""
+        "--set DJANGO_SETTINGS_MODULE \"settings\""
+      ];
   });
   inherit (finalPackage) python;
 
@@ -112,17 +112,17 @@ let
     + cfg.extraConfig;
   settings_py =
     pkgs.runCommand "weblate_settings.py"
-      {
-        inherit weblateConfig;
-        passAsFile = [ "weblateConfig" ];
-      }
-      ''
-        mkdir -p $out
-        cat \
-          ${finalPackage}/${python.sitePackages}/weblate/settings_example.py \
-          $weblateConfigPath \
-          > $out/settings.py
-      '';
+    {
+      inherit weblateConfig;
+      passAsFile = ["weblateConfig"];
+    }
+    ''
+      mkdir -p $out
+      cat \
+        ${finalPackage}/${python.sitePackages}/weblate/settings_example.py \
+        $weblateConfigPath \
+        > $out/settings.py
+    '';
 
   environment = {
     PYTHONPATH = "${settingsDir}:${pythonEnv}/${python.sitePackages}/";
@@ -142,14 +142,12 @@ let
     mercurial
     openssh
   ];
-in
-{
-
+in {
   options = {
     services.weblate = {
       enable = lib.mkEnableOption "Weblate service";
 
-      package = lib.mkPackageOption pkgs "weblate" { };
+      package = lib.mkPackageOption pkgs "weblate" {};
 
       localDomain = lib.mkOption {
         description = "The domain name serving your Weblate instance.";
@@ -230,13 +228,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
-    systemd.tmpfiles.rules = [ "L+ ${settingsDir} - - - - ${settings_py}" ];
+    systemd.tmpfiles.rules = ["L+ ${settingsDir} - - - - ${settings_py}"];
 
     services.nginx = {
       enable = true;
       virtualHosts."${cfg.localDomain}" = {
-
         forceSSL = true;
         enableACME = true;
 
@@ -251,7 +247,7 @@ in
 
     systemd.services.weblate-postgresql-setup = {
       description = "Weblate PostgreSQL setup";
-      after = [ "postgresql.service" ];
+      after = ["postgresql.service"];
       serviceConfig = {
         Type = "oneshot";
         User = "postgres";
@@ -273,7 +269,7 @@ in
         "redis-weblate.service"
       ];
       # We want this to be active on boot, not just on socket activation
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       inherit environment;
       path = weblatePath;
       serviceConfig = {
@@ -293,56 +289,56 @@ in
         "postgresql.service"
       ];
       # We want this to be active on boot, not just on socket activation
-      wantedBy = [ "multi-user.target" ];
-      environment = environment // {
-        CELERY_WORKER_RUNNING = "1";
-      };
+      wantedBy = ["multi-user.target"];
+      environment =
+        environment
+        // {
+          CELERY_WORKER_RUNNING = "1";
+        };
       path = weblatePath;
       # Recommendations from:
       # https://github.com/WeblateOrg/weblate/blob/main/weblate/examples/celery-weblate.service
-      serviceConfig =
-        let
-          # We have to push %n through systemd's replacement, therefore %%n.
-          pidFile = "/run/celery/weblate-%%n.pid";
-          nodes = "celery notify memory backup translate";
-          cmd = verb: ''
-            ${pythonEnv}/bin/celery multi ${verb} \
-              ${nodes} \
-              -A "weblate.utils" \
-              --pidfile=${pidFile} \
-              --logfile=/var/log/celery/weblate-%%n%%I.log \
-              --loglevel=DEBUG \
-              --beat:celery \
-              --queues:celery=celery \
-              --prefetch-multiplier:celery=4 \
-              --queues:notify=notify \
-              --prefetch-multiplier:notify=10 \
-              --queues:memory=memory \
-              --prefetch-multiplier:memory=10 \
-              --queues:translate=translate \
-              --prefetch-multiplier:translate=4 \
-              --concurrency:backup=1 \
-              --queues:backup=backup \
-              --prefetch-multiplier:backup=2
-          '';
-        in
-        {
-          Type = "forking";
-          User = "weblate";
-          Group = "weblate";
-          WorkingDirectory = "${finalPackage}/${python.sitePackages}/weblate/";
-          RuntimeDirectory = "celery";
-          RuntimeDirectoryPreserve = "restart";
-          LogsDirectory = "celery";
-          ExecStart = cmd "start";
-          ExecReload = cmd "restart";
-          ExecStop = ''
-            ${pythonEnv}/bin/celery multi stopwait \
-              ${nodes} \
-              --pidfile=${pidFile}
-          '';
-          Restart = "always";
-        };
+      serviceConfig = let
+        # We have to push %n through systemd's replacement, therefore %%n.
+        pidFile = "/run/celery/weblate-%%n.pid";
+        nodes = "celery notify memory backup translate";
+        cmd = verb: ''
+          ${pythonEnv}/bin/celery multi ${verb} \
+            ${nodes} \
+            -A "weblate.utils" \
+            --pidfile=${pidFile} \
+            --logfile=/var/log/celery/weblate-%%n%%I.log \
+            --loglevel=DEBUG \
+            --beat:celery \
+            --queues:celery=celery \
+            --prefetch-multiplier:celery=4 \
+            --queues:notify=notify \
+            --prefetch-multiplier:notify=10 \
+            --queues:memory=memory \
+            --prefetch-multiplier:memory=10 \
+            --queues:translate=translate \
+            --prefetch-multiplier:translate=4 \
+            --concurrency:backup=1 \
+            --queues:backup=backup \
+            --prefetch-multiplier:backup=2
+        '';
+      in {
+        Type = "forking";
+        User = "weblate";
+        Group = "weblate";
+        WorkingDirectory = "${finalPackage}/${python.sitePackages}/weblate/";
+        RuntimeDirectory = "celery";
+        RuntimeDirectoryPreserve = "restart";
+        LogsDirectory = "celery";
+        ExecStart = cmd "start";
+        ExecReload = cmd "restart";
+        ExecStop = ''
+          ${pythonEnv}/bin/celery multi stopwait \
+            ${nodes} \
+            --pidfile=${pidFile}
+        '';
+        Restart = "always";
+      };
     };
 
     systemd.services.weblate = {
@@ -362,19 +358,17 @@ in
       serviceConfig = {
         Type = "notify";
         NotifyAccess = "all";
-        ExecStart =
-          let
-            gunicorn = python.pkgs.gunicorn.overridePythonAttrs (old: {
-              # Allows Gunicorn to set a meaningful process name
-              dependencies = (old.dependencies or [ ]) ++ old.optional-dependencies.setproctitle;
-            });
-          in
-          ''
-            ${gunicorn}/bin/gunicorn \
-              --name=weblate \
-              --bind='unix:///run/weblate.socket' \
-              weblate.wsgi
-          '';
+        ExecStart = let
+          gunicorn = python.pkgs.gunicorn.overridePythonAttrs (old: {
+            # Allows Gunicorn to set a meaningful process name
+            dependencies = (old.dependencies or []) ++ old.optional-dependencies.setproctitle;
+          });
+        in ''
+          ${gunicorn}/bin/gunicorn \
+            --name=weblate \
+            --bind='unix:///run/weblate.socket' \
+            weblate.wsgi
+        '';
         ExecReload = "kill -s HUP $MAINPID";
         KillMode = "mixed";
         PrivateTmp = true;
@@ -387,8 +381,8 @@ in
     };
 
     systemd.sockets.weblate = {
-      before = [ "nginx.service" ];
-      wantedBy = [ "sockets.target" ];
+      before = ["nginx.service"];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         ListenStream = "/run/weblate.socket";
         SocketUser = "weblate";
@@ -412,18 +406,17 @@ in
           ensureDBOwnership = true;
         }
       ];
-      ensureDatabases = [ "weblate" ];
+      ensureDatabases = ["weblate"];
     };
 
     users.users.weblate = {
       isSystemUser = true;
       group = "weblate";
-      packages = [ finalPackage ] ++ weblatePath;
+      packages = [finalPackage] ++ weblatePath;
     };
 
-    users.groups.weblate.members = [ config.services.nginx.user ];
+    users.groups.weblate.members = [config.services.nginx.user];
   };
 
-  meta.maintainers = with lib.maintainers; [ erictapen ];
-
+  meta.maintainers = with lib.maintainers; [erictapen];
 }

@@ -9,14 +9,12 @@
   topkg,
   uchar,
   version ?
-    if lib.versionAtLeast ocaml.version "4.08" then
-      "1.0.4"
-    else if lib.versionAtLeast ocaml.version "4.03" then
-      "1.0.3"
-    else
-      throw "uutf is not available with OCaml ${ocaml.version}",
+    if lib.versionAtLeast ocaml.version "4.08"
+    then "1.0.4"
+    else if lib.versionAtLeast ocaml.version "4.03"
+    then "1.0.3"
+    else throw "uutf is not available with OCaml ${ocaml.version}",
 }:
-
 stdenv.mkDerivation {
   name = "ocaml${ocaml.version}-uutf-${version}";
   inherit version;
@@ -41,7 +39,7 @@ stdenv.mkDerivation {
     topkg
     cmdliner
   ];
-  propagatedBuildInputs = [ uchar ];
+  propagatedBuildInputs = [uchar];
 
   strictDeps = true;
 
@@ -52,7 +50,7 @@ stdenv.mkDerivation {
     homepage = "https://erratique.ch/software/uutf";
     changelog = "https://raw.githubusercontent.com/dbuenzli/uutf/refs/tags/v${version}/CHANGES.md";
     license = licenses.isc;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     mainProgram = "utftrip";
     inherit (ocaml.meta) platforms;
   };

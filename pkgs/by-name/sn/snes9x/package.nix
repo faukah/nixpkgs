@@ -29,7 +29,6 @@
   # Boolean flags
   withGtk ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "snes9x" + lib.optionalString withGtk "-gtk";
   version = "1.63";
@@ -81,7 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
       SDL2
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
     lib.optionals stdenv.hostPlatform.sse4_1Support [
@@ -99,7 +98,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   preConfigure = ''
-    cd ${if withGtk then "gtk" else "unix"}
+    cd ${
+      if withGtk
+      then "gtk"
+      else "unix"
+    }
   '';
 
   installPhase = lib.optionalString (!withGtk) ''
@@ -115,31 +118,34 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  meta =
-    let
-      interface = if withGtk then "GTK" else "X11";
-    in
-    {
-      homepage = "https://www.snes9x.com";
-      description = "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
-      longDescription = ''
-        Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)
-        emulator. It basically allows you to play most games designed for the SNES
-        and Super Famicom Nintendo game systems on your PC or Workstation; which
-        includes some real gems that were only ever released in Japan.
+  meta = let
+    interface =
+      if withGtk
+      then "GTK"
+      else "X11";
+  in {
+    homepage = "https://www.snes9x.com";
+    description = "Super Nintendo Entertainment System (SNES) emulator, ${interface} version";
+    longDescription = ''
+      Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)
+      emulator. It basically allows you to play most games designed for the SNES
+      and Super Famicom Nintendo game systems on your PC or Workstation; which
+      includes some real gems that were only ever released in Japan.
 
-        Version build with ${interface} interface.
-      '';
-      license = lib.licenses.unfreeRedistributable // {
+      Version build with ${interface} interface.
+    '';
+    license =
+      lib.licenses.unfreeRedistributable
+      // {
         url = "https://github.com/snes9xgit/snes9x/blob/${finalAttrs.src.rev}/LICENSE";
       };
-      mainProgram = "snes9x";
-      maintainers = with lib.maintainers; [
-        qknight
-        thiagokokada
-        sugar700
-      ];
-      platforms = lib.platforms.unix;
-      broken = (withGtk && stdenv.hostPlatform.isDarwin);
-    };
+    mainProgram = "snes9x";
+    maintainers = with lib.maintainers; [
+      qknight
+      thiagokokada
+      sugar700
+    ];
+    platforms = lib.platforms.unix;
+    broken = withGtk && stdenv.hostPlatform.isDarwin;
+  };
 })

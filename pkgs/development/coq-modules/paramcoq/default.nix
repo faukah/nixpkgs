@@ -4,12 +4,10 @@
   coq,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "paramcoq";
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.version [
       {
         case = range "8.10" "8.20";
@@ -19,7 +17,8 @@ mkCoqDerivation {
         case = range "8.7" "8.13";
         out = "1.1.2+coq${coq.coq-version}";
       }
-    ] null;
+    ]
+    null;
   displayVersion = {
     paramcoq = "...";
   };
@@ -46,6 +45,6 @@ mkCoqDerivation {
   meta = with lib; {
     description = "Coq plugin for parametricity";
     license = licenses.mit;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
 }:
 buildGoModule rec {
-
   pname = "gotemplate";
   version = "3.12.0";
 
@@ -19,14 +18,13 @@ buildGoModule rec {
 
   # This is the value reported when running `gotemplate --version`,
   # see https://github.com/coveooss/gotemplate/issues/262
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   meta = {
     description = "CLI for go text/template";
     mainProgram = "gotemplate";
     changelog = "https://github.com/coveooss/gotemplate/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.giorgiga ];
+    maintainers = [lib.maintainers.giorgiga];
   };
-
 }

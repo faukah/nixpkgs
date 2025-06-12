@@ -1,3 +1,2 @@
-{ mkDerivation }:
-
-mkDerivation { path = "usr.bin/column"; }
+{mkDerivation}:
+mkDerivation {path = "usr.bin/column";}

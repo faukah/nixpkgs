@@ -10,7 +10,6 @@
     "yaml"
   ],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "jinja2-cli";
   version = "0.8.2";
@@ -32,28 +31,27 @@ python3.pkgs.buildPythonApplication rec {
     python3.pkgs.pytestCheckHook
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       jinja2
     ]
     ++ lib.attrVals extras optional-dependencies;
 
-  pythonImportsCheck = [ "jinja2cli" ];
+  pythonImportsCheck = ["jinja2cli"];
 
   optional-dependencies = with python3.pkgs; {
-    hjson = [ hjson ];
-    json5 = [ json5 ];
-    toml = [ toml ];
-    xml = [ xmltodict ];
-    yaml = [ pyyaml ];
+    hjson = [hjson];
+    json5 = [json5];
+    toml = [toml];
+    xml = [xmltodict];
+    yaml = [pyyaml];
   };
 
   meta = with lib; {
     description = "CLI for Jinja2";
     homepage = "https://github.com/mattrobenolt/jinja2-cli";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "jinja2";
   };
 }

@@ -2,23 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   numba,
   numpy,
   scipy,
-
   # tests
   dask,
   distributed,
   pandas,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "stumpy";
   version = "1.13.0";
@@ -49,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "stumpy" ];
+  pythonImportsCheck = ["stumpy"];
 
   pytestFlagsArray = [
     # whole testsuite is very CPU intensive, only run core tests
@@ -62,7 +58,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/TDAmeritrade/stumpy/blob/v${version}/CHANGELOG.md";
     homepage = "https://github.com/TDAmeritrade/stumpy";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     badPlatforms = [
       # Multiple tests fail with:
       # Segmentation fault (core dumped)

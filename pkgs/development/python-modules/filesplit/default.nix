@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "filesplit";
   version = "4.1.0";
@@ -17,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-QttXCK/IalnOVilWQaE0FYhFglQ1nXDLUX3nOFI5Vrc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "filesplit" ];
+  pythonImportsCheck = ["filesplit"];
 
   meta = {
     description = "Split file into multiple chunks based on the given size";
     homepage = "https://github.com/ram-jayapalan/filesplit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ emaryn ];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

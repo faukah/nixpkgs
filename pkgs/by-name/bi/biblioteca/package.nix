@@ -19,9 +19,8 @@
   glib-networking,
   symlinkJoin,
   nix-update-script,
-  extraDocsPackage ? [ ],
+  extraDocsPackage ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "biblioteca";
   version = "1.6";
@@ -59,13 +58,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   docPath = symlinkJoin {
     name = "biblioteca-docs";
-    paths = [
-      gtk4.devdoc
-      glib.devdoc
-      libadwaita.devdoc
-      webkitgtk.devdoc
-      gobject-introspection.devdoc
-    ] ++ extraDocsPackage;
+    paths =
+      [
+        gtk4.devdoc
+        glib.devdoc
+        libadwaita.devdoc
+        webkitgtk.devdoc
+        gobject-introspection.devdoc
+      ]
+      ++ extraDocsPackage;
   };
 
   postPatch = ''
@@ -95,14 +96,14 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://apps.gnome.org/Biblioteca/";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
+    teams = [lib.teams.gnome-circle];
     license = lib.licenses.gpl3Only;
     description = "Documentation viewer for GNOME";
     mainProgram = "biblioteca";

@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "durus";
   version = "4.3";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-aQM0I26juo2WbjrszgJUd5CdayQNCzID0zJ/YkNyYAc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Checks disabled due to missing python unittest framework 'sancho' in nixpkgs
   doCheck = false;
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     mainProgram = "durus";
     homepage = "https://github.com/nascheme/durus";
     license = licenses.mit;
-    maintainers = with maintainers; [ grindhold ];
+    maintainers = with maintainers; [grindhold];
   };
 }

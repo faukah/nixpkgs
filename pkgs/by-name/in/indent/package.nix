@@ -8,7 +8,6 @@
   buildPackages,
   pkgsStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "indent";
   version = "2.2.13";
@@ -37,12 +36,12 @@ stdenv.mkDerivation rec {
     sed -E -i 's/else-comment-2-br(-ce)?.c//g' regression/TEST
   '';
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   strictDeps = true;
-  nativeBuildInputs = [ texinfo ];
-  buildInputs = [ libintl ];
-  depsBuildBuild = [ buildPackages.stdenv.cc ]; # needed when cross-compiling
+  nativeBuildInputs = [texinfo];
+  buildInputs = [libintl];
+  depsBuildBuild = [buildPackages.stdenv.cc]; # needed when cross-compiling
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optional stdenv.cc.isClang "-Wno-implicit-function-declaration"
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     ) "-Wno-unused-but-set-variable"
   );
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
     description = "Source code reformatter";
     mainProgram = "indent";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.mmahut ];
+    maintainers = [lib.maintainers.mmahut];
     platforms = lib.platforms.unix;
   };
 }

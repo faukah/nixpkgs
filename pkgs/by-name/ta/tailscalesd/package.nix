@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tailscalesd";
   version = "0.3.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     changelog = "https://github.com/cfunkhouser/tailscalesd/releases/tag/v${version}";
     homepage = "https://github.com/cfunkhouser/tailscalesd";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
     mainProgram = "tailscalesd";
   };
 }

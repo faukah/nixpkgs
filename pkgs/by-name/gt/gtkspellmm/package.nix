@@ -9,7 +9,6 @@
   gtkmm3,
   gtkspell3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkspellmm";
   version = "3.0.5";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     gtkspell3
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     glib

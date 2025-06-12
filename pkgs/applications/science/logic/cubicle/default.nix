@@ -6,7 +6,6 @@
   which,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cubicle";
   version = "1.2.0";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cubicle.lri.fr/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dwarfmaster ];
+    maintainers = with maintainers; [dwarfmaster];
   };
 }

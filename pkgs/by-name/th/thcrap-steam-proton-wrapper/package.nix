@@ -18,9 +18,9 @@ stdenv.mkDerivation {
     hash = "sha256-J2O8F75NMdsxSaNVr8zLf+vLEJE6CHqWQIIscuuJZ3o=";
   };
 
-  buildInputs = [ subversion ];
+  buildInputs = [subversion];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,19 +34,19 @@ stdenv.mkDerivation {
   postFixup = ''
     wrapProgram $out/bin/thcrap_proton \
       --prefix PATH : ${
-        lib.makeBinPath [
-          bash
-          subversion
-          zenity
-        ]
-      }
+      lib.makeBinPath [
+        bash
+        subversion
+        zenity
+      ]
+    }
   '';
 
   meta = {
     description = "Wrapper script for launching the official Touhou games on Steam with patches through Proton on GNU/Linux";
     homepage = "https://github.com/tactikauan/thcrap-steam-proton-wrapper";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ ashuramaruzxc ];
+    maintainers = with lib.maintainers; [ashuramaruzxc];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

@@ -17,7 +17,6 @@
   pytestCheckHook,
   openapi-spec-validator,
 }:
-
 buildPythonPackage rec {
   pname = "prance";
   version = "23.06.21.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-p+LZbQal4DPeMp+eJ2O83rCaL+QIUDcU34pZhYdN4bE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     chardet
@@ -44,34 +43,36 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cli = [ click ];
-    flex = [ flex ];
-    icu = [ pyicu ];
-    osv = [ openapi-spec-validator ];
-    ssv = [ swagger-spec-validator ];
+    cli = [click];
+    flex = [flex];
+    icu = [pyicu];
+    osv = [openapi-spec-validator];
+    ssv = [swagger-spec-validator];
   };
 
-  nativeCheckInputs = [
-    pytest-cov-stub
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-cov-stub
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   # Disable tests that require network
-  disabledTestPaths = [ "tests/test_convert.py" ];
+  disabledTestPaths = ["tests/test_convert.py"];
   disabledTests = [
     "test_convert_defaults"
     "test_convert_output"
     "test_fetch_url_http"
     "test_openapi_spec_validator_validate_failure"
   ];
-  pythonImportsCheck = [ "prance" ];
+  pythonImportsCheck = ["prance"];
 
   meta = with lib; {
     description = "Resolving Swagger/OpenAPI 2.0 and 3.0.0 Parser";
     homepage = "https://github.com/RonnyPfannschmidt/prance";
     changelog = "https://github.com/RonnyPfannschmidt/prance/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "prance";
   };
 }

@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "light-entity-card";
   version = "6.1.3";
@@ -34,7 +33,7 @@ buildNpmPackage rec {
     description = "Control any light or switch entity";
     homepage = "https://github.com/ljmerza/light-entity-card";
     changelog = "https://github.com/ljmerza/light-entity-card/releases/tag/${version}";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     license = licenses.mit;
   };
 }

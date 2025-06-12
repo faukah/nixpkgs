@@ -30,7 +30,7 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -38,7 +38,7 @@ buildGoModule (finalAttrs: {
     mainProgram = "geteduroam-cli";
     homepage = "https://github.com/geteduroam/linux-app";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ viperML ];
+    maintainers = with lib.maintainers; [viperML];
     platforms = lib.platforms.linux;
     changelog = "https://github.com/geteduroam/linux-app/releases/tag/${finalAttrs.version}";
   };

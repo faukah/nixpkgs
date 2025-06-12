@@ -33,8 +33,7 @@ buildGoModule rec {
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd guesswidth \
         --bash <(${emulator} $out/bin/guesswidth completion bash) \
         --fish <(${emulator} $out/bin/guesswidth completion fish) \
@@ -48,14 +47,14 @@ buildGoModule rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Guess the width (fwf) output without delimiters in commands that output to the terminal";
     homepage = "https://github.com/noborus/guesswidth";
     changelog = "https://github.com/noborus/guesswidth/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "guesswidth";
   };
 }

@@ -13,7 +13,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "icontract";
   version = "2.7.1";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     export ICONTRACT_SLOW=1
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     asttokens
@@ -73,7 +72,7 @@ buildPythonPackage rec {
     "ignore::RuntimeWarning"
   ];
 
-  pythonImportsCheck = [ "icontract" ];
+  pythonImportsCheck = ["icontract"];
 
   meta = with lib; {
     description = "Provide design-by-contract with informative violation messages";

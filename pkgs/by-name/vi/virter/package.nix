@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "virter";
   version = "0.29.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     description = "Command line tool for simple creation and cloning of virtual machines based on libvirt";
     homepage = "https://github.com/LINBIT/virter";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "virter";
   };
 }

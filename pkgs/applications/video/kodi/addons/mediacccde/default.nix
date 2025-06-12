@@ -7,7 +7,6 @@
   requests,
   routing,
 }:
-
 buildKodiAddon rec {
   pname = "media.ccc.de";
   namespace = "plugin.video.media-ccc-de";
@@ -33,6 +32,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/voc/plugin.video.media-ccc-de/";
     description = "media.ccc.de for Kodi";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

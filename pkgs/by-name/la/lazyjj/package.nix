@@ -23,20 +23,20 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/lazyjj \
-      --prefix PATH : ${lib.makeBinPath [ jujutsu ]}
+      --prefix PATH : ${lib.makeBinPath [jujutsu]}
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ jujutsu ];
+  nativeCheckInputs = [jujutsu];
 
-  passthru.tests.version = testers.testVersion { package = lazyjj; };
+  passthru.tests.version = testers.testVersion {package = lazyjj;};
 
   meta = with lib; {
     description = "TUI for Jujutsu/jj";
     homepage = "https://github.com/Cretezy/lazyjj";
     mainProgram = "lazyjj";
     license = licenses.asl20;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
   };
 }

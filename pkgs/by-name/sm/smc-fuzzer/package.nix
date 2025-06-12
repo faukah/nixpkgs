@@ -4,7 +4,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "smc-fuzzer";
   version = "0-unstable-2020-12-23";
@@ -38,7 +37,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/theopolis/smc-fuzzer";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ hraban ];
+    maintainers = with lib.maintainers; [hraban];
     mainProgram = "smc";
     platforms = lib.platforms.darwin;
   };

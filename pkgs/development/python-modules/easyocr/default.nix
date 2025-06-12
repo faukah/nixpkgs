@@ -18,7 +18,6 @@
   torchvision,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "easyocr";
   version = "1.7.2";
@@ -74,7 +73,7 @@ buildPythonPackage rec {
   # downloads detection model from the internet
   doCheck = false;
 
-  pythonImportsCheck = [ "easyocr" ];
+  pythonImportsCheck = ["easyocr"];
 
   meta = with lib; {
     description = "Ready-to-use OCR with 80+ supported languages and all popular writing scripts";
@@ -82,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JaidedAI/EasyOCR";
     changelog = "https://github.com/JaidedAI/EasyOCR/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

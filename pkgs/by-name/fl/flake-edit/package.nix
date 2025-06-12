@@ -7,7 +7,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flake-edit";
   version = "0.0.2";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   env.ASSET_DIR = "target/assets";
 
@@ -39,14 +38,14 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --zsh --name _flake-edit target/assets/_flake-edit
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Edit your flake inputs with ease";
     homepage = "https://github.com/a-kenji/flake-edit";
     changelog = "https://github.com/a-kenji/flake-edit/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ a-kenji ];
+    maintainers = with lib.maintainers; [a-kenji];
     mainProgram = "flake-edit";
   };
 }

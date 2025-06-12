@@ -2,8 +2,7 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
-}:
-let
+}: let
   self = buildGoModule {
     pname = "reader";
     version = "0.5.0";
@@ -22,9 +21,9 @@ let
       homepage = "https://github.com/mrusme/reader";
       changelog = "https://github.com/mrusme/reader/releases";
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ theobori ];
+      maintainers = with lib.maintainers; [theobori];
       mainProgram = "reader";
     };
   };
 in
-self
+  self

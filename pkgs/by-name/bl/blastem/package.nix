@@ -9,7 +9,6 @@
   gtk3,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blastem";
   version = "0.6.2-unstable-2024-08-14";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   # need the `vasmm68k_mot` executable (part of vbcc for amigaos68k
   # Luckily, menu.bin doesn't need to be present for the emulator to function
 
-  makeFlags = [ "HOST_ZLIB=1" ];
+  makeFlags = ["HOST_ZLIB=1"];
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev SDL2}/include/SDL2";
 
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.retrodev.com/blastem/";
     license = lib.licenses.gpl3Plus;
     mainProgram = "blastem";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = [
       "i686-linux"
       "x86_64-linux"

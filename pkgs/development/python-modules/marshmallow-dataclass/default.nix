@@ -11,7 +11,6 @@
   typing-extensions,
   typing-inspect,
 }:
-
 buildPythonPackage rec {
   pname = "marshmallow-dataclass";
   version = "8.7.1";
@@ -26,12 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-0OXP78oyNe/UcI05NHskPyXAuX3dwAW4Uz4dI4b8KV0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    marshmallow
-    typing-inspect
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  dependencies =
+    [
+      marshmallow
+      typing-inspect
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,13 +50,13 @@ buildPythonPackage rec {
     "test_newtype"
   ];
 
-  pythonImportsCheck = [ "marshmallow_dataclass" ];
+  pythonImportsCheck = ["marshmallow_dataclass"];
 
   meta = with lib; {
     description = "Automatic generation of marshmallow schemas from dataclasses";
     homepage = "https://github.com/lovasoa/marshmallow_dataclass";
     changelog = "https://github.com/lovasoa/marshmallow_dataclass/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

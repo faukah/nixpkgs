@@ -11,7 +11,6 @@
   libXv,
   libpng,
 }:
-
 stdenv.mkDerivation {
   pname = "qemacs";
   version = "6.3.2";
@@ -64,6 +63,6 @@ stdenv.mkDerivation {
     homepage = "https://bellard.org/qemacs/";
     description = "Very small but powerful UNIX editor";
     license = licenses.mit;
-    maintainers = with maintainers; [ iblech ];
+    maintainers = with maintainers; [iblech];
   };
 }

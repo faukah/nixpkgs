@@ -8,10 +8,8 @@
   glib,
   harfbuzz,
   pango,
-
   # build-system
   flit-core,
-
   # dependencies
   cffi,
   cssselect2,
@@ -21,7 +19,6 @@
   pyphen,
   tinycss2,
   tinyhtml5,
-
   # tests
   pytest-cov-stub,
   pytestCheckHook,
@@ -29,7 +26,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "weasyprint";
   version = "65.1";
@@ -53,18 +49,20 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [
-    cffi
-    cssselect2
-    fonttools
-    pillow
-    pydyf
-    pyphen
-    tinycss2
-    tinyhtml5
-  ] ++ fonttools.optional-dependencies.woff;
+  dependencies =
+    [
+      cffi
+      cssselect2
+      fonttools
+      pillow
+      pydyf
+      pyphen
+      tinycss2
+      tinyhtml5
+    ]
+    ++ fonttools.optional-dependencies.woff;
 
   nativeCheckInputs = [
     pkgs.ghostscript
@@ -100,9 +98,9 @@ buildPythonPackage rec {
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
   # Set env variable explicitly for Darwin, but allow overriding when invoking directly
-  makeWrapperArgs = [ "--set-default FONTCONFIG_FILE ${FONTCONFIG_FILE}" ];
+  makeWrapperArgs = ["--set-default FONTCONFIG_FILE ${FONTCONFIG_FILE}"];
 
-  pythonImportsCheck = [ "weasyprint" ];
+  pythonImportsCheck = ["weasyprint"];
 
   meta = {
     changelog = "https://github.com/Kozea/WeasyPrint/releases/tag/v${version}";
@@ -110,7 +108,7 @@ buildPythonPackage rec {
     mainProgram = "weasyprint";
     homepage = "https://weasyprint.org/";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.apm ];
+    teams = [lib.teams.apm];
     badPlatforms = [
       # Fatal Python error: Segmentation fault
       # "...weasyprint/pdf/fonts.py", line 221 in _harfbuzz_subset

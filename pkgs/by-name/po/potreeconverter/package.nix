@@ -7,7 +7,6 @@
   tbb,
   makeWrapper,
 }:
-
 stdenv.mkDerivation {
   pname = "PotreeConverter";
   version = "unstable-2023-02-27";
@@ -65,7 +64,7 @@ stdenv.mkDerivation {
     description = "Create multi res point cloud to use with potree";
     homepage = "https://github.com/potree/PotreeConverter";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     platforms = with platforms; linux;
   };
 }

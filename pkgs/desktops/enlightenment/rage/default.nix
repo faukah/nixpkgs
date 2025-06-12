@@ -10,7 +10,6 @@
   wrapGAppsHook3,
   directoryListingUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rage";
   version = "0.4.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-libav
   ];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Video and audio player along the lines of mplayer";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
       matejc
       ftrvxmtrx
     ];
-    teams = [ teams.enlightenment ];
+    teams = [teams.enlightenment];
   };
 }

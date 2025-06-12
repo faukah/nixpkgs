@@ -12,7 +12,6 @@
   pycrdt-websocket,
   jupyter-collaboration,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-server-ydoc";
   version = "2.0.2";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-Iu5y57yeLZ/emIIJLRdqyMpxAfsHj2/vTLcqgSlRCSg=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     jsonschema
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     pycrdt-websocket
   ];
 
-  pythonImportsCheck = [ "jupyter_server_ydoc" ];
+  pythonImportsCheck = ["jupyter_server_ydoc"];
 
   # no tests
   doCheck = false;
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     description = "Jupyter-server extension integrating collaborative shared models";
     homepage = "https://github.com/jupyterlab/jupyter-collaboration/tree/main/projects/jupyter-server-ydoc";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

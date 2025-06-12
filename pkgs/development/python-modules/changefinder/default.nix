@@ -8,7 +8,6 @@
   scipy,
   statsmodels,
 }:
-
 buildPythonPackage {
   pname = "changefinder";
   version = "unstable-2024-03-24";
@@ -21,11 +20,11 @@ buildPythonPackage {
     hash = "sha256-1If0gIsMU8673fKSSHVMvDgR1UnYgM/4HiyvZJ9T6VM=";
   };
 
-  patches = [ ./fix_test_invocation.patch ];
+  patches = [./fix_test_invocation.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRemoveDeps = [ "nose" ];
+  pythonRemoveDeps = ["nose"];
 
   dependencies = [
     numpy
@@ -33,15 +32,15 @@ buildPythonPackage {
     statsmodels
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "test/test.py" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["test/test.py"];
 
-  pythonImportsCheck = [ "changefinder" ];
+  pythonImportsCheck = ["changefinder"];
 
   meta = with lib; {
     description = "Online Change-Point Detection library based on ChangeFinder algorithm";
     homepage = "https://github.com/shunsukeaihara/changefinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

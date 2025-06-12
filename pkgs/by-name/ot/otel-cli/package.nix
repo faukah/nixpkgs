@@ -7,7 +7,6 @@
   nix-update-script,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "otel-cli";
   version = "0.4.5";
@@ -28,16 +27,16 @@ buildGoModule rec {
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       substituteInPlace main_test.go \
         --replace-fail 'const minimumPath = `/bin:/usr/bin`' 'const minimumPath = `${
-          lib.makeBinPath [
-            getent
-            coreutils
-          ]
-        }`'
+        lib.makeBinPath [
+          getent
+          coreutils
+        ]
+      }`'
     '';
 
-  patches = [ ./patches/bin-echo-patch.patch ];
+  patches = [./patches/bin-echo-patch.patch];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/equinix-labs/otel-cli";

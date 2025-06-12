@@ -7,7 +7,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "robotfindskitten";
   version = "2.8284271.702";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://robotfindskitten.org/";
     license = lib.licenses.gpl2Plus;
     mainProgram = "robotfindskitten";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

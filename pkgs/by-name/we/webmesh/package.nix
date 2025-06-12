@@ -6,7 +6,6 @@
   testers,
   webmesh,
 }:
-
 buildGoModule rec {
   pname = "webmesh";
   version = "0.17.1";
@@ -36,7 +35,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       webmesh-version = testers.testVersion {
         package = webmesh;
@@ -49,6 +48,6 @@ buildGoModule rec {
     mainProgram = "webmesh-node";
     homepage = "https://webmeshproj.github.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bbigras ];
+    maintainers = with maintainers; [bbigras];
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   lsof,
 }:
-
 buildPythonPackage rec {
   pname = "daemonocle";
   version = "1.2.3";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "test_exec_worker"
   ];
 
-  pythonImportsCheck = [ "daemonocle" ];
+  pythonImportsCheck = ["daemonocle"];
 
   meta = with lib; {
     description = "Python library for creating super fancy Unix daemons";
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/jnrbsn/daemonocle";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

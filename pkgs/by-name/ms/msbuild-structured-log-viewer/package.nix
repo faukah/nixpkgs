@@ -26,11 +26,11 @@ buildDotnetModule (finalAttrs: {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  projectFile = [ "src/StructuredLogViewer.Avalonia/StructuredLogViewer.Avalonia.csproj" ];
+  projectFile = ["src/StructuredLogViewer.Avalonia/StructuredLogViewer.Avalonia.csproj"];
   nugetDeps = ./deps.json;
 
   # HACK: Clear out RuntimeIdentifiers that's set in StructuredLogViewer.Avalonia.csproj, otherwise our --runtime has no effect
-  dotnetFlags = [ "-p:RuntimeIdentifiers=" ];
+  dotnetFlags = ["-p:RuntimeIdentifiers="];
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
@@ -69,10 +69,10 @@ buildDotnetModule (finalAttrs: {
     comment = finalAttrs.meta.description;
     icon = "msbuild-structured-log-viewer";
     exec = finalAttrs.meta.mainProgram;
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rich interactive log viewer for MSBuild logs";
@@ -84,7 +84,7 @@ buildDotnetModule (finalAttrs: {
       binaryNativeCode
     ];
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ js6pak ];
+    maintainers = with lib.maintainers; [js6pak];
     mainProgram = "msbuild-structured-log-viewer";
   };
 })

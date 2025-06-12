@@ -7,7 +7,6 @@
   libbfd,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lightning";
   version = "2.2.3";
@@ -48,8 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
       it abstracts over the target CPU, as it exposes to the clients a
       standardized RISC instruction set inspired by the MIPS and SPARC chips.
     '';
-    maintainers = with lib.maintainers; [ ];
-    license = with lib.licenses; [ lgpl3Plus ];
+    maintainers = with lib.maintainers; [];
+    license = with lib.licenses; [lgpl3Plus];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin; # failing tests
   };

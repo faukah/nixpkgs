@@ -13,7 +13,6 @@
   sox,
   makeWrapper,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vors";
   version = "3.1.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram "$out"/bin/vors-client \
-        --prefix PATH : ${lib.makeBinPath [ sox ]}
+        --prefix PATH : ${lib.makeBinPath [sox]}
   '';
 
   enableParallelBuilding = true;

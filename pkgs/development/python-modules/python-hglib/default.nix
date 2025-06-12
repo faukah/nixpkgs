@@ -7,7 +7,6 @@
   fetchpatch2,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-hglib";
   version = "2.6.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   patches = [
     (fetchpatch2 {
       name = "remove-nose.patch";
-      excludes = [ "heptapod-ci.yml" ];
+      excludes = ["heptapod-ci.yml"];
       url = "https://repo.mercurial-scm.org/python-hglib/raw-rev/8341f2494b3fc1c0d9ee55fa4487c0ac82f64d2a";
       hash = "sha256-4gicVCAH94itxHY0l8ek0L/RVhUrw2lMbbnENbWrV6U=";
     })
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     mercurial
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     export HGUSER=test
   '';
 
-  pythonImportsCheck = [ "hglib" ];
+  pythonImportsCheck = ["hglib"];
 
   meta = {
     description = "Library with a fast, convenient interface to Mercurial. It uses Mercurial’s command server for communication with hg";
     homepage = "https://www.mercurial-scm.org/wiki/PythonHglibs";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

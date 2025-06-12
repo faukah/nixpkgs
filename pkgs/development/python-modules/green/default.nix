@@ -8,7 +8,6 @@
   unidecode,
   lxml,
 }:
-
 buildPythonPackage rec {
   pname = "green";
   version = "4.0.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-pAZ8P5/CpkTtNfU2ZJUGQzROxGLm0uu1vXS3YpcVprE=";
   };
 
-  patches = [ ./tests.patch ];
+  patches = [./tests.patch];
 
   postPatch = ''
     substituteInPlace green/test/test_integration.py \
@@ -42,12 +41,12 @@ buildPythonPackage rec {
       green.test.test_cmdline \
   '';
 
-  pythonImportsCheck = [ "green" ];
+  pythonImportsCheck = ["green"];
 
   meta = with lib; {
     description = "Python test runner";
     homepage = "https://github.com/CleanCut/green";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

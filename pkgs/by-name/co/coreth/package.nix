@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "coreth";
   version = "0.14.0";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://github.com/ava-labs/coreth";
     changelog = "https://github.com/ava-labs/coreth/releases/tag/v${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

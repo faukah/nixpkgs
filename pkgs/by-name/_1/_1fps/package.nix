@@ -21,17 +21,19 @@ buildGoModule rec {
 
   vendorHash = "sha256-J3RGQhjpGURmXOwq19BbbNg5ERrUXHnSG5Id6gX7Nug=";
 
-  buildInputs = [
-    xorg.libX11
-    xorg.libXtst
-    xorg.libXi
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin apple-sdk_14;
+  buildInputs =
+    [
+      xorg.libX11
+      xorg.libXtst
+      xorg.libXi
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin apple-sdk_14;
 
   meta = {
     description = "Encrypted Screen Sharing";
     homepage = "https://1fps.video";
     license = lib.licenses.fsl11Asl20;
-    maintainers = with lib.maintainers; [ renesat ];
+    maintainers = with lib.maintainers; [renesat];
     mainProgram = "1fps";
   };
 }

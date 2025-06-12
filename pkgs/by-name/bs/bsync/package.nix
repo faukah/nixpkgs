@@ -9,7 +9,6 @@
   findutils,
   which,
 }:
-
 stdenv.mkDerivation {
   pname = "bsync";
   version = "unstable-2023-12-21";
@@ -27,8 +26,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3];
 
   fixupPhase = ''
     runHook preFixup
@@ -36,13 +35,13 @@ stdenv.mkDerivation {
     patchShebangs $out/bin/bsync
     wrapProgram $out/bin/bsync \
       --prefix PATH ":" ${
-        lib.makeLibraryPath [
-          openssh
-          rsync
-          findutils
-          which
-        ]
-      }
+      lib.makeLibraryPath [
+        openssh
+        rsync
+        findutils
+        which
+      ]
+    }
 
     runHook postFixup
   '';
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/dooblem/bsync";
     description = "Bidirectional Synchronization using Rsync";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dietmarw ];
+    maintainers = with maintainers; [dietmarw];
     platforms = platforms.unix;
     mainProgram = "bsync";
   };

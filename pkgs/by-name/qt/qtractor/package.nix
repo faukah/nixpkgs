@@ -27,7 +27,6 @@
   sratom,
   suil,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtractor";
   version = "1.5.5";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/rncbc/qtractor/blob/v${version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
     mainProgram = "qtractor";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

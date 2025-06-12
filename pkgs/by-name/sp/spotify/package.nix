@@ -3,10 +3,8 @@
   stdenv,
   callPackage,
   ...
-}@args:
-
-let
-  extraArgs = removeAttrs args [ "callPackage" ];
+} @ args: let
+  extraArgs = removeAttrs args ["callPackage"];
 
   pname = "spotify";
 
@@ -15,7 +13,7 @@ let
   meta = with lib; {
     homepage = "https://www.spotify.com/";
     description = "Play music from the Spotify music service";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"
@@ -24,9 +22,7 @@ let
     ];
     mainProgram = "spotify";
   };
-
 in
-if stdenv.hostPlatform.isDarwin then
-  callPackage ./darwin.nix (extraArgs // { inherit pname updateScript meta; })
-else
-  callPackage ./linux.nix (extraArgs // { inherit pname updateScript meta; })
+  if stdenv.hostPlatform.isDarwin
+  then callPackage ./darwin.nix (extraArgs // {inherit pname updateScript meta;})
+  else callPackage ./linux.nix (extraArgs // {inherit pname updateScript meta;})

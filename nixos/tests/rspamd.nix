@@ -1,13 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
-with pkgs.lib;
-
-let
+with import ../lib/testing-python.nix {inherit system pkgs;};
+with pkgs.lib; let
   initMachine = ''
     start_all()
     machine.wait_for_unit("rspamd.service")
@@ -21,8 +18,7 @@ let
         '[[ "$(stat -c %a ${socket})" == "${mode}" ]]',
     )
   '';
-  simple =
-    name: enableIPv6:
+  simple = name: enableIPv6:
     makeTest {
       name = "rspamd-${name}";
       nodes.machine = {
@@ -49,8 +45,7 @@ let
         # would not reformat
       '';
     };
-in
-{
+in {
   simple = simple "simple" true;
   ipv4only = simple "ipv4only" false;
   deprecated = makeTest {
@@ -119,7 +114,7 @@ in
         ];
         workers.controller2 = {
           type = "controller";
-          bindSockets = [ "0.0.0.0:11335" ];
+          bindSockets = ["0.0.0.0:11335"];
           extraConfig = ''
             static_dir = "''${WWWDIR}";
             secure_ip = null;
@@ -270,7 +265,7 @@ in
   postfixIntegration = makeTest {
     name = "rspamd-postfix-integration";
     nodes.machine = {
-      environment.systemPackages = with pkgs; [ msmtp ];
+      environment.systemPackages = with pkgs; [msmtp];
       environment.etc."tests/gtube.eml".text = ''
         From: Sheep1<bah@example.com>
         To: Sheep2<tester@example.com>
@@ -293,7 +288,7 @@ in
       };
       services.postfix = {
         enable = true;
-        destination = [ "example.com" ];
+        destination = ["example.com"];
       };
       services.rspamd = {
         enable = true;

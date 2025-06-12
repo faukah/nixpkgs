@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
   poetry-dynamic-versioning,
-
   # dependencies
   aiofile,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
@@ -19,7 +16,6 @@
   pytest-randomly,
   faker,
 }:
-
 buildPythonPackage rec {
   pname = "nonbloat-db";
   version = "0.1.4";
@@ -66,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PerchunPak/nonbloat-db";
     changelog = "https://github.com/PerchunPak/nonbloat-db/blob/v${version}/CHANGES.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ perchun ];
+    maintainers = with lib.maintainers; [perchun];
   };
 }

@@ -30,7 +30,6 @@
   luaSupport ? false,
   lua5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apache-httpd";
   version = "2.4.62";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false; # it would move $out/modules, etc.
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     perl
@@ -152,7 +151,7 @@ stdenv.mkDerivation rec {
       acme-integration = nixosTests.acme.httpd;
       proxy = nixosTests.proxy;
       php = nixosTests.php.httpd;
-      cross = runCommand "apacheHttpd-test-cross" { } ''
+      cross = runCommand "apacheHttpd-test-cross" {} ''
         ${pkgsCross.aarch64-multiplatform.apacheHttpd.dev}/bin/apxs -q -n INCLUDE | grep CC=aarch64-unknown-linux-gnu-gcc > $out
         head -n1 ${pkgsCross.aarch64-multiplatform.apacheHttpd}/bin/dbmmanage | grep '^#!${pkgsCross.aarch64-multiplatform.perl}/bin/perl$' >> $out
       '';
@@ -164,6 +163,6 @@ stdenv.mkDerivation rec {
     homepage = "https://httpd.apache.org/";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

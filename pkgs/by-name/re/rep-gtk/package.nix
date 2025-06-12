@@ -7,7 +7,6 @@
   librep,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rep-gtk";
   version = "0.90.8.3";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://sawfish.tuxfamily.org";
     description = "GTK bindings for librep";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

@@ -13,7 +13,6 @@
   libmaxminddb,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncdc";
   version = "1.25";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     libmaxminddb
   ];
 
-  configureFlags = [ "--with-geoip" ];
+  configureFlags = ["--with-geoip"];
 
   doInstallCheck = true;
 
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Modern and lightweight direct connect client with a friendly ncurses interface";
     homepage = "https://dev.yorhel.nl/ncdc";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "ncdc";
   };
 })

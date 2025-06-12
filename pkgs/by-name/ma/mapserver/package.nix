@@ -2,9 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   withPython ? true,
-
   cairo,
   cmake,
   curl,
@@ -27,7 +25,6 @@
   swig,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mapserver";
   version = "8.4.0";
@@ -35,7 +32,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "MapServer";
     repo = "MapServer";
-    rev = "rel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "rel-${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-XEjRklbvYV7UoVX12iW6s1mS8pzIljla488CQNuFfto=";
   };
 
@@ -49,25 +46,27 @@ stdenv.mkDerivation rec {
       python3.pkgs.setuptools
     ];
 
-  buildInputs = [
-    cairo
-    curl
-    fcgi
-    freetype
-    fribidi
-    gdal
-    geos
-    giflib
-    harfbuzz
-    libjpeg
-    libpng
-    libpq
-    librsvg
-    libxml2
-    proj
-    protobufc
-    zlib
-  ] ++ lib.optional withPython python3;
+  buildInputs =
+    [
+      cairo
+      curl
+      fcgi
+      freetype
+      fribidi
+      gdal
+      geos
+      giflib
+      harfbuzz
+      libjpeg
+      libpng
+      libpq
+      librsvg
+      libxml2
+      proj
+      protobufc
+      zlib
+    ]
+    ++ lib.optional withPython python3;
 
   cmakeFlags = [
     (lib.cmakeBool "WITH_KML" true)
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mapserver.org/";
     changelog = "https://mapserver.org/development/changelog/";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
     platforms = lib.platforms.unix;
   };
 }

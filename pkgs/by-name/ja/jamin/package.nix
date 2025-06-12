@@ -12,7 +12,6 @@
   pkg-config,
   perlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "0.95.0";
   pname = "jamin";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://jamin.sourceforge.net";
     description = "JACK Audio Mastering interface";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
     platforms = lib.platforms.linux;
   };
 })

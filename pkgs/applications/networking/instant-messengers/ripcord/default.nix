@@ -19,19 +19,17 @@
   libGL,
   alsa-lib,
 }:
-
 mkDerivation rec {
   pname = "ripcord";
   version = "0.4.29";
 
-  src =
-    let
-      appimage = fetchurl {
-        url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
-        sha256 = "sha256-4yDLPEBDsPKWtLwdpmSyl3b5XCwLAr2/EVtNRrFmmJk=";
-        name = "${pname}-${version}.AppImage";
-      };
-    in
+  src = let
+    appimage = fetchurl {
+      url = "https://cancel.fm/dl/Ripcord-${version}-x86_64.AppImage";
+      sha256 = "sha256-4yDLPEBDsPKWtLwdpmSyl3b5XCwLAr2/EVtNRrFmmJk=";
+      name = "${pname}-${version}.AppImage";
+    };
+  in
     appimageTools.extract {
       inherit pname version;
       src = appimage;
@@ -64,7 +62,7 @@ mkDerivation rec {
     ]);
 
   fontsConf = makeFontsConf {
-    fontDirectories = [ twemoji-color-font ];
+    fontDirectories = [twemoji-color-font];
   };
 
   installPhase = ''
@@ -100,10 +98,10 @@ mkDerivation rec {
   meta = with lib; {
     description = "Desktop chat client for Slack and Discord";
     homepage = "https://cancel.fm/ripcord/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     # See: https://cancel.fm/ripcord/shareware-redistribution/
     license = licenses.unfreeRedistributable;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -9,7 +9,6 @@
   testers,
 }:
 stdenv.mkDerivation rec {
-
   pname = "nf-test";
   version = "0.9.2";
 
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
   };
   sourceRoot = ".";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/bin
     makeWrapper ${openjdk11}/bin/java $out/bin/nf-test \
       --add-flags "-jar $out/share/nf-test/nf-test.jar" \
-      --prefix PATH : ${lib.makeBinPath [ nextflow ]} \
+      --prefix PATH : ${lib.makeBinPath [nextflow]} \
 
     runHook postInstall
   '';
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nf-test.com/";
     changelog = "https://github.com/askimed/nf-test/releases";
     license = licenses.mit;
-    maintainers = with maintainers; [ rollf ];
+    maintainers = with maintainers; [rollf];
     mainProgram = "nf-test";
     platforms = platforms.unix;
   };

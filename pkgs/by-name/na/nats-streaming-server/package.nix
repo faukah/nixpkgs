@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "nats-streaming-server";
   version = "0.25.6";
@@ -23,7 +22,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "NATS Streaming System Server";
     license = licenses.asl20;
-    maintainers = [ maintainers.swdunlop ];
+    maintainers = [maintainers.swdunlop];
     homepage = "https://nats.io/";
     mainProgram = "nats-streaming-server";
   };

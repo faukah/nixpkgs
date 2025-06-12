@@ -11,7 +11,6 @@
   readline,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dropwatch";
   version = "1.5.5";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nhorman/dropwatch";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
   };
 }

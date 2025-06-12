@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "expiringdict";
   version = "1.2.2";
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     dill
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "expiringdict" ];
+  pythonImportsCheck = ["expiringdict"];
 
   meta = with lib; {
     changelog = "https://github.com/mailgun/expiringdict/blob/${src.rev}/CHANGELOG.rst";
     description = "Dictionary with auto-expiring values for caching purposes";
     homepage = "https://github.com/mailgun/expiringdict";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gravndal ];
+    maintainers = with maintainers; [gravndal];
   };
 }

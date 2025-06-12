@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gipc";
   version = "1.6.0";
@@ -27,13 +26,13 @@ buildPythonPackage rec {
       --replace-fail "gevent>=1.5,<=23.9.1" "gevent>=1.5"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ gevent ];
+  dependencies = [gevent];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gipc" ];
+  pythonImportsCheck = ["gipc"];
 
   disabledTests = [
     # AttributeError
@@ -66,6 +65,6 @@ buildPythonPackage rec {
     homepage = "http://gehrcke.de/gipc";
     changelog = "https://github.com/jgehrcke/gipc/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

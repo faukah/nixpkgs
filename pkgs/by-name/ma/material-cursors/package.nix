@@ -5,7 +5,6 @@
   inkscape,
   xcursorgen,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "material-cursors";
   version = "unstable-2023-11-30";
@@ -31,13 +30,13 @@ stdenvNoCC.mkDerivation {
     runHook postBuild
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Material cursors for Linux";
     homepage = "https://github.com/varlesh/material-cursors";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

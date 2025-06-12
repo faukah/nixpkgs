@@ -18,7 +18,6 @@
   libGLU,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dreamchess";
   version = "0.3.0";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dreamchess/dreamchess";
     description = "OpenGL Chess Game";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ spk ];
+    maintainers = with lib.maintainers; [spk];
     platforms = lib.platforms.linux;
     mainProgram = "dreamchess";
   };

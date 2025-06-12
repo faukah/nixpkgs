@@ -11,7 +11,6 @@
   openssl,
   notificationSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tiny";
   version = "0.13.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-lyjTl0kbtfQdqSqxti1181+oDVYP4U++v2JEOYvI7aM=";
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isLinux pkg-config;
-  buildInputs = lib.optionals dbusSupport [ dbus ] ++ lib.optionals useOpenSSL [ openssl ];
+  buildInputs = lib.optionals dbusSupport [dbus] ++ lib.optionals useOpenSSL [openssl];
 
   buildFeatures = lib.optional notificationSupport "desktop-notifications";
 

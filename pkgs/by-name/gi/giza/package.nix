@@ -8,7 +8,6 @@
   cairo,
   freetype,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "giza";
   version = "1.5.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     changelog = "${finalAttrs.src.meta.homepage}/blob/${finalAttrs.src.rev}/ChangeLog";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     platforms = lib.platforms.all;
   };
 })

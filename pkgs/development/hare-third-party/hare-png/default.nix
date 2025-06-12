@@ -5,7 +5,6 @@
   hareThirdParty,
   fetchFromSourcehut,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hare-png";
   version = "0-unstable-2023-09-09";
@@ -17,18 +16,18 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Q7xylsLVd/sp57kv6WzC7QHGN1xOsm7YEsYCbY/zi1Q=";
   };
 
-  nativeBuildInputs = [ hareHook ];
-  propagatedBuildInputs = [ hareThirdParty.hare-compress ];
+  nativeBuildInputs = [hareHook];
+  propagatedBuildInputs = [hareThirdParty.hare-compress];
 
-  makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  makeFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/hare-png/";
     description = "PNG implementation for Hare";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ starzation ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [starzation];
     inherit (hareHook.meta) platforms badPlatforms;
   };
 })

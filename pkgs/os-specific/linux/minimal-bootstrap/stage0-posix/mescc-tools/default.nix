@@ -13,15 +13,18 @@
   platforms,
   m2libcArch,
   baseAddress,
-}:
-
-let
-  endianFlag = if hostPlatform.isLittleEndian then "--little-endian" else "--big-endian";
-  bloodFlag = if hostPlatform.is64bit then "--64" else " ";
+}: let
+  endianFlag =
+    if hostPlatform.isLittleEndian
+    then "--little-endian"
+    else "--big-endian";
+  bloodFlag =
+    if hostPlatform.is64bit
+    then "--64"
+    else " ";
 
   # We need a few tools from mescc-tools-extra to assemble the output folder
-  buildMesccToolsExtraUtil =
-    name:
+  buildMesccToolsExtraUtil = name:
     derivationWithMeta {
       pname = "mescc-tools-extra-${name}";
       builder = kaem-unwrapped;
@@ -79,38 +82,38 @@ let
   chmod = buildMesccToolsExtraUtil "chmod";
   replace = buildMesccToolsExtraUtil "replace";
 in
-derivationWithMeta {
-  pname = "mescc-tools";
-  builder = kaem-unwrapped;
-  args = [
-    "--verbose"
-    "--strict"
-    "--file"
-    ./build.kaem
-  ];
-  inherit
-    version
-    M1
-    M2
-    blood-elf-0
-    hex2
-    mkdir
-    cp
-    chmod
-    replace
-    m2libc
-    src
-    m2libcArch
-    baseAddress
-    bloodFlag
-    endianFlag
-    ;
+  derivationWithMeta {
+    pname = "mescc-tools";
+    builder = kaem-unwrapped;
+    args = [
+      "--verbose"
+      "--strict"
+      "--file"
+      ./build.kaem
+    ];
+    inherit
+      version
+      M1
+      M2
+      blood-elf-0
+      hex2
+      mkdir
+      cp
+      chmod
+      replace
+      m2libc
+      src
+      m2libcArch
+      baseAddress
+      bloodFlag
+      endianFlag
+      ;
 
-  meta = with lib; {
-    description = "Collection of tools written for use in bootstrapping";
-    homepage = "https://github.com/oriansj/mescc-tools";
-    license = licenses.gpl3Plus;
-    teams = [ teams.minimal-bootstrap ];
-    inherit platforms;
-  };
-}
+    meta = with lib; {
+      description = "Collection of tools written for use in bootstrapping";
+      homepage = "https://github.com/oriansj/mescc-tools";
+      license = licenses.gpl3Plus;
+      teams = [teams.minimal-bootstrap];
+      inherit platforms;
+    };
+  }

@@ -27,7 +27,6 @@
   webkitgtk_4_0,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "bookworm";
   version = "unstable-2022-01-09";
@@ -72,16 +71,16 @@ stdenv.mkDerivation {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : "${
-        lib.makeBinPath [
-          unzip
-          unar
-          poppler-utils
-          html2text
-          coreutils
-          curl
-          gnugrep
-        ]
-      }"
+      lib.makeBinPath [
+        unzip
+        unar
+        poppler-utils
+        html2text
+        coreutils
+        curl
+        gnugrep
+      ]
+    }"
       --prefix PATH : $out/bin
     )
   '';

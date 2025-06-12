@@ -1,12 +1,8 @@
-{ lib }:
-
-let
+{lib}: let
   inherit (lib) mkIf versionAtLeast versionOlder;
-in
-{
-
+in {
   # Keeping these around in case we decide to change this horrible implementation :)
-  option = x: x // { optional = true; };
+  option = x: x // {optional = true;};
 
   yes = {
     tristate = "y";
@@ -36,5 +32,4 @@ in
     # range is (inclusive, exclusive)
     whenBetween = verLow: verHigh: mkIf (versionAtLeast version verLow && versionOlder version verHigh);
   };
-
 }

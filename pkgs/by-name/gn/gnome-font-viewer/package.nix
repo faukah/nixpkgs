@@ -15,7 +15,6 @@
   gnome,
   harfbuzz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-font-viewer";
   version = "48.0";
@@ -61,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Program that can preview fonts and create thumbnails for fonts";
     homepage = "https://gitlab.gnome.org/GNOME/gnome-font-viewer";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

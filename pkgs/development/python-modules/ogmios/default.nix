@@ -12,7 +12,6 @@
   pydantic,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "ogmios";
   version = "1.4.2";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     websockets
   ];
 
-  pythonImportsCheck = [ "ogmios" ];
+  pythonImportsCheck = ["ogmios"];
 
   meta = with lib; {
     description = "Python client for Ogmios";
     homepage = "https://gitlab.com/viperscience/ogmios-python";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
   };
 }

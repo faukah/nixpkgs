@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-PYlVXGfitsjEGiw07L5b+L8pfxvtkHshIjTXeuPUTdk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "Cargo subcommand for displaying when Rust dependencies are out of date";

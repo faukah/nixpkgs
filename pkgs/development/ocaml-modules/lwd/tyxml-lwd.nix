@@ -7,7 +7,6 @@
   lwd,
   tyxml,
 }:
-
 buildDunePackage {
   pname = "tyxml-lwd";
 
@@ -21,7 +20,7 @@ buildDunePackage {
 
   minimalOCamlVersion = "4.08";
 
-  buildInputs = [ js_of_ocaml-ppx ];
+  buildInputs = [js_of_ocaml-ppx];
   propagatedBuildInputs = [
     js_of_ocaml
     lwd
@@ -31,7 +30,7 @@ buildDunePackage {
   meta = with lib; {
     description = "Make reactive webpages in Js_of_ocaml using Tyxml and Lwd";
     license = licenses.mit;
-    maintainers = [ maintainers.alizter ];
+    maintainers = [maintainers.alizter];
     homepage = "https://github.com/let-def/lwd";
   };
 }

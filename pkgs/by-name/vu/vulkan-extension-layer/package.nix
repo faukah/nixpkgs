@@ -13,7 +13,6 @@
   libxcb,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vulkan-extension-layer";
   version = "1.4.313.0";
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

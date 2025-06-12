@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.xtreemfs;
 
   xtreemfs = pkgs.xtreemfs;
 
   home = cfg.homeDir;
 
-  startupScript =
-    class: configPath:
+  startupScript = class: configPath:
     pkgs.writeScript "xtreemfs-osd.sh" ''
       #! ${pkgs.runtimeShell}
       JAVA_HOME="${pkgs.jdk}"
@@ -37,7 +34,11 @@ let
     http_port = ${toString cfg.dir.httpPort}
     babudb.baseDir = ${home}/dir/database
     babudb.logDir = ${home}/dir/db-log
-    babudb.sync = ${if cfg.dir.replication.enable then "FDATASYNC" else cfg.dir.syncMode}
+    babudb.sync = ${
+      if cfg.dir.replication.enable
+      then "FDATASYNC"
+      else cfg.dir.syncMode
+    }
 
     ${lib.optionalString cfg.dir.replication.enable "babudb.plugin.0 = ${dirReplicationConfig}"}
 
@@ -59,7 +60,11 @@ let
     http_port = ${toString cfg.mrc.httpPort}
     babudb.baseDir = ${home}/mrc/database
     babudb.logDir = ${home}/mrc/db-log
-    babudb.sync = ${if cfg.mrc.replication.enable then "FDATASYNC" else cfg.mrc.syncMode}
+    babudb.sync = ${
+      if cfg.mrc.replication.enable
+      then "FDATASYNC"
+      else cfg.mrc.syncMode
+    }
 
     ${lib.optionalString cfg.mrc.replication.enable "babudb.plugin.0 = ${mrcReplicationConfig}"}
 
@@ -76,23 +81,17 @@ let
     ${cfg.osd.extraConfig}
   '';
 
-  optionalDir = lib.optionals cfg.dir.enable [ "xtreemfs-dir.service" ];
+  optionalDir = lib.optionals cfg.dir.enable ["xtreemfs-dir.service"];
 
   systemdOptionalDependencies = {
-    after = [ "network.target" ] ++ optionalDir;
-    wantedBy = [ "multi-user.target" ] ++ optionalDir;
+    after = ["network.target"] ++ optionalDir;
+    wantedBy = ["multi-user.target"] ++ optionalDir;
   };
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.xtreemfs = {
-
       enable = lib.mkEnableOption "XtreemFS";
 
       homeDir = lib.mkOption {
@@ -459,14 +458,12 @@ in
         };
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ xtreemfs ];
+    environment.systemPackages = [xtreemfs];
 
     users.users.xtreemfs = {
       uid = config.ids.uids.xtreemfs;
@@ -481,8 +478,8 @@ in
 
     systemd.services.xtreemfs-dir = lib.mkIf cfg.dir.enable {
       description = "XtreemFS-DIR Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "xtreemfs";
         ExecStart = "${startupScript "org.xtreemfs.dir.DIR" dirConfig}";
@@ -510,7 +507,5 @@ in
       }
       // systemdOptionalDependencies
     );
-
   };
-
 }

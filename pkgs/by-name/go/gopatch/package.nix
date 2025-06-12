@@ -5,7 +5,6 @@
   testers,
   gopatch,
 }:
-
 buildGoModule rec {
   pname = "gopatch";
   version = "0.4.0";
@@ -41,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/uber-go/gopatch";
     changelog = "https://github.com/uber-go/gopatch/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

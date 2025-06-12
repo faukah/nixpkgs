@@ -5,7 +5,6 @@
   python3,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "postiats-utilities";
   version = "2.1.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Hibou57/PostiATS-Utilities";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
   };
 
   buildInputs = [

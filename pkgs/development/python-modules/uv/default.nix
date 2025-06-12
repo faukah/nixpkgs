@@ -4,9 +4,9 @@
   lib,
   uv,
 }:
-
 buildPythonPackage {
-  inherit (uv)
+  inherit
+    (uv)
     pname
     version
     src
@@ -14,7 +14,7 @@ buildPythonPackage {
     ;
   pyproject = true;
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   postPatch =
     # Do not rely on path lookup at runtime to find the uv binary.
@@ -41,5 +41,5 @@ buildPythonPackage {
     mkdir -p $out/bin && ln -s ${lib.getExe uv} $out/bin/uv
   '';
 
-  pythonImportsCheck = [ "uv" ];
+  pythonImportsCheck = ["uv"];
 }

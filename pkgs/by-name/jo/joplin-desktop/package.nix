@@ -5,9 +5,7 @@
   fetchurl,
   makeWrapper,
   _7zz,
-}:
-
-let
+}: let
   pname = "joplin-desktop";
   inherit (releaseData) version;
 
@@ -52,7 +50,7 @@ let
       src
       meta
       ;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     profile = ''
       export LC_ALL=C.UTF-8
@@ -79,7 +77,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ _7zz ];
+    nativeBuildInputs = [_7zz];
 
     unpackPhase = ''
       runHook preUnpack
@@ -87,7 +85,10 @@ let
       runHook postUnpack
     '';
 
-    sourceRoot = if stdenv.hostPlatform.isx86_64 then "Joplin ${version}" else ".";
+    sourceRoot =
+      if stdenv.hostPlatform.isx86_64
+      then "Joplin ${version}"
+      else ".";
 
     postPatch = ''
       chmod a+x Joplin.app/Contents/Resources/build/7zip/7za
@@ -103,4 +104,6 @@ let
     passthru.updateScript = ./update.py;
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

@@ -8,7 +8,6 @@
   setuptools,
   traitlets,
 }:
-
 buildPythonPackage rec {
   pname = "execnb";
   version = "0.1.14";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-uofpVYCb0zMYqhMxT/TfkLQku0VWdBwtzJDHoovIfd0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fastcore
@@ -32,14 +31,14 @@ buildPythonPackage rec {
   # no real tests
   doCheck = false;
 
-  pythonImportsCheck = [ "execnb" ];
+  pythonImportsCheck = ["execnb"];
 
   meta = with lib; {
     description = "Execute a jupyter notebook, fast, without needing jupyter";
     homepage = "https://github.com/fastai/execnb";
     changelog = "https://github.com/fastai/execnb/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rxiao ];
+    maintainers = with maintainers; [rxiao];
     mainProgram = "exec_nb";
   };
 }

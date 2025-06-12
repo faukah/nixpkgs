@@ -1,9 +1,7 @@
-{ fetchurl }:
-let
+{fetchurl}: let
   pname = "roam-research";
   version = "0.0.22";
-in
-{
+in {
   inherit pname version;
   sources = {
     x86_64-darwin = fetchurl {

@@ -4,7 +4,6 @@
   fetchurl,
   libaio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "blktrace";
   version = "1.3.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1t7aA4Yt4r0bG5+6cpu7hi2bynleaqf3yoa2VoEacNY=";
   };
 
-  buildInputs = [ libaio ];
+  buildInputs = [libaio];
 
   makeFlags = [
     "prefix=${placeholder "out"}"
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Block layer IO tracing mechanism";
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

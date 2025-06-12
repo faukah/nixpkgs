@@ -7,7 +7,6 @@
   setuptools-scm,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-black";
   version = "0.6.0";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
     sha256 = "sha256-7Ld0VfN5gFy0vY9FqBOjdUw7vuMZmt8bNmXA39CGtRE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     black
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # does not contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pytest_black" ];
+  pythonImportsCheck = ["pytest_black"];
 
   meta = with lib; {
     description = "Pytest plugin to enable format checking with black";
     homepage = "https://github.com/shopkeep/pytest-black";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

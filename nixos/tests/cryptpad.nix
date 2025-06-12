@@ -1,6 +1,9 @@
-{ lib, pkgs, ... }:
-let
-  certs = pkgs.runCommand "cryptpadSelfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+{
+  lib,
+  pkgs,
+  ...
+}: let
+  certs = pkgs.runCommand "cryptpadSelfSignedCerts" {buildInputs = [pkgs.openssl];} ''
     mkdir -p $out
     cd $out
     openssl req -x509 -newkey rsa:4096 \
@@ -14,51 +17,50 @@ let
   '';
   seleniumScript =
     pkgs.writers.writePython3Bin "selenium-script"
-      {
-        libraries = with pkgs.python3Packages; [ selenium ];
-      }
-      ''
-        from sys import stderr
-        from time import time
-        from selenium import webdriver
-        from selenium.webdriver.common.by import By
-        from selenium.webdriver.firefox.options import Options
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
+    {
+      libraries = with pkgs.python3Packages; [selenium];
+    }
+    ''
+      from sys import stderr
+      from time import time
+      from selenium import webdriver
+      from selenium.webdriver.common.by import By
+      from selenium.webdriver.firefox.options import Options
+      from selenium.webdriver.support.ui import WebDriverWait
+      from selenium.webdriver.support import expected_conditions as EC
 
-        options = Options()
-        options.add_argument("--headless")
-        service = webdriver.FirefoxService(executable_path="${lib.getExe pkgs.geckodriver}")  # noqa: E501
+      options = Options()
+      options.add_argument("--headless")
+      service = webdriver.FirefoxService(executable_path="${lib.getExe pkgs.geckodriver}")  # noqa: E501
 
-        driver = webdriver.Firefox(options=options, service=service)
-        driver.implicitly_wait(10)
-        driver.get("https://cryptpad.localhost")
+      driver = webdriver.Firefox(options=options, service=service)
+      driver.implicitly_wait(10)
+      driver.get("https://cryptpad.localhost")
 
-        WebDriverWait(driver, 10).until(
-          EC.text_to_be_present_in_element(
-            (By.TAG_NAME, "body"), "CryptPad")
-        )
+      WebDriverWait(driver, 10).until(
+        EC.text_to_be_present_in_element(
+          (By.TAG_NAME, "body"), "CryptPad")
+      )
 
-        driver.find_element(By.PARTIAL_LINK_TEXT, "Sheet").click()
+      driver.find_element(By.PARTIAL_LINK_TEXT, "Sheet").click()
 
-        # Title changes once the sheet is rendered, which can take
-        # a lot of time on first run (browser generates keypair etc)
-        start = time()
-        WebDriverWait(driver, 60).until(
-          EC.title_contains('Sheet')
-        )
-        print(f"Sheets done loading in {time() - start}", file=stderr)
+      # Title changes once the sheet is rendered, which can take
+      # a lot of time on first run (browser generates keypair etc)
+      start = time()
+      WebDriverWait(driver, 60).until(
+        EC.title_contains('Sheet')
+      )
+      print(f"Sheets done loading in {time() - start}", file=stderr)
 
-        # check screen looks sane...
-        # driver.print_page() and dump pdf somewhere through pdftotext? OCR?
+      # check screen looks sane...
+      # driver.print_page() and dump pdf somewhere through pdftotext? OCR?
 
-        driver.close()
-      '';
-in
-{
+      driver.close()
+    '';
+in {
   name = "cryptpad";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ martinetd ];
+    maintainers = [martinetd];
   };
 
   nodes.machine = {
@@ -81,7 +83,7 @@ in
       };
     };
     security = {
-      pki.certificateFiles = [ "${certs}/cert.pem" ];
+      pki.certificateFiles = ["${certs}/cert.pem"];
     };
   };
 

@@ -7,7 +7,6 @@
   gtk2,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bitmeter";
   version = "1.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "http://devel.tlrmx.org/audio/bitmeter/";
     description = "Also known as jack bitscope. Useful to detect denormals";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     mainProgram = "bitmeter";
   };

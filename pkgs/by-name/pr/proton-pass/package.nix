@@ -61,8 +61,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       massimogengarelli
       sebtm
     ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "proton-pass";
   };
 })

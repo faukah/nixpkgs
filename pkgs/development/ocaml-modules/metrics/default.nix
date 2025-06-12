@@ -5,7 +5,6 @@
   alcotest,
   fmt,
 }:
-
 buildDunePackage rec {
   pname = "metrics";
   version = "0.4.1";
@@ -17,9 +16,9 @@ buildDunePackage rec {
     sha256 = "sha256-d+DCD7XB0GED27DsC8YEW+48YcAK0EI8l4Uqx/PGFE0=";
   };
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
@@ -27,7 +26,6 @@ buildDunePackage rec {
     description = "Metrics infrastructure for OCaml";
     homepage = "https://github.com/mirage/metrics";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

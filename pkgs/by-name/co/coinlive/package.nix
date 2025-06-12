@@ -6,7 +6,6 @@
   rustPlatform,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "coinlive";
   version = "0.2.2";
@@ -21,13 +20,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OswilwabVfoKIeHxo7sxCvgGH5dRfyTmnKED+TcxSV8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   checkFlags = [
     # Test requires network access
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mayeranalytics/coinlive";
     changelog = "https://github.com/mayeranalytics/coinlive/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "coinlive";
   };
 }

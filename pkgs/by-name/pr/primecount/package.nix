@@ -6,7 +6,6 @@
   primesieve,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "primecount";
   version = "7.18";
@@ -25,9 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ primesieve ];
+  buildInputs = [primesieve];
 
   strictDeps = true;
 
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     tests = {
       inherit primesieve; # dependency
     };
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {

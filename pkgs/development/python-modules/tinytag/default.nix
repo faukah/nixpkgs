@@ -6,7 +6,6 @@
   flit-core,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tinytag";
   version = "2.1.1";
@@ -24,14 +23,14 @@ buildPythonPackage rec {
     flit-core
   ];
 
-  pythonImportsCheck = [ "tinytag" ];
+  pythonImportsCheck = ["tinytag"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Read audio file metadata";
     homepage = "https://github.com/tinytag/tinytag";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

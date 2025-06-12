@@ -12,7 +12,6 @@
   pythonOlder,
   graphviz,
 }:
-
 buildPythonPackage rec {
   pname = "pyhepmc";
   version = "2.14.0";
@@ -35,26 +34,26 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   dontUseCmakeConfigure = true;
 
-  CMAKE_ARGS = [ "-DEXTERNAL_PYBIND11=ON" ];
+  CMAKE_ARGS = ["-DEXTERNAL_PYBIND11=ON"];
 
   nativeCheckInputs = [
     graphviz
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyhepmc" ];
+  pythonImportsCheck = ["pyhepmc"];
 
   meta = with lib; {
     description = "Easy-to-use Python bindings for HepMC3";
     homepage = "https://github.com/scikit-hep/pyhepmc";
     changelog = "https://github.com/scikit-hep/pyhepmc/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

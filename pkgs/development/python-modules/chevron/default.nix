@@ -5,7 +5,6 @@
   python,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "chevron";
   version = "0.14.0-unstable-2021-03-21";
@@ -32,6 +31,6 @@ buildPythonPackage {
     description = "Python implementation of the mustache templating language";
     mainProgram = "chevron";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dhkl ];
+    maintainers = with lib.maintainers; [dhkl];
   };
 }

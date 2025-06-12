@@ -6,7 +6,6 @@
   jq,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jq-zsh-plugin";
   version = "0.6.1";
@@ -32,13 +31,13 @@ stdenv.mkDerivation rec {
     substituteInPlace $out/share/jq-zsh-plugin/bin/jq-repl-preview --replace-fail ":-jq" ":-${jq}/bin/jq"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interactively build jq expressions in Zsh";
     homepage = "https://github.com/reegnz/jq-zsh-plugin";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.vinnymeller ];
+    maintainers = [lib.maintainers.vinnymeller];
   };
 }

@@ -17,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-b7dG0nSjPQpjWUbOlIxWudPZWKqtq96sQaJxKvsQT9I=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple terminal UI player for di.fm";
     homepage = "https://github.com/acaloiaro/di-tui";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.acaloiaro ];
+    maintainers = [lib.maintainers.acaloiaro];
     mainProgram = "di-tui";
   };
 }

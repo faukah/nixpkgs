@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.mtprotoproxy;
 
   configOpts =
@@ -17,40 +13,36 @@ let
       USERS = cfg.users;
       SECURE_ONLY = cfg.secureOnly;
     }
-    // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; }
+    // lib.optionalAttrs (cfg.adTag != null) {AD_TAG = cfg.adTag;}
     // cfg.extraConfig;
 
-  convertOption =
-    opt:
-    if isString opt || isInt opt then
-      builtins.toJSON opt
-    else if isBool opt then
-      if opt then "True" else "False"
-    else if isList opt then
-      "[" + concatMapStringsSep "," convertOption opt + "]"
-    else if isAttrs opt then
+  convertOption = opt:
+    if isString opt || isInt opt
+    then builtins.toJSON opt
+    else if isBool opt
+    then
+      if opt
+      then "True"
+      else "False"
+    else if isList opt
+    then "[" + concatMapStringsSep "," convertOption opt + "]"
+    else if isAttrs opt
+    then
       "{"
       + concatStringsSep "," (
         mapAttrsToList (name: opt: "${builtins.toJSON name}: ${convertOption opt}") opt
       )
       + "}"
-    else
-      throw "Invalid option type";
+    else throw "Invalid option type";
 
   configFile = pkgs.writeText "config.py" (
     concatStringsSep "\n" (mapAttrsToList (name: opt: "${name} = ${convertOption opt}") configOpts)
   );
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.mtprotoproxy = {
-
       enable = mkEnableOption "mtprotoproxy";
 
       port = mkOption {
@@ -92,7 +84,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
           STATS_PRINT_PERIOD = 600;
         };
@@ -100,24 +92,19 @@ in
           Extra configuration options for mtprotoproxy.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = mkIf cfg.enable {
-
     systemd.services.mtprotoproxy = {
       description = "MTProto Proxy Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.mtprotoproxy}/bin/mtprotoproxy ${configFile}";
         DynamicUser = true;
       };
     };
-
   };
-
 }

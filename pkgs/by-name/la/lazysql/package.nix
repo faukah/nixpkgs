@@ -8,7 +8,6 @@
   xorg ? null,
   darwin ? null,
 }:
-
 buildGoModule rec {
   pname = "lazysql";
   version = "0.3.7";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ xorg.libX11 ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [xorg.libX11];
 
   passthru.tests.version = testers.testVersion {
     package = lazysql;
@@ -37,7 +36,7 @@ buildGoModule rec {
     description = "Cross-platform TUI database management tool written in Go";
     homepage = "https://github.com/jorgerojas26/lazysql";
     license = licenses.mit;
-    maintainers = with maintainers; [ kanielrkirby ];
+    maintainers = with maintainers; [kanielrkirby];
     mainProgram = "lazysql";
   };
 }

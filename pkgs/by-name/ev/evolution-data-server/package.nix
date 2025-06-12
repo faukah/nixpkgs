@@ -47,7 +47,6 @@
   libiconv,
   makeHardcodeGsettingsPatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "evolution-data-server";
   version = "3.56.1";
@@ -183,14 +182,13 @@ stdenv.mkDerivation rec {
       };
       inherit src patches;
     };
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "evolution-data-server";
-          versionPolicy = "odd-unstable";
-        };
-        updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
-      in
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "evolution-data-server";
+        versionPolicy = "odd-unstable";
+      };
+      updatePatch = _experimental-update-script-combinators.copyAttrOutputToFile "evolution-data-server.hardcodeGsettingsPatch" ./hardcode-gsettings.patch;
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updatePatch
@@ -202,7 +200,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/evolution-data-server";
     changelog = "https://gitlab.gnome.org/GNOME/evolution-data-server/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.lgpl2Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux; # requires libuuid
   };
 }

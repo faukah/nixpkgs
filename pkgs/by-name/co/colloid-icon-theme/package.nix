@@ -6,15 +6,12 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  schemeVariants ? [ ],
-  colorVariants ? [ ], # default is blue
-}:
-
-let
+  schemeVariants ? [],
+  colorVariants ? [], # default is blue
+}: let
   pname = "colloid-icon-theme";
-
 in
-lib.checkListOfEnum "colloid-icon-theme: scheme variants"
+  lib.checkListOfEnum "colloid-icon-theme: scheme variants"
   [
     "default"
     "nord"
@@ -40,7 +37,6 @@ lib.checkListOfEnum "colloid-icon-theme: scheme variants"
     "all"
   ]
   colorVariants
-
   stdenvNoCC.mkDerivation
   rec {
     inherit pname;
@@ -77,8 +73,8 @@ lib.checkListOfEnum "colloid-icon-theme: scheme variants"
       runHook preInstall
 
       name= ./install.sh \
-        ${lib.optionalString (schemeVariants != [ ]) ("--scheme " + builtins.toString schemeVariants)} \
-        ${lib.optionalString (colorVariants != [ ]) ("--theme " + builtins.toString colorVariants)} \
+        ${lib.optionalString (schemeVariants != []) ("--scheme " + builtins.toString schemeVariants)} \
+        ${lib.optionalString (colorVariants != []) ("--theme " + builtins.toString colorVariants)} \
         --dest $out/share/icons
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -86,13 +82,13 @@ lib.checkListOfEnum "colloid-icon-theme: scheme variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Colloid icon theme";
       homepage = "https://github.com/vinceliuice/colloid-icon-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

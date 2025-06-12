@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       --replace "PREFIX := /usr/local" "PREFIX :="
   '';
 
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
     description = "Tool for measuring energy consumption of Intel CPUs";
     homepage = "https://github.com/sosy-lab/cpu-energy-meter";
     changelog = "https://github.com/sosy-lab/cpu-energy-meter/blob/main/CHANGELOG.md";
-    maintainers = with maintainers; [ lorenzleutgeb ];
+    maintainers = with maintainers; [lorenzleutgeb];
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "cpu-energy-meter";
   };
 }

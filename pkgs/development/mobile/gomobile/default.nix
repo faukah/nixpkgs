@@ -7,7 +7,7 @@
   makeWrapper,
   xcodeenv,
   androidenv,
-  xcodeWrapperArgs ? { },
+  xcodeWrapperArgs ? {},
   xcodeWrapper ? xcodeenv.composeXcodeWrapper xcodeWrapperArgs,
   withAndroidPkgs ? true,
   androidPkgs ? (
@@ -38,7 +38,7 @@ buildGoModule {
   # Fails with: go: cannot find GOROOT directory
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcodeWrapper ];
+  nativeBuildInputs = [makeWrapper] ++ lib.optionals stdenv.hostPlatform.isDarwin [xcodeWrapper];
 
   # Prevent a non-deterministic temporary directory from polluting the resulting object files
   postPatch = ''
@@ -60,18 +60,18 @@ buildGoModule {
     for prog in gomobile gobind; do
       wrapProgram $out/bin/$prog \
         --suffix GOPATH : $out \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ zlib ]}" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [zlib]}" \
         ${lib.optionalString withAndroidPkgs ''
-          --prefix PATH : "${androidPkgs.androidsdk}/bin" \
-          --set-default ANDROID_HOME "${androidPkgs.androidsdk}/libexec/android-sdk"
-        ''}
+      --prefix PATH : "${androidPkgs.androidsdk}/bin" \
+      --set-default ANDROID_HOME "${androidPkgs.androidsdk}/libexec/android-sdk"
+    ''}
     done
   '';
 
   meta = {
     description = "Tool for building and running mobile apps written in Go";
     homepage = "https://pkg.go.dev/golang.org/x/mobile/cmd/gomobile";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ jakubgs ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [jakubgs];
   };
 }

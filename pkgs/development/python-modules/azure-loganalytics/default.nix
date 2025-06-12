@@ -5,7 +5,6 @@
   msrest,
   azure-common,
 }:
-
 buildPythonPackage rec {
   version = "0.1.1";
   format = "setuptools";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     azure-common
   ];
 
-  pythonNamespaces = [ "azure" ];
+  pythonNamespaces = ["azure"];
 
   # has no tests
   doCheck = false;

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "zope-interface";
   version = "7.2";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
       --replace-fail "setuptools < 74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "zope.interface" ];
+  pythonImportsCheck = ["zope.interface"];
 
   doCheck = false; # Circular deps.
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     changelog = "https://github.com/zopefoundation/zope.interface/blob/${version}/CHANGES.rst";
     description = "Zope.Interface";
     homepage = "https://github.com/zopefoundation/zope.interface";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

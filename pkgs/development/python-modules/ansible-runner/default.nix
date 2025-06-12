@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   packaging,
   pexpect,
@@ -15,7 +13,6 @@
   pyyaml,
   pythonOlder,
   importlib-metadata,
-
   # tests
   ansible-core,
   glibcLocales,
@@ -27,7 +24,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ansible-runner";
   version = "2.4.0";
@@ -50,12 +46,14 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    packaging
-    pexpect
-    python-daemon
-    pyyaml
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  dependencies =
+    [
+      packaging
+      pexpect
+      python-daemon
+      pyyaml
+    ]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     ansible-core # required to place ansible CLI onto the PATH in tests
@@ -106,14 +104,14 @@ buildPythonPackage rec {
       "test/unit/config/test__base.py"
     ];
 
-  pythonImportsCheck = [ "ansible_runner" ];
+  pythonImportsCheck = ["ansible_runner"];
 
   meta = {
     description = "Helps when interfacing with Ansible";
     homepage = "https://github.com/ansible/ansible-runner";
     changelog = "https://github.com/ansible/ansible-runner/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "ansible-runner";
   };
 }

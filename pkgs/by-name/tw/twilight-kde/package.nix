@@ -4,7 +4,6 @@
   stdenvNoCC,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "twilight-kde";
   version = "0-unstable-2023-03-09";
@@ -32,13 +31,13 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Light, clean theme for KDE Plasma desktop";
     homepage = "https://github.com/yeyushengfan258/Twilight-kde";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ dretyuiop ];
+    maintainers = with lib.maintainers; [dretyuiop];
   };
 }

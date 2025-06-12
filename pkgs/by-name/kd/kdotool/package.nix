@@ -5,7 +5,6 @@
   pkg-config,
   dbus,
 }:
-
 rustPlatform.buildRustPackage rec {
   version = "0.2.2-pre";
   pname = "kdotool";
@@ -20,13 +19,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-ASR2zMwVCKeEZPYQNoO54J00eZyTn1i6FE0NBCJWSCs=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dbus ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dbus];
 
   meta = with lib; {
     description = "xdotool-like for KDE Wayland";
     homepage = "https://github.com/jinliu/kdotool";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kotatsuyaki ];
+    maintainers = with maintainers; [kotatsuyaki];
   };
 }

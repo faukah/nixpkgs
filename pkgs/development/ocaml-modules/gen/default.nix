@@ -7,7 +7,6 @@
   qcheck,
   ounit2,
 }:
-
 buildDunePackage rec {
   version = "1.1";
   pname = "gen";
@@ -21,7 +20,7 @@ buildDunePackage rec {
     hash = "sha256-ZytPPGhmt/uANaSgkgsUBOwyQ9ka5H4J+5CnJpEdrNk=";
   };
 
-  propagatedBuildInputs = [ seq ];
+  propagatedBuildInputs = [seq];
   checkInputs = [
     qcheck
     ounit2

@@ -3,9 +3,7 @@
   apple-sdk,
   mkAppleDerivation,
   stdenvNoCC,
-}:
-
-let
+}: let
   xnu = apple-sdk.sourceRelease "xnu";
 
   privateHeaders = stdenvNoCC.mkDerivation {
@@ -60,27 +58,27 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "copyfile";
+  mkAppleDerivation {
+    releaseName = "copyfile";
 
-  outputs = [
-    "out"
-    "dev"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "dev"
+      "man"
+    ];
 
-  xcodeHash = "sha256-SYW6pBlCQkcbkBqCq+W/mDYZZ7/co2HlPZwXzgh/LnI=";
+    xcodeHash = "sha256-SYW6pBlCQkcbkBqCq+W/mDYZZ7/co2HlPZwXzgh/LnI=";
 
-  postPatch = ''
-    # Disable experimental bounds safety stuff that’s not available in LLVM 16.
-    for header in copyfile.h xattr_flags.h; do
-      substituteInPlace "$header" \
-        --replace-fail '__ptrcheck_abi_assume_single()' "" \
-        --replace-fail '__unsafe_indexable' ""
-    done
-  '';
+    postPatch = ''
+      # Disable experimental bounds safety stuff that’s not available in LLVM 16.
+      for header in copyfile.h xattr_flags.h; do
+        substituteInPlace "$header" \
+          --replace-fail '__ptrcheck_abi_assume_single()' "" \
+          --replace-fail '__unsafe_indexable' ""
+      done
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  meta.description = "Darwin file copying library";
-}
+    meta.description = "Darwin file copying library";
+  }

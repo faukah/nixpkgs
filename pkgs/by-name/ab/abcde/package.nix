@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "/etc/abcde.conf" "$out/etc/abcde.conf"
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with perlPackages; [
     perl
@@ -48,34 +48,34 @@ stdenv.mkDerivation (finalAttrs: {
     IOSocketSSL
   ];
 
-  installFlags = [ "sysconfdir=$(out)/etc" ];
+  installFlags = ["sysconfdir=$(out)/etc"];
 
   postFixup = ''
     for cmd in abcde cddb-tool abcde-musicbrainz-tool; do
       wrapProgram "$out/bin/$cmd" \
         --prefix PERL5LIB : "$PERL5LIB" \
         --prefix PATH ":" ${
-          lib.makeBinPath [
-            "$out"
-            which
-            libcdio-paranoia
-            cddiscid
-            wget
-            vorbis-tools
-            id3v2
-            python3Packages.eyed3
-            lame
-            flac
-            glyr
-          ]
-        }
+      lib.makeBinPath [
+        "$out"
+        which
+        libcdio-paranoia
+        cddiscid
+        wget
+        vorbis-tools
+        id3v2
+        python3Packages.eyed3
+        lame
+        flac
+        glyr
+      ]
+    }
     done
   '';
 
   meta = {
     homepage = "http://abcde.einval.com/wiki/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     description = "Command-line audio CD ripper";
     longDescription = ''
       abcde is a front-end command-line utility (actually, a shell

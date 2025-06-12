@@ -20,7 +20,6 @@
   setuptools-scm,
   shapely,
 }:
-
 buildPythonPackage rec {
   pname = "cartopy";
   version = "0.24.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-AckQ1WNMaafv3sRuChfUc9Iyh2fwAdTcC1xLSOWFyL0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeBuildInputs = [
     cython
@@ -66,10 +65,12 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-mpl
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-mpl
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
@@ -93,7 +94,7 @@ buildPythonPackage rec {
     homepage = "https://scitools.org.uk/cartopy/docs/latest/";
     changelog = "https://github.com/SciTools/cartopy/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "feature_download";
   };
 }

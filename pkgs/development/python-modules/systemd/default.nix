@@ -8,7 +8,6 @@
   pytest,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "systemd";
   version = "235";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-8p4m4iM/z4o6PHRQIpuSXb64tPTWGlujEYCDVLiIt2o=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
   nativeCheckInputs = [
     libredirect.hook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://www.freedesktop.org/software/systemd/python-systemd/";
     changelog = "https://github.com/systemd/python-systemd/blob/v${version}/NEWS";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

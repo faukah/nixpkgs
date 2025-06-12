@@ -13,7 +13,6 @@
   pyasyncore,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "yowsup";
   version = "3.3.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
   };
 
   pythonRelaxDeps = true;
-  pythonRemoveDeps = [ "argparse" ];
+  pythonRemoveDeps = ["argparse"];
 
   env = {
     # make protobuf compatible with old versions
@@ -39,23 +38,25 @@ buildPythonPackage rec {
     PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  dependencies = [
-    appdirs
-    consonance
-    protobuf
-    python-axolotl
-    six
-  ] ++ lib.optionals (!pythonOlder "3.12") [ pyasyncore ];
+  dependencies =
+    [
+      appdirs
+      consonance
+      protobuf
+      python-axolotl
+      six
+    ]
+    ++ lib.optionals (!pythonOlder "3.12") [pyasyncore];
 
   meta = {
     homepage = "https://github.com/tgalal/yowsup";
     description = "Python WhatsApp library";
     mainProgram = "yowsup-cli";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

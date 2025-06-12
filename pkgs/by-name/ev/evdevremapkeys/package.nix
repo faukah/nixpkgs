@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonPackage {
   pname = "evdevremapkeys";
   version = "unstable-2021-05-04";
@@ -26,14 +25,14 @@ python3Packages.buildPythonPackage {
   # hase no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "evdevremapkeys" ];
+  pythonImportsCheck = ["evdevremapkeys"];
 
   meta = with lib; {
     homepage = "https://github.com/philipl/evdevremapkeys";
     description = "Daemon to remap events on linux input devices";
     mainProgram = "evdevremapkeys";
     license = licenses.mit;
-    maintainers = [ maintainers.q3k ];
+    maintainers = [maintainers.q3k];
     platforms = platforms.linux;
   };
 }

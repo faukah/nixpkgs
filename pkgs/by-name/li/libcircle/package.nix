@@ -6,7 +6,6 @@
   pkg-config,
   mpi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcircle";
   version = "0.3";
@@ -28,13 +27,13 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   meta = with lib; {
     description = "API for distributing embarrassingly parallel workloads using self-stabilization";
     homepage = "http://hpc.github.io/libcircle/";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

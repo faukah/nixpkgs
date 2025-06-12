@@ -5,106 +5,98 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.networking.supplicant;
 
   # We must escape interfaces due to the systemd interpretation
-  subsystemDevice =
-    interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
+  subsystemDevice = interface: "sys-subsystem-net-devices-${utils.escapeSystemdPath interface}.device";
 
-  serviceName =
-    iface:
-    "supplicant-${
-      if (iface == "WLAN") then
-        "wlan@"
-      else
-        (
-          if (iface == "LAN") then
-            "lan@"
-          else
-            (if (iface == "DBUS") then "dbus" else (replaceStrings [ " " ] [ "-" ] iface))
-        )
-    }";
+  serviceName = iface: "supplicant-${
+    if (iface == "WLAN")
+    then "wlan@"
+    else
+      (
+        if (iface == "LAN")
+        then "lan@"
+        else
+          (
+            if (iface == "DBUS")
+            then "dbus"
+            else (replaceStrings [" "] ["-"] iface)
+          )
+      )
+  }";
 
   # TODO: Use proper privilege separation for wpa_supplicant
-  supplicantService =
-    iface: suppl:
-    let
-      deps =
+  supplicantService = iface: suppl: let
+    deps =
+      (
+        if (iface == "WLAN" || iface == "LAN")
+        then ["sys-subsystem-net-devices-%i.device"]
+        else
+          (
+            if (iface == "DBUS")
+            then ["dbus.service"]
+            else (map subsystemDevice (splitString " " iface))
+          )
+      )
+      ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
+
+    ifaceArg = concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
+    driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
+    bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
+    extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [" "] ["-"] iface}" ''
+      ${optionalString suppl.userControlled.enable "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
+      ${optionalString suppl.configFile.writable "update_config=1"}
+      ${suppl.extraConf}
+    '';
+    confArgs = escapeShellArgs (
+      if suppl.configFile.path == null
+      then ["-c${extraConfFile}"]
+      else [
+        "-c${suppl.configFile.path}"
+        "-I${extraConfFile}"
+      ]
+    );
+  in {
+    description = "Supplicant ${iface}${optionalString (iface == "WLAN" || iface == "LAN") " %I"}";
+    wantedBy = ["multi-user.target"] ++ deps;
+    wants = ["network.target"];
+    bindsTo = deps;
+    after = deps;
+    before = ["network.target"];
+
+    path = [pkgs.coreutils];
+
+    preStart = ''
+      ${optionalString (suppl.configFile.path != null && suppl.configFile.writable) ''
+        (umask 077 && touch -a "${suppl.configFile.path}")
+      ''}
+      ${optionalString suppl.userControlled.enable ''
+        install -dm770 -g "${suppl.userControlled.group}" "${suppl.userControlled.socketDir}"
+      ''}
+    '';
+
+    serviceConfig.ExecStart = "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confArgs} ${bridgeArg} ${suppl.extraCmdArgs} ${
+      if (iface == "WLAN" || iface == "LAN")
+      then "-i%I"
+      else
         (
-          if (iface == "WLAN" || iface == "LAN") then
-            [ "sys-subsystem-net-devices-%i.device" ]
-          else
-            (if (iface == "DBUS") then [ "dbus.service" ] else (map subsystemDevice (splitString " " iface)))
+          if (iface == "DBUS")
+          then "-u"
+          else ifaceArg
         )
-        ++ optional (suppl.bridge != "") (subsystemDevice suppl.bridge);
-
-      ifaceArg = concatStringsSep " -N " (map (i: "-i${i}") (splitString " " iface));
-      driverArg = optionalString (suppl.driver != null) "-D${suppl.driver}";
-      bridgeArg = optionalString (suppl.bridge != "") "-b${suppl.bridge}";
-      extraConfFile = pkgs.writeText "supplicant-extra-conf-${replaceStrings [ " " ] [ "-" ] iface}" ''
-        ${optionalString suppl.userControlled.enable "ctrl_interface=DIR=${suppl.userControlled.socketDir} GROUP=${suppl.userControlled.group}"}
-        ${optionalString suppl.configFile.writable "update_config=1"}
-        ${suppl.extraConf}
-      '';
-      confArgs = escapeShellArgs (
-        if suppl.configFile.path == null then
-          [ "-c${extraConfFile}" ]
-        else
-          [
-            "-c${suppl.configFile.path}"
-            "-I${extraConfFile}"
-          ]
-      );
-    in
-    {
-      description = "Supplicant ${iface}${optionalString (iface == "WLAN" || iface == "LAN") " %I"}";
-      wantedBy = [ "multi-user.target" ] ++ deps;
-      wants = [ "network.target" ];
-      bindsTo = deps;
-      after = deps;
-      before = [ "network.target" ];
-
-      path = [ pkgs.coreutils ];
-
-      preStart = ''
-        ${optionalString (suppl.configFile.path != null && suppl.configFile.writable) ''
-          (umask 077 && touch -a "${suppl.configFile.path}")
-        ''}
-        ${optionalString suppl.userControlled.enable ''
-          install -dm770 -g "${suppl.userControlled.group}" "${suppl.userControlled.socketDir}"
-        ''}
-      '';
-
-      serviceConfig.ExecStart = "${pkgs.wpa_supplicant}/bin/wpa_supplicant -s ${driverArg} ${confArgs} ${bridgeArg} ${suppl.extraCmdArgs} ${
-        if (iface == "WLAN" || iface == "LAN") then
-          "-i%I"
-        else
-          (if (iface == "DBUS") then "-u" else ifaceArg)
-      }";
-
-    };
-
-in
-
-{
-
+    }";
+  };
+in {
   ###### interface
 
   options = {
-
     networking.supplicant = mkOption {
-      type =
-        with types;
+      type = with types;
         attrsOf (submodule {
           options = {
-
             configFile = {
-
               path = mkOption {
                 type = types.nullOr types.path;
                 default = null;
@@ -124,7 +116,6 @@ in
                   `wpa_supplicant`.
                 '';
               };
-
             };
 
             extraConf = mkOption {
@@ -173,7 +164,6 @@ in
             };
 
             userControlled = {
-
               enable = mkOption {
                 type = types.bool;
                 default = false;
@@ -197,12 +187,11 @@ in
                 example = "network";
                 description = "Members of this group can control wpa_supplicant.";
               };
-
             };
           };
         });
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         { "wlan0 wlan1" = {
@@ -234,18 +223,15 @@ in
         `DBUS` defines a device-unrelated {command}`wpa_supplicant`
         service that can be accessed through `D-Bus`.
       '';
-
     };
-
   };
 
   ###### implementation
 
-  config = mkIf (cfg != { }) {
+  config = mkIf (cfg != {}) {
+    environment.systemPackages = [pkgs.wpa_supplicant];
 
-    environment.systemPackages = [ pkgs.wpa_supplicant ];
-
-    services.dbus.packages = [ pkgs.wpa_supplicant ];
+    services.dbus.packages = [pkgs.wpa_supplicant];
 
     systemd.services = mapAttrs' (n: v: nameValuePair (serviceName n) (supplicantService n v)) cfg;
 
@@ -254,16 +240,16 @@ in
         name = "99-zzz-60-supplicant.rules";
         destination = "/etc/udev/rules.d/99-zzz-60-supplicant.rules";
         text = ''
-          ${flip (concatMapStringsSep "\n")
+          ${
+            flip (concatMapStringsSep "\n")
             (filter (n: n != "WLAN" && n != "LAN" && n != "DBUS") (attrNames cfg))
             (
               iface:
-              flip (concatMapStringsSep "\n") (splitString " " iface) (
-                i:
-                ''ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
-                  replaceStrings [ " " ] [ "-" ] iface
-                }.service", TAG+="SUPPLICANT_ASSIGNED"''
-              )
+                flip (concatMapStringsSep "\n") (splitString " " iface) (
+                  i: ''ACTION=="add", SUBSYSTEM=="net", ENV{INTERFACE}=="${i}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="supplicant-${
+                      replaceStrings [" "] ["-"] iface
+                    }.service", TAG+="SUPPLICANT_ASSIGNED"''
+                )
             )
           }
 
@@ -276,7 +262,5 @@ in
         '';
       })
     ];
-
   };
-
 }

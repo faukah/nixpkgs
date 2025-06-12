@@ -1,12 +1,10 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption;
-in
-{
+in {
   options.sub = lib.mkOption {
     type = lib.types.submodule {
-      wrong2 = mkOption { };
+      wrong2 = mkOption {};
     };
-    default = { };
+    default = {};
   };
 }

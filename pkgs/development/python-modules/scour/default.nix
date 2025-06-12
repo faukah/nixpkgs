@@ -4,7 +4,6 @@
   fetchPypi,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "scour";
   version = "0.38.2";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "6881ec26660c130c5ecd996ac6f6b03939dd574198f50773f2508b81a68e0daf";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # No tests included in archive
   doCheck = false;
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     mainProgram = "scour";
     homepage = "https://github.com/scour-project/scour";
     license = licenses.asl20;
-    maintainers = with maintainers; [ worldofpeace ];
+    maintainers = with maintainers; [worldofpeace];
   };
 }

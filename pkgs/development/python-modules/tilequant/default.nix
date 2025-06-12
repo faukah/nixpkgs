@@ -10,7 +10,6 @@
   setuptools-dso,
   sortedcollections,
 }:
-
 buildPythonPackage rec {
   pname = "tilequant";
   version = "1.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-0i7brL/hn8SOj3q/rpOcOQ9QW/4Mew2fr0Y42k4K9UI=";
   };
 
-  pythonRelaxDeps = [ "pillow" ];
+  pythonRelaxDeps = ["pillow"];
 
   build-system = [
     setuptools
@@ -39,14 +38,14 @@ buildPythonPackage rec {
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "tilequant" ];
+  pythonImportsCheck = ["tilequant"];
 
   meta = with lib; {
     description = "Tool for quantizing image colors using tile-based palette restrictions";
     homepage = "https://github.com/SkyTemple/tilequant";
     changelog = "https://github.com/SkyTemple/tilequant/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
     mainProgram = "tilequant";
   };
 }

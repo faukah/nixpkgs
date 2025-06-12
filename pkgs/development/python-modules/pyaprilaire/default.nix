@@ -7,7 +7,6 @@
   setuptools,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "pyaprilaire";
   version = "0.9.1";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-5f/vo8aDQ0HVKXW/yiNYyH3zFnwvP5kv0ZEglvB5quo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ crc ];
+  dependencies = [crc];
 
-  pythonImportsCheck = [ "pyaprilaire" ];
+  pythonImportsCheck = ["pyaprilaire"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Python library for interacting with Aprilaire thermostats";
     homepage = "https://github.com/chamberlain2007/pyaprilaire";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

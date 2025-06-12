@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.hackedbox;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.hackedbox.enable = mkEnableOption "hackedbox";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.hackedbox ];
+    environment.systemPackages = [pkgs.hackedbox];
   };
 }

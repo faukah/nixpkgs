@@ -9,7 +9,6 @@
   pkg-config,
   qt6Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sailfish-access-control";
   version = "0.0.12";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
     tests = {
       pkg-config = testers.hasPkgConfigModules {
         package = finalAttrs.finalPackage;
@@ -74,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/sailfishos/sailfish-access-control";
     changelog = "https://github.com/sailfishos/sailfish-access-control/releases/tag/${finalAttrs.version}";
     license = lib.licenses.lgpl2Plus;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "sailfishaccesscontrol"

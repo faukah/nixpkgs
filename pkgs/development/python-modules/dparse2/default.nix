@@ -8,7 +8,6 @@
   packvers,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dparse2";
   version = "0.7.0";
@@ -29,20 +28,20 @@ buildPythonPackage rec {
     packvers
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Requires pipenv
     "tests/test_parse.py"
   ];
 
-  pythonImportsCheck = [ "dparse2" ];
+  pythonImportsCheck = ["dparse2"];
 
   meta = with lib; {
     description = "Module to parse Python dependency files";
     homepage = "https://github.com/nexB/dparse2";
     changelog = "https://github.com/nexB/dparse2/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

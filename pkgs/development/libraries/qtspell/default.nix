@@ -11,7 +11,6 @@
   qtbase,
   qttools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtspell";
   version = "1.0.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       llvmPackages.clang
     ];
 
-  cmakeFlags = [ "-DQT_VER=6" ];
+  cmakeFlags = ["-DQT_VER=6"];
 
   dontWrapQtApps = true;
 
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Provides spell-checking to Qt's text widgets, using the enchant spell-checking library";
     homepage = "https://github.com/manisandro/qtspell";
     changelog = "https://github.com/manisandro/qtspell/blob/version/NEWS";
-    maintainers = with maintainers; [ dansbandit ];
+    maintainers = with maintainers; [dansbandit];
     license = licenses.gpl3Only;
     platforms = platforms.all;
   };

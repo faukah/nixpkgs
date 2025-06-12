@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   networkx,
   numpy,
@@ -17,7 +16,6 @@
   opt-einsum,
   xgboost,
   google-generativeai,
-
   # tests
   pytestCheckHook,
   pytest-cov-stub,
@@ -80,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pgmpy/pgmpy";
     changelog = "https://github.com/pgmpy/pgmpy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

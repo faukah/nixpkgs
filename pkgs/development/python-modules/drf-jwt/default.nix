@@ -5,7 +5,6 @@
   pyjwt,
   djangorestframework,
 }:
-
 buildPythonPackage rec {
   pname = "drf-jwt";
   version = "1.19.2";
@@ -18,10 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-bbkk78uYTG+JTzY3AyOmEVtVSgout/TETfr5N5fUto4=";
   };
 
-  propagatedBuildInputs = [
-    pyjwt
-    djangorestframework
-  ] ++ pyjwt.optional-dependencies.crypto;
+  propagatedBuildInputs =
+    [
+      pyjwt
+      djangorestframework
+    ]
+    ++ pyjwt.optional-dependencies.crypto;
 
   # requires setting up a django instance
   doCheck = false;
@@ -41,6 +42,6 @@ buildPythonPackage rec {
     description = "JSON Web Token based authentication for Django REST framework";
     homepage = "https://github.com/Styria-Digital/django-rest-framework-jwt";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

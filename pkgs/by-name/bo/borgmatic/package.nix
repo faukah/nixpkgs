@@ -23,10 +23,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-yxAtD7sKOo0voE8BvfL0HGsnP0L2sc1f0UgXBNt/aQU=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       flexmock
       pytestCheckHook
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     "test_borgmatic_version_matches_news_version"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = with python3Packages; [
     borgbackup
@@ -53,7 +52,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   optional-dependencies = {
-    apprise = [ python3Packages.apprise ];
+    apprise = [python3Packages.apprise];
   };
 
   postInstall =
@@ -74,7 +73,7 @@ python3Packages.buildPythonApplication rec {
     '';
 
   passthru.tests = {
-    version = testers.testVersion { package = borgmatic; };
+    version = testers.testVersion {package = borgmatic;};
     inherit (nixosTests) borgmatic;
   };
 

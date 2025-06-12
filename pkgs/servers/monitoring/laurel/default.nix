@@ -4,7 +4,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "laurel";
   version = "0.7.2";
@@ -26,8 +25,8 @@ rustPlatform.buildRustPackage rec {
     rm .cargo/config.toml
   '';
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
-  buildInputs = [ acl ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
+  buildInputs = [acl];
 
   checkFlags = [
     # Nix' build sandbox does not allow setting ACLs:
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/threathunters-io/laurel";
     changelog = "https://github.com/threathunters-io/laurel/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ emilylange ];
+    maintainers = with maintainers; [emilylange];
     platforms = platforms.linux;
   };
 }

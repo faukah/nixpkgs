@@ -5,7 +5,6 @@
   jre,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "google-java-format";
   version = "1.27.0";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -44,9 +43,9 @@ stdenv.mkDerivation rec {
       A program that reformats Java source code to comply with Google Java Style.
     '';
     homepage = "https://github.com/google/google-java-format";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ maintainers.emptyflask ];
+    maintainers = [maintainers.emptyflask];
     platforms = platforms.all;
     mainProgram = "google-java-format";
   };

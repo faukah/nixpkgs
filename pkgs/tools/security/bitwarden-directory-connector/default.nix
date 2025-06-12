@@ -8,15 +8,12 @@
   pkg-config,
   libsecret,
   nodejs_22,
-}:
-
-let
-  common =
-    {
-      name,
-      npmBuildScript,
-      installPhase,
-    }:
+}: let
+  common = {
+    name,
+    npmBuildScript,
+    installPhase,
+  }:
     buildNpmPackage rec {
       pname = name;
       version = "2025.5.0";
@@ -50,7 +47,7 @@ let
       ];
 
       nativeBuildInputs = [
-        (python3.withPackages (ps: with ps; [ setuptools ]))
+        (python3.withPackages (ps: with ps; [setuptools]))
         pkg-config
       ];
 
@@ -66,8 +63,7 @@ let
         mainProgram = name;
       };
     };
-in
-{
+in {
   bitwarden-directory-connector = common {
     name = "bitwarden-directory-connector";
     npmBuildScript = "build:dist";

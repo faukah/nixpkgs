@@ -7,7 +7,6 @@
   openssh,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ssh-askpass-fullscreen";
   version = "1.3";
@@ -35,9 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/atj/ssh-askpass-fullscreen";
     broken = stdenv.hostPlatform.isDarwin;
     description = "Small, fullscreen SSH askpass GUI using GTK+2";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "ssh-askpass-fullscreen";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

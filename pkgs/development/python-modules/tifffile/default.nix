@@ -11,7 +11,6 @@
   setuptools,
   zarr,
 }:
-
 buildPythonPackage rec {
   pname = "tifffile";
   version = "2025.3.30";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-PN7kf+Bs11NnwWvD/zRSNxMVba5s1Jjjo5Lls5pRt4k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     dask
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     "test_issue_invalid_predictor"
   ];
 
-  pythonImportsCheck = [ "tifffile" ];
+  pythonImportsCheck = ["tifffile"];
 
   # flaky, often killed due to OOM or timeout
   env.SKIP_LARGE = "1";
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cgohlke/tifffile/";
     changelog = "https://github.com/cgohlke/tifffile/blob/v${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lebastr ];
+    maintainers = with maintainers; [lebastr];
   };
 }

@@ -19,7 +19,6 @@
   uart-devices,
   usb-devices,
 }:
-
 buildPythonPackage rec {
   pname = "bluetooth-adapters";
   version = "0.21.4";
@@ -63,13 +62,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bluetooth_adapters" ];
+  pythonImportsCheck = ["bluetooth_adapters"];
 
   meta = with lib; {
     description = "Tools to enumerate and find Bluetooth Adapters";
     homepage = "https://github.com/Bluetooth-Devices/bluetooth-adapters";
     changelog = "https://github.com/bluetooth-devices/bluetooth-adapters/blob/${src.tag}/CHANGELOG.md";
     license = licenses.asl20;
-    teams = [ teams.home-assistant ];
+    teams = [teams.home-assistant];
   };
 }

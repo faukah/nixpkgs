@@ -8,7 +8,6 @@
   scipy,
   numpy,
 }:
-
 buildPythonPackage rec {
   pname = "python-louvain";
   version = "0.16";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "community" ];
+  pythonImportsCheck = ["community"];
 
   nativeCheckInputs = [
     pandas
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Louvain Community Detection";
     mainProgram = "community";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   fetchpatch,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpick";
   version = "0.3";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Advanced color picker written in C++ using GTK+ toolkit";
     homepage = "https://www.gpick.org/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
     platforms = platforms.linux;
     mainProgram = "gpick";
   };

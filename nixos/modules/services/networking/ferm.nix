@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.ferm;
 
   configFile = pkgs.stdenv.mkDerivation {
@@ -16,8 +15,7 @@ let
       ${cfg.package}/bin/ferm --noexec $out
     '';
   };
-in
-{
+in {
   options = {
     services.ferm = {
       enable = lib.mkOption {
@@ -36,7 +34,7 @@ in
         defaultText = lib.literalMD "empty firewall, allows any traffic";
         type = lib.types.lines;
       };
-      package = lib.mkPackageOption pkgs "ferm" { };
+      package = lib.mkPackageOption pkgs "ferm" {};
     };
   };
 
@@ -44,10 +42,10 @@ in
     systemd.services.firewall.enable = false;
     systemd.services.ferm = {
       description = "Ferm Firewall";
-      after = [ "ipset.target" ];
-      before = [ "network-pre.target" ];
-      wants = [ "network-pre.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["ipset.target"];
+      before = ["network-pre.target"];
+      wants = ["network-pre.target"];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
       serviceConfig = {
         Type = "oneshot";

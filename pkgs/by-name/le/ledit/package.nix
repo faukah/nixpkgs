@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ocamlPackages,
 }:
-
 stdenv.mkDerivation {
   pname = "ledit";
   version = "2.06";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "http://pauillac.inria.fr/~ddr/ledit/";
     description = "Line editor, allowing to use shell commands with control characters like in emacs";
     license = licenses.bsd3;
-    maintainers = [ maintainers.delta ];
+    maintainers = [maintainers.delta];
     mainProgram = "ledit";
   };
 }

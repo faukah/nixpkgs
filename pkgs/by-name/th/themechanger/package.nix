@@ -16,7 +16,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "themechanger";
   version = "0.12.1";
@@ -67,7 +66,7 @@ python3Packages.buildPythonApplication rec {
       It lets the user change GTK 2/3/4, Kvantum, icon and cursor themes, edit GTK CSS with live preview, and set some related options.
       It also lets the user install icon and widget theme archives.
     '';
-    maintainers = with maintainers; [ ALEX11BR ];
+    maintainers = with maintainers; [ALEX11BR];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

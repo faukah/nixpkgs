@@ -15,7 +15,6 @@
   pytestCheckHook,
   redis,
 }:
-
 buildPythonPackage rec {
   pname = "banks";
   version = "2.1.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
 
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     deprecated
@@ -48,18 +47,20 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "banks" ];
+  pythonImportsCheck = ["banks"];
 
   meta = {
     description = "Module that provides tools and functions to build prompts text and chat messages from generic blueprints";
     homepage = "https://github.com/masci/banks";
     changelog = "https://github.com/masci/banks/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

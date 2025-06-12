@@ -69,7 +69,7 @@ rustPlatform.buildRustPackage rec {
     description = "Personalized AI powered by what you've seen, said, or heard";
     homepage = "https://github.com/louis030195/screen-pipe";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "screen-pipe";
   };
 }

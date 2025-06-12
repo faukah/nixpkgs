@@ -2,17 +2,13 @@
   lib,
   runCommandCC,
   skalibs,
-}:
-
-let
+}: let
   # From https://skarnet.org/software/misc/sdnotify-wrapper.c,
   # which is unversioned.
   src = ./sdnotify-wrapper.c;
-
 in
-runCommandCC "sdnotify-wrapper"
+  runCommandCC "sdnotify-wrapper"
   {
-
     outputs = [
       "bin"
       "doc"
@@ -25,9 +21,8 @@ runCommandCC "sdnotify-wrapper"
       mainProgram = "sdnotify-wrapper";
       platforms = lib.platforms.linux;
       license = lib.licenses.isc;
-      maintainers = with lib.maintainers; [ Profpatsch ];
+      maintainers = with lib.maintainers; [Profpatsch];
     };
-
   }
   ''
     mkdir -p $bin/bin

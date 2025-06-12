@@ -4,7 +4,6 @@
   fetchurl,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgrapheme";
   version = "2.0.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
       --replace-fail "uname" "echo ${stdenv.hostPlatform.uname.system}"
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   makeFlags = [
     "AR:=$(AR)"
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libs.suckless.org/libgrapheme/";
     license = licenses.isc;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

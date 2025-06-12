@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "ubidump";
   version = "0-unstable-2023-09-20";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication {
     sha256 = "sha256-R568pV3bkdpNAexr8tfAbXVpvHEx/9r1KDWhDM+HyVg=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     setuptools # pkg_resources
@@ -28,7 +27,7 @@ python3.pkgs.buildPythonApplication {
     description = "View or extract the contents of UBIFS images";
     homepage = "https://github.com/nlitsme/ubidump";
     license = licenses.mit;
-    maintainers = with maintainers; [ sgo ];
+    maintainers = with maintainers; [sgo];
     mainProgram = "ubidump";
   };
 }

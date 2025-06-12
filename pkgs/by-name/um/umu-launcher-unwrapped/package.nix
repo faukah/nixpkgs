@@ -42,8 +42,7 @@ python3Packages.buildPythonPackage rec {
     scdoc
   ];
 
-  pythonPath =
-    with python3Packages;
+  pythonPath = with python3Packages;
     [
       pyzstd
       urllib3
@@ -84,7 +83,7 @@ python3Packages.buildPythonPackage rec {
     "test_parse_args_noopts"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unified launcher for Windows games on Linux using the Steam Linux Runtime and Tools";

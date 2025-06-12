@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "gatus";
   version = "5.17.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gr/GmZaaNwp/jQwnDiU/kfDWaciQloxP9vNlVTwMQjE=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   passthru.tests = {
     inherit (nixosTests) gatus;
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Automated developer-oriented status page";
     homepage = "https://gatus.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ undefined-moe ];
+    maintainers = with maintainers; [undefined-moe];
     mainProgram = "gatus";
   };
 }

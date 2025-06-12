@@ -8,9 +8,7 @@
   jq,
   makeWrapper,
   maven,
-}:
-
-let
+}: let
   version = "3.9.3";
   src = fetchFromGitHub {
     owner = "openrefine";
@@ -42,92 +40,91 @@ let
       cp -r modules/core/3rdparty/* $out/
     '';
   };
-
 in
-maven.buildMavenPackage {
-  inherit src version;
+  maven.buildMavenPackage {
+    inherit src version;
 
-  pname = "openrefine";
+    pname = "openrefine";
 
-  postPatch = ''
-    cp -r ${npmPkg} main/webapp/modules/core/3rdparty
-  '';
+    postPatch = ''
+      cp -r ${npmPkg} main/webapp/modules/core/3rdparty
+    '';
 
-  mvnJdk = jdk;
-  mvnParameters = "-pl !packaging";
-  mvnHash = "sha256-pAL+Zhm0qnE1vEvivlXt2cIzIoPFoge5CRrsbfIoGNs=";
+    mvnJdk = jdk;
+    mvnParameters = "-pl !packaging";
+    mvnHash = "sha256-pAL+Zhm0qnE1vEvivlXt2cIzIoPFoge5CRrsbfIoGNs=";
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  doCheck = false;
+    doCheck = false;
 
-  installPhase = ''
-    mkdir -p $out/lib/server/target/lib
-    cp -r server/target/lib/* $out/lib/server/target/lib/
-    cp server/target/openrefine-*-server.jar $out/lib/server/target/lib/
+    installPhase = ''
+      mkdir -p $out/lib/server/target/lib
+      cp -r server/target/lib/* $out/lib/server/target/lib/
+      cp server/target/openrefine-*-server.jar $out/lib/server/target/lib/
 
-    mkdir -p $out/lib/webapp
-    cp -r main/webapp/{WEB-INF,modules} $out/lib/webapp/
-    (
-      cd extensions
-      for ext in * ; do
-        if [ -d "$ext/module" ] ; then
-          mkdir -p "$out/lib/webapp/extensions/$ext"
-          cp -r "$ext/module" "$out/lib/webapp/extensions/$ext/"
-        fi
-      done
-    )
+      mkdir -p $out/lib/webapp
+      cp -r main/webapp/{WEB-INF,modules} $out/lib/webapp/
+      (
+        cd extensions
+        for ext in * ; do
+          if [ -d "$ext/module" ] ; then
+            mkdir -p "$out/lib/webapp/extensions/$ext"
+            cp -r "$ext/module" "$out/lib/webapp/extensions/$ext/"
+          fi
+        done
+      )
 
-    mkdir -p $out/etc
-    cp refine.ini $out/etc/
+      mkdir -p $out/etc
+      cp refine.ini $out/etc/
 
-    mkdir -p $out/bin
-    cp refine $out/bin/
-  '';
+      mkdir -p $out/bin
+      cp refine $out/bin/
+    '';
 
-  preFixup = ''
-    find $out -name '*.java' -delete
-    sed -i -E 's|^(butterfly\.modules\.path =).*extensions.*$|\1 '"$out/lib/webapp/extensions|" \
-      $out/lib/webapp/WEB-INF/butterfly.properties
+    preFixup = ''
+      find $out -name '*.java' -delete
+      sed -i -E 's|^(butterfly\.modules\.path =).*extensions.*$|\1 '"$out/lib/webapp/extensions|" \
+        $out/lib/webapp/WEB-INF/butterfly.properties
 
-    sed -i 's|^cd `dirname \$0`$|cd '"$out/lib|" $out/bin/refine
+      sed -i 's|^cd `dirname \$0`$|cd '"$out/lib|" $out/bin/refine
 
-    cat >> $out/etc/refine.ini <<EOF
-    REFINE_WEBAPP='$out/lib/webapp'
-    REFINE_LIB_DIR='$out/lib/server/target/lib'
+      cat >> $out/etc/refine.ini <<EOF
+      REFINE_WEBAPP='$out/lib/webapp'
+      REFINE_LIB_DIR='$out/lib/server/target/lib'
 
-    JAVA_HOME='${jdk.home}'
+      JAVA_HOME='${jdk.home}'
 
-    # non-headless mode tries to launch a browser, causing a
-    # number of purity problems
-    JAVA_OPTIONS='-Drefine.headless=true'
-    EOF
+      # non-headless mode tries to launch a browser, causing a
+      # number of purity problems
+      JAVA_OPTIONS='-Drefine.headless=true'
+      EOF
 
-    wrapProgram $out/bin/refine \
-      --prefix PATH : '${
+      wrapProgram $out/bin/refine \
+        --prefix PATH : '${
         lib.makeBinPath [
           jdk
           curl
         ]
       }' \
-      --set-default REFINE_INI_PATH "$out/etc/refine.ini"
-  '';
+        --set-default REFINE_INI_PATH "$out/etc/refine.ini"
+    '';
 
-  passthru = {
-    inherit npmPkg;
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      inherit npmPkg;
+      updateScript = ./update.sh;
+    };
 
-  meta = with lib; {
-    description = "Power tool for working with messy data and improving it";
-    homepage = "https://openrefine.org";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [ ris ];
-    sourceProvenance = with sourceTypes; [
-      fromSource
-      binaryBytecode # maven dependencies
-    ];
-    broken = stdenv.hostPlatform.isDarwin; # builds, doesn't run
-    mainProgram = "refine";
-  };
-}
+    meta = with lib; {
+      description = "Power tool for working with messy data and improving it";
+      homepage = "https://openrefine.org";
+      license = licenses.bsd3;
+      maintainers = with maintainers; [ris];
+      sourceProvenance = with sourceTypes; [
+        fromSource
+        binaryBytecode # maven dependencies
+      ];
+      broken = stdenv.hostPlatform.isDarwin; # builds, doesn't run
+      mainProgram = "refine";
+    };
+  }

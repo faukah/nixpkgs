@@ -8,7 +8,7 @@ let
   bobPrefix = "302:a483:73a4:9f2d";
   bobConfig = {
     InterfacePeers = {
-      eth1 = [ "tcp://192.168.1.200:12345" ];
+      eth1 = ["tcp://192.168.1.200:12345"];
     };
     MulticastInterfaces = [
       {
@@ -23,22 +23,18 @@ let
     PrivateKey = "0c4a24acd3402722ce9277ed179f4a04b895b49586493c25fbaed60653d857d62b6f918b6c1a4b54d6bcde86cf74e074fb32ead4ee439b7930df2aa60c825186";
   };
   danIp6 = bobPrefix + "::2";
-
 in
-{ pkgs, ... }:
-{
-  name = "yggdrasil";
-  meta = with pkgs.lib.maintainers; {
-    maintainers = [ gazally ];
-  };
+  {pkgs, ...}: {
+    name = "yggdrasil";
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [gazally];
+    };
 
-  nodes = {
-    # Alice is listening for peerings on a specified port,
-    # but has multicast peering disabled.  Alice has part of her
-    # yggdrasil config in Nix and part of it in a file.
-    alice =
-      { ... }:
-      {
+    nodes = {
+      # Alice is listening for peerings on a specified port,
+      # but has multicast peering disabled.  Alice has part of her
+      # yggdrasil config in Nix and part of it in a file.
+      alice = {...}: {
         networking = {
           interfaces.eth1.ipv4.addresses = [
             {
@@ -57,8 +53,8 @@ in
         services.yggdrasil = {
           enable = true;
           settings = {
-            Listen = [ "tcp://0.0.0.0:12345" ];
-            MulticastInterfaces = [ ];
+            Listen = ["tcp://0.0.0.0:12345"];
+            MulticastInterfaces = [];
           };
           configFile = toString (
             pkgs.writeTextFile {
@@ -69,12 +65,10 @@ in
         };
       };
 
-    # Bob is set up to peer with Alice, and also to do local multicast
-    # peering.  Bob's yggdrasil config is in a file.
-    bob =
-      { ... }:
-      {
-        networking.firewall.allowedTCPPorts = [ 54321 ];
+      # Bob is set up to peer with Alice, and also to do local multicast
+      # peering.  Bob's yggdrasil config is in a file.
+      bob = {...}: {
+        networking.firewall.allowedTCPPorts = [54321];
         services.yggdrasil = {
           enable = true;
           openMulticastPort = true;
@@ -89,7 +83,7 @@ in
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
 
         networking = {
-          bridges.br0.interfaces = [ ];
+          bridges.br0.interfaces = [];
           interfaces.br0 = {
             ipv6.addresses = [
               {
@@ -123,23 +117,21 @@ in
             };
             services.httpd.enable = true;
             services.httpd.adminAddr = "foo@example.org";
-            networking.firewall.allowedTCPPorts = [ 80 ];
+            networking.firewall.allowedTCPPorts = [80];
           };
         };
       };
 
-    # Carol only does local peering.  Carol's yggdrasil config is all Nix.
-    carol =
-      { ... }:
-      {
-        networking.firewall.allowedTCPPorts = [ 43210 ];
+      # Carol only does local peering.  Carol's yggdrasil config is all Nix.
+      carol = {...}: {
+        networking.firewall.allowedTCPPorts = [43210];
         services.yggdrasil = {
           enable = true;
           extraArgs = [
             "-loglevel"
             "error"
           ];
-          denyDhcpcdInterfaces = [ "ygg0" ];
+          denyDhcpcdInterfaces = ["ygg0"];
           settings = {
             IfTAPMode = true;
             IfName = "ygg0";
@@ -153,41 +145,41 @@ in
           persistentKeys = true;
         };
       };
-  };
+    };
 
-  testScript = ''
-    import re
+    testScript = ''
+      import re
 
-    # Give Alice a head start so she is ready when Bob calls.
-    alice.start()
-    alice.wait_for_unit("yggdrasil.service")
+      # Give Alice a head start so she is ready when Bob calls.
+      alice.start()
+      alice.wait_for_unit("yggdrasil.service")
 
-    bob.start()
-    carol.start()
-    bob.wait_for_unit("default.target")
-    carol.wait_for_unit("yggdrasil.service")
+      bob.start()
+      carol.start()
+      bob.wait_for_unit("default.target")
+      carol.wait_for_unit("yggdrasil.service")
 
-    ip_addr_show = "ip -o -6 addr show dev ygg0 scope global"
-    carol.wait_until_succeeds(f"[ `{ip_addr_show} | grep -v tentative | wc -l` -ge 1 ]")
-    carol_ip6 = re.split(" +|/", carol.succeed(ip_addr_show))[3]
+      ip_addr_show = "ip -o -6 addr show dev ygg0 scope global"
+      carol.wait_until_succeeds(f"[ `{ip_addr_show} | grep -v tentative | wc -l` -ge 1 ]")
+      carol_ip6 = re.split(" +|/", carol.succeed(ip_addr_show))[3]
 
-    # If Alice can talk to Carol, then Bob's outbound peering and Carol's
-    # local peering have succeeded and everybody is connected.
-    alice.wait_until_succeeds(f"ping -c 1 {carol_ip6}")
-    alice.succeed("ping -c 1 ${bobIp6}")
+      # If Alice can talk to Carol, then Bob's outbound peering and Carol's
+      # local peering have succeeded and everybody is connected.
+      alice.wait_until_succeeds(f"ping -c 1 {carol_ip6}")
+      alice.succeed("ping -c 1 ${bobIp6}")
 
-    bob.succeed("ping -c 1 ${aliceIp6}")
-    bob.succeed(f"ping -c 1 {carol_ip6}")
+      bob.succeed("ping -c 1 ${aliceIp6}")
+      bob.succeed(f"ping -c 1 {carol_ip6}")
 
-    carol.succeed("ping -c 1 ${aliceIp6}")
-    carol.succeed("ping -c 1 ${bobIp6}")
-    carol.succeed("ping -c 1 ${bobPrefix}::1")
-    carol.succeed("ping -c 8 ${danIp6}")
+      carol.succeed("ping -c 1 ${aliceIp6}")
+      carol.succeed("ping -c 1 ${bobIp6}")
+      carol.succeed("ping -c 1 ${bobPrefix}::1")
+      carol.succeed("ping -c 8 ${danIp6}")
 
-    carol.fail("journalctl -u dhcpcd | grep ygg0")
+      carol.fail("journalctl -u dhcpcd | grep ygg0")
 
-    alice.wait_for_unit("httpd.service")
-    carol.succeed("curl --fail -g http://[${aliceIp6}]")
-    carol.succeed("curl --fail -g http://[${danIp6}]")
-  '';
-}
+      alice.wait_for_unit("httpd.service")
+      carol.succeed("curl --fail -g http://[${aliceIp6}]")
+      carol.succeed("curl --fail -g http://[${danIp6}]")
+    '';
+  }

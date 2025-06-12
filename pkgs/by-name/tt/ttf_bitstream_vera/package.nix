@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ttf-bitstream-vera";
   version = "1.10";
@@ -21,5 +20,5 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta = { };
+  meta = {};
 }

@@ -10,7 +10,6 @@
   scipy,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fuzzytm";
   version = "2.0.9";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-z0ESYtB7BqssxIHlrd0F+/qapOM1nrDi3Zih5SvgDGY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gensim
@@ -37,12 +36,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "FuzzyTM" ];
+  pythonImportsCheck = ["FuzzyTM"];
 
   meta = with lib; {
     description = "Library for Fuzzy Topic Models";
     homepage = "https://github.com/ERijck/FuzzyTM";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

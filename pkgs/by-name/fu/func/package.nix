@@ -6,7 +6,6 @@
   testers,
   func,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "func";
   version = "1.16.2";
@@ -20,7 +19,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-Gn+nyck/VOwf8iKPeyLvsPWOpfdN/maUcQOLFAU0oic=";
 
-  subPackages = [ "cmd/func" ];
+  subPackages = ["cmd/func"];
 
   ldflags = [
     "-X knative.dev/func/pkg/app.vers=v${finalAttrs.version}"
@@ -29,7 +28,7 @@ buildGoModule (finalAttrs: {
     "-X knative.dev/func/pkg/app.kver=${finalAttrs.src.tag}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd func \
@@ -49,6 +48,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/knative/func";
     changelog = "https://github.com/knative/func/releases/tag/knative-v${finalAttrs.version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ maxwell-lt ];
+    maintainers = with lib.maintainers; [maxwell-lt];
   };
 })

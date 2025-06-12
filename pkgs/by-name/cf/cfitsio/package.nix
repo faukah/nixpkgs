@@ -6,7 +6,6 @@
   curl,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cfitsio";
   version = "4.4.1";
@@ -37,10 +36,10 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE = "-D__BSD_VISIBLE=1";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Shared-only build
-  buildFlags = [ "shared" ];
+  buildFlags = ["shared"];
 
   postPatch = ''
     sed -e '/^install:/s/libcfitsio.a //' -e 's@/bin/@@g' -i Makefile.in

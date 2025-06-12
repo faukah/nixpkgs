@@ -27,7 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   pnpmDeps = pnpm_9.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -40,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     jq 'del(.packageManager)' package.json | sponge package.json
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "wrangler@"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "wrangler@";};
 
   buildInputs =
     [

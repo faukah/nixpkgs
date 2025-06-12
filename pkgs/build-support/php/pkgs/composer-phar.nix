@@ -12,7 +12,6 @@
   version,
   pharHash,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "composer-phar";
   inherit version;
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,14 +33,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     makeWrapper ${lib.getExe php} $out/bin/composer \
       --add-flags "$out/libexec/composer/composer.phar" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          _7zz
-          curl
-          git
-          unzip
-          xz
-        ]
-      }
+      lib.makeBinPath [
+        _7zz
+        curl
+        git
+        unzip
+        xz
+      ]
+    }
 
     runHook postInstall
   '';
@@ -52,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://getcomposer.org/";
     license = lib.licenses.mit;
     mainProgram = "composer";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.all;
   };
 })

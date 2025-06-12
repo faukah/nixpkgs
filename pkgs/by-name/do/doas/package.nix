@@ -6,11 +6,9 @@
   pam,
   libxcrypt,
   nixosTests,
-
   withPAM ? true,
   withTimestamp ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "doas";
   version = "6.8.2";
@@ -47,10 +45,10 @@ stdenv.mkDerivation rec {
       sed -i 's/-lpam/-lpam -laudit/' configure
     '';
 
-  nativeBuildInputs = [ bison ];
-  buildInputs = [ ] ++ lib.optional withPAM pam ++ lib.optional (!withPAM) libxcrypt;
+  nativeBuildInputs = [bison];
+  buildInputs = [] ++ lib.optional withPAM pam ++ lib.optional (!withPAM) libxcrypt;
 
-  passthru.tests = { inherit (nixosTests) doas; };
+  passthru.tests = {inherit (nixosTests) doas;};
 
   meta = with lib; {
     description = "Executes the given command as another user";
@@ -58,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Duncaen/OpenDoas";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

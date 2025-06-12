@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-autolinks-plugin";
   version = "071";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-mEbuB9VwK7po1TqtJfBSkItOVlI3/W3nD2LYRHgPpTA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ mkdocs ];
+  dependencies = [mkdocs];
 
   # Module has no tests.
   doCheck = false;
 
-  pythonImportsCheck = [ "mkdocs_autolinks_plugin" ];
+  pythonImportsCheck = ["mkdocs_autolinks_plugin"];
 
   meta = with lib; {
     description = "MkDocs plugin that simplifies relative linking between documents";
     homepage = "https://github.com/zachhannum/mkdocs-autolinks-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucas-deangelis ];
+    maintainers = with maintainers; [lucas-deangelis];
   };
 }

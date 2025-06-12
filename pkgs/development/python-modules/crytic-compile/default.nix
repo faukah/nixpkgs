@@ -9,7 +9,6 @@
   solc-select,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "crytic-compile";
   version = "0.3.9";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
   # required for import check to work
   # PermissionError: [Errno 13] Permission denied: '/homeless-shelter'
   env.HOME = "/tmp";
-  pythonImportsCheck = [ "crytic_compile" ];
+  pythonImportsCheck = ["crytic_compile"];
 
   meta = with lib; {
     description = "Abstraction layer for smart contract build systems";

@@ -21,7 +21,6 @@
   httpx-socks,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "httpcore";
   version = "1.0.9";
@@ -47,21 +46,23 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    asyncio = [ anyio ];
-    http2 = [ h2 ];
-    socks = [ socksio ];
-    trio = [ trio ];
+    asyncio = [anyio];
+    http2 = [h2];
+    socks = [socksio];
+    trio = [trio];
   };
 
-  nativeCheckInputs = [
-    pproxy
-    pytest-asyncio
-    pytest-httpbin
-    pytest-trio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pproxy
+      pytest-asyncio
+      pytest-httpbin
+      pytest-trio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "httpcore" ];
+  pythonImportsCheck = ["httpcore"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -74,6 +75,6 @@ buildPythonPackage rec {
     description = "Minimal low-level HTTP client";
     homepage = "https://github.com/encode/httpcore";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

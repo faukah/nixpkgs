@@ -5,11 +5,9 @@
   pythonOlder,
   fetchPypi,
   writeText,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   attrs,
   exceptiongroup,
@@ -17,7 +15,6 @@
   packaging,
   pluggy,
   tomli,
-
   # optional-dependencies
   argcomplete,
   hypothesis,
@@ -26,7 +23,6 @@
   requests,
   xmlschema,
 }:
-
 buildPythonPackage rec {
   pname = "pytest";
   version = "8.3.5";
@@ -77,7 +73,7 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  passthru.tests.pytest = callPackage ./tests.nix { };
+  passthru.tests.pytest = callPackage ./tests.nix {};
 
   # Remove .pytest_cache when using py.test in a Nix build
   setupHook = writeText "pytest-hook" ''
@@ -100,13 +96,13 @@ buildPythonPackage rec {
     appendToVar preDistPhases pytestRemoveBytecodePhase
   '';
 
-  pythonImportsCheck = [ "pytest" ];
+  pythonImportsCheck = ["pytest"];
 
   meta = with lib; {
     description = "Framework for writing tests";
     homepage = "https://docs.pytest.org";
     changelog = "https://github.com/pytest-dev/pytest/releases/tag/${version}";
-    teams = [ teams.python ];
+    teams = [teams.python];
     license = licenses.mit;
   };
 }

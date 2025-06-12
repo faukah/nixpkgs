@@ -7,7 +7,6 @@
   nix-update-script,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "janet";
   version = "1.38.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   mesonBuildType = "release";
-  mesonFlags = [ "-Dgit_hash=release" ];
+  mesonFlags = ["-Dgit_hash=release"];
 
   doCheck = true;
 
@@ -49,19 +48,19 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     tests.run =
       runCommand "janet-test-run"
-        {
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          echo "(+ 1 2 3)" | janet | tail -n 1 > arithmeticTest.txt;
-          diff -U3 --color=auto <(cat arithmeticTest.txt) <(echo "6");
+      {
+        nativeBuildInputs = [finalAttrs.finalPackage];
+      }
+      ''
+        echo "(+ 1 2 3)" | janet | tail -n 1 > arithmeticTest.txt;
+        diff -U3 --color=auto <(cat arithmeticTest.txt) <(echo "6");
 
-          echo "(print \"Hello, World!\")" | janet | tail -n 2 > ioTest.txt;
-          diff -U3 --color=auto <(cat ioTest.txt) <(echo -e "Hello, World!\nnil");
+        echo "(print \"Hello, World!\")" | janet | tail -n 2 > ioTest.txt;
+        diff -U3 --color=auto <(cat ioTest.txt) <(echo -e "Hello, World!\nnil");
 
-          touch $out;
-        '';
-    updateScript = nix-update-script { };
+        touch $out;
+      '';
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

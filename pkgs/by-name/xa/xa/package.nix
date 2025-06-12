@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xa";
   version = "2.4.1";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Y8EqajKo42TzTwSdiyR39GVgIUGPCLjWtGK+DtO+OsM=";
   };
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   dontConfigure = true;
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "install: all" "install:"
   '';
 
-  makeFlags = [ "DESTDIR:=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR:=${placeholder "out"}"];
 
   enableParallelBuilding = true;
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     mainProgram = "xa";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

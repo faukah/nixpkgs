@@ -15,7 +15,6 @@
   stdenv,
   darwin,
 }:
-
 buildDunePackage rec {
   pname = "caqti";
   version = "2.1.1";
@@ -27,7 +26,7 @@ buildDunePackage rec {
     hash = "sha256-SDpTX0HiZBkX/BgyzkrRX/w/ToKDsbMBiiYXNJWDCQo=";
   };
 
-  buildInputs = [ dune-site ];
+  buildInputs = [dune-site];
   propagatedBuildInputs = [
     angstrom
     bigstringaf
@@ -40,7 +39,7 @@ buildDunePackage rec {
     uri
   ];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ darwin.sigtool ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [darwin.sigtool];
 
   # Checks depend on caqti-driver-sqlite3 (circural dependency)
   doCheck = false;
@@ -51,7 +50,7 @@ buildDunePackage rec {
       lgpl3Plus
       ocamlLgplLinkingException
     ];
-    maintainers = with lib.maintainers; [ bcc32 ];
+    maintainers = with lib.maintainers; [bcc32];
     homepage = "https://github.com/paurkedal/ocaml-caqti";
   };
 }

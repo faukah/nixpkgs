@@ -8,7 +8,6 @@
   perl,
   fortune,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtypist";
   version = "2.10.1";
@@ -20,13 +19,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   CFLAGS = "-std=gnu99";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [
-    ncurses
-    perl
-    fortune
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  buildInputs =
+    [
+      ncurses
+      perl
+      fortune
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   preFixup = ''
     wrapProgram "$out/bin/typefortune" \
@@ -38,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Universal typing tutor";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
   };
 })

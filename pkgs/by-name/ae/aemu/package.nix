@@ -4,7 +4,6 @@
   fetchFromGitiles,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "aemu";
   version = "0.1.2";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     ./LFS64.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DAEMU_COMMON_GEN_PKGCONFIG=ON"
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://android.googlesource.com/platform/hardware/google/aemu";
     description = "Android emulation utilities library";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     # The BSD license comes from host-common/VpxFrameParser.cpp, which
     # incorporates some code from libvpx, which uses the 3-clause BSD license.
     license = with licenses; [

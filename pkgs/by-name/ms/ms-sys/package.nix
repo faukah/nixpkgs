@@ -4,7 +4,6 @@
   fetchurl,
   gettext,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ms-sys";
   version = "2.8.0";
@@ -14,11 +13,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-qQLuPr0MtwOO0HfjqoqMgzWmxHL1BW1+CK8z1+eD8Vc=";
   };
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Program for writing Microsoft-compatible boot records";

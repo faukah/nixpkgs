@@ -16,7 +16,6 @@
   sqlalchemy,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "duckdb-engine";
   version = "0.15.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-mxv6xYO31MDzHvIf7Zk+kFtm6fX3x3AaJNn7RhvJ2fY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     duckdb
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     export HOME="$(mktemp -d)"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs =
     [
@@ -82,13 +81,13 @@ buildPythonPackage rec {
       "test_nested_types"
     ];
 
-  pythonImportsCheck = [ "duckdb_engine" ];
+  pythonImportsCheck = ["duckdb_engine"];
 
   meta = with lib; {
     description = "SQLAlchemy driver for duckdb";
     homepage = "https://github.com/Mause/duckdb_engine";
     changelog = "https://github.com/Mause/duckdb_engine/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

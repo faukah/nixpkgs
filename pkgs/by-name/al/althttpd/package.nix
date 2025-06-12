@@ -4,7 +4,6 @@
   fetchfossil,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "althttpd";
   version = "unstable-2023-08-12";
@@ -15,9 +14,9 @@ stdenv.mkDerivation {
     hash = "sha256-VoDR5MlVlvar9wYA0kUhvDQVjxDwsZlqrNR3u4Tqw5c=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   installPhase = ''
     install -Dm755 -t $out/bin althttpd
@@ -27,7 +26,7 @@ stdenv.mkDerivation {
     description = "Althttpd webserver";
     homepage = "https://sqlite.org/althttpd/";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.all;
     mainProgram = "althttpd";
   };

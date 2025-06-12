@@ -33,7 +33,6 @@
   # TODO upstream: it takes too long ! 800 ms here
   withVim ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "notmuch";
   version = "0.39";
@@ -99,7 +98,7 @@ stdenv.mkDerivation (finalAttrs: {
   # friends
   setOutputFlags = false;
   enableParallelBuilding = true;
-  makeFlags = [ "V=1" ];
+  makeFlags = ["V=1"];
 
   postConfigure = ''
     mkdir ${placeholder "bindingconfig"}
@@ -122,13 +121,12 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs notmuch-git
   '';
 
-  preCheck =
-    let
-      test-database = fetchurl {
-        url = "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
-        sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
-      };
-    in
+  preCheck = let
+    test-database = fetchurl {
+      url = "https://notmuchmail.org/releases/test-databases/database-v1.tar.xz";
+      sha256 = "1lk91s00y4qy4pjh8638b5lfkgwyl282g1m27srsf7qfn58y16a2";
+    };
+  in
     ''
       mkdir -p test/test-databases
       ln -s ${test-database} test/test-databases/database-v1.tar.xz
@@ -203,13 +201,13 @@ stdenv.mkDerivation (finalAttrs: {
     pythonSourceRoot = "notmuch-${finalAttrs.version}/contrib/python-legacy";
     gemEnv = buildEnv {
       name = "notmuch-vim-gems";
-      paths = with ruby.gems; [ mail ];
+      paths = with ruby.gems; [mail];
       pathsToLink = [
         "/lib"
         "/nix-support"
       ];
     };
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
     updateScript = gitUpdater {
       url = "https://git.notmuchmail.org/git/notmuch";

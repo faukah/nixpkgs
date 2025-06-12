@@ -6,7 +6,6 @@
   tk,
   xorg,
 }:
-
 tcl.mkTclDerivation rec {
   pname = "tkimg";
   version = "623";
@@ -31,7 +30,7 @@ tcl.mkTclDerivation rec {
   meta = {
     homepage = "https://sourceforge.net/projects/tkimg/";
     description = "Img package adds several image formats to Tcl/Tk";
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.unix;
   };

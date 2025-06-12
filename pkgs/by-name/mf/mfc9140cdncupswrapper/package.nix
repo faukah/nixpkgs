@@ -11,7 +11,6 @@
   pkgsi686Linux,
   psutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfc9140cdncupswrapper";
   version = "1.1.4-0";
@@ -68,9 +67,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Brother MFC-9140CDN CUPS wrapper driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

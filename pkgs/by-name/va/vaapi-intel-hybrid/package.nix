@@ -12,7 +12,6 @@
   libGL,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-hybrid-driver";
   version = "1.0.2";
@@ -69,7 +68,7 @@ stdenv.mkDerivation rec {
     homepage = "https://01.org/linuxmedia";
     description = "Intel driver for the VAAPI library with partial HW acceleration";
     license = licenses.mit;
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
     platforms = platforms.linux;
   };
 }

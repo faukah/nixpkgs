@@ -3,29 +3,28 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.speechd;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkPackageOption
     ;
-in
-{
+in {
   options.services.speechd = {
     # FIXME: figure out how to deprecate this EXTREMELY CAREFULLY
     # default guessed conservatively in ../misc/graphical-desktop.nix
     enable = mkEnableOption "speech-dispatcher speech synthesizer daemon";
-    package = mkPackageOption pkgs "speechd" { };
+    package = mkPackageOption pkgs "speechd" {};
   };
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
     };
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     # have to set `wantedBy` since `systemd.packages` ignores `[Install]`
-    systemd.user.sockets.speech-dispatcher.wantedBy = [ "sockets.target" ];
+    systemd.user.sockets.speech-dispatcher.wantedBy = ["sockets.target"];
   };
 }

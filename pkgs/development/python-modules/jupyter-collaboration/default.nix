@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   jupyter-collaboration-ui,
   jupyter-docprovider,
   jupyter-server-ydoc,
   jupyterlab,
-
   # tests
   dirty-equals,
   httpx-ws,
@@ -20,7 +17,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-collaboration";
   version = "4.0.2";
@@ -35,7 +31,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/projects/jupyter-collaboration";
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     jupyter-collaboration-ui
@@ -44,7 +40,7 @@ buildPythonPackage rec {
     jupyterlab
   ];
 
-  pythonImportsCheck = [ "jupyter_collaboration" ];
+  pythonImportsCheck = ["jupyter_collaboration"];
 
   nativeCheckInputs = [
     dirty-equals
@@ -69,6 +65,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jupyterlab/jupyter_collaboration";
     changelog = "https://github.com/jupyterlab/jupyter_collaboration/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
   };
 }

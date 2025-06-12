@@ -10,7 +10,6 @@
   qtquickcontrols2,
   qtx11extras,
 }:
-
 mkDerivation {
   pname = "qqc2-breeze-style";
   nativeBuildInputs = [

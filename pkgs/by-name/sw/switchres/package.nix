@@ -7,7 +7,6 @@
   libdrm,
   SDL2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "switchres";
   version = "2.2.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/antonioginer/switchres/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl2Only;
     mainProgram = "switchres";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.linux;
   };
 })

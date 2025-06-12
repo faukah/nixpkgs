@@ -6,7 +6,6 @@
   stdenv,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xeve";
   version = "0.5.1";
@@ -50,13 +49,12 @@ stdenv.mkDerivation (finalAttrs: {
     echo v$version > version.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags =
-    let
-      inherit (lib) cmakeBool cmakeFeature optional;
-      inherit (stdenv.hostPlatform) isAarch64 isDarwin;
-    in
+  cmakeFlags = let
+    inherit (lib) cmakeBool cmakeFeature optional;
+    inherit (stdenv.hostPlatform) isAarch64 isDarwin;
+  in
     optional isAarch64 (cmakeBool "ARM" true)
     ++ optional isDarwin (cmakeFeature "CMAKE_SYSTEM_NAME" "Darwin");
 
@@ -87,14 +85,14 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     homepage = "https://github.com/mpeg5/xeve";
     description = "eXtra-fast Essential Video Encoder, MPEG-5 EVC";
     license = lib.licenses.bsd3;
     mainProgram = "xeve_app";
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
     platforms = lib.platforms.all;
     broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
   };

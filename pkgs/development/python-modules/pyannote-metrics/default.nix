@@ -16,7 +16,6 @@
   tabulate,
   versioneer,
 }:
-
 buildPythonPackage rec {
   pname = "pyannote-metrics";
   version = "3.2.1";
@@ -54,14 +53,14 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "pyannote.metrics" ];
+  pythonImportsCheck = ["pyannote.metrics"];
 
   meta = with lib; {
     description = "Toolkit for reproducible evaluation, diagnostic, and error analysis of speaker diarization systems";
     homepage = "https://github.com/pyannote/pyannote-metrics";
     changelog = "http://pyannote.github.io/pyannote-metrics/changelog.html";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "pyannote-metrics";
   };
 }

@@ -7,7 +7,6 @@
   xorg,
   libfaketime,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tewi-font";
   version = "2.0.2";
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
       fullName = "GNU General Public License with a font exception";
       url = "https://www.gnu.org/licenses/gpl-faq.html#FontException";
     };
-    maintainers = [ maintainers.fro_ozen ];
+    maintainers = [maintainers.fro_ozen];
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   fetchpatch,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "heatshrink";
   version = "0.4.1";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Data compression/decompression library for embedded/real-time systems";
     homepage = "https://github.com/atomicobject/heatshrink";
     license = licenses.isc;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     mainProgram = "heatshrink";
   };

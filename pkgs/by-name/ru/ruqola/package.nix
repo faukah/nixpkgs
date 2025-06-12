@@ -8,7 +8,6 @@
   qt6,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   name = "ruqola";
   version = "2.5.1";
@@ -53,13 +52,13 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtwebsockets
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "KDE client for Rocket Chat";
     homepage = "https://invent.kde.org/network/ruqola";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ lykos153 ];
+    maintainers = with lib.maintainers; [lykos153];
     mainProgram = "ruqola";
   };
 })

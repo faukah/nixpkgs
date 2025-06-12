@@ -11,7 +11,6 @@
   jaraco-collections,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-test";
   version = "5.5.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-jbnU6PFVUd/eD9CWHyJvaTFkcZaIIwztkN9UbQZH1RU=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     toml
@@ -36,20 +35,20 @@ buildPythonPackage rec {
     jaraco-collections
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # https://github.com/jaraco/jaraco.test/issues/6
     "jaraco/test/cpython.py"
   ];
 
-  pythonImportsCheck = [ "jaraco.test" ];
+  pythonImportsCheck = ["jaraco.test"];
 
   meta = with lib; {
     description = "Testing support by jaraco";
     homepage = "https://github.com/jaraco/jaraco.test";
     changelog = "https://github.com/jaraco/jaraco.test/blob/${src.rev}/NEWS.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

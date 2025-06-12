@@ -10,7 +10,6 @@
   reportlab,
   tinycss2,
 }:
-
 buildPythonPackage rec {
   pname = "svglib";
   version = "1.5.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     tinycss2
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Ignore tests that require network access (TestWikipediaFlags and TestW3CSVG), and tests that
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "TestOtherFiles"
   ];
 
-  pythonImportsCheck = [ "svglib.svglib" ];
+  pythonImportsCheck = ["svglib.svglib"];
 
   meta = with lib; {
     description = "Pure-Python library for reading and converting SVG";
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deeplook/svglib";
     changelog = "https://github.com/deeplook/svglib/blob/v${version}/CHANGELOG.rst";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
   };
 }

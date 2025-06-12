@@ -8,7 +8,6 @@
   pytestCheckHook,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "aiorun";
   version = "2025.1.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-YqUlWf79EbC47BETBDjo8hzg5jhL4LiWLKGr1Qy4AbM=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ pygments ];
+  dependencies = [pygments];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "aiorun" ];
+  pythonImportsCheck = ["aiorun"];
 
   meta = with lib; {
     description = "Boilerplate for asyncio applications";
     homepage = "https://github.com/cjrh/aiorun";
     changelog = "https://github.com/cjrh/aiorun/blob/v${version}/CHANGES";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

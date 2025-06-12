@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lxml-html-clean";
   version = "0.4.2";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-KGUFRbcaeDcX2jyoyyZMZsVTbN+h8uy+ugcritkZe38=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ lxml ];
+  dependencies = [lxml];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "lxml_html_clean" ];
+  pythonImportsCheck = ["lxml_html_clean"];
 
   meta = with lib; {
     description = "Separate project for HTML cleaning functionalities copied from lxml.html.clean";
     homepage = "https://github.com/fedora-python/lxml_html_clean/";
     changelog = "https://github.com/fedora-python/lxml_html_clean/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

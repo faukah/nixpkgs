@@ -7,7 +7,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-common";
   version = "3.18.0";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-common"; };
+    updateScript = gnome.updateScript {packageName = "gnome-common";};
   };
 
   propagatedBuildInputs = [
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
   ]; # autogen.sh which is using gnome-common tends to require which
 
   meta = with lib; {
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

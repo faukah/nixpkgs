@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eliza";
   version = "0-unstable-2025-05-13";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.cc0;
     mainProgram = "eliza";
     homepage = "https://github.com/anthay/ELIZA";
-    maintainers = with lib.maintainers; [ EmanuelM153 ];
+    maintainers = with lib.maintainers; [EmanuelM153];
     platforms = lib.platforms.all;
   };
 })

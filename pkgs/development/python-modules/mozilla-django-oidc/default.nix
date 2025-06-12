@@ -9,7 +9,6 @@
   requests,
   cryptography,
 }:
-
 buildPythonPackage rec {
   pname = "mozilla-django-oidc";
   version = "4.0.1";
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mozilla/mozilla-django-oidc";
     changelog = "https://github.com/mozilla/mozilla-django-oidc/releases/tag/${src.rev}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ felbinger ];
+    maintainers = with lib.maintainers; [felbinger];
   };
 }

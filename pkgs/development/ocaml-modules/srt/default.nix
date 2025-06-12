@@ -7,7 +7,6 @@
   srt,
   ctypes-foreign,
 }:
-
 buildDunePackage rec {
   pname = "srt";
   version = "0.3.3";
@@ -21,7 +20,7 @@ buildDunePackage rec {
     hash = "sha256-FVgOEBPYZz7SQ5c6mLAssDwY1NuXsV3ghP7OyLRd9Kw=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ctypes-foreign
     posix-socket

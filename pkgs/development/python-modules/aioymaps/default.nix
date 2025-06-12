@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioymaps";
   version = "1.2.5";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-tEl2tX/mB8uYTYj1YFDs/2sPXiv6897jCEmsFCWBXYg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aioymaps" ];
+  pythonImportsCheck = ["aioymaps"];
 
   meta = with lib; {
     description = "Python package fetch data from Yandex maps";
     homepage = "https://github.com/devbis/aioymaps";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

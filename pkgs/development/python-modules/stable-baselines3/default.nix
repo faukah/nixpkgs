@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   cloudpickle,
   gymnasium,
@@ -13,7 +11,6 @@
   numpy,
   pandas,
   torch,
-
   # tests
   ale-py,
   pytestCheckHook,
@@ -32,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-VnoQ8cKqPcZPpR9c3M6xJDdG7gnO9fxIa4v2kxd9Nzg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "gymnasium"
@@ -54,7 +51,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "stable_baselines3" ];
+  pythonImportsCheck = ["stable_baselines3"];
 
   disabledTestPaths = [
     # Tests starts training a model, which takes too long
@@ -78,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/DLR-RM/stable-baselines3";
     changelog = "https://github.com/DLR-RM/stable-baselines3/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ derdennisop ];
+    maintainers = with lib.maintainers; [derdennisop];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "hostctl";
   version = "1.1.4";
@@ -42,7 +41,7 @@ buildGoModule rec {
     '';
     homepage = "https://guumaster.github.io/hostctl/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "hostctl";
   };
 }

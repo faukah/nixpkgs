@@ -20,17 +20,17 @@ buildPythonPackage rec {
     wirelesstools
     cffi
   ];
-  nativeBuildInputs = [ pytest ];
-  pythonImportsCheck = [ "iwlib" ];
+  nativeBuildInputs = [pytest];
+  pythonImportsCheck = ["iwlib"];
 
-  checkInputs = [ pytest ];
+  checkInputs = [pytest];
   checkPhase = "python iwlib/_iwlib_build.py; pytest -v";
 
   meta = with lib; {
     homepage = "https://github.com/nhoad/python-iwlib";
     description = "Python interface for the Wireless Tools utility collection";
     changelog = "https://github.com/nhoad/python-iwlib#change-history";
-    maintainers = with maintainers; [ jcspeegs ];
+    maintainers = with maintainers; [jcspeegs];
     license = licenses.gpl2Only;
   };
 }

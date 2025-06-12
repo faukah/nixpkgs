@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpscorrelate";
   version = "2.3";
@@ -25,14 +24,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7uNYwnMkW9jlt3kBrNqkhJsDoVkUFbCmqt0lQv8bRE0=";
   };
 
-  nativeBuildInputs = [
-    desktop-file-utils
-    docbook_xml_dtd_42
-    docbook_xsl
-    libxslt
-    pkg-config
-    wrapGAppsHook3
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      desktop-file-utils
+      docbook_xml_dtd_42
+      docbook_xsl
+      libxslt
+      pkg-config
+      wrapGAppsHook3
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs = [
     exiv2
@@ -78,7 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://dfandrich.github.io/gpscorrelate/";
     changelog = "https://github.com/dfandrich/gpscorrelate/releases/tag/${finalAttrs.version}";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "gpscorrelate";
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "passerine";
   version = "0.9.3";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "passerine";
     homepage = "https://www.passerine.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

@@ -11,7 +11,6 @@
   gdk-pixbuf,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "popsicle";
   version = "1.3.3";

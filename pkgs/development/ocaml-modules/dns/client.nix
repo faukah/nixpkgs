@@ -7,7 +7,6 @@
   domain-name,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "dns-client";
   inherit (dns) src version;
@@ -19,11 +18,13 @@ buildDunePackage {
     mtime
     mirage-crypto-rng
   ];
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
   doCheck = true;
 
-  meta = dns.meta // {
-    description = "Pure DNS resolver API";
-    mainProgram = "dns-client.unix";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "Pure DNS resolver API";
+      mainProgram = "dns-client.unix";
+    };
 }

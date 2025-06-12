@@ -11,7 +11,6 @@
   sane-backends,
   libnotify,
 }:
-
 buildDotnetModule rec {
   pname = "naps2";
   version = "7.5.3";
@@ -36,12 +35,12 @@ buildDotnetModule rec {
     "-p:EnablePreviewFeatures=true"
   ];
 
-  executables = [ "naps2" ];
+  executables = ["naps2"];
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   selfContainedBuild = true;
   runtimeDeps = [
@@ -67,9 +66,8 @@ buildDotnetModule rec {
     homepage = "https://www.naps2.com";
     changelog = "https://github.com/cyanfish/naps2/blob/master/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ eliandoran ];
+    maintainers = with lib.maintainers; [eliandoran];
     platforms = lib.platforms.linux;
     mainProgram = "naps2";
   };
-
 }

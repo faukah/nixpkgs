@@ -15,7 +15,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "lxd-unwrapped-lts";
   # major/minor are used in updateScript to pin to LTS
@@ -60,7 +59,7 @@ buildGoModule rec {
     "-s"
     "-w"
   ];
-  tags = [ "libsqlite3" ];
+  tags = ["libsqlite3"];
 
   preBuild = ''
     # required for go-dqlite. See: https://github.com/canonical/lxd/pull/8939
@@ -72,17 +71,15 @@ buildGoModule rec {
     make lxd-agent lxd-migrate
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestValidateConfig"
-        "TestConvertNetworkConfig"
-        "TestConvertStorageConfig"
-        "TestSnapshotCommon"
-        "TestContainerTestSuite"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      "TestValidateConfig"
+      "TestConvertNetworkConfig"
+      "TestConvertStorageConfig"
+      "TestSnapshotCommon"
+      "TestContainerTestSuite"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   postInstall = ''
     installShellCompletion --bash --name lxd ./scripts/bash/lxd-client
@@ -108,7 +105,7 @@ buildGoModule rec {
       asl20
       agpl3Plus
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 }

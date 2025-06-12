@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-migratepassword";
   bundlerEnvArgs.gemdir = ./.;
@@ -15,7 +14,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/communiteq/discourse-migratepassword";
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     license = licenses.gpl2Only;
     description = "Support migrated password hashes";
   };

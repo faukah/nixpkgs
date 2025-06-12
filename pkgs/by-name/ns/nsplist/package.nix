@@ -5,7 +5,6 @@
   cmake,
   flex,
 }:
-
 stdenv.mkDerivation {
   pname = "nsplist";
   version = "0-unstable-2017-04-11";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     description = "Parses .plist files";
     license = licenses.mit;
     platforms = platforms.unix;

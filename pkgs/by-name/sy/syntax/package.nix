@@ -5,7 +5,6 @@
   stdenv,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "syntax";
   version = "0.1.27";
@@ -18,13 +17,13 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-jZwbRGGg4tek6Jr+V7/SceJlsbIv7jFWQ+qa+fnChTw=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/DmitrySoshnikov/syntax";
     description = "Syntactic analysis toolkit, language-agnostic parser generator";
     license = licenses.mit;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     mainProgram = "syntax-cli";
     broken = stdenv.hostPlatform.isDarwin;
   };

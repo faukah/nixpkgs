@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.lk-jwt-service;
-in
-{
-  meta.maintainers = [ lib.maintainers.quadradical ];
+in {
+  meta.maintainers = [lib.maintainers.quadradical];
   options.services.lk-jwt-service = {
     enable = lib.mkEnableOption "lk-jwt-service";
-    package = lib.mkPackageOption pkgs "lk-jwt-service" { };
+    package = lib.mkPackageOption pkgs "lk-jwt-service" {};
 
     livekitUrl = lib.mkOption {
       type = lib.types.strMatching "^wss?://.*";
@@ -44,10 +42,10 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.lk-jwt-service = {
       description = "Minimal service to issue LiveKit JWTs for MatrixRTC";
-      documentation = [ "https://github.com/element-hq/lk-jwt-service" ];
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      documentation = ["https://github.com/element-hq/lk-jwt-service"];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       environment = {
         LIVEKIT_URL = cfg.livekitUrl;
         LIVEKIT_JWT_PORT = toString cfg.port;
@@ -55,7 +53,7 @@ in
       };
 
       serviceConfig = {
-        LoadCredential = [ "livekit-secrets:${cfg.keyFile}" ];
+        LoadCredential = ["livekit-secrets:${cfg.keyFile}"];
         ExecStart = lib.getExe cfg.package;
         DynamicUser = true;
         LockPersonality = true;

@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "readme-renderer";
   version = "44.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     docutils
@@ -42,22 +41,22 @@ buildPythonPackage rec {
     pygments
   ];
 
-  optional-dependencies.md = [ cmarkgfm ];
+  optional-dependencies.md = [cmarkgfm];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.md;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.md;
 
   disabledTests = [
     "test_rst_fixtures"
     "test_rst_008.rst"
   ];
 
-  pythonImportsCheck = [ "readme_renderer" ];
+  pythonImportsCheck = ["readme_renderer"];
 
   meta = with lib; {
     description = "Python library for rendering readme descriptions";
     homepage = "https://github.com/pypa/readme_renderer";
     changelog = "https://github.com/pypa/readme_renderer/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

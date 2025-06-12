@@ -7,7 +7,6 @@
   ncurses,
   procps,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "maxfetch";
   version = "unstable-2023-07-31";
@@ -19,19 +18,19 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-LzOhrFFjGs9GIDjk1lUFKhlnzJuEUrKjBcv1eT3kaY8=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
     install -Dm755 maxfetch $out/bin/maxfetch
     wrapProgram $out/bin/maxfetch \
      --prefix PATH : ${
-       lib.makeBinPath [
-         gnused
-         ncurses
-         procps
-       ]
-     }
+      lib.makeBinPath [
+        gnused
+        ncurses
+        procps
+      ]
+    }
     runHook postInstall
   '';
 
@@ -40,7 +39,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/jobcmax/maxfetch";
     license = licenses.gpl2Plus;
     mainProgram = "maxfetch";
-    maintainers = with maintainers; [ jtbx ];
+    maintainers = with maintainers; [jtbx];
     platforms = platforms.unix;
   };
 }

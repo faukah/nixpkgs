@@ -22,7 +22,6 @@
   uvicorn,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "deepsearch-toolkit";
   version = "2.0.1";
@@ -89,6 +88,6 @@ buildPythonPackage rec {
     description = "Interact with the Deep Search platform for new knowledge explorations and discoveries";
     homepage = "https://github.com/DS4SD/deepsearch-toolkit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

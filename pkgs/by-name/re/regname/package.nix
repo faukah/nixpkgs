@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "regname";
   version = "0.1.0";
@@ -18,13 +17,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-6iRDUOXPDzlD11JEL4at+z3aWkhn/dECtl7y2/vGMwo=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Mass renamer TUI written in Rust";
     homepage = "https://github.com/linkdd/regname";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ilarvne ];
+    maintainers = [lib.maintainers.ilarvne];
     mainProgram = "regname";
   };
 })

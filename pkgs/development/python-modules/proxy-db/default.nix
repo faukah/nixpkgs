@@ -11,7 +11,6 @@
   six,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "proxy-db";
   version = "0.3.1";
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "proxy_db" ];
+  pythonImportsCheck = ["proxy_db"];
 
   meta = with lib; {
     description = "Module to manage proxies in a local database";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Nekmo/proxy-db/";
     changelog = "https://github.com/Nekmo/proxy-db/blob/v${version}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

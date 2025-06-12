@@ -6,11 +6,9 @@
   # pytestCheckHook,
   pythonOlder,
   versionCheckHook,
-
   hatchling,
   packaging,
 }:
-
 buildPythonPackage rec {
   pname = "homf";
   version = "1.1.1";
@@ -24,10 +22,10 @@ buildPythonPackage rec {
     hash = "sha256-fDH6uJ2d/Jsnuudv+Qlv1tr3slxOJWh7b4smGS32n9A=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRelaxDeps = [ "packaging" ];
-  dependencies = [ packaging ];
+  pythonRelaxDeps = ["packaging"];
+  dependencies = [packaging];
 
   pythonImportsCheck = [
     "homf"
@@ -40,16 +38,16 @@ buildPythonPackage rec {
   # nativeCheckInputs = [ pytestCheckHook ];
   # pytestFlagsArray = [ "-m 'not network'" ];
 
-  nativeBuildInputs = [ versionCheckHook ];
+  nativeBuildInputs = [versionCheckHook];
 
   # (Ab)using `callPackage` as a fix-point operator, so tests can use the `homf` drv
-  passthru.tests = callPackage ./tests.nix { };
+  passthru.tests = callPackage ./tests.nix {};
 
   meta = with lib; {
     description = "Asset download tool for GitHub Releases, PyPi, etc.";
     mainProgram = "homf";
     homepage = "https://github.com/duckinator/homf";
     license = licenses.mit;
-    maintainers = with maintainers; [ nicoo ];
+    maintainers = with maintainers; [nicoo];
   };
 }

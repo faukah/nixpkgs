@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tcat";
   version = "1.0.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Table cat";
     homepage = "https://github.com/rsc/tcat";
-    maintainers = with maintainers; [ mmlb ];
+    maintainers = with maintainers; [mmlb];
     license = licenses.bsd3;
     mainProgram = "tcat";
   };

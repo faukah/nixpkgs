@@ -8,7 +8,6 @@
   stdenv,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-quickfix";
   version = "0.1.0";
@@ -22,9 +21,9 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
       zlib

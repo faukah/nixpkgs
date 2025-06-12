@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "pru";
   gemdir = ./.;
-  exes = [ "pru" ];
+  exes = ["pru"];
 
   meta = {
     homepage = "https://github.com/grosser/pru";
@@ -18,7 +17,7 @@ bundlerApp {
       grep etc.).
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 
   passthru.updateScript = bundlerUpdateScript "pru";

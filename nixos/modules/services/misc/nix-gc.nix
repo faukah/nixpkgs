@@ -1,17 +1,14 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.nix.gc;
-in
-
 {
-
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.nix.gc;
+in {
   ###### interface
 
   options = {
-
     nix.gc = {
-
       automatic = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -21,7 +18,7 @@ in
       dates = lib.mkOption {
         type = with lib.types; either singleLineStr (listOf str);
         apply = lib.toList;
-        default = [ "03:15" ];
+        default = ["03:15"];
         example = "weekly";
         description = ''
           How often or when garbage collection is performed. For most desktop and server systems
@@ -68,9 +65,7 @@ in
           Options given to [`nix-collect-garbage`](https://nixos.org/manual/nix/stable/command-ref/nix-collect-garbage) when the garbage collector is run automatically.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -96,7 +91,5 @@ in
         Persistent = cfg.persistent;
       };
     };
-
   };
-
 }

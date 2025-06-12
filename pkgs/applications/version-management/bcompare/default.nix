@@ -15,9 +15,7 @@
   stdenv,
   runtimeShell,
   unzip,
-}:
-
-let
+}: let
   pname = "bcompare";
   version = "4.4.7.28397";
 
@@ -68,7 +66,7 @@ let
       ln -s ${bzip2.out}/lib/libbz2.so.1 $out/lib/beyondcompare/libbz2.so.1.0
     '';
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
     buildInputs = [
       (lib.getLib stdenv.cc.cc)
@@ -95,7 +93,7 @@ let
       src
       meta
       ;
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out/Applications/BCompare.app
@@ -111,7 +109,7 @@ let
       You can then merge the changes, synchronize your files, and generate reports for your records.
     '';
     homepage = "https://www.scootersoftware.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       ktor
@@ -121,4 +119,6 @@ let
     mainProgram = "bcompare";
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

@@ -26,18 +26,18 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Add-on Compiler for the Bedrock Edition of Minecraft";
     homepage = "https://github.com/Bedrock-OSS/regolith";
     changelog = "https://github.com/Bedrock-OSS/regolith/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ arexon ];
+    maintainers = with lib.maintainers; [arexon];
     mainProgram = "regolith";
   };
 }

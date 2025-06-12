@@ -4,7 +4,6 @@
   fetchPypi,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "audioread";
   version = "3.0.1";
@@ -15,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-rFRgpUmMSL3y6OdnQCWDpNzRP0QU0ob0LOQ3nos1Bm0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   # No tests, need to disable or py3k breaks
   doCheck = false;

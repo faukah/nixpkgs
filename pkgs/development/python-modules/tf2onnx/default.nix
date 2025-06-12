@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   flatbuffers,
   numpy,
@@ -16,7 +14,6 @@
   six,
   tensorflow,
 }:
-
 buildPythonPackage rec {
   pname = "tf2onnx";
   version = "1.16.1";
@@ -53,7 +50,7 @@ buildPythonPackage rec {
     tensorflow
   ];
 
-  pythonImportsCheck = [ "tf2onnx" ];
+  pythonImportsCheck = ["tf2onnx"];
 
   # All tests fail at import with:
   # AttributeError: `...` is not available with Keras 3.
@@ -64,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/onnx/tensorflow-onnx";
     changelog = "https://github.com/onnx/tensorflow-onnx/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

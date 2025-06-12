@@ -4,7 +4,6 @@
   fetchpatch,
   lib,
 }:
-
 buildGoModule rec {
   pname = "git-hound";
   version = "1.7.2";
@@ -37,8 +36,8 @@ buildGoModule rec {
       and a unique result scoring system.
     '';
     homepage = "https://github.com/tillson/git-hound";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
     mainProgram = "git-hound";
   };
 }

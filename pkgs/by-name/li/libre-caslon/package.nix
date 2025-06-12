@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libre-caslon";
   version = "1.002";
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Caslon fonts based on hand-lettered American Caslons of 1960s";
     homepage = "http://www.impallari.com/librecaslon";
     license = licenses.ofl;
-    maintainers = with maintainers; [ cmfwyp ];
+    maintainers = with maintainers; [cmfwyp];
     platforms = platforms.all;
   };
 }

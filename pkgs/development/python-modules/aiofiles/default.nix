@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiofiles";
   version = "24.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-uDKDMSNbMIlAaifpEBh1+q2bdZNUia8pPb30IOIgOAE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     "test_slow_file"
   ];
 
-  pythonImportsCheck = [ "aiofiles" ];
+  pythonImportsCheck = ["aiofiles"];
 
   meta = with lib; {
     description = "File support for asyncio";
     homepage = "https://github.com/Tinche/aiofiles";
     changelog = "https://github.com/Tinche/aiofiles/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

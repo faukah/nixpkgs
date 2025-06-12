@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "udict";
   version = "0.1.2";
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "Urban Dictionary CLI - written in Rust";
     homepage = "https://github.com/lsmb/udict";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "udict";
   };
 }

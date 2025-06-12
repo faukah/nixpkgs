@@ -6,7 +6,6 @@
   kernelModuleMakeFlags,
   bc,
 }:
-
 stdenv.mkDerivation {
   pname = "rtl88x2bu";
   version = "${kernel.version}-unstable-2024-06-09";
@@ -18,9 +17,9 @@ stdenv.mkDerivation {
     hash = "sha256-gQWk1nhtT0W2dY5uQitWabBGEDfZpmJAoJg+j2ndO00=";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  nativeBuildInputs = [ bc ] ++ kernel.moduleBuildDependencies;
+  nativeBuildInputs = [bc] ++ kernel.moduleBuildDependencies;
   makeFlags = kernelModuleMakeFlags;
 
   prePatch = ''
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/morrownr/88x2bu-20210702";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
   };
 }

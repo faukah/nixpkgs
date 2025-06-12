@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "jsonnet-bundler";
   version = "0.6.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Jsonnet package manager";
     homepage = "https://github.com/jsonnet-bundler/jsonnet-bundler";
     license = licenses.asl20;
-    maintainers = with maintainers; [ preisschild ];
+    maintainers = with maintainers; [preisschild];
     mainProgram = "jb";
   };
 }

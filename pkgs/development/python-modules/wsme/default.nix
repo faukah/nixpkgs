@@ -16,7 +16,6 @@
   webtest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "wsme";
   version = "0.12.1";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-m36yJErzxwSskUte0iGVS7aK3QqLKy84okSwZ7M3mS0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   dependencies = [
     importlib-metadata
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://pythonhosted.org/WSME/";
     changelog = "https://pythonhosted.org/WSME/changes.html";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

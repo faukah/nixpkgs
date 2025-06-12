@@ -5,7 +5,6 @@
   nixosTests,
   php,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "anuko-time-tracker";
   version = "1.22.19.5806";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation {
     license = lib.licenses.sspl;
     homepage = "https://github.com/anuko/timetracker/";
     platforms = php.meta.platforms;
-    maintainers = with lib.maintainers; [ michaelshmitty ];
+    maintainers = with lib.maintainers; [michaelshmitty];
   };
 }

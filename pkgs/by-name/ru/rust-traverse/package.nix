@@ -6,7 +6,6 @@
   bzip2,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-traverse";
   version = "2.0.0";
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/dmcg310/Rust-Traverse";
     changelog = "https://github.com/dmcg310/Rust-Traverse/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "rt";
   };
 }

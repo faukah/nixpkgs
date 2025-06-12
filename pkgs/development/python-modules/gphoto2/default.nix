@@ -8,7 +8,6 @@
   setuptools,
   toml,
 }:
-
 buildPythonPackage rec {
   pname = "gphoto2";
   version = "2.6.0";
@@ -30,19 +29,19 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ libgphoto2 ];
+  buildInputs = [libgphoto2];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "gphoto2" ];
+  pythonImportsCheck = ["gphoto2"];
 
   meta = {
     changelog = "https://github.com/jim-easterbrook/python-gphoto2/blob/${src.tag}/CHANGELOG.txt";
     description = "Python interface to libgphoto2";
     homepage = "https://github.com/jim-easterbrook/python-gphoto2";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

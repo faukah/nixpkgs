@@ -19,7 +19,6 @@
   wayland-scanner,
   wlroots,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waybox";
   version = "0.2.2";
@@ -57,14 +56,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontUseCmakeConfigure = true;
 
-  passthru.providedSessions = [ "waybox" ];
+  passthru.providedSessions = ["waybox"];
 
   meta = {
     homepage = "https://github.com/wizbright/waybox";
     description = "Openbox clone on Wayland";
     license = lib.licenses.mit;
     mainProgram = "waybox";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
   };
 })

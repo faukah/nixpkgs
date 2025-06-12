@@ -8,7 +8,6 @@
   six,
   isPyPy,
 }:
-
 buildPythonPackage rec {
   pname = "sure";
   version = "2.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
       --replace-fail "--cov=sure" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     mock
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     "tests/test_old_api.py" # require nose
   ];
 
-  disabledTests = lib.optionals (isPyPy) [
+  disabledTests = lib.optionals isPyPy [
     # test extension of 'dict' object is broken
     "test_should_compare_dict_with_non_orderable_key_types"
     "test_should_compare_dict_with_enum_keys"
   ];
 
-  pythonImportsCheck = [ "sure" ];
+  pythonImportsCheck = ["sure"];
 
   meta = {
     description = "Utility belt for automated testing";
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://sure.readthedocs.io/";
     changelog = "https://github.com/gabrielfalcao/sure/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

@@ -5,7 +5,6 @@
   fetchurl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "barrage";
   version = "1.0.7";
@@ -20,14 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
     SDL_mixer
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://lgames.sourceforge.io/Barrage/";
     description = "Destructive action game";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "barrage";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (SDL.meta) platforms;
     broken = stdenv.hostPlatform.isDarwin;
   };

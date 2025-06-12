@@ -43,7 +43,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     "lib"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/hyprwm/hyprcursor";
@@ -53,7 +53,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       iynaix
     ];
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hyprcursor-util";
     platforms = lib.platforms.linux;
   };

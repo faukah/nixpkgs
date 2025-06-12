@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "iroh";
   version = "0.35.0";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
     mainProgram = "iroh";
   };
 }

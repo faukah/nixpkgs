@@ -1,13 +1,12 @@
 # NOTE: Check https://developer.nvidia.com/nvidia-tensorrt-8x-download
 #             https://developer.nvidia.com/nvidia-tensorrt-10x-download
-
 # Version policy is to keep the latest minor release for each major release.
 {
   tensorrt.releases = {
     # jetson
-    linux-aarch64 = [ ];
+    linux-aarch64 = [];
     # powerpc
-    linux-ppc64le = [ ];
+    linux-ppc64le = [];
     # server-grade arm
     linux-sbsa = [
       {

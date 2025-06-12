@@ -4,8 +4,7 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   version = "1.10.1";
   cfg = config.services.kubernetes.addons.dns;
   ports = {
@@ -13,8 +12,7 @@ let
     health = 10054;
     metrics = 10055;
   };
-in
-{
+in {
   options.services.kubernetes.addons.dns = {
     enable = lib.mkEnableOption "kubernetes dns addon";
 
@@ -135,7 +133,7 @@ in
         };
         rules = [
           {
-            apiGroups = [ "" ];
+            apiGroups = [""];
             resources = [
               "endpoints"
               "services"
@@ -148,13 +146,13 @@ in
             ];
           }
           {
-            apiGroups = [ "" ];
-            resources = [ "nodes" ];
-            verbs = [ "get" ];
+            apiGroups = [""];
+            resources = ["nodes"];
+            verbs = ["get"];
           }
           {
-            apiGroups = [ "discovery.k8s.io" ];
-            resources = [ "endpointslices" ];
+            apiGroups = ["discovery.k8s.io"];
+            resources = ["endpointslices"];
             verbs = [
               "list"
               "watch"
@@ -307,7 +305,7 @@ in
                   securityContext = {
                     allowPrivilegeEscalation = false;
                     capabilities = {
-                      drop = [ "all" ];
+                      drop = ["all"];
                     };
                     readOnlyRootFilesystem = true;
                   };
@@ -394,7 +392,7 @@ in
       };
     };
 
-    services.kubernetes.kubelet.clusterDns = lib.mkDefault [ cfg.clusterIp ];
+    services.kubernetes.kubelet.clusterDns = lib.mkDefault [cfg.clusterIp];
   };
 
   meta.buildDocsInSandbox = false;

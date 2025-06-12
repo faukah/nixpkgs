@@ -3,9 +3,7 @@
   fetchFromGitHub,
   buildPythonPackage,
   pytestCheckHook,
-}:
-
-let
+}: let
   pyjsparser = buildPythonPackage {
     pname = "pyjsparser";
     version = "2.7.1";
@@ -25,14 +23,14 @@ let
     # js2py is needed for tests but it's unmaintained and insecure
     doCheck = false;
 
-    pythonImportsCheck = [ "pyjsparser" ];
+    pythonImportsCheck = ["pyjsparser"];
 
     meta = with lib; {
       description = "Fast javascript parser (based on esprima.js)";
       homepage = "https://github.com/PiotrDabkowski/pyjsparser";
       license = licenses.mit;
-      maintainers = with maintainers; [ onny ];
+      maintainers = with maintainers; [onny];
     };
   };
 in
-pyjsparser
+  pyjsparser

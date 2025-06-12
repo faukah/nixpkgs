@@ -9,9 +9,7 @@
   makeWrapper,
   symlinkJoin,
 }:
-
 # revisions are taken from https://github.com/GrimKriegor/TES3MP-deploy
-
 let
   # raknet could also be split into dev and lib outputs
   raknet = stdenv.mkDerivation {
@@ -41,7 +39,7 @@ let
       "-DCRABNET_ENABLE_DLL=OFF"
     ];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     installPhase = ''
       install -Dm555 lib/libRakNetLibStatic.a $out/lib/libRakNetLibStatic.a
@@ -81,16 +79,18 @@ let
       sha256 = "8/bV4sw7Q8l8bDTHGQ0t4owf6J6h9q468JFx4KegY5o=";
     };
 
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ makeWrapper ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [makeWrapper];
 
-    buildInputs = oldAttrs.buildInputs ++ [ luajit ];
+    buildInputs = oldAttrs.buildInputs ++ [luajit];
 
-    cmakeFlags = oldAttrs.cmakeFlags ++ [
-      "-DBUILD_OPENCS=OFF"
-      "-DRakNet_INCLUDES=${raknet.src}/include"
-      "-DRakNet_LIBRARY_RELEASE=${raknet}/lib/libRakNetLibStatic.a"
-      "-DRakNet_LIBRARY_DEBUG=${raknet}/lib/libRakNetLibStatic.a"
-    ];
+    cmakeFlags =
+      oldAttrs.cmakeFlags
+      ++ [
+        "-DBUILD_OPENCS=OFF"
+        "-DRakNet_INCLUDES=${raknet.src}/include"
+        "-DRakNet_LIBRARY_RELEASE=${raknet}/lib/libRakNetLibStatic.a"
+        "-DRakNet_LIBRARY_DEBUG=${raknet}/lib/libRakNetLibStatic.a"
+      ];
 
     prePatch = ''
       substituteInPlace components/process/processinvoker.cpp \
@@ -136,7 +136,7 @@ let
       description = "Multiplayer for TES3:Morrowind based on OpenMW";
       homepage = "https://tes3mp.com/";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ peterhoeg ];
+      maintainers = with maintainers; [peterhoeg];
       platforms = [
         "x86_64-linux"
         "i686-linux"
@@ -156,24 +156,23 @@ let
       chmod -R u+w "$data"/server
     fi
   '';
-
 in
-symlinkJoin {
-  name = "openmw-tes3mp-${unwrapped.version}";
-  inherit (unwrapped) version meta;
+  symlinkJoin {
+    name = "openmw-tes3mp-${unwrapped.version}";
+    inherit (unwrapped) version meta;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  paths = [ unwrapped ];
+    paths = [unwrapped];
 
-  postBuild = ''
-    mkdir -p $out/bin
+    postBuild = ''
+      mkdir -p $out/bin
 
-    makeWrapper ${unwrapped}/libexec/tes3mp-browser $out/bin/tes3mp-browser \
-      --chdir "$out/bin"
+      makeWrapper ${unwrapped}/libexec/tes3mp-browser $out/bin/tes3mp-browser \
+        --chdir "$out/bin"
 
-    makeWrapper ${unwrapped}/libexec/tes3mp-server $out/bin/tes3mp-server \
-      --run '${tes3mp-server-run}' \
-      --chdir "$out/bin"
-  '';
-}
+      makeWrapper ${unwrapped}/libexec/tes3mp-server $out/bin/tes3mp-server \
+        --run '${tes3mp-server-run}' \
+        --chdir "$out/bin"
+    '';
+  }

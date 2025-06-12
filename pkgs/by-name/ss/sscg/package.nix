@@ -13,7 +13,6 @@
   help2man,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sscg";
   version = "3.0.7";
@@ -39,18 +38,18 @@ stdenv.mkDerivation (finalAttrs: {
     help2man
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = gitUpdater { rev-prefix = "sscg-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "sscg-";};
 
   meta = {
     description = "Simple Signed Certificate Generator";
     homepage = "https://github.com/sgallagher/sscg";
     changelog = "https://github.com/sgallagher/sscg/blob/sscg-${finalAttrs.version}";
-    license = [ lib.licenses.gpl3 ];
-    maintainers = [ lib.maintainers.lucasew ];
+    license = [lib.licenses.gpl3];
+    maintainers = [lib.maintainers.lucasew];
     mainProgram = "sscg";
   };
 })

@@ -7,9 +7,7 @@
   jre,
   makeWrapper,
   symlinkJoin,
-}:
-
-let
+}: let
   version = "1.0.0";
   nailgun-server = fetchMavenArtifact {
     groupId = "com.facebook";
@@ -22,14 +20,14 @@ let
     license = lib.licenses.asl20;
     homepage = "https://www.martiansoftware.com/nailgun/";
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 
   server = stdenvNoCC.mkDerivation {
     pname = "nailgun-server";
     inherit version;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     dontUnpack = true;
     installPhase = ''
@@ -41,10 +39,12 @@ let
       runHook postInstall
     '';
 
-    meta = commonMeta // {
-      description = "Server for running Java programs from the command line without incurring the JVM startup overhead";
-      sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    };
+    meta =
+      commonMeta
+      // {
+        description = "Server for running Java programs from the command line without incurring the JVM startup overhead";
+        sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+      };
   };
 
   client = stdenv.mkDerivation {
@@ -58,24 +58,28 @@ let
       sha256 = "1syyk4ss5vq1zf0ma00svn56lal53ffpikgqgzngzbwyksnfdlh6";
     };
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
 
-    meta = commonMeta // {
-      description = "Client for running Java programs from the command line without incurring the JVM startup overhead";
-    };
+    meta =
+      commonMeta
+      // {
+        description = "Client for running Java programs from the command line without incurring the JVM startup overhead";
+      };
   };
 in
-symlinkJoin rec {
-  pname = "nailgun";
-  inherit client server version;
+  symlinkJoin rec {
+    pname = "nailgun";
+    inherit client server version;
 
-  name = "${pname}-${version}";
-  paths = [
-    client
-    server
-  ];
+    name = "${pname}-${version}";
+    paths = [
+      client
+      server
+    ];
 
-  meta = commonMeta // {
-    description = "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
-  };
-}
+    meta =
+      commonMeta
+      // {
+        description = "Client, protocol, and server for running Java programs from the command line without incurring the JVM startup overhead";
+      };
+  }

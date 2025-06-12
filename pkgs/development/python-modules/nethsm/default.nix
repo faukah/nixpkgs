@@ -13,7 +13,6 @@
   typing-extensions,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "nethsm";
   version = "1.4.0";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     certifi
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nethsm" ];
+  pythonImportsCheck = ["nethsm"];
 
   disabledTestPaths = [
     # Tests require a running Docker instance
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Nitrokey/nethsm-sdk-py";
     changelog = "https://github.com/Nitrokey/nethsm-sdk-py/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ frogamic ];
+    maintainers = with maintainers; [frogamic];
   };
 }

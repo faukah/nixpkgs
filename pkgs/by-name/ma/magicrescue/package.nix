@@ -6,7 +6,6 @@
   gdbm, # ndbm.h for dupemap binary
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "magicrescue";
   version = "1.1.10-unstable-2021-09-12";
@@ -35,7 +34,7 @@ stdenv.mkDerivation {
     description = "Find and recover deleted files on block devices";
     mainProgram = "magicrescue";
     homepage = "https://github.com/jbj/magicrescue";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

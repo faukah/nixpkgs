@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "robustirc-bridge";
   version = "1.9.0";
@@ -29,6 +28,6 @@ buildGoModule rec {
     mainProgram = "robustirc-bridge";
     homepage = "https://robustirc.net/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.hax404 ];
+    maintainers = [maintainers.hax404];
   };
 }

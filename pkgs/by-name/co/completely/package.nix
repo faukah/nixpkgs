@@ -3,12 +3,11 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "completely";
 
   gemdir = ./.;
-  exes = [ "completely" ];
+  exes = ["completely"];
 
   passthru.updateScript = bundlerUpdateScript "completely";
 
@@ -17,7 +16,7 @@ bundlerApp {
     homepage = "https://github.com/DannyBen/completely";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
     mainProgram = "completely";
   };
 }

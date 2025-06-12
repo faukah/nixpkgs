@@ -14,7 +14,6 @@
   setuptools-scm,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gwcs";
   version = "0.24.0";
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "gwcs" ];
+  pythonImportsCheck = ["gwcs"];
 
   meta = with lib; {
     description = "Module to manage the Generalized World Coordinate System";
     homepage = "https://github.com/spacetelescope/gwcs";
     changelog = "https://github.com/spacetelescope/gwcs/blob/${src.tag}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -13,7 +13,6 @@
   unstableGitUpdater,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "solanum";
   version = "0-unstable-2025-05-21";
@@ -70,15 +69,15 @@ stdenv.mkDerivation {
   enableParallelInstalling = false;
 
   passthru = {
-    tests = { inherit (nixosTests) solanum; };
-    updateScript = unstableGitUpdater { };
+    tests = {inherit (nixosTests) solanum;};
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "IRCd for unified networks";
     homepage = "https://github.com/solanum-ircd/solanum";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.unix;
   };
 }

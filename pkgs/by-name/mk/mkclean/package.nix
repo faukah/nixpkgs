@@ -4,7 +4,6 @@
   fetchurl,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mkclean";
   version = "0.9.0";
@@ -14,9 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-L1zcqw4Jtl+f74lJpV7wDuPdcA5LQFDiRdRCNH18w9s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
     install -Dm0755 mkclean/mkclean $out/bin/mkclean
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Command line tool to clean and optimize Matroska (.mkv / .mka / .mks / .mk3d) and WebM (.webm / .weba) files that have already been muxed";
     homepage = "https://www.matroska.org";
     license = lib.licenses.bsdOriginal;
-    maintainers = with lib.maintainers; [ cawilliamson ];
+    maintainers = with lib.maintainers; [cawilliamson];
     platforms = lib.platforms.unix;
   };
 })

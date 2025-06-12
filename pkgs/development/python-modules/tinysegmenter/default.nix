@@ -2,12 +2,9 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   unittestCheckHook,
-
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tinysegmenter";
   version = "0.4";
@@ -18,21 +15,21 @@ buildPythonPackage rec {
     hash = "sha256-ZEWL26VLp0gsAseF+WDPPWz2FZSk2rPWTDJUOQlPwbc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
     "tests"
   ];
 
-  pythonImportsCheck = [ "tinysegmenter" ];
+  pythonImportsCheck = ["tinysegmenter"];
 
   meta = with lib; {
     description = "Very compact Japanese tokenizer";
     homepage = "https://tinysegmenter.tuxfamily.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

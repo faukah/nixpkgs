@@ -13,7 +13,6 @@
   autoreconfHook,
   withNetSnmp ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keepalived";
   version = "2.3.3";
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Routing software written in C";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.raitobezarius ];
+    maintainers = [maintainers.raitobezarius];
     mainProgram = "keepalived";
   };
 }

@@ -16,7 +16,6 @@
   SDL2,
   sqlite,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hashlink";
   version = "1.15";
@@ -56,15 +55,13 @@ stdenv.mkDerivation rec {
   ];
 
   # append default installPhase with library install for haxe
-  postInstall =
-    let
-      haxelibPath = "$out/lib/haxe/hashlink/${lib.replaceStrings [ "." ] [ "," ] version}";
-    in
-    ''
-      mkdir -p "${haxelibPath}"
-      echo -n "${version}" > "${haxelibPath}/../.current"
-      cp -r ../other/haxelib/* "${haxelibPath}"
-    '';
+  postInstall = let
+    haxelibPath = "$out/lib/haxe/hashlink/${lib.replaceStrings ["."] [","] version}";
+  in ''
+    mkdir -p "${haxelibPath}"
+    echo -n "${version}" > "${haxelibPath}/../.current"
+    cp -r ../other/haxelib/* "${haxelibPath}"
+  '';
 
   meta = with lib; {
     description = "Virtual machine for Haxe";

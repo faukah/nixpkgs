@@ -19,7 +19,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-obfuscate";
   version = "0.0.10";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.gpl3Plus;
     platforms = platforms.all;
     mainProgram = "obfuscate";
-    maintainers = with maintainers; [ fgaz ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [fgaz];
+    teams = [teams.gnome-circle];
   };
 })

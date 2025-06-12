@@ -11,7 +11,6 @@
   libappindicator-gtk3,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "droidcam";
   version = "2.1.3";
@@ -64,7 +63,7 @@ stdenv.mkDerivation rec {
     description = "Linux client for DroidCam app";
     homepage = "https://github.com/aramg/droidcam";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.suhr ];
+    maintainers = [maintainers.suhr];
     platforms = platforms.linux;
   };
 }

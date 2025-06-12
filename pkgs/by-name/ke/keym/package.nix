@@ -6,7 +6,6 @@
   libXtst,
   libXi,
 }:
-
 stdenv.mkDerivation {
   pname = "keym";
   version = "unstable-2022-07-10";
@@ -34,6 +33,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "keym";
-    maintainers = with maintainers; [ CompileTime ];
+    maintainers = with maintainers; [CompileTime];
   };
 }

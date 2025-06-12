@@ -8,7 +8,6 @@
   nixosTests,
   sqlite ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hostapd";
   version = "2.11";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Kz+stjL9T2XjL0v4Kna0tyxQH5laT2LjMCGf567RdHo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libnl
     openssl
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
       CONFIG_SQLITE=y
     '';
 
-  passAsFile = [ "extraConfig" ];
+  passAsFile = ["extraConfig"];
 
   configurePhase = ''
     cd hostapd
@@ -128,7 +127,7 @@ stdenv.mkDerivation rec {
     homepage = "https://w1.fi/hostapd/";
     description = "User space daemon for access point and authentication servers";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ oddlama ];
+    maintainers = with maintainers; [oddlama];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   mock,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "arxiv2bib";
   version = "1.0.8";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     mainProgram = "arxiv2bib";
     homepage = "http://nathangrigg.github.io/arxiv2bib/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.nico202 ];
+    maintainers = [maintainers.nico202];
   };
 }

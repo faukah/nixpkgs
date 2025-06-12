@@ -5,7 +5,6 @@
   pkg-config,
   libusb1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wch-isp";
   version = "0.4.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-JB7cvZPzRhYJ8T3QJkguHOzZFrLOft5rRz0F0sVav/k=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libusb1];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     mainProgram = "wch-isp";
     license = lib.licenses.gpl2Only;
     homepage = "https://git.sr.ht/~jmaselbas/wch-isp";
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
     platforms = lib.platforms.unix;
   };
 }

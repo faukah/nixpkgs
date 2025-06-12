@@ -4,10 +4,9 @@
   pkgs,
   utils,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     any
     concatMap
     getExe'
@@ -20,7 +19,8 @@ let
     recursiveUpdate
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     enum
     listOf
@@ -32,7 +32,7 @@ let
 
   stateDir = "/var/lib/netbird-mgmt";
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   defaultSettings = {
     Stuns = [
@@ -67,9 +67,9 @@ let
     };
 
     ReverseProxy = {
-      TrustedHTTPProxies = [ ];
+      TrustedHTTPProxies = [];
       TrustedHTTPProxiesCount = 0;
-      TrustedPeers = [ "0.0.0.0/0" ];
+      TrustedPeers = ["0.0.0.0/0"];
     };
 
     Datadir = "${stateDir}/data";
@@ -94,7 +94,7 @@ let
         GrantType = "client_credentials";
       };
 
-      ExtraConfig = { };
+      ExtraConfig = {};
       Auth0ClientCredentials = null;
       AzureClientCredentials = null;
       KeycloakClientCredentials = null;
@@ -122,7 +122,7 @@ let
         AuthorizationEndpoint = "";
         TokenEndpoint = "";
         Scope = "openid profile email";
-        RedirectURLs = [ "http://localhost:53000" ];
+        RedirectURLs = ["http://localhost:53000"];
         UseIDToken = false;
       };
     };
@@ -133,13 +133,11 @@ let
   managementFile = settingsFormat.generate "config.json" managementConfig;
 
   cfg = config.services.netbird.server.management;
-in
-
-{
+in {
   options.services.netbird.server.management = {
     enable = mkEnableOption "Netbird Management Service";
 
-    package = mkPackageOption pkgs "netbird" { };
+    package = mkPackageOption pkgs "netbird" {};
 
     domain = mkOption {
       type = str;
@@ -204,7 +202,7 @@ in
 
     extraOptions = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Additional options given to netbird-mgmt as commandline arguments.
       '';
@@ -313,7 +311,7 @@ in
         };
       '';
 
-      default = { };
+      default = {};
 
       description = ''
         Configuration of the netbird management server.
@@ -347,24 +345,27 @@ in
   config = mkIf cfg.enable {
     warnings =
       concatMap
-        (
-          { check, name }:
+      (
+        {
+          check,
+          name,
+        }:
           optional check "${name} is world-readable in the Nix Store, you should provide it as a _secret."
-        )
-        [
-          {
-            check = builtins.isString managementConfig.TURNConfig.Secret;
-            name = "The TURNConfig.secret";
-          }
-          {
-            check = builtins.isString managementConfig.DataStoreEncryptionKey;
-            name = "The DataStoreEncryptionKey";
-          }
-          {
-            check = any (T: (T ? Password) && builtins.isString T.Password) managementConfig.TURNConfig.Turns;
-            name = "A Turn configuration's password";
-          }
-        ];
+      )
+      [
+        {
+          check = builtins.isString managementConfig.TURNConfig.Secret;
+          name = "The TURNConfig.secret";
+        }
+        {
+          check = builtins.isString managementConfig.DataStoreEncryptionKey;
+          name = "The DataStoreEncryptionKey";
+        }
+        {
+          check = any (T: (T ? Password) && builtins.isString T.Password) managementConfig.TURNConfig.Turns;
+          name = "A Turn configuration's password";
+        }
+      ];
 
     assertions = [
       {
@@ -375,11 +376,11 @@ in
 
     systemd.services.netbird-management = {
       description = "The management server for Netbird, a wireguard VPN";
-      documentation = [ "https://netbird.io/docs/" ];
+      documentation = ["https://netbird.io/docs/"];
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ managementFile ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [managementFile];
 
       preStart = genJqSecretsReplacementSnippet managementConfig "${stateDir}/management.json";
 

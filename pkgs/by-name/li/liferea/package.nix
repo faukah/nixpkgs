@@ -23,7 +23,6 @@
   glib-networking,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "liferea";
   version = "1.16-RC2";

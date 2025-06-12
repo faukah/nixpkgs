@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     escapeShellArgs
     getExe
     lists
@@ -21,22 +20,19 @@ let
 
   cfg = config.services.dnsproxy;
 
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
   configFile = yaml.generate "config.yaml" cfg.settings;
 
-  finalFlags = (lists.optional (cfg.settings != { }) "--config-path=${configFile}") ++ cfg.flags;
-in
-{
-
+  finalFlags = (lists.optional (cfg.settings != {}) "--config-path=${configFile}") ++ cfg.flags;
+in {
   options.services.dnsproxy = {
-
     enable = mkEnableOption "dnsproxy";
 
-    package = mkPackageOption pkgs "dnsproxy" { };
+    package = mkPackageOption pkgs "dnsproxy" {};
 
     settings = mkOption {
       type = yaml.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           bootstrap = [
@@ -63,8 +59,8 @@ in
 
     flags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--upstream=1.1.1.1:53" ];
+      default = [];
+      example = ["--upstream=1.1.1.1:53"];
       description = ''
         A list of extra command-line flags to pass to dnsproxy. For details on the
         available options, see <https://github.com/AdguardTeam/dnsproxy#usage>.
@@ -72,7 +68,6 @@ in
         config options.
       '';
     };
-
   };
 
   config = mkIf cfg.enable {
@@ -82,7 +77,7 @@ in
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${getExe cfg.package} ${escapeShellArgs finalFlags}";
         Restart = "always";
@@ -115,6 +110,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ diogotcorreia ];
-
+  meta.maintainers = with maintainers; [diogotcorreia];
 }

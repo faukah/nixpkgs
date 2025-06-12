@@ -16,11 +16,11 @@ stdenv.mkDerivation {
     hash = "sha256-JQY+ixHL+TpP4YRpgB9GP4jO5+PBMS/v5Ad3Ux0+yuQ=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   # Non-standard configure script
   configurePhase = "./configure";
@@ -42,6 +42,6 @@ stdenv.mkDerivation {
 
     homepage = "https://github.com/n-t-roff/sc";
     license = lib.licenses.unlicense;
-    maintainers = [ lib.maintainers.claes ];
+    maintainers = [lib.maintainers.claes];
   };
 }

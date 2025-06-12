@@ -6,7 +6,6 @@
   python3,
   spirv-headers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spirv-tools";
   version = "1.4.313.0";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/SPIRV-Tools";
     license = licenses.asl20;
     platforms = with platforms; unix ++ windows;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

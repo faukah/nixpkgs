@@ -19,7 +19,6 @@
   packaging,
   lxml,
 }:
-
 buildPythonPackage rec {
   pname = "nvchecker";
   version = "2.17";
@@ -34,19 +33,21 @@ buildPythonPackage rec {
     hash = "sha256-jA41WoD0WXdb8CM9dUchIAhYd4GoUA9zLYbkaPIScLg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeBuildInputs = [
     docutils
     installShellFiles
   ];
 
-  propagatedBuildInputs = [
-    structlog
-    platformdirs
-    tornado
-    pycurl
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      structlog
+      platformdirs
+      tornado
+      pycurl
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   __darwinAllowLocalNetworking = true;
 
@@ -66,15 +67,15 @@ buildPythonPackage rec {
     installManPage docs/_build/man/nvchecker.1
   '';
 
-  pythonImportsCheck = [ "nvchecker" ];
+  pythonImportsCheck = ["nvchecker"];
 
-  pytestFlagsArray = [ "-m 'not needs_net'" ];
+  pytestFlagsArray = ["-m 'not needs_net'"];
 
   optional-dependencies = {
     # vercmp = [ pyalpm ];
-    awesomeversion = [ awesomeversion ];
-    pypi = [ packaging ];
-    htmlparser = [ lxml ];
+    awesomeversion = [awesomeversion];
+    pypi = [packaging];
+    htmlparser = [lxml];
   };
 
   meta = {
@@ -82,6 +83,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lilydjwg/nvchecker";
     changelog = "https://github.com/lilydjwg/nvchecker/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

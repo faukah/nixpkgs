@@ -30,7 +30,7 @@ buildGoModule rec {
     "-X github.com/holos-run/holos/version.BuildDate=1970-01-01T00:00:00Z"
   ];
 
-  subPackages = [ "cmd/holos" ];
+  subPackages = ["cmd/holos"];
 
   nativeCheckInputs = [
     kubernetes-helm
@@ -48,7 +48,7 @@ buildGoModule rec {
     description = "Holos CLI tool";
     homepage = "https://github.com/holos-run/holos";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cameronraysmith ];
+    maintainers = with maintainers; [cameronraysmith];
     mainProgram = "holos";
   };
 }

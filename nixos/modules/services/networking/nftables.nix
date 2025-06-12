@@ -3,49 +3,45 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.networking.nftables;
 
-  tableSubmodule =
-    { name, ... }:
-    {
-      options = {
-        enable = lib.mkOption {
-          type = lib.types.bool;
-          default = true;
-          description = "Enable this table.";
-        };
-
-        name = lib.mkOption {
-          type = lib.types.str;
-          description = "Table name.";
-        };
-
-        content = lib.mkOption {
-          type = lib.types.lines;
-          description = "The table content.";
-        };
-
-        family = lib.mkOption {
-          description = "Table family.";
-          type = lib.types.enum [
-            "ip"
-            "ip6"
-            "inet"
-            "arp"
-            "bridge"
-            "netdev"
-          ];
-        };
+  tableSubmodule = {name, ...}: {
+    options = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable this table.";
       };
 
-      config = {
-        name = lib.mkDefault name;
+      name = lib.mkOption {
+        type = lib.types.str;
+        description = "Table name.";
+      };
+
+      content = lib.mkOption {
+        type = lib.types.lines;
+        description = "The table content.";
+      };
+
+      family = lib.mkOption {
+        description = "Table family.";
+        type = lib.types.enum [
+          "ip"
+          "ip6"
+          "inet"
+          "arp"
+          "bridge"
+          "netdev"
+        ];
       };
     };
-in
-{
+
+    config = {
+      name = lib.mkDefault name;
+    };
+  };
+in {
   ###### interface
 
   options = {
@@ -212,7 +208,7 @@ in
     networking.nftables.tables = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule tableSubmodule);
 
-      default = { };
+      default = {};
 
       description = ''
         Tables to be added to ruleset.
@@ -270,8 +266,8 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-    boot.blacklistedKernelModules = [ "ip_tables" ];
-    environment.systemPackages = [ pkgs.nftables ];
+    boot.blacklistedKernelModules = ["ip_tables"];
+    environment.systemPackages = [pkgs.nftables];
     # versionOlder for backportability, remove afterwards
     networking.nftables.flushRuleset = lib.mkDefault (
       lib.versionOlder config.system.stateVersion "23.11"
@@ -279,109 +275,108 @@ in
     );
     systemd.services.nftables = {
       description = "nftables firewall";
-      after = [ "sysinit.target" ];
+      after = ["sysinit.target"];
       before = [
         "network-pre.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
       wants = [
         "network-pre.target"
         "sysinit.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       reloadIfChanged = true;
-      serviceConfig =
-        let
-          enabledTables = lib.filterAttrs (_: table: table.enable) cfg.tables;
-          deletionsScript = pkgs.writeScript "nftables-deletions" ''
-            #! ${pkgs.nftables}/bin/nft -f
-            ${
-              if cfg.flushRuleset then
-                "flush ruleset"
-              else
-                lib.concatStringsSep "\n" (
-                  lib.mapAttrsToList (_: table: ''
-                    table ${table.family} ${table.name}
-                    delete table ${table.family} ${table.name}
-                  '') enabledTables
-                )
-            }
-            ${cfg.extraDeletions}
-          '';
-          deletionsScriptVar = "/var/lib/nftables/deletions.nft";
-          ensureDeletions = pkgs.writeShellScript "nftables-ensure-deletions" ''
-            touch ${deletionsScriptVar}
-            chmod +x ${deletionsScriptVar}
-          '';
-          saveDeletionsScript = pkgs.writeShellScript "nftables-save-deletions" ''
-            cp ${deletionsScript} ${deletionsScriptVar}
-          '';
-          cleanupDeletionsScript = pkgs.writeShellScript "nftables-cleanup-deletions" ''
-            rm ${deletionsScriptVar}
-          '';
-          rulesScript = pkgs.writeTextFile {
-            name = "nftables-rules";
-            executable = true;
-            text = ''
-              #! ${pkgs.nftables}/bin/nft -f
-              # previous deletions, if any
-              include "${deletionsScriptVar}"
-              # current deletions
-              include "${deletionsScript}"
-              ${lib.concatStringsSep "\n" (
+      serviceConfig = let
+        enabledTables = lib.filterAttrs (_: table: table.enable) cfg.tables;
+        deletionsScript = pkgs.writeScript "nftables-deletions" ''
+          #! ${pkgs.nftables}/bin/nft -f
+          ${
+            if cfg.flushRuleset
+            then "flush ruleset"
+            else
+              lib.concatStringsSep "\n" (
                 lib.mapAttrsToList (_: table: ''
-                  table ${table.family} ${table.name} {
-                    ${table.content}
-                  }
-                '') enabledTables
-              )}
-              ${cfg.ruleset}
-              ${
-                if cfg.rulesetFile != null then
-                  if cfg.flattenRulesetFile then
-                    builtins.readFile cfg.rulesetFile
-                  else
-                    ''
-                      include "${cfg.rulesetFile}"
-                    ''
-                else
-                  ""
-              }
-            '';
-            checkPhase = lib.optionalString cfg.checkRuleset ''
-              cp $out ruleset.conf
-              sed 's|include "${deletionsScriptVar}"||' -i ruleset.conf
-              ${cfg.preCheckRuleset}
-              export NIX_REDIRECTS=${
-                lib.escapeShellArg (
-                  lib.concatStringsSep ":" (lib.mapAttrsToList (n: v: "${n}=${v}") cfg.checkRulesetRedirects)
-                )
-              }
-              LD_PRELOAD="${pkgs.buildPackages.libredirect}/lib/libredirect.so ${pkgs.buildPackages.lklWithFirewall.lib}/lib/liblkl-hijack.so" \
-                ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf
-            '';
-          };
-        in
-        {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = [
-            ensureDeletions
-            rulesScript
-          ];
-          ExecStartPost = saveDeletionsScript;
-          ExecReload = [
-            ensureDeletions
-            rulesScript
-            saveDeletionsScript
-          ];
-          ExecStop = [
-            deletionsScriptVar
-            cleanupDeletionsScript
-          ];
-          StateDirectory = "nftables";
+                  table ${table.family} ${table.name}
+                  delete table ${table.family} ${table.name}
+                '')
+                enabledTables
+              )
+          }
+          ${cfg.extraDeletions}
+        '';
+        deletionsScriptVar = "/var/lib/nftables/deletions.nft";
+        ensureDeletions = pkgs.writeShellScript "nftables-ensure-deletions" ''
+          touch ${deletionsScriptVar}
+          chmod +x ${deletionsScriptVar}
+        '';
+        saveDeletionsScript = pkgs.writeShellScript "nftables-save-deletions" ''
+          cp ${deletionsScript} ${deletionsScriptVar}
+        '';
+        cleanupDeletionsScript = pkgs.writeShellScript "nftables-cleanup-deletions" ''
+          rm ${deletionsScriptVar}
+        '';
+        rulesScript = pkgs.writeTextFile {
+          name = "nftables-rules";
+          executable = true;
+          text = ''
+            #! ${pkgs.nftables}/bin/nft -f
+            # previous deletions, if any
+            include "${deletionsScriptVar}"
+            # current deletions
+            include "${deletionsScript}"
+            ${lib.concatStringsSep "\n" (
+              lib.mapAttrsToList (_: table: ''
+                table ${table.family} ${table.name} {
+                  ${table.content}
+                }
+              '')
+              enabledTables
+            )}
+            ${cfg.ruleset}
+            ${
+              if cfg.rulesetFile != null
+              then
+                if cfg.flattenRulesetFile
+                then builtins.readFile cfg.rulesetFile
+                else ''
+                  include "${cfg.rulesetFile}"
+                ''
+              else ""
+            }
+          '';
+          checkPhase = lib.optionalString cfg.checkRuleset ''
+            cp $out ruleset.conf
+            sed 's|include "${deletionsScriptVar}"||' -i ruleset.conf
+            ${cfg.preCheckRuleset}
+            export NIX_REDIRECTS=${
+              lib.escapeShellArg (
+                lib.concatStringsSep ":" (lib.mapAttrsToList (n: v: "${n}=${v}") cfg.checkRulesetRedirects)
+              )
+            }
+            LD_PRELOAD="${pkgs.buildPackages.libredirect}/lib/libredirect.so ${pkgs.buildPackages.lklWithFirewall.lib}/lib/liblkl-hijack.so" \
+              ${pkgs.buildPackages.nftables}/bin/nft --check --file ruleset.conf
+          '';
         };
+      in {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = [
+          ensureDeletions
+          rulesScript
+        ];
+        ExecStartPost = saveDeletionsScript;
+        ExecReload = [
+          ensureDeletions
+          rulesScript
+          saveDeletionsScript
+        ];
+        ExecStop = [
+          deletionsScriptVar
+          cleanupDeletionsScript
+        ];
+        StateDirectory = "nftables";
+      };
       unitConfig.DefaultDependencies = false;
     };
   };

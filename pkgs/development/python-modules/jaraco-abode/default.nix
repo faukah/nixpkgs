@@ -22,7 +22,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "jaraco-abode";
   version = "6.3.0";
@@ -63,7 +62,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jaraco.abode" ];
+  pythonImportsCheck = ["jaraco.abode"];
 
   preCheck = ''
     export HOME=$TEMP

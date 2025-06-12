@@ -10,7 +10,7 @@ mkKdeDerivation rec {
   version = "2.4.0";
 
   # Breaks with split -dev
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   src = fetchurl {
     url = "mirror://kde/stable/kdevelop-pg-qt/${version}/src/kdevelop-pg-qt-${version}.tar.xz";

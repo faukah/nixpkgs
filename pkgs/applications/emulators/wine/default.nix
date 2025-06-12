@@ -12,7 +12,10 @@
   callPackage,
   darwin,
   wineRelease ? "stable",
-  wineBuild ? if stdenv.hostPlatform.system == "x86_64-linux" then "wineWow" else "wine32",
+  wineBuild ?
+    if stdenv.hostPlatform.system == "x86_64-linux"
+    then "wineWow"
+    else "wine32",
   gettextSupport ? false,
   fontconfigSupport ? false,
   alsaSupport ? false,
@@ -44,11 +47,8 @@
   x11Support ? false,
   embedInstallers ? false, # The Mono and Gecko MSI installers
   moltenvk, # Allow users to override MoltenVK easily
-}:
-
-let
-  wine-build =
-    build: release:
+}: let
+  wine-build = build: release:
     lib.getAttr build (
       callPackage ./packages.nix {
         wineRelease = release;
@@ -95,13 +95,15 @@ let
       staging = "unstable";
       yabridge = "yabridge";
     }
-    .${wineRelease} or null;
+    .${
+      wineRelease
+    } or null;
 in
-if baseRelease != null then
-  callPackage ./staging.nix {
-    wineUnstable = (wine-build wineBuild baseRelease).override {
-      inherit wineRelease;
-    };
-  }
-else
-  wine-build wineBuild wineRelease
+  if baseRelease != null
+  then
+    callPackage ./staging.nix {
+      wineUnstable = (wine-build wineBuild baseRelease).override {
+        inherit wineRelease;
+      };
+    }
+  else wine-build wineBuild wineRelease

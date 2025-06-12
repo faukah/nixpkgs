@@ -16,7 +16,6 @@
   termcolor,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "aiocoap";
   version = "0.4.14";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-v0OzRWHlGaBKqqcIyAlVafd/siXVwaTAZqw+Sstju3s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
     oscore = [
@@ -40,8 +39,8 @@ buildPythonPackage rec {
       filelock
       ge25519
     ];
-    tinydtls = [ dtlssocket ];
-    ws = [ websockets ];
+    tinydtls = [dtlssocket];
+    ws = [websockets];
     prettyprint = [
       termcolor
       cbor2
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Don't test the plugins
@@ -68,13 +67,13 @@ buildPythonPackage rec {
     "test_help"
   ];
 
-  pythonImportsCheck = [ "aiocoap" ];
+  pythonImportsCheck = ["aiocoap"];
 
   meta = with lib; {
     description = "Python CoAP library";
     homepage = "https://aiocoap.readthedocs.io/";
     changelog = "https://github.com/chrysn/aiocoap/blob/${version}/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

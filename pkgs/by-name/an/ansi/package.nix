@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ansi-escape-sequences-cli";
   version = "0.2.2";
@@ -23,8 +22,8 @@ rustPlatform.buildRustPackage rec {
       the colors and styles, such as bold or italic.
     '';
     homepage = "https://github.com/phip1611/ansi-escape-sequences-cli";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ phip1611 ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [phip1611];
     mainProgram = "ansi";
   };
 }

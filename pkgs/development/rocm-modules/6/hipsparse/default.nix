@@ -14,9 +14,8 @@
   buildTests ? false,
   buildBenchmarks ? false,
   buildSamples ? false,
-  gpuTargets ? [ ],
+  gpuTargets ? [],
 }:
-
 # This can also use cuSPARSE as a backend instead of rocSPARSE
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipsparse";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
       (lib.cmakeBool "BUILD_CLIENTS_BENCHMARKS" buildBenchmarks)
       (lib.cmakeBool "BUILD_CLIENTS_SAMPLES" buildSamples)
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ];
 
@@ -145,8 +144,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "ROCm SPARSE marshalling library";
     homepage = "https://github.com/ROCm/hipSPARSE";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

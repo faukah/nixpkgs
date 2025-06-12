@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "mem_usage";
   version = "0.1.2";
@@ -23,6 +22,6 @@ buildDunePackage rec {
     license = lib.licenses.mit;
     homepage = "https://www.liquidsoap.info/ocaml-mem_usage/";
     description = "Cross-platform memory usage information";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

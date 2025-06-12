@@ -11,8 +11,7 @@
   yarn,
   nixosTests,
   nix-update-script,
-}:
-let
+}: let
   version = "25.5.0";
   src = fetchFromGitHub {
     name = "actualbudget-actual-source";
@@ -31,7 +30,7 @@ let
     hash = "sha256-kDArpSFiNJJF5ZGCtcn7Ci7wCpI1cTSknDZ4sQgy/Nc=";
   };
 
-  yarn_20 = yarn.override { nodejs = nodejs_20; };
+  yarn_20 = yarn.override {nodejs = nodejs_20;};
 
   SUPPORTED_ARCHITECTURES = builtins.toJSON {
     os = [
@@ -152,66 +151,66 @@ let
     dontFixup = true;
   };
 in
-stdenv.mkDerivation {
-  pname = "actual-server";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "actual-server";
+    inherit version src;
 
-  nativeBuildInputs = [
-    makeWrapper
-    (python3.withPackages (ps: [ ps.setuptools ])) # Used by node-gyp
-    yarn_20
-  ];
-
-  inherit SUPPORTED_ARCHITECTURES;
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/{bin,lib,lib/actual/packages/sync-server,lib/actual/packages/desktop-client}
-    cp -r ./packages/sync-server/{app.js,src,migrations,package.json,bin} $out/lib/actual/packages/sync-server
-    # sync-server uses package.json to determine path to web ui.
-    cp ./packages/desktop-client/package.json $out/lib/actual/packages/desktop-client
-    cp -r ${webUi} $out/lib/actual/packages/desktop-client/build
-
-    # Re-create node_modules/ to contain just production packages required for
-    # sync-server itself, using existing offline cache. This will also now build
-    # binaries.
-    export HOME=$(mktemp -d)
-    yarn config set enableNetwork false
-    yarn config set enableOfflineMode true
-    yarn config set enableTelemetry 0
-    yarn config set cacheFolder ${offlineCache}
-    yarn config set --json supportedArchitectures "$SUPPORTED_ARCHITECTURES"
-
-    export npm_config_nodedir=${nodejs_20}
-
-    yarn workspaces focus @actual-app/sync-server --production
-    cp -r ./node_modules $out/lib/actual/
-
-    makeWrapper ${lib.getExe nodejs_20} "$out/bin/actual-server" \
-      --add-flags "$out/lib/actual/packages/sync-server/bin/actual-server.js" \
-      --set NODE_PATH "$out/actual/lib/node_modules"
-
-    runHook postInstall
-  '';
-
-  passthru = {
-    inherit offlineCache webUi;
-    tests = nixosTests.actual;
-    passthru.updateScript = nix-update-script { };
-  };
-
-  meta = {
-    changelog = "https://actualbudget.org/docs/releases";
-    description = "Super fast privacy-focused app for managing your finances";
-    homepage = "https://actualbudget.org/";
-    mainProgram = "actual-server";
-    license = lib.licenses.mit;
-    # https://github.com/NixOS/nixpkgs/issues/403846
-    broken = stdenv.hostPlatform.isDarwin;
-    maintainers = [
-      lib.maintainers.oddlama
-      lib.maintainers.patrickdag
+    nativeBuildInputs = [
+      makeWrapper
+      (python3.withPackages (ps: [ps.setuptools])) # Used by node-gyp
+      yarn_20
     ];
-  };
-}
+
+    inherit SUPPORTED_ARCHITECTURES;
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/{bin,lib,lib/actual/packages/sync-server,lib/actual/packages/desktop-client}
+      cp -r ./packages/sync-server/{app.js,src,migrations,package.json,bin} $out/lib/actual/packages/sync-server
+      # sync-server uses package.json to determine path to web ui.
+      cp ./packages/desktop-client/package.json $out/lib/actual/packages/desktop-client
+      cp -r ${webUi} $out/lib/actual/packages/desktop-client/build
+
+      # Re-create node_modules/ to contain just production packages required for
+      # sync-server itself, using existing offline cache. This will also now build
+      # binaries.
+      export HOME=$(mktemp -d)
+      yarn config set enableNetwork false
+      yarn config set enableOfflineMode true
+      yarn config set enableTelemetry 0
+      yarn config set cacheFolder ${offlineCache}
+      yarn config set --json supportedArchitectures "$SUPPORTED_ARCHITECTURES"
+
+      export npm_config_nodedir=${nodejs_20}
+
+      yarn workspaces focus @actual-app/sync-server --production
+      cp -r ./node_modules $out/lib/actual/
+
+      makeWrapper ${lib.getExe nodejs_20} "$out/bin/actual-server" \
+        --add-flags "$out/lib/actual/packages/sync-server/bin/actual-server.js" \
+        --set NODE_PATH "$out/actual/lib/node_modules"
+
+      runHook postInstall
+    '';
+
+    passthru = {
+      inherit offlineCache webUi;
+      tests = nixosTests.actual;
+      passthru.updateScript = nix-update-script {};
+    };
+
+    meta = {
+      changelog = "https://actualbudget.org/docs/releases";
+      description = "Super fast privacy-focused app for managing your finances";
+      homepage = "https://actualbudget.org/";
+      mainProgram = "actual-server";
+      license = lib.licenses.mit;
+      # https://github.com/NixOS/nixpkgs/issues/403846
+      broken = stdenv.hostPlatform.isDarwin;
+      maintainers = [
+        lib.maintainers.oddlama
+        lib.maintainers.patrickdag
+      ];
+    };
+  }

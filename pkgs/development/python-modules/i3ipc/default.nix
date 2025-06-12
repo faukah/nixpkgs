@@ -11,7 +11,6 @@
   makeFontsConf,
   coreutils,
 }:
-
 buildPythonPackage rec {
   pname = "i3ipc";
   version = "2.2.1";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     rev = "v${version}";
     sha256 = "13bzs9dcv27czpnnbgz7a037lm8h991c8gk0qzzk5mq5yak24715";
   };
-  propagatedBuildInputs = [ xlib ];
+  propagatedBuildInputs = [xlib];
 
-  fontsConf = makeFontsConf { fontDirectories = [ ]; };
+  fontsConf = makeFontsConf {fontDirectories = [];};
   FONTCONFIG_FILE = fontsConf; # Fontconfig error: Cannot load default config file
   nativeCheckInputs = [
     pytest
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     description = "Improved Python library to control i3wm and sway";
     homepage = "https://github.com/acrisci/i3ipc-python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
   };
 }

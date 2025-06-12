@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "publicsuffixlist";
   version = "1.0.2.20250608";
@@ -21,25 +20,25 @@ buildPythonPackage rec {
     hash = "sha256-C4RywYvx5bNuor4agXBN6XpoLkxHJGMAuBocZ9FcGYM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    update = [ requests ];
-    readme = [ pandoc ];
+    update = [requests];
+    readme = [pandoc];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "publicsuffixlist" ];
+  pythonImportsCheck = ["publicsuffixlist"];
 
-  pytestFlagsArray = [ "publicsuffixlist/test.py" ];
+  pytestFlagsArray = ["publicsuffixlist/test.py"];
 
   meta = with lib; {
     changelog = "https://github.com/ko-zu/psl/blob/v${version}-gha/CHANGES.md";
     description = "Public Suffix List parser implementation";
     homepage = "https://github.com/ko-zu/psl";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "publicsuffixlist-download";
   };
 }

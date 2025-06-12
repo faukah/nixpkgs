@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cloudsmith-cli";
   version = "1.2.5";
@@ -86,7 +85,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Cloudsmith Command Line Interface";
     mainProgram = "cloudsmith";
     changelog = "https://github.com/cloudsmith-io/cloudsmith-cli/blob/v${version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

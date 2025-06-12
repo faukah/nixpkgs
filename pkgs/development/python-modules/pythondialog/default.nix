@@ -4,7 +4,6 @@
   fetchPypi,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "pythondialog";
   version = "3.5.3";

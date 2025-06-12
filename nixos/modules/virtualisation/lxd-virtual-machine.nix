@@ -3,12 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  serialDevice = if pkgs.stdenv.hostPlatform.isx86 then "ttyS0" else "ttyAMA0"; # aarch64
-in
-{
+}: let
+  serialDevice =
+    if pkgs.stdenv.hostPlatform.isx86
+    then "ttyS0"
+    else "ttyAMA0"; # aarch64
+in {
   imports = [
     ./lxc-instance-common.nix
 

@@ -12,7 +12,6 @@
   pythonOlder,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "sfrbox-api";
   version = "0.0.11";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     "defusedxml"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     defusedxml
@@ -40,23 +39,25 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cli = [ click ];
+    cli = [click];
   };
 
-  nativeCheckInputs = [
-    pytest-asyncio
-    pytestCheckHook
-    respx
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-asyncio
+      pytestCheckHook
+      respx
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "sfrbox_api" ];
+  pythonImportsCheck = ["sfrbox_api"];
 
   meta = with lib; {
     description = "Module for the SFR Box API";
     homepage = "https://github.com/hacf-fr/sfrbox-api";
     changelog = "https://github.com/hacf-fr/sfrbox-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "sfrbox-api";
   };
 }

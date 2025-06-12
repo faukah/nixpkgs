@@ -13,7 +13,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "oss2";
   version = "2.18.3";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  pythonImportsCheck = [ "oss2" ];
+  pythonImportsCheck = ["oss2"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -111,6 +110,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aliyun/aliyun-oss-python-sdk";
     changelog = "https://github.com/aliyun/aliyun-oss-python-sdk/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

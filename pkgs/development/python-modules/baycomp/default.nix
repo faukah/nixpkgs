@@ -7,7 +7,6 @@
   matplotlib,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "baycomp";
   version = "1.0.3";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     matplotlib
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
-  pythonImportsCheck = [ "baycomp" ];
+  nativeCheckInputs = [unittestCheckHook];
+  pythonImportsCheck = ["baycomp"];
 
   meta = {
     description = "Library for Bayesian comparison of classifiers";
     homepage = "https://github.com/janezd/baycomp";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.lucasew ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.lucasew];
   };
 }

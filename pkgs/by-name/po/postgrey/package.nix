@@ -4,14 +4,10 @@
   lib,
   runCommand,
   postfix,
-}:
-
-let
-  mk-perl-flags =
-    inputs: lib.concatStringsSep " " (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs);
+}: let
+  mk-perl-flags = inputs: lib.concatStringsSep " " (map (dep: "-I ${dep}/${perlPackages.perl.libPrefix}") inputs);
   postgrey-flags = mk-perl-flags (
-    with perlPackages;
-    [
+    with perlPackages; [
       NetServer
       BerkeleyDB
       DigestSHA1
@@ -20,15 +16,14 @@ let
     ]
   );
   policy-test-flags = mk-perl-flags (
-    with perlPackages;
-    [
+    with perlPackages; [
       ParseSyslog
     ]
   );
   version = "1.37";
   name = "postgrey-${version}";
 in
-runCommand name
+  runCommand name
   {
     src = fetchurl {
       url = "https://postgrey.schweikert.ch/pub/${name}.tar.gz";

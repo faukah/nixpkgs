@@ -6,7 +6,6 @@
   popt,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnatspec";
   version = "0.3.0";
@@ -16,15 +15,15 @@ stdenv.mkDerivation rec {
     sha256 = "0wffxjlc8svilwmrcg3crddpfrpv35mzzjgchf8ygqsvwbrbb3b7";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ popt ];
+  buildInputs = [popt];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_LDFLAGS = "-liconv";
   };
 
-  propagatedBuildInputs = [ libiconv ];
+  propagatedBuildInputs = [libiconv];
 
   meta = with lib; {
     homepage = "https://natspec.sourceforge.net/";

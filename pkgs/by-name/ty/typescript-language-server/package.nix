@@ -12,7 +12,6 @@
   testers,
   typescript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "typescript-language-server";
   version = "4.3.3";
@@ -92,6 +91,6 @@ stdenv.mkDerivation (finalAttrs: {
       mit
     ];
     mainProgram = "typescript-language-server";
-    maintainers = with lib.maintainers; [ marcel ];
+    maintainers = with lib.maintainers; [marcel];
   };
 })

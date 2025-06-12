@@ -10,10 +10,8 @@
   gnugrep,
   gnutar,
   gzip,
-}:
-
-let
-  inherit (import ./common.nix { inherit lib; }) meta;
+}: let
+  inherit (import ./common.nix {inherit lib;}) meta;
   pname = "gnused";
   # last version that can be bootstrapped with our slightly buggy gnused-mes
   version = "4.2";
@@ -23,7 +21,7 @@ let
     hash = "sha256-20XNY/0BDmUFN9ZdXfznaJplJ0UjZgbl5ceCk3Jn2YM=";
   };
 in
-bash.runCommand "${pname}-${version}"
+  bash.runCommand "${pname}-${version}"
   {
     inherit pname version meta;
 
@@ -36,14 +34,13 @@ bash.runCommand "${pname}-${version}"
       gzip
     ];
 
-    passthru.tests.get-version =
-      result:
-      bash.runCommand "${pname}-get-version-${version}" { } ''
+    passthru.tests.get-version = result:
+      bash.runCommand "${pname}-get-version-${version}" {} ''
         ${result}/bin/sed --version
         mkdir ''${out}
       '';
   }
-  (''
+  ''
     # Unpack
     tar xzf ${src}
     cd sed-${version}
@@ -64,4 +61,4 @@ bash.runCommand "${pname}-${version}"
 
     # Install
     make install
-  '')
+  ''

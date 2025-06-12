@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "atomiclong";
   version = "0.1.1";
@@ -20,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-yxN4xM1nbW8kNkHFDid1BKv0X3Dx6nbkRu/Nu2liS74=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
-  pythonImportsCheck = [ "atomiclong" ];
+  pythonImportsCheck = ["atomiclong"];
 
   meta = with lib; {
     description = "Long data type with atomic operations using CFFI";
     homepage = "https://github.com/dreid/atomiclong";
     license = licenses.mit;
-    maintainers = with maintainers; [ robbinch ];
+    maintainers = with maintainers; [robbinch];
   };
 }

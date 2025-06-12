@@ -29,7 +29,6 @@
   gtk-mac-integration,
   webp-pixbuf-loader,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura";
   version = "0.5.11";
@@ -101,13 +100,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://pwmt.org/projects/zathura";
     description = "Core component for zathura PDF viewer";
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ globin ];
+    maintainers = with lib.maintainers; [globin];
   };
 })

@@ -9,7 +9,6 @@
   wxGTK32,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "treesheets";
   version = "0-unstable-2025-06-02";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   env.NIX_CFLAGS_COMPILE = "-DPACKAGE_VERSION=\"${
-    builtins.replaceStrings [ "unstable-" ] [ "" ] version
+    builtins.replaceStrings ["unstable-"] [""] version
   }\"";
 
   postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     '';
 
     homepage = "https://strlen.com/treesheets/";
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     platforms = platforms.unix;
     license = licenses.zlib;
   };

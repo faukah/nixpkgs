@@ -22,7 +22,6 @@
   shared-mime-info,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "5.16.0";
@@ -114,9 +113,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Source code editing widget for GTK";
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceview";
-    pkgConfigModules = [ "gtksourceview-5" ];
+    pkgConfigModules = ["gtksourceview-5"];
     platforms = platforms.unix;
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

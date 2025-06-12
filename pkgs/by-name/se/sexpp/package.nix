@@ -8,7 +8,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sexpp";
   version = "0.9.2";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "sexpp";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ribose-jeffreylau ];
+    maintainers = with maintainers; [ribose-jeffreylau];
   };
 })

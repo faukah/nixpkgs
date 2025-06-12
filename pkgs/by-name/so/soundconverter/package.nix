@@ -14,7 +14,6 @@
   gst_all_1,
   fdk-aac-encoder,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "soundconverter";
   version = "4.0.6";
@@ -33,7 +32,7 @@ python3Packages.buildPythonApplication rec {
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-ugly
-    (gst_all_1.gst-plugins-bad.override { inherit faacSupport; })
+    (gst_all_1.gst-plugins-bad.override {inherit faacSupport;})
   ];
 
   nativeBuildInputs = [
@@ -49,7 +48,7 @@ python3Packages.buildPythonApplication rec {
     pygobject3
   ];
 
-  nativeCheckInputs = [ xvfb-run ];
+  nativeCheckInputs = [xvfb-run];
 
   postPatch = ''
     substituteInPlace  bin/soundconverter --replace \
@@ -57,14 +56,13 @@ python3Packages.buildPythonApplication rec {
       "DATA_PATH = '$out/share/soundconverter'"
   '';
 
-  preCheck =
-    let
-      self = {
-        outPath = "$out";
-        name = "${pname}-${version}";
-      };
-      xdgPaths = lib.concatMapStringsSep ":" glib.getSchemaDataDirPath;
-    in
+  preCheck = let
+    self = {
+      outPath = "$out";
+      name = "${pname}-${version}";
+    };
+    xdgPaths = lib.concatMapStringsSep ":" glib.getSchemaDataDirPath;
+  in
     ''
       export HOME=$TMPDIR
       export XDG_DATA_DIRS=$XDG_DATA_DIRS:${

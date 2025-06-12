@@ -17,7 +17,6 @@
   polkit,
   vala,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxsession";
   version = "0.5.5";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.lxde.org/en/LXSession";
     description = "Classic LXDE session manager";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.shamilton ];
+    maintainers = [maintainers.shamilton];
     platforms = platforms.linux;
   };
 }

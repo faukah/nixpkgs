@@ -6,7 +6,6 @@
   nix-update-script,
   go-critic,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-critic";
   version = "0.13.0";
@@ -35,7 +34,7 @@ buildGoModule (finalAttrs: {
       package = go-critic;
       command = "gocritic version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,6 +43,6 @@ buildGoModule (finalAttrs: {
     changelog = "https://github.com/go-critic/go-critic/releases/tag/${finalAttrs.src.rev}";
     license = lib.licenses.mit;
     mainProgram = "gocritic";
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 })

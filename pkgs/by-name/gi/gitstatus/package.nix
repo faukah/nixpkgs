@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     zlib
-    (callPackage ./romkatv_libgit2.nix { })
+    (callPackage ./romkatv_libgit2.nix {})
   ];
 
   postPatch = ''

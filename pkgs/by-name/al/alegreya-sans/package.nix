@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alegreya-sans";
   version = "2.008";
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.huertatipografica.com/en/fonts/alegreya-sans-ht";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
   };
 }

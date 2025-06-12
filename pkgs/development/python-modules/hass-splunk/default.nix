@@ -5,7 +5,6 @@
   setuptools,
   aiohttp,
 }:
-
 buildPythonPackage rec {
   pname = "hass-splunk";
   version = "0.1.2";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-bgF6gHAA57MiWdmpwilGa+l05/ETKdpyi2naVagkRlc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
-  pythonImportsCheck = [ "hass_splunk" ];
+  pythonImportsCheck = ["hass_splunk"];
 
   # upstream has no tests
   doCheck = false;
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Async single threaded connector to Splunk HEC using an asyncio session";
     homepage = "https://github.com/Bre77/hass_splunk";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

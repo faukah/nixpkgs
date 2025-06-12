@@ -9,7 +9,6 @@
   pygments,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "cli-helpers";
   version = "2.4.0";
@@ -23,19 +22,23 @@ buildPythonPackage rec {
     hash = "sha256-VZA7cFohKkc3Mdsg+ib1hlXjVAeLmcsTyZ7AaUAoek0=";
   };
 
-  propagatedBuildInputs = [
-    configobj
-    tabulate
-  ] ++ tabulate.optional-dependencies.widechars;
+  propagatedBuildInputs =
+    [
+      configobj
+      tabulate
+    ]
+    ++ tabulate.optional-dependencies.widechars;
 
   optional-dependencies = {
-    styles = [ pygments ];
+    styles = [pygments];
   };
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    mock
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      mock
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   meta = with lib; {
     description = "Python helpers for common CLI tasks";
@@ -61,6 +64,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://cli-helpers.readthedocs.io/en/stable/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.kalbasit ];
+    maintainers = [maintainers.kalbasit];
   };
 }

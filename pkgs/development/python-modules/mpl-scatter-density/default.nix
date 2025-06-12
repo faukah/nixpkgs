@@ -13,7 +13,6 @@
   pytest-mpl,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "mpl-scatter-density";
   version = "0.8";
@@ -54,12 +53,12 @@ buildPythonPackage rec {
     "test_default_dpi"
   ];
 
-  pythonImportsCheck = [ "mpl_scatter_density" ];
+  pythonImportsCheck = ["mpl_scatter_density"];
 
   meta = with lib; {
     homepage = "https://github.com/astrofrog/mpl-scatter-density";
     description = "Fast scatter density plots for Matplotlib";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ifurther ];
+    maintainers = with maintainers; [ifurther];
   };
 }

@@ -12,17 +12,14 @@
   ounit2,
   ocaml-migrate-parsetree,
   version ?
-    if lib.versionAtLeast ppxlib.version "0.32" then
-      "6.0.3"
-    else if lib.versionAtLeast ppxlib.version "0.20" then
-      "5.2.1"
-    else if lib.versionAtLeast ppxlib.version "0.15" then
-      "5.1"
-    else
-      "5.0",
-}:
-
-let
+    if lib.versionAtLeast ppxlib.version "0.32"
+    then "6.0.3"
+    else if lib.versionAtLeast ppxlib.version "0.20"
+    then "5.2.1"
+    else if lib.versionAtLeast ppxlib.version "0.15"
+    then "5.1"
+    else "5.0",
+}: let
   hash =
     {
       "6.0.3" = "sha256-N0qpezLF4BwJqXgQpIv6IYwhO1tknkRSEBRVrBnJSm0=";
@@ -32,38 +29,41 @@ let
     }
     ."${version}";
 in
+  buildDunePackage rec {
+    pname = "ppx_deriving";
+    inherit version;
 
-buildDunePackage rec {
-  pname = "ppx_deriving";
-  inherit version;
+    src = fetchurl {
+      url = "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-${lib.optionalString (lib.versionOlder version "6.0") "v"}${version}.tbz";
+      inherit hash;
+    };
 
-  src = fetchurl {
-    url = "https://github.com/ocaml-ppx/ppx_deriving/releases/download/v${version}/ppx_deriving-${lib.optionalString (lib.versionOlder version "6.0") "v"}${version}.tbz";
-    inherit hash;
-  };
+    strictDeps = true;
 
-  strictDeps = true;
+    nativeBuildInputs = [cppo];
+    buildInputs = [
+      findlib
+      ppxlib
+    ];
+    propagatedBuildInputs =
+      lib.optional (lib.versionOlder version "5.2") ocaml-migrate-parsetree
+      ++ [
+        ppx_derivers
+      ]
+      ++ lib.optional (lib.versionOlder version "6.0") result;
 
-  nativeBuildInputs = [ cppo ];
-  buildInputs = [
-    findlib
-    ppxlib
-  ];
-  propagatedBuildInputs =
-    lib.optional (lib.versionOlder version "5.2") ocaml-migrate-parsetree
-    ++ [
-      ppx_derivers
-    ]
-    ++ lib.optional (lib.versionOlder version "6.0") result;
+    doCheck = lib.versionAtLeast ocaml.version "4.08";
+    checkInputs = [
+      (
+        if lib.versionAtLeast version "5.2"
+        then ounit2
+        else ounit
+      )
+    ];
 
-  doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [
-    (if lib.versionAtLeast version "5.2" then ounit2 else ounit)
-  ];
-
-  meta = with lib; {
-    description = "deriving is a library simplifying type-driven code generation on OCaml >=4.02";
-    maintainers = [ maintainers.maurer ];
-    license = licenses.mit;
-  };
-}
+    meta = with lib; {
+      description = "deriving is a library simplifying type-driven code generation on OCaml >=4.02";
+      maintainers = [maintainers.maurer];
+      license = licenses.mit;
+    };
+  }

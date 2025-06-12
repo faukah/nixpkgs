@@ -4,7 +4,6 @@
   fetchzip,
   perlPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dc3dd";
   version = "7.3.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     chmod +x configure
   '';
 
-  buildInputs = [ perlPackages.LocaleGettext ];
+  buildInputs = [perlPackages.LocaleGettext];
 
   makeFlags = [
     "PREFIX=$out"
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Patched version of dd that includes a number of features useful for computer forensics";
     mainProgram = "dc3dd";
     homepage = "https://sourceforge.net/projects/dc3dd/";
-    maintainers = with maintainers; [ d3vil0p3r ];
+    maintainers = with maintainers; [d3vil0p3r];
     platforms = platforms.linux;
     license = licenses.gpl3Plus; # Refer to https://sourceforge.net/p/dc3dd/code/HEAD/tree/COPYING
   };

@@ -3,18 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   nncpCfgFile = "/run/nncp.hjson";
   programCfg = config.programs.nncp;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   jsonCfgFile = settingsFormat.generate "nncp.json" programCfg.settings;
   pkg = programCfg.package;
-in
-{
+in {
   options.programs.nncp = {
-
     enable = lib.mkEnableOption "NNCP (Node to Node copy) utilities and configuration";
 
     group = lib.mkOption {
@@ -27,11 +23,11 @@ in
       '';
     };
 
-    package = lib.mkPackageOption pkgs "nncp" { };
+    package = lib.mkPackageOption pkgs "nncp" {};
 
     secrets = lib.mkOption {
       type = with lib.types; listOf str;
-      example = [ "/run/keys/nncp.hjson" ];
+      example = ["/run/keys/nncp.hjson"];
       description = ''
         A list of paths to NNCP configuration files that should not be
         in the Nix store. These files are layered on top of the values at
@@ -51,15 +47,13 @@ in
         `settings` as they will be leaked into
         `/nix/store`!
       '';
-      default = { };
+      default = {};
     };
-
   };
 
   config = lib.mkIf programCfg.enable {
-
     environment = {
-      systemPackages = [ pkg ];
+      systemPackages = [pkg];
       etc."nncp.hjson".source = nncpCfgFile;
     };
 
@@ -74,9 +68,9 @@ in
     ];
 
     systemd.services.nncp-config = {
-      path = [ pkg ];
+      path = [pkg];
       description = "Generate NNCP configuration";
-      wantedBy = [ "basic.target" ];
+      wantedBy = ["basic.target"];
       serviceConfig.Type = "oneshot";
       script = ''
         umask 127
@@ -90,5 +84,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ehmry ];
+  meta.maintainers = with lib.maintainers; [ehmry];
 }

@@ -7,7 +7,6 @@
   trezor-udev-rules,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "trezord-go";
   version = "2.0.33";
@@ -36,7 +35,7 @@ buildGoModule rec {
     })
   ];
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ trezor-udev-rules ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [trezor-udev-rules];
 
   ldflags = [
     "-s"
@@ -44,7 +43,7 @@ buildGoModule rec {
     "-X main.githash=${commit}"
   ];
 
-  passthru.tests = { inherit (nixosTests) trezord; };
+  passthru.tests = {inherit (nixosTests) trezord;};
 
   meta = with lib; {
     description = "Trezor Communication Daemon aka Trezor Bridge";

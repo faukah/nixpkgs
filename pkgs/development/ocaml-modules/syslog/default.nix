@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "syslog";
   version = "2.0.2";
@@ -21,6 +20,6 @@ buildDunePackage rec {
     homepage = "https://github.com/geneanet/ocaml-syslog";
     description = "Simple wrapper to access the system logger from OCaml";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.rixed ];
+    maintainers = [maintainers.rixed];
   };
 }

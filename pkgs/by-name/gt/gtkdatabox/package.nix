@@ -7,7 +7,6 @@
   pango,
   cairo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtkdatabox";
   version = "1.0.0";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qykm551bx8j8pfgxs60l2vhpi8lv4r8va69zvn2594lchh71vlb";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     gtk3
@@ -30,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gtkdatabox.sourceforge.io/";
     license = lib.licenses.lgpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

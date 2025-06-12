@@ -14,7 +14,6 @@
   wrapGAppsHook3,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.6.6";
   pname = "tuxguitar";
@@ -45,21 +44,21 @@ stdenv.mkDerivation (finalAttrs: {
     wrapProgram $out/bin/tuxguitar \
       "''${gappsWrapperArgs[@]}" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          jre
-          which
-        ]
-      } \
+      lib.makeBinPath [
+        jre
+        which
+      ]
+    } \
       --prefix LD_LIBRARY_PATH : "$out/lib/:${
-        lib.makeLibraryPath [
-          swt
-          alsa-lib
-          jack2
-          fluidsynth
-          libpulseaudio
-          lilv
-        ]
-      }" \
+      lib.makeLibraryPath [
+        swt
+        alsa-lib
+        jack2
+        fluidsynth
+        libpulseaudio
+        lilv
+      ]
+    }" \
       --prefix CLASSPATH : "${swt}/jars/swt.jar:$out/lib/tuxguitar.jar:$out/lib/itext.jar"
   '';
 
@@ -74,9 +73,9 @@ stdenv.mkDerivation (finalAttrs: {
       in Java-SWT. It can open GuitarPro, PowerTab and TablEdit files.
     '';
     homepage = "https://github.com/helge17/tuxguitar";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.lgpl2;
-    maintainers = with lib.maintainers; [ ardumont ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [ardumont];
+    platforms = ["x86_64-linux"];
   };
 })

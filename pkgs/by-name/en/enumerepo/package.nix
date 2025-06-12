@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "enumerepo";
   version = "1.0.0";
@@ -28,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/trickest/enumerepo";
     changelog = "https://github.com/trickest/enumerepo/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

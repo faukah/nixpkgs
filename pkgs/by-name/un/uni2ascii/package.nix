@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "uni2ascii";
   version = "4.20";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       It also provides ways of converting non-ASCII characters to
       similar ASCII characters, e.g. by stripping diacritics.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

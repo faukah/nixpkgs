@@ -4,17 +4,12 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.drbd;
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.drbd.enable = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -31,18 +26,16 @@ in
         Contents of the {file}`drbd.conf` configuration file.
       '';
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [pkgs.drbd];
 
-    environment.systemPackages = [ pkgs.drbd ];
+    services.udev.packages = [pkgs.drbd];
 
-    services.udev.packages = [ pkgs.drbd ];
-
-    boot.kernelModules = [ "drbd" ];
+    boot.kernelModules = ["drbd"];
 
     boot.extraModprobeConfig = ''
       options drbd usermode_helper=/run/current-system/sw/bin/drbdadm
@@ -57,8 +50,8 @@ in
         "systemd-udev.settle.service"
         "network.target"
       ];
-      wants = [ "systemd-udev.settle.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["systemd-udev.settle.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.drbd}/bin/drbdadm up all";
         ExecStop = "${pkgs.drbd}/bin/drbdadm down all";

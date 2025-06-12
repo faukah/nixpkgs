@@ -17,7 +17,6 @@
   tornado,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "python-engineio";
   version = "4.12.1";
@@ -32,26 +31,28 @@ buildPythonPackage rec {
     hash = "sha256-slSLTcnrDGCI2hUbttp14qbNhiVFJ+PMZlhAq4ISDBs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ simple-websocket ];
+  dependencies = [simple-websocket];
 
   optional-dependencies = {
     client = [
       requests
       websocket-client
     ];
-    asyncio_client = [ aiohttp ];
+    asyncio_client = [aiohttp];
   };
 
-  nativeCheckInputs = [
-    eventlet
-    libredirect.hook
-    mock
-    tornado
-    pytest-asyncio
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      eventlet
+      libredirect.hook
+      mock
+      tornado
+      pytest-asyncio
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -71,7 +72,7 @@ buildPythonPackage rec {
     "test_logger"
   ];
 
-  pythonImportsCheck = [ "engineio" ];
+  pythonImportsCheck = ["engineio"];
 
   meta = with lib; {
     description = "Python based Engine.IO client and server";
@@ -81,7 +82,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/miguelgrinberg/python-engineio/";
     changelog = "https://github.com/miguelgrinberg/python-engineio/blob/${src.tag}/CHANGES.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ mic92 ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [mic92];
   };
 }

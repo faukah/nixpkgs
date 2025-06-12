@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "authheaders";
   version = "0.16.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-BFMZpSJ4qCEL42xTiM/D5dkatxohiCrOWAkNZHFUhac=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     authres
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "authheaders" ];
+  pythonImportsCheck = ["authheaders"];
 
   disabledTests = [
     # Test fails with timeout even if the resolv.conf hack is present
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/ValiMail/authentication-headers";
     changelog = "https://github.com/ValiMail/authentication-headers/blob${version}/CHANGES";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dmarc-policy-find";
   };
 }

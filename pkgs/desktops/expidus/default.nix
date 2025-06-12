@@ -1,5 +1,7 @@
-{ callPackage, flutterPackages }:
 {
+  callPackage,
+  flutterPackages,
+}: {
   calculator = callPackage ./calculator {
     flutter = flutterPackages.v3_24;
   };

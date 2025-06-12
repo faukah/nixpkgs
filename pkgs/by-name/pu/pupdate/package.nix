@@ -8,7 +8,6 @@
   zlib,
   nix-update-script,
 }:
-
 buildDotnetModule rec {
   pname = "pupdate";
   version = "3.20.0";
@@ -27,7 +26,7 @@ buildDotnetModule rec {
   ];
 
   # See https://github.com/NixOS/nixpkgs/pull/196648/commits/0fb17c04fe34ac45247d35a1e4e0521652d9c494
-  patches = [ ./add-runtime-identifier.patch ];
+  patches = [./add-runtime-identifier.patch];
   postPatch = ''
     substituteInPlace pupdate.csproj \
       --replace @RuntimeIdentifier@ "${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system}"
@@ -39,7 +38,7 @@ buildDotnetModule rec {
 
   selfContainedBuild = true;
 
-  executables = [ "pupdate" ];
+  executables = ["pupdate"];
 
   dotnetFlags = [
     "-p:PackageRuntime=${dotnetCorePackages.systemToDotnetRid stdenv.hostPlatform.system} -p:TrimMode=partial"
@@ -49,7 +48,7 @@ buildDotnetModule rec {
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -57,7 +56,7 @@ buildDotnetModule rec {
     description = "Pupdate - A thing for updating your Analogue Pocket";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ p-rintz ];
+    maintainers = with maintainers; [p-rintz];
     mainProgram = "pupdate";
   };
 }

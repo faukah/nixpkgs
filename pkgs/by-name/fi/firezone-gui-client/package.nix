@@ -22,8 +22,7 @@
   nodejs,
   makeDesktopItem,
   copyDesktopItems,
-}:
-let
+}: let
   version = "1.4.12";
   src = fetchFromGitHub {
     owner = "firezone";
@@ -68,100 +67,100 @@ let
     '';
   };
 in
-rustPlatform.buildRustPackage rec {
-  pname = "firezone-gui-client";
-  inherit version src;
+  rustPlatform.buildRustPackage rec {
+    pname = "firezone-gui-client";
+    inherit version src;
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-YETCRhECbMTRmNsvOFl7R2YScY6ArjsOYJKdPVuUyGI=";
-  sourceRoot = "${src.name}/rust";
-  buildAndTestSubdir = "gui-client";
-  RUSTFLAGS = "--cfg system_certs";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-YETCRhECbMTRmNsvOFl7R2YScY6ArjsOYJKdPVuUyGI=";
+    sourceRoot = "${src.name}/rust";
+    buildAndTestSubdir = "gui-client";
+    RUSTFLAGS = "--cfg system_certs";
 
-  nativeBuildInputs = [
-    cargo-tauri.hook
-    pkg-config
-    wrapGAppsHook3
-    copyDesktopItems
-  ];
+    nativeBuildInputs = [
+      cargo-tauri.hook
+      pkg-config
+      wrapGAppsHook3
+      copyDesktopItems
+    ];
 
-  buildInputs = [
-    openssl
-    dbus
-    gdk-pixbuf
-    glib
-    gobject-introspection
-    gtk3
-    libsoup_3
+    buildInputs = [
+      openssl
+      dbus
+      gdk-pixbuf
+      glib
+      gobject-introspection
+      gtk3
+      libsoup_3
 
-    libayatana-appindicator
-    webkitgtk_4_1
-  ];
+      libayatana-appindicator
+      webkitgtk_4_1
+    ];
 
-  # Required to remove profiling arguments which conflict with this builder
-  postPatch = ''
-    rm .cargo/config.toml
-    ln -s ${frontend} gui-client/dist
-  '';
+    # Required to remove profiling arguments which conflict with this builder
+    postPatch = ''
+      rm .cargo/config.toml
+      ln -s ${frontend} gui-client/dist
+    '';
 
-  # Tries to compile apple specific crates due to workspace dependencies,
-  # not sure if this can be worked around
-  doCheck = false;
+    # Tries to compile apple specific crates due to workspace dependencies,
+    # not sure if this can be worked around
+    doCheck = false;
 
-  desktopItems = [
-    # Additional desktop item to associate deep-links
-    (makeDesktopItem {
-      name = "firezone-client-gui-deep-link";
-      exec = "firezone-client-gui open-deep-link %U";
-      icon = "firezone-client-gui";
-      comment = meta.description;
-      desktopName = "Firezone GUI Client";
-      categories = [ "Network" ];
-      noDisplay = true;
-      mimeTypes = [
-        "x-scheme-handler/firezone-fd0020211111"
-      ];
-    })
-  ];
+    desktopItems = [
+      # Additional desktop item to associate deep-links
+      (makeDesktopItem {
+        name = "firezone-client-gui-deep-link";
+        exec = "firezone-client-gui open-deep-link %U";
+        icon = "firezone-client-gui";
+        comment = meta.description;
+        desktopName = "Firezone GUI Client";
+        categories = ["Network"];
+        noDisplay = true;
+        mimeTypes = [
+          "x-scheme-handler/firezone-fd0020211111"
+        ];
+      })
+    ];
 
-  preFixup = ''
-    gappsWrapperArgs+=(
-      # Otherwise blank screen, see https://github.com/tauri-apps/tauri/issues/9304
-      --set WEBKIT_DISABLE_DMABUF_RENDERER 1
-      --prefix PATH ":" ${
+    preFixup = ''
+      gappsWrapperArgs+=(
+        # Otherwise blank screen, see https://github.com/tauri-apps/tauri/issues/9304
+        --set WEBKIT_DISABLE_DMABUF_RENDERER 1
+        --prefix PATH ":" ${
         lib.makeBinPath [
           zenity
           kdePackages.kdialog
         ]
       }
-      --prefix LD_LIBRARY_PATH ":" ${
+        --prefix LD_LIBRARY_PATH ":" ${
         lib.makeLibraryPath [
           libayatana-appindicator
         ]
       }
-    )
-  '';
+      )
+    '';
 
-  passthru = {
-    inherit frontend;
+    passthru = {
+      inherit frontend;
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--version-regex"
-        "gui-client-(.*)"
-      ];
+      updateScript = nix-update-script {
+        extraArgs = [
+          "--version-regex"
+          "gui-client-(.*)"
+        ];
+      };
     };
-  };
 
-  meta = {
-    description = "GUI client for the Firezone zero-trust access platform";
-    homepage = "https://github.com/firezone/firezone";
-    license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [
-      oddlama
-      patrickdag
-    ];
-    mainProgram = "firezone-gui-client";
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "GUI client for the Firezone zero-trust access platform";
+      homepage = "https://github.com/firezone/firezone";
+      license = lib.licenses.asl20;
+      maintainers = with lib.maintainers; [
+        oddlama
+        patrickdag
+      ];
+      mainProgram = "firezone-gui-client";
+      platforms = lib.platforms.linux;
+    };
+  }

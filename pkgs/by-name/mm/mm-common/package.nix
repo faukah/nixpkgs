@@ -8,7 +8,6 @@
   python3,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mm-common";
   version = "1.0.6";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.gtkmm.org";
     license = licenses.gpl2Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 }

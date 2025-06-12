@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cannelloni";
   version = "1.2.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     cmake
   ];
 
-  buildInputs = lib.optionals sctpSupport [ lksctp-tools ];
+  buildInputs = lib.optionals sctpSupport [lksctp-tools];
 
   cmakeFlags = [
     "-DSCTP_SUPPORT=${lib.boolToString sctpSupport}"
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "SocketCAN over Ethernet tunnel";
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/mguentner/cannelloni";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.samw ];
+    maintainers = [lib.maintainers.samw];
   };
 })

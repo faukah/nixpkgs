@@ -9,7 +9,6 @@
   libmpc,
   withShared ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "symengine";
   version = "0.14.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-WriVcYt3fkObR2U4J6a4KGGc2HgyyFyFpdrwxBD+AHA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     gmp
@@ -53,7 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/symengine/symengine";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
-
 }

@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.virtualisation.rosetta;
   inherit (lib) types;
-in
-{
+in {
   options = {
     virtualisation.rosetta.enable = lib.mkOption {
       type = types.bool;
@@ -61,7 +58,7 @@ in
     };
 
     nix.settings = {
-      extra-platforms = [ "x86_64-linux" ];
+      extra-platforms = ["x86_64-linux"];
       extra-sandbox-paths = [
         "/run/binfmt"
         cfg.mountPoint

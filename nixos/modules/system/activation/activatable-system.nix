@@ -4,10 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     types
     ;
@@ -16,9 +15,7 @@ let
     activationScript = config.system.activationScripts.script;
     dryActivationScript = config.system.dryActivationScript;
   };
-
-in
-{
+in {
   options = {
     system.activatable = mkOption {
       type = types.bool;
@@ -30,18 +27,20 @@ in
         do, but for image based systems, this may not be needed or not be desirable.
       '';
     };
-    system.activatableSystemBuilderCommands = options.system.systemBuilderCommands // {
-      description = ''
-        Like `system.systemBuilderCommands`, but only for the commands that are
-        needed *both* when the system is activatable and when it isn't.
+    system.activatableSystemBuilderCommands =
+      options.system.systemBuilderCommands
+      // {
+        description = ''
+          Like `system.systemBuilderCommands`, but only for the commands that are
+          needed *both* when the system is activatable and when it isn't.
 
-        Disclaimer: This option might go away in the future. It might be
-        superseded by separating switch-to-configuration into a separate script
-        which will make this option superfluous. See
-        https://github.com/NixOS/nixpkgs/pull/263462#discussion_r1373104845 for
-        a discussion.
-      '';
-    };
+          Disclaimer: This option might go away in the future. It might be
+          superseded by separating switch-to-configuration into a separate script
+          which will make this option superfluous. See
+          https://github.com/NixOS/nixpkgs/pull/263462#discussion_r1373104845 for
+          a discussion.
+        '';
+      };
     system.build.separateActivationScript = mkOption {
       type = types.package;
       description = ''
@@ -72,16 +71,16 @@ in
 
     system.build.separateActivationScript =
       pkgs.runCommand "separate-activation-script"
-        (
-          systemBuilderArgs
-          // {
-            toplevelVar = "toplevel";
-            toplevel = config.system.build.toplevel;
-          }
-        )
-        ''
-          mkdir $out
-          ${config.system.activatableSystemBuilderCommands}
-        '';
+      (
+        systemBuilderArgs
+        // {
+          toplevelVar = "toplevel";
+          toplevel = config.system.build.toplevel;
+        }
+      )
+      ''
+        mkdir $out
+        ${config.system.activatableSystemBuilderCommands}
+      '';
   };
 }

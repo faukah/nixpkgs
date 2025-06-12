@@ -9,7 +9,6 @@
   gzip,
   makeWrapper,
 }:
-
 buildGoModule {
   pname = "spread";
   version = "0-unstable-2025-02-06";
@@ -23,9 +22,9 @@ buildGoModule {
 
   vendorHash = "sha256-yKDz8Hz8T6D7MZAV8ePa3mVwo4jycX3uVgzxjRp2O5o=";
 
-  subPackages = [ "cmd/spread" ];
+  subPackages = ["cmd/spread"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patches = [
     # The upstream project statically assigns a PATH when running scripts in the
@@ -53,14 +52,14 @@ buildGoModule {
     }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "spread";
     license = lib.licenses.gpl3Only;
     description = "Convenient full-system test (task) distribution";
     homepage = "https://github.com/snapcore/spread";
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.unix;
   };
 }

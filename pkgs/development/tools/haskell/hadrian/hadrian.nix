@@ -27,7 +27,6 @@
   # Customization
   userSettings ? null,
 }:
-
 mkDerivation {
   pname = "hadrian";
   version = ghcVersion;

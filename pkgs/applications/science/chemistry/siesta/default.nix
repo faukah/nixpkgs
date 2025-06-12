@@ -14,7 +14,6 @@
   ninja,
   elpa,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "siesta";
   version = "5.2.2";
@@ -68,20 +67,19 @@ stdenv.mkDerivation (finalAttrs: {
       )
     ''
     + (
-      if useMpi then
-        ''
-          makeFlagsArray+=(
-              CC="mpicc" FC="mpifort"
-              FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
-              COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
-          );
-        ''
-      else
-        ''
-          makeFlagsArray+=(
-            COMP_LIBS="" LIBS="-lblas -llapack"
-          );
-        ''
+      if useMpi
+      then ''
+        makeFlagsArray+=(
+            CC="mpicc" FC="mpifort"
+            FPPFLAGS="-DMPI" MPI_INTERFACE="libmpi_f90.a" MPI_INCLUDE="."
+            COMP_LIBS="" LIBS="-lblas -llapack -lscalapack"
+        );
+      ''
+      else ''
+        makeFlagsArray+=(
+          COMP_LIBS="" LIBS="-lblas -llapack"
+        );
+      ''
     );
 
   meta = {
@@ -102,7 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://siesta-project.org/siesta/";
     license = lib.licenses.gpl2;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ lib.maintainers.costrouc ];
+    platforms = ["x86_64-linux"];
+    maintainers = [lib.maintainers.costrouc];
   };
 })

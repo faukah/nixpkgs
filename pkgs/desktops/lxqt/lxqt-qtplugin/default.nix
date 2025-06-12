@@ -15,7 +15,6 @@
   wrapQtAppsHook,
   version ? "2.2.0",
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-qtplugin";
   inherit version;
@@ -40,7 +39,11 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    (if lib.versionAtLeast version "2.0.0" then libdbusmenu-lxqt else libdbusmenu)
+    (
+      if lib.versionAtLeast version "2.0.0"
+      then libdbusmenu-lxqt
+      else libdbusmenu
+    )
     libfm-qt
     libqtxdg
     qtbase
@@ -52,13 +55,13 @@ stdenv.mkDerivation rec {
       --replace-fail "DESTINATION \"\''${QT_PLUGINS_DIR}" "DESTINATION \"$qtPluginPrefix"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-qtplugin";
     description = "LXQt Qt platform integration plugin";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

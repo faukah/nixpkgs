@@ -15,7 +15,6 @@
   python3,
   qtbase,
 }:
-
 stdenv.mkDerivation {
   pname = "libfive";
   version = "0-unstable-2025-05-22";

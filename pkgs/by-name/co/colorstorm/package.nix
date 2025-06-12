@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zig_0_13,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "colorstorm";
   # last tagged release is three years old and requires outdated Zig 0.9
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Color theme generator for editors and terminal emulators";
     homepage = "https://github.com/benbusby/colorstorm";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     inherit (zig_0_13.meta) platforms;
     mainProgram = "colorstorm";
   };

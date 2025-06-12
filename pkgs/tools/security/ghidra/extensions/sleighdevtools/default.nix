@@ -4,7 +4,6 @@
   ghidra,
   python3,
 }:
-
 buildGhidraExtension {
   pname = "sleighdevtools";
   version = lib.getVersion ghidra;
@@ -14,7 +13,7 @@ buildGhidraExtension {
 
   # Built as part ghidra
   dontBuild = true;
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     runHook preInstall

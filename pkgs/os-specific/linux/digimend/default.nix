@@ -5,7 +5,6 @@
   kernel,
   kernelModuleMakeFlags,
 }:
-
 stdenv.mkDerivation rec {
   pname = "digimend";
   version = "13-unstable-2025-01-02";
@@ -23,22 +22,24 @@ stdenv.mkDerivation rec {
   '';
 
   # Fix build on Linux kernel >= 5.18
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=implicit-fallthrough"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernelModuleMakeFlags ++ [
-    "KVERSION=${kernel.modDirVersion}"
-    "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    "DESTDIR=${placeholder "out"}"
-    "INSTALL_MOD_PATH=${placeholder "out"}"
-  ];
+  makeFlags =
+    kernelModuleMakeFlags
+    ++ [
+      "KVERSION=${kernel.modDirVersion}"
+      "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "DESTDIR=${placeholder "out"}"
+      "INSTALL_MOD_PATH=${placeholder "out"}"
+    ];
 
   meta = with lib; {
     description = "DIGImend graphics tablet drivers for the Linux kernel";
     homepage = "https://digimend.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ PuercoPop ];
+    maintainers = with maintainers; [PuercoPop];
     platforms = platforms.linux;
   };
 }

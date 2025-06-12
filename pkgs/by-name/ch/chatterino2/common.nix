@@ -11,7 +11,6 @@
   libavif,
   kdePackages,
 }:
-
 stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mlib";
   version = "0.8.0";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/P-p-H-d/mlib";
     changelog = "https://github.com/P-p-H-d/mlib/releases/tag/${src.rev}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.unix;
   };
 }

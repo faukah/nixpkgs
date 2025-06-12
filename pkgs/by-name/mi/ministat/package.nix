@@ -3,7 +3,6 @@
   stdenv,
   fetchgit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ministat";
   version = "20150715-1";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Simple tool for statistical comparison of data sets";
     homepage = "https://git.decadent.org.uk/gitweb/?p=ministat.git";
     license = licenses.beerware;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.all;
     mainProgram = "ministat";
   };

@@ -7,7 +7,6 @@
   pytz,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "pygti";
   version = "0.10.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-2T4Yw4XEOkv+IWyB4Xa2dPu929VH0tLeUjQ5S8EVXz0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "Access public transport information in Hamburg, Germany";
     homepage = "https://github.com/vigonotion/pygti";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

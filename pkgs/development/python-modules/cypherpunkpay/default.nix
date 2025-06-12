@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   apscheduler,
   bitstring,
@@ -22,12 +20,10 @@
   tzlocal,
   waitress,
   yoyo-migrations,
-
   # tests
   pytestCheckHook,
   webtest,
 }:
-
 buildPythonPackage rec {
   pname = "cypherpunkpay";
   version = "1.0.16";
@@ -106,7 +102,7 @@ buildPythonPackage rec {
     "tests/acceptance/views_dummystore"
   ];
 
-  pythonImportsCheck = [ "cypherpunkpay" ];
+  pythonImportsCheck = ["cypherpunkpay"];
 
   meta = {
     description = "Modern self-hosted software for accepting Bitcoin";
@@ -116,6 +112,6 @@ buildPythonPackage rec {
       mit # or
       unlicense
     ];
-    maintainers = with lib.maintainers; [ prusnak ];
+    maintainers = with lib.maintainers; [prusnak];
   };
 }

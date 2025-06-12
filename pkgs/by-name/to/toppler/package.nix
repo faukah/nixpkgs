@@ -4,21 +4,18 @@
   fetchFromGitLab,
   nix-update-script,
   writableTmpDirAsHomeHook,
-
   buildPackages,
   pkg-config,
   gettext,
   povray,
   imagemagick,
   gimp,
-
   sdl2-compat,
   SDL2_mixer,
   SDL2_image,
   libpng,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "toppler";
   version = "1.3";
@@ -74,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeFlagsArray+=(CXX=$CXX PKG_CONFIG=$PKG_CONFIG);
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Jump and run game, reimplementation of Tower Toppler/Nebulus";
@@ -84,7 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
       # Makefile
       gpl3Plus
     ];
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
     mainProgram = "toppler";
   };

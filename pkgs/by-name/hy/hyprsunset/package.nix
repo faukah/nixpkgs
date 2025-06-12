@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Application to enable a blue-light filter on Hyprland";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hyprsunset";
   };
 })

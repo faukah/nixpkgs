@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hyperlink";
   version = "0.1.35";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Very fast link checker for CI";
     homepage = "https://github.com/untitaker/hyperlink";
     license = licenses.mit;
-    maintainers = with maintainers; [ samueltardieu ];
+    maintainers = with maintainers; [samueltardieu];
     mainProgram = "hyperlink";
   };
 }

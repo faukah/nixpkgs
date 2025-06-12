@@ -7,9 +7,8 @@
   yarnConfigHook,
   yarnBuildHook,
   nix-update-script,
-  extraBuildEnv ? { },
+  extraBuildEnv ? {},
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ente-web";
   version = "1.0.10";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ente-io";
     repo = "ente";
-    sparseCheckout = [ "web" ];
+    sparseCheckout = ["web"];
     tag = "photos-v${finalAttrs.version}";
     fetchSubmodules = true;
     hash = "sha256-WJz1Weh17DWH5qzMry1uacHBXY9ouIXWRzoiwzIsN0I=";

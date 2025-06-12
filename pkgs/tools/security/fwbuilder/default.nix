@@ -9,7 +9,6 @@
   wayland-protocols,
   qtwayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fwbuilder";
   version = "6.0.0-rc1";
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fwbuilder/fwbuilder";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.elatov ];
+    maintainers = [maintainers.elatov];
   };
 }

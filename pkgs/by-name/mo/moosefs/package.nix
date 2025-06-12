@@ -9,7 +9,6 @@
   zlib,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "moosefs";
   version = "4.57.6";

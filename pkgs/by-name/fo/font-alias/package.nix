@@ -4,7 +4,6 @@
   fetchurl,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "font-alias";
   version = "1.0.5";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       cronyx
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 })

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "epub2txt2";
   version = "2.08";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kevinboone/epub2txt2";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.leonid ];
+    maintainers = [lib.maintainers.leonid];
     mainProgram = "epub2txt";
   };
 }

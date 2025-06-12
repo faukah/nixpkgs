@@ -4,11 +4,8 @@
   newScope,
   gnuradio, # unwrapped gnuradio
 }:
-
 lib.makeScope newScope (
-  self:
-
-  let
+  self: let
     # Modeled after qt's
     mkDerivationWith = import ../development/gnuradio-modules/mkDerivation.nix {
       inherit lib;
@@ -18,7 +15,8 @@ lib.makeScope newScope (
 
     callPackage = self.newScope (
       {
-        inherit (gnuradio)
+        inherit
+          (gnuradio)
           # Packages that are potentially overridden and used as deps here.
           boost
           volk
@@ -34,20 +32,17 @@ lib.makeScope newScope (
         inherit (gnuradio) uhd;
       }
     );
-  in
-  {
-
+  in {
     inherit callPackage mkDerivation mkDerivationWith;
 
     ### Packages
 
-    bladeRF = callPackage ../development/gnuradio-modules/bladeRF/default.nix { };
+    bladeRF = callPackage ../development/gnuradio-modules/bladeRF/default.nix {};
 
-    lora_sdr = callPackage ../development/gnuradio-modules/lora_sdr/default.nix { };
+    lora_sdr = callPackage ../development/gnuradio-modules/lora_sdr/default.nix {};
 
-    osmosdr = callPackage ../development/gnuradio-modules/osmosdr/default.nix { };
+    osmosdr = callPackage ../development/gnuradio-modules/osmosdr/default.nix {};
 
-    fosphor = callPackage ../development/gnuradio-modules/fosphor/default.nix { };
-
+    fosphor = callPackage ../development/gnuradio-modules/fosphor/default.nix {};
   }
 )

@@ -8,7 +8,6 @@
   python3,
   autoPatchelfHook,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.5";
   pname = "sam-ba";
@@ -23,10 +22,10 @@ stdenv.mkDerivation rec {
     libglvnd
     zlib
 
-    (python3.withPackages (ps: [ ps.pyserial ]))
+    (python3.withPackages (ps: [ps.pyserial]))
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall
@@ -48,9 +47,9 @@ stdenv.mkDerivation rec {
     '';
     # Alternatively: https://www.microchip.com/en-us/development-tool/SAM-BA-In-system-Programmer
     homepage = "http://www.at91.com/linux4sam/bin/view/Linux4SAM/SoftwareTools";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.bjornfor ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.bjornfor];
   };
 }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gocyclo";
   version = "0.6.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "gocyclo";
     homepage = "https://github.com/fzipp/gocyclo";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

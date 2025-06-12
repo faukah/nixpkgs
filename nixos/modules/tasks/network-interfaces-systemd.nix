@@ -5,12 +5,8 @@
   pkgs,
   ...
 }:
-
 with utils;
-with lib;
-
-let
-
+with lib; let
   cfg = config.networking;
   interfaces = attrValues cfg.interfaces;
 
@@ -18,7 +14,10 @@ let
 
   interfaceRoutes = i: i.ipv4.routes ++ optionals cfg.enableIPv6 i.ipv6.routes;
 
-  dhcpStr = useDHCP: if useDHCP == true || useDHCP == null then "yes" else "no";
+  dhcpStr = useDHCP:
+    if useDHCP == true || useDHCP == null
+    then "yes"
+    else "no";
 
   slaves =
     concatLists (map (bond: bond.interfaces) (attrValues cfg.bonds))
@@ -33,23 +32,23 @@ let
     );
 
   defaultGateways = mkMerge (
-    forEach [ cfg.defaultGateway cfg.defaultGateway6 ] (
+    forEach [cfg.defaultGateway cfg.defaultGateway6] (
       gateway:
-      optionalAttrs (gateway != null && gateway.interface != null) {
-        networks."40-${gateway.interface}" = {
-          matchConfig.Name = gateway.interface;
-          routes = [
-            (
-              {
-                Gateway = gateway.address;
-              }
-              // optionalAttrs (gateway.metric != null) {
-                Metric = gateway.metric;
-              }
-            )
-          ];
-        };
-      }
+        optionalAttrs (gateway != null && gateway.interface != null) {
+          networks."40-${gateway.interface}" = {
+            matchConfig.Name = gateway.interface;
+            routes = [
+              (
+                {
+                  Gateway = gateway.address;
+                }
+                // optionalAttrs (gateway.metric != null) {
+                  Metric = gateway.metric;
+                }
+              )
+            ];
+          };
+        }
     )
   );
 
@@ -76,7 +75,7 @@ let
 
   interfaceNetworks = mkMerge (
     forEach interfaces (i: {
-      netdevs = mkIf i.virtual ({
+      netdevs = mkIf i.virtual {
         "40-${i.name}" = {
           netdevConfig = {
             Name = i.name;
@@ -86,75 +85,77 @@ let
             User = i.virtualOwner;
           };
         };
-      });
+      };
       networks."40-${i.name}" = {
         name = mkDefault i.name;
         DHCP = mkForce (
           dhcpStr (
-            if i.useDHCP != null then i.useDHCP else (config.networking.useDHCP && i.ipv4.addresses == [ ])
+            if i.useDHCP != null
+            then i.useDHCP
+            else (config.networking.useDHCP && i.ipv4.addresses == [])
           )
         );
         address = forEach (interfaceIps i) (ip: "${ip.address}/${toString ip.prefixLength}");
         routes = forEach (interfaceRoutes i) (
           route:
-          mkMerge [
-            # Most of these route options have not been tested.
-            # Please fix or report any mistakes you may find.
-            (mkIf (route.address != null && route.prefixLength != null) {
-              Destination = "${route.address}/${toString route.prefixLength}";
-            })
-            (mkIf (route.options ? fastopen_no_cookie) {
-              FastOpenNoCookie = route.options.fastopen_no_cookie;
-            })
-            (mkIf (route.via != null) {
-              Gateway = route.via;
-            })
-            (mkIf (route.type != null) {
-              Type = route.type;
-            })
-            (mkIf (route.options ? onlink) {
-              GatewayOnLink = true;
-            })
-            (mkIf (route.options ? initrwnd) {
-              InitialAdvertisedReceiveWindow = route.options.initrwnd;
-            })
-            (mkIf (route.options ? initcwnd) {
-              InitialCongestionWindow = route.options.initcwnd;
-            })
-            (mkIf (route.options ? pref) {
-              IPv6Preference = route.options.pref;
-            })
-            (mkIf (route.options ? mtu) {
-              MTUBytes = route.options.mtu;
-            })
-            (mkIf (route.options ? metric) {
-              Metric = route.options.metric;
-            })
-            (mkIf (route.options ? src) {
-              PreferredSource = route.options.src;
-            })
-            (mkIf (route.options ? protocol) {
-              Protocol = route.options.protocol;
-            })
-            (mkIf (route.options ? quickack) {
-              QuickAck = route.options.quickack;
-            })
-            (mkIf (route.options ? scope) {
-              Scope = route.options.scope;
-            })
-            (mkIf (route.options ? from) {
-              Source = route.options.from;
-            })
-            (mkIf (route.options ? table) {
-              Table = route.options.table;
-            })
-            (mkIf (route.options ? advmss) {
-              TCPAdvertisedMaximumSegmentSize = route.options.advmss;
-            })
-            (mkIf (route.options ? ttl-propagate) {
-              TTLPropagate = route.options.ttl-propagate == "enabled";
-            })
-          ]
+            mkMerge [
+              # Most of these route options have not been tested.
+              # Please fix or report any mistakes you may find.
+              (mkIf (route.address != null && route.prefixLength != null) {
+                Destination = "${route.address}/${toString route.prefixLength}";
+              })
+              (mkIf (route.options ? fastopen_no_cookie) {
+                FastOpenNoCookie = route.options.fastopen_no_cookie;
+              })
+              (mkIf (route.via != null) {
+                Gateway = route.via;
+              })
+              (mkIf (route.type != null) {
+                Type = route.type;
+              })
+              (mkIf (route.options ? onlink) {
+                GatewayOnLink = true;
+              })
+              (mkIf (route.options ? initrwnd) {
+                InitialAdvertisedReceiveWindow = route.options.initrwnd;
+              })
+              (mkIf (route.options ? initcwnd) {
+                InitialCongestionWindow = route.options.initcwnd;
+              })
+              (mkIf (route.options ? pref) {
+                IPv6Preference = route.options.pref;
+              })
+              (mkIf (route.options ? mtu) {
+                MTUBytes = route.options.mtu;
+              })
+              (mkIf (route.options ? metric) {
+                Metric = route.options.metric;
+              })
+              (mkIf (route.options ? src) {
+                PreferredSource = route.options.src;
+              })
+              (mkIf (route.options ? protocol) {
+                Protocol = route.options.protocol;
+              })
+              (mkIf (route.options ? quickack) {
+                QuickAck = route.options.quickack;
+              })
+              (mkIf (route.options ? scope) {
+                Scope = route.options.scope;
+              })
+              (mkIf (route.options ? from) {
+                Source = route.options.from;
+              })
+              (mkIf (route.options ? table) {
+                Table = route.options.table;
+              })
+              (mkIf (route.options ? advmss) {
+                TCPAdvertisedMaximumSegmentSize = route.options.advmss;
+              })
+              (mkIf (route.options ? ttl-propagate) {
+                TTLPropagate = route.options.ttl-propagate == "enabled";
+              })
+            ]
         );
         networkConfig.IPv6PrivacyExtensions = "kernel";
         linkConfig =
@@ -180,10 +181,10 @@ let
         networks = listToAttrs (
           forEach bridge.interfaces (
             bi:
-            nameValuePair "40-${bi}" {
-              DHCP = mkOverride 0 (dhcpStr false);
-              networkConfig.Bridge = name;
-            }
+              nameValuePair "40-${bi}" {
+                DHCP = mkOverride 0 (dhcpStr false);
+                networkConfig.Bridge = name;
+              }
           )
         );
       }
@@ -201,17 +202,13 @@ let
           vlanConfig.Id = vlan.id;
         };
         networks."40-${vlan.interface}" = {
-          vlan = [ name ];
+          vlan = [name];
         };
       }
     )
   );
-
-in
-
-{
+in {
   config = mkMerge [
-
     (mkIf config.boot.initrd.network.enable {
       # Note this is if initrd.network.enable, not if
       # initrd.systemd.network.enable. By setting the latter and not the
@@ -224,12 +221,11 @@ in
         vlanNetworks
       ];
       boot.initrd.availableKernelModules =
-        optional (cfg.bridges != { }) "bridge"
-        ++ optional (cfg.vlans != { }) "8021q";
+        optional (cfg.bridges != {}) "bridge"
+        ++ optional (cfg.vlans != {}) "8021q";
     })
 
     (mkIf cfg.useNetworkd {
-
       assertions =
         [
           {
@@ -246,17 +242,13 @@ in
           }
         ]
         ++ flip mapAttrsToList cfg.bridges (
-          n:
-          { rstp, ... }:
-          {
+          n: {rstp, ...}: {
             assertion = !rstp;
             message = "networking.bridges.${n}.rstp is not supported by networkd.";
           }
         )
         ++ flip mapAttrsToList cfg.fooOverUDP (
-          n:
-          { local, ... }:
-          {
+          n: {local, ...}: {
             assertion = local == null;
             message = "networking.fooOverUDP.${n}.local is not supported by networkd.";
           }
@@ -280,90 +272,87 @@ in
                   Name = name;
                   Kind = "bond";
                 };
-                bondConfig =
-                  let
-                    # manual mapping as of 2017-02-03
-                    # man 5 systemd.netdev [BOND]
-                    # to https://www.kernel.org/doc/Documentation/networking/bonding.txt
-                    # driver options.
-                    driverOptionMapping =
-                      let
-                        trans = f: optName: {
-                          valTransform = f;
-                          optNames = [ optName ];
-                        };
-                        simp = trans id;
-                        ms = trans (v: v + "ms");
-                      in
-                      {
-                        Mode = simp "mode";
-                        TransmitHashPolicy = simp "xmit_hash_policy";
-                        LACPTransmitRate = simp "lacp_rate";
-                        MIIMonitorSec = ms "miimon";
-                        UpDelaySec = ms "updelay";
-                        DownDelaySec = ms "downdelay";
-                        LearnPacketIntervalSec = simp "lp_interval";
-                        AdSelect = simp "ad_select";
-                        FailOverMACPolicy = simp "fail_over_mac";
-                        ARPValidate = simp "arp_validate";
-                        # apparently in ms for this value?! Upstream bug?
-                        ARPIntervalSec = simp "arp_interval";
-                        ARPIPTargets = simp "arp_ip_target";
-                        ARPAllTargets = simp "arp_all_targets";
-                        PrimaryReselectPolicy = simp "primary_reselect";
-                        ResendIGMP = simp "resend_igmp";
-                        PacketsPerSlave = simp "packets_per_slave";
-                        GratuitousARP = {
-                          valTransform = id;
-                          optNames = [
-                            "num_grat_arp"
-                            "num_unsol_na"
-                          ];
-                        };
-                        AllSlavesActive = simp "all_slaves_active";
-                        MinLinks = simp "min_links";
-                      };
+                bondConfig = let
+                  # manual mapping as of 2017-02-03
+                  # man 5 systemd.netdev [BOND]
+                  # to https://www.kernel.org/doc/Documentation/networking/bonding.txt
+                  # driver options.
+                  driverOptionMapping = let
+                    trans = f: optName: {
+                      valTransform = f;
+                      optNames = [optName];
+                    };
+                    simp = trans id;
+                    ms = trans (v: v + "ms");
+                  in {
+                    Mode = simp "mode";
+                    TransmitHashPolicy = simp "xmit_hash_policy";
+                    LACPTransmitRate = simp "lacp_rate";
+                    MIIMonitorSec = ms "miimon";
+                    UpDelaySec = ms "updelay";
+                    DownDelaySec = ms "downdelay";
+                    LearnPacketIntervalSec = simp "lp_interval";
+                    AdSelect = simp "ad_select";
+                    FailOverMACPolicy = simp "fail_over_mac";
+                    ARPValidate = simp "arp_validate";
+                    # apparently in ms for this value?! Upstream bug?
+                    ARPIntervalSec = simp "arp_interval";
+                    ARPIPTargets = simp "arp_ip_target";
+                    ARPAllTargets = simp "arp_all_targets";
+                    PrimaryReselectPolicy = simp "primary_reselect";
+                    ResendIGMP = simp "resend_igmp";
+                    PacketsPerSlave = simp "packets_per_slave";
+                    GratuitousARP = {
+                      valTransform = id;
+                      optNames = [
+                        "num_grat_arp"
+                        "num_unsol_na"
+                      ];
+                    };
+                    AllSlavesActive = simp "all_slaves_active";
+                    MinLinks = simp "min_links";
+                  };
 
-                    do = bond.driverOptions;
-                    assertNoUnknownOption =
-                      let
-                        knownOptions = flatten (mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping);
-                        # options that apparently don’t exist in the networkd config
-                        unknownOptions = [ "primary" ];
-                        assertTrace = bool: msg: if bool then true else builtins.trace msg false;
-                      in
-                      assert all (
-                        driverOpt:
+                  do = bond.driverOptions;
+                  assertNoUnknownOption = let
+                    knownOptions = flatten (mapAttrsToList (_: kOpts: kOpts.optNames) driverOptionMapping);
+                    # options that apparently don’t exist in the networkd config
+                    unknownOptions = ["primary"];
+                    assertTrace = bool: msg:
+                      if bool
+                      then true
+                      else builtins.trace msg false;
+                  in
+                    assert all (
+                      driverOpt:
                         assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
-                          "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
-                      ) (mapAttrsToList (k: _: k) do);
-                      "";
-                    # get those driverOptions that have been set
-                    filterSystemdOptions = filterAttrs (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
-                    # build final set of systemd options to bond values
-                    buildOptionSet = mapAttrs (
-                      _: kOpts:
+                        "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
+                    ) (mapAttrsToList (k: _: k) do); "";
+                  # get those driverOptions that have been set
+                  filterSystemdOptions = filterAttrs (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
+                  # build final set of systemd options to bond values
+                  buildOptionSet = mapAttrs (
+                    _: kOpts:
                       with kOpts;
                       # we simply take the first set kernel bond option
                       # (one option has multiple names, which is silly)
-                      head (
-                        map (optN: valTransform (do.${optN}))
+                        head (
+                          map (optN: valTransform (do.${optN}))
                           # only map those that exist
                           (filter (o: do ? ${o}) optNames)
-                      )
-                    );
-                  in
+                        )
+                  );
+                in
                   seq assertNoUnknownOption (buildOptionSet (filterSystemdOptions driverOptionMapping));
-
               };
 
               networks = listToAttrs (
                 forEach bond.interfaces (
                   bi:
-                  nameValuePair "40-${bi}" {
-                    DHCP = mkOverride 0 (dhcpStr false);
-                    networkConfig.Bond = name;
-                  }
+                    nameValuePair "40-${bi}" {
+                      DHCP = mkOverride 0 (dhcpStr false);
+                      networkConfig.Bond = name;
+                    }
                 )
               );
             }
@@ -377,10 +366,10 @@ in
                   Name = name;
                   Kind = "macvlan";
                 };
-                macvlanConfig = optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
+                macvlanConfig = optionalAttrs (macvlan.mode != null) {Mode = macvlan.mode;};
               };
               networks."40-${macvlan.interface}" = {
-                macvlan = [ name ];
+                macvlan = [name];
               };
             }
           )
@@ -399,7 +388,10 @@ in
                 fooOverUDPConfig =
                   {
                     Port = fou.port;
-                    Encapsulation = if fou.protocol != null then "FooOverUDP" else "GenericUDPEncapsulation";
+                    Encapsulation =
+                      if fou.protocol != null
+                      then "FooOverUDP"
+                      else "GenericUDPEncapsulation";
                   }
                   // (optionalAttrs (fou.protocol != null) {
                     Protocol = fou.protocol;
@@ -429,7 +421,10 @@ in
                   // (optionalAttrs (sit.encapsulation != null) (
                     {
                       FooOverUDP = true;
-                      Encapsulation = if sit.encapsulation.type == "fou" then "FooOverUDP" else "GenericUDPEncapsulation";
+                      Encapsulation =
+                        if sit.encapsulation.type == "fou"
+                        then "FooOverUDP"
+                        else "GenericUDPEncapsulation";
                       FOUDestinationPort = sit.encapsulation.port;
                     }
                     // (optionalAttrs (sit.encapsulation.sourcePort != null) {
@@ -439,7 +434,7 @@ in
               };
               networks = mkIf (sit.dev != null) {
                 "40-${sit.dev}" = {
-                  tunnel = [ name ];
+                  tunnel = [name];
                 };
               };
             }
@@ -466,7 +461,7 @@ in
               };
               networks = mkIf (gre.dev != null) {
                 "40-${gre.dev}" = {
-                  tunnel = [ name ];
+                  tunnel = [name];
                 };
               };
             }
@@ -477,95 +472,95 @@ in
 
       # We need to prefill the slaved devices with networking options
       # This forces the network interface creator to initialize slaves.
-      networking.interfaces = listToAttrs (map (i: nameValuePair i { }) slaves);
+      networking.interfaces = listToAttrs (map (i: nameValuePair i {}) slaves);
 
-      systemd.services =
-        let
-          # We must escape interfaces due to the systemd interpretation
-          subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
-          # support for creating openvswitch switches
-          createVswitchDevice =
-            n: v:
-            nameValuePair "${n}-netdev" (
-              let
-                deps = map subsystemDevice (
-                  attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
-                );
-                ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
-              in
-              {
-                description = "Open vSwitch Interface ${n}";
-                wantedBy = [
-                  "network.target"
-                  (subsystemDevice n)
-                ];
-                # and create bridge before systemd-networkd starts because it might create internal interfaces
-                before = [ "systemd-networkd.service" ];
-                # shutdown the bridge when network is shutdown
-                partOf = [ "network.target" ];
-                # requires ovs-vswitchd to be alive at all times
-                bindsTo = [ "ovs-vswitchd.service" ];
-                # start switch after physical interfaces and vswitch daemon
-                after = [
+      systemd.services = let
+        # We must escape interfaces due to the systemd interpretation
+        subsystemDevice = interface: "sys-subsystem-net-devices-${escapeSystemdPath interface}.device";
+        # support for creating openvswitch switches
+        createVswitchDevice = n: v:
+          nameValuePair "${n}-netdev" (
+            let
+              deps = map subsystemDevice (
+                attrNames (filterAttrs (_: config: config.type != "internal") v.interfaces)
+              );
+              ofRules = pkgs.writeText "vswitch-${n}-openFlowRules" v.openFlowRules;
+            in {
+              description = "Open vSwitch Interface ${n}";
+              wantedBy = [
+                "network.target"
+                (subsystemDevice n)
+              ];
+              # and create bridge before systemd-networkd starts because it might create internal interfaces
+              before = ["systemd-networkd.service"];
+              # shutdown the bridge when network is shutdown
+              partOf = ["network.target"];
+              # requires ovs-vswitchd to be alive at all times
+              bindsTo = ["ovs-vswitchd.service"];
+              # start switch after physical interfaces and vswitch daemon
+              after =
+                [
                   "network-pre.target"
                   "ovs-vswitchd.service"
-                ] ++ deps;
-                wants = deps; # if one or more interface fails, the switch should continue to run
-                serviceConfig.Type = "oneshot";
-                serviceConfig.RemainAfterExit = true;
-                path = [
-                  pkgs.iproute2
-                  config.virtualisation.vswitch.package
-                ];
-                preStart = ''
-                  echo "Resetting Open vSwitch ${n}..."
-                  ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \
-                            -- set bridge ${n} protocols=${concatStringsSep "," v.supportedOpenFlowVersions}
-                '';
-                script = ''
-                  echo "Configuring Open vSwitch ${n}..."
-                  ovs-vsctl ${
-                    concatStrings (
-                      mapAttrsToList (
-                        name: config:
+                ]
+                ++ deps;
+              wants = deps; # if one or more interface fails, the switch should continue to run
+              serviceConfig.Type = "oneshot";
+              serviceConfig.RemainAfterExit = true;
+              path = [
+                pkgs.iproute2
+                config.virtualisation.vswitch.package
+              ];
+              preStart = ''
+                echo "Resetting Open vSwitch ${n}..."
+                ovs-vsctl --if-exists del-br ${n} -- add-br ${n} \
+                          -- set bridge ${n} protocols=${concatStringsSep "," v.supportedOpenFlowVersions}
+              '';
+              script = ''
+                echo "Configuring Open vSwitch ${n}..."
+                ovs-vsctl ${
+                  concatStrings (
+                    mapAttrsToList (
+                      name: config:
                         " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
-                      ) v.interfaces
                     )
-                  } \
-                    ${
-                      concatStrings (
-                        mapAttrsToList (
-                          name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
-                        ) v.interfaces
-                      )
-                    } \
-                    ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
-                    ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
+                    v.interfaces
+                  )
+                } \
+                  ${
+                  concatStrings (
+                    mapAttrsToList (
+                      name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
+                    )
+                    v.interfaces
+                  )
+                } \
+                  ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
+                  ${concatMapStrings (x: " -- " + x) (splitString "\n" v.extraOvsctlCmds)}
 
 
-                  echo "Adding OpenFlow rules for Open vSwitch ${n}..."
-                  ovs-ofctl --protocols=${v.openFlowVersion} add-flows ${n} ${ofRules}
-                '';
-                postStop = ''
-                  echo "Cleaning Open vSwitch ${n}"
-                  echo "Shutting down internal ${n} interface"
-                  ip link set dev ${n} down || true
-                  echo "Deleting flows for ${n}"
-                  ovs-ofctl --protocols=${v.openFlowVersion} del-flows ${n} || true
-                  echo "Deleting Open vSwitch ${n}"
-                  ovs-vsctl --if-exists del-br ${n} || true
-                '';
-              }
-            );
-        in
+                echo "Adding OpenFlow rules for Open vSwitch ${n}..."
+                ovs-ofctl --protocols=${v.openFlowVersion} add-flows ${n} ${ofRules}
+              '';
+              postStop = ''
+                echo "Cleaning Open vSwitch ${n}"
+                echo "Shutting down internal ${n} interface"
+                ip link set dev ${n} down || true
+                echo "Deleting flows for ${n}"
+                ovs-ofctl --protocols=${v.openFlowVersion} del-flows ${n} || true
+                echo "Deleting Open vSwitch ${n}"
+                ovs-vsctl --if-exists del-br ${n} || true
+              '';
+            }
+          );
+      in
         mapAttrs' createVswitchDevice cfg.vswitches
         // {
           "network-local-commands" = {
-            after = [ "systemd-networkd.service" ];
-            bindsTo = [ "systemd-networkd.service" ];
+            after = ["systemd-networkd.service"];
+            bindsTo = ["systemd-networkd.service"];
           };
         };
     })
-
   ];
 }

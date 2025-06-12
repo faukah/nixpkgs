@@ -3,22 +3,23 @@
   runCommandLocal,
   gfal2-util,
 }:
-
 # `url` and `urls` should only be overridden via `<pkg>.override`, but not `<pkg>.overrideAttrs`.
 {
   name ? "",
   pname ? "",
   version ? "",
-  urls ? [ ],
-  url ? if urls == [ ] then abort "Expect either non-empty `urls` or `url`" else lib.head urls,
+  urls ? [],
+  url ?
+    if urls == []
+    then abort "Expect either non-empty `urls` or `url`"
+    else lib.head urls,
   hash ? lib.fakeHash,
   recursive ? false,
-  intermediateDestUrls ? [ ],
-  extraGfalCopyFlags ? [ ],
+  intermediateDestUrls ? [],
+  extraGfalCopyFlags ? [],
   allowSubstitutes ? true,
 }:
-
-(runCommandLocal name { } ''
+(runCommandLocal name {} ''
   for u in "''${urls[@]}"; do
     gfal-copy "''${gfalCopyFlags[@]}" "$u" "''${intermediateDestUrls[@]}" "$out"
     ret="$?"
@@ -29,27 +30,37 @@
     exit "$ret"
   fi
 '').overrideAttrs
-  (
-    finalAttrs: previousAttrs:
+(
+  finalAttrs: previousAttrs:
     {
       __structuredAttrs = true;
       inherit allowSubstitutes;
-      nativeBuildInputs = [ gfal2-util ];
+      nativeBuildInputs = [gfal2-util];
       outputHashAlgo = null;
-      outputHashMode = if finalAttrs.recursive then "recursive" else "flat";
+      outputHashMode =
+        if finalAttrs.recursive
+        then "recursive"
+        else "flat";
       outputHash = hash;
       inherit url;
-      urls = if urls == [ ] then lib.singleton url else urls;
+      urls =
+        if urls == []
+        then lib.singleton url
+        else urls;
       gfalCopyFlags = extraGfalCopyFlags ++ lib.optional finalAttrs.recursive "--recursive";
       inherit recursive intermediateDestUrls;
     }
     // (
-      if (pname != "" && version != "") then
-        {
-          inherit pname version;
-          name = "${finalAttrs.pname}-${finalAttrs.version}";
-        }
-      else
-        { name = if (name != "") then name else (baseNameOf url); }
+      if (pname != "" && version != "")
+      then {
+        inherit pname version;
+        name = "${finalAttrs.pname}-${finalAttrs.version}";
+      }
+      else {
+        name =
+          if (name != "")
+          then name
+          else (baseNameOf url);
+      }
     )
-  )
+)

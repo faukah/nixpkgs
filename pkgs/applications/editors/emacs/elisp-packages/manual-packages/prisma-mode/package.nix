@@ -5,7 +5,6 @@
   js2-mode,
   lsp-mode,
 }:
-
 melpaBuild {
   pname = "prisma-mode";
   version = "0-unstable-2021-12-07";

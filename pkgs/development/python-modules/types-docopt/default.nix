@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "types-docopt";
   version = "0.6.11.20241107";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "docopt-stubs" ];
+  pythonImportsCheck = ["docopt-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for docopt";
     homepage = "https://pypi.org/project/types-docopt/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

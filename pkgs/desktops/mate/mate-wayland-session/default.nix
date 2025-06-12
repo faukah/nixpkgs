@@ -11,7 +11,6 @@
   wayfirePlugins,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mate-wayland-session";
   version = "1.28.3";
@@ -45,8 +44,8 @@ stdenvNoCC.mkDerivation rec {
   '';
 
   passthru = {
-    providedSessions = [ "MATE" ];
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    providedSessions = ["MATE"];
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
@@ -54,6 +53,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://mate-desktop.org";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

@@ -4,13 +4,11 @@ import ../make-test-python.nix (
     lib,
     pkgs,
     ...
-  }:
-  let
+  }: let
     username = "vmtest";
     password = "fsddfy8233rb"; # random string
     passwordFile = pkgs.writeText "password-file" password;
-  in
-  {
+  in {
     name = "victoriametrics-remote-write";
     meta = with pkgs.lib.maintainers; {
       maintainers = [
@@ -20,68 +18,62 @@ import ../make-test-python.nix (
     };
 
     nodes = {
-      victoriametrics =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          networking.firewall.allowedTCPPorts = [ 8428 ];
-          services.victoriametrics = {
-            enable = true;
-            extraOptions = [
-              "-httpAuth.username=${username}"
-              "-httpAuth.password=file://${toString passwordFile}"
+      victoriametrics = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [pkgs.jq];
+        networking.firewall.allowedTCPPorts = [8428];
+        services.victoriametrics = {
+          enable = true;
+          extraOptions = [
+            "-httpAuth.username=${username}"
+            "-httpAuth.password=file://${toString passwordFile}"
+          ];
+        };
+      };
+
+      vmagent = {
+        config,
+        pkgs,
+        ...
+      }: {
+        environment.systemPackages = [pkgs.jq];
+        services.vmagent = {
+          enable = true;
+          remoteWrite = {
+            url = "http://victoriametrics:8428/api/v1/write";
+            basicAuthUsername = username;
+            basicAuthPasswordFile = toString passwordFile;
+          };
+
+          prometheusConfig = {
+            global = {
+              scrape_interval = "2s";
+            };
+            scrape_configs = [
+              {
+                job_name = "node";
+                static_configs = [
+                  {
+                    targets = [
+                      "node:${toString config.services.prometheus.exporters.node.port}"
+                    ];
+                  }
+                ];
+              }
             ];
           };
         };
+      };
 
-      vmagent =
-        {
-          config,
-          pkgs,
-          ...
-        }:
-        {
-          environment.systemPackages = [ pkgs.jq ];
-          services.vmagent = {
-            enable = true;
-            remoteWrite = {
-              url = "http://victoriametrics:8428/api/v1/write";
-              basicAuthUsername = username;
-              basicAuthPasswordFile = toString passwordFile;
-            };
-
-            prometheusConfig = {
-              global = {
-                scrape_interval = "2s";
-              };
-              scrape_configs = [
-                {
-                  job_name = "node";
-                  static_configs = [
-                    {
-                      targets = [
-                        "node:${toString config.services.prometheus.exporters.node.port}"
-                      ];
-                    }
-                  ];
-                }
-              ];
-            };
-          };
+      node = {...}: {
+        services.prometheus.exporters.node = {
+          enable = true;
+          openFirewall = true;
         };
-
-      node =
-        { ... }:
-        {
-          services.prometheus.exporters.node = {
-            enable = true;
-            openFirewall = true;
-          };
-        };
+      };
     };
 
     testScript = ''

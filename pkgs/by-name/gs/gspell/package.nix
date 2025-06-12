@@ -16,7 +16,6 @@
   enchant2,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gspell";
   version = "1.14.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gspell-app1";
     homepage = "https://gitlab.gnome.org/GNOME/gspell";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bonnie++";
   version = "2.00a";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.coker.com.au/bonnie++/";
     license = lib.licenses.gpl2Only;
     mainProgram = "bonnie++";
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

@@ -11,7 +11,6 @@
   pythonOlder,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "twentemilieu";
   version = "2.2.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace '"0.0.0"' '"${version}"'
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "twentemilieu" ];
+  pythonImportsCheck = ["twentemilieu"];
 
   meta = with lib; {
     description = "Python client for Twente Milieu";
     homepage = "https://github.com/frenck/python-twentemilieu";
     changelog = "https://github.com/frenck/python-twentemilieu/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

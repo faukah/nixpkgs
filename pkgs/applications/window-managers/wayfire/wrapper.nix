@@ -3,17 +3,18 @@
   lib,
   makeWrapper,
   wayfire,
-  plugins ? [ ],
+  plugins ? [],
 }:
-
 symlinkJoin {
   name = "wayfire-wrapped-${lib.getVersion wayfire}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  paths = [
-    wayfire
-  ] ++ plugins;
+  paths =
+    [
+      wayfire
+    ]
+    ++ plugins;
 
   postBuild = ''
     for binary in $out/bin/*; do
@@ -25,14 +26,18 @@ symlinkJoin {
 
   preferLocalBuild = true;
 
-  passthru = wayfire.passthru // {
-    unwrapped = wayfire;
-  };
+  passthru =
+    wayfire.passthru
+    // {
+      unwrapped = wayfire;
+    };
 
-  meta = wayfire.meta // {
-    # To prevent builds on hydra
-    hydraPlatforms = [ ];
-    # prefer wrapper over the package
-    priority = (wayfire.meta.priority or lib.meta.defaultPriority) - 1;
-  };
+  meta =
+    wayfire.meta
+    // {
+      # To prevent builds on hydra
+      hydraPlatforms = [];
+      # prefer wrapper over the package
+      priority = (wayfire.meta.priority or lib.meta.defaultPriority) - 1;
+    };
 }

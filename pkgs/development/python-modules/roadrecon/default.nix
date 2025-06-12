@@ -15,7 +15,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "roadrecon";
   version = "1.6.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-AbZnYM02s8DXTLzakuyb3WSh6UvUSxanMYkfdJATK7M=";
   };
 
-  pythonRelaxDeps = [ "flask" ];
+  pythonRelaxDeps = ["flask"];
 
   nativeBuildInputs = [
     setuptools
@@ -47,12 +46,12 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  pythonImportsCheck = [ "roadtools.roadrecon" ];
+  pythonImportsCheck = ["roadtools.roadrecon"];
 
   meta = with lib; {
     description = "Azure AD recon";
     homepage = "https://pypi.org/project/roadrecon/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

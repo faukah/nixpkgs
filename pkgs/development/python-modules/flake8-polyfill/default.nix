@@ -9,7 +9,6 @@
   pep8,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flake8-polyfill";
   version = "1.0.2";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     sha256 = "1nlf1mkqw856vi6782qcglqhaacb23khk9wkcgn55npnjxshhjz4";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ flake8 ];
+  dependencies = [flake8];
 
   nativeCheckInputs = [
     mock
@@ -45,12 +44,12 @@ buildPythonPackage rec {
       --replace-fail pytest 'tool:pytest'
   '';
 
-  pythonImportsCheck = [ "flake8_polyfill" ];
+  pythonImportsCheck = ["flake8_polyfill"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/pycqa/flake8-polyfill";
     description = "Polyfill package for Flake8 plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

@@ -10,7 +10,6 @@
   pythonOlder,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "requests-kerberos";
   version = "0.15.0";
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "requests_kerberos" ];
+  pythonImportsCheck = ["requests_kerberos"];
 
   meta = with lib; {
     description = "Authentication handler for using Kerberos with Python Requests";
     homepage = "https://github.com/requests/requests-kerberos";
     license = licenses.isc;
-    maintainers = with maintainers; [ catern ];
+    maintainers = with maintainers; [catern];
   };
 }

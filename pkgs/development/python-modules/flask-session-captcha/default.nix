@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "flask-session-captcha";
   version = "1.5.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2JPJx8yQIl0bbcbshONJtja7BnSiieHzHi64A6jLpc0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     captcha
@@ -40,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "flask_session_captcha" ];
+  pythonImportsCheck = ["flask_session_captcha"];
 
   meta = with lib; {
     description = "Captcha implemention for flask";
     homepage = "https://github.com/Tethik/flask-session-captcha";
     changelog = "https://github.com/Tethik/flask-session-captcha/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ Flakebi ];
+    maintainers = with maintainers; [Flakebi];
   };
 }

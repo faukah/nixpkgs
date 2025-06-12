@@ -14,10 +14,9 @@
   config,
   pkgs,
   lib,
-  nodes ? { },
+  nodes ? {},
   ...
-}:
-let
+}: let
   testCerts = import ./snakeoil-certs.nix;
   domain = testCerts.domain;
 
@@ -34,9 +33,7 @@ let
   };
 
   pebbleConfFile = pkgs.writeText "pebble.conf" (builtins.toJSON pebbleConf);
-
-in
-{
+in {
   options.test-support.acme = {
     caDomain = lib.mkOption {
       type = lib.types.str;
@@ -75,39 +72,41 @@ in
 
       # Extend /etc/hosts to resolve all configured certificates to their hosts.
       # This way, no DNS server will be needed to validate HTTP-01 certs.
-      hosts = lib.attrsets.concatMapAttrs (
-        _: node:
-        let
-          inherit (node.networking) primaryIPAddress primaryIPv6Address;
-          ips = builtins.filter (ip: ip != "") [
-            primaryIPAddress
-            primaryIPv6Address
-          ];
-          names = lib.lists.unique (
-            lib.lists.flatten (
-              lib.lists.concatMap
+      hosts =
+        lib.attrsets.concatMapAttrs (
+          _: node: let
+            inherit (node.networking) primaryIPAddress primaryIPv6Address;
+            ips = builtins.filter (ip: ip != "") [
+              primaryIPAddress
+              primaryIPv6Address
+            ];
+            names = lib.lists.unique (
+              lib.lists.flatten (
+                lib.lists.concatMap
                 (
                   cfg:
-                  lib.attrsets.mapAttrsToList (
-                    domain: cfg:
-                    builtins.map (builtins.replaceStrings [ "*." ] [ "" ]) ([ domain ] ++ cfg.extraDomainNames)
-                  ) cfg.configuration.security.acme.certs
+                    lib.attrsets.mapAttrsToList (
+                      domain: cfg:
+                        builtins.map (builtins.replaceStrings ["*."] [""]) ([domain] ++ cfg.extraDomainNames)
+                    )
+                    cfg.configuration.security.acme.certs
                 )
                 # A specialisation's config is nested under its configuration attribute.
                 # For ease of use, nest the root node's configuration similarly.
-                ([ { configuration = node; } ] ++ (builtins.attrValues node.specialisation))
-            )
-          );
-        in
-        builtins.listToAttrs (builtins.map (ip: lib.attrsets.nameValuePair ip names) ips)
-      ) nodes;
+                ([{configuration = node;}] ++ (builtins.attrValues node.specialisation))
+              )
+            );
+          in
+            builtins.listToAttrs (builtins.map (ip: lib.attrsets.nameValuePair ip names) ips)
+        )
+        nodes;
     };
 
     systemd.services = {
       pebble = {
         enable = true;
         description = "Pebble ACME server";
-        wantedBy = [ "network.target" ];
+        wantedBy = ["network.target"];
         environment = {
           # We're not testing lego, we're just testing our configuration.
           # No need to sleep or randomly fail nonces.
@@ -120,7 +119,7 @@ in
           WorkingDirectory = "/run/pebble";
 
           # Required to bind on privileged ports.
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
 
           ExecStart = "${pkgs.pebble}/bin/pebble -config ${pebbleConfFile}";
         };

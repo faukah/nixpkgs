@@ -4,9 +4,7 @@
   python3,
   rustPlatform,
   testers,
-}:
-
-let
+}: let
   self = rustPlatform.buildRustPackage {
     pname = "asciinema";
     version = "3.0.0-rc.4";
@@ -22,7 +20,7 @@ let
     useFetchCargoVendor = true;
     cargoHash = "sha256-Q6HoKrcwa67lAsl4zgNYilo4LzPxySz2lE85ZdOSPpM=";
 
-    nativeCheckInputs = [ python3 ];
+    nativeCheckInputs = [python3];
 
     checkFlags = [
       # ---- pty::tests::exec_quick stdout ----
@@ -54,7 +52,7 @@ let
         computer users working with the command-line, such as developers or
         system administrators.
       '';
-      license = with lib.licenses; [ gpl3Plus ];
+      license = with lib.licenses; [gpl3Plus];
       mainProgram = "asciinema";
       maintainers = with lib.maintainers; [
         jiriks74
@@ -63,4 +61,4 @@ let
     };
   };
 in
-self
+  self

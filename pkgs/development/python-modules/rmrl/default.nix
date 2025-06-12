@@ -11,7 +11,6 @@
   svglib,
   xdg,
 }:
-
 buildPythonPackage {
   pname = "rmrl";
   version = "0.2.1-unstable-2023-06-1";
@@ -49,12 +48,12 @@ buildPythonPackage {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rmrl" ];
+  pythonImportsCheck = ["rmrl"];
 
   meta = {
     description = "Render reMarkable documents to PDF";
     homepage = "https://github.com/benneti/rmrl";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

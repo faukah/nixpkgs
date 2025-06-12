@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-markupsafe";
   version = "1.1.10";
@@ -25,6 +24,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/types-markupsafe";
     changelog = "https://github.com/typeshed-internal/stub_uploader/blob/main/data/changelogs/MarkupSafe.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 }

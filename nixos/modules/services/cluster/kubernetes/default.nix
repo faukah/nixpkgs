@@ -4,8 +4,7 @@
   options,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.kubernetes;
   opt = options.services.kubernetes;
 
@@ -34,8 +33,7 @@ let
     };
   };
 
-  mkKubeConfig =
-    name: conf:
+  mkKubeConfig = name: conf:
     pkgs.writeText "${name}-kubeconfig" (
       builtins.toJSON {
         apiVersion = "v1";
@@ -71,36 +69,34 @@ let
 
   caCert = secret "ca";
 
-  etcdEndpoints = [ "https://${cfg.masterAddress}:2379" ];
+  etcdEndpoints = ["https://${cfg.masterAddress}:2379"];
 
-  mkCert =
-    {
-      name,
-      CN,
-      hosts ? [ ],
-      fields ? { },
-      action ? "",
-      privateKeyOwner ? "kubernetes",
-      privateKeyGroup ? "kubernetes",
-    }:
-    rec {
-      inherit
-        name
-        caCert
-        CN
-        hosts
-        fields
-        action
-        ;
-      cert = secret name;
-      key = secret "${name}-key";
-      privateKeyOptions = {
-        owner = privateKeyOwner;
-        group = privateKeyGroup;
-        mode = "0600";
-        path = key;
-      };
+  mkCert = {
+    name,
+    CN,
+    hosts ? [],
+    fields ? {},
+    action ? "",
+    privateKeyOwner ? "kubernetes",
+    privateKeyGroup ? "kubernetes",
+  }: rec {
+    inherit
+      name
+      caCert
+      CN
+      hosts
+      fields
+      action
+      ;
+    cert = secret name;
+    key = secret "${name}-key";
+    privateKeyOptions = {
+      owner = privateKeyOwner;
+      group = privateKeyGroup;
+      mode = "0600";
+      path = key;
     };
+  };
 
   secret = name: "${cfg.secretsPath}/${name}.pem";
 
@@ -129,9 +125,7 @@ let
       default = null;
     };
   };
-in
-{
-
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -139,7 +133,7 @@ in
       "addons"
       "dashboard"
     ] "Removed due to it being an outdated version")
-    (lib.mkRemovedOptionModule [ "services" "kubernetes" "verbose" ] "")
+    (lib.mkRemovedOptionModule ["services" "kubernetes" "verbose"] "")
   ];
 
   ###### interface
@@ -153,7 +147,7 @@ in
         addon manager, flannel and proxy services.
         Node role will enable flannel, docker, kubelet and proxy services.
       '';
-      default = [ ];
+      default = [];
       type = lib.types.listOf (
         lib.types.enum [
           "master"
@@ -162,7 +156,7 @@ in
       );
     };
 
-    package = lib.mkPackageOption pkgs "kubernetes" { };
+    package = lib.mkPackageOption pkgs "kubernetes" {};
 
     kubeconfig = mkKubeConfigOptions "Default kubeconfig";
 
@@ -195,7 +189,7 @@ in
 
     featureGates = lib.mkOption {
       description = "List set of feature gates.";
-      default = { };
+      default = {};
       type = lib.types.attrsOf lib.types.bool;
     };
 
@@ -208,7 +202,7 @@ in
     path = lib.mkOption {
       description = "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
     };
 
     clusterCidr = lib.mkOption {
@@ -240,7 +234,6 @@ in
   ###### implementation
 
   config = lib.mkMerge [
-
     (lib.mkIf cfg.easyCerts {
       services.kubernetes.pki.enable = lib.mkDefault true;
       services.kubernetes.caFile = caCert;
@@ -276,7 +269,7 @@ in
     })
 
     # Using "services.kubernetes.roles" will automatically enable easyCerts and flannel
-    (lib.mkIf (cfg.roles != [ ]) {
+    (lib.mkIf (cfg.roles != []) {
       services.kubernetes.flannel.enable = lib.mkDefault true;
       services.flannel.etcd.endpoints = lib.mkDefault etcdEndpoints;
       services.kubernetes.easyCerts = lib.mkDefault true;
@@ -308,7 +301,8 @@ in
       };
     })
 
-    (lib.mkIf
+    (
+      lib.mkIf
       (
         cfg.apiserver.enable
         || cfg.scheduler.enable
@@ -320,7 +314,7 @@ in
       {
         systemd.targets.kubernetes = {
           description = "Kubernetes";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
 
         systemd.tmpfiles.rules = [
@@ -342,14 +336,11 @@ in
         # dns addon is enabled by default
         services.kubernetes.addons.dns.enable = lib.mkDefault true;
 
-        services.kubernetes.apiserverAddress = lib.mkDefault (
-          "https://${
-            if cfg.apiserver.advertiseAddress != null then
-              cfg.apiserver.advertiseAddress
-            else
-              "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
-          }"
-        );
+        services.kubernetes.apiserverAddress = lib.mkDefault "https://${
+          if cfg.apiserver.advertiseAddress != null
+          then cfg.apiserver.advertiseAddress
+          else "${cfg.masterAddress}:${toString cfg.apiserver.securePort}"
+        }";
       }
     )
   ];

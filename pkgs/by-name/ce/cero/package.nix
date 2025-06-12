@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cero";
   version = "1.3.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/glebarez/cero";
     changelog = "https://github.com/glebarez/cero/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cero";
   };
 }

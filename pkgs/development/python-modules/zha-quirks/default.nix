@@ -9,7 +9,6 @@
   setuptools,
   zigpy,
 }:
-
 buildPythonPackage rec {
   pname = "zha-quirks";
   version = "0.0.137";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -49,14 +48,14 @@ buildPythonPackage rec {
     "test_smart_air_sensor"
   ];
 
-  pythonImportsCheck = [ "zhaquirks" ];
+  pythonImportsCheck = ["zhaquirks"];
 
   meta = with lib; {
     description = "ZHA Device Handlers are custom quirks implementations for Zigpy";
     homepage = "https://github.com/dmulcahey/zha-device-handlers";
     changelog = "https://github.com/zigpy/zha-device-handlers/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

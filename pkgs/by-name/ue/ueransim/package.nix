@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
   ];
 
-  buildInputs = [ lksctp-tools ];
+  buildInputs = [lksctp-tools];
 
   postPatch = ''
     substituteInPlace tools/nr-binder \
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     for app in nr-gnb nr-ue nr-cli; do
       cp $app $out/bin
       wrapProgram "$out/bin/$app" \
-        --prefix PATH : ${lib.makeBinPath [ iproute2 ]}
+        --prefix PATH : ${lib.makeBinPath [iproute2]}
     done
 
     cp libdevbnd.so $out/lib
@@ -52,14 +52,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Open source 5G UE and RAN (gNodeB) implementation";
     homepage = "https://github.com/aligungr/UERANSIM";
     changelog = "https://github.com/aligungr/UERANSIM/releases";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ theobori ];
+    maintainers = with lib.maintainers; [theobori];
     license = lib.licenses.gpl3Only;
   };
 })

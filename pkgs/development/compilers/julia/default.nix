@@ -1,19 +1,18 @@
-{ callPackage, fetchpatch2 }:
-
-let
-  juliaWithPackages = callPackage ../../julia-modules { };
-
-  wrapJulia =
-    julia:
-    julia.overrideAttrs (oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
-        withPackages = juliaWithPackages.override { inherit julia; };
-      };
-    });
-
-in
-
 {
+  callPackage,
+  fetchpatch2,
+}: let
+  juliaWithPackages = callPackage ../../julia-modules {};
+
+  wrapJulia = julia:
+    julia.overrideAttrs (oldAttrs: {
+      passthru =
+        (oldAttrs.passthru or {})
+        // {
+          withPackages = juliaWithPackages.override {inherit julia;};
+        };
+    });
+in {
   julia_19-bin = wrapJulia (
     callPackage (import ./generic-bin.nix {
       version = "1.9.4";
@@ -27,7 +26,7 @@ in
         # https://github.com/JuliaLang/julia/commit/f5eeba35d9bf20de251bb9160cc935c71e8b19ba
         ./patches/1.9-bin/0001-allow-skipping-internet-required-tests.patch
       ];
-    }) { }
+    }) {}
   );
   julia_110-bin = wrapJulia (
     callPackage (import ./generic-bin.nix {
@@ -38,7 +37,7 @@ in
         x86_64-darwin = "f80c93c30a18d8a5dc7f37d0cc94757fd3857651268e4a9e2d42d3b1ea3372f1";
         aarch64-darwin = "e62e00b22408159cba3d669f2d9e8b60c1d23b5c2d1c22ec25f4957d15ca98ef";
       };
-    }) { }
+    }) {}
   );
   julia_111-bin = wrapJulia (
     callPackage (import ./generic-bin.nix {
@@ -49,7 +48,7 @@ in
         x86_64-darwin = "9bee8cc79a7dda56a38bbef88e72687ea0cb35d4c382eb9076ee8a3c53c3a8cf";
         aarch64-darwin = "2c279005f5059d10eade27a59e25f5ea53e00b0caa30a6d73fa32529ec046735";
       };
-    }) { }
+    }) {}
   );
   julia_19 = wrapJulia (
     callPackage (import ./generic.nix {
@@ -58,7 +57,7 @@ in
       patches = [
         ./patches/1.9/0002-skip-failing-and-flaky-tests.patch
       ];
-    }) { }
+    }) {}
   );
   julia_110 = wrapJulia (
     callPackage (import ./generic.nix {
@@ -75,7 +74,7 @@ in
           hash = "sha256-gXC3LE3AuHMlSdA4dW+rbAhJpSB6ZMaz9X1qrHDPX7Y=";
         })
       ];
-    }) { }
+    }) {}
   );
   julia_111 = wrapJulia (
     callPackage (import ./generic.nix {
@@ -84,6 +83,6 @@ in
       patches = [
         ./patches/1.11/0002-skip-failing-and-flaky-tests.patch
       ];
-    }) { }
+    }) {}
   );
 }

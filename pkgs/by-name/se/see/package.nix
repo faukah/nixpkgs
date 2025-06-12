@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "see";
   version = "unstable-2023-03-19";
@@ -30,7 +29,7 @@ python3.pkgs.buildPythonApplication {
     description = "CLI tool to open files in the terminal";
     homepage = "https://github.com/Textualize/textualize-see";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "see";
   };
 }

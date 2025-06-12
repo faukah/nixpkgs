@@ -10,7 +10,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "booleanoperations";
   version = "0.9.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pyclipper
   ];
 
-  pythonImportsCheck = [ "booleanOperations" ];
+  pythonImportsCheck = ["booleanOperations"];
 
   nativeCheckInputs = [
     defcon
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     description = "Boolean operations on paths";
     homepage = "https://github.com/typemytype/booleanOperations";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
   };
 }

@@ -6,7 +6,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "castor";
   version = "0.24.0";
@@ -20,7 +19,7 @@ php.buildComposerProject2 (finalAttrs: {
 
   vendorHash = "sha256-gwXEQX0Go7OCm32WRJUt4QXhT4VTHGbVo3su1FcT8RE=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # install shell completions
   postInstall = ''
@@ -31,11 +30,11 @@ php.buildComposerProject2 (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -44,7 +43,7 @@ php.buildComposerProject2 (finalAttrs: {
     description = "DX oriented task runner and command launcher built with PHP";
     homepage = "https://github.com/jolicode/castor";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     mainProgram = "castor";
   };
 })

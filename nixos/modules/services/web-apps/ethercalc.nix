@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.ethercalc;
-in
-{
+in {
   options = {
     services.ethercalc = {
       enable = mkOption {
@@ -30,7 +26,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "ethercalc" { };
+      package = mkPackageOption pkgs "ethercalc" {};
 
       host = mkOption {
         type = types.str;
@@ -49,8 +45,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.ethercalc = {
       description = "Ethercalc service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${cfg.package}/bin/ethercalc --host ${cfg.host} --port ${toString cfg.port}";

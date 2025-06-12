@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "re-flex";
   version = "5.5.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Regex-centric, fast lexical analyzer generator for C++ with full Unicode support";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with lib.maintainers; [ prrlvr ];
+    maintainers = with lib.maintainers; [prrlvr];
     mainProgram = "reflex";
   };
 }

@@ -11,7 +11,6 @@
   zstd,
   docbook_xml_dtd_45,
 }:
-
 stdenv.mkDerivation rec {
   pname = "icecream";
   version = "1.4";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Distributed compiler with a central scheduler to share build load";
     inherit (src.meta) homepage;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux ++ darwin;
   };
 }

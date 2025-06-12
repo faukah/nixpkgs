@@ -7,7 +7,6 @@
   oras,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "oras";
   version = "1.2.3";
@@ -21,9 +20,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-PLGWPoMCsmdnsKD/FdaRHGO0X9/0Y/8DWV21GsCBR04=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  excludedPackages = [ "./test/e2e" ];
+  excludedPackages = ["./test/e2e"];
 
   ldflags = [
     "-s"
@@ -41,7 +40,7 @@ buildGoModule (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   meta = {

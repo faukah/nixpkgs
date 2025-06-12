@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.logkeys;
-in
-{
+in {
   options.services.logkeys = {
     enable = lib.mkEnableOption "logkeys, a keylogger service";
 
@@ -22,7 +20,7 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.logkeys = {
       description = "LogKeys Keylogger Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.logkeys}/bin/logkeys -s${
           lib.optionalString (cfg.device != null) " -d ${cfg.device}"

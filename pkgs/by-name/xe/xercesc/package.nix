@@ -5,7 +5,6 @@
   curl,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xerces-c";
   version = "3.3.0";

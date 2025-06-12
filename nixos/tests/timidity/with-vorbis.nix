@@ -1,17 +1,13 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
-  {
-
+  {pkgs, ...}: {
     name = "timidity-with-vorbis";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          (timidity.override { enableVorbis = true; })
-          ffmpeg # # for `ffprobe`
-        ];
-      };
+    nodes.machine = {pkgs, ...}: {
+      environment.systemPackages = with pkgs; [
+        (timidity.override {enableVorbis = true;})
+        ffmpeg # # for `ffprobe`
+      ];
+    };
 
     testScript = ''
       import json

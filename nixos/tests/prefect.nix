@@ -1,18 +1,14 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   mainPort = "4200";
-in
-{
+in {
   name = "prefect";
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.prefect = {
-          enable = true;
-        };
+    machine = {...}: {
+      services.prefect = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''
@@ -22,6 +18,6 @@ in
   '';
 
   meta = with lib.maintainers; {
-    maintainers = [ happysalada ];
+    maintainers = [happysalada];
   };
 }

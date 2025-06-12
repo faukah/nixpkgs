@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     maintainers
     mkEnableOption
@@ -20,18 +19,16 @@ let
   stateDir = "/var/lib/esphome";
 
   esphomeParams =
-    if cfg.enableUnixSocket then
-      "--socket /run/esphome/esphome.sock"
-    else
-      "--address ${cfg.address} --port ${toString cfg.port}";
-in
-{
-  meta.maintainers = with maintainers; [ oddlama ];
+    if cfg.enableUnixSocket
+    then "--socket /run/esphome/esphome.sock"
+    else "--address ${cfg.address} --port ${toString cfg.port}";
+in {
+  meta.maintainers = with maintainers; [oddlama];
 
   options.services.esphome = {
     enable = mkEnableOption "esphome, for making custom firmwares for ESP32/ESP8266";
 
-    package = lib.mkPackageOption pkgs "esphome" { };
+    package = lib.mkPackageOption pkgs "esphome" {};
 
     enableUnixSocket = mkOption {
       type = types.bool;
@@ -82,18 +79,20 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall && !cfg.enableUnixSocket) [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall && !cfg.enableUnixSocket) [cfg.port];
 
     systemd.services.esphome = {
       description = "ESPHome dashboard";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.package ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.package];
 
-      environment = {
-        # platformio fails to determine the home directory when using DynamicUser
-        PLATFORMIO_CORE_DIR = "${stateDir}/.platformio";
-      } // lib.optionalAttrs cfg.usePing { ESPHOME_DASHBOARD_USE_PING = "true"; };
+      environment =
+        {
+          # platformio fails to determine the home directory when using DynamicUser
+          PLATFORMIO_CORE_DIR = "${stateDir}/.platformio";
+        }
+        // lib.optionalAttrs cfg.usePing {ESPHOME_DASHBOARD_USE_PING = "true";};
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/esphome dashboard ${esphomeParams} ${stateDir}";
@@ -113,7 +112,7 @@ in
         MemoryDenyWriteExecute = true;
         DevicePolicy = "closed";
         DeviceAllow = map (d: "${d} rw") cfg.allowedDevices;
-        SupplementaryGroups = [ "dialout" ];
+        SupplementaryGroups = ["dialout"];
         #NoNewPrivileges = true; # Implied by DynamicUser
         PrivateUsers = true;
         #PrivateTmp = true; # Implied by DynamicUser

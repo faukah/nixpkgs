@@ -13,7 +13,6 @@
   pytest-cov-stub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-jupyter";
   version = "0.25.1";
@@ -27,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-DpJy/0lH4OxoPJJCOkv7QqJkd8EDqxpquCd+LcyPev4=";
   };
 
-  pythonRelaxDeps = [ "nbconvert" ];
+  pythonRelaxDeps = ["nbconvert"];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     ipykernel
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "mkdocs_jupyter" ];
+  pythonImportsCheck = ["mkdocs_jupyter"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -54,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/danielfrg/mkdocs-jupyter";
     changelog = "https://github.com/danielfrg/mkdocs-jupyter/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ net-mist ];
+    maintainers = with maintainers; [net-mist];
   };
 }

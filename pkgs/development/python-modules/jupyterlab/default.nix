@@ -23,7 +23,6 @@
   traitlets,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab";
   version = "4.4.1";
@@ -76,8 +75,8 @@ buildPythonPackage rec {
       tornado
       traitlets
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   makeWrapperArgs = [
     "--set"
@@ -88,14 +87,14 @@ buildPythonPackage rec {
   # Depends on npm
   doCheck = false;
 
-  pythonImportsCheck = [ "jupyterlab" ];
+  pythonImportsCheck = ["jupyterlab"];
 
   meta = with lib; {
     changelog = "https://github.com/jupyterlab/jupyterlab/blob/v${version}/CHANGELOG.md";
     description = "Jupyter lab environment notebook server extension";
     license = licenses.bsd3;
     homepage = "https://jupyter.org/";
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
     mainProgram = "jupyter-lab";
   };
 }

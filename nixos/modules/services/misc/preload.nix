@@ -3,24 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.preload;
-in
-{
+in {
   meta = {
     maintainers = pkgs.preload.meta.maintainers;
   };
 
   options.services.preload = {
     enable = lib.mkEnableOption "preload";
-    package = lib.mkPackageOption pkgs "preload" { };
+    package = lib.mkPackageOption pkgs "preload" {};
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.preload = {
       description = "Loads data into ram during idle time of CPU.";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         EnvironmentFile = "${cfg.package}/etc/conf.d/preload";

@@ -4,7 +4,6 @@
   fetchurl,
   httpTwoLevelsUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfwm4-themes";
   version = "4.10.0";
@@ -23,6 +22,6 @@ stdenv.mkDerivation rec {
     description = "Themes for Xfce";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

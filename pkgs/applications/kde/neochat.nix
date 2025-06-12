@@ -1,12 +1,10 @@
 {
   mkDerivation,
   lib,
-
   cmake,
   extra-cmake-modules,
   pkg-config,
   wrapQtAppsHook,
-
   cmark,
   kconfig,
   kdbusaddons,
@@ -30,7 +28,6 @@
   qtquickcontrols2,
   sonnet,
 }:
-
 mkDerivation {
   pname = "neochat";
 
@@ -71,7 +68,7 @@ mkDerivation {
     mainProgram = "neochat";
     homepage = "https://apps.kde.org/en/neochat";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; linux;
   };
 }

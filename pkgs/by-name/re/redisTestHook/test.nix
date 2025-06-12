@@ -3,7 +3,6 @@
   redisTestHook,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   name = "redis-test-hook-test";
 

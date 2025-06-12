@@ -10,7 +10,6 @@
   incus,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cowsql";
   version = "1.15.8";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     inherit (incus) tests;
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -53,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Embeddable, replicated and fault tolerant SQL engine";
     homepage = "https://github.com/cowsql/cowsql";
     license = licenses.lgpl3Only;
-    teams = [ teams.lxc ];
+    teams = [teams.lxc];
     platforms = platforms.unix;
   };
 })

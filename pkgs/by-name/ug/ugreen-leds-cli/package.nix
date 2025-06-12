@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ugreen-leds-cli";
   version = "0.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   postPatch = ''
     substituteInPlace Makefile --replace-warn "-static" ""
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/miskcoo/ugreen_leds_controller";
     license = lib.licenses.mit;
     mainProgram = "ugreen_leds_cli";
-    maintainers = with lib.maintainers; [ michaelvanstraten ];
+    maintainers = with lib.maintainers; [michaelvanstraten];
     platforms = lib.platforms.linux;
   };
 })

@@ -5,7 +5,6 @@
   setuptools,
   lib4sbom,
 }:
-
 buildPythonPackage rec {
   pname = "sbom2dot";
   version = "0.3.2";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/anthonyharrison/sbom2dot";
     license = lib.licenses.asl20;
     mainProgram = "sbom2dot";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

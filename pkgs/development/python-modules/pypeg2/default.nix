@@ -4,7 +4,6 @@
   fetchPypi,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   version = "2.15.2";
   format = "setuptools";

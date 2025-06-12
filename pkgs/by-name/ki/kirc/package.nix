@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kirc";
   version = "0.3.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://mcpcpc.github.io/kirc/";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       - Easy customized color scheme definition.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

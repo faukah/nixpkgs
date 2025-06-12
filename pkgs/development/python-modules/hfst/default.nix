@@ -7,7 +7,6 @@
   icu,
   swig,
 }:
-
 buildPythonPackage rec {
   pname = "hfst";
   format = "setuptools";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     sed -i 's/libhfst_swig/hfst/' setup.py;
   '';
 
-  nativeBuildInputs = [ swig ];
+  nativeBuildInputs = [swig];
 
   buildInputs = [
     icu
     pkgs.hfst
   ];
 
-  setupPyBuildFlags = [ "--inplace" ];
+  setupPyBuildFlags = ["--inplace"];
 
   # Find foma in Darwin tests
   preCheck = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     description = "Python bindings for HFST";
     homepage = "https://github.com/hfst/hfst";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ lurkki ];
+    maintainers = with maintainers; [lurkki];
   };
 }

@@ -28,7 +28,6 @@
   writeShellScript,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gmic";
   version = "3.5.4";
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
   gmic_stdlib = fetchurl {
     name = "gmic_stdlib_community.h";
     url = "https://gmic.eu/gmic_stdlib_community${
-      lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+      lib.replaceStrings ["."] [""] finalAttrs.version
     }.h";
     hash = "sha256-JO8ijrOgrOq7lB8NaxnlsQhDXSMgAGQlOG3lT9NfuMw=";
   };
@@ -144,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open and full-featured framework for image processing";
     mainProgram = "gmic";
     license = lib.licenses.cecill21;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

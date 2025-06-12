@@ -6,7 +6,6 @@
   libao,
   libmpcdec,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mpc123";
   version = "0.2.4";
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bucciarati/mpc123";
     license = lib.licenses.gpl2Plus;
     mainProgram = "mpc123";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

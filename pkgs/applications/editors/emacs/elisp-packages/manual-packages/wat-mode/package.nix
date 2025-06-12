@@ -4,7 +4,6 @@
   fetchFromGitHub,
   unstableGitUpdater,
 }:
-
 melpaBuild {
   pname = "wat-mode";
   version = "0-unstable-2022-07-13";
@@ -16,12 +15,12 @@ melpaBuild {
     hash = "sha256-jV5V3TRY+D3cPSz3yFwVWn9yInhGOYIaUTPEhsOBxto=";
   };
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/devonsparks/wat-mode";
     description = "Emacs major mode for WebAssembly's text format";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ nagy ];
+    maintainers = with lib.maintainers; [nagy];
   };
 }

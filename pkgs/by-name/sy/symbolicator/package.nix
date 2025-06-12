@@ -7,7 +7,6 @@
   openssl,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "symbolicator";
   version = "25.5.1";
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://getsentry.github.io/symbolicator/";
     changelog = "https://github.com/getsentry/symbolicator/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "symbolicator";
   };
 }

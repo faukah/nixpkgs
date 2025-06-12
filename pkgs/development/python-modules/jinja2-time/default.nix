@@ -8,7 +8,6 @@
   jinja2,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jinja2-time";
   version = "0.2.0";
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "jinja2_time" ];
+  pythonImportsCheck = ["jinja2_time"];
 
   meta = with lib; {
     homepage = "https://github.com/hackebrot/jinja2-time";
     description = "Jinja2 Extension for Dates and Times";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

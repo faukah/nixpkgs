@@ -30,7 +30,6 @@
   hyprutils,
   hyprgraphics,
 }:
-
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "hyprpaper";
   version = "0.7.5";
@@ -88,7 +87,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs.src.meta) homepage;
     description = "Blazing fast wayland wallpaper utility";
     license = licenses.bsd3;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     inherit (wayland.meta) platforms;
     broken = gcc14Stdenv.hostPlatform.isDarwin;
     mainProgram = "hyprpaper";

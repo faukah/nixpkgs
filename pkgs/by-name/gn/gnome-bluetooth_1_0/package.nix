@@ -25,7 +25,6 @@
   python3,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-bluetooth";
   version = "3.34.5";
@@ -105,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://help.gnome.org/users/gnome-bluetooth/stable/index.html.en";
     description = "Application that let you manage Bluetooth in the GNOME destkop";
     mainProgram = "bluetooth-sendto";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

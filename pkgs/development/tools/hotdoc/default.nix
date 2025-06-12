@@ -26,7 +26,6 @@
   llvmPackages,
   gst_all_1,
 }:
-
 buildPythonApplication rec {
   pname = "hotdoc";
   version = "0.15";
@@ -126,7 +125,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Tastiest API documentation system";
     homepage = "https://hotdoc.github.io/";
-    license = [ licenses.lgpl21Plus ];
-    maintainers = [ ];
+    license = [licenses.lgpl21Plus];
+    maintainers = [];
   };
 }

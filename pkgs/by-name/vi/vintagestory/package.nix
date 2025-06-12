@@ -18,7 +18,6 @@
   libpulseaudio,
   dotnet-runtime_7,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vintagestory";
   version = "1.20.11";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ dotnet-runtime_7 ];
+  buildInputs = [dotnet-runtime_7];
 
   runtimeLibs = lib.makeLibraryPath (
     [
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
       exec = "vintagestory";
       icon = "vintagestory";
       comment = "Innovate and explore in a sandbox world";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 

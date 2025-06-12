@@ -3,26 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.autorandr;
   hookType = lib.types.lines;
 
-  matrixOf =
-    n: m: elemType:
+  matrixOf = n: m: elemType:
     lib.mkOptionType rec {
       name = "matrixOf";
       description = "${toString n}×${toString m} matrix of ${elemType.description}s";
-      check =
-        xss:
-        let
-          listOfSize = l: xs: lib.isList xs && lib.length xs == l;
-        in
+      check = xss: let
+        listOfSize = l: xs: lib.isList xs && lib.length xs == l;
+      in
         listOfSize n xss && lib.all (xs: listOfSize m xs && lib.all elemType.check xs) xss;
       merge = lib.mergeOneOption;
-      getSubOptions =
-        prefix:
+      getSubOptions = prefix:
         elemType.getSubOptions (
           prefix
           ++ [
@@ -32,9 +26,11 @@ let
         );
       getSubModules = elemType.getSubModules;
       substSubModules = mod: matrixOf n m (elemType.substSubModules mod);
-      functor = (lib.defaultFunctor name) // {
-        wrapped = elemType;
-      };
+      functor =
+        (lib.defaultFunctor name)
+        // {
+          wrapped = elemType;
+        };
     };
 
   profileModule = lib.types.submodule {
@@ -45,19 +41,19 @@ let
           Output name to EDID mapping.
           Use `autorandr --fingerprint` to get current setup values.
         '';
-        default = { };
+        default = {};
       };
 
       config = lib.mkOption {
         type = lib.types.attrsOf configModule;
         description = "Per output profile configuration.";
-        default = { };
+        default = {};
       };
 
       hooks = lib.mkOption {
         type = hooksModule;
         description = "Profile hook scripts.";
-        default = { };
+        default = {};
       };
     };
   };
@@ -205,13 +201,13 @@ let
       postswitch = lib.mkOption {
         type = lib.types.attrsOf hookType;
         description = "Postswitch hook executed after mode switch.";
-        default = { };
+        default = {};
       };
 
       preswitch = lib.mkOption {
         type = lib.types.attrsOf hookType;
         description = "Preswitch hook executed before mode switch.";
-        default = { };
+        default = {};
       };
 
       predetect = lib.mkOption {
@@ -219,38 +215,36 @@ let
         description = ''
           Predetect hook executed before autorandr attempts to run xrandr.
         '';
-        default = { };
+        default = {};
       };
     };
   };
 
-  hookToFile =
-    folder: name: hook:
+  hookToFile = folder: name: hook:
     lib.nameValuePair "xdg/autorandr/${folder}/${name}" {
       source = "${pkgs.writeShellScriptBin "hook" hook}/bin/hook";
     };
-  profileToFiles =
-    name: profile:
+  profileToFiles = name: profile:
     with profile;
-    lib.mkMerge ([
-      {
-        "xdg/autorandr/${name}/setup".text = lib.concatStringsSep "\n" (
-          lib.mapAttrsToList fingerprintToString fingerprint
-        );
-        "xdg/autorandr/${name}/config".text = lib.concatStringsSep "\n" (
-          lib.mapAttrsToList configToString profile.config
-        );
-      }
-      (lib.mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
-      (lib.mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)
-      (lib.mapAttrs' (hookToFile "${name}/predetect.d") hooks.predetect)
-    ]);
+      lib.mkMerge [
+        {
+          "xdg/autorandr/${name}/setup".text = lib.concatStringsSep "\n" (
+            lib.mapAttrsToList fingerprintToString fingerprint
+          );
+          "xdg/autorandr/${name}/config".text = lib.concatStringsSep "\n" (
+            lib.mapAttrsToList configToString profile.config
+          );
+        }
+        (lib.mapAttrs' (hookToFile "${name}/postswitch.d") hooks.postswitch)
+        (lib.mapAttrs' (hookToFile "${name}/preswitch.d") hooks.preswitch)
+        (lib.mapAttrs' (hookToFile "${name}/predetect.d") hooks.predetect)
+      ];
   fingerprintToString = name: edid: "${name} ${edid}";
-  configToString =
-    name: config:
-    if config.enable then
+  configToString = name: config:
+    if config.enable
+    then
       lib.concatStringsSep "\n" (
-        [ "output ${name}" ]
+        ["output ${name}"]
         ++ lib.optional (config.position != "") "pos ${config.position}"
         ++ lib.optional (config.crtc != null) "crtc ${toString config.crtc}"
         ++ lib.optional config.primary "primary"
@@ -263,21 +257,20 @@ let
           "transform " + lib.concatMapStringsSep "," toString (lib.flatten config.transform)
         )
         ++ lib.optional (config.scale != null) (
-          (if config.scale.method == "factor" then "scale" else "scale-from")
+          (
+            if config.scale.method == "factor"
+            then "scale"
+            else "scale-from"
+          )
           + " ${toString config.scale.x}x${toString config.scale.y}"
         )
       )
-    else
-      ''
-        output ${name}
-        off
-      '';
-
-in
-{
-
+    else ''
+      output ${name}
+      off
+    '';
+in {
   options = {
-
     services.autorandr = {
       enable = lib.mkEnableOption "handling of hotplug and sleep events by autorandr";
 
@@ -306,7 +299,7 @@ in
       hooks = lib.mkOption {
         type = hooksModule;
         description = "Global hook scripts";
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             postswitch = {
@@ -336,7 +329,7 @@ in
       profiles = lib.mkOption {
         type = lib.types.attrsOf profileModule;
         description = "Autorandr profiles specification.";
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             "work" = {
@@ -362,29 +355,26 @@ in
           }
         '';
       };
-
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
-    services.udev.packages = [ pkgs.autorandr ];
+    services.udev.packages = [pkgs.autorandr];
 
     environment = {
-      systemPackages = [ pkgs.autorandr ];
-      etc = lib.mkMerge ([
+      systemPackages = [pkgs.autorandr];
+      etc = lib.mkMerge [
         (lib.mapAttrs' (hookToFile "postswitch.d") cfg.hooks.postswitch)
         (lib.mapAttrs' (hookToFile "preswitch.d") cfg.hooks.preswitch)
         (lib.mapAttrs' (hookToFile "predetect.d") cfg.hooks.predetect)
         (lib.mkMerge (lib.mapAttrsToList profileToFiles cfg.profiles))
-      ]);
+      ];
     };
 
     systemd.services.autorandr = {
-      wantedBy = [ "sleep.target" ];
+      wantedBy = ["sleep.target"];
       description = "Autorandr execution hook";
-      after = [ "sleep.target" ];
+      after = ["sleep.target"];
 
       startLimitIntervalSec = 5;
       startLimitBurst = 1;
@@ -402,8 +392,7 @@ in
         KillMode = "process";
       };
     };
-
   };
 
-  meta.maintainers = with lib.maintainers; [ alexnortung ];
+  meta.maintainers = with lib.maintainers; [alexnortung];
 }

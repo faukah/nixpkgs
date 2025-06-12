@@ -5,7 +5,6 @@
   fonttools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "dehinter";
   version = "4.0.0";
@@ -19,15 +18,15 @@ buildPythonPackage rec {
     hash = "sha256-l988SW6OWKXzJK0WGAJZR/QDFvgnSir+5TwMMvFcOxg=";
   };
 
-  propagatedBuildInputs = [ fonttools ];
+  propagatedBuildInputs = [fonttools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Utility for removing hinting data from TrueType and OpenType fonts";
     mainProgram = "dehinter";
     homepage = "https://github.com/source-foundry/dehinter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

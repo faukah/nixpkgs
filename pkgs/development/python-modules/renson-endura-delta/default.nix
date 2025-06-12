@@ -8,7 +8,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "renson-endura-delta";
   version = "1.7.2";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
       --replace-fail "'pytest-runner'" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   doCheck = false; # no tests in sdist
 
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "renson_endura_delta" ];
+  pythonImportsCheck = ["renson_endura_delta"];
 
   meta = with lib; {
     description = "Module to interact with Renson endura delta";
     homepage = "https://github.com/jimmyd-be/Renson-endura-delta-library";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,9 +5,7 @@
   pkg-config,
   python3,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "omniorb";
   version = "4.3.3";
 
@@ -16,11 +14,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-rM0l4stwxOM+0iew2T6WaeOMRgGWN4h8dxOYhw7UXno=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [python3];
 
   enableParallelBuilding = true;
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Transform omniidl_be into a PEP420 namespace to allow other projects to define
   # their omniidl backends. Especially useful for omniorbpy, the python backend.
@@ -50,7 +48,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ smironov ];
+    maintainers = with maintainers; [smironov];
     platforms = platforms.unix;
   };
 }

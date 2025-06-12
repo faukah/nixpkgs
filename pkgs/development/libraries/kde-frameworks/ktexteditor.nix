@@ -19,7 +19,6 @@
   qtquickcontrols,
   editorconfig-core-c,
 }:
-
 mkDerivation (
   {
     pname = "ktexteditor";
@@ -42,7 +41,7 @@ mkDerivation (
       qtquickcontrols
       editorconfig-core-c
     ];
-    propagatedBuildInputs = [ kparts ];
+    propagatedBuildInputs = [kparts];
   }
   // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     postPatch = ''

@@ -10,7 +10,6 @@
   libXinerama,
   conf ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xnotify";
   version = "0.9.3";
@@ -30,14 +29,15 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.h" conf;
+  in
     lib.optionalString (conf != null) "cp ${configFile} config.h";
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Tool to read notifications from stdin and pop them up on the screen";
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/phillbush/xnotify";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "xnotify";
   };

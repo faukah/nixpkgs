@@ -3,22 +3,20 @@
   extendModules,
   lib,
   ...
-}:
-let
-
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     ;
 
   vmVariant = extendModules {
-    modules = [ ./qemu-vm.nix ];
+    modules = [./qemu-vm.nix];
   };
 
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
       (
-        { config, ... }:
-        {
+        {config, ...}: {
           _file = "nixos/default.nix##vmWithBootLoader";
           virtualisation.useBootLoader = true;
           virtualisation.useEFIBoot =
@@ -27,16 +25,14 @@ let
       )
     ];
   };
-in
-{
+in {
   options = {
-
     virtualisation.vmVariant = mkOption {
       description = ''
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm`.
       '';
       inherit (vmVariant) type;
-      default = { };
+      default = {};
       visible = "shallow";
     };
 
@@ -45,14 +41,12 @@ in
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm-with-bootloader`.
       '';
       inherit (vmVariantWithBootLoader) type;
-      default = { };
+      default = {};
       visible = "shallow";
     };
-
   };
 
   config = {
-
     system.build = {
       vm = lib.mkDefault config.virtualisation.vmVariant.system.build.vm;
       vmWithBootLoader = lib.mkDefault config.virtualisation.vmVariantWithBootLoader.system.build.vm;
@@ -64,12 +58,10 @@ in
           apply = _: throw "virtualisation.vmVariant*.virtualisation.vmVariant is not supported";
         };
         virtualisation.vmVariantWithBootLoader = lib.mkOption {
-          apply =
-            _: throw "virtualisation.vmVariant*.virtualisation.vmVariantWithBootloader is not supported";
+          apply = _: throw "virtualisation.vmVariant*.virtualisation.vmVariantWithBootloader is not supported";
         };
       };
     };
-
   };
 
   # uses extendModules

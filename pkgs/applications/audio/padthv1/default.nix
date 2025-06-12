@@ -12,7 +12,6 @@
   qt5,
   fftwFloat,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "padthv1";
   version = "1.3.2";
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://padthv1.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 })

@@ -12,7 +12,6 @@
   libxml2,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gxml";
   version = "0.20.4";
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "GXml provides a GObject API for manipulating XML and a Serializable framework from GObject to XML";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/gxml/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jmarmstrong1207 ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [jmarmstrong1207];
+    teams = [teams.gnome];
   };
 })

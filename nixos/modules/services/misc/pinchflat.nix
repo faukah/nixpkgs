@@ -3,11 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.pinchflat;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
@@ -21,8 +20,7 @@ let
     ;
 
   stateDir = "/var/lib/pinchflat";
-in
-{
+in {
   options = {
     services.pinchflat = {
       enable = mkEnableOption "pinchflat";
@@ -79,8 +77,7 @@ in
       };
 
       extraConfig = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (
             nullOr (oneOf [
               bool
@@ -88,7 +85,7 @@ in
               str
             ])
           );
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             YT_DLP_WORKER_CONCURRENCY = 1;
@@ -122,7 +119,7 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "pinchflat" { };
+      package = mkPackageOption pkgs "pinchflat" {};
     };
   };
 
@@ -136,8 +133,8 @@ in
 
     systemd.services.pinchflat = {
       description = "pinchflat";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -160,7 +157,7 @@ in
             "LOG_LEVEL=${cfg.logLevel}"
             "PHX_SERVER=true"
           ]
-          ++ optional cfg.selfhosted [ "RUN_CONTEXT=selfhosted" ]
+          ++ optional cfg.selfhosted ["RUN_CONTEXT=selfhosted"]
           ++ attrValues (mapAttrs (name: value: name + "=" + builtins.toString value) cfg.extraConfig);
         EnvironmentFile = optional (cfg.secretsFile != null) cfg.secretsFile;
         ExecStartPre = "${lib.getExe' cfg.package "migrate"}";
@@ -177,11 +174,11 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == "pinchflat") {
-      pinchflat = { };
+      pinchflat = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

@@ -5,7 +5,6 @@
   jdk,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sshoogr";
   version = "0.9.26";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "134qlx90y82g1rfxhyn12z9r2imm1l3fz09hrrn3pgcdcq5jz2s1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     rm bin/sshoogr.bat
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aestasit/sshoogr";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

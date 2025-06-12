@@ -8,7 +8,6 @@
   hatch-fancy-pypi-readme,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "accessible-pygments";
   version = "0.0.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hatch-fancy-pypi-readme
   ];
 
-  dependencies = [ pygments ];
+  dependencies = [pygments];
 
   # Tests only execute pygments with these styles
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Quansight-Labs/accessible-pygments";
     changelog = "https://github.com/Quansight-Labs/accessible-pygments/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

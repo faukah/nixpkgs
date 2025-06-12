@@ -12,7 +12,6 @@
   pyotp,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "proton-core";
   version = "0.4.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-EZsPw2kPgY42MQxrXt7yAtCNSmSNN5AYxx7SllwsbvA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bcrypt
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "proton" ];
+  pythonImportsCheck = ["proton"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     description = "Core logic used by the other Proton components";
     homepage = "https://github.com/ProtonVPN/python-proton-core";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sebtm ];
+    maintainers = with lib.maintainers; [sebtm];
   };
 }

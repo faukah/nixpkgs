@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libgnomekbd";
   version = "3.28.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Keyboard management library";
     mainProgram = "gkbd-keyboard-display";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

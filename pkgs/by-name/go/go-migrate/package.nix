@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-migrate";
   version = "4.18.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
   proxyVendor = true; # darwin/linux hash mismatch
   vendorHash = "sha256-H3FBO6RFoXzwk/9bkSVuIlDbfd4AATzbgLmEvbtahFM=";
 
-  subPackages = [ "cmd/migrate" ];
+  subPackages = ["cmd/migrate"];
 
   tags = [
     "cassandra"
@@ -49,7 +48,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/golang-migrate/migrate";
     description = "Database migrations. CLI and Golang library";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     license = licenses.mit;
     mainProgram = "migrate";
   };

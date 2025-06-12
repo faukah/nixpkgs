@@ -16,7 +16,6 @@
   qtmacextras,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qcad";
   version = "3.32.1.0";
@@ -136,7 +135,7 @@ stdenv.mkDerivation rec {
     homepage = "https://qcad.org";
     license = lib.licenses.gpl3Only;
     mainProgram = "qcad";
-    maintainers = with lib.maintainers; [ yvesf ];
+    maintainers = with lib.maintainers; [yvesf];
     platforms = qtbase.meta.platforms;
   };
 }

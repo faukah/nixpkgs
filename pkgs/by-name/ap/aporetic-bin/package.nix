@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "aporetic-bin";
   version = "1.1.0";

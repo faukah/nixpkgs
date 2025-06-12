@@ -21,7 +21,6 @@
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-gtk";
   version = "5.7.3";
@@ -51,24 +50,22 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  preFixup =
-    let
-      gpu-screen-recorder-wrapped = gpu-screen-recorder.override {
-        inherit wrapperDir;
-      };
-    in
-    ''
-      gappsWrapperArgs+=(--prefix PATH : ${wrapperDir})
-      gappsWrapperArgs+=(--suffix PATH : ${lib.makeBinPath [ gpu-screen-recorder-wrapped ]})
-      gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libglvnd
-          addDriverRunpath.driverLink
-        ]
-      })
-    '';
+  preFixup = let
+    gpu-screen-recorder-wrapped = gpu-screen-recorder.override {
+      inherit wrapperDir;
+    };
+  in ''
+    gappsWrapperArgs+=(--prefix PATH : ${wrapperDir})
+    gappsWrapperArgs+=(--suffix PATH : ${lib.makeBinPath [gpu-screen-recorder-wrapped]})
+    gappsWrapperArgs+=(--prefix LD_LIBRARY_PATH : ${
+      lib.makeLibraryPath [
+        libglvnd
+        addDriverRunpath.driverLink
+      ]
+    })
+  '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     changelog = "https://git.dec05eba.com/gpu-screen-recorder-gtk/tree/com.dec05eba.gpu_screen_recorder.appdata.xml#n82";
@@ -80,6 +77,6 @@ stdenv.mkDerivation rec {
       babbaj
       js6pak
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

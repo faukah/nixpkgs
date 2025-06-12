@@ -7,7 +7,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "localzone";
   version = "0.9.8";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-quAo5w4Oxu9Hu96inu3vuiQ9GZMLpq0M8Vj67IPYcbE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ dnspython ];
+  dependencies = [dnspython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "localzone" ];
+  pythonImportsCheck = ["localzone"];
 
   meta = with lib; {
     description = "Simple DNS library for managing zone files";
     homepage = "https://localzone.iomaestro.com";
     changelog = "https://github.com/ags-slc/localzone/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

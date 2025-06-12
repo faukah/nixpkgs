@@ -25,7 +25,6 @@
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder";
   version = "5.5.7";
@@ -75,16 +74,16 @@ stdenv.mkDerivation rec {
     mv $out/bin/gpu-screen-recorder $out/bin/.wrapped/
     makeWrapper "$out/bin/.wrapped/gpu-screen-recorder" "$out/bin/gpu-screen-recorder" \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libglvnd
-          addDriverRunpath.driverLink
-        ]
-      }" \
+      lib.makeLibraryPath [
+        libglvnd
+        addDriverRunpath.driverLink
+      ]
+    }" \
       --prefix PATH : "${wrapperDir}" \
       --suffix PATH : "$out/bin"
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Screen recorder that has minimal impact on system performance by recording a window using the GPU only";
@@ -95,6 +94,6 @@ stdenv.mkDerivation rec {
       babbaj
       js6pak
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

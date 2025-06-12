@@ -4,7 +4,6 @@
   fetchFromGitHub,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wslu";
   version = "4.1.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ssiwYkQg2rOirC/ZZVq2bJm4Ggc364uRkoS2y365Eb0=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   patches = [
     ./fallback-conf-nix-store.diff
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wslutilities/wslu";
     changelog = "https://github.com/wslutilities/wslu/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ jamiemagee ];
+    maintainers = with lib.maintainers; [jamiemagee];
     platforms = lib.platforms.linux;
   };
 }

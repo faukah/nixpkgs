@@ -10,7 +10,6 @@
   requests,
   requests-mock,
 }:
-
 buildPythonPackage rec {
   pname = "openevsewifi";
   version = "1.1.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-7+BC5WG0JoyHNjgsoJBQRVDpmdXMJCV4bMf6pIaS5qo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     deprecated
@@ -51,12 +50,12 @@ buildPythonPackage rec {
       --replace 'pytest-cov = "^2.8.1"' ""
   '';
 
-  pythonImportsCheck = [ "openevsewifi" ];
+  pythonImportsCheck = ["openevsewifi"];
 
   meta = with lib; {
     description = "Module for communicating with the wifi module from OpenEVSE";
     homepage = "https://github.com/miniconfig/python-openevse-wifi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

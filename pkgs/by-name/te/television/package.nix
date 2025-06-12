@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       package = television;
       command = "XDG_DATA_HOME=$TMPDIR tv --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

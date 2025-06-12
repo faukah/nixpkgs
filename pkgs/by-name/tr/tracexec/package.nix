@@ -12,7 +12,6 @@
   zlib,
   clang,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tracexec";
   version = "0.12.0";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-XuuLuIeD/S60by/hg1fR+ML3PtIyX9JNrEvgGzI3UiM=";
 
-  hardeningDisable = [ "zerocallusedregs" ];
+  hardeningDisable = ["zerocallusedregs"];
 
   nativeBuildInputs = [
     cargo-about
@@ -79,7 +78,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm644 THIRD_PARTY_LICENSES.HTML -t "$out/share/licenses/tracexec/"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/kxxt/tracexec/blob/v${version}/CHANGELOG.md";

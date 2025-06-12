@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "gossa";
   version = "1.1.2";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/pldubouilh/gossa";
     description = "Fast and simple multimedia fileserver";
     license = licenses.mit;
-    maintainers = with maintainers; [ dsymbol ];
+    maintainers = with maintainers; [dsymbol];
     mainProgram = "gossa";
   };
 }

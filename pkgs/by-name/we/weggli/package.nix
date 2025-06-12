@@ -5,7 +5,6 @@
   testers,
   weggli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "weggli";
   version = "0.2.4";

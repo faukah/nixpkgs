@@ -3,11 +3,9 @@
   stdenv,
   fetchFromGitLab,
   nix-update-script,
-
   cmake,
   pkg-config,
   sphinx,
-
   lerc,
   libdeflate,
   libjpeg,
@@ -15,7 +13,6 @@
   xz,
   zlib,
   zstd,
-
   # Because lerc is C++ and static libraries don't track dependencies,
   # that every downstream dependent of libtiff has to link with a C++
   # compiler, or the C++ standard library won't be linked, resulting
@@ -26,7 +23,6 @@
   #
   # See https://github.com/mesonbuild/meson/issues/14234
   withLerc ? !stdenv.hostPlatform.isStatic,
-
   # for passthru.tests
   libgeotiff,
   python3Packages,
@@ -37,7 +33,6 @@
   freeimage,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtiff";
   version = "4.7.0";
@@ -97,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     libjpeg
     # libwebp depends on us; this will cause infinite
     # recursion otherwise
-    (libwebp.override { tiffSupport = false; })
+    (libwebp.override {tiffSupport = false;})
     xz
     zlib
     zstd
@@ -128,7 +123,7 @@ stdenv.mkDerivation (finalAttrs: {
         package = finalAttrs.finalPackage;
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -137,7 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://libtiff.gitlab.io/libtiff/releases/v${finalAttrs.version}.html";
     license = licenses.libtiff;
     platforms = platforms.unix ++ platforms.windows;
-    pkgConfigModules = [ "libtiff-4" ];
-    teams = [ teams.geospatial ];
+    pkgConfigModules = ["libtiff-4"];
+    teams = [teams.geospatial];
   };
 })

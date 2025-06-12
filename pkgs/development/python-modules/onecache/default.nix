@@ -9,7 +9,6 @@
   pytest-asyncio,
   stdenv,
 }:
-
 buildPythonPackage rec {
   pname = "onecache";
   version = "0.7.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-uUtH2MIsnAa3cC5W1NEecrSScpKsKLFrqz7f3WdAO70=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     "test_lru_and_ttl_refresh"
   ];
 
-  pythonImportsCheck = [ "onecache" ];
+  pythonImportsCheck = ["onecache"];
 
   meta = {
     changelog = "https://github.com/sonic182/onecache/blob/${version}/CHANGELOG.md";
     description = "Python LRU and TTL cache for sync and async code";
     license = lib.licenses.mit;
     homepage = "https://github.com/sonic182/onecache";
-    maintainers = with lib.maintainers; [ geraldog ];
+    maintainers = with lib.maintainers; [geraldog];
   };
 }

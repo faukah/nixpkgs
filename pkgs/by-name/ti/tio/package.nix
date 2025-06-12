@@ -10,7 +10,6 @@
   lua,
   bash-completion,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tio";
   version = "3.9";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Serial console TTY";
     homepage = "https://tio.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "tio";
     platforms = platforms.unix;
   };

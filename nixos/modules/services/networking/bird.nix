@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -20,13 +19,12 @@ let
     "CAP_NET_BIND_SERVICE"
     "CAP_NET_RAW"
   ];
-in
-{
+in {
   ###### interface
   options = {
     services.bird = {
       enable = mkEnableOption "BIRD Internet Routing Daemon";
-      package = lib.mkPackageOption pkgs "bird3" { };
+      package = lib.mkPackageOption pkgs "bird3" {};
       config = mkOption {
         type = types.lines;
         description = ''
@@ -69,15 +67,16 @@ in
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "bird2" ]
+    (
+      lib.mkRemovedOptionModule ["services" "bird2"]
       "Use services.bird instead. bird3 is the new default bird package. You can choose to remain with bird2 by setting the service.bird.package option."
     )
-    (lib.mkRemovedOptionModule [ "services" "bird6" ] "Use services.bird instead")
+    (lib.mkRemovedOptionModule ["services" "bird6"] "Use services.bird instead")
   ];
 
   ###### implementation
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."bird/bird.conf".source = pkgs.writeTextFile {
       name = "bird";
@@ -92,7 +91,7 @@ in
 
     systemd.services.bird = {
       description = "BIRD Internet Routing Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       reloadTriggers = lib.optional cfg.autoReload config.environment.etc."bird/bird.conf".source;
       serviceConfig = {
         Type = "forking";
@@ -121,11 +120,11 @@ in
         group = "bird";
         isSystemUser = true;
       };
-      groups.bird = { };
+      groups.bird = {};
     };
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ herbetom ];
+    maintainers = with lib.maintainers; [herbetom];
   };
 }

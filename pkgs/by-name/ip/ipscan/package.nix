@@ -11,7 +11,6 @@
   gtk3,
   glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ipscan";
   version = "3.9.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   installPhase = ''
     mkdir -p $out/share
@@ -34,13 +33,13 @@ stdenv.mkDerivation rec {
 
     makeWrapper ${jre}/bin/java $out/bin/ipscan \
       --prefix LD_LIBRARY_PATH : "$out/lib/:${
-        lib.makeLibraryPath [
-          swt
-          xorg.libXtst
-          gtk3
-          glib
-        ]
-      }" \
+      lib.makeLibraryPath [
+        swt
+        xorg.libXtst
+        gtk3
+        glib
+      ]
+    }" \
       --add-flags "-Xmx256m -cp $out/share/${pname}-${version}.jar:${swt}/jars/swt.jar net.azib.ipscan.Main"
 
     mkdir -p $out/share/applications
@@ -57,9 +56,9 @@ stdenv.mkDerivation rec {
     homepage = "https://angryip.org";
     downloadPage = "https://github.com/angryip/ipscan/releases/tag/${version}";
     changelog = "https://github.com/angryip/ipscan/blob/${version}/CHANGELOG";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with lib.maintainers; [
       kylesferrazza
       totoroot

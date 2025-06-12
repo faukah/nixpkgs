@@ -3,35 +3,32 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.sshguard;
 
-  configFile =
-    let
-      args = lib.concatStringsSep " " (
-        [
-          "-afb"
-          "-p info"
-          "-o cat"
-          "-n1"
-        ]
-        ++ (map (name: "-t ${lib.escapeShellArg name}") cfg.services)
-      );
-      backend = if config.networking.nftables.enable then "sshg-fw-nft-sets" else "sshg-fw-ipset";
-    in
+  configFile = let
+    args = lib.concatStringsSep " " (
+      [
+        "-afb"
+        "-p info"
+        "-o cat"
+        "-n1"
+      ]
+      ++ (map (name: "-t ${lib.escapeShellArg name}") cfg.services)
+    );
+    backend =
+      if config.networking.nftables.enable
+      then "sshg-fw-nft-sets"
+      else "sshg-fw-ipset";
+  in
     pkgs.writeText "sshguard.conf" ''
       BACKEND="${pkgs.sshguard}/libexec/${backend}"
       LOGREADER="LANG=C ${config.systemd.package}/bin/journalctl ${args}"
     '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.sshguard = {
       enable = lib.mkOption {
         default = false;
@@ -83,7 +80,7 @@ in
       };
 
       whitelist = lib.mkOption {
-        default = [ ];
+        default = [];
         example = [
           "198.51.100.56"
           "198.51.100.2"
@@ -95,7 +92,7 @@ in
       };
 
       services = lib.mkOption {
-        default = [ "sshd" ];
+        default = ["sshd"];
         example = [
           "sshd"
           "exim"
@@ -111,33 +108,30 @@ in
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     environment.etc."sshguard.conf".source = configFile;
 
     systemd.services.sshguard = {
       description = "SSHGuard brute-force attacks protection system";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       partOf = lib.optional config.networking.firewall.enable "firewall.service";
 
-      restartTriggers = [ configFile ];
+      restartTriggers = [configFile];
 
-      path =
-        with pkgs;
-        if config.networking.nftables.enable then
-          [
-            nftables
-            iproute2
-            systemd
-          ]
-        else
-          [
-            iptables
-            ipset
-            iproute2
-            systemd
-          ];
+      path = with pkgs;
+        if config.networking.nftables.enable
+        then [
+          nftables
+          iproute2
+          systemd
+        ]
+        else [
+          iptables
+          ipset
+          iproute2
+          systemd
+        ];
 
       # The sshguard ipsets must exist before we invoke
       # iptables. sshguard creates the ipsets after startup if
@@ -169,21 +163,19 @@ in
 
       serviceConfig = {
         Type = "simple";
-        ExecStart =
-          let
-            args = lib.concatStringsSep " " (
-              [
-                "-a ${toString cfg.attack_threshold}"
-                "-p ${toString cfg.blocktime}"
-                "-s ${toString cfg.detection_time}"
-                (lib.optionalString (
-                  cfg.blacklist_threshold != null
-                ) "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
-              ]
-              ++ (map (name: "-w ${lib.escapeShellArg name}") cfg.whitelist)
-            );
-          in
-          "${pkgs.sshguard}/bin/sshguard ${args}";
+        ExecStart = let
+          args = lib.concatStringsSep " " (
+            [
+              "-a ${toString cfg.attack_threshold}"
+              "-p ${toString cfg.blocktime}"
+              "-s ${toString cfg.detection_time}"
+              (lib.optionalString (
+                cfg.blacklist_threshold != null
+              ) "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
+            ]
+            ++ (map (name: "-w ${lib.escapeShellArg name}") cfg.whitelist)
+          );
+        in "${pkgs.sshguard}/bin/sshguard ${args}";
         Restart = "always";
         ProtectSystem = "strict";
         ProtectHome = "tmpfs";

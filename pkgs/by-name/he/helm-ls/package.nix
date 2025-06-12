@@ -6,7 +6,6 @@
   testers,
   helm-ls,
 }:
-
 buildGoModule rec {
   pname = "helm-ls";
   version = "0.3.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-w/BWPbpSYum0SU8PJj76XiLUjTWO4zNQY+khuLRK0O8=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -46,7 +45,7 @@ buildGoModule rec {
     changelog = "https://github.com/mrjosh/helm-ls/releases/tag/v${version}";
     homepage = "https://github.com/mrjosh/helm-ls";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stehessel ];
+    maintainers = with lib.maintainers; [stehessel];
     mainProgram = "helm_ls";
   };
 }

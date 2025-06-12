@@ -3,13 +3,12 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.programs.nix-ld;
 
   nix-ld-libraries = pkgs.buildEnv {
     name = "ld-library-path";
-    pathsToLink = [ "/lib" ];
+    pathsToLink = ["/lib"];
     paths = map lib.getLib cfg.libraries;
     # TODO make glibc here configurable?
     postBuild = ''
@@ -18,16 +17,15 @@ let
     extraPrefix = "/share/nix-ld";
     ignoreCollisions = true;
   };
-in
-{
-  meta.maintainers = [ lib.maintainers.mic92 ];
+in {
+  meta.maintainers = [lib.maintainers.mic92];
   options.programs.nix-ld = {
     enable = lib.mkEnableOption ''nix-ld, Documentation: <https://github.com/nix-community/nix-ld>'';
-    package = lib.mkPackageOption pkgs "nix-ld" { };
+    package = lib.mkPackageOption pkgs "nix-ld" {};
     libraries = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       description = "Libraries that automatically become available to all programs. The default set includes common libraries.";
-      default = [ ];
+      default = [];
       defaultText = lib.literalExpression "baseLibraries derived from systemd and nix dependencies.";
     };
   };
@@ -35,9 +33,9 @@ in
   config = lib.mkIf config.programs.nix-ld.enable {
     environment.ldso = "${cfg.package}/libexec/nix-ld";
 
-    environment.systemPackages = [ nix-ld-libraries ];
+    environment.systemPackages = [nix-ld-libraries];
 
-    environment.pathsToLink = [ "/share/nix-ld" ];
+    environment.pathsToLink = ["/share/nix-ld"];
 
     environment.sessionVariables = {
       NIX_LD = "/run/current-system/sw/share/nix-ld/lib/ld.so";

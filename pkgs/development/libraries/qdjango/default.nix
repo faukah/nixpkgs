@@ -6,7 +6,6 @@
   doxygen,
   qmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qdjango";
   version = "unstable-2018-03-07";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Qt-based C++ web framework";
     homepage = "https://github.com/jlaine/qdjango";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
     pkgConfigModules = [
       "qdjango-db"

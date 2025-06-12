@@ -5,7 +5,6 @@
   makeWrapper,
   dpkg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-deb";
   version = "2.12.1";
@@ -45,7 +44,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/cargo-deb \
-      --prefix PATH : ${lib.makeBinPath [ dpkg ]}
+      --prefix PATH : ${lib.makeBinPath [dpkg]}
   '';
 
   meta = with lib; {

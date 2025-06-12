@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-/Prauz4zuJY39EK2BmgBbH1uwjF4K38e5X5hPYwRBl0=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     docutils
@@ -44,14 +44,16 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [
-    beautifulsoup4
-    defusedxml
-    pytest-param-files
-    pytest-regressions
-    sphinx-pytest
-    pytestCheckHook
-  ] ++ markdown-it-py.optional-dependencies.linkify;
+  nativeCheckInputs =
+    [
+      beautifulsoup4
+      defusedxml
+      pytest-param-files
+      pytest-regressions
+      sphinx-pytest
+      pytestCheckHook
+    ]
+    ++ markdown-it-py.optional-dependencies.linkify;
 
   disabledTests = [
     # sphinx 8.2 compat
@@ -63,15 +65,15 @@ buildPythonPackage rec {
     "test_includes"
   ];
 
-  pythonImportsCheck = [ "myst_parser" ];
+  pythonImportsCheck = ["myst_parser"];
 
-  pythonRelaxDeps = [ "docutils" ];
+  pythonRelaxDeps = ["docutils"];
 
   meta = with lib; {
     description = "Sphinx and Docutils extension to parse MyST";
     homepage = "https://myst-parser.readthedocs.io/";
     changelog = "https://raw.githubusercontent.com/executablebooks/MyST-Parser/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

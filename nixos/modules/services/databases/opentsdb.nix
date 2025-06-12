@@ -3,24 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.opentsdb;
 
   configFile = pkgs.writeText "opentsdb.conf" cfg.config;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.opentsdb = {
-
       enable = lib.mkEnableOption "OpenTSDB";
 
-      package = lib.mkPackageOption pkgs "opentsdb" { };
+      package = lib.mkPackageOption pkgs "opentsdb" {};
 
       user = lib.mkOption {
         type = lib.types.str;
@@ -56,22 +50,19 @@ in
           The contents of OpenTSDB's configuration file
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf config.services.opentsdb.enable {
-
     systemd.services.opentsdb = {
       description = "OpenTSDB Server";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "hbase.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["hbase.service"];
 
       environment.JAVA_HOME = "${pkgs.jre}";
-      path = [ pkgs.gnuplot ];
+      path = [pkgs.gnuplot];
 
       preStart = ''
         COMPRESSION=NONE HBASE_HOME=${config.services.hbase.package} ${cfg.package}/share/opentsdb/tools/create_table.sh
@@ -92,6 +83,5 @@ in
     };
 
     users.groups.opentsdb.gid = config.ids.gids.opentsdb;
-
   };
 }

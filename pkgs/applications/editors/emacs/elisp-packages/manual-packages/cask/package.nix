@@ -4,7 +4,6 @@
   cl-generic,
   cl-lib,
   commander,
-
   epl,
   f,
   fetchFromGitHub,
@@ -14,7 +13,6 @@
   s,
   shut-up,
 }:
-
 melpaBuild (finalAttrs: {
   pname = "cask";
   version = "0.9.0";
@@ -66,6 +64,6 @@ melpaBuild (finalAttrs: {
     '';
     license = lib.licenses.gpl3Plus;
     mainProgram = "cask";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 })

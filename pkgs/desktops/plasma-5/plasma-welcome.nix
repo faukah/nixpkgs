@@ -19,10 +19,9 @@
   plasma-framework,
   signond,
 }:
-
 mkDerivation {
   pname = "plasma-welcome";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtquickcontrols2
     accounts-qt

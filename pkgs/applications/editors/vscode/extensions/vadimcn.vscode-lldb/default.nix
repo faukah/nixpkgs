@@ -13,8 +13,7 @@
   stdenv,
   unzip,
 }:
-assert lib.versionAtLeast python3.version "3.5";
-let
+assert lib.versionAtLeast python3.version "3.5"; let
   publisher = "vadimcn";
   pname = "vscode-lldb";
   version = "1.11.4";
@@ -60,88 +59,87 @@ let
         ;
     }
   );
-
 in
-stdenv.mkDerivation {
-  pname = "vscode-extension-${publisher}-${pname}";
-  inherit
-    src
-    version
-    vscodeExtUniqueId
-    vscodeExtPublisher
-    vscodeExtName
-    ;
+  stdenv.mkDerivation {
+    pname = "vscode-extension-${publisher}-${pname}";
+    inherit
+      src
+      version
+      vscodeExtUniqueId
+      vscodeExtPublisher
+      vscodeExtName
+      ;
 
-  installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
+    installPrefix = "share/vscode/extensions/${vscodeExtUniqueId}";
 
-  nativeBuildInputs = [
-    cmake
-    makeWrapper
-    nodejs
-    unzip
-  ];
+    nativeBuildInputs = [
+      cmake
+      makeWrapper
+      nodejs
+      unzip
+    ];
 
-  patches = [ ./patches/cmake-build-extension-only.patch ];
+    patches = [./patches/cmake-build-extension-only.patch];
 
-  # Make devDependencies available to tools/prep-package.js
-  preConfigure = ''
-    cp -r ${nodeDeps}/lib/node_modules .
-  '';
-
-  postConfigure =
-    ''
+    # Make devDependencies available to tools/prep-package.js
+    preConfigure = ''
       cp -r ${nodeDeps}/lib/node_modules .
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      export HOME="$TMPDIR/home"
-      mkdir $HOME
     '';
 
-  cmakeFlags = [
-    # Do not append timestamp to version.
-    "-DVERSION_SUFFIX="
-  ];
-  makeFlags = [ "vsix_bootstrap" ];
+    postConfigure =
+      ''
+        cp -r ${nodeDeps}/lib/node_modules .
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        export HOME="$TMPDIR/home"
+        mkdir $HOME
+      '';
 
-  preBuild = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    export HOME=$TMPDIR
-  '';
+    cmakeFlags = [
+      # Do not append timestamp to version.
+      "-DVERSION_SUFFIX="
+    ];
+    makeFlags = ["vsix_bootstrap"];
 
-  installPhase = ''
-    ext=$out/$installPrefix
-    runHook preInstall
+    preBuild = lib.optionalString stdenv.hostPlatform.isDarwin ''
+      export HOME=$TMPDIR
+    '';
 
-    unzip ./codelldb-bootstrap.vsix 'extension/*' -d ./vsix-extracted
+    installPhase = ''
+      ext=$out/$installPrefix
+      runHook preInstall
 
-    mkdir -p $ext/adapter
-    mv -t $ext vsix-extracted/extension/*
-    cp -t $ext/ -r ${adapter}/share/*
-    wrapProgram $ext/adapter/codelldb \
-      --prefix LD_LIBRARY_PATH : "$ext/lldb/lib" \
-      --set-default LLDB_DEBUGSERVER_PATH "${adapter.lldbServer}"
-    # Mark that all components are installed.
-    touch $ext/platform.ok
+      unzip ./codelldb-bootstrap.vsix 'extension/*' -d ./vsix-extracted
 
-    runHook postInstall
-  '';
+      mkdir -p $ext/adapter
+      mv -t $ext vsix-extracted/extension/*
+      cp -t $ext/ -r ${adapter}/share/*
+      wrapProgram $ext/adapter/codelldb \
+        --prefix LD_LIBRARY_PATH : "$ext/lldb/lib" \
+        --set-default LLDB_DEBUGSERVER_PATH "${adapter.lldbServer}"
+      # Mark that all components are installed.
+      touch $ext/platform.ok
 
-  # `adapter` will find python binary and libraries at runtime.
-  postFixup = ''
-    wrapProgram $out/$installPrefix/adapter/codelldb \
-      --prefix PATH : "${python3}/bin" \
-      --prefix LD_LIBRARY_PATH : "${python3}/lib"
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    inherit lldb adapter;
-    updateScript = ./update.sh;
-  };
+    # `adapter` will find python binary and libraries at runtime.
+    postFixup = ''
+      wrapProgram $out/$installPrefix/adapter/codelldb \
+        --prefix PATH : "${python3}/bin" \
+        --prefix LD_LIBRARY_PATH : "${python3}/lib"
+    '';
 
-  meta = {
-    description = "Native debugger extension for VSCode based on LLDB";
-    homepage = "https://github.com/vadimcn/vscode-lldb";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.r4v3n6101 ];
-    platforms = lib.platforms.all;
-  };
-}
+    passthru = {
+      inherit lldb adapter;
+      updateScript = ./update.sh;
+    };
+
+    meta = {
+      description = "Native debugger extension for VSCode based on LLDB";
+      homepage = "https://github.com/vadimcn/vscode-lldb";
+      license = [lib.licenses.mit];
+      maintainers = [lib.maintainers.r4v3n6101];
+      platforms = lib.platforms.all;
+    };
+  }

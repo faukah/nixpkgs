@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
       --zsh share/_notmuch-mailmover
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Application to assign notmuch tagged mails to IMAP folders";

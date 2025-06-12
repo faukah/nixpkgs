@@ -26,9 +26,7 @@
   makeDesktopItem,
   version ? "8.2.2",
   packetTracerSource ? null,
-}:
-
-let
+}: let
   hashes = {
     "8.2.0" = "sha256-GxmIXVn2Ew7lVBT7AuIRoXc0YGids4v9Gsfw1FEX7RY=";
     "8.2.1" = "sha256-QoM4rDKkdNTJ6TBDPCAs+l17JLnspQFlly9B60hOB7o=";
@@ -45,8 +43,8 @@ let
     inherit version;
 
     src =
-      if (packetTracerSource != null) then
-        packetTracerSource
+      if (packetTracerSource != null)
+      then packetTracerSource
       else
         requireFile {
           name = names.${version};
@@ -117,52 +115,51 @@ let
   fhs-env = buildFHSEnv {
     name = "ciscoPacketTracer8-fhs-env";
     runScript = lib.getExe' unwrapped "packettracer8";
-    targetPkgs = pkgs: [ libudev0-shim ];
+    targetPkgs = pkgs: [libudev0-shim];
   };
 in
+  stdenvNoCC.mkDerivation {
+    pname = "ciscoPacketTracer8";
+    inherit version;
 
-stdenvNoCC.mkDerivation {
-  pname = "ciscoPacketTracer8";
-  inherit version;
+    dontUnpack = true;
 
-  dontUnpack = true;
-
-  nativeBuildInputs = [
-    copyDesktopItems
-  ];
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin
-    ln -s ${fhs-env}/bin/${fhs-env.name} $out/bin/packettracer8
-
-    runHook postInstall
-  '';
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "cisco-pt8.desktop";
-      desktopName = "Cisco Packet Tracer 8";
-      icon = "${unwrapped}/opt/pt/art/app.png";
-      exec = "packettracer8 %f";
-      mimeTypes = [
-        "application/x-pkt"
-        "application/x-pka"
-        "application/x-pkz"
-      ];
-    })
-  ];
-
-  meta = {
-    description = "Network simulation tool from Cisco";
-    homepage = "https://www.netacad.com/courses/packet-tracer";
-    license = lib.licenses.unfree;
-    mainProgram = "packettracer8";
-    maintainers = with lib.maintainers; [
-      gepbird
+    nativeBuildInputs = [
+      copyDesktopItems
     ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-  };
-}
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+      ln -s ${fhs-env}/bin/${fhs-env.name} $out/bin/packettracer8
+
+      runHook postInstall
+    '';
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "cisco-pt8.desktop";
+        desktopName = "Cisco Packet Tracer 8";
+        icon = "${unwrapped}/opt/pt/art/app.png";
+        exec = "packettracer8 %f";
+        mimeTypes = [
+          "application/x-pkt"
+          "application/x-pka"
+          "application/x-pkz"
+        ];
+      })
+    ];
+
+    meta = {
+      description = "Network simulation tool from Cisco";
+      homepage = "https://www.netacad.com/courses/packet-tracer";
+      license = lib.licenses.unfree;
+      mainProgram = "packettracer8";
+      maintainers = with lib.maintainers; [
+        gepbird
+      ];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    };
+  }

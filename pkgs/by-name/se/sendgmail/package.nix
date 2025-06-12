@@ -19,12 +19,12 @@ buildGoModule {
 
   vendorHash = "sha256-0pjcO2Ati+mUSw614uEL3CatHSgbgDUfOBE8bWpjmcw=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Mimic sendmail with Gmail for git send-email";
     homepage = "https://github.com/google/gmail-oauth2-tools/tree/master/go/sendgmail";
-    maintainers = [ lib.maintainers.samw ];
+    maintainers = [lib.maintainers.samw];
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
   };

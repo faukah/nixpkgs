@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   fetchpatch,
-
   # build time
   autoreconfHook,
   flex,
@@ -15,7 +14,6 @@
   grpc,
   protobuf,
   which,
-
   # runtime
   c-ares,
   json_c,
@@ -32,11 +30,9 @@
   rtrlib,
   protobufc,
   zeromq,
-
   # tests
   nettools,
   nixosTests,
-
   # general options
   snmpSupport ? true,
   rpkiSupport ? true,
@@ -49,7 +45,6 @@
   mgmtdSupport ? true,
   # Experimental as of 10.1, reconsider if upstream changes defaults
   grpcSupport ? false,
-
   # routing daemon options
   bgpdSupport ? true,
   ripdSupport ? true,
@@ -70,16 +65,13 @@
   bfddSupport ? true,
   pbrdSupport ? true,
   staticdSupport ? true,
-
   # BGP options
   bgpAnnounce ? true,
   bgpBmp ? true,
   bgpVnc ? true,
-
   # OSPF options
   ospfApi ? true,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "frr";
   version = "10.3.1";
@@ -258,8 +250,8 @@ stdenv.mkDerivation (finalAttrs: {
       thillux
     ];
     # adapt to platforms stated in http://docs.frrouting.org/en/latest/overview.html#supported-platforms
-    platforms = (platforms.linux ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd);
+    platforms = platforms.linux ++ platforms.freebsd ++ platforms.netbsd ++ platforms.openbsd;
   };
 
-  passthru.tests = { inherit (nixosTests) frr; };
+  passthru.tests = {inherit (nixosTests) frr;};
 })

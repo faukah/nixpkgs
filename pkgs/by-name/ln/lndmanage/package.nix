@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "lndmanage";
   version = "0.16.0";
@@ -43,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     description = "Channel management tool for lightning network daemon (LND) operators";
     homepage = "https://github.com/bitromortac/lndmanage";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
     mainProgram = "lndmanage";
   };
 }

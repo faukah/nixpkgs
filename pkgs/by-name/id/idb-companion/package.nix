@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "idb-companion";
   version = "1.1.8";
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.mit;
     platforms = platforms.darwin;
     mainProgram = "idb_companion";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ siddarthkay ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [siddarthkay];
   };
 })

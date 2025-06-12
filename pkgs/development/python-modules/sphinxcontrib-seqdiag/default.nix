@@ -7,7 +7,6 @@
   seqdiag,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinxcontrib-seqdiag";
   version = "3.0.0";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "sphinxcontrib.seqdiag" ];
+  pythonImportsCheck = ["sphinxcontrib.seqdiag"];
 
-  pythonNamespaces = [ "sphinxcontrib" ];
+  pythonNamespaces = ["sphinxcontrib"];
 
   meta = with lib; {
     description = "Sphinx seqdiag extension";
     homepage = "https://github.com/blockdiag/sphinxcontrib-seqdiag";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

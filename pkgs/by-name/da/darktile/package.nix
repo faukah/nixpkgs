@@ -13,7 +13,6 @@
   nixosTests,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "darktile";
   version = "0.0.11";
@@ -27,7 +26,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -49,8 +48,8 @@ buildGoModule rec {
     changelog = "https://github.com/liamg/darktile/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    badPlatforms = [ "aarch64-linux" ];
-    maintainers = with lib.maintainers; [ mikaelfangel ];
+    badPlatforms = ["aarch64-linux"];
+    maintainers = with lib.maintainers; [mikaelfangel];
     mainProgram = "darktile";
   };
 }

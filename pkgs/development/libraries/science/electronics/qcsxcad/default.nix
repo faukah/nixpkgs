@@ -8,7 +8,6 @@
   vtkWithQt5,
   qtbase,
 }:
-
 mkDerivation {
   pname = "qcsxcad";
   version = "unstable-2023-01-06";
@@ -45,7 +44,7 @@ mkDerivation {
     description = "Qt library for CSXCAD";
     homepage = "https://github.com/thliebig/QCSXCAD";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
     platforms = platforms.linux;
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "nasmfmt";
   version = "unstable-2022-09-15";
@@ -21,13 +20,13 @@ buildGoModule {
     go mod init github.com/yamnikov-oleg/nasmfmt
   '';
 
-  ldflags = [ "-s" ];
+  ldflags = ["-s"];
 
   meta = with lib; {
     description = "Formatter for NASM source files";
     mainProgram = "nasmfmt";
     homepage = "https://github.com/yamnikov-oleg/nasmfmt";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

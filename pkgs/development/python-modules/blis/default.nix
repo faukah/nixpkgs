@@ -3,22 +3,18 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   cython,
   numpy,
-
   # tests
   hypothesis,
   pytestCheckHook,
-
   # passthru
   blis,
   numpy_1,
   gitUpdater,
 }:
-
 buildPythonPackage rec {
   pname = "blis";
   version = "1.3.0";
@@ -41,21 +37,20 @@ buildPythonPackage rec {
     # Fallback to generic architectures when necessary:
     # https://github.com/explosion/cython-blis?tab=readme-ov-file#building-blis-for-alternative-architectures
     lib.optionalAttrs
-      (
-        # error: [Errno 2] No such file or directory: '/build/source/blis/_src/make/linux-cortexa57.jsonl'
-        (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
+    (
+      # error: [Errno 2] No such file or directory: '/build/source/blis/_src/make/linux-cortexa57.jsonl'
+      (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
+      # clang: error: unknown argument '-mavx512pf'; did you mean '-mavx512f'?
+      # Patching blis/_src/config/knl/make_defs.mk to remove the said flag does not work
+      || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64)
+    )
+    {
+      BLIS_ARCH = "generic";
+    };
 
-        # clang: error: unknown argument '-mavx512pf'; did you mean '-mavx512f'?
-        # Patching blis/_src/config/knl/make_defs.mk to remove the said flag does not work
-        || (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64)
-      )
-      {
-        BLIS_ARCH = "generic";
-      };
+  dependencies = [numpy];
 
-  dependencies = [ numpy ];
-
-  pythonImportsCheck = [ "blis" ];
+  pythonImportsCheck = ["blis"];
 
   nativeCheckInputs = [
     hypothesis
@@ -83,6 +78,6 @@ buildPythonPackage rec {
     description = "BLAS-like linear algebra library";
     homepage = "https://github.com/explosion/cython-blis";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

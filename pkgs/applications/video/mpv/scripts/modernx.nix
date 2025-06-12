@@ -25,16 +25,16 @@ buildLua (finalAttrs: {
     "--set"
     "FONTCONFIG_FILE"
     (toString (makeFontsConf {
-      fontDirectories = [ "${finalAttrs.finalPackage}/share/fonts" ];
+      fontDirectories = ["${finalAttrs.finalPackage}/share/fonts"];
     }))
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Modern OSC UI replacement for MPV that retains the functionality of the default OSC";
     homepage = "https://github.com/cyl0/ModernX";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ Guanran928 ];
+    maintainers = with maintainers; [Guanran928];
   };
 })

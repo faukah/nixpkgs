@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildNpmPackage rec {
   pname = "opencommit";
   version = "3.2.7";
@@ -18,14 +17,13 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-F19xbiZoIC2JA+3rLqJBbFZvs2XbAk94F2borp/7gMo=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "AI-powered commit message generator";
     homepage = "https://www.npmjs.com/package/opencommit";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.matteopacini ];
+    maintainers = [lib.maintainers.matteopacini];
     mainProgram = "oco";
   };
-
 }

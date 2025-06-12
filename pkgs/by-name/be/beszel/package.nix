@@ -5,7 +5,6 @@
   nix-update-script,
   buildNpmPackage,
 }:
-
 buildGoModule rec {
   pname = "beszel";
   version = "0.11.1";
@@ -25,7 +24,7 @@ buildGoModule rec {
       meta
       ;
 
-    npmFlags = [ "--legacy-peer-deps" ];
+    npmFlags = ["--legacy-peer-deps"];
 
     buildPhase = ''
       runHook preBuild
@@ -65,13 +64,13 @@ buildGoModule rec {
     mv $out/bin/hub $out/bin/beszel-hub
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/henrygd/beszel";
     changelog = "https://github.com/henrygd/beszel/releases/tag/v${version}";
     description = "Lightweight server monitoring hub with historical data, docker stats, and alerts";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     license = lib.licenses.mit;
   };
 }

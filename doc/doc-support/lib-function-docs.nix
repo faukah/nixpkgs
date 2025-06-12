@@ -5,7 +5,7 @@
   stdenvNoCC,
   nixdoc,
   nix,
-  nixpkgs ? { },
+  nixpkgs ? {},
   libsets ? [
     {
       name = "asserts";
@@ -90,7 +90,6 @@
     }
   ],
 }:
-
 stdenvNoCC.mkDerivation {
   name = "nixpkgs-lib-docs";
 
@@ -134,15 +133,15 @@ stdenvNoCC.mkDerivation {
     EOF
 
     ${lib.concatMapStrings (
-      {
-        name,
-        baseName ? name,
-        description,
-      }:
-      ''
-        docgen ${name} ${baseName} ${lib.escapeShellArg description}
-      ''
-    ) libsets}
+        {
+          name,
+          baseName ? name,
+          description,
+        }: ''
+          docgen ${name} ${baseName} ${lib.escapeShellArg description}
+        ''
+      )
+      libsets}
 
     echo '```' >> "$out/index.md"
 

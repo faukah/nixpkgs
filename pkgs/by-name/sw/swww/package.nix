@@ -10,7 +10,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "swww";
   version = "0.10.2";

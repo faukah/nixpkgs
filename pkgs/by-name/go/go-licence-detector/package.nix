@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-licence-detector";
   version = "0.7.0";
@@ -21,6 +20,6 @@ buildGoModule rec {
     description = "Detect licences in Go projects and generate documentation";
     homepage = "https://github.com/elastic/go-licence-detector";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

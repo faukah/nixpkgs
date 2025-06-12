@@ -10,7 +10,6 @@
   sqlite,
   lxd-lts,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dqlite";
   version = "1.18.1";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://dqlite.io/";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

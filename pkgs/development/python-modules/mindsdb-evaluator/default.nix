@@ -10,7 +10,6 @@
   scikit-learn,
   type-infer,
 }:
-
 buildPythonPackage rec {
   pname = "mindsdb-evaluator";
   version = "0.0.16";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-92XGu6ob1AfOoqcB/hqDf+lSDAUjZ5SPju5FkpcbOHA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "numpy"
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     type-infer
   ];
 
-  pythonImportsCheck = [ "mindsdb_evaluator" ];
+  pythonImportsCheck = ["mindsdb_evaluator"];
 
   meta = with lib; {
     description = "Model evaluation for Machine Learning pipelines";
     homepage = "https://pypi.org/project/mindsdb-evaluator/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "autoenv";
   version = "0-unstable-2024-10-16";
@@ -30,6 +29,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/hyperupcall/autoenv";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ clebs ];
+    maintainers = with lib.maintainers; [clebs];
   };
 })

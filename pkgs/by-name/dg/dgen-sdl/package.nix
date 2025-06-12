@@ -5,7 +5,6 @@
   libarchive,
   SDL,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dgen-sdl";
   version = "1.33";
@@ -68,8 +67,9 @@ stdenv.mkDerivation rec {
       - VGM dumping
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }
 # TODO: implement configure options
+

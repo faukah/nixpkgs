@@ -18,7 +18,6 @@
   runCommand,
   jq,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mise";
   version = "2025.6.0";
@@ -38,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   postPatch = ''
     patchShebangs --build \
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       --replace-fail 'cmd!("direnv"' 'cmd!("${lib.getExe direnv}"'
   '';
 
-  nativeCheckInputs = [ cacert ];
+  nativeCheckInputs = [cacert];
 
   checkFlags =
     [
@@ -74,7 +73,7 @@ rustPlatform.buildRustPackage rec {
       "--skip=task::task_file_providers::remote_task_http::tests::test_http_remote_task_get_local_path_without_cache"
     ];
 
-  cargoTestFlags = [ "--all-features" ];
+  cargoTestFlags = ["--all-features"];
   # some tests access the same folders, don't test in parallel to avoid race conditions
   dontUseCargoParallelTests = true;
 
@@ -95,32 +94,32 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      version = (testers.testVersion { package = mise; }).overrideAttrs (old: {
-        nativeBuildInputs = old.nativeBuildInputs ++ [ cacert ];
+      version = (testers.testVersion {package = mise;}).overrideAttrs (old: {
+        nativeBuildInputs = old.nativeBuildInputs ++ [cacert];
       });
       usageCompat =
         # should not crash
         runCommand "mise-usage-compatibility"
-          {
-            nativeBuildInputs = [
-              mise
-              usage
-              jq
-            ];
-          }
-          ''
-            export HOME=$(mktemp -d)
+        {
+          nativeBuildInputs = [
+            mise
+            usage
+            jq
+          ];
+        }
+        ''
+          export HOME=$(mktemp -d)
 
-            spec="$(mise usage)"
-            for shl in bash fish zsh; do
-              echo "testing $shl"
-              usage complete-word --shell $shl --spec "$spec"
-            done
+          spec="$(mise usage)"
+          for shl in bash fish zsh; do
+            echo "testing $shl"
+            usage complete-word --shell $shl --spec "$spec"
+          done
 
-            touch $out
-          '';
+          touch $out
+        '';
     };
   };
 
@@ -129,7 +128,7 @@ rustPlatform.buildRustPackage rec {
     description = "Front-end to your dev env";
     changelog = "https://github.com/jdx/mise/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ konradmalik ];
+    maintainers = with lib.maintainers; [konradmalik];
     mainProgram = "mise";
   };
 }

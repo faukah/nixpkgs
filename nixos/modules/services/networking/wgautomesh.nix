@@ -4,22 +4,26 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.wgautomesh;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile =
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
     settingsFormat.generate "wgautomesh-config.toml" (
       filterAttrs (k: v: v != null) (
-        mapAttrs (k: v: if k == "peers" then map (e: filterAttrs (k: v: v != null) e) v else v) cfg.settings
+        mapAttrs (k: v:
+          if k == "peers"
+          then map (e: filterAttrs (k: v: v != null) e) v
+          else v)
+        cfg.settings
       )
     );
   runtimeConfigFile =
-    if cfg.enableGossipEncryption then "/run/wgautomesh/wgautomesh.toml" else configFile;
-in
-{
+    if cfg.enableGossipEncryption
+    then "/run/wgautomesh/wgautomesh.toml"
+    else configFile;
+in {
   options.services.wgautomesh = {
     enable = mkEnableOption "the wgautomesh daemon";
     logLevel = mkOption {
@@ -61,7 +65,6 @@ in
       type = types.submodule {
         freeformType = settingsFormat.type;
         options = {
-
           interface = mkOption {
             type = types.str;
             description = ''
@@ -120,13 +123,12 @@ in
                 };
               }
             );
-            default = [ ];
+            default = [];
             description = "wgautomesh peer list.";
           };
         };
-
       };
-      default = { };
+      default = {};
       description = "Configuration for wgautomesh.";
     };
   };
@@ -138,7 +140,7 @@ in
     };
 
     systemd.services.wgautomesh = {
-      path = [ pkgs.wireguard-tools ];
+      path = [pkgs.wireguard-tools];
       environment = {
         RUST_LOG = "wgautomesh=${cfg.logLevel}";
       };
@@ -149,7 +151,7 @@ in
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
+        LoadCredential = mkIf cfg.enableGossipEncryption ["gossip_secret:${cfg.gossipSecretFile}"];
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [
           ''
@@ -165,8 +167,8 @@ in
         AmbientCapabilities = "CAP_NET_ADMIN";
         CapabilityBoundingSet = "CAP_NET_ADMIN";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.settings.gossip_port ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [cfg.settings.gossip_port];
   };
 }

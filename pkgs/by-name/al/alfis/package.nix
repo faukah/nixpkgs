@@ -9,7 +9,6 @@
   zenity,
   withGui ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "alfis";
   version = "0.8.5";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = lib.optional (withGui && stdenv.hostPlatform.isLinux) webkitgtk_4_0;
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "doh" ] ++ lib.optional withGui "webgui";
+  buildFeatures = ["doh"] ++ lib.optional withGui "webgui";
 
   checkFlags = [
     # these want internet access, disable them
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = lib.optionalString (withGui && stdenv.hostPlatform.isLinux) ''
     wrapProgram $out/bin/alfis \
-      --prefix PATH : ${lib.makeBinPath [ zenity ]}
+      --prefix PATH : ${lib.makeBinPath [zenity]}
   '';
 
   meta = {
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://alfis.name";
     changelog = "https://github.com/Revertron/Alfis/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     platforms = lib.platforms.unix;
     mainProgram = "alfis";
     broken = withGui && stdenv.hostPlatform.isDarwin;

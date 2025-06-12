@@ -15,7 +15,6 @@
   nixosTests,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rakshasa-rtorrent";
   version = "0.15.4";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       inherit (nixosTests) rtorrent;
     };

@@ -33,7 +33,7 @@ gcc10Stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/COLLADA2GLTF";
     license = lib.licenses.bsd3;
     mainProgram = "COLLADA2GLTF";
-    maintainers = with lib.maintainers; [ shaddydc ];
+    maintainers = with lib.maintainers; [shaddydc];
     platforms = with lib.platforms; unix ++ windows;
   };
 }

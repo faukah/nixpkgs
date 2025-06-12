@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "oswald";
   version = "4.103";
@@ -35,6 +34,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/googlefonts/OswaldFont";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mimvoid ];
+    maintainers = with lib.maintainers; [mimvoid];
   };
 }

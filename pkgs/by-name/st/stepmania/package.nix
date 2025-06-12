@@ -19,7 +19,6 @@
   xorg,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "stepmania";
   version = "5.1.0-b2-unstable-2022-11-14";
@@ -88,7 +87,7 @@ stdenv.mkDerivation {
     description = "Free dance and rhythm game for Windows, Mac, and Linux";
     platforms = platforms.linux;
     license = licenses.mit; # expat version
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     mainProgram = "stepmania";
   };
 }

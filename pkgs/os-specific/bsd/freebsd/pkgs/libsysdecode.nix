@@ -1,4 +1,7 @@
-{ mkDerivation, stdenv }:
+{
+  mkDerivation,
+  stdenv,
+}:
 mkDerivation {
   path = "lib/libsysdecode";
   extraPaths = [

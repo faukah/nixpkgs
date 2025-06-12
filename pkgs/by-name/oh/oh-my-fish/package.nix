@@ -6,7 +6,6 @@
   runtimeShell,
   replaceVars,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "oh-my-fish";
   version = "unstable-2022-03-27";
@@ -63,9 +62,10 @@ stdenv.mkDerivation (finalAttrs: {
       easy to use.
     '';
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "omf-install";
     inherit (fish.meta) platforms;
   };
 })
 # TODO: customize the omf-install script
+

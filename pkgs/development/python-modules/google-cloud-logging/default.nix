@@ -21,7 +21,6 @@
   rich,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-logging";
   version = "3.12.1";
@@ -35,18 +34,20 @@ buildPythonPackage rec {
     hash = "sha256-Nu/II5hQVbIDkE6D4cj5+ZmzxkJwvNo51XOGyk7/1ng=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [
-    google-api-core
-    google-cloud-appengine-logging
-    google-cloud-audit-log
-    google-cloud-core
-    grpc-google-iam-v1
-    opentelemetry-api
-    proto-plus
-    protobuf
-  ] ++ google-api-core.optional-dependencies.grpc;
+  dependencies =
+    [
+      google-api-core
+      google-cloud-appengine-logging
+      google-cloud-audit-log
+      google-cloud-core
+      grpc-google-iam-v1
+      opentelemetry-api
+      proto-plus
+      protobuf
+    ]
+    ++ google-api-core.optional-dependencies.grpc;
 
   nativeCheckInputs = [
     django
@@ -89,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-logging";
     changelog = "https://github.com/googleapis/python-logging/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

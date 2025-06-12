@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.0.36";
   pname = "tinc";

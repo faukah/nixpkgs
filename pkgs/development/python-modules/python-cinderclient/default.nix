@@ -20,7 +20,6 @@
   stestr,
   stevedore,
 }:
-
 buildPythonPackage rec {
   pname = "python-cinderclient";
   version = "9.7.0";
@@ -40,9 +39,9 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     simplejson
@@ -81,13 +80,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "cinderclient" ];
+  pythonImportsCheck = ["cinderclient"];
 
   meta = with lib; {
     description = "OpenStack Block Storage API Client Library";
     mainProgram = "cinder";
     homepage = "https://github.com/openstack/python-cinderclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

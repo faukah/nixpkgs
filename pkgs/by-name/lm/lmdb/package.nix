@@ -4,7 +4,6 @@
   fetchFromGitLab,
   windows,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lmdb";
   version = "0.9.33";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     ./hardcoded-compiler.patch
     ./bin-ext.patch
   ];
-  patchFlags = [ "-p3" ];
+  patchFlags = ["-p3"];
 
   # Don't attempt the .so if static, as it would fail.
   postPatch = lib.optionalString stdenv.hostPlatform.isStatic ''

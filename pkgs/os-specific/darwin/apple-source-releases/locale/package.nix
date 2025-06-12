@@ -5,7 +5,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "locale";
   version = "118";
@@ -50,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   enableParallelInstalling = true;
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   meta = {
     description = "Locale data for Darwin";
@@ -58,6 +57,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       lib.licenses.apsl10
       lib.licenses.apsl20
     ];
-    teams = [ lib.teams.darwin ];
+    teams = [lib.teams.darwin];
   };
 })

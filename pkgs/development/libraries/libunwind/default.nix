@@ -8,7 +8,6 @@
   xz,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libunwind";
   version = "1.8.1";
@@ -26,16 +25,16 @@ stdenv.mkDerivation (finalAttrs: {
   });
 
   postPatch =
-    if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic) then
-      ''
-        substituteInPlace configure.ac --replace "-lgcc_s" ""
-      ''
+    if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic)
+    then ''
+      substituteInPlace configure.ac --replace "-lgcc_s" ""
+    ''
     else
       lib.optionalString stdenv.hostPlatform.isMusl ''
         substituteInPlace configure.ac --replace "-lgcc_s" "-lgcc_eh"
       '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   outputs = [
     "out"
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
       "CFLAGS=-mno-outline-atomics"
     ];
 
-  propagatedBuildInputs = [ xz ];
+  propagatedBuildInputs = [xz];
 
   postInstall = ''
     find $out -name \*.la | while read file; do
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://www.nongnu.org/libunwind";
     description = "Portable and efficient API to determine the call-chain of a program";
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     pkgConfigModules = [
       "libunwind"
       "libunwind-coredump"

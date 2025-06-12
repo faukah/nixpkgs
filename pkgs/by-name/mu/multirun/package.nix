@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "multirun";
   version = "1.1.3";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "Minimalist init process designed for Docker";
     homepage = "https://github.com/nicolas-van/multirun";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "multirun";
     platforms = platforms.all;
   };

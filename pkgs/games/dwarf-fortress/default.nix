@@ -8,7 +8,6 @@
   newScope,
   perlPackages,
 }:
-
 # To whomever it may concern:
 #
 # This directory menaces with spikes of Nix code. It is terrifying.
@@ -40,9 +39,9 @@
 # you un-symlink them and edit, then the scripts will avoid overwriting your
 # changes on later launches, but consider extending the wrapper with your
 # desired options instead.
-
 let
-  inherit (lib)
+  inherit
+    (lib)
     attrNames
     getAttr
     importJSON
@@ -60,79 +59,76 @@ let
   # this. Note that unfuck and twbt are not required for 50.
   latestVersion =
     self.dfVersions.game.latest.${
-      if stdenv.hostPlatform.isLinux then
-        "linux"
-      else if stdenv.hostPlatform.isDarwin then
-        "darwin"
-      else
-        throw "Unsupported system"
+      if stdenv.hostPlatform.isLinux
+      then "linux"
+      else if stdenv.hostPlatform.isDarwin
+      then "darwin"
+      else throw "Unsupported system"
     };
 
   # Converts a version to a package name.
-  versionToName = version: "dwarf-fortress_${replaceStrings [ "." ] [ "_" ] version}";
+  versionToName = version: "dwarf-fortress_${replaceStrings ["."] ["_"] version}";
 
   # A map of names to each Dwarf Fortress package we know about.
   df-games = listToAttrs (
     map (dfVersion: {
       name = versionToName dfVersion;
-      value =
-        let
-          isAtLeast50 = versionAtLeast dfVersion "50.0";
+      value = let
+        isAtLeast50 = versionAtLeast dfVersion "50.0";
 
-          dwarf-fortress-unfuck = optionalAttrs (!isAtLeast50 && stdenv.hostPlatform.isLinux) (
-            callPackage ./unfuck.nix { inherit dfVersion; }
+        dwarf-fortress-unfuck = optionalAttrs (!isAtLeast50 && stdenv.hostPlatform.isLinux) (
+          callPackage ./unfuck.nix {inherit dfVersion;}
+        );
+
+        dwarf-fortress = callPackage ./game.nix {
+          inherit dfVersion;
+          inherit dwarf-fortress-unfuck;
+        };
+
+        twbt = optionalAttrs (!isAtLeast50) (callPackage ./twbt {inherit dfVersion;});
+
+        dfhack = callPackage ./dfhack {
+          inherit (perlPackages) XMLLibXML XMLLibXSLT;
+          inherit dfVersion;
+          stdenv = gccStdenv;
+        };
+
+        mkDfWrapper = {
+          dwarf-fortress,
+          dfhack,
+          dwarf-therapist ? null,
+          ...
+        } @ args:
+          callPackage ./wrapper (
+            {
+              inherit (self) themes;
+              inherit
+                dwarf-fortress
+                twbt
+                dfhack
+                dwarf-therapist
+                ;
+            }
+            // args
           );
 
-          dwarf-fortress = callPackage ./game.nix {
-            inherit dfVersion;
-            inherit dwarf-fortress-unfuck;
-          };
-
-          twbt = optionalAttrs (!isAtLeast50) (callPackage ./twbt { inherit dfVersion; });
-
-          dfhack = callPackage ./dfhack {
-            inherit (perlPackages) XMLLibXML XMLLibXSLT;
-            inherit dfVersion;
-            stdenv = gccStdenv;
-          };
-
-          mkDfWrapper =
-            {
-              dwarf-fortress,
-              dfhack,
-              dwarf-therapist ? null,
-              ...
-            }@args:
-            callPackage ./wrapper (
-              {
-                inherit (self) themes;
-                inherit
-                  dwarf-fortress
-                  twbt
-                  dfhack
-                  dwarf-therapist
-                  ;
+        dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
+          inherit dwarf-fortress dfhack mkDfWrapper;
+          dwarf-therapist =
+            (libsForQt5.callPackage ./dwarf-therapist {
+              inherit (self) dfVersions;
+            }).override
+            (
+              optionalAttrs (!isAtLeast50) {
+                # 41.2.5 is the last version to support Dwarf Fortress 0.47.
+                version = "41.2.5";
+                maxDfVersion = "0.47.05";
+                hash = "sha256-xfYBtnO1n6OcliVt07GsQ9alDJIfWdVhtuyWwuvXSZs=";
               }
-              // args
             );
-
-          dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
-            inherit dwarf-fortress dfhack mkDfWrapper;
-            dwarf-therapist =
-              (libsForQt5.callPackage ./dwarf-therapist {
-                inherit (self) dfVersions;
-              }).override
-                (
-                  optionalAttrs (!isAtLeast50) {
-                    # 41.2.5 is the last version to support Dwarf Fortress 0.47.
-                    version = "41.2.5";
-                    maxDfVersion = "0.47.05";
-                    hash = "sha256-xfYBtnO1n6OcliVt07GsQ9alDJIfWdVhtuyWwuvXSZs=";
-                  }
-                );
-          };
-        in
-        mkDfWrapper { inherit dwarf-fortress dfhack dwarf-therapist; };
+        };
+      in
+        mkDfWrapper {inherit dwarf-fortress dfhack dwarf-therapist;};
     }) (attrNames self.dfVersions.game.versions)
   );
 
@@ -148,9 +144,9 @@ let
       inherit df-games versionToName latestVersion;
     };
 
-    soundSense = callPackage ./soundsense.nix { };
+    soundSense = callPackage ./soundsense.nix {};
 
-    legends-browser = callPackage ./legends-browser { };
+    legends-browser = callPackage ./legends-browser {};
 
     themes = recurseIntoAttrs (
       callPackage ./themes {
@@ -162,6 +158,5 @@ let
     phoebus-theme = themes.phoebus;
     cla-theme = themes.cla;
   };
-
 in
-self // df-games
+  self // df-games

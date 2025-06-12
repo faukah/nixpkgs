@@ -7,7 +7,6 @@
   ruamel-yaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "osc-sdk-python";
   version = "0.33.0";
@@ -21,14 +20,14 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     requests
     ruamel-yaml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -36,14 +35,14 @@ buildPythonPackage rec {
   '';
 
   # Only keep test not requiring access and secret keys
-  pytestFlagsArray = [ "tests/test_net.py" ];
+  pytestFlagsArray = ["tests/test_net.py"];
 
-  pythonImportsCheck = [ "osc_sdk_python" ];
+  pythonImportsCheck = ["osc_sdk_python"];
 
   meta = with lib; {
     description = "SDK to perform actions on Outscale API";
     homepage = "https://github.com/outscale/osc-sdk-python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nicolas-goudry ];
+    maintainers = with maintainers; [nicolas-goudry];
   };
 }

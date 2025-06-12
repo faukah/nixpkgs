@@ -9,7 +9,6 @@
   gettext,
   xxd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dosfstools";
   version = "4.2";
@@ -41,10 +40,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [
-    autoreconfHook
-    pkg-config
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
+  nativeBuildInputs =
+    [
+      autoreconfHook
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin libiconv;
 
   # configure.ac:75: error: required file './config.rpath' not found
   # https://github.com/dosfstools/dosfstools/blob/master/autogen.sh
@@ -52,9 +53,9 @@ stdenv.mkDerivation rec {
     cp ${gettext}/share/gettext/config.rpath config.rpath
   '';
 
-  configureFlags = [ "--enable-compat-symlinks" ];
+  configureFlags = ["--enable-compat-symlinks"];
 
-  nativeCheckInputs = [ xxd ];
+  nativeCheckInputs = [xxd];
   doCheck = true;
 
   meta = {

@@ -2,7 +2,6 @@
   callPackage,
   fetchurl,
 }:
-
 callPackage ./generic.nix rec {
   version = "5.20.1.34";
   enableParallelBuilding = true;

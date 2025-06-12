@@ -5,7 +5,6 @@
   autoreconfHook,
   sqlite,
 }:
-
 stdenv.mkDerivation {
   pname = "vcprompt";
   version = "1.3.0-unstable-2020-12-28";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Program that prints barebones information about the current working directory for various version control systems";
     homepage = "https://github.com/powerman/vcprompt";
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; linux ++ darwin;
     license = licenses.gpl2Plus;
     mainProgram = "vcprompt";

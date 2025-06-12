@@ -9,7 +9,6 @@
   libxfce4util,
   perl,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "exo";
@@ -32,6 +31,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Application library for Xfce";
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

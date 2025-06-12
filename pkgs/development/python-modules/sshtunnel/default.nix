@@ -7,7 +7,6 @@
   mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sshtunnel";
   version = "0.4.0";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-58sOp3Tbgb+RhE2yLecqQKro97D5u5ug9mbUdO9r+fw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ paramiko ];
+  dependencies = [paramiko];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     mainProgram = "sshtunnel";
     homepage = "https://github.com/pahaz/sshtunnel";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

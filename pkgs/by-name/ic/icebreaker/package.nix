@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeBinaryWrapper,
 }:
-
 buildGoModule {
   pname = "icebreaker";
   version = "unstable-2023-08-13";
@@ -41,7 +40,7 @@ buildGoModule {
     description = "Web app that allows students to ask real-time, anonymous questions during class";
     homepage = "https://github.com/jonhoo/icebreaker";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "icebreaker";
   };
 }

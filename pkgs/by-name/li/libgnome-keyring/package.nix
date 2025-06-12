@@ -10,7 +10,6 @@
   gobject-introspection,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgnome-keyring";
   version = "3.12.0";
@@ -60,9 +59,9 @@ stdenv.mkDerivation (finalAttrs: {
       gpl2Plus
       lgpl2Plus
     ];
-    pkgConfigModules = [ "gnome-keyring-1" ];
+    pkgConfigModules = ["gnome-keyring-1"];
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
 
     longDescription = ''
       gnome-keyring is a program that keeps password and other secrets for

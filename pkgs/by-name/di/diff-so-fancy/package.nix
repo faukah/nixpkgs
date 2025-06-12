@@ -9,7 +9,6 @@
   makeWrapper,
   ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "diff-so-fancy";
   version = "1.4.4";

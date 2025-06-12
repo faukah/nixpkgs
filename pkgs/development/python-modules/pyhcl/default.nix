@@ -3,12 +3,10 @@
   fetchFromGitHub,
   isPy3k,
   lib,
-
   # pythonPackages
   coverage,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pyhcl";
   version = "0.4.4";
@@ -42,6 +40,6 @@ buildPythonPackage rec {
     mainProgram = "hcltool";
     homepage = "https://github.com/virtuald/pyhcl";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

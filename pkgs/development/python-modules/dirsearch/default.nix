@@ -6,10 +6,10 @@
   pytestCheckHook,
   # deps
   /*
-    ntlm-auth is in the requirements.txt, however nixpkgs tells me
-    > ntlm-auth has been removed, because it relies on the md4 implementation provided by openssl. Use pyspnego instead.
-    Not sure if pyspnego is a drop in replacement.
-    The simple functionality dirsearch seems not to depend on this package.
+  ntlm-auth is in the requirements.txt, however nixpkgs tells me
+  > ntlm-auth has been removed, because it relies on the md4 implementation provided by openssl. Use pyspnego instead.
+  Not sure if pyspnego is a drop in replacement.
+  The simple functionality dirsearch seems not to depend on this package.
   */
   #ntlm-auth,
   #pyspnego,
@@ -32,7 +32,6 @@
   setuptools,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "dirsearch";
   version = "0.4.3";
@@ -52,7 +51,7 @@ buildPythonPackage rec {
   '';
 
   pyproject = true;
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     # maybe needed, see above
@@ -119,6 +118,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/maurosoria/dirsearch";
     license = lib.licenses.gpl2Only;
     mainProgram = "dirsearch";
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 }

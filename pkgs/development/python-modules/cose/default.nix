@@ -10,7 +10,6 @@
   ecdsa,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cose";
   version = "1.0.1";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "pycose" ];
+  pythonImportsCheck = ["pycose"];
 
   meta = with lib; {
     description = "Python implementation of the COSE specification";
     homepage = "https://github.com/TimothyClaeys/pycose";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ t4ccer ];
+    maintainers = with maintainers; [t4ccer];
   };
 }

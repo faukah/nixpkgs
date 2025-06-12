@@ -5,7 +5,6 @@
   twisted,
   python-pam,
 }:
-
 buildPythonPackage rec {
   pname = "matrix-synapse-pam";
   version = "0.1.3";
@@ -25,12 +24,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pam_auth_provider" ];
+  pythonImportsCheck = ["pam_auth_provider"];
 
   meta = with lib; {
     description = "PAM auth provider for the Synapse Matrix server";
     homepage = "https://github.com/14mRh4X0r/matrix-synapse-pam";
     license = licenses.eupl12;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

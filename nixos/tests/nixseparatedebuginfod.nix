@@ -1,25 +1,25 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   secret-key = "key-name:/COlMSRbehSh6YSruJWjL+R0JXQUKuPEn96fIb+pLokEJUjcK/2Gv8Ai96D7JGay5gDeUTx5wdpPgNvum9YtwA==";
   public-key = "key-name:BCVI3Cv9hr/AIveg+yRmsuYA3lE8ecHaT4Db7pvWLcA=";
-in
-{
+in {
   name = "nixseparatedebuginfod";
   # A binary cache with debug info and source for nix
-  nodes.cache =
-    { pkgs, ... }:
-    {
-      services.nix-serve = {
-        enable = true;
-        secretKeyFile = builtins.toFile "secret-key" secret-key;
-        openFirewall = true;
-      };
-      system.extraDependencies = [
-        pkgs.nix.debug
-        pkgs.nix.src
-        pkgs.sl
-      ];
+  nodes.cache = {pkgs, ...}: {
+    services.nix-serve = {
+      enable = true;
+      secretKeyFile = builtins.toFile "secret-key" secret-key;
+      openFirewall = true;
     };
+    system.extraDependencies = [
+      pkgs.nix.debug
+      pkgs.nix.src
+      pkgs.sl
+    ];
+  };
   # the machine where we need the debuginfo
   nodes.machine = {
     imports = [
@@ -27,8 +27,8 @@ in
     ];
     services.nixseparatedebuginfod.enable = true;
     nix.settings = {
-      substituters = lib.mkForce [ "http://cache:5000" ];
-      trusted-public-keys = [ public-key ];
+      substituters = lib.mkForce ["http://cache:5000"];
+      trusted-public-keys = [public-key];
     };
     environment.systemPackages = [
       pkgs.valgrind

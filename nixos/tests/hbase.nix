@@ -4,29 +4,26 @@ import ./make-test-python.nix (
     lib,
     package ? pkgs.hbase,
     ...
-  }:
-  {
+  }: {
     name = "hbase-standalone";
 
     meta = with lib.maintainers; {
-      maintainers = [ illustris ];
+      maintainers = [illustris];
     };
 
     nodes = {
-      hbase =
-        { pkgs, ... }:
-        {
-          services.hbase-standalone = {
-            enable = true;
-            inherit package;
-            # Needed for standalone mode in hbase 2+
-            # This setting and standalone mode are not suitable for production
-            settings."hbase.unsafe.stream.capability.enforce" = "false";
-          };
-          environment.systemPackages = with pkgs; [
-            package
-          ];
+      hbase = {pkgs, ...}: {
+        services.hbase-standalone = {
+          enable = true;
+          inherit package;
+          # Needed for standalone mode in hbase 2+
+          # This setting and standalone mode are not suitable for production
+          settings."hbase.unsafe.stream.capability.enforce" = "false";
         };
+        environment.systemPackages = with pkgs; [
+          package
+        ];
+      };
     };
 
     testScript = ''

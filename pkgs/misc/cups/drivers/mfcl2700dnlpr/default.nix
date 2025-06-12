@@ -11,7 +11,6 @@
   perl,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcl2700dnlpr";
   version = "3.2.0-1";
@@ -40,14 +39,14 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filter_MFCL2700DN \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          ghostscript
-          gnugrep
-          gnused
-          which
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        ghostscript
+        gnugrep
+        gnused
+        which
+      ]
+    }
 
     interpreter=$(cat $NIX_CC/nix-support/dynamic-linker)
     patchelf --set-interpreter "$interpreter" $dir/inf/braddprinter
@@ -58,9 +57,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Brother MFC-L2700DN LPR driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.tv ];
-    platforms = [ "i686-linux" ];
+    maintainers = [lib.maintainers.tv];
+    platforms = ["i686-linux"];
   };
 }

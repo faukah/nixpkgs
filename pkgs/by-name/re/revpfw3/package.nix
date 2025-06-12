@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
   pname = "revpfw3";
   version = "0.5.0";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   src = fetchgit {
     url = "https://git.tudbut.de/tudbut/revpfw3";
@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     description = "Reverse proxy to bypass the need for port forwarding";
     homepage = "https://git.tudbut.de/tudbut/revpfw3";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tudbut ];
+    maintainers = with lib.maintainers; [tudbut];
     mainProgram = "revpfw3";
   };
 }

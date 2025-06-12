@@ -3,8 +3,7 @@
   fetchFromGitHub,
   callPackage,
   zig_0_14,
-}:
-let
+}: let
   versions = [
     {
       zig = zig_0_14;
@@ -18,13 +17,12 @@ let
     }
   ];
 
-  mkPackage =
-    {
-      zig,
-      version,
-      src,
-    }:
-    callPackage ./package.nix { inherit zig version src; };
+  mkPackage = {
+    zig,
+    version,
+    src,
+  }:
+    callPackage ./package.nix {inherit zig version src;};
 
   pkgsList = lib.map mkPackage versions;
 
@@ -37,8 +35,8 @@ let
 
   pkgsAttrs = pkgsAttrsWrapped // pkgsAttrsUnwrapped;
 in
-{
-  latest-unwrapped = lib.last pkgsList;
-  latest = (lib.last pkgsList).wrapped;
-}
-// pkgsAttrs
+  {
+    latest-unwrapped = lib.last pkgsList;
+    latest = (lib.last pkgsList).wrapped;
+  }
+  // pkgsAttrs

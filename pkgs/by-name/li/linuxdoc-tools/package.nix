@@ -14,7 +14,6 @@
   texinfo,
   withLatex ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linuxdoc-tools";
   version = "0.9.86";
@@ -41,11 +40,11 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/bin/linuxdoc \
       --prefix PATH : "${
-        lib.makeBinPath [
-          groff
-          opensp
-        ]
-      }:$out/bin" \
+      lib.makeBinPath [
+        groff
+        opensp
+      ]
+    }:$out/bin" \
       --prefix PERL5LIB : "$out/share/linuxdoc-tools/"
   '';
 
@@ -66,14 +65,16 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [
-    opensp
-    groff
-    texinfo
-    perl
-    gnused
-    coreutils
-  ] ++ lib.optionals withLatex [ texliveMedium ];
+  buildInputs =
+    [
+      opensp
+      groff
+      texinfo
+      perl
+      gnused
+      coreutils
+    ]
+    ++ lib.optionals withLatex [texliveMedium];
 
   meta = with lib; {
     description = "Toolset for processing LinuxDoc DTD SGML files";
@@ -92,6 +93,6 @@ stdenv.mkDerivation rec {
       sgmlug
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ p-h ];
+    maintainers = with maintainers; [p-h];
   };
 }

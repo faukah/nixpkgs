@@ -5,7 +5,6 @@
   makeWrapper,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "datefudge";
   version = "1.27";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-BN/Ct1FRZjvpkRCPpRlXmjeRvrNnuJBXwwI1P2HCisc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
      --replace "@LIBDIR@" "$out/lib/"
   '';
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     chmod +x $out/lib/datefudge/datefudge.so
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://packages.qa.debian.org/d/datefudge.html";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     mainProgram = "datefudge";
   };
 }

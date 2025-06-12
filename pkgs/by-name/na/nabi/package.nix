@@ -8,7 +8,6 @@
   autoconf,
   automake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nabi";
   version = "1.0.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libhangul/nabi";
     changelog = "https://github.com/libhangul/nabi/blob/nabi-${version}/NEWS";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ianwookim ];
+    maintainers = with lib.maintainers; [ianwookim];
     platforms = lib.platforms.linux;
   };
 }

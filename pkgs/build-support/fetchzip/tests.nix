@@ -3,12 +3,9 @@
   fetchzip,
   runCommand,
   ...
-}:
-
-let
+}: let
   url = "https://gist.github.com/glandium/01d54cefdb70561b5f6675e08f2990f2/archive/2f430f0c136a69b0886281d0c76708997d8878af.zip";
-in
-{
+in {
   simple = testers.invalidateFetcherByDrvHash fetchzip {
     inherit url;
     sha256 = "sha256-0ecwgL8qUavSj1+WkaxpmRBmu7cvj53V5eXQV71fddU=";
@@ -22,7 +19,7 @@ in
 
   hiddenDir = testers.invalidateFetcherByDrvHash fetchzip {
     url = "file://${
-      runCommand "hiddendir.tar" { } ''
+      runCommand "hiddendir.tar" {} ''
         mkdir .foo
         tar -cf $out .foo
       ''

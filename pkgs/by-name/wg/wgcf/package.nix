@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "wgcf";
   version = "2.2.26";
@@ -23,7 +22,7 @@ buildGoModule rec {
     description = "Cross-platform, unofficial CLI for Cloudflare Warp";
     homepage = "https://github.com/ViRb3/wgcf";
     license = licenses.mit;
-    maintainers = with maintainers; [ yureien ];
+    maintainers = with maintainers; [yureien];
     mainProgram = "wgcf";
   };
 }

@@ -6,7 +6,6 @@
   python3,
   elfutils,
 }:
-
 stdenv.mkDerivation {
   pname = "libsystemtap";
   version = "5.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     python3
   ];
 
-  buildInputs = [ elfutils ];
+  buildInputs = [elfutils];
 
   installPhase = ''
     runHook preInstall
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     homepage = "https://sourceware.org/systemtap/";
     license = licenses.bsd3;
     platforms = elfutils.meta.platforms or platforms.unix;
-    badPlatforms = elfutils.meta.badPlatforms or [ ];
-    maintainers = [ lib.maintainers.farlion ];
+    badPlatforms = elfutils.meta.badPlatforms or [];
+    maintainers = [lib.maintainers.farlion];
   };
 }

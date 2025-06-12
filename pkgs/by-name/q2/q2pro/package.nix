@@ -29,7 +29,6 @@
   x11Support ? stdenv.hostPlatform.isLinux,
   waylandSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "q2pro";
   version = "0-unstable-2025-05-03";
@@ -95,20 +94,20 @@ stdenv.mkDerivation (finalAttrs: {
     echo '${finalAttrs.internalVersion}' > VERSION
   '';
 
-  postInstall =
-    let
-      ldLibraryPathEnvName =
-        if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-    in
-    ''
-      mv -v $out/bin/q2pro $out/bin/q2pro-unwrapped
-      makeWrapper $out/bin/q2pro-unwrapped $out/bin/q2pro \
-        --prefix ${ldLibraryPathEnvName} : "${lib.makeLibraryPath finalAttrs.buildInputs}"
+  postInstall = let
+    ldLibraryPathEnvName =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+  in ''
+    mv -v $out/bin/q2pro $out/bin/q2pro-unwrapped
+    makeWrapper $out/bin/q2pro-unwrapped $out/bin/q2pro \
+      --prefix ${ldLibraryPathEnvName} : "${lib.makeLibraryPath finalAttrs.buildInputs}"
 
-      install -D ${finalAttrs.src}/src/unix/res/q2pro.xpm $out/share/icons/hicolor/32x32/apps/q2pro.xpm
-    '';
+    install -D ${finalAttrs.src}/src/unix/res/q2pro.xpm $out/share/icons/hicolor/32x32/apps/q2pro.xpm
+  '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   preVersionCheck = ''
     export version='${finalAttrs.internalVersion}'
@@ -119,7 +118,10 @@ stdenv.mkDerivation (finalAttrs: {
     (makeDesktopItem {
       name = "q2pro";
       desktopName = "Q2PRO";
-      exec = if stdenv.hostPlatform.isDarwin then "q2pro" else "q2pro +connect %u";
+      exec =
+        if stdenv.hostPlatform.isDarwin
+        then "q2pro"
+        else "q2pro +connect %u";
       icon = "q2pro";
       terminal = false;
       mimeTypes = [
@@ -139,7 +141,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Enhanced Quake 2 client and server focused on multiplayer";
     homepage = "https://github.com/skullernet/q2pro";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ carlossless ];
+    maintainers = with lib.maintainers; [carlossless];
     platforms = lib.platforms.unix;
     mainProgram = "q2pro";
   };

@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-lmvIH6ssEqbkcDETzHL+Spd04B576o8dijigUR88l9c=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
-  buildInputs = [ librime ];
+  buildInputs = [librime];
 
   # Set RIME_DATA_DIR to work around test_get_candidates during checkPhase
   env.RIME_DATA_DIR = "${rime-data}/share/rime-data";
@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/wlh320/rime-ls";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ definfo ];
+    maintainers = with lib.maintainers; [definfo];
     mainProgram = "rime_ls";
   };
 }

@@ -3,7 +3,6 @@
   skawarePackages,
   skalibs,
 }:
-
 skawarePackages.buildPackage {
   pname = "s6-portable-utils";
   version = "2.3.1.0";
@@ -14,7 +13,7 @@ skawarePackages.buildPackage {
     version = "2.3.0.4.1";
     sha256 = "sha256-LbXa+fecxYyFdVmEHT8ch4Y8Pf1YIyd9Gia3zujxUgs=";
     description = "Port of the documentation for the s6-portable-utils suite to mdoc";
-    maintainers = [ lib.maintainers.somasis ];
+    maintainers = [lib.maintainers.somasis];
   };
 
   description = "Set of tiny general Unix utilities optimized for simplicity and small size";
@@ -42,5 +41,4 @@ skawarePackages.buildPackage {
 
     mv doc $doc/share/doc/s6-portable-utils/html
   '';
-
 }

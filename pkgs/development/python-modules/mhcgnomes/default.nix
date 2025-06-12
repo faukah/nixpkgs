@@ -6,7 +6,6 @@
   pyyaml,
   serializable,
 }:
-
 buildPythonPackage {
   pname = "mhcgnomes";
   version = "1.8.6";
@@ -27,12 +26,12 @@ buildPythonPackage {
     serializable
   ];
 
-  pythonImportsCheck = [ "mhcgnomes" ];
+  pythonImportsCheck = ["mhcgnomes"];
 
   meta = with lib; {
     description = "Parsing MHC nomenclature in the wild";
     homepage = "https://github.com/pirl-unc/mhcgnomes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

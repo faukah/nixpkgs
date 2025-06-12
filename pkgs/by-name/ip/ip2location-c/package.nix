@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ip2location-c";
   version = "8.6.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

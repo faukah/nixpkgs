@@ -16,10 +16,10 @@ mkLibretroCore {
     hash = "sha256-CBN04Jf26SIk8mKWlui5spQGokBvgFUCvFiC8NoBGw0=";
   };
 
-  patches = [ ./patches/mame2015-python311.patch ];
-  makeFlags = [ "PYTHON=python3" ];
-  extraNativeBuildInputs = [ python3 ];
-  extraBuildInputs = [ alsa-lib ];
+  patches = [./patches/mame2015-python311.patch];
+  makeFlags = ["PYTHON=python3"];
+  extraNativeBuildInputs = [python3];
+  extraBuildInputs = [alsa-lib];
   makefile = "Makefile";
   # Build failures when this is set to a bigger number
   NIX_BUILD_CORES = 8;

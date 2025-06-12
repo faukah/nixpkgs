@@ -8,7 +8,6 @@
   bwa,
   samtools,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "tebreak";
   version = "1.1";
@@ -20,7 +19,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "13mgh775d8hkl340923lfwwm4r5ps70girn8d6wgfxzwzxylz8iz";
   };
 
-  nativeBuildInputs = [ python3.pkgs.cython ];
+  nativeBuildInputs = [python3.pkgs.cython];
   propagatedBuildInputs = with python3.pkgs; [
     pysam
     scipy
@@ -51,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "tebreak";
     homepage = "https://github.com/adamewing/tebreak";
     license = licenses.mit;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

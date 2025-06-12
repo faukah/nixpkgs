@@ -12,7 +12,6 @@
   platformdirs,
   sv-ttk,
 }:
-
 buildPythonApplication rec {
   pname = "steamback";
   version = "0.3.6";
@@ -68,6 +67,6 @@ buildPythonApplication rec {
     mainProgram = "steamback";
     homepage = "https://github.com/geeksville/steamback";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ AngryAnt ];
+    maintainers = with lib.maintainers; [AngryAnt];
   };
 }

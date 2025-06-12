@@ -13,7 +13,6 @@
   stevedore,
   callPackage,
 }:
-
 buildPythonPackage rec {
   pname = "oslo-config";
   version = "9.8.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     rm test-requirements.txt
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     debtcollector
@@ -48,15 +47,15 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "oslo_config" ];
+  pythonImportsCheck = ["oslo_config"];
 
   meta = with lib; {
     description = "Oslo Configuration API";
     homepage = "https://github.com/openstack/oslo.config";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

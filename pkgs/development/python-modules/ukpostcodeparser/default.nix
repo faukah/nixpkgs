@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "ukpostcodeparser";
   version = "1.1.2";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     description = "UK Postcode parser";
     homepage = "https://github.com/hamstah/ukpostcodeparser";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ siddharthist ];
+    maintainers = with maintainers; [siddharthist];
     platforms = platforms.unix;
   };
 }

@@ -9,7 +9,6 @@
   textlint,
   textlint-rule-preset-ja-technical-writing,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textlint-rule-preset-ja-technical-writing";
   version = "10.0.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing";
     changelog = "https://github.com/textlint-ja/textlint-rule-preset-ja-technical-writing/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = textlint.meta.platforms;
   };
 })

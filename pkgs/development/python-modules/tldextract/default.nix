@@ -14,7 +14,6 @@
   setuptools-scm,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "tldextract";
   version = "5.3.0";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "tldextract" ];
+  pythonImportsCheck = ["tldextract"];
 
   meta = with lib; {
     description = "Python module to accurately separate the TLD from the domain of an URL";
@@ -58,8 +57,8 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/john-kurkowski/tldextract";
     changelog = "https://github.com/john-kurkowski/tldextract/blob/${src.tag}/CHANGELOG.md";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     mainProgram = "tldextract";
   };
 }

@@ -28,7 +28,6 @@
   torchmetrics,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "pyannote-audio";
   version = "3.3.2";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  pythonRelaxDeps = [ "torchaudio" ];
+  pythonRelaxDeps = ["torchaudio"];
 
   build-system = [
     pyscaffold
@@ -88,13 +87,13 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "pyannote.audio" ];
+  pythonImportsCheck = ["pyannote.audio"];
 
   meta = with lib; {
     description = "Neural building blocks for speaker diarization: speech activity detection, speaker change detection, overlapped speech detection, speaker embedding";
     homepage = "https://github.com/pyannote/pyannote-audio";
     changelog = "https://github.com/pyannote/pyannote-audio/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

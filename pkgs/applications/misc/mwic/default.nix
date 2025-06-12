@@ -4,7 +4,6 @@
   fetchurl,
   pythonPackages,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.7.10";
   pname = "mwic";
@@ -14,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dmIHPehkxpSb78ymVpcPCu4L41coskrHQOg067dprOo=";
   };
 
-  makeFlags = [ "PREFIX=\${out}" ];
+  makeFlags = ["PREFIX=\${out}"];
 
   nativeBuildInputs = [
     pythonPackages.wrapPython
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "spell-checker that groups possible misspellings and shows them in their contexts";
     mainProgram = "mwic";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

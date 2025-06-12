@@ -11,7 +11,6 @@
   ninja,
   qt6,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libarchive-qt";
   version = "2.0.8";
@@ -38,14 +37,14 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
   ];
 
-  mesonFlags = [ "-Duse_qt_version=qt6" ];
+  mesonFlags = ["-Duse_qt_version=qt6"];
 
   meta = {
     description = "Qt based archiving solution with libarchive backend";
     mainProgram = "archiver";
     homepage = "https://gitlab.com/marcusbritanicus/libarchive-qt";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ dan4ik605743 ];
+    maintainers = with lib.maintainers; [dan4ik605743];
     platforms = lib.platforms.linux;
   };
 })

@@ -1,5 +1,7 @@
-{ foo }:
-{ lib, config, ... }:
-{
+{foo}: {
+  lib,
+  config,
+  ...
+}: {
   value = foo;
 }

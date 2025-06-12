@@ -1,9 +1,7 @@
 {
   lib ? import ../..,
-  modules ? [ ],
-}:
-
-{
+  modules ? [],
+}: {
   inherit
     (lib.evalModules {
       inherit modules;

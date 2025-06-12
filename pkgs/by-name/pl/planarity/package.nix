@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "planarity";
   version = "4.0.0.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Library for implementing graph algorithms";
     mainProgram = "planarity";
     license = licenses.bsd3;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.unix;
   };
 }

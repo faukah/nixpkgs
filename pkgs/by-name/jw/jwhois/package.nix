@@ -4,7 +4,6 @@
   fetchurl,
   lynx,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jwhois";
   version = "4.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
         --replace-fail "/usr/bin/lynx" ${lib.getExe lynx}
   '';
 
-  makeFlags = [ "AR=${stdenv.cc.bintools.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.bintools.targetPrefix}ar"];
 
   postInstall = ''
     ln -s $out/bin/jwhois $out/bin/whois

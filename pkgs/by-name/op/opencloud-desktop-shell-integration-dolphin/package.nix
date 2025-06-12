@@ -7,7 +7,6 @@
   kdePackages,
   opencloud-desktop-shell-integration-resources,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencloud-desktop-shell-integration-dolphin";
   version = "1.0.0";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "This is the OpenCloud Desktop shell integration for the great KDE Dolphin in KDE Frameworks 6";
     homepage = "https://github.com/opencloud-eu/desktop-shell-integration-dolphin";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ k900 ];
+    maintainers = with lib.maintainers; [k900];
     mainProgram = "opencloud-desktop-shell-integration-dolphin";
     platforms = lib.platforms.all;
   };

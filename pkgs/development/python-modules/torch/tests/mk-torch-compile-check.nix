@@ -3,13 +3,18 @@
   feature ? null,
   lib,
   libraries,
-  name ? if feature == null then "torch-compile-cpu" else "torch-compile-${feature}",
+  name ?
+    if feature == null
+    then "torch-compile-cpu"
+    else "torch-compile-${feature}",
   stdenv,
-}:
-let
-  deviceStr = if feature == null then "" else '', device="cuda"'';
+}: let
+  deviceStr =
+    if feature == null
+    then ""
+    else '', device="cuda"'';
 in
-cudaPackages.writeGpuTestPython
+  cudaPackages.writeGpuTestPython
   {
     inherit name feature libraries;
     makeWrapperArgs = [

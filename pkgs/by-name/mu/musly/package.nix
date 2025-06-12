@@ -10,7 +10,6 @@
   libresample,
   kissfft,
 }:
-
 stdenv.mkDerivation {
   pname = "musly";
   version = "0.1-unstable-2019-09-05";
@@ -65,7 +64,7 @@ stdenv.mkDerivation {
       some automatic music playlists right away.
     '';
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ ggpeti ];
+    maintainers = with lib.maintainers; [ggpeti];
     platforms = lib.platforms.unix;
     mainProgram = "musly";
   };

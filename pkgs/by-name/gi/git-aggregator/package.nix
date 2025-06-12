@@ -4,7 +4,6 @@
   fetchFromGitHub,
   gitMinimal,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "git-aggregator";
   version = "4.1";
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     description = "Manage the aggregation of git branches from different remotes to build a consolidated one";
     homepage = "https://github.com/acsone/git-aggregator";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ bbjubjub ];
+    maintainers = with maintainers; [bbjubjub];
     mainProgram = "gitaggregate";
   };
 }

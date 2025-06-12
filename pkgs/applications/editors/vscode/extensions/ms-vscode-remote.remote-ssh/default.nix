@@ -7,7 +7,6 @@
 # Note that useLocalExtensions requires that vscode-server is not running
 # on host. If it is, you'll need to remove $HOME/.vscode-server,
 # and redo the install by running "Connect to host" on client
-
 let
   inherit (vscode-utils) buildVscodeMarketplaceExtension;
 
@@ -80,26 +79,26 @@ let
     # Start the server
   '';
 in
-buildVscodeMarketplaceExtension {
-  mktplcRef = {
-    name = "remote-ssh";
-    publisher = "ms-vscode-remote";
-    version = "0.120.0";
-    hash = "sha256-D9YmLKGDtIb2wGfLNRbczqL4fzLASbZC/563ewzqGV0=";
-  };
+  buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "remote-ssh";
+      publisher = "ms-vscode-remote";
+      version = "0.120.0";
+      hash = "sha256-D9YmLKGDtIb2wGfLNRbczqL4fzLASbZC/563ewzqGV0=";
+    };
 
-  postPatch = ''
-    substituteInPlace "out/extension.js" \
-      --replace '# Start the server\n' '${patch}'
-  '';
+    postPatch = ''
+      substituteInPlace "out/extension.js" \
+        --replace '# Start the server\n' '${patch}'
+    '';
 
-  passthru.tests = {
-    inherit (nixosTests) vscode-remote-ssh;
-  };
+    passthru.tests = {
+      inherit (nixosTests) vscode-remote-ssh;
+    };
 
-  meta = {
-    description = "Use any remote machine with a SSH server as your development environment";
-    license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.tbenst ];
-  };
-}
+    meta = {
+      description = "Use any remote machine with a SSH server as your development environment";
+      license = lib.licenses.unfree;
+      maintainers = [lib.maintainers.tbenst];
+    };
+  }

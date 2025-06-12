@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 php82.buildComposerProject2 (finalAttrs: {
   pname = "box";
   version = "4.6.6";
@@ -19,7 +18,7 @@ php82.buildComposerProject2 (finalAttrs: {
   vendorHash = "sha256-7oZtuQ7PhB7q9vNO2TLI46kg2q9BgdLjGUduGXAHc0E=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -28,6 +27,6 @@ php82.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/box-project/box";
     license = lib.licenses.mit;
     mainProgram = "box";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

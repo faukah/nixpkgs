@@ -5,7 +5,6 @@
   autoreconfHook,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libexif";
   version = "0.6.25";
@@ -13,7 +12,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "libexif";
     repo = "libexif";
-    rev = "libexif-${builtins.replaceStrings [ "." ] [ "_" ] version}-release";
+    rev = "libexif-${builtins.replaceStrings ["."] ["_"] version}-release";
     sha256 = "sha256-H8YzfNO2FCrYAwEA4bkOpRdxISK9RXaHVuK8zz70TlM=";
   };
 
@@ -27,7 +26,6 @@ stdenv.mkDerivation rec {
     description = "Library to read and manipulate EXIF data in digital photographs";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
-
 }

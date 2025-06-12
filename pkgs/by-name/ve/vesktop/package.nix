@@ -34,7 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       version
       src
@@ -102,7 +103,11 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm exec electron-builder \
       --dir \
       -c.asarUnpack="**/*.node" \
-      -c.electronDist=${if stdenv.hostPlatform.isDarwin then "." else electron.dist} \
+      -c.electronDist=${
+      if stdenv.hostPlatform.isDarwin
+      then "."
+      else electron.dist
+    } \
       -c.electronVersion=${electron.version}
 
     runHook postBuild
@@ -140,9 +145,9 @@ stdenv.mkDerivation (finalAttrs: {
       makeWrapper ${electron}/bin/electron $out/bin/vesktop \
         --add-flags $out/opt/Vesktop/resources/app.asar \
         ${lib.strings.optionalString withTTS ''
-          --run 'if [[ "''${NIXOS_SPEECH:-default}" != "False" ]]; then NIXOS_SPEECH=True; else unset NIXOS_SPEECH; fi' \
-          --add-flags "\''${NIXOS_SPEECH:+--enable-speech-dispatcher}" \
-        ''} \
+        --run 'if [[ "''${NIXOS_SPEECH:-default}" != "False" ]]; then NIXOS_SPEECH=True; else unset NIXOS_SPEECH; fi' \
+        --add-flags "\''${NIXOS_SPEECH:+--enable-speech-dispatcher}" \
+      ''} \
         ${lib.optionalString withMiddleClickScroll "--add-flags \"--enable-blink-features=MiddleClickAutoscroll\""} \
         --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
     ''
@@ -172,7 +177,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) pnpmDeps;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

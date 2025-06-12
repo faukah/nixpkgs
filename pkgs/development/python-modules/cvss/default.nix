@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cvss";
   version = "3.4";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-g6+ccoIgqs7gZPrTuKm3em+PzLvpupb9JXOGMqf2Uv0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     jsonschema
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "cvss" ];
+  pythonImportsCheck = ["cvss"];
 
   preCheck = ''
     cd tests
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/RedHatProductSecurity/cvss";
     changelog = "https://github.com/RedHatProductSecurity/cvss/releases/tag/${src.tag}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "cvss_calculator";
   };
 }

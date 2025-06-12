@@ -11,7 +11,6 @@
   libtheora,
   libvorbis,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oggvideotools";
   version = "0.9.1";
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Toolbox for manipulating and creating Ogg video files";
     homepage = "http://www.streamnik.de/oggvideotools.html";
     license = licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     # Compilation error on Darwin:
     # error: invalid argument '--std=c++0x' not allowed with 'C'
     # make[2]: *** [src/libresample/CMakeFiles/resample.dir/build.make:76: src/libresample/CMakeFiles/resample.dir/filterkit.c.o] Error 1

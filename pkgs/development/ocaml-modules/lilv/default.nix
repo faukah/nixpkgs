@@ -7,7 +7,6 @@
   ctypes-foreign,
   lilv,
 }:
-
 buildDunePackage rec {
   pname = "lilv";
   version = "0.1.0";
@@ -21,7 +20,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03.0";
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ctypes
     ctypes-foreign
@@ -32,6 +31,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-lilv";
     description = "OCaml bindings for lilv";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

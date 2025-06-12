@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "endlessh-go";
   version = "2024.0119.1";
@@ -34,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/shizunge/endlessh-go";
     changelog = "https://github.com/shizunge/endlessh-go/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ azahi ];
+    maintainers = with lib.maintainers; [azahi];
     mainProgram = "endlessh-go";
   };
 }

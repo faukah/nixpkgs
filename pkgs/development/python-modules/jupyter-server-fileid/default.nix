@@ -10,7 +10,6 @@
   pytest-jupyter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-server-fileid";
   version = "0.9.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-ob7hnqU7GdaDHEPF7+gwkmsboKZgiiLzzwxbBUwYHYo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     jupyter-events
@@ -33,10 +32,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    cli = [ click ];
+    cli = [click];
   };
 
-  pythonImportsCheck = [ "jupyter_server_fileid" ];
+  pythonImportsCheck = ["jupyter_server_fileid"];
 
   checkInputs = [
     pytest-jupyter
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     mainProgram = "jupyter-fileid";
     homepage = "https://github.com/jupyter-server/jupyter_server_fileid";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

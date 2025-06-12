@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.osrm;
-in
-
-{
+in {
   options.services.osrm = {
     enable = lib.mkOption {
       type = lib.types.bool;
@@ -46,7 +43,7 @@ in
 
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "--max-table-size 1000"
         "--max-matching-size 1000"
@@ -59,11 +56,9 @@ in
       example = "/var/lib/osrm/berlin-latest.osrm";
       description = "Data file location";
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
     users.users.osrm = {
       group = config.users.users.osrm.name;
       description = "OSRM user";
@@ -71,12 +66,12 @@ in
       isSystemUser = true;
     };
 
-    users.groups.osrm = { };
+    users.groups.osrm = {};
 
     systemd.services.osrm = {
       description = "OSRM service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = config.users.users.osrm.name;

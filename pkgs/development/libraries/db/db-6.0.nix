@@ -4,8 +4,7 @@
   fetchurl,
   autoreconfHook,
   ...
-}@args:
-
+} @ args:
 import ./generic.nix (
   args
   // {

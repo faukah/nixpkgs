@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-3d-effect";
   version = "0.1.4";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5cPXfEcKIATFQktjIN5lmYjvakYe/k26aHKlJz5FqPE=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   cmakeFlags = [
     "-DBUILD_OUT_OF_TREE=On"
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Plugin for OBS Studio adding 3D effect filter";
     homepage = "https://github.com/exeldro/obs-3d-effect";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

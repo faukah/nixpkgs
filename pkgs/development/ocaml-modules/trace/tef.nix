@@ -3,7 +3,6 @@
   trace,
   mtime,
 }:
-
 buildDunePackage {
   pname = "trace-tef";
   inherit (trace) src version;
@@ -24,8 +23,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = trace.meta // {
-    description = "Simple backend for trace, emitting Catapult JSON into a file";
-  };
-
+  meta =
+    trace.meta
+    // {
+      description = "Simple backend for trace, emitting Catapult JSON into a file";
+    };
 }

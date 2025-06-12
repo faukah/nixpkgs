@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "esphome-glyphsets";
   version = "0.2.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonImportsCheck = [
     "esphome_glyphsets"
@@ -29,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/esphome/esphome-glyphsets";
     changelog = "https://github.com/esphome/esphome-glyphsets/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}.jar";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     jre
     gcc
@@ -46,8 +46,8 @@ stdenv.mkDerivation rec {
     mainProgram = "plm";
     homepage = "https://people.irisa.fr/Martin.Quinson/Teaching/PLM/";
     license = licenses.gpl3;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = [ ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

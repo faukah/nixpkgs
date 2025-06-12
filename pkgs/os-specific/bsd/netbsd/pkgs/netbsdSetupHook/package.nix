@@ -1,3 +1,2 @@
-{ makeSetupHook }:
-
-makeSetupHook { name = "netbsd-setup-hook"; } ./setup-hook.sh
+{makeSetupHook}:
+makeSetupHook {name = "netbsd-setup-hook";} ./setup-hook.sh

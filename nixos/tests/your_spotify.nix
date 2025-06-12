@@ -1,8 +1,7 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "your_spotify";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ patrickdag ];
+    maintainers = [patrickdag];
   };
 
   nodes.machine = {

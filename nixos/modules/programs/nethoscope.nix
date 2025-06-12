@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.nethoscope;
-in
-{
-  meta.maintainers = with lib.maintainers; [ _0x4A6F ];
+in {
+  meta.maintainers = with lib.maintainers; [_0x4A6F];
 
   options = {
     programs.nethoscope = {
@@ -25,7 +22,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ nethoscope ];
+    environment.systemPackages = with pkgs; [nethoscope];
     security.wrappers.nethoscope = {
       source = "${pkgs.nethoscope}/bin/nethoscope";
       capabilities = "cap_net_raw,cap_net_admin=eip";

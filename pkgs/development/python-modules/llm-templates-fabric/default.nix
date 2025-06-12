@@ -6,7 +6,6 @@
   llm,
   llm-templates-fabric,
 }:
-
 buildPythonPackage rec {
   pname = "llm-templates-fabric";
   version = "0.2";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-tfkSjeT9WstUsNCtVr3fMzqELFCtfYphqf3xFGvHaV0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ llm ];
+  dependencies = [llm];
 
-  pythonImportsCheck = [ "llm_templates_fabric" ];
+  pythonImportsCheck = ["llm_templates_fabric"];
 
   passthru.tests = llm.mkPluginTest llm-templates-fabric;
 
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-templates-fabric";
     changelog = "https://github.com/simonw/llm-templates-fabric/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

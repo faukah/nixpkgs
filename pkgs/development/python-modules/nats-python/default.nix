@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "nats-python";
   version = "0.8.0";
@@ -31,20 +30,20 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ setuptools ];
+  dependencies = [setuptools];
 
   # Tests require a running NATS server
   doCheck = false;
 
-  pythonImportsCheck = [ "pynats" ];
+  pythonImportsCheck = ["pynats"];
 
   meta = with lib; {
     description = "Python client for NATS messaging system";
     homepage = "https://github.com/Gr1N/nats-python";
     changelog = "https://github.com/Gr1N/nats-python/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

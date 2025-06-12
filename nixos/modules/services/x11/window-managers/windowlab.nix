@@ -3,13 +3,9 @@
   pkgs,
   config,
   ...
-}:
-
-let
+}: let
   cfg = config.services.xserver.windowManager.windowlab;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.windowlab.enable = lib.mkEnableOption "windowlab";
   };
@@ -23,6 +19,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.windowlab ];
+    environment.systemPackages = [pkgs.windowlab];
   };
 }

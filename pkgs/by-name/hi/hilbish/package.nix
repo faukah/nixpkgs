@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "hilbish";
   version = "2.3.4";
@@ -16,7 +15,7 @@ buildGoModule rec {
     fetchSubmodules = true;
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-8t3JBQEAmWcAlgA729IRpiewlgnRd5DQxHLTfwquE3o=";
 
@@ -40,7 +39,7 @@ buildGoModule rec {
     mainProgram = "hilbish";
     changelog = "https://github.com/Rosettea/Hilbish/releases/tag/v${version}";
     homepage = "https://github.com/Rosettea/Hilbish";
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     license = lib.licenses.mit;
   };
 }

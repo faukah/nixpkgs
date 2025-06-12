@@ -23,7 +23,6 @@
   libgtop,
   systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-system-monitor";
   version = "48.1";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://apps.gnome.org/SystemMonitor/";
     description = "System Monitor shows you what programs are running and how much processor time, memory, and disk space are being used";
     mainProgram = "gnome-system-monitor";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

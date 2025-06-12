@@ -9,7 +9,6 @@
   zope-schema,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-copy";
   version = "5.0";
@@ -27,14 +26,14 @@ buildPythonPackage rec {
       --replace-fail "setuptools < 74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zodbpickle
     zope-interface
   ];
 
-  pythonImportsCheck = [ "zope.copy" ];
+  pythonImportsCheck = ["zope.copy"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -47,13 +46,13 @@ buildPythonPackage rec {
     "src/zope/copy"
   ];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Pluggable object copying mechanism";
     homepage = "https://github.com/zopefoundation/zope.copy";
     changelog = "https://github.com/zopefoundation/zope.copy/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

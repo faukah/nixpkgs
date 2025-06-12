@@ -7,7 +7,6 @@
   libmicrohttpd,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xmrig-proxy";
   version = "6.22.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     mainProgram = "xmrig-proxy";
     homepage = "https://github.com/xmrig/xmrig-proxy";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aij ];
+    maintainers = with maintainers; [aij];
   };
 }

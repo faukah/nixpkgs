@@ -5,7 +5,6 @@
   testers,
   wireproxy,
 }:
-
 buildGoModule rec {
   pname = "wireproxy";
   version = "1.0.10";
@@ -35,7 +34,7 @@ buildGoModule rec {
     description = "Wireguard client that exposes itself as a socks5 proxy";
     homepage = "https://github.com/pufferffish/wireproxy";
     license = licenses.isc;
-    maintainers = with maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with maintainers; [_3JlOy-PYCCKUi];
     mainProgram = "wireproxy";
   };
 }

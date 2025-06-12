@@ -4,14 +4,13 @@
   lsp-bridge,
   yasnippet,
 }:
-
 melpaBuild {
   pname = "acm";
   version = lsp-bridge.version;
 
   src = lsp-bridge.src;
 
-  packageRequires = [ yasnippet ];
+  packageRequires = [yasnippet];
 
   files = ''("acm/*.el" "acm/icons")'';
 

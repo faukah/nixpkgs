@@ -5,7 +5,6 @@
   re,
   uutf,
 }:
-
 buildDunePackage rec {
   pname = "tyxml";
   version = "4.6.0";
@@ -29,5 +28,4 @@ buildDunePackage rec {
       vbgl
     ];
   };
-
 }

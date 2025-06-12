@@ -11,7 +11,6 @@
   jdupes,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "zafiro-icons";
   version = "1.3";
@@ -65,13 +64,13 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Icon pack flat with light colors";
     homepage = "https://github.com/zayronxio/Zafiro-icons";
-    license = with licenses; [ gpl3 ];
+    license = with licenses; [gpl3];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

@@ -5,7 +5,6 @@
   pkg-config,
   gtk4,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "process-viewer";
   version = "0.5.8";
@@ -18,9 +17,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-vmNqay/tYGASSez+VqyCQVMW+JGqfBvjwSKx0AG/LeY=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   postInstall = ''
     install -Dm644 assets/fr.guillaume_gomez.ProcessViewer.desktop -t $out/share/applications
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     description = "Process viewer GUI in rust";
     homepage = "https://github.com/guillaumegomez/process-viewer";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "process_viewer";
   };
 }

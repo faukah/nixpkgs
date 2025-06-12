@@ -5,7 +5,6 @@
   rWrapper,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "resorter";
   version = "0-unstable-2023-07-14";
@@ -38,9 +37,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Tool to sort a list of items based on pairwise comparisons";
     homepage = "https://github.com/hiAndrewQuinn/resorter";
-    license = with lib.licenses; [ cc0 ];
+    license = with lib.licenses; [cc0];
     mainProgram = "resorter";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

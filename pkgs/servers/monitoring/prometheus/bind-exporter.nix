@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "bind_exporter";
   version = "0.7.0";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-f0ei/zotOj5ebURAOWUox/7J3jS2abQ5UgjninI9nRk=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) bind; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) bind;};
 
   meta = with lib; {
     description = "Prometheus exporter for bind9 server";
     mainProgram = "bind_exporter";
     homepage = "https://github.com/digitalocean/bind_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rtreffer ];
+    maintainers = with maintainers; [rtreffer];
   };
 }

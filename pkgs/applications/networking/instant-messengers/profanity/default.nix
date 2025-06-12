@@ -36,7 +36,6 @@
   traySupport ? true,
   gtk3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "profanity";
   version = "0.15.0";
@@ -90,9 +89,9 @@ stdenv.mkDerivation (finalAttrs: {
       libgcrypt
       qrencode
     ]
-    ++ lib.optionals pgpSupport [ gpgme ]
-    ++ lib.optionals pythonPluginSupport [ python3 ]
-    ++ lib.optionals traySupport [ gtk3 ];
+    ++ lib.optionals pgpSupport [gpgme]
+    ++ lib.optionals pythonPluginSupport [python3]
+    ++ lib.optionals traySupport [gtk3];
 
   # Enable feature flags, so that build fail if libs are missing
   configureFlags =
@@ -100,11 +99,11 @@ stdenv.mkDerivation (finalAttrs: {
       "--enable-c-plugins"
       "--enable-otr"
     ]
-    ++ lib.optionals notifySupport [ "--enable-notifications" ]
-    ++ lib.optionals traySupport [ "--enable-icons-and-clipboard" ]
-    ++ lib.optionals pgpSupport [ "--enable-pgp" ]
-    ++ lib.optionals pythonPluginSupport [ "--enable-python-plugins" ]
-    ++ lib.optionals omemoSupport [ "--enable-omemo" ];
+    ++ lib.optionals notifySupport ["--enable-notifications"]
+    ++ lib.optionals traySupport ["--enable-icons-and-clipboard"]
+    ++ lib.optionals pgpSupport ["--enable-pgp"]
+    ++ lib.optionals pythonPluginSupport ["--enable-python-plugins"]
+    ++ lib.optionals omemoSupport ["--enable-omemo"];
 
   doCheck = true;
 
@@ -119,7 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
       libstrophe, inspired by Irssi.
     '';
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
     platforms = platforms.unix;
   };
 })

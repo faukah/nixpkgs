@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-sqlvirtualmachine";
   version = "0.5.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/sql/azure-mgmt-sqlvirtualmachine";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-sqlvirtualmachine_${version}/sdk/sql/azure-mgmt-sqlvirtualmachine/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

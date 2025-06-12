@@ -11,12 +11,12 @@ mkTmuxPlugin {
   version = "0-unstable-2024-06-08";
   buildInputs = [
     check-jsonschema
-    (python3.withPackages (ps: with ps; [ pyyaml ]))
+    (python3.withPackages (ps: with ps; [pyyaml]))
   ];
 
   postPatch = ''
     substituteInPlace plugin.sh.tmux --replace-fail \
-      python3 "${lib.getExe (python3.withPackages (ps: with ps; [ pyyaml ]))}"
+      python3 "${lib.getExe (python3.withPackages (ps: with ps; [pyyaml]))}"
   '';
 
   preInstall = ''
@@ -40,6 +40,6 @@ mkTmuxPlugin {
     description = "Tmux plugin that allows users to select actions from a customizable popup menu";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ novaviper ];
+    maintainers = with lib.maintainers; [novaviper];
   };
 }

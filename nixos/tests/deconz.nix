@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   httpPort = 800;
-in
-{
+in {
   name = "deconz";
 
   meta.maintainers = with lib.maintainers; [

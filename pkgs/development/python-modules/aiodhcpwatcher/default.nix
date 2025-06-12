@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   scapy,
-
   # tests
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "aiodhcpwatcher";
   version = "1.2.0";
@@ -30,9 +26,9 @@ buildPythonPackage rec {
     sed -i "/addopts =/d" pyproject.toml
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ scapy ];
+  dependencies = [scapy];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -43,14 +39,14 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "aiodhcpwatcher" ];
+  pythonImportsCheck = ["aiodhcpwatcher"];
 
   meta = with lib; {
     description = "Watch for DHCP packets with asyncio";
     homepage = "https://github.com/bdraco/aiodhcpwatcher";
     changelog = "https://github.com/bdraco/aiodhcpwatcher/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.linux;
   };
 }

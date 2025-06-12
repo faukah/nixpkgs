@@ -8,7 +8,6 @@
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "clazy";
   version = "1.14";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/KDE/clazy";
     changelog = "https://github.com/KDE/clazy/blob/${finalAttrs.version}/Changelog";
     license = lib.licenses.lgpl2Plus;
-    maintainers = [ lib.maintainers.cadkin ];
+    maintainers = [lib.maintainers.cadkin];
     platforms = lib.platforms.linux;
   };
 })

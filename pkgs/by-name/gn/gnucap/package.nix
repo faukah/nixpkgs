@@ -10,9 +10,7 @@
   stdenv,
   termcap,
   writeScript,
-}:
-
-let
+}: let
   version = "20240220";
   meta = with lib; {
     description = "Gnu Circuit Analysis Package";
@@ -25,48 +23,46 @@ let
     license = licenses.gpl3Only;
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # Relies on LD_LIBRARY_PATH
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
     mainProgram = "gnucap";
   };
 in
-stdenv.mkDerivation {
-  pname = "gnucap";
-  inherit version;
+  stdenv.mkDerivation {
+    pname = "gnucap";
+    inherit version;
 
-  src = fetchFromSavannah {
-    repo = "gnucap";
-    rev = version;
-    hash = "sha256-aZMiNKwI6eQZAxlF/+GoJhKczohgGwZ0/Wgpv3+AhYY=";
-  };
+    src = fetchFromSavannah {
+      repo = "gnucap";
+      rev = version;
+      hash = "sha256-aZMiNKwI6eQZAxlF/+GoJhKczohgGwZ0/Wgpv3+AhYY=";
+    };
 
-  nativeBuildInputs = [
-    installShellFiles
-  ];
-  buildInputs = [
-    readline
-    termcap
-  ];
+    nativeBuildInputs = [
+      installShellFiles
+    ];
+    buildInputs = [
+      readline
+      termcap
+    ];
 
-  doCheck = true;
+    doCheck = true;
 
-  postInstall = ''
-    installManPage man/*
-  '';
-
-  passthru.tests = {
-    verilog = runCommand "gnucap-verilog-test" { } ''
-      echo "attach mgsim" | ${gnucap-full}/bin/gnucap -a msgsim > $out
-      cat $out | grep "verilog: already installed"
+    postInstall = ''
+      installManPage man/*
     '';
-  };
 
-  inherit meta;
-}
-// {
-  plugins = callPackage ./plugins.nix { };
-  withPlugins =
-    p:
-    let
+    passthru.tests = {
+      verilog = runCommand "gnucap-verilog-test" {} ''
+        echo "attach mgsim" | ${gnucap-full}/bin/gnucap -a msgsim > $out
+        cat $out | grep "verilog: already installed"
+      '';
+    };
+
+    inherit meta;
+  }
+  // {
+    plugins = callPackage ./plugins.nix {};
+    withPlugins = p: let
       selectedPlugins = p gnucap.plugins;
       wrapper = writeScript "gnucap" ''
         export GNUCAP_PLUGPATH=${gnucap}/lib/gnucap
@@ -76,19 +72,19 @@ stdenv.mkDerivation {
         ${lib.getExe gnucap}
       '';
     in
-    stdenv.mkDerivation {
-      pname = "gnucap-with-plugins";
-      inherit version;
+      stdenv.mkDerivation {
+        pname = "gnucap-with-plugins";
+        inherit version;
 
-      propagatedBuildInputs = selectedPlugins;
+        propagatedBuildInputs = selectedPlugins;
 
-      dontUnpack = true;
+        dontUnpack = true;
 
-      installPhase = ''
-        mkdir -p $out/bin
-        cp ${wrapper} $out/bin/gnucap
-      '';
+        installPhase = ''
+          mkdir -p $out/bin
+          cp ${wrapper} $out/bin/gnucap
+        '';
 
-      inherit meta;
-    };
-}
+        inherit meta;
+      };
+  }

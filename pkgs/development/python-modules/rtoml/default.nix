@@ -9,7 +9,6 @@
   pythonOlder,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "rtoml";
   version = "0.10";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     maturinBuildHook
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
-  pythonImportsCheck = [ "rtoml" ];
+  pythonImportsCheck = ["rtoml"];
 
   nativeCheckInputs = [
     dirty-equals
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
   disabledTests = [
     # TypeError: loads() got an unexpected keyword argument 'name'
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     description = "Rust based TOML library for Python";
     homepage = "https://github.com/samuelcolvin/rtoml";
     license = licenses.mit;
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

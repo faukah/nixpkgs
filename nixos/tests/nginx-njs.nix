@@ -1,31 +1,32 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "nginx-njs";
 
-  nodes.machine =
-    {
-      config,
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      services.nginx = {
-        enable = true;
-        additionalModules = [ pkgs.nginxModules.njs ];
-        commonHttpConfig = ''
-          js_import http from ${builtins.toFile "http.js" ''
-            function hello(r) {
-                r.return(200, "Hello world!");
-            }
-            export default {hello};
-          ''};
-        '';
-        virtualHosts."localhost".locations."/".extraConfig = ''
-          js_content http.hello;
-        '';
-      };
+  nodes.machine = {
+    config,
+    lib,
+    pkgs,
+    ...
+  }: {
+    services.nginx = {
+      enable = true;
+      additionalModules = [pkgs.nginxModules.njs];
+      commonHttpConfig = ''
+        js_import http from ${builtins.toFile "http.js" ''
+          function hello(r) {
+              r.return(200, "Hello world!");
+          }
+          export default {hello};
+        ''};
+      '';
+      virtualHosts."localhost".locations."/".extraConfig = ''
+        js_content http.hello;
+      '';
     };
+  };
   testScript = ''
     machine.wait_for_unit("nginx")
 

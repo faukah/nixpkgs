@@ -7,7 +7,6 @@
   markup,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "lambdasoup";
   version = "1.1.1";
@@ -27,13 +26,12 @@ buildDunePackage rec {
   ];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = {
     description = "Functional HTML scraping and rewriting with CSS in OCaml";
     homepage = "https://aantron.github.io/lambdasoup/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
-
 }

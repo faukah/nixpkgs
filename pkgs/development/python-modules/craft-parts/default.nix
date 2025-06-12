@@ -27,7 +27,6 @@
   jdk,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "craft-parts";
   version = "2.12.0";
@@ -41,9 +40,9 @@ buildPythonPackage rec {
     hash = "sha256-mm5s7lHbU9SJsS9wTkXkJpmVsGG0qVXIeaQ+TiGz/7o=";
   };
 
-  patches = [ ./bash-path.patch ];
+  patches = [./bash-path.patch];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   pythonRelaxDeps = [
     "requests"
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     requests-unixsocket
   ];
 
-  pythonImportsCheck = [ "craft_parts" ];
+  pythonImportsCheck = ["craft_parts"];
 
   nativeCheckInputs = [
     ant
@@ -80,7 +79,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     # Relies upon paths not present in Nix (like /bin/bash)
@@ -111,14 +110,14 @@ buildPythonPackage rec {
       "tests/unit/features/overlay/test_executor_environment.py"
     ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Software artifact parts builder from Canonical";
     homepage = "https://github.com/canonical/craft-parts";
     changelog = "https://github.com/canonical/craft-parts/releases/tag/${src.tag}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

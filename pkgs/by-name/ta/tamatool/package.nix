@@ -7,11 +7,9 @@
   libpng,
   SDL2,
   SDL2_image,
-
   # Optionally bundle a ROM file
   rom ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tamatool";
   version = "0.1";
@@ -58,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_LDFLAGS = "-framework CoreFoundation";
   };
 
-  desktopItems = [ "linux/tamatool.desktop" ];
+  desktopItems = ["linux/tamatool.desktop"];
 
   installPhase = ''
     runHook preInstall
@@ -74,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform Tamagotchi P1 explorer";
     homepage = "https://github.com/jcrona/tamatool";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     mainProgram = "tamatool";
   };

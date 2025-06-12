@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rcodesign";
   version = "0.29.0";
@@ -59,7 +58,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -75,6 +74,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/indygreg/apple-platform-rs";
     changelog = "https://github.com/indygreg/apple-platform-rs/releases/tag/apple-codesign%2F${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ euank ];
+    maintainers = with lib.maintainers; [euank];
   };
 }

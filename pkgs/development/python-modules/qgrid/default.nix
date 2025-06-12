@@ -9,7 +9,6 @@
   pandas,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "qgrid";
   version = "1.3.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     pandas
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Those tests are also failing upstream
   disabledTests = [
@@ -53,12 +52,12 @@ buildPythonPackage rec {
     "test_add_row_button"
   ];
 
-  pythonImportsCheck = [ "qgrid" ];
+  pythonImportsCheck = ["qgrid"];
 
   meta = {
     description = "Interactive grid for sorting, filtering, and editing DataFrames in Jupyter notebooks";
     homepage = "https://github.com/quantopian/qgrid";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

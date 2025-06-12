@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "miller";
   version = "6.13.0";
@@ -27,13 +26,13 @@ buildGoModule rec {
     mv ./man/mlr.1 $man/share/man/man1
   '';
 
-  subPackages = [ "cmd/mlr" ];
+  subPackages = ["cmd/mlr"];
 
   meta = with lib; {
     description = "Like awk, sed, cut, join, and sort for data formats such as CSV, TSV, JSON, JSON Lines, and positionally-indexed";
     homepage = "https://github.com/johnkerl/miller";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mstarzyk ];
+    maintainers = with maintainers; [mstarzyk];
     mainProgram = "mlr";
     platforms = platforms.all;
   };

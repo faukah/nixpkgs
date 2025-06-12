@@ -16,7 +16,7 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-ljmqNmLvRHPdsKyOdDfECBXHTIExM6nPZF45lqV+pDM=";
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   dontNpmBuild = true;
 
@@ -31,6 +31,6 @@ buildNpmPackage rec {
     mainProgram = "mailsy";
     homepage = "https://fig.io/manual/mailsy";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers._404wolf ];
+    maintainers = [lib.maintainers._404wolf];
   };
 }

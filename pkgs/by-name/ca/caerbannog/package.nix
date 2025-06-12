@@ -14,7 +14,6 @@
   libnotify,
   pango,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "caerbannog";
   version = "0.3";
@@ -57,6 +56,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://sr.ht/~craftyguy/caerbannog/";
     changelog = "https://git.sr.ht/~craftyguy/caerbannog/refs/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

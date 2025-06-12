@@ -4,12 +4,11 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "metamath";
   version = "0.198";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   src = fetchFromGitHub {
     owner = "metamath";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://us.metamath.org";
     downloadPage = "https://us.metamath.org/#downloads";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.taneb ];
+    maintainers = [maintainers.taneb];
     platforms = platforms.all;
   };
 }

@@ -18,7 +18,6 @@
   typing-extensions,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "scholarly";
   version = "1.7.11";
@@ -52,18 +51,18 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    tor = [ stem ];
+    tor = [stem];
   };
 
   nativeCheckInputs = lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "scholarly" ];
+  pythonImportsCheck = ["scholarly"];
 
   meta = {
     description = "Retrieve author and publication information from Google Scholar";
     homepage = "https://scholarly.readthedocs.io/";
     changelog = "https://github.com/scholarly-python-package/scholarly/releases/tag/${src.tag}";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

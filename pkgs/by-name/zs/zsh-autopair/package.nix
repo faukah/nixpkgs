@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zsh-autopair";
   version = "1.0-unstable-2024-07-14";

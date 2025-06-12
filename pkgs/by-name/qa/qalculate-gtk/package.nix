@@ -11,7 +11,6 @@
   wrapGAppsHook3,
   desktopToDarwinBundle,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qalculate-gtk";
   version = "5.5.1";
@@ -23,14 +22,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-9KXzsMGSdi+nh5x7ehVHLi7Ni+iK+sFpsacj5ByU7M4=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  nativeBuildInputs = [
-    intltool
-    pkg-config
-    autoreconfHook
-    wrapGAppsHook3
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
+  nativeBuildInputs =
+    [
+      intltool
+      pkg-config
+      autoreconfHook
+      wrapGAppsHook3
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [desktopToDarwinBundle];
   buildInputs = [
     libqalculate
     gtk3

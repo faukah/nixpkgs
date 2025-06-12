@@ -33,14 +33,14 @@ buildGoModule (finalAttrs: {
   versionCheckProgramArg = "-version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Designed to be compatible with macOS lipo, written in golang";
     homepage = "https://github.com/konoui/lipo";
     changelog = "https://github.com/konoui/lipo/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "lipo";
   };
 })

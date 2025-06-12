@@ -3,7 +3,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "git-cache";
   version = "2018-06-18";
@@ -27,6 +26,6 @@ stdenv.mkDerivation {
     description = "Program to add and manage a system-wide or user-wide cache for remote git repositories";
     mainProgram = "git-cache";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ maxhearnden ];
+    maintainers = with maintainers; [maxhearnden];
   };
 }

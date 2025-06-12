@@ -11,7 +11,6 @@
   withEspeak ? false,
   espeak ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rockbox-utility";
   version = "1.5.1";
@@ -28,13 +27,15 @@ stdenv.mkDerivation rec {
     qt5.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    cryptopp
-    libusb1
-    qt5.qtbase
-    qt5.qtmultimedia
-    qt5.qttools
-  ] ++ lib.optional withEspeak espeak;
+  buildInputs =
+    [
+      cryptopp
+      libusb1
+      qt5.qtbase
+      qt5.qtmultimedia
+      qt5.qttools
+    ]
+    ++ lib.optional withEspeak espeak;
 
   cmakeDir = "../utils";
 
@@ -59,7 +60,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.rockbox.org";
     description = "Open source firmware for digital music players";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ozkutuk ];
+    maintainers = with maintainers; [ozkutuk];
     mainProgram = "RockboxUtility";
     platforms = platforms.linux;
   };

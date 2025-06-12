@@ -12,7 +12,6 @@
   wrapGAppsHook3,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wxhexeditor";
   version = "0.24";
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.wxhexeditor.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
     mainProgram = "wxHexEditor";
     platforms = lib.platforms.unix;
   };

@@ -7,7 +7,6 @@
   testers,
   mu-repo,
 }:
-
 buildPythonApplication rec {
   pname = "mu-repo";
   version = "1.9.0";
@@ -15,18 +14,18 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "fabioz";
     repo = "mu-repo";
-    tag = "mu_repo_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    tag = "mu_repo_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-aSRf0B/skoZLsn4dykWOFKVNtHYCsD9RtZ1frHDrcJU=";
   };
 
-  dependencies = [ git ];
+  dependencies = [git];
 
   nativeCheckInputs = [
     pytestCheckHook
     git
   ];
 
-  disabledTests = [ "test_action_diff" ];
+  disabledTests = ["test_action_diff"];
 
   passthru.tests.version = testers.testVersion {
     package = mu-repo;
@@ -37,7 +36,7 @@ buildPythonApplication rec {
     homepage = "http://fabioz.github.io/mu-repo/";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "mu";
   };
 }

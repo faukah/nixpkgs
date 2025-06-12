@@ -5,7 +5,6 @@
   ncurses,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xstow";
   version = "1.1.1";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-c89+thw5N3Cgl1Ww+W7c3YsyhNJMLlreedvdWJFY3WY=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Upstream seems to try to support building both static and dynamic version
   # of executable on dynamic systems, but fails with link error when attempting
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Replacement of GNU Stow written in C++";
     homepage = "https://github.com/majorkingleo/xstow";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nzbr ];
+    maintainers = with maintainers; [nzbr];
     platforms = platforms.unix;
   };
 }

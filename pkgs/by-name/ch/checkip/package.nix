@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "checkip";
   version = "0.47.7";
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/jreisinger/checkip";
     changelog = "https://github.com/jreisinger/checkip/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "checkip";
   };
 }

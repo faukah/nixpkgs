@@ -11,7 +11,6 @@
   setuptools-scm,
   voluptuous,
 }:
-
 buildPythonPackage rec {
   pname = "solax";
   version = "3.2.3";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ht+UP/is9+galMiVz/pkwtre1BXfCTT39SpSz4Vctvs=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     aiohttp
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "solax" ];
+  pythonImportsCheck = ["solax"];
 
   disabledTests = [
     # Tests require network access
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     description = "Python wrapper for the Solax Inverter API";
     homepage = "https://github.com/squishykid/solax";
     changelog = "https://github.com/squishykid/solax/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -18,7 +18,6 @@
   mpg123,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slade";
   version = "3.2.7";
@@ -69,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "http://slade.mancubus.net/";
     license = lib.licenses.gpl2Only; # https://github.com/sirjuddington/SLADE/issues/1754
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 }

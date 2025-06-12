@@ -4,11 +4,7 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   initScriptBuilder = pkgs.replaceVarsWith {
     src = ./init-script-builder.sh;
     isExecutable = true;
@@ -22,17 +18,11 @@ let
       ];
     };
   };
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     boot.loader.initScript = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -48,15 +38,11 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = mkIf config.boot.loader.initScript.enable {
-
     system.build.installBootLoader = initScriptBuilder;
-
   };
-
 }

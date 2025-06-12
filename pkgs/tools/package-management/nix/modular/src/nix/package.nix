@@ -1,17 +1,13 @@
 {
   lib,
   mkMesonExecutable,
-
   nix-store,
   nix-expr,
   nix-main,
   nix-cmd,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonExecutable (finalAttrs: {
   pname = "nix";
   inherit version;
@@ -32,5 +28,4 @@ mkMesonExecutable (finalAttrs: {
     mainProgram = "nix";
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

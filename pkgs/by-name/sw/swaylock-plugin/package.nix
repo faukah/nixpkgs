@@ -20,7 +20,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swaylock-plugin";
   version = "1.8.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/swaylock-plugin \
-      --prefix PATH : "${lib.makeBinPath [ swaybg ]}"
+      --prefix PATH : "${lib.makeBinPath [swaybg]}"
   '';
 
   mesonFlags = [
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -83,6 +82,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "swaylock-plugin";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ picnoir ];
+    maintainers = with lib.maintainers; [picnoir];
   };
 })

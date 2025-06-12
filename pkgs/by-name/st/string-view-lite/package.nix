@@ -6,7 +6,6 @@
   ninja,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "string-view-lite";
   version = "1.8.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doCheck = true;
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -33,6 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/martinmoene/string-view-lite";
     changelog = "https://github.com/martinmoene/string-view-lite/blob/v${finalAttrs.version}/CHANGES.txt";
     license = lib.licenses.boost;
-    maintainers = with lib.maintainers; [ titaniumtown ];
+    maintainers = with lib.maintainers; [titaniumtown];
   };
 })

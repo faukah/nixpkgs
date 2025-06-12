@@ -9,8 +9,7 @@
   lcms2,
   libexif,
 }:
-
-stdenv.mkDerivation (rec {
+stdenv.mkDerivation rec {
   version = "2.3.3";
   pname = "qiv";
 
@@ -19,7 +18,7 @@ stdenv.mkDerivation (rec {
     sha256 = "sha256-7whf/eLUiwWzZlk55a4eNZ06OBAI+4J2hPfW/UxTNwQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     imlib2
@@ -41,4 +40,4 @@ stdenv.mkDerivation (rec {
     platforms = platforms.linux;
     mainProgram = "qiv";
   };
-})
+}

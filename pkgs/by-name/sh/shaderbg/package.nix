@@ -34,7 +34,7 @@ stdenv.mkDerivation {
     description = "Shader-based live wallpaper program for compositors that support wlr-layer-shell (Sway and others)";
     homepage = "https://github.com/Mr-Pine/shaderbg";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ bokicoder ];
+    maintainers = with lib.maintainers; [bokicoder];
     mainProgram = "shaderbg";
     platforms = lib.platforms.linux;
   };

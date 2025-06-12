@@ -3,7 +3,6 @@
   alephone,
   requireFile,
 }:
-
 alephone.makeWrapper {
   pname = "apotheosis-x";
   version = "1.1";

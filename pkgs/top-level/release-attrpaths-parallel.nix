@@ -10,9 +10,7 @@
   checkMeta,
   includeBroken,
   systems,
-}:
-
-let
+}: let
   attrpaths = lib.importJSON attrpathFile;
   myAttrpaths = lib.sublist (chunkSize * myChunk) chunkSize attrpaths;
 
@@ -22,26 +20,23 @@ let
   };
 
   # Turns the unfiltered recursive attribute set into one that is limited to myAttrpaths
-  filtered =
-    let
-      recurse =
-        index: paths: attrs:
-        lib.mapAttrs (
-          name: values:
-          if attrs ? ${name} then
-            if lib.any (value: lib.length value <= index + 1) values then
-              attrs.${name}
+  filtered = let
+    recurse = index: paths: attrs:
+      lib.mapAttrs (
+        name: values:
+          if attrs ? ${name}
+          then
+            if lib.any (value: lib.length value <= index + 1) values
+            then attrs.${name}
             else
               recurse (index + 1) values attrs.${name}
               # Make sure nix-env recurses as well
               // {
                 recurseForDerivations = true;
               }
-          else
-            null
-        ) (lib.groupBy (a: lib.elemAt a index) paths);
-    in
+          else null
+      ) (lib.groupBy (a: lib.elemAt a index) paths);
+  in
     recurse 0 myAttrpaths unfiltered;
-
 in
-filtered
+  filtered

@@ -5,7 +5,6 @@
   lib,
   postgresqlTestExtension,
 }:
-
 buildPgrxExtension (finalAttrs: {
   pname = "pgvectorscale";
   version = "0.7.0";
@@ -34,7 +33,7 @@ buildPgrxExtension (finalAttrs: {
 
   passthru.tests.extension = postgresqlTestExtension {
     inherit (finalAttrs) finalPackage;
-    withPackages = [ "pgvector" ];
+    withPackages = ["pgvector"];
     sql = ''
       CREATE EXTENSION vectorscale CASCADE;
       CREATE TABLE document_embedding  (
@@ -65,7 +64,7 @@ buildPgrxExtension (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/timescale/pgvectorscale";
-    teams = [ lib.teams.flyingcircus ];
+    teams = [lib.teams.flyingcircus];
     description = "Complement to pgvector for high performance, cost efficient vector search on large workloads";
     license = lib.licenses.postgresql;
     platforms = postgresql.meta.platforms;

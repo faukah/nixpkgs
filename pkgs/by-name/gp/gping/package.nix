@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "gping";
   version = "1.19.0";
@@ -23,9 +22,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-b7GsaAaCYz3ohE4BUHlvexJ41L0OhbcWkBo61X4FKzQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isLinux [ iputils ];
+  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isLinux [iputils];
 
   postInstall = ''
     installManPage gping.1
@@ -40,18 +39,18 @@ rustPlatform.buildRustPackage rec {
 
   doInstallCheck = true;
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Ping, but with a graph";
     homepage = "https://github.com/orf/gping";
     changelog = "https://github.com/orf/gping/releases/tag/gping-v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cafkafk ];
+    maintainers = with lib.maintainers; [cafkafk];
     mainProgram = "gping";
   };
 }

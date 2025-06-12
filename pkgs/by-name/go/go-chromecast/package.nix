@@ -6,7 +6,6 @@
   stdenvNoCC,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "go-chromecast";
   version = "0.3.4";
@@ -32,7 +31,7 @@ buildGoModule rec {
 
   doInstallCheck = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -51,7 +50,7 @@ buildGoModule rec {
     homepage = "https://github.com/vishen/go-chromecast";
     description = "CLI for Google Chromecast, Home devices and Cast Groups";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.zi3m5f ];
+    maintainers = [lib.maintainers.zi3m5f];
     mainProgram = "go-chromecast";
   };
 }

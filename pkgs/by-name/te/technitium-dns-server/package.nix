@@ -25,7 +25,7 @@ buildDotnetModule rec {
 
   nugetDeps = ./nuget-deps.json;
 
-  projectFile = [ "DnsServerApp/DnsServerApp.csproj" ];
+  projectFile = ["DnsServerApp/DnsServerApp.csproj"];
 
   # move dependencies from TechnitiumLibrary to the expected directory
   preBuild = ''
@@ -45,7 +45,7 @@ buildDotnetModule rec {
     inherit (nixosTests) technitium-dns-server;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/TechnitiumSoftware/DnsServer/blob/master/CHANGELOG.md";
@@ -53,7 +53,7 @@ buildDotnetModule rec {
     homepage = "https://github.com/TechnitiumSoftware/DnsServer";
     license = lib.licenses.gpl3Only;
     mainProgram = "technitium-dns-server";
-    maintainers = with lib.maintainers; [ fabianrig ];
+    maintainers = with lib.maintainers; [fabianrig];
     platforms = lib.platforms.linux;
   };
 }

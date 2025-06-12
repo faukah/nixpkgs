@@ -6,7 +6,6 @@
   cmake,
   help2man,
 }:
-
 stdenv.mkDerivation rec {
   pname = "postsrsd";
   version = "2.0.11";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     mainProgram = "postsrsd";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

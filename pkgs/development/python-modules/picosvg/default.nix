@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-ocdHF0kYnfllpvul32itu1QtlDrqVeq5sT8Ecb5V1yk=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     absl-py
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     skia-pathops
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # a few tests are failing on aarch64
   doCheck = !stdenv.hostPlatform.isAarch64;
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     mainProgram = "picosvg";
     homepage = "https://github.com/googlefonts/picosvg";
     license = licenses.asl20;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
   };
 }

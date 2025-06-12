@@ -5,7 +5,6 @@
   cmake,
   gnum4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "suitesparse-graphblas";
   version = "10.0.5";
@@ -32,16 +31,14 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    (lib.cmakeBool "GRAPHBLAS_USE_JIT" (
-      !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
-    ))
+    (lib.cmakeBool "GRAPHBLAS_USE_JIT" (!(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)))
   ];
 
   meta = with lib; {
     description = "Graph algorithms in the language of linear algebra";
     homepage = "https://people.engr.tamu.edu/davis/GraphBLAS.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = with platforms; unix;
   };
 }

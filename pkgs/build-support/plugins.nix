@@ -1,15 +1,14 @@
-{ lib }:
+{lib}:
 # helper functions for packaging programs with plugin systems
 {
-
   /*
-    Takes a list of expected plugin names
-    and compares it to the found plugins given in the file,
-    one plugin per line.
-    If the lists differ, the build fails with a nice message.
+  Takes a list of expected plugin names
+  and compares it to the found plugins given in the file,
+  one plugin per line.
+  If the lists differ, the build fails with a nice message.
 
-    This is helpful to ensure maintainers don’t miss
-    the addition or removal of a plugin.
+  This is helpful to ensure maintainers don’t miss
+  the addition or removal of a plugin.
   */
   diffPlugins = expectedPlugins: foundPluginsFilePath: ''
     # sort both lists first
@@ -26,5 +25,4 @@
       exit 1
     fi
   '';
-
 }

@@ -9,7 +9,6 @@
   testers,
   browserpass,
 }:
-
 buildGoModule rec {
   pname = "browserpass";
   version = "3.1.0";
@@ -21,9 +20,11 @@ buildGoModule rec {
     sha256 = "sha256-UZzOPRRiCUIG7uSSp9AEPMDN/+4cgyK47RhrI8oUx8U=";
   };
 
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   vendorHash = "sha256-CjuH4ANP2bJDeA+o+1j+obbtk5/NVLet/OFS3Rms4r0=";
 
@@ -54,7 +55,7 @@ buildGoModule rec {
     make install
 
     wrapProgram $out/bin/browserpass \
-      --suffix PATH : ${lib.makeBinPath [ gnupg ]}
+      --suffix PATH : ${lib.makeBinPath [gnupg]}
 
     # This path is used by our firefox wrapper for finding native messaging hosts
     mkdir -p $out/lib/mozilla/native-messaging-hosts
@@ -72,6 +73,6 @@ buildGoModule rec {
     mainProgram = "browserpass";
     homepage = "https://github.com/browserpass/browserpass-native";
     license = licenses.isc;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

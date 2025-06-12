@@ -5,7 +5,6 @@
   tornado,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-tornado";
   version = "0.8.1";
@@ -19,9 +18,9 @@ buildPythonPackage rec {
   # package has no tests
   doCheck = false;
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ tornado ];
+  propagatedBuildInputs = [tornado];
 
   meta = with lib; {
     description = "Py.test plugin providing fixtures and markers to simplify testing of asynchronous tornado applications";

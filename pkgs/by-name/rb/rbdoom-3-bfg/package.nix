@@ -13,7 +13,6 @@
   vulkan-loader,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rbdoom-3-bfg";
   version = "1.6.0";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
   ];
 
   # it caused build failure
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   installPhase = ''
     runHook preInstall
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Doom 3 BFG Edition with modern engine features";
     mainProgram = "RBDoom3BFG";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ Zaechus ];
+    maintainers = with maintainers; [Zaechus];
     platforms = platforms.unix;
   };
 }

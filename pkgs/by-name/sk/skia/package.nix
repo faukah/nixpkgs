@@ -21,10 +21,8 @@
   cctools,
   zlib,
   fixDarwinDylibNames,
-
   enableVulkan ? !stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "skia";
   # Version from https://skia.googlesource.com/skia/+/refs/heads/main/RELEASE_NOTES.md
@@ -76,17 +74,18 @@ stdenv.mkDerivation (finalAttrs: {
       vulkan-memory-allocator
     ];
 
-  gnFlags =
-    let
-      cpu =
-        {
-          "x86_64" = "x64";
-          "i686" = "x86";
-          "arm" = "arm";
-          "aarch64" = "arm64";
-        }
-        .${stdenv.hostPlatform.parsed.cpu.name};
-    in
+  gnFlags = let
+    cpu =
+      {
+        "x86_64" = "x64";
+        "i686" = "x86";
+        "arm" = "arm";
+        "aarch64" = "arm64";
+      }
+        .${
+        stdenv.hostPlatform.parsed.cpu.name
+      };
+  in
     [
       # Build in release mode
       "is_official_build=true"
@@ -167,8 +166,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "2D graphic library for drawing text, geometries and images";
     homepage = "https://skia.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = with lib.platforms; arm ++ aarch64 ++ x86 ++ x86_64;
-    pkgConfigModules = [ "skia" ];
+    pkgConfigModules = ["skia"];
   };
 })

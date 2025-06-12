@@ -19,7 +19,6 @@
   pytestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "bravado-core";
   version = "6.6.1";
@@ -34,26 +33,28 @@ buildPythonPackage rec {
     hash = "sha256-kyHmZNPl5lLKmm5i3TSi8Tfi96mQHqaiyBfceBJcOdw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [
-    jsonref
-    jsonschema # jsonschema[format-nongpl]
-    python-dateutil
-    pyyaml
-    requests
-    simplejson
-    six
-    swagger-spec-validator
-    pytz
-    msgpack
-  ] ++ jsonschema.optional-dependencies.format-nongpl;
+  propagatedBuildInputs =
+    [
+      jsonref
+      jsonschema # jsonschema[format-nongpl]
+      python-dateutil
+      pyyaml
+      requests
+      simplejson
+      six
+      swagger-spec-validator
+      pytz
+      msgpack
+    ]
+    ++ jsonschema.optional-dependencies.format-nongpl;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ mock ];
+  checkInputs = [mock];
 
-  pythonImportsCheck = [ "bravado_core" ];
+  pythonImportsCheck = ["bravado_core"];
 
   disabledTestPaths = [
     # skip benchmarks

@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   imcfg = config.i18n.inputMethod;
-in
-{
+in {
   config = lib.mkIf (imcfg.enable && imcfg.type == "nabi") {
     i18n.inputMethod.package = pkgs.nabi;
 

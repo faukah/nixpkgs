@@ -6,7 +6,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "museum";
   version = "1.0.10";
@@ -14,7 +13,7 @@ buildGoModule rec {
   src = fetchFromGitHub {
     owner = "ente-io";
     repo = "ente";
-    sparseCheckout = [ "server" ];
+    sparseCheckout = ["server"];
     rev = "photos-v${version}";
     hash = "sha256-CX12JrKlI7FMizk29LXO5e5i7pmgjzni/RY97020UZg=";
   };

@@ -19,8 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
     "relro"
   ];
   strictDeps = true;
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libiconv ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libiconv];
 
   passthru.updateScript = writeScript "update-luit" ''
     #!/usr/bin/env nix-shell
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       gpl3Plus
     ];
     mainProgram = "luit";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

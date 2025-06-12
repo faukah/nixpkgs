@@ -15,7 +15,6 @@
   sassc,
   vala,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "budgie-user-indicator-redux";
   version = "1.0.2";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -54,6 +53,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/EbonJaeger/budgie-user-indicator-redux/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.budgie ];
+    teams = [lib.teams.budgie];
   };
 })

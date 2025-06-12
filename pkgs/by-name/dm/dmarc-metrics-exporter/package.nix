@@ -4,7 +4,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "dmarc-metrics-exporter";
   version = "1.2.0";
@@ -24,8 +23,7 @@ python3.pkgs.buildPythonApplication rec {
     poetry-core
   ];
 
-  dependencies =
-    with python3.pkgs;
+  dependencies = with python3.pkgs;
     [
       bite-parser
       dataclasses-serialization
@@ -56,7 +54,7 @@ python3.pkgs.buildPythonApplication rec {
     "dmarc_metrics_exporter/tests/test_imap_queue.py"
   ];
 
-  pythonImportsCheck = [ "dmarc_metrics_exporter" ];
+  pythonImportsCheck = ["dmarc_metrics_exporter"];
 
   meta = {
     description = "Export Prometheus metrics from DMARC reports";
@@ -64,6 +62,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/jgosmann/dmarc-metrics-exporter";
     changelog = "https://github.com/jgosmann/dmarc-metrics-exporter/blob/v${version}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ma27 ];
+    maintainers = with lib.maintainers; [ma27];
   };
 }

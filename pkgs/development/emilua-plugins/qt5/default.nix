@@ -19,7 +19,6 @@
   xvfb-run,
   qt5, # this
 }:
-
 stdenv.mkDerivation rec {
   pname = "emilua-qt5";
   version = "1.0.2";
@@ -53,25 +52,25 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.basic =
       runCommand "test-basic-qt5"
-        {
-          buildInputs = [
-            emilua
-            qt5
-            libsForQt5.wrapQtAppsHook
-            xvfb-run
-          ];
-          dontWrapQtApps = true;
-        }
-        ''
-          makeWrapper ${lib.getExe emilua} payload \
-            ''${qtWrapperArgs[@]} \
-            --add-flags ${./basic_test.lua}
-          xvfb-run ./payload
-          touch $out
-        '';
+      {
+        buildInputs = [
+          emilua
+          qt5
+          libsForQt5.wrapQtAppsHook
+          xvfb-run
+        ];
+        dontWrapQtApps = true;
+      }
+      ''
+        makeWrapper ${lib.getExe emilua} payload \
+          ''${qtWrapperArgs[@]} \
+          --add-flags ${./basic_test.lua}
+        xvfb-run ./payload
+        touch $out
+      '';
   };
 
   meta = with lib; {

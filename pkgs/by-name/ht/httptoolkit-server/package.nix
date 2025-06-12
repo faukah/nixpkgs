@@ -9,11 +9,9 @@
   pkg-config,
   openssl,
   libdatachannel,
-}:
-
-let
+}: let
   nodejs = nodejs_20;
-  buildNpmPackage' = buildNpmPackage.override { inherit nodejs; };
+  buildNpmPackage' = buildNpmPackage.override {inherit nodejs;};
 
   version = "1.19.3";
 
@@ -50,7 +48,7 @@ let
       hash = "sha256-BlfeocqSG+pqbK0onnCf0VKbQw8Qq4qMxhAcfGlFYR8=";
     };
 
-    npmFlags = [ "--ignore-scripts" ];
+    npmFlags = ["--ignore-scripts"];
 
     makeCacheWritable = true;
 
@@ -92,82 +90,82 @@ let
     '';
   };
 in
-buildNpmPackage' {
-  pname = "httptoolkit-server";
-  inherit version src;
+  buildNpmPackage' {
+    pname = "httptoolkit-server";
+    inherit version src;
 
-  patches = [ ./only-build-for-one-platform.patch ];
+    patches = [./only-build-for-one-platform.patch];
 
-  npmDepsHash = "sha256-GZESwRDG1gEVhkclR+LBWwoUYaE1xS0z4EvPN7kYTrA=";
+    npmDepsHash = "sha256-GZESwRDG1gEVhkclR+LBWwoUYaE1xS0z4EvPN7kYTrA=";
 
-  npmFlags = [ "--ignore-scripts" ];
+    npmFlags = ["--ignore-scripts"];
 
-  makeCacheWritable = true;
+    makeCacheWritable = true;
 
-  nativeBuildInputs = [
-    # the build system uses the `git` executable to get the current revision
-    # we use a fake git to provide it with a fake revision
-    (writeShellScriptBin "git" "echo '???'")
-  ];
+    nativeBuildInputs = [
+      # the build system uses the `git` executable to get the current revision
+      # we use a fake git to provide it with a fake revision
+      (writeShellScriptBin "git" "echo '???'")
+    ];
 
-  postConfigure = ''
-    # make sure `oclif-dev' doesn't fetch `node` binary to bundle with the app
-    substituteInPlace node_modules/@oclif/dev-cli/lib/tarballs/node.js --replace-fail \
-        'async function fetchNodeBinary({ nodeVersion, output, platform, arch, tmp }) {' \
-        'async function fetchNodeBinary({ nodeVersion, output, platform, arch, tmp }) { return;'
+    postConfigure = ''
+      # make sure `oclif-dev' doesn't fetch `node` binary to bundle with the app
+      substituteInPlace node_modules/@oclif/dev-cli/lib/tarballs/node.js --replace-fail \
+          'async function fetchNodeBinary({ nodeVersion, output, platform, arch, tmp }) {' \
+          'async function fetchNodeBinary({ nodeVersion, output, platform, arch, tmp }) { return;'
 
-    # manually place our prebuilt `node-datachannel` binary into its place, since we used '--ignore-scripts'
-    ln -s ${nodeDatachannel}/build node_modules/node-datachannel/build
+      # manually place our prebuilt `node-datachannel` binary into its place, since we used '--ignore-scripts'
+      ln -s ${nodeDatachannel}/build node_modules/node-datachannel/build
 
-    cp -r ${overridesNodeModules}/node_modules overrides/js/node_modules
+      cp -r ${overridesNodeModules}/node_modules overrides/js/node_modules
 
-    # don't run `npm ci` in `overrides/js` since we already copied node_modules into the directory
-    substituteInPlace prepare.ts --replace-fail "'ci', '--production'" "'--version'"
+      # don't run `npm ci` in `overrides/js` since we already copied node_modules into the directory
+      substituteInPlace prepare.ts --replace-fail "'ci', '--production'" "'--version'"
 
-    patchShebangs *.sh
-  '';
+      patchShebangs *.sh
+    '';
 
-  preBuild = ''
-    npm run build:src
-  '';
+    preBuild = ''
+      npm run build:src
+    '';
 
-  npmBuildScript = "build:release";
+    npmBuildScript = "build:release";
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    # we don't actually use any of the generated tarballs, we just copy from the tmp directory, since that's easier
-    mkdir -p $out/share/httptoolkit-server
-    cp -r build/tmp/httptoolkit-server/* -r $out/share/httptoolkit-server
+      # we don't actually use any of the generated tarballs, we just copy from the tmp directory, since that's easier
+      mkdir -p $out/share/httptoolkit-server
+      cp -r build/tmp/httptoolkit-server/* -r $out/share/httptoolkit-server
 
-    # remove unneeded executables
-    rm -r $out/share/httptoolkit-server/bin/httptoolkit-server*
+      # remove unneeded executables
+      rm -r $out/share/httptoolkit-server/bin/httptoolkit-server*
 
-    # since `oclif-dev pack` ran `npm install` again, we need to place the prebuilt binary here again
-    ln -s ${nodeDatachannel}/build $out/share/httptoolkit-server/node_modules/node-datachannel/build
+      # since `oclif-dev pack` ran `npm install` again, we need to place the prebuilt binary here again
+      ln -s ${nodeDatachannel}/build $out/share/httptoolkit-server/node_modules/node-datachannel/build
 
-    # disable updating functionality
-    substituteInPlace $out/share/httptoolkit-server/node_modules/@oclif/plugin-update/lib/commands/update.js \
-        --replace-fail "await this.skipUpdate()" "'cannot update nix based package'"
+      # disable updating functionality
+      substituteInPlace $out/share/httptoolkit-server/node_modules/@oclif/plugin-update/lib/commands/update.js \
+          --replace-fail "await this.skipUpdate()" "'cannot update nix based package'"
 
-    # the app determines if it's in production by checking if HTTPTOOLKIT_SERVER_BINPATH is set to anything
-    makeWrapper $out/share/httptoolkit-server/bin/run $out/bin/httptoolkit-server \
-        --set HTTPTOOLKIT_SERVER_BINPATH dummy \
-        --prefix PATH : ${lib.makeBinPath [ nss.tools ]}
+      # the app determines if it's in production by checking if HTTPTOOLKIT_SERVER_BINPATH is set to anything
+      makeWrapper $out/share/httptoolkit-server/bin/run $out/bin/httptoolkit-server \
+          --set HTTPTOOLKIT_SERVER_BINPATH dummy \
+          --prefix PATH : ${lib.makeBinPath [nss.tools]}
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    inherit nodeDatachannel;
-  };
+    passthru = {
+      inherit nodeDatachannel;
+    };
 
-  meta = {
-    description = "Backend for HTTP Toolkit";
-    homepage = "https://httptoolkit.com/";
-    license = lib.licenses.agpl3Plus;
-    mainProgram = "httptoolkit-server";
-    maintainers = with lib.maintainers; [ tomasajt ];
-    platforms = lib.platforms.unix;
-  };
-}
+    meta = {
+      description = "Backend for HTTP Toolkit";
+      homepage = "https://httptoolkit.com/";
+      license = lib.licenses.agpl3Plus;
+      mainProgram = "httptoolkit-server";
+      maintainers = with lib.maintainers; [tomasajt];
+      platforms = lib.platforms.unix;
+    };
+  }

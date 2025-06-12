@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   geopandas,
   libpysal,
   matplotlib,
@@ -15,7 +14,6 @@
   scipy,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "mapclassify";
   version = "2.8.1";
@@ -29,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-VClkMOR8P9sX3slVjJ2xYYLVnvZuOgVYZiCGrBxoZEc=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   propagatedBuildInputs = [
     networkx
@@ -54,13 +52,13 @@ buildPythonPackage rec {
     "mapclassify/tests/test_mapclassify.py"
   ];
 
-  pythonImportsCheck = [ "mapclassify" ];
+  pythonImportsCheck = ["mapclassify"];
 
   meta = {
     description = "Classification Schemes for Choropleth Maps";
     homepage = "https://pysal.org/mapclassify/";
     changelog = "https://github.com/pysal/mapclassify/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

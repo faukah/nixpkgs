@@ -11,7 +11,6 @@
   vulkan-headers,
   vkbasalt32,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vkbasalt";
   version = "0.3.2.10";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     spirv-headers
     vulkan-headers
   ];
-  mesonFlags = [ "-Dappend_libdir_vkbasalt=true" ];
+  mesonFlags = ["-Dappend_libdir_vkbasalt=true"];
 
   postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
     install -Dm 644 $src/config/vkBasalt.conf $out/share/vkBasalt/vkBasalt.conf
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vulkan post processing layer for Linux";
     homepage = "https://github.com/DadSchoorse/vkBasalt";
     license = licenses.zlib;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
   };
 })

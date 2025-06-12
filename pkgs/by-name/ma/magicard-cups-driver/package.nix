@@ -5,7 +5,6 @@
   cmake,
   cups,
 }:
-
 stdenv.mkDerivation rec {
   pname = "magicard-cups-driver";
   version = "1.4.0";
@@ -21,8 +20,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-6UIL2wyFOjOJeyGjYScfjbpURycN469raye6DnP19jg=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ cups ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [cups];
 
   # Replace the supplied cmake generated makefile (which is useless on a different machine)
   # with the CMakeLists.txt taken from v1.3.4 of the driver and patch it to make it compatible with v1.4.0
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     rm makefile
   '';
 
-  patches = [ ./CMakeLists.patch ];
+  patches = [./CMakeLists.patch];
 
   cmakeFlags = [
     "-DCUPS_SERVER_BIN=lib/cups"
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://support.magicard.com/solution/linux-driver/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ _0x3f ];
+    maintainers = with lib.maintainers; [_0x3f];
   };
 }

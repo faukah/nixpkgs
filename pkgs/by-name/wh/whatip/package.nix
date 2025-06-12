@@ -15,7 +15,6 @@
   appstream-glib,
   desktop-file-utils,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "whatip";
   version = "1.2";
@@ -60,6 +59,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://gitlab.gnome.org/GabMus/whatip";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

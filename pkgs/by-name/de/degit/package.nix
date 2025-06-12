@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "degit";
   version = "2.8.4";
@@ -22,7 +21,7 @@ buildNpmPackage rec {
     description = "Make copies of git repositories";
     homepage = "https://github.com/Rich-Harris/degit";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kidonng ];
+    maintainers = with lib.maintainers; [kidonng];
     mainProgram = "degit";
   };
 }

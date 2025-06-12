@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubectl-explore";
   version = "0.12.0";
@@ -24,6 +23,6 @@ buildGoModule rec {
     homepage = "https://github.com/keisku/kubectl-explore";
     changelog = "https://github.com/keisku/kubectl-explore/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.koralowiec ];
+    maintainers = [lib.maintainers.koralowiec];
   };
 }

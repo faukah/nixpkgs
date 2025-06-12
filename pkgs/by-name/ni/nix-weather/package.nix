@@ -9,7 +9,6 @@
   installShellFiles,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nix-weather";
   version = "0.0.4";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-IkwCa+MioL2F3fiUYm3HQOeO2yb+58YQzM9YJ2oILj4=";
   cargoExtraArgs = "-p nix-weather";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       openssl
@@ -58,7 +57,7 @@ rustPlatform.buildRustPackage rec {
 
   # We are the only distro that will ever package this, thus ryanbot will not
   # be able to find updates through repology and we need this.
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Check Cache Availablility of NixOS Configurations";

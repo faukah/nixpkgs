@@ -16,7 +16,6 @@
   file,
   enableStatic ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yara";
   version = "4.5.2";
@@ -37,9 +36,9 @@ stdenv.mkDerivation rec {
     [
       protobufc
     ]
-    ++ lib.optionals withCrypto [ openssl ]
-    ++ lib.optionals enableMagic [ file ]
-    ++ lib.optionals enableCuckoo [ jansson ];
+    ++ lib.optionals withCrypto [openssl]
+    ++ lib.optionals enableMagic [file]
+    ++ lib.optionals enableCuckoo [jansson];
 
   preConfigure = "./bootstrap.sh";
 
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "http://Virustotal.github.io/yara/";
     changelog = "https://github.com/VirusTotal/yara/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "yara";
     platforms = lib.platforms.all;
   };

@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "flink";
   version = "2.0.0";
@@ -15,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BP5b6YQaENMODhzWguxNAVqGYD9xDy+FfEPHW+rpeq0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   installPhase = ''
     rm bin/*.bat || true
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://flink.apache.org";
     downloadPage = "https://flink.apache.org/downloads.html";
     license = licenses.asl20;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     platforms = platforms.all;
     maintainers = with maintainers; [
       mbode

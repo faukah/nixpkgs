@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "qrcp";
   version = "0.11.6";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-BkR+hIbxIFuf3b4kHVkfC5Ex6/O7CVaFolKlcDPJ7YY=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -48,7 +47,7 @@ buildGoModule rec {
       complete.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     mainProgram = "qrcp";
   };
 }

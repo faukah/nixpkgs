@@ -13,7 +13,6 @@
   desktop-file-utils,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "thumbdrives";
   version = "0.3.2";

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "snap-helpers";
   version = "0.4.2";
@@ -22,25 +21,25 @@ buildPythonPackage rec {
     hash = "sha256-7JBvrD4WNOcFSVx3xauk4JgiVGKWuUEdUMRlH7mudE4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  pythonImportsCheck = [ "snaphelpers" ];
+  pythonImportsCheck = ["snaphelpers"];
 
   nativeCheckInputs = [
     pytest-mock
     pytestCheckHook
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Interact with snap configuration and properties from inside a snap";
     homepage = "https://github.com/albertodonato/snap-helpers";
     changelog = "https://github.com/albertodonato/snap-helpers/releases/tag/${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

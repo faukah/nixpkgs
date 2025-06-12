@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     protobuf
   ];
-  buildInputs = [ openssl_3 ];
+  buildInputs = [openssl_3];
   src = fetchCrate {
     inherit pname version;
     hash = "sha256-24lUhi4IPv+asM51/BfufkOUYVellXoXsbWXWN/zoBw=";
@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage rec {
   meta = {
     description = "Utilities for working with the SGX stream format";
     homepage = "https://github.com/fortanix/rust-sgx";
-    maintainers = [ lib.maintainers.ozwaldorf ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [lib.maintainers.ozwaldorf];
+    platforms = ["x86_64-linux"];
     license = lib.licenses.mpl20;
   };
 }

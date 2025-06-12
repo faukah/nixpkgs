@@ -12,7 +12,6 @@
   nix-update-script,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "albert";
   version = "0.28.0";
@@ -66,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

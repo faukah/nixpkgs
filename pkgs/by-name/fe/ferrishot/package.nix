@@ -12,7 +12,6 @@
   wayland,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ferrishot";
   version = "0.2.0";
@@ -40,25 +39,23 @@ rustPlatform.buildRustPackage (finalAttrs: {
     libxcb
   ];
 
-  postInstall =
-    let
-      runtimeDeps =
-        [
-          libGL
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isLinux [
-          libX11
-          libxkbcommon
-          wayland
-        ];
-    in
-    ''
-      wrapProgram $out/bin/ferrishot \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeDeps}"
-    '';
+  postInstall = let
+    runtimeDeps =
+      [
+        libGL
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        libX11
+        libxkbcommon
+        wayland
+      ];
+  in ''
+    wrapProgram $out/bin/ferrishot \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeDeps}"
+  '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -66,7 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/nik-rev/ferrishot";
     changelog = "https://github.com/nik-rev/ferrishot/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     mainProgram = "ferrishot";
   };
 })

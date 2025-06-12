@@ -11,7 +11,6 @@
   zstd,
   perl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipify";
   version = "6.3.3";
@@ -57,8 +56,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Convert CUDA to Portable C++ Code";
     homepage = "https://github.com/ROCm/HIPIFY";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

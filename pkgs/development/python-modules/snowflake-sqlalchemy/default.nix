@@ -6,7 +6,6 @@
   snowflake-connector-python,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "snowflake-sqlalchemy";
   version = "1.7.3";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-E3UnlsGaQPlxHSgBVGrG8pGCA8fE7yN5x9eidbMQ10w=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     snowflake-connector-python
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Tests require a database
   doCheck = false;
 
-  pythonImportsCheck = [ "snowflake.sqlalchemy" ];
+  pythonImportsCheck = ["snowflake.sqlalchemy"];
 
   meta = with lib; {
     description = "Snowflake SQLAlchemy Dialect";
     changelog = "https://github.com/snowflakedb/snowflake-sqlalchemy/blob/v${version}/DESCRIPTION.md";
     homepage = "https://github.com/snowflakedb/snowflake-sqlalchemy";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

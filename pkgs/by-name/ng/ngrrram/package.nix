@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-SCfDXMz8SLmUk8VhbF6Gs4zis01Fhn4OX5amqLXaFV8=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "TUI tool to help you type faster and learn new layouts. Includes a free cat";
     homepage = "https://github.com/wintermute-cell/ngrrram";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ Guanran928 ];
+    maintainers = with lib.maintainers; [Guanran928];
     mainProgram = "ngrrram";
   };
 }

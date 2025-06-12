@@ -8,7 +8,6 @@
   darwin,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "macskk";
   version = "1.11.0";
@@ -18,11 +17,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-CqtW6bfSuAo+9VRmRTgx0aKpBKBEDIxidOh7V5vD7ww=";
   };
 
-  nativeBuildInputs = [
-    _7zz
-    cpio
-    xar
-  ] ++ lib.optionals stdenvNoCC.hostPlatform.isAarch64 [ darwin.autoSignDarwinBinariesHook ];
+  nativeBuildInputs =
+    [
+      _7zz
+      cpio
+      xar
+    ]
+    ++ lib.optionals stdenvNoCC.hostPlatform.isAarch64 [darwin.autoSignDarwinBinariesHook];
 
   unpackPhase = ''
     runHook preUnpack
@@ -47,16 +48,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Yet Another macOS SKK Input Method";
     homepage = "https://github.com/mtgto/macSKK";
     changelog = "https://github.com/mtgto/macSKK/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ wattmto ];
+    maintainers = with lib.maintainers; [wattmto];
     platforms = lib.platforms.darwin;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     mainProgram = "macSKK";
   };
 })

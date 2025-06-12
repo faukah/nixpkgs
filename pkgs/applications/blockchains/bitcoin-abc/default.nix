@@ -24,7 +24,6 @@
   jemalloc,
   zeromq,
 }:
-
 mkDerivation rec {
   pname = "bitcoin" + lib.optionalString (!withGui) "d" + "-abc";
   version = "0.29.7";
@@ -90,7 +89,7 @@ mkDerivation rec {
     '';
     homepage = "https://bitcoinabc.org/";
     changelog = "https://www.bitcoinabc.org/doc/release-notes/release-notes-${version}.html";
-    maintainers = with lib.maintainers; [ lassulus ];
+    maintainers = with lib.maintainers; [lassulus];
     license = lib.licenses.mit;
     broken = stdenv.hostPlatform.isDarwin;
     platforms = lib.platforms.unix;

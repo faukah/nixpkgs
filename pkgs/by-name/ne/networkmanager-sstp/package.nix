@@ -18,7 +18,6 @@
   sstp,
   withGnome ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "NetworkManager-sstp";
   version = "1.3.2";
@@ -61,8 +60,16 @@ stdenv.mkDerivation rec {
   '';
 
   configureFlags = [
-    "--with-gnome=${if withGnome then "yes" else "no"}"
-    "--with-gtk4=${if withGnome then "yes" else "no"}"
+    "--with-gnome=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
+    "--with-gtk4=${
+      if withGnome
+      then "yes"
+      else "no"
+    }"
     "--with-pppd-plugin-dir=$(out)/lib/pppd/2.5.0"
     "--enable-absolute-paths"
   ];

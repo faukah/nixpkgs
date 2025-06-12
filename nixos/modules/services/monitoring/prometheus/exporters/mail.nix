@@ -4,11 +4,10 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.mail;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     mapAttrs'
@@ -22,25 +21,26 @@ let
     ;
 
   configFile =
-    if cfg.configuration != null then configurationFile else (escapeShellArg cfg.configFile);
+    if cfg.configuration != null
+    then configurationFile
+    else (escapeShellArg cfg.configFile);
 
   configurationFile = pkgs.writeText "prometheus-mail-exporter.conf" (
     builtins.toJSON (
       # removes the _module attribute, null values and converts attrNames to lowercase
       mapAttrs' (
         name: value:
-        if name == "servers" then
-          nameValuePair (toLower name) (
-            (map (
-              srv:
-              (mapAttrs' (n: v: nameValuePair (toLower n) v) (
-                filterAttrs (n: v: !(n == "_module" || v == null)) srv
+          if name == "servers"
+          then
+            nameValuePair (toLower name) (
+              (map (
+                srv: (mapAttrs' (n: v: nameValuePair (toLower n) v) (
+                  filterAttrs (n: v: !(n == "_module" || v == null)) srv
+                ))
               ))
-            ))
               value
-          )
-        else
-          nameValuePair (toLower name) value
+            )
+          else nameValuePair (toLower name) value
       ) (filterAttrs (n: _: !(n == "_module")) cfg.configuration)
     )
   );
@@ -127,7 +127,7 @@ let
     };
     servers = mkOption {
       type = types.listOf (types.submodule serverOptions);
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [ {
           name = "testserver";
@@ -160,8 +160,7 @@ let
       '';
     };
   };
-in
-{
+in {
   port = 9225;
   extraOpts = {
     environmentFile = mkOption {
@@ -196,7 +195,7 @@ in
   serviceOpts = {
     serviceConfig = {
       DynamicUser = false;
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       RuntimeDirectory = "prometheus-mail-exporter";
       ExecStartPre = [
         "${pkgs.writeShellScript "subst-secrets-mail-exporter" ''

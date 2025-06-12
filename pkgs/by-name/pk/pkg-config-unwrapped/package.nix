@@ -5,7 +5,6 @@
   libiconv,
   vanilla ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pkg-config";
   version = "0.29.2";
@@ -40,10 +39,10 @@ stdenv.mkDerivation rec {
       rm -f check/check-requires-private check/check-gtk check/missing
     '';
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   configureFlags =
-    [ "--with-internal-glib" ]
+    ["--with-internal-glib"]
     ++ lib.optionals (stdenv.hostPlatform.isSunOS) [
       "--with-libiconv=gnu"
       "--with-system-library-path"
@@ -60,9 +59,9 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString (
     # Silence "incompatible integer to pointer conversion passing 'gsize'" when building with Clang.
-    lib.optionals stdenv.cc.isClang [ "-Wno-int-conversion" ]
+    lib.optionals stdenv.cc.isClang ["-Wno-int-conversion"]
     # Silence fprintf format errors when building for Windows.
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ "-Wno-error=format" ]
+    ++ lib.optionals stdenv.hostPlatform.isWindows ["-Wno-error=format"]
   );
 
   enableParallelBuilding = true;

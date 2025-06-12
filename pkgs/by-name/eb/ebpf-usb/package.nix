@@ -4,7 +4,6 @@
   python3Packages,
   bcc,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "ebpf-usb";
   version = "unstable-2022-04-03";
@@ -22,7 +21,7 @@ python3Packages.buildPythonApplication {
   ];
 
   pythonPath =
-    [ bcc ]
+    [bcc]
     ++ (with python3Packages; [
       hexdump
     ]);
@@ -45,7 +44,7 @@ python3Packages.buildPythonApplication {
     description = "Python script for USB monitoring using eBPF";
     homepage = "https://github.com/francisrstokes/ebpf-usb";
     license = lib.licenses.unfree;
-    maintainers = with maintainers; [ mevatron ];
+    maintainers = with maintainers; [mevatron];
     mainProgram = "ebpf-usb";
   };
 }

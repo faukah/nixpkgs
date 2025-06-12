@@ -16,7 +16,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "securesystemslib";
   version = "1.3.0";
@@ -31,10 +30,10 @@ buildPythonPackage rec {
     hash = "sha256-XONgT0qE6SHgHULCnjI9JvqKN1SAnr/Xw/nfeGUwYjs=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   optional-dependencies = {
-    PySPX = [ pyspx ];
+    PySPX = [pyspx];
     awskms = [
       boto3
       botocore
@@ -45,7 +44,7 @@ buildPythonPackage rec {
       azure-keyvault-keys
       cryptography
     ];
-    crypto = [ cryptography ];
+    crypto = [cryptography];
     gcpkms = [
       cryptography
       google-cloud-kms
@@ -55,19 +54,21 @@ buildPythonPackage rec {
       cryptography
       #   pykcs11
     ];
-    pynacl = [ pynacl ];
+    pynacl = [pynacl];
     # Circular dependency
     # sigstore = [
     #   sigstore
     # ];
   };
 
-  nativeCheckInputs = [
-    ed25519
-    pytestCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      ed25519
+      pytestCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "securesystemslib" ];
+  pythonImportsCheck = ["securesystemslib"];
 
   disabledTestPaths = [
     # pykcs11 is not available
@@ -81,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/secure-systems-lab/securesystemslib";
     changelog = "https://github.com/secure-systems-lab/securesystemslib/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

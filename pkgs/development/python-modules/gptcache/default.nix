@@ -9,7 +9,6 @@
   redis-om,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "gptcache";
   version = "0.1.44";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   # many tests require network access and complicated dependencies
   doCheck = false;
 
-  pythonImportsCheck = [ "gptcache" ];
+  pythonImportsCheck = ["gptcache"];
 
   meta = with lib; {
     description = "Semantic cache for LLMs and fully integrated with LangChain and llama_index";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zilliztech/GPTCache";
     changelog = "https://github.com/zilliztech/GPTCache/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

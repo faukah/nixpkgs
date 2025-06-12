@@ -1,12 +1,13 @@
-{ callPackage, fetchMavenArtifact }:
-
 {
-  scim-for-keycloak = callPackage ./scim-for-keycloak { };
-  scim-keycloak-user-storage-spi = callPackage ./scim-keycloak-user-storage-spi { };
-  keycloak-discord = callPackage ./keycloak-discord { };
-  keycloak-magic-link = callPackage ./keycloak-magic-link { };
-  keycloak-metrics-spi = callPackage ./keycloak-metrics-spi { };
-  keycloak-restrict-client-auth = callPackage ./keycloak-restrict-client-auth { };
+  callPackage,
+  fetchMavenArtifact,
+}: {
+  scim-for-keycloak = callPackage ./scim-for-keycloak {};
+  scim-keycloak-user-storage-spi = callPackage ./scim-keycloak-user-storage-spi {};
+  keycloak-discord = callPackage ./keycloak-discord {};
+  keycloak-magic-link = callPackage ./keycloak-magic-link {};
+  keycloak-metrics-spi = callPackage ./keycloak-metrics-spi {};
+  keycloak-restrict-client-auth = callPackage ./keycloak-restrict-client-auth {};
 
   # These could theoretically be used by something other than Keycloak, but
   # there are no other quarkus apps in nixpkgs (as of 2023-08-21)

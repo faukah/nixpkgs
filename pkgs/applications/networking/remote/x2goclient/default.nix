@@ -16,7 +16,6 @@
   phonon,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "x2goclient";
   version = "4.1.2.2";
@@ -75,7 +74,7 @@ stdenv.mkDerivation rec {
     description = "Graphical NoMachine NX3 remote desktop client";
     mainProgram = "x2goclient";
     homepage = "http://x2go.org/";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

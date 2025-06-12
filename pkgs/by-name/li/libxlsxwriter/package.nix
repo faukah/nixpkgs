@@ -6,7 +6,6 @@
   python3,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxlsxwriter";
   version = "1.2.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   ];
 
   # TEST 428/429 worksheet:worksheet_table15 *** buffer overflow detected ***: terminated
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   doCheck = true;
 
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libxlsxwriter.github.io/";
     changelog = "https://github.com/jmcnamara/libxlsxwriter/blob/${src.rev}/Changes.txt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

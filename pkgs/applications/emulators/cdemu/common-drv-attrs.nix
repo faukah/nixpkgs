@@ -4,9 +4,7 @@
   pname,
   version,
   hash,
-}:
-
-{
+}: {
   inherit pname version;
   src = fetchurl {
     url = "mirror://sourceforge/cdemu/${pname}-${version}.tar.xz";
@@ -28,6 +26,6 @@
     homepage = "https://cdemu.sourceforge.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ bendlas ];
+    maintainers = with lib.maintainers; [bendlas];
   };
 }

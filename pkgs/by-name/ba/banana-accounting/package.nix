@@ -12,7 +12,6 @@
   libX11,
   libgcrypt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "banana-accounting";
   version = "10.1.24";
@@ -60,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Accounting Software for small companies, associations and individuals";
     homepage = "https://www.banana.ch";
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ jacg ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [jacg];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 })

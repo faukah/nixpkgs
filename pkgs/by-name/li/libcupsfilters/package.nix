@@ -19,7 +19,6 @@
   qpdf,
   stdenv,
 }:
-
 stdenv.mkDerivation {
   pname = "libcupsfilters";
   version = "2.1.1";

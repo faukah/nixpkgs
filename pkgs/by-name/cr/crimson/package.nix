@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "crimson";
   version = "2014.10";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Font family inspired by beautiful oldstyle typefaces";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

@@ -8,7 +8,6 @@
   libGLU,
   libglut,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bicgl";
   version = "unstable-2018-04-06";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lzirdi1mf4yl8srq7vjn746sbydz7h0wjh7wy8gycy6hq04qrg4";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libminc
     bicpl
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/${owner}/bicgl";
     description = "Brain Imaging Centre graphics library";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.hpndUc;
   };

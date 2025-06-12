@@ -4,7 +4,6 @@
   flutterPackages-source,
   libappindicator,
 }:
-
 flutterPackages-source.v3_29.buildFlutterApplication rec {
   pname = "libretrack";
   version = "1.7.0";
@@ -44,7 +43,7 @@ flutterPackages-source.v3_29.buildFlutterApplication rec {
     homepage = "https://github.com/proninyaroslav/libretrack";
     changelog = "https://github.com/proninyaroslav/libretrack/releases/tag/${version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "libretrack";
     platforms = lib.platforms.linux;
   };

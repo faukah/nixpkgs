@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "fastbencode";
   version = "0.3.2";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-o0wyxQSw7J3hpJk0btJJMjWetGI0sotwl1pQ/fqhSrU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  pythonImportsCheck = [ "fastbencode" ];
+  pythonImportsCheck = ["fastbencode"];
 
   checkPhase = ''
     ${python.interpreter} -m unittest fastbencode.tests.test_suite
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/breezy-team/fastbencode";
     changelog = "https://github.com/breezy-team/fastbencode/releases/tag/v${version}";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

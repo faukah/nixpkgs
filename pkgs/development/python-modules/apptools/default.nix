@@ -13,7 +13,6 @@
   traits,
   traitsui,
 }:
-
 buildPythonPackage rec {
   pname = "apptools";
   version = "5.3.1";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-46QiVLWdlM89GMCIqVNuNGJjT2nwWJ1c6DyyvEPcceQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ traits ];
+  dependencies = [traits];
 
   optional-dependencies = {
     gui = [
@@ -42,23 +41,23 @@ buildPythonPackage rec {
       pandas
       tables
     ];
-    persistence = [ numpy ];
-    preferences = [ configobj ];
+    persistence = [numpy];
+    preferences = [configobj];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
   preCheck = ''
     export HOME=$TMP
   '';
 
-  pythonImportsCheck = [ "apptools" ];
+  pythonImportsCheck = ["apptools"];
 
   meta = with lib; {
     description = "Set of packages that Enthought has found useful in creating a number of applications";
     homepage = "https://github.com/enthought/apptools";
     changelog = "https://github.com/enthought/apptools/releases/tag/${src.tag}";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

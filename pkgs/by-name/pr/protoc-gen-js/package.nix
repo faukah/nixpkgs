@@ -6,7 +6,6 @@
   fetchFromGitHub,
   cctools,
 }:
-
 buildBazelPackage rec {
   pname = "protoc-gen-js";
   version = "3.21.2";
@@ -19,7 +18,7 @@ buildBazelPackage rec {
   };
 
   bazel = bazel_6;
-  bazelTargets = [ "generator:protoc-gen-js" ];
+  bazelTargets = ["generator:protoc-gen-js"];
   bazelBuildFlags = lib.optionals stdenv.cc.isClang [
     "--cxxopt=-x"
     "--cxxopt=c++"
@@ -47,7 +46,7 @@ buildBazelPackage rec {
       asl20
       bsd3
     ];
-    sourceProvenance = [ sourceTypes.fromSource ];
-    maintainers = [ ];
+    sourceProvenance = [sourceTypes.fromSource];
+    maintainers = [];
   };
 }

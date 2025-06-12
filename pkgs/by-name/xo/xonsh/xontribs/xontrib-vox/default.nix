@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
   virtualenv,
   writableTmpDirAsHomeHook,
@@ -11,7 +10,6 @@
   xonsh,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "xontrib-vox";
   version = "0.0.1";
@@ -49,12 +47,12 @@ buildPythonPackage rec {
     "test_interpreter"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Python virtual environment manager for the xonsh shell";
     homepage = "https://github.com/xonsh/xontrib-vox";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ greg ];
+    maintainers = with lib.maintainers; [greg];
   };
 }

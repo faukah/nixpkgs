@@ -5,25 +5,24 @@
   utils,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.loginDefs;
-in
-{
+in {
   options = {
+    security.shadow.enable =
+      lib.mkEnableOption ""
+      // {
+        default = true;
+        description = ''
+          Enable the shadow authentication suite, which provides critical programs such as su, login, passwd.
 
-    security.shadow.enable = lib.mkEnableOption "" // {
-      default = true;
-      description = ''
-        Enable the shadow authentication suite, which provides critical programs such as su, login, passwd.
-
-        Note: This is currently experimental. Only disable this if you're
-        confident that you can recover your system if it breaks.
-      '';
-    };
+          Note: This is currently experimental. Only disable this if you're
+          confident that you can recover your system if it breaks.
+        '';
+      };
 
     security.loginDefs = {
-      package = lib.mkPackageOption pkgs "shadow" { };
+      package = lib.mkPackageOption pkgs "shadow" {};
 
       chfnRestrict = lib.mkOption {
         description = ''
@@ -40,16 +39,16 @@ in
           See {manpage}`login.defs(5)` man page for available options.
         '';
         type = lib.types.submodule {
-          freeformType = (pkgs.formats.keyValue { }).type;
+          freeformType = (pkgs.formats.keyValue {}).type;
           /*
-            There are three different sources for user/group id ranges, each of which gets
-            used by different programs:
-            - The login.defs file, used by the useradd, groupadd and newusers commands
-            - The update-users-groups.pl file, used by NixOS in the activation phase to
-              decide on which ids to use for declaratively defined users without a static
-              id
-            - Systemd compile time options -Dsystem-uid-max= and -Dsystem-gid-max=, used
-              by systemd for features like ConditionUser=@system and systemd-sysusers
+          There are three different sources for user/group id ranges, each of which gets
+          used by different programs:
+          - The login.defs file, used by the useradd, groupadd and newusers commands
+          - The update-users-groups.pl file, used by NixOS in the activation phase to
+            decide on which ids to use for declaratively defined users without a static
+            id
+          - Systemd compile time options -Dsystem-uid-max= and -Dsystem-gid-max=, used
+            by systemd for features like ConditionUser=@system and systemd-sysusers
           */
           options = {
             DEFAULT_HOME = lib.mkOption {
@@ -146,7 +145,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
       };
     };
 
@@ -206,10 +205,9 @@ in
         # see https://man7.org/linux/man-pages/man5/login.defs.5.html for config specification
         let
           toKeyValue = lib.generators.toKeyValue {
-            mkKeyValue = lib.generators.mkKeyValueDefault { } " ";
+            mkKeyValue = lib.generators.mkKeyValueDefault {} " ";
           };
-        in
-        {
+        in {
           # /etc/login.defs: global configuration for pwdutils.
           # You cannot login without it!
           "login.defs".source = pkgs.writeText "login.defs" (toKeyValue cfg.settings);
@@ -230,7 +228,7 @@ in
           forwardXAuth = true;
           logFailures = true;
         };
-        passwd = { };
+        passwd = {};
         # Note: useradd, groupadd etc. aren't setuid root, so it
         # doesn't really matter what the PAM config says as long as it
         # lets root in.
@@ -250,15 +248,14 @@ in
         chpasswd.rootOK = true;
       };
 
-      security.wrappers =
-        let
-          mkSetuidRoot = source: {
-            setuid = true;
-            owner = "root";
-            group = "root";
-            inherit source;
-          };
-        in
+      security.wrappers = let
+        mkSetuidRoot = source: {
+          setuid = true;
+          owner = "root";
+          group = "root";
+          inherit source;
+        };
+      in
         {
           su = mkSetuidRoot "${cfg.package.su}/bin/su";
           sg = mkSetuidRoot "${cfg.package.out}/bin/sg";

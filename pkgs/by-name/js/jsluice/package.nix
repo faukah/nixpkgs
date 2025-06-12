@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "jsluice";
   version = "unstable-2023-06-23";
@@ -26,6 +25,6 @@ buildGoModule {
     description = "Tool for extracting URLs, paths, secrets, and other data from JavaScript source code";
     homepage = "https://github.com/BishopFox/jsluice";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

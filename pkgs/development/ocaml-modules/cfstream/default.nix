@@ -7,7 +7,6 @@
   core_kernel,
   ounit,
 }:
-
 buildDunePackage rec {
   pname = "cfstream";
   version = "1.3.2";
@@ -26,8 +25,8 @@ buildDunePackage rec {
     ./janestreet-0.17.patch
   ];
 
-  nativeBuildInputs = [ m4 ];
-  checkInputs = [ ounit ];
+  nativeBuildInputs = [m4];
+  checkInputs = [ounit];
   propagatedBuildInputs = [
     camlp-streams
     core_kernel
@@ -38,7 +37,7 @@ buildDunePackage rec {
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Simple Core-inspired wrapper for standard library Stream module";
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.lgpl21;
   };
 }

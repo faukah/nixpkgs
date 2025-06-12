@@ -1,17 +1,19 @@
-{ pkgs, lib, ... }:
-
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "iftop";
-  meta.maintainers = with lib.maintainers; [ ma27 ];
+  meta.maintainers = with lib.maintainers; [ma27];
 
   nodes = {
     withIftop = {
-      imports = [ ./common/user-account.nix ];
+      imports = [./common/user-account.nix];
       programs.iftop.enable = true;
     };
     withoutIftop = {
-      imports = [ ./common/user-account.nix ];
-      environment.systemPackages = [ pkgs.iftop ];
+      imports = [./common/user-account.nix];
+      environment.systemPackages = [pkgs.iftop];
     };
   };
 

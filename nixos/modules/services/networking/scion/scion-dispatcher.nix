@@ -4,13 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   globalCfg = config.services.scion;
   cfg = config.services.scion.scion-dispatcher;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
   defaultConfig = {
     dispatcher = {
       id = "dispatcher";
@@ -22,12 +19,11 @@ let
     };
   };
   configFile = toml.generate "scion-dispatcher.toml" (recursiveUpdate defaultConfig cfg.settings);
-in
-{
+in {
   options.services.scion.scion-dispatcher = {
     enable = mkEnableOption "the scion-dispatcher service";
     settings = mkOption {
-      default = { };
+      default = {};
       type = toml.type;
       example = literalExpression ''
         {
@@ -50,7 +46,7 @@ in
   };
   config = mkIf cfg.enable {
     # Needed for group ownership of the dispatcher socket
-    users.groups.scion = { };
+    users.groups.scion = {};
 
     # scion programs hardcode path to dispatcher in /run/shm, and is not
     # configurable at runtime upstream plans to obsolete the dispatcher in
@@ -61,18 +57,22 @@ in
 
     systemd.services.scion-dispatcher = {
       description = "SCION Dispatcher";
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         Group = "scion";
         DynamicUser = true;
-        BindPaths = [ "/dev/shm:/run/shm" ];
+        BindPaths = ["/dev/shm:/run/shm"];
         ExecStartPre = "${pkgs.coreutils}/bin/rm -rf /run/shm/dispatcher";
         ExecStart = "${globalCfg.package}/bin/scion-dispatcher --config ${configFile}";
         Restart = "on-failure";
-        ${if globalCfg.stateless then "RuntimeDirectory" else "StateDirectory"} = "scion-dispatcher";
+        ${
+          if globalCfg.stateless
+          then "RuntimeDirectory"
+          else "StateDirectory"
+        } = "scion-dispatcher";
       };
     };
   };

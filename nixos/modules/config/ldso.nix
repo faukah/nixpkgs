@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     last
     splitString
     mkOption
@@ -22,8 +21,7 @@ let
   # Hard-code to avoid creating another instance of nixpkgs. Also avoids eval errors in some cases.
   libDir32 = "lib"; # pkgs.pkgsi686Linux.stdenv.hostPlatform.libDir
   ldsoBasename32 = "ld-linux.so.2"; # last (splitString "/" pkgs.pkgsi686Linux.stdenv.cc.bintools.dynamicLinker)
-in
-{
+in {
   options = {
     environment.ldso = mkOption {
       type = types.nullOr types.path;
@@ -54,28 +52,26 @@ in
 
     systemd.tmpfiles.rules =
       (
-        if isNull config.environment.ldso then
-          [
-            "r /${libDir}/${ldsoBasename} - - - - -"
-          ]
-        else
-          [
-            "d /${libDir} 0755 root root - -"
-            "L+ /${libDir}/${ldsoBasename} - - - - ${config.environment.ldso}"
-          ]
+        if isNull config.environment.ldso
+        then [
+          "r /${libDir}/${ldsoBasename} - - - - -"
+        ]
+        else [
+          "d /${libDir} 0755 root root - -"
+          "L+ /${libDir}/${ldsoBasename} - - - - ${config.environment.ldso}"
+        ]
       )
       ++ optionals pkgs.stdenv.hostPlatform.isx86_64 (
-        if isNull config.environment.ldso32 then
-          [
-            "r /${libDir32}/${ldsoBasename32} - - - - -"
-          ]
-        else
-          [
-            "d /${libDir32} 0755 root root - -"
-            "L+ /${libDir32}/${ldsoBasename32} - - - - ${config.environment.ldso32}"
-          ]
+        if isNull config.environment.ldso32
+        then [
+          "r /${libDir32}/${ldsoBasename32} - - - - -"
+        ]
+        else [
+          "d /${libDir32} 0755 root root - -"
+          "L+ /${libDir32}/${ldsoBasename32} - - - - ${config.environment.ldso32}"
+        ]
       );
   };
 
-  meta.maintainers = with lib.maintainers; [ tejing ];
+  meta.maintainers = with lib.maintainers; [tejing];
 }

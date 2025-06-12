@@ -4,9 +4,9 @@
   pkgs,
   ...
 }:
-
 with {
-  inherit (lib)
+  inherit
+    (lib)
     elemAt
     getExe
     hasAttrByPath
@@ -16,9 +16,7 @@ with {
     strings
     types
     ;
-};
-
-let
+}; let
   mkDefaults = lib.mapAttrsRecursive (n: v: lib.mkDefault v);
 
   cfg = config.services.pihole-ftl;
@@ -31,15 +29,14 @@ let
     $sudo ${getExe cfg.piholePackage} "$@"
   '';
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   settingsFile = settingsFormat.generate "pihole.toml" cfg.settings;
-in
-{
+in {
   options.services.pihole-ftl = {
     enable = mkEnableOption "Pi-hole FTL";
 
-    package = lib.mkPackageOption pkgs "pihole-ftl" { };
-    piholePackage = lib.mkPackageOption pkgs "pihole" { };
+    package = lib.mkPackageOption pkgs "pihole-ftl" {};
+    piholePackage = lib.mkPackageOption pkgs "pihole" {};
 
     privacyLevel = mkOption {
       type = types.numbers.between 0 3;
@@ -119,39 +116,38 @@ in
       description = "Pi-hole admin script";
     };
 
-    lists =
-      let
-        adlistType = types.submodule {
-          options = {
-            url = mkOption {
-              type = types.str;
-              description = "URL of the domain list";
-            };
-            type = mkOption {
-              type = types.enum [
-                "allow"
-                "block"
-              ];
-              default = "block";
-              description = "Whether domains on this list should be explicitly allowed, or blocked";
-            };
-            enabled = mkOption {
-              type = types.bool;
-              default = true;
-              description = "Whether this list is enabled";
-            };
-            description = mkOption {
-              type = types.str;
-              description = "Description of the list";
-              default = "";
-            };
+    lists = let
+      adlistType = types.submodule {
+        options = {
+          url = mkOption {
+            type = types.str;
+            description = "URL of the domain list";
+          };
+          type = mkOption {
+            type = types.enum [
+              "allow"
+              "block"
+            ];
+            default = "block";
+            description = "Whether domains on this list should be explicitly allowed, or blocked";
+          };
+          enabled = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Whether this list is enabled";
+          };
+          description = mkOption {
+            type = types.str;
+            description = "Description of the list";
+            default = "";
           };
         };
-      in
+      };
+    in
       mkOption {
         type = with types; listOf adlistType;
         description = "Deny (or allow) domain lists to use";
-        default = [ ];
+        default = [];
         example = [
           {
             url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
@@ -172,7 +168,7 @@ in
     };
 
     queryLogDeleter = {
-      enable = mkEnableOption ("Pi-hole FTL DNS query log deleter");
+      enable = mkEnableOption "Pi-hole FTL DNS query log deleter";
 
       age = mkOption {
         type = types.int;
@@ -203,9 +199,10 @@ in
 
       {
         assertion =
-          builtins.length cfg.lists == 0
+          builtins.length cfg.lists
+          == 0
           || (
-            (hasAttrByPath [ "webserver" "port" ] cfg.settings)
+            (hasAttrByPath ["webserver" "port"] cfg.settings)
             && !builtins.elem cfg.settings.webserver.port [
               ""
               null
@@ -219,8 +216,9 @@ in
 
       {
         assertion =
-          builtins.length cfg.lists == 0
-          || !(hasAttrByPath [ "webserver" "api" "cli_pw" ] cfg.settings)
+          builtins.length cfg.lists
+          == 0
+          || !(hasAttrByPath ["webserver" "api" "cli_pw"] cfg.settings)
           || cfg.settings.webserver.api.cli_pw == true;
         message = ''
           services.pihole-ftl.settings.webserver.api.cli_pw must be true for lists set in services.pihole-ftl.lists to be automatically loaded on startup.
@@ -274,77 +272,75 @@ in
     ];
 
     systemd.services = {
-      pihole-ftl =
-        let
-          setupService = config.systemd.services.pihole-ftl-setup.name;
-        in
-        {
-          description = "Pi-hole FTL";
+      pihole-ftl = let
+        setupService = config.systemd.services.pihole-ftl-setup.name;
+      in {
+        description = "Pi-hole FTL";
 
-          after = [ "network.target" ];
-          before = [ setupService ];
+        after = ["network.target"];
+        before = [setupService];
 
-          wantedBy = [ "multi-user.target" ];
-          wants = [ setupService ];
+        wantedBy = ["multi-user.target"];
+        wants = [setupService];
 
-          environment = {
-            # Currently unused, but allows the service to be reloaded
-            # automatically when the config is changed.
-            PIHOLE_CONFIG = settingsFile;
+        environment = {
+          # Currently unused, but allows the service to be reloaded
+          # automatically when the config is changed.
+          PIHOLE_CONFIG = settingsFile;
 
-            # pihole is executed by the /actions/gravity API endpoint
-            PATH = lib.mkForce (
-              lib.makeBinPath [
-                cfg.piholePackage
-              ]
-            );
-          };
-
-          serviceConfig = {
-            Type = "simple";
-            User = cfg.user;
-            Group = cfg.group;
-            AmbientCapabilities = [
-              "CAP_NET_BIND_SERVICE"
-              "CAP_NET_RAW"
-              "CAP_NET_ADMIN"
-              "CAP_SYS_NICE"
-              "CAP_IPC_LOCK"
-              "CAP_CHOWN"
-              "CAP_SYS_TIME"
-            ];
-            ExecStart = "${getExe cfg.package} no-daemon";
-            Restart = "on-failure";
-            RestartSec = 1;
-            # Hardening
-            NoNewPrivileges = true;
-            PrivateTmp = true;
-            PrivateDevices = true;
-            DevicePolicy = "closed";
-            ProtectSystem = "strict";
-            ProtectHome = "read-only";
-            ProtectControlGroups = true;
-            ProtectKernelModules = true;
-            ProtectKernelTunables = true;
-            ReadWritePaths = [
-              cfg.configDirectory
-              cfg.stateDirectory
-              cfg.logDirectory
-            ];
-            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-            RestrictNamespaces = true;
-            RestrictRealtime = true;
-            RestrictSUIDSGID = true;
-            MemoryDenyWriteExecute = true;
-            LockPersonality = true;
-          };
+          # pihole is executed by the /actions/gravity API endpoint
+          PATH = lib.mkForce (
+            lib.makeBinPath [
+              cfg.piholePackage
+            ]
+          );
         };
+
+        serviceConfig = {
+          Type = "simple";
+          User = cfg.user;
+          Group = cfg.group;
+          AmbientCapabilities = [
+            "CAP_NET_BIND_SERVICE"
+            "CAP_NET_RAW"
+            "CAP_NET_ADMIN"
+            "CAP_SYS_NICE"
+            "CAP_IPC_LOCK"
+            "CAP_CHOWN"
+            "CAP_SYS_TIME"
+          ];
+          ExecStart = "${getExe cfg.package} no-daemon";
+          Restart = "on-failure";
+          RestartSec = 1;
+          # Hardening
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          DevicePolicy = "closed";
+          ProtectSystem = "strict";
+          ProtectHome = "read-only";
+          ProtectControlGroups = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ReadWritePaths = [
+            cfg.configDirectory
+            cfg.stateDirectory
+            cfg.logDirectory
+          ];
+          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          MemoryDenyWriteExecute = true;
+          LockPersonality = true;
+        };
+      };
 
       pihole-ftl-setup = {
         description = "Pi-hole FTL setup";
         # Wait for network so lists can be downloaded
-        after = [ "network-online.target" ];
-        requires = [ "network-online.target" ];
+        after = ["network-online.target"];
+        requires = ["network-online.target"];
         serviceConfig = {
           Type = "oneshot";
           User = cfg.user;
@@ -398,7 +394,7 @@ in
           ProtectControlGroups = true;
           ProtectKernelModules = true;
           ProtectKernelTunables = true;
-          ReadWritePaths = [ cfg.stateDirectory ];
+          ReadWritePaths = [cfg.stateDirectory];
           RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
           RestrictNamespaces = true;
           RestrictRealtime = true;
@@ -406,17 +402,15 @@ in
           MemoryDenyWriteExecute = true;
           LockPersonality = true;
         };
-        script =
-          let
-            days = toString cfg.queryLogDeleter.age;
-            database = "${cfg.stateDirectory}/pihole-FTL.db";
-          in
-          ''
-            set -euo pipefail
+        script = let
+          days = toString cfg.queryLogDeleter.age;
+          database = "${cfg.stateDirectory}/pihole-FTL.db";
+        in ''
+          set -euo pipefail
 
-            echo "Deleting query logs older than ${days} days"
-            ${getExe cfg.package} sqlite3 "${database}" "DELETE FROM query_storage WHERE timestamp <= CAST(strftime('%s', date('now', '-${days} day')) AS INT); select changes() from query_storage limit 1"
-          '';
+          echo "Deleting query logs older than ${days} days"
+          ${getExe cfg.package} sqlite3 "${database}" "DELETE FROM query_storage WHERE timestamp <= CAST(strftime('%s', date('now', '-${days} day')) AS INT); select changes() from query_storage limit 1"
+        '';
       };
     };
 
@@ -426,7 +420,7 @@ in
         config.systemd.services.pihole-ftl.name
         config.systemd.services.pihole-ftl-setup.name
       ];
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnCalendar = cfg.queryLogDeleter.interval;
         Unit = "pihole-ftl-log-deleter.service";
@@ -435,8 +429,8 @@ in
 
     networking.firewall = lib.mkMerge [
       (mkIf cfg.openFirewallDHCP {
-        allowedUDPPorts = [ 53 ];
-        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [53];
+        allowedTCPPorts = [53];
       })
 
       (mkIf cfg.openFirewallWebserver {
@@ -444,11 +438,11 @@ in
           (lib.splitString ",")
           (map (
             port:
-            lib.pipe port [
-              (builtins.split "[[:alpha:]]+")
-              builtins.head
-              lib.toInt
-            ]
+              lib.pipe port [
+                (builtins.split "[[:alpha:]]+")
+                builtins.head
+                lib.toInt
+              ]
           ))
         ];
       })
@@ -459,7 +453,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     environment.etc."pihole/pihole.toml" = {
       source = settingsFile;
@@ -468,16 +462,16 @@ in
       mode = "400";
     };
 
-    environment.systemPackages = [ cfg.pihole ];
+    environment.systemPackages = [cfg.pihole];
 
     services.logrotate.settings.pihole-ftl = {
       enable = true;
-      files = [ "${cfg.logDirectory}/FTL.log" ];
+      files = ["${cfg.logDirectory}/FTL.log"];
     };
   };
 
   meta = {
     doc = ./pihole-ftl.md;
-    maintainers = with lib.maintainers; [ averyvigolo ];
+    maintainers = with lib.maintainers; [averyvigolo];
   };
 }

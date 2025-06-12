@@ -5,7 +5,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-dbvat";
   version = "1.1.0";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Plugin for using Deutsche Bahn (DB) Event Discount (Veranstaltungsrabatt)";
     homepage = "https://github.com/pretix/pretix-dbvat";
     license = licenses.asl20;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

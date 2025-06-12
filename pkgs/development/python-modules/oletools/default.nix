@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "oletools";
   version = "0.60.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     "test_xlm"
   ];
 
-  pythonImportsCheck = [ "oletools" ];
+  pythonImportsCheck = ["oletools"];
 
   meta = with lib; {
     description = "Module to analyze MS OLE2 files and MS Office documents";
@@ -57,6 +56,6 @@ buildPythonPackage rec {
       bsd2 # and
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

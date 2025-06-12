@@ -2,18 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   matplotlib,
   mplhep-data,
   numpy,
   packaging,
   uhi,
-
   # tests
   hist,
   pytest-mock,
@@ -22,7 +19,6 @@
   scipy,
   uproot,
 }:
-
 buildPythonPackage rec {
   pname = "mplhep";
   version = "0.3.59";
@@ -63,13 +59,13 @@ buildPythonPackage rec {
     "test_uproot_versions"
   ];
 
-  pythonImportsCheck = [ "mplhep" ];
+  pythonImportsCheck = ["mplhep"];
 
   meta = {
     description = "Extended histogram plots on top of matplotlib and HEP compatible styling similar to current collaboration requirements (ROOT)";
     homepage = "https://github.com/scikit-hep/mplhep";
     changelog = "https://github.com/scikit-hep/mplhep/releases/tag/${src.tag}";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ veprbl ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

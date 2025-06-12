@@ -16,7 +16,6 @@
   xorg,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ideogram";
   version = "1.3.3";
@@ -53,16 +52,15 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Insert emoji anywhere, even in non-native apps - designed for elementary OS";
     homepage = "https://github.com/cassidyjames/ideogram";
     license = licenses.gpl2Plus;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     mainProgram = "com.github.cassidyjames.ideogram";
   };
-
 }

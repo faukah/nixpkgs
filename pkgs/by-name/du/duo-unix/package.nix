@@ -6,7 +6,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "duo-unix";
   version = "2.0.4";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://duosecurity.com";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

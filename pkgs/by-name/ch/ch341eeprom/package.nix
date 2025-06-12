@@ -5,7 +5,6 @@
   libusb1,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "ch341eeprom";
   version = "0-unstable-2024-05-06";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-8pvQ2hBP3Rf8+MWsmMY53BghFiC5/b9k8vUjU2K6Ib4=";
   };
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = {
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/command-tab/ch341eeprom";
     license = lib.licenses.gpl3Plus;
     mainProgram = "ch341eeprom";
-    maintainers = with lib.maintainers; [ xokdvium ];
+    maintainers = with lib.maintainers; [xokdvium];
     platforms = with lib.platforms; darwin ++ linux;
   };
 }

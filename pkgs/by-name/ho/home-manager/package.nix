@@ -16,7 +16,6 @@
   unixtools,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "home-manager";
   version = "0-unstable-2025-06-02";
@@ -62,18 +61,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace $out/bin/home-manager \
       --subst-var-by bash "${bash}" \
       --subst-var-by DEP_PATH "${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gettext
-          gnused
-          jq
-          less
-          ncurses
-          nixos-option
-          inetutils # for `hostname`
-        ]
-      }" \
+      lib.makeBinPath [
+        coreutils
+        findutils
+        gettext
+        gnused
+        jq
+        less
+        ncurses
+        nixos-option
+        inetutils # for `hostname`
+      ]
+    }" \
       --subst-var-by HOME_MANAGER_LIB "$out/share/bash/home-manager.sh" \
       --subst-var-by HOME_MANAGER_PATH "${finalAttrs.src}" \
       --subst-var-by OUT "$out"
@@ -94,7 +93,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.mit;
     mainProgram = "home-manager";
-    maintainers = with lib.maintainers; [ bryango ];
+    maintainers = with lib.maintainers; [bryango];
     platforms = lib.platforms.unix;
   };
 })

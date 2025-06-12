@@ -5,7 +5,6 @@
   perl,
   mlton,
 }:
-
 stdenv.mkDerivation {
   pname = "metis-prover";
   version = "2.4.20200713";
@@ -17,8 +16,8 @@ stdenv.mkDerivation {
     sha256 = "phu1x0yahK/B2bSOCvlze7UJw8smX9zw6dJTpDD9chM=";
   };
 
-  nativeBuildInputs = [ perl ];
-  buildInputs = [ mlton ];
+  nativeBuildInputs = [perl];
+  buildInputs = [mlton];
 
   patchPhase = "patchShebangs .";
 
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     mainProgram = "metis";
     homepage = "https://www.gilith.com/research/metis/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

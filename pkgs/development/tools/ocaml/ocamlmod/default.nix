@@ -6,15 +6,11 @@
   findlib,
   ocamlbuild,
   ounit,
-}:
-
-let
+}: let
   # ounit is only available for OCaml >= 4.08
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 in
-
-lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "ocamlmod is not available for OCaml ≥ 5.0"
-
+  lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "ocamlmod is not available for OCaml ≥ 5.0"
   stdenv.mkDerivation
   {
     pname = "ocamlmod";
@@ -39,7 +35,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "ocamlmod is not available 
     installPhase = "ocaml setup.ml -install";
 
     inherit doCheck;
-    nativeCheckInputs = [ ounit ];
+    nativeCheckInputs = [ounit];
 
     checkPhase = "ocaml setup.ml -test";
 
@@ -48,7 +44,7 @@ lib.throwIf (lib.versionAtLeast ocaml.version "5.0") "ocamlmod is not available 
     meta = {
       homepage = "https://forge.ocamlcore.org/projects/ocamlmod/ocamlmod";
       description = "Generate OCaml modules from source files";
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
       maintainers = with lib.maintainers; [
         maggesi
       ];

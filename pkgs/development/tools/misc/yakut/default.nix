@@ -15,7 +15,6 @@
   scipy,
   simplejson,
 }:
-
 buildPythonApplication rec {
   pname = "yakut";
   version = "0.14.0";
@@ -55,6 +54,6 @@ buildPythonApplication rec {
     '';
     homepage = "https://github.com/OpenCyphal/yakut/";
     license = licenses.mit;
-    teams = [ teams.ororatech ];
+    teams = [teams.ororatech];
   };
 }

@@ -1,27 +1,28 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "systemd-initrd-vconsole";
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      boot.kernelParams = lib.mkAfter [
-        "rd.systemd.unit=rescue.target"
-        "loglevel=3"
-        "udev.log_level=3"
-        "systemd.log_level=warning"
-      ];
+  nodes.machine = {pkgs, ...}: {
+    boot.kernelParams = lib.mkAfter [
+      "rd.systemd.unit=rescue.target"
+      "loglevel=3"
+      "udev.log_level=3"
+      "systemd.log_level=warning"
+    ];
 
-      boot.initrd.systemd = {
-        enable = true;
-        emergencyAccess = true;
-      };
-
-      console = {
-        earlySetup = true;
-        keyMap = "colemak";
-      };
+    boot.initrd.systemd = {
+      enable = true;
+      emergencyAccess = true;
     };
+
+    console = {
+      earlySetup = true;
+      keyMap = "colemak";
+    };
+  };
 
   testScript = ''
     # Boot into rescue shell in initrd

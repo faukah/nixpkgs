@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   lap,
   matplotlib,
@@ -23,13 +21,11 @@
   torchvision,
   tqdm,
   ultralytics-thop,
-
   # tests
   pytestCheckHook,
   onnx,
   onnxruntime,
 }:
-
 buildPythonPackage rec {
   pname = "ultralytics";
   version = "8.3.143";
@@ -42,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-qpFQcGLTEQS7Bt9CvdXgv2JyNfOONS0Cf71dckCrlPw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "numpy"
@@ -67,7 +63,7 @@ buildPythonPackage rec {
     ultralytics-thop
   ];
 
-  pythonImportsCheck = [ "ultralytics" ];
+  pythonImportsCheck = ["ultralytics"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -124,6 +120,6 @@ buildPythonPackage rec {
     description = "Train YOLO models for computer vision tasks";
     mainProgram = "yolo";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ osbm ];
+    maintainers = with lib.maintainers; [osbm];
   };
 }

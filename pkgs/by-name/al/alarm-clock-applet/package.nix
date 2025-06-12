@@ -10,7 +10,6 @@
   libnotify,
   libayatana-appindicator,
 }:
-
 stdenv.mkDerivation rec {
   pname = "alarm-clock-applet";
   version = "0.4.1";
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Fully-featured alarm clock with an indicator";
     homepage = "https://alarm-clock-applet.github.io";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
     mainProgram = "alarm-clock-applet";
   };

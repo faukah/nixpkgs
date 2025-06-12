@@ -7,7 +7,6 @@
   hypothesis,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyroaring";
   version = "1.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "pyroaring" ];
+  pythonImportsCheck = ["pyroaring"];
 
   nativeCheckInputs = [
     hypothesis
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Ezibenroc/PyRoaringBitMap";
     changelog = "https://github.com/Ezibenroc/PyRoaringBitMap/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

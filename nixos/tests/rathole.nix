@@ -1,11 +1,8 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   successMessage = "Success 3333115147933743662";
-in
-{
+in {
   name = "rathole";
-  meta.maintainers = with lib.maintainers; [ xokdvium ];
+  meta.maintainers = with lib.maintainers; [xokdvium];
   nodes = {
     server = {
       networking = {
@@ -36,43 +33,41 @@ in
       };
     };
 
-    client =
-      { pkgs, ... }:
-      {
-        networking = {
-          useNetworkd = true;
-          useDHCP = false;
-        };
+    client = {pkgs, ...}: {
+      networking = {
+        useNetworkd = true;
+        useDHCP = false;
+      };
 
-        systemd.network.networks."01-eth1" = {
-          name = "eth1";
-          networkConfig.Address = "10.0.0.2/24";
-        };
+      systemd.network.networks."01-eth1" = {
+        name = "eth1";
+        networkConfig.Address = "10.0.0.2/24";
+      };
 
-        services.nginx = {
-          enable = true;
-          virtualHosts."127.0.0.1" = {
-            root = pkgs.writeTextDir "success-message.txt" successMessage;
-          };
+      services.nginx = {
+        enable = true;
+        virtualHosts."127.0.0.1" = {
+          root = pkgs.writeTextDir "success-message.txt" successMessage;
         };
+      };
 
-        services.rathole = {
-          enable = true;
-          role = "client";
-          credentialsFile = pkgs.writeText "rathole-credentials.toml" ''
-            [client.services.success-message]
-            token = "hunter2"
-          '';
-          settings = {
-            client = {
-              remote_addr = "10.0.0.1:2333";
-              services.success-message = {
-                local_addr = "127.0.0.1:80";
-              };
+      services.rathole = {
+        enable = true;
+        role = "client";
+        credentialsFile = pkgs.writeText "rathole-credentials.toml" ''
+          [client.services.success-message]
+          token = "hunter2"
+        '';
+        settings = {
+          client = {
+            remote_addr = "10.0.0.1:2333";
+            services.success-message = {
+              local_addr = "127.0.0.1:80";
             };
           };
         };
       };
+    };
   };
 
   testScript = ''

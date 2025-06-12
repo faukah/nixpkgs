@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "syntax-highlighting";
 
-  extraBuildInputs = [ qtdeclarative ];
+  extraBuildInputs = [qtdeclarative];
   extraNativeBuildInputs = [
     qttools
     perl

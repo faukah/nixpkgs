@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "r53-ddns";
   version = "1.1.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     license = licenses.mit;
     homepage = "https://github.com/fleaz/r53-ddns";
     description = "DIY DynDNS tool based on Route53";
-    maintainers = with maintainers; [ fleaz ];
+    maintainers = with maintainers; [fleaz];
     mainProgram = "r53-ddns";
   };
 }

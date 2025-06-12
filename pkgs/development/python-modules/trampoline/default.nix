@@ -4,7 +4,6 @@
   fetchFromGitLab,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "trampoline";
   version = "0.1.2";
@@ -18,14 +17,14 @@ buildPythonPackage {
     hash = "sha256-A/tuR+QW9sKh76Qjwn1uQxlVJgWrSFzXeBRDdnSi2o4=";
   };
 
-  pythonImportsCheck = [ "trampoline" ];
+  pythonImportsCheck = ["trampoline"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Simple and tiny yield-based trampoline implementation for python";
     homepage = "https://gitlab.com/ferreum/trampoline";
     license = licenses.mit;
-    teams = [ teams.tts ];
+    teams = [teams.tts];
   };
 }

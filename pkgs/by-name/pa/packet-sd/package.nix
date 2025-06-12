@@ -4,7 +4,6 @@
   fetchpatch2,
   lib,
 }:
-
 buildGoModule rec {
   pname = "prometheus-packet-sd";
   version = "0.0.3";
@@ -37,13 +36,13 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Prometheus service discovery for Equinix Metal";
     homepage = "https://github.com/packethost/prometheus-packet-sd";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "prometheus-packet-sd";
   };
 }

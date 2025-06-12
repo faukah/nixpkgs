@@ -5,7 +5,6 @@
   zig_0_13,
   callPackage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flow-control";
   version = "0.3.2";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/neurocyte/flow";
     changelog = "https://github.com/neurocyte/flow/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "flow";
   };
 })

@@ -7,7 +7,6 @@
   gmp,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lean";
   version = "3.51.0";
@@ -32,8 +31,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ gmp ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [gmp];
 
   cmakeDir = "../src";
 
@@ -41,14 +40,12 @@ stdenv.mkDerivation rec {
   # library.
   doCheck = true;
 
-  preConfigure =
-    assert builtins.stringLength src.rev == 40;
-    ''
-      substituteInPlace src/githash.h.in \
-        --subst-var-by GIT_SHA1 "${src.rev}"
-      substituteInPlace library/init/version.lean.in \
-        --subst-var-by GIT_SHA1 "${src.rev}"
-    '';
+  preConfigure = assert builtins.stringLength src.rev == 40; ''
+    substituteInPlace src/githash.h.in \
+      --subst-var-by GIT_SHA1 "${src.rev}"
+    substituteInPlace library/init/version.lean.in \
+      --subst-var-by GIT_SHA1 "${src.rev}"
+  '';
 
   postPatch = "patchShebangs .";
 

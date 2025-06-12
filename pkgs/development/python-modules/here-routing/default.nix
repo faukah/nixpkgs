@@ -11,7 +11,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "here-routing";
   version = "1.0.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     sed -i "/^addopts/d" pyproject.toml
   '';
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     aiohttp
@@ -45,13 +44,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "here_routing" ];
+  pythonImportsCheck = ["here_routing"];
 
   meta = {
     changelog = "https://github.com/eifinger/here_routing/releases/tag/v${version}";
     description = "Asynchronous Python client for the HERE Routing V8 API";
     homepage = "https://github.com/eifinger/here_routing";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -3,12 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.plotinus;
-in
-{
+in {
   meta = {
     maintainers = pkgs.plotinus.meta.maintainers;
     doc = ./plotinus.md;
@@ -36,6 +33,6 @@ in
     environment.sessionVariables.XDG_DATA_DIRS = [
       "${pkgs.plotinus}/share/gsettings-schemas/${pkgs.plotinus.name}"
     ];
-    environment.variables.GTK3_MODULES = [ "${pkgs.plotinus}/lib/libplotinus.so" ];
+    environment.variables.GTK3_MODULES = ["${pkgs.plotinus}/lib/libplotinus.so"];
   };
 }

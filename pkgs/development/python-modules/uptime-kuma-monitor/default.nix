@@ -6,7 +6,6 @@
   prometheus-client,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "uptime-kuma-monitor";
   version = "1.0.0";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
   # Project has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "uptime_kuma_monitor" ];
+  pythonImportsCheck = ["uptime_kuma_monitor"];
 
   meta = with lib; {
     description = "Python wrapper around UptimeKuma /metrics endpoint";
     homepage = "https://github.com/meichthys/utptime_kuma_monitor";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

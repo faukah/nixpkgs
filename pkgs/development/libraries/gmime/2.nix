@@ -9,7 +9,6 @@
   libgpg-error,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.6.23";
   pname = "gmime";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     [
       "--enable-introspection=yes"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["ac_cv_have_iconv_detect_h=yes"];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \
@@ -50,11 +49,13 @@ stdenv.mkDerivation rec {
 
   preConfigure = lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
     cp ${
-      if stdenv.hostPlatform.isMusl then ./musl-iconv-detect.h else ./iconv-detect.h
+      if stdenv.hostPlatform.isMusl
+      then ./musl-iconv-detect.h
+      else ./iconv-detect.h
     } ./iconv-detect.h
   '';
 
-  nativeCheckInputs = [ gnupg ];
+  nativeCheckInputs = [gnupg];
 
   enableParallelBuilding = true;
 
@@ -62,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jstedfast/gmime/";
     description = "C/C++ library for creating, editing and parsing MIME messages and structures";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

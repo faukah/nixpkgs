@@ -7,7 +7,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ior";
   version = "4.0.0";
@@ -36,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Parallel file system I/O performance test";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ bzizou ];
+    maintainers = with lib.maintainers; [bzizou];
   };
 })

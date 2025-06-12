@@ -9,7 +9,6 @@
   pydoe,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pwlf";
   version = "2.5.1";
@@ -33,15 +32,15 @@ buildPythonPackage rec {
     pydoe
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "pwlf" ];
+  pythonImportsCheck = ["pwlf"];
 
   meta = {
     description = "Fit piecewise linear data for a specified number of line segments";
     homepage = "https://jekel.me/piecewise_linear_fit_py/";
     changelog = "https://github.com/cjekel/piecewise_linear_fit_py/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

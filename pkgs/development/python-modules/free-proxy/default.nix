@@ -7,7 +7,6 @@
   lxml,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "free-proxy";
   version = "1.1.3";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-8SxKGGifQTU0CUrtUQUtrmeq+Do4GIqNUWAdCt++eUA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pip-chill
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Free proxy scraper written in python";
     homepage = "https://github.com/jundymek/free-proxy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
   };
 }

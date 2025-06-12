@@ -8,7 +8,6 @@
   zlib,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "prqlc";
   version = "0.13.4";
@@ -48,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/prql/prql";
     changelog = "https://github.com/prql/prql/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

@@ -10,9 +10,7 @@
   xkeyboard_config,
   xorg,
   zlib,
-}:
-
-let
+}: let
   pname = "kingstvis";
   version = "3.6.1";
   src = fetchzip {
@@ -20,13 +18,10 @@ let
     hash = "sha256-eZJ3RZWdmNx/El3Hh5kUf44pIwdvwOEkRysYBgUkS18=";
   };
 in
+  buildFHSEnv {
+    inherit pname version;
 
-buildFHSEnv {
-  inherit pname version;
-
-  targetPkgs =
-    pkgs:
-    (with pkgs; [
+    targetPkgs = pkgs: (with pkgs; [
       dbus
       fontconfig
       freetype
@@ -43,19 +38,19 @@ buildFHSEnv {
       zlib
     ]);
 
-  extraInstallCommands = ''
-    install -Dvm644 ${src}/Driver/99-Kingst.rules \
-      $out/lib/udev/rules.d/99-Kingst.rules
-  '';
+    extraInstallCommands = ''
+      install -Dvm644 ${src}/Driver/99-Kingst.rules \
+        $out/lib/udev/rules.d/99-Kingst.rules
+    '';
 
-  runScript = "${src}/KingstVIS";
+    runScript = "${src}/KingstVIS";
 
-  meta = {
-    description = "Kingst Virtual Instruments Studio, software for logic analyzers";
-    homepage = "http://www.qdkingst.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.luisdaranda ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = {
+      description = "Kingst Virtual Instruments Studio, software for logic analyzers";
+      homepage = "http://www.qdkingst.com/";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.unfree;
+      maintainers = [lib.maintainers.luisdaranda];
+      platforms = ["x86_64-linux"];
+    };
+  }

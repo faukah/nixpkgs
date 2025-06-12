@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mdbook-kroki-preprocessor";
   version = "0.2.0";

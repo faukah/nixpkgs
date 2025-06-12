@@ -5,7 +5,6 @@
   fetchpatch2,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pngcrush";
   version = "1.8.13";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     sed -i s,/usr,$out, Makefile
   '';
 
-  buildInputs = [ libpng ];
+  buildInputs = [libpng];
 
   meta = {
     homepage = "http://pmt.sourceforge.net/pngcrush";

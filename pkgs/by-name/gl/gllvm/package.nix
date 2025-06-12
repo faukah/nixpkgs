@@ -5,7 +5,6 @@
   llvmPackages,
   getconf,
 }:
-
 buildGoModule {
   pname = "gllvm";
   version = "1.3.1-unstable-2024-04-28";
@@ -19,18 +18,17 @@ buildGoModule {
 
   vendorHash = null;
 
-  nativeCheckInputs =
-    with llvmPackages;
+  nativeCheckInputs = with llvmPackages;
     [
       clang
       llvm
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ getconf ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [getconf];
 
   meta = with lib; {
     homepage = "https://github.com/SRI-CSL/gllvm";
     description = "Whole Program LLVM: wllvm ported to go";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

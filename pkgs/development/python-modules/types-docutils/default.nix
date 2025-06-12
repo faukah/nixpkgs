@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "types-docutils";
   version = "0.21.0.20250604";
@@ -16,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-WpzH9aTF72lKoKvGERHgsTdqU97pDWV1f3fzGs/MqPI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "docutils-stubs" ];
+  pythonImportsCheck = ["docutils-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for docutils";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

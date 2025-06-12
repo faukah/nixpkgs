@@ -7,7 +7,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "microbin";
   version = "2.0.4";

@@ -6,25 +6,21 @@
   updateAutotoolsGnuConfigScriptsHook,
   bison,
   util-linux,
-
   interactive ? true,
   readline,
   withDocs ? null,
   forFHSEnv ? false,
-
   pkgsStatic,
-}:
-
-let
+}: let
   upstreamPatches = import ./bash-5.2-patches.nix (
     nr: sha256:
-    fetchurl {
-      url = "mirror://gnu/bash/bash-5.2-patches/bash52-${nr}";
-      inherit sha256;
-    }
+      fetchurl {
+        url = "mirror://gnu/bash/bash-5.2-patches/bash52-${nr}";
+        inherit sha256;
+      }
   );
 in
-lib.warnIf (withDocs != null)
+  lib.warnIf (withDocs != null)
   ''
     bash: `.override { withDocs = true; }` is deprecated, the docs are always included.
   ''
@@ -40,7 +36,7 @@ lib.warnIf (withDocs != null)
     };
 
     hardeningDisable =
-      [ "format" ]
+      ["format"]
       # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
       # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
       # or you can check libc/include/sys/cdefs.h in bionic source code
@@ -71,17 +67,19 @@ lib.warnIf (withDocs != null)
         -DSSH_SOURCE_BASHRC
       '';
 
-    patchFlags = [ "-p0" ];
+    patchFlags = ["-p0"];
 
-    patches = upstreamPatches ++ [
-      ./pgrp-pipe-5.patch
-      # Apply parallel build fix pending upstream inclusion:
-      #   https://savannah.gnu.org/patch/index.php?10373
-      # Had to fetch manually to workaround -p0 default.
-      ./parallel.patch
-      # Fix `pop_var_context: head of shell_variables not a function context`.
-      ./fix-pop-var-context-error.patch
-    ];
+    patches =
+      upstreamPatches
+      ++ [
+        ./pgrp-pipe-5.patch
+        # Apply parallel build fix pending upstream inclusion:
+        #   https://savannah.gnu.org/patch/index.php?10373
+        # Had to fetch manually to workaround -p0 default.
+        ./parallel.patch
+        # Fix `pop_var_context: head of shell_variables not a function context`.
+        ./fix-pop-var-context-error.patch
+      ];
 
     configureFlags =
       [
@@ -91,7 +89,11 @@ lib.warnIf (withDocs != null)
         # Various distributions default to system allocator. Let's nixpkgs
         # do the same.
         "--without-bash-malloc"
-        (if interactive then "--with-installed-readline" else "--disable-readline")
+        (
+          if interactive
+          then "--with-installed-readline"
+          else "--disable-readline"
+        )
       ]
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "bash_cv_job_control_missing=nomissing"
@@ -101,7 +103,9 @@ lib.warnIf (withDocs != null)
         # default is fine for static linking on Linux (weak symbols?) but
         # not with BSDs, when it does clash with the regular `getenv`.
         "bash_cv_getenv_redef=${
-          if !(with stdenv.hostPlatform; isStatic && (isOpenBSD || isFreeBSD)) then "yes" else "no"
+          if !(with stdenv.hostPlatform; isStatic && (isOpenBSD || isFreeBSD))
+          then "yes"
+          else "no"
         }"
       ]
       ++ lib.optionals stdenv.hostPlatform.isCygwin [
@@ -123,11 +127,13 @@ lib.warnIf (withDocs != null)
 
     strictDeps = true;
     # Note: Bison is needed because the patches above modify parse.y.
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [
-      updateAutotoolsGnuConfigScriptsHook
-      bison
-    ] ++ lib.optional stdenv.hostPlatform.isDarwin stdenv.cc.bintools;
+    depsBuildBuild = [buildPackages.stdenv.cc];
+    nativeBuildInputs =
+      [
+        updateAutotoolsGnuConfigScriptsHook
+        bison
+      ]
+      ++ lib.optional stdenv.hostPlatform.isDarwin stdenv.cc.bintools;
 
     buildInputs = lib.optional interactive readline;
 
@@ -138,7 +144,7 @@ lib.warnIf (withDocs != null)
       "SHOBJ_LIBS=-lbash"
     ];
 
-    nativeCheckInputs = [ util-linux ];
+    nativeCheckInputs = [util-linux];
     doCheck = false; # dependency cycle, needs to be interactive
 
     postInstall = ''
@@ -147,16 +153,15 @@ lib.warnIf (withDocs != null)
     '';
 
     postFixup =
-      if interactive then
-        ''
-          substituteInPlace "$out/bin/bashbug" \
-            --replace '#!/bin/sh' "#!$out/bin/bash"
-        ''
+      if interactive
+      then ''
+        substituteInPlace "$out/bin/bashbug" \
+          --replace '#!/bin/sh' "#!$out/bin/bash"
+      ''
       # most space is taken by locale data
-      else
-        ''
-          rm -rf "$out/share" "$out/bin/bashbug"
-        '';
+      else ''
+        rm -rf "$out/share" "$out/bin/bashbug"
+      '';
 
     passthru = {
       shellPath = "/bin/bash";
@@ -181,8 +186,8 @@ lib.warnIf (withDocs != null)
       license = licenses.gpl3Plus;
       platforms = platforms.all;
       # https://github.com/NixOS/nixpkgs/issues/333338
-      badPlatforms = [ lib.systems.inspect.patterns.isMinGW ];
-      maintainers = [ ];
+      badPlatforms = [lib.systems.inspect.patterns.isMinGW];
+      maintainers = [];
       mainProgram = "bash";
     };
   }

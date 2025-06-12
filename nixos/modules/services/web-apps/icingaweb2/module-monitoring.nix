@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.icingaweb2.modules.monitoring;
 
   configIni = ''
@@ -13,17 +12,20 @@ let
     protected_customvars = "${concatStringsSep "," cfg.generalConfig.protectedVars}"
   '';
 
-  backendsIni =
-    let
-      formatBool = b: if b then "1" else "0";
-    in
+  backendsIni = let
+    formatBool = b:
+      if b
+      then "1"
+      else "0";
+  in
     concatStringsSep "\n" (
       mapAttrsToList (name: config: ''
         [${name}]
         type = "ido"
         resource = "${config.resource}"
         disabled = "${formatBool config.disabled}"
-      '') cfg.backends
+      '')
+      cfg.backends
     );
 
   transportsIni = concatStringsSep "\n" (
@@ -39,11 +41,10 @@ let
       ''}
       ${optionalString (config.type == "api") ''password = "${config.password}"''}
       ${optionalString (config.type == "remote") ''resource = "${config.resource}"''}
-    '') cfg.transports
+    '')
+    cfg.transports
   );
-
-in
-{
+in {
   options.services.icingaweb2.modules.monitoring = with types; {
     enable = mkOption {
       type = bool;
@@ -84,8 +85,7 @@ in
       description = "Monitoring backends to define";
       type = attrsOf (
         submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             options = {
               name = mkOption {
                 visible = false;
@@ -117,12 +117,11 @@ in
     };
 
     transports = mkOption {
-      default = { };
+      default = {};
       description = "Command transports to define";
       type = attrsOf (
         submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             options = {
               name = mkOption {
                 visible = false;

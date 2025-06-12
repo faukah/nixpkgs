@@ -5,7 +5,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "difftastic";
   version = "0.63.0";
@@ -21,14 +20,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-kIqaZ8truDivMV6uo1+j9bmXQReREZjHSr89ZvVDWCw=";
 
   # skip flaky tests
-  checkFlags = [ "--skip=options::tests::test_detect_display_width" ];
+  checkFlags = ["--skip=options::tests::test_detect_display_width"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/difft";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Syntax-aware diff";

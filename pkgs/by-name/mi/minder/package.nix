@@ -23,7 +23,6 @@
   libxml2,
   pantheon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minder";
   version = "1.17.0";
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/phase1geo/Minder";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "com.github.phase1geo.minder";
   };
 }

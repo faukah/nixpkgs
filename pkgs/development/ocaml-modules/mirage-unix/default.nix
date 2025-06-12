@@ -6,7 +6,6 @@
   duration,
   mirage-runtime,
 }:
-
 buildDunePackage rec {
   pname = "mirage-unix";
   version = "5.0.1";
@@ -29,6 +28,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/mirage-unix";
     description = "Unix core platform libraries for MirageOS";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

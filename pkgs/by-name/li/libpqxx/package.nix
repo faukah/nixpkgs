@@ -5,7 +5,6 @@
   libpq,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpqxx";
   version = "7.10.1";
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/jtv/libpqxx";
     homepage = "https://pqxx.org/development/libpqxx/";
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "go-judge";
   version = "1.9.4";
@@ -22,7 +21,7 @@ buildGoModule rec {
     "grpcnotrace"
   ];
 
-  subPackages = [ "cmd/go-judge" ];
+  subPackages = ["cmd/go-judge"];
 
   preBuild = ''
     echo v${version} > ./cmd/go-judge/version/version.txt
@@ -35,6 +34,6 @@ buildGoModule rec {
     homepage = "https://docs.goj.ac";
     license = licenses.mit;
     mainProgram = "go-judge";
-    maintainers = with maintainers; [ criyle ];
+    maintainers = with maintainers; [criyle];
   };
 }

@@ -14,7 +14,6 @@
   qrcodegenSupport ? true,
   qrcodegen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "notcurses";
   version = "3.0.16";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional multimediaSupport ffmpeg;
 
   cmakeFlags =
-    lib.optional (qrcodegenSupport) "-DUSE_QRCODEGEN=ON"
+    lib.optional qrcodegenSupport "-DUSE_QRCODEGEN=ON"
     ++ lib.optional (!multimediaSupport) "-DUSE_MULTIMEDIA=none";
 
   # https://github.com/dankamongmen/notcurses/issues/2661
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
       replacement for NCURSES on existing systems.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     inherit (ncurses.meta) platforms;
   };
 }

@@ -8,7 +8,6 @@
   openssl,
   callPackage,
 }:
-
 buildDotnetModule rec {
   pname = "ArchiSteamFarm";
   # nixpkgs-update: no auto update
@@ -82,7 +81,7 @@ buildDotnetModule rec {
   passthru = {
     # nix-shell maintainers/scripts/update.nix --argstr package ArchiSteamFarm
     updateScript = ./update.sh;
-    ui = callPackage ./web-ui { };
+    ui = callPackage ./web-ui {};
   };
 
   meta = with lib; {
@@ -90,6 +89,6 @@ buildDotnetModule rec {
     homepage = "https://github.com/JustArchiNET/ArchiSteamFarm";
     license = licenses.asl20;
     mainProgram = "ArchiSteamFarm";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

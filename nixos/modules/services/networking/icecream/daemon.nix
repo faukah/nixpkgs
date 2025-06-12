@@ -4,20 +4,13 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.icecream.daemon;
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.icecream.daemon = {
-
       enable = mkEnableOption "Icecream Daemon";
 
       openFirewall = mkOption {
@@ -105,13 +98,13 @@ in
         '';
       };
 
-      package = mkPackageOption pkgs "icecream" { };
+      package = mkPackageOption pkgs "icecream" {};
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Additional command line parameters.";
-        example = [ "-v" ];
+        example = ["-v"];
       };
     };
   };
@@ -119,13 +112,13 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ 10245 ];
-    networking.firewall.allowedUDPPorts = mkIf cfg.openBroadcast [ 8765 ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [10245];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openBroadcast [8765];
 
     systemd.services.icecc-daemon = {
       description = "Icecream compile daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = escapeShellArgs (
@@ -171,5 +164,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ emantor ];
+  meta.maintainers = with lib.maintainers; [emantor];
 }

@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "more-properties";
   version = "1.1.1";
@@ -38,14 +37,14 @@ buildPythonPackage rec {
     "dataclasses"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "more_properties" ];
+  pythonImportsCheck = ["more_properties"];
 
   meta = {
     description = "Collection of property variants";
     homepage = "https://github.com/madman-bob/python-more-properties";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

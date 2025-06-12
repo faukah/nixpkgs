@@ -12,7 +12,6 @@
   pythonOlder,
   tbm-utils,
 }:
-
 buildPythonPackage rec {
   pname = "audio-metadata";
   version = "0.11.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     "more-itertools"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     attrs
@@ -55,13 +54,13 @@ buildPythonPackage rec {
   # Tests require ward which is not ready to be used
   doCheck = false;
 
-  pythonImportsCheck = [ "audio_metadata" ];
+  pythonImportsCheck = ["audio_metadata"];
 
   meta = with lib; {
     description = "Library for handling the metadata from audio files";
     homepage = "https://github.com/thebigmunch/audio-metadata";
     changelog = "https://github.com/thebigmunch/audio-metadata/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

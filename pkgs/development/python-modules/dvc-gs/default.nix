@@ -6,7 +6,6 @@
   gcsfs,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-gs";
   version = "3.0.1";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     gcsfs
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/dvc-gs/version";
     changelog = "https://github.com/iterative/dvc-gs/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

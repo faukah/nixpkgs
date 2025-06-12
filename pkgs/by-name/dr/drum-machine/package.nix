@@ -14,7 +14,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "drum-machine";
   version = "1.3.1";
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   dependencies = with python3Packages; [
     mido
@@ -51,7 +50,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   # NOTE: `postCheck` is intentionally not used here, as the entire checkPhase
   # is skipped by `buildPythonApplication`
@@ -61,7 +60,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -69,7 +68,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://apps.gnome.org/DrumMachine";
     changelog = "https://github.com/Revisto/drum-machine/releases/tag/${src.tag}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.linux;
   };
 }

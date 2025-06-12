@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "awslogs";
   version = "0.15.0";
@@ -43,6 +42,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "awslogs";
     homepage = "https://github.com/jorgebastida/awslogs";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dbrock ];
+    maintainers = with maintainers; [dbrock];
   };
 }

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.spiped;
-in
-{
+in {
   options = {
     services.spiped = {
       enable = mkOption {
@@ -21,7 +17,7 @@ in
 
       config = mkOption {
         type = types.attrsOf (
-          types.submodule ({
+          types.submodule {
             options = {
               encrypt = mkOption {
                 type = types.bool;
@@ -138,10 +134,10 @@ in
                 description = "Disable target address re-resolution.";
               };
             };
-          })
+          }
         );
 
-        default = { };
+        default = {};
 
         example = literalExpression ''
           {
@@ -171,10 +167,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions = mapAttrsToList (name: c: {
-      assertion = (c.encrypt -> !c.decrypt) || (c.decrypt -> c.encrypt);
-      message = "A pipe must either encrypt or decrypt";
-    }) cfg.config;
+    assertions =
+      mapAttrsToList (name: c: {
+        assertion = (c.encrypt -> !c.decrypt) || (c.decrypt -> c.encrypt);
+        message = "A pipe must either encrypt or decrypt";
+      })
+      cfg.config;
 
     users.groups.spiped.gid = config.ids.gids.spiped;
     users.users.spiped = {
@@ -185,7 +183,7 @@ in
 
     systemd.services."spiped@" = {
       description = "Secure pipe '%i'";
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       serviceConfig = {
         Restart = "always";
@@ -198,22 +196,32 @@ in
     };
 
     # Setup spiped config files
-    environment.etc = mapAttrs' (
-      name: cfg:
-      nameValuePair "spiped/${name}.spec" {
-        text = concatStringsSep " " [
-          (if cfg.encrypt then "-e" else "-d") # Mode
-          "-s ${cfg.source}" # Source
-          "-t ${cfg.target}" # Target
-          "-k ${cfg.keyfile}" # Keyfile
-          "-n ${toString cfg.maxConns}" # Max number of conns
-          "-o ${toString cfg.timeout}" # Timeout
-          (optionalString cfg.waitForDNS "-D") # Wait for DNS
-          (optionalString cfg.weakHandshake "-f") # No PFS
-          (optionalString cfg.disableKeepalives "-j") # Keepalives
-          (if cfg.disableReresolution then "-R" else "-r ${toString cfg.resolveRefresh}")
-        ];
-      }
-    ) cfg.config;
+    environment.etc =
+      mapAttrs' (
+        name: cfg:
+          nameValuePair "spiped/${name}.spec" {
+            text = concatStringsSep " " [
+              (
+                if cfg.encrypt
+                then "-e"
+                else "-d"
+              ) # Mode
+              "-s ${cfg.source}" # Source
+              "-t ${cfg.target}" # Target
+              "-k ${cfg.keyfile}" # Keyfile
+              "-n ${toString cfg.maxConns}" # Max number of conns
+              "-o ${toString cfg.timeout}" # Timeout
+              (optionalString cfg.waitForDNS "-D") # Wait for DNS
+              (optionalString cfg.weakHandshake "-f") # No PFS
+              (optionalString cfg.disableKeepalives "-j") # Keepalives
+              (
+                if cfg.disableReresolution
+                then "-R"
+                else "-r ${toString cfg.resolveRefresh}"
+              )
+            ];
+          }
+      )
+      cfg.config;
   };
 }

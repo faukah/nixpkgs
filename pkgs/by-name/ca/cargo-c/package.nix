@@ -9,7 +9,6 @@
   libiconv,
   rav1e,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-c";
   version = "0.10.2";

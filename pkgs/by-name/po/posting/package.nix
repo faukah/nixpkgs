@@ -27,8 +27,7 @@ python3Packages.buildPythonApplication rec {
     xorg.xrdb
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       click
       xdg-base-dirs

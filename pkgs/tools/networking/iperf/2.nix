@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iperf";
   version = "2.2.1";
@@ -13,7 +12,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-dUqwp+KAM9vqgTCO9CS8ffTW4v4xtgzFNrYbUf772Ps=";
   };
 
-  configureFlags = [ "--enable-fastsampling" ];
+  configureFlags = ["--enable-fastsampling"];
 
   postInstall = ''
     mv $out/bin/iperf $out/bin/iperf2

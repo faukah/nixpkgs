@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "gersemi";
   version = "0.19.3";
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication rec {
     description = "Formatter to make your CMake code the real treasure";
     homepage = "https://github.com/BlankSpruce/gersemi";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ xeals ];
+    maintainers = with lib.maintainers; [xeals];
     mainProgram = "gersemi";
   };
 }

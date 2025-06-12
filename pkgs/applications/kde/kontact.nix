@@ -24,7 +24,6 @@
   korganizer,
   zanshin,
 }:
-
 mkDerivation {
   pname = "kontact";
   meta = {

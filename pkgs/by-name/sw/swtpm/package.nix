@@ -16,13 +16,11 @@
   socat,
   gnutls,
   perl,
-
   # Tests
   python3,
   which,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "swtpm";
   version = "0.10.1";
@@ -121,13 +119,13 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  passthru.tests = { inherit (nixosTests) systemd-cryptenroll; };
+  passthru.tests = {inherit (nixosTests) systemd-cryptenroll;};
 
   meta = with lib; {
     description = "Libtpms-based TPM emulator";
     homepage = "https://github.com/stefanberger/swtpm";
     license = licenses.bsd3;
-    maintainers = [ maintainers.baloo ];
+    maintainers = [maintainers.baloo];
     mainProgram = "swtpm";
     platforms = platforms.all;
   };

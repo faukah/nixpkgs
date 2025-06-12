@@ -5,7 +5,6 @@
   bpp-core,
   bpp-seq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpp-popgen";
 
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bz0fhrq3dri6a0hvfc3zlvrns8mrzzlnicw5pyfa812gc1qwfvh";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     bpp-core
     bpp-seq
@@ -34,8 +33,10 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  meta = bpp-core.meta // {
-    homepage = "https://github.com/BioPP/bpp-popgen";
-    changelog = "https://github.com/BioPP/bpp-popgen/blob/master/ChangeLog";
-  };
+  meta =
+    bpp-core.meta
+    // {
+      homepage = "https://github.com/BioPP/bpp-popgen";
+      changelog = "https://github.com/BioPP/bpp-popgen/blob/master/ChangeLog";
+    };
 }

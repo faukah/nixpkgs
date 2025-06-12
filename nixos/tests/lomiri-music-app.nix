@@ -1,101 +1,100 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   ocrContent = "Music Test";
   musicFileName = "Example";
   musicFile = "${musicFileName}.mp3";
 
   ocrPauseColor = "#FF00FF";
   ocrStartColor = "#00FFFF";
-in
-{
+in {
   name = "lomiri-music-app-standalone";
   meta.maintainers = lib.teams.lomiri.members;
 
-  nodes.machine =
-    { config, pkgs, ... }:
-    {
-      imports = [
-        ./common/auto.nix
-        ./common/user-account.nix
-        ./common/x11.nix
-      ];
+  nodes.machine = {
+    config,
+    pkgs,
+    ...
+  }: {
+    imports = [
+      ./common/auto.nix
+      ./common/user-account.nix
+      ./common/x11.nix
+    ];
 
-      services.xserver.enable = true;
+    services.xserver.enable = true;
 
-      environment = {
-        # Setup video
-        etc."${musicFile}".source =
-          pkgs.runCommand musicFile
-            {
-              nativeBuildInputs = with pkgs; [
-                ffmpeg # produce music
-                (imagemagick.override { ghostscriptSupport = true; }) # produce OCR-able cover image
-              ];
-            }
-            ''
-              magick -size 400x400 canvas:white -pointsize 40 -fill black -annotate +100+100 '${ocrContent}' output.png
-              ffmpeg -re \
-                -f lavfi -i anullsrc=channel_layout=mono:sample_rate=44100 \
-                -i output.png \
-                -map 0:0 -map 1:0 \
-                -id3v2_version 3 \
-                -metadata:s:v title="Album cover" \
-                -metadata:s:v comment="Cover (front)" \
-                -t 120 \
-                $out -loglevel fatal
-            '';
+    environment = {
+      # Setup video
+      etc."${musicFile}".source =
+        pkgs.runCommand musicFile
+        {
+          nativeBuildInputs = with pkgs; [
+            ffmpeg # produce music
+            (imagemagick.override {ghostscriptSupport = true;}) # produce OCR-able cover image
+          ];
+        }
+        ''
+          magick -size 400x400 canvas:white -pointsize 40 -fill black -annotate +100+100 '${ocrContent}' output.png
+          ffmpeg -re \
+            -f lavfi -i anullsrc=channel_layout=mono:sample_rate=44100 \
+            -i output.png \
+            -map 0:0 -map 1:0 \
+            -id3v2_version 3 \
+            -metadata:s:v title="Album cover" \
+            -metadata:s:v comment="Cover (front)" \
+            -t 120 \
+            $out -loglevel fatal
+        '';
 
-        systemPackages =
-          with pkgs;
-          [
-            xdg-user-dirs # generate XDG dirs
-            xdotool # mouse movement
-          ]
-          ++ (with pkgs.lomiri; [
-            mediascanner2
-            lomiri-music-app
-            lomiri-thumbnailer
-            # To check if playback actually works, or is broken due to missing codecs, we need to make the app's icons more OCR-able
-            (lib.meta.hiPrio (
-              suru-icon-theme.overrideAttrs (oa: {
-                # Colour the background in special colours, which we can OCR for
-                postPatch =
-                  (oa.postPatch or "")
-                  + ''
-                    substituteInPlace suru/actions/scalable/media-playback-pause.svg \
-                      --replace-fail 'fill:none' 'fill:${ocrPauseColor}'
+      systemPackages = with pkgs;
+        [
+          xdg-user-dirs # generate XDG dirs
+          xdotool # mouse movement
+        ]
+        ++ (with pkgs.lomiri; [
+          mediascanner2
+          lomiri-music-app
+          lomiri-thumbnailer
+          # To check if playback actually works, or is broken due to missing codecs, we need to make the app's icons more OCR-able
+          (lib.meta.hiPrio (
+            suru-icon-theme.overrideAttrs (oa: {
+              # Colour the background in special colours, which we can OCR for
+              postPatch =
+                (oa.postPatch or "")
+                + ''
+                  substituteInPlace suru/actions/scalable/media-playback-pause.svg \
+                    --replace-fail 'fill:none' 'fill:${ocrPauseColor}'
 
-                    substituteInPlace suru/actions/scalable/media-playback-start.svg \
-                      --replace-fail 'fill:none' 'fill:${ocrStartColor}'
-                  '';
-              })
-            ))
-          ]);
+                  substituteInPlace suru/actions/scalable/media-playback-start.svg \
+                    --replace-fail 'fill:none' 'fill:${ocrStartColor}'
+                '';
+            })
+          ))
+        ]);
 
-        variables = {
-          UITK_ICON_THEME = "suru";
-        };
+      variables = {
+        UITK_ICON_THEME = "suru";
       };
-
-      # Get mediascanner-2.0.service
-      services.desktopManager.lomiri.enable = lib.mkForce true;
-
-      # ...but stick with icewm
-      services.displayManager.defaultSession = lib.mkForce "none+icewm";
-
-      systemd.tmpfiles.settings = {
-        "10-lomiri-music-app-test-setup" = {
-          "/root/Music".d = {
-            mode = "0755";
-            user = "root";
-            group = "root";
-          };
-          "/root/Music/${musicFile}"."C+".argument = "/etc/${musicFile}";
-        };
-      };
-
-      i18n.supportedLocales = [ "all" ];
     };
+
+    # Get mediascanner-2.0.service
+    services.desktopManager.lomiri.enable = lib.mkForce true;
+
+    # ...but stick with icewm
+    services.displayManager.defaultSession = lib.mkForce "none+icewm";
+
+    systemd.tmpfiles.settings = {
+      "10-lomiri-music-app-test-setup" = {
+        "/root/Music".d = {
+          mode = "0755";
+          user = "root";
+          group = "root";
+        };
+        "/root/Music/${musicFile}"."C+".argument = "/etc/${musicFile}";
+      };
+    };
+
+    i18n.supportedLocales = ["all"];
+  };
 
   enableOCR = true;
 

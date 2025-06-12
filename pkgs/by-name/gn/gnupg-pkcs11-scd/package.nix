@@ -9,7 +9,6 @@
   pkg-config,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnupg-pkcs11-scd";
   version = "0.11.0";

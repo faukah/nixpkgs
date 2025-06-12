@@ -10,7 +10,6 @@
   pythonSupport ? false,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mim-solvers";
   version = "0.1.0";
@@ -29,10 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
       ""
   '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optional pythonSupport python3Packages.pythonImportsCheckHook;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optional pythonSupport python3Packages.pythonImportsCheckHook;
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin llvmPackages.openmp;
   propagatedBuildInputs =
     lib.optionals pythonSupport [
@@ -59,13 +60,13 @@ stdenv.mkDerivation (finalAttrs: {
     );
 
   doCheck = true;
-  pythonImportsCheck = [ "mim_solvers" ];
+  pythonImportsCheck = ["mim_solvers"];
 
   meta = {
     description = "Numerical solvers used in the Machines in Motion Laboratory";
     homepage = "https://github.com/machines-in-motion/mim_solvers";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.all;
   };
 })

@@ -29,7 +29,7 @@ buildNpmPackage rec {
 
   makeCacheWritable = true;
 
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmPackFlags = ["--ignore-scripts"];
 
   NODE_OPTIONS = "--openssl-legacy-provider";
 

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-lazy-fixture";
   version = "0.6.3";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     ./pytest-8-compatible.patch
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "pytest_lazyfixture" ];
+  pythonImportsCheck = ["pytest_lazyfixture"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Helps to use fixtures in pytest.mark.parametrize";
     homepage = "https://github.com/tvorog/pytest-lazy-fixture";
     license = licenses.mit;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
   };
 }

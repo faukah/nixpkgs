@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "buildkite-test-collector-rust";
   version = "0.1.3";
@@ -19,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-jymWM0DCR6jUE1Kyhbx6HHf6YlrGu1THKTyDHaPG+Vs=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Rust adapter for Buildkite Test Analytics";
     mainProgram = "buildkite-test-collector";
     homepage = "https://buildkite.com/test-analytics";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ jfroche ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [jfroche];
   };
 }

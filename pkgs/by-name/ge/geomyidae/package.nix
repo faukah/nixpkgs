@@ -4,7 +4,6 @@
   fetchurl,
   libressl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geomyidae";
   version = "0.96";
@@ -14,16 +13,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-O6zccrz5qrtvafNQvM50U2JfG42LAWJJ/DXfiDKh4dc=";
   };
 
-  buildInputs = [ libressl ];
+  buildInputs = [libressl];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Gopher daemon for Linux/BSD";
     mainProgram = "geomyidae";
     homepage = "gopher://bitreich.org/1/scm/geomyidae";
     license = licenses.mit;
-    maintainers = [ maintainers.athas ];
+    maintainers = [maintainers.athas];
     platforms = platforms.unix;
   };
 }

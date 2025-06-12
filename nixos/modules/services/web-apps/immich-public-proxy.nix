@@ -3,21 +3,20 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.immich-public-proxy;
-  format = pkgs.formats.json { };
-  inherit (lib)
+  format = pkgs.formats.json {};
+  inherit
+    (lib)
     types
     mkIf
     mkOption
     mkEnableOption
     ;
-in
-{
+in {
   options.services.immich-public-proxy = {
     enable = mkEnableOption "Immich Public Proxy";
-    package = lib.mkPackageOption pkgs "immich-public-proxy" { };
+    package = lib.mkPackageOption pkgs "immich-public-proxy" {};
 
     immichUrl = mkOption {
       type = types.str;
@@ -39,7 +38,7 @@ in
       type = types.submodule {
         freeformType = format.type;
       };
-      default = { };
+      default = {};
       description = ''
         Configuration for IPP. See <https://github.com/alangrainger/immich-public-proxy/blob/main/README.md#additional-configuration> for options and defaults.
       '';
@@ -49,8 +48,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.immich-public-proxy = {
       description = "Immich public proxy for sharing albums publicly without exposing your Immich instance";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = {
         IMMICH_URL = cfg.immichUrl;
         IPP_PORT = builtins.toString cfg.port;
@@ -91,7 +90,7 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
   };
-  meta.maintainers = with lib.maintainers; [ jaculabilis ];
+  meta.maintainers = with lib.maintainers; [jaculabilis];
 }

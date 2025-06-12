@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-improv-ble-client";
   version = "1.0.4";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
       --replace-fail "wheel~=0.37.1" "wheel"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bleak
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "improv_ble_client" ];
+  pythonImportsCheck = ["improv_ble_client"];
 
   meta = {
     description = "Module to provision devices which implement Improv via BLE";
     homepage = "https://github.com/home-assistant-libs/py-improv-ble-client";
     changelog = "https://github.com/home-assistant-libs/py-improv-ble-client/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

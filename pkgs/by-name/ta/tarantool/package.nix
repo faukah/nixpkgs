@@ -12,7 +12,6 @@
   gbenchmark,
   nghttp2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tarantool";
   version = "2.10.4";
@@ -35,9 +34,9 @@ stdenv.mkDerivation rec {
     c-ares
   ];
 
-  nativeCheckInputs = [ gbenchmark ];
+  nativeCheckInputs = [gbenchmark];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeBuildType = "RelWithDebInfo";
 
@@ -51,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tarantool.io/";
     license = licenses.bsd2;
     mainProgram = "tarantool";
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

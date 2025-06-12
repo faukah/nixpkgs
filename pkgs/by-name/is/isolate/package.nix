@@ -9,7 +9,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "isolate";
   version = "2.0";
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     mainProgram = "isolate";
     homepage = "https://github.com/ioi/isolate";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ virchau13 ];
+    maintainers = with lib.maintainers; [virchau13];
   };
 }

@@ -4,14 +4,11 @@
   fetchFromGitHub,
   cmake,
   testers,
-
   static ? stdenv.hostPlatform.isStatic,
-
   lz4,
   zlib,
   zstd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "c-blosc";
   version = "1.21.6";
@@ -31,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
       blosc.pc.in
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     lz4
@@ -40,8 +37,16 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   cmakeFlags = [
-    "-DBUILD_STATIC=${if static then "ON" else "OFF"}"
-    "-DBUILD_SHARED=${if static then "OFF" else "ON"}"
+    "-DBUILD_STATIC=${
+      if static
+      then "ON"
+      else "OFF"
+    }"
+    "-DBUILD_SHARED=${
+      if static
+      then "OFF"
+      else "ON"
+    }"
 
     "-DPREFER_EXTERNAL_LZ4=ON"
     "-DPREFER_EXTERNAL_ZLIB=ON"
@@ -49,7 +54,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     "-DBUILD_EXAMPLES=OFF"
     "-DBUILD_BENCHMARKS=OFF"
-    "-DBUILD_TESTS=${if finalAttrs.finalPackage.doCheck then "ON" else "OFF"}"
+    "-DBUILD_TESTS=${
+      if finalAttrs.finalPackage.doCheck
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   doCheck = !static;
@@ -60,9 +69,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Blocking, shuffling and loss-less compression library";
     homepage = "https://www.blosc.org";
     changelog = "https://github.com/Blosc/c-blosc/releases/tag/v${finalAttrs.version}";
-    pkgConfigModules = [ "blosc" ];
+    pkgConfigModules = ["blosc"];
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 })

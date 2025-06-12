@@ -5,7 +5,6 @@
   # dependencies
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "cddlparser";
   version = "0.5.0";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
       Concise data definition language (RFC 8610) parser implementation in Python.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hemera ];
+    maintainers = with lib.maintainers; [hemera];
   };
 }

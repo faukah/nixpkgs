@@ -1,7 +1,10 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "eris-server";
-  meta.maintainers = with lib.maintainers; [ ehmry ];
+  meta.maintainers = with lib.maintainers; [ehmry];
 
   nodes.server = {
     environment.systemPackages = [
@@ -12,7 +15,7 @@
       enable = true;
       decode = true;
       listenHttp = "[::1]:80";
-      backends = [ "badger+file:///var/cache/eris.badger?get&put" ];
+      backends = ["badger+file:///var/cache/eris.badger?get&put"];
       mountpoint = "/eris";
     };
   };

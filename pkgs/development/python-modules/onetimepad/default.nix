@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "onetimepad";
   version = "1.4";
@@ -18,13 +17,13 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "onetimepad" ];
+  pythonImportsCheck = ["onetimepad"];
 
   meta = {
     description = "Hacky implementation of one-time pad";
     mainProgram = "onetimepad";
     homepage = "https://jailuthra.in/onetimepad";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

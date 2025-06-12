@@ -23,7 +23,6 @@
   rustc,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "spot";
   version = "0.5.0";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
   mesonBuildType = "release";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/xou816/spot";
     changelog = "https://github.com/xou816/spot/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "spot";
     platforms = lib.platforms.linux;
   };

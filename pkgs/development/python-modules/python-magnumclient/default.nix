@@ -27,7 +27,6 @@
   stevedore,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "python-magnumclient";
   version = "4.8.1";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   build-system = [
     pbr
@@ -87,13 +86,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "magnumclient" ];
+  pythonImportsCheck = ["magnumclient"];
 
   meta = {
     homepage = "https://github.com/openstack/python-magnumclient";
     description = "Client library for OpenStack Magnum API";
     license = lib.licenses.asl20;
     mainProgram = "magnum";
-    teams = [ lib.teams.openstack ];
+    teams = [lib.teams.openstack];
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-junit-report";
   version = "2.1.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "go-junit-report";
     homepage = "https://github.com/jstemmer/go-junit-report";
     license = licenses.mit;
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
   };
 }

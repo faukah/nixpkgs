@@ -7,7 +7,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bottom";
   version = "0.10.2";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
   BTM_GENERATE = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

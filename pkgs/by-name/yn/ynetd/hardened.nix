@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hUEZZEulmaV3KfKOqE1wl7y4SRUn2/HoOjVDabk5+YA=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   makeFlags = [
     "ynetd"
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://hxp.io/code/";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.haylin ];
+    maintainers = [lib.maintainers.haylin];
     mainProgram = "ynetd";
   };
 })

@@ -2,12 +2,10 @@
   lib,
   buildHomeAssistantComponent,
   fetchFromGitHub,
-
   # dependencies
   tinytuya,
   tuya-device-sharing-sdk,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "make-all";
   domain = "tuya_local";
@@ -30,6 +28,6 @@ buildHomeAssistantComponent rec {
     homepage = "https://github.com/make-all/tuya-local";
     changelog = "https://github.com/make-all/tuya-local/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ pathob ];
+    maintainers = with maintainers; [pathob];
   };
 }

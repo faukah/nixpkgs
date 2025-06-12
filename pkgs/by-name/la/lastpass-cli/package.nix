@@ -12,7 +12,6 @@
   libxml2,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lastpass-cli";
   version = "1.6.1";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lastpass/lastpass-cli";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ vinylen ];
+    maintainers = with maintainers; [vinylen];
   };
 }

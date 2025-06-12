@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "escapism";
   version = "1.0.1";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     description = "Simple, generic API for escaping strings";
     homepage = "https://github.com/minrk/escapism";
     license = licenses.mit;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

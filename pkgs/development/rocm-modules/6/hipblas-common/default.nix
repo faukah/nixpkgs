@@ -35,8 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Common files shared by hipBLAS and hipBLASLt";
     homepage = "https://github.com/ROCm/hipBLASlt";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

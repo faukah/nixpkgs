@@ -67,15 +67,15 @@ buildPythonPackage rec {
   # tests require network
   doCheck = false;
 
-  pythonImportsCheck = [ "bilibili_api" ];
+  pythonImportsCheck = ["bilibili_api"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/Nemo2011/bilibili-api/releases/tag/${version}";
     description = "Python module providing convenient integration for various Bilibili API along with some additional common features";
     homepage = "https://nemo2011.github.io/bilibili-api";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
   };
 }

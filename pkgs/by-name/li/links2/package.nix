@@ -22,7 +22,6 @@
   libXt,
   libXau, # GUI support
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "2.30";
   pname = "links2";
@@ -45,13 +44,13 @@ stdenv.mkDerivation (finalAttrs: {
       bzip2
       zlib
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ gpm ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [gpm]
     ++ lib.optionals enableX11 [
       libX11
       libXau
       libXt
     ]
-    ++ lib.optionals enableDirectFB [ directfb ];
+    ++ lib.optionals enableDirectFB [directfb];
 
   nativeBuildInputs = [
     pkg-config
@@ -59,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   configureFlags =
-    [ "--with-ssl" ]
+    ["--with-ssl"]
     ++ lib.optional (enableX11 || enableFB || enableDirectFB) "--enable-graphics"
     ++ lib.optional enableX11 "--with-x"
     ++ lib.optional enableFB "--with-fb"
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "http://links.twibright.com/";
     description = "Small browser with some graphics support";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     mainProgram = "links";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;

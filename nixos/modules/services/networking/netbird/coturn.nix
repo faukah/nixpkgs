@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     literalExpression
     mkAfter
@@ -18,7 +17,8 @@ let
     optionalString
     ;
 
-  inherit (lib.types)
+  inherit
+    (lib.types)
     bool
     listOf
     nullOr
@@ -28,9 +28,7 @@ let
     ;
 
   cfg = config.services.netbird.server.coturn;
-in
-
-{
+in {
   options.services.netbird.server.coturn = {
     enable = mkEnableOption "a Coturn server for Netbird, will also open the firewall on the configured range";
 
@@ -114,7 +112,11 @@ in
 
           extraConfig = ''
             fingerprint
-            user=${cfg.user}:${if cfg.password != null then cfg.password else "@password@"}
+            user=${cfg.user}:${
+              if cfg.password != null
+              then cfg.password
+              else "@password@"
+            }
             no-software-attribute
           '';
         }
@@ -123,19 +125,18 @@ in
           pkey = "@pkey@";
         });
 
-      systemd.services.coturn =
-        let
-          dir = config.security.acme.certs.${cfg.domain}.directory;
-          preStart' =
-            (optionalString (cfg.passwordFile != null) ''
-              ${getExe pkgs.replace-secret} @password@ ${cfg.passwordFile} /run/coturn/turnserver.cfg
-            '')
-            + (optionalString cfg.useAcmeCertificates ''
-              ${getExe pkgs.replace-secret} @cert@ <(echo -n "$CREDENTIALS_DIRECTORY/cert.pem") /run/coturn/turnserver.cfg
-              ${getExe pkgs.replace-secret} @pkey@ <(echo -n "$CREDENTIALS_DIRECTORY/pkey.pem") /run/coturn/turnserver.cfg
-            '');
-        in
-        (optionalAttrs (preStart' != "") { preStart = mkAfter preStart'; })
+      systemd.services.coturn = let
+        dir = config.security.acme.certs.${cfg.domain}.directory;
+        preStart' =
+          (optionalString (cfg.passwordFile != null) ''
+            ${getExe pkgs.replace-secret} @password@ ${cfg.passwordFile} /run/coturn/turnserver.cfg
+          '')
+          + (optionalString cfg.useAcmeCertificates ''
+            ${getExe pkgs.replace-secret} @cert@ <(echo -n "$CREDENTIALS_DIRECTORY/cert.pem") /run/coturn/turnserver.cfg
+            ${getExe pkgs.replace-secret} @pkey@ <(echo -n "$CREDENTIALS_DIRECTORY/pkey.pem") /run/coturn/turnserver.cfg
+          '');
+      in
+        (optionalAttrs (preStart' != "") {preStart = mkAfter preStart';})
         // (optionalAttrs cfg.useAcmeCertificates {
           serviceConfig.LoadCredential = [
             "cert.pem:${dir}/fullchain.pem"

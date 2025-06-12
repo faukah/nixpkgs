@@ -39,7 +39,6 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "appstream";
   version = "1.0.4";
@@ -156,6 +155,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = licenses.lgpl21Plus;
     mainProgram = "appstreamcli";
     platforms = platforms.unix;
-    pkgConfigModules = [ "appstream" ];
+    pkgConfigModules = ["appstream"];
   };
 })

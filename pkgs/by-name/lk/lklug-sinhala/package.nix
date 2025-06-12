@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lklug-sinhala";
   version = "0.6";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Unicode Sinhala font by Lanka Linux User Group";
     homepage = "http://www.lug.lk/fonts/lklug";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

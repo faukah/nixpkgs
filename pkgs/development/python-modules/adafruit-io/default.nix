@@ -8,7 +8,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "adafruit-io";
   version = "2.8.0";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-OwTHMyc2ePSdYVuY1h3PY+uDBl6/7fTMXiZC3sZm8fU=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     paho-mqtt
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "Adafruit_IO" ];
+  pythonImportsCheck = ["Adafruit_IO"];
 
   disabledTestPaths = [
     # Tests requires valid credentials
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Module for interacting with Adafruit IO";
     homepage = "https://github.com/adafruit/Adafruit_IO_Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

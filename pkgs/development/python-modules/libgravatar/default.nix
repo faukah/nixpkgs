@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "libgravatar";
   version = "1.0.4";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-rJv/jfdT+JldxR0kKtXQLOI5wXQYSQRWJnqwExwWjTA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "libgravatar" ];
+  pythonImportsCheck = ["libgravatar"];
 
   meta = with lib; {
     description = "Library that provides a Python 3 interface for the Gravatar API";
     homepage = "https://github.com/pabluk/libgravatar";
     changelog = "https://github.com/pabluk/libgravatar/releases/tag/${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -24,9 +24,7 @@
   _experimental-update-script-combinators,
   gitUpdater,
   nixosTests,
-}:
-
-let
+}: let
   xorgxrdp = stdenv.mkDerivation rec {
     pname = "xorgxrdp";
     version = "0.10.4";
@@ -69,7 +67,7 @@ let
 
     enableParallelBuilding = true;
 
-    passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+    passthru.updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   xrdp = stdenv.mkDerivation rec {
@@ -78,7 +76,7 @@ let
 
     src = applyPatches {
       inherit version;
-      patches = [ ./dynamic_config.patch ];
+      patches = [./dynamic_config.patch];
       name = "xrdp-patched-${version}";
       src = fetchFromGitHub {
         owner = "neutrinolabs";
@@ -185,7 +183,7 @@ let
           (gitUpdater {
             rev-prefix = "v";
             attrPath = "xrdp.src";
-            ignoredVersions = [ "beta" ];
+            ignoredVersions = ["beta"];
           })
           {
             command = [
@@ -216,4 +214,4 @@ let
     };
   };
 in
-xrdp
+  xrdp

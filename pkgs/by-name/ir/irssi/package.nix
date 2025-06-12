@@ -13,7 +13,6 @@
   perl,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "irssi";
   version = "1.4.5";

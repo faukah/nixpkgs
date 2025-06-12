@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zsh-autosuggestions-abbreviations-strategy";
   version = "1.1.1";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Have zsh-autosuggestions suggest your zsh-abbr abbreviations";
     homepage = "https://github.com/olets/zsh-autosuggestions-abbreviations-strategy";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ llakala ];
+    maintainers = with lib.maintainers; [llakala];
     platforms = lib.platforms.all;
   };
 })

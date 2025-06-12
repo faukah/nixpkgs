@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitLab,
-
   # build-system
   setuptools,
-
   # dependencies
   astropy,
   ducc0,
@@ -18,14 +16,12 @@
   mpi4py,
   numpy,
   scipy,
-
   # test
   pytestCheckHook,
   pytest-xdist,
   mpiCheckPhaseHook,
   openssh,
 }:
-
 buildPythonPackage rec {
   pname = "nifty8";
   version = "8.5.7";
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     rm -r test/test_re
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     astropy
@@ -86,17 +82,17 @@ buildPythonPackage rec {
   __darwinAllowLocalNetworking = true;
   postCheck =
     lib.optionalString
-      (
-        # Fails on aarch64-linux with:
-        # hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
-        # All nodes which are allocated for this job are already filled.
-        !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
-      )
-      ''
-        ${lib.getExe' mpi "mpirun"} -n 2 --bind-to none python3 -m pytest test/test_mpi
-      '';
+    (
+      # Fails on aarch64-linux with:
+      # hwloc/linux: failed to find sysfs cpu topology directory, aborting linux discovery.
+      # All nodes which are allocated for this job are already filled.
+      !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
+    )
+    ''
+      ${lib.getExe' mpi "mpirun"} -n 2 --bind-to none python3 -m pytest test/test_mpi
+    '';
 
-  pythonImportsCheck = [ "nifty8" ];
+  pythonImportsCheck = ["nifty8"];
 
   meta = {
     homepage = "https://gitlab.mpcdf.mpg.de/ift/nifty";
@@ -110,6 +106,6 @@ buildPythonPackage rec {
       Variational Inference (VI) algorithms.
     '';
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ parras ];
+    maintainers = with lib.maintainers; [parras];
   };
 }

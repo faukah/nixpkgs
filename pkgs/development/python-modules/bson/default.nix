@@ -6,7 +6,6 @@
   six,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bson";
   version = "0.5.10";
@@ -28,14 +27,14 @@ buildPythonPackage rec {
     six
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bson" ];
+  pythonImportsCheck = ["bson"];
 
   meta = with lib; {
     description = "BSON codec for Python";
     homepage = "https://github.com/py-bson/bson";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

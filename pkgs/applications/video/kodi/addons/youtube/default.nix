@@ -6,7 +6,6 @@
   inputstream-adaptive,
   inputstreamhelper,
 }:
-
 buildKodiAddon rec {
   pname = "youtube";
   namespace = "plugin.video.youtube";
@@ -33,6 +32,6 @@ buildKodiAddon rec {
     homepage = "https://github.com/anxdpanic/plugin.video.youtube";
     description = "YouTube is one of the biggest video-sharing websites of the world";
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

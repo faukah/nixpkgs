@@ -15,7 +15,6 @@
   which,
   pkgsi686Linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cups-brother-${model}";
   version = "1.1.4-0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       --replace-fail "exec[300]" "exec[400]"
   '';
 
-  makeFlags = [ "-C brcupsconfig" ];
+  makeFlags = ["-C brcupsconfig"];
 
   installPhase = ''
     runHook preInstall
@@ -90,33 +89,33 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filter${model} \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          ghostscript
-          a2ps
-          file
-          gnused
-          coreutils
-        ]
-      }
+      lib.makeBinPath [
+        ghostscript
+        a2ps
+        file
+        gnused
+        coreutils
+      ]
+    }
 
     wrapProgram $dir/inf/setupPrintcapij \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+      ]
+    }
 
     wrapProgram $dir/lpd/psconvertij2 \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          ghostscript
-          gnused
-          coreutils
-          gawk
-          which
-        ]
-      }
+      lib.makeBinPath [
+        ghostscript
+        gnused
+        coreutils
+        gawk
+        which
+      ]
+    }
 
     patchelf --set-interpreter "$interpreter" "$dir/lpd/br${model}filter"
     patchelf --set-interpreter "$interpreter" "$out/usr/bin/brprintconf_${model}"
@@ -137,13 +136,13 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/lib/cups/filter/brother_lpdwrapper_${model} \
       --prefix PATH ":" ${
-        lib.makeBinPath [
-          coreutils
-          psutils
-          gnused
-          gnugrep
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        psutils
+        gnused
+        gnugrep
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -162,6 +161,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
     ];
     downloadPage = "https://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=${model}_all&os=128";
-    maintainers = with maintainers; [ luna_1024 ];
+    maintainers = with maintainers; [luna_1024];
   };
 }

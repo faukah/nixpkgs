@@ -8,11 +8,11 @@
   gtk3,
   writeText,
   stdenv,
-}:
-
-{ version, src, ... }:
-
-let
+}: {
+  version,
+  src,
+  ...
+}: let
   rustDep = rustPlatform.buildRustPackage {
     pname = "super_native_extensions-rs";
     inherit version src;
@@ -34,13 +34,15 @@ let
         _0_8_18 = _0_8_22;
         _0_8_17 = _0_8_22;
       }
-      .${"_" + (lib.replaceStrings [ "." ] [ "_" ] version)} or (throw ''
+      .${
+        "_" + (lib.replaceStrings ["."] ["_"] version)
+      } or (throw ''
         Unsupported version of pub 'super_native_extensions': '${version}'
         Please add cargoHash to here. If the cargoHash
         is the same with existing versions, add an alias here.
       '');
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs = [
       at-spi2-atk
@@ -58,20 +60,19 @@ let
       set("''${target}_cargokit_lib" ${rustDep}/${rustDep.passthru.libraryPath} PARENT_SCOPE)
     endfunction()
   '';
-
 in
-stdenv.mkDerivation {
-  pname = "super_native_extensions";
-  inherit version src;
-  inherit (src) passthru;
+  stdenv.mkDerivation {
+    pname = "super_native_extensions";
+    inherit version src;
+    inherit (src) passthru;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cp -r "$src" "$out"
-    chmod +rwx $out/cargokit/cmake/cargokit.cmake
-    cp ${fakeCargokitCmake} $out/cargokit/cmake/cargokit.cmake
+      cp -r "$src" "$out"
+      chmod +rwx $out/cargokit/cmake/cargokit.cmake
+      cp ${fakeCargokitCmake} $out/cargokit/cmake/cargokit.cmake
 
-    runHook postInstall
-  '';
-}
+      runHook postInstall
+    '';
+  }

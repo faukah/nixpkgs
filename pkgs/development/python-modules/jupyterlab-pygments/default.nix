@@ -8,7 +8,6 @@
   hatchling,
   pygments,
 }:
-
 buildPythonPackage rec {
   pname = "jupyterlab-pygments";
   version = "0.3.0";
@@ -37,14 +36,14 @@ buildPythonPackage rec {
   # no tests exist on upstream repo
   doCheck = false;
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  pythonImportsCheck = [ "jupyterlab_pygments" ];
+  pythonImportsCheck = ["jupyterlab_pygments"];
 
   meta = with lib; {
     description = "Jupyterlab syntax coloring theme for pygments";
     homepage = "https://github.com/jupyterlab/jupyterlab_pygments";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

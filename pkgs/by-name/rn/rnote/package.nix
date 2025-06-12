@@ -24,7 +24,6 @@
   shared-mime-info,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rnote";
   version = "0.12.0";

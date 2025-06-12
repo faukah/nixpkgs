@@ -3,11 +3,9 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   setuptools,
-
   # dependencies
   guidata,
   numpy,
@@ -16,12 +14,10 @@
   scikit-image,
   scipy,
   tifffile,
-
   # tests
   pytestCheckHook,
   qt6,
   pyqt6,
-
   # passthru.tests
   plotpy,
   pyside6,
@@ -29,7 +25,6 @@
   pyqt5,
   pyside2,
 }:
-
 buildPythonPackage rec {
   pname = "plotpy";
   version = "2.7.4";
@@ -119,6 +114,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/PlotPyStack/PlotPy";
     changelog = "https://github.com/PlotPyStack/PlotPy/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

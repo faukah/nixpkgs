@@ -18,7 +18,6 @@
   ],
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "irust";
   version = "1.73.0";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-YRptwZm00Px+3S+QFZAZxg25ObwmRdbgonzbMnBBb50=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/irust \
@@ -45,13 +44,13 @@ rustPlatform.buildRustPackage rec {
     "--skip=printer::tests"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Cross Platform Rust Repl";
     homepage = "https://github.com/sigmaSd/IRust";
     license = licenses.mit;
-    maintainers = with maintainers; [ lelgenio ];
+    maintainers = with maintainers; [lelgenio];
     mainProgram = "irust";
   };
 }

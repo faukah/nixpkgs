@@ -8,7 +8,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nyan";
   version = "0.3.1";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/SFTtech/nyan/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.lgpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
     mainProgram = "nyancat";
   };
 })

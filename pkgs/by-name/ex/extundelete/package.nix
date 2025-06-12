@@ -4,7 +4,6 @@
   fetchurl,
   e2fsprogs,
 }:
-
 stdenv.mkDerivation {
   version = "0.2.4";
   pname = "extundelete";
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "1x0r7ylxlp9lbj3d7sqf6j2a222dwy2nfpff05jd6mkh4ihxvyd1";
   };
 
-  buildInputs = [ e2fsprogs ];
+  buildInputs = [e2fsprogs];
 
   # inode field i_dir_acl was repurposed as i_size_high in e2fsprogs 1.44,
   # breaking the build
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     homepage = "https://extundelete.sourceforge.net/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "extundelete";
   };
 }

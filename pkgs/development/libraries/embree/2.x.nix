@@ -15,7 +15,6 @@
   python3Packages,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "embree";
   version = "2.17.7";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-FD/ITZBJnYy1F+x4jLTVTsGsNKy/mS7OYWP06NoHZqc=";
   };
 
-  cmakeFlags = [ "-DEMBREE_TUTORIALS=OFF" ];
+  cmakeFlags = ["-DEMBREE_TUTORIALS=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -66,6 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
       pbsds
     ];
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

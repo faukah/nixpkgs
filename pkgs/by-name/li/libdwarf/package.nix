@@ -3,7 +3,6 @@
   zlib,
   zstd,
 }:
-
 callPackage ./common.nix rec {
   version = "0.11.1";
   url = "https://www.prevanders.net/libdwarf-${version}.tar.xz";
@@ -12,5 +11,5 @@ callPackage ./common.nix rec {
     zlib
     zstd
   ];
-  knownVulnerabilities = [ ];
+  knownVulnerabilities = [];
 }

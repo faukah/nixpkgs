@@ -7,7 +7,6 @@
   opencl-headers,
   ocl-icd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clblast";
   version = "1.6.3";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Tuned OpenCL BLAS library";
     homepage = "https://github.com/CNugteren/CLBlast";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Tungsten842 ];
+    maintainers = with maintainers; [Tungsten842];
     platforms = platforms.linux;
   };
 }

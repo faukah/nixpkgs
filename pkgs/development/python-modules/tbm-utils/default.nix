@@ -12,7 +12,6 @@
   pythonOlder,
   wrapt,
 }:
-
 buildPythonPackage rec {
   pname = "tbm-utils";
   version = "2.6.0";
@@ -47,9 +46,9 @@ buildPythonPackage rec {
       --replace-fail 'poetry.masonry.api' 'poetry.core.masonry.api'
   '';
 
-  pythonRelaxDeps = [ "attrs" ];
+  pythonRelaxDeps = ["attrs"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   propagatedBuildInputs = [
     attrs
@@ -58,7 +57,7 @@ buildPythonPackage rec {
     wrapt
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # Skip on macOS because /etc/localtime is accessed through the pendulum
@@ -74,13 +73,13 @@ buildPythonPackage rec {
     "tests/test_misc.py"
   ];
 
-  pythonImportsCheck = [ "tbm_utils" ];
+  pythonImportsCheck = ["tbm_utils"];
 
   meta = with lib; {
     description = "Commonly-used set of utilities";
     homepage = "https://github.com/thebigmunch/tbm-utils";
     changelog = "https://github.com/thebigmunch/tbm-utils/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

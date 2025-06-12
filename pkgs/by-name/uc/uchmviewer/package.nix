@@ -8,7 +8,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "uchmviewer";
   version = "8.4";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s $out/Applications/uchmviewer.app/Contents/MacOS/uchmviewer $out/bin/uchmviewer
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/eBookProjects/uChmViewer/releases/tag/v${finalAttrs.version}";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/eBookProjects/uChmViewer";
     license = lib.licenses.gpl3Plus;
     mainProgram = "uchmviewer";
-    maintainers = with lib.maintainers; [ azuwis ];
+    maintainers = with lib.maintainers; [azuwis];
     platforms = lib.platforms.unix;
   };
 })

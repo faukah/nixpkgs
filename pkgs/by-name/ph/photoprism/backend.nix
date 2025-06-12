@@ -8,7 +8,6 @@
   pkg-config,
   vips,
 }:
-
 buildGoModule rec {
   inherit src version;
   pname = "photoprism-backend";
@@ -35,7 +34,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-eHdnTpcVBSvGR9ZiK6A32jfjik8VClDTkv92bD8EIgA=";
 
-  subPackages = [ "cmd/photoprism" ];
+  subPackages = ["cmd/photoprism"];
 
   # https://github.com/mattn/go-sqlite3/issues/822
   CGO_CFLAGS = "-Wno-return-local-addr";
@@ -47,6 +46,6 @@ buildGoModule rec {
     homepage = "https://photoprism.app";
     description = "Photoprism's backend";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ benesim ];
+    maintainers = with maintainers; [benesim];
   };
 }

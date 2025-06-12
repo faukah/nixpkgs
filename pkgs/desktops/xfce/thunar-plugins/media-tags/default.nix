@@ -14,7 +14,6 @@
   taglib,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "thunar-media-tags-plugin";
   version = "0.6.0";
@@ -53,14 +52,14 @@ stdenv.mkDerivation (finalAttrs: {
     taglib
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "thunar-media-tags-plugin-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "thunar-media-tags-plugin-";};
 
   meta = {
     description = "Thunar plugin providing tagging and renaming features for media files";
     homepage = "https://gitlab.xfce.org/thunar-plugins/thunar-media-tags-plugin";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ncfavier ];
-    teams = [ lib.teams.xfce ];
+    maintainers = with lib.maintainers; [ncfavier];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

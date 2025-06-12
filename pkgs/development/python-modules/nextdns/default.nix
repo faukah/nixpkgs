@@ -12,7 +12,6 @@
   syrupy,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "nextdns";
   version = "4.0.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-2BT47Dg+1TLDUccdb0Q/r3QzpRURTwFlUORbQpmIJzc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     "test_retry_success"
   ];
 
-  pythonImportsCheck = [ "nextdns" ];
+  pythonImportsCheck = ["nextdns"];
 
   meta = with lib; {
     description = "Module for the NextDNS API";
     homepage = "https://github.com/bieniu/nextdns";
     changelog = "https://github.com/bieniu/nextdns/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

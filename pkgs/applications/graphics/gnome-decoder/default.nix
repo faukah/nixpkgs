@@ -26,7 +26,6 @@
   glycin-loaders,
   nix-update-script,
 }:
-
 clangStdenv.mkDerivation rec {
   pname = "gnome-decoder";
   version = "0.7.1";
@@ -82,7 +81,7 @@ clangStdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -91,7 +90,7 @@ clangStdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "decoder";
-    maintainers = with maintainers; [ zendo ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [zendo];
+    teams = [teams.gnome-circle];
   };
 }

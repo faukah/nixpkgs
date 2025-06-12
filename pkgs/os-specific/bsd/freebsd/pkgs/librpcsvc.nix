@@ -4,7 +4,6 @@
   include,
   csu,
 }:
-
 mkDerivation {
   path = "lib/librpcsvc";
   extraPaths = [

@@ -4,23 +4,21 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.ebpf;
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStringsSep
     ;
-in
-{
+in {
   port = 9435;
   extraOpts = {
     names = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "timers" ];
+      default = [];
+      example = ["timers"];
       description = ''
         List of eBPF programs to load
       '';

@@ -9,7 +9,6 @@
   ncurses,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "unixcw";
   version = "3.5.1";
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
       cw reports any errors in  embedded  commands
     '';
     homepage = "https://unixcw.sourceforge.net";
-    maintainers = [ lib.maintainers.mafo ];
+    maintainers = [lib.maintainers.mafo];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

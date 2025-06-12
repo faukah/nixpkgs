@@ -27,7 +27,7 @@ buildPythonPackage rec {
     sed -i 's|if src_path and os.path.exists(src_path):|if False:|' setup.py
   '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -43,14 +43,14 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
-  pythonImportsCheck = [ "daqp" ];
+  pythonImportsCheck = ["daqp"];
 
   meta = with lib; {
     description = "Dual active-set algorithm for convex quadratic programming";
     homepage = "https://github.com/darnstrom/daqp";
     license = licenses.mit;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
   };
 }

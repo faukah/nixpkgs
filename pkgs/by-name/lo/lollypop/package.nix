@@ -25,7 +25,6 @@
   youtubeSupport ? true,
   kid3Support ? true,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lollypop";
   version = "1.4.40";
@@ -59,7 +58,6 @@ python3.pkgs.buildPythonApplication rec {
       gst-plugins-good
       gst-plugins-ugly
       gstreamer
-
     ])
     ++ [
       gdk-pixbuf
@@ -105,7 +103,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -113,7 +111,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Modern music player for GNOME";
     homepage = "https://gitlab.gnome.org/World/lollypop";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ lovesegfault ];
+    maintainers = with lib.maintainers; [lovesegfault];
     platforms = lib.platforms.linux;
     mainProgram = "lollypop";
   };

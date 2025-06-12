@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "vtracer";
   version = "0.6.4";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/visioncortex/vtracer";
     changelog = "https://github.com/visioncortex/vtracer/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sandptel ];
+    maintainers = with lib.maintainers; [sandptel];
     mainProgram = "vtracer";
   };
 }

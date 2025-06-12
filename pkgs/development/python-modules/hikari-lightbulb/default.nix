@@ -7,7 +7,6 @@
   hikari,
   croniter,
 }:
-
 buildPythonPackage rec {
   pname = "hikari-lightbulb";
   version = "2.3.5.post1";
@@ -25,13 +24,13 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ hikari ];
+  propagatedBuildInputs = [hikari];
 
   optional-dependencies = {
-    crontrigger = [ croniter ];
+    crontrigger = [croniter];
   };
 
-  pythonImportsCheck = [ "lightbulb" ];
+  pythonImportsCheck = ["lightbulb"];
 
   meta = with lib; {
     description = "Command handler for Hikari, the Python Discord API wrapper library";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://hikari-lightbulb.readthedocs.io/en/latest/";
     # https://github.com/tandemdude/hikari-lightbulb/blob/d87df463488d1c1d947144ac0bafa4304e12ddfd/setup.py#L68
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ tomodachi94 ];
+    maintainers = with maintainers; [tomodachi94];
   };
 }

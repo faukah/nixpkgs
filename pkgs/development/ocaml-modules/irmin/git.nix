@@ -20,9 +20,7 @@
   alcotest,
   cacert,
 }:
-
 buildDunePackage {
-
   pname = "irmin-git";
 
   inherit (irmin) version src;
@@ -54,8 +52,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = irmin.meta // {
-    description = "Git backend for Irmin";
-  };
-
+  meta =
+    irmin.meta
+    // {
+      description = "Git backend for Irmin";
+    };
 }

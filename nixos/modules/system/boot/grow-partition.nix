@@ -1,19 +1,15 @@
 # This module automatically grows the root partition.
 # This allows an instance to be created with a bigger root filesystem
 # than provided by the machine image.
-
 {
   config,
   lib,
   pkgs,
   ...
 }:
-
-with lib;
-
-{
+with lib; {
   imports = [
-    (mkRenamedOptionModule [ "virtualisation" "growPartition" ] [ "boot" "growPartition" ])
+    (mkRenamedOptionModule ["virtualisation" "growPartition"] ["boot" "growPartition"])
   ];
 
   options = {
@@ -28,13 +24,13 @@ with lib;
       }
     ];
     systemd.services.growpart = {
-      wantedBy = [ "-.mount" ];
-      after = [ "-.mount" ];
+      wantedBy = ["-.mount"];
+      after = ["-.mount"];
       before = [
         "systemd-growfs-root.service"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
       unitConfig.DefaultDependencies = false;
       serviceConfig = {
         Type = "oneshot";

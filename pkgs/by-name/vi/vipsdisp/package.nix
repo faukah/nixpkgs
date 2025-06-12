@@ -11,7 +11,6 @@
   gtk4,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vipsdisp";
   version = "3.1.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Tiny image viewer with libvips";
     license = lib.licenses.mit;
     mainProgram = "vipsdisp";
-    maintainers = with lib.maintainers; [ foo-dogsquared ];
+    maintainers = with lib.maintainers; [foo-dogsquared];
     platforms = lib.platforms.unix;
   };
 }

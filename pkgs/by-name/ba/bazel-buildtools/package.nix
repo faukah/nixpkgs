@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "bazel-buildtools";
   version = "8.2.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  excludedPackages = [ "generatetables" ];
+  excludedPackages = ["generatetables"];
 
   ldflags = [
     "-s"
@@ -43,6 +42,6 @@ buildGoModule rec {
       elasticdog
       uri-canva
     ];
-    teams = [ lib.teams.bazel ];
+    teams = [lib.teams.bazel];
   };
 }

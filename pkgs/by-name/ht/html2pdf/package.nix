@@ -8,7 +8,6 @@
   withChromium ? (lib.meta.availableOn stdenv.hostPlatform chromium),
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "html2pdf";
   version = "0.8.2";
@@ -35,13 +34,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
       runtimeInputs = [
         chromium
       ];
-    in
-    ''
+    in ''
       wrapProgram "$out/bin/html2pdf" --prefix PATH : '${lib.makeBinPath runtimeInputs}'
     ''
   );
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "CLI tool to convert local HTML files to PDF";

@@ -11,7 +11,6 @@
   kxmlgui,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kbookmarks";
   nativeBuildInputs = [

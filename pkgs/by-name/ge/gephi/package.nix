@@ -5,7 +5,6 @@
   maven,
   jogl,
 }:
-
 maven.buildMavenPackage rec {
   pname = "gephi";
   version = "0.10.1";
@@ -20,7 +19,7 @@ maven.buildMavenPackage rec {
   mvnJdk = jdk11;
   mvnHash = "sha256-/2/Yb26Ry0NHQQ3j0LXnjwC0wQqJiztvTgWixyMJqvg=";
 
-  nativeBuildInputs = [ jdk11 ];
+  nativeBuildInputs = [jdk11];
 
   installPhase = ''
     cp -r modules/application/target/gephi $out
@@ -46,6 +45,6 @@ maven.buildMavenPackage rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3;
-    maintainers = [ maintainers.taeer ];
+    maintainers = [maintainers.taeer];
   };
 }

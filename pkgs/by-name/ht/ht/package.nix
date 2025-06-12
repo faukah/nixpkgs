@@ -4,7 +4,6 @@
   fetchurl,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ht";
   version = "2.1.0";
@@ -18,18 +17,18 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  patches = [ ./gcc7.patch ];
+  patches = [./gcc7.patch];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-narrowing" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-narrowing"];
 
   meta = with lib; {
     description = "File editor/viewer/analyzer for executables";
     homepage = "https://hte.sourceforge.net";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "ht";
   };
 }

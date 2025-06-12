@@ -9,7 +9,6 @@
   curl,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hurl";
   version = "6.1.1";
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     curl
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   # The actual tests require network access to a test server, but we can run an install check
   doCheck = false;

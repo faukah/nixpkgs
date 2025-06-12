@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontFixup = true;
 
   # "unpack" phase does the unzipping automatically
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   sourceRoot = "."; # squash "unpacker produced multiple directories" error
 
   installPhase = ''
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/odlp/bluesnooze";
     changelog = "https://github.com/odlp/bluesnooze/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ craigf ];
+    maintainers = with lib.maintainers; [craigf];
     platforms = lib.platforms.darwin;
   };
 })

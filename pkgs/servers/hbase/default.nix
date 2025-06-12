@@ -5,16 +5,13 @@
   makeWrapper,
   jdk11_headless,
   nixosTests,
-}:
-
-let
-  common =
-    {
-      version,
-      hash,
-      jdk ? jdk11_headless,
-      tests,
-    }:
+}: let
+  common = {
+    version,
+    hash,
+    jdk ? jdk11_headless,
+    tests,
+  }:
     stdenv.mkDerivation rec {
       pname = "hbase";
       inherit version;
@@ -24,7 +21,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       installPhase = ''
         mkdir -p $out
         cp -R * $out
@@ -33,18 +30,17 @@ let
           --set-default HBASE_CONF_DIR "$out/conf/"
       '';
 
-      passthru = { inherit tests; };
+      passthru = {inherit tests;};
 
       meta = with lib; {
         description = "Distributed, scalable, big data store";
         homepage = "https://hbase.apache.org";
         license = licenses.asl20;
-        maintainers = with lib.maintainers; [ illustris ];
+        maintainers = with lib.maintainers; [illustris];
         platforms = lib.platforms.linux;
       };
     };
-in
-{
+in {
   hbase_2_4 = common {
     version = "2.4.18";
     hash = "sha256-zYrHAxzlPRrRchHGVp3fhQT0BD0+wavZ4cAWncrv+MQ=";

@@ -18,6 +18,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
 
   meta = {
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.rhoriguchi ];
+    maintainers = [lib.maintainers.rhoriguchi];
   };
 }

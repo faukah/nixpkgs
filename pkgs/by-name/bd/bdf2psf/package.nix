@@ -5,7 +5,6 @@
   perl,
   dpkg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bdf2psf";
   version = "1.237";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TdEIXD4COatzgtPm8EGMxQFqqgy/5gkgnZKrze4U2sM=";
   };
 
-  nativeBuildInputs = [ dpkg ];
+  nativeBuildInputs = [dpkg];
 
   dontConfigure = true;
   dontBuild = true;
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
       Font converter to generate console fonts from BDF source fonts
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.all;
     mainProgram = "bdf2psf";
   };

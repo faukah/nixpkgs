@@ -19,7 +19,6 @@
   pkg-config,
   lcms2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "colord-gtk";
   version = "0.3.1";
@@ -58,14 +57,13 @@ stdenv.mkDerivation rec {
       colord
     ]
     ++ (
-      if withGtk4 then
-        [
-          gtk4
-        ]
-      else
-        [
-          gtk3
-        ]
+      if withGtk4
+      then [
+        gtk4
+      ]
+      else [
+        gtk3
+      ]
     );
 
   mesonFlags = [
@@ -76,7 +74,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.freedesktop.org/software/colord/intro.html";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
     mainProgram = "cd-convert";
   };

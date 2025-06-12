@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "rush-parallel";
   version = "0.6.1";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/shenwei356/rush";
     changelog = "https://github.com/shenwei356/rush/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kranzes ];
+    maintainers = with lib.maintainers; [kranzes];
     mainProgram = "rush-parallel";
   };
 }

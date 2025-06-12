@@ -14,7 +14,6 @@
   tomli,
   twisted,
 }:
-
 buildPythonPackage rec {
   pname = "towncrier";
   version = "24.8.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-ATQj7n7tECsvOTwofSLZX2bxo+oQpLqoLSmAAafxivM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies =
     [
@@ -35,8 +34,8 @@ buildPythonPackage rec {
       incremental
       jinja2
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-resources ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    ++ lib.optionals (pythonOlder "3.10") [importlib-resources]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -49,14 +48,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "towncrier" ];
+  pythonImportsCheck = ["towncrier"];
 
   meta = with lib; {
     description = "Utility to produce useful, summarised news files";
     homepage = "https://github.com/twisted/towncrier/";
     changelog = "https://github.com/twisted/towncrier/blob/${version}/NEWS.rst";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "towncrier";
   };
 }

@@ -11,7 +11,6 @@
   makeWrapper,
   gmp,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "i2p";
   version = "2.9.0";
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     which
   ];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   postConfigure = ''
     rm -r installer/lib
@@ -125,7 +124,7 @@ stdenv.mkDerivation (finalAttrs: {
       "i686-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     mainProgram = "i2prouter-plain";
   };
 })

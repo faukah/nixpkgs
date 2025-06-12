@@ -8,7 +8,6 @@
   gettext,
   go,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fcitx5-bamboo";
   version = "1.0.7";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Vietnamese input method engine support for Fcitx";
     homepage = "https://github.com/fcitx/fcitx5-bamboo";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

@@ -5,7 +5,6 @@
   libtiff,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minidjvu";
   version = "0.8";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://djvu.sourceforge.net/djview4.html";
     description = "Black-and-white djvu page encoder and decoder that use interpage information";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     mainProgram = "minidjvu";
     knownVulnerabilities = [

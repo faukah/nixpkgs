@@ -19,7 +19,6 @@
   matplotlib,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "freud";
   version = "3.1.0";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     setuptools
   ];
   dontUseCmakeConfigure = true;
-  buildInputs = [ tbb ];
+  buildInputs = [tbb];
 
   propagatedBuildInputs = [
     numpy
@@ -88,13 +87,13 @@ buildPythonPackage rec {
     cd $out
   '';
 
-  pythonImportsCheck = [ "freud" ];
+  pythonImportsCheck = ["freud"];
 
   meta = {
     description = "Powerful, efficient particle trajectory analysis in scientific Python";
     homepage = "https://github.com/glotzerlab/freud";
     changelog = "https://github.com/glotzerlab/freud/blob/${src.rev}/ChangeLog.md";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

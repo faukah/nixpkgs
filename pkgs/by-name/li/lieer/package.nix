@@ -4,13 +4,12 @@
   python3Packages,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "lieer";
   version = "1.6";
   format = "setuptools";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   src = fetchFromGitHub {
     owner = "gauteh";

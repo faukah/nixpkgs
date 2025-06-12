@@ -8,16 +8,13 @@
   runCommand,
   imagemagick,
 }:
-
 # Jupyter console:
 # nix run --impure --expr 'with import <nixpkgs> {}; jupyter-console.withSingleKernel clojupyter.definition'
-
 # Jupyter notebook:
 # nix run --impure --expr 'with import <nixpkgs> {}; jupyter.override { definitions.clojure = clojupyter.definition; }'
-
 let
-  cljdeps = import ./deps.nix { inherit pkgs; };
-  classp = cljdeps.makeClasspaths { };
+  cljdeps = import ./deps.nix {inherit pkgs;};
+  classp = cljdeps.makeClasspaths {};
 
   shellScript = writeShellScript "clojupyter" ''
     ${jre}/bin/java -cp ${classp} clojupyter.kernel.core "$@"
@@ -29,14 +26,13 @@ let
   meta = with lib; {
     description = "Jupyter kernel for Clojure";
     homepage = "https://github.com/clojupyter/clojupyter";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ]; # deps from maven
+    sourceProvenance = with sourceTypes; [binaryBytecode]; # deps from maven
     license = licenses.mit;
-    maintainers = with maintainers; [ thomasjm ];
+    maintainers = with maintainers; [thomasjm];
     platforms = jre.meta.platforms;
   };
 
-  sizedLogo =
-    size:
+  sizedLogo = size:
     stdenv.mkDerivation {
       name = "clojupyter-logo-${size}x${size}.png";
 
@@ -47,7 +43,7 @@ let
         sha256 = "sha256-BCzcPnLSonm+ELFU4JIIzLPlVnP0VzlrRSGxOd/LFow=";
       };
 
-      buildInputs = [ imagemagick ];
+      buildInputs = [imagemagick];
 
       dontConfigure = true;
       dontInstall = true;
@@ -58,24 +54,21 @@ let
 
       inherit meta;
     };
-
-in
-
-rec {
+in rec {
   launcher =
     runCommand "clojupyter"
-      {
-        inherit
-          pname
-          version
-          meta
-          shellScript
-          ;
-      }
-      ''
-        mkdir -p $out/bin
-        ln -s $shellScript $out/bin/clojupyter
-      '';
+    {
+      inherit
+        pname
+        version
+        meta
+        shellScript
+        ;
+    }
+    ''
+      mkdir -p $out/bin
+      ln -s $shellScript $out/bin/clojupyter
+    '';
 
   definition = {
     displayName = "Clojure";

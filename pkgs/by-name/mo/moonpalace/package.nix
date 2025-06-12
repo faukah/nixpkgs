@@ -25,7 +25,7 @@ buildGoModule rec {
       version = "v${moonpalace.version}";
       command = "HOME=$(mktemp -d) moonpalace --version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -33,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/MoonshotAI/moonpalace";
     changelog = "https://github.com/MoonshotAI/moonpalace/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ xiaoxiangmoe ];
+    maintainers = with lib.maintainers; [xiaoxiangmoe];
     mainProgram = "moonpalace";
   };
 }

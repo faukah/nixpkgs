@@ -4,7 +4,6 @@
   lib,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "mvebu64boot";
   version = "unstable-2022-10-20";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Boot 64-bit Marvell EBU SoC over UART";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.all;
     mainProgram = "mvebu64boot";
   };

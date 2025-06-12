@@ -8,7 +8,6 @@
   safety,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-audit-plugin";
   version = "0.4.0";
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     safety
   ];
 
-  pythonImportsCheck = [ "poetry_audit_plugin" ];
+  pythonImportsCheck = ["poetry_audit_plugin"];
 
   nativeCheckInputs = [
     poetry # for the executable
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     description = "Poetry plugin for checking security vulnerabilities in dependencies";
     homepage = "https://github.com/opeco17/poetry-audit-plugin";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

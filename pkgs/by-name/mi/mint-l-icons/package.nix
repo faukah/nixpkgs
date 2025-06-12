@@ -7,7 +7,6 @@
   hicolor-icon-theme,
   gtk3,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mint-l-icons";
   version = "1.7.4";
@@ -52,6 +51,6 @@ stdenvNoCC.mkDerivation {
     description = "Mint-L icon theme";
     license = licenses.gpl3Plus; # from debian/copyright
     platforms = platforms.linux;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
   };
 }

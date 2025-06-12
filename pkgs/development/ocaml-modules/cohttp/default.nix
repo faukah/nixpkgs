@@ -12,7 +12,6 @@
   alcotest,
   crowbar,
 }:
-
 buildDunePackage rec {
   pname = "cohttp";
   version = "5.3.1";
@@ -50,7 +49,7 @@ buildDunePackage rec {
   meta = {
     description = "HTTP(S) library for Lwt, Async and Mirage";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/mirage/ocaml-cohttp";
   };
 }

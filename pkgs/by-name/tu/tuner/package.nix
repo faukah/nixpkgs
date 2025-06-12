@@ -17,7 +17,6 @@
   pantheon,
   gst_all_1,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tuner";
   version = "2.0.0";

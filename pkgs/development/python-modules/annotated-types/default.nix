@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "annotated-types";
   version = "0.7.0";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-I1SPUKq2WIwEX5JmS3HrJvrpNrKDu30RWkBRDFE+k9A=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [typing-extensions];
 
-  pythonImportsCheck = [ "annotated_types" ];
+  pythonImportsCheck = ["annotated_types"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Reusable constraint types to use with typing.Annotated";
     homepage = "https://github.com/annotated-types/annotated-types";
     changelog = "https://github.com/annotated-types/annotated-types/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

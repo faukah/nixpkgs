@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gojsontoyaml";
   version = "0.1.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "gojsontoyaml";
     homepage = "https://github.com/brancz/gojsontoyaml";
     license = licenses.mit;
-    maintainers = [ maintainers.bryanasdev000 ];
+    maintainers = [maintainers.bryanasdev000];
   };
 }

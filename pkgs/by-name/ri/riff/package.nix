@@ -6,7 +6,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "riff";
   version = "1.0.3";
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://riff.sh";
     changelog = "https://github.com/DeterminateSystems/riff/releases/tag/v${version}";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

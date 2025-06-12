@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sslstrip";
   version = "2.0";
@@ -45,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/L1ghtn1ng/sslstrip";
     changelog = "https://github.com/L1ghtn1ng/sslstrip/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "sslstrip";
   };
 }

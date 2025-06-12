@@ -5,7 +5,6 @@
   setuptools,
   hidapi,
 }:
-
 buildPythonPackage rec {
   pname = "hid";
   version = "1.0.7";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
     sed -i -e "s|libhidapi|$hidapi/libhidapi|" hid/__init__.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ hidapi ];
+  dependencies = [hidapi];
 
   doCheck = false; # no tests
 
-  pythonImportsCheck = [ "hid" ];
+  pythonImportsCheck = ["hid"];
 
   meta = with lib; {
     description = "hidapi bindings in ctypes";
     homepage = "https://github.com/apmorton/pyhidapi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [];
   };
 }

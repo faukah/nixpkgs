@@ -8,7 +8,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "trlib";
   version = "0.4";
@@ -30,20 +29,20 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
-    [ blas ]
+    [blas]
     ++ lib.optionals pythonSupport [
       python3Packages.cython
       python3Packages.numpy
     ];
 
-  cmakeFlags = [ (lib.cmakeBool "TRLIB_BUILD_PYTHON3" pythonSupport) ];
+  cmakeFlags = [(lib.cmakeBool "TRLIB_BUILD_PYTHON3" pythonSupport)];
 
   meta = {
     description = "Trust Region Subproblem Solver Library";
     homepage = "https://github.com/felixlen/trlib";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 })

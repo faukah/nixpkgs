@@ -14,7 +14,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-openssh-askpass";
   version = "2.2.0";
@@ -42,14 +41,14 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-openssh-askpass";
     description = "GUI to query passwords on behalf of SSH agents";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
     mainProgram = "lxqt-openssh-askpass";
   };
 }

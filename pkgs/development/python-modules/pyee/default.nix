@@ -13,7 +13,6 @@
   typing-extensions,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyee";
   version = "13.0.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     mock
@@ -42,12 +41,12 @@ buildPythonPackage rec {
     twisted
   ];
 
-  pythonImportsCheck = [ "pyee" ];
+  pythonImportsCheck = ["pyee"];
 
   meta = with lib; {
     description = "Port of Node.js's EventEmitter to Python";
     homepage = "https://github.com/jfhbrook/pyee";
     license = licenses.mit;
-    maintainers = with maintainers; [ kmein ];
+    maintainers = with maintainers; [kmein];
   };
 }

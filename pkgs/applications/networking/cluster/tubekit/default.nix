@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tubekit";
   version = "5";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/reconquest/tubekit";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
   };
 }

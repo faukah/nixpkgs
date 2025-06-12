@@ -7,7 +7,6 @@
   geckodriver,
   makeWrapper,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "eye-witness";
   version = "20230525.1";
@@ -20,8 +19,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-nSPpPbwqagc5EadQ4AHgLhjQ0kDjmbdcwE/PL5FDL4I=";
   };
 
-  build-system =
-    with python3Packages;
+  build-system = with python3Packages;
     [
       setuptools
     ]
@@ -29,8 +27,7 @@ python3Packages.buildPythonApplication rec {
       makeWrapper
     ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       selenium
       fuzzywuzzy
@@ -69,7 +66,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/redsiege/EyeWitness";
     changelog = "https://github.com/redsiege/EyeWitness/blob/${src.rev}/CHANGELOG";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     mainProgram = "eye-witness";
     platforms = platforms.all;
   };

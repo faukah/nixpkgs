@@ -28,7 +28,6 @@
   tomli,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "safety";
   version = "3.5.2";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     ./disable-telemetry.patch
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "filelock"
@@ -93,7 +92,7 @@ buildPythonPackage rec {
   ];
 
   # ImportError: cannot import name 'get_command_for' from partially initialized module 'safety.cli_util' (most likely due to a circular import)
-  disabledTestPaths = [ "tests/alerts/test_utils.py" ];
+  disabledTestPaths = ["tests/alerts/test_utils.py"];
 
   meta = {
     description = "Checks installed dependencies for known vulnerabilities";

@@ -17,7 +17,6 @@
   python3,
   xorg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "commandergenius";
   version = "3.5.2";
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
       are required to do so
     '';
     homepage = "https://github.com/gerstrong/Commander-Genius";
-    maintainers = with maintainers; [ hce ];
+    maintainers = with maintainers; [hce];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

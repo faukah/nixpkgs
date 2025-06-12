@@ -52,9 +52,7 @@
   udev,
   unzip,
   zlib,
-}:
-
-let
+}: let
   pname = "gitkraken";
   version = "11.1.1";
 
@@ -82,7 +80,7 @@ let
   meta = {
     homepage = "https://www.gitkraken.com/git-client";
     description = "Simplifying Git for any OS";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     platforms = builtins.attrNames srcs;
     maintainers = with lib.maintainers; [
@@ -159,7 +157,7 @@ let
         icon = "gitkraken";
         desktopName = "GitKraken Desktop";
         genericName = "Git Client";
-        categories = [ "Development" ];
+        categories = ["Development"];
         comment = "Unleash your repo";
       })
     ];
@@ -168,7 +166,7 @@ let
       copyDesktopItems
       # override doesn't preserve splicing https://github.com/NixOS/nixpkgs/issues/132651
       # Has to use `makeShellWrapper` from `buildPackages` even though `makeShellWrapper` from the inputs is spliced because `propagatedBuildInputs` would pick the wrong one because of a different offset.
-      (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
+      (buildPackages.wrapGAppsHook3.override {makeWrapper = buildPackages.makeShellWrapper;})
     ];
     buildInputs = [
       gtk3
@@ -252,4 +250,6 @@ let
     dontFixup = true;
   };
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

@@ -1,10 +1,11 @@
-{ config, lib, ... }:
-
-let
-  cfg = config.programs.fuse;
-in
 {
-  meta.maintainers = with lib.maintainers; [ primeos ];
+  config,
+  lib,
+  ...
+}: let
+  cfg = config.programs.fuse;
+in {
+  meta.maintainers = with lib.maintainers; [primeos];
 
   options.programs.fuse = {
     mountMax = lib.mkOption {

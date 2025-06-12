@@ -9,7 +9,6 @@
   pytest-expect,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "html5lib";
   version = "1.1";

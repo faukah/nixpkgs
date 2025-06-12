@@ -9,7 +9,6 @@
   nodejs,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "webpack-cli";
   version = "6.0.1";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Webpack's Command Line Interface";
     homepage = "https://webpack.js.org/api/cli/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
     mainProgram = "webpack";
   };
 })

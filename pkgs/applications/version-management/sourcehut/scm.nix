@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "scmsrht";
   version = "0.22.28";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
 
   env.PKGVER = version;
 
-  pythonImportsCheck = [ "scmsrht" ];
+  pythonImportsCheck = ["scmsrht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/scm.sr.ht";

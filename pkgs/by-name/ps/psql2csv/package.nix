@@ -7,7 +7,6 @@
   postgresql,
   makeWrapper,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "psql2csv";
   version = "0.12";
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-XIdZ2+Jlw2JLn4KXD9h3+xXymu4FhibAfp5uGGkVwLQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -30,12 +29,12 @@ stdenvNoCC.mkDerivation rec {
     install -Dm755 -t $out/bin psql2csv
     wrapProgram $out/bin/psql2csv \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gnused
-          postgresql
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gnused
+        postgresql
+      ]
+    }
 
     runHook postInstall
   '';
@@ -44,7 +43,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Tool to run a PostreSQL query and output the result as CSV";
     homepage = "https://github.com/fphilipe/psql2csv";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     inherit (postgresql.meta) platforms;
     mainProgram = "psql2csv";
   };

@@ -25,21 +25,17 @@
   lcms2,
   nixosTests,
   testers,
-
   enableXWayland ? true,
   xwayland ? null,
-}:
-
-let
-  generic =
-    {
-      version,
-      hash,
-      extraBuildInputs ? [ ],
-      extraNativeBuildInputs ? [ ],
-      patches ? [ ],
-      postPatch ? "",
-    }:
+}: let
+  generic = {
+    version,
+    hash,
+    extraBuildInputs ? [],
+    extraNativeBuildInputs ? [],
+    patches ? [],
+    postPatch ? "",
+  }:
     stdenv.mkDerivation (finalAttrs: {
       pname = "wlroots";
       inherit version;
@@ -63,16 +59,18 @@ let
       ];
 
       strictDeps = true;
-      depsBuildBuild = [ pkg-config ];
+      depsBuildBuild = [pkg-config];
 
-      nativeBuildInputs = [
-        meson
-        ninja
-        pkg-config
-        wayland-scanner
-        glslang
-        hwdata
-      ] ++ extraNativeBuildInputs;
+      nativeBuildInputs =
+        [
+          meson
+          ninja
+          pkg-config
+          wayland-scanner
+          glslang
+          hwdata
+        ]
+        ++ extraNativeBuildInputs;
 
       buildInputs =
         [
@@ -136,17 +134,14 @@ let
         ];
         pkgConfigModules = [
           (
-            if lib.versionOlder finalAttrs.version "0.18" then
-              "wlroots"
-            else
-              "wlroots-${lib.versions.majorMinor finalAttrs.version}"
+            if lib.versionOlder finalAttrs.version "0.18"
+            then "wlroots"
+            else "wlroots-${lib.versions.majorMinor finalAttrs.version}"
           )
         ];
       };
     });
-
-in
-rec {
+in rec {
   wlroots_0_17 = generic {
     version = "0.17.4";
     hash = "sha256-AzmXf+HMX/6VAr0LpfHwfmDB9dRrrLQHt7l35K98MVo=";

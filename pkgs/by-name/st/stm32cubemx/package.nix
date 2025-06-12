@@ -8,9 +8,7 @@
   lib,
   makeDesktopItem,
   stdenvNoCC,
-}:
-
-let
+}: let
   iconame = "STM32CubeMX";
   package = stdenvNoCC.mkDerivation rec {
     pname = "stm32cubemx";
@@ -18,7 +16,7 @@ let
 
     src = fetchzip {
       url = "https://sw-center.st.com/packs/resource/library/stm32cube_mx_v${
-        builtins.replaceStrings [ "." ] [ "" ] version
+        builtins.replaceStrings ["."] [""] version
       }-lin.zip";
       hash = "sha256-GOvoPyfPdQV/gjveuFpZjueTZD/BYuEWSHgQKBm3o3A=";
       stripRoot = false;
@@ -33,7 +31,7 @@ let
       name = "STM32CubeMX";
       exec = "stm32cubemx";
       desktopName = "STM32CubeMX";
-      categories = [ "Development" ];
+      categories = ["Development"];
       icon = "stm32cubemx";
       comment = meta.description;
       terminal = false;
@@ -95,51 +93,51 @@ let
         step-by-step process.
       '';
       homepage = "https://www.st.com/en/development-tools/stm32cubemx.html";
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
       license = licenses.unfree;
       maintainers = with maintainers; [
         angaz
         wucke13
       ];
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
     };
   };
 in
-buildFHSEnv {
-  inherit (package) pname version meta;
-  runScript = "${package.outPath}/bin/stm32cubemx";
-  extraInstallCommands = ''
-    mkdir -p $out/share/{applications,icons}
-    ln -sf ${package.outPath}/share/applications/* $out/share/applications/
-    ln -sf ${package.outPath}/share/icons/* $out/share/icons/
-  '';
-  targetPkgs =
-    pkgs: with pkgs; [
-      alsa-lib
-      at-spi2-atk
-      cairo
-      cups
-      dbus
-      expat
-      glib
-      gtk3
-      libdrm
-      libGL
-      libudev0-shim
-      libxkbcommon
-      libgbm
-      nspr
-      nss
-      pango
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      libgcrypt
-      openssl
-      udev
-    ];
-}
+  buildFHSEnv {
+    inherit (package) pname version meta;
+    runScript = "${package.outPath}/bin/stm32cubemx";
+    extraInstallCommands = ''
+      mkdir -p $out/share/{applications,icons}
+      ln -sf ${package.outPath}/share/applications/* $out/share/applications/
+      ln -sf ${package.outPath}/share/icons/* $out/share/icons/
+    '';
+    targetPkgs = pkgs:
+      with pkgs; [
+        alsa-lib
+        at-spi2-atk
+        cairo
+        cups
+        dbus
+        expat
+        glib
+        gtk3
+        libdrm
+        libGL
+        libudev0-shim
+        libxkbcommon
+        libgbm
+        nspr
+        nss
+        pango
+        xorg.libX11
+        xorg.libxcb
+        xorg.libXcomposite
+        xorg.libXdamage
+        xorg.libXext
+        xorg.libXfixes
+        xorg.libXrandr
+        libgcrypt
+        openssl
+        udev
+      ];
+  }

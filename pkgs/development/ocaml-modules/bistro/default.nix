@@ -14,7 +14,6 @@
   sexplib,
   tyxml,
 }:
-
 buildDunePackage rec {
   pname = "bistro";
   version = "unstable-2024-05-17";
@@ -45,7 +44,7 @@ buildDunePackage rec {
   meta = {
     inherit (src.meta) homepage;
     description = "Build and execute typed scientific workflows";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.gpl2;
   };
 }

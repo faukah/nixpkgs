@@ -8,7 +8,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "cssbeautifier";
   version = "1.15.4";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-m7CNw/ZMEBoBZ38Sis8BkFkUz0Brr4dDTc3gW3TArPU=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     editorconfig
@@ -32,7 +31,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cssbeautifier" ];
+  pythonImportsCheck = ["cssbeautifier"];
 
   meta = with lib; {
     description = "CSS unobfuscator and beautifier";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/beautifier/js-beautify";
     changelog = "https://github.com/beautifier/js-beautify/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

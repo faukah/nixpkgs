@@ -13,7 +13,6 @@
   exiv2,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xpano";
   version = "0.19.3";
@@ -58,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://krupkat.github.io/xpano/";
     changelog = "https://github.com/krupkat/xpano/releases/tag/v${version}";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ krupkat ];
+    maintainers = with lib.maintainers; [krupkat];
     platforms = lib.platforms.linux;
   };
 }

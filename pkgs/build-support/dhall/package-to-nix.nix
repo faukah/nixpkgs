@@ -9,11 +9,10 @@
 # perform a build during the evaluation phase if you use this
 # `dhallPackageToNix` utility.  It is not possible to use `dhallPackageToNix`
 # in Nixpkgs, since the Nixpkgs Hydra doesn't allow IFD.
-
-{ stdenv, dhall-nix }:
-
-dhallPackage:
-let
+{
+  stdenv,
+  dhall-nix,
+}: dhallPackage: let
   drv = stdenv.mkDerivation {
     name = "dhall-compiled-package.nix";
 
@@ -28,8 +27,7 @@ let
       dhall-to-nix <<< "${dhallPackage}/binary.dhall" > $out
     '';
 
-    nativeBuildInputs = [ dhall-nix ];
+    nativeBuildInputs = [dhall-nix];
   };
-
 in
-import drv
+  import drv

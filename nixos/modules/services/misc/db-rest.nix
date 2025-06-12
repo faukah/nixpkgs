@@ -3,9 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkOption
     types
     mkIf
@@ -16,8 +16,7 @@ let
     maintainers
     ;
   cfg = config.services.db-rest;
-in
-{
+in {
   options = {
     services.db-rest = {
       enable = mkEnableOption "db-rest service";
@@ -91,7 +90,7 @@ in
         };
       };
 
-      package = mkPackageOption pkgs "db-rest" { };
+      package = mkPackageOption pkgs "db-rest" {};
     };
   };
 
@@ -116,9 +115,9 @@ in
     systemd.services.db-rest = mkMerge [
       {
         description = "db-rest service";
-        after = [ "network.target" ] ++ lib.optional cfg.redis.createLocally "redis-db-rest.service";
+        after = ["network.target"] ++ lib.optional cfg.redis.createLocally "redis-db-rest.service";
         requires = lib.optional cfg.redis.createLocally "redis-db-rest.service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "simple";
           Restart = "always";
@@ -168,22 +167,22 @@ in
         };
       }
       (mkIf cfg.redis.enable (
-        if cfg.redis.createLocally then
-          { environment.REDIS_URL = config.services.redis.servers.db-rest.unixSocket; }
-        else
-          {
-            script =
-              let
-                username = lib.optionalString (cfg.redis.user != null) (cfg.redis.user);
-                host = cfg.redis.host;
-                port = toString cfg.redis.port;
-                protocol = if cfg.redis.useSSL then "rediss" else "redis";
-              in
-              ''
-                export REDIS_URL="${protocol}://${username}:$(${config.systemd.package}/bin/systemd-creds cat REDIS_PASSWORD)@${host}:${port}"
-                exec ${cfg.package}/bin/db-rest
-              '';
-          }
+        if cfg.redis.createLocally
+        then {environment.REDIS_URL = config.services.redis.servers.db-rest.unixSocket;}
+        else {
+          script = let
+            username = lib.optionalString (cfg.redis.user != null) (cfg.redis.user);
+            host = cfg.redis.host;
+            port = toString cfg.redis.port;
+            protocol =
+              if cfg.redis.useSSL
+              then "rediss"
+              else "redis";
+          in ''
+            export REDIS_URL="${protocol}://${username}:$(${config.systemd.package}/bin/systemd-creds cat REDIS_PASSWORD)@${host}:${port}"
+            exec ${cfg.package}/bin/db-rest
+          '';
+        }
       ))
     ];
 
@@ -194,12 +193,12 @@ in
           group = cfg.group;
         };
       })
-      (lib.mkIf cfg.redis.createLocally { ${cfg.user}.extraGroups = [ "redis-db-rest" ]; })
+      (lib.mkIf cfg.redis.createLocally {${cfg.user}.extraGroups = ["redis-db-rest"];})
     ];
 
-    users.groups = lib.mkIf (cfg.group == "db-rest") { db-rest = { }; };
+    users.groups = lib.mkIf (cfg.group == "db-rest") {db-rest = {};};
 
     services.redis.servers.db-rest.enable = cfg.redis.enable && cfg.redis.createLocally;
   };
-  meta.maintainers = with maintainers; [ marie ];
+  meta.maintainers = with maintainers; [marie];
 }

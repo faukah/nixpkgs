@@ -7,7 +7,6 @@
   libX11,
   libXrandr,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "smallwm";
   version = "unstable-2020-02-28";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/adamnew123456/SmallWM";
     license = lib.licenses.bsd2;
     mainProgram = "smallwm";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

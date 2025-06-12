@@ -6,7 +6,6 @@
   openssl,
   curl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libksi";
   version = "3.21.3087";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zEWxJpv0MeGUq/xkM26tDoauFyw53enGyWVhlX0jlYI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     curl

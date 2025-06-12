@@ -8,7 +8,6 @@
   testtools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "testresources";
   version = "2.0.2";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
       asl20 # or
       bsd3
     ];
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

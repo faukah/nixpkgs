@@ -12,7 +12,6 @@
   pyarrow,
   xlrd,
 }:
-
 buildPythonPackage rec {
   pname = "nemosis";
   version = "3.8.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-4Bb9yZUfwkFQVNSVGtg3APXPovos23oHAx4v+6aa7MM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
   dependencies = [
     beautifulsoup4
     feather-format
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     xlrd
   ];
 
-  pythonImportsCheck = [ "nemosis" ];
+  pythonImportsCheck = ["nemosis"];
   doCheck = false; # require network and patching
 
   meta = {
     description = "Downloader of historical data published by the Australian Energy Market Operator";
     homepage = "https://github.com/UNSW-CEEM/NEMOSIS";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

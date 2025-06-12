@@ -5,7 +5,6 @@
   clippy,
   rustfmt,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fuc";
   version = "3.1.0";
@@ -40,6 +39,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Modern, performance focused unix commands";
     homepage = "https://github.com/SUPERCILEX/fuc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
   };
 })

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "plumber";
   version = "2.9.0";
@@ -22,7 +21,7 @@ buildGoModule rec {
     export HOME="$(mktemp -d)"
   '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -35,6 +34,6 @@ buildGoModule rec {
     mainProgram = "plumber";
     homepage = "https://github.com/streamdal/plumber";
     license = licenses.mit;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
   };
 }

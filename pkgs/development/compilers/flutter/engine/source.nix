@@ -17,15 +17,17 @@
   hostPlatform,
   targetPlatform,
   buildPlatform,
-}@pkgs:
-let
-  target-constants = callPackage ./constants.nix { platform = targetPlatform; };
-  build-constants = callPackage ./constants.nix { platform = buildPlatform; };
-  tools = pkgs.tools or (callPackage ./tools.nix { inherit hostPlatform buildPlatform; });
+} @ pkgs: let
+  target-constants = callPackage ./constants.nix {platform = targetPlatform;};
+  build-constants = callPackage ./constants.nix {platform = buildPlatform;};
+  tools = pkgs.tools or (callPackage ./tools.nix {inherit hostPlatform buildPlatform;});
 
-  boolOption = value: if value then "True" else "False";
+  boolOption = value:
+    if value
+    then "True"
+    else "False";
 in
-runCommand "flutter-engine-source-${version}-${buildPlatform.system}-${targetPlatform.system}"
+  runCommand "flutter-engine-source-${version}-${buildPlatform.system}-${targetPlatform.system}"
   {
     pname = "flutter-engine-source";
     inherit version;
@@ -38,10 +40,11 @@ runCommand "flutter-engine-source-${version}-${buildPlatform.system}-${targetPla
       git
       tools.cipd
       (python3.withPackages (
-        ps: with ps; [
-          httplib2
-          six
-        ]
+        ps:
+          with ps; [
+            httplib2
+            six
+          ]
       ))
     ];
 
@@ -83,7 +86,7 @@ runCommand "flutter-engine-source-${version}-${buildPlatform.system}-${targetPla
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash =
-      (hashes."${buildPlatform.system}" or { })."${targetPlatform.system}"
+      (hashes."${buildPlatform.system}" or {})."${targetPlatform.system}"
         or (throw "Hash not set for ${targetPlatform.system} on ${buildPlatform.system}");
   }
   (
@@ -94,18 +97,17 @@ runCommand "flutter-engine-source-${version}-${buildPlatform.system}-${targetPla
 
     ''
     + (
-      if lib.versionAtLeast flutterVersion "3.29" then
-        ''
-          mkdir -p source
-          cp $gclient source/.gclient
-          cd source
-        ''
-      else
-        ''
-          mkdir -p $out
-          cp $gclient $out/.gclient
-          cd $out
-        ''
+      if lib.versionAtLeast flutterVersion "3.29"
+      then ''
+        mkdir -p source
+        cp $gclient source/.gclient
+        cd source
+      ''
+      else ''
+        mkdir -p $out
+        cp $gclient $out/.gclient
+        cd $out
+      ''
     )
     + ''
 

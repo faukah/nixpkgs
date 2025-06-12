@@ -13,7 +13,6 @@
   pytestCheckHook,
   pytest-timeout,
 }:
-
 buildPythonPackage rec {
   pname = "ipdb";
   version = "0.13.13";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-46xgGO8FEm1EKvaAqthjAG7BnQIpBWGsiLixwLDPxyY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs =
     [
@@ -38,7 +37,7 @@ buildPythonPackage rec {
       tomli
     ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -59,6 +58,6 @@ buildPythonPackage rec {
     description = "IPython-enabled pdb";
     mainProgram = "ipdb3";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

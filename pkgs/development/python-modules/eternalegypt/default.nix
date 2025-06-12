@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "eternalegypt";
   version = "0.0.16";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "eternalegypt" ];
+  pythonImportsCheck = ["eternalegypt"];
 
   meta = with lib; {
     description = "Python API for Netgear LTE modems";
     homepage = "https://github.com/amelchio/eternalegypt";
     changelog = "https://github.com/amelchio/eternalegypt/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -5,7 +5,6 @@
   python3Packages,
   lilypond,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "frescobaldi";
   version = "3.3.0";
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     pyqtwebengine
   ];
 
-  nativeBuildInputs = [ python3Packages.pyqtwebengine.wrapQtAppsHook ];
+  nativeBuildInputs = [python3Packages.pyqtwebengine.wrapQtAppsHook];
 
   # Needed because source is fetched from git
   preBuild = ''
@@ -60,7 +59,7 @@ python3Packages.buildPythonApplication rec {
       fonts and keyboard shortcuts
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sepi ];
+    maintainers = with maintainers; [sepi];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/trunk/frescobaldi.x86_64-darwin
     mainProgram = "frescobaldi";

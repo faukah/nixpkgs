@@ -5,7 +5,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dcfldd";
   version = "1.9.2";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl2Plus;
 
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ qknight ];
+    maintainers = with lib.maintainers; [qknight];
     mainProgram = "dcfldd";
   };
 })

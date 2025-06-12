@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "breads-ad";
   version = "1.2.4-unstable-2024-05-27";
@@ -34,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/oppsec/breads";
     changelog = "https://github.com/oppsec/breads/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "breads-ad";
   };
 }

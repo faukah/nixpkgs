@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pdm-backend,
-
   # dependencies
   httpx,
   langchain-core,
@@ -14,20 +12,16 @@
   pytest-codspeed,
   pytest-recording,
   vcrpy,
-
   # buildInputs
   pytest,
-
   # tests
   numpy,
   pytest-asyncio,
   pytest-socket,
   pytestCheckHook,
-
   # passthru
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-tests";
   version = "0.3.20";
@@ -42,7 +36,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/standard-tests";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRelaxDeps = [
     # Each component release requests the exact latest core.
@@ -63,9 +57,9 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  pythonImportsCheck = [ "langchain_tests" ];
+  pythonImportsCheck = ["langchain_tests"];
 
   nativeBuildInputs = [
     numpy

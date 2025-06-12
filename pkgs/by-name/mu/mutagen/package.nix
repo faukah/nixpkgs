@@ -5,7 +5,6 @@
   fetchzip,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "mutagen";
   version = "0.18.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     hash = "sha256-EGMBsv6WjmWj/tOhtOORd6eqHmdfJb5pxPrb3zr/ynI=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
@@ -64,8 +63,8 @@ buildGoModule rec {
     description = "Make remote development work with your local tools";
     homepage = "https://mutagen.io/";
     changelog = "https://github.com/mutagen-io/mutagen/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.mit;
   };
 }

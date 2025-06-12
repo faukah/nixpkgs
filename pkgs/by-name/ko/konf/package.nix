@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "konf";
   version = "0.7.0";
@@ -27,6 +26,6 @@ buildGoModule rec {
     mainProgram = "konf-go";
     homepage = "https://github.com/SimonTheLeg/konf-go";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
   };
 }

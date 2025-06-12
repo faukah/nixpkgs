@@ -3,8 +3,7 @@ let
   bob = "bob";
   eve = "eve";
   passwd = "pass1";
-in
-{
+in {
   name = "user-expiry";
 
   nodes = {

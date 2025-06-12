@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nasin-nanpa";
   version = "3.1.0";
@@ -30,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

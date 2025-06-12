@@ -3,20 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.openwebrx;
-in
-{
+in {
   options.services.openwebrx = with lib; {
     enable = mkEnableOption "OpenWebRX Web interface for Software-Defined Radios on http://localhost:8073";
 
-    package = mkPackageOption pkgs "openwebrx" { };
+    package = mkPackageOption pkgs "openwebrx" {};
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.openwebrx = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         csdr
         digiham
@@ -31,7 +29,7 @@ in
         Restart = "always";
         DynamicUser = true;
         # openwebrx uses /var/lib/openwebrx by default
-        StateDirectory = [ "openwebrx" ];
+        StateDirectory = ["openwebrx"];
       };
     };
   };

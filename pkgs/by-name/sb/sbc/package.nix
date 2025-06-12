@@ -5,7 +5,6 @@
   pkg-config,
   libsndfile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sbc";
   version = "2.0";
@@ -20,8 +19,8 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libsndfile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libsndfile];
 
   meta = with lib; {
     description = "SubBand Codec Library";

@@ -5,24 +5,23 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  extraPackages ? (s: [ ]),
-}:
-let
-  yiEnv = haskellPackages.ghcWithPackages (self: [ self.yi ] ++ extraPackages self);
+  extraPackages ? (s: []),
+}: let
+  yiEnv = haskellPackages.ghcWithPackages (self: [self.yi] ++ extraPackages self);
 in
-stdenv.mkDerivation {
-  pname = "yi-custom";
-  dontUnpack = true;
-  nativeBuildInputs = [ makeWrapper ];
+  stdenv.mkDerivation {
+    pname = "yi-custom";
+    dontUnpack = true;
+    nativeBuildInputs = [makeWrapper];
 
-  buildCommand = ''
-    mkdir -p $out/bin
-    makeWrapper ${haskellPackages.yi}/bin/yi $out/bin/yi \
-      --set NIX_GHC ${yiEnv}/bin/ghc
-  '';
+    buildCommand = ''
+      mkdir -p $out/bin
+      makeWrapper ${haskellPackages.yi}/bin/yi $out/bin/yi \
+        --set NIX_GHC ${yiEnv}/bin/ghc
+    '';
 
-  # For hacking purposes
-  passthru.env = yiEnv;
+    # For hacking purposes
+    passthru.env = yiEnv;
 
-  inherit (haskellPackages.yi) meta version;
-}
+    inherit (haskellPackages.yi) meta version;
+  }

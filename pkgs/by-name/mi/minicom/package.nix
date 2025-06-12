@@ -9,7 +9,6 @@
   ncurses,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "minicom";
   version = "2.10";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libiconv
     ];
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     "--enable-lock-dir=/var/lock"
   ];
 
-  patches = [ ./xminicom_terminal_paths.patch ];
+  patches = [./xminicom_terminal_paths.patch];
 
   preConfigure = ''
     # Have `configure' assume that the lock directory exists.
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     for f in $out/bin/*minicom ; do
       wrapProgram $f \
-        --prefix PATH : ${lib.makeBinPath [ lrzsz ]}:$out/bin
+        --prefix PATH : ${lib.makeBinPath [lrzsz]}:$out/bin
     done
   '';
 
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
       and VT102 terminals. It has a dialing directory and auto zmodem
       download.
     '';
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

@@ -8,7 +8,6 @@
   typing-extensions,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "troposphere";
   version = "4.9.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-IqWgqkxJ4EFNt9z58cuCqSTnlbMNi7bFhA04hgQjG8E=";
   };
 
-  propagatedBuildInputs = [ cfn-flip ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [cfn-flip] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     awacs
@@ -31,16 +30,16 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    policy = [ awacs ];
+    policy = [awacs];
   };
 
-  pythonImportsCheck = [ "troposphere" ];
+  pythonImportsCheck = ["troposphere"];
 
   meta = with lib; {
     description = "Library to create AWS CloudFormation descriptions";
     homepage = "https://github.com/cloudtools/troposphere";
     changelog = "https://github.com/cloudtools/troposphere/blob/${src.tag}/CHANGELOG.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

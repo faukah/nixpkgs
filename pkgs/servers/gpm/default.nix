@@ -13,7 +13,6 @@
   withNcurses ? true,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "gpm";
   version = "unstable-2020-06-17";
@@ -37,9 +36,9 @@ stdenv.mkDerivation {
     bison
     texinfo
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     (fetchpatch {
@@ -63,7 +62,11 @@ stdenv.mkDerivation {
   configureFlags = [
     "--sysconfdir=/etc"
     "--localstatedir=/var"
-    (if withNcurses then "--with-curses" else "--without-curses")
+    (
+      if withNcurses
+      then "--with-curses"
+      else "--without-curses"
+    )
   ];
 
   enableParallelBuilding = true;
@@ -80,6 +83,6 @@ stdenv.mkDerivation {
     description = "Daemon that provides mouse support on the Linux console";
     license = licenses.gpl2Plus;
     platforms = platforms.linux ++ platforms.cygwin;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

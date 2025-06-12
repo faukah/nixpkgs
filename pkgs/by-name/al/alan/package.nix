@@ -7,7 +7,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alan";
   version = "3.0beta8";
@@ -55,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Alan interactive fiction language";
     license = lib.licenses.artistic2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ neilmayhew ];
+    maintainers = with lib.maintainers; [neilmayhew];
   };
 })

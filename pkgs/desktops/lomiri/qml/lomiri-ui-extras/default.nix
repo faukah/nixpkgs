@@ -15,7 +15,6 @@
   qtdeclarative,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-ui-extras";
   version = "0.7.0";
@@ -82,26 +81,24 @@ stdenv.mkDerivation (finalAttrs: {
   # Parallelism breaks xvfb-run-launched script for QML tests
   enableParallelChecking = false;
 
-  preCheck =
-    let
-      listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
-    in
-    ''
-      export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [ qtbase ]}
-      export QML2_IMPORT_PATH=${
-        listToQtVar qtbase.qtQmlPrefix (
-          [
-            qtdeclarative
-            lomiri-ui-toolkit
-          ]
-          ++ lomiri-ui-toolkit.propagatedBuildInputs
-        )
-      }
-      export XDG_RUNTIME_DIR=$PWD
-    '';
+  preCheck = let
+    listToQtVar = suffix: lib.makeSearchPathOutput "bin" suffix;
+  in ''
+    export QT_PLUGIN_PATH=${listToQtVar qtbase.qtPluginPrefix [qtbase]}
+    export QML2_IMPORT_PATH=${
+      listToQtVar qtbase.qtQmlPrefix (
+        [
+          qtdeclarative
+          lomiri-ui-toolkit
+        ]
+        ++ lomiri-ui-toolkit.propagatedBuildInputs
+      )
+    }
+    export XDG_RUNTIME_DIR=$PWD
+  '';
 
   passthru = {
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -114,7 +111,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lomiri-ui-extras";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-ui-extras/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

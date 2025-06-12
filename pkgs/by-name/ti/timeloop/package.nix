@@ -13,7 +13,6 @@
   enableISL ? false,
   accelergy,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timeloop";
   version = "3.0.3";
@@ -25,16 +24,18 @@ stdenv.mkDerivation rec {
     hash = "sha256-CGPhrBNzFdERAA/Eym2v0+FvFUe+VkBLnwYEqEMHE9k=";
   };
 
-  nativeBuildInputs = [ scons ];
+  nativeBuildInputs = [scons];
 
-  buildInputs = [
-    libconfig
-    boost
-    libyaml
-    yaml-cpp
-    ncurses
-    accelergy
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ gpm ];
+  buildInputs =
+    [
+      libconfig
+      boost
+      libyaml
+      yaml-cpp
+      ncurses
+      accelergy
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [gpm];
 
   preConfigure = ''
     cp -r ./pat-public/src/pat ./src/pat
@@ -96,6 +97,6 @@ stdenv.mkDerivation rec {
     homepage = "https://timeloop.csail.mit.edu";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
   };
 }

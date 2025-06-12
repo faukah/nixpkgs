@@ -7,7 +7,6 @@
   installShellFiles,
   nixosTests,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "fail2ban";
   version = "1.1.0";
@@ -24,10 +23,9 @@ python3.pkgs.buildPythonApplication rec {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  pythonPath =
-    with python3.pkgs;
+  pythonPath = with python3.pkgs;
     lib.optionals stdenv.hostPlatform.isLinux [
       systemd
       pyinotify
@@ -68,10 +66,9 @@ python3.pkgs.buildPythonApplication rec {
     ${python3.pythonOnBuildForHost.interpreter} setup.py install_data --install-dir=$out --root=$out
   '';
 
-  postInstall =
-    let
-      sitePackages = "$out/${python3.sitePackages}";
-    in
+  postInstall = let
+    sitePackages = "$out/${python3.sitePackages}";
+  in
     ''
       install -m 644 -D -t "$out/lib/systemd/system" build/fail2ban.service
       # Replace binary paths
@@ -94,12 +91,12 @@ python3.pkgs.buildPythonApplication rec {
       rm -r "${sitePackages}/usr"
     '';
 
-  passthru.tests = { inherit (nixosTests) fail2ban; };
+  passthru.tests = {inherit (nixosTests) fail2ban;};
 
   meta = with lib; {
     homepage = "https://www.fail2ban.org/";
     description = "Program that scans log files for repeated failing login attempts and bans IP addresses";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

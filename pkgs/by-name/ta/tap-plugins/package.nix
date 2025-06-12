@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ladspa-sdk,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tap-plugins";
   version = "unstable-2020-12-09";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
       TubeWarmth, TAP Vibrato.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 })

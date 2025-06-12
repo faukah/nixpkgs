@@ -5,13 +5,12 @@
   perl,
   man,
 }:
-
 stdenv.mkDerivation {
   pname = "linux-manual";
   inherit (linuxPackages_latest.kernel) version src;
 
-  nativeBuildInputs = [ perl ];
-  nativeInstallCheckInputs = [ man ];
+  nativeBuildInputs = [perl];
+  nativeInstallCheckInputs = [man];
 
   dontConfigure = true;
   dontBuild = true;
@@ -54,7 +53,7 @@ stdenv.mkDerivation {
     homepage = "https://kernel.org/";
     description = "Linux kernel API manual pages";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ mvs ];
+    maintainers = with lib.maintainers; [mvs];
     platforms = lib.platforms.linux;
   };
 }

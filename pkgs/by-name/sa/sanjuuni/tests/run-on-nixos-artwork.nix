@@ -3,8 +3,7 @@
   sanjuuni,
   nixos-artwork,
   lua5_2,
-}:
-let
+}: let
   makeCommand = derivation: baseFilename: ''
     echo "sanjuuni-test-run-on-nixos-artwork: Running Sanjuuni on ${derivation}/share/backgrounds/nixos/${baseFilename}.png"
     sanjuuni --lua --disable-opencl \
@@ -14,7 +13,7 @@ let
     lua -e "loadfile(\"$out/${baseFilename}.lua\")"
   '';
 in
-runCommand "sanjuuni-test-run-on-nixos-artwork"
+  runCommand "sanjuuni-test-run-on-nixos-artwork"
   {
     nativeBuildInputs = [
       sanjuuni

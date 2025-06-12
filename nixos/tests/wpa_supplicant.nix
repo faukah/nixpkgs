@@ -1,7 +1,7 @@
-{ pkgs, runTest }:
-
-let
-
+{
+  pkgs,
+  runTest,
+}: let
   inherit (pkgs) lib;
 
   meta = with lib.maintainers; {
@@ -13,15 +13,14 @@ let
 
   naughtyPassphrase = ''!,./;'[]\-=<>?:"{}|_+@$%^&*()`~ # ceci n'est pas un commentaire'';
 
-  runConnectionTest =
-    name: extraConfig:
+  runConnectionTest = name: extraConfig:
     runTest {
       name = "wpa_supplicant-${name}";
       inherit meta;
 
       nodes.machine = {
         # add a virtual wlan interface
-        boot.kernelModules = [ "mac80211_hwsim" ];
+        boot.kernelModules = ["mac80211_hwsim"];
 
         # wireless access point
         services.hostapd = {
@@ -35,7 +34,7 @@ let
                 ssid = "nixos-test-sae";
                 authentication = {
                   mode = "wpa3-sae";
-                  saePasswords = [ { passwordFile = pkgs.writeText "password" naughtyPassphrase; } ];
+                  saePasswords = [{passwordFile = pkgs.writeText "password" naughtyPassphrase;}];
                 };
                 bssid = "02:00:00:00:00:00";
               };
@@ -68,7 +67,7 @@ let
             # disabled with mkVMOverride in qemu-vm.nix.
             enable = lib.mkOverride 0 true;
             userControlled.enable = true;
-            interfaces = [ "wlan1" ];
+            interfaces = ["wlan1"];
             fallbackToWPA2 = lib.mkDefault true;
 
             # secrets
@@ -92,10 +91,7 @@ let
             )
       '';
     };
-
-in
-
-{
+in {
   # Test the basic setup:
   #   - automatic interface discovery
   #   - WPA2 fallbacks
@@ -106,7 +102,7 @@ in
 
     nodes.machine = {
       # add a virtual wlan interface
-      boot.kernelModules = [ "mac80211_hwsim" ];
+      boot.kernelModules = ["mac80211_hwsim"];
 
       # wireless client
       networking.wireless = {
@@ -127,7 +123,7 @@ in
           };
           sae-only = {
             psk = "password";
-            authProtocols = [ "SAE" ];
+            authProtocols = ["SAE"];
           };
         };
       };
@@ -160,14 +156,14 @@ in
 
     nodes.machine = {
       # add a virtual wlan interface
-      boot.kernelModules = [ "mac80211_hwsim" ];
+      boot.kernelModules = ["mac80211_hwsim"];
 
       # wireless client
       networking.wireless = {
         enable = lib.mkOverride 0 true;
         userControlled.enable = true;
         allowAuxiliaryImperativeNetworks = true;
-        interfaces = [ "wlan1" ];
+        interfaces = ["wlan1"];
       };
     };
 
@@ -192,7 +188,7 @@ in
     fallbackToWPA2 = false;
     networks.nixos-test-sae = {
       pskRaw = "ext:psk_nixos_test";
-      authProtocols = [ "SAE" ];
+      authProtocols = ["SAE"];
     };
   };
 
@@ -201,7 +197,7 @@ in
     fallbackToWPA2 = false;
     networks.nixos-test-mixed = {
       pskRaw = "ext:psk_nixos_test";
-      authProtocols = [ "SAE" ];
+      authProtocols = ["SAE"];
     };
   };
 
@@ -210,7 +206,7 @@ in
     fallbackToWPA2 = true;
     networks.nixos-test-mixed = {
       pskRaw = "ext:psk_nixos_test";
-      authProtocols = [ "WPA-PSK-SHA256" ];
+      authProtocols = ["WPA-PSK-SHA256"];
     };
   };
 
@@ -219,7 +215,7 @@ in
     fallbackToWPA2 = true;
     networks.nixos-test-wpa2 = {
       pskRaw = "ext:psk_nixos_test";
-      authProtocols = [ "WPA-PSK-SHA256" ];
+      authProtocols = ["WPA-PSK-SHA256"];
     };
   };
 }

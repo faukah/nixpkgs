@@ -3,16 +3,14 @@
   fetchFromGitHub,
   gerbilPackages,
   ...
-}:
-
-{
+}: {
   pname = "ftw";
   version = "unstable-2023-11-15";
   git-version = "e5e2f56";
   softwareName = "FTW: For The Web!";
   gerbil-package = "drewc/ftw";
 
-  gerbilInputs = with gerbilPackages; [ gerbil-utils ];
+  gerbilInputs = with gerbilPackages; [gerbil-utils];
 
   pre-src = {
     fun = fetchFromGitHub;
@@ -27,6 +25,6 @@
     homepage = "https://github.com/drewc/ftw";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fare ];
+    maintainers = with maintainers; [fare];
   };
 }

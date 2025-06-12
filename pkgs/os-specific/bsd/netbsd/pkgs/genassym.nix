@@ -1,3 +1,2 @@
-{ mkDerivation }:
-
-mkDerivation { path = "usr.bin/genassym"; }
+{mkDerivation}:
+mkDerivation {path = "usr.bin/genassym";}

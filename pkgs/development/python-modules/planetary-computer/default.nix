@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   click,
   packaging,
@@ -15,16 +13,13 @@
   python-dotenv,
   pytz,
   requests,
-
   # optional-dependencies
   adlfs,
   azure-storage-blob,
-
   # test
   responses,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "planetary-computer";
   version = "1.0.0.post0";
@@ -53,8 +48,8 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    adlfs = [ adlfs ];
-    azure = [ azure-storage-blob ];
+    adlfs = [adlfs];
+    azure = [azure-storage-blob];
     all = lib.flatten (lib.attrValues (lib.filterAttrs (n: v: n != "all") optional-dependencies));
   };
 
@@ -62,10 +57,12 @@ buildPythonPackage rec {
     "planetary_computer"
   ];
 
-  nativeCheckInputs = [
-    responses
-    pytestCheckHook
-  ] ++ optional-dependencies.all;
+  nativeCheckInputs =
+    [
+      responses
+      pytestCheckHook
+    ]
+    ++ optional-dependencies.all;
 
   disabledTests = [
     # tests require network access
@@ -79,7 +76,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/microsoft/planetary-computer-sdk-for-python";
     changelog = "https://github.com/microsoft/planetary-computer-sdk-for-python/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
     mainProgram = "planetarycomputer";
   };
 }

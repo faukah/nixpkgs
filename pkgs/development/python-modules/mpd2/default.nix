@@ -7,7 +7,6 @@
   twisted,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-mpd2";
   version = "3.1.1";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-S67DWEzEPtmUjVVZB5+vwmebBrKt4nPpCbNYJlSys/U=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   optional-dependencies = {
-    twisted = [ twisted ];
+    twisted = [twisted];
   };
 
-  nativeCheckInputs = [ unittestCheckHook ] ++ optional-dependencies.twisted;
+  nativeCheckInputs = [unittestCheckHook] ++ optional-dependencies.twisted;
 
   meta = with lib; {
     changelog = "https://github.com/Mic92/python-mpd2/blob/v${version}/doc/changes.rst";

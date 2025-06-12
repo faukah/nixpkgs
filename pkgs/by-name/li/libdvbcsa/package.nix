@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdvbcsa";
   version = "1.1.0";
@@ -20,7 +19,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.videolan.org/developers/libdvbcsa.html";
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ melias122 ];
+    maintainers = with lib.maintainers; [melias122];
   };
-
 }

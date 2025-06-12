@@ -7,7 +7,6 @@
   libjack2,
   libpulseaudio,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.0.0";
   pname = "libsoundio";
@@ -19,10 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "12l4rvaypv87vigdrmjz48d4d6sq4gfxf5asvnc4adyabxb73i4x";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
-    [ libjack2 ]
+    [libjack2]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libpulseaudio
       alsa-lib
@@ -39,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "http://libsound.io/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.andrewrk ];
+    maintainers = [maintainers.andrewrk];
   };
 }

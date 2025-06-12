@@ -10,7 +10,6 @@
   pdftk,
   ghostscript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "signaturepdf";
   version = "1.7.4";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-8R1eowMpdb4oj3j+gMJ2RsWVzHvNiXPwFaLHR0jqFJo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -38,14 +37,14 @@ stdenv.mkDerivation rec {
       --inherit-argv0 \
       --chdir $out/share/signaturepdf \
       --prefix PATH : ${
-        lib.makeBinPath [
-          imagemagick
-          librsvg
-          potrace
-          pdftk
-          ghostscript
-        ]
-      } \
+      lib.makeBinPath [
+        imagemagick
+        librsvg
+        potrace
+        pdftk
+        ghostscript
+      ]
+    } \
       --run 'port=$1' \
       --run '[ $# -ge 1 ] || ( echo "Usage $0 <port> -d upload_max_filesize=24M -d post_max_size=24M -d max_file_uploads=201" >&2 && exit 1 )' \
       --run 'shift' \
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/24eme/signaturepdf/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ DamienCassou ];
+    maintainers = with lib.maintainers; [DamienCassou];
   };
 }

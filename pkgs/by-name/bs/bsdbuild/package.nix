@@ -9,7 +9,6 @@
   mandoc,
   ed,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bsdbuild";
   version = "3.1";

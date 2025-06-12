@@ -6,7 +6,6 @@
   fetchFromGitHub,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jsonnet";
   version = "0.21.0";
@@ -26,15 +25,23 @@ stdenv.mkDerivation rec {
     jekyll
     cmake
   ];
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
   cmakeFlags =
     [
       "-DUSE_SYSTEM_GTEST=ON"
-      "-DBUILD_STATIC_LIBS=${if stdenv.hostPlatform.isStatic then "ON" else "OFF"}"
+      "-DBUILD_STATIC_LIBS=${
+        if stdenv.hostPlatform.isStatic
+        then "ON"
+        else "OFF"
+      }"
     ]
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
-      "-DBUILD_SHARED_BINARIES=${if stdenv.hostPlatform.isStatic then "OFF" else "ON"}"
+      "-DBUILD_SHARED_BINARIES=${
+        if stdenv.hostPlatform.isStatic
+        then "OFF"
+        else "ON"
+      }"
     ];
 
   enableParallelBuilding = true;

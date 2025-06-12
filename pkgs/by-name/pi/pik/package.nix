@@ -5,7 +5,6 @@
   testers,
   pik,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pik";
   version = "0.23.1";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-t9iGHmwB533Jk5sJ6XmOg2OVaD+PgsKaQQ66QjQxdNY=";
 
-  passthru.tests.version = testers.testVersion { package = pik; };
+  passthru.tests.version = testers.testVersion {package = pik;};
 
   meta = {
     description = "Process Interactive Kill";
@@ -29,8 +28,8 @@ rustPlatform.buildRustPackage rec {
       It works like pkill command but search is interactive.
     '';
     homepage = "https://github.com/jacek-kurlit/pik";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ bew ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [bew];
     mainProgram = "pik";
   };
 }

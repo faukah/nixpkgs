@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jamulussoftware";
     repo = "jamulus";
-    tag = "r${lib.replaceStrings [ "." ] [ "_" ] version}";
+    tag = "r${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-YxXSSVm3n96YzE51cXpWf4z2nQBSguvcEp/kU0a6iBA=";
   };
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     libjack2
   ];
 
-  qmakeFlags = [ "CONFIG+=noupcasename" ];
+  qmakeFlags = ["CONFIG+=noupcasename"];
 
   meta = {
     description = "Enables musicians to perform real-time jam sessions over the internet";
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     mainProgram = "jamulus";
-    maintainers = with lib.maintainers; [ seb314 ];
+    maintainers = with lib.maintainers; [seb314];
   };
 }

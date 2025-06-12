@@ -13,11 +13,11 @@ anki-utils.buildAnkiAddon (finalAttrs: {
     rev = "v${finalAttrs.version}";
     hash = "sha256-6reIUz+tHKd4KQpuofLa/tIL5lCloj3yODZ8Cz29jFU=";
   };
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
   meta = {
     description = "Add a new menu item for adjusting the sound volume";
     homepage = "https://github.com/mnogu/adjust-sound-volume";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ junestepp ];
+    maintainers = with lib.maintainers; [junestepp];
   };
 })

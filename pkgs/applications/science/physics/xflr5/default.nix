@@ -4,7 +4,6 @@
   qmake,
   fetchsvn,
 }:
-
 mkDerivation rec {
   pname = "xflr5";
   version = "6.61";
@@ -16,14 +15,14 @@ mkDerivation rec {
     sha256 = "sha256-Uj6R15OT5i5tAJEYWqyFyN5Z51Wz5RjO26mWC3Y6QAI=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   meta = with lib; {
     description = "Analysis tool for airfoils, wings and planes";
     mainProgram = "xflr5";
     homepage = "https://sourceforge.net/projects/xflr5/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.esclear ];
+    maintainers = [maintainers.esclear];
     platforms = platforms.linux;
   };
 }

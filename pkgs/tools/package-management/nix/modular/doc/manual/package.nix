@@ -1,7 +1,6 @@
 {
   lib,
   mkMesonDerivation,
-
   meson,
   ninja,
   lowdown-unsandboxed,
@@ -11,12 +10,9 @@
   python3,
   rsync,
   nix-cli,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonDerivation (finalAttrs: {
   pname = "nix-manual";
   inherit version;
@@ -41,9 +37,11 @@ mkMesonDerivation (finalAttrs: {
     rsync
   ];
 
-  nativeBuildInputs = finalAttrs.passthru.externalNativeBuildInputs ++ [
-    nix-cli
-  ];
+  nativeBuildInputs =
+    finalAttrs.passthru.externalNativeBuildInputs
+    ++ [
+      nix-cli
+    ];
 
   preConfigure = ''
     chmod u+w ./.version

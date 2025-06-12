@@ -18,7 +18,6 @@
   pythonOlder,
   zeroconf,
 }:
-
 buildPythonPackage rec {
   pname = "aiohomekit";
   version = "3.2.15";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-UAFiYTAz5TZVviwoCFzeSGi9acVytQU9hgVVVVecOBU=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiocoap
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     "tests/test_ip_pairing.py"
   ];
 
-  pythonImportsCheck = [ "aiohomekit" ];
+  pythonImportsCheck = ["aiohomekit"];
 
   meta = with lib; {
     description = "Python module that implements the HomeKit protocol";
@@ -70,7 +69,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/Jc2k/aiohomekit";
     changelog = "https://github.com/Jc2k/aiohomekit/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "aiohomekitctl";
   };
 }

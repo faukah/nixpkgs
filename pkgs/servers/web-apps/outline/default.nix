@@ -11,7 +11,6 @@
   yarn,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "outline";
   version = "0.84.0";
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
       --add-flags $build/server/index.js \
       --set NODE_ENV production \
       --set NODE_PATH $node_modules \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]} # required to run migrations
+      --prefix PATH : ${lib.makeBinPath [nodejs]} # required to run migrations
 
     runHook postInstall
   '';
@@ -83,7 +82,7 @@ stdenv.mkDerivation rec {
     tests = {
       basic-functionality = nixosTests.outline;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     # alias for nix-update to be able to find and update this attribute
     offlineCache = yarnOfflineCache;
   };
@@ -97,7 +96,7 @@ stdenv.mkDerivation rec {
       cab404
       yrd
     ];
-    teams = [ teams.cyberus ];
+    teams = [teams.cyberus];
     platforms = platforms.linux;
   };
 }

@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "bitstruct";
   version = "8.21.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "bitstruct" ];
+  pythonImportsCheck = ["bitstruct"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Python bit pack/unpack package";
     homepage = "https://github.com/eerimoq/bitstruct";
     license = licenses.mit;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

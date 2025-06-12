@@ -17,7 +17,6 @@
   freetype,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "tryton";
   version = "7.6.1";
@@ -28,7 +27,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-IvLLxExQobugFkdByuKIK59jILALj3SniCcQp+OyZ3c=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   nativeBuildInputs = [
     pkg-config
@@ -65,7 +64,7 @@ python3Packages.buildPythonApplication rec {
 
   strictDeps = false;
 
-  pythonImportsCheck = [ "tryton" ];
+  pythonImportsCheck = ["tryton"];
 
   doCheck = false;
 

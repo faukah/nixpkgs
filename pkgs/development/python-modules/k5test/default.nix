@@ -8,7 +8,6 @@
   setuptools,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "k5test";
   version = "0.10.4";
@@ -30,18 +29,18 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "k5test" ];
+  pythonImportsCheck = ["k5test"];
 
   meta = with lib; {
     description = "Library for setting up self-contained Kerberos 5 environment";
     homepage = "https://github.com/pythongssapi/k5test";
     changelog = "https://github.com/pythongssapi/k5test/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

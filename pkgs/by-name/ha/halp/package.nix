@@ -6,7 +6,6 @@
   stdenv,
   unixtools,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "halp";
   version = "0.2.0";
@@ -26,9 +25,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./fix-target-dir.patch
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ unixtools.script ];
+  nativeCheckInputs = [unixtools.script];
 
   # tests are failing on darwin
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -73,7 +72,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "halp";
   };
 })

@@ -8,7 +8,6 @@
   isodate,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-netapp";
   version = "13.5.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-StCIk/lM+SceJVjw5CDwheg6avcSep1VYXLwi96UXJE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-netapp_${version}/sdk/netapp/azure-mgmt-netapp/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

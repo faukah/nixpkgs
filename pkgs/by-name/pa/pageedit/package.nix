@@ -5,7 +5,6 @@
   cmake,
   qt6Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pageedit";
   version = "2.5.0";
@@ -28,28 +27,27 @@ stdenv.mkDerivation (finalAttrs: {
     qtwebengine
   ];
 
-  cmakeFlags = [ "-DINSTALL_BUNDLED_DICTS=0" ];
+  cmakeFlags = ["-DINSTALL_BUNDLED_DICTS=0"];
 
   installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        runHook preInstall
+    if stdenv.hostPlatform.isDarwin
+    then ''
+      runHook preInstall
 
-        mkdir -p $out/Applications
-        cp -r bin/PageEdit.app $out/Applications
-        makeWrapper $out/Applications/PageEdit.app/Contents/MacOS/PageEdit $out/bin/pageedit
+      mkdir -p $out/Applications
+      cp -r bin/PageEdit.app $out/Applications
+      makeWrapper $out/Applications/PageEdit.app/Contents/MacOS/PageEdit $out/bin/pageedit
 
-        runHook postInstall
-      ''
-    else
-      null;
+      runHook postInstall
+    ''
+    else null;
 
   meta = {
     description = "ePub XHTML Visual Editor";
     mainProgram = "pageedit";
     homepage = "https://sigil-ebook.com/pageedit/";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.pasqui23 ];
+    maintainers = [lib.maintainers.pasqui23];
     platforms = lib.platforms.all;
   };
 })

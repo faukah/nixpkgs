@@ -10,7 +10,6 @@
   sphinx-book-theme,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-remove-toctrees";
   version = "1.0.0.post1";
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Reduce your documentation build size by selectively removing toctrees from pages";
     homepage = "https://pypi.org/project/sphinx-remove-toctrees/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -13,7 +13,6 @@
   json-glib,
   libgee,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cryptor";
   version = "1.1.0";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/cryptor \
-      --prefix PATH : "${lib.makeBinPath [ gocryptfs ]}"
+      --prefix PATH : "${lib.makeBinPath [gocryptfs]}"
 
     install -Dm444 $src/resources/misc/cryptor.desktop -t $out/share/applications
     substituteInPlace $out/share/applications/cryptor.desktop \
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/moson-mo/cryptor";
     license = lib.licenses.bsd3;
     mainProgram = "cryptor";
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
   };
 })

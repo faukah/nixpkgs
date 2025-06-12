@@ -9,7 +9,6 @@
   lib,
   resholve,
 }:
-
 resholve.mkDerivation {
   pname = "pdfmm";
   version = "unstable-2019-01-24";
@@ -41,7 +40,7 @@ resholve.mkDerivation {
     ];
     fake = {
       # only need xmessage if zenity is unavailable
-      external = [ "xmessage" ];
+      external = ["xmessage"];
     };
     execer = [
       "cannot:${zenity}/bin/zenity"
@@ -53,7 +52,7 @@ resholve.mkDerivation {
     description = "Graphical assistant to reduce the size of a PDF file";
     homepage = "https://github.com/jpfleury/pdfmm";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "pdfmm";
     platforms = platforms.linux ++ platforms.darwin;
   };

@@ -9,7 +9,6 @@
   ipython,
   texlive,
 }:
-
 buildPythonPackage {
   pname = "pytikz-allefeld"; # "pytikz" on pypi is a different module
   version = "unstable-2022-11-01";
@@ -24,7 +23,7 @@ buildPythonPackage {
     hash = "sha256-G59UUkpjttJKNBN0MB/A9CftO8tO3nv8qlTxt3/fKHk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   dependencies = [
     pymupdf
@@ -32,9 +31,9 @@ buildPythonPackage {
     ipython
   ];
 
-  pythonImportsCheck = [ "tikz" ];
+  pythonImportsCheck = ["tikz"];
 
-  nativeCheckInputs = [ texlive.combined.scheme-small ];
+  nativeCheckInputs = [texlive.combined.scheme-small];
   checkPhase = ''
     runHook preCheck
     python -c 'if 1:
@@ -52,6 +51,6 @@ buildPythonPackage {
     homepage = "https://github.com/allefeld/pytikz";
     description = "Python interface to TikZ";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

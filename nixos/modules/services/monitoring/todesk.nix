@@ -3,25 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.todesk;
-in
-{
+in {
   options = {
     services.todesk.enable = lib.mkEnableOption "ToDesk daemon";
-    services.todesk.package = lib.mkPackageOption pkgs "todesk" { };
+    services.todesk.package = lib.mkPackageOption pkgs "todesk" {};
   };
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.todeskd = {
       description = "ToDesk Daemon Service";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "display-manager.service"

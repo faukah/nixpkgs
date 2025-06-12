@@ -10,7 +10,6 @@
   pkg-config,
   systemd,
 }:
-
 stdenv.mkDerivation {
   pname = "lightum";
   version = "unstable-2014-06-07";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-dzWUVY2srgk6BM6jZ7FF+snxnPopz3fx9nq+mVkmogc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     dbus
@@ -48,7 +47,7 @@ stdenv.mkDerivation {
     mainProgram = "lightum";
     homepage = "https://github.com/poliva/lightum";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ puffnfresh ];
+    maintainers = with lib.maintainers; [puffnfresh];
     platforms = lib.platforms.linux;
   };
 }

@@ -7,11 +7,9 @@
   gmp,
   cython,
   cysignals,
-
   # Reverse dependency
   sage,
 }:
-
 buildPythonPackage rec {
   pname = "cypari2";
   # upgrade may break sage, please test the sage build or ping @timokau on upgrade
@@ -28,9 +26,9 @@ buildPythonPackage rec {
     ${python.pythonOnBuildForHost.interpreter} setup.py build_ext --inplace
   '';
 
-  nativeBuildInputs = [ pari ];
+  nativeBuildInputs = [pari];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   propagatedBuildInputs = [
     cysignals
@@ -49,7 +47,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Cython bindings for PARI";
     license = licenses.gpl2Plus;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     homepage = "https://github.com/defeo/cypari2";
   };
 }

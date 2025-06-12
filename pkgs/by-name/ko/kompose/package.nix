@@ -7,7 +7,6 @@
   kompose,
   git,
 }:
-
 buildGoModule rec {
   pname = "kompose";
   version = "1.36.0";
@@ -31,7 +30,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  checkFlags = [ "-short" ];
+  checkFlags = ["-short"];
 
   postInstall = ''
     for shell in bash zsh; do

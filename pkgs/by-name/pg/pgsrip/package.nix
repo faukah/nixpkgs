@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pgsrip";
   version = "0.1.11";
@@ -19,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-H9gZXge+m/bCq25Fv91oFZ8Cq2SRNrKhOaDrLZkjazg=";
   };
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   dependencies = with python3Packages; [
     babelfish
@@ -38,14 +37,14 @@ python3Packages.buildPythonApplication rec {
     "setuptools"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rip your PGS subtitles";
     homepage = "https://github.com/ratoaq2/pgsrip";
     changelog = "https://github.com/ratoaq2/pgsrip/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
     mainProgram = "pgsrip";
   };
 }

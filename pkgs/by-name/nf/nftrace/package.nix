@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "nftrace";
   version = "0.1.0";
@@ -24,16 +23,16 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Commodity tool to use nftables trace functionality";
     homepage = "https://github.com/aojea/nftrace";
     changelog = "https://github.com/aojea/nftrace/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.jmbaur ];
+    maintainers = [lib.maintainers.jmbaur];
     mainProgram = "nftrace";
   };
 }

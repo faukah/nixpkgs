@@ -12,7 +12,6 @@
   shellingham,
   darwin,
 }:
-
 buildPythonPackage rec {
   pname = "poetry-plugin-shell";
   version = "1.0.1";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-BntObwrW7xt1gYWpckLJF7GklkmUJMh8D1IUwCcOOl4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   buildInputs = [
     poetry
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Poetry plugin to run subshell with virtual environment activated";
     homepage = "https://github.com/python-poetry/poetry-plugin-shell";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -10,7 +10,6 @@
   check,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libstrophe";
   version = "0.14.0";

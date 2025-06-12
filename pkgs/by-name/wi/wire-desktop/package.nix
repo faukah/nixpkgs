@@ -16,37 +16,36 @@
   nss,
   nspr,
   systemd,
-}:
-
-let
-
+}: let
   inherit (stdenv.hostPlatform) system;
 
   throwSystem = throw "Unsupported system: ${system}";
 
   pname = "wire-desktop";
 
-  version =
-    let
-      x86_64-darwin = "3.39.5211";
-    in
+  version = let
+    x86_64-darwin = "3.39.5211";
+  in
     {
       inherit x86_64-darwin;
       aarch64-darwin = x86_64-darwin;
       x86_64-linux = "3.39.3653";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
-  hash =
-    let
-      x86_64-darwin = "sha256-k6CIqHt67AFL70zdK0/91aQcpbb00OIggk5TF7y1IOY=";
-    in
+  hash = let
+    x86_64-darwin = "sha256-k6CIqHt67AFL70zdK0/91aQcpbb00OIggk5TF7y1IOY=";
+  in
     {
       inherit x86_64-darwin;
       aarch64-darwin = x86_64-darwin;
       x86_64-linux = "sha256-BbY+7fGAWW5CR/z4GeoBl5aOewCRuWzQjpQX4x1rzls=";
     }
-    .${system} or throwSystem;
+    .${
+      system
+    } or throwSystem;
 
   meta = with lib; {
     description = "Modern, secure messenger for everyone";
@@ -63,16 +62,18 @@ let
     '';
     homepage = "https://wire.com/";
     downloadPage = "https://wire.com/download/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [
       arianvp
       toonn
     ];
-    platforms = platforms.darwin ++ [
-      "x86_64-linux"
-    ];
-    hydraPlatforms = [ ];
+    platforms =
+      platforms.darwin
+      ++ [
+        "x86_64-linux"
+      ];
+    hydraPlatforms = [];
   };
 
   linux = stdenv.mkDerivation rec {
@@ -109,7 +110,7 @@ let
       autoPatchelfHook
       dpkg
       makeWrapper
-      (buildPackages.wrapGAppsHook3.override { makeWrapper = buildPackages.makeShellWrapper; })
+      (buildPackages.wrapGAppsHook3.override {makeWrapper = buildPackages.makeShellWrapper;})
     ];
 
     buildInputs = [
@@ -189,6 +190,7 @@ let
       runHook postInstall
     '';
   };
-
 in
-if stdenv.hostPlatform.isDarwin then darwin else linux
+  if stdenv.hostPlatform.isDarwin
+  then darwin
+  else linux

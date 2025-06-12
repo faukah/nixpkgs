@@ -11,7 +11,7 @@
   ruff,
   tesseract4,
   vde2,
-  extraPythonPackages ? (_: [ ]),
+  extraPythonPackages ? (_: []),
   nixosTests,
 }:
 python3Packages.buildPythonApplication {
@@ -25,8 +25,7 @@ python3Packages.buildPythonApplication {
     setuptools
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       colorama
       junit-xml

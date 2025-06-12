@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "git-appraise";
   version = "unstable-2022-04-13";
@@ -26,7 +25,7 @@ buildGoModule {
     description = "Distributed code review system for Git repos";
     homepage = "https://github.com/google/git-appraise";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     mainProgram = "git-appraise";
   };
 }

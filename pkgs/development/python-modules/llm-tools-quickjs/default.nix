@@ -10,7 +10,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-tools-quickjs";
   version = "0.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Si3VcHnRUj8Q/N8pRhltPOM6K64TX9DBH/u4WQxQJjQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     llm
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     writableTmpDirAsHomeHook
   ];
 
-  pythonImportsCheck = [ "llm_tools_quickjs" ];
+  pythonImportsCheck = ["llm_tools_quickjs"];
 
   passthru.tests = llm.mkPluginTest llm-tools-quickjs;
 
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-tools-quickjs";
     changelog = "https://github.com/simonw/llm-tools-quickjs/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

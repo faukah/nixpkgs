@@ -3,7 +3,6 @@
   debtcollector,
   stestr,
 }:
-
 buildPythonPackage {
   pname = "debtcollector-tests";
   inherit (debtcollector) version src;

@@ -7,7 +7,6 @@
   wrapGAppsHook3,
   go,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-bamboo";
   version = "0.8.4-rc6";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BambooEngine/ibus-bamboo";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ astronaut0212 ];
+    maintainers = with maintainers; [astronaut0212];
   };
 }

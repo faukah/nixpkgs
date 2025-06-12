@@ -11,7 +11,6 @@
   unzip,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fiji";
   version = "20250408-1717";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = [ (lib.getLib stdenv.cc.cc) ];
+  buildInputs = [(lib.getLib stdenv.cc.cc)];
 
   desktopItems = [
     (makeDesktopItem {
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
       exec = "fiji %F";
       tryExec = "fiji";
       icon = "fiji";
-      mimeTypes = [ "image/*" ];
+      mimeTypes = ["image/*"];
       comment = "Scientific Image Analysis";
       desktopName = "Fiji Is Just ImageJ";
       genericName = "Fiji Is Just ImageJ";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/.fiji-launcher-hack
 
     makeWrapper $out/bin/.fiji-launcher-hack $out/bin/fiji \
-      --prefix PATH : ${lib.makeBinPath [ jdk11 ]} \
+      --prefix PATH : ${lib.makeBinPath [jdk11]} \
       --set JAVA_HOME ${jdk11.home} \
       ''${gappsWrapperArgs[@]}
 
@@ -85,7 +84,7 @@ stdenv.mkDerivation rec {
     homepage = "https://imagej.net/software/fiji/";
     description = "batteries-included distribution of ImageJ2, bundling a lot of plugins which facilitate scientific image analysis";
     mainProgram = "fiji";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     sourceProvenance = with sourceTypes; [
       binaryBytecode
       binaryNativeCode
@@ -96,6 +95,6 @@ stdenv.mkDerivation rec {
       bsd2
       publicDomain
     ];
-    maintainers = with maintainers; [ davisrichard437 ];
+    maintainers = with maintainers; [davisrichard437];
   };
 }

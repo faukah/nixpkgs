@@ -3,9 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.riemann-tools;
 
   riemannHost = "${cfg.riemannHost}";
@@ -14,12 +12,8 @@ let
     #!/bin/sh
     exec ${pkgs.riemann-tools}/bin/riemann-health ${builtins.concatStringsSep " " cfg.extraArgs} --host ${riemannHost}
   '';
-
-in
-{
-
+in {
   options = {
-
     services.riemann-tools = {
       enableHealth = lib.mkOption {
         type = lib.types.bool;
@@ -37,7 +31,7 @@ in
       };
       extraArgs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           A list of commandline-switches forwarded to a riemann-tool.
           See for example `riemann-health --help` for available options.
@@ -52,7 +46,6 @@ in
   };
 
   config = lib.mkIf cfg.enableHealth {
-
     users.groups.riemanntools.gid = config.ids.gids.riemanntools;
 
     users.users.riemanntools = {
@@ -62,14 +55,12 @@ in
     };
 
     systemd.services.riemann-health = {
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.procps ];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.procps];
       serviceConfig = {
         User = "riemanntools";
         ExecStart = "${healthLauncher}/bin/riemann-health";
       };
     };
-
   };
-
 }

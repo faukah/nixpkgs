@@ -21,19 +21,19 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-3RrFA/THO9fWfk41nVbFGFv/VeFOcdN2mWgshC5PODw=";
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "UDP packet-forwarder for the ChirpStack Concentratord";
     homepage = "https://www.chirpstack.io/";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.stv0g ];
+    maintainers = [lib.maintainers.stv0g];
     mainProgram = "chirpstack-udp-forwarder";
   };
 }

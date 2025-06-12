@@ -7,7 +7,6 @@
   glm,
   libGL,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "visualization-pictureit";
   namespace = "visualization.pictureit";
@@ -25,12 +24,12 @@ buildKodiBinaryAddon rec {
     libGL
   ];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
   meta = with lib; {
     homepage = "https://github.com/xbmc/visualization.pictureit";
     description = "PictureIt visualization for kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

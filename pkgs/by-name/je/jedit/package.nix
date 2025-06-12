@@ -9,15 +9,13 @@
   makeWrapper,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jedit";
   version = "5.7.0";
 
-  src =
-    let
-      versionWithDashes = lib.replaceStrings [ "." ] [ "-" ] finalAttrs.version;
-    in
+  src = let
+    versionWithDashes = lib.replaceStrings ["."] ["-"] finalAttrs.version;
+  in
     fetchsvn {
       url = "https://svn.code.sf.net/p/jedit/svn/jEdit/tags/jedit-${versionWithDashes}";
       hash = "sha256-XfYK2C0QZrg4b//1eQcUNViRthBbXV+cbcYetzw2RG8=";
@@ -112,7 +110,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.jedit.org";
     license = lib.licenses.gpl2Only;
     mainProgram = "jedit";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [
       fromSource

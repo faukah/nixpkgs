@@ -7,7 +7,6 @@
   rapidjson,
   websocketpp,
 }:
-
 stdenv.mkDerivation {
   pname = "sioclient";
   version = "3.1.0-unstable-2023-11-10";
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     description = "C++11 implementation of Socket.IO client";
     homepage = "https://github.com/socketio/socket.io-client-cpp";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

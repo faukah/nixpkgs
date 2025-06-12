@@ -15,7 +15,6 @@
   file,
   pkgsi686Linux,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cups-brother-dcpt310";
   version = "1.0.1";
@@ -91,7 +90,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
 
     patchelf --set-interpreter "$interpreter" "$out/opt/brother/Printers/dcpt310/lpd/brdcpt310filter" \
-      --set-rpath ${lib.makeLibraryPath [ pkgsi686Linux.stdenv.cc.cc ]}
+      --set-rpath ${lib.makeLibraryPath [pkgsi686Linux.stdenv.cc.cc]}
     patchelf --set-interpreter "$interpreter" "$out/bin/brprintconf_dcpt310"
 
 
@@ -101,13 +100,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     wrapProgram $out/opt/brother/Printers/dcpt310/lpd/brdcpt310filter \
       --set PATH ${
-        lib.makeBinPath [
-          coreutils
-          gnugrep
-          gnused
-          ghostscript
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        gnugrep
+        gnused
+        ghostscript
+      ]
+    } \
       --set LD_PRELOAD "${pkgsi686Linux.libredirect}/lib/libredirect.so" \
       --set NIX_REDIRECTS /opt=$out/opt
 
@@ -117,14 +116,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ; do
       wrapProgram $f \
         --set PATH ${
-          lib.makeBinPath [
-            coreutils
-            ghostscript
-            gnugrep
-            gnused
-            file
-          ]
-        }
+      lib.makeBinPath [
+        coreutils
+        ghostscript
+        gnugrep
+        gnused
+        file
+      ]
+    }
     done
 
     substituteInPlace $out/bin/brprintconf_dcpt310 \
@@ -141,7 +140,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       binaryNativeCode
       fromSource
     ];
-    maintainers = with lib.maintainers; [ inexcode ];
+    maintainers = with lib.maintainers; [inexcode];
     platforms = [
       "x86_64-linux"
       "i686-linux"

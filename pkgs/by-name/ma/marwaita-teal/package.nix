@@ -8,7 +8,6 @@
   librsvg,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "marwaita-teal";
   version = "24";
@@ -39,13 +38,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Manjaro Style of Marwaita GTK theme";
     homepage = "https://www.pling.com/p/1351213/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

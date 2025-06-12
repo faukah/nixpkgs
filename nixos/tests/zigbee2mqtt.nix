@@ -3,16 +3,12 @@
   package,
   pkgs,
   ...
-}:
-
-let
+}: let
   error =
-    if lib.versionOlder package.version "2" then
-      "Inappropriate ioctl for device, cannot set"
-    else
-      "No valid USB adapter found";
-in
-{
+    if lib.versionOlder package.version "2"
+    then "Inappropriate ioctl for device, cannot set"
+    else "No valid USB adapter found";
+in {
   name = "zigbee2mqtt-${lib.versions.major package.version}.x";
   nodes.machine = {
     systemd.services.dummy-serial = {

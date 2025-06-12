@@ -5,7 +5,6 @@
   slang,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "most";
   version = "5.2.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
       -e "s|/bin/rm|rm|"
   '';
 
-  configureFlags = [ "--with-slang=${slang.dev}" ];
+  configureFlags = ["--with-slang=${slang.dev}"];
 
   buildInputs = [
     slang

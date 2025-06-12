@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.asterisk;
 
   asteriskUser = "asterisk";
@@ -51,14 +50,11 @@ let
         syslog.local0 => notice,warning,error
       '';
     }
-    // lib.mapAttrs (name: text: { inherit text; }) cfg.confFiles
+    // lib.mapAttrs (name: text: {inherit text;}) cfg.confFiles
     // lib.listToAttrs (
-      map (x: lib.nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles
+      map (x: lib.nameValuePair x {source = cfg.package + "/etc/asterisk/" + x;}) defaultConfFiles
     );
-
-in
-
-{
+in {
   options = {
     services.asterisk = {
       enable = lib.mkOption {
@@ -84,7 +80,7 @@ in
       };
 
       confFiles = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
         example = lib.literalExpression ''
           {
@@ -190,7 +186,7 @@ in
       };
 
       extraArguments = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = [
           "-vvvddd"
@@ -201,16 +197,18 @@ in
           Additional command line arguments to pass to Asterisk.
         '';
       };
-      package = lib.mkPackageOption pkgs "asterisk" { };
+      package = lib.mkPackageOption pkgs "asterisk" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    environment.etc = lib.mapAttrs' (
-      name: value: lib.nameValuePair "asterisk/${name}" value
-    ) allConfFiles;
+    environment.etc =
+      lib.mapAttrs' (
+        name: value: lib.nameValuePair "asterisk/${name}" value
+      )
+      allConfFiles;
 
     users.users.asterisk = {
       name = asteriskUser;
@@ -230,7 +228,7 @@ in
         Asterisk PBX server
       '';
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # Do not restart, to avoid disruption of running calls. Restart unit by yourself!
       restartIfChanged = false;
@@ -249,12 +247,10 @@ in
       '';
 
       serviceConfig = {
-        ExecStart =
-          let
-            # FIXME: This doesn't account for arguments with spaces
-            argString = lib.concatStringsSep " " cfg.extraArguments;
-          in
-          "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
+        ExecStart = let
+          # FIXME: This doesn't account for arguments with spaces
+          argString = lib.concatStringsSep " " cfg.extraArguments;
+        in "${cfg.package}/bin/asterisk -U ${asteriskUser} -C /etc/asterisk/asterisk.conf ${argString} -F";
         ExecReload = ''
           ${cfg.package}/bin/asterisk -x "core reload"
         '';

@@ -7,7 +7,6 @@
   file,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "remarkable2-toolchain";
   version = "3.1.2";
@@ -36,9 +35,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Toolchain for cross-compiling to reMarkable 2 tablets";
     homepage = "https://remarkable.engineering/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ tadfisher ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [tadfisher];
+    platforms = ["x86_64-linux"];
   };
 }

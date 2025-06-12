@@ -9,7 +9,6 @@
   requests-mock,
   sqlite-utils,
 }:
-
 buildPythonPackage rec {
   pname = "github-to-sqlite";
   version = "2.9";
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  disabledTests = [ "test_scrape_dependents" ];
+  disabledTests = ["test_scrape_dependents"];
 
   meta = with lib; {
     description = "Save data from GitHub to a SQLite database";
     mainProgram = "github-to-sqlite";
     homepage = "https://github.com/dogsheep/github-to-sqlite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sarcasticadmin ];
+    maintainers = with maintainers; [sarcasticadmin];
   };
 }

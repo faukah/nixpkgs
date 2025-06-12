@@ -2,8 +2,7 @@
   callPackage,
   nginxMainline,
   ...
-}@args:
-
+} @ args:
 callPackage ./generic.nix args {
   pname = "nginxQuic";
 

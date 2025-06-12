@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xits-math";
   version = "1.302";
@@ -17,8 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = (
-    with python3Packages;
-    [
+    with python3Packages; [
       python
       fonttools
       fontforge
@@ -38,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "OpenType implementation of STIX fonts with math support";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

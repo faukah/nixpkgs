@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+iS6nom52eofgcj/fZPVs2Eog9Un5ThSX+EBVmHTSlo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = "0";
   ldflags = [
@@ -30,18 +30,16 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  checkFlags =
-    let
-      # Skip tests that require network access
-      skippedTests = [
-        "TestNewClient/custom_buildkit_addr"
-        "TestPatch"
-        "TestPlugins/docker.io"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    # Skip tests that require network access
+    skippedTests = [
+      "TestNewClient/custom_buildkit_addr"
+      "TestPatch"
+      "TestPlugins/docker.io"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${meta.mainProgram}";
 
@@ -56,13 +54,13 @@ buildGoModule rec {
         --zsh <($out/bin/copa completion zsh)
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://project-copacetic.github.io/copacetic/";
     description = "Tool for directly patching vulnerabilities in container images";
     license = lib.licenses.asl20;
     mainProgram = "copa";
-    maintainers = with lib.maintainers; [ bmanuel ];
+    maintainers = with lib.maintainers; [bmanuel];
   };
 }

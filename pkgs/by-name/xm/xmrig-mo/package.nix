@@ -3,7 +3,6 @@
   fetchFromGitHub,
   xmrig,
 }:
-
 xmrig.overrideAttrs (oldAttrs: rec {
   pname = "xmrig-mo";
   version = "6.22.3-mo1";

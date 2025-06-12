@@ -20,7 +20,6 @@
     lib.meta.availableOn stdenv.hostPlatform gobject-introspection
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libxmlb";
   version = "0.3.22";
@@ -92,7 +91,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xb-tool";
     homepage = "https://github.com/hughsie/libxmlb";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

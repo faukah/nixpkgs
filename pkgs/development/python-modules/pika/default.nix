@@ -2,21 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   gevent,
   twisted,
   tornado,
-
   # tests
   nose2,
   mock,
-
 }:
-
 buildPythonPackage rec {
   pname = "pika";
   version = "1.3.2";
@@ -29,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-60Z+y3YXazUghfnOy4e7HzM18iju5m5OEt4I3Wg6ty4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     gevent
@@ -68,6 +63,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/pika/pika";
     homepage = "https://pika.readthedocs.org";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

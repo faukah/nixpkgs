@@ -3,22 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   nssModulesPath = config.system.nssModules.path;
   cfg = config.services.nscd;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.nscd = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = true;
@@ -67,7 +59,9 @@ in
       package = lib.mkOption {
         type = lib.types.package;
         default =
-          if pkgs.stdenv.hostPlatform.libc == "glibc" then pkgs.stdenv.cc.libc.bin else pkgs.glibc.bin;
+          if pkgs.stdenv.hostPlatform.libc == "glibc"
+          then pkgs.stdenv.cc.libc.bin
+          else pkgs.glibc.bin;
         defaultText = lib.literalExpression ''
           if pkgs.stdenv.hostPlatform.libc == "glibc"
             then pkgs.stdenv.cc.libc.bin
@@ -78,9 +72,7 @@ in
           Ignored when enableNsncd is set to true.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -93,7 +85,7 @@ in
       group = cfg.group;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.nscd = {
       description = "Name Service Cache Daemon" + lib.optionalString cfg.enableNsncd " (nsncd)";
@@ -106,7 +98,7 @@ in
         "nss-lookup.target"
         "nss-user-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requiredBy = [
         "nss-lookup.target"
         "nss-user-lookup.target"
@@ -136,14 +128,20 @@ in
       # sill want to read their configuration files after the privilege drop
       # and so users can set the owner of those files to the nscd user.
       serviceConfig = {
-        ExecStart = if cfg.enableNsncd then "${pkgs.nsncd}/bin/nsncd" else "!@${cfg.package}/bin/nscd nscd";
-        Type = if cfg.enableNsncd then "notify" else "forking";
+        ExecStart =
+          if cfg.enableNsncd
+          then "${pkgs.nsncd}/bin/nsncd"
+          else "!@${cfg.package}/bin/nscd nscd";
+        Type =
+          if cfg.enableNsncd
+          then "notify"
+          else "forking";
         User = cfg.user;
         Group = cfg.group;
         RemoveIPC = true;
         PrivateTmp = true;
         # https://github.com/twosigma/nsncd/pull/33/files#r1496927653
-        Environment = [ "NSNCD_HANDOFF_TIMEOUT=10" ];
+        Environment = ["NSNCD_HANDOFF_TIMEOUT=10"];
         NoNewPrivileges = true;
         RestrictSUIDSGID = true;
         ProtectSystem = "strict";

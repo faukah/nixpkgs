@@ -1,5 +1,7 @@
-{ stdenv, kamailio }:
-
+{
+  stdenv,
+  kamailio,
+}:
 stdenv.mkDerivation {
   name = "kamailio-bin-test";
   meta.timeout = 60;

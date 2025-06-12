@@ -8,7 +8,6 @@
   pythonAtLeast,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tlslite-ng";
   version = "0.8.2";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-lKSFPJ4Dm8o1zUgvXjUUpStV5M+xf7s6wOg2ceYbpbw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ ecdsa ];
+  dependencies = [ecdsa];
 
   nativeCheckInputs = [
     hypothesis
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tlsfuzzer/tlslite-ng";
     changelog = "https://github.com/tlsfuzzer/tlslite-ng/releases/tag/${src.tag}";
     license = licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

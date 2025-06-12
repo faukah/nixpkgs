@@ -10,7 +10,6 @@
   poppler,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdftag";
   version = "1.0.5";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Edit metadata found in PDFs";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.unix;
     mainProgram = "pdftag";
   };

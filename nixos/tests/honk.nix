@@ -1,21 +1,17 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "honk-server";
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.honk = {
-          enable = true;
-          host = "0.0.0.0";
-          port = 8080;
-          username = "username";
-          passwordFile = "${pkgs.writeText "honk-password" "secure"}";
-          servername = "servername";
-        };
+    machine = {pkgs, ...}: {
+      services.honk = {
+        enable = true;
+        host = "0.0.0.0";
+        port = 8080;
+        username = "username";
+        passwordFile = "${pkgs.writeText "honk-password" "secure"}";
+        servername = "servername";
       };
+    };
   };
 
   testScript = ''
@@ -30,5 +26,5 @@
     machine.wait_for_open_port(8080)
   '';
 
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 }

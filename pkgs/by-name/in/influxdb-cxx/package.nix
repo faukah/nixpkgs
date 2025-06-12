@@ -8,7 +8,6 @@
   libcpr_1_10_5,
   trompeloeil,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "influxdb-cxx";
   version = "0.7.4";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace CMakeLists.txt --replace-warn "-Werror" ""
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -47,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "InfluxDB C++ client library";
     homepage = "https://github.com/offa/influxdb-cxx";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 })

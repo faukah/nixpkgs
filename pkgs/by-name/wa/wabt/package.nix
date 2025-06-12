@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wabt";
   version = "1.0.37";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   cmakeFlags = [
     "-DBUILD_TESTS=OFF"
     "-DCMAKE_PROJECT_VERSION=${version}"
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/WebAssembly/wabt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ekleog ];
+    maintainers = with maintainers; [ekleog];
     platforms = platforms.unix;
   };
 }

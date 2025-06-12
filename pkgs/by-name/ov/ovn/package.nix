@@ -15,7 +15,6 @@
   unbound,
   xdp-tools,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ovn";
   version = "25.03.0";
@@ -101,7 +100,7 @@ stdenv.mkDerivation rec {
     touch $OVS_RESOLV_CONF
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Open Virtual Network";
@@ -111,7 +110,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ovn-org/ovn";
     changelog = "https://github.com/ovn-org/ovn/blob/${src.rev}/NEWS";
     license = licenses.asl20;
-    maintainers = with maintainers; [ adamcstephens ];
+    maintainers = with maintainers; [adamcstephens];
     platforms = platforms.linux;
   };
 }

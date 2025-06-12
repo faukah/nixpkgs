@@ -11,7 +11,6 @@
   libpng,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "harvid";
   version = "0.9.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       which
       unixtools.xxd
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Decodes still images from movie files and serves them via HTTP";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://x42.github.io/harvid";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.mitchmindtree ];
+    maintainers = [lib.maintainers.mitchmindtree];
     mainProgram = "harvid";
   };
 })

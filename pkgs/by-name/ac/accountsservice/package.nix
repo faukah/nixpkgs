@@ -19,7 +19,6 @@
   gettext,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "accountsservice";
   version = "23.13.9";
@@ -81,13 +80,13 @@ stdenv.mkDerivation rec {
 
   env =
     lib.optionalAttrs (stdenv.cc.isGNU && (lib.versionAtLeast (lib.getVersion stdenv.cc.cc) "14"))
-      {
-        NIX_CFLAGS_COMPILE = toString [
-          "-Wno-error=deprecated-declarations"
-          "-Wno-error=implicit-function-declaration"
-          "-Wno-error=return-mismatch"
-        ];
-      };
+    {
+      NIX_CFLAGS_COMPILE = toString [
+        "-Wno-error=deprecated-declarations"
+        "-Wno-error=implicit-function-declaration"
+        "-Wno-error=return-mismatch"
+      ];
+    };
 
   mesonFlags = [
     "-Dadmin_group=wheel"
@@ -104,8 +103,8 @@ stdenv.mkDerivation rec {
     description = "D-Bus interface for user account query and manipulation";
     homepage = "https://www.freedesktop.org/wiki/Software/AccountsService";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub ];
-    teams = [ teams.freedesktop ];
+    maintainers = with maintainers; [pSub];
+    teams = [teams.freedesktop];
     platforms = platforms.linux;
   };
 }

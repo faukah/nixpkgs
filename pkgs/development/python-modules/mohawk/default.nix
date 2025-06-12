@@ -7,7 +7,6 @@
   six,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "mohawk";
   version = "1.1.0";
@@ -27,18 +26,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "mohawk/tests.py" ];
+  pytestFlagsArray = ["mohawk/tests.py"];
 
   meta = {
     description = "Python library for Hawk HTTP authorization";
     homepage = "https://github.com/kumar303/mohawk";
     license = lib.licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

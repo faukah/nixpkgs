@@ -8,7 +8,6 @@
   outcome,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-trio";
   version = "0.8.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "sha256-gUH35Yk/pBD2EdCEt8D0XQKWU8BwmX5xtAW10qRhoYk=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     trio
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     PYTHONPATH=$PWD:$PYTHONPATH pytest
   '';
 
-  pythonImportsCheck = [ "pytest_trio" ];
+  pythonImportsCheck = ["pytest_trio"];
 
   meta = with lib; {
     description = "Pytest plugin for trio";
     homepage = "https://github.com/python-trio/pytest-trio";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

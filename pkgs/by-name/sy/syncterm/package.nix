@@ -11,7 +11,6 @@
   libX11,
   alsa-lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "syncterm";
   version = "1.6";
@@ -50,10 +49,12 @@ stdenv.mkDerivation rec {
     perl
     unzip
   ]; # SDL2 for `sdl2-config`.
-  buildInputs = [
-    ncurses
-    SDL2
-  ] ++ (lib.optional stdenv.hostPlatform.isLinux alsa-lib);
+  buildInputs =
+    [
+      ncurses
+      SDL2
+    ]
+    ++ (lib.optional stdenv.hostPlatform.isLinux alsa-lib);
   runtimeDependencies = [
     ncurses
     SDL2
@@ -66,7 +67,7 @@ stdenv.mkDerivation rec {
     homepage = "https://syncterm.bbsdev.net/";
     description = "BBS terminal emulator";
     mainProgram = "syncterm";
-    maintainers = with lib.maintainers; [ embr ];
+    maintainers = with lib.maintainers; [embr];
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl2Plus;
   };

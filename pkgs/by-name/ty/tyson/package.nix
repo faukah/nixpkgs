@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "tyson";
   version = "0.1.1-unstable-2024-04-10";
@@ -40,6 +39,6 @@ buildGoModule rec {
     homepage = "https://github.com/jetify-com/tyson";
     changelog = "https://github.com/jetify-com/tyson/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

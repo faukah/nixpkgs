@@ -5,7 +5,6 @@
   autoreconfHook,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "musl-fts";
   version = "1.2.7";
@@ -29,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "Implementation of fts(3) for musl-libc";
     platforms = platforms.linux;
     license = licenses.bsd3;
-    maintainers = [ maintainers.pjjw ];
+    maintainers = [maintainers.pjjw];
   };
 }

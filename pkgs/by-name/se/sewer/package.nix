@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "sewer";
   version = "0.8.4";
@@ -23,6 +22,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/komuw/sewer";
     description = "ACME client";
     license = licenses.mit;
-    maintainers = with maintainers; [ kevincox ];
+    maintainers = with maintainers; [kevincox];
   };
 }

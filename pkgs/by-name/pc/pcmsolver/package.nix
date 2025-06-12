@@ -10,7 +10,6 @@
   eigen,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pcmsolver";
   version = "1.3.0";
@@ -45,9 +44,9 @@ stdenv.mkDerivation rec {
   # Required for build with gcc-14
   env.NIX_CFLAGS_COMPILE = "-std=c++14";
 
-  cmakeFlags = [ "-DENABLE_OPENMP=ON" ];
+  cmakeFlags = ["-DENABLE_OPENMP=ON"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Requires files, that are not installed.
   doCheck = false;
@@ -58,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pcmsolver.readthedocs.io/en/stable/";
     license = licenses.lgpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -31,7 +31,6 @@
   qt5,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "harfbuzz${lib.optionalString withIcu "-icu"}";
   version = "10.2.0";
@@ -77,17 +76,19 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  nativeBuildInputs = [
-    meson
-    ninja
-    libintl
-    pkg-config
-    python3
-    glib
-    gtk-doc
-    docbook-xsl-nons
-    docbook_xml_dtd_43
-  ] ++ lib.optional withIntrospection gobject-introspection;
+  nativeBuildInputs =
+    [
+      meson
+      ninja
+      libintl
+      pkg-config
+      python3
+      glib
+      gtk-doc
+      docbook-xsl-nons
+      docbook_xml_dtd_43
+    ]
+    ++ lib.optional withIntrospection gobject-introspection;
 
   buildInputs = [
     glib
@@ -130,7 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenType text shaping engine";
     homepage = "https://harfbuzz.github.io/";
     changelog = "https://github.com/harfbuzz/harfbuzz/raw/${finalAttrs.version}/NEWS";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
     platforms = platforms.unix ++ platforms.windows;
     pkgConfigModules = [

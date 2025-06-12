@@ -11,7 +11,6 @@
   pcre,
   withStatic ? false, # build only shared libs by default, build static+shared if true
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyperscan";
   version = "5.4.2";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
   nativeBuildInputs = [
     cmake
     ragel
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DBUILD_AVX512=ON"
     ]
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) "-DFAT_RUNTIME=ON"
-    ++ lib.optional (withStatic) "-DBUILD_STATIC_AND_SHARED=ON"
+    ++ lib.optional withStatic "-DBUILD_STATIC_AND_SHARED=ON"
     ++ lib.optional (!withStatic) "-DBUILD_SHARED_LIBS=ON";
 
   # hyperscan CMake is completely broken for chimera builds when pcre is compiled
@@ -92,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
 
     homepage = "https://www.hyperscan.io/";
-    maintainers = with maintainers; [ avnik ];
+    maintainers = with maintainers; [avnik];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

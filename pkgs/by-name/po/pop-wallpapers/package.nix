@@ -5,7 +5,6 @@
   imagemagick,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pop-wallpapers";
   version = "1.0.5";
@@ -17,11 +16,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-JST5Rt4Ec1lRu62PUt98S2G1vKthAyOSpyCpuCnkGmw=";
   };
 
-  nativeBuildInputs = [ imagemagick ];
+  nativeBuildInputs = [imagemagick];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Wallpapers for Pop!_OS";
@@ -77,7 +76,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       # tony-webster-97532.jpg
       publicDomain
     ];
-    maintainers = with lib.maintainers; [ pandapip1 ];
+    maintainers = with lib.maintainers; [pandapip1];
     platforms = lib.platforms.all;
   };
 })

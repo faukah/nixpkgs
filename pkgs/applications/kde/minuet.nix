@@ -14,7 +14,6 @@
   qttools,
   qtdeclarative,
 }:
-
 mkDerivation {
   pname = "minuet";
   meta = with lib; {

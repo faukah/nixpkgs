@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rev = "42e38706eb37fdaaedbe9951d59ef44148fcacbf";
     hash = "sha256-sSHLrB5TlGMKpztTnbh5oIOhcrRd+ke2OUUbiQUqoh0=";
   };
-  buildInputs = [ bash ];
+  buildInputs = [bash];
   strictDeps = true;
   outputs = [
     "out"
@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       matthewcroughan
       Scrumplex
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

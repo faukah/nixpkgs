@@ -15,7 +15,6 @@
   drawilleplot,
   asteval,
 }:
-
 buildPythonPackage rec {
   pname = "hledger-utils";
   version = "1.14.0";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     asteval
   ];
 
-  checkInputs = [ unittestCheckHook ];
+  checkInputs = [unittestCheckHook];
 
   nativeCheckInputs = [
     hledger
@@ -63,7 +62,7 @@ buildPythonPackage rec {
       cc-by-40
       gpl3
     ];
-    maintainers = with maintainers; [ nobbz ];
+    maintainers = with maintainers; [nobbz];
     platforms = platforms.all;
   };
 }

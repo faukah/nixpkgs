@@ -17,7 +17,6 @@
   uvicorn,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "pytelegrambotapi";
   version = "4.27.0";
@@ -32,19 +31,19 @@ buildPythonPackage rec {
     hash = "sha256-UozVUdqNxxwWTBoq7ekr8ZX5KdkvQj+SiNSwebVXblI=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   optional-dependencies = {
-    json = [ ujson ];
-    PIL = [ pillow ];
-    redis = [ redis ];
-    aioredis = [ aioredis ];
-    aiohttp = [ aiohttp ];
-    fastapi = [ fastapi ];
-    uvicorn = [ uvicorn ];
-    psutil = [ psutil ];
-    coloredlogs = [ coloredlogs ];
-    watchdog = [ watchdog ];
+    json = [ujson];
+    PIL = [pillow];
+    redis = [redis];
+    aioredis = [aioredis];
+    aiohttp = [aiohttp];
+    fastapi = [fastapi];
+    uvicorn = [uvicorn];
+    psutil = [psutil];
+    coloredlogs = [coloredlogs];
+    watchdog = [watchdog];
   };
 
   checkInputs =
@@ -55,13 +54,13 @@ buildPythonPackage rec {
     ++ optional-dependencies.watchdog
     ++ optional-dependencies.aiohttp;
 
-  pythonImportsCheck = [ "telebot" ];
+  pythonImportsCheck = ["telebot"];
 
   meta = with lib; {
     description = "Python implementation for the Telegram Bot API";
     homepage = "https://github.com/eternnoir/pyTelegramBotAPI";
     changelog = "https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/${src.tag}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

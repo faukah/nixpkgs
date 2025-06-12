@@ -5,7 +5,6 @@
   elfutils,
   pcre,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mkbootimage";
   version = "2.3-unstable-2022-05-26";
@@ -37,14 +36,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     description = "Open source replacement of the Xilinx bootgen application";
     homepage = "https://github.com/antmicro/zynq-mkbootimage";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.fsagbuya ];
+    maintainers = [maintainers.fsagbuya];
     mainProgram = "mkbootimage";
   };
 })

@@ -5,7 +5,6 @@
   postgresqlBuildExtension,
   postgresqlTestExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg-semver";
   version = "0.40.0";
@@ -28,7 +27,7 @@ postgresqlBuildExtension (finalAttrs: {
     description = "Semantic version data type for PostgreSQL";
     homepage = "https://github.com/theory/pg-semver";
     changelog = "https://github.com/theory/pg-semver/blob/main/Changes";
-    maintainers = with lib.maintainers; [ grgi ];
+    maintainers = with lib.maintainers; [grgi];
     inherit (postgresql.meta) platforms;
     license = lib.licenses.postgresql;
   };

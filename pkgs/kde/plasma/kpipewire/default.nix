@@ -10,7 +10,7 @@
 mkKdeDerivation {
   pname = "kpipewire";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     qtquick3d
     pipewire

@@ -4,7 +4,6 @@
   fetchPypi,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "takethetime";
   version = "0.3.1";
@@ -21,12 +20,12 @@ buildPythonPackage rec {
   # all tests are timing dependent
   doCheck = false;
 
-  pythonImportsCheck = [ "takethetime" ];
+  pythonImportsCheck = ["takethetime"];
 
   meta = with lib; {
     description = "Simple time taking library using context managers";
     homepage = "https://github.com/ErikBjare/TakeTheTime";
-    maintainers = with maintainers; [ huantian ];
+    maintainers = with maintainers; [huantian];
     license = licenses.mit;
   };
 }

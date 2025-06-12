@@ -15,7 +15,6 @@
   libadwaita,
   xdg-user-dirs,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "hydrapaper";
   version = "3.3.2";
@@ -63,11 +62,11 @@ python3Packages.buildPythonApplication rec {
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${
-        lib.makeBinPath [
-          glib
-          xdg-user-dirs
-        ]
-      }
+      lib.makeBinPath [
+        glib
+        xdg-user-dirs
+      ]
+    }
     )
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
@@ -76,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     description = "GNOME utility for setting different wallpapers on individual monitors";
     homepage = "https://hydrapaper.gabmus.org";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ lachrymal ];
+    maintainers = with lib.maintainers; [lachrymal];
     mainProgram = "hydrapaper";
     platforms = lib.platforms.linux;
   };

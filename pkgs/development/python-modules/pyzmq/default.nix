@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
   isPyPy,
-
   # build-system
   cffi,
   cython,
@@ -12,7 +11,6 @@
   packaging,
   pathspec,
   scikit-build-core,
-
   # checks
   pytestCheckHook,
   pythonOlder,
@@ -21,7 +19,6 @@
   zeromq,
   pytest-asyncio,
 }:
-
 buildPythonPackage rec {
   pname = "pyzmq";
   version = "26.3.0";
@@ -34,13 +31,19 @@ buildPythonPackage rec {
     hash = "sha256-8c1ouCNvqreBOKj8cD98oK1DGxej/KxpY1hgDU5iQ7M=";
   };
 
-  build-system = [
-    cmake
-    ninja
-    packaging
-    pathspec
-    scikit-build-core
-  ] ++ (if isPyPy then [ cffi ] else [ cython ]);
+  build-system =
+    [
+      cmake
+      ninja
+      packaging
+      pathspec
+      scikit-build-core
+    ]
+    ++ (
+      if isPyPy
+      then [cffi]
+      else [cython]
+    );
 
   dontUseCmakeConfigure = true;
 
@@ -49,7 +52,7 @@ buildPythonPackage rec {
     zeromq
   ];
 
-  dependencies = lib.optionals isPyPy [ cffi ];
+  dependencies = lib.optionals isPyPy [cffi];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,7 +60,7 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  pythonImportsCheck = [ "zmq" ];
+  pythonImportsCheck = ["zmq"];
 
   preCheck = ''
     rm -r zmq
@@ -92,6 +95,6 @@ buildPythonPackage rec {
       bsd3 # or
       lgpl3Only
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

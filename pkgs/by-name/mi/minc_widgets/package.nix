@@ -10,7 +10,6 @@
   coreutils,
   minc_tools,
 }:
-
 stdenv.mkDerivation {
   pname = "minc-widgets";
   version = "unstable-2016-04-20";
@@ -26,7 +25,7 @@ stdenv.mkDerivation {
     cmake
     makeWrapper
   ];
-  buildInputs = [ libminc ];
+  buildInputs = [libminc];
   propagatedBuildInputs =
     (with perlPackages; [
       perl
@@ -42,18 +41,18 @@ stdenv.mkDerivation {
   postFixup = ''
     for p in $out/bin/*; do
       wrapProgram $p --prefix PERL5LIB : $PERL5LIB --set PATH "${
-        lib.makeBinPath [
-          coreutils
-          minc_tools
-        ]
-      }";
+      lib.makeBinPath [
+        coreutils
+        minc_tools
+      ]
+    }";
     done
   '';
 
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/minc-widgets";
     description = "Collection of Perl and shell scripts for processing MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

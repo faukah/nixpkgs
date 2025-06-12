@@ -6,7 +6,6 @@
   stdenv,
   testers,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rinetd";
   version = "0.73";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/samhocevar/rinetd";
     changelog = "https://github.com/samhocevar/rinetd/blob/${src.rev}/CHANGES.md";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "rinetd";
   };
 }

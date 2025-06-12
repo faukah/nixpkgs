@@ -10,7 +10,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "llm-sentence-transformers";
   version = "0.3.2";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-FDDMItKFEYEptiL3EHKgKVxClqRU9RaM3uD3xP0F4OM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     einops
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     "test_embed_multi_with_generator"
   ];
 
-  pythonImportsCheck = [ "llm_sentence_transformers" ];
+  pythonImportsCheck = ["llm_sentence_transformers"];
 
   passthru.tests = llm.mkPluginTest llm-sentence-transformers;
 
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/simonw/llm-sentence-transformers";
     changelog = "https://github.com/simonw/llm-sentence-transformers/releases/tag/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ philiptaron ];
+    maintainers = with lib.maintainers; [philiptaron];
   };
 }

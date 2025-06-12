@@ -1,17 +1,19 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   uiPort = 1234;
   backendPort = 5678;
   lemmyNodeName = "server";
-in
-{
+in {
   name = "lemmy";
   meta = with lib.maintainers; {
-    maintainers = [ mightyiam ];
+    maintainers = [mightyiam];
   };
 
   nodes = {
-    client = { };
+    client = {};
 
     "${lemmyNodeName}" = {
       services.lemmy = {
@@ -34,7 +36,7 @@ in
 
       environment.etc."lemmy-admin-password.txt".text = "ThisIsWhatIUseEverywhereTryIt";
 
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [80];
 
       # pict-rs seems to need more than 1025114112 bytes
       virtualisation.memorySize = 2000;

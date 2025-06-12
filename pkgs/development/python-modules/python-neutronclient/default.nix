@@ -31,7 +31,6 @@
   testscenarios,
   tempest,
 }:
-
 buildPythonPackage rec {
   pname = "python-neutronclient";
   version = "11.4.0";
@@ -85,12 +84,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "neutronclient" ];
+  pythonImportsCheck = ["neutronclient"];
 
   meta = with lib; {
     description = "Python bindings for the OpenStack Networking API";
     homepage = "https://github.com/openstack/python-neutronclient/";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

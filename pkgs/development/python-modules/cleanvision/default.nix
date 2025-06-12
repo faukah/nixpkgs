@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   fsspec,
   imagehash,
@@ -16,14 +14,12 @@
   pillow,
   tabulate,
   tqdm,
-
   # tests
   datasets,
   psutil,
   pytestCheckHook,
   torchvision,
 }:
-
 buildPythonPackage rec {
   pname = "cleanvision";
   version = "0.3.6";
@@ -36,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-QAydDqLJx/jYKXqxRUElTdM5dOFA6nZag8rNAjPZjRg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     fsspec
@@ -49,7 +45,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "cleanvision" ];
+  pythonImportsCheck = ["cleanvision"];
 
   nativeCheckInputs = [
     datasets
@@ -72,7 +68,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/cleanlab/cleanvision";
     changelog = "https://github.com/cleanlab/cleanvision/releases/tag/v${version}";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     # Fatal Python error: Aborted
     broken = stdenv.hostPlatform.isDarwin;
   };

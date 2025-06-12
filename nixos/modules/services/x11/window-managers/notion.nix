@@ -4,14 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.notion;
-in
-
-{
+in {
   options = {
     services.xserver.windowManager.notion.enable = mkEnableOption "notion";
   };
@@ -28,6 +23,6 @@ in
         }
       ];
     };
-    environment.systemPackages = [ pkgs.notion ];
+    environment.systemPackages = [pkgs.notion];
   };
 }

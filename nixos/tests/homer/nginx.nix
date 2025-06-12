@@ -1,24 +1,20 @@
 import ../make-test-python.nix (
-  { lib, ... }:
-
-  {
+  {lib, ...}: {
     name = "homer-nginx";
-    meta.maintainers = with lib.maintainers; [ stunkymonkey ];
+    meta.maintainers = with lib.maintainers; [stunkymonkey];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.homer = {
-          enable = true;
-          virtualHost = {
-            nginx.enable = true;
-            domain = "localhost";
-          };
-          settings = {
-            title = "testing";
-          };
+    nodes.machine = {pkgs, ...}: {
+      services.homer = {
+        enable = true;
+        virtualHost = {
+          nginx.enable = true;
+          domain = "localhost";
+        };
+        settings = {
+          title = "testing";
         };
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("nginx.service")

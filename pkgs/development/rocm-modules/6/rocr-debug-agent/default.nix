@@ -9,7 +9,6 @@
   rocdbgapi,
   elfutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocr-debug-agent";
   version = "6.3.3";
@@ -52,8 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Library that provides some debugging functionality for ROCr";
     homepage = "https://github.com/ROCm/rocr_debug_agent";
-    license = with licenses; [ ncsa ];
-    teams = [ teams.rocm ];
+    license = with licenses; [ncsa];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

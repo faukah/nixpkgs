@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "velero";
   version = "1.16.1";
@@ -41,7 +40,7 @@ buildGoModule (finalAttrs: {
     $out/bin/velero version --client-only | grep ${finalAttrs.version} > /dev/null
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/velero completion bash > velero.bash
     $out/bin/velero completion zsh > velero.zsh

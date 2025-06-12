@@ -6,7 +6,6 @@
   wagtail,
   wagtail-factories,
 }:
-
 buildPythonPackage {
   pname = "wagtail-factories-tests";
   format = "other";

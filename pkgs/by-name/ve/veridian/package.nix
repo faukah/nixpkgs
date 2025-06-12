@@ -2,17 +2,14 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
-
   cmake,
   makeWrapper,
   pkg-config,
-
   boost,
   fmt_11,
   openssl,
   sv-lang,
   mimalloc,
-
   verible,
   verilator,
 }:
@@ -30,7 +27,7 @@ rustPlatform.buildRustPackage {
   useFetchCargoVendor = true;
   cargoHash = "sha256-qJQD9HjSrrHdppbLNgLnXCycgzbmPePydZve3A8zGtU=";
 
-  buildFeatures = [ "slang" ];
+  buildFeatures = ["slang"];
 
   nativeBuildInputs = [
     rustPlatform.bindgenHook
@@ -53,17 +50,15 @@ rustPlatform.buildRustPackage {
     verilator
   ];
 
-  postInstall =
-    let
-      runtimePathDeps = [
-        verible
-        verilator
-      ];
-    in
-    ''
-      wrapProgram $out/bin/veridian \
-        --prefix PATH : ${lib.makeBinPath runtimePathDeps}
-    '';
+  postInstall = let
+    runtimePathDeps = [
+      verible
+      verilator
+    ];
+  in ''
+    wrapProgram $out/bin/veridian \
+      --prefix PATH : ${lib.makeBinPath runtimePathDeps}
+  '';
 
   env = {
     OPENSSL_NO_VENDOR = "1";
@@ -76,6 +71,6 @@ rustPlatform.buildRustPackage {
     description = "SystemVerilog Language Server";
     homepage = "https://github.com/vivekmalneedi/veridian";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.hakan-demirli ];
+    maintainers = [lib.maintainers.hakan-demirli];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-cachedescriptors";
   version = "5.1";
@@ -23,23 +22,23 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ setuptools ];
+  dependencies = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "src/zope/cachedescriptors/tests.py" ];
+  pytestFlagsArray = ["src/zope/cachedescriptors/tests.py"];
 
-  pythonImportsCheck = [ "zope.cachedescriptors" ];
+  pythonImportsCheck = ["zope.cachedescriptors"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Method and property caching decorators";
     homepage = "https://github.com/zopefoundation/zope.cachedescriptors";
     changelog = "https://github.com/zopefoundation/zope.cachedescriptors/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -5,7 +5,6 @@
   lib,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyobjc-core";
   version = "11.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/pyobjc-core";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   buildInputs = [
     darwin.DarwinTools
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     "-Wno-error=unused-command-line-argument"
   ];
 
-  pythonImportsCheck = [ "objc" ];
+  pythonImportsCheck = ["objc"];
 
   meta = with lib; {
     description = "Python <-> Objective-C bridge";
     homepage = "https://github.com/ronaldoussoren/pyobjc";
     license = licenses.mit;
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

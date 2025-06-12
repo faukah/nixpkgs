@@ -18,7 +18,6 @@
   bash,
   gobject-introspection,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "waydroid-helper";
   version = "0.1.2";
@@ -78,13 +77,13 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postInstallCheck = ''
     mesonCheckPhase
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Provides a user-friendly way to configure Waydroid and install extensions";
@@ -92,7 +91,7 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/ayasa520/waydroid-helper/releases/tag/${src.tag}";
     mainProgram = "waydroid-helper";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [];
   };
 }

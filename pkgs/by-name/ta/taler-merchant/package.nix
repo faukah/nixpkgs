@@ -16,7 +16,6 @@
   curl,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "taler-merchant";
   version = "1.0.1";
@@ -50,16 +49,18 @@ stdenv.mkDerivation (finalAttrs: {
     texinfo # makeinfo
   ];
 
-  buildInputs = taler-exchange.buildInputs ++ [
-    qrencode
-    taler-exchange
-    # for ltdl.h
-    libtool
-  ];
+  buildInputs =
+    taler-exchange.buildInputs
+    ++ [
+      qrencode
+      taler-exchange
+      # for ltdl.h
+      libtool
+    ];
 
   strictDeps = true;
 
-  propagatedBuildInputs = [ gnunet ];
+  propagatedBuildInputs = [gnunet];
 
   # From ./bootstrap
   preAutoreconf = ''
@@ -95,7 +96,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
 
-  nativeCheckInputs = [ jq ];
+  nativeCheckInputs = [jq];
 
   checkTarget = "check";
 
@@ -114,8 +115,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://taler.net/";
     changelog = "https://git.taler.net/merchant.git/tree/ChangeLog";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ astro ];
-    teams = with lib.teams; [ ngi ];
+    maintainers = with lib.maintainers; [astro];
+    teams = with lib.teams; [ngi];
     platforms = lib.platforms.linux;
   };
 })

@@ -3,10 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.druid;
-  inherit (lib)
+  inherit
+    (lib)
     concatStrings
     concatStringsSep
     mapAttrsToList
@@ -35,7 +35,7 @@ let
     };
 
     config = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf types.anything;
       description = ''
         (key=value) Configuration to be written to runtime.properties of the druid ${serviceName}
@@ -47,7 +47,7 @@ let
       };
     };
 
-    jdk = mkPackageOption pkgs "JDK" { default = [ "jdk17_headless" ]; };
+    jdk = mkPackageOption pkgs "JDK" {default = ["jdk17_headless"];};
 
     jvmArgs = mkOption {
       type = types.str;
@@ -62,94 +62,91 @@ let
     };
 
     internalConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf types.anything;
       internal = true;
       description = "Internal Option to add to runtime.properties for ${serviceName}.";
     };
   };
 
-  druidServiceConfig =
+  druidServiceConfig = {
+    name,
+    serviceOptions ? cfg."${name}",
+    allowedTCPPorts ? [],
+    tmpDirs ? [],
+    extraConfig ? {},
+  }: (mkIf serviceOptions.enable (mkMerge [
     {
-      name,
-      serviceOptions ? cfg."${name}",
-      allowedTCPPorts ? [ ],
-      tmpDirs ? [ ],
-      extraConfig ? { },
-    }:
-    (mkIf serviceOptions.enable (mkMerge [
-      {
-        systemd = {
-          services."druid-${name}" = {
-            after = [ "network.target" ];
+      systemd = {
+        services."druid-${name}" = {
+          after = ["network.target"];
 
-            description = "Druid ${name}";
+          description = "Druid ${name}";
 
-            wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
-            inherit (serviceOptions) restartIfChanged;
+          inherit (serviceOptions) restartIfChanged;
 
-            path = [
-              cfg.package
-              serviceOptions.jdk
-            ];
+          path = [
+            cfg.package
+            serviceOptions.jdk
+          ];
 
-            script =
-              let
-                cfgFile =
-                  fileName: properties:
-                  pkgs.writeTextDir fileName (
-                    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${toString v}") properties)
-                  );
+          script = let
+            cfgFile = fileName: properties:
+              pkgs.writeTextDir fileName (
+                concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${toString v}") properties)
+              );
 
-                commonConfigFile = cfgFile "common.runtime.properties" cfg.commonConfig;
+            commonConfigFile = cfgFile "common.runtime.properties" cfg.commonConfig;
 
-                configFile = cfgFile "runtime.properties" (serviceOptions.config // serviceOptions.internalConfig);
+            configFile = cfgFile "runtime.properties" (serviceOptions.config // serviceOptions.internalConfig);
 
-                extraClassPath = concatStrings (map (path: ":" + path) cfg.extraClassPaths);
+            extraClassPath = concatStrings (map (path: ":" + path) cfg.extraClassPaths);
 
-                extraConfDir = concatStrings (map (dir: ":" + dir + "/*") cfg.extraConfDirs);
-              in
-              ''
-                run-java -Dlog4j.configurationFile=file:${cfg.log4j} \
-                  -Ddruid.extensions.directory=${cfg.package}/extensions \
-                  -Ddruid.extensions.hadoopDependenciesDir=${cfg.package}/hadoop-dependencies \
-                  -classpath  ${commonConfigFile}:${configFile}:${cfg.package}/lib/\*${extraClassPath}${extraConfDir} \
-                  ${serviceOptions.jvmArgs} \
-                  org.apache.druid.cli.Main server ${name}
-              '';
+            extraConfDir = concatStrings (map (dir: ":" + dir + "/*") cfg.extraConfDirs);
+          in ''
+            run-java -Dlog4j.configurationFile=file:${cfg.log4j} \
+              -Ddruid.extensions.directory=${cfg.package}/extensions \
+              -Ddruid.extensions.hadoopDependenciesDir=${cfg.package}/hadoop-dependencies \
+              -classpath  ${commonConfigFile}:${configFile}:${cfg.package}/lib/\*${extraClassPath}${extraConfDir} \
+              ${serviceOptions.jvmArgs} \
+              org.apache.druid.cli.Main server ${name}
+          '';
 
-            serviceConfig = {
-              User = "druid";
-              SyslogIdentifier = "druid-${name}";
-              Restart = "always";
-            };
+          serviceConfig = {
+            User = "druid";
+            SyslogIdentifier = "druid-${name}";
+            Restart = "always";
           };
-
-          tmpfiles.rules = concatMap (x: [ "d ${x} 0755 druid druid" ]) (cfg.commonTmpDirs ++ tmpDirs);
         };
-        networking.firewall.allowedTCPPorts = mkIf (attrByPath [
+
+        tmpfiles.rules = concatMap (x: ["d ${x} 0755 druid druid"]) (cfg.commonTmpDirs ++ tmpDirs);
+      };
+      networking.firewall.allowedTCPPorts = mkIf (attrByPath [
           "openFirewall"
-        ] false serviceOptions) allowedTCPPorts;
+        ]
+        false
+        serviceOptions)
+      allowedTCPPorts;
 
-        users = {
-          users.druid = {
-            description = "Druid user";
-            group = "druid";
-            isNormalUser = true;
-          };
-          groups.druid = { };
+      users = {
+        users.druid = {
+          description = "Druid user";
+          group = "druid";
+          isNormalUser = true;
         };
-      }
-      extraConfig
-    ]));
-in
-{
+        groups.druid = {};
+      };
+    }
+    extraConfig
+  ]));
+in {
   options.services.druid = {
-    package = mkPackageOption pkgs "apache-druid" { default = [ "druid" ]; };
+    package = mkPackageOption pkgs "apache-druid" {default = ["druid"];};
 
     commonConfig = mkOption {
-      default = { };
+      default = {};
 
       type = types.attrsOf types.anything;
 
@@ -164,7 +161,7 @@ in
     };
 
     commonTmpDirs = mkOption {
-      default = [ "/var/log/druid/requests" ];
+      default = ["/var/log/druid/requests"];
       type = types.listOf types.str;
       description = "Common List of directories used by druid processes";
     };
@@ -175,13 +172,13 @@ in
     };
 
     extraClassPaths = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = "Extra classpath to include in the jvm";
     };
 
     extraConfDirs = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.path;
       description = "Extra Conf Dirs to include in the jvm";
     };
@@ -192,39 +189,38 @@ in
 
     broker = druidServiceOption "Druid Broker";
 
-    historical = (druidServiceOption "Druid Historical") // {
-      segmentLocations = mkOption {
+    historical =
+      (druidServiceOption "Druid Historical")
+      // {
+        segmentLocations = mkOption {
+          default = null;
 
-        default = null;
+          description = "Locations where the historical will store its data.";
 
-        description = "Locations where the historical will store its data.";
+          type = with types;
+            nullOr (
+              listOf (submodule {
+                options = {
+                  path = mkOption {
+                    type = path;
+                    description = "the path to store the segments";
+                  };
 
-        type =
-          with types;
-          nullOr (
-            listOf (submodule {
-              options = {
-                path = mkOption {
-                  type = path;
-                  description = "the path to store the segments";
+                  maxSize = mkOption {
+                    type = str;
+                    description = "Max size the druid historical can occupy";
+                  };
+
+                  freeSpacePercent = mkOption {
+                    type = float;
+                    default = 1.0;
+                    description = "Druid Historical will fail to write if it exceeds this value";
+                  };
                 };
-
-                maxSize = mkOption {
-                  type = str;
-                  description = "Max size the druid historical can occupy";
-                };
-
-                freeSpacePercent = mkOption {
-                  type = float;
-                  default = 1.0;
-                  description = "Druid Historical will fail to write if it exceeds this value";
-                };
-              };
-            })
-          );
-
+              })
+            );
+        };
       };
-    };
 
     middleManager = druidServiceOption "Druid middleManager";
     router = druidServiceOption "Druid Router";
@@ -232,30 +228,32 @@ in
   config = mkMerge [
     (druidServiceConfig rec {
       name = "overlord";
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8090 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8090 cfg."${name}".config)];
     })
 
     (druidServiceConfig rec {
       name = "coordinator";
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8081 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8081 cfg."${name}".config)];
     })
 
     (druidServiceConfig rec {
       name = "broker";
 
-      tmpDirs = [ (attrByPath [ "druid.lookup.snapshotWorkingDir" ] "" cfg."${name}".config) ];
+      tmpDirs = [(attrByPath ["druid.lookup.snapshotWorkingDir"] "" cfg."${name}".config)];
 
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8082 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8082 cfg."${name}".config)];
     })
 
     (druidServiceConfig rec {
       name = "historical";
 
-      tmpDirs = [
-        (attrByPath [ "druid.lookup.snapshotWorkingDir" ] "" cfg."${name}".config)
-      ] ++ (map (x: x.path) cfg."${name}".segmentLocations);
+      tmpDirs =
+        [
+          (attrByPath ["druid.lookup.snapshotWorkingDir"] "" cfg."${name}".config)
+        ]
+        ++ (map (x: x.path) cfg."${name}".segmentLocations);
 
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8083 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8083 cfg."${name}".config)];
 
       extraConfig.services.druid.historical.internalConfig."druid.segmentCache.locations" =
         builtins.toJSON cfg.historical.segmentLocations;
@@ -264,24 +262,26 @@ in
     (druidServiceConfig rec {
       name = "middleManager";
 
-      tmpDirs = [
-        "/var/log/druid/indexer"
-      ] ++ [ (attrByPath [ "druid.indexer.task.baseTaskDir" ] "" cfg."${name}".config) ];
+      tmpDirs =
+        [
+          "/var/log/druid/indexer"
+        ]
+        ++ [(attrByPath ["druid.indexer.task.baseTaskDir"] "" cfg."${name}".config)];
 
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8091 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8091 cfg."${name}".config)];
 
       extraConfig = {
         services.druid.middleManager.internalConfig = {
           "druid.indexer.runner.javaCommand" = "${cfg.middleManager.jdk}/bin/java";
           "druid.indexer.runner.javaOpts" =
-            (attrByPath [ "druid.indexer.runner.javaOpts" ] "" cfg.middleManager.config)
+            (attrByPath ["druid.indexer.runner.javaOpts"] "" cfg.middleManager.config)
             + " -Dlog4j.configurationFile=file:${cfg.log4j}";
         };
 
         networking.firewall.allowedTCPPortRanges = mkIf cfg.middleManager.openFirewall [
           {
-            from = attrByPath [ "druid.indexer.runner.startPort" ] 8100 cfg.middleManager.config;
-            to = attrByPath [ "druid.indexer.runner.endPort" ] 65535 cfg.middleManager.config;
+            from = attrByPath ["druid.indexer.runner.startPort"] 8100 cfg.middleManager.config;
+            to = attrByPath ["druid.indexer.runner.endPort"] 65535 cfg.middleManager.config;
           }
         ];
       };
@@ -290,8 +290,7 @@ in
     (druidServiceConfig rec {
       name = "router";
 
-      allowedTCPPorts = [ (attrByPath [ "druid.plaintextPort" ] 8888 cfg."${name}".config) ];
+      allowedTCPPorts = [(attrByPath ["druid.plaintextPort"] 8888 cfg."${name}".config)];
     })
   ];
-
 }

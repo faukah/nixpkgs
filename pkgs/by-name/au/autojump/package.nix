@@ -4,7 +4,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "autojump";
   version = "22.5.3";
@@ -16,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "1rgpsh70manr2dydna9da4x7p8ahii7dgdgwir5fka340n1wrcws";
   };
 
-  buildInputs = [ python3 ];
-  nativeBuildInputs = [ python3 ];
+  buildInputs = [python3];
+  nativeBuildInputs = [python3];
   dontBuild = true;
   strictDeps = true;
 

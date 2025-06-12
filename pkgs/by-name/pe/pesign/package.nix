@@ -11,7 +11,6 @@
   nspr,
   mandoc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pesign";
   version = "116";
@@ -46,9 +45,9 @@ stdenv.mkDerivation (finalAttrs: {
     nspr
     mandoc
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  makeFlags = [ "INSTALLROOT=$(out)" ];
+  makeFlags = ["INSTALLROOT=$(out)"];
 
   postInstall = ''
     mv $out/usr/bin $out/bin
@@ -63,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Signing tools for PE-COFF binaries. Compliant with the PE and Authenticode specifications";
     homepage = "https://github.com/rhboot/pesign";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ raitobezarius ];
+    maintainers = with lib.maintainers; [raitobezarius];
     # efivar is currently Linux-only.
     platforms = lib.platforms.linux;
   };

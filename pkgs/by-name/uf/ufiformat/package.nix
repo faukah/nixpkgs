@@ -4,7 +4,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ufiformat";
   version = "0.9.9";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/tedigh/ufiformat";
     description = "Low-level disk formatting utility for USB floppy drives";
-    maintainers = [ maintainers.amarshall ];
+    maintainers = [maintainers.amarshall];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
     mainProgram = "ufiformat";

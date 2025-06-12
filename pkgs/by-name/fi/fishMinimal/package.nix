@@ -1,7 +1,4 @@
-{
-  fish,
-}:
-
+{fish}:
 fish.override {
   usePython = false;
 }

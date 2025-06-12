@@ -11,7 +11,6 @@
   pythonOlder,
   z3-solver,
 }:
-
 buildPythonPackage rec {
   pname = "deal-solver";
   version = "0.1.2";
@@ -26,15 +25,17 @@ buildPythonPackage rec {
     hash = "sha256-DAOeQLFR/JED32uJSW7W9+Xx5f1Et05W8Fp+Vm7sfZo=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   # z3 does not provide a dist-info, so python-runtime-deps-check will fail
-  pythonRemoveDeps = [ "z3-solver" ];
+  pythonRemoveDeps = ["z3-solver"];
 
-  dependencies = [
-    z3-solver
-    astroid
-  ] ++ z3-solver.requiredPythonModules;
+  dependencies =
+    [
+      z3-solver
+      astroid
+    ]
+    ++ z3-solver.requiredPythonModules;
 
   nativeCheckInputs = [
     hypothesis
@@ -43,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "deal_solver" ];
+  pythonImportsCheck = ["deal_solver"];
 
   disabledTests = [
     # Flaky tests, sometimes it works sometimes it doesn't
@@ -56,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/life4/deal-solver";
     changelog = "https://github.com/life4/deal-solver/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

@@ -12,7 +12,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation {
   pname = "ptouch-print";
   version = "1.5-unstable-2024-02-11";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     homepage = "https://dominic.familie-radermacher.ch/projekte/ptouch-print/";
     license = licenses.gpl3Plus;
     mainProgram = "ptouch-print";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.unix;
   };
 }

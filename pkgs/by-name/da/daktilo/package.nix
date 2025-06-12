@@ -8,7 +8,6 @@
   alsa-lib,
   xorg,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "daktilo";
   version = "0.6.0";
@@ -61,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ orhun ];
+    maintainers = with maintainers; [orhun];
     mainProgram = "daktilo";
   };
 }

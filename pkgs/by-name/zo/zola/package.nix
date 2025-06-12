@@ -9,7 +9,6 @@
   zola,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zola";
   version = "0.20.0";
@@ -42,7 +41,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/zola completion zsh)
   '';
 
-  passthru.tests.version = testers.testVersion { package = zola; };
+  passthru.tests.version = testers.testVersion {package = zola;};
 
   meta = {
     description = "Fast static site generator with everything built-in";

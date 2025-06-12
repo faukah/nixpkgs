@@ -7,7 +7,6 @@
   autoreconfHook,
   windows,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocl-icd";
   version = "2.3.2";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     ruby
   ];
 
-  buildInputs = [ opencl-headers ] ++ lib.optionals stdenv.hostPlatform.isWindows [ windows.dlfcn ];
+  buildInputs = [opencl-headers] ++ lib.optionals stdenv.hostPlatform.isWindows [windows.dlfcn];
 
   configureFlags =
     [
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     ];
 
   # fixes: can't build x86_64-w64-mingw32 shared library unless -no-undefined is specified
-  makeFlags = lib.optionals stdenv.hostPlatform.isWindows [ "LDFLAGS=-no-undefined" ];
+  makeFlags = lib.optionals stdenv.hostPlatform.isWindows ["LDFLAGS=-no-undefined"];
 
   meta = with lib; {
     description = "OpenCL ICD Loader for ${opencl-headers.name}";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OCL-dev/ocl-icd";
     license = licenses.bsd2;
     platforms = platforms.unix ++ platforms.windows;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

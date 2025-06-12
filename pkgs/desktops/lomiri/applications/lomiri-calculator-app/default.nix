@@ -12,7 +12,6 @@
   qtbase,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-calculator-app";
   version = "4.1.0";
@@ -70,18 +69,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.vm = nixosTests.lomiri-calculator-app;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
     description = "Powerful and easy to use calculator for Ubuntu Touch, with calculations history and formula validation";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-calculator-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-calculator-app/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = lib.licenses.gpl3Only;
     mainProgram = "lomiri-calculator-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

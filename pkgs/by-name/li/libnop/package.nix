@@ -5,7 +5,6 @@
   fetchFromGitHub,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libnop";
   version = "0-unstable-2022-09-04";
@@ -26,10 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
     ./002-fix-template-warning.patch
   ];
 
-  nativeBuildInputs = [ gtest ];
+  nativeBuildInputs = [gtest];
 
   # Add optimization flags to address _FORTIFY_SOURCE warning
-  NIX_CFLAGS_COMPILE = [ "-O1" ];
+  NIX_CFLAGS_COMPILE = ["-O1"];
 
   installPhase = ''
     runHook preInstall
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/google/libnop";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ phodina ];
+    maintainers = with lib.maintainers; [phodina];
   };
 })

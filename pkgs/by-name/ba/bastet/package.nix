@@ -6,7 +6,6 @@
   ncurses,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bastet";
   version = "0.43.2";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     mainProgram = "bastet";
     homepage = "http://fph.altervista.org/prog/bastet.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

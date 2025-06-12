@@ -11,7 +11,7 @@ stdenv.mkDerivation (
     inherit version src;
     pname = "houdini-runtime";
 
-    buildInputs = [ bc ];
+    buildInputs = [bc];
     installPhase = ''
       patchShebangs houdini.install
       mkdir -p $out
@@ -30,13 +30,12 @@ stdenv.mkDerivation (
     dontFixup = true;
   }
   // (
-    if isNull outputHash then
-      { }
-    else
-      {
-        inherit outputHash;
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-      }
+    if isNull outputHash
+    then {}
+    else {
+      inherit outputHash;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+    }
   )
 )

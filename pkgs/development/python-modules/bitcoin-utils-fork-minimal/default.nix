@@ -6,7 +6,6 @@
   fetchPypi,
   sympy,
 }:
-
 buildPythonPackage rec {
   pname = "bitcoin-utils-fork-minimal";
   version = "0.4.11.6";
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Project doesn't ship tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bitcoinutils" ];
+  pythonImportsCheck = ["bitcoinutils"];
 
   meta = with lib; {
     description = "Bitcoin utility functions";
     homepage = "https://github.com/doersf/python-bitcoin-utils";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

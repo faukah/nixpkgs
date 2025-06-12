@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wakelan";
   version = "1.1";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
       power on.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     mainProgram = "wakelan";
   };

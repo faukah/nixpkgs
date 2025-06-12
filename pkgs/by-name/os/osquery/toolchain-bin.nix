@@ -3,9 +3,7 @@
   lib,
   fetchzip,
   autoPatchelfHook,
-}:
-let
-
+}: let
   version = "1.1.0";
 
   dist = {
@@ -18,36 +16,33 @@ let
       hash = "sha256-cQlx9AtO6ggIQqHowa+42wQ4YCMCN4Gb+0qqVl2JElw=";
     };
   };
-
 in
+  stdenv.mkDerivation {
+    name = "osquery-toolchain-bin";
 
-stdenv.mkDerivation {
+    inherit version;
 
-  name = "osquery-toolchain-bin";
+    src = fetchzip dist.${stdenv.hostPlatform.system};
 
-  inherit version;
+    nativeBuildInputs = [autoPatchelfHook];
 
-  src = fetchzip dist.${stdenv.hostPlatform.system};
+    installPhase = ''
+      mkdir $out
+      cp -r * $out
+    '';
 
-  nativeBuildInputs = [ autoPatchelfHook ];
-
-  installPhase = ''
-    mkdir $out
-    cp -r * $out
-  '';
-
-  meta = with lib; {
-    description = "LLVM-based toolchain for Linux designed to build a portable osquery";
-    homepage = "https://github.com/osquery/osquery-toolchain";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = with licenses; [
-      gpl2Only
-      asl20
-    ];
-    maintainers = with maintainers; [ squalus ];
-  };
-}
+    meta = with lib; {
+      description = "LLVM-based toolchain for Linux designed to build a portable osquery";
+      homepage = "https://github.com/osquery/osquery-toolchain";
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = with licenses; [
+        gpl2Only
+        asl20
+      ];
+      maintainers = with maintainers; [squalus];
+    };
+  }

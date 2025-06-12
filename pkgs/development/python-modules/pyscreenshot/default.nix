@@ -9,7 +9,6 @@
   mss,
   pillow,
 }:
-
 buildPythonPackage rec {
   pname = "pyscreenshot";
   version = "3.1";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
       entrypoint2
       pillow
     ]
-    ++ lib.optionals (isPy3k) [
+    ++ lib.optionals isPy3k [
       jeepney
       mss
     ];
@@ -34,12 +33,12 @@ buildPythonPackage rec {
   # recursive dependency on pyvirtualdisplay
   doCheck = false;
 
-  pythonImportsCheck = [ "pyscreenshot" ];
+  pythonImportsCheck = ["pyscreenshot"];
 
   meta = with lib; {
     description = "python screenshot";
     homepage = "https://github.com/ponty/pyscreenshot";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

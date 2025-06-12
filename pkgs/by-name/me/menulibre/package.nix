@@ -12,7 +12,6 @@
   menulibre,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "menulibre";
   version = "2.4.0";
@@ -46,7 +45,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = menulibre;
       command = "HOME=$TMPDIR menulibre --version | cut -d' ' -f2";
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     description = "Advanced menu editor with an easy-to-use interface";
     homepage = "https://bluesabre.org/projects/menulibre";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lelgenio ];
+    maintainers = with maintainers; [lelgenio];
     mainProgram = "menulibre";
     platforms = platforms.linux;
   };

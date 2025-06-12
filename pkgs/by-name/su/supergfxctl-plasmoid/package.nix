@@ -5,7 +5,6 @@
   cmake,
   kdePackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "supergfxctl-plasmoid";
   version = "2.1.1";
@@ -34,6 +33,6 @@ stdenv.mkDerivation rec {
     '';
     license = lib.licenses.mpl20;
     homepage = "https://gitlab.com/Jhyub/supergfxctl-plasmoid";
-    maintainers = with lib.maintainers; [ johnylpm ];
+    maintainers = with lib.maintainers; [johnylpm];
   };
 }

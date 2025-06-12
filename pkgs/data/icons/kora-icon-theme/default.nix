@@ -8,7 +8,6 @@
   hicolor-icon-theme,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "kora-icon-theme";
   version = "1.6.5";
@@ -53,8 +52,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "SVG icon theme in four variants";
     homepage = "https://github.com/bikass/kora";
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

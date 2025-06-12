@@ -6,7 +6,6 @@
   testers,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kvazaar";
   version = "2.3.1";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace CMakeLists.txt --replace-fail 'NOT LINUX' 'NOT LINUX AND NOT BSD'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -41,9 +40,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open-source HEVC encoder";
     homepage = "https://github.com/ultravideo/kvazaar";
     changelog = "https://github.com/ultravideo/kvazaar/releases/tag/v${finalAttrs.version}";
-    pkgConfigModules = [ "kvazaar" ];
+    pkgConfigModules = ["kvazaar"];
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jopejoe1 ];
+    maintainers = with lib.maintainers; [jopejoe1];
   };
 })

@@ -3,16 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.noisetorch;
-in
-{
+in {
   options.programs.noisetorch = {
     enable = lib.mkEnableOption "noisetorch (+ setcap wrapper), a virtual microphone device with noise suppression";
 
-    package = lib.mkPackageOption pkgs "noisetorch" { };
+    package = lib.mkPackageOption pkgs "noisetorch" {};
   };
 
   config = lib.mkIf cfg.enable {
@@ -22,6 +19,6 @@ in
       capabilities = "cap_sys_resource=+ep";
       source = "${cfg.package}/bin/noisetorch";
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

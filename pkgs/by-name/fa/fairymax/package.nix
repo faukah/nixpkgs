@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fairymax";
   version = "4.8";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
       (4.8J) supports up to 15 piece types, and board sizes up to 12x8.
     '';
     license = licenses.free;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.all;
   };
 }

@@ -13,7 +13,6 @@
   hatchling,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "github3-py";
   version = "4.0.1";
@@ -33,16 +32,18 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [
-    pyjwt
-    python-dateutil
-    requests
-    uritemplate
-  ] ++ pyjwt.optional-dependencies.crypto;
+  dependencies =
+    [
+      pyjwt
+      python-dateutil
+      requests
+      uritemplate
+    ]
+    ++ pyjwt.optional-dependencies.crypto;
 
-  pythonImportsCheck = [ "github3" ];
+  pythonImportsCheck = ["github3"];
 
   nativeCheckInputs = [
     pytest-xdist
@@ -56,6 +57,6 @@ buildPythonPackage rec {
     description = "Wrapper for the GitHub API written in python";
     changelog = "https://github.com/sigmavirus24/github3.py/blob/${version}/docs/source/release-notes/${version}.rst";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
   };
 }

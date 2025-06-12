@@ -16,7 +16,6 @@
   qtsystems,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-docviewer-app";
   version = "3.1.1";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.vm = nixosTests.lomiri-docviewer-app;
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = {
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-docviewer-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-docviewer-app/-/blob/v${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     mainProgram = "lomiri-docviewer-app";
     platforms = lib.platforms.linux;
   };

@@ -16,7 +16,6 @@
   freezegun,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dinghy";
   version = "1.4.1";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-51BXQdDxlI6+3ctDSa/6tyRXBb1E9BVej9qy7WtkOGM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiofiles
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "dinghy.cli" ];
+  pythonImportsCheck = ["dinghy.cli"];
 
   meta = with lib; {
     description = "GitHub activity digest tool";

@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "astropy-iers-data";
   version = "0.2025.3.31.0.36.18";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "astropy_iers_data" ];
+  pythonImportsCheck = ["astropy_iers_data"];
 
   # no tests
   doCheck = false;
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "IERS data maintained by @astrofrog and astropy.utils.iers maintainers";
     homepage = "https://github.com/astropy/astropy-iers-data";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -12,7 +12,6 @@
   python3,
   sevVariant ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libkrunfw";
   version = "4.9.0";
@@ -73,6 +72,6 @@ stdenv.mkDerivation (finalAttrs: {
       RossComputerGuy
       nrabulinski
     ];
-    platforms = [ "x86_64-linux" ] ++ lib.optionals (!sevVariant) [ "aarch64-linux" ];
+    platforms = ["x86_64-linux"] ++ lib.optionals (!sevVariant) ["aarch64-linux"];
   };
 })

@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aioecowitt";
   version = "2025.3.1";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-BAiRonfu3tFf5ZERbWO+MuEsefrOIaGxUExYx5fXZIM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioecowitt" ];
+  pythonImportsCheck = ["aioecowitt"];
 
   meta = with lib; {
     description = "Wrapper for the EcoWitt protocol";
     mainProgram = "ecowitt-testserver";
     homepage = "https://github.com/home-assistant-libs/aioecowitt";
     changelog = "https://github.com/home-assistant-libs/aioecowitt/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

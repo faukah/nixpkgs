@@ -13,7 +13,6 @@
   testers,
   transcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "transcrypt";
   version = "2.3.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-s95EnEmcdd5mFAKvtZ88aXxkrRLSZUP0VBrCy5PR4fo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     git
     openssl
@@ -44,16 +43,16 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/transcrypt \
       --prefix PATH : "${
-        lib.makeBinPath [
-          git
-          openssl
-          coreutils
-          util-linux
-          gnugrep
-          gnused
-          gawk
-        ]
-      }"
+      lib.makeBinPath [
+        git
+        openssl
+        coreutils
+        util-linux
+        gnugrep
+        gnused
+        gawk
+      ]
+    }"
 
     cat > $out/bin/transcrypt-depspathprefix << EOF
     #!${stdenv.shell}
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/elasticdog/transcrypt";
     license = licenses.mit;
-    maintainers = [ maintainers.elasticdog ];
+    maintainers = [maintainers.elasticdog];
     platforms = platforms.all;
   };
 }

@@ -10,7 +10,6 @@
   lillydap,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   # leaf is already used
   pname = "arpa2-leaf";
@@ -37,15 +36,15 @@ stdenv.mkDerivation (finalAttrs: {
     lillydap
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "LDAP Extended Attribute Filter";
     homepage = "https://gitlab.com/arpa2/leaf";
     changelog = "https://gitlab.com/arpa2/leaf/-/blob/v${finalAttrs.version}/CHANGES";
     license = lib.licenses.bsd2;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = lib.platforms.linux;
   };
 })

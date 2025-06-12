@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 buildGoModule {
   pname = "lemonade";
   version = "unstable-2021-06-18";
@@ -25,13 +24,13 @@ buildGoModule {
 
   vendorHash = "sha256-wjQfTKVNmehu4aU5425gS0YWKj53dosVSTLgdu9KjKc=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Remote utility tool that to copy, paste and open browsers over TCP";
     homepage = "https://github.com/lemonade-command/lemonade/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "lemonade";
   };
 }

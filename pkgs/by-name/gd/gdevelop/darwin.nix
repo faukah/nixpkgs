@@ -2,7 +2,6 @@
   stdenvNoCC,
   fetchurl,
   unzip,
-
   pname,
   version,
   meta,
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   sourceRoot = ".";
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontPatch = true;
   dontConfigure = true;
@@ -35,5 +34,4 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp -r "GDevelop 5.app" $out/Applications/
     runHook postInstall
   '';
-
 })

@@ -6,7 +6,6 @@
   openssl,
   capnproto,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flowgger";
   version = "0.3.2";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     capnproto
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   checkFlags = [
     # test failed
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/awslabs/flowgger";
     description = "Fast, simple and lightweight data collector written in Rust";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "flowgger";
   };
 }

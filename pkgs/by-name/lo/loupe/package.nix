@@ -21,7 +21,6 @@
   _experimental-update-script-combinators,
   rustPlatform,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "loupe";
   version = "48.1";
@@ -74,29 +73,28 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript =
-      let
-        updateSource = gnome.updateScript {
-          packageName = "loupe";
-        };
+    updateScript = let
+      updateSource = gnome.updateScript {
+        packageName = "loupe";
+      };
 
-        updateLockfile = {
-          command = [
-            "sh"
-            "-c"
-            ''
-              PATH=${
-                lib.makeBinPath [
-                  common-updater-scripts
-                ]
-              }
-              update-source-version loupe --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
-            ''
-          ];
-          # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
-        };
-      in
+      updateLockfile = {
+        command = [
+          "sh"
+          "-c"
+          ''
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+              ]
+            }
+            update-source-version loupe --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
+          ''
+        ];
+        # Experimental feature: do not copy!
+        supportedFeatures = ["silent"];
+      };
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
@@ -108,8 +106,8 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.gnome.org/GNOME/loupe/-/blob/${finalAttrs.version}/NEWS?ref_type=tags";
     description = "Simple image viewer application written with GTK4 and Rust";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jk ];
-    teams = [ teams.gnome ];
+    maintainers = with maintainers; [jk];
+    teams = [teams.gnome];
     platforms = platforms.unix;
     mainProgram = "loupe";
   };

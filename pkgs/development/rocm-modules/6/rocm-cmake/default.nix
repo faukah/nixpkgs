@@ -6,7 +6,6 @@
   rocm-core,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocm-cmake";
   version = "6.3.3";
@@ -18,9 +17,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-U4vGkH2iUlNJkqiNmVuFianD4WR9yuGvZsYG58smg0k=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ rocm-core ];
+  buildInputs = [rocm-core];
 
   passthru.updateScript = rocmUpdateScript {
     name = finalAttrs.pname;
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "CMake modules for common build tasks for the ROCm stack";
     homepage = "https://github.com/ROCm/rocm-cmake";
     license = licenses.mit;
-    teams = [ teams.rocm ];
+    teams = [teams.rocm];
     platforms = platforms.unix;
   };
 })

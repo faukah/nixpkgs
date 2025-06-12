@@ -25,7 +25,6 @@
   common-updater-scripts,
   apple-sdk_gstreamer,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gst-devtools";
   version = "1.26.0";
@@ -98,27 +97,26 @@ stdenv.mkDerivation (finalAttrs: {
   cargoRoot = "dots-viewer";
 
   passthru = {
-    updateScript =
-      let
-        updateSource = directoryListingUpdater { };
+    updateScript = let
+      updateSource = directoryListingUpdater {};
 
-        updateLockfile = {
-          command = [
-            "sh"
-            "-c"
-            ''
-              PATH=${
-                lib.makeBinPath [
-                  common-updater-scripts
-                ]
-              }
-              update-source-version gst_all_1.gst-devtools --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
-            ''
-          ];
-          # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
-        };
-      in
+      updateLockfile = {
+        command = [
+          "sh"
+          "-c"
+          ''
+            PATH=${
+              lib.makeBinPath [
+                common-updater-scripts
+              ]
+            }
+            update-source-version gst_all_1.gst-devtools --ignore-same-version --source-key=cargoDeps.vendorStaging > /dev/null
+          ''
+        ];
+        # Experimental feature: do not copy!
+        supportedFeatures = ["silent"];
+      };
+    in
       _experimental-update-script-combinators.sequence [
         updateSource
         updateLockfile
@@ -130,6 +128,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

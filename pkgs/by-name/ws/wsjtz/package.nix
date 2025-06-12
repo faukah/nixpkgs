@@ -3,7 +3,6 @@
   fetchzip,
   lib,
 }:
-
 wsjtx.overrideAttrs (old: rec {
   pname = "wsjtz";
   version = "2.7.0-rc7-1.43";

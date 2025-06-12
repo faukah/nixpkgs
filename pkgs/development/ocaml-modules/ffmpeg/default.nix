@@ -1,7 +1,7 @@
 {
   buildDunePackage,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-avutil,
   ffmpeg-avcodec,
   ffmpeg-avfilter,
@@ -10,7 +10,6 @@
   ffmpeg-av,
   ffmpeg-avdevice,
 }:
-
 buildDunePackage {
   pname = "ffmpeg";
 
@@ -31,8 +30,9 @@ buildDunePackage {
   # The tests fail
   doCheck = false;
 
-  meta = ffmpeg-base.meta // {
-    description = "Bindings for the ffmpeg libraries";
-  };
-
+  meta =
+    ffmpeg-base.meta
+    // {
+      description = "Bindings for the ffmpeg libraries";
+    };
 }

@@ -6,7 +6,6 @@
   dune-configurator,
   zarith,
 }:
-
 buildDunePackage rec {
   pname = "cryptokit";
   version = "1.20.1";
@@ -16,7 +15,7 @@ buildDunePackage rec {
   src = fetchFromGitHub {
     owner = "xavierleroy";
     repo = "cryptokit";
-    rev = "release${lib.replaceStrings [ "." ] [ "" ] version}";
+    rev = "release${lib.replaceStrings ["."] [""] version}";
     hash = "sha256-VFY10jGctQfIUVv7dK06KP8zLZHLXTxvLyTCObS+W+E=";
   };
 
@@ -26,7 +25,7 @@ buildDunePackage rec {
     runHook postConfigure
   '';
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     zarith
     zlib

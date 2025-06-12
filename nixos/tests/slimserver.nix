@@ -1,20 +1,18 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "slimserver";
-  meta.maintainers = with pkgs.lib.maintainers; [ adamcstephens ];
+  meta.maintainers = with pkgs.lib.maintainers; [adamcstephens];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.slimserver.enable = true;
-      services.squeezelite = {
-        enable = true;
-        extraArguments = "-s 127.0.0.1 -d slimproto=info";
-      };
-      boot.kernelModules = [ "snd-dummy" ];
+  nodes.machine = {...}: {
+    services.slimserver.enable = true;
+    services.squeezelite = {
+      enable = true;
+      extraArguments = "-s 127.0.0.1 -d slimproto=info";
     };
+    boot.kernelModules = ["snd-dummy"];
+  };
 
-  testScript = # python
+  testScript =
+    # python
     ''
       import json
       rpc_get_player = {

@@ -7,7 +7,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "attrs-strict";
   version = "1.0.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     attrs
   ];
 
-  pythonImportsCheck = [ "attrs_strict" ];
+  pythonImportsCheck = ["attrs_strict"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     description = "Python package which contains runtime validation for attrs data classes based on the types existing in the typing module";
     homepage = "https://github.com/bloomberg/attrs-strict";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

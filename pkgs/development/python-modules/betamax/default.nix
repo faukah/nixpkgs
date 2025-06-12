@@ -7,7 +7,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "betamax";
   version = "0.9.0";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-gjFuFnm8aHnjyDMY0Ba1S3ySJf8IxEYt5IE+IgONX5Q=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "betamax" ];
+  pythonImportsCheck = ["betamax"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://betamax.readthedocs.org/";
     changelog = "https://github.com/betamaxpy/betamax/blob/${version}/HISTORY.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

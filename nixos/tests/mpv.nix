@@ -1,22 +1,17 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   port = toString 4321;
-in
-{
+in {
   name = "mpv";
-  meta.maintainers = with lib.maintainers; [ zopieux ];
+  meta.maintainers = with lib.maintainers; [zopieux];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [
-        pkgs.curl
-        (pkgs.mpv.override {
-          scripts = [ pkgs.mpvScripts.simple-mpv-webui ];
-        })
-      ];
-    };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [
+      pkgs.curl
+      (pkgs.mpv.override {
+        scripts = [pkgs.mpvScripts.simple-mpv-webui];
+      })
+    ];
+  };
 
   testScript = ''
     machine.execute("set -m; mpv --script-opts=webui-port=${port} --idle=yes >&2 &")

@@ -4,21 +4,11 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.wacom;
-
-in
-
-{
-
+in {
   options = {
-
     services.xserver.wacom = {
-
       enable = mkOption {
         type = types.bool;
         default = false;
@@ -32,22 +22,16 @@ in
           configuration.nix easily.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [pkgs.xf86_input_wacom]; # provides xsetwacom
 
-    environment.systemPackages = [ pkgs.xf86_input_wacom ]; # provides xsetwacom
+    services.xserver.modules = [pkgs.xf86_input_wacom];
 
-    services.xserver.modules = [ pkgs.xf86_input_wacom ];
+    services.udev.packages = [pkgs.xf86_input_wacom];
 
-    services.udev.packages = [ pkgs.xf86_input_wacom ];
-
-    environment.etc."X11/xorg.conf.d/70-wacom.conf".source =
-      "${pkgs.xf86_input_wacom}/share/X11/xorg.conf.d/70-wacom.conf";
-
+    environment.etc."X11/xorg.conf.d/70-wacom.conf".source = "${pkgs.xf86_input_wacom}/share/X11/xorg.conf.d/70-wacom.conf";
   };
-
 }

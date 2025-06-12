@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "whitesur-cursors";
   version = "0-unstable-2025-01-13";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation {
     description = "X-cursor theme inspired by macOS and based on capitaine-cursors";
     homepage = "https://github.com/vinceliuice/WhiteSur-cursors";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux;
   };
 }

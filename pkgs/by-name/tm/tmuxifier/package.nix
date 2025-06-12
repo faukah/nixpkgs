@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tmuxifier";
   version = "0.13.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-7TvJnvtZEo5h45PcSy3tJN09UblswV0mQbTaKjgLyqw=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontBuild = true;
 
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jimeh/tmuxifier";
     license = licenses.mit;
     mainProgram = "tmuxifier";
-    maintainers = with maintainers; [ wigust ];
+    maintainers = with maintainers; [wigust];
     platforms = platforms.unix;
   };
 }

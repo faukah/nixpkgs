@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mscompress";
   version = "0.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Urq8CzVfO9tdEUrEya+bUzoNjZQ2TO7OB+h2MTAGwEI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = ''Microsoft "compress.exe/expand.exe" compatible (de)compressor'';
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 })

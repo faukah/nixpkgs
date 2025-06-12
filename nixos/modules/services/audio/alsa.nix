@@ -3,12 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.hardware.alsa;
 
-  quote = x: ''"${lib.escape [ "\"" ] x}"'';
+  quote = x: ''"${lib.escape ["\""] x}"'';
 
   alsactl = lib.getExe' pkgs.alsa-utils "alsactl";
 
@@ -17,47 +15,45 @@ let
     pcm.${name} {
       type softvol
       slave.pcm ${quote opts.device}
-      control.name ${quote (if opts.name != null then opts.name else name)}
+      control.name ${quote (
+      if opts.name != null
+      then opts.name
+      else name
+    )}
       control.card ${quote opts.card}
       max_dB ${toString opts.maxVolume}
     }
   '';
 
   # modprobe.conf for naming sound cards
-  cardsConfig =
-    let
-      # Reverse the mapping from card name→driver to card driver→name
-      drivers = lib.unique (lib.mapAttrsToList (n: v: v.driver) cfg.cardAliases);
-      options = lib.forEach drivers (
-        drv:
-        let
-          byDriver = lib.filterAttrs (n: v: v.driver == drv);
-          ids = lib.mapAttrs (n: v: v.id) (byDriver cfg.cardAliases);
-        in
-        {
-          driver = drv;
-          names = lib.attrNames ids;
-          ids = lib.attrValues ids;
-        }
-      );
-      toList = x: lib.concatStringsSep "," (map toString x);
-    in
+  cardsConfig = let
+    # Reverse the mapping from card name→driver to card driver→name
+    drivers = lib.unique (lib.mapAttrsToList (n: v: v.driver) cfg.cardAliases);
+    options = lib.forEach drivers (
+      drv: let
+        byDriver = lib.filterAttrs (n: v: v.driver == drv);
+        ids = lib.mapAttrs (n: v: v.id) (byDriver cfg.cardAliases);
+      in {
+        driver = drv;
+        names = lib.attrNames ids;
+        ids = lib.attrValues ids;
+      }
+    );
+    toList = x: lib.concatStringsSep "," (map toString x);
+  in
     lib.forEach options (i: "options ${i.driver} index=${toList i.ids} id=${toList i.names}");
 
   defaultDeviceVars = {
     "ALSA_AUDIO_OUT" = cfg.defaultDevice.playback;
     "ALSA_AUDIO_IN" = cfg.defaultDevice.capture;
   };
-
-in
-
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "sound" "enable" ] ''
+    (lib.mkRemovedOptionModule ["sound" "enable"] ''
       The option was heavily overloaded and can be removed from most configurations.
       To specifically configure the user space part of ALSA, see `hardware.alsa`.
     '')
-    (lib.mkRemovedOptionModule [ "sound" "mediaKeys" ] ''
+    (lib.mkRemovedOptionModule ["sound" "mediaKeys"] ''
       The media keys can be configured with any hotkey daemon (that better
       integrates with your desktop setup). To continue using the actkbd daemon
       (which was used up to NixOS 24.05), add these lines to your configuration:
@@ -82,15 +78,15 @@ in
           }
         ];
     '')
-    (lib.mkRenamedOptionModule
-      [ "sound" "enableOSSEmulation" ]
-      [ "hardware" "alsa" "enableOSSEmulation" ]
+    (
+      lib.mkRenamedOptionModule
+      ["sound" "enableOSSEmulation"]
+      ["hardware" "alsa" "enableOSSEmulation"]
     )
-    (lib.mkRenamedOptionModule [ "sound" "extraConfig" ] [ "hardware" "alsa" "config" ])
+    (lib.mkRenamedOptionModule ["sound" "extraConfig"] ["hardware" "alsa" "config"])
   ];
 
   options.hardware.alsa = {
-
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -157,7 +153,7 @@ in
 
     controls = lib.mkOption {
       type = lib.types.attrsOf (
-        lib.types.submodule ({
+        lib.types.submodule {
           options.name = lib.mkOption {
             type = lib.types.nullOr lib.types.str;
             default = null;
@@ -187,9 +183,9 @@ in
               The maximum volume in dB.
             '';
           };
-        })
+        }
       );
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           firefox = { device = "front"; maxVolume = -25.0; };
@@ -206,7 +202,7 @@ in
 
     cardAliases = lib.mkOption {
       type = lib.types.attrsOf (
-        lib.types.submodule ({
+        lib.types.submodule {
           options.driver = lib.mkOption {
             type = lib.types.str;
             description = ''
@@ -220,9 +216,9 @@ in
               The ID of the sound card
             '';
           };
-        })
+        }
       );
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           soundchip = { driver = "snd_intel_hda"; id = 0; };
@@ -241,7 +237,7 @@ in
 
     deviceAliases = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           hdmi1 = "hw:CARD=videocard,DEV=5";
@@ -281,7 +277,6 @@ in
         in the unofficial ALSA wiki: https://alsa.opensrc.org/Asoundrc
       '';
     };
-
   };
 
   options.hardware.alsa.enablePersistence = lib.mkOption {
@@ -295,95 +290,93 @@ in
   };
 
   config = lib.mkMerge [
-
     (lib.mkIf cfg.enable {
       # Disable sound servers enabled by default and,
       # if the user enabled one manually, cause a conflict.
       services.pipewire.enable = false;
       services.pulseaudio.enable = false;
 
-      hardware.alsa.config =
-        let
-          conf = [
-            ''
-              pcm.!default fromenv
+      hardware.alsa.config = let
+        conf = [
+          ''
+            pcm.!default fromenv
 
-              # Read the capture and playback device from
-              # the ALSA_AUDIO_IN, ALSA_AUDIO_OUT variables
-              pcm.fromenv {
-                type asym
-                playback.pcm {
-                  type plug
-                  slave.pcm {
-                    @func getenv
-                    vars [ ALSA_AUDIO_OUT ]
-                    default pcm.sysdefault
-                  }
-                }
-                capture.pcm {
-                  type plug
-                  slave.pcm {
-                    @func getenv
-                    vars [ ALSA_AUDIO_IN ]
-                    default pcm.sysdefault
-                  }
+            # Read the capture and playback device from
+            # the ALSA_AUDIO_IN, ALSA_AUDIO_OUT variables
+            pcm.fromenv {
+              type asym
+              playback.pcm {
+                type plug
+                slave.pcm {
+                  @func getenv
+                  vars [ ALSA_AUDIO_OUT ]
+                  default pcm.sysdefault
                 }
               }
-            ''
-            (lib.optional cfg.enableRecorder ''
-              pcm.!default "splitter:fromenv,recorder"
-
-              # Send audio to two stereo devices
-              pcm.splitter {
-                @args [ A B ]
-                @args.A.type string
-                @args.B.type string
-                type asym
-                playback.pcm {
-                  type plug
-                  route_policy "duplicate"
-                  slave.pcm {
-                    type multi
-                    slaves.a.pcm $A
-                    slaves.b.pcm $B
-                    slaves.a.channels 2
-                    slaves.b.channels 2
-                    bindings [
-                     { slave a channel 0 }
-                     { slave a channel 1 }
-                     { slave b channel 0 }
-                     { slave b channel 1 }
-                    ]
-                  }
-                }
-                capture.pcm $A
-              }
-
-              # Device which records and plays back audio
-              pcm.recorder {
-                type asym
-                capture.pcm {
-                  type dsnoop
-                  ipc_key 9165218
-                  ipc_perm 0666
-                  slave.pcm "hw:loopback,1,0"
-                  slave.period_size 1024
-                  slave.buffer_size 8192
-                }
-                playback.pcm {
-                  type dmix
-                  ipc_key 6181923
-                  ipc_perm 0666
-                  slave.pcm "hw:loopback,0,0"
-                  slave.period_size 1024
-                  slave.buffer_size 8192
+              capture.pcm {
+                type plug
+                slave.pcm {
+                  @func getenv
+                  vars [ ALSA_AUDIO_IN ]
+                  default pcm.sysdefault
                 }
               }
-            '')
-            (lib.mapAttrsToList mkControl cfg.controls)
-            (lib.mapAttrsToList (n: v: "pcm.${n} ${quote v}") cfg.deviceAliases)
-          ];
-        in
+            }
+          ''
+          (lib.optional cfg.enableRecorder ''
+            pcm.!default "splitter:fromenv,recorder"
+
+            # Send audio to two stereo devices
+            pcm.splitter {
+              @args [ A B ]
+              @args.A.type string
+              @args.B.type string
+              type asym
+              playback.pcm {
+                type plug
+                route_policy "duplicate"
+                slave.pcm {
+                  type multi
+                  slaves.a.pcm $A
+                  slaves.b.pcm $B
+                  slaves.a.channels 2
+                  slaves.b.channels 2
+                  bindings [
+                   { slave a channel 0 }
+                   { slave a channel 1 }
+                   { slave b channel 0 }
+                   { slave b channel 1 }
+                  ]
+                }
+              }
+              capture.pcm $A
+            }
+
+            # Device which records and plays back audio
+            pcm.recorder {
+              type asym
+              capture.pcm {
+                type dsnoop
+                ipc_key 9165218
+                ipc_perm 0666
+                slave.pcm "hw:loopback,1,0"
+                slave.period_size 1024
+                slave.buffer_size 8192
+              }
+              playback.pcm {
+                type dmix
+                ipc_key 6181923
+                ipc_perm 0666
+                slave.pcm "hw:loopback,0,0"
+                slave.period_size 1024
+                slave.buffer_size 8192
+              }
+            }
+          '')
+          (lib.mapAttrsToList mkControl cfg.controls)
+          (lib.mapAttrsToList (n: v: "pcm.${n} ${quote v}") cfg.deviceAliases)
+        ];
+      in
         lib.mkBefore (lib.concatStringsSep "\n" (lib.flatten conf));
 
       hardware.alsa.cardAliases = lib.mkIf cfg.enableRecorder {
@@ -398,22 +391,21 @@ in
       environment.etc."asound.conf".text = cfg.config;
 
       boot.kernelModules =
-        [ ]
+        []
         ++ lib.optionals cfg.enableOSSEmulation [
           "snd_pcm_oss"
           "snd_mixer_oss"
         ]
-        ++ lib.optionals cfg.enableRecorder [ "snd_aloop" ];
+        ++ lib.optionals cfg.enableRecorder ["snd_aloop"];
 
       # Assign names to the sound cards
       boot.extraModprobeConfig = lib.concatStringsSep "\n" cardsConfig;
 
       # Provide alsamixer, aplay, arecord, etc.
-      environment.systemPackages = [ pkgs.alsa-utils ];
+      environment.systemPackages = [pkgs.alsa-utils];
     })
 
     (lib.mkIf config.hardware.alsa.enablePersistence {
-
       # Install udev rules for restoring card settings on boot
       services.udev.extraRules = ''
         ACTION=="add", SUBSYSTEM=="sound", KERNEL=="controlC*", KERNELS!="card*", GOTO="alsa_restore_go"
@@ -428,7 +420,7 @@ in
       # Service to store/restore the sound card settings
       systemd.services.alsa-store = {
         description = "Store Sound Card State";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         restartIfChanged = false;
         unitConfig = {
           RequiresMountsFor = "/var/lib/alsa";
@@ -451,9 +443,7 @@ in
         };
       };
     })
-
   ];
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

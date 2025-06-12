@@ -5,7 +5,6 @@
   fetchPypi,
   gitpython,
 }:
-
 buildPythonApplication rec {
   pname = "gitup";
   version = "0.5.1";
@@ -27,7 +26,7 @@ buildPythonApplication rec {
     description = "Easily update multiple Git repositories at once";
     homepage = "https://github.com/earwig/git-repo-updater";
     license = licenses.mit;
-    maintainers = with maintainers; [ bdesham ];
+    maintainers = with maintainers; [bdesham];
     mainProgram = "gitup";
   };
 }

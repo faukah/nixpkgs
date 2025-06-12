@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "transaction";
   version = "5.0";
@@ -39,13 +38,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "transaction" ];
+  pythonImportsCheck = ["transaction"];
 
   meta = {
     description = "Transaction management";
     homepage = "https://transaction.readthedocs.io/";
     changelog = "https://github.com/zopefoundation/transaction/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

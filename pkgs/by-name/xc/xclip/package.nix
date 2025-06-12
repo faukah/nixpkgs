@@ -5,7 +5,6 @@
   autoreconfHook,
   libXmu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xclip";
   version = "0.13";
@@ -17,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "0q0hmvcjlv8arhh1pzhja2wglyj6n7z209jnpnzd281kqqv4czcs";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ libXmu ];
+  buildInputs = [libXmu];
 
   meta = {
     description = "Tool to access the X clipboard from a console application";

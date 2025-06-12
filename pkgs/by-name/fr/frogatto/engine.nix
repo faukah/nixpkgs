@@ -16,7 +16,6 @@
   libvpx,
   glm,
 }:
-
 stdenv.mkDerivation {
   pname = "anura-engine";
   version = "unstable-2023-02-27";
@@ -63,6 +62,6 @@ stdenv.mkDerivation {
     description = "Game engine used by Frogatto";
     license = licenses.zlib;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

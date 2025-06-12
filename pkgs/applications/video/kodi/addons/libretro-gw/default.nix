@@ -6,7 +6,6 @@
   libretro,
   gw,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "libretro-gw";
   namespace = "game.libretro.gw";
@@ -23,7 +22,7 @@ buildKodiBinaryAddon rec {
     "-DGW_LIB=${gw}/lib/retroarch/cores/gw_libretro.so"
   ];
 
-  extraBuildInputs = [ gw ];
+  extraBuildInputs = [gw];
   propagatedBuildInputs = [
     libretro
   ];
@@ -33,6 +32,6 @@ buildKodiBinaryAddon rec {
     description = "Game and Watch for Kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

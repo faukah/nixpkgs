@@ -8,7 +8,6 @@
   eigen,
   qt5,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nanovna-qt";
   # 20200507 dropped support for NanoVNA V2.2
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-0nRpjLglCog9e4bSkaNSwjrwmLwut3Ykr3AaYZCaMEs=";
   };
 
-  patches = [ ./fix-build.patch ];
+  patches = [./fix-build.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     qt5.qtcharts
   ];
 
-  autoreconfFlags = [ "--install" ];
+  autoreconfFlags = ["--install"];
 
   postBuild = ''
     pushd libxavna/xavna_mock_ui/
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     mainProgram = "vna_qt";
     license = lib.licenses.gpl2Only;
     changelog = "https://github.com/nanovna-v2/NanoVNA-QT/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ chuangzhu ];
+    maintainers = with lib.maintainers; [chuangzhu];
     platforms = lib.platforms.linux;
   };
 }

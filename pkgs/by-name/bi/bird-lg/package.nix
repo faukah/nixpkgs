@@ -3,10 +3,11 @@
   fetchFromGitHub,
   lib,
   symlinkJoin,
-}:
-let
-  generic =
-    { modRoot, vendorHash }:
+}: let
+  generic = {
+    modRoot,
+    vendorHash,
+  }:
     buildGoModule rec {
       pname = "bird-lg-${modRoot}";
       version = "1.3.8";
@@ -49,13 +50,13 @@ let
     vendorHash = "sha256-OVyfPmLTHV5RFdLgRHEH/GqxuG5MnGt9Koz0DxpSg+4=";
   };
 in
-symlinkJoin {
-  name = "bird-lg-${bird-lg-frontend.version}";
-  paths = [
-    bird-lg-frontend
-    bird-lg-proxy
-  ];
-}
-// {
-  inherit (bird-lg-frontend) version meta;
-}
+  symlinkJoin {
+    name = "bird-lg-${bird-lg-frontend.version}";
+    paths = [
+      bird-lg-frontend
+      bird-lg-proxy
+    ];
+  }
+  // {
+    inherit (bird-lg-frontend) version meta;
+  }

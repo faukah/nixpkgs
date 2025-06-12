@@ -17,7 +17,6 @@
   glm,
   freetype,
 }:
-
 stdenv.mkDerivation rec {
   pname = "logstalgia";
   version = "1.1.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-wEnv9AXpJANSIu2ya8xse18AoIkmq9t7Rn4kSSQnkKk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glew
     SDL2
@@ -74,7 +73,7 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.gnu ++ platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "logstalgia";
   };
 }

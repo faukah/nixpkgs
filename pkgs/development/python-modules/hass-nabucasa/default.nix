@@ -20,7 +20,6 @@
   webrtc-models,
   xmltodict,
 }:
-
 buildPythonPackage rec {
   pname = "hass-nabucasa";
   version = "0.96.0";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     hash = "sha256-U6rxX1VgSpOkmd/kyf2thYF/0TtsguWbVxXaeuq/wvs=";
   };
 
-  pythonRelaxDeps = [ "acme" ];
+  pythonRelaxDeps = ["acme"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     acme
@@ -60,13 +59,13 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  pythonImportsCheck = [ "hass_nabucasa" ];
+  pythonImportsCheck = ["hass_nabucasa"];
 
   meta = with lib; {
     description = "Python module for the Home Assistant cloud integration";
     homepage = "https://github.com/NabuCasa/hass-nabucasa";
     changelog = "https://github.com/NabuCasa/hass-nabucasa/releases/tag/${src.tag}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

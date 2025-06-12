@@ -5,7 +5,6 @@
   moreutils,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "alejandra";
@@ -33,6 +32,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Uncompromising Nix Code Formatter";
     homepage = "https://github.com/kamadorueda/alejandra";
     license = lib.licenses.unlicense;
-    maintainers = [ lib.maintainers.kamadorueda ];
+    maintainers = [lib.maintainers.kamadorueda];
   };
 }

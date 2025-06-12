@@ -10,7 +10,6 @@
   pyqtdatavisualization,
   pyqtwebengine,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt5-stubs";
   version = "5.15.6.0";
@@ -46,7 +45,7 @@ buildPythonPackage rec {
       rm tests/qflags/test_QtDesigner_*
     '';
 
-  pythonImportsCheck = [ "PyQt5-stubs" ];
+  pythonImportsCheck = ["PyQt5-stubs"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -61,6 +60,6 @@ buildPythonPackage rec {
     description = "Stubs for PyQt5";
     homepage = "https://github.com/python-qt-tools/PyQt5-stubs";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ _999eagle ];
+    maintainers = with maintainers; [_999eagle];
   };
 }

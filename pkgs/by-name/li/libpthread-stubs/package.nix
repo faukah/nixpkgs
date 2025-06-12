@@ -5,7 +5,6 @@
   testers,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libpthread-stubs";
   version = "0.5";
@@ -35,9 +34,9 @@ stdenv.mkDerivation (finalAttrs: {
     # gitlab says x11-distribute-modifications but it's not
     # maybe due to https://github.com/spdx/spdx-online-tools/issues/540
     license = lib.licenses.x11;
-    maintainers = [ ];
-    pkgConfigModules = [ "pthread-stubs" ];
+    maintainers = [];
+    pkgConfigModules = ["pthread-stubs"];
     # on these platforms according to the readme
-    platforms = with lib.platforms; linux ++ cygwin ++ darwin ++ [ "x86_64-solaris" ];
+    platforms = with lib.platforms; linux ++ cygwin ++ darwin ++ ["x86_64-solaris"];
   };
 })

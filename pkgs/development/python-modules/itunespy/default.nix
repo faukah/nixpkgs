@@ -5,7 +5,6 @@
   requests,
   pycountry,
 }:
-
 buildPythonPackage rec {
   pname = "itunespy";
   version = "1.6.1";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
   # This module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "itunespy" ];
+  pythonImportsCheck = ["itunespy"];
 
   meta = with lib; {
     description = "Simple library to fetch data from the iTunes Store API";
     homepage = "https://github.com/sleepyfran/itunespy";
     license = licenses.mit;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
   };
 }

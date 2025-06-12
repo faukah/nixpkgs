@@ -5,7 +5,6 @@
   setuptools,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-reredirects";
   version = "0.1.6";
@@ -36,6 +35,6 @@ buildPythonPackage rec {
       bsd3
       mit
     ];
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

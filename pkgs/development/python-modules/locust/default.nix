@@ -23,7 +23,6 @@
   tomli,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "locust";
   version = "2.33.1";
@@ -74,7 +73,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "locust" ];
+  pythonImportsCheck = ["locust"];
 
   nativeCheckInputs = [
     cryptography
@@ -92,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://docs.locust.io/";
     changelog = "https://github.com/locustio/locust/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jokatzke ];
+    maintainers = with lib.maintainers; [jokatzke];
   };
 }

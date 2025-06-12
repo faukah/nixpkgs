@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "py-deviceid";
   version = "0.1.1";
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "A simple library to get or create a unique device id for a device in Python";
     homepage = "https://pypi.org/project/py-deviceid/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
   };
 }

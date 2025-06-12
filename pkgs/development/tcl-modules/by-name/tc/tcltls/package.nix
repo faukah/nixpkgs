@@ -4,7 +4,6 @@
   mkTclDerivation,
   openssl,
 }:
-
 mkTclDerivation rec {
   pname = "tcltls";
   version = "1.7.22";
@@ -14,7 +13,7 @@ mkTclDerivation rec {
     sha256 = "sha256-6E4reideyCxKqp0bH5eG2+Q1jIFekXU5/+f2Z/9Lw7Q=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   configureFlags = [
     "--with-ssl-dir=${openssl.dev}"
@@ -23,7 +22,7 @@ mkTclDerivation rec {
   meta = {
     homepage = "https://core.tcl-lang.org/tcltls/index";
     description = "OpenSSL / RSA-bsafe Tcl extension";
-    maintainers = [ lib.maintainers.agbrooks ];
+    maintainers = [lib.maintainers.agbrooks];
     license = lib.licenses.tcltk;
     platforms = lib.platforms.unix;
   };

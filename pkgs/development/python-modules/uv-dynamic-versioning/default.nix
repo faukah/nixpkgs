@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   dunamai,
   eval-type-backport,
@@ -13,13 +11,11 @@
   pydantic,
   returns,
   tomlkit,
-
   # tests
   gitpython,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "uv-dynamic-versioning";
   version = "0.8.2";
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ninoseki/uv-dynamic-versioning";
     changelog = "https://github.com/ninoseki/uv-dynamic-versioning/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

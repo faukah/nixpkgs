@@ -3,21 +3,20 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.homebox;
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkDefault
     types
     mkIf
     ;
-in
-{
+in {
   options.services.homebox = {
     enable = mkEnableOption "homebox";
-    package = mkPackageOption pkgs "homebox" { };
+    package = mkPackageOption pkgs "homebox" {};
     settings = lib.mkOption {
       type = types.attrsOf types.str;
       defaultText = lib.literalExpression ''
@@ -51,7 +50,7 @@ in
       isSystemUser = true;
       group = "homebox";
     };
-    users.groups.homebox = { };
+    users.groups.homebox = {};
     services.homebox.settings = lib.mkMerge [
       (lib.mapAttrs (_: mkDefault) {
         HBOX_STORAGE_DATA = "/var/lib/homebox/data";
@@ -72,7 +71,7 @@ in
     ];
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ "homebox" ];
+      ensureDatabases = ["homebox"];
       ensureUsers = [
         {
           name = "homebox";
@@ -128,8 +127,8 @@ in
         PrivateMounts = true;
         UMask = "0077";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
-  meta.maintainers = with lib.maintainers; [ patrickdag ];
+  meta.maintainers = with lib.maintainers; [patrickdag];
 }

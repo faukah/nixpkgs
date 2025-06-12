@@ -7,7 +7,6 @@
   pynput,
   xdg-base-dirs,
 }:
-
 buildPythonApplication rec {
   pname = "bitwarden-menu";
   version = "0.4.5";
@@ -37,6 +36,6 @@ buildPythonApplication rec {
     mainProgram = "bwm";
     homepage = "https://github.com/firecat53/bitwarden-menu";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aman9das ];
+    maintainers = with lib.maintainers; [aman9das];
   };
 }

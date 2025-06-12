@@ -6,7 +6,6 @@
   texinfo,
   unzip,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slib";
   version = "3c1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     texinfo
     unzip
   ];
-  buildInputs = [ scheme ];
+  buildInputs = [scheme];
 
   postInstall = ''
     ln -s mklibcat{.scm,}
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://people.csail.mit.edu/jaffer/SLIB";
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

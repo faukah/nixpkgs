@@ -4,7 +4,6 @@
   stdenv,
   libsixel,
 }:
-
 buildPythonPackage rec {
   version = libsixel.version;
   format = "setuptools";
@@ -22,12 +21,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "libsixel" ];
+  pythonImportsCheck = ["libsixel"];
 
   meta = with lib; {
     description = "SIXEL graphics encoder/decoder implementation";
     homepage = "https://github.com/libsixel/libsixel";
     license = licenses.mit;
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   amd-ucodegen,
 }:
-
 stdenvNoCC.mkDerivation {
   name = "amd-ucodegen-test-platomav";
   meta.timeout = 60;
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-Va+ErKID5iyKEee61tlrZwSpujxwMYPC+MAgZKUkrrM=";
   };
 
-  nativeBuildInputs = [ amd-ucodegen ];
+  nativeBuildInputs = [amd-ucodegen];
   buildPhase = ''
     runHook preBuild
 

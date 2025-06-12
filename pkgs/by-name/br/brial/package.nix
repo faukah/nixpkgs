@@ -8,7 +8,6 @@
   m4ri,
   gd,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.14";
   pname = "brial";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BRiAl/BRiAl";
     description = "Legacy version of PolyBoRi maintained by sagemath developers";
     license = licenses.gpl2Plus;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.unix;
   };
 }

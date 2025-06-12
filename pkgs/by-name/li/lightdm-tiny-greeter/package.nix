@@ -12,7 +12,6 @@
   config,
   conf ? config.lightdm-tiny-greeter.conf or "",
 }:
-
 stdenv.mkDerivation rec {
   pname = "lightdm-tiny-greeter";
   version = "1.2";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     mainProgram = "lightdm-tiny-greeter";
     homepage = "https://github.com/off-world/lightdm-tiny-greeter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     platforms = platforms.linux;
   };
 }

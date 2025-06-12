@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttr: {
   pname = "iat";
   version = "0.1.7";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttr: {
     description = "Tool for detecting the structure of many types of CD/DVD images";
     homepage = "https://www.berlios.de/software/iso9660-analyzer-tool/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hughobrien ];
+    maintainers = with maintainers; [hughobrien];
     platforms = platforms.linux;
     mainProgram = "iat";
   };

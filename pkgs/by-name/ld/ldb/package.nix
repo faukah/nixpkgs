@@ -18,7 +18,6 @@
   libxcrypt,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ldb";
   version = "2.9.2";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "LDAP-like embedded database";
     homepage = "https://ldb.samba.org/";
     license = licenses.lgpl3Plus;
-    pkgConfigModules = [ "ldb" ];
+    pkgConfigModules = ["ldb"];
     platforms = platforms.all;
   };
 })

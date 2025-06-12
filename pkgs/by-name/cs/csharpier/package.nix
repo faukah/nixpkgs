@@ -1,5 +1,7 @@
-{ buildDotnetGlobalTool, lib }:
-
+{
+  buildDotnetGlobalTool,
+  lib,
+}:
 buildDotnetGlobalTool {
   pname = "csharpier";
   version = "1.0.2";
@@ -12,7 +14,7 @@ buildDotnetGlobalTool {
     homepage = "https://csharpier.com/";
     changelog = "https://github.com/belav/csharpier/blob/main/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ zoriya ];
+    maintainers = with maintainers; [zoriya];
     mainProgram = "csharpier";
   };
 }

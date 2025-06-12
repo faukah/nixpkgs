@@ -13,7 +13,6 @@
   pyusb,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "solo-python";
   version = "0.1.1";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-XVPYr7JwxeZfZ68+vQ7a7MNiAfJ2bvMbM3R1ryVJ+OU=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
   propagatedBuildInputs = [
     click
@@ -56,7 +55,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python tool and library for SoloKeys Solo 1";
     homepage = "https://github.com/solokeys/solo1-cli";
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     license = with licenses; [
       asl20
       mit

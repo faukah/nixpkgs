@@ -8,7 +8,6 @@
   testers,
   thanos,
 }:
-
 buildGoModule rec {
   pname = "thanos";
   version = "0.38.0";
@@ -24,23 +23,21 @@ buildGoModule rec {
 
   subPackages = "cmd/thanos";
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-X ${t}.Version=${version}"
-      "-X ${t}.Revision=unknown"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.GoVersion=${lib.getVersion go}"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-X ${t}.Version=${version}"
+    "-X ${t}.Revision=unknown"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.GoVersion=${lib.getVersion go}"
+  ];
 
   doCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit (nixosTests) thanos;
       version = testers.testVersion {

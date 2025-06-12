@@ -14,7 +14,6 @@
   pythonOlder,
   scipy,
 }:
-
 buildPythonPackage rec {
   pname = "qcelemental";
   version = "0.29.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-v2NO5lLn2V6QbikZiVEyJCM7HXBcJq/qyG5FHzFrPAQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     numpy
@@ -47,9 +46,9 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "qcelemental" ];
+  pythonImportsCheck = ["qcelemental"];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MolSSI/QCElemental";
     changelog = "https://github.com/MolSSI/QCElemental/blob/v${version}/docs/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
   };
 }

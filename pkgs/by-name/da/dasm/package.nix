@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dasm";
   version = "2.20.14.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Assembler for 6502 and other 8-bit microprocessors";
     homepage = "https://dasm-assembler.github.io";
     license = licenses.gpl2;
-    maintainers = [ maintainers.jwatt ];
+    maintainers = [maintainers.jwatt];
     platforms = platforms.all;
   };
 }

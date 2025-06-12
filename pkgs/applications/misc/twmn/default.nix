@@ -7,7 +7,6 @@
   pkg-config,
   boost,
 }:
-
 mkDerivation rec {
   pname = "twmn";
   version = "2025_03_06";
@@ -45,7 +44,7 @@ mkDerivation rec {
     description = "Notification system for tiling window managers";
     homepage = "https://github.com/sboli/twmn";
     platforms = with lib.platforms; linux;
-    maintainers = [ lib.maintainers.matejc ];
+    maintainers = [lib.maintainers.matejc];
     license = lib.licenses.lgpl3;
   };
 }

@@ -2,12 +2,10 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   gitpython,
   setuptools,
   setuptools-scm,
-
   # dependencies
   grpcio,
   # milvus-lite, (unpackaged)
@@ -15,12 +13,10 @@
   protobuf,
   python-dotenv,
   ujson,
-
   # tests
   grpcio-testing,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pymilvus";
   version = "2.5.10";
@@ -63,7 +59,7 @@ buildPythonPackage rec {
     # scikit-learn
   ];
 
-  pythonImportsCheck = [ "pymilvus" ];
+  pythonImportsCheck = ["pymilvus"];
 
   disabledTests = [
     # Tries to read .git
@@ -83,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/milvus-io/pymilvus";
     changelog = "https://github.com/milvus-io/pymilvus/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 }

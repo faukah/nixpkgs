@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "viceroy";
   version = "0.13.0";

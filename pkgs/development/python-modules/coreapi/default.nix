@@ -10,7 +10,6 @@
   requests,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "coreapi";
   version = "2.3.3";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     cd ./tests
     pytest
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Python client library for Core API";
     homepage = "https://github.com/core-api/python-client";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

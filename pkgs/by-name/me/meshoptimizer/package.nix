@@ -4,9 +4,7 @@
   fetchFromGitHub,
   cmake,
   nix-update-script,
-}:
-
-let
+}: let
   basis_universal = fetchFromGitHub {
     owner = "zeux";
     repo = "basis_universal";
@@ -14,40 +12,42 @@ let
     hash = "sha256-o3dCxAAkpMoNkvkM7qD75cPn/obDc/fJ8u7KLPm1G6g=";
   };
 in
-stdenv.mkDerivation rec {
-  pname = "meshoptimizer";
-  version = "0.23";
-  src = fetchFromGitHub {
-    owner = "zeux";
-    repo = "meshoptimizer";
-    rev = "v${version}";
-    hash = "sha256-vA9FXpJuLJS510MZgVZ96LAUbjXth4CFNkXMEV0DpYg=";
-  };
+  stdenv.mkDerivation rec {
+    pname = "meshoptimizer";
+    version = "0.23";
+    src = fetchFromGitHub {
+      owner = "zeux";
+      repo = "meshoptimizer";
+      rev = "v${version}";
+      hash = "sha256-vA9FXpJuLJS510MZgVZ96LAUbjXth4CFNkXMEV0DpYg=";
+    };
 
-  nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-  ];
-
-  cmakeFlags = [
-    "-DMESHOPT_BUILD_GLTFPACK=ON"
-    "-DMESHOPT_BASISU_PATH=${basis_universal}"
-  ] ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON";
-
-  passthru.updateScript = nix-update-script { };
-
-  meta = with lib; {
-    description = "Mesh optimization library that makes meshes smaller and faster to render";
-    homepage = "https://github.com/zeux/meshoptimizer";
-    license = licenses.mit;
-    maintainers = with maintainers; [
-      bouk
-      lillycham
+    outputs = [
+      "bin"
+      "dev"
+      "out"
     ];
-    platforms = platforms.all;
-    mainProgram = "gltfpack";
-  };
-}
+
+    cmakeFlags =
+      [
+        "-DMESHOPT_BUILD_GLTFPACK=ON"
+        "-DMESHOPT_BASISU_PATH=${basis_universal}"
+      ]
+      ++ lib.optional (!stdenv.hostPlatform.isStatic) "-DMESHOPT_BUILD_SHARED_LIBS:BOOL=ON";
+
+    passthru.updateScript = nix-update-script {};
+
+    meta = with lib; {
+      description = "Mesh optimization library that makes meshes smaller and faster to render";
+      homepage = "https://github.com/zeux/meshoptimizer";
+      license = licenses.mit;
+      maintainers = with maintainers; [
+        bouk
+        lillycham
+      ];
+      platforms = platforms.all;
+      mainProgram = "gltfpack";
+    };
+  }

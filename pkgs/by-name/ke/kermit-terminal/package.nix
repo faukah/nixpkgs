@@ -9,7 +9,6 @@
   vte,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kermit";
   version = "4.0";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/orhun/kermit/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     mainProgram = "kermit";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

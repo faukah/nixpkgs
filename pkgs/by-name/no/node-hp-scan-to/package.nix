@@ -8,7 +8,6 @@
   fixup-yarn-lock,
   yarn,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "node-hp-scan-to";
   version = "1.4.3";
@@ -72,6 +71,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/manuc66/node-hp-scan-to";
     license = lib.licenses.mit;
     mainProgram = "node-hp-scan-to";
-    maintainers = with lib.maintainers; [ jonas-w ];
+    maintainers = with lib.maintainers; [jonas-w];
   };
 })

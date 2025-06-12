@@ -15,56 +15,57 @@
   yojson,
   lwt,
   xmlm,
-}:
-let
+}: let
   angstrom' = angstrom.overrideAttrs (attrs: {
-    patches = attrs.patches or [ ] ++ [
-      # mldoc requires Angstrom to expose `unsafe_lookahead`
-      (fetchpatch {
-        url = "https://github.com/logseq/angstrom/commit/bbe36c99c13678937d4c983a427e02a733d6cc24.patch";
-        sha256 = "sha256-RapY1QJ8U0HOqJ9TFDnCYB4tFLFuThESzdBZqjYuDUA=";
-      })
-    ];
+    patches =
+      attrs.patches or []
+      ++ [
+        # mldoc requires Angstrom to expose `unsafe_lookahead`
+        (fetchpatch {
+          url = "https://github.com/logseq/angstrom/commit/bbe36c99c13678937d4c983a427e02a733d6cc24.patch";
+          sha256 = "sha256-RapY1QJ8U0HOqJ9TFDnCYB4tFLFuThESzdBZqjYuDUA=";
+        })
+      ];
   });
-  uri' = uri.override { angstrom = angstrom'; };
+  uri' = uri.override {angstrom = angstrom';};
 in
-buildDunePackage rec {
-  pname = "mldoc";
-  version = "1.5.8";
+  buildDunePackage rec {
+    pname = "mldoc";
+    version = "1.5.8";
 
-  minimalOCamlVersion = "4.10";
+    minimalOCamlVersion = "4.10";
 
-  duneVersion = "3";
+    duneVersion = "3";
 
-  src = fetchFromGitHub {
-    owner = "logseq";
-    repo = "mldoc";
-    rev = "v${version}";
-    hash = "sha256-7uuNUFMSQEgakTKfpYixp43gnfpQSW++snBzgr0Ni0Y=";
-  };
+    src = fetchFromGitHub {
+      owner = "logseq";
+      repo = "mldoc";
+      rev = "v${version}";
+      hash = "sha256-7uuNUFMSQEgakTKfpYixp43gnfpQSW++snBzgr0Ni0Y=";
+    };
 
-  buildInputs = [
-    cmdliner
-    core
-    core_bench
-    core_unix
-    js_of_ocaml
-    js_of_ocaml-ppx
-    lwt
-  ];
+    buildInputs = [
+      cmdliner
+      core
+      core_bench
+      core_unix
+      js_of_ocaml
+      js_of_ocaml-ppx
+      lwt
+    ];
 
-  propagatedBuildInputs = [
-    angstrom'
-    uri'
-    yojson
-    ppx_deriving_yojson
-    xmlm
-  ];
+    propagatedBuildInputs = [
+      angstrom'
+      uri'
+      yojson
+      ppx_deriving_yojson
+      xmlm
+    ];
 
-  meta = with lib; {
-    homepage = "https://github.com/logseq/mldoc";
-    description = "Another Emacs Org-mode and Markdown parser";
-    license = licenses.agpl3Only;
-    maintainers = [ ];
-  };
-}
+    meta = with lib; {
+      homepage = "https://github.com/logseq/mldoc";
+      description = "Another Emacs Org-mode and Markdown parser";
+      license = licenses.agpl3Only;
+      maintainers = [];
+    };
+  }

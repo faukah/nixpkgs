@@ -7,7 +7,6 @@
   regex,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "titlecase";
   version = "2.4";
@@ -22,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-aJbbfNnQvmmYPXVOO+xx7ADetsxE+jnVQOVDzV5jUp8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ regex ];
+  propagatedBuildInputs = [regex];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "titlecase/tests.py" ];
+  pytestFlagsArray = ["titlecase/tests.py"];
 
-  pythonImportsCheck = [ "titlecase" ];
+  pythonImportsCheck = ["titlecase"];
 
   meta = with lib; {
     description = "Python library to capitalize strings as specified by the New York Times";
     mainProgram = "titlecase";
     homepage = "https://github.com/ppannuto/python-titlecase";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   bdftopcf,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "dina-font";
   version = "2.92";

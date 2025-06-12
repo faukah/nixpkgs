@@ -5,7 +5,6 @@
   rustPlatform,
   libiconv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "amber";
   version = "0.6.0";
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Code search-and-replace tool";
     homepage = "https://github.com/dalance/amber";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.bdesham ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.bdesham];
   };
 }

@@ -1,37 +1,30 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "intune";
   meta = {
-    maintainers = with pkgs.lib.maintainers; [ rhysmdnz ];
+    maintainers = with pkgs.lib.maintainers; [rhysmdnz];
   };
   enableOCR = true;
 
-  nodes.machine =
-    { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
-    {
-      services.intune.enable = true;
-      services.gnome.gnome-keyring.enable = true;
-      imports = [
-        ./common/user-account.nix
-        ./common/x11.nix
-      ];
-      test-support.displayManager.auto.user = user.name;
-      environment = {
-        variables.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${builtins.toString user.uid}/bus";
-      };
+  nodes.machine = {nodes, ...}: let
+    user = nodes.machine.users.users.alice;
+  in {
+    services.intune.enable = true;
+    services.gnome.gnome-keyring.enable = true;
+    imports = [
+      ./common/user-account.nix
+      ./common/x11.nix
+    ];
+    test-support.displayManager.auto.user = user.name;
+    environment = {
+      variables.DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${builtins.toString user.uid}/bus";
     };
-  nodes.pam =
-    { nodes, ... }:
-    let
-      user = nodes.machine.users.users.alice;
-    in
-    {
-      services.intune.enable = true;
-      imports = [ ./common/user-account.nix ];
-    };
+  };
+  nodes.pam = {nodes, ...}: let
+    user = nodes.machine.users.users.alice;
+  in {
+    services.intune.enable = true;
+    imports = [./common/user-account.nix];
+  };
 
   testScript = ''
     start_all()

@@ -8,14 +8,13 @@
   kcrash,
   kxmlgui,
 }:
-
 mkDerivation {
   pname = "ksquares";
   meta = with lib; {
     homepage = "https://kde.org/applications/en/games/org.kde.ksquares";
     description = "Game of Dots and Boxes";
     mainProgram = "ksquares";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

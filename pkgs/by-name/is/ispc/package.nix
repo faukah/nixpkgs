@@ -13,12 +13,10 @@
   tbb,
   # the default test target is sse4, but that is not supported by all Hydra agents
   testedTargets ?
-    if stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isAarch32 then
-      [ "neon-i32x4" ]
-    else
-      [ "sse2-i32x4" ],
+    if stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isAarch32
+    then ["neon-i32x4"]
+    else ["sse2-i32x4"],
 }:
-
 stdenv.mkDerivation rec {
   pname = "ispc";
   version = "1.27.0";
@@ -65,7 +63,7 @@ stdenv.mkDerivation rec {
   # hilariously this is something of a double negative: 'disable' the
   # 'strictoverflow' hardening protection actually means we *allow* the compiler
   # to do strict overflow optimization. somewhat misleading...
-  hardeningDisable = [ "strictoverflow" ];
+  hardeningDisable = ["strictoverflow"];
 
   checkPhase = ''
     export ISPC_HOME=$PWD/bin
@@ -90,11 +88,19 @@ stdenv.mkDerivation rec {
     "-DISPC_INCLUDE_UTILS=OFF"
     (
       "-DARM_ENABLED="
-      + (if stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isAarch32 then "TRUE" else "FALSE")
+      + (
+        if stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isAarch32
+        then "TRUE"
+        else "FALSE"
+      )
     )
     (
       "-DX86_ENABLED="
-      + (if stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isx86_32 then "TRUE" else "FALSE")
+      + (
+        if stdenv.hostPlatform.isx86_64 || stdenv.hostPlatform.isx86_32
+        then "TRUE"
+        else "FALSE"
+      )
     )
   ];
 

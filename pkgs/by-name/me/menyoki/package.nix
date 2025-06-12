@@ -10,7 +10,6 @@
   xorg,
   withSki ? true,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "menyoki";
   version = "1.7.0";
@@ -25,13 +24,12 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-6FRc/kEhGJXIZ+6GXeYj5j7QVmvZgIQgtDPvt94hlho=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.hostPlatform.isLinux pkg-config;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional stdenv.hostPlatform.isLinux pkg-config;
 
   buildInputs =
     lib.optional withSixel libsixel
     ++ lib.optionals stdenv.hostPlatform.isLinux (
-      with xorg;
-      [
+      with xorg; [
         libX11
         libXrandr
       ]
@@ -55,7 +53,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://menyoki.cli.rs/";
     changelog = "https://github.com/orhun/menyoki/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "menyoki";
   };
 }

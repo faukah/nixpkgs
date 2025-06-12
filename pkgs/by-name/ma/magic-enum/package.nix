@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-P6fl/dcGOSE1lTJwZlimbvsTPelHwdQdZr18H4Zji20=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # the cmake package does not handle absolute CMAKE_INSTALL_INCLUDEDIR correctly
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -35,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Neargye/magic_enum";
     changelog = "https://github.com/Neargye/magic_enum/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ Alper-Celik ];
+    maintainers = with lib.maintainers; [Alper-Celik];
   };
 })

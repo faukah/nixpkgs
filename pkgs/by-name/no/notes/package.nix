@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  cmakeFlags = [ "-DUPDATE_CHECKER=OFF" ];
+  cmakeFlags = ["-DUPDATE_CHECKER=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -40,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "notes";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ zendo ];
+    maintainers = with lib.maintainers; [zendo];
   };
 })

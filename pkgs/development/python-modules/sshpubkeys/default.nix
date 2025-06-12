@@ -5,7 +5,6 @@
   cryptography,
   ecdsa,
 }:
-
 buildPythonPackage rec {
   version = "3.3.1";
   format = "setuptools";
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "OpenSSH Public Key Parser for Python";
     homepage = "https://github.com/ojarva/python-sshpubkeys";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

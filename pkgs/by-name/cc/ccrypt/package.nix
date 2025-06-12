@@ -4,7 +4,6 @@
   fetchurl,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ccrypt";
   version = "1.11";
@@ -14,15 +13,15 @@ stdenv.mkDerivation rec {
     sha256 = "0kx4a5mhmp73ljknl2lcccmw9z3f5y8lqw0ghaymzvln1984g75i";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://ccrypt.sourceforge.net/";
     description = "Utility for encrypting and decrypting files and streams with AES-256";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; all;
   };
 }

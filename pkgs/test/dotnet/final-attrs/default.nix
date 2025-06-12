@@ -4,8 +4,7 @@
   buildPackages, # buildDotnetModule
   testers,
   runCommand,
-}:
-let
+}: let
   copyrightString = "Original Copyright";
   originalCopyright = builtins.toFile "original-copyright.txt" copyrightString;
   overridenCopyright = builtins.toFile "overridden-copyright.txt" (
@@ -18,7 +17,7 @@ let
     name = "final-attrs-rec-test-application";
     src = ../structured-attrs/src;
     nugetDeps = ../structured-attrs/nuget-deps.json;
-    dotnetFlags = [ "--property:Copyright=${finalAttrs.passthru.copyrightString}" ];
+    dotnetFlags = ["--property:Copyright=${finalAttrs.passthru.copyrightString}"];
     env.TargetFramework = "net${lib.versions.majorMinor (lib.getVersion dotnet-sdk)}";
     __structuredAttrs = true;
     passthru = {
@@ -30,7 +29,7 @@ let
     name = "final-attrs-const-test-application";
     src = ../structured-attrs/src;
     nugetDeps = ../structured-attrs/nuget-deps.json;
-    dotnetFlags = [ "--property:Copyright=${copyrightString}" ];
+    dotnetFlags = ["--property:Copyright=${copyrightString}"];
     env.TargetFramework = "net${lib.versions.majorMinor (lib.getVersion dotnet-sdk)}";
     __structuredAttrs = true;
     passthru = {
@@ -38,21 +37,20 @@ let
     };
   };
 
-  override =
-    app:
+  override = app:
     app.overrideAttrs (previousAttrs: {
-      passthru = previousAttrs.passthru // {
-        copyrightString = previousAttrs.passthru.copyrightString + " with override!";
-      };
+      passthru =
+        previousAttrs.passthru
+        // {
+          copyrightString = previousAttrs.passthru.copyrightString + " with override!";
+        };
     });
 
-  run =
-    name: app:
-    runCommand name { } ''
+  run = name: app:
+    runCommand name {} ''
       ${app}/bin/Application >"$out"
     '';
-in
-{
+in {
   check-output = testers.testEqualContents {
     assertion = "buildDotnetModule produces the expected output when called with a recursive function";
     expected = originalCopyright;

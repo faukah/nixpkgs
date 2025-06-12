@@ -5,7 +5,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "metal-cli";
   version = "0.25.0";
@@ -39,7 +38,7 @@ buildGoModule (finalAttrs: {
   doCheck = false;
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/metal";
   versionCheckProgramArg = "--version";
 

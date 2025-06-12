@@ -13,7 +13,6 @@
   rich,
   tkinter,
 }:
-
 buildPythonPackage rec {
   pname = "tqdm";
   version = "4.67.1";
@@ -50,17 +49,17 @@ buildPythonPackage rec {
 
   # Remove performance testing.
   # Too sensitive for on Hydra.
-  disabledTests = [ "perf" ];
+  disabledTests = ["perf"];
 
   LC_ALL = "en_US.UTF-8";
 
-  pythonImportsCheck = [ "tqdm" ];
+  pythonImportsCheck = ["tqdm"];
 
   meta = with lib; {
     description = "Fast, Extensible Progress Meter";
     mainProgram = "tqdm";
     homepage = "https://github.com/tqdm/tqdm";
     changelog = "https://tqdm.github.io/releases/";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

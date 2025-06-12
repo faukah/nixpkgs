@@ -16,7 +16,6 @@
   wrapGAppsNoGuiHook,
   librsvg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "swaylock";
   version = "1.8.2";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     mainProgram = "swaylock";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

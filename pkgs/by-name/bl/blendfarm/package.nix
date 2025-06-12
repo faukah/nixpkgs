@@ -19,9 +19,7 @@
   openssl,
   libkrb5,
   icu,
-}:
-let
-
+}: let
   # blendfarm (client) will run from the current workdir.
   # It needs to create files there, so it cannot be in the nix store.
   # We also need to create some files there so it can work with its
@@ -42,100 +40,101 @@ let
     exec -a "$0" @out@/bin/LogicReinc.BlendFarm  "$@"
   '';
 in
+  buildDotnetModule rec {
+    pname = "blendfarm";
+    version = "1.1.6";
 
-buildDotnetModule rec {
-  pname = "blendfarm";
-  version = "1.1.6";
+    src = fetchFromGitHub {
+      owner = "LogicReinc";
+      repo = "LogicReinc.BlendFarm";
+      rev = "v${version}";
+      hash = "sha256-2w2tdl5n0IFTuthY97NYMeyRe2r72jaKFfoNSjWQMM4=";
+    };
 
-  src = fetchFromGitHub {
-    owner = "LogicReinc";
-    repo = "LogicReinc.BlendFarm";
-    rev = "v${version}";
-    hash = "sha256-2w2tdl5n0IFTuthY97NYMeyRe2r72jaKFfoNSjWQMM4=";
-  };
-
-  patches = [
-    # https://github.com/LogicReinc/LogicReinc.BlendFarm/pull/121
-    ./fix-nixos-crashing-on-runtime.patch
-    # https://github.com/LogicReinc/LogicReinc.BlendFarm/pull/122
-    ./rename-evee-to-eevee_next.patch
-    # Fixes the error with net8 update:
-    # "The referenced project is a non self-contained executable.
-    # A non self-contained executable cannot be referenced by a self-contained executable"
-    ./fix-references.patch
-    # Update project files to net8
-    ./net8.patch
-  ];
-
-  nativeBuildInputs =
-    [ ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [
-      bintools
-      fixDarwinDylibNames
-      darwin.autoSignDarwinBinariesHook
+    patches = [
+      # https://github.com/LogicReinc/LogicReinc.BlendFarm/pull/121
+      ./fix-nixos-crashing-on-runtime.patch
+      # https://github.com/LogicReinc/LogicReinc.BlendFarm/pull/122
+      ./rename-evee-to-eevee_next.patch
+      # Fixes the error with net8 update:
+      # "The referenced project is a non self-contained executable.
+      # A non self-contained executable cannot be referenced by a self-contained executable"
+      ./fix-references.patch
+      # Update project files to net8
+      ./net8.patch
     ];
 
-  buildInputs = [
-    (lib.getLib stdenv.cc.cc)
-    fontconfig
-    openssl
-    libkrb5
-    icu
-  ];
+    nativeBuildInputs =
+      []
+      ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook]
+      ++ lib.optionals stdenv.hostPlatform.isDarwin [
+        bintools
+        fixDarwinDylibNames
+        darwin.autoSignDarwinBinariesHook
+      ];
 
-  runtimeDeps = [
-    xz
-    pcre
-    libgdiplus
-    glib
-    libXrandr
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ blender ];
+    buildInputs = [
+      (lib.getLib stdenv.cc.cc)
+      fontconfig
+      openssl
+      libkrb5
+      icu
+    ];
 
-  # there is no "*.so.3" or "*.so.5" in nixpkgs. So ignore the warning
-  # and add it later
-  autoPatchelfIgnoreMissingDeps = [
-    "libpcre.so.3"
-    "liblzma.so.5"
-  ];
+    runtimeDeps =
+      [
+        xz
+        pcre
+        libgdiplus
+        glib
+        libXrandr
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [blender];
 
-  dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  dotnet-runtime = dotnetCorePackages.runtime_8_0;
+    # there is no "*.so.3" or "*.so.5" in nixpkgs. So ignore the warning
+    # and add it later
+    autoPatchelfIgnoreMissingDeps = [
+      "libpcre.so.3"
+      "liblzma.so.5"
+    ];
 
-  projectFile = [
-    "LogicReinc.BlendFarm.Client/LogicReinc.BlendFarm.Client.csproj"
-    "LogicReinc.BlendFarm.Server/LogicReinc.BlendFarm.Server.csproj"
-    "LogicReinc.BlendFarm/LogicReinc.BlendFarm.csproj"
-  ];
-  nugetDeps = ./deps.json;
-  executables = [
-    "LogicReinc.BlendFarm"
-    "LogicReinc.BlendFarm.Server"
-  ];
+    dotnet-sdk = dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  # add libraries not found by autopatchelf
-  libPath = lib.makeLibraryPath [
-    pcre
-    xz
-  ];
-  makeWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${libPath}" ];
+    projectFile = [
+      "LogicReinc.BlendFarm.Client/LogicReinc.BlendFarm.Client.csproj"
+      "LogicReinc.BlendFarm.Server/LogicReinc.BlendFarm.Server.csproj"
+      "LogicReinc.BlendFarm/LogicReinc.BlendFarm.csproj"
+    ];
+    nugetDeps = ./deps.json;
+    executables = [
+      "LogicReinc.BlendFarm"
+      "LogicReinc.BlendFarm.Server"
+    ];
 
-  postInstall =
-    lib.optionalString stdenv.hostPlatform.isLinux ''
-      mkdir -p $out/bin
-      cp -v ${blendfarm-nix}/bin/blendfarm-nix $out/bin
-      substituteInPlace $out/bin/blendfarm-nix --subst-var out
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      ln -s ${libgdiplus}/lib/libgdiplus.dylib $out/lib/blendfarm/
-    '';
+    # add libraries not found by autopatchelf
+    libPath = lib.makeLibraryPath [
+      pcre
+      xz
+    ];
+    makeWrapperArgs = ["--prefix LD_LIBRARY_PATH : ${libPath}"];
 
-  meta = with lib; {
-    description = "Open-source, cross-platform, stand-alone, Network Renderer for Blender";
-    homepage = "https://github.com/LogicReinc/LogicReinc.BlendFarm";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ gador ];
-    mainProgram = "blendfarm-nix";
-    platforms = platforms.unix;
-  };
-}
+    postInstall =
+      lib.optionalString stdenv.hostPlatform.isLinux ''
+        mkdir -p $out/bin
+        cp -v ${blendfarm-nix}/bin/blendfarm-nix $out/bin
+        substituteInPlace $out/bin/blendfarm-nix --subst-var out
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        ln -s ${libgdiplus}/lib/libgdiplus.dylib $out/lib/blendfarm/
+      '';
+
+    meta = with lib; {
+      description = "Open-source, cross-platform, stand-alone, Network Renderer for Blender";
+      homepage = "https://github.com/LogicReinc/LogicReinc.BlendFarm";
+      license = with licenses; [gpl3Plus];
+      maintainers = with maintainers; [gador];
+      mainProgram = "blendfarm-nix";
+      platforms = platforms.unix;
+    };
+  }

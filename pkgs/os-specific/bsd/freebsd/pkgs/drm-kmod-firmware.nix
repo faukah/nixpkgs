@@ -20,7 +20,7 @@ mkDerivation rec {
     hash = "sha256-Ly9B0zf+YODel/X1sZYVVUVWh38faNLhkcXcjEnQwII=";
   };
 
-  extraNativeBuildInputs = [ buildFreebsd.xargs-j ];
+  extraNativeBuildInputs = [buildFreebsd.xargs-j];
 
   hardeningDisable = [
     "pic" # generates relocations the linker can't handle
@@ -49,6 +49,6 @@ mkDerivation rec {
       lib.optional withAmd lib.licenses.unfreeRedistributableFirmware
       # Intel license prohibits modification. this will wrap firmware files in an ELF
       ++ lib.optional withIntel lib.licenses.unfree;
-    sourceProvenance = [ lib.sourceTypes.binaryFirmware ];
+    sourceProvenance = [lib.sourceTypes.binaryFirmware];
   };
 }

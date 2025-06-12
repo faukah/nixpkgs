@@ -6,17 +6,14 @@
   writeText,
   runCommand,
   runCommandCC,
-}:
-
-let
+}: let
   env = {
-    nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
   };
   envCheck = runCommandCC "envcheck" env ''
     cc -Wall -Werror -Wpedantic -o $out ${./envcheck.c}
   '';
-  makeGoldenTest =
-    testname:
+  makeGoldenTest = testname:
     runCommand "make-binary-wrapper-test-${testname}" env ''
       mkdir -p tmp/foo # for the chdir test
 
@@ -59,16 +56,20 @@ let
       "overlength-strings"
       "prefix"
       "suffix"
-    ] makeGoldenTest
+    ]
+    makeGoldenTest
     // lib.optionalAttrs (!stdenv.hostPlatform.isDarwin) {
       cross =
-        pkgsCross.${if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"}.callPackage
-          ./cross.nix
-          { };
+        pkgsCross.${
+          if stdenv.buildPlatform.isAarch64
+          then "gnu64"
+          else "aarch64-multiplatform"
+        }.callPackage
+        ./cross.nix
+        {};
     };
 in
-
-writeText "make-binary-wrapper-tests" ''
-  ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
-''
-// tests
+  writeText "make-binary-wrapper-tests" ''
+    ${lib.concatStringsSep "\n" (builtins.attrValues tests)}
+  ''
+  // tests

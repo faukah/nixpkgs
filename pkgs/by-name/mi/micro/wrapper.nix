@@ -4,16 +4,15 @@
   makeWrapper,
   symlinkJoin,
   # configurable options
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
-
 symlinkJoin {
   name = "micro-wrapped-${micro.version}";
   inherit (micro) pname version outputs;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  paths = [ micro ];
+  paths = [micro];
 
   postBuild = ''
     ${lib.concatMapStringsSep "\n" (

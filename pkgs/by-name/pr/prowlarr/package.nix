@@ -12,19 +12,17 @@
   openssl,
   nixosTests,
   zlib,
-}:
-let
+}: let
   pname = "prowlarr";
 
   unsupported = throw "Unsupported system ${stdenv.hostPlatform.system} for ${pname}";
 
   os =
-    if stdenv.hostPlatform.isDarwin then
-      "osx"
-    else if stdenv.hostPlatform.isLinux then
-      "linux"
-    else
-      unsupported;
+    if stdenv.hostPlatform.isDarwin
+    then "osx"
+    else if stdenv.hostPlatform.isLinux
+    then "linux"
+    else unsupported;
 
   arch =
     {
@@ -33,7 +31,9 @@ let
       x86_64-darwin = "x64";
       x86_64-linux = "x64";
     }
-    .${stdenv.hostPlatform.system} or unsupported;
+    .${
+      stdenv.hostPlatform.system
+    } or unsupported;
 
   hash =
     {
@@ -42,28 +42,30 @@ let
       x86_64-darwin = "sha256-mdDZvKyhKXnHEKvZRH8Di6dZP80AEktnkMOnIZW+Gik=";
       x86_64-linux = "sha256-N0KDb6MsGAJKSh5GSm7aiamjflHRXb06fL1KM2T1+bg=";
     }
-    .${stdenv.hostPlatform.system} or unsupported;
+    .${
+      stdenv.hostPlatform.system
+    } or unsupported;
 in
-stdenv.mkDerivation rec {
-  inherit pname;
-  version = "1.36.3.5071";
+  stdenv.mkDerivation rec {
+    inherit pname;
+    version = "1.36.3.5071";
 
-  src = fetchurl {
-    url = "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
-    inherit hash;
-  };
+    src = fetchurl {
+      url = "https://github.com/Prowlarr/Prowlarr/releases/download/v${version}/Prowlarr.master.${version}.${os}-core-${arch}.tar.gz";
+      inherit hash;
+    };
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    mkdir -p $out/{bin,share/${pname}-${version}}
-    cp -r * $out/share/${pname}-${version}/.
+      mkdir -p $out/{bin,share/${pname}-${version}}
+      cp -r * $out/share/${pname}-${version}/.
 
-    makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Prowlarr \
-      --add-flags "$out/share/${pname}-${version}/Prowlarr.dll" \
-      --prefix LD_LIBRARY_PATH : ${
+      makeWrapper "${dotnet-runtime}/bin/dotnet" $out/bin/Prowlarr \
+        --add-flags "$out/share/${pname}-${version}/Prowlarr.dll" \
+        --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           curl
           sqlite
@@ -75,26 +77,26 @@ stdenv.mkDerivation rec {
         ]
       }
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru = {
-    updateScript = ./update.sh;
-    tests.smoke-test = nixosTests.prowlarr;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+      tests.smoke-test = nixosTests.prowlarr;
+    };
 
-  meta = {
-    description = "Indexer manager/proxy built on the popular arr .net/reactjs base stack";
-    homepage = "https://wiki.servarr.com/prowlarr";
-    changelog = "https://github.com/Prowlarr/Prowlarr/releases/tag/v${version}";
-    license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ pizzapim ];
-    mainProgram = "Prowlarr";
-    platforms = [
-      "aarch64-darwin"
-      "aarch64-linux"
-      "x86_64-darwin"
-      "x86_64-linux"
-    ];
-  };
-}
+    meta = {
+      description = "Indexer manager/proxy built on the popular arr .net/reactjs base stack";
+      homepage = "https://wiki.servarr.com/prowlarr";
+      changelog = "https://github.com/Prowlarr/Prowlarr/releases/tag/v${version}";
+      license = lib.licenses.gpl3Only;
+      maintainers = with lib.maintainers; [pizzapim];
+      mainProgram = "Prowlarr";
+      platforms = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+    };
+  }

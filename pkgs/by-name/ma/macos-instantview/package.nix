@@ -4,7 +4,6 @@
   lib,
   _7zz,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "instantview";
   version = "3.22R0002";
@@ -14,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-PdgX9zCrVYtNbuOCYKVo9cegCG/VY7QXetivVsUltbg=";
   };
 
-  nativeBuildInputs = [ _7zz ];
+  nativeBuildInputs = [_7zz];
 
   dontUnpack = true;
   dontConfigure = true;
@@ -38,7 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "USB Docking Station plugin-and-display support with SM76x driver";
     homepage = "https://www.siliconmotion.com/events/instantview/";
     license = lib.licenses.unfree;
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    maintainers = with lib.maintainers; [ aspauldingcode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    maintainers = with lib.maintainers; [aspauldingcode];
   };
 })

@@ -10,7 +10,6 @@
   python,
   mesa,
 }:
-
 buildPythonPackage rec {
   pname = "pyqt6-charts";
   version = "6.8.0";
@@ -60,20 +59,20 @@ buildPythonPackage rec {
     qmake
   ];
 
-  buildInputs = with qt6Packages; [ qtcharts ];
+  buildInputs = with qt6Packages; [qtcharts];
 
   dontConfigure = true;
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "PyQt6.QtCharts" ];
+  pythonImportsCheck = ["PyQt6.QtCharts"];
 
   meta = {
     description = "Python bindings for Qt6 QtCharts";
     homepage = "https://riverbankcomputing.com/";
     license = lib.licenses.gpl3Only;
     inherit (mesa.meta) platforms;
-    maintainers = with lib.maintainers; [ dandellion ];
+    maintainers = with lib.maintainers; [dandellion];
   };
 }

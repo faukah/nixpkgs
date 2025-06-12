@@ -29,7 +29,6 @@
   nix-update-script,
   removeWarningPopup ? false,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "bottles-unwrapped";
   version = "51.21";
@@ -48,12 +47,11 @@ python3Packages.buildPythonApplication rec {
       ./remove-flatpak-check.patch
     ]
     ++ (
-      if removeWarningPopup then
-        [ ./remove-unsupported-warning.patch ]
-      else
-        [
-          ./warn-unsupported.patch
-        ]
+      if removeWarningPopup
+      then [./remove-unsupported-warning.patch]
+      else [
+        ./warn-unsupported.patch
+      ]
     );
 
   # https://github.com/bottlesdevs/Bottles/wiki/Packaging
@@ -76,8 +74,7 @@ python3Packages.buildPythonApplication rec {
     libportal
   ];
 
-  propagatedBuildInputs =
-    with python3Packages;
+  propagatedBuildInputs = with python3Packages;
     [
       pyyaml
       pycurl
@@ -122,7 +119,7 @@ python3Packages.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Easy-to-use wineprefix manager";

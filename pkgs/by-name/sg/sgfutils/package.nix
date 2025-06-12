@@ -17,8 +17,8 @@ stdenv.mkDerivation {
     rev = "11ab171c46cc16cc71ac6fc901d38ea88d6532a4";
     hash = "sha256-KWYgTxz32WK3MKouj1WAJtZmleKt5giCpzQPwfWruZQ=";
   };
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [openssl] ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
   buildPhase = ''
     runHook preBuild
     make all
@@ -35,8 +35,8 @@ stdenv.mkDerivation {
   '';
   postFixup = ''
     wrapProgram $out/bin/sgftopng \
-      --prefix PATH : ${lib.makeBinPath [ imagemagick ]} \
-      --set-default FONTCONFIG_FILE ${makeFontsConf { fontDirectories = [ ]; }}
+      --prefix PATH : ${lib.makeBinPath [imagemagick]} \
+      --set-default FONTCONFIG_FILE ${makeFontsConf {fontDirectories = [];}}
   '';
   meta = with lib; {
     homepage = "https://homepages.cwi.nl/~aeb/go/sgfutils/html/sgfutils.html";
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
       especially when they describe go (igo, weiqi, baduk) games.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ggpeti ];
+    maintainers = with maintainers; [ggpeti];
     platforms = platforms.all; # tested on x86_64-linux and aarch64-darwin
   };
 }

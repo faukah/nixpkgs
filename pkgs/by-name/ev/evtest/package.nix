@@ -6,7 +6,6 @@
   pkg-config,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "evtest";
   version = "1.35";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   src = fetchgit {
     url = "git://anongit.freedesktop.org/${pname}";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Simple tool for input event debugging";
     license = lib.licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     mainProgram = "evtest";
   };
 }

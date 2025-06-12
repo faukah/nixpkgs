@@ -7,7 +7,6 @@
   openssl,
   dbus,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "waylyrics";
   version = "0.3.21";

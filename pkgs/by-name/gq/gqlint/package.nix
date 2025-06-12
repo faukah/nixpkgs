@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "gqlint";
   version = "1.8.0";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/happylinks/gqlint";
     license = lib.licenses.mit;
     mainProgram = "gqlint";
-    maintainers = with lib.maintainers; [ hardselius ];
+    maintainers = with lib.maintainers; [hardselius];
   };
 }

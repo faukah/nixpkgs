@@ -7,7 +7,6 @@
   glfw,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vk-bootstrap";
   version = "0.7";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     sed -i 's=Catch2==g' tests/CMakeLists.txt
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     glfw
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Vulkan Bootstrapping Library";
     license = licenses.mit;
     homepage = "https://github.com/charles-lunarg/vk-bootstrap";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.all;
   };
 }

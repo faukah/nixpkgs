@@ -8,7 +8,6 @@
   # Boolean flags
   enableSdltest ? (!stdenv.hostPlatform.isDarwin),
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_net";
   version = "1.2.8-unstable-2025-04-21";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/libsdl-org/SDL_net";
     description = "SDL networking library";
     license = lib.licenses.zlib;
-    teams = [ lib.teams.sdl ];
+    teams = [lib.teams.sdl];
     inherit (SDL.meta) platforms;
   };
 })

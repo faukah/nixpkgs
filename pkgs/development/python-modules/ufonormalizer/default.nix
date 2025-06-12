@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "ufonormalizer";
   version = "0.6.2";
@@ -19,13 +18,13 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   meta = with lib; {
     description = "Script to normalize the XML and other data inside of a UFO";
     mainProgram = "ufonormalizer";
     homepage = "https://github.com/unified-font-object/ufoNormalizer";
     license = licenses.bsd3;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

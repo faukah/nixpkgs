@@ -19,7 +19,6 @@
   libayatana-appindicator,
   bash,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "variety";
   version = "0.8.13";
@@ -37,16 +36,17 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
 
-  buildInputs = [
-    gexiv2
-    gtk3
-    hicolor-icon-theme
-    libnotify
-    librsvg
-  ] ++ lib.optional appindicatorSupport libayatana-appindicator;
+  buildInputs =
+    [
+      gexiv2
+      gtk3
+      hicolor-icon-theme
+      libnotify
+      librsvg
+    ]
+    ++ lib.optional appindicatorSupport libayatana-appindicator;
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       beautifulsoup4
       configobj

@@ -9,7 +9,6 @@
   khronos-ocl-icd-loader,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "opencl-clhpp";
   version = "2024.10.24";
@@ -27,13 +26,13 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
 
-  propagatedBuildInputs = [ opencl-headers ];
+  propagatedBuildInputs = [opencl-headers];
 
   strictDeps = true;
 
   doCheck = true;
-  checkInputs = [ khronos-ocl-icd-loader ];
-  nativeCheckInputs = [ ruby ];
+  checkInputs = [khronos-ocl-icd-loader];
+  nativeCheckInputs = [ruby];
 
   cmakeFlags = [
     (lib.cmakeBool "OPENCL_CLHPP_BUILD_TESTING" finalAttrs.finalPackage.doCheck)
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests = {
     pkg-config = testers.hasPkgConfigModules {
       package = finalAttrs.finalPackage;
-      moduleNames = [ "OpenCL-CLHPP" ];
+      moduleNames = ["OpenCL-CLHPP"];
       # Package version does not match the pkg-config module version.
     };
   };
@@ -52,7 +51,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "OpenCL Host API C++ bindings";
     homepage = "http://github.khronos.org/OpenCL-CLHPP/";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.xokdvium ];
+    maintainers = [lib.maintainers.xokdvium];
     platforms = lib.platforms.unix;
   };
 })

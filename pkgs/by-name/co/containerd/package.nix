@@ -13,15 +13,16 @@
   btrfsSupport ? btrfs-progs != null,
   withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 buildGoModule rec {
   pname = "containerd";
   version = "2.1.1";
 
-  outputs = [
-    "out"
-    "doc"
-  ] ++ lib.optional withMan "man";
+  outputs =
+    [
+      "out"
+      "doc"
+    ]
+    ++ lib.optional withMan "man";
 
   src = fetchFromGitHub {
     owner = "containerd";
@@ -36,9 +37,11 @@ buildGoModule rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    util-linux
-  ] ++ lib.optional withMan go-md2man;
+  nativeBuildInputs =
+    [
+      util-linux
+    ]
+    ++ lib.optional withMan go-md2man;
 
   buildInputs = lib.optional btrfsSupport btrfs-progs;
 
@@ -52,10 +55,12 @@ buildGoModule rec {
     "VERSION=v${version}"
   ];
 
-  installTargets = [
-    "install"
-    "install-doc"
-  ] ++ lib.optional withMan "install-man";
+  installTargets =
+    [
+      "install"
+      "install-doc"
+    ]
+    ++ lib.optional withMan "install-man";
 
   buildPhase = ''
     runHook preBuild
@@ -72,10 +77,12 @@ buildGoModule rec {
   passthru = {
     tests = lib.optionalAttrs stdenv.hostPlatform.isLinux (
       {
-        cross =
-          let
-            systemString = if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform";
-          in
+        cross = let
+          systemString =
+            if stdenv.buildPlatform.isAarch64
+            then "gnu64"
+            else "aarch64-multiplatform";
+        in
           pkgsCross.${systemString}.containerd;
 
         inherit (nixosTests) docker;
@@ -83,7 +90,7 @@ buildGoModule rec {
       // kubernetes.tests
     );
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

@@ -9,7 +9,6 @@
   pytestCheckHook,
   responses,
 }:
-
 buildPythonPackage rec {
   pname = "vilfo-api-client";
   version = "0.5.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace "get-mac" "getmac"
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     getmac
@@ -40,12 +39,12 @@ buildPythonPackage rec {
     responses
   ];
 
-  pythonImportsCheck = [ "vilfo" ];
+  pythonImportsCheck = ["vilfo"];
 
   meta = with lib; {
     description = "Simple wrapper client for the Vilfo router API";
     homepage = "https://github.com/ManneW/vilfo-api-client-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

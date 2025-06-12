@@ -7,7 +7,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "nest-asyncio";
   version = "1.6.0";
@@ -27,15 +26,15 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "nest_asyncio" ];
+  pythonImportsCheck = ["nest_asyncio"];
 
   meta = with lib; {
     description = "Patch asyncio to allow nested event loops";
     homepage = "https://github.com/erdewit/nest_asyncio";
     changelog = "https://github.com/erdewit/nest_asyncio/releases/tag/v${version}";
     license = licenses.bsdOriginal;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

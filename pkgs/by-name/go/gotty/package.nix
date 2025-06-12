@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotty";
   version = "1.5.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     description = "Share your terminal as a web application";
     mainProgram = "gotty";
     homepage = "https://github.com/sorenisanerd/gotty";
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     license = licenses.mit;
   };
 }

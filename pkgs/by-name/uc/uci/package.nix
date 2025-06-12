@@ -6,7 +6,6 @@
   pkg-config,
   libubox,
 }:
-
 stdenv.mkDerivation {
   pname = "uci";
   version = "unstable-2023-08-10";
@@ -17,9 +16,9 @@ stdenv.mkDerivation {
     hash = "sha256-8MyFaZdAMh5oMPO/5QyNT+Or57eBL3mamJLblGGoF9g=";
   };
 
-  hardeningDisable = [ "all" ];
-  cmakeFlags = [ "-DBUILD_LUA=OFF" ];
-  buildInputs = [ libubox ];
+  hardeningDisable = ["all"];
+  cmakeFlags = ["-DBUILD_LUA=OFF"];
+  buildInputs = [libubox];
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -31,6 +30,6 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/uci.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 }

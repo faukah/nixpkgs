@@ -3,20 +3,16 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.npm;
-in
-
-{
+in {
   ###### interface
 
   options = {
     programs.npm = {
       enable = lib.mkEnableOption "{command}`npm` global config";
 
-      package = lib.mkPackageOption pkgs [ "nodePackages" "npm" ] {
+      package = lib.mkPackageOption pkgs ["nodePackages" "npm"] {
         example = "nodePackages_13_x.npm";
       };
 
@@ -47,7 +43,6 @@ in
 
     environment.variables.NPM_CONFIG_GLOBALCONFIG = "/etc/npmrc";
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
-
 }

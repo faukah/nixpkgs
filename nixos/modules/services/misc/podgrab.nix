@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.podgrab;
 
   stateDir = "/var/lib/podgrab";
-in
-{
+in {
   options.services.podgrab = with lib; {
     enable = mkEnableOption "Podgrab, a self-hosted podcast manager";
 
@@ -52,12 +50,12 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.settings."10-pyload" = {
-      ${cfg.dataDirectory}.d = { inherit (cfg) user group; };
+      ${cfg.dataDirectory}.d = {inherit (cfg) user group;};
     };
 
     systemd.services.podgrab = {
       description = "Podgrab podcast manager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         CONFIG = "${stateDir}/config";
         DATA = cfg.dataDirectory;
@@ -72,7 +70,7 @@ in
         ];
         ExecStart = "${pkgs.podgrab}/bin/podgrab";
         WorkingDirectory = "${pkgs.podgrab}/share";
-        StateDirectory = [ "podgrab/config" ];
+        StateDirectory = ["podgrab/config"];
       };
     };
 
@@ -81,8 +79,8 @@ in
       group = cfg.group;
     };
 
-    users.groups.podgrab = lib.mkIf (cfg.group == "podgrab") { };
+    users.groups.podgrab = lib.mkIf (cfg.group == "podgrab") {};
   };
 
-  meta.maintainers = with lib.maintainers; [ ambroisie ];
+  meta.maintainers = with lib.maintainers; [ambroisie];
 }

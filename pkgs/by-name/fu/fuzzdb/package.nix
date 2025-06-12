@@ -3,7 +3,6 @@
   fetchFromGitHub,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "fuzzdb";
   version = "0-unstable-2020-02-26";
@@ -26,8 +25,8 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Comprehensive collection of attack patterns and predictable resource names used for security testing and fuzzing application";
     homepage = "https://github.com/fuzzdb-project/fuzzdb";
-    license = with lib.licenses; [ bsd3 ];
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    license = with lib.licenses; [bsd3];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = lib.platforms.all;
   };
 }

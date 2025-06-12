@@ -1,5 +1,4 @@
-args:
-{
+args: {
   stdenv,
   lib,
   fetchFromGitHub,
@@ -12,7 +11,6 @@ args:
   zlib,
   lz4,
 }:
-
 stdenv.mkDerivation (
   args
   // {
@@ -35,10 +33,10 @@ stdenv.mkDerivation (
       export LZ4="$(find ${lz4.lib}/lib -type f | sort | head -n1)"
     '';
 
-    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin ([
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
       cctools
       darwin.autoSignDarwinBinariesHook
-    ]);
+    ];
     buildInputs = [
       libiconv
       libX11
@@ -55,7 +53,7 @@ stdenv.mkDerivation (
       description = "Fork of Chez Scheme for Racket";
       homepage = "https://github.com/racket/ChezScheme";
       license = lib.licenses.asl20;
-      maintainers = with lib.maintainers; [ l-as ];
+      maintainers = with lib.maintainers; [l-as];
       platforms = lib.platforms.unix;
     };
   }

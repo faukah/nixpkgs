@@ -20,7 +20,6 @@
   webkitgtk_4_0,
   libappindicator-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trillian-im";
   version = "6.3.0.1";
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     description = "Modern instant messaging for home and work that prioritizes chat interoperability and security";
     homepage = "https://www.trillian.im/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ majiir ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [majiir];
+    platforms = ["x86_64-linux"];
   };
 }

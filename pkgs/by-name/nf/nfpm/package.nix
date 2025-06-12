@@ -6,7 +6,6 @@
   installShellFiles,
   buildPackages,
 }:
-
 buildGoModule rec {
   pname = "nfpm";
   version = "2.43.0";
@@ -26,20 +25,18 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      ${emulator} $out/bin/nfpm man > nfpm.1
-      installManPage ./nfpm.1
-      installShellCompletion --cmd nfpm \
-        --bash <(${emulator} $out/bin/nfpm completion bash) \
-        --fish <(${emulator} $out/bin/nfpm completion fish) \
-        --zsh  <(${emulator} $out/bin/nfpm completion zsh)
-    '';
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    ${emulator} $out/bin/nfpm man > nfpm.1
+    installManPage ./nfpm.1
+    installShellCompletion --cmd nfpm \
+      --bash <(${emulator} $out/bin/nfpm completion bash) \
+      --fish <(${emulator} $out/bin/nfpm completion fish) \
+      --zsh  <(${emulator} $out/bin/nfpm completion zsh)
+  '';
 
   meta = {
     description = "Simple deb and rpm packager written in Go";
@@ -49,7 +46,7 @@ buildGoModule rec {
       techknowlogick
       caarlos0
     ];
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "nfpm";
   };
 }

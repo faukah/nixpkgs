@@ -10,7 +10,6 @@
   pyzmq,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "circus";
   version = "0.19.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-MiZXiGb6F8LAJLAdmEDBO8Y5cJxHJy7jMFi50Ac3Bsc=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     psutil
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     "test_streams"
   ];
 
-  pythonImportsCheck = [ "circus" ];
+  pythonImportsCheck = ["circus"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/circus-tent/circus";
     changelog = "https://github.com/circus-tent/circus/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

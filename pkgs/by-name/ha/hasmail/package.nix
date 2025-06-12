@@ -7,7 +7,6 @@
   cairo,
   gtk2,
 }:
-
 buildGoModule {
   pname = "hasmail-unstable";
   version = "2019-08-24";
@@ -38,6 +37,6 @@ buildGoModule {
     mainProgram = "hasmail";
     homepage = "https://github.com/jonhoo/hasmail";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

@@ -11,9 +11,7 @@
   python3,
   getopt,
   nixosTests,
-}:
-
-let
+}: let
   source = builtins.fromJSON (builtins.readFile ./source.json);
   pname = "audiobookshelf";
 
@@ -28,7 +26,7 @@ let
     pname = "audiobookshelf-client";
     inherit (source) version;
 
-    src = runCommand "cp-source" { } ''
+    src = runCommand "cp-source" {} ''
       cp -r ${src}/client $out
     '';
 
@@ -48,46 +46,45 @@ let
       getopt
       ;
   };
-
 in
-buildNpmPackage {
-  inherit pname src;
-  inherit (source) version;
+  buildNpmPackage {
+    inherit pname src;
+    inherit (source) version;
 
-  buildInputs = [ util-linux ];
-  nativeBuildInputs = [ python3 ];
+    buildInputs = [util-linux];
+    nativeBuildInputs = [python3];
 
-  dontNpmBuild = true;
-  npmInstallFlags = [ "--only-production" ];
-  npmDepsHash = source.depsHash;
+    dontNpmBuild = true;
+    npmInstallFlags = ["--only-production"];
+    npmDepsHash = source.depsHash;
 
-  installPhase = ''
-    mkdir -p $out/opt/client
-    cp -r index.js server package* node_modules $out/opt/
-    cp -r ${client}/lib/node_modules/audiobookshelf-client/dist $out/opt/client/dist
-    mkdir $out/bin
+    installPhase = ''
+      mkdir -p $out/opt/client
+      cp -r index.js server package* node_modules $out/opt/
+      cp -r ${client}/lib/node_modules/audiobookshelf-client/dist $out/opt/client/dist
+      mkdir $out/bin
 
-    echo '${wrapper}' > $out/bin/audiobookshelf
-    echo "  exec ${nodejs}/bin/node $out/opt/index.js" >> $out/bin/audiobookshelf
+      echo '${wrapper}' > $out/bin/audiobookshelf
+      echo "  exec ${nodejs}/bin/node $out/opt/index.js" >> $out/bin/audiobookshelf
 
-    chmod +x $out/bin/audiobookshelf
-  '';
+      chmod +x $out/bin/audiobookshelf
+    '';
 
-  passthru = {
-    tests.basic = nixosTests.audiobookshelf;
-    updateScript = ./update.nu;
-  };
+    passthru = {
+      tests.basic = nixosTests.audiobookshelf;
+      updateScript = ./update.nu;
+    };
 
-  meta = {
-    homepage = "https://www.audiobookshelf.org/";
-    description = "Self-hosted audiobook and podcast server";
-    changelog = "https://github.com/advplyr/audiobookshelf/releases/tag/v${source.version}";
-    license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [
-      jvanbruegge
-      adamcstephens
-    ];
-    platforms = lib.platforms.linux;
-    mainProgram = "audiobookshelf";
-  };
-}
+    meta = {
+      homepage = "https://www.audiobookshelf.org/";
+      description = "Self-hosted audiobook and podcast server";
+      changelog = "https://github.com/advplyr/audiobookshelf/releases/tag/v${source.version}";
+      license = lib.licenses.gpl3;
+      maintainers = with lib.maintainers; [
+        jvanbruegge
+        adamcstephens
+      ];
+      platforms = lib.platforms.linux;
+      mainProgram = "audiobookshelf";
+    };
+  }

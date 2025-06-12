@@ -6,7 +6,6 @@
   grpcio,
   protobuf,
 }:
-
 # This package should be updated together with the main grpc package and other
 # related python grpc packages.
 # nixpkgs-update: no auto update
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-L2tmHe5rQ/9284/U+heUnzhH6oLlFdbm8h9Pz+BG7PI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "grpcio"
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  pythonImportsCheck = [ "grpc_channelz" ];
+  pythonImportsCheck = ["grpc_channelz"];
 
   # no tests
   doCheck = false;
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Channel Level Live Debug Information Service for gRPC";
     homepage = "https://pypi.org/project/grpcio-channelz";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [happysalada];
   };
 }

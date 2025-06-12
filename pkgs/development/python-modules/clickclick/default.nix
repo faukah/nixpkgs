@@ -9,7 +9,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "clickclick";
   version = "20.10.2";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
   ];
 
   # test_cli asserts on exact quoting style of output
-  disabledTests = [ "test_cli" ];
+  disabledTests = ["test_cli"];
 
   meta = with lib; {
     description = "Click command line utilities";

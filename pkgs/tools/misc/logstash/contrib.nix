@@ -3,7 +3,6 @@
   lib,
   fetchzip,
 }:
-
 # Note that plugins are supposed to be installed as:
 #   $path/logstash/{inputs,codecs,filters,outputs}/*.rb
 stdenv.mkDerivation rec {
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elasticsearch/logstash-contrib";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -4,11 +4,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.yubikey-agent;
-in
-{
+in {
   ###### interface
 
   meta.maintainers = with lib.maintainers; [
@@ -17,7 +15,6 @@ in
   ];
 
   options = {
-
     services.yubikey-agent = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -31,22 +28,22 @@ in
         '';
       };
 
-      package = lib.mkPackageOption pkgs "yubikey-agent" { };
+      package = lib.mkPackageOption pkgs "yubikey-agent" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    systemd.packages = [cfg.package];
 
     # This overrides the systemd user unit shipped with the
     # yubikey-agent package
     systemd.user.services.yubikey-agent =
       lib.mkIf (config.programs.gnupg.agent.pinentryPackage != null)
-        {
-          path = [ config.programs.gnupg.agent.pinentryPackage ];
-          wantedBy = [ "default.target" ];
-        };
+      {
+        path = [config.programs.gnupg.agent.pinentryPackage];
+        wantedBy = ["default.target"];
+      };
 
     # Yubikey-agent expects pcsd to be running in order to function.
     services.pcscd.enable = true;

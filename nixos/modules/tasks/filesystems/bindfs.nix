@@ -3,13 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   config = lib.mkIf (config.boot.supportedFilesystems."fuse.bindfs" or false) {
-    system.fsPackages = [ pkgs.bindfs ];
+    system.fsPackages = [pkgs.bindfs];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "buffrs";
   version = "0.10.0";
@@ -32,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/helsing-ai/buffrs";
     license = lib.licenses.asl20;
     mainProgram = "buffrs";
-    maintainers = with lib.maintainers; [ danilobuerger ];
+    maintainers = with lib.maintainers; [danilobuerger];
   };
 }

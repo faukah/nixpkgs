@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "cbeams";
   version = "1.0.3";
@@ -16,14 +15,14 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-8Q2sWsAc39Mu34K1wWOKOJERKzBStE4GmtuzOs2T7Kk=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
   postPatch = ''
     substituteInPlace cbeams/terminal.py \
       --replace-fail "blessings" "blessed"
   '';
 
-  pythonRemoveDeps = [ "blessings" ];
+  pythonRemoveDeps = ["blessings"];
 
   dependencies = with python3Packages; [
     blessed

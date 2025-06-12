@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "jsonconversion";
   version = "1.1.1";
@@ -24,31 +23,31 @@ buildPythonPackage rec {
     hash = "sha256-FGgvSDweZM1xrdrDLFiGmdAtgxoFjglUlMV+fgo7/ls=";
   };
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   pythonRemoveDeps = [
     "pytest-runner"
     "pytest"
   ];
 
-  pythonRelaxDeps = [ "numpy" ];
+  pythonRelaxDeps = ["numpy"];
 
   dependencies = [
     numpy
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jsonconversion" ];
+  pythonImportsCheck = ["jsonconversion"];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.13") [ "test_dict" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.13") ["test_dict"];
 
   meta = with lib; {
     description = "This python module helps converting arbitrary Python objects into JSON strings and back";
     homepage = "https://github.com/DLR-RM/python-jsonconversion";
     changelog = "https://github.com/DLR-RM/python-jsonconversion/releases/tag/${version}";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ terlar ];
+    maintainers = with maintainers; [terlar];
   };
 }

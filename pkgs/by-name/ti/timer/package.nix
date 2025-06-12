@@ -5,7 +5,6 @@
   testers,
   timer,
 }:
-
 buildGoModule rec {
   pname = "timer";
   version = "1.4.6";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.tests.version = testers.testVersion { package = timer; };
+  passthru.tests.version = testers.testVersion {package = timer;};
 
   meta = with lib; {
     description = "`sleep` with progress";

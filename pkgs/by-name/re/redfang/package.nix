@@ -5,7 +5,6 @@
   fetchpatch,
   bluez,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "redfang";
   version = "2.5";
@@ -28,17 +27,17 @@ stdenv.mkDerivation (finalAttrs: {
     ./include-pthread.patch
   ];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-format-security";
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
   meta = {
     description = "Small proof-of-concept application to find non discoverable bluetooth devices";
     homepage = "https://gitlab.com/kalilinux/packages/redfang";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ moni ];
+    maintainers = with lib.maintainers; [moni];
     mainProgram = "fang";
   };
 })

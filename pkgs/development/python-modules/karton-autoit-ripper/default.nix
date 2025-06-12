@@ -9,7 +9,6 @@
   pythonOlder,
   regex,
 }:
-
 buildPythonPackage rec {
   pname = "karton-autoit-ripper";
   version = "1.2.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-D+M3JsIN8LUWg8GVweEzySHI7KaBb6cNHHn4pXoq55M=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "autoit-ripper"
@@ -42,14 +41,14 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "karton.autoit_ripper" ];
+  pythonImportsCheck = ["karton.autoit_ripper"];
 
   meta = with lib; {
     description = "AutoIt script ripper for Karton framework";
     mainProgram = "karton-autoit-ripper";
     homepage = "https://github.com/CERT-Polska/karton-autoit-ripper";
     changelog = "https://github.com/CERT-Polska/karton-autoit-ripper/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

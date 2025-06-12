@@ -15,11 +15,10 @@
   qtsvg,
   qtxmlpatterns,
 }:
-
 mkDerivation {
   pname = "kipi-plugins";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     kconfig
@@ -39,6 +38,6 @@ mkDerivation {
     description = "Plugins for KDE-based image applications";
     license = lib.licenses.gpl2;
     homepage = "https://github.com/KDE/kipi-plugins";
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   openssh,
 }:
-
 buildGoModule rec {
   pname = "morph";
   version = "1.8.0";
@@ -19,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-zQlMtbXgrH83zrcIoOuFhb2tYCeQ1pz4UQUvRIsLMCE=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-X main.version=${version}"
@@ -29,7 +28,7 @@ buildGoModule rec {
   postInstall = ''
     mkdir -p $lib
     cp -v ./data/*.nix $lib
-    wrapProgram $out/bin/morph --prefix PATH : ${lib.makeBinPath [ openssh ]};
+    wrapProgram $out/bin/morph --prefix PATH : ${lib.makeBinPath [openssh]};
   '';
 
   outputs = [

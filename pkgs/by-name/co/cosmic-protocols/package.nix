@@ -6,7 +6,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 stdenv.mkDerivation {
   pname = "cosmic-protocols";
   version = "0-unstable-2025-05-02";
@@ -18,12 +17,13 @@ stdenv.mkDerivation {
     hash = "sha256-rzLust1BKbITEgN7Hwjy1CT+4iOipv+4VIixfUAuCms=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
-  nativeBuildInputs = [ wayland-scanner ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
+  nativeBuildInputs = [wayland-scanner];
 
   passthru = {
     tests = {
-      inherit (nixosTests)
+      inherit
+        (nixosTests)
         cosmic
         cosmic-autologin
         cosmic-noxwayland
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
       mit
       gpl3Only
     ];
-    teams = [ lib.teams.cosmic ];
+    teams = [lib.teams.cosmic];
     platforms = lib.platforms.linux;
   };
 }

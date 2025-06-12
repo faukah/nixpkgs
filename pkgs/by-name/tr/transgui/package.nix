@@ -17,7 +17,6 @@
   openssl,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "transgui";
   version = "5.18.0-unstable-2024-10-03";
@@ -111,7 +110,7 @@ stdenv.mkDerivation rec {
     description = "Cross platform front-end for the Transmission BitTorrent client";
     homepage = "https://sourceforge.net/p/transgui";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ramkromberg ];
+    maintainers = with lib.maintainers; [ramkromberg];
     mainProgram = "transgui";
     platforms = [
       "x86_64-linux"

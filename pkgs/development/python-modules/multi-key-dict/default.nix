@@ -4,7 +4,6 @@
   fetchPypi,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "multi-key-dict";
   version = "2.0.3";
@@ -16,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-3uvewXqjChxDLLP0N+gfhiHhwFQqDAYXp09x4jLpk54=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "multi_key_dict" ];
+  pythonImportsCheck = ["multi_key_dict"];
 
   meta = with lib; {
     description = "multi_key_dict";

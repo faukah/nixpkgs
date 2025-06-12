@@ -3,21 +3,18 @@
   pkgs,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.matter-server;
   storageDir = "matter-server";
   storagePath = "/var/lib/${storageDir}";
   vendorId = "4939"; # home-assistant vendor ID
-in
-
-{
-  meta.maintainers = with lib.maintainers; [ leonm1 ];
+in {
+  meta.maintainers = with lib.maintainers; [leonm1];
 
   options.services.matter-server = with lib.types; {
     enable = lib.mkEnableOption "Matter-server";
 
-    package = lib.mkPackageOption pkgs "python-matter-server" { };
+    package = lib.mkPackageOption pkgs "python-matter-server" {};
 
     port = lib.mkOption {
       type = lib.types.port;
@@ -39,7 +36,7 @@ in
 
     extraArgs = lib.mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = ''
         Extra arguments to pass to the matter-server executable.
         See https://github.com/home-assistant-libs/python-matter-server?tab=readme-ov-file#running-the-development-server for options.
@@ -49,10 +46,10 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.matter-server = {
-      after = [ "network-online.target" ];
-      before = [ "home-assistant.service" ];
-      wants = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      before = ["home-assistant.service"];
+      wants = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       description = "Matter Server";
       environment.HOME = storagePath;
       serviceConfig = {
@@ -83,7 +80,7 @@ in
         # Start with a clean root filesystem, and allowlist what the container
         # is permitted to access.
         # See https://discourse.nixos.org/t/hardening-systemd-services/17147/14.
-        RuntimeDirectory = [ "matter-server/root" ];
+        RuntimeDirectory = ["matter-server/root"];
         RootDirectory = "%t/matter-server/root";
 
         # Allowlist /nix/store (to allow the binary to find its dependencies)

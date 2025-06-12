@@ -5,7 +5,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "iw";
   version = "6.9";
@@ -15,16 +14,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-Py2yKtQcZ1JCuYrjlC2/MRJUjGCkL/c5IQ8t5OmOSJQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libnl ];
+  buildInputs = [libnl];
 
   outputs = [
     "out"
     "man"
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   strictDeps = true;
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.isc;
     mainProgram = "iw";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
   };
 })

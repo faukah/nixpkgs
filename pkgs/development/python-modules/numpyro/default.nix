@@ -3,17 +3,14 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   jax,
   jaxlib,
   multipledispatch,
   numpy,
   tqdm,
-
   # tests
   dm-haiku,
   flax,
@@ -26,7 +23,6 @@
   scikit-learn,
   tensorflow-probability,
 }:
-
 buildPythonPackage rec {
   pname = "numpyro";
   version = "0.18.0";
@@ -39,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-0X/ta2yfzjf3JnZYdUAzQmXvbsDpwFCJe/bArMSWQgU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jax
@@ -62,7 +58,7 @@ buildPythonPackage rec {
     tensorflow-probability
   ];
 
-  pythonImportsCheck = [ "numpyro" ];
+  pythonImportsCheck = ["numpyro"];
 
   pytestFlagsArray = [
     # Tests memory consumption grows significantly with the number of parallel processes (reaches ~200GB with 80 jobs)
@@ -110,6 +106,6 @@ buildPythonPackage rec {
     homepage = "https://num.pyro.ai/";
     changelog = "https://github.com/pyro-ppl/numpyro/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

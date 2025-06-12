@@ -8,7 +8,6 @@
   qtgraphicaleffects,
   wrapQtAppsHook,
 }:
-
 mkDerivation rec {
   pname = "projecteur";
   version = "0.10";

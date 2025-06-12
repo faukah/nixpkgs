@@ -8,13 +8,12 @@
   pytz,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "us";
   version = "3.2.0";
   pyproject = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   disabled = pythonOlder "3.6";
 
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pythonImportsCheck = [ "us" ];
+  pythonImportsCheck = ["us"];
 
   meta = {
     description = "Package for easily working with US and state metadata";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/unitedstates/python-us/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

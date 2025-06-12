@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "zktree";
   version = "0.0.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Small tool to display Znodes in Zookeeper in tree structure";
     homepage = "https://github.com/alirezameskin/zktree";
     license = licenses.unlicense;
-    maintainers = with lib.maintainers; [ alirezameskin ];
+    maintainers = with lib.maintainers; [alirezameskin];
     mainProgram = "zktree";
   };
 }

@@ -3,20 +3,17 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.auto-epp;
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
 
   inherit (lib) mkOption types;
-in
-{
+in {
   options = {
     services.auto-epp = {
       enable = lib.mkEnableOption "auto-epp for amd active pstate";
 
-      package = lib.mkPackageOption pkgs "auto-epp" { };
+      package = lib.mkPackageOption pkgs "auto-epp" {};
 
       settings = mkOption {
         type = types.submodule {
@@ -51,7 +48,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Settings for the auto-epp application.
           See upstream example: <https://github.com/jothi-prasath/auto-epp/blob/master/sample-auto-epp.conf>
@@ -61,17 +58,16 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     boot.kernelParams = [
       "amd_pstate=active"
     ];
 
     environment.etc."auto-epp.conf".source = format.generate "auto-epp.conf" cfg.settings;
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.auto-epp = {
-      after = [ "multi-user.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["multi-user.target"];
+      wantedBy = ["multi-user.target"];
       description = "auto-epp - Automatic EPP Changer for amd-pstate-epp";
       serviceConfig = {
         Type = "simple";
@@ -82,5 +78,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ lamarios ];
+  meta.maintainers = with lib.maintainers; [lamarios];
 }

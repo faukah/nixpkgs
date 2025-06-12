@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rusti-cal";
   version = "1.1.0";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "Minimal command line calendar, similar to cal";
     mainProgram = "rusti-cal";
     homepage = "https://github.com/arthurhenrique/rusti-cal";
-    license = [ licenses.mit ];
-    maintainers = [ maintainers.detegr ];
+    license = [licenses.mit];
+    maintainers = [maintainers.detegr];
   };
 }

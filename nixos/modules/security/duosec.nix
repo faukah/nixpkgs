@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.security.duosec;
 
-  boolToStr = b: if b then "yes" else "no";
+  boolToStr = b:
+    if b
+    then "yes"
+    else "no";
 
   configFilePam = ''
     [duo]
@@ -27,12 +29,12 @@ let
       motd=${boolToStr cfg.motd}
       accept_env_factor=${boolToStr cfg.acceptEnvFactor}
     '';
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule [ "security" "duosec" "group" ] [ "security" "duosec" "groups" ])
-    (lib.mkRenamedOptionModule [ "security" "duosec" "ikey" ] [ "security" "duosec" "integrationKey" ])
-    (lib.mkRemovedOptionModule [ "security" "duosec" "skey" ]
+    (lib.mkRenamedOptionModule ["security" "duosec" "group"] ["security" "duosec" "groups"])
+    (lib.mkRenamedOptionModule ["security" "duosec" "ikey"] ["security" "duosec" "integrationKey"])
+    (
+      lib.mkRemovedOptionModule ["security" "duosec" "skey"]
       "The insecure security.duosec.skey option has been replaced by a new security.duosec.secretKeyFile option. Use this new option to store a secure copy of your key instead."
     )
   ];
@@ -197,7 +199,7 @@ in
   };
 
   config = lib.mkIf (cfg.ssh.enable || cfg.pam.enable) {
-    environment.systemPackages = [ pkgs.duo-unix ];
+    environment.systemPackages = [pkgs.duo-unix];
 
     security.wrappers.login_duo = {
       setuid = true;
@@ -207,12 +209,12 @@ in
     };
 
     systemd.services.login-duo = lib.mkIf cfg.ssh.enable {
-      wantedBy = [ "sysinit.target" ];
+      wantedBy = ["sysinit.target"];
       before = [
         "sysinit.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
       unitConfig.DefaultDependencies = false;
       script = ''
         if test -f "${cfg.secretKeyFile}"; then
@@ -233,12 +235,12 @@ in
     };
 
     systemd.services.pam-duo = lib.mkIf cfg.ssh.enable {
-      wantedBy = [ "sysinit.target" ];
+      wantedBy = ["sysinit.target"];
       before = [
         "sysinit.target"
         "shutdown.target"
       ];
-      conflicts = [ "shutdown.target" ];
+      conflicts = ["shutdown.target"];
       unitConfig.DefaultDependencies = false;
       script = ''
         if test -f "${cfg.secretKeyFile}"; then
@@ -258,21 +260,20 @@ in
     };
 
     /*
-      If PAM *and* SSH are enabled, then don't do anything special.
-      If PAM isn't used, set the default SSH-only options.
+    If PAM *and* SSH are enabled, then don't do anything special.
+    If PAM isn't used, set the default SSH-only options.
     */
     services.openssh.extraConfig = lib.mkIf (cfg.ssh.enable || cfg.pam.enable) (
-      if cfg.pam.enable then
-        "UseDNS no"
-      else
-        ''
-          # Duo Security configuration
-          ForceCommand ${config.security.wrapperDir}/login_duo
-          PermitTunnel no
-          ${lib.optionalString (!cfg.allowTcpForwarding) ''
-            AllowTcpForwarding no
-          ''}
-        ''
+      if cfg.pam.enable
+      then "UseDNS no"
+      else ''
+        # Duo Security configuration
+        ForceCommand ${config.security.wrapperDir}/login_duo
+        PermitTunnel no
+        ${lib.optionalString (!cfg.allowTcpForwarding) ''
+          AllowTcpForwarding no
+        ''}
+      ''
     );
   };
 }

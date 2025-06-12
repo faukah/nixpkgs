@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkIf
@@ -17,12 +17,11 @@ let
   cfg = config.services.monado;
 
   runtimeManifest = "${cfg.package}/share/openxr/1/openxr_monado.json";
-in
-{
+in {
   options.services.monado = {
     enable = mkEnableOption "Monado user service";
 
-    package = mkPackageOption pkgs "monado" { };
+    package = mkPackageOption pkgs "monado" {};
 
     defaultRuntime = mkOption {
       type = types.bool;
@@ -51,7 +50,7 @@ in
 
     highPriority =
       mkEnableOption "high priority capability for monado-service"
-      // mkOption { default = true; };
+      // mkOption {default = true;};
   };
 
   config = mkIf cfg.enable {
@@ -64,13 +63,13 @@ in
       source = lib.getExe' cfg.package "monado-service";
     };
 
-    services.udev.packages = with pkgs; [ xr-hardware ];
+    services.udev.packages = with pkgs; [xr-hardware];
 
     systemd.user = {
       services.monado = {
         description = "Monado XR runtime service module";
-        requires = [ "monado.socket" ];
-        conflicts = [ "monado-dev.service" ];
+        requires = ["monado.socket"];
+        conflicts = ["monado-dev.service"];
 
         unitConfig.ConditionUser = "!root";
 
@@ -96,19 +95,18 @@ in
 
         serviceConfig = {
           ExecStart =
-            if cfg.highPriority then
-              "${config.security.wrapperDir}/monado-service"
-            else
-              lib.getExe' cfg.package "monado-service";
+            if cfg.highPriority
+            then "${config.security.wrapperDir}/monado-service"
+            else lib.getExe' cfg.package "monado-service";
           Restart = "no";
         };
 
-        restartTriggers = [ cfg.package ];
+        restartTriggers = [cfg.package];
       };
 
       sockets.monado = {
         description = "Monado XR service module connection socket";
-        conflicts = [ "monado-dev.service" ];
+        conflicts = ["monado-dev.service"];
 
         unitConfig.ConditionUser = "!root";
 
@@ -120,21 +118,21 @@ in
           FlushPending = true;
         };
 
-        restartTriggers = [ cfg.package ];
+        restartTriggers = [cfg.package];
 
-        wantedBy = [ "sockets.target" ];
+        wantedBy = ["sockets.target"];
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
-    environment.pathsToLink = [ "/share/openxr" ];
+    environment.systemPackages = [cfg.package];
+    environment.pathsToLink = ["/share/openxr"];
 
-    hardware.graphics.extraPackages = [ pkgs.monado-vulkan-layers ];
+    hardware.graphics.extraPackages = [pkgs.monado-vulkan-layers];
 
     environment.etc."xdg/openxr/1/active_runtime.json" = mkIf cfg.defaultRuntime {
       source = runtimeManifest;
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ Scrumplex ];
+  meta.maintainers = with lib.maintainers; [Scrumplex];
 }

@@ -6,7 +6,6 @@
   openssl,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mailsend";
   version = "1.19";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "CLI email sending tool";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
     homepage = "https://github.com/muquit/mailsend";
     downloadPage = "https://github.com/muquit/mailsend/releases";

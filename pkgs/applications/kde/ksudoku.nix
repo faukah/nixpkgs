@@ -7,7 +7,6 @@
   kdeclarative,
   libkdegames,
 }:
-
 mkDerivation {
   pname = "ksudoku";
   nativeBuildInputs = [
@@ -23,7 +22,7 @@ mkDerivation {
     homepage = "https://apps.kde.org/ksudoku/";
     description = "Suduko game";
     mainProgram = "ksudoku";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
 }

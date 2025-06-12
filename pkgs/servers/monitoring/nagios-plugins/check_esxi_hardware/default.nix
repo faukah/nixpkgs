@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "check-esxi-hardware";
   version = "20250221";
@@ -41,6 +40,6 @@ python3Packages.buildPythonApplication rec {
     changelog = "https://github.com/Napsty/check_esxi_hardware/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
     mainProgram = "check_esxi_hardware";
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
   };
 }

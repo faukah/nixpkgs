@@ -1,34 +1,28 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   server-port = 3141;
-in
-{
+in {
   name = "devpi-server";
   meta = with pkgs.lib.maintainers; {
-    maintainers = [ cafkafk ];
+    maintainers = [cafkafk];
   };
 
   nodes = {
-    devpi =
-      { ... }:
-      {
-        services.devpi-server = {
-          enable = true;
-          host = "0.0.0.0";
-          port = server-port;
-          openFirewall = true;
-          secretFile = pkgs.writeText "devpi-secret" "v263P+V3YGDYUyfYL/RBURw+tCPMDw94R/iCuBNJrDhaYrZYjpA6XPFVDDH8ViN20j77y2PHoMM/U0opNkVQ2g==";
-        };
+    devpi = {...}: {
+      services.devpi-server = {
+        enable = true;
+        host = "0.0.0.0";
+        port = server-port;
+        openFirewall = true;
+        secretFile = pkgs.writeText "devpi-secret" "v263P+V3YGDYUyfYL/RBURw+tCPMDw94R/iCuBNJrDhaYrZYjpA6XPFVDDH8ViN20j77y2PHoMM/U0opNkVQ2g==";
       };
+    };
 
-    client1 =
-      { ... }:
-      {
-        environment.systemPackages = with pkgs; [
-          devpi-client
-          jq
-        ];
-      };
+    client1 = {...}: {
+      environment.systemPackages = with pkgs; [
+        devpi-client
+        jq
+      ];
+    };
   };
 
   testScript = ''

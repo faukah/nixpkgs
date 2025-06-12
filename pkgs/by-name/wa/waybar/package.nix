@@ -44,7 +44,6 @@
   wayland-scanner,
   wireplumber,
   wrapGAppsHook3,
-
   cavaSupport ? true,
   enableManpages ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
   evdevSupport ? true,
@@ -68,7 +67,6 @@
   withMediaPlayer ? mprisSupport && false,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "waybar";
   version = "0.12.0";
@@ -139,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optional (cavaSupport || pipewireSupport) pipewire
     ++ lib.optional (!stdenv.hostPlatform.isLinux) libinotify-kqueue;
 
-  nativeCheckInputs = [ catch2_3 ];
+  nativeCheckInputs = [catch2_3];
   doCheck = runTests;
 
   mesonFlags =
@@ -191,7 +189,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

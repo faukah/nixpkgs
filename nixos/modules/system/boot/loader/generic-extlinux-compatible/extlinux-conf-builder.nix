@@ -1,5 +1,7 @@
-{ lib, pkgs }:
-
+{
+  lib,
+  pkgs,
+}:
 pkgs.replaceVarsWith {
   src = ./extlinux-conf-builder.sh;
   isExecutable = true;

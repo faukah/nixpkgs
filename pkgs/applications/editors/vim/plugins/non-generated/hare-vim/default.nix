@@ -15,7 +15,7 @@ vimUtils.buildVimPlugin {
     hash = "sha256-GPFoQI6tipcLzkvjaeufmMrNnQM46lPas9D1SwzjKF4=";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Hare programming in Vim";

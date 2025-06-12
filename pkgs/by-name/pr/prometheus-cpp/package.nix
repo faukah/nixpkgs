@@ -10,7 +10,6 @@
   gtest,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "prometheus-cpp";
   version = "1.3.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     gtest
     zlib
   ];
-  propagatedBuildInputs = [ civetweb ];
+  propagatedBuildInputs = [civetweb];
   strictDeps = true;
 
   cmakeFlags = [
@@ -49,6 +48,6 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Prometheus Client Library for Modern C++";
     homepage = "https://github.com/jupp0r/prometheus-cpp";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
 })

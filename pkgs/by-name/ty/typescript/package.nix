@@ -10,7 +10,6 @@
   prefetch-npm-deps,
   gnused,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "typescript";
   version = "5.8.3";

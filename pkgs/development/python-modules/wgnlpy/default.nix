@@ -6,7 +6,6 @@
   cryptography,
   pyroute2,
 }:
-
 buildPythonPackage rec {
   pname = "wgnlpy";
   version = "0.1.5";
@@ -19,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-5XAfBiKx4SqouA57PxmaCb0ea7mT2VeUI1tgnQE/ZwQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cryptography
@@ -34,7 +33,7 @@ buildPythonPackage rec {
   meta = {
     description = "Netlink connector to WireGuard";
     homepage = "https://github.com/ArgosyLabs/wgnlpy";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ marcel ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [marcel];
   };
 }

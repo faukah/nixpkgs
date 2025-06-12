@@ -3,16 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.spice-webdavd;
-in
-{
+in {
   options = {
     services.spice-webdavd = {
       enable = lib.mkEnableOption "the spice guest webdav proxy daemon";
 
-      package = lib.mkPackageOption pkgs "phodav" { };
+      package = lib.mkPackageOption pkgs "phodav" {};
     };
   };
 
@@ -21,7 +19,7 @@ in
     services.davfs2.enable = true;
 
     # add the udev rule which starts the proxy when the spice socket is present
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     systemd.services.spice-webdavd = {
       description = "spice-webdav proxy daemon";

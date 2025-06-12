@@ -29,7 +29,6 @@
   tqdm,
   zeep,
 }:
-
 buildPythonPackage rec {
   pname = "sunpy";
   version = "6.1.1";
@@ -59,7 +58,7 @@ buildPythonPackage rec {
       asdf
       # asdf-astropy
     ];
-    database = [ sqlalchemy ];
+    database = [sqlalchemy];
     image = [
       scikit-image
       scipy
@@ -159,7 +158,7 @@ buildPythonPackage rec {
     description = "Python for Solar Physics";
     homepage = "https://sunpy.org";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     broken = true;
   };
 }

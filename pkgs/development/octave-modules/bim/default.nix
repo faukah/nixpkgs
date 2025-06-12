@@ -5,7 +5,6 @@
   fpl,
   msh,
 }:
-
 buildOctavePackage rec {
   pname = "bim";
   version = "1.1.7";
@@ -25,7 +24,7 @@ buildOctavePackage rec {
   meta = {
     homepage = "https://gnu-octave.github.io/packages/bim/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ KarlJoad ];
+    maintainers = with lib.maintainers; [KarlJoad];
     description = "Package for solving Diffusion Advection Reaction (DAR) Partial Differential Equations";
   };
 }

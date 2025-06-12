@@ -4,7 +4,6 @@
   buildGoModule,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "prometheus-nextcloud-exporter";
   version = "0.8.0";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-9+Vv2GodEocDppWvTj4W3/tBqSJJZ9LkyTl5evm/45Y=";
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) nextcloud; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) nextcloud;};
 
   meta = with lib; {
     description = "Prometheus exporter for Nextcloud servers";
     homepage = "https://github.com/xperimental/nextcloud-exporter";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "nextcloud-exporter";
   };
 }

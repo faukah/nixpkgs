@@ -8,7 +8,6 @@
   glib,
   buildPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gts";
   version = "0.7.6";
@@ -29,8 +28,8 @@ stdenv.mkDerivation rec {
     autoreconfHook
     glib # required to satisfy AM_PATH_GLIB_2_0
   ];
-  buildInputs = [ gettext ];
-  propagatedBuildInputs = [ glib ];
+  buildInputs = [gettext];
+  propagatedBuildInputs = [glib];
 
   doCheck = false; # fails with "permission denied"
 
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
       3D surfaces meshed with interconnected triangles.
     '';
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

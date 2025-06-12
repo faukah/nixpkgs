@@ -22,7 +22,6 @@
   future,
   jira,
 }:
-
 buildPythonPackage rec {
   pname = "bugwarrior";
   version = "1.8.0";
@@ -63,6 +62,6 @@ buildPythonPackage rec {
     description = "Sync github, bitbucket, bugzilla, and trac issues with taskwarrior";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pierron ];
+    maintainers = with maintainers; [pierron];
   };
 }

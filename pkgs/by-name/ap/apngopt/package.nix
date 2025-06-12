@@ -6,7 +6,6 @@
   zlib,
   zopfli,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apngopt";
   version = "1.4";
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     buildFlagsArray+=("LIBS=-lzopfli -lstdc++ -lpng -lz")
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}c++"];
 
   installPhase = ''
     runHook preInstall
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/apng/";
     description = "Optimizes APNG animations";
     license = licenses.zlib;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

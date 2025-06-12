@@ -13,7 +13,6 @@
   gnome2,
   which,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jwm-settings-manager";
   version = "2019-01-27";
@@ -57,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://joewing.net/projects/jwm";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

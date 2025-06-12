@@ -9,7 +9,6 @@
   stdenv,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lbreakout2";
   version = "2.6.5";
@@ -41,12 +40,12 @@ stdenv.mkDerivation (finalAttrs: {
   # With fortify it crashes at runtime:
   #   *** buffer overflow detected ***: terminated
   #   Aborted (core dumped)
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = {
     homepage = "http://lgames.sourceforge.net/LBreakout2/";
     description = "Breakout clone from the LGames series";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "lbreakout2";
     maintainers = with lib.maintainers; [
       ciil

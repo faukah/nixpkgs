@@ -3,19 +3,15 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   ruff,
-
   # dependencies
   cattrs,
   lsprotocol,
   python-lsp-server,
   tomli,
-
   # checks
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-lsp-ruff";
   version = "2.2.2";
@@ -38,19 +34,21 @@ buildPythonPackage rec {
     sed -i -e "s|workspace.root_path|'/tmp/'|g" tests/*.py
   '';
 
-  dependencies = [
-    cattrs
-    lsprotocol
-    python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      cattrs
+      lsprotocol
+      python-lsp-server
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/python-lsp/python-lsp-ruff";
     description = "Ruff linting plugin for pylsp";
     changelog = "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ linsui ];
+    maintainers = with lib.maintainers; [linsui];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule {
   pname = "dnss";
   version = "0-unstable-2024-03-17";
@@ -21,6 +20,6 @@ buildGoModule {
     homepage = "https://blitiri.com.ar/git/r/dnss/";
     license = licenses.asl20;
     mainProgram = "dnss";
-    maintainers = with maintainers; [ raspher ];
+    maintainers = with maintainers; [raspher];
   };
 }

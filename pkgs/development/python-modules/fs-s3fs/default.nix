@@ -6,7 +6,6 @@
   six,
   boto3,
 }:
-
 buildPythonPackage rec {
   pname = "fs-s3fs";
   version = "1.1.1";
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.org/project/fs-s3fs/";
     license = licenses.mit;
     description = "Amazon S3 filesystem for PyFilesystem2";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

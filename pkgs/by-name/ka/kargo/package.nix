@@ -8,7 +8,6 @@
   testers,
   writableTmpDirAsHomeHook,
 }:
-
 buildGoModule rec {
   pname = "kargo";
   version = "1.5.1";
@@ -22,20 +21,18 @@ buildGoModule rec {
 
   vendorHash = "sha256-K/O42m2f+aVJZrWkj1OXC7peiwHWy0K5uj4VySHlAww=";
 
-  subPackages = [ "cmd/cli" ];
+  subPackages = ["cmd/cli"];
 
-  ldflags =
-    let
-      package_url = "github.com/akuity/kargo/pkg/x/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${package_url}.version=${version}"
-      "-X ${package_url}.buildDate=1970-01-01T00:00:00Z"
-      "-X ${package_url}.gitCommit=${src.rev}"
-      "-X ${package_url}.gitTreeState=clean"
-    ];
+  ldflags = let
+    package_url = "github.com/akuity/kargo/pkg/x/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${package_url}.version=${version}"
+    "-X ${package_url}.buildDate=1970-01-01T00:00:00Z"
+    "-X ${package_url}.gitCommit=${src.rev}"
+    "-X ${package_url}.gitTreeState=clean"
+  ];
 
   nativeBuildInputs = [
     installShellFiles

@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rust-code-analysis";
   version = "0.0.25";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
       mit # grammars
       mpl20 # code
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "rust-code-analysis-cli";
   };
 }

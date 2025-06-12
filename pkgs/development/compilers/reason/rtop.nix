@@ -5,7 +5,6 @@
   utop,
   makeWrapper,
 }:
-
 buildDunePackage {
   pname = "rtop";
   inherit (reason) version src;
@@ -27,8 +26,10 @@ buildDunePackage {
       --prefix OCAMLPATH : "$OCAMLPATH:$OCAMLFIND_DESTDIR"
   '';
 
-  meta = reason.meta // {
-    description = "Toplevel (or REPL) for Reason, based on utop";
-    mainProgram = "rtop";
-  };
+  meta =
+    reason.meta
+    // {
+      description = "Toplevel (or REPL) for Reason, based on utop";
+      mainProgram = "rtop";
+    };
 }

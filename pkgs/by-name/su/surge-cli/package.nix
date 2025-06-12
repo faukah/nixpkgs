@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildNpmPackage rec {
   pname = "surge-cli";
   version = "0.23.1";
@@ -24,6 +23,6 @@ buildNpmPackage rec {
     description = "CLI for the surge.sh CDN";
     homepage = "https://surge.sh";
     license = licenses.mit;
-    maintainers = with maintainers; [ MoritzBoehme ];
+    maintainers = with maintainers; [MoritzBoehme];
   };
 }

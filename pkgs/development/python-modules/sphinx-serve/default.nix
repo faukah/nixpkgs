@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-serve";
   version = "1.0.1";
@@ -16,13 +15,13 @@ buildPythonPackage rec {
 
   doCheck = false; # No tests
 
-  pythonImportsCheck = [ "sphinx_serve" ];
+  pythonImportsCheck = ["sphinx_serve"];
 
   meta = with lib; {
     description = "Spawns a simple HTTP server to preview your sphinx documents";
     mainProgram = "sphinx-serve";
     homepage = "https://github.com/tlatsas/sphinx-serve";
-    maintainers = with maintainers; [ FlorianFranzen ];
+    maintainers = with maintainers; [FlorianFranzen];
     license = licenses.mit;
   };
 }

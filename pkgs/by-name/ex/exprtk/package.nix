@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exprtk";
   version = "0.0.3";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     description = "C++ Mathematical Expression Toolkit Library";
     homepage = "https://www.partow.net/programming/exprtk/index.html";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

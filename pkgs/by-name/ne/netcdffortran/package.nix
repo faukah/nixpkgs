@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nC93NcA4VJbrqaLwyhjP10j/t6rQSYcAzKBxclpZVe0=";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
   buildInputs = [
     netcdf
     hdf5
@@ -27,15 +27,15 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  FFLAGS = [ "-std=legacy" ];
-  FCFLAGS = [ "-std=legacy" ];
+  FFLAGS = ["-std=legacy"];
+  FCFLAGS = ["-std=legacy"];
 
   meta = with lib; {
     description = "Fortran API to manipulate netcdf files";
     mainProgram = "nf-config";
     homepage = "https://www.unidata.ucar.edu/software/netcdf/";
     license = licenses.free;
-    maintainers = [ maintainers.bzizou ];
+    maintainers = [maintainers.bzizou];
     platforms = platforms.unix;
   };
 }

@@ -15,7 +15,6 @@
   cacert,
   curl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jenkins";
   version = "2.504.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-5SNHwB3TkRbDZPt+ureNFWvOj2rdKEhP9XH+DQ+uq/Y=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p "$out/bin" "$out/share" "$out/webapps"
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) jenkins jenkins-cli; };
+    tests = {inherit (nixosTests) jenkins jenkins-cli;};
 
     updateScript = writeScript "update.sh" ''
       #!${stdenv.shell}
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Extendable open source continuous integration server";
     homepage = "https://jenkins.io/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     maintainers = with maintainers; [
       earldouglas

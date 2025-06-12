@@ -7,7 +7,6 @@
   libusb1,
   fftwSinglePrec,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hackrf";
   version = "2024.02.1";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://greatscottgadgets.com/hackrf/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ sjmackenzie ];
+    maintainers = with maintainers; [sjmackenzie];
   };
 }

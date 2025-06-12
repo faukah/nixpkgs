@@ -4,7 +4,6 @@
   fetchFromGitLab,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "meek";
   version = "0.38.0";
@@ -25,7 +24,7 @@ buildGoModule rec {
     "meek-server"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installManPage doc/meek-client.1
@@ -42,7 +41,7 @@ buildGoModule rec {
       fingerprintable byte patterns in Tor traffic.
     '';
     homepage = "https://gitlab.torproject.org/tpo/anti-censorship/pluggable-transports/meek";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.cc0;
   };
 }

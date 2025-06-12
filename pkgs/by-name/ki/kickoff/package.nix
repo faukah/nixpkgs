@@ -8,7 +8,6 @@
   libxkbcommon,
   makeWrapper,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kickoff";
   version = "0.7.5";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "kickoff";
     homepage = "https://github.com/j0ru/kickoff";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pyxels ];
+    maintainers = with maintainers; [pyxels];
     platforms = platforms.linux;
   };
 })

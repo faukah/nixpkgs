@@ -17,7 +17,6 @@
   fixDarwinDylibNames,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdeltachat";
   version = "1.159.5";
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/chatmail/core";
     changelog = "https://github.com/chatmail/core/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = platforms.unix;
   };
 }

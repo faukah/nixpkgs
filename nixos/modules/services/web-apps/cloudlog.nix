@@ -4,19 +4,14 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.cloudlog;
-  dbFile =
-    let
-      password =
-        if cfg.database.createLocally then
-          "''"
-        else
-          "trim(file_get_contents('${cfg.database.passwordFile}'))";
-    in
+  dbFile = let
+    password =
+      if cfg.database.createLocally
+      then "''"
+      else "trim(file_get_contents('${cfg.database.passwordFile}'))";
+  in
     pkgs.writeText "database.php" ''
       <?php
       defined('BASEPATH') OR exit('No direct script access allowed');
@@ -75,8 +70,7 @@ let
       done
     '';
   };
-in
-{
+in {
   options.services.cloudlog = with types; {
     enable = mkEnableOption "Cloudlog";
     dataDir = mkOption {
@@ -309,7 +303,6 @@ in
     };
   };
   config = mkIf cfg.enable {
-
     assertions = [
       {
         assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
@@ -321,10 +314,12 @@ in
       pools.cloudlog = {
         inherit (cfg) user;
         group = config.services.nginx.group;
-        settings = {
-          "listen.owner" = config.services.nginx.user;
-          "listen.group" = config.services.nginx.group;
-        } // cfg.poolConfig;
+        settings =
+          {
+            "listen.owner" = config.services.nginx.user;
+            "listen.group" = config.services.nginx.group;
+          }
+          // cfg.poolConfig;
       };
     };
 
@@ -347,7 +342,7 @@ in
 
     services.mysql = mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -366,18 +361,16 @@ in
             Type = "oneshot";
             RemainAfterExit = true;
           };
-          wantedBy = [ "phpfpm-cloudlog.service" ];
-          after = [ "mysql.service" ];
-          script =
-            let
-              mysql = "${config.services.mysql.package}/bin/mysql";
-            in
-            ''
-              if [ ! -f ${cfg.dataDir}/.dbexists ]; then
-                ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
-                touch ${cfg.dataDir}/.dbexists
-              fi
-            '';
+          wantedBy = ["phpfpm-cloudlog.service"];
+          after = ["mysql.service"];
+          script = let
+            mysql = "${config.services.mysql.package}/bin/mysql";
+          in ''
+            if [ ! -f ${cfg.dataDir}/.dbexists ]; then
+              ${mysql} ${cfg.database.name} < ${pkgs.cloudlog}/install/assets/install.sql
+              touch ${cfg.dataDir}/.dbexists
+            fi
+          '';
         };
         cloudlog-upload-lotw = {
           description = "Upload QSOs to LoTW if certs have been provided";
@@ -418,9 +411,9 @@ in
       timers = {
         cloudlog-upload-lotw = {
           enable = cfg.upload-lotw.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-lotw.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-lotw.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-lotw.interval;
             Persistent = true;
@@ -428,9 +421,9 @@ in
         };
         cloudlog-upload-clublog = {
           enable = cfg.upload-clublog.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-clublog.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-clublog.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-clublog.interval;
             Persistent = true;
@@ -438,9 +431,9 @@ in
         };
         cloudlog-update-lotw-users = {
           enable = cfg.update-lotw-users.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-lotw-users.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-lotw-users.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-lotw-users.interval;
             Persistent = true;
@@ -448,9 +441,9 @@ in
         };
         cloudlog-update-dok = {
           enable = cfg.update-dok.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-dok.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-dok.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-dok.interval;
             Persistent = true;
@@ -458,9 +451,9 @@ in
         };
         cloudlog-update-clublog-scp = {
           enable = cfg.update-clublog-scp.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-clublog-scp.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-clublog-scp.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-clublog-scp.interval;
             Persistent = true;
@@ -468,9 +461,9 @@ in
         };
         cloudlog-update-wwff = {
           enable = cfg.update-wwff.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-wwff.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-wwff.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-wwff.interval;
             Persistent = true;
@@ -478,9 +471,9 @@ in
         };
         cloudlog-upload-qrz = {
           enable = cfg.upload-qrz.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-upload-qrz.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-upload-qrz.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.upload-qrz.interval;
             Persistent = true;
@@ -488,28 +481,26 @@ in
         };
         cloudlog-update-sota = {
           enable = cfg.update-sota.enable;
-          wantedBy = [ "timers.target" ];
-          partOf = [ "cloudlog-update-sota.service" ];
-          after = [ "phpfpm-cloudlog.service" ];
+          wantedBy = ["timers.target"];
+          partOf = ["cloudlog-update-sota.service"];
+          after = ["phpfpm-cloudlog.service"];
           timerConfig = {
             OnCalendar = cfg.update-sota.interval;
             Persistent = true;
           };
         };
       };
-      tmpfiles.rules =
-        let
-          group = config.services.nginx.group;
-        in
-        [
-          "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/uploads        0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/backup         0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
-          "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
-        ];
+      tmpfiles.rules = let
+        group = config.services.nginx.group;
+      in [
+        "d ${cfg.dataDir}                0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/updates        0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/uploads        0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/backup         0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/logbook        0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/assets/json    0750 ${cfg.user} ${group} - -"
+        "d ${cfg.dataDir}/assets/qslcard 0750 ${cfg.user} ${group} - -"
+      ];
     };
 
     users.users."${cfg.user}" = {
@@ -518,5 +509,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ melling ];
+  meta.maintainers = with maintainers; [melling];
 }

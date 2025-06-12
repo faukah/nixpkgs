@@ -5,7 +5,6 @@
   fetchFromGitHub,
   libusb1,
 }:
-
 # IMPORTANT: You need permissions to access the stlink usb devices.
 # Add services.udev.packages = [ pkgs.stlink ] to your configuration.nix
 stdenv.mkDerivation {
@@ -20,8 +19,8 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ libusb1 ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [libusb1];
+  nativeBuildInputs = [pkg-config];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-uninitialized";
 
@@ -36,7 +35,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/jeanthom/stlink-tool";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.wucke13 ];
+    maintainers = [maintainers.wucke13];
     mainProgram = "stlink-tool";
   };
 }

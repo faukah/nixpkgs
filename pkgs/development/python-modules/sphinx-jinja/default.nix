@@ -5,7 +5,6 @@
   pythonOlder,
   sphinx,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-jinja";
   version = "2.0.2";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-xiMrWaiUE5dwvh3G0LAKN55CiM54FXkE4fhHPeo+Bxg=";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
   # upstream source is not updated to 2.0.X and pypi does not contain tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinx_jinja" ];
+  pythonImportsCheck = ["sphinx_jinja"];
 
   meta = with lib; {
     description = "Sphinx extension to include jinja templates in documentation";
     homepage = "https://github.com/tardyp/sphinx-jinja";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

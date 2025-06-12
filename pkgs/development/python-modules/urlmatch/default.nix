@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "urlmatch";
   version = "1.0.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "urlmatch" ];
+  pythonImportsCheck = ["urlmatch"];
 
   # The only test fails with:
   #  ImportError: cannot import name 'BadMatchPattern' from 'urlmatch' (/private/tmp/nix-build-python3.12-urlmatch-1.0.0.drv-0/source/urlmatch/__init__.py)
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/jessepollak/urlmatch/releases/tag/v${version}/CHANGELOG.md";
     homepage = "https://github.com/jessepollak/urlmatch";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

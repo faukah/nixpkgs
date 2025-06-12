@@ -17,7 +17,6 @@
   stdenv,
   unbound,
   zeromq,
-
   trezorSupport ? true,
   hidapi,
   libusb1,
@@ -25,7 +24,6 @@
   python3,
   udev,
 }:
-
 stdenv.mkDerivation rec {
   pname = "monero-gui";
   version = "0.18.4.0";
@@ -64,7 +62,7 @@ stdenv.mkDerivation rec {
       unbound
       zeromq
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ qt5.qtmacextras ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [qt5.qtmacextras]
     ++ lib.optionals trezorSupport [
       hidapi
       libusb1
@@ -105,7 +103,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    [ "-DARCH=default" ]
+    ["-DARCH=default"]
     ++ lib.optional trezorSupport [
       # fix build on recent gcc versions
       "-DCMAKE_CXX_FLAGS=-fpermissive"
@@ -142,7 +140,7 @@ stdenv.mkDerivation rec {
     homepage = "https://getmonero.org/";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ rnhmjoj ];
+    maintainers = with lib.maintainers; [rnhmjoj];
     mainProgram = "monero-wallet-gui";
   };
 }

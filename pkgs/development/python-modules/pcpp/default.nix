@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "pcpp";
   version = "1.30";
@@ -22,6 +21,6 @@ buildPythonPackage rec {
     description = "C99 preprocessor written in pure Python";
     mainProgram = "pcpp";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

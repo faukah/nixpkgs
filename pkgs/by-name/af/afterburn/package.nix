@@ -5,7 +5,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "afterburn";
   version = "5.8.2";
@@ -20,8 +19,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Wn4Np1rwHh2sL1sqKalJrIDgMffxJgD1C2QOAR8bDRo=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace \
@@ -40,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/coreos/afterburn";
     description = "One-shot cloud provider agent";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ arianvp ];
+    maintainers = with lib.maintainers; [arianvp];
     platforms = lib.platforms.linux;
     mainProgram = "afterburn";
   };

@@ -5,7 +5,6 @@
   installer,
   packaging,
 }:
-
 stdenv.mkDerivation {
   pname = "${python.libPrefix}-bootstrap-${packaging.pname}";
   inherit (packaging) version src meta;

@@ -9,7 +9,6 @@
   pkg-config,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-gnutls";
   version = "4.0.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/gnutls/guile/";
     description = "Guile bindings for GnuTLS library";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

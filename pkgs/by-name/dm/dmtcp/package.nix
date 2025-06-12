@@ -6,7 +6,6 @@
   perl,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "dmtcp";
   version = "unstable-2022-02-28";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
 
   dontDisableStatic = true;
 
-  patches = [ ./ld-linux-so-buffer-size.patch ];
+  patches = [./ld-linux-so-buffer-size.patch];
 
   postPatch = ''
     patchShebangs .

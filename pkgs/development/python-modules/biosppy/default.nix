@@ -18,7 +18,6 @@
   tkinter,
   opencv-python,
 }:
-
 buildPythonPackage rec {
   pname = "biosppy";
   version = "2.2.2";
@@ -35,20 +34,22 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    opencv-python
-    bidict
-    h5py
-    matplotlib
-    numpy
-    scikit-learn
-    scipy
-    shortuuid
-    six
-    joblib
-    pywavelets
-    mock
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ tkinter ];
+  dependencies =
+    [
+      opencv-python
+      bidict
+      h5py
+      matplotlib
+      numpy
+      scikit-learn
+      scipy
+      shortuuid
+      six
+      joblib
+      pywavelets
+      mock
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [tkinter];
 
   doCheck = false; # no tests
 
@@ -65,6 +66,6 @@ buildPythonPackage rec {
     homepage = "https://biosppy.readthedocs.io/";
     changelog = "https://github.com/scientisst/BioSPPy/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
   };
 }

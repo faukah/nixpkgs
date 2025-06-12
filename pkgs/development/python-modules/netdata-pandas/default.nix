@@ -8,7 +8,6 @@
   trio,
   asks,
 }:
-
 buildPythonPackage rec {
   pname = "netdata-pandas";
   version = "0.0.41";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     asks
   ];
 
-  pythonImportsCheck = [ "netdata_pandas" ];
+  pythonImportsCheck = ["netdata_pandas"];
 
   meta = with lib; {
     description = "A helper library to pull data from the netdata REST API into a pandas dataframe.";
     homepage = "https://github.com/netdata/netdata-pandas";
     license = licenses.asl20;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

@@ -6,7 +6,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "cython-test-exception-raiser";
   version = "1.0.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     wheel
   ];
 
-  pythonImportsCheck = [ "cython_test_exception_raiser" ];
+  pythonImportsCheck = ["cython_test_exception_raiser"];
 
   meta = with lib; {
     description = "Testing only. A cython simple extension which is used as helper for twisted/twisted Failure tests";
@@ -35,6 +34,6 @@ buildPythonPackage rec {
       publicDomain
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

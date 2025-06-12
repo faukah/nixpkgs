@@ -4,7 +4,6 @@
   fetchzip,
   moralerspace,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "moralerspace-hw";
   inherit (moralerspace) version meta;

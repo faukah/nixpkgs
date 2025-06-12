@@ -4,7 +4,6 @@
   buildGoModule,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "gqmqtt";
   version = "0.2.0-alpha";
@@ -19,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-4kT3dswD+Zlgal/kt3jOclDKkrBNXOZqvSPXg79TqX0=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/klumw/gqmqtt";
     changelog = "https://github.com/klumw/gqmqtt/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ genga898 ];
+    maintainers = with lib.maintainers; [genga898];
     mainProgram = "gqmqtt";
   };
 }

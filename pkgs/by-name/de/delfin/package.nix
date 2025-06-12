@@ -19,7 +19,6 @@
   rustc,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "delfin";
   version = "0.4.8";

@@ -13,7 +13,6 @@
   gjs,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "design";
   version = "46-alpha1";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://github.com/dubstar-04/Design";
     description = "2D CAD For GNOME";
-    maintainers = with lib.maintainers; [ linsui ];
+    maintainers = with lib.maintainers; [linsui];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "io.github.dubstar_04.design";

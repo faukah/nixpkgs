@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "openpomodoro-cli";
   version = "0.3.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     homepage = "https://github.com/open-pomodoro/openpomodoro-cli";
     changelog = "https://github.com/open-pomodoro/openpomodoro-cli/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ gdifolco ];
+    maintainers = with maintainers; [gdifolco];
     mainProgram = "openpomodoro-cli";
   };
 }

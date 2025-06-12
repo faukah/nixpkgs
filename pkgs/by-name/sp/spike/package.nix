@@ -5,7 +5,6 @@
   dtc,
   pkgsCross,
 }:
-
 stdenv.mkDerivation {
   pname = "spike";
   version = "1.1.0-unstable-2024-09-21";
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-mAgR2VzDgeuIdmPEgrb+MaA89BnWfmNanOVidqn0cgc=";
   };
 
-  nativeBuildInputs = [ dtc ];
+  nativeBuildInputs = [dtc];
   enableParallelBuilding = true;
 
   postPatch = ''
@@ -29,19 +28,17 @@ stdenv.mkDerivation {
   # To test whether spike is working, we run the RISC-V hello applications using the RISC-V proxy
   # kernel on the Spike emulator and see whether we get the expected output.
   doInstallCheck = true;
-  installCheckPhase =
-    let
-      riscvPkgs = pkgsCross.riscv64-embedded;
-    in
-    ''
-      runHook preInstallCheck
+  installCheckPhase = let
+    riscvPkgs = pkgsCross.riscv64-embedded;
+  in ''
+    runHook preInstallCheck
 
-      echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
-      ${riscvPkgs.stdenv.cc}/bin/${riscvPkgs.stdenv.cc.targetPrefix}cc -o hello hello.c
-      $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
+    echo -e "#include<stdio.h>\nint main() {printf(\"Hello, world\");return 0;}" > hello.c
+    ${riscvPkgs.stdenv.cc}/bin/${riscvPkgs.stdenv.cc.targetPrefix}cc -o hello hello.c
+    $out/bin/spike -m64 ${riscvPkgs.riscv-pk}/bin/pk hello | grep -Fq "Hello, world"
 
-      runHook postInstallCheck
-    '';
+    runHook postInstallCheck
+  '';
 
   meta = with lib; {
     description = "RISC-V ISA Simulator";
@@ -51,6 +48,6 @@ stdenv.mkDerivation {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
   };
 }

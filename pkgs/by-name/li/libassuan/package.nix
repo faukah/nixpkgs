@@ -8,7 +8,6 @@
   buildPackages,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libassuan";
   version = "3.0.2";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev"; # libassuan-config
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   buildInputs = [
     npth
     gettext
@@ -62,6 +61,6 @@ stdenv.mkDerivation rec {
     changelog = "https://dev.gnupg.org/source/libassuan/browse/master/NEWS;libassuan-${version}";
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

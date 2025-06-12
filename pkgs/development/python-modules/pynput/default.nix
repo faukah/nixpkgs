@@ -4,21 +4,17 @@
   buildPythonPackage,
   fetchFromGitHub,
   gitUpdater,
-
   # build-system
   setuptools,
   setuptools-lint,
   sphinx,
-
   # dependencies
   xlib,
   evdev,
   six,
-
   # tests
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pynput";
   version = "1.8.1";
@@ -47,7 +43,7 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ six ]
+    [six]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       evdev
       xlib
@@ -55,13 +51,13 @@ buildPythonPackage rec {
 
   doCheck = false; # requires running X server
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Library to control and monitor input devices";
     homepage = "https://github.com/moses-palmer/pynput";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
   };
 }

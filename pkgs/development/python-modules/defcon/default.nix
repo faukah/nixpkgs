@@ -8,7 +8,6 @@
   fontpens,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "defcon";
   version = "0.12.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs =
     [
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     ++ fonttools.optional-dependencies.ufo
     ++ fonttools.optional-dependencies.unicode;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "defcon" ];
+  pythonImportsCheck = ["defcon"];
 
   optional-dependencies = {
-    pens = [ fontpens ];
-    lxml = [ fonttools ] ++ fonttools.optional-dependencies.lxml;
+    pens = [fontpens];
+    lxml = [fonttools] ++ fonttools.optional-dependencies.lxml;
   };
 
   meta = with lib; {
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/robotools/defcon";
     changelog = "https://github.com/robotools/defcon/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

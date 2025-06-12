@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkIf
     getExe
     maintainers
@@ -16,13 +15,12 @@ let
     ;
   inherit (lib.types) str path bool;
   cfg = config.services.jellyfin;
-in
-{
+in {
   options = {
     services.jellyfin = {
       enable = mkEnableOption "Jellyfin Media Server";
 
-      package = mkPackageOption pkgs "jellyfin" { };
+      package = mkPackageOption pkgs "jellyfin" {};
 
       user = mkOption {
         type = str;
@@ -108,9 +106,9 @@ in
       };
       services.jellyfin = {
         description = "Jellyfin Media Server";
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
 
         # This is mostly follows: https://github.com/jellyfin/jellyfin/blob/master/fedora/jellyfin.service
         # Upstream also disable some hardenings when running in LXC, we do the same with the isContainer option
@@ -183,7 +181,7 @@ in
     };
 
     users.groups = mkIf (cfg.group == "jellyfin") {
-      jellyfin = { };
+      jellyfin = {};
     };
 
     networking.firewall = mkIf cfg.openFirewall {
@@ -197,7 +195,6 @@ in
         7359
       ];
     };
-
   };
 
   meta.maintainers = with maintainers; [

@@ -5,7 +5,6 @@
   zarith,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "ff";
   inherit (ff-sig) version src;
@@ -23,7 +22,9 @@ buildDunePackage {
 
   doCheck = true;
 
-  meta = ff-sig.meta // {
-    description = "OCaml implementation of Finite Field operations";
-  };
+  meta =
+    ff-sig.meta
+    // {
+      description = "OCaml implementation of Finite Field operations";
+    };
 }

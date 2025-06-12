@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       Adobe Commerce Cloud CLI enables developers and system administrators the ability to manage Cloud projects and environments, perform routines and run automation tasks locally.
     '';
     mainProgram = "magento-cloud";
-    maintainers = with lib.maintainers; [ piotrkwiecinski ];
+    maintainers = with lib.maintainers; [piotrkwiecinski];
     license = lib.licenses.unfree;
   };
 })

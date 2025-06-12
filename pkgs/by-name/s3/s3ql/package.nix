@@ -6,7 +6,6 @@
   which,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "s3ql";
   version = "5.2.3";
@@ -19,9 +18,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-hNqKLpJd0vj96Jx4YnqYsPLq/iTbvmtvjyLrYozaxpk=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  nativeBuildInputs = [ which ] ++ (with python3.pkgs; [ cython ]);
+  nativeBuildInputs = [which] ++ (with python3.pkgs; [cython]);
 
   propagatedBuildInputs = with python3.pkgs; [
     apsw
@@ -48,9 +47,9 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "s3ql" ];
+  pythonImportsCheck = ["s3ql"];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
@@ -64,7 +63,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/s3ql/s3ql/";
     changelog = "https://github.com/s3ql/s3ql/releases/tag/s3ql-${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ rushmorem ];
+    maintainers = with lib.maintainers; [rushmorem];
     platforms = lib.platforms.linux;
   };
 }

@@ -8,10 +8,8 @@
   joblib,
   regex,
   tqdm,
-
   # preInstallCheck
   nltk,
-
   # nativeCheckInputs
   matplotlib,
   numpy,
@@ -19,7 +17,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "nltk";
   version = "3.9.1";
@@ -43,37 +40,38 @@ buildPythonPackage rec {
   preInstallCheck = ''
     export NLTK_DATA=${
       nltk.dataDir (
-        d: with d; [
-          averaged-perceptron-tagger-eng
-          averaged-perceptron-tagger-rus
-          brown
-          cess-cat
-          cess-esp
-          conll2007
-          floresta
-          gutenberg
-          inaugural
-          indian
-          large-grammars
-          nombank-1-0
-          omw-1-4
-          pl196x
-          porter-test
-          ptb
-          punkt-tab
-          rte
-          sinica-treebank
-          stopwords
-          tagsets-json
-          treebank
-          twitter-samples
-          udhr
-          universal-tagset
-          wmt15-eval
-          wordnet
-          wordnet-ic
-          words
-        ]
+        d:
+          with d; [
+            averaged-perceptron-tagger-eng
+            averaged-perceptron-tagger-rus
+            brown
+            cess-cat
+            cess-esp
+            conll2007
+            floresta
+            gutenberg
+            inaugural
+            indian
+            large-grammars
+            nombank-1-0
+            omw-1-4
+            pl196x
+            porter-test
+            ptb
+            punkt-tab
+            rte
+            sinica-treebank
+            stopwords
+            tagsets-json
+            treebank
+            twitter-samples
+            udhr
+            universal-tagset
+            wmt15-eval
+            wordnet
+            wordnet-ic
+            words
+          ]
       )
     }
   '';
@@ -92,11 +90,11 @@ buildPythonPackage rec {
     "nltk/test/unit/test_downloader.py" # Touches network
   ];
 
-  pythonImportsCheck = [ "nltk" ];
+  pythonImportsCheck = ["nltk"];
 
   passthru = {
     data = pkgs.nltk-data;
-    dataDir = pkgs.callPackage ./data-dir.nix { };
+    dataDir = pkgs.callPackage ./data-dir.nix {};
   };
 
   meta = with lib; {
@@ -104,6 +102,6 @@ buildPythonPackage rec {
     mainProgram = "nltk";
     homepage = "http://nltk.org/";
     license = licenses.asl20;
-    maintainers = [ lib.maintainers.bengsparks ];
+    maintainers = [lib.maintainers.bengsparks];
   };
 }

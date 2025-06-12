@@ -13,7 +13,6 @@
   six,
   tqdm,
 }:
-
 buildPythonPackage rec {
   pname = "hyperopt";
   version = "0.2.7";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
   # tries to use /homeless-shelter to mimic container usage, etc
   doCheck = false;
 
-  pythonImportsCheck = [ "hyperopt" ];
+  pythonImportsCheck = ["hyperopt"];
 
   meta = with lib; {
     description = "Distributed Asynchronous Hyperparameter Optimization";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "http://hyperopt.github.io/hyperopt/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

@@ -10,7 +10,6 @@
   setuptools-scm,
   shiboken6,
 }:
-
 buildPythonPackage rec {
   pname = "pyside6-qtads";
   version = "4.3.1.4";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
   };
 
   # bypass the broken parts of their bespoke python script cmake plugin
-  patches = [ ./find-nix-deps.patch ];
+  patches = [./find-nix-deps.patch];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -59,7 +58,7 @@ buildPythonPackage rec {
     shiboken6
   ];
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   # cmake-build-extension will configure
   dontUseCmakeConfigure = true;
@@ -68,13 +67,13 @@ buildPythonPackage rec {
   # runtime deps check fails on the pyside6-essentials virtual package
   dontCheckRuntimeDeps = true;
 
-  pythonImportsCheck = [ "PySide6QtAds" ];
+  pythonImportsCheck = ["PySide6QtAds"];
 
   meta = {
     description = "Python bindings to Qt Advanced Docking System for PySide6";
     homepage = "https://github.com/mborgerson/pyside6_qtads";
     changelog = "https://github.com/mborgerson/pyside6_qtads/releases/tag/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scoder12 ];
+    maintainers = with lib.maintainers; [scoder12];
   };
 }

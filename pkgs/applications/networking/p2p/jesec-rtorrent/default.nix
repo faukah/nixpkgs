@@ -12,7 +12,6 @@
   xmlRpcSupport ? true,
   xmlrpc_c,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jesec-rtorrent";
   version = "0.9.8-r16";
@@ -72,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Ncurses client for libtorrent, ideal for use with screen, tmux, or dtach (jesec's fork)";
     homepage = "https://github.com/jesec/rtorrent";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     platforms = platforms.linux;
     mainProgram = "rtorrent";
   };

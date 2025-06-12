@@ -5,7 +5,6 @@
   safestringlib,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bwa-mem2";
   version = "unstable-2023-03-18";
@@ -17,20 +16,19 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-hY8nLRFWt0GAElhDIcYdUX6cJrzOE3NlYRQr0tC3on4=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   buildFlags = [
     (
-      if stdenv.hostPlatform.sse4_2Support then
-        "arch=sse42"
-      else if stdenv.hostPlatform.avxSupport then
-        "arch=avx"
-      else if stdenv.hostPlatform.avx2Support then
-        "arch=avx2"
-      else if stdenv.hostPlatform.avx512Support then
-        "arch=avx512"
-      else
-        "arch=sse41"
+      if stdenv.hostPlatform.sse4_2Support
+      then "arch=sse42"
+      else if stdenv.hostPlatform.avxSupport
+      then "arch=avx"
+      else if stdenv.hostPlatform.avx2Support
+      then "arch=avx2"
+      else if stdenv.hostPlatform.avx512Support
+      then "arch=avx512"
+      else "arch=sse41"
     )
   ];
 
@@ -89,6 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/bwa-mem2/bwa-mem2/";
     changelog = "https://github.com/bwa-mem2/bwa-mem2/blob/${finalAttrs.src.rev}/NEWS.md";
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ apraga ];
+    maintainers = with maintainers; [apraga];
   };
 })

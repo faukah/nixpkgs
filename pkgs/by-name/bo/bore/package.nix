@@ -5,7 +5,6 @@
   fetchFromBitbucket,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bore";
   version = "0.4.1";
@@ -32,11 +31,13 @@ rustPlatform.buildRustPackage rec {
     "--all-targets"
     "--workspace"
   ];
-  checkFeatures = [ "std" ];
+  checkFeatures = ["std"];
 
-  nativeBuildInputs = [
-    installShellFiles
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin rustPlatform.bindgenHook;
+  nativeBuildInputs =
+    [
+      installShellFiles
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin rustPlatform.bindgenHook;
 
   postInstall = ''
     installManPage $src/bore/doc/bore.1
@@ -53,7 +54,7 @@ rustPlatform.buildRustPackage rec {
     description = "DNS query tool";
     homepage = "https://crates.io/crates/bore";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "bore";
     broken = stdenv.hostPlatform.isDarwin; # bindgen fails on: "in6_addr_union_(...)" is not a valid Ident
   };

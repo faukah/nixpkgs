@@ -4,7 +4,6 @@
   fetchurl,
   flex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libsepol";
   version = "3.8.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     sed -i $'/^\t.*LIBSO/d' src/Makefile
   '';
 
-  nativeBuildInputs = [ flex ];
+  nativeBuildInputs = [flex];
 
   makeFlags = [
     "PREFIX=$(out)"
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru = { inherit se_url; };
+  passthru = {inherit se_url;};
 
   meta = with lib; {
     description = "SELinux binary policy manipulation library";
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
       numinit
     ];
     license = lib.licenses.gpl2Plus;
-    pkgConfigModules = [ "libselinux" ];
+    pkgConfigModules = ["libselinux"];
   };
 }

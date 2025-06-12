@@ -9,7 +9,6 @@
   replaceVars,
   yaml-cpp,
 }:
-
 stdenv.mkDerivation {
   pname = "ebpf-verifier";
   version = "unstable-2023-07-15";
@@ -53,7 +52,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/vbpf/ebpf-verifier";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ gaelreyrol ];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "ebpf-verifier";
   };
 }

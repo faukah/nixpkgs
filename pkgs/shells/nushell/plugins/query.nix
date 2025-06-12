@@ -8,18 +8,17 @@
   openssl,
   curl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nushell_plugin_query";
   inherit (nushell) version src cargoHash;
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.cc.isClang [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.cc.isClang [rustPlatform.bindgenHook];
   buildInputs = [
     openssl
     curl
   ];
-  cargoBuildFlags = [ "--package nu_plugin_query" ];
+  cargoBuildFlags = ["--package nu_plugin_query"];
 
   checkPhase = ''
     cargo test --manifest-path crates/nu_plugin_query/Cargo.toml
@@ -27,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   passthru.updateScript = nix-update-script {
     # Skip the version check and only check the hash because we inherit version from nushell.
-    extraArgs = [ "--version=skip" ];
+    extraArgs = ["--version=skip"];
   };
 
   meta = {

@@ -11,7 +11,6 @@
   gtk3,
   glib,
 }:
-
 stdenv.mkDerivation {
   pname = "wl-gammactl";
   version = "unstable-2021-09-13";
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     ln -s ${wlr-protocols}/share/wlr-protocols source
   '';
 
-  patches = [ ./dont-need-wlroots.diff ];
+  patches = [./dont-need-wlroots.diff];
 
   postPatch = ''
     substituteInPlace meson.build --replace "git = find_program('git')" "git = 'false'"
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/mischw/wl-gammactl";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lodi ];
+    maintainers = with maintainers; [lodi];
     mainProgram = "wl-gammactl";
   };
 }

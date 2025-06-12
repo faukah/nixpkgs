@@ -9,7 +9,6 @@
   traitlets,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupyter-telemetry";
   version = "0.1.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-WxTlTs6gE9pa0hbl29Zvwikobz1/2JQ3agYO7WxyZ2E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-json-logger
@@ -31,9 +30,9 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  pythonImportsCheck = [ "jupyter_telemetry" ];
+  pythonImportsCheck = ["jupyter_telemetry"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Telemetry for Jupyter Applications and extensions";
     homepage = "https://jupyter-telemetry.readthedocs.io/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ chiroptical ];
+    maintainers = with lib.maintainers; [chiroptical];
   };
 }

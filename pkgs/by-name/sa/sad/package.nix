@@ -4,7 +4,6 @@
   rustPlatform,
   python3,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sad";
   version = "0.4.32";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-hS66/bPRUpwmW/wSpZCq4kVKFkIhttsozIr3SCyZqQI=";
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   # fix for compilation on aarch64
   # see https://github.com/NixOS/nixpkgs/issues/145726
@@ -32,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/ms-jpq/sad";
     changelog = "https://github.com/ms-jpq/sad/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "sad";
   };
 }

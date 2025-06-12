@@ -14,7 +14,6 @@
   update-checker,
   websocket-client,
 }:
-
 buildPythonPackage rec {
   pname = "praw";
   version = "7.8.1";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-jxF7rlMwKIKwyYv35vYWAdtClsVhnIkywoyMQeggGBc=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     mock
@@ -51,13 +50,13 @@ buildPythonPackage rec {
     "tests/integration"
   ];
 
-  pythonImportsCheck = [ "praw" ];
+  pythonImportsCheck = ["praw"];
 
   meta = with lib; {
     description = "Python Reddit API wrapper";
     homepage = "https://praw.readthedocs.org/";
     changelog = "https://github.com/praw-dev/praw/blob/v${version}/CHANGES.rst";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

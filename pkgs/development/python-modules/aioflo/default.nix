@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioflo";
   version = "2021.11.0";
@@ -35,9 +34,9 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ aiohttp ];
+  dependencies = [aiohttp];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioflo" ];
+  pythonImportsCheck = ["aioflo"];
 
   disabledTests = [
     # test is out-dated
@@ -60,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bachya/aioflo";
     changelog = "https://github.com/bachya/aioflo/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

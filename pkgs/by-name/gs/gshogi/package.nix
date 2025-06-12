@@ -6,7 +6,6 @@
   python3,
   wrapGAppsHook3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gshogi";
   version = "0.5.1";
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "gshogi";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ciil ];
+    maintainers = [maintainers.ciil];
   };
 }

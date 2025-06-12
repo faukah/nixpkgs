@@ -11,7 +11,6 @@
   pytest-xdist,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "niapy";
   version = "2.5.2";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-8hKT0WxnJijm22w4DkzicvtikaTL/mL3VhQX/WVHL58=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     matplotlib
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  pythonImportsCheck = [ "niapy" ];
+  pythonImportsCheck = ["niapy"];
 
   meta = with lib; {
     description = "Micro framework for building nature-inspired algorithms";
     homepage = "https://niapy.org/";
     changelog = "https://github.com/NiaOrg/NiaPy/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -7,7 +7,6 @@
   json_c,
   hidapi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libu2f-host";
   version = "1.1.10";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     json_c
     hidapi

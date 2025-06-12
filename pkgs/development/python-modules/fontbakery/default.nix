@@ -44,7 +44,6 @@
   unicodedata2,
   vharfbuzz,
 }:
-
 buildPythonPackage rec {
   pname = "fontbakery";
   version = "0.13.2";
@@ -159,7 +158,7 @@ buildPythonPackage rec {
       snippets/fontbakery.bash-completion
   '';
 
-  passthru.tests.simple = callPackage ./tests.nix { };
+  passthru.tests.simple = callPackage ./tests.nix {};
 
   meta = with lib; {
     description = "Tool for checking the quality of font projects";
@@ -167,6 +166,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/fonttools/fontbakery/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     mainProgram = "fontbakery";
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

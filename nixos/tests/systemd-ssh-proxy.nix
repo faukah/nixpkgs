@@ -8,14 +8,14 @@
 # - a local unix socket on the same system
 # - a unix socket inside a container
 let
-  inherit (import ./ssh-keys.nix pkgs)
+  inherit
+    (import ./ssh-keys.nix pkgs)
     snakeOilEd25519PrivateKey
     snakeOilEd25519PublicKey
     ;
-in
-{
+in {
   name = "systemd-ssh-proxy";
-  meta.maintainers = with pkgs.lib.maintainers; [ marie ];
+  meta.maintainers = with pkgs.lib.maintainers; [marie];
 
   nodes = {
     virthost = {
@@ -24,7 +24,7 @@ in
         settings.PermitRootLogin = "prohibit-password";
       };
       users.users = {
-        root.openssh.authorizedKeys.keys = [ snakeOilEd25519PublicKey ];
+        root.openssh.authorizedKeys.keys = [snakeOilEd25519PublicKey];
         nixos = {
           isNormalUser = true;
         };
@@ -32,7 +32,7 @@ in
       containers.guest = {
         autoStart = true;
         config = {
-          users.users.root.openssh.authorizedKeys.keys = [ snakeOilEd25519PublicKey ];
+          users.users.root.openssh.authorizedKeys.keys = [snakeOilEd25519PublicKey];
           services.openssh = {
             enable = true;
             settings.PermitRootLogin = "prohibit-password";

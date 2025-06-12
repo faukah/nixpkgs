@@ -39,7 +39,6 @@
   pango,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "polar-bookshelf1";
   version = "1.100.14";
@@ -114,8 +113,8 @@ stdenv.mkDerivation rec {
     description = "Personal knowledge repository for PDF and web content supporting incremental reading and document annotation";
     mainProgram = "polar-bookshelf";
     license = lib.licenses.gpl3Only;
-    maintainers = [ lib.maintainers.dansbandit ];
+    maintainers = [lib.maintainers.dansbandit];
     platforms = lib.platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
   };
 }

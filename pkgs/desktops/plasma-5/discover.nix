@@ -31,7 +31,6 @@
   kxmlgui,
   plasma-framework,
 }:
-
 mkDerivation {
   pname = "discover";
   nativeBuildInputs = [

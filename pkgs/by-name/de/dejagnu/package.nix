@@ -6,7 +6,6 @@
   makeWrapper,
   updateAutotoolsGnuConfigScriptsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dejagnu";
   version = "1.6.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     updateAutotoolsGnuConfigScriptsHook
     makeWrapper
   ];
-  buildInputs = [ expect ];
+  buildInputs = [expect];
 
   # dejagnu-1.6.3 can't successfully run tests in source tree:
   #   https://wiki.linuxfromscratch.org/lfs/ticket/4871
@@ -71,6 +70,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
 
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

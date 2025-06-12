@@ -9,7 +9,6 @@
   setuptools,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "smart-meter-texas";
   version = "0.5.5";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
       --replace-fail "pytest-runner" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     description = "Connect to and retrieve data from the unofficial Smart Meter Texas API";
     homepage = "https://github.com/grahamwetzler/smart-meter-texas";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -8,7 +8,6 @@
   timecop,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "onetimepass";
   version = "1.0.1";
@@ -23,22 +22,22 @@ buildPythonPackage rec {
     hash = "sha256-cHJg3vdUpWp5+HACIeTGrqkHKUDS//aQICSjPKgwu3I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ six ];
+  dependencies = [six];
 
   nativeCheckInputs = [
     timecop
     unittestCheckHook
   ];
 
-  pythonImportsCheck = [ "onetimepass" ];
+  pythonImportsCheck = ["onetimepass"];
 
   meta = with lib; {
     description = "One-time password library for HMAC-based (HOTP) and time-based (TOTP) passwords";
     homepage = "https://github.com/tadeck/onetimepass";
     changelog = "https://github.com/tadeck/onetimepass/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ zakame ];
+    maintainers = with maintainers; [zakame];
   };
 }

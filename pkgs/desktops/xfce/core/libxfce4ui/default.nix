@@ -19,7 +19,6 @@
   gobject-introspection,
   vala,
 }:
-
 mkXfceDerivation {
   category = "xfce";
   pname = "libxfce4ui";
@@ -62,6 +61,6 @@ mkXfceDerivation {
       lgpl2Plus
       lgpl21Plus
     ];
-    teams = [ teams.xfce ];
+    teams = [teams.xfce];
   };
 }

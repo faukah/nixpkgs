@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cansina";
   version = "0.9";
@@ -34,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/deibit/cansina";
     changelog = "https://github.com/deibit/cansina/blob/${version}/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "cansina";
   };
 }

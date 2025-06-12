@@ -6,7 +6,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "timelapse-deflicker";
   version = "0.1.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/timelapse-deflicker --set PERL5LIB $PERL5LIB
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = with perlPackages; [
     perl
     ImageMagick
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     mainProgram = "timelapse-deflicker";
     homepage = "https://github.com/cyberang3l/timelapse-deflicker";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ valeriangalliat ];
+    maintainers = with maintainers; [valeriangalliat];
     platforms = platforms.unix;
   };
 }

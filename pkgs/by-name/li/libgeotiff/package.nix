@@ -9,7 +9,6 @@
   proj,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.7.4";
   pname = "libgeotiff";
@@ -50,8 +49,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OSGeo/libgeotiff";
     changelog = "https://github.com/OSGeo/libgeotiff/blob/${src.rev}/libgeotiff/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ marcweber ];
-    teams = [ teams.geospatial ];
+    maintainers = with maintainers; [marcweber];
+    teams = [teams.geospatial];
     platforms = with platforms; linux ++ darwin;
   };
 }

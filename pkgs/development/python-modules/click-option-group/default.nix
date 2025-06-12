@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "click-option-group";
   version = "0.5.7";
@@ -28,11 +27,11 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [ click ];
+  dependencies = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "click_option_group" ];
+  pythonImportsCheck = ["click_option_group"];
 
   disabledTests = [
     # https://github.com/click-contrib/click-option-group/issues/65
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/click-contrib/click-option-group/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -1,6 +1,4 @@
-{ fetchpatch }:
-
-[
+{fetchpatch}: [
   # Makes `npm pack` obey `--foreground-scripts`
   (fetchpatch {
     name = "libnpmpack-obey-foreground-scripts.patch";
@@ -8,7 +6,7 @@
     hash = "sha256-NQ8CZBfRqAOMe0Ysg3cq1FiferWKTzXC1QXgzX+f8OU=";
     stripLen = 2;
     extraPrefix = "deps/npm/node_modules/";
-    includes = [ "deps/npm/node_modules/libnpmpack/lib/index.js" ];
+    includes = ["deps/npm/node_modules/libnpmpack/lib/index.js"];
   })
 
   # Makes `npm pack` obey `--ignore-scripts`
@@ -18,6 +16,6 @@
     hash = "sha256-eA5YST9RxMMjk5FCwEbl1HQUpXZuwWZkx5WC4yJium8=";
     stripLen = 2;
     extraPrefix = "deps/npm/node_modules/";
-    includes = [ "deps/npm/node_modules/libnpmpack/lib/index.js" ];
+    includes = ["deps/npm/node_modules/libnpmpack/lib/index.js"];
   })
 ]

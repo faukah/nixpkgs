@@ -6,7 +6,6 @@
   makeWrapper,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfcj6510dw-cupswrapper";
   version = "3.0.0-1";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0y5iffybxjin8injrdmc9n9hl4s6b8n6ck76m1z78bzi88vwmhai";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     bash # shebang
   ];
@@ -68,6 +67,6 @@ stdenv.mkDerivation rec {
     license = with licenses; gpl2Plus;
     platforms = with platforms; linux;
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
   };
 }

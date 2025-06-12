@@ -30,7 +30,6 @@
   stestr,
   testers,
 }:
-
 buildPythonPackage rec {
   pname = "python-openstackclient";
   version = "8.1.0";
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     sphinxcontrib-apidoc
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies =
     [
@@ -74,7 +73,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "openstackclient" ];
+  pythonImportsCheck = ["openstackclient"];
 
   optional-dependencies = {
     # See https://github.com/openstack/python-openstackclient/blob/master/doc/source/contributor/plugins.rst
@@ -107,6 +106,6 @@ buildPythonPackage rec {
     mainProgram = "openstack";
     homepage = "https://github.com/openstack/python-openstackclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

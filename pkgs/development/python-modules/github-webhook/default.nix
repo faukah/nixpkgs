@@ -5,7 +5,6 @@
   flask,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "github-webhook";
   version = "1.0.4";

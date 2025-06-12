@@ -2,12 +2,11 @@
   stdenv,
   ucg,
 }:
-
 stdenv.mkDerivation {
   pname = "ucg-test";
   inherit (ucg) version;
 
-  nativeBuildInputs = [ ucg ];
+  nativeBuildInputs = [ucg];
 
   dontInstall = true;
 

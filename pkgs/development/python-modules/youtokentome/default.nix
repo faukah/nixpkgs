@@ -8,7 +8,6 @@
   pythonOlder,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "youtokentome";
   version = "1.0.6";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     tabulate
   ];
 
-  pythonImportsCheck = [ "youtokentome" ];
+  pythonImportsCheck = ["youtokentome"];
 
   meta = with lib; {
     description = "Unsupervised text tokenizer";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/VKCOM/YouTokenToMe";
     changelog = "https://github.com/VKCOM/YouTokenToMe/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

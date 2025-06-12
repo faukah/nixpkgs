@@ -9,7 +9,6 @@
   rely,
   src,
 }:
-
 buildDunePackage {
   inherit src;
 
@@ -36,6 +35,6 @@ buildDunePackage {
     downloadPage = "https://github.com/reasonml/reason-native/tree/master/src/rely-junit-reporter";
     homepage = "https://reason-native.com/docs/rely/";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

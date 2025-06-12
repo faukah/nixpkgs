@@ -12,7 +12,6 @@
   ukpostcodeparser,
   validators,
 }:
-
 buildPythonPackage rec {
   pname = "faker";
   version = "37.1.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-rZ3GajuEiIuDfKcp6FKZqWtY/a7wMj7QuqzpPJYUrwY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-dateutil
@@ -40,14 +39,14 @@ buildPythonPackage rec {
   ];
 
   # avoid tests which import random2, an abandoned library
-  pytestFlagsArray = [ "--ignore=tests/providers/test_ssn.py" ];
-  pythonImportsCheck = [ "faker" ];
+  pytestFlagsArray = ["--ignore=tests/providers/test_ssn.py"];
+  pythonImportsCheck = ["faker"];
 
   meta = with lib; {
     description = "Python library for generating fake user data";
     mainProgram = "faker";
     homepage = "http://faker.rtfd.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

@@ -22,7 +22,7 @@ buildGoModule {
     go mod init github.com/blynn/nex
   '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # Fails with 'nex_test.go:23: got: 7a3661f13445ca7b51de2987bea127d9 wanted: 13f760d2f0dc1743dd7165781f2a318d'
   # Checks failed on master before, but buildGoPackage had checks disabled.
@@ -33,6 +33,6 @@ buildGoModule {
     mainProgram = "nex";
     homepage = "https://github.com/blynn/nex";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

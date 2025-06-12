@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mint-cursor-themes";
   version = "1.0.2";
@@ -29,7 +28,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/linuxmint/mint-cursor-themes/";
     description = "Linux Mint cursor themes";
     license = licenses.gpl3Plus;
-    teams = [ teams.cinnamon ];
+    teams = [teams.cinnamon];
     platforms = platforms.linux;
   };
 }

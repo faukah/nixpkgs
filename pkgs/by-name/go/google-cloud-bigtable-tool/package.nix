@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "google-cloud-bigtable-tool";
   version = "0.12.0";
@@ -32,7 +31,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/googleapis/cloud-bigtable-cbt-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ totoroot ];
+    maintainers = with maintainers; [totoroot];
     mainProgram = "cbt";
   };
 }

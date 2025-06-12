@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "labctl";
   version = "0.0.22-unstable-2024-05-10";
@@ -16,7 +15,7 @@ buildGoModule rec {
     hash = "sha256-px5jrfllo6teJaNrqIQVyqMwArCw625xSVM7V/xW/IA=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorHash = "sha256-Ycr/IZckIFysS9Goes58hhgh96UMRHjYWfWlQU23mXk=";
 
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://labctl.net";
     changelog = "https://github.com/labctl/labctl/releases";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "labctl";
   };
 }

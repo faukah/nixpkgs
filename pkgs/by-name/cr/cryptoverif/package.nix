@@ -5,7 +5,6 @@
   ocaml,
   writeScript,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cryptoverif";
   version = "2.11";
@@ -16,9 +15,9 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   /*
-    Fix up the frontend to load the 'default' cryptoverif library
-    ** from under $out/libexec. By default, it expects to find the files
-    ** in $CWD which doesn't work.
+  Fix up the frontend to load the 'default' cryptoverif library
+  ** from under $out/libexec. By default, it expects to find the files
+  ** in $CWD which doesn't work.
   */
   postPatch = ''
     substituteInPlace ./src/syntax.ml \
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   buildPhase = ''
     runHook preBuild
@@ -66,6 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://bblanche.gitlabpages.inria.fr/CryptoVerif/";
     license = lib.licenses.cecill-b;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 })

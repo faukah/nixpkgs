@@ -12,7 +12,6 @@
   cudaSupport ? config.cudaSupport,
   rocmSupport ? config.rocmSupport,
 }:
-
 stdenv.mkDerivation rec {
   pname = "btop";
   version = "1.4.3";
@@ -36,18 +35,18 @@ stdenv.mkDerivation rec {
     apple-sdk_15
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/bin/btop)
   '';
 
-  postPhases = lib.optionals rocmSupport [ "postPatchelf" ];
+  postPhases = lib.optionals rocmSupport ["postPatchelf"];
   postPatchelf = lib.optionalString rocmSupport ''
     patchelf --add-rpath ${lib.getLib rocmPackages.rocm-smi}/lib $out/bin/btop
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 

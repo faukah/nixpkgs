@@ -10,7 +10,6 @@
   libXmu,
   libXt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xxgdb";
   version = "1.12";
@@ -61,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Simple but powerful graphical interface to gdb";
     mainProgram = "xxgdb";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 })

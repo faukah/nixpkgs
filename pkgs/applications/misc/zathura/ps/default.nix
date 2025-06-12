@@ -12,7 +12,6 @@
   desktop-file-utils,
   appstream-glib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "zathura-ps";
   version = "0.2.8";
@@ -48,6 +47,6 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.zlib;
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

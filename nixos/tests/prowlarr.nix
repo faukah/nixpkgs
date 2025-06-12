@@ -1,18 +1,18 @@
-{ lib, config, ... }:
-
 {
+  lib,
+  config,
+  ...
+}: {
   name = "prowlarr";
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.prowlarr.enable = true;
-      specialisation.customDataDir = {
-        inheritParentConfig = true;
-        configuration.services.prowlarr.dataDir = "/srv/prowlarr";
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.prowlarr.enable = true;
+    specialisation.customDataDir = {
+      inheritParentConfig = true;
+      configuration.services.prowlarr.dataDir = "/srv/prowlarr";
     };
+  };
 
   testScript = ''
     def verify_prowlarr_works():

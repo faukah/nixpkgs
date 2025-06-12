@@ -6,7 +6,6 @@
   pkg-config,
   libubox,
 }:
-
 stdenv.mkDerivation {
   pname = "uclient";
   version = "unstable-2023-04-13";
@@ -21,7 +20,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buidInputs = [ libubox ];
+  buidInputs = [libubox];
 
   preConfigure = ''
     sed -e 's|ubox_include_dir libubox/ustream-ssl.h|ubox_include_dir libubox/ustream-ssl.h HINTS ${libubox}/include|g' \
@@ -33,7 +32,7 @@ stdenv.mkDerivation {
     description = "Tiny OpenWrt fork of libnl";
     homepage = "https://git.openwrt.org/?p=project/uclient.git;a=summary";
     license = licenses.isc;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     mainProgram = "uclient-fetch";
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin;

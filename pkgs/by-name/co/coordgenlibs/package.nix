@@ -7,7 +7,6 @@
   cmake,
   maeparser,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "coordgenlibs";
   version = "3.0.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-casFPNbPv9mkKpzfBENW7INClypuCO1L7clLGBXvSvI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     zlib
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Schrodinger-developed 2D Coordinate Generation";
     homepage = "https://github.com/schrodinger/coordgenlibs";
     changelog = "https://github.com/schrodinger/coordgenlibs/releases/tag/${finalAttrs.version}";
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
     license = licenses.bsd3;
   };
 })

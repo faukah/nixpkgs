@@ -5,7 +5,6 @@
   glib,
   gnome-shell,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-shell-extension-pidgin-im-integration";
   version = "32";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Make Pidgin IM conversations appear in the Gnome Shell message tray";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     broken = versionAtLeast gnome-shell.version "3.32"; # Doesn't support 3.34
   };
 }

@@ -8,7 +8,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "lupupy";
   version = "0.3.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-A92Jk6WlRKep3dkbqLiYYHklEh0pyncipRW6swq0mvo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     colorlog
@@ -32,14 +31,14 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "lupupy" ];
+  pythonImportsCheck = ["lupupy"];
 
   meta = with lib; {
     description = "Python module to control Lupusec alarm control panels";
     mainProgram = "lupupy";
     homepage = "https://github.com/majuss/lupupy";
     changelog = "https://github.com/majuss/lupupy/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

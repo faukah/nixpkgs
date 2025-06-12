@@ -6,7 +6,6 @@
   pkg-config,
   udisks,
 }:
-
 stdenv.mkDerivation rec {
   pname = "udisks2-qt5";
   version = "5.0.6";
@@ -24,15 +23,15 @@ stdenv.mkDerivation rec {
     libsForQt5.wrapQtAppsHook
   ];
 
-  buildInputs = [ udisks ];
+  buildInputs = [udisks];
 
-  qmakeFlags = [ "VERSION=${version}" ];
+  qmakeFlags = ["VERSION=${version}"];
 
   meta = with lib; {
     description = "UDisks2 D-Bus interfaces binding for Qt5";
     homepage = "https://github.com/linuxdeepin/udisks2-qt5";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

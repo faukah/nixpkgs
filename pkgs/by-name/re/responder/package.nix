@@ -4,7 +4,6 @@
   makeWrapper,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "responder";
   version = "3.1.5.0";
@@ -52,6 +51,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/lgandx/Responder";
     changelog = "https://github.com/lgandx/Responder/blob/master/CHANGELOG.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

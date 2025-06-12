@@ -9,7 +9,6 @@
   pydantic,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "ha-mqtt-discoverable";
   version = "0.19.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "pydantic"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     gitlike-commands
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   # Test require a running Mosquitto instance
   doCheck = false;
 
-  pythonImportsCheck = [ "ha_mqtt_discoverable" ];
+  pythonImportsCheck = ["ha_mqtt_discoverable"];
 
   meta = with lib; {
     description = "Python module to create MQTT entities that are automatically discovered by Home Assistant";
     homepage = "https://github.com/unixorn/ha-mqtt-discoverable";
     changelog = "https://github.com/unixorn/ha-mqtt-discoverable/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

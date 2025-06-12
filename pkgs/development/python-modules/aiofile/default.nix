@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiofile";
   version = "3.8.6";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-KBly/aeHHZh7mL8MJ9gmxbqS7PmR4sedtBY/2HCXt54=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ caio ];
+  dependencies = [caio];
 
   nativeCheckInputs = [
     aiomisc
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiofile" ];
+  pythonImportsCheck = ["aiofile"];
 
   disabledTests = [
     # Tests (SystemError) fails randomly during nixpkgs-review
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mosquito/aiofile";
     changelog = "https://github.com/aiokitchen/aiomisc/blob/master/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

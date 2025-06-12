@@ -11,7 +11,6 @@
   SDL2_mixer,
   readline,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "1oom";
   version = "1.11.6";
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       HACKING NEWS PHILOSOPHY README.md doc/*.txt
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     homepage = "https://github.com/1oom-fork/1oom";
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Master of Orion (1993) game engine recreation; a more updated fork";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ marcin-serwin ];
+    maintainers = with lib.maintainers; [marcin-serwin];
   };
 })

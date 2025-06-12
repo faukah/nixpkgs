@@ -1,5 +1,7 @@
-{ melpaBuild, ott }:
-
+{
+  melpaBuild,
+  ott,
+}:
 melpaBuild {
   pname = "ott-mode";
 

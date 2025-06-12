@@ -11,7 +11,6 @@
   selenium,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "webdriver-manager";
   version = "4.0.2";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packaging
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     selenium
   ];
 
-  pythonImportsCheck = [ "webdriver_manager" ];
+  pythonImportsCheck = ["webdriver_manager"];
 
   disabledTestPaths = [
     # Tests require network access and browsers available
@@ -67,7 +66,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/SergeyPirogov/webdriver_manager/";
     changelog = "https://github.com/SergeyPirogov/webdriver_manager/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

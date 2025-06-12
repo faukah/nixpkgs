@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "awatcher";
   version = "0.3.1";
@@ -17,8 +16,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-bxFc6oM+evIQTjrsWmb7dXOUlSjurjc4CzHpxB+667c=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
   doCheck = false;
 
   useFetchCargoVendor = true;
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/2e3s/awatcher";
     license = licenses.mpl20;
     mainProgram = "awatcher";
-    maintainers = [ maintainers.aikooo7 ];
+    maintainers = [maintainers.aikooo7];
     platforms = platforms.linux;
   };
 }

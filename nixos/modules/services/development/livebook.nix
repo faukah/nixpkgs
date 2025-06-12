@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.livebook;
-in
-{
+in {
   options.services.livebook = {
     # Since livebook doesn't have a granular permission system (a user
     # either has access to all the data or none at all), the decision
@@ -15,11 +13,10 @@ in
     # future, this can be changed to a system service.
     enableUserService = lib.mkEnableOption "a user service for Livebook";
 
-    package = lib.mkPackageOption pkgs "livebook" { };
+    package = lib.mkPackageOption pkgs "livebook" {};
 
     environment = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (
           nullOr (oneOf [
             bool
@@ -27,7 +24,7 @@ in
             str
           ])
         );
-      default = { };
+      default = {};
       description = ''
         Environment variables to set.
 
@@ -85,7 +82,7 @@ in
 
     extraPackages = lib.mkOption {
       type = with lib.types; listOf package;
-      default = [ ];
+      default = [];
       description = ''
         Extra packages to make available to the Livebook service.
       '';
@@ -108,11 +105,16 @@ in
         # stuck running a `cat /dev/urandom | tr | fold` pipeline.
         IgnoreSIGPIPE = false;
       };
-      environment = lib.mapAttrs (
-        name: value: if lib.isBool value then lib.boolToString value else toString value
-      ) cfg.environment;
-      path = [ pkgs.bash ] ++ cfg.extraPackages;
-      wantedBy = [ "default.target" ];
+      environment =
+        lib.mapAttrs (
+          name: value:
+            if lib.isBool value
+            then lib.boolToString value
+            else toString value
+        )
+        cfg.environment;
+      path = [pkgs.bash] ++ cfg.extraPackages;
+      wantedBy = ["default.target"];
     };
   };
 

@@ -84,7 +84,7 @@ perlPackages.buildPerlPackage rec {
     YAML
   ];
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   postPatch = ''
     patchShebangs bin
@@ -93,7 +93,7 @@ perlPackages.buildPerlPackage rec {
   fixupPhase = ''
     for sh in bash zsh; do
       substituteInPlace ./share/rex-tab-completion.$sh \
-        --replace 'perl' "${pkgs.perl.withPackages (ps: [ ps.YAML ])}/bin/perl"
+        --replace 'perl' "${pkgs.perl.withPackages (ps: [ps.YAML])}/bin/perl"
     done
     installShellCompletion --name _rex --zsh ./share/rex-tab-completion.zsh
     installShellCompletion --name rex --bash ./share/rex-tab-completion.bash
@@ -103,6 +103,6 @@ perlPackages.buildPerlPackage rec {
     homepage = "https://www.rexify.org";
     description = "Friendly automation framework";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ qbit ];
+    maintainers = with lib.maintainers; [qbit];
   };
 }

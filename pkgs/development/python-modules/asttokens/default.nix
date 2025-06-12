@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "asttokens";
   version = "3.0.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-Dc2Lqo1isMHRGLOZst26PEr/Jx0Nep4NTBaBx5A1u8c=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   nativeCheckInputs = [
     astroid
@@ -37,12 +36,12 @@ buildPythonPackage rec {
     "tests/test_astroid.py"
   ];
 
-  pythonImportsCheck = [ "asttokens" ];
+  pythonImportsCheck = ["asttokens"];
 
   meta = with lib; {
     description = "Annotate Python AST trees with source text and token information";
     homepage = "https://github.com/gristlabs/asttokens";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

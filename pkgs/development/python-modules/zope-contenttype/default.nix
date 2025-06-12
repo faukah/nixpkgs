@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-contenttype";
   version = "5.2";
@@ -23,19 +22,19 @@ buildPythonPackage rec {
       --replace-fail "setuptools <= 75.6.0" setuptools
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "zope.contenttype" ];
+  pythonImportsCheck = ["zope.contenttype"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     homepage = "https://github.com/zopefoundation/zope.contenttype";
     description = "Utility module for content-type (MIME type) handling";
     changelog = "https://github.com/zopefoundation/zope.contenttype/blob/${version}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

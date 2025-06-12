@@ -6,7 +6,6 @@
   jq,
   moreutils,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "glitchtip-frontend";
   version = "5.0.4";

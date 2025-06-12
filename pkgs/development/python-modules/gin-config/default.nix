@@ -7,7 +7,6 @@
   tensorflow,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "gin-config";
   version = "0.5.0";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-DG6lAm3tknyMk8mQsBxpUlfB30RuReVJoVjPvHnhntY=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   optional-dependencies = {
-    tensorflow = [ tensorflow ];
-    torch = [ torch ];
+    tensorflow = [tensorflow];
+    torch = [torch];
   };
 
   # PyPI archive does not ship with tests
   doCheck = false;
 
-  pythonImportsCheck = [ "gin" ];
+  pythonImportsCheck = ["gin"];
 
   meta = with lib; {
     description = "Gin provides a lightweight configuration framework for Python, based on dependency injection";
     homepage = "https://github.com/google/gin-config";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jethro ];
+    maintainers = with maintainers; [jethro];
   };
 }

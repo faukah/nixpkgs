@@ -7,7 +7,6 @@
   commonMeta,
   version,
 }:
-
 stdenv.mkDerivation {
   inherit
     pname
@@ -33,7 +32,8 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
   meta = {
-    inherit (commonMeta)
+    inherit
+      (commonMeta)
       description
       platforms
       maintainers

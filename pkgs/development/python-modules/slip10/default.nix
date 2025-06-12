@@ -7,7 +7,6 @@
   cryptography,
   ecdsa,
 }:
-
 buildPythonPackage rec {
   pname = "slip10";
   version = "1.0.1";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-ArNQrlV7WReRQosXVR+V16xX6SEfN969yBTJC0oSOlQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   propagatedBuildInputs = [
     base58
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     ecdsa
   ];
 
-  pythonImportsCheck = [ "slip10" ];
+  pythonImportsCheck = ["slip10"];
 
   meta = with lib; {
     description = "Minimalistic implementation of SLIP109";

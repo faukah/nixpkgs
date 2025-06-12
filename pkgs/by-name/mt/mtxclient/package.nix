@@ -13,7 +13,6 @@
   re2,
   spdlog,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mtxclient";
   version = "0.10.0";

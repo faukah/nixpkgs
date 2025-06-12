@@ -16,7 +16,6 @@
   f2fs-tools,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tparted";
   version = "2025-01-24";
@@ -34,19 +33,19 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram $out/bin/tparted \
       --prefix PATH : ${
-        lib.makeBinPath [
-          parted
-          util-linux
-          dosfstools
-          exfatprogs
-          e2fsprogs
-          ntfs3g
-          btrfs-progs
-          xfsprogs
-          jfsutils
-          f2fs-tools
-        ]
-      }
+      lib.makeBinPath [
+        parted
+        util-linux
+        dosfstools
+        exfatprogs
+        e2fsprogs
+        ntfs3g
+        btrfs-progs
+        xfsprogs
+        jfsutils
+        f2fs-tools
+      ]
+    }
   '';
 
   runtimeDependencies = [
@@ -78,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -86,8 +85,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Kagamma/tparted";
     changelog = "https://github.com/Kagamma/tparted/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ liberodark ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    maintainers = with lib.maintainers; [liberodark];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     mainProgram = "tparted";
   };
 })

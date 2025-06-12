@@ -18,9 +18,7 @@
   exiv2,
   kquickimageedit,
   fetchFromGitHub,
-}:
-
-let
+}: let
   src-kdtree = fetchFromGitHub {
     owner = "cdalitz";
     repo = "kdtree-cpp";
@@ -28,48 +26,48 @@ let
     hash = "sha256-h3cmndvjMlp/MTk/Ve3R183BLrE7VbL7GQx8YkOHEgU=";
   };
 in
-mkDerivation {
-  pname = "pix";
+  mkDerivation {
+    pname = "pix";
 
-  nativeBuildInputs = [
-    cmake
-    extra-cmake-modules
-  ];
-
-  postPatch = ''
-    cp ${src-kdtree}/kdtree.cpp src/
-    substituteInPlace src/CMakeLists.txt \
-      --replace-fail "main.cpp" "main.cpp kdtree.cpp"
-  '';
-
-  env = {
-    NIX_CFLAGS_COMPILE = toString [
-      "-I${src-kdtree}"
+    nativeBuildInputs = [
+      cmake
+      extra-cmake-modules
     ];
-  };
 
-  buildInputs = [
-    applet-window-buttons
-    karchive
-    kcoreaddons
-    ki18n
-    kio
-    kirigami2
-    mauikit
-    mauikit-filebrowsing
-    mauikit-imagetools
-    qtmultimedia
-    qtquickcontrols2
-    qtlocation
-    exiv2
-    kquickimageedit
-  ];
+    postPatch = ''
+      cp ${src-kdtree}/kdtree.cpp src/
+      substituteInPlace src/CMakeLists.txt \
+        --replace-fail "main.cpp" "main.cpp kdtree.cpp"
+    '';
 
-  meta = {
-    description = "Image gallery application";
-    mainProgram = "pix";
-    homepage = "https://invent.kde.org/maui/pix";
-    license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ onny ];
-  };
-}
+    env = {
+      NIX_CFLAGS_COMPILE = toString [
+        "-I${src-kdtree}"
+      ];
+    };
+
+    buildInputs = [
+      applet-window-buttons
+      karchive
+      kcoreaddons
+      ki18n
+      kio
+      kirigami2
+      mauikit
+      mauikit-filebrowsing
+      mauikit-imagetools
+      qtmultimedia
+      qtquickcontrols2
+      qtlocation
+      exiv2
+      kquickimageedit
+    ];
+
+    meta = {
+      description = "Image gallery application";
+      mainProgram = "pix";
+      homepage = "https://invent.kde.org/maui/pix";
+      license = lib.licenses.gpl3Plus;
+      maintainers = with lib.maintainers; [onny];
+    };
+  }

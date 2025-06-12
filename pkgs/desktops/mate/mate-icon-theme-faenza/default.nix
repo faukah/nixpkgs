@@ -8,7 +8,6 @@
   hicolor-icon-theme,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-icon-theme-faenza";
   version = "1.20.0";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mate-desktop.org";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

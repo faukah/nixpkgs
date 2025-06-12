@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.xserver.desktopManager.phosh;
 
   # Based on https://source.puri.sm/Librem5/librem5-base/-/blob/4596c1056dd75ac7f043aede07887990fd46f572/default/sm.puri.OSK0.desktop
@@ -16,7 +15,7 @@ let
       "GNOME"
       "Core"
     ];
-    onlyShowIn = [ "GNOME" ];
+    onlyShowIn = ["GNOME"];
     noDisplay = true;
     extraConfig = {
       X-GNOME-Autostart-Phase = "Panel";
@@ -69,7 +68,7 @@ let
           One or more modelines.
         '';
         type = lib.types.either lib.types.str (lib.types.listOf lib.types.str);
-        default = [ ];
+        default = [];
         example = [
           "87.25 720 776 848  976 1440 1443 1453 1493 -hsync +vsync"
           "65.13 768 816 896 1024 1024 1025 1028 1060 -HSync +VSync"
@@ -116,35 +115,30 @@ let
 
   optionalKV = k: v: lib.optionalString (v != null) "${k} = ${builtins.toString v}";
 
-  renderPhocOutput =
-    name: output:
-    let
-      modelines = if builtins.isList output.modeline then output.modeline else [ output.modeline ];
-      renderModeline = l: "modeline = ${l}";
-    in
-    ''
-      [output:${name}]
-      ${lib.concatStringsSep "\n" (map renderModeline modelines)}
-      ${optionalKV "mode" output.mode}
-      ${optionalKV "scale" output.scale}
-      ${optionalKV "rotate" output.rotate}
-    '';
+  renderPhocOutput = name: output: let
+    modelines =
+      if builtins.isList output.modeline
+      then output.modeline
+      else [output.modeline];
+    renderModeline = l: "modeline = ${l}";
+  in ''
+    [output:${name}]
+    ${lib.concatStringsSep "\n" (map renderModeline modelines)}
+    ${optionalKV "mode" output.mode}
+    ${optionalKV "scale" output.scale}
+    ${optionalKV "rotate" output.rotate}
+  '';
 
-  renderPhocConfig =
-    phoc:
-    let
-      outputs = lib.mapAttrsToList renderPhocOutput phoc.outputs;
-    in
-    ''
-      [core]
-      xwayland = ${phoc.xwayland}
-      ${lib.concatStringsSep "\n" outputs}
-      [cursor]
-      theme = ${phoc.cursorTheme}
-    '';
-in
-
-{
+  renderPhocConfig = phoc: let
+    outputs = lib.mapAttrsToList renderPhocOutput phoc.outputs;
+  in ''
+    [core]
+    xwayland = ${phoc.xwayland}
+    ${lib.concatStringsSep "\n" outputs}
+    [cursor]
+    theme = ${phoc.cursorTheme}
+  '';
+in {
   options = {
     services.xserver.desktopManager.phosh = {
       enable = lib.mkOption {
@@ -153,7 +147,7 @@ in
         description = "Enable the Phone Shell.";
       };
 
-      package = lib.mkPackageOption pkgs "phosh" { };
+      package = lib.mkPackageOption pkgs "phosh" {};
 
       user = lib.mkOption {
         description = "The user to run the Phosh service.";
@@ -176,7 +170,7 @@ in
           lib.types.path
           phocConfigType
         ];
-        default = { };
+        default = {};
       };
     };
   };
@@ -184,7 +178,7 @@ in
   config = lib.mkIf cfg.enable {
     # Inspired by https://gitlab.gnome.org/World/Phosh/phosh/-/blob/main/data/phosh.service
     systemd.services.phosh = {
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/phosh-session";
         User = cfg.user;
@@ -231,24 +225,23 @@ in
       oskItem
     ];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     programs.feedbackd.enable = true;
 
-    security.pam.services.phosh = { };
+    security.pam.services.phosh = {};
 
     services.graphical-desktop.enable = true;
 
     services.gnome.core-shell.enable = true;
     services.gnome.core-os-services.enable = true;
-    services.displayManager.sessionPackages = [ cfg.package ];
+    services.displayManager.sessionPackages = [cfg.package];
 
     environment.etc."phosh/phoc.ini".source =
-      if builtins.isPath cfg.phocConfig then
-        cfg.phocConfig
-      else if builtins.isString cfg.phocConfig then
-        pkgs.writeText "phoc.ini" cfg.phocConfig
-      else
-        pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
+      if builtins.isPath cfg.phocConfig
+      then cfg.phocConfig
+      else if builtins.isString cfg.phocConfig
+      then pkgs.writeText "phoc.ini" cfg.phocConfig
+      else pkgs.writeText "phoc.ini" (renderPhocConfig cfg.phocConfig);
   };
 }

@@ -12,7 +12,6 @@
   buildPythonPackage,
   buildApplication ? false,
 }:
-
 buildPythonPackage rec {
   pname = "controku";
   version = "1.1.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools ]
+    [setuptools]
     ++ lib.optionals buildApplication [
       gobject-introspection
       wrapGAppsHook3
@@ -43,7 +42,7 @@ buildPythonPackage rec {
       pygobject3
     ];
 
-  pythonImportsCheck = [ "controku" ];
+  pythonImportsCheck = ["controku"];
 
   meta = with lib; {
     changelog = "https://github.com/benthetechguy/controku/releases/tag/${version}";
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     mainProgram = "controku";
     homepage = "https://github.com/benthetechguy/controku";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mjm ];
+    maintainers = with maintainers; [mjm];
   };
 }

@@ -14,7 +14,6 @@
   sqlite,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libcmatrix";
   version = "0.0.3";
@@ -55,6 +54,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Matrix protocol library written in C using GObject";
     homepage = "https://source.puri.sm/Librem5/libcmatrix";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 })

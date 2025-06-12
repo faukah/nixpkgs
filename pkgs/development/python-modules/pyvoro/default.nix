@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   version = "1.3.2";
   format = "setuptools";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/joe-jordan/pyvoro";
     description = "2D and 3D Voronoi tessellations: a python entry point for the voro++ library";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
 
     # Cython generated code is vendored directly and no longer compatible with
     # newer versions of the CPython C API.

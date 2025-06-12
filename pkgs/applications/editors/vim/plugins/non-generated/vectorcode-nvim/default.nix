@@ -3,34 +3,33 @@
   vimUtils,
   vectorcode,
   vimPlugins,
-}:
-let
+}: let
   inherit (vectorcode) src version;
 in
-vimUtils.buildVimPlugin {
-  inherit src version;
+  vimUtils.buildVimPlugin {
+    inherit src version;
 
-  pname = "vectorcode.nvim";
+    pname = "vectorcode.nvim";
 
-  # nixpkgs-update: no auto update
-  # This is built from the same source as vectorcode and will rebuild automatically
+    # nixpkgs-update: no auto update
+    # This is built from the same source as vectorcode and will rebuild automatically
 
-  sourceRoot = "${src.name}/plugin";
+    sourceRoot = "${src.name}/plugin";
 
-  dependencies = [
-    vimPlugins.plenary-nvim
-  ];
+    dependencies = [
+      vimPlugins.plenary-nvim
+    ];
 
-  buildInputs = [ vectorcode ];
+    buildInputs = [vectorcode];
 
-  postPatch = ''
-    cp -r ../lua .
-  '';
+    postPatch = ''
+      cp -r ../lua .
+    '';
 
-  meta = {
-    description = "Index and navigate your code repository using vectorcode";
-    homepage = "https://github.com/Davidyz/VectorCode/blob/main/docs/neovim.md";
-    inherit (vectorcode.meta) changelog license;
-    maintainers = with lib.maintainers; [ sarahec ];
-  };
-}
+    meta = {
+      description = "Index and navigate your code repository using vectorcode";
+      homepage = "https://github.com/Davidyz/VectorCode/blob/main/docs/neovim.md";
+      inherit (vectorcode.meta) changelog license;
+      maintainers = with lib.maintainers; [sarahec];
+    };
+  }

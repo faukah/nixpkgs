@@ -5,7 +5,6 @@
   setuptools,
   sudachipy,
 }:
-
 buildPythonPackage rec {
   pname = "sudachidict-${sudachidict.dict-type}";
   inherit (sudachidict) version meta;
@@ -31,9 +30,9 @@ buildPythonPackage rec {
       --replace "%%DICT_TYPE%%" ${sudachidict.dict-type}
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ sudachipy ];
+  propagatedBuildInputs = [sudachipy];
 
   # we need to prepare some files before the build
   # https://github.com/WorksApplications/SudachiDict/blob/develop/package_python.sh

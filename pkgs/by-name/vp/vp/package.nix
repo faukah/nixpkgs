@@ -6,7 +6,6 @@
   fetchFromGitHub,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "vp";
   version = "1.8-unstable-2017-03-22";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "SDL based picture viewer/slideshow";
     license = lib.licenses.gpl3Plus;
     mainProgram = "vp";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (SDL.meta) platforms;
     hydraPlatforms = lib.platforms.linux; # build hangs on both Darwin platforms, needs investigation
   };

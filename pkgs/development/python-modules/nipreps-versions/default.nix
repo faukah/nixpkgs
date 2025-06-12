@@ -8,7 +8,6 @@
   setuptools-scm,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "nipreps-versions";
   version = "1.0.4";
@@ -30,16 +29,16 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "nipreps_versions" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["nipreps_versions"];
 
   meta = with lib; {
     description = "Setuptools_scm plugin for nipreps version schemes";
     homepage = "https://github.com/nipreps/version-schemes";
     changelog = "https://github.com/nipreps/version-schemes/blob/${src.rev}/CHANGES.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

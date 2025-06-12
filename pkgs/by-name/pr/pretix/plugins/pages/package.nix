@@ -5,7 +5,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pretix-pages";
   version = "1.6.3";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Plugin to add static pages to your pretix event";
     homepage = "https://github.com/pretix/pretix-pages";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "deck";
   version = "1.47.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
     hash = "sha256-k/cAybKJq/s5PcEMjT92dZlue9XpEeeHwICHk8ex3G8=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   env.CGO_ENABLED = 0;
 
@@ -36,13 +35,13 @@ buildGoModule rec {
       --zsh <($out/bin/deck completion zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Configuration management and drift detection tool for Kong";
     homepage = "https://github.com/Kong/deck";
     license = lib.licenses.asl20;
     mainProgram = "deck";
-    maintainers = with lib.maintainers; [ liyangau ];
+    maintainers = with lib.maintainers; [liyangau];
   };
 }

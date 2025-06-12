@@ -15,7 +15,6 @@
   sphinx,
   jlinkSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flashrom";
   version = "1.5.1";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       libftdi1
       libusb1
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ pciutils ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [pciutils]
     ++ lib.optional jlinkSupport libjaylink;
 
   postPatch = ''
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.flashrom.org";
     description = "Utility for reading, writing, erasing and verifying flash ROM chips";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.all;
     mainProgram = "flashrom";
   };

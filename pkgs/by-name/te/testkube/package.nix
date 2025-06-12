@@ -23,13 +23,13 @@ buildGoModule rec {
     "-X main.date=1970-01-01-00:00:01"
   ];
 
-  subPackages = [ "cmd/kubectl-testkube" ];
+  subPackages = ["cmd/kubectl-testkube"];
 
   meta = {
     description = "Kubernetes-native framework for test definition and execution";
     homepage = "https://github.com/kubeshop/testkube/";
     license = lib.licenses.mit;
     mainProgram = "kubectl-testkube";
-    maintainers = with lib.maintainers; [ mathstlouis ];
+    maintainers = with lib.maintainers; [mathstlouis];
   };
 }

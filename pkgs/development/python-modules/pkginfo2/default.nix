@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pkginfo2";
   version = "30.0.0";
@@ -18,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-E9EyaN3ncf/34vvvhRe0rwV28VrjqJo79YFgXq2lKWU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pkginfo2" ];
+  pythonImportsCheck = ["pkginfo2"];
 
   disabledTests = [
     # AssertionError
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/nexB/pkginfo2";
     changelog = "https://github.com/aboutcode-org/pkginfo2/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "pkginfo2";
   };
 }

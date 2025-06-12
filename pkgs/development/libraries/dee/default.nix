@@ -12,7 +12,6 @@
   python3,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dee";
   version = "unstable-2017-06-16";
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/dee";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

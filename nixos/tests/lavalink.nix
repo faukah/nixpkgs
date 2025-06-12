@@ -1,12 +1,8 @@
-{ lib, ... }:
-
-let
+{lib, ...}: let
   password = "s3cRe!p4SsW0rD";
-in
-
-{
+in {
   name = "lavalink";
-  meta.maintainers = with lib.maintainers; [ nanoyaki ];
+  meta.maintainers = with lib.maintainers; [nanoyaki];
 
   nodes = {
     machine = {
@@ -16,17 +12,15 @@ in
         inherit password;
       };
     };
-    machine2 =
-      { pkgs, ... }:
-      {
-        services.lavalink = {
-          enable = true;
-          port = 1235;
-          environmentFile = "${pkgs.writeText "passwordEnvFile" ''
-            LAVALINK_SERVER_PASSWORD=${password}
-          ''}";
-        };
+    machine2 = {pkgs, ...}: {
+      services.lavalink = {
+        enable = true;
+        port = 1235;
+        environmentFile = "${pkgs.writeText "passwordEnvFile" ''
+          LAVALINK_SERVER_PASSWORD=${password}
+        ''}";
       };
+    };
   };
 
   testScript = ''

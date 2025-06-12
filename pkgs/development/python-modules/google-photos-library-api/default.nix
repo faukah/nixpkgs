@@ -10,7 +10,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-photos-library-api";
   version = "0.12.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-xSwUzVwC7RPpmC9M1x/WYIaoiUlcF2h2fwiP6FYA6sw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     mashumaro
   ];
 
-  pythonImportsCheck = [ "google_photos_library_api" ];
+  pythonImportsCheck = ["google_photos_library_api"];
 
   nativeCheckInputs = [
     pytest-aiohttp
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Python client library for Google Photos Library API";
     homepage = "https://github.com/allenporter/python-google-photos-library-api";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

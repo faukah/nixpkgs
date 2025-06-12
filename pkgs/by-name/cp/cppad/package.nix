@@ -5,7 +5,6 @@
   pkg-config,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cppad";
   version = "20250000.2";

@@ -4,7 +4,6 @@
   lib,
   python3,
 }:
-
 buildNpmPackage rec {
   pname = "nest-cli";
   version = "11.0.7";
@@ -17,7 +16,7 @@ buildNpmPackage rec {
   };
 
   npmDepsHash = "sha256-R9uSOeoQJw061ZEJMe8aDYUaUC1QvHQ9nOyoQa+z+fY=";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   env = {
     npm_config_build_from_source = true;

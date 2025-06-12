@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotest";
   version = "0.0.6";
@@ -17,13 +16,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-pVq6H1HoKqCMRfJg7FftRf3vh+BWZQe6cQAX+TBzKqw=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "go test with colors";
     mainProgram = "gotest";
     homepage = "https://github.com/rakyll/gotest";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

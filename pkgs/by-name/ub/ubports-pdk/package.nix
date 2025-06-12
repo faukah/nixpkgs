@@ -12,7 +12,6 @@
   which,
   xz,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ubports-pdk";
   version = "0-unstable-2025-04-06";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     bash
@@ -54,14 +53,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Platform Development Kit for Ubuntu Touch";
     homepage = "https://github.com/ubports/ubports-pdk";
     license = lib.licenses.gpl3Only;
     mainProgram = "ubuntu-touch-pdk";
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
     platforms = lib.platforms.unix;
     # setup wants to use brew to install extra prerequisites
     broken = stdenvNoCC.hostPlatform.isDarwin;

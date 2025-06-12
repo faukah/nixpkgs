@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "grafterm";
   version = "0.2.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Command-line tool for rendering metrics dashboards inspired by Grafana";
     homepage = "https://github.com/slok/grafterm";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arikgrahl ];
+    maintainers = with maintainers; [arikgrahl];
     mainProgram = "grafterm";
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xxHash";
   version = "0.8.3";
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
       gpl2
     ];
     mainProgram = "xxhsum";
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.all;
     pkgConfigModules = [
       "libxxhash"

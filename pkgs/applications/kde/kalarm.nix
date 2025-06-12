@@ -2,7 +2,6 @@
   mkDerivation,
   lib,
   extra-cmake-modules,
-
   kauth,
   kcodecs,
   kcompletion,
@@ -24,7 +23,6 @@
   kwindowsystem,
   kxmlgui,
   phonon,
-
   kimap,
   akonadi,
   akonadi-contacts,
@@ -40,19 +38,16 @@
   pimcommon,
   kpimtextedit,
   messagelib,
-
   qtx11extras,
-
   kdepim-runtime,
 }:
-
 mkDerivation {
   pname = "kalarm";
   meta = {
     homepage = "https://apps.kde.org/kalarm/";
     description = "Personal alarm scheduler";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -99,5 +94,5 @@ mkDerivation {
 
     qtx11extras
   ];
-  propagatedUserEnvPkgs = [ kdepim-runtime ];
+  propagatedUserEnvPkgs = [kdepim-runtime];
 }

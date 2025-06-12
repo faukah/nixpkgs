@@ -12,7 +12,6 @@
   rtmidi,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "csound-qt";
   version = "1.1.3";
@@ -64,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://csoundqt.github.io/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hlolli ];
+    maintainers = with maintainers; [hlolli];
   };
 }

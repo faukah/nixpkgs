@@ -14,7 +14,6 @@
   libGL,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wpebackend-fdo";
   version = "1.16.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Freedesktop.org backend for WPE WebKit";
     license = licenses.bsd2;
     homepage = "https://wpewebkit.org";
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     platforms = platforms.linux;
   };
 }

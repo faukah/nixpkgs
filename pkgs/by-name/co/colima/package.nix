@@ -11,7 +11,6 @@
   testers,
   colima,
 }:
-
 buildGoModule rec {
   pname = "colima";
   version = "0.8.1";
@@ -29,10 +28,12 @@ buildGoModule rec {
     '';
   };
 
-  nativeBuildInputs = [
-    installShellFiles
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ darwin.DarwinTools ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [darwin.DarwinTools];
 
   vendorHash = "sha256-rqCPpO/Va31U++sfELcN1X6oDtDiCXoGj0RHKZUM6rY=";
 
@@ -50,11 +51,11 @@ buildGoModule rec {
   postInstall = ''
     wrapProgram $out/bin/colima \
       --prefix PATH : ${
-        lib.makeBinPath [
-          lima
-          qemu
-        ]
-      }
+      lib.makeBinPath [
+        lima
+        qemu
+      ]
+    }
 
     installShellCompletion --cmd colima \
       --bash <($out/bin/colima completion bash) \

@@ -8,7 +8,6 @@
   numpy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "numpy-financial";
   version = "1.0.0";
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "numpy_financial" ];
+  pythonImportsCheck = ["numpy_financial"];
 
   meta = {
     homepage = "https://numpy.org/numpy-financial/";
     changelog = "https://github.com/numpy/numpy-financial/releases/tag/v${version}";
     description = "Collection of elementary financial functions";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
   };
 }

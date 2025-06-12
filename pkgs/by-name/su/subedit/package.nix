@@ -7,7 +7,6 @@
   dos2unix,
   file,
 }:
-
 stdenv.mkDerivation {
   pname = "subedit";
   version = "1.2.2";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-3ywBBCWbwDqNNkxRupNJX6mYKxVFnoCFKav3Hc4E+8A=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     libuchardet
@@ -47,6 +46,6 @@ stdenv.mkDerivation {
     description = "Command-line subtitle editor written in BASH";
     mainProgram = "subedit";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ppom ];
+    maintainers = with maintainers; [ppom];
   };
 }

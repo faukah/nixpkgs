@@ -6,7 +6,6 @@
   coreutils,
   gawk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "theme-sh";
   version = "1.1.5";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-zDw8WGBzO4/HRCgN7yoUxT49ibTz+QkRa5WpBQbl1nI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -29,11 +28,11 @@ stdenv.mkDerivation rec {
     install -Dm755 bin/theme.sh $out/bin
     wrapProgram $out/bin/theme.sh \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          gawk
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        gawk
+      ]
+    }
 
     runHook postInstall
   '';
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lemnos/theme.sh";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "theme.sh";
   };
 }

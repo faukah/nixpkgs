@@ -8,7 +8,6 @@
   setuptools,
   nix-update-script,
 }:
-
 buildPythonApplication rec {
   pname = "pandoc-include";
   version = "1.4.3";
@@ -25,7 +24,7 @@ buildPythonApplication rec {
     setuptools
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   propagatedBuildInputs = [
     natsort
@@ -33,7 +32,7 @@ buildPythonApplication rec {
     lxml
   ];
 
-  pythonImportsCheck = [ "pandoc_include.main" ];
+  pythonImportsCheck = ["pandoc_include.main"];
 
   meta = with lib; {
     description = "Pandoc filter to allow file and header includes";

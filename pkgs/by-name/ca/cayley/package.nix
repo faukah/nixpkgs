@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "cayley";
   version = "0.7.7";
@@ -18,18 +17,16 @@ buildGoModule rec {
 
   vendorHash = "sha256-SSjHGJoW3I7r8emh3IwmiZQIVzdilAsA2ULdAqld2fA=";
 
-  subPackages = [ "cmd/cayley" ];
+  subPackages = ["cmd/cayley"];
 
-  ldflags =
-    let
-      basename = "github.com/cayleygraph/cayley/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${basename}.Version=${src.rev}"
-      "-X ${basename}.GitHash=${rev}"
-    ];
+  ldflags = let
+    basename = "github.com/cayleygraph/cayley/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${basename}.Version=${src.rev}"
+    "-X ${basename}.GitHash=${rev}"
+  ];
 
   meta = with lib; {
     description = "Graph database designed for ease of use and storing complex data";
@@ -39,7 +36,7 @@ buildGoModule rec {
     '';
     homepage = "https://cayley.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sigma ];
+    maintainers = with maintainers; [sigma];
     mainProgram = "cayley";
   };
 }

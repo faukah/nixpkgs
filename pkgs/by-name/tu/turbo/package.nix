@@ -9,14 +9,13 @@
   disableTelemetry ? true,
   disableUpdateNotifier ? true,
 }:
-
 symlinkJoin {
   pname = "turbo";
   inherit (turbo-unwrapped) version;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
-  paths = [ turbo-unwrapped ];
+  paths = [turbo-unwrapped];
 
   postBuild = ''
     wrapProgram $out/bin/turbo \
@@ -25,11 +24,12 @@ symlinkJoin {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = turbo; };
+    tests.version = testers.testVersion {package = turbo;};
   };
 
   meta = {
-    inherit (turbo-unwrapped.meta)
+    inherit
+      (turbo-unwrapped.meta)
       description
       homepage
       changelog

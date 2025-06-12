@@ -25,7 +25,6 @@
   requests,
   trove-classifiers,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-material";
   version = "9.6.4";
@@ -80,7 +79,7 @@ buildPythonPackage rec {
   # No tests for python
   doCheck = false;
 
-  pythonImportsCheck = [ "mkdocs" ];
+  pythonImportsCheck = ["mkdocs"];
 
   meta = with lib; {
     changelog = "https://github.com/squidfunk/mkdocs-material/blob/${src.tag}/CHANGELOG";
@@ -88,6 +87,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/squidfunk/mkdocs-material";
     homepage = "https://squidfunk.github.io/mkdocs-material/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -5,23 +5,19 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.ntopng;
   opt = options.services.ntopng;
 
   createRedis = cfg.redis.createInstance != null;
   redisService =
-    if cfg.redis.createInstance == "" then
-      "redis.service"
-    else
-      "redis-${cfg.redis.createInstance}.service";
+    if cfg.redis.createInstance == ""
+    then "redis.service"
+    else "redis-${cfg.redis.createInstance}.service";
 
   configFile =
-    if cfg.configText != "" then
+    if cfg.configText != ""
+    then
       pkgs.writeText "ntopng.conf" ''
         ${cfg.configText}
       ''
@@ -34,19 +30,13 @@ let
         --user=ntopng
         ${cfg.extraConfig}
       '';
-
-in
-
-{
-
+in {
   imports = [
-    (mkRenamedOptionModule [ "services" "ntopng" "http-port" ] [ "services" "ntopng" "httpPort" ])
+    (mkRenamedOptionModule ["services" "ntopng" "http-port"] ["services" "ntopng" "httpPort"])
   ];
 
   options = {
-
     services.ntopng = {
-
       enable = mkOption {
         default = false;
         type = types.bool;
@@ -67,7 +57,7 @@ in
       };
 
       interfaces = mkOption {
-        default = [ "any" ];
+        default = ["any"];
         example = [
           "eth0"
           "wlan0"
@@ -127,17 +117,14 @@ in
           manual {option}`configText` option is used.
         '';
       };
-
     };
-
   };
 
   config = mkIf cfg.enable {
-
     # ntopng uses redis for data storage
     services.ntopng.redis.address =
       mkIf createRedis
-        config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
+      config.services.redis.servers.${cfg.redis.createInstance}.unixSocket;
 
     services.redis.servers = mkIf createRedis {
       ${cfg.redis.createInstance} = {
@@ -147,15 +134,15 @@ in
     };
 
     # nice to have manual page and ntopng command in PATH
-    environment.systemPackages = [ pkgs.ntopng ];
+    environment.systemPackages = [pkgs.ntopng];
 
-    systemd.tmpfiles.rules = [ "d /var/lib/ntopng 0700 ntopng ntopng -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/ntopng 0700 ntopng ntopng -"];
 
     systemd.services.ntopng = {
       description = "Ntopng Network Monitor";
       requires = optional createRedis redisService;
-      after = [ "network.target" ] ++ optional createRedis redisService;
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"] ++ optional createRedis redisService;
+      wantedBy = ["multi-user.target"];
       serviceConfig.ExecStart = "${pkgs.ntopng}/bin/ntopng ${configFile}";
       unitConfig.Documentation = "man:ntopng(8)";
     };
@@ -165,7 +152,6 @@ in
       isSystemUser = true;
     };
 
-    users.extraGroups.ntopng = { };
+    users.extraGroups.ntopng = {};
   };
-
 }

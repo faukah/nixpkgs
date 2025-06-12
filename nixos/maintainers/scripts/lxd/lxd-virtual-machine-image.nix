@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ../../../modules/virtualisation/lxd-virtual-machine.nix
   ];
@@ -16,17 +18,15 @@
   };
 
   # copy the config for nixos-rebuild
-  system.activationScripts.config =
-    let
-      config = pkgs.replaceVars ./lxd-virtual-machine-image-inner.nix {
-        stateVersion = lib.trivial.release;
-      };
-    in
-    ''
-      if [ ! -e /etc/nixos/configuration.nix ]; then
-        install -m 0644 -D ${config} /etc/nixos/configuration.nix
-      fi
-    '';
+  system.activationScripts.config = let
+    config = pkgs.replaceVars ./lxd-virtual-machine-image-inner.nix {
+      stateVersion = lib.trivial.release;
+    };
+  in ''
+    if [ ! -e /etc/nixos/configuration.nix ]; then
+      install -m 0644 -D ${config} /etc/nixos/configuration.nix
+    fi
+  '';
 
   # Network
   networking = {

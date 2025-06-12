@@ -1,14 +1,12 @@
-{ config, lib, ... }:
-
-with lib;
-
-let
-  cfg = config.services.timesyncd;
-in
 {
-
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.services.timesyncd;
+in {
   options = {
-
     services.timesyncd = with types; {
       enable = mkOption {
         default = !config.boot.isContainer;
@@ -60,13 +58,12 @@ in
   };
 
   config = mkIf cfg.enable {
-
-    systemd.additionalUpstreamSystemUnits = [ "systemd-timesyncd.service" ];
+    systemd.additionalUpstreamSystemUnits = ["systemd-timesyncd.service"];
 
     systemd.services.systemd-timesyncd = {
-      wantedBy = [ "sysinit.target" ];
-      aliases = [ "dbus-org.freedesktop.timesync1.service" ];
-      restartTriggers = [ config.environment.etc."systemd/timesyncd.conf".source ];
+      wantedBy = ["sysinit.target"];
+      aliases = ["dbus-org.freedesktop.timesync1.service"];
+      restartTriggers = [config.environment.etc."systemd/timesyncd.conf".source];
       # systemd-timesyncd disables DNSSEC validation in the nss-resolve module by setting SYSTEMD_NSS_RESOLVE_VALIDATE to 0 in the unit file.
       # This is required in order to solve the chicken-and-egg problem when DNSSEC validation needs the correct time to work, but to set the
       # correct time, we need to connect to an NTP server, which usually requires resolving its hostname.
@@ -87,15 +84,15 @@ in
           fi
         ''
         +
-          # workaround an issue of systemd-timesyncd not starting due to upstream systemd reverting their dynamic users changes
-          #  - https://github.com/NixOS/nixpkgs/pull/61321#issuecomment-492423742
-          #  - https://github.com/systemd/systemd/issues/12131
-          (lib.optionalString (versionOlder config.system.stateVersion "19.09") ''
-            if [ -L /var/lib/systemd/timesync ]; then
-              rm /var/lib/systemd/timesync
-              mv /var/lib/private/systemd/timesync /var/lib/systemd/timesync
-            fi
-          '')
+        # workaround an issue of systemd-timesyncd not starting due to upstream systemd reverting their dynamic users changes
+        #  - https://github.com/NixOS/nixpkgs/pull/61321#issuecomment-492423742
+        #  - https://github.com/systemd/systemd/issues/12131
+        (lib.optionalString (versionOlder config.system.stateVersion "19.09") ''
+          if [ -L /var/lib/systemd/timesync ]; then
+            rm /var/lib/systemd/timesync
+            mv /var/lib/private/systemd/timesync /var/lib/systemd/timesync
+          fi
+        '')
       );
     };
 

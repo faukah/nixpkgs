@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     filterAttrsRecursive
     generators
     literalExpression
@@ -33,42 +32,41 @@ let
     "opcache.fast_shutdown" = 1;
   };
 
-  phpCfg = generators.toKeyValue { mkKeyValue = generators.mkKeyValueDefault { } " = "; } (
+  phpCfg = generators.toKeyValue {mkKeyValue = generators.mkKeyValueDefault {} " = ";} (
     defaultPHPCfg // cfg.phpCfg
   );
 
-  podConfigFlags =
-    let
-      bevalue = a: lib.escapeShellArg (generators.mkValueStringDefault { } a);
-    in
+  podConfigFlags = let
+    bevalue = a: lib.escapeShellArg (generators.mkValueStringDefault {} a);
+  in
     lib.concatStringsSep " " (
       lib.attrsets.foldlAttrs (
         acc: k: v:
-        acc ++ lib.optional (v != null) "--${k}=${bevalue v}"
-      ) [ ] cfg.podConfig
+          acc ++ lib.optional (v != null) "--${k}=${bevalue v}"
+      ) []
+      cfg.podConfig
     );
 
-  package =
-    let
-      p = cfg.package.override (
-        {
-          inherit phpCfg;
-          inherit (cfg) minifyStaticFiles;
-        }
-        // lib.optionalAttrs (cfg.database.type == "postgresql") {
-          withPostgreSQL = true;
-        }
-        // lib.optionalAttrs (cfg.database.type == "mariadb") {
-          withMySQL = true;
-        }
-      );
-    in
+  package = let
+    p = cfg.package.override (
+      {
+        inherit phpCfg;
+        inherit (cfg) minifyStaticFiles;
+      }
+      // lib.optionalAttrs (cfg.database.type == "postgresql") {
+        withPostgreSQL = true;
+      }
+      // lib.optionalAttrs (cfg.database.type == "mariadb") {
+        withMySQL = true;
+      }
+    );
+  in
     p.overrideAttrs (
-      finalAttrs: prevAttrs:
-      let
+      finalAttrs: prevAttrs: let
         appDir = "$out/share/php/${finalAttrs.pname}";
 
-        stateDirectories = # sh
+        stateDirectories =
+          # sh
           ''
             # Symlinking in our state directories
             rm -rf $out/{.env,cache} ${appDir}/{log,public/cache}
@@ -78,7 +76,8 @@ let
             ln -s ${cfg.runtimeDir}/cache ${appDir}/cache
           '';
 
-        exposeComposer = # sh
+        exposeComposer =
+          # sh
           ''
             # Expose PHP Composer for scripts
             mkdir -p $out/bin
@@ -91,40 +90,41 @@ let
           lib.concatStringsSep "\n" (
             lib.attrsets.foldlAttrs (
               acc: k: v:
-              acc
-              ++
-                lib.optional (v != null)
-                  # Disable all Admin panel options that were set in the
-                  # `cfg.podConfig` to prevent confusing situtions where the
-                  # values are rewritten on server reboot
-                  # sh
-                  ''
-                    substituteInPlace ${appDir}/app/Widgets/AdminMain/adminmain.tpl \
-                      --replace-warn 'name="${k}"' 'name="${k}" readonly'
-                  ''
-            ) [ ] cfg.podConfig
+                acc
+                ++ lib.optional (v != null)
+                # Disable all Admin panel options that were set in the
+                # `cfg.podConfig` to prevent confusing situtions where the
+                # values are rewritten on server reboot
+                # sh
+                ''
+                  substituteInPlace ${appDir}/app/Widgets/AdminMain/adminmain.tpl \
+                    --replace-warn 'name="${k}"' 'name="${k}" readonly'
+                ''
+            ) []
+            cfg.podConfig
           )
         );
 
-        precompressStaticFilesJobs =
-          let
-            inherit (cfg.precompressStaticFiles) brotli gzip;
+        precompressStaticFilesJobs = let
+          inherit (cfg.precompressStaticFiles) brotli gzip;
 
-            findTextFileNames = lib.concatStringsSep " -o " (
-              builtins.map (n: ''-iname "*.${n}"'') [
-                "css"
-                "ini"
-                "js"
-                "json"
-                "manifest"
-                "mjs"
-                "svg"
-                "webmanifest"
-              ]
-            );
-          in
+          findTextFileNames = lib.concatStringsSep " -o " (
+            builtins.map (n: ''-iname "*.${n}"'') [
+              "css"
+              "ini"
+              "js"
+              "json"
+              "manifest"
+              "mjs"
+              "svg"
+              "webmanifest"
+            ]
+          );
+        in
           lib.concatStringsSep "\n" [
-            (lib.optionalString brotli.enable # sh
+            (
+              lib.optionalString brotli.enable # sh
+              
               ''
                 echo -n "Precompressing static files with Brotli …"
                 find ${appDir}/public -type f ${findTextFileNames} -print0 \
@@ -133,7 +133,9 @@ let
                 echo " done."
               ''
             )
-            (lib.optionalString gzip.enable # sh
+            (
+              lib.optionalString gzip.enable # sh
+              
               ''
                 echo -n "Precompressing static files with Gzip …"
                 find ${appDir}/public -type f ${findTextFileNames} -print0 \
@@ -143,8 +145,7 @@ let
               ''
             )
           ];
-      in
-      {
+      in {
         postInstall = lib.concatStringsSep "\n\n" [
           prevAttrs.postInstall
           stateDirectories
@@ -157,7 +158,7 @@ let
 
   configFile = pipe cfg.settings [
     (filterAttrsRecursive (_: v: v != null))
-    (generators.toKeyValue { })
+    (generators.toKeyValue {})
     (pkgs.writeText "movim-env")
   ];
 
@@ -170,24 +171,24 @@ let
       "postgresql" = "postgresql.service";
       "mariadb" = "mysql.service";
     }
-    .${cfg.database.type};
+    .${
+      cfg.database.type
+    };
 
   # exclusivity asserted in `assertions`
   webServerService =
-    if cfg.h2o != null then
-      "h2o.service"
-    else if cfg.nginx != null then
-      "nginx.service"
-    else
-      null;
+    if cfg.h2o != null
+    then "h2o.service"
+    else if cfg.nginx != null
+    then "nginx.service"
+    else null;
 
   socketOwner =
-    if cfg.h2o != null then
-      config.services.h2o.user
-    else if cfg.nginx != null then
-      config.services.nginx.user
-    else
-      cfg.user;
+    if cfg.h2o != null
+    then config.services.h2o.user
+    else if cfg.nginx != null
+    then config.services.nginx.user
+    else cfg.user;
 
   # Movim needs a lot of unsafe values to function at this time. Perhaps if
   # this is ever addressed in the future, the PHP application will send up the
@@ -202,24 +203,22 @@ let
     "script-src 'self' 'unsafe-eval' 'unsafe-inline'"
     "style-src 'self' 'unsafe-inline'"
   ];
-in
-{
+in {
   options.services = {
     movim = {
       enable = mkEnableOption "a Movim instance";
-      package = mkPackageOption pkgs "movim" { };
-      phpPackage = mkPackageOption pkgs "php" { };
+      package = mkPackageOption pkgs "movim" {};
+      phpPackage = mkPackageOption pkgs "php" {};
 
       phpCfg = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             int
             str
             bool
           ]);
-        defaultText = literalExpression (generators.toPretty { } defaultPHPCfg);
-        default = { };
+        defaultText = literalExpression (generators.toPretty {} defaultPHPCfg);
+        default = {};
         description = "Extra PHP INI options such as `memory_limit`, `max_execution_time`, etc.";
       };
 
@@ -333,16 +332,17 @@ in
         '';
         example =
           lib.literalExpression # nix
-            ''
-              {
-                script.enable = false;
-                style = {
-                  enable = true;
-                  target = "> 0.5%, last 2 versions, Firefox ESR, not dead";
-                };
-                svg.enable = true;
-              }
-            '';
+          
+          ''
+            {
+              script.enable = false;
+              style = {
+                enable = true;
+                target = "> 0.5%, last 2 versions, Firefox ESR, not dead";
+              };
+              svg.enable = true;
+            }
+          '';
       };
 
       precompressStaticFiles = mkOption {
@@ -350,7 +350,7 @@ in
           options = {
             brotli = {
               enable = mkEnableOption "Brotli precompression";
-              package = mkPackageOption pkgs "brotli" { };
+              package = mkPackageOption pkgs "brotli" {};
               compressionLevel = mkOption {
                 type = types.ints.between 0 11;
                 default = 11;
@@ -359,7 +359,7 @@ in
             };
             gzip = {
               enable = mkEnableOption "Gzip precompression";
-              package = mkPackageOption pkgs "gzip" { };
+              package = mkPackageOption pkgs "gzip" {};
               compressionLevel = mkOption {
                 type = types.ints.between 1 9;
                 default = 9;
@@ -445,7 +445,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Pod configuration (values from `php daemon.php config --help`).
           Note that these values will now be disabled in the admin panel.
@@ -453,8 +453,7 @@ in
       };
 
       settings = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (
             nullOr (oneOf [
               int
@@ -462,7 +461,7 @@ in
               bool
             ])
           );
-        default = { };
+        default = {};
         description = ".env settings for Movim. Secrets should use `secretFile` option instead. `null`s will be culled.";
       };
 
@@ -504,20 +503,21 @@ in
 
       h2o = mkOption {
         type = types.nullOr (
-          types.submodule (import ../web-servers/h2o/vhost-options.nix { inherit config lib; })
+          types.submodule (import ../web-servers/h2o/vhost-options.nix {inherit config lib;})
         );
         default = null;
         example =
           lib.literalExpression # nix
-            ''
-              {
-                serverAliases = [
-                  "pics.''${config.movim.domain}"
-                ];
-                acme.enable = true;
-                tls.policy = "force";
-              }
-            '';
+          
+          ''
+            {
+              serverAliases = [
+                "pics.''${config.movim.domain}"
+              ];
+              acme.enable = true;
+              tls.policy = "force";
+            }
+          '';
         description = ''
           With this option, you can customize an H2O virtual host which already
           has sensible defaults for Movim. Set to `{ }` if you do not need any
@@ -529,20 +529,21 @@ in
 
       nginx = mkOption {
         type = types.nullOr (
-          types.submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; })
+          types.submodule (import ../web-servers/nginx/vhost-options.nix {inherit config lib;})
         );
         default = null;
         example =
           lib.literalExpression # nix
-            ''
-              {
-                serverAliases = [
-                  "pics.''${config.movim.domain}"
-                ];
-                enableACME = true;
-                forceHttps = true;
-              }
-            '';
+          
+          ''
+            {
+              serverAliases = [
+                "pics.''${config.movim.domain}"
+              ];
+              enableACME = true;
+              forceHttps = true;
+            }
+          '';
         description = ''
           With this option, you can customize an Nginx virtual host which
           already has sensible defaults for Movim. Set to `{ }` if you do not
@@ -553,14 +554,13 @@ in
       };
 
       poolConfig = mkOption {
-        type =
-          with types;
+        type = with types;
           attrsOf (oneOf [
             int
             str
             bool
           ]);
-        default = { };
+        default = {};
         description = "Options for Movim’s PHP-FPM pool.";
       };
     };
@@ -575,8 +575,7 @@ in
             "nginx"
           ];
           checkConfigs = lib.concatMapStringsSep ", " (ws: "services.movim.${ws}") webServers;
-        in
-        {
+        in {
           assertion = builtins.length (lib.lists.filter (ws: cfg.${ws} != null) webServers) <= 1;
           message = ''
             At most 1 web server virtual host configuration should be enabled
@@ -586,7 +585,7 @@ in
       )
     ];
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
     users = {
       users =
@@ -597,13 +596,13 @@ in
           };
         }
         // lib.optionalAttrs (cfg.h2o != null) {
-          "${config.services.h2o.user}".extraGroups = [ cfg.group ];
+          "${config.services.h2o.user}".extraGroups = [cfg.group];
         }
         // lib.optionalAttrs (cfg.nginx != null) {
-          "${config.services.nginx.user}".extraGroups = [ cfg.group ];
+          "${config.services.nginx.user}".extraGroups = [cfg.group];
         };
       groups = {
-        ${cfg.group} = { };
+        ${cfg.group} = {};
       };
     };
 
@@ -623,7 +622,9 @@ in
                 "postgresql" = "pgsql";
                 "mariadb" = "mysql";
               }
-              .${cfg.database.type};
+              .${
+                cfg.database.type
+              };
             DB_HOST = "localhost";
             DB_PORT = config.services.${cfg.database.type}.settings.port;
             DB_DATABASE = cfg.database.name;
@@ -677,7 +678,7 @@ in
                   };
               };
               "file.custom-handler" = {
-                extension = [ ".php" ];
+                extension = [".php"];
                 "fastcgi.document_root" = package;
                 "fastcgi.connect" = {
                   port = fpm.socket;
@@ -696,7 +697,8 @@ in
           recommendedOptimisation = mkDefault true;
           recommendedProxySettings = true;
           # TODO: recommended cache options already in Nginx⁇
-          appendHttpConfig = # nginx
+          appendHttpConfig =
+            # nginx
             ''
               fastcgi_cache_path /tmp/nginx_cache levels=1:2 keys_zone=nginx_cache:100m inactive=60m;
               fastcgi_cache_key "$scheme$request_method$host$request_uri";
@@ -708,7 +710,8 @@ in
               locations = {
                 "/favicon.ico" = {
                   priority = 100;
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       access_log off;
                       log_not_found off;
@@ -716,7 +719,8 @@ in
                 };
                 "/robots.txt" = {
                   priority = 100;
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       access_log off;
                       log_not_found off;
@@ -724,7 +728,8 @@ in
                 };
                 "~ /\\.(?!well-known).*" = {
                   priority = 210;
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       deny all;
                     '';
@@ -733,7 +738,8 @@ in
                 "/picture" = {
                   priority = 400;
                   tryFiles = "$uri $uri/ /index.php$is_args$args";
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       set $no_cache 0; # Enable cache only there
                     '';
@@ -741,7 +747,8 @@ in
                 "/" = {
                   priority = 490;
                   tryFiles = "$uri $uri/ /index.php$is_args$args";
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       add_header Content-Security-Policy "${movimCSP}";
                       set $no_cache 1;
@@ -750,7 +757,8 @@ in
                 "~ \\.php$" = {
                   priority = 500;
                   tryFiles = "$uri =404";
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       include ${config.services.nginx.package}/conf/fastcgi.conf;
                       add_header X-Cache $upstream_cache_status;
@@ -769,14 +777,16 @@ in
                   proxyPass = "http://${cfg.settings.DAEMON_INTERFACE}:${builtins.toString cfg.port}/";
                   proxyWebsockets = true;
                   recommendedProxySettings = true;
-                  extraConfig = # nginx
+                  extraConfig =
+                    # nginx
                     ''
                       proxy_set_header X-Forwarded-Proto $scheme;
                       proxy_redirect off;
                     '';
                 };
               };
-              extraConfig = # nginx
+              extraConfig =
+                # nginx
                 ''
                   index index.php;
                 '';
@@ -794,7 +804,7 @@ in
       mysql = mkIf (cfg.database.createLocally && cfg.database.type == "mariadb") {
         enable = mkDefault true;
         package = mkDefault pkgs.mariadb;
-        ensureDatabases = [ cfg.database.name ];
+        ensureDatabases = [cfg.database.name];
         ensureUsers = [
           {
             name = cfg.database.user;
@@ -805,7 +815,7 @@ in
 
       postgresql = mkIf (cfg.database.createLocally && cfg.database.type == "postgresql") {
         enable = mkDefault true;
-        ensureDatabases = [ cfg.database.name ];
+        ensureDatabases = [cfg.database.name];
         ensureUsers = [
           {
             name = cfg.database.user;
@@ -827,22 +837,24 @@ in
           log_errors = on
         '';
 
-        settings = {
-          "listen.owner" = socketOwner;
-          "listen.group" = cfg.group;
-          "listen.mode" = "0660";
-          "catch_workers_output" = true;
-        } // cfg.poolConfig;
+        settings =
+          {
+            "listen.owner" = socketOwner;
+            "listen.group" = cfg.group;
+            "listen.mode" = "0660";
+            "catch_workers_output" = true;
+          }
+          // cfg.poolConfig;
       };
     };
 
     systemd = {
       services.movim-data-setup = {
         description = "Movim setup: .env file, databases init, cache reload";
-        wantedBy = [ "multi-user.target" ];
-        requiredBy = [ "${phpExecutionUnit}.service" ];
-        before = [ "${phpExecutionUnit}.service" ];
-        wants = [ "local-fs.target" ];
+        wantedBy = ["multi-user.target"];
+        requiredBy = ["${phpExecutionUnit}.service"];
+        before = ["${phpExecutionUnit}.service"];
+        wants = ["local-fs.target"];
         requires = lib.optional cfg.database.createLocally dbService;
         after = lib.optional cfg.database.createLocally dbService;
 
@@ -857,7 +869,8 @@ in
             LoadCredential = "env-secrets:${cfg.secretFile}";
           };
 
-        script = # sh
+        script =
+          # sh
           ''
             # Env vars
             rm -f ${cfg.dataDir}/.env
@@ -883,12 +896,11 @@ in
           + lib.optionalString (podConfigFlags != "") (
             let
               flags = lib.concatStringsSep " " (
-                [ "--no-interaction" ]
+                ["--no-interaction"]
                 ++ lib.optional cfg.debug "-vvv"
                 ++ lib.optional (!cfg.debug && cfg.verbose) "-v"
               );
-            in
-            ''
+            in ''
               ${lib.getExe package} config ${podConfigFlags}
             ''
           );
@@ -896,16 +908,16 @@ in
 
       services.${phpExecutionUnit} = {
         wantedBy = lib.optional (webServerService != null) webServerService;
-        requiredBy = [ "movim.service" ];
-        before = [ "movim.service" ] ++ lib.optional (webServerService != null) webServerService;
-        wants = [ "network.target" ];
-        requires = [ "movim-data-setup.service" ] ++ lib.optional cfg.database.createLocally dbService;
-        after = [ "movim-data-setup.service" ] ++ lib.optional cfg.database.createLocally dbService;
+        requiredBy = ["movim.service"];
+        before = ["movim.service"] ++ lib.optional (webServerService != null) webServerService;
+        wants = ["network.target"];
+        requires = ["movim-data-setup.service"] ++ lib.optional cfg.database.createLocally dbService;
+        after = ["movim-data-setup.service"] ++ lib.optional cfg.database.createLocally dbService;
       };
 
       services.movim = {
         description = "Movim daemon";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         wants = [
           "network.target"
           "local-fs.target"
@@ -967,13 +979,13 @@ in
   };
 
   imports = [
-    (lib.mkRemovedOptionModule [ "minifyStaticFiles" "script" "package" ] ''
+    (lib.mkRemovedOptionModule ["minifyStaticFiles" "script" "package"] ''
       Override services.movim.package instead.
     '')
-    (lib.mkRemovedOptionModule [ "minifyStaticFiles" "style" "package" ] ''
+    (lib.mkRemovedOptionModule ["minifyStaticFiles" "style" "package"] ''
       Override services.movim.package instead.
     '')
-    (lib.mkRemovedOptionModule [ "minifyStaticFiles" "svg" "package" ] ''
+    (lib.mkRemovedOptionModule ["minifyStaticFiles" "svg" "package"] ''
       Override services.movim.package instead.
     '')
   ];

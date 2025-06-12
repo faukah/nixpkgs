@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "wd";
   version = "0.10.0";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-/xOe7XFzQt+qVGf6kfsOPPM8szWYhnmx5Mq/QIw0y1c=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     install -Dm755 wd.plugin.zsh $out/share/wd/wd.plugin.zsh
@@ -35,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/mfaerevaag/wd";
     changelog = "https://github.com/mfaerevaag/wd/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.zimeg ];
+    maintainers = [lib.maintainers.zimeg];
     mainProgram = "wd";
     platforms = lib.platforms.unix;
   };

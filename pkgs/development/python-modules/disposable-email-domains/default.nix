@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "disposable-email-domains";
   version = "0.0.126";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "disposable_email_domains" ];
+  pythonImportsCheck = ["disposable_email_domains"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Set of disposable email domains";
     homepage = "https://github.com/disposable-email-domains/disposable-email-domains";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -11,7 +11,6 @@
   findutils,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "snphost";
   version = "0.6.0";
@@ -45,15 +44,15 @@ rustPlatform.buildRustPackage rec {
     installManPage $(find target/x86_64-unknown-linux-gnu/release/build -name "snphost.1")
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Administrative utility for SEV-SNP";
     homepage = "https://github.com/virtee/snphost/";
     changelog = "https://github.com/virtee/snphost/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ katexochen ];
+    maintainers = with lib.maintainers; [katexochen];
     mainProgram = "snphost";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

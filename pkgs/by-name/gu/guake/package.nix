@@ -16,7 +16,6 @@
   dconf,
   nixosTests,
 }:
-
 python311Packages.buildPythonApplication rec {
   pname = "guake";
   version = "3.10";
@@ -70,7 +69,7 @@ python311Packages.buildPythonApplication rec {
     vte
   ];
 
-  makeWrapperArgs = [ "--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive" ];
+  makeWrapperArgs = ["--set LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive"];
 
   propagatedBuildInputs = with python311Packages; [
     dbus-python
@@ -86,9 +85,9 @@ python311Packages.buildPythonApplication rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libutempter ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libutempter]}"
       # For settings migration.
-      --prefix PATH : "${lib.makeBinPath [ dconf ]}"
+      --prefix PATH : "${lib.makeBinPath [dconf]}"
     )
   '';
 

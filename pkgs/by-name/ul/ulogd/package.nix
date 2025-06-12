@@ -21,7 +21,6 @@
   autoreconfHook,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.0.8";
   pname = "ulogd";
@@ -76,7 +75,7 @@ stdenv.mkDerivation rec {
     linuxdoc-tools
   ];
 
-  passthru.tests = { inherit (nixosTests) ulogd; };
+  passthru.tests = {inherit (nixosTests) ulogd;};
 
   meta = with lib; {
     description = "Userspace logging daemon for netfilter/iptables";
@@ -97,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.netfilter.org/projects/ulogd/index.html";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ p-h ];
+    maintainers = with maintainers; [p-h];
   };
 }

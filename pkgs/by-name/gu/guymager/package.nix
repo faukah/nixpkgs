@@ -10,7 +10,6 @@
   libbfio,
   libguytools,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guymager";
   version = "0.8.13";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "dpkg-parsechangelog" "dpkg-parsechangelog -l changelog"
     substituteInPlace threadscan.cpp \
     --replace-fail '/lib,/usr/lib,/usr/lib64,/usr/local/lib' '${
-      builtins.replaceStrings [ ":" ] [ "," ] (
+      builtins.replaceStrings [":"] [","] (
         lib.makeLibraryPath [
           udev
           parted
@@ -71,9 +70,9 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Forensic imager for media acquisition";
     mainProgram = "guymager";
     homepage = "https://guymager.sourceforge.io";
-    maintainers = with lib.maintainers; [ d3vil0p3r ];
+    maintainers = with lib.maintainers; [d3vil0p3r];
     platforms = lib.platforms.linux;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl2Only;
   };
 })

@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   poetry-core,
-
   # dependencies
   jax,
   jaxlib,
   tensorflow-probability,
-
   # tests
   inference-gym,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "oryx";
   version = "0.2.9";
@@ -27,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-HlKUnguTNfs7gSqIJ0n2EjjLXPUgtI2JsQM70wKMeXs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     jax
@@ -35,7 +31,7 @@ buildPythonPackage rec {
     tensorflow-probability
   ];
 
-  pythonImportsCheck = [ "oryx" ];
+  pythonImportsCheck = ["oryx"];
 
   nativeCheckInputs = [
     inference-gym
@@ -113,7 +109,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jax-ml/oryx";
     changelog = "https://github.com/jax-ml/oryx/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     # oryx seems to be incompatible with jax 0.5.1
     # 237 additional test failures are resulting from the jax bump.
     broken = true;

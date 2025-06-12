@@ -10,7 +10,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 buildDotnetModule rec {
   pname = "OpenUtau";
   version = "0.1.529";
@@ -22,7 +21,7 @@ buildDotnetModule rec {
     hash = "sha256-HE0KxPKU7tYZbYiCL8sm6I/NZiX0MJktt+5d6qB1A2E=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   desktopItems = [
     (makeDesktopItem {
@@ -33,7 +32,7 @@ buildDotnetModule rec {
       genericName = "Utau";
       comment = "Open source UTAU successor";
       exec = "OpenUtau";
-      categories = [ "Music" ];
+      categories = ["Music"];
     })
   ];
 
@@ -47,14 +46,14 @@ buildDotnetModule rec {
   projectFile = "OpenUtau.sln";
   nugetDeps = ./deps.json;
 
-  executables = [ "OpenUtau" ];
+  executables = ["OpenUtau"];
 
   runtimeDeps = [
     dbus
     portaudio
   ];
 
-  dotnetInstallFlags = [ "-p:PublishReadyToRun=false" ];
+  dotnetInstallFlags = ["-p:PublishReadyToRun=false"];
 
   # socket cannot bind to localhost on darwin for tests
   doCheck = !stdenv.hostPlatform.isDarwin;
@@ -71,28 +70,25 @@ buildDotnetModule rec {
   '';
 
   # need to make sure proprietary worldline resampler is copied
-  postInstall =
-    let
-      runtime =
-        if (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64) then
-          "linux-x64"
-        else if (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64) then
-          "linux-arm64"
-        else if stdenv.hostPlatform.isDarwin then
-          "osx"
-        else
-          null;
-      shouldInstallResampler = lib.optionalString (runtime != null) ''
-        cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
-      '';
-      shouldInstallDesktopItem = lib.optionalString stdenv.hostPlatform.isLinux ''
-        install -Dm655 -t $out/share/icons/hicolor/scalable/apps Logo/openutau.svg
-      '';
-    in
-    ''
-      ${shouldInstallResampler}
-      ${shouldInstallDesktopItem}
+  postInstall = let
+    runtime =
+      if (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64)
+      then "linux-x64"
+      else if (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64)
+      then "linux-arm64"
+      else if stdenv.hostPlatform.isDarwin
+      then "osx"
+      else null;
+    shouldInstallResampler = lib.optionalString (runtime != null) ''
+      cp runtimes/${runtime}/native/libworldline${stdenv.hostPlatform.extensions.sharedLibrary} $out/lib/OpenUtau/
     '';
+    shouldInstallDesktopItem = lib.optionalString stdenv.hostPlatform.isLinux ''
+      install -Dm655 -t $out/share/icons/hicolor/scalable/apps Logo/openutau.svg
+    '';
+  in ''
+    ${shouldInstallResampler}
+    ${shouldInstallDesktopItem}
+  '';
 
   passthru.updateScript = ./update.sh;
 
@@ -107,7 +103,7 @@ buildDotnetModule rec {
       binaryNativeCode
     ];
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

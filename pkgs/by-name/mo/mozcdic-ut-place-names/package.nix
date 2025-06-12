@@ -4,7 +4,6 @@
   stdenvNoCC,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "mozcdic-ut-place-names";
   version = "0-unstable-2024-10-12";
@@ -35,10 +34,10 @@ stdenvNoCC.mkDerivation {
     description = "Mozc UT Place Name Dictionary is a dictionary converted from the Japan Post's ZIP code data for Mozc.";
     homepage = "https://github.com/utuhiro78/mozcdic-ut-place-names";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ pineapplehunter ];
+    maintainers = with lib.maintainers; [pineapplehunter];
     platforms = lib.platforms.all;
     # this does not need to be separately built
     # it only provides some zip files
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

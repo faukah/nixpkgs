@@ -4,7 +4,6 @@
   fetchzip,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "dinish";
   version = "4.006";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/playbeing/dinish";
@@ -32,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     longDescription = "DINish is one of many modern computer fonts that were inspired by the lettering of the German Autobahn road signs. It is professionally designed, and usable for body text and captions, even spreadsheets. Its unadorned style is easy to read, and although it is close to a century old maintains a fresh look.";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ vji ];
+    maintainers = with lib.maintainers; [vji];
   };
 }

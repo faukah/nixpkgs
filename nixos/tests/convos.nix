@@ -1,21 +1,20 @@
-{ lib, pkgs, ... }:
-
-let
-  port = 3333;
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  port = 3333;
+in {
   name = "convos";
-  meta.maintainers = with lib.maintainers; [ sgo ];
+  meta.maintainers = with lib.maintainers; [sgo];
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.convos = {
-          enable = true;
-          listenPort = port;
-        };
+    machine = {pkgs, ...}: {
+      services.convos = {
+        enable = true;
+        listenPort = port;
       };
+    };
   };
 
   testScript = ''

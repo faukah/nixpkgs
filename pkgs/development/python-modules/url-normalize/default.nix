@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "url-normalize";
   version = "2.2.1";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-ZFY1KMEHvteMFVM3QcYjCiTz3dLxRWyv/dZQMzVxGvo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ idna ];
+  dependencies = [idna];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -31,13 +30,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "url_normalize" ];
+  pythonImportsCheck = ["url_normalize"];
 
   meta = {
     changelog = "https://github.com/niksite/url-normalize/blob/${src.tag}/CHANGELOG.md";
     description = "URL normalization for Python";
     homepage = "https://github.com/niksite/url-normalize";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

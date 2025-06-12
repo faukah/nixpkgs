@@ -4,7 +4,6 @@
   php,
   versionCheckHook,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "php-cs-fixer";
   version = "3.73.1";
@@ -22,7 +21,7 @@ php.buildComposerProject2 (finalAttrs: {
   vendorHash = "sha256-ywJ2Gj9vMeu1pOg2UtfWDaxU+mpt/ay5KNQiWZGm6h4=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
@@ -32,6 +31,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://cs.symfony.com/";
     license = lib.licenses.mit;
     mainProgram = "php-cs-fixer";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

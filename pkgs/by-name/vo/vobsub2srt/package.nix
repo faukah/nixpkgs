@@ -7,7 +7,6 @@
   pkg-config,
   tesseract3,
 }:
-
 stdenv.mkDerivation {
   pname = "vobsub2srt";
   version = "unstable-2014-08-17";
@@ -19,21 +18,21 @@ stdenv.mkDerivation {
     sha256 = "sha256-i6V2Owb8GcTcWowgb/BmdupOSFsYiCF2SbC9hXa26uY=";
   };
 
-  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU [ "-std=c++11" ]);
+  env.NIX_CFLAGS_COMPILE = toString (lib.optionals stdenv.cc.isGNU ["-std=c++11"]);
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
-  buildInputs = [ libtiff ];
-  propagatedBuildInputs = [ tesseract3 ];
+  buildInputs = [libtiff];
+  propagatedBuildInputs = [tesseract3];
 
   meta = {
     homepage = "https://github.com/ruediger/VobSub2SRT";
     description = "Converts VobSub subtitles into SRT subtitles";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
     mainProgram = "vobsub2srt";
   };
 }

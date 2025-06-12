@@ -7,7 +7,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "j2cli";
   version = "0.3.10";

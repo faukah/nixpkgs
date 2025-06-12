@@ -9,7 +9,6 @@
   mimalloc,
   mimallocSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stunnel";
   version = "5.75";
@@ -65,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Universal tls/ssl wrapper";
     homepage = "https://www.stunnel.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
     platforms = lib.platforms.unix;
     mainProgram = "stunnel";
   };

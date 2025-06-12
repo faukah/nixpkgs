@@ -4,7 +4,6 @@
   fetchFromGitHub,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "wavegain";
   version = "1.3.1";
@@ -25,7 +24,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     strip -s wavegain
@@ -33,12 +32,12 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     description = "ReplayGain for wave files";
     homepage = "https://github.com/MestreLion/wavegain";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.robbinch ];
+    maintainers = [lib.maintainers.robbinch];
     mainProgram = "wavegain";
   };
 }

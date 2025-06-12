@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "idasen-ha";
   version = "2.6.3";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
     hash = "sha256-Z4MfJGL2uDqY1ddoV2fB+Ty/dKFhCUY8qBfP/i/naJs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ idasen ];
+  dependencies = [idasen];
 
-  pythonImportsCheck = [ "idasen_ha" ];
+  pythonImportsCheck = ["idasen_ha"];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -36,6 +35,6 @@ buildPythonPackage rec {
     description = "Home Assistant helper lib for the IKEA Idasen Desk integration";
     homepage = "https://github.com/abmantis/idasen-ha";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

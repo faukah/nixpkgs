@@ -1,10 +1,8 @@
 {
   lib,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   alembic,
   buildPythonPackage,
@@ -34,7 +32,6 @@
   scipy,
   sqlalchemy,
   sqlparse,
-
   # tests
   aiohttp,
   azure-core,
@@ -68,7 +65,6 @@
   uvicorn,
   xgboost,
 }:
-
 buildPythonPackage rec {
   pname = "mlflow";
   version = "2.20.3";
@@ -90,7 +86,7 @@ buildPythonPackage rec {
     "pyarrow"
   ];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     alembic
@@ -124,7 +120,7 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  pythonImportsCheck = [ "mlflow" ];
+  pythonImportsCheck = ["mlflow"];
 
   nativeCheckInputs = [
     aiohttp
@@ -195,6 +191,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mlflow/mlflow";
     changelog = "https://github.com/mlflow/mlflow/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tbenst ];
+    maintainers = with lib.maintainers; [tbenst];
   };
 }

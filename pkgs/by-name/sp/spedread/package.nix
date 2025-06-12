@@ -14,7 +14,6 @@
   desktop-file-utils,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "spedread";
   version = "2.5.1";
@@ -53,14 +52,14 @@ stdenv.mkDerivation (finalAttrs: {
     glib-compile-schemas "$out/share/glib-2.0/schemas"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rapid word display tool for improved reading focus and reduced eye movement";
     homepage = "https://github.com/Darazaki/Spedread";
     changelog = "https://github.com/Darazaki/Spedread/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ thtrf ];
+    maintainers = with lib.maintainers; [thtrf];
     platforms = lib.platforms.linux;
     mainProgram = "spedread";
   };

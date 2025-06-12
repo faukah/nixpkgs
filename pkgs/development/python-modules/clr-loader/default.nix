@@ -9,9 +9,7 @@
   wheel,
   buildDotnetModule,
   cffi,
-}:
-
-let
+}: let
   pname = "clr-loader";
   version = "0.2.7.post0";
   src = fetchPypi {
@@ -19,7 +17,7 @@ let
     inherit version;
     hash = "sha256-t6iz+PuxvLu2OC2IfiHRdC1PELXqIJ5K2VVo/pfhx8Y=";
   };
-  patches = [ ./dotnet-8-upgrade.patch ];
+  patches = [./dotnet-8-upgrade.patch];
   # This stops msbuild from picking up $version from the environment
   postPatch = ''
     echo '<Project><PropertyGroup><Version/></PropertyGroup></Project>' > \
@@ -44,55 +42,55 @@ let
     dotnet-sdk = dotnetCorePackages.sdk_8_0;
   };
 in
-buildPythonPackage {
-  inherit
-    pname
-    version
-    src
-    patches
-    postPatch
-    ;
+  buildPythonPackage {
+    inherit
+      pname
+      version
+      src
+      patches
+      postPatch
+      ;
 
-  format = "pyproject";
+    format = "pyproject";
 
-  buildInputs = dotnetCorePackages.sdk_8_0.packages ++ dotnet-build.nugetDeps;
+    buildInputs = dotnetCorePackages.sdk_8_0.packages ++ dotnet-build.nugetDeps;
 
-  nativeBuildInputs = [
-    setuptools
-    setuptools-scm
-    wheel
-    dotnetCorePackages.sdk_8_0
-  ];
+    nativeBuildInputs = [
+      setuptools
+      setuptools-scm
+      wheel
+      dotnetCorePackages.sdk_8_0
+    ];
 
-  propagatedBuildInputs = [ cffi ];
+    propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = [
-    # TODO: mono does not work due to https://github.com/NixOS/nixpkgs/issues/7307
-    "test_mono"
-    "test_mono_debug"
-    "test_mono_signal_chaining"
-    "test_mono_set_dir"
-  ];
+    disabledTests = [
+      # TODO: mono does not work due to https://github.com/NixOS/nixpkgs/issues/7307
+      "test_mono"
+      "test_mono_debug"
+      "test_mono_signal_chaining"
+      "test_mono_set_dir"
+    ];
 
-  # Perform dotnet restore based on the nuget-source
-  preConfigure = ''
-    dotnet restore "netfx_loader/ClrLoader.csproj" \
-      -p:ContinuousIntegrationBuild=true \
-      -p:Deterministic=true
+    # Perform dotnet restore based on the nuget-source
+    preConfigure = ''
+      dotnet restore "netfx_loader/ClrLoader.csproj" \
+        -p:ContinuousIntegrationBuild=true \
+        -p:Deterministic=true
 
-    dotnet restore "example/example.csproj" \
-      -p:ContinuousIntegrationBuild=true \
-      -p:Deterministic=true
-  '';
+      dotnet restore "example/example.csproj" \
+        -p:ContinuousIntegrationBuild=true \
+        -p:Deterministic=true
+    '';
 
-  passthru.fetch-deps = dotnet-build.fetch-deps;
+    passthru.fetch-deps = dotnet-build.fetch-deps;
 
-  meta = with lib; {
-    description = "Generic pure Python loader for .NET runtimes";
-    homepage = "https://pythonnet.github.io/clr-loader/";
-    license = licenses.mit;
-    maintainers = with maintainers; [ mdarocha ];
-  };
-}
+    meta = with lib; {
+      description = "Generic pure Python loader for .NET runtimes";
+      homepage = "https://pythonnet.github.io/clr-loader/";
+      license = licenses.mit;
+      maintainers = with maintainers; [mdarocha];
+    };
+  }

@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "uwc";
   version = "1.0.7";
@@ -25,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "uwc";
     homepage = "https://github.com/dead10ck/uwc";
     license = licenses.mit;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

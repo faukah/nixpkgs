@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qrcodegen";
   version = "1.8.0";
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     stdenv.cc.cc.libllvm.out
   ];
 
-  makeFlags = lib.optionals stdenv.cc.isClang [ "AR=llvm-ar" ];
+  makeFlags = lib.optionals stdenv.cc.isClang ["AR=llvm-ar"];
 
   doCheck = true;
   checkPhase = ''
@@ -45,9 +44,10 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.nayuki.io/page/qr-code-generator-library";
     description = "High-quality QR Code generator library in many languages";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })
 # TODO: build the other languages
 # TODO: multiple outputs
+

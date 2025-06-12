@@ -3,15 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.commafeed;
-in
-{
+in {
   options.services.commafeed = {
     enable = lib.mkEnableOption "CommaFeed";
 
-    package = lib.mkPackageOption pkgs "commafeed" { };
+    package = lib.mkPackageOption pkgs "commafeed" {};
 
     user = lib.mkOption {
       type = lib.types.str;
@@ -45,7 +43,7 @@ in
         for supported values. The default user is `admin` and the default password is `admin`.
         Correct configuration for H2 database is already provided.
       '';
-      default = { };
+      default = {};
       example = {
         CF_SERVER_APPLICATIONCONNECTORS_0_TYPE = "http";
         CF_SERVER_APPLICATIONCONNECTORS_0_PORT = 9090;
@@ -64,51 +62,58 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.commafeed = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      environment = lib.mapAttrs (
-        _: v: if lib.isBool v then lib.boolToString v else toString v
-      ) cfg.environment;
-      serviceConfig = {
-        ExecStart = "${lib.getExe cfg.package} server ${cfg.package}/share/config.yml";
-        User = cfg.user;
-        Group = cfg.group;
-        StateDirectory = baseNameOf cfg.stateDir;
-        WorkingDirectory = cfg.stateDir;
-        # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DevicePolicy = "closed";
-        DynamicUser = true;
-        LockPersonality = true;
-        NoNewPrivileges = true;
-        PrivateDevices = true;
-        PrivateUsers = true;
-        ProcSubset = "pid";
-        ProtectClock = true;
-        ProtectControlGroups = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectProc = "invisible";
-        ProtectSystem = true;
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
-        RestrictNamespaces = true;
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "@system-service"
-          "~@privileged"
-        ];
-        UMask = "0077";
-      } // lib.optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      environment =
+        lib.mapAttrs (
+          _: v:
+            if lib.isBool v
+            then lib.boolToString v
+            else toString v
+        )
+        cfg.environment;
+      serviceConfig =
+        {
+          ExecStart = "${lib.getExe cfg.package} server ${cfg.package}/share/config.yml";
+          User = cfg.user;
+          Group = cfg.group;
+          StateDirectory = baseNameOf cfg.stateDir;
+          WorkingDirectory = cfg.stateDir;
+          # Hardening
+          CapabilityBoundingSet = [""];
+          DevicePolicy = "closed";
+          DynamicUser = true;
+          LockPersonality = true;
+          NoNewPrivileges = true;
+          PrivateDevices = true;
+          PrivateUsers = true;
+          ProcSubset = "pid";
+          ProtectClock = true;
+          ProtectControlGroups = true;
+          ProtectHome = true;
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectKernelModules = true;
+          ProtectKernelTunables = true;
+          ProtectProc = "invisible";
+          ProtectSystem = true;
+          RestrictAddressFamilies = [
+            "AF_INET"
+            "AF_INET6"
+          ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          RestrictSUIDSGID = true;
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+          ];
+          UMask = "0077";
+        }
+        // lib.optionalAttrs (cfg.environmentFile != null) {EnvironmentFile = cfg.environmentFile;};
     };
   };
 
-  meta.maintainers = [ lib.maintainers.raroh73 ];
+  meta.maintainers = [lib.maintainers.raroh73];
 }

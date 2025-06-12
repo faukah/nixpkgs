@@ -27,15 +27,15 @@ stdenv.mkDerivation (finalAttrs: {
     copyDesktopItems
     makeWrapper
   ];
-  buildInputs = [ love ] ++ lib.optional withMods lovely-injector;
+  buildInputs = [love] ++ lib.optional withMods lovely-injector;
   dontUnpack = true;
   desktopItems = [
     (makeDesktopItem {
       name = "balatro";
       desktopName = "Balatro";
       exec = "balatro";
-      keywords = [ "Game" ];
-      categories = [ "Game" ];
+      keywords = ["Game"];
+      categories = ["Game"];
       icon = "balatro";
     })
   ];
@@ -43,7 +43,11 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
     tmpdir=$(mktemp -d)
     7z x ${finalAttrs.src} -o$tmpdir -y
-    ${if withLinuxPatch then "patch $tmpdir/globals.lua -i ${./globals.patch}" else ""}
+    ${
+      if withLinuxPatch
+      then "patch $tmpdir/globals.lua -i ${./globals.patch}"
+      else ""
+    }
     patchedExe=$(mktemp -u).zip
     7z a $patchedExe $tmpdir/*
     runHook postBuild
@@ -71,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.unfree;
     homepage = "https://store.steampowered.com/app/2379780/Balatro/";
-    maintainers = [ lib.maintainers.antipatico ];
+    maintainers = [lib.maintainers.antipatico];
     platforms = love.meta.platforms;
     mainProgram = "balatro";
   };

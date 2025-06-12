@@ -2,19 +2,15 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   httpx,
   pycryptodome,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "msmart-ng";
   version = "2025.5.1";
@@ -37,14 +33,14 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # network access
     "msmart/tests/test_cloud.py"
   ];
 
-  pythonImportsCheck = [ "msmart" ];
+  pythonImportsCheck = ["msmart"];
 
   meta = with lib; {
     changelog = "https://github.com/mill1000/midea-msmart/releases/tag/${src.tag}";

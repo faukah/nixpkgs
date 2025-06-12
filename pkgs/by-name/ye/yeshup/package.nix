@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "yeshup";
   version = "unstable-2013-10-29";
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/RhysU/yeshup";
     platforms = platforms.linux;
     license = licenses.cc-by-sa-30; # From Stackoverflow answer
-    maintainers = with maintainers; [ obadz ];
+    maintainers = with maintainers; [obadz];
     mainProgram = "yeshup";
   };
 }

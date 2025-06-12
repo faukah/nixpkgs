@@ -8,7 +8,6 @@
   makeWrapper,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "OttoMatic";
   version = "4.0.1-unstable-2025-04-27";
@@ -45,13 +44,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Port of Otto Matic, a 2001 Macintosh game by Pangea Software, for modern operating systems";
     homepage = "https://github.com/jorio/OttoMatic";
     license = lib.licenses.cc-by-sa-40;
-    maintainers = with lib.maintainers; [ lux ];
+    maintainers = with lib.maintainers; [lux];
     platforms = lib.platforms.linux;
     mainProgram = "OttoMatic";
   };

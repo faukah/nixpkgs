@@ -5,7 +5,6 @@
   pkg-config,
   autoreconfHook,
   wrapGAppsHook3,
-
   boost,
   cairo,
   gettext,
@@ -25,9 +24,7 @@
   fribidi,
   openexr,
   fftw,
-}:
-
-let
+}: let
   version = "1.5.3";
   src = fetchFromGitHub {
     owner = "synfig";
@@ -94,63 +91,63 @@ let
     ];
   };
 in
-stdenv.mkDerivation {
-  pname = "synfigstudio";
-  inherit version src;
+  stdenv.mkDerivation {
+    pname = "synfigstudio";
+    inherit version src;
 
-  sourceRoot = "${src.name}/synfig-studio";
+    sourceRoot = "${src.name}/synfig-studio";
 
-  postPatch = ''
-    patchShebangs images/splash_screen_development.sh
-  '';
+    postPatch = ''
+      patchShebangs images/splash_screen_development.sh
+    '';
 
-  preConfigure = ''
-    ./bootstrap.sh
-  '';
+    preConfigure = ''
+      ./bootstrap.sh
+    '';
 
-  configureFlags = lib.optionals stdenv.cc.isClang [
-    # Newer versions of clang default to C++17, but synfig and some of its dependencies use deprecated APIs that
-    # are removed in C++17. Setting the language version to C++14 allows it to build.
-    "CXXFLAGS=-std=c++14"
-  ];
+    configureFlags = lib.optionals stdenv.cc.isClang [
+      # Newer versions of clang default to C++17, but synfig and some of its dependencies use deprecated APIs that
+      # are removed in C++17. Setting the language version to C++14 allows it to build.
+      "CXXFLAGS=-std=c++14"
+    ];
 
-  nativeBuildInputs = [
-    pkg-config
-    autoreconfHook
-    gettext
-    intltool
-    wrapGAppsHook3
-  ];
-  buildInputs = [
-    ETL
-    synfig
-    boost
-    cairo
-    glibmm
-    gtk3
-    gtkmm3
-    imagemagick
-    libjack2
-    libsigcxx
-    libxmlxx
-    mlt
-    adwaita-icon-theme
-    openexr
-    fftw
-  ];
+    nativeBuildInputs = [
+      pkg-config
+      autoreconfHook
+      gettext
+      intltool
+      wrapGAppsHook3
+    ];
+    buildInputs = [
+      ETL
+      synfig
+      boost
+      cairo
+      glibmm
+      gtk3
+      gtkmm3
+      imagemagick
+      libjack2
+      libsigcxx
+      libxmlxx
+      mlt
+      adwaita-icon-theme
+      openexr
+      fftw
+    ];
 
-  enableParallelBuilding = true;
+    enableParallelBuilding = true;
 
-  passthru = {
-    # Expose libraries and cli tools
-    inherit ETL synfig;
-  };
+    passthru = {
+      # Expose libraries and cli tools
+      inherit ETL synfig;
+    };
 
-  meta = with lib; {
-    description = "2D animation program";
-    homepage = "https://www.synfig.org";
-    license = licenses.gpl3Plus;
-    maintainers = [ ];
-    platforms = platforms.linux ++ platforms.darwin;
-  };
-}
+    meta = with lib; {
+      description = "2D animation program";
+      homepage = "https://www.synfig.org";
+      license = licenses.gpl3Plus;
+      maintainers = [];
+      platforms = platforms.linux ++ platforms.darwin;
+    };
+  }

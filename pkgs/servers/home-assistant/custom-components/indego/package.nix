@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pyindego,
 }:
-
 buildHomeAssistantComponent rec {
   owner = "sander1988";
   domain = "indego";
@@ -17,13 +16,13 @@ buildHomeAssistantComponent rec {
     hash = "sha256-7PQUsSPS+o5Vt4Do4/TXyGXAqyHJg96w8n7UMpZ0uFo=";
   };
 
-  dependencies = [ pyindego ];
+  dependencies = [pyindego];
 
   meta = with lib; {
     description = "Bosch Indego lawn mower component";
     changelog = "https://github.com/sander1988/Indego/releases/tag/${version}";
     homepage = "https://github.com/sander1988/Indego";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

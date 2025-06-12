@@ -5,7 +5,6 @@
   textlint,
   textlint-rule-alex,
 }:
-
 buildNpmPackage rec {
   pname = "textlint-rule-alex";
   version = "5.0.0";
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/textlint-rule/textlint-rule-alex";
     changelog = "https://github.com/textlint-rule/textlint-rule-alex/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

@@ -7,7 +7,6 @@
   ortp,
   bctoolbox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trx";
   version = "0.5";
@@ -29,13 +28,13 @@ stdenv.mkDerivation rec {
     ortp
     bctoolbox
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Simple toolset for broadcasting live audio using RTP/UDP and Opus";
     homepage = "http://www.pogo.org.uk/~mark/trx/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.hansjoergschurr ];
+    maintainers = [maintainers.hansjoergschurr];
     platforms = platforms.linux;
   };
 }

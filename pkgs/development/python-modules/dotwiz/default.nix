@@ -6,7 +6,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dotwiz";
   version = "0.4.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-ABmkwpJ40JceNJieW5bhg0gqWNrR6Wxj84nLCjKU11A=";
   };
 
-  propagatedBuildInputs = [ pyheck ];
+  propagatedBuildInputs = [pyheck];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dotwiz" ];
+  pythonImportsCheck = ["dotwiz"];
 
   pytestFlagsArray = [
     "--ignore=benchmarks"
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/rnag/dotwiz";
     changelog = "https://github.com/rnag/dotwiz/blob/v${version}/HISTORY.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

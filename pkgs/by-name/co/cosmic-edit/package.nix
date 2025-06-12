@@ -18,7 +18,6 @@
   vulkan-loader,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-edit";
   version = "1.0.0-alpha.7";
@@ -87,7 +86,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   passthru.tests = {
-    inherit (nixosTests)
+    inherit
+      (nixosTests)
       cosmic
       cosmic-autologin
       cosmic-noxwayland
@@ -100,7 +100,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Text Editor for the COSMIC Desktop Environment";
     mainProgram = "cosmic-edit";
     license = licenses.gpl3Only;
-    teams = [ teams.cosmic ];
+    teams = [teams.cosmic];
     platforms = platforms.linux;
   };
 })

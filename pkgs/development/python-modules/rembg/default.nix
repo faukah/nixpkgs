@@ -6,7 +6,6 @@
   wheel,
   versionCheckHook,
   withCli ? false,
-
   # dependencies
   jsonschema,
   numpy,
@@ -18,7 +17,6 @@
   scikit-image,
   scipy,
   tqdm,
-
   # optional-dependencies
   aiohttp,
   asyncer,
@@ -30,7 +28,6 @@
   uvicorn,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "rembg";
   version = "2.0.66";
@@ -48,18 +45,20 @@ buildPythonPackage rec {
     wheel
   ];
 
-  dependencies = [
-    jsonschema
-    numpy
-    opencv-python-headless
-    onnxruntime
-    pillow
-    pooch
-    pymatting
-    scikit-image
-    scipy
-    tqdm
-  ] ++ lib.optionals withCli optional-dependencies.cli;
+  dependencies =
+    [
+      jsonschema
+      numpy
+      opencv-python-headless
+      onnxruntime
+      pillow
+      pooch
+      pymatting
+      scikit-image
+      scipy
+      tqdm
+    ]
+    ++ lib.optionals withCli optional-dependencies.cli;
 
   optional-dependencies = {
     cli = [
@@ -82,18 +81,18 @@ buildPythonPackage rec {
   postInstall = lib.optionalString (!withCli) "rm -r $out/bin";
 
   # not running python tests, as they require network access
-  nativeCheckInputs = lib.optionals withCli [ versionCheckHook ];
+  nativeCheckInputs = lib.optionals withCli [versionCheckHook];
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "rembg" ];
+  pythonImportsCheck = ["rembg"];
 
   meta = {
     description = "Tool to remove background from images";
     homepage = "https://github.com/danielgatis/rembg";
     changelog = "https://github.com/danielgatis/rembg/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ defelo ];
+    maintainers = with lib.maintainers; [defelo];
     mainProgram = "rembg";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -5,7 +5,6 @@
   ticker,
   testers,
 }:
-
 buildGoModule rec {
   pname = "ticker";
   version = "5.0.5";

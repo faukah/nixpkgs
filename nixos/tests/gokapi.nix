@@ -1,11 +1,9 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   port = 6000;
-in
-{
+in {
   name = "gokapi";
 
-  meta.maintainers = with lib.maintainers; [ delliott ];
+  meta.maintainers = with lib.maintainers; [delliott];
 
   nodes.machine = {
     services.gokapi = {

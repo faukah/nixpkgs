@@ -8,7 +8,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-cloud-testutils";
   version = "1.6.4";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-VTu/ElWZrSUrUBrfLPTBV4PMSQCRAyF9Ka7jKEqVzLk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     click
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "test_utils" ];
+  pythonImportsCheck = ["test_utils"];
 
   meta = {
     description = "System test utilities for google-cloud-python";
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-test-utils";
     changelog = "https://github.com/googleapis/python-test-utils/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sarahec ];
+    maintainers = [lib.maintainers.sarahec];
   };
 }

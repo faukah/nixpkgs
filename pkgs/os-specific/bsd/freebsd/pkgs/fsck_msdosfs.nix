@@ -1,4 +1,7 @@
-{ lib, mkDerivation }:
+{
+  lib,
+  mkDerivation,
+}:
 mkDerivation {
   path = "sbin/fsck_msdosfs";
   extraPaths = [

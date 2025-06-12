@@ -9,7 +9,6 @@
   zlib,
   cmake,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "conan";
   version = "2.16.1";
@@ -22,10 +21,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-b+GVFy195wwQyWaiEMg1vVcWnkTB01IbQQsOHhQY6pY=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       bottle
       colorama
@@ -60,7 +58,7 @@ python3Packages.buildPythonApplication rec {
       pkg-config
       zlib
     ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ xcbuild.xcrun ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [xcbuild.xcrun]
     ++ (with python3Packages; [
       mock
       parameterized
@@ -74,7 +72,7 @@ python3Packages.buildPythonApplication rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "conan" ];
+  pythonImportsCheck = ["conan"];
 
   disabledTests =
     [
@@ -126,6 +124,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://conan.io";
     changelog = "https://github.com/conan-io/conan/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ HaoZeke ];
+    maintainers = with lib.maintainers; [HaoZeke];
   };
 }

@@ -11,17 +11,14 @@
   sndio,
   speexdsp,
   validatePkgConfig,
-
   # passthru.tests
   testers,
-
   alsaSupport ? !stdenv.hostPlatform.isDarwin,
   pulseSupport ? !stdenv.hostPlatform.isDarwin,
   jackSupport ? !stdenv.hostPlatform.isDarwin,
   sndioSupport ? !stdenv.hostPlatform.isDarwin,
   enableShared ? !stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cubeb";
   version = "0-unstable-2025-06-03";
@@ -46,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs =
-    [ speexdsp ]
+    [speexdsp]
     # In the default configuration these inputs are lazy-loaded. If your package builds a vendored cubeb please make
     # sure to include these in the runtime LD path.
     ++ lib.optional alsaSupport alsa-lib
@@ -65,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
   };
 
@@ -79,6 +76,6 @@ stdenv.mkDerivation (finalAttrs: {
       zhaofengli
       marcin-serwin
     ];
-    pkgConfigModules = [ "libcubeb" ];
+    pkgConfigModules = ["libcubeb"];
   };
 })

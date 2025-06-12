@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hdparm";
   version = "9.65";
@@ -24,6 +23,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = platforms.linux;
     license = licenses.bsd2;
     mainProgram = "hdparm";
-    maintainers = [ ];
+    maintainers = [];
   };
 })

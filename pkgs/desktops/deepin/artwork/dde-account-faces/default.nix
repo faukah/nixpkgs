@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "dde-account-faces";
   version = "1.0.16";
@@ -15,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-PtbEsFQl6M5Ouadxy9CTVh1Bmmect83NODO4Ks+ckKU=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}/var" ];
+  makeFlags = ["PREFIX=${placeholder "out"}/var"];
 
   meta = with lib; {
     description = "Account faces of deepin desktop environment";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation rec {
       cc0
     ];
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

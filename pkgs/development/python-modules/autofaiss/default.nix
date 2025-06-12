@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   embedding-reader,
   faiss,
@@ -13,10 +11,8 @@
   fsspec,
   numpy,
   pyarrow,
-
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "autofaiss";
   version = "2.17.0";
@@ -62,7 +58,7 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Attempts to spin up a Spark cluster and talk to it which doesn't work in
@@ -85,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/criteo/autofaiss";
     changelog = "https://github.com/criteo/autofaiss/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ samuela ];
+    maintainers = with lib.maintainers; [samuela];
   };
 }

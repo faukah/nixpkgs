@@ -8,7 +8,6 @@
   rustPlatform,
   testers,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bign-handheld-thumbnailer";
   version = "1.1.2";
@@ -25,9 +24,9 @@ rustPlatform.buildRustPackage rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   passthru = {
     tests.version = testers.testVersion {
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
       version = "v${version}";
     };
 
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/MateusRodCosta/bign-handheld-thumbnailer";
     changelog = "https://github.com/MateusRodCosta/bign-handheld-thumbnailer/releases/tag/v${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "bign-handheld-thumbnailer";
     # This is based on GIO
     inherit (glib.meta) platforms;

@@ -1,10 +1,8 @@
 let
-  pkgs = import ../../../../.. { };
+  pkgs = import ../../../../.. {};
 
   emacsEnv = pkgs.emacs.pkgs.withPackages (
-    epkgs:
-    let
-
+    epkgs: let
       promise = epkgs.melpaBuild {
         pname = "promise";
         version = "0-unstable-2019-06-07";
@@ -16,7 +14,7 @@ let
           hash = "sha256-XsvPsA/lUzPWyJAdJg9XtD/vLDtk7guG7p+8ZOQ8Nno=";
         };
 
-        packageRequires = [ epkgs.async ];
+        packageRequires = [epkgs.async];
       };
 
       semaphore = epkgs.melpaBuild {
@@ -30,23 +28,20 @@ let
           hash = "sha256-o6B5oaGGxwQOCoTIXrQre4veT6Mwqw7I2LqMesT17iY=";
         };
 
-        packageRequires = [ promise ];
+        packageRequires = [promise];
       };
-
-    in
-    [
+    in [
       promise
       semaphore
     ]
   );
-
 in
-pkgs.mkShell {
-  packages = [
-    pkgs.git
-    pkgs.bash
-    pkgs.nix-prefetch-git
-    pkgs.nix-prefetch-hg
-    emacsEnv
-  ];
-}
+  pkgs.mkShell {
+    packages = [
+      pkgs.git
+      pkgs.bash
+      pkgs.nix-prefetch-git
+      pkgs.nix-prefetch-hg
+      emacsEnv
+    ];
+  }

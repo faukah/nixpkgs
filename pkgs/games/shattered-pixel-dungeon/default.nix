@@ -3,7 +3,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 callPackage ./generic.nix rec {
   pname = "shattered-pixel-dungeon";
   version = "3.1.0";

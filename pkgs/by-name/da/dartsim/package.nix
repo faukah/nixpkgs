@@ -2,14 +2,11 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   pythonSupport ? false,
   python3Packages,
-
   # nativeBuildInputs
   cmake,
   pkg-config,
-
   # propagatedBuildInputs
   assimp,
   blas,
@@ -30,12 +27,10 @@
   pagmo2,
   tinyxml-2,
   urdfdom,
-
   # checkInputs
   gbenchmark,
   gtest,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dartsim";
   version = "6.15.0";
@@ -48,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   # disable failing tests. CMAKE_CTEST_ARGUMENTS does not work.
-  patches = [ ./disable-failing-tests.patch ];
+  patches = [./disable-failing-tests.patch];
 
   postPatch = ''
     # https://github.com/dartsim/dart/pull/1904, merged upstream
@@ -108,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
       gbenchmark
       nlopt
       # requires imgui_impl_opengl2.h
-      (imgui.override { IMGUI_BUILD_OPENGL2_BINDING = true; })
+      (imgui.override {IMGUI_BUILD_OPENGL2_BINDING = true;})
       ipopt
       lapack
       libGL
@@ -134,7 +129,7 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = true;
   # build unit tests
   preCheck = "make tests";
-  pythonImportsCheck = [ "dartpy" ];
+  pythonImportsCheck = ["dartpy"];
 
   cmakeFlags = [
     (lib.cmakeBool "DART_BUILD_DARTPY" pythonSupport)
@@ -148,7 +143,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/dartsim/dart";
     changelog = "https://github.com/dartsim/dart/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
 })

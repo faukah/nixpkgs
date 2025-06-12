@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     lndir
   ];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   installPhase = ''
     runHook preInstall

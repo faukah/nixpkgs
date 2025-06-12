@@ -6,7 +6,6 @@
   feh,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "pywal";
   version = "3.3.0";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     mainProgram = "wal";
     homepage = "https://github.com/dylanaraps/pywal";
     license = licenses.mit;
-    maintainers = with maintainers; [ Fresheyeball ];
+    maintainers = with maintainers; [Fresheyeball];
   };
 }

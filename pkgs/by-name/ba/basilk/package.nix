@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "basilk";
   version = "0.2.1";
@@ -28,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/gabalpha/basilk";
     changelog = "https://github.com/GabAlpha/basilk/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ thtrf ];
+    maintainers = with lib.maintainers; [thtrf];
     mainProgram = "basilk";
   };
 }

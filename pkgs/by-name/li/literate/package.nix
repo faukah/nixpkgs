@@ -3,7 +3,6 @@
   buildDubPackage,
   fetchFromGitHub,
 }:
-
 buildDubPackage {
   pname = "literate";
   version = "unstable-2021-01-22";

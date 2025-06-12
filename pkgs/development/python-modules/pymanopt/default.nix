@@ -3,14 +3,11 @@
   stdenv,
   fetchFromGitHub,
   buildPythonPackage,
-
   # build-system
   setuptools-scm,
-
   # dependencies
   numpy,
   scipy,
-
   # tests
   autograd,
   jax,
@@ -19,7 +16,6 @@
   tensorflow,
   torch,
 }:
-
 buildPythonPackage rec {
   pname = "pymanopt";
   version = "2.2.1";
@@ -46,7 +42,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "pymanopt" ];
+  pythonImportsCheck = ["pymanopt"];
 
   nativeCheckInputs = [
     autograd
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://www.pymanopt.org/";
     changelog = "https://github.com/pymanopt/pymanopt/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

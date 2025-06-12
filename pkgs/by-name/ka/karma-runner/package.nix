@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildNpmPackage rec {
   pname = "karma";
   version = "6.4.4";
@@ -30,6 +29,6 @@ buildNpmPackage rec {
     homepage = "http://karma-runner.github.io/";
     license = lib.licenses.mit;
     mainProgram = "karma";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   prettier,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "prettier-vscode";
@@ -19,7 +18,7 @@ vscode-utils.buildVscodeMarketplaceExtension {
     moreutils
   ];
 
-  buildInputs = [ prettier ];
+  buildInputs = [prettier];
 
   postInstall = ''
     cd "$out/$installPrefix"
@@ -32,6 +31,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode";
     homepage = "https://github.com/prettier/prettier-vscode";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.datafoo ];
+    maintainers = [lib.maintainers.datafoo];
   };
 }

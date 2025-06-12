@@ -1,7 +1,10 @@
-{ config, lib, ... }:
-
-let
-  inherit (lib)
+{
+  config,
+  lib,
+  ...
+}: let
+  inherit
+    (lib)
     mkDefault
     mkEnableOption
     mkIf
@@ -12,11 +15,9 @@ let
   inherit (lib.types) str;
 
   cfg = config.services.netbird.server;
-in
-
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ patrickdag ];
+    maintainers = with lib.maintainers; [patrickdag];
     doc = ./server.md;
   };
 
@@ -66,10 +67,9 @@ in
                 URI = "turn:${turnDomain}:${builtins.toString turnPort}";
                 Username = "netbird";
                 Password =
-                  if (cfg.coturn.password != null) then
-                    cfg.coturn.password
-                  else
-                    { _secret = cfg.coturn.passwordFile; };
+                  if (cfg.coturn.password != null)
+                  then cfg.coturn.password
+                  else {_secret = cfg.coturn.passwordFile;};
               }
             ];
           };

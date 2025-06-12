@@ -4,7 +4,6 @@
   fetchFromGitHub,
   wrapQtAppsHook,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sasview";
   version = "5.0.6";
@@ -74,6 +73,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://www.sasview.org";
     changelog = "https://github.com/SasView/sasview/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ rprospero ];
+    maintainers = with lib.maintainers; [rprospero];
   };
 }

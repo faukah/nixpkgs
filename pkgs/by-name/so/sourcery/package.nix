@@ -5,9 +5,7 @@
   fetchPypi,
   autoPatchelfHook,
   zlib,
-}:
-
-let
+}: let
   platformInfos = {
     "x86_64-linux" = {
       platform = "manylinux1_x86_64";
@@ -22,31 +20,31 @@ let
   inherit (stdenv.hostPlatform) system;
   platformInfo = platformInfos.${system} or (throw "Unsupported platform ${system}");
 in
-python3Packages.buildPythonApplication rec {
-  pname = "sourcery";
-  version = "1.35.0";
-  format = "wheel";
+  python3Packages.buildPythonApplication rec {
+    pname = "sourcery";
+    version = "1.35.0";
+    format = "wheel";
 
-  src = fetchPypi {
-    inherit pname version format;
-    inherit (platformInfo) platform hash;
-  };
+    src = fetchPypi {
+      inherit pname version format;
+      inherit (platformInfo) platform hash;
+    };
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
-  buildInputs = [ zlib ];
+    buildInputs = [zlib];
 
-  meta = {
-    changelog = "https://sourcery.ai/changelog/";
-    description = "AI-powered code review and pair programming tool for Python";
-    downloadPage = "https://pypi.org/project/sourcery/";
-    homepage = "https://sourcery.ai";
-    license = lib.licenses.unfree;
-    mainProgram = "sourcery";
-    maintainers = with lib.maintainers; [ tomasajt ];
-    platforms = [
-      "x86_64-linux"
-      "x86_64-darwin"
-    ];
-  };
-}
+    meta = {
+      changelog = "https://sourcery.ai/changelog/";
+      description = "AI-powered code review and pair programming tool for Python";
+      downloadPage = "https://pypi.org/project/sourcery/";
+      homepage = "https://sourcery.ai";
+      license = lib.licenses.unfree;
+      mainProgram = "sourcery";
+      maintainers = with lib.maintainers; [tomasajt];
+      platforms = [
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
+    };
+  }

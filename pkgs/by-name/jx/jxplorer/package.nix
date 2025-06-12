@@ -7,7 +7,6 @@
   copyDesktopItems,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jxplorer";
   version = "3.3.1.2";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Java Ldap Browser";
     homepage = "https://sourceforge.net/projects/jxplorer/";
     license = lib.licenses.caossl;
-    maintainers = with maintainers; [ benwbooth ];
+    maintainers = with maintainers; [benwbooth];
     platforms = platforms.linux;
     mainProgram = "jxplorer";
   };

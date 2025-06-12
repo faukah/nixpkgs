@@ -2,24 +2,19 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   bitstruct,
   pyparsing,
-
   # optional-dependencies
   prompt-toolkit,
   diskcache,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "asn1tools";
   version = "0.167.0";
@@ -32,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-86bdBYlAVJfd3EY8s0t6ZDRA/qZVWuHD4Jxa1n1Ke5E=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bitstruct
@@ -40,18 +35,20 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    shell = [ prompt-toolkit ];
-    cache = [ diskcache ];
+    shell = [prompt-toolkit];
+    cache = [diskcache];
   };
 
-  nativeCheckInputs = [
-    pytest-xdist
-    pytestCheckHook
-    versionCheckHook
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-xdist
+      pytestCheckHook
+      versionCheckHook
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "asn1tools" ];
+  pythonImportsCheck = ["asn1tools"];
 
   disabledTests = [
     # assert exact error message of pyparsing which changed and no longer matches
@@ -74,7 +71,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/eerimoq/asn1tools";
     changelog = "https://github.com/eerimoq/asn1tools/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "asn1tools";
   };
 }

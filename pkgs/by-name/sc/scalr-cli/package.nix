@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "scalr-cli";
   version = "0.17.1";
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/Scalr/scalr-cli";
     changelog = "https://github.com/Scalr/scalr-cli/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dylanmtaylor ];
+    maintainers = with lib.maintainers; [dylanmtaylor];
     mainProgram = "scalr";
   };
 }

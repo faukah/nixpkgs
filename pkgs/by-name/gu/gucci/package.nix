@@ -5,7 +5,6 @@
   testers,
   gucci,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "gucci";
   version = "1.9.0";
@@ -43,6 +42,6 @@ buildGoModule (finalAttrs: {
     mainProgram = "gucci";
     homepage = "https://github.com/noqcks/gucci";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ braydenjw ];
+    maintainers = with lib.maintainers; [braydenjw];
   };
 })

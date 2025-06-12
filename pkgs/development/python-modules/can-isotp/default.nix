@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "can-isotp";
   version = "2.0.7";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-Gts6eeeto++DKnkojFvCwyPVPRSq2OcTA0jAYrPAWJI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # we don't support socket tests
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     "test/test_helper_classes.py"
   ];
 
-  pythonImportsCheck = [ "isotp" ];
+  pythonImportsCheck = ["isotp"];
 
   meta = with lib; {
     description = "Python package that provides support for ISO-TP (ISO-15765) protocol";

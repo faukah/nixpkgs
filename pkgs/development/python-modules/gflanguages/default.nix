@@ -11,7 +11,6 @@
   uharfbuzz,
   youseedee,
 }:
-
 buildPythonPackage rec {
   pname = "gflanguages";
   version = "0.7.5";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
   # ecosystem have begun upgrading from protobuf 3 to protobuf 4,
   # so we need to use protobuf 4 here as well to avoid a conflict
   # in the closure of fontbakery. It seems to be compatible enough.
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   env.PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION = "python";
 
@@ -49,7 +48,7 @@ buildPythonPackage rec {
     youseedee
   ];
 
-  pythonImportsCheck = [ "gflanguages" ];
+  pythonImportsCheck = ["gflanguages"];
 
   disabledTests = [
     # AssertionError
@@ -62,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googlefonts/lang";
     changelog = "https://github.com/googlefonts/lang/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

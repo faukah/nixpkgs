@@ -4,7 +4,6 @@
   fetchPypi,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   version = "2.0.7";
   format = "setuptools";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-t3fGrQgNwbrXSkwp1qRpFPpnAaxw+UsNZvvP3mL1vjE=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://pydispatcher.sourceforge.net/";

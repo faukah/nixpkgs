@@ -11,7 +11,6 @@
   libportal-gtk3,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gcolor3";
   version = "2.4.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     mainProgram = "gcolor3";
     homepage = "https://gitlab.gnome.org/World/gcolor3";
     license = licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

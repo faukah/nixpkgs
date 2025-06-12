@@ -6,7 +6,6 @@
   djangorestframework,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "djangorestframework-guardian2";
   version = "0.7.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     patchShebangs manage.py
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django-guardian
@@ -35,12 +34,12 @@ buildPythonPackage rec {
     ./manage.py test
   '';
 
-  pythonImportsCheck = [ "rest_framework_guardian" ];
+  pythonImportsCheck = ["rest_framework_guardian"];
 
   meta = with lib; {
     description = "Django-guardian support for Django REST Framework";
     homepage = "https://github.com/johnthagen/django-rest-framework-guardian2/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

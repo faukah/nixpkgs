@@ -11,7 +11,6 @@
   jinja2,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "starlette-wtf";
   version = "0.4.5";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-88zU2NAsdty2OhHauwQ5+6LazuRDYPoqN9IIipI1t2Q=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
   propagatedBuildInputs = [
     itsdangerous
     python-multipart
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/muicss/starlette-wtf/blob/v${version}/CHANGELOG.md";
     homepage = "https://github.com/muicss/starlette-wtf";
     license = licenses.mit;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 }

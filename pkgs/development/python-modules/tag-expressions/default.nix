@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "tag-expressions";
   version = "2.0.1";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-EbSwfAH+sL3JGW+COfDA2f7cLGyKmQMsbyyDGy13Lkg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tagexpressions" ];
+  pythonImportsCheck = ["tagexpressions"];
 
   meta = with lib; {
     description = "Package to parse logical tag expressions";
     homepage = "https://github.com/timofurrer/tag-expressions";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

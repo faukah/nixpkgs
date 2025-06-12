@@ -10,7 +10,6 @@
   alsa-lib,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xoscope";
   version = "2.3";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0a5ycfc1qdmibvagc82r2mhv2i99m6pndy5i6ixas3j2297g6pgq";
   };
 
-  patches = [ ./fix-gcc14.patch ];
+  patches = [./fix-gcc14.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     mainProgram = "xoscope";
     homepage = "https://xoscope.sourceforge.net";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

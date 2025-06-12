@@ -7,7 +7,6 @@
   ninja,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "tlmi-auth";
   version = "1.0.1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = with lib; {
     homepage = "https://github.com/lenovo/tlmi-auth";
-    maintainers = with maintainers; [ snpschaaf ];
+    maintainers = with maintainers; [snpschaaf];
     description = "Utility for creating signature strings needed for thinklmi certificate based authentication";
     mainProgram = "tlmi-auth";
     license = licenses.gpl2;

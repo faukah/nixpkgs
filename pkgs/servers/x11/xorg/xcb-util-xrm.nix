@@ -8,7 +8,6 @@
   xcbutil,
   libX11,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.3";
   pname = "xcb-util-xrm";

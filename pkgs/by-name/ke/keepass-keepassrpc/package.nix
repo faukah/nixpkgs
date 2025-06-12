@@ -4,9 +4,7 @@
   buildEnv,
   fetchurl,
   mono,
-}:
-
-let
+}: let
   version = "1.16.0";
   drv = stdenv.mkDerivation {
     pname = "keepassrpc";
@@ -19,7 +17,7 @@ let
     meta = with lib; {
       description = "KeePassRPC plugin that needs to be installed inside KeePass in order for Kee to be able to connect your browser to your passwords";
       homepage = "https://github.com/kee-org/keepassrpc";
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
       license = licenses.gpl2;
       maintainers = with maintainers; [
         mjanczyk
@@ -35,11 +33,11 @@ let
     '';
   };
 in
-# Mono is required to compile plugin at runtime, after loading.
-buildEnv {
-  name = drv.name;
-  paths = [
-    mono
-    drv
-  ];
-}
+  # Mono is required to compile plugin at runtime, after loading.
+  buildEnv {
+    name = drv.name;
+    paths = [
+      mono
+      drv
+    ];
+  }

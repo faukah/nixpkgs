@@ -19,7 +19,6 @@
   wheel,
   wordninja,
 }:
-
 buildPythonPackage rec {
   pname = "comicapi";
   version = "3.2.0";
@@ -51,33 +50,35 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    _7z = [ py7zr ];
+    _7z = [py7zr];
 
-    all = [
-      py7zr
-      rarfile
-    ] ++ lib.optional (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isLinux) pyicu;
+    all =
+      [
+        py7zr
+        rarfile
+      ]
+      ++ lib.optional (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isLinux) pyicu;
 
-    cbr = [ rarfile ];
+    cbr = [rarfile];
 
     icu = lib.optional (stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.isLinux) pyicu;
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonRelaxDeps = [ "pycountry" ];
+  pythonRelaxDeps = ["pycountry"];
 
   disabledTests = [
     # AssertionError
     "test_copy_from_archive"
   ];
 
-  pythonImportsCheck = [ "comicapi" ];
+  pythonImportsCheck = ["comicapi"];
 
   meta = {
     description = "Comic archive (cbr/cbz/cbt) and metadata utilities";
     homepage = "https://github.com/comictagger/comicapi";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
   };
 }

@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "devialet";
   version = "1.5.7";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-HmTiHa7DEmjARaYn7/OoGotnTirE7S7zXLK/TfHdEAg=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiohttp
@@ -32,13 +31,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "devialet" ];
+  pythonImportsCheck = ["devialet"];
 
   meta = with lib; {
     description = "Library to interact with the Devialet API";
     homepage = "https://github.com/fwestenberg/devialet";
     changelog = "https://github.com/fwestenberg/devialet/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

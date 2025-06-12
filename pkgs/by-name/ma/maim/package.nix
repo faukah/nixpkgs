@@ -20,7 +20,6 @@
   slop,
   icu,
 }:
-
 stdenv.mkDerivation rec {
   pname = "maim";
   version = "5.8.0";
@@ -76,6 +75,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/naelstrof/maim/releases/tag/v${version}";
     platforms = lib.platforms.all;
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -3,7 +3,6 @@
   buildDunePackage,
   fetchurl,
 }:
-
 buildDunePackage rec {
   pname = "owl-base";
   version = "1.2";
@@ -22,7 +21,7 @@ buildDunePackage rec {
     homepage = "https://ocaml.xyz";
     changelog = "https://github.com/owlbarn/owl/releases";
     platforms = platforms.x86_64 ++ platforms.aarch64;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.mit;
   };
 }

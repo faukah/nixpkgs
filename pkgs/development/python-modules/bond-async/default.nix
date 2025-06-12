@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "bond-async";
   version = "0.2.1";
@@ -36,13 +35,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bond_async" ];
+  pythonImportsCheck = ["bond_async"];
 
   meta = with lib; {
     description = "Asynchronous Python wrapper library over Bond Local API";
     homepage = "https://github.com/bondhome/bond-async";
     changelog = "https://github.com/bondhome/bond-async/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

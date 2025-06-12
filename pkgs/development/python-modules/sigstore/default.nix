@@ -25,7 +25,6 @@
   pyasn1,
   platformdirs,
 }:
-
 buildPythonPackage rec {
   pname = "sigstore-python";
   version = "3.6.2";
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     "rfc3161-client"
   ];
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     appdirs
@@ -76,7 +75,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "sigstore" ];
+  pythonImportsCheck = ["sigstore"];
 
   disabledTests = [
     # Tests require network access
@@ -96,14 +95,14 @@ buildPythonPackage rec {
     "test_regression_verify_legacy_bundle"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Codesigning tool for Python packages";
     homepage = "https://github.com/sigstore/sigstore-python";
     changelog = "https://github.com/sigstore/sigstore-python/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "sigstore";
   };
 }

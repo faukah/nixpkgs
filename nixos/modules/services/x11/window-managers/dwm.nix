@@ -4,16 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.xserver.windowManager.dwm;
-
-in
-{
-
+in {
   ###### interface
 
   options = {
@@ -44,7 +37,6 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-
     services.xserver.windowManager.session = singleton {
       name = "dwm";
       start = ''
@@ -56,8 +48,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ cfg.package ];
-
+    environment.systemPackages = [cfg.package];
   };
-
 }

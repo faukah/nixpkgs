@@ -5,7 +5,6 @@
   pkginfo,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "colorzero";
   version = "2.0";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
       --replace "--cov" ""
   '';
 
-  nativeBuildInputs = [ pkginfo ];
+  nativeBuildInputs = [pkginfo];
 
-  pythonImportsCheck = [ "colorzero" ];
+  pythonImportsCheck = ["colorzero"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Yet another Python color library";
     homepage = "https://github.com/waveform80/colorzero";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

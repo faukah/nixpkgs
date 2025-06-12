@@ -6,7 +6,6 @@
   SDL_image,
   SDL_mixer,
 }:
-
 stdenv.mkDerivation rec {
   pname = "teeter-torture";
   version = "2005-10-18";

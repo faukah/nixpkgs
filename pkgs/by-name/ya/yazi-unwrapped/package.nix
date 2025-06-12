@@ -2,7 +2,6 @@
   rustPlatform,
   fetchFromGitHub,
   lib,
-
   installShellFiles,
   rust-jemalloc-sys,
 }:
@@ -21,8 +20,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   env.VERGEN_GIT_SHA = "Nixpkgs";
   env.VERGEN_BUILD_DATE = "2025-05-30";
 
-  nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ rust-jemalloc-sys ];
+  nativeBuildInputs = [installShellFiles];
+  buildInputs = [rust-jemalloc-sys];
 
   postInstall = ''
     installShellCompletion --cmd yazi \
@@ -36,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     install -Dm444 assets/logo.png $out/share/pixmaps/yazi.png
   '';
 
-  passthru.updateScript.command = [ ./update.sh ];
+  passthru.updateScript.command = [./update.sh];
   passthru.srcs = {
     code_src = fetchFromGitHub {
       owner = "sxyazi";

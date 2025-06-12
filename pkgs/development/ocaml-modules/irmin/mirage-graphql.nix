@@ -8,7 +8,6 @@
   uri,
   git,
 }:
-
 buildDunePackage {
   pname = "irmin-mirage-graphql";
 

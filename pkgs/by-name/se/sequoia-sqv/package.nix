@@ -7,7 +7,6 @@
   pkg-config,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sequoia-sqv";
   version = "1.3.0";
@@ -47,13 +46,13 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command-line OpenPGP signature verification tool";
     homepage = "https://docs.sequoia-pgp.org/sqv/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "sqv";
   };
 }

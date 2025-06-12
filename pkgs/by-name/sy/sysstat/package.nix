@@ -5,7 +5,6 @@
   gettext,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sysstat";
   version = "12.7.4";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ELmSzWnJ8vGwGPwY/5MFp/2gQhMXMjNG4bHtCplfQSc=";
   };
 
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   preConfigure = ''
     export PATH_CP=$(type -tp cp)
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     "install_man"
   ];
 
-  patches = [ ./install.patch ];
+  patches = [./install.patch];
 
   meta = {
     mainProgram = "iostat";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "Collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.hensoko ];
+    maintainers = [lib.maintainers.hensoko];
   };
 }

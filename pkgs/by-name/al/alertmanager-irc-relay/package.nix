@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "alertmanager-irc-relay";
   version = "0.5.1";
@@ -32,6 +31,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/google/alertmanager-irc-relay";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ymatsiuk ];
+    maintainers = with maintainers; [ymatsiuk];
   };
 }

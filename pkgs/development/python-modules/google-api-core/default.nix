@@ -16,7 +16,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-api-core";
   version = "2.24.2";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-7/9oU8KqwvL7DIDKDIUlGxfJZp7kGp1W6/tsEp6zcuc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     googleapis-common-protos
@@ -42,13 +41,13 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    async_rest = [ google-auth ] ++ google-auth.optional-dependencies.aiohttp;
+    async_rest = [google-auth] ++ google-auth.optional-dependencies.aiohttp;
     grpc = [
       grpcio
       grpcio-status
     ];
-    grpcgcp = [ grpcio-gcp ];
-    grpcio-gcp = [ grpcio-gcp ];
+    grpcgcp = [grpcio-gcp];
+    grpcio-gcp = [grpcio-gcp];
   };
 
   nativeCheckInputs = [
@@ -77,7 +76,7 @@ buildPythonPackage rec {
     "test_exception_with_error_code"
   ];
 
-  pythonImportsCheck = [ "google.api_core" ];
+  pythonImportsCheck = ["google.api_core"];
 
   meta = with lib; {
     description = "Core Library for Google Client Libraries";
@@ -88,6 +87,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/googleapis/python-api-core";
     changelog = "https://github.com/googleapis/python-api-core/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

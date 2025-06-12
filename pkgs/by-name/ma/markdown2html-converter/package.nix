@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "markdown2html-converter";
   version = "1.1.12";
@@ -27,6 +26,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/magiclen/markdown2html-converter";
     license = lib.licenses.mit;
     mainProgram = "markdown2html-converter";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

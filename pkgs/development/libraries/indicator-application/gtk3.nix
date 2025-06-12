@@ -13,7 +13,6 @@
   libdbusmenu-gtk3,
   libappindicator-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "indicator-application";
   version = "12.10.1";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/indicator-application";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

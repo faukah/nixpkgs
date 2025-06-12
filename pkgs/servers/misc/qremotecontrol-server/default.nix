@@ -7,7 +7,6 @@
   qtbase,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "qremotecontrol-server";
   version = "unstable-2014-11-05"; # basically 2.4.2 + qt5
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://sourceforge.net/projects/qrc/";
     description = "Remote control your desktop from your mobile";
     mainProgram = "qremotecontrol-server";

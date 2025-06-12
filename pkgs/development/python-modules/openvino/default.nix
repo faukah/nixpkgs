@@ -5,7 +5,6 @@
   numpy,
   python,
 }:
-
 buildPythonPackage {
   pname = "openvino";
   inherit (openvino-native) version;
@@ -13,7 +12,7 @@ buildPythonPackage {
 
   src = openvino-native.python;
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   installPhase = ''
     runHook preInstall
@@ -33,6 +32,6 @@ buildPythonPackage {
     description = "OpenVINO(TM) Runtime";
     homepage = "https://github.com/openvinotoolkit/openvino";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

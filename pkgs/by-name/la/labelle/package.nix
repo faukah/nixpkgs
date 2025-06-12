@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     substituteInPlace pyproject.toml --replace-fail "Pillow>=8.1.2,<11" "Pillow>=8.1.2"
   '';
 
-  buildInputs = [ qt6.qtwayland ];
+  buildInputs = [qt6.qtwayland];
 
   nativeBuildInputs = [
     qt6.wrapQtAppsHook
@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
     description = "Print labels with LabelManager PnP from Dymo";
     homepage = "https://github.com/labelle-org/labelle";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fabianrig ];
+    maintainers = with lib.maintainers; [fabianrig];
     mainProgram = "labelle";
   };
 }

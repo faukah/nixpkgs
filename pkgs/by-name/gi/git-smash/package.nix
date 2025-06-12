@@ -8,7 +8,6 @@
   stdenv,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-smash";
   version = "0.1.1";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postFixup = ''
-    wrapProgram "$out/bin/git-smash" --suffix PATH : "${lib.makeBinPath [ fzf ]}"
+    wrapProgram "$out/bin/git-smash" --suffix PATH : "${lib.makeBinPath [fzf]}"
   '';
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/git-smash completions zsh)
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Smash staged changes into previous commits to support your Git workflow, pull request and feature branch maintenance";
@@ -47,6 +46,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/anthraxx/git-smash/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "git-smash";
-    maintainers = with lib.maintainers; [ bcyran ];
+    maintainers = with lib.maintainers; [bcyran];
   };
 }

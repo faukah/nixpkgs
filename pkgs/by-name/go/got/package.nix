@@ -22,7 +22,6 @@
   # Default editor to use when neither VISUAL nor EDITOR are defined
   defaultEditor ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "got";
   version = "0.113";
@@ -32,10 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-KUaKG5o1+iq6kygHWVvADQEKxUGSOQRo91oK02TFbwE=";
   };
 
-  nativeBuildInputs = [
-    pkg-config
-    bison
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      pkg-config
+      bison
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   buildInputs =
     [
@@ -84,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     updateScript = nix-update-script {
-      extraArgs = [ "--url=https://github.com/ThomasAdam/got-portable" ];
+      extraArgs = ["--url=https://github.com/ThomasAdam/got-portable"];
     };
     tests.version = testers.testVersion {
       package = finalAttrs.finalPackage;

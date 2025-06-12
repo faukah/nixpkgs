@@ -20,7 +20,6 @@
   rich,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "mpire";
   version = "2.10.2";
@@ -71,14 +70,14 @@ buildPythonPackage rec {
     "mpire"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ optional-dependencies.testing;
+  nativeCheckInputs = [pytestCheckHook] ++ optional-dependencies.testing;
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   meta = {
     description = "A Python package for easy multiprocessing, but faster than multiprocessing";
     homepage = "https://pypi.org/project/mpire/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ booxter ];
+    maintainers = with lib.maintainers; [booxter];
   };
 }

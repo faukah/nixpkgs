@@ -9,7 +9,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wlink";
   version = "0.1.1";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-Hv+W8yFw6zAKwrV6gf9fWOkR/LFNgAD7WwQsHBqTnPI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libusb1
@@ -30,10 +29,10 @@ rustPlatform.buildRustPackage rec {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
     ];
     platforms = with lib.platforms; linux ++ darwin ++ windows;
     broken = !stdenv.hostPlatform.isLinux;
-    maintainers = with lib.maintainers; [ jwillikers ];
+    maintainers = with lib.maintainers; [jwillikers];
     mainProgram = "wlink";
   };
 }

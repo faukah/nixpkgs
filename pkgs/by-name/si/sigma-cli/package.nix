@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "sigma-cli";
   version = "1.0.6";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace '= "^' '= ">='
   '';
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     click
@@ -63,14 +62,14 @@ python3.pkgs.buildPythonApplication rec {
     "test_check_exclude"
   ];
 
-  pythonImportsCheck = [ "sigma.cli" ];
+  pythonImportsCheck = ["sigma.cli"];
 
   meta = with lib; {
     description = "Sigma command line interface";
     homepage = "https://github.com/SigmaHQ/sigma-cli";
     changelog = "https://github.com/SigmaHQ/sigma-cli/releases/tag/${src.tag}";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "sigma";
   };
 }

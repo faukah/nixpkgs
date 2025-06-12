@@ -14,7 +14,6 @@
   # update script dependencies
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "slock";
   version = "1.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxcrypt
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postPatch = "sed -i '/chmod u+s/d' Makefile";
 
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp ${writeText "config.def.h" conf} config.def.h
   '';
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
   passthru.updateScript = gitUpdater {
     url = "git://git.suckless.org/slock";

@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   name = "maddy";
 
   cfg = config.services.maddy;
@@ -135,15 +133,12 @@ let
       storage &local_mailboxes
     }
   '';
-
-in
-{
+in {
   options = {
     services.maddy = {
-
       enable = lib.mkEnableOption "Maddy, a free an open source mail server";
 
-      package = lib.mkPackageOption pkgs "maddy" { };
+      package = lib.mkPackageOption pkgs "maddy" {};
 
       user = lib.mkOption {
         default = "maddy";
@@ -193,7 +188,7 @@ in
 
       localDomains = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ "$(primary_domain)" ];
+        default = ["$(primary_domain)"];
         example = [
           "$(primary_domain)"
           "example.com"
@@ -221,8 +216,7 @@ in
 
       tls = {
         loader = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             nullOr (enum [
               "off"
               "file"
@@ -249,8 +243,7 @@ in
         };
 
         certificates = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             listOf (submodule {
               options = {
                 keyPath = lib.mkOption {
@@ -269,7 +262,7 @@ in
                 };
               };
             });
-          default = [ ];
+          default = [];
           example = lib.literalExpression ''
             [{
               keyPath = "/etc/ssl/mx1.example.org.key";
@@ -307,7 +300,7 @@ in
 
       ensureAccounts = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         description = ''
           List of IMAP accounts which get automatically created. Note that for
           a complete setup, user credentials for these accounts are required
@@ -321,7 +314,7 @@ in
       };
 
       ensureCredentials = lib.mkOption {
-        default = { };
+        default = {};
         description = ''
           List of user accounts which get automatically created if they don't
           exist yet. Note that for a complete setup, corresponding mail boxes
@@ -356,17 +349,15 @@ in
           expected by systemd's `EnvironmentFile` directory. Secrets can be
           referenced in the format `{env:VAR}`.
         '';
-        default = [ ];
+        default = [];
       };
-
     };
   };
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
-        assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [ ];
+        assertion = cfg.tls.loader == "file" -> cfg.tls.certificates != [];
         message = ''
           If Maddy is configured to use TLS, tls.certificates with attribute sets
           of certPath and keyPath must be provided.
@@ -387,35 +378,36 @@ in
     ];
 
     systemd = {
-
-      packages = [ cfg.package ];
+      packages = [cfg.package];
       services = {
         maddy = {
           serviceConfig = {
             User = cfg.user;
             Group = cfg.group;
-            StateDirectory = [ "maddy" ];
+            StateDirectory = ["maddy"];
             EnvironmentFile = cfg.secrets;
           };
-          restartTriggers = [ config.environment.etc."maddy/maddy.conf".source ];
-          wantedBy = [ "multi-user.target" ];
+          restartTriggers = [config.environment.etc."maddy/maddy.conf".source];
+          wantedBy = ["multi-user.target"];
         };
         maddy-ensure-accounts = {
           script = ''
-            ${lib.optionalString (cfg.ensureAccounts != [ ]) ''
+            ${lib.optionalString (cfg.ensureAccounts != []) ''
               ${lib.concatMapStrings (account: ''
-                if ! ${cfg.package}/bin/maddyctl imap-acct list | grep "${account}"; then
-                  ${cfg.package}/bin/maddyctl imap-acct create ${account}
-                fi
-              '') cfg.ensureAccounts}
+                  if ! ${cfg.package}/bin/maddyctl imap-acct list | grep "${account}"; then
+                    ${cfg.package}/bin/maddyctl imap-acct create ${account}
+                  fi
+                '')
+                cfg.ensureAccounts}
             ''}
-            ${lib.optionalString (cfg.ensureCredentials != { }) ''
+            ${lib.optionalString (cfg.ensureCredentials != {}) ''
               ${lib.concatStringsSep "\n" (
                 lib.mapAttrsToList (name: credentials: ''
                   if ! ${cfg.package}/bin/maddyctl creds list | grep "${name}"; then
                     ${cfg.package}/bin/maddyctl creds create --password $(cat ${lib.escapeShellArg credentials.passwordFile}) ${name}
                   fi
-                '') cfg.ensureCredentials
+                '')
+                cfg.ensureCredentials
               )}
             ''}
           '';
@@ -423,12 +415,10 @@ in
             Type = "oneshot";
             User = "maddy";
           };
-          after = [ "maddy.service" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["maddy.service"];
+          wantedBy = ["multi-user.target"];
         };
-
       };
-
     };
 
     environment.etc."maddy/maddy.conf" = {
@@ -439,28 +429,27 @@ in
         hostname ${cfg.hostname}
 
         ${
-          if (cfg.tls.loader == "file") then
-            ''
-              tls file ${lib.concatStringsSep " " (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)} ${
-                lib.optionalString (cfg.tls.extraConfig != "") ''
-                  { ${cfg.tls.extraConfig} }
-                ''
+          if (cfg.tls.loader == "file")
+          then ''
+            tls file ${lib.concatStringsSep " " (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)} ${
+              lib.optionalString (cfg.tls.extraConfig != "") ''
+                { ${cfg.tls.extraConfig} }
+              ''
+            }
+          ''
+          else if (cfg.tls.loader == "acme")
+          then ''
+            tls {
+              loader acme {
+                ${cfg.tls.extraConfig}
               }
-            ''
-          else if (cfg.tls.loader == "acme") then
-            ''
-              tls {
-                loader acme {
-                  ${cfg.tls.extraConfig}
-                }
-              }
-            ''
-          else if (cfg.tls.loader == "off") then
-            ''
-              tls off
-            ''
-          else
-            ""
+            }
+          ''
+          else if (cfg.tls.loader == "off")
+          then ''
+            tls off
+          ''
+          else ""
         }
 
         ${cfg.config}
@@ -476,7 +465,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == name) {
-      ${cfg.group} = { };
+      ${cfg.group} = {};
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {

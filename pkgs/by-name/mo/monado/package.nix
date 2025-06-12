@@ -63,7 +63,6 @@
   serviceSupport ? true,
   tracingSupport ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "monado";
   version = "25.0.0";
@@ -161,7 +160,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.basic-service = nixosTests.monado;
   };
 

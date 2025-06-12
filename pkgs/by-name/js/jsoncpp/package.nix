@@ -8,7 +8,6 @@
   secureMemory ? false,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jsoncpp";
   version = "1.9.6";
@@ -26,8 +25,8 @@ stdenv.mkDerivation rec {
   };
 
   /*
-    During darwin bootstrap, we have a cp that doesn't understand the
-    --reflink=auto flag, which is used in the default unpackPhase for dirs
+  During darwin bootstrap, we have a cp that doesn't understand the
+  --reflink=auto flag, which is used in the default unpackPhase for dirs
   */
   unpackPhase = ''
     cp -a ${src} ${src.name}
@@ -50,7 +49,11 @@ stdenv.mkDerivation rec {
       "-DBUILD_SHARED_LIBS=ON"
       "-DBUILD_OBJECT_LIBS=OFF"
       "-DJSONCPP_WITH_CMAKE_PACKAGE=ON"
-      "-DBUILD_STATIC_LIBS=${if enableStatic then "ON" else "OFF"}"
+      "-DBUILD_STATIC_LIBS=${
+        if enableStatic
+        then "ON"
+        else "OFF"
+      }"
     ]
     # the test's won't compile if secureMemory is used because there is no
     # comparison operators and conversion functions between
@@ -63,7 +66,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/open-source-parsers/jsoncpp";
     description = "C++ library for interacting with JSON";
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
     license = licenses.mit;
     platforms = platforms.all;
   };

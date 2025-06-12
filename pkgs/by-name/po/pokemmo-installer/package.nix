@@ -16,7 +16,6 @@
   libpulseaudio,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pokemmo-installer";
   version = "1.4.8";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-uSbnXBpkeGM9X6DU7AikT7hG/emu67PXuGdm6xfB8To=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installFlags = [
     "PREFIX=${placeholder "out"}"
@@ -40,33 +39,33 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     wrapProgram "$out/bin/pokemmo-installer" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          findutils
-          gnugrep
-          jre
-          openssl
-          util-linux
-          wget
-          which
-          zenity
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        findutils
+        gnugrep
+        jre
+        openssl
+        util-linux
+        wget
+        which
+        zenity
+      ]
+    } \
       --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libGL
-          libpulseaudio
-        ]
-      }
+      lib.makeLibraryPath [
+        libGL
+        libpulseaudio
+      ]
+    }
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Installer and Launcher for the PokeMMO emulator";
     homepage = "https://pokemmo.eu";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
     mainProgram = "pokemmo-installer";
   };

@@ -3,7 +3,6 @@
   mkDerivation,
   libcMinimal,
 }:
-
 mkDerivation {
   path = "lib/librt";
 
@@ -14,7 +13,7 @@ mkDerivation {
     "man"
   ];
 
-  extraPaths = [ libcMinimal.path ] ++ libcMinimal.extraPaths;
+  extraPaths = [libcMinimal.path] ++ libcMinimal.extraPaths;
 
   inherit (libcMinimal) postPatch;
 

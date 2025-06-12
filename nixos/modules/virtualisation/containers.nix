@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.virtualisation.containers;
 
   inherit (lib) literalExpression mkOption types;
 
-  toml = pkgs.formats.toml { };
-in
-{
+  toml = pkgs.formats.toml {};
+in {
   meta = {
-    maintainers = [ ] ++ lib.teams.podman.members;
+    maintainers = [] ++ lib.teams.podman.members;
   };
 
   options.virtualisation.containers = {
-
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -34,7 +31,7 @@ in
 
     containersConf.settings = mkOption {
       type = toml.type;
-      default = { };
+      default = {};
       description = "containers.conf configuration";
     };
 
@@ -73,7 +70,7 @@ in
       };
 
       insecure = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = ''
           List of insecure repositories.
@@ -81,7 +78,7 @@ in
       };
 
       block = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = ''
           List of blocked repositories.
@@ -90,7 +87,7 @@ in
     };
 
     policy = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       example = literalExpression ''
         {
@@ -108,12 +105,10 @@ in
         `skopeo` will be used.
       '';
     };
-
   };
 
   config = lib.mkIf cfg.enable {
-
-    virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
+    virtualisation.containers.containersConf.cniPlugins = [pkgs.cni-plugins];
 
     virtualisation.containers.containersConf.settings = {
       network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
@@ -122,7 +117,7 @@ in
           init_path = "${pkgs.catatonit}/bin/catatonit";
         }
         // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
-          hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
+          hooks_dir = [config.boot.kernelPackages.oci-seccomp-bpf-hook];
         };
     };
 
@@ -138,16 +133,13 @@ in
       "containers/storage.conf".source = toml.generate "storage.conf" cfg.storage.settings;
 
       "containers/registries.conf".source = toml.generate "registries.conf" {
-        registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
+        registries = lib.mapAttrs (n: v: {registries = v;}) cfg.registries;
       };
 
       "containers/policy.json".source =
-        if cfg.policy != { } then
-          pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
-        else
-          "${pkgs.skopeo.policy}/default-policy.json";
+        if cfg.policy != {}
+        then pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
+        else "${pkgs.skopeo.policy}/default-policy.json";
     };
-
   };
-
 }

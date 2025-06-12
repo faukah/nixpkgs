@@ -5,7 +5,6 @@
   testers,
   dashing,
 }:
-
 buildGoModule rec {
   pname = "dashing";
   version = "0.4.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Dash Generator Script for Any HTML";
     homepage = "https://github.com/technosophos/dashing";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "dashing";
   };
 }

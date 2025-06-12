@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tun2proxy";
   version = "0.7.6";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/tun2proxy/tun2proxy/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = "tun2proxy-bin";
-    maintainers = with lib.maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [mksafavi];
   };
 }

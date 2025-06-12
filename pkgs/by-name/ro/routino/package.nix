@@ -7,7 +7,6 @@
   zlib,
   bzip2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "routino";
   version = "3.4.3";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-TroGfTLJfKk4itbpfA9aPBDUiCk2ckDXjFE3XYzBHlQ=";
   };
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
   patches = lib.optionals stdenv.hostPlatform.isDarwin [
     (fetchpatch {
       url = "https://raw.githubusercontent.com/macports/macports-ports/18fd229516a46e7272003acbe555735b2a902db7/gis/routino/files/patch-Makefile_conf.diff";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
       --subst-var-by PREFIX $out
   '';
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     zlib
@@ -48,14 +47,14 @@ stdenv.mkDerivation rec {
 
   CLANG = lib.optionalString stdenv.cc.isClang "1";
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     homepage = "http://www.routino.org/";
     changelog = "http://routino.org/software/NEWS.txt";
     description = "OpenStreetMap Routing Software";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = with platforms; linux ++ darwin;
   };
 }

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
     sub = {
       nixosOk = lib.mkOption {
@@ -14,16 +13,16 @@
       nixosFail = lib.mkOption {
         type = lib.types.submoduleWith {
           class = "nixos";
-          modules = [ ];
+          modules = [];
         };
       };
 
       mergeFail = lib.mkOption {
         type = lib.types.submoduleWith {
           class = "nixos";
-          modules = [ ];
+          modules = [];
         };
-        default = { };
+        default = {};
       };
     };
   };
@@ -34,7 +33,7 @@
           mergeFail = lib.mkOption {
             type = lib.types.submoduleWith {
               class = "darwin";
-              modules = [ ];
+              modules = [];
             };
           };
         };
@@ -66,8 +65,8 @@
         {
           _file = "foo.nix#darwinModules.default";
           _class = "darwin";
-          config = { };
-          imports = [ ];
+          config = {};
+          imports = [];
         }
       ];
     };
@@ -76,7 +75,7 @@
       _class = "nixos";
     };
     sub.nixosFail = {
-      imports = [ ./module-class-is-darwin.nix ];
+      imports = [./module-class-is-darwin.nix];
     };
   };
 }

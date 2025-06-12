@@ -14,7 +14,6 @@
   mpvSupport ? true,
   mpv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qtgreet";
   version = "2.0.3.95";
@@ -33,14 +32,16 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.wrapQtAppsHook
   ];
 
-  buildInputs = [
-    kdePackages.wayqt
-    qt6.qtbase
-    dfl-ipc
-    dfl-utils
-    dfl-applications
-    dfl-login1
-  ] ++ lib.optionals mpvSupport [ mpv ];
+  buildInputs =
+    [
+      kdePackages.wayqt
+      qt6.qtbase
+      dfl-ipc
+      dfl-utils
+      dfl-applications
+      dfl-login1
+    ]
+    ++ lib.optionals mpvSupport [mpv];
 
   mesonFlags = [
     (lib.mesonOption "dynpath" "${placeholder "out"}/var/lib/qtgreet")
@@ -51,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/marcusbritanicus/QtGreet";
     changelog = "https://gitlab.com/marcusbritanicus/QtGreet/-/blob/${finalAttrs.src.rev}/Changelog";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     mainProgram = "qtgreet";
     platforms = lib.platforms.linux;
   };

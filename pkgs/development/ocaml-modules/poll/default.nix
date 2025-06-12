@@ -7,7 +7,6 @@
   ppx_expect,
   ppx_optcomp,
 }:
-
 buildDunePackage rec {
   pname = "poll";
   version = "0.3.1";
@@ -39,6 +38,6 @@ buildDunePackage rec {
     homepage = "https://github.com/anuragsoni/poll";
     changelog = "https://github.com/anuragsoni/poll/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

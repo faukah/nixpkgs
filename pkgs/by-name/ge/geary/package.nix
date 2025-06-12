@@ -44,7 +44,6 @@
   libhandy,
   gsound,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geary";
   version = "46.0";
@@ -155,7 +154,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.gnome.org/GNOME/geary";
     changelog = "https://gitlab.gnome.org/GNOME/geary/-/blob/${version}/NEWS?ref_type=tags";
     description = "Mail client for GNOME 3";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
   };

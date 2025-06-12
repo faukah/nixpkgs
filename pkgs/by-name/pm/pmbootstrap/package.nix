@@ -12,7 +12,6 @@
   util-linux,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pmbootstrap";
   version = "3.4.2";
@@ -76,7 +75,7 @@ python3Packages.buildPythonApplication rec {
     }"
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     description = "Sophisticated chroot/build/flash tool to develop and install postmarketOS";

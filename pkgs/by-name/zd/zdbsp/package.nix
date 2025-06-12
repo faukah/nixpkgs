@@ -5,7 +5,6 @@
   cmake,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zdbsp";
   version = "1.19";

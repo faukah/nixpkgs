@@ -6,7 +6,6 @@
   beetsPackages,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "beets-filetote";
   version = "1.0.2";
@@ -27,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     beets
   ];
 
-  build-system = [ python3Packages.poetry-core ];
+  build-system = [python3Packages.poetry-core];
 
   dependencies = with python3Packages; [
     mediafile
@@ -56,10 +55,10 @@ python3Packages.buildPythonApplication rec {
       toml
       typeguard
     ];
-    dev = optional-dependencies.lint ++ optional-dependencies.test ++ [ python3Packages.tox ];
+    dev = optional-dependencies.lint ++ optional-dependencies.test ++ [python3Packages.tox];
   };
 
-  pytestFlagsArray = [ "-r fEs" ];
+  pytestFlagsArray = ["-r fEs"];
 
   disabledTestPaths = [
     "tests/test_cli_operation.py"
@@ -67,16 +66,18 @@ python3Packages.buildPythonApplication rec {
     "tests/test_version.py"
   ];
 
-  nativeCheckInputs = [
-    python3Packages.pytestCheckHook
-    writableTmpDirAsHomeHook
-  ] ++ optional-dependencies.test;
+  nativeCheckInputs =
+    [
+      python3Packages.pytestCheckHook
+      writableTmpDirAsHomeHook
+    ]
+    ++ optional-dependencies.test;
 
   meta = with lib; {
     description = "Beets plugin to move non-music files during the import process";
     homepage = "https://github.com/gtronset/beets-filetote";
     changelog = "https://github.com/gtronset/beets-filetote/blob/${src.tag}/CHANGELOG.md";
-    maintainers = with maintainers; [ dansbandit ];
+    maintainers = with maintainers; [dansbandit];
     license = licenses.mit;
     inherit (beets.meta) platforms;
   };

@@ -5,9 +5,8 @@
   fetchurl,
   stdenvNoCC,
   undmg,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit pname version;
 
@@ -19,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +30,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = metaCommon // {
-    platforms = [ "aarch64-darwin" ];
-  };
+  meta =
+    metaCommon
+    // {
+      platforms = ["aarch64-darwin"];
+    };
 })

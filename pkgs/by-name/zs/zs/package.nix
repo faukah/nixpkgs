@@ -4,7 +4,6 @@
   buildGoModule,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "zs";
   version = "0.4.1";
@@ -26,7 +25,7 @@ buildGoModule rec {
     "-X=main.Build=1970-01-01T00:00:00+00:00"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd zs \
@@ -40,7 +39,7 @@ buildGoModule rec {
     homepage = "https://git.mills.io/prologic/zs";
     changelog = "https://git.mills.io/prologic/zs/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ adtya ];
+    maintainers = with lib.maintainers; [adtya];
     mainProgram = "zs";
   };
 }

@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "youtube-transcript-api";
   version = "1.0.3";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-MDa19rI5DaIzrrEt7uNQ5+xSFkRXI5iwt/u5UNvT1f4=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "defusedxml"
@@ -40,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "youtube_transcript_api" ];
+  pythonImportsCheck = ["youtube_transcript_api"];
 
   meta = with lib; {
     description = "Python API which allows you to get the transcripts/subtitles for a given YouTube video";
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jdepoix/youtube-transcript-api";
     changelog = "https://github.com/jdepoix/youtube-transcript-api/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

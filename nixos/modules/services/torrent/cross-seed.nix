@@ -3,32 +3,31 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.cross-seed;
 
-  inherit (lib)
+  inherit
+    (lib)
     mkEnableOption
     mkPackageOption
     mkOption
     types
     ;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   generatedConfig =
-    pkgs.runCommand "cross-seed-gen-config" { nativeBuildInputs = [ pkgs.cross-seed ]; }
-      ''
-        export HOME=$(mktemp -d)
-        cross-seed gen-config
-        mkdir $out
-        cp -r $HOME/.cross-seed/config.js $out/
-      '';
-in
-{
+    pkgs.runCommand "cross-seed-gen-config" {nativeBuildInputs = [pkgs.cross-seed];}
+    ''
+      export HOME=$(mktemp -d)
+      cross-seed gen-config
+      mkdir $out
+      cp -r $HOME/.cross-seed/config.js $out/
+    '';
+in {
   options.services.cross-seed = {
     enable = mkEnableOption "cross-seed";
 
-    package = mkPackageOption pkgs "cross-seed" { };
+    package = mkPackageOption pkgs "cross-seed" {};
 
     user = mkOption {
       type = types.str;
@@ -66,13 +65,13 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = settingsFormat.type;
         options = {
           dataDirs = mkOption {
             type = types.listOf types.path;
-            default = [ ];
+            default = [];
             description = ''
               Paths to be searched for matching data.
 
@@ -86,7 +85,7 @@ in
 
           linkDirs = mkOption {
             type = types.listOf types.path;
-            default = [ ];
+            default = [];
             description = ''
               List of directories where cross-seed will create links.
 
@@ -141,42 +140,44 @@ in
     };
   };
 
-  config =
-    let
-      jsonSettingsFile = settingsFormat.generate "settings.json" cfg.settings;
+  config = let
+    jsonSettingsFile = settingsFormat.generate "settings.json" cfg.settings;
 
-      genConfigSegment =
-        lib.optionalString cfg.useGenConfigDefaults # js
-          ''
-            const gen_config_js = "${generatedConfig}/config.js";
-            Object.assign(loaded_settings, require(gen_config_js));
-          '';
+    genConfigSegment =
+      lib.optionalString cfg.useGenConfigDefaults # js
+      
+      ''
+        const gen_config_js = "${generatedConfig}/config.js";
+        Object.assign(loaded_settings, require(gen_config_js));
+      '';
 
-      # Since cross-seed uses a javascript config file, we can use node's
-      # ability to parse JSON directly to avoid having to do any conversion.
-      # This also means we don't need to use any external programs to merge the
-      # secrets.
-      secretSettingsSegment =
-        lib.optionalString (cfg.settingsFile != null) # js
-          ''
-            const path = require("node:path");
-            const secret_settings_json = path.join(process.env.CREDENTIALS_DIRECTORY, "secretSettingsFile");
-            Object.assign(loaded_settings, JSON.parse(fs.readFileSync(secret_settings_json, "utf8")));
-          '';
+    # Since cross-seed uses a javascript config file, we can use node's
+    # ability to parse JSON directly to avoid having to do any conversion.
+    # This also means we don't need to use any external programs to merge the
+    # secrets.
+    secretSettingsSegment =
+      lib.optionalString (cfg.settingsFile != null) # js
+      
+      ''
+        const path = require("node:path");
+        const secret_settings_json = path.join(process.env.CREDENTIALS_DIRECTORY, "secretSettingsFile");
+        Object.assign(loaded_settings, JSON.parse(fs.readFileSync(secret_settings_json, "utf8")));
+      '';
 
-      javascriptConfig =
-        pkgs.writeText "config.js" # js
-          ''
-            "use strict";
-            const fs = require("fs");
-            const settings_json = "${jsonSettingsFile}";
-            let loaded_settings = {};
-            ${genConfigSegment}
-            Object.assign(loaded_settings, JSON.parse(fs.readFileSync(settings_json, "utf8")));
-            ${secretSettingsSegment}
-            module.exports = loaded_settings;
-          '';
-    in
+    javascriptConfig =
+      pkgs.writeText "config.js" # js
+      
+      ''
+        "use strict";
+        const fs = require("fs");
+        const settings_json = "${jsonSettingsFile}";
+        let loaded_settings = {};
+        ${genConfigSegment}
+        Object.assign(loaded_settings, JSON.parse(fs.readFileSync(settings_json, "utf8")));
+        ${secretSettingsSegment}
+        module.exports = loaded_settings;
+      '';
+  in
     lib.mkIf (cfg.enable) {
       assertions = [
         {
@@ -202,9 +203,9 @@ in
 
       systemd.services.cross-seed = {
         description = "cross-seed";
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
         environment.CONFIG_DIR = cfg.configDir;
         preStart = ''
           install -D -m 600 -o '${cfg.user}' -g '${cfg.group}' '${javascriptConfig}' '${cfg.configDir}/config.js'
@@ -222,7 +223,7 @@ in
           LoadCredential = lib.mkIf (cfg.settingsFile != null) "secretSettingsFile:${cfg.settingsFile}";
 
           StateDirectory = "cross-seed";
-          ReadWritePaths = [ cfg.settings.outputDir ];
+          ReadWritePaths = [cfg.settings.outputDir];
           ReadOnlyPaths = lib.optional (cfg.settings.torrentDir != null) cfg.settings.torrentDir;
         };
 
@@ -237,7 +238,7 @@ in
       };
 
       # It's useful to have the package in the path, to be able to e.g. get the API key.
-      environment.systemPackages = [ cfg.package ];
+      environment.systemPackages = [cfg.package];
 
       users.users = lib.mkIf (cfg.user == "cross-seed") {
         cross-seed = {
@@ -249,7 +250,7 @@ in
       };
 
       users.groups = lib.mkIf (cfg.group == "cross-seed") {
-        cross-seed = { };
+        cross-seed = {};
       };
     };
 }

@@ -15,7 +15,6 @@
   wrapGAppsHook4,
   zint,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "passes";
   version = "0.10";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     meson
     ninja
     pkg-config
-    (python3.withPackages (pp: [ pp.pygobject3 ]))
+    (python3.withPackages (pp: [pp.pygobject3]))
     wrapGAppsHook4
   ];
 
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "passes";
     homepage = "https://github.com/pablo-s/passes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     broken = stdenv.hostPlatform.isDarwin; # Crashes
   };

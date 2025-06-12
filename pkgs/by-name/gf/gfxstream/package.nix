@@ -14,7 +14,6 @@
   vulkan-loader,
   xorg,
 }:
-
 stdenv.mkDerivation {
   pname = "gfxstream";
   version = "0.1.2";
@@ -46,13 +45,15 @@ stdenv.mkDerivation {
     pkg-config
     python3
   ];
-  buildInputs = [
-    aemu
-    libglvnd
-    vulkan-headers
-    vulkan-loader
-    xorg.libX11
-  ] ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform libdrm) [ libdrm ];
+  buildInputs =
+    [
+      aemu
+      libglvnd
+      vulkan-headers
+      vulkan-loader
+      xorg.libX11
+    ]
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform libdrm) [libdrm];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
     NIX_LDFLAGS = toString [
@@ -74,7 +75,7 @@ stdenv.mkDerivation {
     homepage = "https://android.googlesource.com/platform/hardware/google/gfxstream";
     description = "Graphics Streaming Kit";
     license = licenses.free; # https://android.googlesource.com/platform/hardware/google/gfxstream/+/refs/heads/main/LICENSE
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = aemu.meta.platforms;
   };
 }

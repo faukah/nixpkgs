@@ -1,5 +1,7 @@
-{ buildPythonPackage, usbrelay }:
-
+{
+  buildPythonPackage,
+  usbrelay,
+}:
 buildPythonPackage {
   pname = "usbrelay_py";
   inherit (usbrelay) version src;
@@ -8,9 +10,9 @@ buildPythonPackage {
     cd usbrelay_py
   '';
 
-  buildInputs = [ usbrelay ];
+  buildInputs = [usbrelay];
 
-  pythonImportsCheck = [ "usbrelay_py" ];
+  pythonImportsCheck = ["usbrelay_py"];
 
   inherit (usbrelay) meta;
 }

@@ -11,7 +11,6 @@
   wayland,
   xbitmaps,
 }:
-
 buildGoModule rec {
   pname = "wallutils";
   version = "5.12.9";
@@ -56,21 +55,19 @@ buildGoModule rec {
     export XDG_RUNTIME_DIR=$(mktemp -d)
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestClosest" # Requiring Wayland or X
-        "TestEveryMinute" # Blocking
-        "TestNewSimpleEvent" # Blocking
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      "TestClosest" # Requiring Wayland or X
+      "TestEveryMinute" # Blocking
+      "TestNewSimpleEvent" # Blocking
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   meta = {
     description = "Utilities for handling monitors, resolutions, and (timed) wallpapers";
     inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     inherit (wayland.meta) platforms;
     badPlatforms = lib.platforms.darwin;
   };

@@ -7,7 +7,6 @@
   flask,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flask-mail";
   version = "0.10.0";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-G2Z8dj1/IuLsZoNJVrL6LYu0XjTEHtWB9Z058aqG9Ic=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
   dependencies = [
     blinker
     flask
   ];
 
-  pythonImportsCheck = [ "flask_mail" ];
+  pythonImportsCheck = ["flask_mail"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Broken by fix for CVE-2023-27043.

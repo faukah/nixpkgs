@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "multidict";
   version = "6.2.0";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
       --replace-fail '"-I",' ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = lib.optionals (pythonOlder "3.11") [
     typing-extensions
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     rm -r multidict
   '';
 
-  pythonImportsCheck = [ "multidict" ];
+  pythonImportsCheck = ["multidict"];
 
   meta = with lib; {
     changelog = "https://github.com/aio-libs/multidict/blob/v${version}/CHANGES.rst";
     description = "Multidict implementation";
     homepage = "https://github.com/aio-libs/multidict/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

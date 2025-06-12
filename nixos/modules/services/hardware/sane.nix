@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   pkg = config.hardware.sane.backends-package.override {
     scanSnapDriversUnfree = config.hardware.sane.drivers.scanSnap.enable;
     scanSnapDriversPackage = config.hardware.sane.drivers.scanSnap.package;
@@ -31,7 +29,7 @@ let
 
   env = {
     SANE_CONFIG_DIR = "/etc/sane-config";
-    LD_LIBRARY_PATH = [ "/etc/sane-libs" ];
+    LD_LIBRARY_PATH = ["/etc/sane-libs"];
   };
 
   backends =
@@ -47,15 +45,10 @@ let
   };
 
   enabled = config.hardware.sane.enable || config.services.saned.enable;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     hardware.sane.enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
@@ -83,7 +76,7 @@ in
 
     hardware.sane.extraBackends = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       description = ''
         Packages providing extra SANE backends to enable.
 
@@ -98,8 +91,8 @@ in
 
     hardware.sane.disabledDefaultBackends = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "v4l" ];
+      default = [];
+      example = ["v4l"];
       description = ''
         Names of backends which are enabled by default but should be disabled.
         See `$SANE_CONFIG_DIR/dll.conf` for the list of possible names.
@@ -132,7 +125,7 @@ in
       '';
     };
 
-    hardware.sane.drivers.scanSnap.package = lib.mkPackageOption pkgs [ "sane-drivers" "epjitsu" ] {
+    hardware.sane.drivers.scanSnap.package = lib.mkPackageOption pkgs ["sane-drivers" "epjitsu"] {
       extraDescription = ''
         Useful if you want to extract the driver files yourself.
 
@@ -170,7 +163,6 @@ in
         Extra saned configuration lines.
       '';
     };
-
   };
 
   ###### implementation
@@ -192,7 +184,7 @@ in
       '';
 
       users.groups.scanner.gid = config.ids.gids.scanner;
-      networking.firewall.allowedUDPPorts = lib.mkIf config.hardware.sane.openFirewall [ 8612 ];
+      networking.firewall.allowedUDPPorts = lib.mkIf config.hardware.sane.openFirewall [8612];
 
       systemd.tmpfiles.rules = [
         "d /var/lock/sane 0770 root scanner - -"
@@ -200,7 +192,7 @@ in
     })
 
     (lib.mkIf config.services.saned.enable {
-      networking.firewall.connectionTrackingModules = [ "sane" ];
+      networking.firewall.connectionTrackingModules = ["sane"];
 
       systemd.services."saned@" = {
         description = "Scanner Service";
@@ -214,7 +206,7 @@ in
 
       systemd.sockets.saned = {
         description = "saned incoming socket";
-        wantedBy = [ "sockets.target" ];
+        wantedBy = ["sockets.target"];
         listenStreams = [
           "0.0.0.0:6566"
           "[::]:6566"
@@ -230,9 +222,8 @@ in
       users.users.scanner = {
         uid = config.ids.uids.scanner;
         group = "scanner";
-        extraGroups = [ "lp" ] ++ lib.optionals config.services.avahi.enable [ "avahi" ];
+        extraGroups = ["lp"] ++ lib.optionals config.services.avahi.enable ["avahi"];
       };
     })
   ];
-
 }

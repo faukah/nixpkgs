@@ -26,7 +26,6 @@
   qgpgme,
   qtbase,
 }:
-
 mkDerivation {
   pname = "kaddressbook";
   meta = {

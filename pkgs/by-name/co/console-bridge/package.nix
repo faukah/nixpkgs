@@ -5,7 +5,6 @@
   cmake,
   validatePkgConfig,
 }:
-
 stdenv.mkDerivation rec {
   pname = "console-bridge";
   version = "1.0.2";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages";
     homepage = "https://github.com/ros/console_bridge";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
   };
 }

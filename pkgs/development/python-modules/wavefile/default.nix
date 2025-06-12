@@ -9,7 +9,6 @@
   libsndfile,
   replaceVars,
 }:
-
 buildPythonPackage rec {
   pname = "wavefile";
   version = "1.6.2";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-TLSWhLARY+3sHkl2p3d3LDGzLu6DggjTJWFpyrwRXSI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   buildInputs = [
     pyaudio
     libsndfile
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     pyaudio
@@ -47,13 +46,13 @@ buildPythonPackage rec {
 
   doCheck = false; # all test files (test/wavefileTest.py) are failing
 
-  pythonImportsCheck = [ "wavefile" ];
+  pythonImportsCheck = ["wavefile"];
 
   meta = with lib; {
     description = "Pythonic libsndfile wrapper to read and write audio files";
     homepage = "https://github.com/vokimon/python-wavefile";
     changelog = "https://github.com/vokimon/python-wavefile#version-history";
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
     license = licenses.gpl3Plus;
   };
 }

@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   alembic,
   argcomplete,
@@ -30,11 +28,9 @@
   stomp-py,
   tabulate,
   urllib3,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "rucio";
   version = "32.8.6";
@@ -102,13 +98,13 @@ buildPythonPackage rec {
 
   doCheck = false; # needs a rucio.cfg
 
-  pythonImportsCheck = [ "rucio" ];
+  pythonImportsCheck = ["rucio"];
 
   meta = {
     description = "Tool for Scientific Data Management";
     homepage = "http://rucio.cern.ch/";
     changelog = "https://github.com/rucio/rucio/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

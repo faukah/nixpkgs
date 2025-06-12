@@ -7,7 +7,6 @@
   libev,
   openssl,
 }:
-
 stdenv.mkDerivation {
   pname = "mbidled";
   version = "unstable-2023-09-30";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     description = "run command on mailbox change";
     homepage = "https://github.com/zsugabubus/mbidled";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ laalsaas ];
+    maintainers = with maintainers; [laalsaas];
     platforms = platforms.linux;
     mainProgram = "mbidled";
   };

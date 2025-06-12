@@ -11,7 +11,6 @@
   pytestCheckHook,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "bindep";
   version = "2.13.0";
@@ -49,15 +48,15 @@ buildPythonPackage rec {
     export PATH=$PATH:$out/bin
   '';
 
-  pytestFlagsArray = [ "-s" ];
+  pytestFlagsArray = ["-s"];
 
-  pythonImportsCheck = [ "bindep" ];
+  pythonImportsCheck = ["bindep"];
 
   meta = with lib; {
     description = "Bindep is a tool for checking the presence of binary packages needed to use an application / library";
     homepage = "https://opendev.org/opendev/bindep";
     license = licenses.asl20;
     mainProgram = "bindep";
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

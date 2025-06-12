@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "prometheus-client";
   version = "0.21.1";
@@ -23,15 +22,15 @@ buildPythonPackage rec {
     hash = "sha256-mlgaSVJ4UHM8xw0QPnHSYiTH2v3V6BWi5Abz9aKt2qU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  optional-dependencies.twisted = [ twisted ];
+  optional-dependencies.twisted = [twisted];
 
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "prometheus_client" ];
+  pythonImportsCheck = ["prometheus_client"];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # fails in darwin sandbox: Operation not permitted
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/prometheus/client_python";
     changelog = "https://github.com/prometheus/client_python/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

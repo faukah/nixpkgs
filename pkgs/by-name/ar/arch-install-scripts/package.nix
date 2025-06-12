@@ -20,7 +20,6 @@
     "/usr/bin/core_perl"
   ],
 }:
-
 resholve.mkDerivation rec {
   pname = "arch-install-scripts";
   version = "29";
@@ -48,7 +47,7 @@ resholve.mkDerivation rec {
     echo "export PATH=${lib.strings.makeSearchPath "" chrootPath}:\$PATH" >> ./common
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   doCheck = true;
 
@@ -80,7 +79,7 @@ resholve.mkDerivation rec {
         util-linux
       ];
 
-      execer = [ "cannot:${pacman}/bin/pacman-key" ];
+      execer = ["cannot:${pacman}/bin/pacman-key"];
 
       # TODO: no good way to resolve mount/umount in Nix builds for now
       # see https://github.com/abathur/resholve/issues/29
@@ -105,7 +104,7 @@ resholve.mkDerivation rec {
     '';
     homepage = "https://github.com/archlinux/arch-install-scripts";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ samlukeyes123 ];
+    maintainers = with maintainers; [samlukeyes123];
     platforms = platforms.linux;
   };
 }

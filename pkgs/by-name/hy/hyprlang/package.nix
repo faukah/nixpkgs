@@ -6,7 +6,6 @@
   pkg-config,
   hyprutils,
 }:
-
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "hyprlang";
   version = "0.6.3";
@@ -42,6 +41,6 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [
       iogamaster
     ];
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
   };
 })

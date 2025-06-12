@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "spicy";
   version = "0.6.2";
@@ -30,6 +29,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/trhodeos/spicy";
     license = licenses.mit;
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
   };
 }

@@ -4,7 +4,6 @@
   theme,
   lib,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "gruppled-lite-cursors";
   version = "1.0.0";
@@ -25,6 +24,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Gruppled Lite Cursors theme";
     homepage = "https://github.com/nim65s/gruppled-lite-cursors";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 })

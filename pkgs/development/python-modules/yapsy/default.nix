@@ -5,7 +5,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "yapsy";
   version = "1.12.2-unstable-2023-03-29";
@@ -20,11 +19,11 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/package";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yapsy" ];
+  pythonImportsCheck = ["yapsy"];
 
   meta = with lib; {
     homepage = "https://yapsy.sourceforge.net/";

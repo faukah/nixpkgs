@@ -4,7 +4,6 @@
   fetchFromGitHub,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "nix-build-uncached";
   version = "1.1.2";
@@ -20,13 +19,13 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   meta = with lib; {
     description = "CI friendly wrapper around nix-build";
     mainProgram = "nix-build-uncached";
     license = licenses.mit;
     homepage = "https://github.com/Mic92/nix-build-uncached";
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

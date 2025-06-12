@@ -9,7 +9,6 @@
   libGLU ? null,
   libglut ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "construo";
   version = "0.2.3";

@@ -5,7 +5,6 @@
   gobject-introspection,
   gnome-online-accounts,
 }:
-
 python3Packages.buildPythonPackage rec {
   pname = "mailnag-goa-plugin";
   version = "2.0.0";
@@ -30,6 +29,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/pulb/mailnag-goa-plugin";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

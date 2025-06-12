@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "luabridge";
   version = "2.8";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/vinniefalco/LuaBridge/blob/${version}/CHANGES.md";
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

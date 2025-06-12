@@ -6,11 +6,9 @@
   findlib,
   ocamlbuild,
 }:
-
-if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0" then
-  throw "erm_xml is not available for OCaml ${ocaml.version}"
+if lib.versionOlder ocaml.version "4.02" || lib.versionAtLeast ocaml.version "5.0"
+then throw "erm_xml is not available for OCaml ${ocaml.version}"
 else
-
   stdenv.mkDerivation {
     pname = "ocaml${ocaml.version}-erm_xml";
     version = "0.3+20180112";
@@ -35,8 +33,8 @@ else
     meta = {
       homepage = "https://github.com/hannesm/xml";
       description = "XML Parser for discrete data";
-      platforms = ocaml.meta.platforms or [ ];
+      platforms = ocaml.meta.platforms or [];
       license = lib.licenses.bsd3;
-      maintainers = with lib.maintainers; [ vbgl ];
+      maintainers = with lib.maintainers; [vbgl];
     };
   }

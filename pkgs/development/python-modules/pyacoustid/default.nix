@@ -6,7 +6,6 @@
   audioread,
   pkgs,
 }:
-
 buildPythonPackage rec {
   pname = "pyacoustid";
   version = "1.3.0";
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # package has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "acoustid" ];
+  pythonImportsCheck = ["acoustid"];
 
   meta = with lib; {
     description = "Bindings for Chromaprint acoustic fingerprinting";
     homepage = "https://github.com/sampsyo/pyacoustid";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

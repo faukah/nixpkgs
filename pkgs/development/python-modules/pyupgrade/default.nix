@@ -6,7 +6,6 @@
   pytestCheckHook,
   tokenize-rt,
 }:
-
 buildPythonPackage rec {
   pname = "pyupgrade";
   version = "3.19.1";
@@ -21,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-bijW1uxoaVKLO0Psv3JeAG6rKeTwGa9ZW06VU1qFrrU=";
   };
 
-  propagatedBuildInputs = [ tokenize-rt ];
+  propagatedBuildInputs = [tokenize-rt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyupgrade" ];
+  pythonImportsCheck = ["pyupgrade"];
 
   meta = with lib; {
     description = "Tool to automatically upgrade syntax for newer versions of the language";
     mainProgram = "pyupgrade";
     homepage = "https://github.com/asottile/pyupgrade";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

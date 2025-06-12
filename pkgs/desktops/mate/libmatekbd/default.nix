@@ -11,7 +11,6 @@
   libxklavier,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libmatekbd";
   version = "1.28.0";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mate-desktop/libmatekbd";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

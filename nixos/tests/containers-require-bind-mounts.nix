@@ -1,20 +1,19 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "containers-require-bind-mounts";
-  meta.maintainers = with lib.maintainers; [ kira-bruneau ];
+  meta.maintainers = with lib.maintainers; [kira-bruneau];
 
   nodes.machine = {
     containers.require-bind-mounts = {
       bindMounts = {
-        "/srv/data" = { };
+        "/srv/data" = {};
       };
-      config = { };
+      config = {};
     };
 
     virtualisation.fileSystems = {
       "/srv/data" = {
         fsType = "tmpfs";
-        options = [ "noauto" ];
+        options = ["noauto"];
       };
     };
   };

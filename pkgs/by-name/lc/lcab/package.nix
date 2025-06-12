@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lcab";
   version = "1.0b12";
@@ -26,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Create cabinet (.cab) archives";
     homepage = "http://ohnopub.net/~ohnobinki/lcab";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
     mainProgram = "lcab";
   };

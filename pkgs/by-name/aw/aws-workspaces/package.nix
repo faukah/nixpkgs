@@ -10,10 +10,8 @@
   gdk-pixbuf,
   protobufc,
   cyrus_sasl,
-}:
-
-let
-  workspacesclient = callPackage ./workspacesclient.nix { };
+}: let
+  workspacesclient = callPackage ./workspacesclient.nix {};
 
   # Source: https://github.com/jthomaschewski/pkgbuilds/pull/3
   # Credits to https://github.com/rwolfson
@@ -34,40 +32,39 @@ let
     '';
   };
   pname = "aws-workspaces";
-
 in
-buildFHSEnv {
-  inherit pname;
-  inherit (workspacesclient) version;
+  buildFHSEnv {
+    inherit pname;
+    inherit (workspacesclient) version;
 
-  runScript = "${workspacesclient}/bin/workspacesclient";
+    runScript = "${workspacesclient}/bin/workspacesclient";
 
-  includeClosures = true;
+    includeClosures = true;
 
-  targetPkgs = pkgs: [
-    workspacesclient
-    custom_lsb_release
-    webkitgtk_4_1
-    gtk3
-    pango
-    atk
-    cairo
-    gdk-pixbuf
-    protobufc
-    cyrus_sasl
-  ];
+    targetPkgs = pkgs: [
+      workspacesclient
+      custom_lsb_release
+      webkitgtk_4_1
+      gtk3
+      pango
+      atk
+      cairo
+      gdk-pixbuf
+      protobufc
+      cyrus_sasl
+    ];
 
-  extraBwrapArgs = [
-    # provide certificates where Debian-style OpenSSL can find them
-    "--symlink /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert.pem"
-  ];
+    extraBwrapArgs = [
+      # provide certificates where Debian-style OpenSSL can find them
+      "--symlink /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert.pem"
+    ];
 
-  # expected executable doesn't match the name of this package
-  extraInstallCommands = ''
-    mv $out/bin/${pname} $out/bin/workspacesclient
+    # expected executable doesn't match the name of this package
+    extraInstallCommands = ''
+      mv $out/bin/${pname} $out/bin/workspacesclient
 
-    ln -s ${workspacesclient}/share $out/
-  '';
+      ln -s ${workspacesclient}/share $out/
+    '';
 
-  meta = workspacesclient.meta;
-}
+    meta = workspacesclient.meta;
+  }

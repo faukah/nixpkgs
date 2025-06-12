@@ -5,7 +5,6 @@
   fetchpatch2,
   updateAutotoolsGnuConfigScriptsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "popt";
   version = "1.19";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wlpIOPyOTByKrLi9Yg7bMISj1jv4mH/a08onWMYyQPk=";
   };
 
-  nativeBuildInputs = [ updateAutotoolsGnuConfigScriptsHook ];
+  nativeBuildInputs = [updateAutotoolsGnuConfigScriptsHook];
 
   patches =
     lib.optionals stdenv.hostPlatform.isCygwin [
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/rpm-software-management/popt";
     description = "Command line option parsing library";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.mit;
     platforms = platforms.unix;
   };

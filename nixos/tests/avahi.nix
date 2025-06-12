@@ -4,39 +4,35 @@
   networkd ? false,
   ...
 }:
-
 # Test whether `avahi-daemon' and `libnss-mdns' work as expected.
 {
   name = "avahi";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
-  nodes =
-    let
-      cfg =
-        { ... }:
-        {
-          services.avahi = {
-            enable = true;
-            nssmdns4 = true;
-            publish.addresses = true;
-            publish.domain = true;
-            publish.enable = true;
-            publish.userServices = true;
-            publish.workstation = true;
-            extraServiceFiles.ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
-          };
-        }
-        // pkgs.lib.optionalAttrs networkd {
-          networking = {
-            useNetworkd = true;
-            useDHCP = false;
-          };
+  nodes = let
+    cfg = {...}:
+      {
+        services.avahi = {
+          enable = true;
+          nssmdns4 = true;
+          publish.addresses = true;
+          publish.domain = true;
+          publish.enable = true;
+          publish.userServices = true;
+          publish.workstation = true;
+          extraServiceFiles.ssh = "${pkgs.avahi}/etc/avahi/services/ssh.service";
         };
-    in
-    {
-      one = cfg;
-      two = cfg;
-    };
+      }
+      // pkgs.lib.optionalAttrs networkd {
+        networking = {
+          useNetworkd = true;
+          useDHCP = false;
+        };
+      };
+  in {
+    one = cfg;
+    two = cfg;
+  };
 
   testScript = ''
     start_all()

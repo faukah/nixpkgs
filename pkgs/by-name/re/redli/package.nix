@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGo124Module,
 }:
-
 buildGo124Module rec {
   pname = "redli";
   version = "0.15.0";
@@ -21,7 +20,7 @@ buildGo124Module rec {
     description = "Humane alternative to the Redis-cli and TLS";
     homepage = "https://github.com/IBM-Cloud/redli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tchekda ];
+    maintainers = with lib.maintainers; [tchekda];
     mainProgram = "redli";
   };
 }

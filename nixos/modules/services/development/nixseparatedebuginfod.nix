@@ -3,12 +3,10 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.nixseparatedebuginfod;
   url = "127.0.0.1:${toString cfg.port}";
-in
-{
+in {
   options = {
     services.nixseparatedebuginfod = {
       enable = lib.mkEnableOption "separatedebuginfod, a debuginfod server providing source and debuginfo for nix packages";
@@ -43,12 +41,12 @@ in
     ];
 
     systemd.services.nixseparatedebuginfod = {
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "nix-daemon.service" ];
-      after = [ "nix-daemon.service" ];
-      path = [ cfg.nixPackage ];
+      wantedBy = ["multi-user.target"];
+      wants = ["nix-daemon.service"];
+      after = ["nix-daemon.service"];
+      path = [cfg.nixPackage];
       serviceConfig = {
-        ExecStart = [ "${pkgs.nixseparatedebuginfod}/bin/nixseparatedebuginfod -l ${url}" ];
+        ExecStart = ["${pkgs.nixseparatedebuginfod}/bin/nixseparatedebuginfod -l ${url}"];
         Restart = "on-failure";
         CacheDirectory = "nixseparatedebuginfod";
         # nix does not like DynamicUsers in allowed-users
@@ -95,10 +93,10 @@ in
       group = "nixseparatedebuginfod";
     };
 
-    users.groups.nixseparatedebuginfod = { };
+    users.groups.nixseparatedebuginfod = {};
 
     nix.settings = lib.optionalAttrs (lib.versionAtLeast config.nix.package.version "2.4") {
-      extra-allowed-users = [ "nixseparatedebuginfod" ];
+      extra-allowed-users = ["nixseparatedebuginfod"];
     };
 
     environment.variables.DEBUGINFOD_URLS = "http://${url}";
@@ -109,6 +107,5 @@ in
     ];
 
     environment.etc."gdb/gdbinit.d/nixseparatedebuginfod.gdb".text = "set debuginfod enabled on";
-
   };
 }

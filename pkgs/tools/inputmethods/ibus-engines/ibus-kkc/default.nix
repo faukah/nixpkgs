@@ -10,7 +10,6 @@
   skkDictionaries,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ibus-kkc";
   version = "1.5.22";
@@ -42,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ueno/ibus-kkc";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
   };
 }

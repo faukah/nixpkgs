@@ -8,7 +8,6 @@
   setuptools-scm,
   writeScript,
 }:
-
 buildPythonPackage rec {
   pname = "git-filter-repo";
   version = "2.47.0";
@@ -34,14 +33,14 @@ buildPythonPackage rec {
     installManPage ${docs}/man1/git-filter-repo.1
   '';
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "git_filter_repo" ];
+  pythonImportsCheck = ["git_filter_repo"];
 
   meta = with lib; {
     description = "Quickly rewrite git repository history";

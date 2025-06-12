@@ -6,7 +6,6 @@
   git,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "fedigroups";
   version = "0.4.5";
@@ -47,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     downloadPage = "https://git.ondrovo.com/MightyPork/group-actor/releases";
     description = "Approximation of groups usable with Fediverse software that implements the Mastodon client API";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     mainProgram = "fedigroups";
   };

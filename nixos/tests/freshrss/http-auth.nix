@@ -1,19 +1,20 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "freshrss-http-auth";
-    meta.maintainers = with lib.maintainers; [ mattchrist ];
+    meta.maintainers = with lib.maintainers; [mattchrist];
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.freshrss = {
-          enable = true;
-          baseUrl = "http://localhost";
-          dataDir = "/srv/freshrss";
-          authType = "http_auth";
-        };
+    nodes.machine = {pkgs, ...}: {
+      services.freshrss = {
+        enable = true;
+        baseUrl = "http://localhost";
+        dataDir = "/srv/freshrss";
+        authType = "http_auth";
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

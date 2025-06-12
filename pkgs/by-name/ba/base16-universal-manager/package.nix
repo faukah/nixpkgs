@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "base16-universal-manager";
   version = "1.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
     description = "Universal manager to set base16 themes for any supported application";
     homepage = "https://github.com/pinpox/base16-universal-manager";
     license = licenses.mit;
-    maintainers = with maintainers; [ jo1gi ];
+    maintainers = with maintainers; [jo1gi];
     mainProgram = "base16-universal-manager";
   };
 }

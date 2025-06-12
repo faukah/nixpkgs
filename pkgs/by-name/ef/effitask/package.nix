@@ -7,7 +7,6 @@
   gtk3,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "effitask";
   version = "1.4.2";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-j9WCzsh6aitmJeeyLDm0YrZHEAZlCNfGWANM/nmuncw=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -47,8 +46,8 @@ rustPlatform.buildRustPackage rec {
       like described in the projects readme.
     '';
     homepage = "https://github.com/sanpii/effitask";
-    maintainers = with maintainers; [ davidak ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [davidak];
+    license = with licenses; [mit];
     mainProgram = "effitask";
   };
 }

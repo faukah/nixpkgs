@@ -24,7 +24,6 @@
   nixosTests,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.3";
   pname = "nftables";
@@ -78,7 +77,7 @@ stdenv.mkDerivation rec {
   passthru.tests = {
     inherit (nixosTests) firewall-nftables;
     lxd-nftables = nixosTests.lxd.nftables;
-    nat = { inherit (nixosTests.nat.nftables) firewall standalone; };
+    nat = {inherit (nixosTests.nat.nftables) firewall standalone;};
   };
 
   passthru.updateScript = gitUpdater {
@@ -91,7 +90,7 @@ stdenv.mkDerivation rec {
     homepage = "https://netfilter.org/projects/nftables/";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
     mainProgram = "nft";
   };
 }

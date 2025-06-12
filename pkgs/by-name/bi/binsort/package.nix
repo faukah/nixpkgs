@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "binsort";
   version = "0.4-1";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "binsort";
     homepage = "http://neoscientists.org/~tmueller/binsort/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ numinit ];
+    maintainers = with maintainers; [numinit];
     platforms = platforms.unix;
   };
 })

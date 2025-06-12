@@ -4,7 +4,6 @@
   fetchPypi,
   mopidy,
 }:
-
 pythonPackages.buildPythonApplication rec {
   pname = "mopidy-muse";
   version = "0.0.33";
@@ -20,7 +19,7 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.pykka
   ];
 
-  pythonImportsCheck = [ "mopidy_muse" ];
+  pythonImportsCheck = ["mopidy_muse"];
 
   # has no tests
   doCheck = false;
@@ -29,6 +28,6 @@ pythonPackages.buildPythonApplication rec {
     description = "Mopidy web client with Snapcast support";
     homepage = "https://github.com/cristianpb/muse";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -19,7 +19,6 @@
   libpthreadstubs,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "neko";
   version = "2.4.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "HaxeFoundation";
     repo = "neko";
-    rev = "v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["-"] version}";
     hash = "sha256-cTu+AlDnpXAow6jM77Ct9DM8p//z6N1utk7Wsd+0g9U=";
   };
 
@@ -36,20 +35,22 @@ stdenv.mkDerivation rec {
     pkg-config
     git
   ];
-  buildInputs = [
-    boehmgc
-    zlib
-    sqlite
-    pcre2
-    apacheHttpd
-    apr
-    aprutil
-    libmysqlclient
-    mbedtls
-    openssl
-    libpthreadstubs
-  ] ++ lib.optional stdenv.hostPlatform.isLinux gtk3;
-  cmakeFlags = [ "-DRUN_LDCONFIG=OFF" ];
+  buildInputs =
+    [
+      boehmgc
+      zlib
+      sqlite
+      pcre2
+      apacheHttpd
+      apr
+      aprutil
+      libmysqlclient
+      mbedtls
+      openssl
+      libpthreadstubs
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux gtk3;
+  cmakeFlags = ["-DRUN_LDCONFIG=OFF"];
 
   env = lib.optionalAttrs stdenv.cc.isClang {
     NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
@@ -65,7 +66,7 @@ stdenv.mkDerivation rec {
   dontPatchELF = true;
   dontStrip = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "High-level dynamically typed programming language";

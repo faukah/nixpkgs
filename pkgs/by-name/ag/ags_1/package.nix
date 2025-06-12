@@ -19,7 +19,6 @@
   linux-pam,
   nix-update-script,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "ags";
   version = "1.8.2";
@@ -34,7 +33,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-ucWdADdMqAdLXQYKGOXHNRNM9bhjKX4vkMcQ8q/GZ20=";
 
-  mesonFlags = [ (lib.mesonBool "build_types" true) ];
+  mesonFlags = [(lib.mesonBool "build_types" true)];
 
   nativeBuildInputs = [
     meson
@@ -63,7 +62,7 @@ buildNpmPackage (finalAttrs: {
     chmod u+x ./post_install.sh && patchShebangs ./post_install.sh
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://github.com/Aylur/ags";

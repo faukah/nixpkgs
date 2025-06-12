@@ -20,17 +20,17 @@ rustPlatform.buildRustPackage rec {
   };
   useFetchCargoVendor = true;
   cargoHash = "sha256-HYyL0r9YrDL22uQdypJQ7Xep9Uqt4b16bhl0D9kRByU=";
-  buildInputs = [ dbus ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [dbus];
+  nativeBuildInputs = [pkg-config];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "NetworkManager secret agent that responds with the content of preconfigured files";
     mainProgram = "nm-file-secret-agent";
     homepage = "https://codeberg.org/lilly/nm-file-secret-agent";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lilioid ];
+    maintainers = with lib.maintainers; [lilioid];
     platforms = lib.lists.intersectLists dbus.meta.platforms networkmanager.meta.platforms;
   };
 }

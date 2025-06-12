@@ -9,7 +9,6 @@
   libintl,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_p11";
   version = "0.3.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       name = "OpenSC-pam_p11-pull-22.patch";
       url = "https://github.com/OpenSC/pam_p11/compare/cd4eba2e921e1c2f93cde71922a76af99376246c...debd4f7acfaf998cfe4002e0be5c35ad9a9591b5.patch";
-      excludes = [ ".github/build.sh" ];
+      excludes = [".github/build.sh"];
       hash = "sha256-bm/agnBgvrr8L8yoGK4gzBqOGgsNWf9NIgcNJG7proE=";
     })
   ];
@@ -36,17 +35,19 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [
-    pam
-    libp11.passthru.openssl
-    libp11
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ libintl ];
+  buildInputs =
+    [
+      pam
+      libp11.passthru.openssl
+      libp11
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libintl];
 
   meta = with lib; {
     homepage = "https://github.com/OpenSC/pam_p11";
     description = "Authentication with PKCS#11 modules";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sb0 ];
+    maintainers = with maintainers; [sb0];
   };
 }

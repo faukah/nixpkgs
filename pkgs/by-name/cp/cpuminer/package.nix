@@ -8,7 +8,6 @@
   perl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cpuminer";
   version = "2.5.1";
@@ -28,22 +27,25 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  postPatch = if stdenv.cc.isClang then "${perl}/bin/perl ./nomacro.pl" else null;
+  postPatch =
+    if stdenv.cc.isClang
+    then "${perl}/bin/perl ./nomacro.pl"
+    else null;
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     curl
     jansson
   ];
 
-  configureFlags = [ "CFLAGS=-O3" ];
+  configureFlags = ["CFLAGS=-O3"];
 
   meta = with lib; {
     homepage = "https://github.com/pooler/cpuminer";
     description = "CPU miner for Litecoin and Bitcoin";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     mainProgram = "minerd";
   };
 }

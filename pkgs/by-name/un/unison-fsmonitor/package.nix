@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "unison-fsmonitor";
   version = "0.3.8";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/autozimu/unison-fsmonitor";
     description = "fsmonitor implementation for darwin";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ nevivurn ];
+    maintainers = with lib.maintainers; [nevivurn];
     platforms = lib.platforms.darwin;
     mainProgram = "unison-fsmonitor";
   };

@@ -6,7 +6,6 @@
   pyscard,
   ecdsa,
 }:
-
 buildPythonPackage rec {
   pname = "btchip-python";
   version = "0.1.32";
@@ -28,12 +27,12 @@ buildPythonPackage rec {
     ecdsa
   ];
 
-  optional-dependencies.smartcard = [ pyscard ];
+  optional-dependencies.smartcard = [pyscard];
 
   # tests requires hardware
   doCheck = false;
 
-  pythonImportsCheck = [ "btchip.btchip" ];
+  pythonImportsCheck = ["btchip.btchip"];
 
   meta = with lib; {
     description = "Python communication library for Ledger Hardware Wallet products";

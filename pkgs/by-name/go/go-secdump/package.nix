@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-secdump";
   version = "0.5.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/jfjallid/go-secdump";
     changelog = "https://github.com/jfjallid/go-secdump/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "go-secdump";
     platforms = lib.platforms.linux;
   };

@@ -16,20 +16,20 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-JaUlRQfYTg/5GC3SHjDRYHc54naOW4NpdfB6lMcQqog=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-oytYVAbmGPotnnI7morg8ePH8Ox1hD1WhGwEct4F0vw=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
   __darwinAllowLocalNetworking = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -40,6 +40,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with lib.maintainers; [ traxys ];
+    maintainers = with lib.maintainers; [traxys];
   };
 }

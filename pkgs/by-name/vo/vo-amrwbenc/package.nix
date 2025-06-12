@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vo-amrwbenc";
   version = "0.1.3";
@@ -16,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oHhoJAI47VqBGk9cO3G5oqnHpWxA2jnJs103MwcYj+w=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = {
     homepage = "https://sourceforge.net/projects/opencore-amr/";
     description = "VisualOn Adaptive Multi Rate Wideband (AMR-WB) encoder";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

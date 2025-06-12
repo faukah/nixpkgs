@@ -3,7 +3,6 @@
   rustPlatform,
   fetchurl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "okapi";
   version = "1.6.0";
@@ -28,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/trinsic-id/okapi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tmarkovski ];
+    maintainers = with maintainers; [tmarkovski];
   };
 }

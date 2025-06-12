@@ -7,7 +7,6 @@
   pytest-click,
   mkdocs-material,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocs-glightbox";
   version = "0.4.0";
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/blueswen/mkdocs-glightbox";
     changelog = "https://github.com/blueswen/mkdocs-glightbox/blob/v${version}/CHANGELOG";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ marcel ];
+    maintainers = with lib.maintainers; [marcel];
   };
 }

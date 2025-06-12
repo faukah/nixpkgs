@@ -1,9 +1,7 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   name = "qemu-vm-store";
 
-  meta.maintainers = with lib.maintainers; [ nikstur ];
+  meta.maintainers = with lib.maintainers; [nikstur];
 
   nodes = {
     sharedWritable = {
@@ -68,5 +66,4 @@
       nixStoreDevice = fullDisk.succeed("stat -c %d /nix/store")
       assert rootDevice == nixStoreDevice, "Nix store is mounted separately from the root fs"
   '';
-
 }

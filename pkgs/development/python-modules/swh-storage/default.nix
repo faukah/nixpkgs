@@ -27,7 +27,6 @@
   pytestCheckHook,
   swh-journal,
 }:
-
 buildPythonPackage rec {
   pname = "swh-storage";
   version = "3.1.0";
@@ -47,23 +46,25 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [
-    backports-entry-points-selectable
-    cassandra-driver
-    click
-    deprecated
-    flask
-    iso8601
-    mypy-extensions
-    psycopg
-    redis
-    tenacity
-    swh-core
-    swh-model
-    swh-objstorage
-  ] ++ psycopg.optional-dependencies.pool;
+  dependencies =
+    [
+      backports-entry-points-selectable
+      cassandra-driver
+      click
+      deprecated
+      flask
+      iso8601
+      mypy-extensions
+      psycopg
+      redis
+      tenacity
+      swh-core
+      swh-model
+      swh-objstorage
+    ]
+    ++ psycopg.optional-dependencies.pool;
 
-  pythonImportsCheck = [ "swh.storage" ];
+  pythonImportsCheck = ["swh.storage"];
 
   nativeCheckInputs = [
     postgresql
@@ -95,6 +96,6 @@ buildPythonPackage rec {
     description = "Abstraction layer over the archive, allowing to access all stored source code artifacts as well as their metadata";
     homepage = "https://gitlab.softwareheritage.org/swh/devel/swh-storage";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

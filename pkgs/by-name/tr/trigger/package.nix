@@ -16,7 +16,6 @@
   copyDesktopItems,
   makeDesktopItem,
 }:
-
 stdenv.mkDerivation rec {
   pname = "trigger-rally";
   version = "0.6.6.1";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "016bc2hczqscfmngacim870hjcsmwl8r3aq8x03vpf22s49nw23z";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   buildInputs = [
     SDL2
@@ -87,7 +86,7 @@ stdenv.mkDerivation rec {
     mainProgram = "trigger-rally";
     homepage = "http://trigger-rally.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

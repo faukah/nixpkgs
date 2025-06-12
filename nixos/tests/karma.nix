@@ -1,65 +1,66 @@
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "karma";
   nodes = {
-    server =
-      { ... }:
-      {
-        services.prometheus.alertmanager = {
-          enable = true;
-          logLevel = "debug";
-          port = 9093;
-          openFirewall = true;
-          configuration = {
-            global = {
-              resolve_timeout = "1m";
-            };
-            route = {
-              # Root route node
-              receiver = "test";
-              group_by = [ "..." ];
-              continue = false;
-              group_wait = "1s";
-              group_interval = "15s";
-              repeat_interval = "24h";
-            };
-            receivers = [
+    server = {...}: {
+      services.prometheus.alertmanager = {
+        enable = true;
+        logLevel = "debug";
+        port = 9093;
+        openFirewall = true;
+        configuration = {
+          global = {
+            resolve_timeout = "1m";
+          };
+          route = {
+            # Root route node
+            receiver = "test";
+            group_by = ["..."];
+            continue = false;
+            group_wait = "1s";
+            group_interval = "15s";
+            repeat_interval = "24h";
+          };
+          receivers = [
+            {
+              name = "test";
+              webhook_configs = [
+                {
+                  url = "http://localhost:1234";
+                  send_resolved = true;
+                  max_alerts = 0;
+                }
+              ];
+            }
+          ];
+        };
+      };
+      services.karma = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+          listen = {
+            address = "0.0.0.0";
+            port = 8081;
+          };
+          alertmanager = {
+            servers = [
               {
-                name = "test";
-                webhook_configs = [
-                  {
-                    url = "http://localhost:1234";
-                    send_resolved = true;
-                    max_alerts = 0;
-                  }
-                ];
+                name = "alertmanager";
+                uri = "https://127.0.0.1:9093";
               }
             ];
           };
-        };
-        services.karma = {
-          enable = true;
-          openFirewall = true;
-          settings = {
-            listen = {
-              address = "0.0.0.0";
-              port = 8081;
-            };
-            alertmanager = {
-              servers = [
-                {
-                  name = "alertmanager";
-                  uri = "https://127.0.0.1:9093";
-                }
-              ];
-            };
-            karma.name = "test-dashboard";
-            log.config = true;
-            log.requests = true;
-            log.timestamp = true;
-          };
+          karma.name = "test-dashboard";
+          log.config = true;
+          log.requests = true;
+          log.timestamp = true;
         };
       };
+    };
   };
 
   testScript = ''

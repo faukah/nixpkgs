@@ -7,7 +7,6 @@
   sqlite,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mollysocket";
   version = "1.6.0";
@@ -51,6 +50,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/mollyim/mollysocket";
     license = lib.licenses.agpl3Plus;
     mainProgram = "mollysocket";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

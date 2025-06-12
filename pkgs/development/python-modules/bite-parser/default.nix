@@ -7,7 +7,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "bite-parser";
   version = "0.2.5";
@@ -22,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-C508csRbjCeLgkp66TwDuxUtMITTmub5/TFv8x80HLA=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   nativeCheckInputs = [
     pytest-asyncio
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "bite" ];
+  pythonImportsCheck = ["bite"];
 
   meta = {
     description = "Asynchronous parser taking incremental bites out of your byte input stream";
     homepage = "https://github.com/jgosmann/bite-parser";
     changelog = "https://github.com/jgosmann/bite-parser/blob/${src.rev}/CHANGELOG.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

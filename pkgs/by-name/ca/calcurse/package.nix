@@ -8,7 +8,6 @@
   python3Packages,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "calcurse";
   version = "4.8.1";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     python3
     python3Packages.wrapPython
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     patchShebangs .
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.calcurse.org/calcurse.git/plain/CHANGES.md?h=v${version}";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.matthiasbeyer ];
+    maintainers = [lib.maintainers.matthiasbeyer];
   };
 }

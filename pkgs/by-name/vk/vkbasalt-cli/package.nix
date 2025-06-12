@@ -4,7 +4,6 @@
   fetchFromGitLab,
   vkbasalt,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "vkbasalt-cli";
   version = "3.1.1";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
       --replace /usr ${vkbasalt}
   '';
 
-  pythonImportsCheck = [ "vkbasalt.lib" ];
+  pythonImportsCheck = ["vkbasalt.lib"];
 
   meta = with lib; {
     description = "Command-line utility for vkBasalt";
@@ -30,7 +29,7 @@ python3Packages.buildPythonApplication rec {
       lgpl3Only
       gpl3Only
     ];
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "vkbasalt";
   };
 }

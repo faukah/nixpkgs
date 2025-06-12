@@ -7,7 +7,6 @@
   unstableGitUpdater,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation {
   pname = "untrunc-anthwlock";
   version = "0-unstable-2024-08-14";
@@ -19,7 +18,7 @@ stdenv.mkDerivation {
     hash = "sha256-4GIPj8so7POEwxKZzFBoJTu76XKbGHYmXC/ILeo0dVE=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook3 ];
+  nativeBuildInputs = [wrapGAppsHook3];
 
   buildInputs = [
     ffmpeg
@@ -51,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/anthwlock/untrunc";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

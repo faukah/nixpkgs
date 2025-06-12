@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kondo";
   version = "0.8";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-jmN7mtQ3CXfyeYrYD+JBE6ppln8+VJRBzygmczo8M04=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --cmd kondo \
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "Save disk space by cleaning unneeded files from software projects";
     homepage = "https://github.com/tbillington/kondo";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "kondo";
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-6RuHargk7sq6oUKj+aGPFp3t0LJCpj6RwLhNzAM5wVA=";
   };
 
-  nativeBuildInputs = [ glib ];
+  nativeBuildInputs = [glib];
 
   passthru = {
     extensionUuid = "guillotine@fopdoodle.net";
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "A gnome extension designed for efficiently carrying out executions of commands from a customizable menu";
     homepage = "https://gitlab.com/ente76/guillotine/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ husky ];
+    maintainers = with lib.maintainers; [husky];
     platforms = lib.platforms.linux;
   };
 })

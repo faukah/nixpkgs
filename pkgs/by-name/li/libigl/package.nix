@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "libigl";
   version = "2.6.0";
@@ -26,6 +25,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Simple C++ geometry processing library";
     homepage = "https://github.com/libigl/libigl";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 })

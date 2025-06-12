@@ -4,60 +4,56 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.services.vmalert;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
-  mkConfOpts =
-    settings:
+  mkConfOpts = settings:
     concatStringsSep " \\\n" (mapAttrsToList mkLine (filterAttrs (_: v: v != false) settings));
-  confType =
-    with types;
-    let
-      valueType = oneOf [
-        bool
-        int
-        path
-        str
-      ];
-    in
+  confType = with types; let
+    valueType = oneOf [
+      bool
+      int
+      path
+      str
+    ];
+  in
     attrsOf (either valueType (listOf valueType));
 
-  mkLine =
-    key: value:
-    if value == true then
-      "-${key}"
-    else if isList value then
-      concatMapStringsSep " " (v: "-${key}=${escapeShellArg (toString v)}") value
-    else
-      "-${key}=${escapeShellArg (toString value)}";
+  mkLine = key: value:
+    if value == true
+    then "-${key}"
+    else if isList value
+    then concatMapStringsSep " " (v: "-${key}=${escapeShellArg (toString v)}") value
+    else "-${key}=${escapeShellArg (toString value)}";
 
   vmalertName = name: "vmalert" + lib.optionalString (name != "") ("-" + name);
   enabledInstances = lib.filterAttrs (name: conf: conf.enable) config.services.vmalert.instances;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "vmalert" "enable" ]
-      [ "services" "vmalert" "instances" "" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "vmalert" "enable"]
+      ["services" "vmalert" "instances" "" "enable"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "vmalert" "rules" ]
-      [ "services" "vmalert" "instances" "" "rules" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "vmalert" "rules"]
+      ["services" "vmalert" "instances" "" "rules"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "vmalert" "settings" ]
-      [ "services" "vmalert" "instances" "" "settings" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "vmalert" "settings"]
+      ["services" "vmalert" "instances" "" "settings"]
     )
   ];
 
   # interface
-  options.services.vmalert.package = mkPackageOption pkgs "victoriametrics" { };
+  options.services.vmalert.package = mkPackageOption pkgs "victoriametrics" {};
 
   options.services.vmalert.instances = mkOption {
-    default = { };
+    default = {};
 
     description = ''
       Define multiple instances of vmalert.
@@ -65,8 +61,11 @@ in
 
     type = types.attrsOf (
       types.submodule (
-        { name, config, ... }:
         {
+          name,
+          config,
+          ...
+        }: {
           options = {
             enable = lib.mkOption {
               type = lib.types.bool;
@@ -82,7 +81,6 @@ in
               type = types.submodule {
                 freeformType = confType;
                 options = {
-
                   "datasource.url" = mkOption {
                     type = types.nonEmptyStr;
                     example = "http://localhost:8428";
@@ -93,8 +91,8 @@ in
 
                   "notifier.url" = mkOption {
                     type = with types; listOf nonEmptyStr;
-                    default = [ ];
-                    example = [ "http://127.0.0.1:9093" ];
+                    default = [];
+                    example = ["http://127.0.0.1:9093"];
                     description = ''
                       Prometheus Alertmanager URL. List all Alertmanager URLs if it runs in the cluster mode to ensure high availability.
                     '';
@@ -111,10 +109,9 @@ in
                       :::
                     '';
                   };
-
                 };
               };
-              default = { };
+              default = {};
               example = {
                 "datasource.url" = "http://localhost:8428";
                 "datasource.disableKeepAlive" = true;
@@ -133,7 +130,7 @@ in
 
             rules = mkOption {
               type = format.type;
-              default = { };
+              default = {};
               example = {
                 group = [
                   {
@@ -170,34 +167,35 @@ in
   };
 
   # implementation
-  config = mkIf (enabledInstances != { }) {
-    environment.etc = lib.mapAttrs' (
-      name:
-      { rules, ... }:
-      lib.nameValuePair "${vmalertName name}/rules.yml" {
-        source = format.generate "rules.yml" rules;
-      }
-    ) enabledInstances;
+  config = mkIf (enabledInstances != {}) {
+    environment.etc =
+      lib.mapAttrs' (
+        name: {rules, ...}:
+          lib.nameValuePair "${vmalertName name}/rules.yml" {
+            source = format.generate "rules.yml" rules;
+          }
+      )
+      enabledInstances;
 
-    systemd.services = lib.mapAttrs' (
-      name:
-      { settings, ... }:
-      let
-        name' = vmalertName name;
-      in
-      lib.nameValuePair name' {
-        description = "vmalert service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
-        reloadTriggers = [ config.environment.etc."${name'}/rules.yml".source ];
+    systemd.services =
+      lib.mapAttrs' (
+        name: {settings, ...}: let
+          name' = vmalertName name;
+        in
+          lib.nameValuePair name' {
+            description = "vmalert service";
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
+            reloadTriggers = [config.environment.etc."${name'}/rules.yml".source];
 
-        serviceConfig = {
-          DynamicUser = true;
-          Restart = "on-failure";
-          ExecStart = "${cfg.package}/bin/vmalert ${mkConfOpts settings}";
-          ExecReload = ''${pkgs.coreutils}/bin/kill -SIGHUP "$MAINPID"'';
-        };
-      }
-    ) enabledInstances;
+            serviceConfig = {
+              DynamicUser = true;
+              Restart = "on-failure";
+              ExecStart = "${cfg.package}/bin/vmalert ${mkConfOpts settings}";
+              ExecReload = ''${pkgs.coreutils}/bin/kill -SIGHUP "$MAINPID"'';
+            };
+          }
+      )
+      enabledInstances;
   };
 }

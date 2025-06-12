@@ -2,7 +2,6 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cmake,
   nanobind,
@@ -10,15 +9,12 @@
   pcpp,
   scikit-build-core,
   typing-extensions,
-
   # buildInputs
   imath,
   isl,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "islpy";
   version = "2025.2.2";
@@ -60,15 +56,15 @@ buildPythonPackage rec {
     rm -rf islpy
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "islpy" ];
+  pythonImportsCheck = ["islpy"];
 
   meta = {
     description = "Python wrapper around isl, an integer set library";
     homepage = "https://github.com/inducer/islpy";
     changelog = "https://github.com/inducer/islpy/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

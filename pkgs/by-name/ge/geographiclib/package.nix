@@ -5,7 +5,6 @@
   cmake,
   doxygen,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geographiclib";
   version = "2.5";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://geographiclib.sourceforge.io/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.unix;
   };
 }

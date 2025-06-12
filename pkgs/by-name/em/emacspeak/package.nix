@@ -8,7 +8,6 @@
   tcl,
   tclPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "emacspeak";
   version = "59.0";
@@ -58,9 +57,9 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tvraman/emacspeak/";
     description = "Emacs extension that provides spoken output";
     changelog = "https://github.com/tvraman/emacspeak/blob/${finalAttrs.src.rev}/etc/NEWS";
-    license = with lib.licenses; [ gpl2Plus ];
+    license = with lib.licenses; [gpl2Plus];
     mainProgram = "emacspeak";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.linux;
     # Emacspeak requires a minimal Emacs version; let's use the broken flag
     broken = lib.versionOlder (lib.getVersion emacs) "29.1";

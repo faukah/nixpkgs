@@ -7,7 +7,6 @@
   pyserial,
   pyserial-asyncio-fast,
 }:
-
 buildPythonPackage rec {
   pname = "benqprojector";
   version = "0.1.6";
@@ -33,13 +32,13 @@ buildPythonPackage rec {
   # Test cases require an actual serial/telnet connection to a projector
   doCheck = false;
 
-  pythonImportsCheck = [ "benqprojector" ];
+  pythonImportsCheck = ["benqprojector"];
 
   meta = rec {
     description = "Python library to control BenQ projectors";
     homepage = "https://github.com/rrooggiieerr/benqprojector.py";
     changelog = "${homepage}/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sephalon ];
+    maintainers = with lib.maintainers; [sephalon];
   };
 }

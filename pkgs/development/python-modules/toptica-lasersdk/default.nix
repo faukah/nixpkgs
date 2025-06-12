@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   ifaddr,
   pyserial,
 }:
-
 buildPythonPackage rec {
   pname = "toptica-lasersdk";
   version = "3.2.0";
@@ -39,6 +36,6 @@ buildPythonPackage rec {
     description = "TOPTICA Python Laser SDK";
     homepage = "https://toptica.github.io/python-lasersdk/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

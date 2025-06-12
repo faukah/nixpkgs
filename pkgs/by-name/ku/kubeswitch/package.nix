@@ -6,7 +6,6 @@
   kubeswitch,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubeswitch";
   version = "0.9.3";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/main.go" ];
+  subPackages = ["cmd/main.go"];
 
   ldflags = [
     "-s"
@@ -29,7 +28,7 @@ buildGoModule rec {
     "-X github.com/danielfoehrkn/kubeswitch/cmd/switcher.buildDate=1970-01-01"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/main $out/bin/switcher
@@ -39,14 +38,14 @@ buildGoModule rec {
     done
   '';
 
-  passthru.tests.version = testers.testVersion { package = kubeswitch; };
+  passthru.tests.version = testers.testVersion {package = kubeswitch;};
 
   meta = {
     changelog = "https://github.com/danielfoehrKn/kubeswitch/releases/tag/${version}";
     description = "Kubectx for operators, a drop-in replacement for kubectx";
     license = lib.licenses.asl20;
     homepage = "https://github.com/danielfoehrKn/kubeswitch";
-    maintainers = with lib.maintainers; [ bryanasdev000 ];
+    maintainers = with lib.maintainers; [bryanasdev000];
     mainProgram = "switcher";
   };
 }

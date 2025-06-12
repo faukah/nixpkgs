@@ -5,7 +5,6 @@
   buildPackages,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nspr";
   version = "4.36";
@@ -35,11 +34,13 @@ stdenv.mkDerivation rec {
     '';
 
   HOST_CC = "cc";
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  configureFlags = [
-    "--enable-optimize"
-    "--disable-debug"
-  ] ++ lib.optional stdenv.hostPlatform.is64bit "--enable-64bit";
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  configureFlags =
+    [
+      "--enable-optimize"
+      "--disable-debug"
+    ]
+    ++ lib.optional stdenv.hostPlatform.is64bit "--enable-64bit";
 
   postInstall = ''
     find $out -name "*.a" -delete

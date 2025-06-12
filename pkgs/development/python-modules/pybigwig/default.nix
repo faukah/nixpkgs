@@ -7,7 +7,6 @@
   pythonOlder,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "pybigwig";
   version = "0.3.24";
@@ -22,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-gK3cOwbvQtf+g1H/4x69swqCFdkBwpV7ZOrbE0eANh0=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   nativeCheckInputs = [
     numpy
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyBigWig" ];
+  pythonImportsCheck = ["pyBigWig"];
 
-  pytestFlagsArray = [ "pyBigWigTest/test*.py" ];
+  pytestFlagsArray = ["pyBigWigTest/test*.py"];
 
   disabledTests = [
     # Test file is downloaded from GitHub
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deeptools/pyBigWig";
     changelog = "https://github.com/deeptools/pyBigWig/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ scalavision ];
+    maintainers = with maintainers; [scalavision];
   };
 }

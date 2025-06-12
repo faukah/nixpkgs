@@ -6,7 +6,6 @@
   jdupes,
   gitUpdater,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "theme-obsidian2";
   version = "2.24";
@@ -42,8 +41,8 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Gnome theme based upon Adwaita-Maia dark skin";
     homepage = "https://github.com/madmaxms/theme-obsidian-2";
-    license = with licenses; [ gpl3Only ];
+    license = with licenses; [gpl3Only];
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -5,7 +5,6 @@
   setuptools,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "attr";
   version = "0.3.2";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-1gOAONDuZb7xEPFZJc00BRtFF06uX65S8b3RRRNGeSo=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   checkPhase = ''
     runHook preCheck
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     description = "Simple decorator to set attributes of target function or class in a DRY way.";
     homepage = "https://github.com/denis-ryzhkov/attr";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 }

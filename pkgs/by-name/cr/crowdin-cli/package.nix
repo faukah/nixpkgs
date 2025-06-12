@@ -11,7 +11,6 @@
   testers,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "crowdin-cli";
   version = "4.7.1";
@@ -38,24 +37,24 @@ stdenv.mkDerivation (finalAttrs: {
       --argv0 crowdin \
       --add-flags "-jar $out/lib/crowdin-cli.jar" \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gawk
-          gnugrep
-          git
-        ]
-      }
+      lib.makeBinPath [
+        gawk
+        gnugrep
+        git
+      ]
+    }
 
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = with lib; {
     mainProgram = "crowdin";
     homepage = "https://github.com/crowdin/crowdin-cli/";
     description = "Command-line client for the Crowdin API";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
   };
 })

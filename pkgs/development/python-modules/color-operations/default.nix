@@ -3,20 +3,16 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   cython,
   oldest-supported-numpy,
   setuptools,
-
   # dependencies
   numpy,
-
   # checks
   colormath,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "color-operations";
   version = "0.2.0";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     colormath
@@ -48,13 +44,13 @@ buildPythonPackage rec {
     python setup.py build_ext --inplace
   '';
 
-  pythonImportsCheck = [ "color_operations" ];
+  pythonImportsCheck = ["color_operations"];
 
   meta = {
     description = "Apply basic color-oriented image operations. Fork of rio-color";
     homepage = "https://github.com/vincentsarago/color-operations";
     changelog = "https://github.com/vincentsarago/color-operations/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

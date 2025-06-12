@@ -4,7 +4,6 @@
   fetchFromGitea,
   libjodycode,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jdupes";
   version = "1.28.0";
@@ -21,17 +20,17 @@ stdenv.mkDerivation (finalAttrs: {
     postFetch = "rm -r $out/testdir";
   };
 
-  buildInputs = [ libjodycode ];
+  buildInputs = [libjodycode];
 
   dontConfigure = true;
 
   makeFlags =
-    [ "PREFIX=${placeholder "out"}" ]
+    ["PREFIX=${placeholder "out"}"]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       "ENABLE_DEDUPE=1"
       "STATIC_DEDUPE_H=1"
     ]
-    ++ lib.optionals stdenv.cc.isGNU [ "HARDEN=1" ];
+    ++ lib.optionals stdenv.cc.isGNU ["HARDEN=1"];
 
   enableParallelBuilding = true;
 
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://codeberg.org/jbruchon/jdupes";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "jdupes";
   };
 })

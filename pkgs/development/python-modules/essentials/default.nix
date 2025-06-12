@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-WMHjBVkeSoQ4Naj1U7Bg9j2hcoErH1dx00BPKiom9T4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # time.sleep(0.01) can be up to 0.05s on darwin
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     "test_stopwatch_with_context_manager"
   ];
 
-  pythonImportsCheck = [ "essentials" ];
+  pythonImportsCheck = ["essentials"];
 
   meta = with lib; {
     homepage = "https://github.com/Neoteroi/essentials";

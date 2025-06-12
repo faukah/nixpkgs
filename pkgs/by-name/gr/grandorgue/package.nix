@@ -19,7 +19,6 @@
   makeWrapper,
   includeDemo ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grandorgue";
   version = "3.15.4-1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-9H7YpTtv9Y36Nc0WCyRy/ohpOQ3WVUd9gMahnGhANRc=";
   };
 
-  patches = [ ./darwin-fixes.patch ];
+  patches = [./darwin-fixes.patch];
 
   nativeBuildInputs = [
     cmake
@@ -80,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/GrandOrgue/grandorgue";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.puzzlewolf ];
+    maintainers = [lib.maintainers.puzzlewolf];
     mainProgram = "GrandOrgue";
   };
 }

@@ -1,6 +1,4 @@
-{ handleTest }:
-
-{
-  unencrypted = handleTest ./unencrypted.nix { };
-  tls = handleTest ./tls.nix { };
+{handleTest}: {
+  unencrypted = handleTest ./unencrypted.nix {};
+  tls = handleTest ./tls.nix {};
 }

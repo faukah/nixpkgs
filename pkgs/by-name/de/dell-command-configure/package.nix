@@ -7,15 +7,11 @@
   patchelfUnstable,
   openssl,
 }:
-
 # Use techniques described in https://web.archive.org/web/20220904051329/https://tapesoftware.net/replace-symbol/
-
 # Adapted from https://github.com/KenMacD/etc-nixos/blob/d3d28085586358a62b2bb4b427eb21aad05b5b23/dcc/default.nix
-
 # Used https://github.com/NixOS/nixpkgs/pull/84926 as a template
 # then converted to use autoPatchelfHook instead, and link with
 # the dependencies from other pkgs.
-
 let
   version = "5.1.0-6";
 
@@ -35,7 +31,7 @@ let
 
     dontBuild = true;
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     unpackPhase = ''
       tar -xzf ${finalAttrs.src}
@@ -68,54 +64,53 @@ let
       install -D ${wrapperLibName} -t $out/lib
     '';
   };
-
 in
-stdenv.mkDerivation {
-  inherit version;
-  pname = "dell-command-configure";
+  stdenv.mkDerivation {
+    inherit version;
+    pname = "dell-command-configure";
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [
-    openssl
-    (lib.getLib stdenv.cc.cc)
-  ];
+    buildInputs = [
+      openssl
+      (lib.getLib stdenv.cc.cc)
+    ];
 
-  dontConfigure = true;
+    dontConfigure = true;
 
-  src = unpacked;
+    src = unpacked;
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -D -t $out/lib -m644 -v command-configure/opt/dell/dcc/libhapiintf.so
-    install -D -t $out/lib -m644 -v command-configure/opt/dell/dcc/libsmbios_c.so.2
-    install -D -t $out/bin -m755 -v command-configure/opt/dell/dcc/cctk
-    install -D -t $out/bin -m755 -v srvadmin-hapi/opt/dell/srvadmin/sbin/dchcfg
-    for lib in $(find srvadmin-hapi/opt/dell/srvadmin/lib64 -type l); do
-        install -D -t $out/lib -m644 -v $lib
-    done
+      install -D -t $out/lib -m644 -v command-configure/opt/dell/dcc/libhapiintf.so
+      install -D -t $out/lib -m644 -v command-configure/opt/dell/dcc/libsmbios_c.so.2
+      install -D -t $out/bin -m755 -v command-configure/opt/dell/dcc/cctk
+      install -D -t $out/bin -m755 -v srvadmin-hapi/opt/dell/srvadmin/sbin/dchcfg
+      for lib in $(find srvadmin-hapi/opt/dell/srvadmin/lib64 -type l); do
+          install -D -t $out/lib -m644 -v $lib
+      done
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  postFixup = ''
-    echo fopen fopen_wrapper > fopen_name_map
-    echo access access_wrapper > access_name_map
-    ${patchelfUnstable}/bin/patchelf \
-      --rename-dynamic-symbols fopen_name_map \
-      --rename-dynamic-symbols access_name_map \
-      --add-needed ${wrapperLibName} \
-      --set-rpath ${lib.makeLibraryPath [ wrapperLib ]} \
-      $out/lib/*
-  '';
+    postFixup = ''
+      echo fopen fopen_wrapper > fopen_name_map
+      echo access access_wrapper > access_name_map
+      ${patchelfUnstable}/bin/patchelf \
+        --rename-dynamic-symbols fopen_name_map \
+        --rename-dynamic-symbols access_name_map \
+        --add-needed ${wrapperLibName} \
+        --set-rpath ${lib.makeLibraryPath [wrapperLib]} \
+        $out/lib/*
+    '';
 
-  meta = {
-    description = "Configure BIOS settings on Dell laptops";
-    homepage = "https://www.dell.com/support/article/us/en/19/sln311302/dell-command-configure";
-    license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ ryangibb ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-  };
-}
+    meta = {
+      description = "Configure BIOS settings on Dell laptops";
+      homepage = "https://www.dell.com/support/article/us/en/19/sln311302/dell-command-configure";
+      license = lib.licenses.unfree;
+      maintainers = with lib.maintainers; [ryangibb];
+      platforms = ["x86_64-linux"];
+      sourceProvenance = [lib.sourceTypes.binaryNativeCode];
+    };
+  }

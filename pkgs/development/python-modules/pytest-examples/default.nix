@@ -8,7 +8,6 @@
   ruff,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-examples";
   version = "0.0.18";
@@ -25,16 +24,16 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   dependencies = [
     black
     ruff
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_examples" ];
+  pythonImportsCheck = ["pytest_examples"];
 
   disabledTests = [
     # Fails with AssertionError because formatting is different than expected
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pydantic/pytest-examples";
     changelog = "https://github.com/pydantic/pytest-examples/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

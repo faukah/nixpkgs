@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pyads";
   version = "3.5.0";
@@ -22,24 +21,24 @@ buildPythonPackage rec {
     hash = "sha256-eQC2ozJ5bKuhyInZDq8ZZNa9OGIN3tRjSHEPoqIU/jc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ adslib ];
+  buildInputs = [adslib];
 
   patchPhase = ''
     substituteInPlace pyads/pyads_ex.py \
       --replace-fail "ctypes.CDLL(adslib)" "ctypes.CDLL(\"${adslib}/lib/adslib.so\")"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyads" ];
+  pythonImportsCheck = ["pyads"];
 
   meta = with lib; {
     description = "Python wrapper for TwinCAT ADS library";
     homepage = "https://github.com/MrLeeh/pyads";
     changelog = "https://github.com/stlehmann/pyads/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

@@ -7,7 +7,6 @@
   libdmtx,
   imagemagick,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dmtx-utils";
   version = "0.7.6-unstable-2023-09-21";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dmtx/dmtx-utils";
     changelog = "https://github.com/dmtx/dmtx-utils/blob/v${version}/ChangeLog";
     license = lib.licenses.lgpl2;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
   };
 }

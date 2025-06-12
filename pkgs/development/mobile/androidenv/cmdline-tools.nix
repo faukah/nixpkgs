@@ -11,13 +11,14 @@
   postInstall,
   meta,
 }:
-
 deployAndroidPackage {
   name = "androidsdk";
   inherit package os arch;
-  nativeBuildInputs = [
-    makeWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs =
+    [
+      makeWrapper
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   patchInstructions = ''
     ${lib.optionalString (os == "linux") ''
@@ -38,7 +39,7 @@ deployAndroidPackage {
 
     # Wrap sdkmanager script
     wrapProgram $ANDROID_SDK_ROOT/${package.path}/bin/sdkmanager \
-      --prefix PATH : ${lib.makeBinPath [ pkgs.jdk17 ]} \
+      --prefix PATH : ${lib.makeBinPath [pkgs.jdk17]} \
       --add-flags "--sdk_root=$ANDROID_SDK_ROOT"
 
     # Patch all script shebangs

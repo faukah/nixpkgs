@@ -4,7 +4,6 @@
   lib,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "blink";
   version = "1.1.0";
@@ -16,13 +15,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-4wgDftXOYm2fMP+/aTRljDi38EzbbwAJlQkuxjAMl3I=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Do not include --enable-static and --disable-shared flags during static compilation
   dontAddStaticConfigureFlags = true;
 
   # Don't add --build and --host flags as they are not supported
-  configurePlatforms = lib.optionals stdenv.hostPlatform.isStatic [ ];
+  configurePlatforms = lib.optionals stdenv.hostPlatform.isStatic [];
 
   # ./configure script expects --static not standard --enable-static
   configureFlags = lib.optional stdenv.hostPlatform.isStatic "--static";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     homepage = "https://github.com/jart/blink";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ t4ccer ];
+    maintainers = with lib.maintainers; [t4ccer];
     platforms = lib.platforms.all;
   };
 })

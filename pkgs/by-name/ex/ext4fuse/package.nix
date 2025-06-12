@@ -7,7 +7,6 @@
   pkg-config,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ext4fuse";
   version = "0.1.3";
@@ -24,7 +23,13 @@ stdenv.mkDerivation (finalAttrs: {
     which
   ];
 
-  buildInputs = [ (if stdenv.hostPlatform.isDarwin then macfuse-stubs else fuse) ];
+  buildInputs = [
+    (
+      if stdenv.hostPlatform.isDarwin
+      then macfuse-stubs
+      else fuse
+    )
+  ];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "EXT4 implementation for FUSE";
     mainProgram = "ext4fuse";
     homepage = "https://github.com/gerard/ext4fuse";
-    maintainers = with maintainers; [ felixalbrigtsen ];
+    maintainers = with maintainers; [felixalbrigtsen];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

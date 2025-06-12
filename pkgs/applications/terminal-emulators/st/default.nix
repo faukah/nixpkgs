@@ -10,13 +10,12 @@
   ncurses,
   writeText,
   conf ? null,
-  patches ? [ ],
-  extraLibs ? [ ],
+  patches ? [],
+  extraLibs ? [],
   nixosTests,
   # update script dependencies
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "st";
   version = "0.9.2";
@@ -53,10 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
     fontconfig
     freetype
   ];
-  buildInputs = [
-    libX11
-    libXft
-  ] ++ extraLibs;
+  buildInputs =
+    [
+      libX11
+      libXft
+    ]
+    ++ extraLibs;
 
   preInstall = ''
     export TERMINFO=$terminfo/share/terminfo
@@ -64,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
     echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   passthru = {
     tests.test = nixosTests.terminal-emulators.st;
@@ -77,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://st.suckless.org/";
     description = "Simple Terminal for X from Suckless.org Community";
     license = licenses.mit;
-    maintainers = with maintainers; [ qusic ];
+    maintainers = with maintainers; [qusic];
     platforms = platforms.unix;
     mainProgram = "st";
   };

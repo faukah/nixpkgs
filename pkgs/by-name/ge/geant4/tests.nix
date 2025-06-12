@@ -2,16 +2,14 @@
   stdenv,
   cmake,
   geant4,
-}:
-
-{
+}: {
   example_B1 = stdenv.mkDerivation {
     name = "${geant4.name}-test-example_B1";
 
     inherit (geant4) src;
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ geant4 ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [geant4];
     nativeCheckInputs = with geant4.data; [
       G4EMLOW
       G4ENSDFSTATE

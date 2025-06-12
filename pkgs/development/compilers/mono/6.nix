@@ -3,7 +3,6 @@
   fetchurl,
   fetchpatch,
 }:
-
 callPackage ./generic.nix rec {
   version = "6.14.1";
   src = fetchurl {

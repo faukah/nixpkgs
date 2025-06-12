@@ -6,7 +6,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "survey";
   version = "5.4.2";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonImportsCheck = [ "survey" ];
+  pythonImportsCheck = ["survey"];
 
   meta = {
     description = "Simple library for creating beautiful interactive prompts";
     homepage = "https://github.com/Exahilosys/survey";
     changelog = "https://github.com/Exahilosys/survey/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sfrijters ];
+    maintainers = with lib.maintainers; [sfrijters];
   };
 }

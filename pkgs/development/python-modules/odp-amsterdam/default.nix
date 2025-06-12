@@ -11,7 +11,6 @@
   pytz,
   syrupy,
 }:
-
 buildPythonPackage rec {
   pname = "odp-amsterdam";
   version = "6.1.1";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     poetry-core
   ];
 
-  pythonRelaxDeps = [ "pytz" ];
+  pythonRelaxDeps = ["pytz"];
 
   dependencies = [
     aiohttp
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "odp_amsterdam" ];
+  pythonImportsCheck = ["odp_amsterdam"];
 
   meta = with lib; {
     description = "Python client for getting garage occupancy in Amsterdam";
     homepage = "https://github.com/klaasnicolaas/python-odp-amsterdam";
     changelog = "https://github.com/klaasnicolaas/python-odp-amsterdam/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

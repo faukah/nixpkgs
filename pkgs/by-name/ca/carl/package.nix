@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "carl";
   version = "0.3.1";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/b1rger/carl";
     changelog = "https://github.com/b1rger/carl/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
     mainProgram = "carl";
   };
 }

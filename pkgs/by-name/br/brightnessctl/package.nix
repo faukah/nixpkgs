@@ -6,7 +6,6 @@
   systemd,
   coreutils,
 }:
-
 stdenv.mkDerivation rec {
   pname = "brightnessctl";
   version = "0.5.1";
@@ -37,16 +36,15 @@ stdenv.mkDerivation rec {
     "install_udev_rules"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ systemd ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [systemd];
 
   meta = with lib; {
     homepage = "https://github.com/Hummer12007/brightnessctl";
     description = "This program allows you read and control device brightness";
     license = licenses.mit;
-    maintainers = with maintainers; [ megheaiulian ];
+    maintainers = with maintainers; [megheaiulian];
     platforms = platforms.linux;
     mainProgram = "brightnessctl";
   };
-
 }

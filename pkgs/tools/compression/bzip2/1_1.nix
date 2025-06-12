@@ -7,7 +7,6 @@
   ninja,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bzip2-unstable";
   version = "2020-08-11";
@@ -47,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "High-quality data compression program";
     license = licenses.bsdOriginal;
-    pkgConfigModules = [ "bz2" ];
+    pkgConfigModules = ["bz2"];
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

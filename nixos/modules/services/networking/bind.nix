@@ -3,17 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.bind;
 
   bindPkg = config.services.bind.package;
 
   bindUser = "named";
 
-  bindZoneCoerce =
-    list:
+  bindZoneCoerce = list:
     builtins.listToAttrs (
       lib.forEach list (zone: {
         name = zone.name;
@@ -21,47 +18,49 @@ let
       })
     );
 
-  bindZoneOptions =
-    { name, config, ... }:
-    {
-      options = {
-        name = lib.mkOption {
-          type = lib.types.str;
-          default = name;
-          description = "Name of the zone.";
-        };
-        master = lib.mkOption {
-          description = "Master=false means slave server";
-          type = lib.types.bool;
-        };
-        file = lib.mkOption {
-          type = lib.types.either lib.types.str lib.types.path;
-          description = "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
-        };
-        masters = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          description = "List of servers for inclusion in stub and secondary zones.";
-        };
-        slaves = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          description = "Addresses who may request zone transfers.";
-          default = [ ];
-        };
-        allowQuery = lib.mkOption {
-          type = lib.types.listOf lib.types.str;
-          description = ''
-            List of address ranges allowed to query this zone. Instead of the address(es), this may instead
-            contain the single string "any".
-          '';
-          default = [ "any" ];
-        };
-        extraConfig = lib.mkOption {
-          type = lib.types.lines;
-          description = "Extra zone config to be appended at the end of the zone section.";
-          default = "";
-        };
+  bindZoneOptions = {
+    name,
+    config,
+    ...
+  }: {
+    options = {
+      name = lib.mkOption {
+        type = lib.types.str;
+        default = name;
+        description = "Name of the zone.";
+      };
+      master = lib.mkOption {
+        description = "Master=false means slave server";
+        type = lib.types.bool;
+      };
+      file = lib.mkOption {
+        type = lib.types.either lib.types.str lib.types.path;
+        description = "Zone file resource records contain columns of data, separated by whitespace, that define the record.";
+      };
+      masters = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        description = "List of servers for inclusion in stub and secondary zones.";
+      };
+      slaves = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        description = "Addresses who may request zone transfers.";
+        default = [];
+      };
+      allowQuery = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        description = ''
+          List of address ranges allowed to query this zone. Instead of the address(es), this may instead
+          contain the single string "any".
+        '';
+        default = ["any"];
+      };
+      extraConfig = lib.mkOption {
+        type = lib.types.lines;
+        description = "Extra zone config to be appended at the end of the zone section.";
+        default = "";
       };
     };
+  };
 
   confFile = pkgs.writeText "named.conf" ''
     include "/etc/bind/rndc.key";
@@ -74,11 +73,11 @@ let
 
     options {
       listen-on port ${toString cfg.listenOnPort} { ${
-        lib.concatMapStrings (entry: " ${entry}; ") cfg.listenOn
-      } };
+      lib.concatMapStrings (entry: " ${entry}; ") cfg.listenOn
+    } };
       listen-on-v6 port ${toString cfg.listenOnIpv6Port} { ${
-        lib.concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
-      } };
+      lib.concatMapStrings (entry: " ${entry}; ") cfg.listenOnIpv6
+    } };
       allow-query-cache { cachenetworks; };
       blackhole { badnetworks; };
       forward ${cfg.forward};
@@ -95,49 +94,45 @@ let
         name,
         file,
         master ? true,
-        slaves ? [ ],
-        masters ? [ ],
-        allowQuery ? [ ],
+        slaves ? [],
+        masters ? [],
+        allowQuery ? [],
         extraConfig ? "",
-      }:
-      ''
+      }: ''
         zone "${name}" {
-          type ${if master then "master" else "slave"};
+          type ${
+          if master
+          then "master"
+          else "slave"
+        };
           file "${file}";
           ${
-            if master then
-              ''
-                allow-transfer {
-                  ${lib.concatMapStrings (ip: "${ip};\n") slaves}
-                };
-              ''
-            else
-              ''
-                masters {
-                  ${lib.concatMapStrings (ip: "${ip};\n") masters}
-                };
-              ''
-          }
+          if master
+          then ''
+            allow-transfer {
+              ${lib.concatMapStrings (ip: "${ip};\n") slaves}
+            };
+          ''
+          else ''
+            masters {
+              ${lib.concatMapStrings (ip: "${ip};\n") masters}
+            };
+          ''
+        }
           allow-query { ${lib.concatMapStrings (ip: "${ip}; ") allowQuery}};
           ${extraConfig}
         };
       ''
     ) (lib.attrValues cfg.zones)}
   '';
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.bind = {
-
       enable = lib.mkEnableOption "BIND domain name server";
 
-      package = lib.mkPackageOption pkgs "bind" { };
+      package = lib.mkPackageOption pkgs "bind" {};
 
       cacheNetworks = lib.mkOption {
         default = [
@@ -157,7 +152,7 @@ in
       };
 
       blockedNetworks = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         description = ''
           What networks are just blocked.
@@ -193,7 +188,7 @@ in
       };
 
       listenOn = lib.mkOption {
-        default = [ "any" ];
+        default = ["any"];
         type = lib.types.listOf lib.types.str;
         description = ''
           Interfaces to listen on.
@@ -209,7 +204,7 @@ in
       };
 
       listenOnIpv6 = lib.mkOption {
-        default = [ "any" ];
+        default = ["any"];
         type = lib.types.listOf lib.types.str;
         description = ''
           Ipv6 interfaces to listen on.
@@ -231,9 +226,8 @@ in
       };
 
       zones = lib.mkOption {
-        default = [ ];
-        type =
-          with lib.types;
+        default = [];
+        type = with lib.types;
           coercedTo (listOf attrs) bindZoneCoerce (attrsOf (lib.types.submodule bindZoneOptions));
         description = ''
           List of zones we claim authority over.
@@ -242,8 +236,8 @@ in
           "example.com" = {
             master = false;
             file = "/var/dns/example.com";
-            masters = [ "192.168.0.1" ];
-            slaves = [ ];
+            masters = ["192.168.0.1"];
+            slaves = [];
             extraConfig = "";
           };
         };
@@ -275,15 +269,12 @@ in
           generated by nixos.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     networking.resolvconf.useLocalResolver = lib.mkDefault true;
 
     users.users.${bindUser} = {
@@ -291,7 +282,7 @@ in
       description = "BIND daemon user";
       isSystemUser = true;
     };
-    users.groups.${bindUser} = { };
+    users.groups.${bindUser} = {};
 
     systemd.tmpfiles.settings."bind" = lib.mkIf (cfg.directory != "/run/named") {
       ${cfg.directory} = {
@@ -304,8 +295,8 @@ in
     };
     systemd.services.bind = {
       description = "BIND Domain Name Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         if ! [ -f "/etc/bind/rndc.key" ]; then
@@ -324,8 +315,12 @@ in
         ConfigurationDirectory = "bind";
         ReadWritePaths = [
           (lib.mapAttrsToList (
-            name: config: if (lib.hasPrefix "/" config.file) then ("-${dirOf config.file}") else ""
-          ) cfg.zones)
+              name: config:
+                if (lib.hasPrefix "/" config.file)
+                then "-${dirOf config.file}"
+                else ""
+            )
+            cfg.zones)
           cfg.directory
         ];
         CapabilityBoundingSet = "CAP_NET_BIND_SERVICE";
@@ -348,7 +343,7 @@ in
         ProtectProc = "invisible";
         ProcSubset = "pid";
         RemoveIPC = true;
-        RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6 AF_NETLINK" ];
+        RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6 AF_NETLINK"];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         RestrictRealtime = true;

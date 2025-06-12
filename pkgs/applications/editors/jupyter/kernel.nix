@@ -2,42 +2,31 @@
   lib,
   stdenv,
   python3,
-}:
-
-let
-
+}: let
   default = {
-    python3 =
-      let
-        env = (python3.withPackages (ps: with ps; [ ipykernel ]));
-      in
-      {
-        displayName = "Python 3";
-        argv = [
-          env.interpreter
-          "-m"
-          "ipykernel_launcher"
-          "-f"
-          "{connection_file}"
-        ];
-        language = "python";
-        logo32 = "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
-        logo64 = "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
-      };
+    python3 = let
+      env = python3.withPackages (ps: with ps; [ipykernel]);
+    in {
+      displayName = "Python 3";
+      argv = [
+        env.interpreter
+        "-m"
+        "ipykernel_launcher"
+        "-f"
+        "{connection_file}"
+      ];
+      language = "python";
+      logo32 = "${env}/${env.sitePackages}/ipykernel/resources/logo-32x32.png";
+      logo64 = "${env}/${env.sitePackages}/ipykernel/resources/logo-64x64.png";
+    };
   };
-
-in
-{
+in {
   inherit default;
 
   # Definitions is an attribute set.
 
-  create =
-    {
-      definitions ? default,
-    }:
+  create = {definitions ? default}:
     stdenv.mkDerivation {
-
       name = "jupyter-kernels";
 
       src = "/dev/null";
@@ -49,8 +38,7 @@ in
 
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (
-            kernelName: unfilteredKernel:
-            let
+            kernelName: unfilteredKernel: let
               allowedKernelKeys = [
                 "argv"
                 "displayName"
@@ -66,24 +54,29 @@ in
               config = builtins.toJSON (
                 kernel
                 // {
-                  display_name = if (kernel.displayName != "") then kernel.displayName else kernelName;
+                  display_name =
+                    if (kernel.displayName != "")
+                    then kernel.displayName
+                    else kernelName;
                 }
-                // (lib.optionalAttrs (kernel ? interruptMode) { interrupt_mode = kernel.interruptMode; })
+                // (lib.optionalAttrs (kernel ? interruptMode) {interrupt_mode = kernel.interruptMode;})
               );
               extraPaths =
-                kernel.extraPaths or { }
-                // lib.optionalAttrs (kernel.logo32 != null) { "logo-32x32.png" = kernel.logo32; }
-                // lib.optionalAttrs (kernel.logo64 != null) { "logo-64x64.png" = kernel.logo64; };
-              linkExtraPaths = lib.mapAttrsToList (
-                name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';"
-              ) extraPaths;
-            in
-            ''
+                kernel.extraPaths or {}
+                // lib.optionalAttrs (kernel.logo32 != null) {"logo-32x32.png" = kernel.logo32;}
+                // lib.optionalAttrs (kernel.logo64 != null) {"logo-64x64.png" = kernel.logo64;};
+              linkExtraPaths =
+                lib.mapAttrsToList (
+                  name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';"
+                )
+                extraPaths;
+            in ''
               mkdir 'kernels/${kernelName}';
               echo '${config}' > 'kernels/${kernelName}/kernel.json';
               ${lib.concatStringsSep "\n" linkExtraPaths}
             ''
-          ) definitions
+          )
+          definitions
         )}
 
         mkdir $out
@@ -93,7 +86,7 @@ in
       meta = {
         description = "Wrapper to create jupyter notebook kernel definitions";
         homepage = "https://jupyter.org/";
-        maintainers = with lib.maintainers; [ aborsu ];
+        maintainers = with lib.maintainers; [aborsu];
       };
     };
 }

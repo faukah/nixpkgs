@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitLab,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "open-sans";
   version = "1.11";
@@ -34,6 +33,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://www.opensans.com";
     license = licenses.asl20;
     platforms = platforms.all;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   android-tools,
 }:
-
 buildGoModule rec {
   pname = "fdroidcl";
   version = "0.7.0";
@@ -16,7 +15,7 @@ buildGoModule rec {
     hash = "sha256-tqhs3b/DHfnGOm9qcM56NSzt1GJflJfbemkp7+nXbug=";
   };
 
-  patches = [ ./go_mod_version_update.patch ];
+  patches = [./go_mod_version_update.patch];
 
   vendorHash = "sha256-BWbwhHjfmMjiRurrZfW/YgIzJUH/hn+7qonD0BcTLxs=";
 
@@ -33,6 +32,6 @@ buildGoModule rec {
     mainProgram = "fdroidcl";
     homepage = "https://github.com/mvdan/fdroidcl";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

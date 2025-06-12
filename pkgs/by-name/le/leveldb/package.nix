@@ -8,7 +8,6 @@
   cmake,
   static ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "leveldb";
   version = "1.23";
@@ -36,17 +35,21 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ snappy ];
+  buildInputs = [snappy];
 
-  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames ++ [ cmake ];
+  nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames ++ [cmake];
 
   doCheck = true;
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
   # NOTE: disabling tests due to gtest issue
   cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"
+    "-DBUILD_SHARED_LIBS=${
+      if static
+      then "OFF"
+      else "ON"
+    }"
     "-DLEVELDB_BUILD_TESTS=OFF"
     "-DLEVELDB_BUILD_BENCHMARKS=OFF"
   ];

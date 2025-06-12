@@ -30,16 +30,16 @@ stdenv.mkDerivation rec {
   preConfigure = ''
     cmakeFlagsArray+=(
       -DCMAKE_C_FLAGS=${
-        lib.escapeShellArg (
-          [
-            "-Wno-error=unused-but-set-parameter"
-            "-Wno-error=unused-but-set-variable"
-          ]
-          ++ lib.optionals stdenv.cc.isClang [
-            "-Wno-error=documentation"
-          ]
-        )
-      }
+      lib.escapeShellArg (
+        [
+          "-Wno-error=unused-but-set-parameter"
+          "-Wno-error=unused-but-set-variable"
+        ]
+        ++ lib.optionals stdenv.cc.isClang [
+          "-Wno-error=documentation"
+        ]
+      )
+    }
     )
   '';
 
@@ -48,14 +48,14 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/canokeys/canokey-qemu";
     description = "CanoKey QEMU Virt Card";
     license = licenses.asl20;
-    maintainers = with maintainers; [ oxalica ];
+    maintainers = with maintainers; [oxalica];
   };
 }

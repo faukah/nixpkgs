@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage {
   pname = "coc-basedpyright";
   # No tagged releases, this version is inferred from <https://www.npmjs.com/package/coc-basedpyright>
@@ -22,6 +21,6 @@ buildNpmPackage {
     description = "Basedpyright extension for coc.nvim";
     homepage = "https://github.com/fannheyward/coc-basedpyright";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wrvsrx ];
+    maintainers = with lib.maintainers; [wrvsrx];
   };
 }

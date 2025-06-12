@@ -5,7 +5,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "cri-tools";
   version = "1.33.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildPhase = ''
     runHook preBuild
@@ -48,6 +47,6 @@ buildGoModule rec {
     description = "CLI and validation tools for Kubelet Container Runtime Interface (CRI)";
     homepage = "https://github.com/kubernetes-sigs/cri-tools";
     license = licenses.asl20;
-    teams = [ teams.podman ];
+    teams = [teams.podman];
   };
 }

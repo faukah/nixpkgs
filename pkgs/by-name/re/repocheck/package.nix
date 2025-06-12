@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "repocheck";
   version = "1.0.0";
@@ -16,9 +15,9 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-pCz+oAfDFyDeuXumfNzLTXnftM9+IG+lZzWSKtbZ9dg=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  pythonImportsCheck = [ "repocheck" ];
+  pythonImportsCheck = ["repocheck"];
 
   # no tests
   doCheck = false;

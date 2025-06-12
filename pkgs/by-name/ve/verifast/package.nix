@@ -12,10 +12,7 @@
   fontconfig,
   libxml2,
   gnome2,
-}:
-
-let
-
+}: let
   libPath =
     lib.makeLibraryPath [
       stdenv.cc.libc
@@ -41,36 +38,35 @@ let
   patchLib = x: ''
     patchelf --set-rpath ${libPath} ${x}
   '';
-
 in
-stdenv.mkDerivation rec {
-  pname = "verifast";
-  version = "25.02";
+  stdenv.mkDerivation rec {
+    pname = "verifast";
+    version = "25.02";
 
-  src = fetchurl {
-    url = "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz";
-    sha256 = "sha256-XVyH0Rs9c19Ew/DKUq68iePE0RGdmO8lGI0Hy1etZeg=";
-  };
+    src = fetchurl {
+      url = "https://github.com/verifast/verifast/releases/download/${version}/${pname}-${version}-linux.tar.gz";
+      sha256 = "sha256-XVyH0Rs9c19Ew/DKUq68iePE0RGdmO8lGI0Hy1etZeg=";
+    };
 
-  dontConfigure = true;
-  dontStrip = true;
-  installPhase = ''
-    mkdir -p $out/bin
-    cp -R bin $out/libexec
+    dontConfigure = true;
+    dontStrip = true;
+    installPhase = ''
+      mkdir -p $out/bin
+      cp -R bin $out/libexec
 
-    ${patchExe "$out/libexec/verifast"}
-    ${patchExe "$out/libexec/vfide"}
-    ${patchLib "$out/libexec/libz3.so"}
-    ln -s $out/libexec/verifast $out/bin/verifast
-    ln -s $out/libexec/vfide    $out/bin/vfide
-  '';
+      ${patchExe "$out/libexec/verifast"}
+      ${patchExe "$out/libexec/vfide"}
+      ${patchLib "$out/libexec/libz3.so"}
+      ln -s $out/libexec/verifast $out/bin/verifast
+      ln -s $out/libexec/vfide    $out/bin/vfide
+    '';
 
-  meta = {
-    description = "Verification for C and Java programs via separation logic";
-    homepage = "https://people.cs.kuleuven.be/~bart.jacobs/verifast/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ lib.maintainers.thoughtpolice ];
-  };
-}
+    meta = {
+      description = "Verification for C and Java programs via separation logic";
+      homepage = "https://people.cs.kuleuven.be/~bart.jacobs/verifast/";
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.mit;
+      platforms = ["x86_64-linux"];
+      maintainers = [lib.maintainers.thoughtpolice];
+    };
+  }

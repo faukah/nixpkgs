@@ -16,7 +16,6 @@
   usePython ? false,
   gpgmeSupport ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ledger";
   version = "3.3.2";
@@ -51,10 +50,12 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optionals usePython [ "py" ];
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optionals usePython ["py"];
 
   buildInputs =
     [
@@ -67,16 +68,15 @@ stdenv.mkDerivation rec {
       gpgme
     ]
     ++ (
-      if usePython then
-        [
-          python3
-          (boost.override {
-            enablePython = true;
-            python = python3;
-          })
-        ]
-      else
-        [ boost ]
+      if usePython
+      then [
+        python3
+        (boost.override {
+          enablePython = true;
+          python = python3;
+        })
+      ]
+      else [boost]
     );
 
   nativeBuildInputs = [
@@ -88,8 +88,16 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
     "-DBUILD_DOCS:BOOL=ON"
-    "-DUSE_PYTHON:BOOL=${if usePython then "ON" else "OFF"}"
-    "-DUSE_GPGME:BOOL=${if gpgmeSupport then "ON" else "OFF"}"
+    "-DUSE_PYTHON:BOOL=${
+      if usePython
+      then "ON"
+      else "OFF"
+    }"
+    "-DUSE_GPGME:BOOL=${
+      if gpgmeSupport
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   # by default, it will query the python interpreter for it's sitepackages location
@@ -121,6 +129,6 @@ stdenv.mkDerivation rec {
       their data, there really is no alternative.
     '';
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

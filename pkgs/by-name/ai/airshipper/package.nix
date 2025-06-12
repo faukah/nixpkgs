@@ -24,26 +24,24 @@
   makeWrapper,
   writeShellScript,
   patchelf,
-}:
-let
+}: let
   version = "0.16.0";
   # Patch for airshipper to install veloren
-  patch =
-    let
-      runtimeLibs = [
-        udev
-        alsa-lib
-        (lib.getLib stdenv.cc.cc)
-        libxkbcommon
-        libxcb
-        libX11
-        libXcursor
-        libXrandr
-        libXi
-        vulkan-loader
-        libGL
-      ];
-    in
+  patch = let
+    runtimeLibs = [
+      udev
+      alsa-lib
+      (lib.getLib stdenv.cc.cc)
+      libxkbcommon
+      libxcb
+      libX11
+      libXcursor
+      libXrandr
+      libXi
+      vulkan-loader
+      libGL
+    ];
+  in
     writeShellScript "patch" ''
       echo "making binaries executable"
       chmod +x {veloren-voxygen,veloren-server-cli}
@@ -57,46 +55,45 @@ let
         veloren-voxygen
     '';
 in
-rustPlatform.buildRustPackage {
-  pname = "airshipper";
-  inherit version;
+  rustPlatform.buildRustPackage {
+    pname = "airshipper";
+    inherit version;
 
-  src = fetchFromGitLab {
-    owner = "Veloren";
-    repo = "airshipper";
-    rev = "v${version}";
-    hash = "sha256-MHwyXCAqdBzdJlYzSeUXr6bJdTVHcjJ/kGcuAsZCCW8=";
-  };
+    src = fetchFromGitLab {
+      owner = "Veloren";
+      repo = "airshipper";
+      rev = "v${version}";
+      hash = "sha256-MHwyXCAqdBzdJlYzSeUXr6bJdTVHcjJ/kGcuAsZCCW8=";
+    };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-TkeB939zV5VvqICFqJd/7uX+ydXyEQOJ3sYQbHbZhP0=";
+    useFetchCargoVendor = true;
+    cargoHash = "sha256-TkeB939zV5VvqICFqJd/7uX+ydXyEQOJ3sYQbHbZhP0=";
 
-  buildInputs = [
-    fontconfig
-    openssl
-    wayland
-    wayland-protocols
-    libxkbcommon
-    libX11
-    libXrandr
-    libXi
-    libXcursor
-  ];
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-    makeWrapper
-  ];
+    buildInputs = [
+      fontconfig
+      openssl
+      wayland
+      wayland-protocols
+      libxkbcommon
+      libX11
+      libXrandr
+      libXi
+      libXcursor
+    ];
+    nativeBuildInputs = [
+      cmake
+      pkg-config
+      makeWrapper
+    ];
 
-  RUSTC_BOOTSTRAP = 1; # We need rust unstable features
+    RUSTC_BOOTSTRAP = 1; # We need rust unstable features
 
-  postInstall = ''
-    install -Dm444 -t "$out/share/applications" "client/assets/net.veloren.airshipper.desktop"
-    install -Dm444    "client/assets/net.veloren.airshipper.png"  "$out/share/icons/net.veloren.airshipper.png"
-  '';
+    postInstall = ''
+      install -Dm444 -t "$out/share/applications" "client/assets/net.veloren.airshipper.desktop"
+      install -Dm444    "client/assets/net.veloren.airshipper.png"  "$out/share/icons/net.veloren.airshipper.png"
+    '';
 
-  postFixup =
-    let
+    postFixup = let
       libPath = lib.makeLibraryPath [
         libGL
         vulkan-loader
@@ -111,27 +108,26 @@ rustPlatform.buildRustPackage {
         libXi
         libXcursor
       ];
-    in
-    ''
+    in ''
       patchelf --set-rpath "${libPath}" "$out/bin/airshipper"
       wrapProgram "$out/bin/airshipper" --set VELOREN_PATCHER "${patch}"
     '';
 
-  doCheck = false;
-  cargoBuildFlags = [
-    "--package"
-    "airshipper"
-  ];
-  cargoTestFlags = [
-    "--package"
-    "airshipper"
-  ];
+    doCheck = false;
+    cargoBuildFlags = [
+      "--package"
+      "airshipper"
+    ];
+    cargoTestFlags = [
+      "--package"
+      "airshipper"
+    ];
 
-  meta = with lib; {
-    description = "Provides automatic updates for the voxel RPG Veloren";
-    mainProgram = "airshipper";
-    homepage = "https://www.veloren.net";
-    license = licenses.gpl3;
-    maintainers = with maintainers; [ yusdacra ];
-  };
-}
+    meta = with lib; {
+      description = "Provides automatic updates for the voxel RPG Veloren";
+      mainProgram = "airshipper";
+      homepage = "https://www.veloren.net";
+      license = licenses.gpl3;
+      maintainers = with maintainers; [yusdacra];
+    };
+  }

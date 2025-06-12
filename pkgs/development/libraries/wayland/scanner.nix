@@ -9,7 +9,6 @@
   expat,
   libxml2,
 }:
-
 stdenv.mkDerivation {
   pname = "wayland-scanner";
   inherit (wayland) version src;
@@ -27,13 +26,15 @@ stdenv.mkDerivation {
     (lib.mesonBool "tests" false)
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
-  nativeBuildInputs = [
-    meson
-    pkg-config
-    ninja
-  ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) wayland-scanner;
+  nativeBuildInputs =
+    [
+      meson
+      pkg-config
+      ninja
+    ]
+    ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) wayland-scanner;
 
   buildInputs = [
     expat

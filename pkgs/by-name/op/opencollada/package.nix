@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencollada";
   version = "1.6.68";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Library for handling the COLLADA file format";
     homepage = "https://github.com/KhronosGroup/OpenCOLLADA/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
     license = lib.licenses.mit;
   };

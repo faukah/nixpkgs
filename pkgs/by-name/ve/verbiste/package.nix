@@ -6,7 +6,6 @@
   gtk2,
   libxml2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "verbiste";
 
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-qp0OFpH4DInWjzraDI6+CeKh85JkbwVYHlJruIrGnBM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gtk2
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "French and Italian verb conjugator";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

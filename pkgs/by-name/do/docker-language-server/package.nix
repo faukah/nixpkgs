@@ -5,7 +5,6 @@
   docker,
   gotestsum,
 }:
-
 buildGoModule rec {
   pname = "docker-language-server";
   version = "0.10.2";
@@ -42,6 +41,6 @@ buildGoModule rec {
     description = "Language server for providing language features for file types in the Docker ecosystem (Dockerfiles, Compose files, and Bake files)";
     mainProgram = "docker-language-server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ baongoc124 ];
+    maintainers = with maintainers; [baongoc124];
   };
 }

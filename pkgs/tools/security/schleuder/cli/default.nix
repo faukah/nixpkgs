@@ -4,7 +4,6 @@
   ruby,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   inherit ruby;
 
@@ -30,6 +29,6 @@ bundlerApp {
     homepage = "https://schleuder.org";
     changelog = "https://0xacab.org/schleuder/schleuder-cli/-/blob/main/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

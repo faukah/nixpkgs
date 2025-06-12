@@ -1,6 +1,6 @@
 {
   addDriverRunpath,
-  allowedPatternsPath ? callPackage ./closure.nix { inherit allowedPatterns; },
+  allowedPatternsPath ? callPackage ./closure.nix {inherit allowedPatterns;},
   allowedPatterns ? rec {
     # This config is just an example.
     # When the hook observes either of the following requiredSystemFeatures:
@@ -19,49 +19,46 @@
     nvidia-gpu.unsafeFollowSymlinks = true;
   },
   callPackage,
-  extraWrapperArgs ? [ ],
+  extraWrapperArgs ? [],
   lib,
   makeWrapper,
   nix,
   nixosTests,
   python3Packages,
-}:
-
-let
+}: let
   attrs = builtins.fromTOML (builtins.readFile ./pyproject.toml);
   pname = attrs.project.name;
   inherit (attrs.project) version;
 in
+  python3Packages.buildPythonApplication {
+    inherit pname version;
+    pyproject = true;
 
-python3Packages.buildPythonApplication {
-  inherit pname version;
-  pyproject = true;
+    src = lib.cleanSource ./.;
 
-  src = lib.cleanSource ./.;
+    nativeBuildInputs = [
+      makeWrapper
+      python3Packages.setuptools
+    ];
 
-  nativeBuildInputs = [
-    makeWrapper
-    python3Packages.setuptools
-  ];
+    postFixup = ''
+      wrapProgram $out/bin/${pname} \
+        --add-flags "--patterns ${allowedPatternsPath}" \
+        --add-flags "--nix-exe ${lib.getExe nix}" \
+        ${builtins.concatStringsSep " " extraWrapperArgs}
+    '';
 
-  postFixup = ''
-    wrapProgram $out/bin/${pname} \
-      --add-flags "--patterns ${allowedPatternsPath}" \
-      --add-flags "--nix-exe ${lib.getExe nix}" \
-      ${builtins.concatStringsSep " " extraWrapperArgs}
-  '';
-
-  passthru = {
-    inherit allowedPatterns;
-    tests = {
-      inherit (nixosTests) nix-required-mounts;
+    passthru = {
+      inherit allowedPatterns;
+      tests = {
+        inherit (nixosTests) nix-required-mounts;
+      };
     };
-  };
-  meta = {
-    inherit (attrs.project) description;
-    homepage = attrs.project.urls.Homepage;
-    license = lib.licenses.mit;
-    mainProgram = attrs.project.name;
-    maintainers = with lib.maintainers; [ SomeoneSerge ];
-  };
-}
+    meta = {
+      inherit (attrs.project) description;
+      homepage = attrs.project.urls.Homepage;
+      license = lib.licenses.mit;
+      mainProgram = attrs.project.name;
+      maintainers = with lib.maintainers; [SomeoneSerge];
+    };
+  }

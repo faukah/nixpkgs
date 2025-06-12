@@ -24,7 +24,6 @@
   zigpy-zigate,
   zigpy-znp,
 }:
-
 buildPythonPackage rec {
   pname = "zha";
   version = "0.0.57";
@@ -74,7 +73,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zha" ];
+  pythonImportsCheck = ["zha"];
 
   disabledTests = [
     # Tests are long-running and often keep hanging
@@ -103,13 +102,13 @@ buildPythonPackage rec {
     "test_background"
   ];
 
-  disabledTestPaths = [ "tests/test_cluster_handlers.py" ];
+  disabledTestPaths = ["tests/test_cluster_handlers.py"];
 
   meta = with lib; {
     description = "Zigbee Home Automation";
     homepage = "https://github.com/zigpy/zha";
     changelog = "https://github.com/zigpy/zha/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

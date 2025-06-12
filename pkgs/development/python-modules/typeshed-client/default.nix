@@ -8,7 +8,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "typeshed-client";
   version = "2.7.0";
@@ -23,24 +22,24 @@ buildPythonPackage rec {
     hash = "sha256-dEfKZ930Jxa84HUqKpsL2JWQLeeWx6gIMtFHTbiw3Es=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     importlib-resources
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "typeshed_client" ];
+  pythonImportsCheck = ["typeshed_client"];
 
-  pytestFlagsArray = [ "tests/test.py" ];
+  pytestFlagsArray = ["tests/test.py"];
 
   meta = with lib; {
     description = "Retrieve information from typeshed and other typing stubs";
     homepage = "https://github.com/JelleZijlstra/typeshed_client";
     changelog = "https://github.com/JelleZijlstra/typeshed_client/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

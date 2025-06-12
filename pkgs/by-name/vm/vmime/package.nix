@@ -13,7 +13,6 @@
   # this will not work on non-nixos systems
   sendmailPath ? "/run/wrappers/bin/sendmail",
 }:
-
 stdenv.mkDerivation {
   pname = "vmime";
   # XXX: using unstable rev for now to comply with the removal of
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
     homepage = "https://www.vmime.org/";
     description = "Free mail library for C++";
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux;
   };
 }

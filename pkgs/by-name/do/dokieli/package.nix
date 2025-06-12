@@ -10,7 +10,6 @@
   nodejs,
   xsel,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dokieli";
   version = "0-unstable-2024-12-12";
@@ -26,10 +25,9 @@ stdenv.mkDerivation (finalAttrs: {
   offlineCache = fetchYarnDeps {
     yarnLock = "${finalAttrs.src}/yarn.lock";
     hash =
-      if stdenv.hostPlatform.isDarwin then
-        "sha256-bw5HszcHZ60qgYgm4qfhZEYXjJAQ2DXhWU0Reqb9VpQ="
-      else
-        "sha256-rwHBDBWZe4cdTyL7lNkB4nlpd5MWzbTU6kzdLBWcq0M=";
+      if stdenv.hostPlatform.isDarwin
+      then "sha256-bw5HszcHZ60qgYgm4qfhZEYXjJAQ2DXhWU0Reqb9VpQ="
+      else "sha256-rwHBDBWZe4cdTyL7lNkB4nlpd5MWzbTU6kzdLBWcq0M=";
   };
 
   installPhase = ''
@@ -49,11 +47,11 @@ stdenv.mkDerivation (finalAttrs: {
   postFixup = ''
     makeWrapper ${nodejs}/bin/npx $out/bin/dokieli           \
       --prefix PATH : ${
-        lib.makeBinPath ([
-          nodejs
-          xsel
-        ])
-      }   \
+      lib.makeBinPath [
+        nodejs
+        xsel
+      ]
+    }   \
       --add-flags serve                                      \
       --chdir $out/deps/dokieli
   '';
@@ -65,8 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/linkeddata/dokieli";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ shogo ];
-    teams = [ lib.teams.ngi ];
+    maintainers = with lib.maintainers; [shogo];
+    teams = [lib.teams.ngi];
     mainProgram = "dokieli";
   };
 })

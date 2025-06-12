@@ -8,7 +8,6 @@
   qttools,
   libsecret,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtkeychain";
   version = "0.15.0";
@@ -23,17 +22,25 @@ stdenv.mkDerivation rec {
   dontWrapQtApps = true;
 
   cmakeFlags = [
-    "-DBUILD_WITH_QT6=${if lib.versions.major qtbase.version == "6" then "ON" else "OFF"}"
+    "-DBUILD_WITH_QT6=${
+      if lib.versions.major qtbase.version == "6"
+      then "ON"
+      else "OFF"
+    }"
     "-DQT_TRANSLATIONS_DIR=share/qt/translations"
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ pkg-config ] # for finding libsecret
-  ;
+  nativeBuildInputs =
+    [cmake] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [pkg-config]
+    # for finding libsecret
+    ;
 
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libsecret ] ++ [
-    qtbase
-    qttools
-  ];
+  buildInputs =
+    lib.optionals (!stdenv.hostPlatform.isDarwin) [libsecret]
+    ++ [
+      qtbase
+      qttools
+    ];
 
   doInstallCheck = true;
 

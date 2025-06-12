@@ -23,8 +23,8 @@ crystal.buildCrystalPackage rec {
     ./store-friendly-library-name.patch
   ];
 
-  nativeBuildInputs = [ gobject-introspection ];
-  buildTargets = [ "generator" ];
+  nativeBuildInputs = [gobject-introspection];
+  buildTargets = ["generator"];
 
   doCheck = false;
   doInstallCheck = false;
@@ -39,13 +39,13 @@ crystal.buildCrystalPackage rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     description = "GI Crystal is a binding generator used to generate Crystal bindings for GObject based libraries using GObject Introspection";
     homepage = "https://github.com/hugopl/gi-crystal";
     mainProgram = "gi-crystal";
-    maintainers = with maintainers; [ sund3RRR ];
+    maintainers = with maintainers; [sund3RRR];
   };
 }

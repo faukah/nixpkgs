@@ -6,13 +6,12 @@
   makeWrapper,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dita-ot";
   version = "4.3.2";
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ openjdk17 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [openjdk17];
 
   src = fetchzip {
     url = "https://github.com/dita-ot/dita-ot/releases/download/${finalAttrs.version}/dita-ot-${finalAttrs.version}.zip";
@@ -26,14 +25,14 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r $src/* $out/share/dita-ot/
 
     makeWrapper "$out/share/dita-ot/bin/dita" "$out/bin/dita" \
-      --prefix PATH : "${lib.makeBinPath [ openjdk17 ]}" \
+      --prefix PATH : "${lib.makeBinPath [openjdk17]}" \
       --set-default JDK_HOME "${openjdk17.home}" \
       --set-default JAVA_HOME "${openjdk17.home}"
 
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+  passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
   meta = {
     homepage = "https://dita-ot.org";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     mainProgram = "dita";
     platforms = openjdk17.meta.platforms;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = with lib.maintainers; [ robertrichter ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = with lib.maintainers; [robertrichter];
   };
 })

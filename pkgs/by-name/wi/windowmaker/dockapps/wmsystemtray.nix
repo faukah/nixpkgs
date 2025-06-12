@@ -9,7 +9,6 @@
   libXpm,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wmsystemtray";
   version = "1.4";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "System tray for Windowmaker";
     homepage = "http://wmsystemtray.sourceforge.net";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

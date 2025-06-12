@@ -9,9 +9,7 @@
   pkg-config,
   stdenvNoCC,
   unifdef,
-}:
-
-let
+}: let
   # Newer releases of ifconfig use `ioctls` and undocumented APIs newer than 11.x.
   # Use files from an older release for now.
   old_ifconfig = {
@@ -71,7 +69,7 @@ let
   privateHeaders = stdenvNoCC.mkDerivation {
     name = "network_cmds-deps-private-headers";
 
-    nativeBuildInputs = [ unifdef ];
+    nativeBuildInputs = [unifdef];
 
     buildCommand = ''
       # Different strategies are needed to make private headers available to network_cmds:
@@ -396,61 +394,61 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "network_cmds";
+  mkAppleDerivation {
+    releaseName = "network_cmds";
 
-  outputs = [
-    "out"
-    "man"
-  ];
+    outputs = [
+      "out"
+      "man"
+    ];
 
-  xcodeHash = "sha256-HkcIvKB4ektuk+3J/Sque8Pr5dMeNFZRlENuiu3KdsA=";
+    xcodeHash = "sha256-HkcIvKB4ektuk+3J/Sque8Pr5dMeNFZRlENuiu3KdsA=";
 
-  patches = [
-    # Some private headers depend on corecrypto, which we can’t use.
-    # Use the headers from the ld64 port, which delegates to OpenSSL.
-    ./patches/0007-Add-OpenSSL-based-CoreCrypto-digest-functions.patch
-  ];
+    patches = [
+      # Some private headers depend on corecrypto, which we can’t use.
+      # Use the headers from the ld64 port, which delegates to OpenSSL.
+      ./patches/0007-Add-OpenSSL-based-CoreCrypto-digest-functions.patch
+    ];
 
-  postPatch = ''
-    # Fix invalid pointer conversion error from trying to pass `NULL` to a `size_t`.
-    substituteInPlace ndp.tproj/ndp.c --replace-fail 'NULL, NULL);' 'NULL, 0);'
+    postPatch = ''
+      # Fix invalid pointer conversion error from trying to pass `NULL` to a `size_t`.
+      substituteInPlace ndp.tproj/ndp.c --replace-fail 'NULL, NULL);' 'NULL, 0);'
 
-    # Copy older files that are more compatible with the current SDK.
-    ${lib.concatLines (
-      lib.mapAttrsToList (name: path: "cp '${path}' 'ifconfig.tproj/${name}.c'") old_ifconfig
-    )}
+      # Copy older files that are more compatible with the current SDK.
+      ${lib.concatLines (
+        lib.mapAttrsToList (name: path: "cp '${path}' 'ifconfig.tproj/${name}.c'") old_ifconfig
+      )}
 
-    ${lib.concatLines (
-      lib.mapAttrsToList (name: path: "cp '${path}' 'netstat.tproj/${name}'") old_netstat
-    )}
+      ${lib.concatLines (
+        lib.mapAttrsToList (name: path: "cp '${path}' 'netstat.tproj/${name}'") old_netstat
+      )}
 
-    # Use private struct ifreq instead of the one defined in the system header.
-    substituteInPlace ifconfig.tproj/ifconfig.c \
-      --replace-fail $'struct\tifreq' 'struct ifreq' \
-      --replace-fail 'struct ifreq' 'struct ifreq_private'
+      # Use private struct ifreq instead of the one defined in the system header.
+      substituteInPlace ifconfig.tproj/ifconfig.c \
+        --replace-fail $'struct\tifreq' 'struct ifreq' \
+        --replace-fail 'struct ifreq' 'struct ifreq_private'
 
-    substituteInPlace ifconfig.tproj/ifvlan.c \
-      --replace-fail 'struct ifreq' 'struct ifreq_private'
+      substituteInPlace ifconfig.tproj/ifvlan.c \
+        --replace-fail 'struct ifreq' 'struct ifreq_private'
 
-    substituteInPlace ifconfig.tproj/ifconfig.h \
-      --replace-fail 'struct ifreq' 'struct ifreq_private'
+      substituteInPlace ifconfig.tproj/ifconfig.h \
+        --replace-fail 'struct ifreq' 'struct ifreq_private'
 
-    substituteInPlace netstat.tproj/if.c \
-      --replace-fail 'struct ifreq' 'struct ifreq_private'
-  '';
+      substituteInPlace netstat.tproj/if.c \
+        --replace-fail 'struct ifreq' 'struct ifreq_private'
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  nativeBuildInputs = [
-    pkg-config
-  ];
+    nativeBuildInputs = [
+      pkg-config
+    ];
 
-  buildInputs = [
-    libpcap
-    libresolv
-    openssl
-  ];
+    buildInputs = [
+      libpcap
+      libresolv
+      openssl
+    ];
 
-  meta.description = "Network commands for Darwin";
-}
+    meta.description = "Network commands for Darwin";
+  }

@@ -28,9 +28,9 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-RfpJLoYPR5Ura3GvLIAePg+fuiaiXig6XaSNCPhZ/Vg=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
   versionCheckProgram = "${placeholder "out"}/bin/${finalAttrs.meta.mainProgram}";
   versionCheckProgramArg = "--version";
@@ -41,6 +41,6 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for the modbus interface. Basepackage for a large group of iot device exporters.";
     license = lib.licenses.mit;
     mainProgram = "modbus_exporter";
-    maintainers = with lib.maintainers; [ paepcke ];
+    maintainers = with lib.maintainers; [paepcke];
   };
 })

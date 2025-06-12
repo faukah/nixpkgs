@@ -6,7 +6,6 @@
   chez-srfi,
   chez-mit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chez-scmutils";
   version = "0.2";
@@ -37,8 +36,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "This is a port of the ‘MIT Scmutils’ library to Chez Scheme";
     homepage = "https://github.com/fedeinthemix/chez-scmutils/";
-    maintainers = [ maintainers.jitwit ];
+    maintainers = [maintainers.jitwit];
     license = licenses.gpl3;
   };
-
 }

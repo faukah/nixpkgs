@@ -6,7 +6,6 @@
   gitUpdater,
   static ? false,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "noto-fonts-cjk-sans";
   version = "2.004";
@@ -22,13 +21,14 @@ stdenvNoCC.mkDerivation rec {
     ];
   };
 
-  installPhase =
-    let
-      font-path = if static then "Sans/OTC/*.ttc" else "Sans/Variable/OTC/*.otf.ttc";
-    in
-    ''
-      install -m444 -Dt $out/share/fonts/opentype/noto-cjk ${font-path}
-    '';
+  installPhase = let
+    font-path =
+      if static
+      then "Sans/OTC/*.ttc"
+      else "Sans/Variable/OTC/*.otf.ttc";
+  in ''
+    install -m444 -Dt $out/share/fonts/opentype/noto-cjk ${font-path}
+  '';
 
   passthru.tests.noto-fonts = nixosTests.noto-fonts;
 

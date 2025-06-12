@@ -9,7 +9,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-dns";
   version = "8.2.0";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Ynueo98L94qJWsrcUUjeyEwomAY7+qv/+LFLqpg7WW4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     azure-common
@@ -33,7 +32,7 @@ buildPythonPackage rec {
   ];
 
   # this is still needed for when the version is overrided
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # Tests are only available in the mono-repo
   doCheck = false;
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/network/azure-mgmt-dns";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-dns_${version}/sdk/network/azure-mgmt-dns/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

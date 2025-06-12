@@ -21,7 +21,6 @@
   gobject-introspection,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libwnck";
   version = "43.2";
@@ -81,6 +80,6 @@ stdenv.mkDerivation rec {
     description = "Library to manage X windows and workspaces (via pagers, tasklists, etc.)";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
   };
 }

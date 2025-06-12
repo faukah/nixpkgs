@@ -5,14 +5,12 @@
   zulu,
   ant,
   darwin,
-
   pname,
   version,
   src,
   meta,
   patches,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit
     pname

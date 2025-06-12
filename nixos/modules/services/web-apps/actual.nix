@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     mkDefault
     mkEnableOption
@@ -19,12 +19,11 @@ let
   configFile = formatType.generate "config.json" cfg.settings;
   dataDir = "/var/lib/actual";
 
-  formatType = pkgs.formats.json { };
-in
-{
+  formatType = pkgs.formats.json {};
+in {
   options.services.actual = {
     enable = mkEnableOption "actual, a privacy focused app for managing your finances";
-    package = mkPackageOption pkgs "actual-server" { };
+    package = mkPackageOption pkgs "actual-server" {};
 
     openFirewall = mkOption {
       default = false;
@@ -33,7 +32,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = "Server settings, refer to [the documentation](https://actualbudget.org/docs/config/) for available options.";
       type = types.submodule {
         freeformType = formatType.type;
@@ -62,12 +61,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.port];
 
     systemd.services.actual = {
       description = "Actual server, a local-first personal finance app";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment.ACTUAL_CONFIG_PATH = configFile;
       serviceConfig = {
         ExecStart = getExe cfg.package;

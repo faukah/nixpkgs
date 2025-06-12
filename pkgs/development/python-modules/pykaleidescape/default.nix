@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pykaleidescape";
   version = "2022.2.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-h5G7wV4Z+sf8Qq4GNFsp8DVDSgQgS0dLGf+DzK/egYM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,7 +36,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "kaleidescape" ];
+  pythonImportsCheck = ["kaleidescape"];
 
   disabledTests =
     [
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SteveEasley/pykaleidescape";
     changelog = "https://github.com/SteveEasley/pykaleidescape/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

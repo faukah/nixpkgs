@@ -8,7 +8,6 @@
   ncurses,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gptfdisk";
   version = "1.0.10";
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://www.rodsbooks.com/gdisk/";
     platforms = platforms.all;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

@@ -23,15 +23,16 @@
     && stdenv.hostPlatform.emulatorAvailable buildPackages,
   withMan ? stdenv.buildPlatform.canExecute stdenv.hostPlatform,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libqmi";
   version = "1.36.0";
 
-  outputs = [
-    "out"
-    "dev"
-  ] ++ lib.optional withIntrospection "devdoc";
+  outputs =
+    [
+      "out"
+      "dev"
+    ]
+    ++ lib.optional withIntrospection "devdoc";
 
   src = fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
@@ -97,7 +98,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://www.freedesktop.org/wiki/Software/libqmi/";
     description = "Modem protocol helper library";
-    teams = [ lib.teams.freedesktop ];
+    teams = [lib.teams.freedesktop];
     platforms = lib.platforms.linux;
     license = with lib.licenses; [
       # Library

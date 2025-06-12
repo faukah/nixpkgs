@@ -11,7 +11,6 @@
   libuuid,
   texinfo,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wipefreespace";
   version = "2.6";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wipefreespace.sourceforge.io";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ catap ];
+    maintainers = with maintainers; [catap];
     mainProgram = "wipefreespace";
   };
 }

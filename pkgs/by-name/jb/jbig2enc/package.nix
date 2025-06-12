@@ -12,7 +12,6 @@
   python3,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jbig2enc";
   version = "0.30";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-B19l2NdMq+wWKQ5f/y5aoPiBtQnn6sqpaIoyIq+ugTg=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     leptonica

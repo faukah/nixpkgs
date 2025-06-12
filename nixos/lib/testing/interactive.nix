@@ -4,11 +4,9 @@
   moduleType,
   hostPkgs,
   ...
-}:
-let
+}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   options = {
     interactive = mkOption {
       description = ''
@@ -45,7 +43,7 @@ in
 
   config = {
     interactive.qemu.package = hostPkgs.qemu;
-    interactive.extraDriverArgs = [ "--interactive" ];
+    interactive.extraDriverArgs = ["--interactive"];
     passthru.driverInteractive = config.interactive.driver;
   };
 }

@@ -9,7 +9,6 @@
   pyyaml,
   six,
 }:
-
 buildPythonApplication rec {
   pname = "cmake-format";
   version = "0.6.13";
@@ -38,7 +37,7 @@ buildPythonApplication rec {
     description = "Source code formatter for cmake listfiles";
     homepage = "https://github.com/cheshirekow/cmake_format";
     license = licenses.gpl3;
-    maintainers = [ maintainers.tobim ];
+    maintainers = [maintainers.tobim];
     mainProgram = "cmake-format";
     platforms = platforms.all;
   };

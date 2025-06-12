@@ -9,7 +9,6 @@
   pytest-cov-stub,
   django,
 }:
-
 buildPythonPackage rec {
   pname = "snapshottest";
   version = "0.6.0";
@@ -32,12 +31,12 @@ buildPythonPackage rec {
     pytest-cov-stub
   ];
 
-  pythonImportsCheck = [ "snapshottest" ];
+  pythonImportsCheck = ["snapshottest"];
 
   meta = with lib; {
     description = "Snapshot testing for pytest, unittest, Django, and Nose";
     homepage = "https://github.com/syrusakbary/snapshottest";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

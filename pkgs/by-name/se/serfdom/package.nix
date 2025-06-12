@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "serf";
   version = "0.10.2";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-aNAbE8yFp8HUgdRtt/3eVz4VAaqSTPB4XKKLl1o7YRc=";
 
-  subPackages = [ "cmd/serf" ];
+  subPackages = ["cmd/serf"];
 
   # These values are expected by version/version.go
   # https://github.com/hashicorp/serf/blob/7faa1b06262f70780c3c35ac25a4c96d754f06f3/version/version.go#L8-L22
@@ -40,6 +39,6 @@ buildGoModule rec {
     '';
     homepage = "https://www.serf.io";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
   };
 }

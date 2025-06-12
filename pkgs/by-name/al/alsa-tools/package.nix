@@ -10,7 +10,6 @@
   pkg-config,
   psmisc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "alsa-tools";
   version = "1.2.14";
@@ -100,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preFixup
 
     wrapProgram $out/bin/hdajackretask \
-      --prefix PATH : ${lib.makeBinPath [ psmisc ]}
+      --prefix PATH : ${lib.makeBinPath [psmisc]}
 
     runHook postFixup
   '';
@@ -109,7 +108,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.alsa-project.org/";
     description = "ALSA Tools";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

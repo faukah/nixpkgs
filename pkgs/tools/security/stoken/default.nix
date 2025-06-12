@@ -9,7 +9,6 @@
   withGTK3 ? !stdenv.hostPlatform.isStatic,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stoken";
   version = "0.93";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Software Token for Linux/UNIX";
     homepage = "https://github.com/cernekee/stoken";
     license = licenses.lgpl21Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

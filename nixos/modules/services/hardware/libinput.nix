@@ -3,11 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.libinput;
 
-  xorgBool = v: if v then "on" else "off";
+  xorgBool = v:
+    if v
+    then "on"
+    else "off";
 
   mkConfigForDevice = deviceType: {
     dev = lib.mkOption {
@@ -318,25 +320,32 @@ let
     ${lib.optionalString (
       cfg.${deviceType}.accelPointsFallback != null
     ) ''Option "AccelPointsFallback" "${toString cfg.${deviceType}.accelPointsFallback}"''}
-    ${lib.optionalString (cfg.${deviceType}.accelPointsMotion != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.accelPointsMotion != null)
       ''Option "AccelPointsMotion" "${toString cfg.${deviceType}.accelPointsMotion}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.accelPointsScroll != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.accelPointsScroll != null)
       ''Option "AccelPointsScroll" "${toString cfg.${deviceType}.accelPointsScroll}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.accelStepFallback != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.accelStepFallback != null)
       ''Option "AccelStepFallback" "${toString cfg.${deviceType}.accelStepFallback}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.accelStepMotion != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.accelStepMotion != null)
       ''Option "AccelStepMotion" "${toString cfg.${deviceType}.accelStepMotion}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.accelStepScroll != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.accelStepScroll != null)
       ''Option "AccelStepScroll" "${toString cfg.${deviceType}.accelStepScroll}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.buttonMapping != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.buttonMapping != null)
       ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''
     }
-    ${lib.optionalString (cfg.${deviceType}.calibrationMatrix != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.calibrationMatrix != null)
       ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''
     }
     ${lib.optionalString (
@@ -348,34 +357,35 @@ let
     Option "LeftHanded" "${xorgBool cfg.${deviceType}.leftHanded}"
     Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"
     Option "NaturalScrolling" "${xorgBool cfg.${deviceType}.naturalScrolling}"
-    ${lib.optionalString (cfg.${deviceType}.scrollButton != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.scrollButton != null)
       ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''
     }
     Option "ScrollMethod" "${cfg.${deviceType}.scrollMethod}"
     Option "HorizontalScrolling" "${xorgBool cfg.${deviceType}.horizontalScrolling}"
     Option "SendEventsMode" "${cfg.${deviceType}.sendEventsMode}"
     Option "Tapping" "${xorgBool cfg.${deviceType}.tapping}"
-    ${lib.optionalString (cfg.${deviceType}.tappingButtonMap != null)
+    ${
+      lib.optionalString (cfg.${deviceType}.tappingButtonMap != null)
       ''Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''
     }
     Option "TappingDragLock" "${xorgBool cfg.${deviceType}.tappingDragLock}"
     Option "DisableWhileTyping" "${xorgBool cfg.${deviceType}.disableWhileTyping}"
     ${cfg.${deviceType}.additionalOptions}
   '';
-in
-{
-
+in {
   imports =
-    (map
+    (
+      map
       (
         option:
-        lib.mkRenamedOptionModule
-          ([
+          lib.mkRenamedOptionModule
+          [
             "services"
             "xserver"
             "libinput"
             option
-          ])
+          ]
           [
             "services"
             "libinput"
@@ -405,49 +415,50 @@ in
       ]
     )
     ++ [
-      (lib.mkRenamedOptionModule
-        [ "services" "xserver" "libinput" "enable" ]
-        [ "services" "libinput" "enable" ]
+      (
+        lib.mkRenamedOptionModule
+        ["services" "xserver" "libinput" "enable"]
+        ["services" "libinput" "enable"]
       )
-      (lib.mkRenamedOptionModule
-        [ "services" "xserver" "libinput" "mouse" ]
-        [ "services" "libinput" "mouse" ]
+      (
+        lib.mkRenamedOptionModule
+        ["services" "xserver" "libinput" "mouse"]
+        ["services" "libinput" "mouse"]
       )
-      (lib.mkRenamedOptionModule
-        [ "services" "xserver" "libinput" "touchpad" ]
-        [ "services" "libinput" "touchpad" ]
+      (
+        lib.mkRenamedOptionModule
+        ["services" "xserver" "libinput" "touchpad"]
+        ["services" "libinput" "touchpad"]
       )
     ];
 
   options = {
-
     services.libinput = {
-      enable = lib.mkEnableOption "libinput" // {
-        default = config.services.xserver.enable;
-        defaultText = lib.literalExpression "config.services.xserver.enable";
-      };
+      enable =
+        lib.mkEnableOption "libinput"
+        // {
+          default = config.services.xserver.enable;
+          defaultText = lib.literalExpression "config.services.xserver.enable";
+        };
       mouse = mkConfigForDevice "mouse";
       touchpad = mkConfigForDevice "touchpad";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    services.xserver.modules = [pkgs.xorg.xf86inputlibinput];
 
-    services.xserver.modules = [ pkgs.xorg.xf86inputlibinput ];
+    environment.systemPackages = [pkgs.xorg.xf86inputlibinput];
 
-    environment.systemPackages = [ pkgs.xorg.xf86inputlibinput ];
-
-    environment.etc =
-      let
-        cfgPath = "X11/xorg.conf.d/40-libinput.conf";
-      in
-      {
-        ${cfgPath} = {
-          source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
-        };
+    environment.etc = let
+      cfgPath = "X11/xorg.conf.d/40-libinput.conf";
+    in {
+      ${cfgPath} = {
+        source = pkgs.xorg.xf86inputlibinput.out + "/share/" + cfgPath;
       };
+    };
 
-    services.udev.packages = [ pkgs.libinput.out ];
+    services.udev.packages = [pkgs.libinput.out];
 
     services.xserver.inputClassSections = [
       (mkX11ConfigForDevice "mouse" "Pointer")
@@ -457,13 +468,11 @@ in
     assertions = [
       # already present in synaptics.nix
       /*
-        {
-          assertion = !config.services.xserver.synaptics.enable;
-          message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
-        }
+      {
+        assertion = !config.services.xserver.synaptics.enable;
+        message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
+      }
       */
     ];
-
   };
-
 }

@@ -6,7 +6,6 @@
   buildDunePackage,
   dune-configurator,
 }:
-
 buildDunePackage rec {
   pname = "sqlite3";
   version = "5.3.1";
@@ -18,7 +17,7 @@ buildDunePackage rec {
     hash = "sha256-Ox8eZS4r6PbJh8nei52ftUyf25SKwIUMi5UEv4L+6mE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dune-configurator
     sqlite

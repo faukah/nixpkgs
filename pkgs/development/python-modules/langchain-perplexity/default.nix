@@ -3,14 +3,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
   openai,
-
   # tests
   langchain-tests,
   pytest-asyncio,
@@ -18,7 +15,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-perplexity";
   version = "0.1.1";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/perplexity";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     langchain-core
@@ -54,9 +50,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_perplexity" ];
+  pythonImportsCheck = ["langchain_perplexity"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

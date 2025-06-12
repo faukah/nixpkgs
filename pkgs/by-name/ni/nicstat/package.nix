@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nicstat";
   version = "0-unstable-2018-05-09";
@@ -16,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7+11K9636dGeW0HaaH6OJF5Wy4CXYXfoaZOVfhHK6kg=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildPhase = ''
     runHook preBuild
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/scotte/nicstat";
     changelog = "https://github.com/scotte/nicstat/blob/${finalAttrs.src.rev}/ChangeLog.txt";
     license = lib.licenses.artistic2;
-    maintainers = with lib.maintainers; [ juliusrickert ];
+    maintainers = with lib.maintainers; [juliusrickert];
     mainProgram = "nicstat";
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;

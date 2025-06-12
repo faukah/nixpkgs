@@ -6,7 +6,6 @@
   asciidoc,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "kpack";
 
@@ -27,14 +26,14 @@ stdenv.mkDerivation rec {
     libxslt.bin
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     homepage = "https://knightos.org/";
     description = "Tool to create or extract KnightOS packages";
     mainProgram = "kpack";
     license = licenses.lgpl2Only;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

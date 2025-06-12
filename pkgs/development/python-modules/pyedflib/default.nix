@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   cython,
   numpy,
   setuptools,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyedflib";
   version = "0.1.40";
@@ -50,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/holgern/pyedflib";
     changelog = "https://github.com/holgern/pyedflib/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

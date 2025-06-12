@@ -6,7 +6,6 @@
   btrfs-progs,
   lvm2,
 }:
-
 buildGoModule rec {
   pname = "dockle";
   version = "0.4.15";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-RMuTsPgqQoD2pdEaflNOOBZK5R8LbtcBzpAGocG8OGk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     btrfs-progs
     lvm2
@@ -56,6 +55,6 @@ buildGoModule rec {
       Easy to start.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

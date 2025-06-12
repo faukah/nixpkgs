@@ -6,7 +6,6 @@
   libpcap,
   installShellFiles,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "choparp";
   version = "0-unstable-2021-04-23";
@@ -32,12 +31,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
 
   meta = {
     homepage = "https://github.com/quinot/choparp";
     description = "Proxy ARP daemon";
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     platforms = lib.platforms.unix;
     license = lib.licenses.bsd3;
     mainProgram = "choparp";

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "mkbrr";
   version = "1.12.1";
@@ -39,7 +38,7 @@ buildGoModule (finalAttrs: {
     description = "Tool to create, modify and inspect torrent files";
     homepage = "https://github.com/autobrr/mkbrr";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ambroisie ];
+    maintainers = with lib.maintainers; [ambroisie];
     mainProgram = "mkbrr";
   };
 })

@@ -9,7 +9,6 @@
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zebrafy";
   version = "1.2.2";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
     pypdfium2
   ];
 
-  pythonImportsCheck = [ "zebrafy" ];
+  pythonImportsCheck = ["zebrafy"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/miikanissi/zebrafy/releases/tag/${version}";
     homepage = "https://zebrafy.readthedocs.io/en/latest/";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    maintainers = with lib.maintainers; [ethancedwards8];
   };
 }

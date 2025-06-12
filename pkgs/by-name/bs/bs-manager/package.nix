@@ -3,20 +3,16 @@
   stdenv,
   callPackage,
   nix-update-script,
-
   buildNpmPackage,
   fetchNpmDeps,
   fetchFromGitHub,
   makeDesktopItem,
-
   autoPatchelfHook,
   copyDesktopItems,
   makeWrapper,
-
   electron,
   steam-run-free,
 }:
-
 buildNpmPackage (finalAttrs: {
   pname = "bs-manager";
   version = "1.5.3";
@@ -56,7 +52,7 @@ buildNpmPackage (finalAttrs: {
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
-  npmRebuildFlags = [ "--ignore-scripts" ];
+  npmRebuildFlags = ["--ignore-scripts"];
 
   nativeBuildInputs = [
     autoPatchelfHook # for some prebuilt node deps: query-process @resvg/resvg-js
@@ -103,7 +99,7 @@ buildNpmPackage (finalAttrs: {
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --add-flags $out/share/bs-manager/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
-      --prefix PATH : ${lib.makeBinPath [ steam-run-free ]} \
+      --prefix PATH : ${lib.makeBinPath [steam-run-free]} \
       --inherit-argv0
 
     runHook postInstall
@@ -132,8 +128,8 @@ buildNpmPackage (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    depotdownloader = callPackage ./depotdownloader { };
+    updateScript = nix-update-script {};
+    depotdownloader = callPackage ./depotdownloader {};
   };
 
   meta = {

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation {
   pname = "padbuster";
   version = "0.3.3";
@@ -18,11 +17,12 @@ stdenv.mkDerivation {
 
   buildInputs = [
     (perl.withPackages (
-      ps: with ps; [
-        LWP
-        LWPProtocolHttps
-        CryptSSLeay
-      ]
+      ps:
+        with ps; [
+          LWP
+          LWPProtocolHttps
+          CryptSSLeay
+        ]
     ))
   ];
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
     description = "Automated script for performing Padding Oracle attacks";
     homepage = "https://www.gdssecurity.com/l/t.php";
     mainProgram = "padBuster.pl";
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     license = licenses.asl20;
     platforms = platforms.all;
   };

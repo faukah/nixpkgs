@@ -18,7 +18,6 @@
   libgee,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnome-mines";
   version = "48.1";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/gnome-mines";
     description = "Clear hidden mines from a minefield";
     mainProgram = "gnome-mines";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3;
     platforms = platforms.unix;
   };

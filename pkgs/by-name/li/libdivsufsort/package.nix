@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdivsufsort";
   version = "2.0.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_DIVSUFSORT64=YES"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     homepage = "https://github.com/y-256/libdivsufsort";

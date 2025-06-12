@@ -4,7 +4,6 @@
   fetchPypi,
   nixosTests,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "whoogle-search";
   version = "0.9.3";
@@ -16,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-4NFHz3l8kJ9QBbr5N55dhCgfoU83naC7avQZSzW6L8w=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [setuptools];
 
   dependencies = with python3Packages; [
     attrs
@@ -71,7 +70,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/benbusby/whoogle-search";
     description = "Self-hosted, ad-free, privacy-respecting metasearch engine";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ malte-v ];
+    maintainers = with lib.maintainers; [malte-v];
     mainProgram = "whoogle-search";
   };
 }

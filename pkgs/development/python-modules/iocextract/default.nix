@@ -7,7 +7,6 @@
   regex,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "iocextract";
   version = "1.16.1";
@@ -27,11 +26,11 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "iocextract" ];
+  pythonImportsCheck = ["iocextract"];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
   disabledTests = [
     # AssertionError: 'http://exampledotcom/test' != 'http://example.com/test'
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/InQuest/python-iocextract";
     changelog = "https://github.com/InQuest/python-iocextract/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

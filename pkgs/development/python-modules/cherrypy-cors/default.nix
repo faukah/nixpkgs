@@ -31,14 +31,14 @@ buildPythonPackage rec {
     cherrypy
   ];
 
-  pythonImportsCheck = [ "cherrypy_cors" ];
+  pythonImportsCheck = ["cherrypy_cors"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "CORS support for CherryPy";
     homepage = "https://github.com/cherrypy/cherrypy-cors";
     license = licenses.mit;
-    maintainers = with maintainers; [ jpts ];
+    maintainers = with maintainers; [jpts];
   };
 }

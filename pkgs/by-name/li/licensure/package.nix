@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-b3Vb8beULbLQuBORcE5nWuHkqDmalexJick9Ct5+iUM=";
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     git
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/chasinglogic/licensure";
     license = licenses.gpl3Plus;
     mainProgram = "licensure";
-    maintainers = [ maintainers.bpeetz ];
+    maintainers = [maintainers.bpeetz];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

@@ -10,7 +10,6 @@
   wayland-scanner,
   libconfig,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "activate-linux";
   version = "1.1.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-6XnoAoZwAs2hKToWlDqkaGqucmV1VMkEc4QO0G0xmrg=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     pkg-config

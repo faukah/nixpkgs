@@ -4,9 +4,7 @@
   fetchFromGitHub,
   fpc,
   openssl,
-}:
-
-let
+}: let
   flreSrc = fetchFromGitHub {
     owner = "benibela";
     repo = "flre";
@@ -38,70 +36,70 @@ let
     hash = "sha256-x0AjOTa1g7gJOR2iBO76yBt1kzcRNujHRUsq5QOlfP0=";
   };
 in
-stdenv.mkDerivation {
-  pname = "xidel";
-  version = "unstable-2022-11-01";
+  stdenv.mkDerivation {
+    pname = "xidel";
+    version = "unstable-2022-11-01";
 
-  src = fetchFromGitHub {
-    owner = "benibela";
-    repo = "xidel";
-    rev = "6d5655c1d73b88ddeb32d2450a35ee36e4762bb8";
-    hash = "sha256-9x2d5AKRBjocRawRHdeI4heIM5nb00/F/EIj+/to7ac=";
-  };
+    src = fetchFromGitHub {
+      owner = "benibela";
+      repo = "xidel";
+      rev = "6d5655c1d73b88ddeb32d2450a35ee36e4762bb8";
+      hash = "sha256-9x2d5AKRBjocRawRHdeI4heIM5nb00/F/EIj+/to7ac=";
+    };
 
-  nativeBuildInputs = [ fpc ];
-  buildInputs = [ openssl ];
+    nativeBuildInputs = [fpc];
+    buildInputs = [openssl];
 
-  NIX_LDFLAGS = [ "-lcrypto" ];
+    NIX_LDFLAGS = ["-lcrypto"];
 
-  patchPhase = ''
-    patchShebangs \
-      build.sh \
-      tests/test.sh \
-      tests/tests-file-module.sh \
-      tests/tests.sh \
-      tests/downloadTest.sh \
-      tests/downloadTests.sh \
-      tests/zorbajsoniq.sh \
-      tests/zorbajsoniq/download.sh
-  '';
+    patchPhase = ''
+      patchShebangs \
+        build.sh \
+        tests/test.sh \
+        tests/tests-file-module.sh \
+        tests/tests.sh \
+        tests/downloadTest.sh \
+        tests/downloadTests.sh \
+        tests/zorbajsoniq.sh \
+        tests/zorbajsoniq/download.sh
+    '';
 
-  preBuildPhase = ''
-    mkdir -p import/{flre,synapse,pasdblstrutils} rcmdline internettools
-    cp -R ${flreSrc}/. import/flre
-    cp -R ${pasdblstrutilsSrc}/. import/pasdblstrutils
-    cp -R ${rcmdlineSrc}/. rcmdline
-    cp -R ${internettoolsSrc}/. internettools
+    preBuildPhase = ''
+      mkdir -p import/{flre,synapse,pasdblstrutils} rcmdline internettools
+      cp -R ${flreSrc}/. import/flre
+      cp -R ${pasdblstrutilsSrc}/. import/pasdblstrutils
+      cp -R ${rcmdlineSrc}/. rcmdline
+      cp -R ${internettoolsSrc}/. internettools
 
-    cp -R ${synapseSrc}/. import/synapse
-    substituteInPlace import/synapse/ssl_openssl{,11}_lib.pas \
-      --replace-fail 'libcrypto.dylib' '${lib.getLib openssl}/lib/libcrypto.dylib' \
-      --replace-fail 'libssl.dylib' '${lib.getLib openssl}/lib/libssl.dylib'
-  '';
+      cp -R ${synapseSrc}/. import/synapse
+      substituteInPlace import/synapse/ssl_openssl{,11}_lib.pas \
+        --replace-fail 'libcrypto.dylib' '${lib.getLib openssl}/lib/libcrypto.dylib' \
+        --replace-fail 'libssl.dylib' '${lib.getLib openssl}/lib/libssl.dylib'
+    '';
 
-  buildPhase = ''
-    runHook preBuildPhase
-    ./build.sh
-    runHook postBuildPhase
-  '';
+    buildPhase = ''
+      runHook preBuildPhase
+      ./build.sh
+      runHook postBuildPhase
+    '';
 
-  installPhase = ''
-    mkdir -p "$out/bin" "$out/share/man/man1"
-    cp meta/xidel.1 "$out/share/man/man1/"
-    cp xidel "$out/bin/"
-  '';
+    installPhase = ''
+      mkdir -p "$out/bin" "$out/share/man/man1"
+      cp meta/xidel.1 "$out/share/man/man1/"
+      cp xidel "$out/bin/"
+    '';
 
-  # disabled, because tests require network
-  checkPhase = ''
-    ./tests/tests.sh
-  '';
+    # disabled, because tests require network
+    checkPhase = ''
+      ./tests/tests.sh
+    '';
 
-  meta = with lib; {
-    description = "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
-    mainProgram = "xidel";
-    homepage = "https://www.videlibri.de/xidel.html";
-    license = licenses.gpl3Plus;
-    platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
-  };
-}
+    meta = with lib; {
+      description = "Command line tool to download and extract data from HTML/XML pages as well as JSON APIs";
+      mainProgram = "xidel";
+      homepage = "https://www.videlibri.de/xidel.html";
+      license = licenses.gpl3Plus;
+      platforms = platforms.all;
+      maintainers = [maintainers.bjornfor];
+    };
+  }

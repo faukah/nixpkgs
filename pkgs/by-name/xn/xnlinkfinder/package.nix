@@ -4,7 +4,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "xnlinkfinder";
   version = "6.0";
@@ -26,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     beautifulsoup4
@@ -42,14 +41,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no test
   doCheck = false;
 
-  pythonImportsCheck = [ "xnLinkFinder" ];
+  pythonImportsCheck = ["xnLinkFinder"];
 
   meta = {
     description = "Tool to discover endpoints, potential parameters, and a target specific wordlist for a given target";
     homepage = "https://github.com/xnl-h4ck3r/xnLinkFinder";
     changelog = "https://github.com/xnl-h4ck3r/xnLinkFinder/blob/${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "xnLinkFinder";
   };
 }

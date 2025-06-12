@@ -5,12 +5,11 @@
   makeWrapper,
   stockfish,
 }:
-
 buildGoModule rec {
   pname = "uchess";
   version = "0.2.1";
 
-  subPackages = [ "cmd/uchess" ];
+  subPackages = ["cmd/uchess"];
 
   src = fetchFromGitHub {
     owner = "tmountain";
@@ -24,7 +23,7 @@ buildGoModule rec {
   # package does not contain any tests as of v0.2.1
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postInstall = ''
     wrapProgram $out/bin/uchess --suffix PATH : ${stockfish}/bin
   '';
@@ -33,7 +32,7 @@ buildGoModule rec {
     description = "Play chess against UCI engines in your terminal";
     mainProgram = "uchess";
     homepage = "https://tmountain.github.io/uchess/";
-    maintainers = with maintainers; [ tmountain ];
+    maintainers = with maintainers; [tmountain];
     license = licenses.mit;
   };
 }

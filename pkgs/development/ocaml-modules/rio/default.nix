@@ -4,7 +4,6 @@
   fetchurl,
   cstruct,
 }:
-
 buildDunePackage rec {
   pname = "rio";
   version = "0.0.8";
@@ -25,6 +24,6 @@ buildDunePackage rec {
     homepage = "https://github.com/riot-ml/riot";
     changelog = "https://github.com/riot-ml/riot/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

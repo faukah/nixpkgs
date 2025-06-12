@@ -13,7 +13,6 @@
   withOpenCL ? true,
   pyopencl,
 }:
-
 buildPythonPackage rec {
   pname = "reikna";
   version = "0.9.0";

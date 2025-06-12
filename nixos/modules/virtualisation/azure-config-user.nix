@@ -1,6 +1,4 @@
-{ modulesPath, ... }:
-
-{
+{modulesPath, ...}: {
   # To build the configuration or use nix-env, you need to run
   # either nixos-rebuild --upgrade or nix-channel --update
   # to fetch the nixos channel.

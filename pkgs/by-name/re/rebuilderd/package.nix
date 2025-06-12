@@ -17,7 +17,6 @@
   nixosTests,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rebuilderd";
   version = "0.23.1";
@@ -58,28 +57,26 @@ rustPlatform.buildRustPackage (finalAttrs: {
     zstd
   ];
 
-  postInstall =
-    let
-      emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
-      mkdir -p $out/etc
+  postInstall = let
+    emulator = stdenv.hostPlatform.emulator buildPackages;
+  in ''
+    mkdir -p $out/etc
 
-      # install config files
-      install -Dm 644 -t "$out/etc" contrib/confs/rebuilderd-sync.conf
-      install -Dm 640 -t "$out/etc" contrib/confs/rebuilderd-worker.conf contrib/confs/rebuilderd.conf
+    # install config files
+    install -Dm 644 -t "$out/etc" contrib/confs/rebuilderd-sync.conf
+    install -Dm 640 -t "$out/etc" contrib/confs/rebuilderd-worker.conf contrib/confs/rebuilderd.conf
 
-      installShellCompletion --cmd rebuildctl \
-        --bash <(${emulator} $out/bin/rebuildctl completions bash) \
-        --fish <(${emulator} $out/bin/rebuildctl completions fish) \
-        --zsh <(${emulator} $out/bin/rebuildctl completions zsh)
+    installShellCompletion --cmd rebuildctl \
+      --bash <(${emulator} $out/bin/rebuildctl completions bash) \
+      --fish <(${emulator} $out/bin/rebuildctl completions fish) \
+      --zsh <(${emulator} $out/bin/rebuildctl completions zsh)
 
-      for f in contrib/docs/*.scd; do
-        local page="contrib/docs/$(basename "$f" .scd)"
-        scdoc < "$f" > "$page"
-        installManPage "$page"
-      done
-    '';
+    for f in contrib/docs/*.scd; do
+      local page="contrib/docs/$(basename "$f" .scd)"
+      scdoc < "$f" > "$page"
+      installManPage "$page"
+    done
+  '';
 
   checkFlags = [
     # Failing tests
@@ -108,13 +105,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rebuilderd = nixosTests.rebuilderd;
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Independent verification of binary packages - reproducible builds";
     homepage = "https://github.com/kpcyrd/rebuilderd";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "rebuilderd";
   };
 })

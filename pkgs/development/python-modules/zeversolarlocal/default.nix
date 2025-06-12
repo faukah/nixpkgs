@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "zeversolarlocal";
   version = "1.1.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     dos2unix
   ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -58,12 +57,12 @@ buildPythonPackage rec {
     "test_httpx_timeout"
   ];
 
-  pythonImportsCheck = [ "zeversolarlocal" ];
+  pythonImportsCheck = ["zeversolarlocal"];
 
   meta = with lib; {
     description = "Python module to interact with Zeversolar inverters";
     homepage = "https://github.com/sander76/zeversolarlocal";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

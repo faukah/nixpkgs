@@ -2,18 +2,16 @@
   lib,
   pkgs ? import ../..,
   ...
-}:
-let
+}: let
   password = "test";
   hashedPassword = "$y$j9T$wLgKY231.8j.ciV2MfEXe1$P0k5j3bCwHgnwW0Ive3w4knrgpiA4TzhCYLAnHvDZ51"; # test
   hashedPassword1 = "$y$j9T$s8TyQJtNImvobhGM5Nlez0$3E8/O8EVGuA4sr1OQmrzi8GrRcy/AEhj454JjAn72A2"; # test
 
   hashedPasswordFile = pkgs.writeText "hashed-password" hashedPassword1;
-in
-{
+in {
   name = "systemd-sysusers-password-option-override-ordering";
 
-  meta.maintainers = with lib.maintainers; [ fidgetingbits ];
+  meta.maintainers = with lib.maintainers; [fidgetingbits];
 
   nodes.machine = {
     systemd.sysusers.enable = true;
@@ -29,7 +27,7 @@ in
       initialHashedPassword = password;
     };
 
-    users.groups.test = { };
+    users.groups.test = {};
 
     # initialPassword -> initialHashedPassword
     users.users.alice = {

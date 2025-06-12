@@ -5,7 +5,6 @@
   pkg-config,
   icu,
 }:
-
 buildGoModule rec {
   pname = "gitlab-elasticsearch-indexer";
   version = "5.5.1";
@@ -20,14 +19,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-Go02W09799Vu9v7y+P7z1gj7ijG3No5AVprRrmspPZE=";
 
-  buildInputs = [ icu ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [icu];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Indexes Git repositories into Elasticsearch for GitLab";
     mainProgram = "gitlab-elasticsearch-indexer";
     license = licenses.mit;
-    maintainers = with maintainers; [ yayayayaka ];
-    teams = [ teams.cyberus ];
+    maintainers = with maintainers; [yayayayaka];
+    teams = [teams.cyberus];
   };
 }

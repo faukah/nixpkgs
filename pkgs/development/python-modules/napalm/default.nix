@@ -3,11 +3,9 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
   cffi,
-
   # dependencies
   jinja2,
   junos-eznc,
@@ -25,13 +23,11 @@
   ttp,
   ttp-templates,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   ddt,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "napalm";
   version = "5.0.0";
@@ -46,7 +42,7 @@ buildPythonPackage rec {
     hash = "sha256-Abw3h69qTFwOOFeAfivqAIWLozErJ1yZZfx7CbMy1AI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cffi
@@ -57,7 +53,7 @@ buildPythonPackage rec {
     netaddr
     netmiko
     # breaks infinite recursion
-    (netutils.override { napalm = null; })
+    (netutils.override {napalm = null;})
     paramiko
     pyeapi
     pyyaml
@@ -80,6 +76,6 @@ buildPythonPackage rec {
     description = "Network Automation and Programmability Abstraction Layer with Multivendor support";
     homepage = "https://github.com/napalm-automation/napalm";
     license = licenses.asl20;
-    teams = [ teams.c3d2 ];
+    teams = [teams.c3d2];
   };
 }

@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "element";
   version = "1.0.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     mainProgram = "element";
     homepage = "https://github.com/gennaro-tedesco/element";
     license = licenses.asl20;
-    maintainers = [ maintainers.j0hax ];
+    maintainers = [maintainers.j0hax];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

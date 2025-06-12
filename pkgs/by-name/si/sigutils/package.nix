@@ -8,7 +8,6 @@
   libsndfile,
   volk,
 }:
-
 stdenv.mkDerivation {
   pname = "sigutils";
   version = "unstable-2022-07-05";

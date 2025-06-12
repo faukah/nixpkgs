@@ -4,18 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   inInitrd = config.boot.initrd.supportedFilesystems.vfat or false;
-
-in
-
-{
+in {
   config = mkIf (config.boot.supportedFilesystems.vfat or false) {
-
     system.fsPackages = [
       pkgs.dosfstools
       pkgs.mtools
@@ -32,7 +24,6 @@ in
       ln -sv dosfsck $out/bin/fsck.vfat
     '';
 
-    boot.initrd.systemd.initrdBin = mkIf inInitrd [ pkgs.dosfstools ];
-
+    boot.initrd.systemd.initrdBin = mkIf inInitrd [pkgs.dosfstools];
   };
 }

@@ -28,7 +28,6 @@
   setuptools,
   sqlalchemy,
 }:
-
 buildPythonPackage rec {
   pname = "sqlalchemy-utils";
   version = "0.42.2";
@@ -43,23 +42,23 @@ buildPythonPackage rec {
     hash = "sha256-jC8onlCiuzpMlJ3EzpzCnQ128xpkLzrZEuGWQv7pvVE=";
   };
 
-  patches = [ ./skip-database-tests.patch ];
+  patches = [./skip-database-tests.patch];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ sqlalchemy ];
+  propagatedBuildInputs = [sqlalchemy];
 
   optional-dependencies = {
-    babel = [ babel ];
-    arrow = [ arrow ];
-    pendulum = [ pendulum ];
+    babel = [babel];
+    arrow = [arrow];
+    pendulum = [pendulum];
     #intervals = [ intervals ];
-    phone = [ phonenumbers ];
-    password = [ passlib ];
-    color = [ colour ];
-    timezone = [ python-dateutil ];
-    url = [ furl ];
-    encrypted = [ cryptography ];
+    phone = [phonenumbers];
+    password = [passlib];
+    color = [colour];
+    timezone = [python-dateutil];
+    url = [furl];
+    encrypted = [cryptography];
   };
 
   nativeCheckInputs =
@@ -97,13 +96,13 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "sqlalchemy_utils" ];
+  pythonImportsCheck = ["sqlalchemy_utils"];
 
   meta = with lib; {
     description = "Various utility functions and datatypes for SQLAlchemy";
     homepage = "https://github.com/kvesteri/sqlalchemy-utils";
     changelog = "https://github.com/kvesteri/sqlalchemy-utils/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

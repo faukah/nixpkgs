@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   chex,
   dotmap,
@@ -15,7 +13,6 @@
   matplotlib,
   numpy,
   pyyaml,
-
   # tests
   # brax, (unpackaged)
   # gymnax, (unpackaged)
@@ -24,7 +21,6 @@
   torchvision,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "evosax";
   version = "0.2.0";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-ye5IHM8Pn/+BXI9kcB3W281Gna9hXV8DwsaJ9Xu06fU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     dotmap
@@ -47,7 +43,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "evosax" ];
+  pythonImportsCheck = ["evosax"];
 
   nativeCheckInputs = [
     # brax
@@ -80,6 +76,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/RobertTLange/evosax";
     changelog = "https://github.com/RobertTLange/evosax/releases/tag/v.${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -5,7 +5,6 @@
   fetchpatch,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bowtie";
   version = "1.3.1";
@@ -37,15 +36,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "Ultrafast memory-efficient short read aligner";
     license = licenses.artistic2;
     homepage = "https://bowtie-bio.sourceforge.net";
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.all;
   };
 }

@@ -5,7 +5,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kubectl-view-allocations";
   version = "0.21.2";
@@ -21,14 +20,14 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-aSI5SN0RujHVq7VNNsV6m3KnQqVTWyqfLmGHhwH/3ig=";
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
 
   meta = {
     description = "kubectl plugin to list allocations (cpu, memory, gpu,... X utilization, requested, limit, allocatable,...)";
     homepage = "https://github.com/davidB/kubectl-view-allocations";
     license = lib.licenses.cc0;
-    maintainers = with lib.maintainers; [ mrene ];
+    maintainers = with lib.maintainers; [mrene];
     platforms = lib.platforms.unix;
   };
 }

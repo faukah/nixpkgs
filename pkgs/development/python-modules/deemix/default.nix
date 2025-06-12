@@ -10,7 +10,6 @@
   deezer-py,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "deemix";
   version = "3.6.6";
@@ -35,13 +34,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "deezer" ];
+  pythonImportsCheck = ["deezer"];
 
   meta = with lib; {
     description = "Deezer downloader built from the ashes of Deezloader Remix";
     mainProgram = "deemix";
     homepage = "https://gitlab.com/RemixDev/deemix-py";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ natto1784 ];
+    maintainers = with maintainers; [natto1784];
   };
 }

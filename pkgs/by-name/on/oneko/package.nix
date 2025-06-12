@@ -7,7 +7,6 @@
   libX11,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   version_name = "1.2.hanami.6";
   version = "1.2.6";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       When the cat is done catching the mouse, it starts sleeping.
     '';
     homepage = "https://github.com/IreneKnapp/oneko";
-    license = with licenses; [ publicDomain ];
+    license = with licenses; [publicDomain];
     maintainers = with maintainers; [
       xaverdh
       irenes

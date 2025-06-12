@@ -14,7 +14,6 @@
   msgpack-c,
   libssh,
 }:
-
 stdenv.mkDerivation {
   pname = "tmate";
   version = "unstable-2022-08-07";
@@ -55,7 +54,7 @@ stdenv.mkDerivation {
     description = "Instant Terminal Sharing";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
     mainProgram = "tmate";
   };
 }

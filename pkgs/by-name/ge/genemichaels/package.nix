@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "genemichaels";
   version = "0.5.13";
@@ -18,7 +17,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-J7uibeoIKLC3jo5TstzC8udK+miAA52321eapOHVzbM=";
 
-  cargoBuildFlags = [ "--package ${pname}" ];
+  cargoBuildFlags = ["--package ${pname}"];
   # cargoTestFlags is not used because genemichaels is tightly coupled to the
   # other crates in the workspace and by not setting it, we run all the tests.
   # If a dependency crate is failing its tests, we want to know about it. For
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
     description = "Even formats macros";
     homepage = "https://github.com/andrewbaxter/genemichaels";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ djacu ];
+    maintainers = with lib.maintainers; [djacu];
     mainProgram = "genemichaels";
   };
 }

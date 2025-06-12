@@ -19,7 +19,6 @@
   zsh,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "ecapture";
   version = "1.1.0";
@@ -40,7 +39,7 @@ buildGoModule rec {
   ];
 
   newlibpcap = libpcap.overrideAttrs (previousAttrs: {
-    configureFlags = previousAttrs.configureFlags ++ [ "--without-libnl" ];
+    configureFlags = previousAttrs.configureFlags ++ ["--without-libnl"];
   });
 
   buildInputs = [
@@ -105,17 +104,15 @@ buildGoModule rec {
     go-bindata -pkg assets -o "assets/ebpf_probe.go" $(find user/bytecode -name "*.o" -printf "./%p ")
   '';
 
-  checkFlags =
-    let
-      skippedTests = [
-        "TestCheckLatest"
-      ];
-    in
-    [ "-skip=^${builtins.concatStringsSep "$|^" skippedTests}$" ];
+  checkFlags = let
+    skippedTests = [
+      "TestCheckLatest"
+    ];
+  in ["-skip=^${builtins.concatStringsSep "$|^" skippedTests}$"];
 
   vendorHash = "sha256-B2Jq6v1PibZ1P9OylFsVp/ULZa/ne5T+vCsBWWrjW/4=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Capture SSL/TLS text content without CA certificate Using eBPF";
@@ -126,7 +123,7 @@ buildGoModule rec {
       "aarch64-linux"
     ];
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "ecapture";
   };
 }

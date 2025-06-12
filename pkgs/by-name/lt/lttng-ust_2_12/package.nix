@@ -7,7 +7,6 @@
   numactl,
   python3,
 }:
-
 # NOTE:
 #   ./configure ...
 #   [...]
@@ -18,7 +17,6 @@
 #   [...]
 #
 # Debian builds with std.h (systemtap).
-
 stdenv.mkDerivation rec {
   pname = "lttng-ust";
   version = "2.12.2";
@@ -35,7 +33,7 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     numactl
     python3
@@ -45,11 +43,11 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  hardeningDisable = [ "trivialautovarinit" ];
+  hardeningDisable = ["trivialautovarinit"];
 
-  configureFlags = [ "--disable-examples" ];
+  configureFlags = ["--disable-examples"];
 
-  propagatedBuildInputs = [ liburcu ];
+  propagatedBuildInputs = [liburcu];
 
   enableParallelBuilding = true;
 
@@ -63,7 +61,6 @@ stdenv.mkDerivation rec {
       mit
     ];
     platforms = lib.intersectLists platforms.linux liburcu.meta.platforms;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
-
 }

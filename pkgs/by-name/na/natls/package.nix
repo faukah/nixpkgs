@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "natls";
   version = "2.1.14";
@@ -22,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "'ls' replacement you never knew you needed";
     homepage = "https://github.com/willdoescode/nat";
     license = licenses.mit;
-    maintainers = with maintainers; [ cafkafk ];
+    maintainers = with maintainers; [cafkafk];
     mainProgram = "natls";
   };
 }

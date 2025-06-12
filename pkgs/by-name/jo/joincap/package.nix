@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libpcap,
 }:
-
 buildGoModule rec {
   pname = "joincap";
   version = "0.11.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-pIu/f7hpSUJG5az7sV9tlXJfIjVT37bTV49kTkR80ek=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   ldflags = [
     "-s"
@@ -30,7 +29,7 @@ buildGoModule rec {
     homepage = "https://github.com/assafmo/joincap";
     changelog = "https://github.com/assafmo/joincap/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "joincap";
   };
 }

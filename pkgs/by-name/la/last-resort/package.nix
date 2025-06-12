@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "last-resort";
   version = "16.000";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Fallback font of last resort";
     homepage = "https://github.com/unicode-org/last-resort-font";
     license = licenses.ofl;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

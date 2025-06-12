@@ -6,7 +6,6 @@
   qtdeclarative,
   qtbase,
 }:
-
 mkKdeDerivation rec {
   pname = "mpvqt";
   version = "1.1.1";
@@ -19,11 +18,11 @@ mkKdeDerivation rec {
     hash = "sha256-qscubUiej/OqQI+V9gxQb7eVa3L2FJ5koqgXFoBw8tU=";
   };
 
-  extraBuildInputs = [ qtdeclarative ];
+  extraBuildInputs = [qtdeclarative];
 
-  extraPropagatedBuildInputs = [ mpv-unwrapped ];
+  extraPropagatedBuildInputs = [mpv-unwrapped];
 
-  extraCmakeFlags = [ "-DQt6_DIR=${qtbase}/lib/cmake/Qt6" ];
+  extraCmakeFlags = ["-DQt6_DIR=${qtbase}/lib/cmake/Qt6"];
 
   meta.license = with lib.licenses; [
     bsd2

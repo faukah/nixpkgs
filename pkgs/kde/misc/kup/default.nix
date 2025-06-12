@@ -15,11 +15,11 @@ mkKdeDerivation rec {
     hash = "sha256-G/GXmcQI1OBnCE7saPHeHDAMeL2WR6nVttMlKV2e01I=";
   };
 
-  extraBuildInputs = [ libgit2 ];
+  extraBuildInputs = [libgit2];
 
   meta = with lib; {
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.pwoelfel ];
-    teams = [ ];
+    maintainers = [maintainers.pwoelfel];
+    teams = [];
   };
 }

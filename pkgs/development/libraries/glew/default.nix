@@ -12,7 +12,6 @@
   testers,
   mesa,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "glew";
   version = "2.2.0";
@@ -43,18 +42,20 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [
     libXmu
     libXi
     libXext
   ];
-  propagatedBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ libGLU ]; # GL/glew.h includes GL/glu.h
+  propagatedBuildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [libGLU]; # GL/glew.h includes GL/glu.h
 
   cmakeDir = "cmake";
-  cmakeFlags = [
-    "-DBUILD_SHARED_LIBS=ON"
-  ] ++ lib.optional enableEGL "-DGLEW_EGL=ON";
+  cmakeFlags =
+    [
+      "-DBUILD_SHARED_LIBS=ON"
+    ]
+    ++ lib.optional enableEGL "-DGLEW_EGL=ON";
 
   postInstall = ''
     moveToOutput lib/cmake "''${!outputDev}"
@@ -85,9 +86,10 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       gpl2Only
     ]; # For full details, see https://github.com/nigels-com/glew#copyright-and-licensing
-    pkgConfigModules = [ "glew" ];
-    platforms =
-      with platforms;
-      if enableEGL then subtractLists darwin mesa.meta.platforms else mesa.meta.platforms;
+    pkgConfigModules = ["glew"];
+    platforms = with platforms;
+      if enableEGL
+      then subtractLists darwin mesa.meta.platforms
+      else mesa.meta.platforms;
   };
 })

@@ -4,7 +4,6 @@
   fetchPypi,
   addBinToPathHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pifpaf";
   version = "3.3.0";
@@ -25,8 +24,7 @@ python3Packages.buildPythonApplication rec {
     xattr
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       requests
       testtools
@@ -35,13 +33,13 @@ python3Packages.buildPythonApplication rec {
       addBinToPathHook
     ];
 
-  pythonImportsCheck = [ "pifpaf" ];
+  pythonImportsCheck = ["pifpaf"];
 
   meta = with lib; {
     description = "Suite of tools and fixtures to manage daemons for testing";
     mainProgram = "pifpaf";
     homepage = "https://github.com/jd/pifpaf";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

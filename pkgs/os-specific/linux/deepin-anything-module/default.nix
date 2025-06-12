@@ -3,7 +3,6 @@
   deepin,
   kernel,
 }:
-
 stdenv.mkDerivation {
   pname = "deepin-anything-module";
   inherit (deepin.deepin-anything) version src;
@@ -23,7 +22,9 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  meta = deepin.deepin-anything.meta // {
-    description = "Deepin Anything file search tool (kernel modules)";
-  };
+  meta =
+    deepin.deepin-anything.meta
+    // {
+      description = "Deepin Anything file search tool (kernel modules)";
+    };
 }

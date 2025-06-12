@@ -3,23 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkPackageOption
     singleton
     ;
   cfg = config.services.xserver.windowManager.katriawm;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.katriawm = {
       enable = mkEnableOption "katriawm";
-      package = mkPackageOption pkgs "katriawm" { };
+      package = mkPackageOption pkgs "katriawm" {};
     };
   };
 
@@ -32,6 +30,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

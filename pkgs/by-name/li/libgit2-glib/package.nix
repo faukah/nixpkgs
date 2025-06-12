@@ -15,7 +15,6 @@
   glib,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgit2-glib";
   version = "1.2.1";
@@ -72,7 +71,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Glib wrapper library around the libgit2 git access library";
     homepage = "https://gitlab.gnome.org/GNOME/libgit2-glib";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

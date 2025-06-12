@@ -8,7 +8,6 @@
   testers,
   talecast,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "talecast";
   version = "0.1.39";
@@ -21,15 +20,15 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-mRoFg1UUPCKWiPxZg+8o2+2K6R+88RI/pdO8OLM4jFk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
-    tests.version = testers.testVersion { package = talecast; };
+    updateScript = nix-update-script {};
+    tests.version = testers.testVersion {package = talecast;};
   };
 
   meta = {

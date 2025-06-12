@@ -32,7 +32,6 @@
   wayland,
   xwayland,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   # Not regular qtmir, experimental support for Mir 2.x
   # Currently following https://gitlab.com/ubports/development/core/qtmir/-/tree/personal/sunweaver/debian-upstream
@@ -158,8 +157,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "QPA plugin to make Qt a Mir server";
     homepage = "https://gitlab.com/ubports/development/core/qtmir";
     license = licenses.lgpl3Only;
-    teams = [ teams.lomiri ];
+    teams = [teams.lomiri];
     platforms = platforms.linux;
-    pkgConfigModules = [ "qtmirserver" ];
+    pkgConfigModules = ["qtmirserver"];
   };
 })

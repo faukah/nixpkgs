@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) mkOption types;
-in
-{
+in {
   options.name = mkOption {
     description = ''
       The name of the test.

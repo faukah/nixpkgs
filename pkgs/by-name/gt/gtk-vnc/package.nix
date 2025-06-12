@@ -23,7 +23,6 @@
   gdk-pixbuf,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtk-vnc";
   version = "1.5.0";

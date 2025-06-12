@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   googleapis-common-protos,
   protobuf,
 }:
-
 buildPythonPackage rec {
   pname = "tensorflow-metadata";
   version = "1.17.1";
@@ -24,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-/jVAGt3nKPwVk+poXzQ9tVCi9HEZENrbjeN4dcOfWeo=";
   };
 
-  patches = [ ./build.patch ];
+  patches = [./build.patch];
 
   # Default build pulls in Bazel + extra deps, given the actual build
   # is literally three lines (see below) - replace it with custom build.
@@ -34,7 +31,7 @@ buildPythonPackage rec {
     done
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   pythonRelaxDeps = [
     "protobuf"
@@ -60,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tensorflow/metadata";
     changelog = "https://github.com/tensorflow/metadata/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

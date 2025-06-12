@@ -15,7 +15,6 @@
   wayland-scanner,
   fetchpatch,
 }:
-
 stdenv.mkDerivation {
   pname = "dmenu-wayland";
   version = "unstable-2023-05-18";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -68,7 +67,7 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     description = "Efficient dynamic menu for wayland (wlroots)";
     homepage = "https://github.com/nyyManni/dmenu-wayland";
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
     mainProgram = "dmenu-wl";
   };
 }

@@ -4,16 +4,15 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.draupnir;
   opt = options.services.draupnir;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "draupnir.yaml" cfg.settings;
 
-  inherit (lib)
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkOption
@@ -22,27 +21,30 @@ let
     mkRenamedOptionModule
     types
     ;
-in
-{
+in {
   imports = [
     # Removed options for those migrating from the Mjolnir module
-    (mkRenamedOptionModule
-      [ "services" "draupnir" "dataPath" ]
-      [ "services" "draupnir" "settings" "dataPath" ]
+    (
+      mkRenamedOptionModule
+      ["services" "draupnir" "dataPath"]
+      ["services" "draupnir" "settings" "dataPath"]
     )
-    (mkRenamedOptionModule
-      [ "services" "draupnir" "homeserverUrl" ]
-      [ "services" "draupnir" "settings" "homeserverUrl" ]
+    (
+      mkRenamedOptionModule
+      ["services" "draupnir" "homeserverUrl"]
+      ["services" "draupnir" "settings" "homeserverUrl"]
     )
-    (mkRenamedOptionModule
-      [ "services" "draupnir" "managementRoom" ]
-      [ "services" "draupnir" "settings" "managementRoom" ]
+    (
+      mkRenamedOptionModule
+      ["services" "draupnir" "managementRoom"]
+      ["services" "draupnir" "settings" "managementRoom"]
     )
-    (mkRenamedOptionModule
-      [ "services" "draupnir" "accessTokenFile" ]
-      [ "services" "draupnir" "secrets" "accessToken" ]
+    (
+      mkRenamedOptionModule
+      ["services" "draupnir" "accessTokenFile"]
+      ["services" "draupnir" "secrets" "accessToken"]
     )
-    (mkRemovedOptionModule [ "services" "draupnir" "pantalaimon" ] ''
+    (mkRemovedOptionModule ["services" "draupnir" "pantalaimon"] ''
       `services.draupnir.pantalaimon.*` has been removed because it depends on the deprecated and vulnerable
       libolm library for end-to-end encryption and upstream support for Pantalaimon in Draupnir is limited.
       See <https://the-draupnir-project.github.io/draupnir-documentation/bot/encryption> for details.
@@ -54,7 +56,7 @@ in
   options.services.draupnir = {
     enable = mkEnableOption "Draupnir, a moderations bot for Matrix";
 
-    package = mkPackageOption pkgs "draupnir" { };
+    package = mkPackageOption pkgs "draupnir" {};
 
     settings = mkOption {
       example = literalExpression ''
@@ -70,7 +72,7 @@ in
         Free-form settings written to Draupnir's configuration file.
         See [Draupnir's default configuration](https://github.com/the-draupnir-project/Draupnir/blob/main/config/default.yaml) for available settings.
       '';
-      default = { };
+      default = {};
       type = types.submodule {
         freeformType = format.type;
         options = {
@@ -201,7 +203,7 @@ in
         "conduit.service"
         "dendrite.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       startLimitIntervalSec = 0;
       serviceConfig = {

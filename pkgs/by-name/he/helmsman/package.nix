@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ...
 }:
-
 buildGoModule rec {
   pname = "helmsman";
   version = "4.0.1";
@@ -16,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-As0YjqMdPCgIzYWB1Wf3R11mwj6CglWZdvCRzlHDvkw=";
   };
 
-  subPackages = [ "cmd/helmsman" ];
+  subPackages = ["cmd/helmsman"];
 
   vendorHash = "sha256-A5wFoOvBbjBv4F5Ul91GF9/l+8QXh9Xmmvhk5qNmems=";
 

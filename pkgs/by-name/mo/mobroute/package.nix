@@ -5,7 +5,6 @@
   sqlite,
   stdenv,
 }:
-
 buildGoModule rec {
   pname = "mobroute";
   version = "0.9.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-fMIa9HCfK6YDb0V0RhzomwuSqPhlwLBHJRjQV96cY8g=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
   tags = [
     "libsqlite3"
     "sqlite_math_functions"
@@ -49,7 +48,7 @@ buildGoModule rec {
     '';
     homepage = "https://git.sr.ht/~mil/mobroute";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
     mainProgram = "mobroute";
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;

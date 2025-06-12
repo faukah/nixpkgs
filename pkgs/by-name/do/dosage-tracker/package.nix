@@ -14,7 +14,6 @@
   nix-update-script,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dosage";
   version = "1.9.9";
@@ -51,14 +50,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Medication tracker for Linux";
     homepage = "https://github.com/diegopvlk/Dosage";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "io.github.diegopvlk.Dosage";
     platforms = lib.platforms.linux;
   };

@@ -13,7 +13,6 @@
   libxml2,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opkg";
   version = "0.7.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.yoctoproject.org/opkg/tree/NEWS?h=v${version}";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
   };
 }

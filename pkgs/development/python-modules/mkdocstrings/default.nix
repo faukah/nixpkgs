@@ -14,7 +14,6 @@
   pythonOlder,
   dirty-equals,
 }:
-
 buildPythonPackage rec {
   pname = "mkdocstrings";
   version = "0.29.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail 'dynamic = ["version"]' 'version = "${version}"'
   '';
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies =
     [
@@ -52,7 +51,7 @@ buildPythonPackage rec {
     dirty-equals
   ];
 
-  pythonImportsCheck = [ "mkdocstrings" ];
+  pythonImportsCheck = ["mkdocstrings"];
 
   disabledTestPaths = [
     # Circular dependencies
@@ -73,6 +72,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mkdocstrings/mkdocstrings";
     changelog = "https://github.com/mkdocstrings/mkdocstrings/blob/${version}/CHANGELOG.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

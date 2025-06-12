@@ -7,7 +7,6 @@
   testers,
   vcluster,
 }:
-
 buildGoModule rec {
   pname = "vcluster";
   version = "0.25.0";
@@ -21,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/vclusterctl" ];
+  subPackages = ["cmd/vclusterctl"];
 
   ldflags = [
     "-s"
@@ -46,7 +45,7 @@ buildGoModule rec {
     command = "HOME=$(mktemp -d) vcluster --version";
   };
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/loft-sh/vcluster/releases/tag/v${version}";

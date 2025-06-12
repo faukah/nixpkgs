@@ -5,7 +5,6 @@
   fmt,
   lwt,
 }:
-
 buildDunePackage {
   pname = "metrics-influx";
   inherit (metrics) version src;
@@ -19,7 +18,9 @@ buildDunePackage {
     metrics
   ];
 
-  meta = metrics.meta // {
-    description = "Influx reporter for the Metrics library";
-  };
+  meta =
+    metrics.meta
+    // {
+      description = "Influx reporter for the Metrics library";
+    };
 }

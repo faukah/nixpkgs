@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "xsubfind3r";
   version = "1.0.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     homepage = "https://github.com/hueristiq/xsubfind3r";
     changelog = "https://github.com/hueristiq/xsubfind3r/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "xsubfind3r";
   };
 }

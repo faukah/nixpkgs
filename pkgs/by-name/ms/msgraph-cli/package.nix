@@ -23,7 +23,7 @@ buildDotnetModule rec {
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-  runtimeDeps = [ libsecret ];
+  runtimeDeps = [libsecret];
 
   passthru.updateScript = ./update.sh;
   meta = with lib; {
@@ -31,7 +31,7 @@ buildDotnetModule rec {
     description = "Microsoft Graph CLI";
     homepage = "https://github.com/microsoftgraph/msgraph-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ nazarewk ];
+    maintainers = with maintainers; [nazarewk];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

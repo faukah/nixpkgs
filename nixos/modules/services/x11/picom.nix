@@ -5,49 +5,43 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
-
+with lib; let
   cfg = config.services.picom;
   opt = options.services.picom;
 
-  pairOf =
-    x:
+  pairOf = x:
     with types;
-    addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+      addCheck (listOf x) (y: length y == 2) // {description = "pair of ${x.description}";};
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
   # Basically a tinkered lib.generators.mkKeyValueDefault
   # It either serializes a top-level definition "key: { values };"
   # or an expression "key = { values };"
-  mkAttrsString =
-    top:
+  mkAttrsString = top:
     mapAttrsToList (
-      k: v:
-      let
-        sep = if (top && isAttrs v) then ":" else "=";
-      in
-      "${escape [ sep ] k}${sep}${mkValueString v};"
+      k: v: let
+        sep =
+          if (top && isAttrs v)
+          then ":"
+          else "=";
+      in "${escape [sep] k}${sep}${mkValueString v};"
     );
 
   # This serializes a Nix expression to the libconfig format.
-  mkValueString =
-    v:
-    if types.bool.check v then
-      boolToString v
-    else if types.int.check v then
-      toString v
-    else if types.float.check v then
-      toString v
-    else if types.str.check v then
-      "\"${escape [ "\"" ] v}\""
-    else if builtins.isList v then
-      "[ ${concatMapStringsSep " , " mkValueString v} ]"
-    else if types.attrs.check v then
-      "{ ${concatStringsSep " " (mkAttrsString false v)} }"
+  mkValueString = v:
+    if types.bool.check v
+    then boolToString v
+    else if types.int.check v
+    then toString v
+    else if types.float.check v
+    then toString v
+    else if types.str.check v
+    then "\"${escape ["\""] v}\""
+    else if builtins.isList v
+    then "[ ${concatMapStringsSep " , " mkValueString v} ]"
+    else if types.attrs.check v
+    then "{ ${concatStringsSep " " (mkAttrsString false v)} }"
     else
       throw ''
         invalid expression used in option services.picom.settings:
@@ -57,18 +51,15 @@ let
   toConf = attrs: concatStringsSep "\n" (mkAttrsString true cfg.settings);
 
   configFile = pkgs.writeText "picom.conf" (toConf cfg.settings);
-
-in
-{
-
+in {
   imports = [
-    (mkAliasOptionModuleMD [ "services" "compton" ] [ "services" "picom" ])
-    (mkRemovedOptionModule [ "services" "picom" "refreshRate" ] ''
+    (mkAliasOptionModuleMD ["services" "compton"] ["services" "picom"])
+    (mkRemovedOptionModule ["services" "picom" "refreshRate"] ''
       This option corresponds to `refresh-rate`, which has been unused
       since picom v6 and was subsequently removed by upstream.
       See https://github.com/yshui/picom/commit/bcbc410
     '')
-    (mkRemovedOptionModule [ "services" "picom" "experimentalBackends" ] ''
+    (mkRemovedOptionModule ["services" "picom" "experimentalBackends"] ''
       This option was removed by upstream since picom v10.
     '')
   ];
@@ -82,7 +73,7 @@ in
       '';
     };
 
-    package = mkPackageOption pkgs "picom" { };
+    package = mkPackageOption pkgs "picom" {};
 
     fade = mkOption {
       type = types.bool;
@@ -118,7 +109,7 @@ in
 
     fadeExclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "window_type *= 'menu'"
         "name ~= 'Firefox$'"
@@ -164,7 +155,7 @@ in
 
     shadowExclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "window_type *= 'menu'"
         "name ~= 'Firefox$'"
@@ -219,7 +210,7 @@ in
           dropdown_menu = { opacity = config.${opt.menuOpacity}; };
         }
       '';
-      example = { };
+      example = {};
       description = ''
         Rules for specific window types.
       '';
@@ -227,7 +218,7 @@ in
 
     opacityRules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "95:class_g = 'URxvt' && !_NET_WM_STATE@:32a"
         "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
@@ -251,8 +242,7 @@ in
     };
 
     vSync = mkOption {
-      type =
-        with types;
+      type = with types;
         either bool (enum [
           "none"
           "drm"
@@ -262,15 +252,15 @@ in
           "opengl-mswc"
         ]);
       default = false;
-      apply =
-        x:
-        let
-          res = x != "none";
-          msg =
-            "The type of services.picom.vSync has changed to bool:"
-            + " interpreting ${x} as ${boolToString res}";
-        in
-        if isBool x then x else warn msg res;
+      apply = x: let
+        res = x != "none";
+        msg =
+          "The type of services.picom.vSync has changed to bool:"
+          + " interpreting ${x} as ${boolToString res}";
+      in
+        if isBool x
+        then x
+        else warn msg res;
 
       description = ''
         Enable vertical synchronization. Chooses the best method
@@ -279,31 +269,31 @@ in
       '';
     };
 
-    settings =
-      with types;
-      let
-        scalar =
-          oneOf [
-            bool
-            int
-            float
-            str
-          ]
-          // {
-            description = "scalar types";
-          };
+    settings = with types; let
+      scalar =
+        oneOf [
+          bool
+          int
+          float
+          str
+        ]
+        // {
+          description = "scalar types";
+        };
 
-        libConfig =
-          oneOf [
-            scalar
-            (listOf libConfig)
-            (attrsOf libConfig)
-          ]
-          // {
-            description = "libconfig type";
-          };
+      libConfig =
+        oneOf [
+          scalar
+          (listOf libConfig)
+          (attrsOf libConfig)
+        ]
+        // {
+          description = "libconfig type";
+        };
 
-        topLevel = attrsOf libConfig // {
+      topLevel =
+        attrsOf libConfig
+        // {
           description = ''
             libconfig configuration. The format consists of an attributes
             set (called a group) of settings. Each setting can be a scalar type
@@ -311,11 +301,10 @@ in
             scalars or a group itself
           '';
         };
-
-      in
+    in
       mkOption {
         type = topLevel;
-        default = { };
+        default = {};
         example = literalExpression ''
           blur =
             { method = "gaussian";
@@ -362,8 +351,8 @@ in
 
     systemd.user.services.picom = {
       description = "Picom composite manager";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
 
       # Temporarily fixes corrupt colours with Mesa 18
       environment = mkIf (cfg.backend == "glx") {
@@ -377,9 +366,8 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
-
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

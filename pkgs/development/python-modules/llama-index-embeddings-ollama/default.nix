@@ -7,7 +7,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-embeddings-ollama";
   version = "0.6.0";
@@ -21,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-7GL6vymKzrNNIFpQmKLcK9eSTT2bVmwkyh69ZLw9/pA=";
   };
 
-  pythonRelaxDeps = [ "ollama" ];
+  pythonRelaxDeps = ["ollama"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     llama-index-core
@@ -33,12 +32,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.embeddings.ollama" ];
+  pythonImportsCheck = ["llama_index.embeddings.ollama"];
 
   meta = with lib; {
     description = "LlamaIndex Llms Integration for Ollama";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/embeddings/llama-index-embeddings-ollama";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

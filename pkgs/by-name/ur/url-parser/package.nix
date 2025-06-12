@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "url-parser";
   version = "2.1.6";
@@ -31,7 +30,7 @@ buildGoModule rec {
     homepage = "https://github.com/thegeeklab/url-parser";
     changelog = "https://github.com/thegeeklab/url-parser/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
     mainProgram = "url-parser";
   };
 }

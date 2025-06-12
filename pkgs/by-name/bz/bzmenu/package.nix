@@ -5,7 +5,6 @@
   pkg-config,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "bzmenu";
   version = "0.2.1";
@@ -38,6 +37,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "bzmenu";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ vuimuich ];
+    maintainers = with lib.maintainers; [vuimuich];
   };
 }

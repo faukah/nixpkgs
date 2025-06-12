@@ -11,7 +11,6 @@
   requests,
   simplejson,
 }:
-
 buildPythonPackage rec {
   pname = "websockify";
   version = "0.13.0";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = lib.optionals stdenv.hostPlatform.isDarwin [
     # this test failed on macos
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     "test_socket_set_keepalive_options"
   ];
 
-  pythonImportsCheck = [ "websockify" ];
+  pythonImportsCheck = ["websockify"];
 
   meta = with lib; {
     description = "WebSockets support for any application/server";
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kanaka/websockify";
     changelog = "https://github.com/novnc/websockify/releases/tag/${src.tag}";
     license = licenses.lgpl3Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

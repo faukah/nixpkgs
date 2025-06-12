@@ -6,7 +6,6 @@
   unidecode,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "preggy";
   version = "1.4.4";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     six
     unidecode
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   src = fetchPypi {
     inherit pname version;
@@ -27,6 +26,6 @@ buildPythonPackage rec {
     description = "Assertion library for Python";
     homepage = "http://heynemann.github.io/preggy/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

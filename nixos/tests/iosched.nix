@@ -1,16 +1,11 @@
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   qemu-img = pkgs.lib.getExe' pkgs.vmTools.qemu "qemu-img";
-  empty = pkgs.runCommand "empty.qcow2" { } ''
+  empty = pkgs.runCommand "empty.qcow2" {} ''
     ${qemu-img} create -f qcow2 "$out" 32M
   '';
-in
-{
+in {
   name = "iosched";
-  meta.maintainers = with pkgs.lib.maintainers; [ mvs ];
+  meta.maintainers = with pkgs.lib.maintainers; [mvs];
 
   nodes.machine = {
     virtualisation.qemu.options = [

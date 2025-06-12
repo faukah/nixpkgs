@@ -1,5 +1,7 @@
-{ roundcubePlugin, fetchzip }:
-
+{
+  roundcubePlugin,
+  fetchzip,
+}:
 roundcubePlugin rec {
   pname = "carddav";
   version = "4.4.6";

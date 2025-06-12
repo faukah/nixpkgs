@@ -9,7 +9,6 @@
   kwindowsystem,
   hicolor-icon-theme,
 }:
-
 stdenv.mkDerivation {
   pname = "maia-icon-theme";
   version = "2018-02-24";
@@ -49,7 +48,7 @@ stdenv.mkDerivation {
     description = "Icons based on Breeze and Super Flat Remix";
     homepage = "https://gitlab.manjaro.org/artwork/themes/maia";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ mounium ];
+    maintainers = with maintainers; [mounium];
     platforms = platforms.all;
   };
 }

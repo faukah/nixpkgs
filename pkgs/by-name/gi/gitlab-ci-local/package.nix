@@ -9,7 +9,6 @@
   rsync,
   gitMinimal,
 }:
-
 buildNpmPackage rec {
   pname = "gitlab-ci-local";
   version = "4.60.1";
@@ -59,15 +58,15 @@ buildNpmPackage rec {
 
     wrapProgram $out/bin/gitlab-ci-local \
       --prefix PATH : "${
-        lib.makeBinPath [
-          rsync
-          gitMinimal
-        ]
-      }"
+      lib.makeBinPath [
+        rsync
+        gitMinimal
+      ]
+    }"
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = gitlab-ci-local;
     };
@@ -83,7 +82,7 @@ buildNpmPackage rec {
     '';
     homepage = "https://github.com/firecow/gitlab-ci-local";
     license = licenses.mit;
-    maintainers = with maintainers; [ pineapplehunter ];
+    maintainers = with maintainers; [pineapplehunter];
     platforms = platforms.all;
   };
 }

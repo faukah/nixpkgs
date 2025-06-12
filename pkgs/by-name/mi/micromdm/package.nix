@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "micromdm";
   version = "1.13.0";
@@ -23,6 +22,6 @@ buildGoModule rec {
     license = lib.licenses.mit;
     mainProgram = "micromdm";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ neverbehave ];
+    maintainers = with lib.maintainers; [neverbehave];
   };
 }

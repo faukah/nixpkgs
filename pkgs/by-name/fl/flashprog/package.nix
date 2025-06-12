@@ -14,7 +14,6 @@
   withJlink ? true,
   withGpio ? stdenv.hostPlatform.isLinux,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flashprog";
   version = "1.4";
@@ -39,10 +38,10 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [
       pciutils
     ]
-    ++ lib.optionals (withJlink) [
+    ++ lib.optionals withJlink [
       libjaylink
     ]
-    ++ lib.optionals (withGpio) [
+    ++ lib.optionals withGpio [
       libgpiod
     ];
 
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://flashprog.org";
     description = "Utility for reading, writing, erasing and verifying flash ROM chips";
     changelog = "https://flashprog.org/wiki/Flashprog/v${finalAttrs.version}";
-    license = with licenses; [ gpl2 ];
+    license = with licenses; [gpl2];
     maintainers = with maintainers; [
       felixsinger
       funkeleinhorn

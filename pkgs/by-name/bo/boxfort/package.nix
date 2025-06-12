@@ -6,7 +6,6 @@
   ninja,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "boxfort";
   version = "0.1.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     patchShebangs ci/isdir.py
   '';
 
-  nativeCheckInputs = with python3Packages; [ cram ];
+  nativeCheckInputs = with python3Packages; [cram];
 
   doCheck = true;
 

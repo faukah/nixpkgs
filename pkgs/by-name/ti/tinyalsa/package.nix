@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "tinyalsa";
   version = "unstable-2022-06-05";
@@ -32,7 +31,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/tinyalsa/tinyalsa";
     description = "Tiny library to interface with ALSA in the Linux kernel";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; linux;
   };
 }

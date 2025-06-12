@@ -21,7 +21,6 @@
   setuptools,
   wcwidth,
 }:
-
 buildPythonPackage rec {
   pname = "xml2rfc";
   version = "3.28.1";
@@ -42,9 +41,9 @@ buildPythonPackage rec {
       --replace-fail "test flaketest" "test"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonRelaxDeps = [ "lxml" ];
+  pythonRelaxDeps = ["lxml"];
 
   dependencies = [
     configargparse
@@ -75,7 +74,7 @@ buildPythonPackage rec {
     make tests-no-network
   '';
 
-  pythonImportsCheck = [ "xml2rfc" ];
+  pythonImportsCheck = ["xml2rfc"];
 
   meta = with lib; {
     description = "Tool generating IETF RFCs and drafts from XML sources";

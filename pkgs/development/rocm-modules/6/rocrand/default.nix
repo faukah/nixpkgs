@@ -10,9 +10,8 @@
   gbenchmark,
   buildTests ? false,
   buildBenchmarks ? false,
-  gpuTargets ? clr.localGpuTargets or [ ],
+  gpuTargets ? clr.localGpuTargets or [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rocrand${clr.gpuArchSuffix}";
   version = "6.3.3";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
     ]
-    ++ lib.optionals (gpuTargets != [ ]) [
+    ++ lib.optionals (gpuTargets != []) [
       "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"
     ]
     ++ lib.optionals buildTests [
@@ -92,8 +91,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Generate pseudo-random and quasi-random numbers";
     homepage = "https://github.com/ROCm/rocRAND";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

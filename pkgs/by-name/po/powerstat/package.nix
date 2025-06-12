@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "powerstat";
   version = "0.04.05";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/powerstat";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

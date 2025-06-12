@@ -10,7 +10,6 @@
   libtool,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-sdl2";
   version = "0.8.0";

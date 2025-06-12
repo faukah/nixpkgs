@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "elfinfo";
   version = "1.2.2";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://elfinfo.roboticoverlords.org/";
     changelog = "https://github.com/xyproto/elfinfo/releases/tag/${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

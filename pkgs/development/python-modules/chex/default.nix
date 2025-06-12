@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   jax,
@@ -13,14 +11,12 @@
   numpy,
   toolz,
   typing-extensions,
-
   # tests
   cloudpickle,
   dm-tree,
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "chex";
   version = "0.1.89";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-eTEfmbpmwtCuphtOq0iHUT8zGfyQ4/aUorL4FQwcKBw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     absl-py
@@ -44,7 +40,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "chex" ];
+  pythonImportsCheck = ["chex"];
 
   nativeCheckInputs = [
     cloudpickle
@@ -57,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/chex";
     changelog = "https://github.com/google-deepmind/chex/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ndl ];
+    maintainers = with lib.maintainers; [ndl];
   };
 }

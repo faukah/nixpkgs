@@ -3,18 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.whisparr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
-in
-{
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
+in {
   options = {
     services.whisparr = {
       enable = lib.mkEnableOption "Whisparr";
 
-      package = lib.mkPackageOption pkgs "whisparr" { };
+      package = lib.mkPackageOption pkgs "whisparr" {};
 
       dataDir = lib.mkOption {
         type = lib.types.path;
@@ -47,12 +44,12 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' 0700 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.whisparr = {
       description = "Whisparr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = servarr.mkServarrSettingsEnvVars "WHISPARR" cfg.settings;
 
       serviceConfig = {
@@ -66,7 +63,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
 
     users.users = lib.mkIf (cfg.user == "whisparr") {
@@ -77,6 +74,6 @@ in
       };
     };
 
-    users.groups.whisparr = lib.mkIf (cfg.group == "whisparr") { };
+    users.groups.whisparr = lib.mkIf (cfg.group == "whisparr") {};
   };
 }

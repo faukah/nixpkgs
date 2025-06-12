@@ -11,21 +11,18 @@
   gawk,
   freebsd,
   libiconv,
-
   # we are a dependency of gcc, this simplifies bootstrapping
   interactive ? false,
   ncurses,
   procps,
-}:
-
-let
+}: let
   meta = {
     description = "GNU documentation system";
     homepage = "https://www.gnu.org/software/texinfo/";
     changelog = "https://git.savannah.gnu.org/cgit/texinfo.git/plain/NEWS";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ oxij ];
+    maintainers = with lib.maintainers; [oxij];
 
     longDescription = ''
       Texinfo is the official documentation format of the GNU project.
@@ -63,12 +60,11 @@ let
       interactive
       ;
   };
-in
-{
+in {
   texinfo6 = buildTexinfo {
     version = "6.8";
     hash = "sha256-jrdT7Si8oh+PVsGhgDYq7XiSKb1i//WL+DaOm+tZ/sQ=";
-    patches = [ ./fix-glibc-2.34.patch ];
+    patches = [./fix-glibc-2.34.patch];
   };
   texinfo7 = buildTexinfo {
     version = "7.2";

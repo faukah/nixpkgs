@@ -5,7 +5,6 @@
   io-page,
   mirage-block,
 }:
-
 buildDunePackage rec {
   pname = "mirage-block-ramdisk";
   version = "0.5";
@@ -34,6 +33,6 @@ buildDunePackage rec {
     description = "In-memory BLOCK device for MirageOS";
     homepage = "https://github.com/mirage/mirage-block-ramdisk";
     license = licenses.isc;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

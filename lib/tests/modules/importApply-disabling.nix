@@ -1,4 +1,4 @@
 {
-  imports = [ ./importApply.nix ];
-  disabledModules = [ ./importApply-function.nix ];
+  imports = [./importApply.nix];
+  disabledModules = [./importApply-function.nix];
 }

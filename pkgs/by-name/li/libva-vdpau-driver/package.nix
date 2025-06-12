@@ -9,7 +9,6 @@
   libva,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libva-vdpau-driver";
   version = "0.7.4";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libvdpau
     libGLU

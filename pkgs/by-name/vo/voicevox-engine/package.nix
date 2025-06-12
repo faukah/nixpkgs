@@ -5,7 +5,6 @@
   replaceVars,
   voicevox-core,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "voicevox-engine";
   version = "0.23.0";
@@ -106,7 +105,7 @@ python3Packages.buildPythonApplication rec {
       hash = "sha256-6pxx+ebNzXd3qbrFa4gfMDM2e5XANo3ZPzSAegKoJBE=";
     };
 
-    pyopenjtalk = python3Packages.callPackage ./pyopenjtalk.nix { };
+    pyopenjtalk = python3Packages.callPackage ./pyopenjtalk.nix {};
   };
 
   meta = {

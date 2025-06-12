@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.ydotool;
-in
-{
+in {
   meta = {
-    maintainers = with lib.maintainers; [ quantenzitrone ];
+    maintainers = with lib.maintainers; [quantenzitrone];
   };
 
   options.programs.ydotool = {
@@ -26,17 +24,16 @@ in
     };
   };
 
-  config =
-    let
-      runtimeDirectory = "ydotoold";
-    in
+  config = let
+    runtimeDirectory = "ydotoold";
+  in
     lib.mkIf cfg.enable {
-      users.groups."${config.programs.ydotool.group}" = { };
+      users.groups."${config.programs.ydotool.group}" = {};
 
       systemd.services.ydotoold = {
         description = "ydotoold - backend for ydotool";
-        wantedBy = [ "multi-user.target" ];
-        partOf = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
+        partOf = ["multi-user.target"];
         serviceConfig = {
           Group = config.programs.ydotool.group;
           RuntimeDirectory = runtimeDirectory;
@@ -46,11 +43,11 @@ in
           # hardening
 
           ## allow access to uinput
-          DeviceAllow = [ "/dev/uinput" ];
+          DeviceAllow = ["/dev/uinput"];
           DevicePolicy = "closed";
 
           ## allow creation of unix sockets
-          RestrictAddressFamilies = [ "AF_UNIX" ];
+          RestrictAddressFamilies = ["AF_UNIX"];
 
           CapabilityBoundingSet = "";
           IPAddressDeny = "any";
@@ -88,6 +85,6 @@ in
       environment.variables = {
         YDOTOOL_SOCKET = "/run/${runtimeDirectory}/socket";
       };
-      environment.systemPackages = with pkgs; [ ydotool ];
+      environment.systemPackages = with pkgs; [ydotool];
     };
 }

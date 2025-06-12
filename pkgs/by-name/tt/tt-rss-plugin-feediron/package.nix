@@ -4,7 +4,6 @@
   fetchFromGitHub,
   tt-rss,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tt-rss-plugin-feediron";
   version = "1.33";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/feediron/ttrss_plugin-feediron";
-    maintainers = with maintainers; [ milogert ];
+    maintainers = with maintainers; [milogert];
     inherit (tt-rss.meta) platforms;
   };
 }

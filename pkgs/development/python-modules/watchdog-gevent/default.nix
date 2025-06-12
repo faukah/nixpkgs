@@ -9,7 +9,6 @@
   pythonOlder,
   watchdog,
 }:
-
 buildPythonPackage rec {
   pname = "watchdog-gevent";
   version = "0.1.1";
@@ -39,21 +38,21 @@ buildPythonPackage rec {
       -e 's:--cov-report html::'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     gevent
     watchdog
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "watchdog_gevent" ];
+  pythonImportsCheck = ["watchdog_gevent"];
 
   meta = with lib; {
     description = "Gevent-based observer for watchdog";
     homepage = "https://github.com/Bogdanp/watchdog_gevent";
     license = licenses.asl20;
-    maintainers = with maintainers; [ traxys ];
+    maintainers = with maintainers; [traxys];
   };
 }

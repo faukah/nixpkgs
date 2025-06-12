@@ -3,14 +3,12 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.plikd;
 
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
   plikdCfg = format.generate "plikd.cfg" cfg.settings;
-in
-{
+in {
   options = {
     services.plikd = {
       enable = lib.mkEnableOption "plikd, a temporary file upload system";
@@ -23,7 +21,7 @@ in
 
       settings = lib.mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = ''
           Configuration for plikd, see <https://github.com/root-gg/plik/blob/master/server/plikd.cfg>
           for supported values.
@@ -48,8 +46,8 @@ in
 
     systemd.services.plikd = {
       description = "Plikd file sharing server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.plikd}/bin/plikd --config ${plikdCfg}";
@@ -78,7 +76,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.ListenPort ];
+      allowedTCPPorts = [cfg.settings.ListenPort];
     };
   };
 }

@@ -18,7 +18,6 @@
   vim,
   speex,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ezquake";
   version = "3.6.3";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ThrsJfj+eP7Lv2ZSNLO6/b98VHrL6/rhwf2p0qMvTF8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     expat
     curl
@@ -49,16 +48,14 @@ stdenv.mkDerivation rec {
     speex
   ];
 
-  installPhase =
-    let
-      sys = lib.last (lib.splitString "-" stdenv.hostPlatform.system);
-      arch = lib.head (lib.splitString "-" stdenv.hostPlatform.system);
-    in
-    ''
-      mkdir -p $out/bin
-      find .
-      mv ezquake-${sys}-${arch} $out/bin/ezquake
-    '';
+  installPhase = let
+    sys = lib.last (lib.splitString "-" stdenv.hostPlatform.system);
+    arch = lib.head (lib.splitString "-" stdenv.hostPlatform.system);
+  in ''
+    mkdir -p $out/bin
+    find .
+    mv ezquake-${sys}-${arch} $out/bin/ezquake
+  '';
 
   enableParallelBuilding = true;
 
@@ -68,6 +65,6 @@ stdenv.mkDerivation rec {
     mainProgram = "ezquake";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ edwtjo ];
+    maintainers = with lib.maintainers; [edwtjo];
   };
 }

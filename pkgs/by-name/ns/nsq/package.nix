@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nsq";
   version = "1.3.0";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-/5nH7zHg8zxWFgtVzSnfp7RZGvPWiuGSEyhx9fE2Pvo=";
 
-  excludedPackages = [ "bench" ];
+  excludedPackages = ["bench"];
 
   ldflags = [
     "-s"
@@ -29,6 +28,6 @@ buildGoModule rec {
     description = "Realtime distributed messaging platform";
     changelog = "https://github.com/nsqio/nsq/raw/v${version}/ChangeLog.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ blakesmith ];
+    maintainers = with lib.maintainers; [blakesmith];
   };
 }

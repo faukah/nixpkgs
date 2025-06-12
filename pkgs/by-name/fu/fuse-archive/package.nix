@@ -7,7 +7,6 @@
   pkg-config,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fuse-archive";
   version = "1.10";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
         --replace-fail " | O_PATH" ""
     '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fuse
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-D_FILE_OFFSET_BITS=64";
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = {
     inherit (fuse.meta) platforms;
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/google/fuse-archive";
     changelog = "https://github.com/google/fuse-archive/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ icyrockcom ];
+    maintainers = with lib.maintainers; [icyrockcom];
     mainProgram = "fuse-archive";
   };
 }

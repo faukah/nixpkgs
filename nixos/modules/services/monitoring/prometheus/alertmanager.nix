@@ -3,26 +3,25 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.alertmanager;
   mkConfigFile = pkgs.writeText "alertmanager.yml" (builtins.toJSON cfg.configuration);
 
-  checkedConfig =
-    file:
-    if cfg.checkConfig then
-      pkgs.runCommand "checked-config" { nativeBuildInputs = [ cfg.package ]; } ''
+  checkedConfig = file:
+    if cfg.checkConfig
+    then
+      pkgs.runCommand "checked-config" {nativeBuildInputs = [cfg.package];} ''
         ln -s ${file} $out
         amtool check-config $out
       ''
-    else
-      file;
+    else file;
 
-  alertmanagerYml =
-    let
-      yml =
-        if cfg.configText != null then pkgs.writeText "alertmanager.yml" cfg.configText else mkConfigFile;
-    in
+  alertmanagerYml = let
+    yml =
+      if cfg.configText != null
+      then pkgs.writeText "alertmanager.yml" cfg.configText
+      else mkConfigFile;
+  in
     checkedConfig yml;
 
   cmdlineArgs =
@@ -36,16 +35,17 @@ let
     ]
     ++ (lib.optional (cfg.webExternalUrl != null) "--web.external-url ${cfg.webExternalUrl}")
     ++ (lib.optional (cfg.logFormat != null) "--log.format ${cfg.logFormat}");
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "user" ]
+    (
+      lib.mkRemovedOptionModule ["services" "prometheus" "alertmanager" "user"]
       "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a user setting."
     )
-    (lib.mkRemovedOptionModule [ "services" "prometheus" "alertmanager" "group" ]
+    (
+      lib.mkRemovedOptionModule ["services" "prometheus" "alertmanager" "group"]
       "The alertmanager service is now using systemd's DynamicUser mechanism which obviates a group setting."
     )
-    (lib.mkRemovedOptionModule [ "services" "prometheus" "alertmanagerURL" ] ''
+    (lib.mkRemovedOptionModule ["services" "prometheus" "alertmanagerURL"] ''
       Due to incompatibility, the alertmanagerURL option has been removed,
       please use 'services.prometheus.alertmanagers' instead.
     '')
@@ -55,7 +55,7 @@ in
     services.prometheus.alertmanager = {
       enable = lib.mkEnableOption "Prometheus Alertmanager";
 
-      package = lib.mkPackageOption pkgs "prometheus-alertmanager" { };
+      package = lib.mkPackageOption pkgs "prometheus-alertmanager" {};
 
       configuration = lib.mkOption {
         type = lib.types.nullOr lib.types.attrs;
@@ -156,7 +156,7 @@ in
 
       clusterPeers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Initial peers for HA cluster.
         '';
@@ -164,7 +164,7 @@ in
 
       extraFlags = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Extra commandline options when launching the Alertmanager.
         '';
@@ -197,9 +197,9 @@ in
       networking.firewall.allowedTCPPorts = lib.optional cfg.openFirewall cfg.port;
 
       systemd.services.alertmanager = {
-        wantedBy = [ "multi-user.target" ];
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        wants = ["network-online.target"];
+        after = ["network-online.target"];
         preStart = ''
           ${lib.getBin pkgs.envsubst}/bin/envsubst -o "/tmp/alert-manager-substituted.yaml" \
                                                    -i "${alertmanagerYml}"
@@ -214,8 +214,8 @@ in
 
           EnvironmentFile = lib.mkIf (cfg.environmentFile != null) cfg.environmentFile;
 
-          CapabilityBoundingSet = [ "" ];
-          DeviceAllow = [ "" ];
+          CapabilityBoundingSet = [""];
+          DeviceAllow = [""];
           DynamicUser = true;
           NoNewPrivileges = true;
 

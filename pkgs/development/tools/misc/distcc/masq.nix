@@ -4,7 +4,6 @@
   gccRaw,
   binutils,
 }:
-
 stdenv.mkDerivation {
   name = "distcc-masq-${gccRaw.name}";
 

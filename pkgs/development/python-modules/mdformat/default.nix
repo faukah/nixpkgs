@@ -9,7 +9,6 @@
   setuptools,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat";
   version = "0.7.22";
@@ -24,16 +23,16 @@ buildPythonPackage rec {
     hash = "sha256-WvbGCqfzh7KlNXIGJq09goiyLzVgU7c1+qmsLrIW38k=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies =
-    [ markdown-it-py ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+    [markdown-it-py]
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "mdformat" ];
+  pythonImportsCheck = ["mdformat"];
 
   passthru = {
     withPlugins = throw "Use pkgs.mdformat.withPlugins, i.e. the top-level attribute.";

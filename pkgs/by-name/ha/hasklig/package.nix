@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "hasklig";
   version = "1.1";
@@ -27,6 +26,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Font with ligatures for Haskell code based off Source Code Pro";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ davidrusu ];
+    maintainers = with maintainers; [davidrusu];
   };
 }

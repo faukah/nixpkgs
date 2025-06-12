@@ -5,7 +5,6 @@
   makeDesktopItem,
   makeWrapper,
   copyDesktopItems,
-
   # Dynamic Libraries
   curl,
   glib,
@@ -16,74 +15,70 @@
   libXmu,
   libXrandr,
   libXrender,
-
   # For fixing up execution of /bin/ls, which is necessary for
   # product unlocking.
   coreutils,
   libredirect,
-
   # Extra utilities used by the SoftMaker applications.
   gnugrep,
   util-linux,
   which,
-
   pname,
   version,
   edition,
   suiteName,
   src,
   archive,
-
   ...
-}:
-
-let
+}: let
   desktopItems = import ./desktop_items.nix {
     inherit makeDesktopItem pname suiteName;
   };
   shortEdition = builtins.substring 2 2 edition;
 in
-stdenv.mkDerivation {
-  inherit pname src;
+  stdenv.mkDerivation {
+    inherit pname src;
 
-  version = if edition != "" then "${edition}.${version}" else version;
+    version =
+      if edition != ""
+      then "${edition}.${version}"
+      else version;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    copyDesktopItems
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      autoPatchelfHook
+      copyDesktopItems
+      makeWrapper
+    ];
 
-  buildInputs = [
-    curl
-    glib
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    libGL
-    libX11
-    libXext
-    libXmu
-    libXrandr
-    libXrender
-    (lib.getLib stdenv.cc.cc)
-  ];
+    buildInputs = [
+      curl
+      glib
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      libGL
+      libX11
+      libXext
+      libXmu
+      libXrandr
+      libXrender
+      (lib.getLib stdenv.cc.cc)
+    ];
 
-  dontBuild = true;
-  dontConfigure = true;
+    dontBuild = true;
+    dontConfigure = true;
 
-  unpackPhase = ''
-    runHook preUnpack
+    unpackPhase = ''
+      runHook preUnpack
 
-    mkdir installer
-    tar -C installer -xf ${src}
-    mkdir ${pname}
-    tar -C ${pname} -xf installer/${archive}
+      mkdir installer
+      tar -C installer -xf ${src}
+      mkdir ${pname}
+      tar -C ${pname} -xf installer/${archive}
 
-    runHook postUnpack
-  '';
+      runHook postUnpack
+    '';
 
-  installPhase =
-    let
+    installPhase = let
       # SoftMaker/FreeOffice collects some system information upon
       # unlocking the product. But in doing so, it attempts to execute
       # /bin/ls. If the execve syscall fails, the whole unlock
@@ -109,8 +104,7 @@ stdenv.mkDerivation {
           ]
         }"
       '';
-    in
-    ''
+    in ''
       runHook preInstall
 
       mkdir -p $out/share
@@ -152,14 +146,14 @@ stdenv.mkDerivation {
       runHook postInstall
     '';
 
-  desktopItems = builtins.attrValues desktopItems;
+    desktopItems = builtins.attrValues desktopItems;
 
-  meta = with lib; {
-    description = "Office suite with a word processor, spreadsheet and presentation program";
-    homepage = "https://www.softmaker.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    license = licenses.unfree;
-    maintainers = [ ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "Office suite with a word processor, spreadsheet and presentation program";
+      homepage = "https://www.softmaker.com/";
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
+      license = licenses.unfree;
+      maintainers = [];
+      platforms = ["x86_64-linux"];
+    };
+  }

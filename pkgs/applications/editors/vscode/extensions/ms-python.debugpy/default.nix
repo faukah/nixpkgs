@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "debugpy";
@@ -16,6 +15,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=ms-python.debugpy";
     homepage = "https://github.com/Microsoft/vscode-python-debugger";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.carlthome ];
+    maintainers = [lib.maintainers.carlthome];
   };
 }

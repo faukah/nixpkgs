@@ -5,7 +5,6 @@
   libev,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "bjoern";
   version = "3.2.1";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     fetchSubmodules = true; # fetch http-parser and statsd-c-client submodules
   };
 
-  buildInputs = [ libev ];
+  buildInputs = [libev];
 
   checkPhase = ''
     ${python.interpreter} tests/keep-alive-behaviour.py 2>/dev/null
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jonashaag/bjoern";
     description = "Screamingly fast Python 2/3 WSGI server written in C";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

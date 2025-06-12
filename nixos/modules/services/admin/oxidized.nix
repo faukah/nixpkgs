@@ -3,15 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.oxidized;
-in
-{
+in {
   options.services.oxidized = {
     enable = lib.mkEnableOption "the oxidized configuration backup service";
 
-    package = lib.mkPackageOption pkgs "oxidized" { };
+    package = lib.mkPackageOption pkgs "oxidized" {};
 
     user = lib.mkOption {
       type = lib.types.str;
@@ -88,7 +86,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} = {
       description = "Oxidized service user";
       group = cfg.group;
@@ -130,7 +128,6 @@ in
             group = cfg.group;
           };
         };
-
       }
       // lib.optionalAttrs (cfg.routerDB != null) {
         "${cfg.dataDir}/.config/oxidized/router.db" = {
@@ -143,8 +140,8 @@ in
       };
 
     systemd.services.oxidized = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = lib.getExe cfg.package;

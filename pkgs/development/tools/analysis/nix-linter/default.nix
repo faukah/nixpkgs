@@ -19,7 +19,6 @@
   hnix,
   bytestring,
 }:
-
 mkDerivation {
   pname = "nix-linter";
   version = "0.2.0.4";
@@ -33,7 +32,7 @@ mkDerivation {
 
   isLibrary = false;
   isExecutable = true;
-  libraryHaskellDepends = [ fixplate ];
+  libraryHaskellDepends = [fixplate];
   executableHaskellDepends = [
     streamly
     mtl
@@ -57,7 +56,7 @@ mkDerivation {
   description = "Linter for Nix(pkgs), based on hnix";
   homepage = "https://github.com/Synthetica9/nix-linter";
   license = lib.licenses.bsd3;
-  maintainers = [ ];
+  maintainers = [];
 
   # doesn't build on ghc92
   hydraPlatforms = lib.platforms.none;

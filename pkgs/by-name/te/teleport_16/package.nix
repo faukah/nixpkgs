@@ -1,6 +1,4 @@
-{
-  teleport,
-}:
+{teleport}:
 teleport.override {
   version = "16.5.11";
   hash = "sha256-uLis1oRTr5J2bKaJtnVAIQ0ixYT8BYLo4jQPcdFp82s=";

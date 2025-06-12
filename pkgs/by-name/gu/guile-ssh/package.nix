@@ -10,7 +10,6 @@
   texinfo,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "guile-ssh";
   version = "0.18.0";

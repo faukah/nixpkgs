@@ -38,10 +38,8 @@
   suil,
   udev,
 }:
-
 # TODO: figure out LLVM jit
 # assert lib.versionAtLeast llvm.version "15";
-
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "ossia-score";
   version = "3.5.2";

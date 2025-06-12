@@ -8,7 +8,6 @@
   desktopToDarwinBundle,
   enableModern ? true,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ausweiskopie";
   version = "0.1.4";
@@ -21,9 +20,11 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-axy/cI5n2uvMKZ2Fkb0seFMRBKv6rpU01kgKSiQ10jE=";
   };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
+  nativeBuildInputs =
+    [
+      copyDesktopItems
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   build-system = with python3Packages; [
     setuptools
@@ -44,22 +45,20 @@ python3Packages.buildPythonApplication rec {
     })
   ];
 
-  dependencies =
-    with python3Packages;
-    (
-      [
-        pillow
-        tkinter
-        importlib-resources
-      ]
-      ++ lib.optionals enableModern optional-dependencies.modern
-      ++ lib.optionals stdenv.hostPlatform.isLinux [
-        dbus-next
-        pygobject3
-      ]
-    );
+  dependencies = with python3Packages; (
+    [
+      pillow
+      tkinter
+      importlib-resources
+    ]
+    ++ lib.optionals enableModern optional-dependencies.modern
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      dbus-next
+      pygobject3
+    ]
+  );
 
-  optional-dependencies.modern = [ python3Packages.ttkbootstrap ];
+  optional-dependencies.modern = [python3Packages.ttkbootstrap];
 
   postInstall = ''
     install -Dm644 ./src/ausweiskopie/resources/icon_colored.png $out/share/icons/hicolor/256x256/apps/ausweiskopie.png
@@ -69,7 +68,7 @@ python3Packages.buildPythonApplication rec {
     description = "Create privacy friendly and legal copies of your Ausweisdokument";
     homepage = "https://github.com/Varbin/ausweiskopie";
     license = lib.licenses.mpl20;
-    maintainers = with lib.maintainers; [ e1mo ];
+    maintainers = with lib.maintainers; [e1mo];
     platforms = lib.platforms.unix;
     mainProgram = "ausweiskopie";
   };

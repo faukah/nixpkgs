@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libGDSII";
   version = "0.21";
@@ -21,13 +20,13 @@ stdenv.mkDerivation rec {
     touch ChangeLog
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Library and command-line utility for reading GDSII geometry files";
     mainProgram = "GDSIIConvert";
     homepage = "https://github.com/HomerReid/libGDSII";
-    license = [ licenses.gpl2Only ];
+    license = [licenses.gpl2Only];
     maintainers = with maintainers; [
       sheepforce
       markuskowa

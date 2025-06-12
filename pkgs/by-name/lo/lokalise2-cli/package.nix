@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "lokalise2-cli";
   version = "3.1.4";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Translation platform for developers. Upload language files, translate, integrate via API";
     homepage = "https://lokalise.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ timstott ];
+    maintainers = with maintainers; [timstott];
     mainProgram = "lokalise2";
   };
 }

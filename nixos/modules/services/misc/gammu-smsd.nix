@@ -3,15 +3,18 @@
   lib,
   config,
   ...
-}:
-let
+}: let
   cfg = config.services.gammu-smsd;
 
   configFile = pkgs.writeText "gammu-smsd.conf" ''
     [gammu]
     Device = ${cfg.device.path}
     Connection = ${cfg.device.connection}
-    SynchronizeTime = ${if cfg.device.synchronizeTime then "yes" else "no"}
+    SynchronizeTime = ${
+      if cfg.device.synchronizeTime
+      then "yes"
+      else "no"
+    }
     LogFormat = ${cfg.log.format}
     ${lib.optionalString (cfg.device.pin != null) "PIN = ${cfg.device.pin}"}
     ${cfg.extraConfig.gammu}
@@ -34,8 +37,7 @@ let
     ''}
 
     ${lib.optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql") (
-      with cfg.backend;
-      ''
+      with cfg.backend; ''
         Driver = ${sql.driver}
         ${lib.optionalString (sql.database != null) "Database = ${sql.database}"}
         ${lib.optionalString (sql.host != null) "Host = ${sql.host}"}
@@ -49,18 +51,13 @@ let
 
   initDBDir = "share/doc/gammu/examples/sql";
 
-  gammuPackage =
-    with cfg.backend;
-    (pkgs.gammu.override {
-      dbiSupport = service == "sql" && sql.driver == "sqlite";
-      postgresSupport = service == "sql" && sql.driver == "native_pgsql";
-    });
-
-in
-{
+  gammuPackage = with cfg.backend; (pkgs.gammu.override {
+    dbiSupport = service == "sql" && sql.driver == "sqlite";
+    postgresSupport = service == "sql" && sql.driver == "native_pgsql";
+  });
+in {
   options = {
     services.gammu-smsd = {
-
       enable = lib.mkEnableOption "gammu-smsd daemon";
 
       user = lib.mkOption {
@@ -227,25 +224,20 @@ in
       group = cfg.device.group;
     };
 
-    environment.systemPackages =
-      with cfg.backend;
-      [ gammuPackage ] ++ lib.optionals (service == "sql" && sql.driver == "sqlite") [ pkgs.sqlite ];
+    environment.systemPackages = with cfg.backend;
+      [gammuPackage] ++ lib.optionals (service == "sql" && sql.driver == "sqlite") [pkgs.sqlite];
 
     systemd.services.gammu-smsd = {
       description = "gammu-smsd daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      wants =
-        with cfg.backend;
-        [ ] ++ lib.optionals (service == "sql" && sql.driver == "native_pgsql") [ "postgresql.service" ];
+      wants = with cfg.backend;
+        [] ++ lib.optionals (service == "sql" && sql.driver == "native_pgsql") ["postgresql.service"];
 
-      preStart =
-        with cfg.backend;
-
+      preStart = with cfg.backend;
         lib.optionalString (service == "files") (
-          with files;
-          ''
+          with files; ''
             mkdir -m 755 -p ${inboxPath} ${outboxPath} ${sentSMSPath} ${errorSMSPath}
             chown ${cfg.user} -R ${inboxPath}
             chown ${cfg.user} -R ${outboxPath}
@@ -259,8 +251,7 @@ in
         ''
         + (
           let
-            execPsql =
-              extraArgs:
+            execPsql = extraArgs:
               lib.concatStringsSep " " [
                 (lib.optionalString (sql.password != null) "PGPASSWORD=${sql.password}")
                 "${config.services.postgresql.package}/bin/psql"
@@ -270,9 +261,9 @@ in
                 "${sql.database}"
               ];
           in
-          lib.optionalString (service == "sql" && sql.driver == "native_pgsql") ''
-            echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
-          ''
+            lib.optionalString (service == "sql" && sql.driver == "native_pgsql") ''
+              echo '\i '"${gammuPackage}/${initDBDir}/pgsql.sql" | ${execPsql ""}
+            ''
         );
 
       serviceConfig = {
@@ -281,7 +272,6 @@ in
         PermissionsStartOnly = true;
         ExecStart = "${gammuPackage}/bin/gammu-smsd -c ${configFile}";
       };
-
     };
   };
 }

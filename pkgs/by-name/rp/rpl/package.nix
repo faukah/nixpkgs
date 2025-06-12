@@ -3,7 +3,6 @@
   fetchPypi,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rpl";
   version = "1.18";
@@ -36,6 +35,6 @@ python3Packages.buildPythonApplication rec {
     mainProgram = "rpl";
     homepage = "https://github.com/rrthomas/rpl";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ cbley ];
+    maintainers = with maintainers; [cbley];
   };
 }

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xserver.windowManager.sawfish;
-in
-{
+in {
   ###### interface
   options = {
     services.xserver.windowManager.sawfish.enable = mkEnableOption "sawfish";
@@ -25,6 +21,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.sawfish ];
+    environment.systemPackages = [pkgs.sawfish];
   };
 }

@@ -12,7 +12,6 @@
   stdenv,
   ruby,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mblaze";
   version = "1.3";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-398wiXJ/iG9ZfPGDZc57xH37lft3NpEZuLE0Qhb2GGc=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -58,14 +57,14 @@ stdenv.mkDerivation rec {
           --argv0 $out/bin/$x \
           --prefix PATH : $out/bin \
           --prefix PATH : ${
-            lib.makeBinPath [
-              coreutils
-              file
-              gawk
-              gnugrep
-              gnused
-            ]
-          }
+        lib.makeBinPath [
+          coreutils
+          file
+          gawk
+          gnugrep
+          gnused
+        ]
+      }
       done
     '';
 
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     description = "Unix utilities for processing and interacting with mail messages which are stored in maildir folders";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = [ maintainers.ajgrf ];
+    maintainers = [maintainers.ajgrf];
   };
 }

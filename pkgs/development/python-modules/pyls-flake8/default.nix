@@ -6,7 +6,6 @@
   python-lsp-server,
   pythonOlder,
 }:
-
 buildPythonPackage {
   pname = "pyls-flake8";
   version = "0.4.0";
@@ -29,6 +28,6 @@ buildPythonPackage {
     homepage = "https://github.com/emanspeaks/pyls-flake8";
     description = "Flake8 plugin for the Python LSP Server";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

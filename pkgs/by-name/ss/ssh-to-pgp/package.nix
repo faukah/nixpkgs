@@ -4,7 +4,6 @@
   buildGoModule,
   gnupg,
 }:
-
 buildGoModule rec {
   pname = "ssh-to-pgp";
   version = "1.1.6";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2FKOonSdsAQPYttABW5xBkmXraqbTRc8ck882fmtlcI=";
 
-  nativeCheckInputs = [ gnupg ];
+  nativeCheckInputs = [gnupg];
   checkPhase = ''
     HOME=$TMPDIR go test .
   '';
@@ -30,6 +29,6 @@ buildGoModule rec {
     mainProgram = "ssh-to-pgp";
     homepage = "https://github.com/Mic92/ssh-to-pgp";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

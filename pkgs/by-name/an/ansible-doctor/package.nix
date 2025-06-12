@@ -4,7 +4,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "ansible-doctor";
   version = "2.0.4";
@@ -59,6 +58,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/thegeeklab/ansible-doctor";
     changelog = "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ tboerger ];
+    maintainers = with lib.maintainers; [tboerger];
   };
 }

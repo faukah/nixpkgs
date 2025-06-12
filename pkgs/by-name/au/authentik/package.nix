@@ -13,9 +13,7 @@
   nodejs,
   python312,
   makeWrapper,
-}:
-
-let
+}: let
   version = "2025.4.1";
 
   src = fetchFromGitHub {
@@ -69,7 +67,7 @@ let
     pname = "authentik-website";
     inherit src version meta;
 
-    nativeBuildInputs = [ nodejs ];
+    nativeBuildInputs = [nodejs];
 
     postPatch = ''
       substituteInPlace package.json --replace-fail 'cross-env ' ""
@@ -108,7 +106,7 @@ let
         --replace-fail '/local' "$(pwd)/"
     '';
 
-    nativeBuildInputs = [ openapi-generator-cli ];
+    nativeBuildInputs = [openapi-generator-cli];
     buildPhase = ''
       runHook preBuild
       openapi-generator-cli generate -i ./schema.yml \
@@ -124,7 +122,7 @@ let
     pname = "authentik-webui";
     inherit version meta;
 
-    src = runCommand "authentik-webui-source" { } ''
+    src = runCommand "authentik-webui-source" {} ''
       mkdir -p $out/web/node_modules/@goauthentik/
       cp -r ${src}/web $out/
       ln -s ${src}/package.json $out/
@@ -211,7 +209,7 @@ let
           "test_unique_together_with_source"
         ];
 
-        pythonImportsCheck = [ "rest_framework" ];
+        pythonImportsCheck = ["rest_framework"];
       };
 
       authentik-django = prev.buildPythonPackage {
@@ -242,8 +240,7 @@ let
           "xmlsec"
         ];
 
-        propagatedBuildInputs =
-          with final;
+        propagatedBuildInputs = with final;
           [
             argon2-cffi
             celery
@@ -354,49 +351,50 @@ let
       mv $out/bin/server $out/bin/authentik
     '';
 
-    subPackages = [ "cmd/server" ];
+    subPackages = ["cmd/server"];
   };
-
 in
-stdenvNoCC.mkDerivation {
-  pname = "authentik";
-  inherit src version;
+  stdenvNoCC.mkDerivation {
+    pname = "authentik";
+    inherit src version;
 
-  buildInputs = [ bash ];
+    buildInputs = [bash];
 
-  postPatch = ''
-    rm Makefile
-    patchShebangs lifecycle/ak
+    postPatch = ''
+      rm Makefile
+      patchShebangs lifecycle/ak
 
-    # This causes issues in systemd services
-    substituteInPlace lifecycle/ak \
-      --replace-fail 'printf' '>&2 printf' \
-      --replace-fail '>/dev/stderr' ""
-  '';
+      # This causes issues in systemd services
+      substituteInPlace lifecycle/ak \
+        --replace-fail 'printf' '>&2 printf' \
+        --replace-fail '>/dev/stderr' ""
+    '';
 
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/bin
-    cp -r lifecycle/ak $out/bin/
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      cp -r lifecycle/ak $out/bin/
 
-    wrapProgram $out/bin/ak \
-      --prefix PATH : ${
+      wrapProgram $out/bin/ak \
+        --prefix PATH : ${
         lib.makeBinPath [
-          (python.withPackages (ps: [ ps.authentik-django ]))
+          (python.withPackages (ps: [ps.authentik-django]))
           proxy
         ]
       } \
-      --set TMPDIR /dev/shm \
-      --set PYTHONDONTWRITEBYTECODE 1 \
-      --set PYTHONUNBUFFERED 1
-    runHook postInstall
-  '';
+        --set TMPDIR /dev/shm \
+        --set PYTHONDONTWRITEBYTECODE 1 \
+        --set PYTHONUNBUFFERED 1
+      runHook postInstall
+    '';
 
-  passthru.outposts = callPackages ./outposts.nix { };
+    passthru.outposts = callPackages ./outposts.nix {};
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  meta = meta // {
-    mainProgram = "ak";
-  };
-}
+    meta =
+      meta
+      // {
+        mainProgram = "ak";
+      };
+  }

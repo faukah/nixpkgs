@@ -7,7 +7,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-didl-lite";
   version = "1.4.1";
@@ -22,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-YSP24GiSngwwvpwfOoKkm/i0qCtpryjcshxZCskf5BM=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ defusedxml ];
+  propagatedBuildInputs = [defusedxml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "didl_lite" ];
+  pythonImportsCheck = ["didl_lite"];
 
   meta = with lib; {
     description = "DIDL-Lite (Digital Item Declaration Language) tools for Python";
     homepage = "https://github.com/StevenLooman/python-didl-lite";
     changelog = "https://github.com/StevenLooman/python-didl-lite/blob/${version}/CHANGES.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

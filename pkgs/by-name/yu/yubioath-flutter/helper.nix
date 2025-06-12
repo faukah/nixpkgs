@@ -5,12 +5,10 @@
   zxing-cpp,
   pillow,
   poetry-core,
-
   src,
   version,
   meta,
 }:
-
 buildPythonApplication {
   pname = "yubioath-flutter-helper";
   inherit src version meta;

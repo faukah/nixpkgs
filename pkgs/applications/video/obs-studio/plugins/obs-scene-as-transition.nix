@@ -5,7 +5,6 @@
   cmake,
   obs-studio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "obs-scene-as-transition";
   version = "1.1.1";
@@ -17,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qeiJR68MqvhpzvY7yNnR6w77SvavlZTdbnGBWrd7iZM=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ obs-studio ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [obs-studio];
 
   postInstall = ''
     rm -rf $out/obs-plugins $out/data
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An OBS Studio plugin that will allow you to use a Scene as a transition";
     homepage = "https://github.com/andilippi/obs-scene-as-transition";
-    maintainers = with maintainers; [ flexiondotorg ];
+    maintainers = with maintainers; [flexiondotorg];
     license = licenses.gpl2Plus;
     platforms = [
       "x86_64-linux"

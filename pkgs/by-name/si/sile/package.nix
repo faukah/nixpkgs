@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   zstd,
   pkg-config,
@@ -11,7 +10,6 @@
   rustc,
   rustPlatform,
   luarocks,
-
   # buildInputs
   lua,
   harfbuzz,
@@ -21,12 +19,10 @@
   # FONTCONFIG_FILE
   makeFontsConf,
   gentium-plus,
-
   # passthru.tests
   runCommand,
   poppler-utils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sile";
   version = "0.15.13";
@@ -39,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     dontConfigure = true;
-    nativeBuildInputs = [ zstd ];
+    nativeBuildInputs = [zstd];
     hash = "sha256-phRnyaF8KTYlgrgBeVNPxBAokRBUoj9vs7P9y97wbG8=";
   };
 
@@ -155,18 +151,18 @@ stdenv.mkDerivation (finalAttrs: {
     # Copied from Makefile.am
     tests.test = lib.optionalAttrs (!(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64)) (
       runCommand "${finalAttrs.pname}-test"
-        {
-          nativeBuildInputs = [
-            poppler-utils
-            finalAttrs.finalPackage
-          ];
-          inherit (finalAttrs) FONTCONFIG_FILE;
-        }
-        ''
-          output=$(mktemp -t selfcheck-XXXXXX.pdf)
-          echo "<sile>foo</sile>" | sile -o $output -
-          pdfinfo $output | grep "SILE v${finalAttrs.version}" > $out
-        ''
+      {
+        nativeBuildInputs = [
+          poppler-utils
+          finalAttrs.finalPackage
+        ];
+        inherit (finalAttrs) FONTCONFIG_FILE;
+      }
+      ''
+        output=$(mktemp -t selfcheck-XXXXXX.pdf)
+        echo "<sile>foo</sile>" | sile -o $output -
+        pdfinfo $output | grep "SILE v${finalAttrs.version}" > $out
+      ''
     );
   };
 

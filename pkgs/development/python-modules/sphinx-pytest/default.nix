@@ -8,7 +8,6 @@
   defusedxml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-pytest";
   version = "0.2.0";
@@ -21,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-oSBBt+hSMs4mvGqibQHoYHXr2j/bpsGOnIMfwfTfWKQ=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  pythonImportsCheck = [ "sphinx_pytest" ];
+  pythonImportsCheck = ["sphinx_pytest"];
 
   nativeCheckInputs = [
     defusedxml
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Helpful pytest fixtures for Sphinx extensions";
     homepage = "https://github.com/chrisjsewell/sphinx-pytest";
     license = licenses.mit;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

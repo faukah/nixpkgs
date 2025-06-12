@@ -11,7 +11,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "qtscrcpy";
   version = "3.1.3";
@@ -24,11 +23,11 @@ stdenv.mkDerivation rec {
       hash = "sha256-deJachXKClyJymUSRgqlwZhwr4Hlo4GXynJRlyu6uBU=";
       fetchSubmodules = true;
     }).overrideAttrs
-      (_: {
-        GIT_CONFIG_COUNT = 1;
-        GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
-        GIT_CONFIG_VALUE_0 = "git@github.com:";
-      });
+    (_: {
+      GIT_CONFIG_COUNT = 1;
+      GIT_CONFIG_KEY_0 = "url.https://github.com/.insteadOf";
+      GIT_CONFIG_VALUE_0 = "git@github.com:";
+    });
 
   patches = [
     # remove vendored ffmpeg, adb and scrcpy-server

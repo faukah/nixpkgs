@@ -6,7 +6,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "pyinstrument";
   version = "5.0.2";
@@ -29,7 +28,7 @@ buildPythonPackage rec {
   # Module import recursion
   doCheck = false;
 
-  pythonImportsCheck = [ "pyinstrument" ];
+  pythonImportsCheck = ["pyinstrument"];
 
   meta = with lib; {
     description = "Call stack profiler for Python";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/joerick/pyinstrument";
     changelog = "https://github.com/joerick/pyinstrument/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

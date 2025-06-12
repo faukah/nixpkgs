@@ -7,7 +7,6 @@
   zlib,
   geoip,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "mirrorbits";
   version = "0.6";
@@ -25,14 +24,14 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-cdD9RvOtgN/SHtgrtrucnUI+nnO/FabUyPRdvgoL44o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     zlib
     geoip
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -41,7 +40,7 @@ buildGoModule (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "version";
 
   meta = {
@@ -56,7 +55,7 @@ buildGoModule (finalAttrs: {
       of traffic.
     '';
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     mainProgram = "mirrorbits";
   };
 })

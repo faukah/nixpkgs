@@ -4,7 +4,6 @@
   python3Packages,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "mymcplus";
   version = "3.0.5";
@@ -30,6 +29,6 @@ python3Packages.buildPythonApplication rec {
     description = "PlayStation 2 memory card manager";
     mainProgram = "mymcplus";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -1,8 +1,6 @@
-{ lib, ... }:
-let
+{lib, ...}: let
   inherit (lib) types mkOption literalMD;
-in
-{
+in {
   options = {
     meta = mkOption {
       description = ''
@@ -12,12 +10,11 @@ in
       '';
       apply = lib.filterAttrs (k: v: v != null);
       type = types.submodule (
-        { config, ... }:
-        {
+        {config, ...}: {
           options = {
             maintainers = mkOption {
               type = types.listOf types.raw;
-              default = [ ];
+              default = [];
               description = ''
                 The [list of maintainers](https://nixos.org/manual/nixpkgs/stable/#var-meta-maintainers) for this test.
               '';
@@ -56,7 +53,7 @@ in
           };
         }
       );
-      default = { };
+      default = {};
     };
   };
 }

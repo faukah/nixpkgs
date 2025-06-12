@@ -12,7 +12,6 @@
   sha256,
   rev,
 }:
-
 stdenv.mkDerivation {
   inherit version;
   pname = "cataract";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     homepage = "http://cgg.bzatek.net/";
     description = "Simple static web photo gallery, designed to be clean and easily usable";
     license = licenses.gpl2;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = with platforms; linux ++ darwin;
   };
 }

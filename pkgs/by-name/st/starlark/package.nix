@@ -23,14 +23,14 @@ buildGoModule {
   ];
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    extraArgs = ["--version=branch"];
   };
 
   meta = {
     homepage = "https://github.com/google/starlark-go";
     description = "Interpreter for Starlark, implemented in Go";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ aaronjheng ];
+    maintainers = with lib.maintainers; [aaronjheng];
     mainProgram = "starlark";
   };
 }

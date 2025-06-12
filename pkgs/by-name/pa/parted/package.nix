@@ -15,7 +15,6 @@
   check,
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation rec {
   pname = "parted";
   version = "3.6";
@@ -46,13 +45,17 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ libuuid ]
+    [libuuid]
     ++ lib.optional (readline != null) readline
     ++ lib.optional (gettext != null) gettext
     ++ lib.optional (lvm2 != null) lvm2;
 
   configureFlags =
-    (if (readline != null) then [ "--with-readline" ] else [ "--without-readline" ])
+    (
+      if (readline != null)
+      then ["--with-readline"]
+      else ["--without-readline"]
+    )
     ++ lib.optional (lvm2 == null) "--disable-device-mapper"
     ++ lib.optional enableStatic "--enable-static";
 

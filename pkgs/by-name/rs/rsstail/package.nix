@@ -4,7 +4,6 @@
   fetchFromGitHub,
   libmrss,
 }:
-
 stdenv.mkDerivation (final: {
   pname = "rsstail";
   version = "2.2";
@@ -16,9 +15,9 @@ stdenv.mkDerivation (final: {
     hash = "sha256-wbdf9zhwMN7QhJ5WoJo1Csu0EcKUTON8Q2Ic5scbn7I=";
   };
 
-  buildInputs = [ libmrss ];
+  buildInputs = [libmrss];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
   enableParallelBuilding = true;
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
@@ -37,7 +36,7 @@ stdenv.mkDerivation (final: {
     '';
     homepage = "https://www.vanheusden.com/rsstail/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.Necior ];
+    maintainers = [maintainers.Necior];
     platforms = platforms.unix;
   };
 })

@@ -5,7 +5,6 @@
   fetchpatch,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qpoases";
   version = "3.2.1";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
@@ -38,6 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/coin-or/qpOASES";
     changelog = "https://github.com/coin-or/qpOASES/blob/${finalAttrs.src.rev}/VERSIONS.txt";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ nim65s ];
+    maintainers = with maintainers; [nim65s];
   };
 })

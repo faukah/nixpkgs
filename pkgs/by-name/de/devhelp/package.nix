@@ -18,7 +18,6 @@
   gsettings-desktop-schemas,
   shared-mime-info,
 }:
-
 stdenv.mkDerivation rec {
   pname = "devhelp";
   version = "43.0";
@@ -86,7 +85,7 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/Devhelp/";
     changelog = "https://gitlab.gnome.org/GNOME/devhelp/-/blob/${version}/NEWS?ref_type=tags";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     platforms = lib.platforms.linux;
   };
 }

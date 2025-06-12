@@ -8,7 +8,6 @@
   polkit-qt,
   util-linux,
 }:
-
 mkDerivation {
   pname = "kpmcore";
 
@@ -16,7 +15,7 @@ mkDerivation {
     ./nixostrustedprefix.patch
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qca-qt5

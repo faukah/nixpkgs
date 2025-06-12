@@ -11,7 +11,6 @@
   upx,
   xcbutil,
 }:
-
 stdenv.mkDerivation {
   pname = "c64-debugger";
   version = "0.64.58.6";
@@ -105,7 +104,7 @@ stdenv.mkDerivation {
       gpl2 # nestopiaue
     ];
     mainProgram = "c64debugger";
-    maintainers = [ lib.maintainers.detegr ];
+    maintainers = [lib.maintainers.detegr];
     platforms = lib.platforms.linux;
   };
 }

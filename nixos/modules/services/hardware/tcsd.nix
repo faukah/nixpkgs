@@ -5,9 +5,7 @@
   pkgs,
   lib,
   ...
-}:
-let
-
+}: let
   cfg = config.services.tcsd;
   opt = options.services.tcsd;
 
@@ -30,16 +28,11 @@ let
     #host_platform_class = server_12
     #all_platform_classes = pc_11,pc_12,mobile_12
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.tcsd = {
-
       enable = lib.mkOption {
         default = false;
         type = lib.types.bool;
@@ -117,14 +110,12 @@ in
           See also the platformCred option'';
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.trousers ];
+    environment.systemPackages = [pkgs.trousers];
 
     services.udev.extraRules = ''
       # Give tcsd ownership of all TPM devices
@@ -140,11 +131,11 @@ in
 
     systemd.services.tcsd = {
       description = "Manager for Trusted Computing resources";
-      documentation = [ "man:tcsd(8)" ];
+      documentation = ["man:tcsd(8)"];
 
-      requires = [ "dev-tpm0.device" ];
-      after = [ "dev-tpm0.device" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["dev-tpm0.device"];
+      after = ["dev-tpm0.device"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = cfg.user;
@@ -160,6 +151,6 @@ in
       };
     };
 
-    users.groups = lib.optionalAttrs (cfg.group == "tss") { tss = { }; };
+    users.groups = lib.optionalAttrs (cfg.group == "tss") {tss = {};};
   };
 }

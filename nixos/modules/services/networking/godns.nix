@@ -3,9 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mkEnableOption
     mkIf
     mkOption
@@ -15,13 +15,12 @@ let
 
   cfg = config.services.godns;
 
-  settingsFormat = pkgs.formats.yaml { };
-in
-{
+  settingsFormat = pkgs.formats.yaml {};
+in {
   options.services.godns = {
     enable = mkEnableOption "GoDNS service";
 
-    package = mkPackageOption pkgs "godns" { };
+    package = mkPackageOption pkgs "godns" {};
 
     settings = mkOption {
       type = types.submodule {
@@ -41,7 +40,7 @@ in
         domains = [
           {
             domain_name = "example.com";
-            sub_domains = [ "foo" ];
+            sub_domains = ["foo"];
           }
         ];
         ipv6_urls = [
@@ -56,8 +55,8 @@ in
 
     loadCredential = lib.mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "login_token:/path/to/login_token" ];
+      default = [];
+      example = ["login_token:/path/to/login_token"];
       description = ''
         This can be used to pass secrets to the systemd service without adding
         them to the nix store.
@@ -68,8 +67,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.godns = {
       description = "GoDNS service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${lib.getExe cfg.package} -c ${settingsFormat.generate "config.yaml" cfg.settings}";
@@ -80,5 +79,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.michaelvanstraten ];
+  meta.maintainers = [lib.maintainers.michaelvanstraten];
 }

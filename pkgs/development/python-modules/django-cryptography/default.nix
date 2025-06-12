@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-cryptography";
   version = "1.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-C3E2iT9JdLvF+1g+xhZ8dPDjjh25JUxLAtTMnalIxPk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cryptography
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     ./fix-setup-cfg.patch
   ];
 
-  pythonImportsCheck = [ "django_cryptography" ];
+  pythonImportsCheck = ["django_cryptography"];
 
   checkPhase = ''
     runHook preCheck
@@ -48,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/georgemarshall/django-cryptography";
     description = "Set of primitives for performing cryptography in Django";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

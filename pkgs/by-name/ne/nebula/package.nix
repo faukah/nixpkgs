@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "nebula";
   version = "1.9.5";
@@ -23,7 +22,7 @@ buildGoModule rec {
     "cmd/nebula-cert"
   ];
 
-  ldflags = [ "-X main.Build=${version}" ];
+  ldflags = ["-X main.Build=${version}"];
 
   passthru.tests = {
     inherit (nixosTests) nebula;

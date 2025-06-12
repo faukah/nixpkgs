@@ -27,7 +27,6 @@
   xclip,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-screenshooter";
   version = "1.11.2";
@@ -76,24 +75,24 @@ stdenv.mkDerivation (finalAttrs: {
     # https://gitlab.xfce.org/apps/xfce4-screenshooter/-/merge_requests/51
     gappsWrapperArgs+=(
       --prefix PATH : ${
-        lib.makeBinPath [
-          curl
-          zenity
-          jq
-          xclip
-        ]
-      }
+      lib.makeBinPath [
+        curl
+        zenity
+        jq
+        xclip
+      ]
+    }
     )
   '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "xfce4-screenshooter-"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "xfce4-screenshooter-";};
 
   meta = {
     description = "Screenshot utility for the Xfce desktop";
     homepage = "https://gitlab.xfce.org/apps/xfce4-screenshooter";
     license = lib.licenses.gpl2Plus;
     mainProgram = "xfce4-screenshooter";
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
     platforms = lib.platforms.linux;
   };
 })

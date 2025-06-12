@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "stickytape";
   version = "0.2.1";
@@ -20,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-KOZN9oxPb91l8QVU07I49UMNXqox8j+oekA1fMtj6l8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Tests have additional requirements
   doCheck = false;
 
-  pythonImportsCheck = [ "stickytape" ];
+  pythonImportsCheck = ["stickytape"];
 
   meta = with lib; {
     description = "Python module to convert Python packages into a single script";
     homepage = "https://github.com/mwilliamson/stickytape";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "stickytape";
   };
 }

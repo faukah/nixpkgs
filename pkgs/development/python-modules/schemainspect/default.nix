@@ -37,7 +37,7 @@ buildPythonPackage {
     })
   ];
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
   propagatedBuildInputs = [
     setuptools # needed for 'pkg_resources'
     sqlalchemy
@@ -97,7 +97,7 @@ buildPythonPackage {
     "-svv"
     "tests"
   ];
-  pythonImportsCheck = [ "schemainspect" ];
+  pythonImportsCheck = ["schemainspect"];
 
   postUnpack = ''
     # this dir is used to bump the version number, having it here fails the build
@@ -107,7 +107,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Schema inspection for PostgreSQL, and potentially others";
     homepage = "https://github.com/djrobstep/schemainspect";
-    license = with licenses; [ unlicense ];
-    maintainers = with maintainers; [ bpeetz ];
+    license = with licenses; [unlicense];
+    maintainers = with maintainers; [bpeetz];
   };
 }

@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ghmap";
   version = "1.0.3";
@@ -36,7 +35,7 @@ python3Packages.buildPythonApplication rec {
     description = "Python tool for mapping GitHub events to contributor activities";
     homepage = "https://github.com/uhourri/ghmap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     mainProgram = "ghmap";
   };
 }

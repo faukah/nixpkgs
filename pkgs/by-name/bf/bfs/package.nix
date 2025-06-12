@@ -8,7 +8,6 @@
   liburing,
   oniguruma,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bfs";
   version = "4.0.6";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   buildInputs =
-    [ oniguruma ]
+    [oniguruma]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       acl
       attr
@@ -29,8 +28,8 @@ stdenv.mkDerivation rec {
       liburing
     ];
 
-  configureFlags = [ "--enable-release" ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  configureFlags = ["--enable-release"];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Breadth-first version of the UNIX find command";

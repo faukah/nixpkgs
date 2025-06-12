@@ -6,7 +6,6 @@
   ncurses,
   versionCheckHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncdu";
   version = "1.22";
@@ -16,11 +15,11 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-CtbAltwE1RIFgRBHYMAbj06X1BkdbJ73llT6PGkaF2s=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   doInstallCheck = true;
 
   meta = {
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://dev.yorhel.nl/ncdu";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
     mainProgram = "ncdu";
   };
 })

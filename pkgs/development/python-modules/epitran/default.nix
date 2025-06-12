@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   unittestCheckHook,
-
   setuptools,
-
   regex,
   panphon,
   marisa-trie,
   requests,
 }:
-
 buildPythonPackage rec {
   pname = "epitran";
   version = "1.24";
@@ -25,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-AH4q8J5oMaUVJ559qe/ZlJXlCcGdxWnxMhnZKCH5Rlk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     regex
@@ -34,7 +30,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -52,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dmort27/epitran";
     changelog = "https://github.com/dmort27/epitran/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ vizid ];
+    maintainers = with maintainers; [vizid];
   };
 }

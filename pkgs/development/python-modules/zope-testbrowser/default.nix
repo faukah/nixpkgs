@@ -16,7 +16,6 @@
   zope-testrunner,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "zope-testbrowser";
   version = "7.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       --replace-fail "suite.addTests(wire)" ""
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     setuptools
@@ -72,6 +71,6 @@ buildPythonPackage rec {
     description = "Programmable browser for functional black-box tests";
     homepage = "https://github.com/zopefoundation/zope.testbrowser";
     license = lib.licenses.zpl21;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

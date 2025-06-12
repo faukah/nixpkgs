@@ -37,15 +37,12 @@
   umockdev,
   wlcs,
   validatePkgConfig,
-}:
-
-{
+}: {
   version,
   pinned ? false,
   hash,
-  patches ? [ ],
+  patches ? [],
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mir";
   inherit version;
@@ -94,43 +91,45 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
     (python3.withPackages (
       ps:
-      with ps;
-      [ pillow ]
-      ++ lib.optionals finalAttrs.finalPackage.doCheck [
-        pygobject3
-        python-dbusmock
-      ]
+        with ps;
+          [pillow]
+          ++ lib.optionals finalAttrs.finalPackage.doCheck [
+            pygobject3
+            python-dbusmock
+          ]
     ))
     validatePkgConfig
     wayland-scanner
   ];
 
-  buildInputs = [
-    boost
-    egl-wayland
-    freetype
-    glib
-    glm
-    libdrm
-    libepoxy
-    libevdev
-    libglvnd
-    libinput
-    libuuid
-    libxcb
-    libxkbcommon
-    libxmlxx
-    yaml-cpp
-    lttng-ust
-    libgbm
-    nettle
-    udev
-    wayland
-    xorg.libX11
-    xorg.libXcursor
-    xorg.xorgproto
-    xwayland
-  ] ++ lib.optionals (lib.strings.versionAtLeast version "2.18.0") [ libapparmor ];
+  buildInputs =
+    [
+      boost
+      egl-wayland
+      freetype
+      glib
+      glm
+      libdrm
+      libepoxy
+      libevdev
+      libglvnd
+      libinput
+      libuuid
+      libxcb
+      libxkbcommon
+      libxmlxx
+      yaml-cpp
+      lttng-ust
+      libgbm
+      nettle
+      udev
+      wayland
+      xorg.libX11
+      xorg.libXcursor
+      xorg.xorgproto
+      xwayland
+    ]
+    ++ lib.optionals (lib.strings.versionAtLeast version "2.18.0") [libapparmor];
 
   nativeCheckInputs = [
     dbus
@@ -188,21 +187,25 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  passthru = {
-    tests = {
-      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    } // lib.optionalAttrs (!pinned) { inherit (nixosTests) miriway miracle-wm; };
-    providedSessions = lib.optionals (lib.strings.versionOlder version "2.16.0") [
-      # More of an example than a fully functioning shell, some notes for the adventurous:
-      # - ~/.config/miral-shell.config is one possible user config location,
-      #   accepted options=value are according to `mir-shell --help`
-      # - default icon theme setting is DMZ-White, needs vanilla-dmz installed & on XCURSOR_PATH
-      #   or setting to be changed to an available theme
-      # - terminal emulator setting may need to be changed if miral-terminal script
-      #   does not know about preferred terminal
-      "mir-shell"
-    ];
-  } // lib.optionalAttrs (!pinned) { updateScript = ./update.sh; };
+  passthru =
+    {
+      tests =
+        {
+          pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+        }
+        // lib.optionalAttrs (!pinned) {inherit (nixosTests) miriway miracle-wm;};
+      providedSessions = lib.optionals (lib.strings.versionOlder version "2.16.0") [
+        # More of an example than a fully functioning shell, some notes for the adventurous:
+        # - ~/.config/miral-shell.config is one possible user config location,
+        #   accepted options=value are according to `mir-shell --help`
+        # - default icon theme setting is DMZ-White, needs vanilla-dmz installed & on XCURSOR_PATH
+        #   or setting to be changed to an available theme
+        # - terminal emulator setting may need to be changed if miral-terminal script
+        #   does not know about preferred terminal
+        "mir-shell"
+      ];
+    }
+    // lib.optionalAttrs (!pinned) {updateScript = ./update.sh;};
 
   meta = {
     description = "Display server and Wayland compositor developed by Canonical";
@@ -227,7 +230,7 @@ stdenv.mkDerivation (finalAttrs: {
         "mirtest"
         "mirwayland"
       ]
-      ++ lib.optionals (lib.strings.versionOlder version "2.17.0") [ "mircookie" ]
+      ++ lib.optionals (lib.strings.versionOlder version "2.17.0") ["mircookie"]
       ++ lib.optionals (lib.strings.versionAtLeast version "2.17.0") [
         "mircommon-internal"
         "mirserver-internal"

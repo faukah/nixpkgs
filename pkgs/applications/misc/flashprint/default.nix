@@ -8,7 +8,6 @@
   autoPatchelfHook,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flashprint";
   version = "5.8.7";
@@ -29,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     libGLU
   ];
 
-  qtWrapperArgs = [ "--prefix QT_QPA_PLATFORM : xcb" ];
+  qtWrapperArgs = ["--prefix QT_QPA_PLATFORM : xcb"];
 
   installPhase = ''
     runHook preInstall
@@ -47,8 +46,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.flashforge.com/";
     license = licenses.unfree;
     mainProgram = "flashprint";
-    maintainers = [ maintainers.ianliu ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
+    maintainers = [maintainers.ianliu];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = [sourceTypes.binaryNativeCode];
   };
 })

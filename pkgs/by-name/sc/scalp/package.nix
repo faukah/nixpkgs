@@ -11,7 +11,6 @@
   lp_solve,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scalp";
   version = "0-unstable-2024-08-28";
@@ -67,7 +66,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Scalable Linear Programming Library";
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://digidev.digi.e-technik.uni-kassel.de/scalp/";
     license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

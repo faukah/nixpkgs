@@ -8,7 +8,6 @@
   cffi,
   zlib,
 }:
-
 buildPythonPackage rec {
   pname = "bwapy";
   version = "0.1.4";
@@ -35,17 +34,17 @@ buildPythonPackage rec {
     bwa
   ];
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
   # no tests
   doCheck = false;
-  pythonImportsCheck = [ "bwapy" ];
+  pythonImportsCheck = ["bwapy"];
 
   meta = with lib; {
     homepage = "https://github.com/ACEnglish/bwapy";
     description = "Python bindings to bwa mem aligner";
     mainProgram = "bwamempy";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

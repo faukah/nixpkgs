@@ -3,21 +3,18 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.schroot;
-  iniFmt = pkgs.formats.ini { };
-in
-{
+  iniFmt = pkgs.formats.ini {};
+in {
   options = {
     programs.schroot = {
       enable = lib.mkEnableOption "schroot, a lightweight virtualisation tool";
-      package = lib.mkPackageOption pkgs "schroot" { };
+      package = lib.mkPackageOption pkgs "schroot" {};
 
       settings = lib.mkOption {
         type = iniFmt.type;
-        default = { };
+        default = {};
         example = {
           "noble" = {
             type = "directory";
@@ -43,7 +40,7 @@ in
             options = {
               copyfiles = lib.mkOption {
                 type = lib.types.listOf lib.types.str;
-                example = [ "/etc/resolv.conf" ];
+                example = ["/etc/resolv.conf"];
                 description = "A list of files to copy into the chroot from the host system.";
               };
               fstab = lib.mkOption {
@@ -86,7 +83,7 @@ in
             };
           }
         );
-        default = { };
+        default = {};
         description = "Custom configuration profiles for schroot.";
       };
     };
@@ -94,7 +91,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       etc =
         {
@@ -104,18 +101,17 @@ in
           "schroot/schroot.conf".source = iniFmt.generate "schroot.conf" cfg.settings;
         }
         // (lib.attrsets.concatMapAttrs (
-          name:
-          {
-            copyfiles,
-            fstab,
-            nssdatabases,
-          }:
-          {
-            "schroot/${name}/copyfiles".text = (lib.strings.concatStringsSep "\n" copyfiles) + "\n";
-            "schroot/${name}/fstab".source = fstab;
-            "schroot/${name}/nssdatabases".text = (lib.strings.concatStringsSep "\n" nssdatabases) + "\n";
-          }
-        ) cfg.profiles);
+            name: {
+              copyfiles,
+              fstab,
+              nssdatabases,
+            }: {
+              "schroot/${name}/copyfiles".text = (lib.strings.concatStringsSep "\n" copyfiles) + "\n";
+              "schroot/${name}/fstab".source = fstab;
+              "schroot/${name}/nssdatabases".text = (lib.strings.concatStringsSep "\n" nssdatabases) + "\n";
+            }
+          )
+          cfg.profiles);
     };
 
     security.wrappers.schroot = {

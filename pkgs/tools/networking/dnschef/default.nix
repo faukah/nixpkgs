@@ -4,7 +4,6 @@
   dnslib,
   lib,
 }:
-
 buildPythonApplication {
   pname = "dnschef";
   version = "0.4";
@@ -21,13 +20,13 @@ buildPythonApplication {
     install -D ./dnschef.py $out/bin/dnschef
   '';
 
-  propagatedBuildInputs = [ dnslib ];
+  propagatedBuildInputs = [dnslib];
 
   meta = with lib; {
     homepage = "https://github.com/iphelix/dnschef";
     description = "Highly configurable DNS proxy for penetration testers and malware analysts";
     mainProgram = "dnschef";
     license = licenses.bsd3;
-    maintainers = [ maintainers.gfrascadorio ];
+    maintainers = [maintainers.gfrascadorio];
   };
 }

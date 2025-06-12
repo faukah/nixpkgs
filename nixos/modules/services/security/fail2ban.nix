@@ -3,26 +3,26 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.fail2ban;
 
-  settingsFormat = pkgs.formats.keyValue { };
+  settingsFormat = pkgs.formats.keyValue {};
 
   configFormat = pkgs.formats.ini {
-    mkKeyValue = lib.generators.mkKeyValueDefault { } " = ";
+    mkKeyValue = lib.generators.mkKeyValueDefault {} " = ";
   };
 
-  mkJailConfig =
-    name: attrs:
-    lib.optionalAttrs (name != "DEFAULT") { inherit (attrs) enabled; }
+  mkJailConfig = name: attrs:
+    lib.optionalAttrs (name != "DEFAULT") {inherit (attrs) enabled;}
     // lib.optionalAttrs (attrs.filter != null) {
-      filter = if (builtins.isString lib.filter) then lib.filter else name;
+      filter =
+        if (builtins.isString lib.filter)
+        then lib.filter
+        else name;
     }
     // attrs.settings;
 
-  mkFilter =
-    name: attrs:
+  mkFilter = name: attrs:
     lib.nameValuePair "fail2ban/filter.d/${name}.conf" {
       source = configFormat.generate "filter.d/${name}.conf" attrs.filter;
     };
@@ -32,24 +32,23 @@ let
   strJails = lib.filterAttrs (_: builtins.isString) cfg.jails;
   attrsJails = lib.filterAttrs (_: builtins.isAttrs) cfg.jails;
 
-  jailConf =
-    let
-      configFile = configFormat.generate "jail.local" (
-        { INCLUDES.before = "paths-nixos.conf"; } // (lib.mapAttrs mkJailConfig attrsJails)
-      );
-      extraConfig = lib.concatStringsSep "\n" (
-        lib.attrValues (
-          lib.mapAttrs (
-            name: def:
+  jailConf = let
+    configFile = configFormat.generate "jail.local" (
+      {INCLUDES.before = "paths-nixos.conf";} // (lib.mapAttrs mkJailConfig attrsJails)
+    );
+    extraConfig = lib.concatStringsSep "\n" (
+      lib.attrValues (
+        lib.mapAttrs (
+          name: def:
             lib.optionalString (def != "") ''
               [${name}]
               ${def}
             ''
-          ) strJails
         )
-      );
-
-    in
+        strJails
+      )
+    );
+  in
     pkgs.concatText "jail.local" [
       configFile
       (pkgs.writeText "extra-jail.local" extraConfig)
@@ -66,17 +65,15 @@ let
 
     [DEFAULT]
   '';
-in
-
-{
-
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
       "fail2ban"
       "daemonConfig"
     ] "The daemon is now configured through the attribute set `services.fail2ban.daemonSettings`.")
-    (lib.mkRemovedOptionModule [ "services" "fail2ban" "extraSettings" ]
+    (
+      lib.mkRemovedOptionModule ["services" "fail2ban" "extraSettings"]
       "The extra default configuration can now be set using `services.fail2ban.jails.DEFAULT.settings`."
     )
   ];
@@ -108,7 +105,7 @@ in
       };
 
       extraPackages = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.package;
         example = lib.literalExpression "[ pkgs.ipset ]";
         description = ''
@@ -131,7 +128,10 @@ in
       };
 
       banaction = lib.mkOption {
-        default = if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport";
+        default =
+          if config.networking.nftables.enable
+          then "nftables-multiport"
+          else "iptables-multiport";
         defaultText = lib.literalExpression ''if config.networking.nftables.enable then "nftables-multiport" else "iptables-multiport"'';
         type = lib.types.str;
         description = ''
@@ -143,7 +143,10 @@ in
       };
 
       banaction-allports = lib.mkOption {
-        default = if config.networking.nftables.enable then "nftables-allports" else "iptables-allports";
+        default =
+          if config.networking.nftables.enable
+          then "nftables-allports"
+          else "iptables-allports";
         defaultText = lib.literalExpression ''if config.networking.nftables.enable then "nftables-allports" else "iptables-allports"'';
         type = lib.types.str;
         description = ''
@@ -224,7 +227,7 @@ in
       };
 
       ignoreIP = lib.mkOption {
-        default = [ ];
+        default = [];
         type = lib.types.listOf lib.types.str;
         example = [
           "192.168.0.0/16"
@@ -256,7 +259,7 @@ in
       };
 
       jails = lib.mkOption {
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             apache-nohome-iptables = {
@@ -283,18 +286,18 @@ in
             };
           };
         '';
-        type =
-          with lib.types;
+        type = with lib.types;
           attrsOf (
             either lines (
               submodule (
-                { name, ... }:
-                {
+                {name, ...}: {
                   options = {
-                    enabled = lib.mkEnableOption "this jail" // {
-                      default = true;
-                      readOnly = name == "DEFAULT";
-                    };
+                    enabled =
+                      lib.mkEnableOption "this jail"
+                      // {
+                        default = true;
+                        readOnly = name == "DEFAULT";
+                      };
 
                     filter = lib.mkOption {
                       type = nullOr (either str configFormat.type);
@@ -306,7 +309,7 @@ in
                     settings = lib.mkOption {
                       inherit (settingsFormat) type;
 
-                      default = { };
+                      default = {};
                       description = "Additional settings for this jail.";
                     };
                   };
@@ -334,9 +337,7 @@ in
           more verbose.
         '';
       };
-
     };
-
   };
 
   ###### implementation
@@ -355,7 +356,7 @@ in
       "fail2ban can not be used without a firewall"
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc =
       {
@@ -372,9 +373,9 @@ in
         lib.filterAttrs (_: v: v.filter != null && !builtins.isString v.filter) attrsJails
       ));
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.fail2ban = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       partOf = lib.optional config.networking.firewall.enable "firewall.service";
 
       restartTriggers = [
@@ -383,11 +384,13 @@ in
         pathsConf
       ];
 
-      path = [
-        cfg.package
-        cfg.packageFirewall
-        pkgs.iproute2
-      ] ++ cfg.extraPackages;
+      path =
+        [
+          cfg.package
+          cfg.packageFirewall
+          pkgs.iproute2
+        ]
+        ++ cfg.extraPackages;
 
       serviceConfig = {
         # Capabilities

@@ -7,7 +7,6 @@
   libX11,
   libXrandr,
 }:
-
 stdenv.mkDerivation {
   pname = "spice-autorandr";
   version = "0.0.2";

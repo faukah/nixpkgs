@@ -11,7 +11,6 @@
   pythonOlder,
   xmlschema,
 }:
-
 buildPythonPackage rec {
   pname = "reqif";
   version = "0.0.42";
@@ -43,9 +42,9 @@ buildPythonPackage rec {
     xmlschema
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "reqif" ];
+  pythonImportsCheck = ["reqif"];
 
   meta = with lib; {
     description = "Python library for ReqIF format";
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/strictdoc-project/reqif";
     changelog = "https://github.com/strictdoc-project/reqif/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

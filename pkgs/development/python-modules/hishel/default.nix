@@ -15,7 +15,6 @@
   redis,
   trio,
 }:
-
 buildPythonPackage rec {
   pname = "hishel";
   version = "0.1.2";
@@ -35,23 +34,25 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
   optional-dependencies = {
-    redis = [ redis ];
-    s3 = [ boto3 ];
-    sqlite = [ anysqlite ];
-    yaml = [ pyyaml ];
+    redis = [redis];
+    s3 = [boto3];
+    sqlite = [anysqlite];
+    yaml = [pyyaml];
   };
 
-  nativeCheckInputs = [
-    moto
-    pytest-asyncio
-    pytestCheckHook
-    trio
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      moto
+      pytest-asyncio
+      pytestCheckHook
+      trio
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "hishel" ];
+  pythonImportsCheck = ["hishel"];
 
   disabledTests = [
     # Tests require a running Redis instance
@@ -69,6 +70,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/karpetrosyan/hishel";
     changelog = "https://github.com/karpetrosyan/hishel/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

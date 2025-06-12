@@ -2,16 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   django-compressor,
   libsass,
-
   # tests
   django,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "django-libsass";
   version = "0.9";
@@ -29,7 +26,7 @@ buildPythonPackage rec {
     libsass
   ];
 
-  nativeCheckInputs = [ django ];
+  nativeCheckInputs = [django];
 
   checkPhase = ''
     runHook preCheck
@@ -42,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/torchbox/django-libsass";
     changelog = "https://github.com/torchbox/django-libsass/blob/${src.rev}/CHANGELOG.txt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

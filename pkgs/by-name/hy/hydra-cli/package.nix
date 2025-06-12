@@ -7,7 +7,6 @@
   testers,
   hydra-cli,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hydra-cli";
   version = "0.3.0-unstable-2023-12-20";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-JnfonNdy87Ol6j8x3270RrVv/13vNLEa1n+/aeEbc7U=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     description = "Client for the Hydra CI";
     mainProgram = "hydra-cli";
     homepage = "https://github.com/nlewo/hydra-cli";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       lewo
       aleksana

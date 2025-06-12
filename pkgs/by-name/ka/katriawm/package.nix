@@ -8,7 +8,6 @@
   pkg-config,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "katriawm";
   version = "25.04";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-3cWgLz4BO1X8KkhoQp3hbq5XAx9NzDhsIL3fDSQaG5M=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     "src"
   ];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   postPatch = ''
     substituteInPlace src/config.mk \
@@ -55,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Non-reparenting, dynamic window manager with decorations";
     license = lib.licenses.mit;
     mainProgram = "katriawm";
-    maintainers = [ ];
+    maintainers = [];
     inherit (libX11.meta) platforms;
   };
 })

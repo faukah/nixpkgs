@@ -8,7 +8,6 @@
   quickder,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lillydap";
   version = "1.0.1";
@@ -32,15 +31,15 @@ stdenv.mkDerivation (finalAttrs: {
     quickder
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Little LDAP: Event-driven, lock-free kernel for dynamic data servers, clients, filters";
     homepage = "https://gitlab.com/arpa2/lillydap";
     changelog = "https://gitlab.com/arpa2/lillydap/-/blob/v${finalAttrs.version}/CHANGES";
     license = lib.licenses.bsd2;
-    teams = with lib.teams; [ ngi ];
-    maintainers = with lib.maintainers; [ ethancedwards8 ];
+    teams = with lib.teams; [ngi];
+    maintainers = with lib.maintainers; [ethancedwards8];
     platforms = lib.platforms.unix;
   };
 })

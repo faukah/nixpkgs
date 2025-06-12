@@ -7,7 +7,6 @@
   pkg-config,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "liboping";
   version = "1.10.0";
@@ -43,9 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
     perl
   ];
 
-  configureFlags = [
-    "ac_cv_func_malloc_0_nonnull=yes"
-  ] ++ lib.optional (perl == null) "--with-perl-bindings=no";
+  configureFlags =
+    [
+      "ac_cv_func_malloc_0_nonnull=yes"
+    ]
+    ++ lib.optional (perl == null) "--with-perl-bindings=no";
 
   buildFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
@@ -64,6 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://noping.cc/";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.bjornfor ];
+    maintainers = [lib.maintainers.bjornfor];
   };
 })

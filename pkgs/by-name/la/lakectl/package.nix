@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "lakectl";
   version = "1.59.0";
@@ -16,7 +15,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-ygBpmPQD2gSVMsVL39TkHGpKIjdr0Wg8rjCUjEaQkWI=";
   };
 
-  subPackages = [ "cmd/lakectl" ];
+  subPackages = ["cmd/lakectl"];
   proxyVendor = true;
   vendorHash = "sha256-U1V+JmUXtdSUXoIevCwjE3beCqWTl1Rt3jYUSkwvc0A=";
 
@@ -51,14 +50,14 @@ buildGoModule (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Command line tool for LakeFS";
     homepage = "https://docs.lakefs.io/reference/cli.html";
     changelog = "https://github.com/treeverse/lakeFS/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
     mainProgram = "lakectl";
   };
 })

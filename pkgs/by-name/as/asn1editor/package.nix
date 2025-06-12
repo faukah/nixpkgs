@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "asn1editor";
   version = "0.8.0";
@@ -22,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     wxpython
   ];
 
-  pythonImportsCheck = [ "asn1editor" ];
+  pythonImportsCheck = ["asn1editor"];
 
   # Tests fail in sandbox, e.g.
   # "SystemExit: Unable to access the X Display, is $DISPLAY set properly?"
@@ -33,6 +32,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/Futsch1/asn1editor";
     license = licenses.mit;
     mainProgram = "asn1editor";
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

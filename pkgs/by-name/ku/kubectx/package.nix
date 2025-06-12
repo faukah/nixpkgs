@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "kubectx";
   version = "0.9.5";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-3xetjviMuH+Nev12DB2WN2Wnmw1biIDAckUSGVRHQwM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -34,6 +33,6 @@ buildGoModule rec {
     description = "Fast way to switch between clusters and namespaces in kubectl!";
     license = licenses.asl20;
     homepage = "https://github.com/ahmetb/kubectx";
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
   };
 }

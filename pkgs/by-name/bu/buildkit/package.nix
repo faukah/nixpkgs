@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "buildkit";
   version = "0.22.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/buildctl" ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "cmd/buildkitd" ];
+  subPackages = ["cmd/buildctl"] ++ lib.optionals stdenv.hostPlatform.isLinux ["cmd/buildkitd"];
 
   ldflags = [
     "-s"

@@ -15,7 +15,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "gplaycli";
   version = "3.29";
@@ -43,9 +42,9 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "gplaycli" ];
+  pythonImportsCheck = ["gplaycli"];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";
@@ -70,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/matlink/gplaycli";
     changelog = "https://github.com/matlink/gplaycli/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

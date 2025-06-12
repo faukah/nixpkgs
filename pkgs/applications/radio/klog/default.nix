@@ -11,7 +11,6 @@
   qmake,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "klog";
   version = "1.3.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     qtcharts
   ];
 
-  qmakeFlags = [ "KLog.pro" ];
+  qmakeFlags = ["KLog.pro"];
 
   meta = with lib; {
     description = "Multiplatform free hamradio logger";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.klog.xyz/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pulsation ];
+    maintainers = with maintainers; [pulsation];
   };
 }

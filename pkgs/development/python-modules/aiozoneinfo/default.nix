@@ -9,7 +9,6 @@
   pythonOlder,
   tzdata,
 }:
-
 buildPythonPackage rec {
   pname = "aiozoneinfo";
   version = "0.2.3";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-7qd6Yk/K4BLocu8eQK0hLaw2r1jhWIHBr9W4KsAvmx8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [ tzdata ];
+  dependencies = [tzdata];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -34,13 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiozoneinfo" ];
+  pythonImportsCheck = ["aiozoneinfo"];
 
   meta = with lib; {
     description = "Tools to fetch zoneinfo with asyncio";
     homepage = "https://github.com/bluetooth-devices/aiozoneinfo";
     changelog = "https://github.com/bluetooth-devices/aiozoneinfo/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

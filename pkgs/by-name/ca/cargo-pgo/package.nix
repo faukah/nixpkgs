@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-pgo";
   version = "0.2.9";
@@ -25,7 +24,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Cargo subcommand for optimizing Rust binaries/libraries with PGO and BOLT";
     homepage = "https://github.com/kobzol/cargo-pgo";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ dannixon ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [dannixon];
   };
 }

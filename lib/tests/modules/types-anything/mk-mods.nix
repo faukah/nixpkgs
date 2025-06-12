@@ -1,16 +1,14 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   options.value = lib.mkOption {
     type = lib.types.anything;
   };
 
   config = lib.mkMerge [
     {
-      value.mkiffalse = lib.mkIf false { };
+      value.mkiffalse = lib.mkIf false {};
     }
     {
-      value.mkiftrue = lib.mkIf true { };
+      value.mkiftrue = lib.mkIf true {};
     }
     {
       value.mkdefault = lib.mkDefault 0;
@@ -20,7 +18,7 @@
     }
     {
       value.mkmerge = lib.mkMerge [
-        { }
+        {}
       ];
     }
     {
@@ -41,5 +39,4 @@
       ];
     }
   ];
-
 }

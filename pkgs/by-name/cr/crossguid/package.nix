@@ -7,7 +7,6 @@
   libuuid,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "crossguid";
   version = "0.2.2-unstable-2019-05-29";
@@ -29,7 +28,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional stdenv.hostPlatform.isLinux libuuid;
 
   passthru.updateScript = unstableGitUpdater {
@@ -40,7 +39,7 @@ stdenv.mkDerivation {
     description = "Lightweight cross platform C++ GUID/UUID library";
     license = licenses.mit;
     homepage = "https://github.com/graeme-hill/crossguid";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

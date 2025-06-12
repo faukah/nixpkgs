@@ -1,25 +1,26 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "ragnarwm";
 
   meta = {
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 
-  nodes.machine =
-    { pkgs, lib, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-        ./common/user-account.nix
-      ];
-      test-support.displayManager.auto.user = "alice";
-      services.displayManager.defaultSession = lib.mkForce "ragnar";
-      services.xserver.windowManager.ragnarwm.enable = true;
+  nodes.machine = {
+    pkgs,
+    lib,
+    ...
+  }: {
+    imports = [
+      ./common/x11.nix
+      ./common/user-account.nix
+    ];
+    test-support.displayManager.auto.user = "alice";
+    services.displayManager.defaultSession = lib.mkForce "ragnar";
+    services.xserver.windowManager.ragnarwm.enable = true;
 
-      # Setup the default terminal of Ragnar
-      environment.systemPackages = [ pkgs.alacritty ];
-    };
+    # Setup the default terminal of Ragnar
+    environment.systemPackages = [pkgs.alacritty];
+  };
 
   testScript = ''
     with subtest("ensure x starts"):

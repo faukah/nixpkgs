@@ -7,7 +7,6 @@
   gnome-icon-theme,
   hicolor-icon-theme,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "la-capitaine-icon-theme";
   version = "0.6.2";
@@ -51,6 +50,6 @@ stdenvNoCC.mkDerivation rec {
       mit
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

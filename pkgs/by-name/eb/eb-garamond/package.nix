@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    (python3.withPackages (p: [ p.fontforge ]))
+    (python3.withPackages (p: [p.fontforge]))
     ttfautohint
   ];
 

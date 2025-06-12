@@ -5,7 +5,6 @@
   commonMeta,
   version,
 }:
-
 appimageTools.wrapType2 rec {
   inherit
     pname
@@ -22,7 +21,7 @@ appimageTools.wrapType2 rec {
     pkgs.libusb-compat-0_1
   ];
 
-  appimageContents = appimageTools.extract { inherit pname src version; };
+  appimageContents = appimageTools.extract {inherit pname src version;};
 
   extraInstallCommands = ''
     mv $out/bin/${pname} $out/bin/GoldenCheetah
@@ -34,7 +33,8 @@ appimageTools.wrapType2 rec {
     cp ${appimageContents}/gc.png $out/share/pixmaps/
   '';
   meta = {
-    inherit (commonMeta)
+    inherit
+      (commonMeta)
       description
       platforms
       maintainers

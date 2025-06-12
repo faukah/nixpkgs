@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "ilcli";
   version = "0.3.2";
@@ -19,16 +18,16 @@ buildPythonPackage {
     hash = "sha256-6aLkzpeS1xeIbTwFFIT7V1KWOaFLLq3opjIxnUuXOBE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ilcli" ];
+  pythonImportsCheck = ["ilcli"];
 
   meta = {
     description = "I like command-line interfaces";
     homepage = "https://github.com/cloudant/ilcli";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ tochiaha ];
+    maintainers = with lib.maintainers; [tochiaha];
   };
 }

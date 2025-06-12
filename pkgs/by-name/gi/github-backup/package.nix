@@ -5,7 +5,6 @@
   git,
   git-lfs,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "github-backup";
   version = "0.50.1";
@@ -40,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/josegonzalez/python-github-backup";
     changelog = "https://github.com/josegonzalez/python-github-backup/blob/${src.tag}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "github-backup";
   };
 }

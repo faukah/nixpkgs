@@ -6,7 +6,6 @@
   testers,
   sigi,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "sigi";
   version = "3.7.1";
@@ -18,22 +17,22 @@ rustPlatform.buildRustPackage rec {
 
   useFetchCargoVendor = true;
   cargoHash = "sha256-SFT0quq5e37tFa07sCFjb8u8scZLjhICBvKdQOR8s14=";
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # In case anything goes wrong.
-  checkFlags = [ "RUST_BACKTRACE=1" ];
+  checkFlags = ["RUST_BACKTRACE=1"];
 
   postInstall = ''
     installManPage sigi.1
   '';
 
-  passthru.tests.version = testers.testVersion { package = sigi; };
+  passthru.tests.version = testers.testVersion {package = sigi;};
 
   meta = with lib; {
     description = "Organizing CLI for people who don't love organizing";
     homepage = "https://github.com/sigi-cli/sigi";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ booniepepper ];
+    maintainers = with maintainers; [booniepepper];
     mainProgram = "sigi";
   };
 }

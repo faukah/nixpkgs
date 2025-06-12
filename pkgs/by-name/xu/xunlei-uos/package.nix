@@ -14,9 +14,7 @@
   libXtst,
   libXdamage,
   libXScrnSaver,
-}:
-
-let
+}: let
   sources = import ./sources.nix;
 
   xunlei-unwrapped = stdenv.mkDerivation rec {
@@ -38,7 +36,9 @@ let
           hash = sources.loongarch64_hash;
         };
       }
-      .${stdenv.hostPlatform.system}
+      .${
+        stdenv.hostPlatform.system
+      }
         or (throw "${pname}-${version}: ${stdenv.hostPlatform.system} is unsupported.");
 
     buildInputs = [
@@ -76,7 +76,7 @@ let
       description = "Download manager supporting HTTP, FTP, BitTorrent, and eDonkey network protocols";
       homepage = "https://www.xunlei.com";
       license = lib.licenses.unfree;
-      maintainers = [ lib.maintainers.linuxwhata ];
+      maintainers = [lib.maintainers.linuxwhata];
       platforms = [
         "x86_64-linux"
         "aarch64-linux"
@@ -85,18 +85,18 @@ let
     };
   };
 in
-buildFHSEnv {
-  inherit (xunlei-unwrapped) pname version meta;
-  runScript = writeShellScript "xunlei-launcher" ''
-    exec ${xunlei-unwrapped}/lib/xunlei/thunder -start $1 "$@"
-  '';
-  extraInstallCommands = ''
-    mkdir -p $out
-    ln -s ${xunlei-unwrapped}/share $out/share
-  '';
+  buildFHSEnv {
+    inherit (xunlei-unwrapped) pname version meta;
+    runScript = writeShellScript "xunlei-launcher" ''
+      exec ${xunlei-unwrapped}/lib/xunlei/thunder -start $1 "$@"
+    '';
+    extraInstallCommands = ''
+      mkdir -p $out
+      ln -s ${xunlei-unwrapped}/share $out/share
+    '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  includeClosures = true;
-  targetPkgs = pkgs: [ zenity ]; # system tray click events
-}
+    includeClosures = true;
+    targetPkgs = pkgs: [zenity]; # system tray click events
+  }

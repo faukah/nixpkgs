@@ -7,7 +7,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pony";
   version = "0.7.19";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-fYzwdHRB9QrIJPEk8dqtPggSnJeugDyC9zQSM6u3rN0=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Tests are outdated
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     "test_query"
   ];
 
-  pythonImportsCheck = [ "pony" ];
+  pythonImportsCheck = ["pony"];
 
   meta = with lib; {
     description = "Library for advanced object-relational mapping";

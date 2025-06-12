@@ -5,7 +5,6 @@
   autoPatchelfHook,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "gpt2tc";
   version = "2021-04-24";
@@ -21,14 +20,15 @@ stdenv.mkDerivation {
     ./0001-add-python-shebang.patch
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     (python3.withPackages (
-      p: with p; [
-        numpy
-        tensorflow
-      ]
+      p:
+        with p; [
+          numpy
+          tensorflow
+        ]
     ))
   ];
 
@@ -48,9 +48,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Text completion and compression using GPT-2";
     homepage = "https://bellard.org/libnc/gpt2tc.html";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ anna328p ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [anna328p];
   };
 }

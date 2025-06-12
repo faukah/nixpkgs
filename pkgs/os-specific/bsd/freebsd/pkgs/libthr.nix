@@ -6,16 +6,17 @@
   include,
   libgcc,
   csu,
-  extraSrc ? [ ],
+  extraSrc ? [],
 }:
-
 mkDerivation {
   path = "lib/libthr";
-  extraPaths = [
-    "lib/libthread_db"
-    "lib/libc" # needs /include + arch-specific files
-    "libexec/rtld-elf"
-  ] ++ extraSrc;
+  extraPaths =
+    [
+      "lib/libthread_db"
+      "lib/libc" # needs /include + arch-specific files
+      "libexec/rtld-elf"
+    ]
+    ++ extraSrc;
 
   outputs = [
     "out"

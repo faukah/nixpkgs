@@ -17,7 +17,6 @@
   testfixtures,
   xz,
 }:
-
 buildPythonPackage rec {
   pname = "deebot-client";
   version = "13.2.1";
@@ -48,7 +47,7 @@ buildPythonPackage rec {
     rustPlatform.maturinBuildHook
   ];
 
-  buildInputs = [ xz ];
+  buildInputs = [xz];
 
   dependencies = [
     aiohttp
@@ -70,7 +69,7 @@ buildPythonPackage rec {
     rm -rf deebot_client
   '';
 
-  pythonImportsCheck = [ "deebot_client" ];
+  pythonImportsCheck = ["deebot_client"];
 
   disabledTests = [
     # Tests require running container
@@ -92,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/DeebotUniverse/client.py";
     changelog = "https://github.com/DeebotUniverse/client.py/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "unpackerr";
   version = "0.14.5";
@@ -26,7 +25,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Extracts downloads for Radarr, Sonarr, Lidarr - Deletes extracted files after import";
     homepage = "https://github.com/davidnewhall/unpackerr";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
     mainProgram = "unpackerr";
   };

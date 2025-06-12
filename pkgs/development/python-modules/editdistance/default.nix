@@ -8,7 +8,6 @@
   setuptools,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "editdistance";
   version = "0.8.1";
@@ -29,14 +28,14 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "editdistance" ];
+  pythonImportsCheck = ["editdistance"];
 
   meta = with lib; {
     description = "Python implementation of the edit distance (Levenshtein distance)";
     homepage = "https://github.com/roy-ht/editdistance";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

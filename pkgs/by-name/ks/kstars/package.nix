@@ -20,7 +20,6 @@
   xplanet,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kstars";
   version = "3.7.6";

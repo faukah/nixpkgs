@@ -8,7 +8,6 @@
   setuptools,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "xdis";
   version = "6.1.4";
@@ -32,9 +31,9 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xdis" ];
+  pythonImportsCheck = ["xdis"];
 
   disabledTestPaths = [
     # import file mismatch:

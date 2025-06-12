@@ -3,11 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.dnsdist;
 
-  toLua = lib.generators.toLua { };
+  toLua = lib.generators.toLua {};
 
   mkBind = cfg: toLua "${cfg.listenAddress}:${toString cfg.listenPort}";
 
@@ -78,9 +77,7 @@ let
 
     dnscrypt_setup()
   '';
-
-in
-{
+in {
   options = {
     services.dnsdist = {
       enable = lib.mkEnableOption "dnsdist domain name server";
@@ -147,7 +144,6 @@ in
             This will be automatically rotated before expiration.
           '';
         };
-
       };
 
       extraConfig = lib.mkOption {
@@ -167,12 +163,12 @@ in
       group = "dnsdist";
     };
 
-    users.groups.dnsdist = { };
+    users.groups.dnsdist = {};
 
-    systemd.packages = [ pkgs.dnsdist ];
+    systemd.packages = [pkgs.dnsdist];
 
     systemd.services.dnsdist = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       startLimitIntervalSec = 0;
       serviceConfig = {

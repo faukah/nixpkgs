@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.varnish;
 
   # Varnish has very strong opinions and very complicated code around handling
@@ -15,26 +13,21 @@ let
   # /var/run (RAM backed) is absolutely recommended by Varnish anyways.
   # We do need to pay attention to the version-dependend variations, though!
   stateDir =
-    if
-      (lib.versionOlder cfg.package.version "7")
+    if (lib.versionOlder cfg.package.version "7")
     # Remove after Varnish 6.0 is gone. In 6.0 varnishadm always appends the
     # hostname (by default) and can't be nudged to not use any name. This has
     # long changed by 7.5 and can be used without the host name.
-    then
-      "/var/run/varnish/${config.networking.hostName}"
+    then "/var/run/varnish/${config.networking.hostName}"
     # Newer varnish uses this:
-    else
-      "/var/run/varnishd";
+    else "/var/run/varnishd";
 
   commandLine =
     "-f ${pkgs.writeText "default.vcl" cfg.config}"
-    +
-      lib.optionalString (cfg.extraModules != [ ])
-        " -p vmod_path='${
-           lib.makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
-         }' -r vmod_path";
-in
-{
+    + lib.optionalString (cfg.extraModules != [])
+    " -p vmod_path='${
+      lib.makeSearchPathOutput "lib" "lib/varnish/vmods" ([cfg.package] ++ cfg.extraModules)
+    }' -r vmod_path";
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -47,11 +40,13 @@ in
     services.varnish = {
       enable = lib.mkEnableOption "Varnish Server";
 
-      enableConfigCheck = lib.mkEnableOption "checking the config during build time" // {
-        default = true;
-      };
+      enableConfigCheck =
+        lib.mkEnableOption "checking the config during build time"
+        // {
+          default = true;
+        };
 
-      package = lib.mkPackageOption pkgs "varnish" { };
+      package = lib.mkPackageOption pkgs "varnish" {};
 
       http_address = lib.mkOption {
         type = lib.types.str;
@@ -70,7 +65,7 @@ in
 
       extraModules = lib.mkOption {
         type = lib.types.listOf lib.types.package;
-        default = [ ];
+        default = [];
         example = lib.literalExpression "[ pkgs.varnishPackages.geoip ]";
         description = ''
           Varnish modules (except 'std').
@@ -86,14 +81,13 @@ in
         '';
       };
     };
-
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.varnish = {
       description = "Varnish";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "simple";
         PermissionsStartOnly = true;
@@ -109,11 +103,11 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # check .vcl syntax at compile time (e.g. before nixops deployment)
     system.checks = lib.mkIf cfg.enableConfigCheck [
-      (pkgs.runCommand "check-varnish-syntax" { } ''
+      (pkgs.runCommand "check-varnish-syntax" {} ''
         ${cfg.package}/bin/varnishd -C ${commandLine} 2> $out || (cat $out; exit 1)
       '')
     ];

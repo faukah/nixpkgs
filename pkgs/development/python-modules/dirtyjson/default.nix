@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "dirtyjson";
   version = "1.0.8";
@@ -19,11 +18,11 @@ buildPythonPackage rec {
     hash = "sha256-kMpKGPP/MM6EnRANz0oAOVPHnTojSO8Fbx2cIiMaJf0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dirtyjson" ];
+  pythonImportsCheck = ["dirtyjson"];
 
   meta = with lib; {
     description = "JSON decoder for Python that can extract data from the muck";
@@ -32,6 +31,6 @@ buildPythonPackage rec {
       afl21 # and
       mit
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

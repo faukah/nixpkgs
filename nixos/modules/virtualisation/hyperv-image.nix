@@ -4,14 +4,9 @@
   lib,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.hyperv;
-in
-{
-
+in {
   imports = [
     ./disk-size-option.nix
     ../image/file-options.nix
@@ -57,7 +52,7 @@ in
     # to avoid breaking existing configs using that.
     virtualisation.diskSize = lib.mkOverride 1490 (4 * 1024);
 
-    system.nixos.tags = [ "hyperv" ];
+    system.nixos.tags = ["hyperv"];
     image.extension = "vhdx";
     system.build.image = config.system.build.hypervImage;
     system.build.hypervImage = import ../../lib/make-disk-image.nix {

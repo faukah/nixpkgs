@@ -18,7 +18,7 @@ buildGoModule rec {
   };
 
   vendorHash = null;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X main.version=${version}"
@@ -26,7 +26,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    tests.version = testers.testVersion { package = lazygit; };
+    tests.version = testers.testVersion {package = lazygit;};
 
     updateScript = nix-update-script {
       extraArgs = [

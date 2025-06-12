@@ -6,7 +6,6 @@
   cmake,
   rocm-cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "half";
   version = "6.3.3";
@@ -32,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "C++ library for half precision floating point arithmetics";
     homepage = "https://github.com/ROCm/half";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.unix;
   };
 })

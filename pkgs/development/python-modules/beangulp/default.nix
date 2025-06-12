@@ -12,7 +12,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "beangulp";
   version = "0.2.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-h7xLHwEyS+tOI7v6Erp12VfVnxOf4930++zghhC3in4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beancount
@@ -53,6 +52,6 @@ buildPythonPackage rec {
       ledger from account statements and other documents and for managing documents.
     '';
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ alapshin ];
+    maintainers = with lib.maintainers; [alapshin];
   };
 }

@@ -9,7 +9,6 @@
   attr,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "apfs-fuse";
   version = "unstable-2023-03-12";
@@ -27,13 +26,19 @@ stdenv.mkDerivation {
       --replace "/usr/local/lib/libosxfuse.dylib" "fuse"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [
-    (if stdenv.hostPlatform.isDarwin then fuse else fuse3)
-    bzip2
-    zlib
-  ] ++ lib.optional stdenv.hostPlatform.isLinux attr;
+  buildInputs =
+    [
+      (
+        if stdenv.hostPlatform.isDarwin
+        then fuse
+        else fuse3
+      )
+      bzip2
+      zlib
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux attr;
 
   cmakeFlags = lib.optional stdenv.hostPlatform.isDarwin "-DUSE_FUSE3=OFF";
 
@@ -48,7 +53,7 @@ stdenv.mkDerivation {
     description = "FUSE driver for APFS (Apple File System)";
     license = licenses.gpl2Plus;
     mainProgram = "apfs-fuse";
-    maintainers = with maintainers; [ ealasu ];
+    maintainers = with maintainers; [ealasu];
     platforms = platforms.unix;
   };
 }

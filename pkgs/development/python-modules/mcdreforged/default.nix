@@ -18,7 +18,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "mcdreforged";
   version = "2.14.7";
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-KwXvjLS9tg3EZT9vYFfiOIjPGswcOwdl66ErKPKS2rA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     colorama
@@ -54,14 +53,14 @@ buildPythonPackage rec {
 
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Rewritten version of MCDaemon, a python tool to control your Minecraft server";
     homepage = "https://mcdreforged.com";
     changelog = "https://github.com/MCDReforged/MCDReforged/releases/tag/v${version}";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "mcdreforged";
   };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "richgo";
   version = "0.3.12";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "richgo";
     homepage = "https://github.com/kyoh86/richgo";
     license = licenses.mit;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

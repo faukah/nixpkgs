@@ -4,7 +4,6 @@
   lwd,
   nottui,
 }:
-
 buildDunePackage {
   pname = "nottui-pretty";
 
@@ -13,12 +12,12 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  propagatedBuildInputs = [ nottui ];
+  propagatedBuildInputs = [nottui];
 
   meta = with lib; {
     description = "Pretty-printer based on PPrint rendering UIs";
     license = licenses.mit;
-    maintainers = [ maintainers.alizter ];
+    maintainers = [maintainers.alizter];
     homepage = "https://github.com/let-def/lwd";
   };
 }

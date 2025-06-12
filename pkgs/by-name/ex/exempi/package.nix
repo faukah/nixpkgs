@@ -7,7 +7,6 @@
   boost,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "exempi";
   version = "2.6.5";

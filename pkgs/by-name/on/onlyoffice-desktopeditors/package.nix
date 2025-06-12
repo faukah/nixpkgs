@@ -35,9 +35,7 @@
   wrapGAppsHook3,
   xkeyboard_config,
   xorg,
-}:
-let
-
+}: let
   # Note on fonts:
   #
   # OnlyOffice does not distribute unfree fonts, but makes it easy to pick up
@@ -52,10 +50,8 @@ let
   #
   # into `~/.local/share/fonts/`, otherwise the default template fonts, and
   # things like bullet points, will not look as expected.
-
   # TODO: Find out which of these fonts we'd be allowed to distribute along
   #       with this package, or how to make this easier for users otherwise.
-
   runtimeLibs = lib.makeLibraryPath [
     curl
     glibc
@@ -154,44 +150,42 @@ let
       )
     '';
   };
-
 in
+  # In order to download plugins, OnlyOffice uses /usr/bin/curl so we have to wrap it.
+  # Curl still needs to be in runtimeLibs because the library is used directly in other parts of the code.
+  # Fonts are also discovered by looking in /usr/share/fonts, so adding fonts to targetPkgs will include them
+  buildFHSEnv {
+    inherit (derivation) pname version;
 
-# In order to download plugins, OnlyOffice uses /usr/bin/curl so we have to wrap it.
-# Curl still needs to be in runtimeLibs because the library is used directly in other parts of the code.
-# Fonts are also discovered by looking in /usr/share/fonts, so adding fonts to targetPkgs will include them
-buildFHSEnv {
-  inherit (derivation) pname version;
-
-  targetPkgs = pkgs': [
-    curl
-    derivation
-    noto-fonts-cjk-sans
-  ];
-
-  runScript = "/bin/onlyoffice-desktopeditors";
-
-  extraInstallCommands = ''
-    mkdir -p $out/share
-    ln -s ${derivation}/share/icons $out/share
-    cp -r ${derivation}/share/applications $out/share
-    substituteInPlace $out/share/applications/onlyoffice-desktopeditors.desktop \
-        --replace-fail "/usr/bin/onlyoffice-desktopeditors" "$out/bin/onlyoffice-desktopeditors"
-  '';
-
-  passthru.updateScript = ./update.sh;
-
-  meta = {
-    description = "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
-    homepage = "https://www.onlyoffice.com/";
-    downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
-    changelog = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [
-      nh2
-      gtrunsec
+    targetPkgs = pkgs': [
+      curl
+      derivation
+      noto-fonts-cjk-sans
     ];
-  };
-}
+
+    runScript = "/bin/onlyoffice-desktopeditors";
+
+    extraInstallCommands = ''
+      mkdir -p $out/share
+      ln -s ${derivation}/share/icons $out/share
+      cp -r ${derivation}/share/applications $out/share
+      substituteInPlace $out/share/applications/onlyoffice-desktopeditors.desktop \
+          --replace-fail "/usr/bin/onlyoffice-desktopeditors" "$out/bin/onlyoffice-desktopeditors"
+    '';
+
+    passthru.updateScript = ./update.sh;
+
+    meta = {
+      description = "Office suite that combines text, spreadsheet and presentation editors allowing to create, view and edit local documents";
+      homepage = "https://www.onlyoffice.com/";
+      downloadPage = "https://github.com/ONLYOFFICE/DesktopEditors/releases";
+      changelog = "https://github.com/ONLYOFFICE/DesktopEditors/blob/master/CHANGELOG.md";
+      platforms = ["x86_64-linux"];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+      license = lib.licenses.agpl3Plus;
+      maintainers = with lib.maintainers; [
+        nh2
+        gtrunsec
+      ];
+    };
+  }

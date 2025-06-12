@@ -8,7 +8,6 @@
   glib,
   jansson,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.3-20241031";
   commit = "d00c062d76d86b76c8c179bfb4babc9e2200b3f1";
@@ -38,6 +37,6 @@ stdenv.mkDerivation rec {
     mainProgram = "searpc-codegen.py";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ greizgh ];
+    maintainers = with lib.maintainers; [greizgh];
   };
 }

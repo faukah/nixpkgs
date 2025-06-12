@@ -20,7 +20,6 @@
   pytestCheckHook,
   python-dateutil,
 }:
-
 buildPythonPackage rec {
   pname = "certbot";
   version = "4.0.0";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
 
   postPatch = "cd certbot"; # using sourceRoot would interfere with patches
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     configargparse
@@ -67,17 +66,15 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${dialog}/bin" ];
+  makeWrapperArgs = ["--prefix PATH : ${dialog}/bin"];
 
   # certbot.withPlugins has a similar calling convention as python*.withPackages
   # it gets invoked with a lambda, and invokes that lambda with the python package set matching certbot's:
   # certbot.withPlugins (cp: [ cp.certbot-dns-foo ])
-  passthru.withPlugins =
-    f:
-    let
-      pythonEnv = python.withPackages f;
-    in
-    runCommand "certbot-with-plugins" { } ''
+  passthru.withPlugins = f: let
+    pythonEnv = python.withPackages f;
+  in
+    runCommand "certbot-with-plugins" {} ''
       mkdir -p $out/bin
       cd $out/bin
       ln -s ${pythonEnv}/bin/certbot
@@ -89,7 +86,7 @@ buildPythonPackage rec {
     description = "ACME client that can obtain certs and extensibly update server configurations";
     platforms = platforms.unix;
     mainProgram = "certbot";
-    maintainers = with maintainers; [ ];
-    license = with licenses; [ asl20 ];
+    maintainers = with maintainers; [];
+    license = with licenses; [asl20];
   };
 }

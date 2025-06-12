@@ -9,7 +9,6 @@
   nix-update-script,
   python3Packages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libseccomp";
   version = "2.6.0";
@@ -31,8 +30,8 @@ stdenv.mkDerivation rec {
     "pythonsrc"
   ];
 
-  nativeBuildInputs = [ gperf ];
-  buildInputs = [ getopt ];
+  nativeBuildInputs = [gperf];
+  buildInputs = [getopt];
 
   postPatch = ''
     patchShebangs .
@@ -55,7 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit (python3Packages) seccomp;
     };
@@ -76,6 +75,6 @@ stdenv.mkDerivation rec {
       "sparc-linux"
       "sparc64-linux"
     ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

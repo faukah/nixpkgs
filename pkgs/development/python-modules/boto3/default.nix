@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   botocore,
   jmespath,
   s3transfer,
-
   # tests
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "boto3";
   inherit (botocore) version; # N.B: botocore, boto3, awscli needs to be updated in lockstep, bump botocore version for updating these.
@@ -43,7 +39,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "boto3" ];
+  pythonImportsCheck = ["boto3"];
 
   disabledTestPaths = [
     # Integration tests require networking
@@ -64,6 +60,6 @@ buildPythonPackage rec {
       Python, which allows Python developers to write software that makes use of
       services like Amazon S3 and Amazon EC2.
     '';
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
   };
 }

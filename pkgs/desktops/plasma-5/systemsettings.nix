@@ -22,7 +22,6 @@
   kcrash,
   plasma-workspace,
 }:
-
 mkDerivation {
   pname = "systemsettings";
   nativeBuildInputs = [

@@ -3,11 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.ns-usbloader;
-in
-{
+in {
   options = {
     programs.ns-usbloader = {
       enable = lib.mkEnableOption "ns-usbloader application with udev rules applied";
@@ -15,8 +13,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.ns-usbloader ];
-    services.udev.packages = [ pkgs.ns-usbloader ];
+    environment.systemPackages = [pkgs.ns-usbloader];
+    services.udev.packages = [pkgs.ns-usbloader];
   };
 
   meta.maintainers = pkgs.ns-usbloader.meta.maintainers;

@@ -3,7 +3,6 @@
   stdenv,
   fetchsvn,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xavs";
   version = "55";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://xavs.sourceforge.net/";
     license = licenses.lgpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

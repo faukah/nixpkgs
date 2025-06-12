@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "hexdiff";
   version = "unstable-2018-01-24";
@@ -37,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/ahroach/hexdiff";
     description = "Terminal application for differencing two binary files, with color-coded output";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ rogarb ];
+    maintainers = with lib.maintainers; [rogarb];
     platforms = lib.platforms.linux;
     mainProgram = "hexdiff";
   };

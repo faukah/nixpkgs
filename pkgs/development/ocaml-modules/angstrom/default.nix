@@ -9,7 +9,6 @@
   ppx_let,
   gitUpdater,
 }:
-
 buildDunePackage rec {
   pname = "angstrom";
   version = "0.16.1";
@@ -27,16 +26,16 @@ buildDunePackage rec {
     alcotest
     ppx_let
   ];
-  buildInputs = [ ocaml-syntax-shims ];
-  propagatedBuildInputs = [ bigstringaf ];
+  buildInputs = [ocaml-syntax-shims];
+  propagatedBuildInputs = [bigstringaf];
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/inhabitedtype/angstrom";
     description = "OCaml parser combinators built for speed and memory efficiency";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

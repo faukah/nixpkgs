@@ -7,7 +7,6 @@
   SDL_mixer,
   SDL_net,
 }:
-
 stdenv.mkDerivation rec {
   pname = "njam";
   version = "1.25";
@@ -28,9 +27,9 @@ stdenv.mkDerivation rec {
     SDL_net
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  patches = [ ./logfile.patch ];
+  patches = [./logfile.patch];
 
   meta = {
     homepage = "https://trackballs.sourceforge.net/";

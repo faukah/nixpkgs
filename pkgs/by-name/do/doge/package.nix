@@ -15,8 +15,8 @@ python3Packages.buildPythonApplication rec {
   };
 
   pyproject = true;
-  nativeBuildInputs = [ python3Packages.setuptools ];
-  propagatedBuildInputs = [ python3Packages.python-dateutil ];
+  nativeBuildInputs = [python3Packages.setuptools];
+  propagatedBuildInputs = [python3Packages.python-dateutil];
 
   meta = {
     homepage = "https://github.com/Olivia5k/doge";

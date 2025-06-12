@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zimg";
   version = "3.0.5";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -31,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sekrit-twc/zimg";
     license = licenses.wtfpl;
     platforms = with platforms; unix ++ windows;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

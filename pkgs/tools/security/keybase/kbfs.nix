@@ -3,7 +3,6 @@
   buildGoModule,
   keybase,
 }:
-
 buildGoModule {
   pname = "kbfs";
 
@@ -16,7 +15,7 @@ buildGoModule {
     "kbfs/kbfsgit/git-remote-keybase"
   ];
 
-  tags = [ "production" ];
+  tags = ["production"];
   ldflags = [
     "-s"
     "-w"

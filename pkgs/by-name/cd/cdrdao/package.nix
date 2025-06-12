@@ -9,7 +9,6 @@
   libmad,
   libao,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cdrdao";
   version = "1.2.5";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     libao
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     # Fix build on macOS SDK < 12

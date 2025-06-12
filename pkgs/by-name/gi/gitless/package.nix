@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "gitless";
   version = "0.9.17";
@@ -21,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     argcomplete
   ];
 
-  pythonRelaxDeps = [ "pygit2" ];
+  pythonRelaxDeps = ["pygit2"];
 
   doCheck = false;
 
@@ -33,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Version control system built on top of Git";
     homepage = "https://gitless.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ cransom ];
+    maintainers = with maintainers; [cransom];
     platforms = platforms.all;
     mainProgram = "gl";
   };

@@ -10,7 +10,6 @@
   # for embedded projects striving for a similar configuration.
   nanoizeNewlib ? false,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "newlib";
   version = "4.5.0.20241231";
@@ -48,17 +47,17 @@ stdenv.mkDerivation (finalAttrs: {
       export CC=cc
     ''
     +
-      # newlib tries to disable itself when building for Linux *except*
-      # when native-compiling.  Unfortunately the check for "is cross
-      # compiling" was written when newlib was part of GCC and newlib
-      # was built along with GCC (therefore newlib was built to execute
-      # on the targetPlatform, not the hostPlatform).  Unfortunately
-      # when newlib was extracted from GCC, this "is cross compiling"
-      # logic was not fixed.  So we must disable it.
-      ''
-        substituteInPlace configure --replace 'noconfigdirs target-newlib target-libgloss' 'noconfigdirs'
-        substituteInPlace configure --replace 'cross_only="target-libgloss target-newlib' 'cross_only="'
-      '';
+    # newlib tries to disable itself when building for Linux *except*
+    # when native-compiling.  Unfortunately the check for "is cross
+    # compiling" was written when newlib was part of GCC and newlib
+    # was built along with GCC (therefore newlib was built to execute
+    # on the targetPlatform, not the hostPlatform).  Unfortunately
+    # when newlib was extracted from GCC, this "is cross compiling"
+    # logic was not fixed.  So we must disable it.
+    ''
+      substituteInPlace configure --replace 'noconfigdirs target-newlib target-libgloss' 'noconfigdirs'
+      substituteInPlace configure --replace 'cross_only="target-libgloss target-newlib' 'cross_only="'
+    '';
 
   configurePlatforms = [
     "build"
@@ -80,35 +79,33 @@ stdenv.mkDerivation (finalAttrs: {
       # execute on `stdenv.hostPlatform`.  We then fool newlib's build
       # process into doing the right thing.
       "--host=${stdenv.targetPlatform.config}"
-
     ]
     ++ (
-      if !nanoizeNewlib then
-        [
-          "--disable-newlib-supplied-syscalls"
-          "--disable-nls"
-          "--enable-newlib-io-c99-formats"
-          "--enable-newlib-io-long-long"
-          "--enable-newlib-reent-check-verify"
-          "--enable-newlib-register-fini"
-          "--enable-newlib-retargetable-locking"
-        ]
-      else
-        [
-          "--disable-newlib-fseek-optimization"
-          "--disable-newlib-fvwrite-in-streamio"
-          "--disable-newlib-supplied-syscalls"
-          "--disable-newlib-unbuf-stream-opt"
-          "--disable-newlib-wide-orient"
-          "--disable-nls"
-          "--enable-lite-exit"
-          "--enable-newlib-global-atexit"
-          "--enable-newlib-nano-formatted-io"
-          "--enable-newlib-nano-malloc"
-          "--enable-newlib-reent-check-verify"
-          "--enable-newlib-reent-small"
-          "--enable-newlib-retargetable-locking"
-        ]
+      if !nanoizeNewlib
+      then [
+        "--disable-newlib-supplied-syscalls"
+        "--disable-nls"
+        "--enable-newlib-io-c99-formats"
+        "--enable-newlib-io-long-long"
+        "--enable-newlib-reent-check-verify"
+        "--enable-newlib-register-fini"
+        "--enable-newlib-retargetable-locking"
+      ]
+      else [
+        "--disable-newlib-fseek-optimization"
+        "--disable-newlib-fvwrite-in-streamio"
+        "--disable-newlib-supplied-syscalls"
+        "--disable-newlib-unbuf-stream-opt"
+        "--disable-newlib-wide-orient"
+        "--disable-nls"
+        "--enable-lite-exit"
+        "--enable-newlib-global-atexit"
+        "--enable-newlib-nano-formatted-io"
+        "--enable-newlib-nano-malloc"
+        "--enable-newlib-reent-check-verify"
+        "--enable-newlib-reent-small"
+        "--enable-newlib-retargetable-locking"
+      ]
     );
 
   enableParallelBuilding = true;

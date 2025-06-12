@@ -4,7 +4,6 @@
   python3Packages,
   fetchpatch,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "xkeysnail";
   version = "0.4";
@@ -42,6 +41,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://github.com/mooz/xkeysnail";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl1Only;
-    maintainers = with lib.maintainers; [ bb2020 ];
+    maintainers = with lib.maintainers; [bb2020];
   };
 }

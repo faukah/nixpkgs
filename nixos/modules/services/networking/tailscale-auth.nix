@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     getExe
     maintainers
     mkEnableOption
@@ -16,12 +15,11 @@ let
     types
     ;
   cfg = config.services.tailscaleAuth;
-in
-{
+in {
   options.services.tailscaleAuth = {
     enable = mkEnableOption "tailscale.nginx-auth, to authenticate users via tailscale";
 
-    package = mkPackageOption pkgs "tailscale-nginx-auth" { };
+    package = mkPackageOption pkgs "tailscale-nginx-auth" {};
 
     user = mkOption {
       type = types.str;
@@ -51,13 +49,13 @@ in
       isSystemUser = true;
       inherit (cfg) group;
     };
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.sockets.tailscale-nginx-auth = {
       description = "Tailscale NGINX Authentication socket";
-      partOf = [ "tailscale-nginx-auth.service" ];
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ cfg.socketPath ];
+      partOf = ["tailscale-nginx-auth.service"];
+      wantedBy = ["sockets.target"];
+      listenStreams = [cfg.socketPath];
       socketConfig = {
         SocketMode = "0660";
         SocketUser = cfg.user;
@@ -67,8 +65,8 @@ in
 
     systemd.services.tailscale-nginx-auth = {
       description = "Tailscale NGINX Authentication service";
-      requires = [ "tailscale-nginx-auth.socket" ];
-      after = [ "tailscaled.service" ];
+      requires = ["tailscale-nginx-auth.socket"];
+      after = ["tailscaled.service"];
 
       serviceConfig = {
         ExecStart = getExe cfg.package;
@@ -76,7 +74,7 @@ in
         User = cfg.user;
         Group = cfg.group;
 
-        BindPaths = [ "/run/tailscale/tailscaled.sock" ];
+        BindPaths = ["/run/tailscale/tailscaled.sock"];
 
         CapabilityBoundingSet = "";
         DeviceAllow = "";
@@ -92,7 +90,7 @@ in
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
         RestrictNamespaces = true;
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_UNIX"];
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
 

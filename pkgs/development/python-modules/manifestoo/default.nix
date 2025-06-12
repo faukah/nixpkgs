@@ -9,7 +9,6 @@
   textual,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "manifestoo";
   version = "1.0";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-iP9QVyAvKMTo8GuceiXWALmWKQ9yLX2qxl0S7IT+kMA=";
   };
 
-  nativeBuildInputs = [ hatch-vcs ];
+  nativeBuildInputs = [hatch-vcs];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   propagatedBuildInputs = [
     manifestoo-core
@@ -30,12 +29,12 @@ buildPythonPackage rec {
     typer
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Tool to reason about Odoo addons manifests";
     homepage = "https://github.com/acsone/manifestoo";
     license = licenses.mit;
-    maintainers = with maintainers; [ yajo ];
+    maintainers = with maintainers; [yajo];
   };
 }

@@ -5,7 +5,6 @@
   six,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "latexcodec";
   version = "3.0.0";
@@ -16,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-kX3F/iQnYswZ2WPmVItC1joRgCjN0zYdYjl+O2OLa8U=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     pytest

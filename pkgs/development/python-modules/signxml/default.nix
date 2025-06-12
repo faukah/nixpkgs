@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "signxml";
   version = "4.0.3";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-TZqYNYVzGEhftP/RXiBtThK38AOPLi2DRAwnFh2Za5U=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -34,17 +33,17 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "signxml" ];
+  pythonImportsCheck = ["signxml"];
 
-  pytestFlagsArray = [ "test/test.py" ];
+  pytestFlagsArray = ["test/test.py"];
 
   meta = with lib; {
     description = "Python XML Signature and XAdES library";
     homepage = "https://github.com/XML-Security/signxml";
     changelog = "https://github.com/XML-Security/signxml/blob/${src.rev}/Changes.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -15,7 +15,6 @@
   buildNpmPackage,
   emscripten,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emscripten";
   version = "4.0.8";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     rev = version;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     nodejs
     python3

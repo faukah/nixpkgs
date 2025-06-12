@@ -57,7 +57,6 @@
   kde-channel,
   hash,
 }:
-
 mkDerivation rec {
   pname = "krita-unwrapped";
   inherit version;
@@ -136,25 +135,22 @@ mkDerivation rec {
 
   # Krita runs custom python scripts in CMake with custom PYTHONPATH which krita determined in their CMake script.
   # Patch the PYTHONPATH so python scripts can import sip successfully.
-  postPatch =
-    let
-      pythonPath = python3Packages.makePythonPath (
-        with python3Packages;
-        [
-          sip
-          setuptools
-        ]
-      );
-    in
-    ''
-      substituteInPlace cmake/modules/FindSIP.cmake \
-        --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
-      substituteInPlace cmake/modules/SIPMacros.cmake \
-        --replace 'PYTHONPATH=''${_krita_python_path}' 'PYTHONPATH=${pythonPath}'
+  postPatch = let
+    pythonPath = python3Packages.makePythonPath (
+      with python3Packages; [
+        sip
+        setuptools
+      ]
+    );
+  in ''
+    substituteInPlace cmake/modules/FindSIP.cmake \
+      --replace 'PYTHONPATH=''${_sip_python_path}' 'PYTHONPATH=${pythonPath}'
+    substituteInPlace cmake/modules/SIPMacros.cmake \
+      --replace 'PYTHONPATH=''${_krita_python_path}' 'PYTHONPATH=${pythonPath}'
 
-      substituteInPlace plugins/impex/jp2/jp2_converter.cc \
-        --replace '<openjpeg.h>' '<${openjpeg.incDir}/openjpeg.h>'
-    '';
+    substituteInPlace plugins/impex/jp2/jp2_converter.cc \
+      --replace '<openjpeg.h>' '<${openjpeg.incDir}/openjpeg.h>'
+  '';
 
   cmakeBuildType = "RelWithDebInfo";
 

@@ -8,9 +8,7 @@
   pkg-config,
   stdenv,
   stdenvNoCC,
-}:
-
-let
+}: let
   libdispatch = apple-sdk.sourceRelease "libdispatch"; # Has to match the version of the SDK
 
   Libc = apple-sdk_12.sourceRelease "Libc";
@@ -83,34 +81,34 @@ let
     '';
   };
 in
-mkAppleDerivation {
-  releaseName = "system_cmds";
+  mkAppleDerivation {
+    releaseName = "system_cmds";
 
-  xcodeHash = "sha256-gdtn3zNIneZKy6+X0mQ51CFVLNM6JQYLbd/lotG5/Tw=";
+    xcodeHash = "sha256-gdtn3zNIneZKy6+X0mQ51CFVLNM6JQYLbd/lotG5/Tw=";
 
-  postPatch = ''
-    # Replace hard-coded, impure system paths with the output path in the store.
-    sed -e "s|PATH=[^;]*|PATH='$out/bin'|" -i "pagesize/pagesize.sh"
+    postPatch = ''
+      # Replace hard-coded, impure system paths with the output path in the store.
+      sed -e "s|PATH=[^;]*|PATH='$out/bin'|" -i "pagesize/pagesize.sh"
 
-    # Requires BackgroundTaskManagement.framework headers.
-    sed -e '/    if (os_feature_enabled(cronBTMToggle, cronBTMCheck))/,/    }/d' -i atrun/atrun.c
-  '';
+      # Requires BackgroundTaskManagement.framework headers.
+      sed -e '/    if (os_feature_enabled(cronBTMToggle, cronBTMCheck))/,/    }/d' -i atrun/atrun.c
+    '';
 
-  preConfigure = ''
-    export NIX_CFLAGS_COMPILE+=" -iframework $SDKROOT/System/Library/Frameworks/OpenDirectory.framework/Frameworks"
-  '';
+    preConfigure = ''
+      export NIX_CFLAGS_COMPILE+=" -iframework $SDKROOT/System/Library/Frameworks/OpenDirectory.framework/Frameworks"
+    '';
 
-  env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
+    env.NIX_CFLAGS_COMPILE = "-I${privateHeaders}/include";
 
-  buildInputs = [
-    apple-sdk.privateFrameworksHook
-    ncurses
-    openpam
-  ];
+    buildInputs = [
+      apple-sdk.privateFrameworksHook
+      ncurses
+      openpam
+    ];
 
-  nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
-  mesonFlags = [ (lib.mesonOption "sdk_version" stdenv.hostPlatform.darwinSdkVersion) ];
+    mesonFlags = [(lib.mesonOption "sdk_version" stdenv.hostPlatform.darwinSdkVersion)];
 
-  meta.description = "System commands for Darwin";
-}
+    meta.description = "System commands for Darwin";
+  }

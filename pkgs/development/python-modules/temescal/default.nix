@@ -5,7 +5,6 @@
   pythonOlder,
   pycryptodome,
 }:
-
 buildPythonPackage rec {
   pname = "temescal";
   version = "0.5";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-MfTftheNj8zI3iXIIJU+jy9xikvX9eO58LA0NCMJBnY=";
   };
 
-  propagatedBuildInputs = [ pycryptodome ];
+  propagatedBuildInputs = [pycryptodome];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "temescal" ];
+  pythonImportsCheck = ["temescal"];
 
   meta = with lib; {
     description = "Module for interacting with LG speaker systems";
     homepage = "https://github.com/google/python-temescal";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

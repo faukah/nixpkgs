@@ -10,7 +10,6 @@
   pkg-config,
   htmldoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "htmldoc";
   version = "1.9.20";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-nEDvG2Q6uMYWyb49EKOZimkOfEavCjvfFgucwi3u64k=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     zlib
     cups
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://michaelrsweet.github.io/htmldoc";
     changelog = "https://github.com/michaelrsweet/htmldoc/releases/tag/v${version}";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
 
     longDescription = ''

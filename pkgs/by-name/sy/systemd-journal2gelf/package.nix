@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "SystemdJournal2Gelf";
   version = "unstable-2023-03-10";

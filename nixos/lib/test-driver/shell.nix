@@ -1,4 +1,2 @@
-{
-  pkgs ? import ../../.. { },
-}:
-pkgs.callPackage ./default.nix { }
+{pkgs ? import ../../.. {}}:
+pkgs.callPackage ./default.nix {}

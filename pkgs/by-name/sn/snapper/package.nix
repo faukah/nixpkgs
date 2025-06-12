@@ -24,7 +24,6 @@
   ncurses,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "snapper";
   version = "0.12.2";
@@ -101,7 +100,7 @@ stdenv.mkDerivation rec {
     homepage = "http://snapper.io";
     license = lib.licenses.gpl2Only;
     mainProgram = "snapper";
-    maintainers = with lib.maintainers; [ markuskowa ];
+    maintainers = with lib.maintainers; [markuskowa];
     platforms = lib.platforms.linux;
   };
 }

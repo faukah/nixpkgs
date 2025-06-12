@@ -1,40 +1,40 @@
-{ lib, compression, ... }:
 {
+  lib,
+  compression,
+  ...
+}: {
   name = "binary-cache-" + compression;
-  meta.maintainers = with lib.maintainers; [ thomasjm ];
+  meta.maintainers = with lib.maintainers; [thomasjm];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [ ../modules/installer/cd-dvd/channel.nix ];
-      environment.systemPackages = with pkgs; [
-        openssl
-        python3
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [../modules/installer/cd-dvd/channel.nix];
+    environment.systemPackages = with pkgs; [
+      openssl
+      python3
+    ];
 
-      # We encrypt the binary cache before putting it on the machine so Nix
-      # doesn't bring any references along.
-      environment.etc."binary-cache.tar.gz.encrypted".source =
-        with pkgs;
-        runCommand "binary-cache.tar.gz.encrypted"
-          {
-            allowReferences = [ ];
-            nativeBuildInputs = [ openssl ];
+    # We encrypt the binary cache before putting it on the machine so Nix
+    # doesn't bring any references along.
+    environment.etc."binary-cache.tar.gz.encrypted".source = with pkgs;
+      runCommand "binary-cache.tar.gz.encrypted"
+      {
+        allowReferences = [];
+        nativeBuildInputs = [openssl];
+      }
+      ''
+        tar -czf tmp.tar.gz -C "${
+          mkBinaryCache {
+            rootPaths = [hello];
+            inherit compression;
           }
-          ''
-            tar -czf tmp.tar.gz -C "${
-              mkBinaryCache {
-                rootPaths = [ hello ];
-                inherit compression;
-              }
-            }" .
-            openssl enc -aes-256-cbc -salt -in tmp.tar.gz -out $out -k mysecretpassword
-          '';
-
-      nix.extraOptions = ''
-        experimental-features = nix-command
+        }" .
+        openssl enc -aes-256-cbc -salt -in tmp.tar.gz -out $out -k mysecretpassword
       '';
-    };
+
+    nix.extraOptions = ''
+      experimental-features = nix-command
+    '';
+  };
 
   testScript = ''
     # Decrypt the cache into /tmp/binary-cache.tar.gz

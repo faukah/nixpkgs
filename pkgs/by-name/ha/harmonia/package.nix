@@ -7,7 +7,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "harmonia";
   version = "2.1.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doCheck = false;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
   ];
@@ -36,14 +35,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
         "harmonia-v(.*)"
       ];
     };
-    tests = { inherit (nixosTests) harmonia; };
+    tests = {inherit (nixosTests) harmonia;};
   };
 
   meta = {
     description = "Nix binary cache";
     homepage = "https://github.com/nix-community/harmonia";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ mic92 ];
+    maintainers = with lib.maintainers; [mic92];
     mainProgram = "harmonia";
   };
 })

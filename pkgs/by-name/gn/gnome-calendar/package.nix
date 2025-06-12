@@ -19,7 +19,6 @@
   gsettings-desktop-schemas,
   libadwaita,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-calendar";
   version = "48.1";
@@ -60,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://apps.gnome.org/Calendar/";
     description = "Simple and beautiful calendar application for GNOME";
     mainProgram = "gnome-calendar";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

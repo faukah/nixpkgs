@@ -5,7 +5,6 @@
   python3,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eweb";
   version = "9.10";
@@ -32,6 +31,6 @@ stdenv.mkDerivation rec {
     mainProgram = "etangle.py";
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

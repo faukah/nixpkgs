@@ -8,7 +8,6 @@
   cmake,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "grip-search";
   version = "0.8";
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   patches = [
     # Can be removed after this upstream PR gets merged: https://github.com/sc0ty/grip/pull/6
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sc0ty/grip";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ tex ];
+    maintainers = with maintainers; [tex];
   };
 }

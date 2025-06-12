@@ -6,7 +6,6 @@
   wayland-scanner,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wideriver";
   version = "1.2.0";
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Tiling window manager for the river wayland compositor, inspired by dwm and xmonad";
@@ -35,6 +34,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Only;
     mainProgram = "wideriver";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ clebs ];
+    maintainers = with lib.maintainers; [clebs];
   };
 })

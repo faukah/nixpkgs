@@ -11,7 +11,6 @@
   openssl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tinc";
   version = "1.1pre18";
@@ -54,7 +53,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
   ];
 
-  passthru.tests = { inherit (nixosTests) tinc; };
+  passthru.tests = {inherit (nixosTests) tinc;};
 
   meta = with lib; {
     description = "VPN daemon with full mesh routing";

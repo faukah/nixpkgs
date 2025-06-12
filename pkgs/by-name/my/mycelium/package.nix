@@ -7,7 +7,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "mycelium";
   version = "0.6.1";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-5TyJNYBTULSu886D+vy8YRh50oFBubNZ9KkMu1/PvgU=";
 
-  nativeBuildInputs = [ versionCheckHook ];
+  nativeBuildInputs = [versionCheckHook];
 
   doInstallCheck = true;
 
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       inherit (nixosTests) mycelium;
     };

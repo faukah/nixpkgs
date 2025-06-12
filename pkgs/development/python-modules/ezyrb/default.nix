@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   future,
   numpy,
@@ -13,11 +11,9 @@
   matplotlib,
   scikit-learn,
   torch,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ezyrb";
   version = "1.3.0.post2404";
@@ -54,9 +50,9 @@ buildPythonPackage rec {
     torch
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ezyrb" ];
+  pythonImportsCheck = ["ezyrb"];
 
   disabledTestPaths = [
     # Exclude long tests
@@ -68,6 +64,6 @@ buildPythonPackage rec {
     homepage = "https://mathlab.github.io/EZyRB/";
     downloadPage = "https://github.com/mathLab/EZyRB/releases";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

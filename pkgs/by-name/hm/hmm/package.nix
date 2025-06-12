@@ -5,7 +5,6 @@
   perl,
   writableTmpDirAsHomeHook,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "hmm";
   version = "0.6.0";
@@ -25,13 +24,13 @@ rustPlatform.buildRustPackage rec {
   ];
   # FIXME: remove patch when upstream version of rustc-serialize is updated
   # https://github.com/NixOS/nixpkgs/pull/310673
-  cargoPatches = [ ./rustc-serialize-fix.patch ];
+  cargoPatches = [./rustc-serialize-fix.patch];
 
   meta = {
     description = "Small command-line note-taking app";
     homepage = "https://github.com/samwho/hmm";
     changelog = "https://github.com/samwho/hmm/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
   };
 }

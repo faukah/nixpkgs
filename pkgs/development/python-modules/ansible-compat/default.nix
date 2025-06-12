@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   pyyaml,
   subprocess-tee,
-
   # tests
   coreutils,
   ansible-core,
@@ -20,7 +17,6 @@
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "ansible-compat";
   version = "25.5.0";
@@ -79,13 +75,13 @@ buildPythonPackage rec {
     "test_ro_venv"
   ];
 
-  pythonImportsCheck = [ "ansible_compat" ];
+  pythonImportsCheck = ["ansible_compat"];
 
   meta = {
     description = "Function collection that help interacting with various versions of Ansible";
     homepage = "https://github.com/ansible/ansible-compat";
     changelog = "https://github.com/ansible/ansible-compat/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dawidd6 ];
+    maintainers = with lib.maintainers; [dawidd6];
   };
 }

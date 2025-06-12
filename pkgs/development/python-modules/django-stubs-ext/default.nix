@@ -10,7 +10,6 @@
   setuptools,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "django-stubs-ext";
   version = "5.2.0";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-AMSuMHtTj1ZDr3YakUw/jk4/JfTnxtcJjxkGwNjyqsk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     django
@@ -32,19 +31,19 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    redis = [ redis ];
-    oracle = [ oracledb ];
+    redis = [redis];
+    oracle = [oracledb];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "django_stubs_ext" ];
+  pythonImportsCheck = ["django_stubs_ext"];
 
   meta = with lib; {
     description = "Extensions and monkey-patching for django-stubs";
     homepage = "https://github.com/typeddjango/django-stubs";
     changelog = "https://github.com/typeddjango/django-stubs/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

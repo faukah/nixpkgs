@@ -5,7 +5,6 @@
   fetchFromGitHub,
   tinyxml,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "libretro";
   namespace = "game.libretro";
@@ -18,13 +17,13 @@ buildKodiBinaryAddon rec {
     sha256 = "sha256-RwaLGAJt13PLKy45HU64TvQFyY532WWq2YX34Eyu+6o=";
   };
 
-  extraBuildInputs = [ tinyxml ];
+  extraBuildInputs = [tinyxml];
 
   meta = with lib; {
     homepage = "https://github.com/kodi-game/game.libretro";
     description = "Libretro wrapper for Kodi's Game API";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

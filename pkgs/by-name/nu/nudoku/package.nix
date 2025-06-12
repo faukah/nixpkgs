@@ -7,7 +7,6 @@
   gettext,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nudoku";
   version = "5.0.0";
@@ -24,15 +23,15 @@ stdenv.mkDerivation rec {
     pkg-config
     gettext
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = "Ncurses based sudoku game";
     mainProgram = "nudoku";
     homepage = "https://jubalh.github.io/nudoku";
     license = licenses.gpl3Only;
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     platforms = platforms.all;
-    maintainers = with maintainers; [ weathercold ];
+    maintainers = with maintainers; [weathercold];
   };
 }

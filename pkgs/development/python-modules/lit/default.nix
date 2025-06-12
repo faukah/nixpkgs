@@ -5,7 +5,6 @@
   setuptools,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "lit";
   version = "18.1.8";
@@ -16,7 +15,7 @@ buildPythonPackage rec {
     hash = "sha256-R8F0oYaUGugw8E3tdqNERgC+Z9Xl+4KCw3g/umccTts=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   passthru = {
     inherit python;
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     mainProgram = "lit";
     homepage = "http://llvm.org/docs/CommandGuide/lit.html";
     license = lib.licenses.ncsa;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

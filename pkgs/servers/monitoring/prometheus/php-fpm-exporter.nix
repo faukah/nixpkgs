@@ -9,7 +9,6 @@
   testers,
   prometheus-php-fpm-exporter,
 }:
-
 buildGoModule rec {
   pname = "php-fpm_exporter";
   version = "2.2.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
 
   preFixup = ''
     wrapProgram "$out/bin/php-fpm_exporter" \
-      --prefix PATH ":" "${lib.makeBinPath [ getent ]}"
+      --prefix PATH ":" "${lib.makeBinPath [getent]}"
   '';
 
   postInstall = ''
@@ -45,7 +44,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = testers.testVersion {
       inherit version;
       package = prometheus-php-fpm-exporter;
@@ -57,7 +56,7 @@ buildGoModule rec {
     homepage = "https://github.com/hipages/php-fpm_exporter";
     description = "Prometheus exporter for PHP-FPM";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gaelreyrol ];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "php-fpm_exporter";
   };
 }

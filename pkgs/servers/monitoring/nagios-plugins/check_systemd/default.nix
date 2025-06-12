@@ -3,7 +3,6 @@
   lib,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "check-systemd";
   version = "4.1.0";
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Josef-Friedrich/check_systemd";
     license = lib.licenses.lgpl2Only;
     mainProgram = "check_systemd";
-    maintainers = with lib.maintainers; [ symphorien ];
+    maintainers = with lib.maintainers; [symphorien];
     platforms = lib.platforms.linux;
   };
 }

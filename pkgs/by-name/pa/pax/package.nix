@@ -4,7 +4,6 @@
   fetchurl,
   musl-fts,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pax";
   version = "20240817";
@@ -33,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "POSIX standard archive tool from MirBSD";
     homepage = "https://www.mirbsd.org/pax.htm";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

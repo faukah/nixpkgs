@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.readarr;
-  servarr = import ./settings-options.nix { inherit lib pkgs; };
-in
-{
+  servarr = import ./settings-options.nix {inherit lib pkgs;};
+in {
   options = {
     services.readarr = {
       enable = lib.mkEnableOption "Readarr, a Usenet/BitTorrent ebook downloader";
@@ -19,7 +17,7 @@ in
         description = "The directory where Readarr stores its data files.";
       };
 
-      package = lib.mkPackageOption pkgs "readarr" { };
+      package = lib.mkPackageOption pkgs "readarr" {};
 
       openFirewall = lib.mkOption {
         type = lib.types.bool;
@@ -59,8 +57,8 @@ in
 
     systemd.services.readarr = {
       description = "Readarr";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment = servarr.mkServarrSettingsEnvVars "READARR" cfg.settings;
 
       serviceConfig = {
@@ -74,7 +72,7 @@ in
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.settings.server.port ];
+      allowedTCPPorts = [cfg.settings.server.port];
     };
 
     users.users = lib.mkIf (cfg.user == "readarr") {
@@ -87,7 +85,7 @@ in
     };
 
     users.groups = lib.mkIf (cfg.group == "readarr") {
-      readarr = { };
+      readarr = {};
     };
   };
 }

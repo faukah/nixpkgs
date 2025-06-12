@@ -7,7 +7,7 @@ python312Packages.buildPythonApplication {
   pname = "vanguards";
   version = "0.3.1-unstable-2023-10-31";
 
-  dependencies = [ python312Packages.stem ];
+  dependencies = [python312Packages.stem];
   #tries to access the network during the tests, which fails
   doCheck = false;
 
@@ -17,7 +17,7 @@ python312Packages.buildPythonApplication {
     rev = "8132fa0e556fbcbb3538ff9b48a2180c0c5e8fbd";
     sha256 = "sha256-XauSTgoH6zXv2DXyX2lQc6gy6Ysm41fKnyuWZ3hj7kI=";
   };
-  patches = [ ./python-3.12.patch ];
+  patches = [./python-3.12.patch];
   postPatch = ''
     # fix import cycle issue
     substituteInPlace src/vanguards/main.py --replace-fail \
@@ -25,7 +25,7 @@ python312Packages.buildPythonApplication {
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ ForgottenBeast ];
+    maintainers = with lib.maintainers; [ForgottenBeast];
     mainProgram = "vanguards";
     license = lib.licenses.mit;
     homepage = "https://github.com/mikeperry-tor/vanguards";

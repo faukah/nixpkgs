@@ -1,15 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
-
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
-
-with import common/ec2.nix { inherit makeTest pkgs; };
-
-let
+with import common/ec2.nix {inherit makeTest pkgs;}; let
   imageCfg =
     (import ../lib/eval-config.nix {
       system = null;
@@ -33,7 +29,7 @@ let
 
           # Needed by nixos-rebuild due to the lack of network
           # access. Determined by trial and error.
-          system.extraDependencies = with pkgs; ([
+          system.extraDependencies = with pkgs; [
             # Needed for a nixos-rebuild.
             busybox
             cloud-utils
@@ -53,7 +49,7 @@ let
             apacheHttpd.doc
             apacheHttpd.man
             valgrind.doc
-          ]);
+          ];
 
           nixpkgs.pkgs = pkgs;
         }
@@ -65,9 +61,7 @@ let
   snakeOilPrivateKey = sshKeys.snakeOilPrivateKey.text;
   snakeOilPrivateKeyFile = pkgs.writeText "private-key" snakeOilPrivateKey;
   snakeOilPublicKey = sshKeys.snakeOilPublicKey;
-
-in
-{
+in {
   boot-ec2-nixops = makeEc2Test {
     name = "nixops-userdata";
     meta.timeout = 600;
@@ -76,7 +70,7 @@ in
 
     userData = ''
       SSH_HOST_ED25519_KEY_PUB:${snakeOilPublicKey}
-      SSH_HOST_ED25519_KEY:${replaceStrings [ "\n" ] [ "|" ] snakeOilPrivateKey}
+      SSH_HOST_ED25519_KEY:${replaceStrings ["\n"] ["|"] snakeOilPrivateKey}
     '';
     script = ''
       machine.start()

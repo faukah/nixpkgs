@@ -22,7 +22,6 @@
   demoSupport ? false,
 }:
 # refer to the gentoo package
-
 stdenv.mkDerivation rec {
   pname = "motif";
   version = "2.3.8";
@@ -120,7 +119,11 @@ stdenv.mkDerivation rec {
 
   # provide correct configure answers for cross builds
   configureFlags = [
-    "ac_cv_func_setpgrp_void=${if stdenv.hostPlatform.isBSD then "no" else "yes"}"
+    "ac_cv_func_setpgrp_void=${
+      if stdenv.hostPlatform.isBSD
+      then "no"
+      else "yes"
+    }"
   ];
 
   env = lib.optionalAttrs stdenv.cc.isClang {
@@ -142,8 +145,8 @@ stdenv.mkDerivation rec {
     homepage = "https://motif.ics.com";
     description = "Unix standard widget-toolkit and window-manager";
     platforms = platforms.unix;
-    license = with licenses; [ lgpl21Plus ];
-    maintainers = with maintainers; [ qyliss ];
+    license = with licenses; [lgpl21Plus];
+    maintainers = with maintainers; [qyliss];
     broken = demoSupport && stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "16";
   };
 }

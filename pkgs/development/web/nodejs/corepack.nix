@@ -3,12 +3,11 @@
   stdenv,
   nodejs,
 }:
-
 stdenv.mkDerivation {
   pname = "corepack-nodejs";
   inherit (nodejs) version;
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [nodejs];
 
   dontUnpack = true;
 
@@ -24,7 +23,7 @@ stdenv.mkDerivation {
     homepage = "https://nodejs.org/api/corepack.html";
     changelog = "https://github.com/nodejs/node/releases/tag/v${nodejs.version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ wmertens ];
+    maintainers = with lib.maintainers; [wmertens];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

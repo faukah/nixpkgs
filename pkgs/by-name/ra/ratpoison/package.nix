@@ -18,7 +18,6 @@
   texinfo,
   xorgproto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ratpoison";
   version = "1.4.9";
@@ -89,7 +88,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl2Plus;
     mainProgram = "ratpoison";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

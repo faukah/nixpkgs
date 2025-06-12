@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "replacement";
   version = "0.4.4";
@@ -43,6 +42,6 @@ python3Packages.buildPythonApplication rec {
       static websites and the like.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

@@ -8,7 +8,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sdl2-pango";
   version = "2.1.5";
@@ -43,8 +42,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/markuskimius/SDL2_Pango";
     description = "Library for graphically rendering internationalized and tagged text in SDL2 using TrueType fonts";
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ rardiol ];
-    teams = [ lib.teams.sdl ];
+    maintainers = with lib.maintainers; [rardiol];
+    teams = [lib.teams.sdl];
     inherit (SDL2.meta) platforms;
   };
 })

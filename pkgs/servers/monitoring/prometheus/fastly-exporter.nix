@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "fastly-exporter";
   version = "9.2.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     description = "Prometheus exporter for the Fastly Real-time Analytics API";
     homepage = "https://github.com/fastly/fastly-exporter";
     license = licenses.asl20;
-    teams = [ teams.deshaw ];
+    teams = [teams.deshaw];
     mainProgram = "fastly-exporter";
   };
 }

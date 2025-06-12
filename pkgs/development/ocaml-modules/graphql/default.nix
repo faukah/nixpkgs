@@ -5,7 +5,6 @@
   rresult,
   yojson,
 }:
-
 buildDunePackage {
   pname = "graphql";
 
@@ -19,12 +18,13 @@ buildDunePackage {
     yojson
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
-  meta = graphql_parser.meta // {
-    description = "Build GraphQL schemas and execute queries against them";
-  };
-
+  meta =
+    graphql_parser.meta
+    // {
+      description = "Build GraphQL schemas and execute queries against them";
+    };
 }

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "checkmate";
   version = "0.9.3";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-D87b/LhHnu8xE0wRdB/wLIuf5NlqrVnKt2WAF29bdZo=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = {
     description = "Pluggable code security analysis tool";
@@ -25,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/adedayo/checkmate";
     changelog = "https://github.com/adedayo/checkmate/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

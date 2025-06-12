@@ -10,7 +10,6 @@
   pythonOlder,
   sensor-state-data,
 }:
-
 buildPythonPackage rec {
   pname = "qingping-ble";
   version = "0.10.0";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-5w3KGJLdHFv6kURKTz3YImZNjaETiVqbbJTJpBSLSo8=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     bluetooth-data-tools
@@ -38,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "qingping_ble" ];
+  pythonImportsCheck = ["qingping_ble"];
 
   meta = with lib; {
     description = "Library for Qingping BLE devices";
     homepage = "https://github.com/bluetooth-devices/qingping-ble";
     changelog = "https://github.com/Bluetooth-Devices/qingping-ble/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

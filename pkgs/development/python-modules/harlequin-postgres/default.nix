@@ -5,7 +5,6 @@
   poetry-core,
   psycopg,
 }:
-
 buildPythonPackage rec {
   pname = "harlequin-postgres";
   version = "1.2.0";
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "A Harlequin adapter for Postgres";
     homepage = "https://pypi.org/project/harlequin-postgres/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
   };
 }

@@ -1,17 +1,13 @@
 {
   lib,
   mkMesonLibrary,
-
   nix-store-c,
   nix-expr-c,
   nix-util-c,
   nix-fetchers,
-
   # Configuration Options
-
   version,
 }:
-
 mkMesonLibrary (finalAttrs: {
   pname = "nix-fetchers-c";
   inherit version;
@@ -25,10 +21,9 @@ mkMesonLibrary (finalAttrs: {
     nix-fetchers
   ];
 
-  mesonFlags = [ ];
+  mesonFlags = [];
 
   meta = {
     platforms = lib.platforms.unix ++ lib.platforms.windows;
   };
-
 })

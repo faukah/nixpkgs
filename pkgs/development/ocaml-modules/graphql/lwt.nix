@@ -4,7 +4,6 @@
   graphql,
   ocaml_lwt,
 }:
-
 buildDunePackage {
   pname = "graphql-lwt";
 
@@ -17,12 +16,13 @@ buildDunePackage {
     ocaml_lwt
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 
-  meta = graphql.meta // {
-    description = "Build GraphQL schemas with Lwt support";
-  };
-
+  meta =
+    graphql.meta
+    // {
+      description = "Build GraphQL schemas with Lwt support";
+    };
 }

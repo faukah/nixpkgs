@@ -5,7 +5,6 @@
   buildNpmPackage,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "adguardhome";
   version = "0.107.62";

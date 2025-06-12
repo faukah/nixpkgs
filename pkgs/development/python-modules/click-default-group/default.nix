@@ -7,7 +7,6 @@
   pythonOlder,
   flit-core,
 }:
-
 buildPythonPackage rec {
   pname = "click-default-group";
   version = "1.2.4";
@@ -22,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-9Vk4LdgLDAWG2YCQPLKR6PIVnULmpOoe7RtS8DgWARo=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "click_default_group" ];
+  pythonImportsCheck = ["click_default_group"];
 
   meta = with lib; {
     description = "Group to invoke a command without explicit subcommand name";
     homepage = "https://github.com/click-contrib/click-default-group";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

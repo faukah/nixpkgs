@@ -8,7 +8,6 @@
   pythonOlder,
   scikit-learn,
 }:
-
 buildPythonPackage rec {
   pname = "ppscore";
   version = "1.3.0";
@@ -32,17 +31,17 @@ buildPythonPackage rec {
     scikit-learn
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonRelaxDeps = [ "pandas" ];
+  pythonRelaxDeps = ["pandas"];
 
-  pythonImportsCheck = [ "ppscore" ];
+  pythonImportsCheck = ["ppscore"];
 
   meta = with lib; {
     description = "Python implementation of the Predictive Power Score (PPS)";
     homepage = "https://github.com/8080labs/ppscore/";
     changelog = "https://github.com/8080labs/ppscore/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ evax ];
+    maintainers = with maintainers; [evax];
   };
 }

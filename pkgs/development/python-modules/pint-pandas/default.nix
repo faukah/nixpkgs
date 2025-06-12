@@ -11,7 +11,6 @@
   packaging,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pint-pandas";
   version = "0.6";
@@ -38,12 +37,12 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Pandas support for pint";
     license = lib.licenses.bsd3;
     homepage = "https://github.com/hgrecco/pint-pandas";
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

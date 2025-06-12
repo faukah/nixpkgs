@@ -14,7 +14,6 @@
   kio,
   knewstuff,
 }:
-
 mkDerivation {
   pname = "sddm-kcm";
   nativeBuildInputs = [

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "chain-bench";
   version = "0.1.10";
@@ -17,7 +16,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-uN4TSAxb229NhcWmiQmWBajla9XKnpiZrXOWJxt/mic=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -54,6 +53,6 @@ buildGoModule rec {
       ensure your code is compliant with your organization's policies.
     '';
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ jk ];
+    maintainers = with lib.maintainers; [jk];
   };
 }

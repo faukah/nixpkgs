@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "nats-kafka";
   version = "1.4.2";
@@ -23,12 +22,12 @@ buildGoModule rec {
   ];
 
   # do not build & install test binaries
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # needs running nats-server and kafka
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "NATS to Kafka Bridging";
@@ -36,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/nats-io/nats-kafka";
     changelog = "https://github.com/nats-io/nats-kafka/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
   };
 }

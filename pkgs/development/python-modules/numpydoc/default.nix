@@ -2,21 +2,17 @@
   lib,
   buildPythonPackage,
   fetchPypi,
-
   # build-system
   setuptools,
-
   # dependencies
   jinja2,
   sphinx,
   tabulate,
-
   # tests
   matplotlib,
   pytest-cov-stub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "numpydoc";
   version = "1.8.0";
@@ -28,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-AiOQq3RkpE+HN/efizHOHTz6S0r3nMqhqsXoNo21h/s=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     jinja2
@@ -56,7 +52,7 @@ buildPythonPackage rec {
     "test_mangle_docstrings_inherited_class_members"
   ];
 
-  pythonImportsCheck = [ "numpydoc" ];
+  pythonImportsCheck = ["numpydoc"];
 
   meta = {
     changelog = "https://github.com/numpy/numpydoc/releases/tag/v${version}";

@@ -5,7 +5,6 @@
   re,
   src,
 }:
-
 buildDunePackage {
   inherit src;
 
@@ -27,6 +26,6 @@ buildDunePackage {
     downloadPage = "https://github.com/reasonml/reason-native/tree/master/src/pastel";
     homepage = "https://reason-native.com/docs/pastel/";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

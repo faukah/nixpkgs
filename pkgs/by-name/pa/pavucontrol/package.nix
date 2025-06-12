@@ -16,7 +16,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pavucontrol";
   version = "6.1";
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
       easily control the volume of all clients, sinks, etc.
     '';
     mainProgram = "pavucontrol";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     platforms = lib.platforms.linux;
   };
 })

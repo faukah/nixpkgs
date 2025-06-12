@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   pygraphviz,
   plasTeX,
@@ -22,7 +20,7 @@ buildPythonPackage {
     hash = "sha256-Q13uYYZe1QgZHS4Nj8ugr+Fmhva98ttJj3AlXTK6XDw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     pygraphviz
@@ -32,7 +30,7 @@ buildPythonPackage {
   meta = {
     description = "plasTeX plugin allowing to build dependency graphs";
     homepage = "https://github.com/PatrickMassot/plastexdepgraph";
-    maintainers = with lib.maintainers; [ niklashh ];
+    maintainers = with lib.maintainers; [niklashh];
     license = lib.licenses.asl20;
   };
 }

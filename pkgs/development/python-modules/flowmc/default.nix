@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   chex,
   equinox,
@@ -14,11 +12,9 @@
   optax,
   scikit-learn,
   tqdm,
-
   # tests
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flowmc";
   version = "0.4.4";
@@ -31,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-hyrsL8agY+bNcRcEmgEtv97cFROgeLFxxtKTfx0HoH8=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "jax"
@@ -55,15 +51,15 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "flowMC" ];
+  pythonImportsCheck = ["flowMC"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "Normalizing-flow enhanced sampling package for probabilistic inference in Jax";
     homepage = "https://github.com/kazewong/flowMC";
     changelog = "https://github.com/kazewong/flowMC/releases/tag/flowMC-${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

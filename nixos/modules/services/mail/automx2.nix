@@ -3,13 +3,10 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.services.automx2;
-  format = pkgs.formats.json { };
-in
-{
+  format = pkgs.formats.json {};
+in {
   options = {
     services.automx2 = {
       enable = lib.mkEnableOption "automx2";
@@ -17,7 +14,7 @@ in
       package = lib.mkPackageOption pkgs [
         "python3Packages"
         "automx2"
-      ] { };
+      ] {};
 
       domain = lib.mkOption {
         type = lib.types.str;
@@ -52,7 +49,7 @@ in
         "autoconfig.${cfg.domain}" = {
           enableACME = true;
           forceSSL = true;
-          serverAliases = [ "autodiscover.${cfg.domain}" ];
+          serverAliases = ["autodiscover.${cfg.domain}"];
           locations = {
             "/".proxyPass = "http://127.0.0.1:${toString cfg.port}/";
             "/initdb".extraConfig = ''
@@ -66,7 +63,7 @@ in
     };
 
     systemd.services.automx2 = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       postStart = ''
         sleep 3
         ${lib.getExe pkgs.curl} -X POST --json @${format.generate "automx2.json" cfg.settings} http://127.0.0.1:${toString cfg.port}/initdb/
@@ -83,7 +80,7 @@ in
           "FLASK_CONFIG=production"
         ];
         ExecStart = "${
-          pkgs.python3.buildEnv.override { extraLibs = [ cfg.package ]; }
+          pkgs.python3.buildEnv.override {extraLibs = [cfg.package];}
         }/bin/flask run --host=127.0.0.1 --port=${toString cfg.port}";
         Restart = "always";
         StateDirectory = "automx2";
@@ -94,11 +91,11 @@ in
         Description = "MUA configuration service";
         Documentation = "https://rseichter.github.io/automx2/";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     users = {
-      groups.automx2 = { };
+      groups.automx2 = {};
       users.automx2 = {
         group = "automx2";
         isSystemUser = true;

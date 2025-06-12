@@ -16,7 +16,6 @@
   sollya,
   wcpg,
 }:
-
 stdenv.mkDerivation {
   pname = "flopoco";
   version = "4.1.3";
@@ -89,6 +88,6 @@ stdenv.mkDerivation {
     homepage = "https://flopoco.org/";
     license = licenses.unfree;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

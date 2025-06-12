@@ -4,7 +4,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin rec {
   pname = "wakatime-fish";
   version = "0.0.6";
@@ -26,6 +25,6 @@ buildFishPlugin rec {
     description = "Fish plugin for wakatime";
     homepage = "https://github.com/ik11235/wakatime.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
   };
 }

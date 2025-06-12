@@ -1,14 +1,16 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
-
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     releases = import ../../release.nix {
       configuration = {
         # Building documentation makes the test unnecessarily take a longer time:
         documentation.enable = lib.mkForce false;
 
         # Our tests require `grep` & friends:
-        environment.systemPackages = with pkgs; [ busybox ];
+        environment.systemPackages = with pkgs; [busybox];
       };
     };
 
@@ -16,25 +18,22 @@ import ../make-test-python.nix (
     lxd-image-disk = releases.lxdVirtualMachineImage.${pkgs.stdenv.hostPlatform.system};
 
     instance-name = "instance1";
-  in
-  {
+  in {
     name = "lxd-virtual-machine";
 
-    nodes.machine =
-      { lib, ... }:
-      {
-        virtualisation = {
-          diskSize = 4096;
+    nodes.machine = {lib, ...}: {
+      virtualisation = {
+        diskSize = 4096;
 
-          cores = 2;
+        cores = 2;
 
-          # Ensure we have enough memory for the nested virtual machine
-          memorySize = 1024;
+        # Ensure we have enough memory for the nested virtual machine
+        memorySize = 1024;
 
-          lxc.lxcfs.enable = true;
-          lxd.enable = true;
-        };
+        lxc.lxcfs.enable = true;
+        lxd.enable = true;
       };
+    };
 
     testScript = ''
       def instance_is_up(_) -> bool:

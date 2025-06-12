@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "progressbar33";
   version = "2.4";
@@ -21,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://pypi.python.org/pypi/progressbar33";
     description = "Text progressbar library for python";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
   };
 }

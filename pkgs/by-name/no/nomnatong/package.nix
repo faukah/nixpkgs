@@ -5,7 +5,6 @@
   python3Packages,
   nix-update-script,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nomnatong";
   version = "5.15";
@@ -43,13 +42,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     homepage = "https://nomfoundation.org/nom-tools/Nom-Font";
     description = "Hán-Nôm Coded Character Set and Nom Na Tong Regular Reference Font";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 })

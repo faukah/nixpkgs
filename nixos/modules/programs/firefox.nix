@@ -3,12 +3,10 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.firefox;
 
-  policyFormat = pkgs.formats.json { };
+  policyFormat = pkgs.formats.json {};
 
   organisationInfo = ''
     When this option is in use, Firefox will inform you that "your browser
@@ -62,8 +60,7 @@ let
       package = pkgs.uget-integrator;
     };
   };
-in
-{
+in {
   options.programs.firefox = {
     enable = lib.mkEnableOption "the Firefox web browser";
 
@@ -83,13 +80,13 @@ in
 
     wrapperConfig = lib.mkOption {
       type = lib.types.attrs;
-      default = { };
+      default = {};
       description = "Arguments to pass to Firefox wrapper";
     };
 
     policies = lib.mkOption {
       type = policyFormat.type;
-      default = { };
+      default = {};
       description = ''
         Group policies to install.
 
@@ -104,14 +101,13 @@ in
     };
 
     preferences = lib.mkOption {
-      type =
-        with lib.types;
+      type = with lib.types;
         attrsOf (oneOf [
           bool
           int
           str
         ]);
-      default = { };
+      default = {};
       description = ''
         Preferences to set from `about:config`.
 
@@ -151,7 +147,7 @@ in
     languagePacks = lib.mkOption {
       # Available languages can be found in https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/
       type = lib.types.listOf (
-        lib.types.enum ([
+        lib.types.enum [
           "ach"
           "af"
           "an"
@@ -255,9 +251,9 @@ in
           "xh"
           "zh-CN"
           "zh-TW"
-        ])
+        ]
       );
-      default = [ ];
+      default = [];
       description = ''
         The language packs to install.
       '';
@@ -276,7 +272,7 @@ in
 
     autoConfigFiles = lib.mkOption {
       type = with lib.types; listOf path;
-      default = [ ];
+      default = [];
       description = ''
         AutoConfig files can be used to set and lock preferences that are not covered
         by the policies.json for Mac and Linux. This method can be used to automatically
@@ -287,51 +283,50 @@ in
       '';
     };
 
-    nativeMessagingHosts = ({
-      packages = lib.mkOption {
-        type = lib.types.listOf lib.types.package;
-        default = [ ];
-        description = ''
-          Additional packages containing native messaging hosts that should be made available to Firefox extensions.
-        '';
-      };
-    }) // (builtins.mapAttrs (k: v: lib.mkEnableOption "${v.name} support") nmhOptions);
+    nativeMessagingHosts =
+      {
+        packages = lib.mkOption {
+          type = lib.types.listOf lib.types.package;
+          default = [];
+          description = ''
+            Additional packages containing native messaging hosts that should be made available to Firefox extensions.
+          '';
+        };
+      }
+      // (builtins.mapAttrs (k: v: lib.mkEnableOption "${v.name} support") nmhOptions);
   };
 
-  config =
-    let
-      forEachEnabledNmh =
-        fn:
-        lib.flatten (
-          lib.mapAttrsToList (k: v: lib.optional cfg.nativeMessagingHosts.${k} (fn k v)) nmhOptions
-        );
-    in
+  config = let
+    forEachEnabledNmh = fn:
+      lib.flatten (
+        lib.mapAttrsToList (k: v: lib.optional cfg.nativeMessagingHosts.${k} (fn k v)) nmhOptions
+      );
+  in
     lib.mkIf cfg.enable {
       warnings = forEachEnabledNmh (
         k: v:
-        "The `programs.firefox.nativeMessagingHosts.${k}` option is deprecated, "
-        + "please add `${v.package.pname}` to `programs.firefox.nativeMessagingHosts.packages` instead."
+          "The `programs.firefox.nativeMessagingHosts.${k}` option is deprecated, "
+          + "please add `${v.package.pname}` to `programs.firefox.nativeMessagingHosts.packages` instead."
       );
       programs.firefox.nativeMessagingHosts.packages = forEachEnabledNmh (_: v: v.package);
 
       environment.systemPackages = [
         (cfg.package.override (old: {
           extraPrefsFiles =
-            old.extraPrefsFiles or [ ]
+            old.extraPrefsFiles or []
             ++ cfg.autoConfigFiles
-            ++ [ (pkgs.writeText "firefox-autoconfig.js" cfg.autoConfig) ];
+            ++ [(pkgs.writeText "firefox-autoconfig.js" cfg.autoConfig)];
           nativeMessagingHosts = lib.unique (
-            old.nativeMessagingHosts or [ ] ++ cfg.nativeMessagingHosts.packages
+            old.nativeMessagingHosts or [] ++ cfg.nativeMessagingHosts.packages
           );
-          cfg = (old.cfg or { }) // cfg.wrapperConfig;
+          cfg = (old.cfg or {}) // cfg.wrapperConfig;
         }))
       ];
 
-      environment.etc =
-        let
-          policiesJSON = policyFormat.generate "firefox-policies.json" { inherit (cfg) policies; };
-        in
-        lib.mkIf (cfg.policies != { }) {
+      environment.etc = let
+        policiesJSON = policyFormat.generate "firefox-policies.json" {inherit (cfg) policies;};
+      in
+        lib.mkIf (cfg.policies != {}) {
           "firefox/policies/policies.json".source = "${policiesJSON}";
         };
 
@@ -342,16 +337,18 @@ in
           builtins.mapAttrs (_: value: {
             Value = value;
             Status = cfg.preferencesStatus;
-          }) cfg.preferences
+          })
+          cfg.preferences
         );
         ExtensionSettings = builtins.listToAttrs (
           builtins.map (
             lang:
-            lib.attrsets.nameValuePair "langpack-${lang}@firefox.mozilla.org" {
-              installation_mode = "normal_installed";
-              install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
-            }
-          ) cfg.languagePacks
+              lib.attrsets.nameValuePair "langpack-${lang}@firefox.mozilla.org" {
+                installation_mode = "normal_installed";
+                install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
+              }
+          )
+          cfg.languagePacks
         );
       };
     };

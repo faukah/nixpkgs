@@ -7,9 +7,7 @@
   pytestCheckHook,
   setuptools-scm,
   six,
-}:
-
-let
+}: let
   automat = buildPythonPackage rec {
     version = "24.8.1";
     format = "pyproject";
@@ -20,7 +18,7 @@ let
       hash = "sha256-s0Inz2P2MluK0jme3ngGdQg+Q5sgwyPTdjc9juYwbYg=";
     };
 
-    nativeBuildInputs = [ setuptools-scm ];
+    nativeBuildInputs = [setuptools-scm];
 
     propagatedBuildInputs = [
       six
@@ -46,8 +44,8 @@ let
       description = "Self-service finite-state machines for the programmer on the go";
       mainProgram = "automat-visualize";
       license = licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-automat
+  automat

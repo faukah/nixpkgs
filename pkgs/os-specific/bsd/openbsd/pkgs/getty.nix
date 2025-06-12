@@ -4,7 +4,7 @@
 }:
 mkDerivation {
   path = "libexec/getty";
-  extraPaths = [ "etc/gettytab" ];
+  extraPaths = ["etc/gettytab"];
 
   postPatch = ''
     substituteInPlace $BSDSRCDIR/libexec/getty/pathnames.h \

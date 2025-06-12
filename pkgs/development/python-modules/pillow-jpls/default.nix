@@ -18,7 +18,6 @@
   pyproject-metadata,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pillow-jpls";
   version = "1.3.2";
@@ -70,18 +69,18 @@ buildPythonPackage rec {
     "cmake.args=--preset=sysdeps"
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Prevent importing from build during test collection:
   preCheck = ''rm -rf pillow_jpls'';
 
-  pythonImportsCheck = [ "pillow_jpls" ];
+  pythonImportsCheck = ["pillow_jpls"];
 
   meta = with lib; {
     description = "JPEG-LS plugin for the Python Pillow library";
     homepage = "https://github.com/planetmarshall/pillow-jpls";
     changelog = "https://github.com/planetmarshall/pillow-jpls/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

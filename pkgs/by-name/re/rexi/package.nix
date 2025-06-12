@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rexi";
   version = "1.2.0";
@@ -41,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     description = "User-friendly terminal UI to interactively work with regular expressions";
     homepage = "https://github.com/royreznik/rexi";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gauravghodinde ];
+    maintainers = with lib.maintainers; [gauravghodinde];
     mainProgram = "rexi";
   };
 }

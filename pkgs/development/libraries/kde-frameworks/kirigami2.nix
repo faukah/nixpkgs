@@ -6,7 +6,6 @@
   qtgraphicaleffects,
   qttools,
 }:
-
 mkDerivation {
   pname = "kirigami2";
   nativeBuildInputs = [

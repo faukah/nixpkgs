@@ -8,7 +8,6 @@
   buildPackages,
   ghcWithPackages,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.1.2";
   pname = "cedille";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     Agda
-    (ghcWithPackages (ps: [ ps.ieee ]))
+    (ghcWithPackages (ps: [ps.ieee]))
   ];
 
   LANG = "en_US.UTF-8";
@@ -56,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Interactive theorem-prover and dependently typed programming language, based on extrinsic (aka Curry-style) type theory";
     homepage = "https://cedille.github.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mpickering ];
+    maintainers = with maintainers; [mpickering];
     platforms = platforms.unix;
 
     # Broken due to Agda update.  See

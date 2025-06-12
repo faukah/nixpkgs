@@ -13,7 +13,6 @@
   testers,
   duperemove,
 }:
-
 stdenv.mkDerivation rec {
   pname = "duperemove";
   version = "0.15.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
       "lscpu" "${lib.getBin util-linux}/bin/lscpu"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libbsd
     libgcrypt

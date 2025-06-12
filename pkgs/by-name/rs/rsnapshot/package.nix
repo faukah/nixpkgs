@@ -9,7 +9,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rsnapshot";
   version = "1.5.1";
@@ -26,8 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     logger
   ];
 
-  configureFlags = [ "--sysconfdir=/etc --prefix=/" ];
-  makeFlags = [ "DESTDIR=$(out)" ];
+  configureFlags = ["--sysconfdir=/etc --prefix=/"];
+  makeFlags = ["DESTDIR=$(out)"];
 
   patchPhase = ''
     substituteInPlace "Makefile.in" --replace \
@@ -41,14 +40,14 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Filesystem snapshot utility for making backups of local and remote systems";
     homepage = "https://rsnapshot.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     platforms = lib.platforms.linux;
     mainProgram = "rsnapshot";
   };

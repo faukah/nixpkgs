@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "httpx";
   version = "1.7.0";
@@ -18,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-lwk/ajywAJ969U5gpYQgIg8+u1xKARFH+HTk2+OgY4A=";
 
-  subPackages = [ "cmd/httpx" ];
+  subPackages = ["cmd/httpx"];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -44,7 +43,7 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/httpx";
     changelog = "https://github.com/projectdiscovery/httpx/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "httpx";
   };
 }

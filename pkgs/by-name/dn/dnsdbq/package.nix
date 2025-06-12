@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       version = testers.testVersion {
         package = dnsdbq;
@@ -47,13 +47,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  extraOutputsToInstall = [ "man" ];
+  extraOutputsToInstall = ["man"];
 
   meta = {
     description = "C99 program that accesses passive DNS database systems";
     homepage = "https://github.com/dnsdb/dnsdbq";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ x123 ];
+    maintainers = with lib.maintainers; [x123];
     mainProgram = "dnsdbq";
     platforms = lib.platforms.all;
   };

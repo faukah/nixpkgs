@@ -6,7 +6,6 @@
   containers,
   ounit2,
 }:
-
 buildDunePackage rec {
   pname = "decoders-yojson";
 
@@ -31,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mattjbray/ocaml-decoders";
     changelog = "https://github.com/mattjbray/ocaml-decoders/blob/${version}/CHANGES.md";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ infinidoge ];
+    maintainers = with lib.maintainers; [infinidoge];
   };
 }

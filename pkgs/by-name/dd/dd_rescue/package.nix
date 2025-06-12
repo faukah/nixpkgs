@@ -4,7 +4,6 @@
   fetchurl,
   autoconf,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.99.21";
   pname = "dd_rescue";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0br6fs23ybmic3i5s1w4k4l8c2ph85ax94gfp2lzjpxbvl73cz1g";
   };
 
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   preBuild = ''
     substituteInPlace Makefile \
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace "-o root" "" \
       --replace "-g root" ""
   '';
-  makeFlags = [ "LIBDIR=$out" ];
+  makeFlags = ["LIBDIR=$out"];
 
   postInstall = ''
     mkdir -p "$out/share/dd_rescue" "$out/bin"

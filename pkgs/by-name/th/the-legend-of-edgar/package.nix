@@ -12,7 +12,6 @@
   pkg-config,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "the-legend-of-edgar";
   version = "1.37";
@@ -75,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     license = lib.licenses.gpl1Plus;
     mainProgram = "edgar";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin;
   };

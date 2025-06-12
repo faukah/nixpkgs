@@ -3,14 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   udev = config.systemd.package;
 
   cfg = config.services.udev;
 
-  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" { } ''
+  initrdUdevRules = pkgs.runCommand "initrd-udev-rules" {} ''
     mkdir -p $out/etc/udev/rules.d
     for f in 60-cdrom_id 60-persistent-storage 75-net-description 80-drivers 80-net-setup-link; do
       ln -s ${config.boot.initrd.systemd.package}/lib/udev/rules.d/$f.rules $out/etc/udev/rules.d
@@ -40,167 +38,162 @@ let
   '';
 
   # Perform substitutions in all udev rules files.
-  udevRulesFor =
-    {
-      name,
-      udevPackages,
-      udevPath,
-      udev,
-      systemd,
-      binPackages,
-      initrdBin ? null,
-    }:
+  udevRulesFor = {
+    name,
+    udevPackages,
+    udevPath,
+    udev,
+    systemd,
+    binPackages,
+    initrdBin ? null,
+  }:
     pkgs.runCommand name
-      {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        packages = lib.unique (map toString udevPackages);
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      packages = lib.unique (map toString udevPackages);
 
-        nativeBuildInputs = [
-          # We only include the out output here to avoid needing to include all
-          # other outputs in the installer tests as well
-          # We only need the udevadm command anyway
-          pkgs.systemdMinimal.out
-        ];
-      }
-      ''
-        mkdir -p $out
-        shopt -s nullglob
-        set +o pipefail
+      nativeBuildInputs = [
+        # We only include the out output here to avoid needing to include all
+        # other outputs in the installer tests as well
+        # We only need the udevadm command anyway
+        pkgs.systemdMinimal.out
+      ];
+    }
+    ''
+      mkdir -p $out
+      shopt -s nullglob
+      set +o pipefail
 
-        # Set a reasonable $PATH for programs called by udev rules.
-        echo 'ENV{PATH}="${udevPath}/bin:${udevPath}/sbin"' > $out/00-path.rules
+      # Set a reasonable $PATH for programs called by udev rules.
+      echo 'ENV{PATH}="${udevPath}/bin:${udevPath}/sbin"' > $out/00-path.rules
 
-        # Add the udev rules from other packages.
-        for i in $packages; do
-          echo "Adding rules for package $i"
-          for j in $i/{etc,lib}/udev/rules.d/*; do
-            echo "Copying $j to $out/$(basename $j)"
-            cat $j > $out/$(basename $j)
-          done
+      # Add the udev rules from other packages.
+      for i in $packages; do
+        echo "Adding rules for package $i"
+        for j in $i/{etc,lib}/udev/rules.d/*; do
+          echo "Copying $j to $out/$(basename $j)"
+          cat $j > $out/$(basename $j)
         done
+      done
 
-        # Fix some paths in the standard udev rules.  Hacky.
-        for i in $out/*.rules; do
-          substituteInPlace $i \
-            --replace-quiet \"/sbin/modprobe \"${pkgs.kmod}/bin/modprobe \
-            --replace-quiet \"/sbin/mdadm \"${pkgs.mdadm}/sbin/mdadm \
-            --replace-quiet \"/sbin/blkid \"${pkgs.util-linux}/sbin/blkid \
-            --replace-quiet \"/bin/mount \"${pkgs.util-linux}/bin/mount \
-            --replace-quiet /usr/bin/readlink ${pkgs.coreutils}/bin/readlink \
-            --replace-quiet /usr/bin/cat ${pkgs.coreutils}/bin/cat \
-            --replace-quiet /usr/bin/basename ${pkgs.coreutils}/bin/basename 2>/dev/null
-        ${lib.optionalString (initrdBin != null) ''
-          substituteInPlace $i --replace-quiet '/run/current-system/systemd' "${lib.removeSuffix "/bin" initrdBin}"
-        ''}
-        done
+      # Fix some paths in the standard udev rules.  Hacky.
+      for i in $out/*.rules; do
+        substituteInPlace $i \
+          --replace-quiet \"/sbin/modprobe \"${pkgs.kmod}/bin/modprobe \
+          --replace-quiet \"/sbin/mdadm \"${pkgs.mdadm}/sbin/mdadm \
+          --replace-quiet \"/sbin/blkid \"${pkgs.util-linux}/sbin/blkid \
+          --replace-quiet \"/bin/mount \"${pkgs.util-linux}/bin/mount \
+          --replace-quiet /usr/bin/readlink ${pkgs.coreutils}/bin/readlink \
+          --replace-quiet /usr/bin/cat ${pkgs.coreutils}/bin/cat \
+          --replace-quiet /usr/bin/basename ${pkgs.coreutils}/bin/basename 2>/dev/null
+      ${lib.optionalString (initrdBin != null) ''
+        substituteInPlace $i --replace-quiet '/run/current-system/systemd' "${lib.removeSuffix "/bin" initrdBin}"
+      ''}
+      done
 
-        echo -n "Checking that all programs called by relative paths in udev rules exist in ${udev}/lib/udev... "
-        import_progs=$(grep 'IMPORT{program}="[^/$]' $out/* |
-          sed -e 's/.*IMPORT{program}="\([^ "]*\)[ "].*/\1/' | uniq)
-        run_progs=$(grep -v '^[[:space:]]*#' $out/* | grep 'RUN+="[^/$]' |
-          sed -e 's/.*RUN+="\([^ "]*\)[ "].*/\1/' | uniq)
-        for i in $import_progs $run_progs; do
-          if [[ ! -x ${udev}/lib/udev/$i && ! $i =~ socket:.* ]]; then
-            echo "FAIL"
-            echo "$i is called in udev rules but not installed by udev"
-            exit 1
-          fi
-        done
-        echo "OK"
-
-        echo -n "Checking that all programs called by absolute paths in udev rules exist... "
-        import_progs=$(grep 'IMPORT{program}="/' $out/* |
-          sed -e 's/.*IMPORT{program}="\([^ "]*\)[ "].*/\1/' | uniq)
-        run_progs=$(grep -v '^[[:space:]]*#' $out/* | grep 'RUN+="/' |
-          sed -e 's/.*RUN+="\([^ "]*\)[ "].*/\1/' | uniq)
-        for i in $import_progs $run_progs; do
-          # if the path refers to /run/current-system/systemd, replace with config.systemd.package
-          if [[ $i == /run/current-system/systemd* ]]; then
-            i="${systemd}/''${i#/run/current-system/systemd/}"
-          fi
-
-          if [[ ! -x $i ]]; then
-            echo "FAIL"
-            echo "$i is called in udev rules but is not executable or does not exist"
-            exit 1
-          fi
-        done
-        echo "OK"
-
-        filesToFixup="$(for i in "$out"/*; do
-          # list all files referring to (/usr)/bin paths, but allow references to /bin/sh.
-          grep -P -l '\B(?!\/bin\/sh\b)(\/usr)?\/bin(?:\/.*)?' "$i" || :
-        done)"
-
-        if [ -n "$filesToFixup" ]; then
-          echo "Consider fixing the following udev rules:"
-          echo "$filesToFixup" | while read localFile; do
-            remoteFile="origin unknown"
-            for i in ${toString binPackages}; do
-              for j in "$i"/*/udev/rules.d/*; do
-                [ -e "$out/$(basename "$j")" ] || continue
-                [ "$(basename "$j")" = "$(basename "$localFile")" ] || continue
-                remoteFile="originally from $j"
-                break 2
-              done
-            done
-            refs="$(
-              grep -o '\B\(/usr\)\?/s\?bin/[^ "]\+' "$localFile" \
-                | sed -e ':r;N;''${s/\n/ and /;br};s/\n/, /g;br'
-            )"
-            echo "$localFile ($remoteFile) contains references to $refs."
-          done
+      echo -n "Checking that all programs called by relative paths in udev rules exist in ${udev}/lib/udev... "
+      import_progs=$(grep 'IMPORT{program}="[^/$]' $out/* |
+        sed -e 's/.*IMPORT{program}="\([^ "]*\)[ "].*/\1/' | uniq)
+      run_progs=$(grep -v '^[[:space:]]*#' $out/* | grep 'RUN+="[^/$]' |
+        sed -e 's/.*RUN+="\([^ "]*\)[ "].*/\1/' | uniq)
+      for i in $import_progs $run_progs; do
+        if [[ ! -x ${udev}/lib/udev/$i && ! $i =~ socket:.* ]]; then
+          echo "FAIL"
+          echo "$i is called in udev rules but not installed by udev"
           exit 1
         fi
+      done
+      echo "OK"
 
-        # Verify all the udev rules
-        echo "Verifying udev rules using udevadm verify..."
-        udevadm verify --resolve-names=never --no-style $out
-        echo "OK"
+      echo -n "Checking that all programs called by absolute paths in udev rules exist... "
+      import_progs=$(grep 'IMPORT{program}="/' $out/* |
+        sed -e 's/.*IMPORT{program}="\([^ "]*\)[ "].*/\1/' | uniq)
+      run_progs=$(grep -v '^[[:space:]]*#' $out/* | grep 'RUN+="/' |
+        sed -e 's/.*RUN+="\([^ "]*\)[ "].*/\1/' | uniq)
+      for i in $import_progs $run_progs; do
+        # if the path refers to /run/current-system/systemd, replace with config.systemd.package
+        if [[ $i == /run/current-system/systemd* ]]; then
+          i="${systemd}/''${i#/run/current-system/systemd/}"
+        fi
 
-        # If auto-configuration is disabled, then remove
-        # udev's 80-drivers.rules file, which contains rules for
-        # automatically calling modprobe.
-        ${lib.optionalString (!config.boot.hardwareScan) ''
-          ln -s /dev/null $out/80-drivers.rules
-        ''}
-      '';
+        if [[ ! -x $i ]]; then
+          echo "FAIL"
+          echo "$i is called in udev rules but is not executable or does not exist"
+          exit 1
+        fi
+      done
+      echo "OK"
+
+      filesToFixup="$(for i in "$out"/*; do
+        # list all files referring to (/usr)/bin paths, but allow references to /bin/sh.
+        grep -P -l '\B(?!\/bin\/sh\b)(\/usr)?\/bin(?:\/.*)?' "$i" || :
+      done)"
+
+      if [ -n "$filesToFixup" ]; then
+        echo "Consider fixing the following udev rules:"
+        echo "$filesToFixup" | while read localFile; do
+          remoteFile="origin unknown"
+          for i in ${toString binPackages}; do
+            for j in "$i"/*/udev/rules.d/*; do
+              [ -e "$out/$(basename "$j")" ] || continue
+              [ "$(basename "$j")" = "$(basename "$localFile")" ] || continue
+              remoteFile="originally from $j"
+              break 2
+            done
+          done
+          refs="$(
+            grep -o '\B\(/usr\)\?/s\?bin/[^ "]\+' "$localFile" \
+              | sed -e ':r;N;''${s/\n/ and /;br};s/\n/, /g;br'
+          )"
+          echo "$localFile ($remoteFile) contains references to $refs."
+        done
+        exit 1
+      fi
+
+      # Verify all the udev rules
+      echo "Verifying udev rules using udevadm verify..."
+      udevadm verify --resolve-names=never --no-style $out
+      echo "OK"
+
+      # If auto-configuration is disabled, then remove
+      # udev's 80-drivers.rules file, which contains rules for
+      # automatically calling modprobe.
+      ${lib.optionalString (!config.boot.hardwareScan) ''
+        ln -s /dev/null $out/80-drivers.rules
+      ''}
+    '';
 
   hwdbBin =
     pkgs.runCommand "hwdb.bin"
-      {
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        packages = lib.unique (map toString ([ udev ] ++ cfg.packages));
-      }
-      ''
-        mkdir -p etc/udev/hwdb.d
-        for i in $packages; do
-          echo "Adding hwdb files for package $i"
-          for j in $i/{etc,lib}/udev/hwdb.d/*; do
-            ln -s $j etc/udev/hwdb.d/$(basename $j)
-          done
+    {
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      packages = lib.unique (map toString ([udev] ++ cfg.packages));
+    }
+    ''
+      mkdir -p etc/udev/hwdb.d
+      for i in $packages; do
+        echo "Adding hwdb files for package $i"
+        for j in $i/{etc,lib}/udev/hwdb.d/*; do
+          ln -s $j etc/udev/hwdb.d/$(basename $j)
         done
+      done
 
-        echo "Generating hwdb database..."
-        # hwdb --update doesn't return error code even on errors!
-        res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
-        echo "$res"
-        [ -z "$(echo "$res" | egrep '^Error')" ]
-        mv etc/udev/hwdb.bin $out
-      '';
+      echo "Generating hwdb database..."
+      # hwdb --update doesn't return error code even on errors!
+      res="$(${pkgs.buildPackages.systemd}/bin/systemd-hwdb --root=$(pwd) update 2>&1)"
+      echo "$res"
+      [ -z "$(echo "$res" | egrep '^Error')" ]
+      mv etc/udev/hwdb.bin $out
+    '';
 
-  compressFirmware =
-    firmware:
-    if
-      config.hardware.firmwareCompression == "none" || (firmware.compressFirmware or true) == false
-    then
-      firmware
-    else if config.hardware.firmwareCompression == "zstd" then
-      pkgs.compressFirmwareZstd firmware
-    else
-      pkgs.compressFirmwareXz firmware;
+  compressFirmware = firmware:
+    if config.hardware.firmwareCompression == "none" || (firmware.compressFirmware or true) == false
+    then firmware
+    else if config.hardware.firmwareCompression == "zstd"
+    then pkgs.compressFirmwareZstd firmware
+    else pkgs.compressFirmwareXz firmware;
 
   # Udev has a 512-character limit for ENV{PATH}, so create a symlink
   # tree to work around this.
@@ -213,11 +206,7 @@ let
     ];
     ignoreCollisions = true;
   };
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
@@ -233,13 +222,15 @@ in
     };
 
     services.udev = {
-      enable = lib.mkEnableOption "udev, a device manager for the Linux kernel" // {
-        default = true;
-      };
+      enable =
+        lib.mkEnableOption "udev, a device manager for the Linux kernel"
+        // {
+          default = true;
+        };
 
       packages = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           List of packages containing {command}`udev` rules.
           All files found in
@@ -252,7 +243,7 @@ in
 
       path = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           Packages added to the {env}`PATH` environment variable when
           executing programs from Udev rules.
@@ -289,12 +280,11 @@ in
           read after all other files.
         '';
       };
-
     };
 
     hardware.firmware = lib.mkOption {
       type = lib.types.listOf lib.types.package;
-      default = [ ];
+      default = [];
       description = ''
         List of packages containing firmware files.  Such files
         will be loaded automatically if the kernel asks for them
@@ -304,12 +294,11 @@ in
         precedence.  Note that you must rebuild your system if you add
         files to any of these directories.
       '';
-      apply =
-        list:
+      apply = list:
         pkgs.buildEnv {
           name = "firmware";
           paths = map compressFirmware list;
-          pathsToLink = [ "/lib/firmware" ];
+          pathsToLink = ["/lib/firmware"];
           ignoreCollisions = true;
         };
     };
@@ -321,12 +310,11 @@ in
         "none"
       ];
       default =
-        if config.boot.kernelPackages.kernelAtLeast "5.19" then
-          "zstd"
-        else if config.boot.kernelPackages.kernelAtLeast "5.3" then
-          "xz"
-        else
-          "none";
+        if config.boot.kernelPackages.kernelAtLeast "5.19"
+        then "zstd"
+        else if config.boot.kernelPackages.kernelAtLeast "5.3"
+        then "xz"
+        else "none";
       defaultText = "auto";
       description = ''
         Whether to compress firmware files.
@@ -354,10 +342,9 @@ in
     };
 
     boot.initrd.services.udev = {
-
       packages = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           *This will only be used when systemd is used in stage 1.*
 
@@ -371,7 +358,7 @@ in
 
       binPackages = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           *This will only be used when systemd is used in stage 1.*
 
@@ -394,15 +381,12 @@ in
           after the essential initrd rules.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     assertions = [
       {
         assertion =
@@ -437,15 +421,15 @@ in
       udev
     ];
 
-    boot.kernelParams = lib.mkIf (!config.networking.usePredictableInterfaceNames) [ "net.ifnames=0" ];
+    boot.kernelParams = lib.mkIf (!config.networking.usePredictableInterfaceNames) ["net.ifnames=0"];
 
     boot.initrd.extraUdevRulesCommands =
       lib.mkIf (!config.boot.initrd.systemd.enable && config.boot.initrd.services.udev.rules != "")
-        ''
-          cat <<'EOF' > $out/99-local.rules
-          ${config.boot.initrd.services.udev.rules}
-          EOF
-        '';
+      ''
+        cat <<'EOF' > $out/99-local.rules
+        ${config.boot.initrd.services.udev.rules}
+        EOF
+      '';
 
     boot.initrd.services.udev.rules = nixosInitrdRules;
 
@@ -457,13 +441,15 @@ in
       "systemd-udev-settle.service"
       "systemd-udev-trigger.service"
     ];
-    boot.initrd.systemd.storePaths = [
-      "${config.boot.initrd.systemd.package}/lib/systemd/systemd-udevd"
-      "${config.boot.initrd.systemd.package}/lib/udev/ata_id"
-      "${config.boot.initrd.systemd.package}/lib/udev/cdrom_id"
-      "${config.boot.initrd.systemd.package}/lib/udev/scsi_id"
-      "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
-    ] ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages;
+    boot.initrd.systemd.storePaths =
+      [
+        "${config.boot.initrd.systemd.package}/lib/systemd/systemd-udevd"
+        "${config.boot.initrd.systemd.package}/lib/udev/ata_id"
+        "${config.boot.initrd.systemd.package}/lib/udev/cdrom_id"
+        "${config.boot.initrd.systemd.package}/lib/udev/scsi_id"
+        "${config.boot.initrd.systemd.package}/lib/udev/rules.d"
+      ]
+      ++ map (x: "${x}/bin") config.boot.initrd.services.udev.binPackages;
 
     # Generate the udev rules for the initrd
     boot.initrd.systemd.contents = {
@@ -474,9 +460,11 @@ in
         udevPath = config.boot.initrd.systemd.contents."/bin".source;
         udev = config.boot.initrd.systemd.package;
         systemd = config.boot.initrd.systemd.package;
-        binPackages = config.boot.initrd.services.udev.binPackages ++ [
-          config.boot.initrd.systemd.contents."/bin".source
-        ];
+        binPackages =
+          config.boot.initrd.services.udev.binPackages
+          ++ [
+            config.boot.initrd.systemd.contents."/bin".source
+          ];
       };
     };
     # Insert initrd rules
@@ -504,8 +492,7 @@ in
       }
       // lib.optionalAttrs config.boot.modprobeConfig.enable {
         # We don't place this into `extraModprobeConfig` so that stage-1 ramdisk doesn't bloat.
-        "modprobe.d/firmware.conf".text =
-          "options firmware_class path=${config.hardware.firmware}/lib/firmware";
+        "modprobe.d/firmware.conf".text = "options firmware_class path=${config.hardware.firmware}/lib/firmware";
       };
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
@@ -527,16 +514,17 @@ in
     '';
 
     systemd.services.systemd-udevd = {
-      restartTriggers = [ config.environment.etc."udev/rules.d".source ];
+      restartTriggers = [config.environment.etc."udev/rules.d".source];
       notSocketActivated = true;
       stopIfChanged = false;
     };
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "services" "udev" "initrdRules" ]
-      [ "boot" "initrd" "services" "udev" "rules" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "udev" "initrdRules"]
+      ["boot" "initrd" "services" "udev" "rules"]
     )
   ];
 }

@@ -3,15 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-
-{
+}: {
   meta = {
     maintainers = lib.teams.gnome.members;
   };
 
   imports = [
-    (lib.mkRenamedOptionModule
+    (
+      lib.mkRenamedOptionModule
       [
         "services"
         "gnome"
@@ -41,10 +40,10 @@
   };
 
   config = lib.mkIf config.services.gnome.localsearch.enable {
-    environment.systemPackages = [ pkgs.localsearch ];
+    environment.systemPackages = [pkgs.localsearch];
 
-    services.dbus.packages = [ pkgs.localsearch ];
+    services.dbus.packages = [pkgs.localsearch];
 
-    systemd.packages = [ pkgs.localsearch ];
+    systemd.packages = [pkgs.localsearch];
   };
 }

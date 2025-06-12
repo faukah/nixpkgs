@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "htmltest";
   version = "0.17.0";
@@ -34,7 +33,7 @@ buildGoModule rec {
       links, images, scripts references work, your alt tags are filled in, etc.
     '';
     homepage = "https://github.com/wjdp/htmltest";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

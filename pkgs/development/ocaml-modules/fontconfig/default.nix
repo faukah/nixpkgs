@@ -6,7 +6,6 @@
   fontconfig,
   ocaml,
 }:
-
 stdenv.mkDerivation {
   pname = "ocaml${ocaml.version}-fontconfig";
   version = "unstable-2013-11-03";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     pkg-config
     ocaml
   ];
-  buildInputs = [ fontconfig ];
+  buildInputs = [fontconfig];
 
   strictDeps = true;
 
@@ -41,6 +40,6 @@ stdenv.mkDerivation {
     description = "Fontconfig bindings for OCaml";
     license = lib.licenses.gpl2Plus;
     platforms = ocaml.meta.platforms;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

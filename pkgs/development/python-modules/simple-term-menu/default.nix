@@ -4,7 +4,6 @@
   fetchFromGitHub,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "simple-term-menu";
   version = "1.6.6";
@@ -17,9 +16,9 @@ buildPythonPackage rec {
     hash = "sha256-nfMqtyUalt/d/wTyRUlu5x4Q349ARY8hDMi8Ui4cTI4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "simple_term_menu" ];
+  pythonImportsCheck = ["simple_term_menu"];
 
   # no unit tests in the upstream
   doCheck = false;
@@ -30,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/IngoMeyer441/simple-term-menu";
     license = licenses.mit;
     changelog = "https://github.com/IngoMeyer441/simple-term-menu/releases/tag/v${version}";
-    maintainers = with maintainers; [ smrehman ];
+    maintainers = with maintainers; [smrehman];
   };
 }

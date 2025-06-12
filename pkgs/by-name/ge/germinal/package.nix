@@ -13,7 +13,6 @@
   wrapGAppsHook3,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "germinal";
   version = "26";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
   fixupPhase = ''
     runHook preFixup
     wrapProgram $out/bin/germinal \
-     --prefix PATH ":" "${lib.makeBinPath [ tmux ]}" \
+     --prefix PATH ":" "${lib.makeBinPath [tmux]}" \
       "''${gappsWrapperArgs[@]}"
     runHook postFixup
   '';
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Keruspe/Germinal";
     license = lib.licenses.gpl3Plus;
     mainProgram = "germinal";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 })

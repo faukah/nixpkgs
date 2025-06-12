@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options = {
     server = lib.mkOption {
       type = lib.types.either (lib.types.submodule (import ./server-options.nix)) (lib.types.path);

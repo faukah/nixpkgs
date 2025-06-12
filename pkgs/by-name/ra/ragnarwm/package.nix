@@ -11,7 +11,6 @@
   conf ? null,
   nixosTests,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ragnarwm";
   version = "1.4";
@@ -29,11 +28,12 @@ stdenv.mkDerivation (finalAttrs: {
       --replace '/usr/share' "$out/share"
   '';
 
-  postPatch =
-    let
-      configFile =
-        if lib.isDerivation conf || builtins.isPath conf then conf else writeText "config.h" conf;
-    in
+  postPatch = let
+    configFile =
+      if lib.isDerivation conf || builtins.isPath conf
+      then conf
+      else writeText "config.h" conf;
+  in
     lib.optionalString (conf != null) "cp ${configFile} config.h";
 
   buildInputs = [
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     libXcomposite
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
   enableParallelBuilding = true;
 
   preInstall = ''
@@ -58,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.ragnarwm = nixosTests.ragnarwm;
-    providedSessions = [ "ragnar" ];
+    providedSessions = ["ragnar"];
   };
 
   meta = {
@@ -66,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://ragnar-website.vercel.app";
     changelog = "https://github.com/cococry/Ragnar/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
     mainProgram = "ragnar";
     platforms = lib.platforms.linux;
   };

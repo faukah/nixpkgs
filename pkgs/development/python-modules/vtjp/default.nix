@@ -7,7 +7,6 @@
   setuptools,
   tabulate,
 }:
-
 buildPythonPackage rec {
   pname = "vtjp";
   version = "0.2.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-3/toHY2PkG87J5bIMNJZHF/4mUvWaeHamMzPa1St7Xo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     requests
@@ -32,7 +31,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "vasttrafik" ];
+  pythonImportsCheck = ["vasttrafik"];
 
   meta = with lib; {
     description = "Python wrapper and cli for Västtrafik public API";
@@ -40,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Miicroo/python-vasttrafik";
     changelog = "https://github.com/Miicroo/python-vasttrafik/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -3,9 +3,9 @@
   pkgs,
   config,
   ...
-}:
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     boolToString
     getExe
     mkEnableOption
@@ -16,12 +16,11 @@ let
     ;
 
   cfg = config.services.firezone.relay;
-in
-{
+in {
   options = {
     services.firezone.relay = {
       enable = mkEnableOption "the firezone relay server";
-      package = mkPackageOption pkgs "firezone-relay" { };
+      package = mkPackageOption pkgs "firezone-relay" {};
 
       name = mkOption {
         type = types.str;
@@ -109,7 +108,7 @@ in
       }
     ];
 
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [cfg.port];
     networking.firewall.allowedUDPPortRanges = mkIf cfg.openFirewall [
       {
         from = cfg.lowestPort;
@@ -119,10 +118,10 @@ in
 
     systemd.services.firezone-relay = {
       description = "relay service for the Firezone zero-trust access platform";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-      path = [ pkgs.util-linux ];
+      path = [pkgs.util-linux];
       script = ''
         # If FIREZONE_ID is not given by the user, use a persisted (or newly generated) uuid.
         if [[ -z "''${FIREZONE_ID:-}" ]]; then
@@ -156,7 +155,7 @@ in
         Type = "exec";
         DynamicUser = true;
         User = "firezone-relay";
-        LoadCredential = [ "firezone-token:${cfg.tokenFile}" ];
+        LoadCredential = ["firezone-token:${cfg.tokenFile}"];
 
         StateDirectory = "firezone-relay";
         WorkingDirectory = "/var/lib/firezone-relay";

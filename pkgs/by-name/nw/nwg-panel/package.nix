@@ -20,7 +20,6 @@
   libdbusmenu-gtk3, # tray
   playerctl,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nwg-panel";
   version = "0.10.6";
@@ -62,7 +61,7 @@ python3Packages.buildPythonApplication rec {
       setuptools
     ])
     # Run-time GTK dependency required by the Tray module
-    ++ [ libdbusmenu-gtk3 ];
+    ++ [libdbusmenu-gtk3];
 
   postInstall = ''
     mkdir -p $out/share/{applications,pixmaps}
@@ -75,17 +74,17 @@ python3Packages.buildPythonApplication rec {
       "''${gappsWrapperArgs[@]}"
       --prefix XDG_DATA_DIRS : "$out/share"
       --prefix PATH : "${
-        lib.makeBinPath [
-          brightnessctl
-          hyprland
-          nwg-menu
-          pamixer
-          pulseaudio
-          sway
-          systemd
-          wlr-randr
-        ]
-      }"
+      lib.makeBinPath [
+        brightnessctl
+        hyprland
+        nwg-menu
+        pamixer
+        pulseaudio
+        sway
+        systemd
+        wlr-randr
+      ]
+    }"
     )
   '';
 
@@ -95,7 +94,7 @@ python3Packages.buildPythonApplication rec {
     description = "GTK3-based panel for Sway window manager";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ludovicopiero ];
+    maintainers = with lib.maintainers; [ludovicopiero];
     mainProgram = "nwg-panel";
   };
 }

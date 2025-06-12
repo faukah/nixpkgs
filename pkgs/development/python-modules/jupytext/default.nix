@@ -5,12 +5,10 @@
   fetchFromGitHub,
   nodejs,
   yarn-berry_3,
-
   # build-system
   hatch-jupyter-builder,
   hatchling,
   jupyterlab,
-
   # dependencies
   markdown-it-py,
   mdit-py-plugins,
@@ -19,7 +17,6 @@
   pyyaml,
   pythonOlder,
   tomli,
-
   # tests
   jupyter-client,
   notebook,
@@ -28,7 +25,6 @@
   pytestCheckHook,
   versionCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "jupytext";
   version = "1.17.2";
@@ -70,13 +66,15 @@ buildPythonPackage rec {
     jupyterlab
   ];
 
-  dependencies = [
-    markdown-it-py
-    mdit-py-plugins
-    nbformat
-    packaging
-    pyyaml
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  dependencies =
+    [
+      markdown-it-py
+      mdit-py-plugins
+      nbformat
+      packaging
+      pyyaml
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     jupyter-client
@@ -118,7 +116,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mwouts/jupytext";
     changelog = "https://github.com/mwouts/jupytext/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
     mainProgram = "jupytext";
   };
 }

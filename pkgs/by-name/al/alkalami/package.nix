@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "alkalami";
   version = "3.000";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://software.sil.org/alkalami/";
     description = "Font for Arabic-based writing systems in the Kano region of Nigeria and in Niger";
     license = licenses.ofl;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     platforms = platforms.all;
   };
 }

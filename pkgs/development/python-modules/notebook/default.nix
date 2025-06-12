@@ -3,28 +3,23 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # nativeBuildInputs
   nodejs,
   yarn-berry_3,
   distutils,
-
   # build-system
   hatch-jupyter-builder,
   hatchling,
   jupyterlab,
-
   # dependencies
   jupyter-server,
   jupyterlab-server,
   notebook-shim,
   tornado,
-
   # tests
   pytest-jupyter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "notebook";
   version = "7.4.1";
@@ -94,7 +89,7 @@ buildPythonPackage rec {
     description = "Web-based notebook environment for interactive computing";
     homepage = "https://github.com/jupyter/notebook";
     license = lib.licenses.bsd3;
-    teams = [ lib.teams.jupyter ];
+    teams = [lib.teams.jupyter];
     mainProgram = "jupyter-notebook";
   };
 }

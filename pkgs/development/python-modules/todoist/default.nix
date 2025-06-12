@@ -5,7 +5,6 @@
   requests,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "todoist-python";
   version = "8.1.4";
@@ -18,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-Rkg6eSLiQe8DZaVu2DEnlKLe8RLkRwKmpw+TaYj+lp0=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "todoist" ];
+  pythonImportsCheck = ["todoist"];
 
   meta = with lib; {
     description = "Official Todoist Python API library";
     homepage = "https://todoist-python.readthedocs.io/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

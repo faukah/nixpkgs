@@ -11,7 +11,6 @@
   libadwaita,
   libgee,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pinit";
   version = "2.1.1";
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc0
     ];
     mainProgram = "com.github.ryonakano.pinit";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 })

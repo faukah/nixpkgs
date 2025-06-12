@@ -8,7 +8,6 @@
   ncurses,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pamix";
   version = "2.0";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     ncurses
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Pulseaudio terminal mixer";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/patroclos/PAmix/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     mainProgram = "pamix";
   };
 })

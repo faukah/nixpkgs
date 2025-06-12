@@ -6,11 +6,10 @@
   makeWrapper,
   version ? null,
 }:
-
 (mkCoqDerivation rec {
   pname = "coq-lsp";
   owner = "ejgallego";
-  namePrefix = [ ];
+  namePrefix = [];
 
   useDune = true;
 
@@ -22,8 +21,7 @@
   release."0.2.3+9.0".sha256 = "sha256-eZMM4gYRXQroEIKz6XlffyHNYryEF5dIeIoVbEulh6M=";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = isEq "8.16";
@@ -49,9 +47,10 @@
         case = isEq "9.0";
         out = "0.2.3+9.0";
       }
-    ] null;
+    ]
+    null;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -72,33 +71,33 @@
     description = "Language Server Protocol and VS Code Extension for Coq";
     homepage = "https://github.com/ejgallego/coq-lsp";
     changelog = "https://github.com/ejgallego/coq-lsp/blob/${defaultVersion}/CHANGES.md";
-    maintainers = with maintainers; [ alizter ];
+    maintainers = with maintainers; [alizter];
     license = licenses.lgpl21Only;
   };
 }).overrideAttrs
-  (
-    o: with coq.ocamlPackages; {
+(
+  o:
+    with coq.ocamlPackages; {
       propagatedBuildInputs =
         o.propagatedBuildInputs
         ++ (
-          if o.version != null && lib.versions.isLe "0.1.9+8.19" o.version && o.version != "dev" then
-            [
-              camlp-streams
-              serapi
-            ]
-          else
-            [
-              cmdliner
-              ppx_deriving
-              ppx_deriving_yojson
-              ppx_import
-              ppx_sexp_conv
-              ppx_compare
-              ppx_hash
-              sexplib
-            ]
+          if o.version != null && lib.versions.isLe "0.1.9+8.19" o.version && o.version != "dev"
+          then [
+            camlp-streams
+            serapi
+          ]
+          else [
+            cmdliner
+            ppx_deriving
+            ppx_deriving_yojson
+            ppx_import
+            ppx_sexp_conv
+            ppx_compare
+            ppx_hash
+            sexplib
+          ]
         );
 
       patches = lib.optional (lib.versions.isEq "0.1.8" o.version) ./coq-loader.patch;
     }
-  )
+)

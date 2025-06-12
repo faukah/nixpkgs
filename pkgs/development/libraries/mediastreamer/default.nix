@@ -22,7 +22,6 @@
   srtp,
   stdenv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mediastreamer2";
   version = "5.2.111";
@@ -98,6 +97,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.linphone.org/technical-corner/mediastreamer2";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -14,7 +14,6 @@
   libusb1,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gutenprint";
   version = "5.3.4";

@@ -20,7 +20,6 @@
   mock,
   tzlocal,
 }:
-
 # this is a pythonPackage because of the ipython line magics in pgcli.magic
 # integrating with ipython-sql
 buildPythonPackage rec {
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-dlrhVQxVCKSB8Z8WqZcWwlP+ka+yVXl63S1jXaILau8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     cli-helpers
@@ -56,10 +55,12 @@ buildPythonPackage rec {
     mock
   ];
 
-  disabledTests = [
-    # requires running postgres
-    "test_application_name_in_env"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_application_name_db_uri" ];
+  disabledTests =
+    [
+      # requires running postgres
+      "test_application_name_in_env"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_application_name_db_uri"];
 
   meta = with lib; {
     description = "Command-line interface for PostgreSQL";

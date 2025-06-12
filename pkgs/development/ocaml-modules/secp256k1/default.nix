@@ -8,7 +8,6 @@
   dune-configurator,
   secp256k1,
 }:
-
 buildDunePackage rec {
   pname = "secp256k1";
   version = "0.4.4";
@@ -38,6 +37,6 @@ buildDunePackage rec {
     homepage = "https://github.com/dakk/secp256k1-ml";
     description = "Elliptic curve library secp256k1 wrapper for Ocaml";
     license = licenses.mit;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

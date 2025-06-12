@@ -18,7 +18,6 @@
   kwidgetsaddons,
   kdoctools,
 }:
-
 mkDerivation {
   pname = "plasma-sdk";
 

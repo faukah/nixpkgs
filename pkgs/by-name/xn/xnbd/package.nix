@@ -7,7 +7,6 @@
   glib,
   jansson,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xnbd";
   version = "0.4.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "xnbd-${version}/trunk";
 
-  patches = [ ./0001-Fix-build-for-glibc-2.28.patch ];
+  patches = [./0001-Fix-build-for-glibc-2.28.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://bitbucket.org/hirofuchi/xnbd";
     description = "Yet another NBD (Network Block Device) server program";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 }

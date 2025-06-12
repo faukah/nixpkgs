@@ -8,17 +8,14 @@
   nextpnr,
   unstableGitUpdater,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "glasgow";
   version = "0-unstable-2025-01-26";
   # from `pdm show`
-  realVersion =
-    let
-      tag = builtins.elemAt (lib.splitString "-" version) 0;
-      rev = lib.substring 0 7 src.rev;
-    in
-    "${tag}.1.dev2085+g${rev}";
+  realVersion = let
+    tag = builtins.elemAt (lib.splitString "-" version) 0;
+    rev = lib.substring 0 7 src.rev;
+  in "${tag}.1.dev2085+g${rev}";
 
   pyproject = true;
 
@@ -100,7 +97,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "Software for Glasgow, a digital interface multitool";
     homepage = "https://github.com/GlasgowEmbedded/Glasgow";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     mainProgram = "glasgow";
   };
 }

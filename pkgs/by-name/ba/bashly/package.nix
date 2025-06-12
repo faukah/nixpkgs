@@ -3,12 +3,11 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "bashly";
 
   gemdir = ./.;
-  exes = [ "bashly" ];
+  exes = ["bashly"];
 
   passthru.updateScript = bundlerUpdateScript "bashly";
 
@@ -17,7 +16,7 @@ bundlerApp {
     homepage = "https://github.com/DannyBen/bashly";
     license = lib.licenses.mit;
     mainProgram = "bashly";
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
     platforms = lib.platforms.unix;
   };
 }

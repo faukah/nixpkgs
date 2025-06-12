@@ -22,7 +22,6 @@
   typing-extensions,
   uvloop,
 }:
-
 buildPythonPackage rec {
   pname = "black";
   version = "25.1.0";
@@ -55,9 +54,9 @@ buildPythonPackage rec {
     ];
 
   optional-dependencies = {
-    colorama = [ colorama ];
-    d = [ aiohttp ];
-    uvloop = [ uvloop ];
+    colorama = [colorama];
+    d = [aiohttp];
+    uvloop = [uvloop];
     jupyter = [
       ipython
       tokenize-rt
@@ -68,10 +67,12 @@ buildPythonPackage rec {
   # Black starts a local server and needs to bind a local address.
   __darwinAllowLocalNetworking = true;
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    parameterized
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      parameterized
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "-W"

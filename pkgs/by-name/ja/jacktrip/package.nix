@@ -15,7 +15,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "2.6.0";
   pname = "jacktrip";
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     pkg-config
   ];
 
-  qmakeFlags = [ "jacktrip.pro" ];
+  qmakeFlags = ["jacktrip.pro"];
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -79,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
       lgpl3
       mit
     ];
-    maintainers = with lib.maintainers; [ iwanb ];
+    maintainers = with lib.maintainers; [iwanb];
     platforms = lib.platforms.linux;
     mainProgram = "jacktrip";
   };

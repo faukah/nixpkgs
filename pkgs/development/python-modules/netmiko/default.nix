@@ -13,7 +13,6 @@
   scp,
   textfsm,
 }:
-
 buildPythonPackage rec {
   pname = "netmiko";
   version = "4.5.0";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     ntc-templates
@@ -48,13 +47,13 @@ buildPythonPackage rec {
   # Tests require closed-source pyats and genie packages
   doCheck = false;
 
-  pythonImportsCheck = [ "netmiko" ];
+  pythonImportsCheck = ["netmiko"];
 
   meta = with lib; {
     description = "Multi-vendor library to simplify Paramiko SSH connections to network devices";
     homepage = "https://github.com/ktbyers/netmiko/";
     changelog = "https://github.com/ktbyers/netmiko/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

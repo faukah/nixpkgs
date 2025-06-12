@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "awsiotsdk";
   version = "1.22.2";
@@ -28,11 +27,11 @@ buildPythonPackage rec {
       --replace-fail  "__version__ = '1.0.0-dev'" "__version__ = '${version}'"
   '';
 
-  pythonRelaxDeps = [ "awscrt" ];
+  pythonRelaxDeps = ["awscrt"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ awscrt ];
+  dependencies = [awscrt];
 
   nativeCheckInputs = [
     boto3
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     "servicetests/"
   ];
 
-  pythonImportsCheck = [ "awsiot" ];
+  pythonImportsCheck = ["awsiot"];
 
   meta = {
     description = "Next generation AWS IoT Client SDK for Python using the AWS Common Runtime";
     homepage = "https://github.com/aws/aws-iot-device-sdk-python-v2";
     changelog = "https://github.com/aws/aws-iot-device-sdk-python-v2/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

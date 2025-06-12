@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fcrackzip";
   version = "1.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
 
   # 'fcrackzip --use-unzip' cannot deal with file names containing a single quote
   # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=430387
-  patches = [ ./fcrackzip_forkexec.patch ];
+  patches = [./fcrackzip_forkexec.patch];
 
   # Do not clash with unizp/zipinfo
   postInstall = "mv $out/bin/zipinfo $out/bin/fcrackzip-zipinfo";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "zip password cracker, similar to fzc, zipcrack and others";
     homepage = "http://oldhome.schmorp.de/marc/fcrackzip.html";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
     platforms = with platforms; unix;
   };
 }

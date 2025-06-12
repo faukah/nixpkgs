@@ -10,7 +10,6 @@
   libXcursor,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wolf-shaper";
   version = "1.0.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     lv2
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://wolf-plugins.github.io/wolf-shaper/";
     description = "Waveshaper plugin with spline-based graph editor";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = [
       "i686-linux"
       "x86_64-linux"

@@ -16,7 +16,6 @@
   astring,
   bos,
 }:
-
 buildDunePackage rec {
   pname = "decompress";
   version = "1.5.3";
@@ -28,7 +27,7 @@ buildDunePackage rec {
     hash = "sha256-+R5peL7/P8thRA0y98mcmfHoZUtPsYQIdB02A1NzrGA=";
   };
 
-  buildInputs = [ cmdliner ];
+  buildInputs = [cmdliner];
   propagatedBuildInputs = [
     optint
     checkseum
@@ -51,7 +50,7 @@ buildDunePackage rec {
     description = "Pure OCaml implementation of Zlib";
     homepage = "https://github.com/mirage/decompress";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     mainProgram = "decompress.pipe";
   };
 }

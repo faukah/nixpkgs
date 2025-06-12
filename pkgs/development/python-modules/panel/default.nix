@@ -13,7 +13,6 @@
   tqdm,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "panel";
   version = "1.6.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     python = "py3";
   };
 
-  pythonRelaxDeps = [ "bokeh" ];
+  pythonRelaxDeps = ["bokeh"];
 
   propagatedBuildInputs = [
     bleach
@@ -45,7 +44,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "panel" ];
+  pythonImportsCheck = ["panel"];
 
   # infinite recursion in test dependencies (hvplot)
   doCheck = false;
@@ -56,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/holoviz/panel";
     changelog = "https://github.com/holoviz/panel/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

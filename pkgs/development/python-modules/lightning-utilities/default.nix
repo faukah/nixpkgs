@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build
   setuptools,
-
   # runtime
   looseversion,
   packaging,
   typing-extensions,
-
   # tests
   pytest-timeout,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lightning-utilities";
   version = "0.14.3";
@@ -33,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "from distutils.version import LooseVersion" "from looseversion import LooseVersion"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     looseversion
@@ -41,7 +37,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "lightning_utilities" ];
+  pythonImportsCheck = ["lightning_utilities"];
 
   nativeCheckInputs = [
     pytest-timeout
@@ -74,6 +70,6 @@ buildPythonPackage rec {
     description = "Common Python utilities and GitHub Actions in Lightning Ecosystem";
     homepage = "https://github.com/Lightning-AI/utilities";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

@@ -4,14 +4,13 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "docker-sync";
   gemdir = ./.;
 
   inherit ruby;
 
-  exes = [ "docker-sync" ];
+  exes = ["docker-sync"];
 
   passthru.updateScript = bundlerUpdateScript "docker-sync";
 

@@ -13,7 +13,6 @@
   pytest-httpx,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "twscrape";
   version = "0.17.0";
@@ -28,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-0j6nE8V0CWTuIHMS+2p5Ncz7d+D6VagjtyfMbQuI8Eg=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRelaxDeps = [ "beautifulsoup4" ];
+  pythonRelaxDeps = ["beautifulsoup4"];
 
   dependencies = [
     aiosqlite
@@ -46,13 +45,13 @@ buildPythonPackage rec {
     pytest-httpx
   ];
 
-  pythonImportsCheck = [ "twscrape" ];
+  pythonImportsCheck = ["twscrape"];
 
   meta = {
     description = "Twitter API scrapper with authorization support.";
     homepage = "https://github.com/vladkens/twscrape";
     changelog = "https://github.com/vladkens/twscrape/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.amadejkastelic ];
+    maintainers = [lib.maintainers.amadejkastelic];
   };
 }

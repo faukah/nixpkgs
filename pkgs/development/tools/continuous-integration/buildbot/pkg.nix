@@ -4,7 +4,6 @@
   isPy3k,
   buildbot,
 }:
-
 buildPythonPackage {
   pname = "buildbot_pkg";
   inherit (buildbot) src version;
@@ -19,14 +18,14 @@ buildPythonPackage {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "buildbot_pkg" ];
+  pythonImportsCheck = ["buildbot_pkg"];
 
   disabled = !isPy3k;
 
   meta = with lib; {
     homepage = "https://buildbot.net/";
     description = "Buildbot Packaging Helper";
-    teams = [ teams.buildbot ];
+    teams = [teams.buildbot];
     license = licenses.gpl2;
   };
 }

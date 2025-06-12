@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildGoModule rec {
   pname = "bump";
   version = "0.2.5";
@@ -30,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/mroth/bump";
     description = "CLI tool to draft a GitHub Release for the next semantic version";
     mainProgram = "bump";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

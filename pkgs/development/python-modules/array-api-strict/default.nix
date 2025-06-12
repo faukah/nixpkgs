@@ -7,7 +7,6 @@
   pytestCheckHook,
   hypothesis,
 }:
-
 buildPythonPackage rec {
   pname = "array-api-strict";
   version = "2.2";
@@ -20,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-9WIKN2mekJIOD076946xkNqMlfeTaLuuB9qqAJN8Xwc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ numpy ];
+  dependencies = [numpy];
 
   nativeCheckInputs = [
     pytestCheckHook
     hypothesis
   ];
 
-  pythonImportsCheck = [ "array_api_strict" ];
+  pythonImportsCheck = ["array_api_strict"];
 
   disabledTests = [
     "test_disabled_extensions"
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/data-apis/array-api-strict/releases/tag/${version}";
     description = "A strict, minimal implementation of the Python array API";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ berquist ];
+    maintainers = with lib.maintainers; [berquist];
   };
 }

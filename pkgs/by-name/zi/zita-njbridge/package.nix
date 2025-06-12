@@ -5,7 +5,6 @@
   libjack2,
   zita-resampler,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.4.8";
   pname = "zita-njbridge";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "command line Jack clients to transmit full quality multichannel audio over a local IP network";
     homepage = "http://kokkinizita.linuxaudio.org/linuxaudio/index.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

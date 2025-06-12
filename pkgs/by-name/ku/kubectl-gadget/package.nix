@@ -5,7 +5,6 @@
   kubectl-gadget,
   testers,
 }:
-
 buildGoModule rec {
   pname = "kubectl-gadget";
   version = "0.41.0";
@@ -33,7 +32,7 @@ buildGoModule rec {
     "withoutebpf"
   ];
 
-  subPackages = [ "cmd/kubectl-gadget" ];
+  subPackages = ["cmd/kubectl-gadget"];
 
   passthru.tests.version = testers.testVersion {
     package = kubectl-gadget;

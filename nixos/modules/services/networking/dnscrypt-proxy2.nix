@@ -3,19 +3,13 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-
+}: let
   cfg = config.services.dnscrypt-proxy2;
-
-in
-
-{
+in {
   options.services.dnscrypt-proxy2 = {
     enable = lib.mkEnableOption "dnscrypt-proxy2";
 
-    package = lib.mkPackageOption pkgs "dnscrypt-proxy" { };
+    package = lib.mkPackageOption pkgs "dnscrypt-proxy" {};
 
     settings = lib.mkOption {
       description = ''
@@ -33,7 +27,7 @@ in
         }
       '';
       type = lib.types.attrs;
-      default = { };
+      default = {};
     };
 
     upstreamDefaults = lib.mkOption {
@@ -55,31 +49,29 @@ in
       type = lib.types.path;
       default =
         pkgs.runCommand "dnscrypt-proxy.toml"
-          {
-            json = builtins.toJSON cfg.settings;
-            passAsFile = [ "json" ];
+        {
+          json = builtins.toJSON cfg.settings;
+          passAsFile = ["json"];
+        }
+        ''
+          ${
+            if cfg.upstreamDefaults
+            then ''
+              ${pkgs.buildPackages.remarshal}/bin/toml2json ${pkgs.dnscrypt-proxy.src}/dnscrypt-proxy/example-dnscrypt-proxy.toml > example.json
+              ${pkgs.buildPackages.jq}/bin/jq --slurp add example.json $jsonPath > config.json # merges the two
+            ''
+            else ''
+              cp $jsonPath config.json
+            ''
           }
-          ''
-            ${
-              if cfg.upstreamDefaults then
-                ''
-                  ${pkgs.buildPackages.remarshal}/bin/toml2json ${pkgs.dnscrypt-proxy.src}/dnscrypt-proxy/example-dnscrypt-proxy.toml > example.json
-                  ${pkgs.buildPackages.jq}/bin/jq --slurp add example.json $jsonPath > config.json # merges the two
-                ''
-              else
-                ''
-                  cp $jsonPath config.json
-                ''
-            }
-            ${pkgs.buildPackages.remarshal}/bin/json2toml < config.json > $out
-          '';
+          ${pkgs.buildPackages.remarshal}/bin/json2toml < config.json > $out
+        '';
       defaultText = lib.literalMD "TOML file generated from {option}`services.dnscrypt-proxy2.settings`";
     };
   };
 
   config = lib.mkIf cfg.enable {
-
-    networking.nameservers = lib.mkDefault [ "127.0.0.1" ];
+    networking.nameservers = lib.mkDefault ["127.0.0.1"];
 
     systemd.services.dnscrypt-proxy2 = {
       description = "DNSCrypt-proxy client";

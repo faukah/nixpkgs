@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "nanum-gothic-coding";
   version = "2.5";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/naver/nanumfont";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

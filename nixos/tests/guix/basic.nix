@@ -4,22 +4,22 @@
 #
 # So this test is what it is: a basic test while trying to use Guix as much as
 # we possibly can (including the API) without triggering its download alarm.
-
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "guix-basic";
-    meta.maintainers = with lib.maintainers; [ foo-dogsquared ];
+    meta.maintainers = with lib.maintainers; [foo-dogsquared];
 
-    nodes.machine =
-      { config, ... }:
-      {
-        environment.etc."guix/scripts".source = ./scripts;
-        services.guix = {
-          enable = true;
-          gc.enable = true;
-        };
+    nodes.machine = {config, ...}: {
+      environment.etc."guix/scripts".source = ./scripts;
+      services.guix = {
+        enable = true;
+        gc.enable = true;
       };
+    };
 
     testScript = ''
       import pathlib

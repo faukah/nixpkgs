@@ -13,7 +13,6 @@
   help2man,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "yubihsm-shell";
   version = "2.6.0";
@@ -61,12 +60,12 @@ stdenv.mkDerivation rec {
   '';
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   meta = with lib; {
     description = "yubihsm-shell and libyubihsm";
     homepage = "https://github.com/Yubico/yubihsm-shell";
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     license = licenses.asl20;
     platforms = platforms.all;
   };

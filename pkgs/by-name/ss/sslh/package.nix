@@ -10,7 +10,6 @@
   pcre2,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sslh";
   version = "2.2.4";
@@ -49,9 +48,9 @@ stdenv.mkDerivation rec {
     ln -sf sslh-fork "$out/sbin/sslh"
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.tests = {
     inherit (nixosTests) sslh;

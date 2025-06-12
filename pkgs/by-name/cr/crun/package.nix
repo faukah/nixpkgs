@@ -12,9 +12,7 @@
   yajl,
   nixosTests,
   criu,
-}:
-
-let
+}: let
   # these tests require additional permissions
   disabledTests = [
     "test_capabilities.py"
@@ -36,62 +34,62 @@ let
     "test_update.py"
     "tests_libcrun_utils"
   ];
-
 in
-stdenv.mkDerivation rec {
-  pname = "crun";
-  version = "1.21";
+  stdenv.mkDerivation rec {
+    pname = "crun";
+    version = "1.21";
 
-  src = fetchFromGitHub {
-    owner = "containers";
-    repo = "crun";
-    rev = version;
-    hash = "sha256-uAB/IJ1psGKvOTVhj00VlNadxSKTXvg1eU97bngVblw=";
-    fetchSubmodules = true;
-  };
+    src = fetchFromGitHub {
+      owner = "containers";
+      repo = "crun";
+      rev = version;
+      hash = "sha256-uAB/IJ1psGKvOTVhj00VlNadxSKTXvg1eU97bngVblw=";
+      fetchSubmodules = true;
+    };
 
-  nativeBuildInputs = [
-    autoreconfHook
-    go-md2man
-    pkg-config
-    python3
-  ];
+    nativeBuildInputs = [
+      autoreconfHook
+      go-md2man
+      pkg-config
+      python3
+    ];
 
-  buildInputs = [
-    criu
-    libcap
-    libseccomp
-    systemd
-    yajl
-  ];
+    buildInputs = [
+      criu
+      libcap
+      libseccomp
+      systemd
+      yajl
+    ];
 
-  enableParallelBuilding = true;
-  strictDeps = true;
+    enableParallelBuilding = true;
+    strictDeps = true;
 
-  NIX_LDFLAGS = "-lcriu";
+    NIX_LDFLAGS = "-lcriu";
 
-  # we need this before autoreconfHook does its thing in order to initialize
-  # config.h with the correct values
-  postPatch = ''
-    echo ${version} > .tarball-version
-    echo '#define GIT_VERSION "${src.rev}"' > git-version.h
+    # we need this before autoreconfHook does its thing in order to initialize
+    # config.h with the correct values
+    postPatch = ''
+      echo ${version} > .tarball-version
+      echo '#define GIT_VERSION "${src.rev}"' > git-version.h
 
-    ${lib.concatMapStringsSep "\n" (
-      e: "substituteInPlace Makefile.am --replace 'tests/${e}' ''"
-    ) disabledTests}
-  '';
+      ${lib.concatMapStringsSep "\n" (
+          e: "substituteInPlace Makefile.am --replace 'tests/${e}' ''"
+        )
+        disabledTests}
+    '';
 
-  doCheck = true;
+    doCheck = true;
 
-  passthru.tests = { inherit (nixosTests) podman; };
+    passthru.tests = {inherit (nixosTests) podman;};
 
-  meta = {
-    changelog = "https://github.com/containers/crun/releases/tag/${version}";
-    description = "Fast and lightweight fully featured OCI runtime and C library for running containers";
-    homepage = "https://github.com/containers/crun";
-    license = lib.licenses.gpl2Plus;
-    platforms = lib.platforms.linux;
-    teams = [ lib.teams.podman ];
-    mainProgram = "crun";
-  };
-}
+    meta = {
+      changelog = "https://github.com/containers/crun/releases/tag/${version}";
+      description = "Fast and lightweight fully featured OCI runtime and C library for running containers";
+      homepage = "https://github.com/containers/crun";
+      license = lib.licenses.gpl2Plus;
+      platforms = lib.platforms.linux;
+      teams = [lib.teams.podman];
+      mainProgram = "crun";
+    };
+  }

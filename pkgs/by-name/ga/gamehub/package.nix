@@ -19,7 +19,6 @@
   libXtst,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "GameHub";
   version = "0.16.3-2";
@@ -61,8 +60,8 @@ stdenv.mkDerivation rec {
       your games from different platforms into one program to make it easier
       for you to manage your games.
     '';
-    maintainers = with maintainers; [ pasqui23 ];
-    license = with licenses; [ gpl3Only ];
+    maintainers = with maintainers; [pasqui23];
+    license = with licenses; [gpl3Only];
     platforms = platforms.linux;
   };
 }

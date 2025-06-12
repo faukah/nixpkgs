@@ -7,7 +7,6 @@
   libadwaita,
   distrobox,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "boxbuddy";
   version = "2.5.3";
@@ -46,7 +45,7 @@ rustPlatform.buildRustPackage rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : ${lib.makeBinPath [ distrobox ]}
+      --prefix PATH : ${lib.makeBinPath [distrobox]}
     )
   '';
 
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://dvlv.github.io/BoxBuddyRS";
     license = licenses.mit;
     mainProgram = "boxbuddy-rs";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
     platforms = platforms.linux;
   };
 }

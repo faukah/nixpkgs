@@ -1,14 +1,15 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   name = "plantuml-server";
-  meta.maintainers = with lib.maintainers; [ anthonyroussel ];
+  meta.maintainers = with lib.maintainers; [anthonyroussel];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      environment.systemPackages = [ pkgs.curl ];
-      services.plantuml-server.enable = true;
-    };
+  nodes.machine = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.curl];
+    services.plantuml-server.enable = true;
+  };
 
   testScript = ''
     start_all()

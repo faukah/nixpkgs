@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/JojiiOfficial/LiveBudsCli";
     changelog = "https://github.com/JojiiOfficial/LiveBudsCli/releases";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ griffi-gh ];
+    maintainers = with lib.maintainers; [griffi-gh];
     mainProgram = "earbuds";
     platforms = lib.platforms.linux;
   };

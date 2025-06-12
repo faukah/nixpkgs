@@ -6,7 +6,6 @@
   iucode-tool,
   buildPackages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "microcode-intel";
   version = "20250512";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-xasV1w6+8qnD+RLWsReMo+xm7a9nguV2st3IC4FURDU=";
   };
 
-  nativeBuildInputs = [ libarchive ];
+  nativeBuildInputs = [libarchive];
 
   installPhase = ''
     runHook preInstall
@@ -40,6 +39,6 @@ stdenv.mkDerivation (finalAttrs: {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = with maintainers; [ felixsinger ];
+    maintainers = with maintainers; [felixsinger];
   };
 })

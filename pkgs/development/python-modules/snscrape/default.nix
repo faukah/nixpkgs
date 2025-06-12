@@ -11,7 +11,6 @@
   requests,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "snscrape";
   version = "0.7.0.20230622";
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     })
   ];
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies =
     [
@@ -45,7 +44,7 @@ buildPythonPackage rec {
       requests
     ]
     ++ requests.optional-dependencies.socks
-    ++ lib.optionals (pythonOlder "3.9") [ pytz ];
+    ++ lib.optionals (pythonOlder "3.9") [pytz];
 
   # There are no tests; make sure the executable works.
   checkPhase = ''
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     snscrape --help
   '';
 
-  pythonImportsCheck = [ "snscrape" ];
+  pythonImportsCheck = ["snscrape"];
 
   meta = with lib; {
     description = "Social networking service scraper";
     homepage = "https://github.com/JustAnotherArchivist/snscrape";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     mainProgram = "snscrape";
   };
 }

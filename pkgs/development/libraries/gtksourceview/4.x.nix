@@ -23,7 +23,6 @@
   shared-mime-info,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gtksourceview";
   version = "4.8.4";
@@ -33,10 +32,9 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  src =
-    let
-      inherit (finalAttrs) pname version;
-    in
+  src = let
+    inherit (finalAttrs) pname version;
+  in
     fetchurl {
       url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
       sha256 = "fsnRj7KD0fhKOj7/O3pysJoQycAGWXs/uru1lYQgqH0=";
@@ -129,9 +127,9 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Source code editing widget for GTK";
     homepage = "https://gitlab.gnome.org/GNOME/gtksourceview";
-    pkgConfigModules = [ "gtksourceview-4" ];
+    pkgConfigModules = ["gtksourceview-4"];
     platforms = platforms.unix;
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

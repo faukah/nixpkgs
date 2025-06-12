@@ -10,7 +10,6 @@
   libgbm,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "stone-phaser";
   version = "0.1.2";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     xorg.libX11
     cairo
@@ -41,13 +40,13 @@ stdenv.mkDerivation rec {
     sed -e '1i #include <cstdint>' -i plugins/stone-phaser/ui/Color.h
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
-    broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    broken = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
     homepage = "https://github.com/jpcima/stone-phaser";
     description = "Classic analog phaser effect, made with DPF and Faust";
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     license = licenses.boost;
   };

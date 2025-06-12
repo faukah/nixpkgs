@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "castnow";
   version = "0.6.0";
@@ -23,7 +22,7 @@ buildNpmPackage rec {
     description = "Command-line Chromecast player";
     homepage = "https://github.com/xat/castnow";
     license = lib.licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "castnow";
   };
 }

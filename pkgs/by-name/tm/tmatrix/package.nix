@@ -6,7 +6,6 @@
   installShellFiles,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tmatrix";
   version = "1.4";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     cmake
     installShellFiles
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   postInstall = ''
     installManPage ../tmatrix.6
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/M4444/TMatrix";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
     mainProgram = "tmatrix";
   };
 }

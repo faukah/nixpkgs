@@ -26,7 +26,6 @@
   libICE,
   libXext,
 }:
-
 stdenv.mkDerivation rec {
   pname = "widelands";
   version = "1.2.1";
@@ -61,24 +60,26 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  buildInputs = [
-    SDL2
-    SDL2_image
-    SDL2_mixer
-    SDL2_net
-    SDL2_ttf
-    curl
-    glew
-    icu
-    libpng
-    lua
-    python3
-    zlib
-    minizip
-    asio
-    libSM # XXX: these should be propagated by SDL2?
-    libICE
-  ] ++ lib.optional stdenv.hostPlatform.isLinux libXext;
+  buildInputs =
+    [
+      SDL2
+      SDL2_image
+      SDL2_mixer
+      SDL2_net
+      SDL2_ttf
+      curl
+      glew
+      icu
+      libpng
+      lua
+      python3
+      zlib
+      minizip
+      asio
+      libSM # XXX: these should be propagated by SDL2?
+      libICE
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux libXext;
 
   postInstall =
     lib.optionalString stdenv.hostPlatform.isLinux ''
@@ -108,6 +109,6 @@ stdenv.mkDerivation rec {
       jcumming
     ];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

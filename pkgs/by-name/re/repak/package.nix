@@ -4,7 +4,6 @@
   rustPlatform,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "repak";
   version = "0.2.2";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-i0pBd0ZiMIEFGZgvBgVNCfqPHE6E3Rt5pAHHVj1epLs=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Unreal Engine .pak file library and CLI in rust";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ florensie ];
+    maintainers = with lib.maintainers; [florensie];
     mainProgram = "repak";
   };
 }

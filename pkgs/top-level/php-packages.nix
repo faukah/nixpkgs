@@ -43,11 +43,10 @@
   valgrind,
   zlib,
 }:
-
 lib.makeScope pkgs.newScope (
-  self:
-  let
-    inherit (self)
+  self: let
+    inherit
+      (self)
       buildPecl
       callPackage
       mkExtension
@@ -57,13 +56,13 @@ lib.makeScope pkgs.newScope (
     builders = import ../build-support/php/builders {
       inherit callPackages callPackage buildPecl;
     };
-  in
-  {
+  in {
     buildPecl = callPackage ../build-support/php/build-pecl.nix {
       php = php.unwrapped;
     };
 
-    inherit (builders.v1)
+    inherit
+      (builders.v1)
       buildComposerProject
       buildComposerWithPlugin
       composerHooks
@@ -77,21 +76,27 @@ lib.makeScope pkgs.newScope (
 
     # Wrap mkDerivation to prepend pname with "php-" to make names consistent
     # with how buildPecl does it and make the file easier to overview.
-    mkDerivation =
-      origArgs:
-      let
-        args = lib.fix (
-          lib.extends (_: previousAttrs: {
-            pname = "php-${previousAttrs.pname}";
-            passthru = (previousAttrs.passthru or { }) // {
-              updateScript = nix-update-script { };
+    mkDerivation = origArgs: let
+      args = lib.fix (
+        lib.extends (_: previousAttrs: {
+          pname = "php-${previousAttrs.pname}";
+          passthru =
+            (previousAttrs.passthru or {})
+            // {
+              updateScript = nix-update-script {};
             };
-            meta = (previousAttrs.meta or { }) // {
+          meta =
+            (previousAttrs.meta or {})
+            // {
               mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
             };
-          }) (if lib.isFunction origArgs then origArgs else (_: origArgs))
-        );
-      in
+        }) (
+          if lib.isFunction origArgs
+          then origArgs
+          else (_: origArgs)
+        )
+      );
+    in
       pkgs.stdenv.mkDerivation args;
 
     # Function to build an extension which is shipped as part of the php
@@ -105,114 +110,118 @@ lib.makeScope pkgs.newScope (
     mkExtension = lib.makeOverridable (
       {
         name,
-        configureFlags ? [ "--enable-${extName}" ],
-        internalDeps ? [ ],
+        configureFlags ? ["--enable-${extName}"],
+        internalDeps ? [],
         postPhpize ? "",
-        buildInputs ? [ ],
+        buildInputs ? [],
         zendExtension ? false,
         doCheck ? true,
         extName ? name,
         ...
-      }@args:
-      stdenv.mkDerivation (
-        (builtins.removeAttrs args [ "name" ])
-        // {
-          pname = "php-${name}";
-          extensionName = extName;
+      } @ args:
+        stdenv.mkDerivation (
+          (builtins.removeAttrs args ["name"])
+          // {
+            pname = "php-${name}";
+            extensionName = extName;
 
-          outputs = [
-            "out"
-            "dev"
-          ];
+            outputs = [
+              "out"
+              "dev"
+            ];
 
-          inherit (php.unwrapped) version src;
+            inherit (php.unwrapped) version src;
 
-          enableParallelBuilding = true;
+            enableParallelBuilding = true;
 
-          nativeBuildInputs = [
-            php.unwrapped
-            autoconf
-            pkg-config
-            re2c
-            bison
-          ];
+            nativeBuildInputs = [
+              php.unwrapped
+              autoconf
+              pkg-config
+              re2c
+              bison
+            ];
 
-          inherit
-            configureFlags
-            internalDeps
-            buildInputs
-            zendExtension
-            doCheck
-            ;
-
-          preConfigurePhases = [
-            "genfiles"
-            "cdToExtensionRootPhase"
-          ];
-
-          genfiles = ''
-            if [ -f "scripts/dev/genfiles" ]; then
-              ./scripts/dev/genfiles
-            fi
-          '';
-
-          cdToExtensionRootPhase = ''
-            # Go to extension source root.
-            cd "ext/${extName}"
-          '';
-
-          preConfigure = ''
-            nullglobRestore=$(shopt -p nullglob)
-            shopt -u nullglob   # To make ?-globbing work
-
-            # Some extensions have a config0.m4 or config9.m4
-            if [ -f config?.m4 ]; then
-              mv config?.m4 config.m4
-            fi
-
-            $nullglobRestore
-
-            phpize
-            ${postPhpize}
-
-            ${lib.concatMapStringsSep "\n" (
-              dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}"
-            ) internalDeps}
-          '';
-
-          checkPhase = ''
-            runHook preCheck
-
-            NO_INTERACTION=yes SKIP_PERF_SENSITIVE=yes SKIP_ONLINE_TESTS=yes make test
-            runHook postCheck
-          '';
-
-          installPhase = ''
-            runHook preInstall
-
-            mkdir -p $out/lib/php/extensions
-            cp modules/${extName}.so $out/lib/php/extensions/${extName}.so
-            mkdir -p $dev/include
-            ${rsync}/bin/rsync -r --filter="+ */" \
-                                  --filter="+ *.h" \
-                                  --filter="- *" \
-                                  --prune-empty-dirs \
-                                  . $dev/include/
-
-            runHook postInstall
-          '';
-
-          meta = {
-            description = "PHP upstream extension: ${name}";
-            inherit (php.meta)
-              teams
-              homepage
-              license
-              platforms
+            inherit
+              configureFlags
+              internalDeps
+              buildInputs
+              zendExtension
+              doCheck
               ;
-          } // args.meta or { };
-        }
-      )
+
+            preConfigurePhases = [
+              "genfiles"
+              "cdToExtensionRootPhase"
+            ];
+
+            genfiles = ''
+              if [ -f "scripts/dev/genfiles" ]; then
+                ./scripts/dev/genfiles
+              fi
+            '';
+
+            cdToExtensionRootPhase = ''
+              # Go to extension source root.
+              cd "ext/${extName}"
+            '';
+
+            preConfigure = ''
+              nullglobRestore=$(shopt -p nullglob)
+              shopt -u nullglob   # To make ?-globbing work
+
+              # Some extensions have a config0.m4 or config9.m4
+              if [ -f config?.m4 ]; then
+                mv config?.m4 config.m4
+              fi
+
+              $nullglobRestore
+
+              phpize
+              ${postPhpize}
+
+              ${lib.concatMapStringsSep "\n" (
+                  dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}"
+                )
+                internalDeps}
+            '';
+
+            checkPhase = ''
+              runHook preCheck
+
+              NO_INTERACTION=yes SKIP_PERF_SENSITIVE=yes SKIP_ONLINE_TESTS=yes make test
+              runHook postCheck
+            '';
+
+            installPhase = ''
+              runHook preInstall
+
+              mkdir -p $out/lib/php/extensions
+              cp modules/${extName}.so $out/lib/php/extensions/${extName}.so
+              mkdir -p $dev/include
+              ${rsync}/bin/rsync -r --filter="+ */" \
+                                    --filter="+ *.h" \
+                                    --filter="- *" \
+                                    --prune-empty-dirs \
+                                    . $dev/include/
+
+              runHook postInstall
+            '';
+
+            meta =
+              {
+                description = "PHP upstream extension: ${name}";
+                inherit
+                  (php.meta)
+                  teams
+                  homepage
+                  license
+                  platforms
+                  ;
+              }
+              // args.meta or {};
+          }
+        )
     );
 
     php = phpPackage;
@@ -220,43 +229,43 @@ lib.makeScope pkgs.newScope (
     # This is a set of interactive tools based on PHP.
     tools =
       {
-        box = callPackage ../development/php-packages/box { };
+        box = callPackage ../development/php-packages/box {};
 
-        castor = callPackage ../development/php-packages/castor { };
+        castor = callPackage ../development/php-packages/castor {};
 
-        composer = callPackage ../development/php-packages/composer { };
+        composer = callPackage ../development/php-packages/composer {};
 
-        composer-local-repo-plugin = callPackage ../development/php-packages/composer-local-repo-plugin { };
+        composer-local-repo-plugin = callPackage ../development/php-packages/composer-local-repo-plugin {};
 
-        cyclonedx-php-composer = callPackage ../development/php-packages/cyclonedx-php-composer { };
+        cyclonedx-php-composer = callPackage ../development/php-packages/cyclonedx-php-composer {};
 
-        deployer = callPackage ../development/php-packages/deployer { };
+        deployer = callPackage ../development/php-packages/deployer {};
 
-        grumphp = callPackage ../development/php-packages/grumphp { };
+        grumphp = callPackage ../development/php-packages/grumphp {};
 
-        phan = callPackage ../development/php-packages/phan { };
+        phan = callPackage ../development/php-packages/phan {};
 
-        phing = callPackage ../development/php-packages/phing { };
+        phing = callPackage ../development/php-packages/phing {};
 
-        phive = callPackage ../development/php-packages/phive { };
+        phive = callPackage ../development/php-packages/phive {};
 
-        php-codesniffer = callPackage ../development/php-packages/php-codesniffer { };
+        php-codesniffer = callPackage ../development/php-packages/php-codesniffer {};
 
-        php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer { };
+        php-cs-fixer = callPackage ../development/php-packages/php-cs-fixer {};
 
-        php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint { };
+        php-parallel-lint = callPackage ../development/php-packages/php-parallel-lint {};
 
-        phpinsights = callPackage ../development/php-packages/phpinsights { };
+        phpinsights = callPackage ../development/php-packages/phpinsights {};
 
-        phpmd = callPackage ../development/php-packages/phpmd { };
+        phpmd = callPackage ../development/php-packages/phpmd {};
 
-        phpspy = callPackage ../development/php-packages/phpspy { };
+        phpspy = callPackage ../development/php-packages/phpspy {};
 
-        phpstan = callPackage ../development/php-packages/phpstan { };
+        phpstan = callPackage ../development/php-packages/phpstan {};
 
-        psalm = callPackage ../development/php-packages/psalm { };
+        psalm = callPackage ../development/php-packages/psalm {};
 
-        psysh = callPackage ../development/php-packages/psysh { };
+        psysh = callPackage ../development/php-packages/psysh {};
       }
       // lib.optionalAttrs config.allowAliases {
         phpcbf = throw "`phpcbf` is now deprecated, use `php-codesniffer` instead which contains both `phpcs` and `phpcbf`.";
@@ -273,74 +282,74 @@ lib.makeScope pkgs.newScope (
     extensions =
       # Contrib extensions
       {
-        amqp = callPackage ../development/php-packages/amqp { };
+        amqp = callPackage ../development/php-packages/amqp {};
 
-        apcu = callPackage ../development/php-packages/apcu { };
+        apcu = callPackage ../development/php-packages/apcu {};
 
-        ast = callPackage ../development/php-packages/ast { };
+        ast = callPackage ../development/php-packages/ast {};
 
-        blackfire = callPackage ../by-name/bl/blackfire/php-probe.nix { };
+        blackfire = callPackage ../by-name/bl/blackfire/php-probe.nix {};
 
-        couchbase = callPackage ../development/php-packages/couchbase { };
+        couchbase = callPackage ../development/php-packages/couchbase {};
 
-        datadog_trace = callPackage ../development/php-packages/datadog_trace { };
+        datadog_trace = callPackage ../development/php-packages/datadog_trace {};
 
-        decimal = callPackage ../development/php-packages/decimal { };
+        decimal = callPackage ../development/php-packages/decimal {};
 
-        ds = callPackage ../development/php-packages/ds { };
+        ds = callPackage ../development/php-packages/ds {};
 
-        event = callPackage ../development/php-packages/event { };
+        event = callPackage ../development/php-packages/event {};
 
-        excimer = callPackage ../development/php-packages/excimer { };
+        excimer = callPackage ../development/php-packages/excimer {};
 
-        gnupg = callPackage ../development/php-packages/gnupg { };
+        gnupg = callPackage ../development/php-packages/gnupg {};
 
-        grpc = callPackage ../development/php-packages/grpc { };
+        grpc = callPackage ../development/php-packages/grpc {};
 
-        igbinary = callPackage ../development/php-packages/igbinary { };
+        igbinary = callPackage ../development/php-packages/igbinary {};
 
-        imagick = callPackage ../development/php-packages/imagick { };
+        imagick = callPackage ../development/php-packages/imagick {};
 
         # Shadowed by built-in version on PHP < 8.3.
-        imap = callPackage ../development/php-packages/imap { };
+        imap = callPackage ../development/php-packages/imap {};
 
-        inotify = callPackage ../development/php-packages/inotify { };
+        inotify = callPackage ../development/php-packages/inotify {};
 
-        ioncube-loader = callPackage ../development/php-packages/ioncube-loader { };
+        ioncube-loader = callPackage ../development/php-packages/ioncube-loader {};
 
-        luasandbox = callPackage ../development/php-packages/luasandbox { };
+        luasandbox = callPackage ../development/php-packages/luasandbox {};
 
-        mailparse = callPackage ../development/php-packages/mailparse { };
+        mailparse = callPackage ../development/php-packages/mailparse {};
 
-        maxminddb = callPackage ../development/php-packages/maxminddb { };
+        maxminddb = callPackage ../development/php-packages/maxminddb {};
 
-        memcache = callPackage ../development/php-packages/memcache { };
+        memcache = callPackage ../development/php-packages/memcache {};
 
-        memcached = callPackage ../development/php-packages/memcached { };
+        memcached = callPackage ../development/php-packages/memcached {};
 
-        meminfo = callPackage ../development/php-packages/meminfo { };
+        meminfo = callPackage ../development/php-packages/meminfo {};
 
-        memprof = callPackage ../development/php-packages/memprof { };
+        memprof = callPackage ../development/php-packages/memprof {};
 
-        mongodb = callPackage ../development/php-packages/mongodb { };
+        mongodb = callPackage ../development/php-packages/mongodb {};
 
-        msgpack = callPackage ../development/php-packages/msgpack { };
+        msgpack = callPackage ../development/php-packages/msgpack {};
 
-        oci8 = callPackage ../development/php-packages/oci8 { };
+        oci8 = callPackage ../development/php-packages/oci8 {};
 
-        opentelemetry = callPackage ../development/php-packages/opentelemetry { };
+        opentelemetry = callPackage ../development/php-packages/opentelemetry {};
 
-        openswoole = callPackage ../development/php-packages/openswoole { };
+        openswoole = callPackage ../development/php-packages/openswoole {};
 
-        parallel = callPackage ../development/php-packages/parallel { };
+        parallel = callPackage ../development/php-packages/parallel {};
 
-        pdlib = callPackage ../development/php-packages/pdlib { };
+        pdlib = callPackage ../development/php-packages/pdlib {};
 
-        pcov = callPackage ../development/php-packages/pcov { };
+        pcov = callPackage ../development/php-packages/pcov {};
 
         pdo_oci =
-          if (lib.versionAtLeast php.version "8.4") then
-            callPackage ../development/php-packages/pdo_oci { }
+          if (lib.versionAtLeast php.version "8.4")
+          then callPackage ../development/php-packages/pdo_oci {}
           else
             buildPecl rec {
               inherit (php.unwrapped) src version;
@@ -348,62 +357,62 @@ lib.makeScope pkgs.newScope (
               pname = "pdo_oci";
               sourceRoot = "php-${version}/ext/pdo_oci";
 
-              buildInputs = [ pkgs.oracle-instantclient ];
-              configureFlags = [ "--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib" ];
+              buildInputs = [pkgs.oracle-instantclient];
+              configureFlags = ["--with-pdo-oci=instantclient,${pkgs.oracle-instantclient.lib}/lib"];
 
-              internalDeps = [ php.extensions.pdo ];
+              internalDeps = [php.extensions.pdo];
               postPatch = ''
                 sed -i -e 's|OCISDKMANINC=`.*$|OCISDKMANINC="${pkgs.oracle-instantclient.dev}/include"|' config.m4
               '';
 
-              meta.teams = [ lib.teams.php ];
+              meta.teams = [lib.teams.php];
             };
 
-        pdo_sqlsrv = callPackage ../development/php-packages/pdo_sqlsrv { };
+        pdo_sqlsrv = callPackage ../development/php-packages/pdo_sqlsrv {};
 
-        phalcon = callPackage ../development/php-packages/phalcon { };
+        phalcon = callPackage ../development/php-packages/phalcon {};
 
-        pinba = callPackage ../development/php-packages/pinba { };
+        pinba = callPackage ../development/php-packages/pinba {};
 
-        protobuf = callPackage ../development/php-packages/protobuf { };
+        protobuf = callPackage ../development/php-packages/protobuf {};
 
-        pspell = callPackage ../development/php-packages/pspell { };
+        pspell = callPackage ../development/php-packages/pspell {};
 
-        rdkafka = callPackage ../development/php-packages/rdkafka { };
+        rdkafka = callPackage ../development/php-packages/rdkafka {};
 
-        redis = callPackage ../development/php-packages/redis { };
+        redis = callPackage ../development/php-packages/redis {};
 
-        relay = callPackage ../development/php-packages/relay { };
+        relay = callPackage ../development/php-packages/relay {};
 
-        rrd = callPackage ../development/php-packages/rrd { };
+        rrd = callPackage ../development/php-packages/rrd {};
 
-        smbclient = callPackage ../development/php-packages/smbclient { };
+        smbclient = callPackage ../development/php-packages/smbclient {};
 
-        snuffleupagus = callPackage ../development/php-packages/snuffleupagus { };
+        snuffleupagus = callPackage ../development/php-packages/snuffleupagus {};
 
-        spx = callPackage ../development/php-packages/spx { };
+        spx = callPackage ../development/php-packages/spx {};
 
-        sqlsrv = callPackage ../development/php-packages/sqlsrv { };
+        sqlsrv = callPackage ../development/php-packages/sqlsrv {};
 
-        ssh2 = callPackage ../development/php-packages/ssh2 { };
+        ssh2 = callPackage ../development/php-packages/ssh2 {};
 
-        swoole = callPackage ../development/php-packages/swoole { };
+        swoole = callPackage ../development/php-packages/swoole {};
 
-        tideways = callPackage ../development/php-packages/tideways { };
+        tideways = callPackage ../development/php-packages/tideways {};
 
-        uuid = callPackage ../development/php-packages/uuid { };
+        uuid = callPackage ../development/php-packages/uuid {};
 
-        uv = callPackage ../development/php-packages/uv { };
+        uv = callPackage ../development/php-packages/uv {};
 
-        vld = callPackage ../development/php-packages/vld { };
+        vld = callPackage ../development/php-packages/vld {};
 
-        wikidiff2 = callPackage ../development/php-packages/wikidiff2 { };
+        wikidiff2 = callPackage ../development/php-packages/wikidiff2 {};
 
-        xdebug = callPackage ../development/php-packages/xdebug { };
+        xdebug = callPackage ../development/php-packages/xdebug {};
 
-        yaml = callPackage ../development/php-packages/yaml { };
+        yaml = callPackage ../development/php-packages/yaml {};
 
-        zstd = callPackage ../development/php-packages/zstd { };
+        zstd = callPackage ../development/php-packages/zstd {};
       }
       // lib.optionalAttrs config.allowAliases {
         php-spx = throw "php-spx is deprecated, use spx instead";
@@ -417,40 +426,40 @@ lib.makeScope pkgs.newScope (
           # These will be passed as arguments to mkExtension above.
           extensionData =
             [
-              { name = "bcmath"; }
+              {name = "bcmath";}
               {
                 name = "bz2";
-                buildInputs = [ bzip2 ];
-                configureFlags = [ "--with-bz2=${bzip2.dev}" ];
+                buildInputs = [bzip2];
+                configureFlags = ["--with-bz2=${bzip2.dev}"];
               }
-              { name = "calendar"; }
+              {name = "calendar";}
               {
                 name = "ctype";
                 postPatch =
                   lib.optionalString (stdenv.hostPlatform.isDarwin && lib.versionAtLeast php.version "8.2")
-                    # Broken test on aarch64-darwin
-                    ''
-                      rm ext/ctype/tests/lc_ctype_inheritance.phpt
-                    '';
+                  # Broken test on aarch64-darwin
+                  ''
+                    rm ext/ctype/tests/lc_ctype_inheritance.phpt
+                  '';
               }
               {
                 name = "curl";
-                buildInputs = [ curl ];
-                configureFlags = [ "--with-curl=${curl.dev}" ];
+                buildInputs = [curl];
+                configureFlags = ["--with-curl=${curl.dev}"];
                 doCheck = false;
               }
-              { name = "dba"; }
+              {name = "dba";}
               {
                 name = "dom";
-                buildInputs = [ libxml2 ];
+                buildInputs = [libxml2];
                 configureFlags = [
                   "--enable-dom"
                 ];
               }
               {
                 name = "enchant";
-                buildInputs = [ enchant2 ];
-                configureFlags = [ "--with-enchant" ];
+                buildInputs = [enchant2];
+                configureFlags = ["--with-enchant"];
                 doCheck = false;
               }
               {
@@ -459,19 +468,19 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "ffi";
-                buildInputs = [ libffi ];
+                buildInputs = [libffi];
               }
               {
                 name = "fileinfo";
-                buildInputs = [ pcre2 ];
+                buildInputs = [pcre2];
               }
               {
                 name = "filter";
-                buildInputs = [ pcre2 ];
+                buildInputs = [pcre2];
               }
               {
                 name = "ftp";
-                buildInputs = [ openssl ];
+                buildInputs = [openssl];
               }
               {
                 name = "gd";
@@ -488,27 +497,27 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "gettext";
-                buildInputs = [ gettext ];
+                buildInputs = [gettext];
                 postPhpize = ''substituteInPlace configure --replace-fail 'as_fn_error $? "Cannot locate header file libintl.h" "$LINENO" 5' ':' '';
-                configureFlags = [ "--with-gettext=${gettext}" ];
+                configureFlags = ["--with-gettext=${gettext}"];
               }
               {
                 name = "gmp";
-                buildInputs = [ gmp ];
-                configureFlags = [ "--with-gmp=${gmp.dev}" ];
+                buildInputs = [gmp];
+                configureFlags = ["--with-gmp=${gmp.dev}"];
               }
               {
                 name = "iconv";
-                buildInputs = [ libiconv ];
-                configureFlags = [ "--with-iconv" ];
+                buildInputs = [libiconv];
+                configureFlags = ["--with-iconv"];
                 # Some other extensions support separate libdirs, but iconv does not. This causes problems with detecting
                 # Darwin’s libiconv because it has separate outputs. Adding `-liconv` works around the issue.
-                env = lib.optionalAttrs stdenv.hostPlatform.isDarwin { NIX_LDFLAGS = "-liconv"; };
+                env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {NIX_LDFLAGS = "-liconv";};
                 doCheck = stdenv.hostPlatform.isLinux;
               }
               {
                 name = "intl";
-                buildInputs = [ icu73 ];
+                buildInputs = [icu73];
               }
               {
                 name = "ldap";
@@ -538,7 +547,7 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "mysqli";
-                internalDeps = [ php.extensions.mysqlnd ];
+                internalDeps = [php.extensions.mysqlnd];
                 configureFlags = [
                   "--with-mysqli=mysqlnd"
                   "--with-mysql-sock=/run/mysqld/mysqld.sock"
@@ -551,7 +560,7 @@ lib.makeScope pkgs.newScope (
                   zlib
                   openssl
                 ];
-                configureFlags = [ "--with-mysqlnd-ssl" ];
+                configureFlags = ["--with-mysqlnd-ssl"];
                 # The configure script doesn't correctly add library link
                 # flags, so we add them to the variable used by the Makefile
                 # when linking.
@@ -576,10 +585,11 @@ lib.makeScope pkgs.newScope (
               {
                 name = "opcache";
                 buildInputs =
-                  [ pcre2 ]
+                  [pcre2]
                   ++ lib.optional (
                     !stdenv.hostPlatform.isDarwin && lib.meta.availableOn stdenv.hostPlatform valgrind
-                  ) valgrind.dev;
+                  )
+                  valgrind.dev;
                 configureFlags = lib.optional php.ztsSupport "--disable-opcache-jit";
                 zendExtension = true;
                 postPatch = lib.optionalString stdenv.hostPlatform.isDarwin ''
@@ -596,8 +606,8 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "openssl";
-                buildInputs = [ openssl ];
-                configureFlags = [ "--with-openssl" ];
+                buildInputs = [openssl];
+                configureFlags = ["--with-openssl"];
                 doCheck = false;
               }
               # This provides a legacy OpenSSL PHP extension
@@ -606,19 +616,19 @@ lib.makeScope pkgs.newScope (
               {
                 name = "openssl-legacy";
                 extName = "openssl";
-                buildInputs = [ openssl_1_1 ];
-                configureFlags = [ "--with-openssl" ];
+                buildInputs = [openssl_1_1];
+                configureFlags = ["--with-openssl"];
                 doCheck = false;
               }
-              { name = "pcntl"; }
+              {name = "pcntl";}
               {
                 name = "pdo";
                 doCheck = false;
               }
               {
                 name = "pdo_dblib";
-                internalDeps = [ php.extensions.pdo ];
-                configureFlags = [ "--with-pdo-dblib=${freetds}" ];
+                internalDeps = [php.extensions.pdo];
+                configureFlags = ["--with-pdo-dblib=${freetds}"];
                 meta.broken = stdenv.hostPlatform.isDarwin;
                 doCheck = false;
               }
@@ -636,22 +646,22 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "pdo_odbc";
-                internalDeps = [ php.extensions.pdo ];
-                buildInputs = [ unixODBC ];
-                configureFlags = [ "--with-pdo-odbc=unixODBC,${unixODBC}" ];
+                internalDeps = [php.extensions.pdo];
+                buildInputs = [unixODBC];
+                configureFlags = ["--with-pdo-odbc=unixODBC,${unixODBC}"];
                 doCheck = false;
               }
               {
                 name = "pdo_pgsql";
-                internalDeps = [ php.extensions.pdo ];
-                configureFlags = [ "--with-pdo-pgsql=${libpq.pg_config}" ];
+                internalDeps = [php.extensions.pdo];
+                configureFlags = ["--with-pdo-pgsql=${libpq.pg_config}"];
                 doCheck = false;
               }
               {
                 name = "pdo_sqlite";
-                internalDeps = [ php.extensions.pdo ];
-                buildInputs = [ sqlite ];
-                configureFlags = [ "--with-pdo-sqlite=${sqlite.dev}" ];
+                internalDeps = [php.extensions.pdo];
+                buildInputs = [sqlite];
+                configureFlags = ["--with-pdo-sqlite=${sqlite.dev}"];
                 doCheck = false;
               }
               {
@@ -659,7 +669,7 @@ lib.makeScope pkgs.newScope (
                 buildInputs = [
                   pcre2
                 ];
-                configureFlags = [ "--with-pgsql=${libpq.pg_config}" ];
+                configureFlags = ["--with-pgsql=${libpq.pg_config}"];
                 doCheck = false;
               }
               {
@@ -692,7 +702,7 @@ lib.makeScope pkgs.newScope (
                 name = "session";
                 doCheck = false;
               }
-              { name = "shmop"; }
+              {name = "shmop";}
               {
                 name = "simplexml";
                 buildInputs = [
@@ -709,12 +719,12 @@ lib.makeScope pkgs.newScope (
                   net-snmp
                   openssl
                 ];
-                configureFlags = [ "--with-snmp" ];
+                configureFlags = ["--with-snmp"];
                 doCheck = false;
               }
               {
                 name = "soap";
-                buildInputs = [ libxml2 ];
+                buildInputs = [libxml2];
                 configureFlags = [
                   "--enable-soap"
                 ];
@@ -722,7 +732,7 @@ lib.makeScope pkgs.newScope (
                 # such as
                 #   Unknown: php_network_getaddresses: getaddrinfo for localhost failed: nodename nor servname provided
                 doCheck = !stdenv.hostPlatform.isDarwin && lib.versionOlder php.version "8.4";
-                internalDeps = [ php.extensions.session ];
+                internalDeps = [php.extensions.session];
               }
               {
                 name = "sockets";
@@ -730,11 +740,11 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "sodium";
-                buildInputs = [ libsodium ];
+                buildInputs = [libsodium];
               }
               {
                 name = "sqlite3";
-                buildInputs = [ sqlite ];
+                buildInputs = [sqlite];
 
                 # The `sqlite3_bind_bug68849.phpt` test is currently broken for i686 Linux systems since sqlite 3.43, cf.:
                 # - https://github.com/php/php-src/issues/12076
@@ -743,21 +753,21 @@ lib.makeScope pkgs.newScope (
                   ../development/interpreters/php/skip-sqlite3_bind_bug68849.phpt.patch
                 ];
               }
-              { name = "sysvmsg"; }
-              { name = "sysvsem"; }
-              { name = "sysvshm"; }
+              {name = "sysvmsg";}
+              {name = "sysvsem";}
+              {name = "sysvshm";}
               {
                 name = "tidy";
-                configureFlags = [ "--with-tidy=${html-tidy}" ];
+                configureFlags = ["--with-tidy=${html-tidy}"];
                 doCheck = false;
               }
               {
                 name = "tokenizer";
-                patches = [ ../development/interpreters/php/fix-tokenizer-php81.patch ];
+                patches = [../development/interpreters/php/fix-tokenizer-php81.patch];
               }
               {
                 name = "xml";
-                buildInputs = [ libxml2 ];
+                buildInputs = [libxml2];
                 configureFlags = [
                   "--enable-xml"
                 ];
@@ -765,8 +775,8 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "xmlreader";
-                buildInputs = [ libxml2 ];
-                internalDeps = [ php.extensions.dom ];
+                buildInputs = [libxml2];
+                internalDeps = [php.extensions.dom];
                 env.NIX_CFLAGS_COMPILE = toString [
                   "-I../.."
                   "-DHAVE_DOM"
@@ -778,7 +788,7 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "xmlwriter";
-                buildInputs = [ libxml2 ];
+                buildInputs = [libxml2];
                 configureFlags = [
                   "--enable-xmlwriter"
                 ];
@@ -789,17 +799,17 @@ lib.makeScope pkgs.newScope (
                   libxslt
                   libxml2
                 ];
-                internalDeps = [ php.extensions.dom ];
+                internalDeps = [php.extensions.dom];
                 doCheck = false;
                 env.NIX_CFLAGS_COMPILE = toString [
                   "-I../.."
                   "-DHAVE_DOM"
                 ];
-                configureFlags = [ "--with-xsl=${libxslt.dev}" ];
+                configureFlags = ["--with-xsl=${libxslt.dev}"];
               }
               {
                 name = "zend_test";
-                internalDeps = [ php.extensions.dom ];
+                internalDeps = [php.extensions.dom];
                 env.NIX_CFLAGS_COMPILE = "-I${libxml2.dev}/include/libxml2";
               }
               {
@@ -815,7 +825,7 @@ lib.makeScope pkgs.newScope (
               }
               {
                 name = "zlib";
-                buildInputs = [ zlib ];
+                buildInputs = [zlib];
                 configureFlags = [
                   "--with-zlib"
                 ];
@@ -846,14 +856,15 @@ lib.makeScope pkgs.newScope (
           # [ { name = <name>; value = <extension drv>; } ... ]
           #
           # which we later use listToAttrs to make all attrs available by name.
-          namedExtensions = builtins.map (drv: {
-            name = drv.name;
-            value = mkExtension drv;
-          }) extensionData;
-
+          namedExtensions =
+            builtins.map (drv: {
+              name = drv.name;
+              value = mkExtension drv;
+            })
+            extensionData;
         in
-        # Produce the final attribute set of all extensions defined.
-        builtins.listToAttrs namedExtensions
+          # Produce the final attribute set of all extensions defined.
+          builtins.listToAttrs namedExtensions
       );
   }
 )

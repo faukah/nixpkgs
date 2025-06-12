@@ -4,7 +4,6 @@
   fetchFromGitHub,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "ppx_yojson_conv_lib";
   version = "0.17.0";
@@ -18,12 +17,12 @@ buildDunePackage rec {
     hash = "sha256-XGgpcAEemBNEagblBjpK+BiL0OUsU2JPqOq+heHbqVk=";
   };
 
-  propagatedBuildInputs = [ yojson ];
+  propagatedBuildInputs = [yojson];
 
   meta = with lib; {
     description = "Runtime lib for ppx_yojson_conv";
     homepage = "https://github.com/janestreet/ppx_yojson_conv_lib";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

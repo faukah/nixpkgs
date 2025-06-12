@@ -4,7 +4,6 @@
   fetchFromGitHub,
   pytestCheckHook,
   pythonOlder,
-
   html5lib,
   jsonschema,
   pytest-cov-stub,
@@ -14,7 +13,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pystac";
   version = "1.13.0";
@@ -28,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-DxRJsnbzXBnpQSJE0VwkXV3vyH6WffiMaZ3119XBxJ8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
   nativeCheckInputs = [
     html5lib
@@ -42,12 +40,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pystac" ];
+  pythonImportsCheck = ["pystac"];
 
   meta = {
     description = "Python library for working with any SpatioTemporal Asset Catalog (STAC)";
     homepage = "https://github.com/stac-utils/pystac";
     license = lib.licenses.asl20;
-    teams = [ lib.teams.geospatial ];
+    teams = [lib.teams.geospatial];
   };
 }

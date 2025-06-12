@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ivy";
   version = "0.3.4";
@@ -17,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -29,6 +28,6 @@ buildGoModule rec {
     description = "ivy, an APL-like calculator";
     mainProgram = "ivy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ smasher164 ];
+    maintainers = with maintainers; [smasher164];
   };
 }

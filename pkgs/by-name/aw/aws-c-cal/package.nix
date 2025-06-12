@@ -7,7 +7,6 @@
   nix,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aws-c-cal";
   # nixpkgs-update: no auto update
@@ -25,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     ./aws-c-cal-musl-compat.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-common
@@ -45,6 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/awslabs/aws-c-cal";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 })

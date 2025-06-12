@@ -5,7 +5,6 @@
   setuptools,
   paramiko,
 }:
-
 buildPythonPackage rec {
   pname = "unifi-ap";
   version = "0.0.2";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonRelaxDeps = [ "paramiko" ];
+  pythonRelaxDeps = ["paramiko"];
 
   dependencies = [
     paramiko
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     description = "Python API for UniFi accesspoints";
     homepage = "https://github.com/tofuSCHNITZEL/unifi_ap";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

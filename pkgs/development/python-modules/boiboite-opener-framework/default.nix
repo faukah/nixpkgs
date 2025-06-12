@@ -8,7 +8,6 @@
   scapy,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "boiboite-opener-framework";
   version = "1.2.1";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-atKqHRX24UjF/9Dy0aYXAN+80nBJKCd07FmaR5Vl1q4=";
   };
 
-  pythonRelaxDeps = [ "scapy" ];
+  pythonRelaxDeps = ["scapy"];
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     packaging
     scapy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d)
@@ -75,7 +74,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/Orange-Cyberdefense/bof";
     changelog = "https://github.com/Orange-Cyberdefense/bof/releases/tag/${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.linux;
   };
 }

@@ -1,20 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
-  {
+  {pkgs, ...}: {
     name = "ocsinventory-agent";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.ocsinventory-agent = {
-          enable = true;
-          settings = {
-            debug = true;
-            local = "/var/lib/ocsinventory-agent/reports";
-            tag = "MY_INVENTORY_TAG";
-          };
+    nodes.machine = {pkgs, ...}: {
+      services.ocsinventory-agent = {
+        enable = true;
+        settings = {
+          debug = true;
+          local = "/var/lib/ocsinventory-agent/reports";
+          tag = "MY_INVENTORY_TAG";
         };
       };
+    };
 
     testScript = ''
       path = "/var/lib/ocsinventory-agent/reports"

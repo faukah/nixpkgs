@@ -4,7 +4,6 @@
   fetchurl,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elliptic_curves";
   version = "0.8.1";
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2;
     platforms = platforms.all;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
   };
 }

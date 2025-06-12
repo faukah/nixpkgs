@@ -6,7 +6,6 @@
   bzip2,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fastnetmon-advanced";
   version = "2.0.371";
@@ -55,15 +54,15 @@ stdenv.mkDerivation rec {
     $out/bin/fnm-gobgpd --help 2>&1 | grep "Application Options"
   '';
 
-  passthru.tests = { inherit (nixosTests) fastnetmon-advanced; };
+  passthru.tests = {inherit (nixosTests) fastnetmon-advanced;};
 
   meta = {
     description = "High performance DDoS detector / sensor - commercial edition";
     homepage = "https://fastnetmon.com";
     changelog = "https://github.com/FastNetMon/fastnetmon-advanced-releases/releases/tag/v${version}";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    teams = [ lib.teams.wdz ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    teams = [lib.teams.wdz];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

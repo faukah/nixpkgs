@@ -1,45 +1,43 @@
 # Tests that `nugetDeps` in buildDotnetModule can handle various types.
-
 {
   lib,
   dotnet-sdk,
   buildPackages, # buildDotnetModule
   runCommand,
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     mapAttrs
     ;
 
-  inherit (buildPackages)
+  inherit
+    (buildPackages)
     emptyDirectory
     buildDotnetModule
     ;
-
 in
-mapAttrs
+  mapAttrs
   (
     name: nugetDeps:
-    buildDotnetModule {
-      name = "nuget-deps-${name}";
-      unpackPhase = ''
-        runHook preUnpack
+      buildDotnetModule {
+        name = "nuget-deps-${name}";
+        unpackPhase = ''
+          runHook preUnpack
 
-        mkdir test
-        cd test
-        dotnet new console -o .
-        ls -l
+          mkdir test
+          cd test
+          dotnet new console -o .
+          ls -l
 
-        runHook postUnpack
-      '';
-      inherit nugetDeps;
-    }
+          runHook postUnpack
+        '';
+        inherit nugetDeps;
+      }
   )
   {
     "null" = null;
     "nix-file" = ./nuget-deps.nix;
     "json-file" = ./nuget-deps.json;
     "derivation" = emptyDirectory;
-    "list" = [ emptyDirectory ];
+    "list" = [emptyDirectory];
   }

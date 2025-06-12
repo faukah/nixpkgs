@@ -9,7 +9,6 @@
   snakemake-interface-common,
   xrootd,
 }:
-
 buildPythonPackage rec {
   pname = "snakemake-storage-plugin-xrootd";
   version = "0.4.1";
@@ -23,7 +22,7 @@ buildPythonPackage rec {
   };
 
   # xrootd<6.0.0,>=5.6.4 not satisfied by version 5.7rc20240303
-  pythonRelaxDeps = [ "xrootd" ];
+  pythonRelaxDeps = ["xrootd"];
 
   build-system = [
     hatch-vcs
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     xrootd
   ];
 
-  nativeCheckInputs = [ snakemake ];
+  nativeCheckInputs = [snakemake];
 
-  pythonImportsCheck = [ "snakemake_storage_plugin_xrootd" ];
+  pythonImportsCheck = ["snakemake_storage_plugin_xrootd"];
 
   meta = with lib; {
     description = "Snakemake storage plugin for handling input and output via XRootD";
     homepage = "https://github.com/snakemake/snakemake-storage-plugin-xrootd";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-IfT8F8zqWSfGh/XlISDTTZju8i3dEHG33lrZqJz1nX8=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -30,7 +30,7 @@ buildGoModule rec {
 
   postInstall = ''
     mv $out/bin/vault-ssh-plus $out/bin/vssh
-    wrapProgram $out/bin/vssh --prefix PATH : ${lib.makeBinPath [ openssh ]};
+    wrapProgram $out/bin/vssh --prefix PATH : ${lib.makeBinPath [openssh]};
   '';
 
   passthru.tests.version = testers.testVersion {
@@ -45,6 +45,6 @@ buildGoModule rec {
     description = "Automatically use HashiCorp Vault SSH Client Key Signing with ssh(1)";
     mainProgram = "vssh";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lesuisse ];
+    maintainers = with lib.maintainers; [lesuisse];
   };
 }

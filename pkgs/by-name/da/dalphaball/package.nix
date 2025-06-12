@@ -5,7 +5,6 @@
   gfortran,
   gmp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dalphaball";
   version = "0-unstable-2023-06-15";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     mainProgram = "DAlphaBall";
     homepage = "https://github.com/outpace-bio/DAlphaBall";
     license = lib.licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [ aschleck ];
+    maintainers = with lib.maintainers; [aschleck];
     platforms = lib.platforms.unix;
   };
 }

@@ -3,9 +3,7 @@
   config,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.services.envfs;
   mounts = {
     "/usr/bin" = {
@@ -14,7 +12,7 @@ let
       options = [
         "bind-mount=/bin"
         "fallback-path=${
-          pkgs.runCommand "fallback-path" { } (
+          pkgs.runCommand "fallback-path" {} (
             ''
               mkdir -p $out
               ln -s ${config.environment.usrbinenv} $out/env
@@ -38,18 +36,19 @@ let
       ];
     };
   };
-in
-{
+in {
   options = {
     services.envfs = {
-      enable = lib.mkEnableOption "Envfs filesystem" // {
-        description = ''
-          Fuse filesystem that returns symlinks to executables based on the PATH
-          of the requesting process. This is useful to execute shebangs on NixOS
-          that assume hard coded locations in locations like /bin or /usr/bin
-          etc.
-        '';
-      };
+      enable =
+        lib.mkEnableOption "Envfs filesystem"
+        // {
+          description = ''
+            Fuse filesystem that returns symlinks to executables based on the PATH
+            of the requesting process. This is useful to execute shebangs on NixOS
+            that assume hard coded locations in locations like /bin or /usr/bin
+            etc.
+          '';
+        };
 
       package = lib.mkOption {
         type = lib.types.package;
@@ -67,9 +66,12 @@ in
     };
   };
   config = lib.mkIf (cfg.enable) {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     # we also want these mounts in virtual machines.
-    fileSystems = if config.virtualisation ? qemu then lib.mkVMOverride mounts else mounts;
+    fileSystems =
+      if config.virtualisation ? qemu
+      then lib.mkVMOverride mounts
+      else mounts;
 
     # We no longer need those when using envfs
     system.activationScripts.usrbinenv = lib.mkForce "";

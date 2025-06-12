@@ -20,13 +20,11 @@
   gnupg,
   libusb1,
   pcsclite,
-}:
-
-let
+}: let
   pname = "sparrow";
   version = "2.2.1";
 
-  openjdk = jdk23.override { enableJavaFX = true; };
+  openjdk = jdk23.override {enableJavaFX = true;};
 
   src = fetchurl {
     url = "https://github.com/sparrowwallet/${pname}/releases/download/${version}/sparrowwallet-${version}-x86_64.tar.gz";
@@ -39,7 +37,7 @@ let
     # and then the package is verified against the manifest.
     # The public key is obtained from https://keybase.io/craigraw/pgp_keys.asc
     # and is included in this repo to provide reproducibility.
-    nativeBuildInputs = [ gnupg ];
+    nativeBuildInputs = [gnupg];
     downloadToTemp = true;
 
     postFetch = ''
@@ -118,7 +116,7 @@ let
 
   jdk-modules = stdenvNoCC.mkDerivation {
     name = "jdk-modules";
-    nativeBuildInputs = [ openjdk ];
+    nativeBuildInputs = [openjdk];
     dontUnpack = true;
 
     buildPhase = ''
@@ -215,81 +213,81 @@ let
     '';
   };
 in
-stdenvNoCC.mkDerivation rec {
-  inherit version src;
-  pname = "sparrow";
-  nativeBuildInputs = [
-    makeWrapper
-    copyDesktopItems
-  ];
-
-  desktopItems = [
-    (makeDesktopItem {
-      name = "sparrow-desktop";
-      exec = "sparrow-desktop";
-      icon = "sparrow-desktop";
-      desktopName = "Sparrow Bitcoin Wallet";
-      genericName = "Bitcoin Wallet";
-      categories = [
-        "Finance"
-        "Network"
-      ];
-      mimeTypes = [
-        "application/psbt"
-        "application/bitcoin-transaction"
-        "x-scheme-handler/bitcoin"
-        "x-scheme-handler/auth47"
-        "x-scheme-handler/lightning"
-      ];
-      startupWMClass = "Sparrow";
-    })
-  ];
-
-  sparrow-icons = stdenvNoCC.mkDerivation {
+  stdenvNoCC.mkDerivation rec {
     inherit version src;
-    pname = "sparrow-icons";
-    nativeBuildInputs = [ imagemagick ];
+    pname = "sparrow";
+    nativeBuildInputs = [
+      makeWrapper
+      copyDesktopItems
+    ];
+
+    desktopItems = [
+      (makeDesktopItem {
+        name = "sparrow-desktop";
+        exec = "sparrow-desktop";
+        icon = "sparrow-desktop";
+        desktopName = "Sparrow Bitcoin Wallet";
+        genericName = "Bitcoin Wallet";
+        categories = [
+          "Finance"
+          "Network"
+        ];
+        mimeTypes = [
+          "application/psbt"
+          "application/bitcoin-transaction"
+          "x-scheme-handler/bitcoin"
+          "x-scheme-handler/auth47"
+          "x-scheme-handler/lightning"
+        ];
+        startupWMClass = "Sparrow";
+      })
+    ];
+
+    sparrow-icons = stdenvNoCC.mkDerivation {
+      inherit version src;
+      pname = "sparrow-icons";
+      nativeBuildInputs = [imagemagick];
+
+      installPhase = ''
+        for n in 16 24 32 48 64 96 128 256; do
+          size=$n"x"$n
+          mkdir -p $out/hicolor/$size/apps
+          convert lib/Sparrow.png -resize $size $out/hicolor/$size/apps/sparrow-desktop.png
+          done;
+      '';
+    };
 
     installPhase = ''
-      for n in 16 24 32 48 64 96 128 256; do
-        size=$n"x"$n
-        mkdir -p $out/hicolor/$size/apps
-        convert lib/Sparrow.png -resize $size $out/hicolor/$size/apps/sparrow-desktop.png
-        done;
+      runHook preInstall
+
+      mkdir -p $out/bin $out
+      ln -s ${sparrow-modules}/modules $out/lib
+      install -D -m 777 ${launcher} $out/bin/sparrow-desktop
+      substituteAllInPlace $out/bin/sparrow-desktop
+      substituteInPlace $out/bin/sparrow-desktop --subst-var-by jdkModules ${jdk-modules}
+
+      mkdir -p $out/share/icons
+      ln -s ${sparrow-icons}/hicolor $out/share/icons
+
+      mkdir -p $out/etc/udev/
+      ln -s ${sparrow-modules}/modules/com.sparrowwallet.lark/udev $out/etc/udev/rules.d
+
+      runHook postInstall
     '';
-  };
 
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin $out
-    ln -s ${sparrow-modules}/modules $out/lib
-    install -D -m 777 ${launcher} $out/bin/sparrow-desktop
-    substituteAllInPlace $out/bin/sparrow-desktop
-    substituteInPlace $out/bin/sparrow-desktop --subst-var-by jdkModules ${jdk-modules}
-
-    mkdir -p $out/share/icons
-    ln -s ${sparrow-icons}/hicolor $out/share/icons
-
-    mkdir -p $out/etc/udev/
-    ln -s ${sparrow-modules}/modules/com.sparrowwallet.lark/udev $out/etc/udev/rules.d
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "Modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability";
-    homepage = "https://sparrowwallet.com";
-    sourceProvenance = with sourceTypes; [
-      binaryBytecode
-      binaryNativeCode
-    ];
-    license = licenses.asl20;
-    maintainers = with maintainers; [
-      emmanuelrosa
-      _1000101
-    ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "sparrow-desktop";
-  };
-}
+    meta = with lib; {
+      description = "Modern desktop Bitcoin wallet application supporting most hardware wallets and built on common standards such as PSBT, with an emphasis on transparency and usability";
+      homepage = "https://sparrowwallet.com";
+      sourceProvenance = with sourceTypes; [
+        binaryBytecode
+        binaryNativeCode
+      ];
+      license = licenses.asl20;
+      maintainers = with maintainers; [
+        emmanuelrosa
+        _1000101
+      ];
+      platforms = ["x86_64-linux"];
+      mainProgram = "sparrow-desktop";
+    };
+  }

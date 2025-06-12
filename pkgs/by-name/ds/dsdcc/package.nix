@@ -7,7 +7,6 @@
   mbelib,
   serialdv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsdcc";
   version = "1.9.5";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/f4exb/dsdcc";
     license = lib.licenses.gpl3;
     mainProgram = "dsdccx";
-    maintainers = with lib.maintainers; [ alexwinter ];
+    maintainers = with lib.maintainers; [alexwinter];
     platforms = lib.platforms.unix;
   };
 })

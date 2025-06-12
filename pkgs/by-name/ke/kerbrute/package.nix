@@ -3,7 +3,6 @@
   python3,
   fetchPypi,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "kerbrute";
   version = "0.0.2";
@@ -29,6 +28,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Kerberos bruteforce utility";
     mainProgram = "kerbrute";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ applePrincess ];
+    maintainers = with lib.maintainers; [applePrincess];
   };
 }

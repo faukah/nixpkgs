@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dnslookup";
   version = "1.11.1";
@@ -23,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/ameshkov/dnslookup";
     license = lib.licenses.mit;
     mainProgram = "dnslookup";
-    maintainers = [ lib.maintainers.philiptaron ];
+    maintainers = [lib.maintainers.philiptaron];
   };
 }

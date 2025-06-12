@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "protoc-gen-twirp";
   version = "8.1.3";
@@ -30,6 +29,6 @@ buildGoModule rec {
     mainProgram = "protoc-gen-twirp";
     homepage = "https://github.com/twitchtv/twirp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

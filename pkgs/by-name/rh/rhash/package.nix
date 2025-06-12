@@ -6,7 +6,6 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
   gettext,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.4.4";
   pname = "rhash";
@@ -23,13 +22,13 @@ stdenv.mkDerivation rec {
     ./do-link-so.patch
   ];
 
-  nativeBuildInputs = [ which ];
-  buildInputs = lib.optionals stdenv.hostPlatform.isFreeBSD [ gettext ];
+  nativeBuildInputs = [which];
+  buildInputs = lib.optionals stdenv.hostPlatform.isFreeBSD [gettext];
 
   # configure script is not autotools-based, doesn't support these options
   dontAddStaticConfigureFlags = true;
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   configureFlags = [
     "--ar=${stdenv.cc.targetPrefix}ar"
@@ -56,6 +55,6 @@ stdenv.mkDerivation rec {
     description = "Console utility and library for computing and verifying hash sums of files";
     license = licenses.bsd0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ andrewrk ];
+    maintainers = with maintainers; [andrewrk];
   };
 }

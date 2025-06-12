@@ -7,9 +7,7 @@
   python3,
   nix,
   unstableGitUpdater,
-}:
-
-let
+}: let
   version = "0-unstable-2025-02-09";
 
   src = fetchFromGitHub {
@@ -23,7 +21,7 @@ let
     description = "Set of nit-picky rules that aim to point out and explain common mistakes in nixpkgs package pull requests";
     homepage = "https://github.com/jtojnar/nixpkgs-hammering";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 
   rust-checks = rustPlatform.buildRustPackage {
@@ -34,39 +32,40 @@ let
     cargoHash = "sha256-cE1fzdxGa0WG2WCPs8UFnE2vzaKfU7r6LS+9HLCVJ1U=";
   };
 in
+  stdenv.mkDerivation {
+    pname = "nixpkgs-hammering";
 
-stdenv.mkDerivation {
-  pname = "nixpkgs-hammering";
+    inherit version src;
 
-  inherit version src;
+    nativeBuildInputs = [makeWrapper];
 
-  nativeBuildInputs = [ makeWrapper ];
+    buildInputs = [python3];
 
-  buildInputs = [ python3 ];
+    installPhase = ''
+      runHook preInstall
 
-  installPhase = ''
-    runHook preInstall
+      AST_CHECK_NAMES=$(find ${rust-checks}/bin -maxdepth 1 -type f -printf "%f:")
 
-    AST_CHECK_NAMES=$(find ${rust-checks}/bin -maxdepth 1 -type f -printf "%f:")
-
-    install -Dt $out/bin tools/nixpkgs-hammer
-    wrapProgram $out/bin/nixpkgs-hammer \
-      --prefix PATH : ${
+      install -Dt $out/bin tools/nixpkgs-hammer
+      wrapProgram $out/bin/nixpkgs-hammer \
+        --prefix PATH : ${
         lib.makeBinPath [
           nix
           rust-checks
         ]
       } \
-      --set AST_CHECK_NAMES ''${AST_CHECK_NAMES%:}
+        --set AST_CHECK_NAMES ''${AST_CHECK_NAMES%:}
 
-    cp -r lib overlays $out
+      cp -r lib overlays $out
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  passthru.updateScript = unstableGitUpdater { };
+    passthru.updateScript = unstableGitUpdater {};
 
-  meta = meta // {
-    mainProgram = "nixpkgs-hammer";
-  };
-}
+    meta =
+      meta
+      // {
+        mainProgram = "nixpkgs-hammer";
+      };
+  }

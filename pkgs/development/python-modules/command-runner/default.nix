@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "command-runner";
   version = "1.7.4";
@@ -21,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-i5VWoXHCdZtf4tJGgYvBqcMaBSSruCOkIl5ntZoSHio=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ psutil ];
+  dependencies = [psutil];
 
   # Tests are execute ping
   # ping: socket: Operation not permitted
   doCheck = false;
 
-  pythonImportsCheck = [ "command_runner" ];
+  pythonImportsCheck = ["command_runner"];
 
   meta = with lib; {
     homepage = "https://github.com/netinvent/command_runner";
@@ -39,6 +38,6 @@ buildPythonPackage rec {
     '';
     changelog = "https://github.com/netinvent/command_runner/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
   };
 }

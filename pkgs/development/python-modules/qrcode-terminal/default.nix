@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-Hitp5mK5NG6Y3ZWYMDPp1Dz/BkPYr9oSYF9RVCjmZsA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     qrcode
@@ -26,13 +26,13 @@ buildPythonPackage rec {
   # have no test
   doCheck = false;
 
-  pythonImportsCheck = [ "qrcode_terminal" ];
+  pythonImportsCheck = ["qrcode_terminal"];
 
   meta = {
     description = "Display QRCode in Terminal";
     homepage = "https://github.com/alishtory/qrcode-terminal";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ moraxyc ];
+    maintainers = with lib.maintainers; [moraxyc];
     mainProgram = "qrcode-terminal-py";
   };
 }

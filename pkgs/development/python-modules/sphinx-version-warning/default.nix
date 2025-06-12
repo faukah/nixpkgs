@@ -13,7 +13,6 @@
   sphinxemoji,
   sphinxHook,
 }:
-
 # Latest tagged release release "1.1.2" (Nov 2018) does not contain
 # documentation, it was added in commits Aug 10, 2019. Repository does not have
 # any activity since then.
@@ -55,15 +54,15 @@ buildPythonPackage {
     setuptools
   ];
 
-  buildInputs = [ sphinx ];
+  buildInputs = [sphinx];
 
-  pythonImportsCheck = [ "versionwarning" ];
+  pythonImportsCheck = ["versionwarning"];
 
   meta = with lib; {
     description = "Sphinx extension to show a warning banner at the top of your documentation";
     homepage = "https://github.com/humitos/sphinx-version-warning";
     changelog = "https://github.com/humitos/sphinx-version-warning/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

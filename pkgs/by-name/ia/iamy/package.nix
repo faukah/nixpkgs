@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "iamy";
   version = "2.4.0";
@@ -27,7 +26,7 @@ buildGoModule rec {
     description = "Cli tool for importing and exporting AWS IAM configuration to YAML files";
     homepage = "https://github.com/99designs/iamy";
     license = licenses.mit;
-    maintainers = with maintainers; [ suvash ];
+    maintainers = with maintainers; [suvash];
     mainProgram = "iamy";
   };
 }

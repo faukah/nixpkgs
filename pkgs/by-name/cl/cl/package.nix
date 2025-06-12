@@ -7,7 +7,6 @@
   opencl-headers,
   ocl-icd,
 }:
-
 stdenv.mkDerivation rec {
   version = "1.2.4";
   pname = "cl";

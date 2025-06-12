@@ -4,7 +4,6 @@
   lib,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "flirt";
   version = "0.4";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-m1aLJFa6C5X9HwNweezoUcFnpG09AuYf9ooet8GUGFE=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "FiLe InteRacT, the file interaction tool for your command line";

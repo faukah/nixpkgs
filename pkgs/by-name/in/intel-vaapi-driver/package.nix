@@ -19,7 +19,6 @@
   enableGui ? true,
   nix-update-script,
 }:
-
 stdenv.mkDerivation {
   pname = "intel-vaapi-driver";
   version = "2.4.1-unstable-2024-10-29";
@@ -38,10 +37,12 @@ stdenv.mkDerivation {
     ln -s ${vaapi-intel-hybrid}/lib/dri/* $out/lib/dri/
   '';
 
-  configureFlags = [
-    (lib.enableFeature enableGui "x11")
-    (lib.enableFeature enableGui "wayland")
-  ] ++ lib.optional enableHybridCodec "--enable-hybrid-codec";
+  configureFlags =
+    [
+      (lib.enableFeature enableGui "x11")
+      (lib.enableFeature enableGui "wayland")
+    ]
+    ++ lib.optional enableHybridCodec "--enable-hybrid-codec";
 
   nativeBuildInputs = [
     autoreconfHook
@@ -67,7 +68,7 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = with lib; {
     homepage = "https://01.org/linuxmedia";
@@ -87,6 +88,6 @@ stdenv.mkDerivation {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -4,7 +4,6 @@
   fetchzip,
   rpmextract,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "perccli";
 
@@ -24,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
     ];
   };
 
-  nativeBuildInputs = [ rpmextract ];
+  nativeBuildInputs = [rpmextract];
 
   unpackPhase = ''
     rpmextract $src/perccli-00${version}00.0000-1.noarch.rpm
@@ -34,16 +33,15 @@ stdenvNoCC.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  installPhase =
-    let
-      inherit (stdenvNoCC.hostPlatform) system;
-      platforms = {
-        x86_64-linux = ''
-          install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
-          ln -s perccli64 $out/bin/perccli
-        '';
-      };
-    in
+  installPhase = let
+    inherit (stdenvNoCC.hostPlatform) system;
+    platforms = {
+      x86_64-linux = ''
+        install -D ./opt/MegaRAID/perccli/perccli64 $out/bin/perccli64
+        ln -s perccli64 $out/bin/perccli
+      '';
+    };
+  in
     platforms.${system} or (throw "unsupported system: ${system}");
 
   # Not needed because the binary is statically linked
@@ -55,9 +53,9 @@ stdenvNoCC.mkDerivation rec {
     # Must be updated with every release
     homepage = "https://www.dell.com/support/home/en-us/drivers/driversdetails?driverid=tdghn";
 
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ panicgh ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [panicgh];
+    platforms = ["x86_64-linux"];
   };
 }

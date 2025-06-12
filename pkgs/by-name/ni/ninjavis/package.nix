@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "ninjavis";
   version = "0.2.1";
@@ -38,7 +37,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/chagui/ninjavis";
     changelog = "https://github.com/chagui/ninjavis/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pbsds ];
+    maintainers = with lib.maintainers; [pbsds];
     mainProgram = "ninjavis";
   };
 }

@@ -5,7 +5,6 @@
   autoreconfHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libndp";
   version = "1.9";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
     "ac_cv_func_malloc_0_nonnull=yes"
@@ -39,8 +38,7 @@ stdenv.mkDerivation rec {
     description = "Library for Neighbor Discovery Protocol";
     mainProgram = "ndptool";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl21;
   };
-
 }

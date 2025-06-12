@@ -3,15 +3,12 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   setuptools,
   setuptools-scm,
-
   # dependencies
   msgpack,
   ruamel-yaml,
-
   # optional-dependencies
   coverage,
   pymongo,
@@ -28,13 +25,11 @@
   tqdm,
   invoke,
   requests,
-
   # tests
   ipython,
   numpy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "monty";
   version = "2025.3.3";
@@ -58,14 +53,16 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = rec {
-    ci = [
-      coverage
-      pymongo
-      pytest
-      pytest-cov
-      types-requests
-    ] ++ optional;
-    dev = [ ipython ];
+    ci =
+      [
+        coverage
+        pymongo
+        pytest
+        pytest-cov
+        types-requests
+      ]
+      ++ optional;
+    dev = [ipython];
     docs = [
       sphinx
       sphinx-rtd-theme
@@ -81,9 +78,9 @@ buildPythonPackage rec {
         pint
         torch
       ];
-    multiprocessing = [ tqdm ];
+    multiprocessing = [tqdm];
     optional = dev ++ json ++ multiprocessing ++ serialization;
-    serialization = [ msgpack ];
+    serialization = [msgpack];
     task = [
       invoke
       requests
@@ -101,7 +98,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "monty" ];
+  pythonImportsCheck = ["monty"];
 
   meta = {
     description = "Serves as a complement to the Python standard library by providing a suite of tools to solve many common problems";
@@ -113,6 +110,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/materialsvirtuallab/monty";
     changelog = "https://github.com/materialsvirtuallab/monty/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ psyanticy ];
+    maintainers = with lib.maintainers; [psyanticy];
   };
 }

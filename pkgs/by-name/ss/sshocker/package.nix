@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "sshocker";
   version = "0.3.8";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-uzKLAHxRRw0Bx7HjANOsX0tvfmbJhclT8SP346yFGwc=";
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
   ldflags = [
     "-s"
@@ -35,7 +34,7 @@ buildGoModule rec {
     homepage = "https://github.com/lima-vm/sshocker";
     changelog = "https://github.com/lima-vm/sshocker/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "sshocker";
   };
 }

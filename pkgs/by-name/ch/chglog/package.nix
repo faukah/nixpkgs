@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "chglog";
   version = "0.7.0";
@@ -30,7 +29,7 @@ buildGoModule rec {
     changelog = "https://github.com/goreleaser/chglog/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ rewine ];
+    maintainers = with lib.maintainers; [rewine];
     mainProgram = "chglog";
   };
 }

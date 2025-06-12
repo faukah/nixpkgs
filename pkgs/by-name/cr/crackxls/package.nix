@@ -9,7 +9,6 @@
   libgsf,
   gmp,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crackxls";
   version = "1.0";

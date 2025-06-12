@@ -3,7 +3,6 @@
   fetchFromGitea,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uwu-colors";
   version = "0.4.0";
@@ -23,6 +22,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "uwu_colors";
     homepage = "https://codeberg.org/q60/uwu_colors";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ vel ];
+    maintainers = with lib.maintainers; [vel];
   };
 })

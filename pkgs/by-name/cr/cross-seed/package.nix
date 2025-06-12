@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildNpmPackage rec {
   pname = "cross-seed";
   version = "6.11.1";
@@ -29,6 +28,6 @@ buildNpmPackage rec {
     homepage = "https://cross-seed.org";
     license = lib.licenses.asl20;
     mainProgram = "cross-seed";
-    maintainers = with lib.maintainers; [ mkez ];
+    maintainers = with lib.maintainers; [mkez];
   };
 }

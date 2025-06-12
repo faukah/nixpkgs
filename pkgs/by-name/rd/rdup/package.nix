@@ -7,7 +7,6 @@
   glib,
   pcre,
 }:
-
 stdenv.mkDerivation {
   pname = "rdup";
   version = "1.1.15";
@@ -33,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/miekg/rdup";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ sternenseemann ];
+    maintainers = with lib.maintainers; [sternenseemann];
   };
 }

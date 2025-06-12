@@ -11,7 +11,6 @@
   termcolor,
   typepy,
 }:
-
 buildPythonPackage rec {
   pname = "dataproperty";
   version = "1.1.0";
@@ -26,16 +25,18 @@ buildPythonPackage rec {
     hash = "sha256-IEEwdOcC9nKwVumWnjpZlqYKCFGwZebMh7nGdGVjibE=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
-  dependencies = [
-    mbstrdecoder
-    typepy
-    tcolorpy
-  ] ++ typepy.optional-dependencies.datetime;
+  dependencies =
+    [
+      mbstrdecoder
+      typepy
+      tcolorpy
+    ]
+    ++ typepy.optional-dependencies.datetime;
 
   optional-dependencies = {
-    logging = [ loguru ];
+    logging = [loguru];
   };
 
   nativeCheckInputs = [
@@ -43,13 +44,13 @@ buildPythonPackage rec {
     termcolor
   ];
 
-  pythonImportsCheck = [ "dataproperty" ];
+  pythonImportsCheck = ["dataproperty"];
 
   meta = {
     description = "Library for extracting properties from data";
     homepage = "https://github.com/thombashi/DataProperty";
     changelog = "https://github.com/thombashi/DataProperty/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ genericnerdyusername ];
+    maintainers = with lib.maintainers; [genericnerdyusername];
   };
 }

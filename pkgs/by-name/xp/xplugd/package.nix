@@ -6,7 +6,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xplugd";
   version = "1.4";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "UNIX daemon that executes a script on X input and RandR changes";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ akho ];
+    maintainers = with maintainers; [akho];
     mainProgram = "xplugd";
   };
 }

@@ -7,7 +7,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "retry2";
   version = "0.9.5";
@@ -24,19 +23,19 @@ buildPythonPackage rec {
 
   env.PBR_VERSION = version;
 
-  build-system = [ pbr ];
+  build-system = [pbr];
 
-  dependencies = [ decorator ];
+  dependencies = [decorator];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "retry" ];
+  pythonImportsCheck = ["retry"];
 
   meta = {
     description = "Retry decorator";
     homepage = "https://github.com/eSAMTrade/retry";
     changelog = "https://github.com/eSAMTrade/retry/blob/${src.rev}/ChangeLog";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

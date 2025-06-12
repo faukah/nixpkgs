@@ -10,7 +10,6 @@
   snappy-manifolds,
   snappy-15-knots,
 }:
-
 buildPythonPackage rec {
   pname = "spherogram";
   version = "2.3";
@@ -35,15 +34,15 @@ buildPythonPackage rec {
     knot-floer-homology
   ];
 
-  optional-dependencies.snappy-15-knots = [ snappy-15-knots ];
+  optional-dependencies.snappy-15-knots = [snappy-15-knots];
 
-  pythonImportsCheck = [ "spherogram" ];
+  pythonImportsCheck = ["spherogram"];
 
   meta = {
     description = "Spherical diagrams for 3-manifold topology";
     homepage = "https://snappy.computop.org/spherogram.html";
     changelog = "https://github.com/3-manifolds/Spherogram/releases/tag/${src.tag}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ noiioiu ];
+    maintainers = with lib.maintainers; [noiioiu];
   };
 }

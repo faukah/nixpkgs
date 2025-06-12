@@ -7,7 +7,7 @@
 mkKdeDerivation {
   pname = "powerdevil";
 
-  extraNativeBuildInputs = [ pkg-config ];
+  extraNativeBuildInputs = [pkg-config];
   extraBuildInputs = [
     ddcutil
     qtwayland

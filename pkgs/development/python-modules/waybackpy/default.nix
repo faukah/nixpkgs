@@ -22,14 +22,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeBuildInputs = [ pytest ];
+  nativeBuildInputs = [pytest];
 
-  pythonImportsCheck = [ "waybackpy" ];
+  pythonImportsCheck = ["waybackpy"];
 
   meta = with lib; {
     homepage = "https://akamhy.github.io/waybackpy/";
     description = "Wayback Machine API interface & a command-line tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ chpatrick ];
+    maintainers = with maintainers; [chpatrick];
   };
 }

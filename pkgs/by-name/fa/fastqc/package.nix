@@ -11,7 +11,6 @@
   desktopToDarwinBundle,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fastqc";
   version = "0.12.1";
@@ -42,10 +41,10 @@ stdenv.mkDerivation (finalAttrs: {
       icon = "fastqc";
       desktopName = "FastQC";
       comment = finalAttrs.meta.description;
-      categories = [ "Science" ];
+      categories = ["Science"];
     }
   );
-  desktopItems = [ finalAttrs.desktopItem ];
+  desktopItems = [finalAttrs.desktopItem];
 
   installPhase = ''
     runHook preInstall
@@ -84,12 +83,12 @@ stdenv.mkDerivation (finalAttrs: {
       - Offline operation to allow automated generation of reports without running the interactive application
     '';
     homepage = "https://www.bioinformatics.babraham.ac.uk/projects/fastqc/";
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     license = with lib.licenses; [
       gpl3Plus
       asl20
     ];
-    maintainers = [ lib.maintainers.dflores ];
+    maintainers = [lib.maintainers.dflores];
     mainProgram = "fastqc";
     platforms = lib.platforms.unix;
   };

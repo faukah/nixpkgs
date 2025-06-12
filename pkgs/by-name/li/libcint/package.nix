@@ -7,7 +7,6 @@
   # Check Inputs
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcint";
   version = "6.1.2";
@@ -23,8 +22,8 @@ stdenv.mkDerivation rec {
     sed -i 's/libcint.so/libcint${stdenv.hostPlatform.extensions.sharedLibrary}/g' testsuite/*.py
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ blas ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [blas];
   cmakeFlags = [
     "-DENABLE_TEST=1"
     "-DQUICK_TEST=1"
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   doCheck = true;
-  nativeCheckInputs = [ python3.pkgs.numpy ];
+  nativeCheckInputs = [python3.pkgs.numpy];
 
   meta = with lib; {
     description = "General GTO integrals for quantum chemistry";
@@ -50,7 +49,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/sunqm/libcint";
     changelog = "https://github.com/sunqm/libcint/blob/master/ChangeLog";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
     platforms = platforms.unix;
   };
 }

@@ -9,7 +9,6 @@
   zope-schema,
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "zope-configuration";
   version = "6.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
       --replace-fail "setuptools < 74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-i18nmessageid
@@ -35,23 +34,23 @@ buildPythonPackage rec {
     zope-schema
   ];
 
-  pythonImportsCheck = [ "zope.configuration" ];
+  pythonImportsCheck = ["zope.configuration"];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   preCheck = ''
     cd $out/${python.sitePackages}/zope/
   '';
 
-  unittestFlagsArray = [ "configuration/tests" ];
+  unittestFlagsArray = ["configuration/tests"];
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = with lib; {
     description = "Zope Configuration Markup Language (ZCML)";
     homepage = "https://github.com/zopefoundation/zope.configuration";
     changelog = "https://github.com/zopefoundation/zope.configuration/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

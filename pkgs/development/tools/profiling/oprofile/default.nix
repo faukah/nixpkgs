@@ -10,7 +10,6 @@
   linuxHeaders,
   libiberty_static,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "oprofile";
   version = "1.4.0";
@@ -32,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "/bin/cp" "${buildPackages.coreutils}/bin/cp"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libbfd
     zlib
@@ -64,6 +63,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://oprofile.sourceforge.net/";
 
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

@@ -6,7 +6,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pycoin";
   version = "0.92.20241201";
@@ -17,13 +16,13 @@ buildPythonPackage rec {
     hash = "sha256-bpN74YFXPM8Cs1BkhEvsRt4TA4a0Xz3xltMHSox5BRI=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   postPatch = ''
     substituteInPlace ./pycoin/cmds/tx.py --replace '"gpg"' '"${gnupg}/bin/gpg"'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Disable tests depending on online services
   disabledTests = [
@@ -37,6 +36,6 @@ buildPythonPackage rec {
     description = "Utilities for Bitcoin and altcoin addresses and transaction manipulation";
     homepage = "https://github.com/richardkiss/pycoin";
     license = licenses.mit;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

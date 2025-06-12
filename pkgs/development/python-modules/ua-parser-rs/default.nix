@@ -4,7 +4,6 @@
   lib,
   rustPlatform,
 }:
-
 buildPythonPackage rec {
   pname = "ua-parser-rs";
   version = "0.1.2";
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     description = "Native accelerator for ua-parser";
     homepage = "https://github.com/ua-parser/uap-rust/tree/main/ua-parser-py";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     mainProgram = "ua-parser-rs";
   };
 }

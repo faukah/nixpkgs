@@ -3,18 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   # build-system
   hatchling,
   hatch-vcs,
-
   # tests
   numpy,
   pandas,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "param";
   version = "2.2.0";
@@ -46,13 +43,13 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "param" ];
+  pythonImportsCheck = ["param"];
 
   meta = with lib; {
     description = "Declarative Python programming using Parameters";
     homepage = "https://param.holoviz.org/";
     changelog = "https://github.com/holoviz/param/releases/tag/${src.tag}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -22,7 +22,6 @@
   udev,
   gnused,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nut";
   version = "2.8.3";
@@ -124,7 +123,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.pierron ];
+    maintainers = [maintainers.pierron];
     license = with licenses; [
       gpl1Plus
       gpl2Plus

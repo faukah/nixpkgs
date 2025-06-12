@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--package=iwes"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 

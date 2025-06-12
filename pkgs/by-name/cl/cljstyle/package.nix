@@ -5,7 +5,6 @@
   fetchurl,
   versionCheckHook,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "cljstyle";
   version = "0.17.642";
@@ -22,12 +21,12 @@ buildGraalvmNativeImage (finalAttrs: {
   ];
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = [ "version" ];
+  nativeInstallCheckInputs = [versionCheckHook];
+  versionCheckProgramArg = ["version"];
 
   # must be on classpath to build native image
   passthru.graal-build-time = fetchMavenArtifact {
-    repos = [ "https://repo.clojars.org/" ];
+    repos = ["https://repo.clojars.org/"];
     groupId = "com.github.clj-easy";
     artifactId = "graal-build-time";
     version = "1.0.5";
@@ -37,10 +36,10 @@ buildGraalvmNativeImage (finalAttrs: {
   meta = {
     description = "Tool for formatting Clojure code";
     homepage = "https://github.com/greglook/cljstyle";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
     changelog = "https://github.com/greglook/cljstyle/blob/${finalAttrs.version}/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ psyclyx ];
+    maintainers = with lib.maintainers; [psyclyx];
     mainProgram = "cljstyle";
   };
 })

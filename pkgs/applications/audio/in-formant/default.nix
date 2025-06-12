@@ -18,7 +18,6 @@
   armadillo,
   tomlplusplus,
 }:
-
 stdenv.mkDerivation {
   pname = "in-formant";
   version = "unstable-2022-09-15";
@@ -71,7 +70,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/in-formant/in-formant";
     license = licenses.asl20;
     # currently broken on i686-linux and aarch64-linux due to other nixpkgs dependencies
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
   };
 }

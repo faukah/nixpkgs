@@ -28,21 +28,19 @@
   runtimeShell,
   gnupg,
   installShellFiles,
-}:
-
-{
+}: {
   enableNpm ? true,
   version,
   sha256,
-  patches ? [ ],
-}@args:
-
-let
-
+  patches ? [],
+} @ args: let
   majorVersion = lib.versions.major version;
   minorVersion = lib.versions.minor version;
 
-  pname = if enableNpm then "nodejs" else "nodejs-slim";
+  pname =
+    if enableNpm
+    then "nodejs"
+    else "nodejs-slim";
 
   canExecute = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
   emulator = stdenv.hostPlatform.emulator buildPackages;
@@ -50,76 +48,72 @@ let
   buildNode = buildPackages."${pname}_${majorVersion}";
 
   # See valid_os and valid_arch in configure.py.
-  destOS =
-    let
-      platform = stdenv.hostPlatform;
-    in
-    if platform.isiOS then
-      "ios"
-    else if platform.isAndroid then
-      "android"
-    else if platform.isWindows then
-      "win"
-    else if platform.isDarwin then
-      "mac"
-    else if platform.isLinux then
-      "linux"
-    else if platform.isOpenBSD then
-      "openbsd"
-    else if platform.isFreeBSD then
-      "freebsd"
-    else
-      throw "unsupported os ${platform.uname.system}";
-  destCPU =
-    let
-      platform = stdenv.hostPlatform;
-    in
-    if platform.isAarch then
-      "arm" + lib.optionalString platform.is64bit "64"
-    else if platform.isMips32 then
-      "mips" + lib.optionalString platform.isLittleEndian "le"
-    else if platform.isMips64 && platform.isLittleEndian then
-      "mips64el"
-    else if platform.isPower then
-      "ppc" + lib.optionalString platform.is64bit "64"
-    else if platform.isx86_64 then
-      "x64"
-    else if platform.isx86_32 then
-      "ia32"
-    else if platform.isS390x then
-      "s390x"
-    else if platform.isRiscV64 then
-      "riscv64"
-    else if platform.isLoongArch64 then
-      "loong64"
-    else
-      throw "unsupported cpu ${platform.uname.processor}";
-  destARMFPU =
-    let
-      platform = stdenv.hostPlatform;
-    in
-    if platform.isAarch32 && platform ? gcc.fpu then
+  destOS = let
+    platform = stdenv.hostPlatform;
+  in
+    if platform.isiOS
+    then "ios"
+    else if platform.isAndroid
+    then "android"
+    else if platform.isWindows
+    then "win"
+    else if platform.isDarwin
+    then "mac"
+    else if platform.isLinux
+    then "linux"
+    else if platform.isOpenBSD
+    then "openbsd"
+    else if platform.isFreeBSD
+    then "freebsd"
+    else throw "unsupported os ${platform.uname.system}";
+  destCPU = let
+    platform = stdenv.hostPlatform;
+  in
+    if platform.isAarch
+    then "arm" + lib.optionalString platform.is64bit "64"
+    else if platform.isMips32
+    then "mips" + lib.optionalString platform.isLittleEndian "le"
+    else if platform.isMips64 && platform.isLittleEndian
+    then "mips64el"
+    else if platform.isPower
+    then "ppc" + lib.optionalString platform.is64bit "64"
+    else if platform.isx86_64
+    then "x64"
+    else if platform.isx86_32
+    then "ia32"
+    else if platform.isS390x
+    then "s390x"
+    else if platform.isRiscV64
+    then "riscv64"
+    else if platform.isLoongArch64
+    then "loong64"
+    else throw "unsupported cpu ${platform.uname.processor}";
+  destARMFPU = let
+    platform = stdenv.hostPlatform;
+  in
+    if platform.isAarch32 && platform ? gcc.fpu
+    then
       lib.throwIfNot (builtins.elem platform.gcc.fpu [
         "vfp"
         "vfpv2"
         "vfpv3"
         "vfpv3-d16"
         "neon"
-      ]) "unsupported ARM FPU ${platform.gcc.fpu}" platform.gcc.fpu
-    else
-      null;
-  destARMFloatABI =
-    let
-      platform = stdenv.hostPlatform;
-    in
-    if platform.isAarch32 && platform ? gcc.float-abi then
+      ]) "unsupported ARM FPU ${platform.gcc.fpu}"
+      platform.gcc.fpu
+    else null;
+  destARMFloatABI = let
+    platform = stdenv.hostPlatform;
+  in
+    if platform.isAarch32 && platform ? gcc.float-abi
+    then
       lib.throwIfNot (builtins.elem platform.gcc.float-abi [
         "soft"
         "softfp"
         "hard"
-      ]) "unsupported ARM float ABI ${platform.gcc.float-abi}" platform.gcc.float-abi
-    else
-      null;
+      ]) "unsupported ARM float ABI ${platform.gcc.float-abi}"
+      platform.gcc.float-abi
+    else null;
   # TODO: also handle MIPS flags (mips_arch, mips_fpu, mips_float_abi).
 
   useSharedHttpParser =
@@ -150,15 +144,14 @@ let
   # the stdenv).
   darwin-cctools-only-libtool =
     # Would be nice to have onlyExe builder similar to onlyBin…
-    runCommand "darwin-cctools-only-libtool" { cctools = lib.getBin buildPackages.cctools; } ''
+    runCommand "darwin-cctools-only-libtool" {cctools = lib.getBin buildPackages.cctools;} ''
       mkdir -p "$out/bin"
       ln -s "$cctools/bin/libtool" "$out/bin/libtool"
     '';
 
   # a script which claims to be a different script but switches to simply touching its output
   # when an environment variable is set. See CC_host, --cross-compiling, and postConfigure.
-  touchScript =
-    real:
+  touchScript = real:
     writeScript "touch-script" ''
       #!${stdenv.shell}
       if [ -z "$FAKE_TOUCH" ]; then
@@ -173,17 +166,18 @@ let
       done
     '';
 
-  downloadDir = if lib.strings.hasInfix "-rc." version then "download/rc" else "dist";
+  downloadDir =
+    if lib.strings.hasInfix "-rc." version
+    then "download/rc"
+    else "dist";
 
   package = stdenv.mkDerivation (
-    finalAttrs:
-    let
+    finalAttrs: let
       /**
-        the final package fixed point, after potential overrides
+      the final package fixed point, after potential overrides
       */
       self = finalAttrs.finalPackage;
-    in
-    {
+    in {
       inherit pname version;
 
       src = fetchurl {
@@ -212,14 +206,16 @@ let
       # NB: technically, we do not need bash in build inputs since all scripts are
       # wrappers over the corresponding JS scripts. There are some packages though
       # that use bash wrappers, e.g. polaris-web.
-      buildInputs = [
-        zlib
-        libuv
-        openssl
-        http-parser
-        icu
-        bash
-      ] ++ lib.optionals useSharedSQLite [ sqlite ];
+      buildInputs =
+        [
+          zlib
+          libuv
+          openssl
+          http-parser
+          icu
+          bash
+        ]
+        ++ lib.optionals useSharedSQLite [sqlite];
 
       nativeBuildInputs =
         [
@@ -243,10 +239,12 @@ let
       dontUseNinjaCheck = true;
       dontUseNinjaInstall = true;
 
-      outputs = [
-        "out"
-        "libv8"
-      ] ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [ "dev" ];
+      outputs =
+        [
+          "out"
+          "libv8"
+        ]
+        ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) ["dev"];
       setOutputFlags = false;
       moveToDev = false;
 
@@ -256,12 +254,16 @@ let
           "--with-intl=system-icu"
           "--openssl-use-def-ca-store"
           # --cross-compiling flag enables use of CC_host et. al
-          (if canExecute || canEmulate then "--no-cross-compiling" else "--cross-compiling")
+          (
+            if canExecute || canEmulate
+            then "--no-cross-compiling"
+            else "--cross-compiling"
+          )
           "--dest-os=${destOS}"
           "--dest-cpu=${destCPU}"
         ]
-        ++ lib.optionals (destARMFPU != null) [ "--with-arm-fpu=${destARMFPU}" ]
-        ++ lib.optionals (destARMFloatABI != null) [ "--with-arm-float-abi=${destARMFloatABI}" ]
+        ++ lib.optionals (destARMFPU != null) ["--with-arm-fpu=${destARMFPU}"]
+        ++ lib.optionals (destARMFloatABI != null) ["--with-arm-float-abi=${destARMFloatABI}"]
         ++ lib.optionals (!canExecute && canEmulate) [
           # Node.js requires matching bitness between build and host platforms, e.g.
           # for V8 startup snapshot builder (see tools/snapshot) and some other
@@ -270,22 +272,22 @@ let
           # perspective).
           "--emulator=${emulator}"
         ]
-        ++ lib.optionals (lib.versionOlder version "19") [ "--without-dtrace" ]
-        ++ lib.optionals (!enableNpm) [ "--without-npm" ]
+        ++ lib.optionals (lib.versionOlder version "19") ["--without-dtrace"]
+        ++ lib.optionals (!enableNpm) ["--without-npm"]
         ++ lib.concatMap (name: [
           "--shared-${name}"
           "--shared-${name}-libpath=${lib.getLib sharedLibDeps.${name}}/lib"
           /**
-            Closure notes: we explicitly avoid specifying --shared-*-includes,
-            as that would put the paths into bin/nodejs.
-            Including pkg-config in build inputs would also have the same effect!
+          Closure notes: we explicitly avoid specifying --shared-*-includes,
+          as that would put the paths into bin/nodejs.
+          Including pkg-config in build inputs would also have the same effect!
 
-            FIXME: the statement above is outdated, we have to include pkg-config
-            in build inputs for system-icu.
+          FIXME: the statement above is outdated, we have to include pkg-config
+          in build inputs for system-icu.
           */
         ]) (builtins.attrNames sharedLibDeps);
 
-      configurePlatforms = [ ];
+      configurePlatforms = [];
 
       dontDisableStatic = true;
 
@@ -443,16 +445,14 @@ let
           }"
         ];
 
-      postInstall =
-        let
-          # nodejs_18 does not have node_js2c, and we don't want to rebuild the other ones
-          # FIXME: fix this cleanly in staging
-          tools =
-            if majorVersion == "18" then
-              "{bytecode_builtins_list_generator,mksnapshot,torque,gen-regexp-special-case}"
-            else
-              "{bytecode_builtins_list_generator,mksnapshot,torque,node_js2c,gen-regexp-special-case}";
-        in
+      postInstall = let
+        # nodejs_18 does not have node_js2c, and we don't want to rebuild the other ones
+        # FIXME: fix this cleanly in staging
+        tools =
+          if majorVersion == "18"
+          then "{bytecode_builtins_list_generator,mksnapshot,torque,gen-regexp-special-case}"
+          else "{bytecode_builtins_list_generator,mksnapshot,torque,node_js2c,gen-regexp-special-case}";
+      in
         lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
           mkdir -p $dev/bin
           cp out/Release/${tools} $dev/bin
@@ -540,7 +540,7 @@ let
         homepage = "https://nodejs.org";
         changelog = "https://github.com/nodejs/node/releases/tag/v${version}";
         license = licenses.mit;
-        maintainers = with maintainers; [ aduh95 ];
+        maintainers = with maintainers; [aduh95];
         platforms = platforms.linux ++ platforms.darwin ++ platforms.freebsd;
         # This broken condition is likely too conservative. Feel free to loosen it if it works.
         broken =
@@ -553,4 +553,4 @@ let
     }
   );
 in
-package
+  package

@@ -12,7 +12,6 @@
   cppunit,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libcdr";
   version = "0.1.8";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 

@@ -13,7 +13,6 @@
   qt5,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "OpenOrienteering-Mapper";
   version = "0.9.5";
@@ -84,8 +83,7 @@ stdenv.mkDerivation rec {
       (lib.cmakeBool "Mapper_PACKAGE_GDAL" false)
     ];
 
-  postInstall =
-    with stdenv;
+  postInstall = with stdenv;
     lib.optionalString isDarwin ''
       mkdir -p $out/{Applications,bin}
       mv $out/Mapper.app $out/Applications

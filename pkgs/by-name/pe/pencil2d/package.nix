@@ -7,7 +7,6 @@
   ffmpeg_6,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pencil2d";
   version = "0.7.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
   };
 
-  patches = [ ./git-inherit.patch ];
+  patches = [./git-inherit.patch];
 
   nativeBuildInputs = with qt5; [
     qmake
@@ -45,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     "VERSION=${finalAttrs.version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   buildInputs = with qt5; [
     qtbase
@@ -60,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.pencil2d.org/";
     downloadPage = "https://github.com/pencil2d/pencil";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ agvantibo ];
+    maintainers = with lib.maintainers; [agvantibo];
     platforms = lib.platforms.linux;
     mainProgram = "pencil2d";
   };

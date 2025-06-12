@@ -7,7 +7,6 @@
   azure-common,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-machinelearningcompute";
   version = "0.4.1";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Machine Learning Compute Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

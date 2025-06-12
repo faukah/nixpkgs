@@ -10,7 +10,6 @@
   mkfontdir,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libdockapp";
 
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library providing a framework for dockapps";
     homepage = "https://www.dockapps.net/libdockapp";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

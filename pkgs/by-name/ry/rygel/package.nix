@@ -35,7 +35,6 @@
   gnome,
   rygel,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "rygel";
   version = "0.44.2";
@@ -65,7 +64,11 @@ stdenv.mkDerivation (finalAttrs: {
     libxml2
     libxslt # for xsltproc
     gobject-introspection
-    (if withGtk then wrapGAppsHook3 else wrapGAppsNoGuiHook)
+    (
+      if withGtk
+      then wrapGAppsHook3
+      else wrapGAppsNoGuiHook
+    )
     python3
   ];
 
@@ -90,7 +93,7 @@ stdenv.mkDerivation (finalAttrs: {
       tinysparql
       shared-mime-info
     ]
-    ++ lib.optionals withGtk [ gtk3 ]
+    ++ lib.optionals withGtk [gtk3]
     ++ (with gst_all_1; [
       gstreamer
       gst-editing-services
@@ -119,7 +122,7 @@ stdenv.mkDerivation (finalAttrs: {
       packageName = "rygel";
       versionPolicy = "odd-unstable";
     };
-    noGtk = rygel.override { withGtk = false; };
+    noGtk = rygel.override {withGtk = false;};
   };
 
   meta = with lib; {
@@ -127,7 +130,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.gnome.org/GNOME/rygel";
     changelog = "https://gitlab.gnome.org/GNOME/rygel/-/blob/rygel-${finalAttrs.version}/NEWS?ref_type=tags";
     license = licenses.lgpl21Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.linux;
   };
 })

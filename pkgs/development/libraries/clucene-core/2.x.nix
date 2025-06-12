@@ -7,7 +7,6 @@
   boost,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "clucene-core";
   version = "2.3.3.4";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1arffdwivig88kkx685pldr784njm0249k0rb1f1plwavlrw9zfx";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost

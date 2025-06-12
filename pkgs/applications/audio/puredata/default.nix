@@ -12,7 +12,6 @@
   portaudio,
   portmidi,
 }:
-
 stdenv.mkDerivation rec {
   pname = "puredata";
   version = "0.55-2";
@@ -64,8 +63,8 @@ stdenv.mkDerivation rec {
     ];
 
   postInstall = ''
-    wrapProgram $out/bin/pd --prefix PATH : ${lib.makeBinPath [ tk ]}
-    wrapProgram $out/bin/pd-gui --prefix PATH : ${lib.makeBinPath [ tk ]}
+    wrapProgram $out/bin/pd --prefix PATH : ${lib.makeBinPath [tk]}
+    wrapProgram $out/bin/pd-gui --prefix PATH : ${lib.makeBinPath [tk]}
   '';
 
   meta = with lib; {
@@ -73,7 +72,7 @@ stdenv.mkDerivation rec {
     homepage = "http://puredata.info";
     license = licenses.bsd3;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ carlthome ];
+    maintainers = with maintainers; [carlthome];
     mainProgram = "pd";
     changelog = "https://msp.puredata.info/Pd_documentation/x5.htm#s1";
   };

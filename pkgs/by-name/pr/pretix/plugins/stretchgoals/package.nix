@@ -5,7 +5,6 @@
   pretix-plugin-build,
   setuptools,
 }:
-
 buildPythonPackage {
   pname = "pretix-stretchgoals";
   version = "1.0.1";
@@ -33,6 +32,6 @@ buildPythonPackage {
     description = "Display the average ticket sales price over time";
     homepage = "https://github.com/rixx/pretix-stretchgoals";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

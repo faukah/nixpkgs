@@ -9,7 +9,6 @@
   scipy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "tbats";
   version = "1.1.3";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-f6QqDq/ffbnFBZRAT6KQRlqvZZSE+Pff2/o+htVabZI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -31,7 +30,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   pytestFlagsArray = [
     # test_R folder is just for comparison of results with R lib
     # we need only test folder
@@ -43,13 +42,13 @@ buildPythonPackage rec {
     "--deselect=test/tbats/TBATS_test.py::TestTBATS::test_fit_predict_trigonometric_seasonal"
   ];
 
-  pythonImportsCheck = [ "tbats" ];
+  pythonImportsCheck = ["tbats"];
 
   meta = with lib; {
     description = "BATS and TBATS forecasting methods";
     homepage = "https://github.com/intive-DataScience/tbats";
     changelog = "https://github.com/intive-DataScience/tbats/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbalatsko ];
+    maintainers = with maintainers; [mbalatsko];
   };
 }

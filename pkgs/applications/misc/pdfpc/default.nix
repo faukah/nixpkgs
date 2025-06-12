@@ -21,7 +21,6 @@
   json-glib,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pdfpc";
   version = "4.7.0";
@@ -49,7 +48,7 @@ stdenv.mkDerivation rec {
     libpthreadstubs
     gstreamer
     gst-plugins-base
-    (gst-plugins-good.override { gtkSupport = true; })
+    (gst-plugins-good.override {gtkSupport = true;})
     gst-libav
     qrencode
     webkitgtk_4_1
@@ -59,15 +58,14 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.optional stdenv.hostPlatform.isDarwin (lib.cmakeBool "MOVIES" false);
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Presenter console with multi-monitor support for PDF files";
     mainProgram = "pdfpc";
     homepage = "https://pdfpc.github.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
-
 }

@@ -3,14 +3,11 @@
   makeFontsConf,
   buildFHSEnv,
   tiling_wm ? false,
-}:
-
-let
-  mkStudio =
-    opts:
+}: let
+  mkStudio = opts:
     callPackage (import ./common.nix opts) {
       fontsConf = makeFontsConf {
-        fontDirectories = [ ];
+        fontDirectories = [];
       };
       inherit buildFHSEnv;
       inherit tiling_wm;
@@ -27,8 +24,7 @@ let
     version = "2025.1.2.4"; # "Android Studio Narwhal Feature Drop | 2025.1.2 Canary 4"
     sha256Hash = "sha256-MhonmDupcXGvwWUB+p/9AkqxCP9+j8a7D1bCseEu8GY=";
   };
-in
-{
+in {
   # Attributes are named by their corresponding release channels
 
   stable = mkStudio (

@@ -13,7 +13,6 @@
   wrapQtAppsHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxqt-globalkeys";
   version = "2.2.0";
@@ -40,13 +39,13 @@ stdenv.mkDerivation rec {
     libqtxdg
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-globalkeys";
     description = "LXQt service for global keyboard shortcuts registration";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

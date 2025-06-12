@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ErikReider/SwayAudioIdleInhibit";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rafaelrc ];
+    maintainers = with maintainers; [rafaelrc];
     mainProgram = "sway-audio-idle-inhibit";
   };
 })

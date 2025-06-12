@@ -3,13 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.slock;
-
-in
-{
+in {
   options = {
     programs.slock = {
       enable = lib.mkOption {
@@ -19,12 +15,12 @@ in
           Whether to install slock screen locker with setuid wrapper.
         '';
       };
-      package = lib.mkPackageOption pkgs "slock" { };
+      package = lib.mkPackageOption pkgs "slock" {};
     };
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     security.wrappers.slock = {
       setuid = true;
       owner = "root";

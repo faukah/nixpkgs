@@ -16,7 +16,6 @@
   runtimeShell,
   sed,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "pekwm";
   version = "0.3.2";
@@ -76,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://raw.githubusercontent.com/pekwm/pekwm/release-${finalAttrs.version}/NEWS.md";
     license = lib.licenses.gpl2Plus;
     mainProgram = "pekwm";
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.linux;
   };
 })

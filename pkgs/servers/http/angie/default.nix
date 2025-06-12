@@ -6,11 +6,13 @@
   withAcme ? false,
   withQuic ? false,
   ...
-}@args:
-
+} @ args:
 callPackage ../nginx/generic.nix args rec {
   version = "1.9.1";
-  pname = if withQuic then "angieQuic" else "angie";
+  pname =
+    if withQuic
+    then "angieQuic"
+    else "angie";
 
   src = fetchurl {
     url = "https://download.angie.software/files/angie-${version}.tar.gz";
@@ -47,6 +49,6 @@ callPackage ../nginx/generic.nix args rec {
     homepage = "https://angie.software/en/";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ izorkin ];
+    maintainers = with lib.maintainers; [izorkin];
   };
 }

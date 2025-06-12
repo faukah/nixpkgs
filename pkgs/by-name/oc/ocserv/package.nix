@@ -20,7 +20,6 @@
   libxcrypt,
   oath-toolkit,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ocserv";
   version = "1.3.0";
@@ -58,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/openconnect/ocserv";
     license = lib.licenses.gpl2Plus;
     description = "OpenConnect VPN server (ocserv), a server for the OpenConnect VPN client";
-    maintainers = with lib.maintainers; [ neverbehave ];
+    maintainers = with lib.maintainers; [neverbehave];
   };
 })

@@ -4,19 +4,16 @@
   buildPythonPackage,
   fetchFromGitHub,
   setuptools,
-
   # dependencies
   numpy,
   pandas,
   pydantic,
   tqdm,
   toolz,
-
   # optional dependencies (torch)
   torch,
   lightning,
   scipy,
-
   # test
   pytestCheckHook,
   distutils,
@@ -25,7 +22,6 @@
   statsmodels,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "gluonts";
   version = "0.16.1";
@@ -77,14 +73,16 @@ buildPythonPackage rec {
     "gluonts.transform"
   ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    distutils
-    matplotlib
-    pyarrow
-    statsmodels
-    which
-  ] ++ optional-dependencies.torch;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      distutils
+      matplotlib
+      pyarrow
+      statsmodels
+      which
+    ]
+    ++ optional-dependencies.torch;
 
   preCheck = ''export HOME=$(mktemp -d)'';
 
@@ -108,6 +106,6 @@ buildPythonPackage rec {
     homepage = "https://ts.gluon.ai";
     changelog = "https://github.com/awslabs/gluonts/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

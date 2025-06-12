@@ -23,7 +23,7 @@ buildGoModule rec {
   ];
 
   # Filter out the main executable
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # Requires network access
   doCheck = false;
@@ -32,7 +32,7 @@ buildGoModule rec {
     description = "Telegram downloader/tools written in Golang";
     homepage = "https://github.com/iyear/tdl";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ Ligthiago ];
+    maintainers = with maintainers; [Ligthiago];
     mainProgram = "tdl";
   };
 }

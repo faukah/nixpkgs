@@ -10,7 +10,6 @@
   pytest,
   pyzbar,
 }:
-
 buildPythonPackage rec {
   pname = "reportlab-qrcode";
   version = "0.1.6";
@@ -39,12 +38,12 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "reportlab_qrcode" ];
+  pythonImportsCheck = ["reportlab_qrcode"];
 
   meta = with lib; {
     description = "Allows to create QR codes for use with the ReportLab PDF library";
     homepage = "https://pypi.org/project/reportlab-qrcode/";
     license = licenses.mit;
-    maintainers = with maintainers; [ xanderio ];
+    maintainers = with maintainers; [xanderio];
   };
 }

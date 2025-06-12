@@ -2,16 +2,15 @@
 # main server configuration, and for the virtual hosts.  (The latter
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
-
-{ lib, config }:
-
-with lib;
-
 {
+  lib,
+  config,
+}:
+with lib; {
   options = {
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           user = "password";
@@ -100,8 +99,7 @@ with lib;
     };
 
     return = mkOption {
-      type =
-        with types;
+      type = with types;
         nullOr (oneOf [
           str
           int
@@ -115,7 +113,7 @@ with lib;
 
     fastcgiParams = mkOption {
       type = types.attrsOf (types.either types.str types.path);
-      default = { };
+      default = {};
       description = ''
         FastCGI parameters to override.  Unlike in the Nginx
         configuration file, overriding only some default parameters

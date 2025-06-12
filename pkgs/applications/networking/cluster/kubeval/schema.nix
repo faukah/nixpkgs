@@ -1,7 +1,6 @@
-{ fetchFromGitHub }:
+{fetchFromGitHub}:
 # To cache schema as a package so network calls are not
 # necessary at runtime, allowing use in package builds you can use the following:
-
 #   KUBEVAL_SCHEMA_LOCATION="file:///${kubeval-schema}";
 (fetchFromGitHub {
   name = "kubeval-schema";
@@ -12,5 +11,5 @@
 })
 // {
   # the schema is huge (> 7GB), we don't get any benefit from building int on hydra
-  meta.hydraPlatforms = [ ];
+  meta.hydraPlatforms = [];
 }

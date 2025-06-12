@@ -9,7 +9,6 @@
   qttools,
   qtlocation,
 }:
-
 mkDerivation {
   pname = "libosmscout";
   version = "2022.04.25";
@@ -31,7 +30,7 @@ mkDerivation {
     })
   ];
 
-  cmakeFlags = [ "-DOSMSCOUT_BUILD_TESTS=OFF" ];
+  cmakeFlags = ["-DOSMSCOUT_BUILD_TESTS=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -47,7 +46,7 @@ mkDerivation {
     description = "Simple, high-level interfaces for offline location and POI lokup, rendering and routing functionalities based on OpenStreetMap (OSM) data";
     homepage = "https://libosmscout.sourceforge.net/";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.Thra11 ];
+    maintainers = [maintainers.Thra11];
     platforms = platforms.linux;
   };
 }

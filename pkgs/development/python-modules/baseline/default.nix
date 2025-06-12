@@ -5,7 +5,6 @@
   isPy3k,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "baseline";
   version = "1.2.1";
@@ -19,7 +18,7 @@ buildPythonPackage {
     sha256 = "0qjg46ipyfjflvjqzqr5p7iylwwqn2mhhrq952d01vi8wvfds10d";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Easy String Baseline";
@@ -30,6 +29,6 @@ buildPythonPackage {
     '';
     homepage = "https://github.com/dmgass/baseline";
     license = licenses.mit;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

@@ -7,7 +7,6 @@
   pythonOlder,
   tinycss2,
 }:
-
 buildPythonPackage rec {
   pname = "cssselect2";
   version = "0.8.0";
@@ -24,19 +23,19 @@ buildPythonPackage rec {
     sed -i '/^addopts/d' pyproject.toml
   '';
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ tinycss2 ];
+  dependencies = [tinycss2];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "cssselect2" ];
+  pythonImportsCheck = ["cssselect2"];
 
   meta = with lib; {
     description = "CSS selectors for Python ElementTree";
     homepage = "https://github.com/Kozea/cssselect2";
     changelog = "https://github.com/Kozea/cssselect2/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

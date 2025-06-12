@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitea,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "evscript";
   version = "0.1.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tiny sandboxed Dyon scripting environment for evdev input devices";
     mainProgram = "evscript";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ milesbreslin ];
+    maintainers = with maintainers; [milesbreslin];
     platforms = platforms.linux;
   };
 }

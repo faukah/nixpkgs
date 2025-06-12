@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "mdformat-nix-alejandra";
   version = "0.1.0";
@@ -28,18 +27,18 @@ buildPythonPackage rec {
       --replace-fail '"alejandra"' '"${lib.getExe alejandra}"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ mdformat ];
+  propagatedBuildInputs = [mdformat];
 
-  pythonImportsCheck = [ "mdformat_nix_alejandra" ];
+  pythonImportsCheck = ["mdformat_nix_alejandra"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Mdformat plugin format Nix code blocks with alejandra";
     homepage = "https://github.com/aldoborrero/mdformat-nix-alejandra";
     license = licenses.mit;
-    maintainers = with maintainers; [ aldoborrero ];
+    maintainers = with maintainers; [aldoborrero];
   };
 }

@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Anonymous and neutral programming typeface focused on creating a better reading experience";
     homepage = "https://commitmono.com/";
     license = licenses.ofl;
-    maintainers = [ maintainers.yoavlavi ];
+    maintainers = [maintainers.yoavlavi];
     platforms = platforms.all;
   };
 }

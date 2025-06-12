@@ -9,7 +9,6 @@
   file,
   pari,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.023.7";
   pname = "sympow";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-sex8gRiBdTcVMV3nSeiTYamAjPoXQdiiZwjRmeKA+mc=";
   };
 
-  patches = [ ./clean-extra-logfile-output-from-pari.patch ];
+  patches = [./clean-extra-logfile-output-from-pari.patch];
 
   postUnpack = ''
     patchShebangs .
@@ -79,7 +78,7 @@ stdenv.mkDerivation rec {
       fullName = "Custom, BSD-like. See COPYING file.";
       free = true;
     };
-    teams = [ lib.teams.sage ];
+    teams = [lib.teams.sage];
     platforms = lib.platforms.unix;
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 buildGoModule rec {
   pname = "rvz";
   version = "1.0.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-Spmp0ZuvC0IpbfZrXNzJQ18LIuRRfwvuwf3E7S+30GY=";
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   rev = "aa4ae9eeff06cd2942db0d5af5f4fa5872530256";
   buildDate = "2022-11-18T23:11:47Z";
@@ -31,7 +30,7 @@ buildGoModule rec {
     "-X main.date=${buildDate}"
   ];
 
-  subPackages = [ "cmd/rvz" ];
+  subPackages = ["cmd/rvz"];
 
   checkPhase = ''
     go test -v -short -coverprofile=cover.out ./...
@@ -41,7 +40,7 @@ buildGoModule rec {
     description = "Golang library for reading RVZ disc images";
     homepage = "https://github.com/bodgit/rvz";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dansbandit ];
+    maintainers = with lib.maintainers; [dansbandit];
     mainProgram = "rvz";
   };
 }

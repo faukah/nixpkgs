@@ -3,9 +3,7 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 # To make use of this derivation, use the `programs.zsh.enableSyntaxHighlighting` option
-
 stdenv.mkDerivation (finalAttrs: {
   version = "0.8.0";
   pname = "zsh-syntax-highlighting";
@@ -19,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Fish shell like syntax highlighting for Zsh";

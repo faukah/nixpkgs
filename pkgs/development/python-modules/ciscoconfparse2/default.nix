@@ -18,7 +18,6 @@
   tomlkit,
   typeguard,
 }:
-
 buildPythonPackage rec {
   pname = "ciscoconfparse2";
   version = "0.8.17";
@@ -38,7 +37,7 @@ buildPythonPackage rec {
     "typeguard"
   ];
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     attrs
@@ -60,7 +59,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ciscoconfparse2" ];
+  pythonImportsCheck = ["ciscoconfparse2"];
 
   disabledTests = [
     # Fixtures are missing
@@ -82,6 +81,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/mpenning/ciscoconfparse2";
     changelog = "https://github.com/mpenning/ciscoconfparse2/blob/${src.tag}/CHANGES.md";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

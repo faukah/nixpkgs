@@ -4,7 +4,6 @@
   stdenv,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "readline";
   version = "7.0p${toString (builtins.length upstreamPatches)}";
@@ -23,26 +22,27 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   upstreamPatches = (
     let
-      patch =
-        nr: sha256:
+      patch = nr: sha256:
         fetchurl {
           url = "mirror://gnu/readline/readline-${meta.branch}-patches/readline70-${nr}";
           inherit sha256;
         };
     in
-    import ./readline-7.0-patches.nix patch
+      import ./readline-7.0-patches.nix patch
   );
 
-  patches = [
-    ./link-against-ncurses.patch
-    ./no-arch_only-6.3.patch
-  ] ++ upstreamPatches;
+  patches =
+    [
+      ./link-against-ncurses.patch
+      ./no-arch_only-6.3.patch
+    ]
+    ++ upstreamPatches;
 
   meta = with lib; {
     description = "Library for interactive line editing";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
 
     platforms = platforms.unix;
     branch = "7.0";

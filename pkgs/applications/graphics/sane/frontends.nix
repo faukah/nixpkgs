@@ -9,7 +9,6 @@
   pkg-config,
   libusb-compat-0_1 ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sane-frontends";
   version = "1.0.14";
@@ -21,15 +20,16 @@ stdenv.mkDerivation rec {
 
   # add all fedora patchs. fix gcc-14 build among other things
   # https://src.fedoraproject.org/rpms/sane-frontends/tree/main
-  patches =
-    let
-      fetchFedoraPatch =
-        { name, hash }:
-        fetchpatch {
-          inherit name hash;
-          url = "https://src.fedoraproject.org/rpms/sane-frontends/raw/89f752d7e236e86be8d64b7ac6991a36f9e9f7d0/f/${name}";
-        };
-    in
+  patches = let
+    fetchFedoraPatch = {
+      name,
+      hash,
+    }:
+      fetchpatch {
+        inherit name hash;
+        url = "https://src.fedoraproject.org/rpms/sane-frontends/raw/89f752d7e236e86be8d64b7ac6991a36f9e9f7d0/f/${name}";
+      };
+  in
     map fetchFedoraPatch [
       {
         name = "0001-src-scanadf.c-Fix-segfault-when-scanadf-h-d-device.patch";
@@ -61,12 +61,14 @@ stdenv.mkDerivation rec {
       }
     ];
 
-  buildInputs = [
-    sane-backends
-    libX11
-    gtk2
-  ] ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1;
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs =
+    [
+      sane-backends
+      libX11
+      gtk2
+    ]
+    ++ lib.optional (libusb-compat-0_1 != null) libusb-compat-0_1;
+  nativeBuildInputs = [pkg-config];
 
   enableParallelBuilding = true;
 

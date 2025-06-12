@@ -9,7 +9,6 @@
   setuptools,
   wheel,
 }:
-
 buildPythonPackage rec {
   pname = "hologram";
   version = "0.0.16";
@@ -41,11 +40,11 @@ buildPythonPackage rec {
     python-dateutil
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonRelaxDeps = [ "python-dateutil" ];
+  pythonRelaxDeps = ["python-dateutil"];
 
-  pythonImportsCheck = [ "hologram" ];
+  pythonImportsCheck = ["hologram"];
 
   meta = with lib; {
     description = "Library for automatically generating Draft 7 JSON Schemas from Python dataclasses";

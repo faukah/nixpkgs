@@ -1,7 +1,5 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options.boot.loader.efi = {
-
     canTouchEfiVariables = lib.mkOption {
       default = false;
       type = lib.types.bool;

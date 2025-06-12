@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "atkinson-hyperlegible-mono";
   version = "2.001-unstable-2024-11-20";
@@ -30,7 +29,7 @@ stdenvNoCC.mkDerivation {
     description = "New (2024) monospace sibling family to Atkinson Hyperlegible Next";
     homepage = "https://www.brailleinstitute.org/freefont/";
     license = lib.licenses.ofl;
-    maintainers = with lib.maintainers; [ pancaek ];
+    maintainers = with lib.maintainers; [pancaek];
     platforms = lib.platforms.all;
   };
 }

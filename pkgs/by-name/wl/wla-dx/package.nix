@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wla-dx";
   version = "10.6";
@@ -25,13 +24,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = {
     homepage = "https://www.villehelin.com/wla.html";
     description = "Yet Another GB-Z80/Z80/6502/65C02/6510/65816/HUC6280/SPC-700 Multi Platform Cross Assembler Package";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
     platforms = lib.platforms.all;
   };
 }

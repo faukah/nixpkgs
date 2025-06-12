@@ -18,9 +18,9 @@ python3Packages.buildPythonApplication {
     hash = "sha256-KA+Q4sk+riaFTybRQ3aO5lgPg4ECZE6G+By+x2uP/VM=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [python3Packages.setuptools];
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   dependencies = with python3Packages; [
     ffmpy
@@ -33,7 +33,7 @@ python3Packages.buildPythonApplication {
     protobuf
   ];
 
-  pythonImportsCheck = [ "zotify" ];
+  pythonImportsCheck = ["zotify"];
 
   meta = {
     description = "Fast and customizable music and podcast downloader";
@@ -41,6 +41,6 @@ python3Packages.buildPythonApplication {
     changelog = "https://github.com/zotify-dev/zotify/blob/main/CHANGELOG.md";
     license = lib.licenses.zlib;
     mainProgram = "zotify";
-    maintainers = with lib.maintainers; [ bwkam ];
+    maintainers = with lib.maintainers; [bwkam];
   };
 }

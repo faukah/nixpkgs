@@ -10,7 +10,6 @@
   xenstore,
   xenstore_transport,
 }:
-
 buildDunePackage rec {
   pname = "vchan";
   version = "6.0.2";
@@ -40,7 +39,7 @@ buildDunePackage rec {
     description = "Xen Vchan implementation";
     homepage = "https://github.com/mirage/ocaml-vchan";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
-    teams = [ teams.xen ];
+    maintainers = [maintainers.sternenseemann];
+    teams = [teams.xen];
   };
 }

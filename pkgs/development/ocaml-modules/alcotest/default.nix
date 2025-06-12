@@ -10,7 +10,6 @@
   uutf,
   ocaml-syntax-shims,
 }:
-
 buildDunePackage rec {
   pname = "alcotest";
   version = "1.9.0";
@@ -20,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-4jhxNsqFTfK0FSE53U1LOVOmRugElIBz3t/gojLwihU=";
   };
 
-  nativeBuildInputs = [ ocaml-syntax-shims ];
+  nativeBuildInputs = [ocaml-syntax-shims];
 
   propagatedBuildInputs = [
     astring
@@ -37,6 +36,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/alcotest";
     description = "Lightweight and colourful test framework";
     license = licenses.isc;
-    maintainers = [ maintainers.ericbmerritt ];
+    maintainers = [maintainers.ericbmerritt];
   };
 }

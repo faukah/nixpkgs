@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "midiutil";
   version = "1.2.1";
@@ -18,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/MarkCWirt/MIDIUtil";
     description = "Pure python library for creating multi-track MIDI files";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

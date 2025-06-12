@@ -7,7 +7,6 @@
   sassc,
   stdenvNoCC,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "lavanda-gtk-theme";
   version = "2024-04-28";
@@ -24,9 +23,9 @@ stdenvNoCC.mkDerivation rec {
     sassc
   ];
 
-  buildInputs = [ gnome-themes-extra ];
+  buildInputs = [gnome-themes-extra];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   preInstall = ''
     mkdir -p $out/share/themes
@@ -47,6 +46,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/vinceliuice/Lavanda-gtk-theme";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dretyuiop ];
+    maintainers = with maintainers; [dretyuiop];
   };
 }

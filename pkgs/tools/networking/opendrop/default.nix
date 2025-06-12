@@ -13,7 +13,6 @@
   writableTmpDirAsHomeHook,
   openssl,
 }:
-
 buildPythonApplication rec {
   pname = "opendrop";
   version = "0.13.0";
@@ -49,15 +48,15 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
 
   meta = with lib; {
     description = "Open Apple AirDrop implementation written in Python";
     homepage = "https://owlink.org/";
     changelog = "https://github.com/seemoo-lab/opendrop/releases/tag/${src.rev}";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "opendrop";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

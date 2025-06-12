@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "pp_loc";
   version = "2.1.0";
@@ -20,7 +19,7 @@ buildDunePackage rec {
   meta = {
     description = "Quote and highlight input fragments at a given source location";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://armael.github.io/pp_loc/pp_loc/";
   };
 }

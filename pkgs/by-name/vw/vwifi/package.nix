@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-rlwBO5/xyr8KjvacxYt7dBrV1noXhwBJaElGhmM/eWU=";
   };
 
-  patches = [ ./makefile.patch ];
+  patches = [./makefile.patch];
 
   buildInputs = [
     libnl
@@ -42,6 +42,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/Raizo62/vwifi";
     license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ asappia ];
+    maintainers = with lib.maintainers; [asappia];
   };
 })

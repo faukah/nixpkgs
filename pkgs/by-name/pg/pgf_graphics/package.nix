@@ -8,7 +8,6 @@
   freeimage,
   libpgf,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pgf";
   version = "7.21.7";

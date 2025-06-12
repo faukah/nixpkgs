@@ -61,7 +61,7 @@ buildPythonPackage rec {
     truststore
   ];
 
-  patches = [ ./0001-conda_exe.patch ];
+  patches = [./0001-conda_exe.patch];
 
   makeWrapperArgs = [
     "--set"
@@ -77,15 +77,15 @@ buildPythonPackage rec {
     defaultPkgPath
   ];
 
-  pythonImportsCheck = [ "conda" ];
+  pythonImportsCheck = ["conda"];
 
   # menuinst is currently not packaged
-  pythonRemoveDeps = lib.optionals (!stdenv.hostPlatform.isWindows) [ "menuinst" ];
+  pythonRemoveDeps = lib.optionals (!stdenv.hostPlatform.isWindows) ["menuinst"];
 
   meta = {
     description = "OS-agnostic, system-level binary package manager";
     homepage = "https://github.com/conda/conda";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.ericthemagician ];
+    maintainers = [lib.maintainers.ericthemagician];
   };
 }

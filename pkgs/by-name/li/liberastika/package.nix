@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "liberastika";
   version = "1.1.5";
@@ -28,6 +27,6 @@ stdenvNoCC.mkDerivation rec {
 
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

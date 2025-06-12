@@ -8,7 +8,6 @@
   python3,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "mod_python";
   version = "3.5.0.4";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-bZ0w61+0If70KD3UW24JllY6vD0vQX2C7FssYG1YLPI=";
   };
 
-  patches = [ ./install.patch ];
+  patches = [./install.patch];
 
   installFlags = [
     "LIBEXECDIR=$(out)/modules"
@@ -35,11 +34,12 @@ stdenv.mkDerivation (finalAttrs: {
     [
       apacheHttpd
       (python3.withPackages (
-        ps: with ps; [
-          distutils
-          packaging
-          setuptools
-        ]
+        ps:
+          with ps; [
+            distutils
+            packaging
+            setuptools
+          ]
       ))
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
@@ -48,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit apacheHttpd;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -57,6 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Apache module that embeds the Python interpreter within the server";
     mainProgram = "mod_python";
     platforms = lib.platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 })

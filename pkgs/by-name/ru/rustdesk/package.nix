@@ -33,7 +33,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustdesk";
   version = "1.3.8";
@@ -101,8 +100,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       desktopName = "RustDesk";
       comment = finalAttrs.meta.description;
       genericName = "Remote Desktop";
-      categories = [ "Network" ];
-      mimeTypes = [ "x-scheme-handler/rustdesk" ];
+      categories = ["Network"];
+      mimeTypes = ["x-scheme-handler/rustdesk"];
     })
   ];
 
@@ -113,7 +112,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wrapGAppsHook3
   ];
 
-  buildFeatures = lib.optionals stdenv.hostPlatform.isLinux [ "linux-pkg-config" ];
+  buildFeatures = lib.optionals stdenv.hostPlatform.isLinux ["linux-pkg-config"];
 
   # Checks require an active X server
   doCheck = false;
@@ -143,7 +142,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
       zlib
       zstd
     ]
-
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       alsa-lib
       xdotool

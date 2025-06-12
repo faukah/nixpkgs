@@ -3,18 +3,16 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.matrix-alertmanager;
-  rooms = room: lib.concatStringsSep "/" (room.receivers ++ [ room.roomId ]);
+  rooms = room: lib.concatStringsSep "/" (room.receivers ++ [room.roomId]);
   concatenatedRooms = lib.concatStringsSep "|" (map rooms cfg.matrixRooms);
-in
-{
-  meta.maintainers = [ lib.maintainers.erethon ];
+in {
+  meta.maintainers = [lib.maintainers.erethon];
 
   options.services.matrix-alertmanager = {
     enable = lib.mkEnableOption "matrix-alertmanager";
-    package = lib.mkPackageOption pkgs "matrix-alertmanager" { };
+    package = lib.mkPackageOption pkgs "matrix-alertmanager" {};
     port = lib.mkOption {
       type = lib.types.port;
       default = 3000;
@@ -41,10 +39,8 @@ in
             roomId = lib.mkOption {
               type = lib.types.str;
               description = "Matrix room ID";
-              apply =
-                x:
-                assert lib.assertMsg (lib.hasPrefix "!" x) "Matrix room ID must start with a '!'. Got: ${x}";
-                x;
+              apply = x:
+                assert lib.assertMsg (lib.hasPrefix "!" x) "Matrix room ID must start with a '!'. Got: ${x}"; x;
             };
           };
         }
@@ -65,7 +61,7 @@ in
           roomId = "!roomid@example.com";
         }
         {
-          receivers = [ "receiver3" ];
+          receivers = ["receiver3"];
           roomId = "!differentroomid@example.com";
         }
       ];
@@ -94,8 +90,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.matrix-alertmanager = {
       description = "A bot to receive Alertmanager webhook events and forward them to chosen rooms.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
@@ -111,7 +107,10 @@ in
         MATRIX_HOMESERVER_URL = cfg.homeserverUrl;
         MATRIX_ROOMS = concatenatedRooms;
         MATRIX_USER = cfg.matrixUser;
-        MENTION_ROOM = if cfg.mention then "1" else "0";
+        MENTION_ROOM =
+          if cfg.mention
+          then "1"
+          else "0";
         NODE_ENV = "production";
       };
 

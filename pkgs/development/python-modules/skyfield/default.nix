@@ -13,7 +13,6 @@
   matplotlib,
   assay,
 }:
-
 buildPythonPackage rec {
   pname = "skyfield";
   version = "1.49";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail "if IS_32_BIT" "if True"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     certifi
@@ -58,12 +57,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "skyfield" ];
+  pythonImportsCheck = ["skyfield"];
 
   meta = with lib; {
     homepage = "https://github.com/skyfielders/python-skyfield";
     description = "Elegant astronomy for Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

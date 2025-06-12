@@ -124,12 +124,9 @@
   uv,
   # nvim-vstsl dependencies
   vtsls,
-}:
-self: super:
-let
+}: self: super: let
   luaPackages = neovim-unwrapped.lua.pkgs;
-in
-{
+in {
   corePlugins = symlinkJoin {
     name = "core-vim-plugins";
     paths = with self; [
@@ -187,12 +184,12 @@ in
 
   aider-nvim = super.aider-nvim.overrideAttrs {
     patches = [
-      (replaceVars ./patches/aider-nvim/bin.patch { aider = lib.getExe' aider-chat "aider"; })
+      (replaceVars ./patches/aider-nvim/bin.patch {aider = lib.getExe' aider-chat "aider";})
     ];
   };
 
   animation-nvim = super.animation-nvim.overrideAttrs {
-    dependencies = [ self.middleclass ];
+    dependencies = [self.middleclass];
   };
 
   arshlib-nvim = super.arshlib-nvim.overrideAttrs {
@@ -203,26 +200,26 @@ in
   };
 
   astrocore = super.astrocore.overrideAttrs {
-    dependencies = [ self.lazy-nvim ];
+    dependencies = [self.lazy-nvim];
   };
 
   astroui = super.astroui.overrideAttrs {
     # Readme states that astrocore is an optional dependency
-    checkInputs = [ self.astrocore ];
+    checkInputs = [self.astrocore];
   };
 
   asyncrun-vim = super.asyncrun-vim.overrideAttrs {
     # Optional toggleterm integration
-    checkInputs = [ self.toggleterm-nvim ];
+    checkInputs = [self.toggleterm-nvim];
   };
 
   autosave-nvim = super.autosave-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   auto-session = super.auto-session.overrideAttrs {
     # Optional integration
-    checkInputs = [ self.telescope-nvim ];
+    checkInputs = [self.telescope-nvim];
   };
 
   aw-watcher-vim = super.aw-watcher-vim.overrideAttrs {
@@ -258,7 +255,7 @@ in
       nvim-web-devicons
     ];
     # E5108: Error executing lua ...implugin-barbar.nvim-2025-04-28/lua/bufferline/utils.lua:10: module 'barbar.utils.hl' not found:
-    nvimSkipModules = [ "bufferline.utils" ];
+    nvimSkipModules = ["bufferline.utils"];
   };
 
   barbecue-nvim = super.barbecue-nvim.overrideAttrs {
@@ -270,12 +267,12 @@ in
       description = "VS Code like winbar for Neovim";
       homepage = "https://github.com/utilyre/barbecue.nvim";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ lightquantum ];
+      maintainers = with lib.maintainers; [lightquantum];
     };
   };
 
   base46 = super.base46.overrideAttrs {
-    dependencies = [ self.nvchad-ui ];
+    dependencies = [self.nvchad-ui];
     # Requires global config setup
     nvimSkipModules = [
       "nvchad.configs.cmp"
@@ -288,15 +285,15 @@ in
   };
 
   blink-cmp-copilot = super.blink-cmp-copilot.overrideAttrs {
-    dependencies = [ self.copilot-lua ];
+    dependencies = [self.copilot-lua];
   };
 
   blink-cmp-dictionary = super.blink-cmp-dictionary.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   blink-cmp-git = super.blink-cmp-git.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   blink-cmp-npm-nvim = super.blink-cmp-npm-nvim.overrideAttrs {
@@ -312,20 +309,20 @@ in
   };
 
   blink-emoji-nvim = super.blink-emoji-nvim.overrideAttrs {
-    dependencies = [ self.blink-cmp ];
+    dependencies = [self.blink-cmp];
   };
 
   blink-nerdfont-nvim = super.blink-nerdfont-nvim.overrideAttrs {
-    dependencies = [ self.blink-cmp ];
+    dependencies = [self.blink-cmp];
   };
 
   bluloco-nvim = super.bluloco-nvim.overrideAttrs {
-    dependencies = [ self.lush-nvim ];
+    dependencies = [self.lush-nvim];
   };
 
   bufferline-nvim = super.bufferline-nvim.overrideAttrs {
     # depends on bufferline.lua being loaded first
-    nvimSkipModules = [ "bufferline.commands" ];
+    nvimSkipModules = ["bufferline.commands"];
   };
 
   bufresize-nvim = super.bufresize-nvim.overrideAttrs {
@@ -343,21 +340,21 @@ in
   ccc-nvim = super.ccc-nvim.overrideAttrs {
     # ccc auto-discover requires all pass
     # but there's a bootstrap module that hangs forever if we dont stop on first success
-    nvimSkipModules = [ "ccc.kit.Thread.Server._bootstrap" ];
+    nvimSkipModules = ["ccc.kit.Thread.Server._bootstrap"];
   };
 
   chadtree = super.chadtree.overrideAttrs {
     buildInputs = [
       python3
     ];
-    passthru.python3Dependencies =
-      ps: with ps; [
+    passthru.python3Dependencies = ps:
+      with ps; [
         pynvim-pp
         pyyaml
         std2
       ];
     # We need some patches so it stops complaining about not being in a venv
-    patches = [ ./patches/chadtree/emulate-venv.patch ];
+    patches = [./patches/chadtree/emulate-venv.patch];
   };
 
   ChatGPT-nvim = super.ChatGPT-nvim.overrideAttrs {
@@ -414,7 +411,7 @@ in
   };
 
   cmake-tools-nvim = super.cmake-tools-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   cmd-parser-nvim = super.cmd-parser-nvim.overrideAttrs {
@@ -426,48 +423,48 @@ in
   cmp-ai = super.cmp-ai.overrideAttrs {
     # We dont want to bundle nvim-cmp anymore since blink.nvim can use these sources.
     # Add to check inputs though to validate plugin
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
     dependencies = with self; [
       plenary-nvim
     ];
   };
 
   cmp-beancount = super.cmp-beancount.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-clippy = super.cmp-clippy.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
     dependencies = with self; [
       plenary-nvim
     ];
   };
 
   cmp-cmdline = super.cmp-cmdline.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-conjure = super.cmp-conjure.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.conjure ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.conjure];
   };
 
   cmp-copilot = super.cmp-copilot.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.copilot-vim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.copilot-vim];
   };
 
   cmp-ctags = super.cmp-ctags.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-dap = super.cmp-dap.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.nvim-dap ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.nvim-dap];
   };
 
   cmp-dictionary = super.cmp-dictionary.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
     nvimSkipModules = [
       # Test files
       "cmp_dictionary.dict.external_spec"
@@ -478,100 +475,100 @@ in
   };
 
   cmp-digraphs = super.cmp-digraphs.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-fish = super.cmp-fish.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-fuzzy-buffer = super.cmp-fuzzy-buffer.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.fuzzy-nvim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.fuzzy-nvim];
   };
 
   cmp-fuzzy-path = super.cmp-fuzzy-path.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.fuzzy-nvim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.fuzzy-nvim];
   };
 
   cmp-git = super.cmp-git.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = with self; [ plenary-nvim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = with self; [plenary-nvim];
   };
 
   cmp-greek = super.cmp-greek.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-look = super.cmp-look.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp_luasnip = super.cmp_luasnip.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.luasnip ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.luasnip];
   };
 
   cmp-neosnippet = super.cmp-neosnippet.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.neosnippet-vim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.neosnippet-vim];
   };
 
   cmp-nixpkgs-maintainers = super.cmp-nixpkgs-maintainers.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-npm = super.cmp-npm.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.plenary-nvim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.plenary-nvim];
   };
 
   cmp-nvim-lsp-signature-help = super.cmp-nvim-lsp-signature-help.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-nvim-lua = super.cmp-nvim-lua.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-nvim-tags = super.cmp-nvim-tags.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-nvim-ultisnips = super.cmp-nvim-ultisnips.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-pandoc-nvim = super.cmp-pandoc-nvim.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.plenary-nvim ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.plenary-nvim];
   };
 
   cmp-pandoc-references = super.cmp-pandoc-references.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-path = super.cmp-path.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-rg = super.cmp-rg.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-snippy = super.cmp-snippy.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.nvim-snippy ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.nvim-snippy];
   };
 
   cmp-tabby = super.cmp-tabby.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-tabnine = super.cmp-tabnine.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    buildInputs = [ tabnine ];
+    checkInputs = [self.nvim-cmp];
+    buildInputs = [tabnine];
 
     postFixup = ''
       mkdir -p $target/binaries/${tabnine.version}
@@ -580,35 +577,35 @@ in
   };
 
   cmp-tmux = super.cmp-tmux.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ tmux ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [tmux];
   };
 
   cmp-vim-lsp = super.cmp-vim-lsp.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.vim-lsp ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.vim-lsp];
   };
 
   cmp-vimtex = super.cmp-vimtex.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-vimwiki-tags = super.cmp-vimwiki-tags.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ self.vimwiki ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [self.vimwiki];
   };
 
   cmp-vsnip = super.cmp-vsnip.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
+    checkInputs = [self.nvim-cmp];
   };
 
   cmp-zsh = super.cmp-zsh.overrideAttrs {
-    checkInputs = [ self.nvim-cmp ];
-    dependencies = [ zsh ];
+    checkInputs = [self.nvim-cmp];
+    dependencies = [zsh];
   };
 
   cobalt2-nvim = super.cobalt2-nvim.overrideAttrs {
-    dependencies = with self; [ colorbuddy-nvim ];
+    dependencies = with self; [colorbuddy-nvim];
     # Few broken themes
     nvimSkipModules = [
       "cobalt2.plugins.init"
@@ -632,7 +629,7 @@ in
       snacks-nvim
       telescope-nvim
     ];
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Requires setup call
       "codecompanion.actions.static"
@@ -651,46 +648,45 @@ in
     ];
   };
 
-  windsurf-nvim =
-    let
-      # Update according to https://github.com/Exafunction/codeium.nvim/blob/main/lua/codeium/versions.json
-      codeiumVersion = "1.20.9";
-      codeiumHashes = {
-        x86_64-linux = "sha256-IeNK7UQtOhqC/eQv7MAya4jB1WIGykSR7IgutZatmHM=";
-        aarch64-linux = "sha256-ujTFki/3V79El2WCkG0PJhbaMT0knC9mrS9E7Uv9HD4=";
-        x86_64-darwin = "sha256-r2KloEQsUku9sk8h76kwyQuMTHcq/vwfTSK2dkiXDzE=";
-        aarch64-darwin = "sha256-1jNH0Up8mAahDgvPF6g42LV+RVDVsPqDM54lE2KYY48=";
-      };
+  windsurf-nvim = let
+    # Update according to https://github.com/Exafunction/codeium.nvim/blob/main/lua/codeium/versions.json
+    codeiumVersion = "1.20.9";
+    codeiumHashes = {
+      x86_64-linux = "sha256-IeNK7UQtOhqC/eQv7MAya4jB1WIGykSR7IgutZatmHM=";
+      aarch64-linux = "sha256-ujTFki/3V79El2WCkG0PJhbaMT0knC9mrS9E7Uv9HD4=";
+      x86_64-darwin = "sha256-r2KloEQsUku9sk8h76kwyQuMTHcq/vwfTSK2dkiXDzE=";
+      aarch64-darwin = "sha256-1jNH0Up8mAahDgvPF6g42LV+RVDVsPqDM54lE2KYY48=";
+    };
 
-      codeium' = codeium.overrideAttrs rec {
-        version = codeiumVersion;
+    codeium' = codeium.overrideAttrs rec {
+      version = codeiumVersion;
 
-        src =
-          let
-            inherit (stdenv.hostPlatform) system;
-            throwSystem = throw "Unsupported system: ${system}";
+      src = let
+        inherit (stdenv.hostPlatform) system;
+        throwSystem = throw "Unsupported system: ${system}";
 
-            platform =
-              {
-                x86_64-linux = "linux_x64";
-                aarch64-linux = "linux_arm";
-                x86_64-darwin = "macos_x64";
-                aarch64-darwin = "macos_arm";
-              }
-              .${system} or throwSystem;
+        platform =
+          {
+            x86_64-linux = "linux_x64";
+            aarch64-linux = "linux_arm";
+            x86_64-darwin = "macos_x64";
+            aarch64-darwin = "macos_arm";
+          }
+              .${
+            system
+          } or throwSystem;
 
-            hash = codeiumHashes.${system} or throwSystem;
-          in
-          fetchurl {
-            name = "codeium-${version}.gz";
-            url = "https://github.com/Exafunction/codeium/releases/download/language-server-v${version}/language_server_${platform}.gz";
-            inherit hash;
-          };
-      };
-
-    in
+        hash = codeiumHashes.${system} or throwSystem;
+      in
+        fetchurl {
+          name = "codeium-${version}.gz";
+          url = "https://github.com/Exafunction/codeium/releases/download/language-server-v${version}/language_server_${platform}.gz";
+          inherit hash;
+        };
+    };
+  in
     super.windsurf-nvim.overrideAttrs {
-      dependencies = [ self.plenary-nvim ];
+      dependencies = [self.plenary-nvim];
       buildPhase = ''
         cat << EOF > lua/codeium/installation_defaults.lua
         return {
@@ -735,7 +731,7 @@ in
     };
 
   codewindow-nvim = super.codewindow-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   colorful-menu-nvim = super.colorful-menu-nvim.overrideAttrs {
@@ -761,24 +757,24 @@ in
   };
 
   competitest-nvim = super.competitest-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   compiler-explorer-nvim = super.compiler-explorer-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   compiler-nvim = super.compiler-nvim.overrideAttrs {
-    dependencies = [ self.overseer-nvim ];
+    dependencies = [self.overseer-nvim];
   };
 
   completion-buffers = super.completion-buffers.overrideAttrs {
-    dependencies = [ self.completion-nvim ];
+    dependencies = [self.completion-nvim];
   };
 
   completion-tabnine = super.completion-tabnine.overrideAttrs {
-    dependencies = [ self.completion-nvim ];
-    buildInputs = [ tabnine ];
+    dependencies = [self.completion-nvim];
+    buildInputs = [tabnine];
     postFixup = ''
       mkdir -p $target/binaries
       ln -s ${tabnine}/bin/TabNine $target/binaries/TabNine_$(uname -s)
@@ -793,7 +789,7 @@ in
   };
 
   conjure = super.conjure.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Test mismatch of directory because of nix generated path
       "conjure-spec.client.fennel.nfnl_spec"
@@ -802,7 +798,7 @@ in
 
   context-vim = super.context-vim.overrideAttrs {
     # Vim plugin with optional lua highlight module
-    nvimSkipModules = [ "context.highlight" ];
+    nvimSkipModules = ["context.highlight"];
   };
 
   CopilotChat-nvim = super.CopilotChat-nvim.overrideAttrs {
@@ -819,7 +815,7 @@ in
   };
 
   copilot-cmp = super.copilot-cmp.overrideAttrs {
-    dependencies = [ self.copilot-lua ];
+    dependencies = [self.copilot-lua];
   };
 
   copilot-lualine = super.copilot-lualine.overrideAttrs {
@@ -837,21 +833,23 @@ in
                   "  let node = get(g:, 'copilot_node_command', '${nodejs}/bin/node')"
     '';
 
-    meta = old.meta // {
-      license = lib.licenses.unfree;
-    };
+    meta =
+      old.meta
+      // {
+        license = lib.licenses.unfree;
+      };
   });
 
   coq_nvim = super.coq_nvim.overrideAttrs {
-    passthru.python3Dependencies =
-      ps: with ps; [
+    passthru.python3Dependencies = ps:
+      with ps; [
         pynvim-pp
         pyyaml
         std2
       ];
 
     # We need some patches so it stops complaining about not being in a venv
-    patches = [ ./patches/coq_nvim/emulate-venv.patch ];
+    patches = [./patches/coq_nvim/emulate-venv.patch];
 
     nvimRequireCheck = [
       # Other modules require global variables
@@ -860,10 +858,10 @@ in
   };
 
   cornelis = super.cornelis.overrideAttrs {
-    dependencies = [ self.vim-textobj-user ];
-    opt = [ self.vim-which-key ];
+    dependencies = [self.vim-textobj-user];
+    opt = [self.vim-which-key];
     # Unconditionally use the cornelis binary provided by the top-level package:
-    patches = [ ./patches/cornelis/0001-Unconditionally-use-global-binary.patch ];
+    patches = [./patches/cornelis/0001-Unconditionally-use-global-binary.patch];
     postInstall = ''
       substituteInPlace $out/ftplugin/agda.vim \
         --subst-var-by CORNELIS "${lib.getBin cornelis}/bin/cornelis"
@@ -871,7 +869,7 @@ in
   };
 
   cpsm = super.cpsm.overrideAttrs {
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       python3
       boost
@@ -890,7 +888,7 @@ in
       # Optional null-ls integration
       self.none-ls-nvim
     ];
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   cspell-nvim = super.cspell-nvim.overrideAttrs {
@@ -932,33 +930,33 @@ in
   };
 
   darkearth-nvim = super.darkearth-nvim.overrideAttrs {
-    dependencies = [ self.lush-nvim ];
+    dependencies = [self.lush-nvim];
     # Lua module used to build theme
-    nvimSkipModules = [ "shipwright_build" ];
+    nvimSkipModules = ["shipwright_build"];
   };
 
   ddc-filter-matcher_head = super.ddc-filter-matcher_head.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-filter-sorter_rank = super.ddc-filter-sorter_rank.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-fuzzy = super.ddc-fuzzy.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-source-around = super.ddc-source-around.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-source-file = super.ddc-source-file.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-source-lsp = super.ddc-source-lsp.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-ui-pum = super.ddc-ui-pum.overrideAttrs {
@@ -969,19 +967,19 @@ in
   };
 
   ddc-ui-native = super.ddc-ui-native.overrideAttrs {
-    dependencies = [ self.ddc-vim ];
+    dependencies = [self.ddc-vim];
   };
 
   ddc-vim = super.ddc-vim.overrideAttrs {
-    dependencies = [ self.denops-vim ];
+    dependencies = [self.denops-vim];
   };
 
   debugmaster-nvim = super.debugmaster-nvim.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   defx-nvim = super.defx-nvim.overrideAttrs {
-    dependencies = [ self.nvim-yarp ];
+    dependencies = [self.nvim-yarp];
   };
 
   denops-vim = super.denops-vim.overrideAttrs {
@@ -999,7 +997,7 @@ in
   };
 
   deoplete-go = super.deoplete-go.overrideAttrs {
-    nativeBuildInputs = [ (python3.withPackages (ps: with ps; [ setuptools ])) ];
+    nativeBuildInputs = [(python3.withPackages (ps: with ps; [setuptools]))];
     buildPhase = ''
       pushd ./rplugin/python3/deoplete/ujson
       python3 setup.py build --build-base=$PWD/build --build-lib=$PWD/build
@@ -1009,13 +1007,13 @@ in
   };
 
   deoplete-khard = super.deoplete-khard.overrideAttrs {
-    dependencies = [ self.deoplete-nvim ];
-    passthru.python3Dependencies = ps: [ (ps.toPythonModule khard) ];
+    dependencies = [self.deoplete-nvim];
+    passthru.python3Dependencies = ps: [(ps.toPythonModule khard)];
     meta = {
       description = "Address-completion for khard via deoplete";
       homepage = "https://github.com/nicoe/deoplete-khard";
       license = lib.licenses.mit;
-      maintainers = with lib.maintainers; [ jorsn ];
+      maintainers = with lib.maintainers; [jorsn];
     };
   };
 
@@ -1032,11 +1030,11 @@ in
   };
 
   diagram-nvim = super.diagram-nvim.overrideAttrs {
-    dependencies = [ self.image-nvim ];
+    dependencies = [self.image-nvim];
   };
 
   diffview-nvim = super.diffview-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
 
     nvimSkipModules = [
       # https://github.com/sindrets/diffview.nvim/issues/498
@@ -1089,7 +1087,7 @@ in
 
   dropbar-nvim = super.dropbar-nvim.overrideAttrs {
     # Requires global config table
-    nvimSkipModules = [ "dropbar.menu" ];
+    nvimSkipModules = ["dropbar.menu"];
   };
 
   easy-dotnet-nvim = super.easy-dotnet-nvim.overrideAttrs {
@@ -1110,18 +1108,18 @@ in
   };
 
   efmls-configs-nvim = super.efmls-configs-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   elixir-tools-nvim = super.elixir-tools-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     fixupPhase = ''
       patchShebangs $(find $out/bin/ -type f -not -name credo-language-server)
     '';
   };
 
   executor-nvim = super.executor-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   faust-nvim = super.faust-nvim.overrideAttrs {
@@ -1136,7 +1134,7 @@ in
   };
 
   fcitx-vim = super.fcitx-vim.overrideAttrs {
-    passthru.python3Dependencies = ps: with ps; [ dbus-python ];
+    passthru.python3Dependencies = ps: with ps; [dbus-python];
     meta = {
       description = "Keep and restore fcitx state when leaving/re-entering insert mode or search mode";
       license = lib.licenses.mit;
@@ -1146,45 +1144,44 @@ in
   flash-nvim = super.flash-nvim.overrideAttrs {
     # Docs require lazyvim
     # dependencies = with self; [ lazy-nvim ];
-    nvimSkipModules = [ "flash.docs" ];
+    nvimSkipModules = ["flash.docs"];
   };
 
   flit-nvim = super.flit-nvim.overrideAttrs {
-    dependencies = [ self.leap-nvim ];
+    dependencies = [self.leap-nvim];
   };
 
   flutter-tools-nvim = super.flutter-tools-nvim.overrideAttrs {
     # Optional dap integration
-    checkInputs = [ self.nvim-dap ];
-    dependencies = [ self.plenary-nvim ];
+    checkInputs = [self.nvim-dap];
+    dependencies = [self.plenary-nvim];
   };
 
   follow-md-links-nvim = super.follow-md-links-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   forms = super.forms.overrideAttrs {
-    dependencies = [ self.self ];
+    dependencies = [self.self];
   };
 
-  fruzzy =
-    let
-      # until https://github.com/NixOS/nixpkgs/pull/67878 is merged, there's no better way to install nim libraries with nix
-      nimpy = fetchFromGitHub {
-        owner = "yglukhov";
-        repo = "nimpy";
-        rev = "4840d1e438985af759ddf0923e7a9250fd8ea0da";
-        sha256 = "0qqklvaajjqnlqm3rkk36pwwnn7x942mbca7nf2cvryh36yg4q5k";
-      };
-      binaryheap = fetchFromGitHub {
-        owner = "bluenote10";
-        repo = "nim-heap";
-        rev = "c38039309cb11391112571aa332df9c55f625b54";
-        sha256 = "05xdy13vm5n8dw2i366ppbznc4cfhq23rdcklisbaklz2jhdx352";
-      };
-    in
+  fruzzy = let
+    # until https://github.com/NixOS/nixpkgs/pull/67878 is merged, there's no better way to install nim libraries with nix
+    nimpy = fetchFromGitHub {
+      owner = "yglukhov";
+      repo = "nimpy";
+      rev = "4840d1e438985af759ddf0923e7a9250fd8ea0da";
+      sha256 = "0qqklvaajjqnlqm3rkk36pwwnn7x942mbca7nf2cvryh36yg4q5k";
+    };
+    binaryheap = fetchFromGitHub {
+      owner = "bluenote10";
+      repo = "nim-heap";
+      rev = "c38039309cb11391112571aa332df9c55f625b54";
+      sha256 = "05xdy13vm5n8dw2i366ppbznc4cfhq23rdcklisbaklz2jhdx352";
+    };
+  in
     super.fruzzy.overrideAttrs (old: {
-      buildInputs = [ nim1 ];
+      buildInputs = [nim1];
       patches = [
         (replaceVars ./patches/fruzzy/get_version.patch {
           inherit (old) version;
@@ -1224,7 +1221,7 @@ in
       # Optional sorters
       telescope-zf-native-nvim
     ];
-    dependencies = [ self.telescope-fzf-native-nvim ];
+    dependencies = [self.telescope-fzf-native-nvim];
     nvimSkipModules = [
       # TODO: package fzy-lua-native
       "fuzzy_nvim.fzy_matcher"
@@ -1247,20 +1244,21 @@ in
       jq
       gawk
     ];
-    dependencies = [ self.fzf-vim ];
-    passthru = oa.passthru // {
-
-      initLua = "vim.g.hoogle_fzf_cache_file = vim.fn.stdpath('cache')..'/hoogle_cache.json";
-    };
+    dependencies = [self.fzf-vim];
+    passthru =
+      oa.passthru
+      // {
+        initLua = "vim.g.hoogle_fzf_cache_file = vim.fn.stdpath('cache')..'/hoogle_cache.json";
+      };
   });
 
   fzf-lsp-nvim = super.fzf-lsp-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   fzf-lua = neovimUtils.buildNeovimPlugin {
     luaAttr = luaPackages.fzf-lua;
-    runtimeDeps = [ fzf ];
+    runtimeDeps = [fzf];
     nvimSkipModules = [
       "fzf-lua.shell_helper"
       "fzf-lua.spawn"
@@ -1268,7 +1266,7 @@ in
   };
 
   fzf-vim = super.fzf-vim.overrideAttrs {
-    dependencies = [ self.fzfWrapper ];
+    dependencies = [self.fzfWrapper];
   };
 
   # Mainly used as a dependency for fzf-vim. Wraps the fzf program as a vim
@@ -1283,7 +1281,7 @@ in
   };
 
   gen-nvim = super.gen-nvim.overrideAttrs {
-    runtimeDeps = [ curl ];
+    runtimeDeps = [curl];
   };
 
   ghcid = super.ghcid.overrideAttrs {
@@ -1291,11 +1289,11 @@ in
   };
 
   gh-nvim = super.gh-nvim.overrideAttrs {
-    dependencies = [ self.litee-nvim ];
+    dependencies = [self.litee-nvim];
   };
 
   gitlinker-nvim = super.gitlinker-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   git-conflict-nvim = super.git-conflict-nvim.overrideAttrs {
@@ -1311,7 +1309,7 @@ in
   };
 
   git-worktree-nvim = super.git-worktree-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   go-nvim = super.go-nvim.overrideAttrs {
@@ -1343,7 +1341,7 @@ in
   };
 
   guard-collection = super.guard-collection.overrideAttrs {
-    dependencies = [ self.guard-nvim ];
+    dependencies = [self.guard-nvim];
   };
 
   gx-nvim = super.gx-nvim.overrideAttrs {
@@ -1375,11 +1373,11 @@ in
   };
 
   harpoon = super.harpoon.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   harpoon2 = super.harpoon2.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Access harpoon data file
       "harpoon.scratch.toggle"
@@ -1387,29 +1385,29 @@ in
   };
 
   haskell-scope-highlighting-nvim = super.haskell-scope-highlighting-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   haskell-snippets-nvim = super.haskell-snippets-nvim.overrideAttrs {
-    dependencies = [ self.luasnip ];
+    dependencies = [self.luasnip];
   };
 
   haskell-tools-nvim = neovimUtils.buildNeovimPlugin {
     # Optional integrations
-    checkInputs = [ self.telescope-nvim ];
+    checkInputs = [self.telescope-nvim];
     luaAttr = luaPackages.haskell-tools-nvim;
   };
 
   helpview-nvim = super.helpview-nvim.overrideAttrs {
-    nvimSkipModules = [ "definitions.__vimdoc" ];
+    nvimSkipModules = ["definitions.__vimdoc"];
   };
 
   hex-nvim = super.hex-nvim.overrideAttrs {
-    runtimeDeps = [ xxd ];
+    runtimeDeps = [xxd];
   };
 
   himalaya-vim = super.himalaya-vim.overrideAttrs {
-    buildInputs = [ himalaya ];
+    buildInputs = [himalaya];
     # Optional integrations
     checkInputs = with self; [
       fzf-lua
@@ -1424,7 +1422,7 @@ in
   };
 
   hunk-nvim = super.hunk-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   # https://hurl.dev/
@@ -1486,12 +1484,12 @@ in
   };
 
   intellitab-nvim = super.intellitab-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   jedi-vim = super.jedi-vim.overrideAttrs {
     # checking for python3 support in vim would be neat, too, but nobody else seems to care
-    buildInputs = [ python3.pkgs.jedi ];
+    buildInputs = [python3.pkgs.jedi];
     meta = {
       description = "code-completion for python using python-jedi";
       license = lib.licenses.mit;
@@ -1499,11 +1497,11 @@ in
   };
 
   jellybeans-nvim = super.jellybeans-nvim.overrideAttrs {
-    dependencies = [ self.lush-nvim ];
+    dependencies = [self.lush-nvim];
   };
 
   jupytext-nvim = super.jupytext-nvim.overrideAttrs {
-    passthru.python3Dependencies = ps: [ ps.jupytext ];
+    passthru.python3Dependencies = ps: [ps.jupytext];
   };
 
   kanagawa-paper-nvim = super.kanagawa-paper-nvim.overrideAttrs {
@@ -1519,7 +1517,7 @@ in
       nvim-treesitter
       nvim-treesitter-parsers.http
     ];
-    buildInputs = [ curl ];
+    buildInputs = [curl];
     postPatch = ''
       substituteInPlace lua/kulala/config/defaults.lua \
         --replace-fail 'curl_path = "curl"' 'curl_path = "${lib.getExe curl}"'
@@ -1532,7 +1530,7 @@ in
 
   LazyVim = super.LazyVim.overrideAttrs {
     # Any other dependency is optional
-    dependencies = [ self.lazy-nvim ];
+    dependencies = [self.lazy-nvim];
     nvimSkipModules = [
       # attempt to index global 'LazyVim' (a nil value)
       "lazyvim.config.keymaps"
@@ -1556,11 +1554,11 @@ in
   };
 
   lazy-lsp-nvim = super.lazy-lsp-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   lazy-nvim = super.lazy-nvim.overrideAttrs {
-    patches = [ ./patches/lazy-nvim/no-helptags.patch ];
+    patches = [./patches/lazy-nvim/no-helptags.patch];
     nvimSkipModules = [
       # Requires headless config option
       "lazy.manage.task.init"
@@ -1573,8 +1571,8 @@ in
   };
 
   LeaderF = super.LeaderF.overrideAttrs {
-    nativeBuildInputs = [ python3.pkgs.setuptools ];
-    buildInputs = [ python3 ];
+    nativeBuildInputs = [python3.pkgs.setuptools];
+    buildInputs = [python3];
     # rm */build/ to prevent dependencies on gcc
     # strip the *.so to keep files small
     buildPhase = ''
@@ -1582,7 +1580,7 @@ in
       ./install.sh
       rm autoload/leaderf/fuzzyMatch_C/build/ -r
     '';
-    stripDebugList = [ "autoload/leaderf/python" ];
+    stripDebugList = ["autoload/leaderf/python"];
   };
 
   lean-nvim = super.lean-nvim.overrideAttrs {
@@ -1642,7 +1640,7 @@ in
   };
 
   legendary-nvim = super.legendary-nvim.overrideAttrs {
-    dependencies = [ self.sqlite-lua ];
+    dependencies = [self.sqlite-lua];
     nvimSkipModules = [
       "vimdoc-gen"
       "vimdocrc"
@@ -1659,20 +1657,20 @@ in
   };
 
   lf-nvim = super.lf-nvim.overrideAttrs {
-    dependencies = [ self.toggleterm-nvim ];
+    dependencies = [self.toggleterm-nvim];
   };
 
   lf-vim = super.lf-vim.overrideAttrs {
-    dependencies = [ self.vim-floaterm ];
+    dependencies = [self.vim-floaterm];
   };
 
   lightline-bufferline = super.lightline-bufferline.overrideAttrs {
     # Requires web-devicons but mini.icons can mock them up
-    checkInputs = [ self.nvim-web-devicons ];
+    checkInputs = [self.nvim-web-devicons];
   };
 
   lir-nvim = super.lir-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   lispdocs-nvim = super.lispdocs-nvim.overrideAttrs {
@@ -1691,19 +1689,19 @@ in
   };
 
   litee-calltree-nvim = super.litee-calltree-nvim.overrideAttrs {
-    dependencies = [ self.litee-nvim ];
+    dependencies = [self.litee-nvim];
   };
 
   litee-filetree-nvim = super.litee-filetree-nvim.overrideAttrs {
-    dependencies = [ self.litee-nvim ];
+    dependencies = [self.litee-nvim];
   };
 
   litee-symboltree-nvim = super.litee-symboltree-nvim.overrideAttrs {
-    dependencies = [ self.litee-nvim ];
+    dependencies = [self.litee-nvim];
   };
 
   lspcontainers-nvim = super.lspcontainers-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   lspecho-nvim = super.lspecho-nvim.overrideAttrs {
@@ -1716,7 +1714,7 @@ in
   };
 
   lsp_extensions-nvim = super.lsp_extensions-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   ltex_extra-nvim = super.ltex_extra-nvim.overrideAttrs {
@@ -1725,11 +1723,11 @@ in
   };
 
   lualine-lsp-progress = super.lualine-lsp-progress.overrideAttrs {
-    dependencies = [ self.lualine-nvim ];
+    dependencies = [self.lualine-nvim];
   };
 
   luasnip-latex-snippets-nvim = super.luasnip-latex-snippets-nvim.overrideAttrs {
-    dependencies = [ self.luasnip ];
+    dependencies = [self.luasnip];
     # E5108: /luasnip-latex-snippets/luasnippets/tex/utils/init.lua:3: module 'luasnip-latex-snippets.luasnippets.utils.conditions' not found:
     # Need to fix upstream
     nvimSkipModules = [
@@ -1738,17 +1736,17 @@ in
   };
 
   LuaSnip-snippets-nvim = super.LuaSnip-snippets-nvim.overrideAttrs {
-    checkInputs = [ self.luasnip ];
+    checkInputs = [self.luasnip];
   };
 
   luau-lsp-nvim = super.luau-lsp-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
-    runtimeDeps = [ luau-lsp ];
+    dependencies = [self.plenary-nvim];
+    runtimeDeps = [luau-lsp];
   };
 
   magma-nvim = super.magma-nvim.overrideAttrs {
-    passthru.python3Dependencies =
-      ps: with ps; [
+    passthru.python3Dependencies = ps:
+      with ps; [
         pynvim
         jupyter-client
         ueberzug
@@ -1761,19 +1759,18 @@ in
       ];
   };
 
-  markdown-preview-nvim =
-    let
-      # We only need its dependencies `node-modules`.
-      nodeDep = mkYarnModules rec {
-        inherit (super.markdown-preview-nvim) pname version;
-        packageJSON = ./patches/markdown-preview-nvim/package.json;
-        yarnLock = "${super.markdown-preview-nvim.src}/yarn.lock";
-        offlineCache = fetchYarnDeps {
-          inherit yarnLock;
-          hash = "sha256-kzc9jm6d9PJ07yiWfIOwqxOTAAydTpaLXVK6sEWM8gg=";
-        };
+  markdown-preview-nvim = let
+    # We only need its dependencies `node-modules`.
+    nodeDep = mkYarnModules rec {
+      inherit (super.markdown-preview-nvim) pname version;
+      packageJSON = ./patches/markdown-preview-nvim/package.json;
+      yarnLock = "${super.markdown-preview-nvim.src}/yarn.lock";
+      offlineCache = fetchYarnDeps {
+        inherit yarnLock;
+        hash = "sha256-kzc9jm6d9PJ07yiWfIOwqxOTAAydTpaLXVK6sEWM8gg=";
       };
-    in
+    };
+  in
     super.markdown-preview-nvim.overrideAttrs {
       patches = [
         (replaceVars ./patches/markdown-preview-nvim/fix-node-paths.patch {
@@ -1784,7 +1781,7 @@ in
         ln -s ${nodeDep}/node_modules $out/app
       '';
 
-      nativeBuildInputs = [ nodejs ];
+      nativeBuildInputs = [nodejs];
       doInstallCheck = true;
       installCheckPhase = ''
         node $out/app/index.js --version
@@ -1792,7 +1789,7 @@ in
     };
 
   markid = super.markid.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   mason-lspconfig-nvim = super.mason-lspconfig-nvim.overrideAttrs {
@@ -1826,22 +1823,22 @@ in
   };
 
   mason-tool-installer-nvim = super.mason-tool-installer-nvim.overrideAttrs {
-    dependencies = [ self.mason-nvim ];
+    dependencies = [self.mason-nvim];
   };
 
   material-vim = super.material-vim.overrideAttrs {
     # Optional integration
-    checkInputs = [ self.lualine-nvim ];
+    checkInputs = [self.lualine-nvim];
   };
 
   meson = buildVimPlugin {
     inherit (meson) pname version src;
     preInstall = "cd data/syntax-highlighting/vim";
-    meta.maintainers = with lib.maintainers; [ vcunat ];
+    meta.maintainers = with lib.maintainers; [vcunat];
   };
 
   mind-nvim = super.mind-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   mini-nvim = super.mini-nvim.overrideAttrs {
@@ -1881,7 +1878,7 @@ in
       self.nvim-cmp
       self.lualine-nvim
     ];
-    dependencies = with self; [ plenary-nvim ];
+    dependencies = with self; [plenary-nvim];
     nvimSkipModules = [
       # Backends require configuration
       "minuet.backends.claude"
@@ -1895,7 +1892,7 @@ in
   };
 
   mkdnflow-nvim = super.mkdnflow-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     # Requires setup call and has optional nvim-cmp dependency
     nvimRequireCheck = "mkdnflow";
   };
@@ -1922,11 +1919,11 @@ in
   };
 
   muren-nvim = super.muren-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   ncm2 = super.ncm2.overrideAttrs {
-    dependencies = [ self.nvim-yarp ];
+    dependencies = [self.nvim-yarp];
   };
 
   ncm2-jedi = super.ncm2-jedi.overrideAttrs {
@@ -1934,35 +1931,35 @@ in
       nvim-yarp
       ncm2
     ];
-    passthru.python3Dependencies = ps: with ps; [ jedi ];
+    passthru.python3Dependencies = ps: with ps; [jedi];
   };
 
   ncm2-neoinclude = super.ncm2-neoinclude.overrideAttrs {
-    dependencies = [ self.neoinclude-vim ];
+    dependencies = [self.neoinclude-vim];
   };
 
   ncm2-neosnippet = super.ncm2-neosnippet.overrideAttrs {
-    dependencies = [ self.neosnippet-vim ];
+    dependencies = [self.neosnippet-vim];
   };
 
   ncm2-syntax = super.ncm2-syntax.overrideAttrs {
-    dependencies = [ self.neco-syntax ];
+    dependencies = [self.neco-syntax];
   };
 
   ncm2-ultisnips = super.ncm2-ultisnips.overrideAttrs {
-    dependencies = [ self.ultisnips ];
+    dependencies = [self.ultisnips];
   };
 
   neoconf-nvim = super.neoconf-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
 
     doInstallCheck = true;
   };
 
   neogit = super.neogit.overrideAttrs {
     # Optional diffview integration
-    checkInputs = [ self.diffview-nvim ];
-    dependencies = [ self.plenary-nvim ];
+    checkInputs = [self.diffview-nvim];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # E5108: Error executing lua ...vim-2024-06-13/lua/diffview/api/views/diff/diff_view.lua:13: attempt to index global 'DiffviewGlobal' (a nil value)
       "neogit.integrations.diffview"
@@ -1981,7 +1978,7 @@ in
   };
 
   neorg-telescope = super.neorg-telescope.overrideAttrs {
-    buildInputs = [ luaPackages.lua-utils-nvim ];
+    buildInputs = [luaPackages.lua-utils-nvim];
     dependencies = with self; [
       neorg
       plenary-nvim
@@ -2252,32 +2249,33 @@ in
   };
 
   nlsp-settings-nvim = super.nlsp-settings-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   noctis-nvim = super.noctis-nvim.overrideAttrs {
-    dependencies = [ self.lush-nvim ];
+    dependencies = [self.lush-nvim];
   };
 
   noice-nvim = super.noice-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   none-ls-nvim = super.none-ls-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
-  NotebookNavigator-nvim = super.NotebookNavigator-nvim.overrideAttrs {
-  };
+  NotebookNavigator-nvim =
+    super.NotebookNavigator-nvim.overrideAttrs {
+    };
 
   notmuch-vim = notmuch.vim;
 
   nterm-nvim = super.nterm-nvim.overrideAttrs {
-    dependencies = [ self.aniseed ];
+    dependencies = [self.aniseed];
   };
 
   null-ls-nvim = super.null-ls-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   nvchad = super.nvchad.overrideAttrs {
@@ -2303,7 +2301,7 @@ in
   };
 
   nvchad-ui = super.nvchad-ui.overrideAttrs {
-    dependencies = [ self.nvzone-volt ];
+    dependencies = [self.nvzone-volt];
     nvimSkipModules = [
       # Requires global config setup
       "nvchad.tabufline.modules"
@@ -2337,7 +2335,7 @@ in
   };
 
   nvim-cokeline = super.nvim-cokeline.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   nvim-coverage = super.nvim-coverage.overrideAttrs {
@@ -2352,27 +2350,27 @@ in
   };
 
   nvim-dap-cortex-debug = super.nvim-dap-cortex-debug.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-vscode-js = super.nvim-dap-vscode-js.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-lldb = super.nvim-dap-lldb.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-python = super.nvim-dap-python.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-rego = super.nvim-dap-rego.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-rr = super.nvim-dap-rr.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-ui = super.nvim-dap-ui.overrideAttrs {
@@ -2385,31 +2383,31 @@ in
   };
 
   nvim-dap-view = super.nvim-dap-view.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-dap-virtual-text = super.nvim-dap-virtual-text.overrideAttrs {
-    dependencies = [ self.nvim-dap ];
+    dependencies = [self.nvim-dap];
   };
 
   nvim-FeMaco-lua = super.nvim-FeMaco-lua.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-fzf-commands = super.nvim-fzf-commands.overrideAttrs {
-    dependencies = [ self.nvim-fzf ];
+    dependencies = [self.nvim-fzf];
     # Requires global variable setup nvim_fzf_directory
     nvimSkipModules = "fzf-commands.rg";
   };
 
   nvim-genghis = super.nvim-genghis.overrideAttrs {
-    dependencies = [ self.dressing-nvim ];
+    dependencies = [self.dressing-nvim];
 
     doInstallCheck = true;
   };
 
   nvim-gps = super.nvim-gps.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-highlight-colors = super.nvim-highlight-colors.overrideAttrs {
@@ -2445,11 +2443,11 @@ in
   };
 
   nvim-java-dap = super.nvim-java-dap.overrideAttrs {
-    dependencies = [ self.nvim-java-core ];
+    dependencies = [self.nvim-java-core];
   };
 
   nvim-java-refactor = super.nvim-java-refactor.overrideAttrs {
-    dependencies = [ self.nvim-java-core ];
+    dependencies = [self.nvim-java-core];
     nvimSkipModules = [
       # Requires the `java.utils.ui` module which seems to be provided by `nvim-java` (cyclic dependency)
       # -> Skip to avoid infinite recursion
@@ -2459,7 +2457,7 @@ in
   };
 
   nvim-java-test = super.nvim-java-test.overrideAttrs {
-    dependencies = [ self.nvim-java-core ];
+    dependencies = [self.nvim-java-core];
   };
 
   nvim-lilypond-suite = super.nvim-lilypond-suite.overrideAttrs {
@@ -2472,21 +2470,21 @@ in
   };
 
   nvim-lsp-file-operations = super.nvim-lsp-file-operations.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   nvim-lsputils = super.nvim-lsputils.overrideAttrs {
-    dependencies = [ self.popfix ];
+    dependencies = [self.popfix];
   };
 
   nvim-metals = super.nvim-metals.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     dontBuild = true;
   };
 
   nvim-moonwalk = super.nvim-moonwalk.overrideAttrs {
     # Asserts log file exists before it is created
-    nvimSkipModules = [ "moonwalk" ];
+    nvimSkipModules = ["moonwalk"];
   };
 
   nvim-navbuddy = super.nvim-navbuddy.overrideAttrs {
@@ -2497,7 +2495,7 @@ in
     ];
   };
   nvim-navic = super.nvim-navic.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   nvim-neoclip-lua = super.nvim-neoclip-lua.overrideAttrs {
@@ -2510,7 +2508,7 @@ in
 
   nvim-nonicons = super.nvim-nonicons.overrideAttrs {
     # Requires web-devicons but mini.icons can mock them up
-    checkInputs = [ self.nvim-web-devicons ];
+    checkInputs = [self.nvim-web-devicons];
   };
 
   nvim-notify = super.nvim-notify.overrideAttrs {
@@ -2528,11 +2526,11 @@ in
   };
 
   nvim-paredit = super.nvim-paredit.overrideAttrs {
-    dependencies = with self; [ nvim-treesitter ];
+    dependencies = with self; [nvim-treesitter];
   };
 
   nvim-rip-substitute = super.nvim-rip-substitute.overrideAttrs {
-    buildInputs = [ ripgrep ];
+    buildInputs = [ripgrep];
   };
 
   nvim-scissors = super.nvim-scissors.overrideAttrs {
@@ -2566,7 +2564,7 @@ in
 
   nvim-test = super.nvim-test.overrideAttrs {
     # Optional toggleterm integration
-    checkInputs = [ self.toggleterm-nvim ];
+    checkInputs = [self.toggleterm-nvim];
     dependencies = with self; [
       nvim-treesitter
       nvim-treesitter-parsers.c_sharp
@@ -2608,50 +2606,50 @@ in
   };
 
   nvim-treesitter = super.nvim-treesitter.overrideAttrs (
-    callPackage ./nvim-treesitter/overrides.nix { } self super
+    callPackage ./nvim-treesitter/overrides.nix {} self super
   );
 
   nvim-treesitter-context = super.nvim-treesitter-context.overrideAttrs {
     # Meant for CI installing parsers
-    nvimSkipModules = [ "install_parsers" ];
+    nvimSkipModules = ["install_parsers"];
   };
 
   nvim-treesitter-endwise = super.nvim-treesitter-endwise.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-pairs = super.nvim-treesitter-pairs.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-parsers = lib.recurseIntoAttrs self.nvim-treesitter.grammarPlugins;
 
   nvim-treesitter-pyfold = super.nvim-treesitter-pyfold.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-refactor = super.nvim-treesitter-refactor.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-sexp = super.nvim-treesitter-sexp.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-textobjects = super.nvim-treesitter-textobjects.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-treesitter-textsubjects = super.nvim-treesitter-textsubjects.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-trevJ-lua = super.nvim-trevJ-lua.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   nvim-ufo = super.nvim-ufo.overrideAttrs {
-    dependencies = [ self.promise-async ];
+    dependencies = [self.promise-async];
   };
 
   nvim-unception = super.nvim-unception.overrideAttrs {
@@ -2660,8 +2658,8 @@ in
   };
 
   nvim-vtsls = super.nvim-vtsls.overrideAttrs {
-    runtimeDeps = [ vtsls ];
-    dependencies = [ self.nvim-lspconfig ];
+    runtimeDeps = [vtsls];
+    dependencies = [self.nvim-lspconfig];
   };
 
   nvzone-menu = super.nvzone-menu.overrideAttrs {
@@ -2673,15 +2671,15 @@ in
       nui-nvim
       plenary-nvim
     ];
-    dependencies = [ self.nvzone-volt ];
+    dependencies = [self.nvzone-volt];
   };
 
   nvzone-minty = super.nvzone-minty.overrideAttrs {
-    dependencies = [ self.nvzone-volt ];
+    dependencies = [self.nvzone-volt];
   };
 
   nvzone-typr = super.nvzone-typr.overrideAttrs {
-    dependencies = [ self.nvzone-volt ];
+    dependencies = [self.nvzone-volt];
   };
 
   obsidian-nvim = super.obsidian-nvim.overrideAttrs {
@@ -2692,7 +2690,7 @@ in
       snacks-nvim
       telescope-nvim
     ];
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Issue reproduction file
       "minimal"
@@ -2712,11 +2710,11 @@ in
   };
 
   oil-git-status-nvim = super.oil-git-status-nvim.overrideAttrs {
-    dependencies = [ self.oil-nvim ];
+    dependencies = [self.oil-nvim];
   };
 
   ollama-nvim = super.ollama-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   omni-vim = super.omni-vim.overrideAttrs {
@@ -2769,11 +2767,11 @@ in
   };
 
   org-roam-nvim = super.org-roam-nvim.overrideAttrs {
-    dependencies = [ self.orgmode ];
+    dependencies = [self.orgmode];
   };
 
   otter-nvim = super.otter-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   outline-nvim = super.outline-nvim.overrideAttrs {
@@ -2802,7 +2800,7 @@ in
   };
 
   package-info-nvim = super.package-info-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   inherit parinfer-rust;
@@ -2860,7 +2858,8 @@ in
   };
 
   phpactor = buildVimPlugin {
-    inherit (phpactor)
+    inherit
+      (phpactor)
       pname
       src
       meta
@@ -2875,7 +2874,7 @@ in
   playground = super.playground.overrideAttrs {
     dependencies = with self; [
       # we need the 'query' grammar to make
-      (nvim-treesitter.withPlugins (p: [ p.query ]))
+      (nvim-treesitter.withPlugins (p: [p.query]))
     ];
   };
 
@@ -2885,7 +2884,7 @@ in
   };
 
   popup-nvim = super.popup-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   Preview-nvim = super.Preview-nvim.overrideAttrs {
@@ -2902,7 +2901,7 @@ in
   };
 
   qmk-nvim = super.qmk-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Test assertions
       "qmk.config.init_spec"
@@ -2926,15 +2925,16 @@ in
     ];
   };
 
-  quicker-nvim = super.quicker-nvim.overrideAttrs {
-  };
+  quicker-nvim =
+    super.quicker-nvim.overrideAttrs {
+    };
 
   range-highlight-nvim = super.range-highlight-nvim.overrideAttrs {
-    dependencies = [ self.cmd-parser-nvim ];
+    dependencies = [self.cmd-parser-nvim];
   };
 
   ranger-nvim = super.ranger-nvim.overrideAttrs {
-    patches = [ ./patches/ranger.nvim/fix-paths.patch ];
+    patches = [./patches/ranger.nvim/fix-paths.patch];
 
     postPatch = ''
       substituteInPlace lua/ranger-nvim.lua --replace-fail '@ranger@' ${ranger}/bin/ranger
@@ -2954,7 +2954,7 @@ in
       nui-nvim
       plenary-nvim
     ];
-    nvimSkipModules = [ "repro" ];
+    nvimSkipModules = ["repro"];
   };
 
   remote-sshfs-nvim = super.remote-sshfs-nvim.overrideAttrs {
@@ -2969,27 +2969,28 @@ in
   };
 
   renamer-nvim = super.renamer-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   repolink-nvim = super.repolink-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   rocks-nvim =
     (neovimUtils.buildNeovimPlugin {
       luaAttr = luaPackages.rocks-nvim;
     }).overrideAttrs
-      (oa: {
-        passthru = oa.passthru // {
+    (oa: {
+      passthru =
+        oa.passthru
+        // {
           initLua = ''
             vim.g.rocks_nvim = {
               luarocks_binary = "${neovim-unwrapped.lua.pkgs.luarocks_bootstrap}/bin/luarocks"
               }
           '';
         };
-
-      });
+    });
 
   rustaceanvim = neovimUtils.buildNeovimPlugin {
     checkInputs = [
@@ -3000,26 +3001,27 @@ in
   };
 
   rust-tools-nvim = super.rust-tools-nvim.overrideAttrs {
-    dependencies = [ self.nvim-lspconfig ];
+    dependencies = [self.nvim-lspconfig];
   };
 
   rzls-nvim = super.rzls-nvim.overrideAttrs {
-    dependencies = [ self.roslyn-nvim ];
+    dependencies = [self.roslyn-nvim];
   };
 
   samodostal-image-nvim = super.samodostal-image-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   schema-companion-nvim = super.schema-companion-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
-  scretch-nvim = super.scretch-nvim.overrideAttrs {
-  };
+  scretch-nvim =
+    super.scretch-nvim.overrideAttrs {
+    };
 
   searchbox-nvim = super.searchbox-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   skim = buildVimPlugin {
@@ -3029,7 +3031,7 @@ in
   };
 
   skim-vim = super.skim-vim.overrideAttrs {
-    dependencies = [ self.skim ];
+    dependencies = [self.skim];
   };
 
   smart-open-nvim = super.smart-open-nvim.overrideAttrs {
@@ -3053,7 +3055,7 @@ in
 
   snacks-nvim = super.snacks-nvim.overrideAttrs {
     # Optional trouble integration
-    checkInputs = [ self.trouble-nvim ];
+    checkInputs = [self.trouble-nvim];
     nvimSkipModules = [
       # Requires setup call first
       # attempt to index global 'Snacks' (a nil value)
@@ -3099,7 +3101,7 @@ in
   };
 
   solarized-osaka-nvim = super.solarized-osaka-nvim.overrideAttrs {
-    checkInputs = [ self.fzf-lua ];
+    checkInputs = [self.fzf-lua];
 
     nvimSkipModules = [
       # lua/solarized-osaka/extra/fzf.lua:55: color not found for header:FzfLuaTitle
@@ -3113,19 +3115,19 @@ in
   };
 
   sqlite-lua = super.sqlite-lua.overrideAttrs (
-    oa:
-    let
+    oa: let
       libsqlite = "${sqlite.out}/lib/libsqlite3${stdenv.hostPlatform.extensions.sharedLibrary}";
-    in
-    {
+    in {
       postPatch = ''
         substituteInPlace lua/sqlite/defs.lua \
           --replace-fail "path = vim.g.sqlite_clib_path" "path = vim.g.sqlite_clib_path or '${lib.escapeShellArg libsqlite}'"
       '';
 
-      passthru = oa.passthru // {
-        initLua = ''vim.g.sqlite_clib_path = "${libsqlite}"'';
-      };
+      passthru =
+        oa.passthru
+        // {
+          initLua = ''vim.g.sqlite_clib_path = "${libsqlite}"'';
+        };
 
       nvimSkipModules = [
         # Require "sql.utils" ?
@@ -3137,11 +3139,11 @@ in
   );
 
   ssr = super.ssr-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
   startup-nvim = super.startup-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   statix = buildVimPlugin rec {
@@ -3171,41 +3173,42 @@ in
     doCheck = false;
   };
 
-  sved =
-    let
-      # we put the script in its own derivation to benefit the magic of wrapGAppsHook3
-      svedbackend = stdenv.mkDerivation {
-        name = "svedbackend-${super.sved.name}";
-        inherit (super.sved) src;
-        nativeBuildInputs = [
-          wrapGAppsHook3
-          gobject-introspection
-        ];
-        buildInputs = [
-          glib
-          (python3.withPackages (
-            ps: with ps; [
+  sved = let
+    # we put the script in its own derivation to benefit the magic of wrapGAppsHook3
+    svedbackend = stdenv.mkDerivation {
+      name = "svedbackend-${super.sved.name}";
+      inherit (super.sved) src;
+      nativeBuildInputs = [
+        wrapGAppsHook3
+        gobject-introspection
+      ];
+      buildInputs = [
+        glib
+        (python3.withPackages (
+          ps:
+            with ps; [
               pygobject3
               pynvim
               dbus-python
             ]
-          ))
-        ];
-        preferLocalBuild = true;
-        installPhase = ''
-          install -Dt $out/bin ftplugin/evinceSync.py
-        '';
-      };
-      # the vim plugin expects evinceSync.py to be a python file, but it is a C wrapper
-      pythonWrapper =
-        writeText "evinceSync-wrapper.py" # python
-          ''
-            #!${python3}/bin/python3
-            import os
-            import sys
-            os.execv("${svedbackend}/bin/evinceSync.py", sys.argv)
-          '';
-    in
+        ))
+      ];
+      preferLocalBuild = true;
+      installPhase = ''
+        install -Dt $out/bin ftplugin/evinceSync.py
+      '';
+    };
+    # the vim plugin expects evinceSync.py to be a python file, but it is a C wrapper
+    pythonWrapper =
+      writeText "evinceSync-wrapper.py" # python
+      
+      ''
+        #!${python3}/bin/python3
+        import os
+        import sys
+        os.execv("${svedbackend}/bin/evinceSync.py", sys.argv)
+      '';
+  in
     super.sved.overrideAttrs {
       preferLocalBuild = true;
       postPatch = ''
@@ -3218,8 +3221,8 @@ in
     };
 
   syntax-tree-surfer = super.syntax-tree-surfer.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
-    meta.maintainers = with lib.maintainers; [ callumio ];
+    dependencies = [self.nvim-treesitter];
+    meta.maintainers = with lib.maintainers; [callumio];
   };
 
   taskwarrior2 = buildVimPlugin {
@@ -3270,7 +3273,7 @@ in
   };
 
   telescope-emoji-nvim = super.telescope-emoji-nvim.overrideAttrs {
-    dependencies = [ self.telescope-nvim ];
+    dependencies = [self.telescope-nvim];
   };
 
   telescope-frecency-nvim = super.telescope-frecency-nvim.overrideAttrs {
@@ -3284,7 +3287,7 @@ in
   };
 
   telescope-fzf-native-nvim = super.telescope-fzf-native-nvim.overrideAttrs {
-    dependencies = [ self.telescope-nvim ];
+    dependencies = [self.telescope-nvim];
     buildPhase = "make";
     meta.platforms = lib.platforms.all;
   };
@@ -3297,26 +3300,24 @@ in
   };
 
   telescope-fzy-native-nvim = super.telescope-fzy-native-nvim.overrideAttrs (old: {
-    dependencies = [ self.telescope-nvim ];
-    preFixup =
-      let
-        fzy-lua-native-path = "deps/fzy-lua-native";
-        fzy-lua-native = stdenv.mkDerivation {
-          name = "fzy-lua-native";
-          src = "${old.src}/${fzy-lua-native-path}";
-          # remove pre-compiled binaries
-          preBuild = "rm -rf static/*";
-          installPhase = ''
-            install -Dm 444 -t $out/static static/*
-            install -Dm 444 -t $out/lua lua/*
-          '';
-        };
-      in
-      ''
-        rm -rf $target/${fzy-lua-native-path}/*
-        ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
-        ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
-      '';
+    dependencies = [self.telescope-nvim];
+    preFixup = let
+      fzy-lua-native-path = "deps/fzy-lua-native";
+      fzy-lua-native = stdenv.mkDerivation {
+        name = "fzy-lua-native";
+        src = "${old.src}/${fzy-lua-native-path}";
+        # remove pre-compiled binaries
+        preBuild = "rm -rf static/*";
+        installPhase = ''
+          install -Dm 444 -t $out/static static/*
+          install -Dm 444 -t $out/lua lua/*
+        '';
+      };
+    in ''
+      rm -rf $target/${fzy-lua-native-path}/*
+      ln -s ${fzy-lua-native}/static $target/${fzy-lua-native-path}/static
+      ln -s ${fzy-lua-native}/lua $target/${fzy-lua-native-path}/lua
+    '';
     meta.platforms = lib.platforms.all;
   });
 
@@ -3335,7 +3336,7 @@ in
   };
 
   telescope-glyph-nvim = super.telescope-github-nvim.overrideAttrs {
-    dependencies = [ self.telescope-nvim ];
+    dependencies = [self.telescope-nvim];
   };
 
   telescope-live-grep-args-nvim = super.telescope-live-grep-args-nvim.overrideAttrs {
@@ -3361,7 +3362,7 @@ in
   };
 
   telescope-project-nvim = super.telescope-project-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   telescope-smart-history-nvim = super.telescope-smart-history-nvim.overrideAttrs {
@@ -3372,11 +3373,11 @@ in
   };
 
   telescope-symbols-nvim = super.telescope-symbols-nvim.overrideAttrs {
-    dependencies = [ self.telescope-nvim ];
+    dependencies = [self.telescope-nvim];
   };
 
   telescope-ui-select-nvim = super.telescope-ui-select-nvim.overrideAttrs {
-    dependencies = [ self.telescope-nvim ];
+    dependencies = [self.telescope-nvim];
   };
 
   telescope-ultisnips-nvim = super.telescope-ultisnips-nvim.overrideAttrs {
@@ -3408,13 +3409,13 @@ in
   };
 
   telescope-zf-native-nvim = super.telescope-zf-native-nvim.overrideAttrs {
-    dependencies = with self; [ telescope-nvim ];
+    dependencies = with self; [telescope-nvim];
   };
 
   telescope-zoxide = super.telescope-zoxide.overrideAttrs {
-    dependencies = with self; [ telescope-nvim ];
+    dependencies = with self; [telescope-nvim];
 
-    buildInputs = [ zoxide ];
+    buildInputs = [zoxide];
 
     postPatch = ''
       substituteInPlace lua/telescope/_extensions/zoxide/config.lua \
@@ -3430,12 +3431,12 @@ in
   };
 
   timerly = super.timerly.overrideAttrs {
-    dependencies = [ self.nvzone-volt ];
+    dependencies = [self.nvzone-volt];
   };
 
   tmux-complete-vim = super.tmux-complete-vim.overrideAttrs {
     # Vim plugin with optional nvim-compe lua module
-    nvimSkipModules = [ "compe_tmux" ];
+    nvimSkipModules = ["compe_tmux"];
   };
 
   todo-comments-nvim = super.todo-comments-nvim.overrideAttrs {
@@ -3443,7 +3444,7 @@ in
       # Optional trouble integration
       trouble-nvim
     ];
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Optional fzf-lua integration
       # fzf-lua server must be running
@@ -3452,7 +3453,7 @@ in
   };
 
   tokyonight-nvim = super.tokyonight-nvim.overrideAttrs {
-    checkInputs = [ self.fzf-lua ];
+    checkInputs = [self.fzf-lua];
     nvimSkipModules = [
       # Meta file
       "tokyonight.docs"
@@ -3462,7 +3463,7 @@ in
   };
 
   triptych-nvim = super.triptych-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
   };
 
   trouble-nvim = super.trouble-nvim.overrideAttrs {
@@ -3471,7 +3472,7 @@ in
   };
 
   tsc-nvim = super.tsc-nvim.overrideAttrs {
-    patches = [ ./patches/tsc.nvim/fix-path.patch ];
+    patches = [./patches/tsc.nvim/fix-path.patch];
 
     postPatch = ''
       substituteInPlace lua/tsc/utils.lua --replace-fail '@tsc@' ${typescript}/bin/tsc
@@ -3482,16 +3483,15 @@ in
   };
 
   tssorter-nvim = super.tssorter-nvim.overrideAttrs {
-    dependencies = [ self.nvim-treesitter ];
+    dependencies = [self.nvim-treesitter];
   };
 
-  tup =
-    let
-      # Based on the comment at the top of https://github.com/gittup/tup/blob/master/contrib/syntax/tup.vim
-      ftdetect = builtins.toFile "tup.vim" ''
-        au BufNewFile,BufRead Tupfile,*.tup setf tup
-      '';
-    in
+  tup = let
+    # Based on the comment at the top of https://github.com/gittup/tup/blob/master/contrib/syntax/tup.vim
+    ftdetect = builtins.toFile "tup.vim" ''
+      au BufNewFile,BufRead Tupfile,*.tup setf tup
+    '';
+  in
     buildVimPlugin {
       inherit (tup) pname version src;
       preInstall = ''
@@ -3500,7 +3500,7 @@ in
         cp "${ftdetect}" vim-plugin/ftdetect/tup.vim
         cd vim-plugin
       '';
-      meta.maintainers = with lib.maintainers; [ enderger ];
+      meta.maintainers = with lib.maintainers; [enderger];
     };
 
   typescript-nvim = super.typescript-nvim.overrideAttrs {
@@ -3529,16 +3529,14 @@ in
        --replace-fail "['tinymist'] = nil," "tinymist = '${lib.getExe tinymist}'," \
        --replace-fail "['websocat'] = nil," "websocat = '${lib.getExe websocat}',"
     '';
-
   };
 
-  unicode-vim =
-    let
-      unicode-data = fetchurl {
-        url = "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
-        sha256 = "16b0jzvvzarnlxdvs2izd5ia0ipbd87md143dc6lv6xpdqcs75s9";
-      };
-    in
+  unicode-vim = let
+    unicode-data = fetchurl {
+      url = "http://www.unicode.org/Public/UNIDATA/UnicodeData.txt";
+      sha256 = "16b0jzvvzarnlxdvs2izd5ia0ipbd87md143dc6lv6xpdqcs75s9";
+    };
+  in
     super.unicode-vim.overrideAttrs (oa: {
       # redirect to /dev/null else changes terminal color
       buildPhase = ''
@@ -3547,10 +3545,11 @@ in
         ${vim}/bin/vim --cmd ":set rtp^=$PWD" -c 'ru plugin/unicode.vim' -c 'UnicodeCache' -c ':echohl Normal' -c ':q' > /dev/null
       '';
 
-      passthru = oa.passthru // {
-
-        initLua = ''vim.g.Unicode_data_directory="${self.unicode-vim}/autoload/unicode"'';
-      };
+      passthru =
+        oa.passthru
+        // {
+          initLua = ''vim.g.Unicode_data_directory="${self.unicode-vim}/autoload/unicode"'';
+        };
     });
 
   unison = super.unison.overrideAttrs {
@@ -3562,12 +3561,12 @@ in
     dependencies = with self; [
       telescope-nvim
     ];
-    runtimeDeps = [ uv ];
+    runtimeDeps = [uv];
   };
 
   vCoolor-vim = super.vCoolor-vim.overrideAttrs {
     # on linux can use either Zenity or Yad.
-    propagatedBuildInputs = [ zenity ];
+    propagatedBuildInputs = [zenity];
     meta = {
       description = "Simple color selector/picker plugin";
       license = lib.licenses.publicDomain;
@@ -3586,7 +3585,7 @@ in
       description = "Vim-Improved eMACS: Emacs emulation plugin for Vim";
       homepage = "http://algorithm.com.au/code/vimacs";
       license = licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ millerjason ];
+      maintainers = with lib.maintainers; [millerjason];
     };
   };
 
@@ -3603,12 +3602,12 @@ in
     meta = with lib; {
       description = "Discord rich presence for Vim";
       homepage = "https://github.com/hugolgst/vimsence";
-      maintainers = with lib.maintainers; [ hugolgst ];
+      maintainers = with lib.maintainers; [hugolgst];
     };
   };
 
   vimproc-vim = super.vimproc-vim.overrideAttrs {
-    buildInputs = [ which ];
+    buildInputs = [which];
 
     # TODO: revisit
     buildPhase = ''
@@ -3621,7 +3620,7 @@ in
   };
 
   vimshell-vim = super.vimshell-vim.overrideAttrs {
-    dependencies = [ self.vimproc-vim ];
+    dependencies = [self.vimproc-vim];
   };
 
   vim-addon-actions = super.vim-addon-actions.overrideAttrs {
@@ -3632,19 +3631,19 @@ in
   };
 
   vim-addon-async = super.vim-addon-async.overrideAttrs {
-    dependencies = [ self.vim-addon-signs ];
+    dependencies = [self.vim-addon-signs];
   };
 
   vim-addon-background-cmd = super.vim-addon-background-cmd.overrideAttrs {
-    dependencies = [ self.vim-addon-mw-utils ];
+    dependencies = [self.vim-addon-mw-utils];
   };
 
   vim-addon-completion = super.vim-addon-completion.overrideAttrs {
-    dependencies = [ self.tlib_vim ];
+    dependencies = [self.tlib_vim];
   };
 
   vim-addon-goto-thing-at-cursor = super.vim-addon-goto-thing-at-cursor.overrideAttrs {
-    dependencies = [ self.tlib_vim ];
+    dependencies = [self.tlib_vim];
   };
 
   vim-addon-mru = super.vim-addon-mru.overrideAttrs {
@@ -3704,19 +3703,19 @@ in
   };
 
   vim-apm = super.vim-apm.overrideAttrs {
-    nvimSkipModules = [ "run" ];
+    nvimSkipModules = ["run"];
   };
 
   vim-bazel = super.vim-bazel.overrideAttrs {
-    dependencies = [ self.vim-maktaba ];
+    dependencies = [self.vim-maktaba];
   };
 
   vim-beancount = super.vim-beancount.overrideAttrs {
-    passthru.python3Dependencies = ps: with ps; [ beancount ];
+    passthru.python3Dependencies = ps: with ps; [beancount];
   };
 
   vim-codefmt = super.vim-codefmt.overrideAttrs {
-    dependencies = [ self.vim-maktaba ];
+    dependencies = [self.vim-maktaba];
   };
 
   # Due to case-sensitivity issues, the hash differs on Darwin systems, see:
@@ -3732,7 +3731,7 @@ in
   });
 
   vim-dadbod-ui = super.vim-dadbod-ui.overrideAttrs {
-    dependencies = [ self.vim-dadbod ];
+    dependencies = [self.vim-dadbod];
 
     doInstallCheck = true;
     vimCommandCheck = "DBUI";
@@ -3746,7 +3745,7 @@ in
   };
 
   vim-easytags = super.vim-easytags.overrideAttrs {
-    dependencies = [ self.vim-misc ];
+    dependencies = [self.vim-misc];
     patches = [
       (fetchpatch {
         # https://github.com/xolox/vim-easytags/pull/170 fix version detection for universal-ctags
@@ -3762,35 +3761,34 @@ in
   };
 
   vim-fzf-coauthorship = super.vim-fzf-coauthorship.overrideAttrs {
-    dependencies = with self; [ fzf-vim ];
+    dependencies = with self; [fzf-vim];
   };
 
   # change the go_bin_path to point to a path in the nix store. See the code in
   # fatih/vim-go here
   # https://github.com/fatih/vim-go/blob/155836d47052ea9c9bac81ba3e937f6f22c8e384/autoload/go/path.vim#L154-L159
-  vim-go =
-    let
-      binPath = lib.makeBinPath [
-        asmfmt
-        delve
-        errcheck
-        go-motion
-        go-tools # contains staticcheck, keyify
-        gocode-gomod
-        godef
-        gogetdoc
-        golint
-        golangci-lint
-        gomodifytags
-        gopls
-        gotags
-        gotools # contains guru, gorename
-        iferr
-        impl
-        reftools
-        revive
-      ];
-    in
+  vim-go = let
+    binPath = lib.makeBinPath [
+      asmfmt
+      delve
+      errcheck
+      go-motion
+      go-tools # contains staticcheck, keyify
+      gocode-gomod
+      godef
+      gogetdoc
+      golint
+      golangci-lint
+      gomodifytags
+      gopls
+      gotags
+      gotools # contains guru, gorename
+      iferr
+      impl
+      reftools
+      revive
+    ];
+  in
     super.vim-go.overrideAttrs {
       postPatch = ''
         sed -i autoload/go/config.vim -Ee 's@"go_bin_path", ""@"go_bin_path", "${binPath}"@g'
@@ -3798,7 +3796,7 @@ in
     };
 
   vim-gist = super.vim-gist.overrideAttrs {
-    dependencies = [ self.webapi-vim ];
+    dependencies = [self.webapi-vim];
   };
 
   vim-grammarous = super.vim-grammarous.overrideAttrs {
@@ -3814,28 +3812,26 @@ in
   };
 
   vim-hexokinase = super.vim-hexokinase.overrideAttrs (old: {
-    preFixup =
-      let
-        hexokinase = buildGoModule {
-          name = "hexokinase";
-          src = old.src + "/hexokinase";
-          vendorHash = null;
-        };
-      in
-      ''
-        ln -s ${hexokinase}/bin/hexokinase $target/hexokinase/hexokinase
-      '';
+    preFixup = let
+      hexokinase = buildGoModule {
+        name = "hexokinase";
+        src = old.src + "/hexokinase";
+        vendorHash = null;
+      };
+    in ''
+      ln -s ${hexokinase}/bin/hexokinase $target/hexokinase/hexokinase
+    '';
 
     meta.platforms = lib.platforms.all;
   });
 
   vim-hier = super.vim-hier.overrideAttrs {
-    buildInputs = [ vim ];
+    buildInputs = [vim];
   };
 
   vim-illuminate = super.vim-illuminate.overrideAttrs {
     # Optional treesitter integration
-    checkInputs = [ self.nvim-treesitter ];
+    checkInputs = [self.nvim-treesitter];
   };
 
   vim-isort = super.vim-isort.overrideAttrs {
@@ -3854,7 +3850,7 @@ in
   };
 
   vim-mediawiki-editor = super.vim-mediawiki-editor.overrideAttrs {
-    passthru.python3Dependencies = [ python3.pkgs.mwclient ];
+    passthru.python3Dependencies = [python3.pkgs.mwclient];
   };
 
   vim-metamath = super.vim-metamath.overrideAttrs {
@@ -3862,11 +3858,11 @@ in
   };
 
   vim-pluto = super.vim-pluto.overrideAttrs {
-    dependencies = [ self.denops-vim ];
+    dependencies = [self.denops-vim];
   };
 
   vim-sensible = super.vim-sensible.overrideAttrs {
-    patches = [ ./patches/vim-sensible/fix-nix-store-path-regex.patch ];
+    patches = [./patches/vim-sensible/fix-nix-store-path-regex.patch];
   };
 
   vim-snipmate = super.vim-snipmate.overrideAttrs {
@@ -3877,7 +3873,7 @@ in
   };
 
   vim-speeddating = super.vim-speeddating.overrideAttrs {
-    dependencies = [ self.vim-repeat ];
+    dependencies = [self.vim-repeat];
   };
 
   vim-stylish-haskell = super.vim-stylish-haskell.overrideAttrs (old: {
@@ -3891,15 +3887,16 @@ in
   });
 
   vim-surround = super.vim-surround.overrideAttrs {
-    dependencies = [ self.vim-repeat ];
+    dependencies = [self.vim-repeat];
   };
 
-  vim-tabby = super.vim-tabby.overrideAttrs {
-  };
+  vim-tabby =
+    super.vim-tabby.overrideAttrs {
+    };
 
   vim-textobj-entire = super.vim-textobj-entire.overrideAttrs {
-    dependencies = [ self.vim-textobj-user ];
-    meta.maintainers = with lib.maintainers; [ farlion ];
+    dependencies = [self.vim-textobj-user];
+    meta.maintainers = with lib.maintainers; [farlion];
   };
 
   vim-tpipeline = super.vim-tpipeline.overrideAttrs {
@@ -3910,15 +3907,15 @@ in
   vim-ultest = super.vim-ultest.overrideAttrs {
     # NOTE: vim-ultest is no longer maintained.
     # If using Neovim, you can switch to using neotest (https://github.com/nvim-neotest/neotest) instead.
-    nvimSkipModules = [ "ultest" ];
+    nvimSkipModules = ["ultest"];
   };
 
   vim-unimpaired = super.vim-unimpaired.overrideAttrs {
-    dependencies = [ self.vim-repeat ];
+    dependencies = [self.vim-repeat];
   };
 
   vim-wakatime = super.vim-wakatime.overrideAttrs {
-    buildInputs = [ python3 ];
+    buildInputs = [python3];
     patchPhase = ''
       substituteInPlace plugin/wakatime.vim \
         --replace-fail 'autocmd BufEnter,VimEnter' \
@@ -3933,7 +3930,7 @@ in
   };
 
   vim-xkbswitch = super.vim-xkbswitch.overrideAttrs {
-    buildInputs = [ xkb-switch ];
+    buildInputs = [xkb-switch];
   };
 
   vim-yapf = super.vim-yapf.overrideAttrs {
@@ -3963,7 +3960,7 @@ in
   };
 
   which-key-nvim = super.which-key-nvim.overrideAttrs {
-    nvimSkipModules = [ "which-key.docs" ];
+    nvimSkipModules = ["which-key.docs"];
   };
 
   whichpy-nvim = super.whichpy-nvim.overrideAttrs {
@@ -3993,7 +3990,7 @@ in
   };
 
   wtf-nvim = super.wtf-nvim.overrideAttrs {
-    dependencies = [ self.nui-nvim ];
+    dependencies = [self.nui-nvim];
   };
 
   xmake-nvim = super.xmake-nvim.overrideAttrs {
@@ -4027,7 +4024,7 @@ in
   };
 
   yazi-nvim = super.yazi-nvim.overrideAttrs {
-    dependencies = [ self.plenary-nvim ];
+    dependencies = [self.plenary-nvim];
     nvimSkipModules = [
       # Used for reproducing issues
       "repro"
@@ -4121,7 +4118,7 @@ in
   };
 
   zoxide-vim = super.zoxide-vim.overrideAttrs {
-    buildInputs = [ zoxide ];
+    buildInputs = [zoxide];
 
     postPatch = ''
       substituteInPlace autoload/zoxide.vim \

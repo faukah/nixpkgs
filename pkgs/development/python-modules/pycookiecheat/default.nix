@@ -11,7 +11,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pycookiecheat";
   version = "0.8.0";
@@ -46,22 +45,24 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pycookiecheat" ];
+  pythonImportsCheck = ["pycookiecheat"];
 
   preCheck = ''
     export HOME=$(mktemp -d)
   '';
 
-  disabledTests = [
-    # Tests want to use playwright executable
-    "test_fake_cookie"
-    "test_firefox_cookies"
-    "test_firefox_get_default_profile"
-    "test_firefox_no_cookies"
-    "test_load_firefox_cookie_db"
-    "test_no_cookies"
-    "test_warns_for_string_browser"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "test_slack_config" ];
+  disabledTests =
+    [
+      # Tests want to use playwright executable
+      "test_fake_cookie"
+      "test_firefox_cookies"
+      "test_firefox_get_default_profile"
+      "test_firefox_no_cookies"
+      "test_load_firefox_cookie_db"
+      "test_no_cookies"
+      "test_warns_for_string_browser"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin ["test_slack_config"];
 
   meta = with lib; {
     description = "Borrow cookies from your browser's authenticated session for use in Python scripts";

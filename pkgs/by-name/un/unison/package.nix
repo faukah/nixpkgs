@@ -9,7 +9,6 @@
   gsettings-desktop-schemas,
   enableX11 ? !stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unison";
   version = "2.53.7";
@@ -37,9 +36,11 @@ stdenv.mkDerivation (finalAttrs: {
     ocamlPackages.lablgtk3
   ];
 
-  makeFlags = [
-    "PREFIX=$(out)"
-  ] ++ lib.optionals (!ocamlPackages.ocaml.nativeCompilers) [ "NATIVE=false" ];
+  makeFlags =
+    [
+      "PREFIX=$(out)"
+    ]
+    ++ lib.optionals (!ocamlPackages.ocaml.nativeCompilers) ["NATIVE=false"];
 
   postInstall = lib.optionalString enableX11 ''
     install -D $src/icons/U.svg $out/share/icons/hicolor/scalable/apps/unison.svg
@@ -67,9 +68,12 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.cis.upenn.edu/~bcpierce/unison/";
     description = "Bidirectional file synchronizer";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ nevivurn ];
+    maintainers = with lib.maintainers; [nevivurn];
     platforms = lib.platforms.unix;
     broken = stdenv.hostPlatform.isDarwin && enableX11; # unison-gui and uimac are broken on darwin
-    mainProgram = if enableX11 then "unison-gui" else "unison";
+    mainProgram =
+      if enableX11
+      then "unison-gui"
+      else "unison";
   };
 })

@@ -7,7 +7,6 @@
   pythonOlder,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "pyclimacell";
   version = "0.18.2";
@@ -26,14 +25,14 @@ buildPythonPackage rec {
     pytz
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyclimacell" ];
+  pythonImportsCheck = ["pyclimacell"];
 
   meta = with lib; {
     description = "Python client for ClimaCell API";
     homepage = "https://github.com/raman325/pyclimacell";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

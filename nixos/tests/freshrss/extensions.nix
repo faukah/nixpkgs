@@ -1,18 +1,19 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
   {
+    lib,
+    pkgs,
+    ...
+  }: {
     name = "freshrss-extensions";
 
-    nodes.machine =
-      { pkgs, ... }:
-      {
-        services.freshrss = {
-          enable = true;
-          baseUrl = "http://localhost";
-          authType = "none";
-          extensions = [ pkgs.freshrss-extensions.youtube ];
-        };
+    nodes.machine = {pkgs, ...}: {
+      services.freshrss = {
+        enable = true;
+        baseUrl = "http://localhost";
+        authType = "none";
+        extensions = [pkgs.freshrss-extensions.youtube];
       };
+    };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

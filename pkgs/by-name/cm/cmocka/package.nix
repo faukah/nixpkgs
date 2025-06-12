@@ -4,7 +4,6 @@
   stdenv,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cmocka";
   majorVersion = "1.1";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     ./uintptr_t.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     lib.optional doCheck "-DUNIT_TESTING=ON"

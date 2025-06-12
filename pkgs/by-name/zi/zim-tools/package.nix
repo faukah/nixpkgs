@@ -14,7 +14,6 @@
   zlib,
   gtest,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zim-tools";
   version = "3.5.0";
@@ -49,13 +48,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   doCheck = true;
 
   meta = {
     description = "Various ZIM command line tools";
     homepage = "https://github.com/openzim/zim-tools";
-    maintainers = with lib.maintainers; [ robbinch ];
+    maintainers = with lib.maintainers; [robbinch];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
   };

@@ -6,8 +6,7 @@
   fetchFromGitHub,
   setuptools,
   django,
-}:
-let
+}: let
   pname = "django-admin-sortable2";
   version = "2.2.8";
 
@@ -32,31 +31,30 @@ let
     '';
   };
 in
+  buildPythonPackage rec {
+    inherit pname version src;
+    pyproject = true;
 
-buildPythonPackage rec {
-  inherit pname version src;
-  pyproject = true;
+    disabled = pythonOlder "3.9";
 
-  disabled = pythonOlder "3.9";
+    build-system = [setuptools];
 
-  build-system = [ setuptools ];
+    dependencies = [django];
 
-  dependencies = [ django ];
+    preBuild = ''
+      install -Dm644 ${assets}/*.js -t adminsortable2/static/adminsortable2/js
+    '';
 
-  preBuild = ''
-    install -Dm644 ${assets}/*.js -t adminsortable2/static/adminsortable2/js
-  '';
+    pythonImportsCheck = ["adminsortable2"];
 
-  pythonImportsCheck = [ "adminsortable2" ];
+    # Tests are very slow (end-to-end with playwright)
+    doCheck = false;
 
-  # Tests are very slow (end-to-end with playwright)
-  doCheck = false;
-
-  meta = {
-    description = "Generic drag-and-drop ordering for objects in the Django admin interface";
-    homepage = "https://github.com/jrief/django-admin-sortable2";
-    changelog = "https://github.com/jrief/django-admin-sortable2/blob/${src.tag}/CHANGELOG.md";
-    license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sephi ];
-  };
-}
+    meta = {
+      description = "Generic drag-and-drop ordering for objects in the Django admin interface";
+      homepage = "https://github.com/jrief/django-admin-sortable2";
+      changelog = "https://github.com/jrief/django-admin-sortable2/blob/${src.tag}/CHANGELOG.md";
+      license = lib.licenses.mit;
+      maintainers = with lib.maintainers; [sephi];
+    };
+  }

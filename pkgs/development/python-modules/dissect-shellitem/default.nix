@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-shellitem";
   version = "3.10";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.shellitem" ];
+  pythonImportsCheck = ["dissect.shellitem"];
 
   disabledTests = [
     # Windows-specific tests
@@ -50,7 +49,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.shellitem";
     changelog = "https://github.com/fox-it/dissect.shellitem/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "parse-lnk";
   };
 }

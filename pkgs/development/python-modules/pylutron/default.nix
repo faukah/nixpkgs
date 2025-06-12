@@ -5,7 +5,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pylutron";
   version = "0.2.18";
@@ -18,12 +17,12 @@ buildPythonPackage rec {
     hash = "sha256-7ZnNfa4POUTMi9sDGMyR6gu9Xpg+j/JmyWVnBBSnRSE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pylutron" ];
+  pythonImportsCheck = ["pylutron"];
 
   meta = with lib; {
     description = "Python library for controlling a Lutron RadioRA 2 system";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
       mit
       psfl
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

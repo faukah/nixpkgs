@@ -14,18 +14,19 @@
   pythonSupport ? libxml2.pythonSupport,
   gnome,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libxslt";
   version = "1.1.43";
 
-  outputs = [
-    "bin"
-    "dev"
-    "out"
-    "doc"
-    "devdoc"
-  ] ++ lib.optional pythonSupport "py";
+  outputs =
+    [
+      "bin"
+      "dev"
+      "out"
+      "doc"
+      "devdoc"
+    ]
+    ++ lib.optional pythonSupport "py";
   outputMan = "bin";
 
   src = fetchurl {
@@ -93,7 +94,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C library and tools to do XSL transformations";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     broken = pythonSupport && !libxml2.pythonSupport; # see #73102 for why this is not an assert
   };
 })

@@ -53,7 +53,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   env.VERGEN_GIT_SHA = finalAttrs.version;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/cosmic-utils/examine/releases/tag/${finalAttrs.version}";
@@ -61,8 +61,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/cosmic-utils/examine";
     license = lib.licenses.gpl3Only;
     mainProgram = "examine";
-    maintainers = with lib.maintainers; [ HeitorAugustoLN ];
+    maintainers = with lib.maintainers; [HeitorAugustoLN];
     platforms = lib.platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    sourceProvenance = [lib.sourceTypes.fromSource];
   };
 })

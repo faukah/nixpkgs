@@ -12,7 +12,6 @@
   pyyaml,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "watchdog";
   version = "6.0.0";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-nd98gv2jro4k3s2hM47eZuHJmIPbk3Edj7lB6qLYwoI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  optional-dependencies.watchmedo = [ pyyaml ];
+  optional-dependencies.watchmedo = [pyyaml];
 
   nativeCheckInputs =
     [
@@ -35,7 +34,7 @@ buildPythonPackage rec {
       pytestCheckHook
     ]
     ++ optional-dependencies.watchmedo
-    ++ lib.optionals (pythonOlder "3.13") [ eventlet ];
+    ++ lib.optionals (pythonOlder "3.13") [eventlet];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -94,7 +93,7 @@ buildPythonPackage rec {
       "tests/test_fsevents.py"
     ];
 
-  pythonImportsCheck = [ "watchdog" ];
+  pythonImportsCheck = ["watchdog"];
 
   meta = with lib; {
     description = "Python API and shell utilities to monitor file system events";
@@ -102,6 +101,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gorakhargosh/watchdog";
     changelog = "https://github.com/gorakhargosh/watchdog/blob/v${version}/changelog.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

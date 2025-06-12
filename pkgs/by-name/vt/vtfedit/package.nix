@@ -4,19 +4,17 @@
   fetchzip,
   fetchurl,
   makeDesktopItem,
-
   copyDesktopItems,
   makeWrapper,
   wine,
   winetricks,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vtfedit";
   version = "1.3.3";
 
   src = fetchzip {
-    url = "https://nemstools.github.io/files/vtfedit${lib.replaceStrings [ "." ] [ "" ] version}.zip";
+    url = "https://nemstools.github.io/files/vtfedit${lib.replaceStrings ["."] [""] version}.zip";
     hash = "sha256-6a8YuxgYm7FB+2pFcZAMtE1db4hqpEk0z5gv2wHl9bI=";
     stripRoot = false;
   };
@@ -50,7 +48,11 @@ stdenv.mkDerivation rec {
     chmod +x $out/bin/vtfedit
 
     cp ${icon} $out/share/icons/hicolor/256x256/apps/vtfedit.png
-    cp -r ${if wine.meta.mainProgram == "wine64" then "x64" else "x86"}/* $out/share/lib
+    cp -r ${
+      if wine.meta.mainProgram == "wine64"
+      then "x64"
+      else "x86"
+    }/* $out/share/lib
     cp ${./mimetype.xml} $out/share/mime/packages/vtfedit.xml
 
     runHook postInstall
@@ -63,18 +65,18 @@ stdenv.mkDerivation rec {
       exec = "vtfedit %f";
       icon = "vtfedit";
       terminal = false;
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       comment = meta.description;
-      mimeTypes = [ "application/x-vtfedit" ];
+      mimeTypes = ["application/x-vtfedit"];
     })
   ];
 
   meta = {
     description = "VTF file viewer/editor";
     homepage = "https://nemstools.github.io/pages/VTFLib.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.lgpl21Plus;
     inherit (wine.meta) platforms;
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
   };
 }

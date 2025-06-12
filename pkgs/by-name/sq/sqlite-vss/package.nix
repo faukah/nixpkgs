@@ -9,7 +9,6 @@
   sqlite,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sqlite-vss";
   version = "0.1.2";
@@ -21,9 +20,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-cb9UlSUAZp8B5NpNDBvJ2+ung98gjVKLxrM2Ek9fOcs=";
   };
 
-  patches = [ ./use-nixpkgs-libs.patch ];
+  patches = [./use-nixpkgs-libs.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [

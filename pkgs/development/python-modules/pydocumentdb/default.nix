@@ -5,7 +5,6 @@
   six,
   requests,
 }:
-
 buildPythonPackage rec {
   version = "2.3.5";
   format = "setuptools";
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Azure Cosmos DB API";
     homepage = "https://github.com/Azure/azure-cosmos-python";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

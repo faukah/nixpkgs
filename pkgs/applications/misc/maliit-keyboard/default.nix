@@ -2,7 +2,6 @@
   mkDerivation,
   lib,
   fetchFromGitHub,
-
   anthy,
   hunspell,
   libchewing,
@@ -13,12 +12,10 @@
   qtmultimedia,
   qtquickcontrols2,
   qtgraphicaleffects,
-
   cmake,
   pkg-config,
   wrapGAppsHook3,
 }:
-
 mkDerivation rec {
   pname = "maliit-keyboard";
   version = "2.3.1";
@@ -72,6 +69,6 @@ mkDerivation rec {
       bsd3
       cc-by-30
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

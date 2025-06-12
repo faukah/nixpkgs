@@ -3,18 +3,15 @@
   stdenv,
   rustPlatform,
   fetchFromGitHub,
-
   # nativeBuildInputs
   makeWrapper,
   pkg-config,
   autoPatchelfHook,
-
   # buildInputs
   fontconfig,
   libgcc,
   libxkbcommon,
   xorg,
-
   libGL,
   wayland,
   versionCheckHook,
@@ -67,7 +64,7 @@ rustPlatform.buildRustPackage rec {
   postFixup = ''
     # the program looks for libwayland-client.so at runtime
     wrapProgram $out/bin/crusader-gui \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ wayland ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [wayland]}
   '';
 
   nativeInstallCheckInputs = [
@@ -76,14 +73,14 @@ rustPlatform.buildRustPackage rec {
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Network throughput and latency tester";
     homepage = "https://github.com/Zoxc/crusader";
     changelog = "https://github.com/Zoxc/crusader/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ x123 ];
+    maintainers = with lib.maintainers; [x123];
     platforms = lib.platforms.all;
     mainProgram = "crusader";
   };

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-RsZP/GkEuPKGZK2+/57kvMwm9vk0FTKN2/XtOmfoZxA=";
   };
 
-  buildInputs = [ hatchling ];
+  buildInputs = [hatchling];
 
   propagatedBuildInputs = [
     charset-normalizer
@@ -32,13 +32,13 @@ buildPythonPackage rec {
     pyicu
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "normality" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["normality"];
 
   meta = {
     description = "Micro-library to normalize text strings";
     homepage = "https://github.com/pudo/normality";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sigmanificient ];
+    maintainers = with lib.maintainers; [sigmanificient];
   };
 }

@@ -20,7 +20,6 @@
   mumble,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "ioquake3";
   version = "0-unstable-2025-05-15";
@@ -59,9 +58,9 @@ stdenv.mkDerivation {
     cp ${./Makefile.local} ./Makefile.local
   '';
 
-  installTargets = [ "copyfiles" ];
+  installTargets = ["copyfiles"];
 
-  installFlags = [ "COPYDIR=$(out)/share/ioquake3" ];
+  installFlags = ["COPYDIR=$(out)/share/ioquake3"];
 
   postInstall = ''
     install -Dm644 misc/quake3.svg $out/share/icons/hicolor/scalable/apps/ioquake3.svg
@@ -84,7 +83,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     homepage = "https://ioquake3.org/";

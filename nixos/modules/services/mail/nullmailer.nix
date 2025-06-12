@@ -3,11 +3,8 @@
   lib,
   pkgs,
   ...
-}:
-{
-
+}: {
   options = {
-
     services.nullmailer = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -122,8 +119,7 @@
         };
 
         maxpause = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             nullOr (oneOf [
               str
               int
@@ -145,8 +141,7 @@
         };
 
         pausetime = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             nullOr (oneOf [
               str
               int
@@ -180,8 +175,7 @@
         };
 
         sendtimeout = lib.mkOption {
-          type =
-            with lib.types;
+          type = with lib.types;
             nullOr (oneOf [
               str
               int
@@ -198,12 +192,10 @@
     };
   };
 
-  config =
-    let
-      cfg = config.services.nullmailer;
-    in
+  config = let
+    cfg = config.services.nullmailer;
+  in
     lib.mkIf cfg.enable {
-
       assertions = [
         {
           assertion = cfg.config.remotes == null || cfg.remotesFile == null;
@@ -212,15 +204,14 @@
       ];
 
       environment = {
-        systemPackages = [ pkgs.nullmailer ];
-        etc =
-          let
-            validAttrs = lib.mapAttrs (_: toString) (lib.filterAttrs (_: value: value != null) cfg.config);
-          in
-          (lib.foldl' (as: name: as // { "nullmailer/${name}".text = validAttrs.${name}; }) { } (
+        systemPackages = [pkgs.nullmailer];
+        etc = let
+          validAttrs = lib.mapAttrs (_: toString) (lib.filterAttrs (_: value: value != null) cfg.config);
+        in
+          (lib.foldl' (as: name: as // {"nullmailer/${name}".text = validAttrs.${name};}) {} (
             lib.attrNames validAttrs
           ))
-          // lib.optionalAttrs (cfg.remotesFile != null) { "nullmailer/remotes".source = cfg.remotesFile; };
+          // lib.optionalAttrs (cfg.remotesFile != null) {"nullmailer/remotes".source = cfg.remotesFile;};
       };
 
       users = {
@@ -230,7 +221,7 @@
           isSystemUser = true;
         };
 
-        groups.${cfg.group} = { };
+        groups.${cfg.group} = {};
       };
 
       systemd.tmpfiles.rules = [
@@ -242,8 +233,8 @@
 
       systemd.services.nullmailer = {
         description = "nullmailer";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         preStart = ''
           rm -f /var/spool/nullmailer/trigger && mkfifo -m 660 /var/spool/nullmailer/trigger

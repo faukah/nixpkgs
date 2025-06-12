@@ -3,17 +3,16 @@
   buildPerlPackage,
   fetchFromGitHub,
 }:
-
 buildPerlPackage rec {
   pname = "BioExtAlign";
   version = "1.5.1";
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   src = fetchFromGitHub {
     owner = "bioperl";
     repo = "bioperl-ext";
-    rev = "bioperl-ext-release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "bioperl-ext-release-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-+0tZ6q3PFem8DWa2vq+njOLmjDvMB0JhD0FGk00lVMA=";
   };
 
@@ -51,7 +50,7 @@ buildPerlPackage rec {
     longDescription = ''
       Part of BioPerl Extensions (BioPerl-Ext) distribution, a collection of Bioperl C-compiled extensions.
     '';
-    license = with lib.licenses; [ artistic1 ];
-    maintainers = with lib.maintainers; [ apraga ];
+    license = with lib.licenses; [artistic1];
+    maintainers = with lib.maintainers; [apraga];
   };
 }

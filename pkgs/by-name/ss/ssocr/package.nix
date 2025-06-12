@@ -6,7 +6,6 @@
   libX11,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ssocr";
   version = "2.25.0";
@@ -18,19 +17,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yQPjs4kGvp6C7kFcWQ3EzoFhwEAhm2nC7yXu9RbU4os=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     imlib2
     libX11
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Seven Segment Optical Character Recognition";
     homepage = "https://github.com/auerswal/ssocr";
     license = licenses.gpl3;
-    maintainers = [ maintainers.kroell ];
+    maintainers = [maintainers.kroell];
     mainProgram = "ssocr";
     platforms = platforms.unix;
   };

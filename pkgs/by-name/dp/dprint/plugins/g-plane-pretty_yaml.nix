@@ -1,9 +1,9 @@
-{ mkDprintPlugin }:
+{mkDprintPlugin}:
 mkDprintPlugin {
   description = "YAML formatter.";
   hash = "sha256-6ua021G7ZW7Ciwy/OHXTA1Joj9PGEx3SZGtvaA//gzo=";
   initConfig = {
-    configExcludes = [ ];
+    configExcludes = [];
     configKey = "yaml";
     fileExtensions = [
       "yaml"

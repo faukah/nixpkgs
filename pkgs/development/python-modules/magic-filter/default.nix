@@ -6,7 +6,6 @@
   pytestCheckHook,
   hatchling,
 }:
-
 buildPythonPackage rec {
   pname = "magic-filter";
   version = "1.0.12";
@@ -26,17 +25,17 @@ buildPythonPackage rec {
       --replace '"1"' '"${version}"'
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "magic_filter" ];
+  pythonImportsCheck = ["magic_filter"];
 
   meta = with lib; {
     description = "Magic filter based on dynamic attribute getter";
     homepage = "https://github.com/aiogram/magic-filter";
     changelog = "https://github.com/aiogram/magic-filter/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

@@ -4,13 +4,9 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.powerManagement.powertop;
-in
-{
+in {
   ###### interface
 
   options.powerManagement.powertop = {
@@ -51,11 +47,11 @@ in
   config = mkIf (cfg.enable) {
     systemd.services = {
       powertop = {
-        documentation = [ "man:powertop(8)" ];
-        wantedBy = [ "multi-user.target" ];
-        after = [ "multi-user.target" ];
+        documentation = ["man:powertop(8)"];
+        wantedBy = ["multi-user.target"];
+        after = ["multi-user.target"];
         description = "Powertop tunings";
-        path = [ pkgs.kmod ];
+        path = [pkgs.kmod];
         preStart = cfg.preStart;
         postStart = cfg.postStart;
         serviceConfig = {

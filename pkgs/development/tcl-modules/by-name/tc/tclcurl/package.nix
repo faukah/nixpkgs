@@ -4,7 +4,6 @@
   fetchFromGitHub,
   curl,
 }:
-
 mkTclDerivation rec {
   pname = "tclcurl";
   version = "7.22.1";
@@ -16,18 +15,18 @@ mkTclDerivation rec {
     hash = "sha256-XQuP+SiqvGX3ckBShUxsGBADjV3QdvYpU4hW6LMbMMQ=";
   };
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   # Uses curl-config
   strictDeps = false;
 
-  makeFlags = [ "LDFLAGS=-lcurl" ];
+  makeFlags = ["LDFLAGS=-lcurl"];
 
   meta = {
     description = "Curl support in Tcl";
     homepage = "https://github.com/flightaware/tclcurl-fa";
     changelog = "https://github.com/flightaware/tclcurl-fa/blob/master/ChangeLog.txt";
     license = lib.licenses.tcltk;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
   };
 }

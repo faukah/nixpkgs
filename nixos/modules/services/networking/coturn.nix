@@ -4,8 +4,7 @@
   pkgs,
   utils,
   ...
-}:
-let
+}: let
   cfg = config.services.coturn;
   pidfile = "/run/turnserver/turnserver.pid";
   configFile = pkgs.writeText "turnserver.conf" ''
@@ -44,8 +43,7 @@ let
     ${lib.optionalString (cfg.cli-password != null) "cli-password=${cfg.cli-password}"}
     ${cfg.extraConfig}
   '';
-in
-{
+in {
   options = {
     services.coturn = {
       enable = lib.mkEnableOption "coturn TURN server";
@@ -98,7 +96,7 @@ in
       };
       listening-ips = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "203.0.113.42"
           "2001:DB8::42"
@@ -111,7 +109,7 @@ in
       };
       relay-ips = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         example = [
           "203.0.113.42"
           "2001:DB8::42"
@@ -335,101 +333,98 @@ in
         };
         users.groups.turnserver = {
           gid = config.ids.gids.turnserver;
-          members = [ "turnserver" ];
+          members = ["turnserver"];
         };
 
-        systemd.services.coturn =
-          let
-            runConfig = "/run/coturn/turnserver.cfg";
-          in
-          {
-            description = "coturn TURN server";
-            after = [ "network-online.target" ];
-            wants = [ "network-online.target" ];
-            wantedBy = [ "multi-user.target" ];
+        systemd.services.coturn = let
+          runConfig = "/run/coturn/turnserver.cfg";
+        in {
+          description = "coturn TURN server";
+          after = ["network-online.target"];
+          wants = ["network-online.target"];
+          wantedBy = ["multi-user.target"];
 
-            unitConfig = {
-              Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
-            };
-
-            preStart = ''
-              cat ${configFile} > ${runConfig}
-              ${lib.optionalString (cfg.static-auth-secret-file != null) ''
-                ${pkgs.replace-secret}/bin/replace-secret \
-                  "#static-auth-secret#" \
-                  ${cfg.static-auth-secret-file} \
-                  ${runConfig}
-              ''}
-              chmod 640 ${runConfig}
-            '';
-            serviceConfig = rec {
-              Type = "notify";
-              ExecStart = utils.escapeSystemdExecArgs [
-                (lib.getExe' pkgs.coturn "turnserver")
-                "-c"
-                runConfig
-              ];
-              User = "turnserver";
-              Group = "turnserver";
-              RuntimeDirectory = [
-                "coturn"
-                "turnserver"
-              ];
-              RuntimeDirectoryMode = "0700";
-              Restart = "on-abort";
-
-              # Hardening
-              AmbientCapabilities =
-                if
-                  cfg.listening-port < 1024
-                  || cfg.alt-listening-port < 1024
-                  || cfg.tls-listening-port < 1024
-                  || cfg.alt-tls-listening-port < 1024
-                  || cfg.min-port < 1024
-                then
-                  [ "CAP_NET_BIND_SERVICE" ]
-                else
-                  [ "" ];
-              CapabilityBoundingSet = AmbientCapabilities;
-              DevicePolicy = "closed";
-              LockPersonality = true;
-              MemoryDenyWriteExecute = true;
-              NoNewPrivileges = true;
-              PrivateDevices = true;
-              PrivateTmp = true;
-              PrivateUsers = true;
-              ProcSubset = "pid";
-              ProtectClock = true;
-              ProtectControlGroups = true;
-              ProtectHome = true;
-              ProtectHostname = true;
-              ProtectKernelLogs = true;
-              ProtectKernelModules = true;
-              ProtectKernelTunables = true;
-              ProtectProc = "invisible";
-              ProtectSystem = "strict";
-              RemoveIPC = true;
-              RestrictAddressFamilies =
-                [
-                  "AF_INET"
-                  "AF_INET6"
-                  "AF_UNIX"
-                ]
-                ++ lib.optionals (cfg.listening-ips == [ ]) [
-                  # only used for interface discovery when no listening ips are configured
-                  "AF_NETLINK"
-                ];
-              RestrictNamespaces = true;
-              RestrictRealtime = true;
-              RestrictSUIDSGID = true;
-              SystemCallArchitectures = "native";
-              SystemCallFilter = [
-                "@system-service"
-                "~@privileged @resources"
-              ];
-              UMask = "0077";
-            };
+          unitConfig = {
+            Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
           };
+
+          preStart = ''
+            cat ${configFile} > ${runConfig}
+            ${lib.optionalString (cfg.static-auth-secret-file != null) ''
+              ${pkgs.replace-secret}/bin/replace-secret \
+                "#static-auth-secret#" \
+                ${cfg.static-auth-secret-file} \
+                ${runConfig}
+            ''}
+            chmod 640 ${runConfig}
+          '';
+          serviceConfig = rec {
+            Type = "notify";
+            ExecStart = utils.escapeSystemdExecArgs [
+              (lib.getExe' pkgs.coturn "turnserver")
+              "-c"
+              runConfig
+            ];
+            User = "turnserver";
+            Group = "turnserver";
+            RuntimeDirectory = [
+              "coturn"
+              "turnserver"
+            ];
+            RuntimeDirectoryMode = "0700";
+            Restart = "on-abort";
+
+            # Hardening
+            AmbientCapabilities =
+              if
+                cfg.listening-port
+                < 1024
+                || cfg.alt-listening-port < 1024
+                || cfg.tls-listening-port < 1024
+                || cfg.alt-tls-listening-port < 1024
+                || cfg.min-port < 1024
+              then ["CAP_NET_BIND_SERVICE"]
+              else [""];
+            CapabilityBoundingSet = AmbientCapabilities;
+            DevicePolicy = "closed";
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            NoNewPrivileges = true;
+            PrivateDevices = true;
+            PrivateTmp = true;
+            PrivateUsers = true;
+            ProcSubset = "pid";
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHome = true;
+            ProtectHostname = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            ProtectProc = "invisible";
+            ProtectSystem = "strict";
+            RemoveIPC = true;
+            RestrictAddressFamilies =
+              [
+                "AF_INET"
+                "AF_INET6"
+                "AF_UNIX"
+              ]
+              ++ lib.optionals (cfg.listening-ips == []) [
+                # only used for interface discovery when no listening ips are configured
+                "AF_NETLINK"
+              ];
+            RestrictNamespaces = true;
+            RestrictRealtime = true;
+            RestrictSUIDSGID = true;
+            SystemCallArchitectures = "native";
+            SystemCallFilter = [
+              "@system-service"
+              "~@privileged @resources"
+            ];
+            UMask = "0077";
+          };
+        };
       }
     ]
   );

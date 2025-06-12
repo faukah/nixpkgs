@@ -4,7 +4,6 @@
   fetchurl,
   writeScript,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "i.ming";
   version = "8.10";
@@ -49,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ichitenfont/I.Ming";
     license = licenses.ipa;
     platforms = platforms.all;
-    maintainers = [ maintainers.linsui ];
+    maintainers = [maintainers.linsui];
   };
 }

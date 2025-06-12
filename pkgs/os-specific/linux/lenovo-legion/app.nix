@@ -5,7 +5,6 @@
   wrapQtAppsHook,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "lenovo-legion-app";
   version = "0.0.20-unstable-2025-04-01";
@@ -19,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
 
   sourceRoot = "${src.name}/python/legion_linux";
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = with python3.pkgs; [
     pyqt6

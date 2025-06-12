@@ -4,14 +4,12 @@
   pythonOlder,
   buildPythonPackage,
   setuptools,
-
   # propagated
   django,
   hiredis,
   lz4,
   msgpack,
   redis,
-
   # testing
   pkgs,
   pytest-cov-stub,
@@ -19,7 +17,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "django-redis";
   version = "5.4.0";
@@ -34,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-m7z3c7My24vrSSnyfDQ/LlWhy7pV4U0L8LATMvkfczc=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     django
@@ -44,10 +41,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    hiredis = [ redis ] ++ redis.optional-dependencies.hiredis;
+    hiredis = [redis] ++ redis.optional-dependencies.hiredis;
   };
 
-  pythonImportsCheck = [ "django_redis" ];
+  pythonImportsCheck = ["django_redis"];
 
   preCheck = ''
     export DJANGO_SETTINGS_MODULE=tests.settings.sqlite
@@ -60,12 +57,14 @@ buildPythonPackage rec {
     kill $REDIS_PID
   '';
 
-  nativeCheckInputs = [
-    pytest-cov-stub
-    pytest-django
-    pytest-mock
-    pytestCheckHook
-  ] ++ lib.flatten (lib.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      pytest-cov-stub
+      pytest-django
+      pytest-mock
+      pytestCheckHook
+    ]
+    ++ lib.flatten (lib.attrValues optional-dependencies);
 
   pytestFlagsArray = [
     "-W"
@@ -91,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-redis";
     changelog = "https://github.com/jazzband/django-redis/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

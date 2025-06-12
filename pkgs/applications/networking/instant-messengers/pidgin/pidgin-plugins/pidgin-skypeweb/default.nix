@@ -6,7 +6,6 @@
   pidgin,
   json-glib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pidgin-skypeweb";
   version = "1.7";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */skypeweb)
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pidgin
     json-glib
@@ -36,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "SkypeWeb plugin for Pidgin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   withGtk3 ? false,
   gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lxrandr";
   version = "0.3.2";
@@ -29,7 +28,11 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libX11
     xrandr
-    (if withGtk3 then gtk3 else gtk2)
+    (
+      if withGtk3
+      then gtk3
+      else gtk2
+    )
   ];
 
   meta = with lib; {
@@ -37,7 +40,7 @@ stdenv.mkDerivation rec {
     mainProgram = "lxrandr";
     homepage = "https://lxde.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rawkode ];
+    maintainers = with maintainers; [rawkode];
     platforms = platforms.linux;
   };
 }

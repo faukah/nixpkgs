@@ -5,7 +5,6 @@
   protobuf,
   isStatic ? stdenv.hostPlatform.isStatic,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "protoc-gen-grpc-web";
   version = "1.5.0";
@@ -21,16 +20,20 @@ stdenv.mkDerivation (finalAttrs: {
 
   enableParallelBuilding = true;
   strictDeps = true;
-  nativeBuildInputs = [ protobuf ];
-  buildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
+  buildInputs = [protobuf];
 
   makeFlags = [
     "PREFIX=$(out)"
-    "STATIC=${if isStatic then "yes" else "no"}"
+    "STATIC=${
+      if isStatic
+      then "yes"
+      else "no"
+    }"
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ protobuf ];
+  nativeCheckInputs = [protobuf];
   checkPhase = ''
     runHook preCheck
 
@@ -55,7 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "gRPC web support for Google's protocol buffers";
     mainProgram = "protoc-gen-grpc-web";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = platforms.unix;
   };
 })

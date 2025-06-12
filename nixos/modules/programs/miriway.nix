@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.miriway;
-in
-{
+in {
   options.programs.miriway = {
     enable = lib.mkEnableOption ''
       Miriway, a Mir based Wayland compositor. You can manually launch Miriway by
@@ -80,7 +77,7 @@ in
     programs.xwayland.enable = lib.mkDefault true;
 
     # To make the Miriway session available if a display manager like SDDM is enabled:
-    services.displayManager.sessionPackages = [ pkgs.miriway ];
+    services.displayManager.sessionPackages = [pkgs.miriway];
 
     xdg.icons.enable = true;
     xdg.icons.fallbackCursorThemes = lib.mkDefault [
@@ -90,5 +87,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ OPNA2608 ];
+  meta.maintainers = with lib.maintainers; [OPNA2608];
 }

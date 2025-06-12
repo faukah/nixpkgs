@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   absl-py,
   etils,
@@ -18,7 +16,6 @@
   requests,
   scipy,
   tqdm,
-
   # tests
   apache-beam,
   gitpython,
@@ -27,7 +24,6 @@
   pyyaml,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "mlcroissant";
   version = "1.0.17";
@@ -46,21 +42,23 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    absl-py
-    etils
-    jsonpath-rw
-    networkx
-    pandas
-    pandas-stubs
-    python-dateutil
-    rdflib
-    requests
-    scipy
-    tqdm
-  ] ++ etils.optional-dependencies.epath;
+  dependencies =
+    [
+      absl-py
+      etils
+      jsonpath-rw
+      networkx
+      pandas
+      pandas-stubs
+      python-dateutil
+      rdflib
+      requests
+      scipy
+      tqdm
+    ]
+    ++ etils.optional-dependencies.epath;
 
-  pythonImportsCheck = [ "mlcroissant" ];
+  pythonImportsCheck = ["mlcroissant"];
 
   nativeCheckInputs = [
     apache-beam
@@ -90,7 +88,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/mlcommons/croissant";
     changelog = "https://github.com/mlcommons/croissant/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     platforms = lib.platforms.all;
     mainProgram = "mlcroissant";
   };

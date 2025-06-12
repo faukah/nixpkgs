@@ -15,7 +15,6 @@
   nix-update-script,
   ffmpegSupport ? true,
 }:
-
 buildGo124Module rec {
   pname = "navidrome";
   version = "0.56.1";
@@ -59,7 +58,7 @@ buildGo124Module rec {
     "-X github.com/navidrome/navidrome/consts.gitTag=v${version}"
   ];
 
-  CGO_CFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-return-local-addr" ];
+  CGO_CFLAGS = lib.optionals stdenv.cc.isGNU ["-Wno-return-local-addr"];
 
   postPatch = ''
     patchShebangs ui/bin/update-workbox.sh
@@ -75,12 +74,12 @@ buildGo124Module rec {
 
   postFixup = lib.optionalString ffmpegSupport ''
     wrapProgram $out/bin/navidrome \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg-headless ]}
+      --prefix PATH : ${lib.makeBinPath [ffmpeg-headless]}
   '';
 
   passthru = {
     tests.navidrome = nixosTests.navidrome;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -88,7 +87,7 @@ buildGo124Module rec {
     mainProgram = "navidrome";
     homepage = "https://www.navidrome.org/";
     license = lib.licenses.gpl3Only;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    sourceProvenance = with lib.sourceTypes; [fromSource];
     maintainers = with lib.maintainers; [
       aciceri
       squalus

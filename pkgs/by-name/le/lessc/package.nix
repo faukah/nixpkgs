@@ -9,7 +9,6 @@
   nix-update-script,
   lessc,
 }:
-
 buildNpmPackage rec {
   pname = "lessc";
   version = "4.2.2";
@@ -33,12 +32,12 @@ buildNpmPackage rec {
   env.PUPPETEER_SKIP_DOWNLOAD = 1;
 
   passthru = {
-    updateScript = nix-update-script { };
-    plugins = callPackage ./plugins { };
-    wrapper = callPackage ./wrapper { };
-    withPlugins = fn: lessc.wrapper.override { plugins = fn lessc.plugins; };
+    updateScript = nix-update-script {};
+    plugins = callPackage ./plugins {};
+    wrapper = callPackage ./wrapper {};
+    withPlugins = fn: lessc.wrapper.override {plugins = fn lessc.plugins;};
     tests = {
-      version = testers.testVersion { package = lessc; };
+      version = testers.testVersion {package = lessc;};
 
       simple = testers.testEqualContents {
         assertion = "lessc compiles a basic less file";
@@ -49,20 +48,20 @@ buildNpmPackage rec {
         '';
         actual =
           runCommand "actual"
-            {
-              nativeBuildInputs = [ lessc ];
-              base = writeText "base" ''
-                @color: red;
-                body {
-                  h1 {
-                    color: @color;
-                  }
+          {
+            nativeBuildInputs = [lessc];
+            base = writeText "base" ''
+              @color: red;
+              body {
+                h1 {
+                  color: @color;
                 }
-              '';
-            }
-            ''
-              lessc $base > $out
+              }
             '';
+          }
+          ''
+            lessc $base > $out
+          '';
       };
     };
   };
@@ -72,6 +71,6 @@ buildNpmPackage rec {
     description = "Dynamic stylesheet language";
     mainProgram = "lessc";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ lelgenio ];
+    maintainers = with lib.maintainers; [lelgenio];
   };
 }

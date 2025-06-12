@@ -5,7 +5,6 @@
   testers,
   arcanechat-tui,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "arcanechat-tui";
   version = "0.11.1";
@@ -46,6 +45,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/ArcaneChat/arcanechat-tui";
     license = lib.licenses.gpl3Plus;
     mainProgram = "arcanechat-tui";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

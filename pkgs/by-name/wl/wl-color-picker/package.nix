@@ -10,7 +10,6 @@
   makeWrapper,
   bash,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wl-color-picker";
   version = "1.3";
@@ -23,8 +22,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bash ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bash];
 
   patchPhase = ''
     substituteInPlace Makefile \
@@ -43,14 +42,14 @@ stdenv.mkDerivation rec {
   postInstall = ''
     wrapProgram $out/usr/bin/wl-color-picker \
       --prefix PATH : ${
-        lib.makeBinPath [
-          grim
-          slurp
-          imagemagick
-          zenity
-          wl-clipboard
-        ]
-      }
+      lib.makeBinPath [
+        grim
+        slurp
+        imagemagick
+        zenity
+        wl-clipboard
+      ]
+    }
     mkdir -p $out/bin
     ln -s $out/usr/bin/wl-color-picker $out/bin/wl-color-picker
   '';
@@ -59,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Wayland color picker that also works on wlroots";
     homepage = "https://github.com/jgmdev/wl-color-picker";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
     mainProgram = "wl-color-picker";
   };

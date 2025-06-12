@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication {
   pname = "koodousfinder";
   version = "0.1.0";
@@ -18,9 +17,9 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-skCbt2lDKgSyZdHY3WImbr6CF0icrDPTIXNV1736gKk=";
   };
 
-  pythonRelaxDeps = [ "keyring" ];
+  pythonRelaxDeps = ["keyring"];
 
-  build-system = with python3.pkgs; [ poetry-core ];
+  build-system = with python3.pkgs; [poetry-core];
 
   dependencies = with python3.pkgs; [
     keyring
@@ -30,12 +29,12 @@ python3.pkgs.buildPythonApplication {
   # Project has no tests, re-check with next release
   doCheck = false;
 
-  pythonImportsCheck = [ "koodousfinder" ];
+  pythonImportsCheck = ["koodousfinder"];
 
   meta = with lib; {
     description = "Tool to allows users to search for and analyze Android apps";
     homepage = "https://github.com/teixeira0xfffff/KoodousFinder";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitLab,
   readline,
 }:
-
 buildDunePackage {
   pname = "readline";
   version = "0.2";
@@ -19,19 +18,19 @@ buildDunePackage {
     hash = "sha256-qWxciodgINCFCxAVLdoU4z+ypWPYjrUwq8pU80saclw=";
   };
 
-  patches = [ ./dune.patch ];
+  patches = [./dune.patch];
 
   preConfigure = ''
     echo "(${lib.getOutput "dev" readline}/include)" > src/iflags.sexp
     echo "(-L${lib.getOutput "lib" readline}/lib -lreadline)" > src/lflags.sexp
   '';
 
-  propagatedBuildInputs = [ readline ];
+  propagatedBuildInputs = [readline];
 
   meta = {
     description = "OCaml bindings for GNU Readline";
     homepage = "https://acg.gitlabpages.inria.fr/dev/readline-ocaml/readline/index.html";
     license = lib.licenses.cecill20;
-    maintainers = [ lib.maintainers.tournev ];
+    maintainers = [lib.maintainers.tournev];
   };
 }

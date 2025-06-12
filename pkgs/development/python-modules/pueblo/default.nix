@@ -9,7 +9,6 @@
   platformdirs,
   tomli,
 }:
-
 buildPythonPackage rec {
   pname = "pueblo";
   version = "0.0.11";
@@ -41,12 +40,12 @@ buildPythonPackage rec {
 
   doCheck = false; # no tests in sdist
 
-  pythonImportsCheck = [ "pueblo" ];
+  pythonImportsCheck = ["pueblo"];
 
   meta = with lib; {
     description = "Python toolbox library";
     homepage = "https://github.com/pyveci/pueblo";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

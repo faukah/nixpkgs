@@ -11,14 +11,13 @@
   libpulseaudio,
   wayland,
 }:
-
 qtModule {
   pname = "qtmultimedia";
   propagatedBuildInputs = [
     qtbase
     qtdeclarative
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       gstreamer
@@ -35,6 +34,6 @@ qtModule {
     "dev"
     "out"
   ];
-  qmakeFlags = [ "GST_VERSION=1.0" ];
+  qmakeFlags = ["GST_VERSION=1.0"];
   NIX_LDFLAGS = lib.optionalString (stdenv.hostPlatform.isDarwin) "-lobjc";
 }

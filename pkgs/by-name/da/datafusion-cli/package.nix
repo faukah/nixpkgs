@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "datafusion-cli";
   version = "47.0.0";
@@ -44,6 +43,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://arrow.apache.org/datafusion";
     changelog = "https://github.com/apache/arrow-datafusion/blob/${finalAttrs.version}/datafusion/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ happysalada ];
+    maintainers = with lib.maintainers; [happysalada];
   };
 })

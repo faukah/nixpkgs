@@ -4,7 +4,6 @@
   fetchurl,
   libX11,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xosview2";
   version = "2.3.3";
@@ -19,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     "man"
   ];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   meta = {
     homepage = "https://xosview.sourceforge.net/index.html";
@@ -46,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsdOriginal
     ];
     mainProgram = "xosview2";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (libX11.meta) platforms;
   };
 })

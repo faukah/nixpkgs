@@ -4,7 +4,6 @@
   fetchFromGitLab,
   fetchpatch2,
 }:
-
 buildGoModule rec {
   pname = "golex";
   version = "1.1.0";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://pkg.go.dev/modernc.org/golex";
     license = lib.licenses.bsd3;
     mainProgram = "golex";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

@@ -7,7 +7,6 @@
   findlib,
   camlp4,
 }:
-
 stdenv.mkDerivation {
   pname = "camomile";
   version = "0.8.5";

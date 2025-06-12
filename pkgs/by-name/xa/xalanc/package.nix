@@ -6,7 +6,6 @@
   getopt,
   cmake,
 }:
-
 stdenv.mkDerivation {
   pname = "xalan-c";
   version = "1.12.0";
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     ./0001-clang19-gcc15-compat.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     xercesc
     getopt
@@ -40,6 +39,6 @@ stdenv.mkDerivation {
     mainProgram = "Xalan";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    maintainers = [ lib.maintainers.jagajaga ];
+    maintainers = [lib.maintainers.jagajaga];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fnkWws/g4BdHKDRhqoCpdPFUavOHdk8R7h7H1dAdAYI=";
   };
 
-  makeFlags = [ "BUILD_PATH=$(out)/bin" ];
+  makeFlags = ["BUILD_PATH=$(out)/bin"];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=implicit-function-declaration";
 
@@ -26,11 +26,11 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace $out/Library/LaunchDaemons/org.nixos.skhd.plist --subst-var out
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple hotkey daemon for macOS";

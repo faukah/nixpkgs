@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "gridlock";
   version = "unstable-2023-08-29";
@@ -41,6 +40,6 @@ rustPlatform.buildRustPackage {
     description = "Nix compatible lockfile manager, without Nix";
     homepage = "https://github.com/lf-/gridlock";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

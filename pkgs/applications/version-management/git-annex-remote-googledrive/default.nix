@@ -10,7 +10,6 @@
   setuptools,
   distutils,
 }:
-
 buildPythonApplication rec {
   pname = "git-annex-remote-googledrive";
   version = "1.3.2";
@@ -21,7 +20,7 @@ buildPythonApplication rec {
     sha256 = "0rwjcdvfgzdlfgrn1rrqwwwiqqzyh114qddrbfwd46ld5spry6r1";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     annexremote
@@ -44,7 +43,7 @@ buildPythonApplication rec {
     description = "Git-annex special remote for Google Drive";
     homepage = "https://github.com/Lykos153/git-annex-remote-googledrive";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ gravndal ];
+    maintainers = with maintainers; [gravndal];
     mainProgram = "git-annex-remote-googledrive";
   };
 }

@@ -5,7 +5,6 @@
   makeWrapper,
   jre,
 }:
-
 stdenv.mkDerivation rec {
   pname = "tlaplus";
   version = "1.8.0";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OXgpd1xuyvhveunlybBi/N6jnxtp/J8Kmp8PYX3eSZ4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
   installPhase = ''
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Algorithm specification language with model checking tools";
     homepage = "https://lamport.azurewebsites.net/tla/tla.html";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
     maintainers = with lib.maintainers; [

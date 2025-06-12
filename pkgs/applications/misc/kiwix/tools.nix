@@ -10,7 +10,6 @@
   pkg-config,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "kiwix-tools";
   version = "3.7.0-unstable-2024-12-21";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     libkiwix
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Command line Kiwix tools: kiwix-serve, kiwix-manage, ..";
@@ -42,6 +41,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/kiwix/kiwix-tools/releases/tag/${finalAttrs.version}";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
   };
 })

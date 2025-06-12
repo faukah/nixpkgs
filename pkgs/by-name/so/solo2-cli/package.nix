@@ -8,7 +8,6 @@
   pcsclite,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "solo2-cli";
   version = "0.2.2";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       pcsclite
       udev
@@ -43,7 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   doCheck = true;
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   meta = with lib; {
     description = "CLI tool for managing SoloKeys' Solo2 USB security keys";
@@ -52,7 +51,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ]; # either at your option
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     mainProgram = "solo2";
   };
 }

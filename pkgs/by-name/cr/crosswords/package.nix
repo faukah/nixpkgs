@@ -12,7 +12,6 @@
   json-glib,
   libipuz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "crosswords";
   version = "0.3.12";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.gnome.org/jrb/crosswords/-/blob/${version}/NEWS.md?ref_type=tags";
     license = lib.licenses.gpl3Plus;
     mainProgram = "crosswords";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.unix;
   };
 }

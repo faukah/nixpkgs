@@ -6,7 +6,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "pypdf2";
   version = "3.0.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-p0QI9pumJx9xuTUu9O0D3FOjGqQE0ptdMfU7/s/uFEA=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  dependencies = lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  dependencies = lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   # no test
   doCheck = false;
 
-  pythonImportsCheck = [ "PyPDF2" ];
+  pythonImportsCheck = ["PyPDF2"];
 
   meta = with lib; {
     description = "Pure-Python library built as a PDF toolkit";

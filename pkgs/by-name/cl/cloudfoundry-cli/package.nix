@@ -5,7 +5,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "cloudfoundry-cli";
   version = "8.14.1";
@@ -18,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-ygRb87WjA0e+mBwK3JLh0b7dbib7tM91hq7eD2f2AAU=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # upstream have helpfully moved the bash completion script to a separate
   # repo which receives no releases or even tags
@@ -27,7 +26,7 @@ buildGoModule rec {
     sha256 = "06w26kpnjd3f2wdjhb4pp0kaq2gb9kf87v7pjd9n2g7s7qhdqyhy";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -44,7 +43,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Official command line client for Cloud Foundry";
     homepage = "https://github.com/cloudfoundry/cli";
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     mainProgram = "cf";
     license = licenses.asl20;
   };

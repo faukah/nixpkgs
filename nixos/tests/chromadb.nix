@@ -1,21 +1,19 @@
-{ lib, pkgs, ... }:
-
-let
-  lib = pkgs.lib;
-
-in
 {
+  lib,
+  pkgs,
+  ...
+}: let
+  lib = pkgs.lib;
+in {
   name = "chromadb";
-  meta.maintainers = [ lib.maintainers.drupol ];
+  meta.maintainers = [lib.maintainers.drupol];
 
   nodes = {
-    machine =
-      { pkgs, ... }:
-      {
-        services.chromadb = {
-          enable = true;
-        };
+    machine = {pkgs, ...}: {
+      services.chromadb = {
+        enable = true;
       };
+    };
   };
 
   testScript = ''

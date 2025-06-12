@@ -7,7 +7,6 @@
   pbzip2,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.4.5";
   pname = "makeself";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-15lUtErGsbXF2Gn0f0rvA18mMuVMmkKrGO2poeYZU9g=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = "patchShebangs test";
 
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     homepage = "https://makeself.io";
     description = "Utility to create self-extracting packages";
     license = licenses.gpl2;
-    maintainers = [ maintainers.wmertens ];
+    maintainers = [maintainers.wmertens];
     platforms = platforms.all;
     mainProgram = "makeself";
   };

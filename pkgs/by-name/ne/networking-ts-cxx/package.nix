@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation {
   pname = "networking-ts-cxx";
   version = "2019-02-27";
@@ -27,6 +26,6 @@ stdenv.mkDerivation {
     description = "Experimental implementation of the C++ Networking Technical Specification";
     homepage = "https://github.com/chriskohlhoff/networking-ts-impl";
     license = licenses.boost;
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

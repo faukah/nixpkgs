@@ -5,7 +5,6 @@
   blas,
   lapack,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ergoscf";
   version = "3.8.2";
@@ -20,16 +19,18 @@ stdenv.mkDerivation rec {
     lapack
   ];
 
-  patches = [ ./math-constants.patch ];
+  patches = [./math-constants.patch];
 
   postPatch = ''
     patchShebangs ./test
   '';
 
-  configureFlags = [
-    "--enable-linalgebra-templates"
-    "--enable-performance"
-  ] ++ lib.optional stdenv.hostPlatform.isx86_64 "--enable-sse-intrinsics";
+  configureFlags =
+    [
+      "--enable-linalgebra-templates"
+      "--enable-performance"
+    ]
+    ++ lib.optional stdenv.hostPlatform.isx86_64 "--enable-sse-intrinsics";
 
   env = {
     # Required for compilation with gcc-14
@@ -45,7 +46,7 @@ stdenv.mkDerivation rec {
   # Testing cnof CAMB3LYP/6-31G using FMM
   # *** buffer overflow detected ***: terminated
   # ./test_fmm_camb3lyp.sh: line 81: 1061289 Aborted                 (core dumped) ./ergo <<EOINPUT > /dev/null
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   doCheck = true;
 
@@ -54,7 +55,7 @@ stdenv.mkDerivation rec {
     mainProgram = "ergo";
     homepage = "http://www.ergoscf.org";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

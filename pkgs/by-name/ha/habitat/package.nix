@@ -10,7 +10,6 @@
   zeromq,
   cacert,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "habitat";
   version = "1.6.1243";
@@ -59,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       qjoly
     ];
     mainProgram = "hab";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

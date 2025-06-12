@@ -2,26 +2,22 @@
   lib,
   stdenv,
   fetchzip,
-
   installShellFiles,
   makeWrapper,
   perl,
   strace,
-
   testers,
   pvs-studio,
 }:
-
 # nixpkgs-update: no auto update
 stdenv.mkDerivation rec {
   pname = "pvs-studio";
   version = "7.36.91321.455";
 
-  src =
-    let
-      system = stdenv.hostPlatform.system;
-      selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
-    in
+  src = let
+    system = stdenv.hostPlatform.system;
+    selectSystem = attrs: attrs.${system} or (throw "Unsupported system: ${system}");
+  in
     fetchzip {
       url = selectSystem {
         aarch64-darwin = "https://web.archive.org/web/20250411093324/https://files.pvs-studio.com/pvs-studio-${version}-macos-arm64.tgz";
@@ -64,7 +60,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = pvs-studio; };
+    tests.version = testers.testVersion {package = pvs-studio;};
   };
 
   meta = {
@@ -76,7 +72,7 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
       "x86_64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ paveloom ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [paveloom];
   };
 }

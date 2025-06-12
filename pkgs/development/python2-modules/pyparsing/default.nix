@@ -2,14 +2,11 @@
   buildPythonPackage,
   fetchFromGitHub,
   lib,
-
   # since this is a dependency of pytest, we need to avoid
   # circular dependencies
   jinja2,
   railroad-diagrams,
-}:
-
-let
+}: let
   pyparsing = buildPythonPackage rec {
     pname = "pyparsing";
     version = "2.4.7";
@@ -45,4 +42,4 @@ let
     };
   };
 in
-pyparsing
+  pyparsing

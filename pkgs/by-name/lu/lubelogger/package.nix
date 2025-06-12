@@ -4,7 +4,6 @@
   dotnetCorePackages,
   fetchFromGitHub,
 }:
-
 buildDotnetModule rec {
   pname = "lubelogger";
   version = "1.4.5";
@@ -26,7 +25,7 @@ buildDotnetModule rec {
     "--set DOTNET_WEBROOT ${placeholder "out"}/lib/lubelogger/wwwroot"
   ];
 
-  executables = [ "CarCareTracker" ]; # This wraps "$out/lib/$pname/foo" to `$out/bin/foo`.
+  executables = ["CarCareTracker"]; # This wraps "$out/lib/$pname/foo" to `$out/bin/foo`.
 
   meta = {
     description = "Vehicle service records and maintainence tracker";
@@ -38,7 +37,7 @@ buildDotnetModule rec {
     homepage = "https://lubelogger.com";
     changelog = "https://github.com/hargata/lubelog/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ lyndeno ];
+    maintainers = with lib.maintainers; [lyndeno];
     mainProgram = "CarCareTracker";
     platforms = lib.platforms.all;
   };

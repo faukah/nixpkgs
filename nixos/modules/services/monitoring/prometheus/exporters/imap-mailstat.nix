@@ -4,27 +4,29 @@
   pkgs,
   options,
   ...
-}:
-
-let
+}: let
   cfg = config.services.prometheus.exporters.imap-mailstat;
-  valueToString =
-    value:
-    if (builtins.typeOf value == "string") then
-      "\"${value}\""
+  valueToString = value:
+    if (builtins.typeOf value == "string")
+    then "\"${value}\""
     else
       (
-        if (builtins.typeOf value == "int") then
-          "${toString value}"
+        if (builtins.typeOf value == "int")
+        then "${toString value}"
         else
           (
-            if (builtins.typeOf value == "bool") then
-              (if value then "true" else "false")
-            else
-              "XXX ${toString value}"
+            if (builtins.typeOf value == "bool")
+            then
+              (
+                if value
+                then "true"
+                else "false"
+              )
+            else "XXX ${toString value}"
           )
       );
-  inherit (lib)
+  inherit
+    (lib)
     mkOption
     types
     concatStrings
@@ -33,24 +35,22 @@ let
     mapAttrs
     optionalString
     ;
-  createConfigFile =
-    accounts:
-    # unfortunately on toTOML yet
-    # https://github.com/NixOS/nix/issues/3929
+  createConfigFile = accounts:
+  # unfortunately on toTOML yet
+  # https://github.com/NixOS/nix/issues/3929
     pkgs.writeText "imap-mailstat-exporter.conf" ''
       ${concatStrings (
         attrValues (
           mapAttrs (
-            name: config:
-            "[[Accounts]]\nname = \"${name}\"\n${
+            name: config: "[[Accounts]]\nname = \"${name}\"\n${
               concatStrings (attrValues (mapAttrs (k: v: "${k} = ${valueToString v}\n") config))
             }"
-          ) accounts
+          )
+          accounts
         )
       )}
     '';
-  mkOpt =
-    type: description:
+  mkOpt = type: description:
     mkOption {
       type = types.nullOr type;
       default = null;
@@ -64,8 +64,7 @@ let
     serverport = mkOpt types.int "imap port number (at the moment only tls connection is supported)";
     starttls = mkOpt types.bool "set to true for using STARTTLS to start a TLS connection";
   };
-in
-{
+in {
   port = 8081;
   extraOpts = {
     oldestUnseenDate = mkOption {
@@ -77,7 +76,7 @@ in
     };
     accounts = mkOption {
       type = types.attrsOf (types.submodule accountOptions);
-      default = { };
+      default = {};
       description = ''
         Accounts to monitor
       '';

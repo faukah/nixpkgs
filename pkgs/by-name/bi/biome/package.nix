@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-lo4IAStdv1CW/cQYzRDLzDwsDqCwoo5xKen2Rti9kPU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
@@ -30,17 +30,19 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  nativeCheckInputs = [ gitMinimal ];
+  nativeCheckInputs = [gitMinimal];
 
-  cargoBuildFlags = [ "-p=biome_cli" ];
-  cargoTestFlags = cargoBuildFlags ++ [
-    "-- --skip=commands::check::print_json"
-    "--skip=commands::check::print_json_pretty"
-    "--skip=commands::explain::explain_logs"
-    "--skip=commands::format::print_json"
-    "--skip=commands::format::print_json_pretty"
-    "--skip=commands::format::should_format_files_in_folders_ignored_by_linter"
-  ];
+  cargoBuildFlags = ["-p=biome_cli"];
+  cargoTestFlags =
+    cargoBuildFlags
+    ++ [
+      "-- --skip=commands::check::print_json"
+      "--skip=commands::check::print_json_pretty"
+      "--skip=commands::explain::explain_logs"
+      "--skip=commands::format::print_json"
+      "--skip=commands::format::print_json_pretty"
+      "--skip=commands::format::should_format_files_in_folders_ignored_by_linter"
+    ];
 
   env = {
     BIOME_VERSION = version;

@@ -4,7 +4,6 @@
   fetchurl,
   testers,
 }:
-
 buildGraalvmNativeImage (finalAttrs: {
   pname = "jet";
   version = "0.7.27";
@@ -30,9 +29,9 @@ buildGraalvmNativeImage (finalAttrs: {
   meta = {
     description = "CLI to transform between JSON, EDN, YAML and Transit, powered with a minimal query language";
     homepage = "https://github.com/borkdude/jet";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.epl10;
-    maintainers = with lib.maintainers; [ ericdallo ];
+    maintainers = with lib.maintainers; [ericdallo];
     mainProgram = "jet";
   };
 })

@@ -7,7 +7,6 @@
   numpy,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "msgpack-numpy";
   version = "0.4.8";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-xmfTGAUTQi+cdUW+XuxdKW3Ls1fgb3LtOcxoN5dVbmk=";
   };
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
 
   propagatedBuildInputs = [
     msgpack
@@ -33,6 +32,6 @@ buildPythonPackage rec {
     description = "Numpy data type serialization using msgpack";
     homepage = "https://github.com/lebedov/msgpack-numpy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aborsu ];
+    maintainers = with maintainers; [aborsu];
   };
 }

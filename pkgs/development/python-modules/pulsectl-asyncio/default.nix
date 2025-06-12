@@ -6,7 +6,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pulsectl-asyncio";
   version = "1.2.2";
@@ -25,20 +24,20 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace-fail "pulsectl >=23.5.0,<=24.11.0" "pulsectl >=23.5.0"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pulsectl ];
+  dependencies = [pulsectl];
 
   # Tests require a running pulseaudio instance
   doCheck = false;
 
-  pythonImportsCheck = [ "pulsectl_asyncio" ];
+  pythonImportsCheck = ["pulsectl_asyncio"];
 
   meta = with lib; {
     description = "Python bindings library for PulseAudio";
     homepage = "https://github.com/mhthies/pulsectl-asyncio";
     changelog = "https://github.com/mhthies/pulsectl-asyncio/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

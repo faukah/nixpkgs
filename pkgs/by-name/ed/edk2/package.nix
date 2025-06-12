@@ -9,28 +9,28 @@
   buildPackages,
   nixosTests,
   writeScript,
-}:
-
-let
-  pythonEnv = buildPackages.python3.withPackages (ps: [ ps.tkinter ]);
+}: let
+  pythonEnv = buildPackages.python3.withPackages (ps: [ps.tkinter]);
 
   targetArch =
-    if stdenv.hostPlatform.isi686 then
-      "IA32"
-    else if stdenv.hostPlatform.isx86_64 then
-      "X64"
-    else if stdenv.hostPlatform.isAarch32 then
-      "ARM"
-    else if stdenv.hostPlatform.isAarch64 then
-      "AARCH64"
-    else if stdenv.hostPlatform.isRiscV64 then
-      "RISCV64"
-    else if stdenv.hostPlatform.isLoongArch64 then
-      "LOONGARCH64"
-    else
-      throw "Unsupported architecture";
+    if stdenv.hostPlatform.isi686
+    then "IA32"
+    else if stdenv.hostPlatform.isx86_64
+    then "X64"
+    else if stdenv.hostPlatform.isAarch32
+    then "ARM"
+    else if stdenv.hostPlatform.isAarch64
+    then "AARCH64"
+    else if stdenv.hostPlatform.isRiscV64
+    then "RISCV64"
+    else if stdenv.hostPlatform.isLoongArch64
+    then "LOONGARCH64"
+    else throw "Unsupported architecture";
 
-  buildType = if stdenv.hostPlatform.isDarwin then "CLANGPDB" else "GCC5";
+  buildType =
+    if stdenv.hostPlatform.isDarwin
+    then "CLANGPDB"
+    else "GCC5";
 
   edk2 = stdenv.mkDerivation {
     pname = "edk2";
@@ -74,13 +74,13 @@ let
         ${lib.pipe buildPackages.openssl.patches [
           (builtins.filter (
             patch:
-            !builtins.elem (baseNameOf patch) [
-              # Exclude patches not required in this context.
-              "nix-ssl-cert-file.patch"
-              "openssl-disable-kernel-detection.patch"
-              "use-etc-ssl-certs-darwin.patch"
-              "use-etc-ssl-certs.patch"
-            ]
+              !builtins.elem (baseNameOf patch) [
+                # Exclude patches not required in this context.
+                "nix-ssl-cert-file.patch"
+                "openssl-disable-kernel-detection.patch"
+                "use-etc-ssl-certs-darwin.patch"
+                "use-etc-ssl-certs.patch"
+              ]
           ))
           (map (patch: "patch -p1 < ${patch}\n"))
           lib.concatStrings
@@ -95,18 +95,18 @@ let
       '';
     };
 
-    nativeBuildInputs = [ pythonEnv ];
+    nativeBuildInputs = [pythonEnv];
     depsBuildBuild = [
       buildPackages.stdenv.cc
       buildPackages.bash
     ];
-    depsHostHost = [ libuuid ];
+    depsHostHost = [libuuid];
     strictDeps = true;
 
     # trick taken from https://src.fedoraproject.org/rpms/edk2/blob/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/edk2.spec#_319
     ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-    makeFlags = [ "-C BaseTools" ];
+    makeFlags = ["-C BaseTools"];
 
     env.NIX_CFLAGS_COMPILE =
       "-Wno-return-type"
@@ -137,7 +137,7 @@ let
       changelog = "https://github.com/tianocore/edk2/releases/tag/edk2-stable${edk2.version}";
       license = lib.licenses.bsd2;
       platforms = with lib.platforms; aarch64 ++ arm ++ i686 ++ x86_64 ++ loongarch64 ++ riscv64;
-      maintainers = [ lib.maintainers.mjoerg ];
+      maintainers = [lib.maintainers.mjoerg];
     };
 
     passthru = {
@@ -161,57 +161,55 @@ let
         fi
       '';
 
-      mkDerivation =
-        projectDscPath: attrsOrFun:
+      mkDerivation = projectDscPath: attrsOrFun:
         stdenv.mkDerivation (
-          finalAttrs:
-          let
+          finalAttrs: let
             attrs = lib.toFunction attrsOrFun finalAttrs;
           in
-          {
-            inherit (edk2) src;
+            {
+              inherit (edk2) src;
 
-            depsBuildBuild = [ buildPackages.stdenv.cc ] ++ attrs.depsBuildBuild or [ ];
-            nativeBuildInputs = [
-              bc
-              pythonEnv
-            ] ++ attrs.nativeBuildInputs or [ ];
-            strictDeps = true;
+              depsBuildBuild = [buildPackages.stdenv.cc] ++ attrs.depsBuildBuild or [];
+              nativeBuildInputs =
+                [
+                  bc
+                  pythonEnv
+                ]
+                ++ attrs.nativeBuildInputs or [];
+              strictDeps = true;
 
-            ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
+              ${"GCC5_${targetArch}_PREFIX"} = stdenv.cc.targetPrefix;
 
-            prePatch = ''
-              rm -rf BaseTools
-              ln -sv ${buildPackages.edk2}/BaseTools BaseTools
-            '';
+              prePatch = ''
+                rm -rf BaseTools
+                ln -sv ${buildPackages.edk2}/BaseTools BaseTools
+              '';
 
-            configurePhase = ''
-              runHook preConfigure
-              export WORKSPACE="$PWD"
-              . ${buildPackages.edk2}/edksetup.sh BaseTools
-              runHook postConfigure
-            '';
+              configurePhase = ''
+                runHook preConfigure
+                export WORKSPACE="$PWD"
+                . ${buildPackages.edk2}/edksetup.sh BaseTools
+                runHook postConfigure
+              '';
 
-            buildPhase = ''
-              runHook preBuild
-              build -a ${targetArch} -b ${attrs.buildConfig or "RELEASE"} -t ${buildType} -p ${projectDscPath} -n $NIX_BUILD_CORES $buildFlags
-              runHook postBuild
-            '';
+              buildPhase = ''
+                runHook preBuild
+                build -a ${targetArch} -b ${attrs.buildConfig or "RELEASE"} -t ${buildType} -p ${projectDscPath} -n $NIX_BUILD_CORES $buildFlags
+                runHook postBuild
+              '';
 
-            installPhase = ''
-              runHook preInstall
-              mv -v Build/*/* $out
-              runHook postInstall
-            '';
-          }
-          // removeAttrs attrs [
-            "nativeBuildInputs"
-            "depsBuildBuild"
-          ]
+              installPhase = ''
+                runHook preInstall
+                mv -v Build/*/* $out
+                runHook postInstall
+              '';
+            }
+            // removeAttrs attrs [
+              "nativeBuildInputs"
+              "depsBuildBuild"
+            ]
         );
     };
   };
-
 in
-
-edk2
+  edk2

@@ -3,9 +3,7 @@
   fetchurl,
   lib,
   makeDesktopItem,
-}:
-
-let
+}: let
   pname = "tusk";
   version = "0.23.0";
 
@@ -20,36 +18,35 @@ let
     icon = icon;
     desktopName = pname;
     genericName = "Evernote desktop app";
-    categories = [ "Application" ];
+    categories = ["Application"];
   };
-
 in
-appimageTools.wrapType2 rec {
-  inherit pname version;
+  appimageTools.wrapType2 rec {
+    inherit pname version;
 
-  src = fetchurl {
-    url = "https://github.com/klaussinani/tusk/releases/download/v${version}/${pname}-${version}-x86_64.AppImage";
-    sha256 = "02q7wsnhlyq8z74avflrm7805ny8fzlmsmz4bmafp4b4pghjh5ky";
-  };
+    src = fetchurl {
+      url = "https://github.com/klaussinani/tusk/releases/download/v${version}/${pname}-${version}-x86_64.AppImage";
+      sha256 = "02q7wsnhlyq8z74avflrm7805ny8fzlmsmz4bmafp4b4pghjh5ky";
+    };
 
-  profile = ''
-    export LC_ALL=C.UTF-8
-  '';
-
-  extraInstallCommands = ''
-    mkdir "$out/share"
-    ln -s "${desktopItem}/share/applications" "$out/share/"
-  '';
-
-  meta = with lib; {
-    description = "Refined Evernote desktop app";
-    longDescription = ''
-      Tusk is an unofficial, featureful, open source, community-driven, free Evernote app used by people in more than 140 countries. Tusk is indicated by Evernote as an alternative client for Linux environments trusted by the open source community.
+    profile = ''
+      export LC_ALL=C.UTF-8
     '';
-    homepage = "https://klaussinani.github.io/tusk/";
-    license = licenses.mit;
-    maintainers = with maintainers; [ tbenst ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "tusk";
-  };
-}
+
+    extraInstallCommands = ''
+      mkdir "$out/share"
+      ln -s "${desktopItem}/share/applications" "$out/share/"
+    '';
+
+    meta = with lib; {
+      description = "Refined Evernote desktop app";
+      longDescription = ''
+        Tusk is an unofficial, featureful, open source, community-driven, free Evernote app used by people in more than 140 countries. Tusk is indicated by Evernote as an alternative client for Linux environments trusted by the open source community.
+      '';
+      homepage = "https://klaussinani.github.io/tusk/";
+      license = licenses.mit;
+      maintainers = with maintainers; [tbenst];
+      platforms = ["x86_64-linux"];
+      mainProgram = "tusk";
+    };
+  }

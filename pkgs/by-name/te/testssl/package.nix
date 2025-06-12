@@ -10,7 +10,6 @@
   util-linux,
   procps,
 }:
-
 stdenv.mkDerivation rec {
   pname = "testssl.sh";
   version = "3.2.0";
@@ -22,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-h/Z++Osrog8svIiUF53Cj7KYfKLnimueyp4N3/6bSiE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     coreutils # for printf
     dnsutils # for dig
@@ -53,7 +52,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://testssl.sh/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ etu ];
+    maintainers = with maintainers; [etu];
     mainProgram = "testssl.sh";
   };
 }

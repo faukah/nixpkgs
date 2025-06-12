@@ -6,7 +6,6 @@
   aiohttp,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "genie-partner-sdk";
   version = "1.0.4";
@@ -20,19 +19,19 @@ buildPythonPackage rec {
     hash = "sha256-DwbIe1pq1YKAA3hRlhYCVJ9xtvfxvoqLLjDSQicUKuw=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "genie_partner_sdk" ];
+  pythonImportsCheck = ["genie_partner_sdk"];
 
   meta = with lib; {
     description = "An SDK to interact with the AladdinConnect (or OHD) partner API";
     homepage = "https://github.com/Genie-Garage/aladdin-python-sdk";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
   };
 }

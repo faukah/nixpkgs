@@ -10,7 +10,6 @@
   pkg-config,
   libxslt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "telepathy-haze";
   version = "0.8.1";

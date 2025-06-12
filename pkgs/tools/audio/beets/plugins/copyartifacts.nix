@@ -5,7 +5,6 @@
   python3Packages,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "beets-copyartifacts";
   version = "0.1.5";
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
     writableTmpDirAsHomeHook
   ];
 
-  pytestFlagsArray = [ "-r fEs" ];
+  pytestFlagsArray = ["-r fEs"];
 
   meta = {
     description = "Beets plugin to move non-music files during the import process";

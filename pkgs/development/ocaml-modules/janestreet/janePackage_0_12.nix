@@ -3,16 +3,13 @@
   fetchFromGitHub,
   buildDunePackage,
   defaultVersion ? "0.12.0",
-}:
-
-{
+}: {
   pname,
   version ? defaultVersion,
   duneVersion ? "3",
   hash,
   ...
-}@args:
-
+} @ args:
 buildDunePackage (
   args
   // {
@@ -27,9 +24,11 @@ buildDunePackage (
       sha256 = hash;
     };
 
-    meta = {
-      license = lib.licenses.mit;
-      homepage = "https://github.com/janestreet/${pname}";
-    } // args.meta;
+    meta =
+      {
+        license = lib.licenses.mit;
+        homepage = "https://github.com/janestreet/${pname}";
+      }
+      // args.meta;
   }
 )

@@ -4,7 +4,6 @@
   inja,
   lib,
 }:
-
 stdenv.mkDerivation {
   name = "inja-simple-cmake-test";
   src = lib.fileset.toSource {
@@ -14,8 +13,8 @@ stdenv.mkDerivation {
       ./CMakeLists.txt
     ];
   };
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ inja ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [inja];
   doInstallCheck = true;
   installCheckPhase = ''
     if [[ `$out/bin/simple-cmake-test` != "Hello world!" ]]; then

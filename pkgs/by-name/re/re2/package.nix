@@ -14,7 +14,6 @@
   python3Packages,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "re2";
   version = "2024-07-02";
@@ -41,7 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
     gtest
   ];
 
-  propagatedBuildInputs = [ abseil-cpp ] ++ lib.optionals (!stdenv.hostPlatform.isStatic) [ icu ];
+  propagatedBuildInputs = [abseil-cpp] ++ lib.optionals (!stdenv.hostPlatform.isStatic) [icu];
 
   cmakeFlags =
     [

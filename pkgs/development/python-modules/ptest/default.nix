@@ -5,7 +5,6 @@
   setuptools,
   nix-update-script,
 }:
-
 buildPythonPackage rec {
   pname = "ptest";
   version = "2.0.3";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-lmiBqFWGfYdsBXCh6dQ9xed+HhpP6PWa9Csr68GtLxs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "ptest" ];
+  pythonImportsCheck = ["ptest"];
 
   # I don't know how to run the tests
   doCheck = false;

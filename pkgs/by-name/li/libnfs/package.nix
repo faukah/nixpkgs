@@ -5,7 +5,6 @@
   fetchpatch,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libnfs";
   version = "5.0.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rdxi5bPXHTICZQIj/CmHgZ/V70svnITJj/OSF4mmC3o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   patches = [
     # Fixes 100% CPU usage in multi-threaded mode
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
       bsd2
       gpl3
     ];
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
   };
 }

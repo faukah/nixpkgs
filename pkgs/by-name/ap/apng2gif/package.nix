@@ -4,7 +4,6 @@
   fetchzip,
   libpng,
 }:
-
 stdenv.mkDerivation rec {
   pname = "apng2gif";
   version = "1.8";
@@ -24,7 +23,7 @@ stdenv.mkDerivation rec {
     libpng
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}c++" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}c++"];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://apng2gif.sourceforge.net/";
     description = "Simple program that converts APNG files to animated GIF format";
     license = licenses.zlib;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

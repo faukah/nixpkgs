@@ -13,7 +13,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 stdenv.mkDerivation rec {
   pname = "SonyHeadphonesClient";
   version = "1.3.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/Client";
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   postPatch = ''
     substituteInPlace Constants.h \
@@ -82,7 +81,7 @@ stdenv.mkDerivation rec {
     description = "Client recreating the functionality of the Sony Headphones app";
     homepage = "https://github.com/Plutoberth/SonyHeadphonesClient";
     license = licenses.mit;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     platforms = platforms.linux;
     mainProgram = "SonyHeadphonesClient";
   };

@@ -30,7 +30,6 @@
   enableXDS ? true,
   enableZookeeper ? true,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "prometheus";
   version = "3.4.1";
@@ -99,22 +98,20 @@ buildGoModule (finalAttrs: {
     if [[ -d vendor ]]; then GOARCH= make -o assets assets-compress plugins; fi
   '';
 
-  tags = [ "builtinassets" ];
+  tags = ["builtinassets"];
 
-  ldflags =
-    let
-      t = "github.com/prometheus/common/version";
-    in
-    [
-      "-s"
-      "-w"
-      "-X ${t}.Version=${finalAttrs.version}"
-      "-X ${t}.Revision=unknown"
-      "-X ${t}.Branch=unknown"
-      "-X ${t}.BuildUser=nix@nixpkgs"
-      "-X ${t}.BuildDate=unknown"
-      "-X ${t}.GoVersion=${lib.getVersion go}"
-    ];
+  ldflags = let
+    t = "github.com/prometheus/common/version";
+  in [
+    "-s"
+    "-w"
+    "-X ${t}.Version=${finalAttrs.version}"
+    "-X ${t}.Revision=unknown"
+    "-X ${t}.Branch=unknown"
+    "-X ${t}.BuildUser=nix@nixpkgs"
+    "-X ${t}.BuildDate=unknown"
+    "-X ${t}.GoVersion=${lib.getVersion go}"
+  ];
 
   preInstall = ''
     mkdir -p "$out/share/doc/prometheus" "$out/etc/prometheus"
@@ -129,7 +126,7 @@ buildGoModule (finalAttrs: {
   # Test mock data uses 64 bit data without an explicit (u)int64
   doCheck = !(stdenv.hostPlatform.isDarwin || stdenv.hostPlatform.parsed.cpu.bits < 64);
 
-  passthru.tests = { inherit (nixosTests) prometheus; };
+  passthru.tests = {inherit (nixosTests) prometheus;};
 
   meta = with lib; {
     description = "Service monitoring system and time series database";

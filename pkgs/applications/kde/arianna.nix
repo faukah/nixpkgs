@@ -22,7 +22,6 @@
   kwindowsystem,
   qqc2-desktop-style,
 }:
-
 mkDerivation {
   pname = "arianna";
 
@@ -58,6 +57,6 @@ mkDerivation {
     homepage = "https://invent.kde.org/graphics/arianna";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Thra11 ];
+    maintainers = with maintainers; [Thra11];
   };
 }

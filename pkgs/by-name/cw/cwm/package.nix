@@ -9,9 +9,7 @@
   bison,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
-
   pname = "cwm";
   version = "7.4";
 

@@ -6,7 +6,6 @@
   gobject-introspection,
   wrapGAppsHook3,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "connman-notify";
   version = "2019-10-05";
@@ -25,7 +24,7 @@ python3Packages.buildPythonApplication {
     wrapGAppsHook3
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   pythonPath = with python3Packages; [
     dbus-python
@@ -45,6 +44,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://gitlab.com/wavexx/connman-notify";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

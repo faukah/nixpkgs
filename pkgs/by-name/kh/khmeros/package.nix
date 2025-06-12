@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "khmeros";
   version = "5.0";
@@ -26,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "KhmerOS Unicode fonts for the Khmer language";
     homepage = "http://www.khmeros.info/";
     license = licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

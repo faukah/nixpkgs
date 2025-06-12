@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenv.mkDerivation {
   pname = "tegaki-zinnia-japanese";
   version = "0.3";
@@ -19,10 +18,10 @@ stdenv.mkDerivation {
     homepage = "http://tegaki.org/";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  makeFlags = [ "installpath=$(out)/share/tegaki/models/zinnia/" ];
+  makeFlags = ["installpath=$(out)/share/tegaki/models/zinnia/"];
 }

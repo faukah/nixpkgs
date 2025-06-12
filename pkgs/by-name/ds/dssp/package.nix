@@ -8,7 +8,6 @@
   libmcfp,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dssp";
   version = "4.5.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-UE97bdSx41K962TqXLlKsp8oDnBBX7uXqsfIzhWjsTI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     eigen
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/PDB-REDO/dssp";
     changelog = "https://github.com/PDB-REDO/dssp/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
     platforms = lib.platforms.unix;
   };
 })

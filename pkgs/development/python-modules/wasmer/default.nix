@@ -12,23 +12,20 @@
   llvm_14,
   ncurses,
   zlib,
-}:
-
-let
-  common =
-    {
-      pname,
-      buildAndTestSubdir,
-      cargoHash,
-      extraNativeBuildInputs ? [ ],
-      extraBuildInputs ? [ ],
-    }:
+}: let
+  common = {
+    pname,
+    buildAndTestSubdir,
+    cargoHash,
+    extraNativeBuildInputs ? [],
+    extraBuildInputs ? [],
+  }:
     buildPythonPackage rec {
       inherit pname;
       version = "1.2.0";
       format = "pyproject";
 
-      outputs = [ "out" ] ++ lib.optional (pname == "wasmer") "testsout";
+      outputs = ["out"] ++ lib.optional (pname == "wasmer") "testsout";
 
       src = fetchFromGitHub {
         owner = "wasmerio";
@@ -55,7 +52,7 @@ let
           --replace "package.metadata.maturin" "broken"
       '';
 
-      buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ] ++ extraBuildInputs;
+      buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [libiconv] ++ extraBuildInputs;
 
       inherit buildAndTestSubdir;
 
@@ -67,9 +64,9 @@ let
       # check in passthru.tests.pytest because all packages are required to run the tests
       doCheck = false;
 
-      passthru.tests = lib.optionalAttrs (pname == "wasmer") { pytest = callPackage ./tests.nix { }; };
+      passthru.tests = lib.optionalAttrs (pname == "wasmer") {pytest = callPackage ./tests.nix {};};
 
-      pythonImportsCheck = [ "${lib.replaceStrings [ "-" ] [ "_" ] pname}" ];
+      pythonImportsCheck = ["${lib.replaceStrings ["-"] ["_"] pname}"];
 
       meta = with lib; {
         # https://github.com/wasmerio/wasmer-python/issues/778
@@ -78,11 +75,10 @@ let
         homepage = "https://github.com/wasmerio/wasmer-python";
         license = licenses.mit;
         platforms = platforms.unix;
-        maintainers = [ ];
+        maintainers = [];
       };
     };
-in
-{
+in {
   wasmer = common {
     pname = "wasmer";
     buildAndTestSubdir = "packages/api";
@@ -99,7 +95,7 @@ in
     pname = "wasmer-compiler-llvm";
     buildAndTestSubdir = "packages/compiler-llvm";
     cargoHash = "sha256-oHyjzEqv88e2CHhWhKjUh6K0UflT9Y1JD//3oiE/UBQ=";
-    extraNativeBuildInputs = [ llvm_14 ];
+    extraNativeBuildInputs = [llvm_14];
     extraBuildInputs = [
       libffi
       libxml2.out

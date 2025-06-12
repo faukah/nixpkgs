@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "tar2ext4";
   version = "0.13.0";
@@ -20,7 +19,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Convert a tar archive to an ext4 image";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.mit;
     mainProgram = "tar2ext4";
   };

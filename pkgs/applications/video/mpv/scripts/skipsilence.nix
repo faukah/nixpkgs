@@ -4,7 +4,6 @@
   unstableGitUpdater,
   buildLua,
 }:
-
 buildLua {
   pname = "mpv-skipsilence";
   version = "0-unstable-2024-05-06";
@@ -16,12 +15,12 @@ buildLua {
     hash = "sha256-fg8vfeb68nr0bTBIvr0FnRnoB48/kV957pn22tWcz1g=";
   };
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = {
     description = "Increase playback speed during silence";
     homepage = "https://github.com/ferreum/mpv-skipsilence";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ mksafavi ];
+    maintainers = with lib.maintainers; [mksafavi];
   };
 }

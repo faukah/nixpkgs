@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "terraform-backend-git";
   version = "0.1.8";
@@ -41,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/plumber-cd/terraform-backend-git";
     changelog = "https://github.com/plumber-cd/terraform-backend-git/blob/${src.rev}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

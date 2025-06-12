@@ -2,18 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   rich,
-
   # tests
   pillow,
   pytestCheckHook,
   syrupy,
-
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "textual-image";
   version = "0.8.2";
@@ -26,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-ik/zvnxXN5u2jXHfsGsCLnymZZ+IQiixagOJdEMRDlw=";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   dependencies = [
     pillow
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "textual_image" ];
+  pythonImportsCheck = ["textual_image"];
 
   doCheck = true;
 
@@ -47,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/lnqs/textual-image/";
     changelog = "https://github.com/lnqs/textual-image/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl3;
-    maintainers = with lib.maintainers; [ gaelj ];
+    maintainers = with lib.maintainers; [gaelj];
   };
 }

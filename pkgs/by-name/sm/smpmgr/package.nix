@@ -4,7 +4,6 @@
   python3Packages,
   versionCheckHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "smpmgr";
   version = "0.12.1";
@@ -39,14 +38,14 @@ python3Packages.buildPythonApplication rec {
   ];
   versionCheckProgramArg = "--version";
 
-  pythonImportsCheck = [ "smpmgr" ];
+  pythonImportsCheck = ["smpmgr"];
 
   meta = {
     description = "Simple Management Protocol (SMP) Manager for remotely managing MCU firmware";
     homepage = "https://github.com/intercreate/smpmgr";
     changelog = "https://github.com/intercreate/smpmgr/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ otavio ];
+    maintainers = with lib.maintainers; [otavio];
     mainProgram = "smpmgr";
   };
 }

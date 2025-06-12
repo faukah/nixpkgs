@@ -6,7 +6,6 @@
   bzip2,
   xz,
 }:
-
 stdenv.mkDerivation rec {
   pname = "freebayes";
   version = "1.3.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Bayesian haplotype-based polymorphism discovery and genotyping";
     license = licenses.mit;
     homepage = "https://github.com/ekg/freebayes";
-    maintainers = with maintainers; [ jdagilliland ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jdagilliland];
+    platforms = ["x86_64-linux"];
   };
 }

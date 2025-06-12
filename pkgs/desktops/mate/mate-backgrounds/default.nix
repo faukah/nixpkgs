@@ -7,7 +7,6 @@
   gettext,
   mateUpdateScript,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "mate-backgrounds";
   version = "1.28.0";
@@ -23,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     ninja
   ];
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Background images and data for MATE";
@@ -33,6 +32,6 @@ stdenvNoCC.mkDerivation rec {
       cc-by-sa-40
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

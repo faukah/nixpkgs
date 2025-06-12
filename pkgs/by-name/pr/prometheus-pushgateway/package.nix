@@ -6,7 +6,6 @@
   testers,
   prometheus-pushgateway,
 }:
-
 buildGoModule rec {
   pname = "pushgateway";
   version = "1.11.1";
@@ -42,6 +41,6 @@ buildGoModule rec {
     mainProgram = "pushgateway";
     homepage = "https://github.com/prometheus/pushgateway";
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
   };
 }

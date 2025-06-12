@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "haveged";
   version = "1.9.19";
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jirka-h/haveged";
     changelog = "https://raw.githubusercontent.com/jirka-h/haveged/v${version}/ChangeLog";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.darwin; # fails to build since v1.9.15
   };

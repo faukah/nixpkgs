@@ -13,13 +13,13 @@ python3Packages.buildPythonApplication {
     hash = "sha256-tEmCsR3LmTxeDZAbMvbIwqp/6uaGNUhgGlm18gdsnOw=";
   };
 
-  propagatedBuildInputs = with python3Packages; [ requests ];
+  propagatedBuildInputs = with python3Packages; [requests];
 
   meta = with lib; {
     homepage = "https://github.com/sdushantha/fileinfo";
     description = "File extension metadata lookup tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     mainProgram = "fileinfo";
   };
 }

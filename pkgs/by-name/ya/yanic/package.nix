@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "yanic";
   version = "1.7.2";
@@ -24,7 +23,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd yanic \
@@ -38,7 +37,7 @@ buildGoModule rec {
     homepage = "https://github.com/FreifunkBremen/yanic";
     changelog = "https://github.com/FreifunkBremen/yanic/releases/tag/${src.rev}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ herbetom ];
+    maintainers = with maintainers; [herbetom];
     mainProgram = "yanic";
   };
 }

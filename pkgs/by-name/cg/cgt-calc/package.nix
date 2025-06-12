@@ -42,7 +42,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/KapJI/capital-gains-calculator";
     license = licenses.mit;
     mainProgram = "cgt-calc";
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
     platforms = platforms.unix;
   };
 }

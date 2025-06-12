@@ -9,7 +9,6 @@
   ninja,
   xdg-desktop-portal,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-shana";
   version = "0.3.14";

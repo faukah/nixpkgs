@@ -7,7 +7,6 @@
   flex,
   libsForQt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xxdiff";
   version = "5.1-unstable-2025-03-21";
@@ -27,12 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
     libsForQt5.wrapQtAppsHook
   ];
 
-  buildInputs = [ libsForQt5.qtbase ];
+  buildInputs = [libsForQt5.qtbase];
 
   dontUseQmakeConfigure = true;
 
   # c++11 and above is needed for building with Qt 5.9+
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   sourceRoot = "${finalAttrs.src.name}/src";
 

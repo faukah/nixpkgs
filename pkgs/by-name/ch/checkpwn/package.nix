@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "checkpwn";
   version = "0.5.6";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/brycx/checkpwn";
     changelog = "https://github.com/brycx/checkpwn/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "checkpwn";
   };
 }

@@ -13,7 +13,6 @@
   pythonOlder,
   respx,
 }:
-
 buildPythonPackage rec {
   pname = "envoy-reader";
   version = "0.21.3";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
     hash = "sha256-aIpZ4ln4L57HwK8H0FqsyNnXosnAp3ingrJI6/MPS90=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     beautifulsoup4
@@ -44,19 +43,19 @@ buildPythonPackage rec {
     respx
   ];
 
-  pythonRelaxDeps = [ "pyjwt" ];
+  pythonRelaxDeps = ["pyjwt"];
 
   postPatch = ''
     substituteInPlace setup.py \
       --replace-fail "pytest-runner>=5.2" ""
   '';
 
-  pythonImportsCheck = [ "envoy_reader" ];
+  pythonImportsCheck = ["envoy_reader"];
 
   meta = with lib; {
     description = "Python module to read from Enphase Envoy units";
     homepage = "https://github.com/jesserizzo/envoy_reader";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

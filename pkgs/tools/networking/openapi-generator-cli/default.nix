@@ -5,9 +5,7 @@
   fetchurl,
   jre,
   makeWrapper,
-}:
-
-let
+}: let
   this = stdenv.mkDerivation (finalAttrs: {
     version = "7.13.0";
     pname = "openapi-generator-cli";
@@ -40,9 +38,9 @@ let
       description = "Allows generation of API client libraries (SDK generation), server stubs and documentation automatically given an OpenAPI Spec";
       homepage = "https://github.com/OpenAPITools/openapi-generator";
       changelog = "https://github.com/OpenAPITools/openapi-generator/releases/tag/v${finalAttrs.version}";
-      sourceProvenance = with sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with sourceTypes; [binaryBytecode];
       license = licenses.asl20;
-      maintainers = with maintainers; [ shou ];
+      maintainers = with maintainers; [shou];
       mainProgram = "openapi-generator-cli";
     };
 
@@ -51,4 +49,4 @@ let
     };
   });
 in
-this
+  this

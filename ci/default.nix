@@ -1,29 +1,26 @@
 let
   pinned = (builtins.fromJSON (builtins.readFile ./pinned.json)).pins;
 in
-{
-  system ? builtins.currentSystem,
+  {
+    system ? builtins.currentSystem,
+    nixpkgs ? null,
+  }: let
+    nixpkgs' =
+      if nixpkgs == null
+      then
+        fetchTarball {
+          inherit (pinned.nixpkgs) url;
+          sha256 = pinned.nixpkgs.hash;
+        }
+      else nixpkgs;
 
-  nixpkgs ? null,
-}:
-let
-  nixpkgs' =
-    if nixpkgs == null then
-      fetchTarball {
-        inherit (pinned.nixpkgs) url;
-        sha256 = pinned.nixpkgs.hash;
-      }
-    else
-      nixpkgs;
+    pkgs = import nixpkgs' {
+      inherit system;
+      config = {};
+      overlays = [];
+    };
 
-  pkgs = import nixpkgs' {
-    inherit system;
-    config = { };
-    overlays = [ ];
-  };
-
-  fmt =
-    let
+    fmt = let
       treefmtNixSrc = fetchTarball {
         inherit (pinned.treefmt-nix) url;
         sha256 = pinned.treefmt-nix.hash;
@@ -54,8 +51,8 @@ let
 
         settings.formatter.editorconfig-checker = {
           command = "${pkgs.lib.getExe pkgs.editorconfig-checker}";
-          options = [ "-disable-indent-size" ];
-          includes = [ "*" ];
+          options = ["-disable-indent-size"];
+          includes = ["*"];
           priority = 1;
         };
       };
@@ -64,36 +61,33 @@ let
         root = ../.;
         fileset = fs.difference ../. (fs.maybeMissing ../.git);
       };
-    in
-    {
+    in {
       shell = treefmtEval.config.build.devShell;
       pkg = treefmtEval.config.build.wrapper;
       check = treefmtEval.config.build.check nixFilesSrc;
     };
+  in {
+    inherit pkgs fmt;
+    requestReviews = pkgs.callPackage ./request-reviews {};
+    codeownersValidator = pkgs.callPackage ./codeowners-validator {};
 
-in
-{
-  inherit pkgs fmt;
-  requestReviews = pkgs.callPackage ./request-reviews { };
-  codeownersValidator = pkgs.callPackage ./codeowners-validator { };
+    # FIXME(lf-): it might be useful to test other Nix implementations
+    # (nixVersions.stable and Lix) here somehow at some point to ensure we don't
+    # have eval divergence.
+    eval = pkgs.callPackage ./eval {
+      nix = pkgs.nixVersions.latest;
+    };
 
-  # FIXME(lf-): it might be useful to test other Nix implementations
-  # (nixVersions.stable and Lix) here somehow at some point to ensure we don't
-  # have eval divergence.
-  eval = pkgs.callPackage ./eval {
-    nix = pkgs.nixVersions.latest;
-  };
-
-  # CI jobs
-  lib-tests = import ../lib/tests/release.nix { inherit pkgs; };
-  manual-nixos = (import ../nixos/release.nix { }).manual.${system} or null;
-  manual-nixpkgs = (import ../doc { });
-  manual-nixpkgs-tests = (import ../doc { }).tests;
-  nixpkgs-vet = pkgs.callPackage ./nixpkgs-vet.nix { };
-  parse = pkgs.lib.recurseIntoAttrs {
-    latest = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.latest; };
-    lix = pkgs.callPackage ./parse.nix { nix = pkgs.lix; };
-    minimum = pkgs.callPackage ./parse.nix { nix = pkgs.nixVersions.minimum; };
-  };
-  shell = import ../shell.nix { inherit nixpkgs system; };
-}
+    # CI jobs
+    lib-tests = import ../lib/tests/release.nix {inherit pkgs;};
+    manual-nixos = (import ../nixos/release.nix {}).manual.${system} or null;
+    manual-nixpkgs = import ../doc {};
+    manual-nixpkgs-tests = (import ../doc {}).tests;
+    nixpkgs-vet = pkgs.callPackage ./nixpkgs-vet.nix {};
+    parse = pkgs.lib.recurseIntoAttrs {
+      latest = pkgs.callPackage ./parse.nix {nix = pkgs.nixVersions.latest;};
+      lix = pkgs.callPackage ./parse.nix {nix = pkgs.lix;};
+      minimum = pkgs.callPackage ./parse.nix {nix = pkgs.nixVersions.minimum;};
+    };
+    shell = import ../shell.nix {inherit nixpkgs system;};
+  }

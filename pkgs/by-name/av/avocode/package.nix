@@ -31,7 +31,6 @@
   libgbm,
   libxkbcommon,
 }:
-
 stdenv.mkDerivation rec {
   pname = "avocode";
   version = "4.15.6";
@@ -42,8 +41,7 @@ stdenv.mkDerivation rec {
   };
 
   libPath = lib.makeLibraryPath (
-    with xorg;
-    [
+    with xorg; [
       stdenv.cc.cc
       at-spi2-core.out
       gdk-pixbuf
@@ -88,7 +86,7 @@ stdenv.mkDerivation rec {
     icon = "avocode";
     desktopName = "Avocode";
     genericName = "Design Inspector";
-    categories = [ "Development" ];
+    categories = ["Development"];
     comment = "The bridge between designers and developers";
   };
 
@@ -138,9 +136,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://avocode.com/";
     description = "Bridge between designers and developers";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ megheaiulian ];
+    maintainers = with maintainers; [megheaiulian];
   };
 }

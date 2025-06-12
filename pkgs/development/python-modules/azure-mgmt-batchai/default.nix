@@ -8,7 +8,6 @@
   pythonOlder,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-batchai";
   version = "7.0.0";
@@ -22,13 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-XfAE/QyST8ZVlJR6nP9Pdgh97hfIhFM6G7sLINsn06M=";
   };
 
-  propagatedBuildInputs = [
-    isodate
-    azure-common
-    azure-mgmt-core
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs =
+    [
+      isodate
+      azure-common
+      azure-mgmt-core
+    ]
+    ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
@@ -38,6 +39,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     changelog = "https://github.com/Azure/azure-sdk-for-python/blob/azure-mgmt-batchai_${version}/sdk/batchai/azure-mgmt-batchai/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

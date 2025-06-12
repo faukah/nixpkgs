@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "havn";
   version = "0.2.1";
@@ -31,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Fast configurable port scanner with reasonable defaults";
     changelog = "https://github.com/mrjackwills/havn/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ luftmensch-luftmensch ];
+    maintainers = with lib.maintainers; [luftmensch-luftmensch];
     mainProgram = "havn";
     platforms = lib.platforms.linux;
   };

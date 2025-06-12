@@ -23,9 +23,7 @@
   gitUpdater,
   binlore,
   msmtp,
-}:
-
-let
+}: let
   inherit (lib) getBin getExe optionals;
 
   version = "1.8.26";
@@ -41,7 +39,7 @@ let
     description = "Simple and easy to use SMTP client with excellent sendmail compatibility";
     homepage = "https://marlam.de/msmtp/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.unix;
     mainProgram = "msmtp";
   };
@@ -50,16 +48,20 @@ let
     pname = "msmtp-binaries";
     inherit version src meta;
 
-    configureFlags = [
-      "--sysconfdir=/etc"
-      "--with-libgsasl"
-    ] ++ optionals stdenv.hostPlatform.isDarwin [ "--with-macosx-keyring" ];
+    configureFlags =
+      [
+        "--sysconfdir=/etc"
+        "--with-libgsasl"
+      ]
+      ++ optionals stdenv.hostPlatform.isDarwin ["--with-macosx-keyring"];
 
-    buildInputs = [
-      gnutls
-      gsasl
-      libidn2
-    ] ++ optionals withKeyring [ libsecret ];
+    buildInputs =
+      [
+        gnutls
+        gsasl
+        libidn2
+      ]
+      ++ optionals withKeyring [libsecret];
 
     nativeBuildInputs = [
       autoreconfHook
@@ -86,7 +88,11 @@ let
 
     postPatch = ''
       substituteInPlace scripts/msmtpq/msmtpq \
-        --replace @journal@ ${if withSystemd then "Y" else "N"}
+        --replace @journal@ ${
+        if withSystemd
+        then "Y"
+        else "N"
+      }
     '';
 
     dontConfigure = true;
@@ -110,15 +116,17 @@ let
 
     solutions = {
       msmtpq = {
-        scripts = [ "bin/msmtpq" ];
+        scripts = ["bin/msmtpq"];
         interpreter = getExe bash;
-        inputs = [
-          binaries
-          coreutils
-          gnugrep
-          netcat-gnu
-          which
-        ] ++ optionals withSystemd [ systemd ];
+        inputs =
+          [
+            binaries
+            coreutils
+            gnugrep
+            netcat-gnu
+            which
+          ]
+          ++ optionals withSystemd [systemd];
         execer =
           [
             "cannot:${getBin binaries}/bin/msmtp"
@@ -127,39 +135,38 @@ let
           ++ optionals withSystemd [
             "cannot:${getBin systemd}/bin/systemd-cat"
           ];
-        fix."$MSMTP" = [ "msmtp" ];
-        fake.external = [ "ping" ] ++ optionals (!withSystemd) [ "systemd-cat" ];
-        keep.source = [ "~/.msmtpqrc" ];
+        fix."$MSMTP" = ["msmtp"];
+        fake.external = ["ping"] ++ optionals (!withSystemd) ["systemd-cat"];
+        keep.source = ["~/.msmtpqrc"];
       };
 
       msmtp-queue = {
-        scripts = [ "bin/msmtp-queue" ];
+        scripts = ["bin/msmtp-queue"];
         interpreter = getExe bash;
-        inputs = [ "${placeholder "out"}/bin" ];
-        execer = [ "cannot:${placeholder "out"}/bin/msmtpq" ];
+        inputs = ["${placeholder "out"}/bin"];
+        execer = ["cannot:${placeholder "out"}/bin/msmtpq"];
       };
     };
   };
-
 in
-if withScripts then
-  symlinkJoin {
-    name = "msmtp-${version}";
-    inherit version meta;
-    paths = [
-      binaries
-      scripts
-    ];
-    passthru = {
-      inherit binaries scripts src;
-      # msmtpq forwards most of its arguments to msmtp [1].
-      #
-      # [1]: <https://github.com/marlam/msmtp/blob/msmtp-1.8.26/scripts/msmtpq/msmtpq#L301>
-      binlore.out = binlore.synthesize msmtp ''
-        wrapper bin/msmtpq bin/msmtp
-      '';
-      updateScript = gitUpdater { rev-prefix = "msmtp-"; };
-    };
-  }
-else
-  binaries
+  if withScripts
+  then
+    symlinkJoin {
+      name = "msmtp-${version}";
+      inherit version meta;
+      paths = [
+        binaries
+        scripts
+      ];
+      passthru = {
+        inherit binaries scripts src;
+        # msmtpq forwards most of its arguments to msmtp [1].
+        #
+        # [1]: <https://github.com/marlam/msmtp/blob/msmtp-1.8.26/scripts/msmtpq/msmtpq#L301>
+        binlore.out = binlore.synthesize msmtp ''
+          wrapper bin/msmtpq bin/msmtp
+        '';
+        updateScript = gitUpdater {rev-prefix = "msmtp-";};
+      };
+    }
+  else binaries

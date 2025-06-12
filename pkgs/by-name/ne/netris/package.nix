@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ncurses,
 }:
-
 stdenv.mkDerivation {
   pname = "netris";
   version = "0.52";
@@ -43,7 +42,7 @@ stdenv.mkDerivation {
     description = "Free networked version of T*tris";
     mainProgram = "netris";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ patryk27 ];
+    maintainers = with maintainers; [patryk27];
     platforms = platforms.unix;
   };
 }

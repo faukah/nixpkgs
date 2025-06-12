@@ -14,7 +14,6 @@
   plotly,
   ipywidgets,
 }:
-
 buildPythonPackage rec {
   pname = "kmapper";
   version = "2.1.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-i909J0yI8v8BqGbCkcjBAdA02Io+qpILdDkojZj0wv4=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     scikit-learn
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  pythonImportsCheck = [ "kmapper" ];
+  pythonImportsCheck = ["kmapper"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -51,6 +50,6 @@ buildPythonPackage rec {
     description = "Python implementation of Mapper algorithm for Topological Data Analysis";
     homepage = "https://kepler-mapper.scikit-tda.org/";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

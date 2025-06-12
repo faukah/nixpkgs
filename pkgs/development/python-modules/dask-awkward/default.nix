@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatch-vcs,
   hatchling,
-
   # dependencies
   awkward,
   cachetools,
   dask,
   typing-extensions,
-
   # optional-dependencies
   pyarrow,
-
   # tests
   distributed,
   hist,
@@ -23,7 +19,6 @@
   pytestCheckHook,
   uproot,
 }:
-
 buildPythonPackage rec {
   pname = "dask-awkward";
   version = "2025.5.0";
@@ -49,19 +44,21 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    io = [ pyarrow ];
+    io = [pyarrow];
   };
 
-  nativeCheckInputs = [
-    # dask-histogram (circular dependency)
-    distributed
-    hist
-    pandas
-    pytestCheckHook
-    uproot
-  ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs =
+    [
+      # dask-histogram (circular dependency)
+      distributed
+      hist
+      pandas
+      pytestCheckHook
+      uproot
+    ]
+    ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "dask_awkward" ];
+  pythonImportsCheck = ["dask_awkward"];
 
   disabledTests = [
     # Tests require network access
@@ -86,6 +83,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/dask-contrib/dask-awkward";
     changelog = "https://github.com/dask-contrib/dask-awkward/releases/tag/${src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ veprbl ];
+    maintainers = with lib.maintainers; [veprbl];
   };
 }

@@ -3,12 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.ccache;
-in
-{
+in {
   options.programs.ccache = {
     # host configuration
     enable = lib.mkEnableOption "CCache, a compiler cache for fast recompilation of C/C++ code";
@@ -21,7 +18,7 @@ in
     packageNames = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       description = "Nix top-level packages to be compiled using CCache";
-      default = [ ];
+      default = [];
       example = [
         "wxGTK32"
         "ffmpeg"
@@ -43,7 +40,7 @@ in
   config = lib.mkMerge [
     # host configuration
     (lib.mkIf cfg.enable {
-      systemd.tmpfiles.rules = [ "d ${cfg.cacheDir} 0770 ${cfg.owner} ${cfg.group} -" ];
+      systemd.tmpfiles.rules = ["d ${cfg.cacheDir} 0770 ${cfg.owner} ${cfg.group} -"];
 
       # "nix-ccache --show-stats" and "nix-ccache --clear"
       security.wrappers.nix-ccache = {
@@ -68,13 +65,13 @@ in
     })
 
     # target configuration
-    (lib.mkIf (cfg.packageNames != [ ]) {
+    (lib.mkIf (cfg.packageNames != []) {
       nixpkgs.overlays = [
         (
           self: super:
-          lib.genAttrs cfg.packageNames (
-            pn: super.${pn}.override { stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv; }
-          )
+            lib.genAttrs cfg.packageNames (
+              pn: super.${pn}.override {stdenv = builtins.trace "with ccache: ${pn}" self.ccacheStdenv;}
+            )
         )
 
         (self: super: {

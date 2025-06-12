@@ -10,7 +10,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "meraki";
   version = "2.0.2";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     "setuptools"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -43,13 +42,13 @@ buildPythonPackage rec {
   # All tests require an API key
   doCheck = false;
 
-  pythonImportsCheck = [ "meraki" ];
+  pythonImportsCheck = ["meraki"];
 
   meta = {
     description = "Cisco Meraki cloud-managed platform dashboard API python library";
     homepage = "https://github.com/meraki/dashboard-api-python";
     changelog = "https://github.com/meraki/dashboard-api-python/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dylanmtaylor ];
+    maintainers = with lib.maintainers; [dylanmtaylor];
   };
 }

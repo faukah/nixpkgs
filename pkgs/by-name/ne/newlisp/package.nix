@@ -5,7 +5,6 @@
   libffi,
   readline,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "newlisp";
   version = "10.7.5";
@@ -40,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     downloadPage = "https://www.newlisp.org/downloads/";
     changelog = "https://www.newlisp.org/downloads/newlisp-${finalAttrs.version}/doc/CHANGES";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ rc-zb ];
+    maintainers = with lib.maintainers; [rc-zb];
     mainProgram = "newlisp";
     platforms = lib.platforms.all;
   };

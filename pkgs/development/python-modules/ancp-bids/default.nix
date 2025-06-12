@@ -8,7 +8,6 @@
   numpy,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "ancp-bids";
   version = "0.2.9";
@@ -24,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-vmw8SAikvbaHnPOthBQxTbyvDwnnZwCOV97aUogIgxw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     numpy
@@ -32,17 +31,17 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "ancpbids" ];
+  pythonImportsCheck = ["ancpbids"];
 
-  pytestFlagsArray = [ "tests/auto" ];
+  pytestFlagsArray = ["tests/auto"];
 
-  disabledTests = [ "test_fetch_dataset" ];
+  disabledTests = ["test_fetch_dataset"];
 
   meta = with lib; {
     homepage = "https://ancpbids.readthedocs.io";
     description = "Read/write/validate/query BIDS datasets";
     changelog = "https://github.com/ANCPLabOldenburg/ancp-bids/releases/tag/${src.tag}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

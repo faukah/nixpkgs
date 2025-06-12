@@ -5,7 +5,6 @@
   nix-update-script,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "transfer-sh";
   version = "1.6.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
     tests = {
       inherit (nixosTests) transfer-sh;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

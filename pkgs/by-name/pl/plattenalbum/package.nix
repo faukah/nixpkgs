@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "plattenalbum";
   version = "2.3.0";
@@ -32,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     desktop-file-utils
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
   dependencies = with python3Packages; [
     pygobject3
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication rec {
       cc0
     ];
     mainProgram = "plattenalbum";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

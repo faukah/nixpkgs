@@ -4,7 +4,6 @@
   ruby,
   bundlerUpdateScript,
 }:
-
 bundlerEnv {
   inherit ruby;
   pname = "hiera-eyaml";

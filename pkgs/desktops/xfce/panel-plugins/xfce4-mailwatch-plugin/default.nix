@@ -16,7 +16,6 @@
   libgcrypt,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xfce4-mailwatch-plugin";
   version = "1.4.0";
@@ -56,6 +55,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Mail watcher plugin for Xfce panel";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    teams = [ lib.teams.xfce ];
+    teams = [lib.teams.xfce];
   };
 })

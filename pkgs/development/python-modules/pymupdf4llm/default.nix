@@ -5,7 +5,6 @@
   setuptools,
   pymupdf,
 }:
-
 buildPythonPackage rec {
   pname = "pymupdf4llm";
   version = "0.0.17";
@@ -20,9 +19,9 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/pymupdf4llm";
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pymupdf ];
+  dependencies = [pymupdf];
 
   checkPhase = ''
     runHook preCheck
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pymupdf4llm" ];
+  pythonImportsCheck = ["pymupdf4llm"];
 
   meta = {
     description = "PyMuPDF Utilities for LLM/RAG - converts PDF pages to Markdown format for Retrieval-Augmented Generation";
     homepage = "https://github.com/pymupdf/RAG";
     changelog = "https://github.com/pymupdf/RAG/blob/${src.tag}/CHANGES.md";
     license = lib.licenses.agpl3Only;
-    maintainers = with lib.maintainers; [ ryota2357 ];
+    maintainers = with lib.maintainers; [ryota2357];
   };
 }

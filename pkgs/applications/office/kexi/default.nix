@@ -33,7 +33,6 @@
   libpq,
   marble,
 }:
-
 mkDerivation rec {
   pname = "kexi";
   version = "3.2.0";
@@ -78,7 +77,7 @@ mkDerivation rec {
     marble
   ];
 
-  propagatedUserEnvPkgs = [ kproperty ];
+  propagatedUserEnvPkgs = [kproperty];
 
   patches = [
     # Changes in Qt 5.13 mean that QDate isn't exported from certain places,
@@ -102,7 +101,7 @@ mkDerivation rec {
       making it easy to share data and design.
     '';
     homepage = "https://kexi-project.org/";
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2

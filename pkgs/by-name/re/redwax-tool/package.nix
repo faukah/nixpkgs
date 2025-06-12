@@ -15,7 +15,6 @@
   apr,
   aprutil,
 }:
-
 stdenv.mkDerivation rec {
   pname = "redwax-tool";
   version = "0.9.9";
@@ -61,6 +60,6 @@ stdenv.mkDerivation rec {
       certificates and keys to the destinations of your choice.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

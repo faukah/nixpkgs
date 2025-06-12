@@ -3,12 +3,10 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.users.mysql;
-in
-{
-  meta.maintainers = [ lib.maintainers.netali ];
+in {
+  meta.maintainers = [lib.maintainers.netali];
 
   options = {
     users.mysql = {
@@ -370,10 +368,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    system.nssModules = [ pkgs.libnss-mysql ];
-    system.nssDatabases.shadow = [ "mysql" ];
-    system.nssDatabases.group = [ "mysql" ];
-    system.nssDatabases.passwd = [ "mysql" ];
+    system.nssModules = [pkgs.libnss-mysql];
+    system.nssDatabases.shadow = ["mysql"];
+    system.nssDatabases.group = ["mysql"];
+    system.nssDatabases.passwd = ["mysql"];
 
     environment.etc."security/pam_mysql.conf" = {
       user = "root";
@@ -389,8 +387,16 @@ in
           users.user_column=${cfg.pam.userColumn}
           users.password_column=${cfg.pam.passwordColumn}
           users.password_crypt=${cfg.pam.passwordCrypt}
-          users.disconnect_every_operation=${if cfg.pam.disconnectEveryOperation then "1" else "0"}
-          verbose=${if cfg.pam.verbose then "1" else "0"}
+          users.disconnect_every_operation=${
+            if cfg.pam.disconnectEveryOperation
+            then "1"
+            else "0"
+          }
+          verbose=${
+            if cfg.pam.verbose
+            then "1"
+            else "0"
+          }
         ''
         + lib.optionalString (cfg.pam.cryptDefault != null) ''
           users.use_${cfg.pam.cryptDefault}=1
@@ -470,8 +476,8 @@ in
     systemd.services.mysql-auth-pw-init = {
       description = "Adds the mysql password to the mysql auth config files";
 
-      before = [ "nscd.service" ];
-      wantedBy = [ "multi-user.target" ];
+      before = ["nscd.service"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";

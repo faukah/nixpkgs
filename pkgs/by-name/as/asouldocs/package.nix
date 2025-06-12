@@ -5,7 +5,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildGoModule rec {
   pname = "asouldocs";
   version = "1.0.0";
@@ -28,7 +27,7 @@ buildGoModule rec {
     description = "Web server for multi-language, real-time synchronization and searchable documentation";
     homepage = "https://asouldocs.dev/";
     license = licenses.mit;
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
     mainProgram = "asouldocs";
   };
 }

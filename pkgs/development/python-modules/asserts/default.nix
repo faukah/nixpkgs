@@ -2,17 +2,13 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   typing-extensions,
-
   # tests
   unittestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "asserts";
   version = "0.13.1";
@@ -46,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/srittau/python-asserts";
     changelog = "https://github.com/srittau/python-asserts/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ doronbehar ];
+    maintainers = with lib.maintainers; [doronbehar];
   };
 }

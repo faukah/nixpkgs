@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "ventura-psychrometric-panel";
   version = "5.0.0";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "Grafana plugin to display air conditions on a psychrometric chart.";
     license = licenses.bsd3Lbnl;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

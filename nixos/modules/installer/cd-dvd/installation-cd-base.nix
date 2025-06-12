@@ -6,8 +6,7 @@
   options,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./iso-image.nix
 
@@ -19,7 +18,7 @@
   hardware.enableAllHardware = true;
 
   # Adds terminus_font for people with HiDPI displays
-  console.packages = options.console.packages.default ++ [ pkgs.terminus_font ];
+  console.packages = options.console.packages.default ++ [pkgs.terminus_font];
 
   # EFI booting
   isoImage.makeEfiBootable = true;
@@ -32,7 +31,7 @@
 
   # An installation media cannot tolerate a host config defined file
   # system layout on a fresh machine, before it has been formatted.
-  swapDevices = lib.mkImageMediaOverride [ ];
+  swapDevices = lib.mkImageMediaOverride [];
   fileSystems = lib.mkImageMediaOverride config.lib.isoFileSystems;
 
   boot.postBootCommands = ''

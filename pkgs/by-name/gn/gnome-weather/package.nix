@@ -18,7 +18,6 @@
   python3,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-weather";
   version = "48.0";
@@ -62,14 +61,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = "gnome-weather"; };
+    updateScript = gnome.updateScript {packageName = "gnome-weather";};
   };
 
   meta = with lib; {
     homepage = "https://apps.gnome.org/Weather/";
     description = "Access current weather conditions and forecasts";
     mainProgram = "gnome-weather";
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

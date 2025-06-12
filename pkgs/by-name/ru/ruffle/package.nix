@@ -34,25 +34,23 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-cCZrI0KyTH/HBmjVXmL5cR6c839gXGLPTBi3HHTEI24=";
   cargoBuildFlags = lib.optional withRuffleTools "--workspace";
 
-  env =
-    let
-      tag = lib.strings.removePrefix "0-" finalAttrs.version;
-      versionDate = lib.strings.removePrefix "0-nightly-" finalAttrs.version;
-    in
-    {
-      VERGEN_IDEMPOTENT = "1";
-      VERGEN_GIT_SHA = tag;
-      VERGEN_GIT_COMMIT_DATE = versionDate;
-      VERGEN_GIT_COMMIT_TIMESTAMP = "${versionDate}T00:00:00Z";
-    };
+  env = let
+    tag = lib.strings.removePrefix "0-" finalAttrs.version;
+    versionDate = lib.strings.removePrefix "0-nightly-" finalAttrs.version;
+  in {
+    VERGEN_IDEMPOTENT = "1";
+    VERGEN_GIT_SHA = tag;
+    VERGEN_GIT_COMMIT_DATE = versionDate;
+    VERGEN_GIT_COMMIT_TIMESTAMP = "${versionDate}T00:00:00Z";
+  };
 
   nativeBuildInputs =
-    [ jre_minimal ]
+    [jre_minimal]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       pkg-config
       autoPatchelfHook
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ rustPlatform.bindgenHook ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [rustPlatform.bindgenHook];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     alsa-lib
@@ -62,7 +60,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # Prevents ruffle from downloading openh264 at runtime for Linux
   openh264-241 =
-    if stdenv.hostPlatform.isLinux then
+    if stdenv.hostPlatform.isLinux
+    then
       openh264.overrideAttrs (_: rec {
         version = "2.4.1";
         src = fetchFromGitHub {
@@ -72,8 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
           hash = "sha256-ai7lcGcQQqpsLGSwHkSs7YAoEfGCIbxdClO6JpGA+MI=";
         };
       })
-    else
-      null;
+    else null;
 
   runtimeDependencies = [
     wayland

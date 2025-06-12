@@ -3,14 +3,12 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-
   # for passthru.tests
   gst_all_1,
   mpd,
   ocamlPackages,
   vlc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "faad2";
   version = "2.11.2";
@@ -28,7 +26,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   passthru.tests = {
     inherit mpd vlc;
@@ -40,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Open source MPEG-4 and MPEG-2 AAC decoder";
     homepage = "https://sourceforge.net/projects/faac/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     mainProgram = "faad";
     platforms = platforms.all;
   };

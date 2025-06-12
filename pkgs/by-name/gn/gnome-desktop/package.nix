@@ -27,7 +27,6 @@
   gsettings-desktop-schemas,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnome-desktop";
   version = "44.1";
@@ -112,6 +111,6 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 }

@@ -13,7 +13,6 @@
   automake,
   libtool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "herwig";
   version = "7.3.0";
@@ -62,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Multi-purpose particle physics event generator";
     homepage = "https://herwig.hepforge.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
     broken = stdenv.hostPlatform.isAarch64; # doesn't compile: ignoring return value of 'FILE* freopen...
   };

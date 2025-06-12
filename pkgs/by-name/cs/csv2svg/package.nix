@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "csv2svg";
   version = "0.1.9";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "Take a csv as input and outputs svg";
     homepage = "https://github.com/Canop/csv2svg";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "csv2svg";
   };
 }

@@ -7,7 +7,6 @@
   zbar,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "python-zbar";
   version = "0.23.93";
@@ -24,13 +23,13 @@ buildPythonPackage rec {
     cd python
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ pillow ];
+  dependencies = [pillow];
 
-  buildInputs = [ zbar ];
+  buildInputs = [zbar];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     #AssertionError: b'Y800' != 'Y800'
@@ -44,12 +43,12 @@ buildPythonPackage rec {
     "test_version"
   ];
 
-  pythonImportsCheck = [ "zbar" ];
+  pythonImportsCheck = ["zbar"];
 
   meta = with lib; {
     description = "Python bindings for zbar";
     homepage = "https://github.com/mchehab/zbar";
     license = licenses.lgpl21Only;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

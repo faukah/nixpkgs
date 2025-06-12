@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eglexternalplatform";
   version = "1.2.1";
@@ -27,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/NVIDIA/eglexternalplatform";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hedning ];
+    maintainers = with maintainers; [hedning];
   };
 }

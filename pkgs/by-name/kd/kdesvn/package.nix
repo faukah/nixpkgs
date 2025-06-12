@@ -11,7 +11,6 @@
   libsForQt5,
   extra-cmake-modules,
 }:
-
 stdenv.mkDerivation {
   pname = "kdesvn";
   version = "2.1";
@@ -66,7 +65,7 @@ stdenv.mkDerivation {
     homepage = "https://invent.kde.org/sdk/kdesvn";
     platforms = lib.platforms.unix;
     badPlatforms = lib.platforms.darwin;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
     mainProgram = "kdesvn";
     description = "Subversion client by KDE";
     license = lib.licenses.agpl3Plus;

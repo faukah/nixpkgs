@@ -7,7 +7,6 @@
   lxml,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "leather";
   version = "0.4.0";
@@ -18,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-+WS+wghvMVOmwW5wfyDLcY+BH1evEWB19MD0gFxgi5U=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     cssselect
@@ -31,6 +30,6 @@ buildPythonPackage rec {
     description = "Python charting library";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

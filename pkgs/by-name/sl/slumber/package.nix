@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "slumber";
   version = "3.1.1";
@@ -24,6 +23,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/LucasPickering/slumber/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "slumber";
-    maintainers = with lib.maintainers; [ javaes ];
+    maintainers = with lib.maintainers; [javaes];
   };
 }

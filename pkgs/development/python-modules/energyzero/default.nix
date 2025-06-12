@@ -12,7 +12,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "energyzero";
   version = "2.1.1";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
       --replace-fail 'addopts = "--cov"' ""
   '';
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -48,13 +47,13 @@ buildPythonPackage rec {
     syrupy
   ];
 
-  pythonImportsCheck = [ "energyzero" ];
+  pythonImportsCheck = ["energyzero"];
 
   meta = with lib; {
     description = "Module for getting the dynamic prices from EnergyZero";
     homepage = "https://github.com/klaasnicolaas/python-energyzero";
     changelog = "https://github.com/klaasnicolaas/python-energyzero/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

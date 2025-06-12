@@ -14,16 +14,16 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mxZpJMmSCgm5uV5/wknVb1PdxRIF/b2k+6rdOh4b8zA=";
   };
 
-  buildFlags = [ "INOTIFYINFO_VERSION=v${finalAttrs.version}" ];
+  buildFlags = ["INOTIFYINFO_VERSION=v${finalAttrs.version}"];
 
-  installFlags = [ "PREFIX=$$out" ];
+  installFlags = ["PREFIX=$$out"];
 
   meta = with lib; {
     description = "Easily track down the number of inotify watches, instances, and which files are being watched";
     homepage = "https://github.com/mikesart/inotify-info";
     license = licenses.mit;
     mainProgram = "inotify-info";
-    maintainers = with maintainers; [ motiejus ];
+    maintainers = with maintainers; [motiejus];
     platforms = platforms.linux;
   };
 })

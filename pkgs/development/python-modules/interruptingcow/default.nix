@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Watchdog that interrupts long running code";
     homepage = "https://bitbucket.org/evzijst/interruptingcow";
     license = licenses.mit;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
   };
 }

@@ -12,7 +12,6 @@
   xalanc,
   qt6Packages,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "brewtarget";
   version = "4.1.1";

@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sourceforge.net/projects/watchdog/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ n8henrie ];
+    maintainers = with lib.maintainers; [n8henrie];
     mainProgram = "watchdog";
   };
 })

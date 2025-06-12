@@ -1,11 +1,6 @@
-{
-  lib,
-  ...
-}:
-
-{
+{lib, ...}: {
   name = "music-assistant";
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   nodes.machine = {
     services.music-assistant = {

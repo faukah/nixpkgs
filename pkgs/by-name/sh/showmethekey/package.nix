@@ -13,7 +13,6 @@
   libxkbcommon,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "showmethekey";
   version = "1.18.3";
@@ -47,6 +46,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/AlynxZhou/showmethekey/releases/tag/v${version}";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ocfox ];
+    maintainers = with lib.maintainers; [ocfox];
   };
 }

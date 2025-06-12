@@ -5,7 +5,6 @@
   isPyPy,
   isPy3k,
 }:
-
 buildPythonPackage rec {
   pname = "pyptlib";
   version = "0.0.6";

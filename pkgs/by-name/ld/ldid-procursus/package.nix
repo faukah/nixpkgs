@@ -8,7 +8,6 @@
   libplist,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ldid-procursus";
   version = "2.1.5-procursus7";
@@ -30,8 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     openssl
   ];
 
-  stripDebugFlags = [ "--strip-unneeded" ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  stripDebugFlags = ["--strip-unneeded"];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   dontConfigure = true;
 
@@ -56,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "ldid";
     description = "Put real or fake signatures in a Mach-O binary";
     homepage = "https://github.com/ProcursusTeam/ldid";
-    maintainers = with maintainers; [ keto ];
+    maintainers = with maintainers; [keto];
     platforms = platforms.unix;
     license = licenses.agpl3Only;
   };

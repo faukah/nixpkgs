@@ -13,7 +13,6 @@
   iproute2,
   apparmorRulesFromClosure,
 }:
-
 stdenv.mkDerivation rec {
   pname = "iputils";
   version = "20240905";
@@ -52,8 +51,8 @@ stdenv.mkDerivation rec {
     libxslt.bin
     docbook_xsl_ns
   ];
-  buildInputs = [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
-  nativeCheckInputs = [ iproute2 ];
+  buildInputs = [libcap] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2;
+  nativeCheckInputs = [iproute2];
 
   postInstall = ''
     mkdir $apparmor
@@ -64,10 +63,10 @@ stdenv.mkDerivation rec {
       include <abstractions/consoles>
       include <abstractions/nameservice>
       include "${
-        apparmorRulesFromClosure { name = "ping"; } (
-          [ libcap ] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2
-        )
-      }"
+      apparmorRulesFromClosure {name = "ping";} (
+        [libcap] ++ lib.optional (!stdenv.hostPlatform.isMusl) libidn2
+      )
+    }"
       include <local/bin.ping>
       capability net_raw,
       network inet raw,
@@ -96,6 +95,6 @@ stdenv.mkDerivation rec {
       bsd3
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

@@ -5,7 +5,6 @@
   pytestCheckHook,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "allpairspy";
   version = "2.5.1";
@@ -18,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-0wzoQDHB7Tt80ZTlKrNxFutztsgUuin5D2eb80c4PBI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "allpairspy" ];
+  pythonImportsCheck = ["allpairspy"];
 
   meta = with lib; {
     description = "Pairwise test combinations generator";
     homepage = "https://github.com/thombashi/allpairspy";
     changelog = "https://github.com/thombashi/allpairspy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

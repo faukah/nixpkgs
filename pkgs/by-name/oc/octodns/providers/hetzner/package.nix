@@ -9,7 +9,6 @@
   requests-mock,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "octodns-hetzner";
   version = "1.0.0";
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "octodns_hetzner" ];
+  pythonImportsCheck = ["octodns_hetzner"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/octodns/octodns-hetzner/";
     changelog = "https://github.com/octodns/octodns-hetzner/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.octodns ];
+    teams = [lib.teams.octodns];
   };
 }

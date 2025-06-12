@@ -15,7 +15,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hyperrogue";
   version = "13.0y";
@@ -107,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
   doInstallCheck = !stdenv.hostPlatform.isDarwin;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -115,7 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.roguetemple.com/z/hyper/";
     changelog = "https://github.com/zenorogue/hyperrogue/releases/tag/v${finalAttrs.version}";
     mainProgram = "hyperrogue";
-    maintainers = with lib.maintainers; [ rardiol ];
+    maintainers = with lib.maintainers; [rardiol];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
   };

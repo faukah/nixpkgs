@@ -9,7 +9,6 @@
   stdenv,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qt6ct";
   version = "0.10";

@@ -1,13 +1,13 @@
 /*
-  This file defines the builds that constitute the Nixpkgs.
-  Everything defined here ends up in the Nixpkgs channel.  Individual
-  jobs can be tested by running:
+This file defines the builds that constitute the Nixpkgs.
+Everything defined here ends up in the Nixpkgs channel.  Individual
+jobs can be tested by running:
 
-  $ nix-build pkgs/top-level/release.nix -A <jobname>.<system>
+$ nix-build pkgs/top-level/release.nix -A <jobname>.<system>
 
-  e.g.
+e.g.
 
-  $ nix-build pkgs/top-level/release.nix -A coreutils.x86_64-linux
+$ nix-build pkgs/top-level/release.nix -A coreutils.x86_64-linux
 */
 {
   nixpkgs ? {
@@ -49,7 +49,6 @@
 
     __allowFileset = false;
   },
-
   # This flag, if set to true, will inhibit the use of `mapTestOn`
   # and `release-lib.packagePlatforms`.  Generally, it causes the
   # resulting tree of attributes to *not* have a ".${system}"
@@ -62,9 +61,7 @@
   # pkgs/top-level/.
   #
   attrNamesOnly ? false,
-}:
-
-let
+}: let
   release-lib = import ./release-lib.nix {
     inherit
       supportedSystems
@@ -76,7 +73,8 @@ let
 
   inherit (release-lib) mapTestOn pkgs;
 
-  inherit (release-lib.lib)
+  inherit
+    (release-lib.lib)
     collect
     elem
     genAttrs
@@ -95,19 +93,20 @@ let
   ] (arch: elem "${arch}-darwin" supportedSystems);
 
   nonPackageJobs = {
-    tarball = import ./make-tarball.nix { inherit pkgs nixpkgs officialRelease; };
+    tarball = import ./make-tarball.nix {inherit pkgs nixpkgs officialRelease;};
 
     release-checks = import ./nixpkgs-basic-release-checks.nix {
       inherit pkgs nixpkgs supportedSystems;
     };
 
-    manual = pkgs.nixpkgs-manual.override { inherit nixpkgs; };
-    metrics = import ./metrics.nix { inherit pkgs nixpkgs; };
-    lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
-    pkgs-lib-tests = import ../pkgs-lib/tests { inherit pkgs; };
+    manual = pkgs.nixpkgs-manual.override {inherit nixpkgs;};
+    metrics = import ./metrics.nix {inherit pkgs nixpkgs;};
+    lib-tests = import ../../lib/tests/release.nix {inherit pkgs;};
+    pkgs-lib-tests = import ../pkgs-lib/tests {inherit pkgs;};
 
     darwin-tested =
-      if supportDarwin.x86_64 || supportDarwin.aarch64 then
+      if supportDarwin.x86_64 || supportDarwin.aarch64
+      then
         pkgs.releaseTools.aggregate {
           name = "nixpkgs-darwin-${jobs.tarball.version}";
           meta.description = "Release-critical builds for the Nixpkgs darwin channel";
@@ -152,12 +151,12 @@ let
 
               # Tests
               /*
-                jobs.tests.cc-wrapper.default.x86_64-darwin
-                jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-darwin
-                jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-darwin
-                jobs.tests.stdenv-inputs.x86_64-darwin
-                jobs.tests.macOSSierraShared.x86_64-darwin
-                jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
+              jobs.tests.cc-wrapper.default.x86_64-darwin
+              jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-darwin
+              jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-darwin
+              jobs.tests.stdenv-inputs.x86_64-darwin
+              jobs.tests.macOSSierraShared.x86_64-darwin
+              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
               */
             ]
             ++ optionals supportDarwin.aarch64 [
@@ -196,17 +195,16 @@ let
 
               # Tests
               /*
-                jobs.tests.cc-wrapper.default.aarch64-darwin
-                jobs.tests.cc-wrapper.llvmPackages.clang.aarch64-darwin
-                jobs.tests.cc-wrapper.llvmPackages.libcxx.aarch64-darwin
-                jobs.tests.stdenv-inputs.aarch64-darwin
-                jobs.tests.macOSSierraShared.aarch64-darwin
-                jobs.tests.stdenv.hooks.patch-shebangs.aarch64-darwin
+              jobs.tests.cc-wrapper.default.aarch64-darwin
+              jobs.tests.cc-wrapper.llvmPackages.clang.aarch64-darwin
+              jobs.tests.cc-wrapper.llvmPackages.libcxx.aarch64-darwin
+              jobs.tests.stdenv-inputs.aarch64-darwin
+              jobs.tests.macOSSierraShared.aarch64-darwin
+              jobs.tests.stdenv.hooks.patch-shebangs.aarch64-darwin
               */
             ];
         }
-      else
-        null;
+      else null;
 
     unstable = pkgs.releaseTools.aggregate {
       name = "nixpkgs-${jobs.tarball.version}";
@@ -237,18 +235,18 @@ let
           jobs.devenv.x86_64-linux
 
           /*
-            TODO: re-add tests; context: https://github.com/NixOS/nixpkgs/commit/36587a587ab191eddd868179d63c82cdd5dee21b
+          TODO: re-add tests; context: https://github.com/NixOS/nixpkgs/commit/36587a587ab191eddd868179d63c82cdd5dee21b
 
-            jobs.tests.cc-wrapper.default.x86_64-linux
+          jobs.tests.cc-wrapper.default.x86_64-linux
 
-            # broken see issue #40038
+          # broken see issue #40038
 
-            jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-linux
-            jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-linux
-            jobs.tests.cc-multilib-gcc.x86_64-linux
-            jobs.tests.cc-multilib-clang.x86_64-linux
-            jobs.tests.stdenv-inputs.x86_64-linux
-            jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
+          jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-linux
+          jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-linux
+          jobs.tests.cc-multilib-gcc.x86_64-linux
+          jobs.tests.cc-multilib-clang.x86_64-linux
+          jobs.tests.stdenv-inputs.x86_64-linux
+          jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
           */
         ]
         ++ collect isDerivation jobs.stdenvBootstrapTools
@@ -270,12 +268,12 @@ let
           jobs.qt5.qtmultimedia.x86_64-darwin
           jobs.darwin.linux-builder.x86_64-darwin
           /*
-            jobs.tests.cc-wrapper.default.x86_64-darwin
-            jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-darwin
-            jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-darwin
-            jobs.tests.stdenv-inputs.x86_64-darwin
-            jobs.tests.macOSSierraShared.x86_64-darwin
-            jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
+          jobs.tests.cc-wrapper.default.x86_64-darwin
+          jobs.tests.cc-wrapper.llvmPackages.clang.x86_64-darwin
+          jobs.tests.cc-wrapper.llvmPackages.libcxx.x86_64-darwin
+          jobs.tests.stdenv-inputs.x86_64-darwin
+          jobs.tests.macOSSierraShared.x86_64-darwin
+          jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
           */
         ]
         ++ optionals supportDarwin.aarch64 [
@@ -301,43 +299,39 @@ let
 
     stdenvBootstrapTools = genAttrs bootstrapConfigs (
       config:
-      if hasInfix "-linux-" config then
-        let
+        if hasInfix "-linux-" config
+        then let
           bootstrap = import ../stdenv/linux/make-bootstrap-tools.nix {
             pkgs = import ../.. {
-              localSystem = { inherit config; };
+              localSystem = {inherit config;};
             };
           };
-        in
-        {
+        in {
           inherit (bootstrap) build test;
         }
-      else if hasSuffix "-darwin" config then
-        let
+        else if hasSuffix "-darwin" config
+        then let
           bootstrap = import ../stdenv/darwin/make-bootstrap-tools.nix {
-            localSystem = { inherit config; };
+            localSystem = {inherit config;};
           };
-        in
-        {
+        in {
           # Lightweight distribution and test
           inherit (bootstrap) build test;
           # Test a full stdenv bootstrap from the bootstrap tools definition
           # TODO: Re-enable once the new bootstrap-tools are in place.
           #inherit (bootstrap.test-pkgs) stdenv;
         }
-      else if hasSuffix "-freebsd" config then
-        let
+        else if hasSuffix "-freebsd" config
+        then let
           bootstrap = import ../stdenv/freebsd/make-bootstrap-tools.nix {
             pkgs = import ../.. {
-              localSystem = { inherit config; };
+              localSystem = {inherit config;};
             };
           };
-        in
-        {
+        in {
           inherit (bootstrap) build; # test does't exist yet
         }
-      else
-        abort "No bootstrap implementation for system: ${config}"
+        else abort "No bootstrap implementation for system: ${config}"
     );
   };
 
@@ -345,33 +339,37 @@ let
   # 'nonPackageAttrs' and jobs pulled in from 'pkgs'.
   # Conflicts usually cause silent job drops like in
   #   https://github.com/NixOS/nixpkgs/pull/182058
-  jobs =
-    let
-      packagePlatforms = release-lib.recursiveMapPackages (
-        if attrNamesOnly then id else release-lib.getPlatforms
-      );
-      packageJobs = packagePlatforms pkgs // {
+  jobs = let
+    packagePlatforms = release-lib.recursiveMapPackages (
+      if attrNamesOnly
+      then id
+      else release-lib.getPlatforms
+    );
+    packageJobs =
+      packagePlatforms pkgs
+      // {
         haskell.compiler = packagePlatforms pkgs.haskell.compiler;
         haskellPackages = packagePlatforms pkgs.haskellPackages;
         # Build selected packages (HLS) for multiple Haskell compilers to rebuild
         # the cache after a staging merge
         haskell.packages =
           genAttrs
-            [
-              # TODO: share this list between release.nix and release-haskell.nix
-              "ghc90"
-              "ghc92"
-              "ghc94"
-              "ghc96"
-              "ghc98"
-              "ghc910"
-              "ghc912"
-            ]
-            (compilerName: {
-              inherit (packagePlatforms pkgs.haskell.packages.${compilerName})
-                haskell-language-server
-                ;
-            });
+          [
+            # TODO: share this list between release.nix and release-haskell.nix
+            "ghc90"
+            "ghc92"
+            "ghc94"
+            "ghc96"
+            "ghc98"
+            "ghc910"
+            "ghc912"
+          ]
+          (compilerName: {
+            inherit
+              (packagePlatforms pkgs.haskell.packages.${compilerName})
+              haskell-language-server
+              ;
+          });
         idrisPackages = packagePlatforms pkgs.idrisPackages;
         agdaPackages = packagePlatforms pkgs.agdaPackages;
 
@@ -402,16 +400,20 @@ let
 
         #emacsPackages = packagePlatforms pkgs.emacsPackages;
         #rPackages = packagePlatforms pkgs.rPackages;
-        ocamlPackages = { };
-        perlPackages = { };
+        ocamlPackages = {};
+        perlPackages = {};
 
-        darwin = packagePlatforms pkgs.darwin // {
-          xcode = { };
-        };
+        darwin =
+          packagePlatforms pkgs.darwin
+          // {
+            xcode = {};
+          };
       };
-      mapTestOn-packages = if attrNamesOnly then packageJobs else mapTestOn packageJobs;
-    in
+    mapTestOn-packages =
+      if attrNamesOnly
+      then packageJobs
+      else mapTestOn packageJobs;
+  in
     unionOfDisjoint nonPackageJobs mapTestOn-packages;
-
 in
-jobs
+  jobs

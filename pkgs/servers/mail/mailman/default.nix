@@ -2,40 +2,34 @@
   newScope,
   lib,
   python3,
-}:
-
-let
+}: let
   self = lib.makeExtensible (
-    self:
-    let
+    self: let
       inherit (self) callPackage;
-    in
-    {
+    in {
       callPackage = newScope self;
 
-      python3 = callPackage ./python.nix { inherit python3; };
+      python3 = callPackage ./python.nix {inherit python3;};
 
-      hyperkitty = callPackage ./hyperkitty.nix { };
+      hyperkitty = callPackage ./hyperkitty.nix {};
 
-      mailman = callPackage ./package.nix { };
+      mailman = callPackage ./package.nix {};
 
-      mailman-hyperkitty = callPackage ./mailman-hyperkitty.nix { };
+      mailman-hyperkitty = callPackage ./mailman-hyperkitty.nix {};
 
-      postorius = callPackage ./postorius.nix { };
+      postorius = callPackage ./postorius.nix {};
 
-      web = callPackage ./web.nix { };
+      web = callPackage ./web.nix {};
 
-      buildEnvs =
-        {
-          web ? self.web,
-          mailman ? self.mailman,
-          mailman-hyperkitty ? self.mailman-hyperkitty,
-          withHyperkitty ? false,
-          withLDAP ? false,
-        }:
-        {
-          mailmanEnv = self.python3.withPackages (
-            ps:
+      buildEnvs = {
+        web ? self.web,
+        mailman ? self.mailman,
+        mailman-hyperkitty ? self.mailman-hyperkitty,
+        withHyperkitty ? false,
+        withLDAP ? false,
+      }: {
+        mailmanEnv = self.python3.withPackages (
+          ps:
             [
               mailman
               ps.psycopg2
@@ -45,9 +39,9 @@ let
               ps.python-ldap
               ps.django-auth-ldap
             ]
-          );
-          webEnv = self.python3.withPackages (
-            ps:
+        );
+        webEnv = self.python3.withPackages (
+          ps:
             [
               web
               ps.psycopg2
@@ -56,10 +50,9 @@ let
               ps.python-ldap
               ps.django-auth-ldap
             ]
-          );
-        };
+        );
+      };
     }
   );
-
 in
-self
+  self

@@ -11,7 +11,6 @@
   qtbase,
   mkDerivation,
 }:
-
 mkDerivation rec {
   pname = "qsampler";
   version = "0.6.1";
@@ -43,7 +42,7 @@ mkDerivation rec {
     description = "Graphical frontend to LinuxSampler";
     mainProgram = "qsampler";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -8,7 +8,6 @@
   postgresqlTestExtension,
   stdenv,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "h3-pg";
   version = "4.2.2";
@@ -40,7 +39,7 @@ postgresqlBuildExtension (finalAttrs: {
 
   passthru.tests.extension = postgresqlTestExtension {
     inherit (finalAttrs) finalPackage;
-    withPackages = [ "postgis" ];
+    withPackages = ["postgis"];
     sql = ''
       CREATE EXTENSION h3;
       CREATE EXTENSION h3_postgis CASCADE;
@@ -54,7 +53,7 @@ postgresqlBuildExtension (finalAttrs: {
     description = "PostgreSQL bindings for H3, a hierarchical hexagonal geospatial indexing system";
     homepage = "https://github.com/zachasme/h3-pg";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     inherit (postgresql.meta) platforms;
   };
 })

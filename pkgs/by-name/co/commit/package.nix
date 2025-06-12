@@ -17,7 +17,6 @@
   pkg-config,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "commit";
   version = "4.3";
@@ -71,14 +70,14 @@ stdenv.mkDerivation (finalAttrs: {
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "Commit message editor";
     homepage = "https://github.com/sonnyp/Commit";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "re.sonny.Commit";
     platforms = lib.platforms.linux;
   };

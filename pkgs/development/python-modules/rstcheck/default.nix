@@ -10,7 +10,6 @@
   sphinx,
   typer,
 }:
-
 buildPythonPackage rec {
   pname = "rstcheck";
   version = "6.2.4";
@@ -36,12 +35,12 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    sphinx = [ sphinx ];
+    sphinx = [sphinx];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rstcheck" ];
+  pythonImportsCheck = ["rstcheck"];
 
   preCheck = ''
     # The tests need to find and call the rstcheck executable
@@ -53,7 +52,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/myint/rstcheck";
     changelog = "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ staccato ];
+    maintainers = with maintainers; [staccato];
     mainProgram = "rstcheck";
   };
 }

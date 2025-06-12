@@ -8,7 +8,6 @@
   text-unidecode,
   unidecode,
 }:
-
 buildPythonPackage rec {
   pname = "python-slugify";
   version = "8.0.4";
@@ -23,19 +22,19 @@ buildPythonPackage rec {
     hash = "sha256-zReUMIkItnDot3XyYCoPUNHrrAllbClWFYcxdTy3A30=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ text-unidecode ];
+  propagatedBuildInputs = [text-unidecode];
 
   optional-dependencies = {
-    unidecode = [ unidecode ];
+    unidecode = [unidecode];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
-  pythonImportsCheck = [ "slugify" ];
+  pythonImportsCheck = ["slugify"];
 
   meta = with lib; {
     description = "Python Slugify application that handles Unicode";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/un33k/python-slugify";
     changelog = "https://github.com/un33k/python-slugify/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -14,7 +14,6 @@
   libXrender,
   gobject-introspection,
 }:
-
 stdenv.mkDerivation rec {
   pname = "keybinder3";
   version = "0.3.2";
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kupferlauncher/keybinder/";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

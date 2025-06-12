@@ -7,7 +7,6 @@
   hatchling,
   sure,
 }:
-
 buildPythonPackage rec {
   pname = "py-partiql-parser";
   version = "0.6.1";
@@ -22,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-2qCGNRoeMRe5fPzoWFD9umZgUDW6by7jNfO/BByQGwE=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   nativeCheckInputs = [
     pytestCheckHook
     sure
   ];
 
-  pythonImportsCheck = [ "py_partiql_parser" ];
+  pythonImportsCheck = ["py_partiql_parser"];
 
   meta = with lib; {
     description = "Tokenizer/parser/executor for the PartiQL-language";
     homepage = "https://github.com/getmoto/py-partiql-parser";
     changelog = "https://github.com/getmoto/py-partiql-parser/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

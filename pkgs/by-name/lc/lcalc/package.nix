@@ -7,7 +7,6 @@
   fetchFromGitLab,
   pari,
 }:
-
 stdenv.mkDerivation rec {
   version = "2.1.0";
   pname = "lcalc";
@@ -37,8 +36,8 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/sagemath/lcalc";
     description = "Program for calculating with L-functions";
     mainProgram = "lcalc";
-    license = with licenses; [ gpl2 ];
-    teams = [ teams.sage ];
+    license = with licenses; [gpl2];
+    teams = [teams.sage];
     platforms = platforms.all;
   };
 }

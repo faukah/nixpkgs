@@ -5,7 +5,6 @@
   sndio,
   libbsd,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "aucatctl";
   version = "0.1";
@@ -15,9 +14,11 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "524f2fae47db785234f166551520d9605b9a27551ca438bd807e3509ce246cf0";
   };
 
-  buildInputs = [
-    sndio
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isBSD) libbsd;
+  buildInputs =
+    [
+      sndio
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin && !stdenv.hostPlatform.isBSD) libbsd;
 
   outputs = [
     "out"
@@ -40,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Utility that allows to send MIDI messages to control sndiod and/or aucat volumes";
     homepage = "http://www.sndio.org";
     license = licenses.isc;
-    maintainers = with maintainers; [ sna ];
+    maintainers = with maintainers; [sna];
     platforms = platforms.unix;
     mainProgram = "aucatctl";
   };

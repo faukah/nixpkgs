@@ -86,12 +86,12 @@ mkDerivation rec {
 
   meta = {
     description = "Client for HPE's MyRoom web conferencing solution";
-    maintainers = with lib.maintainers; [ johnazoidberg ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = with lib.maintainers; [johnazoidberg];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
     homepage = "https://myroom.hpe.com";
     # TODO: A Darwin binary is available upstream
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "hpmyroom";
     broken = true; # requires libpng15
   };

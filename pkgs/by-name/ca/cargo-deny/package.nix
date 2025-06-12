@@ -5,7 +5,6 @@
   pkg-config,
   zstd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-deny";
   version = "0.18.3";

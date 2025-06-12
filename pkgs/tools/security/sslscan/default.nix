@@ -4,7 +4,6 @@
   fetchFromGitHub,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sslscan";
   version = "2.1.6";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XFoTwBtufkT/Ja0a3MEytPHx37eg3ZZ7x15EXHjZey4=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   makeFlags = [
     "PREFIX=$(out)"

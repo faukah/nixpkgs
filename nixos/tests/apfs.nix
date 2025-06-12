@@ -1,12 +1,11 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "apfs";
-  meta.maintainers = with lib.maintainers; [ Luflosi ];
+  meta.maintainers = with lib.maintainers; [Luflosi];
 
   nodes.machine = {
-    virtualisation.emptyDiskImages = [ 1024 ];
+    virtualisation.emptyDiskImages = [1024];
 
-    boot.supportedFilesystems = [ "apfs" ];
+    boot.supportedFilesystems = ["apfs"];
   };
 
   testScript = ''

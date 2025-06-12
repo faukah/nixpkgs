@@ -7,7 +7,6 @@
   expat,
   libgcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ggz-base-libs";
   version = "0.99.5";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1cw1vg0fbj36zyggnzidx9cbjwfc1yr4zqmsipxnvns7xa2awbdk";
   };
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     openssl
     expat

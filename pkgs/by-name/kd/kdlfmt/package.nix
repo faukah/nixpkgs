@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "kdlfmt";
   version = "0.1.0";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/hougesen/kdlfmt.git";
     changelog = "https://github.com/hougesen/kdlfmt/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ airrnot ];
+    maintainers = with lib.maintainers; [airrnot];
     mainProgram = "kdlfmt";
   };
 }

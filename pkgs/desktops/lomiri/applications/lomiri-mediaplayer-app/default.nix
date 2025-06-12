@@ -19,7 +19,6 @@
   wrapQtAppsHook,
   xvfb-run,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-mediaplayer-app";
   version = "1.1.1";
@@ -73,30 +72,28 @@ stdenv.mkDerivation (finalAttrs: {
     xvfb-run
   ];
 
-  checkInputs = [ lomiri-ui-toolkit ];
+  checkInputs = [lomiri-ui-toolkit];
 
   dontWrapGApps = true;
 
-  cmakeFlags = [ (lib.cmakeBool "ENABLE_AUTOPILOT" false) ];
+  cmakeFlags = [(lib.cmakeBool "ENABLE_AUTOPILOT" false)];
 
   # Only test segfaults in Nix sandbox, see LSS for details
   doCheck = false;
 
-  preCheck =
-    let
-      listToQtVar =
-        list: suffix: lib.strings.concatMapStringsSep ":" (drv: "${lib.getBin drv}/${suffix}") list;
-    in
-    ''
-      export QT_PLUGIN_PATH=${listToQtVar [ qtbase ] qtbase.qtPluginPrefix}
-      export QML2_IMPORT_PATH=${
-        listToQtVar [
-          lomiri-ui-toolkit
-          qtmultimedia
-          qtxmlpatterns
-        ] qtbase.qtQmlPrefix
-      }
-    '';
+  preCheck = let
+    listToQtVar = list: suffix: lib.strings.concatMapStringsSep ":" (drv: "${lib.getBin drv}/${suffix}") list;
+  in ''
+    export QT_PLUGIN_PATH=${listToQtVar [qtbase] qtbase.qtPluginPrefix}
+    export QML2_IMPORT_PATH=${
+      listToQtVar [
+        lomiri-ui-toolkit
+        qtmultimedia
+        qtxmlpatterns
+      ]
+      qtbase.qtQmlPrefix
+    }
+  '';
 
   postInstall = ''
     mkdir -p $out/share/{icons/hicolor/256x256/apps,lomiri-app-launch/{symbolic,splash}}
@@ -112,21 +109,23 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.vm = nixosTests.lomiri-mediaplayer-app;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
     description = "Media Player application for Ubuntu Touch devices";
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-mediaplayer-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-mediaplayer-app/-/blob/${
-      if (!builtins.isNull finalAttrs.src.tag) then finalAttrs.src.tag else finalAttrs.src.rev
+      if (!builtins.isNull finalAttrs.src.tag)
+      then finalAttrs.src.tag
+      else finalAttrs.src.rev
     }/ChangeLog";
     license = with lib.licenses; [
       gpl3Only
       cc-by-sa-30
     ];
     mainProgram = "lomiri-mediaplayer-app";
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
   };
 })

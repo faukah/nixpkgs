@@ -3,10 +3,10 @@
   gluten,
   lwt,
 }:
-
 buildDunePackage {
   pname = "gluten-lwt";
-  inherit (gluten)
+  inherit
+    (gluten)
     doCheck
     meta
     src

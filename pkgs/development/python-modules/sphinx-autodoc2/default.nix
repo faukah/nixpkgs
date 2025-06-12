@@ -3,19 +3,15 @@
   buildPythonPackage,
   fetchFromGitHub,
   pythonOlder,
-
   flit-core,
-
   astroid,
   typing-extensions,
   typer,
-
   pytestCheckHook,
   pytest-regressions,
   sphinx,
   defusedxml,
 }:
-
 buildPythonPackage rec {
   pname = "sphinx-autodoc2";
   version = "0.5.0";
@@ -30,15 +26,17 @@ buildPythonPackage rec {
     hash = "sha256-Wu079THK1mHVilD2Fx9dIzuIOOYOXpo/EMxVczNutCI=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [
-    astroid
-    typing-extensions
+  dependencies =
+    [
+      astroid
+      typing-extensions
 
-    # cli deps
-    typer
-  ] ++ typer.optional-dependencies.standard;
+      # cli deps
+      typer
+    ]
+    ++ typer.optional-dependencies.standard;
 
   preCheck = ''
     # make sphinx_path an alias of pathlib.Path, since sphinx_path was removed in Sphinx v7.2.0
@@ -59,7 +57,7 @@ buildPythonPackage rec {
     "test_sphinx_build_directives"
   ];
 
-  pythonImportsCheck = [ "autodoc2" ];
+  pythonImportsCheck = ["autodoc2"];
 
   meta = {
     changelog = "https://github.com/sphinx-extensions2/sphinx-autodoc2/releases/tag/v${version}";
@@ -67,6 +65,6 @@ buildPythonPackage rec {
     description = "Sphinx extension that automatically generates API documentation for your Python packages";
     license = lib.licenses.mit;
     mainProgram = "autodoc2";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

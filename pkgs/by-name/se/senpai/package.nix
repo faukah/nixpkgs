@@ -6,7 +6,6 @@
   scdoc,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "senpai";
   version = "0.4.1";
@@ -35,7 +34,7 @@ buildGoModule rec {
     installManPage doc/senpai.*
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Your everyday IRC student";
@@ -43,6 +42,6 @@ buildGoModule rec {
     homepage = "https://sr.ht/~delthas/senpai/";
     changelog = "https://git.sr.ht/~delthas/senpai/refs/v${version}";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ malte-v ];
+    maintainers = with lib.maintainers; [malte-v];
   };
 }

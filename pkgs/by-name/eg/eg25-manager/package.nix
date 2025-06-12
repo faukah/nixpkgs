@@ -14,7 +14,6 @@
   libusb1,
   modemmanager,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eg25-manager";
   version = "0.5.2";
@@ -31,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail '/bin/grep' '${lib.getExe gnugrep}'
   '';
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     glib # Contains gdbus-codegen program
@@ -58,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://gitlab.com/mobian1/eg25-manager/-/tags/${finalAttrs.version}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "eg25-manager";
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
     platforms = lib.platforms.linux;
   };
 })

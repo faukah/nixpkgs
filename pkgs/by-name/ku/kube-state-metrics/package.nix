@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kube-state-metrics";
   version = "2.15.0";
@@ -26,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/kubernetes/kube-state-metrics";
     description = "Add-on agent to generate and expose k8s cluster-level metrics";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.eskytthe ];
+    maintainers = [lib.maintainers.eskytthe];
     platforms = lib.platforms.unix;
   };
 }

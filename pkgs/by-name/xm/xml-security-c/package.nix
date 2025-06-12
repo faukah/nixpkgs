@@ -8,7 +8,6 @@
   xercesc,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "xml-security-c";
   version = "3.0.0";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "C++ Implementation of W3C security standards for XML";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.jagajaga ];
+    maintainers = [lib.maintainers.jagajaga];
   };
 })

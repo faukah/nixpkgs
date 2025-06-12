@@ -7,7 +7,6 @@
   attr,
   asciidoc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "disorderfs";
   version = "0.5.11";
@@ -27,13 +26,13 @@ stdenv.mkDerivation rec {
     attr
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Overlay FUSE filesystem that introduces non-determinism into filesystem metadata";
     mainProgram = "disorderfs";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

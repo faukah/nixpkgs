@@ -5,7 +5,6 @@
   bpp-core,
   bpp-seq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpp-phyl";
 
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "192zks6wyk903n06c2lbsscdhkjnfwms8p7jblsmk3lvjhdipb20";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     bpp-core
     bpp-seq
@@ -31,8 +30,10 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
-  meta = bpp-core.meta // {
-    homepage = "https://github.com/BioPP/bpp-phyl";
-    changelog = "https://github.com/BioPP/bpp-phyl/blob/master/ChangeLog";
-  };
+  meta =
+    bpp-core.meta
+    // {
+      homepage = "https://github.com/BioPP/bpp-phyl";
+      changelog = "https://github.com/BioPP/bpp-phyl/blob/master/ChangeLog";
+    };
 }

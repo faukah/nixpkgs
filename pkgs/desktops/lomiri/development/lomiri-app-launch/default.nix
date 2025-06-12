@@ -28,7 +28,6 @@
   python3Packages,
   sphinx,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "lomiri-app-launch";
   version = "0.1.12";
@@ -99,9 +98,10 @@ stdenv.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     dbus
     (python3.withPackages (
-      ps: with ps; [
-        python-dbusmock
-      ]
+      ps:
+        with ps; [
+          python-dbusmock
+        ]
     ))
   ];
 
@@ -141,7 +141,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    updateScript = gitUpdater { };
+    updateScript = gitUpdater {};
   };
 
   meta = {
@@ -149,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/core/lomiri-app-launch";
     changelog = "https://gitlab.com/ubports/development/core/lomiri-app-launch/-/blob/${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    teams = [ lib.teams.lomiri ];
+    teams = [lib.teams.lomiri];
     platforms = lib.platforms.linux;
     pkgConfigModules = [
       "lomiri-app-launch-0"

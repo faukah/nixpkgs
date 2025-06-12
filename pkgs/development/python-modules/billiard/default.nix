@@ -7,7 +7,6 @@
   psutil,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "billiard";
   version = "4.2.1";
@@ -22,14 +21,14 @@ buildPythonPackage rec {
     hash = "sha256-9LuAlIn6hNiZGvWuaaDQxx9g0aBVF6Z2krxEOrssqRs=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     psutil
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "billiard" ];
+  pythonImportsCheck = ["billiard"];
 
   disabledTests = [
     # time sensitive
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/celery/billiard";
     changelog = "https://github.com/celery/billiard/blob/v${version}/CHANGES.txt";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

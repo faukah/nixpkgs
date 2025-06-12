@@ -15,7 +15,6 @@
   websocket-client,
   sc2-headless,
 }:
-
 buildPythonPackage rec {
   pname = "pysc2";
   version = "4.0";
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/deepmind/pysc2";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

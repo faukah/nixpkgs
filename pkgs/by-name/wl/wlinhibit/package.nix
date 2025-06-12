@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     license = lib.licenses.mit;
     homepage = "https://github.com/0x5a4/wlinhibit";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ _0x5a4 ];
+    maintainers = with lib.maintainers; [_0x5a4];
   };
 }

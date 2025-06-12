@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule {
   pname = "gofu";
   version = "unstable-2023-04-25";
@@ -17,7 +16,7 @@ buildGoModule {
 
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postInstall = ''
     ln -s $out/bin/gofu $out/bin/rtree
@@ -28,6 +27,6 @@ buildGoModule {
     description = "Multibinary containing several utilities";
     homepage = "https://github.com/majewsky/gofu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -6,7 +6,6 @@
   imagemagick,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   pname = "matplotlib-sixel";
   version = "0.0.2";
@@ -17,21 +16,21 @@ buildPythonPackage rec {
     hash = "sha256-JXOb1/IacJV8bhDvF+OPs2Yg1tgRDOqwiAQfiSKTlew=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ matplotlib ];
+  dependencies = [matplotlib];
 
   postPatch = ''
     substituteInPlace sixel/sixel.py \
       --replace-fail 'Popen(["convert",' 'Popen(["${imagemagick}/bin/convert",'
   '';
 
-  pythonImportsCheck = [ "sixel" ];
+  pythonImportsCheck = ["sixel"];
 
   meta = with lib; {
     description = "Sixel graphics backend for matplotlib";
     homepage = "https://github.com/jonathf/matplotlib-sixel";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

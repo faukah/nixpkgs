@@ -15,7 +15,6 @@
   python3Packages,
   wrapGAppsHook4,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "binary";
   version = "5.3";
@@ -43,12 +42,12 @@ python3Packages.buildPythonApplication rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ libadwaita ];
+  buildInputs = [libadwaita];
 
-  dependencies = with python3Packages; [ pygobject3 ];
+  dependencies = with python3Packages; [pygobject3];
 
   dontWrapGApps = true;
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   # NOTE: `postCheck` is intentionally not used here, as the entire checkPhase
   # is skipped by `buildPythonApplication`
@@ -58,7 +57,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -66,7 +65,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/fizzyizzy05/binary";
     changelog = "https://github.com/fizzyizzy05/binary/releases/tag/${version}";
     license = lib.licenses.gpl3Plus;
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     mainProgram = "binary";
     platforms = lib.platforms.linux;
   };

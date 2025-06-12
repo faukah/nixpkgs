@@ -20,7 +20,6 @@
   lcms2,
   openexr,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencolorio";
   version = "2.4.2";
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
       --replace 'OCIO_ADD_TEST(Config, virtual_display_with_active_displays)' 'static void _skip_virtual_display_with_active_displays()'
   '';
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals pythonBindings [ python3Packages.python ];
+  nativeBuildInputs = [cmake] ++ lib.optionals pythonBindings [python3Packages.python];
   buildInputs =
     [
       expat
@@ -88,7 +87,7 @@ stdenv.mkDerivation rec {
     homepage = "https://opencolorio.org";
     description = "Color management framework for visual effects and animation";
     license = licenses.bsd3;
-    maintainers = [ maintainers.rytone ];
+    maintainers = [maintainers.rytone];
     platforms = platforms.unix;
   };
 }

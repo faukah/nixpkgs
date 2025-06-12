@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   name = "mihomo";
-  meta.maintainers = with pkgs.lib.maintainers; [ Guanran928 ];
+  meta.maintainers = with pkgs.lib.maintainers; [Guanran928];
 
   nodes.machine = {
-    environment.systemPackages = [ pkgs.curl ];
+    environment.systemPackages = [pkgs.curl];
 
     services.nginx = {
       enable = true;

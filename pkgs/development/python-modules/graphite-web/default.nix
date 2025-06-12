@@ -4,7 +4,6 @@
   pkgs,
   buildPythonPackage,
   fetchFromGitHub,
-
   # dependencies
   cairocffi,
   django,
@@ -17,18 +16,15 @@
   txamqp,
   urllib3,
   whisper,
-
   # tests
   mock,
   redis,
   rrdtool,
   writableTmpDirAsHomeHook,
   python,
-
   # passthru
   nixosTests,
 }:
-
 buildPythonPackage {
   pname = "graphite-web";
   version = "1.1.10-unstable-2025-02-24";
@@ -115,7 +111,7 @@ buildPythonPackage {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "graphite" ];
+  pythonImportsCheck = ["graphite"];
 
   passthru.tests = {
     inherit (nixosTests) graphite;

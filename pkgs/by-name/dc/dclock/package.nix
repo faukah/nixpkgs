@@ -4,7 +4,6 @@
   fetchFromGitHub,
   haskellPackages,
 }:
-
 haskellPackages.mkDerivation {
   pname = "dclock";
   version = "0.1.0";
@@ -38,6 +37,6 @@ haskellPackages.mkDerivation {
   description = "Decimal clock that breaks your day into a 1000 decimal minutes";
   homepage = "https://github.com/travgm/dclock";
   license = lib.licenses.mit;
-  maintainers = with lib.maintainers; [ travgm ];
+  maintainers = with lib.maintainers; [travgm];
   mainProgram = "dclock";
 }

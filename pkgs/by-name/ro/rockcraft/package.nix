@@ -7,7 +7,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rockcraft";
   version = "1.12.0";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication rec {
 
   pyproject = true;
 
-  build-system = with python3Packages; [ setuptools-scm ];
+  build-system = with python3Packages; [setuptools-scm];
 
   postPatch = ''
     substituteInPlace pyproject.toml --replace-fail "setuptools~=80.8.0" "setuptools"
@@ -39,8 +38,7 @@ python3Packages.buildPythonApplication rec {
     "craft-providers"
   ];
 
-  nativeCheckInputs =
-    with python3Packages;
+  nativeCheckInputs = with python3Packages;
     [
       craft-platforms
       pytest-check
@@ -50,9 +48,9 @@ python3Packages.buildPythonApplication rec {
       versionCheckHook
       writableTmpDirAsHomeHook
     ]
-    ++ [ dpkg ];
+    ++ [dpkg];
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
   disabledTests = [
     "test_project_all_platforms_invalid"
@@ -63,9 +61,9 @@ python3Packages.buildPythonApplication rec {
   ];
 
   versionCheckProgramArg = "--version";
-  versionCheckKeepEnvironment = [ "SSL_CERT_FILE" ];
+  versionCheckKeepEnvironment = ["SSL_CERT_FILE"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     mainProgram = "rockcraft";
@@ -73,7 +71,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/canonical/rockcraft";
     changelog = "https://github.com/canonical/rockcraft/releases/tag/${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ jnsgruk ];
+    maintainers = with lib.maintainers; [jnsgruk];
     platforms = lib.platforms.linux;
   };
 }

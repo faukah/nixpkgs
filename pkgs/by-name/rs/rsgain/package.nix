@@ -11,7 +11,6 @@
   fmt,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rsgain";
   version = "3.6";
@@ -43,6 +42,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/complexlogic/rsgain/blob/v${version}/CHANGELOG";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.felipeqq2 ];
+    maintainers = [lib.maintainers.felipeqq2];
   };
 }

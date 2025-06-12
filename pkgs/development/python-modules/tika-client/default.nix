@@ -6,7 +6,6 @@
   hatchling,
   httpx,
 }:
-
 buildPythonPackage rec {
   pname = "tika-client";
   version = "0.9.0";
@@ -21,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-lg6syUbEbPb70iBa4lw5fVN8cvfWY3bkG2jNGxxNLDo=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  dependencies = [ httpx ];
+  dependencies = [httpx];
 
-  pythonImportsCheck = [ "tika_client" ];
+  pythonImportsCheck = ["tika_client"];
 
   # Almost all of the tests (all except one in 0.1.0) fail since there
   # is no tika http API endpoint reachable. Since tika is not yet
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/stumpylog/tika-client";
     changelog = "https://github.com/stumpylog/tika-client/blob/${src.tag}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

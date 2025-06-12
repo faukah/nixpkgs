@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   aiosmtpd,
   django,
-
   # tests
   factory-boy,
   mock,
@@ -24,7 +21,6 @@
   vobject,
   werkzeug,
 }:
-
 buildPythonPackage rec {
   pname = "django-extensions";
   version = "4.1";
@@ -37,7 +33,7 @@ buildPythonPackage rec {
     hash = "sha256-WgO/bDe4anQCc1q2Gdq3W70yDqDgmsvn39Qf9ZNVXuE=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     aiosmtpd

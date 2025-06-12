@@ -9,7 +9,6 @@
   libtiff,
   boost,
 }:
-
 stdenv.mkDerivation rec {
   pname = "scantailor-advanced";
   version = "1.0.19";
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Interactive post-processing tool for scanned pages (vigri's fork)";
     mainProgram = "scantailor";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; gnu ++ linux ++ darwin;
   };
 }

@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "napalm-hp-procurve";
   version = "0.7.0";
@@ -30,13 +29,13 @@ buildPythonPackage rec {
       --replace "--cov=napalm_procurve --cov-report term-missing -vs --pylama" ""
   '';
 
-  nativeBuildInputs = [ pip ];
+  nativeBuildInputs = [pip];
 
-  buildInputs = [ napalm ];
+  buildInputs = [napalm];
 
-  propagatedBuildInputs = [ netmiko ];
+  propagatedBuildInputs = [netmiko];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError: Some methods vary.
@@ -48,12 +47,12 @@ buildPythonPackage rec {
     "test_get_facts"
   ];
 
-  pythonImportsCheck = [ "napalm_procurve" ];
+  pythonImportsCheck = ["napalm_procurve"];
 
   meta = with lib; {
     description = "HP ProCurve Driver for NAPALM automation frontend";
     homepage = "https://github.com/napalm-automation-community/napalm-hp-procurve";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

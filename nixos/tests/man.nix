@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   manImplementations = [
     "mandoc"
     "man-db"
@@ -32,22 +35,23 @@ let
             value = {
               enable = useImpl == impl;
             };
-          }) manImplementations
+          })
+          manImplementations
         );
     };
   };
 
-  machineSafe = builtins.replaceStrings [ "-" ] [ "_" ];
-in
-{
+  machineSafe = builtins.replaceStrings ["-"] ["_"];
+in {
   name = "man";
-  meta.maintainers = [ lib.maintainers.sternenseemann ];
+  meta.maintainers = [lib.maintainers.sternenseemann];
 
   nodes = lib.listToAttrs (
     builtins.map (i: {
       name = machineSafe i;
       value = makeConfig i;
-    }) manImplementations
+    })
+    manImplementations
   );
 
   testScript =
@@ -105,5 +109,6 @@ in
           matches = ${machine}.succeed(f"man -k {keyword}")
           if not match_man_k(page, section, matches):
             raise Exception(f"{page}({section}) missing in matches: {matches}")
-    '') machineNames;
+    '')
+    machineNames;
 }

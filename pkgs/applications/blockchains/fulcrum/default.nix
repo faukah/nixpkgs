@@ -10,7 +10,6 @@
   zeromq,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "fulcrum";
   version = "1.12.0.1";
@@ -36,12 +35,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   dontWrapQtApps = true; # no GUI
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast & nimble SPV server for Bitcoin Cash & Bitcoin BTC";
     homepage = "https://github.com/cculianu/Fulcrum";
-    maintainers = with lib.maintainers; [ prusnak ];
+    maintainers = with lib.maintainers; [prusnak];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
   };

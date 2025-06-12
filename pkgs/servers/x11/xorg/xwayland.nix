@@ -51,7 +51,6 @@
   defaultFontPath ? "",
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xwayland";
   version = "24.1.6";

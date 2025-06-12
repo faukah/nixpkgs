@@ -8,7 +8,6 @@
   pytestCheckHook,
   git,
 }:
-
 buildPythonPackage rec {
   pname = "icalendar-compatibility";
   version = "0.1.4";
@@ -32,14 +31,14 @@ buildPythonPackage rec {
     hatch-vcs
   ];
 
-  dependencies = [ icalendar ];
+  dependencies = [icalendar];
 
   nativeCheckInputs = [
     pytestCheckHook
     git
   ];
 
-  pythonImportsCheck = [ "icalendar_compatibility" ];
+  pythonImportsCheck = ["icalendar_compatibility"];
 
   # env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -47,7 +46,6 @@ buildPythonPackage rec {
     homepage = "https://icalendar-compatibility.readthedocs.io/en/latest/";
     changelog = "https://icalendar-compatibility.readthedocs.io/en/latest/changes.html";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ erictapen ];
+    maintainers = with lib.maintainers; [erictapen];
   };
-
 }

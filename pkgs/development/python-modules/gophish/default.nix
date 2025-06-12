@@ -15,7 +15,6 @@
   six,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "gophish";
   version = "0.5.1";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = true;
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     appdirs
@@ -47,7 +46,7 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  pythonImportsCheck = [ "gophish" ];
+  pythonImportsCheck = ["gophish"];
 
   # Module has no test
   doCheck = false;
@@ -57,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gophish/api-client-python";
     changelog = "https://github.com/gophish/api-client-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

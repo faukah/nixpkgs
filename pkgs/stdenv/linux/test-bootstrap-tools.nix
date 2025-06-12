@@ -6,7 +6,6 @@
   bootstrapTools,
   hello,
 }:
-
 builtins.derivation {
   name = "test-bootstrap-tools";
   inherit (stdenv.hostPlatform) system; # We cannot "cross test"
@@ -37,6 +36,7 @@ builtins.derivation {
     ''
     + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
       rtld=$(echo ${bootstrapTools}/lib/${builtins.unsafeDiscardStringContext # only basename
+        
         (builtins.baseNameOf binutils.dynamicLinker)})
       libc_includes=${bootstrapTools}/include-glibc
     ''

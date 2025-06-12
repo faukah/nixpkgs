@@ -6,7 +6,6 @@
   fetchFromGitHub,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "airthings-cloud";
   version = "0.2.0";
@@ -29,13 +28,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "airthings" ];
+  pythonImportsCheck = ["airthings"];
 
   meta = with lib; {
     description = "Python module for Airthings";
     homepage = "https://github.com/Danielhiversen/pyAirthings";
     changelog = "https://github.com/Danielhiversen/pyAirthings/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -12,7 +12,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ocsp-server";
   version = "0.4.1";
@@ -47,14 +46,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     description = "OCSP responder fetching certificate status from MySQL/MariaDB database";
     homepage = "https://github.com/DorianCoding/OCSP-server";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "ocsp-server";
   };
 })

@@ -3,7 +3,6 @@
   fetchCrate,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "moon-phases";
   version = "0.3.3";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line/WM bar tool to display the moon phase at a certain date";
     homepage = "https://github.com/mirrorwitch/moon-phases";
     license = licenses.acsl14;
-    maintainers = with maintainers; [ mirrorwitch ];
+    maintainers = with maintainers; [mirrorwitch];
     mainProgram = "moon-phases";
   };
 }

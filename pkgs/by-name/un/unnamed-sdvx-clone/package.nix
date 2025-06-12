@@ -87,7 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "usc-game-wrapped";
       comment = "Unnamed SDVX Clone";
       desktopName = "Unnamed SDVX Clone";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -104,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Game based on K-Shoot MANIA and Sound Voltex";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sako ];
+    maintainers = with lib.maintainers; [sako];
     platforms = lib.platforms.linux;
     mainProgram = "usc-game-wrapped";
   };

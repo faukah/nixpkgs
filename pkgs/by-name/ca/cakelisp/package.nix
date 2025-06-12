@@ -5,7 +5,6 @@
   gcc,
   unstableGitUpdater,
 }:
-
 stdenv.mkDerivation {
   pname = "cakelisp";
   # using unstable as it's the only version that builds against gcc-13
@@ -17,7 +16,7 @@ stdenv.mkDerivation {
     hash = "sha256-wFyqAbHrBMFKqMYlBjS6flYHPn3Rxtaiqb1rRmlZrB4=";
   };
 
-  buildInputs = [ gcc ];
+  buildInputs = [gcc];
 
   postPatch =
     ''
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     homepage = "https://macoy.me/code/macoy/cakelisp";
     license = licenses.gpl3Plus;
     platforms = platforms.darwin ++ platforms.linux;
-    maintainers = [ maintainers.sbond75 ];
+    maintainers = [maintainers.sbond75];
     # never built on aarch64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
   };

@@ -3,7 +3,6 @@
   fetchurl,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "rusage";
   version = "1.0.0";
@@ -19,6 +18,6 @@ buildDunePackage rec {
     description = "Bindings to the GETRUSAGE(2) syscall";
     homepage = "https://github.com/CraigFe/ocaml-rusage";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

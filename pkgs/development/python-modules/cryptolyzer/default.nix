@@ -17,7 +17,6 @@
   setuptools-scm,
   urllib3,
 }:
-
 buildPythonPackage rec {
   pname = "cryptolyzer";
   version = "1.0.0";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-rRiRaXONLMNirKsK+QZWMSvaGeSLrHN9BpM8dhxoaxY=";
   };
 
-  pythonRemoveDeps = [ "bs4" ];
+  pythonRemoveDeps = ["bs4"];
 
   build-system = [
     setuptools
@@ -54,13 +53,13 @@ buildPythonPackage rec {
   # Tests require networking
   doCheck = false;
 
-  pythonImportsCheck = [ "cryptolyzer" ];
+  pythonImportsCheck = ["cryptolyzer"];
 
   meta = with lib; {
     description = "Cryptographic protocol analyzer";
     homepage = "https://gitlab.com/coroner/cryptolyzer";
     changelog = "https://gitlab.com/coroner/cryptolyzer/-/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ kranzes ];
+    maintainers = with maintainers; [kranzes];
   };
 }

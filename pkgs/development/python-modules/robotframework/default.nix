@@ -7,7 +7,6 @@
   jsonschema,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "robotframework";
   version = "7.3";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-Hj1ZIWH0GSLJiO2AEQnGkVGbnw0h1zEorE/J1al3NWM=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  nativeCheckInputs = [ jsonschema ];
+  nativeCheckInputs = [jsonschema];
 
   checkPhase = ''
     ${python.interpreter} utest/run.py
@@ -35,6 +34,6 @@ buildPythonPackage rec {
     description = "Generic test automation framework";
     homepage = "https://robotframework.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ bjornfor ];
+    maintainers = with lib.maintainers; [bjornfor];
   };
 }

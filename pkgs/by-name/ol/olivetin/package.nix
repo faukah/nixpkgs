@@ -13,11 +13,8 @@
   versionCheckHook,
   nixosTests,
 }:
-
 buildGoModule (
-  finalAttrs:
-
-  let
+  finalAttrs: let
     gen = stdenvNoCC.mkDerivation {
       pname = "olivetin-gen";
       inherit (finalAttrs) version src;
@@ -77,9 +74,7 @@ buildGoModule (
         runHook postInstall
       '';
     };
-  in
-
-  {
+  in {
     pname = "olivetin";
     version = "2025.6.6";
 
@@ -102,7 +97,7 @@ buildGoModule (
 
     __darwinAllowLocalNetworking = true;
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
     preBuild = ''
       ln -s ${gen} gen
@@ -116,14 +111,14 @@ buildGoModule (
       installManPage ../var/manpage/OliveTin.1.gz
     '';
 
-    nativeInstallCheckInputs = [ versionCheckHook ];
+    nativeInstallCheckInputs = [versionCheckHook];
     versionCheckProgram = "${placeholder "out"}/bin/OliveTin";
     versionCheckProgramArg = "-version";
     doInstallCheck = true;
 
     passthru = {
       inherit gen webui;
-      tests = { inherit (nixosTests) olivetin; };
+      tests = {inherit (nixosTests) olivetin;};
       updateScript = ./update.sh;
     };
 
@@ -133,7 +128,7 @@ buildGoModule (
       downloadPage = "https://github.com/OliveTin/OliveTin";
       changelog = "https://github.com/OliveTin/OliveTin/releases/tag/${finalAttrs.version}";
       license = lib.licenses.agpl3Only;
-      maintainers = with lib.maintainers; [ defelo ];
+      maintainers = with lib.maintainers; [defelo];
       mainProgram = "OliveTin";
     };
   }

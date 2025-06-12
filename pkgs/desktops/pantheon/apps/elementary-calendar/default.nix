@@ -21,7 +21,6 @@
   libical,
   libportal-gtk3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "elementary-calendar";
   version = "8.0.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -65,7 +64,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/calendar";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
     mainProgram = "io.elementary.calendar";
   };
 }

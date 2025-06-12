@@ -8,7 +8,6 @@
   python3,
   tesseract5,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "invoice2data";
   version = "0.4.4";
@@ -66,6 +65,6 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "invoice2data";
     homepage = "https://github.com/invoice-x/invoice2data";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

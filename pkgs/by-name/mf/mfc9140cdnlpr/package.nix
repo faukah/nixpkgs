@@ -11,7 +11,6 @@
   gnused,
   pkgsi686Linux,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mfc9140cdnlpr";
   version = "1.1.2-1";
@@ -39,10 +38,10 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/inf/setupPrintcapij \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+      ]
+    }
 
     substituteInPlace $dir/lpd/filtermfc9140cdn \
       --replace "BR_CFG_PATH=" "BR_CFG_PATH=\"$dir/\" #" \
@@ -50,32 +49,32 @@ stdenv.mkDerivation rec {
 
     wrapProgram $dir/lpd/filtermfc9140cdn \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          file
-          ghostscript
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        coreutils
+        file
+        ghostscript
+        gnused
+      ]
+    }
 
     substituteInPlace $dir/lpd/psconvertij2 \
       --replace '`which gs`' "${ghostscript}/bin/gs"
 
     wrapProgram $dir/lpd/psconvertij2 \
       --prefix PATH : ${
-        lib.makeBinPath [
-          gnused
-          gawk
-        ]
-      }
+      lib.makeBinPath [
+        gnused
+        gawk
+      ]
+    }
   '';
 
   meta = with lib; {
     description = "Brother MFC-9140CDN LPR printer driver";
     homepage = "http://www.brother.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = [
       "i686-linux"
       "x86_64-linux"

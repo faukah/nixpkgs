@@ -3,23 +3,19 @@
   buildPythonPackage,
   fetchFromGitHub,
   nix-update-script,
-
   # build-system
   pdm-backend,
-
   # dependencies
   langchain-core,
   tokenizers,
   httpx,
   httpx-sse,
   pydantic,
-
   # tests
   langchain-tests,
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "langchain-mistralai";
   version = "0.2.10";
@@ -34,7 +30,7 @@ buildPythonPackage rec {
 
   sourceRoot = "${src.name}/libs/partners/mistralai";
 
-  build-system = [ pdm-backend ];
+  build-system = [pdm-backend];
 
   dependencies = [
     langchain-core
@@ -56,9 +52,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests/unit_tests" ];
+  pytestFlagsArray = ["tests/unit_tests"];
 
-  pythonImportsCheck = [ "langchain_mistralai" ];
+  pythonImportsCheck = ["langchain_mistralai"];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

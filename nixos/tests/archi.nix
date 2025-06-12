@@ -1,17 +1,14 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "archi";
-  meta.maintainers = with lib.maintainers; [ paumr ];
+  meta.maintainers = with lib.maintainers; [paumr];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      imports = [
-        ./common/x11.nix
-      ];
+  nodes.machine = {pkgs, ...}: {
+    imports = [
+      ./common/x11.nix
+    ];
 
-      environment.systemPackages = with pkgs; [ archi ];
-    };
+    environment.systemPackages = with pkgs; [archi];
+  };
 
   enableOCR = true;
 

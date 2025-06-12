@@ -6,7 +6,6 @@
   jre,
   gradle,
 }:
-
 stdenv.mkDerivation rec {
   name = "crossfire-gridarta";
   version = "2025-04";
@@ -48,6 +47,6 @@ stdenv.mkDerivation rec {
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

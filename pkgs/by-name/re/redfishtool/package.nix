@@ -2,32 +2,30 @@
   lib,
   fetchPypi,
   python3,
-}:
-
-let
+}: let
   pname = "redfishtool";
   version = "1.1.8";
 in
-python3.pkgs.buildPythonApplication {
-  inherit pname version;
-  format = "setuptools";
-
-  src = fetchPypi {
+  python3.pkgs.buildPythonApplication {
     inherit pname version;
-    hash = "sha256-X/G6osOHCBidKZG/Y2nmHadifDacJhjBIc7WYrUCPn8=";
-  };
+    format = "setuptools";
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    python-dateutil
-  ];
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-X/G6osOHCBidKZG/Y2nmHadifDacJhjBIc7WYrUCPn8=";
+    };
 
-  meta = {
-    description = "Python34 program that implements a command line tool for accessing the Redfish API";
-    homepage = "https://github.com/DMTF/Redfishtool";
-    changelog = "https://github.com/DMTF/Redfishtool/blob/${version}/CHANGELOG.md";
-    license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ jfvillablanca ];
-    mainProgram = "redfishtool";
-  };
-}
+    propagatedBuildInputs = with python3.pkgs; [
+      requests
+      python-dateutil
+    ];
+
+    meta = {
+      description = "Python34 program that implements a command line tool for accessing the Redfish API";
+      homepage = "https://github.com/DMTF/Redfishtool";
+      changelog = "https://github.com/DMTF/Redfishtool/blob/${version}/CHANGELOG.md";
+      license = lib.licenses.bsd3;
+      maintainers = with lib.maintainers; [jfvillablanca];
+      mainProgram = "redfishtool";
+    };
+  }

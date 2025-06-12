@@ -1,16 +1,12 @@
-{ lib, ... }:
-
-{
+{lib, ...}: {
   name = "jirafeau";
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
-      services.jirafeau = {
-        enable = true;
-      };
+  nodes.machine = {pkgs, ...}: {
+    services.jirafeau = {
+      enable = true;
     };
+  };
 
   testScript = ''
     machine.start()

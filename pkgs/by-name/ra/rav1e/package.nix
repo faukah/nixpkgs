@@ -10,7 +10,6 @@
   testers,
   rav1e,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "rav1e";
   version = "0.7.1";
@@ -53,8 +52,8 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = rav1e; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = rav1e;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -68,7 +67,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/xiph/rav1e";
     changelog = "https://github.com/xiph/rav1e/releases/tag/v${version}";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ getchoo ];
+    maintainers = with lib.maintainers; [getchoo];
     mainProgram = "rav1e";
   };
 }

@@ -12,7 +12,6 @@
   xz,
   zstd,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libzim";
   version = "9.3.0";

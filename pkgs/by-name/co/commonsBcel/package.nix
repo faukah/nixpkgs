@@ -3,7 +3,6 @@
   stdenv,
   fetchurl,
 }:
-
 stdenv.mkDerivation rec {
   version = "6.10.0";
   pname = "commons-bcel";
@@ -22,8 +21,8 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-bcel/";
     description = "Gives users a convenient way to analyze, create, and manipulate (binary) Java class files";
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
-    maintainers = [ ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
+    maintainers = [];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

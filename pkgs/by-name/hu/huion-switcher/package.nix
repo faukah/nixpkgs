@@ -8,7 +8,6 @@
   installShellFiles,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "huion-switcher";
   version = "0.5.0";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-+cMvBVtJPbsJhEmOh3SEXZrVwp9Uuvx6QmUCcpenS20=";
   };
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
   nativeBuildInputs = [
     pkg-config
     installShellFiles
@@ -44,9 +43,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doInstallCheck = true;
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Utility to switch Huion devices into raw tablet mode";
@@ -55,6 +54,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
     mainProgram = "huion-switcher";
-    maintainers = with lib.maintainers; [ dramforever ];
+    maintainers = with lib.maintainers; [dramforever];
   };
 })

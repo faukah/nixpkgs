@@ -1,11 +1,7 @@
 {
   lib,
   writeScript,
-}:
-
-{ version }:
-
-let
+}: {version}: let
   prefix = "hsa-amd-aqlprofile";
   extVersion = lib.strings.concatStrings (
     lib.strings.intersperse "0" (lib.versions.splitVersion version)
@@ -57,5 +53,4 @@ let
       update-source-version rocmPackages_6.${prefix}-bin "$version" "" "$apt/$repoVersion/$pool$deb" --ignore-same-hash
     fi
   '';
-in
-[ updateScript ]
+in [updateScript]

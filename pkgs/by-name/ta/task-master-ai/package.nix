@@ -19,7 +19,7 @@ buildNpmPackage (finalAttrs: {
 
   dontNpmBuild = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Node.js agentic AI workflow orchestrator";
@@ -27,7 +27,7 @@ buildNpmPackage (finalAttrs: {
     changelog = "https://github.com/eyaltoledano/claude-task-master/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = licenses.mit;
     mainProgram = "task-master-ai";
-    maintainers = [ maintainers.repparw ];
+    maintainers = [maintainers.repparw];
     platforms = platforms.all;
   };
 })

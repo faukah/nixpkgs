@@ -1,7 +1,6 @@
 # This program used to come with xorg releases, but now I could only find it
 # at https://www.x.org/releases/individual/.
 # That is why this expression is not inside pkgs.xorg
-
 {
   lib,
   stdenv,
@@ -10,7 +9,6 @@
   xorg,
   pkg-config,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xfontsel";
   version = "1.0.6";
@@ -51,7 +49,7 @@ stdenv.mkDerivation rec {
       smlnj
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

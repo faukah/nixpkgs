@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "huniq";
   version = "2.7.0";
@@ -21,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "huniq";
     homepage = "https://github.com/koraa/huniq";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

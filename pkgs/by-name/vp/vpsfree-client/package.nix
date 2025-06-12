@@ -3,11 +3,10 @@
   bundlerApp,
   bundlerUpdateScript,
 }:
-
 bundlerApp {
   pname = "vpsfree-client";
   gemdir = ./.;
-  exes = [ "vpsfreectl" ];
+  exes = ["vpsfreectl"];
 
   passthru.updateScript = bundlerUpdateScript "vpsfree-client";
 

@@ -9,7 +9,6 @@
   python3,
   mctc-lib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mstore";
   version = "0.3.0";
@@ -29,7 +28,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ mctc-lib ];
+  buildInputs = [mctc-lib];
 
   outputs = [
     "out"
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     homepage = "https://github.com/grimme-lab/mstore";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

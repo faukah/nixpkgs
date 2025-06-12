@@ -6,7 +6,6 @@
   httpx,
   pydicom,
 }:
-
 buildPythonPackage rec {
   pname = "pyorthanc";
   version = "1.20.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-AWYu/JVL1Hs/aEZXgSRc/y4rN22VRrgn6pINDTogPPs=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   pythonRelaxDeps = [
     "pydicom"
@@ -33,13 +32,13 @@ buildPythonPackage rec {
 
   doCheck = false; # requires orthanc server (not in Nixpkgs)
 
-  pythonImportsCheck = [ "pyorthanc" ];
+  pythonImportsCheck = ["pyorthanc"];
 
   meta = {
     description = "Python library that wraps the Orthanc REST API";
     homepage = "https://github.com/gacou54/pyorthanc";
     changelog = "https://github.com/gacou54/pyorthanc/releases/tag/${src.tag}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
   };
 }

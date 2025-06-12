@@ -3,23 +3,19 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   portpicker,
   pyserial,
   pyyaml,
   timeout-decorator,
   typing-extensions,
-
   # tests
   procps,
   pytestCheckHook,
   pytz,
 }:
-
 buildPythonPackage rec {
   pname = "mobly";
   version = "1.12.4";
@@ -32,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-77wZK5dqxXUkOgWE7NBpGJBbbtYYxRCJwPbtwLIX09I=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     portpicker
@@ -62,6 +58,6 @@ buildPythonPackage rec {
     description = "Automation framework for special end-to-end test cases";
     homepage = "https://github.com/google/mobly";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

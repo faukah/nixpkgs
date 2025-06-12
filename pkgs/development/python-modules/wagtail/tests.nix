@@ -14,7 +14,6 @@
   wagtail,
   wagtail-factories,
 }:
-
 buildPythonPackage {
   pname = "wagtail-tests";
   inherit (wagtail) src version;

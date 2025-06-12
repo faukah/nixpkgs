@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "dorkscout";
   version = "1.0";
@@ -22,6 +21,6 @@ buildGoModule rec {
     mainProgram = "dorkscout";
     homepage = "https://github.com/R4yGM/dorkscout";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

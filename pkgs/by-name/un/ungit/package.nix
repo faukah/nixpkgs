@@ -3,7 +3,6 @@
   buildNpmPackage,
   fetchFromGitHub,
 }:
-
 buildNpmPackage rec {
   pname = "ungit";
   version = "1.5.28";
@@ -28,6 +27,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/FredrikNoren/ungit";
     license = lib.licenses.mit;
     mainProgram = "ungit";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -6,7 +6,6 @@
   pam,
   gnupg,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pam_gnupg";
   version = "0.4";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
     gnupg
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Unlock GnuPG keys on login";
@@ -37,6 +36,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/cruegge/pam-gnupg";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

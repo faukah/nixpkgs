@@ -1,7 +1,6 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "fanout";
-  meta.maintainers = with lib.maintainers; [ therishidesai ];
+  meta.maintainers = with lib.maintainers; [therishidesai];
 
   nodes.machine = {
     services.fanout = {

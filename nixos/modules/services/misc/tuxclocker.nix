@@ -3,15 +3,14 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.programs.tuxclocker;
-in
-{
+in {
   imports = [
-    (lib.mkRenamedOptionModule
-      [ "programs" "tuxclocker" "enableAMD" ]
-      [ "hardware" "amdgpu" "overdrive" "enable" ]
+    (
+      lib.mkRenamedOptionModule
+      ["programs" "tuxclocker" "enableAMD"]
+      ["hardware" "amdgpu" "overdrive" "enable"]
     )
   ];
 
@@ -22,7 +21,7 @@ in
 
     enabledNVIDIADevices = lib.mkOption {
       type = lib.types.listOf lib.types.int;
-      default = [ ];
+      default = [];
       example = [
         0
         1
@@ -44,10 +43,12 @@ in
     };
   };
 
-  config =
-    let
-      package = if cfg.useUnfree then pkgs.tuxclocker else pkgs.tuxclocker-without-unfree;
-    in
+  config = let
+    package =
+      if cfg.useUnfree
+      then pkgs.tuxclocker
+      else pkgs.tuxclocker-without-unfree;
+  in
     lib.mkIf cfg.enable {
       environment.systemPackages = [
         package
@@ -58,21 +59,20 @@ in
       ];
 
       # MSR is used for some features
-      boot.kernelModules = [ "msr" ];
+      boot.kernelModules = ["msr"];
 
       # https://download.nvidia.com/XFree86/Linux-x86_64/430.14/README/xconfigoptions.html#Coolbits
-      services.xserver.config =
-        let
-          configSection = (
-            i: ''
-              Section "Device"
-                Driver "nvidia"
-                Option "Coolbits" "31"
-                Identifier "Device-nvidia[${toString i}]"
-              EndSection
-            ''
-          );
-        in
+      services.xserver.config = let
+        configSection = (
+          i: ''
+            Section "Device"
+              Driver "nvidia"
+              Option "Coolbits" "31"
+              Identifier "Device-nvidia[${toString i}]"
+            EndSection
+          ''
+        );
+      in
         lib.concatStrings (map configSection cfg.enabledNVIDIADevices);
     };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.stripydog.com/kplex/";
     changelog = "https://www.stripydog.com/kplex/changes.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mabster314 ];
+    maintainers = with maintainers; [mabster314];
     mainProgram = "kplex";
   };
 })

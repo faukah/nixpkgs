@@ -5,7 +5,6 @@
   jre_headless,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "riot-redis";
   version = "2.19.0";
@@ -15,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-q2ZqFVdjg5HSH4kiwoC1W+a8VgHNxBgNeMaw5n97isc=";
   };
 
-  buildInputs = [ jre_headless ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [jre_headless];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Get data in and out of Redis";
     mainProgram = "riot-redis";
     license = licenses.asl20;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ wesnel ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [wesnel];
   };
 }

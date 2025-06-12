@@ -3,7 +3,6 @@
   rustPlatform,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "highlight-assertions";
   version = "0.1.7";
@@ -26,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "highlight-assertions";
     homepage = "https://github.com/thehamsta/highlight-assertions";
     license = licenses.asl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

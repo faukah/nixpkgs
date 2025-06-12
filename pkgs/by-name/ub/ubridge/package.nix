@@ -7,7 +7,6 @@
   testers,
   ubridge,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ubridge";
   version = "0.9.19";
@@ -25,7 +24,7 @@ stdenv.mkDerivation rec {
       --replace-fail "setcap" "#setcap"
   '';
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
       package = ubridge;
       command = "ubridge -v";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

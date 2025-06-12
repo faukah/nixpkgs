@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nixosTests,
 }:
-
 buildGoModule {
   pname = "fritzbox-exporter";
   version = "unstable-2021-04-13";
@@ -18,9 +17,9 @@ buildGoModule {
 
   vendorHash = "sha256-VhQAEVxRJjIzFP67LUKhfGxdUbTQB7UCK8/JKwpoy0w=";
 
-  subPackages = [ "cmd/exporter" ];
+  subPackages = ["cmd/exporter"];
 
-  passthru.tests = { inherit (nixosTests.prometheus-exporters) fritzbox; };
+  passthru.tests = {inherit (nixosTests.prometheus-exporters) fritzbox;};
 
   meta = with lib; {
     description = "Prometheus Exporter for FRITZ!Box (TR64 and UPnP)";

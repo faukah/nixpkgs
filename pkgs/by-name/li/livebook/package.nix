@@ -15,9 +15,9 @@ beamPackages.mixRelease rec {
 
   inherit elixir;
 
-  buildInputs = [ erlang ];
+  buildInputs = [erlang];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "livebook-dev";
@@ -35,16 +35,16 @@ beamPackages.mixRelease rec {
   postInstall = ''
     wrapProgram $out/bin/livebook \
       --prefix PATH : ${
-        lib.makeBinPath [
-          elixir
-          erlang
-        ]
-      } \
+      lib.makeBinPath [
+        elixir
+        erlang
+      ]
+    } \
       --set MIX_REBAR3 ${rebar3}/bin/rebar3
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
       livebook-service = nixosTests.livebook-service;
     };

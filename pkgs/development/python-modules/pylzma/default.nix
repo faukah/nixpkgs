@@ -4,7 +4,6 @@
   fetchPypi,
   fetchpatch,
 }:
-
 buildPythonPackage rec {
   pname = "pylzma";
   version = "0.5.0";
@@ -26,12 +25,12 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "pylzma" ];
+  pythonImportsCheck = ["pylzma"];
 
   meta = with lib; {
     homepage = "https://www.joachim-bauch.de/projects/pylzma/";
     description = "Platform independent python bindings for the LZMA compression library";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

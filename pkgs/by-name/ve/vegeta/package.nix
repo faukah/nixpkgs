@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildGoModule,
 }:
-
 buildGoModule rec {
   pname = "vegeta";
   version = "12.12.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-0Ho1HYckFHaWEE6Ti3fIL/t0hBj5MnKOd4fOZx+LYiE=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags =
     (lib.mapAttrsToList (n: v: "-X main.${n}=${v}") {
@@ -42,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/tsenart/vegeta/";
     changelog = "https://github.com/tsenart/vegeta/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
     mainProgram = "vegeta";
   };
 }

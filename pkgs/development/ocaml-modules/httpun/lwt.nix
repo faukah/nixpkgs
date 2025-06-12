@@ -5,7 +5,6 @@
   gluten,
   gluten-lwt,
 }:
-
 buildDunePackage {
   pname = "httpun-lwt";
 
@@ -18,7 +17,9 @@ buildDunePackage {
     lwt
   ];
 
-  meta = httpun.meta // {
-    description = "Lwt support for httpun";
-  };
+  meta =
+    httpun.meta
+    // {
+      description = "Lwt support for httpun";
+    };
 }

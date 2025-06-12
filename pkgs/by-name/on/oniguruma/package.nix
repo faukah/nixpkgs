@@ -4,7 +4,6 @@
   fetchurl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "oniguruma";
   version = "6.9.10";
@@ -22,15 +21,15 @@ stdenv.mkDerivation rec {
   ];
   outputBin = "dev"; # onig-config
 
-  nativeBuildInputs = [ autoreconfHook ];
-  configureFlags = [ "--enable-posix-api=yes" ];
+  nativeBuildInputs = [autoreconfHook];
+  configureFlags = ["--enable-posix-api=yes"];
 
   meta = with lib; {
     homepage = "https://github.com/kkos/oniguruma";
     description = "Regular expressions library";
     mainProgram = "onig-config";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     platforms = platforms.unix;
   };
 }

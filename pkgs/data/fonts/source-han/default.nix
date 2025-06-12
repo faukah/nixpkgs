@@ -3,21 +3,17 @@
   stdenvNoCC,
   fetchurl,
   unzip,
-}:
-
-let
-  makeSuperOTC =
-    {
-      family,
-      description,
-      rev,
-      hash,
-      zip ? "",
-      prefix ? "",
-    }:
-    let
-      Family = lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
-    in
+}: let
+  makeSuperOTC = {
+    family,
+    description,
+    rev,
+    hash,
+    zip ? "",
+    prefix ? "",
+  }: let
+    Family = lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
+  in
     stdenvNoCC.mkDerivation rec {
       pname = "source-han-${family}";
       version = lib.removeSuffix "R" rev;
@@ -27,7 +23,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = lib.optionals (zip == ".zip") [ unzip ];
+      nativeBuildInputs = lib.optionals (zip == ".zip") [unzip];
 
       unpackPhase =
         lib.optionalString (zip == "") ''
@@ -56,16 +52,14 @@ let
       };
     };
 
-  makeVariable =
-    {
-      family,
-      version,
-      hash,
-      format,
-    }:
-    let
-      Family = lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
-    in
+  makeVariable = {
+    family,
+    version,
+    hash,
+    format,
+  }: let
+    Family = lib.toUpper (lib.substring 0 1 family) + lib.substring 1 (lib.stringLength family) family;
+  in
     fetchurl {
       pname = "source-han-${family}-vf-${format}";
       inherit version hash;
@@ -84,8 +78,7 @@ let
         ];
       };
     };
-in
-{
+in {
   sans = makeSuperOTC {
     family = "sans";
     description = "sans-serif";

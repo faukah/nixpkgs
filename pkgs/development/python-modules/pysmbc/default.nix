@@ -6,7 +6,6 @@
   pkg-config,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pysmbc";
   version = "1.0.25.1";
@@ -19,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-IvFxXfglif2cxCU/6rOQtO8Lq/FPZFE82NB7N4mWMiY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ samba ];
+  buildInputs = [samba];
 
   # Tests would require a local SMB server
   doCheck = false;
 
-  pythonImportsCheck = [ "smbc" ];
+  pythonImportsCheck = ["smbc"];
 
   meta = with lib; {
     description = "libsmbclient binding for Python";
     homepage = "https://github.com/hamano/pysmbc";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [fab];
   };
 }

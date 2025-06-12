@@ -17,7 +17,6 @@
   re,
   lru,
 }:
-
 buildDunePackage rec {
   pname = "index";
   version = "1.6.2";
@@ -61,6 +60,6 @@ buildDunePackage rec {
     description = "Platform-agnostic multi-level index";
     homepage = "https://github.com/mirage/index";
     license = licenses.mit;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     concatStringsSep
     mkEnableOption
     mkIf
@@ -14,12 +13,11 @@ let
     types
     ;
   cfg = config.services.openarena;
-in
-{
+in {
   options = {
     services.openarena = {
       enable = mkEnableOption "OpenArena game server";
-      package = lib.mkPackageOption pkgs "openarena" { };
+      package = lib.mkPackageOption pkgs "openarena" {};
 
       openPorts = mkOption {
         type = types.bool;
@@ -29,7 +27,7 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = "Extra flags to pass to {command}`oa_ded`";
         example = [
           "+set dedicated 2"
@@ -43,13 +41,13 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall = mkIf cfg.openPorts {
-      allowedUDPPorts = [ 27960 ];
+      allowedUDPPorts = [27960];
     };
 
     systemd.services.openarena = {
       description = "OpenArena";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         DynamicUser = true;

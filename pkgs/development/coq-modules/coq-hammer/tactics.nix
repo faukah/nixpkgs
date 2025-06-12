@@ -4,13 +4,10 @@
   coq,
   stdlib,
   version ? null,
-}:
-
-let
+}: let
   owner = "lukaszcz";
   repo = "coqhammer";
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = "8.20";
@@ -32,7 +29,8 @@ let
         case = "8.16";
         out = "1.3.2+8.16";
       }
-    ] null;
+    ]
+    null;
 
   release = {
     "1.3.2+8.20".sha256 = "sha256-RuX2aInSjwebs/aEOoisNxqcIPqDA2kWehN9tFYqOx4=";
@@ -43,21 +41,11 @@ let
   };
 
   releaseRev = v: "refs/tags/v${v}";
-
 in
+  mkCoqDerivation {
+    inherit version;
+    pname = "coq-hammer-tactics";
 
-mkCoqDerivation {
-  inherit version;
-  pname = "coq-hammer-tactics";
-
-  inherit
-    owner
-    repo
-    defaultVersion
-    release
-    releaseRev
-    ;
-  passthru = {
     inherit
       owner
       repo
@@ -65,19 +53,27 @@ mkCoqDerivation {
       release
       releaseRev
       ;
-  };
+    passthru = {
+      inherit
+        owner
+        repo
+        defaultVersion
+        release
+        releaseRev
+        ;
+    };
 
-  propagatedBuildInputs = [ stdlib ];
+    propagatedBuildInputs = [stdlib];
 
-  mlPlugin = true;
+    mlPlugin = true;
 
-  buildFlags = [ "tactics" ];
-  installTargets = [ "install-tactics" ];
+    buildFlags = ["tactics"];
+    installTargets = ["install-tactics"];
 
-  meta = {
-    description = "Reconstruction tactics for the hammer for Coq";
-    homepage = "https://github.com/lukaszcz/coqhammer";
-    license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
-  };
-}
+    meta = {
+      description = "Reconstruction tactics for the hammer for Coq";
+      homepage = "https://github.com/lukaszcz/coqhammer";
+      license = lib.licenses.lgpl21;
+      maintainers = [lib.maintainers.vbgl];
+    };
+  }

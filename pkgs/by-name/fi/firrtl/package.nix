@@ -6,7 +6,6 @@
   coursier,
   makeWrapper,
 }:
-
 stdenv.mkDerivation rec {
   pname = "firrtl";
   version = "1.5.3";
@@ -15,7 +14,7 @@ stdenv.mkDerivation rec {
   deps = stdenv.mkDerivation {
     pname = "${pname}-deps";
     inherit version;
-    nativeBuildInputs = [ coursier ];
+    nativeBuildInputs = [coursier];
     buildCommand = ''
       export COURSIER_CACHE=$(pwd)
       cs fetch edu.berkeley.cs:${pname}_${scalaVersion}:${version} > deps
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     setJavaClassPath
   ];
-  buildInputs = [ deps ];
+  buildInputs = [deps];
 
   dontUnpack = true;
 
@@ -66,6 +65,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.chisel-lang.org/firrtl/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

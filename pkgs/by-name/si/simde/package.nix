@@ -5,7 +5,6 @@
   meson,
   ninja,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simde";
   version = "0.8.2";
@@ -25,11 +24,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://simd-everywhere.github.io";
     description = "Implementations of SIMD instruction sets for systems which don't natively support them";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ whiteley ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [whiteley];
     platforms = flatten (
-      with platforms;
-      [
+      with platforms; [
         arm
         armv7
         aarch64

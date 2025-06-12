@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   name = "roon-server";
   cfg = config.services.roon-server;
-in
-{
+in {
   options = {
     services.roon-server = {
       enable = lib.mkEnableOption "Roon Server";
-      package = lib.mkPackageOption pkgs "roon-server" { };
+      package = lib.mkPackageOption pkgs "roon-server" {};
       openFirewall = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -39,9 +37,9 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.services.roon-server = {
-      after = [ "network.target" ];
+      after = ["network.target"];
       description = "Roon Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment.ROON_DATAROOT = "/var/lib/${name}";
       environment.ROON_ID_DIR = "/var/lib/${name}";
@@ -70,7 +68,7 @@ in
           to = 30010;
         }
       ];
-      allowedUDPPorts = [ 9003 ];
+      allowedUDPPorts = [9003];
       extraCommands = lib.optionalString (!config.networking.nftables.enable) ''
         ## IGMP / Broadcast ##
         iptables -A INPUT -s 224.0.0.0/4 -j ACCEPT
@@ -86,12 +84,12 @@ in
       '';
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
     users.users.${cfg.user} = lib.optionalAttrs (cfg.user == "roon-server") {
       isSystemUser = true;
       description = "Roon Server user";
       group = cfg.group;
-      extraGroups = [ "audio" ];
+      extraGroups = ["audio"];
     };
   };
 }

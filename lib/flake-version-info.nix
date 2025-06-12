@@ -6,16 +6,17 @@
 # Instead, consider using a public interface, such as this flake here
 # in this directory, `lib/`, or use the nixpkgs flake, which applies
 # this logic for you in its `lib` output attribute.
-
-self: # from the flake
-
-finalLib: prevLib: # lib overlay
-
+self:
+# from the flake
+finalLib: prevLib:
+# lib overlay
 {
-  trivial = prevLib.trivial // {
-    versionSuffix = ".${
-      finalLib.substring 0 8 (self.lastModifiedDate or "19700101")
-    }.${self.shortRev or "dirty"}";
-    revisionWithDefault = default: self.rev or default;
-  };
+  trivial =
+    prevLib.trivial
+    // {
+      versionSuffix = ".${
+        finalLib.substring 0 8 (self.lastModifiedDate or "19700101")
+      }.${self.shortRev or "dirty"}";
+      revisionWithDefault = default: self.rev or default;
+    };
 }

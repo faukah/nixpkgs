@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "goctl";
   version = "1.8.3";
@@ -18,7 +17,7 @@ buildGoModule rec {
   vendorHash = "sha256-tOIlfYiAI9m7oTZyPDCzTXg9XTwBb6EOVLzDfZnzL4E=";
 
   modRoot = "tools/goctl";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doCheck = true;
 
@@ -36,7 +35,7 @@ buildGoModule rec {
     '';
     homepage = "https://go-zero.dev";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ cococolanosugar ];
+    maintainers = with lib.maintainers; [cococolanosugar];
     mainProgram = "goctl";
   };
 }

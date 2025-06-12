@@ -4,7 +4,6 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "typtea";
   version = "0.1.4";
@@ -34,7 +33,7 @@ buildGoModule rec {
     description = "Terminal-based typing speed test with multi-language support";
     homepage = "https://github.com/ashish0kumar/typtea";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ashish0kumar ];
+    maintainers = with lib.maintainers; [ashish0kumar];
     mainProgram = "typtea";
     platforms = lib.platforms.unix;
   };

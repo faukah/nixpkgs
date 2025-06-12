@@ -7,7 +7,6 @@
   python3,
   parallel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "last";
   version = "1639";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Genomic sequence aligner";
     homepage = "https://gitlab.com/mcfrith/last";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

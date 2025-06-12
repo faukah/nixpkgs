@@ -5,7 +5,6 @@
   mkHyprlandPlugin,
   nix-update-script,
 }:
-
 mkHyprlandPlugin hyprland {
   pluginName = "hyprspace";
   version = "0-unstable-2025-05-09";
@@ -28,13 +27,13 @@ mkHyprlandPlugin hyprland {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
 
   meta = {
     homepage = "https://github.com/KZDKM/Hyprspace";
     description = "Workspace overview plugin for Hyprland";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ donovanglover ];
+    maintainers = with lib.maintainers; [donovanglover];
   };
 }

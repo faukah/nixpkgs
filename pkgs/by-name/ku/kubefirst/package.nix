@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "kubefirst";
   version = "2.8.4";
@@ -31,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/konstructio/kubefirst/";
     changelog = "https://github.com/konstructio/kubefirst/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ qjoly ];
+    maintainers = with lib.maintainers; [qjoly];
   };
 }

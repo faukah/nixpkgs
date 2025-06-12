@@ -5,7 +5,6 @@
   pandoc,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "coursera-dl";
   version = "0.11.5";
@@ -35,9 +34,9 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
-  nativeBuildInputs = [ pandoc ];
+  nativeBuildInputs = [pandoc];
 
   pythonRelaxDeps = true;
 
@@ -69,7 +68,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/coursera-dl/coursera-dl";
     changelog = "https://github.com/coursera-dl/coursera-dl/blob/${src.rev}/CHANGELOG.md";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ alexfmpe ];
+    maintainers = with maintainers; [alexfmpe];
     platforms = platforms.darwin ++ platforms.linux;
   };
 }

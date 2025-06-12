@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aiopurpleair";
   version = "2023.12.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-2Ngo2pvzwcgQvpyW5Q97VQN/tGSVhVJwRj0DMaPn+O4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -49,13 +48,13 @@ buildPythonPackage rec {
     "examples/"
   ];
 
-  pythonImportsCheck = [ "aiopurpleair" ];
+  pythonImportsCheck = ["aiopurpleair"];
 
   meta = with lib; {
     description = "Python library for interacting with the PurpleAir API";
     homepage = "https://github.com/bachya/aiopurpleair";
     changelog = "https://github.com/bachya/aiopurpleair/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

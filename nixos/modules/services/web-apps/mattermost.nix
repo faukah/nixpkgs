@@ -3,10 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-
-let
-  inherit (lib.strings)
+}: let
+  inherit
+    (lib.strings)
     hasInfix
     hasSuffix
     escapeURL
@@ -25,7 +24,8 @@ let
 
   inherit (lib.options) mkOption mkPackageOption mkEnableOption;
 
-  inherit (lib.modules)
+  inherit
+    (lib.modules)
     mkRenamedOptionModule
     mkMerge
     mkIf
@@ -56,77 +56,112 @@ let
   tempDir = "${mutableDataDir}/tmp";
 
   # Creates a database URI.
-  mkDatabaseUri =
-    {
-      scheme,
-      user ? null,
-      password ? null,
-      escapeUserAndPassword ? true,
-      host ? null,
-      escapeHost ? true,
-      port ? null,
-      path ? null,
-      query ? { },
-    }:
-    let
-      nullToEmpty = val: if val == null then "" else toString val;
+  mkDatabaseUri = {
+    scheme,
+    user ? null,
+    password ? null,
+    escapeUserAndPassword ? true,
+    host ? null,
+    escapeHost ? true,
+    port ? null,
+    path ? null,
+    query ? {},
+  }: let
+    nullToEmpty = val:
+      if val == null
+      then ""
+      else toString val;
 
-      # Converts a list of URI attrs to a query string.
-      toQuery = mapAttrsToList (
-        name: value: if value == null then null else (escapeURL name) + "=" + (escapeURL (toString value))
-      );
+    # Converts a list of URI attrs to a query string.
+    toQuery = mapAttrsToList (
+      name: value:
+        if value == null
+        then null
+        else (escapeURL name) + "=" + (escapeURL (toString value))
+    );
 
-      schemePart = if scheme == null then "" else "${escapeURL scheme}://";
-      userPart =
-        let
-          realUser = if escapeUserAndPassword then escapeURL user else user;
-          realPassword = if escapeUserAndPassword then escapeURL password else password;
-        in
-        if user == null && password == null then
-          ""
-        else if user != null && password != null then
-          "${realUser}:${realPassword}"
-        else if user != null then
-          realUser
-        else
-          throw "Either user or username and password must be provided";
-      hostPart =
-        let
-          realHost = if escapeHost then escapeURL (nullToEmpty host) else nullToEmpty host;
-        in
-        if userPart == "" then realHost else "@" + realHost;
-      portPart = if port == null then "" else ":" + (toString port);
-      pathPart = if path == null then "" else "/" + path;
-      queryPart = if query == { } then "" else "?" + concatStringsSep "&" (toQuery query);
+    schemePart =
+      if scheme == null
+      then ""
+      else "${escapeURL scheme}://";
+    userPart = let
+      realUser =
+        if escapeUserAndPassword
+        then escapeURL user
+        else user;
+      realPassword =
+        if escapeUserAndPassword
+        then escapeURL password
+        else password;
     in
+      if user == null && password == null
+      then ""
+      else if user != null && password != null
+      then "${realUser}:${realPassword}"
+      else if user != null
+      then realUser
+      else throw "Either user or username and password must be provided";
+    hostPart = let
+      realHost =
+        if escapeHost
+        then escapeURL (nullToEmpty host)
+        else nullToEmpty host;
+    in
+      if userPart == ""
+      then realHost
+      else "@" + realHost;
+    portPart =
+      if port == null
+      then ""
+      else ":" + (toString port);
+    pathPart =
+      if path == null
+      then ""
+      else "/" + path;
+    queryPart =
+      if query == {}
+      then ""
+      else "?" + concatStringsSep "&" (toQuery query);
+  in
     schemePart + userPart + hostPart + portPart + pathPart + queryPart;
 
-  database =
-    let
-      hostIsPath = hasInfix "/" cfg.database.host;
-    in
-    if cfg.database.driver == "postgres" then
-      if cfg.database.peerAuth then
+  database = let
+    hostIsPath = hasInfix "/" cfg.database.host;
+  in
+    if cfg.database.driver == "postgres"
+    then
+      if cfg.database.peerAuth
+      then
         mkDatabaseUri {
           scheme = cfg.database.driver;
           inherit (cfg.database) user;
           path = escapeURL cfg.database.name;
-          query = {
-            host = cfg.database.socketPath;
-          } // cfg.database.extraConnectionOptions;
+          query =
+            {
+              host = cfg.database.socketPath;
+            }
+            // cfg.database.extraConnectionOptions;
         }
       else
         mkDatabaseUri {
           scheme = cfg.database.driver;
           inherit (cfg.database) user password;
-          host = if hostIsPath then null else cfg.database.host;
-          port = if hostIsPath then null else cfg.database.port;
+          host =
+            if hostIsPath
+            then null
+            else cfg.database.host;
+          port =
+            if hostIsPath
+            then null
+            else cfg.database.port;
           path = escapeURL cfg.database.name;
           query =
-            optionalAttrs hostIsPath { host = cfg.database.host; } // cfg.database.extraConnectionOptions;
+            optionalAttrs hostIsPath {host = cfg.database.host;} // cfg.database.extraConnectionOptions;
         }
-    else if cfg.database.driver == "mysql" then
-      if cfg.database.peerAuth then
+    else if cfg.database.driver == "mysql"
+    then
+      if cfg.database.peerAuth
+      then
         mkDatabaseUri {
           scheme = null;
           inherit (cfg.database) user;
@@ -142,43 +177,43 @@ let
           inherit (cfg.database) user password;
           escapeUserAndPassword = false;
           host =
-            if hostIsPath then
-              "unix(${cfg.database.host})"
-            else
-              "tcp(${cfg.database.host}:${toString cfg.database.port})";
+            if hostIsPath
+            then "unix(${cfg.database.host})"
+            else "tcp(${cfg.database.host}:${toString cfg.database.port})";
           escapeHost = false;
           path = escapeURL cfg.database.name;
           query = cfg.database.extraConnectionOptions;
         }
-    else
-      throw "Invalid database driver: ${cfg.database.driver}";
+    else throw "Invalid database driver: ${cfg.database.driver}";
 
-  mattermostPluginDerivations = map (
-    plugin:
-    pkgs.stdenvNoCC.mkDerivation {
-      name = "${cfg.package.name}-plugin";
-      installPhase = ''
-        runHook preInstall
-        mkdir -p $out/share
-        ln -sf ${plugin} $out/share/plugin.tar.gz
-        runHook postInstall
-      '';
-      dontUnpack = true;
-      dontPatch = true;
-      dontConfigure = true;
-      dontBuild = true;
-      preferLocalBuild = true;
-    }
-  ) cfg.plugins;
+  mattermostPluginDerivations =
+    map (
+      plugin:
+        pkgs.stdenvNoCC.mkDerivation {
+          name = "${cfg.package.name}-plugin";
+          installPhase = ''
+            runHook preInstall
+            mkdir -p $out/share
+            ln -sf ${plugin} $out/share/plugin.tar.gz
+            runHook postInstall
+          '';
+          dontUnpack = true;
+          dontPatch = true;
+          dontConfigure = true;
+          dontBuild = true;
+          preferLocalBuild = true;
+        }
+    )
+    cfg.plugins;
 
   mattermostPlugins =
-    if mattermostPluginDerivations == [ ] then
-      null
+    if mattermostPluginDerivations == []
+    then null
     else
       pkgs.stdenvNoCC.mkDerivation {
         name = "${cfg.package.name}-plugins";
-        nativeBuildInputs = [ pkgs.autoPatchelfHook ] ++ mattermostPluginDerivations;
-        buildInputs = [ cfg.package ];
+        nativeBuildInputs = [pkgs.autoPatchelfHook] ++ mattermostPluginDerivations;
+        buildInputs = [cfg.package];
         installPhase = ''
           runHook preInstall
           mkdir -p $out
@@ -203,73 +238,77 @@ let
         preferLocalBuild = true;
       };
 
-  mattermostConfWithoutPlugins = recursiveUpdate {
-    ServiceSettings = {
-      SiteURL = cfg.siteUrl;
-      ListenAddress = "${cfg.host}:${toString cfg.port}";
-      LocalModeSocketLocation = cfg.socket.path;
-      EnableLocalMode = cfg.socket.enable;
-      EnableSecurityFixAlert = cfg.telemetry.enableSecurityAlerts;
-    };
-    TeamSettings.SiteName = cfg.siteName;
-    SqlSettings.DriverName = cfg.database.driver;
-    SqlSettings.DataSource =
-      if cfg.database.fromEnvironment then
-        null
-      else
-        warnIf (!cfg.database.peerAuth && cfg.database.password != null) ''
-          Database password is set in Mattermost config! This password will end up in the Nix store.
+  mattermostConfWithoutPlugins =
+    recursiveUpdate {
+      ServiceSettings = {
+        SiteURL = cfg.siteUrl;
+        ListenAddress = "${cfg.host}:${toString cfg.port}";
+        LocalModeSocketLocation = cfg.socket.path;
+        EnableLocalMode = cfg.socket.enable;
+        EnableSecurityFixAlert = cfg.telemetry.enableSecurityAlerts;
+      };
+      TeamSettings.SiteName = cfg.siteName;
+      SqlSettings.DriverName = cfg.database.driver;
+      SqlSettings.DataSource =
+        if cfg.database.fromEnvironment
+        then null
+        else
+          warnIf (!cfg.database.peerAuth && cfg.database.password != null) ''
+            Database password is set in Mattermost config! This password will end up in the Nix store.
 
-          You may be able to simply set the following, if the database is on the same host
-          and peer authentication is enabled:
+            You may be able to simply set the following, if the database is on the same host
+            and peer authentication is enabled:
 
-          services.mattermost.database.peerAuth = true;
+            services.mattermost.database.peerAuth = true;
 
-          Note that this is the default if you set system.stateVersion to 25.05 or later
-          and the database host is localhost.
+            Note that this is the default if you set system.stateVersion to 25.05 or later
+            and the database host is localhost.
 
-          Alternatively, you can write the following to ${
-            if cfg.environmentFile == null then "your environment file" else cfg.environmentFile
-          }:
+            Alternatively, you can write the following to ${
+              if cfg.environmentFile == null
+              then "your environment file"
+              else cfg.environmentFile
+            }:
 
-          MM_SQLSETTINGS_DATASOURCE=${database}
+            MM_SQLSETTINGS_DATASOURCE=${database}
 
-          Then set the following options:
-          services.mattermost.environmentFile = "<your environment file>";
-          services.mattermost.database.fromEnvironment = true;
-        '' database;
+            Then set the following options:
+            services.mattermost.environmentFile = "<your environment file>";
+            services.mattermost.database.fromEnvironment = true;
+          ''
+          database;
 
-    # Note that the plugin tarball directory is not configurable, and is expected to be in FileSettings.Directory/plugins.
-    FileSettings.Directory = mutableDataDir;
-    PluginSettings.Directory = "${pluginUnpackDir}/server";
-    PluginSettings.ClientDirectory = "${pluginUnpackDir}/client";
+      # Note that the plugin tarball directory is not configurable, and is expected to be in FileSettings.Directory/plugins.
+      FileSettings.Directory = mutableDataDir;
+      PluginSettings.Directory = "${pluginUnpackDir}/server";
+      PluginSettings.ClientDirectory = "${pluginUnpackDir}/client";
 
-    LogSettings = {
-      FileLocation = cfg.logDir;
+      LogSettings = {
+        FileLocation = cfg.logDir;
 
-      # Reaches out to Mattermost's servers for telemetry; disable it by default.
-      # https://docs.mattermost.com/configure/environment-configuration-settings.html#enable-diagnostics-and-error-reporting
-      EnableDiagnostics = cfg.telemetry.enableDiagnostics;
-    };
-  } cfg.settings;
+        # Reaches out to Mattermost's servers for telemetry; disable it by default.
+        # https://docs.mattermost.com/configure/environment-configuration-settings.html#enable-diagnostics-and-error-reporting
+        EnableDiagnostics = cfg.telemetry.enableDiagnostics;
+      };
+    }
+    cfg.settings;
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
-    if mattermostPlugins == null then
-      { }
-    else
-      {
-        PluginSettings = {
-          Enable = true;
-        };
-      }
+    if mattermostPlugins == null
+    then {}
+    else {
+      PluginSettings = {
+        Enable = true;
+      };
+    }
   );
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   finalConfig = format.generate "mattermost-config.json" mattermostConf;
-in
-{
+in {
   imports = [
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -281,7 +320,8 @@ in
         "host"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -294,7 +334,8 @@ in
         "create"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -307,7 +348,8 @@ in
         "password"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -320,7 +362,8 @@ in
         "user"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -333,7 +376,8 @@ in
         "name"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -345,7 +389,8 @@ in
         "settings"
       ]
     )
-    (mkRenamedOptionModule
+    (
+      mkRenamedOptionModule
       [
         "services"
         "mattermost"
@@ -363,7 +408,7 @@ in
     services.mattermost = {
       enable = mkEnableOption "Mattermost chat server";
 
-      package = mkPackageOption pkgs "mattermost" { };
+      package = mkPackageOption pkgs "mattermost" {};
 
       siteUrl = mkOption {
         type = types.str;
@@ -422,10 +467,9 @@ in
       logDir = mkOption {
         type = types.path;
         default =
-          if versionAtLeast config.system.stateVersion "25.05" then
-            "/var/log/mattermost"
-          else
-            "${cfg.dataDir}/logs";
+          if versionAtLeast config.system.stateVersion "25.05"
+          then "/var/log/mattermost"
+          else "${cfg.dataDir}/logs";
         defaultText = ''
           if versionAtLeast config.system.stateVersion "25.05" then "/var/log/mattermost"
           else "''${config.services.mattermost.dataDir}/logs";
@@ -438,10 +482,9 @@ in
       configDir = mkOption {
         type = types.path;
         default =
-          if versionAtLeast config.system.stateVersion "25.05" then
-            "/etc/mattermost"
-          else
-            "${cfg.dataDir}/config";
+          if versionAtLeast config.system.stateVersion "25.05"
+          then "/etc/mattermost"
+          else "${cfg.dataDir}/config";
         defaultText = ''
           if versionAtLeast config.system.stateVersion "25.05" then
             "/etc/mattermost"
@@ -485,7 +528,7 @@ in
 
       plugins = mkOption {
         type = with types; listOf (either path package);
-        default = [ ];
+        default = [];
         example = "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
         description = ''
           Plugins to add to the configuration. Overrides any installed if non-null.
@@ -529,7 +572,7 @@ in
 
       environment = mkOption {
         type = with types; attrsOf (either int str);
-        default = { };
+        default = {};
         description = ''
           Extra environment variables to export to the Mattermost process
           from the systemd unit configuration.
@@ -591,7 +634,9 @@ in
         socketPath = mkOption {
           type = types.path;
           default =
-            if cfg.database.driver == "postgres" then "/run/postgresql" else "/run/mysqld/mysqld.sock";
+            if cfg.database.driver == "postgres"
+            then "/run/postgresql"
+            else "/run/mysqld/mysqld.sock";
           defaultText = ''
             if config.services.mattermost.database.driver == "postgres" then "/run/postgresql" else "/run/mysqld/mysqld.sock";
           '';
@@ -629,7 +674,10 @@ in
 
         port = mkOption {
           type = types.port;
-          default = if cfg.database.driver == "postgres" then 5432 else 3306;
+          default =
+            if cfg.database.driver == "postgres"
+            then 5432
+            else 3306;
           defaultText = ''
             if config.services.mattermost.database.type == "postgres" then 5432 else 3306
           '';
@@ -660,19 +708,18 @@ in
         extraConnectionOptions = mkOption {
           type = with types; attrsOf (either int str);
           default =
-            if cfg.database.driver == "postgres" then
-              {
-                sslmode = "disable";
-                connect_timeout = 60;
-              }
-            else if cfg.database.driver == "mysql" then
-              {
-                charset = "utf8mb4,utf8";
-                writeTimeout = "60s";
-                readTimeout = "60s";
-              }
-            else
-              throw "Invalid database driver ${cfg.database.driver}";
+            if cfg.database.driver == "postgres"
+            then {
+              sslmode = "disable";
+              connect_timeout = 60;
+            }
+            else if cfg.database.driver == "mysql"
+            then {
+              charset = "utf8mb4,utf8";
+              writeTimeout = "60s";
+              readTimeout = "60s";
+            }
+            else throw "Invalid database driver ${cfg.database.driver}";
           defaultText = ''
             if config.mattermost.database.driver == "postgres" then
               {
@@ -712,7 +759,7 @@ in
 
       settings = mkOption {
         inherit (format) type;
-        default = { };
+        default = {};
         description = ''
           Additional configuration options as Nix attribute set in config.json schema.
         '';
@@ -720,10 +767,10 @@ in
 
       matterircd = {
         enable = mkEnableOption "Mattermost IRC bridge";
-        package = mkPackageOption pkgs "matterircd" { };
+        package = mkPackageOption pkgs "matterircd" {};
         parameters = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "-mmserver chat.example.com"
             "-bind [::]:6667"
@@ -745,7 +792,7 @@ in
           uid = mkIf (cfg.user == "mattermost") config.ids.uids.mattermost;
           home = cfg.dataDir;
           isSystemUser = true;
-          packages = [ cfg.package ];
+          packages = [cfg.package];
         };
       };
 
@@ -761,12 +808,12 @@ in
         ensureUsers = singleton {
           name =
             throwIf
-              (cfg.database.peerAuth && (cfg.database.user != cfg.user || cfg.database.name != cfg.database.user))
-              ''
-                Mattermost database peer auth is enabled and the user, database user, or database name mismatch.
-                Peer authentication will not work.
-              ''
-              cfg.database.user;
+            (cfg.database.peerAuth && (cfg.database.user != cfg.user || cfg.database.name != cfg.database.user))
+            ''
+              Mattermost database peer auth is enabled and the user, database user, or database name mismatch.
+              Peer authentication will not work.
+            ''
+            cfg.database.user;
           ensureDBOwnership = true;
         };
       };
@@ -825,23 +872,24 @@ in
           "L+ ${cfg.dataDir}/client - - - - ${cfg.package}/client"
         ]
         ++ (
-          if cfg.pluginsBundle == null then
+          if cfg.pluginsBundle == null
+          then
             # Create the plugin tarball directory to allow plugin uploads.
             [
               "d= ${pluginTarballDir} 0750 ${cfg.user} ${cfg.group} - -"
             ]
           else
             # Symlink the plugin tarball directory, removing anything existing, since it's managed by Nix.
-            [ "L+ ${pluginTarballDir} - - - - ${cfg.pluginsBundle}" ]
+            ["L+ ${pluginTarballDir} - - - - ${cfg.pluginsBundle}"]
         );
 
       systemd.services.mattermost = rec {
         description = "Mattermost chat service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = mkMerge [
-          [ "network.target" ]
-          (mkIf (cfg.database.driver == "postgres" && cfg.database.create) [ "postgresql.service" ])
-          (mkIf (cfg.database.driver == "mysql" && cfg.database.create) [ "mysql.service" ])
+          ["network.target"]
+          (mkIf (cfg.database.driver == "postgres" && cfg.database.create) ["postgresql.service"])
+          (mkIf (cfg.database.driver == "mysql" && cfg.database.create) ["mysql.service"])
         ];
         requires = after;
 
@@ -946,8 +994,8 @@ in
         ];
 
         unitConfig.JoinsNamespaceOf = mkMerge [
-          (mkIf (cfg.database.driver == "postgres" && cfg.database.create) [ "postgresql.service" ])
-          (mkIf (cfg.database.driver == "mysql" && cfg.database.create) [ "mysql.service" ])
+          (mkIf (cfg.database.driver == "postgres" && cfg.database.create) ["postgresql.service"])
+          (mkIf (cfg.database.driver == "mysql" && cfg.database.create) ["mysql.service"])
         ];
       };
 
@@ -972,7 +1020,7 @@ in
     (mkIf cfg.matterircd.enable {
       systemd.services.matterircd = {
         description = "Mattermost IRC bridge service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";
@@ -986,5 +1034,5 @@ in
     })
   ];
 
-  meta.maintainers = with lib.maintainers; [ numinit ];
+  meta.maintainers = with lib.maintainers; [numinit];
 }

@@ -7,7 +7,6 @@
   autoreconfHook,
   openssl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cxxtools";
   version = "3.0";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Comprehensive C++ class library for Unix and Linux";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.juliendehos ];
+    maintainers = [lib.maintainers.juliendehos];
   };
 }

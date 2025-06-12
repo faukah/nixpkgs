@@ -10,7 +10,6 @@
   nix-update-script,
   runCommand,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "prettierd";
   version = "0.26.1";
@@ -40,19 +39,19 @@ stdenv.mkDerivation (finalAttrs: {
   # fixes "Error: spawn node ENOENT" if node isn't available on the user's path
   postInstall = ''
     wrapProgram $out/bin/prettierd \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]}
+      --prefix PATH : ${lib.makeBinPath [nodejs]}
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
 
     tests = lib.optionalAttrs (!stdenv.hostPlatform.isDarwin) {
       format =
-        runCommand "prettierd-format-file-test" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-          ''
-            export HOME=$(mktemp -d)
-            prettierd ${finalAttrs.src}/package.json < ${finalAttrs.src}/package.json > $out
-          '';
+        runCommand "prettierd-format-file-test" {nativeBuildInputs = [finalAttrs.finalPackage];}
+        ''
+          export HOME=$(mktemp -d)
+          prettierd ${finalAttrs.src}/package.json < ${finalAttrs.src}/package.json > $out
+        '';
     };
   };
 

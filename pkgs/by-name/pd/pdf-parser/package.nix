@@ -4,7 +4,6 @@
   fetchzip,
   writeScript,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "pdf-parser";
   version = "0.7.10";
@@ -12,7 +11,7 @@ python3Packages.buildPythonApplication rec {
 
   src = fetchzip {
     url = "https://didierstevens.com/files/software/pdf-parser_V${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }.zip";
     hash = "sha256-RhgEGue3RcALjLXKOnnXyx/0subXHNuXfDg8hbO3VDg=";
   };
@@ -57,7 +56,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://blog.didierstevens.com/programs/pdf-tools/";
     license = lib.licenses.publicDomain;
-    maintainers = [ lib.maintainers.lightdiscord ];
+    maintainers = [lib.maintainers.lightdiscord];
     platforms = lib.platforms.all;
     mainProgram = "pdf-parser.py";
   };

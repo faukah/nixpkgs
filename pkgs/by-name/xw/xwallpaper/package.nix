@@ -13,7 +13,6 @@
   libpng,
   libXpm,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xwallpaper";
   version = "0.7.6";
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/stoeckmann/xwallpaper";
     description = "Utility for setting wallpapers in X";
     license = licenses.isc;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "xwallpaper";
   };

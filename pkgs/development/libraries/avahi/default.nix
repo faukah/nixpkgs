@@ -23,7 +23,6 @@
   python ? null,
   withPython ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "avahi${lib.optionalString withLibdnssdCompat "-compat"}";
   version = "0.8";
@@ -103,7 +102,7 @@ stdenv.mkDerivation rec {
       name = "CVE-2023-38469.patch";
       url = "https://github.com/avahi/avahi/commit/61b9874ff91dd20a12483db07df29fe7f35db77f.patch";
       sha256 = "sha256-qR7scfQqhRGxg2n4HQsxVxCLkXbwZi+PlYxrOSEPsL0=";
-      excludes = [ ".github/workflows/smoke-tests.sh" ];
+      excludes = [".github/workflows/smoke-tests.sh"];
     })
     # https://github.com/avahi/avahi/pull/515 merged Nov 3
     (fetchpatch {
@@ -116,7 +115,7 @@ stdenv.mkDerivation rec {
       name = "reject-non-utf-8-service-names.patch";
       url = "https://github.com/avahi/avahi/commit/2b6d3e99579e3b6e9619708fad8ad8e07ada8218.patch";
       sha256 = "sha256-lwSA3eEQgH0g51r0i9/HJMJPRXrhQnTIEDxcYqUuLdI=";
-      excludes = [ "fuzz/fuzz-domain.c" ];
+      excludes = ["fuzz/fuzz-domain.c"];
     })
     # https://github.com/avahi/avahi/pull/523 merged Nov 12
     (fetchpatch {
@@ -167,8 +166,7 @@ stdenv.mkDerivation rec {
     ];
 
   propagatedBuildInputs = lib.optionals withPython (
-    with python.pkgs;
-    [
+    with python.pkgs; [
       python
       pygobject3
       dbus-python
@@ -187,7 +185,10 @@ stdenv.mkDerivation rec {
       "--localstatedir=/var"
       "--runstatedir=/run"
       "--sysconfdir=/etc"
-      "--with-distro=${with stdenv.hostPlatform; if isBSD then parsed.kernel.name else "none"}"
+      "--with-distro=${with stdenv.hostPlatform;
+        if isBSD
+        then parsed.kernel.name
+        else "none"}"
       # A systemd unit is provided by the avahi-daemon NixOS module
       "--with-systemdsystemunitdir=no"
     ]

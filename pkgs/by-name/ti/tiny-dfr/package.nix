@@ -11,7 +11,6 @@
   pango,
   udev,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "tiny-dfr";
   version = "0.3.2";
@@ -26,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-9UlH2W8wNzdZJxIgOafGylliS2RjaBlpirxSWHJ/SIQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     cairo
     gdk-pixbuf
@@ -56,7 +55,7 @@ rustPlatform.buildRustPackage rec {
       licenses.mit
     ];
     mainProgram = "tiny-dfr";
-    maintainers = [ maintainers.qyliss ];
+    maintainers = [maintainers.qyliss];
     platforms = platforms.linux;
   };
 }

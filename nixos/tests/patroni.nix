@@ -1,105 +1,101 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
-
-  let
+  {
+    pkgs,
+    lib,
+    ...
+  }: let
     nodesIps = [
       "192.168.1.1"
       "192.168.1.2"
       "192.168.1.3"
     ];
 
-    createNode =
-      index:
-      { pkgs, ... }:
-      let
-        ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
-      in
-      {
-        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-          {
-            address = ip;
-            prefixLength = 16;
-          }
-        ];
+    createNode = index: {pkgs, ...}: let
+      ip = builtins.elemAt nodesIps index; # since we already use IPs to identify servers
+    in {
+      networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+        {
+          address = ip;
+          prefixLength = 16;
+        }
+      ];
 
-        networking.firewall.allowedTCPPorts = [
-          5432
-          8008
-          5010
-        ];
+      networking.firewall.allowedTCPPorts = [
+        5432
+        8008
+        5010
+      ];
 
-        environment.systemPackages = [ pkgs.jq ];
+      environment.systemPackages = [pkgs.jq];
 
-        services.patroni = {
+      services.patroni = {
+        enable = true;
 
-          enable = true;
+        postgresqlPackage = pkgs.postgresql_14.withPackages (p: [p.pg_safeupdate]);
 
-          postgresqlPackage = pkgs.postgresql_14.withPackages (p: [ p.pg_safeupdate ]);
+        scope = "cluster1";
+        name = "node${toString (index + 1)}";
+        nodeIp = ip;
+        otherNodesIps = builtins.filter (h: h != ip) nodesIps;
+        softwareWatchdog = true;
 
-          scope = "cluster1";
-          name = "node${toString (index + 1)}";
-          nodeIp = ip;
-          otherNodesIps = builtins.filter (h: h != ip) nodesIps;
-          softwareWatchdog = true;
-
-          settings = {
-            bootstrap = {
-              dcs = {
-                ttl = 30;
-                loop_wait = 10;
-                retry_timeout = 10;
-                maximum_lag_on_failover = 1048576;
-              };
-              initdb = [
-                { encoding = "UTF8"; }
-                "data-checksums"
-              ];
+        settings = {
+          bootstrap = {
+            dcs = {
+              ttl = 30;
+              loop_wait = 10;
+              retry_timeout = 10;
+              maximum_lag_on_failover = 1048576;
             };
-
-            postgresql = {
-              use_pg_rewind = true;
-              use_slots = true;
-              authentication = {
-                replication = {
-                  username = "replicator";
-                };
-                superuser = {
-                  username = "postgres";
-                };
-                rewind = {
-                  username = "rewind";
-                };
-              };
-              parameters = {
-                listen_addresses = "${ip}";
-                wal_level = "replica";
-                hot_standby_feedback = "on";
-                unix_socket_directories = "/tmp";
-              };
-              pg_hba = [
-                "host replication replicator 192.168.1.0/24 md5"
-                # Unsafe, do not use for anything other than tests
-                "host all all 0.0.0.0/0 trust"
-              ];
-            };
-
-            etcd3 = {
-              host = "192.168.1.4:2379";
-            };
+            initdb = [
+              {encoding = "UTF8";}
+              "data-checksums"
+            ];
           };
 
-          environmentFiles = {
-            PATRONI_REPLICATION_PASSWORD = pkgs.writeText "replication-password" "postgres";
-            PATRONI_SUPERUSER_PASSWORD = pkgs.writeText "superuser-password" "postgres";
-            PATRONI_REWIND_PASSWORD = pkgs.writeText "rewind-password" "postgres";
+          postgresql = {
+            use_pg_rewind = true;
+            use_slots = true;
+            authentication = {
+              replication = {
+                username = "replicator";
+              };
+              superuser = {
+                username = "postgres";
+              };
+              rewind = {
+                username = "rewind";
+              };
+            };
+            parameters = {
+              listen_addresses = "${ip}";
+              wal_level = "replica";
+              hot_standby_feedback = "on";
+              unix_socket_directories = "/tmp";
+            };
+            pg_hba = [
+              "host replication replicator 192.168.1.0/24 md5"
+              # Unsafe, do not use for anything other than tests
+              "host all all 0.0.0.0/0 trust"
+            ];
+          };
+
+          etcd3 = {
+            host = "192.168.1.4:2379";
           };
         };
 
-        # We always want to restart so the tests never hang
-        systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
+        environmentFiles = {
+          PATRONI_REPLICATION_PASSWORD = pkgs.writeText "replication-password" "postgres";
+          PATRONI_SUPERUSER_PASSWORD = pkgs.writeText "superuser-password" "postgres";
+          PATRONI_REWIND_PASSWORD = pkgs.writeText "rewind-password" "postgres";
+        };
       };
-  in
-  {
+
+      # We always want to restart so the tests never hang
+      systemd.services.patroni.serviceConfig.StartLimitIntervalSec = 0;
+    };
+  in {
     name = "patroni";
 
     nodes = {
@@ -107,63 +103,58 @@ import ./make-test-python.nix (
       node2 = createNode 1;
       node3 = createNode 2;
 
-      etcd =
-        { pkgs, ... }:
-        {
+      etcd = {pkgs, ...}: {
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = "192.168.1.4";
+            prefixLength = 16;
+          }
+        ];
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-            {
-              address = "192.168.1.4";
-              prefixLength = 16;
-            }
-          ];
-
-          services.etcd = {
-            enable = true;
-            listenClientUrls = [ "http://192.168.1.4:2379" ];
-          };
-
-          networking.firewall.allowedTCPPorts = [ 2379 ];
+        services.etcd = {
+          enable = true;
+          listenClientUrls = ["http://192.168.1.4:2379"];
         };
 
-      client =
-        { pkgs, ... }:
-        {
-          environment.systemPackages = [ pkgs.postgresql_14 ];
+        networking.firewall.allowedTCPPorts = [2379];
+      };
 
-          networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
-            {
-              address = "192.168.2.1";
-              prefixLength = 16;
-            }
-          ];
+      client = {pkgs, ...}: {
+        environment.systemPackages = [pkgs.postgresql_14];
 
-          services.haproxy = {
-            enable = true;
-            config = ''
-              global
-                  maxconn 100
+        networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
+          {
+            address = "192.168.2.1";
+            prefixLength = 16;
+          }
+        ];
 
-              defaults
-                  log global
-                  mode tcp
-                  retries 2
-                  timeout client 30m
-                  timeout connect 4s
-                  timeout server 30m
-                  timeout check 5s
+        services.haproxy = {
+          enable = true;
+          config = ''
+            global
+                maxconn 100
 
-              listen cluster1
-                  bind 127.0.0.1:5432
-                  option httpchk
-                  http-check expect status 200
-                  default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
-                  ${builtins.concatStringsSep "\n" (
-                    map (ip: "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008") nodesIps
-                  )}
-            '';
-          };
+            defaults
+                log global
+                mode tcp
+                retries 2
+                timeout client 30m
+                timeout connect 4s
+                timeout server 30m
+                timeout check 5s
+
+            listen cluster1
+                bind 127.0.0.1:5432
+                option httpchk
+                http-check expect status 200
+                default-server inter 3s fall 3 rise 2 on-marked-down shutdown-sessions
+                ${builtins.concatStringsSep "\n" (
+              map (ip: "server postgresql_${ip}_5432 ${ip}:5432 maxconn 100 check port 8008") nodesIps
+            )}
+          '';
         };
+      };
     };
 
     testScript = ''

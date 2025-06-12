@@ -12,7 +12,6 @@
   gawk,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "geda";
   version = "1.10.2";
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Full GPL'd suite of Electronic Design Automation tools";
     homepage = "https://geda.sourceforge.net/";
-    maintainers = with maintainers; [ pjones ];
+    maintainers = with maintainers; [pjones];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

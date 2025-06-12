@@ -5,7 +5,6 @@
   qtwebsockets,
   openssl,
 }:
-
 qtModule {
   pname = "qtwebchannel";
   propagatedBuildInputs = [
@@ -13,5 +12,5 @@ qtModule {
     qtdeclarative
     qtwebsockets
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 }

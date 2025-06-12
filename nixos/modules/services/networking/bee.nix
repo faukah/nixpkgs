@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.bee;
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "bee.yaml" cfg.settings;
-in
-{
+in {
   meta = {
     # doc = ./bee.xml;
-    maintainers = [ ];
+    maintainers = [];
   };
 
   ### interface
@@ -87,14 +85,14 @@ in
       swap-endpoint = lib.mkDefault "https://rpc.slock.it/goerli";
     };
 
-    systemd.packages = [ cfg.package ]; # include the upstream bee.service file
+    systemd.packages = [cfg.package]; # include the upstream bee.service file
 
     systemd.tmpfiles.rules = [
       "d '${cfg.settings.data-dir}' 0750 ${cfg.user} ${cfg.group}"
     ];
 
     systemd.services.bee = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Nice = cfg.daemonNiceLevel;
@@ -136,7 +134,7 @@ in
     };
 
     users.groups = lib.optionalAttrs (cfg.group == "bee") {
-      bee = { };
+      bee = {};
     };
   };
 }

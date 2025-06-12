@@ -10,7 +10,6 @@
   mpfr,
   bigarray-compat,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ocaml${ocaml.version}-mlgmpidl";
   version = "1.3.0";
@@ -31,7 +30,7 @@ stdenv.mkDerivation rec {
     gmp
     mpfr
   ];
-  propagatedBuildInputs = [ bigarray-compat ];
+  propagatedBuildInputs = [bigarray-compat];
 
   strictDeps = true;
 
@@ -46,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.inrialpes.fr/pop-art/people/bjeannet/mlxxxidl-forge/mlgmpidl/";
     license = lib.licenses.lgpl21;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

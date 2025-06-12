@@ -5,7 +5,6 @@
   nixosTests,
   gitUpdater,
 }:
-
 buildGoModule rec {
   pname = "corerad";
   version = "1.3.1";
@@ -28,7 +27,7 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
     tests = {
       inherit (nixosTests) corerad;
     };

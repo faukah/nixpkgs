@@ -3,9 +3,7 @@
   appimageTools,
   makeWrapper,
   fetchurl,
-}:
-
-let
+}: let
   pname = "altair";
   version = "8.2.5";
 
@@ -14,29 +12,29 @@ let
     sha256 = "sha256-P0CVJFafrsvWzDWyJZEds812m3yUDpo4eocysEIQqrw=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
-appimageTools.wrapType2 {
-  inherit src pname version;
+  appimageTools.wrapType2 {
+    inherit src pname version;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
-  extraInstallCommands = ''
-    wrapProgram $out/bin/${pname} \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
+    extraInstallCommands = ''
+      wrapProgram $out/bin/${pname} \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
 
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace 'Exec=AppRun' 'Exec=${pname}'
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace 'Exec=AppRun' 'Exec=${pname}'
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 
-  meta = with lib; {
-    description = "Feature-rich GraphQL Client IDE";
-    mainProgram = "altair";
-    homepage = "https://github.com/imolorhe/altair";
-    license = licenses.mit;
-    maintainers = with maintainers; [ evalexpr ];
-    platforms = [ "x86_64-linux" ];
-  };
-}
+    meta = with lib; {
+      description = "Feature-rich GraphQL Client IDE";
+      mainProgram = "altair";
+      homepage = "https://github.com/imolorhe/altair";
+      license = licenses.mit;
+      maintainers = with maintainers; [evalexpr];
+      platforms = ["x86_64-linux"];
+    };
+  }

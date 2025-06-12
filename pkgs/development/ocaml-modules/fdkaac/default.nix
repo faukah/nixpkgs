@@ -5,7 +5,6 @@
   dune-configurator,
   fdk_aac,
 }:
-
 buildDunePackage rec {
   pname = "fdkaac";
   version = "0.3.3";
@@ -16,8 +15,8 @@ buildDunePackage rec {
     hash = "sha256-cTPPQKBq0EFo35eK7TXlszbodHYIg1g7v+yQ/rG7Y9I=";
   };
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ fdk_aac ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [fdk_aac];
 
   meta = {
     description = "OCaml binding for the fdk-aac library";
@@ -28,5 +27,4 @@ buildDunePackage rec {
       lib.maintainers.dandellion
     ];
   };
-
 }

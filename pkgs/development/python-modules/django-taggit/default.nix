@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "django-taggit";
   version = "6.1.0";
@@ -23,13 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-QLJhO517VONuf+8rrpZ6SXMP/WWymOIKfd4eyviwCsU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
-  nativeCheckInputs = [ djangorestframework ];
+  nativeCheckInputs = [djangorestframework];
 
-  pythonImportsCheck = [ "taggit" ];
+  pythonImportsCheck = ["taggit"];
 
   checkPhase = ''
     # prove we're running tests against installed package, not build dir
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-taggit";
     changelog = "https://github.com/jazzband/django-taggit/blob/${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

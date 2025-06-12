@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   pyperclip,
   textual,
-
   # tests
   pytestCheckHook,
   pytest-asyncio,
   tree-sitter-python,
 }:
-
 buildPythonPackage rec {
   pname = "textual-textarea";
   version = "0.15.0";
@@ -37,12 +33,14 @@ buildPythonPackage rec {
     "textual"
   ];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
-  dependencies = [
-    pyperclip
-    textual
-  ] ++ textual.optional-dependencies.syntax;
+  dependencies =
+    [
+      pyperclip
+      textual
+    ]
+    ++ textual.optional-dependencies.syntax;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -50,7 +48,7 @@ buildPythonPackage rec {
     tree-sitter-python
   ];
 
-  pythonImportsCheck = [ "textual_textarea" ];
+  pythonImportsCheck = ["textual_textarea"];
 
   pytestFlagsArray = [
     # "--deselect=tests/functional_tests/test_comments.py::test_comments[sql--- ]"
@@ -71,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tconbeer/textual-textarea";
     changelog = "https://github.com/tconbeer/textual-textarea/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ pcboy ];
+    maintainers = with lib.maintainers; [pcboy];
   };
 }

@@ -5,7 +5,6 @@
   cmake,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "unshieldv3";
   version = "0.2.2";
@@ -17,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     sha256 = "sha256-ScUlKuvkq4UglEVJL8NreAGDZFLVrEpEBQCZvu7XOrg=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
   postCheck = ''
@@ -27,7 +26,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to extract .Z files from InstallShield V3 (Z) installers";
@@ -36,6 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "unshieldv3";
-    maintainers = [ lib.maintainers.jchw ];
+    maintainers = [lib.maintainers.jchw];
   };
 })

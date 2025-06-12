@@ -7,7 +7,6 @@
   mandoc,
   groff,
 }:
-
 # Don't add this to nativeBuildInputs directly.  Use statHook instead.
 mkDerivation {
   path = "usr.bin/stat";

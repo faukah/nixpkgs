@@ -7,7 +7,6 @@
   requests,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "dogtag-pki";
   version = "11.2.1";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
     cryptography
     python-ldap
   ];
-  pythonImportsCheck = [ "pki" ];
+  pythonImportsCheck = ["pki"];
   propagatedBuildInputs = [
     requests
     six
@@ -32,6 +31,6 @@ buildPythonPackage rec {
     description = "Enterprise-class Certificate Authority";
     homepage = "https://github.com/dogtagpki/pki";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ s1341 ];
+    maintainers = with maintainers; [s1341];
   };
 }

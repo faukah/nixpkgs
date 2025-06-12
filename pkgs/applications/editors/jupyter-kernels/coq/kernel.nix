@@ -4,7 +4,6 @@
   python3,
   coq,
 }:
-
 python3.pkgs.buildPythonPackage rec {
   pname = "coq-jupyter";
   version = "1.6.0";
@@ -21,9 +20,9 @@ python3.pkgs.buildPythonPackage rec {
       ipykernel
       future
     ])
-    ++ [ coq ];
+    ++ [coq];
 
-  nativeBuildInputs = [ coq ];
+  nativeBuildInputs = [coq];
 
   doCheck = false;
 
@@ -31,6 +30,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/EugeneLoy/coq_jupyter";
     description = "Jupyter kernel for Coq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thomasjm ];
+    maintainers = with maintainers; [thomasjm];
   };
 }

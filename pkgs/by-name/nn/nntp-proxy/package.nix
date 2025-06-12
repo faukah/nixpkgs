@@ -8,7 +8,6 @@
   openssl,
   libxcrypt,
 }:
-
 stdenv.mkDerivation {
   pname = "nntp-proxy";
   version = "2014-01-06";
@@ -20,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "0jwxh71am83fbnq9mn06jl06rq8qybm506js79xmmc3xbk5pqvy4";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libconfig
     libevent
@@ -28,7 +27,7 @@ stdenv.mkDerivation {
     libxcrypt
   ];
 
-  installFlags = [ "INSTALL_DIR=$(out)/bin/" ];
+  installFlags = ["INSTALL_DIR=$(out)/bin/"];
 
   prePatch = ''
     mkdir -p $out/bin
@@ -41,7 +40,7 @@ stdenv.mkDerivation {
     description = "Simple NNTP proxy with SSL support";
     homepage = "https://github.com/nieluj/nntp-proxy";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.fadenb ];
+    maintainers = [lib.maintainers.fadenb];
     platforms = lib.platforms.all;
     mainProgram = "nntp-proxy";
   };

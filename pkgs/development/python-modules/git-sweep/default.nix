@@ -5,7 +5,6 @@
   gitpython,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "git-sweep";
   version = "0.1.1";
@@ -18,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-zSnxw3JHsFru9fOZSJZX+XOu144uJ0DaIKYlAtoHV7M=";
   };
 
-  propagatedBuildInputs = [ gitpython ];
+  propagatedBuildInputs = [gitpython];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "gitsweep" ];
+  pythonImportsCheck = ["gitsweep"];
 
   meta = with lib; {
     description = "Command-line tool that helps you clean up Git branches";
     mainProgram = "git-sweep";
     homepage = "https://github.com/arc90/git-sweep";
     license = licenses.mit;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

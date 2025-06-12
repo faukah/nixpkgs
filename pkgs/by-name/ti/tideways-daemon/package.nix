@@ -7,7 +7,6 @@
   writeShellApplication,
   gnugrep,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tideways-daemon";
   version = "1.9.40";
@@ -66,10 +65,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "Tideways Daemon";
     homepage = "https://tideways.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "tideways-daemon";
     license = licenses.unfree;
-    maintainers = with maintainers; [ shyim ];
+    maintainers = with maintainers; [shyim];
     platforms = lib.attrNames finalAttrs.passthru.sources;
   };
 })

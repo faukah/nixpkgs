@@ -13,7 +13,6 @@
   pkg-config,
   zeromq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "p2pool";
   version = "4.7";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  cmakeFlags = [ "-DWITH_LTO=OFF" ];
+  cmakeFlags = ["-DWITH_LTO=OFF"];
 
   installPhase = ''
     runHook preInstall
@@ -51,14 +50,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Decentralized pool for Monero mining";
     homepage = "https://github.com/SChernykh/p2pool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ratsclub ];
+    maintainers = with maintainers; [ratsclub];
     mainProgram = "p2pool";
     platforms = platforms.all;
   };

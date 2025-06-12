@@ -13,7 +13,6 @@
   glib,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "goocanvas";
   version = "2.0.4";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "Canvas widget for GTK based on the the Cairo 2D library";
     homepage = "https://gitlab.gnome.org/Archive/goocanvas";
     license = licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

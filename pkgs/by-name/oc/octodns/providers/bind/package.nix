@@ -8,7 +8,6 @@
   dnspython,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "octodns-bind";
   version = "1.0.1";
@@ -34,7 +33,7 @@ buildPythonPackage rec {
 
   env.OCTODNS_RELEASE = 1;
 
-  pythonImportsCheck = [ "octodns_bind" ];
+  pythonImportsCheck = ["octodns_bind"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/octodns/octodns-bind";
     changelog = "https://github.com/octodns/octodns-bind/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    teams = [ lib.teams.octodns ];
+    teams = [lib.teams.octodns];
   };
 }

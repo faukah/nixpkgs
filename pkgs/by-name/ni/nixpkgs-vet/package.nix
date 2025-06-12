@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doCheck = false;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Tool to vet (check) Nixpkgs, including its pkgs/by-name directory";

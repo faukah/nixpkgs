@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "General purpose Language Server that integrate with linter to support diagnostic features";
@@ -40,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/iamcco/diagnostic-languageserver/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "diagnostic-languageserver";
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 })

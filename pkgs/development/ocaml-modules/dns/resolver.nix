@@ -17,7 +17,6 @@
   dnssec,
   alcotest,
 }:
-
 buildDunePackage {
   pname = "dns-resolver";
 
@@ -46,7 +45,9 @@ buildDunePackage {
     alcotest
   ];
 
-  meta = dns.meta // {
-    description = "DNS resolver business logic";
-  };
+  meta =
+    dns.meta
+    // {
+      description = "DNS resolver business logic";
+    };
 }

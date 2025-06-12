@@ -51,11 +51,12 @@ stdenv.mkDerivation (finalAttrs: {
     libadwaita
     libsoup_3
     (python3.withPackages (
-      ps: with ps; [
-        brotli
-        fonttools
-        pygobject3
-      ]
+      ps:
+        with ps; [
+          brotli
+          fonttools
+          pygobject3
+        ]
     ))
   ];
 
@@ -65,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -73,8 +74,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "webfontkitgenerator";
     homepage = "https://apps.gnome.org/app/com.rafaelmardojai.WebfontKitGenerator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ];
-    teams = [ teams.gnome-circle ];
+    maintainers = with maintainers; [benediktbroich];
+    teams = [teams.gnome-circle];
     platforms = platforms.unix;
   };
 })

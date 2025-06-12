@@ -15,7 +15,6 @@
   which,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gtk-sharp";
   version = "2.12.45";

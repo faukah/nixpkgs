@@ -1,5 +1,4 @@
-{ netbird }:
-
+{netbird}:
 netbird.override {
   ui = true;
 }

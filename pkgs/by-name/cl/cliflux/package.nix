@@ -6,7 +6,6 @@
   openssl,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cliflux";
   version = "1.8.0";
@@ -30,14 +29,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Terminal client for Miniflux RSS reader";
     homepage = "https://github.com/spencerwi/cliflux";
     changelog = "https://github.com/spencerwi/cliflux/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ arthsmn ];
+    maintainers = with lib.maintainers; [arthsmn];
     mainProgram = "cliflux";
   };
 })

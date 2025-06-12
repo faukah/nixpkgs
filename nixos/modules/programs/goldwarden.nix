@@ -3,17 +3,17 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.programs.goldwarden;
-in
-{
+in {
   options.programs.goldwarden = {
     enable = lib.mkEnableOption "Goldwarden";
-    package = lib.mkPackageOption pkgs "goldwarden" { };
-    useSshAgent = lib.mkEnableOption "Goldwarden's SSH Agent" // {
-      default = true;
-    };
+    package = lib.mkPackageOption pkgs "goldwarden" {};
+    useSshAgent =
+      lib.mkEnableOption "Goldwarden's SSH Agent"
+      // {
+        default = true;
+      };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,10 +26,8 @@ in
 
     environment = {
       etc = lib.mkIf config.programs.chromium.enable {
-        "chromium/native-messaging-hosts/com.8bit.bitwarden.json".source =
-          "${cfg.package}/etc/chromium/native-messaging-hosts/com.8bit.bitwarden.json";
-        "opt/chrome/native-messaging-hosts/com.8bit.bitwarden.json".source =
-          "${cfg.package}/etc/chrome/native-messaging-hosts/com.8bit.bitwarden.json";
+        "chromium/native-messaging-hosts/com.8bit.bitwarden.json".source = "${cfg.package}/etc/chromium/native-messaging-hosts/com.8bit.bitwarden.json";
+        "opt/chrome/native-messaging-hosts/com.8bit.bitwarden.json".source = "${cfg.package}/etc/chrome/native-messaging-hosts/com.8bit.bitwarden.json";
       };
 
       extraInit = lib.mkIf cfg.useSshAgent ''
@@ -46,15 +44,15 @@ in
       ];
     };
 
-    programs.firefox.nativeMessagingHosts.packages = [ cfg.package ];
+    programs.firefox.nativeMessagingHosts.packages = [cfg.package];
 
     # see https://github.com/quexten/goldwarden/blob/main/cmd/goldwarden.service
     systemd.user.services.goldwarden = {
       description = "Goldwarden daemon";
-      wantedBy = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig.ExecStart = "${lib.getExe cfg.package} daemonize";
-      path = [ config.programs.gnupg.agent.pinentryPackage ];
+      path = [config.programs.gnupg.agent.pinentryPackage];
       unitConfig.ConditionUser = "!@system";
     };
   };

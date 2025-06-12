@@ -9,7 +9,6 @@
   copyDesktopItems,
   stripJavaArchivesHook,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dayon";
   version = "17.0.0";
@@ -41,13 +40,13 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm644 build/dayon.jar $out/share/dayon/dayon.jar
     # jre is in PATH because dayon needs keytool to generate certificates
     makeWrapper ${lib.getExe jre} $out/bin/dayon \
-      --prefix PATH : "${lib.makeBinPath [ jre ]}" \
+      --prefix PATH : "${lib.makeBinPath [jre]}" \
       --add-flags "-jar $out/share/dayon/dayon.jar"
     makeWrapper ${lib.getExe jre} $out/bin/dayon_assisted \
-      --prefix PATH : "${lib.makeBinPath [ jre ]}" \
+      --prefix PATH : "${lib.makeBinPath [jre]}" \
       --add-flags "-cp $out/share/dayon/dayon.jar mpo.dayon.assisted.AssistedRunner"
     makeWrapper ${lib.getExe jre} $out/bin/dayon_assistant \
-      --prefix PATH : "${lib.makeBinPath [ jre ]}" \
+      --prefix PATH : "${lib.makeBinPath [jre]}" \
       --add-flags "-cp $out/share/dayon/dayon.jar mpo.dayon.assistant.AssistantRunner"
     install -Dm644 resources/dayon.png $out/share/icons/hicolor/128x128/apps/dayon.png
 
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://retgal.github.io/Dayon/index.html";
     license = lib.licenses.gpl3Plus; # https://github.com/RetGal/Dayon/issues/59
     mainProgram = "dayon";
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
   };
 })

@@ -5,7 +5,6 @@
   poetry-core,
   snakemake-interface-common,
 }:
-
 buildPythonPackage rec {
   pname = "snakemake-interface-report-plugins";
   version = "1.1.0";
@@ -18,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-yk2fYlueaobXJgF7ob6jTccEz8r0geq1HFVsa+ZO30Q=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ snakemake-interface-common ];
+  propagatedBuildInputs = [snakemake-interface-common];
 
-  pythonImportsCheck = [ "snakemake_interface_report_plugins" ];
+  pythonImportsCheck = ["snakemake_interface_report_plugins"];
 
   meta = with lib; {
     description = "Interface for Snakemake report plugins";
     homepage = "https://github.com/snakemake/snakemake-interface-report-plugins";
     license = licenses.mit;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

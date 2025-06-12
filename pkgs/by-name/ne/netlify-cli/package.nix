@@ -8,7 +8,6 @@
   pkg-config,
   vips,
 }:
-
 buildNpmPackage rec {
   pname = "netlify-cli";
   version = "19.0.2";
@@ -24,12 +23,12 @@ buildNpmPackage rec {
 
   inherit nodejs;
 
-  buildInputs = [ vips ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [vips];
+  nativeBuildInputs = [pkg-config];
 
   passthru = {
-    tests.test = callPackage ./test.nix { };
-    updateScript = nix-update-script { };
+    tests.test = callPackage ./test.nix {};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -37,7 +36,7 @@ buildNpmPackage rec {
     homepage = "https://github.com/netlify/cli";
     changelog = "https://github.com/netlify/cli/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ roberth ];
+    maintainers = with lib.maintainers; [roberth];
     mainProgram = "netlify";
   };
 }

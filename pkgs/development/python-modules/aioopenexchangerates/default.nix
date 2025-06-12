@@ -11,7 +11,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "aioopenexchangerates";
   version = "0.6.21";
@@ -26,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-yPi2k1ajW+X78dF3OJTdGR3h8mzNfYCsW0P8baKUjoA=";
   };
 
-  pythonRelaxDeps = [ "pydantic" ];
+  pythonRelaxDeps = ["pydantic"];
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -42,13 +41,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioopenexchangerates" ];
+  pythonImportsCheck = ["aioopenexchangerates"];
 
   meta = with lib; {
     description = "Library for the Openexchangerates API";
     homepage = "https://github.com/MartinHjelmare/aioopenexchangerates";
     changelog = "https://github.com/MartinHjelmare/aioopenexchangerates/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

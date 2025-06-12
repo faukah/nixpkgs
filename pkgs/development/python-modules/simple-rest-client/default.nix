@@ -10,7 +10,6 @@
   python-status,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "simple-rest-client";
   version = "1.2.1";
@@ -46,14 +45,14 @@ buildPythonPackage rec {
       --replace "asyncmock" ""
   '';
 
-  disabledTestPaths = [ "tests/test_decorators.py" ];
+  disabledTestPaths = ["tests/test_decorators.py"];
 
-  pythonImportsCheck = [ "simple_rest_client" ];
+  pythonImportsCheck = ["simple_rest_client"];
 
   meta = with lib; {
     description = "Simple REST client for Python";
     homepage = "https://github.com/allisson/python-simple-rest-client";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

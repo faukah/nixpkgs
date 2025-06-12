@@ -11,7 +11,6 @@
   tomli,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "setuptools-generate";
   version = "0.0.6";
@@ -26,24 +25,26 @@ buildPythonPackage rec {
     hash = "sha256-xDjxkWy/n0jStI9eLcM6WduyU9vGjtBOmJ86dpXjceQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [
-    click
-    help2man
-    markdown-it-py
-    shtab
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs =
+    [
+      click
+      help2man
+      markdown-it-py
+      shtab
+    ]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "setuptools_generate" ];
+  pythonImportsCheck = ["setuptools_generate"];
 
   meta = with lib; {
     description = "Generate shell completions and man page when building a python package";
     homepage = "https://github.com/Freed-Wu/setuptools-generate";
     changelog = "https://github.com/Freed-Wu/setuptools-generate/blob/${src.rev}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

@@ -6,12 +6,9 @@
   runtimeShell,
   symlinkJoin,
   writeScriptBin,
-
   # command line arguments which are always set e.g "--disable-gpu"
-  commandLineArgs ? [ ],
-}:
-
-let
+  commandLineArgs ? [],
+}: let
   name = "netflix-via-google-chrome";
 
   meta = {
@@ -23,7 +20,7 @@ let
     '';
     homepage = google-chrome.meta.homepage or null;
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.roberth ];
+    maintainers = [lib.maintainers.roberth];
     platforms = google-chrome.meta.platforms or lib.platforms.all;
   };
 
@@ -58,13 +55,11 @@ let
       --no-crash-upload \
       "$@"
   '';
-
 in
-
-symlinkJoin {
-  inherit name meta;
-  paths = [
-    script
-    desktopItem
-  ];
-}
+  symlinkJoin {
+    inherit name meta;
+    paths = [
+      script
+      desktopItem
+    ];
+  }

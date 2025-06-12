@@ -7,7 +7,6 @@
   flac,
   sox,
 }:
-
 stdenv.mkDerivation rec {
   pname = "redoflacs";
   version = "0.30.20190903";
@@ -39,11 +38,11 @@ stdenv.mkDerivation rec {
   postFixup = ''
     wrapProgram $out/bin/redoflacs \
       --prefix PATH : ${
-        lib.makeBinPath ([
-          flac
-          sox
-        ])
-      }
+      lib.makeBinPath [
+        flac
+        sox
+      ]
+    }
   '';
 
   meta = with lib; {
@@ -51,7 +50,7 @@ stdenv.mkDerivation rec {
     mainProgram = "redoflacs";
     homepage = src.meta.homepage;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

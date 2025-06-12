@@ -38,10 +38,8 @@
     "gfx1101"
   ],
 }:
-
 stdenv.mkDerivation (
-  finalAttrs:
-  let
+  finalAttrs: let
     py = python3.withPackages (ps: [
       ps.pyyaml
       ps.distutils
@@ -59,8 +57,7 @@ stdenv.mkDerivation (
     cFlags = "-O3 -DNDEBUG";
     cxxFlags = "${cFlags} -Wno-c++11-narrowing";
     triton-llvm' = triton-llvm;
-  in
-  {
+  in {
     pname = "aotriton";
     version = "0.9.2b";
 
@@ -73,7 +70,7 @@ stdenv.mkDerivation (
     };
     env.CXX = compiler;
     env.ROCM_PATH = "${clr}";
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     outputs =
       [
@@ -222,8 +219,8 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm Ahead of Time (AOT) Triton Math Library ";
       homepage = "https://github.com/ROCm/aotriton";
-      license = with licenses; [ mit ];
-      teams = [ teams.rocm ];
+      license = with licenses; [mit];
+      teams = [teams.rocm];
       platforms = platforms.linux;
     };
   }

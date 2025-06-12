@@ -3,7 +3,6 @@
   rustPlatform,
   fetchCrate,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "haylxon";
   version = "1.0.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     description = "Save screenshots of urls and webpages from terminal";
     homepage = "https://github.com/pwnwriter/haylxon";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ scientiac ];
+    maintainers = with lib.maintainers; [scientiac];
     mainProgram = "hxn";
   };
 }

@@ -3,10 +3,8 @@
   fetchFromGitHub,
   nixosTests,
   lib,
-
-  plugins ? ps: [ ],
+  plugins ? ps: [],
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "peering-manager";
   version = "1.8.3";
@@ -26,8 +24,7 @@ python3.pkgs.buildPythonApplication rec {
     ./fix-pyixapi-0.2.3-compatibility.patch
   ];
 
-  propagatedBuildInputs =
-    with python3.pkgs;
+  propagatedBuildInputs = with python3.pkgs;
     [
       django
       djangorestframework
@@ -87,7 +84,7 @@ python3.pkgs.buildPythonApplication rec {
     license = licenses.asl20;
     description = "BGP sessions management tool";
     mainProgram = "peering-manager";
-    teams = [ teams.wdz ];
+    teams = [teams.wdz];
     platforms = platforms.linux;
   };
 }

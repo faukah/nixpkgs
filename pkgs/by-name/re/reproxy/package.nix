@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "reproxy";
   version = "1.2.3";
@@ -39,7 +38,7 @@ buildGoModule rec {
     homepage = "https://reproxy.io/";
     changelog = "https://github.com/umputun/reproxy/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "reproxy";
   };
 }

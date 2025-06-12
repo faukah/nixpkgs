@@ -8,7 +8,6 @@
   qmake,
   fixDarwinDylibNames,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qscintilla-qt5";
   version = "2.14.1";
@@ -20,25 +19,25 @@ stdenv.mkDerivation (finalAttrs: {
 
   sourceRoot = "QScintilla_src-${finalAttrs.version}/src";
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ qtmacextras ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [qtmacextras];
 
-  nativeBuildInputs = [
-    unzip
-    qmake
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs =
+    [
+      unzip
+      qmake
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [fixDarwinDylibNames];
 
   # Make sure that libqscintilla2.so is available in $out/lib since it is expected
   # by some packages such as sqlitebrowser
-  postFixup =
-    let
-      libExt = stdenv.hostPlatform.extensions.sharedLibrary;
-      qtVersion = lib.versions.major qtbase.version;
-    in
-    ''
-      ln -s $out/lib/libqscintilla2_qt${qtVersion}${libExt} $out/lib/libqscintilla2${libExt}
-    '';
+  postFixup = let
+    libExt = stdenv.hostPlatform.extensions.sharedLibrary;
+    qtVersion = lib.versions.major qtbase.version;
+  in ''
+    ln -s $out/lib/libqscintilla2_qt${qtVersion}${libExt} $out/lib/libqscintilla2${libExt}
+  '';
 
   dontWrapQtApps = true;
 
@@ -69,7 +68,7 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://www.riverbankcomputing.com/software/qscintilla/intro";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ peterhoeg ];
+    maintainers = with lib.maintainers; [peterhoeg];
     platforms = lib.platforms.unix;
   };
 })

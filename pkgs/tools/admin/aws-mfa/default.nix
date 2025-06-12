@@ -6,7 +6,6 @@
   setuptools,
   boto3,
 }:
-
 buildPythonApplication rec {
   pname = "aws-mfa";
   version = "0.0.12";
@@ -48,6 +47,6 @@ buildPythonApplication rec {
     mainProgram = "aws-mfa";
     homepage = "https://github.com/broamski/aws-mfa";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

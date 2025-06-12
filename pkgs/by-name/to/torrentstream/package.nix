@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dotnetCorePackages,
 }:
-
 buildDotnetModule rec {
   pname = "torrentstream";
   version = "1.0.1.11";
@@ -20,7 +19,7 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
-  executables = [ "TorrentStream" ];
+  executables = ["TorrentStream"];
   nugetDeps = ./deps.json;
   projectFile = "TorrentStream.csproj";
   selfContainedBuild = true;
@@ -40,6 +39,6 @@ buildDotnetModule rec {
     license = lib.licenses.bsd2;
     platforms = lib.platforms.all;
     mainProgram = "TorrentStream";
-    maintainers = with lib.maintainers; [ _3JlOy-PYCCKUi ];
+    maintainers = with lib.maintainers; [_3JlOy-PYCCKUi];
   };
 }

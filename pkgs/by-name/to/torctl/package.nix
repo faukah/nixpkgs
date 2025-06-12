@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "torctl";
   version = "0.5.7";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Script to redirect all traffic through tor network including dns queries for anonymizing entire system";
     homepage = "https://github.com/BlackArch/torctl";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tochiaha ];
+    maintainers = with maintainers; [tochiaha];
     mainProgram = "torctl";
     platforms = platforms.all;
   };

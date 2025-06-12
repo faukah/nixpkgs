@@ -7,35 +7,33 @@ let
         enable = true;
         adminAddr = "foo@example.org";
       };
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [80];
     };
   };
-
 in
-{ pkgs, lib, ... }:
-{
-  name = "containers-ipv4-ipv6";
-  meta = {
-    maintainers = with lib.maintainers; [
-      aristid
-      aszlig
-      kampfschlaefer
-    ];
-  };
+  {
+    pkgs,
+    lib,
+    ...
+  }: {
+    name = "containers-ipv4-ipv6";
+    meta = {
+      maintainers = with lib.maintainers; [
+        aristid
+        aszlig
+        kampfschlaefer
+      ];
+    };
 
-  nodes.machine =
-    { pkgs, ... }:
-    {
+    nodes.machine = {pkgs, ...}: {
       virtualisation.writableStore = true;
 
       containers.webserver4 = webserverFor "10.231.136.1" "10.231.136.2";
       containers.webserver6 = webserverFor "fc00::2" "fc00::1";
-      virtualisation.additionalPaths = [ pkgs.stdenv ];
+      virtualisation.additionalPaths = [pkgs.stdenv];
     };
 
-  testScript =
-    { nodes, ... }:
-    ''
+    testScript = {nodes, ...}: ''
       import time
 
 
@@ -77,4 +75,4 @@ in
           # Destroying a declarative container should fail.
           machine.fail(f"nixos-container destroy {container}")
     '';
-}
+  }

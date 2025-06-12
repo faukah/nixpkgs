@@ -18,7 +18,6 @@
   cmake,
   range-v3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "emilua-bech32";
   version = "1.1.1";
@@ -51,14 +50,14 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     description = "Bech32 codec for Emilua";
     homepage = "https://emilua.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ manipuladordedados ];
+    maintainers = with maintainers; [manipuladordedados];
     platforms = platforms.linux;
   };
 }

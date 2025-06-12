@@ -7,7 +7,6 @@
   scalapack,
   llvmPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "COSTA";
   version = "2.2.4";
@@ -19,11 +18,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-smrDK7iucGWlL1pDv+O4QXefxr1QirC00q5Wva0S+ks=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ scalapack ] ++ lib.optional stdenv.hostPlatform.isDarwin llvmPackages.openmp;
+  buildInputs = [scalapack] ++ lib.optional stdenv.hostPlatform.isDarwin llvmPackages.openmp;
 
-  propagatedBuildInputs = [ mpi ];
+  propagatedBuildInputs = [mpi];
 
   cmakeFlags = [
     "-DCOSTA_SCALAPACK=CUSTOM"
@@ -35,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eth-cscs/COSTA";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

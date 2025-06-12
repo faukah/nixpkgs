@@ -5,7 +5,6 @@
   pkg-config,
   guile,
 }:
-
 stdenv.mkDerivation rec {
   pname = "guile-quickcheck";
   version = "0.1.0";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     guile
     pkg-config
   ];
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   doCheck = !stdenv.hostPlatform.isDarwin;
 
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ngyro.com/software/guile-quickcheck.html";
     description = "Guile library providing tools for randomized, property-based testing";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
     platforms = guile.meta.platforms;
   };
 }

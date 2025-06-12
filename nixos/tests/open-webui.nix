@@ -1,33 +1,33 @@
-{ config, lib, ... }:
-let
+{
+  config,
+  lib,
+  ...
+}: let
   mainPort = "8080";
   webuiName = "NixOS Test";
-in
-{
+in {
   name = "open-webui";
   meta = with lib.maintainers; {
-    maintainers = [ shivaraj-bh ];
+    maintainers = [shivaraj-bh];
   };
 
   nodes = {
-    machine =
-      { ... }:
-      {
-        services.open-webui = {
-          enable = true;
-          host = "";
-          environment = {
-            # Requires network connection
-            RAG_EMBEDDING_MODEL = "";
-          };
-
-          # Test that environment variables can be
-          # overridden through a file.
-          environmentFile = config.node.pkgs.writeText "test.env" ''
-            WEBUI_NAME="${webuiName}"
-          '';
+    machine = {...}: {
+      services.open-webui = {
+        enable = true;
+        host = "";
+        environment = {
+          # Requires network connection
+          RAG_EMBEDDING_MODEL = "";
         };
+
+        # Test that environment variables can be
+        # overridden through a file.
+        environmentFile = config.node.pkgs.writeText "test.env" ''
+          WEBUI_NAME="${webuiName}"
+        '';
       };
+    };
   };
 
   testScript = ''

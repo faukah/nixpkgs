@@ -17,7 +17,6 @@
   groff,
   libstroke,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lepton-eda";
   version = "1.9.18-20220529";
@@ -74,6 +73,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tesq0 ];
+    maintainers = with maintainers; [tesq0];
   };
 }

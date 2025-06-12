@@ -7,7 +7,6 @@
   unittestCheckHook,
   mock,
 }:
-
 buildPythonPackage rec {
   pname = "pybrowserid";
   version = "0.14.0";
@@ -19,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-bCJ2aeh8wleWrnb2oO9lAlUoyK2C01Jnn6mj5WY6ceM=";
   };
 
-  patches = [ ./darwin_fix.patch ];
+  patches = [./darwin_fix.patch];
 
   postPatch = ''
     substituteInPlace browserid/tests/* \
         --replace-warn 'assertEquals' 'assertEqual'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
-  pythonImportsCheck = [ "browserid" ];
+  pythonImportsCheck = ["browserid"];
 
   nativeCheckInputs = [
     unittestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Python library for the BrowserID Protocol";
     homepage = "https://github.com/mozilla/PyBrowserID";
     license = licenses.mpl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

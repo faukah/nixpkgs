@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/outloudvi/mw2fcitx/releases/tag/${finalAttrs.version}";
-    maintainers = with lib.maintainers; [ xddxdd ];
+    maintainers = with lib.maintainers; [xddxdd];
     description = "RIME dictionary file for entries from zh.moegirl.org.cn";
     homepage = "https://github.com/outloudvi/mw2fcitx/releases";
     license = with lib.licenses; [

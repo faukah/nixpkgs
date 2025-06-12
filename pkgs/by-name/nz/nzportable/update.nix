@@ -6,7 +6,6 @@
   nix-prefetch-git,
   common-updater-scripts,
 }:
-
 lib.getExe (writeShellApplication {
   name = "nzp-updater";
   runtimeInputs = [

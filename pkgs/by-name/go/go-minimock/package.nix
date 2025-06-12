@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-minimock";
   version = "3.4.5";
@@ -34,7 +33,7 @@ buildGoModule rec {
     homepage = "https://github.com/gojuno/minimock";
     description = "Golang mock generator from interfaces";
     license = licenses.mit;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
     mainProgram = "minimock";
   };
 }

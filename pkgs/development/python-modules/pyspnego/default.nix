@@ -12,7 +12,6 @@
   setuptools,
   glibcLocales,
 }:
-
 buildPythonPackage rec {
   pname = "pyspnego";
   version = "0.11.2";
@@ -27,19 +26,19 @@ buildPythonPackage rec {
     hash = "sha256-5aGHCw0d1aFcHLPRMkya0hlHV30aTKshbcOjfPMOFko=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   optional-dependencies = {
     kerberos = [
       gssapi
       krb5
     ];
-    yaml = [ ruamel-yaml ];
+    yaml = [ruamel-yaml];
   };
 
-  pythonImportsCheck = [ "spnego" ];
+  pythonImportsCheck = ["spnego"];
 
   nativeCheckInputs = [
     glibcLocales
@@ -54,7 +53,7 @@ buildPythonPackage rec {
     description = "Python SPNEGO authentication library";
     mainProgram = "pyspnego-parse";
     homepage = "https://github.com/jborean93/pyspnego";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

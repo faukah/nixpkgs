@@ -9,7 +9,6 @@
   desktopToDarwinBundle,
   unzip,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "logisim";
   version = "2.7.1";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "logisim";
       icon = "logisim";
       comment = finalAttrs.meta.description;
-      categories = [ "Education" ];
+      categories = ["Education"];
     })
   ];
 
@@ -61,8 +60,8 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "http://www.cburch.com/logisim/";
     description = "Educational tool for designing and simulating digital logic circuits";
     mainProgram = "logisim";
-    maintainers = with lib.maintainers; [ emilytrau ];
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    maintainers = with lib.maintainers; [emilytrau];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
   };

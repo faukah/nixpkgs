@@ -9,7 +9,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dissect-xfs";
   version = "3.12";
@@ -34,9 +33,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.xfs" ];
+  pythonImportsCheck = ["dissect.xfs"];
 
   # Archive files seems to be corrupt
   doCheck = false;
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.xfs";
     changelog = "https://github.com/fox-it/dissect.xfs/releases/tag/${src.tag}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -36,7 +36,6 @@
   libisoburn,
   gsettings-qt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "dde-file-manager";
   version = "6.0.57";
@@ -150,6 +149,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/linuxdeepin/dde-file-manager";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.deepin ];
+    teams = [teams.deepin];
   };
 }

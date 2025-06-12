@@ -5,7 +5,6 @@
   hatchling,
   mslex,
 }:
-
 buildPythonPackage rec {
   pname = "oslex";
   version = "0.1.3";
@@ -34,6 +33,6 @@ buildPythonPackage rec {
     description = "OS-independent wrapper for shlex and mslex";
     homepage = "https://github.com/petamas/oslex";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ yzx9 ];
+    maintainers = with lib.maintainers; [yzx9];
   };
 }

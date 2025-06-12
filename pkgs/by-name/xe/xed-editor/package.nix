@@ -18,7 +18,6 @@
   intltool,
   itstool,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xed-editor";
   version = "3.8.2";

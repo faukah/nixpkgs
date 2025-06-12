@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "argparse";
   version = "3.2";
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Argument Parser for Modern C++";
     homepage = "https://github.com/p-ranav/argparse";
-    maintainers = with maintainers; [ _2gn ];
+    maintainers = with maintainers; [_2gn];
     platforms = platforms.unix;
     license = licenses.mit;
   };

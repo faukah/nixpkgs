@@ -11,7 +11,6 @@
   gtk3,
   desktop-file-utils,
 }:
-
 stdenv.mkDerivation {
   pname = "marble";
   version = "unstable-2023-05-11";
@@ -34,13 +33,13 @@ stdenv.mkDerivation {
     desktop-file-utils # For update-desktop-database
     gobject-introspection # For g-ir-compiler
   ];
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   meta = with lib; {
     description = "Raggesilver's GTK library";
     homepage = "https://gitlab.gnome.org/raggesilver/marble";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

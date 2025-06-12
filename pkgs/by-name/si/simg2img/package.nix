@@ -4,7 +4,6 @@
   fetchFromGitHub,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "simg2img";
   version = "1.1.5";
@@ -27,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace-fail 'calloc(sizeof(struct sparse_file*), files);' 'calloc(files, sizeof(struct sparse_file*));'
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   makeFlags = [
     "PREFIX=$(out)"

@@ -9,7 +9,6 @@
   acl,
   nixosTests,
 }:
-
 stdenv.mkDerivation rec {
   pname = "logrotate";
   version = "3.22.0";
@@ -27,8 +26,8 @@ stdenv.mkDerivation rec {
     "--with-uncompress-command=${gzip}/bin/gunzip"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ popt ] ++ lib.optionals aclSupport [ acl ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [popt] ++ lib.optionals aclSupport [acl];
 
   passthru.tests = {
     nixos-logrotate = nixosTests.logrotate;
@@ -38,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/logrotate/logrotate";
     description = "Rotates and compresses system logs";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.tobim ];
+    maintainers = [maintainers.tobim];
     platforms = platforms.all;
     mainProgram = "logrotate";
   };

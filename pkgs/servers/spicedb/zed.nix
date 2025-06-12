@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "zed";
   version = "0.30.2";
@@ -18,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-2AkknaufRhv79c9WQtcW5oSwMptkR+FB+1/OJazyGSM=";
 
-  ldflags = [ "-X 'github.com/jzelinskie/cobrautil/v2.Version=${src.rev}'" ];
+  ldflags = ["-X 'github.com/jzelinskie/cobrautil/v2.Version=${src.rev}'"];
 
   preCheck = ''
     export NO_COLOR=true
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd zed \

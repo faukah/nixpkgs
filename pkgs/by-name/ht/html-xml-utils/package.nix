@@ -5,7 +5,6 @@
   curl,
   libiconv,
 }:
-
 stdenv.mkDerivation rec {
   pname = "html-xml-utils";
   version = "8.7";

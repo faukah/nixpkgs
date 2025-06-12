@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   imports = [
     ../profiles/qemu-guest.nix
     ../image/file-options.nix
@@ -19,7 +17,7 @@
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=ttyS0" ];
+    boot.kernelParams = ["console=ttyS0"];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 
@@ -28,7 +26,7 @@
     services.cloud-init.enable = true;
     systemd.services."serial-getty@ttyS0".enable = true;
 
-    system.nixos.tags = [ "kubevirt" ];
+    system.nixos.tags = ["kubevirt"];
     image.extension = "qcow2";
     system.build.image = config.system.build.kubevirtImage;
     system.build.kubevirtImage = import ../../lib/make-disk-image.nix {

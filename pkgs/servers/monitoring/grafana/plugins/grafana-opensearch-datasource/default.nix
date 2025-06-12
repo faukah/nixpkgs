@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "grafana-opensearch-datasource";
   version = "2.24.0";
@@ -12,7 +14,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "The Grafana JSON Datasource plugin empowers you to seamlessly integrate JSON data into Grafana.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

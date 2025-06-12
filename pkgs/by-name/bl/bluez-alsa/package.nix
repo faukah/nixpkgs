@@ -17,7 +17,6 @@
   sbc,
   python3,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "bluez-alsa";
   version = "4.3.1";
@@ -62,7 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.withFeatureAs true "dbusconfdir" "${placeholder "out"}/share/dbus-1/system.d")
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/Arkq/bluez-alsa";
@@ -86,10 +85,11 @@ stdenv.mkDerivation (finalAttrs: {
       BluezALSA if you disable `bluetooth-discover` and `bluez5-discover`
       modules in PA and configure it to play/capture sound over `bluealsa` PCM.
     '';
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     mainProgram = "bluealsa";
-    maintainers = with lib.maintainers; [ oxij ];
+    maintainers = with lib.maintainers; [oxij];
     platforms = lib.platforms.linux;
   };
 })
 # TODO: aptxSupport
+

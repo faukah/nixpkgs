@@ -37,7 +37,6 @@
   udev,
   xmlto,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "cockpit";
   version = "338";
@@ -165,12 +164,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     wrapProgram $out/libexec/cockpit-certificate-helper \
       --prefix PATH : ${
-        lib.makeBinPath [
-          coreutils
-          sscg
-          openssl
-        ]
-      } \
+      lib.makeBinPath [
+        coreutils
+        sscg
+        openssl
+      ]
+    } \
       --run 'cd $(mktemp -d)'
 
     for binary in $out/bin/cockpit-bridge $out/libexec/cockpit-askpass; do
@@ -182,11 +181,11 @@ stdenv.mkDerivation (finalAttrs: {
     patchShebangs $out/share/cockpit/issue/update-issue
     wrapProgram $out/share/cockpit/issue/update-issue \
       --prefix PATH : ${
-        lib.makeBinPath [
-          iproute2
-          gnused
-        ]
-      }
+      lib.makeBinPath [
+        iproute2
+        gnused
+      ]
+    }
 
 
     substituteInPlace $out/${python3Packages.python.sitePackages}/cockpit/_vendor/systemd_ctypes/libsystemd.py \
@@ -201,7 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postFixup
   '';
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [python3Packages.pytestCheckHook];
 
   checkInputs = [
     bashInteractive
@@ -223,8 +222,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests = { inherit (nixosTests) cockpit; };
-    updateScript = nix-update-script { };
+    tests = {inherit (nixosTests) cockpit;};
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -233,6 +232,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://cockpit-project.org/";
     changelog = "https://cockpit-project.org/blog/cockpit-${finalAttrs.version}.html";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.lucasew ];
+    maintainers = [lib.maintainers.lucasew];
   };
 })

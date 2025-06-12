@@ -3,10 +3,8 @@
   stdenv,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   docling-core,
   huggingface-hub,
@@ -20,13 +18,11 @@
   torchvision,
   tqdm,
   transformers,
-
   # tests
   datasets,
   pytestCheckHook,
   writableTmpDirAsHomeHook,
 }:
-
 buildPythonPackage rec {
   pname = "docling-ibm-models";
   version = "3.4.3";
@@ -88,6 +84,6 @@ buildPythonPackage rec {
     description = "Docling IBM models";
     homepage = "https://github.com/DS4SD/docling-ibm-models";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ drupol ];
+    maintainers = with lib.maintainers; [drupol];
   };
 }

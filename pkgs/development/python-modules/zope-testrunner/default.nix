@@ -6,7 +6,6 @@
   zope-interface,
   zope-exceptions,
 }:
-
 buildPythonPackage rec {
   pname = "zope-testrunner";
   version = "6.6.1";
@@ -24,18 +23,18 @@ buildPythonPackage rec {
       --replace-fail "setuptools<74" "setuptools"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     zope-interface
     zope-exceptions
   ];
 
-  pythonImportsCheck = [ "zope.testrunner" ];
+  pythonImportsCheck = ["zope.testrunner"];
 
   doCheck = false; # custom test modifies sys.path
 
-  pythonNamespaces = [ "zope" ];
+  pythonNamespaces = ["zope"];
 
   meta = {
     description = "Flexible test runner with layer support";
@@ -43,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zopefoundation/zope.testrunner";
     changelog = "https://github.com/zopefoundation/zope.testrunner/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.zpl21;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

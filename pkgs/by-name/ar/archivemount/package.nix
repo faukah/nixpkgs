@@ -6,7 +6,6 @@
   fuse,
   libarchive,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "archivemount";
   version = "1b";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-QQeVr3kPLVX543PwM2jtMnVQgkEfiQd09hG9VQvqLng=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fuse
     libarchive

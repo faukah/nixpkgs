@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-configurations";
   version = "2.5.1";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-blCDdX4rvfm7eFBWdTa5apNRX2sXUD10ko/2KNsuDpQ=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [django] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     mock
@@ -47,13 +46,13 @@ buildPythonPackage rec {
   # django.core.exceptions.ImproperlyConfigured: django-configurations settings importer wasn't correctly installed
   doCheck = false;
 
-  pythonImportsCheck = [ "configurations" ];
+  pythonImportsCheck = ["configurations"];
 
   meta = with lib; {
     description = "Helper for organizing Django settings";
     mainProgram = "django-cadmin";
     homepage = "https://django-configurations.readthedocs.io/";
     license = licenses.bsd0;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

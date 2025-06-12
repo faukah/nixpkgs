@@ -18,7 +18,6 @@
   pytestCheckHook,
   stdenv,
 }:
-
 buildPythonPackage {
   pname = "distutils";
   inherit (setuptools) version;
@@ -31,7 +30,7 @@ buildPythonPackage {
     hash = "sha256-Kx4Iudy9oZ0oQT96Meyq/m0k0BuexPLVxwvpNJehCW0=";
   };
 
-  build-system = [ setuptools-scm ];
+  build-system = [setuptools-scm];
 
   dependencies = [
     jaraco-collections
@@ -45,7 +44,7 @@ buildPythonPackage {
     ln -s ${setuptools}/${python.sitePackages}/setuptools/_distutils $out/${python.sitePackages}/distutils
   '';
 
-  pythonImportsCheck = [ "distutils" ];
+  pythonImportsCheck = ["distutils"];
 
   nativeCheckInputs = [
     docutils
@@ -65,6 +64,6 @@ buildPythonPackage {
     description = "Distutils as found in cpython";
     homepage = "https://github.com/pypa/distutils";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

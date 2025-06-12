@@ -2,17 +2,14 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   setuptools,
-
   # dependencies
   dm-tree,
   etils,
   numpy,
   tabulate,
   wrapt,
-
   # tests
   click,
   docutils,
@@ -22,7 +19,6 @@
   tensorflow-datasets,
   tf-keras,
 }:
-
 buildPythonPackage rec {
   pname = "dm-sonnet";
   version = "2.0.2";
@@ -39,16 +35,18 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  dependencies = [
-    dm-tree
-    etils
-    numpy
-    tabulate
-    wrapt
-  ] ++ etils.optional-dependencies.epath;
+  dependencies =
+    [
+      dm-tree
+      etils
+      numpy
+      tabulate
+      wrapt
+    ]
+    ++ etils.optional-dependencies.epath;
 
   optional-dependencies = {
-    tensorflow = [ tensorflow ];
+    tensorflow = [tensorflow];
   };
 
   nativeCheckInputs = [
@@ -78,13 +76,13 @@ buildPythonPackage rec {
     "testComputationAgainstNumPy1"
   ];
 
-  pythonImportsCheck = [ "sonnet" ];
+  pythonImportsCheck = ["sonnet"];
 
   meta = {
     description = "Library for building neural networks in TensorFlow";
     homepage = "https://github.com/deepmind/sonnet";
     changelog = "https://github.com/google-deepmind/sonnet/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ onny ];
+    maintainers = with lib.maintainers; [onny];
   };
 }

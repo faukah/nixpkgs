@@ -4,7 +4,6 @@
   attrs,
   hypothesis,
 }:
-
 buildPythonPackage {
   pname = "attrs-tests";
   inherit (attrs) version;

@@ -7,7 +7,6 @@
   SDL_mixer,
   SDL_net,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gav";
   version = "0.9.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
     sed -e "s@/usr@$out@" -i Theme.h
   '';
 
-  patches = [ ./gcc.patch ];
+  patches = [./gcc.patch];
   buildInputs = [
     SDL
     SDL_image

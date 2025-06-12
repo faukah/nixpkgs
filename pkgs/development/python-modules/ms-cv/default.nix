@@ -5,7 +5,6 @@
   fetchFromGitHub,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "ms-cv";
   version = "0.1.1";
@@ -25,12 +24,12 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Correlation vector implementation in python";
     homepage = "https://github.com/OpenXbox/ms_cv";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -16,7 +16,6 @@
   xmlsec,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "lasso";
   version = "2.8.2";
@@ -76,6 +75,6 @@ stdenv.mkDerivation rec {
     changelog = "https://git.entrouvert.org/entrouvert/lasso/raw/tag/v${version}/ChangeLog";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ womfoo ];
+    maintainers = with lib.maintainers; [womfoo];
   };
 }

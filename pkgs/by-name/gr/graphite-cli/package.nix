@@ -5,7 +5,6 @@
   git,
   installShellFiles,
 }:
-
 buildNpmPackage rec {
   pname = "graphite-cli";
   version = "1.6.2";
@@ -44,6 +43,6 @@ buildNpmPackage rec {
     homepage = "https://graphite.dev/docs/graphite-cli";
     license = lib.licenses.unfree; # no license specified
     mainProgram = "gt";
-    maintainers = with lib.maintainers; [ joshheinrichs-shopify ];
+    maintainers = with lib.maintainers; [joshheinrichs-shopify];
   };
 }

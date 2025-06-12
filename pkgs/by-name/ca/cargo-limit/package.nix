@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-limit";
   version = "0.0.10";
@@ -20,7 +19,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-+qXw4svnftjVL7STl1mPfJiYQQkmitHsNm1JT+0HSEk=";
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

@@ -10,7 +10,6 @@
   requests,
   testtools,
 }:
-
 buildPythonPackage rec {
   pname = "pyopnsense";
   version = "0.4.0";
@@ -35,13 +34,13 @@ buildPythonPackage rec {
     testtools
   ];
 
-  pythonImportsCheck = [ "pyopnsense" ];
+  pythonImportsCheck = ["pyopnsense"];
 
   meta = with lib; {
     description = "Python client for the OPNsense API";
     homepage = "https://github.com/mtreinish/pyopnsense";
     changelog = "https://github.com/mtreinish/pyopnsense/releases/tag/${version}";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

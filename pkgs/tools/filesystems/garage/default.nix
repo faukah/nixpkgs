@@ -8,17 +8,15 @@
   protobuf,
   cacert,
   nixosTests,
-}:
-let
-  generic =
-    {
-      version,
-      hash,
-      cargoHash,
-      cargoPatches ? [ ],
-      eol ? false,
-      broken ? false,
-    }:
+}: let
+  generic = {
+    version,
+    hash,
+    cargoHash,
+    cargoPatches ? [],
+    eol ? false,
+    broken ? false,
+  }:
     rustPlatform.buildRustPackage {
       pname = "garage";
       inherit version;
@@ -104,13 +102,12 @@ let
           _0x4A6F
           teutat3s
         ];
-        knownVulnerabilities = (lib.optional eol "Garage version ${version} is EOL");
+        knownVulnerabilities = lib.optional eol "Garage version ${version} is EOL";
         inherit broken;
         mainProgram = "garage";
       };
     };
-in
-rec {
+in rec {
   # Until Garage hits 1.0, 0.7.3 is equivalent to 7.3.0 for now, therefore
   # we have to keep all the numbers in the version to handle major/minor/patch level.
   # for <1.0.
@@ -120,7 +117,7 @@ rec {
     version = "0.8.7";
     hash = "sha256-2QGbR6YvMQeMxN3n1MMJ5qfBcEJ5hjXARUOfEn+m4Jc=";
     cargoHash = "sha256-NmeAkm35Su4o5JEn75pZmxhVHh+VMwKwULKY0eCVlYo=";
-    cargoPatches = [ ./update-time-0.8.patch ];
+    cargoPatches = [./update-time-0.8.patch];
     broken = stdenv.hostPlatform.isDarwin;
   };
 
@@ -128,7 +125,7 @@ rec {
     version = "0.9.4";
     hash = "sha256-2ZaxenwaVGYYUjUJaGgnGpZNQprQV9+Jns2sXM6cowk=";
     cargoHash = "sha256-ittesFz1GUGipQecsmMA+GEaVoUY+C9DtEvsO0HFNCc=";
-    cargoPatches = [ ./update-time.patch ];
+    cargoPatches = [./update-time.patch];
   };
 
   garage_1_1_0 = generic {

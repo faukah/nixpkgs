@@ -19,7 +19,6 @@
   pcsclite,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eid-mw";
   # NOTE: Don't just blindly update to the latest version/tag. Releases are always for a specific OS.
@@ -66,26 +65,24 @@ stdenv.mkDerivation rec {
       --replace "c_rehash" "openssl rehash"
   '';
   # pinentry uses hardcoded `/usr/bin/pinentry`, so use the built-in (uglier) dialogs for pinentry.
-  configureFlags = [ "--disable-pinentry" ];
+  configureFlags = ["--disable-pinentry"];
 
-  postInstall =
-    let
-      eid-nssdb-in = replaceVarsWith {
-        isExecutable = true;
-        src = ./eid-nssdb.in;
-        replacements = {
-          inherit (stdenv) shell;
-        };
+  postInstall = let
+    eid-nssdb-in = replaceVarsWith {
+      isExecutable = true;
+      src = ./eid-nssdb.in;
+      replacements = {
+        inherit (stdenv) shell;
       };
-    in
-    ''
-      install -D ${eid-nssdb-in} $out/bin/eid-nssdb
-      substituteInPlace $out/bin/eid-nssdb \
-        --replace "modutil" "${nssTools}/bin/modutil"
+    };
+  in ''
+    install -D ${eid-nssdb-in} $out/bin/eid-nssdb
+    substituteInPlace $out/bin/eid-nssdb \
+      --replace "modutil" "${nssTools}/bin/modutil"
 
-      rm $out/bin/about-eid-mw
-      wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
-    '';
+    rm $out/bin/about-eid-mw
+    wrapProgram $out/bin/eid-viewer --prefix XDG_DATA_DIRS : "$out/share/gsettings-schemas/$name"
+  '';
 
   enableParallelBuilding = true;
 

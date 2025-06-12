@@ -4,7 +4,6 @@
   fetchurl,
   unzip,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "bluetility";
   version = "1.5.1";
@@ -16,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -31,8 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Bluetooth Low Energy browse";
     homepage = "https://github.com/jnross/Bluetility";
     license = licenses.mit;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ emilytrau ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.darwin;
   };
 })

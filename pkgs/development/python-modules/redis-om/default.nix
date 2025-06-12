@@ -18,7 +18,6 @@
   pytest-asyncio,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "redis-om";
   version = "0.3.3";
@@ -79,6 +78,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/redis/redis-om-python";
     changelog = "https://github.com/redis/redis-om-python/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
   };
 }

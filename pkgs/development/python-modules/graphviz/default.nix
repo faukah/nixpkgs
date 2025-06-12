@@ -15,7 +15,6 @@
   pytest-mock,
   python,
 }:
-
 buildPythonPackage rec {
   pname = "graphviz";
   version = "0.20.3";
@@ -43,9 +42,9 @@ buildPythonPackage rec {
   '';
 
   # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [freefont_ttf];};
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   nativeCheckInputs = [
     mock
@@ -69,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xflr6/graphviz";
     changelog = "https://github.com/xflr6/graphviz/blob/${src.rev}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

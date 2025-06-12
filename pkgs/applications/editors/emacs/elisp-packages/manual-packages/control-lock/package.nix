@@ -3,7 +3,6 @@
   fetchurl,
   melpaBuild,
 }:
-
 melpaBuild {
   pname = "control-lock";
   version = "1.1.2";

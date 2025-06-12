@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "cppreference-doc";
   version = "20250209";
@@ -24,13 +23,13 @@ stdenvNoCC.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru = { inherit pname version; };
+  passthru = {inherit pname version;};
 
   meta = with lib; {
     description = "C++ standard library reference";
     homepage = "https://en.cppreference.com";
     license = licenses.cc-by-sa-30;
-    maintainers = with maintainers; [ panicgh ];
+    maintainers = with maintainers; [panicgh];
     platforms = platforms.all;
   };
 }

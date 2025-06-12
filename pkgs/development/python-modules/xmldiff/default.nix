@@ -7,7 +7,6 @@
   setuptools,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "xmldiff";
   version = "2.7.0";
@@ -20,22 +19,22 @@ buildPythonPackage rec {
     hash = "sha256-wJELH4ADZt1+xikj5dBuiwahvZEgVpocJ/TyRGucaKI=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     lxml
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xmldiff" ];
+  pythonImportsCheck = ["xmldiff"];
 
   meta = {
     description = "Creates diffs of XML files";
     homepage = "https://github.com/Shoobx/xmldiff";
     changelog = "https://github.com/Shoobx/xmldiff/blob/master/CHANGES.rst";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sfrijters ];
+    maintainers = with lib.maintainers; [sfrijters];
   };
 }

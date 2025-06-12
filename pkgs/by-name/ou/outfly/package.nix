@@ -14,7 +14,6 @@
   libX11,
   libXi,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "outfly";
   version = "0.14.0";
@@ -41,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     wayland
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   doCheck = false; # no meaningful tests
 
   postFixup = ''
@@ -57,7 +56,7 @@ rustPlatform.buildRustPackage rec {
       name = "outfly";
       exec = "outfly";
       desktopName = "OutFly";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
   meta = {
@@ -75,7 +74,7 @@ rustPlatform.buildRustPackage rec {
       ofl
       publicDomain
     ];
-    maintainers = with lib.maintainers; [ _71rd ];
+    maintainers = with lib.maintainers; [_71rd];
     mainProgram = "outfly";
   };
 }

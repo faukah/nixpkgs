@@ -12,7 +12,6 @@
   testers,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "dualsensectl";
   version = "0.7";
@@ -44,8 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/nowrep/dualsensectl";
     license = licenses.gpl2Only;
     mainProgram = "dualsensectl";
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
     platforms = platforms.linux;
   };
 })

@@ -12,7 +12,6 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? !enableShared,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bpkg";
   version = "0.17.0";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/bpkg/tree/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

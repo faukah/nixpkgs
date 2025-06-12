@@ -5,7 +5,6 @@
   cmake,
   gcc,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pvsneslib";
   version = "4.2.0";
@@ -71,7 +70,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/alekmaul/pvsneslib";
     changelog = "https://github.com/alekmaul/pvsneslib/releases/tag/${src.rev}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ soyouzpanda ];
+    maintainers = with lib.maintainers; [soyouzpanda];
     mainProgram = "pvsneslib";
     platforms = lib.platforms.all;
   };

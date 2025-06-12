@@ -2,19 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   pkg-config,
   rustc,
   rustPlatform,
-
   # tests
   numpy,
   pytestCheckHook,
   pytest-benchmark,
   pytest-rerunfailures,
 }:
-
 buildPythonPackage rec {
   pname = "gilknocker";
   version = "0.4.1.post6";
@@ -32,8 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-cUv0CT8d6Nxjzh/S/hY9jcpeFX/5KvBxSkqOkt4htyU=";
   };
 
-  nativeBuildInputs =
-    with rustPlatform;
+  nativeBuildInputs = with rustPlatform;
     [
       cargoSetupHook
       maturinBuildHook
@@ -62,6 +58,6 @@ buildPythonPackage rec {
       mit
       unlicense
     ];
-    maintainers = with lib.maintainers; [ daspk04 ];
+    maintainers = with lib.maintainers; [daspk04];
   };
 }

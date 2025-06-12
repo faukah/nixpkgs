@@ -13,7 +13,6 @@
   jack,
   coreaudioSupport ? stdenv.hostPlatform.isDarwin,
 }:
-
 stdenv.mkDerivation rec {
   pname = "rtaudio";
   version = "5.2.0";
@@ -37,17 +36,33 @@ stdenv.mkDerivation rec {
     ++ lib.optional jackSupport jack;
 
   cmakeFlags = [
-    "-DRTAUDIO_API_ALSA=${if alsaSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_PULSE=${if pulseaudioSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_JACK=${if jackSupport then "ON" else "OFF"}"
-    "-DRTAUDIO_API_CORE=${if coreaudioSupport then "ON" else "OFF"}"
+    "-DRTAUDIO_API_ALSA=${
+      if alsaSupport
+      then "ON"
+      else "OFF"
+    }"
+    "-DRTAUDIO_API_PULSE=${
+      if pulseaudioSupport
+      then "ON"
+      else "OFF"
+    }"
+    "-DRTAUDIO_API_JACK=${
+      if jackSupport
+      then "ON"
+      else "OFF"
+    }"
+    "-DRTAUDIO_API_CORE=${
+      if coreaudioSupport
+      then "ON"
+      else "OFF"
+    }"
   ];
 
   meta = with lib; {
     description = "Set of C++ classes that provide a cross platform API for realtime audio input/output";
     homepage = "https://www.music.mcgill.ca/~gary/rtaudio/";
     license = licenses.mit;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.unix;
   };
 }

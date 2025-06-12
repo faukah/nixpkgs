@@ -1,5 +1,4 @@
-{ pkgs }:
-''
+{pkgs}: ''
   ixr ${pkgs.bashNonInteractive}/libexec/**,
   mr ${pkgs.bashNonInteractive}/lib/**.so*,
   mr ${pkgs.bashNonInteractive}/lib64/**.so*,

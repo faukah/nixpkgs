@@ -6,7 +6,6 @@
   libdmtx,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "pylibdmtx";
   version = "0.1.10";
@@ -41,12 +40,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "pylibdmtx" ];
+  pythonImportsCheck = ["pylibdmtx"];
 
   meta = with lib; {
     description = "Read and write Data Matrix barcodes from Python 2 and 3 using the libdmtx library";
     homepage = "https://github.com/NaturalHistoryMuseum/pylibdmtx/";
     license = licenses.mit;
-    maintainers = with maintainers; [ grahamc ];
+    maintainers = with maintainers; [grahamc];
   };
 }

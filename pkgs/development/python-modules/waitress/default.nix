@@ -7,7 +7,6 @@
   pytestCheckHook,
   pytest-cov-stub,
 }:
-
 buildPythonPackage rec {
   pname = "waitress";
   version = "3.0.2";
@@ -18,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-aCqq8q8MRK2kq/tw3tNjk/DjB/SrlFaiFc4AILrvwx8=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  pythonImportsCheck = [ "waitress" ];
+  pythonImportsCheck = ["waitress"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Waitress WSGI server";
     mainProgram = "waitress-serve";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

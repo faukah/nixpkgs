@@ -22,7 +22,6 @@
   ocsinventory-agent,
   nix-update-script,
 }:
-
 perlPackages.buildPerlPackage rec {
   pname = "ocsinventory-agent";
   version = "2.10.4";
@@ -43,10 +42,9 @@ perlPackages.buildPerlPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.hostPlatform.isDarwin shortenPerlShebang;
 
-  buildInputs =
-    with perlPackages;
+  buildInputs = with perlPackages;
     [
       perl
       DataUUID
@@ -64,37 +62,34 @@ perlPackages.buildPerlPackage rec {
       XMLSimple
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux (
-      with perlPackages;
-      [
+      with perlPackages; [
         NetCUPS # cups-filters is broken on darwin
       ]
     )
     ++ lib.optionals stdenv.hostPlatform.isDarwin (
-      with perlPackages;
-      [
+      with perlPackages; [
         MacSysProfile
       ]
     );
 
-  postInstall =
-    let
-      runtimeDependencies =
-        [
-          coreutils # uname, cut, df, stat, uptime
-          findutils # find
-          inetutils # ifconfig
-          ipmitool # ipmitool
-          nmap # nmap
-          pciutils # lspci
-        ]
-        ++ lib.optionals stdenv.hostPlatform.isLinux [
-          dmidecode # dmidecode
-          iproute2 # ip
-          lvm2 # pvs
-          usbutils # lsusb
-          util-linux # last, lsblk, mount
-        ];
-    in
+  postInstall = let
+    runtimeDependencies =
+      [
+        coreutils # uname, cut, df, stat, uptime
+        findutils # find
+        inetutils # ifconfig
+        ipmitool # ipmitool
+        nmap # nmap
+        pciutils # lspci
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isLinux [
+        dmidecode # dmidecode
+        iproute2 # ip
+        lvm2 # pvs
+        usbutils # lsusb
+        util-linux # last, lsblk, mount
+      ];
+  in
     lib.optionalString stdenv.hostPlatform.isDarwin ''
       shortenPerlShebang $out/bin/ocsinventory-agent
     ''
@@ -110,7 +105,7 @@ perlPackages.buildPerlPackage rec {
         command = "ocsinventory-agent --version";
       };
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

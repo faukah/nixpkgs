@@ -2,7 +2,6 @@
   lib,
   vscode-utils,
 }:
-
 vscode-utils.buildVscodeMarketplaceExtension {
   mktplcRef = {
     name = "language-hugo-vscode";
@@ -15,6 +14,6 @@ vscode-utils.buildVscodeMarketplaceExtension {
     description = "Adds syntax highlighting and snippets to Hugo files in VS Code";
     downloadPage = "https://marketplace.visualstudio.com/items?itemName=budparr.language-hugo-vscode";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ohheyrj ];
+    maintainers = [lib.maintainers.ohheyrj];
   };
 }

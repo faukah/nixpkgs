@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "container2wasm";
   version = "0.8.2";
@@ -32,7 +31,7 @@ buildGoModule rec {
     homepage = "https://github.com/ktock/container2wasm";
     changelog = "https://github.com/ktock/container2wasm/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ dit7ya ];
+    maintainers = with lib.maintainers; [dit7ya];
     mainProgram = "c2w";
   };
 }

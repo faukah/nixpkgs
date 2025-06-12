@@ -1,9 +1,8 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "ntpd";
 
   meta = {
-    maintainers = with lib.maintainers; [ pyrox0 ];
+    maintainers = with lib.maintainers; [pyrox0];
   };
 
   nodes.machine = {

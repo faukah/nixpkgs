@@ -9,7 +9,6 @@
   setuptools,
   tornado,
 }:
-
 buildPythonPackage rec {
   pname = "snakeviz";
   version = "2.2.2";
@@ -24,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-s/OATRnkooucRkLer5A66X9xDEA7aKNo+c10m1N7Guw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ tornado ];
+  propagatedBuildInputs = [tornado];
 
   __darwinAllowLocalNetworking = true;
 
@@ -36,7 +35,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "snakeviz" ];
+  pythonImportsCheck = ["snakeviz"];
 
   preCheck = ''
     export PATH="$PATH:$out/bin";

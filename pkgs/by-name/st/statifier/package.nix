@@ -3,7 +3,6 @@
   multiStdenv,
   fetchurl,
 }:
-
 multiStdenv.mkDerivation rec {
   pname = "statifier";
   version = "1.7.4";

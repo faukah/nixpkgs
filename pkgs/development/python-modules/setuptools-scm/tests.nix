@@ -7,7 +7,6 @@
   pip,
   virtualenv,
 }:
-
 buildPythonPackage {
   pname = "setuptools-scm-tests";
   inherit (setuptools-scm) version src;

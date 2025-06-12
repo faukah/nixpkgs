@@ -14,7 +14,6 @@
   nix-update-script,
   fetchpatch,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xsane";
   version = "0.999";
@@ -29,15 +28,16 @@ stdenv.mkDerivation rec {
 
   # add all fedora patchs. fix gcc-14 build among other things
   # https://src.fedoraproject.org/rpms/xsane/tree/main
-  patches =
-    let
-      fetchFedoraPatch =
-        { name, hash }:
-        fetchpatch {
-          inherit name hash;
-          url = "https://src.fedoraproject.org/rpms/xsane/raw/846ace0a29063335c708b01e9696eda062d7459c/f/${name}";
-        };
-    in
+  patches = let
+    fetchFedoraPatch = {
+      name,
+      hash,
+    }:
+      fetchpatch {
+        inherit name hash;
+        url = "https://src.fedoraproject.org/rpms/xsane/raw/846ace0a29063335c708b01e9696eda062d7459c/f/${name}";
+      };
+  in
     map fetchFedoraPatch [
       {
         name = "0001-Follow-new-convention-for-registering-gimp-plugin.patch";
@@ -114,18 +114,20 @@ stdenv.mkDerivation rec {
     chmod a+rX -R .
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [
-    libpng
-    libusb-compat-0_1
-    sane-backends
-    sane-frontends
-    libX11
-    gtk2
-  ] ++ lib.optional gimpSupport gimp;
+  buildInputs =
+    [
+      libpng
+      libusb-compat-0_1
+      sane-backends
+      sane-frontends
+      libX11
+      gtk2
+    ]
+    ++ lib.optional gimpSupport gimp;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "http://www.sane-project.org/";
@@ -133,6 +135,6 @@ stdenv.mkDerivation rec {
     mainProgram = "xsane";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

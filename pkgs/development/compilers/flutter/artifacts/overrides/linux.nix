@@ -1,12 +1,3 @@
-{
-  gtk3,
-}:
-
-{
-  buildInputs ? [ ],
-  ...
-}:
-
-{
-  buildInputs = buildInputs ++ [ gtk3 ];
+{gtk3}: {buildInputs ? [], ...}: {
+  buildInputs = buildInputs ++ [gtk3];
 }

@@ -15,7 +15,6 @@
   librsvg,
   gtk4,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "banking";
   version = "0.6.0";
@@ -64,6 +63,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://tabos.gitlab.io/projects/banking/";
     license = licenses.gpl3Plus;
     mainProgram = "org.tabos.banking";
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

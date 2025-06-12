@@ -10,12 +10,10 @@
   withCustomModes ? true,
   withIntrinsics ? stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isx86,
   withAsm ? false,
-
   # tests
   ffmpeg-headless,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libopus";
   version = "1.5.2";
@@ -67,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       pkg-config = testers.hasPkgConfigModules {
         package = finalAttrs.finalPackage;
-        moduleNames = [ "opus" ];
+        moduleNames = ["opus"];
       };
     };
   };

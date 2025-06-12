@@ -9,7 +9,6 @@
   openssl,
   speechd-minimal,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "goxlr-utility";
   version = "1.2.2";
@@ -37,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
   ];
 
-  buildFeatures = [ "tts" ];
+  buildFeatures = ["tts"];
 
   postInstall = ''
     install -Dm644 "50-goxlr.rules" "$out/etc/udev/rules.d/50-goxlr.rules"
@@ -62,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     description = "Unofficial GoXLR App replacement for Linux, Windows and MacOS";
     homepage = "https://github.com/GoXLR-on-Linux/goxlr-utility";
     license = licenses.mit;
-    maintainers = with maintainers; [ errnoh ];
+    maintainers = with maintainers; [errnoh];
   };
 }

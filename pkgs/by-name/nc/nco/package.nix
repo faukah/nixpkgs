@@ -13,7 +13,6 @@
   udunits,
   which,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "nco";
   version = "5.3.2";
@@ -48,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace "/bin/mv" "${coreutils}/bin/mv"
   '';
 
-  makeFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "LIBTOOL=${libtool}/bin/libtool" ];
+  makeFlags = lib.optionals stdenv.hostPlatform.isDarwin ["LIBTOOL=${libtool}/bin/libtool"];
 
   enableParallelBuilding = true;
 
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://nco.sourceforge.net/";
     license = lib.licenses.bsd3;
     longDescription = "The NCO (netCDF Operator) toolkit manipulates and analyzes data stored in netCDF-accessible formats, including DAP, HDF4, and HDF5";
-    maintainers = with lib.maintainers; [ bzizou ];
+    maintainers = with lib.maintainers; [bzizou];
     platforms = lib.platforms.unix;
   };
 })

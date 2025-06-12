@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
   dontUnpack = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -29,8 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Automatic quitting of macOS apps when closing their windows.";
     homepage = "https://swiftquit.com/";
     license = lib.licenses.gpl3;
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    maintainers = with lib.maintainers; [ Enzime ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    maintainers = with lib.maintainers; [Enzime];
     platforms = lib.platforms.darwin;
   };
 })

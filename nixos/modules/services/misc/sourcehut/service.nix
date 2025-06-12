@@ -1,28 +1,25 @@
-srv:
-{
+srv: {
   configIniOfService,
   pkgname ? "${srv}srht", # Because "buildsrht" does not follow that pattern (missing an "s").
   srvsrht ? "${srv}.sr.ht",
   iniKey ? "${srv}.sr.ht",
   webhooks ? false,
-  extraTimers ? { },
-  mainService ? { },
-  extraServices ? { },
-  extraConfig ? { },
+  extraTimers ? {},
+  mainService ? {},
+  extraServices ? {},
+  extraConfig ? {},
   port,
-}:
-{
+}: {
   config,
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   inherit (lib) types;
   inherit (lib.attrsets) mapAttrs optionalAttrs;
   inherit (lib.lists) optional;
-  inherit (lib.modules)
+  inherit
+    (lib.modules)
     mkBefore
     mkDefault
     mkForce
@@ -37,27 +34,21 @@ let
   cfg = config.services.sourcehut;
   configIni = configIniOfService srv;
   srvCfg = cfg.${srv};
-  baseService =
-    serviceName:
-    {
-      allowStripe ? false,
-    }:
-    extraService:
-    let
-      runDir = "/run/sourcehut/${serviceName}";
-      rootDir = "/run/sourcehut/chroots/${serviceName}";
-    in
+  baseService = serviceName: {allowStripe ? false}: extraService: let
+    runDir = "/run/sourcehut/${serviceName}";
+    rootDir = "/run/sourcehut/chroots/${serviceName}";
+  in
     mkMerge [
       extraService
       {
         after =
-          [ "network.target" ]
+          ["network.target"]
           ++ optional cfg.postgresql.enable "postgresql.service"
           ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
         requires =
           optional cfg.postgresql.enable "postgresql.service"
           ++ optional cfg.redis.enable "redis-sourcehut-${srvsrht}.service";
-        path = [ pkgs.gawk ];
+        path = [pkgs.gawk];
         environment.HOME = runDir;
         serviceConfig = {
           User = mkDefault srvCfg.user;
@@ -70,7 +61,7 @@ let
           ];
           RuntimeDirectoryMode = "2750";
           # No need for the chroot path once inside the chroot
-          InaccessiblePaths = [ "-+${rootDir}" ];
+          InaccessiblePaths = ["-+${rootDir}"];
           # g+rx is for group members (eg. fcgiwrap or nginx)
           # to read Git/Mercurial repositories, buildlogs, etc.
           # o+x is for intermediate directories created by BindPaths= and like,
@@ -157,13 +148,12 @@ let
         };
       }
     ];
-in
-{
+in {
   options.services.sourcehut.${srv} =
     {
       enable = mkEnableOption "${srv} service";
 
-      package = mkPackageOption pkgs [ "sourcehut" pkgname ] { };
+      package = mkPackageOption pkgs ["sourcehut" pkgname] {};
 
       user = mkOption {
         type = types.str;
@@ -260,16 +250,15 @@ in
         };
         groups =
           {
-            "${srvCfg.group}" = { };
+            "${srvCfg.group}" = {};
           }
-          //
-            optionalAttrs
-              (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or ""))
-              {
-                "postgres".members = [ srvCfg.user ];
-              }
+          // optionalAttrs
+          (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or ""))
+          {
+            "postgres".members = [srvCfg.user];
+          }
           // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
-            "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
+            "redis-sourcehut-${srvsrht}".members = [srvCfg.user];
           };
       };
 
@@ -310,13 +299,13 @@ in
         authentication = ''
           local ${srvCfg.postgresql.database} ${srvCfg.user} trust
         '';
-        ensureDatabases = [ srvCfg.postgresql.database ];
+        ensureDatabases = [srvCfg.postgresql.database];
         ensureUsers = map (name: {
           inherit name;
           # We don't use it because we have a special default database name with dots.
           # TODO(for maintainers of sourcehut): migrate away from custom preStart script.
           ensureDBOwnership = false;
-        }) [ srvCfg.user ];
+        }) [srvCfg.user];
       };
 
       services.sourcehut.settings = mkMerge [
@@ -354,31 +343,30 @@ in
 
       systemd.services = mkMerge [
         {
-          "${srvsrht}" = baseService srvsrht { allowStripe = srv == "meta"; } (mkMerge [
+          "${srvsrht}" = baseService srvsrht {allowStripe = srv == "meta";} (mkMerge [
             {
               description = "sourcehut ${srv}.sr.ht website service";
               before = optional cfg.nginx.enable "nginx.service";
               wants = optional cfg.nginx.enable "nginx.service";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               path = optional cfg.postgresql.enable postgresql.package;
               # Beware: change in credentials' content will not trigger restart.
-              restartTriggers = [ configIni ];
+              restartTriggers = [configIni];
               serviceConfig = {
                 Type = "simple";
                 Restart = mkDefault "always";
                 #RestartSec = mkDefault "2min";
-                StateDirectory = [ "sourcehut/${srvsrht}" ];
+                StateDirectory = ["sourcehut/${srvsrht}"];
                 StateDirectoryMode = "2750";
                 ExecStart =
                   "${cfg.python}/bin/gunicorn ${pkgname}.app:app --name ${srvsrht} --bind ${cfg.listenAddress}:${toString srvCfg.port} "
                   + concatStringsSep " " srvCfg.gunicorn.extraArgs;
               };
-              preStart =
-                let
-                  package = srvCfg.package;
-                  version = package.version;
-                  stateDir = "/var/lib/sourcehut/${srvsrht}";
-                in
+              preStart = let
+                package = srvCfg.package;
+                version = package.version;
+                stateDir = "/var/lib/sourcehut/${srvsrht}";
+              in
                 mkBefore ''
                   set -x
                   # Use the /run/sourcehut/${srvsrht}/config.ini
@@ -414,11 +402,11 @@ in
         }
 
         (mkIf webhooks {
-          "${srvsrht}-webhooks" = baseService "${srvsrht}-webhooks" { } {
+          "${srvsrht}-webhooks" = baseService "${srvsrht}-webhooks" {} {
             description = "sourcehut ${srv}.sr.ht webhooks service";
-            after = [ "${srvsrht}.service" ];
-            wantedBy = [ "${srvsrht}.service" ];
-            partOf = [ "${srvsrht}.service" ];
+            after = ["${srvsrht}.service"];
+            wantedBy = ["${srvsrht}.service"];
+            partOf = ["${srvsrht}.service"];
             preStart = ''
               cp ${pkgs.writeText "${srvsrht}-webhooks-celeryconfig.py" srvCfg.webhooks.celeryConfig} \
                  /run/sourcehut/${srvsrht}-webhooks/celeryconfig.py
@@ -436,47 +424,49 @@ in
         })
 
         (mapAttrs (
-          timerName: timer:
-          (baseService timerName { } (mkMerge [
-            {
-              description = "sourcehut ${timerName} service";
-              after = [
-                "network.target"
-                "${srvsrht}.service"
-              ];
-              serviceConfig = {
-                Type = "oneshot";
-                ExecStart = "${srvCfg.package}/bin/${timerName}";
-              };
-            }
-            (timer.service or { })
-          ]))
-        ) extraTimers)
+            timerName: timer: (baseService timerName {} (mkMerge [
+              {
+                description = "sourcehut ${timerName} service";
+                after = [
+                  "network.target"
+                  "${srvsrht}.service"
+                ];
+                serviceConfig = {
+                  Type = "oneshot";
+                  ExecStart = "${srvCfg.package}/bin/${timerName}";
+                };
+              }
+              (timer.service or {})
+            ]))
+          )
+          extraTimers)
 
         (mapAttrs (
-          serviceName: extraService:
-          baseService serviceName { } (mkMerge [
-            {
-              description = "sourcehut ${serviceName} service";
-              # So that extraServices have the PostgreSQL database initialized.
-              after = [ "${srvsrht}.service" ];
-              wantedBy = [ "${srvsrht}.service" ];
-              partOf = [ "${srvsrht}.service" ];
-              serviceConfig = {
-                Type = "simple";
-                Restart = mkDefault "always";
-              };
-            }
-            extraService
-          ])
-        ) extraServices)
+            serviceName: extraService:
+              baseService serviceName {} (mkMerge [
+                {
+                  description = "sourcehut ${serviceName} service";
+                  # So that extraServices have the PostgreSQL database initialized.
+                  after = ["${srvsrht}.service"];
+                  wantedBy = ["${srvsrht}.service"];
+                  partOf = ["${srvsrht}.service"];
+                  serviceConfig = {
+                    Type = "simple";
+                    Restart = mkDefault "always";
+                  };
+                }
+                extraService
+              ])
+          )
+          extraServices)
 
         # Work around 'pq: permission denied for schema public' with postgres v15.
         # See https://github.com/NixOS/nixpkgs/issues/216989
         # Workaround taken from nixos/forgejo: https://github.com/NixOS/nixpkgs/pull/262741
         # TODO(to maintainers of sourcehut): please migrate away from this workaround
         # by migrating away from database name defaults with dots.
-        (lib.mkIf
+        (
+          lib.mkIf
           (
             cfg.postgresql.enable
             && lib.strings.versionAtLeast config.services.postgresql.package.version "15.0"
@@ -491,11 +481,13 @@ in
         )
       ];
 
-      systemd.timers = mapAttrs (timerName: timer: {
-        description = "sourcehut timer for ${timerName}";
-        wantedBy = [ "timers.target" ];
-        inherit (timer) timerConfig;
-      }) extraTimers;
+      systemd.timers =
+        mapAttrs (timerName: timer: {
+          description = "sourcehut timer for ${timerName}";
+          wantedBy = ["timers.target"];
+          inherit (timer) timerConfig;
+        })
+        extraTimers;
     }
   ]);
 }

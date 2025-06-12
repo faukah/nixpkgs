@@ -10,55 +10,55 @@
   unixODBC,
   withJdbc ? false,
   withOdbc ? false,
-}:
-
-let
-  enableFeature = yes: if yes then "ON" else "OFF";
+}: let
+  enableFeature = yes:
+    if yes
+    then "ON"
+    else "OFF";
   versions = lib.importJSON ./versions.json;
 in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "duckdb";
-  inherit (versions) rev version;
+  stdenv.mkDerivation (finalAttrs: {
+    pname = "duckdb";
+    inherit (versions) rev version;
 
-  src = fetchFromGitHub {
-    # to update run:
-    # nix-shell maintainers/scripts/update.nix --argstr path duckdb
-    inherit (versions) hash;
-    owner = "duckdb";
-    repo = "duckdb";
-    tag = "v${finalAttrs.version}";
-  };
+    src = fetchFromGitHub {
+      # to update run:
+      # nix-shell maintainers/scripts/update.nix --argstr path duckdb
+      inherit (versions) hash;
+      owner = "duckdb";
+      repo = "duckdb";
+      tag = "v${finalAttrs.version}";
+    };
 
-  outputs = [
-    "out"
-    "lib"
-    "dev"
-  ];
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    python3
-  ];
-  buildInputs =
-    [ openssl ] ++ lib.optionals withJdbc [ openjdk11 ] ++ lib.optionals withOdbc [ unixODBC ];
-
-  cmakeFlags =
-    [
-      "-DDUCKDB_EXTENSION_CONFIGS=${finalAttrs.src}/.github/config/in_tree_extensions.cmake"
-      "-DBUILD_ODBC_DRIVER=${enableFeature withOdbc}"
-      "-DJDBC_DRIVER=${enableFeature withJdbc}"
-      "-DOVERRIDE_GIT_DESCRIBE=v${finalAttrs.version}-0-g${finalAttrs.rev}"
-    ]
-    ++ lib.optionals finalAttrs.doInstallCheck [
-      # development settings
-      "-DBUILD_UNITTESTS=ON"
+    outputs = [
+      "out"
+      "lib"
+      "dev"
     ];
 
-  doInstallCheck = true;
+    nativeBuildInputs = [
+      cmake
+      ninja
+      python3
+    ];
+    buildInputs =
+      [openssl] ++ lib.optionals withJdbc [openjdk11] ++ lib.optionals withOdbc [unixODBC];
 
-  installCheckPhase =
-    let
+    cmakeFlags =
+      [
+        "-DDUCKDB_EXTENSION_CONFIGS=${finalAttrs.src}/.github/config/in_tree_extensions.cmake"
+        "-DBUILD_ODBC_DRIVER=${enableFeature withOdbc}"
+        "-DJDBC_DRIVER=${enableFeature withJdbc}"
+        "-DOVERRIDE_GIT_DESCRIBE=v${finalAttrs.version}-0-g${finalAttrs.rev}"
+      ]
+      ++ lib.optionals finalAttrs.doInstallCheck [
+        # development settings
+        "-DBUILD_UNITTESTS=ON"
+      ];
+
+    doInstallCheck = true;
+
+    installCheckPhase = let
       excludes = map (pattern: "exclude:'${pattern}'") (
         [
           "[s3]"
@@ -120,8 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
         ]
       );
       LD_LIBRARY_PATH = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
-    in
-    ''
+    in ''
       runHook preInstallCheck
       (($(ulimit -n) < 1024)) && ulimit -n 1024
 
@@ -130,18 +129,18 @@ stdenv.mkDerivation (finalAttrs: {
       runHook postInstallCheck
     '';
 
-  passthru.updateScript = ./update.sh;
+    passthru.updateScript = ./update.sh;
 
-  meta = with lib; {
-    changelog = "https://github.com/duckdb/duckdb/releases/tag/v${finalAttrs.version}";
-    description = "Embeddable SQL OLAP Database Management System";
-    homepage = "https://duckdb.org/";
-    license = licenses.mit;
-    mainProgram = "duckdb";
-    maintainers = with maintainers; [
-      costrouc
-      cpcloud
-    ];
-    platforms = platforms.all;
-  };
-})
+    meta = with lib; {
+      changelog = "https://github.com/duckdb/duckdb/releases/tag/v${finalAttrs.version}";
+      description = "Embeddable SQL OLAP Database Management System";
+      homepage = "https://duckdb.org/";
+      license = licenses.mit;
+      mainProgram = "duckdb";
+      maintainers = with maintainers; [
+        costrouc
+        cpcloud
+      ];
+      platforms = platforms.all;
+    };
+  })

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   testers,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "go-jsonnet";
   version = "0.21.0";
@@ -18,7 +17,7 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-Uh2rAXdye9QmmZuEqx1qeokE9Z9domyHsSFlU7YZsZw=";
 
-  subPackages = [ "cmd/jsonnet*" ];
+  subPackages = ["cmd/jsonnet*"];
 
   ldflags = [
     "-s"

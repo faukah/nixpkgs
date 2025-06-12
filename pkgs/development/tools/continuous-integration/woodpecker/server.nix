@@ -1,27 +1,32 @@
-{ buildGoModule, callPackage }:
-let
-  common = callPackage ./common.nix { };
+{
+  buildGoModule,
+  callPackage,
+}: let
+  common = callPackage ./common.nix {};
 in
-buildGoModule {
-  pname = "woodpecker-server";
-  inherit (common)
-    version
-    src
-    ldflags
-    postInstall
-    vendorHash
-    ;
+  buildGoModule {
+    pname = "woodpecker-server";
+    inherit
+      (common)
+      version
+      src
+      ldflags
+      postInstall
+      vendorHash
+      ;
 
-  subPackages = "cmd/server";
+    subPackages = "cmd/server";
 
-  env.CGO_ENABLED = 1;
+    env.CGO_ENABLED = 1;
 
-  passthru = {
-    updateScript = ./update.sh;
-  };
+    passthru = {
+      updateScript = ./update.sh;
+    };
 
-  meta = common.meta // {
-    description = "Woodpecker Continuous Integration server";
-    mainProgram = "woodpecker-server";
-  };
-}
+    meta =
+      common.meta
+      // {
+        description = "Woodpecker Continuous Integration server";
+        mainProgram = "woodpecker-server";
+      };
+  }

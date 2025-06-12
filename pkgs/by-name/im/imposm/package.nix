@@ -5,7 +5,6 @@
   leveldb,
   geos,
 }:
-
 buildGoModule rec {
   pname = "imposm";
   version = "0.14.2";
@@ -37,7 +36,7 @@ buildGoModule rec {
     homepage = "https://imposm.org/";
     changelog = "https://github.com/omniscale/imposm3/releases/tag/${src.rev}";
     license = lib.licenses.apsl20;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     mainProgram = "imposm";
   };
 }

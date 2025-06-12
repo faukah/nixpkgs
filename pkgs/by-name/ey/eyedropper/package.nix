@@ -17,7 +17,6 @@
   desktop-file-utils,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "eyedropper";
   version = "2.1.0";
@@ -54,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -64,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "eyedropper";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ zendo ];
-    teams = [ lib.teams.gnome-circle ];
+    maintainers = with lib.maintainers; [zendo];
+    teams = [lib.teams.gnome-circle];
   };
 })

@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "ruapu";
   version = "0.1.0";
@@ -36,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Detect CPU ISA features with single-file";
     homepage = "https://github.com/nihui/ruapu";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     mainProgram = "ruapu";
     platforms = lib.platforms.all;
   };

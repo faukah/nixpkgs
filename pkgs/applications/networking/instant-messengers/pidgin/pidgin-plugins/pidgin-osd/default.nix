@@ -6,7 +6,6 @@
   xosd,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pidgin-osd";
   version = "0.2.0";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     mv $out/lib/pidgin-osd.{la,so} $out/lib/pidgin
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     xosd
     pidgin

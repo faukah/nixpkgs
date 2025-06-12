@@ -3,19 +3,12 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.munge;
-
-in
-
-{
-
+in {
   ###### interface
 
   options = {
-
     services.munge = {
       enable = lib.mkEnableOption "munge service";
 
@@ -26,16 +19,13 @@ in
           The path to a daemon's secret key.
         '';
       };
-
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
-    environment.systemPackages = [ pkgs.munge ];
+    environment.systemPackages = [pkgs.munge];
 
     users.users.munge = {
       description = "Munge daemon user";
@@ -43,14 +33,14 @@ in
       group = "munge";
     };
 
-    users.groups.munge = { };
+    users.groups.munge = {};
 
     systemd.services.munged = {
       documentation = [
         "man:munged(8)"
         "man:mungekey(8)"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "time-sync.target"
@@ -75,9 +65,6 @@ in
         Restart = "on-failure";
         RuntimeDirectory = "munge";
       };
-
     };
-
   };
-
 }

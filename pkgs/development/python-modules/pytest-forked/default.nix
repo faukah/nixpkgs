@@ -13,7 +13,6 @@
   pytest,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pytest-forked";
   version = "1.6.0";
@@ -44,9 +43,9 @@ buildPythonPackage rec {
     wheel
   ];
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ py ];
+  propagatedBuildInputs = [py];
 
   nativeCheckInputs = [
     py
@@ -54,14 +53,13 @@ buildPythonPackage rec {
   ];
 
   disabledTests =
-    if (pythonAtLeast "3.12" && stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) then
-      [
-        # non reproducible test failure on hydra, works on community builder
-        # https://hydra.nixos.org/build/252537267
-        "test_xfail"
-      ]
-    else
-      null;
+    if (pythonAtLeast "3.12" && stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64)
+    then [
+      # non reproducible test failure on hydra, works on community builder
+      # https://hydra.nixos.org/build/252537267
+      "test_xfail"
+    ]
+    else null;
 
   setupHook = ./setup-hook.sh;
 
@@ -70,6 +68,6 @@ buildPythonPackage rec {
     description = "Run tests in isolated forked subprocesses";
     homepage = "https://github.com/pytest-dev/pytest-forked";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

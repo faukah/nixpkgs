@@ -5,7 +5,6 @@
   nix-update-script,
   steampipe,
 }:
-
 buildGoModule rec {
   pname = "steampipe-plugin-github";
   version = "1.3.0";
@@ -37,7 +36,7 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     changelog = "https://github.com/turbot/steampipe-plugin-github/blob/v${version}/CHANGELOG.md";
@@ -45,7 +44,7 @@ buildGoModule rec {
     homepage = "https://github.com/turbot/steampipe-plugin-github";
     license = lib.licenses.asl20;
     longDescription = "Use SQL to instantly query repositories, users, gists and more from GitHub.";
-    maintainers = with lib.maintainers; [ anthonyroussel ];
+    maintainers = with lib.maintainers; [anthonyroussel];
     platforms = steampipe.meta.platforms;
   };
 }

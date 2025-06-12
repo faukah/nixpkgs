@@ -4,7 +4,6 @@
   fetchFromGitHub,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "duti";
   version = "1.5.5pre";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     ./buildConfigure.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "Command-line tool to select default applications for document types and URL schemes on Mac OS X";

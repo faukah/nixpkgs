@@ -15,7 +15,6 @@
   libgee,
   wrapGAppsHook3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "appeditor";
   version = "1.1.5";
@@ -50,14 +49,14 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Edit the Pantheon desktop application menu";
     homepage = "https://github.com/donadigo/appeditor";
-    maintainers = with maintainers; [ xiorcale ];
-    teams = [ teams.pantheon ];
+    maintainers = with maintainers; [xiorcale];
+    teams = [teams.pantheon];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
     mainProgram = "com.github.donadigo.appeditor";

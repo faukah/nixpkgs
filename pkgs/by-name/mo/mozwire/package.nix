@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "MozWire";
   version = "0.8.1";

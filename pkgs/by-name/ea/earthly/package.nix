@@ -6,7 +6,6 @@
   testers,
   earthly,
 }:
-
 buildGoModule rec {
   pname = "earthly";
   version = "0.8.15";

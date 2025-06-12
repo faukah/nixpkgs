@@ -1,9 +1,10 @@
-{ pkgs, lib, ... }:
-
-# see man:hylafax-config(5)
-
 {
-
+  pkgs,
+  lib,
+  ...
+}:
+# see man:hylafax-config(5)
+{
   TagLineFont = "etc/LiberationSans-25.pcf";
   TagLineLocale = "en_US.UTF-8";
 
@@ -18,5 +19,4 @@
 
   SendPageCmd = lib.getExe' pkgs.coreutils "false"; # prevent pager transmit
   SendUUCPCmd = lib.getExe' pkgs.coreutils "false"; # prevent UUCP transmit
-
 }

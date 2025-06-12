@@ -23,19 +23,19 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Op5ueVkzZTiJ1zeBGVi8oeLcfSzXMYfk5zEg4OGyA5g=";
   };
 
-  build-system = [ maturin ];
+  build-system = [maturin];
 
   nativeBuildInputs = with rustPlatform; [
     cargoSetupHook
     maturinBuildHook
   ];
 
-  nativeCheckInputs = [ versionCheckHook ];
+  nativeCheckInputs = [versionCheckHook];
 
   # requires unstable rust features
   env.RUSTC_BOOTSTRAP = 1;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Fast type checker and IDE for Python";

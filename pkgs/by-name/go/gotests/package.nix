@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "gotests";
   version = "1.6.0";
@@ -24,7 +23,7 @@ buildGoModule rec {
     description = "Generate Go tests from your source code";
     mainProgram = "gotests";
     homepage = "https://github.com/cweill/gotests";
-    maintainers = with maintainers; [ vdemeester ];
+    maintainers = with maintainers; [vdemeester];
     license = licenses.asl20;
   };
 }

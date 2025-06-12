@@ -9,7 +9,6 @@
   pkg-config,
   webkitgtk,
 }:
-
 stdenv.mkDerivation rec {
   pname = "webkit2-sharp";
   version = "a59fd76dd730432c76b12ee6347ea66567107ab9";
@@ -42,7 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   ac_cv_path_MONODOCER = "no";
-  installFlags = [ "GAPIXMLDIR=/tmp/gapixml" ];
+  installFlags = ["GAPIXMLDIR=/tmp/gapixml"];
 
   passthru = {
     inherit webkitgtk;
@@ -52,6 +51,6 @@ stdenv.mkDerivation rec {
     description = "C# bindings for WebKit 2 with GTK+ 3";
     homepage = "https://github.com/hbons/webkit2-sharp";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ kevincox ];
+    maintainers = with lib.maintainers; [kevincox];
   };
 }

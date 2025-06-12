@@ -8,7 +8,6 @@
   wrapQtAppsHook,
   wireshark-cli,
 }:
-
 stdenv.mkDerivation {
   pname = "qtwirediff";
   version = "unstable-2023-03-07";
@@ -45,7 +44,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.hostPlatform.isLinux ''
       install -Dm755 -T qtwirediff $out/bin/qtwirediff
       wrapProgram $out/bin/qtwirediff \
-        --prefix PATH : "${lib.makeBinPath [ wireshark-cli ]}"
+        --prefix PATH : "${lib.makeBinPath [wireshark-cli]}"
     ''
     + ''
       runHook postInstall
@@ -56,7 +55,7 @@ stdenv.mkDerivation {
     mainProgram = "qtwirediff";
     homepage = "https://github.com/aaptel/qtwirediff";
     license = lib.licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     # error: assignment of member 'trivial' in read-only object
     broken = true;
   };

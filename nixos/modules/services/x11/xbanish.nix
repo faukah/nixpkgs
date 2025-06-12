@@ -4,16 +4,10 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.xbanish;
-
-in
-{
+in {
   options.services.xbanish = {
-
     enable = mkEnableOption "xbanish";
 
     arguments = mkOption {
@@ -27,8 +21,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.xbanish = {
       description = "xbanish hides the mouse pointer";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart = ''
         ${pkgs.xbanish}/bin/xbanish ${cfg.arguments}
       '';

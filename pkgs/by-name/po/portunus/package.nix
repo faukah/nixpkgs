@@ -5,7 +5,6 @@
   libxcrypt,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "portunus";
   version = "2.1.2";
@@ -17,18 +16,18 @@ buildGoModule rec {
     sha256 = "sha256-nLFwfH1K6vsgNATwAxyq/q6HTtfLK8gsQhei7eJ86Kc=";
   };
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   vendorHash = null;
 
-  passthru.tests = { inherit (nixosTests) portunus; };
+  passthru.tests = {inherit (nixosTests) portunus;};
 
   meta = with lib; {
     description = "Self-contained user/group management and authentication service";
     homepage = "https://github.com/majewsky/portunus";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ majewsky ];
-    teams = [ teams.c3d2 ];
+    maintainers = with maintainers; [majewsky];
+    teams = [teams.c3d2];
   };
 }

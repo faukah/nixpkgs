@@ -5,7 +5,6 @@
   protobuf,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "pycomfoconnect";
   version = "0.5.1";
@@ -20,18 +19,18 @@ buildPythonPackage rec {
     hash = "sha256-I/0vCgSEi6mgYg1fMH4Ha7PoonewtqYYsvXZT8y4rJE=";
   };
 
-  propagatedBuildInputs = [ protobuf ];
+  propagatedBuildInputs = [protobuf];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pycomfoconnect" ];
+  pythonImportsCheck = ["pycomfoconnect"];
 
   meta = with lib; {
     description = "Python module to interact with ComfoAir Q350/450/600 units";
     homepage = "https://github.com/michaelarnauts/comfoconnect";
     changelog = "https://github.com/michaelarnauts/comfoconnect/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

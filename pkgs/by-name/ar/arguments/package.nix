@@ -4,7 +4,6 @@
   fetchFromGitHub,
   cmake,
 }:
-
 stdenv.mkDerivation rec {
   pname = "arguments";
   version = "unstable-2015-11-30";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ar8lm1w1jflz3vdmjr5c4x6y7rscvrj78b8gmrv79y95qrgzv6s";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   #cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib" "-DBICPL_DIR=${bicpl}/lib" ];
 
@@ -28,7 +27,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/${owner}/arguments";
     description = "Library for argument handling for MINC programs";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
   };

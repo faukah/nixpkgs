@@ -2,7 +2,6 @@
   buildPythonApplication,
   lib,
   fetchFromGitHub,
-
   # build inputs
   atk,
   file,
@@ -19,12 +18,10 @@
   wrapGAppsHook3,
   meson,
   ninja,
-
   # check inputs
   xvfb-run,
   nose2,
   flake8,
-
   # python dependencies
   certifi,
   dbus-python,
@@ -38,7 +35,6 @@
   requests,
   protobuf,
   moddb,
-
   # commands that lutris needs
   xrandr,
   pciutils,
@@ -57,9 +53,7 @@
   pkg-config,
   desktop-file-utils,
   appstream-glib,
-}:
-
-let
+}: let
   # See lutris/util/linux.py
   requiredTools = [
     xrandr
@@ -79,88 +73,88 @@ let
     util-linux
   ];
 in
-buildPythonApplication rec {
-  pname = "lutris-unwrapped";
-  version = "0.5.19";
+  buildPythonApplication rec {
+    pname = "lutris-unwrapped";
+    version = "0.5.19";
 
-  src = fetchFromGitHub {
-    owner = "lutris";
-    repo = "lutris";
-    rev = "v${version}";
-    hash = "sha256-CAXKnx5+60MITRM8enkYgFl5ZKM6HCXhCYNyG7kHhuQ=";
-  };
+    src = fetchFromGitHub {
+      owner = "lutris";
+      repo = "lutris";
+      rev = "v${version}";
+      hash = "sha256-CAXKnx5+60MITRM8enkYgFl5ZKM6HCXhCYNyG7kHhuQ=";
+    };
 
-  format = "other";
+    format = "other";
 
-  nativeBuildInputs = [
-    appstream-glib
-    desktop-file-utils
-    gettext
-    glib
-    gobject-introspection
-    meson
-    ninja
-    wrapGAppsHook3
-    pkg-config
-  ];
-  buildInputs =
-    [
-      atk
-      gdk-pixbuf
-      glib-networking
-      gnome-desktop
-      gtk3
-      libnotify
-      pango
-      webkitgtk_4_1
-    ]
-    ++ (with gst_all_1; [
-      gst-libav
-      gst-plugins-bad
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-ugly
-      gstreamer
-    ]);
-
-  # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
-  propagatedBuildInputs = [
-    certifi
-    dbus-python
-    distro
-    evdev
-    lxml
-    pillow
-    pygobject3
-    pypresence
-    pyyaml
-    requests
-    protobuf
-    moddb
-  ];
-
-  postPatch = ''
-    substituteInPlace lutris/util/magic.py \
-      --replace '"libmagic.so.1"' "'${lib.getLib file}/lib/libmagic.so.1'"
-  '';
-
-  # avoid double wrapping
-  dontWrapGApps = true;
-  makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath requiredTools}"
-    "--prefix APPIMAGE_EXTRACT_AND_RUN : 1"
-    "\${gappsWrapperArgs[@]}"
-  ];
-
-  meta = with lib; {
-    homepage = "https://lutris.net";
-    description = "Open Source gaming platform for GNU/Linux";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
-      Madouura
-      rapiteanu
+    nativeBuildInputs = [
+      appstream-glib
+      desktop-file-utils
+      gettext
+      glib
+      gobject-introspection
+      meson
+      ninja
+      wrapGAppsHook3
+      pkg-config
     ];
-    platforms = platforms.linux;
-    mainProgram = "lutris";
-  };
-}
+    buildInputs =
+      [
+        atk
+        gdk-pixbuf
+        glib-networking
+        gnome-desktop
+        gtk3
+        libnotify
+        pango
+        webkitgtk_4_1
+      ]
+      ++ (with gst_all_1; [
+        gst-libav
+        gst-plugins-bad
+        gst-plugins-base
+        gst-plugins-good
+        gst-plugins-ugly
+        gstreamer
+      ]);
+
+    # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
+    propagatedBuildInputs = [
+      certifi
+      dbus-python
+      distro
+      evdev
+      lxml
+      pillow
+      pygobject3
+      pypresence
+      pyyaml
+      requests
+      protobuf
+      moddb
+    ];
+
+    postPatch = ''
+      substituteInPlace lutris/util/magic.py \
+        --replace '"libmagic.so.1"' "'${lib.getLib file}/lib/libmagic.so.1'"
+    '';
+
+    # avoid double wrapping
+    dontWrapGApps = true;
+    makeWrapperArgs = [
+      "--prefix PATH : ${lib.makeBinPath requiredTools}"
+      "--prefix APPIMAGE_EXTRACT_AND_RUN : 1"
+      "\${gappsWrapperArgs[@]}"
+    ];
+
+    meta = with lib; {
+      homepage = "https://lutris.net";
+      description = "Open Source gaming platform for GNU/Linux";
+      license = licenses.gpl3Plus;
+      maintainers = with maintainers; [
+        Madouura
+        rapiteanu
+      ];
+      platforms = platforms.linux;
+      mainProgram = "lutris";
+    };
+  }

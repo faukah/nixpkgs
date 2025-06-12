@@ -3,7 +3,6 @@
   fetchFromGitHub,
   php,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "phive";
   version = "0.16.0";
@@ -23,6 +22,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://github.com/phar-io/phive";
     license = lib.licenses.bsd3;
     mainProgram = "phive";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

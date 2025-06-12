@@ -10,7 +10,6 @@
   pyopenssl,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "webauthn";
   version = "2.5.2";
@@ -25,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-r7enalDiFQDzjiLGuetXIJxFAUSGpWCnrCO/q5lkO10=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   propagatedBuildInputs = [
     asn1crypto
@@ -34,15 +33,15 @@ buildPythonPackage rec {
     pyopenssl
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "webauthn" ];
+  pythonImportsCheck = ["webauthn"];
 
   meta = with lib; {
     description = "Implementation of the WebAuthn API";
     homepage = "https://github.com/duo-labs/py_webauthn";
     changelog = "https://github.com/duo-labs/py_webauthn/blob/${src.tag}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

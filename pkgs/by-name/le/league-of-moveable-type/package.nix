@@ -19,7 +19,6 @@
   sniglet,
   sorts-mill-goudy,
 }:
-
 symlinkJoin {
   name = "league-of-moveable-type";
 

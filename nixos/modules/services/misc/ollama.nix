@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (lib) literalExpression types;
 
   cfg = config.services.ollama;
-  ollamaPackage = cfg.package.override { inherit (cfg) acceleration; };
+  ollamaPackage = cfg.package.override {inherit (cfg) acceleration;};
 
   staticUser = cfg.user != null && cfg.group != null;
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -24,7 +22,8 @@ in
       "ollama"
       "sandbox"
     ] "Set `services.ollama.user` and `services.ollama.group` instead.")
-    (lib.mkRemovedOptionModule
+    (
+      lib.mkRemovedOptionModule
       [
         "services"
         "ollama"
@@ -37,7 +36,7 @@ in
   options = {
     services.ollama = {
       enable = lib.mkEnableOption "ollama server for local large language models";
-      package = lib.mkPackageOption pkgs "ollama" { };
+      package = lib.mkPackageOption pkgs "ollama" {};
 
       user = lib.mkOption {
         type = with types; nullOr str;
@@ -137,7 +136,7 @@ in
 
       environmentVariables = lib.mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           OLLAMA_LLM_LIBRARY = "cpu";
           HIP_VISIBLE_DEVICES = "0,1";
@@ -152,7 +151,7 @@ in
       };
       loadModels = lib.mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = ''
           Download these models using `ollama pull` as soon as `ollama.service` has started.
 
@@ -180,13 +179,13 @@ in
         isSystemUser = true;
         group = cfg.group;
       };
-      groups.${cfg.group} = { };
+      groups.${cfg.group} = {};
     };
 
     systemd.services.ollama = {
       description = "Server for local large language models";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment =
         cfg.environmentVariables
         // {
@@ -207,13 +206,13 @@ in
           DynamicUser = true;
           ExecStart = "${lib.getExe ollamaPackage} serve";
           WorkingDirectory = cfg.home;
-          StateDirectory = [ "ollama" ];
+          StateDirectory = ["ollama"];
           ReadWritePaths = [
             cfg.home
             cfg.models
           ];
 
-          CapabilityBoundingSet = [ "" ];
+          CapabilityBoundingSet = [""];
           DeviceAllow = [
             # CUDA
             # https://docs.nvidia.com/dgx/pdf/dgx-os-5-user-guide.pdf
@@ -254,7 +253,7 @@ in
             "AF_INET6"
             "AF_UNIX"
           ];
-          SupplementaryGroups = [ "render" ]; # for rocm to access /dev/dri/renderD* devices
+          SupplementaryGroups = ["render"]; # for rocm to access /dev/dri/renderD* devices
           SystemCallArchitectures = "native";
           SystemCallFilter = [
             "@system-service @resources"
@@ -264,14 +263,14 @@ in
         };
     };
 
-    systemd.services.ollama-model-loader = lib.mkIf (cfg.loadModels != [ ]) {
+    systemd.services.ollama-model-loader = lib.mkIf (cfg.loadModels != []) {
       description = "Download ollama models in the background";
       wantedBy = [
         "multi-user.target"
         "ollama.service"
       ];
-      after = [ "ollama.service" ];
-      bindsTo = [ "ollama.service" ];
+      after = ["ollama.service"];
+      bindsTo = ["ollama.service"];
       environment = config.systemd.services.ollama.environment;
       serviceConfig = {
         Type = "exec";
@@ -309,9 +308,9 @@ in
       '';
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
 
-    environment.systemPackages = [ ollamaPackage ];
+    environment.systemPackages = [ollamaPackage];
   };
 
   meta.maintainers = with lib.maintainers; [

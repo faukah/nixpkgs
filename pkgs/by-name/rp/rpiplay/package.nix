@@ -12,7 +12,6 @@
   gst_all_1,
   libplist,
 }:
-
 stdenv.mkDerivation {
   pname = "rpiplay";
   version = "unstable-2021-06-14";
@@ -57,7 +56,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/FD-/RPiPlay";
     description = "Open-source implementation of an AirPlay mirroring server";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "rpiplay";
   };

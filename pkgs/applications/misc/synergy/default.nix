@@ -4,7 +4,6 @@
   lib,
   fetchFromGitHub,
   wrapQtAppsHook,
-
   cmake,
   openssl,
   pcre,
@@ -26,9 +25,7 @@
   xkeyboardconfig,
   xinput,
   avahi-compat,
-
 }:
-
 stdenv.mkDerivation rec {
   pname = "synergy";
   version = "1.14.6.19-stable";
@@ -56,10 +53,12 @@ stdenv.mkDerivation rec {
         --replace "/usr/share/X11/xkb/rules/evdev.xml" "${xkeyboardconfig}/share/X11/xkb/rules/evdev.xml"
     '';
 
-  nativeBuildInputs = [
-    cmake
-    pkg-config
-  ] ++ lib.optional withGUI wrapQtAppsHook;
+  nativeBuildInputs =
+    [
+      cmake
+      pkg-config
+    ]
+    ++ lib.optional withGUI wrapQtAppsHook;
 
   buildInputs =
     [
@@ -92,7 +91,9 @@ stdenv.mkDerivation rec {
     lib.optional (!withGUI) "-DSYNERGY_BUILD_LEGACY_GUI=OFF"
     # NSFilenamesPboardType is deprecated in 10.14+
     ++ lib.optional stdenv.hostPlatform.isDarwin "-DCMAKE_OSX_DEPLOYMENT_TARGET=${
-      if stdenv.hostPlatform.isAarch64 then "10.13" else stdenv.hostPlatform.darwinSdkVersion
+      if stdenv.hostPlatform.isAarch64
+      then "10.13"
+      else stdenv.hostPlatform.darwinSdkVersion
     }";
 
   doCheck = true;
@@ -143,7 +144,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/symless/synergy-core/blob/${version}/ChangeLog";
     mainProgram = lib.optionalString (!withGUI) "synergyc";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ talyz ];
+    maintainers = with lib.maintainers; [talyz];
     platforms = lib.platforms.unix;
   };
 }

@@ -5,7 +5,6 @@
   nix-update-script,
   versionCheckHook,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "uutils-findutils";
   version = "0.8.0";
@@ -29,13 +28,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=find::tests::test_find_newer_xy_before_changed_time"
   ];
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgram = "${placeholder "out"}/bin/find";
   versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

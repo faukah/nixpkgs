@@ -22,7 +22,6 @@
   stestr,
   testscenarios,
 }:
-
 buildPythonPackage rec {
   pname = "python-heatclient";
   version = "4.1.0";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  sphinxBuilders = [ "man" ];
+  sphinxBuilders = ["man"];
 
   dependencies = [
     cliff
@@ -75,13 +74,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "heatclient" ];
+  pythonImportsCheck = ["heatclient"];
 
   meta = with lib; {
     description = "Library for Heat built on the Heat orchestration API";
     mainProgram = "heat";
     homepage = "https://github.com/openstack/python-heatclient";
     license = licenses.asl20;
-    teams = [ teams.openstack ];
+    teams = [teams.openstack];
   };
 }

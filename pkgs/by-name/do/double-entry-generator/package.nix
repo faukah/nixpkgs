@@ -16,7 +16,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-NoWUaawApdTSWGRul9mpOxgRZWTE7LTz3pJgwU2NWVU=";
 
-  excludedPackages = [ "hack" ];
+  excludedPackages = ["hack"];
 
   ldflags = [
     "-s"
@@ -37,13 +37,13 @@ buildGoModule rec {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Rule-based double-entry bookkeeping importer (from Alipay/WeChat/Huobi etc. to Beancount/Ledger)";
     homepage = "https://github.com/deb-sig/double-entry-generator";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rennsax ];
+    maintainers = with maintainers; [rennsax];
     mainProgram = "double-entry-generator";
   };
 }

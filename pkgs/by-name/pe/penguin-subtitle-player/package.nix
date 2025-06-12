@@ -4,7 +4,6 @@
   fetchFromGitHub,
   qt5,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "penguin-subtitle-player";
   version = "1.6.0";
@@ -17,15 +16,15 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
-  buildInputs = [ qt5.qmake ];
+  buildInputs = [qt5.qmake];
 
   meta = {
     description = "Open-source, cross-platform and standalone subtitle player";
     homepage = "https://github.com/carsonip/Penguin-Subtitle-Player";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ eljamm ];
+    maintainers = with lib.maintainers; [eljamm];
     platforms = lib.platforms.all;
     mainProgram = "PenguinSubtitlePlayer";
   };

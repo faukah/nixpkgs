@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "present";
   version = "0.2.3";
@@ -29,7 +28,7 @@ rustPlatform.buildRustPackage {
     description = "Script interpolation engine for markdown documents";
     homepage = "https://github.com/terror/present/";
     license = licenses.cc0;
-    maintainers = with maintainers; [ cameronfyfe ];
+    maintainers = with maintainers; [cameronfyfe];
     mainProgram = "present";
   };
 }

@@ -6,7 +6,6 @@
   makeWrapper,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "soundalike";
   version = "0.1.2";
@@ -51,7 +50,7 @@ buildGoModule rec {
     ln -sfv ${testData} ./testdata
   '';
 
-  nativeInstallCheckInputs = [ versionCheckHook ];
+  nativeInstallCheckInputs = [versionCheckHook];
   versionCheckProgramArg = "-version";
   doInstallCheck = true;
 
@@ -59,7 +58,7 @@ buildGoModule rec {
   # need to use wrapProgram to make it available
   postInstall = ''
     wrapProgram $out/bin/soundalike \
-      --prefix PATH : ${lib.makeBinPath [ chromaprint ]}
+      --prefix PATH : ${lib.makeBinPath [chromaprint]}
   '';
 
   meta = {
@@ -67,7 +66,7 @@ buildGoModule rec {
     homepage = "https://codeberg.org/derat/soundalike";
     changelog = "https://codeberg.org/derat/soundalike/releases/tag/v${version}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ atar13 ];
+    maintainers = with lib.maintainers; [atar13];
     mainProgram = "soundalike";
   };
 }

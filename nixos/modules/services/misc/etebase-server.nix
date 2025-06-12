@@ -3,17 +3,15 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.etebase-server;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   configIni = iniFmt.generate "etebase-server.ini" cfg.settings;
 
   defaultUser = "etebase-server";
-in
-{
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "services"
@@ -25,13 +23,15 @@ in
       "etebase-server"
       "database"
     ] "Set the option `services.etebase-server.settings.database' instead.")
-    (lib.mkRenamedOptionModule
-      [ "services" "etebase-server" "secretFile" ]
-      [ "services" "etebase-server" "settings" "secret_file" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "etebase-server" "secretFile"]
+      ["services" "etebase-server" "settings" "secret_file"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "etebase-server" "host" ]
-      [ "services" "etebase-server" "settings" "allowed_hosts" "allowed_host1" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "etebase-server" "host"]
+      ["services" "etebase-server" "settings" "allowed_hosts" "allowed_host1"]
     )
   ];
 
@@ -147,7 +147,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         description = ''
           Configuration for `etebase-server`. Refer to
           <https://github.com/etesync/server/blob/master/etebase-server.ini.example>
@@ -174,11 +174,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     environment.systemPackages = with pkgs; [
-      (runCommand "etebase-server"
+      (
+        runCommand "etebase-server"
         {
-          nativeBuildInputs = [ makeWrapper ];
+          nativeBuildInputs = [makeWrapper];
         }
         ''
           makeWrapper ${cfg.package}/bin/etebase-server \
@@ -203,8 +203,8 @@ in
         "network.target"
         "systemd-tmpfiles-setup.service"
       ];
-      path = [ cfg.package ];
-      wantedBy = [ "multi-user.target" ];
+      path = [cfg.package];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Restart = "always";
@@ -223,20 +223,17 @@ in
           echo ${cfg.package} > "$versionFile"
         fi
       '';
-      script =
-        let
-          python = cfg.package.python;
-          networking =
-            if cfg.unixSocket != null then
-              "--uds ${cfg.unixSocket}"
-            else
-              "--host 0.0.0.0 --port ${toString cfg.port}";
-        in
-        ''
-          ${python.pkgs.uvicorn}/bin/uvicorn ${networking} \
-            --app-dir ${cfg.package}/${cfg.package.python.sitePackages} \
-            etebase_server.asgi:application
-        '';
+      script = let
+        python = cfg.package.python;
+        networking =
+          if cfg.unixSocket != null
+          then "--uds ${cfg.unixSocket}"
+          else "--host 0.0.0.0 --port ${toString cfg.port}";
+      in ''
+        ${python.pkgs.uvicorn}/bin/uvicorn ${networking} \
+          --app-dir ${cfg.package}/${cfg.package.python.sitePackages} \
+          etebase_server.asgi:application
+      '';
     };
 
     users = lib.optionalAttrs (cfg.user == defaultUser) {
@@ -246,11 +243,11 @@ in
         home = cfg.dataDir;
       };
 
-      groups.${defaultUser} = { };
+      groups.${defaultUser} = {};
     };
 
     networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
+      allowedTCPPorts = [cfg.port];
     };
   };
 }

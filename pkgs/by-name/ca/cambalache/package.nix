@@ -20,7 +20,6 @@
   nix-update-script,
   casilda,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "cambalache";
   version = "0.94.1";
@@ -81,14 +80,14 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
     homepage = "https://gitlab.gnome.org/jpu/cambalache";
     description = "RAD tool for GTK 4 and 3 with data model first philosophy";
     mainProgram = "cambalache";
-    teams = [ lib.teams.gnome ];
+    teams = [lib.teams.gnome];
     license = with lib.licenses; [
       lgpl21Only # Cambalache
       gpl2Only # tools

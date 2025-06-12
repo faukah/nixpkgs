@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "inquirerpy";
   version = "0.3.4";
@@ -23,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-Ap0xZHEU458tjm6oEN5EtDoSRlnpZ7jvDq1L7fTlQQc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pfzy
     prompt-toolkit
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "InquirerPy" ];
+  pythonImportsCheck = ["InquirerPy"];
 
   disabledTestPaths = [
     # AttributeError: '_GeneratorContextManager' object has no attribute 'close'
@@ -47,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kazhala/InquirerPy";
     changelog = "https://github.com/kazhala/InquirerPy/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

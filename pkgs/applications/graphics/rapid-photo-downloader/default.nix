@@ -19,7 +19,6 @@
   vmtouch,
   gitUpdater,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "rapid-photo-downloader";
   version = "0.9.36";
@@ -36,8 +35,7 @@ python3Packages.buildPythonApplication rec {
     setuptools
   ];
 
-  dependencies =
-    with python3Packages;
+  dependencies = with python3Packages;
     [
       ifuse
       libimobiledevice
@@ -114,12 +112,12 @@ python3Packages.buildPythonApplication rec {
       --set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"
       --set PYTHONPATH "$PYTHONPATH"
       --prefix PATH : "${
-        lib.makeBinPath [
-          exiftool
-          vmtouch
-        ]
-      }"
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libmediainfo ]}"
+      lib.makeBinPath [
+        exiftool
+        vmtouch
+      ]
+    }"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [libmediainfo]}"
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : "$GST_PLUGIN_SYSTEM_PATH_1_0"
       "''${qtWrapperArgs[@]}"
     )
@@ -136,6 +134,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://www.damonlynch.net/rapid/";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ philipdb ];
+    maintainers = with lib.maintainers; [philipdb];
   };
 }

@@ -5,7 +5,6 @@
   torchvision,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "facenet-pytorch";
   version = "2.5.3";
@@ -17,7 +16,7 @@ buildPythonPackage rec {
 
   doCheck = false; # pypi version doesn't ship with tests
 
-  pythonImportsCheck = [ "facenet_pytorch" ];
+  pythonImportsCheck = ["facenet_pytorch"];
 
   propagatedBuildInputs = [
     pillow
@@ -28,6 +27,6 @@ buildPythonPackage rec {
     description = "Pretrained Pytorch face detection (MTCNN) and facial recognition (InceptionResnet) models";
     homepage = "https://github.com/timesler/facenet-pytorch";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lucasew ];
+    maintainers = [lib.maintainers.lucasew];
   };
 }

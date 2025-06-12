@@ -21,7 +21,6 @@
   requests,
   filetype,
 }:
-
 buildPythonPackage rec {
   pname = "kivy";
   version = "2.3.1";
@@ -56,8 +55,7 @@ buildPythonPackage rec {
       mtdev
     ]
     ++ lib.optionals withGstreamer (
-      with gst_all_1;
-      [
+      with gst_all_1; [
         # NOTE: The degree to which gstreamer actually works is unclear
         gstreamer
         gst-plugins-base
@@ -102,16 +100,16 @@ buildPythonPackage rec {
     '';
 
   /*
-    We cannot run tests as Kivy tries to import itself before being fully
-    installed.
+  We cannot run tests as Kivy tries to import itself before being fully
+  installed.
   */
   doCheck = false;
-  pythonImportsCheck = [ "kivy" ];
+  pythonImportsCheck = ["kivy"];
 
   meta = with lib; {
     description = "Library for rapid development of hardware-accelerated multitouch applications";
     homepage = "https://pypi.python.org/pypi/kivy";
     license = licenses.mit;
-    maintainers = with maintainers; [ risson ];
+    maintainers = with maintainers; [risson];
   };
 }

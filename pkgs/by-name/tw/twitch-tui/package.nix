@@ -5,7 +5,6 @@
   pkg-config,
   openssl,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "twitch-tui";
   version = "2.6.19";
@@ -33,7 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/Xithrius/twitch-tui";
     changelog = "https://github.com/Xithrius/twitch-tui/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lordmzte ];
+    maintainers = [lib.maintainers.lordmzte];
     mainProgram = "twt";
   };
 })

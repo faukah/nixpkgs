@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   equinox,
   jax,
@@ -13,14 +11,12 @@
   optax,
   paramax,
   tqdm,
-
   # tests
   beartype,
   numpyro,
   pytest-xdist,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "flowjax";
   version = "17.1.2";
@@ -46,7 +42,7 @@ buildPythonPackage rec {
     tqdm
   ];
 
-  pythonImportsCheck = [ "flowjax" ];
+  pythonImportsCheck = ["flowjax"];
 
   nativeCheckInputs = [
     beartype
@@ -60,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/danielward27/flowjax";
     changelog = "https://github.com/danielward27/flowjax/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
   };
 }

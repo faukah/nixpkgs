@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "victoriametrics-logs-datasource";
   version = "0.16.3";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = {
     description = "Grafana datasource for VictoriaLogs";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ samw ];
+    maintainers = with lib.maintainers; [samw];
     platforms = lib.platforms.unix;
   };
 }

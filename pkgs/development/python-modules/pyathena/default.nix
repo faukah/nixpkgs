@@ -14,7 +14,6 @@
   sqlalchemy,
   tenacity,
 }:
-
 buildPythonPackage rec {
   pname = "pyathena";
   version = "3.14.1";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-/2KCYVlbUrwrdICcQu+JiG90vgE3FQbiif2wvE9lOZM=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   dependencies = [
     boto3
@@ -38,10 +37,10 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    pandas = [ pandas ];
-    sqlalchemy = [ sqlalchemy ];
-    arrow = [ pyarrow ];
-    fastparquet = [ fastparquet ];
+    pandas = [pandas];
+    sqlalchemy = [sqlalchemy];
+    arrow = [pyarrow];
+    fastparquet = [fastparquet];
   };
 
   # Nearly all tests depend on a working AWS Athena instance,
@@ -49,13 +48,13 @@ buildPythonPackage rec {
   # https://github.com/laughingman7743/PyAthena/#testing
   doCheck = false;
 
-  pythonImportsCheck = [ "pyathena" ];
+  pythonImportsCheck = ["pyathena"];
 
   meta = with lib; {
     description = "Python DB API 2.0 (PEP 249) client for Amazon Athena";
     homepage = "https://github.com/laughingman7743/PyAthena/";
     changelog = "https://github.com/laughingman7743/PyAthena/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

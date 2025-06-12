@@ -11,7 +11,6 @@
   tree-sitter,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "lsp-tree-sitter";
   version = "0.0.17";
@@ -36,14 +35,14 @@ buildPythonPackage rec {
     pygls
     tree-sitter
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "lsp_tree_sitter" ];
+  pythonImportsCheck = ["lsp_tree_sitter"];
 
   meta = with lib; {
     description = "A library to create language servers";
     homepage = "https://github.com/neomutt/lsp-tree-sitter";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

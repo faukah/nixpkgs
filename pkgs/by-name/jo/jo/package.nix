@@ -8,7 +8,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "jo";
   version = "1.9";
@@ -38,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
   doInstallCheck = true;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Small utility to create JSON objects";

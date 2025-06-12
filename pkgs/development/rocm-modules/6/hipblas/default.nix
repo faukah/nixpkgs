@@ -19,7 +19,6 @@
   buildBenchmarks ? false,
   buildSamples ? false,
 }:
-
 # Can also use cuBLAS
 stdenv.mkDerivation (finalAttrs: {
   pname = "hipblas";
@@ -67,7 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
     gfortran
   ];
 
-  propagatedBuildInputs = [ hipblas-common ];
+  propagatedBuildInputs = [hipblas-common];
 
   buildInputs =
     [
@@ -132,8 +131,8 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     description = "ROCm BLAS marshalling library";
     homepage = "https://github.com/ROCm/hipBLAS";
-    license = with licenses; [ mit ];
-    teams = [ teams.rocm ];
+    license = with licenses; [mit];
+    teams = [teams.rocm];
     platforms = platforms.linux;
   };
 })

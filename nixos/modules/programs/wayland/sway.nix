@@ -3,14 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-
-let
+}: let
   cfg = config.programs.sway;
 
-  wayland-lib = import ./lib.nix { inherit lib; };
-in
-{
+  wayland-lib = import ./lib.nix {inherit lib;};
+in {
   options.programs.sway = {
     enable = lib.mkEnableOption ''
       Sway, the i3-compatible tiling Wayland compositor. You can manually launch
@@ -33,10 +30,9 @@ in
         '';
       }
       // {
-        apply =
-          p:
-          if p == null then
-            null
+        apply = p:
+          if p == null
+          then null
           else
             wayland-lib.genFinalPackage p {
               extraSessionCommands = cfg.extraSessionCommands;
@@ -84,7 +80,7 @@ in
 
     extraOptions = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       example = [
         "--verbose"
         "--debug"
@@ -96,9 +92,11 @@ in
       '';
     };
 
-    xwayland.enable = lib.mkEnableOption "XWayland" // {
-      default = true;
-    };
+    xwayland.enable =
+      lib.mkEnableOption "XWayland"
+      // {
+        default = true;
+      };
 
     extraPackages = lib.mkOption {
       type = with lib.types; listOf package;
@@ -141,13 +139,13 @@ in
 
         warnings =
           lib.mkIf
-            (
-              (lib.elem "nvidia" config.services.xserver.videoDrivers)
-              && (lib.versionOlder (lib.versions.major (lib.getVersion config.hardware.nvidia.package)) "551")
-            )
-            [
-              "Using Sway with Nvidia driver version <= 550 may result in a broken system. Configure hardware.nvidia.package to use a newer version."
-            ];
+          (
+            (lib.elem "nvidia" config.services.xserver.videoDrivers)
+            && (lib.versionOlder (lib.versions.major (lib.getVersion config.hardware.nvidia.package)) "551")
+          )
+          [
+            "Using Sway with Nvidia driver version <= 550 may result in a broken system. Configure hardware.nvidia.package to use a newer version."
+          ];
 
         environment = {
           systemPackages = lib.optional (cfg.package != null) cfg.package ++ cfg.extraPackages;
@@ -173,10 +171,10 @@ in
 
         systemd.user.targets.sway-session = {
           description = "sway compositor session";
-          documentation = [ "man:systemd.special(7)" ];
-          bindsTo = [ "graphical-session.target" ];
-          wants = [ "graphical-session-pre.target" ];
-          after = [ "graphical-session-pre.target" ];
+          documentation = ["man:systemd.special(7)"];
+          bindsTo = ["graphical-session.target"];
+          wants = ["graphical-session-pre.target"];
+          after = ["graphical-session-pre.target"];
         };
 
         # To make a Sway session available if a display manager like SDDM is enabled:
@@ -187,7 +185,7 @@ in
         # https://github.com/emersion/xdg-desktop-portal-wlr/pull/315
         xdg.portal.config.sway = {
           # Use xdg-desktop-portal-gtk for every portal interface...
-          default = [ "gtk" ];
+          default = ["gtk"];
           # ... except for the ScreenCast, Screenshot and Secret
           "org.freedesktop.impl.portal.ScreenCast" = "wlr";
           "org.freedesktop.impl.portal.Screenshot" = "wlr";

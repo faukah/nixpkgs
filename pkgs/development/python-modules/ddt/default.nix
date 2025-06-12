@@ -3,10 +3,8 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   # build-system
   setuptools,
-
   # tests
   aiounittest,
   mock,
@@ -14,7 +12,6 @@
   pyyaml,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "ddt";
   version = "1.7.2";
@@ -25,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-0hXWsIOWMBPEoZseTc1qlugOQ6t3UZWXpqz88umj4Es=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   # aiounittest is not compatible with Python 3.12.
   doCheck = pythonOlder "3.12";
@@ -42,7 +39,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/datadriventests/ddt/releases/tag/${version}";
     description = "Data-Driven/Decorated Tests, a library to multiply test cases";
     homepage = "https://github.com/txels/ddt";
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

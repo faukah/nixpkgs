@@ -10,7 +10,6 @@
   nix-update-script,
   dataDir ? "/var/lib/firefly-iii-data-importer",
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "firefly-iii-data-importer";
   version = "1.6.3";
@@ -22,7 +21,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-+e5UtnK/eiFnmvtKjVp3EZ8JLi+dWnJ+vgjDJKRLqH8=";
   };
 
-  buildInputs = [ php84 ];
+  buildInputs = [php84];
 
   nativeBuildInputs = [
     nodejs
@@ -47,7 +46,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   composerRepository = php84.mkComposerRepository {
-    inherit (finalAttrs)
+    inherit
+      (finalAttrs)
       pname
       src
       vendorHash
@@ -66,7 +66,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru = {
     phpPackage = php84;
     tests = nixosTests.firefly-iii-data-importer;
-    updateScript = nix-update-script { extraArgs = [ "--version-regex='v([0-9]+\.[0-9]+\.[0-9]+)'" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version-regex='v([0-9]+\.[0-9]+\.[0-9]+)'"];};
   };
 
   postInstall = ''
@@ -82,6 +82,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Firefly III Data Importer can import data into Firefly III.";
     homepage = "https://github.com/firefly-iii/data-importer";
     license = lib.licenses.agpl3Only;
-    maintainers = [ lib.maintainers.savyajha ];
+    maintainers = [lib.maintainers.savyajha];
   };
 })

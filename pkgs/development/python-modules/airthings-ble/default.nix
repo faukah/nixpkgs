@@ -12,7 +12,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "airthings-ble";
   version = "1.0.0";
@@ -27,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-RKvQ3w3unDk/U6dz3r0Pn3ppVA6ZGxUoyuVk5jbI8jc=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     async-interrupt
@@ -41,13 +40,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "airthings_ble" ];
+  pythonImportsCheck = ["airthings_ble"];
 
   meta = with lib; {
     description = "Library for Airthings BLE devices";
     homepage = "https://github.com/vincegio/airthings-ble";
     changelog = "https://github.com/vincegio/airthings-ble/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

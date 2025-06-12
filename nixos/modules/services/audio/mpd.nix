@@ -3,9 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   name = "mpd";
 
   uid = config.ids.uids.mpd;
@@ -13,15 +11,15 @@ let
   cfg = config.services.mpd;
 
   credentialsPlaceholder = (
-    creds:
-    let
+    creds: let
       placeholders = (
         lib.imap0 (
           i: c: ''password "{{password-${toString i}}}@${lib.concatStringsSep "," c.permissions}"''
-        ) creds
+        )
+        creds
       );
     in
-    lib.concatStringsSep "\n" placeholders
+      lib.concatStringsSep "\n" placeholders
   );
 
   mpdConf = pkgs.writeText "mpd.conf" ''
@@ -48,20 +46,15 @@ let
       }
     ''}
 
-    ${lib.optionalString (cfg.credentials != [ ]) (credentialsPlaceholder cfg.credentials)}
+    ${lib.optionalString (cfg.credentials != []) (credentialsPlaceholder cfg.credentials)}
 
     ${cfg.extraConfig}
   '';
-
-in
-{
-
+in {
   ###### interface
 
   options = {
-
     services.mpd = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -139,7 +132,6 @@ in
       };
 
       network = {
-
         listenAddress = lib.mkOption {
           type = lib.types.str;
           default = "127.0.0.1";
@@ -158,7 +150,6 @@ in
             to.
           '';
         };
-
       };
 
       dbFile = lib.mkOption {
@@ -181,18 +172,17 @@ in
                   Path to file containing the password.
                 '';
               };
-              permissions =
-                let
-                  perms = [
-                    "read"
-                    "add"
-                    "control"
-                    "admin"
-                  ];
-                in
+              permissions = let
+                perms = [
+                  "read"
+                  "add"
+                  "control"
+                  "admin"
+                ];
+              in
                 lib.mkOption {
                   type = lib.types.listOf (lib.types.enum perms);
-                  default = [ "read" ];
+                  default = ["read"];
                   description = ''
                     List of permissions that are granted with this password.
                     Permissions can be "${lib.concatStringsSep "\", \"" perms}".
@@ -204,11 +194,11 @@ in
         description = ''
           Credentials and permissions for accessing the mpd server.
         '';
-        default = [ ];
+        default = [];
         example = [
           {
             passwordFile = "/var/lib/secrets/mpd_readonly_password";
-            permissions = [ "read" ];
+            permissions = ["read"];
           }
           {
             passwordFile = "/var/lib/secrets/mpd_admin_password";
@@ -230,27 +220,24 @@ in
         '';
       };
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     # install mpd units
-    systemd.packages = [ pkgs.mpd ];
+    systemd.packages = [pkgs.mpd];
 
     systemd.sockets.mpd = lib.mkIf cfg.startWhenNeeded {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       listenStreams = [
         "" # Note: this is needed to override the upstream unit
         (
-          if pkgs.lib.hasPrefix "/" cfg.network.listenAddress then
-            cfg.network.listenAddress
-          else
-            "${
-              lib.optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"
-            }${toString cfg.network.port}"
+          if pkgs.lib.hasPrefix "/" cfg.network.listenAddress
+          then cfg.network.listenAddress
+          else "${
+            lib.optionalString (cfg.network.listenAddress != "any") "${cfg.network.listenAddress}:"
+          }${toString cfg.network.port}"
         )
       ];
     };
@@ -263,12 +250,12 @@ in
           set -euo pipefail
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
         ''
-        + lib.optionalString (cfg.credentials != [ ]) (
+        + lib.optionalString (cfg.credentials != []) (
           lib.concatStringsSep "\n" (
             lib.imap0 (
-              i: c:
-              ''${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf''
-            ) cfg.credentials
+              i: c: ''${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf''
+            )
+            cfg.credentials
           )
         );
 
@@ -281,8 +268,8 @@ in
         ];
         RuntimeDirectory = "mpd";
         StateDirectory =
-          [ ]
-          ++ lib.optionals (cfg.dataDir == "/var/lib/${name}") [ name ]
+          []
+          ++ lib.optionals (cfg.dataDir == "/var/lib/${name}") [name]
           ++ lib.optionals (cfg.playlistDirectory == "/var/lib/${name}/playlists") [
             name
             "${name}/playlists"
@@ -298,7 +285,7 @@ in
       ${name} = {
         inherit uid;
         group = cfg.group;
-        extraGroups = [ "audio" ];
+        extraGroups = ["audio"];
         description = "Music Player Daemon user";
         home = "${cfg.dataDir}";
       };
@@ -308,5 +295,4 @@ in
       ${name}.gid = gid;
     };
   };
-
 }

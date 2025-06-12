@@ -11,7 +11,6 @@
   typeguard,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "pygls";
   version = "1.3.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
   ];
 
   optional-dependencies = {
-    ws = [ websockets ];
+    ws = [websockets];
   };
 
   nativeCheckInputs = [
@@ -57,13 +56,13 @@ buildPythonPackage rec {
     ulimit -n 1024
   '';
 
-  pythonImportsCheck = [ "pygls" ];
+  pythonImportsCheck = ["pygls"];
 
   meta = with lib; {
     description = "Pythonic generic implementation of the Language Server Protocol";
     homepage = "https://github.com/openlawlibrary/pygls";
     changelog = "https://github.com/openlawlibrary/pygls/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

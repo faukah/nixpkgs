@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "ir-standard-fonts";
   version = "20170121";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     # License information is unavailable.
     license = licenses.unfree;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

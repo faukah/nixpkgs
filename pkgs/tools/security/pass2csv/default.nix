@@ -5,7 +5,6 @@
   python-gnupg,
   setuptools,
 }:
-
 buildPythonApplication rec {
   pname = "pass2csv";
   version = "1.2.0";
@@ -32,6 +31,6 @@ buildPythonApplication rec {
     mainProgram = "pass2csv";
     homepage = "https://github.com/reinefjord/pass2csv";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

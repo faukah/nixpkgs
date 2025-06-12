@@ -18,7 +18,6 @@
   python,
   xdg-utils,
 }:
-
 buildPythonPackage rec {
   pname = "protonvpn-nm-lib";
   version = "3.16.0";
@@ -68,14 +67,14 @@ buildPythonPackage rec {
   # "Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory"
   doCheck = false;
 
-  pythonImportsCheck = [ "protonvpn_nm_lib" ];
+  pythonImportsCheck = ["protonvpn_nm_lib"];
 
   meta = with lib; {
     description = "ProtonVPN NetworkManager Library intended for every ProtonVPN service user";
     mainProgram = "protonvpn_reconnector.py";
     homepage = "https://github.com/ProtonVPN/protonvpn-nm-lib";
     license = licenses.gpl3Only;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

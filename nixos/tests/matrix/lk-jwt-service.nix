@@ -2,10 +2,9 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   name = "lk-jwt-service";
-  meta.maintainers = [ lib.maintainers.quadradical ];
+  meta.maintainers = [lib.maintainers.quadradical];
 
   nodes.machine = {
     services.lk-jwt-service = {

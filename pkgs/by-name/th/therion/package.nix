@@ -27,7 +27,6 @@
   curl,
   catch2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "therion";
   version = "6.3.4";
@@ -84,13 +83,13 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/therion \
       --prefix PATH : ${
-        lib.makeBinPath [
-          survex
-          texliveTeTeX
-        ]
-      }
+      lib.makeBinPath [
+        survex
+        texliveTeTeX
+      ]
+    }
     wrapProgram $out/bin/xtherion \
-      --prefix PATH : ${lib.makeBinPath [ tk ]}
+      --prefix PATH : ${lib.makeBinPath [tk]}
 
     runHook postFixup
   '';
@@ -100,6 +99,6 @@ stdenv.mkDerivation rec {
     homepage = "https://therion.speleo.sk/";
     changelog = "https://github.com/therion/therion/blob/${src.rev}/CHANGES";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ matthewcroughan ];
+    maintainers = with lib.maintainers; [matthewcroughan];
   };
 }

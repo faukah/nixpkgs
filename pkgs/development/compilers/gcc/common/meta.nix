@@ -1,15 +1,16 @@
-{ lib, version }:
-
-let
-  inherit (lib)
+{
+  lib,
+  version,
+}: let
+  inherit
+    (lib)
     licenses
     maintainers
     platforms
     teams
     versionOlder
     ;
-in
-{
+in {
   homepage = "https://gcc.gnu.org/";
   license = licenses.gpl3Plus; # runtime support libraries are typically LGPLv3+
   description = "GNU Compiler Collection, version ${version}";
@@ -23,6 +24,5 @@ in
   '';
 
   platforms = platforms.unix;
-  teams = [ teams.gcc ];
-
+  teams = [teams.gcc];
 }

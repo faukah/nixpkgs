@@ -4,21 +4,18 @@
   fetchpatch,
   buildPythonPackage,
   pythonOlder,
-
   # build time
   stdenv,
   cython,
   extension-helpers,
   setuptools,
   setuptools-scm,
-
   # dependencies
   astropy-iers-data,
   numpy,
   packaging,
   pyerfa,
   pyyaml,
-
   # optional-dependencies
   scipy,
   matplotlib,
@@ -41,16 +38,13 @@
   bottleneck,
   fsspec,
   s3fs,
-
   # testing
   pytestCheckHook,
   pytest-xdist,
   pytest-astropy-header,
   pytest-astropy,
   threadpoolctl,
-
 }:
-
 buildPythonPackage rec {
   pname = "astropy";
   version = "7.0.1";
@@ -90,12 +84,14 @@ buildPythonPackage rec {
     ipython = [
       ipython
     ];
-    jupyter = [
-      ipywidgets
-      ipykernel
-      # ipydatagrid
-      pandas
-    ] ++ self.ipython;
+    jupyter =
+      [
+        ipywidgets
+        ipykernel
+        # ipydatagrid
+        pandas
+      ]
+      ++ self.ipython;
     all =
       [
         certifi
@@ -121,15 +117,17 @@ buildPythonPackage rec {
       ++ fsspec.optional-dependencies.http;
   });
 
-  nativeCheckInputs = [
-    pytestCheckHook
-    pytest-xdist
-    pytest-astropy-header
-    pytest-astropy
-    threadpoolctl
-  ] ++ optional-dependencies.recommended;
+  nativeCheckInputs =
+    [
+      pytestCheckHook
+      pytest-xdist
+      pytest-astropy-header
+      pytest-astropy
+      threadpoolctl
+    ]
+    ++ optional-dependencies.recommended;
 
-  pythonImportsCheck = [ "astropy" ];
+  pythonImportsCheck = ["astropy"];
 
   __darwinAllowLocalNetworking = true;
 

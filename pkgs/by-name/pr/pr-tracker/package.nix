@@ -6,7 +6,6 @@
   pkg-config,
   systemd,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "pr-tracker";
   version = "1.8.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-63Y/BXmFRbrTUBtUNP1iEk+cvSxDJG/bp8mBWQbQsh0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     systemd

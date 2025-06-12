@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "calamares-nixos-extensions";
   version = "0.3.23";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
       cc-by-sa-40
       cc0
     ];
-    maintainers = with maintainers; [ vlinkz ];
+    maintainers = with maintainers; [vlinkz];
     platforms = platforms.linux;
   };
 })

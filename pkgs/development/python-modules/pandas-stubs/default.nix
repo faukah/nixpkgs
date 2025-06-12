@@ -4,14 +4,11 @@
   buildPythonPackage,
   pythonOlder,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   numpy,
   types-pytz,
-
   # tests
   pytestCheckHook,
   beautifulsoup4,
@@ -33,7 +30,6 @@
   xarray,
   xlsxwriter,
 }:
-
 buildPythonPackage rec {
   pname = "pandas-stubs";
   version = "2.2.3.250308";
@@ -48,7 +44,7 @@ buildPythonPackage rec {
     hash = "sha256-93XVzdb3A2S+Exk33v3U8HDMg9vPKAEkWjLZnBaXMWQ=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     numpy
@@ -98,12 +94,12 @@ buildPythonPackage rec {
       "test_astype_complex" # `c32` and `complex256`
     ];
 
-  pythonImportsCheck = [ "pandas" ];
+  pythonImportsCheck = ["pandas"];
 
   meta = with lib; {
     description = "Type annotations for Pandas";
     homepage = "https://github.com/pandas-dev/pandas-stubs";
     license = licenses.mit;
-    maintainers = with maintainers; [ malo ];
+    maintainers = with maintainers; [malo];
   };
 }

@@ -11,7 +11,6 @@
   cairomm,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pangomm";
   version = "2.42.2";

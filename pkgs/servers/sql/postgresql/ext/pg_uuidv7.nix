@@ -4,7 +4,6 @@
   postgresql,
   postgresqlBuildExtension,
 }:
-
 postgresqlBuildExtension (finalAttrs: {
   pname = "pg_uuidv7";
   version = "1.6.0";
@@ -20,7 +19,7 @@ postgresqlBuildExtension (finalAttrs: {
     description = "Tiny Postgres extension to create version 7 UUIDs";
     homepage = "https://github.com/fboulnois/pg_uuidv7";
     changelog = "https://github.com/fboulnois/pg_uuidv7/blob/main/CHANGELOG.md";
-    maintainers = with lib.maintainers; [ gaelreyrol ];
+    maintainers = with lib.maintainers; [gaelreyrol];
     platforms = postgresql.meta.platforms;
     license = lib.licenses.mpl20;
     broken = lib.versionOlder postgresql.version "13";

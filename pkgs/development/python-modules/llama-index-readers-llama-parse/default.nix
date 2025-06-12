@@ -7,7 +7,6 @@
   poetry-core,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "llama-index-readers-llama-parse";
   version = "0.4.0";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-6Z7Fb0+FRtf9oafBriYWL7mst+vKw0O1q9tCNLRkTg8=";
   };
 
-  pythonRelaxDeps = [ "llama-parse" ];
+  pythonRelaxDeps = ["llama-parse"];
 
   nativeBuildInputs = [
     poetry-core
@@ -35,12 +34,12 @@ buildPythonPackage rec {
   # Tests are only available in the mono repo
   doCheck = false;
 
-  pythonImportsCheck = [ "llama_index.readers.llama_parse" ];
+  pythonImportsCheck = ["llama_index.readers.llama_parse"];
 
   meta = with lib; {
     description = "LlamaIndex Readers Integration for files";
     homepage = "https://github.com/run-llama/llama_index/tree/main/llama-index-integrations/readers/llama-index-readers-llama-parse";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

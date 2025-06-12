@@ -14,7 +14,6 @@
   libnotify,
   nix-update-script,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "coulr";
   version = "2.1.0";
@@ -45,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
     libnotify
   ];
 
-  dependencies = [ python3.pkgs.pygobject3 ];
+  dependencies = [python3.pkgs.pygobject3];
 
   postPatch = ''
     patchShebangs build-aux/meson/postinstall.py
@@ -57,14 +56,14 @@ python3.pkgs.buildPythonApplication rec {
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Color box to help developers and designers";
     homepage = "https://github.com/Huluti/Coulr";
     changelog = "https://github.com/Huluti/Coulr/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ jaredmontoya ];
+    maintainers = with lib.maintainers; [jaredmontoya];
     mainProgram = "coulr";
     platforms = lib.platforms.linux;
   };

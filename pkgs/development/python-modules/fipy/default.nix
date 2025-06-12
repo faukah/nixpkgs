@@ -17,7 +17,6 @@
   pythonAtLeast,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "fipy";
   version = "3.4.5";
@@ -35,19 +34,21 @@ buildPythonPackage rec {
     hash = "sha256-345YrGQgHNq0FULjJjLqHksyfm/EHl+KyGfxwS6xK9U=";
   };
 
-  propagatedBuildInputs = [
-    numpy
-    scipy
-    pyamg
-    matplotlib
-    tkinter
-    mpi4py
-    future
-    scikit-fmm
-    openssh
-  ] ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [ gmsh ];
+  propagatedBuildInputs =
+    [
+      numpy
+      scipy
+      pyamg
+      matplotlib
+      tkinter
+      mpi4py
+      future
+      scikit-fmm
+      openssh
+    ]
+    ++ lib.optionals (!stdenv.hostPlatform.isDarwin) [gmsh];
 
-  nativeCheckInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ gmsh ];
+  nativeCheckInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [gmsh];
 
   # NOTE: Two of the doctests in fipy.matrices.scipyMatrix._ScipyMatrix.CSR fail, and there is no
   # clean way to disable them.
@@ -67,6 +68,6 @@ buildPythonPackage rec {
     description = "Finite Volume PDE Solver Using Python";
     changelog = "https://github.com/usnistgov/fipy/blob/${version}/CHANGELOG.rst";
     license = licenses.free;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

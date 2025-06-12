@@ -26,9 +26,11 @@
   which,
   cacert,
   extraFeatures ? false, # catch-all if defaults aren't enough
-}:
-let
-  result = if extraFeatures then wrapped-full else unwrapped;
+}: let
+  result =
+    if extraFeatures
+    then wrapped-full
+    else unwrapped;
 
   inherit (lib) optional optionals optionalString;
   lua = luajitPackages;
@@ -108,8 +110,9 @@ let
       ++ [
         fstrm
         protobufc
-      ] # dnstap support
-    ;
+      ]
+      # dnstap support
+      ;
 
     mesonFlags =
       [
@@ -121,9 +124,10 @@ let
       ]
       ++ optional doInstallCheck "-Dunit_tests=enabled"
       ++ optional doInstallCheck "-Dconfig_tests=enabled"
-      ++ optional stdenv.hostPlatform.isLinux "-Dsystemd_files=enabled" # used by NixOS service
-    #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
-    ;
+      ++ optional stdenv.hostPlatform.isLinux "-Dsystemd_files=enabled"
+      # used by NixOS service
+      #"-Dextra_tests=enabled" # not suitable as in-distro tests; many deps, too.
+      ;
 
     postInstall =
       ''
@@ -161,36 +165,35 @@ let
 
   wrapped-full =
     runCommand unwrapped.name
-      {
-        nativeBuildInputs = [ makeWrapper ];
-        buildInputs = with luajitPackages; [
-          # For http module, prefill module, trust anchor bootstrap.
-          # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
-          http
-          # used by policy.slice_randomize_psl()
-          psl
-        ];
-        preferLocalBuild = true;
-        allowSubstitutes = false;
-        inherit (unwrapped) meta;
-      }
-      (
-        ''
-          mkdir -p "$out"/bin
-          makeWrapper '${unwrapped}/bin/kresd' "$out"/bin/kresd \
-            --set LUA_PATH  "$LUA_PATH" \
-            --set LUA_CPATH "$LUA_CPATH"
+    {
+      nativeBuildInputs = [makeWrapper];
+      buildInputs = with luajitPackages; [
+        # For http module, prefill module, trust anchor bootstrap.
+        # It brings lots of deps; some are useful elsewhere (e.g. cqueues).
+        http
+        # used by policy.slice_randomize_psl()
+        psl
+      ];
+      preferLocalBuild = true;
+      allowSubstitutes = false;
+      inherit (unwrapped) meta;
+    }
+    (
+      ''
+        mkdir -p "$out"/bin
+        makeWrapper '${unwrapped}/bin/kresd' "$out"/bin/kresd \
+          --set LUA_PATH  "$LUA_PATH" \
+          --set LUA_CPATH "$LUA_CPATH"
 
-          ln -sr '${unwrapped}/share' "$out"/
-          ln -sr '${unwrapped}/lib'   "$out"/ # useful in NixOS service
-          ln -sr "$out"/{bin,sbin}
-        ''
-        + lib.optionalString unwrapped.doInstallCheck ''
-          echo "Checking that 'http' module loads, i.e. lua search paths work:"
-          echo "modules.load('http')" > test-http.lua
-          echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
-        ''
-      );
-
+        ln -sr '${unwrapped}/share' "$out"/
+        ln -sr '${unwrapped}/lib'   "$out"/ # useful in NixOS service
+        ln -sr "$out"/{bin,sbin}
+      ''
+      + lib.optionalString unwrapped.doInstallCheck ''
+        echo "Checking that 'http' module loads, i.e. lua search paths work:"
+        echo "modules.load('http')" > test-http.lua
+        echo -e 'quit()' | env -i "$out"/bin/kresd -a 127.0.0.1#53535 -c test-http.lua
+      ''
+    );
 in
-result
+  result

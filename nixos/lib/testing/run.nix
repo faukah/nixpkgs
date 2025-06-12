@@ -3,11 +3,9 @@
   hostPkgs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) types mkOption;
-in
-{
+in {
   options = {
     passthru = mkOption {
       type = types.lazyAttrsOf types.raw;
@@ -43,16 +41,15 @@ in
   };
 
   config = {
-    rawTestDerivation =
-      assert lib.assertMsg (!config.sshBackdoor.enable)
-        "The SSH backdoor is currently not supported for non-interactive testing! Please make sure to only set `interactive.sshBackdoor.enable = true;`!";
+    rawTestDerivation = assert lib.assertMsg (!config.sshBackdoor.enable)
+    "The SSH backdoor is currently not supported for non-interactive testing! Please make sure to only set `interactive.sshBackdoor.enable = true;`!";
       hostPkgs.stdenv.mkDerivation {
         name = "vm-test-run-${config.name}";
 
         requiredSystemFeatures =
-          [ "nixos-test" ]
-          ++ lib.optionals hostPkgs.stdenv.hostPlatform.isLinux [ "kvm" ]
-          ++ lib.optionals hostPkgs.stdenv.hostPlatform.isDarwin [ "apple-virt" ];
+          ["nixos-test"]
+          ++ lib.optionals hostPkgs.stdenv.hostPlatform.isLinux ["kvm"]
+          ++ lib.optionals hostPkgs.stdenv.hostPlatform.isDarwin ["apple-virt"];
 
         buildCommand = ''
           mkdir -p $out

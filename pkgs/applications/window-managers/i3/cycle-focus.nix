@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage {
   pname = "i3-cycle-focus";
   version = "unstable-2021-09-27";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage {
     mainProgram = "i3-cycle-focus";
     homepage = "https://github.com/TheDoctor314/i3-cycle-focus";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
     platforms = platforms.linux;
   };
 }

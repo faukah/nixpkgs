@@ -2,14 +2,11 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   setuptools,
-
   nltk,
   numpy,
   pint,
   python-crfsuite,
-
   pytestCheckHook,
   nltk-data,
 }:
@@ -25,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-rmCM3KmsCGrKX5AvfIinkL689+miXII9meGAYQxSqEk=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     nltk
@@ -52,6 +49,6 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     homepage = "https://github.com/strangetom/ingredient-parser/";
     changelog = "https://github.com/strangetom/ingredient-parser/releases/tag/${src.tag}";
-    maintainers = with lib.maintainers; [ antonmosich ];
+    maintainers = with lib.maintainers; [antonmosich];
   };
 }

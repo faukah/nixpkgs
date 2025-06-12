@@ -1,10 +1,8 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   inherit (pkgs) lib;
   commonConfig = {
     "druid.zk.service.host" = "zk1:2181";
-    "druid.extensions.loadList" =
-      ''[ "druid-histogram", "druid-datasketches",  "mysql-metadata-storage", "druid-avro-extensions", "druid-parquet-extensions", "druid-lookups-cached-global", "druid-hdfs-storage","druid-kafka-indexing-service","druid-basic-security","druid-kinesis-indexing-service"]'';
+    "druid.extensions.loadList" = ''[ "druid-histogram", "druid-datasketches",  "mysql-metadata-storage", "druid-avro-extensions", "druid-parquet-extensions", "druid-lookups-cached-global", "druid-hdfs-storage","druid-kafka-indexing-service","druid-basic-security","druid-kinesis-indexing-service"]'';
     "druid.startup.logging.logProperties" = "true";
     "druid.metadata.storage.connector.connectURI" = "jdbc:mysql://mysql:3306/druid";
     "druid.metadata.storage.connector.user" = "druid";
@@ -42,205 +40,185 @@ let
       hadoopPackage = pkgs.hadoop_3_3;
     };
   };
-  testsForPackage =
-    args:
+  testsForPackage = args:
     lib.recurseIntoAttrs {
       druidCluster = testDruidCluster args;
       passthru.override = args': testsForPackage (args // args');
     };
-  testDruidCluster =
-    { druidPackage, hadoopPackage, ... }:
+  testDruidCluster = {
+    druidPackage,
+    hadoopPackage,
+    ...
+  }:
     pkgs.testers.nixosTest {
       name = "druid-hdfs";
       nodes = {
-        zk1 =
-          { ... }:
-          {
-            services.zookeeper.enable = true;
-            networking.firewall.allowedTCPPorts = [ 2181 ];
-          };
-        namenode =
-          { ... }:
-          {
-            services.hadoop = {
-              package = hadoopPackage;
-              hdfs = {
-                namenode = {
-                  enable = true;
-                  openFirewall = true;
-                  formatOnInit = true;
-                };
-              };
-              inherit coreSite;
-            };
-          };
-        datanode =
-          { ... }:
-          {
-            services.hadoop = {
-              package = hadoopPackage;
-              hdfs.datanode = {
+        zk1 = {...}: {
+          services.zookeeper.enable = true;
+          networking.firewall.allowedTCPPorts = [2181];
+        };
+        namenode = {...}: {
+          services.hadoop = {
+            package = hadoopPackage;
+            hdfs = {
+              namenode = {
                 enable = true;
                 openFirewall = true;
-              };
-              inherit coreSite;
-            };
-          };
-        mm =
-          { ... }:
-          {
-            virtualisation.memorySize = 1024;
-            services.druid = {
-              inherit commonConfig log4j;
-              package = druidPackage;
-              extraClassPaths = [ "/etc/hadoop-conf" ];
-              middleManager = {
-                config = {
-                  "druid.indexer.task.baseTaskDir" = "/tmp/druid/persistent/task";
-                  "druid.worker.capacity" = 1;
-                  "druid.indexer.logs.type" = "file";
-                  "druid.indexer.logs.directory" = "/var/log/druid/indexer";
-                  "druid.indexer.runner.startPort" = 8100;
-                  "druid.indexer.runner.endPort" = 8101;
-                };
-                enable = true;
-                openFirewall = true;
+                formatOnInit = true;
               };
             };
-            services.hadoop = {
-              gatewayRole.enable = true;
-              package = hadoopPackage;
-              inherit coreSite;
-            };
+            inherit coreSite;
           };
-        overlord =
-          { ... }:
-          {
-            services.druid = {
-              inherit commonConfig log4j;
-              package = druidPackage;
-              extraClassPaths = [ "/etc/hadoop-conf" ];
-              overlord = {
-                config = {
-                  "druid.indexer.runner.type" = "remote";
-                  "druid.indexer.storage.type" = "metadata";
-                };
-                enable = true;
-                openFirewall = true;
-              };
-            };
-            services.hadoop = {
-              gatewayRole.enable = true;
-              package = hadoopPackage;
-              inherit coreSite;
-            };
-          };
-        broker =
-          { ... }:
-          {
-            services.druid = {
-              package = druidPackage;
-              inherit commonConfig log4j;
-              extraClassPaths = [ "/etc/hadoop-conf" ];
-              broker = {
-                config = {
-                  "druid.plaintextPort" = 8082;
-                  "druid.broker.http.numConnections" = "2";
-                  "druid.server.http.numThreads" = "2";
-                  "druid.processing.buffer.sizeBytes" = "100";
-                  "druid.processing.numThreads" = "1";
-                  "druid.processing.numMergeBuffers" = "1";
-                  "druid.broker.cache.unCacheable" = ''["groupBy"]'';
-                  "druid.lookup.snapshotWorkingDir" = "/opt/broker/lookups";
-                };
-                enable = true;
-                openFirewall = true;
-              };
-            };
-            services.hadoop = {
-              gatewayRole.enable = true;
-              package = hadoopPackage;
-              inherit coreSite;
-            };
-
-          };
-        historical =
-          { ... }:
-          {
-            services.druid = {
-              package = druidPackage;
-              inherit commonConfig log4j;
-              extraClassPaths = [ "/etc/hadoop-conf" ];
-              historical = {
-                config = {
-                  "maxSize" = 200000000;
-                  "druid.lookup.snapshotWorkingDir" = "/opt/historical/lookups";
-                };
-                segmentLocations = [
-                  {
-                    "path" = "/tmp/1";
-                    "maxSize" = "100000000";
-                  }
-                  {
-                    "path" = "/tmp/2";
-                    "maxSize" = "100000000";
-                  }
-                ];
-                enable = true;
-                openFirewall = true;
-              };
-            };
-            services.hadoop = {
-              gatewayRole.enable = true;
-              package = hadoopPackage;
-              inherit coreSite;
-            };
-
-          };
-        coordinator =
-          { ... }:
-          {
-            services.druid = {
-              package = druidPackage;
-              inherit commonConfig log4j;
-              extraClassPaths = [ "/etc/hadoop-conf" ];
-              coordinator = {
-                config = {
-                  "druid.plaintextPort" = 9091;
-                  "druid.service" = "coordinator";
-                  "druid.coordinator.startDelay" = "PT10S";
-                  "druid.coordinator.period" = "PT10S";
-                  "druid.manager.config.pollDuration" = "PT10S";
-                  "druid.manager.segments.pollDuration" = "PT10S";
-                  "druid.manager.rules.pollDuration" = "PT10S";
-                };
-                enable = true;
-                openFirewall = true;
-              };
-            };
-            services.hadoop = {
-              gatewayRole.enable = true;
-              package = hadoopPackage;
-              inherit coreSite;
-            };
-
-          };
-
-        mysql =
-          { ... }:
-          {
-            services.mysql = {
+        };
+        datanode = {...}: {
+          services.hadoop = {
+            package = hadoopPackage;
+            hdfs.datanode = {
               enable = true;
-              package = pkgs.mariadb;
-              initialDatabases = [ { name = "druid"; } ];
-              initialScript = pkgs.writeText "mysql-init.sql" ''
-                CREATE USER 'druid'@'%' IDENTIFIED BY 'druid';
-                GRANT ALL PRIVILEGES ON druid.* TO 'druid'@'%';
-              '';
+              openFirewall = true;
             };
-            networking.firewall.allowedTCPPorts = [ 3306 ];
+            inherit coreSite;
           };
+        };
+        mm = {...}: {
+          virtualisation.memorySize = 1024;
+          services.druid = {
+            inherit commonConfig log4j;
+            package = druidPackage;
+            extraClassPaths = ["/etc/hadoop-conf"];
+            middleManager = {
+              config = {
+                "druid.indexer.task.baseTaskDir" = "/tmp/druid/persistent/task";
+                "druid.worker.capacity" = 1;
+                "druid.indexer.logs.type" = "file";
+                "druid.indexer.logs.directory" = "/var/log/druid/indexer";
+                "druid.indexer.runner.startPort" = 8100;
+                "druid.indexer.runner.endPort" = 8101;
+              };
+              enable = true;
+              openFirewall = true;
+            };
+          };
+          services.hadoop = {
+            gatewayRole.enable = true;
+            package = hadoopPackage;
+            inherit coreSite;
+          };
+        };
+        overlord = {...}: {
+          services.druid = {
+            inherit commonConfig log4j;
+            package = druidPackage;
+            extraClassPaths = ["/etc/hadoop-conf"];
+            overlord = {
+              config = {
+                "druid.indexer.runner.type" = "remote";
+                "druid.indexer.storage.type" = "metadata";
+              };
+              enable = true;
+              openFirewall = true;
+            };
+          };
+          services.hadoop = {
+            gatewayRole.enable = true;
+            package = hadoopPackage;
+            inherit coreSite;
+          };
+        };
+        broker = {...}: {
+          services.druid = {
+            package = druidPackage;
+            inherit commonConfig log4j;
+            extraClassPaths = ["/etc/hadoop-conf"];
+            broker = {
+              config = {
+                "druid.plaintextPort" = 8082;
+                "druid.broker.http.numConnections" = "2";
+                "druid.server.http.numThreads" = "2";
+                "druid.processing.buffer.sizeBytes" = "100";
+                "druid.processing.numThreads" = "1";
+                "druid.processing.numMergeBuffers" = "1";
+                "druid.broker.cache.unCacheable" = ''["groupBy"]'';
+                "druid.lookup.snapshotWorkingDir" = "/opt/broker/lookups";
+              };
+              enable = true;
+              openFirewall = true;
+            };
+          };
+          services.hadoop = {
+            gatewayRole.enable = true;
+            package = hadoopPackage;
+            inherit coreSite;
+          };
+        };
+        historical = {...}: {
+          services.druid = {
+            package = druidPackage;
+            inherit commonConfig log4j;
+            extraClassPaths = ["/etc/hadoop-conf"];
+            historical = {
+              config = {
+                "maxSize" = 200000000;
+                "druid.lookup.snapshotWorkingDir" = "/opt/historical/lookups";
+              };
+              segmentLocations = [
+                {
+                  "path" = "/tmp/1";
+                  "maxSize" = "100000000";
+                }
+                {
+                  "path" = "/tmp/2";
+                  "maxSize" = "100000000";
+                }
+              ];
+              enable = true;
+              openFirewall = true;
+            };
+          };
+          services.hadoop = {
+            gatewayRole.enable = true;
+            package = hadoopPackage;
+            inherit coreSite;
+          };
+        };
+        coordinator = {...}: {
+          services.druid = {
+            package = druidPackage;
+            inherit commonConfig log4j;
+            extraClassPaths = ["/etc/hadoop-conf"];
+            coordinator = {
+              config = {
+                "druid.plaintextPort" = 9091;
+                "druid.service" = "coordinator";
+                "druid.coordinator.startDelay" = "PT10S";
+                "druid.coordinator.period" = "PT10S";
+                "druid.manager.config.pollDuration" = "PT10S";
+                "druid.manager.segments.pollDuration" = "PT10S";
+                "druid.manager.rules.pollDuration" = "PT10S";
+              };
+              enable = true;
+              openFirewall = true;
+            };
+          };
+          services.hadoop = {
+            gatewayRole.enable = true;
+            package = hadoopPackage;
+            inherit coreSite;
+          };
+        };
 
+        mysql = {...}: {
+          services.mysql = {
+            enable = true;
+            package = pkgs.mariadb;
+            initialDatabases = [{name = "druid";}];
+            initialScript = pkgs.writeText "mysql-init.sql" ''
+              CREATE USER 'druid'@'%' IDENTIFIED BY 'druid';
+              GRANT ALL PRIVILEGES ON druid.* TO 'druid'@'%';
+            '';
+          };
+          networking.firewall.allowedTCPPorts = [3306];
+        };
       };
       testScript = ''
         start_all()
@@ -284,7 +262,6 @@ let
         broker.succeed("curl -X 'POST' -H 'Content-Type:application/json' -d @${pkgs.druid}/quickstart/tutorial/wikipedia-top-pages.json http://localhost:8082/druid/v2/")
 
       '';
-
     };
 in
-tests
+  tests

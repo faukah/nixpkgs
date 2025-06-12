@@ -4,10 +4,8 @@
   lib,
   ...
 }:
-
 # image metadata:
 # hw_firmware_type=uefi
-
 let
   inherit (lib) mkIf mkDefault;
   cfg = config.openstack;
@@ -15,8 +13,7 @@ let
     targetRoot = "/";
     wgetExtraOptions = "--retry-connrefused";
   };
-in
-{
+in {
   imports = [
     ../profiles/qemu-guest.nix
 
@@ -47,8 +44,11 @@ in
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=tty1" ];
-    boot.loader.grub.device = if (!cfg.efi) then "/dev/vda" else "nodev";
+    boot.kernelParams = ["console=tty1"];
+    boot.loader.grub.device =
+      if (!cfg.efi)
+      then "/dev/vda"
+      else "nodev";
     boot.loader.grub.efiSupport = cfg.efi;
     boot.loader.grub.efiInstallAsRemovable = cfg.efi;
     boot.loader.timeout = 1;
@@ -75,15 +75,15 @@ in
     networking.hostName = mkDefault "";
 
     systemd.services.openstack-init = {
-      path = [ pkgs.wget ];
+      path = [pkgs.wget];
       description = "Fetch Metadata on startup";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       before = [
         "apply-ec2-data.service"
         "amazon-init.service"
       ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       script = metadataFetcher;
       restartIfChanged = false;
       unitConfig.X-StopOnRemoval = false;

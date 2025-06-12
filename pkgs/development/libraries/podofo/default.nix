@@ -15,7 +15,6 @@
   libidn,
   expat,
 }:
-
 stdenv.mkDerivation rec {
   version = "0.9.8";
   pname = "podofo";

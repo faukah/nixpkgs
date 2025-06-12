@@ -4,7 +4,6 @@
   fetchurl,
   libxcrypt,
 }:
-
 stdenv.mkDerivation rec {
   pname = "bftpd";
   version = "6.3";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   CFLAGS = "-std=gnu89";
 
@@ -48,7 +47,7 @@ stdenv.mkDerivation rec {
     downloadPage = "http://bftpd.sf.net/download.html";
     homepage = "http://bftpd.sf.net/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.all;
   };
 }

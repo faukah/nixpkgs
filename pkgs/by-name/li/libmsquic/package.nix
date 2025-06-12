@@ -8,7 +8,6 @@
   perl,
   coreutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libmsquic";
   version = "2.4.12";
@@ -52,6 +51,6 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/microsoft/msquic/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ SohamG ];
+    maintainers = with lib.maintainers; [SohamG];
   };
 })

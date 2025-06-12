@@ -15,7 +15,6 @@
   SDL2,
   soundtouch,
 }:
-
 buildPythonPackage rec {
   pname = "py-desmume";
   version = "0.0.7";
@@ -51,16 +50,16 @@ buildPythonPackage rec {
     pygobject3
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = false; # there are no tests
 
-  pythonImportsCheck = [ "desmume" ];
+  pythonImportsCheck = ["desmume"];
 
   meta = with lib; {
     description = "Python library to interface with DeSmuME, the Nintendo DS emulator";
     homepage = "https://github.com/SkyTemple/py-desmume";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

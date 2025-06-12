@@ -5,9 +5,7 @@
   fetchFromGitHub,
   fetchpatch2,
   kernel,
-}:
-
-let
+}: let
   version = "6.30.223.271";
   hashes = {
     i686-linux = "sha256-T4twspOsjMXHDlca1dGHjQ8p0TOkb+eGmGjZwZtQWM0=";
@@ -15,7 +13,7 @@ let
   };
 
   arch = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") "_64";
-  tarballVersion = lib.replaceStrings [ "." ] [ "_" ] version;
+  tarballVersion = lib.replaceStrings ["."] ["_"] version;
   tarball = "hybrid-v35${arch}-nodebug-pcoem-${tarballVersion}.tar.gz";
 
   rpmFusionPatches = fetchFromGitHub {
@@ -57,46 +55,46 @@ let
     "wl-kmod-030_kernel_6.14_adaptation.patch"
   ];
 in
-stdenv.mkDerivation {
-  name = "broadcom-sta-${version}-${kernel.version}";
+  stdenv.mkDerivation {
+    name = "broadcom-sta-${version}-${kernel.version}";
 
-  src = fetchurl {
-    url = "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/${tarball}";
-    hash =
-      hashes.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-  };
+    src = fetchurl {
+      url = "https://docs.broadcom.com/docs-and-downloads/docs/linux_sta/${tarball}";
+      hash =
+        hashes.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
+    };
 
-  hardeningDisable = [ "pic" ];
+    hardeningDisable = ["pic"];
 
-  nativeBuildInputs = kernel.moduleBuildDependencies;
+    nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  patches = map (patch: "${rpmFusionPatches}/${patch}") patchset;
+    patches = map (patch: "${rpmFusionPatches}/${patch}") patchset;
 
-  makeFlags = [ "KBASE=${kernel.dev}/lib/modules/${kernel.modDirVersion}" ];
+    makeFlags = ["KBASE=${kernel.dev}/lib/modules/${kernel.modDirVersion}"];
 
-  unpackPhase = ''
-    runHook preUnpack
-    sourceRoot=broadcom-sta
-    mkdir "$sourceRoot"
-    tar xvf "$src" -C "$sourceRoot"
-    runHook postUnpack
-  '';
+    unpackPhase = ''
+      runHook preUnpack
+      sourceRoot=broadcom-sta
+      mkdir "$sourceRoot"
+      tar xvf "$src" -C "$sourceRoot"
+      runHook postUnpack
+    '';
 
-  installPhase = ''
-    runHook preInstall
-    binDir="$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
-    docDir="$out/share/doc/broadcom-sta/"
-    mkdir -p "$binDir" "$docDir"
-    cp wl.ko "$binDir"
-    cp lib/LICENSE.txt "$docDir"
-    runHook postInstall
-  '';
+    installPhase = ''
+      runHook preInstall
+      binDir="$out/lib/modules/${kernel.modDirVersion}/kernel/net/wireless/"
+      docDir="$out/share/doc/broadcom-sta/"
+      mkdir -p "$binDir" "$docDir"
+      cp wl.ko "$binDir"
+      cp lib/LICENSE.txt "$docDir"
+      runHook postInstall
+    '';
 
-  meta = {
-    description = "Kernel module driver for some Broadcom's wireless cards";
-    homepage = "http://www.broadcom.com/support/802.11/linux_sta.php";
-    license = lib.licenses.unfreeRedistributable;
-    maintainers = [ lib.maintainers.j0hax ];
-    platforms = lib.platforms.linux;
-  };
-}
+    meta = {
+      description = "Kernel module driver for some Broadcom's wireless cards";
+      homepage = "http://www.broadcom.com/support/802.11/linux_sta.php";
+      license = lib.licenses.unfreeRedistributable;
+      maintainers = [lib.maintainers.j0hax];
+      platforms = lib.platforms.linux;
+    };
+  }

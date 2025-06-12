@@ -10,7 +10,6 @@
   desktop-file-utils,
   libadwaita,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "calligraphy";
   version = "1.0.1";
@@ -44,7 +43,7 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   meta = {
     description = "GTK tool turning text into ASCII banners";
@@ -55,7 +54,7 @@ python3Packages.buildPythonApplication rec {
       cc0
     ];
     mainProgram = "calligraphy";
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
     platforms = lib.platforms.linux;
   };
 }

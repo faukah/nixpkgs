@@ -1,5 +1,7 @@
-{ grafanaPlugin, lib }:
-
+{
+  grafanaPlugin,
+  lib,
+}:
 grafanaPlugin {
   pname = "bsull-console-datasource";
   version = "1.0.1";
@@ -7,7 +9,7 @@ grafanaPlugin {
   meta = with lib; {
     description = "This is a streaming Grafana data source which can connect to the Tokio console subscriber.";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nagisa ];
+    maintainers = with maintainers; [nagisa];
     platforms = platforms.unix;
   };
 }

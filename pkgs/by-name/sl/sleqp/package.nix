@@ -14,7 +14,6 @@
   stdenv,
   trlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sleqp";
   version = "1.0.2";
@@ -66,6 +65,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/chrhansk/sleqp";
     changelog = "https://github.com/chrhansk/sleqp/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
-    maintainers = with lib.maintainers; [ nim65s ];
+    maintainers = with lib.maintainers; [nim65s];
   };
 })

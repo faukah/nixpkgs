@@ -10,7 +10,6 @@
   pythonOlder,
   typing-inspect,
 }:
-
 buildPythonPackage rec {
   pname = "dataclasses-json";
   version = "0.6.7";
@@ -53,13 +52,13 @@ buildPythonPackage rec {
     "tests/test_annotations.py"
   ];
 
-  pythonImportsCheck = [ "dataclasses_json" ];
+  pythonImportsCheck = ["dataclasses_json"];
 
   meta = with lib; {
     description = "Simple API for encoding and decoding dataclasses to and from JSON";
     homepage = "https://github.com/lidatong/dataclasses-json";
     changelog = "https://github.com/lidatong/dataclasses-json/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ albakham ];
+    maintainers = with maintainers; [albakham];
   };
 }

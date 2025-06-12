@@ -13,7 +13,6 @@
   pytest-mock,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "pyicloud";
   version = "1.0.0";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-2E1pdHHt8o7CGpdG+u4xy5OyNCueUGVw5CY8oicYd5w=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     certifi
@@ -52,6 +51,6 @@ buildPythonPackage rec {
     mainProgram = "icloud";
     homepage = "https://github.com/picklepete/pyicloud";
     license = licenses.mit;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
   };
 }

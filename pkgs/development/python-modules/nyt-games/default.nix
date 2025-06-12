@@ -13,7 +13,6 @@
   syrupy,
   yarl,
 }:
-
 buildPythonPackage rec {
   pname = "nyt-games";
   version = "0.4.4";
@@ -26,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-eMJ96E4sGmekr6mOR30UIZBclH/0xc8AWv3zL1ItKjo=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     aiohttp
@@ -35,7 +34,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "nyt_games" ];
+  pythonImportsCheck = ["nyt_games"];
 
   nativeCheckInputs = [
     aioresponses
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     description = "Asynchronous Python client for NYT games";
     homepage = "https://github.com/joostlek/python-nyt-games";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

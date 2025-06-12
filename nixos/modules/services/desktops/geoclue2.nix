@@ -4,8 +4,7 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.geoclue2;
 
   defaultWhitelist = [
@@ -14,8 +13,7 @@ let
   ];
 
   appConfigModule = lib.types.submodule (
-    { name, ... }:
-    {
+    {name, ...}: {
       options = {
         desktopID = lib.mkOption {
           type = lib.types.str;
@@ -38,7 +36,7 @@ let
 
         users = lib.mkOption {
           type = lib.types.listOf lib.types.str;
-          default = [ ];
+          default = [];
           description = ''
             List of UIDs of all users for which this application is allowed location
             info access, Defaults to an empty string to allow it for all users.
@@ -50,33 +48,25 @@ let
     }
   );
 
-  appConfigToINICompatible =
-    _:
-    {
-      desktopID,
-      isAllowed,
-      isSystem,
-      users,
-      ...
-    }:
-    {
-      name = desktopID;
-      value = {
-        allowed = isAllowed;
-        system = isSystem;
-        users = lib.concatStringsSep ";" users;
-      };
+  appConfigToINICompatible = _: {
+    desktopID,
+    isAllowed,
+    isSystem,
+    users,
+    ...
+  }: {
+    name = desktopID;
+    value = {
+      allowed = isAllowed;
+      system = isSystem;
+      users = lib.concatStringsSep ";" users;
     };
-
-in
-{
-
+  };
+in {
   ###### interface
 
   options = {
-
     services.geoclue2 = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -191,8 +181,7 @@ in
         type = lib.types.package;
         default = pkgs.geoclue2;
         defaultText = lib.literalExpression "pkgs.geoclue2";
-        apply =
-          pkg:
+        apply = pkg:
           pkg.override {
             # the demo agent isn't built by default, but we need it here
             withDemoAgent = cfg.enableDemoAgent;
@@ -227,7 +216,7 @@ in
 
       appConfig = lib.mkOption {
         type = lib.types.attrsOf appConfigModule;
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           "com.github.app" = {
             isAllowed = true;
@@ -239,19 +228,16 @@ in
           Specify extra settings per application.
         '';
       };
-
     };
-
   };
 
   ###### implementation
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [cfg.package];
 
-    environment.systemPackages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
-
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     # we cannot use DynamicUser as we need the the geoclue user to exist for the
     # dbus policy to work
@@ -263,7 +249,7 @@ in
         description = "Geoinformation service";
       };
 
-      groups.geoclue = { };
+      groups.geoclue = {};
     };
 
     services.geoclue2 = {
@@ -277,8 +263,8 @@ in
     };
 
     systemd.services.geoclue = {
-      wants = lib.optionals cfg.enableWifi [ "network-online.target" ];
-      after = lib.optionals cfg.enableWifi [ "network-online.target" ];
+      wants = lib.optionals cfg.enableWifi ["network-online.target"];
+      after = lib.optionals cfg.enableWifi ["network-online.target"];
       # restart geoclue service when the configuration changes
       restartTriggers = [
         config.environment.etc."geoclue/geoclue.conf".source
@@ -294,9 +280,9 @@ in
         # this should really be `partOf = [ "geoclue.service" ]`, but
         # we can't be part of a system service, and the agent should
         # be okay with the main service coming and going
-        wantedBy = [ "default.target" ];
-        wants = lib.optionals cfg.enableWifi [ "network-online.target" ];
-        after = lib.optionals cfg.enableWifi [ "network-online.target" ];
+        wantedBy = ["default.target"];
+        wants = lib.optionals cfg.enableWifi ["network-online.target"];
+        after = lib.optionals cfg.enableWifi ["network-online.target"];
         unitConfig.ConditionUser = "!@system";
         serviceConfig = {
           Type = "exec";
@@ -317,7 +303,7 @@ in
       isSystem = false;
     };
 
-    environment.etc."geoclue/geoclue.conf".text = lib.generators.toINI { } (
+    environment.etc."geoclue/geoclue.conf".text = lib.generators.toINI {} (
       {
         agent = {
           whitelist = lib.concatStringsSep ";" (
@@ -366,6 +352,6 @@ in
   };
 
   meta = with lib; {
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [] ++ teams.pantheon.members;
   };
 }

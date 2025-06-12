@@ -6,7 +6,6 @@
   dbus,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "ear2ctl";
   version = "0.1.0";
@@ -21,16 +20,16 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-2yMq1Ag0cUXMBMjpkdqYxkKMXQiZ5536cmwoaCrpFgI=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Linux controller for the Nothing Ear (2)";
     homepage = "https://gitlab.com/bharadwaj-raju/ear2ctl";
-    maintainers = with lib.maintainers; [ jaredmontoya ];
+    maintainers = with lib.maintainers; [jaredmontoya];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "ear2ctl";

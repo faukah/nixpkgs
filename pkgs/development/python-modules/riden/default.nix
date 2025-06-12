@@ -9,7 +9,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "riden";
   version = "1.2.1";
@@ -38,13 +37,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "riden" ];
+  pythonImportsCheck = ["riden"];
 
   meta = with lib; {
     description = "Module for Riden RD power supplies";
     homepage = "https://github.com/geeksville/riden";
     changelog = "https://github.com/geeksville/Riden/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

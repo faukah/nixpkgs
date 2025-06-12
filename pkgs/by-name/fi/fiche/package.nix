@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fiche";
   version = "0.9.1";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/solusipse/fiche";
     changelog = "https://github.com/solusipse/fiche/releases/tag/${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.pinpox ];
+    maintainers = [lib.maintainers.pinpox];
     platforms = lib.platforms.all;
     mainProgram = "fiche";
   };

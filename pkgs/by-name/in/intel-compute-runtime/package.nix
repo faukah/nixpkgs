@@ -9,7 +9,6 @@
   level-zero,
   libva,
 }:
-
 stdenv.mkDerivation rec {
   pname = "intel-compute-runtime";
   version = "25.18.33578.6";
@@ -47,7 +46,7 @@ stdenv.mkDerivation rec {
   ];
 
   # causes redefinition of _FORTIFY_SOURCE
-  hardeningDisable = [ "fortify3" ];
+  hardeningDisable = ["fortify3"];
 
   postInstall = ''
     # Avoid clash with intel-ocl
@@ -79,6 +78,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with lib.maintainers; [ SuperSandro2000 ];
+    maintainers = with lib.maintainers; [SuperSandro2000];
   };
 }

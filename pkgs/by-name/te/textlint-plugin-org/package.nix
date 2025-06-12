@@ -6,7 +6,6 @@
   textlint-plugin-org,
   textlint-rule-max-comma,
 }:
-
 buildNpmPackage rec {
   pname = "textlint-plugin-org";
   version = "0.3.7";
@@ -32,6 +31,6 @@ buildNpmPackage rec {
     homepage = "https://github.com/kijimaD/textlint-plugin-org";
     changelog = "https://github.com/kijimaD/textlint-plugin-org/releases/tag/v${version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ natsukium ];
+    maintainers = with lib.maintainers; [natsukium];
   };
 }

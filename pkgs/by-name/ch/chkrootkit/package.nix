@@ -5,7 +5,6 @@
   makeWrapper,
   binutils-unwrapped,
 }:
-
 stdenv.mkDerivation rec {
   pname = "chkrootkit";
   version = "0.58b";
@@ -16,9 +15,9 @@ stdenv.mkDerivation rec {
   };
 
   # TODO: a lazy work-around for linux build failure ...
-  makeFlags = [ "STATIC=" ];
+  makeFlags = ["STATIC="];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     substituteInPlace chkrootkit \
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     cp check_wtmpx chkdirs chklastlog chkproc chkrootkit chkutmp chkwtmp ifpromisc strings-static $out/sbin
 
     wrapProgram $out/sbin/chkrootkit \
-      --prefix PATH : "${lib.makeBinPath [ binutils-unwrapped ]}"
+      --prefix PATH : "${lib.makeBinPath [binutils-unwrapped]}"
   '';
 
   meta = with lib; {

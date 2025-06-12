@@ -3,7 +3,6 @@
   buildFishPlugin,
   fetchFromGitHub,
 }:
-
 buildFishPlugin {
   pname = "grc";
   version = "0-unstable-2022-05-24";
@@ -22,7 +21,7 @@ buildFishPlugin {
   meta = with lib; {
     description = "grc Colourizer for some commands on Fish shell";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = with platforms; unix;
   };
 }

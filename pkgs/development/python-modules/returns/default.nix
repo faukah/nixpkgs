@@ -15,7 +15,6 @@
   trio,
   typing-extensions,
 }:
-
 buildPythonPackage rec {
   pname = "returns";
   version = "0.24.0";
@@ -36,9 +35,9 @@ buildPythonPackage rec {
       -e '/--mypy.*/d'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     anyio
@@ -56,15 +55,15 @@ buildPythonPackage rec {
     rm -rf returns/contrib/mypy
   '';
 
-  pythonImportsCheck = [ "returns" ];
+  pythonImportsCheck = ["returns"];
 
-  pytestFlagsArray = [ "--ignore=typesafety" ];
+  pytestFlagsArray = ["--ignore=typesafety"];
 
   meta = with lib; {
     description = "Make your functions return something meaningful, typed, and safe!";
     homepage = "https://github.com/dry-python/returns";
     changelog = "https://github.com/dry-python/returns/blob/${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jessemoore ];
+    maintainers = with maintainers; [jessemoore];
   };
 }

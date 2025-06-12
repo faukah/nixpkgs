@@ -2,7 +2,6 @@
   stdenv,
   which,
   callPackage,
-
   # apparmor deps
   libapparmor,
   apparmor-parser,
@@ -14,7 +13,7 @@ stdenv.mkDerivation {
 
   sourceRoot = "${libapparmor.src.name}/profiles";
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -30,13 +29,15 @@ stdenv.mkDerivation {
 
   preCheck = ''
     export USE_SYSTEM=1
-    export LOGPROF="aa-logprof --configdir ${callPackage ./test_config.nix { }} --no-check-mountpoint"
+    export LOGPROF="aa-logprof --configdir ${callPackage ./test_config.nix {}} --no-check-mountpoint"
   '';
 
   doCheck = true;
 
-  meta = libapparmor.meta // {
-    description = "Mandatory access control system - profiles";
-    mainProgram = "apparmor_parser";
-  };
+  meta =
+    libapparmor.meta
+    // {
+      description = "Mandatory access control system - profiles";
+      mainProgram = "apparmor_parser";
+    };
 }

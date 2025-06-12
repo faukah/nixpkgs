@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "ghfetch";
   version = "0.0.19";
@@ -22,6 +21,6 @@ buildGoModule rec {
     homepage = "https://github.com/orangekame3/ghfetch";
     license = licenses.mit;
     mainProgram = "ghfetch";
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

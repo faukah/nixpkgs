@@ -5,7 +5,6 @@
   unzip,
   unstableGitUpdater,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "cyberpunk-neon";
   version = "0-unstable-2025-05-05";
@@ -25,7 +24,7 @@ stdenvNoCC.mkDerivation {
     "tilix"
   ];
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -48,14 +47,14 @@ stdenvNoCC.mkDerivation {
   strictDeps = true;
 
   passthru = {
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = {
     homepage = "https://github.com/Roboron3042/Cyberpunk-Neon";
     description = "Neon themes for many programs";
     license = lib.licenses.cc-by-sa-40;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.all;
   };
 }

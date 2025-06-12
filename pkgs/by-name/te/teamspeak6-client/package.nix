@@ -26,7 +26,6 @@
   libGL,
   xorg,
 }:
-
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "teamspeak6-client";
   version = "6.0.0-beta2";
@@ -98,12 +97,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     makeWrapper $out/share/teamspeak6-client/TeamSpeak $out/bin/TeamSpeak \
       --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          udev
-          libGL
-          libpulseaudio
-        ]
-      }"
+      lib.makeLibraryPath [
+        udev
+        libGL
+        libpulseaudio
+      ]
+    }"
 
     runHook postInstall
   '';
@@ -119,6 +118,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       gepbird
       jojosch
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 })

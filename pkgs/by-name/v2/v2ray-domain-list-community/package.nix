@@ -4,9 +4,7 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
-}:
-
-let
+}: let
   generator = pkgsBuildBuild.buildGoModule rec {
     pname = "v2ray-domain-list-community";
     version = "20250605152911";
@@ -21,29 +19,30 @@ let
       description = "community managed domain list";
       homepage = "https://github.com/v2fly/domain-list-community";
       license = licenses.mit;
-      maintainers = with maintainers; [ nickcao ];
+      maintainers = with maintainers; [nickcao];
     };
   };
 in
-stdenv.mkDerivation {
-  inherit (generator)
-    pname
-    version
-    src
-    meta
-    ;
-  buildPhase = ''
-    runHook preBuild
-    ${generator}/bin/domain-list-community -datapath $src/data
-    runHook postBuild
-  '';
-  installPhase = ''
-    runHook preInstall
-    install -Dm644 dlc.dat $out/share/v2ray/geosite.dat
-    runHook postInstall
-  '';
-  passthru = {
-    inherit generator;
-    updateScript = nix-update-script { };
-  };
-}
+  stdenv.mkDerivation {
+    inherit
+      (generator)
+      pname
+      version
+      src
+      meta
+      ;
+    buildPhase = ''
+      runHook preBuild
+      ${generator}/bin/domain-list-community -datapath $src/data
+      runHook postBuild
+    '';
+    installPhase = ''
+      runHook preInstall
+      install -Dm644 dlc.dat $out/share/v2ray/geosite.dat
+      runHook postInstall
+    '';
+    passthru = {
+      inherit generator;
+      updateScript = nix-update-script {};
+    };
+  }

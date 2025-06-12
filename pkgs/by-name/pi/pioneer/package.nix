@@ -19,7 +19,6 @@
   SDL2,
   SDL2_image,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pioneer";
   version = "20250501";

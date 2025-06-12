@@ -3,7 +3,6 @@
   fetchFromGitHub,
   buildDunePackage,
 }:
-
 buildDunePackage rec {
   pname = "directories";
   version = "0.5";
@@ -32,6 +31,6 @@ buildDunePackage rec {
       macOS.
     '';
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ bcc32 ];
+    maintainers = with lib.maintainers; [bcc32];
   };
 }

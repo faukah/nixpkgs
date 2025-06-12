@@ -9,7 +9,6 @@
   ocamlPackages,
   glibc,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "supermin";
   version = "5.2.2";
@@ -42,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = with lib; {
     homepage = "https://libguestfs.org/supermin.1.html";
     description = "Tool for creating and building supermin appliances";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     mainProgram = "supermin";

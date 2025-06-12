@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchFromGitHub,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "major-mono-display";
   version = "2.000";
@@ -38,6 +37,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/googlefonts/majormono";
     license = lib.licenses.ofl;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ mimvoid ];
+    maintainers = with lib.maintainers; [mimvoid];
   };
 }

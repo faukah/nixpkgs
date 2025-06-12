@@ -8,7 +8,6 @@
   setuptools,
   webdav4,
 }:
-
 buildPythonPackage rec {
   pname = "dvc-webdav";
   version = "3.0.0";
@@ -22,7 +21,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   build-system = [
     setuptools
@@ -41,6 +40,6 @@ buildPythonPackage rec {
     description = "Webdav plugin for dvc";
     homepage = "https://pypi.org/project/dvc-webdav/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

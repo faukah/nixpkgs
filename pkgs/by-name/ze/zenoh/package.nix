@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://zenoh.io";
     changelog = "https://github.com/eclipse-zenoh/zenoh/releases/tag/${src.rev}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ck3d ];
+    maintainers = with lib.maintainers; [ck3d];
     mainProgram = "zenohd";
     platforms = lib.platforms.linux;
   };

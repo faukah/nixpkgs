@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nodenv";
   version = "1.5.0";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nodenv/nodenv/";
     changelog = "https://github.com/nodenv/nodenv/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ alexnortung ];
+    maintainers = with lib.maintainers; [alexnortung];
     platforms = lib.platforms.unix;
   };
 }

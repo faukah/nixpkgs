@@ -14,7 +14,6 @@
   buildServer ? true,
   buildClient ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fwknop";
   version = "2.6.11";
@@ -26,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-jnEBRJCt7pAmXRIBVT2OwJqT5Zr/JaRgPDqccx0W/9o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs =
     [
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
       gnupg
       gpgme.dev
     ]
-    ++ lib.optionals wgetSupport [ wget ];
+    ++ lib.optionals wgetSupport [wget];
 
   configureFlags =
     [
@@ -75,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.cipherdyne.org/fwknop/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

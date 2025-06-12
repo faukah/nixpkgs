@@ -9,7 +9,6 @@
   libevdev,
   libconfig,
 }:
-
 stdenv.mkDerivation (oldAttrs: {
   pname = "logiops";
   version = "0.3.5";
@@ -51,7 +50,7 @@ stdenv.mkDerivation (oldAttrs: {
     mainProgram = "logid";
     homepage = "https://github.com/PixlOne/logiops";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = with platforms; linux;
   };
 })

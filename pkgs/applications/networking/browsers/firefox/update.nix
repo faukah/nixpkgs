@@ -15,7 +15,6 @@
   versionSuffix ? "",
   versionKey ? "version",
 }:
-
 writeScript "update-${attrPath}" ''
   #!${runtimeShell}
   PATH=${

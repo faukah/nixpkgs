@@ -15,7 +15,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "pydrawise";
   version = "2025.3.0";
@@ -50,13 +49,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pydrawise" ];
+  pythonImportsCheck = ["pydrawise"];
 
   meta = with lib; {
     description = "Library for interacting with Hydrawise sprinkler controllers through the GraphQL API";
     homepage = "https://github.com/dknowles2/pydrawise";
     changelog = "https://github.com/dknowles2/pydrawise/releases/tag/${src.tag}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

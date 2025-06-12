@@ -4,7 +4,6 @@
   lib,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "hare-ssh";
   version = "0-unstable-2023-11-16";
@@ -16,17 +15,17 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-I43TLPoImBsvkgV3hDy9dw0pXVt4ezINnxFtEV9P2/M=";
   };
 
-  nativeBuildInputs = [ hareHook ];
+  nativeBuildInputs = [hareHook];
 
-  makeFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  makeFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   doCheck = true;
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/hare-ssh/";
     description = "SSH client & server protocol implementation for Hare";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ patwid ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [patwid];
 
     inherit (hareHook.meta) platforms badPlatforms;
   };

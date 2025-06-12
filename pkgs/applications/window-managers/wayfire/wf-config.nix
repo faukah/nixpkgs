@@ -11,7 +11,6 @@
   libevdev,
   libxml2,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wf-config";
   version = "0.9.0";

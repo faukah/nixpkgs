@@ -3,13 +3,11 @@
   buildPythonPackage,
   fetchPypi,
   pythonOlder,
-
   poetry-core,
   pyyaml,
   colorama,
   junit-xml,
 }:
-
 buildPythonPackage rec {
   pname = "refery";
   version = "2.1.0";
@@ -27,7 +25,7 @@ buildPythonPackage rec {
     junit-xml
   ];
 
-  pythonImportsCheck = [ "refery" ];
+  pythonImportsCheck = ["refery"];
 
   disabled = pythonOlder "3.10";
 
@@ -38,7 +36,7 @@ buildPythonPackage rec {
     description = "Functional testing tool";
     homepage = "https://github.com/RostanTabet/refery";
     mainProgram = "refery";
-    maintainers = with maintainers; [ rostan-t ];
+    maintainers = with maintainers; [rostan-t];
     license = licenses.mit;
   };
 }

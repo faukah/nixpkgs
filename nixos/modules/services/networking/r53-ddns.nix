@@ -4,17 +4,12 @@
   pkgs,
   ...
 }:
-
-with lib;
-
-let
+with lib; let
   cfg = config.services.r53-ddns;
   pkg = pkgs.r53-ddns;
-in
-{
+in {
   options = {
     services.r53-ddns = {
-
       enable = mkEnableOption "r53-ddyns";
 
       interval = mkOption {
@@ -48,15 +43,13 @@ in
           in the format of an EnvironmentFile as described by {manpage}`systemd.exec(5)`
         '';
       };
-
     };
   };
 
   config = mkIf cfg.enable {
-
     systemd.timers.r53-ddns = {
       description = "r53-ddns timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = cfg.interval;
         OnUnitActiveSec = cfg.interval;
@@ -73,6 +66,5 @@ in
         DynamicUser = true;
       };
     };
-
   };
 }

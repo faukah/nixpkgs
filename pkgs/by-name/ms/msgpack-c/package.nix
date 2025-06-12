@@ -6,7 +6,6 @@
   gtest,
   zlib,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "msgpack-c";
   version = "6.1.0";
@@ -41,6 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/msgpack/msgpack-c";
     changelog = "https://github.com/msgpack/msgpack-c/blob/${finalAttrs.src.rev}/CHANGELOG.md";
     license = licenses.boost;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 })

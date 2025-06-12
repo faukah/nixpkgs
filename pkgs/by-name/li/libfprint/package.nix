@@ -17,7 +17,6 @@
   docbook_xml_dtd_43,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "libfprint";
   version = "1.94.9";
@@ -70,7 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeInstallCheckInputs = [
-    (python3.withPackages (p: with p; [ pygobject3 ]))
+    (python3.withPackages (p: with p; [pygobject3]))
   ];
 
   # We need to run tests _after_ install so all the paths that get loaded are in
@@ -92,6 +91,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Library designed to make it easy to add support for consumer fingerprint readers";
     license = lib.licenses.lgpl21Only;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
   };
 })

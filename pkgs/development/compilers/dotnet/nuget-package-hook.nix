@@ -11,4 +11,5 @@ makeSetupHook {
     inherit unzip zip xmlstarlet;
     stripNondeterminism = strip-nondeterminism;
   };
-} ./nuget-package-hook.sh
+}
+./nuget-package-hook.sh

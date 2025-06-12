@@ -13,7 +13,6 @@
   libgee,
   wingpanel,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wingpanel-indicator-a11y";
   version = "1.0.2";
@@ -46,7 +45,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -54,6 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/wingpanel-indicator-a11y";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

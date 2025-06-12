@@ -10,7 +10,6 @@
   makeWrapper,
   pkg-config,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "haunt";
   version = "0.3.0";
@@ -43,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      expectVersion = callPackage ./tests/001-test-version.nix { };
+      expectVersion = callPackage ./tests/001-test-version.nix {};
     };
   };
 
@@ -68,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       to do things that aren't provided out-of-the-box.
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (guile.meta) platforms;
   };
 })

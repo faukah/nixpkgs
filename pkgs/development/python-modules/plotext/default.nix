@@ -3,7 +3,6 @@
   fetchFromGitHub,
   lib,
 }:
-
 buildPythonPackage rec {
   pname = "plotext";
   version = "5.3.2";
@@ -20,13 +19,13 @@ buildPythonPackage rec {
   # `pytestCheckHook` or the standard setuptools testing situation.
   doCheck = false;
 
-  pythonImportsCheck = [ "plotext" ];
+  pythonImportsCheck = ["plotext"];
 
   meta = with lib; {
     description = "Plotting directly in the terminal";
     mainProgram = "plotext";
     homepage = "https://github.com/piccolomo/plotext";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

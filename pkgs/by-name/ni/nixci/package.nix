@@ -8,7 +8,6 @@
   installShellFiles,
   nix,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nixci";
   version = "1.0.0";

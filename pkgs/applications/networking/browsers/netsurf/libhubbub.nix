@@ -8,7 +8,6 @@
   buildsystem,
   libparserutils,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "netsurf-libhubbub";
   version = "0.3.8";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-isHm9fPUjAUUHVk5FxlTQpDFnNAp78JJ60/brBAs1aU=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gperf

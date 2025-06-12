@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "peru";
   version = "1.3.3";
@@ -32,5 +31,4 @@ python3Packages.buildPythonApplication rec {
     platforms = platforms.unix;
     mainProgram = "peru";
   };
-
 }

@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://pallini.di.uniroma1.it/nauty${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }.tar.gz";
     sha256 = "sha256-yXq0K/SHlqhqWYvOPpJpBHyisywU/CPgcgiiRP5SxO4=";
   };
@@ -27,8 +27,16 @@ stdenv.mkDerivation rec {
     # widely available, it can lead to nasty bugs when they are not available:
     # https://groups.google.com/forum/#!topic/sage-packaging/Pe4SRDNYlhA
     "--enable-generic" # don't use -march=native
-    "--${if stdenv.hostPlatform.sse4_2Support then "enable" else "disable"}-popcnt"
-    "--${if stdenv.hostPlatform.sse4_aSupport then "enable" else "disable"}-clz"
+    "--${
+      if stdenv.hostPlatform.sse4_2Support
+      then "enable"
+      else "disable"
+    }-popcnt"
+    "--${
+      if stdenv.hostPlatform.sse4_aSupport
+      then "enable"
+      else "disable"
+    }-clz"
   ];
 
   installPhase = ''
@@ -48,7 +56,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Programs for computing automorphism groups of graphs and digraphs";
     license = licenses.asl20;
-    teams = [ teams.sage ];
+    teams = [teams.sage];
     platforms = platforms.unix;
     # I'm not sure if the filename will remain the same for future changelog or
     # if it will track changes to minor releases. Lets see. Better than nothing

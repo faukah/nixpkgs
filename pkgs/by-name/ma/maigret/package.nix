@@ -5,7 +5,6 @@
   fetchpatch,
   python3,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "maigret";
   version = "0.4.4";
@@ -27,7 +26,7 @@ python3.pkgs.buildPythonApplication rec {
     })
   ];
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     aiodns
@@ -78,7 +77,7 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = true;
 
-  pythonRemoveDeps = [ "future-annotations" ];
+  pythonRemoveDeps = ["future-annotations"];
 
   pytestFlagsArray = [
     # DeprecationWarning: There is no current event loop
@@ -101,13 +100,13 @@ python3.pkgs.buildPythonApplication rec {
       "test_asyncio_progressbar_executor"
     ];
 
-  pythonImportsCheck = [ "maigret" ];
+  pythonImportsCheck = ["maigret"];
 
   meta = with lib; {
     description = "Tool to collect details about an username";
     homepage = "https://maigret.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

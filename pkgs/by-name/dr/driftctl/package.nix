@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "driftctl";
   version = "0.40.0";
@@ -18,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-JFvC9PReziktHSXbltGkGHjVR8hTM1hPJ0OqrZQXRQM=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

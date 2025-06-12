@@ -8,7 +8,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "cucumber-tag-expressions";
   version = "6.1.2";
@@ -38,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cucumber/tag-expressions";
     description = "Provides tag-expression parser for cucumber/behave";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxxk ];
+    maintainers = with maintainers; [maxxk];
   };
 }

@@ -4,37 +4,34 @@
   utils,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.virtualisation.podman;
-  json = pkgs.formats.json { };
+  json = pkgs.formats.json {};
 
   inherit (lib) mkOption types;
 
   # Provides a fake "docker" binary mapping to podman
   dockerCompat =
     pkgs.runCommand "${cfg.package.pname}-docker-compat-${cfg.package.version}"
-      {
-        outputs = [
-          "out"
-          "man"
-        ];
-        inherit (cfg.package) meta;
-        preferLocalBuild = true;
-      }
-      ''
-        mkdir -p $out/bin
-        ln -s ${cfg.package}/bin/podman $out/bin/docker
+    {
+      outputs = [
+        "out"
+        "man"
+      ];
+      inherit (cfg.package) meta;
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir -p $out/bin
+      ln -s ${cfg.package}/bin/podman $out/bin/docker
 
-        mkdir -p $man/share/man/man1
-        for f in ${cfg.package.man}/share/man/man1/*; do
-          basename=$(basename $f | sed s/podman/docker/g)
-          ln -s $f $man/share/man/man1/$basename
-        done
-      '';
-
-in
-{
+      mkdir -p $man/share/man/man1
+      for f in ${cfg.package.man}/share/man/man1/*; do
+        basename=$(basename $f | sed s/podman/docker/g)
+        ln -s $f $man/share/man/man1/$basename
+      done
+    '';
+in {
   imports = [
     (lib.mkRemovedOptionModule [
       "virtualisation"
@@ -56,7 +53,6 @@ in
   };
 
   options.virtualisation.podman = {
-
     enable = mkOption {
       type = types.bool;
       default = false;
@@ -102,7 +98,7 @@ in
 
     extraPackages = mkOption {
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = lib.literalExpression ''
         [
           pkgs.gvisor
@@ -126,8 +122,8 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--all" ];
+        default = [];
+        example = ["--all"];
         description = ''
           Any additional flags passed to {command}`podman system prune`.
         '';
@@ -151,8 +147,7 @@ in
         '';
       })
       // {
-        apply =
-          pkg:
+        apply = pkg:
           pkg.override {
             extraPackages =
               cfg.extraPackages
@@ -162,57 +157,54 @@ in
               ]
               ++ lib.optional (config.boot.supportedFilesystems.zfs or false) config.boot.zfs.package;
             extraRuntimes =
-              [ pkgs.runc ]
+              [pkgs.runc]
               ++ lib.optionals
-                (
-                  config.virtualisation.containers.containersConf.settings.network.default_rootless_network_cmd or ""
-                  == "slirp4netns"
-                )
-                (
-                  with pkgs;
-                  [
-                    slirp4netns
-                  ]
-                );
+              (
+                config.virtualisation.containers.containersConf.settings.network.default_rootless_network_cmd or ""
+                == "slirp4netns"
+              )
+              (
+                with pkgs; [
+                  slirp4netns
+                ]
+              );
           };
       };
 
     defaultNetwork.settings = lib.mkOption {
       type = json.type;
-      default = { };
+      default = {};
       example = lib.literalExpression "{ dns_enabled = true; }";
       description = ''
         Settings for podman's default network.
       '';
     };
-
   };
 
-  config =
-    let
-      networkConfig = (
-        {
-          dns_enabled = false;
-          driver = "bridge";
-          id = "0000000000000000000000000000000000000000000000000000000000000000";
-          internal = false;
-          ipam_options = {
-            driver = "host-local";
-          };
-          ipv6_enabled = false;
-          name = "podman";
-          network_interface = "podman0";
-          subnets = [
-            {
-              gateway = "10.88.0.1";
-              subnet = "10.88.0.0/16";
-            }
-          ];
-        }
-        // cfg.defaultNetwork.settings
-      );
-      inherit (networkConfig) dns_enabled network_interface;
-    in
+  config = let
+    networkConfig = (
+      {
+        dns_enabled = false;
+        driver = "bridge";
+        id = "0000000000000000000000000000000000000000000000000000000000000000";
+        internal = false;
+        ipam_options = {
+          driver = "host-local";
+        };
+        ipv6_enabled = false;
+        name = "podman";
+        network_interface = "podman0";
+        subnets = [
+          {
+            gateway = "10.88.0.1";
+            subnet = "10.88.0.0/16";
+          }
+        ];
+      }
+      // cfg.defaultNetwork.settings
+    );
+    inherit (networkConfig) dns_enabled network_interface;
+  in
     lib.mkIf cfg.enable {
       warnings = lib.optionals cfg.enableNvidia [
         ''
@@ -220,15 +212,15 @@ in
         ''
       ];
 
-      environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.dockerCompat dockerCompat;
+      environment.systemPackages = [cfg.package] ++ lib.optional cfg.dockerCompat dockerCompat;
 
       # https://github.com/containers/podman/blob/097cc6eb6dd8e598c0e8676d21267b4edb11e144/docs/tutorials/basic_networking.md#default-network
-      environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != { }) {
+      environment.etc."containers/networks/podman.json" = lib.mkIf (cfg.defaultNetwork.settings != {}) {
         source = json.generate "podman.json" networkConfig;
       };
 
       # containers cannot reach aardvark-dns otherwise
-      networking.firewall.interfaces.${network_interface}.allowedUDPPorts = lib.mkIf dns_enabled [ 53 ];
+      networking.firewall.interfaces.${network_interface}.allowedUDPPorts = lib.mkIf dns_enabled [53];
 
       virtualisation.containers = {
         enable = true; # Enable common /etc/containers configuration
@@ -237,7 +229,7 @@ in
         };
       };
 
-      systemd.packages = [ cfg.package ];
+      systemd.packages = [cfg.package];
 
       systemd.services.podman-prune = {
         description = "Prune podman resources";
@@ -259,12 +251,12 @@ in
         };
 
         startAt = lib.optional cfg.autoPrune.enable cfg.autoPrune.dates;
-        after = [ "podman.service" ];
-        requires = [ "podman.service" ];
+        after = ["podman.service"];
+        requires = ["podman.service"];
       };
 
       systemd.services.podman.environment = config.networking.proxy.envVars;
-      systemd.sockets.podman.wantedBy = [ "sockets.target" ];
+      systemd.sockets.podman.wantedBy = ["sockets.target"];
       systemd.sockets.podman.socketConfig.SocketGroup = "podman";
       # Podman does not support multiple sockets, as of podman 5.0.2, so we use
       # a symlink. Unfortunately this does not let us use an alternate group,
@@ -274,7 +266,7 @@ in
       ];
 
       systemd.user.services.podman.environment = config.networking.proxy.envVars;
-      systemd.user.sockets.podman.wantedBy = [ "sockets.target" ];
+      systemd.user.sockets.podman.wantedBy = ["sockets.target"];
 
       systemd.timers.podman-prune.timerConfig = lib.mkIf cfg.autoPrune.enable {
         Persistent = true;
@@ -284,7 +276,8 @@ in
       systemd.tmpfiles.packages = [
         # The /run/podman rule interferes with our podman group, so we remove
         # it and let the systemd socket logic take care of it.
-        (pkgs.runCommand "podman-tmpfiles-nixos"
+        (
+          pkgs.runCommand "podman-tmpfiles-nixos"
           {
             package = cfg.package;
             preferLocalBuild = true;
@@ -298,7 +291,7 @@ in
         )
       ];
 
-      users.groups.podman = { };
+      users.groups.podman = {};
 
       assertions = [
         {

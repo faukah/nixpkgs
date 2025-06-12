@@ -6,7 +6,6 @@
   fetchYarnDeps,
   gotify-server,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gotify-ui";
   inherit (gotify-server) version;

@@ -18,7 +18,6 @@
   gtk3,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libdazzle";
   version = "3.44.0";
@@ -91,7 +90,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.gnome.org/GNOME/libdazzle";
     license = licenses.gpl3Plus;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
     platforms = platforms.unix;
   };
 }

@@ -1,1 +1,1 @@
-{ python3Packages }: with python3Packages; toPythonApplication scspell
+{python3Packages}: with python3Packages; toPythonApplication scspell

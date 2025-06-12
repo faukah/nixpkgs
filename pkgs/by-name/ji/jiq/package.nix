@@ -5,7 +5,6 @@
   jq,
   makeWrapper,
 }:
-
 buildGoModule rec {
   pname = "jiq";
   version = "0.7.2";
@@ -19,13 +18,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-ZUmOhPGy+24AuxdeRVF0Vnu8zDGFrHoUlYiDdfIV5lc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  nativeCheckInputs = [ jq ];
+  nativeCheckInputs = [jq];
 
   postInstall = ''
     wrapProgram $out/bin/jiq \
-      --prefix PATH : ${lib.makeBinPath [ jq ]}
+      --prefix PATH : ${lib.makeBinPath [jq]}
   '';
 
   meta = with lib; {
@@ -33,6 +32,6 @@ buildGoModule rec {
     license = licenses.mit;
     description = "jid on jq - interactive JSON query tool using jq expressions";
     mainProgram = "jiq";
-    maintainers = [ ];
+    maintainers = [];
   };
 }

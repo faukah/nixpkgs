@@ -20,7 +20,6 @@
   gst_all_1,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "warp";
   version = "0.9.2";
@@ -70,7 +69,7 @@ stdenv.mkDerivation rec {
     ]);
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {
@@ -81,7 +80,7 @@ stdenv.mkDerivation rec {
       dotlambda
       foo-dogsquared
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     platforms = lib.platforms.all;
     mainProgram = "warp";
     broken = stdenv.hostPlatform.isDarwin;

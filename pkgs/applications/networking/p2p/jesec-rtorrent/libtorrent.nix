@@ -7,7 +7,6 @@
   openssl,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "jesec-libtorrent";
   version = "0.13.8-r4";
@@ -43,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jesec/libtorrent";
     description = "BitTorrent library written in C++ for *nix, with focus on high performance and good code (jesec's fork)";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     platforms = platforms.linux;
   };
 }

@@ -10,7 +10,6 @@
   curl,
   cacert,
 }:
-
 buildDunePackage rec {
   pname = "curly";
   version = "0.3.0";
@@ -24,8 +23,8 @@ buildDunePackage rec {
     hash = "sha256-Qn/PKBNOcMt3dk2f7uJD8x0yo4RHobXSjTQck7fcXTw=";
   };
 
-  propagatedBuildInputs = [ result ];
-  nativeCheckInputs = [ cacert ];
+  propagatedBuildInputs = [result];
+  nativeCheckInputs = [cacert];
   checkInputs = [
     alcotest
     cohttp-lwt-unix
@@ -47,6 +46,6 @@ buildDunePackage rec {
     description = "Curly is a brain dead wrapper around the curl command line utility";
     homepage = "https://github.com/rgrinberg/curly";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -9,7 +9,6 @@
   withGnuplot ? false,
   gnuplot ? null,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fio";
   version = "3.40";
@@ -21,14 +20,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-rfO4JEZ+B15NvR2AiTnlbQq++UchPYiXz3vVsFaG6r4=";
   };
 
-  buildInputs = [
-    python3
-    zlib
-  ] ++ lib.optional (!stdenv.hostPlatform.isDarwin) libaio;
+  buildInputs =
+    [
+      python3
+      zlib
+    ]
+    ++ lib.optional (!stdenv.hostPlatform.isDarwin) libaio;
 
   # ./configure does not support autoconf-style --build=/--host=.
   # We use $CC instead.
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   dontAddStaticConfigureFlags = true;
 
@@ -48,10 +49,10 @@ stdenv.mkDerivation rec {
     substituteInPlace tools/plot/fio2gnuplot --replace /usr/share/fio $out/share/fio
   '';
 
-  pythonPath = [ python3.pkgs.six ];
+  pythonPath = [python3.pkgs.six];
 
   makeWrapperArgs = lib.optionals withGnuplot [
-    "--prefix PATH : ${lib.makeBinPath [ gnuplot ]}"
+    "--prefix PATH : ${lib.makeBinPath [gnuplot]}"
   ];
 
   postInstall = ''

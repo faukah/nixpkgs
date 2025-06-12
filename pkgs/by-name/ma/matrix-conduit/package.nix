@@ -9,7 +9,6 @@
   rocksdb,
   rust-jemalloc-sys,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "matrix-conduit";
   version = "0.10.4";

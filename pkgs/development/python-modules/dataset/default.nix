@@ -7,7 +7,6 @@
   pythonOlder,
   sqlalchemy_1_4,
 }:
-
 buildPythonPackage rec {
   pname = "dataset";
   version = "1.6.2";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs = [
-    (alembic.override { sqlalchemy = sqlalchemy_1_4; })
+    (alembic.override {sqlalchemy = sqlalchemy_1_4;})
     banal
     # SQLAlchemy >= 2.0.0 is unsupported
     # https://github.com/pudo/dataset/issues/411
@@ -31,12 +30,12 @@ buildPythonPackage rec {
   # checks attempt to import nonexistent module 'test.test' and fail
   doCheck = false;
 
-  pythonImportsCheck = [ "dataset" ];
+  pythonImportsCheck = ["dataset"];
 
   meta = with lib; {
     description = "Toolkit for Python-based database access";
     homepage = "https://dataset.readthedocs.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ xfnw ];
+    maintainers = with maintainers; [xfnw];
   };
 }

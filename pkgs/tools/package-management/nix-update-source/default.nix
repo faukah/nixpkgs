@@ -6,7 +6,6 @@
   nix-prefetch-scripts,
   runtimeShell,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "nix-update-source";
   version = "0.7.0";
@@ -18,7 +17,7 @@ python3Packages.buildPythonApplication rec {
     rev = "version-${version}";
   };
 
-  propagatedBuildInputs = [ nix-prefetch-scripts ];
+  propagatedBuildInputs = [nix-prefetch-scripts];
 
   doCheck = false;
 
@@ -26,23 +25,20 @@ python3Packages.buildPythonApplication rec {
     # NOTE: `fetch` should not be used within nixpkgs because it
     # uses a non-idiomatic structure. It is provided for use by
     # out-of-tree nix derivations.
-    fetch =
-      path:
-      let
-        fetchers = {
-          # whitelist of allowed fetchers
-          inherit (pkgs) fetchgit fetchurl fetchFromGitHub;
-        };
-        json = lib.importJSON path;
-        fetchFn = builtins.getAttr json.fetch.fn fetchers;
-        src = fetchFn json.fetch.args;
-      in
+    fetch = path: let
+      fetchers = {
+        # whitelist of allowed fetchers
+        inherit (pkgs) fetchgit fetchurl fetchFromGitHub;
+      };
+      json = lib.importJSON path;
+      fetchFn = builtins.getAttr json.fetch.fn fetchers;
+      src = fetchFn json.fetch.args;
+    in
       json
       // json.fetch
       // {
         inherit src;
-        overrideSrc =
-          drv:
+        overrideSrc = drv:
           lib.overrideDerivation drv (orig: {
             inherit src;
           });
@@ -71,7 +67,7 @@ python3Packages.buildPythonApplication rec {
   meta = {
     homepage = "https://github.com/timbertson/nix-update-source";
     description = "Utility to automate updating of nix derivation sources";
-    maintainers = with lib.maintainers; [ timbertson ];
+    maintainers = with lib.maintainers; [timbertson];
     license = lib.licenses.mit;
     mainProgram = "nix-update-source";
   };

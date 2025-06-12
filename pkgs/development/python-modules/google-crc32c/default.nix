@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "google-crc32c";
   version = "1.7.1";
@@ -23,11 +22,11 @@ buildPythonPackage rec {
     hash = "sha256-YXXoEXnJckF1kqpLXbIbJEcW+le6aeKyc6Y6xmf0SSw=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  buildInputs = [ crc32c ];
+  buildInputs = [crc32c];
 
-  dependencies = [ cffi ];
+  dependencies = [cffi];
 
   LDFLAGS = "-L${crc32c}/lib";
   CFLAGS = "-I${crc32c}/include";
@@ -37,13 +36,13 @@ buildPythonPackage rec {
     crc32c
   ];
 
-  pythonImportsCheck = [ "google_crc32c" ];
+  pythonImportsCheck = ["google_crc32c"];
 
   meta = with lib; {
     description = "Wrapper the google/crc32c hardware-based implementation of the CRC32C hashing algorithm";
     homepage = "https://github.com/googleapis/python-crc32c";
     changelog = "https://github.com/googleapis/python-crc32c/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ freezeboy ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [freezeboy];
   };
 }

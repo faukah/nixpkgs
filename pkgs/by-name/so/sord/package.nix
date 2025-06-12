@@ -11,7 +11,6 @@
   serd,
   zix,
 }:
-
 stdenv.mkDerivation rec {
   pname = "sord";
   version = "0.16.18";
@@ -37,7 +36,7 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
   propagatedBuildInputs = [
     serd
     zix
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
       bsd0
       isc
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -4,7 +4,6 @@
   stb,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "qoi";
   version = "unstable-2023-08-10"; # no upstream version yet.
@@ -21,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     "dev"
   ];
 
-  nativeBuildInputs = [ stb ];
+  nativeBuildInputs = [stb];
 
   buildPhase = ''
     runHook preBuild
@@ -50,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "qoiconv";
     homepage = "https://qoiformat.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ hzeller ];
+    maintainers = with maintainers; [hzeller];
     platforms = platforms.all;
   };
 })

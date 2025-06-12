@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "ory";
   version = "0.3.4";
@@ -20,7 +19,7 @@ buildGoModule rec {
     installShellFiles
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   env.CGO_ENABLED = 1;
 

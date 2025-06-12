@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "sshified";
   version = "1.2.1";
@@ -23,14 +22,14 @@ buildGoModule rec {
     "-X=main.Version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = {
     description = "Proxy HTTP requests through SSH";
     homepage = "https://github.com/hoffie/sshified";
     changelog = "https://github.com/hoffie/sshified/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ joinemm ];
+    maintainers = with lib.maintainers; [joinemm];
     mainProgram = "sshified";
   };
 }

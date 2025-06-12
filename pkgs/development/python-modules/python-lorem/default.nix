@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Pythonic lorem ipsum generator";
     homepage = "https://github.com/JarryShaw/lorem";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ aleksana ];
+    maintainers = with lib.maintainers; [aleksana];
   };
 }

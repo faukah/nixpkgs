@@ -16,7 +16,6 @@
   pixman,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wayvnc";
   version = "0.9.1";
@@ -73,6 +72,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/any1/wayvnc/releases/tag/v${version}";
     license = lib.licenses.isc;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ nickcao ];
+    maintainers = with lib.maintainers; [nickcao];
   };
 }

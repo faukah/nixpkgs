@@ -8,7 +8,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "yeelight";
   version = "0.7.16";
@@ -23,21 +22,21 @@ buildPythonPackage rec {
     hash = "sha256-WLEXTDVcSpGCmfEI31cQXGf9+4EIUCkcaeaj25f4ERU=";
   };
 
-  build-system = [ flit-core ];
+  build-system = [flit-core];
 
-  dependencies = [ ifaddr ] ++ lib.optionals (pythonOlder "3.11") [ async-timeout ];
+  dependencies = [ifaddr] ++ lib.optionals (pythonOlder "3.11") [async-timeout];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "yeelight/tests.py" ];
+  pytestFlagsArray = ["yeelight/tests.py"];
 
-  pythonImportsCheck = [ "yeelight" ];
+  pythonImportsCheck = ["yeelight"];
 
   meta = with lib; {
     description = "Python library for controlling YeeLight RGB bulbs";
     homepage = "https://gitlab.com/stavros/python-yeelight/";
     changelog = "https://gitlab.com/stavros/python-yeelight/-/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ nyanloutre ];
+    maintainers = with maintainers; [nyanloutre];
   };
 }

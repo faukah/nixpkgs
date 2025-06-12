@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-BR0IELLzm+9coaiLXQn+Rw6VLyiFEAk/nkO08qPwAac=";
 
-  nativeCheckInputs = [ emacs ]; # tests/bytecode_test
+  nativeCheckInputs = [emacs]; # tests/bytecode_test
 
   meta = with lib; {
     description = "Emacs LSP performance booster";
     homepage = "https://github.com/blahgeek/emacs-lsp-booster";
     license = licenses.mit;
-    maintainers = with maintainers; [ icy-thought ];
+    maintainers = with maintainers; [icy-thought];
     mainProgram = "emacs-lsp-booster";
   };
 }

@@ -6,7 +6,6 @@
   cmake,
   withTracing ? false,
 }:
-
 stdenv.mkDerivation rec {
   pname = "opencl-icd-loader";
   version = "2024.10.24";
@@ -18,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-A+Rd/3LyBoUW2MrRDMOcwsTqTADuNxSQdF1HHgfq3mY=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ opencl-headers ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [opencl-headers];
 
   cmakeFlags = [
     (lib.cmakeBool "OCL_ICD_ENABLE_TRACE" withTracing)
@@ -30,7 +29,7 @@ stdenv.mkDerivation rec {
     mainProgram = "cllayerinfo";
     homepage = "https://github.com/KhronosGroup/OpenCL-ICD-Loader";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

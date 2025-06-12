@@ -3,29 +3,22 @@
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
-
   gcc,
   makeWrapper,
   msbuild,
   pkg-config,
-
   curl,
   gtk3,
   libayatana-appindicator,
-
   openssh,
   openvpn,
   stunnel,
-
   gtk2,
   libayatana-indicator,
-
   mono,
-
   eddie,
   testers,
 }:
-
 buildDotnetModule rec {
   pname = "eddie";
   version = "2.24.4";
@@ -44,7 +37,7 @@ buildDotnetModule rec {
     ./remove-the-postbuild-from-the-project-file.patch
   ];
 
-  projectFile = [ "src/App.CLI.Linux/App.CLI.Linux.net8.csproj" ];
+  projectFile = ["src/App.CLI.Linux/App.CLI.Linux.net8.csproj"];
   nugetDeps = ./deps.json;
 
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
@@ -80,7 +73,7 @@ buildDotnetModule rec {
     "--prefix PATH : ${nativeRuntimeInputs}"
   ];
 
-  executables = [ "eddie-cli" ];
+  executables = ["eddie-cli"];
 
   postPatch = ''
     patchShebangs src
@@ -138,7 +131,7 @@ buildDotnetModule rec {
     homepage = "https://eddie.website";
     license = lib.licenses.gpl3Plus;
     mainProgram = "eddie-ui";
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
     platforms = lib.platforms.linux;
   };
 }

@@ -3,34 +3,22 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   cfg = config.services.mptcpd;
-
-in
-
-{
-
+in {
   options = {
-
     services.mptcpd = {
-
       enable = lib.mkEnableOption "the Multipath TCP path management daemon";
 
-      package = lib.mkPackageOption pkgs "mptcpd" { };
-
+      package = lib.mkPackageOption pkgs "mptcpd" {};
     };
-
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = [cfg.package];
 
-    environment.systemPackages = [ cfg.package ];
-
-    systemd.packages = [ cfg.package ];
-
+    systemd.packages = [cfg.package];
   };
 
-  meta.maintainers = with lib.maintainers; [ nim65s ];
+  meta.maintainers = with lib.maintainers; [nim65s];
 }

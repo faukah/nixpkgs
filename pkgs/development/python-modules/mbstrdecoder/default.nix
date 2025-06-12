@@ -8,7 +8,6 @@
   pytestCheckHook,
   faker,
 }:
-
 buildPythonPackage rec {
   pname = "mbstrdecoder";
   version = "1.1.4";
@@ -26,16 +25,16 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  propagatedBuildInputs = [ chardet ];
+  propagatedBuildInputs = [chardet];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  checkInputs = [ faker ];
+  checkInputs = [faker];
 
   meta = with lib; {
     homepage = "https://github.com/thombashi/mbstrdecoder";
     description = "Library for decoding multi-byte character strings";
-    maintainers = with maintainers; [ genericnerdyusername ];
+    maintainers = with maintainers; [genericnerdyusername];
     license = licenses.mit;
   };
 }

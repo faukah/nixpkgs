@@ -15,7 +15,6 @@
   perl,
   autoreconfHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "celestia";
   version = "1.6.4";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
     mainProgram = "celestia";
     changelog = "https://github.com/CelestiaProject/Celestia/releases/tag/${version}";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ hjones2199 ];
+    maintainers = with lib.maintainers; [hjones2199];
     platforms = lib.platforms.linux;
   };
 }

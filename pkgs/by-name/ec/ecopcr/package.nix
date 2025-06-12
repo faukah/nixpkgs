@@ -6,7 +6,6 @@
   zlib,
   python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "ecopcr";
   version = "1.0.1";
@@ -50,6 +49,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://git.metabarcoding.org/obitools/ecopcr/wikis/home";
     license = licenses.cecill20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -10,7 +10,6 @@
   websocket-client,
   websockets,
 }:
-
 buildPythonPackage rec {
   pname = "python-socketio-v4";
   version = "4.6.1";
@@ -21,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-3VzLPYT4p4Uh2U4DMpxu6kq1NPZXlOqWOljLOe0bM40=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     python-engineio-v3
@@ -39,7 +38,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "socketio_v4" ];
+  pythonImportsCheck = ["socketio_v4"];
 
   # no tests on PyPI
   doCheck = false;
@@ -49,6 +48,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bdraco/python-socketio-v4";
     license = lib.licenses.mit;
     longDescription = "This is a release of 4.6.1 under the “socketio_v4” namespace for old systems.";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

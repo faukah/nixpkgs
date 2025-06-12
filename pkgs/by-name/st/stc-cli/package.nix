@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "stc";
   version = "1.5.4";
@@ -22,7 +21,7 @@ buildGoModule rec {
     homepage = "https://github.com/tenox7/stc";
     changelog = "https://github.com/tenox7/stc/releases/tag/${version}";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ivankovnatsky ];
+    maintainers = [lib.maintainers.ivankovnatsky];
     mainProgram = "stc";
   };
 }

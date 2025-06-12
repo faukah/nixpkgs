@@ -10,7 +10,6 @@
   setuptools,
   setuptools-scm,
 }:
-
 buildPythonPackage rec {
   pname = "django-currentuser";
   version = "0.8.0";
@@ -30,9 +29,9 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  dependencies = [ django ];
+  dependencies = [django];
 
-  nativeCheckInputs = [ pyhamcrest ];
+  nativeCheckInputs = [pyhamcrest];
 
   preCheck = ''
     DJANGO_SETTINGS_MODULE="settings"
@@ -50,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zsoldosp/django-currentuser";
     changelog = "https://github.com/zsoldosp/django-currentuser/#release-notes";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ augustebaum ];
+    maintainers = with maintainers; [augustebaum];
   };
 }

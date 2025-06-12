@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "unfonts-core";
   version = "1.0.2-080608";
@@ -31,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

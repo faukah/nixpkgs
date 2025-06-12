@@ -5,7 +5,6 @@
   openssl,
   pkg-config,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "live-server";
   version = "0.10.0";
@@ -20,9 +19,9 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-tUKhVDv+ZDGRpJC/sSYcQxYhGsAyOsflc+GeUyBaeEk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Local network server with live reload feature for static pages";
@@ -30,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/lomirus/live-server";
     license = licenses.mit;
     mainProgram = "live-server";
-    maintainers = [ maintainers.philiptaron ];
+    maintainers = [maintainers.philiptaron];
     platforms = platforms.unix;
   };
 }

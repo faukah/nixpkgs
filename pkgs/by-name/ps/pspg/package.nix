@@ -9,7 +9,6 @@
   readline,
   libpq,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pspg";
   version = "5.8.11";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     installManPage pspg.1
@@ -44,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Postgres Pager";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.jlesquembre ];
+    maintainers = [maintainers.jlesquembre];
     mainProgram = "pspg";
   };
 }

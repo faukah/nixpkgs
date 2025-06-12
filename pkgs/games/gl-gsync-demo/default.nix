@@ -8,7 +8,6 @@
   libXext,
   lib,
 }:
-
 stdenv.mkDerivation {
   pname = "gl-gsync-demo";
   version = "unstable-2020-12-27";
@@ -39,7 +38,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     license = with licenses; mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
     description = "Very basic OpenGL demo for testing NVIDIA's G-SYNC technology on Linux";
     mainProgram = "gl-gsync-demo";
     longDescription = ''

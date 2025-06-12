@@ -4,7 +4,6 @@
   fetchYarnDeps,
   mkYarnPackage,
 }:
-
 mkYarnPackage rec {
   pname = "zigbee2mqtt-networkmap";
   version = "0.10.0";
@@ -56,7 +55,7 @@ mkYarnPackage rec {
     changelog = "https://github.com/azuwis/zigbee2mqtt-networkmap/releases/tag/v${version}";
     description = "Home Assistant Custom Card to show Zigbee2mqtt network map";
     homepage = "https://github.com/azuwis/zigbee2mqtt-networkmap";
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
     license = licenses.mit;
   };
 }

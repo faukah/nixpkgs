@@ -11,7 +11,6 @@
   jq,
   yq,
 }:
-
 lib.getExe (writeShellApplication {
   name = "update-vaultwarden";
   runtimeInputs = [

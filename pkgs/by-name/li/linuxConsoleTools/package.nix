@@ -5,7 +5,6 @@
   pkg-config,
   SDL2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "linuxconsoletools";
   version = "1.8.1";
@@ -15,14 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-TaKXRceCt9sY9fN8Sed78WMSHdN2Hi/HY2+gy/NcJFY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL2
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
-  installFlags = [ "PREFIX=\"\"" ];
+  installFlags = ["PREFIX=\"\""];
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/linuxconsole/";

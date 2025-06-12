@@ -8,7 +8,6 @@
   azure-mgmt-core,
   azure-mgmt-nspkg,
 }:
-
 buildPythonPackage rec {
   pname = "azure-mgmt-consumption";
   version = "10.0.0";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-BqCGQ2wXN/d6uGiU1R9Zc7bg+l7fVlWOTCllieurkTA=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     msrestazure
@@ -33,7 +32,7 @@ buildPythonPackage rec {
     rm -f azure_bdist_wheel.py
   '';
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
@@ -42,6 +41,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Consumption Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

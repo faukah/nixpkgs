@@ -13,7 +13,6 @@
   linuxHeaders,
   libseccomp,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "stratovirt";
   version = "2.4.0";
@@ -48,7 +47,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitee.com/openeuler/stratovirt";
     description = "Virtual Machine Manager from Huawei";
     license = licenses.mulan-psl2;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

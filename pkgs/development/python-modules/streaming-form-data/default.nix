@@ -7,7 +7,6 @@
   pytestCheckHook,
   requests-toolbelt,
 }:
-
 buildPythonPackage rec {
   pname = "streaming-form-data";
   version = "1.13.0";
@@ -24,18 +23,18 @@ buildPythonPackage rec {
   # streaming-form-data has a small bit of code that uses smart_open, which has a massive closure.
   # The only consumer of streaming-form-data is Moonraker, which doesn't use that code.
   # So, just drop the dependency to not have to deal with it.
-  patches = [ ./drop-smart-open.patch ];
+  patches = [./drop-smart-open.patch];
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-toolbelt
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "streaming_form_data" ];
+  pythonImportsCheck = ["streaming_form_data"];
 
   preCheck = ''
     # remove in-tree copy to make pytest find the installed one, with the native parts already built
@@ -46,6 +45,6 @@ buildPythonPackage rec {
     description = "Streaming parser for multipart/form-data";
     homepage = "https://github.com/siddhantgoel/streaming-form-data";
     license = licenses.mit;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

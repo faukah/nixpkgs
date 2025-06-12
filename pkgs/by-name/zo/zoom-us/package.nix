@@ -8,10 +8,8 @@
   callPackage,
   nixosTests,
   buildFHSEnv,
-
   # Support pulseaudio by default
   pulseaudioSupport ? true,
-
   # Whether to support XDG portals at all
   xdgDesktopPortalSupport ? (
     plasma6XdgDesktopPortalSupport
@@ -22,38 +20,26 @@
     || wlrXdgDesktopPortalSupport
     || xappXdgDesktopPortalSupport
   ),
-
   # This is Plasma 6 (KDE) XDG portal support
   plasma6XdgDesktopPortalSupport ? false,
-
   # This is Plasma 5 (KDE) XDG portal support
   plasma5XdgDesktopPortalSupport ? false,
-
   # This is LXQT XDG portal support
   lxqtXdgDesktopPortalSupport ? false,
-
   # This is GNOME XDG portal support
   gnomeXdgDesktopPortalSupport ? false,
-
   # This is Hyprland XDG portal support
   hyprlandXdgDesktopPortalSupport ? false,
-
   # This is `wlroots` XDG portal support
   wlrXdgDesktopPortalSupport ? false,
-
   # This is Xapp XDG portal support, used for GTK and various Cinnamon/MATE/Xfce4 infrastructure.
   xappXdgDesktopPortalSupport ? false,
-
   # This function can be overridden to add in extra packages
-  targetPkgs ? pkgs: [ ],
-
+  targetPkgs ? pkgs: [],
   # This list can be overridden to add in extra packages
   # that are independent of the underlying package attrset
-  targetPkgsFixed ? [ ],
-
-}:
-
-let
+  targetPkgsFixed ? [],
+}: let
   inherit (stdenv.hostPlatform) system;
   throwSystem = throw "Unsupported system: ${system}";
 
@@ -129,7 +115,9 @@ let
             mv $out/usr/* $out/
           '';
         }
-        .${system} or throwSystem
+        .${
+          system
+        } or throwSystem
       }
       runHook postInstall
     '';
@@ -141,14 +129,14 @@ let
     dontPatchELF = true;
 
     passthru.updateScript = ./update.sh;
-    passthru.tests.startwindow = callPackage ./test.nix { };
+    passthru.tests.startwindow = callPackage ./test.nix {};
     passthru.tests.nixos-module = nixosTests.zoom-us;
 
     meta = {
       homepage = "https://zoom.us/";
       changelog = "https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0061222";
       description = "zoom.us video conferencing application";
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
       license = lib.licenses.unfree;
       platforms = builtins.attrNames srcs;
       maintainers = with lib.maintainers; [
@@ -163,8 +151,7 @@ let
 
   # linux definitions
 
-  linuxGetDependencies =
-    pkgs:
+  linuxGetDependencies = pkgs:
     [
       pkgs.alsa-lib
       pkgs.at-spi2-atk
@@ -244,12 +231,12 @@ let
     pname = "zoom"; # Will also be the program's name!
     version = versions.${system} or throwSystem;
 
-    targetPkgs = pkgs: (linuxGetDependencies pkgs) ++ [ unpacked ];
+    targetPkgs = pkgs: (linuxGetDependencies pkgs) ++ [unpacked];
     extraPreBwrapCmds = ''
       unset QT_PLUGIN_PATH
       unset LANG  # would break settings dialog on non-"en_XX" locales
     '';
-    extraBwrapArgs = [ "--ro-bind ${unpacked}/opt /opt" ];
+    extraBwrapArgs = ["--ro-bind ${unpacked}/opt /opt"];
     runScript = "/opt/zoom/ZoomLauncher";
 
     extraInstallCommands = ''
@@ -262,12 +249,12 @@ let
       ln -s $out/bin/{zoom,zoom-us}
     '';
 
-    passthru = unpacked.passthru // {
-      inherit unpacked;
-    };
+    passthru =
+      unpacked.passthru
+      // {
+        inherit unpacked;
+      };
     inherit (unpacked) meta;
   };
-
 in
-
-packages.${system} or throwSystem
+  packages.${system} or throwSystem

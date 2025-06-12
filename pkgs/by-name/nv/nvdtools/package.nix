@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "nvdtools";
   version = "0.1.5";
@@ -27,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/facebookincubator/nvdtools";
     changelog = "https://github.com/facebookincubator/nvdtools/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

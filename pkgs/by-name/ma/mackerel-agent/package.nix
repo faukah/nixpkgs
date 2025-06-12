@@ -7,7 +7,6 @@
   iproute2,
   nettools,
 }:
-
 buildGoModule rec {
   pname = "mackerel-agent";
   version = "0.85.0";
@@ -19,13 +18,13 @@ buildGoModule rec {
     sha256 = "sha256-wTL+zxa0uaRT8cP2P+iYW6qC8RS5g8wSpvsa01iSUXA=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  nativeCheckInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ nettools ];
-  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [ iproute2 ];
+  nativeBuildInputs = [makeWrapper];
+  nativeCheckInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [nettools];
+  buildInputs = lib.optionals (!stdenv.hostPlatform.isDarwin) [iproute2];
 
   vendorHash = "sha256-Q3HsfLA6xqzwXVfRc0bOb15kW2tdwj14DvJEZoRy0/4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-X=main.version=${version}"
@@ -44,6 +43,6 @@ buildGoModule rec {
     mainProgram = "mackerel-agent";
     homepage = "https://github.com/mackerelio/mackerel-agent";
     license = licenses.asl20;
-    maintainers = with maintainers; [ midchildan ];
+    maintainers = with maintainers; [midchildan];
   };
 }

@@ -8,7 +8,6 @@
   pkg-config,
   wordnet,
 }:
-
 stdenv.mkDerivation rec {
   pname = "artha";
   version = "1.0.5";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "Offline thesaurus based on WordNet";
     homepage = "https://artha.sourceforge.net";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
     mainProgram = "artha";
   };

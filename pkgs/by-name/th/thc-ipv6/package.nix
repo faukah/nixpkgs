@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "IPv6 attack toolkit";
     homepage = "https://github.com/vanhauser-thc/thc-ipv6";
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
     platforms = platforms.linux;
     license = licenses.agpl3Only;
   };

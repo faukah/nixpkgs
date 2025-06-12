@@ -31,13 +31,13 @@ stdenv.mkDerivation (final: {
 
   setOutputFlags = false;
 
-  patches = [ ./fix-owners.patch ];
+  patches = [./fix-owners.patch];
   prePatch = ''
     patches_deb=(../debian/patches/bug*)
     patches+=" ''${patches_deb[*]}"
   '';
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
   makeFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "man"}/share/man"
@@ -47,7 +47,7 @@ stdenv.mkDerivation (final: {
     description = "Tool for analysis of TCP dump files";
     homepage = "http://www.tcptrace.org/";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.gmacon ];
+    maintainers = [lib.maintainers.gmacon];
     mainProgram = "tcptrace";
     platforms = lib.platforms.unix;
   };

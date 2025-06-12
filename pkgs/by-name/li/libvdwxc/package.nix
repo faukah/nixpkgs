@@ -7,7 +7,6 @@
   fftwMpi,
   mpi,
 }:
-
 stdenv.mkDerivation {
   pname = "libvdwxc";
   # Stable version has non-working MPI detection.
@@ -47,7 +46,7 @@ stdenv.mkDerivation {
 
   configureScript = "../configure";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -59,6 +58,6 @@ stdenv.mkDerivation {
     ];
     homepage = "https://libvdwxc.materialsmodeling.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

@@ -8,7 +8,6 @@
   mono,
   nixosTests,
 }:
-
 buildDotnetModule rec {
   pname = "jackett";
   version = "0.22.1887";
@@ -36,10 +35,10 @@ buildDotnetModule rec {
       --replace-fail '<TargetFrameworks>net8.0;net462</' '<TargetFrameworks>net8.0</'
   '';
 
-  runtimeDeps = [ openssl ];
+  runtimeDeps = [openssl];
 
   doCheck = !(stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64); # mono is not available on aarch64-darwin
-  nativeCheckInputs = [ mono ];
+  nativeCheckInputs = [mono];
   testProjectFile = "src/Jackett.Test/Jackett.Test.csproj";
 
   postFixup = ''
@@ -49,7 +48,7 @@ buildDotnetModule rec {
   '';
   passthru.updateScript = ./updater.sh;
 
-  passthru.tests = { inherit (nixosTests) jackett; };
+  passthru.tests = {inherit (nixosTests) jackett;};
 
   meta = with lib; {
     description = "API Support for your favorite torrent trackers";

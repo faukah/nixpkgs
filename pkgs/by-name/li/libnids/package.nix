@@ -20,7 +20,7 @@ stdenv.mkDerivation {
       --replace-fail ar '${stdenv.cc.targetPrefix}ar'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpcap
     glib
@@ -28,13 +28,13 @@ stdenv.mkDerivation {
   ];
 
   /*
-    Quoting the documentation of glib: g_thread_init has been deprecated since
-    version 2.32 and should not be used in newly-written code.  This function is
-    no longer necessary. The GLib threading system is automatically initialized
-    at the start of your program.
+  Quoting the documentation of glib: g_thread_init has been deprecated since
+  version 2.32 and should not be used in newly-written code.  This function is
+  no longer necessary. The GLib threading system is automatically initialized
+  at the start of your program.
 
-    this is necessary for dsniff to compile; otherwise g_thread_init is a missing
-    symbol when linking (?!?)
+  this is necessary for dsniff to compile; otherwise g_thread_init is a missing
+  symbol when linking (?!?)
   */
   env.NIX_CFLAGS_COMPILE = "-Dg_thread_init= ";
 
@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     description = "E-component of Network Intrusion Detection System which emulates the IP stack of Linux 2.0.x";
     homepage = "https://libnids.sourceforge.net/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     # probably also bsd and solaris
     platforms = platforms.linux;
   };

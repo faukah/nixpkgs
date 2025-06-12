@@ -10,7 +10,6 @@
   fetchFromGitLab,
   gitUpdater,
 }:
-
 stdenv.mkDerivation (self: {
   pname = "emilua_beast";
   version = "1.1.2";
@@ -34,7 +33,7 @@ stdenv.mkDerivation (self: {
     ninja
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = {
     description = "Emilua bindings to Boost.Beast (a WebSocket library)";

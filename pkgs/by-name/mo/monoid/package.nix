@@ -5,7 +5,6 @@
   fetchpatch,
   python3,
 }:
-
 stdenv.mkDerivation {
   pname = "monoid";
   version = "2020-10-26";
@@ -19,9 +18,10 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     (python3.withPackages (
-      pp: with pp; [
-        fontforge
-      ]
+      pp:
+        with pp; [
+          fontforge
+        ]
     ))
   ];
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation {
       licenses.mit
     ];
     platforms = platforms.all;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

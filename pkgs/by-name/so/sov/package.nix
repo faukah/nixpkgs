@@ -14,7 +14,6 @@
   wayland-protocols,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sov";
   version = "0.94";
@@ -35,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -54,14 +53,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = {
     homepage = "https://github.com/milgra/sov";
     description = "Workspace overview app for sway";
     license = lib.licenses.gpl3Only;
     mainProgram = "sov";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
     # sys/timerfd.h header inexistent
     broken = stdenv.hostPlatform.isDarwin;

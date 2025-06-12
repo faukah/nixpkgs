@@ -13,7 +13,6 @@
   wrapGAppsHook4,
   nix-update-script,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "textcompare";
   version = "0.1.3";
@@ -47,13 +46,13 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i "1 a imports.package._findEffectiveEntryPointName = () => 'io.github.josephmawa.TextCompare';" $out/bin/io.github.josephmawa.TextCompare
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Simple desktop app to compare old and new text";
     homepage = "https://github.com/josephmawa/TextCompare";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ iamanaws ];
+    maintainers = with lib.maintainers; [iamanaws];
     mainProgram = "io.github.josephmawa.TextCompare";
     platforms = lib.lists.intersectLists lib.platforms.linux gjs.meta.platforms;
   };

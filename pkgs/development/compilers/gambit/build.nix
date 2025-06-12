@@ -16,7 +16,6 @@
   gambit-params ? pkgs.gambit-support.stable-params,
   rev ? git-version,
 }:
-
 # Note that according to a benchmark run by Marc Feeley on May 2018,
 # clang is 10x (with default settings) to 15% (with -O2) slower than GCC at compiling
 # Gambit output, producing code that is 3x slower. IIRC the benchmarks from Gambit@30,
@@ -33,9 +32,7 @@
 #
 # Overall, -Os seems like the best choice, but I care more about compile-time,
 # so I stick with -O1 (in the defaults above), which is also the default for Gambit.
-
 gccStdenv.mkDerivation rec {
-
   pname = "gambit";
   inherit src version git-version;
   bootstrap = gambit-support.gambit-bootstrap;
@@ -61,7 +58,7 @@ gccStdenv.mkDerivation rec {
   # TODO: if/when we can get all the library packages we depend on to have static versions,
   # we could use something like (makeStaticLibraries openssl) to enable creation
   # of statically linked binaries by gsc.
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   # TODO: patch gambit's source so it has the full path to sed, grep, fgrep? Is there more?
   # Or wrap relevant programs to add a suitable PATH ?
@@ -121,10 +118,10 @@ gccStdenv.mkDerivation rec {
     # OS-specific paths are hardcoded in ./configure
     substituteInPlace config.status \
       ${
-        lib.optionalString (
-          gccStdenv.hostPlatform.isDarwin && !gambit-params.stable
-        ) ''--replace "/usr/local/opt/openssl@1.1" "${lib.getLib openssl}"''
-      } \
+      lib.optionalString (
+        gccStdenv.hostPlatform.isDarwin && !gambit-params.stable
+      ) ''--replace "/usr/local/opt/openssl@1.1" "${lib.getLib openssl}"''
+    } \
         --replace "/usr/local/opt/openssl" "${lib.getLib openssl}"
 
     ./config.status

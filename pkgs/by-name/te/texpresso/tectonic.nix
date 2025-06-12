@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 tectonic-unwrapped.overrideAttrs (
   finalAttrs: prevAttrs: {
     pname = "texpresso-tonic";
@@ -35,8 +34,10 @@ tectonic-unwrapped.overrideAttrs (
       # renamed to texpresso-tonic
       rm $out/bin/nextonic
     '';
-    meta = prevAttrs.meta // {
-      mainProgram = "texpresso-tonic";
-    };
+    meta =
+      prevAttrs.meta
+      // {
+        mainProgram = "texpresso-tonic";
+      };
   }
 )

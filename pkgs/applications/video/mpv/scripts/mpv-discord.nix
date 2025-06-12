@@ -3,8 +3,7 @@
   buildGoModule,
   buildLua,
   lib,
-}:
-let
+}: let
   version = "1.6.1";
 
   src = fetchFromGitHub {
@@ -23,22 +22,22 @@ let
     vendorHash = "sha256-xe1jyWFQUD+Z4qBAVQ0SBY0gdxmi5XG9t29n3f/WKDs=";
   };
 in
-buildLua {
-  pname = "mpv-discord";
-  inherit version src;
+  buildLua {
+    pname = "mpv-discord";
+    inherit version src;
 
-  scriptPath = "scripts/discord.lua";
+    scriptPath = "scripts/discord.lua";
 
-  postInstall = ''
-    substituteInPlace $out/share/mpv/scripts/discord.lua \
-      --replace-fail 'binary_path = ""' 'binary_path = "${core}/bin/mpv-discord"'
-  '';
+    postInstall = ''
+      substituteInPlace $out/share/mpv/scripts/discord.lua \
+        --replace-fail 'binary_path = ""' 'binary_path = "${core}/bin/mpv-discord"'
+    '';
 
-  meta = {
-    description = "Cross-platform Discord Rich Presence integration for mpv with no external dependencies";
-    homepage = "https://github.com/tnychn/mpv-discord";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bddvlpr ];
-  };
-}
+    meta = {
+      description = "Cross-platform Discord Rich Presence integration for mpv with no external dependencies";
+      homepage = "https://github.com/tnychn/mpv-discord";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.all;
+      maintainers = with lib.maintainers; [bddvlpr];
+    };
+  }

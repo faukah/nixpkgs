@@ -6,7 +6,6 @@
   requests,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "sanix";
   version = "1.0.6";
@@ -21,19 +20,19 @@ buildPythonPackage rec {
     hash = "sha256-D2w3hmL8ym63liWOYdZS4ry3lJ0utbbYGagWoOTT1TQ=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sanix" ];
+  pythonImportsCheck = ["sanix"];
 
   meta = with lib; {
     description = "Module to get measurements data from Sanix devices";
     homepage = "https://github.com/tomaszsluszniak/sanix_py";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

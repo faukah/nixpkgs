@@ -11,7 +11,6 @@
   testers,
   scaphandre,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "scaphandre";
   version = "1.0.2";
@@ -26,8 +25,8 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-OIoQ2r/T0ZglF1pe25ND8xe/BEWgP9JbWytJp4k7yyg=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   checkPhase = ''
     runHook preCheck
@@ -42,21 +41,20 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = {
-      stdout =
-        self:
+      stdout = self:
         runCommand "${pname}-test"
-          {
-            buildInputs = [
-              self
-              dieHook
-            ];
-          }
-          ''
-            ${self}/bin/scaphandre stdout -t 4 > $out  || die "Scaphandre failed to measure consumption"
-            [ -s $out ]
-          '';
+        {
+          buildInputs = [
+            self
+            dieHook
+          ];
+        }
+        ''
+          ${self}/bin/scaphandre stdout -t 4 > $out  || die "Scaphandre failed to measure consumption"
+          [ -s $out ]
+        '';
       vm = nixosTests.scaphandre;
       version = testers.testVersion {
         inherit version;
@@ -70,8 +68,8 @@ rustPlatform.buildRustPackage rec {
     description = "Electrical power consumption metrology agent";
     homepage = "https://github.com/hubblo-org/scaphandre";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ gaelreyrol ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [gaelreyrol];
     mainProgram = "scaphandre";
     # Upstream needs to decide what to do about a broken dependency
     # https://github.com/hubblo-org/scaphandre/issues/403

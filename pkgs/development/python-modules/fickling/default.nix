@@ -10,7 +10,6 @@
   torch,
   torchvision,
 }:
-
 buildPythonPackage rec {
   pname = "fickling";
   version = "0.1.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
     flit-core
   ];
 
-  dependencies = [ astunparse ];
+  dependencies = [astunparse];
 
   optional-dependencies = {
     torch = [
@@ -39,15 +38,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.flatten (builtins.attrValues optional-dependencies);
+  nativeCheckInputs = [pytestCheckHook] ++ lib.flatten (builtins.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "fickling" ];
+  pythonImportsCheck = ["fickling"];
 
   meta = with lib; {
     description = "A Python pickling decompiler and static analyzer";
     homepage = "https://github.com/trailofbits/fickling";
     changelog = "https://github.com/trailofbits/fickling/releases/tag/v${version}";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

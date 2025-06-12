@@ -7,7 +7,6 @@
   pkg-config,
   enableUnicodeHelp ? true,
 }:
-
 stdenv.mkDerivation rec {
   pname = "cxxopts";
   version = "3.2.1";
@@ -19,11 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aOF3owz7SIV4trJY0PnMtIcwqoUpDbB3tNxZcsl9dzM=";
   };
 
-  buildInputs = lib.optionals enableUnicodeHelp [ icu74.dev ];
-  cmakeFlags = [
-    "-DCXXOPTS_BUILD_EXAMPLES=OFF"
-  ] ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE";
-  nativeBuildInputs = [ cmake ] ++ lib.optionals enableUnicodeHelp [ pkg-config ];
+  buildInputs = lib.optionals enableUnicodeHelp [icu74.dev];
+  cmakeFlags =
+    [
+      "-DCXXOPTS_BUILD_EXAMPLES=OFF"
+    ]
+    ++ lib.optional enableUnicodeHelp "-DCXXOPTS_USE_UNICODE_HELP=TRUE";
+  nativeBuildInputs = [cmake] ++ lib.optionals enableUnicodeHelp [pkg-config];
 
   doCheck = true;
 
@@ -40,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jarro2783/cxxopts";
     description = "Lightweight C++ GNU-style option parser library";
     license = licenses.mit;
-    maintainers = [ maintainers.spease ];
+    maintainers = [maintainers.spease];
     platforms = platforms.all;
   };
 }

@@ -4,7 +4,6 @@
   fetchurl,
   installShellFiles,
 }:
-
 stdenv.mkDerivation rec {
   pname = "nuttcp";
   version = "8.2.2";
@@ -18,7 +17,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -45,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Only;
     homepage = "http://nuttcp.net/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
     mainProgram = "nuttcp";
   };

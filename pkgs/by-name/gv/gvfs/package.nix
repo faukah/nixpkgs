@@ -44,7 +44,6 @@
   python3,
   gsettings-desktop-schemas,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "gvfs";
   version = "1.57.2";
@@ -160,6 +159,6 @@ stdenv.mkDerivation (finalAttrs: {
       "Virtual Filesystem support library" + optionalString gnomeSupport " (full GNOME support)";
     license = licenses.lgpl2Plus;
     platforms = platforms.unix;
-    teams = [ teams.gnome ];
+    teams = [teams.gnome];
   };
 })

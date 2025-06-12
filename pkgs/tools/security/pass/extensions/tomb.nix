@@ -4,7 +4,6 @@
   fetchFromGitHub,
   tomb,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pass-tomb";
   version = "1.3";
@@ -16,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kbbMHmYmeyt7HM8YiNhknePm1vUaXWWXPWePKGpbU+o=";
   };
 
-  buildInputs = [ tomb ];
+  buildInputs = [tomb];
 
   dontBuild = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postFixup = ''
     substituteInPlace $out/lib/password-store/extensions/tomb.bash \

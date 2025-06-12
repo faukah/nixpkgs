@@ -2,17 +2,14 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-
   # required for completion and cross-compilation
   installShellFiles,
   buildPackages,
   stdenv,
-
   # required for testing
   testers,
   fulcio,
 }:
-
 buildGoModule rec {
   pname = "fulcio";
   version = "1.7.1";
@@ -35,9 +32,9 @@ buildGoModule rec {
   };
   vendorHash = "sha256-lNPRejC7Z3OHDvhJGzPIlgqi7eXjlqgeECJO/13gGt4=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -61,20 +58,17 @@ buildGoModule rec {
     "-skip=TestLoad"
   ];
 
-  postInstall =
-    let
-      fulcio =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          placeholder "out"
-        else
-          buildPackages.fulcio;
-    in
-    ''
-      installShellCompletion --cmd fulcio \
-        --bash <(${fulcio}/bin/fulcio completion bash) \
-        --fish <(${fulcio}/bin/fulcio completion fish) \
-        --zsh <(${fulcio}/bin/fulcio completion zsh)
-    '';
+  postInstall = let
+    fulcio =
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then placeholder "out"
+      else buildPackages.fulcio;
+  in ''
+    installShellCompletion --cmd fulcio \
+      --bash <(${fulcio}/bin/fulcio completion bash) \
+      --fish <(${fulcio}/bin/fulcio completion fish) \
+      --zsh <(${fulcio}/bin/fulcio completion zsh)
+  '';
 
   passthru.tests.version = testers.testVersion {
     package = fulcio;

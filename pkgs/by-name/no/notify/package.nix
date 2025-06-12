@@ -4,7 +4,6 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "notify";
   version = "1.0.7";
@@ -27,7 +26,7 @@ buildGoModule rec {
   doCheck = false;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -38,7 +37,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/projectdiscovery/notify";
     license = licenses.mit;
-    maintainers = with maintainers; [ hanemile ];
+    maintainers = with maintainers; [hanemile];
     mainProgram = "notify";
   };
 }

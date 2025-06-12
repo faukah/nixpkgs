@@ -10,7 +10,6 @@
   protobuf,
   asio,
 }:
-
 stdenv.mkDerivation rec {
   pname = "hidviz";
   version = "0.2.1";
@@ -44,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "GUI application for in-depth analysis of USB HID class devices";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

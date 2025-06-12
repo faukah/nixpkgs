@@ -20,7 +20,6 @@
   pango,
   gtk2,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xboard";
   version = "4.9.1";
@@ -40,7 +39,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     xorgproto
@@ -63,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "GUI for chess engines";
     mainProgram = "xboard";
     homepage = "https://www.gnu.org/software/xboard/";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
   };

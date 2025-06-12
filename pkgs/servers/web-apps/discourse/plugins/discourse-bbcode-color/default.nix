@@ -3,7 +3,6 @@
   mkDiscoursePlugin,
   fetchFromGitHub,
 }:
-
 mkDiscoursePlugin {
   name = "discourse-bbcode-color";
   src = fetchFromGitHub {
@@ -14,7 +13,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-bbcode-color";
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     license = licenses.mit;
     description = "Support BBCode color tags";
   };

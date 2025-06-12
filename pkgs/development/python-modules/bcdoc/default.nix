@@ -5,7 +5,6 @@
   docutils,
   six,
 }:
-
 buildPythonPackage rec {
   pname = "bcdoc";
   version = "0.16.0";

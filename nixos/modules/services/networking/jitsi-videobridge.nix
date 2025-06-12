@@ -3,19 +3,21 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.jitsi-videobridge;
   attrsToArgs = a: lib.concatStringsSep " " (lib.mapAttrsToList (k: v: "${k}=${toString v}") a);
 
-  format = pkgs.formats.hocon { };
+  format = pkgs.formats.hocon {};
 
   # We're passing passwords in environment variables that have names generated
   # from an attribute name, which may not be a valid bash identifier.
-  toVarName =
-    s:
+  toVarName = s:
     "XMPP_PASSWORD_"
-    + lib.stringAsChars (c: if builtins.match "[A-Za-z0-9]" c != null then c else "_") s;
+    + lib.stringAsChars (c:
+      if builtins.match "[A-Za-z0-9]" c != null
+      then c
+      else "_")
+    s;
 
   defaultJvbConfig = {
     videobridge = {
@@ -28,7 +30,7 @@ let
       };
       stats = {
         enabled = true;
-        transports = [ { type = "muc"; } ];
+        transports = [{type = "muc";}];
       };
       apis.xmpp-client.configs = lib.flip lib.mapAttrs cfg.xmppConfigs (
         name: xmppConfig: {
@@ -47,10 +49,10 @@ let
 
   # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jvbConfig = lib.recursiveUpdate defaultJvbConfig cfg.config;
-in
-{
+in {
   imports = [
-    (lib.mkRemovedOptionModule [ "services" "jitsi-videobridge" "apis" ]
+    (
+      lib.mkRemovedOptionModule ["services" "jitsi-videobridge" "apis"]
       "services.jitsi-videobridge.apis was broken and has been migrated into the boolean option services.jitsi-videobridge.colibriRestApi. It is set to false by default, setting it to true will correctly enable the private /colibri rest API."
     )
   ];
@@ -59,7 +61,7 @@ in
 
     config = lib.mkOption {
       type = attrs;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           videobridge = {
@@ -85,7 +87,7 @@ in
 
         See <https://github.com/jitsi/jitsi-videobridge/blob/master/doc/muc.md> for more information.
       '';
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           "localhost" = {
@@ -99,8 +101,7 @@ in
       '';
       type = attrsOf (
         submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             options = {
               hostName = lib.mkOption {
                 type = str;
@@ -157,7 +158,7 @@ in
             config = {
               hostName = lib.mkDefault name;
               mucNickname = lib.mkDefault (
-                builtins.replaceStrings [ "." ] [ "-" ] (config.networking.fqdnOrHostName)
+                builtins.replaceStrings ["."] ["-"] (config.networking.fqdnOrHostName)
               );
             };
           }
@@ -191,7 +192,7 @@ in
           "stun.framasoft.org:3478"
           "meet-jit-si-turnrelay.jitsi.net:443"
         ];
-        example = [ ];
+        example = [];
         description = ''
           Addresses of public STUN services to use to automatically find
           the public and local addresses of this Jitsi-Videobridge instance
@@ -205,7 +206,7 @@ in
 
     extraProperties = lib.mkOption {
       type = attrsOf str;
-      default = { };
+      default = {};
       description = ''
         Additional Java properties passed to jitsi-videobridge.
       '';
@@ -230,82 +231,82 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    users.groups.jitsi-meet = { };
+    users.groups.jitsi-meet = {};
 
     services.jitsi-videobridge.extraProperties =
-      if (cfg.nat.localAddress != null) then
-        {
-          "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
-          "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
-        }
-      else
-        {
-          "org.ice4j.ice.harvest.STUN_MAPPING_HARVESTER_ADDRESSES" =
-            lib.concatStringsSep "," cfg.nat.harvesterAddresses;
-        };
+      if (cfg.nat.localAddress != null)
+      then {
+        "org.ice4j.ice.harvest.NAT_HARVESTER_LOCAL_ADDRESS" = cfg.nat.localAddress;
+        "org.ice4j.ice.harvest.NAT_HARVESTER_PUBLIC_ADDRESS" = cfg.nat.publicAddress;
+      }
+      else {
+        "org.ice4j.ice.harvest.STUN_MAPPING_HARVESTER_ADDRESSES" =
+          lib.concatStringsSep "," cfg.nat.harvesterAddresses;
+      };
 
-    systemd.services.jitsi-videobridge2 =
-      let
-        jvbProps = {
+    systemd.services.jitsi-videobridge2 = let
+      jvbProps =
+        {
           "-Dnet.java.sip.communicator.SC_HOME_DIR_LOCATION" = "/etc/jitsi";
           "-Dnet.java.sip.communicator.SC_HOME_DIR_NAME" = "videobridge";
           "-Djava.util.logging.config.file" = "/etc/jitsi/videobridge/logging.properties";
           "-Dconfig.file" = format.generate "jvb.conf" jvbConfig;
           # Mitigate CVE-2021-44228
           "-Dlog4j2.formatMsgNoLookups" = true;
-        } // (lib.mapAttrs' (k: v: lib.nameValuePair "-D${k}" v) cfg.extraProperties);
-      in
-      {
-        aliases = [ "jitsi-videobridge.service" ];
-        description = "Jitsi Videobridge";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        }
+        // (lib.mapAttrs' (k: v: lib.nameValuePair "-D${k}" v) cfg.extraProperties);
+    in {
+      aliases = ["jitsi-videobridge.service"];
+      description = "Jitsi Videobridge";
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
-        environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
+      environment.JAVA_SYS_PROPS = attrsToArgs jvbProps;
 
-        script =
-          (lib.concatStrings (
-            lib.mapAttrsToList (
-              name: xmppConfig: "export ${toVarName name}=$(cat ${xmppConfig.passwordFile})\n"
-            ) cfg.xmppConfigs
-          ))
-          + ''
-            ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge
-          '';
+      script =
+        (lib.concatStrings (
+          lib.mapAttrsToList (
+            name: xmppConfig: "export ${toVarName name}=$(cat ${xmppConfig.passwordFile})\n"
+          )
+          cfg.xmppConfigs
+        ))
+        + ''
+          ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge
+        '';
 
-        serviceConfig = {
-          Type = "exec";
+      serviceConfig = {
+        Type = "exec";
 
-          DynamicUser = true;
-          User = "jitsi-videobridge";
-          Group = "jitsi-meet";
+        DynamicUser = true;
+        User = "jitsi-videobridge";
+        Group = "jitsi-meet";
 
-          AmbientCapabilities = "CAP_NET_BIND_SERVICE";
-          CapabilityBoundingSet = "";
-          NoNewPrivileges = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          PrivateTmp = true;
-          PrivateDevices = true;
-          ProtectHostname = true;
-          ProtectKernelTunables = true;
-          ProtectKernelModules = true;
-          ProtectControlGroups = true;
-          RestrictAddressFamilies = [
-            "AF_INET"
-            "AF_INET6"
-            "AF_UNIX"
-          ];
-          RestrictNamespaces = true;
-          LockPersonality = true;
-          RestrictRealtime = true;
-          RestrictSUIDSGID = true;
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
+        CapabilityBoundingSet = "";
+        NoNewPrivileges = true;
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectHostname = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectControlGroups = true;
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+        ];
+        RestrictNamespaces = true;
+        LockPersonality = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
 
-          TasksMax = 65000;
-          LimitNPROC = 65000;
-          LimitNOFILE = 65000;
-        };
+        TasksMax = 65000;
+        LimitNPROC = 65000;
+        LimitNOFILE = 65000;
       };
+    };
 
     environment.etc."jitsi/videobridge/logging.properties".source =
       lib.mkDefault "${pkgs.jitsi-videobridge}/etc/jitsi/videobridge/logging.properties-journal";

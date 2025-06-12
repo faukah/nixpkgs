@@ -4,7 +4,6 @@
   fetchurl,
   alcotest,
 }:
-
 buildDunePackage rec {
   pname = "middleware";
   version = "0.0.1";
@@ -27,6 +26,6 @@ buildDunePackage rec {
     homepage = "https://github.com/skolemlabs/middleware";
     changelog = "https://github.com/skolemlabs/middleware/blob/${version}/CHANGES.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ sixstring982 ];
+    maintainers = with lib.maintainers; [sixstring982];
   };
 }

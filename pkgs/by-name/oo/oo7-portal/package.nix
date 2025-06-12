@@ -30,7 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    inherit (oo7.meta)
+    inherit
+      (oo7.meta)
       homepage
       changelog
       license

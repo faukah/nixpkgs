@@ -6,7 +6,6 @@
   installShellFiles,
   openssl,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flashmq";
   version = "1.22.0";
@@ -23,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     installShellFiles
   ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   installPhase = ''
     runHook preInstall
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "flashmq";
     homepage = "https://www.flashmq.org/";
     license = lib.licenses.osl3;
-    maintainers = with lib.maintainers; [ sikmir ];
+    maintainers = with lib.maintainers; [sikmir];
     platforms = lib.platforms.linux;
   };
 })

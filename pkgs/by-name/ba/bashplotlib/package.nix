@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "bashplotlib";
   version = "2021-03-31";
@@ -21,7 +20,7 @@ python3Packages.buildPythonApplication {
   meta = with lib; {
     homepage = "https://github.com/glamp/bashplotlib";
     description = "Plotting in the terminal";
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     license = licenses.mit;
   };
 }

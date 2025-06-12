@@ -11,7 +11,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "propcache";
   version = "0.3.1";
@@ -44,13 +43,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "propcache" ];
+  pythonImportsCheck = ["propcache"];
 
   meta = {
     description = "Fast property caching";
     homepage = "https://github.com/aio-libs/propcache";
     changelog = "https://github.com/aio-libs/propcache/blob/${src.tag}/CHANGES.rst";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
   };
 }

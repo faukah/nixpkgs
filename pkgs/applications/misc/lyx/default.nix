@@ -11,7 +11,6 @@
   hunspell,
   makeWrapper, # , mythes, boost
 }:
-
 mkDerivation rec {
   version = "2.4.3";
   pname = "lyx";
@@ -40,8 +39,8 @@ mkDerivation rec {
     "--enable-qt5"
     #"--without-included-boost"
     /*
-      Boost is a huge dependency from which 1.4 MB of libs would be used.
-       Using internal boost stuff only increases executable by around 0.2 MB.
+    Boost is a huge dependency from which 1.4 MB of libs would be used.
+     Using internal boost stuff only increases executable by around 0.2 MB.
     */
     #"--without-included-mythes" # such a small library isn't worth a separate package
   ];
@@ -50,13 +49,13 @@ mkDerivation rec {
   doCheck = true;
 
   # python is run during runtime to do various tasks
-  qtWrapperArgs = [ " --prefix PATH : ${python3}/bin" ];
+  qtWrapperArgs = [" --prefix PATH : ${python3}/bin"];
 
   meta = with lib; {
     description = "WYSIWYM frontend for LaTeX, DocBook";
     homepage = "https://www.lyx.org";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.vcunat ];
+    maintainers = [maintainers.vcunat];
     platforms = platforms.linux;
   };
 }

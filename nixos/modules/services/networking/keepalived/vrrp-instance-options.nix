@@ -1,9 +1,6 @@
-{ lib }:
-
-with lib;
-{
+{lib}:
+with lib; {
   options = {
-
     interface = mkOption {
       type = types.str;
       description = ''
@@ -90,7 +87,7 @@ with lib;
 
     unicastPeers = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = ''
         Do not send VRRP adverts over VRRP multicast group. Instead it sends
         adverts to the following list of ip addresses using unicast design
@@ -108,14 +105,14 @@ with lib;
           }
         )
       );
-      default = [ ];
+      default = [];
       # TODO: example
       description = "Declarative vhost config";
     };
 
     trackScripts = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "chk_cmd1"
         "chk_cmd2"
@@ -125,7 +122,7 @@ with lib;
 
     trackInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "eth0"
         "eth1"
@@ -140,7 +137,5 @@ with lib;
         Extra lines to be added verbatim to the vrrp_instance section.
       '';
     };
-
   };
-
 }

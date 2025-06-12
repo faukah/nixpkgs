@@ -14,7 +14,6 @@
   gettext,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   version = "4.12.0";
   pname = "uranium";

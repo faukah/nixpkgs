@@ -1,13 +1,10 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   name = "actual";
-  meta.maintainers = [ lib.maintainers.oddlama ];
+  meta.maintainers = [lib.maintainers.oddlama];
 
-  nodes.machine =
-    { ... }:
-    {
-      services.actual.enable = true;
-    };
+  nodes.machine = {...}: {
+    services.actual.enable = true;
+  };
 
   testScript = ''
     machine.wait_for_open_port(3000)

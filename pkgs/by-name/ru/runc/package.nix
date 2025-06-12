@@ -12,7 +12,6 @@
   makeWrapper,
   nixosTests,
 }:
-
 buildGoModule rec {
   pname = "runc";
   version = "1.1.15";
@@ -44,7 +43,7 @@ buildGoModule rec {
     libapparmor
   ];
 
-  makeFlags = [ "BUILDTAGS+=seccomp" ];
+  makeFlags = ["BUILDTAGS+=seccomp"];
 
   buildPhase = ''
     runHook preBuild
@@ -62,14 +61,14 @@ buildGoModule rec {
     runHook postInstall
   '';
 
-  passthru.tests = { inherit (nixosTests) cri-o docker podman; };
+  passthru.tests = {inherit (nixosTests) cri-o docker podman;};
 
   meta = with lib; {
     homepage = "https://github.com/opencontainers/runc";
     description = "CLI tool for spawning and running containers according to the OCI specification";
     license = licenses.asl20;
-    maintainers = with maintainers; [ offline ];
-    teams = [ teams.podman ];
+    maintainers = with maintainers; [offline];
+    teams = [teams.podman];
     platforms = platforms.linux;
     mainProgram = "runc";
   };

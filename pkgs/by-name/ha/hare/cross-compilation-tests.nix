@@ -4,8 +4,7 @@
   hare,
   runCommandNoCC,
   writeText,
-}:
-let
+}: let
   archs = lib.concatStringsSep " " (
     builtins.map (lib.removeSuffix "-linux") (
       builtins.filter (lib.hasSuffix "-linux") hare.meta.platforms
@@ -15,7 +14,7 @@ let
     export fn main() void = void;
   '';
 in
-runCommandNoCC "${hare.pname}-cross-compilation-test"
+  runCommandNoCC "${hare.pname}-cross-compilation-test"
   {
     nativeBuildInputs = [
       hare

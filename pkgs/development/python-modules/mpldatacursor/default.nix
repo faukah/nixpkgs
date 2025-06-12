@@ -4,7 +4,6 @@
   fetchFromGitHub,
   matplotlib,
 }:
-
 buildPythonPackage rec {
   pname = "mpldatacursor";
   version = "0.7.1";
@@ -17,17 +16,17 @@ buildPythonPackage rec {
     sha256 = "0i1lwl6x6hgjq4xwsc138i4v5895lmnpfqwpzpnj5mlck6fy6rda";
   };
 
-  propagatedBuildInputs = [ matplotlib ];
+  propagatedBuildInputs = [matplotlib];
 
   # No tests included in archive
   doCheck = false;
 
-  pythonImportsCheck = [ "mpldatacursor" ];
+  pythonImportsCheck = ["mpldatacursor"];
 
   meta = with lib; {
     homepage = "https://github.com/joferkington/mpldatacursor";
     description = "Interactive data cursors for matplotlib";
     license = licenses.mit;
-    maintainers = with maintainers; [ bzizou ];
+    maintainers = with maintainers; [bzizou];
   };
 }

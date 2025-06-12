@@ -10,7 +10,6 @@
   libGL,
   sqlite,
 }:
-
 buildGoModule rec {
   pname = "transito";
   version = "0.9.1";
@@ -23,7 +22,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-7QMO+/f+yc5GfxvDLIXuf+QT2cAmbgI6iQqWmQIkMMA=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     vulkan-headers
     libxkbcommon
@@ -35,8 +34,8 @@ buildGoModule rec {
     sqlite
   ];
 
-  tags = [ "sqlite_math_functions" ];
-  ldflags = [ "-X git.sr.ht/~mil/transito/src/uipages/pageconfig.Commit=${version}" ];
+  tags = ["sqlite_math_functions"];
+  ldflags = ["-X git.sr.ht/~mil/transito/src/uipages/pageconfig.Commit=${version}"];
 
   postInstall = ''
     install -Dm644 -t $out/share/applications assets/transito.desktop
@@ -67,7 +66,7 @@ buildGoModule rec {
     '';
     homepage = "https://git.sr.ht/~mil/transito";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.McSinyx ];
+    maintainers = [maintainers.McSinyx];
     mainProgram = "transito";
     platforms = platforms.unix;
   };

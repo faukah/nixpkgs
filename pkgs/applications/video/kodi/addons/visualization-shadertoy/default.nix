@@ -8,7 +8,6 @@
   libGL,
   jsoncpp,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "visualization-shadertoy";
   namespace = "visualization.shadertoy";
@@ -27,12 +26,12 @@ buildKodiBinaryAddon rec {
     jsoncpp
   ];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
   meta = with lib; {
     homepage = "https://github.com/xbmc/visualization.shadertoy";
     description = "Shadertoy visualization for kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

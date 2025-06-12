@@ -19,7 +19,6 @@
   systemd,
   wayland,
 }:
-
 stdenv.mkDerivation rec {
   pname = "xdg-desktop-portal-wlr";
   version = "0.7.1";
@@ -32,7 +31,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -68,7 +67,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/emersion/xdg-desktop-portal-wlr";
     description = "xdg-desktop-portal backend for wlroots";
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
     platforms = platforms.linux;
     license = licenses.mit;
   };

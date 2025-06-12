@@ -7,7 +7,6 @@
   secp256k1,
   pytestCheckHook,
 }:
-
 buildPythonPackage {
   pname = "python-secp256k1-cardano";
   version = "0.2.3";
@@ -21,14 +20,14 @@ buildPythonPackage {
     hash = "sha256-6bE4/G2gW2F8h5FWtI3TZ6FtijsB/slvFT/SIVv7VIY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     cffi
     secp256k1
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Tests expect .so files and are failing
   doCheck = false;
@@ -42,7 +41,7 @@ buildPythonPackage {
   meta = {
     homepage = "https://github.com/OpShin/python-secp256k1";
     description = "Fork of python-secp256k1, fixing the commit hash of libsecp256k1 to a Cardano compatible version";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ t4ccer ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [t4ccer];
   };
 }

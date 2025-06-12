@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ocaml,
 }:
-
 stdenv.mkDerivation rec {
   pname = "coq2html";
   version = "1.4";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-dBXYeRwBhBWXJfdULLzfgZU+WD6WC6R8wV2eS1zAkq8=";
   };
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   installPhase = ''
     mkdir -p $out/bin

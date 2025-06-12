@@ -8,7 +8,6 @@
   torchvision,
   tqdm,
 }:
-
 buildPythonPackage {
   pname = "clip";
   version = "unstable-2022-11-17";
@@ -29,12 +28,12 @@ buildPythonPackage {
     tqdm
   ];
 
-  pythonImportsCheck = [ "clip" ];
+  pythonImportsCheck = ["clip"];
 
   meta = with lib; {
     description = "Contrastive Language-Image Pretraining";
     homepage = "https://github.com/openai/CLIP";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

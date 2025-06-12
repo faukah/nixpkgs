@@ -3,11 +3,9 @@
   pkgs,
   lib,
   ...
-}:
-let
+}: let
   cfg = config.services.cachix-watch-store;
-in
-{
+in {
   meta.maintainers = [
     lib.maintainers.jfroche
     lib.maintainers.domenkozar
@@ -60,16 +58,16 @@ in
       default = false;
     };
 
-    package = lib.mkPackageOption pkgs "cachix" { };
+    package = lib.mkPackageOption pkgs "cachix" {};
   };
 
   config = lib.mkIf cfg.enable {
     systemd.services.cachix-watch-store-agent = {
       description = "Cachix watch store Agent";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      path = [ config.nix.package ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      path = [config.nix.package];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         # allow to restart indefinitely
         StartLimitIntervalSec = 0;
@@ -81,37 +79,37 @@ in
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;
-        LoadCredential = [
-          "cachix-token:${toString cfg.cachixTokenFile}"
-        ] ++ lib.optional (cfg.signingKeyFile != null) "signing-key:${toString cfg.signingKeyFile}";
+        LoadCredential =
+          [
+            "cachix-token:${toString cfg.cachixTokenFile}"
+          ]
+          ++ lib.optional (cfg.signingKeyFile != null) "signing-key:${toString cfg.signingKeyFile}";
       };
-      script =
-        let
-          command =
-            [ "${cfg.package}/bin/cachix" ]
-            ++ (lib.optional cfg.verbose "--verbose")
-            ++ (lib.optionals (cfg.host != null) [
-              "--host"
-              cfg.host
-            ])
-            ++ [ "watch-store" ]
-            ++ (lib.optionals (cfg.compressionLevel != null) [
-              "--compression-level"
-              (toString cfg.compressionLevel)
-            ])
-            ++ (lib.optionals (cfg.jobs != null) [
-              "--jobs"
-              (toString cfg.jobs)
-            ])
-            ++ [ cfg.cacheName ];
-        in
-        ''
-          export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
-          ${lib.optionalString (
-            cfg.signingKeyFile != null
-          ) ''export CACHIX_SIGNING_KEY="$(<"$CREDENTIALS_DIRECTORY/signing-key")"''}
-          ${lib.escapeShellArgs command}
-        '';
+      script = let
+        command =
+          ["${cfg.package}/bin/cachix"]
+          ++ (lib.optional cfg.verbose "--verbose")
+          ++ (lib.optionals (cfg.host != null) [
+            "--host"
+            cfg.host
+          ])
+          ++ ["watch-store"]
+          ++ (lib.optionals (cfg.compressionLevel != null) [
+            "--compression-level"
+            (toString cfg.compressionLevel)
+          ])
+          ++ (lib.optionals (cfg.jobs != null) [
+            "--jobs"
+            (toString cfg.jobs)
+          ])
+          ++ [cfg.cacheName];
+      in ''
+        export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"
+        ${lib.optionalString (
+          cfg.signingKeyFile != null
+        ) ''export CACHIX_SIGNING_KEY="$(<"$CREDENTIALS_DIRECTORY/signing-key")"''}
+        ${lib.escapeShellArgs command}
+      '';
     };
   };
 }

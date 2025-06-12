@@ -11,7 +11,6 @@
   typepy,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "sqliteschema";
   version = "2.0.1";
@@ -41,7 +40,7 @@ buildPythonPackage rec {
     sqliteschema
   ];
 
-  pythonImportsCheck = [ "sqliteschema" ];
+  pythonImportsCheck = ["sqliteschema"];
 
   # Enabling tests would trigger infinite recursion due to circular
   # dependency between this package and simplesqlite.
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     description = "Python library to dump table schema of a SQLite database file";
     homepage = "https://github.com/thombashi/sqliteschema";
     license = licenses.mit;
-    maintainers = with maintainers; [ henrirosten ];
+    maintainers = with maintainers; [henrirosten];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   dtools,
 }:
-
 buildDubPackage rec {
   pname = "serve-d";
   version = "0.7.6";
@@ -16,7 +15,7 @@ buildDubPackage rec {
     hash = "sha256-h4zsW8phGcI4z0uMCIovM9cJ6hKdk8rLb/Jp4X4dkpk=";
   };
 
-  nativeBuildInputs = [ dtools ];
+  nativeBuildInputs = [dtools];
 
   dubLock = ./dub-lock.json;
 
@@ -34,6 +33,6 @@ buildDubPackage rec {
     homepage = "https://github.com/Pure-D/serve-d";
     license = lib.licenses.mit;
     mainProgram = "serve-d";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
   };
 }

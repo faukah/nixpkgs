@@ -19,20 +19,19 @@
   glibcLocales,
   releasePath ? null,
 }:
-
 # To use this package, you need to download your own cplex installer from IBM
 # and override the releasePath attribute to point to the location of the file.
 #
 # Note: cplex creates an individual build for each license which screws
 # somewhat with the use of functions like requireFile as the hash will be
 # different for every user.
-
 stdenv.mkDerivation rec {
   pname = "cplex";
   version = "22.11";
 
   src =
-    if releasePath == null then
+    if releasePath == null
+    then
       throw ''
         This nix expression requires that the cplex installer is already
         downloaded to your machine. Get it from IBM:
@@ -43,8 +42,7 @@ stdenv.mkDerivation rec {
         `config.cplex.releasePath = /path/to/download;` in your
         `configuration.nix` for NixOS.
       ''
-    else
-      releasePath;
+    else releasePath;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -77,55 +75,53 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  installPhase =
-    let
-      libraryPath = lib.makeLibraryPath [
-        stdenv.cc.cc
-        glib
-        gtk2
-        gtk3
-        libsecret
-        xorg.libXtst
-      ];
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    libraryPath = lib.makeLibraryPath [
+      stdenv.cc.cc
+      glib
+      gtk2
+      gtk3
+      libsecret
+      xorg.libXtst
+    ];
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/bin
+    mkdir -p $out/bin
 
-      for pgm in \
-        $out/opl/bin/x86-64_linux/oplrun \
-        $out/opl/bin/x86-64_linux/oplrunjava \
-        $out/opl/oplide/oplide \
-        $out/cplex/bin/x86-64_linux/cplex \
-        $out/cpoptimizer/bin/x86-64_linux/cpoptimizer
-      do
-        makeWrapperArgs=(
-          --set-default LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive
+    for pgm in \
+      $out/opl/bin/x86-64_linux/oplrun \
+      $out/opl/bin/x86-64_linux/oplrunjava \
+      $out/opl/oplide/oplide \
+      $out/cplex/bin/x86-64_linux/cplex \
+      $out/cpoptimizer/bin/x86-64_linux/cpoptimizer
+    do
+      makeWrapperArgs=(
+        --set-default LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive
+      )
+
+      if [[ "$pgm" = "$out/opl/oplide/oplide" ]]; then
+        makeWrapperArgs+=(
+          --prefix LD_LIBRARY_PATH : ${libraryPath}
+          --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules"
+          --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
         )
+      fi
 
-        if [[ "$pgm" = "$out/opl/oplide/oplide" ]]; then
-          makeWrapperArgs+=(
-            --prefix LD_LIBRARY_PATH : ${libraryPath}
-            --prefix GIO_EXTRA_MODULES : "${glib-networking}/lib/gio/modules"
-            --prefix XDG_DATA_DIRS : "$GSETTINGS_SCHEMAS_PATH"
-          )
-        fi
+      makeWrapper "$pgm" "$out/bin/$(basename "$pgm")" "''${makeWrapperArgs[@]}"
+    done
 
-        makeWrapper "$pgm" "$out/bin/$(basename "$pgm")" "''${makeWrapperArgs[@]}"
-      done
+    mkdir -p $out/share/pixmaps
+    ln -s $out/opl/oplide/icon.xpm $out/share/pixmaps/oplide.xpm
 
-      mkdir -p $out/share/pixmaps
-      ln -s $out/opl/oplide/icon.xpm $out/share/pixmaps/oplide.xpm
+    mkdir -p $out/share/doc
+    mv $out/doc $out/share/doc/$name
 
-      mkdir -p $out/share/doc
-      mv $out/doc $out/share/doc/$name
+    mkdir -p $out/share/licenses
+    mv $out/license $out/share/licenses/$name
 
-      mkdir -p $out/share/licenses
-      mv $out/license $out/share/licenses/$name
-
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -175,9 +171,9 @@ stdenv.mkDerivation rec {
     description = "Optimization solver for mathematical programming";
     homepage = "https://www.ibm.com/be-en/marketplace/ibm-ilog-cplex";
     mainProgram = "cplex";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ bfortz ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [bfortz];
   };
 }

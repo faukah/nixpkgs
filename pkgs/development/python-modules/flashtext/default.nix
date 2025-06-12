@@ -3,7 +3,6 @@
   buildPythonPackage,
   fetchPypi,
 }:
-
 buildPythonPackage rec {
   pname = "flashtext";
   version = "2.7";
@@ -20,7 +19,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/vi3k6i5/flashtext";
     description = "Python package to replace keywords in sentences or extract keywords from sentences";
-    maintainers = with maintainers; [ aanderse ];
-    license = with licenses; [ mit ];
+    maintainers = with maintainers; [aanderse];
+    license = with licenses; [mit];
   };
 }

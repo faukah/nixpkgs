@@ -4,7 +4,6 @@
   pytest,
   spacy-models,
 }:
-
 stdenv.mkDerivation {
   name = "spacy-transformers-annotation-test";
 

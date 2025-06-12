@@ -3,7 +3,6 @@
   stdenv,
   fetchFromGitHub,
   rustPlatform,
-
   openssl,
   pkg-config,
   installShellFiles,
@@ -11,7 +10,6 @@
   versionCheckHook,
   nix-update-script,
 }:
-
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rattler-build";
   version = "0.42.1";
@@ -37,13 +35,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installShellFiles
   ];
 
-  cargoBuildFlags = [ "--bin rattler-build" ]; # other bin like `generate-cli-docs` shouldn't be distributed.
+  cargoBuildFlags = ["--bin rattler-build"]; # other bin like `generate-cli-docs` shouldn't be distributed.
 
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
     let
       emulator = stdenv.hostPlatform.emulator buildPackages;
-    in
-    ''
+    in ''
       installShellCompletion --cmd rattler-build \
         --bash <(${emulator} $out/bin/rattler-build completion --shell bash) \
         --fish <(${emulator} $out/bin/rattler-build completion --shell fish) \
@@ -57,7 +54,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
   versionCheckProgramArg = "--version";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Universal package builder for Windows, macOS and Linux";

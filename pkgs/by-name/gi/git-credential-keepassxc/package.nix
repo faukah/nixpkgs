@@ -7,7 +7,6 @@
   withStrictCaller ? false,
   withAll ? false,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-credential-keepassxc";
   version = "0.14.1";
@@ -23,7 +22,7 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-jjexSzxRhnNPW+urG7KpZBWfGcy06Cg4lXlQogF3L/A=";
 
   buildFeatures =
-    [ ]
+    []
     ++ lib.optional withNotification "notification"
     ++ lib.optional withYubikey "yubikey"
     ++ lib.optional withStrictCaller "strict-caller"
@@ -39,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/Frederick888/git-credential-keepassxc";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = "git-credential-keepassxc";
   };
 }

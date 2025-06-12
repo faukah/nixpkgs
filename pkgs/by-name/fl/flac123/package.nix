@@ -8,7 +8,6 @@
   libogg,
   popt,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "flac123";
   version = "2.1.1";
@@ -20,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-LtL69t2r9TlIkpQWZLge8ib7NZ5rvLW6JllG2UM16Kw=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     flac
     libao
@@ -33,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/flac123/flac123/blob/${finalAttrs.src.rev}/NEWS";
     description = "Command-line program for playing FLAC audio files";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ kiike ];
+    maintainers = with lib.maintainers; [kiike];
     mainProgram = "flac123";
     platforms = lib.platforms.unix;
   };

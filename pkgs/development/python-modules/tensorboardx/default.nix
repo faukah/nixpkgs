@@ -16,7 +16,6 @@
   tensorboard,
   torchvision,
 }:
-
 buildPythonPackage rec {
   pname = "tensorboardx";
   version = "2.6.2";
@@ -42,7 +41,7 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "tensorboardX" ];
+  pythonImportsCheck = ["tensorboardX"];
 
   nativeCheckInputs = [
     boto3

@@ -6,7 +6,6 @@
   automake,
   puredata,
 }:
-
 stdenv.mkDerivation rec {
   pname = "zexy";
   version = "2.2.4";
@@ -20,7 +19,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ puredata ];
+  buildInputs = [puredata];
 
   preBuild = ''
     export LD=$CXX
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Swiss army knife for puredata";
     homepage = "http://puredata.info/downloads/zexy";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

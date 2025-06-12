@@ -7,7 +7,6 @@
   perl,
   perlPackages,
 }:
-
 stdenv.mkDerivation rec {
   pname = "taskopen";
   version = "1.1.5";
@@ -25,9 +24,9 @@ stdenv.mkDerivation rec {
     sed 's|$(DESTDIR)/||' -i Makefile
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ which ]
+    [which]
     ++ (with perlPackages; [
       JSON
       perl
@@ -49,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ValiValpas/taskopen";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.winpat ];
+    maintainers = [maintainers.winpat];
   };
 }

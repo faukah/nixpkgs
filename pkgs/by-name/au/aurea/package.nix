@@ -13,7 +13,6 @@
   libadwaita,
   nix-update-script,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "aurea";
   version = "1.6.1";
@@ -50,20 +49,20 @@ python3Packages.buildPythonApplication rec {
 
   dontWrapGApps = true;
 
-  makeWrapperArgs = [ "\${gappsWrapperArgs[@]}" ];
+  makeWrapperArgs = ["\${gappsWrapperArgs[@]}"];
 
   postInstallCheck = ''
     mesonCheckPhase
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "Flatpak metainfo banner previewer";
     homepage = "https://github.com/CleoMenezesJr/Aurea";
     mainProgram = "aurea";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [ gpl3Plus ];
-    maintainers = with lib.maintainers; [ emaryn ];
+    license = with lib.licenses; [gpl3Plus];
+    maintainers = with lib.maintainers; [emaryn];
   };
 }

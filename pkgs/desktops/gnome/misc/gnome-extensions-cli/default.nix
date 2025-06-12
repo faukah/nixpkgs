@@ -12,7 +12,6 @@
   gobject-introspection,
   wrapGAppsNoGuiHook,
 }:
-
 buildPythonApplication rec {
   pname = "gnome-extensions-cli";
   version = "0.10.5";
@@ -52,7 +51,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/essembeh/gnome-extensions-cli";
     description = "Command line tool to manage your GNOME Shell extensions";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
     platforms = platforms.linux;
   };
 }

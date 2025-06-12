@@ -30,7 +30,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     scdoc
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   nativeBuildInputs = [
     makeWrapper
@@ -40,32 +40,30 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postInstall = ''
     wrapProgram $out/bin/hyprprop --prefix PATH ':' \
       "${
-        lib.makeBinPath [
-          coreutils
-          slurp
-          jq
-        ]
-      }"
+      lib.makeBinPath [
+        coreutils
+        slurp
+        jq
+      ]
+    }"
   '';
 
-  desktopItems =
-    let
-      desktopItem = makeDesktopItem {
-        name = "hyprprop";
-        exec = "hyprprop";
-        desktopName = "Hyprprop";
-        terminal = true;
-        startupNotify = false;
-      };
-    in
-    [ desktopItem ];
+  desktopItems = let
+    desktopItem = makeDesktopItem {
+      name = "hyprprop";
+      exec = "hyprprop";
+      desktopName = "Hyprprop";
+      terminal = true;
+      startupNotify = false;
+    };
+  in [desktopItem];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script {extraArgs = ["--version=branch"];};
   meta = {
     description = "Xprop replacement for Hyprland";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    teams = [ lib.teams.hyprland ];
+    teams = [lib.teams.hyprland];
     mainProgram = "hyprprop";
   };
 })

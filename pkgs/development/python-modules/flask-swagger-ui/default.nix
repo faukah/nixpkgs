@@ -4,7 +4,6 @@
   fetchPypi,
   flask,
 }:
-
 buildPythonPackage rec {
   pname = "flask-swagger-ui";
   version = "4.11.1";
@@ -17,12 +16,12 @@ buildPythonPackage rec {
 
   doCheck = false; # there are no tests
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
   meta = with lib; {
     homepage = "https://github.com/sveint/flask-swagger-ui";
     license = licenses.mit;
     description = "Swagger UI blueprint for Flask";
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

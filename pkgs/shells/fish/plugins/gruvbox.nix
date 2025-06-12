@@ -16,6 +16,6 @@ buildFishPlugin {
     description = "Gruvbox theme for fish shell";
     homepage = "https://github.com/Jomik/fish-gruvbox";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ msladecek ];
+    maintainers = with lib.maintainers; [msladecek];
   };
 }

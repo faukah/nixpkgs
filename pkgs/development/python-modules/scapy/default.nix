@@ -26,10 +26,9 @@
   withManufDb ? false,
   wireshark,
   libpcap,
-# 2D/3D graphics and graphs TODO: VPython
-# TODO: nmap, numpy
+  # 2D/3D graphics and graphs TODO: VPython
+  # TODO: nmap, numpy
 }:
-
 buildPythonPackage rec {
   pname = "scapy";
   version = "2.6.1";
@@ -44,7 +43,7 @@ buildPythonPackage rec {
     hash = "sha256-m2L30aEpPp9cfW652yd+0wFkNlMij6FF1RzWZbwJ79A=";
   };
 
-  patches = [ ./find-library.patch ];
+  patches = [./find-library.patch];
 
   postPatch =
     ''
@@ -94,7 +93,7 @@ buildPythonPackage rec {
     patchShebangs .
     .config/ci/test.sh
   '';
-  pythonImportsCheck = [ "scapy" ];
+  pythonImportsCheck = ["scapy"];
 
   meta = with lib; {
     description = "Python-based network packet manipulation program and library";

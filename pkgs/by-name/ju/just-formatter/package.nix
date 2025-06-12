@@ -3,7 +3,6 @@
   lib,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "just-formatter";
   version = "1.1.0";
@@ -19,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/eli-yip/just-formatter";
     description = "Format justfile from stdin to stdout";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ vuimuich ];
+    maintainers = with lib.maintainers; [vuimuich];
     mainProgram = "just-formatter";
   };
 }

@@ -8,7 +8,6 @@
   paramcoq,
   version ? null,
 }:
-
 mkCoqDerivation {
   pname = "addition-chains";
   repo = "hydra-battles";
@@ -16,11 +15,10 @@ mkCoqDerivation {
   release."0.4".sha256 = "1f7pc4w3kir4c9p0fjx5l77401bx12y72nmqxrqs3qqd3iynvqlp";
   release."0.5".sha256 = "121pcbn6v59l0c165ha9n00whbddpy11npx2y9cn7g879sfk2nqk";
   release."0.6".sha256 = "1dri4sisa7mhclf8w4kw7ixs5zxm8xyjr034r1377p96rdk3jj0j";
-  releaseRev = (v: "v${v}");
+  releaseRev = v: "v${v}";
 
   inherit version;
-  defaultVersion =
-    with lib.versions;
+  defaultVersion = with lib.versions;
     lib.switch coq.coq-version [
       {
         case = range "8.13" "8.18";
@@ -30,7 +28,8 @@ mkCoqDerivation {
         case = range "8.11" "8.12";
         out = "0.4";
       }
-    ] null;
+    ]
+    null;
 
   propagatedBuildInputs = [
     mathcomp-ssreflect
@@ -49,7 +48,7 @@ mkCoqDerivation {
       possible. We present a few implementations of addition chains,
       with proofs of their correctness.
     '';
-    maintainers = with maintainers; [ Zimmi48 ];
+    maintainers = with maintainers; [Zimmi48];
     license = licenses.mit;
     platforms = platforms.unix;
   };

@@ -14,7 +14,6 @@
   librclone,
   nix-update-script,
 }:
-
 buildGoModule rec {
   pname = "rclone";
   version = "1.69.3";
@@ -33,7 +32,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-WY5xBBOhDRl+mU0KuVxph0wDhfUYLI0gmiGY1boxmKU=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
@@ -41,10 +40,12 @@ buildGoModule rec {
   ];
 
   buildInputs = lib.optional enableCmount (
-    if stdenv.hostPlatform.isDarwin then macfuse-stubs else fuse
+    if stdenv.hostPlatform.isDarwin
+    then macfuse-stubs
+    else fuse
   );
 
-  tags = lib.optionals enableCmount [ "cmount" ];
+  tags = lib.optionals enableCmount ["cmount"];
 
   ldflags = [
     "-s"
@@ -57,14 +58,12 @@ buildGoModule rec {
         --replace-fail '"libfuse.so.2"' '"${lib.getLib fuse}/lib/libfuse.so.2"'
   '';
 
-  postInstall =
-    let
-      rcloneBin =
-        if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-          "$out"
-        else
-          lib.getBin buildPackages.rclone;
-    in
+  postInstall = let
+    rcloneBin =
+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      then "$out"
+      else lib.getBin buildPackages.rclone;
+  in
     ''
       installManPage rclone.1
       for shell in bash zsh fish; do
@@ -76,14 +75,13 @@ buildGoModule rec {
       ln -s $out/bin/rclone $out/bin/rclonefs
       ln -s $out/bin/rclone $out/bin/mount.rclone
     ''
-    +
-      lib.optionalString (enableCmount && !stdenv.hostPlatform.isDarwin)
-        # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount3,
-        # as the setuid wrapper is required as non-root on NixOS.
-        ''
-          wrapProgram $out/bin/rclone \
-            --suffix PATH : "${lib.makeBinPath [ fuse3 ]}"
-        '';
+    + lib.optionalString (enableCmount && !stdenv.hostPlatform.isDarwin)
+    # use --suffix here to ensure we don't shadow /run/wrappers/bin/fusermount3,
+    # as the setuid wrapper is required as non-root on NixOS.
+    ''
+      wrapProgram $out/bin/rclone \
+        --suffix PATH : "${lib.makeBinPath [fuse3]}"
+    '';
 
   nativeInstallCheckInputs = [
     versionCheckHook
@@ -96,7 +94,7 @@ buildGoModule rec {
     tests = {
       inherit librclone;
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = {

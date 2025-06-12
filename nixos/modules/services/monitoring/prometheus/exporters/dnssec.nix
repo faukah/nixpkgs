@@ -3,13 +3,11 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.prometheus.exporters.dnssec;
-  configFormat = pkgs.formats.toml { };
+  configFormat = pkgs.formats.toml {};
   configFile = configFormat.generate "dnssec-checks.toml" cfg.configuration;
-in
-{
+in {
   port = 9204;
   extraOpts = {
     configuration = lib.mkOption {
@@ -50,11 +48,11 @@ in
 
     resolvers = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         DNSSEC capable resolver to be used for the check.
       '';
-      example = [ "0.0.0.0:53" ];
+      example = ["0.0.0.0:53"];
     };
 
     timeout = lib.mkOption {
@@ -68,7 +66,7 @@ in
 
     extraFlags = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ ];
+      default = [];
       description = ''
         Extra commandline options when launching Prometheus.
       '';
@@ -76,26 +74,25 @@ in
   };
 
   serviceOpts = {
-    serviceConfig =
-      let
-        startScript = pkgs.writeShellScriptBin "prometheus-dnssec-exporter-start" "${lib.concatStringsSep
-          " "
-          (
-            [ "${pkgs.prometheus-dnssec-exporter}/bin/prometheus-dnssec-exporter" ]
-            ++ lib.optionals (cfg.configuration != null) [ "-config ${configFile}" ]
-            ++ lib.optionals (cfg.listenAddress != null) [
-              "-listen-address ${lib.escapeShellArg cfg.listenAddress}"
-            ]
-            ++ lib.optionals (cfg.resolvers != [ ]) [
-              "-resolvers ${lib.escapeShellArg (lib.concatStringsSep "," cfg.resolvers)}"
-            ]
-            ++ lib.optionals (cfg.timeout != null) [ "-timeout ${lib.escapeShellArg cfg.timeout}" ]
-            ++ cfg.extraFlags
-          )
-        }";
-      in
-      {
-        ExecStart = lib.getExe startScript;
-      };
+    serviceConfig = let
+      startScript = pkgs.writeShellScriptBin "prometheus-dnssec-exporter-start" "${
+        lib.concatStringsSep
+        " "
+        (
+          ["${pkgs.prometheus-dnssec-exporter}/bin/prometheus-dnssec-exporter"]
+          ++ lib.optionals (cfg.configuration != null) ["-config ${configFile}"]
+          ++ lib.optionals (cfg.listenAddress != null) [
+            "-listen-address ${lib.escapeShellArg cfg.listenAddress}"
+          ]
+          ++ lib.optionals (cfg.resolvers != []) [
+            "-resolvers ${lib.escapeShellArg (lib.concatStringsSep "," cfg.resolvers)}"
+          ]
+          ++ lib.optionals (cfg.timeout != null) ["-timeout ${lib.escapeShellArg cfg.timeout}"]
+          ++ cfg.extraFlags
+        )
+      }";
+    in {
+      ExecStart = lib.getExe startScript;
+    };
   };
 }

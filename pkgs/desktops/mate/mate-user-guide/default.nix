@@ -8,7 +8,6 @@
   yelp,
   mateUpdateScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "mate-user-guide";
   version = "1.28.0";
@@ -35,7 +34,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE User Guide";
@@ -45,6 +44,6 @@ stdenv.mkDerivation rec {
       fdl11Plus
     ];
     platforms = platforms.unix;
-    teams = [ teams.mate ];
+    teams = [teams.mate];
   };
 }

@@ -15,7 +15,6 @@
   gobject-introspection,
   librsvg,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "piper";
   version = "0.8";
@@ -66,7 +65,7 @@ python3.pkgs.buildPythonApplication rec {
     mainProgram = "piper";
     homepage = "https://github.com/libratbag/piper";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ mvnetbiz ];
+    maintainers = with lib.maintainers; [mvnetbiz];
     platforms = lib.platforms.linux;
   };
 }

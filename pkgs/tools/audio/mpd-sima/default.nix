@@ -5,7 +5,6 @@
   python-musicpd,
   requests,
 }:
-
 buildPythonApplication rec {
   pname = "mpd-sima";
   version = "0.18.2";
@@ -35,7 +34,7 @@ buildPythonApplication rec {
     homepage = "https://kaliko.me/mpd-sima/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ apfelkuchen6 ];
+    maintainers = with lib.maintainers; [apfelkuchen6];
     mainProgram = "mpd-sima";
   };
 }

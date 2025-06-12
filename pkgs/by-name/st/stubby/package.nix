@@ -1,6 +1,5 @@
 # Getdns and Stubby are released together, see https://getdnsapi.net/releases/
 # ../../ge/getdns/package.nix
-
 {
   lib,
   stdenv,
@@ -12,7 +11,6 @@
   yq,
   stubby,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "stubby";
   version = "0.4.3";
@@ -30,11 +28,13 @@ stdenv.mkDerivation (finalAttrs: {
     yq
   ];
 
-  buildInputs = [
-    getdns
-    libyaml
-    openssl
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ systemd ];
+  buildInputs =
+    [
+      getdns
+      libyaml
+      openssl
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [systemd];
 
   postInstall = ''
     rm -r $out/share/doc
@@ -45,16 +45,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.settingsExample = builtins.fromJSON (builtins.readFile stubby.stubbyExampleJson);
 
-  meta = getdns.meta // {
-    description = "Local DNS Privacy stub resolver (using DNS-over-TLS)";
-    mainProgram = "stubby";
-    longDescription = ''
-      Stubby is an application that acts as a local DNS Privacy stub
-      resolver (using RFC 7858, aka DNS-over-TLS). Stubby encrypts DNS
-      queries sent from a client machine (desktop or laptop) to a DNS
-      Privacy resolver increasing end user privacy. Stubby is developed by
-      the getdns team.
-    '';
-    homepage = "https://dnsprivacy.org/dns_privacy_daemon_-_stubby/";
-  };
+  meta =
+    getdns.meta
+    // {
+      description = "Local DNS Privacy stub resolver (using DNS-over-TLS)";
+      mainProgram = "stubby";
+      longDescription = ''
+        Stubby is an application that acts as a local DNS Privacy stub
+        resolver (using RFC 7858, aka DNS-over-TLS). Stubby encrypts DNS
+        queries sent from a client machine (desktop or laptop) to a DNS
+        Privacy resolver increasing end user privacy. Stubby is developed by
+        the getdns team.
+      '';
+      homepage = "https://dnsprivacy.org/dns_privacy_daemon_-_stubby/";
+    };
 })

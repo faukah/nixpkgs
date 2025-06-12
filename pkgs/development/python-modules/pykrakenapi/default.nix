@@ -5,7 +5,6 @@
   krakenex,
   pandas,
 }:
-
 buildPythonPackage rec {
   pname = "pykrakenapi";
   version = "0.3.2";
@@ -27,12 +26,12 @@ buildPythonPackage rec {
   # tests require network connection
   doCheck = false;
 
-  pythonImportsCheck = [ "pykrakenapi" ];
+  pythonImportsCheck = ["pykrakenapi"];
 
   meta = with lib; {
     description = "Python implementation of the Kraken API";
     homepage = "https://github.com/dominiktraxl/pykrakenapi";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

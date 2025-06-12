@@ -4,7 +4,6 @@
   fetchFromGitLab,
   flac,
 }:
-
 stdenv.mkDerivation rec {
   version = "3.0.10+git20130108.4ca41f4-1";
   pname = "shntool";
@@ -17,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Qn4LwVx34EhypiZDIxuveNhePigkuiICn1nBukoQf5Y=";
   };
 
-  buildInputs = [ flac ];
+  buildInputs = [flac];
 
   prePatch = ''
     patches=$(grep -v '#' ./debian/patches/series | while read patch; do echo "./debian/patches/$patch"; done | tr '\n' ' ')
@@ -28,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://packages.qa.debian.org/s/shntool.html";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 }

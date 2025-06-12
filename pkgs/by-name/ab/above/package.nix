@@ -3,7 +3,6 @@
   python3,
   fetchFromGitHub,
 }:
-
 python3.pkgs.buildPythonApplication rec {
   pname = "above";
   version = "2.8";
@@ -16,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-kG+eaTT72jmeC9R9IKwfd/+9oLAzHLJoKfFJhJDJzDM=";
   };
 
-  build-system = with python3.pkgs; [ setuptools ];
+  build-system = with python3.pkgs; [setuptools];
 
   dependencies = with python3.pkgs; [
     colorama
@@ -35,7 +34,7 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/casterbyte/Above";
     changelog = "https://github.com/casterbyte/Above/releases/tag/${src.tag}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ fab ];
+    maintainers = with lib.maintainers; [fab];
     mainProgram = "above";
   };
 }

@@ -1,7 +1,10 @@
 # A test that imports k3s airgapped images and verifies that all expected images are present
 import ../make-test-python.nix (
-  { lib, k3s, ... }:
   {
+    lib,
+    k3s,
+    ...
+  }: {
     name = "${k3s.name}-airgap-images";
     meta.maintainers = lib.teams.k3s.members;
 
@@ -22,7 +25,7 @@ import ../make-test-python.nix (
           "--disable servicelb"
           "--disable traefik"
         ];
-        images = [ k3s.airgapImages ];
+        images = [k3s.airgapImages];
       };
     };
 

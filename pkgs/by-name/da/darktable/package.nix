@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-
   # nativeBuildInputs
   cmake,
   desktop-file-utils,
@@ -12,7 +11,6 @@
   perl,
   pkg-config,
   wrapGAppsHook3,
-
   # buildInputs
   SDL2,
   adwaita-icon-theme,
@@ -74,11 +72,9 @@
   ocl-icd,
   # Darwin only
   gtk-mac-integration,
-
   versionCheckHook,
   gitUpdater,
 }:
-
 stdenv.mkDerivation rec {
   version = "5.0.1";
   pname = "darktable";
@@ -177,21 +173,22 @@ stdenv.mkDerivation rec {
   # 83c70b876af6484506901e6b381304ae0d073d3c and as a result the
   # binaries can't find libdarktable.so, so change LD_LIBRARY_PATH in
   # the wrappers:
-  preFixup =
-    let
-      libPathEnvVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
-      libPathPrefix =
-        "$out/lib/darktable" + lib.optionalString stdenv.hostPlatform.isLinux ":${ocl-icd}/lib";
-    in
-    ''
-      for f in $out/share/darktable/kernels/*.cl; do
-        sed -r "s|#include \"(.*)\"|#include \"$out/share/darktable/kernels/\1\"|g" -i "$f"
-      done
+  preFixup = let
+    libPathEnvVar =
+      if stdenv.hostPlatform.isDarwin
+      then "DYLD_LIBRARY_PATH"
+      else "LD_LIBRARY_PATH";
+    libPathPrefix =
+      "$out/lib/darktable" + lib.optionalString stdenv.hostPlatform.isLinux ":${ocl-icd}/lib";
+  in ''
+    for f in $out/share/darktable/kernels/*.cl; do
+      sed -r "s|#include \"(.*)\"|#include \"$out/share/darktable/kernels/\1\"|g" -i "$f"
+    done
 
-      gappsWrapperArgs+=(
-        --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
-      )
-    '';
+    gappsWrapperArgs+=(
+      --prefix ${libPathEnvVar} ":" "${libPathPrefix}"
+    )
+  '';
 
   nativeInstallCheckInputs = [
     versionCheckHook

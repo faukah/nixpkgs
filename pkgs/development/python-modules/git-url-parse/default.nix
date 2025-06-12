@@ -5,7 +5,6 @@
   pbr,
   pytestCheckHook,
 }:
-
 buildPythonPackage rec {
   pname = "git-url-parse";
   version = "1.2.2";
@@ -27,17 +26,17 @@ buildPythonPackage rec {
   # upstream repository (and we are installing from tarball instead)
   env.PBR_VERSION = version;
 
-  propagatedBuildInputs = [ pbr ];
+  propagatedBuildInputs = [pbr];
 
-  pythonImportsCheck = [ "giturlparse" ];
+  pythonImportsCheck = ["giturlparse"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Simple GIT URL parser";
     homepage = "https://github.com/coala/git-url-parse";
     changelog = "https://github.com/coala/git-url-parse/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

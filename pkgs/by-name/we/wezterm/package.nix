@@ -26,7 +26,6 @@
   xcbutilwm,
   zlib,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "wezterm";
   version = "0-unstable-2025-05-18";
@@ -63,12 +62,14 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-9pdkXpkIbe5HeVGvgusRaI4A6ZjDGssO5k0ULVnO6k8=";
   useFetchCargoVendor = true;
 
-  nativeBuildInputs = [
-    installShellFiles
-    ncurses # tic for terminfo
-    pkg-config
-    python3
-  ] ++ lib.optional stdenv.hostPlatform.isDarwin perl;
+  nativeBuildInputs =
+    [
+      installShellFiles
+      ncurses # tic for terminfo
+      pkg-config
+      python3
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin perl;
 
   buildInputs =
     [
@@ -87,7 +88,7 @@ rustPlatform.buildRustPackage rec {
       xcbutilwm # contains xcb-ewmh among others
     ];
 
-  buildFeatures = [ "distro-defaults" ];
+  buildFeatures = ["distro-defaults"];
 
   postInstall = ''
     mkdir -p $out/nix-support
@@ -135,13 +136,13 @@ rustPlatform.buildRustPackage rec {
 
     terminfo =
       runCommand "wezterm-terminfo"
-        {
-          nativeBuildInputs = [ ncurses ];
-        }
-        ''
-          mkdir -p $out/share/terminfo $out/nix-support
-          tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
-        '';
+      {
+        nativeBuildInputs = [ncurses];
+      }
+      ''
+        mkdir -p $out/share/terminfo $out/nix-support
+        tic -x -o $out/share/terminfo ${src}/termwiz/data/wezterm.terminfo
+      '';
 
     tests = {
       all-terminfo = nixosTests.allTerminfo;
@@ -152,7 +153,7 @@ rustPlatform.buildRustPackage rec {
     # upstream tags are composed with timestamp+commit, e.g.:
     # 20240203-110809-5046fc22
     # doesn't make much sense if we are following unstable
-    updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+    updateScript = unstableGitUpdater {hardcodeZeroVersion = true;};
   };
 
   meta = with lib; {

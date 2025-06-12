@@ -9,7 +9,6 @@
   zlib,
   writeScript,
 }:
-
 stdenv.mkDerivation rec {
   pname = "slang";
   version = "2.3.3";
@@ -41,13 +40,15 @@ stdenv.mkDerivation rec {
     "--with-z=${zlib.dev}"
   ];
 
-  buildInputs = [
-    libpng
-    readline
-    zlib
-  ] ++ lib.optionals (stdenv.hostPlatform.isDarwin) [ libiconv ];
+  buildInputs =
+    [
+      libpng
+      readline
+      zlib
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [libiconv];
 
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
   buildFlags = lib.optional stdenv.hostPlatform.isStatic "static";
   installTargets = lib.optional stdenv.hostPlatform.isStatic "install-static";
@@ -101,7 +102,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.jedsoft.org/slang/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "slsh";
     platforms = platforms.unix;
   };

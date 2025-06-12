@@ -5,7 +5,6 @@
   cimg,
   ncurses,
 }:
-
 stdenv.mkDerivation rec {
   pname = "imgcat";
   version = "2.6.0";
@@ -19,7 +18,7 @@ stdenv.mkDerivation rec {
     sed -i -e "s|-ltermcap|-L ${ncurses}/lib -lncurses|" Makefile
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   src = fetchFromGitHub {
     owner = "eddieantonio";
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "It's like cat, but for images";
     homepage = "https://github.com/eddieantonio/imgcat";
     license = licenses.isc;
-    maintainers = with maintainers; [ jwiegley ];
+    maintainers = with maintainers; [jwiegley];
     platforms = platforms.unix;
     mainProgram = "imgcat";
   };

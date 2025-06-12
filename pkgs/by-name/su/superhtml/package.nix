@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
-    ln -s ${callPackage ./deps.nix { }} $ZIG_GLOBAL_CACHE_DIR/p
+    ln -s ${callPackage ./deps.nix {}} $ZIG_GLOBAL_CACHE_DIR/p
   '';
 
   meta = with lib; {
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kristoff-it/superhtml";
     license = licenses.mit;
     mainProgram = "superhtml";
-    maintainers = with maintainers; [ petertriho ];
+    maintainers = with maintainers; [petertriho];
     platforms = platforms.unix;
   };
 }

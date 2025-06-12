@@ -7,7 +7,6 @@
   multicore-magic,
   yojson,
 }:
-
 buildDunePackage rec {
   pname = "multicore-bench";
   version = "0.1.4";
@@ -28,6 +27,6 @@ buildDunePackage rec {
     description = "Framework for writing multicore benchmark executables to run on current-bench";
     homepage = "https://github.com/ocaml-multicore/multicore-bench";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

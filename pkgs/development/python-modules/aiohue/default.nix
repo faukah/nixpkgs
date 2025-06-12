@@ -12,7 +12,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "aiohue";
   version = "4.7.4";
@@ -32,7 +31,7 @@ buildPythonPackage rec {
       --replace-fail 'version = "0.0.0"' 'version = "${version}"'
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     awesomeversion
@@ -61,7 +60,7 @@ buildPythonPackage rec {
     description = "Python package to talk to Philips Hue";
     homepage = "https://github.com/home-assistant-libs/aiohue";
     changelog = "https://github.com/home-assistant-libs/aiohue/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

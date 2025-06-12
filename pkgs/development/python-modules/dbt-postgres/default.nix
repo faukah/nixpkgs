@@ -10,7 +10,6 @@
   psycopg2,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-postgres";
   version = "1.9.0";
@@ -25,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-lywWf78rluX17D5bcfehHd7X18tAdw3HZ65v440jETc=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
-  pythonRemoveDeps = [ "psycopg2-binary" ];
+  pythonRemoveDeps = ["psycopg2-binary"];
 
   dependencies = [
     agate
@@ -40,12 +39,12 @@ buildPythonPackage rec {
   # tests exist for the dbt tool but not for this package specifically
   doCheck = false;
 
-  pythonImportsCheck = [ "dbt.adapters.postgres" ];
+  pythonImportsCheck = ["dbt.adapters.postgres"];
 
   meta = with lib; {
     description = "Plugin enabling dbt to work with a Postgres database";
     homepage = "https://github.com/dbt-labs/dbt-core";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

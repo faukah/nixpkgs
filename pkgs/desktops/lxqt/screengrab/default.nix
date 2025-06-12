@@ -19,7 +19,6 @@
   qtwayland,
   wrapQtAppsHook,
 }:
-
 stdenv.mkDerivation rec {
   pname = "screengrab";
   version = "3.0.0";
@@ -52,7 +51,7 @@ stdenv.mkDerivation rec {
     qtwayland
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/screengrab";
@@ -60,6 +59,6 @@ stdenv.mkDerivation rec {
     mainProgram = "screengrab";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    teams = [ teams.lxqt ];
+    teams = [teams.lxqt];
   };
 }

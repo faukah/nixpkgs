@@ -13,7 +13,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "sarif-tools";
   version = "3.0.4";
@@ -28,7 +27,7 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.8";
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies = [
     jinja2
@@ -44,21 +43,21 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonRelaxDeps = [ "python-docx" ];
+  pythonRelaxDeps = ["python-docx"];
 
   disabledTests = [
     # Broken, re-enable once https://github.com/microsoft/sarif-tools/pull/41 is merged
     "test_version"
   ];
 
-  pythonImportsCheck = [ "sarif" ];
+  pythonImportsCheck = ["sarif"];
 
   meta = {
     description = "Set of command line tools and Python library for working with SARIF files";
     homepage = "https://github.com/microsoft/sarif-tools";
     changelog = "https://github.com/microsoft/sarif-tools/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ puzzlewolf ];
+    maintainers = with lib.maintainers; [puzzlewolf];
     mainProgram = "sarif";
   };
 }

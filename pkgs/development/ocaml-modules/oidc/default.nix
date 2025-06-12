@@ -6,7 +6,6 @@
   uri,
   junit_alcotest,
 }:
-
 buildDunePackage rec {
   pname = "oidc";
   version = "0.2.0";

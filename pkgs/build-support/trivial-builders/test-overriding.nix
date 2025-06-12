@@ -13,9 +13,7 @@
   writeShellScript,
   writeTextFile,
   writeShellScriptBin,
-}:
-
-let
+}: let
   extglobScript = ''
     shopt -s extglob
     touch success
@@ -25,11 +23,10 @@ let
 
   simpleCase = case: writeShellScript "test-trivial-overriding-${case}" extglobScript;
 
-  callPackageCase =
-    case:
+  callPackageCase = case:
     callPackage (
-      { writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
-    ) { };
+      {writeShellScript}: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
+    ) {};
 
   binCase = case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
 
@@ -44,8 +41,7 @@ let
     executable = true;
   };
 
-  disallowExtglob =
-    x:
+  disallowExtglob = x:
     x.overrideAttrs (_: {
       checkPhase = ''
         ${stdenv.shell} -n "$target"
@@ -56,8 +52,7 @@ let
   # This HACK is required because we can't introspect build failures
   # in nix: With `assertFail` we want to make sure that the default
   # `checkPhase` would fail if extglob was used in the script.
-  assertFail =
-    x:
+  assertFail = x:
     x.overrideAttrs (old: {
       checkPhase = ''
         if
@@ -66,18 +61,18 @@ let
       '';
     });
 
-  mkCase =
-    case: outcome: isBin:
-    let
-      drv = lib.pipe outcome (
-        [ case ]
-        ++ lib.optionals (outcome == "fail") [
-          disallowExtglob
-          assertFail
-        ]
-      );
-    in
-    if isBin then "${drv}/bin/${drv.name}" else drv;
+  mkCase = case: outcome: isBin: let
+    drv = lib.pipe outcome (
+      [case]
+      ++ lib.optionals (outcome == "fail") [
+        disallowExtglob
+        assertFail
+      ]
+    );
+  in
+    if isBin
+    then "${drv}/bin/${drv.name}"
+    else drv;
 
   writeTextOverrides = {
     # Make sure extglob works by default
@@ -101,11 +96,9 @@ let
   # run its `checkPhase` which is our main interest. Additionally
   # it executes the script and thus makes sure that extglob also
   # works at run time.
-  runTest =
-    script:
-    let
-      name = script.name or (builtins.baseNameOf script);
-    in
+  runTest = script: let
+    name = script.name or (builtins.baseNameOf script);
+  in
     writeShellScript "run-${name}" ''
       if [ "$(${script})" != "success" ]; then
         echo "Failed in ${name}"
@@ -113,10 +106,9 @@ let
       fi
     '';
 in
-
-runCommand "test-writeShellScript-overriding"
+  runCommand "test-writeShellScript-overriding"
   {
-    passthru = { inherit writeTextOverrides; };
+    passthru = {inherit writeTextOverrides;};
   }
   ''
     ${lib.concatMapStrings (test: ''

@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "go-mod-graph-chart";
   version = "0.5.3";
@@ -25,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/PaulXu-cn/go-mod-graph-chart";
     mainProgram = "gmchart";
     license = licenses.mit;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

@@ -5,7 +5,6 @@
   seq,
   stdlib-shims,
 }:
-
 buildDunePackage rec {
   minimalOCamlVersion = "4.08";
 
@@ -28,6 +27,6 @@ buildDunePackage rec {
     homepage = "https://github.com/gildor478/ounit";
     description = "Unit test framework for OCaml";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

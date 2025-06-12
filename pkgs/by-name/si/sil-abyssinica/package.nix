@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
 }:
-
 stdenvNoCC.mkDerivation rec {
   pname = "sil-abyssinica";
   version = "2.300";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Unicode font for Ethiopian and Erythrean scripts (Amharic et al.)";
     homepage = "https://software.sil.org/abyssinica/";
     license = licenses.ofl;
-    maintainers = with maintainers; [ serge ];
+    maintainers = with maintainers; [serge];
     platforms = platforms.all;
   };
 }

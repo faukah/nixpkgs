@@ -25,7 +25,6 @@
   nlohmann_json,
   xorg,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayfire";
   version = "0.9.0";
@@ -83,7 +82,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonEnable "wf-touch:tests" (stdenv.buildPlatform.canExecute stdenv.hostPlatform))
   ];
 
-  passthru.providedSessions = [ "wayfire" ];
+  passthru.providedSessions = ["wayfire"];
 
   passthru.tests.mate = nixosTests.mate-wayland;
 

@@ -5,7 +5,6 @@
   fetchzip,
   addonUpdateScript,
 }:
-
 buildKodiAddon rec {
   pname = "six";
   namespace = "script.module.six";
@@ -27,6 +26,6 @@ buildKodiAddon rec {
     homepage = "https://pypi.org/project/six/";
     description = "Python 2 and 3 compatibility utilities";
     license = licenses.mit;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

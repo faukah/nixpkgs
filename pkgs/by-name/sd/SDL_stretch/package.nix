@@ -4,7 +4,6 @@
   fetchurl,
   stdenv,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "SDL_stretch";
   version = "0.3.1";
@@ -14,13 +13,13 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-fL8L+rAMPt1uceGH0qLEgncEh4DiySQIuqt7YjUy/Nc=";
   };
 
-  nativeBuildInputs = [ SDL ];
+  nativeBuildInputs = [SDL];
 
   configureFlags = [
     (lib.enableFeature (!stdenv.hostPlatform.isDarwin) "sdltest")
   ];
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   strictDeps = true;
 
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://sdl-stretch.sourceforge.net/";
     description = "Stretch Functions For SDL";
     license = lib.licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
     inherit (SDL.meta) platforms;
   };
 })

@@ -2,15 +2,12 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   aiohttp,
   asyncio-throttle,
 }:
-
 buildPythonPackage rec {
   pname = "deezer-python-async";
   version = "0.3.0";
@@ -43,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/music-assistant/deezer-python-async";
     changelog = "https://github.com/music-assistant/deezer-python-async/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 }

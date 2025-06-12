@@ -6,7 +6,6 @@
   fetchFromGitHub,
   fetchPypi,
   fetchpatch2,
-
   # Build time
   autoconf,
   automake,
@@ -20,10 +19,8 @@
   pkg-config,
   which,
   openssl,
-
   # Tests
   nixosTests,
-
   # Runtime dependencies
   arrow-cpp,
   babeltrace,
@@ -70,10 +67,8 @@
   xfsprogs,
   zlib,
   zstd,
-
   # Dependencies of overridden Python dependencies, hopefully we can remove these soon.
   rustPlatform,
-
   # Optional Dependencies
   curl ? null,
   expat ? null,
@@ -82,16 +77,13 @@
   libedit ? null,
   libs3 ? null,
   yasm ? null,
-
   # Mallocs
   gperftools ? null,
   jemalloc ? null,
-
   # Crypto Dependencies
   cryptopp ? null,
   nspr ? null,
   nss ? null,
-
   # Linux Only Dependencies
   linuxHeaders,
   util-linux,
@@ -106,13 +98,12 @@
   zfs ? null,
   ...
 }:
-
 # We must have one crypto library
-assert cryptopp != null || (nss != null && nspr != null);
-
-let
-  shouldUsePkg =
-    pkg: if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg then pkg else null;
+assert cryptopp != null || (nss != null && nspr != null); let
+  shouldUsePkg = pkg:
+    if pkg != null && lib.meta.availableOn stdenv.hostPlatform pkg
+    then pkg
+    else null;
 
   optYasm = shouldUsePkg yasm;
   optExpat = shouldUsePkg expat;
@@ -147,24 +138,26 @@ let
   hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
 
   # Malloc implementation (can be jemalloc, tcmalloc or null)
-  malloc = if optJemalloc != null then optJemalloc else optGperftools;
+  malloc =
+    if optJemalloc != null
+    then optJemalloc
+    else optGperftools;
 
   # We prefer nss over cryptopp
   cryptoStr =
-    if optNss != null && optNspr != null then
-      "nss"
-    else if optCryptopp != null then
-      "cryptopp"
-    else
-      "none";
+    if optNss != null && optNspr != null
+    then "nss"
+    else if optCryptopp != null
+    then "cryptopp"
+    else "none";
 
   cryptoLibsMap = {
     nss = [
       optNss
       optNspr
     ];
-    cryptopp = [ optCryptopp ];
-    none = [ ];
+    cryptopp = [optCryptopp];
+    none = [];
   };
 
   getMeta = description: {
@@ -191,8 +184,7 @@ let
     ];
   };
 
-  ceph-common =
-    with python.pkgs;
+  ceph-common = with python.pkgs;
     buildPythonPackage {
       pname = "ceph-common";
       inherit src version;
@@ -218,95 +210,97 @@ let
   # Watch out for python <> boost compatibility
   python = python311.override {
     self = python;
-    packageOverrides =
-      self: super:
-      let
-        bcryptOverrideVersion = "4.0.1";
-      in
-      {
-        # Ceph does not support the following yet:
-        # * `bcrypt` > 4.0
-        # * `cryptography` > 40
-        # See:
-        # * https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1899358602
-        # * Upstream issue: https://tracker.ceph.com/issues/63529
-        #   > Python Sub-Interpreter Model Used by ceph-mgr Incompatible With Python Modules Based on PyO3
-        # * Moved to issue: https://tracker.ceph.com/issues/64213
-        #   > MGR modules incompatible with later PyO3 versions - PyO3 modules may only be initialized once per interpreter process
+    packageOverrides = self: super: let
+      bcryptOverrideVersion = "4.0.1";
+    in {
+      # Ceph does not support the following yet:
+      # * `bcrypt` > 4.0
+      # * `cryptography` > 40
+      # See:
+      # * https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1899358602
+      # * Upstream issue: https://tracker.ceph.com/issues/63529
+      #   > Python Sub-Interpreter Model Used by ceph-mgr Incompatible With Python Modules Based on PyO3
+      # * Moved to issue: https://tracker.ceph.com/issues/64213
+      #   > MGR modules incompatible with later PyO3 versions - PyO3 modules may only be initialized once per interpreter process
 
-        bcrypt = super.bcrypt.overridePythonAttrs (old: rec {
-          pname = "bcrypt";
-          version = bcryptOverrideVersion;
-          src = fetchPypi {
-            inherit pname version;
-            hash = "sha256-J9N1kDrIJhz+QEf2cJ0W99GNObHskqr3KvmJVSplDr0=";
-          };
-          cargoRoot = "src/_bcrypt";
-          cargoDeps = rustPlatform.fetchCargoVendor {
-            inherit
-              pname
-              version
-              src
-              cargoRoot
-              ;
-            hash = "sha256-8PyCgh/rUO8uynzGdgylAsb5k55dP9fCnf40UOTCR/M=";
-          };
-        });
+      bcrypt = super.bcrypt.overridePythonAttrs (old: rec {
+        pname = "bcrypt";
+        version = bcryptOverrideVersion;
+        src = fetchPypi {
+          inherit pname version;
+          hash = "sha256-J9N1kDrIJhz+QEf2cJ0W99GNObHskqr3KvmJVSplDr0=";
+        };
+        cargoRoot = "src/_bcrypt";
+        cargoDeps = rustPlatform.fetchCargoVendor {
+          inherit
+            pname
+            version
+            src
+            cargoRoot
+            ;
+          hash = "sha256-8PyCgh/rUO8uynzGdgylAsb5k55dP9fCnf40UOTCR/M=";
+        };
+      });
 
-        # We pin the older `cryptography` 40 here;
-        # this also forces us to pin other packages, see below
-        cryptography = self.callPackage ./old-python-packages/cryptography.nix { };
+      # We pin the older `cryptography` 40 here;
+      # this also forces us to pin other packages, see below
+      cryptography = self.callPackage ./old-python-packages/cryptography.nix {};
 
-        # This is the most recent version of `pyopenssl` that's still compatible with `cryptography` 40.
-        # See https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1899358602
-        # and https://github.com/pyca/pyopenssl/blob/d9752e44127ba36041b045417af8a0bf16ec4f1e/CHANGELOG.rst#2320-2023-05-30
-        pyopenssl = super.pyopenssl.overridePythonAttrs (old: rec {
-          version = "23.1.1";
-          src = fetchPypi {
-            pname = "pyOpenSSL";
-            inherit version;
-            hash = "sha256-hBSYub7GFiOxtsR+u8AjZ8B9YODhlfGXkIF/EMyNsLc=";
-          };
-          disabledTests = old.disabledTests or [ ] ++ [
+      # This is the most recent version of `pyopenssl` that's still compatible with `cryptography` 40.
+      # See https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1899358602
+      # and https://github.com/pyca/pyopenssl/blob/d9752e44127ba36041b045417af8a0bf16ec4f1e/CHANGELOG.rst#2320-2023-05-30
+      pyopenssl = super.pyopenssl.overridePythonAttrs (old: rec {
+        version = "23.1.1";
+        src = fetchPypi {
+          pname = "pyOpenSSL";
+          inherit version;
+          hash = "sha256-hBSYub7GFiOxtsR+u8AjZ8B9YODhlfGXkIF/EMyNsLc=";
+        };
+        disabledTests =
+          old.disabledTests or []
+          ++ [
             "test_export_md5_digest"
           ];
-          disabledTestPaths = old.disabledTestPaths or [ ] ++ [
+        disabledTestPaths =
+          old.disabledTestPaths or []
+          ++ [
             "tests/test_ssl.py"
           ];
-          propagatedBuildInputs = old.propagatedBuildInputs or [ ] ++ [
+        propagatedBuildInputs =
+          old.propagatedBuildInputs or []
+          ++ [
             self.flaky
           ];
-          # hack: avoid building docs due to incompatibility with current sphinx
-          nativeBuildInputs = [ openssl ]; # old.nativeBuildInputs but without sphinx*
-          outputs = lib.filter (o: o != "doc") old.outputs;
-        });
+        # hack: avoid building docs due to incompatibility with current sphinx
+        nativeBuildInputs = [openssl]; # old.nativeBuildInputs but without sphinx*
+        outputs = lib.filter (o: o != "doc") old.outputs;
+      });
 
-        # This is the most recent version of `trustme` that's still compatible with `cryptography` 40.
-        # See https://github.com/NixOS/nixpkgs/issues/359723
-        # and https://github.com/python-trio/trustme/commit/586f7759d5c27beb44da60615a71848eb2a5a490
-        trustme = self.callPackage ./old-python-packages/trustme.nix { };
+      # This is the most recent version of `trustme` that's still compatible with `cryptography` 40.
+      # See https://github.com/NixOS/nixpkgs/issues/359723
+      # and https://github.com/python-trio/trustme/commit/586f7759d5c27beb44da60615a71848eb2a5a490
+      trustme = self.callPackage ./old-python-packages/trustme.nix {};
 
-        fastapi = super.fastapi.overridePythonAttrs (old: {
-          # Flaky test:
-          #     ResourceWarning: Unclosed <MemoryObjectSendStream>
-          # Unclear whether it's flaky in general or only in this overridden package set.
-          doCheck = false;
-        });
+      fastapi = super.fastapi.overridePythonAttrs (old: {
+        # Flaky test:
+        #     ResourceWarning: Unclosed <MemoryObjectSendStream>
+        # Unclear whether it's flaky in general or only in this overridden package set.
+        doCheck = false;
+      });
 
-        # Ceph does not support `kubernetes` >= 19, see:
-        #     https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1900324090
-        kubernetes = super.kubernetes.overridePythonAttrs (old: rec {
-          version = "18.20.0";
-          src = fetchFromGitHub {
-            owner = "kubernetes-client";
-            repo = "python";
-            rev = "v${version}";
-            sha256 = "1sawp62j7h0yksmg9jlv4ik9b9i1a1w9syywc9mv8x89wibf5ql1";
-            fetchSubmodules = true;
-          };
-        });
-
-      };
+      # Ceph does not support `kubernetes` >= 19, see:
+      #     https://github.com/NixOS/nixpkgs/pull/281858#issuecomment-1900324090
+      kubernetes = super.kubernetes.overridePythonAttrs (old: rec {
+        version = "18.20.0";
+        src = fetchFromGitHub {
+          owner = "kubernetes-client";
+          repo = "python";
+          rev = "v${version}";
+          sha256 = "1sawp62j7h0yksmg9jlv4ik9b9i1a1w9syywc9mv8x89wibf5ql1";
+          fetchSubmodules = true;
+        };
+      });
+    };
   };
 
   boost' = boost183.override {
@@ -316,46 +310,47 @@ let
 
   # TODO: split this off in build and runtime environment
   ceph-python-env = python.withPackages (
-    ps: with ps; [
-      ceph-common
+    ps:
+      with ps; [
+        ceph-common
 
-      # build time
-      cython_0
+        # build time
+        cython_0
 
-      # debian/control
-      bcrypt
-      cherrypy
-      influxdb
-      jinja2
-      kubernetes
-      natsort
-      numpy
-      pecan
-      prettytable
-      pyjwt
-      pyopenssl
-      python-dateutil
-      pyyaml
-      requests
-      routes
-      scikit-learn
-      scipy
-      setuptools
-      sphinx
-      virtualenv
-      werkzeug
+        # debian/control
+        bcrypt
+        cherrypy
+        influxdb
+        jinja2
+        kubernetes
+        natsort
+        numpy
+        pecan
+        prettytable
+        pyjwt
+        pyopenssl
+        python-dateutil
+        pyyaml
+        requests
+        routes
+        scikit-learn
+        scipy
+        setuptools
+        sphinx
+        virtualenv
+        werkzeug
 
-      # src/cephadm/zipapp-reqs.txt
-      markupsafe
+        # src/cephadm/zipapp-reqs.txt
+        markupsafe
 
-      # src/pybind/mgr/requirements-required.txt
-      cryptography
-      jsonpatch
+        # src/pybind/mgr/requirements-required.txt
+        cryptography
+        jsonpatch
 
-      # src/tools/cephfs/shell/setup.py
-      cmd2
-      colorama
-    ]
+        # src/tools/cephfs/shell/setup.py
+        cmd2
+        colorama
+      ]
   );
   inherit (ceph-python-env.python) sitePackages;
 
@@ -364,8 +359,7 @@ let
     url = "https://download.ceph.com/tarballs/ceph-${version}.tar.gz";
     hash = "sha256-7FD9LJs25VzUCRIBm01Cm3ss1YLTN9YLwPZnHSMd8rs=";
   };
-in
-rec {
+in rec {
   ceph = stdenv.mkDerivation {
     pname = "ceph";
     inherit src version;
@@ -408,7 +402,7 @@ rec {
       python.pkgs.python # for the toPythonPath function
       python.pkgs.wrapPython
       which
-      (ensureNewerSourcesHook { year = "1980"; })
+      (ensureNewerSourcesHook {year = "1980";})
       # for building docs/man-pages presumably
       doxygen
       graphviz
@@ -508,49 +502,55 @@ rec {
       patchShebangs src/
     '';
 
-    cmakeFlags = [
-      "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
+    cmakeFlags =
+      [
+        "-DCMAKE_INSTALL_DATADIR=${placeholder "lib"}/lib"
 
-      "-DWITH_CEPHFS_SHELL:BOOL=ON"
-      "-DWITH_SYSTEMD:BOOL=OFF"
-      # `WITH_JAEGER` requires `thrift` as a depenedncy (fine), but the build fails with:
-      #     CMake Error at src/opentelemetry-cpp-stamp/opentelemetry-cpp-build-Release.cmake:49 (message):
-      #     Command failed: 2
-      #
-      #        'make' 'opentelemetry_trace' 'opentelemetry_exporter_jaeger_trace'
-      #
-      #     See also
-      #
-      #        /build/ceph-18.2.0/build/src/opentelemetry-cpp/src/opentelemetry-cpp-stamp/opentelemetry-cpp-build-*.log
-      # and that file contains:
-      #     /build/ceph-18.2.0/src/jaegertracing/opentelemetry-cpp/exporters/jaeger/src/TUDPTransport.cc: In member function 'virtual void opentelemetry::v1::exporter::jaeger::TUDPTransport::close()':
-      #     /build/ceph-18.2.0/src/jaegertracing/opentelemetry-cpp/exporters/jaeger/src/TUDPTransport.cc:71:7: error: '::close' has not been declared; did you mean 'pclose'?
-      #       71 |     ::THRIFT_CLOSESOCKET(socket_);
-      #          |       ^~~~~~~~~~~~~~~~~~
-      # Looks like `close()` is somehow not included.
-      # But the relevant code is already removed in `open-telemetry` 1.10: https://github.com/open-telemetry/opentelemetry-cpp/pull/2031
-      # So it's probably not worth trying to fix that for this Ceph version,
-      # and instead just disable Ceph's Jaeger support.
-      "-DWITH_JAEGER:BOOL=OFF"
-      "-DWITH_TESTS:BOOL=OFF"
+        "-DWITH_CEPHFS_SHELL:BOOL=ON"
+        "-DWITH_SYSTEMD:BOOL=OFF"
+        # `WITH_JAEGER` requires `thrift` as a depenedncy (fine), but the build fails with:
+        #     CMake Error at src/opentelemetry-cpp-stamp/opentelemetry-cpp-build-Release.cmake:49 (message):
+        #     Command failed: 2
+        #
+        #        'make' 'opentelemetry_trace' 'opentelemetry_exporter_jaeger_trace'
+        #
+        #     See also
+        #
+        #        /build/ceph-18.2.0/build/src/opentelemetry-cpp/src/opentelemetry-cpp-stamp/opentelemetry-cpp-build-*.log
+        # and that file contains:
+        #     /build/ceph-18.2.0/src/jaegertracing/opentelemetry-cpp/exporters/jaeger/src/TUDPTransport.cc: In member function 'virtual void opentelemetry::v1::exporter::jaeger::TUDPTransport::close()':
+        #     /build/ceph-18.2.0/src/jaegertracing/opentelemetry-cpp/exporters/jaeger/src/TUDPTransport.cc:71:7: error: '::close' has not been declared; did you mean 'pclose'?
+        #       71 |     ::THRIFT_CLOSESOCKET(socket_);
+        #          |       ^~~~~~~~~~~~~~~~~~
+        # Looks like `close()` is somehow not included.
+        # But the relevant code is already removed in `open-telemetry` 1.10: https://github.com/open-telemetry/opentelemetry-cpp/pull/2031
+        # So it's probably not worth trying to fix that for this Ceph version,
+        # and instead just disable Ceph's Jaeger support.
+        "-DWITH_JAEGER:BOOL=OFF"
+        "-DWITH_TESTS:BOOL=OFF"
 
-      # Use our own libraries, where possible
-      "-DWITH_SYSTEM_ARROW:BOOL=ON" # Only used if other options enable Arrow support.
-      "-DWITH_SYSTEM_BOOST:BOOL=ON"
-      "-DWITH_SYSTEM_GTEST:BOOL=ON"
-      "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
-      "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
-      "-DWITH_SYSTEM_ZSTD:BOOL=ON"
+        # Use our own libraries, where possible
+        "-DWITH_SYSTEM_ARROW:BOOL=ON" # Only used if other options enable Arrow support.
+        "-DWITH_SYSTEM_BOOST:BOOL=ON"
+        "-DWITH_SYSTEM_GTEST:BOOL=ON"
+        "-DWITH_SYSTEM_ROCKSDB:BOOL=ON"
+        "-DWITH_SYSTEM_UTF8PROC:BOOL=ON"
+        "-DWITH_SYSTEM_ZSTD:BOOL=ON"
 
-      # Use our own python libraries too, see:
-      #     https://github.com/NixOS/nixpkgs/pull/344993#issuecomment-2391046329
-      "-DCEPHADM_BUNDLED_DEPENDENCIES=none"
+        # Use our own python libraries too, see:
+        #     https://github.com/NixOS/nixpkgs/pull/344993#issuecomment-2391046329
+        "-DCEPHADM_BUNDLED_DEPENDENCIES=none"
 
-      # TODO breaks with sandbox, tries to download stuff with npm
-      "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
-      # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
-      ''-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}''
-    ] ++ lib.optional stdenv.hostPlatform.isLinux "-DWITH_SYSTEM_LIBURING=ON";
+        # TODO breaks with sandbox, tries to download stuff with npm
+        "-DWITH_MGR_DASHBOARD_FRONTEND:BOOL=OFF"
+        # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
+        ''-DWITH_XFS=${
+            if optLibxfs != null
+            then "ON"
+            else "OFF"
+          }''
+      ]
+      ++ lib.optional stdenv.hostPlatform.isLinux "-DWITH_SYSTEM_LIBURING=ON";
 
     preBuild =
       # The legacy-option-headers target is not correctly empbedded in the build graph.
@@ -580,7 +580,7 @@ rec {
     doCheck = false; # uses pip to install things from the internet
 
     # Takes 7+h to build with 2 cores.
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     meta = getMeta "Distributed storage system";
 
@@ -588,7 +588,8 @@ rec {
       inherit version;
       inherit python; # to be able to test our overridden packages above individually with `nix-build -A`
       tests = {
-        inherit (nixosTests)
+        inherit
+          (nixosTests)
           ceph-multi-node
           ceph-single-node
           ceph-single-node-bluestore
@@ -600,21 +601,21 @@ rec {
 
   ceph-client =
     runCommand "ceph-client-${version}"
-      {
-        meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs";
-      }
-      ''
-        mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
-        cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin
-        cp -r ${ceph}/bin/ceph-{authtool,conf,dencoder,rbdnamer,syn} $out/bin
-        cp -r ${ceph}/bin/rbd-replay* $out/bin
-        cp -r ${ceph}/sbin/mount.ceph $out/bin
-        cp -r ${ceph}/sbin/mount.fuse.ceph $out/bin
-        ln -s bin $out/sbin
-        cp -r ${ceph}/${sitePackages}/* $out/${sitePackages}
-        cp -r ${ceph}/etc/bash_completion.d $out/share/bash-completion/completions
-        # wrapPythonPrograms modifies .ceph-wrapped, so lets just update its paths
-        substituteInPlace $out/bin/ceph          --replace ${ceph} $out
-        substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
-      '';
+    {
+      meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs";
+    }
+    ''
+      mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
+      cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin
+      cp -r ${ceph}/bin/ceph-{authtool,conf,dencoder,rbdnamer,syn} $out/bin
+      cp -r ${ceph}/bin/rbd-replay* $out/bin
+      cp -r ${ceph}/sbin/mount.ceph $out/bin
+      cp -r ${ceph}/sbin/mount.fuse.ceph $out/bin
+      ln -s bin $out/sbin
+      cp -r ${ceph}/${sitePackages}/* $out/${sitePackages}
+      cp -r ${ceph}/etc/bash_completion.d $out/share/bash-completion/completions
+      # wrapPythonPrograms modifies .ceph-wrapped, so lets just update its paths
+      substituteInPlace $out/bin/ceph          --replace ${ceph} $out
+      substituteInPlace $out/bin/.ceph-wrapped --replace ${ceph} $out
+    '';
 }

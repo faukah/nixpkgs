@@ -5,7 +5,6 @@
   fetchpatch,
   zlib,
 }:
-
 stdenv.mkDerivation rec {
   pname = "gnushogi";
   version = "1.4.2";
@@ -26,14 +25,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "GNU implementation of Shogi, also known as Japanese Chess";
     mainProgram = "gnushogi";
     homepage = "https://www.gnu.org/software/gnushogi/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.ciil ];
+    maintainers = [maintainers.ciil];
     platforms = platforms.unix;
   };
 }

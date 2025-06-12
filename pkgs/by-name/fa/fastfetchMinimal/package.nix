@@ -1,4 +1,4 @@
-{ fastfetch }:
+{fastfetch}:
 fastfetch.override {
   audioSupport = false;
   brightnessSupport = false;

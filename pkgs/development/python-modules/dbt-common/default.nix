@@ -2,10 +2,8 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   hatchling,
-
   # dependencies
   agate,
   colorama,
@@ -19,13 +17,11 @@
   python-dateutil,
   requests,
   typing-extensions,
-
   # tests
   pytestCheckHook,
   pytest-mock,
   pytest-xdist,
 }:
-
 buildPythonPackage rec {
   pname = "dbt-common";
   version = "1.23.0-unstable-2025-04-21";
@@ -38,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-KqnwlFZZRYuWRflMzjrqCPBnzY9q/pPhceM2DGqz5bw=";
   };
 
-  build-system = [ hatchling ];
+  build-system = [hatchling];
 
   pythonRelaxDeps = [
     "agate"
@@ -49,20 +45,22 @@ buildPythonPackage rec {
     "protobuf"
   ];
 
-  dependencies = [
-    agate
-    colorama
-    deepdiff
-    isodate
-    jinja2
-    jsonschema
-    mashumaro
-    pathspec
-    protobuf
-    python-dateutil
-    requests
-    typing-extensions
-  ] ++ mashumaro.optional-dependencies.msgpack;
+  dependencies =
+    [
+      agate
+      colorama
+      deepdiff
+      isodate
+      jinja2
+      jsonschema
+      mashumaro
+      pathspec
+      protobuf
+      python-dateutil
+      requests
+      typing-extensions
+    ]
+    ++ mashumaro.optional-dependencies.msgpack;
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -75,13 +73,13 @@ buildPythonPackage rec {
     "TestFindMatching"
   ];
 
-  pythonImportsCheck = [ "dbt_common" ];
+  pythonImportsCheck = ["dbt_common"];
 
   meta = {
     description = "Shared common utilities for dbt-core and adapter implementations use";
     homepage = "https://github.com/dbt-labs/dbt-common";
     changelog = "https://github.com/dbt-labs/dbt-common/blob/${version}/CHANGELOG.md";
     license = lib.licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

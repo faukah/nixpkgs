@@ -24,7 +24,6 @@
   kio,
   qtbase,
 }:
-
 mkDerivation {
   pname = "xdg-desktop-portal-kde";
   nativeBuildInputs = [

@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchurl,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "pecita";
   version = "5.4";
@@ -29,6 +28,6 @@ stdenvNoCC.mkDerivation {
     description = "Handwritten font with connected glyphs";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

@@ -10,7 +10,6 @@
   rustc,
   fetchurl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "nym";
   version = "2024.14-crunch-patched";
@@ -73,6 +72,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://nymtech.net";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ bot-wxt1221 ];
+    maintainers = with lib.maintainers; [bot-wxt1221];
   };
 }

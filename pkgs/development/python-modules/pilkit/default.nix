@@ -8,7 +8,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "pilkit";
   version = "3.0";
@@ -23,9 +22,9 @@ buildPythonPackage rec {
     hash = "sha256-NmD9PFCkz3lz4AnGoQUpkt35q0zvDVm+kx7lVDFBcHk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   nativeCheckInputs = [
     mock
@@ -39,12 +38,12 @@ buildPythonPackage rec {
       --replace "Image.ANTIALIAS" "Image.Resampling.LANCZOS"
   '';
 
-  pythonImportsCheck = [ "pilkit" ];
+  pythonImportsCheck = ["pilkit"];
 
   meta = with lib; {
     description = "Collection of utilities and processors for the Python Imaging Library";
     homepage = "https://github.com/matthewwithanm/pilkit/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

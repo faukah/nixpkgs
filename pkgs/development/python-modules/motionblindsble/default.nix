@@ -10,7 +10,6 @@
   pythonOlder,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "motionblindsble";
   version = "0.1.3";
@@ -30,7 +29,7 @@ buildPythonPackage rec {
       --replace-fail "{{VERSION_PLACEHOLDER}}" "${version}"
   '';
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
   dependencies = [
     bleak
@@ -43,7 +42,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "motionblindsble" ];
+  pythonImportsCheck = ["motionblindsble"];
 
   disabledTests = [
     # AssertionError
@@ -55,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/LennP/motionblindsble";
     changelog = "https://github.com/LennP/motionblindsble/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

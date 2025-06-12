@@ -9,9 +9,7 @@
   packaging,
   oneDNN,
   re2,
-
 }:
-
 # onnxruntime requires an older protobuf.
 # Doing an override in protobuf in the python-packages set
 # can give you a functioning Python package but note not
@@ -24,7 +22,6 @@
 # link correctly. If you do also want to include the Python
 # protobuf, you can add it to your Python env, but be aware
 # the version likely mismatches with what is used here.
-
 buildPythonPackage {
   inherit (onnxruntime) pname version;
   format = "wheel";
@@ -35,7 +32,7 @@ buildPythonPackage {
     chmod +w dist
   '';
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [autoPatchelfHook];
 
   # This project requires fairly large dependencies such as sympy which we really don't always need.
   pythonRemoveDeps = [
@@ -59,8 +56,7 @@ buildPythonPackage {
       onnxruntime
     ]
     ++ lib.optionals onnxruntime.passthru.cudaSupport (
-      with onnxruntime.passthru.cudaPackages;
-      [
+      with onnxruntime.passthru.cudaPackages; [
         libcublas # libcublasLt.so.XX libcublas.so.XX
         libcurand # libcurand.so.XX
         libcufft # libcufft.so.XX

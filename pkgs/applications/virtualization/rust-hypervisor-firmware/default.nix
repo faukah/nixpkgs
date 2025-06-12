@@ -3,65 +3,59 @@
   fetchFromGitHub,
   stdenv,
   lld,
-}:
-
-let
+}: let
   arch = stdenv.hostPlatform.qemuArch;
 
   target = ./. + "/${arch}-unknown-none.json";
-
 in
-
-assert lib.assertMsg (builtins.pathExists target) "Target spec not found";
-
-let
-  cross = import ../../../.. {
-    system = stdenv.hostPlatform.system;
-    crossSystem = lib.systems.examples."${arch}-embedded" // {
-      rust.rustcTarget = "${arch}-unknown-none";
-      rust.platform = lib.importJSON target;
+  assert lib.assertMsg (builtins.pathExists target) "Target spec not found"; let
+    cross = import ../../../.. {
+      system = stdenv.hostPlatform.system;
+      crossSystem =
+        lib.systems.examples."${arch}-embedded"
+        // {
+          rust.rustcTarget = "${arch}-unknown-none";
+          rust.platform = lib.importJSON target;
+        };
     };
-  };
 
-  inherit (cross) rustPlatform;
+    inherit (cross) rustPlatform;
+  in
+    rustPlatform.buildRustPackage rec {
+      pname = "rust-hypervisor-firmware";
+      version = "0.5.0";
 
-in
+      src = fetchFromGitHub {
+        owner = "cloud-hypervisor";
+        repo = "rust-hypervisor-firmware";
+        tag = version;
+        sha256 = "sha256-iLYmPBJH7I6EJ8VTUbR0+lZaebvbZlRv2KglbjKX76Q=";
+      };
 
-rustPlatform.buildRustPackage rec {
-  pname = "rust-hypervisor-firmware";
-  version = "0.5.0";
+      useFetchCargoVendor = true;
+      cargoHash = "sha256-iqsU4t8Zz9UTtAu+a6kqwnPZ6qdGAriQ7hcU58KDQ8M=";
 
-  src = fetchFromGitHub {
-    owner = "cloud-hypervisor";
-    repo = "rust-hypervisor-firmware";
-    tag = version;
-    sha256 = "sha256-iLYmPBJH7I6EJ8VTUbR0+lZaebvbZlRv2KglbjKX76Q=";
-  };
+      # lld: error: unknown argument '-Wl,--undefined=AUDITABLE_VERSION_INFO'
+      # https://github.com/cloud-hypervisor/rust-hypervisor-firmware/issues/249
+      auditable = false;
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-iqsU4t8Zz9UTtAu+a6kqwnPZ6qdGAriQ7hcU58KDQ8M=";
+      RUSTC_BOOTSTRAP = 1;
 
-  # lld: error: unknown argument '-Wl,--undefined=AUDITABLE_VERSION_INFO'
-  # https://github.com/cloud-hypervisor/rust-hypervisor-firmware/issues/249
-  auditable = false;
+      nativeBuildInputs = [
+        lld
+      ];
 
-  RUSTC_BOOTSTRAP = 1;
+      RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
 
-  nativeBuildInputs = [
-    lld
-  ];
+      # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
+      doCheck = false;
 
-  RUSTFLAGS = "-C linker=lld -C linker-flavor=ld.lld";
-
-  # Tests don't work for `no_std`. See https://os.phil-opp.com/testing/
-  doCheck = false;
-
-  meta = with lib; {
-    homepage = "https://github.com/cloud-hypervisor/rust-hypervisor-firmware";
-    description = "Simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ astro ];
-    platforms = [ "x86_64-none" ];
-    mainProgram = "hypervisor-fw";
-  };
-}
+      meta = with lib; {
+        homepage = "https://github.com/cloud-hypervisor/rust-hypervisor-firmware";
+        description = "Simple firmware that is designed to be launched from anything that supports loading ELF binaries and running them with the PVH booting standard";
+        license = with licenses; [asl20];
+        maintainers = with maintainers; [astro];
+        platforms = ["x86_64-none"];
+        mainProgram = "hypervisor-fw";
+      };
+    }

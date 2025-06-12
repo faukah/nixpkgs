@@ -3,7 +3,6 @@
   python3Packages,
   fetchPypi,
 }:
-
 python3Packages.buildPythonApplication rec {
   pname = "termtosvg";
   version = "1.1.0";
@@ -23,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://nbedos.github.io/termtosvg/";
     description = "Record terminal sessions as SVG animations";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "termtosvg";
   };
 }

@@ -21,7 +21,6 @@
   transmission_4,
   wrapGAppsHook4,
 }:
-
 stdenv.mkDerivation rec {
   pname = "fragments";
   version = "3.0.1";
@@ -63,12 +62,12 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ transmission_4 ]}"
+      --prefix PATH : "${lib.makeBinPath [transmission_4]}"
     )
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -77,7 +76,7 @@ stdenv.mkDerivation rec {
     maintainers = with maintainers; [
       emilytrau
     ];
-    teams = [ lib.teams.gnome-circle ];
+    teams = [lib.teams.gnome-circle];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     mainProgram = "fragments";

@@ -6,7 +6,6 @@
   pytestCheckHook,
   intelhex,
 }:
-
 buildPythonPackage rec {
   pname = "lpc-checksum";
   version = "3.0.0";
@@ -24,15 +23,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  propagatedBuildInputs = [ intelhex ];
+  propagatedBuildInputs = [intelhex];
 
-  pythonImportsCheck = [ "lpc_checksum" ];
+  pythonImportsCheck = ["lpc_checksum"];
 
   meta = with lib; {
     description = "Python script to calculate LPC firmware checksums";
     mainProgram = "lpc_checksum";
     homepage = "https://pypi.org/project/lpc-checksum/";
     license = licenses.mit;
-    maintainers = with maintainers; [ otavio ];
+    maintainers = with maintainers; [otavio];
   };
 }

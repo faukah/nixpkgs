@@ -8,11 +8,10 @@
   ki18n,
   knotifications,
 }:
-
 mkDerivation {
   pname = "kde-inotify-survey";
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     kauth
@@ -27,6 +26,6 @@ mkDerivation {
     mainProgram = "kde-inotify-survey";
     homepage = "https://invent.kde.org/system/kde-inotify-survey";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -5,7 +5,6 @@
   tcl,
   tcllib,
 }:
-
 mkTclDerivation rec {
   pname = "critcl";
   version = "3.3.1";
@@ -42,7 +41,7 @@ mkTclDerivation rec {
     homepage = "https://andreas-kupries.github.io/critcl/";
     license = licenses.tcltk;
     mainProgram = "critcl";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

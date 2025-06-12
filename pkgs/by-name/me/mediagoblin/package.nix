@@ -7,9 +7,7 @@
   poppler-utils,
   python3,
   xorg,
-}:
-
-let
+}: let
   python = python3.override {
     packageOverrides = final: prev: {
       celery = prev.celery.overridePythonAttrs {
@@ -40,68 +38,66 @@ let
     inherit src;
   };
 in
-python.pkgs.buildPythonApplication rec {
-  pname = "mediagoblin";
-  inherit version src;
+  python.pkgs.buildPythonApplication rec {
+    pname = "mediagoblin";
+    inherit version src;
 
-  postPatch = ''
-    # https://git.sr.ht/~mediagoblin/mediagoblin/tree/bf61d38df21748aadb480c53fdd928647285e35f/item/.guix/modules/mediagoblin-package.scm#L60-62
-    cp mediagoblin/_version.py.in mediagoblin/_version.py
-    substituteInPlace mediagoblin/_version.py \
-      --replace-fail "@PACKAGE_VERSION@" "${version}"
+    postPatch = ''
+      # https://git.sr.ht/~mediagoblin/mediagoblin/tree/bf61d38df21748aadb480c53fdd928647285e35f/item/.guix/modules/mediagoblin-package.scm#L60-62
+      cp mediagoblin/_version.py.in mediagoblin/_version.py
+      substituteInPlace mediagoblin/_version.py \
+        --replace-fail "@PACKAGE_VERSION@" "${version}"
 
-    # https://git.sr.ht/~mediagoblin/mediagoblin/tree/bf61d38df21748aadb480c53fdd928647285e35f/item/.guix/modules/mediagoblin-package.scm#L66-67
-    substituteInPlace mediagoblin/gmg_commands/__init__.py \
-      --replace-fail "ArgumentParser(" "ArgumentParser(prog=\"gmg\","
-  '';
+      # https://git.sr.ht/~mediagoblin/mediagoblin/tree/bf61d38df21748aadb480c53fdd928647285e35f/item/.guix/modules/mediagoblin-package.scm#L66-67
+      substituteInPlace mediagoblin/gmg_commands/__init__.py \
+        --replace-fail "ArgumentParser(" "ArgumentParser(prog=\"gmg\","
+    '';
 
-  nativeBuildInputs = [
-    gobject-introspection
-    python3.pkgs.babel
-    xorg.lndir
-  ];
+    nativeBuildInputs = [
+      gobject-introspection
+      python3.pkgs.babel
+      xorg.lndir
+    ];
 
-  build-system = with python.pkgs; [
-    setuptools
-  ];
+    build-system = with python.pkgs; [
+      setuptools
+    ];
 
-  dependencies = with python.pkgs; [
-    alembic
-    babel
-    bcrypt
-    celery
-    certifi
-    configobj
-    email-validator
-    exifread
-    feedgenerator
-    itsdangerous
-    jinja2
-    jsonschema
-    lxml-html-clean
-    markdown
-    oauthlib
-    pastescript
-    pillow
-    pyld
-    python-dateutil
-    requests
-    soundfile
-    sqlalchemy
-    unidecode
-    waitress
-    werkzeug
-    wtforms
-    wtforms-sqlalchemy
+    dependencies = with python.pkgs; [
+      alembic
+      babel
+      bcrypt
+      celery
+      certifi
+      configobj
+      email-validator
+      exifread
+      feedgenerator
+      itsdangerous
+      jinja2
+      jsonschema
+      lxml-html-clean
+      markdown
+      oauthlib
+      pastescript
+      pillow
+      pyld
+      python-dateutil
+      requests
+      soundfile
+      sqlalchemy
+      unidecode
+      waitress
+      werkzeug
+      wtforms
+      wtforms-sqlalchemy
 
-    # undocumented and fails to start without
-    gst-python
-    pygobject3
-  ];
+      # undocumented and fails to start without
+      gst-python
+      pygobject3
+    ];
 
-  optional-dependencies =
-    with python.pkgs;
-    let
+    optional-dependencies = with python.pkgs; let
       # not really documented in python build system
       gst = with gst_all_1; [
         # https://git.sr.ht/~mediagoblin/mediagoblin/tree/bf61d38df21748aadb480c53fdd928647285e35f/item/.guix/modules/mediagoblin-package.scm#L122-127
@@ -112,51 +108,49 @@ python.pkgs.buildPythonApplication rec {
         gst-plugins-ugly
         gstreamer
       ];
-    in
-    {
-      ascii = [ chardet ];
-      audio = [ numpy ] ++ gst;
-      ldap = [ python-ldap ];
-      openid = [ python3-openid ];
-      raw_image = [ py3exiv2 ];
-      video = [ pygobject3 ] ++ gst;
+    in {
+      ascii = [chardet];
+      audio = [numpy] ++ gst;
+      ldap = [python-ldap];
+      openid = [python3-openid];
+      raw_image = [py3exiv2];
+      video = [pygobject3] ++ gst;
     };
 
-  postBuild = ''
-    ./devtools/compile_translations.sh
-  '';
+    postBuild = ''
+      ./devtools/compile_translations.sh
+    '';
 
-  postInstall = ''
-    lndir -silent ${extlib}/bower_components/ $out/${python.sitePackages}/mediagoblin/static/extlib/
+    postInstall = ''
+      lndir -silent ${extlib}/bower_components/ $out/${python.sitePackages}/mediagoblin/static/extlib/
 
-    ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/jquery/dist/jquery.js $out/${python.sitePackages}/mediagoblin/static/js/extlib/jquery.js
-    ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/leaflet.css $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/leaflet.css
-    ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/leaflet.js $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/leaflet.js
-    ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/images/ $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/
-  '';
+      ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/jquery/dist/jquery.js $out/${python.sitePackages}/mediagoblin/static/js/extlib/jquery.js
+      ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/leaflet.css $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/leaflet.css
+      ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/leaflet.js $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/leaflet.js
+      ln -rs $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/dist/images/ $out/${python.sitePackages}/mediagoblin/static/extlib/leaflet/
+    '';
 
-  nativeCheckInputs =
-    with python.pkgs;
-    [
-      pytest-forked
-      pytest-xdist
-      pytestCheckHook
-      webtest
+    nativeCheckInputs = with python.pkgs;
+      [
+        pytest-forked
+        pytest-xdist
+        pytestCheckHook
+        webtest
 
-      poppler-utils
-    ]
-    ++ lib.flatten (lib.attrValues optional-dependencies);
+        poppler-utils
+      ]
+      ++ lib.flatten (lib.attrValues optional-dependencies);
 
-  pythonImportsCheck = [ "mediagoblin" ];
+    pythonImportsCheck = ["mediagoblin"];
 
-  passthru = {
-    inherit python;
-  };
+    passthru = {
+      inherit python;
+    };
 
-  meta = {
-    description = "Free software media publishing platform that anyone can run";
-    homepage = "https://mediagoblin.org/";
-    license = lib.licenses.agpl3Plus;
-    teams = [ lib.teams.c3d2 ];
-  };
-}
+    meta = {
+      description = "Free software media publishing platform that anyone can run";
+      homepage = "https://mediagoblin.org/";
+      license = lib.licenses.agpl3Plus;
+      teams = [lib.teams.c3d2];
+    };
+  }

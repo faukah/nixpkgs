@@ -6,7 +6,6 @@
   pytestCheckHook,
   pytest-mock,
 }:
-
 buildPythonPackage rec {
   pname = "ssdpy";
   version = "0.4.1";
@@ -19,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-luOanw4aOepGxoGtmnWZosq9JyHLJb3E+25tPkkL1w0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "ssdpy" ];
+  pythonImportsCheck = ["ssdpy"];
 
   disabledTests = [
     # They all require network access
@@ -44,6 +43,6 @@ buildPythonPackage rec {
     description = "Lightweight, compatible SSDP library for Python";
     homepage = "https://github.com/MoshiBin/ssdpy";
     license = licenses.mit;
-    maintainers = with maintainers; [ mjm ];
+    maintainers = with maintainers; [mjm];
   };
 }

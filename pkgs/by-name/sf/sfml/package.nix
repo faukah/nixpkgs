@@ -2,10 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
-
   # nativeBuildInputs
   cmake,
-
   # buildInputs
   flac,
   freetype,
@@ -21,7 +19,6 @@
   libXrender,
   xcbutilimage,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "sfml";
   version = "3.0.0";
@@ -33,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-e6x/L2D3eT6F/DBLQDZ+j0XD5NL9RalWZA8kcm9lZ3g=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       flac
@@ -70,7 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
       It is written in C++, and has bindings for various languages such as C, .Net, Ruby, Python.
     '';
     license = lib.licenses.zlib;
-    maintainers = with lib.maintainers; [ GaetanLepage ];
+    maintainers = with lib.maintainers; [GaetanLepage];
     platforms = lib.platforms.unix;
   };
 })

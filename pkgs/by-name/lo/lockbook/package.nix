@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     "lockbook-cli"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     installShellCompletion --bash --name lockbook.bash <($out/bin/lockbook completions bash)
     installShellCompletion --zsh --name _lockbook <($out/bin/lockbook completions zsh)
@@ -45,6 +45,6 @@ rustPlatform.buildRustPackage rec {
     license = lib.licenses.unlicense;
     platforms = lib.platforms.all;
     changelog = "https://github.com/lockbook/lockbook/releases";
-    maintainers = [ lib.maintainers.parth ];
+    maintainers = [lib.maintainers.parth];
   };
 }

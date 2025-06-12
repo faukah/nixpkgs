@@ -3,84 +3,76 @@
   lib,
   pkgs,
   ...
-}:
-let
-
+}: let
   # The splicing information needed for nativeBuildInputs isn't available
   # on the derivations likely to be used as `cfg.package`.
   # This middle-ground solution ensures *an* sshd can do their basic validation
   # on the configuration.
   validationPackage =
-    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then
-      cfg.package
-    else
-      pkgs.buildPackages.openssh;
+    if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform
+    then cfg.package
+    else pkgs.buildPackages.openssh;
 
   # dont use the "=" operator
-  settingsFormat =
-    let
-      # reports boolean as yes / no
-      mkValueString =
-        with lib;
-        v:
-        if lib.isInt v then
-          toString v
-        else if lib.isString v then
-          v
-        else if true == v then
-          "yes"
-        else if false == v then
-          "no"
-        else
-          throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
+  settingsFormat = let
+    # reports boolean as yes / no
+    mkValueString = with lib;
+      v:
+        if lib.isInt v
+        then toString v
+        else if lib.isString v
+        then v
+        else if true == v
+        then "yes"
+        else if false == v
+        then "no"
+        else throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty {}) v}";
 
-      base = pkgs.formats.keyValue {
-        mkKeyValue = lib.generators.mkKeyValueDefault { inherit mkValueString; } " ";
-      };
-      # OpenSSH is very inconsistent with options that can take multiple values.
-      # For some of them, they can simply appear multiple times and are appended, for others the
-      # values must be separated by whitespace or even commas.
-      # Consult either sshd_config(5) or, as last resort, the OpehSSH source for parsing
-      # the options at servconf.c:process_server_config_line_depth() to determine the right "mode"
-      # for each. But fortunately this fact is documented for most of them in the manpage.
-      commaSeparated = [
-        "Ciphers"
-        "KexAlgorithms"
-        "Macs"
-      ];
-      spaceSeparated = [
-        "AuthorizedKeysFile"
-        "AllowGroups"
-        "AllowUsers"
-        "DenyGroups"
-        "DenyUsers"
-      ];
-    in
-    {
-      inherit (base) type;
-      generate =
-        name: value:
-        let
-          transformedValue = lib.mapAttrs (
-            key: val:
-            if lib.isList val then
-              if lib.elem key commaSeparated then
-                lib.concatStringsSep "," val
-              else if lib.elem key spaceSeparated then
-                lib.concatStringsSep " " val
-              else
-                throw "list value for unknown key ${key}: ${(lib.generators.toPretty { }) val}"
-            else
-              val
-          ) value;
-        in
-        base.generate name transformedValue;
+    base = pkgs.formats.keyValue {
+      mkKeyValue = lib.generators.mkKeyValueDefault {inherit mkValueString;} " ";
     };
+    # OpenSSH is very inconsistent with options that can take multiple values.
+    # For some of them, they can simply appear multiple times and are appended, for others the
+    # values must be separated by whitespace or even commas.
+    # Consult either sshd_config(5) or, as last resort, the OpehSSH source for parsing
+    # the options at servconf.c:process_server_config_line_depth() to determine the right "mode"
+    # for each. But fortunately this fact is documented for most of them in the manpage.
+    commaSeparated = [
+      "Ciphers"
+      "KexAlgorithms"
+      "Macs"
+    ];
+    spaceSeparated = [
+      "AuthorizedKeysFile"
+      "AllowGroups"
+      "AllowUsers"
+      "DenyGroups"
+      "DenyUsers"
+    ];
+  in {
+    inherit (base) type;
+    generate = name: value: let
+      transformedValue =
+        lib.mapAttrs (
+          key: val:
+            if lib.isList val
+            then
+              if lib.elem key commaSeparated
+              then lib.concatStringsSep "," val
+              else if lib.elem key spaceSeparated
+              then lib.concatStringsSep " " val
+              else throw "list value for unknown key ${key}: ${(lib.generators.toPretty {}) val}"
+            else val
+        )
+        value;
+    in
+      base.generate name transformedValue;
+  };
 
   configFile = settingsFormat.generate "sshd.conf-settings" (
     lib.filterAttrs (n: v: v != null) cfg.settings
   );
-  sshconf = pkgs.runCommand "sshd.conf-final" { } ''
+  sshconf = pkgs.runCommand "sshd.conf-final" {} ''
     cat ${configFile} - >$out <<EOL
     ${cfg.extraConfig}
     EOL
@@ -92,11 +84,10 @@ let
   nssModulesPath = config.system.nssModules.path;
 
   userOptions = {
-
     options.openssh.authorizedKeys = {
       keys = lib.mkOption {
         type = lib.types.listOf lib.types.singleLineStr;
-        default = [ ];
+        default = [];
         description = ''
           A list of verbatim OpenSSH public keys that should be added to the
           user's authorized keys. The keys are added to a file that the SSH
@@ -114,7 +105,7 @@ let
 
       keyFiles = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = ''
           A list of files each containing one OpenSSH public key that should be
           added to the user's authorized keys. The contents of the files are
@@ -127,7 +118,7 @@ let
 
     options.openssh.authorizedPrincipals = lib.mkOption {
       type = with lib.types; listOf lib.types.singleLineStr;
-      default = [ ];
+      default = [];
       description = ''
         A list of verbatim principal names that should be added to the user's
         authorized principals.
@@ -137,102 +128,103 @@ let
         "foo@bar"
       ];
     };
-
   };
 
-  authKeysFiles =
-    let
-      mkAuthKeyFile =
-        u:
-        lib.nameValuePair "ssh/authorized_keys.d/${u.name}" {
-          mode = "0444";
-          source = pkgs.writeText "${u.name}-authorized_keys" ''
-            ${lib.concatStringsSep "\n" u.openssh.authorizedKeys.keys}
-            ${lib.concatMapStrings (f: lib.readFile f + "\n") u.openssh.authorizedKeys.keyFiles}
-          '';
-        };
-      usersWithKeys = lib.attrValues (
-        lib.flip lib.filterAttrs config.users.users (
-          n: u:
+  authKeysFiles = let
+    mkAuthKeyFile = u:
+      lib.nameValuePair "ssh/authorized_keys.d/${u.name}" {
+        mode = "0444";
+        source = pkgs.writeText "${u.name}-authorized_keys" ''
+          ${lib.concatStringsSep "\n" u.openssh.authorizedKeys.keys}
+          ${lib.concatMapStrings (f: lib.readFile f + "\n") u.openssh.authorizedKeys.keyFiles}
+        '';
+      };
+    usersWithKeys = lib.attrValues (
+      lib.flip lib.filterAttrs config.users.users (
+        n: u:
           lib.length u.openssh.authorizedKeys.keys != 0 || lib.length u.openssh.authorizedKeys.keyFiles != 0
-        )
-      );
-    in
+      )
+    );
+  in
     lib.listToAttrs (map mkAuthKeyFile usersWithKeys);
 
-  authPrincipalsFiles =
-    let
-      mkAuthPrincipalsFile =
-        u:
-        lib.nameValuePair "ssh/authorized_principals.d/${u.name}" {
-          mode = "0444";
-          text = lib.concatStringsSep "\n" u.openssh.authorizedPrincipals;
-        };
-      usersWithPrincipals = lib.attrValues (
-        lib.flip lib.filterAttrs config.users.users (n: u: lib.length u.openssh.authorizedPrincipals != 0)
-      );
-    in
+  authPrincipalsFiles = let
+    mkAuthPrincipalsFile = u:
+      lib.nameValuePair "ssh/authorized_principals.d/${u.name}" {
+        mode = "0444";
+        text = lib.concatStringsSep "\n" u.openssh.authorizedPrincipals;
+      };
+    usersWithPrincipals = lib.attrValues (
+      lib.flip lib.filterAttrs config.users.users (n: u: lib.length u.openssh.authorizedPrincipals != 0)
+    );
+  in
     lib.listToAttrs (map mkAuthPrincipalsFile usersWithPrincipals);
-
-in
-
-{
+in {
   imports = [
-    (lib.mkAliasOptionModuleMD [ "services" "sshd" "enable" ] [ "services" "openssh" "enable" ])
-    (lib.mkAliasOptionModuleMD [ "services" "openssh" "knownHosts" ] [ "programs" "ssh" "knownHosts" ])
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "challengeResponseAuthentication" ]
-      [ "services" "openssh" "kbdInteractiveAuthentication" ]
+    (lib.mkAliasOptionModuleMD ["services" "sshd" "enable"] ["services" "openssh" "enable"])
+    (lib.mkAliasOptionModuleMD ["services" "openssh" "knownHosts"] ["programs" "ssh" "knownHosts"])
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "challengeResponseAuthentication"]
+      ["services" "openssh" "kbdInteractiveAuthentication"]
     )
 
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "kbdInteractiveAuthentication" ]
-      [ "services" "openssh" "settings" "KbdInteractiveAuthentication" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "kbdInteractiveAuthentication"]
+      ["services" "openssh" "settings" "KbdInteractiveAuthentication"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "passwordAuthentication" ]
-      [ "services" "openssh" "settings" "PasswordAuthentication" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "passwordAuthentication"]
+      ["services" "openssh" "settings" "PasswordAuthentication"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "useDns" ]
-      [ "services" "openssh" "settings" "UseDns" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "useDns"]
+      ["services" "openssh" "settings" "UseDns"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "permitRootLogin" ]
-      [ "services" "openssh" "settings" "PermitRootLogin" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "permitRootLogin"]
+      ["services" "openssh" "settings" "PermitRootLogin"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "logLevel" ]
-      [ "services" "openssh" "settings" "LogLevel" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "logLevel"]
+      ["services" "openssh" "settings" "LogLevel"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "macs" ]
-      [ "services" "openssh" "settings" "Macs" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "macs"]
+      ["services" "openssh" "settings" "Macs"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "ciphers" ]
-      [ "services" "openssh" "settings" "Ciphers" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "ciphers"]
+      ["services" "openssh" "settings" "Ciphers"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "kexAlgorithms" ]
-      [ "services" "openssh" "settings" "KexAlgorithms" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "kexAlgorithms"]
+      ["services" "openssh" "settings" "KexAlgorithms"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "gatewayPorts" ]
-      [ "services" "openssh" "settings" "GatewayPorts" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "gatewayPorts"]
+      ["services" "openssh" "settings" "GatewayPorts"]
     )
-    (lib.mkRenamedOptionModule
-      [ "services" "openssh" "forwardX11" ]
-      [ "services" "openssh" "settings" "X11Forwarding" ]
+    (
+      lib.mkRenamedOptionModule
+      ["services" "openssh" "forwardX11"]
+      ["services" "openssh" "settings" "X11Forwarding"]
     )
   ];
 
   ###### interface
 
   options = {
-
     services.openssh = {
-
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -280,7 +272,7 @@ in
 
       sftpFlags = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "-f AUTHPRIV"
           "-l INFO"
@@ -292,7 +284,7 @@ in
 
       ports = lib.mkOption {
         type = lib.types.listOf lib.types.port;
-        default = [ 22 ];
+        default = [22];
         description = ''
           Specifies on which ports the SSH daemon listens.
         '';
@@ -307,8 +299,7 @@ in
       };
 
       listenAddresses = lib.mkOption {
-        type =
-          with lib.types;
+        type = with lib.types;
           listOf (submodule {
             options = {
               addr = lib.mkOption {
@@ -327,7 +318,7 @@ in
               };
             };
           });
-        default = [ ];
+        default = [];
         example = [
           {
             addr = "192.168.3.1";
@@ -394,7 +385,7 @@ in
 
       authorizedKeysFiles = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [ ];
+        default = [];
         description = ''
           Specify the rules for which files to read on the host.
 
@@ -441,7 +432,7 @@ in
 
       settings = lib.mkOption {
         description = "Configuration for `sshd_config(5)`.";
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           {
             UseDns = true;
@@ -449,8 +440,7 @@ in
           }
         '';
         type = lib.types.submodule (
-          { name, ... }:
-          {
+          {name, ...}: {
             freeformType = settingsFormat.type;
             options = {
               AuthorizedPrincipalsFile = lib.mkOption {
@@ -481,10 +471,12 @@ in
                   violates the privacy of users and is not recommended.
                 '';
               };
-              UsePAM = lib.mkEnableOption "PAM authentication" // {
-                default = true;
-                type = lib.types.nullOr lib.types.bool;
-              };
+              UsePAM =
+                lib.mkEnableOption "PAM authentication"
+                // {
+                  default = true;
+                  type = lib.types.nullOr lib.types.bool;
+                };
               UseDns = lib.mkOption {
                 type = lib.types.nullOr lib.types.bool;
                 # apply if cfg.useDns then "yes" else "no"
@@ -639,9 +631,11 @@ in
                 '';
               };
               # Disabled by default, since pam_motd handles this.
-              PrintMotd = lib.mkEnableOption "printing /etc/motd when a user logs in interactively" // {
-                type = lib.types.nullOr lib.types.bool;
-              };
+              PrintMotd =
+                lib.mkEnableOption "printing /etc/motd when a user logs in interactively"
+                // {
+                  type = lib.types.nullOr lib.types.bool;
+                };
             };
           }
         );
@@ -662,25 +656,22 @@ in
           the `moduli` file shipped with OpenSSH will be used.
         '';
       };
-
     };
 
     users.users = lib.mkOption {
       type = with lib.types; attrsOf (submodule userOptions);
     };
-
   };
 
   ###### implementation
 
   config = lib.mkIf cfg.enable {
-
     users.users.sshd = {
       isSystemUser = true;
       group = "sshd";
       description = "SSH privilege separation user";
     };
-    users.groups.sshd = { };
+    users.groups.sshd = {};
 
     services.openssh.moduliFile = lib.mkDefault "${cfg.package}/etc/ssh/moduli";
     services.openssh.sftpServerExecutable = lib.mkDefault "${cfg.package}/libexec/sftp-server";
@@ -715,15 +706,21 @@ in
     systemd = {
       sockets.sshd = lib.mkIf cfg.startWhenNeeded {
         description = "SSH Socket";
-        wantedBy = [ "sockets.target" ];
+        wantedBy = ["sockets.target"];
         socketConfig.ListenStream =
-          if cfg.listenAddresses != [ ] then
+          if cfg.listenAddresses != []
+          then
             lib.concatMap (
-              { addr, port }:
-              if port != null then [ "${addr}:${toString port}" ] else map (p: "${addr}:${toString p}") cfg.ports
-            ) cfg.listenAddresses
-          else
-            cfg.ports;
+              {
+                addr,
+                port,
+              }:
+                if port != null
+                then ["${addr}:${toString port}"]
+                else map (p: "${addr}:${toString p}") cfg.ports
+            )
+            cfg.listenAddresses
+          else cfg.ports;
         socketConfig.Accept = true;
         # Prevent brute-force attacks from shutting down socket
         socketConfig.TriggerLimitIntervalSec = 0;
@@ -735,9 +732,9 @@ in
           "network.target"
           "sshd-keygen.service"
         ];
-        wants = [ "sshd-keygen.service" ];
+        wants = ["sshd-keygen.service"];
         stopIfChanged = false;
-        path = [ cfg.package ];
+        path = [cfg.package];
         environment.LD_LIBRARY_PATH = nssModulesPath;
 
         serviceConfig = {
@@ -755,17 +752,17 @@ in
 
       services.sshd = lib.mkIf (!cfg.startWhenNeeded) {
         description = "SSH Daemon";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "sshd-keygen.service"
         ];
-        wants = [ "sshd-keygen.service" ];
+        wants = ["sshd-keygen.service"];
         stopIfChanged = false;
-        path = [ cfg.package ];
+        path = [cfg.package];
         environment.LD_LIBRARY_PATH = nssModulesPath;
 
-        restartTriggers = [ config.environment.etc."ssh/sshd_config".source ];
+        restartTriggers = [config.environment.etc."ssh/sshd_config".source];
 
         serviceConfig = {
           Restart = "always";
@@ -787,7 +784,7 @@ in
         serviceConfig = {
           Type = "oneshot";
         };
-        path = [ cfg.package ];
+        path = [cfg.package];
         script = lib.flip lib.concatMapStrings cfg.hostKeys (k: ''
           if ! [ -s "${k.path}" ]; then
               if ! [ -h "${k.path}" ]; then
@@ -813,7 +810,10 @@ in
     security.pam.services.sshd = lib.mkIf cfg.settings.UsePAM {
       startSession = true;
       showMotd = true;
-      unixAuth = if cfg.settings.PasswordAuthentication == true then true else false;
+      unixAuth =
+        if cfg.settings.PasswordAuthentication == true
+        then true
+        else false;
     };
 
     # These values are merged with the ones defined externally, see:
@@ -821,26 +821,39 @@ in
     # https://github.com/NixOS/nixpkgs/pull/41745
     services.openssh.authorizedKeysFiles =
       lib.optional cfg.authorizedKeysInHomedir "%h/.ssh/authorized_keys"
-      ++ [ "/etc/ssh/authorized_keys.d/%u" ];
+      ++ ["/etc/ssh/authorized_keys.d/%u"];
 
     services.openssh.settings.AuthorizedPrincipalsFile = lib.mkIf (
-      authPrincipalsFiles != { }
+      authPrincipalsFiles != {}
     ) "/etc/ssh/authorized_principals.d/%u";
 
     services.openssh.extraConfig = lib.mkOrder 0 ''
-      Banner ${if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner}
+      Banner ${
+        if cfg.banner == null
+        then "none"
+        else pkgs.writeText "ssh_banner" cfg.banner
+      }
 
-      AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
+      AddressFamily ${
+        if config.networking.enableIPv6
+        then "any"
+        else "inet"
+      }
       ${lib.concatMapStrings (port: ''
-        Port ${toString port}
-      '') cfg.ports}
+          Port ${toString port}
+        '')
+        cfg.ports}
 
       ${lib.concatMapStrings (
-        { port, addr, ... }:
-        ''
-          ListenAddress ${addr}${lib.optionalString (port != null) (":" + toString port)}
-        ''
-      ) cfg.listenAddresses}
+          {
+            port,
+            addr,
+            ...
+          }: ''
+            ListenAddress ${addr}${lib.optionalString (port != null) (":" + toString port)}
+          ''
+        )
+        cfg.listenAddresses}
 
       ${lib.optionalString cfgc.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth
@@ -860,21 +873,27 @@ in
     '';
 
     system.checks = [
-      (pkgs.runCommand "check-sshd-config"
+      (
+        pkgs.runCommand "check-sshd-config"
         {
-          nativeBuildInputs = [ validationPackage ];
+          nativeBuildInputs = [validationPackage];
         }
         ''
           ${lib.concatMapStringsSep "\n" (
-            lport: "sshd -G -T -C lport=${toString lport} -f ${sshconf} > /dev/null"
-          ) cfg.ports}
+              lport: "sshd -G -T -C lport=${toString lport} -f ${sshconf} > /dev/null"
+            )
+            cfg.ports}
           ${lib.concatMapStringsSep "\n" (
-            la:
-            lib.concatMapStringsSep "\n" (
-              port:
-              "sshd -G -T -C ${lib.escapeShellArg "laddr=${la.addr},lport=${toString port}"} -f ${sshconf} > /dev/null"
-            ) (if la.port != null then [ la.port ] else cfg.ports)
-          ) cfg.listenAddresses}
+              la:
+                lib.concatMapStringsSep "\n" (
+                  port: "sshd -G -T -C ${lib.escapeShellArg "laddr=${la.addr},lport=${toString port}"} -f ${sshconf} > /dev/null"
+                ) (
+                  if la.port != null
+                  then [la.port]
+                  else cfg.ports
+                )
+            )
+            cfg.listenAddresses}
           touch $out
         ''
       )
@@ -883,7 +902,10 @@ in
     assertions =
       [
         {
-          assertion = if cfg.settings.X11Forwarding then cfgc.setXAuthLocation else true;
+          assertion =
+            if cfg.settings.X11Forwarding
+            then cfgc.setXAuthLocation
+            else true;
           message = "cannot enable X11 forwarding without setting xauth location";
         }
         {
@@ -911,23 +933,22 @@ in
                   lib.groupBy lib.strings.toLower (lib.attrNames cfg.settings)
                 )
               );
-            formattedDuplicates = lib.concatMapStringsSep ", " (
-              dupl: "(${lib.concatStringsSep ", " dupl})"
-            ) duplicates;
-          in
-          {
+            formattedDuplicates =
+              lib.concatMapStringsSep ", " (
+                dupl: "(${lib.concatStringsSep ", " dupl})"
+              )
+              duplicates;
+          in {
             assertion = lib.length duplicates == 0;
             message = ''Duplicate sshd config key; does your capitalization match the option's? Duplicate keys: ${formattedDuplicates}'';
           }
         )
       ]
       ++ lib.forEach cfg.listenAddresses (
-        { addr, ... }:
-        {
+        {addr, ...}: {
           assertion = addr != null;
           message = "addr must be specified in each listenAddresses entry";
         }
       );
   };
-
 }

@@ -1,14 +1,16 @@
-{ lib, pkgs, ... }:
-
 {
+  lib,
+  pkgs,
+  ...
+}: {
   name = "powerdns-recursor";
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 
   nodes.server = {
     services.pdns-recursor.enable = true;
     services.pdns-recursor.exportHosts = true;
     services.pdns-recursor.old-settings.dnssec-log-bogus = true;
-    networking.hosts."192.0.2.1" = [ "example.com" ];
+    networking.hosts."192.0.2.1" = ["example.com"];
   };
 
   testScript = ''

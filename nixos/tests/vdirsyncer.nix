@@ -1,7 +1,8 @@
-{ pkgs, lib, ... }:
-
-let
-
+{
+  pkgs,
+  lib,
+  ...
+}: let
   radicale_calendars = {
     type = "caldav";
     url = "http://localhost:5232/";
@@ -62,28 +63,25 @@ let
     };
   };
 
-  mkRadicaleProps =
-    tag:
+  mkRadicaleProps = tag:
     pkgs.writeText "Radicale.props" (
       builtins.toJSON {
         inherit tag;
       }
     );
 
-  writeLines =
-    name: eol: lines:
+  writeLines = name: eol: lines:
     pkgs.writeText name (lib.concatMapStrings (l: "${l}${eol}") lines);
 
   prodid = "-//NixOS test//EN";
   dtstamp = "20231129T194743Z";
 
-  writeICS =
-    {
-      uid,
-      summary,
-      dtstart,
-      dtend,
-    }:
+  writeICS = {
+    uid,
+    summary,
+    dtstart,
+    dtend,
+  }:
     writeLines "${uid}.ics" "\r\n" [
       "BEGIN:VCALENDAR"
       "VERSION:2.0"
@@ -112,13 +110,12 @@ let
     dtend = "20010909T014640Z";
   };
 
-  writeVCF =
-    {
-      uid,
-      name,
-      displayName,
-      email,
-    }:
+  writeVCF = {
+    uid,
+    name,
+    displayName,
+    email,
+  }:
     writeLines "${uid}.vcf" "\r\n" [
       # One of the tools enforces this order of fields.
       "BEGIN:VCARD"
@@ -143,12 +140,10 @@ let
     displayName = "Jane Doe";
     email = "jane.doe@example.org";
   };
-
-in
-{
+in {
   name = "vdirsyncer";
 
-  meta.maintainers = with lib.maintainers; [ schnusch ];
+  meta.maintainers = with lib.maintainers; [schnusch];
 
   nodes = {
     machine = {
@@ -159,13 +154,12 @@ in
 
       services.xandikos = {
         enable = true;
-        extraOptions = [ "--autocreate" ];
+        extraOptions = ["--autocreate"];
       };
 
       services.vdirsyncer = {
         enable = true;
         jobs = {
-
           alice = {
             user = "alice";
             group = "users";
@@ -216,7 +210,6 @@ in
             };
             forceDiscover = true;
           };
-
         };
       };
 

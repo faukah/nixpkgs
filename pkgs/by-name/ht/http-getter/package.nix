@@ -6,7 +6,6 @@
   curl,
   pkg-config,
 }:
-
 stdenv.mkDerivation {
   pname = "http-getter";
   version = "unstable-2020-12-08";
@@ -22,7 +21,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   meta = with lib; {
     homepage = "https://github.com/tohojo/http-getter";

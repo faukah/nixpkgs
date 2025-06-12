@@ -3,7 +3,6 @@
   buildGoModule,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "consul-alerts";
   version = "0.6.0";
@@ -30,6 +29,6 @@ buildGoModule rec {
     # As per README
     platforms = platforms.linux ++ platforms.freebsd ++ platforms.darwin;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

@@ -9,7 +9,6 @@
   responses,
   setuptools,
 }:
-
 buildPythonPackage rec {
   pname = "python-tado";
   version = "0.18.14";
@@ -22,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-ubaYa/TC0hctqjuv7QBi/dlIJjWrvo4i9AjAtOIqviU=";
   };
 
-  build-system = [ setuptools ];
+  build-system = [setuptools];
 
-  dependencies = [ requests ];
+  dependencies = [requests];
 
   nativeCheckInputs = [
     pytest-cov-stub
@@ -44,14 +43,14 @@ buildPythonPackage rec {
     "tests/test_my_zone.py"
   ];
 
-  pythonImportsCheck = [ "PyTado" ];
+  pythonImportsCheck = ["PyTado"];
 
   meta = with lib; {
     description = "Python binding for Tado web API";
     homepage = "https://github.com/wmalgadey/PyTado";
     changelog = "https://github.com/wmalgadey/PyTado/releases/tag/${src.tag}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
     mainProgram = "pytado";
   };
 }

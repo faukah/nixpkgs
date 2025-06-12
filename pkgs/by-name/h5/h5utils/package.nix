@@ -8,7 +8,6 @@
   hdf4 ? null,
   libmatheval ? null,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   version = "1.13.2";
   pname = "h5utils";
@@ -46,6 +45,6 @@ stdenv.mkDerivation (finalAttrs: {
       mit
       gpl2Plus
     ];
-    maintainers = [ lib.maintainers.sfrijters ];
+    maintainers = [lib.maintainers.sfrijters];
   };
 })

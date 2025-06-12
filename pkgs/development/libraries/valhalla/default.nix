@@ -21,7 +21,6 @@
   zlib,
   testers,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "valhalla";
   version = "3.5.1";
@@ -57,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     boost
     cxxopts
     lz4
-    (python3.withPackages (ps: [ ps.pybind11 ]))
+    (python3.withPackages (ps: [ps.pybind11]))
     rapidjson
     zeromq
   ];
@@ -83,8 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Open Source Routing Engine for OpenStreetMap";
     homepage = "https://valhalla.readthedocs.io/";
     license = licenses.mit;
-    maintainers = [ maintainers.Thra11 ];
-    pkgConfigModules = [ "libvalhalla" ];
+    maintainers = [maintainers.Thra11];
+    pkgConfigModules = ["libvalhalla"];
     platforms = platforms.linux;
   };
 })

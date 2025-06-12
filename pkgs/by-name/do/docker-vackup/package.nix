@@ -6,7 +6,6 @@
   bash,
   docker,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "docker-vackup";
   version = "0-unstable-2024-11-01";
@@ -18,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-/iMQNnkRNTMiw+E6Wv/WatRB0DnapOVWqqszluUFed4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   patchPhase = ''
     substituteInPlace vackup --replace-fail "/bin/bash" "${lib.getExe bash}"
@@ -30,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     install -Dm755 vackup "$out/bin/vackup"
 
     wrapProgram "$out/bin/vackup" \
-      --suffix PATH : ${lib.makeBinPath [ docker ]}
+      --suffix PATH : ${lib.makeBinPath [docker]}
 
     runHook postInstall
   '';
@@ -39,7 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Shell script to backup and restore Docker volumes";
     homepage = "https://github.com/BretFisher/docker-vackup";
     license = lib.licenses.unlicense;
-    maintainers = with lib.maintainers; [ liberodark ];
+    maintainers = with lib.maintainers; [liberodark];
     mainProgram = "vackup";
   };
 })

@@ -5,7 +5,6 @@
   makeWrapper,
   openjdk,
 }:
-
 stdenvNoCC.mkDerivation {
   pname = "android-studio-tools";
   version = "13114758";
@@ -27,7 +26,7 @@ stdenvNoCC.mkDerivation {
       done
     '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -51,9 +50,9 @@ stdenvNoCC.mkDerivation {
     downloadPage = "https://developer.android.com/studio";
     changelog = "https://developer.android.com/studio/releases";
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ pandapip1 ];
-    teams = [ lib.teams.android ];
+    maintainers = with lib.maintainers; [pandapip1];
+    teams = [lib.teams.android];
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ fromSource ]; # The 'binaries' are actually shell scripts
+    sourceProvenance = with lib.sourceTypes; [fromSource]; # The 'binaries' are actually shell scripts
   };
 }

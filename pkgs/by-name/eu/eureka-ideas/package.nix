@@ -6,7 +6,6 @@
   libgit2,
   openssl,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "eureka-ideas";
   version = "2.0.0";
@@ -21,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-nTYMKJ5OCApqooIF1dsDLriPfYjkZkTdtzpkJya/5ag=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
@@ -35,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/simeg/eureka";
     changelog = "https://github.com/simeg/eureka/blob/v${version}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ figsoda ];
+    maintainers = with lib.maintainers; [figsoda];
     mainProgram = "eureka";
   };
 }

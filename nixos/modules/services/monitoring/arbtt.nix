@@ -3,16 +3,14 @@
   lib,
   pkgs,
   ...
-}:
-let
+}: let
   cfg = config.services.arbtt;
-in
-{
+in {
   options = {
     services.arbtt = {
       enable = lib.mkEnableOption "Arbtt statistics capture service";
 
-      package = lib.mkPackageOption pkgs [ "haskellPackages" "arbtt" ] { };
+      package = lib.mkPackageOption pkgs ["haskellPackages" "arbtt"] {};
 
       logFile = lib.mkOption {
         type = lib.types.str;
@@ -37,8 +35,8 @@ in
   config = lib.mkIf cfg.enable {
     systemd.user.services.arbtt = {
       description = "arbtt statistics capture service";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -48,5 +46,5 @@ in
     };
   };
 
-  meta.maintainers = [ ];
+  meta.maintainers = [];
 }

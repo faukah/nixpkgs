@@ -4,7 +4,6 @@
   buildDunePackage,
   qcheck-core,
 }:
-
 buildDunePackage rec {
   pname = "bwd";
   version = "2.3.0";
@@ -20,13 +19,13 @@ buildDunePackage rec {
   };
 
   doCheck = true;
-  checkInputs = [ qcheck-core ];
+  checkInputs = [qcheck-core];
 
   meta = {
     description = "Backward Lists";
     homepage = "https://github.com/RedPRL/ocaml-bwd";
     changelog = "https://github.com/RedPRL/ocaml-bwd/blob/${version}/CHANGELOG.markdown";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

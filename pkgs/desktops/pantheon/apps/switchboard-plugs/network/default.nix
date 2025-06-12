@@ -18,7 +18,6 @@
   libnma-gtk4,
   switchboard,
 }:
-
 stdenv.mkDerivation rec {
   pname = "switchboard-plug-network";
   version = "8.1.0";
@@ -57,7 +56,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -65,6 +64,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/elementary/switchboard-plug-network";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    teams = [ teams.pantheon ];
+    teams = [teams.pantheon];
   };
 }

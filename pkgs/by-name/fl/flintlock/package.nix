@@ -8,7 +8,6 @@
   makeWrapper,
   fetchFromGitHub,
 }:
-
 buildGoModule rec {
   pname = "flintlock";
   version = "0.8.1";
@@ -44,13 +43,13 @@ buildGoModule rec {
   postInstall = ''
     for prog in flintlockd flintlock-metrics; do
       wrapProgram "$out/bin/$prog" --prefix PATH : ${
-        lib.makeBinPath [
-          cni-plugins
-          firecracker
-          containerd
-          runc
-        ]
-      }
+      lib.makeBinPath [
+        cni-plugins
+        firecracker
+        containerd
+        runc
+      ]
+    }
     done
   '';
 
@@ -62,6 +61,6 @@ buildGoModule rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

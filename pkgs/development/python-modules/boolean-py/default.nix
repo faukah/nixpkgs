@@ -5,7 +5,6 @@
   pytestCheckHook,
   pythonOlder,
 }:
-
 buildPythonPackage rec {
   pname = "boolean-py";
   version = "5.0";
@@ -20,14 +19,14 @@ buildPythonPackage rec {
     hash = "sha256-h5iHcdN77ZRGMJnSJLoYkRTY1TeJ3yQ1eF193HKsNqU=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "boolean" ];
+  pythonImportsCheck = ["boolean"];
 
   meta = with lib; {
     description = "Implements boolean algebra in one module";
     homepage = "https://github.com/bastikr/boolean.py";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

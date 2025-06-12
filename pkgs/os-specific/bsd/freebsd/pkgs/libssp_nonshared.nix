@@ -2,7 +2,6 @@
   mkDerivation,
   include,
 }:
-
 mkDerivation {
   path = "lib/libssp_nonshared";
   noLibc = true;

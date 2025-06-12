@@ -2,8 +2,7 @@
   appimageTools,
   lib,
   fetchurl,
-}:
-let
+}: let
   pname = "nuclear";
   version = "0.6.47";
 
@@ -16,24 +15,24 @@ let
     hash = "sha256-mwCQ6jddNF3knf1w0nztlyB/ijPsyjjV6aMcoYkadRI=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+  appimageTools.wrapType2 {
+    inherit pname version src;
 
-  extraInstallCommands = ''
-    install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
-    substituteInPlace $out/share/applications/${pname}.desktop \
-      --replace-fail 'Exec=AppRun' 'Exec=${pname}'
-    cp -r ${appimageContents}/usr/share/icons $out/share
-  '';
+    extraInstallCommands = ''
+      install -m 444 -D ${appimageContents}/${pname}.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/${pname}.desktop \
+        --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
 
-  meta = {
-    description = "Streaming music player that finds free music for you";
-    homepage = "https://nuclear.js.org/";
-    license = lib.licenses.agpl3Plus;
-    maintainers = [ lib.maintainers.NotAShelf ];
-    platforms = [ "x86_64-linux" ];
-    mainProgram = "nuclear";
-  };
-}
+    meta = {
+      description = "Streaming music player that finds free music for you";
+      homepage = "https://nuclear.js.org/";
+      license = lib.licenses.agpl3Plus;
+      maintainers = [lib.maintainers.NotAShelf];
+      platforms = ["x86_64-linux"];
+      mainProgram = "nuclear";
+    };
+  }

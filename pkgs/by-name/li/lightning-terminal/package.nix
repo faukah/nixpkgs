@@ -7,7 +7,6 @@
   go,
   versionCheckHook,
 }:
-
 buildGoModule rec {
   pname = "lightning-terminal";
   version = "0.14.1-alpha";
@@ -99,8 +98,8 @@ buildGoModule rec {
     homepage = "https://github.com/lightninglabs/lightning-terminal";
     license = lib.licenses.mit;
     changelog = "https://github.com/lightninglabs/lightning-terminal/releases/tag/v${version}";
-    maintainers = with lib.maintainers; [ HannahMR ];
+    maintainers = with lib.maintainers; [HannahMR];
     mainProgram = "litcli";
-    outputsToInstall = [ "out" ];
+    outputsToInstall = ["out"];
   };
 }

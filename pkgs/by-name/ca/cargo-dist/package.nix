@@ -10,7 +10,6 @@
   git,
   rustup,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "cargo-dist";
   version = "0.28.0";
@@ -49,7 +48,7 @@ rustPlatform.buildRustPackage rec {
     rm cargo-dist/tests/cli-tests.rs cargo-dist/tests/integration-tests.rs
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Tool for building final distributable artifacts and uploading them to an archive";

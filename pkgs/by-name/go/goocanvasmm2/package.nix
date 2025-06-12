@@ -7,7 +7,6 @@
   gtkmm3,
   gnome,
 }:
-
 stdenv.mkDerivation rec {
   pname = "goocanvasmm";
   version = "1.90.11";
@@ -21,7 +20,7 @@ stdenv.mkDerivation rec {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
     sha256 = "0vpdfrj59nwzwj8bk4s0h05iyql62pxjzsxh72g3vry07s3i3zw0";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     gtkmm3
     goocanvas2
@@ -41,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "C++ bindings for GooCanvas";
     homepage = "https://gitlab.gnome.org/Archive/goocanvasmm";
     license = licenses.lgpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

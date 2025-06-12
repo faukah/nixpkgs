@@ -10,11 +10,9 @@
   wayland,
   xorg,
   vulkan-loader,
-
   version,
   src,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   inherit version src;
   pname = "wgpu-native-examples";
@@ -54,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
     vulkan-loader
   ];
 
-  makeWrapperArgs = lib.optionals (finalAttrs.runtimeInputs != [ ]) [
+  makeWrapperArgs = lib.optionals (finalAttrs.runtimeInputs != []) [
     "--prefix LD_LIBRARY_PATH : ${builtins.toString (lib.makeLibraryPath finalAttrs.runtimeInputs)}"
   ];
 
@@ -81,8 +79,10 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = wgpu-native.meta // {
-    description = "Examples for the native WebGPU implementation based on wgpu-core";
-    mainProgram = "triangle";
-  };
+  meta =
+    wgpu-native.meta
+    // {
+      description = "Examples for the native WebGPU implementation based on wgpu-core";
+      mainProgram = "triangle";
+    };
 })

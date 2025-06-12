@@ -11,7 +11,6 @@
   makeDesktopItem,
   copyDesktopItems,
 }:
-
 buildGoModule rec {
   pname = "satisfactorymodmanager";
   version = "3.0.3";
@@ -93,10 +92,10 @@ buildGoModule rec {
       name = "SatisfactoryModManager";
       desktopName = "Satisfactory Mod Manager";
       exec = "SatisfactoryModManager %u";
-      mimeTypes = [ "x-scheme-handler/smmanager" ];
+      mimeTypes = ["x-scheme-handler/smmanager"];
       icon = "SatisfactoryModManager";
       terminal = false;
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -106,7 +105,7 @@ buildGoModule rec {
     homepage = "https://github.com/satisfactorymodding/SatisfactoryModManager";
     license = lib.licenses.gpl3Only;
     mainProgram = "SatisfactoryModManager";
-    maintainers = with lib.maintainers; [ tomasajt ];
+    maintainers = with lib.maintainers; [tomasajt];
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 }

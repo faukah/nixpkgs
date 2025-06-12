@@ -4,7 +4,6 @@
   fetchFromGitHub,
   installShellFiles,
 }:
-
 buildGoModule rec {
   pname = "libgen-cli";
   version = "1.1.0";
@@ -20,9 +19,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -45,7 +44,7 @@ buildGoModule rec {
       contents.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
     mainProgram = "libgen-cli";
   };
 }

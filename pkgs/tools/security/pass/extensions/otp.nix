@@ -4,7 +4,6 @@
   fetchFromGitHub,
   oath-toolkit,
 }:
-
 stdenv.mkDerivation rec {
   pname = "pass-otp";
   version = "1.2.0";
@@ -16,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0cpqrf3939hcvwg7sd8055ghc8x964ilimlri16czzx188a9jx9v";
   };
 
-  buildInputs = [ oath-toolkit ];
+  buildInputs = [oath-toolkit];
 
   dontBuild = true;
 

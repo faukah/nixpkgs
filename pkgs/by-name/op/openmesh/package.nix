@@ -4,7 +4,6 @@
   fetchFromGitLab,
   cmake,
 }:
-
 stdenv.mkDerivation (finalAttrs: {
   pname = "openmesh";
   version = "11.0.0";
@@ -18,12 +17,12 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-1FmAieCaskKaaAWjgEXr/CWpFxrhB2Rca1sXpxLrQHw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://www.graphics.rwth-aachen.de/software/openmesh/";
     description = "Generic and efficient polygon mesh data structure";
-    maintainers = with maintainers; [ yzx9 ];
+    maintainers = with maintainers; [yzx9];
     platforms = platforms.all;
     license = licenses.bsd3;
   };

@@ -2,20 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   # build-system
   poetry-core,
-
   # dependencies
   markdown-it-py,
   platformdirs,
   rich,
   typing-extensions,
-
   # optional-dependencies
   tree-sitter,
   tree-sitter-languages,
-
   # tests
   jinja2,
   pytest-aiohttp,
@@ -26,7 +22,6 @@
   tree-sitter-markdown,
   tree-sitter-python,
 }:
-
 buildPythonPackage rec {
   pname = "textual";
   version = "3.3.0";
@@ -39,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-GsdWWK8Y/9Wg+Ka3YJXovRuQDrvUJUYqtA64wc8Xv9k=";
   };
 
-  build-system = [ poetry-core ];
+  build-system = [poetry-core];
 
   dependencies =
     [
@@ -52,9 +47,11 @@ buildPythonPackage rec {
     ++ markdown-it-py.optional-dependencies.linkify;
 
   optional-dependencies = {
-    syntax = [
-      tree-sitter
-    ] ++ lib.optionals (!tree-sitter-languages.meta.broken) [ tree-sitter-languages ];
+    syntax =
+      [
+        tree-sitter
+      ]
+      ++ lib.optionals (!tree-sitter-languages.meta.broken) [tree-sitter-languages];
   };
 
   nativeCheckInputs = [
@@ -85,7 +82,7 @@ buildPythonPackage rec {
     "--dist=loadgroup"
   ];
 
-  pythonImportsCheck = [ "textual" ];
+  pythonImportsCheck = ["textual"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -94,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Textualize/textual";
     changelog = "https://github.com/Textualize/textual/blob/${src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ gepbird ];
+    maintainers = with lib.maintainers; [gepbird];
   };
 }

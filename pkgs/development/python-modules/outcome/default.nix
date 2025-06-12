@@ -6,7 +6,6 @@
   attrs,
   pytest,
 }:
-
 buildPythonPackage rec {
   pname = "outcome";
   version = "1.3.0.post0";
@@ -16,10 +15,10 @@ buildPythonPackage rec {
     hash = "sha256-nc8C5l8pcbgAR7N3Ro5yomjhXArzzxI45v8U9/kRQ7g=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytest ];
-  propagatedBuildInputs = [ attrs ];
+  nativeCheckInputs = [pytest];
+  propagatedBuildInputs = [attrs];
   # Has a test dependency on trio, which depends on outcome.
   doCheck = false;
 
@@ -30,6 +29,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with lib.maintainers; [ catern ];
+    maintainers = with lib.maintainers; [catern];
   };
 }

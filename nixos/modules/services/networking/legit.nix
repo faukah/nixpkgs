@@ -3,10 +3,9 @@
   lib,
   pkgs,
   ...
-}:
-
-let
-  inherit (lib)
+}: let
+  inherit
+    (lib)
     literalExpression
     mkEnableOption
     mkIf
@@ -19,18 +18,17 @@ let
 
   cfg = config.services.legit;
 
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
   configFile = yaml.generate "legit.yaml" cfg.settings;
 
   defaultStateDir = "/var/lib/legit";
   defaultStaticDir = "${cfg.settings.repo.scanPath}/static";
   defaultTemplatesDir = "${cfg.settings.repo.scanPath}/templates";
-in
-{
+in {
   options.services.legit = {
     enable = mkEnableOption "legit git web frontend";
 
-    package = mkPackageOption pkgs "legit-web" { };
+    package = mkPackageOption pkgs "legit-web" {};
 
     user = mkOption {
       type = types.str;
@@ -45,7 +43,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = ''
         The primary legit configuration. See the
         [sample configuration](https://github.com/icyphox/legit/blob/master/config.yaml)
@@ -60,7 +58,7 @@ in
           };
           readme = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             description = "Readme files to look for.";
           };
           mainBranch = mkOption {
@@ -73,7 +71,7 @@ in
           };
           ignore = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             description = "Repositories to ignore.";
           };
         };
@@ -126,7 +124,7 @@ in
 
   config = mkIf cfg.enable {
     users.groups = optionalAttrs (cfg.group == "legit") {
-      "${cfg.group}" = { };
+      "${cfg.group}" = {};
     };
 
     users.users = optionalAttrs (cfg.user == "legit") {
@@ -139,9 +137,9 @@ in
     systemd.services.legit = {
       description = "legit git frontend";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
 
       serviceConfig = {
         Type = "simple";
@@ -152,14 +150,14 @@ in
 
         WorkingDirectory = cfg.settings.repo.scanPath;
         StateDirectory =
-          [ ]
+          []
           ++ optional (cfg.settings.repo.scanPath == defaultStateDir) "legit"
           ++ optional (cfg.settings.dirs.static == defaultStaticDir) "legit/static"
           ++ optional (cfg.settings.dirs.templates == defaultTemplatesDir) "legit/templates";
 
         # Hardening
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;

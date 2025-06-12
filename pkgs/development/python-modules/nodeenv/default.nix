@@ -10,7 +10,6 @@
   setuptools-scm,
   which,
 }:
-
 buildPythonPackage rec {
   pname = "nodeenv";
   version = "1.9.1";
@@ -40,7 +39,7 @@ buildPythonPackage rec {
       --replace '["which", candidate]' '["${lib.getBin which}/bin/which", candidate]'
   '';
 
-  pythonImportsCheck = [ "nodeenv" ];
+  pythonImportsCheck = ["nodeenv"];
 
   disabledTests = [
     # Test requires coverage
@@ -53,6 +52,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ekalinin/nodeenv";
     changelog = "https://github.com/ekalinin/nodeenv/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

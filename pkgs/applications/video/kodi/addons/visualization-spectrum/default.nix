@@ -7,7 +7,6 @@
   glm,
   libGL,
 }:
-
 buildKodiBinaryAddon rec {
   pname = "visualization-spectrum";
   namespace = "visualization.spectrum";
@@ -25,12 +24,12 @@ buildKodiBinaryAddon rec {
     libGL
   ];
 
-  propagatedBuildInputs = [ glm ];
+  propagatedBuildInputs = [glm];
   meta = with lib; {
     homepage = "https://github.com/xbmc/visualization.spectrum";
     description = "Spectrum visualization for kodi";
     platforms = platforms.all;
     license = licenses.gpl2Only;
-    teams = [ teams.kodi ];
+    teams = [teams.kodi];
   };
 }

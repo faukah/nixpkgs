@@ -9,7 +9,6 @@
   x11Support ? true,
   qtx11extras,
 }:
-
 stdenv.mkDerivation rec {
   pname = "vulkan-caps-viewer";
   version = "4.01";
@@ -30,10 +29,12 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [
-    vulkan-loader
-    wayland
-  ] ++ lib.lists.optionals x11Support [ qtx11extras ];
+  buildInputs =
+    [
+      vulkan-loader
+      wayland
+    ]
+    ++ lib.lists.optionals x11Support [qtx11extras];
 
   patchPhase = ''
     substituteInPlace vulkanCapsViewer.pro \
@@ -44,7 +45,7 @@ stdenv.mkDerivation rec {
     "CONFIG+=release"
   ];
 
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     mainProgram = "vulkanCapsViewer";
@@ -56,7 +57,7 @@ stdenv.mkDerivation rec {
     homepage = "https://vulkan.gpuinfo.org/";
     platforms = platforms.unix;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pedrohlc ];
+    maintainers = with maintainers; [pedrohlc];
     changelog = "https://github.com/SaschaWillems/VulkanCapsViewer/releases/tag/${version}";
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.hostPlatform.isDarwin;

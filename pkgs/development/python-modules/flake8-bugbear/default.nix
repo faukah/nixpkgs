@@ -9,7 +9,6 @@
   hypothesis,
   hypothesmith,
 }:
-
 buildPythonPackage rec {
   pname = "flake8-bugbear";
   version = "24.12.12";
@@ -45,6 +44,6 @@ buildPythonPackage rec {
       program.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ newam ];
+    maintainers = with maintainers; [newam];
   };
 }

@@ -3,7 +3,6 @@
   php,
   fetchFromGitHub,
 }:
-
 php.buildComposerProject2 (finalAttrs: {
   pname = "deployer";
   version = "7.5.12";
@@ -23,6 +22,6 @@ php.buildComposerProject2 (finalAttrs: {
     homepage = "https://deployer.org/";
     license = lib.licenses.mit;
     mainProgram = "dep";
-    teams = [ lib.teams.php ];
+    teams = [lib.teams.php];
   };
 })

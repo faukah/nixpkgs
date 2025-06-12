@@ -8,7 +8,6 @@
   speexdsp,
   withFft ? !stdenv.hostPlatform.isMinGW,
 }:
-
 stdenv.mkDerivation rec {
   pname = "speex";
   version = "1.2.1";
@@ -32,10 +31,10 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = lib.optionals withFft [ fftw ] ++ [ speexdsp ];
+  buildInputs = lib.optionals withFft [fftw] ++ [speexdsp];
 
   # TODO: Remove this will help with immediate backward compatibility
-  propagatedBuildInputs = [ speexdsp ];
+  propagatedBuildInputs = [speexdsp];
 
   configureFlags = lib.optionals withFft [
     "--with-fft=gpl-fftw3"

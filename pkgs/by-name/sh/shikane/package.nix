@@ -5,7 +5,6 @@
   installShellFiles,
   pandoc,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "shikane";
   version = "1.0.1";

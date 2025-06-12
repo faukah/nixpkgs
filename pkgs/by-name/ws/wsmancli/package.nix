@@ -6,7 +6,6 @@
   openssl,
   openwsman,
 }:
-
 stdenv.mkDerivation rec {
   pname = "wsmancli";
   version = "2.8.0";
@@ -42,7 +41,8 @@ stdenv.mkDerivation rec {
       WS-Management specification and Testing.
     '';
     downloadPage = "https://github.com/Openwsman/wsmancli/releases";
-    inherit (openwsman.meta)
+    inherit
+      (openwsman.meta)
       homepage
       license
       maintainers

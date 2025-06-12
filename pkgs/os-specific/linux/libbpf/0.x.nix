@@ -7,12 +7,10 @@
   lib,
   nixosTests,
 }:
-
 # update bot does not seem to limit updates here to 0.8.x despite
 # the all-packages derivation being libbpf_0 as the libbpf base alias
 # is still present: just disable it for 0.x:
 # nixpkgs-update: no auto update
-
 stdenv.mkDerivation rec {
   pname = "libbpf";
   version = "0.8.3";
@@ -24,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J5cUvfUYc+uLdkFa2jx/2bqBoZg/eSzc6SWlgKqcfIc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     elfutils
     zlib

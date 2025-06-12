@@ -9,7 +9,6 @@
   sqlite,
   stdenv,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "git-branchless";
   version = "0.10.0";
@@ -24,7 +23,7 @@ rustPlatform.buildRustPackage rec {
   useFetchCargoVendor = true;
   cargoHash = "sha256-i7KpTd4fX3PrhDjj3R9u98rdI0uHkpQCxSmEF+Gu7yk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     ncurses

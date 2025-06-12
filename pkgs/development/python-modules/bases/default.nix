@@ -2,22 +2,16 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-
   pytestCheckHook,
-
   pythonOlder,
-
   setuptools,
   wheel,
   setuptools-scm,
-
   # for tests
   base58,
-
   typing-extensions,
   typing-validation,
 }:
-
 buildPythonPackage rec {
   pname = "bases";
   version = "0.3.0";
@@ -69,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hashberg-io/bases";
     changelog = "https://github.com/hashberg-io/bases/releases/tag/v${version}";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vizid ];
+    maintainers = [lib.maintainers.vizid];
   };
 }

@@ -4,7 +4,6 @@
   fetchFromGitHub,
   perl,
 }:
-
 stdenv.mkDerivation rec {
   pname = "deer";
   version = "1.4";
@@ -23,7 +22,7 @@ stdenv.mkDerivation rec {
       --replace " perl " " ${perl}/bin/perl "
   '';
 
-  patches = [ ./realpath.patch ];
+  patches = [./realpath.patch];
 
   installPhase = ''
     mkdir -p $out/share/zsh/site-functions/
@@ -34,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Ranger-like file navigation for zsh";
     homepage = "https://github.com/Vifon/deer";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.vyp ];
+    maintainers = [maintainers.vyp];
     platforms = platforms.unix;
   };
 }

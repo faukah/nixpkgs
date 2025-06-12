@@ -11,7 +11,6 @@
   freeswitch,
   nix-update-script,
 }:
-
 stdenv.mkDerivation rec {
   pname = "libks";
   version = "2.0.6";
@@ -38,20 +37,20 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional stdenv.hostPlatform.isLinux libuuid
     ++ lib.optional stdenv.hostPlatform.isDarwin libossp_uuid;
 
   passthru = {
     tests.freeswitch = freeswitch;
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     broken = stdenv.hostPlatform.isDarwin;
     description = "Foundational support for signalwire C products";
     homepage = "https://github.com/signalwire/libks";
-    maintainers = with lib.maintainers; [ misuzu ];
+    maintainers = with lib.maintainers; [misuzu];
     platforms = platforms.unix;
     license = licenses.mit;
   };

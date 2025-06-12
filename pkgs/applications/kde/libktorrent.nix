@@ -11,16 +11,15 @@
   boost,
   gmp,
 }:
-
 mkDerivation {
   pname = "libktorrent";
   meta = {
     description = "BitTorrent library used by KTorrent";
     homepage = "https://apps.kde.org/ktorrent/";
-    maintainers = [ ];
+    maintainers = [];
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     kcrash

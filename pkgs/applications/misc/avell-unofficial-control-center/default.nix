@@ -3,7 +3,6 @@
   fetchFromGitHub,
   python3Packages,
 }:
-
 python3Packages.buildPythonApplication {
   pname = "avell-unofficial-control-center";
   version = "1.0.4";
@@ -29,6 +28,6 @@ python3Packages.buildPythonApplication {
     description = "Software for controlling RGB keyboard lights on some gaming laptops that use ITE Device(8291) Rev 0.03";
     mainProgram = "aucc";
     license = licenses.mit;
-    maintainers = with maintainers; [ rkitover ];
+    maintainers = with maintainers; [rkitover];
   };
 }

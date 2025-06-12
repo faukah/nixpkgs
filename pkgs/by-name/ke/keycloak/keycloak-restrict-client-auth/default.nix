@@ -3,7 +3,6 @@
   lib,
   fetchFromGitHub,
 }:
-
 maven.buildMavenPackage rec {
   pname = "keycloak-restrict-client-auth";
   version = "24.0.0";
@@ -27,6 +26,6 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/sventorben/keycloak-restrict-client-auth";
     description = "Keycloak authenticator to restrict authorization on clients";
     license = licenses.mit;
-    maintainers = with maintainers; [ leona ];
+    maintainers = with maintainers; [leona];
   };
 }

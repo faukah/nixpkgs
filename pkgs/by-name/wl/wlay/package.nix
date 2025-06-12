@@ -15,7 +15,6 @@
   wayland,
   wayland-scanner,
 }:
-
 stdenv.mkDerivation {
   pname = "wlay";
   version = "unstable-2022-01-26";
@@ -52,7 +51,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/atx/wlay";
     description = "Graphical output management for Wayland";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     inherit (wayland.meta) platforms;
     mainProgram = "wlay";
   };
